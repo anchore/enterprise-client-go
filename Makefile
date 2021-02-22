@@ -10,15 +10,11 @@ OPENAPI_GENERATOR_VERSION = v4.3.1
 # note: v5 introduces the new command pattern approach, splitting request and execute + generating interfaces per service.
 #OPENAPI_GENERATOR_VERSION = v5.0.0-beta3
 
-# --- anchore engine references
+# --- anchore enterprise references
 # a git tag/branch/commit within anchore/anchore-engine repo
 ENTERPRISE_REF = c05cbd5aad819b992d2db2042505b8befafd2079
 EXTAPI_CLIENT_ROOT = $(PROJECT_ROOT)/external
 EXTAPI_OPENAPI_DOC = $(PROJECT_ROOT)/swagger-external-$(ENTERPRISE_REF).yaml
-
-# --- anchore enterprise references
-# ANCHORE_ENTERPRISE_REF = ...
-
 
 define generate_openapi_client
 	# remove previous API clients

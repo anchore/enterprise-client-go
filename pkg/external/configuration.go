@@ -86,7 +86,7 @@ func NewConfiguration() *Configuration {
 	cfg := &Configuration{
 		BasePath:      "http://localhost/enterprise",
 		DefaultHeader: make(map[string]string),
-		UserAgent:     "anchore-client/0.1.0/go",
+		UserAgent:     "anchore-client/3.0.0/go",
 		Debug:         false,
 		Servers:       []ServerConfiguration{
 			{
