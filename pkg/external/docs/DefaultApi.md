@@ -7,6 +7,7 @@ Method | HTTP request | Description
 [**AddActionPlan**](DefaultApi.md#AddActionPlan) | **Post** /actions | Submits an Action Plan
 [**AddCorrection**](DefaultApi.md#AddCorrection) | **Post** /corrections | Create a correction record
 [**AddInventoryCluster**](DefaultApi.md#AddInventoryCluster) | **Post** /inventories/clusters | Create a cluster inventory
+[**AddRuntimeComplianceCheck**](DefaultApi.md#AddRuntimeComplianceCheck) | **Post** /runtime_compliance | Post a runtime compliance check
 [**DelInventoryClusterByName**](DefaultApi.md#DelInventoryClusterByName) | **Delete** /inventories/clusters/{cluster_name} | Delete a configured inventory clusters by cluster_name
 [**DeleteCorrectionByUuid**](DefaultApi.md#DeleteCorrectionByUuid) | **Delete** /corrections/{uuid} | Delete a correction by UUID
 [**GetActionPlans**](DefaultApi.md#GetActionPlans) | **Get** /actions | Gets a list of submitted action (remediation) plans
@@ -20,6 +21,8 @@ Method | HTTP request | Description
 [**GetImagePolicyCheckByDigest**](DefaultApi.md#GetImagePolicyCheckByDigest) | **Get** /images/{imageDigest}/check | Check policy evaluation status for image
 [**GetImageVulnerabilitiesByDigest**](DefaultApi.md#GetImageVulnerabilitiesByDigest) | **Get** /images/{imageDigest}/vuln/{vtype} | Get vulnerabilities by type
 [**GetInventoryClusterByName**](DefaultApi.md#GetInventoryClusterByName) | **Get** /inventories/clusters/{cluster_name} | Return a configured inventory cluster
+[**GetRuntimeComplianceChecks**](DefaultApi.md#GetRuntimeComplianceChecks) | **Get** /runtime_compliance | Get all runtime compliance checks or just those for a given image digest
+[**GetRuntimeComplianceResult**](DefaultApi.md#GetRuntimeComplianceResult) | **Get** /runtime_compliance/result/{result_id} | Check the results of a a specific runtime compliance check
 [**ListInventoryClusters**](DefaultApi.md#ListInventoryClusters) | **Get** /inventories/clusters | Return a list of the configured inventory clusters
 [**SyncImageInventory**](DefaultApi.md#SyncImageInventory) | **Post** /inventories | synchronizes the list of the images in a given cluster for the inventory
 [**UpdateComplianceViolationAlertState**](DefaultApi.md#UpdateComplianceViolationAlertState) | **Put** /alerts/compliance_violations/{uuid}/{state} | Open or close a compliance violation alert
@@ -144,6 +147,61 @@ No authorization required
 ### HTTP request headers
 
 - **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## AddRuntimeComplianceCheck
+
+> RuntimeComplianceCheck AddRuntimeComplianceCheck(ctx, checkType, imageDigest, optional)
+
+Post a runtime compliance check
+
+Post a runtime compliance check
+
+### Required Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**checkType** | **string**| The type of runtime compliance check | 
+**imageDigest** | **string**| The digest of the pod the check was run against | 
+ **optional** | ***AddRuntimeComplianceCheckOpts** | optional parameters | nil if no parameters
+
+### Optional Parameters
+
+Optional parameters are passed through a pointer to a AddRuntimeComplianceCheckOpts struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+ **xAnchoreAccount** | **optional.String**| An account name to change the resource scope of the request to that account, if permissions allow (admin only) | 
+ **result** | **optional.String**| The result of the runtime compliance check | 
+ **pod** | **optional.String**| The pod the check was run against | 
+ **namespace** | **optional.String**| The namespace of the pod the check was run against | 
+ **imageTag** | **optional.String**| The tag of the image in the pod the check was run against | 
+ **startTime** | **optional.Time**| The type of runtime compliance check | 
+ **endTime** | **optional.Time**| The type of runtime compliance check | 
+ **resultFile** | **optional.Interface of *os.File****optional.*os.File**| The file with the check results | 
+ **reportFile** | **optional.Interface of *os.File****optional.*os.File**| The file with the check port | 
+
+### Return type
+
+[**RuntimeComplianceCheck**](RuntimeComplianceCheck.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: multipart/form-data
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
@@ -744,6 +802,95 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**InventoryCluster**](InventoryCluster.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetRuntimeComplianceChecks
+
+> []RuntimeComplianceCheck GetRuntimeComplianceChecks(ctx, optional)
+
+Get all runtime compliance checks or just those for a given image digest
+
+Get all runtime compliance checks or just those for a given image digest
+
+### Required Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+ **optional** | ***GetRuntimeComplianceChecksOpts** | optional parameters | nil if no parameters
+
+### Optional Parameters
+
+Optional parameters are passed through a pointer to a GetRuntimeComplianceChecksOpts struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **imageDigest** | **optional.String**|  | 
+ **xAnchoreAccount** | **optional.String**| An account name to change the resource scope of the request to that account, if permissions allow (admin only) | 
+
+### Return type
+
+[**[]RuntimeComplianceCheck**](RuntimeComplianceCheck.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetRuntimeComplianceResult
+
+> string GetRuntimeComplianceResult(ctx, resultId, optional)
+
+Check the results of a a specific runtime compliance check
+
+Get the results of a specific runtime compliance check
+
+### Required Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**resultId** | **string**|  | 
+ **optional** | ***GetRuntimeComplianceResultOpts** | optional parameters | nil if no parameters
+
+### Optional Parameters
+
+Optional parameters are passed through a pointer to a GetRuntimeComplianceResultOpts struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **xAnchoreAccount** | **optional.String**| An account name to change the resource scope of the request to that account, if permissions allow (admin only) | 
+
+### Return type
+
+**string**
 
 ### Authorization
 

@@ -756,6 +756,145 @@ paths:
       x-swagger-router-controller: anchore_enterprise.services.api.controllers.corrections
       x-anchore-authz-action: updateCorrection
       x-codegen-request-body-name: correction
+  /runtime_compliance:
+    get:
+      description: Get all runtime compliance checks or just those for a given image
+        digest
+      operationId: get_runtime_compliance_checks
+      parameters:
+      - in: query
+        name: image_digest
+        schema:
+          type: string
+      - description: An account name to change the resource scope of the request to
+          that account, if permissions allow (admin only)
+        in: header
+        name: x-anchore-account
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RuntimeComplianceCheckList'
+          description: Compliance evaluation retrieval success
+        "404":
+          content: {}
+          description: No runtime compliance checks found
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+          description: Internal Error
+      summary: Get all runtime compliance checks or just those for a given image digest
+      x-swagger-router-controller: anchore_enterprise.services.api.controllers.runtime_compliance
+      x-anchore-authz-action: getRuntimeComplianceCheck
+    post:
+      description: Post a runtime compliance check
+      operationId: add_runtime_compliance_check
+      parameters:
+      - description: An account name to change the resource scope of the request to
+          that account, if permissions allow (admin only)
+        in: header
+        name: x-anchore-account
+        schema:
+          type: string
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              properties:
+                check_type:
+                  description: The type of runtime compliance check
+                  type: string
+                image_digest:
+                  description: The digest of the pod the check was run against
+                  type: string
+                result:
+                  description: The result of the runtime compliance check
+                  type: string
+                pod:
+                  description: The pod the check was run against
+                  type: string
+                namespace:
+                  description: The namespace of the pod the check was run against
+                  type: string
+                image_tag:
+                  description: The tag of the image in the pod the check was run against
+                  type: string
+                start_time:
+                  description: The type of runtime compliance check
+                  format: date-time
+                  type: string
+                end_time:
+                  description: The type of runtime compliance check
+                  format: date-time
+                  type: string
+                result_file:
+                  description: The file with the check results
+                  format: binary
+                  type: string
+                report_file:
+                  description: The file with the check port
+                  format: binary
+                  type: string
+              required:
+              - check_type
+              - image_digest
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RuntimeComplianceCheck'
+          description: success
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+          description: Internal Error
+      summary: Post a runtime compliance check
+      x-swagger-router-controller: anchore_enterprise.services.api.controllers.runtime_compliance
+      x-anchore-authz-action: createRuntimeComplianceCheck
+  /runtime_compliance/result/{result_id}:
+    get:
+      description: Get the results of a specific runtime compliance check
+      operationId: get_runtime_compliance_result
+      parameters:
+      - in: path
+        name: result_id
+        required: true
+        schema:
+          type: string
+      - description: An account name to change the resource scope of the request to
+          that account, if permissions allow (admin only)
+        in: header
+        name: x-anchore-account
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                type: string
+          description: Compliance evaluation retrieval success
+        "404":
+          content: {}
+          description: No runtime compliance results found
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+          description: Internal Error
+      summary: Check the results of a a specific runtime compliance check
+      x-swagger-router-controller: anchore_enterprise.services.api.controllers.runtime_compliance
+      x-anchore-authz-action: getRuntimeComplianceCheck
 components:
   parameters:
     AsAccountParameter:
@@ -1645,4 +1784,60 @@ components:
       required:
       - field_name
       - field_value
+      type: object
+    RuntimeComplianceCheckList:
+      description: List of runtime compliance checks
+      items:
+        $ref: '#/components/schemas/RuntimeComplianceCheck'
+      type: array
+    RuntimeComplianceCheck:
+      description: The result of a runtime compliance check
+      example:
+        result: result
+        start_time: 2000-01-23T04:56:07.000+00:00
+        pod: pod
+        namespace: namespace
+        digest: digest
+        end_time: 2000-01-23T04:56:07.000+00:00
+        file_ids:
+        - file_ids
+        - file_ids
+        check_type: oscap
+        image_tag: image_tag
+      properties:
+        check_type:
+          description: The type of runtime compliance check
+          enum:
+          - oscap
+          type: string
+        result:
+          description: The result of the runtime compliance check
+          type: string
+        pod:
+          description: The pod the check was run against
+          type: string
+        namespace:
+          description: The namespace of the pod the check was run against
+          type: string
+        image_tag:
+          description: The tag of image in the pod the check was run against
+          type: string
+        digest:
+          description: The digest of the pod the check was run against
+          type: string
+        start_time:
+          description: RFC 3339 formatted UTC timestamp when the runtime check started
+          format: date-time
+          type: string
+        end_time:
+          description: RFC 3339 formatted UTC timestamp when the runtime check ended
+          format: date-time
+          type: string
+        file_ids:
+          description: Ids of the files generated by the runtime compliance check
+          items:
+            type: string
+          type: array
+      required:
+      - check_type
       type: object

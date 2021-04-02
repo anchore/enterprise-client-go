@@ -18,6 +18,7 @@ import (
 	_neturl "net/url"
 	"strings"
 	"github.com/antihax/optional"
+	"os"
 	"reflect"
 )
 
@@ -267,6 +268,168 @@ func (a *DefaultApiService) AddInventoryCluster(ctx _context.Context, cluster In
 		newErr := GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+// AddRuntimeComplianceCheckOpts Optional parameters for the method 'AddRuntimeComplianceCheck'
+type AddRuntimeComplianceCheckOpts struct {
+    XAnchoreAccount optional.String
+    Result optional.String
+    Pod optional.String
+    Namespace optional.String
+    ImageTag optional.String
+    StartTime optional.Time
+    EndTime optional.Time
+    ResultFile optional.Interface
+    ReportFile optional.Interface
+}
+
+/*
+AddRuntimeComplianceCheck Post a runtime compliance check
+Post a runtime compliance check
+ * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ * @param checkType The type of runtime compliance check
+ * @param imageDigest The digest of the pod the check was run against
+ * @param optional nil or *AddRuntimeComplianceCheckOpts - Optional Parameters:
+ * @param "XAnchoreAccount" (optional.String) -  An account name to change the resource scope of the request to that account, if permissions allow (admin only)
+ * @param "Result" (optional.String) -  The result of the runtime compliance check
+ * @param "Pod" (optional.String) -  The pod the check was run against
+ * @param "Namespace" (optional.String) -  The namespace of the pod the check was run against
+ * @param "ImageTag" (optional.String) -  The tag of the image in the pod the check was run against
+ * @param "StartTime" (optional.Time) -  The type of runtime compliance check
+ * @param "EndTime" (optional.Time) -  The type of runtime compliance check
+ * @param "ResultFile" (optional.Interface of *os.File) -  The file with the check results
+ * @param "ReportFile" (optional.Interface of *os.File) -  The file with the check port
+@return RuntimeComplianceCheck
+*/
+func (a *DefaultApiService) AddRuntimeComplianceCheck(ctx _context.Context, checkType string, imageDigest string, localVarOptionals *AddRuntimeComplianceCheckOpts) (RuntimeComplianceCheck, *_nethttp.Response, error) {
+	var (
+		localVarHTTPMethod   = _nethttp.MethodPost
+		localVarPostBody     interface{}
+		localVarFormFileName string
+		localVarFileName     string
+		localVarFileBytes    []byte
+		localVarReturnValue  RuntimeComplianceCheck
+	)
+
+	// create path and map variables
+	localVarPath := a.client.cfg.BasePath + "/runtime_compliance"
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := _neturl.Values{}
+	localVarFormParams := _neturl.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"multipart/form-data"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	if localVarOptionals != nil && localVarOptionals.XAnchoreAccount.IsSet() {
+		localVarHeaderParams["x-anchore-account"] = parameterToString(localVarOptionals.XAnchoreAccount.Value(), "")
+	}
+	localVarFormParams.Add("check_type", parameterToString(checkType, ""))
+	localVarFormParams.Add("image_digest", parameterToString(imageDigest, ""))
+	if localVarOptionals != nil && localVarOptionals.Result.IsSet() {
+		localVarFormParams.Add("result", parameterToString(localVarOptionals.Result.Value(), ""))
+	}
+	if localVarOptionals != nil && localVarOptionals.Pod.IsSet() {
+		localVarFormParams.Add("pod", parameterToString(localVarOptionals.Pod.Value(), ""))
+	}
+	if localVarOptionals != nil && localVarOptionals.Namespace.IsSet() {
+		localVarFormParams.Add("namespace", parameterToString(localVarOptionals.Namespace.Value(), ""))
+	}
+	if localVarOptionals != nil && localVarOptionals.ImageTag.IsSet() {
+		localVarFormParams.Add("image_tag", parameterToString(localVarOptionals.ImageTag.Value(), ""))
+	}
+	if localVarOptionals != nil && localVarOptionals.StartTime.IsSet() {
+		localVarFormParams.Add("start_time", parameterToString(localVarOptionals.StartTime.Value(), ""))
+	}
+	if localVarOptionals != nil && localVarOptionals.EndTime.IsSet() {
+		localVarFormParams.Add("end_time", parameterToString(localVarOptionals.EndTime.Value(), ""))
+	}
+	localVarFormFileName = "result_file"
+	var localVarFile *os.File
+	if localVarOptionals != nil && localVarOptionals.ResultFile.IsSet() {
+		localVarFileOk := false
+		localVarFile, localVarFileOk = localVarOptionals.ResultFile.Value().(*os.File)
+		if !localVarFileOk {
+				return localVarReturnValue, nil, reportError("resultFile should be *os.File")
+		}
+	}
+	if localVarFile != nil {
+		fbs, _ := _ioutil.ReadAll(localVarFile)
+		localVarFileBytes = fbs
+		localVarFileName = localVarFile.Name()
+		localVarFile.Close()
+	}
+	localVarFormFileName = "report_file"
+	var localVarFile *os.File
+	if localVarOptionals != nil && localVarOptionals.ReportFile.IsSet() {
+		localVarFileOk := false
+		localVarFile, localVarFileOk = localVarOptionals.ReportFile.Value().(*os.File)
+		if !localVarFileOk {
+				return localVarReturnValue, nil, reportError("reportFile should be *os.File")
+		}
+	}
+	if localVarFile != nil {
+		fbs, _ := _ioutil.ReadAll(localVarFile)
+		localVarFileBytes = fbs
+		localVarFileName = localVarFile.Name()
+		localVarFile.Close()
+	}
+	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(r)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 500 {
+			var v ApiErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -1559,6 +1722,202 @@ func (a *DefaultApiService) GetInventoryClusterByName(ctx _context.Context, clus
 		newErr := GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+// GetRuntimeComplianceChecksOpts Optional parameters for the method 'GetRuntimeComplianceChecks'
+type GetRuntimeComplianceChecksOpts struct {
+    ImageDigest optional.String
+    XAnchoreAccount optional.String
+}
+
+/*
+GetRuntimeComplianceChecks Get all runtime compliance checks or just those for a given image digest
+Get all runtime compliance checks or just those for a given image digest
+ * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ * @param optional nil or *GetRuntimeComplianceChecksOpts - Optional Parameters:
+ * @param "ImageDigest" (optional.String) - 
+ * @param "XAnchoreAccount" (optional.String) -  An account name to change the resource scope of the request to that account, if permissions allow (admin only)
+@return []RuntimeComplianceCheck
+*/
+func (a *DefaultApiService) GetRuntimeComplianceChecks(ctx _context.Context, localVarOptionals *GetRuntimeComplianceChecksOpts) ([]RuntimeComplianceCheck, *_nethttp.Response, error) {
+	var (
+		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarPostBody     interface{}
+		localVarFormFileName string
+		localVarFileName     string
+		localVarFileBytes    []byte
+		localVarReturnValue  []RuntimeComplianceCheck
+	)
+
+	// create path and map variables
+	localVarPath := a.client.cfg.BasePath + "/runtime_compliance"
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := _neturl.Values{}
+	localVarFormParams := _neturl.Values{}
+
+	if localVarOptionals != nil && localVarOptionals.ImageDigest.IsSet() {
+		localVarQueryParams.Add("image_digest", parameterToString(localVarOptionals.ImageDigest.Value(), ""))
+	}
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	if localVarOptionals != nil && localVarOptionals.XAnchoreAccount.IsSet() {
+		localVarHeaderParams["x-anchore-account"] = parameterToString(localVarOptionals.XAnchoreAccount.Value(), "")
+	}
+	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(r)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 500 {
+			var v ApiErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+// GetRuntimeComplianceResultOpts Optional parameters for the method 'GetRuntimeComplianceResult'
+type GetRuntimeComplianceResultOpts struct {
+    XAnchoreAccount optional.String
+}
+
+/*
+GetRuntimeComplianceResult Check the results of a a specific runtime compliance check
+Get the results of a specific runtime compliance check
+ * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ * @param resultId
+ * @param optional nil or *GetRuntimeComplianceResultOpts - Optional Parameters:
+ * @param "XAnchoreAccount" (optional.String) -  An account name to change the resource scope of the request to that account, if permissions allow (admin only)
+@return string
+*/
+func (a *DefaultApiService) GetRuntimeComplianceResult(ctx _context.Context, resultId string, localVarOptionals *GetRuntimeComplianceResultOpts) (string, *_nethttp.Response, error) {
+	var (
+		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarPostBody     interface{}
+		localVarFormFileName string
+		localVarFileName     string
+		localVarFileBytes    []byte
+		localVarReturnValue  string
+	)
+
+	// create path and map variables
+	localVarPath := a.client.cfg.BasePath + "/runtime_compliance/result/{result_id}"
+	localVarPath = strings.Replace(localVarPath, "{"+"result_id"+"}", _neturl.QueryEscape(parameterToString(resultId, "")) , -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := _neturl.Values{}
+	localVarFormParams := _neturl.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	if localVarOptionals != nil && localVarOptionals.XAnchoreAccount.IsSet() {
+		localVarHeaderParams["x-anchore-account"] = parameterToString(localVarOptionals.XAnchoreAccount.Value(), "")
+	}
+	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(r)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 500 {
+			var v ApiErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
