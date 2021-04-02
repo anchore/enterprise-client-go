@@ -35,6 +35,7 @@ Class | Method | HTTP request | Description
 *DefaultApi* | [**AddActionPlan**](docs/DefaultApi.md#addactionplan) | **Post** /actions | Submits an Action Plan
 *DefaultApi* | [**AddCorrection**](docs/DefaultApi.md#addcorrection) | **Post** /corrections | Create a correction record
 *DefaultApi* | [**AddInventoryCluster**](docs/DefaultApi.md#addinventorycluster) | **Post** /inventories/clusters | Create a cluster inventory
+*DefaultApi* | [**AddRuntimeComplianceCheck**](docs/DefaultApi.md#addruntimecompliancecheck) | **Post** /runtime_compliance | Post a runtime compliance check
 *DefaultApi* | [**DelInventoryClusterByName**](docs/DefaultApi.md#delinventoryclusterbyname) | **Delete** /inventories/clusters/{cluster_name} | Delete a configured inventory clusters by cluster_name
 *DefaultApi* | [**DeleteCorrectionByUuid**](docs/DefaultApi.md#deletecorrectionbyuuid) | **Delete** /corrections/{uuid} | Delete a correction by UUID
 *DefaultApi* | [**GetActionPlans**](docs/DefaultApi.md#getactionplans) | **Get** /actions | Gets a list of submitted action (remediation) plans
@@ -48,6 +49,8 @@ Class | Method | HTTP request | Description
 *DefaultApi* | [**GetImagePolicyCheckByDigest**](docs/DefaultApi.md#getimagepolicycheckbydigest) | **Get** /images/{imageDigest}/check | Check policy evaluation status for image
 *DefaultApi* | [**GetImageVulnerabilitiesByDigest**](docs/DefaultApi.md#getimagevulnerabilitiesbydigest) | **Get** /images/{imageDigest}/vuln/{vtype} | Get vulnerabilities by type
 *DefaultApi* | [**GetInventoryClusterByName**](docs/DefaultApi.md#getinventoryclusterbyname) | **Get** /inventories/clusters/{cluster_name} | Return a configured inventory cluster
+*DefaultApi* | [**GetRuntimeComplianceChecks**](docs/DefaultApi.md#getruntimecompliancechecks) | **Get** /runtime_compliance | Get all runtime compliance checks or just those for a given image digest
+*DefaultApi* | [**GetRuntimeComplianceResult**](docs/DefaultApi.md#getruntimecomplianceresult) | **Get** /runtime_compliance/result/{result_id} | Check the results of a a specific runtime compliance check
 *DefaultApi* | [**ListInventoryClusters**](docs/DefaultApi.md#listinventoryclusters) | **Get** /inventories/clusters | Return a list of the configured inventory clusters
 *DefaultApi* | [**SyncImageInventory**](docs/DefaultApi.md#syncimageinventory) | **Post** /inventories | synchronizes the list of the images in a given cluster for the inventory
 *DefaultApi* | [**UpdateComplianceViolationAlertState**](docs/DefaultApi.md#updatecomplianceviolationalertstate) | **Put** /alerts/compliance_violations/{uuid}/{state} | Open or close a compliance violation alert
@@ -78,6 +81,7 @@ Class | Method | HTTP request | Description
  - [InventoryReportItem](docs/InventoryReportItem.md)
  - [NvdDataObject](docs/NvdDataObject.md)
  - [ResourceLabel](docs/ResourceLabel.md)
+ - [RuntimeComplianceCheck](docs/RuntimeComplianceCheck.md)
  - [VendorDataObject](docs/VendorDataObject.md)
 
 
