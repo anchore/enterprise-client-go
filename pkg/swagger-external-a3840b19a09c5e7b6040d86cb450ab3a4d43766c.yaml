@@ -714,7 +714,7 @@ paths:
       description: Get the results of a specific runtime compliance check
       summary: Check the results of a a specific runtime compliance check
       produces:
-        - application/json
+        - text/html
       parameters:
         - name: result_id
           in: path
@@ -725,7 +725,7 @@ paths:
         200:
           description: Compliance evaluation retrieval success
           schema:
-            type: string
+            type: file
         404:
           description: No runtime compliance results found
         500:

@@ -879,8 +879,9 @@ paths:
       responses:
         "200":
           content:
-            application/json:
+            text/html:
               schema:
+                format: binary
                 type: string
           description: Compliance evaluation retrieval success
         "404":
@@ -888,7 +889,7 @@ paths:
           description: No runtime compliance results found
         "500":
           content:
-            application/json:
+            text/html:
               schema:
                 $ref: '#/components/schemas/ApiErrorResponse'
           description: Internal Error

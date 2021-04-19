@@ -1849,16 +1849,16 @@ Get the results of a specific runtime compliance check
  * @param resultId
  * @param optional nil or *GetRuntimeComplianceResultOpts - Optional Parameters:
  * @param "XAnchoreAccount" (optional.String) -  An account name to change the resource scope of the request to that account, if permissions allow (admin only)
-@return string
+@return *os.File
 */
-func (a *DefaultApiService) GetRuntimeComplianceResult(ctx _context.Context, resultId string, localVarOptionals *GetRuntimeComplianceResultOpts) (string, *_nethttp.Response, error) {
+func (a *DefaultApiService) GetRuntimeComplianceResult(ctx _context.Context, resultId string, localVarOptionals *GetRuntimeComplianceResultOpts) (*os.File, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		localVarReturnValue  string
+		localVarReturnValue  *os.File
 	)
 
 	// create path and map variables
@@ -1879,7 +1879,7 @@ func (a *DefaultApiService) GetRuntimeComplianceResult(ctx _context.Context, res
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"text/html"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
