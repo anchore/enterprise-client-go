@@ -863,7 +863,7 @@ No authorization required
 
 ## GetRuntimeComplianceResult
 
-> string GetRuntimeComplianceResult(ctx, resultId, optional)
+> *os.File GetRuntimeComplianceResult(ctx, resultId, optional)
 
 Check the results of a a specific runtime compliance check
 
@@ -890,7 +890,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**string**
+[***os.File**](*os.File.md)
 
 ### Authorization
 
@@ -899,7 +899,7 @@ No authorization required
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: text/html
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
