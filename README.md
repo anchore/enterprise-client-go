@@ -9,3 +9,6 @@ make
 ```
 
 Note: the version of the enterprise where the swagger spec is pulled from is pinned in the Makefile. 
+
+## Known Issues:
+[OpenAPITool Bug](DEVELOPER.md)
