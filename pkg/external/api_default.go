@@ -385,6 +385,7 @@ func (a *DefaultApiService) AddRuntimeComplianceCheck(ctx _context.Context, chec
 		localVarFileBytes = fbs
 		localVarFileName = localVarFile.Name()
 		localVarFile.Close()
+		localVarFile = nil
 	}
 	localVarFormFileName = "report_file"
 	if localVarOptionals != nil && localVarOptionals.ReportFile.IsSet() {
