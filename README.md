@@ -1,4 +1,4 @@
-# [WORK IN PROGRESS] A Golang client for the Anchore Enterprise API
+# A Golang client for the Anchore Enterprise API
 
 Modified from https://github.com/anchore/client-go. 
 Based on generated code. No executables provided, only intended for use as a library in other projects.
