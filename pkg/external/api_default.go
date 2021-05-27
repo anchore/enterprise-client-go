@@ -322,7 +322,7 @@ func (a *DefaultApiService) AddRuntimeComplianceCheck(ctx _context.Context, chec
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		localVarFile         *os.File
+		localVarFile *os.File
 		localVarReturnValue  RuntimeComplianceCheck
 	)
 
@@ -1846,12 +1846,12 @@ type GetRuntimeComplianceResultOpts struct {
 GetRuntimeComplianceResult Check the results of a a specific runtime compliance check
 Get the results of a specific runtime compliance check
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param resultId
+ * @param complianceFileId
  * @param optional nil or *GetRuntimeComplianceResultOpts - Optional Parameters:
  * @param "XAnchoreAccount" (optional.String) -  An account name to change the resource scope of the request to that account, if permissions allow (admin only)
 @return *os.File
 */
-func (a *DefaultApiService) GetRuntimeComplianceResult(ctx _context.Context, resultId string, localVarOptionals *GetRuntimeComplianceResultOpts) (*os.File, *_nethttp.Response, error) {
+func (a *DefaultApiService) GetRuntimeComplianceResult(ctx _context.Context, complianceFileId string, localVarOptionals *GetRuntimeComplianceResultOpts) (*os.File, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
@@ -1862,8 +1862,8 @@ func (a *DefaultApiService) GetRuntimeComplianceResult(ctx _context.Context, res
 	)
 
 	// create path and map variables
-	localVarPath := a.client.cfg.BasePath + "/runtime_compliance/result/{result_id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"result_id"+"}", _neturl.QueryEscape(parameterToString(resultId, "")) , -1)
+	localVarPath := a.client.cfg.BasePath + "/runtime_compliance/result/{compliance_file_id}"
+	localVarPath = strings.Replace(localVarPath, "{"+"compliance_file_id"+"}", _neturl.QueryEscape(parameterToString(complianceFileId, "")) , -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
