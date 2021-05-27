@@ -50,7 +50,7 @@ Class | Method | HTTP request | Description
 *DefaultApi* | [**GetImageVulnerabilitiesByDigest**](docs/DefaultApi.md#getimagevulnerabilitiesbydigest) | **Get** /images/{imageDigest}/vuln/{vtype} | Get vulnerabilities by type
 *DefaultApi* | [**GetInventoryClusterByName**](docs/DefaultApi.md#getinventoryclusterbyname) | **Get** /inventories/clusters/{cluster_name} | Return a configured inventory cluster
 *DefaultApi* | [**GetRuntimeComplianceChecks**](docs/DefaultApi.md#getruntimecompliancechecks) | **Get** /runtime_compliance | Get all runtime compliance checks or just those for a given image digest
-*DefaultApi* | [**GetRuntimeComplianceResult**](docs/DefaultApi.md#getruntimecomplianceresult) | **Get** /runtime_compliance/result/{result_id} | Check the results of a a specific runtime compliance check
+*DefaultApi* | [**GetRuntimeComplianceResult**](docs/DefaultApi.md#getruntimecomplianceresult) | **Get** /runtime_compliance/result/{compliance_file_id} | Check the results of a a specific runtime compliance check
 *DefaultApi* | [**ListInventoryClusters**](docs/DefaultApi.md#listinventoryclusters) | **Get** /inventories/clusters | Return a list of the configured inventory clusters
 *DefaultApi* | [**SyncImageInventory**](docs/DefaultApi.md#syncimageinventory) | **Post** /inventories | synchronizes the list of the images in a given cluster for the inventory
 *DefaultApi* | [**UpdateComplianceViolationAlertState**](docs/DefaultApi.md#updatecomplianceviolationalertstate) | **Put** /alerts/compliance_violations/{uuid}/{state} | Open or close a compliance violation alert

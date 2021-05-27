@@ -22,7 +22,7 @@ Method | HTTP request | Description
 [**GetImageVulnerabilitiesByDigest**](DefaultApi.md#GetImageVulnerabilitiesByDigest) | **Get** /images/{imageDigest}/vuln/{vtype} | Get vulnerabilities by type
 [**GetInventoryClusterByName**](DefaultApi.md#GetInventoryClusterByName) | **Get** /inventories/clusters/{cluster_name} | Return a configured inventory cluster
 [**GetRuntimeComplianceChecks**](DefaultApi.md#GetRuntimeComplianceChecks) | **Get** /runtime_compliance | Get all runtime compliance checks or just those for a given image digest
-[**GetRuntimeComplianceResult**](DefaultApi.md#GetRuntimeComplianceResult) | **Get** /runtime_compliance/result/{result_id} | Check the results of a a specific runtime compliance check
+[**GetRuntimeComplianceResult**](DefaultApi.md#GetRuntimeComplianceResult) | **Get** /runtime_compliance/result/{compliance_file_id} | Check the results of a a specific runtime compliance check
 [**ListInventoryClusters**](DefaultApi.md#ListInventoryClusters) | **Get** /inventories/clusters | Return a list of the configured inventory clusters
 [**SyncImageInventory**](DefaultApi.md#SyncImageInventory) | **Post** /inventories | synchronizes the list of the images in a given cluster for the inventory
 [**UpdateComplianceViolationAlertState**](DefaultApi.md#UpdateComplianceViolationAlertState) | **Put** /alerts/compliance_violations/{uuid}/{state} | Open or close a compliance violation alert
@@ -863,7 +863,7 @@ No authorization required
 
 ## GetRuntimeComplianceResult
 
-> *os.File GetRuntimeComplianceResult(ctx, resultId, optional)
+> *os.File GetRuntimeComplianceResult(ctx, complianceFileId, optional)
 
 Check the results of a a specific runtime compliance check
 
@@ -875,7 +875,7 @@ Get the results of a specific runtime compliance check
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**resultId** | **string**|  | 
+**complianceFileId** | **string**|  | 
  **optional** | ***GetRuntimeComplianceResultOpts** | optional parameters | nil if no parameters
 
 ### Optional Parameters
