@@ -750,7 +750,7 @@ Name | Type | Description  | Notes
 
 
  **forceRefresh** | **optional.Bool**|  | [default to false]
- **vendorOnly** | **optional.Bool**|  | [default to true]
+ **vendorOnly** | **optional.Bool**| Filter results to include only vulnerabilities that are not marked as invalid by upstream OS vendor data. When set to true, it will filter out all vulnerabilities where &#x60;will_not_fix&#x60; is False. If false all vulnerabilities are returned regardless of &#x60;will_not_fix&#x60; | [default to true]
  **baseDigest** | **optional.String**| Digest of a base image. If specified the vulnerabilities will indicate inheritance from the base image | 
  **xAnchoreAccount** | **optional.String**| An account name to change the resource scope of the request to that account, if permissions allow (admin only) | 
 

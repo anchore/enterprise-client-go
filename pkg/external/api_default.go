@@ -3,7 +3,7 @@
  *
  * This is the Anchore Enterprise API. It provides additional external API routes and functionality for enterprise users.
  *
- * API version: 0.1.1
+ * API version: 0.2.0
  * Contact: dev@anchore.com
  */
 
@@ -322,7 +322,7 @@ func (a *DefaultApiService) AddRuntimeComplianceCheck(ctx _context.Context, chec
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		localVarFile *os.File
+		localVarFile         *os.File
 		localVarReturnValue  RuntimeComplianceCheck
 	)
 
@@ -385,7 +385,8 @@ func (a *DefaultApiService) AddRuntimeComplianceCheck(ctx _context.Context, chec
 		localVarFileBytes = fbs
 		localVarFileName = localVarFile.Name()
 		localVarFile.Close()
-		localVarFile = nil
+        localVarFile = nil
+
 	}
 	localVarFormFileName = "report_file"
 	if localVarOptionals != nil && localVarOptionals.ReportFile.IsSet() {
@@ -1551,7 +1552,7 @@ GetImageVulnerabilitiesByDigest Get vulnerabilities by type
  * @param vtype
  * @param optional nil or *GetImageVulnerabilitiesByDigestOpts - Optional Parameters:
  * @param "ForceRefresh" (optional.Bool) - 
- * @param "VendorOnly" (optional.Bool) - 
+ * @param "VendorOnly" (optional.Bool) -  Filter results to include only vulnerabilities that are not marked as invalid by upstream OS vendor data. When set to true, it will filter out all vulnerabilities where `will_not_fix` is False. If false all vulnerabilities are returned regardless of `will_not_fix`
  * @param "BaseDigest" (optional.String) -  Digest of a base image. If specified the vulnerabilities will indicate inheritance from the base image
  * @param "XAnchoreAccount" (optional.String) -  An account name to change the resource scope of the request to that account, if permissions allow (admin only)
 @return EnterpriseVulnerabilityResponse
