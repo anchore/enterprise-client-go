@@ -5,7 +5,7 @@ info:
   description: This is the Anchore Enterprise API. It provides additional external
     API routes and functionality for enterprise users.
   title: Anchore Enterprise API Server
-  version: 0.1.1
+  version: 0.2.1
 servers:
 - url: /enterprise
 paths:
@@ -90,7 +90,11 @@ paths:
         schema:
           default: false
           type: boolean
-      - in: query
+      - description: Filter results to include only vulnerabilities that are not marked
+          as invalid by upstream OS vendor data. When set to true, it will filter
+          out all vulnerabilities where `will_not_fix` is False. If false all vulnerabilities
+          are returned regardless of `will_not_fix`
+        in: query
         name: vendor_only
         schema:
           default: true
@@ -896,6 +900,164 @@ paths:
       summary: Check the results of a a specific runtime compliance check
       x-swagger-router-controller: anchore_enterprise.services.api.controllers.runtime_compliance
       x-anchore-authz-action: getRuntimeComplianceCheck
+  /applications:
+    get:
+      description: List all applications
+      operationId: get_applications
+      parameters:
+      - description: An account name to change the resource scope of the request to
+          that account, if permissions allow (admin only)
+        in: header
+        name: x-anchore-account
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApplicationList'
+          description: Applications retrieved successfully
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+          description: Internal Error
+      summary: List all applications
+      x-swagger-router-controller: anchore_enterprise.services.api.controllers.applications
+      x-anchore-authz-action: getApplication
+    post:
+      description: Create an application
+      operationId: add_application
+      parameters:
+      - description: An account name to change the resource scope of the request to
+          that account, if permissions allow (admin only)
+        in: header
+        name: x-anchore-account
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Application'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Application'
+          description: success
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+          description: Internal Error
+      summary: Create an application
+      x-swagger-router-controller: anchore_enterprise.services.api.controllers.applications
+      x-anchore-authz-action: createApplication
+      x-codegen-request-body-name: application
+  /applications/{application_id}:
+    delete:
+      description: Delete an application by application_id
+      operationId: delete_application
+      parameters:
+      - in: path
+        name: application_id
+        required: true
+        schema:
+          type: string
+      - description: An account name to change the resource scope of the request to
+          that account, if permissions allow (admin only)
+        in: header
+        name: x-anchore-account
+        schema:
+          type: string
+      responses:
+        "204":
+          content: {}
+          description: Application deleted successfully
+      summary: Delete an application by application_id
+      x-swagger-router-controller: anchore_enterprise.services.api.controllers.applications
+      x-anchore-authz-action: deleteApplication
+    get:
+      description: Get an application by application_id
+      operationId: get_application
+      parameters:
+      - in: path
+        name: application_id
+        required: true
+        schema:
+          type: string
+      - description: An account name to change the resource scope of the request to
+          that account, if permissions allow (admin only)
+        in: header
+        name: x-anchore-account
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Application'
+          description: Successfully retrieved application
+        "404":
+          content: {}
+          description: Application not found
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+          description: Internal Error
+      summary: Get an application by application_id
+      x-swagger-router-controller: anchore_enterprise.services.api.controllers.applications
+      x-anchore-authz-action: getApplication
+    put:
+      description: Updates application details for given application_id
+      operationId: update_application
+      parameters:
+      - in: path
+        name: application_id
+        required: true
+        schema:
+          type: string
+      - description: An account name to change the resource scope of the request to
+          that account, if permissions allow (admin only)
+        in: header
+        name: x-anchore-account
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Application'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Application'
+          description: Application updated successfully
+        "404":
+          content: {}
+          description: Application not found
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+          description: Internal Error
+      summary: Update application details
+      x-swagger-router-controller: anchore_enterprise.services.api.controllers.applications
+      x-anchore-authz-action: updateApplication
+      x-codegen-request-body-name: application
 components:
   parameters:
     AsAccountParameter:
@@ -976,6 +1138,7 @@ components:
         package_type: package_type
         package_cpe: package_cpe
         url: url
+        will_not_fix: true
         feed: feed
         package_version: package_version
         fix: fix
@@ -1022,6 +1185,9 @@ components:
           description: The location (if applicable) of the vulnerable package in the
             container filesystem
           type: string
+        will_not_fix:
+          description: Whether a vendor will fix or not fix the vulnerability
+          type: boolean
         nvd_data:
           description: List of Nvd Data objects
           items:
@@ -1175,6 +1341,7 @@ components:
           package_type: package_type
           package_cpe: package_cpe
           url: url
+          will_not_fix: true
           feed: feed
           package_version: package_version
           fix: fix
@@ -1226,6 +1393,7 @@ components:
           package_type: package_type
           package_cpe: package_cpe
           url: url
+          will_not_fix: true
           feed: feed
           package_version: package_version
           fix: fix
@@ -1840,4 +2008,67 @@ components:
           type: object
       required:
       - check_type
+      type: object
+    ApplicationList:
+      description: List of applications
+      items:
+        $ref: '#/components/schemas/Application'
+      type: array
+    Application:
+      description: A representation of an SLDC application
+      example:
+        last_updated: 2000-01-23T04:56:07.000+00:00
+        source_sbom_ids:
+        - source_sbom_ids
+        - source_sbom_ids
+        name: name
+        description: description
+        created_at: 2000-01-23T04:56:07.000+00:00
+        application_id: application_id
+        version: version
+        image_sbom_ids:
+        - image_sbom_ids
+        - image_sbom_ids
+        container_sbom_ids:
+        - container_sbom_ids
+        - container_sbom_ids
+      properties:
+        application_id:
+          description: The id of the application
+          type: string
+        name:
+          description: The name of the application
+          type: string
+        description:
+          description: The description of the application
+          type: string
+        version:
+          description: The version of the application
+          type: string
+        created_at:
+          description: RFC 3339 formatted UTC timestamp when the application was created
+          format: date-time
+          type: string
+        last_updated:
+          description: RFC 3339 formatted UTC timestamp when the application was last
+            updated
+          format: date-time
+          type: string
+        source_sbom_ids:
+          description: The list of repo artifact ids associated with this application
+          items:
+            type: string
+          type: array
+        image_sbom_ids:
+          description: The list of image artifact ids associated with this application
+          items:
+            type: string
+          type: array
+        container_sbom_ids:
+          description: The list of container artifact ids associated with this application
+          items:
+            type: string
+          type: array
+      required:
+      - name
       type: object
