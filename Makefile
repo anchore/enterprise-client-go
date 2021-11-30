@@ -12,7 +12,7 @@ OPENAPI_GENERATOR_VERSION = v4.3.1
 
 # --- anchore enterprise references
 # a git tag/branch/commit within anchore/anchore-engine repo
-ENTERPRISE_REF = 57d436ec0e18a6f85f45d6762676d734acc421b9
+ENTERPRISE_REF = 002ea6aa58b919cec0b62f1f67868cb94b20503d
 EXTAPI_CLIENT_ROOT = $(PROJECT_ROOT)/external
 EXTAPI_OPENAPI_DOC = $(PROJECT_ROOT)/swagger-external-$(ENTERPRISE_REF).yaml
 
@@ -58,7 +58,7 @@ $(EXTAPI_OPENAPI_DOC): clone ## pull the engine external API swagger document
 	mkdir -p $(PROJECT_ROOT)
 	# note: the existing upstream swagger document needs to be corrected, otherwise invalid code will be generated.
 	# the tr/sed cmds are a workaround for now.
-	cp $(CLONE_DIR)/src/anchore_enterprise/swagger/enterprise_api_swagger.yaml $(EXTAPI_OPENAPI_DOC)
+	cp $(CLONE_DIR)/anchore_enterprise/swagger/enterprise_api_swagger.yaml $(EXTAPI_OPENAPI_DOC)
 
 .PHONY :=
 generate-external-client: $(EXTAPI_OPENAPI_DOC) ## generate client code for engine external API
