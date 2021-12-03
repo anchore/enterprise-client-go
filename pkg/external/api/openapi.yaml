@@ -1058,6 +1058,160 @@ paths:
       x-swagger-router-controller: anchore_enterprise.services.api.controllers.applications
       x-anchore-authz-action: updateApplication
       x-codegen-request-body-name: application
+  /applications/{application_id}/versions:
+    get:
+      description: List all application verions
+      operationId: get_application_versions
+      parameters:
+      - in: path
+        name: application_id
+        required: true
+        schema:
+          type: string
+      - description: An account name to change the resource scope of the request to
+          that account, if permissions allow (admin only)
+        in: header
+        name: x-anchore-account
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApplicationVersionList'
+          description: Successfully retrieved application versions
+        "404":
+          content: {}
+          description: Application not found
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+          description: Internal Error
+      summary: List all application verions
+      x-swagger-router-controller: anchore_enterprise.services.api.controllers.applications
+      x-anchore-authz-action: getApplication
+    post:
+      description: Create an application version
+      operationId: add_application_version
+      parameters:
+      - in: path
+        name: application_id
+        required: true
+        schema:
+          type: string
+      - description: An account name to change the resource scope of the request to
+          that account, if permissions allow (admin only)
+        in: header
+        name: x-anchore-account
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ApplicationVersion'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApplicationVersion'
+          description: success
+        "404":
+          content: {}
+          description: Application version not found
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+          description: Internal Error
+      summary: Create an application version
+      x-swagger-router-controller: anchore_enterprise.services.api.controllers.applications
+      x-anchore-authz-action: createApplication
+      x-codegen-request-body-name: application_version
+  /applications/{application_id}/versions/{application_version_id}:
+    delete:
+      description: Delete an application version by application_id and application_version_id
+      operationId: delete_application_version
+      parameters:
+      - in: path
+        name: application_id
+        required: true
+        schema:
+          type: string
+      - in: path
+        name: application_version_id
+        required: true
+        schema:
+          type: string
+      - description: An account name to change the resource scope of the request to
+          that account, if permissions allow (admin only)
+        in: header
+        name: x-anchore-account
+        schema:
+          type: string
+      responses:
+        "204":
+          content: {}
+          description: Application version deleted successfully
+        "404":
+          content: {}
+          description: Application version not found
+      summary: Delete an application version by application_id and application_version_id
+      x-swagger-router-controller: anchore_enterprise.services.api.controllers.applications
+      x-anchore-authz-action: deleteApplication
+    put:
+      description: Updates application version details for given application_id and
+        application_version_id
+      operationId: update_application_version
+      parameters:
+      - in: path
+        name: application_id
+        required: true
+        schema:
+          type: string
+      - in: path
+        name: application_version_id
+        required: true
+        schema:
+          type: string
+      - description: An account name to change the resource scope of the request to
+          that account, if permissions allow (admin only)
+        in: header
+        name: x-anchore-account
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ApplicationVersion'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApplicationVersion'
+          description: Application updated successfully
+        "404":
+          content: {}
+          description: Application version not found
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+          description: Internal Error
+      summary: Update application version details
+      x-swagger-router-controller: anchore_enterprise.services.api.controllers.applications
+      x-anchore-authz-action: updateApplication
+      x-codegen-request-body-name: application_version
 components:
   parameters:
     AsAccountParameter:
@@ -2018,20 +2172,10 @@ components:
       description: A representation of an SLDC application
       example:
         last_updated: 2000-01-23T04:56:07.000+00:00
-        source_sbom_ids:
-        - source_sbom_ids
-        - source_sbom_ids
         name: name
         description: description
         created_at: 2000-01-23T04:56:07.000+00:00
         application_id: application_id
-        version: version
-        image_sbom_ids:
-        - image_sbom_ids
-        - image_sbom_ids
-        container_sbom_ids:
-        - container_sbom_ids
-        - container_sbom_ids
       properties:
         application_id:
           description: The id of the application
@@ -2042,9 +2186,6 @@ components:
         description:
           description: The description of the application
           type: string
-        version:
-          description: The version of the application
-          type: string
         created_at:
           description: RFC 3339 formatted UTC timestamp when the application was created
           format: date-time
@@ -2053,6 +2194,41 @@ components:
           description: RFC 3339 formatted UTC timestamp when the application was last
             updated
           format: date-time
+          type: string
+      required:
+      - name
+      type: object
+    ApplicationVersionList:
+      description: List of application versions
+      items:
+        $ref: '#/components/schemas/ApplicationVersion'
+      type: array
+    ApplicationVersion:
+      description: A representation of an SLDC application
+      example:
+        application_version_id: application_version_id
+        last_updated: 2000-01-23T04:56:07.000+00:00
+        version_name: version_name
+        source_sbom_ids:
+        - source_sbom_ids
+        - source_sbom_ids
+        created_at: 2000-01-23T04:56:07.000+00:00
+        application_id: application_id
+        image_sbom_ids:
+        - image_sbom_ids
+        - image_sbom_ids
+        container_sbom_ids:
+        - container_sbom_ids
+        - container_sbom_ids
+      properties:
+        application_version_id:
+          description: The id of the application version
+          type: string
+        application_id:
+          description: The id of the application
+          type: string
+        version_name:
+          description: The name of the application
           type: string
         source_sbom_ids:
           description: The list of repo artifact ids associated with this application
@@ -2069,6 +2245,15 @@ components:
           items:
             type: string
           type: array
+        created_at:
+          description: RFC 3339 formatted UTC timestamp when the application was created
+          format: date-time
+          type: string
+        last_updated:
+          description: RFC 3339 formatted UTC timestamp when the application was last
+            updated
+          format: date-time
+          type: string
       required:
-      - name
+      - version_name
       type: object

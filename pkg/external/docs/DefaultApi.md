@@ -6,15 +6,18 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**AddActionPlan**](DefaultApi.md#AddActionPlan) | **Post** /actions | Submits an Action Plan
 [**AddApplication**](DefaultApi.md#AddApplication) | **Post** /applications | Create an application
+[**AddApplicationVersion**](DefaultApi.md#AddApplicationVersion) | **Post** /applications/{application_id}/versions | Create an application version
 [**AddCorrection**](DefaultApi.md#AddCorrection) | **Post** /corrections | Create a correction record
 [**AddInventoryCluster**](DefaultApi.md#AddInventoryCluster) | **Post** /inventories/clusters | Create a cluster inventory
 [**AddRuntimeComplianceCheck**](DefaultApi.md#AddRuntimeComplianceCheck) | **Post** /runtime_compliance | Post a runtime compliance check
 [**DelInventoryClusterByName**](DefaultApi.md#DelInventoryClusterByName) | **Delete** /inventories/clusters/{cluster_name} | Delete a configured inventory clusters by cluster_name
 [**DeleteApplication**](DefaultApi.md#DeleteApplication) | **Delete** /applications/{application_id} | Delete an application by application_id
+[**DeleteApplicationVersion**](DefaultApi.md#DeleteApplicationVersion) | **Delete** /applications/{application_id}/versions/{application_version_id} | Delete an application version by application_id and application_version_id
 [**DeleteCorrectionByUuid**](DefaultApi.md#DeleteCorrectionByUuid) | **Delete** /corrections/{uuid} | Delete a correction by UUID
 [**GetActionPlans**](DefaultApi.md#GetActionPlans) | **Get** /actions | Gets a list of submitted action (remediation) plans
 [**GetAlertSummaries**](DefaultApi.md#GetAlertSummaries) | **Get** /alerts/summaries | List all alert summaries scoped to the account
 [**GetApplication**](DefaultApi.md#GetApplication) | **Get** /applications/{application_id} | Get an application by application_id
+[**GetApplicationVersions**](DefaultApi.md#GetApplicationVersions) | **Get** /applications/{application_id}/versions | List all application verions
 [**GetApplications**](DefaultApi.md#GetApplications) | **Get** /applications | List all applications
 [**GetComplianceViolationAlert**](DefaultApi.md#GetComplianceViolationAlert) | **Get** /alerts/compliance_violations/{uuid} | Get compliance violation alert by id
 [**GetComplianceViolationAlerts**](DefaultApi.md#GetComplianceViolationAlerts) | **Get** /alerts/compliance_violations | List all compliance violation alerts scoped to the account
@@ -30,6 +33,7 @@ Method | HTTP request | Description
 [**ListInventoryClusters**](DefaultApi.md#ListInventoryClusters) | **Get** /inventories/clusters | Return a list of the configured inventory clusters
 [**SyncImageInventory**](DefaultApi.md#SyncImageInventory) | **Post** /inventories | synchronizes the list of the images in a given cluster for the inventory
 [**UpdateApplication**](DefaultApi.md#UpdateApplication) | **Put** /applications/{application_id} | Update application details
+[**UpdateApplicationVersion**](DefaultApi.md#UpdateApplicationVersion) | **Put** /applications/{application_id}/versions/{application_version_id} | Update application version details
 [**UpdateComplianceViolationAlertState**](DefaultApi.md#UpdateComplianceViolationAlertState) | **Put** /alerts/compliance_violations/{uuid}/{state} | Open or close a compliance violation alert
 [**UpdateCorrectionByUuid**](DefaultApi.md#UpdateCorrectionByUuid) | **Put** /corrections/{uuid} | Update a correction by UUID
 
@@ -99,6 +103,53 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**Application**](Application.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## AddApplicationVersion
+
+> ApplicationVersion AddApplicationVersion(ctx, applicationId, applicationVersion, optional)
+
+Create an application version
+
+Create an application version
+
+### Required Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**applicationId** | **string**|  | 
+**applicationVersion** | [**ApplicationVersion**](ApplicationVersion.md)|  | 
+ **optional** | ***AddApplicationVersionOpts** | optional parameters | nil if no parameters
+
+### Optional Parameters
+
+Optional parameters are passed through a pointer to a AddApplicationVersionOpts struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+ **xAnchoreAccount** | **optional.String**| An account name to change the resource scope of the request to that account, if permissions allow (admin only) | 
+
+### Return type
+
+[**ApplicationVersion**](ApplicationVersion.md)
 
 ### Authorization
 
@@ -349,6 +400,53 @@ No authorization required
 [[Back to README]](../README.md)
 
 
+## DeleteApplicationVersion
+
+> DeleteApplicationVersion(ctx, applicationId, applicationVersionId, optional)
+
+Delete an application version by application_id and application_version_id
+
+Delete an application version by application_id and application_version_id
+
+### Required Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**applicationId** | **string**|  | 
+**applicationVersionId** | **string**|  | 
+ **optional** | ***DeleteApplicationVersionOpts** | optional parameters | nil if no parameters
+
+### Optional Parameters
+
+Optional parameters are passed through a pointer to a DeleteApplicationVersionOpts struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+ **xAnchoreAccount** | **optional.String**| An account name to change the resource scope of the request to that account, if permissions allow (admin only) | 
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
 ## DeleteCorrectionByUuid
 
 > DeleteCorrectionByUuid(ctx, uuid, optional)
@@ -520,6 +618,51 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**Application**](Application.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetApplicationVersions
+
+> []ApplicationVersion GetApplicationVersions(ctx, applicationId, optional)
+
+List all application verions
+
+List all application verions
+
+### Required Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**applicationId** | **string**|  | 
+ **optional** | ***GetApplicationVersionsOpts** | optional parameters | nil if no parameters
+
+### Optional Parameters
+
+Optional parameters are passed through a pointer to a GetApplicationVersionsOpts struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **xAnchoreAccount** | **optional.String**| An account name to change the resource scope of the request to that account, if permissions allow (admin only) | 
+
+### Return type
+
+[**[]ApplicationVersion**](ApplicationVersion.md)
 
 ### Authorization
 
@@ -1210,6 +1353,55 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**Application**](Application.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## UpdateApplicationVersion
+
+> ApplicationVersion UpdateApplicationVersion(ctx, applicationId, applicationVersionId, applicationVersion, optional)
+
+Update application version details
+
+Updates application version details for given application_id and application_version_id
+
+### Required Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**applicationId** | **string**|  | 
+**applicationVersionId** | **string**|  | 
+**applicationVersion** | [**ApplicationVersion**](ApplicationVersion.md)|  | 
+ **optional** | ***UpdateApplicationVersionOpts** | optional parameters | nil if no parameters
+
+### Optional Parameters
+
+Optional parameters are passed through a pointer to a UpdateApplicationVersionOpts struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+
+ **xAnchoreAccount** | **optional.String**| An account name to change the resource scope of the request to that account, if permissions allow (admin only) | 
+
+### Return type
+
+[**ApplicationVersion**](ApplicationVersion.md)
 
 ### Authorization
 

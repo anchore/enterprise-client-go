@@ -34,15 +34,18 @@ Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
 *DefaultApi* | [**AddActionPlan**](docs/DefaultApi.md#addactionplan) | **Post** /actions | Submits an Action Plan
 *DefaultApi* | [**AddApplication**](docs/DefaultApi.md#addapplication) | **Post** /applications | Create an application
+*DefaultApi* | [**AddApplicationVersion**](docs/DefaultApi.md#addapplicationversion) | **Post** /applications/{application_id}/versions | Create an application version
 *DefaultApi* | [**AddCorrection**](docs/DefaultApi.md#addcorrection) | **Post** /corrections | Create a correction record
 *DefaultApi* | [**AddInventoryCluster**](docs/DefaultApi.md#addinventorycluster) | **Post** /inventories/clusters | Create a cluster inventory
 *DefaultApi* | [**AddRuntimeComplianceCheck**](docs/DefaultApi.md#addruntimecompliancecheck) | **Post** /runtime_compliance | Post a runtime compliance check
 *DefaultApi* | [**DelInventoryClusterByName**](docs/DefaultApi.md#delinventoryclusterbyname) | **Delete** /inventories/clusters/{cluster_name} | Delete a configured inventory clusters by cluster_name
 *DefaultApi* | [**DeleteApplication**](docs/DefaultApi.md#deleteapplication) | **Delete** /applications/{application_id} | Delete an application by application_id
+*DefaultApi* | [**DeleteApplicationVersion**](docs/DefaultApi.md#deleteapplicationversion) | **Delete** /applications/{application_id}/versions/{application_version_id} | Delete an application version by application_id and application_version_id
 *DefaultApi* | [**DeleteCorrectionByUuid**](docs/DefaultApi.md#deletecorrectionbyuuid) | **Delete** /corrections/{uuid} | Delete a correction by UUID
 *DefaultApi* | [**GetActionPlans**](docs/DefaultApi.md#getactionplans) | **Get** /actions | Gets a list of submitted action (remediation) plans
 *DefaultApi* | [**GetAlertSummaries**](docs/DefaultApi.md#getalertsummaries) | **Get** /alerts/summaries | List all alert summaries scoped to the account
 *DefaultApi* | [**GetApplication**](docs/DefaultApi.md#getapplication) | **Get** /applications/{application_id} | Get an application by application_id
+*DefaultApi* | [**GetApplicationVersions**](docs/DefaultApi.md#getapplicationversions) | **Get** /applications/{application_id}/versions | List all application verions
 *DefaultApi* | [**GetApplications**](docs/DefaultApi.md#getapplications) | **Get** /applications | List all applications
 *DefaultApi* | [**GetComplianceViolationAlert**](docs/DefaultApi.md#getcomplianceviolationalert) | **Get** /alerts/compliance_violations/{uuid} | Get compliance violation alert by id
 *DefaultApi* | [**GetComplianceViolationAlerts**](docs/DefaultApi.md#getcomplianceviolationalerts) | **Get** /alerts/compliance_violations | List all compliance violation alerts scoped to the account
@@ -58,6 +61,7 @@ Class | Method | HTTP request | Description
 *DefaultApi* | [**ListInventoryClusters**](docs/DefaultApi.md#listinventoryclusters) | **Get** /inventories/clusters | Return a list of the configured inventory clusters
 *DefaultApi* | [**SyncImageInventory**](docs/DefaultApi.md#syncimageinventory) | **Post** /inventories | synchronizes the list of the images in a given cluster for the inventory
 *DefaultApi* | [**UpdateApplication**](docs/DefaultApi.md#updateapplication) | **Put** /applications/{application_id} | Update application details
+*DefaultApi* | [**UpdateApplicationVersion**](docs/DefaultApi.md#updateapplicationversion) | **Put** /applications/{application_id}/versions/{application_version_id} | Update application version details
 *DefaultApi* | [**UpdateComplianceViolationAlertState**](docs/DefaultApi.md#updatecomplianceviolationalertstate) | **Put** /alerts/compliance_violations/{uuid}/{state} | Open or close a compliance violation alert
 *DefaultApi* | [**UpdateCorrectionByUuid**](docs/DefaultApi.md#updatecorrectionbyuuid) | **Put** /corrections/{uuid} | Update a correction by UUID
 
@@ -69,6 +73,7 @@ Class | Method | HTTP request | Description
  - [AlertSummary](docs/AlertSummary.md)
  - [ApiErrorResponse](docs/ApiErrorResponse.md)
  - [Application](docs/Application.md)
+ - [ApplicationVersion](docs/ApplicationVersion.md)
  - [ComplianceResource](docs/ComplianceResource.md)
  - [ComplianceViolationAlert](docs/ComplianceViolationAlert.md)
  - [Correction](docs/Correction.md)
