@@ -16,14 +16,17 @@ import (
 // SourceRepositoryMetadata struct for SourceRepositoryMetadata
 type SourceRepositoryMetadata struct {
 	// A system-assigned identifier unique for each source analysis
-	Id string `json:"id,omitempty"`
-	// The url hosting the source tree (e.g. https://github.com/anchore/syft.git)
-	Url string `json:"url,omitempty"`
-	// The type of source control system used (e.g. git, subversion, mercurial)
-	Protocol string `json:"protocol,omitempty"`
-	// The revision of the source tree analyzed (e.g. commit hash in git)
-	Revision string `json:"revision,omitempty"`
-	Metadata SourceRepositoryMetadataMetadata `json:"metadata,omitempty"`
+	Uuid string `json:"uuid,omitempty"`
+	// The anchore account id that owns this resource
+	AccountId string `json:"account_id,omitempty"`
+	// Host name for the repository location (e.g. github.com)
+	Host string `json:"host,omitempty"`
+	// The name of the repository on the host (e.g. 'anchore/anchore-engine')
+	RepositoryName string `json:"repository_name,omitempty"`
+	// The name of the branch associated with the commit.
+	BranchName string `json:"branch_name,omitempty"`
+	// The commit ID for a git repository
+	CommitSha string `json:"commit_sha,omitempty"`
 	CreatedAt time.Time `json:"created_at,omitempty"`
 	LastUpdated time.Time `json:"last_updated,omitempty"`
 }

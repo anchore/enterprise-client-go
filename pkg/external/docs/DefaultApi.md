@@ -1546,7 +1546,7 @@ No authorization required
 
 ## ListSources
 
-> []SourceRepositoryMetadata ListSources(ctx, )
+> SourceRepositoryMetadataList ListSources(ctx, )
 
 List the source repository analysis records
 
@@ -1556,7 +1556,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-[**[]SourceRepositoryMetadata**](SourceRepositoryMetadata.md)
+[**SourceRepositoryMetadataList**](SourceRepositoryMetadataList.md)
 
 ### Authorization
 

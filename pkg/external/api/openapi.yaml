@@ -1334,41 +1334,59 @@ components:
         type: string
   schemas:
     SourceRepositoryMetadataList:
-      items:
-        $ref: '#/components/schemas/SourceRepositoryMetadata'
-      type: array
+      example:
+        sources:
+        - commit_sha: commit_sha
+          last_updated: 2000-01-23T04:56:07.000+00:00
+          account_id: account_id
+          branch_name: branch_name
+          host: host
+          created_at: 2000-01-23T04:56:07.000+00:00
+          uuid: uuid
+          repository_name: repository_name
+        - commit_sha: commit_sha
+          last_updated: 2000-01-23T04:56:07.000+00:00
+          account_id: account_id
+          branch_name: branch_name
+          host: host
+          created_at: 2000-01-23T04:56:07.000+00:00
+          uuid: uuid
+          repository_name: repository_name
+      properties:
+        sources:
+          items:
+            $ref: '#/components/schemas/SourceRepositoryMetadata'
+          type: array
+      type: object
     SourceRepositoryMetadata:
       example:
-        protocol: git
-        metadata:
-          branch: branch
-          tags:
-          - tags
-          - tags
+        commit_sha: commit_sha
         last_updated: 2000-01-23T04:56:07.000+00:00
+        account_id: account_id
+        branch_name: branch_name
+        host: host
         created_at: 2000-01-23T04:56:07.000+00:00
-        id: id
-        url: url
-        revision: revision
+        uuid: uuid
+        repository_name: repository_name
       properties:
-        id:
+        uuid:
           description: A system-assigned identifier unique for each source analysis
           type: string
-        url:
-          description: The url hosting the source tree (e.g. https://github.com/anchore/syft.git)
+        account_id:
+          description: The anchore account id that owns this resource
           type: string
-        protocol:
-          description: The type of source control system used (e.g. git, subversion,
-            mercurial)
-          enum:
-          - git
+        host:
+          description: Host name for the repository location (e.g. github.com)
           type: string
-        revision:
-          description: The revision of the source tree analyzed (e.g. commit hash
-            in git)
+        repository_name:
+          description: The name of the repository on the host (e.g. 'anchore/anchore-engine')
           type: string
-        metadata:
-          $ref: '#/components/schemas/SourceRepositoryMetadata_metadata'
+        branch_name:
+          description: The name of the branch associated with the commit.
+          type: string
+        commit_sha:
+          description: The commit ID for a git repository
+          type: string
         created_at:
           format: date-time
           type: string
@@ -2693,19 +2711,6 @@ components:
             $ref: '#/components/schemas/ContentFilesResponse_content'
           type: array
       type: object
-    SourceRepositoryMetadata_metadata:
-      example:
-        branch: branch
-        tags:
-        - tags
-        - tags
-      properties:
-        branch:
-          type: string
-        tags:
-          items:
-            type: string
-          type: array
     InternalSourceManifest_contents_sbom:
       description: Sbom content reference
       example:

@@ -1109,35 +1109,33 @@ paths:
           description: "Internal Error"
 definitions:
   SourceRepositoryMetadataList:
-    type: array
-    items:
-      $ref: "#/definitions/SourceRepositoryMetadata"
+    type: object
+    properties:
+      sources:
+        type: array
+        items:
+          $ref: "#/definitions/SourceRepositoryMetadata"
   SourceRepositoryMetadata:
     type: object
     properties:
-      id:
+      uuid:
         type: string
         description: A system-assigned identifier unique for each source analysis
-      url:
+      account_id:
         type: string
-        description: The url hosting the source tree (e.g. https://github.com/anchore/syft.git)
-      protocol:
+        description: The anchore account id that owns this resource
+      host:
         type: string
-        description: The type of source control system used (e.g. git, subversion, mercurial)
-        enum:
-          - git
-      revision:
-        description: The revision of the source tree analyzed (e.g. commit hash in git)
+        description: Host name for the repository location (e.g. github.com)
+      repository_name:
         type: string
-      metadata:
-        type: object
-        properties:
-          branch:
-            type: string
-          tags:
-            type: array
-            items:
-              type: string
+        description: The name of the repository on the host (e.g. 'anchore/anchore-engine')
+      branch_name:
+        description: The name of the branch associated with the commit.
+        type: string
+      commit_sha:
+        type: string
+        description: The commit ID for a git repository
       created_at:
         type: string
         format: date-time

@@ -124,7 +124,7 @@ Class | Method | HTTP request | Description
  - [SourceImportMetadataContents](docs/SourceImportMetadataContents.md)
  - [SourceImportOperation](docs/SourceImportOperation.md)
  - [SourceRepositoryMetadata](docs/SourceRepositoryMetadata.md)
- - [SourceRepositoryMetadataMetadata](docs/SourceRepositoryMetadataMetadata.md)
+ - [SourceRepositoryMetadataList](docs/SourceRepositoryMetadataList.md)
  - [VendorDataObject](docs/VendorDataObject.md)
 
 
