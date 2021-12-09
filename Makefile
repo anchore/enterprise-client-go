@@ -13,7 +13,7 @@ OPENAPI_GENERATOR_VERSION = v4.3.1
 # --- anchore enterprise references
 # a git tag/branch/commit within anchore/anchore-engine repo
 # sbom_management branch
-ENTERPRISE_REF = 5c627c0c22de9b1f25263a3300adb5bf8281cd2e
+ENTERPRISE_REF = 215bb1f673fb74aa3c7aba8693e9e53cbe71dfd6
 #main branch 
 #ENTERPRISE_REF = 002ea6aa58b919cec0b62f1f67868cb94b20503d
 EXTAPI_CLIENT_ROOT = $(PROJECT_ROOT)/external
