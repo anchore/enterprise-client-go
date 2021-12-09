@@ -983,19 +983,45 @@ paths:
       summary: Delete an application by application_id
       x-swagger-router-controller: anchore_enterprise.services.api.controllers.applications
       x-anchore-authz-action: deleteApplication
+  /imports/sources:
     get:
-      description: Get an application by application_id
-      operationId: get_application
+      operationId: list_operations
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SourceImportList'
+          description: success
+        "500":
+          content: {}
+          description: Internal Error
+      summary: Lists in-progress imports
+      x-swagger-router-controller: anchore_enterprise.services.api.controllers.source_imports
+      x-anchore-authz-action: importSource
+    post:
+      operationId: create_operation
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SourceImportOperation'
+          description: success
+        "500":
+          content: {}
+          description: Internal Error
+      summary: Begin the import of a source code repository analyzed by Syft into
+        the system
+      x-swagger-router-controller: anchore_enterprise.services.api.controllers.source_imports
+      x-anchore-authz-action: importSource
+  /imports/sources/{operation_id}:
+    delete:
+      operationId: invalidate_operation
       parameters:
       - in: path
-        name: application_id
+        name: operation_id
         required: true
-        schema:
-          type: string
-      - description: An account name to change the resource scope of the request to
-          that account, if permissions allow (admin only)
-        in: header
-        name: x-anchore-account
         schema:
           type: string
       responses:
@@ -1003,61 +1029,300 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Application'
-          description: Successfully retrieved application
-        "404":
-          content: {}
-          description: Application not found
+                $ref: '#/components/schemas/SourceImportOperation'
+          description: success
         "500":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ApiErrorResponse'
+          content: {}
           description: Internal Error
-      summary: Get an application by application_id
-      x-swagger-router-controller: anchore_enterprise.services.api.controllers.applications
-      x-anchore-authz-action: getApplication
-    put:
-      description: Updates application details for given application_id
-      operationId: update_application
+      summary: Invalidate operation ID so it can be garbage collected
+      x-swagger-router-controller: anchore_enterprise.services.api.controllers.source_imports
+      x-anchore-authz-action: importSource
+    get:
+      operationId: get_operation
       parameters:
       - in: path
-        name: application_id
+        name: operation_id
         required: true
         schema:
           type: string
-      - description: An account name to change the resource scope of the request to
-          that account, if permissions allow (admin only)
-        in: header
-        name: x-anchore-account
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SourceImportOperation'
+          description: success
+        "500":
+          content: {}
+          description: Internal Error
+      summary: Get detail on a single import
+      x-swagger-router-controller: anchore_enterprise.services.api.controllers.source_imports
+      x-anchore-authz-action: importSource
+  /imports/sources/{operation_id}/sbom:
+    get:
+      operationId: get_import_sources_sbom
+      parameters:
+      - in: path
+        name: operation_id
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SourceImportContentResponse'
+          description: success
+        "500":
+          content: {}
+          description: Internal Error
+      summary: list the packages of an imported source code repository
+      x-swagger-router-controller: anchore_enterprise.services.api.controllers.source_imports
+      x-anchore-authz-action: importSource
+    post:
+      operationId: upload_import_sources_sbom
+      parameters:
+      - in: path
+        name: operation_id
+        required: true
         schema:
           type: string
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Application'
+              $ref: '#/components/schemas/NativeSBOM'
         required: true
       responses:
         "200":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Application'
-          description: Application updated successfully
-        "404":
+                $ref: '#/components/schemas/SourceImportContentResponse'
+          description: success
+        "500":
           content: {}
-          description: Application not found
+          description: Internal Error
+      summary: Begin the import of a source code repository analyzed by Syft into
+        the system
+      x-swagger-router-controller: anchore_enterprise.services.api.controllers.source_imports
+      x-anchore-authz-action: importSource
+      x-codegen-request-body-name: sbom
+  /imports/sources/{operation_id}/finalize:
+    post:
+      operationId: finalize_operation
+      parameters:
+      - in: path
+        name: operation_id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SourceImportMetadata'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InternalSourceManifest'
+          description: success
+        "500":
+          content: {}
+          description: Internal Error
+      summary: Add source records to catalog db
+      x-swagger-router-controller: anchore_enterprise.services.api.controllers.source_imports
+      x-anchore-authz-action: importSource
+      x-codegen-request-body-name: metadata
+  /sources:
+    get:
+      operationId: list_sources
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SourceRepositoryMetadataList'
+          description: success
+        "500":
+          content: {}
+          description: Internal Error
+      summary: List the source repository analysis records
+      x-swagger-router-controller: anchore_enterprise.services.api.controllers.sources
+      x-anchore-authz-action: listSources
+  /sources/{source_id}/metadata:
+    get:
+      operationId: get_source_metadata
+      parameters:
+      - in: path
+        name: source_id
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SourceRepositoryMetadata'
+          description: success
+        "500":
+          content: {}
+          description: Internal Error
+      summary: Get a detailed source repository analysis metadata record
+      x-swagger-router-controller: anchore_enterprise.services.api.controllers.sources
+      x-anchore-authz-action: getSource
+  /sources/{source_id}/sbom:
+    get:
+      operationId: get_source_sbom_types
+      parameters:
+      - in: path
+        name: source_id
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content: {}
+          description: success
+        "500":
+          content: {}
+          description: Internal Error
+      summary: Get a detailed source repository analysis metadata record
+      x-swagger-router-controller: anchore_enterprise.services.api.controllers.sources
+      x-anchore-authz-action: getSource
+  /sources/{source_id}/sbom/native:
+    get:
+      operationId: get_source_sbom_native
+      parameters:
+      - in: path
+        name: source_id
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/gzip:
+              schema:
+                format: binary
+                type: string
+          description: success
+        "500":
+          content: {}
+          description: Internal Error
+      x-swagger-router-controller: anchore_enterprise.services.api.controllers.sources
+      x-anchore-authz-action: getSource
+  /sources/{source_id}/content:
+    get:
+      operationId: get_source_content_types
+      parameters:
+      - in: path
+        name: source_id
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content: {}
+          description: success
+        "500":
+          content: {}
+          description: Internal Error
+      summary: Get a detailed source repository analysis metadata record
+      x-swagger-router-controller: anchore_enterprise.services.api.controllers.sources
+      x-anchore-authz-action: getSource
+  /sources/{source_id}/content/{content_type}:
+    get:
+      operationId: get_source_content_by_type
+      parameters:
+      - in: path
+        name: source_id
+        required: true
+        schema:
+          type: string
+      - in: path
+        name: content_type
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContentPackageResponse'
+          description: Content of specified type from the image
         "500":
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ApiErrorResponse'
+          description: Internal error
+      summary: Get the content of an analyzed source repository
+      x-swagger-router-controller: anchore_enterprise.services.api.controllers.sources
+      x-anchore-authz-action: getSourrce
+  /sources/{source_id}/vulns:
+    get:
+      operationId: get_source_vulnerabilities
+      parameters:
+      - in: path
+        name: source_id
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content: {}
+          description: success
+        "500":
+          content: {}
           description: Internal Error
-      summary: Update application details
-      x-swagger-router-controller: anchore_enterprise.services.api.controllers.applications
-      x-anchore-authz-action: updateApplication
-      x-codegen-request-body-name: application
+      summary: Get a detailed source repository analysis metadata record
+      x-swagger-router-controller: anchore_enterprise.services.api.controllers.sources
+      x-anchore-authz-action: getSource
+  /sources/{source_id}/vulns/os:
+    get:
+      operationId: get_source_os_vulnerabilities
+      parameters:
+      - in: path
+        name: source_id
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content: {}
+          description: success
+        "500":
+          content: {}
+          description: Internal Error
+      summary: Get a detailed source repository analysis metadata record
+      x-swagger-router-controller: anchore_enterprise.services.api.controllers.sources
+      x-anchore-authz-action: getSource
+  /sources/{source_id}/vulns/non-os:
+    get:
+      operationId: get_source_app_vulnerabilities
+      parameters:
+      - in: path
+        name: source_id
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content: {}
+          description: success
+        "500":
+          content: {}
+          description: Internal Error
+      summary: Get a detailed source repository analysis metadata record
+      x-swagger-router-controller: anchore_enterprise.services.api.controllers.sources
+      x-anchore-authz-action: getSource
 components:
   parameters:
     AsAccountParameter:
@@ -1068,6 +1333,49 @@ components:
       schema:
         type: string
   schemas:
+    SourceRepositoryMetadataList:
+      items:
+        $ref: '#/components/schemas/SourceRepositoryMetadata'
+      type: array
+    SourceRepositoryMetadata:
+      example:
+        protocol: git
+        metadata:
+          branch: branch
+          tags:
+          - tags
+          - tags
+        last_updated: 2000-01-23T04:56:07.000+00:00
+        created_at: 2000-01-23T04:56:07.000+00:00
+        id: id
+        url: url
+        revision: revision
+      properties:
+        id:
+          description: A system-assigned identifier unique for each source analysis
+          type: string
+        url:
+          description: The url hosting the source tree (e.g. https://github.com/anchore/syft.git)
+          type: string
+        protocol:
+          description: The type of source control system used (e.g. git, subversion,
+            mercurial)
+          enum:
+          - git
+          type: string
+        revision:
+          description: The revision of the source tree analyzed (e.g. commit hash
+            in git)
+          type: string
+        metadata:
+          $ref: '#/components/schemas/SourceRepositoryMetadata_metadata'
+        created_at:
+          format: date-time
+          type: string
+        last_updated:
+          format: date-time
+          type: string
+      type: object
     ApiErrorResponse:
       description: Generic HTTP API error response
       properties:
@@ -2072,3 +2380,449 @@ components:
       required:
       - name
       type: object
+    SourceImportOperation:
+      description: An import record, creating a unique identifier for referencing
+        the operation as well as its state
+      example:
+        last_updated: 2000-01-23T04:56:07.000+00:00
+        expires_at: 2000-01-23T04:56:07.000+00:00
+        created_at: 2000-01-23T04:56:07.000+00:00
+        uuid: uuid
+        status: pending
+      properties:
+        uuid:
+          type: string
+        status:
+          enum:
+          - pending
+          - queued
+          - processing
+          - complete
+          - failed
+          - expired
+          type: string
+        expires_at:
+          format: date-time
+          type: string
+        created_at:
+          format: date-time
+          type: string
+        last_updated:
+          format: date-time
+          type: string
+      type: object
+    SourceImportList:
+      items:
+        $ref: '#/components/schemas/SourceImportOperation'
+      type: array
+    NativeSBOM:
+      properties:
+        artifacts:
+          items:
+            $ref: '#/components/schemas/NativeSBOMPackage'
+          type: array
+        source:
+          $ref: '#/components/schemas/NativeSBOMSource'
+        distro:
+          $ref: '#/components/schemas/NativeSBOMDistribution'
+        descriptor:
+          $ref: '#/components/schemas/NativeSBOMDescriptor'
+        schema:
+          $ref: '#/components/schemas/NativeSBOMSchema'
+        artifactRelationships:
+          items:
+            $ref: '#/components/schemas/NativeSBOMPackageRelationship'
+          type: array
+      required:
+      - artifacts
+      - distro
+      - source
+      type: object
+    NativeSBOMDescriptor:
+      properties:
+        name:
+          type: string
+        version:
+          type: string
+      required:
+      - name
+      - version
+      type: object
+    NativeSBOMDistribution:
+      properties:
+        name:
+          type: string
+        version:
+          type: string
+        idLike:
+          type: string
+      required:
+      - idLike
+      - name
+      - version
+      type: object
+    NativeSBOMPackageLocation:
+      properties:
+        path:
+          type: string
+        layerID:
+          type: string
+      required:
+      - path
+      type: object
+    NativeSBOMPackage:
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        version:
+          type: string
+        type:
+          type: string
+        foundBy:
+          type: string
+        locations:
+          items:
+            $ref: '#/components/schemas/NativeSBOMPackageLocation'
+          type: array
+        licenses:
+          items:
+            type: string
+          type: array
+        language:
+          type: string
+        cpes:
+          items:
+            type: string
+          type: array
+        purl:
+          type: string
+        metadataType:
+          type: string
+        metadata:
+          properties: {}
+          type: object
+      required:
+      - cpes
+      - language
+      - licenses
+      - locations
+      - metadataType
+      - name
+      - type
+      - version
+      type: object
+    NativeSBOMSchema:
+      properties:
+        version:
+          type: string
+        url:
+          type: string
+      required:
+      - url
+      - version
+      type: object
+    NativeSBOMSource:
+      properties:
+        type:
+          type: string
+        target:
+          type: object
+      required:
+      - target
+      - type
+      type: object
+    NativeSBOMPackageRelationship:
+      properties:
+        parent:
+          type: string
+        child:
+          type: string
+        type:
+          type: string
+        metadata:
+          properties: {}
+          type: object
+      required:
+      - child
+      - parent
+      - type
+      type: object
+    SourceImportContentResponse:
+      example:
+        digest: digest
+        created_at: 2000-01-23T04:56:07.000+00:00
+      properties:
+        digest:
+          type: string
+        created_at:
+          format: date-time
+          type: string
+      type: object
+    InternalSourceManifest:
+      example:
+        ci_workflow_name: ci_workflow_name
+        commit_sha: commit_sha
+        last_committer: last_committer
+        contents:
+          sbom:
+            bucket: bucket
+            content_type: content_type
+            digest: digest
+            key: key
+        branch_name: branch_name
+        host: host
+        uuid: uuid
+        ci_workflow_execution_time: 2000-01-23T04:56:07.000+00:00
+        repository_name: repository_name
+      properties:
+        uuid:
+          type: string
+        ci_workflow_name:
+          type: string
+        ci_workflow_execution_time:
+          format: date-time
+          type: string
+        host:
+          type: string
+        repository_name:
+          type: string
+        branch_name:
+          type: string
+        commit_sha:
+          type: string
+        last_committer:
+          type: string
+        contents:
+          $ref: '#/components/schemas/InternalSourceManifest_contents'
+      type: object
+    SourceImportMetadata:
+      example:
+        ci_workflow_name: ci_workflow_name
+        commit_sha: commit_sha
+        last_committer: last_committer
+        contents:
+          sbom: sbom
+        branch_name: branch_name
+        host: host
+        ci_workflow_execution_time: 2000-01-23T04:56:07.000+00:00
+        repository_name: repository_name
+      properties:
+        ci_workflow_name:
+          type: string
+        ci_workflow_execution_time:
+          format: date-time
+          type: string
+        host:
+          type: string
+        repository_name:
+          type: string
+        branch_name:
+          type: string
+        commit_sha:
+          type: string
+        last_committer:
+          type: string
+        contents:
+          $ref: '#/components/schemas/SourceImportMetadata_contents'
+      type: object
+    ContentJAVAPackageResponse:
+      description: Java package content listings from images
+      properties:
+        imageDigest:
+          type: string
+        content_type:
+          type: string
+        content:
+          items:
+            $ref: '#/components/schemas/ContentJAVAPackageResponse_content'
+          type: array
+      type: object
+    ContentPackageResponse:
+      description: Package content listings from analysis sbom
+      example:
+        content_type: content_type
+        content:
+        - license: license
+          licenses:
+          - licenses
+          - licenses
+          package: package
+          size: size
+          cpes:
+          - cpes
+          - cpes
+          origin: origin
+          location: location
+          type: type
+          version: version
+        - license: license
+          licenses:
+          - licenses
+          - licenses
+          package: package
+          size: size
+          cpes:
+          - cpes
+          - cpes
+          origin: origin
+          location: location
+          type: type
+          version: version
+        imageDigest: imageDigest
+      properties:
+        imageDigest:
+          type: string
+        content_type:
+          type: string
+        content:
+          items:
+            $ref: '#/components/schemas/ContentPackageResponse_content'
+          type: array
+      type: object
+    ContentFilesResponse:
+      description: File content listings from images
+      properties:
+        imageDigest:
+          type: string
+        content_type:
+          type: string
+        content:
+          items:
+            $ref: '#/components/schemas/ContentFilesResponse_content'
+          type: array
+      type: object
+    SourceRepositoryMetadata_metadata:
+      example:
+        branch: branch
+        tags:
+        - tags
+        - tags
+      properties:
+        branch:
+          type: string
+        tags:
+          items:
+            type: string
+          type: array
+    InternalSourceManifest_contents_sbom:
+      description: Sbom content reference
+      example:
+        bucket: bucket
+        content_type: content_type
+        digest: digest
+        key: key
+      properties:
+        content_type:
+          type: string
+        digest:
+          type: string
+        bucket:
+          type: string
+        key:
+          type: string
+    InternalSourceManifest_contents:
+      description: Digest of content to use in the final import
+      example:
+        sbom:
+          bucket: bucket
+          content_type: content_type
+          digest: digest
+          key: key
+      properties:
+        sbom:
+          $ref: '#/components/schemas/InternalSourceManifest_contents_sbom'
+    SourceImportMetadata_contents:
+      description: Digest of content to use in the final import
+      example:
+        sbom: sbom
+      properties:
+        sbom:
+          description: Digest to use for the sbom
+          type: string
+      required:
+      - sbom
+    ContentJAVAPackageResponse_content:
+      properties:
+        package:
+          type: string
+        implementation-version:
+          type: string
+        specification-version:
+          type: string
+        maven-version:
+          type: string
+        location:
+          type: string
+        type:
+          type: string
+        origin:
+          type: string
+        cpes:
+          description: A list of Common Platform Enumerations that may uniquely identify
+            the package
+          items:
+            type: string
+          type: array
+    ContentPackageResponse_content:
+      example:
+        license: license
+        licenses:
+        - licenses
+        - licenses
+        package: package
+        size: size
+        cpes:
+        - cpes
+        - cpes
+        origin: origin
+        location: location
+        type: type
+        version: version
+      properties:
+        package:
+          type: string
+        version:
+          type: string
+        size:
+          type: string
+        type:
+          type: string
+        origin:
+          type: string
+        license:
+          description: Deprecated in favor of the 'licenses' field"
+          type: string
+        licenses:
+          items:
+            type: string
+          type: array
+        location:
+          type: string
+        cpes:
+          description: A list of Common Platform Enumerations that may uniquely identify
+            the package
+          items:
+            type: string
+          type: array
+    ContentFilesResponse_content:
+      properties:
+        filename:
+          type: string
+        gid:
+          type: integer
+        linkdest:
+          nullable: true
+          type: string
+        mode:
+          type: string
+        sha256:
+          nullable: true
+          type: string
+        size:
+          type: integer
+        type:
+          type: string
+        uid:
+          type: integer

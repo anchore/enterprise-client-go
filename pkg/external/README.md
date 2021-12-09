@@ -37,12 +37,13 @@ Class | Method | HTTP request | Description
 *DefaultApi* | [**AddCorrection**](docs/DefaultApi.md#addcorrection) | **Post** /corrections | Create a correction record
 *DefaultApi* | [**AddInventoryCluster**](docs/DefaultApi.md#addinventorycluster) | **Post** /inventories/clusters | Create a cluster inventory
 *DefaultApi* | [**AddRuntimeComplianceCheck**](docs/DefaultApi.md#addruntimecompliancecheck) | **Post** /runtime_compliance | Post a runtime compliance check
+*DefaultApi* | [**CreateOperation**](docs/DefaultApi.md#createoperation) | **Post** /imports/sources | Begin the import of a source code repository analyzed by Syft into the system
 *DefaultApi* | [**DelInventoryClusterByName**](docs/DefaultApi.md#delinventoryclusterbyname) | **Delete** /inventories/clusters/{cluster_name} | Delete a configured inventory clusters by cluster_name
 *DefaultApi* | [**DeleteApplication**](docs/DefaultApi.md#deleteapplication) | **Delete** /applications/{application_id} | Delete an application by application_id
 *DefaultApi* | [**DeleteCorrectionByUuid**](docs/DefaultApi.md#deletecorrectionbyuuid) | **Delete** /corrections/{uuid} | Delete a correction by UUID
+*DefaultApi* | [**FinalizeOperation**](docs/DefaultApi.md#finalizeoperation) | **Post** /imports/sources/{operation_id}/finalize | Add source records to catalog db
 *DefaultApi* | [**GetActionPlans**](docs/DefaultApi.md#getactionplans) | **Get** /actions | Gets a list of submitted action (remediation) plans
 *DefaultApi* | [**GetAlertSummaries**](docs/DefaultApi.md#getalertsummaries) | **Get** /alerts/summaries | List all alert summaries scoped to the account
-*DefaultApi* | [**GetApplication**](docs/DefaultApi.md#getapplication) | **Get** /applications/{application_id} | Get an application by application_id
 *DefaultApi* | [**GetApplications**](docs/DefaultApi.md#getapplications) | **Get** /applications | List all applications
 *DefaultApi* | [**GetComplianceViolationAlert**](docs/DefaultApi.md#getcomplianceviolationalert) | **Get** /alerts/compliance_violations/{uuid} | Get compliance violation alert by id
 *DefaultApi* | [**GetComplianceViolationAlerts**](docs/DefaultApi.md#getcomplianceviolationalerts) | **Get** /alerts/compliance_violations | List all compliance violation alerts scoped to the account
@@ -52,14 +53,27 @@ Class | Method | HTTP request | Description
 *DefaultApi* | [**GetImageInventory**](docs/DefaultApi.md#getimageinventory) | **Get** /inventories | Return a list of the images in inventories for this account
 *DefaultApi* | [**GetImagePolicyCheckByDigest**](docs/DefaultApi.md#getimagepolicycheckbydigest) | **Get** /images/{imageDigest}/check | Check policy evaluation status for image
 *DefaultApi* | [**GetImageVulnerabilitiesByDigest**](docs/DefaultApi.md#getimagevulnerabilitiesbydigest) | **Get** /images/{imageDigest}/vuln/{vtype} | Get vulnerabilities by type
+*DefaultApi* | [**GetImportSourcesSbom**](docs/DefaultApi.md#getimportsourcessbom) | **Get** /imports/sources/{operation_id}/sbom | list the packages of an imported source code repository
 *DefaultApi* | [**GetInventoryClusterByName**](docs/DefaultApi.md#getinventoryclusterbyname) | **Get** /inventories/clusters/{cluster_name} | Return a configured inventory cluster
+*DefaultApi* | [**GetOperation**](docs/DefaultApi.md#getoperation) | **Get** /imports/sources/{operation_id} | Get detail on a single import
 *DefaultApi* | [**GetRuntimeComplianceChecks**](docs/DefaultApi.md#getruntimecompliancechecks) | **Get** /runtime_compliance | Get all runtime compliance checks or just those for a given image digest
 *DefaultApi* | [**GetRuntimeComplianceResult**](docs/DefaultApi.md#getruntimecomplianceresult) | **Get** /runtime_compliance/result/{compliance_file_id} | Check the results of a a specific runtime compliance check
+*DefaultApi* | [**GetSourceAppVulnerabilities**](docs/DefaultApi.md#getsourceappvulnerabilities) | **Get** /sources/{source_id}/vulns/non-os | Get a detailed source repository analysis metadata record
+*DefaultApi* | [**GetSourceContentByType**](docs/DefaultApi.md#getsourcecontentbytype) | **Get** /sources/{source_id}/content/{content_type} | Get the content of an analyzed source repository
+*DefaultApi* | [**GetSourceContentTypes**](docs/DefaultApi.md#getsourcecontenttypes) | **Get** /sources/{source_id}/content | Get a detailed source repository analysis metadata record
+*DefaultApi* | [**GetSourceMetadata**](docs/DefaultApi.md#getsourcemetadata) | **Get** /sources/{source_id}/metadata | Get a detailed source repository analysis metadata record
+*DefaultApi* | [**GetSourceOsVulnerabilities**](docs/DefaultApi.md#getsourceosvulnerabilities) | **Get** /sources/{source_id}/vulns/os | Get a detailed source repository analysis metadata record
+*DefaultApi* | [**GetSourceSbomNative**](docs/DefaultApi.md#getsourcesbomnative) | **Get** /sources/{source_id}/sbom/native | 
+*DefaultApi* | [**GetSourceSbomTypes**](docs/DefaultApi.md#getsourcesbomtypes) | **Get** /sources/{source_id}/sbom | Get a detailed source repository analysis metadata record
+*DefaultApi* | [**GetSourceVulnerabilities**](docs/DefaultApi.md#getsourcevulnerabilities) | **Get** /sources/{source_id}/vulns | Get a detailed source repository analysis metadata record
+*DefaultApi* | [**InvalidateOperation**](docs/DefaultApi.md#invalidateoperation) | **Delete** /imports/sources/{operation_id} | Invalidate operation ID so it can be garbage collected
 *DefaultApi* | [**ListInventoryClusters**](docs/DefaultApi.md#listinventoryclusters) | **Get** /inventories/clusters | Return a list of the configured inventory clusters
+*DefaultApi* | [**ListOperations**](docs/DefaultApi.md#listoperations) | **Get** /imports/sources | Lists in-progress imports
+*DefaultApi* | [**ListSources**](docs/DefaultApi.md#listsources) | **Get** /sources | List the source repository analysis records
 *DefaultApi* | [**SyncImageInventory**](docs/DefaultApi.md#syncimageinventory) | **Post** /inventories | synchronizes the list of the images in a given cluster for the inventory
-*DefaultApi* | [**UpdateApplication**](docs/DefaultApi.md#updateapplication) | **Put** /applications/{application_id} | Update application details
 *DefaultApi* | [**UpdateComplianceViolationAlertState**](docs/DefaultApi.md#updatecomplianceviolationalertstate) | **Put** /alerts/compliance_violations/{uuid}/{state} | Open or close a compliance violation alert
 *DefaultApi* | [**UpdateCorrectionByUuid**](docs/DefaultApi.md#updatecorrectionbyuuid) | **Put** /corrections/{uuid} | Update a correction by UUID
+*DefaultApi* | [**UploadImportSourcesSbom**](docs/DefaultApi.md#uploadimportsourcessbom) | **Post** /imports/sources/{operation_id}/sbom | Begin the import of a source code repository analyzed by Syft into the system
 
 
 ## Documentation For Models
@@ -71,6 +85,12 @@ Class | Method | HTTP request | Description
  - [Application](docs/Application.md)
  - [ComplianceResource](docs/ComplianceResource.md)
  - [ComplianceViolationAlert](docs/ComplianceViolationAlert.md)
+ - [ContentFilesResponse](docs/ContentFilesResponse.md)
+ - [ContentFilesResponseContent](docs/ContentFilesResponseContent.md)
+ - [ContentJavaPackageResponse](docs/ContentJavaPackageResponse.md)
+ - [ContentJavaPackageResponseContent](docs/ContentJavaPackageResponseContent.md)
+ - [ContentPackageResponse](docs/ContentPackageResponse.md)
+ - [ContentPackageResponseContent](docs/ContentPackageResponseContent.md)
  - [Correction](docs/Correction.md)
  - [CorrectionFieldMatch](docs/CorrectionFieldMatch.md)
  - [CorrectionMatch](docs/CorrectionMatch.md)
@@ -79,15 +99,32 @@ Class | Method | HTTP request | Description
  - [EnterpriseVulnerability](docs/EnterpriseVulnerability.md)
  - [EnterpriseVulnerabilityResponse](docs/EnterpriseVulnerabilityResponse.md)
  - [ImageAncestor](docs/ImageAncestor.md)
+ - [InternalSourceManifest](docs/InternalSourceManifest.md)
+ - [InternalSourceManifestContents](docs/InternalSourceManifestContents.md)
+ - [InternalSourceManifestContentsSbom](docs/InternalSourceManifestContentsSbom.md)
  - [InventoryCluster](docs/InventoryCluster.md)
  - [InventoryClusterConfig](docs/InventoryClusterConfig.md)
  - [InventoryItem](docs/InventoryItem.md)
  - [InventoryReport](docs/InventoryReport.md)
  - [InventoryReportImage](docs/InventoryReportImage.md)
  - [InventoryReportItem](docs/InventoryReportItem.md)
+ - [NativeSbom](docs/NativeSbom.md)
+ - [NativeSbomDescriptor](docs/NativeSbomDescriptor.md)
+ - [NativeSbomDistribution](docs/NativeSbomDistribution.md)
+ - [NativeSbomPackage](docs/NativeSbomPackage.md)
+ - [NativeSbomPackageLocation](docs/NativeSbomPackageLocation.md)
+ - [NativeSbomPackageRelationship](docs/NativeSbomPackageRelationship.md)
+ - [NativeSbomSchema](docs/NativeSbomSchema.md)
+ - [NativeSbomSource](docs/NativeSbomSource.md)
  - [NvdDataObject](docs/NvdDataObject.md)
  - [ResourceLabel](docs/ResourceLabel.md)
  - [RuntimeComplianceCheck](docs/RuntimeComplianceCheck.md)
+ - [SourceImportContentResponse](docs/SourceImportContentResponse.md)
+ - [SourceImportMetadata](docs/SourceImportMetadata.md)
+ - [SourceImportMetadataContents](docs/SourceImportMetadataContents.md)
+ - [SourceImportOperation](docs/SourceImportOperation.md)
+ - [SourceRepositoryMetadata](docs/SourceRepositoryMetadata.md)
+ - [SourceRepositoryMetadataMetadata](docs/SourceRepositoryMetadataMetadata.md)
  - [VendorDataObject](docs/VendorDataObject.md)
 
 
