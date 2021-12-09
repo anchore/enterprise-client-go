@@ -1,0 +1,138 @@
+swagger: "2.0"
+info:
+  description: "Enterprise API for querying reports and generated metrics"
+  version: "0.0.1"
+  title: "Anchore Enterprise Reports API"
+  contact:
+    email: "dev@anchore.com"
+tags:
+  - name: Reports
+    description: Reports and metrics interface
+basePath: "/"
+schemes:
+  - "http"
+  - "https"
+consumes:
+  - application/json
+produces:
+  - application/json
+
+paths:
+  /health:
+    get:
+      x-swagger-router-controller: anchore_engine.apis.common
+      operationId: health_check
+      x-anchore-authz-action: None
+      description: Health check, returns 200 and no body if service is running
+      responses:
+        200:
+          description: Empty body on success
+  /version:
+    get:
+      x-swagger-router-controller: anchore_enterprise.common.apis
+      operationId: version_check
+      x-anchore-authz-action: None
+      description: Returns the version object for the service, including db schema version info
+      responses:
+        200:
+          description: Version object describing version state
+          schema:
+            $ref: "#/definitions/ServiceVersion"
+  /status:
+    get:
+      x-swagger-router-controller: anchore_enterprise.services.reports.api.controllers.status
+      operationId: get_status
+      x-anchore-authz-action: None
+      summary: Service status
+      description: Get the API service status
+      responses:
+        200:
+          description: Status listing
+          schema:
+            $ref: "#/definitions/StatusResponse"
+        500:
+          description: Internal error
+          schema:
+            $ref: "#/definitions/ApiErrorResponse"
+  /scheduled_query_results/{result_uuid}:
+    get:
+      x-swagger-router-controller: anchore_enterprise.services.reports.api.controllers.scheduled_queries
+      operationId: get_query_result
+      x-anchore-authz-action: listImages
+      description: Get a single saved query result
+      parameters:
+        - name: result_uuid
+          in: path
+          required: true
+          type: string
+          pattern: '[0-9a-z-]+'
+        - name: page
+          in: query
+          required: false
+          type: integer
+          description: Page number to fetch. If ommitted, '1' is default. Page numbers start at 1
+      responses:
+        200:
+          description: Saved Query result page
+        500:
+          description: Internal Error
+
+definitions:
+  ApiErrorResponse:
+    description: "Generic HTTP API error response"
+    type: object
+    properties:
+      code:
+        type: integer
+        format: int32
+      error_type:
+        type: "string"
+      message:
+        type: "string"
+      detail:
+        type: object
+        description: Details structure for additional information about the error if available. Content and structure will be error specific.
+  StatusResponse:
+    type: object
+    description: System status response
+    properties:
+      busy:
+        type: boolean
+      up:
+        type: boolean
+      message:
+        type: string
+  ServiceVersion:
+    type: object
+    description: Version information for a service
+    properties:
+      service:
+        type: object
+        properties:
+          version:
+            type: string
+            description: Semantic Version string of the service implementation
+      api:
+        type: object
+        description: Api Version string
+        properties:
+          version:
+            type: string
+            description: Semantic version of the api
+      db:
+        type: object
+        properties:
+          schema_version:
+            type: string
+            description: Semantic version of the db schema
+      engine:
+        type: object
+        properties:
+          version:
+            type: string
+            description: Version of the installed engine library
+          db:
+            type: string
+            description: Version of the installed engine db schema
+
+

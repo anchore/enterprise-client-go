@@ -1,0 +1,2158 @@
+openapi: 3.0.1
+info:
+  contact:
+    email: dev@anchore.com
+  description: Enterprise API Managing Notifications
+  title: Anchore Enterprise Notifications API
+  version: 1.0.1
+servers:
+- url: /
+paths:
+  /health:
+    get:
+      description: Health check, returns 200 and no body if service is running
+      operationId: health_check
+      responses:
+        "200":
+          content: {}
+          description: Empty body on success
+      x-swagger-router-controller: anchore_engine.apis.common
+      x-anchore-authz-action: None
+  /version:
+    get:
+      description: Returns the version object for the service, including db schema
+        version info
+      operationId: version_check
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ServiceVersion'
+          description: Version object describing version state
+      x-swagger-router-controller: anchore_enterprise.common.apis
+      x-anchore-authz-action: None
+  /status:
+    get:
+      description: Get the API service status
+      operationId: get_status
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StatusResponse'
+          description: Status listing
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+          description: Internal error
+      summary: Service status
+      x-swagger-router-controller: anchore_enterprise.services.notifications.api.controllers.status
+      x-anchore-authz-action: None
+  /endpoints:
+    get:
+      description: List the system installed notification endpoints
+      operationId: list_endpoints
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EndpointList'
+          description: Listing of endpoint status objects
+      x-swagger-router-controller: anchore_enterprise.services.notifications.api.controllers.endpoints
+      x-anchore-authz-action: listNotificationEndpoints
+  /endpoints/{name}:
+    put:
+      description: Update enabled status of an endpoint
+      operationId: update_endpoint_status
+      parameters:
+      - in: path
+        name: name
+        required: true
+        schema:
+          enum:
+          - slack
+          - jira
+          - smtp
+          - github
+          - teams
+          - webhook
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EndpointEnabledStatus'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EndpointEnabledStatus'
+          description: Updated status record for an endpoint
+      x-swagger-router-controller: anchore_enterprise.services.notifications.api.controllers.endpoints
+      x-anchore-authz-action: updateNotificationEndpoint
+      x-codegen-request-body-name: status
+  /endpoints/slack/configurations:
+    get:
+      description: List Slack endpoint configurations
+      operationId: list_slack_configurations
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SlackEndpointConfigurationList'
+          description: List of Slack endpoint configuration objects
+      x-swagger-router-controller: anchore_enterprise.services.notifications.api.controllers.slack
+      x-anchore-authz-action: listNotificationEndpointConfigurations
+    post:
+      description: Create a new Slack endpoint configuration
+      operationId: add_slack_configuration
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SlackEndpointConfiguration'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SlackEndpointConfiguration'
+          description: Newly created Slack endpoint configuration object
+      x-swagger-router-controller: anchore_enterprise.services.notifications.api.controllers.slack
+      x-anchore-authz-action: createNotificationEndpointConfiguration
+      x-codegen-request-body-name: configuration
+  /endpoints/slack/configurations/{uuid}:
+    delete:
+      description: Delete a Slack endpoint configuration by it's UUID
+      operationId: delete_slack_configuration
+      parameters:
+      - in: path
+        name: uuid
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content: {}
+          description: Successful delete
+      x-swagger-router-controller: anchore_enterprise.services.notifications.api.controllers.slack
+      x-anchore-authz-action: deleteNotificationEndpointConfiguration
+    get:
+      description: Get a Slack endpoint configuration by it's UUID
+      operationId: get_slack_configuration
+      parameters:
+      - in: path
+        name: uuid
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SlackEndpointConfiguration'
+          description: Slack endpoint configuration object
+      x-swagger-router-controller: anchore_enterprise.services.notifications.api.controllers.slack
+      x-anchore-authz-action: getNotificationEndpointConfiguration
+    put:
+      description: Update a Slack endpoint configuration by it's UUID
+      operationId: update_slack_configuration
+      parameters:
+      - in: path
+        name: uuid
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SlackEndpointConfiguration'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SlackEndpointConfiguration'
+          description: Updated Slack endpoint configuration object
+      x-swagger-router-controller: anchore_enterprise.services.notifications.api.controllers.slack
+      x-anchore-authz-action: updateNotificationEndpointConfiguration
+      x-codegen-request-body-name: configuration
+  /endpoints/slack/configurations/{uuid}/status:
+    get:
+      description: Get operational status for a Slack endpoint configuration
+      operationId: get_slack_configuration_status
+      parameters:
+      - in: path
+        name: uuid
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OperationalStatus'
+          description: Status object
+      x-swagger-router-controller: anchore_enterprise.services.notifications.api.controllers.slack
+      x-anchore-authz-action: getNotificationEndpointConfiguration
+  /endpoints/slack/configurations/{uuid}/selectors:
+    get:
+      description: List selectors mapping events for delivery to a Slack endpoint
+        configuration
+      operationId: list_slack_selectors
+      parameters:
+      - in: path
+        name: uuid
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SelectorList'
+          description: List of selectors
+      x-swagger-router-controller: anchore_enterprise.services.notifications.api.controllers.slack
+      x-anchore-authz-action: listNotificationEndpointConfigurations
+    post:
+      description: Add selector for mapping events for delievery to a Slack endpoint
+        configuration
+      operationId: add_slack_selector
+      parameters:
+      - in: path
+        name: uuid
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Selector'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Selector'
+          description: Newly created selector object
+      x-swagger-router-controller: anchore_enterprise.services.notifications.api.controllers.slack
+      x-anchore-authz-action: createNotificationEndpointConfiguration
+      x-codegen-request-body-name: selector
+  /endpoints/slack/configurations/{configuration_uuid}/selectors/{selector_uuid}:
+    delete:
+      description: Delete a selector mapped to a Slack endpoint configuration
+      operationId: delete_slack_selector
+      parameters:
+      - in: path
+        name: configuration_uuid
+        required: true
+        schema:
+          type: string
+      - in: path
+        name: selector_uuid
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content: {}
+          description: Successful delete
+      x-swagger-router-controller: anchore_enterprise.services.notifications.api.controllers.slack
+      x-anchore-authz-action: deleteNotificationEndpointConfiguration
+    get:
+      description: Get a selector mapped to a Slack endpoint configuration
+      operationId: get_slack_selector
+      parameters:
+      - in: path
+        name: configuration_uuid
+        required: true
+        schema:
+          type: string
+      - in: path
+        name: selector_uuid
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Selector'
+          description: Selector object
+      x-swagger-router-controller: anchore_enterprise.services.notifications.api.controllers.slack
+      x-anchore-authz-action: getNotificationEndpointConfiguration
+    put:
+      description: Update a selector mapped to a Slack endpoint configuration
+      operationId: update_slack_selector
+      parameters:
+      - in: path
+        name: configuration_uuid
+        required: true
+        schema:
+          type: string
+      - in: path
+        name: selector_uuid
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Selector'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Selector'
+          description: Updated selector object
+      x-swagger-router-controller: anchore_enterprise.services.notifications.api.controllers.slack
+      x-anchore-authz-action: updateNotificationEndpointConfiguration
+      x-codegen-request-body-name: selector
+  /endpoints/slack/test:
+    post:
+      description: Test Slack endpoint configuration
+      operationId: test_slack_configuration
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SlackEndpointConfiguration'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SlackTestResult'
+          description: Test result
+      x-swagger-router-controller: anchore_enterprise.services.notifications.api.controllers.slack
+      x-anchore-authz-action: createNotificationEndpointConfiguration
+      x-codegen-request-body-name: configuration
+  /endpoints/smtp/configurations:
+    get:
+      description: List SMTP endpoint configurations
+      operationId: list_smtp_configurations
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SMTPEndpointConfigurationList'
+          description: List of SMTP endpoint configuration objects
+      x-swagger-router-controller: anchore_enterprise.services.notifications.api.controllers.smtp
+      x-anchore-authz-action: listNotificationEndpointConfigurations
+    post:
+      description: Create a new SMTP endpoint configuration
+      operationId: add_smtp_configuration
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SMTPEndpointConfiguration'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SMTPEndpointConfiguration'
+          description: Newly created SMTP endpoint configuration object
+      x-swagger-router-controller: anchore_enterprise.services.notifications.api.controllers.smtp
+      x-anchore-authz-action: createNotificationEndpointConfiguration
+      x-codegen-request-body-name: configuration
+  /endpoints/smtp/configurations/{uuid}:
+    delete:
+      description: Delete a SMTP endpoint configuration by it's UUID
+      operationId: delete_smtp_configuration
+      parameters:
+      - in: path
+        name: uuid
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content: {}
+          description: Successful delete
+      x-swagger-router-controller: anchore_enterprise.services.notifications.api.controllers.smtp
+      x-anchore-authz-action: deleteNotificationEndpointConfiguration
+    get:
+      description: Get a SMTP endpoint configuration by it's UUID
+      operationId: get_smtp_configuration
+      parameters:
+      - in: path
+        name: uuid
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SMTPEndpointConfiguration'
+          description: SMTP endpoint configuration object
+      x-swagger-router-controller: anchore_enterprise.services.notifications.api.controllers.smtp
+      x-anchore-authz-action: getNotificationEndpointConfiguration
+    put:
+      description: Update a SMTP endpoint configuration by it's UUID
+      operationId: update_smtp_configuration
+      parameters:
+      - in: path
+        name: uuid
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SMTPEndpointConfiguration'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SMTPEndpointConfiguration'
+          description: Updated SMTP endpoint configuration object
+      x-swagger-router-controller: anchore_enterprise.services.notifications.api.controllers.smtp
+      x-anchore-authz-action: updateNotificationEndpointConfiguration
+      x-codegen-request-body-name: configuration
+  /endpoints/smtp/configurations/{uuid}/status:
+    get:
+      description: Get operational status for a SMTP endpoint configuration
+      operationId: get_smtp_configuration_status
+      parameters:
+      - in: path
+        name: uuid
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OperationalStatus'
+          description: Status object
+      x-swagger-router-controller: anchore_enterprise.services.notifications.api.controllers.smtp
+      x-anchore-authz-action: getNotificationEndpointConfiguration
+  /endpoints/smtp/configurations/{uuid}/selectors:
+    get:
+      description: List selectors mapping events for delivery to a SMTP endpoint configuration
+      operationId: list_smtp_selectors
+      parameters:
+      - in: path
+        name: uuid
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SelectorList'
+          description: List of selectors
+      x-swagger-router-controller: anchore_enterprise.services.notifications.api.controllers.smtp
+      x-anchore-authz-action: listNotificationEndpointConfigurations
+    post:
+      description: Add selector for mapping events for delievery to a SMTP endpoint
+        configuration
+      operationId: add_smtp_selector
+      parameters:
+      - in: path
+        name: uuid
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Selector'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Selector'
+          description: Newly created selector object
+      x-swagger-router-controller: anchore_enterprise.services.notifications.api.controllers.smtp
+      x-anchore-authz-action: createNotificationEndpointConfiguration
+      x-codegen-request-body-name: selector
+  /endpoints/smtp/configurations/{configuration_uuid}/selectors/{selector_uuid}:
+    delete:
+      description: Delete a selector mapped to a SMTP endpoint configuration
+      operationId: delete_smtp_selector
+      parameters:
+      - in: path
+        name: configuration_uuid
+        required: true
+        schema:
+          type: string
+      - in: path
+        name: selector_uuid
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content: {}
+          description: Successful delete
+      x-swagger-router-controller: anchore_enterprise.services.notifications.api.controllers.smtp
+      x-anchore-authz-action: deleteNotificationEndpointConfiguration
+    get:
+      description: Get a selector mapped to a SMTP endpoint configuration
+      operationId: get_smtp_selector
+      parameters:
+      - in: path
+        name: configuration_uuid
+        required: true
+        schema:
+          type: string
+      - in: path
+        name: selector_uuid
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Selector'
+          description: Selector object
+      x-swagger-router-controller: anchore_enterprise.services.notifications.api.controllers.smtp
+      x-anchore-authz-action: getNotificationEndpointConfiguration
+    put:
+      description: Update a selector mapped to a SMTP endpoint configuration
+      operationId: update_smtp_selector
+      parameters:
+      - in: path
+        name: configuration_uuid
+        required: true
+        schema:
+          type: string
+      - in: path
+        name: selector_uuid
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Selector'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Selector'
+          description: Updated selector object
+      x-swagger-router-controller: anchore_enterprise.services.notifications.api.controllers.smtp
+      x-anchore-authz-action: updateNotificationEndpointConfiguration
+      x-codegen-request-body-name: selector
+  /endpoints/smtp/test:
+    post:
+      description: Test SMTP endpoint configuration
+      operationId: test_smtp_configuration
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SMTPEndpointConfiguration'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SMTPTestResult'
+          description: Test result
+      x-swagger-router-controller: anchore_enterprise.services.notifications.api.controllers.smtp
+      x-anchore-authz-action: createNotificationEndpointConfiguration
+      x-codegen-request-body-name: configuration
+  /endpoints/teams/configurations:
+    get:
+      description: List Teams endpoint configurations
+      operationId: list_teams_configurations
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TeamsEndpointConfigurationList'
+          description: List of Teams endpoint configuration objects
+      x-swagger-router-controller: anchore_enterprise.services.notifications.api.controllers.teams
+      x-anchore-authz-action: listNotificationEndpointConfigurations
+    post:
+      description: Create a new Teams endpoint configuration
+      operationId: add_teams_configuration
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TeamsEndpointConfiguration'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TeamsEndpointConfiguration'
+          description: Newly created Teams endpoint configuration object
+      x-swagger-router-controller: anchore_enterprise.services.notifications.api.controllers.teams
+      x-anchore-authz-action: createNotificationEndpointConfiguration
+      x-codegen-request-body-name: configuration
+  /endpoints/teams/configurations/{uuid}:
+    delete:
+      description: Delete a Teams endpoint configuration by it's UUID
+      operationId: delete_teams_configuration
+      parameters:
+      - in: path
+        name: uuid
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content: {}
+          description: Successful delete
+      x-swagger-router-controller: anchore_enterprise.services.notifications.api.controllers.teams
+      x-anchore-authz-action: deleteNotificationEndpointConfiguration
+    get:
+      description: Get a Teams endpoint configuration by it's UUID
+      operationId: get_teams_configuration
+      parameters:
+      - in: path
+        name: uuid
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TeamsEndpointConfiguration'
+          description: Teams endpoint configuration object
+      x-swagger-router-controller: anchore_enterprise.services.notifications.api.controllers.teams
+      x-anchore-authz-action: getNotificationEndpointConfiguration
+    put:
+      description: Update a Teams endpoint configuration by it's UUID
+      operationId: update_teams_configuration
+      parameters:
+      - in: path
+        name: uuid
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TeamsEndpointConfiguration'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TeamsEndpointConfiguration'
+          description: Updated Teams endpoint configuration object
+      x-swagger-router-controller: anchore_enterprise.services.notifications.api.controllers.teams
+      x-anchore-authz-action: updateNotificationEndpointConfiguration
+      x-codegen-request-body-name: configuration
+  /endpoints/teams/configurations/{uuid}/status:
+    get:
+      description: Get operational status for a Teams endpoint configuration
+      operationId: get_teams_configuration_status
+      parameters:
+      - in: path
+        name: uuid
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OperationalStatus'
+          description: Status object
+      x-swagger-router-controller: anchore_enterprise.services.notifications.api.controllers.teams
+      x-anchore-authz-action: getNotificationEndpointConfiguration
+  /endpoints/teams/configurations/{uuid}/selectors:
+    get:
+      description: List selectors mapping events for delivery to a Teams endpoint
+        configuration
+      operationId: list_teams_selectors
+      parameters:
+      - in: path
+        name: uuid
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SelectorList'
+          description: List of selectors
+      x-swagger-router-controller: anchore_enterprise.services.notifications.api.controllers.teams
+      x-anchore-authz-action: listNotificationEndpointConfigurations
+    post:
+      description: Add selector for mapping events for delievery to a Teams endpoint
+        configuration
+      operationId: add_teams_selector
+      parameters:
+      - in: path
+        name: uuid
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Selector'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Selector'
+          description: Newly created selector object
+      x-swagger-router-controller: anchore_enterprise.services.notifications.api.controllers.teams
+      x-anchore-authz-action: createNotificationEndpointConfiguration
+      x-codegen-request-body-name: selector
+  /endpoints/teams/configurations/{configuration_uuid}/selectors/{selector_uuid}:
+    delete:
+      description: Delete a selector mapped to a Teams endpoint configuration
+      operationId: delete_teams_selector
+      parameters:
+      - in: path
+        name: configuration_uuid
+        required: true
+        schema:
+          type: string
+      - in: path
+        name: selector_uuid
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content: {}
+          description: Successful delete
+      x-swagger-router-controller: anchore_enterprise.services.notifications.api.controllers.teams
+      x-anchore-authz-action: deleteNotificationEndpointConfiguration
+    get:
+      description: Get a selector mapped to a Teams endpoint configuration
+      operationId: get_teams_selector
+      parameters:
+      - in: path
+        name: configuration_uuid
+        required: true
+        schema:
+          type: string
+      - in: path
+        name: selector_uuid
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Selector'
+          description: Selector object
+      x-swagger-router-controller: anchore_enterprise.services.notifications.api.controllers.teams
+      x-anchore-authz-action: getNotificationEndpointConfiguration
+    put:
+      description: Update a selector mapped to a Teams endpoint configuration
+      operationId: update_teams_selector
+      parameters:
+      - in: path
+        name: configuration_uuid
+        required: true
+        schema:
+          type: string
+      - in: path
+        name: selector_uuid
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Selector'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Selector'
+          description: Updated selector object
+      x-swagger-router-controller: anchore_enterprise.services.notifications.api.controllers.teams
+      x-anchore-authz-action: updateNotificationEndpointConfiguration
+      x-codegen-request-body-name: selector
+  /endpoints/teams/test:
+    post:
+      description: Test Teams endpoint configuration
+      operationId: test_teams_configuration
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TeamsEndpointConfiguration'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TeamsTestResult'
+          description: Test result
+      x-swagger-router-controller: anchore_enterprise.services.notifications.api.controllers.teams
+      x-anchore-authz-action: createNotificationEndpointConfiguration
+      x-codegen-request-body-name: configuration
+  /endpoints/webhook/configurations:
+    get:
+      description: List Webhook endpoint configurations
+      operationId: list_webhook_configurations
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WebhookEndpointConfigurationList'
+          description: List of Webhook endpoint configuration objects
+      x-swagger-router-controller: anchore_enterprise.services.notifications.api.controllers.webhook
+      x-anchore-authz-action: listNotificationEndpointConfigurations
+    post:
+      description: Create a new Webhook endpoint configuration
+      operationId: add_webhook_configuration
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WebhookEndpointConfiguration'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WebhookEndpointConfiguration'
+          description: Newly created Webhook endpoint configuration object
+      x-swagger-router-controller: anchore_enterprise.services.notifications.api.controllers.webhook
+      x-anchore-authz-action: createNotificationEndpointConfiguration
+      x-codegen-request-body-name: configuration
+  /endpoints/webhook/configurations/{uuid}:
+    delete:
+      description: Delete a Webhook endpoint configuration by it's UUID
+      operationId: delete_webhook_configuration
+      parameters:
+      - in: path
+        name: uuid
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content: {}
+          description: Successful delete
+      x-swagger-router-controller: anchore_enterprise.services.notifications.api.controllers.webhook
+      x-anchore-authz-action: deleteNotificationEndpointConfiguration
+    get:
+      description: Get a Webhook endpoint configuration by it's UUID
+      operationId: get_webhook_configuration
+      parameters:
+      - in: path
+        name: uuid
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WebhookEndpointConfiguration'
+          description: Webhook endpoint configuration object
+      x-swagger-router-controller: anchore_enterprise.services.notifications.api.controllers.webhook
+      x-anchore-authz-action: getNotificationEndpointConfiguration
+    put:
+      description: Update a Webhook endpoint configuration by it's UUID
+      operationId: update_webhook_configuration
+      parameters:
+      - in: path
+        name: uuid
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WebhookEndpointConfiguration'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WebhookEndpointConfiguration'
+          description: Updated Webhook endpoint configuration object
+      x-swagger-router-controller: anchore_enterprise.services.notifications.api.controllers.webhook
+      x-anchore-authz-action: updateNotificationEndpointConfiguration
+      x-codegen-request-body-name: configuration
+  /endpoints/webhook/configurations/{uuid}/status:
+    get:
+      description: Get operational status for a Webhook endpoint configuration
+      operationId: get_webhook_configuration_status
+      parameters:
+      - in: path
+        name: uuid
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OperationalStatus'
+          description: Status object
+      x-swagger-router-controller: anchore_enterprise.services.notifications.api.controllers.webhook
+      x-anchore-authz-action: getNotificationEndpointConfiguration
+  /endpoints/webhook/configurations/{uuid}/selectors:
+    get:
+      description: List selectors mapping events for delivery to a Webhook endpoint
+        configuration
+      operationId: list_webhook_selectors
+      parameters:
+      - in: path
+        name: uuid
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SelectorList'
+          description: List of selectors
+      x-swagger-router-controller: anchore_enterprise.services.notifications.api.controllers.webhook
+      x-anchore-authz-action: listNotificationEndpointConfigurations
+    post:
+      description: Add selector for mapping events for delievery to a Webhook endpoint
+        configuration
+      operationId: add_webhook_selector
+      parameters:
+      - in: path
+        name: uuid
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Selector'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Selector'
+          description: Newly created selector object
+      x-swagger-router-controller: anchore_enterprise.services.notifications.api.controllers.webhook
+      x-anchore-authz-action: createNotificationEndpointConfiguration
+      x-codegen-request-body-name: selector
+  /endpoints/webhook/configurations/{configuration_uuid}/selectors/{selector_uuid}:
+    delete:
+      description: Delete a selector mapped to a Webhook endpoint configuration
+      operationId: delete_webhook_selector
+      parameters:
+      - in: path
+        name: configuration_uuid
+        required: true
+        schema:
+          type: string
+      - in: path
+        name: selector_uuid
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content: {}
+          description: Successful delete
+      x-swagger-router-controller: anchore_enterprise.services.notifications.api.controllers.webhook
+      x-anchore-authz-action: deleteNotificationEndpointConfiguration
+    get:
+      description: Get a selector mapped to a Webhook endpoint configuration
+      operationId: get_webhook_selector
+      parameters:
+      - in: path
+        name: configuration_uuid
+        required: true
+        schema:
+          type: string
+      - in: path
+        name: selector_uuid
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Selector'
+          description: Selector object
+      x-swagger-router-controller: anchore_enterprise.services.notifications.api.controllers.webhook
+      x-anchore-authz-action: getNotificationEndpointConfiguration
+    put:
+      description: Update a selector mapped to a Webhook endpoint configuration
+      operationId: update_webhook_selector
+      parameters:
+      - in: path
+        name: configuration_uuid
+        required: true
+        schema:
+          type: string
+      - in: path
+        name: selector_uuid
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Selector'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Selector'
+          description: Updated selector object
+      x-swagger-router-controller: anchore_enterprise.services.notifications.api.controllers.webhook
+      x-anchore-authz-action: updateNotificationEndpointConfiguration
+      x-codegen-request-body-name: selector
+  /endpoints/webhook/test:
+    post:
+      description: Test Webhook endpoint configuration
+      operationId: test_webhook_configuration
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WebhookEndpointConfiguration'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WebhookTestResult'
+          description: Test result
+      x-swagger-router-controller: anchore_enterprise.services.notifications.api.controllers.webhook
+      x-anchore-authz-action: createNotificationEndpointConfiguration
+      x-codegen-request-body-name: configuration
+  /endpoints/github/configurations:
+    get:
+      description: List GitHub endpoint configurations
+      operationId: list_github_configurations
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GitHubEndpointConfigurationList'
+          description: List of GitHub endpoint configuration objects
+      x-swagger-router-controller: anchore_enterprise.services.notifications.api.controllers.github
+      x-anchore-authz-action: listNotificationEndpointConfigurations
+    post:
+      description: Create a new GitHub endpoint configuration
+      operationId: add_github_configuration
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GitHubEndpointConfiguration'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GitHubEndpointConfiguration'
+          description: Newly created GitHub endpoint configuration object
+      x-swagger-router-controller: anchore_enterprise.services.notifications.api.controllers.github
+      x-anchore-authz-action: createNotificationEndpointConfiguration
+      x-codegen-request-body-name: configuration
+  /endpoints/github/configurations/{uuid}:
+    delete:
+      description: Delete a GitHub endpoint configuration by it's UUID
+      operationId: delete_github_configuration
+      parameters:
+      - in: path
+        name: uuid
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content: {}
+          description: Successful delete
+      x-swagger-router-controller: anchore_enterprise.services.notifications.api.controllers.github
+      x-anchore-authz-action: deleteNotificationEndpointConfiguration
+    get:
+      description: Get a GitHub endpoint configuration by it's UUID
+      operationId: get_github_configuration
+      parameters:
+      - in: path
+        name: uuid
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GitHubEndpointConfiguration'
+          description: GitHub endpoint configuration object
+      x-swagger-router-controller: anchore_enterprise.services.notifications.api.controllers.github
+      x-anchore-authz-action: getNotificationEndpointConfiguration
+    put:
+      description: Update a GitHub endpoint configuration by it's UUID
+      operationId: update_github_configuration
+      parameters:
+      - in: path
+        name: uuid
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GitHubEndpointConfiguration'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GitHubEndpointConfiguration'
+          description: Updated GitHub endpoint configuration object
+      x-swagger-router-controller: anchore_enterprise.services.notifications.api.controllers.github
+      x-anchore-authz-action: updateNotificationEndpointConfiguration
+      x-codegen-request-body-name: configuration
+  /endpoints/github/configurations/{uuid}/status:
+    get:
+      description: Get operational status for a GitHub endpoint configuration
+      operationId: get_github_configuration_status
+      parameters:
+      - in: path
+        name: uuid
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OperationalStatus'
+          description: Status object
+      x-swagger-router-controller: anchore_enterprise.services.notifications.api.controllers.github
+      x-anchore-authz-action: getNotificationEndpointConfiguration
+  /endpoints/github/configurations/{uuid}/selectors:
+    get:
+      description: List selectors mapping events for delivery to a GitHub endpoint
+        configuration
+      operationId: list_github_selectors
+      parameters:
+      - in: path
+        name: uuid
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SelectorList'
+          description: List of selectors
+      x-swagger-router-controller: anchore_enterprise.services.notifications.api.controllers.github
+      x-anchore-authz-action: listNotificationEndpointConfigurations
+    post:
+      description: Add selector for mapping events for delievery to a GitHub endpoint
+        configuration
+      operationId: add_github_selector
+      parameters:
+      - in: path
+        name: uuid
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Selector'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Selector'
+          description: Newly created selector object
+      x-swagger-router-controller: anchore_enterprise.services.notifications.api.controllers.github
+      x-anchore-authz-action: createNotificationEndpointConfiguration
+      x-codegen-request-body-name: selector
+  /endpoints/github/configurations/{configuration_uuid}/selectors/{selector_uuid}:
+    delete:
+      description: Delete a selector mapped to a GitHub endpoint configuration
+      operationId: delete_github_selector
+      parameters:
+      - in: path
+        name: configuration_uuid
+        required: true
+        schema:
+          type: string
+      - in: path
+        name: selector_uuid
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content: {}
+          description: Successful delete
+      x-swagger-router-controller: anchore_enterprise.services.notifications.api.controllers.github
+      x-anchore-authz-action: deleteNotificationEndpointConfiguration
+    get:
+      description: Get a selector mapped to a GitHub endpoint configuration
+      operationId: get_github_selector
+      parameters:
+      - in: path
+        name: configuration_uuid
+        required: true
+        schema:
+          type: string
+      - in: path
+        name: selector_uuid
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Selector'
+          description: Selector object
+      x-swagger-router-controller: anchore_enterprise.services.notifications.api.controllers.github
+      x-anchore-authz-action: getNotificationEndpointConfiguration
+    put:
+      description: Update a selector mapped to a GitHub endpoint configuration
+      operationId: update_github_selector
+      parameters:
+      - in: path
+        name: configuration_uuid
+        required: true
+        schema:
+          type: string
+      - in: path
+        name: selector_uuid
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Selector'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Selector'
+          description: Updated selector object
+      x-swagger-router-controller: anchore_enterprise.services.notifications.api.controllers.github
+      x-anchore-authz-action: updateNotificationEndpointConfiguration
+      x-codegen-request-body-name: selector
+  /endpoints/github/test:
+    post:
+      description: Test GitHub endpoint configuration
+      operationId: test_github_configuration
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GitHubEndpointConfiguration'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GitHubTestResult'
+          description: Test result
+      x-swagger-router-controller: anchore_enterprise.services.notifications.api.controllers.github
+      x-anchore-authz-action: createNotificationEndpointConfiguration
+      x-codegen-request-body-name: configuration
+  /endpoints/jira/configurations:
+    get:
+      description: List Jira endpoint configurations
+      operationId: list_jira_configurations
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JiraEndpointConfigurationList'
+          description: List of Jira endpoint configuration objects
+      x-swagger-router-controller: anchore_enterprise.services.notifications.api.controllers.jira
+      x-anchore-authz-action: listNotificationEndpointConfigurations
+    post:
+      description: Create a new Jira endpoint configuration
+      operationId: add_jira_configuration
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/JiraEndpointConfiguration'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JiraEndpointConfiguration'
+          description: Newly created Jira endpoint configuration object
+      x-swagger-router-controller: anchore_enterprise.services.notifications.api.controllers.jira
+      x-anchore-authz-action: createNotificationEndpointConfiguration
+      x-codegen-request-body-name: configuration
+  /endpoints/jira/configurations/{uuid}:
+    delete:
+      description: Delete a Jira endpoint configuration by it's UUID
+      operationId: delete_jira_configuration
+      parameters:
+      - in: path
+        name: uuid
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content: {}
+          description: Successful delete
+      x-swagger-router-controller: anchore_enterprise.services.notifications.api.controllers.jira
+      x-anchore-authz-action: deleteNotificationEndpointConfiguration
+    get:
+      description: Get a Jira endpoint configuration by it's UUID
+      operationId: get_jira_configuration
+      parameters:
+      - in: path
+        name: uuid
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JiraEndpointConfiguration'
+          description: Jira endpoint configuration object
+      x-swagger-router-controller: anchore_enterprise.services.notifications.api.controllers.jira
+      x-anchore-authz-action: getNotificationEndpointConfiguration
+    put:
+      description: Update a Jira endpoint configuration by it's UUID
+      operationId: update_jira_configuration
+      parameters:
+      - in: path
+        name: uuid
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/JiraEndpointConfiguration'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JiraEndpointConfiguration'
+          description: Updated Jira endpoint configuration object
+      x-swagger-router-controller: anchore_enterprise.services.notifications.api.controllers.jira
+      x-anchore-authz-action: updateNotificationEndpointConfiguration
+      x-codegen-request-body-name: configuration
+  /endpoints/jira/configurations/{uuid}/status:
+    get:
+      description: Get operational status for a Jira endpoint configuration
+      operationId: get_jira_configuration_status
+      parameters:
+      - in: path
+        name: uuid
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OperationalStatus'
+          description: Status object
+      x-swagger-router-controller: anchore_enterprise.services.notifications.api.controllers.jira
+      x-anchore-authz-action: getNotificationEndpointConfiguration
+  /endpoints/jira/configurations/{uuid}/selectors:
+    get:
+      description: List selectors mapping events for delivery to a Jira endpoint configuration
+      operationId: list_jira_selectors
+      parameters:
+      - in: path
+        name: uuid
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SelectorList'
+          description: List of selectors
+      x-swagger-router-controller: anchore_enterprise.services.notifications.api.controllers.jira
+      x-anchore-authz-action: listNotificationEndpointConfigurations
+    post:
+      description: Add selector for mapping events for delievery to a Jira endpoint
+        configuration
+      operationId: add_jira_selector
+      parameters:
+      - in: path
+        name: uuid
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Selector'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Selector'
+          description: Newly created selector object
+      x-swagger-router-controller: anchore_enterprise.services.notifications.api.controllers.jira
+      x-anchore-authz-action: createNotificationEndpointConfiguration
+      x-codegen-request-body-name: selector
+  /endpoints/jira/configurations/{configuration_uuid}/selectors/{selector_uuid}:
+    delete:
+      description: Delete a selector mapped to a Jira endpoint configuration
+      operationId: delete_jira_selector
+      parameters:
+      - in: path
+        name: configuration_uuid
+        required: true
+        schema:
+          type: string
+      - in: path
+        name: selector_uuid
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content: {}
+          description: Successful delete
+      x-swagger-router-controller: anchore_enterprise.services.notifications.api.controllers.jira
+      x-anchore-authz-action: deleteNotificationEndpointConfiguration
+    get:
+      description: Get a selector mapped to a Jira endpoint configuration
+      operationId: get_jira_selector
+      parameters:
+      - in: path
+        name: configuration_uuid
+        required: true
+        schema:
+          type: string
+      - in: path
+        name: selector_uuid
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Selector'
+          description: Selector object
+      x-swagger-router-controller: anchore_enterprise.services.notifications.api.controllers.jira
+      x-anchore-authz-action: getNotificationEndpointConfiguration
+    put:
+      description: Update a selector mapped to a Jira endpoint configuration
+      operationId: update_jira_selector
+      parameters:
+      - in: path
+        name: configuration_uuid
+        required: true
+        schema:
+          type: string
+      - in: path
+        name: selector_uuid
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Selector'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Selector'
+          description: Updated selector object
+      x-swagger-router-controller: anchore_enterprise.services.notifications.api.controllers.jira
+      x-anchore-authz-action: updateNotificationEndpointConfiguration
+      x-codegen-request-body-name: selector
+  /endpoints/jira/test:
+    post:
+      description: Test Jira endpoint configuration
+      operationId: test_jira_configuration
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/JiraEndpointConfiguration'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JiraTestResult'
+          description: Test result
+      x-swagger-router-controller: anchore_enterprise.services.notifications.api.controllers.jira
+      x-anchore-authz-action: createNotificationEndpointConfiguration
+      x-codegen-request-body-name: configuration
+  /selectors:
+    get:
+      description: List all selectors mapped to endpoint configurations for the account
+      operationId: list_selectors
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SelectorList'
+          description: List of selectors
+      x-swagger-router-controller: anchore_enterprise.services.notifications.api.controllers.selectors
+      x-anchore-authz-action: listNotificationEndpointConfigurations
+  /internal/endpoints/{name}/configurations/{uuid}/notify:
+    post:
+      description: notify the configuration for the specified endpoint with the provided
+        payload. Currently only internal services can call this endpoint
+      operationId: notify
+      parameters:
+      - in: path
+        name: name
+        required: true
+        schema:
+          enum:
+          - slack
+          - jira
+          - smtp
+          - github
+          - teams
+          - webhook
+          type: string
+      - in: path
+        name: uuid
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SynchronousNotificationPayload'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DispatchResult'
+          description: The endpoint configuration was notified successfully
+      x-swagger-router-controller: anchore_enterprise.services.notifications.api.controllers.internal
+      x-anchore-authz-action: notifyEndpointConfiguration
+      x-codegen-request-body-name: payload
+components:
+  schemas:
+    ApiErrorResponse:
+      description: Generic HTTP API error response
+      properties:
+        code:
+          format: int32
+          type: integer
+        error_type:
+          type: string
+        message:
+          type: string
+        detail:
+          description: Details structure for additional information about the error
+            if available. Content and structure will be error specific.
+          properties: {}
+          type: object
+      type: object
+    StatusResponse:
+      description: System status response
+      example:
+        busy: true
+        up: true
+        message: message
+      properties:
+        busy:
+          type: boolean
+        up:
+          type: boolean
+        message:
+          type: string
+      type: object
+    ServiceVersion:
+      description: Version information for a service
+      example:
+        engine:
+          version: version
+          db: db
+        service:
+          version: version
+        api:
+          version: version
+        db:
+          schema_version: schema_version
+      properties:
+        service:
+          $ref: '#/components/schemas/ServiceVersion_service'
+        api:
+          $ref: '#/components/schemas/ServiceVersion_api'
+        db:
+          $ref: '#/components/schemas/ServiceVersion_db'
+        engine:
+          $ref: '#/components/schemas/ServiceVersion_engine'
+      type: object
+    Endpoint:
+      example:
+        last_updated: 2000-01-23T04:56:07.000+00:00
+        name: name
+        enabled: true
+      properties:
+        name:
+          description: the name of the endpoint
+          type: string
+        enabled:
+          description: Is the endpoint enabled for use in the system. Affects all
+            usage, including system-level if set to false.
+          type: boolean
+        last_updated:
+          description: The timestamp of the last change to the status
+          format: date-time
+          type: string
+      type: object
+    EndpointEnabledStatus:
+      example:
+        last_updated: 2000-01-23T04:56:07.000+00:00
+        enabled: true
+      properties:
+        enabled:
+          description: Is the endpoint enabled for use in the system. Affects all
+            usage, including system-level if set to false.
+          type: boolean
+        last_updated:
+          description: The timestamp of the last change to the status
+          format: date-time
+          type: string
+      type: object
+    EndpointList:
+      items:
+        $ref: '#/components/schemas/Endpoint'
+      type: array
+    Selector:
+      description: A selector for notifications that determines which notifications
+        are passed to a specific endpoint configuration
+      example:
+        scope: global
+        configuration_uuid: configuration_uuid
+        event:
+          level: '*'
+          resource_type: resource_type
+          type: type
+        uuid: uuid
+      properties:
+        uuid:
+          type: string
+        configuration_uuid:
+          description: UUID of the endpoint configuration bound to this selector
+          type: string
+        scope:
+          description: The scope to filter events. 'global' scope encompasses all
+            the events in the system, only the admin account can request this selector
+            scope. 'account' covers events scoped to a specific account.
+          enum:
+          - global
+          - account
+          type: string
+        event:
+          $ref: '#/components/schemas/EventSelector'
+      required:
+      - event
+      - scope
+      type: object
+    SelectorList:
+      items:
+        $ref: '#/components/schemas/Selector'
+      type: array
+    EventSelector:
+      description: A selector of event properties
+      example:
+        level: '*'
+        resource_type: resource_type
+        type: type
+      properties:
+        level:
+          description: The level of the event to filter. '*' matches events of all
+            levels. 'info' and 'error' match related events respectively
+          enum:
+          - '*'
+          - info
+          - error
+          type: string
+        resource_type:
+          description: The type of resource to filter. '*' matches all resource types.
+            Some examples of resource type are 'image_digest' or 'service'
+          type: string
+        type:
+          description: |
+            The type of event to filter, using wildcards against type field of the event. Event types have a structured format <category>.<subcategory>.<event>. Thus, '*' matches all types of events. 'system.*' matches all system events, 'user.*' matches events that are relevant to individual consumption, and omitting an asterisk will do an exact match. See the GET /event_types route definition in the engine's external API for the list of event types.
+          pattern: ^[a-z0-9-_.*]+$
+          type: string
+      required:
+      - level
+      - resource_type
+      - type
+      type: object
+    EndpointConfiguration:
+      description: Base schema that endpoint configurations extend
+      properties:
+        uuid:
+          description: The instance identifier for the configuration
+          type: string
+        description:
+          description: User friendly name or description for the configuration
+          type: string
+        verify_tls:
+          description: Verify the cert if using tls for connecting externally. Defaults
+            to true if not specified
+          type: boolean
+        created_at:
+          description: Timestamp for last modification to the record
+          format: date-time
+          type: string
+        last_updated:
+          description: Timestamp for last modification to the record
+          format: date-time
+          type: string
+      type: object
+    SlackEndpointConfiguration:
+      allOf:
+      - $ref: '#/components/schemas/EndpointConfiguration'
+      - $ref: '#/components/schemas/SlackEndpointConfiguration_allOf'
+      description: Configuration for slack endpoint
+    SlackEndpointConfigurationList:
+      description: List of slack endpoint configurations
+      items:
+        $ref: '#/components/schemas/SlackEndpointConfiguration'
+      type: array
+    SlackTestResult:
+      example:
+        response: response
+        status: status
+      properties:
+        status:
+          type: string
+        response:
+          type: string
+      type: object
+    SMTPEndpointConfiguration:
+      allOf:
+      - $ref: '#/components/schemas/EndpointConfiguration'
+      - $ref: '#/components/schemas/SMTPEndpointConfiguration_allOf'
+      description: Configuration for email via smtp endpoint
+    SMTPEndpointConfigurationList:
+      description: List of email via smtp endpoint configurations
+      items:
+        $ref: '#/components/schemas/SMTPEndpointConfiguration'
+      type: array
+    SMTPTestResult:
+      example:
+        response: response
+        status: status
+      properties:
+        status:
+          type: string
+        response:
+          type: string
+      type: object
+    TeamsEndpointConfiguration:
+      allOf:
+      - $ref: '#/components/schemas/EndpointConfiguration'
+      - $ref: '#/components/schemas/SlackEndpointConfiguration_allOf'
+      description: Configuration for MS Teams endpoint
+    TeamsEndpointConfigurationList:
+      description: List of MS Teams endpoint configurations
+      items:
+        $ref: '#/components/schemas/TeamsEndpointConfiguration'
+      type: array
+    TeamsTestResult:
+      example:
+        response: response
+        status: status
+      properties:
+        status:
+          type: string
+        response:
+          type: string
+      type: object
+    WebhookEndpointConfiguration:
+      allOf:
+      - $ref: '#/components/schemas/EndpointConfiguration'
+      - $ref: '#/components/schemas/WebhookEndpointConfiguration_allOf'
+      description: Configuration for Webhook endpoint
+    WebhookEndpointConfigurationList:
+      description: List of Webhook endpoint configurations
+      items:
+        $ref: '#/components/schemas/WebhookEndpointConfiguration'
+      type: array
+    WebhookTestResult:
+      example:
+        response: response
+        status: status
+      properties:
+        status:
+          type: string
+        response:
+          type: string
+      type: object
+    GitHubEndpointConfiguration:
+      allOf:
+      - $ref: '#/components/schemas/EndpointConfiguration'
+      - $ref: '#/components/schemas/GitHubEndpointConfiguration_allOf'
+      description: Configuration for GitHub endpoint
+    GitHubEndpointConfigurationList:
+      description: List of GitHub endpoint configurations
+      items:
+        $ref: '#/components/schemas/GitHubEndpointConfiguration'
+      type: array
+    GitHubTestResult:
+      example:
+        response: response
+        status: status
+      properties:
+        status:
+          type: string
+        response:
+          type: string
+      type: object
+    JiraEndpointConfiguration:
+      allOf:
+      - $ref: '#/components/schemas/EndpointConfiguration'
+      - $ref: '#/components/schemas/JiraEndpointConfiguration_allOf'
+      description: Configuration for jira endpoint
+    JiraEndpointConfigurationList:
+      description: List of jira endpoint configurations
+      items:
+        $ref: '#/components/schemas/JiraEndpointConfiguration'
+      type: array
+    JiraTestResult:
+      example:
+        response: response
+        status: status
+      properties:
+        status:
+          type: string
+        response:
+          type: string
+      type: object
+    OperationalStatus:
+      description: Operational status for a specific notficiation endpoint configuration
+      example:
+        status: unknown
+      properties:
+        status:
+          enum:
+          - unknown
+          - healthy
+          - unhealthy
+          type: string
+      type: object
+    SynchronousNotificationPayload:
+      description: defines a notification payload that can be sent synchronously
+      example:
+        type: type
+      properties:
+        type:
+          type: string
+      type: object
+    ActionPlanNotificationPayload:
+      allOf:
+      - $ref: '#/components/schemas/SynchronousNotificationPayload'
+      - $ref: '#/components/schemas/ActionPlanNotificationPayload_allOf'
+    DispatchResult:
+      description: Result of a notification dispatch request
+      example:
+        notification: '{}'
+        details: details
+        status: status
+      properties:
+        notification:
+          description: The notification object that was sent. Not documented in more
+            detail at present due to different notification schemas exposed
+          properties: {}
+          type: object
+        status:
+          type: string
+        details:
+          description: Additional delivery result details
+          type: string
+      type: object
+    ServiceVersion_service:
+      example:
+        version: version
+      properties:
+        version:
+          description: Semantic Version string of the service implementation
+          type: string
+    ServiceVersion_api:
+      description: Api Version string
+      example:
+        version: version
+      properties:
+        version:
+          description: Semantic version of the api
+          type: string
+    ServiceVersion_db:
+      example:
+        schema_version: schema_version
+      properties:
+        schema_version:
+          description: Semantic version of the db schema
+          type: string
+    ServiceVersion_engine:
+      example:
+        version: version
+        db: db
+      properties:
+        version:
+          description: Version of the installed engine library
+          type: string
+        db:
+          description: Version of the installed engine db schema
+          type: string
+    SlackEndpointConfiguration_allOf:
+      properties:
+        url:
+          description: url to POST to, including any query parameters, should begin
+            with 'http://' or 'https://'
+          pattern: https?://.*
+          type: string
+      required:
+      - url
+    SMTPEndpointConfiguration_allOf:
+      properties:
+        host:
+          type: string
+        port:
+          type: integer
+        username:
+          type: string
+        password:
+          type: string
+        use_tls:
+          description: Encrypt the SMTP connection with TLS. Defaults to true
+          type: boolean
+        from:
+          description: The from address to use for emails send by this configuration
+          type: string
+        to:
+          description: The address to which the emails are sent
+          type: string
+      required:
+      - from
+      - host
+      - port
+      - to
+    WebhookEndpointConfiguration_allOf:
+      properties:
+        url:
+          description: url to POST to, including any query parameters, should begin
+            with 'http://' or 'https://'
+          pattern: https?://.*
+          type: string
+        username:
+          type: string
+        password:
+          type: string
+        verify_ssl:
+          description: Verify SSL certificates for HTTPS requests, disabled by default
+          type: boolean
+      required:
+      - url
+    GitHubEndpointConfiguration_allOf:
+      properties:
+        url:
+          description: Github API endpoint, defaults to https://api.github.com if
+            not specified
+          pattern: https?://.*
+          type: string
+        username:
+          description: GitHub username for creating issues
+          type: string
+        access_token:
+          description: Personal access token for the GitHub account
+          type: string
+        owner:
+          description: Owner of the repository to create issues against
+          type: string
+        repository:
+          description: Name of the repository to create issues against
+          type: string
+        milestone:
+          description: Number of the milestone to associate with the issue
+          type: integer
+        labels:
+          description: List of labels to associate with the issue
+          items:
+            type: string
+          type: array
+        assignees:
+          description: List of user logins to assign to the issue.
+          items:
+            type: string
+          type: array
+      required:
+      - access_token
+      - owner
+      - repository
+      - username
+    JiraEndpointConfiguration_allOf:
+      properties:
+        url:
+          description: Jira endpoint URL including host and port, should begin with
+            'http://' or 'https://'
+          pattern: https?://.*
+          type: string
+        username:
+          description: Jira username for creating issues
+          type: string
+        password:
+          description: Jira password for creating issues
+          type: string
+        project_key:
+          description: Key of the Jira project for creating issues
+          type: string
+        issue_type:
+          description: Type associated with the issue
+          type: string
+        priority:
+          description: Priority assigned to the issue
+          type: string
+        assignee:
+          description: Jira user to associate with the issue
+          type: string
+        labels:
+          description: List of labels to associate with the issue
+          items:
+            type: string
+          type: array
+      required:
+      - issue_type
+      - password
+      - project_key
+      - url
+      - username
+    ActionPlanNotificationPayload_allOf:
+      description: defines an action plan payload that can be sent synchronously
+      properties:
+        uuid:
+          type: string
+        image_tag:
+          type: string
+        image_digest:
+          type: string
+        bundle_id:
+          type: string
+        subject:
+          type: string
+        message:
+          type: string

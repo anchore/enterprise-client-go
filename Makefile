@@ -1,23 +1,32 @@
 # The version of this client (should be in line with the highest supported engine/enterprise version
-CLIENT_VERSION = 3.0.0
+CLIENT_VERSION = 4.0.0
 
 # where all generated code will be located
 PROJECT_ROOT = pkg
-CLONE_DIR = local
 
 # OpenAPI generator version to use
 OPENAPI_GENERATOR_VERSION = v4.3.1
 # note: v5 introduces the new command pattern approach, splitting request and execute + generating interfaces per service.
 #OPENAPI_GENERATOR_VERSION = v5.0.0-beta3
 
-# --- anchore enterprise references
-# a git tag/branch/commit within anchore/anchore-engine repo
-# sbom_management branch
-ENTERPRISE_REF = 215bb1f673fb74aa3c7aba8693e9e53cbe71dfd6
-#main branch 
-#ENTERPRISE_REF = 002ea6aa58b919cec0b62f1f67868cb94b20503d
 EXTAPI_CLIENT_ROOT = $(PROJECT_ROOT)/external
 EXTAPI_OPENAPI_DOC = $(PROJECT_ROOT)/swagger-external-$(ENTERPRISE_REF).yaml
+SPECS = specs
+EXTERNAL_SPEC = $(SPECS)/external.yaml
+EXTERNAL_NAME = external
+EXTERNAL_PKG = $(PROJECT_ROOT)/external
+FEEDS_SPEC = $(SPECS)/feeds.yaml
+FEEDS_NAME = feeds
+FEEDS_PKG = $(PROJECT_ROOT)/feeds
+RBAC_SPEC = $(SPECS)/rbac.yaml
+RBAC_NAME = rbac
+RBAC_PKG = $(PROJECT_ROOT)/rbac
+NOTIFICATIONS_SPEC = $(SPECS)/notifications.yaml
+NOTIFICAIONTS_NAME = notifications
+NOTIFICATIONS_PKG = $(PROJECT_ROOT)/notifications
+REPORTS_SPEC = $(SPECS)/reports.yaml
+REPORTS_NAME = reports
+REPORTS_PKG = $(PROJECT_ROOT)/reports
 
 define generate_openapi_client
 	# remove previous API clients
@@ -46,26 +55,30 @@ endef
 
 .PHONY :=
 .DEFAULT_GOAL :=
-update: clean generate-external-client ## pull all swagger definitions and generate client code
+update: clean generate ## pull all swagger definitions and generate client code
 
 .PHONY :=
-generate: generate-external-client ## generate all client code from all swagger documents
+generate: external feeds rbac reports notifications ## generate all client code from all swagger documents
 
 .PHONY :=
-clone:
-	if [ ! -d "./${CLONE_DIR}" ]; then git clone git@github.com:anchore/enterprise.git $(CLONE_DIR); fi
-	if [ -d "./${CLONE_DIR}" ]; then cd ${CLONE_DIR} && git pull origin master; fi
-	cd ${CLONE_DIR} && git checkout ${ENTERPRISE_REF}
-
-$(EXTAPI_OPENAPI_DOC): clone ## pull the engine external API swagger document
-	mkdir -p $(PROJECT_ROOT)
-	# note: the existing upstream swagger document needs to be corrected, otherwise invalid code will be generated.
-	# the tr/sed cmds are a workaround for now.
-	cp $(CLONE_DIR)/anchore_enterprise/swagger/enterprise_api_swagger.yaml $(EXTAPI_OPENAPI_DOC)
+external: ## generate client code for enterprise external API
+	$(call generate_openapi_client,$(EXTERNAL_SPEC),$(EXTERNAL_NAME),$(EXTERNAL_PKG))
 
 .PHONY :=
-generate-external-client: $(EXTAPI_OPENAPI_DOC) ## generate client code for engine external API
-	$(call generate_openapi_client,$(EXTAPI_OPENAPI_DOC),external,$(EXTAPI_CLIENT_ROOT))
+feeds: ## generate client code for enterprise feeds API
+	$(call generate_openapi_client,$(FEEDS_SPEC),$(FEEDS_NAME),$(FEEDS_PKG))
+
+.PHONY :=
+notifications: ## generate client code for enterprise notfications API
+	$(call generate_openapi_client,$(NOTIFICATIONS_SPEC),$(NOTIFICATIONS_NAME),$(NOTIFICATIONS_PKG))
+
+.PHONY :=
+rbac: ## generate client code for enterprise rbac API
+	$(call generate_openapi_client,$(RBAC_SPEC),$(RBAC_NAME),$(RBAC_PKG))
+
+.PHONY :=
+reports: ## generate client code for enterprise reports API
+	$(call generate_openapi_client,$(REPORTS_SPEC),$(REPORTS_NAME),$(REPORTS_PKG))
 
 .PHONY :=
 clean: ## remove all swagger documents and generated client code

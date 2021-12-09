@@ -1,0 +1,170 @@
+openapi: 3.0.1
+info:
+  contact:
+    email: dev@anchore.com
+  description: Enterprise API for querying reports and generated metrics
+  title: Anchore Enterprise Reports API
+  version: 0.0.1
+servers:
+- url: /
+tags:
+- description: Reports and metrics interface
+  name: Reports
+paths:
+  /health:
+    get:
+      description: Health check, returns 200 and no body if service is running
+      operationId: health_check
+      responses:
+        "200":
+          content: {}
+          description: Empty body on success
+      x-swagger-router-controller: anchore_engine.apis.common
+      x-anchore-authz-action: None
+  /version:
+    get:
+      description: Returns the version object for the service, including db schema
+        version info
+      operationId: version_check
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ServiceVersion'
+          description: Version object describing version state
+      x-swagger-router-controller: anchore_enterprise.common.apis
+      x-anchore-authz-action: None
+  /status:
+    get:
+      description: Get the API service status
+      operationId: get_status
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StatusResponse'
+          description: Status listing
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+          description: Internal error
+      summary: Service status
+      x-swagger-router-controller: anchore_enterprise.services.reports.api.controllers.status
+      x-anchore-authz-action: None
+  /scheduled_query_results/{result_uuid}:
+    get:
+      description: Get a single saved query result
+      operationId: get_query_result
+      parameters:
+      - in: path
+        name: result_uuid
+        required: true
+        schema:
+          pattern: '[0-9a-z-]+'
+          type: string
+      - description: Page number to fetch. If ommitted, '1' is default. Page numbers
+          start at 1
+        in: query
+        name: page
+        schema:
+          type: integer
+      responses:
+        "200":
+          content: {}
+          description: Saved Query result page
+        "500":
+          content: {}
+          description: Internal Error
+      x-swagger-router-controller: anchore_enterprise.services.reports.api.controllers.scheduled_queries
+      x-anchore-authz-action: listImages
+components:
+  schemas:
+    ApiErrorResponse:
+      description: Generic HTTP API error response
+      properties:
+        code:
+          format: int32
+          type: integer
+        error_type:
+          type: string
+        message:
+          type: string
+        detail:
+          description: Details structure for additional information about the error
+            if available. Content and structure will be error specific.
+          properties: {}
+          type: object
+      type: object
+    StatusResponse:
+      description: System status response
+      example:
+        busy: true
+        up: true
+        message: message
+      properties:
+        busy:
+          type: boolean
+        up:
+          type: boolean
+        message:
+          type: string
+      type: object
+    ServiceVersion:
+      description: Version information for a service
+      example:
+        engine:
+          version: version
+          db: db
+        service:
+          version: version
+        api:
+          version: version
+        db:
+          schema_version: schema_version
+      properties:
+        service:
+          $ref: '#/components/schemas/ServiceVersion_service'
+        api:
+          $ref: '#/components/schemas/ServiceVersion_api'
+        db:
+          $ref: '#/components/schemas/ServiceVersion_db'
+        engine:
+          $ref: '#/components/schemas/ServiceVersion_engine'
+      type: object
+    ServiceVersion_service:
+      example:
+        version: version
+      properties:
+        version:
+          description: Semantic Version string of the service implementation
+          type: string
+    ServiceVersion_api:
+      description: Api Version string
+      example:
+        version: version
+      properties:
+        version:
+          description: Semantic version of the api
+          type: string
+    ServiceVersion_db:
+      example:
+        schema_version: schema_version
+      properties:
+        schema_version:
+          description: Semantic version of the db schema
+          type: string
+    ServiceVersion_engine:
+      example:
+        version: version
+        db: db
+      properties:
+        version:
+          description: Version of the installed engine library
+          type: string
+        db:
+          description: Version of the installed engine db schema
+          type: string

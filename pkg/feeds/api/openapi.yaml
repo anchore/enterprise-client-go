@@ -1,0 +1,480 @@
+openapi: 3.0.1
+info:
+  contact:
+    email: dev@anchore.com
+  description: Enterprise service for normalizing vulnerability data from external
+    sources and making it available via API
+  license:
+    name: Anchore
+    url: http://www.anchore.com
+  title: Anchore Enterprise Feeds
+  version: 0.1.0
+servers:
+- url: /
+tags:
+- description: Feeds Management
+  name: Feeds
+paths:
+  /:
+    get:
+      description: Simple status check
+      operationId: ping
+      responses:
+        "200":
+          content: {}
+          description: Version check response
+      x-swagger-router-controller: anchore_enterprise.services.feeds.api.controllers.default_controller
+  /health:
+    get:
+      description: Health check, returns 200 and no body if service is running
+      operationId: health_check
+      responses:
+        "200":
+          content: {}
+          description: Empty body on success
+      x-swagger-router-controller: anchore_engine.apis.common
+      x-anchore-authz-action: None
+  /version:
+    get:
+      description: Returns the version object for the service, including db schema
+        version info
+      operationId: version_check
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ServiceVersion'
+          description: Version object describing version state
+      x-swagger-router-controller: anchore_enterprise.common.apis
+      x-anchore-authz-action: None
+  /feeds:
+    get:
+      operationId: list_feeds
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FeedListing'
+          description: 200 response
+        "404":
+          content: {}
+          description: 404 NotFound
+        "500":
+          content: {}
+          description: 500 InternalError
+      x-swagger-router-controller: anchore_enterprise.services.feeds.api.controllers.default_controller
+  /feeds/{feed}:
+    get:
+      operationId: list_feed_groups
+      parameters:
+      - in: path
+        name: feed
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GroupListing'
+          description: 200 response
+        "404":
+          content: {}
+          description: 404 NotFound
+        "500":
+          content: {}
+          description: 500 InternalError
+      x-swagger-router-controller: anchore_enterprise.services.feeds.api.controllers.default_controller
+  /feeds/{feed}/{group}:
+    get:
+      operationId: get_feed_group_data
+      parameters:
+      - in: path
+        name: feed
+        required: true
+        schema:
+          type: string
+      - in: path
+        name: group
+        required: true
+        schema:
+          type: string
+      - in: query
+        name: since
+        schema:
+          type: string
+      - in: query
+        name: next_token
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DataListing'
+          description: 200 response
+        "404":
+          content: {}
+          description: 404 NotFound
+        "500":
+          content: {}
+          description: 500 InternalError
+      x-swagger-router-controller: anchore_enterprise.services.feeds.api.controllers.default_controller
+  /databases/grypedb:
+    get:
+      operationId: grype_db_listing
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GrypeDBListing'
+          description: 200 response
+        "500":
+          content: {}
+          description: 500 InternalError
+      x-swagger-router-controller: anchore_enterprise.services.feeds.api.controllers.default_controller
+  /databases/grypedb/{name}:
+    get:
+      operationId: get_grype_db
+      parameters:
+      - description: the name identifier for the database
+        in: path
+        name: name
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/x-tar:
+              schema:
+                format: binary
+                type: string
+          description: Grype database Gzip file
+        "404":
+          content: {}
+          description: 404 NotFound
+        "500":
+          content: {}
+          description: 500 InternalError
+      x-swagger-router-controller: anchore_enterprise.services.feeds.api.controllers.default_controller
+  /tasks:
+    get:
+      operationId: get_tasks
+      parameters:
+      - in: query
+        name: filter
+        schema:
+          type: string
+      - in: query
+        name: details
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/Task'
+                type: array
+          description: 200 response
+        "404":
+          content: {}
+          description: 404 NotFound
+        "500":
+          content: {}
+          description: 500 InternalError
+      x-swagger-router-controller: anchore_enterprise.services.feeds.api.controllers.default_controller
+  /tasks/{task_id}:
+    get:
+      operationId: get_task
+      parameters:
+      - in: path
+        name: task_id
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Task'
+          description: 200 response
+        "404":
+          content: {}
+          description: 404 NotFound
+        "500":
+          content: {}
+          description: 500 InternalError
+      x-swagger-router-controller: anchore_enterprise.services.feeds.api.controllers.default_controller
+components:
+  schemas:
+    FeedListing:
+      description: A collection of feed items and a 'next_token' for getting the next
+        set of results
+      example:
+        feeds:
+        - name: name
+          description: description
+          access_tier: access_tier
+        - name: name
+          description: description
+          access_tier: access_tier
+        next_token: next_token
+      properties:
+        feeds:
+          items:
+            $ref: '#/components/schemas/Feed'
+          type: array
+        next_token:
+          description: The token to include in subsequent requests to get the rest
+            of the data. If empty, this response includes all data.
+          type: string
+      type: object
+    GroupListing:
+      description: A collection of feed items and a 'next_token' for getting the next
+        set of results
+      example:
+        groups:
+        - name: name
+          description: description
+          access_tier: access_tier
+        - name: name
+          description: description
+          access_tier: access_tier
+        next_token: next_token
+      properties:
+        groups:
+          items:
+            $ref: '#/components/schemas/Group'
+          type: array
+        next_token:
+          description: The token to include in subsequent requests to get the rest
+            of the data. If empty, this response includes all data.
+          type: string
+      type: object
+    GrypeDBListing:
+      description: The directory for available Grype DB versions.
+      example:
+        available:
+          "2":
+          - built: 2000-01-23T04:56:07.000+00:00
+            checksum: checksum
+            version: 0
+            url: url
+          - built: 2000-01-23T04:56:07.000+00:00
+            checksum: checksum
+            version: 0
+            url: url
+      properties:
+        available:
+          $ref: '#/components/schemas/GrypeDBAvailabilityMap'
+      type: object
+    GrypeDBAvailabilityMap:
+      additionalProperties:
+        $ref: '#/components/schemas/GrypeDBList'
+      description: The keys are the versions of grype for which generated DBs are
+        available.
+      example:
+        "2":
+        - built: 2000-01-23T04:56:07.000+00:00
+          checksum: checksum
+          version: 0
+          url: url
+        - built: 2000-01-23T04:56:07.000+00:00
+          checksum: checksum
+          version: 0
+          url: url
+      properties:
+        "2":
+          items:
+            $ref: '#/components/schemas/GrypeDBMetadata'
+          type: array
+      type: object
+    GrypeDBList:
+      items:
+        $ref: '#/components/schemas/GrypeDBMetadata'
+      type: array
+    GrypeDBMetadata:
+      description: Group of data within a feed
+      example:
+        built: 2000-01-23T04:56:07.000+00:00
+        checksum: checksum
+        version: 0
+        url: url
+      properties:
+        url:
+          description: The URL to query to retreive this DB.
+          type: string
+        version:
+          description: The version of Grype that the DB was generated for.
+          type: integer
+        checksum:
+          description: sha256 checksum of file contents
+          type: string
+        built:
+          description: date on which the DB was generated
+          format: date-time
+          type: string
+      type: object
+    DataListing:
+      description: A collection of data items and a 'next_token' for getting the next
+        set of results
+      example:
+        data:
+        - '{}'
+        - '{}'
+        next_token: next_token
+      properties:
+        data:
+          items:
+            properties: {}
+            type: object
+          type: array
+        next_token:
+          description: The token to include in subsequent requests to get the rest
+            of the data. If empty, this response includes all data.
+          type: string
+      type: object
+    Feed:
+      description: A source of data from the anchore service composed of groups each
+        with its own data series
+      example:
+        name: name
+        description: description
+        access_tier: access_tier
+      properties:
+        name:
+          description: Name of the feed.
+          type: string
+        access_tier:
+          description: The level of user allowed to access this feed's groups.
+          type: string
+        description:
+          description: What the feed data is and means.
+          type: string
+      title: Data Feed
+      type: object
+    Group:
+      description: Group of data within a feed
+      example:
+        name: name
+        description: description
+        access_tier: access_tier
+      properties:
+        name:
+          description: Name of the feed group.
+          type: string
+        access_tier:
+          description: The level of user allowed to access this group's data.
+          type: string
+        description:
+          description: What the group data is and means.
+          type: string
+      title: Feed Group
+      type: object
+    Task:
+      description: A unit of work triggered either by the system or the user
+      example:
+        result: '{}'
+        start_time: start_time
+        driver_id: driver_id
+        parent_task_id: 6
+        end_time: end_time
+        sub_tasks:
+        - null
+        - null
+        task_id: 0
+        task_type: task_type
+        started_by: started_by
+        feed_id: feed_id
+        status: status
+      properties:
+        task_id:
+          type: integer
+        task_type:
+          type: string
+        feed_id:
+          type: string
+        driver_id:
+          type: string
+        status:
+          type: string
+        result:
+          properties: {}
+          type: object
+        start_time:
+          type: string
+        end_time:
+          type: string
+        started_by:
+          type: string
+        parent_task_id:
+          type: integer
+        sub_tasks:
+          items:
+            $ref: '#/components/schemas/Task'
+          type: array
+      type: object
+    ServiceVersion:
+      description: Version information for a service
+      example:
+        engine:
+          version: version
+          db: db
+        service:
+          version: version
+        api:
+          version: version
+        db:
+          schema_version: schema_version
+      properties:
+        service:
+          $ref: '#/components/schemas/ServiceVersion_service'
+        api:
+          $ref: '#/components/schemas/ServiceVersion_api'
+        db:
+          $ref: '#/components/schemas/ServiceVersion_db'
+        engine:
+          $ref: '#/components/schemas/ServiceVersion_engine'
+      type: object
+    ServiceVersion_service:
+      example:
+        version: version
+      properties:
+        version:
+          description: Semantic Version string of the service implementation
+          type: string
+    ServiceVersion_api:
+      description: Api Version string
+      example:
+        version: version
+      properties:
+        version:
+          description: Semantic version of the api
+          type: string
+    ServiceVersion_db:
+      example:
+        schema_version: schema_version
+      properties:
+        schema_version:
+          description: Semantic version of the db schema
+          type: string
+    ServiceVersion_engine:
+      example:
+        version: version
+        db: db
+      properties:
+        version:
+          description: Version of the installed engine library
+          type: string
+        db:
+          description: Version of the installed engine db schema
+          type: string

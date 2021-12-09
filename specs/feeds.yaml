@@ -1,0 +1,347 @@
+swagger: "2.0"
+info:
+  description: "Enterprise service for normalizing vulnerability data from external sources and making it available via API"
+  version: "0.1.0"
+  title: "Anchore Enterprise Feeds"
+  contact:
+    email: "dev@anchore.com"
+  license:
+    name: "Anchore"
+    url: "http://www.anchore.com"
+tags:
+- name: Feeds
+  description: Feeds Management
+basePath: "/"
+schemes:
+- "http"
+- "https"
+consumes:
+- application/json
+produces:
+- application/json
+
+paths:
+  /:
+    get:
+      x-swagger-router-controller: anchore_enterprise.services.feeds.api.controllers.default_controller
+      operationId: ping
+      description: Simple status check
+      responses:
+        200:
+          description: Version check response
+  /health:
+    get:
+      x-swagger-router-controller: anchore_engine.apis.common
+      operationId: health_check
+      x-anchore-authz-action: None
+      description: Health check, returns 200 and no body if service is running
+      responses:
+        200:
+          description: Empty body on success
+  /version:
+    get:
+      x-swagger-router-controller: anchore_enterprise.common.apis
+      operationId: version_check
+      x-anchore-authz-action: None
+      description: Returns the version object for the service, including db schema version info
+      responses:
+        200:
+          description: Version object describing version state
+          schema:
+            $ref: "#/definitions/ServiceVersion"
+  /feeds:
+    get:
+      x-swagger-router-controller: anchore_enterprise.services.feeds.api.controllers.default_controller
+      operationId: list_feeds
+      responses:
+        200:
+          description: 200 response
+          schema:
+            $ref: '#/definitions/FeedListing'
+        404:
+          description: 404 NotFound
+        500:
+          description: 500 InternalError
+  /feeds/{feed}:
+    get:
+      x-swagger-router-controller: anchore_enterprise.services.feeds.api.controllers.default_controller
+      operationId: list_feed_groups
+      parameters:
+        - name: feed
+          in: path
+          required: true
+          type: string
+      responses:
+        200:
+          description: 200 response
+          schema:
+            $ref: '#/definitions/GroupListing'
+        404:
+          description: 404 NotFound
+        500:
+          description: 500 InternalError
+  /feeds/{feed}/{group}:
+    get:
+      x-swagger-router-controller: anchore_enterprise.services.feeds.api.controllers.default_controller
+      operationId: get_feed_group_data
+      parameters:
+        - name: feed
+          in: path
+          required: true
+          type: string
+        - name: group
+          in: path
+          required: true
+          type: string
+        - name: since
+          in: query
+          required: false
+          type: string
+        - name: next_token
+          in: query
+          required: false
+          type: string
+      responses:
+        200:
+          description: 200 response
+          schema:
+            $ref: '#/definitions/DataListing'
+        404:
+          description: 404 NotFound
+        500:
+          description: 500 InternalError
+  /databases/grypedb:
+    get:
+      x-swagger-router-controller: anchore_enterprise.services.feeds.api.controllers.default_controller
+      operationId: grype_db_listing
+      responses:
+        200:
+          description: 200 response
+          schema:
+            $ref: '#/definitions/GrypeDBListing'
+        500:
+          description: 500 InternalError
+  /databases/grypedb/{name}:
+    get:
+      x-swagger-router-controller: anchore_enterprise.services.feeds.api.controllers.default_controller
+      operationId: get_grype_db
+      parameters:
+        - name: name
+          in: path
+          required: true
+          type: string
+          description: the name identifier for the database
+      produces:
+        - application/x-tar
+      responses:
+        200:
+          description: Grype database Gzip file
+          schema:
+            type: file
+        404:
+          description: 404 NotFound
+        500:
+          description: 500 InternalError
+  /tasks:
+    get:
+      x-swagger-router-controller: anchore_enterprise.services.feeds.api.controllers.default_controller
+      operationId: get_tasks
+      parameters:
+        - name: filter
+          in: query
+          required: false
+          type: string
+        - name: details
+          in: query
+          required: false
+          type: string
+      responses:
+        200:
+          description: 200 response
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Task'
+        404:
+          description: 404 NotFound
+        500:
+          description: 500 InternalError
+  /tasks/{task_id}:
+    get:
+      x-swagger-router-controller: anchore_enterprise.services.feeds.api.controllers.default_controller
+      operationId: get_task
+      parameters:
+        - name: task_id
+          in: path
+          required: true
+          type: string
+      responses:
+        200:
+          description: 200 response
+          schema:
+            $ref: '#/definitions/Task'
+        404:
+          description: 404 NotFound
+        500:
+          description: 500 InternalError
+
+definitions:
+#  Empty:
+#    type: object
+#    title: Empty Schema
+  FeedListing:
+    type: object
+    description: A collection of feed items and a 'next_token' for getting the next set of results
+    properties:
+      feeds:
+        type: array
+        items:
+          $ref: '#/definitions/Feed'
+      next_token:
+        type: string
+        description: 'The token to include in subsequent requests to get the rest of the data. If empty, this response includes all data.'
+  GroupListing:
+    type: object
+    description: A collection of feed items and a 'next_token' for getting the next set of results
+    properties:
+      groups:
+        type: array
+        items:
+          $ref: '#/definitions/Group'
+      next_token:
+        type: string
+        description: 'The token to include in subsequent requests to get the rest of the data. If empty, this response includes all data.'
+  GrypeDBListing:
+    type: object
+    description: The directory for available Grype DB versions.
+    properties:
+      available:
+        $ref: '#/definitions/GrypeDBAvailabilityMap'
+  GrypeDBAvailabilityMap:
+    type: object
+    description: The keys are the versions of grype for which generated DBs are available.
+    properties:
+      2:
+        $ref: '#/definitions/GrypeDBList'
+    additionalProperties:
+      $ref: '#/definitions/GrypeDBList'
+  GrypeDBList:
+    type: array
+    items:
+      $ref: '#/definitions/GrypeDBMetadata'
+  GrypeDBMetadata:
+    type: object
+    description: Group of data within a feed
+    properties:
+      url:
+        type: string
+        description: The URL to query to retreive this DB.
+      version:
+        type: integer
+        description: The version of Grype that the DB was generated for.
+      checksum:
+        type: string
+        description: sha256 checksum of file contents
+      built:
+        type: string
+        format: date-time
+        description: date on which the DB was generated
+  DataListing:
+    type: object
+    description: A collection of data items and a 'next_token' for getting the next set of results
+    properties:
+      data:
+        type: array
+        items:
+          type: object
+      next_token:
+        type: string
+        description: 'The token to include in subsequent requests to get the rest of the data. If empty, this response includes all data.'
+  Feed:
+    type: object
+    title: Data Feed
+    description: A source of data from the anchore service composed of groups each with its own data series
+    properties:
+      name:
+        type: string
+        description: Name of the feed.
+      access_tier:
+        type: string
+        description: The level of user allowed to access this feed's groups.
+      description:
+        type: string
+        description: What the feed data is and means.
+  Group:
+    type: object
+    title: Feed Group
+    description: Group of data within a feed
+    properties:
+      name:
+        type: string
+        description: Name of the feed group.
+      access_tier:
+        type: string
+        description: The level of user allowed to access this group's data.
+      description:
+        type: string
+        description: What the group data is and means.
+  Task:
+    type: object
+    description: A unit of work triggered either by the system or the user
+    properties:
+      task_id:
+        type: integer
+      task_type:
+        type: string
+      feed_id:
+        type: string
+      driver_id:
+        type: string
+      status:
+        type: string
+      result:
+        type: object
+      start_time:
+        type: string
+      end_time:
+        type: string
+      started_by:
+        type: string
+      parent_task_id:
+        type: integer
+      sub_tasks:
+        type: array
+        items:
+          $ref: '#/definitions/Task'
+  ServiceVersion:
+      type: object
+      description: Version information for a service
+      properties:
+        service:
+          type: object
+          properties:
+            version:
+              type: string
+              description: Semantic Version string of the service implementation
+        api:
+          type: object
+          description: Api Version string
+          properties:
+            version:
+              type: string
+              description: Semantic version of the api
+        db:
+          type: object
+          properties:
+            schema_version:
+              type: string
+              description: Semantic version of the db schema
+        engine:
+          type: object
+          properties:
+            version:
+              type: string
+              description: Version of the installed engine library
+            db:
+              type: string
+              description: Version of the installed engine db schema
