@@ -10,10 +10,12 @@ Method | HTTP request | Description
 [**AddCorrection**](DefaultApi.md#AddCorrection) | **Post** /corrections | Create a correction record
 [**AddInventoryCluster**](DefaultApi.md#AddInventoryCluster) | **Post** /inventories/clusters | Create a cluster inventory
 [**AddRuntimeComplianceCheck**](DefaultApi.md#AddRuntimeComplianceCheck) | **Post** /runtime_compliance | Post a runtime compliance check
+[**CreateOperation**](DefaultApi.md#CreateOperation) | **Post** /imports/sources | Begin the import of a source code repository analyzed by Syft into the system
 [**DelInventoryClusterByName**](DefaultApi.md#DelInventoryClusterByName) | **Delete** /inventories/clusters/{cluster_name} | Delete a configured inventory clusters by cluster_name
 [**DeleteApplication**](DefaultApi.md#DeleteApplication) | **Delete** /applications/{application_id} | Delete an application by application_id
 [**DeleteApplicationVersion**](DefaultApi.md#DeleteApplicationVersion) | **Delete** /applications/{application_id}/versions/{application_version_id} | Delete an application version by application_id and application_version_id
 [**DeleteCorrectionByUuid**](DefaultApi.md#DeleteCorrectionByUuid) | **Delete** /corrections/{uuid} | Delete a correction by UUID
+[**FinalizeOperation**](DefaultApi.md#FinalizeOperation) | **Post** /imports/sources/{operation_id}/finalize | Add source records to catalog db
 [**GetActionPlans**](DefaultApi.md#GetActionPlans) | **Get** /actions | Gets a list of submitted action (remediation) plans
 [**GetAlertSummaries**](DefaultApi.md#GetAlertSummaries) | **Get** /alerts/summaries | List all alert summaries scoped to the account
 [**GetApplication**](DefaultApi.md#GetApplication) | **Get** /applications/{application_id} | Get an application by application_id
@@ -28,15 +30,29 @@ Method | HTTP request | Description
 [**GetImageInventory**](DefaultApi.md#GetImageInventory) | **Get** /inventories | Return a list of the images in inventories for this account
 [**GetImagePolicyCheckByDigest**](DefaultApi.md#GetImagePolicyCheckByDigest) | **Get** /images/{imageDigest}/check | Check policy evaluation status for image
 [**GetImageVulnerabilitiesByDigest**](DefaultApi.md#GetImageVulnerabilitiesByDigest) | **Get** /images/{imageDigest}/vuln/{vtype} | Get vulnerabilities by type
+[**GetImportSourcesSbom**](DefaultApi.md#GetImportSourcesSbom) | **Get** /imports/sources/{operation_id}/sbom | list the packages of an imported source code repository
 [**GetInventoryClusterByName**](DefaultApi.md#GetInventoryClusterByName) | **Get** /inventories/clusters/{cluster_name} | Return a configured inventory cluster
+[**GetOperation**](DefaultApi.md#GetOperation) | **Get** /imports/sources/{operation_id} | Get detail on a single import
 [**GetRuntimeComplianceChecks**](DefaultApi.md#GetRuntimeComplianceChecks) | **Get** /runtime_compliance | Get all runtime compliance checks or just those for a given image digest
 [**GetRuntimeComplianceResult**](DefaultApi.md#GetRuntimeComplianceResult) | **Get** /runtime_compliance/result/{compliance_file_id} | Check the results of a a specific runtime compliance check
+[**GetSourceAppVulnerabilities**](DefaultApi.md#GetSourceAppVulnerabilities) | **Get** /sources/{source_id}/vulns/non-os | Get a detailed source repository analysis metadata record
+[**GetSourceContentByType**](DefaultApi.md#GetSourceContentByType) | **Get** /sources/{source_id}/content/{content_type} | Get the content of an analyzed source repository
+[**GetSourceContentTypes**](DefaultApi.md#GetSourceContentTypes) | **Get** /sources/{source_id}/content | Get a detailed source repository analysis metadata record
+[**GetSourceMetadata**](DefaultApi.md#GetSourceMetadata) | **Get** /sources/{source_id}/metadata | Get a detailed source repository analysis metadata record
+[**GetSourceOsVulnerabilities**](DefaultApi.md#GetSourceOsVulnerabilities) | **Get** /sources/{source_id}/vulns/os | Get a detailed source repository analysis metadata record
+[**GetSourceSbomNative**](DefaultApi.md#GetSourceSbomNative) | **Get** /sources/{source_id}/sbom/native | 
+[**GetSourceSbomTypes**](DefaultApi.md#GetSourceSbomTypes) | **Get** /sources/{source_id}/sbom | Get a detailed source repository analysis metadata record
+[**GetSourceVulnerabilities**](DefaultApi.md#GetSourceVulnerabilities) | **Get** /sources/{source_id}/vulns | Get a detailed source repository analysis metadata record
+[**InvalidateOperation**](DefaultApi.md#InvalidateOperation) | **Delete** /imports/sources/{operation_id} | Invalidate operation ID so it can be garbage collected
 [**ListInventoryClusters**](DefaultApi.md#ListInventoryClusters) | **Get** /inventories/clusters | Return a list of the configured inventory clusters
+[**ListOperations**](DefaultApi.md#ListOperations) | **Get** /imports/sources | Lists in-progress imports
+[**ListSources**](DefaultApi.md#ListSources) | **Get** /sources | List the source repository analysis records
 [**SyncImageInventory**](DefaultApi.md#SyncImageInventory) | **Post** /inventories | synchronizes the list of the images in a given cluster for the inventory
 [**UpdateApplication**](DefaultApi.md#UpdateApplication) | **Put** /applications/{application_id} | Update application details
 [**UpdateApplicationVersion**](DefaultApi.md#UpdateApplicationVersion) | **Put** /applications/{application_id}/versions/{application_version_id} | Update application version details
 [**UpdateComplianceViolationAlertState**](DefaultApi.md#UpdateComplianceViolationAlertState) | **Put** /alerts/compliance_violations/{uuid}/{state} | Open or close a compliance violation alert
 [**UpdateCorrectionByUuid**](DefaultApi.md#UpdateCorrectionByUuid) | **Put** /corrections/{uuid} | Update a correction by UUID
+[**UploadImportSourcesSbom**](DefaultApi.md#UploadImportSourcesSbom) | **Post** /imports/sources/{operation_id}/sbom | Begin the import of a source code repository analyzed by Syft into the system
 
 
 
@@ -311,6 +327,34 @@ No authorization required
 [[Back to README]](../README.md)
 
 
+## CreateOperation
+
+> SourceImportOperation CreateOperation(ctx, )
+
+Begin the import of a source code repository analyzed by Syft into the system
+
+### Required Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+[**SourceImportOperation**](SourceImportOperation.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
 ## DelInventoryClusterByName
 
 > DelInventoryClusterByName(ctx, clusterName, optional)
@@ -487,6 +531,39 @@ No authorization required
 
 - **Content-Type**: Not defined
 - **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## FinalizeOperation
+
+> InternalSourceManifest FinalizeOperation(ctx, operationId, metadata)
+
+Add source records to catalog db
+
+### Required Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**operationId** | **string**|  | 
+**metadata** | [**SourceImportMetadata**](SourceImportMetadata.md)|  | 
+
+### Return type
+
+[**InternalSourceManifest**](InternalSourceManifest.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1146,6 +1223,38 @@ No authorization required
 [[Back to README]](../README.md)
 
 
+## GetImportSourcesSbom
+
+> SourceImportContentResponse GetImportSourcesSbom(ctx, operationId)
+
+list the packages of an imported source code repository
+
+### Required Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**operationId** | **string**|  | 
+
+### Return type
+
+[**SourceImportContentResponse**](SourceImportContentResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
 ## GetInventoryClusterByName
 
 > InventoryCluster GetInventoryClusterByName(ctx, clusterName, optional)
@@ -1176,6 +1285,38 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**InventoryCluster**](InventoryCluster.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetOperation
+
+> SourceImportOperation GetOperation(ctx, operationId)
+
+Get detail on a single import
+
+### Required Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**operationId** | **string**|  | 
+
+### Return type
+
+[**SourceImportOperation**](SourceImportOperation.md)
 
 ### Authorization
 
@@ -1280,6 +1421,295 @@ No authorization required
 [[Back to README]](../README.md)
 
 
+## GetSourceAppVulnerabilities
+
+> GetSourceAppVulnerabilities(ctx, sourceId)
+
+Get a detailed source repository analysis metadata record
+
+### Required Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**sourceId** | **string**|  | 
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetSourceContentByType
+
+> ContentPackageResponse GetSourceContentByType(ctx, sourceId, contentType)
+
+Get the content of an analyzed source repository
+
+### Required Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**sourceId** | **string**|  | 
+**contentType** | **string**|  | 
+
+### Return type
+
+[**ContentPackageResponse**](ContentPackageResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetSourceContentTypes
+
+> GetSourceContentTypes(ctx, sourceId)
+
+Get a detailed source repository analysis metadata record
+
+### Required Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**sourceId** | **string**|  | 
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetSourceMetadata
+
+> SourceRepositoryMetadata GetSourceMetadata(ctx, sourceId)
+
+Get a detailed source repository analysis metadata record
+
+### Required Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**sourceId** | **string**|  | 
+
+### Return type
+
+[**SourceRepositoryMetadata**](SourceRepositoryMetadata.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetSourceOsVulnerabilities
+
+> GetSourceOsVulnerabilities(ctx, sourceId)
+
+Get a detailed source repository analysis metadata record
+
+### Required Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**sourceId** | **string**|  | 
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetSourceSbomNative
+
+> *os.File GetSourceSbomNative(ctx, sourceId)
+
+
+
+### Required Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**sourceId** | **string**|  | 
+
+### Return type
+
+[***os.File**](*os.File.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/gzip
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetSourceSbomTypes
+
+> []string GetSourceSbomTypes(ctx, sourceId)
+
+Get a detailed source repository analysis metadata record
+
+### Required Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**sourceId** | **string**|  | 
+
+### Return type
+
+**[]string**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetSourceVulnerabilities
+
+> GetSourceVulnerabilities(ctx, sourceId)
+
+Get a detailed source repository analysis metadata record
+
+### Required Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**sourceId** | **string**|  | 
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## InvalidateOperation
+
+> SourceImportOperation InvalidateOperation(ctx, operationId)
+
+Invalidate operation ID so it can be garbage collected
+
+### Required Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**operationId** | **string**|  | 
+
+### Return type
+
+[**SourceImportOperation**](SourceImportOperation.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
 ## ListInventoryClusters
 
 > []InventoryCluster ListInventoryClusters(ctx, optional)
@@ -1309,6 +1739,62 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**[]InventoryCluster**](InventoryCluster.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## ListOperations
+
+> []SourceImportOperation ListOperations(ctx, )
+
+Lists in-progress imports
+
+### Required Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+[**[]SourceImportOperation**](SourceImportOperation.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## ListSources
+
+> SourcesList ListSources(ctx, )
+
+List the source repository analysis records
+
+### Required Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+[**SourcesList**](SourcesList.md)
 
 ### Authorization
 
@@ -1544,6 +2030,39 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**Correction**](Correction.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## UploadImportSourcesSbom
+
+> SourceImportContentResponse UploadImportSourcesSbom(ctx, operationId, sbom)
+
+Begin the import of a source code repository analyzed by Syft into the system
+
+### Required Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**operationId** | **string**|  | 
+**sbom** | [**NativeSbom**](NativeSbom.md)|  | 
+
+### Return type
+
+[**SourceImportContentResponse**](SourceImportContentResponse.md)
 
 ### Authorization
 
