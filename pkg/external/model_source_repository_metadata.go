@@ -15,18 +15,14 @@ import (
 )
 // SourceRepositoryMetadata struct for SourceRepositoryMetadata
 type SourceRepositoryMetadata struct {
-	// A system-assigned identifier unique for each source analysis
 	Uuid string `json:"uuid,omitempty"`
-	// The anchore account id that owns this resource
-	AccountId string `json:"account_id,omitempty"`
-	// Host name for the repository location (e.g. github.com)
+	CiWorkflowName string `json:"ci_workflow_name,omitempty"`
+	CiWorkflowExecutionTime time.Time `json:"ci_workflow_execution_time,omitempty"`
 	Host string `json:"host,omitempty"`
-	// The name of the repository on the host (e.g. 'anchore/anchore-engine')
 	RepositoryName string `json:"repository_name,omitempty"`
-	// The name of the branch associated with the commit.
 	BranchName string `json:"branch_name,omitempty"`
-	// The commit ID for a git repository
 	CommitSha string `json:"commit_sha,omitempty"`
-	CreatedAt time.Time `json:"created_at,omitempty"`
-	LastUpdated time.Time `json:"last_updated,omitempty"`
+	LastCommitter string `json:"last_committer,omitempty"`
+	// Digest of content to use in the final import
+	Artifacts []SourceRepositoryMetadataArtifacts `json:"artifacts,omitempty"`
 }

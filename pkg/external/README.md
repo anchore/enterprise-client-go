@@ -34,16 +34,21 @@ Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
 *DefaultApi* | [**AddActionPlan**](docs/DefaultApi.md#addactionplan) | **Post** /actions | Submits an Action Plan
 *DefaultApi* | [**AddApplication**](docs/DefaultApi.md#addapplication) | **Post** /applications | Create an application
+*DefaultApi* | [**AddApplicationVersion**](docs/DefaultApi.md#addapplicationversion) | **Post** /applications/{application_id}/versions | Create an application version
 *DefaultApi* | [**AddCorrection**](docs/DefaultApi.md#addcorrection) | **Post** /corrections | Create a correction record
 *DefaultApi* | [**AddInventoryCluster**](docs/DefaultApi.md#addinventorycluster) | **Post** /inventories/clusters | Create a cluster inventory
 *DefaultApi* | [**AddRuntimeComplianceCheck**](docs/DefaultApi.md#addruntimecompliancecheck) | **Post** /runtime_compliance | Post a runtime compliance check
 *DefaultApi* | [**CreateOperation**](docs/DefaultApi.md#createoperation) | **Post** /imports/sources | Begin the import of a source code repository analyzed by Syft into the system
 *DefaultApi* | [**DelInventoryClusterByName**](docs/DefaultApi.md#delinventoryclusterbyname) | **Delete** /inventories/clusters/{cluster_name} | Delete a configured inventory clusters by cluster_name
 *DefaultApi* | [**DeleteApplication**](docs/DefaultApi.md#deleteapplication) | **Delete** /applications/{application_id} | Delete an application by application_id
+*DefaultApi* | [**DeleteApplicationVersion**](docs/DefaultApi.md#deleteapplicationversion) | **Delete** /applications/{application_id}/versions/{application_version_id} | Delete an application version by application_id and application_version_id
 *DefaultApi* | [**DeleteCorrectionByUuid**](docs/DefaultApi.md#deletecorrectionbyuuid) | **Delete** /corrections/{uuid} | Delete a correction by UUID
 *DefaultApi* | [**FinalizeOperation**](docs/DefaultApi.md#finalizeoperation) | **Post** /imports/sources/{operation_id}/finalize | Add source records to catalog db
 *DefaultApi* | [**GetActionPlans**](docs/DefaultApi.md#getactionplans) | **Get** /actions | Gets a list of submitted action (remediation) plans
 *DefaultApi* | [**GetAlertSummaries**](docs/DefaultApi.md#getalertsummaries) | **Get** /alerts/summaries | List all alert summaries scoped to the account
+*DefaultApi* | [**GetApplication**](docs/DefaultApi.md#getapplication) | **Get** /applications/{application_id} | Get an application by application_id
+*DefaultApi* | [**GetApplicationVersion**](docs/DefaultApi.md#getapplicationversion) | **Get** /applications/{application_id}/versions/{application_version_id} | Get an application version
+*DefaultApi* | [**GetApplicationVersions**](docs/DefaultApi.md#getapplicationversions) | **Get** /applications/{application_id}/versions | List all application verions
 *DefaultApi* | [**GetApplications**](docs/DefaultApi.md#getapplications) | **Get** /applications | List all applications
 *DefaultApi* | [**GetComplianceViolationAlert**](docs/DefaultApi.md#getcomplianceviolationalert) | **Get** /alerts/compliance_violations/{uuid} | Get compliance violation alert by id
 *DefaultApi* | [**GetComplianceViolationAlerts**](docs/DefaultApi.md#getcomplianceviolationalerts) | **Get** /alerts/compliance_violations | List all compliance violation alerts scoped to the account
@@ -71,6 +76,8 @@ Class | Method | HTTP request | Description
 *DefaultApi* | [**ListOperations**](docs/DefaultApi.md#listoperations) | **Get** /imports/sources | Lists in-progress imports
 *DefaultApi* | [**ListSources**](docs/DefaultApi.md#listsources) | **Get** /sources | List the source repository analysis records
 *DefaultApi* | [**SyncImageInventory**](docs/DefaultApi.md#syncimageinventory) | **Post** /inventories | synchronizes the list of the images in a given cluster for the inventory
+*DefaultApi* | [**UpdateApplication**](docs/DefaultApi.md#updateapplication) | **Put** /applications/{application_id} | Update application details
+*DefaultApi* | [**UpdateApplicationVersion**](docs/DefaultApi.md#updateapplicationversion) | **Put** /applications/{application_id}/versions/{application_version_id} | Update application version details
 *DefaultApi* | [**UpdateComplianceViolationAlertState**](docs/DefaultApi.md#updatecomplianceviolationalertstate) | **Put** /alerts/compliance_violations/{uuid}/{state} | Open or close a compliance violation alert
 *DefaultApi* | [**UpdateCorrectionByUuid**](docs/DefaultApi.md#updatecorrectionbyuuid) | **Put** /corrections/{uuid} | Update a correction by UUID
 *DefaultApi* | [**UploadImportSourcesSbom**](docs/DefaultApi.md#uploadimportsourcessbom) | **Post** /imports/sources/{operation_id}/sbom | Begin the import of a source code repository analyzed by Syft into the system
@@ -83,6 +90,7 @@ Class | Method | HTTP request | Description
  - [AlertSummary](docs/AlertSummary.md)
  - [ApiErrorResponse](docs/ApiErrorResponse.md)
  - [Application](docs/Application.md)
+ - [ApplicationVersion](docs/ApplicationVersion.md)
  - [ComplianceResource](docs/ComplianceResource.md)
  - [ComplianceViolationAlert](docs/ComplianceViolationAlert.md)
  - [ContentFilesResponse](docs/ContentFilesResponse.md)
@@ -101,7 +109,6 @@ Class | Method | HTTP request | Description
  - [ImageAncestor](docs/ImageAncestor.md)
  - [InternalSourceManifest](docs/InternalSourceManifest.md)
  - [InternalSourceManifestContents](docs/InternalSourceManifestContents.md)
- - [InternalSourceManifestContentsSbom](docs/InternalSourceManifestContentsSbom.md)
  - [InventoryCluster](docs/InventoryCluster.md)
  - [InventoryClusterConfig](docs/InventoryClusterConfig.md)
  - [InventoryItem](docs/InventoryItem.md)
@@ -119,12 +126,14 @@ Class | Method | HTTP request | Description
  - [NvdDataObject](docs/NvdDataObject.md)
  - [ResourceLabel](docs/ResourceLabel.md)
  - [RuntimeComplianceCheck](docs/RuntimeComplianceCheck.md)
+ - [Source](docs/Source.md)
  - [SourceImportContentResponse](docs/SourceImportContentResponse.md)
  - [SourceImportMetadata](docs/SourceImportMetadata.md)
  - [SourceImportMetadataContents](docs/SourceImportMetadataContents.md)
  - [SourceImportOperation](docs/SourceImportOperation.md)
  - [SourceRepositoryMetadata](docs/SourceRepositoryMetadata.md)
- - [SourceRepositoryMetadataList](docs/SourceRepositoryMetadataList.md)
+ - [SourceRepositoryMetadataArtifacts](docs/SourceRepositoryMetadataArtifacts.md)
+ - [SourcesList](docs/SourcesList.md)
  - [VendorDataObject](docs/VendorDataObject.md)
 
 

@@ -12,5 +12,5 @@
 package external
 // InternalSourceManifestContents Digest of content to use in the final import
 type InternalSourceManifestContents struct {
-	Sbom InternalSourceManifestContentsSbom `json:"sbom,omitempty"`
+	Sbom SourceRepositoryMetadataArtifacts `json:"sbom,omitempty"`
 }

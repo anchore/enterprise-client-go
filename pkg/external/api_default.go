@@ -13,13 +13,13 @@ package external
 
 import (
 	_context "context"
+	"github.com/antihax/optional"
 	_ioutil "io/ioutil"
 	_nethttp "net/http"
 	_neturl "net/url"
-	"strings"
-	"github.com/antihax/optional"
 	"os"
 	"reflect"
+	"strings"
 )
 
 // Linger please
@@ -110,7 +110,7 @@ func (a *DefaultApiService) AddActionPlan(ctx _context.Context, actionPlan Actio
 
 // AddApplicationOpts Optional parameters for the method 'AddApplication'
 type AddApplicationOpts struct {
-    XAnchoreAccount optional.String
+	XAnchoreAccount optional.String
 }
 
 /*
@@ -205,9 +205,109 @@ func (a *DefaultApiService) AddApplication(ctx _context.Context, application App
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+// AddApplicationVersionOpts Optional parameters for the method 'AddApplicationVersion'
+type AddApplicationVersionOpts struct {
+	XAnchoreAccount optional.String
+}
+
+/*
+AddApplicationVersion Create an application version
+Create an application version
+ * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ * @param applicationId
+ * @param applicationVersion
+ * @param optional nil or *AddApplicationVersionOpts - Optional Parameters:
+ * @param "XAnchoreAccount" (optional.String) -  An account name to change the resource scope of the request to that account, if permissions allow (admin only)
+@return ApplicationVersion
+*/
+func (a *DefaultApiService) AddApplicationVersion(ctx _context.Context, applicationId string, applicationVersion ApplicationVersion, localVarOptionals *AddApplicationVersionOpts) (ApplicationVersion, *_nethttp.Response, error) {
+	var (
+		localVarHTTPMethod   = _nethttp.MethodPost
+		localVarPostBody     interface{}
+		localVarFormFileName string
+		localVarFileName     string
+		localVarFileBytes    []byte
+		localVarReturnValue  ApplicationVersion
+	)
+
+	// create path and map variables
+	localVarPath := a.client.cfg.BasePath + "/applications/{application_id}/versions"
+	localVarPath = strings.Replace(localVarPath, "{"+"application_id"+"}", _neturl.QueryEscape(parameterToString(applicationId, "")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := _neturl.Values{}
+	localVarFormParams := _neturl.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	if localVarOptionals != nil && localVarOptionals.XAnchoreAccount.IsSet() {
+		localVarHeaderParams["x-anchore-account"] = parameterToString(localVarOptionals.XAnchoreAccount.Value(), "")
+	}
+	// body params
+	localVarPostBody = &applicationVersion
+	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(r)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 500 {
+			var v ApiErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
 // AddCorrectionOpts Optional parameters for the method 'AddCorrection'
 type AddCorrectionOpts struct {
-    XAnchoreAccount optional.String
+	XAnchoreAccount optional.String
 }
 
 /*
@@ -295,7 +395,7 @@ func (a *DefaultApiService) AddCorrection(ctx _context.Context, correction Corre
 
 // AddInventoryClusterOpts Optional parameters for the method 'AddInventoryCluster'
 type AddInventoryClusterOpts struct {
-    XAnchoreAccount optional.String
+	XAnchoreAccount optional.String
 }
 
 /*
@@ -383,15 +483,15 @@ func (a *DefaultApiService) AddInventoryCluster(ctx _context.Context, cluster In
 
 // AddRuntimeComplianceCheckOpts Optional parameters for the method 'AddRuntimeComplianceCheck'
 type AddRuntimeComplianceCheckOpts struct {
-    XAnchoreAccount optional.String
-    Result optional.String
-    Pod optional.String
-    Namespace optional.String
-    ImageTag optional.String
-    StartTime optional.Time
-    EndTime optional.Time
-    ResultFile optional.Interface
-    ReportFile optional.Interface
+	XAnchoreAccount optional.String
+	Result          optional.String
+	Pod             optional.String
+	Namespace       optional.String
+	ImageTag        optional.String
+	StartTime       optional.Time
+	EndTime         optional.Time
+	ResultFile      optional.Interface
+	ReportFile      optional.Interface
 }
 
 /*
@@ -419,8 +519,8 @@ func (a *DefaultApiService) AddRuntimeComplianceCheck(ctx _context.Context, chec
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		localVarFile		*os.File
 		localVarReturnValue  RuntimeComplianceCheck
+		localVarFile         *os.File
 	)
 
 	// create path and map variables
@@ -474,7 +574,7 @@ func (a *DefaultApiService) AddRuntimeComplianceCheck(ctx _context.Context, chec
 		localVarFileOk := false
 		localVarFile, localVarFileOk = localVarOptionals.ResultFile.Value().(*os.File)
 		if !localVarFileOk {
-				return localVarReturnValue, nil, reportError("resultFile should be *os.File")
+			return localVarReturnValue, nil, reportError("resultFile should be *os.File")
 		}
 	}
 	if localVarFile != nil {
@@ -489,7 +589,7 @@ func (a *DefaultApiService) AddRuntimeComplianceCheck(ctx _context.Context, chec
 		localVarFileOk := false
 		localVarFile, localVarFileOk = localVarOptionals.ReportFile.Value().(*os.File)
 		if !localVarFileOk {
-				return localVarReturnValue, nil, reportError("reportFile should be *os.File")
+			return localVarReturnValue, nil, reportError("reportFile should be *os.File")
 		}
 	}
 	if localVarFile != nil {
@@ -619,7 +719,7 @@ func (a *DefaultApiService) CreateOperation(ctx _context.Context) (SourceImportO
 
 // DelInventoryClusterByNameOpts Optional parameters for the method 'DelInventoryClusterByName'
 type DelInventoryClusterByNameOpts struct {
-    XAnchoreAccount optional.String
+	XAnchoreAccount optional.String
 }
 
 /*
@@ -641,7 +741,7 @@ func (a *DefaultApiService) DelInventoryClusterByName(ctx _context.Context, clus
 
 	// create path and map variables
 	localVarPath := a.client.cfg.BasePath + "/inventories/clusters/{cluster_name}"
-	localVarPath = strings.Replace(localVarPath, "{"+"cluster_name"+"}", _neturl.QueryEscape(parameterToString(clusterName, "")) , -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"cluster_name"+"}", _neturl.QueryEscape(parameterToString(clusterName, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
@@ -696,7 +796,7 @@ func (a *DefaultApiService) DelInventoryClusterByName(ctx _context.Context, clus
 
 // DeleteApplicationOpts Optional parameters for the method 'DeleteApplication'
 type DeleteApplicationOpts struct {
-    XAnchoreAccount optional.String
+	XAnchoreAccount optional.String
 }
 
 /*
@@ -718,7 +818,87 @@ func (a *DefaultApiService) DeleteApplication(ctx _context.Context, applicationI
 
 	// create path and map variables
 	localVarPath := a.client.cfg.BasePath + "/applications/{application_id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"application_id"+"}", _neturl.QueryEscape(parameterToString(applicationId, "")) , -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"application_id"+"}", _neturl.QueryEscape(parameterToString(applicationId, "")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := _neturl.Values{}
+	localVarFormParams := _neturl.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	if localVarOptionals != nil && localVarOptionals.XAnchoreAccount.IsSet() {
+		localVarHeaderParams["x-anchore-account"] = parameterToString(localVarOptionals.XAnchoreAccount.Value(), "")
+	}
+	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(r)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+// DeleteApplicationVersionOpts Optional parameters for the method 'DeleteApplicationVersion'
+type DeleteApplicationVersionOpts struct {
+	XAnchoreAccount optional.String
+}
+
+/*
+DeleteApplicationVersion Delete an application version by application_id and application_version_id
+Delete an application version by application_id and application_version_id
+ * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ * @param applicationId
+ * @param applicationVersionId
+ * @param optional nil or *DeleteApplicationVersionOpts - Optional Parameters:
+ * @param "XAnchoreAccount" (optional.String) -  An account name to change the resource scope of the request to that account, if permissions allow (admin only)
+*/
+func (a *DefaultApiService) DeleteApplicationVersion(ctx _context.Context, applicationId string, applicationVersionId string, localVarOptionals *DeleteApplicationVersionOpts) (*_nethttp.Response, error) {
+	var (
+		localVarHTTPMethod   = _nethttp.MethodDelete
+		localVarPostBody     interface{}
+		localVarFormFileName string
+		localVarFileName     string
+		localVarFileBytes    []byte
+	)
+
+	// create path and map variables
+	localVarPath := a.client.cfg.BasePath + "/applications/{application_id}/versions/{application_version_id}"
+	localVarPath = strings.Replace(localVarPath, "{"+"application_id"+"}", _neturl.QueryEscape(parameterToString(applicationId, "")), -1)
+
+	localVarPath = strings.Replace(localVarPath, "{"+"application_version_id"+"}", _neturl.QueryEscape(parameterToString(applicationVersionId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
@@ -773,7 +953,7 @@ func (a *DefaultApiService) DeleteApplication(ctx _context.Context, applicationI
 
 // DeleteCorrectionByUuidOpts Optional parameters for the method 'DeleteCorrectionByUuid'
 type DeleteCorrectionByUuidOpts struct {
-    XAnchoreAccount optional.String
+	XAnchoreAccount optional.String
 }
 
 /*
@@ -795,7 +975,7 @@ func (a *DefaultApiService) DeleteCorrectionByUuid(ctx _context.Context, uuid st
 
 	// create path and map variables
 	localVarPath := a.client.cfg.BasePath + "/corrections/{uuid}"
-	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", _neturl.QueryEscape(parameterToString(uuid, "")) , -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", _neturl.QueryEscape(parameterToString(uuid, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
@@ -867,7 +1047,7 @@ func (a *DefaultApiService) FinalizeOperation(ctx _context.Context, operationId 
 
 	// create path and map variables
 	localVarPath := a.client.cfg.BasePath + "/imports/sources/{operation_id}/finalize"
-	localVarPath = strings.Replace(localVarPath, "{"+"operation_id"+"}", _neturl.QueryEscape(parameterToString(operationId, "")) , -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"operation_id"+"}", _neturl.QueryEscape(parameterToString(operationId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
@@ -930,10 +1110,10 @@ func (a *DefaultApiService) FinalizeOperation(ctx _context.Context, operationId 
 
 // GetActionPlansOpts Optional parameters for the method 'GetActionPlans'
 type GetActionPlansOpts struct {
-    ImageTag optional.String
-    ImageDigest optional.String
-    CreatedAfter optional.Time
-    XAnchoreAccount optional.String
+	ImageTag        optional.String
+	ImageDigest     optional.String
+	CreatedAfter    optional.Time
+	XAnchoreAccount optional.String
 }
 
 /*
@@ -941,8 +1121,8 @@ GetActionPlans Gets a list of submitted action (remediation) plans
 Retrieves a list of action plans that have been completed
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param optional nil or *GetActionPlansOpts - Optional Parameters:
- * @param "ImageTag" (optional.String) - 
- * @param "ImageDigest" (optional.String) - 
+ * @param "ImageTag" (optional.String) -
+ * @param "ImageDigest" (optional.String) -
  * @param "CreatedAfter" (optional.Time) -  RFC 3339 formatted UTC timestamp to filter out action plans that were only created after this date
  * @param "XAnchoreAccount" (optional.String) -  An account name to change the resource scope of the request to that account, if permissions allow (admin only)
 @return []ActionPlan
@@ -1030,14 +1210,14 @@ func (a *DefaultApiService) GetActionPlans(ctx _context.Context, localVarOptiona
 
 // GetAlertSummariesOpts Optional parameters for the method 'GetAlertSummaries'
 type GetAlertSummariesOpts struct {
-    Page optional.Int32
-    Limit optional.Int32
-    Type_ optional.String
-    State optional.String
-    CreatedAfter optional.Time
-    CreatedBefore optional.Time
-    ResourceLabel optional.Interface
-    XAnchoreAccount optional.String
+	Page            optional.Int32
+	Limit           optional.Int32
+	Type_           optional.String
+	State           optional.String
+	CreatedAfter    optional.Time
+	CreatedBefore   optional.Time
+	ResourceLabel   optional.Interface
+	XAnchoreAccount optional.String
 }
 
 /*
@@ -1045,8 +1225,8 @@ GetAlertSummaries List all alert summaries scoped to the account
 Returns a paginated list of alert summaries in chronological order from the most to least recently generated alerts. Return alerts in the open state by default. Use query parameters for filtering
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param optional nil or *GetAlertSummariesOpts - Optional Parameters:
- * @param "Page" (optional.Int32) - 
- * @param "Limit" (optional.Int32) - 
+ * @param "Page" (optional.Int32) -
+ * @param "Limit" (optional.Int32) -
  * @param "Type_" (optional.String) -  Filter for alerts based on the type such as compliance violation
  * @param "State" (optional.String) -  Filter for alerts by current state, defaults to open alerts unless specified
  * @param "CreatedAfter" (optional.Time) -  Filter for alerts generated after the timestamp
@@ -1090,7 +1270,7 @@ func (a *DefaultApiService) GetAlertSummaries(ctx _context.Context, localVarOpti
 		localVarQueryParams.Add("created_before", parameterToString(localVarOptionals.CreatedBefore.Value(), ""))
 	}
 	if localVarOptionals != nil && localVarOptionals.ResourceLabel.IsSet() {
-		t:=localVarOptionals.ResourceLabel.Value()
+		t := localVarOptionals.ResourceLabel.Value()
 		if reflect.TypeOf(t).Kind() == reflect.Slice {
 			s := reflect.ValueOf(t)
 			for i := 0; i < s.Len(); i++ {
@@ -1156,9 +1336,303 @@ func (a *DefaultApiService) GetAlertSummaries(ctx _context.Context, localVarOpti
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+// GetApplicationOpts Optional parameters for the method 'GetApplication'
+type GetApplicationOpts struct {
+	XAnchoreAccount optional.String
+}
+
+/*
+GetApplication Get an application by application_id
+Get an application by application_id
+ * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ * @param applicationId
+ * @param optional nil or *GetApplicationOpts - Optional Parameters:
+ * @param "XAnchoreAccount" (optional.String) -  An account name to change the resource scope of the request to that account, if permissions allow (admin only)
+@return Application
+*/
+func (a *DefaultApiService) GetApplication(ctx _context.Context, applicationId string, localVarOptionals *GetApplicationOpts) (Application, *_nethttp.Response, error) {
+	var (
+		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarPostBody     interface{}
+		localVarFormFileName string
+		localVarFileName     string
+		localVarFileBytes    []byte
+		localVarReturnValue  Application
+	)
+
+	// create path and map variables
+	localVarPath := a.client.cfg.BasePath + "/applications/{application_id}"
+	localVarPath = strings.Replace(localVarPath, "{"+"application_id"+"}", _neturl.QueryEscape(parameterToString(applicationId, "")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := _neturl.Values{}
+	localVarFormParams := _neturl.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	if localVarOptionals != nil && localVarOptionals.XAnchoreAccount.IsSet() {
+		localVarHeaderParams["x-anchore-account"] = parameterToString(localVarOptionals.XAnchoreAccount.Value(), "")
+	}
+	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(r)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 500 {
+			var v ApiErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+// GetApplicationVersionOpts Optional parameters for the method 'GetApplicationVersion'
+type GetApplicationVersionOpts struct {
+	XAnchoreAccount optional.String
+}
+
+/*
+GetApplicationVersion Get an application version
+Get an application version by application_id and application_version_id
+ * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ * @param applicationId
+ * @param applicationVersionId
+ * @param optional nil or *GetApplicationVersionOpts - Optional Parameters:
+ * @param "XAnchoreAccount" (optional.String) -  An account name to change the resource scope of the request to that account, if permissions allow (admin only)
+@return ApplicationVersion
+*/
+func (a *DefaultApiService) GetApplicationVersion(ctx _context.Context, applicationId string, applicationVersionId string, localVarOptionals *GetApplicationVersionOpts) (ApplicationVersion, *_nethttp.Response, error) {
+	var (
+		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarPostBody     interface{}
+		localVarFormFileName string
+		localVarFileName     string
+		localVarFileBytes    []byte
+		localVarReturnValue  ApplicationVersion
+	)
+
+	// create path and map variables
+	localVarPath := a.client.cfg.BasePath + "/applications/{application_id}/versions/{application_version_id}"
+	localVarPath = strings.Replace(localVarPath, "{"+"application_id"+"}", _neturl.QueryEscape(parameterToString(applicationId, "")), -1)
+
+	localVarPath = strings.Replace(localVarPath, "{"+"application_version_id"+"}", _neturl.QueryEscape(parameterToString(applicationVersionId, "")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := _neturl.Values{}
+	localVarFormParams := _neturl.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	if localVarOptionals != nil && localVarOptionals.XAnchoreAccount.IsSet() {
+		localVarHeaderParams["x-anchore-account"] = parameterToString(localVarOptionals.XAnchoreAccount.Value(), "")
+	}
+	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(r)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 500 {
+			var v ApiErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+// GetApplicationVersionsOpts Optional parameters for the method 'GetApplicationVersions'
+type GetApplicationVersionsOpts struct {
+	XAnchoreAccount optional.String
+}
+
+/*
+GetApplicationVersions List all application verions
+List all application verions
+ * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ * @param applicationId
+ * @param optional nil or *GetApplicationVersionsOpts - Optional Parameters:
+ * @param "XAnchoreAccount" (optional.String) -  An account name to change the resource scope of the request to that account, if permissions allow (admin only)
+@return []ApplicationVersion
+*/
+func (a *DefaultApiService) GetApplicationVersions(ctx _context.Context, applicationId string, localVarOptionals *GetApplicationVersionsOpts) ([]ApplicationVersion, *_nethttp.Response, error) {
+	var (
+		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarPostBody     interface{}
+		localVarFormFileName string
+		localVarFileName     string
+		localVarFileBytes    []byte
+		localVarReturnValue  []ApplicationVersion
+	)
+
+	// create path and map variables
+	localVarPath := a.client.cfg.BasePath + "/applications/{application_id}/versions"
+	localVarPath = strings.Replace(localVarPath, "{"+"application_id"+"}", _neturl.QueryEscape(parameterToString(applicationId, "")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := _neturl.Values{}
+	localVarFormParams := _neturl.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	if localVarOptionals != nil && localVarOptionals.XAnchoreAccount.IsSet() {
+		localVarHeaderParams["x-anchore-account"] = parameterToString(localVarOptionals.XAnchoreAccount.Value(), "")
+	}
+	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(r)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 500 {
+			var v ApiErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
 // GetApplicationsOpts Optional parameters for the method 'GetApplications'
 type GetApplicationsOpts struct {
-    XAnchoreAccount optional.String
+	XAnchoreAccount optional.String
 }
 
 /*
@@ -1252,7 +1726,7 @@ func (a *DefaultApiService) GetApplications(ctx _context.Context, localVarOption
 
 // GetComplianceViolationAlertOpts Optional parameters for the method 'GetComplianceViolationAlert'
 type GetComplianceViolationAlertOpts struct {
-    XAnchoreAccount optional.String
+	XAnchoreAccount optional.String
 }
 
 /*
@@ -1276,7 +1750,7 @@ func (a *DefaultApiService) GetComplianceViolationAlert(ctx _context.Context, uu
 
 	// create path and map variables
 	localVarPath := a.client.cfg.BasePath + "/alerts/compliance_violations/{uuid}"
-	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", _neturl.QueryEscape(parameterToString(uuid, "")) , -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", _neturl.QueryEscape(parameterToString(uuid, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
@@ -1340,16 +1814,16 @@ func (a *DefaultApiService) GetComplianceViolationAlert(ctx _context.Context, uu
 
 // GetComplianceViolationAlertsOpts Optional parameters for the method 'GetComplianceViolationAlerts'
 type GetComplianceViolationAlertsOpts struct {
-    Page optional.Int32
-    Limit optional.Int32
-    State optional.String
-    CreatedAfter optional.Time
-    CreatedBefore optional.Time
-    ResourceImageDigest optional.String
-    ResourceImageTag optional.String
-    ResourceRegistry optional.String
-    ResourceRepository optional.String
-    XAnchoreAccount optional.String
+	Page                optional.Int32
+	Limit               optional.Int32
+	State               optional.String
+	CreatedAfter        optional.Time
+	CreatedBefore       optional.Time
+	ResourceImageDigest optional.String
+	ResourceImageTag    optional.String
+	ResourceRegistry    optional.String
+	ResourceRepository  optional.String
+	XAnchoreAccount     optional.String
 }
 
 /*
@@ -1357,8 +1831,8 @@ GetComplianceViolationAlerts List all compliance violation alerts scoped to the 
 Returns a paginated list of compliance violation alerts in chronological order from the most to least recently generated alerts. Return alerts in the open state by default. Use query parameters for filtering
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param optional nil or *GetComplianceViolationAlertsOpts - Optional Parameters:
- * @param "Page" (optional.Int32) - 
- * @param "Limit" (optional.Int32) - 
+ * @param "Page" (optional.Int32) -
+ * @param "Limit" (optional.Int32) -
  * @param "State" (optional.String) -  Filter for alerts by current state, defaults to open alerts unless specified
  * @param "CreatedAfter" (optional.Time) -  Filter for alerts generated after the timestamp
  * @param "CreatedBefore" (optional.Time) -  Filter for alerts generated before the timestamp
@@ -1470,7 +1944,7 @@ func (a *DefaultApiService) GetComplianceViolationAlerts(ctx _context.Context, l
 
 // GetCorrectionByUuidOpts Optional parameters for the method 'GetCorrectionByUuid'
 type GetCorrectionByUuidOpts struct {
-    XAnchoreAccount optional.String
+	XAnchoreAccount optional.String
 }
 
 /*
@@ -1494,7 +1968,7 @@ func (a *DefaultApiService) GetCorrectionByUuid(ctx _context.Context, uuid strin
 
 	// create path and map variables
 	localVarPath := a.client.cfg.BasePath + "/corrections/{uuid}"
-	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", _neturl.QueryEscape(parameterToString(uuid, "")) , -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", _neturl.QueryEscape(parameterToString(uuid, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
@@ -1558,8 +2032,8 @@ func (a *DefaultApiService) GetCorrectionByUuid(ctx _context.Context, uuid strin
 
 // GetCorrectionsOpts Optional parameters for the method 'GetCorrections'
 type GetCorrectionsOpts struct {
-    CorrectionType optional.String
-    XAnchoreAccount optional.String
+	CorrectionType  optional.String
+	XAnchoreAccount optional.String
 }
 
 /*
@@ -1567,7 +2041,7 @@ GetCorrections Retrieve a list of corrections
 Returns a list of corrections
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param optional nil or *GetCorrectionsOpts - Optional Parameters:
- * @param "CorrectionType" (optional.String) - 
+ * @param "CorrectionType" (optional.String) -
  * @param "XAnchoreAccount" (optional.String) -  An account name to change the resource scope of the request to that account, if permissions allow (admin only)
 @return []Correction
 */
@@ -1648,7 +2122,7 @@ func (a *DefaultApiService) GetCorrections(ctx _context.Context, localVarOptiona
 
 // GetImageAncestorsOpts Optional parameters for the method 'GetImageAncestors'
 type GetImageAncestorsOpts struct {
-    XAnchoreAccount optional.String
+	XAnchoreAccount optional.String
 }
 
 /*
@@ -1672,7 +2146,7 @@ func (a *DefaultApiService) GetImageAncestors(ctx _context.Context, imageDigest 
 
 	// create path and map variables
 	localVarPath := a.client.cfg.BasePath + "/images/{image_digest}/ancestors"
-	localVarPath = strings.Replace(localVarPath, "{"+"image_digest"+"}", _neturl.QueryEscape(parameterToString(imageDigest, "")) , -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"image_digest"+"}", _neturl.QueryEscape(parameterToString(imageDigest, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
@@ -1736,10 +2210,10 @@ func (a *DefaultApiService) GetImageAncestors(ctx _context.Context, imageDigest 
 
 // GetImageInventoryOpts Optional parameters for the method 'GetImageInventory'
 type GetImageInventoryOpts struct {
-    InventoryType optional.String
-    ImageDigest optional.String
-    Context optional.String
-    XAnchoreAccount optional.String
+	InventoryType   optional.String
+	ImageDigest     optional.String
+	Context         optional.String
+	XAnchoreAccount optional.String
 }
 
 /*
@@ -1747,9 +2221,9 @@ GetImageInventory Return a list of the images in inventories for this account
 Returns a list of the images that are in use
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param optional nil or *GetImageInventoryOpts - Optional Parameters:
- * @param "InventoryType" (optional.String) - 
- * @param "ImageDigest" (optional.String) - 
- * @param "Context" (optional.String) - 
+ * @param "InventoryType" (optional.String) -
+ * @param "ImageDigest" (optional.String) -
+ * @param "Context" (optional.String) -
  * @param "XAnchoreAccount" (optional.String) -  An account name to change the resource scope of the request to that account, if permissions allow (admin only)
 @return []InventoryItem
 */
@@ -1836,12 +2310,12 @@ func (a *DefaultApiService) GetImageInventory(ctx _context.Context, localVarOpti
 
 // GetImagePolicyCheckByDigestOpts Optional parameters for the method 'GetImagePolicyCheckByDigest'
 type GetImagePolicyCheckByDigestOpts struct {
-    PolicyId optional.String
-    Detail optional.Bool
-    History optional.Bool
-    Interactive optional.Bool
-    BaseDigest optional.String
-    XAnchoreAccount optional.String
+	PolicyId        optional.String
+	Detail          optional.Bool
+	History         optional.Bool
+	Interactive     optional.Bool
+	BaseDigest      optional.String
+	XAnchoreAccount optional.String
 }
 
 /*
@@ -1851,10 +2325,10 @@ Get the policy evaluation for the given image
  * @param imageDigest
  * @param tag
  * @param optional nil or *GetImagePolicyCheckByDigestOpts - Optional Parameters:
- * @param "PolicyId" (optional.String) - 
- * @param "Detail" (optional.Bool) - 
- * @param "History" (optional.Bool) - 
- * @param "Interactive" (optional.Bool) - 
+ * @param "PolicyId" (optional.String) -
+ * @param "Detail" (optional.Bool) -
+ * @param "History" (optional.Bool) -
+ * @param "Interactive" (optional.Bool) -
  * @param "BaseDigest" (optional.String) -  Digest of a base image. If specified the evaluation will indicate results inherited from the base image
  * @param "XAnchoreAccount" (optional.String) -  An account name to change the resource scope of the request to that account, if permissions allow (admin only)
 @return []interface{}
@@ -1871,7 +2345,7 @@ func (a *DefaultApiService) GetImagePolicyCheckByDigest(ctx _context.Context, im
 
 	// create path and map variables
 	localVarPath := a.client.cfg.BasePath + "/images/{imageDigest}/check"
-	localVarPath = strings.Replace(localVarPath, "{"+"imageDigest"+"}", _neturl.QueryEscape(parameterToString(imageDigest, "")) , -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"imageDigest"+"}", _neturl.QueryEscape(parameterToString(imageDigest, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
@@ -1960,10 +2434,10 @@ func (a *DefaultApiService) GetImagePolicyCheckByDigest(ctx _context.Context, im
 
 // GetImageVulnerabilitiesByDigestOpts Optional parameters for the method 'GetImageVulnerabilitiesByDigest'
 type GetImageVulnerabilitiesByDigestOpts struct {
-    ForceRefresh optional.Bool
-    VendorOnly optional.Bool
-    BaseDigest optional.String
-    XAnchoreAccount optional.String
+	ForceRefresh    optional.Bool
+	VendorOnly      optional.Bool
+	BaseDigest      optional.String
+	XAnchoreAccount optional.String
 }
 
 /*
@@ -1972,7 +2446,7 @@ GetImageVulnerabilitiesByDigest Get vulnerabilities by type
  * @param imageDigest
  * @param vtype
  * @param optional nil or *GetImageVulnerabilitiesByDigestOpts - Optional Parameters:
- * @param "ForceRefresh" (optional.Bool) - 
+ * @param "ForceRefresh" (optional.Bool) -
  * @param "VendorOnly" (optional.Bool) -  Filter results to include only vulnerabilities that are not marked as invalid by upstream OS vendor data. When set to true, it will filter out all vulnerabilities where `will_not_fix` is False. If false all vulnerabilities are returned regardless of `will_not_fix`
  * @param "BaseDigest" (optional.String) -  Digest of a base image. If specified the vulnerabilities will indicate inheritance from the base image
  * @param "XAnchoreAccount" (optional.String) -  An account name to change the resource scope of the request to that account, if permissions allow (admin only)
@@ -1990,9 +2464,9 @@ func (a *DefaultApiService) GetImageVulnerabilitiesByDigest(ctx _context.Context
 
 	// create path and map variables
 	localVarPath := a.client.cfg.BasePath + "/images/{imageDigest}/vuln/{vtype}"
-	localVarPath = strings.Replace(localVarPath, "{"+"imageDigest"+"}", _neturl.QueryEscape(parameterToString(imageDigest, "")) , -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"imageDigest"+"}", _neturl.QueryEscape(parameterToString(imageDigest, "")), -1)
 
-	localVarPath = strings.Replace(localVarPath, "{"+"vtype"+"}", _neturl.QueryEscape(parameterToString(vtype, "")) , -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"vtype"+"}", _neturl.QueryEscape(parameterToString(vtype, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
@@ -2090,7 +2564,7 @@ func (a *DefaultApiService) GetImportSourcesSbom(ctx _context.Context, operation
 
 	// create path and map variables
 	localVarPath := a.client.cfg.BasePath + "/imports/sources/{operation_id}/sbom"
-	localVarPath = strings.Replace(localVarPath, "{"+"operation_id"+"}", _neturl.QueryEscape(parameterToString(operationId, "")) , -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"operation_id"+"}", _neturl.QueryEscape(parameterToString(operationId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
@@ -2151,7 +2625,7 @@ func (a *DefaultApiService) GetImportSourcesSbom(ctx _context.Context, operation
 
 // GetInventoryClusterByNameOpts Optional parameters for the method 'GetInventoryClusterByName'
 type GetInventoryClusterByNameOpts struct {
-    XAnchoreAccount optional.String
+	XAnchoreAccount optional.String
 }
 
 /*
@@ -2175,7 +2649,7 @@ func (a *DefaultApiService) GetInventoryClusterByName(ctx _context.Context, clus
 
 	// create path and map variables
 	localVarPath := a.client.cfg.BasePath + "/inventories/clusters/{cluster_name}"
-	localVarPath = strings.Replace(localVarPath, "{"+"cluster_name"+"}", _neturl.QueryEscape(parameterToString(clusterName, "")) , -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"cluster_name"+"}", _neturl.QueryEscape(parameterToString(clusterName, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
@@ -2255,7 +2729,7 @@ func (a *DefaultApiService) GetOperation(ctx _context.Context, operationId strin
 
 	// create path and map variables
 	localVarPath := a.client.cfg.BasePath + "/imports/sources/{operation_id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"operation_id"+"}", _neturl.QueryEscape(parameterToString(operationId, "")) , -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"operation_id"+"}", _neturl.QueryEscape(parameterToString(operationId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
@@ -2316,8 +2790,8 @@ func (a *DefaultApiService) GetOperation(ctx _context.Context, operationId strin
 
 // GetRuntimeComplianceChecksOpts Optional parameters for the method 'GetRuntimeComplianceChecks'
 type GetRuntimeComplianceChecksOpts struct {
-    ImageDigest optional.String
-    XAnchoreAccount optional.String
+	ImageDigest     optional.String
+	XAnchoreAccount optional.String
 }
 
 /*
@@ -2325,7 +2799,7 @@ GetRuntimeComplianceChecks Get all runtime compliance checks or just those for a
 Get all runtime compliance checks or just those for a given image digest
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param optional nil or *GetRuntimeComplianceChecksOpts - Optional Parameters:
- * @param "ImageDigest" (optional.String) - 
+ * @param "ImageDigest" (optional.String) -
  * @param "XAnchoreAccount" (optional.String) -  An account name to change the resource scope of the request to that account, if permissions allow (admin only)
 @return []RuntimeComplianceCheck
 */
@@ -2415,7 +2889,7 @@ func (a *DefaultApiService) GetRuntimeComplianceChecks(ctx _context.Context, loc
 
 // GetRuntimeComplianceResultOpts Optional parameters for the method 'GetRuntimeComplianceResult'
 type GetRuntimeComplianceResultOpts struct {
-    XAnchoreAccount optional.String
+	XAnchoreAccount optional.String
 }
 
 /*
@@ -2439,7 +2913,7 @@ func (a *DefaultApiService) GetRuntimeComplianceResult(ctx _context.Context, com
 
 	// create path and map variables
 	localVarPath := a.client.cfg.BasePath + "/runtime_compliance/result/{compliance_file_id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"compliance_file_id"+"}", _neturl.QueryEscape(parameterToString(complianceFileId, "")) , -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"compliance_file_id"+"}", _neturl.QueryEscape(parameterToString(complianceFileId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
@@ -2526,7 +3000,7 @@ func (a *DefaultApiService) GetSourceAppVulnerabilities(ctx _context.Context, so
 
 	// create path and map variables
 	localVarPath := a.client.cfg.BasePath + "/sources/{source_id}/vulns/non-os"
-	localVarPath = strings.Replace(localVarPath, "{"+"source_id"+"}", _neturl.QueryEscape(parameterToString(sourceId, "")) , -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"source_id"+"}", _neturl.QueryEscape(parameterToString(sourceId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
@@ -2595,9 +3069,9 @@ func (a *DefaultApiService) GetSourceContentByType(ctx _context.Context, sourceI
 
 	// create path and map variables
 	localVarPath := a.client.cfg.BasePath + "/sources/{source_id}/content/{content_type}"
-	localVarPath = strings.Replace(localVarPath, "{"+"source_id"+"}", _neturl.QueryEscape(parameterToString(sourceId, "")) , -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"source_id"+"}", _neturl.QueryEscape(parameterToString(sourceId, "")), -1)
 
-	localVarPath = strings.Replace(localVarPath, "{"+"content_type"+"}", _neturl.QueryEscape(parameterToString(contentType, "")) , -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"content_type"+"}", _neturl.QueryEscape(parameterToString(contentType, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
@@ -2681,7 +3155,7 @@ func (a *DefaultApiService) GetSourceContentTypes(ctx _context.Context, sourceId
 
 	// create path and map variables
 	localVarPath := a.client.cfg.BasePath + "/sources/{source_id}/content"
-	localVarPath = strings.Replace(localVarPath, "{"+"source_id"+"}", _neturl.QueryEscape(parameterToString(sourceId, "")) , -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"source_id"+"}", _neturl.QueryEscape(parameterToString(sourceId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
@@ -2749,7 +3223,7 @@ func (a *DefaultApiService) GetSourceMetadata(ctx _context.Context, sourceId str
 
 	// create path and map variables
 	localVarPath := a.client.cfg.BasePath + "/sources/{source_id}/metadata"
-	localVarPath = strings.Replace(localVarPath, "{"+"source_id"+"}", _neturl.QueryEscape(parameterToString(sourceId, "")) , -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"source_id"+"}", _neturl.QueryEscape(parameterToString(sourceId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
@@ -2824,7 +3298,7 @@ func (a *DefaultApiService) GetSourceOsVulnerabilities(ctx _context.Context, sou
 
 	// create path and map variables
 	localVarPath := a.client.cfg.BasePath + "/sources/{source_id}/vulns/os"
-	localVarPath = strings.Replace(localVarPath, "{"+"source_id"+"}", _neturl.QueryEscape(parameterToString(sourceId, "")) , -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"source_id"+"}", _neturl.QueryEscape(parameterToString(sourceId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
@@ -2892,7 +3366,7 @@ func (a *DefaultApiService) GetSourceSbomNative(ctx _context.Context, sourceId s
 
 	// create path and map variables
 	localVarPath := a.client.cfg.BasePath + "/sources/{source_id}/sbom/native"
-	localVarPath = strings.Replace(localVarPath, "{"+"source_id"+"}", _neturl.QueryEscape(parameterToString(sourceId, "")) , -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"source_id"+"}", _neturl.QueryEscape(parameterToString(sourceId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
@@ -2955,19 +3429,21 @@ func (a *DefaultApiService) GetSourceSbomNative(ctx _context.Context, sourceId s
 GetSourceSbomTypes Get a detailed source repository analysis metadata record
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param sourceId
+@return []string
 */
-func (a *DefaultApiService) GetSourceSbomTypes(ctx _context.Context, sourceId string) (*_nethttp.Response, error) {
+func (a *DefaultApiService) GetSourceSbomTypes(ctx _context.Context, sourceId string) ([]string, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
+		localVarReturnValue  []string
 	)
 
 	// create path and map variables
 	localVarPath := a.client.cfg.BasePath + "/sources/{source_id}/sbom"
-	localVarPath = strings.Replace(localVarPath, "{"+"source_id"+"}", _neturl.QueryEscape(parameterToString(sourceId, "")) , -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"source_id"+"}", _neturl.QueryEscape(parameterToString(sourceId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
@@ -2983,7 +3459,7 @@ func (a *DefaultApiService) GetSourceSbomTypes(ctx _context.Context, sourceId st
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -2992,18 +3468,18 @@ func (a *DefaultApiService) GetSourceSbomTypes(ctx _context.Context, sourceId st
 	}
 	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
-		return nil, err
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(r)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	if err != nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -3011,10 +3487,19 @@ func (a *DefaultApiService) GetSourceSbomTypes(ctx _context.Context, sourceId st
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarHTTPResponse, newErr
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
 /*
@@ -3033,7 +3518,7 @@ func (a *DefaultApiService) GetSourceVulnerabilities(ctx _context.Context, sourc
 
 	// create path and map variables
 	localVarPath := a.client.cfg.BasePath + "/sources/{source_id}/vulns"
-	localVarPath = strings.Replace(localVarPath, "{"+"source_id"+"}", _neturl.QueryEscape(parameterToString(sourceId, "")) , -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"source_id"+"}", _neturl.QueryEscape(parameterToString(sourceId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
@@ -3101,7 +3586,7 @@ func (a *DefaultApiService) InvalidateOperation(ctx _context.Context, operationI
 
 	// create path and map variables
 	localVarPath := a.client.cfg.BasePath + "/imports/sources/{operation_id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"operation_id"+"}", _neturl.QueryEscape(parameterToString(operationId, "")) , -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"operation_id"+"}", _neturl.QueryEscape(parameterToString(operationId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
@@ -3162,8 +3647,8 @@ func (a *DefaultApiService) InvalidateOperation(ctx _context.Context, operationI
 
 // ListInventoryClustersOpts Optional parameters for the method 'ListInventoryClusters'
 type ListInventoryClustersOpts struct {
-    InventoryType optional.String
-    XAnchoreAccount optional.String
+	InventoryType   optional.String
+	XAnchoreAccount optional.String
 }
 
 /*
@@ -3171,7 +3656,7 @@ ListInventoryClusters Return a list of the configured inventory clusters
 Returns a filterable list of the clusters that are configured for reporting image inventory
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param optional nil or *ListInventoryClustersOpts - Optional Parameters:
- * @param "InventoryType" (optional.String) - 
+ * @param "InventoryType" (optional.String) -
  * @param "XAnchoreAccount" (optional.String) -  An account name to change the resource scope of the request to that account, if permissions allow (admin only)
 @return []InventoryCluster
 */
@@ -3327,16 +3812,16 @@ func (a *DefaultApiService) ListOperations(ctx _context.Context) ([]SourceImport
 /*
 ListSources List the source repository analysis records
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-@return SourceRepositoryMetadataList
+@return SourcesList
 */
-func (a *DefaultApiService) ListSources(ctx _context.Context) (SourceRepositoryMetadataList, *_nethttp.Response, error) {
+func (a *DefaultApiService) ListSources(ctx _context.Context) (SourcesList, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		localVarReturnValue  SourceRepositoryMetadataList
+		localVarReturnValue  SourcesList
 	)
 
 	// create path and map variables
@@ -3400,7 +3885,7 @@ func (a *DefaultApiService) ListSources(ctx _context.Context) (SourceRepositoryM
 
 // SyncImageInventoryOpts Optional parameters for the method 'SyncImageInventory'
 type SyncImageInventoryOpts struct {
-    XAnchoreAccount optional.String
+	XAnchoreAccount optional.String
 }
 
 /*
@@ -3486,9 +3971,212 @@ func (a *DefaultApiService) SyncImageInventory(ctx _context.Context, inventory I
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+// UpdateApplicationOpts Optional parameters for the method 'UpdateApplication'
+type UpdateApplicationOpts struct {
+	XAnchoreAccount optional.String
+}
+
+/*
+UpdateApplication Update application details
+Updates application details for given application_id
+ * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ * @param applicationId
+ * @param application
+ * @param optional nil or *UpdateApplicationOpts - Optional Parameters:
+ * @param "XAnchoreAccount" (optional.String) -  An account name to change the resource scope of the request to that account, if permissions allow (admin only)
+@return Application
+*/
+func (a *DefaultApiService) UpdateApplication(ctx _context.Context, applicationId string, application Application, localVarOptionals *UpdateApplicationOpts) (Application, *_nethttp.Response, error) {
+	var (
+		localVarHTTPMethod   = _nethttp.MethodPut
+		localVarPostBody     interface{}
+		localVarFormFileName string
+		localVarFileName     string
+		localVarFileBytes    []byte
+		localVarReturnValue  Application
+	)
+
+	// create path and map variables
+	localVarPath := a.client.cfg.BasePath + "/applications/{application_id}"
+	localVarPath = strings.Replace(localVarPath, "{"+"application_id"+"}", _neturl.QueryEscape(parameterToString(applicationId, "")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := _neturl.Values{}
+	localVarFormParams := _neturl.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	if localVarOptionals != nil && localVarOptionals.XAnchoreAccount.IsSet() {
+		localVarHeaderParams["x-anchore-account"] = parameterToString(localVarOptionals.XAnchoreAccount.Value(), "")
+	}
+	// body params
+	localVarPostBody = &application
+	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(r)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 500 {
+			var v ApiErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+// UpdateApplicationVersionOpts Optional parameters for the method 'UpdateApplicationVersion'
+type UpdateApplicationVersionOpts struct {
+	XAnchoreAccount optional.String
+}
+
+/*
+UpdateApplicationVersion Update application version details
+Updates application version details for given application_id and application_version_id
+ * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ * @param applicationId
+ * @param applicationVersionId
+ * @param applicationVersion
+ * @param optional nil or *UpdateApplicationVersionOpts - Optional Parameters:
+ * @param "XAnchoreAccount" (optional.String) -  An account name to change the resource scope of the request to that account, if permissions allow (admin only)
+@return ApplicationVersion
+*/
+func (a *DefaultApiService) UpdateApplicationVersion(ctx _context.Context, applicationId string, applicationVersionId string, applicationVersion ApplicationVersion, localVarOptionals *UpdateApplicationVersionOpts) (ApplicationVersion, *_nethttp.Response, error) {
+	var (
+		localVarHTTPMethod   = _nethttp.MethodPut
+		localVarPostBody     interface{}
+		localVarFormFileName string
+		localVarFileName     string
+		localVarFileBytes    []byte
+		localVarReturnValue  ApplicationVersion
+	)
+
+	// create path and map variables
+	localVarPath := a.client.cfg.BasePath + "/applications/{application_id}/versions/{application_version_id}"
+	localVarPath = strings.Replace(localVarPath, "{"+"application_id"+"}", _neturl.QueryEscape(parameterToString(applicationId, "")), -1)
+
+	localVarPath = strings.Replace(localVarPath, "{"+"application_version_id"+"}", _neturl.QueryEscape(parameterToString(applicationVersionId, "")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := _neturl.Values{}
+	localVarFormParams := _neturl.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	if localVarOptionals != nil && localVarOptionals.XAnchoreAccount.IsSet() {
+		localVarHeaderParams["x-anchore-account"] = parameterToString(localVarOptionals.XAnchoreAccount.Value(), "")
+	}
+	// body params
+	localVarPostBody = &applicationVersion
+	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(r)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 500 {
+			var v ApiErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
 // UpdateComplianceViolationAlertStateOpts Optional parameters for the method 'UpdateComplianceViolationAlertState'
 type UpdateComplianceViolationAlertStateOpts struct {
-    XAnchoreAccount optional.String
+	XAnchoreAccount optional.String
 }
 
 /*
@@ -3513,9 +4201,9 @@ func (a *DefaultApiService) UpdateComplianceViolationAlertState(ctx _context.Con
 
 	// create path and map variables
 	localVarPath := a.client.cfg.BasePath + "/alerts/compliance_violations/{uuid}/{state}"
-	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", _neturl.QueryEscape(parameterToString(uuid, "")) , -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", _neturl.QueryEscape(parameterToString(uuid, "")), -1)
 
-	localVarPath = strings.Replace(localVarPath, "{"+"state"+"}", _neturl.QueryEscape(parameterToString(state, "")) , -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"state"+"}", _neturl.QueryEscape(parameterToString(state, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
@@ -3579,7 +4267,7 @@ func (a *DefaultApiService) UpdateComplianceViolationAlertState(ctx _context.Con
 
 // UpdateCorrectionByUuidOpts Optional parameters for the method 'UpdateCorrectionByUuid'
 type UpdateCorrectionByUuidOpts struct {
-    XAnchoreAccount optional.String
+	XAnchoreAccount optional.String
 }
 
 /*
@@ -3604,7 +4292,7 @@ func (a *DefaultApiService) UpdateCorrectionByUuid(ctx _context.Context, uuid st
 
 	// create path and map variables
 	localVarPath := a.client.cfg.BasePath + "/corrections/{uuid}"
-	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", _neturl.QueryEscape(parameterToString(uuid, "")) , -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", _neturl.QueryEscape(parameterToString(uuid, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
@@ -3687,7 +4375,7 @@ func (a *DefaultApiService) UploadImportSourcesSbom(ctx _context.Context, operat
 
 	// create path and map variables
 	localVarPath := a.client.cfg.BasePath + "/imports/sources/{operation_id}/sbom"
-	localVarPath = strings.Replace(localVarPath, "{"+"operation_id"+"}", _neturl.QueryEscape(parameterToString(operationId, "")) , -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"operation_id"+"}", _neturl.QueryEscape(parameterToString(operationId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}

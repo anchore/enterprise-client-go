@@ -778,6 +778,61 @@ paths:
           schema:
             $ref: "#/definitions/ApiErrorResponse"
   /applications/{application_id}:
+    get:
+      x-swagger-router-controller: anchore_enterprise.services.api.controllers.applications
+      operationId: get_application
+      x-anchore-authz-action: getApplication
+      summary: Get an application by application_id
+      description: Get an application by application_id
+      produces:
+        - application/json
+      parameters:
+        - name: application_id
+          in: path
+          type: string
+          required: true
+        - $ref: "#/parameters/AsAccountParameter"
+      responses:
+        200:
+          description: "Successfully retrieved application"
+          schema:
+            $ref: "#/definitions/Application"
+        404:
+          description: "Application not found"
+        500:
+          description: Internal Error
+          schema:
+            $ref: "#/definitions/ApiErrorResponse"
+    put:
+      x-swagger-router-controller: anchore_enterprise.services.api.controllers.applications
+      operationId: update_application
+      x-anchore-authz-action: updateApplication
+      summary: Update application details
+      description: Updates application details for given application_id
+      produces:
+        - "application/json"
+      parameters:
+        - name: application_id
+          in: path
+          type: string
+          required: true
+        - name: application
+          in: body
+          required: true
+          schema:
+            $ref: "#/definitions/Application"
+        - $ref: "#/parameters/AsAccountParameter"
+      responses:
+        200:
+          description: "Application updated successfully"
+          schema:
+            $ref: "#/definitions/Application"
+        404:
+          description: "Application not found"
+        500:
+          description: Internal Error
+          schema:
+            $ref: "#/definitions/ApiErrorResponse"
     delete:
       x-swagger-router-controller: anchore_enterprise.services.api.controllers.applications
       operationId: delete_application
@@ -795,6 +850,149 @@ paths:
       responses:
         204:
           description: "Application deleted successfully"
+  /applications/{application_id}/versions:
+    post:
+      x-swagger-router-controller: anchore_enterprise.services.api.controllers.applications
+      operationId: add_application_version
+      x-anchore-authz-action: createApplication
+      summary: Create an application version
+      description: Create an application version
+      produces:
+        - application/json
+      parameters:
+        - name: application_id
+          in: path
+          type: string
+          required: true
+        - name: application_version
+          in: body
+          required: true
+          schema:
+            $ref: "#/definitions/ApplicationVersion"
+        - $ref: "#/parameters/AsAccountParameter"
+      responses:
+        200:
+          description: "success"
+          schema:
+            $ref: "#/definitions/ApplicationVersion"
+        404:
+          description: "Application version not found"
+        500:
+          description: Internal Error
+          schema:
+            $ref: "#/definitions/ApiErrorResponse"
+    get:
+      x-swagger-router-controller: anchore_enterprise.services.api.controllers.applications
+      operationId: get_application_versions
+      x-anchore-authz-action: getApplication
+      summary: List all application verions
+      description: List all application verions
+      produces:
+        - application/json
+      parameters:
+        - name: application_id
+          in: path
+          type: string
+          required: true
+        - $ref: "#/parameters/AsAccountParameter"
+      responses:
+        200:
+          description: "Successfully retrieved application versions"
+          schema:
+            $ref: "#/definitions/ApplicationVersionList"
+        404:
+          description: "Application not found"
+        500:
+          description: Internal Error
+          schema:
+            $ref: "#/definitions/ApiErrorResponse"
+  /applications/{application_id}/versions/{application_version_id}:
+    put:
+      x-swagger-router-controller: anchore_enterprise.services.api.controllers.applications
+      operationId: update_application_version
+      x-anchore-authz-action: updateApplication
+      summary: Update application version details
+      description: Updates application version details for given application_id and application_version_id
+      produces:
+        - "application/json"
+      parameters:
+        - name: application_id
+          in: path
+          type: string
+          required: true
+        - name: application_version_id
+          in: path
+          type: string
+          required: true
+        - name: application_version
+          in: body
+          required: true
+          schema:
+            $ref: "#/definitions/ApplicationVersion"
+        - $ref: "#/parameters/AsAccountParameter"
+      responses:
+        200:
+          description: "Application updated successfully"
+          schema:
+            $ref: "#/definitions/ApplicationVersion"
+        404:
+          description: "Application version not found"
+        500:
+          description: Internal Error
+          schema:
+            $ref: "#/definitions/ApiErrorResponse"
+    get:
+      x-swagger-router-controller: anchore_enterprise.services.api.controllers.applications
+      operationId: get_application_version
+      x-anchore-authz-action: getApplication
+      summary: Get an application version
+      description: Get an application version by application_id and application_version_id
+      produces:
+        - "application/json"
+      parameters:
+        - name: application_id
+          in: path
+          type: string
+          required: true
+        - name: application_version_id
+          in: path
+          type: string
+          required: true
+        - $ref: "#/parameters/AsAccountParameter"
+      responses:
+        200:
+          description: "Successfully retrieved application version"
+          schema:
+            $ref: "#/definitions/ApplicationVersion"
+        404:
+          description: "Application version not found"
+        500:
+          description: Internal Error
+          schema:
+            $ref: "#/definitions/ApiErrorResponse"
+    delete:
+      x-swagger-router-controller: anchore_enterprise.services.api.controllers.applications
+      operationId: delete_application_version
+      x-anchore-authz-action: deleteApplication
+      summary: Delete an application version by application_id and application_version_id
+      description: Delete an application version by application_id and application_version_id
+      produces:
+        - application/json
+      parameters:
+        - name: application_id
+          in: path
+          type: string
+          required: true
+        - name: application_version_id
+          in: path
+          type: string
+          required: true
+        - $ref: "#/parameters/AsAccountParameter"
+      responses:
+        204:
+          description: "Application version deleted successfully"
+        404:
+          description: "Application version not found"
   /imports/sources:
     post:
       x-swagger-router-controller: anchore_enterprise.services.api.controllers.source_imports
@@ -949,7 +1147,7 @@ paths:
         200:
           description: "success"
           schema:
-            $ref: "#/definitions/SourceRepositoryMetadataList"
+            $ref: "#/definitions/SourcesList"
         500:
           description: "Internal Error"
   /sources/{source_id}/metadata:
@@ -988,6 +1186,11 @@ paths:
       responses:
         200:
           description: "success"
+          schema:
+            type: array
+            description: Array of available types
+            items:
+              type: string
         500:
           description: "Internal Error"
   /sources/{source_id}/sbom/native:
@@ -1108,14 +1311,49 @@ paths:
         500:
           description: "Internal Error"
 definitions:
-  SourceRepositoryMetadataList:
+  SourceRepositoryMetadata:
+    type: object
+    properties:
+      uuid:
+        type: string
+      ci_workflow_name:
+        type: string
+      ci_workflow_execution_time:
+        type: string
+        format: date-time
+      host:
+        type: string
+      repository_name:
+        type: string
+      branch_name:
+        type: string
+      commit_sha:
+        type: string
+      last_committer:
+        type: string
+      artifacts:
+        type: array
+        description: Digest of content to use in the final import
+        items:
+          type: object
+          description: Sbom content reference
+          properties:
+            content_type:
+              type: string
+            digest:
+              type: string
+            bucket:
+              type: string
+            key:
+              type: string
+  SourcesList:
     type: object
     properties:
       sources:
         type: array
         items:
-          $ref: "#/definitions/SourceRepositoryMetadata"
-  SourceRepositoryMetadata:
+          $ref: "#/definitions/Source"
+  Source:
     type: object
     properties:
       uuid:
@@ -1136,6 +1374,19 @@ definitions:
       commit_sha:
         type: string
         description: The commit ID for a git repository
+      analysis_status:
+        type: string
+        description: The analysis state of the source
+        enum:
+          - pending
+          - queued
+          - processing
+          - complete
+          - failed
+          - expired
+      source_status:
+        type: string
+        description: The state of the source
       created_at:
         type: string
         format: date-time
@@ -1724,9 +1975,6 @@ definitions:
       description:
         type: string
         description: The description of the application
-      version:
-        type: string
-        description: The version of the application
       created_at:
         type: string
         description: RFC 3339 formatted UTC timestamp when the application was created
@@ -1737,6 +1985,26 @@ definitions:
         description: RFC 3339 formatted UTC timestamp when the application was last updated
         format: date-time
         example: 2020-10-20T01:20:11.378022Z
+  ApplicationVersionList:
+    type: array
+    description: List of application versions
+    items:
+      $ref: "#/definitions/ApplicationVersion"
+  ApplicationVersion:
+    description: A representation of an SLDC application
+    type: object
+    required:
+      - version_name
+    properties:
+      application_version_id:
+        type: string
+        description: The id of the application version
+      application_id:
+        type: string
+        description: The id of the application
+      version_name:
+        type: string
+        description: The name of the application
       source_sbom_ids:
         type: array
         items:
@@ -1752,6 +2020,16 @@ definitions:
         items:
           type: string
         description: The list of container artifact ids associated with this application
+      created_at:
+        type: string
+        description: RFC 3339 formatted UTC timestamp when the application was created
+        format: date-time
+        example: 2020-10-20T01:20:11.378022Z
+      last_updated:
+        type: string
+        description: RFC 3339 formatted UTC timestamp when the application was last updated
+        format: date-time
+        example: 2020-10-20T01:20:11.378022Z
   SourceImportOperation:
       type: object
       description: An import record, creating a unique identifier for referencing the operation as well as its state

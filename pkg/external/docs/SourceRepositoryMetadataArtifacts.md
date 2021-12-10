@@ -1,4 +1,4 @@
-# InternalSourceManifestContentsSbom
+# SourceRepositoryMetadataArtifacts
 
 ## Properties
 

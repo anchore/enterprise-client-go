@@ -983,6 +983,274 @@ paths:
       summary: Delete an application by application_id
       x-swagger-router-controller: anchore_enterprise.services.api.controllers.applications
       x-anchore-authz-action: deleteApplication
+    get:
+      description: Get an application by application_id
+      operationId: get_application
+      parameters:
+      - in: path
+        name: application_id
+        required: true
+        schema:
+          type: string
+      - description: An account name to change the resource scope of the request to
+          that account, if permissions allow (admin only)
+        in: header
+        name: x-anchore-account
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Application'
+          description: Successfully retrieved application
+        "404":
+          content: {}
+          description: Application not found
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+          description: Internal Error
+      summary: Get an application by application_id
+      x-swagger-router-controller: anchore_enterprise.services.api.controllers.applications
+      x-anchore-authz-action: getApplication
+    put:
+      description: Updates application details for given application_id
+      operationId: update_application
+      parameters:
+      - in: path
+        name: application_id
+        required: true
+        schema:
+          type: string
+      - description: An account name to change the resource scope of the request to
+          that account, if permissions allow (admin only)
+        in: header
+        name: x-anchore-account
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Application'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Application'
+          description: Application updated successfully
+        "404":
+          content: {}
+          description: Application not found
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+          description: Internal Error
+      summary: Update application details
+      x-swagger-router-controller: anchore_enterprise.services.api.controllers.applications
+      x-anchore-authz-action: updateApplication
+      x-codegen-request-body-name: application
+  /applications/{application_id}/versions:
+    get:
+      description: List all application verions
+      operationId: get_application_versions
+      parameters:
+      - in: path
+        name: application_id
+        required: true
+        schema:
+          type: string
+      - description: An account name to change the resource scope of the request to
+          that account, if permissions allow (admin only)
+        in: header
+        name: x-anchore-account
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApplicationVersionList'
+          description: Successfully retrieved application versions
+        "404":
+          content: {}
+          description: Application not found
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+          description: Internal Error
+      summary: List all application verions
+      x-swagger-router-controller: anchore_enterprise.services.api.controllers.applications
+      x-anchore-authz-action: getApplication
+    post:
+      description: Create an application version
+      operationId: add_application_version
+      parameters:
+      - in: path
+        name: application_id
+        required: true
+        schema:
+          type: string
+      - description: An account name to change the resource scope of the request to
+          that account, if permissions allow (admin only)
+        in: header
+        name: x-anchore-account
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ApplicationVersion'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApplicationVersion'
+          description: success
+        "404":
+          content: {}
+          description: Application version not found
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+          description: Internal Error
+      summary: Create an application version
+      x-swagger-router-controller: anchore_enterprise.services.api.controllers.applications
+      x-anchore-authz-action: createApplication
+      x-codegen-request-body-name: application_version
+  /applications/{application_id}/versions/{application_version_id}:
+    delete:
+      description: Delete an application version by application_id and application_version_id
+      operationId: delete_application_version
+      parameters:
+      - in: path
+        name: application_id
+        required: true
+        schema:
+          type: string
+      - in: path
+        name: application_version_id
+        required: true
+        schema:
+          type: string
+      - description: An account name to change the resource scope of the request to
+          that account, if permissions allow (admin only)
+        in: header
+        name: x-anchore-account
+        schema:
+          type: string
+      responses:
+        "204":
+          content: {}
+          description: Application version deleted successfully
+        "404":
+          content: {}
+          description: Application version not found
+      summary: Delete an application version by application_id and application_version_id
+      x-swagger-router-controller: anchore_enterprise.services.api.controllers.applications
+      x-anchore-authz-action: deleteApplication
+    get:
+      description: Get an application version by application_id and application_version_id
+      operationId: get_application_version
+      parameters:
+      - in: path
+        name: application_id
+        required: true
+        schema:
+          type: string
+      - in: path
+        name: application_version_id
+        required: true
+        schema:
+          type: string
+      - description: An account name to change the resource scope of the request to
+          that account, if permissions allow (admin only)
+        in: header
+        name: x-anchore-account
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApplicationVersion'
+          description: Successfully retrieved application version
+        "404":
+          content: {}
+          description: Application version not found
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+          description: Internal Error
+      summary: Get an application version
+      x-swagger-router-controller: anchore_enterprise.services.api.controllers.applications
+      x-anchore-authz-action: getApplication
+    put:
+      description: Updates application version details for given application_id and
+        application_version_id
+      operationId: update_application_version
+      parameters:
+      - in: path
+        name: application_id
+        required: true
+        schema:
+          type: string
+      - in: path
+        name: application_version_id
+        required: true
+        schema:
+          type: string
+      - description: An account name to change the resource scope of the request to
+          that account, if permissions allow (admin only)
+        in: header
+        name: x-anchore-account
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ApplicationVersion'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApplicationVersion'
+          description: Application updated successfully
+        "404":
+          content: {}
+          description: Application version not found
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+          description: Internal Error
+      summary: Update application version details
+      x-swagger-router-controller: anchore_enterprise.services.api.controllers.applications
+      x-anchore-authz-action: updateApplication
+      x-codegen-request-body-name: application_version
   /imports/sources:
     get:
       operationId: list_operations
@@ -1146,7 +1414,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/SourceRepositoryMetadataList'
+                $ref: '#/components/schemas/SourcesList'
           description: success
         "500":
           content: {}
@@ -1187,7 +1455,13 @@ paths:
           type: string
       responses:
         "200":
-          content: {}
+          content:
+            application/json:
+              schema:
+                description: Array of available types
+                items:
+                  type: string
+                type: array
           description: success
         "500":
           content: {}
@@ -1333,41 +1607,90 @@ components:
       schema:
         type: string
   schemas:
-    SourceRepositoryMetadataList:
+    SourceRepositoryMetadata:
+      example:
+        ci_workflow_name: ci_workflow_name
+        commit_sha: commit_sha
+        last_committer: last_committer
+        branch_name: branch_name
+        host: host
+        uuid: uuid
+        ci_workflow_execution_time: 2000-01-23T04:56:07.000+00:00
+        repository_name: repository_name
+        artifacts:
+        - bucket: bucket
+          content_type: content_type
+          digest: digest
+          key: key
+        - bucket: bucket
+          content_type: content_type
+          digest: digest
+          key: key
+      properties:
+        uuid:
+          type: string
+        ci_workflow_name:
+          type: string
+        ci_workflow_execution_time:
+          format: date-time
+          type: string
+        host:
+          type: string
+        repository_name:
+          type: string
+        branch_name:
+          type: string
+        commit_sha:
+          type: string
+        last_committer:
+          type: string
+        artifacts:
+          description: Digest of content to use in the final import
+          items:
+            $ref: '#/components/schemas/SourceRepositoryMetadata_artifacts'
+          type: array
+      type: object
+    SourcesList:
       example:
         sources:
         - commit_sha: commit_sha
           last_updated: 2000-01-23T04:56:07.000+00:00
           account_id: account_id
+          analysis_status: pending
           branch_name: branch_name
           host: host
           created_at: 2000-01-23T04:56:07.000+00:00
           uuid: uuid
           repository_name: repository_name
+          source_status: source_status
         - commit_sha: commit_sha
           last_updated: 2000-01-23T04:56:07.000+00:00
           account_id: account_id
+          analysis_status: pending
           branch_name: branch_name
           host: host
           created_at: 2000-01-23T04:56:07.000+00:00
           uuid: uuid
           repository_name: repository_name
+          source_status: source_status
       properties:
         sources:
           items:
-            $ref: '#/components/schemas/SourceRepositoryMetadata'
+            $ref: '#/components/schemas/Source'
           type: array
       type: object
-    SourceRepositoryMetadata:
+    Source:
       example:
         commit_sha: commit_sha
         last_updated: 2000-01-23T04:56:07.000+00:00
         account_id: account_id
+        analysis_status: pending
         branch_name: branch_name
         host: host
         created_at: 2000-01-23T04:56:07.000+00:00
         uuid: uuid
         repository_name: repository_name
+        source_status: source_status
       properties:
         uuid:
           description: A system-assigned identifier unique for each source analysis
@@ -1386,6 +1709,19 @@ components:
           type: string
         commit_sha:
           description: The commit ID for a git repository
+          type: string
+        analysis_status:
+          description: The analysis state of the source
+          enum:
+          - pending
+          - queued
+          - processing
+          - complete
+          - failed
+          - expired
+          type: string
+        source_status:
+          description: The state of the source
           type: string
         created_at:
           format: date-time
@@ -2344,20 +2680,10 @@ components:
       description: A representation of an SLDC application
       example:
         last_updated: 2000-01-23T04:56:07.000+00:00
-        source_sbom_ids:
-        - source_sbom_ids
-        - source_sbom_ids
         name: name
         description: description
         created_at: 2000-01-23T04:56:07.000+00:00
         application_id: application_id
-        version: version
-        image_sbom_ids:
-        - image_sbom_ids
-        - image_sbom_ids
-        container_sbom_ids:
-        - container_sbom_ids
-        - container_sbom_ids
       properties:
         application_id:
           description: The id of the application
@@ -2368,9 +2694,6 @@ components:
         description:
           description: The description of the application
           type: string
-        version:
-          description: The version of the application
-          type: string
         created_at:
           description: RFC 3339 formatted UTC timestamp when the application was created
           format: date-time
@@ -2379,6 +2702,41 @@ components:
           description: RFC 3339 formatted UTC timestamp when the application was last
             updated
           format: date-time
+          type: string
+      required:
+      - name
+      type: object
+    ApplicationVersionList:
+      description: List of application versions
+      items:
+        $ref: '#/components/schemas/ApplicationVersion'
+      type: array
+    ApplicationVersion:
+      description: A representation of an SLDC application
+      example:
+        application_version_id: application_version_id
+        last_updated: 2000-01-23T04:56:07.000+00:00
+        version_name: version_name
+        source_sbom_ids:
+        - source_sbom_ids
+        - source_sbom_ids
+        created_at: 2000-01-23T04:56:07.000+00:00
+        application_id: application_id
+        image_sbom_ids:
+        - image_sbom_ids
+        - image_sbom_ids
+        container_sbom_ids:
+        - container_sbom_ids
+        - container_sbom_ids
+      properties:
+        application_version_id:
+          description: The id of the application version
+          type: string
+        application_id:
+          description: The id of the application
+          type: string
+        version_name:
+          description: The name of the application
           type: string
         source_sbom_ids:
           description: The list of repo artifact ids associated with this application
@@ -2395,8 +2753,17 @@ components:
           items:
             type: string
           type: array
+        created_at:
+          description: RFC 3339 formatted UTC timestamp when the application was created
+          format: date-time
+          type: string
+        last_updated:
+          description: RFC 3339 formatted UTC timestamp when the application was last
+            updated
+          format: date-time
+          type: string
       required:
-      - name
+      - version_name
       type: object
     SourceImportOperation:
       description: An import record, creating a unique identifier for referencing
@@ -2711,7 +3078,7 @@ components:
             $ref: '#/components/schemas/ContentFilesResponse_content'
           type: array
       type: object
-    InternalSourceManifest_contents_sbom:
+    SourceRepositoryMetadata_artifacts:
       description: Sbom content reference
       example:
         bucket: bucket
@@ -2737,7 +3104,7 @@ components:
           key: key
       properties:
         sbom:
-          $ref: '#/components/schemas/InternalSourceManifest_contents_sbom'
+          $ref: '#/components/schemas/SourceRepositoryMetadata_artifacts'
     SourceImportMetadata_contents:
       description: Digest of content to use in the final import
       example:
