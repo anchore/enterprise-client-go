@@ -38,7 +38,7 @@ Method | HTTP request | Description
 [**GetSourceAppVulnerabilities**](DefaultApi.md#GetSourceAppVulnerabilities) | **Get** /sources/{source_id}/vulns/non-os | Get a detailed source repository analysis metadata record
 [**GetSourceContentByType**](DefaultApi.md#GetSourceContentByType) | **Get** /sources/{source_id}/content/{content_type} | Get the content of an analyzed source repository
 [**GetSourceContentTypes**](DefaultApi.md#GetSourceContentTypes) | **Get** /sources/{source_id}/content | Get a detailed source repository analysis metadata record
-[**GetSourceMetadata**](DefaultApi.md#GetSourceMetadata) | **Get** /sources/{source_id}/metadata | Get a detailed source repository analysis metadata record
+[**GetSourceMetadata**](DefaultApi.md#GetSourceMetadata) | **Get** /sources/{source_id} | Get a detailed source repository analysis metadata record
 [**GetSourceOsVulnerabilities**](DefaultApi.md#GetSourceOsVulnerabilities) | **Get** /sources/{source_id}/vulns/os | Get a detailed source repository analysis metadata record
 [**GetSourceSbomNative**](DefaultApi.md#GetSourceSbomNative) | **Get** /sources/{source_id}/sbom/native | 
 [**GetSourceSbomTypes**](DefaultApi.md#GetSourceSbomTypes) | **Get** /sources/{source_id}/sbom | Get a detailed source repository analysis metadata record

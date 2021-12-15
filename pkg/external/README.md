@@ -66,7 +66,7 @@ Class | Method | HTTP request | Description
 *DefaultApi* | [**GetSourceAppVulnerabilities**](docs/DefaultApi.md#getsourceappvulnerabilities) | **Get** /sources/{source_id}/vulns/non-os | Get a detailed source repository analysis metadata record
 *DefaultApi* | [**GetSourceContentByType**](docs/DefaultApi.md#getsourcecontentbytype) | **Get** /sources/{source_id}/content/{content_type} | Get the content of an analyzed source repository
 *DefaultApi* | [**GetSourceContentTypes**](docs/DefaultApi.md#getsourcecontenttypes) | **Get** /sources/{source_id}/content | Get a detailed source repository analysis metadata record
-*DefaultApi* | [**GetSourceMetadata**](docs/DefaultApi.md#getsourcemetadata) | **Get** /sources/{source_id}/metadata | Get a detailed source repository analysis metadata record
+*DefaultApi* | [**GetSourceMetadata**](docs/DefaultApi.md#getsourcemetadata) | **Get** /sources/{source_id} | Get a detailed source repository analysis metadata record
 *DefaultApi* | [**GetSourceOsVulnerabilities**](docs/DefaultApi.md#getsourceosvulnerabilities) | **Get** /sources/{source_id}/vulns/os | Get a detailed source repository analysis metadata record
 *DefaultApi* | [**GetSourceSbomNative**](docs/DefaultApi.md#getsourcesbomnative) | **Get** /sources/{source_id}/sbom/native | 
 *DefaultApi* | [**GetSourceSbomTypes**](docs/DefaultApi.md#getsourcesbomtypes) | **Get** /sources/{source_id}/sbom | Get a detailed source repository analysis metadata record
