@@ -1422,7 +1422,7 @@ paths:
       summary: List the source repository analysis records
       x-swagger-router-controller: anchore_enterprise.services.api.controllers.sources
       x-anchore-authz-action: listSources
-  /sources/{source_id}/metadata:
+  /sources/{source_id}:
     get:
       operationId: get_source_metadata
       parameters:
