@@ -18,9 +18,11 @@ type Application struct {
 	// The id of the application
 	ApplicationId string `json:"application_id,omitempty"`
 	// The name of the application
-	Name string `json:"name"`
+	Name string `json:"name,omitempty"`
 	// The description of the application
 	Description string `json:"description,omitempty"`
+	// List of application versions
+	Versions []ApplicationVersion `json:"versions,omitempty"`
 	// RFC 3339 formatted UTC timestamp when the application was created
 	CreatedAt time.Time `json:"created_at,omitempty"`
 	// RFC 3339 formatted UTC timestamp when the application was last updated

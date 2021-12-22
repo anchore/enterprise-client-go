@@ -43,6 +43,7 @@ Class | Method | HTTP request | Description
 *DefaultApi* | [**DeleteApplication**](docs/DefaultApi.md#deleteapplication) | **Delete** /applications/{application_id} | Delete an application by application_id
 *DefaultApi* | [**DeleteApplicationVersion**](docs/DefaultApi.md#deleteapplicationversion) | **Delete** /applications/{application_id}/versions/{application_version_id} | Delete an application version by application_id and application_version_id
 *DefaultApi* | [**DeleteCorrectionByUuid**](docs/DefaultApi.md#deletecorrectionbyuuid) | **Delete** /corrections/{uuid} | Delete a correction by UUID
+*DefaultApi* | [**DeleteSource**](docs/DefaultApi.md#deletesource) | **Delete** /sources/{source_id} | Delete source record from DB
 *DefaultApi* | [**FinalizeOperation**](docs/DefaultApi.md#finalizeoperation) | **Post** /imports/sources/{operation_id}/finalize | Add source records to catalog db
 *DefaultApi* | [**GetActionPlans**](docs/DefaultApi.md#getactionplans) | **Get** /actions | Gets a list of submitted action (remediation) plans
 *DefaultApi* | [**GetAlertSummaries**](docs/DefaultApi.md#getalertsummaries) | **Get** /alerts/summaries | List all alert summaries scoped to the account
@@ -63,10 +64,10 @@ Class | Method | HTTP request | Description
 *DefaultApi* | [**GetOperation**](docs/DefaultApi.md#getoperation) | **Get** /imports/sources/{operation_id} | Get detail on a single import
 *DefaultApi* | [**GetRuntimeComplianceChecks**](docs/DefaultApi.md#getruntimecompliancechecks) | **Get** /runtime_compliance | Get all runtime compliance checks or just those for a given image digest
 *DefaultApi* | [**GetRuntimeComplianceResult**](docs/DefaultApi.md#getruntimecomplianceresult) | **Get** /runtime_compliance/result/{compliance_file_id} | Check the results of a a specific runtime compliance check
+*DefaultApi* | [**GetSource**](docs/DefaultApi.md#getsource) | **Get** /sources/{source_id} | Get a detailed source repository analysis metadata record
 *DefaultApi* | [**GetSourceAppVulnerabilities**](docs/DefaultApi.md#getsourceappvulnerabilities) | **Get** /sources/{source_id}/vulns/non-os | Get a detailed source repository analysis metadata record
 *DefaultApi* | [**GetSourceContentByType**](docs/DefaultApi.md#getsourcecontentbytype) | **Get** /sources/{source_id}/content/{content_type} | Get the content of an analyzed source repository
 *DefaultApi* | [**GetSourceContentTypes**](docs/DefaultApi.md#getsourcecontenttypes) | **Get** /sources/{source_id}/content | Get a detailed source repository analysis metadata record
-*DefaultApi* | [**GetSourceMetadata**](docs/DefaultApi.md#getsourcemetadata) | **Get** /sources/{source_id} | Get a detailed source repository analysis metadata record
 *DefaultApi* | [**GetSourceOsVulnerabilities**](docs/DefaultApi.md#getsourceosvulnerabilities) | **Get** /sources/{source_id}/vulns/os | Get a detailed source repository analysis metadata record
 *DefaultApi* | [**GetSourceSbomNative**](docs/DefaultApi.md#getsourcesbomnative) | **Get** /sources/{source_id}/sbom/native | 
 *DefaultApi* | [**GetSourceSbomTypes**](docs/DefaultApi.md#getsourcesbomtypes) | **Get** /sources/{source_id}/sbom | Get a detailed source repository analysis metadata record
@@ -107,8 +108,6 @@ Class | Method | HTTP request | Description
  - [EnterpriseVulnerability](docs/EnterpriseVulnerability.md)
  - [EnterpriseVulnerabilityResponse](docs/EnterpriseVulnerabilityResponse.md)
  - [ImageAncestor](docs/ImageAncestor.md)
- - [InternalSourceManifest](docs/InternalSourceManifest.md)
- - [InternalSourceManifestContents](docs/InternalSourceManifestContents.md)
  - [InventoryCluster](docs/InventoryCluster.md)
  - [InventoryClusterConfig](docs/InventoryClusterConfig.md)
  - [InventoryItem](docs/InventoryItem.md)
@@ -131,9 +130,9 @@ Class | Method | HTTP request | Description
  - [SourceImportMetadata](docs/SourceImportMetadata.md)
  - [SourceImportMetadataContents](docs/SourceImportMetadataContents.md)
  - [SourceImportOperation](docs/SourceImportOperation.md)
- - [SourceRepositoryMetadata](docs/SourceRepositoryMetadata.md)
- - [SourceRepositoryMetadataArtifacts](docs/SourceRepositoryMetadataArtifacts.md)
- - [SourcesList](docs/SourcesList.md)
+ - [SourceManifest](docs/SourceManifest.md)
+ - [SourceManifestArtifacts](docs/SourceManifestArtifacts.md)
+ - [SourceManifestMetadataRecords](docs/SourceManifestMetadataRecords.md)
  - [VendorDataObject](docs/VendorDataObject.md)
 
 

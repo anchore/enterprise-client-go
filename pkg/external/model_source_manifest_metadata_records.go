@@ -13,15 +13,12 @@ package external
 import (
 	"time"
 )
-// InternalSourceManifest struct for InternalSourceManifest
-type InternalSourceManifest struct {
+// SourceManifestMetadataRecords Metadata associated with a source upload
+type SourceManifestMetadataRecords struct {
 	Uuid string `json:"uuid,omitempty"`
 	CiWorkflowName string `json:"ci_workflow_name,omitempty"`
 	CiWorkflowExecutionTime time.Time `json:"ci_workflow_execution_time,omitempty"`
-	Host string `json:"host,omitempty"`
-	RepositoryName string `json:"repository_name,omitempty"`
 	BranchName string `json:"branch_name,omitempty"`
-	CommitSha string `json:"commit_sha,omitempty"`
-	LastCommitter string `json:"last_committer,omitempty"`
-	Contents InternalSourceManifestContents `json:"contents,omitempty"`
+	ChangeAuthor string `json:"change_author,omitempty"`
+	VcsType string `json:"vcs_type,omitempty"`
 }

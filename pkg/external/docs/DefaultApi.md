@@ -15,6 +15,7 @@ Method | HTTP request | Description
 [**DeleteApplication**](DefaultApi.md#DeleteApplication) | **Delete** /applications/{application_id} | Delete an application by application_id
 [**DeleteApplicationVersion**](DefaultApi.md#DeleteApplicationVersion) | **Delete** /applications/{application_id}/versions/{application_version_id} | Delete an application version by application_id and application_version_id
 [**DeleteCorrectionByUuid**](DefaultApi.md#DeleteCorrectionByUuid) | **Delete** /corrections/{uuid} | Delete a correction by UUID
+[**DeleteSource**](DefaultApi.md#DeleteSource) | **Delete** /sources/{source_id} | Delete source record from DB
 [**FinalizeOperation**](DefaultApi.md#FinalizeOperation) | **Post** /imports/sources/{operation_id}/finalize | Add source records to catalog db
 [**GetActionPlans**](DefaultApi.md#GetActionPlans) | **Get** /actions | Gets a list of submitted action (remediation) plans
 [**GetAlertSummaries**](DefaultApi.md#GetAlertSummaries) | **Get** /alerts/summaries | List all alert summaries scoped to the account
@@ -35,10 +36,10 @@ Method | HTTP request | Description
 [**GetOperation**](DefaultApi.md#GetOperation) | **Get** /imports/sources/{operation_id} | Get detail on a single import
 [**GetRuntimeComplianceChecks**](DefaultApi.md#GetRuntimeComplianceChecks) | **Get** /runtime_compliance | Get all runtime compliance checks or just those for a given image digest
 [**GetRuntimeComplianceResult**](DefaultApi.md#GetRuntimeComplianceResult) | **Get** /runtime_compliance/result/{compliance_file_id} | Check the results of a a specific runtime compliance check
+[**GetSource**](DefaultApi.md#GetSource) | **Get** /sources/{source_id} | Get a detailed source repository analysis metadata record
 [**GetSourceAppVulnerabilities**](DefaultApi.md#GetSourceAppVulnerabilities) | **Get** /sources/{source_id}/vulns/non-os | Get a detailed source repository analysis metadata record
 [**GetSourceContentByType**](DefaultApi.md#GetSourceContentByType) | **Get** /sources/{source_id}/content/{content_type} | Get the content of an analyzed source repository
 [**GetSourceContentTypes**](DefaultApi.md#GetSourceContentTypes) | **Get** /sources/{source_id}/content | Get a detailed source repository analysis metadata record
-[**GetSourceMetadata**](DefaultApi.md#GetSourceMetadata) | **Get** /sources/{source_id} | Get a detailed source repository analysis metadata record
 [**GetSourceOsVulnerabilities**](DefaultApi.md#GetSourceOsVulnerabilities) | **Get** /sources/{source_id}/vulns/os | Get a detailed source repository analysis metadata record
 [**GetSourceSbomNative**](DefaultApi.md#GetSourceSbomNative) | **Get** /sources/{source_id}/sbom/native | 
 [**GetSourceSbomTypes**](DefaultApi.md#GetSourceSbomTypes) | **Get** /sources/{source_id}/sbom | Get a detailed source repository analysis metadata record
@@ -537,9 +538,52 @@ No authorization required
 [[Back to README]](../README.md)
 
 
+## DeleteSource
+
+> SourceManifest DeleteSource(ctx, sourceId, optional)
+
+Delete source record from DB
+
+### Required Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**sourceId** | **string**| UUID of source to delete | 
+ **optional** | ***DeleteSourceOpts** | optional parameters | nil if no parameters
+
+### Optional Parameters
+
+Optional parameters are passed through a pointer to a DeleteSourceOpts struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **force** | **optional.Bool**| force delete | 
+
+### Return type
+
+[**SourceManifest**](SourceManifest.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
 ## FinalizeOperation
 
-> InternalSourceManifest FinalizeOperation(ctx, operationId, metadata)
+> SourceManifest FinalizeOperation(ctx, operationId, metadata)
 
 Add source records to catalog db
 
@@ -554,7 +598,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**InternalSourceManifest**](InternalSourceManifest.md)
+[**SourceManifest**](SourceManifest.md)
 
 ### Authorization
 
@@ -691,6 +735,7 @@ Optional parameters are passed through a pointer to a GetApplicationOpts struct
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
+ **includeVersions** | **optional.Bool**|  | [default to false]
  **xAnchoreAccount** | **optional.String**| An account name to change the resource scope of the request to that account, if permissions allow (admin only) | 
 
 ### Return type
@@ -826,6 +871,7 @@ Optional parameters are passed through a pointer to a GetApplicationsOpts struct
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **includeVersions** | **optional.Bool**|  | [default to false]
  **xAnchoreAccount** | **optional.String**| An account name to change the resource scope of the request to that account, if permissions allow (admin only) | 
 
 ### Return type
@@ -1421,6 +1467,38 @@ No authorization required
 [[Back to README]](../README.md)
 
 
+## GetSource
+
+> SourceManifest GetSource(ctx, sourceId)
+
+Get a detailed source repository analysis metadata record
+
+### Required Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**sourceId** | **string**|  | 
+
+### Return type
+
+[**SourceManifest**](SourceManifest.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
 ## GetSourceAppVulnerabilities
 
 > GetSourceAppVulnerabilities(ctx, sourceId)
@@ -1512,38 +1590,6 @@ No authorization required
 
 - **Content-Type**: Not defined
 - **Accept**: Not defined
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## GetSourceMetadata
-
-> SourceRepositoryMetadata GetSourceMetadata(ctx, sourceId)
-
-Get a detailed source repository analysis metadata record
-
-### Required Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**sourceId** | **string**|  | 
-
-### Return type
-
-[**SourceRepositoryMetadata**](SourceRepositoryMetadata.md)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1784,7 +1830,7 @@ No authorization required
 
 ## ListSources
 
-> SourcesList ListSources(ctx, )
+> []Source ListSources(ctx, )
 
 List the source repository analysis records
 
@@ -1794,7 +1840,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-[**SourcesList**](SourcesList.md)
+[**[]Source**](Source.md)
 
 ### Authorization
 

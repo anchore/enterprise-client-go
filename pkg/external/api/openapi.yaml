@@ -905,6 +905,11 @@ paths:
       description: List all applications
       operationId: get_applications
       parameters:
+      - in: query
+        name: include_versions
+        schema:
+          default: false
+          type: boolean
       - description: An account name to change the resource scope of the request to
           that account, if permissions allow (admin only)
         in: header
@@ -992,6 +997,11 @@ paths:
         required: true
         schema:
           type: string
+      - in: query
+        name: include_versions
+        schema:
+          default: false
+          type: boolean
       - description: An account name to change the resource scope of the request to
           that account, if permissions allow (admin only)
         in: header
@@ -1397,7 +1407,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/InternalSourceManifest'
+                $ref: '#/components/schemas/SourceManifest'
           description: success
         "500":
           content: {}
@@ -1423,8 +1433,35 @@ paths:
       x-swagger-router-controller: anchore_enterprise.services.api.controllers.sources
       x-anchore-authz-action: listSources
   /sources/{source_id}:
+    delete:
+      operationId: delete_source
+      parameters:
+      - description: UUID of source to delete
+        in: path
+        name: source_id
+        required: true
+        schema:
+          type: string
+      - description: force delete
+        in: query
+        name: force
+        schema:
+          type: boolean
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SourceManifest'
+          description: success
+        "500":
+          content: {}
+          description: Internal Error
+      summary: Delete source record from DB
+      x-swagger-router-controller: anchore_enterprise.services.api.controllers.sources
+      x-anchore-authz-action: getSource
     get:
-      operationId: get_source_metadata
+      operationId: get_source
       parameters:
       - in: path
         name: source_id
@@ -1436,7 +1473,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/SourceRepositoryMetadata'
+                $ref: '#/components/schemas/SourceManifest'
           description: success
         "500":
           content: {}
@@ -1607,16 +1644,27 @@ components:
       schema:
         type: string
   schemas:
-    SourceRepositoryMetadata:
+    SourceManifest:
       example:
-        ci_workflow_name: ci_workflow_name
-        commit_sha: commit_sha
-        last_committer: last_committer
-        branch_name: branch_name
+        analysis_status: analysis_status
         host: host
+        metadata_records:
+        - ci_workflow_name: ci_workflow_name
+          vcs_type: vcs_type
+          change_author: change_author
+          branch_name: branch_name
+          uuid: uuid
+          ci_workflow_execution_time: 2000-01-23T04:56:07.000+00:00
+        - ci_workflow_name: ci_workflow_name
+          vcs_type: vcs_type
+          change_author: change_author
+          branch_name: branch_name
+          uuid: uuid
+          ci_workflow_execution_time: 2000-01-23T04:56:07.000+00:00
         uuid: uuid
-        ci_workflow_execution_time: 2000-01-23T04:56:07.000+00:00
         repository_name: repository_name
+        source_status: source_status
+        revision: revision
         artifacts:
         - bucket: bucket
           content_type: content_type
@@ -1629,68 +1677,42 @@ components:
       properties:
         uuid:
           type: string
-        ci_workflow_name:
-          type: string
-        ci_workflow_execution_time:
-          format: date-time
-          type: string
         host:
           type: string
         repository_name:
           type: string
-        branch_name:
+        revision:
           type: string
-        commit_sha:
+        analysis_status:
           type: string
-        last_committer:
+        source_status:
           type: string
         artifacts:
           description: Digest of content to use in the final import
           items:
-            $ref: '#/components/schemas/SourceRepositoryMetadata_artifacts'
+            $ref: '#/components/schemas/SourceManifest_artifacts'
+          type: array
+        metadata_records:
+          description: Array of metadata available
+          items:
+            $ref: '#/components/schemas/SourceManifest_metadata_records'
           type: array
       type: object
     SourcesList:
-      example:
-        sources:
-        - commit_sha: commit_sha
-          last_updated: 2000-01-23T04:56:07.000+00:00
-          account_id: account_id
-          analysis_status: pending
-          branch_name: branch_name
-          host: host
-          created_at: 2000-01-23T04:56:07.000+00:00
-          uuid: uuid
-          repository_name: repository_name
-          source_status: source_status
-        - commit_sha: commit_sha
-          last_updated: 2000-01-23T04:56:07.000+00:00
-          account_id: account_id
-          analysis_status: pending
-          branch_name: branch_name
-          host: host
-          created_at: 2000-01-23T04:56:07.000+00:00
-          uuid: uuid
-          repository_name: repository_name
-          source_status: source_status
-      properties:
-        sources:
-          items:
-            $ref: '#/components/schemas/Source'
-          type: array
-      type: object
+      items:
+        $ref: '#/components/schemas/Source'
+      type: array
     Source:
       example:
-        commit_sha: commit_sha
         last_updated: 2000-01-23T04:56:07.000+00:00
         account_id: account_id
         analysis_status: pending
-        branch_name: branch_name
         host: host
         created_at: 2000-01-23T04:56:07.000+00:00
         uuid: uuid
         repository_name: repository_name
         source_status: source_status
+        revision: revision
       properties:
         uuid:
           description: A system-assigned identifier unique for each source analysis
@@ -1704,10 +1726,7 @@ components:
         repository_name:
           description: The name of the repository on the host (e.g. 'anchore/anchore-engine')
           type: string
-        branch_name:
-          description: The name of the branch associated with the commit.
-          type: string
-        commit_sha:
+        revision:
           description: The commit ID for a git repository
           type: string
         analysis_status:
@@ -2680,6 +2699,35 @@ components:
       description: A representation of an SLDC application
       example:
         last_updated: 2000-01-23T04:56:07.000+00:00
+        versions:
+        - application_version_id: application_version_id
+          last_updated: 2000-01-23T04:56:07.000+00:00
+          version_name: version_name
+          source_sbom_ids:
+          - source_sbom_ids
+          - source_sbom_ids
+          created_at: 2000-01-23T04:56:07.000+00:00
+          application_id: application_id
+          image_sbom_ids:
+          - image_sbom_ids
+          - image_sbom_ids
+          container_sbom_ids:
+          - container_sbom_ids
+          - container_sbom_ids
+        - application_version_id: application_version_id
+          last_updated: 2000-01-23T04:56:07.000+00:00
+          version_name: version_name
+          source_sbom_ids:
+          - source_sbom_ids
+          - source_sbom_ids
+          created_at: 2000-01-23T04:56:07.000+00:00
+          application_id: application_id
+          image_sbom_ids:
+          - image_sbom_ids
+          - image_sbom_ids
+          container_sbom_ids:
+          - container_sbom_ids
+          - container_sbom_ids
         name: name
         description: description
         created_at: 2000-01-23T04:56:07.000+00:00
@@ -2694,6 +2742,11 @@ components:
         description:
           description: The description of the application
           type: string
+        versions:
+          description: List of application versions
+          items:
+            $ref: '#/components/schemas/ApplicationVersion'
+          type: array
         created_at:
           description: RFC 3339 formatted UTC timestamp when the application was created
           format: date-time
@@ -2703,8 +2756,6 @@ components:
             updated
           format: date-time
           type: string
-      required:
-      - name
       type: object
     ApplicationVersionList:
       description: List of application versions
@@ -2945,54 +2996,17 @@ components:
           format: date-time
           type: string
       type: object
-    InternalSourceManifest:
-      example:
-        ci_workflow_name: ci_workflow_name
-        commit_sha: commit_sha
-        last_committer: last_committer
-        contents:
-          sbom:
-            bucket: bucket
-            content_type: content_type
-            digest: digest
-            key: key
-        branch_name: branch_name
-        host: host
-        uuid: uuid
-        ci_workflow_execution_time: 2000-01-23T04:56:07.000+00:00
-        repository_name: repository_name
-      properties:
-        uuid:
-          type: string
-        ci_workflow_name:
-          type: string
-        ci_workflow_execution_time:
-          format: date-time
-          type: string
-        host:
-          type: string
-        repository_name:
-          type: string
-        branch_name:
-          type: string
-        commit_sha:
-          type: string
-        last_committer:
-          type: string
-        contents:
-          $ref: '#/components/schemas/InternalSourceManifest_contents'
-      type: object
     SourceImportMetadata:
       example:
         ci_workflow_name: ci_workflow_name
-        commit_sha: commit_sha
-        last_committer: last_committer
+        change_author: change_author
         contents:
           sbom: sbom
         branch_name: branch_name
         host: host
         ci_workflow_execution_time: 2000-01-23T04:56:07.000+00:00
         repository_name: repository_name
+        revision: revision
       properties:
         ci_workflow_name:
           type: string
@@ -3005,9 +3019,9 @@ components:
           type: string
         branch_name:
           type: string
-        commit_sha:
+        revision:
           type: string
-        last_committer:
+        change_author:
           type: string
         contents:
           $ref: '#/components/schemas/SourceImportMetadata_contents'
@@ -3078,7 +3092,7 @@ components:
             $ref: '#/components/schemas/ContentFilesResponse_content'
           type: array
       type: object
-    SourceRepositoryMetadata_artifacts:
+    SourceManifest_artifacts:
       description: Sbom content reference
       example:
         bucket: bucket
@@ -3094,17 +3108,29 @@ components:
           type: string
         key:
           type: string
-    InternalSourceManifest_contents:
-      description: Digest of content to use in the final import
+    SourceManifest_metadata_records:
+      description: Metadata associated with a source upload
       example:
-        sbom:
-          bucket: bucket
-          content_type: content_type
-          digest: digest
-          key: key
+        ci_workflow_name: ci_workflow_name
+        vcs_type: vcs_type
+        change_author: change_author
+        branch_name: branch_name
+        uuid: uuid
+        ci_workflow_execution_time: 2000-01-23T04:56:07.000+00:00
       properties:
-        sbom:
-          $ref: '#/components/schemas/SourceRepositoryMetadata_artifacts'
+        uuid:
+          type: string
+        ci_workflow_name:
+          type: string
+        ci_workflow_execution_time:
+          format: date-time
+          type: string
+        branch_name:
+          type: string
+        change_author:
+          type: string
+        vcs_type:
+          type: string
     SourceImportMetadata_contents:
       description: Digest of content to use in the final import
       example:

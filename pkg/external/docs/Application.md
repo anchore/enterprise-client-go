@@ -5,8 +5,9 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **ApplicationId** | **string** | The id of the application | [optional] 
-**Name** | **string** | The name of the application | 
+**Name** | **string** | The name of the application | [optional] 
 **Description** | **string** | The description of the application | [optional] 
+**Versions** | [**[]ApplicationVersion**](ApplicationVersion.md) | List of application versions | [optional] 
 **CreatedAt** | [**time.Time**](time.Time.md) | RFC 3339 formatted UTC timestamp when the application was created | [optional] 
 **LastUpdated** | [**time.Time**](time.Time.md) | RFC 3339 formatted UTC timestamp when the application was last updated | [optional] 
 
