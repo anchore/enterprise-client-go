@@ -23,10 +23,8 @@ type Source struct {
 	Host string `json:"host,omitempty"`
 	// The name of the repository on the host (e.g. 'anchore/anchore-engine')
 	RepositoryName string `json:"repository_name,omitempty"`
-	// The name of the branch associated with the commit.
-	BranchName string `json:"branch_name,omitempty"`
 	// The commit ID for a git repository
-	CommitSha string `json:"commit_sha,omitempty"`
+	Revision string `json:"revision,omitempty"`
 	// The analysis state of the source
 	AnalysisStatus string `json:"analysis_status,omitempty"`
 	// The state of the source

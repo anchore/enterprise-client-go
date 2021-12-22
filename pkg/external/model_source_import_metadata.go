@@ -20,7 +20,7 @@ type SourceImportMetadata struct {
 	Host string `json:"host,omitempty"`
 	RepositoryName string `json:"repository_name,omitempty"`
 	BranchName string `json:"branch_name,omitempty"`
-	CommitSha string `json:"commit_sha,omitempty"`
-	LastCommitter string `json:"last_committer,omitempty"`
+	Revision string `json:"revision,omitempty"`
+	ChangeAuthor string `json:"change_author,omitempty"`
 	Contents SourceImportMetadataContents `json:"contents,omitempty"`
 }
