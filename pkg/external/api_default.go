@@ -582,7 +582,6 @@ func (a *DefaultApiService) AddRuntimeComplianceCheck(ctx _context.Context, chec
 		localVarFileBytes = fbs
 		localVarFileName = localVarFile.Name()
 		localVarFile.Close()
-		localVarFile = nil
 	}
 	localVarFormFileName = "report_file"
 	if localVarOptionals != nil && localVarOptionals.ReportFile.IsSet() {
@@ -597,6 +596,7 @@ func (a *DefaultApiService) AddRuntimeComplianceCheck(ctx _context.Context, chec
 		localVarFileBytes = fbs
 		localVarFileName = localVarFile.Name()
 		localVarFile.Close()
+		localVarFile = nil
 	}
 	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
@@ -3328,6 +3328,7 @@ func (a *DefaultApiService) GetSourceContentTypes(ctx _context.Context, sourceId
 	)
 
 	// create path and map variables
+
 	localVarPath := a.client.cfg.BasePath + "/sources/{source_id}/content"
 	localVarPath = strings.Replace(localVarPath, "{"+"source_id"+"}", _neturl.QueryEscape(parameterToString(sourceId, "")), -1)
 
