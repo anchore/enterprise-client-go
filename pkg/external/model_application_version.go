@@ -21,12 +21,6 @@ type ApplicationVersion struct {
 	ApplicationId string `json:"application_id,omitempty"`
 	// The name of the application
 	VersionName string `json:"version_name"`
-	// The list of repo artifact ids associated with this application
-	SourceSbomIds []string `json:"source_sbom_ids,omitempty"`
-	// The list of image artifact ids associated with this application
-	ImageSbomIds []string `json:"image_sbom_ids,omitempty"`
-	// The list of container artifact ids associated with this application
-	ContainerSbomIds []string `json:"container_sbom_ids,omitempty"`
 	// RFC 3339 formatted UTC timestamp when the application was created
 	CreatedAt time.Time `json:"created_at,omitempty"`
 	// RFC 3339 formatted UTC timestamp when the application was last updated

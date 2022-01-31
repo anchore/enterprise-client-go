@@ -12,7 +12,7 @@ OPENAPI_GENERATOR_VERSION = v4.3.1
 
 # --- anchore enterprise references
 # a git tag/branch/commit within anchore/anchore-engine repo
-ENTERPRISE_REF = 15d7c6d61995d65d7473219b80815ddc1555469d
+ENTERPRISE_REF = eaac8f8fcf25e629e39fcdb586b24a661a34278c
 EXTAPI_CLIENT_ROOT = $(PROJECT_ROOT)/external
 EXTAPI_OPENAPI_DOC = $(PROJECT_ROOT)/swagger-external-$(ENTERPRISE_REF).yaml
 

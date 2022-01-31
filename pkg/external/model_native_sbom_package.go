@@ -22,6 +22,6 @@ type NativeSbomPackage struct {
 	Language string `json:"language"`
 	Cpes []string `json:"cpes"`
 	Purl string `json:"purl,omitempty"`
-	MetadataType string `json:"metadataType"`
-	Metadata interface{} `json:"metadata,omitempty"`
+	MetadataType *string `json:"metadataType,omitempty"`
+	Metadata *interface{} `json:"metadata,omitempty"`
 }

@@ -35,6 +35,7 @@ Class | Method | HTTP request | Description
 *DefaultApi* | [**AddActionPlan**](docs/DefaultApi.md#addactionplan) | **Post** /actions | Submits an Action Plan
 *DefaultApi* | [**AddApplication**](docs/DefaultApi.md#addapplication) | **Post** /applications | Create an application
 *DefaultApi* | [**AddApplicationVersion**](docs/DefaultApi.md#addapplicationversion) | **Post** /applications/{application_id}/versions | Create an application version
+*DefaultApi* | [**AddArtifactToApplicationVersion**](docs/DefaultApi.md#addartifacttoapplicationversion) | **Post** /applications/{application_id}/versions/{application_version_id}/artifacts | Add an artifact to an application version
 *DefaultApi* | [**AddCorrection**](docs/DefaultApi.md#addcorrection) | **Post** /corrections | Create a correction record
 *DefaultApi* | [**AddInventoryCluster**](docs/DefaultApi.md#addinventorycluster) | **Post** /inventories/clusters | Create a cluster inventory
 *DefaultApi* | [**AddRuntimeComplianceCheck**](docs/DefaultApi.md#addruntimecompliancecheck) | **Post** /runtime_compliance | Post a runtime compliance check
@@ -73,9 +74,11 @@ Class | Method | HTTP request | Description
 *DefaultApi* | [**GetSourceSbomTypes**](docs/DefaultApi.md#getsourcesbomtypes) | **Get** /sources/{source_id}/sbom | Get a detailed source repository analysis metadata record
 *DefaultApi* | [**GetSourceVulnerabilities**](docs/DefaultApi.md#getsourcevulnerabilities) | **Get** /sources/{source_id}/vulns | Get a detailed source repository analysis metadata record
 *DefaultApi* | [**InvalidateOperation**](docs/DefaultApi.md#invalidateoperation) | **Delete** /imports/sources/{operation_id} | Invalidate operation ID so it can be garbage collected
+*DefaultApi* | [**ListArtifacts**](docs/DefaultApi.md#listartifacts) | **Get** /applications/{application_id}/versions/{application_version_id}/artifacts | List artifacts present on a given application version
 *DefaultApi* | [**ListInventoryClusters**](docs/DefaultApi.md#listinventoryclusters) | **Get** /inventories/clusters | Return a list of the configured inventory clusters
 *DefaultApi* | [**ListOperations**](docs/DefaultApi.md#listoperations) | **Get** /imports/sources | Lists in-progress imports
 *DefaultApi* | [**ListSources**](docs/DefaultApi.md#listsources) | **Get** /sources | List the source repository analysis records
+*DefaultApi* | [**RemoveArtifactFromApplicationVersion**](docs/DefaultApi.md#removeartifactfromapplicationversion) | **Delete** /applications/{application_id}/versions/{application_version_id}/artifacts/{association_id} | Delete an artifact from specified application version
 *DefaultApi* | [**SyncImageInventory**](docs/DefaultApi.md#syncimageinventory) | **Post** /inventories | synchronizes the list of the images in a given cluster for the inventory
 *DefaultApi* | [**UpdateApplication**](docs/DefaultApi.md#updateapplication) | **Put** /applications/{application_id} | Update application details
 *DefaultApi* | [**UpdateApplicationVersion**](docs/DefaultApi.md#updateapplicationversion) | **Put** /applications/{application_id}/versions/{application_version_id} | Update application version details
@@ -92,6 +95,12 @@ Class | Method | HTTP request | Description
  - [ApiErrorResponse](docs/ApiErrorResponse.md)
  - [Application](docs/Application.md)
  - [ApplicationVersion](docs/ApplicationVersion.md)
+ - [ArtifactAssociationMetadata](docs/ArtifactAssociationMetadata.md)
+ - [ArtifactAssociationRequest](docs/ArtifactAssociationRequest.md)
+ - [ArtifactAssociationResponse](docs/ArtifactAssociationResponse.md)
+ - [ArtifactListResponse](docs/ArtifactListResponse.md)
+ - [AssociatedImageArtifact](docs/AssociatedImageArtifact.md)
+ - [AssociatedSourceArtifact](docs/AssociatedSourceArtifact.md)
  - [ComplianceResource](docs/ComplianceResource.md)
  - [ComplianceViolationAlert](docs/ComplianceViolationAlert.md)
  - [ContentFilesResponse](docs/ContentFilesResponse.md)
@@ -108,6 +117,7 @@ Class | Method | HTTP request | Description
  - [EnterpriseVulnerability](docs/EnterpriseVulnerability.md)
  - [EnterpriseVulnerabilityResponse](docs/EnterpriseVulnerabilityResponse.md)
  - [ImageAncestor](docs/ImageAncestor.md)
+ - [ImageArtifact](docs/ImageArtifact.md)
  - [InventoryCluster](docs/InventoryCluster.md)
  - [InventoryClusterConfig](docs/InventoryClusterConfig.md)
  - [InventoryItem](docs/InventoryItem.md)
