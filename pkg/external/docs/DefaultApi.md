@@ -7,6 +7,7 @@ Method | HTTP request | Description
 [**AddActionPlan**](DefaultApi.md#AddActionPlan) | **Post** /actions | Submits an Action Plan
 [**AddApplication**](DefaultApi.md#AddApplication) | **Post** /applications | Create an application
 [**AddApplicationVersion**](DefaultApi.md#AddApplicationVersion) | **Post** /applications/{application_id}/versions | Create an application version
+[**AddArtifactToApplicationVersion**](DefaultApi.md#AddArtifactToApplicationVersion) | **Post** /applications/{application_id}/versions/{application_version_id}/artifacts | Add an artifact to an application version
 [**AddCorrection**](DefaultApi.md#AddCorrection) | **Post** /corrections | Create a correction record
 [**AddInventoryCluster**](DefaultApi.md#AddInventoryCluster) | **Post** /inventories/clusters | Create a cluster inventory
 [**AddRuntimeComplianceCheck**](DefaultApi.md#AddRuntimeComplianceCheck) | **Post** /runtime_compliance | Post a runtime compliance check
@@ -45,9 +46,11 @@ Method | HTTP request | Description
 [**GetSourceSbomTypes**](DefaultApi.md#GetSourceSbomTypes) | **Get** /sources/{source_id}/sbom | Get a detailed source repository analysis metadata record
 [**GetSourceVulnerabilities**](DefaultApi.md#GetSourceVulnerabilities) | **Get** /sources/{source_id}/vulns | Get a detailed source repository analysis metadata record
 [**InvalidateOperation**](DefaultApi.md#InvalidateOperation) | **Delete** /imports/sources/{operation_id} | Invalidate operation ID so it can be garbage collected
+[**ListArtifacts**](DefaultApi.md#ListArtifacts) | **Get** /applications/{application_id}/versions/{application_version_id}/artifacts | List artifacts present on a given application version
 [**ListInventoryClusters**](DefaultApi.md#ListInventoryClusters) | **Get** /inventories/clusters | Return a list of the configured inventory clusters
 [**ListOperations**](DefaultApi.md#ListOperations) | **Get** /imports/sources | Lists in-progress imports
 [**ListSources**](DefaultApi.md#ListSources) | **Get** /sources | List the source repository analysis records
+[**RemoveArtifactFromApplicationVersion**](DefaultApi.md#RemoveArtifactFromApplicationVersion) | **Delete** /applications/{application_id}/versions/{application_version_id}/artifacts/{association_id} | Delete an artifact from specified application version
 [**SyncImageInventory**](DefaultApi.md#SyncImageInventory) | **Post** /inventories | synchronizes the list of the images in a given cluster for the inventory
 [**UpdateApplication**](DefaultApi.md#UpdateApplication) | **Put** /applications/{application_id} | Update application details
 [**UpdateApplicationVersion**](DefaultApi.md#UpdateApplicationVersion) | **Put** /applications/{application_id}/versions/{application_version_id} | Update application version details
@@ -168,6 +171,55 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**ApplicationVersion**](ApplicationVersion.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## AddArtifactToApplicationVersion
+
+> ArtifactAssociationResponse AddArtifactToApplicationVersion(ctx, applicationId, applicationVersionId, artifactRequest, optional)
+
+Add an artifact to an application version
+
+Add artifact to given application_id and application_version_id
+
+### Required Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**applicationId** | **string**|  | 
+**applicationVersionId** | **string**|  | 
+**artifactRequest** | [**ArtifactAssociationRequest**](ArtifactAssociationRequest.md)|  | 
+ **optional** | ***AddArtifactToApplicationVersionOpts** | optional parameters | nil if no parameters
+
+### Optional Parameters
+
+Optional parameters are passed through a pointer to a AddArtifactToApplicationVersionOpts struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+
+ **xAnchoreAccount** | **optional.String**| An account name to change the resource scope of the request to that account, if permissions allow (admin only) | 
+
+### Return type
+
+[**ArtifactAssociationResponse**](ArtifactAssociationResponse.md)
 
 ### Authorization
 
@@ -1756,6 +1808,54 @@ No authorization required
 [[Back to README]](../README.md)
 
 
+## ListArtifacts
+
+> ArtifactListResponse ListArtifacts(ctx, applicationId, applicationVersionId, optional)
+
+List artifacts present on a given application version
+
+List artifacts present on a given application version
+
+### Required Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**applicationId** | **string**|  | 
+**applicationVersionId** | **string**|  | 
+ **optional** | ***ListArtifactsOpts** | optional parameters | nil if no parameters
+
+### Optional Parameters
+
+Optional parameters are passed through a pointer to a ListArtifactsOpts struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+ **artifactType** | [**optional.Interface of []string**](string.md)|  | 
+ **xAnchoreAccount** | **optional.String**| An account name to change the resource scope of the request to that account, if permissions allow (admin only) | 
+
+### Return type
+
+[**ArtifactListResponse**](ArtifactListResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
 ## ListInventoryClusters
 
 > []InventoryCluster ListInventoryClusters(ctx, optional)
@@ -1850,6 +1950,55 @@ No authorization required
 
 - **Content-Type**: Not defined
 - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## RemoveArtifactFromApplicationVersion
+
+> RemoveArtifactFromApplicationVersion(ctx, applicationId, applicationVersionId, associationId, optional)
+
+Delete an artifact from specified application version
+
+Delete an artifact from specified application version
+
+### Required Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**applicationId** | **string**|  | 
+**applicationVersionId** | **string**|  | 
+**associationId** | **string**|  | 
+ **optional** | ***RemoveArtifactFromApplicationVersionOpts** | optional parameters | nil if no parameters
+
+### Optional Parameters
+
+Optional parameters are passed through a pointer to a RemoveArtifactFromApplicationVersionOpts struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+
+ **xAnchoreAccount** | **optional.String**| An account name to change the resource scope of the request to that account, if permissions allow (admin only) | 
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

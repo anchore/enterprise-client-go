@@ -14,8 +14,8 @@ Name | Type | Description | Notes
 **Language** | **string** |  | 
 **Cpes** | **[]string** |  | 
 **Purl** | **string** |  | [optional] 
-**MetadataType** | **string** |  | 
-**Metadata** | [**interface{}**](.md) |  | [optional] 
+**MetadataType** | Pointer to **string** |  | [optional] 
+**Metadata** | Pointer to [**interface{}**](.md) |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
