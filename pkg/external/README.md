@@ -50,6 +50,7 @@ Class | Method | HTTP request | Description
 *DefaultApi* | [**GetAlertSummaries**](docs/DefaultApi.md#getalertsummaries) | **Get** /alerts/summaries | List all alert summaries scoped to the account
 *DefaultApi* | [**GetApplication**](docs/DefaultApi.md#getapplication) | **Get** /applications/{application_id} | Get an application by application_id
 *DefaultApi* | [**GetApplicationVersion**](docs/DefaultApi.md#getapplicationversion) | **Get** /applications/{application_id}/versions/{application_version_id} | Get an application version
+*DefaultApi* | [**GetApplicationVersionSbom**](docs/DefaultApi.md#getapplicationversionsbom) | **Get** /applications/{application_id}/versions/{application_version_id}/sboms/json | Get the combined sbom for the given application version, optionally filtered by artifact type
 *DefaultApi* | [**GetApplicationVersions**](docs/DefaultApi.md#getapplicationversions) | **Get** /applications/{application_id}/versions | List all application verions
 *DefaultApi* | [**GetApplications**](docs/DefaultApi.md#getapplications) | **Get** /applications | List all applications
 *DefaultApi* | [**GetComplianceViolationAlert**](docs/DefaultApi.md#getcomplianceviolationalert) | **Get** /alerts/compliance_violations/{uuid} | Get compliance violation alert by id
@@ -66,13 +67,12 @@ Class | Method | HTTP request | Description
 *DefaultApi* | [**GetRuntimeComplianceChecks**](docs/DefaultApi.md#getruntimecompliancechecks) | **Get** /runtime_compliance | Get all runtime compliance checks or just those for a given image digest
 *DefaultApi* | [**GetRuntimeComplianceResult**](docs/DefaultApi.md#getruntimecomplianceresult) | **Get** /runtime_compliance/result/{compliance_file_id} | Check the results of a a specific runtime compliance check
 *DefaultApi* | [**GetSource**](docs/DefaultApi.md#getsource) | **Get** /sources/{source_id} | Get a detailed source repository analysis metadata record
-*DefaultApi* | [**GetSourceAppVulnerabilities**](docs/DefaultApi.md#getsourceappvulnerabilities) | **Get** /sources/{source_id}/vulns/non-os | Get a detailed source repository analysis metadata record
 *DefaultApi* | [**GetSourceContentByType**](docs/DefaultApi.md#getsourcecontentbytype) | **Get** /sources/{source_id}/content/{content_type} | Get the content of an analyzed source repository
 *DefaultApi* | [**GetSourceContentTypes**](docs/DefaultApi.md#getsourcecontenttypes) | **Get** /sources/{source_id}/content | Get a detailed source repository analysis metadata record
-*DefaultApi* | [**GetSourceOsVulnerabilities**](docs/DefaultApi.md#getsourceosvulnerabilities) | **Get** /sources/{source_id}/vulns/os | Get a detailed source repository analysis metadata record
 *DefaultApi* | [**GetSourceSbomNative**](docs/DefaultApi.md#getsourcesbomnative) | **Get** /sources/{source_id}/sbom/native | 
 *DefaultApi* | [**GetSourceSbomTypes**](docs/DefaultApi.md#getsourcesbomtypes) | **Get** /sources/{source_id}/sbom | Get a detailed source repository analysis metadata record
-*DefaultApi* | [**GetSourceVulnerabilities**](docs/DefaultApi.md#getsourcevulnerabilities) | **Get** /sources/{source_id}/vulns | Get a detailed source repository analysis metadata record
+*DefaultApi* | [**GetSourceVulnerabilities**](docs/DefaultApi.md#getsourcevulnerabilities) | **Get** /sources/{source_id}/vuln/{vtype} | Get vulnerabilities for the source by type
+*DefaultApi* | [**GetSourceVulnerabilityTypes**](docs/DefaultApi.md#getsourcevulnerabilitytypes) | **Get** /sources/{source_id}/vuln | Get the available vulnerability types for source
 *DefaultApi* | [**InvalidateOperation**](docs/DefaultApi.md#invalidateoperation) | **Delete** /imports/sources/{operation_id} | Invalidate operation ID so it can be garbage collected
 *DefaultApi* | [**ListArtifacts**](docs/DefaultApi.md#listartifacts) | **Get** /applications/{application_id}/versions/{application_version_id}/artifacts | List artifacts present on a given application version
 *DefaultApi* | [**ListInventoryClusters**](docs/DefaultApi.md#listinventoryclusters) | **Get** /inventories/clusters | Return a list of the configured inventory clusters
@@ -95,6 +95,8 @@ Class | Method | HTTP request | Description
  - [ApiErrorResponse](docs/ApiErrorResponse.md)
  - [Application](docs/Application.md)
  - [ApplicationVersion](docs/ApplicationVersion.md)
+ - [ApplicationVersionSbom](docs/ApplicationVersionSbom.md)
+ - [ApplicationVersionSbomArtifactAssociationMetadata](docs/ApplicationVersionSbomArtifactAssociationMetadata.md)
  - [ArtifactAssociationMetadata](docs/ArtifactAssociationMetadata.md)
  - [ArtifactAssociationRequest](docs/ArtifactAssociationRequest.md)
  - [ArtifactAssociationResponse](docs/ArtifactAssociationResponse.md)
@@ -143,7 +145,9 @@ Class | Method | HTTP request | Description
  - [SourceManifest](docs/SourceManifest.md)
  - [SourceManifestArtifacts](docs/SourceManifestArtifacts.md)
  - [SourceManifestMetadataRecords](docs/SourceManifestMetadataRecords.md)
+ - [SourceVulnerabilitiesResponse](docs/SourceVulnerabilitiesResponse.md)
  - [VendorDataObject](docs/VendorDataObject.md)
+ - [Vulnerability](docs/Vulnerability.md)
 
 
 ## Documentation For Authorization

@@ -1055,7 +1055,7 @@ paths:
           in: path
           type: string
           required: true
-        - name: artifact_type
+        - name: artifact_types
           in: query
           type: array
           required: false
@@ -1104,6 +1104,45 @@ paths:
           description: "Artifact successfully removed from application version"
         500:
           description: "Internal Error"
+  /applications/{application_id}/versions/{application_version_id}/sboms/json:
+    get:
+      x-swagger-router-controller: anchore_enterprise.services.api.controllers.applications
+      operationId: get_application_version_sbom
+      x-anchore-authz-action: getApplication
+      summary: Get the combined sbom for the given application version, optionally filtered by artifact type
+      description: Get the combined sbom for the given application version, optionally filtered by artifact type
+      produces:
+        - "application/json"
+      parameters:
+        - name: application_id
+          in: path
+          type: string
+          required: true
+        - name: application_version_id
+          in: path
+          type: string
+          required: true
+        - name: artifact_types
+          in: query
+          type: array
+          required: false
+          items:
+            type: string
+            enum:
+              - source
+              - image
+        - $ref: "#/parameters/AsAccountParameter"
+      responses:
+        200:
+          description: "Successfully retrieved combined sbom"
+          schema:
+            $ref: "#/definitions/ApplicationVersionSbom"
+        404:
+          description: "Application version not found"
+        500:
+          description: Internal Error
+          schema:
+            $ref: "#/definitions/ApiErrorResponse"
   /imports/sources:
     post:
       x-swagger-router-controller: anchore_enterprise.services.api.controllers.source_imports
@@ -1392,13 +1431,39 @@ paths:
           description: Internal error
           schema:
             $ref: "#/definitions/ApiErrorResponse"
-  #TODO: Implement
-  /sources/{source_id}/vulns:
+  /sources/{source_id}/vuln:
+    get:
+      x-swagger-router-controller: anchore_enterprise.services.api.controllers.sources
+      operationId: get_source_vulnerability_types
+      x-anchore-authz-action: getSource
+      summary: "Get the available vulnerability types for source"
+      produces:
+        - "application/json"
+      parameters:
+        - name: source_id
+          in: path
+          type: string
+          required: true
+        - $ref: "#/parameters/AsAccountParameter"
+      responses:
+        200:
+          description: List of vulnerability types for the source
+          schema:
+            type: array
+            items:
+              type: string
+              enum:
+                - all
+                - os
+                - non-os
+        500:
+          description: "Internal Error"
+  /sources/{source_id}/vuln/{vtype}:
     get:
       x-swagger-router-controller: anchore_enterprise.services.api.controllers.sources
       operationId: get_source_vulnerabilities
       x-anchore-authz-action: getSource
-      summary: "Get a detailed source repository analysis metadata record"
+      summary: "Get vulnerabilities for the source by type"
       produces:
         - "application/json"
       parameters:
@@ -1406,42 +1471,20 @@ paths:
           in: path
           type: string
           required: true
-      responses:
-        200:
-          description: "success"
-        500:
-          description: "Internal Error"
-  /sources/{source_id}/vulns/os:
-    get:
-      x-swagger-router-controller: anchore_enterprise.services.api.controllers.sources
-      operationId: get_source_os_vulnerabilities
-      x-anchore-authz-action: getSource
-      summary: "Get a detailed source repository analysis metadata record"
-      produces:
-        - "application/json"
-      parameters:
-        - name: source_id
+        - name: vtype
           in: path
           type: string
           required: true
-      responses:
-        200:
-          description: "success"
-        500:
-          description: "Internal Error"
-  /sources/{source_id}/vulns/non-os:
-    get:
-      x-swagger-router-controller: anchore_enterprise.services.api.controllers.sources
-      operationId: get_source_app_vulnerabilities
-      x-anchore-authz-action: getSource
-      summary: "Get a detailed source repository analysis metadata record"
-      produces:
-        - "application/json"
-      parameters:
-        - name: source_id
-          in: path
-          type: string
-          required: true
+        - name: force_refresh
+          in: query
+          type: boolean
+          required: false
+        - name: will_not_fix
+          in: query
+          type: boolean
+          required: false
+          description: "Vulnerability data publishers explicitly won't fix some vulnerabilities. This is captured by will_not_fix attribute of each result. If the query parameter is set, results matching it's value will be filtered. Results are not filtered if the query parameter is unset"
+        - $ref: "#/parameters/AsAccountParameter"
       responses:
         200:
           description: "success"
@@ -2270,6 +2313,32 @@ definitions:
         type: array
         items:
           $ref: "#/definitions/AssociatedImageArtifact"
+  ApplicationVersionSbom:
+    description: A combined sbom for the artifacts associated with an application version
+    type: object
+    properties:
+      artifact_association_metadata:
+        type: object
+        properties:
+          association_id:
+            type: string
+      application:
+        $ref: "#/definitions/Application"
+      application_version:
+        $ref: "#/definitions/ApplicationVersion"
+      created_at:
+        type: string
+        description: RFC 3339 formatted UTC timestamp when the application version sbom was created
+        format: date-time
+        example: 2020-10-20T01:20:11.378022Z
+      source_sboms:
+        type: array
+        items:
+          type: object
+      image_sboms:
+        type: array
+        items:
+          type: object
   SourceImportOperation:
       type: object
       description: An import record, creating a unique identifier for referencing the operation as well as its state
@@ -2576,3 +2645,64 @@ definitions:
               type: string
             uid:
               type: integer
+  Vulnerability:
+    type: object
+    properties:
+      vuln:
+        type: string
+        description: The vulnerability identifier, such as CVE-2017-100, or RHSA-2017123
+      fix:
+        type: string
+        description: The package containing a fix, if available
+      severity:
+        type: string
+        description: The severity of the vulnerability
+      package:
+        type: string
+        description: The package name and version that are vulnerable in the image
+      url:
+        type: string
+        description: The url for more information about the vulnerability
+      feed:
+        type: string
+        description: The name of the feed where vulnerability match was made
+      feed_group:
+        type: string
+        description: The name of the feed group where vulnerability match was made
+      package_name:
+        type: string
+        description: The name of the vulnerable package artifact
+      package_version:
+        type: string
+        description: The version of the vulnerable package artifact
+      package_type:
+        type: string
+        description: The type of vulnerable package
+      package_cpe:
+        type: string
+        description: The CPE string (if applicable) describing the package to vulnerability match
+      package_path:
+        type: string
+        description: The location (if applicable) of the vulnerable package in the container filesystem
+      will_not_fix:
+        type: boolean
+        description: Whether a vendor will fix or not fix the vulnerability
+      nvd_data:
+        $ref: "#/definitions/NvdDataList"
+      vendor_data:
+        $ref: "#/definitions/VendorDataList"
+  VulnerabilityList:
+    type: array
+    description: List of Vulnerability objects
+    items:
+      $ref: "#/definitions/Vulnerability"
+  SourceVulnerabilitiesResponse:
+    description: "Envelope containing list of vulnerabilities for a source repo"
+    type: object
+    properties:
+      source_id:
+        type: string
+      vulnerability_type:
+        type: string
+      vulnerabilities:
+        $ref: "#/definitions/VulnerabilityList"

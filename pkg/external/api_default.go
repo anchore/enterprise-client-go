@@ -1728,6 +1728,111 @@ func (a *DefaultApiService) GetApplicationVersion(ctx _context.Context, applicat
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+// GetApplicationVersionSbomOpts Optional parameters for the method 'GetApplicationVersionSbom'
+type GetApplicationVersionSbomOpts struct {
+    ArtifactTypes optional.Interface
+    XAnchoreAccount optional.String
+}
+
+/*
+GetApplicationVersionSbom Get the combined sbom for the given application version, optionally filtered by artifact type
+Get the combined sbom for the given application version, optionally filtered by artifact type
+ * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ * @param applicationId
+ * @param applicationVersionId
+ * @param optional nil or *GetApplicationVersionSbomOpts - Optional Parameters:
+ * @param "ArtifactTypes" (optional.Interface of []string) - 
+ * @param "XAnchoreAccount" (optional.String) -  An account name to change the resource scope of the request to that account, if permissions allow (admin only)
+@return ApplicationVersionSbom
+*/
+func (a *DefaultApiService) GetApplicationVersionSbom(ctx _context.Context, applicationId string, applicationVersionId string, localVarOptionals *GetApplicationVersionSbomOpts) (ApplicationVersionSbom, *_nethttp.Response, error) {
+	var (
+		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarPostBody     interface{}
+		localVarFormFileName string
+		localVarFileName     string
+		localVarFileBytes    []byte
+		localVarReturnValue  ApplicationVersionSbom
+	)
+
+	// create path and map variables
+	localVarPath := a.client.cfg.BasePath + "/applications/{application_id}/versions/{application_version_id}/sboms/json"
+	localVarPath = strings.Replace(localVarPath, "{"+"application_id"+"}", _neturl.QueryEscape(parameterToString(applicationId, "")) , -1)
+
+	localVarPath = strings.Replace(localVarPath, "{"+"application_version_id"+"}", _neturl.QueryEscape(parameterToString(applicationVersionId, "")) , -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := _neturl.Values{}
+	localVarFormParams := _neturl.Values{}
+
+	if localVarOptionals != nil && localVarOptionals.ArtifactTypes.IsSet() {
+		localVarQueryParams.Add("artifact_types", parameterToString(localVarOptionals.ArtifactTypes.Value(), "csv"))
+	}
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	if localVarOptionals != nil && localVarOptionals.XAnchoreAccount.IsSet() {
+		localVarHeaderParams["x-anchore-account"] = parameterToString(localVarOptionals.XAnchoreAccount.Value(), "")
+	}
+	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(r)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 500 {
+			var v ApiErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
 // GetApplicationVersionsOpts Optional parameters for the method 'GetApplicationVersions'
 type GetApplicationVersionsOpts struct {
     XAnchoreAccount optional.String
@@ -3262,72 +3367,6 @@ func (a *DefaultApiService) GetSource(ctx _context.Context, sourceId string) (So
 }
 
 /*
-GetSourceAppVulnerabilities Get a detailed source repository analysis metadata record
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param sourceId
-*/
-func (a *DefaultApiService) GetSourceAppVulnerabilities(ctx _context.Context, sourceId string) (*_nethttp.Response, error) {
-	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-	)
-
-	// create path and map variables
-	localVarPath := a.client.cfg.BasePath + "/sources/{source_id}/vulns/non-os"
-	localVarPath = strings.Replace(localVarPath, "{"+"source_id"+"}", _neturl.QueryEscape(parameterToString(sourceId, "")) , -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
-	if err != nil {
-		return nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(r)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
-	}
-
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	if err != nil {
-		return localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarHTTPResponse, newErr
-	}
-
-	return localVarHTTPResponse, nil
-}
-
-/*
 GetSourceContentByType Get the content of an analyzed source repository
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param sourceId
@@ -3432,72 +3471,6 @@ func (a *DefaultApiService) GetSourceContentTypes(ctx _context.Context, sourceId
 
 	// create path and map variables
 	localVarPath := a.client.cfg.BasePath + "/sources/{source_id}/content"
-	localVarPath = strings.Replace(localVarPath, "{"+"source_id"+"}", _neturl.QueryEscape(parameterToString(sourceId, "")) , -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
-	if err != nil {
-		return nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(r)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
-	}
-
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	if err != nil {
-		return localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarHTTPResponse, newErr
-	}
-
-	return localVarHTTPResponse, nil
-}
-
-/*
-GetSourceOsVulnerabilities Get a detailed source repository analysis metadata record
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param sourceId
-*/
-func (a *DefaultApiService) GetSourceOsVulnerabilities(ctx _context.Context, sourceId string) (*_nethttp.Response, error) {
-	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-	)
-
-	// create path and map variables
-	localVarPath := a.client.cfg.BasePath + "/sources/{source_id}/vulns/os"
 	localVarPath = strings.Replace(localVarPath, "{"+"source_id"+"}", _neturl.QueryEscape(parameterToString(sourceId, "")) , -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -3702,12 +3675,24 @@ func (a *DefaultApiService) GetSourceSbomTypes(ctx _context.Context, sourceId st
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+// GetSourceVulnerabilitiesOpts Optional parameters for the method 'GetSourceVulnerabilities'
+type GetSourceVulnerabilitiesOpts struct {
+    ForceRefresh optional.Bool
+    WillNotFix optional.Bool
+    XAnchoreAccount optional.String
+}
+
 /*
-GetSourceVulnerabilities Get a detailed source repository analysis metadata record
+GetSourceVulnerabilities Get vulnerabilities for the source by type
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param sourceId
+ * @param vtype
+ * @param optional nil or *GetSourceVulnerabilitiesOpts - Optional Parameters:
+ * @param "ForceRefresh" (optional.Bool) - 
+ * @param "WillNotFix" (optional.Bool) -  Vulnerability data publishers explicitly won't fix some vulnerabilities. This is captured by will_not_fix attribute of each result. If the query parameter is set, results matching it's value will be filtered. Results are not filtered if the query parameter is unset
+ * @param "XAnchoreAccount" (optional.String) -  An account name to change the resource scope of the request to that account, if permissions allow (admin only)
 */
-func (a *DefaultApiService) GetSourceVulnerabilities(ctx _context.Context, sourceId string) (*_nethttp.Response, error) {
+func (a *DefaultApiService) GetSourceVulnerabilities(ctx _context.Context, sourceId string, vtype string, localVarOptionals *GetSourceVulnerabilitiesOpts) (*_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
@@ -3717,13 +3702,21 @@ func (a *DefaultApiService) GetSourceVulnerabilities(ctx _context.Context, sourc
 	)
 
 	// create path and map variables
-	localVarPath := a.client.cfg.BasePath + "/sources/{source_id}/vulns"
+	localVarPath := a.client.cfg.BasePath + "/sources/{source_id}/vuln/{vtype}"
 	localVarPath = strings.Replace(localVarPath, "{"+"source_id"+"}", _neturl.QueryEscape(parameterToString(sourceId, "")) , -1)
+
+	localVarPath = strings.Replace(localVarPath, "{"+"vtype"+"}", _neturl.QueryEscape(parameterToString(vtype, "")) , -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
 	localVarFormParams := _neturl.Values{}
 
+	if localVarOptionals != nil && localVarOptionals.ForceRefresh.IsSet() {
+		localVarQueryParams.Add("force_refresh", parameterToString(localVarOptionals.ForceRefresh.Value(), ""))
+	}
+	if localVarOptionals != nil && localVarOptionals.WillNotFix.IsSet() {
+		localVarQueryParams.Add("will_not_fix", parameterToString(localVarOptionals.WillNotFix.Value(), ""))
+	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -3740,6 +3733,9 @@ func (a *DefaultApiService) GetSourceVulnerabilities(ctx _context.Context, sourc
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	if localVarOptionals != nil && localVarOptionals.XAnchoreAccount.IsSet() {
+		localVarHeaderParams["x-anchore-account"] = parameterToString(localVarOptionals.XAnchoreAccount.Value(), "")
 	}
 	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
@@ -3766,6 +3762,93 @@ func (a *DefaultApiService) GetSourceVulnerabilities(ctx _context.Context, sourc
 	}
 
 	return localVarHTTPResponse, nil
+}
+
+// GetSourceVulnerabilityTypesOpts Optional parameters for the method 'GetSourceVulnerabilityTypes'
+type GetSourceVulnerabilityTypesOpts struct {
+    XAnchoreAccount optional.String
+}
+
+/*
+GetSourceVulnerabilityTypes Get the available vulnerability types for source
+ * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ * @param sourceId
+ * @param optional nil or *GetSourceVulnerabilityTypesOpts - Optional Parameters:
+ * @param "XAnchoreAccount" (optional.String) -  An account name to change the resource scope of the request to that account, if permissions allow (admin only)
+@return []string
+*/
+func (a *DefaultApiService) GetSourceVulnerabilityTypes(ctx _context.Context, sourceId string, localVarOptionals *GetSourceVulnerabilityTypesOpts) ([]string, *_nethttp.Response, error) {
+	var (
+		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarPostBody     interface{}
+		localVarFormFileName string
+		localVarFileName     string
+		localVarFileBytes    []byte
+		localVarReturnValue  []string
+	)
+
+	// create path and map variables
+	localVarPath := a.client.cfg.BasePath + "/sources/{source_id}/vuln"
+	localVarPath = strings.Replace(localVarPath, "{"+"source_id"+"}", _neturl.QueryEscape(parameterToString(sourceId, "")) , -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := _neturl.Values{}
+	localVarFormParams := _neturl.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	if localVarOptionals != nil && localVarOptionals.XAnchoreAccount.IsSet() {
+		localVarHeaderParams["x-anchore-account"] = parameterToString(localVarOptionals.XAnchoreAccount.Value(), "")
+	}
+	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(r)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
 /*
@@ -3847,7 +3930,7 @@ func (a *DefaultApiService) InvalidateOperation(ctx _context.Context, operationI
 
 // ListArtifactsOpts Optional parameters for the method 'ListArtifacts'
 type ListArtifactsOpts struct {
-    ArtifactType optional.Interface
+    ArtifactTypes optional.Interface
     XAnchoreAccount optional.String
 }
 
@@ -3858,7 +3941,7 @@ List artifacts present on a given application version
  * @param applicationId
  * @param applicationVersionId
  * @param optional nil or *ListArtifactsOpts - Optional Parameters:
- * @param "ArtifactType" (optional.Interface of []string) - 
+ * @param "ArtifactTypes" (optional.Interface of []string) - 
  * @param "XAnchoreAccount" (optional.String) -  An account name to change the resource scope of the request to that account, if permissions allow (admin only)
 @return ArtifactListResponse
 */
@@ -3882,8 +3965,8 @@ func (a *DefaultApiService) ListArtifacts(ctx _context.Context, applicationId st
 	localVarQueryParams := _neturl.Values{}
 	localVarFormParams := _neturl.Values{}
 
-	if localVarOptionals != nil && localVarOptionals.ArtifactType.IsSet() {
-		localVarQueryParams.Add("artifact_type", parameterToString(localVarOptionals.ArtifactType.Value(), "csv"))
+	if localVarOptionals != nil && localVarOptionals.ArtifactTypes.IsSet() {
+		localVarQueryParams.Add("artifact_types", parameterToString(localVarOptionals.ArtifactTypes.Value(), "csv"))
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
