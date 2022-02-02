@@ -22,6 +22,7 @@ Method | HTTP request | Description
 [**GetAlertSummaries**](DefaultApi.md#GetAlertSummaries) | **Get** /alerts/summaries | List all alert summaries scoped to the account
 [**GetApplication**](DefaultApi.md#GetApplication) | **Get** /applications/{application_id} | Get an application by application_id
 [**GetApplicationVersion**](DefaultApi.md#GetApplicationVersion) | **Get** /applications/{application_id}/versions/{application_version_id} | Get an application version
+[**GetApplicationVersionSbom**](DefaultApi.md#GetApplicationVersionSbom) | **Get** /applications/{application_id}/versions/{application_version_id}/sboms/json | Get the combined sbom for the given application version, optionally filtered by artifact type
 [**GetApplicationVersions**](DefaultApi.md#GetApplicationVersions) | **Get** /applications/{application_id}/versions | List all application verions
 [**GetApplications**](DefaultApi.md#GetApplications) | **Get** /applications | List all applications
 [**GetComplianceViolationAlert**](DefaultApi.md#GetComplianceViolationAlert) | **Get** /alerts/compliance_violations/{uuid} | Get compliance violation alert by id
@@ -38,13 +39,12 @@ Method | HTTP request | Description
 [**GetRuntimeComplianceChecks**](DefaultApi.md#GetRuntimeComplianceChecks) | **Get** /runtime_compliance | Get all runtime compliance checks or just those for a given image digest
 [**GetRuntimeComplianceResult**](DefaultApi.md#GetRuntimeComplianceResult) | **Get** /runtime_compliance/result/{compliance_file_id} | Check the results of a a specific runtime compliance check
 [**GetSource**](DefaultApi.md#GetSource) | **Get** /sources/{source_id} | Get a detailed source repository analysis metadata record
-[**GetSourceAppVulnerabilities**](DefaultApi.md#GetSourceAppVulnerabilities) | **Get** /sources/{source_id}/vulns/non-os | Get a detailed source repository analysis metadata record
 [**GetSourceContentByType**](DefaultApi.md#GetSourceContentByType) | **Get** /sources/{source_id}/content/{content_type} | Get the content of an analyzed source repository
 [**GetSourceContentTypes**](DefaultApi.md#GetSourceContentTypes) | **Get** /sources/{source_id}/content | Get a detailed source repository analysis metadata record
-[**GetSourceOsVulnerabilities**](DefaultApi.md#GetSourceOsVulnerabilities) | **Get** /sources/{source_id}/vulns/os | Get a detailed source repository analysis metadata record
 [**GetSourceSbomNative**](DefaultApi.md#GetSourceSbomNative) | **Get** /sources/{source_id}/sbom/native | 
 [**GetSourceSbomTypes**](DefaultApi.md#GetSourceSbomTypes) | **Get** /sources/{source_id}/sbom | Get a detailed source repository analysis metadata record
-[**GetSourceVulnerabilities**](DefaultApi.md#GetSourceVulnerabilities) | **Get** /sources/{source_id}/vulns | Get a detailed source repository analysis metadata record
+[**GetSourceVulnerabilities**](DefaultApi.md#GetSourceVulnerabilities) | **Get** /sources/{source_id}/vuln/{vtype} | Get vulnerabilities for the source by type
+[**GetSourceVulnerabilityTypes**](DefaultApi.md#GetSourceVulnerabilityTypes) | **Get** /sources/{source_id}/vuln | Get the available vulnerability types for source
 [**InvalidateOperation**](DefaultApi.md#InvalidateOperation) | **Delete** /imports/sources/{operation_id} | Invalidate operation ID so it can be garbage collected
 [**ListArtifacts**](DefaultApi.md#ListArtifacts) | **Get** /applications/{application_id}/versions/{application_version_id}/artifacts | List artifacts present on a given application version
 [**ListInventoryClusters**](DefaultApi.md#ListInventoryClusters) | **Get** /inventories/clusters | Return a list of the configured inventory clusters
@@ -855,6 +855,54 @@ No authorization required
 [[Back to README]](../README.md)
 
 
+## GetApplicationVersionSbom
+
+> ApplicationVersionSbom GetApplicationVersionSbom(ctx, applicationId, applicationVersionId, optional)
+
+Get the combined sbom for the given application version, optionally filtered by artifact type
+
+Get the combined sbom for the given application version, optionally filtered by artifact type
+
+### Required Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**applicationId** | **string**|  | 
+**applicationVersionId** | **string**|  | 
+ **optional** | ***GetApplicationVersionSbomOpts** | optional parameters | nil if no parameters
+
+### Optional Parameters
+
+Optional parameters are passed through a pointer to a GetApplicationVersionSbomOpts struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+ **artifactTypes** | [**optional.Interface of []string**](string.md)|  | 
+ **xAnchoreAccount** | **optional.String**| An account name to change the resource scope of the request to that account, if permissions allow (admin only) | 
+
+### Return type
+
+[**ApplicationVersionSbom**](ApplicationVersionSbom.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
 ## GetApplicationVersions
 
 > []ApplicationVersion GetApplicationVersions(ctx, applicationId, optional)
@@ -1551,38 +1599,6 @@ No authorization required
 [[Back to README]](../README.md)
 
 
-## GetSourceAppVulnerabilities
-
-> GetSourceAppVulnerabilities(ctx, sourceId)
-
-Get a detailed source repository analysis metadata record
-
-### Required Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**sourceId** | **string**|  | 
-
-### Return type
-
- (empty response body)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: Not defined
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
 ## GetSourceContentByType
 
 > ContentPackageResponse GetSourceContentByType(ctx, sourceId, contentType)
@@ -1619,38 +1635,6 @@ No authorization required
 ## GetSourceContentTypes
 
 > GetSourceContentTypes(ctx, sourceId)
-
-Get a detailed source repository analysis metadata record
-
-### Required Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**sourceId** | **string**|  | 
-
-### Return type
-
- (empty response body)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: Not defined
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## GetSourceOsVulnerabilities
-
-> GetSourceOsVulnerabilities(ctx, sourceId)
 
 Get a detailed source repository analysis metadata record
 
@@ -1746,9 +1730,9 @@ No authorization required
 
 ## GetSourceVulnerabilities
 
-> GetSourceVulnerabilities(ctx, sourceId)
+> GetSourceVulnerabilities(ctx, sourceId, vtype, optional)
 
-Get a detailed source repository analysis metadata record
+Get vulnerabilities for the source by type
 
 ### Required Parameters
 
@@ -1757,6 +1741,21 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **sourceId** | **string**|  | 
+**vtype** | **string**|  | 
+ **optional** | ***GetSourceVulnerabilitiesOpts** | optional parameters | nil if no parameters
+
+### Optional Parameters
+
+Optional parameters are passed through a pointer to a GetSourceVulnerabilitiesOpts struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+ **forceRefresh** | **optional.Bool**|  | 
+ **willNotFix** | **optional.Bool**| Vulnerability data publishers explicitly won&#39;t fix some vulnerabilities. This is captured by will_not_fix attribute of each result. If the query parameter is set, results matching it&#39;s value will be filtered. Results are not filtered if the query parameter is unset | 
+ **xAnchoreAccount** | **optional.String**| An account name to change the resource scope of the request to that account, if permissions allow (admin only) | 
 
 ### Return type
 
@@ -1770,6 +1769,49 @@ No authorization required
 
 - **Content-Type**: Not defined
 - **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetSourceVulnerabilityTypes
+
+> []string GetSourceVulnerabilityTypes(ctx, sourceId, optional)
+
+Get the available vulnerability types for source
+
+### Required Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**sourceId** | **string**|  | 
+ **optional** | ***GetSourceVulnerabilityTypesOpts** | optional parameters | nil if no parameters
+
+### Optional Parameters
+
+Optional parameters are passed through a pointer to a GetSourceVulnerabilityTypesOpts struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **xAnchoreAccount** | **optional.String**| An account name to change the resource scope of the request to that account, if permissions allow (admin only) | 
+
+### Return type
+
+**[]string**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1835,7 +1877,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **artifactType** | [**optional.Interface of []string**](string.md)|  | 
+ **artifactTypes** | [**optional.Interface of []string**](string.md)|  | 
  **xAnchoreAccount** | **optional.String**| An account name to change the resource scope of the request to that account, if permissions allow (admin only) | 
 
 ### Return type

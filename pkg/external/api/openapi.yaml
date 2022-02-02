@@ -1278,7 +1278,7 @@ paths:
           type: string
       - explode: false
         in: query
-        name: artifact_type
+        name: artifact_types
         schema:
           items:
             enum:
@@ -1394,6 +1394,59 @@ paths:
       summary: Delete an artifact from specified application version
       x-swagger-router-controller: anchore_enterprise.services.api.controllers.applications
       x-anchore-authz-action: deleteApplication
+  /applications/{application_id}/versions/{application_version_id}/sboms/json:
+    get:
+      description: Get the combined sbom for the given application version, optionally
+        filtered by artifact type
+      operationId: get_application_version_sbom
+      parameters:
+      - in: path
+        name: application_id
+        required: true
+        schema:
+          type: string
+      - in: path
+        name: application_version_id
+        required: true
+        schema:
+          type: string
+      - explode: false
+        in: query
+        name: artifact_types
+        schema:
+          items:
+            enum:
+            - source
+            - image
+            type: string
+          type: array
+        style: form
+      - description: An account name to change the resource scope of the request to
+          that account, if permissions allow (admin only)
+        in: header
+        name: x-anchore-account
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApplicationVersionSbom'
+          description: Successfully retrieved combined sbom
+        "404":
+          content: {}
+          description: Application version not found
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+          description: Internal Error
+      summary: Get the combined sbom for the given application version, optionally
+        filtered by artifact type
+      x-swagger-router-controller: anchore_enterprise.services.api.controllers.applications
+      x-anchore-authz-action: getApplication
   /imports/sources:
     get:
       operationId: list_operations
@@ -1710,7 +1763,41 @@ paths:
       summary: Get the content of an analyzed source repository
       x-swagger-router-controller: anchore_enterprise.services.api.controllers.sources
       x-anchore-authz-action: getSourrce
-  /sources/{source_id}/vulns:
+  /sources/{source_id}/vuln:
+    get:
+      operationId: get_source_vulnerability_types
+      parameters:
+      - in: path
+        name: source_id
+        required: true
+        schema:
+          type: string
+      - description: An account name to change the resource scope of the request to
+          that account, if permissions allow (admin only)
+        in: header
+        name: x-anchore-account
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  enum:
+                  - all
+                  - os
+                  - non-os
+                  type: string
+                type: array
+          description: List of vulnerability types for the source
+        "500":
+          content: {}
+          description: Internal Error
+      summary: Get the available vulnerability types for source
+      x-swagger-router-controller: anchore_enterprise.services.api.controllers.sources
+      x-anchore-authz-action: getSource
+  /sources/{source_id}/vuln/{vtype}:
     get:
       operationId: get_source_vulnerabilities
       parameters:
@@ -1719,23 +1806,27 @@ paths:
         required: true
         schema:
           type: string
-      responses:
-        "200":
-          content: {}
-          description: success
-        "500":
-          content: {}
-          description: Internal Error
-      summary: Get a detailed source repository analysis metadata record
-      x-swagger-router-controller: anchore_enterprise.services.api.controllers.sources
-      x-anchore-authz-action: getSource
-  /sources/{source_id}/vulns/os:
-    get:
-      operationId: get_source_os_vulnerabilities
-      parameters:
       - in: path
-        name: source_id
+        name: vtype
         required: true
+        schema:
+          type: string
+      - in: query
+        name: force_refresh
+        schema:
+          type: boolean
+      - description: Vulnerability data publishers explicitly won't fix some vulnerabilities.
+          This is captured by will_not_fix attribute of each result. If the query
+          parameter is set, results matching it's value will be filtered. Results
+          are not filtered if the query parameter is unset
+        in: query
+        name: will_not_fix
+        schema:
+          type: boolean
+      - description: An account name to change the resource scope of the request to
+          that account, if permissions allow (admin only)
+        in: header
+        name: x-anchore-account
         schema:
           type: string
       responses:
@@ -1745,26 +1836,7 @@ paths:
         "500":
           content: {}
           description: Internal Error
-      summary: Get a detailed source repository analysis metadata record
-      x-swagger-router-controller: anchore_enterprise.services.api.controllers.sources
-      x-anchore-authz-action: getSource
-  /sources/{source_id}/vulns/non-os:
-    get:
-      operationId: get_source_app_vulnerabilities
-      parameters:
-      - in: path
-        name: source_id
-        required: true
-        schema:
-          type: string
-      responses:
-        "200":
-          content: {}
-          description: success
-        "500":
-          content: {}
-          description: Internal Error
-      summary: Get a detailed source repository analysis metadata record
+      summary: Get vulnerabilities for the source by type
       x-swagger-router-controller: anchore_enterprise.services.api.controllers.sources
       x-anchore-authz-action: getSource
 components:
@@ -3150,6 +3222,65 @@ components:
             $ref: '#/components/schemas/AssociatedImageArtifact'
           type: array
       type: object
+    ApplicationVersionSbom:
+      description: A combined sbom for the artifacts associated with an application
+        version
+      example:
+        application:
+          application_versions:
+          - application_version_id: application_version_id
+            last_updated: 2000-01-23T04:56:07.000+00:00
+            version_name: version_name
+            created_at: 2000-01-23T04:56:07.000+00:00
+            application_id: application_id
+          - application_version_id: application_version_id
+            last_updated: 2000-01-23T04:56:07.000+00:00
+            version_name: version_name
+            created_at: 2000-01-23T04:56:07.000+00:00
+            application_id: application_id
+          last_updated: 2000-01-23T04:56:07.000+00:00
+          name: name
+          description: description
+          created_at: 2000-01-23T04:56:07.000+00:00
+          application_id: application_id
+        artifact_association_metadata:
+          association_id: association_id
+        created_at: 2000-01-23T04:56:07.000+00:00
+        source_sboms:
+        - '{}'
+        - '{}'
+        image_sboms:
+        - '{}'
+        - '{}'
+        application_version:
+          application_version_id: application_version_id
+          last_updated: 2000-01-23T04:56:07.000+00:00
+          version_name: version_name
+          created_at: 2000-01-23T04:56:07.000+00:00
+          application_id: application_id
+      properties:
+        artifact_association_metadata:
+          $ref: '#/components/schemas/ApplicationVersionSbom_artifact_association_metadata'
+        application:
+          $ref: '#/components/schemas/Application'
+        application_version:
+          $ref: '#/components/schemas/ApplicationVersion'
+        created_at:
+          description: RFC 3339 formatted UTC timestamp when the application version
+            sbom was created
+          format: date-time
+          type: string
+        source_sboms:
+          items:
+            properties: {}
+            type: object
+          type: array
+        image_sboms:
+          items:
+            properties: {}
+            type: object
+          type: array
+      type: object
     SourceImportOperation:
       description: An import record, creating a unique identifier for referencing
         the operation as well as its state
@@ -3427,6 +3558,78 @@ components:
             $ref: '#/components/schemas/ContentFilesResponse_content'
           type: array
       type: object
+    Vulnerability:
+      properties:
+        vuln:
+          description: The vulnerability identifier, such as CVE-2017-100, or RHSA-2017123
+          type: string
+        fix:
+          description: The package containing a fix, if available
+          type: string
+        severity:
+          description: The severity of the vulnerability
+          type: string
+        package:
+          description: The package name and version that are vulnerable in the image
+          type: string
+        url:
+          description: The url for more information about the vulnerability
+          type: string
+        feed:
+          description: The name of the feed where vulnerability match was made
+          type: string
+        feed_group:
+          description: The name of the feed group where vulnerability match was made
+          type: string
+        package_name:
+          description: The name of the vulnerable package artifact
+          type: string
+        package_version:
+          description: The version of the vulnerable package artifact
+          type: string
+        package_type:
+          description: The type of vulnerable package
+          type: string
+        package_cpe:
+          description: The CPE string (if applicable) describing the package to vulnerability
+            match
+          type: string
+        package_path:
+          description: The location (if applicable) of the vulnerable package in the
+            container filesystem
+          type: string
+        will_not_fix:
+          description: Whether a vendor will fix or not fix the vulnerability
+          type: boolean
+        nvd_data:
+          description: List of Nvd Data objects
+          items:
+            $ref: '#/components/schemas/NvdDataObject'
+          type: array
+        vendor_data:
+          description: List of Vendor Data objects
+          items:
+            $ref: '#/components/schemas/VendorDataObject'
+          type: array
+      type: object
+    VulnerabilityList:
+      description: List of Vulnerability objects
+      items:
+        $ref: '#/components/schemas/Vulnerability'
+      type: array
+    SourceVulnerabilitiesResponse:
+      description: Envelope containing list of vulnerabilities for a source repo
+      properties:
+        source_id:
+          type: string
+        vulnerability_type:
+          type: string
+        vulnerabilities:
+          description: List of Vulnerability objects
+          items:
+            $ref: '#/components/schemas/Vulnerability'
+          type: array
+      type: object
     SourceManifest_artifacts:
       description: Sbom content reference
       example:
@@ -3465,6 +3668,12 @@ components:
         change_author:
           type: string
         vcs_type:
+          type: string
+    ApplicationVersionSbom_artifact_association_metadata:
+      example:
+        association_id: association_id
+      properties:
+        association_id:
           type: string
     SourceImportMetadata_contents:
       description: Digest of content to use in the final import
