@@ -4,7 +4,6 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**ArtifactAssociationMetadata** | [**ApplicationVersionSbomArtifactAssociationMetadata**](ApplicationVersionSbom_artifact_association_metadata.md) |  | [optional] 
 **Application** | [**Application**](Application.md) |  | [optional] 
 **ApplicationVersion** | [**ApplicationVersion**](ApplicationVersion.md) |  | [optional] 
 **CreatedAt** | [**time.Time**](time.Time.md) | RFC 3339 formatted UTC timestamp when the application version sbom was created | [optional] 

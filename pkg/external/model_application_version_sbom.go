@@ -15,7 +15,6 @@ import (
 )
 // ApplicationVersionSbom A combined sbom for the artifacts associated with an application version
 type ApplicationVersionSbom struct {
-	ArtifactAssociationMetadata ApplicationVersionSbomArtifactAssociationMetadata `json:"artifact_association_metadata,omitempty"`
 	Application Application `json:"application,omitempty"`
 	ApplicationVersion ApplicationVersion `json:"application_version,omitempty"`
 	// RFC 3339 formatted UTC timestamp when the application version sbom was created

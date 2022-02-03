@@ -96,7 +96,6 @@ Class | Method | HTTP request | Description
  - [Application](docs/Application.md)
  - [ApplicationVersion](docs/ApplicationVersion.md)
  - [ApplicationVersionSbom](docs/ApplicationVersionSbom.md)
- - [ApplicationVersionSbomArtifactAssociationMetadata](docs/ApplicationVersionSbomArtifactAssociationMetadata.md)
  - [ArtifactAssociationMetadata](docs/ArtifactAssociationMetadata.md)
  - [ArtifactAssociationRequest](docs/ArtifactAssociationRequest.md)
  - [ArtifactAssociationResponse](docs/ArtifactAssociationResponse.md)

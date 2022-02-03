@@ -3243,8 +3243,6 @@ components:
           description: description
           created_at: 2000-01-23T04:56:07.000+00:00
           application_id: application_id
-        artifact_association_metadata:
-          association_id: association_id
         created_at: 2000-01-23T04:56:07.000+00:00
         source_sboms:
         - '{}'
@@ -3259,8 +3257,6 @@ components:
           created_at: 2000-01-23T04:56:07.000+00:00
           application_id: application_id
       properties:
-        artifact_association_metadata:
-          $ref: '#/components/schemas/ApplicationVersionSbom_artifact_association_metadata'
         application:
           $ref: '#/components/schemas/Application'
         application_version:
@@ -3668,12 +3664,6 @@ components:
         change_author:
           type: string
         vcs_type:
-          type: string
-    ApplicationVersionSbom_artifact_association_metadata:
-      example:
-        association_id: association_id
-      properties:
-        association_id:
           type: string
     SourceImportMetadata_contents:
       description: Digest of content to use in the final import
