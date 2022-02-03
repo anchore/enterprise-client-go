@@ -2317,11 +2317,6 @@ definitions:
     description: A combined sbom for the artifacts associated with an application version
     type: object
     properties:
-      artifact_association_metadata:
-        type: object
-        properties:
-          association_id:
-            type: string
       application:
         $ref: "#/definitions/Application"
       application_version:
