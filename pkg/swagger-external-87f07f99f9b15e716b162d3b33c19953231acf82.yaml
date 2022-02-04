@@ -1487,7 +1487,9 @@ paths:
         - $ref: "#/parameters/AsAccountParameter"
       responses:
         200:
-          description: "success"
+          description: Vulnerability listing for the source
+          schema:
+            $ref: "#/definitions/SourceVulnerabilitiesResponse"
         500:
           description: "Internal Error"
 definitions:

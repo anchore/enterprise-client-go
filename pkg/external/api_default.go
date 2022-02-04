@@ -3691,14 +3691,16 @@ GetSourceVulnerabilities Get vulnerabilities for the source by type
  * @param "ForceRefresh" (optional.Bool) - 
  * @param "WillNotFix" (optional.Bool) -  Vulnerability data publishers explicitly won't fix some vulnerabilities. This is captured by will_not_fix attribute of each result. If the query parameter is set, results matching it's value will be filtered. Results are not filtered if the query parameter is unset
  * @param "XAnchoreAccount" (optional.String) -  An account name to change the resource scope of the request to that account, if permissions allow (admin only)
+@return SourceVulnerabilitiesResponse
 */
-func (a *DefaultApiService) GetSourceVulnerabilities(ctx _context.Context, sourceId string, vtype string, localVarOptionals *GetSourceVulnerabilitiesOpts) (*_nethttp.Response, error) {
+func (a *DefaultApiService) GetSourceVulnerabilities(ctx _context.Context, sourceId string, vtype string, localVarOptionals *GetSourceVulnerabilitiesOpts) (SourceVulnerabilitiesResponse, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
+		localVarReturnValue  SourceVulnerabilitiesResponse
 	)
 
 	// create path and map variables
@@ -3727,7 +3729,7 @@ func (a *DefaultApiService) GetSourceVulnerabilities(ctx _context.Context, sourc
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
+	localVarHTTPHeaderAccepts := []string{"application/json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -3739,18 +3741,18 @@ func (a *DefaultApiService) GetSourceVulnerabilities(ctx _context.Context, sourc
 	}
 	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
-		return nil, err
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(r)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	if err != nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -3758,10 +3760,19 @@ func (a *DefaultApiService) GetSourceVulnerabilities(ctx _context.Context, sourc
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarHTTPResponse, newErr
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
 // GetSourceVulnerabilityTypesOpts Optional parameters for the method 'GetSourceVulnerabilityTypes'

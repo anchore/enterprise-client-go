@@ -1831,8 +1831,11 @@ paths:
           type: string
       responses:
         "200":
-          content: {}
-          description: success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SourceVulnerabilitiesResponse'
+          description: Vulnerability listing for the source
         "500":
           content: {}
           description: Internal Error
@@ -3555,6 +3558,58 @@ components:
           type: array
       type: object
     Vulnerability:
+      example:
+        severity: severity
+        package: package
+        package_path: package_path
+        nvd_data:
+        - cvss_v3:
+            base_score: 5.962133916683182
+            impact_score: 2.3021358869347655
+            exploitability_score: 5.637376656633329
+          cvss_v2:
+            base_score: 0.8008281904610115
+            impact_score: 1.4658129805029452
+            exploitability_score: 6.027456183070403
+          id: id
+        - cvss_v3:
+            base_score: 5.962133916683182
+            impact_score: 2.3021358869347655
+            exploitability_score: 5.637376656633329
+          cvss_v2:
+            base_score: 0.8008281904610115
+            impact_score: 1.4658129805029452
+            exploitability_score: 6.027456183070403
+          id: id
+        vendor_data:
+        - cvss_v3:
+            base_score: 5.962133916683182
+            impact_score: 2.3021358869347655
+            exploitability_score: 5.637376656633329
+          cvss_v2:
+            base_score: 0.8008281904610115
+            impact_score: 1.4658129805029452
+            exploitability_score: 6.027456183070403
+          id: id
+        - cvss_v3:
+            base_score: 5.962133916683182
+            impact_score: 2.3021358869347655
+            exploitability_score: 5.637376656633329
+          cvss_v2:
+            base_score: 0.8008281904610115
+            impact_score: 1.4658129805029452
+            exploitability_score: 6.027456183070403
+          id: id
+        package_type: package_type
+        package_cpe: package_cpe
+        url: url
+        will_not_fix: true
+        feed: feed
+        package_version: package_version
+        fix: fix
+        vuln: vuln
+        feed_group: feed_group
+        package_name: package_name
       properties:
         vuln:
           description: The vulnerability identifier, such as CVE-2017-100, or RHSA-2017123
@@ -3615,6 +3670,112 @@ components:
       type: array
     SourceVulnerabilitiesResponse:
       description: Envelope containing list of vulnerabilities for a source repo
+      example:
+        vulnerability_type: vulnerability_type
+        vulnerabilities:
+        - severity: severity
+          package: package
+          package_path: package_path
+          nvd_data:
+          - cvss_v3:
+              base_score: 5.962133916683182
+              impact_score: 2.3021358869347655
+              exploitability_score: 5.637376656633329
+            cvss_v2:
+              base_score: 0.8008281904610115
+              impact_score: 1.4658129805029452
+              exploitability_score: 6.027456183070403
+            id: id
+          - cvss_v3:
+              base_score: 5.962133916683182
+              impact_score: 2.3021358869347655
+              exploitability_score: 5.637376656633329
+            cvss_v2:
+              base_score: 0.8008281904610115
+              impact_score: 1.4658129805029452
+              exploitability_score: 6.027456183070403
+            id: id
+          vendor_data:
+          - cvss_v3:
+              base_score: 5.962133916683182
+              impact_score: 2.3021358869347655
+              exploitability_score: 5.637376656633329
+            cvss_v2:
+              base_score: 0.8008281904610115
+              impact_score: 1.4658129805029452
+              exploitability_score: 6.027456183070403
+            id: id
+          - cvss_v3:
+              base_score: 5.962133916683182
+              impact_score: 2.3021358869347655
+              exploitability_score: 5.637376656633329
+            cvss_v2:
+              base_score: 0.8008281904610115
+              impact_score: 1.4658129805029452
+              exploitability_score: 6.027456183070403
+            id: id
+          package_type: package_type
+          package_cpe: package_cpe
+          url: url
+          will_not_fix: true
+          feed: feed
+          package_version: package_version
+          fix: fix
+          vuln: vuln
+          feed_group: feed_group
+          package_name: package_name
+        - severity: severity
+          package: package
+          package_path: package_path
+          nvd_data:
+          - cvss_v3:
+              base_score: 5.962133916683182
+              impact_score: 2.3021358869347655
+              exploitability_score: 5.637376656633329
+            cvss_v2:
+              base_score: 0.8008281904610115
+              impact_score: 1.4658129805029452
+              exploitability_score: 6.027456183070403
+            id: id
+          - cvss_v3:
+              base_score: 5.962133916683182
+              impact_score: 2.3021358869347655
+              exploitability_score: 5.637376656633329
+            cvss_v2:
+              base_score: 0.8008281904610115
+              impact_score: 1.4658129805029452
+              exploitability_score: 6.027456183070403
+            id: id
+          vendor_data:
+          - cvss_v3:
+              base_score: 5.962133916683182
+              impact_score: 2.3021358869347655
+              exploitability_score: 5.637376656633329
+            cvss_v2:
+              base_score: 0.8008281904610115
+              impact_score: 1.4658129805029452
+              exploitability_score: 6.027456183070403
+            id: id
+          - cvss_v3:
+              base_score: 5.962133916683182
+              impact_score: 2.3021358869347655
+              exploitability_score: 5.637376656633329
+            cvss_v2:
+              base_score: 0.8008281904610115
+              impact_score: 1.4658129805029452
+              exploitability_score: 6.027456183070403
+            id: id
+          package_type: package_type
+          package_cpe: package_cpe
+          url: url
+          will_not_fix: true
+          feed: feed
+          package_version: package_version
+          fix: fix
+          vuln: vuln
+          feed_group: feed_group
+          package_name: package_name
+        source_id: source_id
       properties:
         source_id:
           type: string
