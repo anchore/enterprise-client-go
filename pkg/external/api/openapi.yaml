@@ -3313,6 +3313,70 @@ components:
         $ref: '#/components/schemas/SourceImportOperation'
       type: array
     NativeSBOM:
+      example:
+        schema:
+          version: version
+          url: url
+        distro:
+          idLike: idLike
+          name: name
+          version: version
+        source:
+          type: type
+          target: '{}'
+        descriptor:
+          name: name
+          version: version
+        artifactRelationships:
+        - parent: parent
+          metadata: '{}'
+          type: type
+          child: child
+        - parent: parent
+          metadata: '{}'
+          type: type
+          child: child
+        artifacts:
+        - foundBy: foundBy
+          licenses:
+          - licenses
+          - licenses
+          metadata: '{}'
+          cpes:
+          - cpes
+          - cpes
+          name: name
+          locations:
+          - path: path
+            layerID: layerID
+          - path: path
+            layerID: layerID
+          language: language
+          id: id
+          purl: purl
+          type: type
+          version: version
+          metadataType: metadataType
+        - foundBy: foundBy
+          licenses:
+          - licenses
+          - licenses
+          metadata: '{}'
+          cpes:
+          - cpes
+          - cpes
+          name: name
+          locations:
+          - path: path
+            layerID: layerID
+          - path: path
+            layerID: layerID
+          language: language
+          id: id
+          purl: purl
+          type: type
+          version: version
+          metadataType: metadataType
       properties:
         artifacts:
           items:
@@ -3336,6 +3400,9 @@ components:
       - source
       type: object
     NativeSBOMDescriptor:
+      example:
+        name: name
+        version: version
       properties:
         name:
           type: string
@@ -3346,6 +3413,10 @@ components:
       - version
       type: object
     NativeSBOMDistribution:
+      example:
+        idLike: idLike
+        name: name
+        version: version
       properties:
         name:
           type: string
@@ -3359,6 +3430,9 @@ components:
       - version
       type: object
     NativeSBOMPackageLocation:
+      example:
+        path: path
+        layerID: layerID
       properties:
         path:
           type: string
@@ -3368,6 +3442,27 @@ components:
       - path
       type: object
     NativeSBOMPackage:
+      example:
+        foundBy: foundBy
+        licenses:
+        - licenses
+        - licenses
+        metadata: '{}'
+        cpes:
+        - cpes
+        - cpes
+        name: name
+        locations:
+        - path: path
+          layerID: layerID
+        - path: path
+          layerID: layerID
+        language: language
+        id: id
+        purl: purl
+        type: type
+        version: version
+        metadataType: metadataType
       properties:
         id:
           type: string
@@ -3412,6 +3507,9 @@ components:
       - version
       type: object
     NativeSBOMSchema:
+      example:
+        version: version
+        url: url
       properties:
         version:
           type: string
@@ -3422,6 +3520,9 @@ components:
       - version
       type: object
     NativeSBOMSource:
+      example:
+        type: type
+        target: '{}'
       properties:
         type:
           type: string
@@ -3432,6 +3533,11 @@ components:
       - type
       type: object
     NativeSBOMPackageRelationship:
+      example:
+        parent: parent
+        metadata: '{}'
+        type: type
+        child: child
       properties:
         parent:
           type: string
@@ -3642,6 +3748,7 @@ components:
           type: string
         key:
           type: string
+      type: object
     SourceManifest_metadata_records:
       description: Metadata associated with a source upload
       example:
@@ -3665,6 +3772,7 @@ components:
           type: string
         vcs_type:
           type: string
+      type: object
     SourceImportMetadata_contents:
       description: Digest of content to use in the final import
       example:
@@ -3675,6 +3783,7 @@ components:
           type: string
       required:
       - sbom
+      type: object
     ContentJAVAPackageResponse_content:
       properties:
         package:
@@ -3697,6 +3806,7 @@ components:
           items:
             type: string
           type: array
+      type: object
     ContentPackageResponse_content:
       example:
         license: license
@@ -3738,6 +3848,7 @@ components:
           items:
             type: string
           type: array
+      type: object
     ContentFilesResponse_content:
       properties:
         filename:
@@ -3758,3 +3869,5 @@ components:
           type: string
         uid:
           type: integer
+      type: object
+x-original-swagger-version: "2.0"

@@ -6,7 +6,7 @@ PROJECT_ROOT = pkg
 CLONE_DIR = local
 
 # OpenAPI generator version to use
-OPENAPI_GENERATOR_VERSION = v4.3.1
+OPENAPI_GENERATOR_VERSION = v5.4.0
 # note: v5 introduces the new command pattern approach, splitting request and execute + generating interfaces per service.
 #OPENAPI_GENERATOR_VERSION = v5.0.0-beta3
 
