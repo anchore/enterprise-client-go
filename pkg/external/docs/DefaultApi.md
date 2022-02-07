@@ -1730,7 +1730,7 @@ No authorization required
 
 ## GetSourceVulnerabilities
 
-> GetSourceVulnerabilities(ctx, sourceId, vtype, optional)
+> SourceVulnerabilitiesResponse GetSourceVulnerabilities(ctx, sourceId, vtype, optional)
 
 Get vulnerabilities for the source by type
 
@@ -1759,7 +1759,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
- (empty response body)
+[**SourceVulnerabilitiesResponse**](SourceVulnerabilitiesResponse.md)
 
 ### Authorization
 
@@ -1768,7 +1768,7 @@ No authorization required
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
