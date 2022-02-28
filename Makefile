@@ -1,5 +1,5 @@
 # The version of this client (should be in line with the highest supported engine/enterprise version
-CLIENT_VERSION = 4.0.0
+CLIENT_VERSION = 3.0.0
 
 # where all generated code will be located
 PROJECT_ROOT = pkg
@@ -12,7 +12,7 @@ OPENAPI_GENERATOR_VERSION = v4.3.1
 
 # --- anchore enterprise references
 # a git tag/branch/commit within anchore/anchore-engine repo
-ENTERPRISE_REF = 98687a5897632e77835acf587da8d7b5dc3a2557
+ENTERPRISE_REF = 87f07f99f9b15e716b162d3b33c19953231acf82
 EXTAPI_CLIENT_ROOT = $(PROJECT_ROOT)/external
 EXTAPI_OPENAPI_DOC = $(PROJECT_ROOT)/swagger-external-$(ENTERPRISE_REF).yaml
 
