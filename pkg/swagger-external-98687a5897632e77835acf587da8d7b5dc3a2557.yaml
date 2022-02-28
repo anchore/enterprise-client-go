@@ -1405,8 +1405,14 @@ paths:
       responses:
         200:
           description: "success"
+          schema:
+            type: array
+            description: Array of available types
+            items:
+              type: string
         500:
           description: "Internal Error"
+  /sources/{source_id}/content/{content_type}:
   /sources/{source_id}/content/{content_type}:
     get:
       x-swagger-router-controller: anchore_enterprise.services.api.controllers.sources
@@ -1426,7 +1432,7 @@ paths:
         200:
           description: Content of specified type from the image
           schema:
-            $ref: "#/definitions/ContentPackageResponse"
+            $ref: "#/definitions/SourceContentPackageResponse"
         500:
           description: Internal error
           schema:
@@ -1492,11 +1498,81 @@ paths:
             $ref: "#/definitions/SourceVulnerabilitiesResponse"
         500:
           description: "Internal Error"
+  /sources/{source_id}/check:
+    get:
+      x-anchore-authz-action: getSourceEvaluation
+      x-swagger-router-controller: "anchore_enterprise.services.api.controllers.sources"
+      operationId: "get_source_policy_check"
+      summary: "Fetch or calculate policy evaluation for a source"
+      description: ""
+      parameters:
+        - name: source_id
+          in: path
+          type: string
+          description: "UUID of source to get"
+          required: true
+        - name: policy_id
+          type: string
+          in: query
+          required: false
+        - name: newest_only
+          type: boolean
+          required: false
+          in: query
+        - name: interactive
+          type: boolean
+          required: false
+          in: query
+        - name: history_only
+          type: boolean
+          required: false
+          in: query
+      produces:
+        - "application/json"
+      responses:
+        200:
+          description: "success"
+          schema:
+            $ref: "#/definitions/PolicyEvaluationListResponse"
 definitions:
+  # TODO: fill out PolicyEvaluationListResponse result schema
+  PolicyEvaluationListResponse:
+    type: array
+    items:
+      type: object
+      properties:
+        account_id:
+          type: string
+        policy_id:
+          type: string
+        evaluation_id:
+          type: string
+        source_id:
+          type: string
+        vcs_host:
+          type: string
+        repository_name:
+          type: string
+        final_action:
+          type: string
+        evaluation_url:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+        last_updated:
+          type: string
+          format: date-time
+        result:
+          type: object
   SourceManifest:
     type: object
     properties:
       uuid:
+        type: string
+      account_id:
+        type: string
+      vcs_type:
         type: string
       host:
         type: string
@@ -1504,25 +1580,25 @@ definitions:
         type: string
       revision:
         type: string
+      created_at:
+        type: string
+        format: date-time
+      last_updated:
+        type: string
+        format: date-time
       analysis_status:
         type: string
+        enum:
+          - not_analyzed
+          - analyzed
+          - analyzing
+          - analysis_failed
       source_status:
         type: string
-      artifacts:
-        type: array
-        description: Digest of content to use in the final import
-        items:
-          type: object
-          description: Sbom content reference
-          properties:
-            content_type:
-              type: string
-            digest:
-              type: string
-            bucket:
-              type: string
-            key:
-              type: string
+        enum:
+          - active
+          - inactive
+          - deleting
       metadata_records:
         type: array
         description: Array of metadata available
@@ -1540,8 +1616,6 @@ definitions:
             branch_name:
               type: string
             change_author:
-              type: string
-            vcs_type:
               type: string
   SourcesList:
     type: array
@@ -1569,15 +1643,17 @@ definitions:
         type: string
         description: The analysis state of the source
         enum:
-          - pending
-          - queued
-          - processing
-          - complete
-          - failed
-          - expired
+          - not_analyzed
+          - analyzed
+          - analyzing
+          - analysis_failed
       source_status:
         type: string
         description: The state of the source
+        enum:
+          - active
+          - inactive
+          - deleting
       created_at:
         type: string
         format: date-time
@@ -2400,17 +2476,26 @@ definitions:
     additionalProperties: true
     type: object
   NativeSBOMDistribution:
-    required:
-      - name
-      - version
-      - idLike
     properties:
       name:
         type: string
+        x-nullable: true
+      id:
+        type: string
+        x-nullable: true
       version:
         type: string
-      idLike:
+        x-nullable: true
+      versionID:
         type: string
+        x-nullable: true
+#  Prior to syft v0.36.0, idLike was a space-separated string.  Now it is a List of strings.  Swagger 2.0 doesn't
+#  support multiple schemas, so for now we will drop the idLike property from the spec so we can support both schemas.
+#     idLike:
+#       type: array
+#       items:
+#         type: string
+#       x-nullable: true
     additionalProperties: true
     type: object
   NativeSBOMPackageLocation:
@@ -2517,10 +2602,17 @@ definitions:
         format: date-time
   SourceImportMetadata:
     type: object
+    required:
+      - host
+      - repository_name
+      - revision
+      - contents
     properties:
       ci_workflow_name:
+        x-nullable: true
         type: string
       ci_workflow_execution_time:
+        x-nullable: true
         type: string
         format: date-time
       host:
@@ -2528,10 +2620,12 @@ definitions:
       repository_name:
         type: string
       branch_name:
+        x-nullable: true
         type: string
       revision:
         type: string
       change_author:
+        x-nullable: true
         type: string
       contents:
         type: object
@@ -2574,11 +2668,11 @@ definitions:
               items:
                 type: string
               description: A list of Common Platform Enumerations that may uniquely identify the package
-  ContentPackageResponse:
+  SourceContentPackageResponse:
     type: object
     description: "Package content listings from analysis sbom"
     properties:
-      imageDigest:
+      source_id:
         type: string
       content_type:
         type: string

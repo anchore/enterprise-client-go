@@ -12,7 +12,8 @@
 package external
 // NativeSbomDistribution struct for NativeSbomDistribution
 type NativeSbomDistribution struct {
-	Name string `json:"name"`
-	Version string `json:"version"`
-	IdLike string `json:"idLike"`
+	Name *string `json:"name,omitempty"`
+	Id *string `json:"id,omitempty"`
+	Version *string `json:"version,omitempty"`
+	VersionID *string `json:"versionID,omitempty"`
 }

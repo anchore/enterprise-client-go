@@ -15,12 +15,12 @@ import (
 )
 // SourceImportMetadata struct for SourceImportMetadata
 type SourceImportMetadata struct {
-	CiWorkflowName string `json:"ci_workflow_name,omitempty"`
-	CiWorkflowExecutionTime time.Time `json:"ci_workflow_execution_time,omitempty"`
-	Host string `json:"host,omitempty"`
-	RepositoryName string `json:"repository_name,omitempty"`
-	BranchName string `json:"branch_name,omitempty"`
-	Revision string `json:"revision,omitempty"`
-	ChangeAuthor string `json:"change_author,omitempty"`
-	Contents SourceImportMetadataContents `json:"contents,omitempty"`
+	CiWorkflowName *string `json:"ci_workflow_name,omitempty"`
+	CiWorkflowExecutionTime *time.Time `json:"ci_workflow_execution_time,omitempty"`
+	Host string `json:"host"`
+	RepositoryName string `json:"repository_name"`
+	BranchName *string `json:"branch_name,omitempty"`
+	Revision string `json:"revision"`
+	ChangeAuthor *string `json:"change_author,omitempty"`
+	Contents SourceImportMetadataContents `json:"contents"`
 }

@@ -41,6 +41,7 @@ Method | HTTP request | Description
 [**GetSource**](DefaultApi.md#GetSource) | **Get** /sources/{source_id} | Get a detailed source repository analysis metadata record
 [**GetSourceContentByType**](DefaultApi.md#GetSourceContentByType) | **Get** /sources/{source_id}/content/{content_type} | Get the content of an analyzed source repository
 [**GetSourceContentTypes**](DefaultApi.md#GetSourceContentTypes) | **Get** /sources/{source_id}/content | Get a detailed source repository analysis metadata record
+[**GetSourcePolicyCheck**](DefaultApi.md#GetSourcePolicyCheck) | **Get** /sources/{source_id}/check | Fetch or calculate policy evaluation for a source
 [**GetSourceSbomNative**](DefaultApi.md#GetSourceSbomNative) | **Get** /sources/{source_id}/sbom/native | 
 [**GetSourceSbomTypes**](DefaultApi.md#GetSourceSbomTypes) | **Get** /sources/{source_id}/sbom | Get a detailed source repository analysis metadata record
 [**GetSourceVulnerabilities**](DefaultApi.md#GetSourceVulnerabilities) | **Get** /sources/{source_id}/vuln/{vtype} | Get vulnerabilities for the source by type
@@ -1601,7 +1602,7 @@ No authorization required
 
 ## GetSourceContentByType
 
-> ContentPackageResponse GetSourceContentByType(ctx, sourceId, contentType)
+> SourceContentPackageResponse GetSourceContentByType(ctx, sourceId, contentType)
 
 Get the content of an analyzed source repository
 
@@ -1616,7 +1617,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ContentPackageResponse**](ContentPackageResponse.md)
+[**SourceContentPackageResponse**](SourceContentPackageResponse.md)
 
 ### Authorization
 
@@ -1634,7 +1635,7 @@ No authorization required
 
 ## GetSourceContentTypes
 
-> GetSourceContentTypes(ctx, sourceId)
+> []string GetSourceContentTypes(ctx, sourceId)
 
 Get a detailed source repository analysis metadata record
 
@@ -1648,7 +1649,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
- (empty response body)
+**[]string**
 
 ### Authorization
 
@@ -1657,7 +1658,53 @@ No authorization required
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetSourcePolicyCheck
+
+> []interface{} GetSourcePolicyCheck(ctx, sourceId, optional)
+
+Fetch or calculate policy evaluation for a source
+
+### Required Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**sourceId** | **string**| UUID of source to get | 
+ **optional** | ***GetSourcePolicyCheckOpts** | optional parameters | nil if no parameters
+
+### Optional Parameters
+
+Optional parameters are passed through a pointer to a GetSourcePolicyCheckOpts struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **policyId** | **optional.String**|  | 
+ **newestOnly** | **optional.Bool**|  | 
+ **interactive** | **optional.Bool**|  | 
+ **historyOnly** | **optional.Bool**|  | 
+
+### Return type
+
+**[]interface{}**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

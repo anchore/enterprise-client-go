@@ -1725,7 +1725,13 @@ paths:
           type: string
       responses:
         "200":
-          content: {}
+          content:
+            application/json:
+              schema:
+                description: Array of available types
+                items:
+                  type: string
+                type: array
           description: success
         "500":
           content: {}
@@ -1752,7 +1758,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ContentPackageResponse'
+                $ref: '#/components/schemas/SourceContentPackageResponse'
           description: Content of specified type from the image
         "500":
           content:
@@ -1842,6 +1848,42 @@ paths:
       summary: Get vulnerabilities for the source by type
       x-swagger-router-controller: anchore_enterprise.services.api.controllers.sources
       x-anchore-authz-action: getSource
+  /sources/{source_id}/check:
+    get:
+      operationId: get_source_policy_check
+      parameters:
+      - description: UUID of source to get
+        in: path
+        name: source_id
+        required: true
+        schema:
+          type: string
+      - in: query
+        name: policy_id
+        schema:
+          type: string
+      - in: query
+        name: newest_only
+        schema:
+          type: boolean
+      - in: query
+        name: interactive
+        schema:
+          type: boolean
+      - in: query
+        name: history_only
+        schema:
+          type: boolean
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PolicyEvaluationListResponse'
+          description: success
+      summary: Fetch or calculate policy evaluation for a source
+      x-anchore-authz-action: getSourceEvaluation
+      x-swagger-router-controller: anchore_enterprise.services.api.controllers.sources
 components:
   parameters:
     AsAccountParameter:
@@ -1852,38 +1894,65 @@ components:
       schema:
         type: string
   schemas:
+    PolicyEvaluationListResponse:
+      items:
+        properties:
+          account_id:
+            type: string
+          policy_id:
+            type: string
+          evaluation_id:
+            type: string
+          source_id:
+            type: string
+          vcs_host:
+            type: string
+          repository_name:
+            type: string
+          final_action:
+            type: string
+          evaluation_url:
+            type: string
+          created_at:
+            format: date-time
+            type: string
+          last_updated:
+            format: date-time
+            type: string
+          result:
+            properties: {}
+            type: object
+        type: object
+      type: array
     SourceManifest:
       example:
-        analysis_status: analysis_status
+        vcs_type: vcs_type
+        last_updated: 2000-01-23T04:56:07.000+00:00
+        account_id: account_id
+        analysis_status: not_analyzed
         host: host
+        created_at: 2000-01-23T04:56:07.000+00:00
         metadata_records:
         - ci_workflow_name: ci_workflow_name
-          vcs_type: vcs_type
           change_author: change_author
           branch_name: branch_name
           uuid: uuid
           ci_workflow_execution_time: 2000-01-23T04:56:07.000+00:00
         - ci_workflow_name: ci_workflow_name
-          vcs_type: vcs_type
           change_author: change_author
           branch_name: branch_name
           uuid: uuid
           ci_workflow_execution_time: 2000-01-23T04:56:07.000+00:00
         uuid: uuid
         repository_name: repository_name
-        source_status: source_status
+        source_status: active
         revision: revision
-        artifacts:
-        - bucket: bucket
-          content_type: content_type
-          digest: digest
-          key: key
-        - bucket: bucket
-          content_type: content_type
-          digest: digest
-          key: key
       properties:
         uuid:
+          type: string
+        account_id:
+          type: string
+        vcs_type:
           type: string
         host:
           type: string
@@ -1891,15 +1960,25 @@ components:
           type: string
         revision:
           type: string
+        created_at:
+          format: date-time
+          type: string
+        last_updated:
+          format: date-time
+          type: string
         analysis_status:
+          enum:
+          - not_analyzed
+          - analyzed
+          - analyzing
+          - analysis_failed
           type: string
         source_status:
+          enum:
+          - active
+          - inactive
+          - deleting
           type: string
-        artifacts:
-          description: Digest of content to use in the final import
-          items:
-            $ref: '#/components/schemas/SourceManifest_artifacts'
-          type: array
         metadata_records:
           description: Array of metadata available
           items:
@@ -1914,12 +1993,12 @@ components:
       example:
         last_updated: 2000-01-23T04:56:07.000+00:00
         account_id: account_id
-        analysis_status: pending
+        analysis_status: not_analyzed
         host: host
         created_at: 2000-01-23T04:56:07.000+00:00
         uuid: uuid
         repository_name: repository_name
-        source_status: source_status
+        source_status: active
         revision: revision
       properties:
         uuid:
@@ -1940,15 +2019,17 @@ components:
         analysis_status:
           description: The analysis state of the source
           enum:
-          - pending
-          - queued
-          - processing
-          - complete
-          - failed
-          - expired
+          - not_analyzed
+          - analyzed
+          - analyzing
+          - analysis_failed
           type: string
         source_status:
           description: The state of the source
+          enum:
+          - active
+          - inactive
+          - deleting
           type: string
         created_at:
           format: date-time
@@ -3046,12 +3127,12 @@ components:
         source:
           last_updated: 2000-01-23T04:56:07.000+00:00
           account_id: account_id
-          analysis_status: pending
+          analysis_status: not_analyzed
           host: host
           created_at: 2000-01-23T04:56:07.000+00:00
           uuid: uuid
           repository_name: repository_name
-          source_status: source_status
+          source_status: active
           revision: revision
       properties:
         source:
@@ -3140,12 +3221,12 @@ components:
         source:
           last_updated: 2000-01-23T04:56:07.000+00:00
           account_id: account_id
-          analysis_status: pending
+          analysis_status: not_analyzed
           host: host
           created_at: 2000-01-23T04:56:07.000+00:00
           uuid: uuid
           repository_name: repository_name
-          source_status: source_status
+          source_status: active
           revision: revision
       properties:
         artifact_association_metadata:
@@ -3165,12 +3246,12 @@ components:
           source:
             last_updated: 2000-01-23T04:56:07.000+00:00
             account_id: account_id
-            analysis_status: pending
+            analysis_status: not_analyzed
             host: host
             created_at: 2000-01-23T04:56:07.000+00:00
             uuid: uuid
             repository_name: repository_name
-            source_status: source_status
+            source_status: active
             revision: revision
         - artifact_association_metadata:
             last_updated: 2000-01-23T04:56:07.000+00:00
@@ -3179,12 +3260,12 @@ components:
           source:
             last_updated: 2000-01-23T04:56:07.000+00:00
             account_id: account_id
-            analysis_status: pending
+            analysis_status: not_analyzed
             host: host
             created_at: 2000-01-23T04:56:07.000+00:00
             uuid: uuid
             repository_name: repository_name
-            source_status: source_status
+            source_status: active
             revision: revision
         associated_image_artifacts:
         - image:
@@ -3351,15 +3432,17 @@ components:
     NativeSBOMDistribution:
       properties:
         name:
+          nullable: true
+          type: string
+        id:
+          nullable: true
           type: string
         version:
+          nullable: true
           type: string
-        idLike:
+        versionID:
+          nullable: true
           type: string
-      required:
-      - idLike
-      - name
-      - version
       type: object
     NativeSBOMPackageLocation:
       properties:
@@ -3474,22 +3557,31 @@ components:
         revision: revision
       properties:
         ci_workflow_name:
+          nullable: true
           type: string
         ci_workflow_execution_time:
           format: date-time
+          nullable: true
           type: string
         host:
           type: string
         repository_name:
           type: string
         branch_name:
+          nullable: true
           type: string
         revision:
           type: string
         change_author:
+          nullable: true
           type: string
         contents:
           $ref: '#/components/schemas/SourceImportMetadata_contents'
+      required:
+      - contents
+      - host
+      - repository_name
+      - revision
       type: object
     ContentJAVAPackageResponse:
       description: Java package content listings from images
@@ -3503,10 +3595,11 @@ components:
             $ref: '#/components/schemas/ContentJAVAPackageResponse_content'
           type: array
       type: object
-    ContentPackageResponse:
+    SourceContentPackageResponse:
       description: Package content listings from analysis sbom
       example:
         content_type: content_type
+        source_id: source_id
         content:
         - license: license
           licenses:
@@ -3534,15 +3627,14 @@ components:
           location: location
           type: type
           version: version
-        imageDigest: imageDigest
       properties:
-        imageDigest:
+        source_id:
           type: string
         content_type:
           type: string
         content:
           items:
-            $ref: '#/components/schemas/ContentPackageResponse_content'
+            $ref: '#/components/schemas/SourceContentPackageResponse_content'
           type: array
       type: object
     ContentFilesResponse:
@@ -3787,27 +3879,10 @@ components:
             $ref: '#/components/schemas/Vulnerability'
           type: array
       type: object
-    SourceManifest_artifacts:
-      description: Sbom content reference
-      example:
-        bucket: bucket
-        content_type: content_type
-        digest: digest
-        key: key
-      properties:
-        content_type:
-          type: string
-        digest:
-          type: string
-        bucket:
-          type: string
-        key:
-          type: string
     SourceManifest_metadata_records:
       description: Metadata associated with a source upload
       example:
         ci_workflow_name: ci_workflow_name
-        vcs_type: vcs_type
         change_author: change_author
         branch_name: branch_name
         uuid: uuid
@@ -3823,8 +3898,6 @@ components:
         branch_name:
           type: string
         change_author:
-          type: string
-        vcs_type:
           type: string
     SourceImportMetadata_contents:
       description: Digest of content to use in the final import
@@ -3858,7 +3931,7 @@ components:
           items:
             type: string
           type: array
-    ContentPackageResponse_content:
+    SourceContentPackageResponse_content:
       example:
         license: license
         licenses:
