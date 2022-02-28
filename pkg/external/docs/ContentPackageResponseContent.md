@@ -1,4 +1,4 @@
-# SourceContentPackageResponseContent
+# ContentPackageResponseContent
 
 ## Properties
 

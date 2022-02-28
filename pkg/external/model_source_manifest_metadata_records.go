@@ -20,4 +20,5 @@ type SourceManifestMetadataRecords struct {
 	CiWorkflowExecutionTime time.Time `json:"ci_workflow_execution_time,omitempty"`
 	BranchName string `json:"branch_name,omitempty"`
 	ChangeAuthor string `json:"change_author,omitempty"`
+	VcsType string `json:"vcs_type,omitempty"`
 }

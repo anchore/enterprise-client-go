@@ -622,6 +622,7 @@ func (a *DefaultApiService) AddRuntimeComplianceCheck(ctx _context.Context, chec
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
+		localVarFile         *os.File
 		localVarReturnValue  RuntimeComplianceCheck
 	)
 
@@ -672,7 +673,6 @@ func (a *DefaultApiService) AddRuntimeComplianceCheck(ctx _context.Context, chec
 		localVarFormParams.Add("end_time", parameterToString(localVarOptionals.EndTime.Value(), ""))
 	}
 	localVarFormFileName = "result_file"
-	var localVarFile *os.File
 	if localVarOptionals != nil && localVarOptionals.ResultFile.IsSet() {
 		localVarFileOk := false
 		localVarFile, localVarFileOk = localVarOptionals.ResultFile.Value().(*os.File)
@@ -685,9 +685,9 @@ func (a *DefaultApiService) AddRuntimeComplianceCheck(ctx _context.Context, chec
 		localVarFileBytes = fbs
 		localVarFileName = localVarFile.Name()
 		localVarFile.Close()
+		localVarFile = nil
 	}
 	localVarFormFileName = "report_file"
-	var localVarFile *os.File
 	if localVarOptionals != nil && localVarOptionals.ReportFile.IsSet() {
 		localVarFileOk := false
 		localVarFile, localVarFileOk = localVarOptionals.ReportFile.Value().(*os.File)
@@ -3371,16 +3371,16 @@ GetSourceContentByType Get the content of an analyzed source repository
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param sourceId
  * @param contentType
-@return SourceContentPackageResponse
+@return ContentPackageResponse
 */
-func (a *DefaultApiService) GetSourceContentByType(ctx _context.Context, sourceId string, contentType string) (SourceContentPackageResponse, *_nethttp.Response, error) {
+func (a *DefaultApiService) GetSourceContentByType(ctx _context.Context, sourceId string, contentType string) (ContentPackageResponse, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		localVarReturnValue  SourceContentPackageResponse
+		localVarReturnValue  ContentPackageResponse
 	)
 
 	// create path and map variables
@@ -3459,16 +3459,14 @@ func (a *DefaultApiService) GetSourceContentByType(ctx _context.Context, sourceI
 GetSourceContentTypes Get a detailed source repository analysis metadata record
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param sourceId
-@return []string
 */
-func (a *DefaultApiService) GetSourceContentTypes(ctx _context.Context, sourceId string) ([]string, *_nethttp.Response, error) {
+func (a *DefaultApiService) GetSourceContentTypes(ctx _context.Context, sourceId string) (*_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		localVarReturnValue  []string
 	)
 
 	// create path and map variables
@@ -3489,7 +3487,7 @@ func (a *DefaultApiService) GetSourceContentTypes(ctx _context.Context, sourceId
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -3498,18 +3496,18 @@ func (a *DefaultApiService) GetSourceContentTypes(ctx _context.Context, sourceId
 	}
 	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(r)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -3517,121 +3515,10 @@ func (a *DefaultApiService) GetSourceContentTypes(ctx _context.Context, sourceId
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-// GetSourcePolicyCheckOpts Optional parameters for the method 'GetSourcePolicyCheck'
-type GetSourcePolicyCheckOpts struct {
-    PolicyId optional.String
-    NewestOnly optional.Bool
-    Interactive optional.Bool
-    HistoryOnly optional.Bool
-}
-
-/*
-GetSourcePolicyCheck Fetch or calculate policy evaluation for a source
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param sourceId UUID of source to get
- * @param optional nil or *GetSourcePolicyCheckOpts - Optional Parameters:
- * @param "PolicyId" (optional.String) - 
- * @param "NewestOnly" (optional.Bool) - 
- * @param "Interactive" (optional.Bool) - 
- * @param "HistoryOnly" (optional.Bool) - 
-@return []interface{}
-*/
-func (a *DefaultApiService) GetSourcePolicyCheck(ctx _context.Context, sourceId string, localVarOptionals *GetSourcePolicyCheckOpts) ([]interface{}, *_nethttp.Response, error) {
-	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  []interface{}
-	)
-
-	// create path and map variables
-	localVarPath := a.client.cfg.BasePath + "/sources/{source_id}/check"
-	localVarPath = strings.Replace(localVarPath, "{"+"source_id"+"}", _neturl.QueryEscape(parameterToString(sourceId, "")) , -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
-
-	if localVarOptionals != nil && localVarOptionals.PolicyId.IsSet() {
-		localVarQueryParams.Add("policy_id", parameterToString(localVarOptionals.PolicyId.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.NewestOnly.IsSet() {
-		localVarQueryParams.Add("newest_only", parameterToString(localVarOptionals.NewestOnly.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.Interactive.IsSet() {
-		localVarQueryParams.Add("interactive", parameterToString(localVarOptionals.Interactive.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.HistoryOnly.IsSet() {
-		localVarQueryParams.Add("history_only", parameterToString(localVarOptionals.HistoryOnly.Value(), ""))
-	}
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(r)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 /*
