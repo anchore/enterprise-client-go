@@ -1,5 +1,5 @@
 # The version of this client (should be in line with the highest supported engine/enterprise version
-CLIENT_VERSION = 3.0.0
+CLIENT_VERSION = 4.0.0
 
 # where all generated code will be located
 PROJECT_ROOT = pkg
@@ -12,9 +12,11 @@ OPENAPI_GENERATOR_VERSION = v4.3.1
 
 # --- anchore enterprise references
 # a git tag/branch/commit within anchore/anchore-engine repo
-ENTERPRISE_REF = 87f07f99f9b15e716b162d3b33c19953231acf82
-EXTAPI_CLIENT_ROOT = $(PROJECT_ROOT)/external
-EXTAPI_OPENAPI_DOC = $(PROJECT_ROOT)/swagger-external-$(ENTERPRISE_REF).yaml
+ENTERPRISE_REF = 98687a5897632e77835acf587da8d7b5dc3a2557
+EXTAPI_CLIENT_ROOT_ENT = $(PROJECT_ROOT)/external/enterprise
+EXTAPI_CLIENT_ROOT_ENG = $(PROJECT_ROOT)/external/engine
+EXTAPI_OPENAPI_DOC_ENT = $(PROJECT_ROOT)/swagger-external-enterprise-$(ENTERPRISE_REF).yaml
+EXTAPI_OPENAPI_DOC_ENG = $(PROJECT_ROOT)/swagger-external-engine-$(ENTERPRISE_REF).yaml
 
 define generate_openapi_client
 	# remove previous API clients
@@ -54,15 +56,23 @@ clone:
 	if [ -d "./${CLONE_DIR}" ]; then cd ${CLONE_DIR} && git pull origin master; fi
 	cd ${CLONE_DIR} && git checkout ${ENTERPRISE_REF}
 
-$(EXTAPI_OPENAPI_DOC): clone ## pull the engine external API swagger document
+$(EXTAPI_OPENAPI_DOC_ENT): clone ## pull the enterprise external API swagger document
 	mkdir -p $(PROJECT_ROOT)
 	# note: the existing upstream swagger document needs to be corrected, otherwise invalid code will be generated.
 	# the tr/sed cmds are a workaround for now.
-	cp $(CLONE_DIR)/anchore_enterprise/swagger/enterprise_api_swagger.yaml $(EXTAPI_OPENAPI_DOC)
+	cp $(CLONE_DIR)/anchore_enterprise/swagger/enterprise_api_swagger.yaml $(EXTAPI_OPENAPI_DOC_ENT)
+
+$(EXTAPI_OPENAPI_DOC_ENG): clone ## pull the engine external API swagger document
+	mkdir -p $(PROJECT_ROOT)
+	# note: the existing upstream swagger document needs to be corrected, otherwise invalid code will be generated.
+	# the tr/sed cmds are a workaround for now.
+	cp $(CLONE_DIR)/anchore_engine/services/apiext/swagger/swagger.yaml $(EXTAPI_OPENAPI_DOC_ENG)
 
 .PHONY :=
-generate-external-client: $(EXTAPI_OPENAPI_DOC) ## generate client code for engine external API
-	$(call generate_openapi_client,$(EXTAPI_OPENAPI_DOC),external,$(EXTAPI_CLIENT_ROOT))
+generate-external-client: $(EXTAPI_OPENAPI_DOC_ENT) $(EXTAPI_OPENAPI_DOC_ENG) ## generate client code for engine external API
+	$(call generate_openapi_client,$(EXTAPI_OPENAPI_DOC_ENT),external,$(EXTAPI_CLIENT_ROOT_ENT))
+	$(call generate_openapi_client,$(EXTAPI_OPENAPI_DOC_ENG),external,$(EXTAPI_CLIENT_ROOT_ENG))
+
 
 .PHONY :=
 clean: ## remove all swagger documents and generated client code
