@@ -1,0 +1,3994 @@
+openapi: 3.0.1
+info:
+  contact:
+    email: dev@anchore.com
+  description: This is the Anchore Enterprise API. It provides additional external
+    API routes and functionality for enterprise users.
+  title: Anchore Enterprise API Server
+  version: 0.2.1
+servers:
+- url: /enterprise
+paths:
+  /images/{imageDigest}/check:
+    get:
+      description: Get the policy evaluation for the given image
+      operationId: get_image_policy_check_by_digest
+      parameters:
+      - in: path
+        name: imageDigest
+        required: true
+        schema:
+          type: string
+      - in: query
+        name: policyId
+        schema:
+          type: string
+      - in: query
+        name: tag
+        required: true
+        schema:
+          type: string
+      - in: query
+        name: detail
+        schema:
+          default: true
+          type: boolean
+      - in: query
+        name: history
+        schema:
+          default: false
+          type: boolean
+      - in: query
+        name: interactive
+        schema:
+          default: false
+          type: boolean
+      - description: Digest of a base image. If specified the evaluation will indicate
+          results inherited from the base image
+        in: query
+        name: base_digest
+        schema:
+          type: string
+      - description: An account name to change the resource scope of the request to
+          that account, if permissions allow (admin only)
+        in: header
+        name: x-anchore-account
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EnterprisePolicyEvaluationList'
+          description: Policy evaluation success
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+          description: Internal Error
+      summary: Check policy evaluation status for image
+      x-swagger-router-controller: anchore_enterprise.services.api.controllers.images
+      x-anchore-authz-action: getImageEvaluation
+  /images/{imageDigest}/vuln/{vtype}:
+    get:
+      operationId: get_image_vulnerabilities_by_digest
+      parameters:
+      - in: path
+        name: imageDigest
+        required: true
+        schema:
+          type: string
+      - in: path
+        name: vtype
+        required: true
+        schema:
+          type: string
+      - in: query
+        name: force_refresh
+        schema:
+          default: false
+          type: boolean
+      - description: Filter results to include only vulnerabilities that are not marked
+          as invalid by upstream OS vendor data. When set to true, it will filter
+          out all vulnerabilities where `will_not_fix` is False. If false all vulnerabilities
+          are returned regardless of `will_not_fix`
+        in: query
+        name: vendor_only
+        schema:
+          default: true
+          type: boolean
+      - description: Digest of a base image. If specified the vulnerabilities will
+          indicate inheritance from the base image
+        in: query
+        name: base_digest
+        schema:
+          type: string
+      - description: An account name to change the resource scope of the request to
+          that account, if permissions allow (admin only)
+        in: header
+        name: x-anchore-account
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EnterpriseVulnerabilityResponse'
+          description: Vulnerability listing for the image
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+          description: Internal Error
+      summary: Get vulnerabilities by type
+      x-swagger-router-controller: anchore_enterprise.services.api.controllers.images
+      x-anchore-authz-action: getImage
+  /images/{image_digest}/ancestors:
+    get:
+      description: Returns list of ancestor images, which are the images that form
+        the base layers of the image
+      operationId: get_image_ancestors
+      parameters:
+      - in: path
+        name: image_digest
+        required: true
+        schema:
+          type: string
+      - description: An account name to change the resource scope of the request to
+          that account, if permissions allow (admin only)
+        in: header
+        name: x-anchore-account
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ImageAncestry'
+          description: Ancestor list
+        "404":
+          content: {}
+          description: Image not found
+        "500":
+          content: {}
+          description: Internal Error
+      summary: Return the list of ancestor images for the given image
+      x-swagger-router-controller: anchore_enterprise.services.api.controllers.images
+      x-anchore-authz-action: getImage
+  /inventories:
+    get:
+      description: Returns a list of the images that are in use
+      operationId: get_image_inventory
+      parameters:
+      - in: query
+        name: inventory_type
+        schema:
+          enum:
+          - kubernetes
+          type: string
+      - in: query
+        name: image_digest
+        schema:
+          type: string
+      - in: query
+        name: context
+        schema:
+          type: string
+      - description: An account name to change the resource scope of the request to
+          that account, if permissions allow (admin only)
+        in: header
+        name: x-anchore-account
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InventoryItems'
+          description: success
+        "500":
+          content: {}
+          description: Internal Error
+      summary: Return a list of the images in inventories for this account
+      x-swagger-router-controller: anchore_enterprise.services.api.controllers.runtime_inventory
+      x-anchore-authz-action: listRuntimeInventories
+    post:
+      description: synchronizes the list of the images that are in use
+      operationId: sync_image_inventory
+      parameters:
+      - description: An account name to change the resource scope of the request to
+          that account, if permissions allow (admin only)
+        in: header
+        name: x-anchore-account
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InventoryReport'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InventoryItems'
+          description: success
+        "500":
+          content: {}
+          description: Internal Error
+      summary: synchronizes the list of the images in a given cluster for the inventory
+      x-swagger-router-controller: anchore_enterprise.services.api.controllers.runtime_inventory
+      x-anchore-authz-action: syncInventory
+      x-codegen-request-body-name: inventory
+  /inventories/clusters:
+    get:
+      description: Returns a filterable list of the clusters that are configured for
+        reporting image inventory
+      operationId: list_inventory_clusters
+      parameters:
+      - in: query
+        name: inventory_type
+        schema:
+          enum:
+          - kubernetes
+          type: string
+      - description: An account name to change the resource scope of the request to
+          that account, if permissions allow (admin only)
+        in: header
+        name: x-anchore-account
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InventoryClusters'
+          description: success
+        "500":
+          content: {}
+          description: Internal Error
+      summary: Return a list of the configured inventory clusters
+      x-swagger-router-controller: anchore_enterprise.services.api.controllers.runtime_inventory
+      x-anchore-authz-action: listRuntimeInventories
+    post:
+      description: Create a new cluster inventory with the provided configuration
+      operationId: add_inventory_cluster
+      parameters:
+      - description: An account name to change the resource scope of the request to
+          that account, if permissions allow (admin only)
+        in: header
+        name: x-anchore-account
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InventoryCluster'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InventoryCluster'
+          description: success
+        "500":
+          content: {}
+          description: Internal Error
+      summary: Create a cluster inventory
+      x-swagger-router-controller: anchore_enterprise.services.api.controllers.runtime_inventory
+      x-anchore-authz-action: createRuntimeInventory
+      x-codegen-request-body-name: cluster
+  /inventories/clusters/{cluster_name}:
+    delete:
+      description: Removes a configured cluster for reporting image inventory by cluster_name
+      operationId: del_inventory_cluster_by_name
+      parameters:
+      - in: path
+        name: cluster_name
+        required: true
+        schema:
+          type: string
+      - description: An account name to change the resource scope of the request to
+          that account, if permissions allow (admin only)
+        in: header
+        name: x-anchore-account
+        schema:
+          type: string
+      responses:
+        "204":
+          content: {}
+          description: success
+        "500":
+          content: {}
+          description: Internal Error
+      summary: Delete a configured inventory clusters by cluster_name
+      x-swagger-router-controller: anchore_enterprise.services.api.controllers.runtime_inventory
+      x-anchore-authz-action: deleteRuntimeInventory
+    get:
+      description: Returns a cluster that is configured for reporting image inventory
+      operationId: get_inventory_cluster_by_name
+      parameters:
+      - in: path
+        name: cluster_name
+        required: true
+        schema:
+          type: string
+      - description: An account name to change the resource scope of the request to
+          that account, if permissions allow (admin only)
+        in: header
+        name: x-anchore-account
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InventoryCluster'
+          description: success
+        "500":
+          content: {}
+          description: Internal Error
+      summary: Return a configured inventory cluster
+      x-swagger-router-controller: anchore_enterprise.services.api.controllers.runtime_inventory
+      x-anchore-authz-action: getRuntimeInventory
+  /actions:
+    get:
+      description: Retrieves a list of action plans that have been completed
+      operationId: get_action_plans
+      parameters:
+      - in: query
+        name: image_tag
+        schema:
+          type: string
+      - in: query
+        name: image_digest
+        schema:
+          type: string
+      - description: RFC 3339 formatted UTC timestamp to filter out action plans that
+          were only created after this date
+        in: query
+        name: created_after
+        schema:
+          format: date-time
+          type: string
+      - description: An account name to change the resource scope of the request to
+          that account, if permissions allow (admin only)
+        in: header
+        name: x-anchore-account
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ActionPlans'
+          description: success
+        "500":
+          content: {}
+          description: Internal Error
+      summary: Gets a list of submitted action (remediation) plans
+      x-swagger-router-controller: anchore_enterprise.services.api.controllers.actions
+      x-anchore-authz-action: getActions
+    post:
+      description: Submits an Action Plan and saves upon completion
+      operationId: add_action_plan
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ActionPlan'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ActionPlan'
+          description: success
+        "500":
+          content: {}
+          description: Internal Error
+      summary: Submits an Action Plan
+      x-swagger-router-controller: anchore_enterprise.services.api.controllers.actions
+      x-anchore-authz-action: addAction
+      x-codegen-request-body-name: action_plan
+  /alerts/summaries:
+    get:
+      description: Returns a paginated list of alert summaries in chronological order
+        from the most to least recently generated alerts. Return alerts in the open
+        state by default. Use query parameters for filtering
+      operationId: get_alert_summaries
+      parameters:
+      - in: query
+        name: page
+        schema:
+          default: 1
+          minimum: 1
+          type: integer
+      - in: query
+        name: limit
+        schema:
+          default: 100
+          maximum: 100
+          minimum: 1
+          type: integer
+      - description: Filter for alerts based on the type such as compliance violation
+        in: query
+        name: type
+        schema:
+          default: all
+          enum:
+          - all
+          - compliance_violation
+          type: string
+      - description: Filter for alerts by current state, defaults to open alerts unless
+          specified
+        in: query
+        name: state
+        schema:
+          default: open
+          enum:
+          - all
+          - open
+          - closed
+          type: string
+      - description: Filter for alerts generated after the timestamp
+        in: query
+        name: created_after
+        schema:
+          format: date-time
+          type: string
+      - description: Filter for alerts generated before the timestamp
+        in: query
+        name: created_before
+        schema:
+          format: date-time
+          type: string
+      - description: Filter for alerts associated with a resource where the label
+          in key=value format such as tag=docker.io/library/alpine:latest or repository=library/alpine
+        explode: true
+        in: query
+        name: resource_label
+        schema:
+          items:
+            pattern: ^\S+=\S+$
+            type: string
+          type: array
+          uniqueItems: true
+        style: form
+      - description: An account name to change the resource scope of the request to
+          that account, if permissions allow (admin only)
+        in: header
+        name: x-anchore-account
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AlertSummaryList'
+          description: List of alert summaries
+      summary: List all alert summaries scoped to the account
+      x-swagger-router-controller: anchore_enterprise.services.api.controllers.alerts
+      x-anchore-authz-action: listAlerts
+  /alerts/compliance_violations:
+    get:
+      description: Returns a paginated list of compliance violation alerts in chronological
+        order from the most to least recently generated alerts. Return alerts in the
+        open state by default. Use query parameters for filtering
+      operationId: get_compliance_violation_alerts
+      parameters:
+      - in: query
+        name: page
+        schema:
+          default: 1
+          minimum: 1
+          type: integer
+      - in: query
+        name: limit
+        schema:
+          default: 100
+          maximum: 100
+          minimum: 1
+          type: integer
+      - description: Filter for alerts by current state, defaults to open alerts unless
+          specified
+        in: query
+        name: state
+        schema:
+          default: open
+          enum:
+          - all
+          - open
+          - closed
+          type: string
+      - description: Filter for alerts generated after the timestamp
+        in: query
+        name: created_after
+        schema:
+          format: date-time
+          type: string
+      - description: Filter for alerts generated before the timestamp
+        in: query
+        name: created_before
+        schema:
+          format: date-time
+          type: string
+      - description: Filter for alerts associated with image digest
+        in: query
+        name: resource_image_digest
+        schema:
+          type: string
+      - description: Filter for alerts generated for the tag
+        in: query
+        name: resource_image_tag
+        schema:
+          type: string
+      - description: Filter for alerts associated with registry
+        in: query
+        name: resource_registry
+        schema:
+          type: string
+      - description: Filter for alerts associated with repository
+        in: query
+        name: resource_repository
+        schema:
+          type: string
+      - description: An account name to change the resource scope of the request to
+          that account, if permissions allow (admin only)
+        in: header
+        name: x-anchore-account
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ComplianceViolationAlertList'
+          description: List of compliance violation alerts
+      summary: List all compliance violation alerts scoped to the account
+      x-swagger-router-controller: anchore_enterprise.services.api.controllers.alerts
+      x-anchore-authz-action: listAlerts
+  /alerts/compliance_violations/{uuid}:
+    get:
+      description: Returns a single compliance violation alert object
+      operationId: get_compliance_violation_alert
+      parameters:
+      - description: Identifier for the alert
+        in: path
+        name: uuid
+        required: true
+        schema:
+          type: string
+      - description: An account name to change the resource scope of the request to
+          that account, if permissions allow (admin only)
+        in: header
+        name: x-anchore-account
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ComplianceViolationAlert'
+          description: Compliance violation alert
+      summary: Get compliance violation alert by id
+      x-swagger-router-controller: anchore_enterprise.services.api.controllers.alerts
+      x-anchore-authz-action: getAlert
+  /alerts/compliance_violations/{uuid}/{state}:
+    put:
+      description: Idempotent op for changing the alert state to open or closed
+      operationId: update_compliance_violation_alert_state
+      parameters:
+      - description: Identifier for the alert
+        in: path
+        name: uuid
+        required: true
+        schema:
+          type: string
+      - in: path
+        name: state
+        required: true
+        schema:
+          enum:
+          - open
+          - closed
+          type: string
+      - description: An account name to change the resource scope of the request to
+          that account, if permissions allow (admin only)
+        in: header
+        name: x-anchore-account
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ComplianceViolationAlert'
+          description: Alert state updated successfully
+      summary: Open or close a compliance violation alert
+      x-swagger-router-controller: anchore_enterprise.services.api.controllers.alerts
+      x-anchore-authz-action: updateAlert
+  /corrections:
+    get:
+      description: Returns a list of corrections
+      operationId: get_corrections
+      parameters:
+      - in: query
+        name: correction_type
+        schema:
+          enum:
+          - package
+          type: string
+      - description: An account name to change the resource scope of the request to
+          that account, if permissions allow (admin only)
+        in: header
+        name: x-anchore-account
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CorrectionList'
+          description: Corrections retrieved successfully
+      summary: Retrieve a list of corrections
+      x-swagger-router-controller: anchore_enterprise.services.api.controllers.corrections
+      x-anchore-authz-action: getCorrection
+    post:
+      description: Add a correction record that will be used to fix
+      operationId: add_correction
+      parameters:
+      - description: An account name to change the resource scope of the request to
+          that account, if permissions allow (admin only)
+        in: header
+        name: x-anchore-account
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Correction'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CorrectionList'
+          description: Corrections retrieved successfully
+      summary: Create a correction record
+      x-swagger-router-controller: anchore_enterprise.services.api.controllers.corrections
+      x-anchore-authz-action: addCorrection
+      x-codegen-request-body-name: correction
+  /corrections/{uuid}:
+    delete:
+      description: Delete a single correction, looked up via it's uuid
+      operationId: delete_correction_by_uuid
+      parameters:
+      - in: path
+        name: uuid
+        required: true
+        schema:
+          type: string
+      - description: An account name to change the resource scope of the request to
+          that account, if permissions allow (admin only)
+        in: header
+        name: x-anchore-account
+        schema:
+          type: string
+      responses:
+        "204":
+          content: {}
+          description: Correction deleted successfully
+      summary: Delete a correction by UUID
+      x-swagger-router-controller: anchore_enterprise.services.api.controllers.corrections
+      x-anchore-authz-action: deleteCorrection
+    get:
+      description: Returns a single correction, looked up via it's uuid
+      operationId: get_correction_by_uuid
+      parameters:
+      - in: path
+        name: uuid
+        required: true
+        schema:
+          type: string
+      - description: An account name to change the resource scope of the request to
+          that account, if permissions allow (admin only)
+        in: header
+        name: x-anchore-account
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Correction'
+          description: Correction retrieved successfully
+      summary: Retrieve a correction by UUID
+      x-swagger-router-controller: anchore_enterprise.services.api.controllers.corrections
+      x-anchore-authz-action: getCorrection
+    put:
+      description: Updates a single correction, looked up via it's uuid
+      operationId: update_correction_by_uuid
+      parameters:
+      - in: path
+        name: uuid
+        required: true
+        schema:
+          type: string
+      - description: An account name to change the resource scope of the request to
+          that account, if permissions allow (admin only)
+        in: header
+        name: x-anchore-account
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Correction'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Correction'
+          description: Correction updated successfully
+      summary: Update a correction by UUID
+      x-swagger-router-controller: anchore_enterprise.services.api.controllers.corrections
+      x-anchore-authz-action: updateCorrection
+      x-codegen-request-body-name: correction
+  /runtime_compliance:
+    get:
+      description: Get all runtime compliance checks or just those for a given image
+        digest
+      operationId: get_runtime_compliance_checks
+      parameters:
+      - in: query
+        name: image_digest
+        schema:
+          type: string
+      - description: An account name to change the resource scope of the request to
+          that account, if permissions allow (admin only)
+        in: header
+        name: x-anchore-account
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RuntimeComplianceCheckList'
+          description: Compliance evaluation retrieval success
+        "404":
+          content: {}
+          description: No runtime compliance checks found
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+          description: Internal Error
+      summary: Get all runtime compliance checks or just those for a given image digest
+      x-swagger-router-controller: anchore_enterprise.services.api.controllers.runtime_compliance
+      x-anchore-authz-action: getRuntimeComplianceCheck
+    post:
+      description: Post a runtime compliance check
+      operationId: add_runtime_compliance_check
+      parameters:
+      - description: An account name to change the resource scope of the request to
+          that account, if permissions allow (admin only)
+        in: header
+        name: x-anchore-account
+        schema:
+          type: string
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              properties:
+                check_type:
+                  description: The type of runtime compliance check
+                  type: string
+                image_digest:
+                  description: The digest of the pod the check was run against
+                  type: string
+                result:
+                  description: The result of the runtime compliance check
+                  type: string
+                pod:
+                  description: The pod the check was run against
+                  type: string
+                namespace:
+                  description: The namespace of the pod the check was run against
+                  type: string
+                image_tag:
+                  description: The tag of the image in the pod the check was run against
+                  type: string
+                start_time:
+                  description: The type of runtime compliance check
+                  format: date-time
+                  type: string
+                end_time:
+                  description: The type of runtime compliance check
+                  format: date-time
+                  type: string
+                result_file:
+                  description: The file with the check results
+                  format: binary
+                  type: string
+                report_file:
+                  description: The file with the check port
+                  format: binary
+                  type: string
+              required:
+              - check_type
+              - image_digest
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RuntimeComplianceCheck'
+          description: success
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+          description: Internal Error
+      summary: Post a runtime compliance check
+      x-swagger-router-controller: anchore_enterprise.services.api.controllers.runtime_compliance
+      x-anchore-authz-action: createRuntimeComplianceCheck
+  /runtime_compliance/result/{compliance_file_id}:
+    get:
+      description: Get the results of a specific runtime compliance check
+      operationId: get_runtime_compliance_result
+      parameters:
+      - in: path
+        name: compliance_file_id
+        required: true
+        schema:
+          type: string
+      - description: An account name to change the resource scope of the request to
+          that account, if permissions allow (admin only)
+        in: header
+        name: x-anchore-account
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            text/html:
+              schema:
+                format: binary
+                type: string
+          description: Compliance evaluation retrieval success
+        "404":
+          content: {}
+          description: No runtime compliance results found
+        "500":
+          content:
+            text/html:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+          description: Internal Error
+      summary: Check the results of a a specific runtime compliance check
+      x-swagger-router-controller: anchore_enterprise.services.api.controllers.runtime_compliance
+      x-anchore-authz-action: getRuntimeComplianceCheck
+  /applications:
+    get:
+      description: List all applications
+      operationId: get_applications
+      parameters:
+      - in: query
+        name: include_versions
+        schema:
+          default: false
+          type: boolean
+      - description: An account name to change the resource scope of the request to
+          that account, if permissions allow (admin only)
+        in: header
+        name: x-anchore-account
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApplicationList'
+          description: Applications retrieved successfully
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+          description: Internal Error
+      summary: List all applications
+      x-swagger-router-controller: anchore_enterprise.services.api.controllers.applications
+      x-anchore-authz-action: getApplication
+    post:
+      description: Create an application
+      operationId: add_application
+      parameters:
+      - description: An account name to change the resource scope of the request to
+          that account, if permissions allow (admin only)
+        in: header
+        name: x-anchore-account
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Application'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Application'
+          description: success
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+          description: Internal Error
+      summary: Create an application
+      x-swagger-router-controller: anchore_enterprise.services.api.controllers.applications
+      x-anchore-authz-action: createApplication
+      x-codegen-request-body-name: application
+  /applications/{application_id}:
+    delete:
+      description: Delete an application by application_id
+      operationId: delete_application
+      parameters:
+      - in: path
+        name: application_id
+        required: true
+        schema:
+          type: string
+      - description: An account name to change the resource scope of the request to
+          that account, if permissions allow (admin only)
+        in: header
+        name: x-anchore-account
+        schema:
+          type: string
+      responses:
+        "204":
+          content: {}
+          description: Application deleted successfully
+      summary: Delete an application by application_id
+      x-swagger-router-controller: anchore_enterprise.services.api.controllers.applications
+      x-anchore-authz-action: deleteApplication
+    get:
+      description: Get an application by application_id
+      operationId: get_application
+      parameters:
+      - in: path
+        name: application_id
+        required: true
+        schema:
+          type: string
+      - in: query
+        name: include_versions
+        schema:
+          default: false
+          type: boolean
+      - description: An account name to change the resource scope of the request to
+          that account, if permissions allow (admin only)
+        in: header
+        name: x-anchore-account
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Application'
+          description: Successfully retrieved application
+        "404":
+          content: {}
+          description: Application not found
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+          description: Internal Error
+      summary: Get an application by application_id
+      x-swagger-router-controller: anchore_enterprise.services.api.controllers.applications
+      x-anchore-authz-action: getApplication
+    put:
+      description: Updates application details for given application_id
+      operationId: update_application
+      parameters:
+      - in: path
+        name: application_id
+        required: true
+        schema:
+          type: string
+      - description: An account name to change the resource scope of the request to
+          that account, if permissions allow (admin only)
+        in: header
+        name: x-anchore-account
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Application'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Application'
+          description: Application updated successfully
+        "404":
+          content: {}
+          description: Application not found
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+          description: Internal Error
+      summary: Update application details
+      x-swagger-router-controller: anchore_enterprise.services.api.controllers.applications
+      x-anchore-authz-action: updateApplication
+      x-codegen-request-body-name: application
+  /applications/{application_id}/versions:
+    get:
+      description: List all application verions
+      operationId: get_application_versions
+      parameters:
+      - in: path
+        name: application_id
+        required: true
+        schema:
+          type: string
+      - description: An account name to change the resource scope of the request to
+          that account, if permissions allow (admin only)
+        in: header
+        name: x-anchore-account
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApplicationVersionList'
+          description: Successfully retrieved application versions
+        "404":
+          content: {}
+          description: Application not found
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+          description: Internal Error
+      summary: List all application verions
+      x-swagger-router-controller: anchore_enterprise.services.api.controllers.applications
+      x-anchore-authz-action: getApplication
+    post:
+      description: Create an application version
+      operationId: add_application_version
+      parameters:
+      - in: path
+        name: application_id
+        required: true
+        schema:
+          type: string
+      - description: An account name to change the resource scope of the request to
+          that account, if permissions allow (admin only)
+        in: header
+        name: x-anchore-account
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ApplicationVersion'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApplicationVersion'
+          description: success
+        "404":
+          content: {}
+          description: Application version not found
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+          description: Internal Error
+      summary: Create an application version
+      x-swagger-router-controller: anchore_enterprise.services.api.controllers.applications
+      x-anchore-authz-action: createApplication
+      x-codegen-request-body-name: application_version
+  /applications/{application_id}/versions/{application_version_id}:
+    delete:
+      description: Delete an application version by application_id and application_version_id
+      operationId: delete_application_version
+      parameters:
+      - in: path
+        name: application_id
+        required: true
+        schema:
+          type: string
+      - in: path
+        name: application_version_id
+        required: true
+        schema:
+          type: string
+      - description: An account name to change the resource scope of the request to
+          that account, if permissions allow (admin only)
+        in: header
+        name: x-anchore-account
+        schema:
+          type: string
+      responses:
+        "204":
+          content: {}
+          description: Application version deleted successfully
+        "404":
+          content: {}
+          description: Application version not found
+      summary: Delete an application version by application_id and application_version_id
+      x-swagger-router-controller: anchore_enterprise.services.api.controllers.applications
+      x-anchore-authz-action: deleteApplication
+    get:
+      description: Get an application version by application_id and application_version_id
+      operationId: get_application_version
+      parameters:
+      - in: path
+        name: application_id
+        required: true
+        schema:
+          type: string
+      - in: path
+        name: application_version_id
+        required: true
+        schema:
+          type: string
+      - description: An account name to change the resource scope of the request to
+          that account, if permissions allow (admin only)
+        in: header
+        name: x-anchore-account
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApplicationVersion'
+          description: Successfully retrieved application version
+        "404":
+          content: {}
+          description: Application version not found
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+          description: Internal Error
+      summary: Get an application version
+      x-swagger-router-controller: anchore_enterprise.services.api.controllers.applications
+      x-anchore-authz-action: getApplication
+    put:
+      description: Updates application version details for given application_id and
+        application_version_id
+      operationId: update_application_version
+      parameters:
+      - in: path
+        name: application_id
+        required: true
+        schema:
+          type: string
+      - in: path
+        name: application_version_id
+        required: true
+        schema:
+          type: string
+      - description: An account name to change the resource scope of the request to
+          that account, if permissions allow (admin only)
+        in: header
+        name: x-anchore-account
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ApplicationVersion'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApplicationVersion'
+          description: Application updated successfully
+        "404":
+          content: {}
+          description: Application version not found
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+          description: Internal Error
+      summary: Update application version details
+      x-swagger-router-controller: anchore_enterprise.services.api.controllers.applications
+      x-anchore-authz-action: updateApplication
+      x-codegen-request-body-name: application_version
+  /applications/{application_id}/versions/{application_version_id}/artifacts:
+    get:
+      description: List artifacts present on a given application version
+      operationId: list_artifacts
+      parameters:
+      - in: path
+        name: application_id
+        required: true
+        schema:
+          type: string
+      - in: path
+        name: application_version_id
+        required: true
+        schema:
+          type: string
+      - explode: false
+        in: query
+        name: artifact_types
+        schema:
+          items:
+            enum:
+            - source
+            - image
+            type: string
+          type: array
+        style: form
+      - description: An account name to change the resource scope of the request to
+          that account, if permissions allow (admin only)
+        in: header
+        name: x-anchore-account
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArtifactListResponse'
+          description: Successfully retrieved artifacts
+        "404":
+          content: {}
+          description: Application version not found
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+          description: Internal Error
+      summary: List artifacts present on a given application version
+      x-swagger-router-controller: anchore_enterprise.services.api.controllers.applications
+      x-anchore-authz-action: getApplication
+    post:
+      description: Add artifact to given application_id and application_version_id
+      operationId: add_artifact_to_application_version
+      parameters:
+      - in: path
+        name: application_id
+        required: true
+        schema:
+          type: string
+      - in: path
+        name: application_version_id
+        required: true
+        schema:
+          type: string
+      - description: An account name to change the resource scope of the request to
+          that account, if permissions allow (admin only)
+        in: header
+        name: x-anchore-account
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ArtifactAssociationRequest'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArtifactAssociationResponse'
+          description: Artifact successfully added to application version
+        "404":
+          content: {}
+          description: Application version not found
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+          description: Internal Error
+      summary: Add an artifact to an application version
+      x-swagger-router-controller: anchore_enterprise.services.api.controllers.applications
+      x-anchore-authz-action: updateApplication
+      x-codegen-request-body-name: artifact_request
+  /applications/{application_id}/versions/{application_version_id}/artifacts/{association_id}:
+    delete:
+      description: Delete an artifact from specified application version
+      operationId: remove_artifact_from_application_version
+      parameters:
+      - in: path
+        name: application_id
+        required: true
+        schema:
+          type: string
+      - in: path
+        name: application_version_id
+        required: true
+        schema:
+          type: string
+      - in: path
+        name: association_id
+        required: true
+        schema:
+          type: string
+      - description: An account name to change the resource scope of the request to
+          that account, if permissions allow (admin only)
+        in: header
+        name: x-anchore-account
+        schema:
+          type: string
+      responses:
+        "204":
+          content: {}
+          description: Artifact successfully removed from application version
+        "500":
+          content: {}
+          description: Internal Error
+      summary: Delete an artifact from specified application version
+      x-swagger-router-controller: anchore_enterprise.services.api.controllers.applications
+      x-anchore-authz-action: deleteApplication
+  /applications/{application_id}/versions/{application_version_id}/sboms/json:
+    get:
+      description: Get the combined sbom for the given application version, optionally
+        filtered by artifact type
+      operationId: get_application_version_sbom
+      parameters:
+      - in: path
+        name: application_id
+        required: true
+        schema:
+          type: string
+      - in: path
+        name: application_version_id
+        required: true
+        schema:
+          type: string
+      - explode: false
+        in: query
+        name: artifact_types
+        schema:
+          items:
+            enum:
+            - source
+            - image
+            type: string
+          type: array
+        style: form
+      - description: An account name to change the resource scope of the request to
+          that account, if permissions allow (admin only)
+        in: header
+        name: x-anchore-account
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApplicationVersionSbom'
+          description: Successfully retrieved combined sbom
+        "404":
+          content: {}
+          description: Application version not found
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+          description: Internal Error
+      summary: Get the combined sbom for the given application version, optionally
+        filtered by artifact type
+      x-swagger-router-controller: anchore_enterprise.services.api.controllers.applications
+      x-anchore-authz-action: getApplication
+  /imports/sources:
+    get:
+      operationId: list_operations
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SourceImportList'
+          description: success
+        "500":
+          content: {}
+          description: Internal Error
+      summary: Lists in-progress imports
+      x-swagger-router-controller: anchore_enterprise.services.api.controllers.source_imports
+      x-anchore-authz-action: importSource
+    post:
+      operationId: create_operation
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SourceImportOperation'
+          description: success
+        "500":
+          content: {}
+          description: Internal Error
+      summary: Begin the import of a source code repository analyzed by Syft into
+        the system
+      x-swagger-router-controller: anchore_enterprise.services.api.controllers.source_imports
+      x-anchore-authz-action: importSource
+  /imports/sources/{operation_id}:
+    delete:
+      operationId: invalidate_operation
+      parameters:
+      - in: path
+        name: operation_id
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SourceImportOperation'
+          description: success
+        "500":
+          content: {}
+          description: Internal Error
+      summary: Invalidate operation ID so it can be garbage collected
+      x-swagger-router-controller: anchore_enterprise.services.api.controllers.source_imports
+      x-anchore-authz-action: importSource
+    get:
+      operationId: get_operation
+      parameters:
+      - in: path
+        name: operation_id
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SourceImportOperation'
+          description: success
+        "500":
+          content: {}
+          description: Internal Error
+      summary: Get detail on a single import
+      x-swagger-router-controller: anchore_enterprise.services.api.controllers.source_imports
+      x-anchore-authz-action: importSource
+  /imports/sources/{operation_id}/sbom:
+    get:
+      operationId: get_import_sources_sbom
+      parameters:
+      - in: path
+        name: operation_id
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SourceImportContentResponse'
+          description: success
+        "500":
+          content: {}
+          description: Internal Error
+      summary: list the packages of an imported source code repository
+      x-swagger-router-controller: anchore_enterprise.services.api.controllers.source_imports
+      x-anchore-authz-action: importSource
+    post:
+      operationId: upload_import_sources_sbom
+      parameters:
+      - in: path
+        name: operation_id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NativeSBOM'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SourceImportContentResponse'
+          description: success
+        "500":
+          content: {}
+          description: Internal Error
+      summary: Begin the import of a source code repository analyzed by Syft into
+        the system
+      x-swagger-router-controller: anchore_enterprise.services.api.controllers.source_imports
+      x-anchore-authz-action: importSource
+      x-codegen-request-body-name: sbom
+  /imports/sources/{operation_id}/finalize:
+    post:
+      operationId: finalize_operation
+      parameters:
+      - in: path
+        name: operation_id
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SourceImportMetadata'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SourceManifest'
+          description: success
+        "500":
+          content: {}
+          description: Internal Error
+      summary: Add source records to catalog db
+      x-swagger-router-controller: anchore_enterprise.services.api.controllers.source_imports
+      x-anchore-authz-action: importSource
+      x-codegen-request-body-name: metadata
+  /sources:
+    get:
+      operationId: list_sources
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SourcesList'
+          description: success
+        "500":
+          content: {}
+          description: Internal Error
+      summary: List the source repository analysis records
+      x-swagger-router-controller: anchore_enterprise.services.api.controllers.sources
+      x-anchore-authz-action: listSources
+  /sources/{source_id}:
+    delete:
+      operationId: delete_source
+      parameters:
+      - description: UUID of source to delete
+        in: path
+        name: source_id
+        required: true
+        schema:
+          type: string
+      - description: force delete
+        in: query
+        name: force
+        schema:
+          type: boolean
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SourceManifest'
+          description: success
+        "500":
+          content: {}
+          description: Internal Error
+      summary: Delete source record from DB
+      x-swagger-router-controller: anchore_enterprise.services.api.controllers.sources
+      x-anchore-authz-action: getSource
+    get:
+      operationId: get_source
+      parameters:
+      - in: path
+        name: source_id
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SourceManifest'
+          description: success
+        "500":
+          content: {}
+          description: Internal Error
+      summary: Get a detailed source repository analysis metadata record
+      x-swagger-router-controller: anchore_enterprise.services.api.controllers.sources
+      x-anchore-authz-action: getSource
+  /sources/{source_id}/sbom:
+    get:
+      operationId: get_source_sbom_types
+      parameters:
+      - in: path
+        name: source_id
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                description: Array of available types
+                items:
+                  type: string
+                type: array
+          description: success
+        "500":
+          content: {}
+          description: Internal Error
+      summary: Get a detailed source repository analysis metadata record
+      x-swagger-router-controller: anchore_enterprise.services.api.controllers.sources
+      x-anchore-authz-action: getSource
+  /sources/{source_id}/sbom/native:
+    get:
+      operationId: get_source_sbom_native
+      parameters:
+      - in: path
+        name: source_id
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/gzip:
+              schema:
+                format: binary
+                type: string
+          description: success
+        "500":
+          content: {}
+          description: Internal Error
+      x-swagger-router-controller: anchore_enterprise.services.api.controllers.sources
+      x-anchore-authz-action: getSource
+  /sources/{source_id}/content:
+    get:
+      operationId: get_source_content_types
+      parameters:
+      - in: path
+        name: source_id
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                description: Array of available types
+                items:
+                  type: string
+                type: array
+          description: success
+        "500":
+          content: {}
+          description: Internal Error
+      summary: Get a detailed source repository analysis metadata record
+      x-swagger-router-controller: anchore_enterprise.services.api.controllers.sources
+      x-anchore-authz-action: getSource
+  /sources/{source_id}/content/{content_type}:
+    get:
+      operationId: get_source_content_by_type
+      parameters:
+      - in: path
+        name: source_id
+        required: true
+        schema:
+          type: string
+      - in: path
+        name: content_type
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SourceContentPackageResponse'
+          description: Content of specified type from the image
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+          description: Internal error
+      summary: Get the content of an analyzed source repository
+      x-swagger-router-controller: anchore_enterprise.services.api.controllers.sources
+      x-anchore-authz-action: getSourrce
+  /sources/{source_id}/vuln:
+    get:
+      operationId: get_source_vulnerability_types
+      parameters:
+      - in: path
+        name: source_id
+        required: true
+        schema:
+          type: string
+      - description: An account name to change the resource scope of the request to
+          that account, if permissions allow (admin only)
+        in: header
+        name: x-anchore-account
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  enum:
+                  - all
+                  - os
+                  - non-os
+                  type: string
+                type: array
+          description: List of vulnerability types for the source
+        "500":
+          content: {}
+          description: Internal Error
+      summary: Get the available vulnerability types for source
+      x-swagger-router-controller: anchore_enterprise.services.api.controllers.sources
+      x-anchore-authz-action: getSource
+  /sources/{source_id}/vuln/{vtype}:
+    get:
+      operationId: get_source_vulnerabilities
+      parameters:
+      - in: path
+        name: source_id
+        required: true
+        schema:
+          type: string
+      - in: path
+        name: vtype
+        required: true
+        schema:
+          type: string
+      - in: query
+        name: force_refresh
+        schema:
+          type: boolean
+      - description: Vulnerability data publishers explicitly won't fix some vulnerabilities.
+          This is captured by will_not_fix attribute of each result. If the query
+          parameter is set, results matching it's value will be filtered. Results
+          are not filtered if the query parameter is unset
+        in: query
+        name: will_not_fix
+        schema:
+          type: boolean
+      - description: An account name to change the resource scope of the request to
+          that account, if permissions allow (admin only)
+        in: header
+        name: x-anchore-account
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SourceVulnerabilitiesResponse'
+          description: Vulnerability listing for the source
+        "500":
+          content: {}
+          description: Internal Error
+      summary: Get vulnerabilities for the source by type
+      x-swagger-router-controller: anchore_enterprise.services.api.controllers.sources
+      x-anchore-authz-action: getSource
+  /sources/{source_id}/check:
+    get:
+      operationId: get_source_policy_check
+      parameters:
+      - description: UUID of source to get
+        in: path
+        name: source_id
+        required: true
+        schema:
+          type: string
+      - in: query
+        name: policy_id
+        schema:
+          type: string
+      - in: query
+        name: newest_only
+        schema:
+          type: boolean
+      - in: query
+        name: interactive
+        schema:
+          type: boolean
+      - in: query
+        name: history_only
+        schema:
+          type: boolean
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PolicyEvaluationListResponse'
+          description: success
+      summary: Fetch or calculate policy evaluation for a source
+      x-anchore-authz-action: getSourceEvaluation
+      x-swagger-router-controller: anchore_enterprise.services.api.controllers.sources
+components:
+  parameters:
+    AsAccountParameter:
+      description: An account name to change the resource scope of the request to
+        that account, if permissions allow (admin only)
+      in: header
+      name: x-anchore-account
+      schema:
+        type: string
+  schemas:
+    PolicyEvaluationListResponse:
+      items:
+        properties:
+          account_id:
+            type: string
+          policy_id:
+            type: string
+          evaluation_id:
+            type: string
+          source_id:
+            type: string
+          vcs_host:
+            type: string
+          repository_name:
+            type: string
+          final_action:
+            type: string
+          evaluation_url:
+            type: string
+          created_at:
+            format: date-time
+            type: string
+          last_updated:
+            format: date-time
+            type: string
+          result:
+            properties: {}
+            type: object
+        type: object
+      type: array
+    SourceManifest:
+      example:
+        vcs_type: vcs_type
+        last_updated: 2000-01-23T04:56:07.000+00:00
+        account_id: account_id
+        analysis_status: not_analyzed
+        host: host
+        created_at: 2000-01-23T04:56:07.000+00:00
+        metadata_records:
+        - ci_workflow_name: ci_workflow_name
+          change_author: change_author
+          branch_name: branch_name
+          uuid: uuid
+          ci_workflow_execution_time: 2000-01-23T04:56:07.000+00:00
+        - ci_workflow_name: ci_workflow_name
+          change_author: change_author
+          branch_name: branch_name
+          uuid: uuid
+          ci_workflow_execution_time: 2000-01-23T04:56:07.000+00:00
+        uuid: uuid
+        repository_name: repository_name
+        source_status: active
+        revision: revision
+      properties:
+        uuid:
+          type: string
+        account_id:
+          type: string
+        vcs_type:
+          type: string
+        host:
+          type: string
+        repository_name:
+          type: string
+        revision:
+          type: string
+        created_at:
+          format: date-time
+          type: string
+        last_updated:
+          format: date-time
+          type: string
+        analysis_status:
+          enum:
+          - not_analyzed
+          - analyzed
+          - analyzing
+          - analysis_failed
+          type: string
+        source_status:
+          enum:
+          - active
+          - inactive
+          - deleting
+          type: string
+        metadata_records:
+          description: Array of metadata available
+          items:
+            $ref: '#/components/schemas/SourceManifest_metadata_records'
+          type: array
+      type: object
+    SourcesList:
+      items:
+        $ref: '#/components/schemas/Source'
+      type: array
+    Source:
+      example:
+        last_updated: 2000-01-23T04:56:07.000+00:00
+        account_id: account_id
+        analysis_status: not_analyzed
+        host: host
+        created_at: 2000-01-23T04:56:07.000+00:00
+        uuid: uuid
+        repository_name: repository_name
+        source_status: active
+        revision: revision
+      properties:
+        uuid:
+          description: A system-assigned identifier unique for each source analysis
+          type: string
+        account_id:
+          description: The anchore account id that owns this resource
+          type: string
+        host:
+          description: Host name for the repository location (e.g. github.com)
+          type: string
+        repository_name:
+          description: The name of the repository on the host (e.g. 'anchore/anchore-engine')
+          type: string
+        revision:
+          description: The commit ID for a git repository
+          type: string
+        analysis_status:
+          description: The analysis state of the source
+          enum:
+          - not_analyzed
+          - analyzed
+          - analyzing
+          - analysis_failed
+          type: string
+        source_status:
+          description: The state of the source
+          enum:
+          - active
+          - inactive
+          - deleting
+          type: string
+        created_at:
+          format: date-time
+          type: string
+        last_updated:
+          format: date-time
+          type: string
+      type: object
+    ApiErrorResponse:
+      description: Generic HTTP API error response
+      properties:
+        code:
+          format: int32
+          type: integer
+        error_type:
+          type: string
+        message:
+          type: string
+        detail:
+          description: Details structure for additional information about the error
+            if available. Content and structure will be error specific.
+          properties: {}
+          type: object
+      type: object
+    EnterprisePolicyEvaluation:
+      description: Evaluation response object
+      type: object
+    EnterprisePolicyEvaluationList:
+      description: Evaluation response object
+      items:
+        $ref: '#/components/schemas/EnterprisePolicyEvaluation'
+      type: array
+    EnterpriseVulnerability:
+      example:
+        severity: severity
+        package: package
+        package_path: package_path
+        nvd_data:
+        - cvss_v3:
+            base_score: 5.962133916683182
+            impact_score: 2.3021358869347655
+            exploitability_score: 5.637376656633329
+          cvss_v2:
+            base_score: 0.8008281904610115
+            impact_score: 1.4658129805029452
+            exploitability_score: 6.027456183070403
+          id: id
+        - cvss_v3:
+            base_score: 5.962133916683182
+            impact_score: 2.3021358869347655
+            exploitability_score: 5.637376656633329
+          cvss_v2:
+            base_score: 0.8008281904610115
+            impact_score: 1.4658129805029452
+            exploitability_score: 6.027456183070403
+          id: id
+        vendor_data:
+        - cvss_v3:
+            base_score: 5.962133916683182
+            impact_score: 2.3021358869347655
+            exploitability_score: 5.637376656633329
+          cvss_v2:
+            base_score: 0.8008281904610115
+            impact_score: 1.4658129805029452
+            exploitability_score: 6.027456183070403
+          id: id
+        - cvss_v3:
+            base_score: 5.962133916683182
+            impact_score: 2.3021358869347655
+            exploitability_score: 5.637376656633329
+          cvss_v2:
+            base_score: 0.8008281904610115
+            impact_score: 1.4658129805029452
+            exploitability_score: 6.027456183070403
+          id: id
+        package_type: package_type
+        package_cpe: package_cpe
+        url: url
+        will_not_fix: true
+        feed: feed
+        package_version: package_version
+        fix: fix
+        vuln: vuln
+        feed_group: feed_group
+        package_name: package_name
+        inherited_from_base: true
+      properties:
+        vuln:
+          description: The vulnerability identifier, such as CVE-2017-100, or RHSA-2017123
+          type: string
+        fix:
+          description: The package containing a fix, if available
+          type: string
+        severity:
+          description: The severity of the vulnerability
+          type: string
+        package:
+          description: The package name and version that are vulnerable in the image
+          type: string
+        url:
+          description: The url for more information about the vulnerability
+          type: string
+        feed:
+          description: The name of the feed where vulnerability match was made
+          type: string
+        feed_group:
+          description: The name of the feed group where vulnerability match was made
+          type: string
+        package_name:
+          description: The name of the vulnerable package artifact
+          type: string
+        package_version:
+          description: The version of the vulnerable package artifact
+          type: string
+        package_type:
+          description: The type of vulnerable package
+          type: string
+        package_cpe:
+          description: The CPE string (if applicable) describing the package to vulnerability
+            match
+          type: string
+        package_path:
+          description: The location (if applicable) of the vulnerable package in the
+            container filesystem
+          type: string
+        will_not_fix:
+          description: Whether a vendor will fix or not fix the vulnerability
+          type: boolean
+        nvd_data:
+          description: List of Nvd Data objects
+          items:
+            $ref: '#/components/schemas/NvdDataObject'
+          type: array
+        vendor_data:
+          description: List of Vendor Data objects
+          items:
+            $ref: '#/components/schemas/VendorDataObject'
+          type: array
+        inherited_from_base:
+          description: True if the vulnerable artifact is found in the base image.
+            False otherwise
+          type: boolean
+      type: object
+    NvdDataList:
+      description: List of Nvd Data objects
+      items:
+        $ref: '#/components/schemas/NvdDataObject'
+      type: array
+    NvdDataObject:
+      example:
+        cvss_v3:
+          base_score: 5.962133916683182
+          impact_score: 2.3021358869347655
+          exploitability_score: 5.637376656633329
+        cvss_v2:
+          base_score: 0.8008281904610115
+          impact_score: 1.4658129805029452
+          exploitability_score: 6.027456183070403
+        id: id
+      properties:
+        id:
+          description: NVD Vulnerability ID
+          type: string
+        cvss_v2:
+          $ref: '#/components/schemas/CVSSV2Scores'
+        cvss_v3:
+          $ref: '#/components/schemas/CVSSV3Scores'
+      type: object
+    VendorDataList:
+      description: List of Vendor Data objects
+      items:
+        $ref: '#/components/schemas/VendorDataObject'
+      type: array
+    VendorDataObject:
+      example:
+        cvss_v3:
+          base_score: 5.962133916683182
+          impact_score: 2.3021358869347655
+          exploitability_score: 5.637376656633329
+        cvss_v2:
+          base_score: 0.8008281904610115
+          impact_score: 1.4658129805029452
+          exploitability_score: 6.027456183070403
+        id: id
+      properties:
+        id:
+          description: Vendor Vulnerability ID
+          type: string
+        cvss_v2:
+          $ref: '#/components/schemas/CVSSV2Scores'
+        cvss_v3:
+          $ref: '#/components/schemas/CVSSV3Scores'
+      type: object
+    CVSSV2Scores:
+      example:
+        base_score: 0.8008281904610115
+        impact_score: 1.4658129805029452
+        exploitability_score: 6.027456183070403
+      properties:
+        base_score:
+          nullable: true
+          type: number
+        exploitability_score:
+          nullable: true
+          type: number
+        impact_score:
+          nullable: true
+          type: number
+      type: object
+    CVSSV3Scores:
+      example:
+        base_score: 5.962133916683182
+        impact_score: 2.3021358869347655
+        exploitability_score: 5.637376656633329
+      properties:
+        base_score:
+          nullable: true
+          type: number
+        exploitability_score:
+          nullable: true
+          type: number
+        impact_score:
+          nullable: true
+          type: number
+      type: object
+    EnterpriseVulnerabilityList:
+      description: List of Vulnerability objects
+      items:
+        $ref: '#/components/schemas/EnterpriseVulnerability'
+      type: array
+    EnterpriseVulnerabilityResponse:
+      description: envelope containing list of vulnerabilities
+      example:
+        vulnerability_type: vulnerability_type
+        base_digest: base_digest
+        image_digest: image_digest
+        vulnerabilities:
+        - severity: severity
+          package: package
+          package_path: package_path
+          nvd_data:
+          - cvss_v3:
+              base_score: 5.962133916683182
+              impact_score: 2.3021358869347655
+              exploitability_score: 5.637376656633329
+            cvss_v2:
+              base_score: 0.8008281904610115
+              impact_score: 1.4658129805029452
+              exploitability_score: 6.027456183070403
+            id: id
+          - cvss_v3:
+              base_score: 5.962133916683182
+              impact_score: 2.3021358869347655
+              exploitability_score: 5.637376656633329
+            cvss_v2:
+              base_score: 0.8008281904610115
+              impact_score: 1.4658129805029452
+              exploitability_score: 6.027456183070403
+            id: id
+          vendor_data:
+          - cvss_v3:
+              base_score: 5.962133916683182
+              impact_score: 2.3021358869347655
+              exploitability_score: 5.637376656633329
+            cvss_v2:
+              base_score: 0.8008281904610115
+              impact_score: 1.4658129805029452
+              exploitability_score: 6.027456183070403
+            id: id
+          - cvss_v3:
+              base_score: 5.962133916683182
+              impact_score: 2.3021358869347655
+              exploitability_score: 5.637376656633329
+            cvss_v2:
+              base_score: 0.8008281904610115
+              impact_score: 1.4658129805029452
+              exploitability_score: 6.027456183070403
+            id: id
+          package_type: package_type
+          package_cpe: package_cpe
+          url: url
+          will_not_fix: true
+          feed: feed
+          package_version: package_version
+          fix: fix
+          vuln: vuln
+          feed_group: feed_group
+          package_name: package_name
+          inherited_from_base: true
+        - severity: severity
+          package: package
+          package_path: package_path
+          nvd_data:
+          - cvss_v3:
+              base_score: 5.962133916683182
+              impact_score: 2.3021358869347655
+              exploitability_score: 5.637376656633329
+            cvss_v2:
+              base_score: 0.8008281904610115
+              impact_score: 1.4658129805029452
+              exploitability_score: 6.027456183070403
+            id: id
+          - cvss_v3:
+              base_score: 5.962133916683182
+              impact_score: 2.3021358869347655
+              exploitability_score: 5.637376656633329
+            cvss_v2:
+              base_score: 0.8008281904610115
+              impact_score: 1.4658129805029452
+              exploitability_score: 6.027456183070403
+            id: id
+          vendor_data:
+          - cvss_v3:
+              base_score: 5.962133916683182
+              impact_score: 2.3021358869347655
+              exploitability_score: 5.637376656633329
+            cvss_v2:
+              base_score: 0.8008281904610115
+              impact_score: 1.4658129805029452
+              exploitability_score: 6.027456183070403
+            id: id
+          - cvss_v3:
+              base_score: 5.962133916683182
+              impact_score: 2.3021358869347655
+              exploitability_score: 5.637376656633329
+            cvss_v2:
+              base_score: 0.8008281904610115
+              impact_score: 1.4658129805029452
+              exploitability_score: 6.027456183070403
+            id: id
+          package_type: package_type
+          package_cpe: package_cpe
+          url: url
+          will_not_fix: true
+          feed: feed
+          package_version: package_version
+          fix: fix
+          vuln: vuln
+          feed_group: feed_group
+          package_name: package_name
+          inherited_from_base: true
+      properties:
+        image_digest:
+          type: string
+        base_digest:
+          type: string
+        vulnerability_type:
+          type: string
+        vulnerabilities:
+          description: List of Vulnerability objects
+          items:
+            $ref: '#/components/schemas/EnterpriseVulnerability'
+          type: array
+      type: object
+    ImageAncestry:
+      description: Array of ancestor objects. Sorted by the length of the layers array
+        in each entry, effectively returning them in increasing order of number of
+        common layers.
+      items:
+        $ref: '#/components/schemas/ImageAncestor'
+      type: array
+    ImageAncestor:
+      description: An summary of an image and it's layers.
+      example:
+        layers:
+        - sha256:03810167880e863d81dc60fc7771c975b93dfdf982d5677fb2c23d11b02c644b
+        - sha256:03810167880e863d81dc60fc7771c975b93dfdf982d5677fb2c23d11b02c644b
+        imageDigest: sha256:55cffbd26dbe2e79252dd3283b1adef4459441e7b4fc2fe5ccd2bd5b52670474
+        tags:
+        - docker.io/library/node:latest
+        - docker.io/library/node:latest
+      properties:
+        imageDigest:
+          description: The digest of the image
+          example: sha256:55cffbd26dbe2e79252dd3283b1adef4459441e7b4fc2fe5ccd2bd5b52670474
+          type: string
+        tags:
+          items:
+            description: Full tag reference that is known at any time previoiusly
+              for the digest.
+            example: docker.io/library/node:latest
+            type: string
+          type: array
+        layers:
+          description: The full set of layers for this image
+          items:
+            description: The layer ID
+            example: sha256:03810167880e863d81dc60fc7771c975b93dfdf982d5677fb2c23d11b02c644b
+            type: string
+          type: array
+      type: object
+    InventoryClusters:
+      items:
+        $ref: '#/components/schemas/InventoryCluster'
+      type: array
+    InventoryCluster:
+      description: Cluster configured for reporting Image Inventory
+      example:
+        cluster_name: cluster_name
+        cluster_config:
+          credential_type: private_key
+          client_certificate: client_certificate
+          credential: credential
+          cluster_certificate: cluster_certificate
+          namespaces:
+          - namespaces
+          - namespaces
+          cluster_server: cluster_server
+        inventory_type: kubernetes
+      properties:
+        cluster_name:
+          type: string
+        inventory_type:
+          enum:
+          - kubernetes
+          type: string
+        cluster_config:
+          $ref: '#/components/schemas/InventoryClusterConfig'
+      type: object
+    InventoryClusterConfig:
+      description: Cluster specific configuration
+      example:
+        credential_type: private_key
+        client_certificate: client_certificate
+        credential: credential
+        cluster_certificate: cluster_certificate
+        namespaces:
+        - namespaces
+        - namespaces
+        cluster_server: cluster_server
+      properties:
+        credential_type:
+          enum:
+          - private_key
+          - token
+          type: string
+        namespaces:
+          items:
+            description: Namespaces to search for images within this cluster
+            type: string
+          type: array
+        cluster_server:
+          description: FQDN of the cluster API server
+          type: string
+        cluster_certificate:
+          description: Base64 Encoded Public Certificate for the cluster
+          type: string
+        client_certificate:
+          description: Base64 Encoded Public Certificate for the client. Not required
+            if credential_type == token
+          type: string
+        credential:
+          description: Base64 Encoded credential for the client
+          type: string
+      type: object
+    InventoryReport:
+      description: Defines the object that Anchore expects to be provided for a given
+        Image Inventory
+      example:
+        cluster_name: cluster_name
+        inventory_type: inventory_type
+        results:
+        - images:
+          - tag: tag
+            repoDigest: repoDigest
+          - tag: tag
+            repoDigest: repoDigest
+          namespace: namespace
+        - images:
+          - tag: tag
+            repoDigest: repoDigest
+          - tag: tag
+            repoDigest: repoDigest
+          namespace: namespace
+        timestamp: 2000-01-23T04:56:07.000+00:00
+      properties:
+        cluster_name:
+          type: string
+        inventory_type:
+          type: string
+        timestamp:
+          format: date-time
+          type: string
+        results:
+          items:
+            $ref: '#/components/schemas/InventoryReportItem'
+          type: array
+      type: object
+    InventoryReportItem:
+      description: Defines a particular context for an inventory
+      example:
+        images:
+        - tag: tag
+          repoDigest: repoDigest
+        - tag: tag
+          repoDigest: repoDigest
+        namespace: namespace
+      properties:
+        namespace:
+          type: string
+        images:
+          items:
+            $ref: '#/components/schemas/InventoryReportImage'
+          type: array
+      type: object
+    InventoryReportImage:
+      description: defines an image that may be provided for image inventory
+      example:
+        tag: tag
+        repoDigest: repoDigest
+      properties:
+        tag:
+          type: string
+        repoDigest:
+          type: string
+      type: object
+    InventoryItems:
+      description: Inventory report for Images in Use
+      items:
+        $ref: '#/components/schemas/InventoryItem'
+      type: array
+    InventoryItem:
+      description: Inventory result for a specific Namespace
+      example:
+        last_updated: 2000-01-23T04:56:07.000+00:00
+        image_digest: image_digest
+        last_seen: 2000-01-23T04:56:07.000+00:00
+        context: context
+        created_at: 2000-01-23T04:56:07.000+00:00
+        inventory_type: inventory_type
+        image_tag: image_tag
+      properties:
+        inventory_type:
+          type: string
+        context:
+          type: string
+        image_tag:
+          type: string
+        image_digest:
+          type: string
+        created_at:
+          format: date-time
+          type: string
+        last_updated:
+          format: date-time
+          type: string
+        last_seen:
+          format: date-time
+          type: string
+      type: object
+    ActionPlans:
+      description: List of Action Plans
+      items:
+        $ref: '#/components/schemas/ActionPlan'
+      type: array
+    ActionPlan:
+      description: describes a remediation action plan object
+      example:
+        endpoint: endpoint
+        last_updated: 2000-01-23T04:56:07.000+00:00
+        image_digest: image_digest
+        policy_id: policy_id
+        subject: subject
+        created_at: 2000-01-23T04:56:07.000+00:00
+        resolutions:
+        - content: content
+          trigger_ids:
+          - trigger_ids
+          - trigger_ids
+        - content: content
+          trigger_ids:
+          - trigger_ids
+          - trigger_ids
+        image_tag: image_tag
+        type: type
+        message: message
+        configuration_id: configuration_id
+        uuid: uuid
+      properties:
+        type:
+          type: string
+        image_tag:
+          type: string
+        image_digest:
+          type: string
+        policy_id:
+          type: string
+        resolutions:
+          items:
+            $ref: '#/components/schemas/ActionPlanResolution'
+          type: array
+        endpoint:
+          type: string
+        configuration_id:
+          type: string
+        subject:
+          type: string
+        message:
+          type: string
+        uuid:
+          type: string
+        created_at:
+          format: date-time
+          type: string
+        last_updated:
+          format: date-time
+          type: string
+      type: object
+    ActionPlanResolution:
+      description: defines the trigger IDs and content of a resolution for an action
+        plan
+      example:
+        content: content
+        trigger_ids:
+        - trigger_ids
+        - trigger_ids
+      properties:
+        trigger_ids:
+          items:
+            type: string
+          type: array
+        content:
+          type: string
+      type: object
+    ResourceLabel:
+      description: Label on the resource in the key value format
+      example:
+        value: docker.io/library/alpine:latest
+        key: tag
+      properties:
+        key:
+          example: tag
+          type: string
+        value:
+          example: docker.io/library/alpine:latest
+          type: string
+      type: object
+    AlertSummary:
+      description: A summary of the stateful indicator of a specific event in the
+        system
+      example:
+        resource_labels:
+        - value: docker.io/library/alpine:latest
+          key: tag
+        - value: docker.io/library/alpine:latest
+          key: tag
+        last_updated: 2000-01-23T04:56:07.000+00:00
+        closed_reason: closed by action plan id
+        created_at: 2000-01-23T04:56:07.000+00:00
+        state: open
+        type: compliance_violation
+        uuid: 56c2463b-49e5-49d7-b9a4-0c5c78faec6e
+        closed_by: system
+      properties:
+        uuid:
+          description: Identifier for the alert
+          example: 56c2463b-49e5-49d7-b9a4-0c5c78faec6e
+          type: string
+        type:
+          description: Type of the alert
+          enum:
+          - compliance_violation
+          example: compliance_violation
+          type: string
+        state:
+          description: Current state of the alert
+          enum:
+          - open
+          - closed
+          example: open
+          type: string
+        resource_labels:
+          items:
+            $ref: '#/components/schemas/ResourceLabel'
+          type: array
+        closed_by:
+          description: Account that closed the alert
+          example: system
+          type: string
+        closed_reason:
+          description: Reason for closing the alert
+          example: closed by action plan id
+          type: string
+        created_at:
+          description: RFC 3339 formatted UTC timestamp when the alert was generated
+          format: date-time
+          type: string
+        last_updated:
+          description: RFC 3339 formatted UTC timestamp when the alert was last modified
+          format: date-time
+          type: string
+      type: object
+    AlertSummaryList:
+      description: Array of alert summaries
+      items:
+        $ref: '#/components/schemas/AlertSummary'
+      type: array
+    ComplianceResource:
+      description: A resource that ties compliance related artifacts - image digest,
+        tag and policy bundle
+      example:
+        registry: registry
+        evaluation_id: evaluation_id
+        image_digest: image_digest
+        policy_id: policy_id
+        image_tag: image_tag
+        repository: repository
+        evaluated_at: 2000-01-23T04:56:07.000+00:00
+      properties:
+        image_digest:
+          type: string
+        policy_id:
+          type: string
+        image_tag:
+          type: string
+        registry:
+          type: string
+        repository:
+          type: string
+        evaluation_id:
+          type: string
+        evaluated_at:
+          format: date-time
+          type: string
+      type: object
+    ComplianceViolationAlert:
+      description: Alert raised by the system on a compliance check failure
+      example:
+        last_updated: 2000-01-23T04:56:07.000+00:00
+        compliance_status_reason: policy_evaluation
+        resource:
+          registry: registry
+          evaluation_id: evaluation_id
+          image_digest: image_digest
+          policy_id: policy_id
+          image_tag: image_tag
+          repository: repository
+          evaluated_at: 2000-01-23T04:56:07.000+00:00
+        violations_count: 0
+        closed_reason: closed by action plan id
+        created_at: 2000-01-23T04:56:07.000+00:00
+        state: open
+        type: compliance_violation
+        uuid: 56c2463b-49e5-49d7-b9a4-0c5c78faec6e
+        closed_by: system
+      properties:
+        uuid:
+          description: Identifier for the alert
+          example: 56c2463b-49e5-49d7-b9a4-0c5c78faec6e
+          type: string
+        type:
+          description: Type of alert generated
+          enum:
+          - compliance_violation
+          example: compliance_violation
+          type: string
+        state:
+          description: Current state of the alert
+          enum:
+          - open
+          - closed
+          example: open
+          type: string
+        resource:
+          $ref: '#/components/schemas/ComplianceResource'
+        closed_by:
+          description: Account that closed the alert
+          example: system
+          type: string
+        closed_reason:
+          description: Reason for closing the alert
+          example: closed by action plan id
+          type: string
+        created_at:
+          description: RFC 3339 formatted UTC timestamp when the alert was generated
+          format: date-time
+          type: string
+        last_updated:
+          description: RFC 3339 formatted UTC timestamp when the alert was last modified
+          format: date-time
+          type: string
+        compliance_status_reason:
+          description: Reason for compliance check status. Compliance check could
+            fail due to policy evaluation or blacklisting or errors evaluating compliance
+          example: policy_evaluation
+          type: string
+        violations_count:
+          description: Number of STOP action results in the compliance check report
+          type: integer
+      type: object
+    ComplianceViolationAlertList:
+      description: Array of compliance violation alerts
+      items:
+        $ref: '#/components/schemas/ComplianceViolationAlert'
+      type: array
+    CorrectionList:
+      description: Array of Corrections
+      items:
+        $ref: '#/components/schemas/Correction'
+      type: array
+    Correction:
+      description: Defines a correction object for false positive management
+      example:
+        last_updated: 2000-01-23T04:56:07.000+00:00
+        match:
+          type: npm
+          field_matches:
+          - field_value: field_value
+            field_name: name
+          - field_value: field_value
+            field_name: name
+        replace:
+        - field_value: field_value
+          field_name: name
+        - field_value: field_value
+          field_name: name
+        description: description
+        created_at: 2000-01-23T04:56:07.000+00:00
+        type: package
+        uuid: 56c2463b-49e5-49d7-b9a4-0c5c78faec6e
+      properties:
+        uuid:
+          description: Identifier for the correction
+          example: 56c2463b-49e5-49d7-b9a4-0c5c78faec6e
+          type: string
+        type:
+          description: Type of correction
+          enum:
+          - package
+          type: string
+        description:
+          type: string
+        match:
+          $ref: '#/components/schemas/CorrectionMatch'
+        replace:
+          items:
+            $ref: '#/components/schemas/CorrectionFieldMatch'
+          type: array
+        created_at:
+          description: RFC 3339 formatted UTC timestamp when the correction was generated
+          format: date-time
+          type: string
+        last_updated:
+          description: RFC 3339 formatted UTC timestamp when the correction was last
+            modified
+          format: date-time
+          type: string
+      required:
+      - match
+      - replace
+      - type
+      type: object
+    CorrectionMatch:
+      description: Defines how a particular correction can match depending on type
+      example:
+        type: npm
+        field_matches:
+        - field_value: field_value
+          field_name: name
+        - field_value: field_value
+          field_name: name
+      properties:
+        type:
+          description: type of match [supports os, npm, gem, python, java, go]
+          example: npm
+          type: string
+        field_matches:
+          description: list of field matches that are required in order for this correction
+            to match
+          items:
+            $ref: '#/components/schemas/CorrectionFieldMatch'
+          type: array
+      required:
+      - type
+      type: object
+    CorrectionFieldMatch:
+      description: Defines a particular field name and value to match for a Correction
+      example:
+        field_value: field_value
+        field_name: name
+      properties:
+        field_name:
+          description: The package field name to match
+          example: name
+          type: string
+        field_value:
+          description: The package field value for the corresponding field_name above
+            to match. If field_name corresponds to a list value, this will search
+            the list
+          type: string
+      required:
+      - field_name
+      - field_value
+      type: object
+    RuntimeComplianceCheckList:
+      description: List of runtime compliance checks
+      items:
+        $ref: '#/components/schemas/RuntimeComplianceCheck'
+      type: array
+    RuntimeComplianceCheck:
+      description: The result of a runtime compliance check
+      example:
+        result: result
+        start_time: 2000-01-23T04:56:07.000+00:00
+        compliance_file_ids:
+          key: compliance_file_ids
+        pod: pod
+        image_digest: image_digest
+        namespace: namespace
+        end_time: 2000-01-23T04:56:07.000+00:00
+        check_type: oscap
+        image_tag: image_tag
+      properties:
+        check_type:
+          description: The type of runtime compliance check
+          enum:
+          - oscap
+          type: string
+        result:
+          description: The result of the runtime compliance check
+          type: string
+        pod:
+          description: The pod the check was run against
+          type: string
+        namespace:
+          description: The namespace of the pod the check was run against
+          type: string
+        image_tag:
+          description: The tag of image in the pod the check was run against
+          type: string
+        image_digest:
+          description: The digest of the pod the check was run against
+          type: string
+        start_time:
+          description: RFC 3339 formatted UTC timestamp when the runtime check started
+          format: date-time
+          type: string
+        end_time:
+          description: RFC 3339 formatted UTC timestamp when the runtime check ended
+          format: date-time
+          type: string
+        compliance_file_ids:
+          additionalProperties:
+            type: string
+          description: Ids of the files generated by the runtime compliance check
+          type: object
+      required:
+      - check_type
+      type: object
+    ApplicationList:
+      description: List of applications
+      items:
+        $ref: '#/components/schemas/Application'
+      type: array
+    Application:
+      description: A representation of an SLDC application
+      example:
+        application_versions:
+        - application_version_id: application_version_id
+          last_updated: 2000-01-23T04:56:07.000+00:00
+          version_name: version_name
+          created_at: 2000-01-23T04:56:07.000+00:00
+          application_id: application_id
+        - application_version_id: application_version_id
+          last_updated: 2000-01-23T04:56:07.000+00:00
+          version_name: version_name
+          created_at: 2000-01-23T04:56:07.000+00:00
+          application_id: application_id
+        last_updated: 2000-01-23T04:56:07.000+00:00
+        name: name
+        description: description
+        created_at: 2000-01-23T04:56:07.000+00:00
+        application_id: application_id
+      properties:
+        application_id:
+          description: The id of the application
+          type: string
+        name:
+          description: The name of the application
+          type: string
+        description:
+          description: The description of the application
+          type: string
+        application_versions:
+          description: List of application versions
+          items:
+            $ref: '#/components/schemas/ApplicationVersion'
+          type: array
+        created_at:
+          description: RFC 3339 formatted UTC timestamp when the application was created
+          format: date-time
+          type: string
+        last_updated:
+          description: RFC 3339 formatted UTC timestamp when the application was last
+            updated
+          format: date-time
+          type: string
+      type: object
+    ApplicationVersionList:
+      description: List of application versions
+      items:
+        $ref: '#/components/schemas/ApplicationVersion'
+      type: array
+    ApplicationVersion:
+      description: A representation of an SLDC application
+      example:
+        application_version_id: application_version_id
+        last_updated: 2000-01-23T04:56:07.000+00:00
+        version_name: version_name
+        created_at: 2000-01-23T04:56:07.000+00:00
+        application_id: application_id
+      properties:
+        application_version_id:
+          description: The id of the application version
+          type: string
+        application_id:
+          description: The id of the application
+          type: string
+        version_name:
+          description: The name of the application
+          type: string
+        created_at:
+          description: RFC 3339 formatted UTC timestamp when the application was created
+          format: date-time
+          type: string
+        last_updated:
+          description: RFC 3339 formatted UTC timestamp when the application was last
+            updated
+          format: date-time
+          type: string
+      required:
+      - version_name
+      type: object
+    ArtifactAssociationRequest:
+      description: Request body for an artifact to associate with an application version
+      example:
+        artifact_type: image
+        artifact_keys: '{}'
+      properties:
+        artifact_type:
+          description: The type of the artifact
+          enum:
+          - image
+          - source
+          type: string
+        artifact_keys:
+          description: A json with key-pair values to query on
+          properties: {}
+          type: object
+      required:
+      - artifact_keys
+      - artifact_type
+      type: object
+    ArtifactAssociationMetadata:
+      description: Metadata for an artifact association to an application version
+      example:
+        last_updated: 2000-01-23T04:56:07.000+00:00
+        created_at: 2000-01-23T04:56:07.000+00:00
+        association_id: association_id
+      properties:
+        association_id:
+          description: The id of the association between the application version and
+            the artifact
+          type: string
+        created_at:
+          description: RFC 3339 formatted UTC timestamp when the artifact was associated
+            with the application version
+          format: date-time
+          type: string
+        last_updated:
+          description: RFC 3339 formatted UTC timestamp when the artifact association
+            was last updated
+          format: date-time
+          type: string
+      type: object
+    ArtifactAssociationResponse:
+      description: Response body for an artifact to associate with an application
+        version. Only one artifact type (matching the value of the type field) will
+        be populated.
+      example:
+        image:
+          distro: distro
+          last_updated: 2000-01-23T04:56:07.000+00:00
+          account_id: account_id
+          image_digest: image_digest
+          analysis_status: analysis_status
+          analyzed_at: 2000-01-23T04:56:07.000+00:00
+          created_at: 2000-01-23T04:56:07.000+00:00
+          image_status: image_status
+          distro_version: distro_version
+        artifact_association_metadata:
+          last_updated: 2000-01-23T04:56:07.000+00:00
+          created_at: 2000-01-23T04:56:07.000+00:00
+          association_id: association_id
+        source:
+          last_updated: 2000-01-23T04:56:07.000+00:00
+          account_id: account_id
+          analysis_status: not_analyzed
+          host: host
+          created_at: 2000-01-23T04:56:07.000+00:00
+          uuid: uuid
+          repository_name: repository_name
+          source_status: active
+          revision: revision
+      properties:
+        source:
+          $ref: '#/components/schemas/Source'
+        image:
+          $ref: '#/components/schemas/ImageArtifact'
+        artifact_association_metadata:
+          $ref: '#/components/schemas/ArtifactAssociationMetadata'
+      type: object
+    ImageArtifact:
+      description: Model for an image artifact
+      example:
+        distro: distro
+        last_updated: 2000-01-23T04:56:07.000+00:00
+        account_id: account_id
+        image_digest: image_digest
+        analysis_status: analysis_status
+        analyzed_at: 2000-01-23T04:56:07.000+00:00
+        created_at: 2000-01-23T04:56:07.000+00:00
+        image_status: image_status
+        distro_version: distro_version
+      properties:
+        account_id:
+          description: The account id
+          type: string
+        image_digest:
+          description: The digest of the image
+          type: string
+        distro:
+          description: The distro of the image
+          type: string
+        distro_version:
+          description: The distro version of the image
+          type: string
+        analysis_status:
+          description: the analysis status of image
+          type: string
+        image_status:
+          description: The status of the image
+          type: string
+        analyzed_at:
+          description: RFC 3339 formatted UTC timestamp when the image was analyzed
+          format: date-time
+          type: string
+        created_at:
+          description: RFC 3339 formatted UTC timestamp when the image was created
+          format: date-time
+          type: string
+        last_updated:
+          description: RFC 3339 formatted UTC timestamp when the image was last updated
+          format: date-time
+          type: string
+      type: object
+    AssociatedImageArtifact:
+      description: Model for an associated image artifact. Composites the artifact
+        with the association metadata
+      example:
+        image:
+          distro: distro
+          last_updated: 2000-01-23T04:56:07.000+00:00
+          account_id: account_id
+          image_digest: image_digest
+          analysis_status: analysis_status
+          analyzed_at: 2000-01-23T04:56:07.000+00:00
+          created_at: 2000-01-23T04:56:07.000+00:00
+          image_status: image_status
+          distro_version: distro_version
+        artifact_association_metadata:
+          last_updated: 2000-01-23T04:56:07.000+00:00
+          created_at: 2000-01-23T04:56:07.000+00:00
+          association_id: association_id
+      properties:
+        artifact_association_metadata:
+          $ref: '#/components/schemas/ArtifactAssociationMetadata'
+        image:
+          $ref: '#/components/schemas/ImageArtifact'
+      type: object
+    AssociatedSourceArtifact:
+      description: Model for an associated source artifact. Composite of the source
+        artifact and its asssociation metadata
+      example:
+        artifact_association_metadata:
+          last_updated: 2000-01-23T04:56:07.000+00:00
+          created_at: 2000-01-23T04:56:07.000+00:00
+          association_id: association_id
+        source:
+          last_updated: 2000-01-23T04:56:07.000+00:00
+          account_id: account_id
+          analysis_status: not_analyzed
+          host: host
+          created_at: 2000-01-23T04:56:07.000+00:00
+          uuid: uuid
+          repository_name: repository_name
+          source_status: active
+          revision: revision
+      properties:
+        artifact_association_metadata:
+          $ref: '#/components/schemas/ArtifactAssociationMetadata'
+        source:
+          $ref: '#/components/schemas/Source'
+      type: object
+    ArtifactListResponse:
+      description: The response provided when querying for the artifacts on an application
+        version
+      example:
+        associated_source_artifacts:
+        - artifact_association_metadata:
+            last_updated: 2000-01-23T04:56:07.000+00:00
+            created_at: 2000-01-23T04:56:07.000+00:00
+            association_id: association_id
+          source:
+            last_updated: 2000-01-23T04:56:07.000+00:00
+            account_id: account_id
+            analysis_status: not_analyzed
+            host: host
+            created_at: 2000-01-23T04:56:07.000+00:00
+            uuid: uuid
+            repository_name: repository_name
+            source_status: active
+            revision: revision
+        - artifact_association_metadata:
+            last_updated: 2000-01-23T04:56:07.000+00:00
+            created_at: 2000-01-23T04:56:07.000+00:00
+            association_id: association_id
+          source:
+            last_updated: 2000-01-23T04:56:07.000+00:00
+            account_id: account_id
+            analysis_status: not_analyzed
+            host: host
+            created_at: 2000-01-23T04:56:07.000+00:00
+            uuid: uuid
+            repository_name: repository_name
+            source_status: active
+            revision: revision
+        associated_image_artifacts:
+        - image:
+            distro: distro
+            last_updated: 2000-01-23T04:56:07.000+00:00
+            account_id: account_id
+            image_digest: image_digest
+            analysis_status: analysis_status
+            analyzed_at: 2000-01-23T04:56:07.000+00:00
+            created_at: 2000-01-23T04:56:07.000+00:00
+            image_status: image_status
+            distro_version: distro_version
+          artifact_association_metadata:
+            last_updated: 2000-01-23T04:56:07.000+00:00
+            created_at: 2000-01-23T04:56:07.000+00:00
+            association_id: association_id
+        - image:
+            distro: distro
+            last_updated: 2000-01-23T04:56:07.000+00:00
+            account_id: account_id
+            image_digest: image_digest
+            analysis_status: analysis_status
+            analyzed_at: 2000-01-23T04:56:07.000+00:00
+            created_at: 2000-01-23T04:56:07.000+00:00
+            image_status: image_status
+            distro_version: distro_version
+          artifact_association_metadata:
+            last_updated: 2000-01-23T04:56:07.000+00:00
+            created_at: 2000-01-23T04:56:07.000+00:00
+            association_id: association_id
+      properties:
+        associated_source_artifacts:
+          items:
+            $ref: '#/components/schemas/AssociatedSourceArtifact'
+          type: array
+        associated_image_artifacts:
+          items:
+            $ref: '#/components/schemas/AssociatedImageArtifact'
+          type: array
+      type: object
+    ApplicationVersionSbom:
+      description: A combined sbom for the artifacts associated with an application
+        version
+      example:
+        application:
+          application_versions:
+          - application_version_id: application_version_id
+            last_updated: 2000-01-23T04:56:07.000+00:00
+            version_name: version_name
+            created_at: 2000-01-23T04:56:07.000+00:00
+            application_id: application_id
+          - application_version_id: application_version_id
+            last_updated: 2000-01-23T04:56:07.000+00:00
+            version_name: version_name
+            created_at: 2000-01-23T04:56:07.000+00:00
+            application_id: application_id
+          last_updated: 2000-01-23T04:56:07.000+00:00
+          name: name
+          description: description
+          created_at: 2000-01-23T04:56:07.000+00:00
+          application_id: application_id
+        created_at: 2000-01-23T04:56:07.000+00:00
+        source_sboms:
+        - '{}'
+        - '{}'
+        image_sboms:
+        - '{}'
+        - '{}'
+        application_version:
+          application_version_id: application_version_id
+          last_updated: 2000-01-23T04:56:07.000+00:00
+          version_name: version_name
+          created_at: 2000-01-23T04:56:07.000+00:00
+          application_id: application_id
+      properties:
+        application:
+          $ref: '#/components/schemas/Application'
+        application_version:
+          $ref: '#/components/schemas/ApplicationVersion'
+        created_at:
+          description: RFC 3339 formatted UTC timestamp when the application version
+            sbom was created
+          format: date-time
+          type: string
+        source_sboms:
+          items:
+            properties: {}
+            type: object
+          type: array
+        image_sboms:
+          items:
+            properties: {}
+            type: object
+          type: array
+      type: object
+    SourceImportOperation:
+      description: An import record, creating a unique identifier for referencing
+        the operation as well as its state
+      example:
+        last_updated: 2000-01-23T04:56:07.000+00:00
+        expires_at: 2000-01-23T04:56:07.000+00:00
+        created_at: 2000-01-23T04:56:07.000+00:00
+        uuid: uuid
+        status: pending
+      properties:
+        uuid:
+          type: string
+        status:
+          enum:
+          - pending
+          - queued
+          - processing
+          - complete
+          - failed
+          - expired
+          type: string
+        expires_at:
+          format: date-time
+          type: string
+        created_at:
+          format: date-time
+          type: string
+        last_updated:
+          format: date-time
+          type: string
+      type: object
+    SourceImportList:
+      items:
+        $ref: '#/components/schemas/SourceImportOperation'
+      type: array
+    NativeSBOM:
+      properties:
+        artifacts:
+          items:
+            $ref: '#/components/schemas/NativeSBOMPackage'
+          type: array
+        source:
+          $ref: '#/components/schemas/NativeSBOMSource'
+        distro:
+          $ref: '#/components/schemas/NativeSBOMDistribution'
+        descriptor:
+          $ref: '#/components/schemas/NativeSBOMDescriptor'
+        schema:
+          $ref: '#/components/schemas/NativeSBOMSchema'
+        artifactRelationships:
+          items:
+            $ref: '#/components/schemas/NativeSBOMPackageRelationship'
+          type: array
+      required:
+      - artifacts
+      - distro
+      - source
+      type: object
+    NativeSBOMDescriptor:
+      properties:
+        name:
+          type: string
+        version:
+          type: string
+      required:
+      - name
+      - version
+      type: object
+    NativeSBOMDistribution:
+      properties:
+        name:
+          nullable: true
+          type: string
+        id:
+          nullable: true
+          type: string
+        version:
+          nullable: true
+          type: string
+        versionID:
+          nullable: true
+          type: string
+      type: object
+    NativeSBOMPackageLocation:
+      properties:
+        path:
+          type: string
+        layerID:
+          type: string
+      required:
+      - path
+      type: object
+    NativeSBOMPackage:
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        version:
+          type: string
+        type:
+          type: string
+        foundBy:
+          type: string
+        locations:
+          items:
+            $ref: '#/components/schemas/NativeSBOMPackageLocation'
+          type: array
+        licenses:
+          items:
+            type: string
+          type: array
+        language:
+          type: string
+        cpes:
+          items:
+            type: string
+          type: array
+        purl:
+          type: string
+        metadataType:
+          nullable: true
+          type: string
+        metadata:
+          nullable: true
+          properties: {}
+          type: object
+      required:
+      - cpes
+      - language
+      - licenses
+      - locations
+      - name
+      - type
+      - version
+      type: object
+    NativeSBOMSchema:
+      properties:
+        version:
+          type: string
+        url:
+          type: string
+      required:
+      - url
+      - version
+      type: object
+    NativeSBOMSource:
+      properties:
+        type:
+          type: string
+        target:
+          type: object
+      required:
+      - target
+      - type
+      type: object
+    NativeSBOMPackageRelationship:
+      properties:
+        parent:
+          type: string
+        child:
+          type: string
+        type:
+          type: string
+        metadata:
+          properties: {}
+          type: object
+      required:
+      - child
+      - parent
+      - type
+      type: object
+    SourceImportContentResponse:
+      example:
+        digest: digest
+        created_at: 2000-01-23T04:56:07.000+00:00
+      properties:
+        digest:
+          type: string
+        created_at:
+          format: date-time
+          type: string
+      type: object
+    SourceImportMetadata:
+      example:
+        ci_workflow_name: ci_workflow_name
+        change_author: change_author
+        contents:
+          sbom: sbom
+        branch_name: branch_name
+        host: host
+        ci_workflow_execution_time: 2000-01-23T04:56:07.000+00:00
+        repository_name: repository_name
+        revision: revision
+      properties:
+        ci_workflow_name:
+          nullable: true
+          type: string
+        ci_workflow_execution_time:
+          format: date-time
+          nullable: true
+          type: string
+        host:
+          type: string
+        repository_name:
+          type: string
+        branch_name:
+          nullable: true
+          type: string
+        revision:
+          type: string
+        change_author:
+          nullable: true
+          type: string
+        contents:
+          $ref: '#/components/schemas/SourceImportMetadata_contents'
+      required:
+      - contents
+      - host
+      - repository_name
+      - revision
+      type: object
+    ContentJAVAPackageResponse:
+      description: Java package content listings from images
+      properties:
+        imageDigest:
+          type: string
+        content_type:
+          type: string
+        content:
+          items:
+            $ref: '#/components/schemas/ContentJAVAPackageResponse_content'
+          type: array
+      type: object
+    SourceContentPackageResponse:
+      description: Package content listings from analysis sbom
+      example:
+        content_type: content_type
+        source_id: source_id
+        content:
+        - license: license
+          licenses:
+          - licenses
+          - licenses
+          package: package
+          size: size
+          cpes:
+          - cpes
+          - cpes
+          origin: origin
+          location: location
+          type: type
+          version: version
+        - license: license
+          licenses:
+          - licenses
+          - licenses
+          package: package
+          size: size
+          cpes:
+          - cpes
+          - cpes
+          origin: origin
+          location: location
+          type: type
+          version: version
+      properties:
+        source_id:
+          type: string
+        content_type:
+          type: string
+        content:
+          items:
+            $ref: '#/components/schemas/SourceContentPackageResponse_content'
+          type: array
+      type: object
+    ContentFilesResponse:
+      description: File content listings from images
+      properties:
+        imageDigest:
+          type: string
+        content_type:
+          type: string
+        content:
+          items:
+            $ref: '#/components/schemas/ContentFilesResponse_content'
+          type: array
+      type: object
+    Vulnerability:
+      example:
+        severity: severity
+        package: package
+        package_path: package_path
+        nvd_data:
+        - cvss_v3:
+            base_score: 5.962133916683182
+            impact_score: 2.3021358869347655
+            exploitability_score: 5.637376656633329
+          cvss_v2:
+            base_score: 0.8008281904610115
+            impact_score: 1.4658129805029452
+            exploitability_score: 6.027456183070403
+          id: id
+        - cvss_v3:
+            base_score: 5.962133916683182
+            impact_score: 2.3021358869347655
+            exploitability_score: 5.637376656633329
+          cvss_v2:
+            base_score: 0.8008281904610115
+            impact_score: 1.4658129805029452
+            exploitability_score: 6.027456183070403
+          id: id
+        vendor_data:
+        - cvss_v3:
+            base_score: 5.962133916683182
+            impact_score: 2.3021358869347655
+            exploitability_score: 5.637376656633329
+          cvss_v2:
+            base_score: 0.8008281904610115
+            impact_score: 1.4658129805029452
+            exploitability_score: 6.027456183070403
+          id: id
+        - cvss_v3:
+            base_score: 5.962133916683182
+            impact_score: 2.3021358869347655
+            exploitability_score: 5.637376656633329
+          cvss_v2:
+            base_score: 0.8008281904610115
+            impact_score: 1.4658129805029452
+            exploitability_score: 6.027456183070403
+          id: id
+        package_type: package_type
+        package_cpe: package_cpe
+        url: url
+        will_not_fix: true
+        feed: feed
+        package_version: package_version
+        fix: fix
+        vuln: vuln
+        feed_group: feed_group
+        package_name: package_name
+      properties:
+        vuln:
+          description: The vulnerability identifier, such as CVE-2017-100, or RHSA-2017123
+          type: string
+        fix:
+          description: The package containing a fix, if available
+          type: string
+        severity:
+          description: The severity of the vulnerability
+          type: string
+        package:
+          description: The package name and version that are vulnerable in the image
+          type: string
+        url:
+          description: The url for more information about the vulnerability
+          type: string
+        feed:
+          description: The name of the feed where vulnerability match was made
+          type: string
+        feed_group:
+          description: The name of the feed group where vulnerability match was made
+          type: string
+        package_name:
+          description: The name of the vulnerable package artifact
+          type: string
+        package_version:
+          description: The version of the vulnerable package artifact
+          type: string
+        package_type:
+          description: The type of vulnerable package
+          type: string
+        package_cpe:
+          description: The CPE string (if applicable) describing the package to vulnerability
+            match
+          type: string
+        package_path:
+          description: The location (if applicable) of the vulnerable package in the
+            container filesystem
+          type: string
+        will_not_fix:
+          description: Whether a vendor will fix or not fix the vulnerability
+          type: boolean
+        nvd_data:
+          description: List of Nvd Data objects
+          items:
+            $ref: '#/components/schemas/NvdDataObject'
+          type: array
+        vendor_data:
+          description: List of Vendor Data objects
+          items:
+            $ref: '#/components/schemas/VendorDataObject'
+          type: array
+      type: object
+    VulnerabilityList:
+      description: List of Vulnerability objects
+      items:
+        $ref: '#/components/schemas/Vulnerability'
+      type: array
+    SourceVulnerabilitiesResponse:
+      description: Envelope containing list of vulnerabilities for a source repo
+      example:
+        vulnerability_type: vulnerability_type
+        vulnerabilities:
+        - severity: severity
+          package: package
+          package_path: package_path
+          nvd_data:
+          - cvss_v3:
+              base_score: 5.962133916683182
+              impact_score: 2.3021358869347655
+              exploitability_score: 5.637376656633329
+            cvss_v2:
+              base_score: 0.8008281904610115
+              impact_score: 1.4658129805029452
+              exploitability_score: 6.027456183070403
+            id: id
+          - cvss_v3:
+              base_score: 5.962133916683182
+              impact_score: 2.3021358869347655
+              exploitability_score: 5.637376656633329
+            cvss_v2:
+              base_score: 0.8008281904610115
+              impact_score: 1.4658129805029452
+              exploitability_score: 6.027456183070403
+            id: id
+          vendor_data:
+          - cvss_v3:
+              base_score: 5.962133916683182
+              impact_score: 2.3021358869347655
+              exploitability_score: 5.637376656633329
+            cvss_v2:
+              base_score: 0.8008281904610115
+              impact_score: 1.4658129805029452
+              exploitability_score: 6.027456183070403
+            id: id
+          - cvss_v3:
+              base_score: 5.962133916683182
+              impact_score: 2.3021358869347655
+              exploitability_score: 5.637376656633329
+            cvss_v2:
+              base_score: 0.8008281904610115
+              impact_score: 1.4658129805029452
+              exploitability_score: 6.027456183070403
+            id: id
+          package_type: package_type
+          package_cpe: package_cpe
+          url: url
+          will_not_fix: true
+          feed: feed
+          package_version: package_version
+          fix: fix
+          vuln: vuln
+          feed_group: feed_group
+          package_name: package_name
+        - severity: severity
+          package: package
+          package_path: package_path
+          nvd_data:
+          - cvss_v3:
+              base_score: 5.962133916683182
+              impact_score: 2.3021358869347655
+              exploitability_score: 5.637376656633329
+            cvss_v2:
+              base_score: 0.8008281904610115
+              impact_score: 1.4658129805029452
+              exploitability_score: 6.027456183070403
+            id: id
+          - cvss_v3:
+              base_score: 5.962133916683182
+              impact_score: 2.3021358869347655
+              exploitability_score: 5.637376656633329
+            cvss_v2:
+              base_score: 0.8008281904610115
+              impact_score: 1.4658129805029452
+              exploitability_score: 6.027456183070403
+            id: id
+          vendor_data:
+          - cvss_v3:
+              base_score: 5.962133916683182
+              impact_score: 2.3021358869347655
+              exploitability_score: 5.637376656633329
+            cvss_v2:
+              base_score: 0.8008281904610115
+              impact_score: 1.4658129805029452
+              exploitability_score: 6.027456183070403
+            id: id
+          - cvss_v3:
+              base_score: 5.962133916683182
+              impact_score: 2.3021358869347655
+              exploitability_score: 5.637376656633329
+            cvss_v2:
+              base_score: 0.8008281904610115
+              impact_score: 1.4658129805029452
+              exploitability_score: 6.027456183070403
+            id: id
+          package_type: package_type
+          package_cpe: package_cpe
+          url: url
+          will_not_fix: true
+          feed: feed
+          package_version: package_version
+          fix: fix
+          vuln: vuln
+          feed_group: feed_group
+          package_name: package_name
+        source_id: source_id
+      properties:
+        source_id:
+          type: string
+        vulnerability_type:
+          type: string
+        vulnerabilities:
+          description: List of Vulnerability objects
+          items:
+            $ref: '#/components/schemas/Vulnerability'
+          type: array
+      type: object
+    SourceManifest_metadata_records:
+      description: Metadata associated with a source upload
+      example:
+        ci_workflow_name: ci_workflow_name
+        change_author: change_author
+        branch_name: branch_name
+        uuid: uuid
+        ci_workflow_execution_time: 2000-01-23T04:56:07.000+00:00
+      properties:
+        uuid:
+          type: string
+        ci_workflow_name:
+          type: string
+        ci_workflow_execution_time:
+          format: date-time
+          type: string
+        branch_name:
+          type: string
+        change_author:
+          type: string
+    SourceImportMetadata_contents:
+      description: Digest of content to use in the final import
+      example:
+        sbom: sbom
+      properties:
+        sbom:
+          description: Digest to use for the sbom
+          type: string
+      required:
+      - sbom
+    ContentJAVAPackageResponse_content:
+      properties:
+        package:
+          type: string
+        implementation-version:
+          type: string
+        specification-version:
+          type: string
+        maven-version:
+          type: string
+        location:
+          type: string
+        type:
+          type: string
+        origin:
+          type: string
+        cpes:
+          description: A list of Common Platform Enumerations that may uniquely identify
+            the package
+          items:
+            type: string
+          type: array
+    SourceContentPackageResponse_content:
+      example:
+        license: license
+        licenses:
+        - licenses
+        - licenses
+        package: package
+        size: size
+        cpes:
+        - cpes
+        - cpes
+        origin: origin
+        location: location
+        type: type
+        version: version
+      properties:
+        package:
+          type: string
+        version:
+          type: string
+        size:
+          type: string
+        type:
+          type: string
+        origin:
+          type: string
+        license:
+          description: Deprecated in favor of the 'licenses' field"
+          type: string
+        licenses:
+          items:
+            type: string
+          type: array
+        location:
+          type: string
+        cpes:
+          description: A list of Common Platform Enumerations that may uniquely identify
+            the package
+          items:
+            type: string
+          type: array
+    ContentFilesResponse_content:
+      properties:
+        filename:
+          type: string
+        gid:
+          type: integer
+        linkdest:
+          nullable: true
+          type: string
+        mode:
+          type: string
+        sha256:
+          nullable: true
+          type: string
+        size:
+          type: integer
+        type:
+          type: string
+        uid:
+          type: integer
