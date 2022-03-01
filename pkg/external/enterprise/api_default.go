@@ -622,6 +622,7 @@ func (a *DefaultApiService) AddRuntimeComplianceCheck(ctx _context.Context, chec
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
+		localVarFile         *os.File
 		localVarReturnValue  RuntimeComplianceCheck
 	)
 
@@ -672,7 +673,6 @@ func (a *DefaultApiService) AddRuntimeComplianceCheck(ctx _context.Context, chec
 		localVarFormParams.Add("end_time", parameterToString(localVarOptionals.EndTime.Value(), ""))
 	}
 	localVarFormFileName = "result_file"
-	var localVarFile *os.File
 	if localVarOptionals != nil && localVarOptionals.ResultFile.IsSet() {
 		localVarFileOk := false
 		localVarFile, localVarFileOk = localVarOptionals.ResultFile.Value().(*os.File)
@@ -685,9 +685,9 @@ func (a *DefaultApiService) AddRuntimeComplianceCheck(ctx _context.Context, chec
 		localVarFileBytes = fbs
 		localVarFileName = localVarFile.Name()
 		localVarFile.Close()
+		localVarFile = nil
 	}
 	localVarFormFileName = "report_file"
-	var localVarFile *os.File
 	if localVarOptionals != nil && localVarOptionals.ReportFile.IsSet() {
 		localVarFileOk := false
 		localVarFile, localVarFileOk = localVarOptionals.ReportFile.Value().(*os.File)
