@@ -1768,7 +1768,7 @@ paths:
           description: Internal error
       summary: Get the content of an analyzed source repository
       x-swagger-router-controller: anchore_enterprise.services.api.controllers.sources
-      x-anchore-authz-action: getSourrce
+      x-anchore-authz-action: getSource
   /sources/{source_id}/vuln:
     get:
       operationId: get_source_vulnerability_types
@@ -3891,13 +3891,17 @@ components:
         uuid:
           type: string
         ci_workflow_name:
+          nullable: true
           type: string
         ci_workflow_execution_time:
           format: date-time
+          nullable: true
           type: string
         branch_name:
+          nullable: true
           type: string
         change_author:
+          nullable: true
           type: string
     SourceImportMetadata_contents:
       description: Digest of content to use in the final import

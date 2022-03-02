@@ -16,8 +16,8 @@ import (
 // SourceManifestMetadataRecords Metadata associated with a source upload
 type SourceManifestMetadataRecords struct {
 	Uuid string `json:"uuid,omitempty"`
-	CiWorkflowName string `json:"ci_workflow_name,omitempty"`
-	CiWorkflowExecutionTime time.Time `json:"ci_workflow_execution_time,omitempty"`
-	BranchName string `json:"branch_name,omitempty"`
-	ChangeAuthor string `json:"change_author,omitempty"`
+	CiWorkflowName *string `json:"ci_workflow_name,omitempty"`
+	CiWorkflowExecutionTime *time.Time `json:"ci_workflow_execution_time,omitempty"`
+	BranchName *string `json:"branch_name,omitempty"`
+	ChangeAuthor *string `json:"change_author,omitempty"`
 }
