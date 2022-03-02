@@ -7094,6 +7094,7 @@ components:
           version: version
           url: url
         distro:
+          idLike: '{}'
           versionID: versionID
           name: name
           id: id
@@ -7191,6 +7192,7 @@ components:
       type: object
     ImportDistribution:
       example:
+        idLike: '{}'
         versionID: versionID
         name: name
         id: id
@@ -7208,6 +7210,9 @@ components:
         versionID:
           nullable: true
           type: string
+        idLike:
+          nullable: true
+          type: object
       type: object
     ImportPackageLocation:
       example:
@@ -7333,6 +7338,8 @@ components:
       - type
       type: object
     NativeSbom:
+      type: object
+    AnyValue:
       type: object
     PaginatedVulnerableImageList_allOf:
       properties:
