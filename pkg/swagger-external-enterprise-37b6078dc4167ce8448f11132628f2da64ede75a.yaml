@@ -1417,7 +1417,7 @@ paths:
     get:
       x-swagger-router-controller: anchore_enterprise.services.api.controllers.sources
       operationId: get_source_content_by_type
-      x-anchore-authz-action: getSourrce
+      x-anchore-authz-action: getSource
       summary: Get the content of an analyzed source repository
       parameters:
         - name: source_id
@@ -1610,13 +1610,17 @@ definitions:
               type: string
             ci_workflow_name:
               type: string
+              x-nullable: True
             ci_workflow_execution_time:
               type: string
               format: date-time
+              x-nullable: True
             branch_name:
               type: string
+              x-nullable: True
             change_author:
               type: string
+              x-nullable: True
   SourcesList:
     type: array
     items:
