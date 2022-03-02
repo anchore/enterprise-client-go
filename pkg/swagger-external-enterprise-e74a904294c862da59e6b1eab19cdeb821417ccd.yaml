@@ -2495,8 +2495,7 @@ definitions:
         x-nullable: true
 #  Prior to syft v0.36.0, idLike was a space-separated string.  Now it is a List of strings.  Swagger 2.0 doesn't
 #  support multiple schemas, so for now we will allow the idLike property to be any value to support both schemas.
-      idLike:
-        x-nullable: true
+      idLike: {}
     additionalProperties: true
     type: object
   NativeSBOMPackageLocation:

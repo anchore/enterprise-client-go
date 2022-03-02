@@ -16,5 +16,5 @@ type NativeSbomDistribution struct {
 	Id *string `json:"id,omitempty"`
 	Version *string `json:"version,omitempty"`
 	VersionID *string `json:"versionID,omitempty"`
-	IdLike *interface{} `json:"idLike,omitempty"`
+	IdLike interface{} `json:"idLike,omitempty"`
 }
