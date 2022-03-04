@@ -1667,7 +1667,7 @@ No authorization required
 
 ## GetSourcePolicyCheck
 
-> []interface{} GetSourcePolicyCheck(ctx, sourceId, optional)
+> []PolicyEvaluationResult GetSourcePolicyCheck(ctx, sourceId, optional)
 
 Fetch or calculate policy evaluation for a source
 
@@ -1689,13 +1689,10 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
  **policyId** | **optional.String**|  | 
- **newestOnly** | **optional.Bool**|  | 
- **interactive** | **optional.Bool**|  | 
- **historyOnly** | **optional.Bool**|  | 
 
 ### Return type
 
-**[]interface{}**
+[**[]PolicyEvaluationResult**](PolicyEvaluationResult.md)
 
 ### Authorization
 

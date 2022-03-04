@@ -3535,9 +3535,6 @@ func (a *DefaultApiService) GetSourceContentTypes(ctx _context.Context, sourceId
 // GetSourcePolicyCheckOpts Optional parameters for the method 'GetSourcePolicyCheck'
 type GetSourcePolicyCheckOpts struct {
     PolicyId optional.String
-    NewestOnly optional.Bool
-    Interactive optional.Bool
-    HistoryOnly optional.Bool
 }
 
 /*
@@ -3546,19 +3543,16 @@ GetSourcePolicyCheck Fetch or calculate policy evaluation for a source
  * @param sourceId UUID of source to get
  * @param optional nil or *GetSourcePolicyCheckOpts - Optional Parameters:
  * @param "PolicyId" (optional.String) - 
- * @param "NewestOnly" (optional.Bool) - 
- * @param "Interactive" (optional.Bool) - 
- * @param "HistoryOnly" (optional.Bool) - 
-@return []interface{}
+@return []PolicyEvaluationResult
 */
-func (a *DefaultApiService) GetSourcePolicyCheck(ctx _context.Context, sourceId string, localVarOptionals *GetSourcePolicyCheckOpts) ([]interface{}, *_nethttp.Response, error) {
+func (a *DefaultApiService) GetSourcePolicyCheck(ctx _context.Context, sourceId string, localVarOptionals *GetSourcePolicyCheckOpts) ([]PolicyEvaluationResult, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		localVarReturnValue  []interface{}
+		localVarReturnValue  []PolicyEvaluationResult
 	)
 
 	// create path and map variables
@@ -3571,15 +3565,6 @@ func (a *DefaultApiService) GetSourcePolicyCheck(ctx _context.Context, sourceId 
 
 	if localVarOptionals != nil && localVarOptionals.PolicyId.IsSet() {
 		localVarQueryParams.Add("policy_id", parameterToString(localVarOptionals.PolicyId.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.NewestOnly.IsSet() {
-		localVarQueryParams.Add("newest_only", parameterToString(localVarOptionals.NewestOnly.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.Interactive.IsSet() {
-		localVarQueryParams.Add("interactive", parameterToString(localVarOptionals.Interactive.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.HistoryOnly.IsSet() {
-		localVarQueryParams.Add("history_only", parameterToString(localVarOptionals.HistoryOnly.Value(), ""))
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
