@@ -1515,18 +1515,6 @@ paths:
           type: string
           in: query
           required: false
-        - name: newest_only
-          type: boolean
-          required: false
-          in: query
-        - name: interactive
-          type: boolean
-          required: false
-          in: query
-        - name: history_only
-          type: boolean
-          required: false
-          in: query
       produces:
         - "application/json"
       responses:
@@ -1535,36 +1523,37 @@ paths:
           schema:
             $ref: "#/definitions/PolicyEvaluationListResponse"
 definitions:
-  # TODO: fill out PolicyEvaluationListResponse result schema
+  PolicyEvaluationResult:
+    type: object
+    properties:
+      account_id:
+        type: string
+      policy_id:
+        type: string
+      evaluation_id:
+        type: string
+      source_id:
+        type: string
+      vcs_host:
+        type: string
+      repository_name:
+        type: string
+      final_action:
+        type: string
+      evaluation_url:
+        type: string
+      created_at:
+        type: string
+        format: date-time
+      last_updated:
+        type: string
+        format: date-time
+      result:
+        type: object
   PolicyEvaluationListResponse:
     type: array
     items:
-      type: object
-      properties:
-        account_id:
-          type: string
-        policy_id:
-          type: string
-        evaluation_id:
-          type: string
-        source_id:
-          type: string
-        vcs_host:
-          type: string
-        repository_name:
-          type: string
-        final_action:
-          type: string
-        evaluation_url:
-          type: string
-        created_at:
-          type: string
-          format: date-time
-        last_updated:
-          type: string
-          format: date-time
-        result:
-          type: object
+      $ref: "#/definitions/PolicyEvaluationResult"
   SourceManifest:
     type: object
     properties:

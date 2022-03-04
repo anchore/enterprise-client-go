@@ -133,6 +133,7 @@ Class | Method | HTTP request | Description
  - [NativeSbomSchema](docs/NativeSbomSchema.md)
  - [NativeSbomSource](docs/NativeSbomSource.md)
  - [NvdDataObject](docs/NvdDataObject.md)
+ - [PolicyEvaluationResult](docs/PolicyEvaluationResult.md)
  - [ResourceLabel](docs/ResourceLabel.md)
  - [RuntimeComplianceCheck](docs/RuntimeComplianceCheck.md)
  - [Source](docs/Source.md)
