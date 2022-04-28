@@ -53,7 +53,7 @@ generate: generate-external-client ## generate all client code from all swagger 
 .PHONY :=
 clone:
 	if [ ! -d "./${CLONE_DIR}" ]; then git clone git@github.com:anchore/enterprise.git $(CLONE_DIR); fi
-	if [ -d "./${CLONE_DIR}" ]; then cd ${CLONE_DIR} && git pull origin master; fi
+	if [ -d "./${CLONE_DIR}" ]; then cd ${CLONE_DIR} && git pull origin main; fi
 	cd ${CLONE_DIR} && git checkout ${ENTERPRISE_REF}
 
 $(EXTAPI_OPENAPI_DOC_ENT): clone ## pull the enterprise external API swagger document
