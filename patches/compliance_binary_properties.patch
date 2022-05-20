@@ -1,0 +1,35 @@
+Index: pkg/enterprise/api_compliance.go
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/pkg/enterprise/api_compliance.go b/pkg/enterprise/api_compliance.go
+--- a/pkg/enterprise/api_compliance.go	(revision eadb75488657e6a1e3f5b9a40d07402ec6b11ffa)
++++ b/pkg/enterprise/api_compliance.go	(date 1653076314281)
+@@ -130,6 +130,7 @@
+ 		localVarFormFileName string
+ 		localVarFileName     string
+ 		localVarFileBytes    []byte
++		localVarFile         *os.File
+ 		localVarReturnValue  RuntimeComplianceCheck
+ 	)
+ 
+@@ -191,7 +192,6 @@
+ 		localVarFormParams.Add("end_time", parameterToString(*r.endTime, ""))
+ 	}
+ 	localVarFormFileName = "result_file"
+-	var localVarFile *os.File
+ 	if r.resultFile != nil {
+ 		localVarFile = *r.resultFile
+ 	}
+@@ -200,9 +200,9 @@
+ 		localVarFileBytes = fbs
+ 		localVarFileName = localVarFile.Name()
+ 		localVarFile.Close()
++		localVarFile = nil
+ 	}
+ 	localVarFormFileName = "report_file"
+-	var localVarFile *os.File
+ 	if r.reportFile != nil {
+ 		localVarFile = *r.reportFile
+ 	}
