@@ -1,0 +1,36 @@
+name: "Validations"
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+  pull_request:
+
+env:
+  GO_VERSION: "1.18.x"
+  GO_STABLE_VERSION: true
+
+jobs:
+
+  Build-Smoke-Test:
+    name: "Build Smoke Test"
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/setup-go@v2
+        with:
+          go-version: ${{ env.GO_VERSION }}
+          stable: ${{ env.GO_STABLE_VERSION }}
+
+      - uses: actions/checkout@v2
+
+      - name: Restore go cache
+        id: go-cache
+        uses: actions/cache@v2.1.3
+        with:
+          path: ~/go/pkg/mod
+          key: ${{ runner.os }}-go-${{ env.GO_VERSION }}-${{ hashFiles('**/go.sum') }}
+          restore-keys: |
+            ${{ runner.os }}-go-${{ env.GO_VERSION }}-
+
+      - name: Smoke test
+        run: go build -v ./...
