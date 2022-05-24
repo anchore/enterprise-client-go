@@ -171,6 +171,7 @@ func (c *APIClient) callAPI(request *http.Request) (*http.Response, error) {
 		c.cfg.Logger.WithFields("Accept", request.Header.Get("Accept"), "X-Anchore-Account", request.Header.Get("X-Anchore-Account")).Tracef("Headers: ")
 		if request.Body != nil {
 			body, err := ioutil.ReadAll(request.Body)
+            request.Body.Close()
 			if err != nil {
 				return nil, err
 			}
@@ -194,6 +195,7 @@ func (c *APIClient) callAPI(request *http.Request) (*http.Response, error) {
 		c.cfg.Logger.WithFields("Content-Type", resp.Header.Get("Content-Type"), "Content-Length", resp.Header.Get("Content-Length"), "Date", resp.Header.Get("Date"), "Server", resp.Header.Get("Server")).Tracef("Headers: ")
 		if resp.Body != nil {
 			body, err := ioutil.ReadAll(resp.Body)
+            resp.Body.Close()
 			if err != nil {
 				return resp, err
 			}
