@@ -1,22 +1,20 @@
 # The version of this client (should be in line with the highest supported engine/enterprise version
-CLIENT_VERSION = 4.0.0
+CLIENT_VERSION = 4.1.0
 
 # where all generated code will be located
 PROJECT_ROOT = pkg
 CLONE_DIR = local
 
 # OpenAPI generator version to use
-OPENAPI_GENERATOR_VERSION = v4.3.1
-# note: v5 introduces the new command pattern approach, splitting request and execute + generating interfaces per service.
-#OPENAPI_GENERATOR_VERSION = v5.0.0-beta3
+OPENAPI_GENERATOR_VERSION = v5.2.1
 
 # --- anchore enterprise references
 # a git tag/branch/commit within anchore/enterprise repo
-ENTERPRISE_REF = a2410d57359b15c32be09e10db6b502af97c3e7c
-EXTAPI_CLIENT_ROOT_ENT = $(PROJECT_ROOT)/external/enterprise
-EXTAPI_CLIENT_ROOT_ENG = $(PROJECT_ROOT)/external/engine
-EXTAPI_OPENAPI_DOC_ENT = $(PROJECT_ROOT)/swagger-external-enterprise-$(ENTERPRISE_REF).yaml
-EXTAPI_OPENAPI_DOC_ENG = $(PROJECT_ROOT)/swagger-external-engine-$(ENTERPRISE_REF).yaml
+ENTERPRISE_REF = 77c6d436042370fce89e13085198d6de17e838b5
+ENTERPRISE_ROOT = $(PROJECT_ROOT)/enterprise
+ENGINE_ROOT = $(PROJECT_ROOT)/engine
+ENTERPRISE_OPENAPI_DOC = $(PROJECT_ROOT)/swagger-enterprise-$(ENTERPRISE_REF).yaml
+ENGINE_OPENAPI_DOC = $(PROJECT_ROOT)/swagger-engine-$(ENTERPRISE_REF).yaml
 
 define generate_openapi_client
 	# remove previous API clients
@@ -34,6 +32,7 @@ define generate_openapi_client
 				--http-user-agent "anchore-client/$(CLIENT_VERSION)/go" \
 				-i /local/${1} \
 				-o /local/${3} \
+				-t /local/templates \
 				-g go
 
 	# keep permissions the same as the user
@@ -45,38 +44,40 @@ endef
 
 .PHONY :=
 .DEFAULT_GOAL :=
-update: clean generate-external-client ## pull all swagger definitions and generate client code
+update: clean generate ## pull all swagger definitions and generate client code
 
 .PHONY :=
-generate: generate-external-client ## generate all client code from all swagger documents
+generate: generate-clients patch ## generate all client code from all swagger documents
 
-.PHONY :=
-clone:
+define clone
 	if [ ! -d "./${CLONE_DIR}" ]; then git clone git@github.com:anchore/enterprise.git $(CLONE_DIR); fi
-	if [ -d "./${CLONE_DIR}" ]; then cd ${CLONE_DIR} && git pull origin master; fi
+	if [ -d "./${CLONE_DIR}" ]; then cd ${CLONE_DIR} && git fetch; fi
 	cd ${CLONE_DIR} && git checkout ${ENTERPRISE_REF}
+endef
 
-$(EXTAPI_OPENAPI_DOC_ENT): clone ## pull the enterprise external API swagger document
+$(PROJECT_ROOT):
 	mkdir -p $(PROJECT_ROOT)
+
+$(ENTERPRISE_OPENAPI_DOC) $(ENGINE_OPENAPI_DOC): $(PROJECT_ROOT) ## pull the enterprise external API swagger document
+	$(call clone)
 	# note: the existing upstream swagger document needs to be corrected, otherwise invalid code will be generated.
 	# the tr/sed cmds are a workaround for now.
-	cp $(CLONE_DIR)/anchore_enterprise/swagger/enterprise_api_swagger.yaml $(EXTAPI_OPENAPI_DOC_ENT)
-
-$(EXTAPI_OPENAPI_DOC_ENG): clone ## pull the engine external API swagger document
-	mkdir -p $(PROJECT_ROOT)
-	# note: the existing upstream swagger document needs to be corrected, otherwise invalid code will be generated.
-	# the tr/sed cmds are a workaround for now.
-	cp $(CLONE_DIR)/anchore_engine/services/apiext/swagger/swagger.yaml $(EXTAPI_OPENAPI_DOC_ENG)
+	cp $(CLONE_DIR)/anchore_enterprise/swagger/enterprise_api_swagger.yaml $(ENTERPRISE_OPENAPI_DOC)
+	cp $(CLONE_DIR)/anchore_engine/services/apiext/swagger/swagger.yaml $(ENGINE_OPENAPI_DOC)
 
 .PHONY :=
-generate-external-client: $(EXTAPI_OPENAPI_DOC_ENT) $(EXTAPI_OPENAPI_DOC_ENG) ## generate client code for engine external API
-	$(call generate_openapi_client,$(EXTAPI_OPENAPI_DOC_ENT),external,$(EXTAPI_CLIENT_ROOT_ENT))
-	$(call generate_openapi_client,$(EXTAPI_OPENAPI_DOC_ENG),external,$(EXTAPI_CLIENT_ROOT_ENG))
+generate-clients: $(ENTERPRISE_OPENAPI_DOC) $(ENGINE_OPENAPI_DOC) ## generate client code for engine external API
+	$(call generate_openapi_client,$(ENTERPRISE_OPENAPI_DOC),enterprise,$(ENTERPRISE_ROOT))
+	$(call generate_openapi_client,$(ENGINE_OPENAPI_DOC),engine,$(ENGINE_ROOT))
 
 
 .PHONY :=
 clean: ## remove all swagger documents and generated client code
 	rm -rf $(PROJECT_ROOT)
+
+.PHONY :=
+patch: ## applies any post-generation patches
+	git apply patches/compliance_binary_properties.patch
 
 .PHONY :=
 help:
