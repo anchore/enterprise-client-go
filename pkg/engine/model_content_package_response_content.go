@@ -19,7 +19,7 @@ import (
 type ContentPackageResponseContent struct {
 	Package *string `json:"package,omitempty"`
 	Version *string `json:"version,omitempty"`
-	Size *string `json:"size,omitempty"`
+	Size *interface{} `json:"size,omitempty"`
 	Type *string `json:"type,omitempty"`
 	Origin *string `json:"origin,omitempty"`
 	// Deprecated in favor of the 'licenses' field\"
@@ -112,9 +112,9 @@ func (o *ContentPackageResponseContent) SetVersion(v string) {
 }
 
 // GetSize returns the Size field value if set, zero value otherwise.
-func (o *ContentPackageResponseContent) GetSize() string {
+func (o *ContentPackageResponseContent) GetSize() interface{} {
 	if o == nil || o.Size == nil {
-		var ret string
+		var ret interface{}
 		return ret
 	}
 	return *o.Size
@@ -122,7 +122,7 @@ func (o *ContentPackageResponseContent) GetSize() string {
 
 // GetSizeOk returns a tuple with the Size field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ContentPackageResponseContent) GetSizeOk() (*string, bool) {
+func (o *ContentPackageResponseContent) GetSizeOk() (*interface{}, bool) {
 	if o == nil || o.Size == nil {
 		return nil, false
 	}
@@ -138,8 +138,8 @@ func (o *ContentPackageResponseContent) HasSize() bool {
 	return false
 }
 
-// SetSize gets a reference to the given string and assigns it to the Size field.
-func (o *ContentPackageResponseContent) SetSize(v string) {
+// SetSize gets a reference to the given interface{} and assigns it to the Size field.
+func (o *ContentPackageResponseContent) SetSize(v interface{}) {
 	o.Size = &v
 }
 

@@ -3832,7 +3832,8 @@ definitions:
             version:
               type: string
             size:
-              type: string
+              # TODO(alex): server returns both integer and string types for "alpine:latest" image
+              type: object
             type:
               type: string
             origin:

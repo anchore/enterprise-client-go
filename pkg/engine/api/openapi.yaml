@@ -5231,7 +5231,7 @@ components:
           - licenses
           - licenses
           package: package
-          size: size
+          size: '{}'
           cpes:
           - cpes
           - cpes
@@ -5244,7 +5244,7 @@ components:
           - licenses
           - licenses
           package: package
-          size: size
+          size: '{}'
           cpes:
           - cpes
           - cpes
@@ -7500,7 +7500,7 @@ components:
         - licenses
         - licenses
         package: package
-        size: size
+        size: '{}'
         cpes:
         - cpes
         - cpes
@@ -7514,7 +7514,8 @@ components:
         version:
           type: string
         size:
-          type: string
+          properties: {}
+          type: object
         type:
           type: string
         origin:

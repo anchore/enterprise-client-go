@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Package** | Pointer to **string** |  | [optional] 
 **Version** | Pointer to **string** |  | [optional] 
-**Size** | Pointer to **string** |  | [optional] 
+**Size** | Pointer to **interface{}** |  | [optional] 
 **Type** | Pointer to **string** |  | [optional] 
 **Origin** | Pointer to **string** |  | [optional] 
 **License** | Pointer to **string** | Deprecated in favor of the &#39;licenses&#39; field\&quot; | [optional] 
@@ -85,20 +85,20 @@ HasVersion returns a boolean if a field has been set.
 
 ### GetSize
 
-`func (o *ContentPackageResponseContent) GetSize() string`
+`func (o *ContentPackageResponseContent) GetSize() interface{}`
 
 GetSize returns the Size field if non-nil, zero value otherwise.
 
 ### GetSizeOk
 
-`func (o *ContentPackageResponseContent) GetSizeOk() (*string, bool)`
+`func (o *ContentPackageResponseContent) GetSizeOk() (*interface{}, bool)`
 
 GetSizeOk returns a tuple with the Size field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetSize
 
-`func (o *ContentPackageResponseContent) SetSize(v string)`
+`func (o *ContentPackageResponseContent) SetSize(v interface{})`
 
 SetSize sets Size field to given value.
 
