@@ -34,6 +34,7 @@ import (
 	"unicode/utf8"
 
 	"golang.org/x/oauth2"
+	"github.com/anchore/go-logger"
 )
 
 var (
@@ -188,8 +189,8 @@ func parameterToJson(obj interface{}) (string, error) {
 // callAPI do the request.
 func (c *APIClient) callAPI(request *http.Request) (*http.Response, error) {
 	if c.cfg.Logger != nil && c.cfg.Debug {
-		c.cfg.Logger.Debugf("Request %s %s %s", request.Proto, request.Method, request.URL.Redacted())
-		c.cfg.Logger.WithFields("Accept", request.Header.Get("Accept"), "X-Anchore-Account", request.Header.Get("X-Anchore-Account")).Tracef("Headers: ")
+		c.cfg.Logger.Debugf("request %s %s %s", request.Proto, request.Method, request.URL.Redacted())
+		c.cfg.Logger.WithFields(getHeaderLogFields(request.Header)).Tracef("  ├── headers")
 		if request.Body != nil {
 			body, err := ioutil.ReadAll(request.Body)
             request.Body.Close()
@@ -198,12 +199,14 @@ func (c *APIClient) callAPI(request *http.Request) (*http.Response, error) {
 			}
 			pretty := &bytes.Buffer{}
 			json.Indent(pretty, body, "", "  ")
-			c.cfg.Logger.Tracef("Body: \n%s", pretty.String())
+			c.cfg.Logger.WithFields("length", pretty.Len()).Tracef("  └── body\n%s", pretty.String())
 
 			// reset read closer for body
 			reader := ioutil.NopCloser(bytes.NewReader(body))
 			request.Body = reader
-		}
+		} else {
+            c.cfg.Logger.WithFields("length", 0).Trace("  └── body")
+        }
 	}
 
 	resp, err := c.cfg.HTTPClient.Do(request)
@@ -212,8 +215,8 @@ func (c *APIClient) callAPI(request *http.Request) (*http.Response, error) {
 	}
 
 	if c.cfg.Logger != nil && c.cfg.Debug {
-		c.cfg.Logger.Debugf("Response %s %s", resp.Proto, resp.Status)
-		c.cfg.Logger.WithFields("Content-Type", resp.Header.Get("Content-Type"), "Content-Length", resp.Header.Get("Content-Length"), "Date", resp.Header.Get("Date"), "Server", resp.Header.Get("Server")).Tracef("Headers: ")
+		c.cfg.Logger.Debugf("response %s %s", resp.Proto, resp.Status)
+		c.cfg.Logger.WithFields(getHeaderLogFields(resp.Header)).Tracef("  ├── headers")
 		if resp.Body != nil {
 			body, err := ioutil.ReadAll(resp.Body)
             resp.Body.Close()
@@ -222,14 +225,27 @@ func (c *APIClient) callAPI(request *http.Request) (*http.Response, error) {
 			}
 			pretty := &bytes.Buffer{}
 			json.Indent(pretty, body, "", "  ")
-			c.cfg.Logger.Tracef("Body: \n%s", pretty.String())
+			c.cfg.Logger.WithFields("length", pretty.Len()).Tracef("  └── body\n%s", pretty.String())
 
             // reset read closer for body
 			reader := ioutil.NopCloser(bytes.NewReader(body))
 			resp.Body = reader
-		}
+		} else {
+             c.cfg.Logger.WithFields("length", 0).Trace("  └── body")
+        }
 	}
 	return resp, err
+}
+
+func getHeaderLogFields(header http.Header) logger.Fields {
+	f := make(logger.Fields)
+	for k, vs := range header {
+		if strings.ToLower(k) == "authorization" {
+			continue
+		}
+		f[k] = "["+strings.Join(vs, ", ")+"]"
+	}
+	return f
 }
 
 // Allow modification of underlying config for alternate implementations and testing
