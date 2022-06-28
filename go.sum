@@ -1,6 +1,8 @@
 cloud.google.com/go v0.34.0/go.mod h1:aQUYkXzVsufM+DwF1aE+0xfcU+56JwCaLick0ClmMTw=
 github.com/anchore/go-logger v0.0.0-20220519151928-4eea2d1fdacc h1:Dw1wvaQSnaZ/hBQ+YuKuUZg7E/ImQ9RxWf1oyOBvfHw=
 github.com/anchore/go-logger v0.0.0-20220519151928-4eea2d1fdacc/go.mod h1:wxBYJSK/RWDCQasMtzmGhRv7mLVF3Jx8O5z+oMtvrMQ=
+github.com/anchore/go-logger v0.0.0-20220615182446-aa2fd5fbd976 h1:FD9LBSJJmpbavMAkKkEUJRWbKtI2TYz0Z6oin2S17pQ=
+github.com/anchore/go-logger v0.0.0-20220615182446-aa2fd5fbd976/go.mod h1:wxBYJSK/RWDCQasMtzmGhRv7mLVF3Jx8O5z+oMtvrMQ=
 github.com/chzyer/logex v1.1.10/go.mod h1:+Ywpsq7O8HXn0nuIou7OrIPyXbp3wmkHB+jjWRnGsAI=
 github.com/chzyer/readline v0.0.0-20180603132655-2972be24d48e/go.mod h1:nSuG5e5PlCu98SY8svDHJxuZscDgtXS6KTTbou5AhLI=
 github.com/chzyer/test v0.0.0-20180213035817-a1ea475d72b1/go.mod h1:Q3SI9o4m/ZMnBNeIyt5eFwwo7qiLfzFZmjNmxjkiQlU=
