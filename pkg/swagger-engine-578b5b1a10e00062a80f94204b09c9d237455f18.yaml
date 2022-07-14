@@ -4350,6 +4350,21 @@ definitions:
           timestamp:
             type: string
             format: date-time
+    example:
+      generated_uuid: b4cf3559e6f64077a7e335225f0945fb
+      event:
+        source:
+          servicename: catalog
+          hostid: anchore-quickstart
+          base_url: "http://catalog:8228"
+        resource:
+          id: "http://policy-engine:8228"
+          type: service
+          user_id: admin
+        type: system.service.state_transition.orphaned
+        level: error
+        message: Service orphaned
+        details: {}
   EventsList:
     type: object
     description: Response envelope for paginated listing of events
