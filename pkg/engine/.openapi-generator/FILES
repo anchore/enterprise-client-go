@@ -43,6 +43,7 @@ docs/AnchoreImage.md
 docs/AnchoreImageTagSummary.md
 docs/ApiErrorResponse.md
 docs/ArchiveSummary.md
+docs/ArchiveTagEntry.md
 docs/ArchivedAnalysis.md
 docs/ArchivesApi.md
 docs/BaseNotificationData.md
@@ -205,6 +206,7 @@ model_anchore_image.go
 model_anchore_image_tag_summary.go
 model_api_error_response.go
 model_archive_summary.go
+model_archive_tag_entry.go
 model_archived_analysis.go
 model_base_notification_data.go
 model_content_files_response.go

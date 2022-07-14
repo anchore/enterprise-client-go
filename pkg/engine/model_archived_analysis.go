@@ -27,7 +27,7 @@ type ArchivedAnalysis struct {
 	// The archival status
 	Status *string `json:"status,omitempty"`
 	// List of tags associated with the image digest
-	ImageDetail *[]TagEntry `json:"image_detail,omitempty"`
+	ImageDetail *[]ArchiveTagEntry `json:"image_detail,omitempty"`
 	CreatedAt *time.Time `json:"created_at,omitempty"`
 	LastUpdated *time.Time `json:"last_updated,omitempty"`
 	AnalyzedAt *time.Time `json:"analyzed_at,omitempty"`
@@ -181,9 +181,9 @@ func (o *ArchivedAnalysis) SetStatus(v string) {
 }
 
 // GetImageDetail returns the ImageDetail field value if set, zero value otherwise.
-func (o *ArchivedAnalysis) GetImageDetail() []TagEntry {
+func (o *ArchivedAnalysis) GetImageDetail() []ArchiveTagEntry {
 	if o == nil || o.ImageDetail == nil {
-		var ret []TagEntry
+		var ret []ArchiveTagEntry
 		return ret
 	}
 	return *o.ImageDetail
@@ -191,7 +191,7 @@ func (o *ArchivedAnalysis) GetImageDetail() []TagEntry {
 
 // GetImageDetailOk returns a tuple with the ImageDetail field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ArchivedAnalysis) GetImageDetailOk() (*[]TagEntry, bool) {
+func (o *ArchivedAnalysis) GetImageDetailOk() (*[]ArchiveTagEntry, bool) {
 	if o == nil || o.ImageDetail == nil {
 		return nil, false
 	}
@@ -207,8 +207,8 @@ func (o *ArchivedAnalysis) HasImageDetail() bool {
 	return false
 }
 
-// SetImageDetail gets a reference to the given []TagEntry and assigns it to the ImageDetail field.
-func (o *ArchivedAnalysis) SetImageDetail(v []TagEntry) {
+// SetImageDetail gets a reference to the given []ArchiveTagEntry and assigns it to the ImageDetail field.
+func (o *ArchivedAnalysis) SetImageDetail(v []ArchiveTagEntry) {
 	o.ImageDetail = &v
 }
 

@@ -714,7 +714,8 @@ paths:
       x-swagger-router-controller: anchore_enterprise.services.api.controllers.corrections
       x-anchore-authz-action: getCorrection
     post:
-      description: Add a correction record that will be used to fix
+      description: Add a correction record that will be used to fix false positive
+        matches
       operationId: add_correction
       parameters:
       - description: An account name to change the resource scope of the request to
@@ -734,7 +735,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CorrectionList'
+                $ref: '#/components/schemas/Correction'
           description: Corrections retrieved successfully
       summary: Create a correction record
       tags:

@@ -2295,7 +2295,7 @@ paths:
         200:
           description: Add a credential, overwritting if already exists
           schema:
-            $ref: "#/definitions/User"
+            $ref: "#/definitions/AccessCredential"
         500:
           description: Internal error
           schema:
@@ -3137,10 +3137,10 @@ definitions:
   ImageReference:
     type: object
     properties:
-      digest:
+      imageDigest:
         type: string
         description: The image digest
-      id:
+      imageId:
         type: string
         description: The image id if available
       analyzed_at:
@@ -3154,19 +3154,19 @@ definitions:
   TagEntry:
     type: object
     properties:
-      pullstring:
+      fulltag:
         type: string
         description: The pullable string for the tag. E.g. "docker.io/library/node:latest"
       registry:
         type: string
         description: The registry hostname:port section of the pull string
-      repository:
+      repo:
         type: string
         description: The repository section of the pull string
       tag:
         type: string
         description: The tag-only section of the pull string
-      detected_at:
+      tag_detected_at:
         type: string
         format: date-time
         description: The timestamp at which the Anchore Engine detected this tag was mapped to the image digest. Does not necessarily indicate when the tag was actually pushed to the registry.
@@ -3176,7 +3176,7 @@ definitions:
     properties:
       image:
         $ref: '#/definitions/ImageReference'
-      affected_packages:
+      vulnerable_packages:
         type: array
         items:
           $ref: '#/definitions/VulnerablePackageReference'
@@ -4377,7 +4377,7 @@ definitions:
       name:
         type: string
         description: The account name to use. This will identify the account and must be globally unique in the system.
-        pattern: ^[a-zA-Z0-9][a-zA-Z0-9@.!#$+-=^_`~;]{1,126}[a-zA-Z0-9]$
+        pattern: ^[a-zA-Z0-9][ a-zA-Z0-9@.!#$+-=^_`~;]{1,126}[a-zA-Z0-9]$
       email:
         type: string
         description: An optional email to associate with the account for contact purposes
@@ -4463,7 +4463,7 @@ definitions:
       username:
         description: The username to create
         type: string
-        pattern: ^[a-zA-Z0-9][a-zA-Z0-9@.!#$+-=^_`~;]{1,126}[a-zA-Z0-9]$
+        pattern: ^[a-zA-Z0-9][ a-zA-Z0-9@.!#$+-=^_`~;]{1,126}[a-zA-Z0-9]$
       password:
         description: The initial password for the user, must be at least 6 characters, up to 128
         type: string
@@ -4614,7 +4614,7 @@ definitions:
         description: List of tags associated with the image digest
         type: array
         items:
-          $ref: "#/definitions/TagEntry"
+          $ref: "#/definitions/ArchiveTagEntry"
       created_at:
         type: string
         format: date-time
@@ -4627,6 +4627,34 @@ definitions:
       archive_size_bytes:
         type: integer
         description: The size, in bytes, of the analysis archive file
+  ArchiveTagEntry:
+    type: object
+    properties:
+      pullstring:
+        type: string
+        description: The pullable string for the tag. E.g. "docker.io/library/node:latest"
+      registry:
+        type: string
+        description: The registry hostname:port section of the pull string
+      repository:
+        type: string
+        description: The repository section of the pull string
+      tag:
+        type: string
+        description: The tag-only section of the pull string
+      detected_at:
+        type: string
+        format: date-time
+        description: The timestamp at which the Anchore Engine detected this tag was mapped to the image digest. Does not necessarily indicate when the tag was actually pushed to the registry.
+      created_at:
+        type: string
+        format: date-time
+        description: The timestamp at which Anchore Engine archived this image digest.
+      last_updated:
+        type: string
+        format: date-time
+        description: The timestamp that the last change was made to this record.
+    description: A docker-pullable tag value as well as deconstructed components
   AnalysisArchiveRules:
     type: array
     description: Rule set for automatic archiving of system objects and flushing of archived objects (permament delete).

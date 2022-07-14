@@ -217,6 +217,7 @@ Class | Method | HTTP request | Description
  - [AnchoreImageTagSummary](docs/AnchoreImageTagSummary.md)
  - [ApiErrorResponse](docs/ApiErrorResponse.md)
  - [ArchiveSummary](docs/ArchiveSummary.md)
+ - [ArchiveTagEntry](docs/ArchiveTagEntry.md)
  - [ArchivedAnalysis](docs/ArchivedAnalysis.md)
  - [BaseNotificationData](docs/BaseNotificationData.md)
  - [CVSSV2Scores](docs/CVSSV2Scores.md)

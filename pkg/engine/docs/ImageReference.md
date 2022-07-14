@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Digest** | Pointer to **string** | The image digest | [optional] 
-**Id** | Pointer to **string** | The image id if available | [optional] 
+**ImageDigest** | Pointer to **string** | The image digest | [optional] 
+**ImageId** | Pointer to **string** | The image id if available | [optional] 
 **AnalyzedAt** | Pointer to **string** | Timestamp, in rfc3339 format, indicating when the image state became &#39;analyzed&#39; in Anchore Engine. | [optional] 
 **TagHistory** | Pointer to [**[]TagEntry**](TagEntry.md) |  | [optional] 
 
@@ -28,55 +28,55 @@ NewImageReferenceWithDefaults instantiates a new ImageReference object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
-### GetDigest
+### GetImageDigest
 
-`func (o *ImageReference) GetDigest() string`
+`func (o *ImageReference) GetImageDigest() string`
 
-GetDigest returns the Digest field if non-nil, zero value otherwise.
+GetImageDigest returns the ImageDigest field if non-nil, zero value otherwise.
 
-### GetDigestOk
+### GetImageDigestOk
 
-`func (o *ImageReference) GetDigestOk() (*string, bool)`
+`func (o *ImageReference) GetImageDigestOk() (*string, bool)`
 
-GetDigestOk returns a tuple with the Digest field if it's non-nil, zero value otherwise
+GetImageDigestOk returns a tuple with the ImageDigest field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetDigest
+### SetImageDigest
 
-`func (o *ImageReference) SetDigest(v string)`
+`func (o *ImageReference) SetImageDigest(v string)`
 
-SetDigest sets Digest field to given value.
+SetImageDigest sets ImageDigest field to given value.
 
-### HasDigest
+### HasImageDigest
 
-`func (o *ImageReference) HasDigest() bool`
+`func (o *ImageReference) HasImageDigest() bool`
 
-HasDigest returns a boolean if a field has been set.
+HasImageDigest returns a boolean if a field has been set.
 
-### GetId
+### GetImageId
 
-`func (o *ImageReference) GetId() string`
+`func (o *ImageReference) GetImageId() string`
 
-GetId returns the Id field if non-nil, zero value otherwise.
+GetImageId returns the ImageId field if non-nil, zero value otherwise.
 
-### GetIdOk
+### GetImageIdOk
 
-`func (o *ImageReference) GetIdOk() (*string, bool)`
+`func (o *ImageReference) GetImageIdOk() (*string, bool)`
 
-GetIdOk returns a tuple with the Id field if it's non-nil, zero value otherwise
+GetImageIdOk returns a tuple with the ImageId field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetId
+### SetImageId
 
-`func (o *ImageReference) SetId(v string)`
+`func (o *ImageReference) SetImageId(v string)`
 
-SetId sets Id field to given value.
+SetImageId sets ImageId field to given value.
 
-### HasId
+### HasImageId
 
-`func (o *ImageReference) HasId() bool`
+`func (o *ImageReference) HasImageId() bool`
 
-HasId returns a boolean if a field has been set.
+HasImageId returns a boolean if a field has been set.
 
 ### GetAnalyzedAt
 

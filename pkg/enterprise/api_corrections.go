@@ -30,7 +30,7 @@ type CorrectionsApi interface {
 	/*
 	AddCorrection Create a correction record
 
-	Add a correction record that will be used to fix
+	Add a correction record that will be used to fix false positive matches
 
 	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	 @return ApiAddCorrectionRequest
@@ -38,8 +38,8 @@ type CorrectionsApi interface {
 	AddCorrection(ctx _context.Context) ApiAddCorrectionRequest
 
 	// AddCorrectionExecute executes the request
-	//  @return []Correction
-	AddCorrectionExecute(r ApiAddCorrectionRequest) ([]Correction, *_nethttp.Response, error)
+	//  @return Correction
+	AddCorrectionExecute(r ApiAddCorrectionRequest) (Correction, *_nethttp.Response, error)
 
 	/*
 	DeleteCorrectionByUuid Delete a correction by UUID
@@ -120,14 +120,14 @@ func (r ApiAddCorrectionRequest) XAnchoreAccount(xAnchoreAccount string) ApiAddC
 	return r
 }
 
-func (r ApiAddCorrectionRequest) Execute() ([]Correction, *_nethttp.Response, error) {
+func (r ApiAddCorrectionRequest) Execute() (Correction, *_nethttp.Response, error) {
 	return r.ApiService.AddCorrectionExecute(r)
 }
 
 /*
 AddCorrection Create a correction record
 
-Add a correction record that will be used to fix
+Add a correction record that will be used to fix false positive matches
 
  @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiAddCorrectionRequest
@@ -140,15 +140,15 @@ func (a *CorrectionsApiService) AddCorrection(ctx _context.Context) ApiAddCorrec
 }
 
 // Execute executes the request
-//  @return []Correction
-func (a *CorrectionsApiService) AddCorrectionExecute(r ApiAddCorrectionRequest) ([]Correction, *_nethttp.Response, error) {
+//  @return Correction
+func (a *CorrectionsApiService) AddCorrectionExecute(r ApiAddCorrectionRequest) (Correction, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodPost
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		localVarReturnValue  []Correction
+		localVarReturnValue  Correction
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CorrectionsApiService.AddCorrection")

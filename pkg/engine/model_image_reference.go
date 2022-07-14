@@ -18,9 +18,9 @@ import (
 // ImageReference A summary of an image identity, including digest, id (if available), and any tags known to have ever been mapped to the digest
 type ImageReference struct {
 	// The image digest
-	Digest *string `json:"digest,omitempty"`
+	ImageDigest *string `json:"imageDigest,omitempty"`
 	// The image id if available
-	Id *string `json:"id,omitempty"`
+	ImageId *string `json:"imageId,omitempty"`
 	// Timestamp, in rfc3339 format, indicating when the image state became 'analyzed' in Anchore Engine.
 	AnalyzedAt *string `json:"analyzed_at,omitempty"`
 	TagHistory *[]TagEntry `json:"tag_history,omitempty"`
@@ -43,68 +43,68 @@ func NewImageReferenceWithDefaults() *ImageReference {
 	return &this
 }
 
-// GetDigest returns the Digest field value if set, zero value otherwise.
-func (o *ImageReference) GetDigest() string {
-	if o == nil || o.Digest == nil {
+// GetImageDigest returns the ImageDigest field value if set, zero value otherwise.
+func (o *ImageReference) GetImageDigest() string {
+	if o == nil || o.ImageDigest == nil {
 		var ret string
 		return ret
 	}
-	return *o.Digest
+	return *o.ImageDigest
 }
 
-// GetDigestOk returns a tuple with the Digest field value if set, nil otherwise
+// GetImageDigestOk returns a tuple with the ImageDigest field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ImageReference) GetDigestOk() (*string, bool) {
-	if o == nil || o.Digest == nil {
+func (o *ImageReference) GetImageDigestOk() (*string, bool) {
+	if o == nil || o.ImageDigest == nil {
 		return nil, false
 	}
-	return o.Digest, true
+	return o.ImageDigest, true
 }
 
-// HasDigest returns a boolean if a field has been set.
-func (o *ImageReference) HasDigest() bool {
-	if o != nil && o.Digest != nil {
+// HasImageDigest returns a boolean if a field has been set.
+func (o *ImageReference) HasImageDigest() bool {
+	if o != nil && o.ImageDigest != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetDigest gets a reference to the given string and assigns it to the Digest field.
-func (o *ImageReference) SetDigest(v string) {
-	o.Digest = &v
+// SetImageDigest gets a reference to the given string and assigns it to the ImageDigest field.
+func (o *ImageReference) SetImageDigest(v string) {
+	o.ImageDigest = &v
 }
 
-// GetId returns the Id field value if set, zero value otherwise.
-func (o *ImageReference) GetId() string {
-	if o == nil || o.Id == nil {
+// GetImageId returns the ImageId field value if set, zero value otherwise.
+func (o *ImageReference) GetImageId() string {
+	if o == nil || o.ImageId == nil {
 		var ret string
 		return ret
 	}
-	return *o.Id
+	return *o.ImageId
 }
 
-// GetIdOk returns a tuple with the Id field value if set, nil otherwise
+// GetImageIdOk returns a tuple with the ImageId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ImageReference) GetIdOk() (*string, bool) {
-	if o == nil || o.Id == nil {
+func (o *ImageReference) GetImageIdOk() (*string, bool) {
+	if o == nil || o.ImageId == nil {
 		return nil, false
 	}
-	return o.Id, true
+	return o.ImageId, true
 }
 
-// HasId returns a boolean if a field has been set.
-func (o *ImageReference) HasId() bool {
-	if o != nil && o.Id != nil {
+// HasImageId returns a boolean if a field has been set.
+func (o *ImageReference) HasImageId() bool {
+	if o != nil && o.ImageId != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetId gets a reference to the given string and assigns it to the Id field.
-func (o *ImageReference) SetId(v string) {
-	o.Id = &v
+// SetImageId gets a reference to the given string and assigns it to the ImageId field.
+func (o *ImageReference) SetImageId(v string) {
+	o.ImageId = &v
 }
 
 // GetAnalyzedAt returns the AnalyzedAt field value if set, zero value otherwise.
@@ -173,11 +173,11 @@ func (o *ImageReference) SetTagHistory(v []TagEntry) {
 
 func (o ImageReference) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Digest != nil {
-		toSerialize["digest"] = o.Digest
+	if o.ImageDigest != nil {
+		toSerialize["imageDigest"] = o.ImageDigest
 	}
-	if o.Id != nil {
-		toSerialize["id"] = o.Id
+	if o.ImageId != nil {
+		toSerialize["imageId"] = o.ImageId
 	}
 	if o.AnalyzedAt != nil {
 		toSerialize["analyzed_at"] = o.AnalyzedAt

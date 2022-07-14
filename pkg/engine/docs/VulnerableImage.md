@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Image** | Pointer to [**ImageReference**](ImageReference.md) |  | [optional] 
-**AffectedPackages** | Pointer to [**[]VulnerablePackageReference**](VulnerablePackageReference.md) |  | [optional] 
+**VulnerablePackages** | Pointer to [**[]VulnerablePackageReference**](VulnerablePackageReference.md) |  | [optional] 
 
 ## Methods
 
@@ -51,30 +51,30 @@ SetImage sets Image field to given value.
 
 HasImage returns a boolean if a field has been set.
 
-### GetAffectedPackages
+### GetVulnerablePackages
 
-`func (o *VulnerableImage) GetAffectedPackages() []VulnerablePackageReference`
+`func (o *VulnerableImage) GetVulnerablePackages() []VulnerablePackageReference`
 
-GetAffectedPackages returns the AffectedPackages field if non-nil, zero value otherwise.
+GetVulnerablePackages returns the VulnerablePackages field if non-nil, zero value otherwise.
 
-### GetAffectedPackagesOk
+### GetVulnerablePackagesOk
 
-`func (o *VulnerableImage) GetAffectedPackagesOk() (*[]VulnerablePackageReference, bool)`
+`func (o *VulnerableImage) GetVulnerablePackagesOk() (*[]VulnerablePackageReference, bool)`
 
-GetAffectedPackagesOk returns a tuple with the AffectedPackages field if it's non-nil, zero value otherwise
+GetVulnerablePackagesOk returns a tuple with the VulnerablePackages field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetAffectedPackages
+### SetVulnerablePackages
 
-`func (o *VulnerableImage) SetAffectedPackages(v []VulnerablePackageReference)`
+`func (o *VulnerableImage) SetVulnerablePackages(v []VulnerablePackageReference)`
 
-SetAffectedPackages sets AffectedPackages field to given value.
+SetVulnerablePackages sets VulnerablePackages field to given value.
 
-### HasAffectedPackages
+### HasVulnerablePackages
 
-`func (o *VulnerableImage) HasAffectedPackages() bool`
+`func (o *VulnerableImage) HasVulnerablePackages() bool`
 
-HasAffectedPackages returns a boolean if a field has been set.
+HasVulnerablePackages returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

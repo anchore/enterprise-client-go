@@ -615,7 +615,7 @@ paths:
       operationId: add_correction
       x-anchore-authz-action: addCorrection
       summary: Create a correction record
-      description: Add a correction record that will be used to fix
+      description: Add a correction record that will be used to fix false positive matches
       produces:
         - "application/json"
       parameters:
@@ -629,7 +629,7 @@ paths:
         200:
           description: "Corrections retrieved successfully"
           schema:
-            $ref: "#/definitions/CorrectionList"
+            $ref: "#/definitions/Correction"
       tags:
         - Corrections
 
@@ -1185,7 +1185,7 @@ paths:
             $ref: "#/definitions/ApiErrorResponse"
       tags:
         - Applications
-            
+
     get:
       x-swagger-router-controller: anchore_enterprise.services.api.controllers.applications
       operationId: list_artifacts
