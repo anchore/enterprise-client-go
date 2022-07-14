@@ -10,7 +10,7 @@ OPENAPI_GENERATOR_VERSION = v5.2.1
 
 # --- anchore enterprise references
 # a git tag/branch/commit within anchore/enterprise repo
-ENTERPRISE_REF = 523c94b2efbff935f4e2cdd4d1625094a9ad5f32
+ENTERPRISE_REF = 578b5b1a10e00062a80f94204b09c9d237455f18
 ENTERPRISE_ROOT = $(PROJECT_ROOT)/enterprise
 RBAC_ROOT = $(PROJECT_ROOT)/rbac
 ENGINE_ROOT = $(PROJECT_ROOT)/engine

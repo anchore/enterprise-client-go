@@ -6090,24 +6090,20 @@ components:
       description: A record of occurance of an asynchronous event triggered either
         by system or by user activity
       example:
-        generated_uuid: generated_uuid
-        created_at: 2000-01-23T04:56:07.000+00:00
+        generated_uuid: b4cf3559e6f64077a7e335225f0945fb
         event:
-          resource:
-            user_id: user_id
-            id: id
-            type: type
-          level: level
-          details: '{}'
           source:
-            base_url: base_url
-            hostid: hostid
-            servicename: servicename
-            request_id: request_id
-          type: type
-          category: category
-          message: message
-          timestamp: 2000-01-23T04:56:07.000+00:00
+            servicename: catalog
+            hostid: anchore-quickstart
+            base_url: http://catalog:8228
+          resource:
+            id: http://policy-engine:8228
+            type: service
+            user_id: admin
+          type: system.service.state_transition.orphaned
+          level: error
+          message: Service orphaned
+          details: {}
       properties:
         generated_uuid:
           type: string
@@ -6124,42 +6120,34 @@ components:
         item_count: 0
         page: 6
         results:
-        - generated_uuid: generated_uuid
-          created_at: 2000-01-23T04:56:07.000+00:00
+        - generated_uuid: b4cf3559e6f64077a7e335225f0945fb
           event:
-            resource:
-              user_id: user_id
-              id: id
-              type: type
-            level: level
-            details: '{}'
             source:
-              base_url: base_url
-              hostid: hostid
-              servicename: servicename
-              request_id: request_id
-            type: type
-            category: category
-            message: message
-            timestamp: 2000-01-23T04:56:07.000+00:00
-        - generated_uuid: generated_uuid
-          created_at: 2000-01-23T04:56:07.000+00:00
+              servicename: catalog
+              hostid: anchore-quickstart
+              base_url: http://catalog:8228
+            resource:
+              id: http://policy-engine:8228
+              type: service
+              user_id: admin
+            type: system.service.state_transition.orphaned
+            level: error
+            message: Service orphaned
+            details: {}
+        - generated_uuid: b4cf3559e6f64077a7e335225f0945fb
           event:
-            resource:
-              user_id: user_id
-              id: id
-              type: type
-            level: level
-            details: '{}'
             source:
-              base_url: base_url
-              hostid: hostid
-              servicename: servicename
-              request_id: request_id
-            type: type
-            category: category
-            message: message
-            timestamp: 2000-01-23T04:56:07.000+00:00
+              servicename: catalog
+              hostid: anchore-quickstart
+              base_url: http://catalog:8228
+            resource:
+              id: http://policy-engine:8228
+              type: service
+              user_id: admin
+            type: system.service.state_transition.orphaned
+            level: error
+            message: Service orphaned
+            details: {}
       properties:
         results:
           description: List of events
@@ -7618,11 +7606,6 @@ components:
           type: array
       type: object
     EventResponse_event_source:
-      example:
-        base_url: base_url
-        hostid: hostid
-        servicename: servicename
-        request_id: request_id
       properties:
         servicename:
           type: string
@@ -7634,10 +7617,6 @@ components:
           type: string
       type: object
     EventResponse_event_resource:
-      example:
-        user_id: user_id
-        id: id
-        type: type
       properties:
         user_id:
           type: string
@@ -7647,22 +7626,6 @@ components:
           type: string
       type: object
     EventResponse_event:
-      example:
-        resource:
-          user_id: user_id
-          id: id
-          type: type
-        level: level
-        details: '{}'
-        source:
-          base_url: base_url
-          hostid: hostid
-          servicename: servicename
-          request_id: request_id
-        type: type
-        category: category
-        message: message
-        timestamp: 2000-01-23T04:56:07.000+00:00
       properties:
         source:
           $ref: '#/components/schemas/EventResponse_event_source'
