@@ -2958,7 +2958,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/User'
+                $ref: '#/components/schemas/AccessCredential'
           description: Add a credential, overwritting if already exists
         "500":
           content:
@@ -3891,10 +3891,10 @@ components:
       description: A summary of an image identity, including digest, id (if available),
         and any tags known to have ever been mapped to the digest
       properties:
-        digest:
+        imageDigest:
           description: The image digest
           type: string
-        id:
+        imageId:
           description: The image id if available
           type: string
         analyzed_at:
@@ -3908,26 +3908,20 @@ components:
       type: object
     TagEntry:
       description: A docker-pullable tag value as well as deconstructed components
-      example:
-        registry: registry
-        detected_at: 2000-01-23T04:56:07.000+00:00
-        pullstring: pullstring
-        tag: tag
-        repository: repository
       properties:
-        pullstring:
+        fulltag:
           description: The pullable string for the tag. E.g. "docker.io/library/node:latest"
           type: string
         registry:
           description: The registry hostname:port section of the pull string
           type: string
-        repository:
+        repo:
           description: The repository section of the pull string
           type: string
         tag:
           description: The tag-only section of the pull string
           type: string
-        detected_at:
+        tag_detected_at:
           description: The timestamp at which the Anchore Engine detected this tag
             was mapped to the image digest. Does not necessarily indicate when the
             tag was actually pushed to the registry.
@@ -3940,7 +3934,7 @@ components:
       properties:
         image:
           $ref: '#/components/schemas/ImageReference'
-        affected_packages:
+        vulnerable_packages:
           items:
             $ref: '#/components/schemas/VulnerablePackageReference'
           type: array
@@ -6193,7 +6187,7 @@ components:
         name:
           description: The account name to use. This will identify the account and
             must be globally unique in the system.
-          pattern: ^[a-zA-Z0-9][a-zA-Z0-9@.!#$+-=^_`~;]{1,126}[a-zA-Z0-9]$
+          pattern: ^[a-zA-Z0-9][ a-zA-Z0-9@.!#$+-=^_`~;]{1,126}[a-zA-Z0-9]$
           type: string
         email:
           description: An optional email to associate with the account for contact
@@ -6307,7 +6301,7 @@ components:
       properties:
         username:
           description: The username to create
-          pattern: ^[a-zA-Z0-9][a-zA-Z0-9@.!#$+-=^_`~;]{1,126}[a-zA-Z0-9]$
+          pattern: ^[a-zA-Z0-9][ a-zA-Z0-9@.!#$+-=^_`~;]{1,126}[a-zA-Z0-9]$
           type: string
         password:
           description: The initial password for the user, must be at least 6 characters,
@@ -6483,11 +6477,15 @@ components:
         image_detail:
         - registry: registry
           detected_at: 2000-01-23T04:56:07.000+00:00
+          last_updated: 2000-01-23T04:56:07.000+00:00
+          created_at: 2000-01-23T04:56:07.000+00:00
           pullstring: pullstring
           tag: tag
           repository: repository
         - registry: registry
           detected_at: 2000-01-23T04:56:07.000+00:00
+          last_updated: 2000-01-23T04:56:07.000+00:00
+          created_at: 2000-01-23T04:56:07.000+00:00
           pullstring: pullstring
           tag: tag
           repository: repository
@@ -6514,7 +6512,7 @@ components:
         image_detail:
           description: List of tags associated with the image digest
           items:
-            $ref: '#/components/schemas/TagEntry'
+            $ref: '#/components/schemas/ArchiveTagEntry'
           type: array
         created_at:
           format: date-time
@@ -6528,6 +6526,44 @@ components:
         archive_size_bytes:
           description: The size, in bytes, of the analysis archive file
           type: integer
+      type: object
+    ArchiveTagEntry:
+      description: A docker-pullable tag value as well as deconstructed components
+      example:
+        registry: registry
+        detected_at: 2000-01-23T04:56:07.000+00:00
+        last_updated: 2000-01-23T04:56:07.000+00:00
+        created_at: 2000-01-23T04:56:07.000+00:00
+        pullstring: pullstring
+        tag: tag
+        repository: repository
+      properties:
+        pullstring:
+          description: The pullable string for the tag. E.g. "docker.io/library/node:latest"
+          type: string
+        registry:
+          description: The registry hostname:port section of the pull string
+          type: string
+        repository:
+          description: The repository section of the pull string
+          type: string
+        tag:
+          description: The tag-only section of the pull string
+          type: string
+        detected_at:
+          description: The timestamp at which the Anchore Engine detected this tag
+            was mapped to the image digest. Does not necessarily indicate when the
+            tag was actually pushed to the registry.
+          format: date-time
+          type: string
+        created_at:
+          description: The timestamp at which Anchore Engine archived this image digest.
+          format: date-time
+          type: string
+        last_updated:
+          description: The timestamp that the last change was made to this record.
+          format: date-time
+          type: string
       type: object
     AnalysisArchiveRules:
       description: Rule set for automatic archiving of system objects and flushing

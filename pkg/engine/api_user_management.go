@@ -63,8 +63,8 @@ type UserManagementApi interface {
 	CreateUserCredential(ctx _context.Context, accountname string, username string) ApiCreateUserCredentialRequest
 
 	// CreateUserCredentialExecute executes the request
-	//  @return User
-	CreateUserCredentialExecute(r ApiCreateUserCredentialRequest) (User, *_nethttp.Response, error)
+	//  @return AccessCredential
+	CreateUserCredentialExecute(r ApiCreateUserCredentialRequest) (AccessCredential, *_nethttp.Response, error)
 
 	/*
 	DeleteAccount Delete the specified account, only allowed if the account is in the disabled state. All users will be deleted along with the account and all resources will be garbage collected
@@ -443,7 +443,7 @@ func (r ApiCreateUserCredentialRequest) Credential(credential AccessCredential) 
 	return r
 }
 
-func (r ApiCreateUserCredentialRequest) Execute() (User, *_nethttp.Response, error) {
+func (r ApiCreateUserCredentialRequest) Execute() (AccessCredential, *_nethttp.Response, error) {
 	return r.ApiService.CreateUserCredentialExecute(r)
 }
 
@@ -465,15 +465,15 @@ func (a *UserManagementApiService) CreateUserCredential(ctx _context.Context, ac
 }
 
 // Execute executes the request
-//  @return User
-func (a *UserManagementApiService) CreateUserCredentialExecute(r ApiCreateUserCredentialRequest) (User, *_nethttp.Response, error) {
+//  @return AccessCredential
+func (a *UserManagementApiService) CreateUserCredentialExecute(r ApiCreateUserCredentialRequest) (AccessCredential, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodPost
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		localVarReturnValue  User
+		localVarReturnValue  AccessCredential
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UserManagementApiService.CreateUserCredential")

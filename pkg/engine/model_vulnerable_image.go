@@ -18,7 +18,7 @@ import (
 // VulnerableImage A record of an image vulnerable to some known vulnerability. Includes vulnerable package information
 type VulnerableImage struct {
 	Image *ImageReference `json:"image,omitempty"`
-	AffectedPackages *[]VulnerablePackageReference `json:"affected_packages,omitempty"`
+	VulnerablePackages *[]VulnerablePackageReference `json:"vulnerable_packages,omitempty"`
 }
 
 // NewVulnerableImage instantiates a new VulnerableImage object
@@ -70,36 +70,36 @@ func (o *VulnerableImage) SetImage(v ImageReference) {
 	o.Image = &v
 }
 
-// GetAffectedPackages returns the AffectedPackages field value if set, zero value otherwise.
-func (o *VulnerableImage) GetAffectedPackages() []VulnerablePackageReference {
-	if o == nil || o.AffectedPackages == nil {
+// GetVulnerablePackages returns the VulnerablePackages field value if set, zero value otherwise.
+func (o *VulnerableImage) GetVulnerablePackages() []VulnerablePackageReference {
+	if o == nil || o.VulnerablePackages == nil {
 		var ret []VulnerablePackageReference
 		return ret
 	}
-	return *o.AffectedPackages
+	return *o.VulnerablePackages
 }
 
-// GetAffectedPackagesOk returns a tuple with the AffectedPackages field value if set, nil otherwise
+// GetVulnerablePackagesOk returns a tuple with the VulnerablePackages field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *VulnerableImage) GetAffectedPackagesOk() (*[]VulnerablePackageReference, bool) {
-	if o == nil || o.AffectedPackages == nil {
+func (o *VulnerableImage) GetVulnerablePackagesOk() (*[]VulnerablePackageReference, bool) {
+	if o == nil || o.VulnerablePackages == nil {
 		return nil, false
 	}
-	return o.AffectedPackages, true
+	return o.VulnerablePackages, true
 }
 
-// HasAffectedPackages returns a boolean if a field has been set.
-func (o *VulnerableImage) HasAffectedPackages() bool {
-	if o != nil && o.AffectedPackages != nil {
+// HasVulnerablePackages returns a boolean if a field has been set.
+func (o *VulnerableImage) HasVulnerablePackages() bool {
+	if o != nil && o.VulnerablePackages != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetAffectedPackages gets a reference to the given []VulnerablePackageReference and assigns it to the AffectedPackages field.
-func (o *VulnerableImage) SetAffectedPackages(v []VulnerablePackageReference) {
-	o.AffectedPackages = &v
+// SetVulnerablePackages gets a reference to the given []VulnerablePackageReference and assigns it to the VulnerablePackages field.
+func (o *VulnerableImage) SetVulnerablePackages(v []VulnerablePackageReference) {
+	o.VulnerablePackages = &v
 }
 
 func (o VulnerableImage) MarshalJSON() ([]byte, error) {
@@ -107,8 +107,8 @@ func (o VulnerableImage) MarshalJSON() ([]byte, error) {
 	if o.Image != nil {
 		toSerialize["image"] = o.Image
 	}
-	if o.AffectedPackages != nil {
-		toSerialize["affected_packages"] = o.AffectedPackages
+	if o.VulnerablePackages != nil {
+		toSerialize["vulnerable_packages"] = o.VulnerablePackages
 	}
 	return json.Marshal(toSerialize)
 }

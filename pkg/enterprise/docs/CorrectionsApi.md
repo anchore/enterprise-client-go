@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 ## AddCorrection
 
-> []Correction AddCorrection(ctx).Correction(correction).XAnchoreAccount(xAnchoreAccount).Execute()
+> Correction AddCorrection(ctx).Correction(correction).XAnchoreAccount(xAnchoreAccount).Execute()
 
 Create a correction record
 
@@ -43,7 +43,7 @@ func main() {
         fmt.Fprintf(os.Stderr, "Error when calling `CorrectionsApi.AddCorrection``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `AddCorrection`: []Correction
+    // response from `AddCorrection`: Correction
     fmt.Fprintf(os.Stdout, "Response from `CorrectionsApi.AddCorrection`: %v\n", resp)
 }
 ```
@@ -64,7 +64,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[]Correction**](Correction.md)
+[**Correction**](Correction.md)
 
 ### Authorization
 

@@ -19,15 +19,15 @@ import (
 // TagEntry A docker-pullable tag value as well as deconstructed components
 type TagEntry struct {
 	// The pullable string for the tag. E.g. \"docker.io/library/node:latest\"
-	Pullstring *string `json:"pullstring,omitempty"`
+	Fulltag *string `json:"fulltag,omitempty"`
 	// The registry hostname:port section of the pull string
 	Registry *string `json:"registry,omitempty"`
 	// The repository section of the pull string
-	Repository *string `json:"repository,omitempty"`
+	Repo *string `json:"repo,omitempty"`
 	// The tag-only section of the pull string
 	Tag *string `json:"tag,omitempty"`
 	// The timestamp at which the Anchore Engine detected this tag was mapped to the image digest. Does not necessarily indicate when the tag was actually pushed to the registry.
-	DetectedAt *time.Time `json:"detected_at,omitempty"`
+	TagDetectedAt *time.Time `json:"tag_detected_at,omitempty"`
 }
 
 // NewTagEntry instantiates a new TagEntry object
@@ -47,36 +47,36 @@ func NewTagEntryWithDefaults() *TagEntry {
 	return &this
 }
 
-// GetPullstring returns the Pullstring field value if set, zero value otherwise.
-func (o *TagEntry) GetPullstring() string {
-	if o == nil || o.Pullstring == nil {
+// GetFulltag returns the Fulltag field value if set, zero value otherwise.
+func (o *TagEntry) GetFulltag() string {
+	if o == nil || o.Fulltag == nil {
 		var ret string
 		return ret
 	}
-	return *o.Pullstring
+	return *o.Fulltag
 }
 
-// GetPullstringOk returns a tuple with the Pullstring field value if set, nil otherwise
+// GetFulltagOk returns a tuple with the Fulltag field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *TagEntry) GetPullstringOk() (*string, bool) {
-	if o == nil || o.Pullstring == nil {
+func (o *TagEntry) GetFulltagOk() (*string, bool) {
+	if o == nil || o.Fulltag == nil {
 		return nil, false
 	}
-	return o.Pullstring, true
+	return o.Fulltag, true
 }
 
-// HasPullstring returns a boolean if a field has been set.
-func (o *TagEntry) HasPullstring() bool {
-	if o != nil && o.Pullstring != nil {
+// HasFulltag returns a boolean if a field has been set.
+func (o *TagEntry) HasFulltag() bool {
+	if o != nil && o.Fulltag != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetPullstring gets a reference to the given string and assigns it to the Pullstring field.
-func (o *TagEntry) SetPullstring(v string) {
-	o.Pullstring = &v
+// SetFulltag gets a reference to the given string and assigns it to the Fulltag field.
+func (o *TagEntry) SetFulltag(v string) {
+	o.Fulltag = &v
 }
 
 // GetRegistry returns the Registry field value if set, zero value otherwise.
@@ -111,36 +111,36 @@ func (o *TagEntry) SetRegistry(v string) {
 	o.Registry = &v
 }
 
-// GetRepository returns the Repository field value if set, zero value otherwise.
-func (o *TagEntry) GetRepository() string {
-	if o == nil || o.Repository == nil {
+// GetRepo returns the Repo field value if set, zero value otherwise.
+func (o *TagEntry) GetRepo() string {
+	if o == nil || o.Repo == nil {
 		var ret string
 		return ret
 	}
-	return *o.Repository
+	return *o.Repo
 }
 
-// GetRepositoryOk returns a tuple with the Repository field value if set, nil otherwise
+// GetRepoOk returns a tuple with the Repo field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *TagEntry) GetRepositoryOk() (*string, bool) {
-	if o == nil || o.Repository == nil {
+func (o *TagEntry) GetRepoOk() (*string, bool) {
+	if o == nil || o.Repo == nil {
 		return nil, false
 	}
-	return o.Repository, true
+	return o.Repo, true
 }
 
-// HasRepository returns a boolean if a field has been set.
-func (o *TagEntry) HasRepository() bool {
-	if o != nil && o.Repository != nil {
+// HasRepo returns a boolean if a field has been set.
+func (o *TagEntry) HasRepo() bool {
+	if o != nil && o.Repo != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetRepository gets a reference to the given string and assigns it to the Repository field.
-func (o *TagEntry) SetRepository(v string) {
-	o.Repository = &v
+// SetRepo gets a reference to the given string and assigns it to the Repo field.
+func (o *TagEntry) SetRepo(v string) {
+	o.Repo = &v
 }
 
 // GetTag returns the Tag field value if set, zero value otherwise.
@@ -175,54 +175,54 @@ func (o *TagEntry) SetTag(v string) {
 	o.Tag = &v
 }
 
-// GetDetectedAt returns the DetectedAt field value if set, zero value otherwise.
-func (o *TagEntry) GetDetectedAt() time.Time {
-	if o == nil || o.DetectedAt == nil {
+// GetTagDetectedAt returns the TagDetectedAt field value if set, zero value otherwise.
+func (o *TagEntry) GetTagDetectedAt() time.Time {
+	if o == nil || o.TagDetectedAt == nil {
 		var ret time.Time
 		return ret
 	}
-	return *o.DetectedAt
+	return *o.TagDetectedAt
 }
 
-// GetDetectedAtOk returns a tuple with the DetectedAt field value if set, nil otherwise
+// GetTagDetectedAtOk returns a tuple with the TagDetectedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *TagEntry) GetDetectedAtOk() (*time.Time, bool) {
-	if o == nil || o.DetectedAt == nil {
+func (o *TagEntry) GetTagDetectedAtOk() (*time.Time, bool) {
+	if o == nil || o.TagDetectedAt == nil {
 		return nil, false
 	}
-	return o.DetectedAt, true
+	return o.TagDetectedAt, true
 }
 
-// HasDetectedAt returns a boolean if a field has been set.
-func (o *TagEntry) HasDetectedAt() bool {
-	if o != nil && o.DetectedAt != nil {
+// HasTagDetectedAt returns a boolean if a field has been set.
+func (o *TagEntry) HasTagDetectedAt() bool {
+	if o != nil && o.TagDetectedAt != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetDetectedAt gets a reference to the given time.Time and assigns it to the DetectedAt field.
-func (o *TagEntry) SetDetectedAt(v time.Time) {
-	o.DetectedAt = &v
+// SetTagDetectedAt gets a reference to the given time.Time and assigns it to the TagDetectedAt field.
+func (o *TagEntry) SetTagDetectedAt(v time.Time) {
+	o.TagDetectedAt = &v
 }
 
 func (o TagEntry) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Pullstring != nil {
-		toSerialize["pullstring"] = o.Pullstring
+	if o.Fulltag != nil {
+		toSerialize["fulltag"] = o.Fulltag
 	}
 	if o.Registry != nil {
 		toSerialize["registry"] = o.Registry
 	}
-	if o.Repository != nil {
-		toSerialize["repository"] = o.Repository
+	if o.Repo != nil {
+		toSerialize["repo"] = o.Repo
 	}
 	if o.Tag != nil {
 		toSerialize["tag"] = o.Tag
 	}
-	if o.DetectedAt != nil {
-		toSerialize["detected_at"] = o.DetectedAt
+	if o.TagDetectedAt != nil {
+		toSerialize["tag_detected_at"] = o.TagDetectedAt
 	}
 	return json.Marshal(toSerialize)
 }

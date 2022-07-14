@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **ParentDigest** | Pointer to **string** | The digest of a parent manifest (for manifest-list images) | [optional] 
 **Annotations** | Pointer to **interface{}** | User provided annotations as key-value pairs | [optional] 
 **Status** | Pointer to **string** | The archival status | [optional] 
-**ImageDetail** | Pointer to [**[]TagEntry**](TagEntry.md) | List of tags associated with the image digest | [optional] 
+**ImageDetail** | Pointer to [**[]ArchiveTagEntry**](ArchiveTagEntry.md) | List of tags associated with the image digest | [optional] 
 **CreatedAt** | Pointer to **time.Time** |  | [optional] 
 **LastUpdated** | Pointer to **time.Time** |  | [optional] 
 **AnalyzedAt** | Pointer to **time.Time** |  | [optional] 
@@ -135,20 +135,20 @@ HasStatus returns a boolean if a field has been set.
 
 ### GetImageDetail
 
-`func (o *ArchivedAnalysis) GetImageDetail() []TagEntry`
+`func (o *ArchivedAnalysis) GetImageDetail() []ArchiveTagEntry`
 
 GetImageDetail returns the ImageDetail field if non-nil, zero value otherwise.
 
 ### GetImageDetailOk
 
-`func (o *ArchivedAnalysis) GetImageDetailOk() (*[]TagEntry, bool)`
+`func (o *ArchivedAnalysis) GetImageDetailOk() (*[]ArchiveTagEntry, bool)`
 
 GetImageDetailOk returns a tuple with the ImageDetail field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetImageDetail
 
-`func (o *ArchivedAnalysis) SetImageDetail(v []TagEntry)`
+`func (o *ArchivedAnalysis) SetImageDetail(v []ArchiveTagEntry)`
 
 SetImageDetail sets ImageDetail field to given value.
 

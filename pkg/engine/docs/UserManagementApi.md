@@ -155,7 +155,7 @@ No authorization required
 
 ## CreateUserCredential
 
-> User CreateUserCredential(ctx, accountname, username).Credential(credential).Execute()
+> AccessCredential CreateUserCredential(ctx, accountname, username).Credential(credential).Execute()
 
 add/replace credential
 
@@ -183,7 +183,7 @@ func main() {
         fmt.Fprintf(os.Stderr, "Error when calling `UserManagementApi.CreateUserCredential``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `CreateUserCredential`: User
+    // response from `CreateUserCredential`: AccessCredential
     fmt.Fprintf(os.Stdout, "Response from `UserManagementApi.CreateUserCredential`: %v\n", resp)
 }
 ```
@@ -210,7 +210,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**User**](User.md)
+[**AccessCredential**](AccessCredential.md)
 
 ### Authorization
 

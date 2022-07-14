@@ -4,11 +4,11 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Pullstring** | Pointer to **string** | The pullable string for the tag. E.g. \&quot;docker.io/library/node:latest\&quot; | [optional] 
+**Fulltag** | Pointer to **string** | The pullable string for the tag. E.g. \&quot;docker.io/library/node:latest\&quot; | [optional] 
 **Registry** | Pointer to **string** | The registry hostname:port section of the pull string | [optional] 
-**Repository** | Pointer to **string** | The repository section of the pull string | [optional] 
+**Repo** | Pointer to **string** | The repository section of the pull string | [optional] 
 **Tag** | Pointer to **string** | The tag-only section of the pull string | [optional] 
-**DetectedAt** | Pointer to **time.Time** | The timestamp at which the Anchore Engine detected this tag was mapped to the image digest. Does not necessarily indicate when the tag was actually pushed to the registry. | [optional] 
+**TagDetectedAt** | Pointer to **time.Time** | The timestamp at which the Anchore Engine detected this tag was mapped to the image digest. Does not necessarily indicate when the tag was actually pushed to the registry. | [optional] 
 
 ## Methods
 
@@ -29,30 +29,30 @@ NewTagEntryWithDefaults instantiates a new TagEntry object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
-### GetPullstring
+### GetFulltag
 
-`func (o *TagEntry) GetPullstring() string`
+`func (o *TagEntry) GetFulltag() string`
 
-GetPullstring returns the Pullstring field if non-nil, zero value otherwise.
+GetFulltag returns the Fulltag field if non-nil, zero value otherwise.
 
-### GetPullstringOk
+### GetFulltagOk
 
-`func (o *TagEntry) GetPullstringOk() (*string, bool)`
+`func (o *TagEntry) GetFulltagOk() (*string, bool)`
 
-GetPullstringOk returns a tuple with the Pullstring field if it's non-nil, zero value otherwise
+GetFulltagOk returns a tuple with the Fulltag field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetPullstring
+### SetFulltag
 
-`func (o *TagEntry) SetPullstring(v string)`
+`func (o *TagEntry) SetFulltag(v string)`
 
-SetPullstring sets Pullstring field to given value.
+SetFulltag sets Fulltag field to given value.
 
-### HasPullstring
+### HasFulltag
 
-`func (o *TagEntry) HasPullstring() bool`
+`func (o *TagEntry) HasFulltag() bool`
 
-HasPullstring returns a boolean if a field has been set.
+HasFulltag returns a boolean if a field has been set.
 
 ### GetRegistry
 
@@ -79,30 +79,30 @@ SetRegistry sets Registry field to given value.
 
 HasRegistry returns a boolean if a field has been set.
 
-### GetRepository
+### GetRepo
 
-`func (o *TagEntry) GetRepository() string`
+`func (o *TagEntry) GetRepo() string`
 
-GetRepository returns the Repository field if non-nil, zero value otherwise.
+GetRepo returns the Repo field if non-nil, zero value otherwise.
 
-### GetRepositoryOk
+### GetRepoOk
 
-`func (o *TagEntry) GetRepositoryOk() (*string, bool)`
+`func (o *TagEntry) GetRepoOk() (*string, bool)`
 
-GetRepositoryOk returns a tuple with the Repository field if it's non-nil, zero value otherwise
+GetRepoOk returns a tuple with the Repo field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetRepository
+### SetRepo
 
-`func (o *TagEntry) SetRepository(v string)`
+`func (o *TagEntry) SetRepo(v string)`
 
-SetRepository sets Repository field to given value.
+SetRepo sets Repo field to given value.
 
-### HasRepository
+### HasRepo
 
-`func (o *TagEntry) HasRepository() bool`
+`func (o *TagEntry) HasRepo() bool`
 
-HasRepository returns a boolean if a field has been set.
+HasRepo returns a boolean if a field has been set.
 
 ### GetTag
 
@@ -129,30 +129,30 @@ SetTag sets Tag field to given value.
 
 HasTag returns a boolean if a field has been set.
 
-### GetDetectedAt
+### GetTagDetectedAt
 
-`func (o *TagEntry) GetDetectedAt() time.Time`
+`func (o *TagEntry) GetTagDetectedAt() time.Time`
 
-GetDetectedAt returns the DetectedAt field if non-nil, zero value otherwise.
+GetTagDetectedAt returns the TagDetectedAt field if non-nil, zero value otherwise.
 
-### GetDetectedAtOk
+### GetTagDetectedAtOk
 
-`func (o *TagEntry) GetDetectedAtOk() (*time.Time, bool)`
+`func (o *TagEntry) GetTagDetectedAtOk() (*time.Time, bool)`
 
-GetDetectedAtOk returns a tuple with the DetectedAt field if it's non-nil, zero value otherwise
+GetTagDetectedAtOk returns a tuple with the TagDetectedAt field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetDetectedAt
+### SetTagDetectedAt
 
-`func (o *TagEntry) SetDetectedAt(v time.Time)`
+`func (o *TagEntry) SetTagDetectedAt(v time.Time)`
 
-SetDetectedAt sets DetectedAt field to given value.
+SetTagDetectedAt sets TagDetectedAt field to given value.
 
-### HasDetectedAt
+### HasTagDetectedAt
 
-`func (o *TagEntry) HasDetectedAt() bool`
+`func (o *TagEntry) HasTagDetectedAt() bool`
 
-HasDetectedAt returns a boolean if a field has been set.
+HasTagDetectedAt returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
