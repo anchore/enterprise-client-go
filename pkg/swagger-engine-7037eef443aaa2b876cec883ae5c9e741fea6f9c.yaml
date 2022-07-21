@@ -4292,6 +4292,9 @@ definitions:
       last_full_sync:
         type: string
         format: date-time
+      enabled:
+        type: boolean
+        description: If feed is enabled
   FeedGroupMetadata:
     type: object
     properties:
@@ -4305,6 +4308,9 @@ definitions:
         format: date-time
       record_count:
         type: integer
+      enabled:
+        type: boolean
+        description: If group is enabled
   EventResponse:
     type: object
     description: A record of occurance of an asynchronous event triggered either by system or by user activity

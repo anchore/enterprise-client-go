@@ -26,6 +26,8 @@ type FeedMetadata struct {
 	UpdatedAt *time.Time `json:"updated_at,omitempty"`
 	Groups *[]FeedGroupMetadata `json:"groups,omitempty"`
 	LastFullSync *time.Time `json:"last_full_sync,omitempty"`
+	// If feed is enabled
+	Enabled *bool `json:"enabled,omitempty"`
 }
 
 // NewFeedMetadata instantiates a new FeedMetadata object
@@ -205,6 +207,38 @@ func (o *FeedMetadata) SetLastFullSync(v time.Time) {
 	o.LastFullSync = &v
 }
 
+// GetEnabled returns the Enabled field value if set, zero value otherwise.
+func (o *FeedMetadata) GetEnabled() bool {
+	if o == nil || o.Enabled == nil {
+		var ret bool
+		return ret
+	}
+	return *o.Enabled
+}
+
+// GetEnabledOk returns a tuple with the Enabled field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FeedMetadata) GetEnabledOk() (*bool, bool) {
+	if o == nil || o.Enabled == nil {
+		return nil, false
+	}
+	return o.Enabled, true
+}
+
+// HasEnabled returns a boolean if a field has been set.
+func (o *FeedMetadata) HasEnabled() bool {
+	if o != nil && o.Enabled != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetEnabled gets a reference to the given bool and assigns it to the Enabled field.
+func (o *FeedMetadata) SetEnabled(v bool) {
+	o.Enabled = &v
+}
+
 func (o FeedMetadata) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.Name != nil {
@@ -221,6 +255,9 @@ func (o FeedMetadata) MarshalJSON() ([]byte, error) {
 	}
 	if o.LastFullSync != nil {
 		toSerialize["last_full_sync"] = o.LastFullSync
+	}
+	if o.Enabled != nil {
+		toSerialize["enabled"] = o.Enabled
 	}
 	return json.Marshal(toSerialize)
 }

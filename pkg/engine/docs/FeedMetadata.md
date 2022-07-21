@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 **UpdatedAt** | Pointer to **time.Time** | Date the metadata was last updated | [optional] 
 **Groups** | Pointer to [**[]FeedGroupMetadata**](FeedGroupMetadata.md) |  | [optional] 
 **LastFullSync** | Pointer to **time.Time** |  | [optional] 
+**Enabled** | Pointer to **bool** | If feed is enabled | [optional] 
 
 ## Methods
 
@@ -153,6 +154,31 @@ SetLastFullSync sets LastFullSync field to given value.
 `func (o *FeedMetadata) HasLastFullSync() bool`
 
 HasLastFullSync returns a boolean if a field has been set.
+
+### GetEnabled
+
+`func (o *FeedMetadata) GetEnabled() bool`
+
+GetEnabled returns the Enabled field if non-nil, zero value otherwise.
+
+### GetEnabledOk
+
+`func (o *FeedMetadata) GetEnabledOk() (*bool, bool)`
+
+GetEnabledOk returns a tuple with the Enabled field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetEnabled
+
+`func (o *FeedMetadata) SetEnabled(v bool)`
+
+SetEnabled sets Enabled field to given value.
+
+### HasEnabled
+
+`func (o *FeedMetadata) HasEnabled() bool`
+
+HasEnabled returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
