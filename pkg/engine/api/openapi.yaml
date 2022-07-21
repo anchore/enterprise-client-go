@@ -6043,10 +6043,13 @@ components:
           last_sync: 2000-01-23T04:56:07.000+00:00
           name: name
           created_at: 2000-01-23T04:56:07.000+00:00
+          enabled: true
         - record_count: 0
           last_sync: 2000-01-23T04:56:07.000+00:00
           name: name
           created_at: 2000-01-23T04:56:07.000+00:00
+          enabled: true
+        enabled: true
       properties:
         name:
           description: name of the feed
@@ -6067,6 +6070,9 @@ components:
         last_full_sync:
           format: date-time
           type: string
+        enabled:
+          description: If feed is enabled
+          type: boolean
       type: object
     FeedGroupMetadata:
       example:
@@ -6074,6 +6080,7 @@ components:
         last_sync: 2000-01-23T04:56:07.000+00:00
         name: name
         created_at: 2000-01-23T04:56:07.000+00:00
+        enabled: true
       properties:
         name:
           type: string
@@ -6085,6 +6092,9 @@ components:
           type: string
         record_count:
           type: integer
+        enabled:
+          description: If group is enabled
+          type: boolean
       type: object
     EventResponse:
       description: A record of occurance of an asynchronous event triggered either
