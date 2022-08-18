@@ -66,6 +66,8 @@ type APIClient struct {
 
 	InventoriesApi InventoriesApi
 
+	RelationshipsApi RelationshipsApi
+
 	SourcesApi SourcesApi
 
 	StatelessApi StatelessApi
@@ -95,6 +97,7 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.ImagesApi = (*ImagesApiService)(&c.common)
 	c.ImportsApi = (*ImportsApiService)(&c.common)
 	c.InventoriesApi = (*InventoriesApiService)(&c.common)
+	c.RelationshipsApi = (*RelationshipsApiService)(&c.common)
 	c.SourcesApi = (*SourcesApiService)(&c.common)
 	c.StatelessApi = (*StatelessApiService)(&c.common)
 

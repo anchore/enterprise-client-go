@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **ApplicationId** | Pointer to **string** | The id of the application | [optional] 
-**Name** | Pointer to **string** | The name of the application | [optional] 
+**Name** | Pointer to **string** | The name of the application. This is a unique field per account | [optional] 
 **Description** | Pointer to **string** | The description of the application | [optional] 
 **ApplicationVersions** | Pointer to [**[]ApplicationVersion**](ApplicationVersion.md) | List of application versions | [optional] 
 **CreatedAt** | Pointer to **time.Time** | RFC 3339 formatted UTC timestamp when the application was created | [optional] 

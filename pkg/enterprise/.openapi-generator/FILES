@@ -11,6 +11,7 @@ api_corrections.go
 api_images.go
 api_imports.go
 api_inventories.go
+api_relationships.go
 api_sources.go
 api_stateless.go
 client.go
@@ -29,6 +30,10 @@ docs/ArtifactAssociationMetadata.md
 docs/ArtifactAssociationRequest.md
 docs/ArtifactAssociationResponse.md
 docs/ArtifactListResponse.md
+docs/ArtifactReference.md
+docs/ArtifactRelationship.md
+docs/ArtifactRelationshipSbomDiff.md
+docs/ArtifactType.md
 docs/AssociatedImageArtifact.md
 docs/AssociatedSourceArtifact.md
 docs/CVSSV2Scores.md
@@ -44,6 +49,7 @@ docs/Correction.md
 docs/CorrectionFieldMatch.md
 docs/CorrectionMatch.md
 docs/CorrectionsApi.md
+docs/CustomJsonPatch.md
 docs/EnterpriseVulnerability.md
 docs/EnterpriseVulnerabilityResponse.md
 docs/ImageAncestor.md
@@ -57,6 +63,12 @@ docs/InventoryItem.md
 docs/InventoryReport.md
 docs/InventoryReportImage.md
 docs/InventoryReportItem.md
+docs/JsonPatchAdd.md
+docs/JsonPatchCopy.md
+docs/JsonPatchMove.md
+docs/JsonPatchRemove.md
+docs/JsonPatchReplace.md
+docs/JsonPatchTest.md
 docs/NativeSBOM.md
 docs/NativeSBOMDescriptor.md
 docs/NativeSBOMDistribution.md
@@ -67,9 +79,12 @@ docs/NativeSBOMSchema.md
 docs/NativeSBOMSource.md
 docs/NvdDataObject.md
 docs/PolicyEvaluationResult.md
+docs/RelationshipType.md
+docs/RelationshipsApi.md
 docs/ResourceLabel.md
 docs/RuntimeComplianceCheck.md
 docs/SBOMVulnerabilitiesResponse.md
+docs/SbomDiff.md
 docs/Source.md
 docs/SourceContentPackageResponse.md
 docs/SourceContentPackageResponseContent.md
@@ -98,6 +113,10 @@ model_artifact_association_metadata.go
 model_artifact_association_request.go
 model_artifact_association_response.go
 model_artifact_list_response.go
+model_artifact_reference.go
+model_artifact_relationship.go
+model_artifact_relationship_sbom_diff.go
+model_artifact_type.go
 model_associated_image_artifact.go
 model_associated_source_artifact.go
 model_compliance_resource.go
@@ -109,6 +128,7 @@ model_content_java_package_response_content.go
 model_correction.go
 model_correction_field_match.go
 model_correction_match.go
+model_custom_json_patch.go
 model_cvssv2_scores.go
 model_cvssv3_scores.go
 model_enterprise_vulnerability.go
@@ -121,6 +141,12 @@ model_inventory_item.go
 model_inventory_report.go
 model_inventory_report_image.go
 model_inventory_report_item.go
+model_json_patch_add.go
+model_json_patch_copy.go
+model_json_patch_move.go
+model_json_patch_remove.go
+model_json_patch_replace.go
+model_json_patch_test_.go
 model_native_sbom.go
 model_native_sbom_descriptor.go
 model_native_sbom_distribution.go
@@ -131,8 +157,10 @@ model_native_sbom_schema.go
 model_native_sbom_source.go
 model_nvd_data_object.go
 model_policy_evaluation_result.go
+model_relationship_type.go
 model_resource_label.go
 model_runtime_compliance_check.go
+model_sbom_diff.go
 model_sbom_vulnerabilities_response.go
 model_source.go
 model_source_content_package_response.go

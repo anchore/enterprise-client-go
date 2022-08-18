@@ -122,6 +122,11 @@ Class | Method | HTTP request | Description
 *InventoriesApi* | [**GetInventoryClusterByName**](docs/InventoriesApi.md#getinventoryclusterbyname) | **Get** /inventories/clusters/{cluster_name} | Return a configured inventory cluster
 *InventoriesApi* | [**ListInventoryClusters**](docs/InventoriesApi.md#listinventoryclusters) | **Get** /inventories/clusters | Return a list of the configured inventory clusters
 *InventoriesApi* | [**SyncImageInventory**](docs/InventoriesApi.md#syncimageinventory) | **Post** /inventories | synchronizes the list of the images in a given cluster for the inventory
+*RelationshipsApi* | [**AddArtifactRelationship**](docs/RelationshipsApi.md#addartifactrelationship) | **Post** /artifact_relationships | 
+*RelationshipsApi* | [**DeleteArtifactRelationships**](docs/RelationshipsApi.md#deleteartifactrelationships) | **Delete** /artifact_relationships | 
+*RelationshipsApi* | [**GetArtifactRelationship**](docs/RelationshipsApi.md#getartifactrelationship) | **Get** /artifact_relationships/{relationship_id} | 
+*RelationshipsApi* | [**GetRelationshipSbomDiff**](docs/RelationshipsApi.md#getrelationshipsbomdiff) | **Get** /artifact_relationships/{relationship_id}/diffs/sbom | 
+*RelationshipsApi* | [**ListArtifactRelationships**](docs/RelationshipsApi.md#listartifactrelationships) | **Get** /artifact_relationships | 
 *SourcesApi* | [**DeleteSource**](docs/SourcesApi.md#deletesource) | **Delete** /sources/{source_id} | Delete source record from DB
 *SourcesApi* | [**GetSource**](docs/SourcesApi.md#getsource) | **Get** /sources/{source_id} | Get a detailed source repository analysis metadata record
 *SourcesApi* | [**GetSourceContentByType**](docs/SourcesApi.md#getsourcecontentbytype) | **Get** /sources/{source_id}/content/{content_type} | Get the content of an analyzed source repository
@@ -148,6 +153,10 @@ Class | Method | HTTP request | Description
  - [ArtifactAssociationRequest](docs/ArtifactAssociationRequest.md)
  - [ArtifactAssociationResponse](docs/ArtifactAssociationResponse.md)
  - [ArtifactListResponse](docs/ArtifactListResponse.md)
+ - [ArtifactReference](docs/ArtifactReference.md)
+ - [ArtifactRelationship](docs/ArtifactRelationship.md)
+ - [ArtifactRelationshipSbomDiff](docs/ArtifactRelationshipSbomDiff.md)
+ - [ArtifactType](docs/ArtifactType.md)
  - [AssociatedImageArtifact](docs/AssociatedImageArtifact.md)
  - [AssociatedSourceArtifact](docs/AssociatedSourceArtifact.md)
  - [CVSSV2Scores](docs/CVSSV2Scores.md)
@@ -161,6 +170,7 @@ Class | Method | HTTP request | Description
  - [Correction](docs/Correction.md)
  - [CorrectionFieldMatch](docs/CorrectionFieldMatch.md)
  - [CorrectionMatch](docs/CorrectionMatch.md)
+ - [CustomJsonPatch](docs/CustomJsonPatch.md)
  - [EnterpriseVulnerability](docs/EnterpriseVulnerability.md)
  - [EnterpriseVulnerabilityResponse](docs/EnterpriseVulnerabilityResponse.md)
  - [ImageAncestor](docs/ImageAncestor.md)
@@ -171,6 +181,12 @@ Class | Method | HTTP request | Description
  - [InventoryReport](docs/InventoryReport.md)
  - [InventoryReportImage](docs/InventoryReportImage.md)
  - [InventoryReportItem](docs/InventoryReportItem.md)
+ - [JsonPatchAdd](docs/JsonPatchAdd.md)
+ - [JsonPatchCopy](docs/JsonPatchCopy.md)
+ - [JsonPatchMove](docs/JsonPatchMove.md)
+ - [JsonPatchRemove](docs/JsonPatchRemove.md)
+ - [JsonPatchReplace](docs/JsonPatchReplace.md)
+ - [JsonPatchTest](docs/JsonPatchTest.md)
  - [NativeSBOM](docs/NativeSBOM.md)
  - [NativeSBOMDescriptor](docs/NativeSBOMDescriptor.md)
  - [NativeSBOMDistribution](docs/NativeSBOMDistribution.md)
@@ -181,9 +197,11 @@ Class | Method | HTTP request | Description
  - [NativeSBOMSource](docs/NativeSBOMSource.md)
  - [NvdDataObject](docs/NvdDataObject.md)
  - [PolicyEvaluationResult](docs/PolicyEvaluationResult.md)
+ - [RelationshipType](docs/RelationshipType.md)
  - [ResourceLabel](docs/ResourceLabel.md)
  - [RuntimeComplianceCheck](docs/RuntimeComplianceCheck.md)
  - [SBOMVulnerabilitiesResponse](docs/SBOMVulnerabilitiesResponse.md)
+ - [SbomDiff](docs/SbomDiff.md)
  - [Source](docs/Source.md)
  - [SourceContentPackageResponse](docs/SourceContentPackageResponse.md)
  - [SourceContentPackageResponseContent](docs/SourceContentPackageResponseContent.md)

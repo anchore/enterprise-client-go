@@ -22,7 +22,7 @@ type ApplicationVersion struct {
 	ApplicationVersionId *string `json:"application_version_id,omitempty"`
 	// The id of the application
 	ApplicationId *string `json:"application_id,omitempty"`
-	// The name of the application
+	// The name of the application version. The name must be unique per application
 	VersionName string `json:"version_name"`
 	// RFC 3339 formatted UTC timestamp when the application was created
 	CreatedAt *time.Time `json:"created_at,omitempty"`

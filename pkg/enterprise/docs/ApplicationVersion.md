@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **ApplicationVersionId** | Pointer to **string** | The id of the application version | [optional] 
 **ApplicationId** | Pointer to **string** | The id of the application | [optional] 
-**VersionName** | **string** | The name of the application | 
+**VersionName** | **string** | The name of the application version. The name must be unique per application | 
 **CreatedAt** | Pointer to **time.Time** | RFC 3339 formatted UTC timestamp when the application was created | [optional] 
 **LastUpdated** | Pointer to **time.Time** | RFC 3339 formatted UTC timestamp when the application was last updated | [optional] 
 
