@@ -1912,7 +1912,7 @@ paths:
         200:
           description: SBoM Diff for the related artifacts
           schema:
-            $ref: "#definitions/ArtifactRelationshipSbomDiff"
+            $ref: "#/definitions/SbomDiff"
 definitions:
   PolicyEvaluationResult:
     type: object
@@ -3198,11 +3198,11 @@ definitions:
         type: string
         format: date-time
       source:
-        $ref: "#definitions/ArtifactReference"
+        $ref: "#/definitions/ArtifactReference"
       target:
-        $ref: "#definitions/ArtifactReference"
+        $ref: "#/definitions/ArtifactReference"
       relationship_type:
-        $ref: "#definitions/RelationshipType"
+        $ref: "#/definitions/RelationshipType"
       comment:
         type: string
       user_metadata:
@@ -3225,60 +3225,105 @@ definitions:
       artifact_id:
         type: string
       artifact_type:
-        $ref: "#definitions/ArtifactType"
+        $ref: "#/definitions/ArtifactType"
   ArtifactRelationships:
     type: array
     description: List of artifact relationships
     items:
-      $ref: "#definitions/ArtifactRelationship"
-  ArtifactRelationshipSbomDiff:
+      $ref: "#/definitions/ArtifactRelationship"
+  Package:
     type: object
-    description: |
-      The sbom diff for two sboms associated by a relationship with a specific relationship type. The kind of
-      diff computed is based on the relationship type and the types of the members of the relationship.
+    description: A normalized and simplified package that can represent any package type
     properties:
-      relationship:
-        $ref: "#definitions/ArtifactRelationship"
-      diff:
-        $ref: "#definitions/SbomDiff"
+      name:
+        type: string
+      version:
+        type: string
+      release:
+        type: string
+      sourcepkg:
+        type: string
+      location:
+        type: string
+      origin:
+        type: string
+      size:
+        type: integer
+      licenses:
+        type: array
+        items:
+          type: string
+      metadata:
+        description: Package type specific metadata
+        type: object
+      specification_version:
+        type: string
+        description: Spec version for java packages
+      implementation_version:
+        type: string
+        description: Implementation version for java packages
+      maven_version:
+        type: string
+        description: Maven version for java packages
+      cpes:
+        type: array
+        description: List of CPE strings for this package
+        items:
+          type: string
+  ModifiedPackage:
+    type: object
+    description: A combined modification record showing the source and target packages and the json patch to apply to the relationship-target object to result in the relationship-source package. Source and target are the packages from the respective sides of the relationship.
+    properties:
+      source:
+        $ref: "#/definitions/Package"
+      target:
+        $ref: "#/definitions/Package"
+      patch:
+        $ref: "#/definitions/CustomJsonPatch"
   SbomDiff:
     type: object
-    description: The diff of two sboms with context applied in each difference. Includes the content of both sboms fully
+    description: |
+      The diff of two sboms with context applied in each difference. The "added" and "removed" directions depend on the relationship to which this diff applies.
+      A relationship defines a source, a target, and a type. For example, a relationship of type "contains" with a source of an image and a target of a source revision will
+      indicate that the diff is between the source repo sbom and the image sbom. Added packages are present in the image but not in the source, removed are present in the source revision
+      but not in the image, etc.
     properties:
       added:
         type: array
+        description: Packages added based on the type of relationship. A "contains" relationship means packages present in the source artifact (image) not present in the target (source repo) of the relationship.
         items:
-          type: object
+          $ref: "#/definitions/Package"
       removed:
         type: array
+        description: Packages removed based on the type of relationship. A "contains" relationship means packages not present in the source artifact (image) present in the target (source repo) of the relationship.
         items:
-          type: object
+          $ref: "#/definitions/Package"
       modified:
         type: array
         items:
-          type: object
+          $ref: "#/definitions/ModifiedPackage"
       unmodified:
         type: array
         items:
-          type: object
+          $ref: "#/definitions/Package"
   CustomJsonPatch:
     type: object
     description: Anchore-specific adaptation of RFC6902 to be describeable in swagger/open-api 2.0. Each item is given an ID and the ids are ordered in the array.
     properties:
       operations:
-        $ref: "#definitions/JsonPatchOperationList"
+        $ref: "#/definitions/JsonPatchOperationList"
       add:
-        $ref: "#definitions/JsonPatchAddList"
+        $ref: "#/definitions/JsonPatchAddList"
       remove:
-        $ref: "#definitions/JsonPatchRemoveList"
+        $ref: "#/definitions/JsonPatchRemoveList"
       replace:
-        $ref: "#definitions/JsonPatchReplaceList"
+        $ref: "#/definitions/JsonPatchReplaceList"
       move:
-        $ref: "#definitions/JsonPatchMoveList"
+        $ref: "#/definitions/JsonPatchMoveList"
       copy:
-        $ref: "#definitions/JsonPatchCopyList"
+        $ref: "#/definitions/JsonPatchCopyList"
       test:
-        $ref: "#definitions/JsonPatchTestList"
+        $ref: "#/definitions/JsonPatchTestList"
   JsonPatchOperationList:
     type: array
     description: Ordered list of the operations in the type-specific lists. This imparts the total ordering of patches to apply such that they can be moved into a single array. This is a workaround for 'oneOf' support in OpenAPI 2.0
@@ -3288,27 +3333,27 @@ definitions:
   JsonPatchAddList:
     type: array
     items:
-      $ref: "#definitions/JsonPatchAdd"
+      $ref: "#/definitions/JsonPatchAdd"
   JsonPatchRemoveList:
     type: array
     items:
-      $ref: "#definitions/JsonPatchRemove"
+      $ref: "#/definitions/JsonPatchRemove"
   JsonPatchReplaceList:
     type: array
     items:
-      $ref: "#definitions/JsonPatchReplace"
+      $ref: "#/definitions/JsonPatchReplace"
   JsonPatchCopyList:
     type: array
     items:
-      $ref: "#definitions/JsonPatchCopy"
+      $ref: "#/definitions/JsonPatchCopy"
   JsonPatchTestList:
     type: array
     items:
-      $ref: "#definitions/JsonPatchTest"
+      $ref: "#/definitions/JsonPatchTest"
   JsonPatchMoveList:
     type: array
     items:
-      $ref: "#definitions/JsonPatchMove"
+      $ref: "#/definitions/JsonPatchMove"
   JsonPointer:
     type: string
     description: A JSONPointer per RFC6901
@@ -3323,13 +3368,13 @@ definitions:
     properties:
       id:
         type: string
-        description: Operation ID, referenced for ordering in the #definitions/OperationList
+        description: Operation ID, referenced for ordering in the #/definitions/OperationList
       op:
         type: string
         enum:
           - add
       path:
-        $ref: "#definitions/JsonPointer"
+        $ref: "#/definitions/JsonPointer"
       value:
         description: A valid json value, can be any valid json type
   JsonPatchRemove:
@@ -3341,13 +3386,13 @@ definitions:
     properties:
       id:
         type: string
-        description: Operation ID, referenced for ordering in the #definitions/OperationList
+        description: Operation ID, referenced for ordering in the #/definitions/OperationList
       op:
         type: string
         enum:
           - remove
       path:
-        $ref: "#definitions/JsonPointer"
+        $ref: "#/definitions/JsonPointer"
   JsonPatchReplace:
     type: object
     description: The 'replace' operation per RFC6902
@@ -3358,13 +3403,13 @@ definitions:
     properties:
       id:
         type: string
-        description: Operation ID, referenced for ordering in the #definitions/OperationList
+        description: Operation ID, referenced for ordering in the #/definitions/OperationList
       op:
         type: string
         enum:
           - replace
       path:
-        $ref: "#definitions/JsonPointer"
+        $ref: "#/definitions/JsonPointer"
       value:
         description: A valid json value, can be any valid json type
   JsonPatchMove:
@@ -3377,15 +3422,15 @@ definitions:
     properties:
       id:
         type: string
-        description: Operation ID, referenced for ordering in the #definitions/OperationList
+        description: Operation ID, referenced for ordering in the #/definitions/OperationList
       op:
         type: string
         enum:
           - move
       path:
-        $ref: "#definitions/JsonPointer"
+        $ref: "#/definitions/JsonPointer"
       from:
-        $ref: "#definitions/JsonPointer"
+        $ref: "#/definitions/JsonPointer"
   JsonPatchCopy:
     type: object
     description: The 'copy' operation per RFC6902
@@ -3396,15 +3441,15 @@ definitions:
     properties:
       id:
         type: string
-        description: Operation ID, referenced for ordering in the #definitions/OperationList
+        description: Operation ID, referenced for ordering in the #/definitions/OperationList
       op:
         type: string
         enum:
           - copy
       path:
-        $ref: "#definitions/JsonPointer"
+        $ref: "#/definitions/JsonPointer"
       from:
-        $ref: "#definitions/JsonPointer"
+        $ref: "#/definitions/JsonPointer"
   JsonPatchTest:
     type: object
     description: The 'test' operation per RFC6902
@@ -3415,12 +3460,12 @@ definitions:
     properties:
       id:
         type: string
-        description: Operation ID, referenced for ordering in the #definitions/OperationList
+        description: Operation ID, referenced for ordering in the #/definitions/OperationList
       op:
         type: string
         enum:
           - test
       path:
-        $ref: "#definitions/JsonPointer"
+        $ref: "#/definitions/JsonPointer"
       value:
         description: Expected value for test

@@ -15,12 +15,14 @@ import (
 	"encoding/json"
 )
 
-// SbomDiff The diff of two sboms with context applied in each difference. Includes the content of both sboms fully
+// SbomDiff The diff of two sboms with context applied in each difference. The \"added\" and \"removed\" directions depend on the relationship to which this diff applies. A relationship defines a source, a target, and a type. For example, a relationship of type \"contains\" with a source of an image and a target of a source revision will indicate that the diff is between the source repo sbom and the image sbom. Added packages are present in the image but not in the source, removed are present in the source revision but not in the image, etc. 
 type SbomDiff struct {
-	Added *[]interface{} `json:"added,omitempty"`
-	Removed *[]interface{} `json:"removed,omitempty"`
-	Modified *[]interface{} `json:"modified,omitempty"`
-	Unmodified *[]interface{} `json:"unmodified,omitempty"`
+	// Packages added based on the type of relationship. A \"contains\" relationship means packages present in the source artifact (image) not present in the target (source repo) of the relationship.
+	Added *[]Package `json:"added,omitempty"`
+	// Packages removed based on the type of relationship. A \"contains\" relationship means packages not present in the source artifact (image) present in the target (source repo) of the relationship.
+	Removed *[]Package `json:"removed,omitempty"`
+	Modified *[]ModifiedPackage `json:"modified,omitempty"`
+	Unmodified *[]Package `json:"unmodified,omitempty"`
 }
 
 // NewSbomDiff instantiates a new SbomDiff object
@@ -41,9 +43,9 @@ func NewSbomDiffWithDefaults() *SbomDiff {
 }
 
 // GetAdded returns the Added field value if set, zero value otherwise.
-func (o *SbomDiff) GetAdded() []interface{} {
+func (o *SbomDiff) GetAdded() []Package {
 	if o == nil || o.Added == nil {
-		var ret []interface{}
+		var ret []Package
 		return ret
 	}
 	return *o.Added
@@ -51,7 +53,7 @@ func (o *SbomDiff) GetAdded() []interface{} {
 
 // GetAddedOk returns a tuple with the Added field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SbomDiff) GetAddedOk() (*[]interface{}, bool) {
+func (o *SbomDiff) GetAddedOk() (*[]Package, bool) {
 	if o == nil || o.Added == nil {
 		return nil, false
 	}
@@ -67,15 +69,15 @@ func (o *SbomDiff) HasAdded() bool {
 	return false
 }
 
-// SetAdded gets a reference to the given []interface{} and assigns it to the Added field.
-func (o *SbomDiff) SetAdded(v []interface{}) {
+// SetAdded gets a reference to the given []Package and assigns it to the Added field.
+func (o *SbomDiff) SetAdded(v []Package) {
 	o.Added = &v
 }
 
 // GetRemoved returns the Removed field value if set, zero value otherwise.
-func (o *SbomDiff) GetRemoved() []interface{} {
+func (o *SbomDiff) GetRemoved() []Package {
 	if o == nil || o.Removed == nil {
-		var ret []interface{}
+		var ret []Package
 		return ret
 	}
 	return *o.Removed
@@ -83,7 +85,7 @@ func (o *SbomDiff) GetRemoved() []interface{} {
 
 // GetRemovedOk returns a tuple with the Removed field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SbomDiff) GetRemovedOk() (*[]interface{}, bool) {
+func (o *SbomDiff) GetRemovedOk() (*[]Package, bool) {
 	if o == nil || o.Removed == nil {
 		return nil, false
 	}
@@ -99,15 +101,15 @@ func (o *SbomDiff) HasRemoved() bool {
 	return false
 }
 
-// SetRemoved gets a reference to the given []interface{} and assigns it to the Removed field.
-func (o *SbomDiff) SetRemoved(v []interface{}) {
+// SetRemoved gets a reference to the given []Package and assigns it to the Removed field.
+func (o *SbomDiff) SetRemoved(v []Package) {
 	o.Removed = &v
 }
 
 // GetModified returns the Modified field value if set, zero value otherwise.
-func (o *SbomDiff) GetModified() []interface{} {
+func (o *SbomDiff) GetModified() []ModifiedPackage {
 	if o == nil || o.Modified == nil {
-		var ret []interface{}
+		var ret []ModifiedPackage
 		return ret
 	}
 	return *o.Modified
@@ -115,7 +117,7 @@ func (o *SbomDiff) GetModified() []interface{} {
 
 // GetModifiedOk returns a tuple with the Modified field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SbomDiff) GetModifiedOk() (*[]interface{}, bool) {
+func (o *SbomDiff) GetModifiedOk() (*[]ModifiedPackage, bool) {
 	if o == nil || o.Modified == nil {
 		return nil, false
 	}
@@ -131,15 +133,15 @@ func (o *SbomDiff) HasModified() bool {
 	return false
 }
 
-// SetModified gets a reference to the given []interface{} and assigns it to the Modified field.
-func (o *SbomDiff) SetModified(v []interface{}) {
+// SetModified gets a reference to the given []ModifiedPackage and assigns it to the Modified field.
+func (o *SbomDiff) SetModified(v []ModifiedPackage) {
 	o.Modified = &v
 }
 
 // GetUnmodified returns the Unmodified field value if set, zero value otherwise.
-func (o *SbomDiff) GetUnmodified() []interface{} {
+func (o *SbomDiff) GetUnmodified() []Package {
 	if o == nil || o.Unmodified == nil {
-		var ret []interface{}
+		var ret []Package
 		return ret
 	}
 	return *o.Unmodified
@@ -147,7 +149,7 @@ func (o *SbomDiff) GetUnmodified() []interface{} {
 
 // GetUnmodifiedOk returns a tuple with the Unmodified field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SbomDiff) GetUnmodifiedOk() (*[]interface{}, bool) {
+func (o *SbomDiff) GetUnmodifiedOk() (*[]Package, bool) {
 	if o == nil || o.Unmodified == nil {
 		return nil, false
 	}
@@ -163,8 +165,8 @@ func (o *SbomDiff) HasUnmodified() bool {
 	return false
 }
 
-// SetUnmodified gets a reference to the given []interface{} and assigns it to the Unmodified field.
-func (o *SbomDiff) SetUnmodified(v []interface{}) {
+// SetUnmodified gets a reference to the given []Package and assigns it to the Unmodified field.
+func (o *SbomDiff) SetUnmodified(v []Package) {
 	o.Unmodified = &v
 }
 

@@ -4,10 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Added** | Pointer to **[]interface{}** |  | [optional] 
-**Removed** | Pointer to **[]interface{}** |  | [optional] 
-**Modified** | Pointer to **[]interface{}** |  | [optional] 
-**Unmodified** | Pointer to **[]interface{}** |  | [optional] 
+**Added** | Pointer to [**[]Package**](Package.md) | Packages added based on the type of relationship. A \&quot;contains\&quot; relationship means packages present in the source artifact (image) not present in the target (source repo) of the relationship. | [optional] 
+**Removed** | Pointer to [**[]Package**](Package.md) | Packages removed based on the type of relationship. A \&quot;contains\&quot; relationship means packages not present in the source artifact (image) present in the target (source repo) of the relationship. | [optional] 
+**Modified** | Pointer to [**[]ModifiedPackage**](ModifiedPackage.md) |  | [optional] 
+**Unmodified** | Pointer to [**[]Package**](Package.md) |  | [optional] 
 
 ## Methods
 
@@ -30,20 +30,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetAdded
 
-`func (o *SbomDiff) GetAdded() []interface{}`
+`func (o *SbomDiff) GetAdded() []Package`
 
 GetAdded returns the Added field if non-nil, zero value otherwise.
 
 ### GetAddedOk
 
-`func (o *SbomDiff) GetAddedOk() (*[]interface{}, bool)`
+`func (o *SbomDiff) GetAddedOk() (*[]Package, bool)`
 
 GetAddedOk returns a tuple with the Added field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetAdded
 
-`func (o *SbomDiff) SetAdded(v []interface{})`
+`func (o *SbomDiff) SetAdded(v []Package)`
 
 SetAdded sets Added field to given value.
 
@@ -55,20 +55,20 @@ HasAdded returns a boolean if a field has been set.
 
 ### GetRemoved
 
-`func (o *SbomDiff) GetRemoved() []interface{}`
+`func (o *SbomDiff) GetRemoved() []Package`
 
 GetRemoved returns the Removed field if non-nil, zero value otherwise.
 
 ### GetRemovedOk
 
-`func (o *SbomDiff) GetRemovedOk() (*[]interface{}, bool)`
+`func (o *SbomDiff) GetRemovedOk() (*[]Package, bool)`
 
 GetRemovedOk returns a tuple with the Removed field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetRemoved
 
-`func (o *SbomDiff) SetRemoved(v []interface{})`
+`func (o *SbomDiff) SetRemoved(v []Package)`
 
 SetRemoved sets Removed field to given value.
 
@@ -80,20 +80,20 @@ HasRemoved returns a boolean if a field has been set.
 
 ### GetModified
 
-`func (o *SbomDiff) GetModified() []interface{}`
+`func (o *SbomDiff) GetModified() []ModifiedPackage`
 
 GetModified returns the Modified field if non-nil, zero value otherwise.
 
 ### GetModifiedOk
 
-`func (o *SbomDiff) GetModifiedOk() (*[]interface{}, bool)`
+`func (o *SbomDiff) GetModifiedOk() (*[]ModifiedPackage, bool)`
 
 GetModifiedOk returns a tuple with the Modified field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetModified
 
-`func (o *SbomDiff) SetModified(v []interface{})`
+`func (o *SbomDiff) SetModified(v []ModifiedPackage)`
 
 SetModified sets Modified field to given value.
 
@@ -105,20 +105,20 @@ HasModified returns a boolean if a field has been set.
 
 ### GetUnmodified
 
-`func (o *SbomDiff) GetUnmodified() []interface{}`
+`func (o *SbomDiff) GetUnmodified() []Package`
 
 GetUnmodified returns the Unmodified field if non-nil, zero value otherwise.
 
 ### GetUnmodifiedOk
 
-`func (o *SbomDiff) GetUnmodifiedOk() (*[]interface{}, bool)`
+`func (o *SbomDiff) GetUnmodifiedOk() (*[]Package, bool)`
 
 GetUnmodifiedOk returns a tuple with the Unmodified field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetUnmodified
 
-`func (o *SbomDiff) SetUnmodified(v []interface{})`
+`func (o *SbomDiff) SetUnmodified(v []Package)`
 
 SetUnmodified sets Unmodified field to given value.
 
