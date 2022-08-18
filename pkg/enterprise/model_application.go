@@ -20,7 +20,7 @@ import (
 type Application struct {
 	// The id of the application
 	ApplicationId *string `json:"application_id,omitempty"`
-	// The name of the application
+	// The name of the application. This is a unique field per account
 	Name *string `json:"name,omitempty"`
 	// The description of the application
 	Description *string `json:"description,omitempty"`

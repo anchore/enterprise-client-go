@@ -27,6 +27,8 @@ tags:
   name: Imports
 - description: Source management
   name: Sources
+- description: Relationship definitions between artifacts
+  name: Relationships
 paths:
   /images/{imageDigest}/check:
     get:
@@ -107,7 +109,10 @@ paths:
         name: vtype
         required: true
         schema:
-          format: path
+          enum:
+          - os
+          - non-os
+          - all
           type: string
       - in: query
         name: force_refresh
@@ -1036,6 +1041,9 @@ paths:
               schema:
                 $ref: '#/components/schemas/Application'
           description: success
+        "409":
+          content: {}
+          description: Application with name already exists
         "500":
           content:
             application/json:
@@ -1148,6 +1156,9 @@ paths:
         "404":
           content: {}
           description: Application not found
+        "409":
+          content: {}
+          description: Application with name already exists
         "500":
           content:
             application/json:
@@ -1229,7 +1240,11 @@ paths:
           description: success
         "404":
           content: {}
-          description: Application version not found
+          description: Application not found
+        "409":
+          content: {}
+          description: Application version with version_name already exists on the
+            specified application
         "500":
           content:
             application/json:
@@ -1359,6 +1374,10 @@ paths:
         "404":
           content: {}
           description: Application version not found
+        "409":
+          content: {}
+          description: Application version with version_name already exists on the
+            specified application
         "500":
           content:
             application/json:
@@ -1987,7 +2006,10 @@ paths:
         name: vtype
         required: true
         schema:
-          format: path
+          enum:
+          - os
+          - non-os
+          - all
           type: string
       - in: query
         name: force_refresh
@@ -2061,7 +2083,6 @@ paths:
           - os
           - non-os
           - all
-          format: path
           type: string
       - description: Vulnerability data publishers explicitly won't fix some vulnerabilities.
           This is captured by will_not_fix attribute of each result. If the query
@@ -2102,6 +2123,124 @@ paths:
       x-swagger-router-controller: anchore_enterprise.services.api.controllers.stateless
       x-anchore-authz-action: getImage
       x-codegen-request-body-name: sbom
+  /artifact_relationships:
+    delete:
+      description: Delete one or more relationships
+      operationId: delete_artifact_relationships
+      parameters:
+      - description: List of relationship Ids to delete
+        explode: false
+        in: query
+        name: relationship_ids
+        required: true
+        schema:
+          items:
+            type: string
+          type: array
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                type: object
+          description: success
+      tags:
+      - Relationships
+      x-anchore-authz-action: deleteArtifactRelationships
+      x-swagger-router-controller: anchore_enterprise.services.api.controllers.relationships
+    get:
+      description: List the relationships between software supply chain artifacts
+        (images, source revisions, etc)
+      operationId: list_artifact_relationships
+      parameters:
+      - description: Filter for artifact type as either source or target
+        in: query
+        name: artifact_type
+        schema:
+          type: string
+      - description: Filter for artifact id as either source or target
+        in: query
+        name: artifact_id
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArtifactRelationships'
+          description: success
+      tags:
+      - Relationships
+      x-anchore-authz-action: listArtifactRelationships
+      x-swagger-router-controller: anchore_enterprise.services.api.controllers.relationships
+    post:
+      description: Add a new relationship for this image to another artifact (source
+        or image)
+      operationId: add_artifact_relationship
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ArtifactRelationship'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                type: object
+          description: success
+      tags:
+      - Relationships
+      x-anchore-authz-action: createArtifactRelationship
+      x-swagger-router-controller: anchore_enterprise.services.api.controllers.relationships
+      x-codegen-request-body-name: relationship
+  /artifact_relationships/{relationship_id}:
+    get:
+      description: Get the relationship between software supply chain artifacts (images,
+        source revisions, etc)
+      operationId: get_artifact_relationship
+      parameters:
+      - description: Id of record to retrieve
+        in: path
+        name: relationship_id
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArtifactRelationship'
+          description: success
+      tags:
+      - Relationships
+      x-anchore-authz-action: getArtifactRelationship
+      x-swagger-router-controller: anchore_enterprise.services.api.controllers.relationships
+  /artifact_relationships/{relationship_id}/diffs/sbom:
+    get:
+      description: Return the context-aware diff of the sboms for the relationship
+      operationId: get_relationship_sbom_diff
+      parameters:
+      - in: path
+        name: relationship_id
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/#definitions/ArtifactRelationshipSbomDiff'
+          description: SBoM Diff for the related artifacts
+      tags:
+      - Relationships
+      x-anchore-authz-action: getArtifactRelationshipDiff
+      x-swagger-router-controller: anchore_enterprise.services.api.controllers.relationships
 components:
   parameters:
     AsAccountParameter:
@@ -3240,7 +3379,7 @@ components:
           description: The id of the application
           type: string
         name:
-          description: The name of the application
+          description: The name of the application. This is a unique field per account
           type: string
         description:
           description: The description of the application
@@ -3281,7 +3420,8 @@ components:
           description: The id of the application
           type: string
         version_name:
-          description: The name of the application
+          description: The name of the application version. The name must be unique
+            per application
           type: string
         created_at:
           description: RFC 3339 formatted UTC timestamp when the application was created
@@ -4341,6 +4481,337 @@ components:
           items:
             $ref: '#/components/schemas/Vulnerability'
           type: array
+      type: object
+    ArtifactRelationship:
+      description: |
+        A relationship of a specific type between two SDLC artifacts (e.g. container image and source revision). This is
+        and edge in a directed graph where edges are directional from the "source" to the "target". For example, an edge of type "contains"
+        means the source artifact contains the content of the target artifact.
+      example:
+        user_metadata: '{}'
+        created_at: 2000-01-23T04:56:07.000+00:00
+        comment: comment
+        source:
+          artifact_id: artifact_id
+        target:
+          artifact_id: artifact_id
+      properties:
+        created_at:
+          format: date-time
+          type: string
+        source:
+          $ref: '#/components/schemas/#definitions/ArtifactReference'
+        target:
+          $ref: '#/components/schemas/#definitions/ArtifactReference'
+        relationship_type:
+          $ref: '#/components/schemas/#definitions/RelationshipType'
+        comment:
+          type: string
+        user_metadata:
+          description: User-provided metadata about the relationship
+          properties: {}
+          type: object
+      type: object
+    RelationshipType:
+      description: The type of relationship between to artifacts
+      enum:
+      - contains
+      - contained_by
+      type: string
+    ArtifactType:
+      enum:
+      - source
+      - image
+      type: string
+    ArtifactReference:
+      example:
+        artifact_id: artifact_id
+      properties:
+        artifact_id:
+          type: string
+        artifact_type:
+          $ref: '#/components/schemas/#definitions/ArtifactType'
+      type: object
+    ArtifactRelationships:
+      description: List of artifact relationships
+      items:
+        $ref: '#/components/schemas/#definitions/ArtifactRelationship'
+      type: array
+    ArtifactRelationshipSbomDiff:
+      description: |
+        The sbom diff for two sboms associated by a relationship with a specific relationship type. The kind of
+        diff computed is based on the relationship type and the types of the members of the relationship.
+      example:
+        diff:
+          removed:
+          - '{}'
+          - '{}'
+          added:
+          - '{}'
+          - '{}'
+          modified:
+          - '{}'
+          - '{}'
+          unmodified:
+          - '{}'
+          - '{}'
+        relationship:
+          user_metadata: '{}'
+          created_at: 2000-01-23T04:56:07.000+00:00
+          comment: comment
+          source:
+            artifact_id: artifact_id
+          target:
+            artifact_id: artifact_id
+      properties:
+        relationship:
+          $ref: '#/components/schemas/#definitions/ArtifactRelationship'
+        diff:
+          $ref: '#/components/schemas/#definitions/SbomDiff'
+      type: object
+    SbomDiff:
+      description: The diff of two sboms with context applied in each difference.
+        Includes the content of both sboms fully
+      example:
+        removed:
+        - '{}'
+        - '{}'
+        added:
+        - '{}'
+        - '{}'
+        modified:
+        - '{}'
+        - '{}'
+        unmodified:
+        - '{}'
+        - '{}'
+      properties:
+        added:
+          items:
+            properties: {}
+            type: object
+          type: array
+        removed:
+          items:
+            properties: {}
+            type: object
+          type: array
+        modified:
+          items:
+            properties: {}
+            type: object
+          type: array
+        unmodified:
+          items:
+            properties: {}
+            type: object
+          type: array
+      type: object
+    CustomJsonPatch:
+      description: Anchore-specific adaptation of RFC6902 to be describeable in swagger/open-api
+        2.0. Each item is given an ID and the ids are ordered in the array.
+      properties:
+        operations:
+          description: Ordered list of the operations in the type-specific lists.
+            This imparts the total ordering of patches to apply such that they can
+            be moved into a single array. This is a workaround for 'oneOf' support
+            in OpenAPI 2.0
+          items:
+            description: Operation ID, must be found in the add, remove, replace,
+              move, copy, or test list
+            type: string
+          type: array
+        add:
+          items:
+            $ref: '#/components/schemas/#definitions/JsonPatchAdd'
+          type: array
+        remove:
+          items:
+            $ref: '#/components/schemas/#definitions/JsonPatchRemove'
+          type: array
+        replace:
+          items:
+            $ref: '#/components/schemas/#definitions/JsonPatchReplace'
+          type: array
+        move:
+          items:
+            $ref: '#/components/schemas/#definitions/JsonPatchMove'
+          type: array
+        copy:
+          items:
+            $ref: '#/components/schemas/#definitions/JsonPatchCopy'
+          type: array
+        test:
+          items:
+            $ref: '#/components/schemas/#definitions/JsonPatchTest'
+          type: array
+      type: object
+    JsonPatchOperationList:
+      description: Ordered list of the operations in the type-specific lists. This
+        imparts the total ordering of patches to apply such that they can be moved
+        into a single array. This is a workaround for 'oneOf' support in OpenAPI 2.0
+      items:
+        description: Operation ID, must be found in the add, remove, replace, move,
+          copy, or test list
+        type: string
+      type: array
+    JsonPatchAddList:
+      items:
+        $ref: '#/components/schemas/#definitions/JsonPatchAdd'
+      type: array
+    JsonPatchRemoveList:
+      items:
+        $ref: '#/components/schemas/#definitions/JsonPatchRemove'
+      type: array
+    JsonPatchReplaceList:
+      items:
+        $ref: '#/components/schemas/#definitions/JsonPatchReplace'
+      type: array
+    JsonPatchCopyList:
+      items:
+        $ref: '#/components/schemas/#definitions/JsonPatchCopy'
+      type: array
+    JsonPatchTestList:
+      items:
+        $ref: '#/components/schemas/#definitions/JsonPatchTest'
+      type: array
+    JsonPatchMoveList:
+      items:
+        $ref: '#/components/schemas/#definitions/JsonPatchMove'
+      type: array
+    JsonPointer:
+      description: A JSONPointer per RFC6901
+      pattern: ^(/[^/~]*(~[01][^/~]*)*)*$
+      type: string
+    JsonPatchAdd:
+      description: The 'add' operation per RFC6902
+      properties:
+        id:
+          description: Operation ID, referenced for ordering in the
+          type: string
+        op:
+          enum:
+          - add
+          type: string
+        path:
+          description: A JSONPointer per RFC6901
+          pattern: ^(/[^/~]*(~[01][^/~]*)*)*$
+          type: string
+        value:
+          description: A valid json value, can be any valid json type
+          type: object
+      required:
+      - op
+      - path
+      - value
+      type: object
+    JsonPatchRemove:
+      description: The 'remove' operation per RFC6902
+      properties:
+        id:
+          description: Operation ID, referenced for ordering in the
+          type: string
+        op:
+          enum:
+          - remove
+          type: string
+        path:
+          description: A JSONPointer per RFC6901
+          pattern: ^(/[^/~]*(~[01][^/~]*)*)*$
+          type: string
+      required:
+      - op
+      - path
+      type: object
+    JsonPatchReplace:
+      description: The 'replace' operation per RFC6902
+      properties:
+        id:
+          description: Operation ID, referenced for ordering in the
+          type: string
+        op:
+          enum:
+          - replace
+          type: string
+        path:
+          description: A JSONPointer per RFC6901
+          pattern: ^(/[^/~]*(~[01][^/~]*)*)*$
+          type: string
+        value:
+          description: A valid json value, can be any valid json type
+          type: object
+      required:
+      - op
+      - path
+      - value
+      type: object
+    JsonPatchMove:
+      description: The 'move' operation per RFC6902
+      properties:
+        id:
+          description: Operation ID, referenced for ordering in the
+          type: string
+        op:
+          enum:
+          - move
+          type: string
+        path:
+          description: A JSONPointer per RFC6901
+          pattern: ^(/[^/~]*(~[01][^/~]*)*)*$
+          type: string
+        from:
+          description: A JSONPointer per RFC6901
+          pattern: ^(/[^/~]*(~[01][^/~]*)*)*$
+          type: string
+      required:
+      - from
+      - op
+      - path
+      type: object
+    JsonPatchCopy:
+      description: The 'copy' operation per RFC6902
+      properties:
+        id:
+          description: Operation ID, referenced for ordering in the
+          type: string
+        op:
+          enum:
+          - copy
+          type: string
+        path:
+          description: A JSONPointer per RFC6901
+          pattern: ^(/[^/~]*(~[01][^/~]*)*)*$
+          type: string
+        from:
+          description: A JSONPointer per RFC6901
+          pattern: ^(/[^/~]*(~[01][^/~]*)*)*$
+          type: string
+      required:
+      - from
+      - op
+      - path
+      type: object
+    JsonPatchTest:
+      description: The 'test' operation per RFC6902
+      properties:
+        id:
+          description: Operation ID, referenced for ordering in the
+          type: string
+        op:
+          enum:
+          - test
+          type: string
+        path:
+          description: A JSONPointer per RFC6901
+          pattern: ^(/[^/~]*(~[01][^/~]*)*)*$
+          type: string
+        value:
+          description: Expected value for test
+          type: object
+      required:
+      - op
+      - path
+      - value
       type: object
     SourceManifest_metadata_records:
       description: Metadata associated with a source upload

@@ -8,7 +8,7 @@ info:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
   title: Anchore Engine API Server
-  version: 0.1.20
+  version: 0.1.21
 servers:
 - url: /
 tags:
@@ -5573,6 +5573,7 @@ components:
         url: url
         will_not_fix: true
         feed: feed
+        detected_at: 2000-01-23T04:56:07.000+00:00
         package_version: package_version
         fix: fix
         vuln: vuln
@@ -5630,6 +5631,10 @@ components:
           items:
             $ref: '#/components/schemas/VendorDataObject'
           type: array
+        detected_at:
+          description: When the vulnerability was detected
+          format: date-time
+          type: string
       type: object
     NvdDataList:
       description: List of Nvd Data objects
@@ -5769,6 +5774,7 @@ components:
           url: url
           will_not_fix: true
           feed: feed
+          detected_at: 2000-01-23T04:56:07.000+00:00
           package_version: package_version
           fix: fix
           vuln: vuln
@@ -5820,6 +5826,7 @@ components:
           url: url
           will_not_fix: true
           feed: feed
+          detected_at: 2000-01-23T04:56:07.000+00:00
           package_version: package_version
           fix: fix
           vuln: vuln
@@ -6185,7 +6192,7 @@ components:
         name:
           description: The account name to use. This will identify the account and
             must be globally unique in the system.
-          pattern: ^[a-zA-Z0-9][ a-zA-Z0-9@.!#$+-=^_`~;]{1,126}[a-zA-Z0-9]$
+          pattern: ^[a-zA-Z0-9][ a-zA-Z0-9@.!#$+-=^_`~;]{1,126}[a-zA-Z0-9_]$
           type: string
         email:
           description: An optional email to associate with the account for contact
@@ -6299,7 +6306,7 @@ components:
       properties:
         username:
           description: The username to create
-          pattern: ^[a-zA-Z0-9][ a-zA-Z0-9@.!#$+-=^_`~;]{1,126}[a-zA-Z0-9]$
+          pattern: ^[a-zA-Z0-9][ a-zA-Z0-9@.!#$+-=^_`~;]{1,126}[a-zA-Z0-9_]$
           type: string
         password:
           description: The initial password for the user, must be at least 6 characters,
