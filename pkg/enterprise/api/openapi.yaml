@@ -2235,7 +2235,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/#definitions/ArtifactRelationshipSbomDiff'
+                $ref: '#/components/schemas/SbomDiff'
           description: SBoM Diff for the related artifacts
       tags:
       - Relationships
@@ -4500,11 +4500,11 @@ components:
           format: date-time
           type: string
         source:
-          $ref: '#/components/schemas/#definitions/ArtifactReference'
+          $ref: '#/components/schemas/ArtifactReference'
         target:
-          $ref: '#/components/schemas/#definitions/ArtifactReference'
+          $ref: '#/components/schemas/ArtifactReference'
         relationship_type:
-          $ref: '#/components/schemas/#definitions/RelationshipType'
+          $ref: '#/components/schemas/RelationshipType'
         comment:
           type: string
         user_metadata:
@@ -4530,86 +4530,558 @@ components:
         artifact_id:
           type: string
         artifact_type:
-          $ref: '#/components/schemas/#definitions/ArtifactType'
+          $ref: '#/components/schemas/ArtifactType'
       type: object
     ArtifactRelationships:
       description: List of artifact relationships
       items:
-        $ref: '#/components/schemas/#definitions/ArtifactRelationship'
+        $ref: '#/components/schemas/ArtifactRelationship'
       type: array
-    ArtifactRelationshipSbomDiff:
-      description: |
-        The sbom diff for two sboms associated by a relationship with a specific relationship type. The kind of
-        diff computed is based on the relationship type and the types of the members of the relationship.
+    Package:
+      description: A normalized and simplified package that can represent any package
+        type
       example:
-        diff:
-          removed:
-          - '{}'
-          - '{}'
-          added:
-          - '{}'
-          - '{}'
-          modified:
-          - '{}'
-          - '{}'
-          unmodified:
-          - '{}'
-          - '{}'
-        relationship:
-          user_metadata: '{}'
-          created_at: 2000-01-23T04:56:07.000+00:00
-          comment: comment
-          source:
-            artifact_id: artifact_id
-          target:
-            artifact_id: artifact_id
+        metadata: '{}'
+        release: release
+        origin: origin
+        version: version
+        maven_version: maven_version
+        licenses:
+        - licenses
+        - licenses
+        size: 0
+        sourcepkg: sourcepkg
+        cpes:
+        - cpes
+        - cpes
+        specification_version: specification_version
+        name: name
+        location: location
+        implementation_version: implementation_version
       properties:
-        relationship:
-          $ref: '#/components/schemas/#definitions/ArtifactRelationship'
-        diff:
-          $ref: '#/components/schemas/#definitions/SbomDiff'
+        name:
+          type: string
+        version:
+          type: string
+        release:
+          type: string
+        sourcepkg:
+          type: string
+        location:
+          type: string
+        origin:
+          type: string
+        size:
+          type: integer
+        licenses:
+          items:
+            type: string
+          type: array
+        metadata:
+          description: Package type specific metadata
+          properties: {}
+          type: object
+        specification_version:
+          description: Spec version for java packages
+          type: string
+        implementation_version:
+          description: Implementation version for java packages
+          type: string
+        maven_version:
+          description: Maven version for java packages
+          type: string
+        cpes:
+          description: List of CPE strings for this package
+          items:
+            type: string
+          type: array
+      type: object
+    ModifiedPackage:
+      description: A combined modification record showing the source and target packages
+        and the json patch to apply to the relationship-target object to result in
+        the relationship-source package. Source and target are the packages from the
+        respective sides of the relationship.
+      example:
+        patch:
+          add:
+          - op: add
+            path: path
+            id: id
+            value: '{}'
+          - op: add
+            path: path
+            id: id
+            value: '{}'
+          move:
+          - op: move
+            path: path
+            from: from
+            id: id
+          - op: move
+            path: path
+            from: from
+            id: id
+          operations:
+          - operations
+          - operations
+          test:
+          - op: test
+            path: path
+            id: id
+            value: '{}'
+          - op: test
+            path: path
+            id: id
+            value: '{}'
+          replace:
+          - op: replace
+            path: path
+            id: id
+            value: '{}'
+          - op: replace
+            path: path
+            id: id
+            value: '{}'
+          copy:
+          - op: copy
+            path: path
+            from: from
+            id: id
+          - op: copy
+            path: path
+            from: from
+            id: id
+          remove:
+          - op: remove
+            path: path
+            id: id
+          - op: remove
+            path: path
+            id: id
+        source:
+          metadata: '{}'
+          release: release
+          origin: origin
+          version: version
+          maven_version: maven_version
+          licenses:
+          - licenses
+          - licenses
+          size: 0
+          sourcepkg: sourcepkg
+          cpes:
+          - cpes
+          - cpes
+          specification_version: specification_version
+          name: name
+          location: location
+          implementation_version: implementation_version
+        target:
+          metadata: '{}'
+          release: release
+          origin: origin
+          version: version
+          maven_version: maven_version
+          licenses:
+          - licenses
+          - licenses
+          size: 0
+          sourcepkg: sourcepkg
+          cpes:
+          - cpes
+          - cpes
+          specification_version: specification_version
+          name: name
+          location: location
+          implementation_version: implementation_version
+      properties:
+        source:
+          $ref: '#/components/schemas/Package'
+        target:
+          $ref: '#/components/schemas/Package'
+        patch:
+          $ref: '#/components/schemas/CustomJsonPatch'
       type: object
     SbomDiff:
-      description: The diff of two sboms with context applied in each difference.
-        Includes the content of both sboms fully
+      description: |
+        The diff of two sboms with context applied in each difference. The "added" and "removed" directions depend on the relationship to which this diff applies.
+        A relationship defines a source, a target, and a type. For example, a relationship of type "contains" with a source of an image and a target of a source revision will
+        indicate that the diff is between the source repo sbom and the image sbom. Added packages are present in the image but not in the source, removed are present in the source revision
+        but not in the image, etc.
       example:
         removed:
-        - '{}'
-        - '{}'
+        - metadata: '{}'
+          release: release
+          origin: origin
+          version: version
+          maven_version: maven_version
+          licenses:
+          - licenses
+          - licenses
+          size: 0
+          sourcepkg: sourcepkg
+          cpes:
+          - cpes
+          - cpes
+          specification_version: specification_version
+          name: name
+          location: location
+          implementation_version: implementation_version
+        - metadata: '{}'
+          release: release
+          origin: origin
+          version: version
+          maven_version: maven_version
+          licenses:
+          - licenses
+          - licenses
+          size: 0
+          sourcepkg: sourcepkg
+          cpes:
+          - cpes
+          - cpes
+          specification_version: specification_version
+          name: name
+          location: location
+          implementation_version: implementation_version
         added:
-        - '{}'
-        - '{}'
+        - metadata: '{}'
+          release: release
+          origin: origin
+          version: version
+          maven_version: maven_version
+          licenses:
+          - licenses
+          - licenses
+          size: 0
+          sourcepkg: sourcepkg
+          cpes:
+          - cpes
+          - cpes
+          specification_version: specification_version
+          name: name
+          location: location
+          implementation_version: implementation_version
+        - metadata: '{}'
+          release: release
+          origin: origin
+          version: version
+          maven_version: maven_version
+          licenses:
+          - licenses
+          - licenses
+          size: 0
+          sourcepkg: sourcepkg
+          cpes:
+          - cpes
+          - cpes
+          specification_version: specification_version
+          name: name
+          location: location
+          implementation_version: implementation_version
         modified:
-        - '{}'
-        - '{}'
+        - patch:
+            add:
+            - op: add
+              path: path
+              id: id
+              value: '{}'
+            - op: add
+              path: path
+              id: id
+              value: '{}'
+            move:
+            - op: move
+              path: path
+              from: from
+              id: id
+            - op: move
+              path: path
+              from: from
+              id: id
+            operations:
+            - operations
+            - operations
+            test:
+            - op: test
+              path: path
+              id: id
+              value: '{}'
+            - op: test
+              path: path
+              id: id
+              value: '{}'
+            replace:
+            - op: replace
+              path: path
+              id: id
+              value: '{}'
+            - op: replace
+              path: path
+              id: id
+              value: '{}'
+            copy:
+            - op: copy
+              path: path
+              from: from
+              id: id
+            - op: copy
+              path: path
+              from: from
+              id: id
+            remove:
+            - op: remove
+              path: path
+              id: id
+            - op: remove
+              path: path
+              id: id
+          source:
+            metadata: '{}'
+            release: release
+            origin: origin
+            version: version
+            maven_version: maven_version
+            licenses:
+            - licenses
+            - licenses
+            size: 0
+            sourcepkg: sourcepkg
+            cpes:
+            - cpes
+            - cpes
+            specification_version: specification_version
+            name: name
+            location: location
+            implementation_version: implementation_version
+          target:
+            metadata: '{}'
+            release: release
+            origin: origin
+            version: version
+            maven_version: maven_version
+            licenses:
+            - licenses
+            - licenses
+            size: 0
+            sourcepkg: sourcepkg
+            cpes:
+            - cpes
+            - cpes
+            specification_version: specification_version
+            name: name
+            location: location
+            implementation_version: implementation_version
+        - patch:
+            add:
+            - op: add
+              path: path
+              id: id
+              value: '{}'
+            - op: add
+              path: path
+              id: id
+              value: '{}'
+            move:
+            - op: move
+              path: path
+              from: from
+              id: id
+            - op: move
+              path: path
+              from: from
+              id: id
+            operations:
+            - operations
+            - operations
+            test:
+            - op: test
+              path: path
+              id: id
+              value: '{}'
+            - op: test
+              path: path
+              id: id
+              value: '{}'
+            replace:
+            - op: replace
+              path: path
+              id: id
+              value: '{}'
+            - op: replace
+              path: path
+              id: id
+              value: '{}'
+            copy:
+            - op: copy
+              path: path
+              from: from
+              id: id
+            - op: copy
+              path: path
+              from: from
+              id: id
+            remove:
+            - op: remove
+              path: path
+              id: id
+            - op: remove
+              path: path
+              id: id
+          source:
+            metadata: '{}'
+            release: release
+            origin: origin
+            version: version
+            maven_version: maven_version
+            licenses:
+            - licenses
+            - licenses
+            size: 0
+            sourcepkg: sourcepkg
+            cpes:
+            - cpes
+            - cpes
+            specification_version: specification_version
+            name: name
+            location: location
+            implementation_version: implementation_version
+          target:
+            metadata: '{}'
+            release: release
+            origin: origin
+            version: version
+            maven_version: maven_version
+            licenses:
+            - licenses
+            - licenses
+            size: 0
+            sourcepkg: sourcepkg
+            cpes:
+            - cpes
+            - cpes
+            specification_version: specification_version
+            name: name
+            location: location
+            implementation_version: implementation_version
         unmodified:
-        - '{}'
-        - '{}'
+        - metadata: '{}'
+          release: release
+          origin: origin
+          version: version
+          maven_version: maven_version
+          licenses:
+          - licenses
+          - licenses
+          size: 0
+          sourcepkg: sourcepkg
+          cpes:
+          - cpes
+          - cpes
+          specification_version: specification_version
+          name: name
+          location: location
+          implementation_version: implementation_version
+        - metadata: '{}'
+          release: release
+          origin: origin
+          version: version
+          maven_version: maven_version
+          licenses:
+          - licenses
+          - licenses
+          size: 0
+          sourcepkg: sourcepkg
+          cpes:
+          - cpes
+          - cpes
+          specification_version: specification_version
+          name: name
+          location: location
+          implementation_version: implementation_version
       properties:
         added:
+          description: Packages added based on the type of relationship. A "contains"
+            relationship means packages present in the source artifact (image) not
+            present in the target (source repo) of the relationship.
           items:
-            properties: {}
-            type: object
+            $ref: '#/components/schemas/Package'
           type: array
         removed:
+          description: Packages removed based on the type of relationship. A "contains"
+            relationship means packages not present in the source artifact (image)
+            present in the target (source repo) of the relationship.
           items:
-            properties: {}
-            type: object
+            $ref: '#/components/schemas/Package'
           type: array
         modified:
           items:
-            properties: {}
-            type: object
+            $ref: '#/components/schemas/ModifiedPackage'
           type: array
         unmodified:
           items:
-            properties: {}
-            type: object
+            $ref: '#/components/schemas/Package'
           type: array
       type: object
     CustomJsonPatch:
       description: Anchore-specific adaptation of RFC6902 to be describeable in swagger/open-api
         2.0. Each item is given an ID and the ids are ordered in the array.
+      example:
+        add:
+        - op: add
+          path: path
+          id: id
+          value: '{}'
+        - op: add
+          path: path
+          id: id
+          value: '{}'
+        move:
+        - op: move
+          path: path
+          from: from
+          id: id
+        - op: move
+          path: path
+          from: from
+          id: id
+        operations:
+        - operations
+        - operations
+        test:
+        - op: test
+          path: path
+          id: id
+          value: '{}'
+        - op: test
+          path: path
+          id: id
+          value: '{}'
+        replace:
+        - op: replace
+          path: path
+          id: id
+          value: '{}'
+        - op: replace
+          path: path
+          id: id
+          value: '{}'
+        copy:
+        - op: copy
+          path: path
+          from: from
+          id: id
+        - op: copy
+          path: path
+          from: from
+          id: id
+        remove:
+        - op: remove
+          path: path
+          id: id
+        - op: remove
+          path: path
+          id: id
       properties:
         operations:
           description: Ordered list of the operations in the type-specific lists.
@@ -4623,27 +5095,27 @@ components:
           type: array
         add:
           items:
-            $ref: '#/components/schemas/#definitions/JsonPatchAdd'
+            $ref: '#/components/schemas/JsonPatchAdd'
           type: array
         remove:
           items:
-            $ref: '#/components/schemas/#definitions/JsonPatchRemove'
+            $ref: '#/components/schemas/JsonPatchRemove'
           type: array
         replace:
           items:
-            $ref: '#/components/schemas/#definitions/JsonPatchReplace'
+            $ref: '#/components/schemas/JsonPatchReplace'
           type: array
         move:
           items:
-            $ref: '#/components/schemas/#definitions/JsonPatchMove'
+            $ref: '#/components/schemas/JsonPatchMove'
           type: array
         copy:
           items:
-            $ref: '#/components/schemas/#definitions/JsonPatchCopy'
+            $ref: '#/components/schemas/JsonPatchCopy'
           type: array
         test:
           items:
-            $ref: '#/components/schemas/#definitions/JsonPatchTest'
+            $ref: '#/components/schemas/JsonPatchTest'
           type: array
       type: object
     JsonPatchOperationList:
@@ -4657,27 +5129,27 @@ components:
       type: array
     JsonPatchAddList:
       items:
-        $ref: '#/components/schemas/#definitions/JsonPatchAdd'
+        $ref: '#/components/schemas/JsonPatchAdd'
       type: array
     JsonPatchRemoveList:
       items:
-        $ref: '#/components/schemas/#definitions/JsonPatchRemove'
+        $ref: '#/components/schemas/JsonPatchRemove'
       type: array
     JsonPatchReplaceList:
       items:
-        $ref: '#/components/schemas/#definitions/JsonPatchReplace'
+        $ref: '#/components/schemas/JsonPatchReplace'
       type: array
     JsonPatchCopyList:
       items:
-        $ref: '#/components/schemas/#definitions/JsonPatchCopy'
+        $ref: '#/components/schemas/JsonPatchCopy'
       type: array
     JsonPatchTestList:
       items:
-        $ref: '#/components/schemas/#definitions/JsonPatchTest'
+        $ref: '#/components/schemas/JsonPatchTest'
       type: array
     JsonPatchMoveList:
       items:
-        $ref: '#/components/schemas/#definitions/JsonPatchMove'
+        $ref: '#/components/schemas/JsonPatchMove'
       type: array
     JsonPointer:
       description: A JSONPointer per RFC6901
@@ -4685,6 +5157,11 @@ components:
       type: string
     JsonPatchAdd:
       description: The 'add' operation per RFC6902
+      example:
+        op: add
+        path: path
+        id: id
+        value: '{}'
       properties:
         id:
           description: Operation ID, referenced for ordering in the
@@ -4707,6 +5184,10 @@ components:
       type: object
     JsonPatchRemove:
       description: The 'remove' operation per RFC6902
+      example:
+        op: remove
+        path: path
+        id: id
       properties:
         id:
           description: Operation ID, referenced for ordering in the
@@ -4725,6 +5206,11 @@ components:
       type: object
     JsonPatchReplace:
       description: The 'replace' operation per RFC6902
+      example:
+        op: replace
+        path: path
+        id: id
+        value: '{}'
       properties:
         id:
           description: Operation ID, referenced for ordering in the
@@ -4747,6 +5233,11 @@ components:
       type: object
     JsonPatchMove:
       description: The 'move' operation per RFC6902
+      example:
+        op: move
+        path: path
+        from: from
+        id: id
       properties:
         id:
           description: Operation ID, referenced for ordering in the
@@ -4770,6 +5261,11 @@ components:
       type: object
     JsonPatchCopy:
       description: The 'copy' operation per RFC6902
+      example:
+        op: copy
+        path: path
+        from: from
+        id: id
       properties:
         id:
           description: Operation ID, referenced for ordering in the
@@ -4793,6 +5289,11 @@ components:
       type: object
     JsonPatchTest:
       description: The 'test' operation per RFC6902
+      example:
+        op: test
+        path: path
+        id: id
+        value: '{}'
       properties:
         id:
           description: Operation ID, referenced for ordering in the

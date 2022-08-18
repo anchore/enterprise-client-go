@@ -82,8 +82,8 @@ type RelationshipsApi interface {
 	GetRelationshipSbomDiff(ctx _context.Context, relationshipId string) ApiGetRelationshipSbomDiffRequest
 
 	// GetRelationshipSbomDiffExecute executes the request
-	//  @return ArtifactRelationshipSbomDiff
-	GetRelationshipSbomDiffExecute(r ApiGetRelationshipSbomDiffRequest) (ArtifactRelationshipSbomDiff, *_nethttp.Response, error)
+	//  @return SbomDiff
+	GetRelationshipSbomDiffExecute(r ApiGetRelationshipSbomDiffRequest) (SbomDiff, *_nethttp.Response, error)
 
 	/*
 	ListArtifactRelationships Method for ListArtifactRelationships
@@ -440,7 +440,7 @@ type ApiGetRelationshipSbomDiffRequest struct {
 }
 
 
-func (r ApiGetRelationshipSbomDiffRequest) Execute() (ArtifactRelationshipSbomDiff, *_nethttp.Response, error) {
+func (r ApiGetRelationshipSbomDiffRequest) Execute() (SbomDiff, *_nethttp.Response, error) {
 	return r.ApiService.GetRelationshipSbomDiffExecute(r)
 }
 
@@ -462,15 +462,15 @@ func (a *RelationshipsApiService) GetRelationshipSbomDiff(ctx _context.Context, 
 }
 
 // Execute executes the request
-//  @return ArtifactRelationshipSbomDiff
-func (a *RelationshipsApiService) GetRelationshipSbomDiffExecute(r ApiGetRelationshipSbomDiffRequest) (ArtifactRelationshipSbomDiff, *_nethttp.Response, error) {
+//  @return SbomDiff
+func (a *RelationshipsApiService) GetRelationshipSbomDiffExecute(r ApiGetRelationshipSbomDiffRequest) (SbomDiff, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		localVarReturnValue  ArtifactRelationshipSbomDiff
+		localVarReturnValue  SbomDiff
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RelationshipsApiService.GetRelationshipSbomDiff")

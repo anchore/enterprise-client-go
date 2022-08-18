@@ -32,7 +32,6 @@ docs/ArtifactAssociationResponse.md
 docs/ArtifactListResponse.md
 docs/ArtifactReference.md
 docs/ArtifactRelationship.md
-docs/ArtifactRelationshipSbomDiff.md
 docs/ArtifactType.md
 docs/AssociatedImageArtifact.md
 docs/AssociatedSourceArtifact.md
@@ -69,6 +68,7 @@ docs/JsonPatchMove.md
 docs/JsonPatchRemove.md
 docs/JsonPatchReplace.md
 docs/JsonPatchTest.md
+docs/ModifiedPackage.md
 docs/NativeSBOM.md
 docs/NativeSBOMDescriptor.md
 docs/NativeSBOMDistribution.md
@@ -78,6 +78,7 @@ docs/NativeSBOMPackageRelationship.md
 docs/NativeSBOMSchema.md
 docs/NativeSBOMSource.md
 docs/NvdDataObject.md
+docs/Package.md
 docs/PolicyEvaluationResult.md
 docs/RelationshipType.md
 docs/RelationshipsApi.md
@@ -115,7 +116,6 @@ model_artifact_association_response.go
 model_artifact_list_response.go
 model_artifact_reference.go
 model_artifact_relationship.go
-model_artifact_relationship_sbom_diff.go
 model_artifact_type.go
 model_associated_image_artifact.go
 model_associated_source_artifact.go
@@ -147,6 +147,7 @@ model_json_patch_move.go
 model_json_patch_remove.go
 model_json_patch_replace.go
 model_json_patch_test_.go
+model_modified_package.go
 model_native_sbom.go
 model_native_sbom_descriptor.go
 model_native_sbom_distribution.go
@@ -156,6 +157,7 @@ model_native_sbom_package_relationship.go
 model_native_sbom_schema.go
 model_native_sbom_source.go
 model_nvd_data_object.go
+model_package.go
 model_policy_evaluation_result.go
 model_relationship_type.go
 model_resource_label.go
