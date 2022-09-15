@@ -3,7 +3,8 @@
 Modified from https://github.com/anchore/client-go. 
 Based on generated code. No executables provided, only intended for use as a library in other projects.
 
-To pull the swagger definition and re-generate all client go code:
+To pull the swagger definition and re-generate all client go code, update `ENTERPRISE_REF` in the Makefile to point to
+the desired enterprise commit. Then run the following to regenerate the client:
 ```bash
 make 
 ```
