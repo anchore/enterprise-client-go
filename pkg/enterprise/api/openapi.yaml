@@ -5,7 +5,7 @@ info:
   description: This is the Anchore Enterprise API. It provides additional external
     API routes and functionality for enterprise users.
   title: Anchore Enterprise API Server
-  version: 0.2.1
+  version: 0.3.0
 servers:
 - url: /enterprise
 tags:
@@ -2235,7 +2235,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/SbomDiff'
+                $ref: '#/components/schemas/RelationshipSbomDiff'
           description: SBoM Diff for the related artifacts
       tags:
       - Relationships
@@ -2913,9 +2913,14 @@ components:
         repoDigest: repoDigest
       properties:
         tag:
+          description: The tag name of the image. Must have more than one character.
+          pattern: .+
           type: string
         repoDigest:
+          description: the image digest
           type: string
+      required:
+      - tag
       type: object
     InventoryItems:
       description: Inventory report for Images in Use
@@ -4702,14 +4707,14 @@ components:
         patch:
           $ref: '#/components/schemas/CustomJsonPatch'
       type: object
-    SbomDiff:
+    RelationshipSbomDiff:
       description: |
         The diff of two sboms with context applied in each difference. The "added" and "removed" directions depend on the relationship to which this diff applies.
         A relationship defines a source, a target, and a type. For example, a relationship of type "contains" with a source of an image and a target of a source revision will
         indicate that the diff is between the source repo sbom and the image sbom. Added packages are present in the image but not in the source, removed are present in the source revision
         but not in the image, etc.
       example:
-        removed:
+        source_only:
         - metadata: '{}'
           release: release
           origin: origin
@@ -4744,42 +4749,7 @@ components:
           name: name
           location: location
           implementation_version: implementation_version
-        added:
-        - metadata: '{}'
-          release: release
-          origin: origin
-          version: version
-          maven_version: maven_version
-          licenses:
-          - licenses
-          - licenses
-          size: 0
-          sourcepkg: sourcepkg
-          cpes:
-          - cpes
-          - cpes
-          specification_version: specification_version
-          name: name
-          location: location
-          implementation_version: implementation_version
-        - metadata: '{}'
-          release: release
-          origin: origin
-          version: version
-          maven_version: maven_version
-          licenses:
-          - licenses
-          - licenses
-          size: 0
-          sourcepkg: sourcepkg
-          cpes:
-          - cpes
-          - cpes
-          specification_version: specification_version
-          name: name
-          location: location
-          implementation_version: implementation_version
-        modified:
+        source_modified:
         - patch:
             add:
             - op: add
@@ -4964,7 +4934,42 @@ components:
             name: name
             location: location
             implementation_version: implementation_version
-        unmodified:
+        target_only:
+        - metadata: '{}'
+          release: release
+          origin: origin
+          version: version
+          maven_version: maven_version
+          licenses:
+          - licenses
+          - licenses
+          size: 0
+          sourcepkg: sourcepkg
+          cpes:
+          - cpes
+          - cpes
+          specification_version: specification_version
+          name: name
+          location: location
+          implementation_version: implementation_version
+        - metadata: '{}'
+          release: release
+          origin: origin
+          version: version
+          maven_version: maven_version
+          licenses:
+          - licenses
+          - licenses
+          size: 0
+          sourcepkg: sourcepkg
+          cpes:
+          - cpes
+          - cpes
+          specification_version: specification_version
+          name: name
+          location: location
+          implementation_version: implementation_version
+        both_unmodified:
         - metadata: '{}'
           release: release
           origin: origin
@@ -5000,25 +5005,25 @@ components:
           location: location
           implementation_version: implementation_version
       properties:
-        added:
+        source_only:
           description: Packages added based on the type of relationship. A "contains"
             relationship means packages present in the source artifact (image) not
             present in the target (source repo) of the relationship.
           items:
             $ref: '#/components/schemas/Package'
           type: array
-        removed:
+        target_only:
           description: Packages removed based on the type of relationship. A "contains"
             relationship means packages not present in the source artifact (image)
             present in the target (source repo) of the relationship.
           items:
             $ref: '#/components/schemas/Package'
           type: array
-        modified:
+        source_modified:
           items:
             $ref: '#/components/schemas/ModifiedPackage'
           type: array
-        unmodified:
+        both_unmodified:
           items:
             $ref: '#/components/schemas/Package'
           type: array

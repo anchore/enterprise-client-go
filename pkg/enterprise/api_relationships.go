@@ -3,7 +3,7 @@ Anchore Enterprise API Server
 
 This is the Anchore Enterprise API. It provides additional external API routes and functionality for enterprise users.
 
-API version: 0.2.1
+API version: 0.3.0
 Contact: dev@anchore.com
 */
 
@@ -82,8 +82,8 @@ type RelationshipsApi interface {
 	GetRelationshipSbomDiff(ctx _context.Context, relationshipId string) ApiGetRelationshipSbomDiffRequest
 
 	// GetRelationshipSbomDiffExecute executes the request
-	//  @return SbomDiff
-	GetRelationshipSbomDiffExecute(r ApiGetRelationshipSbomDiffRequest) (SbomDiff, *_nethttp.Response, error)
+	//  @return RelationshipSbomDiff
+	GetRelationshipSbomDiffExecute(r ApiGetRelationshipSbomDiffRequest) (RelationshipSbomDiff, *_nethttp.Response, error)
 
 	/*
 	ListArtifactRelationships Method for ListArtifactRelationships
@@ -440,7 +440,7 @@ type ApiGetRelationshipSbomDiffRequest struct {
 }
 
 
-func (r ApiGetRelationshipSbomDiffRequest) Execute() (SbomDiff, *_nethttp.Response, error) {
+func (r ApiGetRelationshipSbomDiffRequest) Execute() (RelationshipSbomDiff, *_nethttp.Response, error) {
 	return r.ApiService.GetRelationshipSbomDiffExecute(r)
 }
 
@@ -462,15 +462,15 @@ func (a *RelationshipsApiService) GetRelationshipSbomDiff(ctx _context.Context, 
 }
 
 // Execute executes the request
-//  @return SbomDiff
-func (a *RelationshipsApiService) GetRelationshipSbomDiffExecute(r ApiGetRelationshipSbomDiffRequest) (SbomDiff, *_nethttp.Response, error) {
+//  @return RelationshipSbomDiff
+func (a *RelationshipsApiService) GetRelationshipSbomDiffExecute(r ApiGetRelationshipSbomDiffRequest) (RelationshipSbomDiff, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		localVarReturnValue  SbomDiff
+		localVarReturnValue  RelationshipSbomDiff
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RelationshipsApiService.GetRelationshipSbomDiff")

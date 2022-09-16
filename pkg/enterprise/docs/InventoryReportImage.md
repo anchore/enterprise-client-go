@@ -4,14 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Tag** | Pointer to **string** |  | [optional] 
-**RepoDigest** | Pointer to **string** |  | [optional] 
+**Tag** | **string** | The tag name of the image. Must have more than one character. | 
+**RepoDigest** | Pointer to **string** | the image digest | [optional] 
 
 ## Methods
 
 ### NewInventoryReportImage
 
-`func NewInventoryReportImage() *InventoryReportImage`
+`func NewInventoryReportImage(tag string, ) *InventoryReportImage`
 
 NewInventoryReportImage instantiates a new InventoryReportImage object
 This constructor will assign default values to properties that have it defined,
@@ -45,11 +45,6 @@ and a boolean to check if the value has been set.
 
 SetTag sets Tag field to given value.
 
-### HasTag
-
-`func (o *InventoryReportImage) HasTag() bool`
-
-HasTag returns a boolean if a field has been set.
 
 ### GetRepoDigest
 

@@ -216,7 +216,7 @@ No authorization required
 
 ## GetRelationshipSbomDiff
 
-> SbomDiff GetRelationshipSbomDiff(ctx, relationshipId).Execute()
+> RelationshipSbomDiff GetRelationshipSbomDiff(ctx, relationshipId).Execute()
 
 
 
@@ -244,7 +244,7 @@ func main() {
         fmt.Fprintf(os.Stderr, "Error when calling `RelationshipsApi.GetRelationshipSbomDiff``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `GetRelationshipSbomDiff`: SbomDiff
+    // response from `GetRelationshipSbomDiff`: RelationshipSbomDiff
     fmt.Fprintf(os.Stdout, "Response from `RelationshipsApi.GetRelationshipSbomDiff`: %v\n", resp)
 }
 ```
@@ -268,7 +268,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**SbomDiff**](SbomDiff.md)
+[**RelationshipSbomDiff**](RelationshipSbomDiff.md)
 
 ### Authorization
 

@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 **Trigger** | **string** |  | 
 **Action** | **string** |  | 
 **Params** | Pointer to [**[]PolicyRuleParams**](PolicyRuleParams.md) |  | [optional] 
+**Recommendation** | Pointer to **string** |  | [optional] 
 
 ## Methods
 
@@ -138,6 +139,31 @@ SetParams sets Params field to given value.
 `func (o *PolicyRule) HasParams() bool`
 
 HasParams returns a boolean if a field has been set.
+
+### GetRecommendation
+
+`func (o *PolicyRule) GetRecommendation() string`
+
+GetRecommendation returns the Recommendation field if non-nil, zero value otherwise.
+
+### GetRecommendationOk
+
+`func (o *PolicyRule) GetRecommendationOk() (*string, bool)`
+
+GetRecommendationOk returns a tuple with the Recommendation field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetRecommendation
+
+`func (o *PolicyRule) SetRecommendation(v string)`
+
+SetRecommendation sets Recommendation field to given value.
+
+### HasRecommendation
+
+`func (o *PolicyRule) HasRecommendation() bool`
+
+HasRecommendation returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
