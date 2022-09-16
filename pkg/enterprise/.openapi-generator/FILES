@@ -80,12 +80,12 @@ docs/NativeSBOMSource.md
 docs/NvdDataObject.md
 docs/Package.md
 docs/PolicyEvaluationResult.md
+docs/RelationshipSbomDiff.md
 docs/RelationshipType.md
 docs/RelationshipsApi.md
 docs/ResourceLabel.md
 docs/RuntimeComplianceCheck.md
 docs/SBOMVulnerabilitiesResponse.md
-docs/SbomDiff.md
 docs/Source.md
 docs/SourceContentPackageResponse.md
 docs/SourceContentPackageResponseContent.md
@@ -159,10 +159,10 @@ model_native_sbom_source.go
 model_nvd_data_object.go
 model_package.go
 model_policy_evaluation_result.go
+model_relationship_sbom_diff.go
 model_relationship_type.go
 model_resource_label.go
 model_runtime_compliance_check.go
-model_sbom_diff.go
 model_sbom_vulnerabilities_response.go
 model_source.go
 model_source_content_package_response.go

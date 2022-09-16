@@ -1,7 +1,7 @@
 swagger: "2.0"
 info:
   description: "This is the Anchore Enterprise API. It provides additional external API routes and functionality for enterprise users."
-  version: "0.2.1"
+  version: "0.3.0"
   title: "Anchore Enterprise API Server"
   contact:
     email: "dev@anchore.com"
@@ -1912,7 +1912,7 @@ paths:
         200:
           description: SBoM Diff for the related artifacts
           schema:
-            $ref: "#/definitions/SbomDiff"
+            $ref: "#/definitions/RelationshipSbomDiff"
 definitions:
   PolicyEvaluationResult:
     type: object
@@ -2282,11 +2282,16 @@ definitions:
   InventoryReportImage:
     type: object
     description: defines an image that may be provided for image inventory
+    required:
+      - tag
     properties:
       tag:
         type: string
+        description: The tag name of the image. Must have more than one character.
+        pattern: ".+"
       repoDigest:
         type: string
+        description: the image digest
   InventoryItems:
     type: array
     description: Inventory report for Images in Use
@@ -3280,7 +3285,7 @@ definitions:
         $ref: "#/definitions/Package"
       patch:
         $ref: "#/definitions/CustomJsonPatch"
-  SbomDiff:
+  RelationshipSbomDiff:
     type: object
     description: |
       The diff of two sboms with context applied in each difference. The "added" and "removed" directions depend on the relationship to which this diff applies.
@@ -3288,21 +3293,21 @@ definitions:
       indicate that the diff is between the source repo sbom and the image sbom. Added packages are present in the image but not in the source, removed are present in the source revision
       but not in the image, etc.
     properties:
-      added:
+      source_only:
         type: array
         description: Packages added based on the type of relationship. A "contains" relationship means packages present in the source artifact (image) not present in the target (source repo) of the relationship.
         items:
           $ref: "#/definitions/Package"
-      removed:
+      target_only:
         type: array
         description: Packages removed based on the type of relationship. A "contains" relationship means packages not present in the source artifact (image) present in the target (source repo) of the relationship.
         items:
           $ref: "#/definitions/Package"
-      modified:
+      source_modified:
         type: array
         items:
           $ref: "#/definitions/ModifiedPackage"
-      unmodified:
+      both_unmodified:
         type: array
         items:
           $ref: "#/definitions/Package"

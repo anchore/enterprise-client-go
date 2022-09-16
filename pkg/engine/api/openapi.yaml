@@ -8,7 +8,7 @@ info:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
   title: Anchore Engine API Server
-  version: 0.1.21
+  version: 0.2.0
 servers:
 - url: /
 tags:
@@ -4255,6 +4255,7 @@ components:
           comment: comment
           rules:
           - action: GO
+            recommendation: recommendation
             id: id
             gate: gate
             trigger: trigger
@@ -4264,6 +4265,7 @@ components:
             - name: name
               value: value
           - action: GO
+            recommendation: recommendation
             id: id
             gate: gate
             trigger: trigger
@@ -4279,6 +4281,7 @@ components:
           comment: comment
           rules:
           - action: GO
+            recommendation: recommendation
             id: id
             gate: gate
             trigger: trigger
@@ -4288,6 +4291,7 @@ components:
             - name: name
               value: value
           - action: GO
+            recommendation: recommendation
             id: id
             gate: gate
             trigger: trigger
@@ -4401,6 +4405,7 @@ components:
         for a given image.
       example:
         action: GO
+        recommendation: recommendation
         id: id
         gate: gate
         trigger: trigger
@@ -4426,6 +4431,8 @@ components:
           items:
             $ref: '#/components/schemas/PolicyRule_params'
           type: array
+        recommendation:
+          type: string
       required:
       - action
       - gate
@@ -4516,6 +4523,7 @@ components:
         comment: comment
         rules:
         - action: GO
+          recommendation: recommendation
           id: id
           gate: gate
           trigger: trigger
@@ -4525,6 +4533,7 @@ components:
           - name: name
             value: value
         - action: GO
+          recommendation: recommendation
           id: id
           gate: gate
           trigger: trigger
@@ -4778,6 +4787,7 @@ components:
             comment: comment
             rules:
             - action: GO
+              recommendation: recommendation
               id: id
               gate: gate
               trigger: trigger
@@ -4787,6 +4797,7 @@ components:
               - name: name
                 value: value
             - action: GO
+              recommendation: recommendation
               id: id
               gate: gate
               trigger: trigger
@@ -4802,6 +4813,7 @@ components:
             comment: comment
             rules:
             - action: GO
+              recommendation: recommendation
               id: id
               gate: gate
               trigger: trigger
@@ -4811,6 +4823,7 @@ components:
               - name: name
                 value: value
             - action: GO
+              recommendation: recommendation
               id: id
               gate: gate
               trigger: trigger

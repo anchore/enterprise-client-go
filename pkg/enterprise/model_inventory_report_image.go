@@ -3,7 +3,7 @@ Anchore Enterprise API Server
 
 This is the Anchore Enterprise API. It provides additional external API routes and functionality for enterprise users.
 
-API version: 0.2.1
+API version: 0.3.0
 Contact: dev@anchore.com
 */
 
@@ -17,7 +17,9 @@ import (
 
 // InventoryReportImage defines an image that may be provided for image inventory
 type InventoryReportImage struct {
-	Tag *string `json:"tag,omitempty"`
+	// The tag name of the image. Must have more than one character.
+	Tag string `json:"tag"`
+	// the image digest
 	RepoDigest *string `json:"repoDigest,omitempty"`
 }
 
@@ -25,8 +27,9 @@ type InventoryReportImage struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewInventoryReportImage() *InventoryReportImage {
+func NewInventoryReportImage(tag string) *InventoryReportImage {
 	this := InventoryReportImage{}
+	this.Tag = tag
 	return &this
 }
 
@@ -38,36 +41,28 @@ func NewInventoryReportImageWithDefaults() *InventoryReportImage {
 	return &this
 }
 
-// GetTag returns the Tag field value if set, zero value otherwise.
+// GetTag returns the Tag field value
 func (o *InventoryReportImage) GetTag() string {
-	if o == nil || o.Tag == nil {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Tag
+
+	return o.Tag
 }
 
-// GetTagOk returns a tuple with the Tag field value if set, nil otherwise
+// GetTagOk returns a tuple with the Tag field value
 // and a boolean to check if the value has been set.
 func (o *InventoryReportImage) GetTagOk() (*string, bool) {
-	if o == nil || o.Tag == nil {
+	if o == nil  {
 		return nil, false
 	}
-	return o.Tag, true
+	return &o.Tag, true
 }
 
-// HasTag returns a boolean if a field has been set.
-func (o *InventoryReportImage) HasTag() bool {
-	if o != nil && o.Tag != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetTag gets a reference to the given string and assigns it to the Tag field.
+// SetTag sets field value
 func (o *InventoryReportImage) SetTag(v string) {
-	o.Tag = &v
+	o.Tag = v
 }
 
 // GetRepoDigest returns the RepoDigest field value if set, zero value otherwise.
@@ -104,7 +99,7 @@ func (o *InventoryReportImage) SetRepoDigest(v string) {
 
 func (o InventoryReportImage) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Tag != nil {
+	if true {
 		toSerialize["tag"] = o.Tag
 	}
 	if o.RepoDigest != nil {

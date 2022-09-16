@@ -3,7 +3,7 @@ Anchore Engine API Server
 
 This is the Anchore Engine API. Provides the primary external API for users of the service.
 
-API version: 0.1.21
+API version: 0.2.0
 Contact: nurmi@anchore.com
 */
 
@@ -22,6 +22,7 @@ type PolicyRule struct {
 	Trigger string `json:"trigger"`
 	Action string `json:"action"`
 	Params *[]PolicyRuleParams `json:"params,omitempty"`
+	Recommendation *string `json:"recommendation,omitempty"`
 }
 
 // NewPolicyRule instantiates a new PolicyRule object
@@ -180,6 +181,38 @@ func (o *PolicyRule) SetParams(v []PolicyRuleParams) {
 	o.Params = &v
 }
 
+// GetRecommendation returns the Recommendation field value if set, zero value otherwise.
+func (o *PolicyRule) GetRecommendation() string {
+	if o == nil || o.Recommendation == nil {
+		var ret string
+		return ret
+	}
+	return *o.Recommendation
+}
+
+// GetRecommendationOk returns a tuple with the Recommendation field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PolicyRule) GetRecommendationOk() (*string, bool) {
+	if o == nil || o.Recommendation == nil {
+		return nil, false
+	}
+	return o.Recommendation, true
+}
+
+// HasRecommendation returns a boolean if a field has been set.
+func (o *PolicyRule) HasRecommendation() bool {
+	if o != nil && o.Recommendation != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetRecommendation gets a reference to the given string and assigns it to the Recommendation field.
+func (o *PolicyRule) SetRecommendation(v string) {
+	o.Recommendation = &v
+}
+
 func (o PolicyRule) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.Id != nil {
@@ -196,6 +229,9 @@ func (o PolicyRule) MarshalJSON() ([]byte, error) {
 	}
 	if o.Params != nil {
 		toSerialize["params"] = o.Params
+	}
+	if o.Recommendation != nil {
+		toSerialize["recommendation"] = o.Recommendation
 	}
 	return json.Marshal(toSerialize)
 }
