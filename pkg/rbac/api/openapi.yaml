@@ -4,7 +4,7 @@ info:
     email: dev@anchore.com
   description: Enterprise API for managing roles, permissions, and user mappings
   title: Anchore Enterprise RBAC API
-  version: 0.0.1
+  version: 0.1.0
 servers:
 - url: /
 tags:
@@ -144,9 +144,9 @@ paths:
         schema:
           format: path
           type: string
-      - description: Optional filter paramter to limit the set fo returned items to
-          only those with matching account. Will return Access Denied if caller does
-          not have permission to listRoleMembers for that account.
+      - description: Optional filter parameter to limit the set fo returned items
+          to only those with matching account. Will return Access Denied if caller
+          does not have permission to listRoleMembers for that account.
         in: query
         name: for_account
         schema:
@@ -364,7 +364,8 @@ paths:
   /saml/idps/{name}:
     delete:
       description: Delete an idp configuration. Users will not longer be able to login
-        from this idp
+        from this idp. In addition, any users that have been configured explicitly
+        or JIT Provisioned on this IDP will be deleted.
       operationId: delete_idp
       parameters:
       - in: path
@@ -441,7 +442,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/SamlConfiguration'
-          description: Sucessfully updated configuration
+          description: Successfully updated configuration
         "400":
           content:
             application/json:
@@ -690,6 +691,7 @@ components:
         acs_https_port: 0
         idp_metadata_url: idp_metadata_url
         require_signed_response: true
+        require_existing_users: false
         default_role: default_role
         created_at: 2000-01-23T04:56:07.000+00:00
         idp_username_attribute: idp_username_attribute
@@ -750,8 +752,8 @@ components:
             unset, the default is used.
           type: string
         default_account:
-          description: The existing anchore account to assign all users to from this
-            IDP if no account attribute is mapped or present.
+          description: The anchore account to assign all users to from this IDP if
+            no account attribute is mapped or present.
           type: string
         default_role:
           description: The default role to apply to new users from this IDP if no
@@ -771,6 +773,11 @@ components:
         last_updated:
           format: date-time
           type: string
+        require_existing_users:
+          default: false
+          description: Indicates if Anchore will require an authenticating SSO user
+            to already exist.  This field is ignored on POST/PUT Operations.
+          type: boolean
       required:
       - acs_url
       - enabled

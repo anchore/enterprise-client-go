@@ -3,7 +3,7 @@ Anchore Engine API Server
 
 This is the Anchore Engine API. Provides the primary external API for users of the service.
 
-API version: 0.2.0
+API version: 0.3.0
 Contact: nurmi@anchore.com
 */
 
@@ -28,7 +28,7 @@ var (
 type UserManagementApi interface {
 
 	/*
-	CreateAccount Create a new user. Only avaialble to admin user.
+	CreateAccount Create a new account. Only avaialble to admin user.
 
 	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	 @return ApiCreateAccountRequest
@@ -40,7 +40,7 @@ type UserManagementApi interface {
 	CreateAccountExecute(r ApiCreateAccountRequest) (Account, *_nethttp.Response, error)
 
 	/*
-	CreateUser Create a new user
+	CreateUser Create a new user within the specified account.
 
 	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	 @param accountname
@@ -105,7 +105,7 @@ type UserManagementApi interface {
 	DeleteUserCredentialExecute(r ApiDeleteUserCredentialRequest) (*_nethttp.Response, error)
 
 	/*
-	GetAccount Get info about an user. Only available to admin user. Uses the main user Id, not a username.
+	GetAccount Get account info about this specific account.
 
 	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	 @param accountname
@@ -132,7 +132,7 @@ type UserManagementApi interface {
 	GetAccountUserExecute(r ApiGetAccountUserRequest) (User, *_nethttp.Response, error)
 
 	/*
-	ListAccounts List user summaries. Only available to the system admin user.
+	ListAccounts List account summaries. Only available to the system admin user.
 
 	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	 @return ApiListAccountsRequest
@@ -158,7 +158,7 @@ type UserManagementApi interface {
 	ListUserCredentialsExecute(r ApiListUserCredentialsRequest) ([]AccessCredential, *_nethttp.Response, error)
 
 	/*
-	ListUsers List accounts for the user
+	ListUsers List of users found in this account.
 
 	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	 @param accountname
@@ -203,7 +203,7 @@ func (r ApiCreateAccountRequest) Execute() (Account, *_nethttp.Response, error) 
 }
 
 /*
-CreateAccount Create a new user. Only avaialble to admin user.
+CreateAccount Create a new account. Only avaialble to admin user.
 
  @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiCreateAccountRequest
@@ -333,7 +333,7 @@ func (r ApiCreateUserRequest) Execute() (User, *_nethttp.Response, error) {
 }
 
 /*
-CreateUser Create a new user
+CreateUser Create a new user within the specified account.
 
  @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param accountname
@@ -892,7 +892,7 @@ func (r ApiGetAccountRequest) Execute() (Account, *_nethttp.Response, error) {
 }
 
 /*
-GetAccount Get info about an user. Only available to admin user. Uses the main user Id, not a username.
+GetAccount Get account info about this specific account.
 
  @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param accountname
@@ -1127,7 +1127,7 @@ func (r ApiListAccountsRequest) Execute() ([]Account, *_nethttp.Response, error)
 }
 
 /*
-ListAccounts List user summaries. Only available to the system admin user.
+ListAccounts List account summaries. Only available to the system admin user.
 
  @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiListAccountsRequest
@@ -1357,7 +1357,7 @@ func (r ApiListUsersRequest) Execute() ([]User, *_nethttp.Response, error) {
 }
 
 /*
-ListUsers List accounts for the user
+ListUsers List of users found in this account.
 
  @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param accountname

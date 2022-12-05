@@ -637,7 +637,7 @@ import (
 
 func main() {
     rolename := "rolename_example" // string | 
-    forAccount := "forAccount_example" // string | Optional filter paramter to limit the set fo returned items to only those with matching account. Will return Access Denied if caller does not have permission to listRoleMembers for that account. (optional)
+    forAccount := "forAccount_example" // string | Optional filter parameter to limit the set fo returned items to only those with matching account. Will return Access Denied if caller does not have permission to listRoleMembers for that account. (optional)
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
@@ -667,7 +667,7 @@ Other parameters are passed through a pointer to a apiListRoleMembersRequest str
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **forAccount** | **string** | Optional filter paramter to limit the set fo returned items to only those with matching account. Will return Access Denied if caller does not have permission to listRoleMembers for that account. | 
+ **forAccount** | **string** | Optional filter parameter to limit the set fo returned items to only those with matching account. Will return Access Denied if caller does not have permission to listRoleMembers for that account. | 
 
 ### Return type
 

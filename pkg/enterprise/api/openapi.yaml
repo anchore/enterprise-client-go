@@ -5,7 +5,7 @@ info:
   description: This is the Anchore Enterprise API. It provides additional external
     API routes and functionality for enterprise users.
   title: Anchore Enterprise API Server
-  version: 0.3.0
+  version: 0.5.0
 servers:
 - url: /enterprise
 tags:
@@ -266,131 +266,6 @@ paths:
       x-swagger-router-controller: anchore_enterprise.services.api.controllers.runtime_inventory
       x-anchore-authz-action: syncInventory
       x-codegen-request-body-name: inventory
-  /inventories/clusters:
-    get:
-      description: Returns a filterable list of the clusters that are configured for
-        reporting image inventory
-      operationId: list_inventory_clusters
-      parameters:
-      - in: query
-        name: inventory_type
-        schema:
-          enum:
-          - kubernetes
-          type: string
-      - description: An account name to change the resource scope of the request to
-          that account, if permissions allow (admin only)
-        in: header
-        name: x-anchore-account
-        schema:
-          type: string
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/InventoryClusters'
-          description: success
-        "500":
-          content: {}
-          description: Internal Error
-      summary: Return a list of the configured inventory clusters
-      tags:
-      - Inventories
-      x-swagger-router-controller: anchore_enterprise.services.api.controllers.runtime_inventory
-      x-anchore-authz-action: listRuntimeInventories
-    post:
-      description: Create a new cluster inventory with the provided configuration
-      operationId: add_inventory_cluster
-      parameters:
-      - description: An account name to change the resource scope of the request to
-          that account, if permissions allow (admin only)
-        in: header
-        name: x-anchore-account
-        schema:
-          type: string
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/InventoryCluster'
-        required: true
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/InventoryCluster'
-          description: success
-        "500":
-          content: {}
-          description: Internal Error
-      summary: Create a cluster inventory
-      tags:
-      - Inventories
-      x-swagger-router-controller: anchore_enterprise.services.api.controllers.runtime_inventory
-      x-anchore-authz-action: createRuntimeInventory
-      x-codegen-request-body-name: cluster
-  /inventories/clusters/{cluster_name}:
-    delete:
-      description: Removes a configured cluster for reporting image inventory by cluster_name
-      operationId: del_inventory_cluster_by_name
-      parameters:
-      - in: path
-        name: cluster_name
-        required: true
-        schema:
-          format: path
-          type: string
-      - description: An account name to change the resource scope of the request to
-          that account, if permissions allow (admin only)
-        in: header
-        name: x-anchore-account
-        schema:
-          type: string
-      responses:
-        "204":
-          content: {}
-          description: success
-        "500":
-          content: {}
-          description: Internal Error
-      summary: Delete a configured inventory clusters by cluster_name
-      tags:
-      - Inventories
-      x-swagger-router-controller: anchore_enterprise.services.api.controllers.runtime_inventory
-      x-anchore-authz-action: deleteRuntimeInventory
-    get:
-      description: Returns a cluster that is configured for reporting image inventory
-      operationId: get_inventory_cluster_by_name
-      parameters:
-      - in: path
-        name: cluster_name
-        required: true
-        schema:
-          format: path
-          type: string
-      - description: An account name to change the resource scope of the request to
-          that account, if permissions allow (admin only)
-        in: header
-        name: x-anchore-account
-        schema:
-          type: string
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/InventoryCluster'
-          description: success
-        "500":
-          content: {}
-          description: Internal Error
-      summary: Return a configured inventory cluster
-      tags:
-      - Inventories
-      x-swagger-router-controller: anchore_enterprise.services.api.controllers.runtime_inventory
-      x-anchore-authz-action: getRuntimeInventory
   /actions:
     get:
       description: Retrieves a list of action plans that have been completed
@@ -1589,6 +1464,57 @@ paths:
           description: Internal Error
       summary: Get the combined sbom for the given application version, optionally
         filtered by artifact type
+      tags:
+      - Applications
+      x-swagger-router-controller: anchore_enterprise.services.api.controllers.applications
+      x-anchore-authz-action: getApplication
+  /applications/{application_id}/versions/{application_version_id}/vulnerabilities:
+    get:
+      description: Get the vulnerabilities for a given application version
+      operationId: get_application_version_vulnerabilities
+      parameters:
+      - in: path
+        name: application_id
+        required: true
+        schema:
+          format: path
+          type: string
+      - in: path
+        name: application_version_id
+        required: true
+        schema:
+          format: path
+          type: string
+      - description: If true, include vulnerabilities that the vendor of an image
+          distribution either disagrees with or does not intend to prioritize for
+          remediation
+        in: query
+        name: will_not_fix
+        schema:
+          type: boolean
+      - description: An account name to change the resource scope of the request to
+          that account, if permissions allow (admin only)
+        in: header
+        name: x-anchore-account
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApplicationVersionVulnerabilityReport'
+          description: Successfully retrieved vulnerability data
+        "404":
+          content: {}
+          description: Application version not found
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+          description: Internal Error
+      summary: Get the vulnerabilities for a given application version
       tags:
       - Applications
       x-swagger-router-controller: anchore_enterprise.services.api.controllers.applications
@@ -2792,70 +2718,6 @@ components:
             type: string
           type: array
       type: object
-    InventoryClusters:
-      items:
-        $ref: '#/components/schemas/InventoryCluster'
-      type: array
-    InventoryCluster:
-      description: Cluster configured for reporting Image Inventory
-      example:
-        cluster_name: cluster_name
-        cluster_config:
-          credential_type: private_key
-          client_certificate: client_certificate
-          credential: credential
-          cluster_certificate: cluster_certificate
-          namespaces:
-          - namespaces
-          - namespaces
-          cluster_server: cluster_server
-        inventory_type: kubernetes
-      properties:
-        cluster_name:
-          type: string
-        inventory_type:
-          enum:
-          - kubernetes
-          type: string
-        cluster_config:
-          $ref: '#/components/schemas/InventoryClusterConfig'
-      type: object
-    InventoryClusterConfig:
-      description: Cluster specific configuration
-      example:
-        credential_type: private_key
-        client_certificate: client_certificate
-        credential: credential
-        cluster_certificate: cluster_certificate
-        namespaces:
-        - namespaces
-        - namespaces
-        cluster_server: cluster_server
-      properties:
-        credential_type:
-          enum:
-          - private_key
-          - token
-          type: string
-        namespaces:
-          items:
-            description: Namespaces to search for images within this cluster
-            type: string
-          type: array
-        cluster_server:
-          description: FQDN of the cluster API server
-          type: string
-        cluster_certificate:
-          description: Base64 Encoded Public Certificate for the cluster
-          type: string
-        client_certificate:
-          description: Base64 Encoded Public Certificate for the client. Not required
-            if credential_type == token
-          type: string
-        credential:
-          description: Base64 Encoded credential for the client
-          type: string
-      type: object
     InventoryReport:
       description: Defines the object that Anchore expects to be provided for a given
         Image Inventory
@@ -3683,6 +3545,203 @@ components:
             $ref: '#/components/schemas/AssociatedImageArtifact'
           type: array
       type: object
+    ApplicationVersionVulnerabilityReport:
+      description: A combined vulnerability report for all artifacts associated with
+        an application version
+      example:
+        application:
+          version_name: version_name
+          name: name
+          id: id
+          version_id: version_id
+          artifacts:
+            images:
+            - image_digest: image_digest
+            - image_digest: image_digest
+            sources:
+            - host: host
+              uuid: uuid
+              repository_name: repository_name
+              revision: revision
+            - host: host
+              uuid: uuid
+              repository_name: repository_name
+              revision: revision
+        vulnerabilities:
+        - id: id
+          nvd:
+          - null
+          - null
+          matches:
+          - fix: fix
+            location:
+              artifact:
+                id: id
+                type: type
+              package:
+                name: name
+                location: location
+                type: type
+                version: version
+          - fix: fix
+            location:
+              artifact:
+                id: id
+                type: type
+              package:
+                name: name
+                location: location
+                type: type
+                version: version
+        - id: id
+          nvd:
+          - null
+          - null
+          matches:
+          - fix: fix
+            location:
+              artifact:
+                id: id
+                type: type
+              package:
+                name: name
+                location: location
+                type: type
+                version: version
+          - fix: fix
+            location:
+              artifact:
+                id: id
+                type: type
+              package:
+                name: name
+                location: location
+                type: type
+                version: version
+      properties:
+        application:
+          $ref: '#/components/schemas/ApplicationVersionVulnerabilityReport_application'
+        vulnerabilities:
+          description: Collection of vulnerabilities and affected packages on a given
+            application version
+          items:
+            $ref: '#/components/schemas/VersionVulnerability'
+          type: array
+      type: object
+    VersionVulnerabilityReportSource:
+      description: The definition of the source artifacts in the application version
+        vulnerability report
+      example:
+        host: host
+        uuid: uuid
+        repository_name: repository_name
+        revision: revision
+      properties:
+        uuid:
+          type: string
+        host:
+          type: string
+        repository_name:
+          type: string
+        revision:
+          type: string
+      type: object
+    VersionVulnerabilityReportImage:
+      description: The definition of the image artifacts in the application version
+        vulnerability report
+      example:
+        image_digest: image_digest
+      properties:
+        image_digest:
+          type: string
+      type: object
+    VersionVulnerability:
+      description: A vulnerability in an application version vulnerability report
+        with vulenrability data, affected artifacts, and packages
+      example:
+        id: id
+        nvd:
+        - null
+        - null
+        matches:
+        - fix: fix
+          location:
+            artifact:
+              id: id
+              type: type
+            package:
+              name: name
+              location: location
+              type: type
+              version: version
+        - fix: fix
+          location:
+            artifact:
+              id: id
+              type: type
+            package:
+              name: name
+              location: location
+              type: type
+              version: version
+      properties:
+        id:
+          description: The vulnerability id for the match
+          type: string
+        nvd:
+          items:
+            $ref: '#/components/schemas/VersionVulnerabilityNVD'
+          type: array
+        vendor_data:
+          $ref: '#/components/schemas/VersionVulnerabilityVendor'
+        matches:
+          items:
+            $ref: '#/components/schemas/VersionVulnerabilityMatch'
+          type: array
+      type: object
+    VersionVulnerabilityMatch:
+      description: The details of a match for a single matche for a vulnerability
+        in an application version vulnerability report
+      example:
+        fix: fix
+        location:
+          artifact:
+            id: id
+            type: type
+          package:
+            name: name
+            location: location
+            type: type
+            version: version
+      properties:
+        fix:
+          type: string
+        location:
+          $ref: '#/components/schemas/VersionVulnerabilityMatch_location'
+      type: object
+    VersionVulnerabilityVendorNVDCommon:
+      description: Values common to vendor and nvd entries in application version
+        vulnerability report
+      properties:
+        cvss:
+          $ref: '#/components/schemas/VersionVulnerabilityVendorNVDCommon_cvss'
+        description:
+          type: string
+        severity:
+          type: string
+        url:
+          type: string
+      type: object
+    VersionVulnerabilityVendor:
+      allOf:
+      - $ref: '#/components/schemas/VersionVulnerabilityVendorNVDCommon'
+      - $ref: '#/components/schemas/VersionVulnerabilityVendor_allOf'
+      description: The vendor information of the vulnerability
+    VersionVulnerabilityNVD:
+      allOf:
+      - $ref: '#/components/schemas/VersionVulnerabilityVendorNVDCommon'
+      - $ref: '#/components/schemas/VersionVulnerabilityNVD_allOf'
+      description: NVD entry for application version vulnerability
     ApplicationVersionSbom:
       description: A combined sbom for the artifacts associated with an application
         version
@@ -4094,11 +4153,13 @@ components:
           licenses:
           - licenses
           - licenses
+          metadata: '{}'
           package: package
           size: size
           cpes:
           - cpes
           - cpes
+          metadata_type: metadata_type
           origin: origin
           location: location
           type: type
@@ -4107,11 +4168,13 @@ components:
           licenses:
           - licenses
           - licenses
+          metadata: '{}'
           package: package
           size: size
           cpes:
           - cpes
           - cpes
+          metadata_type: metadata_type
           origin: origin
           location: location
           type: type
@@ -4548,6 +4611,7 @@ components:
       example:
         metadata: '{}'
         release: release
+        metadata_type: metadata_type
         origin: origin
         version: version
         maven_version: maven_version
@@ -4582,6 +4646,9 @@ components:
           items:
             type: string
           type: array
+        metadata_type:
+          description: The type of the metadata entry
+          type: string
         metadata:
           description: Package type specific metadata
           properties: {}
@@ -4666,6 +4733,7 @@ components:
         source:
           metadata: '{}'
           release: release
+          metadata_type: metadata_type
           origin: origin
           version: version
           maven_version: maven_version
@@ -4684,6 +4752,7 @@ components:
         target:
           metadata: '{}'
           release: release
+          metadata_type: metadata_type
           origin: origin
           version: version
           maven_version: maven_version
@@ -4717,6 +4786,7 @@ components:
         source_only:
         - metadata: '{}'
           release: release
+          metadata_type: metadata_type
           origin: origin
           version: version
           maven_version: maven_version
@@ -4734,6 +4804,7 @@ components:
           implementation_version: implementation_version
         - metadata: '{}'
           release: release
+          metadata_type: metadata_type
           origin: origin
           version: version
           maven_version: maven_version
@@ -4809,6 +4880,7 @@ components:
           source:
             metadata: '{}'
             release: release
+            metadata_type: metadata_type
             origin: origin
             version: version
             maven_version: maven_version
@@ -4827,6 +4899,7 @@ components:
           target:
             metadata: '{}'
             release: release
+            metadata_type: metadata_type
             origin: origin
             version: version
             maven_version: maven_version
@@ -4901,6 +4974,7 @@ components:
           source:
             metadata: '{}'
             release: release
+            metadata_type: metadata_type
             origin: origin
             version: version
             maven_version: maven_version
@@ -4919,6 +4993,7 @@ components:
           target:
             metadata: '{}'
             release: release
+            metadata_type: metadata_type
             origin: origin
             version: version
             maven_version: maven_version
@@ -4937,6 +5012,7 @@ components:
         target_only:
         - metadata: '{}'
           release: release
+          metadata_type: metadata_type
           origin: origin
           version: version
           maven_version: maven_version
@@ -4954,6 +5030,7 @@ components:
           implementation_version: implementation_version
         - metadata: '{}'
           release: release
+          metadata_type: metadata_type
           origin: origin
           version: version
           maven_version: maven_version
@@ -4972,6 +5049,7 @@ components:
         both_unmodified:
         - metadata: '{}'
           release: release
+          metadata_type: metadata_type
           origin: origin
           version: version
           maven_version: maven_version
@@ -4989,6 +5067,7 @@ components:
           implementation_version: implementation_version
         - metadata: '{}'
           release: release
+          metadata_type: metadata_type
           origin: origin
           version: version
           maven_version: maven_version
@@ -5344,6 +5423,126 @@ components:
           nullable: true
           type: string
       type: object
+    ApplicationVersionVulnerabilityReport_application_artifacts:
+      example:
+        images:
+        - image_digest: image_digest
+        - image_digest: image_digest
+        sources:
+        - host: host
+          uuid: uuid
+          repository_name: repository_name
+          revision: revision
+        - host: host
+          uuid: uuid
+          repository_name: repository_name
+          revision: revision
+      properties:
+        sources:
+          items:
+            $ref: '#/components/schemas/VersionVulnerabilityReportSource'
+          type: array
+        images:
+          items:
+            $ref: '#/components/schemas/VersionVulnerabilityReportImage'
+          type: array
+      type: object
+    ApplicationVersionVulnerabilityReport_application:
+      example:
+        version_name: version_name
+        name: name
+        id: id
+        version_id: version_id
+        artifacts:
+          images:
+          - image_digest: image_digest
+          - image_digest: image_digest
+          sources:
+          - host: host
+            uuid: uuid
+            repository_name: repository_name
+            revision: revision
+          - host: host
+            uuid: uuid
+            repository_name: repository_name
+            revision: revision
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        version_name:
+          type: string
+        version_id:
+          type: string
+        artifacts:
+          $ref: '#/components/schemas/ApplicationVersionVulnerabilityReport_application_artifacts'
+      type: object
+    VersionVulnerabilityMatch_location_artifact:
+      example:
+        id: id
+        type: type
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+      type: object
+    VersionVulnerabilityMatch_location_package:
+      example:
+        name: name
+        location: location
+        type: type
+        version: version
+      properties:
+        name:
+          type: string
+        type:
+          type: string
+        version:
+          type: string
+        location:
+          type: string
+      type: object
+    VersionVulnerabilityMatch_location:
+      description: The location of the match, which includes both the package and
+        the artifact it belongs to
+      example:
+        artifact:
+          id: id
+          type: type
+        package:
+          name: name
+          location: location
+          type: type
+          version: version
+      properties:
+        artifact:
+          $ref: '#/components/schemas/VersionVulnerabilityMatch_location_artifact'
+        package:
+          $ref: '#/components/schemas/VersionVulnerabilityMatch_location_package'
+      type: object
+    VersionVulnerabilityVendorNVDCommon_cvss:
+      properties:
+        cvss_v2:
+          $ref: '#/components/schemas/CVSSV2Scores'
+        cvss_v3:
+          $ref: '#/components/schemas/CVSSV3Scores'
+      type: object
+    VersionVulnerabilityVendor_allOf:
+      properties:
+        feed:
+          type: string
+        group:
+          type: string
+        will_not_fix:
+          type: boolean
+      type: object
+    VersionVulnerabilityNVD_allOf:
+      properties:
+        id:
+          type: string
+      type: object
     SourceImportMetadata_contents:
       description: Digest of content to use in the final import
       example:
@@ -5384,11 +5583,13 @@ components:
         licenses:
         - licenses
         - licenses
+        metadata: '{}'
         package: package
         size: size
         cpes:
         - cpes
         - cpes
+        metadata_type: metadata_type
         origin: origin
         location: location
         type: type
@@ -5419,6 +5620,13 @@ components:
           items:
             type: string
           type: array
+        metadata_type:
+          description: The type of the metadata entry
+          type: string
+        metadata:
+          description: Package type specific metadata
+          properties: {}
+          type: object
       type: object
     ContentFilesResponse_content:
       properties:

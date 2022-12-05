@@ -1,7 +1,7 @@
 swagger: "2.0"
 info:
   description: "This is the Anchore Engine API. Provides the primary external API for users of the service."
-  version: "0.2.0"
+  version: "0.3.0"
   title: "Anchore Engine API Server"
   contact:
     email: "nurmi@anchore.com"
@@ -2017,7 +2017,7 @@ paths:
       x-swagger-router-controller: anchore_engine.services.apiext.api.controllers.accounts
       operationId: list_accounts
       x-anchore-authz-action: listAccounts
-      summary: List user summaries. Only available to the system admin user.
+      summary: List account summaries. Only available to the system admin user.
       parameters:
         - name: state
           in: query
@@ -2043,7 +2043,7 @@ paths:
       x-swagger-router-controller: anchore_engine.services.apiext.api.controllers.accounts
       operationId: create_account
       x-anchore-authz-action: createAccount
-      summary: Create a new user. Only avaialble to admin user.
+      summary: Create a new account. Only avaialble to admin user.
       parameters:
         - name: account
           in: body
@@ -2070,7 +2070,7 @@ paths:
       x-swagger-router-controller: anchore_engine.services.apiext.api.controllers.accounts
       operationId: get_account
       x-anchore-authz-action: getAccount
-      summary: Get info about an user. Only available to admin user. Uses the main user Id, not a username.
+      summary: Get account info about this specific account.
       parameters:
         - name: accountname
           in: path
@@ -2145,7 +2145,7 @@ paths:
       x-swagger-router-controller: anchore_engine.services.apiext.api.controllers.accounts
       operationId: list_users
       x-anchore-authz-action: listUsers
-      summary: List accounts for the user
+      summary: List of users found in this account.
       parameters:
         - name: accountname
           in: path
@@ -2170,7 +2170,7 @@ paths:
       x-swagger-router-controller: anchore_engine.services.apiext.api.controllers.accounts
       operationId: create_user
       x-anchore-authz-action: createUser
-      summary: Create a new user
+      summary: Create a new user within the specified account.
       parameters:
         - name: accountname
           in: path
@@ -3853,6 +3853,12 @@ definitions:
               items:
                 type: string
               description: A list of Common Platform Enumerations that may uniquely identify the package
+            metadata_type:
+              description: The type of the metadata entry
+              type: string
+            metadata:
+              description: Package type specific metadata
+              type: object
   ContentMalwareResponse:
     type: object
     description: Malware listing response
@@ -4455,7 +4461,7 @@ definitions:
         description: The status of the account
   User:
     type: object
-    description: A username for authenticating with one or more types of credentials. User type defines the expected credentials allowed for the user. Native users have passwords, External users have no credential internally. Internal users are service/system users for inter-service communication.
+    description: A username for authenticating with one or more types of credentials. User type defines the expected credentials allowed for the user. Native users have passwords, other users have no credential internally. Internal users are service/system users for inter-service communication.
     required:
       - username
     properties:
@@ -4467,34 +4473,44 @@ definitions:
         type: string
         enum:
           - native
-          - internal
-          - external
+          - saml
       source:
-        description: If the user is external, this is the source that the user was initialized from. All other user types have this set to null
+        description: When the user 'type' is 'saml', this will be the EntityId of the IDP that they are authenticating from. Otherwise, this will be set to null.
         type: string
       created_at:
-        description: The timestampt the user record was created
+        description: The timestamp of when the user record was created
         type: string
         format: date-time
       last_updated:
         description: The timestamp of the last update to this record
         type: string
         format: date-time
+      idp_name:
+        description: When the user 'type' is 'saml', this will be the configured name of the IDP that they are authenticating from.  Otherwise, this will be set to null.
+        type: string
   UserCreationRequest:
     type: object
     description: A payload for creating a new user, includes the username and password in a single request
     required:
       - username
-      - password
     properties:
       username:
         description: The username to create
         type: string
         pattern: ^[a-zA-Z0-9][ a-zA-Z0-9@.!#$+-=^_`~;]{1,126}[a-zA-Z0-9_]$
       password:
-        description: The initial password for the user, must be at least 6 characters, up to 128
+        description: The initial password for the user, must be at least 6 characters, up to 128. This must be null when the user_type is not 'native'.
         type: string
         pattern: '.{6,128}$'
+      user_type:
+        description: The user's type. A Native user authenticates using user/password log on. All other users will authenticate with an IDP.
+        type: string
+        enum:
+          - native
+          - saml
+      idp_name:
+        description: If the user is authenticating via an IDP, this is the name of the IDP. A 'native' user should have this set to null.
+        type: string
   AccessCredential:
     type: object
     description: A login credential mapped to a user identity. For password credentials, the username to present for Basic auth is the user's username from the user record
@@ -5297,7 +5313,6 @@ definitions:
         type: string
       locations:
         items:
-          "$schema": http://json-schema.org/draft-04/schema#
           "$ref": "#/definitions/ImportPackageLocation"
         type: array
       licenses:
