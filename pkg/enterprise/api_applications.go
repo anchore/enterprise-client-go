@@ -3,7 +3,7 @@ Anchore Enterprise API Server
 
 This is the Anchore Enterprise API. It provides additional external API routes and functionality for enterprise users.
 
-API version: 0.3.0
+API version: 0.5.0
 Contact: dev@anchore.com
 */
 
@@ -147,6 +147,22 @@ type ApplicationsApi interface {
 	// GetApplicationVersionSbomExecute executes the request
 	//  @return ApplicationVersionSbom
 	GetApplicationVersionSbomExecute(r ApiGetApplicationVersionSbomRequest) (ApplicationVersionSbom, *_nethttp.Response, error)
+
+	/*
+	GetApplicationVersionVulnerabilities Get the vulnerabilities for a given application version
+
+	Get the vulnerabilities for a given application version
+
+	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	 @param applicationId
+	 @param applicationVersionId
+	 @return ApiGetApplicationVersionVulnerabilitiesRequest
+	*/
+	GetApplicationVersionVulnerabilities(ctx _context.Context, applicationId string, applicationVersionId string) ApiGetApplicationVersionVulnerabilitiesRequest
+
+	// GetApplicationVersionVulnerabilitiesExecute executes the request
+	//  @return ApplicationVersionVulnerabilityReport
+	GetApplicationVersionVulnerabilitiesExecute(r ApiGetApplicationVersionVulnerabilitiesRequest) (ApplicationVersionVulnerabilityReport, *_nethttp.Response, error)
 
 	/*
 	GetApplicationVersions List all application verions
@@ -1187,6 +1203,143 @@ func (a *ApplicationsApiService) GetApplicationVersionSbomExecute(r ApiGetApplic
 
 	if r.artifactTypes != nil {
 		localVarQueryParams.Add("artifact_types", parameterToString(*r.artifactTypes, "csv"))
+	}
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	if r.xAnchoreAccount != nil {
+		localVarHeaderParams["x-anchore-account"] = parameterToString(*r.xAnchoreAccount, "")
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 500 {
+			var v ApiErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiGetApplicationVersionVulnerabilitiesRequest struct {
+	ctx _context.Context
+	ApiService ApplicationsApi
+	applicationId string
+	applicationVersionId string
+	willNotFix *bool
+	xAnchoreAccount *string
+}
+
+// If true, include vulnerabilities that the vendor of an image distribution either disagrees with or does not intend to prioritize for remediation
+func (r ApiGetApplicationVersionVulnerabilitiesRequest) WillNotFix(willNotFix bool) ApiGetApplicationVersionVulnerabilitiesRequest {
+	r.willNotFix = &willNotFix
+	return r
+}
+// An account name to change the resource scope of the request to that account, if permissions allow (admin only)
+func (r ApiGetApplicationVersionVulnerabilitiesRequest) XAnchoreAccount(xAnchoreAccount string) ApiGetApplicationVersionVulnerabilitiesRequest {
+	r.xAnchoreAccount = &xAnchoreAccount
+	return r
+}
+
+func (r ApiGetApplicationVersionVulnerabilitiesRequest) Execute() (ApplicationVersionVulnerabilityReport, *_nethttp.Response, error) {
+	return r.ApiService.GetApplicationVersionVulnerabilitiesExecute(r)
+}
+
+/*
+GetApplicationVersionVulnerabilities Get the vulnerabilities for a given application version
+
+Get the vulnerabilities for a given application version
+
+ @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param applicationId
+ @param applicationVersionId
+ @return ApiGetApplicationVersionVulnerabilitiesRequest
+*/
+func (a *ApplicationsApiService) GetApplicationVersionVulnerabilities(ctx _context.Context, applicationId string, applicationVersionId string) ApiGetApplicationVersionVulnerabilitiesRequest {
+	return ApiGetApplicationVersionVulnerabilitiesRequest{
+		ApiService: a,
+		ctx: ctx,
+		applicationId: applicationId,
+		applicationVersionId: applicationVersionId,
+	}
+}
+
+// Execute executes the request
+//  @return ApplicationVersionVulnerabilityReport
+func (a *ApplicationsApiService) GetApplicationVersionVulnerabilitiesExecute(r ApiGetApplicationVersionVulnerabilitiesRequest) (ApplicationVersionVulnerabilityReport, *_nethttp.Response, error) {
+	var (
+		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarPostBody     interface{}
+		localVarFormFileName string
+		localVarFileName     string
+		localVarFileBytes    []byte
+		localVarReturnValue  ApplicationVersionVulnerabilityReport
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ApplicationsApiService.GetApplicationVersionVulnerabilities")
+	if err != nil {
+		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/applications/{application_id}/versions/{application_version_id}/vulnerabilities"
+	localVarPath = strings.Replace(localVarPath, "{"+"application_id"+"}", _neturl.PathEscape(parameterToString(r.applicationId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"application_version_id"+"}", _neturl.PathEscape(parameterToString(r.applicationVersionId, "")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := _neturl.Values{}
+	localVarFormParams := _neturl.Values{}
+
+	if r.willNotFix != nil {
+		localVarQueryParams.Add("will_not_fix", parameterToString(*r.willNotFix, ""))
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}

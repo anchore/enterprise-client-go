@@ -3,7 +3,7 @@ Anchore Enterprise RBAC API
 
 Enterprise API for managing roles, permissions, and user mappings
 
-API version: 0.0.1
+API version: 0.1.0
 Contact: dev@anchore.com
 */
 
@@ -38,7 +38,7 @@ type SamlConfiguration struct {
 	IdpAccountAttribute *string `json:"idp_account_attribute,omitempty"`
 	// The SAML attribute to use from the response assertions to determine the anchore role(s) to assign a new user in the specified account. If unset, the default is used.
 	IdpRoleAttribute *string `json:"idp_role_attribute,omitempty"`
-	// The existing anchore account to assign all users to from this IDP if no account attribute is mapped or present.
+	// The anchore account to assign all users to from this IDP if no account attribute is mapped or present.
 	DefaultAccount *string `json:"default_account,omitempty"`
 	// The default role to apply to new users from this IDP if no attribute is mapped or found in the SAML assertions.
 	DefaultRole *string `json:"default_role,omitempty"`
@@ -48,6 +48,8 @@ type SamlConfiguration struct {
 	RequireSignedResponse *bool `json:"require_signed_response,omitempty"`
 	CreatedAt *time.Time `json:"created_at,omitempty"`
 	LastUpdated *time.Time `json:"last_updated,omitempty"`
+	// Indicates if Anchore will require an authenticating SSO user to already exist.  This field is ignored on POST/PUT Operations.
+	RequireExistingUsers *bool `json:"require_existing_users,omitempty"`
 }
 
 // NewSamlConfiguration instantiates a new SamlConfiguration object
@@ -64,6 +66,8 @@ func NewSamlConfiguration(name string, enabled bool, spEntityId string, acsUrl s
 	this.RequireSignedAssertions = &requireSignedAssertions
 	var requireSignedResponse bool = true
 	this.RequireSignedResponse = &requireSignedResponse
+	var requireExistingUsers bool = false
+	this.RequireExistingUsers = &requireExistingUsers
 	return &this
 }
 
@@ -76,6 +80,8 @@ func NewSamlConfigurationWithDefaults() *SamlConfiguration {
 	this.RequireSignedAssertions = &requireSignedAssertions
 	var requireSignedResponse bool = true
 	this.RequireSignedResponse = &requireSignedResponse
+	var requireExistingUsers bool = false
+	this.RequireExistingUsers = &requireExistingUsers
 	return &this
 }
 
@@ -559,6 +565,38 @@ func (o *SamlConfiguration) SetLastUpdated(v time.Time) {
 	o.LastUpdated = &v
 }
 
+// GetRequireExistingUsers returns the RequireExistingUsers field value if set, zero value otherwise.
+func (o *SamlConfiguration) GetRequireExistingUsers() bool {
+	if o == nil || o.RequireExistingUsers == nil {
+		var ret bool
+		return ret
+	}
+	return *o.RequireExistingUsers
+}
+
+// GetRequireExistingUsersOk returns a tuple with the RequireExistingUsers field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SamlConfiguration) GetRequireExistingUsersOk() (*bool, bool) {
+	if o == nil || o.RequireExistingUsers == nil {
+		return nil, false
+	}
+	return o.RequireExistingUsers, true
+}
+
+// HasRequireExistingUsers returns a boolean if a field has been set.
+func (o *SamlConfiguration) HasRequireExistingUsers() bool {
+	if o != nil && o.RequireExistingUsers != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetRequireExistingUsers gets a reference to the given bool and assigns it to the RequireExistingUsers field.
+func (o *SamlConfiguration) SetRequireExistingUsers(v bool) {
+	o.RequireExistingUsers = &v
+}
+
 func (o SamlConfiguration) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
@@ -608,6 +646,9 @@ func (o SamlConfiguration) MarshalJSON() ([]byte, error) {
 	}
 	if o.LastUpdated != nil {
 		toSerialize["last_updated"] = o.LastUpdated
+	}
+	if o.RequireExistingUsers != nil {
+		toSerialize["require_existing_users"] = o.RequireExistingUsers
 	}
 	return json.Marshal(toSerialize)
 }

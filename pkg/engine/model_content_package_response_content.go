@@ -3,7 +3,7 @@ Anchore Engine API Server
 
 This is the Anchore Engine API. Provides the primary external API for users of the service.
 
-API version: 0.2.0
+API version: 0.3.0
 Contact: nurmi@anchore.com
 */
 
@@ -28,6 +28,10 @@ type ContentPackageResponseContent struct {
 	Location *string `json:"location,omitempty"`
 	// A list of Common Platform Enumerations that may uniquely identify the package
 	Cpes *[]string `json:"cpes,omitempty"`
+	// The type of the metadata entry
+	MetadataType *string `json:"metadata_type,omitempty"`
+	// Package type specific metadata
+	Metadata *interface{} `json:"metadata,omitempty"`
 }
 
 // NewContentPackageResponseContent instantiates a new ContentPackageResponseContent object
@@ -335,6 +339,70 @@ func (o *ContentPackageResponseContent) SetCpes(v []string) {
 	o.Cpes = &v
 }
 
+// GetMetadataType returns the MetadataType field value if set, zero value otherwise.
+func (o *ContentPackageResponseContent) GetMetadataType() string {
+	if o == nil || o.MetadataType == nil {
+		var ret string
+		return ret
+	}
+	return *o.MetadataType
+}
+
+// GetMetadataTypeOk returns a tuple with the MetadataType field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ContentPackageResponseContent) GetMetadataTypeOk() (*string, bool) {
+	if o == nil || o.MetadataType == nil {
+		return nil, false
+	}
+	return o.MetadataType, true
+}
+
+// HasMetadataType returns a boolean if a field has been set.
+func (o *ContentPackageResponseContent) HasMetadataType() bool {
+	if o != nil && o.MetadataType != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetMetadataType gets a reference to the given string and assigns it to the MetadataType field.
+func (o *ContentPackageResponseContent) SetMetadataType(v string) {
+	o.MetadataType = &v
+}
+
+// GetMetadata returns the Metadata field value if set, zero value otherwise.
+func (o *ContentPackageResponseContent) GetMetadata() interface{} {
+	if o == nil || o.Metadata == nil {
+		var ret interface{}
+		return ret
+	}
+	return *o.Metadata
+}
+
+// GetMetadataOk returns a tuple with the Metadata field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ContentPackageResponseContent) GetMetadataOk() (*interface{}, bool) {
+	if o == nil || o.Metadata == nil {
+		return nil, false
+	}
+	return o.Metadata, true
+}
+
+// HasMetadata returns a boolean if a field has been set.
+func (o *ContentPackageResponseContent) HasMetadata() bool {
+	if o != nil && o.Metadata != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetMetadata gets a reference to the given interface{} and assigns it to the Metadata field.
+func (o *ContentPackageResponseContent) SetMetadata(v interface{}) {
+	o.Metadata = &v
+}
+
 func (o ContentPackageResponseContent) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.Package != nil {
@@ -363,6 +431,12 @@ func (o ContentPackageResponseContent) MarshalJSON() ([]byte, error) {
 	}
 	if o.Cpes != nil {
 		toSerialize["cpes"] = o.Cpes
+	}
+	if o.MetadataType != nil {
+		toSerialize["metadata_type"] = o.MetadataType
+	}
+	if o.Metadata != nil {
+		toSerialize["metadata"] = o.Metadata
 	}
 	return json.Marshal(toSerialize)
 }

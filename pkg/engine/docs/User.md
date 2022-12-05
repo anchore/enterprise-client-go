@@ -6,9 +6,10 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Username** | **string** | The username to authenticate with | 
 **Type** | Pointer to **string** | The user&#39;s type | [optional] 
-**Source** | Pointer to **string** | If the user is external, this is the source that the user was initialized from. All other user types have this set to null | [optional] 
-**CreatedAt** | Pointer to **time.Time** | The timestampt the user record was created | [optional] 
+**Source** | Pointer to **string** | When the user &#39;type&#39; is &#39;saml&#39;, this will be the EntityId of the IDP that they are authenticating from. Otherwise, this will be set to null. | [optional] 
+**CreatedAt** | Pointer to **time.Time** | The timestamp of when the user record was created | [optional] 
 **LastUpdated** | Pointer to **time.Time** | The timestamp of the last update to this record | [optional] 
+**IdpName** | Pointer to **string** | When the user &#39;type&#39; is &#39;saml&#39;, this will be the configured name of the IDP that they are authenticating from.  Otherwise, this will be set to null. | [optional] 
 
 ## Methods
 
@@ -148,6 +149,31 @@ SetLastUpdated sets LastUpdated field to given value.
 `func (o *User) HasLastUpdated() bool`
 
 HasLastUpdated returns a boolean if a field has been set.
+
+### GetIdpName
+
+`func (o *User) GetIdpName() string`
+
+GetIdpName returns the IdpName field if non-nil, zero value otherwise.
+
+### GetIdpNameOk
+
+`func (o *User) GetIdpNameOk() (*string, bool)`
+
+GetIdpNameOk returns a tuple with the IdpName field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetIdpName
+
+`func (o *User) SetIdpName(v string)`
+
+SetIdpName sets IdpName field to given value.
+
+### HasIdpName
+
+`func (o *User) HasIdpName() bool`
+
+HasIdpName returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

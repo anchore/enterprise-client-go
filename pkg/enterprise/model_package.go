@@ -3,7 +3,7 @@ Anchore Enterprise API Server
 
 This is the Anchore Enterprise API. It provides additional external API routes and functionality for enterprise users.
 
-API version: 0.3.0
+API version: 0.5.0
 Contact: dev@anchore.com
 */
 
@@ -25,6 +25,8 @@ type Package struct {
 	Origin *string `json:"origin,omitempty"`
 	Size *int32 `json:"size,omitempty"`
 	Licenses *[]string `json:"licenses,omitempty"`
+	// The type of the metadata entry
+	MetadataType *string `json:"metadata_type,omitempty"`
 	// Package type specific metadata
 	Metadata *interface{} `json:"metadata,omitempty"`
 	// Spec version for java packages
@@ -310,6 +312,38 @@ func (o *Package) SetLicenses(v []string) {
 	o.Licenses = &v
 }
 
+// GetMetadataType returns the MetadataType field value if set, zero value otherwise.
+func (o *Package) GetMetadataType() string {
+	if o == nil || o.MetadataType == nil {
+		var ret string
+		return ret
+	}
+	return *o.MetadataType
+}
+
+// GetMetadataTypeOk returns a tuple with the MetadataType field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Package) GetMetadataTypeOk() (*string, bool) {
+	if o == nil || o.MetadataType == nil {
+		return nil, false
+	}
+	return o.MetadataType, true
+}
+
+// HasMetadataType returns a boolean if a field has been set.
+func (o *Package) HasMetadataType() bool {
+	if o != nil && o.MetadataType != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetMetadataType gets a reference to the given string and assigns it to the MetadataType field.
+func (o *Package) SetMetadataType(v string) {
+	o.MetadataType = &v
+}
+
 // GetMetadata returns the Metadata field value if set, zero value otherwise.
 func (o *Package) GetMetadata() interface{} {
 	if o == nil || o.Metadata == nil {
@@ -495,6 +529,9 @@ func (o Package) MarshalJSON() ([]byte, error) {
 	}
 	if o.Licenses != nil {
 		toSerialize["licenses"] = o.Licenses
+	}
+	if o.MetadataType != nil {
+		toSerialize["metadata_type"] = o.MetadataType
 	}
 	if o.Metadata != nil {
 		toSerialize["metadata"] = o.Metadata

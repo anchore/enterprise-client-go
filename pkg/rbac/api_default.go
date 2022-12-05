@@ -3,7 +3,7 @@ Anchore Enterprise RBAC API
 
 Enterprise API for managing roles, permissions, and user mappings
 
-API version: 0.0.1
+API version: 0.1.0
 Contact: dev@anchore.com
 */
 
@@ -57,7 +57,7 @@ type DefaultApi interface {
 	/*
 	DeleteIdp Method for DeleteIdp
 
-	Delete an idp configuration. Users will not longer be able to login from this idp
+	Delete an idp configuration. Users will not longer be able to login from this idp. In addition, any users that have been configured explicitly or JIT Provisioned on this IDP will be deleted.
 
 	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	 @param name
@@ -530,7 +530,7 @@ func (r ApiDeleteIdpRequest) Execute() (*_nethttp.Response, error) {
 /*
 DeleteIdp Method for DeleteIdp
 
-Delete an idp configuration. Users will not longer be able to login from this idp
+Delete an idp configuration. Users will not longer be able to login from this idp. In addition, any users that have been configured explicitly or JIT Provisioned on this IDP will be deleted.
 
  @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param name
@@ -1300,7 +1300,7 @@ type ApiListRoleMembersRequest struct {
 	forAccount *string
 }
 
-// Optional filter paramter to limit the set fo returned items to only those with matching account. Will return Access Denied if caller does not have permission to listRoleMembers for that account.
+// Optional filter parameter to limit the set fo returned items to only those with matching account. Will return Access Denied if caller does not have permission to listRoleMembers for that account.
 func (r ApiListRoleMembersRequest) ForAccount(forAccount string) ApiListRoleMembersRequest {
 	r.forAccount = &forAccount
 	return r

@@ -3,7 +3,7 @@ Anchore Enterprise RBAC API
 
 Enterprise API for managing roles, permissions, and user mappings
 
-API version: 0.0.1
+API version: 0.1.0
 Contact: dev@anchore.com
 */
 
@@ -42,7 +42,7 @@ var (
 	xmlCheck  = regexp.MustCompile(`(?i:(?:application|text)/xml)`)
 )
 
-// APIClient manages communication with the Anchore Enterprise RBAC API API v0.0.1
+// APIClient manages communication with the Anchore Enterprise RBAC API API v0.1.0
 // In most cases there should be only one, shared, APIClient.
 type APIClient struct {
 	cfg    *Configuration

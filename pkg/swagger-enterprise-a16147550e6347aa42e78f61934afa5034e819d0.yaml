@@ -1,7 +1,8 @@
+
 swagger: "2.0"
 info:
   description: "This is the Anchore Enterprise API. It provides additional external API routes and functionality for enterprise users."
-  version: "0.3.0"
+  version: "0.5.0"
   title: "Anchore Enterprise API Server"
   contact:
     email: "dev@anchore.com"
@@ -206,7 +207,6 @@ paths:
           description: "Internal Error"
       tags:
         - Inventories
-
     post:
       x-swagger-router-controller: anchore_enterprise.services.api.controllers.runtime_inventory
       operationId: sync_image_inventory
@@ -227,104 +227,6 @@ paths:
           description: "success"
           schema:
             $ref: "#/definitions/InventoryItems"
-        500:
-          description: "Internal Error"
-      tags:
-        - Inventories
-
-  /inventories/clusters:
-    get:
-      x-swagger-router-controller: anchore_enterprise.services.api.controllers.runtime_inventory
-      operationId: list_inventory_clusters
-      x-anchore-authz-action: listRuntimeInventories
-      summary: "Return a list of the configured inventory clusters"
-      description: "Returns a filterable list of the clusters that are configured for reporting image inventory"
-      produces:
-        - "application/json"
-      parameters:
-        - name: inventory_type
-          in: query
-          type: string
-          enum:
-            - kubernetes
-        - $ref: "#/parameters/AsAccountParameter"
-      responses:
-        200:
-          description: "success"
-          schema:
-            $ref: "#/definitions/InventoryClusters"
-        500:
-          description: "Internal Error"
-      tags:
-        - Inventories
-
-    post:
-      x-swagger-router-controller: anchore_enterprise.services.api.controllers.runtime_inventory
-      operationId: add_inventory_cluster
-      x-anchore-authz-action: createRuntimeInventory
-      summary: "Create a cluster inventory"
-      description: "Create a new cluster inventory with the provided configuration"
-      consumes:
-        - "application/json"
-      parameters:
-        - name: cluster
-          in: body
-          required: true
-          schema:
-            $ref: "#/definitions/InventoryCluster"
-        - $ref: "#/parameters/AsAccountParameter"
-      responses:
-        200:
-          description: "success"
-          schema:
-            $ref: "#/definitions/InventoryCluster"
-        500:
-          description: "Internal Error"
-      tags:
-        - Inventories
-
-  /inventories/clusters/{cluster_name}:
-    get:
-      x-swagger-router-controller: anchore_enterprise.services.api.controllers.runtime_inventory
-      operationId: get_inventory_cluster_by_name
-      x-anchore-authz-action: getRuntimeInventory
-      summary: "Return a configured inventory cluster"
-      description: "Returns a cluster that is configured for reporting image inventory"
-      produces:
-        - "application/json"
-      parameters:
-        - name: cluster_name
-          in: path
-          format: path
-          type: string
-          required: true
-        - $ref: "#/parameters/AsAccountParameter"
-      responses:
-        200:
-          description: "success"
-          schema:
-            $ref: "#/definitions/InventoryCluster"
-        500:
-          description: "Internal Error"
-      tags:
-        - Inventories
-
-    delete:
-      x-swagger-router-controller: anchore_enterprise.services.api.controllers.runtime_inventory
-      operationId: del_inventory_cluster_by_name
-      x-anchore-authz-action: deleteRuntimeInventory
-      summary: "Delete a configured inventory clusters by cluster_name"
-      description: "Removes a configured cluster for reporting image inventory by cluster_name"
-      parameters:
-        - name: cluster_name
-          in: path
-          format: path
-          type: string
-          required: true
-        - $ref: "#/parameters/AsAccountParameter"
-      responses:
-        204:
-          description: "success"
         500:
           description: "Internal Error"
       tags:
@@ -1319,6 +1221,45 @@ paths:
             $ref: "#/definitions/ApiErrorResponse"
       tags:
         - Applications
+  /applications/{application_id}/versions/{application_version_id}/vulnerabilities:
+    get:
+      x-swagger-router-controller: anchore_enterprise.services.api.controllers.applications
+      operationId: get_application_version_vulnerabilities
+      x-anchore-authz-action: getApplication
+      summary: Get the vulnerabilities for a given application version
+      description: Get the vulnerabilities for a given application version
+      produces:
+        - "application/json"
+      parameters:
+        - name: application_id
+          in: path
+          format: path
+          type: string
+          required: true
+        - name: application_version_id
+          in: path
+          format: path
+          type: string
+          required: true
+        - name: will_not_fix
+          in: query
+          type: boolean
+          required: false
+          description: "If true, include vulnerabilities that the vendor of an image distribution either disagrees with or does not intend to prioritize for remediation"
+        - $ref: "#/parameters/AsAccountParameter"
+      responses:
+        200:
+          description: "Successfully retrieved vulnerability data"
+          schema:
+            $ref: "#/definitions/ApplicationVersionVulnerabilityReport"
+        404:
+          description: "Application version not found"
+        500:
+          description: Internal Error
+          schema:
+            $ref: "#/definitions/ApiErrorResponse"
+      tags:
+        - Applications
 
   /imports/sources:
     post:
@@ -2212,48 +2153,6 @@ definitions:
           type: string
           description: The layer ID
           example: "sha256:03810167880e863d81dc60fc7771c975b93dfdf982d5677fb2c23d11b02c644b"
-  InventoryClusters:
-    type: array
-    items:
-      $ref: "#/definitions/InventoryCluster"
-  InventoryCluster:
-    type: object
-    description: Cluster configured for reporting Image Inventory
-    properties:
-      cluster_name:
-        type: string
-      inventory_type:
-        type: string
-        enum:
-          - kubernetes
-      cluster_config:
-        $ref: "#/definitions/InventoryClusterConfig"
-  InventoryClusterConfig:
-    type: object
-    description: Cluster specific configuration
-    properties:
-      credential_type:
-        type: string
-        enum:
-          - private_key
-          - token
-      namespaces:
-        type: array
-        items:
-          type: string
-          description: Namespaces to search for images within this cluster
-      cluster_server:
-        type: string
-        description: FQDN of the cluster API server
-      cluster_certificate:
-        type: string
-        description: Base64 Encoded Public Certificate for the cluster
-      client_certificate:
-        type: string
-        description: Base64 Encoded Public Certificate for the client. Not required if credential_type == token
-      credential:
-        type: string
-        description: Base64 Encoded credential for the client
   InventoryReport:
     type: object
     description: Defines the object that Anchore expects to be provided for a given Image Inventory
@@ -2780,6 +2679,137 @@ definitions:
         type: array
         items:
           $ref: "#/definitions/AssociatedImageArtifact"
+  ApplicationVersionVulnerabilityReport:
+    description: A combined vulnerability report for all artifacts associated with an application version
+    type: object
+    properties:
+      application:
+        type: object
+        properties:
+          id:
+            type: string
+          name:
+            type: string
+          version_name:
+            type: string
+          version_id:
+            type: string
+          artifacts:
+            type: object
+            properties:
+              sources:
+                type: array
+                items:
+                  $ref: "#/definitions/VersionVulnerabilityReportSource"
+              images:
+                type: array
+                items:
+                  $ref: "#/definitions/VersionVulnerabilityReportImage"
+      vulnerabilities:
+        description: Collection of vulnerabilities and affected packages on a given application version
+        type: array
+        items:
+          $ref: "#/definitions/VersionVulnerability"
+  VersionVulnerabilityReportSource:
+    description: The definition of the source artifacts in the application version vulnerability report
+    type: object
+    properties:
+      uuid:
+        type: string
+      host:
+        type: string
+      repository_name:
+        type: string
+      revision:
+        type: string
+  VersionVulnerabilityReportImage:
+    description: The definition of the image artifacts in the application version vulnerability report
+    type: object
+    properties:
+      image_digest:
+        type: string
+  VersionVulnerability:
+    description: A vulnerability in an application version vulnerability report with vulenrability data, affected artifacts, and packages
+    type: object
+    properties:
+      id:
+        type: string
+        description: The vulnerability id for the match
+      nvd:
+        type: array
+        items:
+          $ref: "#/definitions/VersionVulnerabilityNVD"
+      vendor_data:
+        $ref: "#/definitions/VersionVulnerabilityVendor"
+      matches:
+        type: array
+        items:
+          $ref: "#/definitions/VersionVulnerabilityMatch"
+  VersionVulnerabilityMatch:
+    description: The details of a match for a single matche for a vulnerability in an application version vulnerability report
+    type: object
+    properties:
+      fix:
+        type: string
+      location:
+        description: The location of the match, which includes both the package and the artifact it belongs to
+        type: object
+        properties:
+          artifact:
+            type: object
+            properties:
+              id:
+                type: string
+              type:
+                type: string
+          package:
+            type: object
+            properties:
+              name:
+                type: string
+              type:
+                type: string
+              version:
+                type: string
+              location:
+                type: string
+  VersionVulnerabilityVendorNVDCommon:
+    description: Values common to vendor and nvd entries in application version vulnerability report
+    properties:
+      cvss:
+        type: object
+        properties:
+          cvss_v2:
+            $ref: "#/definitions/CVSSV2Scores"
+          cvss_v3:
+            $ref: "#/definitions/CVSSV3Scores"
+      description:
+        type: string
+      severity:
+        type: string
+      url:
+        type: string
+  VersionVulnerabilityVendor:
+    description: The vendor information of the vulnerability
+    type: object
+    allOf:
+      - $ref: "#/definitions/VersionVulnerabilityVendorNVDCommon"
+      - type: object
+        properties:
+          feed:
+            type: string
+          group:
+            type: string
+          will_not_fix:
+            type: boolean
+  VersionVulnerabilityNVD:
+    description: NVD entry for application version vulnerability
+    allOf:
+      - $ref: "#/definitions/VersionVulnerabilityVendorNVDCommon"
+      - type: object
+        properties:
+          id:
+            type: string
   ApplicationVersionSbom:
     description: A combined sbom for the artifacts associated with an application version
     type: object
@@ -2915,8 +2945,7 @@ definitions:
         type: string
       locations:
         items:
-          "$schema": http://json-schema.org/draft-04/schema#
-          "$ref": "#/definitions/NativeSBOMPackageLocation"
+          $ref: "#/definitions/NativeSBOMPackageLocation"
         type: array
       licenses:
         items:
@@ -3090,6 +3119,12 @@ definitions:
               items:
                 type: string
               description: A list of Common Platform Enumerations that may uniquely identify the package
+            metadata_type:
+              description: The type of the metadata entry
+              type: string
+            metadata:
+              description: Package type specific metadata
+              type: object
   ContentFilesResponse:
     type: object
     description: "File content listings from images"
@@ -3258,6 +3293,9 @@ definitions:
         type: array
         items:
           type: string
+      metadata_type:
+        description: The type of the metadata entry
+        type: string
       metadata:
         description: Package type specific metadata
         type: object

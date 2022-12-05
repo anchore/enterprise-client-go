@@ -3,7 +3,7 @@ Anchore Engine API Server
 
 This is the Anchore Engine API. Provides the primary external API for users of the service.
 
-API version: 0.2.0
+API version: 0.3.0
 Contact: nurmi@anchore.com
 */
 
@@ -19,18 +19,21 @@ import (
 type UserCreationRequest struct {
 	// The username to create
 	Username string `json:"username"`
-	// The initial password for the user, must be at least 6 characters, up to 128
-	Password string `json:"password"`
+	// The initial password for the user, must be at least 6 characters, up to 128. This must be null when the user_type is not 'native'.
+	Password *string `json:"password,omitempty"`
+	// The user's type. A Native user authenticates using user/password log on. All other users will authenticate with an IDP.
+	UserType *string `json:"user_type,omitempty"`
+	// If the user is authenticating via an IDP, this is the name of the IDP. A 'native' user should have this set to null.
+	IdpName *string `json:"idp_name,omitempty"`
 }
 
 // NewUserCreationRequest instantiates a new UserCreationRequest object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewUserCreationRequest(username string, password string) *UserCreationRequest {
+func NewUserCreationRequest(username string) *UserCreationRequest {
 	this := UserCreationRequest{}
 	this.Username = username
-	this.Password = password
 	return &this
 }
 
@@ -66,28 +69,100 @@ func (o *UserCreationRequest) SetUsername(v string) {
 	o.Username = v
 }
 
-// GetPassword returns the Password field value
+// GetPassword returns the Password field value if set, zero value otherwise.
 func (o *UserCreationRequest) GetPassword() string {
-	if o == nil {
+	if o == nil || o.Password == nil {
 		var ret string
 		return ret
 	}
-
-	return o.Password
+	return *o.Password
 }
 
-// GetPasswordOk returns a tuple with the Password field value
+// GetPasswordOk returns a tuple with the Password field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserCreationRequest) GetPasswordOk() (*string, bool) {
-	if o == nil  {
+	if o == nil || o.Password == nil {
 		return nil, false
 	}
-	return &o.Password, true
+	return o.Password, true
 }
 
-// SetPassword sets field value
+// HasPassword returns a boolean if a field has been set.
+func (o *UserCreationRequest) HasPassword() bool {
+	if o != nil && o.Password != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetPassword gets a reference to the given string and assigns it to the Password field.
 func (o *UserCreationRequest) SetPassword(v string) {
-	o.Password = v
+	o.Password = &v
+}
+
+// GetUserType returns the UserType field value if set, zero value otherwise.
+func (o *UserCreationRequest) GetUserType() string {
+	if o == nil || o.UserType == nil {
+		var ret string
+		return ret
+	}
+	return *o.UserType
+}
+
+// GetUserTypeOk returns a tuple with the UserType field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *UserCreationRequest) GetUserTypeOk() (*string, bool) {
+	if o == nil || o.UserType == nil {
+		return nil, false
+	}
+	return o.UserType, true
+}
+
+// HasUserType returns a boolean if a field has been set.
+func (o *UserCreationRequest) HasUserType() bool {
+	if o != nil && o.UserType != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetUserType gets a reference to the given string and assigns it to the UserType field.
+func (o *UserCreationRequest) SetUserType(v string) {
+	o.UserType = &v
+}
+
+// GetIdpName returns the IdpName field value if set, zero value otherwise.
+func (o *UserCreationRequest) GetIdpName() string {
+	if o == nil || o.IdpName == nil {
+		var ret string
+		return ret
+	}
+	return *o.IdpName
+}
+
+// GetIdpNameOk returns a tuple with the IdpName field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *UserCreationRequest) GetIdpNameOk() (*string, bool) {
+	if o == nil || o.IdpName == nil {
+		return nil, false
+	}
+	return o.IdpName, true
+}
+
+// HasIdpName returns a boolean if a field has been set.
+func (o *UserCreationRequest) HasIdpName() bool {
+	if o != nil && o.IdpName != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetIdpName gets a reference to the given string and assigns it to the IdpName field.
+func (o *UserCreationRequest) SetIdpName(v string) {
+	o.IdpName = &v
 }
 
 func (o UserCreationRequest) MarshalJSON() ([]byte, error) {
@@ -95,8 +170,14 @@ func (o UserCreationRequest) MarshalJSON() ([]byte, error) {
 	if true {
 		toSerialize["username"] = o.Username
 	}
-	if true {
+	if o.Password != nil {
 		toSerialize["password"] = o.Password
+	}
+	if o.UserType != nil {
+		toSerialize["user_type"] = o.UserType
+	}
+	if o.IdpName != nil {
+		toSerialize["idp_name"] = o.IdpName
 	}
 	return json.Marshal(toSerialize)
 }

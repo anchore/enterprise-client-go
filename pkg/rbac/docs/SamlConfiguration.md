@@ -14,12 +14,13 @@ Name | Type | Description | Notes
 **IdpUsernameAttribute** | Pointer to **string** | The SAML attribute to use from the response assertions to determine the anchore username. If unset, the subject is used. | [optional] 
 **IdpAccountAttribute** | Pointer to **string** | The SAML attribute to use from the response assertions to determine the anchore account to use. If unset, the default is used. | [optional] 
 **IdpRoleAttribute** | Pointer to **string** | The SAML attribute to use from the response assertions to determine the anchore role(s) to assign a new user in the specified account. If unset, the default is used. | [optional] 
-**DefaultAccount** | Pointer to **string** | The existing anchore account to assign all users to from this IDP if no account attribute is mapped or present. | [optional] 
+**DefaultAccount** | Pointer to **string** | The anchore account to assign all users to from this IDP if no account attribute is mapped or present. | [optional] 
 **DefaultRole** | Pointer to **string** | The default role to apply to new users from this IDP if no attribute is mapped or found in the SAML assertions. | [optional] 
 **RequireSignedAssertions** | Pointer to **bool** | Require assertions in to be signed from the IDP | [optional] [default to true]
 **RequireSignedResponse** | Pointer to **bool** | Require the authn response to be signed by the IDP | [optional] [default to true]
 **CreatedAt** | Pointer to **time.Time** |  | [optional] 
 **LastUpdated** | Pointer to **time.Time** |  | [optional] 
+**RequireExistingUsers** | Pointer to **bool** | Indicates if Anchore will require an authenticating SSO user to already exist.  This field is ignored on POST/PUT Operations. | [optional] [default to false]
 
 ## Methods
 
@@ -419,6 +420,31 @@ SetLastUpdated sets LastUpdated field to given value.
 `func (o *SamlConfiguration) HasLastUpdated() bool`
 
 HasLastUpdated returns a boolean if a field has been set.
+
+### GetRequireExistingUsers
+
+`func (o *SamlConfiguration) GetRequireExistingUsers() bool`
+
+GetRequireExistingUsers returns the RequireExistingUsers field if non-nil, zero value otherwise.
+
+### GetRequireExistingUsersOk
+
+`func (o *SamlConfiguration) GetRequireExistingUsersOk() (*bool, bool)`
+
+GetRequireExistingUsersOk returns a tuple with the RequireExistingUsers field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetRequireExistingUsers
+
+`func (o *SamlConfiguration) SetRequireExistingUsers(v bool)`
+
+SetRequireExistingUsers sets RequireExistingUsers field to given value.
+
+### HasRequireExistingUsers
+
+`func (o *SamlConfiguration) HasRequireExistingUsers() bool`
+
+HasRequireExistingUsers returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

@@ -12,6 +12,7 @@ Name | Type | Description | Notes
 **Origin** | Pointer to **string** |  | [optional] 
 **Size** | Pointer to **int32** |  | [optional] 
 **Licenses** | Pointer to **[]string** |  | [optional] 
+**MetadataType** | Pointer to **string** | The type of the metadata entry | [optional] 
 **Metadata** | Pointer to **interface{}** | Package type specific metadata | [optional] 
 **SpecificationVersion** | Pointer to **string** | Spec version for java packages | [optional] 
 **ImplementationVersion** | Pointer to **string** | Implementation version for java packages | [optional] 
@@ -236,6 +237,31 @@ SetLicenses sets Licenses field to given value.
 `func (o *Package) HasLicenses() bool`
 
 HasLicenses returns a boolean if a field has been set.
+
+### GetMetadataType
+
+`func (o *Package) GetMetadataType() string`
+
+GetMetadataType returns the MetadataType field if non-nil, zero value otherwise.
+
+### GetMetadataTypeOk
+
+`func (o *Package) GetMetadataTypeOk() (*string, bool)`
+
+GetMetadataTypeOk returns a tuple with the MetadataType field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetMetadataType
+
+`func (o *Package) SetMetadataType(v string)`
+
+SetMetadataType sets MetadataType field to given value.
+
+### HasMetadataType
+
+`func (o *Package) HasMetadataType() bool`
+
+HasMetadataType returns a boolean if a field has been set.
 
 ### GetMetadata
 

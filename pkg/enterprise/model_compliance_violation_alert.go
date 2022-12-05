@@ -3,7 +3,7 @@ Anchore Enterprise API Server
 
 This is the Anchore Enterprise API. It provides additional external API routes and functionality for enterprise users.
 
-API version: 0.3.0
+API version: 0.5.0
 Contact: dev@anchore.com
 */
 

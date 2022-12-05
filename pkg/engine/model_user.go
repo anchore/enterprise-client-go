@@ -3,7 +3,7 @@ Anchore Engine API Server
 
 This is the Anchore Engine API. Provides the primary external API for users of the service.
 
-API version: 0.2.0
+API version: 0.3.0
 Contact: nurmi@anchore.com
 */
 
@@ -16,18 +16,20 @@ import (
 	"time"
 )
 
-// User A username for authenticating with one or more types of credentials. User type defines the expected credentials allowed for the user. Native users have passwords, External users have no credential internally. Internal users are service/system users for inter-service communication.
+// User A username for authenticating with one or more types of credentials. User type defines the expected credentials allowed for the user. Native users have passwords, other users have no credential internally. Internal users are service/system users for inter-service communication.
 type User struct {
 	// The username to authenticate with
 	Username string `json:"username"`
 	// The user's type
 	Type *string `json:"type,omitempty"`
-	// If the user is external, this is the source that the user was initialized from. All other user types have this set to null
+	// When the user 'type' is 'saml', this will be the EntityId of the IDP that they are authenticating from. Otherwise, this will be set to null.
 	Source *string `json:"source,omitempty"`
-	// The timestampt the user record was created
+	// The timestamp of when the user record was created
 	CreatedAt *time.Time `json:"created_at,omitempty"`
 	// The timestamp of the last update to this record
 	LastUpdated *time.Time `json:"last_updated,omitempty"`
+	// When the user 'type' is 'saml', this will be the configured name of the IDP that they are authenticating from.  Otherwise, this will be set to null.
+	IdpName *string `json:"idp_name,omitempty"`
 }
 
 // NewUser instantiates a new User object
@@ -200,6 +202,38 @@ func (o *User) SetLastUpdated(v time.Time) {
 	o.LastUpdated = &v
 }
 
+// GetIdpName returns the IdpName field value if set, zero value otherwise.
+func (o *User) GetIdpName() string {
+	if o == nil || o.IdpName == nil {
+		var ret string
+		return ret
+	}
+	return *o.IdpName
+}
+
+// GetIdpNameOk returns a tuple with the IdpName field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *User) GetIdpNameOk() (*string, bool) {
+	if o == nil || o.IdpName == nil {
+		return nil, false
+	}
+	return o.IdpName, true
+}
+
+// HasIdpName returns a boolean if a field has been set.
+func (o *User) HasIdpName() bool {
+	if o != nil && o.IdpName != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetIdpName gets a reference to the given string and assigns it to the IdpName field.
+func (o *User) SetIdpName(v string) {
+	o.IdpName = &v
+}
+
 func (o User) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
@@ -216,6 +250,9 @@ func (o User) MarshalJSON() ([]byte, error) {
 	}
 	if o.LastUpdated != nil {
 		toSerialize["last_updated"] = o.LastUpdated
+	}
+	if o.IdpName != nil {
+		toSerialize["idp_name"] = o.IdpName
 	}
 	return json.Marshal(toSerialize)
 }

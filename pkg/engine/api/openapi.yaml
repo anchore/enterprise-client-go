@@ -8,7 +8,7 @@ info:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
   title: Anchore Engine API Server
-  version: 0.2.0
+  version: 0.3.0
 servers:
 - url: /
 tags:
@@ -2598,7 +2598,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/ApiErrorResponse'
           description: Internal error
-      summary: List user summaries. Only available to the system admin user.
+      summary: List account summaries. Only available to the system admin user.
       tags:
       - User Management
       x-swagger-router-controller: anchore_engine.services.apiext.api.controllers.accounts
@@ -2630,7 +2630,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/ApiErrorResponse'
           description: Internal error
-      summary: Create a new user. Only avaialble to admin user.
+      summary: Create a new account. Only avaialble to admin user.
       tags:
       - User Management
       x-swagger-router-controller: anchore_engine.services.apiext.api.controllers.accounts
@@ -2685,8 +2685,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/ApiErrorResponse'
           description: Internal error
-      summary: Get info about an user. Only available to admin user. Uses the main
-        user Id, not a username.
+      summary: Get account info about this specific account.
       tags:
       - User Management
       x-swagger-router-controller: anchore_engine.services.apiext.api.controllers.accounts
@@ -2759,7 +2758,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/ApiErrorResponse'
           description: Internal error
-      summary: List accounts for the user
+      summary: List of users found in this account.
       tags:
       - User Management
       x-swagger-router-controller: anchore_engine.services.apiext.api.controllers.accounts
@@ -2786,7 +2785,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/User'
           description: Credential summary
-      summary: Create a new user
+      summary: Create a new user within the specified account.
       tags:
       - User Management
       x-swagger-router-controller: anchore_engine.services.apiext.api.controllers.accounts
@@ -5237,11 +5236,13 @@ components:
           licenses:
           - licenses
           - licenses
+          metadata: '{}'
           package: package
           size: size
           cpes:
           - cpes
           - cpes
+          metadata_type: metadata_type
           origin: origin
           location: location
           type: type
@@ -5250,11 +5251,13 @@ components:
           licenses:
           - licenses
           - licenses
+          metadata: '{}'
           package: package
           size: size
           cpes:
           - cpes
           - cpes
+          metadata_type: metadata_type
           origin: origin
           location: location
           type: type
@@ -6276,10 +6279,11 @@ components:
     User:
       description: A username for authenticating with one or more types of credentials.
         User type defines the expected credentials allowed for the user. Native users
-        have passwords, External users have no credential internally. Internal users
+        have passwords, other users have no credential internally. Internal users
         are service/system users for inter-service communication.
       example:
         last_updated: 2000-01-23T04:56:07.000+00:00
+        idp_name: idp_name
         created_at: 2000-01-23T04:56:07.000+00:00
         source: source
         type: native
@@ -6292,20 +6296,25 @@ components:
           description: The user's type
           enum:
           - native
-          - internal
-          - external
+          - saml
           type: string
         source:
-          description: If the user is external, this is the source that the user was
-            initialized from. All other user types have this set to null
+          description: When the user 'type' is 'saml', this will be the EntityId of
+            the IDP that they are authenticating from. Otherwise, this will be set
+            to null.
           type: string
         created_at:
-          description: The timestampt the user record was created
+          description: The timestamp of when the user record was created
           format: date-time
           type: string
         last_updated:
           description: The timestamp of the last update to this record
           format: date-time
+          type: string
+        idp_name:
+          description: When the user 'type' is 'saml', this will be the configured
+            name of the IDP that they are authenticating from.  Otherwise, this will
+            be set to null.
           type: string
       required:
       - username
@@ -6315,6 +6324,8 @@ components:
         in a single request
       example:
         password: password
+        idp_name: idp_name
+        user_type: native
         username: username
       properties:
         username:
@@ -6323,11 +6334,21 @@ components:
           type: string
         password:
           description: The initial password for the user, must be at least 6 characters,
-            up to 128
+            up to 128. This must be null when the user_type is not 'native'.
           pattern: .{6,128}$
           type: string
+        user_type:
+          description: The user's type. A Native user authenticates using user/password
+            log on. All other users will authenticate with an IDP.
+          enum:
+          - native
+          - saml
+          type: string
+        idp_name:
+          description: If the user is authenticating via an IDP, this is the name
+            of the IDP. A 'native' user should have this set to null.
+          type: string
       required:
-      - password
       - username
       type: object
     AccessCredential:
@@ -7553,11 +7574,13 @@ components:
         licenses:
         - licenses
         - licenses
+        metadata: '{}'
         package: package
         size: size
         cpes:
         - cpes
         - cpes
+        metadata_type: metadata_type
         origin: origin
         location: location
         type: type
@@ -7588,6 +7611,13 @@ components:
           items:
             type: string
           type: array
+        metadata_type:
+          description: The type of the metadata entry
+          type: string
+        metadata:
+          description: Package type specific metadata
+          properties: {}
+          type: object
       type: object
     MalwareScan_findings:
       example:

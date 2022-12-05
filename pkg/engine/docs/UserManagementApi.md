@@ -4,17 +4,17 @@ All URIs are relative to *http://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateAccount**](UserManagementApi.md#CreateAccount) | **Post** /accounts | Create a new user. Only avaialble to admin user.
-[**CreateUser**](UserManagementApi.md#CreateUser) | **Post** /accounts/{accountname}/users | Create a new user
+[**CreateAccount**](UserManagementApi.md#CreateAccount) | **Post** /accounts | Create a new account. Only avaialble to admin user.
+[**CreateUser**](UserManagementApi.md#CreateUser) | **Post** /accounts/{accountname}/users | Create a new user within the specified account.
 [**CreateUserCredential**](UserManagementApi.md#CreateUserCredential) | **Post** /accounts/{accountname}/users/{username}/credentials | add/replace credential
 [**DeleteAccount**](UserManagementApi.md#DeleteAccount) | **Delete** /accounts/{accountname} | Delete the specified account, only allowed if the account is in the disabled state. All users will be deleted along with the account and all resources will be garbage collected
 [**DeleteUser**](UserManagementApi.md#DeleteUser) | **Delete** /accounts/{accountname}/users/{username} | Delete a specific user credential by username of the credential. Cannot be the credential used to authenticate the request.
 [**DeleteUserCredential**](UserManagementApi.md#DeleteUserCredential) | **Delete** /accounts/{accountname}/users/{username}/credentials | Delete a credential by type
-[**GetAccount**](UserManagementApi.md#GetAccount) | **Get** /accounts/{accountname} | Get info about an user. Only available to admin user. Uses the main user Id, not a username.
+[**GetAccount**](UserManagementApi.md#GetAccount) | **Get** /accounts/{accountname} | Get account info about this specific account.
 [**GetAccountUser**](UserManagementApi.md#GetAccountUser) | **Get** /accounts/{accountname}/users/{username} | Get a specific user in the specified account
-[**ListAccounts**](UserManagementApi.md#ListAccounts) | **Get** /accounts | List user summaries. Only available to the system admin user.
+[**ListAccounts**](UserManagementApi.md#ListAccounts) | **Get** /accounts | List account summaries. Only available to the system admin user.
 [**ListUserCredentials**](UserManagementApi.md#ListUserCredentials) | **Get** /accounts/{accountname}/users/{username}/credentials | Get current credential summary
-[**ListUsers**](UserManagementApi.md#ListUsers) | **Get** /accounts/{accountname}/users | List accounts for the user
+[**ListUsers**](UserManagementApi.md#ListUsers) | **Get** /accounts/{accountname}/users | List of users found in this account.
 [**UpdateAccountState**](UserManagementApi.md#UpdateAccountState) | **Put** /accounts/{accountname}/state | Update the state of an account to either enabled or disabled. For deletion use the DELETE route
 
 
@@ -23,7 +23,7 @@ Method | HTTP request | Description
 
 > Account CreateAccount(ctx).Account(account).Execute()
 
-Create a new user. Only avaialble to admin user.
+Create a new account. Only avaialble to admin user.
 
 ### Example
 
@@ -87,7 +87,7 @@ No authorization required
 
 > User CreateUser(ctx, accountname).User(user).Execute()
 
-Create a new user
+Create a new user within the specified account.
 
 ### Example
 
@@ -103,7 +103,7 @@ import (
 
 func main() {
     accountname := "accountname_example" // string | 
-    user := *openapiclient.NewUserCreationRequest("Username_example", "Password_example") // UserCreationRequest | 
+    user := *openapiclient.NewUserCreationRequest("Username_example") // UserCreationRequest | 
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
@@ -436,7 +436,7 @@ No authorization required
 
 > Account GetAccount(ctx, accountname).Execute()
 
-Get info about an user. Only available to admin user. Uses the main user Id, not a username.
+Get account info about this specific account.
 
 ### Example
 
@@ -575,7 +575,7 @@ No authorization required
 
 > []Account ListAccounts(ctx).State(state).Execute()
 
-List user summaries. Only available to the system admin user.
+List account summaries. Only available to the system admin user.
 
 ### Example
 
@@ -710,7 +710,7 @@ No authorization required
 
 > []User ListUsers(ctx, accountname).Execute()
 
-List accounts for the user
+List of users found in this account.
 
 ### Example
 
