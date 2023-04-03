@@ -3,7 +3,7 @@ Anchore Engine API Server
 
 This is the Anchore Engine API. Provides the primary external API for users of the service.
 
-API version: 0.3.0
+API version: 0.6.0
 Contact: nurmi@anchore.com
 */
 
@@ -246,6 +246,19 @@ type ImagesApi interface {
 	GetImagePolicyCheckByImageIdExecute(r ApiGetImagePolicyCheckByImageIdRequest) ([]interface{}, *_nethttp.Response, error)
 
 	/*
+	GetImageSbomCyclonedxJson Get image sbom in the CycloneDX format
+
+	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	 @param imageDigest
+	 @return ApiGetImageSbomCyclonedxJsonRequest
+	*/
+	GetImageSbomCyclonedxJson(ctx _context.Context, imageDigest string) ApiGetImageSbomCyclonedxJsonRequest
+
+	// GetImageSbomCyclonedxJsonExecute executes the request
+	//  @return string
+	GetImageSbomCyclonedxJsonExecute(r ApiGetImageSbomCyclonedxJsonRequest) (string, *_nethttp.Response, error)
+
+	/*
 	GetImageSbomNative Get image sbom in the native Anchore format
 
 	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
@@ -257,6 +270,32 @@ type ImagesApi interface {
 	// GetImageSbomNativeExecute executes the request
 	//  @return *os.File
 	GetImageSbomNativeExecute(r ApiGetImageSbomNativeRequest) (*os.File, *_nethttp.Response, error)
+
+	/*
+	GetImageSbomNativeJson Get image sbom in the native Anchore format
+
+	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	 @param imageDigest
+	 @return ApiGetImageSbomNativeJsonRequest
+	*/
+	GetImageSbomNativeJson(ctx _context.Context, imageDigest string) ApiGetImageSbomNativeJsonRequest
+
+	// GetImageSbomNativeJsonExecute executes the request
+	//  @return string
+	GetImageSbomNativeJsonExecute(r ApiGetImageSbomNativeJsonRequest) (string, *_nethttp.Response, error)
+
+	/*
+	GetImageSbomSpdxJson Get image sbom in the SPDX format
+
+	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	 @param imageDigest
+	 @return ApiGetImageSbomSpdxJsonRequest
+	*/
+	GetImageSbomSpdxJson(ctx _context.Context, imageDigest string) ApiGetImageSbomSpdxJsonRequest
+
+	// GetImageSbomSpdxJsonExecute executes the request
+	//  @return string
+	GetImageSbomSpdxJsonExecute(r ApiGetImageSbomSpdxJsonRequest) (string, *_nethttp.Response, error)
 
 	/*
 	GetImageVulnerabilitiesByType Get vulnerabilities by type
@@ -2459,6 +2498,128 @@ func (a *ImagesApiService) GetImagePolicyCheckByImageIdExecute(r ApiGetImagePoli
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+type ApiGetImageSbomCyclonedxJsonRequest struct {
+	ctx _context.Context
+	ApiService ImagesApi
+	imageDigest string
+	xAnchoreAccount *string
+}
+
+// An account name to change the resource scope of the request to that account, if permissions allow (admin only)
+func (r ApiGetImageSbomCyclonedxJsonRequest) XAnchoreAccount(xAnchoreAccount string) ApiGetImageSbomCyclonedxJsonRequest {
+	r.xAnchoreAccount = &xAnchoreAccount
+	return r
+}
+
+func (r ApiGetImageSbomCyclonedxJsonRequest) Execute() (string, *_nethttp.Response, error) {
+	return r.ApiService.GetImageSbomCyclonedxJsonExecute(r)
+}
+
+/*
+GetImageSbomCyclonedxJson Get image sbom in the CycloneDX format
+
+ @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param imageDigest
+ @return ApiGetImageSbomCyclonedxJsonRequest
+*/
+func (a *ImagesApiService) GetImageSbomCyclonedxJson(ctx _context.Context, imageDigest string) ApiGetImageSbomCyclonedxJsonRequest {
+	return ApiGetImageSbomCyclonedxJsonRequest{
+		ApiService: a,
+		ctx: ctx,
+		imageDigest: imageDigest,
+	}
+}
+
+// Execute executes the request
+//  @return string
+func (a *ImagesApiService) GetImageSbomCyclonedxJsonExecute(r ApiGetImageSbomCyclonedxJsonRequest) (string, *_nethttp.Response, error) {
+	var (
+		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarPostBody     interface{}
+		localVarFormFileName string
+		localVarFileName     string
+		localVarFileBytes    []byte
+		localVarReturnValue  string
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ImagesApiService.GetImageSbomCyclonedxJson")
+	if err != nil {
+		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/images/{imageDigest}/sboms/cyclonedx-json"
+	localVarPath = strings.Replace(localVarPath, "{"+"imageDigest"+"}", _neturl.PathEscape(parameterToString(r.imageDigest, "")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := _neturl.Values{}
+	localVarFormParams := _neturl.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	if r.xAnchoreAccount != nil {
+		localVarHeaderParams["x-anchore-account"] = parameterToString(*r.xAnchoreAccount, "")
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 500 {
+			var v ApiErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
 type ApiGetImageSbomNativeRequest struct {
 	ctx _context.Context
 	ApiService ImagesApi
@@ -2526,6 +2687,250 @@ func (a *ImagesApiService) GetImageSbomNativeExecute(r ApiGetImageSbomNativeRequ
 
 	// to determine the Accept header
 	localVarHTTPHeaderAccepts := []string{"application/gzip"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	if r.xAnchoreAccount != nil {
+		localVarHeaderParams["x-anchore-account"] = parameterToString(*r.xAnchoreAccount, "")
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 500 {
+			var v ApiErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiGetImageSbomNativeJsonRequest struct {
+	ctx _context.Context
+	ApiService ImagesApi
+	imageDigest string
+	xAnchoreAccount *string
+}
+
+// An account name to change the resource scope of the request to that account, if permissions allow (admin only)
+func (r ApiGetImageSbomNativeJsonRequest) XAnchoreAccount(xAnchoreAccount string) ApiGetImageSbomNativeJsonRequest {
+	r.xAnchoreAccount = &xAnchoreAccount
+	return r
+}
+
+func (r ApiGetImageSbomNativeJsonRequest) Execute() (string, *_nethttp.Response, error) {
+	return r.ApiService.GetImageSbomNativeJsonExecute(r)
+}
+
+/*
+GetImageSbomNativeJson Get image sbom in the native Anchore format
+
+ @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param imageDigest
+ @return ApiGetImageSbomNativeJsonRequest
+*/
+func (a *ImagesApiService) GetImageSbomNativeJson(ctx _context.Context, imageDigest string) ApiGetImageSbomNativeJsonRequest {
+	return ApiGetImageSbomNativeJsonRequest{
+		ApiService: a,
+		ctx: ctx,
+		imageDigest: imageDigest,
+	}
+}
+
+// Execute executes the request
+//  @return string
+func (a *ImagesApiService) GetImageSbomNativeJsonExecute(r ApiGetImageSbomNativeJsonRequest) (string, *_nethttp.Response, error) {
+	var (
+		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarPostBody     interface{}
+		localVarFormFileName string
+		localVarFileName     string
+		localVarFileBytes    []byte
+		localVarReturnValue  string
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ImagesApiService.GetImageSbomNativeJson")
+	if err != nil {
+		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/images/{imageDigest}/sboms/native-json"
+	localVarPath = strings.Replace(localVarPath, "{"+"imageDigest"+"}", _neturl.PathEscape(parameterToString(r.imageDigest, "")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := _neturl.Values{}
+	localVarFormParams := _neturl.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	if r.xAnchoreAccount != nil {
+		localVarHeaderParams["x-anchore-account"] = parameterToString(*r.xAnchoreAccount, "")
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 500 {
+			var v ApiErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiGetImageSbomSpdxJsonRequest struct {
+	ctx _context.Context
+	ApiService ImagesApi
+	imageDigest string
+	xAnchoreAccount *string
+}
+
+// An account name to change the resource scope of the request to that account, if permissions allow (admin only)
+func (r ApiGetImageSbomSpdxJsonRequest) XAnchoreAccount(xAnchoreAccount string) ApiGetImageSbomSpdxJsonRequest {
+	r.xAnchoreAccount = &xAnchoreAccount
+	return r
+}
+
+func (r ApiGetImageSbomSpdxJsonRequest) Execute() (string, *_nethttp.Response, error) {
+	return r.ApiService.GetImageSbomSpdxJsonExecute(r)
+}
+
+/*
+GetImageSbomSpdxJson Get image sbom in the SPDX format
+
+ @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param imageDigest
+ @return ApiGetImageSbomSpdxJsonRequest
+*/
+func (a *ImagesApiService) GetImageSbomSpdxJson(ctx _context.Context, imageDigest string) ApiGetImageSbomSpdxJsonRequest {
+	return ApiGetImageSbomSpdxJsonRequest{
+		ApiService: a,
+		ctx: ctx,
+		imageDigest: imageDigest,
+	}
+}
+
+// Execute executes the request
+//  @return string
+func (a *ImagesApiService) GetImageSbomSpdxJsonExecute(r ApiGetImageSbomSpdxJsonRequest) (string, *_nethttp.Response, error) {
+	var (
+		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarPostBody     interface{}
+		localVarFormFileName string
+		localVarFileName     string
+		localVarFileBytes    []byte
+		localVarReturnValue  string
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ImagesApiService.GetImageSbomSpdxJson")
+	if err != nil {
+		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/images/{imageDigest}/sboms/spdx-json"
+	localVarPath = strings.Replace(localVarPath, "{"+"imageDigest"+"}", _neturl.PathEscape(parameterToString(r.imageDigest, "")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := _neturl.Values{}
+	localVarFormParams := _neturl.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)

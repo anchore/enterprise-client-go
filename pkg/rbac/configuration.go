@@ -104,7 +104,7 @@ type Configuration struct {
 func NewConfiguration() *Configuration {
 	cfg := &Configuration{
 		DefaultHeader:    make(map[string]string),
-		UserAgent:        "anchore-client/4.1.0/go",
+		UserAgent:        "anchore-client/4.6.0/go",
 		Debug:            false,
 		Servers:          ServerConfigurations{
 			{

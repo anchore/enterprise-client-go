@@ -3,7 +3,7 @@ Anchore Engine API Server
 
 This is the Anchore Engine API. Provides the primary external API for users of the service.
 
-API version: 0.3.0
+API version: 0.6.0
 Contact: nurmi@anchore.com
 */
 
@@ -25,6 +25,7 @@ type AnchoreImage struct {
 	LastUpdated *time.Time `json:"last_updated,omitempty"`
 	CreatedAt *time.Time `json:"created_at,omitempty"`
 	ImageDigest *string `json:"imageDigest,omitempty"`
+	ParentDigest *string `json:"parentDigest,omitempty"`
 	UserId *string `json:"userId,omitempty"`
 	Annotations *interface{} `json:"annotations,omitempty"`
 	// State of the image
@@ -33,6 +34,7 @@ type AnchoreImage struct {
 	AnalysisStatus *string `json:"analysis_status,omitempty"`
 	// The version of the record, used for internal schema updates and data migrations.
 	RecordVersion *string `json:"record_version,omitempty"`
+	AnalysisStatusDetail []AnalysisStatusDetail `json:"analysis_status_detail,omitempty"`
 }
 
 // NewAnchoreImage instantiates a new AnchoreImage object
@@ -212,6 +214,38 @@ func (o *AnchoreImage) SetImageDigest(v string) {
 	o.ImageDigest = &v
 }
 
+// GetParentDigest returns the ParentDigest field value if set, zero value otherwise.
+func (o *AnchoreImage) GetParentDigest() string {
+	if o == nil || o.ParentDigest == nil {
+		var ret string
+		return ret
+	}
+	return *o.ParentDigest
+}
+
+// GetParentDigestOk returns a tuple with the ParentDigest field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AnchoreImage) GetParentDigestOk() (*string, bool) {
+	if o == nil || o.ParentDigest == nil {
+		return nil, false
+	}
+	return o.ParentDigest, true
+}
+
+// HasParentDigest returns a boolean if a field has been set.
+func (o *AnchoreImage) HasParentDigest() bool {
+	if o != nil && o.ParentDigest != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetParentDigest gets a reference to the given string and assigns it to the ParentDigest field.
+func (o *AnchoreImage) SetParentDigest(v string) {
+	o.ParentDigest = &v
+}
+
 // GetUserId returns the UserId field value if set, zero value otherwise.
 func (o *AnchoreImage) GetUserId() string {
 	if o == nil || o.UserId == nil {
@@ -372,6 +406,39 @@ func (o *AnchoreImage) SetRecordVersion(v string) {
 	o.RecordVersion = &v
 }
 
+// GetAnalysisStatusDetail returns the AnalysisStatusDetail field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *AnchoreImage) GetAnalysisStatusDetail() []AnalysisStatusDetail {
+	if o == nil  {
+		var ret []AnalysisStatusDetail
+		return ret
+	}
+	return o.AnalysisStatusDetail
+}
+
+// GetAnalysisStatusDetailOk returns a tuple with the AnalysisStatusDetail field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *AnchoreImage) GetAnalysisStatusDetailOk() (*[]AnalysisStatusDetail, bool) {
+	if o == nil || o.AnalysisStatusDetail == nil {
+		return nil, false
+	}
+	return &o.AnalysisStatusDetail, true
+}
+
+// HasAnalysisStatusDetail returns a boolean if a field has been set.
+func (o *AnchoreImage) HasAnalysisStatusDetail() bool {
+	if o != nil && o.AnalysisStatusDetail != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetAnalysisStatusDetail gets a reference to the given []AnalysisStatusDetail and assigns it to the AnalysisStatusDetail field.
+func (o *AnchoreImage) SetAnalysisStatusDetail(v []AnalysisStatusDetail) {
+	o.AnalysisStatusDetail = v
+}
+
 func (o AnchoreImage) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.ImageContent != nil {
@@ -389,6 +456,9 @@ func (o AnchoreImage) MarshalJSON() ([]byte, error) {
 	if o.ImageDigest != nil {
 		toSerialize["imageDigest"] = o.ImageDigest
 	}
+	if o.ParentDigest != nil {
+		toSerialize["parentDigest"] = o.ParentDigest
+	}
 	if o.UserId != nil {
 		toSerialize["userId"] = o.UserId
 	}
@@ -403,6 +473,9 @@ func (o AnchoreImage) MarshalJSON() ([]byte, error) {
 	}
 	if o.RecordVersion != nil {
 		toSerialize["record_version"] = o.RecordVersion
+	}
+	if o.AnalysisStatusDetail != nil {
+		toSerialize["analysis_status_detail"] = o.AnalysisStatusDetail
 	}
 	return json.Marshal(toSerialize)
 }

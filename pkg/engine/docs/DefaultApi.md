@@ -10,13 +10,14 @@ Method | HTTP request | Description
 [**ListRetrievedFiles**](DefaultApi.md#ListRetrievedFiles) | **Get** /images/{imageDigest}/artifacts/retrieved_files | Return a list of analyzer artifacts of the specified type
 [**ListSecretSearchResults**](DefaultApi.md#ListSecretSearchResults) | **Get** /images/{imageDigest}/artifacts/secret_search | Return a list of analyzer artifacts of the specified type
 [**Ping**](DefaultApi.md#Ping) | **Get** / | 
+[**RevokeOauthToken**](DefaultApi.md#RevokeOauthToken) | **Post** /oauth/revoke | 
 [**VersionCheck**](DefaultApi.md#VersionCheck) | **Get** /version | 
 
 
 
 ## GetOauthToken
 
-> TokenResponse GetOauthToken(ctx).GrantType(grantType).Username(username).Password(password).ClientId(clientId).Execute()
+> TokenResponse GetOauthToken(ctx).GrantType(grantType).Username(username).Password(password).ClientId(clientId).RefreshToken(refreshToken).Execute()
 
 
 
@@ -39,10 +40,11 @@ func main() {
     username := "username_example" // string | User to assign OAuth token to (optional)
     password := "password_example" // string | Password for corresponding user (optional)
     clientId := "clientId_example" // string | The type of client used for the OAuth token (optional) (default to "anonymous")
+    refreshToken := "refreshToken_example" // string | The refresh token from a previous password grant request, used to get a new access_token (optional)
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.DefaultApi.GetOauthToken(context.Background()).GrantType(grantType).Username(username).Password(password).ClientId(clientId).Execute()
+    resp, r, err := api_client.DefaultApi.GetOauthToken(context.Background()).GrantType(grantType).Username(username).Password(password).ClientId(clientId).RefreshToken(refreshToken).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.GetOauthToken``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -67,6 +69,7 @@ Name | Type | Description  | Notes
  **username** | **string** | User to assign OAuth token to | 
  **password** | **string** | Password for corresponding user | 
  **clientId** | **string** | The type of client used for the OAuth token | [default to &quot;anonymous&quot;]
+ **refreshToken** | **string** | The refresh token from a previous password grant request, used to get a new access_token | 
 
 ### Return type
 
@@ -403,6 +406,72 @@ No authorization required
 ### HTTP request headers
 
 - **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## RevokeOauthToken
+
+> RevokeOauthToken(ctx).Token(token).TokenTypeHint(tokenTypeHint).Execute()
+
+
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    token := "token_example" // string | The token to be revoked (optional)
+    tokenTypeHint := "tokenTypeHint_example" // string | A hint about the type of token to be revoked (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.RevokeOauthToken(context.Background()).Token(token).TokenTypeHint(tokenTypeHint).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.RevokeOauthToken``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiRevokeOauthTokenRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **token** | **string** | The token to be revoked | 
+ **tokenTypeHint** | **string** | A hint about the type of token to be revoked | 
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/x-www-form-urlencoded
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)

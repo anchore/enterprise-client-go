@@ -20,7 +20,7 @@ produces:
 paths:
   /health:
     get:
-      x-swagger-router-controller: anchore_engine.apis.common
+      x-swagger-router-controller: anchore_enterprise.common.common
       operationId: health_check
       x-anchore-authz-action: None
       description: Health check, returns 200 and no body if service is running
@@ -618,7 +618,7 @@ definitions:
         description: The entity ID for this SP. Can be the same for all IDP configurations in this installation or unique to each. This is typically a URL, but you can use any value as long as you also configure the IDP to expect this value.
       acs_url:
         type: string
-        description: The URL the IDP can use to access the Assertion Consumer Service to provide the token for sso. This is the way to reach the rbac manager services /v1/saml/sso/{IDP_name} route externally
+        description: The URL the IDP can use to access the Assertion Consumer Service to provide the token for sso. This is the way to reach the rbac manager services /service/sso/auth/{IDP_name} route externally
       acs_https_port:
         type: integer
         description: The port number to use for https if not 443. If omitted or -1, 443 is assumed and used as a default

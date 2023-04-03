@@ -1,7 +1,7 @@
 swagger: "2.0"
 info:
   description: "This is the Anchore Engine API. Provides the primary external API for users of the service."
-  version: "0.3.0"
+  version: "0.6.0"
   title: "Anchore Engine API Server"
   contact:
     email: "nurmi@anchore.com"
@@ -63,7 +63,7 @@ parameters:
 paths:
   /:
     get:
-      x-swagger-router-controller: anchore_engine.services.apiext.api.controllers.system
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.system
       operationId: ping
       x-anchore-authz-action: None
       description: Simple status check
@@ -74,7 +74,7 @@ paths:
             type: string
   /health:
     get:
-      x-swagger-router-controller: anchore_engine.apis.common
+      x-swagger-router-controller: anchore_enterprise.common.common
       operationId: health_check
       x-anchore-authz-action: None
       description: Health check, returns 200 and no body if service is running
@@ -83,7 +83,7 @@ paths:
           description: Empty body on success
   /version:
     get:
-      x-swagger-router-controller: anchore_engine.apis.common
+      x-swagger-router-controller: anchore_enterprise.common.common
       operationId: version_check
       x-anchore-authz-action: None
       description: Returns the version object for the service, including db schema version info
@@ -96,7 +96,7 @@ paths:
     get:
       tags:
         - Policies
-      x-swagger-router-controller: anchore_engine.services.apiext.api.controllers.policies
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.policies
       x-anchore-authz-action: listPolicies
       operationId: list_policies
       summary: List policies
@@ -116,7 +116,7 @@ paths:
     post:
       tags:
         - Policies
-      x-swagger-router-controller: anchore_engine.services.apiext.api.controllers.policies
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.policies
       operationId: add_policy
       x-anchore-authz-action: createPolicy
       summary: Add a new policy
@@ -141,7 +141,7 @@ paths:
     get:
       tags:
         - Policies
-      x-swagger-router-controller: anchore_engine.services.apiext.api.controllers.policies
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.policies
       operationId: get_policy
       x-anchore-authz-action: getPolicy
       description: Get the policy bundle content
@@ -170,7 +170,7 @@ paths:
     put:
       tags:
         - Policies
-      x-swagger-router-controller: anchore_engine.services.apiext.api.controllers.policies
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.policies
       operationId: update_policy
       x-anchore-authz-action: updatePolicy
       description: Update/replace and existing policy
@@ -204,7 +204,7 @@ paths:
     delete:
       tags:
         - Policies
-      x-swagger-router-controller: anchore_engine.services.apiext.api.controllers.policies
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.policies
       operationId: delete_policy
       x-anchore-authz-action: deletePolicy
       description: Delete the specified policy
@@ -231,7 +231,7 @@ paths:
     get:
       tags:
         - Subscriptions
-      x-swagger-router-controller: anchore_engine.services.apiext.api.controllers.subscriptions
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.subscriptions
       operationId: list_subscriptions
       x-anchore-authz-action: listSubscriptions
       summary: List all subscriptions
@@ -259,7 +259,7 @@ paths:
     post:
       tags:
         - Subscriptions
-      x-swagger-router-controller: anchore_engine.services.apiext.api.controllers.subscriptions
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.subscriptions
       operationId: add_subscription
       x-anchore-authz-action: createSubscription
       summary: Add a subscription of a specific type
@@ -280,7 +280,7 @@ paths:
     get:
       tags:
         - Subscriptions
-      x-swagger-router-controller: anchore_engine.services.apiext.api.controllers.subscriptions
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.subscriptions
       operationId: get_subscription
       x-anchore-authz-action: getSubscription
       summary: Get a specific subscription set
@@ -303,7 +303,7 @@ paths:
     put:
       tags:
         - Subscriptions
-      x-swagger-router-controller: anchore_engine.services.apiext.api.controllers.subscriptions
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.subscriptions
       operationId: update_subscription
       x-anchore-authz-action: updateSubscription
       summary: Update an existing and specific subscription
@@ -327,7 +327,7 @@ paths:
     delete:
       tags:
         - Subscriptions
-      x-swagger-router-controller: anchore_engine.services.apiext.api.controllers.subscriptions
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.subscriptions
       operationId: delete_subscription
       x-anchore-authz-action: deleteSubscription
       summary: Delete subscriptions of a specific type
@@ -349,7 +349,7 @@ paths:
     get:
       tags:
         - Summaries
-      x-swagger-router-controller: anchore_engine.services.apiext.api.controllers.images
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.images
       operationId: list_imagetags
       x-anchore-authz-action: listImages
       summary: List all visible image digests and tags
@@ -383,7 +383,7 @@ paths:
     post:
       tags:
         - Images
-      x-swagger-router-controller: anchore_engine.services.apiext.api.controllers.images
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.images
       operationId: add_image
       x-anchore-authz-action: createImage
       summary: Submit a new image for analysis by the engine
@@ -417,7 +417,7 @@ paths:
     get:
       tags:
         - Images
-      x-swagger-router-controller: anchore_engine.services.apiext.api.controllers.images
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.images
       operationId: list_images
       x-anchore-authz-action: listImages
       summary: List all visible images
@@ -466,7 +466,7 @@ paths:
     delete:
       tags:
         - Images
-      x-swagger-router-controller: anchore_engine.services.apiext.api.controllers.images
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.images
       operationId: delete_images_async
       x-anchore-authz-action: deleteImage
       summary: Bulk mark images for deletion
@@ -498,7 +498,7 @@ paths:
     post:
       tags:
         - Import
-      x-swagger-router-controller: anchore_engine.services.apiext.api.controllers.images
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.images
       operationId: import_image_archive
       x-anchore-authz-action: importImage
       summary: Import an anchore image tar.gz archive file. This is a deprecated API replaced by the "/imports/images" route
@@ -523,7 +523,7 @@ paths:
     get:
       tags:
         - Images
-      x-swagger-router-controller: anchore_engine.services.apiext.api.controllers.images
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.images
       operationId: get_image
       x-anchore-authz-action: getImage
       summary: Get image metadata
@@ -546,7 +546,7 @@ paths:
     delete:
       tags:
         - Images
-      x-swagger-router-controller: anchore_engine.services.apiext.api.controllers.images
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.images
       operationId: delete_image
       x-anchore-authz-action: deleteImage
       summary: Delete an image analysis
@@ -570,7 +570,7 @@ paths:
     get:
       tags:
         - Images
-      x-swagger-router-controller: anchore_engine.services.apiext.api.controllers.images
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.images
       operationId: get_image_by_imageId
       x-anchore-authz-action: getImage
       summary: Lookup image by docker imageId
@@ -593,7 +593,7 @@ paths:
     delete:
       tags:
         - Images
-      x-swagger-router-controller: anchore_engine.services.apiext.api.controllers.images
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.images
       operationId: delete_image_by_imageId
       x-anchore-authz-action: deleteImage
       summary: Delete image by docker imageId
@@ -621,7 +621,7 @@ paths:
     get:
       tags:
         - Images
-      x-swagger-router-controller: anchore_engine.services.apiext.api.controllers.images
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.images
       operationId: get_image_policy_check
       x-anchore-authz-action: getImageEvaluation
       description: Get the policy evaluation for the given image
@@ -666,7 +666,7 @@ paths:
     get:
       tags:
         - Images
-      x-swagger-router-controller: anchore_engine.services.apiext.api.controllers.images
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.images
       operationId: get_image_policy_check_by_imageId
       x-anchore-authz-action: getImageEvaluation
       description: Get the policy evaluation for the given image
@@ -707,7 +707,7 @@ paths:
     get:
       tags:
         - Images
-      x-swagger-router-controller: anchore_engine.services.apiext.api.controllers.images
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.images
       operationId: get_image_vulnerability_types
       x-anchore-authz-action: getImage
       summary: Get vulnerability types
@@ -737,7 +737,7 @@ paths:
     get:
       tags:
         - Images
-      x-swagger-router-controller: anchore_engine.services.apiext.api.controllers.images
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.images
       operationId: get_image_vulnerabilities_by_type
       x-anchore-authz-action: getImage
       summary: Get vulnerabilities by type
@@ -775,7 +775,7 @@ paths:
     get:
       tags:
         - Images
-      x-swagger-router-controller: anchore_engine.services.apiext.api.controllers.images
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.images
       operationId: get_image_vulnerability_types_by_imageId
       x-anchore-authz-action: getImage
       summary: Get vulnerability types
@@ -805,7 +805,7 @@ paths:
     get:
       tags:
         - Images
-      x-swagger-router-controller: anchore_engine.services.apiext.api.controllers.images
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.images
       operationId: get_image_vulnerabilities_by_type_imageId
       x-anchore-authz-action: getImage
       summary: Get vulnerabilities by type
@@ -834,7 +834,7 @@ paths:
     get:
       tags:
         - Images
-      x-swagger-router-controller: anchore_engine.services.apiext.api.controllers.images
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.images
       operationId: list_image_content
       x-anchore-authz-action: getImage
       summary: List image content types
@@ -860,7 +860,7 @@ paths:
     get:
       tags:
         - Images
-      x-swagger-router-controller: anchore_engine.services.apiext.api.controllers.images
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.images
       operationId: list_image_content_by_imageid
       x-anchore-authz-action: getImage
       summary: List image content types
@@ -886,7 +886,7 @@ paths:
     get:
       tags:
         - Images
-      x-swagger-router-controller: anchore_engine.services.apiext.api.controllers.images
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.images
       operationId: get_image_content_by_type
       x-anchore-authz-action: getImage
       summary: Get the content of an image by type
@@ -915,7 +915,7 @@ paths:
     get:
       tags:
         - Images
-      x-swagger-router-controller: anchore_engine.services.apiext.api.controllers.images
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.images
       operationId: get_image_content_by_type_files
       x-anchore-authz-action: getImage
       summary: Get the content of an image by type files
@@ -939,7 +939,7 @@ paths:
     get:
       tags:
         - Images
-      x-swagger-router-controller: anchore_engine.services.apiext.api.controllers.images
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.images
       operationId: get_image_content_by_type_javapackage
       x-anchore-authz-action: getImage
       summary: Get the content of an image by type java
@@ -963,7 +963,7 @@ paths:
     get:
       tags:
         - Images
-      x-swagger-router-controller: anchore_engine.services.apiext.api.controllers.images
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.images
       operationId: get_image_content_by_type_malware
       x-anchore-authz-action: getImage
       summary: Get the content of an image by type malware
@@ -987,7 +987,7 @@ paths:
     get:
       tags:
         - Images
-      x-swagger-router-controller: anchore_engine.services.apiext.api.controllers.images
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.images
       operationId: get_image_content_by_type_imageId
       x-anchore-authz-action: getImage
       summary: Get the content of an image by type
@@ -1016,7 +1016,7 @@ paths:
     get:
       tags:
         - Images
-      x-swagger-router-controller: anchore_engine.services.apiext.api.controllers.images
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.images
       operationId: get_image_content_by_type_imageId_files
       x-anchore-authz-action: getImage
       summary: Get the content of an image by type files
@@ -1040,7 +1040,7 @@ paths:
     get:
       tags:
         - Images
-      x-swagger-router-controller: anchore_engine.services.apiext.api.controllers.images
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.images
       operationId: get_image_content_by_type_imageId_javapackage
       x-anchore-authz-action: getImage
       summary: Get the content of an image by type java
@@ -1062,7 +1062,7 @@ paths:
             $ref: "#/definitions/ApiErrorResponse"
   /images/{imageDigest}/artifacts/retrieved_files:
     get:
-      x-swagger-router-controller: anchore_engine.services.apiext.api.controllers.images
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.images
       operationId: list_retrieved_files
       x-anchore-authz-action: getImage
       summary: Return a list of analyzer artifacts of the specified type
@@ -1083,7 +1083,7 @@ paths:
           description: "Image not found in this service"
   /images/{imageDigest}/artifacts/file_content_search:
     get:
-      x-swagger-router-controller: anchore_engine.services.apiext.api.controllers.images
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.images
       operationId: list_file_content_search_results
       x-anchore-authz-action: getImage
       summary: Return a list of analyzer artifacts of the specified type
@@ -1104,7 +1104,7 @@ paths:
           description: "Image not found in this service"
   /images/{imageDigest}/artifacts/secret_search:
     get:
-      x-swagger-router-controller: anchore_engine.services.apiext.api.controllers.images
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.images
       operationId: list_secret_search_results
       x-anchore-authz-action: getImage
       summary: Return a list of analyzer artifacts of the specified type
@@ -1127,7 +1127,7 @@ paths:
     get:
       tags:
         - Images
-      x-swagger-router-controller: anchore_engine.services.apiext.api.controllers.images
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.images
       operationId: list_image_metadata
       x-anchore-authz-action: getImage
       summary: List image metadata types
@@ -1153,7 +1153,7 @@ paths:
     get:
       tags:
         - Images
-      x-swagger-router-controller: anchore_engine.services.apiext.api.controllers.images
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.images
       operationId: get_image_sbom_native
       x-anchore-authz-action: getImage
       summary: Get image sbom in the native Anchore format
@@ -1175,12 +1175,84 @@ paths:
           description: Internal error
           schema:
             $ref: "#/definitions/ApiErrorResponse"
+  /images/{imageDigest}/sboms/native-json:
+    get:
+      tags:
+        - Images
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.images
+      operationId: get_image_sbom_native_json
+      x-anchore-authz-action: getImage
+      summary: Get image sbom in the native Anchore format
+      parameters:
+        - name: imageDigest
+          in: path
+          format: path
+          type: string
+          required: true
+        - $ref: "#/parameters/AsAccountParameter"
+      responses:
+        200:
+          description: Image lookup success
+          schema:
+            type: string
+        500:
+          description: Internal error
+          schema:
+            $ref: "#/definitions/ApiErrorResponse"
+  /images/{imageDigest}/sboms/spdx-json:
+    get:
+      tags:
+        - Images
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.images
+      operationId: get_image_sbom_spdx_json
+      x-anchore-authz-action: getImage
+      summary: Get image sbom in the SPDX format
+      parameters:
+        - name: imageDigest
+          in: path
+          format: path
+          type: string
+          required: true
+        - $ref: "#/parameters/AsAccountParameter"
+      responses:
+        200:
+          description: Image lookup success
+          schema:
+            type: string
+        500:
+          description: Internal error
+          schema:
+            $ref: "#/definitions/ApiErrorResponse"
+  /images/{imageDigest}/sboms/cyclonedx-json:
+    get:
+      tags:
+        - Images
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.images
+      operationId: get_image_sbom_cyclonedx_json
+      x-anchore-authz-action: getImage
+      summary: Get image sbom in the CycloneDX format
+      parameters:
+        - name: imageDigest
+          in: path
+          format: path
+          type: string
+          required: true
+        - $ref: "#/parameters/AsAccountParameter"
+      responses:
+        200:
+          description: Image lookup success
+          schema:
+            type: string
+        500:
+          description: Internal error
+          schema:
+            $ref: "#/definitions/ApiErrorResponse"
 
   /images/{imageDigest}/metadata/{mtype}:
     get:
       tags:
         - Images
-      x-swagger-router-controller: anchore_engine.services.apiext.api.controllers.images
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.images
       operationId: get_image_metadata_by_type
       x-anchore-authz-action: getImage
       summary: Get the metadata of an image by type
@@ -1235,12 +1307,12 @@ paths:
           description: Repository and discovered tags added
           schema:
             $ref: "#/definitions/SubscriptionList"
-      x-swagger-router-controller: anchore_engine.services.apiext.api.controllers.images
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.images
   /registries:
     get:
       tags:
         - Registries
-      x-swagger-router-controller: anchore_engine.services.apiext.api.controllers.registries
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.registries
       operationId: list_registries
       x-anchore-authz-action: listRegistries
       summary: List configured registries
@@ -1255,7 +1327,7 @@ paths:
     post:
       tags:
         - Registries
-      x-swagger-router-controller: anchore_engine.services.apiext.api.controllers.registries
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.registries
       operationId: create_registry
       x-anchore-authz-action: createRegistry
       summary: Add a new registry
@@ -1285,7 +1357,7 @@ paths:
     get:
       tags:
         - Registries
-      x-swagger-router-controller: anchore_engine.services.apiext.api.controllers.registries
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.registries
       operationId: get_registry
       x-anchore-authz-action: getRegistry
       summary: Get a specific registry configuration
@@ -1305,7 +1377,7 @@ paths:
     put:
       tags:
         - Registries
-      x-swagger-router-controller: anchore_engine.services.apiext.api.controllers.registries
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.registries
       operationId: update_registry
       x-anchore-authz-action: updateRegistry
       summary: Update/replace a registry configuration
@@ -1339,7 +1411,7 @@ paths:
     delete:
       tags:
         - Registries
-      x-swagger-router-controller: anchore_engine.services.apiext.api.controllers.registries
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.registries
       operationId: delete_registry
       x-anchore-authz-action: deleteRegistry
       summary: Delete a registry configuration
@@ -1362,7 +1434,7 @@ paths:
     get:
       tags:
         - System
-      x-swagger-router-controller: anchore_engine.services.apiext.api.controllers.system
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.system
       operationId: get_status
       x-anchore-authz-action: None
       summary: Service status
@@ -1380,7 +1452,7 @@ paths:
     get:
       tags:
         - System
-      x-swagger-router-controller: anchore_engine.services.apiext.api.controllers.system
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.system
       operationId: get_service_detail
       x-anchore-authz-action: None
       summary: System status
@@ -1413,7 +1485,7 @@ paths:
           description: Internal Error
           schema:
             $ref: "#/definitions/ApiErrorResponse"
-      x-swagger-router-controller: "anchore_engine.services.apiext.api.controllers.system"
+      x-swagger-router-controller: "anchore_enterprise.services.api.api.controllers.system"
     post:
       tags:
         - System
@@ -1441,12 +1513,12 @@ paths:
           description: Internal Error
           schema:
             $ref: "#/definitions/ApiErrorResponse"
-      x-swagger-router-controller: "anchore_engine.services.apiext.api.controllers.system"
+      x-swagger-router-controller: "anchore_enterprise.services.api.api.controllers.system"
   /system/feeds/{feed}:
     put:
       tags:
         - System
-      x-swagger-router-controller: anchore_engine.services.apiext.api.controllers.system
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.system
       operationId: toggle_feed_enabled
       x-anchore-authz-action: updateFeeds
       description: "Disable the feed so that it does not sync on subsequent sync operations"
@@ -1476,7 +1548,7 @@ paths:
     delete:
       tags:
         - System
-      x-swagger-router-controller: anchore_engine.services.apiext.api.controllers.system
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.system
       operationId: delete_feed
       x-anchore-authz-action: updateFeeds
       description: "Delete the groups and data for the feed and disable the feed itself"
@@ -1501,7 +1573,7 @@ paths:
     put:
       tags:
         - System
-      x-swagger-router-controller: anchore_engine.services.apiext.api.controllers.system
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.system
       x-anchore-authz-action: updateFeeds
       operationId: toggle_group_enabled
       description: "Disable a specific group within a feed to not sync"
@@ -1538,7 +1610,7 @@ paths:
     delete:
       tags:
         - System
-      x-swagger-router-controller: anchore_engine.services.apiext.api.controllers.system
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.system
       operationId: delete_feed_group
       x-anchore-authz-action: updateFeeds
       description: "Delete the group data and disable the group itself"
@@ -1568,7 +1640,7 @@ paths:
     get:
       tags:
         - System
-      x-swagger-router-controller: anchore_engine.services.apiext.api.controllers.system
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.system
       operationId: list_services
       x-anchore-authz-action: listServices
       summary: List system services
@@ -1585,7 +1657,7 @@ paths:
     get:
       tags:
         - System
-      x-swagger-router-controller: anchore_engine.services.apiext.api.controllers.system
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.system
       operationId: get_services_by_name
       x-anchore-authz-action: getService
       summary: Get a service configuration and state
@@ -1608,7 +1680,7 @@ paths:
     get:
       tags:
         - System
-      x-swagger-router-controller: anchore_engine.services.apiext.api.controllers.system
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.system
       operationId: get_services_by_name_and_host
       x-anchore-authz-action: getService
       summary: Get service config for a specific host
@@ -1635,7 +1707,7 @@ paths:
     delete:
       tags:
         - System
-      x-swagger-router-controller: anchore_engine.services.apiext.api.controllers.system
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.system
       operationId: delete_service
       x-anchore-authz-action: deleteService
       summary: Delete the service config
@@ -1670,7 +1742,7 @@ paths:
           description: Policy Language Description
           schema:
             $ref: "#/definitions/GateSpecList"
-      x-swagger-router-controller: anchore_engine.services.apiext.api.controllers.system
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.system
   /system/error_codes:
     get:
       summary: Describe anchore engine error codes.
@@ -1687,12 +1759,12 @@ paths:
             description: List of Error Code Descriptions
             items:
               $ref: "#/definitions/AnchoreErrorCode"
-      x-swagger-router-controller: anchore_engine.services.apiext.api.controllers.system
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.system
   /event_types:
     get:
       tags:
         - Events
-      x-swagger-router-controller: anchore_engine.services.apiext.api.controllers.events
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.events
       operationId: list_event_types
       x-anchore-authz-action: listEvents
       summary: List Event Types
@@ -1706,7 +1778,7 @@ paths:
     get:
       tags:
         - Events
-      x-swagger-router-controller: anchore_engine.services.apiext.api.controllers.events
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.events
       operationId: list_events
       x-anchore-authz-action: listEvents
       summary: List Events
@@ -1774,7 +1846,7 @@ paths:
     delete:
       tags:
         - Events
-      x-swagger-router-controller: anchore_engine.services.apiext.api.controllers.events
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.events
       operationId: delete_events
       x-anchore-authz-action: deleteEvents
       summary: Delete Events
@@ -1811,7 +1883,7 @@ paths:
     get:
       tags:
         - Events
-      x-swagger-router-controller: anchore_engine.services.apiext.api.controllers.events
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.events
       operationId: get_event
       x-anchore-authz-action: getEvent
       summary: Get Event
@@ -1832,7 +1904,7 @@ paths:
     delete:
       tags:
         - Events
-      x-swagger-router-controller: anchore_engine.services.apiext.api.controllers.events
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.events
       operationId: delete_event
       x-anchore-authz-action: getEvent
       summary: Delete Event
@@ -1852,7 +1924,7 @@ paths:
     get:
       tags:
         - Query
-      x-swagger-router-controller: "anchore_engine.services.apiext.api.controllers.query"
+      x-swagger-router-controller: "anchore_enterprise.services.api.api.controllers.query"
       operationId: query_images_by_vulnerability
       x-anchore-authz-action: listImages
       summary: List images vulnerable to the specific vulnerability ID.
@@ -1915,7 +1987,7 @@ paths:
     get:
       tags:
         - Query
-      x-swagger-router-controller: "anchore_engine.services.apiext.api.controllers.query"
+      x-swagger-router-controller: "anchore_enterprise.services.api.api.controllers.query"
       operationId: query_images_by_package
       x-anchore-authz-action: listImages
       summary: List of images containing given package
@@ -1960,7 +2032,7 @@ paths:
     get:
       tags:
         - Query
-      x-swagger-router-controller: "anchore_engine.services.apiext.api.controllers.query"
+      x-swagger-router-controller: "anchore_enterprise.services.api.api.controllers.query"
       operationId: query_vulnerabilities
       x-anchore-authz-action: None
       summary: Listing information about given vulnerability
@@ -2014,7 +2086,7 @@ paths:
     get:
       tags:
         - User Management
-      x-swagger-router-controller: anchore_engine.services.apiext.api.controllers.accounts
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.accounts
       operationId: list_accounts
       x-anchore-authz-action: listAccounts
       summary: List account summaries. Only available to the system admin user.
@@ -2040,7 +2112,7 @@ paths:
     post:
       tags:
         - User Management
-      x-swagger-router-controller: anchore_engine.services.apiext.api.controllers.accounts
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.accounts
       operationId: create_account
       x-anchore-authz-action: createAccount
       summary: Create a new account. Only avaialble to admin user.
@@ -2067,7 +2139,7 @@ paths:
     get:
       tags:
         - User Management
-      x-swagger-router-controller: anchore_engine.services.apiext.api.controllers.accounts
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.accounts
       operationId: get_account
       x-anchore-authz-action: getAccount
       summary: Get account info about this specific account.
@@ -2089,7 +2161,7 @@ paths:
     delete:
       tags:
         - User Management
-      x-swagger-router-controller: anchore_engine.services.apiext.api.controllers.accounts
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.accounts
       operationId: delete_account
       x-anchore-authz-action: deleteAccount
       summary: Delete the specified account, only allowed if the account is in the disabled state. All users will be deleted along with the account and all resources will be garbage collected
@@ -2110,7 +2182,7 @@ paths:
     put:
       tags:
         - User Management
-      x-swagger-router-controller: anchore_engine.services.apiext.api.controllers.accounts
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.accounts
       operationId: update_account_state
       x-anchore-authz-action: updateAccount
       summary: Update the state of an account to either enabled or disabled. For deletion use the DELETE route
@@ -2142,7 +2214,7 @@ paths:
     get:
       tags:
         - User Management
-      x-swagger-router-controller: anchore_engine.services.apiext.api.controllers.accounts
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.accounts
       operationId: list_users
       x-anchore-authz-action: listUsers
       summary: List of users found in this account.
@@ -2167,7 +2239,7 @@ paths:
     post:
       tags:
         - User Management
-      x-swagger-router-controller: anchore_engine.services.apiext.api.controllers.accounts
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.accounts
       operationId: create_user
       x-anchore-authz-action: createUser
       summary: Create a new user within the specified account.
@@ -2191,7 +2263,7 @@ paths:
     delete:
       tags:
         - User Management
-      x-swagger-router-controller: anchore_engine.services.apiext.api.controllers.accounts
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.accounts
       operationId: delete_user
       x-anchore-authz-action: deleteUser
       summary: Delete a specific user credential by username of the credential. Cannot be the credential used to authenticate the request.
@@ -2216,7 +2288,7 @@ paths:
     get:
       tags:
         - User Management
-      x-swagger-router-controller: anchore_engine.services.apiext.api.controllers.accounts
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.accounts
       operationId: get_account_user
       x-anchore-authz-action: getUser
       summary: Get a specific user in the specified account
@@ -2267,13 +2339,13 @@ paths:
             $ref: "#/definitions/ApiErrorResponse"
       operationId: list_user_credentials
       x-anchore-authz-action: getUser
-      x-swagger-router-controller: anchore_engine.services.apiext.api.controllers.accounts
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.accounts
     post:
       tags:
         - User Management
       operationId: create_user_credential
       x-anchore-authz-action: updateUser
-      x-swagger-router-controller: anchore_engine.services.apiext.api.controllers.accounts
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.accounts
       summary: add/replace credential
       parameters:
         - name: accountname
@@ -2306,7 +2378,7 @@ paths:
       summary: Delete a credential by type
       operationId: delete_user_credential
       x-anchore-authz-action: updateUser
-      x-swagger-router-controller: anchore_engine.services.apiext.api.controllers.accounts
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.accounts
       parameters:
         - name: accountname
           in: path
@@ -2338,7 +2410,7 @@ paths:
     get:
       tags:
         - Identity
-      x-swagger-router-controller: anchore_engine.services.apiext.api.controllers.accounts
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.accounts
       operationId: get_users_account
       x-anchore-authz-action: getAccount
       summary: List the account for the authenticated user
@@ -2355,7 +2427,7 @@ paths:
     get:
       tags:
         - Identity
-      x-swagger-router-controller: anchore_engine.services.apiext.api.controllers.user
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.user
       operationId: get_user
       x-anchore-authz-action: None
       summary: List authenticated user info
@@ -2374,7 +2446,7 @@ paths:
         - Identity
       summary: Get current credential summary
       operationId: get_credentials
-      x-swagger-router-controller: anchore_engine.services.apiext.api.controllers.user
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.user
       x-anchore-authz-action: None
       responses:
         200:
@@ -2390,7 +2462,7 @@ paths:
         - Identity
       summary: add/replace credential
       operationId: add_credential
-      x-swagger-router-controller: anchore_engine.services.apiext.api.controllers.user
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.user
       x-anchore-authz-action: None
       parameters:
         - name: credential
@@ -2413,7 +2485,7 @@ paths:
       tags:
         - Archives
       operationId: list_archives
-      x-swagger-router-controller: anchore_engine.services.apiext.api.controllers.archive
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.archive
       x-anchore-authz-action: listArchives
       responses:
         200:
@@ -2429,7 +2501,7 @@ paths:
       tags:
         - Archives
       operationId: list_analysis_archive_rules
-      x-swagger-router-controller: anchore_engine.services.apiext.api.controllers.archive
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.archive
       x-anchore-authz-action: listArchiveTransitionRules
       parameters:
         - name: system_global
@@ -2450,7 +2522,7 @@ paths:
       tags:
         - Archives
       operationId: create_analysis_archive_rule
-      x-swagger-router-controller: anchore_engine.services.apiext.api.controllers.archive
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.archive
       x-anchore-authz-action: createArchiveTransitionRule
       parameters:
         - name: rule
@@ -2472,7 +2544,7 @@ paths:
       tags:
         - Archives
       operationId: get_analysis_archive_rule
-      x-swagger-router-controller: anchore_engine.services.apiext.api.controllers.archive
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.archive
       x-anchore-authz-action: getArchiveTransitionRule
       parameters:
         - name: ruleId
@@ -2493,7 +2565,7 @@ paths:
       tags:
         - Archives
       operationId: delete_analysis_archive_rule
-      x-swagger-router-controller: anchore_engine.services.apiext.api.controllers.archive
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.archive
       x-anchore-authz-action: deleteArchiveTransitionRule
       parameters:
         - name: ruleId
@@ -2513,7 +2585,7 @@ paths:
   #      tags:
   #      - Archives
   #      operationId: get_analysis_archive_rule_history
-  #      x-swagger-router-controller: anchore_engine.services.apiext.api.controllers.archive
+  #      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.archive
   #      x-anchore-authz-action: getArchiveTransitionRuleHistory
   #      parameters:
   #        - name: ruleId
@@ -2535,7 +2607,7 @@ paths:
       tags:
         - Archives
       operationId: list_analysis_archive
-      x-swagger-router-controller: anchore_engine.services.apiext.api.controllers.archive
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.archive
       x-anchore-authz-action: listArchivedImageAnalysis
       responses:
         200:
@@ -2550,7 +2622,7 @@ paths:
       tags:
         - Archives
       operationId: archive_image_analysis
-      x-swagger-router-controller: anchore_engine.services.apiext.api.controllers.archive
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.archive
       x-anchore-authz-action: createArchivedImageAnalysis
       parameters:
         - name: imageReferences
@@ -2573,7 +2645,7 @@ paths:
         - Archives
       description: Returns the archive metadata record identifying the image and tags for the analysis in the archive.
       operationId: get_archived_analysis
-      x-swagger-router-controller: anchore_engine.services.apiext.api.controllers.archive
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.archive
       x-anchore-authz-action: getArchivedImageAnalysis
       parameters:
         - name: imageDigest
@@ -2596,7 +2668,7 @@ paths:
         - Archives
       description: Performs a synchronous archive deletion
       operationId: delete_archived_analysis
-      x-swagger-router-controller: anchore_engine.services.apiext.api.controllers.archive
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.archive
       x-anchore-authz-action: deleteArchivedImageAnalysis
       parameters:
         - name: imageDigest
@@ -2617,7 +2689,7 @@ paths:
             $ref: "#/definitions/ApiErrorResponse"
   /oauth/token:
     post:
-      x-swagger-router-controller: anchore_engine.services.apiext.api.controllers.oauth
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.oauth
       operationId: get_oauth_token
       x-anchore-authz-action: None
       description: Request a jwt token for subsequent operations, this request is authenticated with normal HTTP auth
@@ -2642,6 +2714,10 @@ paths:
           description: 'The type of client used for the OAuth token'
           type: string
           default: anonymous
+        - name: refresh_token
+          in: formData
+          description: 'The refresh token from a previous password grant request, used to get a new access_token'
+          type: string
       responses:
         200:
           description: Resulting JWT token
@@ -2651,6 +2727,40 @@ paths:
           description: Internal error
           schema:
             $ref: "#/definitions/ApiErrorResponse"
+  /oauth/revoke:
+    post:
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.oauth
+      operationId: revoke_oauth_token
+      x-anchore-authz-action: None
+      description: Revoke a refresh token previously requested from /oauth/token
+      consumes:
+        - application/x-www-form-urlencoded
+      parameters:
+        - name: token
+          in: formData
+          description: 'The token to be revoked'
+          type: string
+        - name: token_type_hint
+          in: formData
+          description: 'A hint about the type of token to be revoked'
+          type: string
+          enum:
+            - refresh_token
+      responses:
+        200:
+          description: The token has been sucessfully revoked
+        401:
+          description: Revokation of the provided token type is not supported
+        400:
+          description: Error response
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+                description: ASCII error code from RFC6749
+
+
   /system/webhooks/{webhook_type}/test:
     post:
       summary: Adds the capabilities to test a webhook delivery for the given notification type
@@ -2688,12 +2798,12 @@ paths:
           description: The Webhook failed to send due to an Internal Error
           schema:
             $ref: "#/definitions/ApiErrorResponse"
-      x-swagger-router-controller: anchore_engine.services.apiext.api.controllers.system
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.system
   /imports/images:
     post:
       tags:
         - Imports
-      x-swagger-router-controller: anchore_engine.services.apiext.api.controllers.image_imports
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.image_imports
       operationId: create_operation
       x-anchore-authz-action: importImage
       summary: "Begin the import of an image analyzed by Syft into the system"
@@ -2709,7 +2819,7 @@ paths:
     get:
       tags:
         - Imports
-      x-swagger-router-controller: anchore_engine.services.apiext.api.controllers.image_imports
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.image_imports
       operationId: list_operations
       x-anchore-authz-action: importImage
       summary: "Lists in-progress imports"
@@ -2726,7 +2836,7 @@ paths:
     get:
       tags:
         - Imports
-      x-swagger-router-controller: anchore_engine.services.apiext.api.controllers.image_imports
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.image_imports
       operationId: get_operation
       x-anchore-authz-action: importImage
       summary: "Get detail on a single import"
@@ -2748,7 +2858,7 @@ paths:
     delete:
       tags:
         - Imports
-      x-swagger-router-controller: anchore_engine.services.apiext.api.controllers.image_imports
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.image_imports
       operationId: invalidate_operation
       x-anchore-authz-action: importImage
       summary: "Invalidate operation ID so it can be garbage collected"
@@ -2771,7 +2881,7 @@ paths:
     get:
       tags:
         - Imports
-      x-swagger-router-controller: anchore_engine.services.apiext.api.controllers.image_imports
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.image_imports
       operationId: list_import_packages
       x-anchore-authz-action: importImage
       summary: "List uploaded package manifests"
@@ -2793,7 +2903,7 @@ paths:
     post:
       tags:
         - Imports
-      x-swagger-router-controller: anchore_engine.services.apiext.api.controllers.image_imports
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.image_imports
       operationId: import_image_packages
       x-anchore-authz-action: importImage
       summary: "Begin the import of an image analyzed by Syft into the system"
@@ -2823,7 +2933,7 @@ paths:
     get:
       tags:
         - Imports
-      x-swagger-router-controller: anchore_engine.services.apiext.api.controllers.image_imports
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.image_imports
       operationId: list_import_dockerfiles
       x-anchore-authz-action: importImage
       summary: "List uploaded dockerfiles"
@@ -2845,7 +2955,7 @@ paths:
     post:
       tags:
         - Imports
-      x-swagger-router-controller: anchore_engine.services.apiext.api.controllers.image_imports
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.image_imports
       operationId: import_image_dockerfile
       x-anchore-authz-action: importImage
       summary: "Begin the import of an image analyzed by Syft into the system"
@@ -2875,7 +2985,7 @@ paths:
     get:
       tags:
         - Imports
-      x-swagger-router-controller: anchore_engine.services.apiext.api.controllers.image_imports
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.image_imports
       operationId: list_import_image_manifests
       x-anchore-authz-action: importImage
       summary: "List uploaded image manifests"
@@ -2897,7 +3007,7 @@ paths:
     post:
       tags:
         - Imports
-      x-swagger-router-controller: anchore_engine.services.apiext.api.controllers.image_imports
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.image_imports
       operationId: import_image_manifest
       x-anchore-authz-action: importImage
       summary: "Import a docker or OCI distribution manifest to associate with the image"
@@ -2930,7 +3040,7 @@ paths:
     get:
       tags:
         - Imports
-      x-swagger-router-controller: anchore_engine.services.apiext.api.controllers.image_imports
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.image_imports
       operationId: list_import_parent_manifests
       x-anchore-authz-action: importImage
       summary: "List uploaded parent manifests (manifest lists for a tag)"
@@ -2952,7 +3062,7 @@ paths:
     post:
       tags:
         - Imports
-      x-swagger-router-controller: anchore_engine.services.apiext.api.controllers.image_imports
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.image_imports
       operationId: import_image_parent_manifest
       x-anchore-authz-action: importImage
       summary: "Import a docker or OCI distribution manifest list to associate with the image"
@@ -2983,7 +3093,7 @@ paths:
     get:
       tags:
         - Imports
-      x-swagger-router-controller: anchore_engine.services.apiext.api.controllers.image_imports
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.image_imports
       operationId: list_import_image_configs
       x-anchore-authz-action: importImage
       summary: "List uploaded image configs"
@@ -3005,7 +3115,7 @@ paths:
     post:
       tags:
         - Imports
-      x-swagger-router-controller: anchore_engine.services.apiext.api.controllers.image_imports
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.image_imports
       operationId: import_image_config
       x-anchore-authz-action: importImage
       summary: "Import a docker or OCI image config to associate with the image"
@@ -3329,6 +3439,9 @@ definitions:
         description: Human readable name for the bundle
       comment:
         type: string
+        description: Description of the bundle, human readable (Deprecated, use the description field instead)
+      description:
+        type: string
         description: Description of the bundle, human readable
       version:
         type: string
@@ -3363,6 +3476,9 @@ definitions:
         type: array
         items:
           $ref: "#/definitions/ImageSelectionRule"
+      last_updated:
+        type: number
+        description: "The time at which the policy was last updated, informational only"
   WhitelistItem:
     type: object
     description: Identifies a specific gate and trigger match from a policy against an image and indicates it should be ignored in final policy decisions
@@ -3446,29 +3562,6 @@ definitions:
           - id
       value:
         type: string
-  DeleteImageResponse:
-    type: object
-    description: Image deletion response containing status and details
-    required:
-      - digest
-      - status
-    properties:
-      digest:
-        type: string
-      status:
-        type: string
-        description: Current status of the image deletion
-        enum:
-          - not_found
-          - deleting
-          - delete_failed
-      detail:
-        type: string
-  DeleteImageResponseList:
-    type: array
-    description: A list of delete image responses
-    items:
-      $ref: "#/definitions/DeleteImageResponse"
   Policy:
     type: object
     required:
@@ -3593,11 +3686,42 @@ definitions:
         description: Source location of where the policy bundle originated
       policybundle:
         $ref: "#/definitions/PolicyBundle"
+      policybundlemeta:
+        type: object
+      name:
+        type: string
+        description: Name of the policy bundle
+      description:
+        type: string
+        description: Description of the bundle, human readable
   PolicyBundleList:
     type: array
     description: List of PolicyBundleRecord objects
     items:
       $ref: "#/definitions/PolicyBundleRecord"
+  DeleteImageResponse:
+    type: object
+    description: Image deletion response containing status and details
+    required:
+      - digest
+      - status
+    properties:
+      digest:
+        type: string
+      status:
+        type: string
+        description: Current status of the image deletion
+        enum:
+          - not_found
+          - deleting
+          - delete_failed
+      detail:
+        type: string
+  DeleteImageResponseList:
+    type: array
+    description: A list of delete image responses
+    items:
+      $ref: "#/definitions/DeleteImageResponse"
   ImageContent:
     type: object
     description: A metadata content record for a specific image, containing different content type entries
@@ -3677,6 +3801,8 @@ definitions:
         format: date-time
       imageDigest:
         type: string
+      parentDigest:
+        type: string
       userId:
         type: string
       annotations:
@@ -3699,6 +3825,39 @@ definitions:
       record_version:
         type: string
         description: The version of the record, used for internal schema updates and data migrations.
+      analysis_status_detail:
+        type: array
+        x-nullable: True
+        items:
+          $ref: "#/definitions/AnalysisStatusDetail"
+  AnalysisStatusDetail:
+    type: object
+    description: The detail of an analysis status change recording which service initiated the state change, when, and which transition
+    required:
+      - from_status
+      - to_status
+      - timestamp
+      - source
+    properties:
+      from_status:
+        type: string
+      to_status:
+        type: string
+      timestamp:
+        type: string
+        format: datetime
+      source:
+        $ref: "#/definitions/ServiceReference"
+  ServiceReference:
+    type: object
+    description: A reference to a service in the system
+    properties:
+      hostid:
+        type: string
+        description: The unique id of the host on which the service is executing
+      servicename:
+        type: string
+        description: Registered service name
   AnchoreImageList:
     description: A list of Anchore Images
     type: array
@@ -4838,11 +4997,20 @@ definitions:
   TokenResponse:
     type: object
     required:
-      - token
+      - access_token
     properties:
-      token:
+      access_token:
         type: string
         description: The token content
+      expires_in:
+        type: number
+        description: The lifetime of the token in seconds
+      token_type:
+        type: string
+        description: The type of the token returned
+      refresh_token:
+        type: string
+        description: The refresh token content
   RetrievedFile:
     type: object
     description: The retrieved file entry including content (b64 encoded)

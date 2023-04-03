@@ -11,6 +11,9 @@ Name | Type | Description | Notes
 **UserId** | Pointer to **string** | UserId of the user that owns the bundle | [optional] 
 **PolicySource** | Pointer to **string** | Source location of where the policy bundle originated | [optional] 
 **Policybundle** | Pointer to [**PolicyBundle**](PolicyBundle.md) |  | [optional] 
+**Policybundlemeta** | Pointer to **interface{}** |  | [optional] 
+**Name** | Pointer to **string** | Name of the policy bundle | [optional] 
+**Description** | Pointer to **string** | Description of the bundle, human readable | [optional] 
 
 ## Methods
 
@@ -205,6 +208,81 @@ SetPolicybundle sets Policybundle field to given value.
 `func (o *PolicyBundleRecord) HasPolicybundle() bool`
 
 HasPolicybundle returns a boolean if a field has been set.
+
+### GetPolicybundlemeta
+
+`func (o *PolicyBundleRecord) GetPolicybundlemeta() interface{}`
+
+GetPolicybundlemeta returns the Policybundlemeta field if non-nil, zero value otherwise.
+
+### GetPolicybundlemetaOk
+
+`func (o *PolicyBundleRecord) GetPolicybundlemetaOk() (*interface{}, bool)`
+
+GetPolicybundlemetaOk returns a tuple with the Policybundlemeta field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetPolicybundlemeta
+
+`func (o *PolicyBundleRecord) SetPolicybundlemeta(v interface{})`
+
+SetPolicybundlemeta sets Policybundlemeta field to given value.
+
+### HasPolicybundlemeta
+
+`func (o *PolicyBundleRecord) HasPolicybundlemeta() bool`
+
+HasPolicybundlemeta returns a boolean if a field has been set.
+
+### GetName
+
+`func (o *PolicyBundleRecord) GetName() string`
+
+GetName returns the Name field if non-nil, zero value otherwise.
+
+### GetNameOk
+
+`func (o *PolicyBundleRecord) GetNameOk() (*string, bool)`
+
+GetNameOk returns a tuple with the Name field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetName
+
+`func (o *PolicyBundleRecord) SetName(v string)`
+
+SetName sets Name field to given value.
+
+### HasName
+
+`func (o *PolicyBundleRecord) HasName() bool`
+
+HasName returns a boolean if a field has been set.
+
+### GetDescription
+
+`func (o *PolicyBundleRecord) GetDescription() string`
+
+GetDescription returns the Description field if non-nil, zero value otherwise.
+
+### GetDescriptionOk
+
+`func (o *PolicyBundleRecord) GetDescriptionOk() (*string, bool)`
+
+GetDescriptionOk returns a tuple with the Description field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDescription
+
+`func (o *PolicyBundleRecord) SetDescription(v string)`
+
+SetDescription sets Description field to given value.
+
+### HasDescription
+
+`func (o *PolicyBundleRecord) HasDescription() bool`
+
+HasDescription returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

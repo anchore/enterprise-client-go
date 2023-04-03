@@ -5,7 +5,7 @@ info:
   description: This is the Anchore Enterprise API. It provides additional external
     API routes and functionality for enterprise users.
   title: Anchore Enterprise API Server
-  version: 0.5.0
+  version: 0.7.0
 servers:
 - url: /enterprise
 tags:
@@ -93,7 +93,7 @@ paths:
       summary: Check policy evaluation status for image
       tags:
       - Images
-      x-swagger-router-controller: anchore_enterprise.services.api.controllers.images
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.images
       x-anchore-authz-action: getImageEvaluation
   /images/{imageDigest}/vuln/{vtype}:
     get:
@@ -156,7 +156,7 @@ paths:
       summary: Get vulnerabilities by type
       tags:
       - Images
-      x-swagger-router-controller: anchore_enterprise.services.api.controllers.images
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.images
       x-anchore-authz-action: getImage
   /images/{image_digest}/ancestors:
     get:
@@ -192,9 +192,51 @@ paths:
       summary: Return the list of ancestor images for the given image
       tags:
       - Images
-      x-swagger-router-controller: anchore_enterprise.services.api.controllers.images
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.images
       x-anchore-authz-action: getImage
   /inventories:
+    delete:
+      description: Delete runtime inventory by type and context
+      operationId: delete_inventory
+      parameters:
+      - in: query
+        name: inventory_type
+        required: true
+        schema:
+          enum:
+          - ecs
+          - kubernetes
+          type: string
+      - in: query
+        name: context
+        required: true
+        schema:
+          type: string
+      - in: query
+        name: image_digest
+        schema:
+          type: string
+      - description: An account name to change the resource scope of the request to
+          that account, if permissions allow (admin only)
+        in: header
+        name: x-anchore-account
+        schema:
+          type: string
+      responses:
+        "204":
+          content: {}
+          description: Successfully deleted runtime inventory
+        "404":
+          content: {}
+          description: Inventory not found
+        "500":
+          content: {}
+          description: Internal Error
+      summary: Delete runtime inventory by type and context
+      tags:
+      - Inventories
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.runtime_inventory
+      x-anchore-authz-action: deleteInventory
     get:
       description: Returns a list of the images that are in use
       operationId: get_image_inventory
@@ -203,6 +245,7 @@ paths:
         name: inventory_type
         schema:
           enum:
+          - ecs
           - kubernetes
           type: string
       - in: query
@@ -232,7 +275,7 @@ paths:
       summary: Return a list of the images in inventories for this account
       tags:
       - Inventories
-      x-swagger-router-controller: anchore_enterprise.services.api.controllers.runtime_inventory
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.runtime_inventory
       x-anchore-authz-action: listRuntimeInventories
     post:
       description: synchronizes the list of the images that are in use
@@ -263,7 +306,7 @@ paths:
       summary: synchronizes the list of the images in a given cluster for the inventory
       tags:
       - Inventories
-      x-swagger-router-controller: anchore_enterprise.services.api.controllers.runtime_inventory
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.runtime_inventory
       x-anchore-authz-action: syncInventory
       x-codegen-request-body-name: inventory
   /actions:
@@ -305,7 +348,7 @@ paths:
       summary: Gets a list of submitted action (remediation) plans
       tags:
       - Actions
-      x-swagger-router-controller: anchore_enterprise.services.api.controllers.actions
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.actions
       x-anchore-authz-action: getActions
     post:
       description: Submits an Action Plan and saves upon completion
@@ -329,7 +372,7 @@ paths:
       summary: Submits an Action Plan
       tags:
       - Actions
-      x-swagger-router-controller: anchore_enterprise.services.api.controllers.actions
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.actions
       x-anchore-authz-action: addAction
       x-codegen-request-body-name: action_plan
   /alerts/summaries:
@@ -412,7 +455,7 @@ paths:
       summary: List all alert summaries scoped to the account
       tags:
       - Alerts
-      x-swagger-router-controller: anchore_enterprise.services.api.controllers.alerts
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.alerts
       x-anchore-authz-action: listAlerts
   /alerts/compliance_violations:
     get:
@@ -493,7 +536,7 @@ paths:
       summary: List all compliance violation alerts scoped to the account
       tags:
       - Alerts
-      x-swagger-router-controller: anchore_enterprise.services.api.controllers.alerts
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.alerts
       x-anchore-authz-action: listAlerts
   /alerts/compliance_violations/{uuid}:
     get:
@@ -523,7 +566,7 @@ paths:
       summary: Get compliance violation alert by id
       tags:
       - Alerts
-      x-swagger-router-controller: anchore_enterprise.services.api.controllers.alerts
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.alerts
       x-anchore-authz-action: getAlert
   /alerts/compliance_violations/{uuid}/{state}:
     put:
@@ -562,7 +605,7 @@ paths:
       summary: Open or close a compliance violation alert
       tags:
       - Alerts
-      x-swagger-router-controller: anchore_enterprise.services.api.controllers.alerts
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.alerts
       x-anchore-authz-action: updateAlert
   /corrections:
     get:
@@ -591,7 +634,7 @@ paths:
       summary: Retrieve a list of corrections
       tags:
       - Corrections
-      x-swagger-router-controller: anchore_enterprise.services.api.controllers.corrections
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.corrections
       x-anchore-authz-action: getCorrection
     post:
       description: Add a correction record that will be used to fix false positive
@@ -620,7 +663,7 @@ paths:
       summary: Create a correction record
       tags:
       - Corrections
-      x-swagger-router-controller: anchore_enterprise.services.api.controllers.corrections
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.corrections
       x-anchore-authz-action: addCorrection
       x-codegen-request-body-name: correction
   /corrections/{uuid}:
@@ -647,7 +690,7 @@ paths:
       summary: Delete a correction by UUID
       tags:
       - Corrections
-      x-swagger-router-controller: anchore_enterprise.services.api.controllers.corrections
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.corrections
       x-anchore-authz-action: deleteCorrection
     get:
       description: Returns a single correction, looked up via it's uuid
@@ -675,7 +718,7 @@ paths:
       summary: Retrieve a correction by UUID
       tags:
       - Corrections
-      x-swagger-router-controller: anchore_enterprise.services.api.controllers.corrections
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.corrections
       x-anchore-authz-action: getCorrection
     put:
       description: Updates a single correction, looked up via it's uuid
@@ -709,7 +752,7 @@ paths:
       summary: Update a correction by UUID
       tags:
       - Corrections
-      x-swagger-router-controller: anchore_enterprise.services.api.controllers.corrections
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.corrections
       x-anchore-authz-action: updateCorrection
       x-codegen-request-body-name: correction
   /runtime_compliance:
@@ -747,7 +790,7 @@ paths:
       summary: Get all runtime compliance checks or just those for a given image digest
       tags:
       - Compliance
-      x-swagger-router-controller: anchore_enterprise.services.api.controllers.runtime_compliance
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.runtime_compliance
       x-anchore-authz-action: getRuntimeComplianceCheck
     post:
       description: Post a runtime compliance check
@@ -818,7 +861,7 @@ paths:
       summary: Post a runtime compliance check
       tags:
       - Compliance
-      x-swagger-router-controller: anchore_enterprise.services.api.controllers.runtime_compliance
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.runtime_compliance
       x-anchore-authz-action: createRuntimeComplianceCheck
   /runtime_compliance/result/{compliance_file_id}:
     get:
@@ -857,7 +900,7 @@ paths:
       summary: Check the results of a a specific runtime compliance check
       tags:
       - Compliance
-      x-swagger-router-controller: anchore_enterprise.services.api.controllers.runtime_compliance
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.runtime_compliance
       x-anchore-authz-action: getRuntimeComplianceCheck
   /applications:
     get:
@@ -891,7 +934,7 @@ paths:
       summary: List all applications
       tags:
       - Applications
-      x-swagger-router-controller: anchore_enterprise.services.api.controllers.applications
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.applications
       x-anchore-authz-action: getApplication
     post:
       description: Create an application
@@ -928,7 +971,7 @@ paths:
       summary: Create an application
       tags:
       - Applications
-      x-swagger-router-controller: anchore_enterprise.services.api.controllers.applications
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.applications
       x-anchore-authz-action: createApplication
       x-codegen-request-body-name: application
   /applications/{application_id}:
@@ -955,7 +998,7 @@ paths:
       summary: Delete an application by application_id
       tags:
       - Applications
-      x-swagger-router-controller: anchore_enterprise.services.api.controllers.applications
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.applications
       x-anchore-authz-action: deleteApplication
     get:
       description: Get an application by application_id
@@ -997,7 +1040,7 @@ paths:
       summary: Get an application by application_id
       tags:
       - Applications
-      x-swagger-router-controller: anchore_enterprise.services.api.controllers.applications
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.applications
       x-anchore-authz-action: getApplication
     put:
       description: Updates application details for given application_id
@@ -1043,7 +1086,7 @@ paths:
       summary: Update application details
       tags:
       - Applications
-      x-swagger-router-controller: anchore_enterprise.services.api.controllers.applications
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.applications
       x-anchore-authz-action: updateApplication
       x-codegen-request-body-name: application
   /applications/{application_id}/versions:
@@ -1082,7 +1125,7 @@ paths:
       summary: List all application verions
       tags:
       - Applications
-      x-swagger-router-controller: anchore_enterprise.services.api.controllers.applications
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.applications
       x-anchore-authz-action: getApplication
     post:
       description: Create an application version
@@ -1129,7 +1172,7 @@ paths:
       summary: Create an application version
       tags:
       - Applications
-      x-swagger-router-controller: anchore_enterprise.services.api.controllers.applications
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.applications
       x-anchore-authz-action: createApplication
       x-codegen-request-body-name: application_version
   /applications/{application_id}/versions/{application_version_id}:
@@ -1165,7 +1208,7 @@ paths:
       summary: Delete an application version by application_id and application_version_id
       tags:
       - Applications
-      x-swagger-router-controller: anchore_enterprise.services.api.controllers.applications
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.applications
       x-anchore-authz-action: deleteApplication
     get:
       description: Get an application version by application_id and application_version_id
@@ -1208,7 +1251,7 @@ paths:
       summary: Get an application version
       tags:
       - Applications
-      x-swagger-router-controller: anchore_enterprise.services.api.controllers.applications
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.applications
       x-anchore-authz-action: getApplication
     put:
       description: Updates application version details for given application_id and
@@ -1262,7 +1305,7 @@ paths:
       summary: Update application version details
       tags:
       - Applications
-      x-swagger-router-controller: anchore_enterprise.services.api.controllers.applications
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.applications
       x-anchore-authz-action: updateApplication
       x-codegen-request-body-name: application_version
   /applications/{application_id}/versions/{application_version_id}/artifacts:
@@ -1318,7 +1361,7 @@ paths:
       summary: List artifacts present on a given application version
       tags:
       - Applications
-      x-swagger-router-controller: anchore_enterprise.services.api.controllers.applications
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.applications
       x-anchore-authz-action: getApplication
     post:
       description: Add artifact to given application_id and application_version_id
@@ -1367,7 +1410,7 @@ paths:
       summary: Add an artifact to an application version
       tags:
       - Applications
-      x-swagger-router-controller: anchore_enterprise.services.api.controllers.applications
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.applications
       x-anchore-authz-action: updateApplication
       x-codegen-request-body-name: artifact_request
   /applications/{application_id}/versions/{application_version_id}/artifacts/{association_id}:
@@ -1409,7 +1452,7 @@ paths:
       summary: Delete an artifact from specified application version
       tags:
       - Applications
-      x-swagger-router-controller: anchore_enterprise.services.api.controllers.applications
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.applications
       x-anchore-authz-action: deleteApplication
   /applications/{application_id}/versions/{application_version_id}/sboms/json:
     get:
@@ -1466,7 +1509,7 @@ paths:
         filtered by artifact type
       tags:
       - Applications
-      x-swagger-router-controller: anchore_enterprise.services.api.controllers.applications
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.applications
       x-anchore-authz-action: getApplication
   /applications/{application_id}/versions/{application_version_id}/vulnerabilities:
     get:
@@ -1517,7 +1560,7 @@ paths:
       summary: Get the vulnerabilities for a given application version
       tags:
       - Applications
-      x-swagger-router-controller: anchore_enterprise.services.api.controllers.applications
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.applications
       x-anchore-authz-action: getApplication
   /imports/sources:
     get:
@@ -1535,7 +1578,7 @@ paths:
       summary: Lists in-progress imports
       tags:
       - Imports
-      x-swagger-router-controller: anchore_enterprise.services.api.controllers.source_imports
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.source_imports
       x-anchore-authz-action: importSource
     post:
       operationId: create_operation
@@ -1553,7 +1596,7 @@ paths:
         the system
       tags:
       - Imports
-      x-swagger-router-controller: anchore_enterprise.services.api.controllers.source_imports
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.source_imports
       x-anchore-authz-action: importSource
   /imports/sources/{operation_id}:
     delete:
@@ -1578,7 +1621,7 @@ paths:
       summary: Invalidate operation ID so it can be garbage collected
       tags:
       - Imports
-      x-swagger-router-controller: anchore_enterprise.services.api.controllers.source_imports
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.source_imports
       x-anchore-authz-action: importSource
     get:
       operationId: get_operation
@@ -1602,7 +1645,7 @@ paths:
       summary: Get detail on a single import
       tags:
       - Imports
-      x-swagger-router-controller: anchore_enterprise.services.api.controllers.source_imports
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.source_imports
       x-anchore-authz-action: importSource
   /imports/sources/{operation_id}/sbom:
     get:
@@ -1627,7 +1670,7 @@ paths:
       summary: list the packages of an imported source code repository
       tags:
       - Imports
-      x-swagger-router-controller: anchore_enterprise.services.api.controllers.source_imports
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.source_imports
       x-anchore-authz-action: importSource
     post:
       operationId: upload_import_sources_sbom
@@ -1658,7 +1701,7 @@ paths:
         the system
       tags:
       - Imports
-      x-swagger-router-controller: anchore_enterprise.services.api.controllers.source_imports
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.source_imports
       x-anchore-authz-action: importSource
       x-codegen-request-body-name: sbom
   /imports/sources/{operation_id}/finalize:
@@ -1690,7 +1733,7 @@ paths:
       summary: Add source records to catalog db
       tags:
       - Imports
-      x-swagger-router-controller: anchore_enterprise.services.api.controllers.source_imports
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.source_imports
       x-anchore-authz-action: importSource
       x-codegen-request-body-name: metadata
   /sources:
@@ -1709,7 +1752,7 @@ paths:
       summary: List the source repository analysis records
       tags:
       - Sources
-      x-swagger-router-controller: anchore_enterprise.services.api.controllers.sources
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.sources
       x-anchore-authz-action: listSources
   /sources/{source_id}:
     delete:
@@ -1740,7 +1783,7 @@ paths:
       summary: Delete source record from DB
       tags:
       - Sources
-      x-swagger-router-controller: anchore_enterprise.services.api.controllers.sources
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.sources
       x-anchore-authz-action: getSource
     get:
       operationId: get_source
@@ -1764,7 +1807,7 @@ paths:
       summary: Get a detailed source repository analysis metadata record
       tags:
       - Sources
-      x-swagger-router-controller: anchore_enterprise.services.api.controllers.sources
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.sources
       x-anchore-authz-action: getSource
   /sources/{source_id}/sbom:
     get:
@@ -1792,7 +1835,7 @@ paths:
       summary: Get a detailed source repository analysis metadata record
       tags:
       - Sources
-      x-swagger-router-controller: anchore_enterprise.services.api.controllers.sources
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.sources
       x-anchore-authz-action: getSource
   /sources/{source_id}/sbom/native:
     get:
@@ -1815,9 +1858,85 @@ paths:
         "500":
           content: {}
           description: Internal Error
+      summary: Return the compressed source SBOM in the native Anchore format
       tags:
       - Sources
-      x-swagger-router-controller: anchore_enterprise.services.api.controllers.sources
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.sources
+      x-anchore-authz-action: getSource
+  /sources/{source_id}/sbom/native-json:
+    get:
+      operationId: get_source_sbom_native_json
+      parameters:
+      - in: path
+        name: source_id
+        required: true
+        schema:
+          format: path
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                type: string
+          description: success
+        "500":
+          content: {}
+          description: Internal Error
+      summary: Return the source SBOM in the native Anchore format
+      tags:
+      - Sources
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.sources
+      x-anchore-authz-action: getSource
+  /sources/{source_id}/sbom/spdx-json:
+    get:
+      operationId: get_source_sbom_spdx_json
+      parameters:
+      - in: path
+        name: source_id
+        required: true
+        schema:
+          format: path
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                type: string
+          description: success
+        "500":
+          content: {}
+          description: Internal Error
+      summary: Return the source SBOM in the SPDX format
+      tags:
+      - Sources
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.sources
+      x-anchore-authz-action: getSource
+  /sources/{source_id}/sbom/cyclonedx-json:
+    get:
+      operationId: get_source_sbom_cyclonedx_json
+      parameters:
+      - in: path
+        name: source_id
+        required: true
+        schema:
+          format: path
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                type: string
+          description: success
+        "500":
+          content: {}
+          description: Internal Error
+      summary: Return the source SBOM in the CycloneDX format
+      tags:
+      - Sources
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.sources
       x-anchore-authz-action: getSource
   /sources/{source_id}/content:
     get:
@@ -1845,7 +1964,7 @@ paths:
       summary: Get a detailed source repository analysis metadata record
       tags:
       - Sources
-      x-swagger-router-controller: anchore_enterprise.services.api.controllers.sources
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.sources
       x-anchore-authz-action: getSource
   /sources/{source_id}/content/{content_type}:
     get:
@@ -1879,7 +1998,7 @@ paths:
       summary: Get the content of an analyzed source repository
       tags:
       - Sources
-      x-swagger-router-controller: anchore_enterprise.services.api.controllers.sources
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.sources
       x-anchore-authz-action: getSource
   /sources/{source_id}/vuln:
     get:
@@ -1916,7 +2035,7 @@ paths:
       summary: Get the available vulnerability types for source
       tags:
       - Sources
-      x-swagger-router-controller: anchore_enterprise.services.api.controllers.sources
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.sources
       x-anchore-authz-action: getSource
   /sources/{source_id}/vuln/{vtype}:
     get:
@@ -1968,7 +2087,7 @@ paths:
       summary: Get vulnerabilities for the source by type
       tags:
       - Sources
-      x-swagger-router-controller: anchore_enterprise.services.api.controllers.sources
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.sources
       x-anchore-authz-action: getSource
   /sources/{source_id}/check:
     get:
@@ -1996,7 +2115,7 @@ paths:
       tags:
       - Sources
       x-anchore-authz-action: getSourceEvaluation
-      x-swagger-router-controller: anchore_enterprise.services.api.controllers.sources
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.sources
   /stateless/sbom/vuln/{vtype}:
     post:
       operationId: get_stateless_sbom_vulnerabilities
@@ -2046,7 +2165,7 @@ paths:
       summary: Get vulnerabilities for input sbom by type
       tags:
       - Stateless
-      x-swagger-router-controller: anchore_enterprise.services.api.controllers.stateless
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.stateless
       x-anchore-authz-action: getImage
       x-codegen-request-body-name: sbom
   /artifact_relationships:
@@ -2074,7 +2193,7 @@ paths:
       tags:
       - Relationships
       x-anchore-authz-action: deleteArtifactRelationships
-      x-swagger-router-controller: anchore_enterprise.services.api.controllers.relationships
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.relationships
     get:
       description: List the relationships between software supply chain artifacts
         (images, source revisions, etc)
@@ -2100,7 +2219,7 @@ paths:
       tags:
       - Relationships
       x-anchore-authz-action: listArtifactRelationships
-      x-swagger-router-controller: anchore_enterprise.services.api.controllers.relationships
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.relationships
     post:
       description: Add a new relationship for this image to another artifact (source
         or image)
@@ -2121,7 +2240,7 @@ paths:
       tags:
       - Relationships
       x-anchore-authz-action: createArtifactRelationship
-      x-swagger-router-controller: anchore_enterprise.services.api.controllers.relationships
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.relationships
       x-codegen-request-body-name: relationship
   /artifact_relationships/{relationship_id}:
     get:
@@ -2145,7 +2264,7 @@ paths:
       tags:
       - Relationships
       x-anchore-authz-action: getArtifactRelationship
-      x-swagger-router-controller: anchore_enterprise.services.api.controllers.relationships
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.relationships
   /artifact_relationships/{relationship_id}/diffs/sbom:
     get:
       description: Return the context-aware diff of the sboms for the relationship
@@ -2166,7 +2285,7 @@ paths:
       tags:
       - Relationships
       x-anchore-authz-action: getArtifactRelationshipDiff
-      x-swagger-router-controller: anchore_enterprise.services.api.controllers.relationships
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.relationships
 components:
   parameters:
     AsAccountParameter:
@@ -2705,8 +2824,8 @@ components:
           type: string
         tags:
           items:
-            description: Full tag reference that is known at any time previoiusly
-              for the digest.
+            description: Full tag reference that is known at any time previously for
+              the digest.
             example: docker.io/library/node:latest
             type: string
           type: array
@@ -2723,7 +2842,7 @@ components:
         Image Inventory
       example:
         cluster_name: cluster_name
-        inventory_type: inventory_type
+        inventory_type: ecs
         results:
         - images:
           - tag: tag
@@ -2742,6 +2861,9 @@ components:
         cluster_name:
           type: string
         inventory_type:
+          enum:
+          - ecs
+          - kubernetes
           type: string
         timestamp:
           format: date-time

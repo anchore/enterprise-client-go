@@ -3,7 +3,7 @@ Anchore Enterprise API Server
 
 This is the Anchore Enterprise API. It provides additional external API routes and functionality for enterprise users.
 
-API version: 0.5.0
+API version: 0.7.0
 Contact: dev@anchore.com
 */
 
@@ -95,7 +95,20 @@ type SourcesApi interface {
 	GetSourcePolicyCheckExecute(r ApiGetSourcePolicyCheckRequest) ([]PolicyEvaluationResult, *_nethttp.Response, error)
 
 	/*
-	GetSourceSbomNative Method for GetSourceSbomNative
+	GetSourceSbomCyclonedxJson Return the source SBOM in the CycloneDX format
+
+	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	 @param sourceId
+	 @return ApiGetSourceSbomCyclonedxJsonRequest
+	*/
+	GetSourceSbomCyclonedxJson(ctx _context.Context, sourceId string) ApiGetSourceSbomCyclonedxJsonRequest
+
+	// GetSourceSbomCyclonedxJsonExecute executes the request
+	//  @return string
+	GetSourceSbomCyclonedxJsonExecute(r ApiGetSourceSbomCyclonedxJsonRequest) (string, *_nethttp.Response, error)
+
+	/*
+	GetSourceSbomNative Return the compressed source SBOM in the native Anchore format
 
 	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	 @param sourceId
@@ -106,6 +119,32 @@ type SourcesApi interface {
 	// GetSourceSbomNativeExecute executes the request
 	//  @return *os.File
 	GetSourceSbomNativeExecute(r ApiGetSourceSbomNativeRequest) (*os.File, *_nethttp.Response, error)
+
+	/*
+	GetSourceSbomNativeJson Return the source SBOM in the native Anchore format
+
+	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	 @param sourceId
+	 @return ApiGetSourceSbomNativeJsonRequest
+	*/
+	GetSourceSbomNativeJson(ctx _context.Context, sourceId string) ApiGetSourceSbomNativeJsonRequest
+
+	// GetSourceSbomNativeJsonExecute executes the request
+	//  @return string
+	GetSourceSbomNativeJsonExecute(r ApiGetSourceSbomNativeJsonRequest) (string, *_nethttp.Response, error)
+
+	/*
+	GetSourceSbomSpdxJson Return the source SBOM in the SPDX format
+
+	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	 @param sourceId
+	 @return ApiGetSourceSbomSpdxJsonRequest
+	*/
+	GetSourceSbomSpdxJson(ctx _context.Context, sourceId string) ApiGetSourceSbomSpdxJsonRequest
+
+	// GetSourceSbomSpdxJsonExecute executes the request
+	//  @return string
+	GetSourceSbomSpdxJsonExecute(r ApiGetSourceSbomSpdxJsonRequest) (string, *_nethttp.Response, error)
 
 	/*
 	GetSourceSbomTypes Get a detailed source repository analysis metadata record
@@ -713,6 +752,110 @@ func (a *SourcesApiService) GetSourcePolicyCheckExecute(r ApiGetSourcePolicyChec
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+type ApiGetSourceSbomCyclonedxJsonRequest struct {
+	ctx _context.Context
+	ApiService SourcesApi
+	sourceId string
+}
+
+
+func (r ApiGetSourceSbomCyclonedxJsonRequest) Execute() (string, *_nethttp.Response, error) {
+	return r.ApiService.GetSourceSbomCyclonedxJsonExecute(r)
+}
+
+/*
+GetSourceSbomCyclonedxJson Return the source SBOM in the CycloneDX format
+
+ @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param sourceId
+ @return ApiGetSourceSbomCyclonedxJsonRequest
+*/
+func (a *SourcesApiService) GetSourceSbomCyclonedxJson(ctx _context.Context, sourceId string) ApiGetSourceSbomCyclonedxJsonRequest {
+	return ApiGetSourceSbomCyclonedxJsonRequest{
+		ApiService: a,
+		ctx: ctx,
+		sourceId: sourceId,
+	}
+}
+
+// Execute executes the request
+//  @return string
+func (a *SourcesApiService) GetSourceSbomCyclonedxJsonExecute(r ApiGetSourceSbomCyclonedxJsonRequest) (string, *_nethttp.Response, error) {
+	var (
+		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarPostBody     interface{}
+		localVarFormFileName string
+		localVarFileName     string
+		localVarFileBytes    []byte
+		localVarReturnValue  string
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SourcesApiService.GetSourceSbomCyclonedxJson")
+	if err != nil {
+		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/sources/{source_id}/sbom/cyclonedx-json"
+	localVarPath = strings.Replace(localVarPath, "{"+"source_id"+"}", _neturl.PathEscape(parameterToString(r.sourceId, "")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := _neturl.Values{}
+	localVarFormParams := _neturl.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
 type ApiGetSourceSbomNativeRequest struct {
 	ctx _context.Context
 	ApiService SourcesApi
@@ -725,7 +868,7 @@ func (r ApiGetSourceSbomNativeRequest) Execute() (*os.File, *_nethttp.Response, 
 }
 
 /*
-GetSourceSbomNative Method for GetSourceSbomNative
+GetSourceSbomNative Return the compressed source SBOM in the native Anchore format
 
  @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param sourceId
@@ -774,6 +917,214 @@ func (a *SourcesApiService) GetSourceSbomNativeExecute(r ApiGetSourceSbomNativeR
 
 	// to determine the Accept header
 	localVarHTTPHeaderAccepts := []string{"application/gzip"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiGetSourceSbomNativeJsonRequest struct {
+	ctx _context.Context
+	ApiService SourcesApi
+	sourceId string
+}
+
+
+func (r ApiGetSourceSbomNativeJsonRequest) Execute() (string, *_nethttp.Response, error) {
+	return r.ApiService.GetSourceSbomNativeJsonExecute(r)
+}
+
+/*
+GetSourceSbomNativeJson Return the source SBOM in the native Anchore format
+
+ @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param sourceId
+ @return ApiGetSourceSbomNativeJsonRequest
+*/
+func (a *SourcesApiService) GetSourceSbomNativeJson(ctx _context.Context, sourceId string) ApiGetSourceSbomNativeJsonRequest {
+	return ApiGetSourceSbomNativeJsonRequest{
+		ApiService: a,
+		ctx: ctx,
+		sourceId: sourceId,
+	}
+}
+
+// Execute executes the request
+//  @return string
+func (a *SourcesApiService) GetSourceSbomNativeJsonExecute(r ApiGetSourceSbomNativeJsonRequest) (string, *_nethttp.Response, error) {
+	var (
+		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarPostBody     interface{}
+		localVarFormFileName string
+		localVarFileName     string
+		localVarFileBytes    []byte
+		localVarReturnValue  string
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SourcesApiService.GetSourceSbomNativeJson")
+	if err != nil {
+		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/sources/{source_id}/sbom/native-json"
+	localVarPath = strings.Replace(localVarPath, "{"+"source_id"+"}", _neturl.PathEscape(parameterToString(r.sourceId, "")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := _neturl.Values{}
+	localVarFormParams := _neturl.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiGetSourceSbomSpdxJsonRequest struct {
+	ctx _context.Context
+	ApiService SourcesApi
+	sourceId string
+}
+
+
+func (r ApiGetSourceSbomSpdxJsonRequest) Execute() (string, *_nethttp.Response, error) {
+	return r.ApiService.GetSourceSbomSpdxJsonExecute(r)
+}
+
+/*
+GetSourceSbomSpdxJson Return the source SBOM in the SPDX format
+
+ @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param sourceId
+ @return ApiGetSourceSbomSpdxJsonRequest
+*/
+func (a *SourcesApiService) GetSourceSbomSpdxJson(ctx _context.Context, sourceId string) ApiGetSourceSbomSpdxJsonRequest {
+	return ApiGetSourceSbomSpdxJsonRequest{
+		ApiService: a,
+		ctx: ctx,
+		sourceId: sourceId,
+	}
+}
+
+// Execute executes the request
+//  @return string
+func (a *SourcesApiService) GetSourceSbomSpdxJsonExecute(r ApiGetSourceSbomSpdxJsonRequest) (string, *_nethttp.Response, error) {
+	var (
+		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarPostBody     interface{}
+		localVarFormFileName string
+		localVarFileName     string
+		localVarFileBytes    []byte
+		localVarReturnValue  string
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SourcesApiService.GetSourceSbomSpdxJson")
+	if err != nil {
+		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/sources/{source_id}/sbom/spdx-json"
+	localVarPath = strings.Replace(localVarPath, "{"+"source_id"+"}", _neturl.PathEscape(parameterToString(r.sourceId, "")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := _neturl.Values{}
+	localVarFormParams := _neturl.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)

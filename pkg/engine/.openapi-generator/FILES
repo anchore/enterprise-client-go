@@ -31,6 +31,7 @@ docs/AnalysisArchiveSummary.md
 docs/AnalysisArchiveTransitionHistory.md
 docs/AnalysisArchiveTransitionRule.md
 docs/AnalysisArchiveTransitionRuleExclude.md
+docs/AnalysisStatusDetail.md
 docs/AnalysisUpdateEval.md
 docs/AnalysisUpdateNotification.md
 docs/AnalysisUpdateNotificationAllOf.md
@@ -100,6 +101,7 @@ docs/ImportPackageRelationship.md
 docs/ImportSchema.md
 docs/ImportSource.md
 docs/ImportsApi.md
+docs/InlineResponse400.md
 docs/LocalAnalysisSource.md
 docs/MalwareScan.md
 docs/MalwareScanFindings.md
@@ -138,6 +140,7 @@ docs/RepositoryCredentialsApi.md
 docs/RetrievedFile.md
 docs/SecretSearchResult.md
 docs/Service.md
+docs/ServiceReference.md
 docs/ServiceVersion.md
 docs/ServiceVersionApi.md
 docs/ServiceVersionDb.md
@@ -194,6 +197,7 @@ model_analysis_archive_summary.go
 model_analysis_archive_transition_history.go
 model_analysis_archive_transition_rule.go
 model_analysis_archive_transition_rule_exclude.go
+model_analysis_status_detail.go
 model_analysis_update_eval.go
 model_analysis_update_notification.go
 model_analysis_update_notification_all_of.go
@@ -256,6 +260,7 @@ model_import_package_location.go
 model_import_package_relationship.go
 model_import_schema.go
 model_import_source.go
+model_inline_response_400.go
 model_local_analysis_source.go
 model_malware_scan.go
 model_malware_scan_findings.go
@@ -290,6 +295,7 @@ model_registry_tag_source.go
 model_retrieved_file.go
 model_secret_search_result.go
 model_service.go
+model_service_reference.go
 model_service_version.go
 model_service_version_api.go
 model_service_version_db.go

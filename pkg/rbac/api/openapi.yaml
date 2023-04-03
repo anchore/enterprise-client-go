@@ -19,7 +19,7 @@ paths:
         "200":
           content: {}
           description: Empty body on success
-      x-swagger-router-controller: anchore_engine.apis.common
+      x-swagger-router-controller: anchore_enterprise.common.common
       x-anchore-authz-action: None
   /version:
     get:
@@ -723,7 +723,7 @@ components:
         acs_url:
           description: The URL the IDP can use to access the Assertion Consumer Service
             to provide the token for sso. This is the way to reach the rbac manager
-            services /v1/saml/sso/{IDP_name} route externally
+            services /service/sso/auth/{IDP_name} route externally
           type: string
         acs_https_port:
           description: The port number to use for https if not 443. If omitted or
