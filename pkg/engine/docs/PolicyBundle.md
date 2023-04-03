@@ -6,7 +6,8 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Id** | **string** | Id of the bundle | 
 **Name** | Pointer to **string** | Human readable name for the bundle | [optional] 
-**Comment** | Pointer to **string** | Description of the bundle, human readable | [optional] 
+**Comment** | Pointer to **string** | Description of the bundle, human readable (Deprecated, use the description field instead) | [optional] 
+**Description** | Pointer to **string** | Description of the bundle, human readable | [optional] 
 **Version** | **string** | Version id for this bundle format | 
 **Whitelists** | Pointer to [**[]Whitelist**](Whitelist.md) | Whitelists which define which policy matches to disregard explicitly in the final policy decision | [optional] 
 **Policies** | [**[]Policy**](Policy.md) | Policies which define the go/stop/warn status of an image using rule matches on image properties | 
@@ -14,6 +15,7 @@ Name | Type | Description | Notes
 **Mappings** | [**[]MappingRule**](MappingRule.md) | Mapping rules for defining which policy and whitelist(s) to apply to an image based on a match of the image tag or id. Evaluated in order. | 
 **WhitelistedImages** | Pointer to [**[]ImageSelectionRule**](ImageSelectionRule.md) | List of mapping rules that define which images should always be passed (unless also on the blacklist), regardless of policy result. | [optional] 
 **BlacklistedImages** | Pointer to [**[]ImageSelectionRule**](ImageSelectionRule.md) | List of mapping rules that define which images should always result in a STOP/FAIL policy result regardless of policy content or presence in whitelisted_images | [optional] 
+**LastUpdated** | Pointer to **float32** | The time at which the policy was last updated, informational only | [optional] 
 
 ## Methods
 
@@ -103,6 +105,31 @@ SetComment sets Comment field to given value.
 `func (o *PolicyBundle) HasComment() bool`
 
 HasComment returns a boolean if a field has been set.
+
+### GetDescription
+
+`func (o *PolicyBundle) GetDescription() string`
+
+GetDescription returns the Description field if non-nil, zero value otherwise.
+
+### GetDescriptionOk
+
+`func (o *PolicyBundle) GetDescriptionOk() (*string, bool)`
+
+GetDescriptionOk returns a tuple with the Description field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDescription
+
+`func (o *PolicyBundle) SetDescription(v string)`
+
+SetDescription sets Description field to given value.
+
+### HasDescription
+
+`func (o *PolicyBundle) HasDescription() bool`
+
+HasDescription returns a boolean if a field has been set.
 
 ### GetVersion
 
@@ -263,6 +290,31 @@ SetBlacklistedImages sets BlacklistedImages field to given value.
 `func (o *PolicyBundle) HasBlacklistedImages() bool`
 
 HasBlacklistedImages returns a boolean if a field has been set.
+
+### GetLastUpdated
+
+`func (o *PolicyBundle) GetLastUpdated() float32`
+
+GetLastUpdated returns the LastUpdated field if non-nil, zero value otherwise.
+
+### GetLastUpdatedOk
+
+`func (o *PolicyBundle) GetLastUpdatedOk() (*float32, bool)`
+
+GetLastUpdatedOk returns a tuple with the LastUpdated field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetLastUpdated
+
+`func (o *PolicyBundle) SetLastUpdated(v float32)`
+
+SetLastUpdated sets LastUpdated field to given value.
+
+### HasLastUpdated
+
+`func (o *PolicyBundle) HasLastUpdated() bool`
+
+HasLastUpdated returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

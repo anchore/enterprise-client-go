@@ -3,7 +3,7 @@ Anchore Engine API Server
 
 This is the Anchore Engine API. Provides the primary external API for users of the service.
 
-API version: 0.3.0
+API version: 0.6.0
 Contact: nurmi@anchore.com
 */
 
@@ -21,8 +21,10 @@ type PolicyBundle struct {
 	Id string `json:"id"`
 	// Human readable name for the bundle
 	Name *string `json:"name,omitempty"`
-	// Description of the bundle, human readable
+	// Description of the bundle, human readable (Deprecated, use the description field instead)
 	Comment *string `json:"comment,omitempty"`
+	// Description of the bundle, human readable
+	Description *string `json:"description,omitempty"`
 	// Version id for this bundle format
 	Version string `json:"version"`
 	// Whitelists which define which policy matches to disregard explicitly in the final policy decision
@@ -37,6 +39,8 @@ type PolicyBundle struct {
 	WhitelistedImages *[]ImageSelectionRule `json:"whitelisted_images,omitempty"`
 	// List of mapping rules that define which images should always result in a STOP/FAIL policy result regardless of policy content or presence in whitelisted_images
 	BlacklistedImages *[]ImageSelectionRule `json:"blacklisted_images,omitempty"`
+	// The time at which the policy was last updated, informational only
+	LastUpdated *float32 `json:"last_updated,omitempty"`
 }
 
 // NewPolicyBundle instantiates a new PolicyBundle object
@@ -146,6 +150,38 @@ func (o *PolicyBundle) HasComment() bool {
 // SetComment gets a reference to the given string and assigns it to the Comment field.
 func (o *PolicyBundle) SetComment(v string) {
 	o.Comment = &v
+}
+
+// GetDescription returns the Description field value if set, zero value otherwise.
+func (o *PolicyBundle) GetDescription() string {
+	if o == nil || o.Description == nil {
+		var ret string
+		return ret
+	}
+	return *o.Description
+}
+
+// GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PolicyBundle) GetDescriptionOk() (*string, bool) {
+	if o == nil || o.Description == nil {
+		return nil, false
+	}
+	return o.Description, true
+}
+
+// HasDescription returns a boolean if a field has been set.
+func (o *PolicyBundle) HasDescription() bool {
+	if o != nil && o.Description != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetDescription gets a reference to the given string and assigns it to the Description field.
+func (o *PolicyBundle) SetDescription(v string) {
+	o.Description = &v
 }
 
 // GetVersion returns the Version field value
@@ -348,6 +384,38 @@ func (o *PolicyBundle) SetBlacklistedImages(v []ImageSelectionRule) {
 	o.BlacklistedImages = &v
 }
 
+// GetLastUpdated returns the LastUpdated field value if set, zero value otherwise.
+func (o *PolicyBundle) GetLastUpdated() float32 {
+	if o == nil || o.LastUpdated == nil {
+		var ret float32
+		return ret
+	}
+	return *o.LastUpdated
+}
+
+// GetLastUpdatedOk returns a tuple with the LastUpdated field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PolicyBundle) GetLastUpdatedOk() (*float32, bool) {
+	if o == nil || o.LastUpdated == nil {
+		return nil, false
+	}
+	return o.LastUpdated, true
+}
+
+// HasLastUpdated returns a boolean if a field has been set.
+func (o *PolicyBundle) HasLastUpdated() bool {
+	if o != nil && o.LastUpdated != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetLastUpdated gets a reference to the given float32 and assigns it to the LastUpdated field.
+func (o *PolicyBundle) SetLastUpdated(v float32) {
+	o.LastUpdated = &v
+}
+
 func (o PolicyBundle) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
@@ -358,6 +426,9 @@ func (o PolicyBundle) MarshalJSON() ([]byte, error) {
 	}
 	if o.Comment != nil {
 		toSerialize["comment"] = o.Comment
+	}
+	if o.Description != nil {
+		toSerialize["description"] = o.Description
 	}
 	if true {
 		toSerialize["version"] = o.Version
@@ -379,6 +450,9 @@ func (o PolicyBundle) MarshalJSON() ([]byte, error) {
 	}
 	if o.BlacklistedImages != nil {
 		toSerialize["blacklisted_images"] = o.BlacklistedImages
+	}
+	if o.LastUpdated != nil {
+		toSerialize["last_updated"] = o.LastUpdated
 	}
 	return json.Marshal(toSerialize)
 }

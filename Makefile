@@ -1,5 +1,5 @@
 # The version of this client (should be in line with the highest supported engine/enterprise version
-CLIENT_VERSION = 4.1.0
+CLIENT_VERSION = 4.6.0
 
 # where all generated code will be located
 PROJECT_ROOT = pkg
@@ -10,7 +10,7 @@ OPENAPI_GENERATOR_VERSION = v5.2.1
 
 # --- anchore enterprise references
 # a git tag/branch/commit within anchore/enterprise repo
-ENTERPRISE_REF = a16147550e6347aa42e78f61934afa5034e819d0
+ENTERPRISE_REF = 9e75306bc4639540def50d4aeca2b4b7f920bcd2
 ENTERPRISE_ROOT = $(PROJECT_ROOT)/enterprise
 RBAC_ROOT = $(PROJECT_ROOT)/rbac
 ENGINE_ROOT = $(PROJECT_ROOT)/engine
@@ -66,7 +66,7 @@ $(RBAC_OPENAPI_DOC) $(ENTERPRISE_OPENAPI_DOC) $(ENGINE_OPENAPI_DOC): $(PROJECT_R
 	# the tr/sed cmds are a workaround for now.
 	cp $(CLONE_DIR)/anchore_enterprise/swagger/enterprise_api_swagger.yaml $(ENTERPRISE_OPENAPI_DOC)
 	cp $(CLONE_DIR)/anchore_enterprise/swagger/rbac_manager_swagger.yaml $(RBAC_OPENAPI_DOC)
-	cp $(CLONE_DIR)/anchore_engine/services/apiext/swagger/swagger.yaml $(ENGINE_OPENAPI_DOC)
+	cp $(CLONE_DIR)/anchore_enterprise/services/api/swagger/swagger.yaml $(ENGINE_OPENAPI_DOC)
 
 .PHONY :=
 generate-clients: $(ENTERPRISE_OPENAPI_DOC) $(ENGINE_OPENAPI_DOC) $(RBAC_OPENAPI_DOC) ## generate client code for engine external API

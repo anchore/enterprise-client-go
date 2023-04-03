@@ -24,7 +24,7 @@ type SamlConfiguration struct {
 	Enabled bool `json:"enabled"`
 	// The entity ID for this SP. Can be the same for all IDP configurations in this installation or unique to each. This is typically a URL, but you can use any value as long as you also configure the IDP to expect this value.
 	SpEntityId string `json:"sp_entity_id"`
-	// The URL the IDP can use to access the Assertion Consumer Service to provide the token for sso. This is the way to reach the rbac manager services /v1/saml/sso/{IDP_name} route externally
+	// The URL the IDP can use to access the Assertion Consumer Service to provide the token for sso. This is the way to reach the rbac manager services /service/sso/auth/{IDP_name} route externally
 	AcsUrl string `json:"acs_url"`
 	// The port number to use for https if not 443. If omitted or -1, 443 is assumed and used as a default
 	AcsHttpsPort *int32 `json:"acs_https_port,omitempty"`

@@ -3,7 +3,7 @@ Anchore Engine API Server
 
 This is the Anchore Engine API. Provides the primary external API for users of the service.
 
-API version: 0.3.0
+API version: 0.6.0
 Contact: nurmi@anchore.com
 */
 
@@ -108,6 +108,19 @@ type DefaultApi interface {
 	PingExecute(r ApiPingRequest) (string, *_nethttp.Response, error)
 
 	/*
+	RevokeOauthToken Method for RevokeOauthToken
+
+	Revoke a refresh token previously requested from /oauth/token
+
+	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	 @return ApiRevokeOauthTokenRequest
+	*/
+	RevokeOauthToken(ctx _context.Context) ApiRevokeOauthTokenRequest
+
+	// RevokeOauthTokenExecute executes the request
+	RevokeOauthTokenExecute(r ApiRevokeOauthTokenRequest) (*_nethttp.Response, error)
+
+	/*
 	VersionCheck Method for VersionCheck
 
 	Returns the version object for the service, including db schema version info
@@ -132,6 +145,7 @@ type ApiGetOauthTokenRequest struct {
 	username *string
 	password *string
 	clientId *string
+	refreshToken *string
 }
 
 // OAuth Grant type for token
@@ -152,6 +166,11 @@ func (r ApiGetOauthTokenRequest) Password(password string) ApiGetOauthTokenReque
 // The type of client used for the OAuth token
 func (r ApiGetOauthTokenRequest) ClientId(clientId string) ApiGetOauthTokenRequest {
 	r.clientId = &clientId
+	return r
+}
+// The refresh token from a previous password grant request, used to get a new access_token
+func (r ApiGetOauthTokenRequest) RefreshToken(refreshToken string) ApiGetOauthTokenRequest {
+	r.refreshToken = &refreshToken
 	return r
 }
 
@@ -225,6 +244,9 @@ func (a *DefaultApiService) GetOauthTokenExecute(r ApiGetOauthTokenRequest) (Tok
 	}
 	if r.clientId != nil {
 		localVarFormParams.Add("client_id", parameterToString(*r.clientId, ""))
+	}
+	if r.refreshToken != nil {
+		localVarFormParams.Add("refresh_token", parameterToString(*r.refreshToken, ""))
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
@@ -775,6 +797,125 @@ func (a *DefaultApiService) PingExecute(r ApiPingRequest) (string, *_nethttp.Res
 	}
 
 	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiRevokeOauthTokenRequest struct {
+	ctx _context.Context
+	ApiService DefaultApi
+	token *string
+	tokenTypeHint *string
+}
+
+// The token to be revoked
+func (r ApiRevokeOauthTokenRequest) Token(token string) ApiRevokeOauthTokenRequest {
+	r.token = &token
+	return r
+}
+// A hint about the type of token to be revoked
+func (r ApiRevokeOauthTokenRequest) TokenTypeHint(tokenTypeHint string) ApiRevokeOauthTokenRequest {
+	r.tokenTypeHint = &tokenTypeHint
+	return r
+}
+
+func (r ApiRevokeOauthTokenRequest) Execute() (*_nethttp.Response, error) {
+	return r.ApiService.RevokeOauthTokenExecute(r)
+}
+
+/*
+RevokeOauthToken Method for RevokeOauthToken
+
+Revoke a refresh token previously requested from /oauth/token
+
+ @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return ApiRevokeOauthTokenRequest
+*/
+func (a *DefaultApiService) RevokeOauthToken(ctx _context.Context) ApiRevokeOauthTokenRequest {
+	return ApiRevokeOauthTokenRequest{
+		ApiService: a,
+		ctx: ctx,
+	}
+}
+
+// Execute executes the request
+func (a *DefaultApiService) RevokeOauthTokenExecute(r ApiRevokeOauthTokenRequest) (*_nethttp.Response, error) {
+	var (
+		localVarHTTPMethod   = _nethttp.MethodPost
+		localVarPostBody     interface{}
+		localVarFormFileName string
+		localVarFileName     string
+		localVarFileBytes    []byte
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.RevokeOauthToken")
+	if err != nil {
+		return nil, GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/oauth/revoke"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := _neturl.Values{}
+	localVarFormParams := _neturl.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/x-www-form-urlencoded"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	if r.token != nil {
+		localVarFormParams.Add("token", parameterToString(*r.token, ""))
+	}
+	if r.tokenTypeHint != nil {
+		localVarFormParams.Add("token_type_hint", parameterToString(*r.tokenTypeHint, ""))
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 400 {
+			var v InlineResponse400
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+			return localVarHTTPResponse, newErr
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
 }
 
 type ApiVersionCheckRequest struct {

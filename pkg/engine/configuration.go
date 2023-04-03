@@ -3,7 +3,7 @@ Anchore Engine API Server
 
 This is the Anchore Engine API. Provides the primary external API for users of the service.
 
-API version: 0.3.0
+API version: 0.6.0
 Contact: nurmi@anchore.com
 */
 
@@ -104,7 +104,7 @@ type Configuration struct {
 func NewConfiguration() *Configuration {
 	cfg := &Configuration{
 		DefaultHeader:    make(map[string]string),
-		UserAgent:        "anchore-client/4.1.0/go",
+		UserAgent:        "anchore-client/4.6.0/go",
 		Debug:            false,
 		Servers:          ServerConfigurations{
 			{

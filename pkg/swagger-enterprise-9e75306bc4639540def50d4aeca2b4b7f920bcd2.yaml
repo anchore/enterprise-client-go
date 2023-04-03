@@ -2,7 +2,7 @@
 swagger: "2.0"
 info:
   description: "This is the Anchore Enterprise API. It provides additional external API routes and functionality for enterprise users."
-  version: "0.5.0"
+  version: "0.7.0"
   title: "Anchore Enterprise API Server"
   contact:
     email: "dev@anchore.com"
@@ -47,7 +47,7 @@ parameters:
 paths:
   /images/{imageDigest}/check:
     get:
-      x-swagger-router-controller: anchore_enterprise.services.api.controllers.images
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.images
       operationId: get_image_policy_check_by_digest
       x-anchore-authz-action: getImageEvaluation
       description: Get the policy evaluation for the given image
@@ -101,7 +101,7 @@ paths:
 
   /images/{imageDigest}/vuln/{vtype}:
     get:
-      x-swagger-router-controller: anchore_enterprise.services.api.controllers.images
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.images
       operationId: get_image_vulnerabilities_by_digest
       x-anchore-authz-action: getImage
       summary: Get vulnerabilities by type
@@ -150,7 +150,7 @@ paths:
 
   /images/{image_digest}/ancestors:
     get:
-      x-swagger-router-controller: anchore_enterprise.services.api.controllers.images
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.images
       operationId: get_image_ancestors
       x-anchore-authz-action: getImage
       summary: Return the list of ancestor images for the given image
@@ -178,7 +178,7 @@ paths:
 
   /inventories:
     get:
-      x-swagger-router-controller: anchore_enterprise.services.api.controllers.runtime_inventory
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.runtime_inventory
       operationId: get_image_inventory
       x-anchore-authz-action: listRuntimeInventories
       summary: "Return a list of the images in inventories for this account"
@@ -190,6 +190,7 @@ paths:
           in: query
           type: string
           enum:
+            - ecs
             - kubernetes
         - name: image_digest
           in: query
@@ -208,7 +209,7 @@ paths:
       tags:
         - Inventories
     post:
-      x-swagger-router-controller: anchore_enterprise.services.api.controllers.runtime_inventory
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.runtime_inventory
       operationId: sync_image_inventory
       x-anchore-authz-action: syncInventory
       summary: "synchronizes the list of the images in a given cluster for the inventory"
@@ -231,10 +232,43 @@ paths:
           description: "Internal Error"
       tags:
         - Inventories
+    delete:
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.runtime_inventory
+      operationId: delete_inventory
+      x-anchore-authz-action: deleteInventory
+      summary: "Delete runtime inventory by type and context"
+      description: "Delete runtime inventory by type and context"
+      produces:
+        - "application/json"
+      parameters:
+        - name: inventory_type
+          in: query
+          type: string
+          enum:
+            - ecs
+            - kubernetes
+          required: true
+        - name: context
+          in: query
+          type: string
+          required: true
+        - name: image_digest
+          in: query
+          type: string
+        - $ref: "#/parameters/AsAccountParameter"
+      responses:
+        204:
+          description: "Successfully deleted runtime inventory"
+        404:
+          description: "Inventory not found"
+        500:
+          description: "Internal Error"
+      tags:
+        - Inventories
 
   /actions:
     get:
-      x-swagger-router-controller: anchore_enterprise.services.api.controllers.actions
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.actions
       operationId: get_action_plans
       x-anchore-authz-action: getActions
       summary: "Gets a list of submitted action (remediation) plans"
@@ -265,7 +299,7 @@ paths:
         - Actions
 
     post:
-      x-swagger-router-controller: anchore_enterprise.services.api.controllers.actions
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.actions
       operationId: add_action_plan
       x-anchore-authz-action: addAction
       summary: "Submits an Action Plan"
@@ -290,7 +324,7 @@ paths:
 
   /alerts/summaries:
     get:
-      x-swagger-router-controller: anchore_enterprise.services.api.controllers.alerts
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.alerts
       operationId: get_alert_summaries
       x-anchore-authz-action: listAlerts
       summary: List all alert summaries scoped to the account
@@ -363,7 +397,7 @@ paths:
 
   /alerts/compliance_violations:
     get:
-      x-swagger-router-controller: anchore_enterprise.services.api.controllers.alerts
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.alerts
       operationId: get_compliance_violation_alerts
       x-anchore-authz-action: listAlerts
       summary: List all compliance violation alerts scoped to the account
@@ -437,7 +471,7 @@ paths:
 
   /alerts/compliance_violations/{uuid}:
     get:
-      x-swagger-router-controller: anchore_enterprise.services.api.controllers.alerts
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.alerts
       operationId: get_compliance_violation_alert
       x-anchore-authz-action: getAlert
       summary: Get compliance violation alert by id
@@ -462,7 +496,7 @@ paths:
 
   /alerts/compliance_violations/{uuid}/{state}:
     put:
-      x-swagger-router-controller: anchore_enterprise.services.api.controllers.alerts
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.alerts
       operationId: update_compliance_violation_alert_state
       x-anchore-authz-action: updateAlert
       summary: Open or close a compliance violation alert
@@ -495,7 +529,7 @@ paths:
 
   /corrections:
     get:
-      x-swagger-router-controller: anchore_enterprise.services.api.controllers.corrections
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.corrections
       operationId: get_corrections
       x-anchore-authz-action: getCorrection
       summary: Retrieve a list of corrections
@@ -518,7 +552,7 @@ paths:
         - Corrections
 
     post:
-      x-swagger-router-controller: anchore_enterprise.services.api.controllers.corrections
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.corrections
       operationId: add_correction
       x-anchore-authz-action: addCorrection
       summary: Create a correction record
@@ -542,7 +576,7 @@ paths:
 
   /corrections/{uuid}:
     get:
-      x-swagger-router-controller: anchore_enterprise.services.api.controllers.corrections
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.corrections
       operationId: get_correction_by_uuid
       x-anchore-authz-action: getCorrection
       summary: Retrieve a correction by UUID
@@ -565,7 +599,7 @@ paths:
         - Corrections
 
     put:
-      x-swagger-router-controller: anchore_enterprise.services.api.controllers.corrections
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.corrections
       operationId: update_correction_by_uuid
       x-anchore-authz-action: updateCorrection
       summary: Update a correction by UUID
@@ -593,7 +627,7 @@ paths:
         - Corrections
 
     delete:
-      x-swagger-router-controller: anchore_enterprise.services.api.controllers.corrections
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.corrections
       operationId: delete_correction_by_uuid
       x-anchore-authz-action: deleteCorrection
       summary: Delete a correction by UUID
@@ -615,7 +649,7 @@ paths:
 
   /runtime_compliance:
     post:
-      x-swagger-router-controller: anchore_enterprise.services.api.controllers.runtime_compliance
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.runtime_compliance
       operationId: add_runtime_compliance_check
       x-anchore-authz-action: createRuntimeComplianceCheck
       summary: Post a runtime compliance check
@@ -685,7 +719,7 @@ paths:
         - Compliance
 
     get:
-      x-swagger-router-controller: anchore_enterprise.services.api.controllers.runtime_compliance
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.runtime_compliance
       operationId: get_runtime_compliance_checks
       x-anchore-authz-action: getRuntimeComplianceCheck
       description: Get all runtime compliance checks or just those for a given image digest
@@ -714,7 +748,7 @@ paths:
 
   /runtime_compliance/result/{compliance_file_id}:
     get:
-      x-swagger-router-controller: anchore_enterprise.services.api.controllers.runtime_compliance
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.runtime_compliance
       operationId: get_runtime_compliance_result
       x-anchore-authz-action: getRuntimeComplianceCheck
       description: Get the results of a specific runtime compliance check
@@ -744,7 +778,7 @@ paths:
 
   /applications:
     post:
-      x-swagger-router-controller: anchore_enterprise.services.api.controllers.applications
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.applications
       operationId: add_application
       x-anchore-authz-action: createApplication
       summary: Create an application
@@ -773,7 +807,7 @@ paths:
         - Applications
 
     get:
-      x-swagger-router-controller: anchore_enterprise.services.api.controllers.applications
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.applications
       operationId: get_applications
       x-anchore-authz-action: getApplication
       description: List all applications
@@ -801,7 +835,7 @@ paths:
 
   /applications/{application_id}:
     get:
-      x-swagger-router-controller: anchore_enterprise.services.api.controllers.applications
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.applications
       operationId: get_application
       x-anchore-authz-action: getApplication
       summary: Get an application by application_id
@@ -835,7 +869,7 @@ paths:
         - Applications
 
     put:
-      x-swagger-router-controller: anchore_enterprise.services.api.controllers.applications
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.applications
       operationId: update_application
       x-anchore-authz-action: updateApplication
       summary: Update application details
@@ -871,7 +905,7 @@ paths:
         - Applications
 
     delete:
-      x-swagger-router-controller: anchore_enterprise.services.api.controllers.applications
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.applications
       operationId: delete_application
       x-anchore-authz-action: deleteApplication
       summary: Delete an application by application_id
@@ -893,7 +927,7 @@ paths:
 
   /applications/{application_id}/versions:
     post:
-      x-swagger-router-controller: anchore_enterprise.services.api.controllers.applications
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.applications
       operationId: add_application_version
       x-anchore-authz-action: createApplication
       summary: Create an application version
@@ -929,7 +963,7 @@ paths:
         - Applications
 
     get:
-      x-swagger-router-controller: anchore_enterprise.services.api.controllers.applications
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.applications
       operationId: get_application_versions
       x-anchore-authz-action: getApplication
       summary: List all application verions
@@ -959,7 +993,7 @@ paths:
 
   /applications/{application_id}/versions/{application_version_id}:
     put:
-      x-swagger-router-controller: anchore_enterprise.services.api.controllers.applications
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.applications
       operationId: update_application_version
       x-anchore-authz-action: updateApplication
       summary: Update application version details
@@ -1000,7 +1034,7 @@ paths:
         - Applications
 
     get:
-      x-swagger-router-controller: anchore_enterprise.services.api.controllers.applications
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.applications
       operationId: get_application_version
       x-anchore-authz-action: getApplication
       summary: Get an application version
@@ -1034,7 +1068,7 @@ paths:
         - Applications
 
     delete:
-      x-swagger-router-controller: anchore_enterprise.services.api.controllers.applications
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.applications
       operationId: delete_application_version
       x-anchore-authz-action: deleteApplication
       summary: Delete an application version by application_id and application_version_id
@@ -1063,7 +1097,7 @@ paths:
 
   /applications/{application_id}/versions/{application_version_id}/artifacts:
     post:
-      x-swagger-router-controller: anchore_enterprise.services.api.controllers.applications
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.applications
       operationId: add_artifact_to_application_version
       x-anchore-authz-action: updateApplication
       summary: Add an artifact to an application version
@@ -1102,7 +1136,7 @@ paths:
         - Applications
 
     get:
-      x-swagger-router-controller: anchore_enterprise.services.api.controllers.applications
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.applications
       operationId: list_artifacts
       x-anchore-authz-action: getApplication
       summary: List artifacts present on a given application version
@@ -1146,7 +1180,7 @@ paths:
 
   /applications/{application_id}/versions/{application_version_id}/artifacts/{association_id}:
     delete:
-      x-swagger-router-controller: anchore_enterprise.services.api.controllers.applications
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.applications
       operationId: remove_artifact_from_application_version
       x-anchore-authz-action: deleteApplication
       summary: Delete an artifact from specified application version
@@ -1180,7 +1214,7 @@ paths:
 
   /applications/{application_id}/versions/{application_version_id}/sboms/json:
     get:
-      x-swagger-router-controller: anchore_enterprise.services.api.controllers.applications
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.applications
       operationId: get_application_version_sbom
       x-anchore-authz-action: getApplication
       summary: Get the combined sbom for the given application version, optionally filtered by artifact type
@@ -1223,7 +1257,7 @@ paths:
         - Applications
   /applications/{application_id}/versions/{application_version_id}/vulnerabilities:
     get:
-      x-swagger-router-controller: anchore_enterprise.services.api.controllers.applications
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.applications
       operationId: get_application_version_vulnerabilities
       x-anchore-authz-action: getApplication
       summary: Get the vulnerabilities for a given application version
@@ -1263,7 +1297,7 @@ paths:
 
   /imports/sources:
     post:
-      x-swagger-router-controller: anchore_enterprise.services.api.controllers.source_imports
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.source_imports
       operationId: create_operation
       x-anchore-authz-action: importSource
       summary: "Begin the import of a source code repository analyzed by Syft into the system"
@@ -1280,7 +1314,7 @@ paths:
         - Imports
 
     get:
-      x-swagger-router-controller: anchore_enterprise.services.api.controllers.source_imports
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.source_imports
       operationId: list_operations
       x-anchore-authz-action: importSource
       summary: "Lists in-progress imports"
@@ -1298,7 +1332,7 @@ paths:
 
   /imports/sources/{operation_id}:
     get:
-      x-swagger-router-controller: anchore_enterprise.services.api.controllers.source_imports
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.source_imports
       operationId: get_operation
       x-anchore-authz-action: importSource
       summary: "Get detail on a single import"
@@ -1321,7 +1355,7 @@ paths:
         - Imports
 
     delete:
-      x-swagger-router-controller: anchore_enterprise.services.api.controllers.source_imports
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.source_imports
       operationId: invalidate_operation
       x-anchore-authz-action: importSource
       summary: "Invalidate operation ID so it can be garbage collected"
@@ -1345,7 +1379,7 @@ paths:
 
   /imports/sources/{operation_id}/sbom:
     get:
-      x-swagger-router-controller: anchore_enterprise.services.api.controllers.source_imports
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.source_imports
       operationId: get_import_sources_sbom
       x-anchore-authz-action: importSource
       summary: "list the packages of an imported source code repository"
@@ -1368,7 +1402,7 @@ paths:
         - Imports
 
     post:
-      x-swagger-router-controller: anchore_enterprise.services.api.controllers.source_imports
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.source_imports
       operationId: upload_import_sources_sbom
       x-anchore-authz-action: importSource
       summary: "Begin the import of a source code repository analyzed by Syft into the system"
@@ -1399,7 +1433,7 @@ paths:
 
   /imports/sources/{operation_id}/finalize:
     post:
-      x-swagger-router-controller: anchore_enterprise.services.api.controllers.source_imports
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.source_imports
       operationId: finalize_operation
       x-anchore-authz-action: importSource
       summary: "Add source records to catalog db"
@@ -1430,7 +1464,7 @@ paths:
 
   /sources:
     get:
-      x-swagger-router-controller: anchore_enterprise.services.api.controllers.sources
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.sources
       operationId: list_sources
       x-anchore-authz-action: listSources
       summary: "List the source repository analysis records"
@@ -1449,7 +1483,7 @@ paths:
 
   /sources/{source_id}:
     get:
-      x-swagger-router-controller: anchore_enterprise.services.api.controllers.sources
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.sources
       operationId: get_source
       x-anchore-authz-action: getSource
       summary: "Get a detailed source repository analysis metadata record"
@@ -1472,7 +1506,7 @@ paths:
         - Sources
 
     delete:
-      x-swagger-router-controller: anchore_enterprise.services.api.controllers.sources
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.sources
       operationId: delete_source
       x-anchore-authz-action: getSource
       summary: "Delete source record from DB"
@@ -1503,7 +1537,7 @@ paths:
 
   /sources/{source_id}/sbom:
     get:
-      x-swagger-router-controller: anchore_enterprise.services.api.controllers.sources
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.sources
       operationId: get_source_sbom_types
       x-anchore-authz-action: getSource
       summary: "Get a detailed source repository analysis metadata record"
@@ -1530,10 +1564,10 @@ paths:
 
   /sources/{source_id}/sbom/native:
     get:
-      x-swagger-router-controller: anchore_enterprise.services.api.controllers.sources
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.sources
       operationId: get_source_sbom_native
       x-anchore-authz-action: getSource
-      summary: ""
+      summary: "Return the compressed source SBOM in the native Anchore format"
       produces:
         - "application/gzip"
       parameters:
@@ -1552,9 +1586,75 @@ paths:
       tags:
         - Sources
 
+  /sources/{source_id}/sbom/native-json:
+    get:
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.sources
+      operationId: get_source_sbom_native_json
+      x-anchore-authz-action: getSource
+      summary: "Return the source SBOM in the native Anchore format"
+      parameters:
+        - name: source_id
+          in: path
+          format: path
+          type: string
+          required: true
+      responses:
+        200:
+          description: "success"
+          schema:
+            type: string
+        500:
+          description: "Internal Error"
+      tags:
+        - Sources
+
+  /sources/{source_id}/sbom/spdx-json:
+    get:
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.sources
+      operationId: get_source_sbom_spdx_json
+      x-anchore-authz-action: getSource
+      summary: "Return the source SBOM in the SPDX format"
+      parameters:
+        - name: source_id
+          in: path
+          format: path
+          type: string
+          required: true
+      responses:
+        200:
+          description: "success"
+          schema:
+            type: string
+        500:
+          description: "Internal Error"
+      tags:
+        - Sources
+
+  /sources/{source_id}/sbom/cyclonedx-json:
+    get:
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.sources
+      operationId: get_source_sbom_cyclonedx_json
+      x-anchore-authz-action: getSource
+      summary: "Return the source SBOM in the CycloneDX format"
+      parameters:
+        - name: source_id
+          in: path
+          format: path
+          type: string
+          required: true
+      responses:
+        200:
+          description: "success"
+          schema:
+            type: string
+        500:
+          description: "Internal Error"
+      tags:
+        - Sources
+
   /sources/{source_id}/content:
     get:
-      x-swagger-router-controller: anchore_enterprise.services.api.controllers.sources
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.sources
       operationId: get_source_content_types
       x-anchore-authz-action: getSource
       summary: "Get a detailed source repository analysis metadata record"
@@ -1581,7 +1681,7 @@ paths:
 
   /sources/{source_id}/content/{content_type}:
     get:
-      x-swagger-router-controller: anchore_enterprise.services.api.controllers.sources
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.sources
       operationId: get_source_content_by_type
       x-anchore-authz-action: getSource
       summary: Get the content of an analyzed source repository
@@ -1610,7 +1710,7 @@ paths:
 
   /sources/{source_id}/vuln:
     get:
-      x-swagger-router-controller: anchore_enterprise.services.api.controllers.sources
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.sources
       operationId: get_source_vulnerability_types
       x-anchore-authz-action: getSource
       summary: "Get the available vulnerability types for source"
@@ -1641,7 +1741,7 @@ paths:
 
   /sources/{source_id}/vuln/{vtype}:
     get:
-      x-swagger-router-controller: anchore_enterprise.services.api.controllers.sources
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.sources
       operationId: get_source_vulnerabilities
       x-anchore-authz-action: getSource
       summary: "Get vulnerabilities for the source by type"
@@ -1684,7 +1784,7 @@ paths:
   /sources/{source_id}/check:
     get:
       x-anchore-authz-action: getSourceEvaluation
-      x-swagger-router-controller: "anchore_enterprise.services.api.controllers.sources"
+      x-swagger-router-controller: "anchore_enterprise.services.api.api.controllers.sources"
       operationId: "get_source_policy_check"
       summary: "Fetch or calculate policy evaluation for a source"
       description: ""
@@ -1711,7 +1811,7 @@ paths:
 
   /stateless/sbom/vuln/{vtype}:
     post:
-      x-swagger-router-controller: anchore_enterprise.services.api.controllers.stateless
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.stateless
       operationId: get_stateless_sbom_vulnerabilities
       x-anchore-authz-action: getImage
       summary: Get vulnerabilities for input sbom by type
@@ -1769,7 +1869,7 @@ paths:
           description: "success"
           schema:
               $ref: "#/definitions/ArtifactRelationships"
-      x-swagger-router-controller: "anchore_enterprise.services.api.controllers.relationships"
+      x-swagger-router-controller: "anchore_enterprise.services.api.api.controllers.relationships"
     post:
       x-anchore-authz-action: createArtifactRelationship
       tags:
@@ -1789,7 +1889,7 @@ paths:
           description: "success"
           schema:
             type: object
-      x-swagger-router-controller: "anchore_enterprise.services.api.controllers.relationships"
+      x-swagger-router-controller: "anchore_enterprise.services.api.api.controllers.relationships"
     delete:
       x-anchore-authz-action: deleteArtifactRelationships
       tags:
@@ -1812,7 +1912,7 @@ paths:
           description: "success"
           schema:
             type: object
-      x-swagger-router-controller: "anchore_enterprise.services.api.controllers.relationships"
+      x-swagger-router-controller: "anchore_enterprise.services.api.api.controllers.relationships"
   /artifact_relationships/{relationship_id}:
     get:
       x-anchore-authz-action: getArtifactRelationship
@@ -1833,7 +1933,7 @@ paths:
           description: "success"
           schema:
             $ref: "#/definitions/ArtifactRelationship"
-      x-swagger-router-controller: "anchore_enterprise.services.api.controllers.relationships"
+      x-swagger-router-controller: "anchore_enterprise.services.api.api.controllers.relationships"
   /artifact_relationships/{relationship_id}/diffs/sbom:
     get:
       x-anchore-authz-action: getArtifactRelationshipDiff
@@ -1841,7 +1941,7 @@ paths:
         - Relationships
       description: Return the context-aware diff of the sboms for the relationship
       operationId: get_relationship_sbom_diff
-      x-swagger-router-controller: "anchore_enterprise.services.api.controllers.relationships"
+      x-swagger-router-controller: "anchore_enterprise.services.api.api.controllers.relationships"
       parameters:
         - name: relationship_id
           type: string
@@ -2144,7 +2244,7 @@ definitions:
         type: array
         items:
           type: string
-          description: Full tag reference that is known at any time previoiusly for the digest.
+          description: Full tag reference that is known at any time previously for the digest.
           example: "docker.io/library/node:latest"
       layers:
         type: array
@@ -2161,6 +2261,9 @@ definitions:
         type: string
       inventory_type:
         type: string
+        enum:
+          - ecs
+          - kubernetes
       timestamp:
         type: string
         format: date-time

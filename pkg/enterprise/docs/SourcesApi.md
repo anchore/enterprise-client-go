@@ -9,7 +9,10 @@ Method | HTTP request | Description
 [**GetSourceContentByType**](SourcesApi.md#GetSourceContentByType) | **Get** /sources/{source_id}/content/{content_type} | Get the content of an analyzed source repository
 [**GetSourceContentTypes**](SourcesApi.md#GetSourceContentTypes) | **Get** /sources/{source_id}/content | Get a detailed source repository analysis metadata record
 [**GetSourcePolicyCheck**](SourcesApi.md#GetSourcePolicyCheck) | **Get** /sources/{source_id}/check | Fetch or calculate policy evaluation for a source
-[**GetSourceSbomNative**](SourcesApi.md#GetSourceSbomNative) | **Get** /sources/{source_id}/sbom/native | 
+[**GetSourceSbomCyclonedxJson**](SourcesApi.md#GetSourceSbomCyclonedxJson) | **Get** /sources/{source_id}/sbom/cyclonedx-json | Return the source SBOM in the CycloneDX format
+[**GetSourceSbomNative**](SourcesApi.md#GetSourceSbomNative) | **Get** /sources/{source_id}/sbom/native | Return the compressed source SBOM in the native Anchore format
+[**GetSourceSbomNativeJson**](SourcesApi.md#GetSourceSbomNativeJson) | **Get** /sources/{source_id}/sbom/native-json | Return the source SBOM in the native Anchore format
+[**GetSourceSbomSpdxJson**](SourcesApi.md#GetSourceSbomSpdxJson) | **Get** /sources/{source_id}/sbom/spdx-json | Return the source SBOM in the SPDX format
 [**GetSourceSbomTypes**](SourcesApi.md#GetSourceSbomTypes) | **Get** /sources/{source_id}/sbom | Get a detailed source repository analysis metadata record
 [**GetSourceVulnerabilities**](SourcesApi.md#GetSourceVulnerabilities) | **Get** /sources/{source_id}/vuln/{vtype} | Get vulnerabilities for the source by type
 [**GetSourceVulnerabilityTypes**](SourcesApi.md#GetSourceVulnerabilityTypes) | **Get** /sources/{source_id}/vuln | Get the available vulnerability types for source
@@ -364,11 +367,79 @@ No authorization required
 [[Back to README]](../README.md)
 
 
+## GetSourceSbomCyclonedxJson
+
+> string GetSourceSbomCyclonedxJson(ctx, sourceId).Execute()
+
+Return the source SBOM in the CycloneDX format
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    sourceId := "sourceId_example" // string | 
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.SourcesApi.GetSourceSbomCyclonedxJson(context.Background(), sourceId).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `SourcesApi.GetSourceSbomCyclonedxJson``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `GetSourceSbomCyclonedxJson`: string
+    fmt.Fprintf(os.Stdout, "Response from `SourcesApi.GetSourceSbomCyclonedxJson`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**sourceId** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetSourceSbomCyclonedxJsonRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+**string**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
 ## GetSourceSbomNative
 
 > *os.File GetSourceSbomNative(ctx, sourceId).Execute()
 
-
+Return the compressed source SBOM in the native Anchore format
 
 ### Example
 
@@ -426,6 +497,142 @@ No authorization required
 
 - **Content-Type**: Not defined
 - **Accept**: application/gzip
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetSourceSbomNativeJson
+
+> string GetSourceSbomNativeJson(ctx, sourceId).Execute()
+
+Return the source SBOM in the native Anchore format
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    sourceId := "sourceId_example" // string | 
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.SourcesApi.GetSourceSbomNativeJson(context.Background(), sourceId).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `SourcesApi.GetSourceSbomNativeJson``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `GetSourceSbomNativeJson`: string
+    fmt.Fprintf(os.Stdout, "Response from `SourcesApi.GetSourceSbomNativeJson`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**sourceId** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetSourceSbomNativeJsonRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+**string**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetSourceSbomSpdxJson
+
+> string GetSourceSbomSpdxJson(ctx, sourceId).Execute()
+
+Return the source SBOM in the SPDX format
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    sourceId := "sourceId_example" // string | 
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.SourcesApi.GetSourceSbomSpdxJson(context.Background(), sourceId).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `SourcesApi.GetSourceSbomSpdxJson``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `GetSourceSbomSpdxJson`: string
+    fmt.Fprintf(os.Stdout, "Response from `SourcesApi.GetSourceSbomSpdxJson`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**sourceId** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetSourceSbomSpdxJsonRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+**string**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

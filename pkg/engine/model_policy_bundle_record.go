@@ -3,7 +3,7 @@ Anchore Engine API Server
 
 This is the Anchore Engine API. Provides the primary external API for users of the service.
 
-API version: 0.3.0
+API version: 0.6.0
 Contact: nurmi@anchore.com
 */
 
@@ -29,6 +29,11 @@ type PolicyBundleRecord struct {
 	// Source location of where the policy bundle originated
 	PolicySource *string `json:"policy_source,omitempty"`
 	Policybundle *PolicyBundle `json:"policybundle,omitempty"`
+	Policybundlemeta *interface{} `json:"policybundlemeta,omitempty"`
+	// Name of the policy bundle
+	Name *string `json:"name,omitempty"`
+	// Description of the bundle, human readable
+	Description *string `json:"description,omitempty"`
 }
 
 // NewPolicyBundleRecord instantiates a new PolicyBundleRecord object
@@ -272,6 +277,102 @@ func (o *PolicyBundleRecord) SetPolicybundle(v PolicyBundle) {
 	o.Policybundle = &v
 }
 
+// GetPolicybundlemeta returns the Policybundlemeta field value if set, zero value otherwise.
+func (o *PolicyBundleRecord) GetPolicybundlemeta() interface{} {
+	if o == nil || o.Policybundlemeta == nil {
+		var ret interface{}
+		return ret
+	}
+	return *o.Policybundlemeta
+}
+
+// GetPolicybundlemetaOk returns a tuple with the Policybundlemeta field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PolicyBundleRecord) GetPolicybundlemetaOk() (*interface{}, bool) {
+	if o == nil || o.Policybundlemeta == nil {
+		return nil, false
+	}
+	return o.Policybundlemeta, true
+}
+
+// HasPolicybundlemeta returns a boolean if a field has been set.
+func (o *PolicyBundleRecord) HasPolicybundlemeta() bool {
+	if o != nil && o.Policybundlemeta != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetPolicybundlemeta gets a reference to the given interface{} and assigns it to the Policybundlemeta field.
+func (o *PolicyBundleRecord) SetPolicybundlemeta(v interface{}) {
+	o.Policybundlemeta = &v
+}
+
+// GetName returns the Name field value if set, zero value otherwise.
+func (o *PolicyBundleRecord) GetName() string {
+	if o == nil || o.Name == nil {
+		var ret string
+		return ret
+	}
+	return *o.Name
+}
+
+// GetNameOk returns a tuple with the Name field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PolicyBundleRecord) GetNameOk() (*string, bool) {
+	if o == nil || o.Name == nil {
+		return nil, false
+	}
+	return o.Name, true
+}
+
+// HasName returns a boolean if a field has been set.
+func (o *PolicyBundleRecord) HasName() bool {
+	if o != nil && o.Name != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetName gets a reference to the given string and assigns it to the Name field.
+func (o *PolicyBundleRecord) SetName(v string) {
+	o.Name = &v
+}
+
+// GetDescription returns the Description field value if set, zero value otherwise.
+func (o *PolicyBundleRecord) GetDescription() string {
+	if o == nil || o.Description == nil {
+		var ret string
+		return ret
+	}
+	return *o.Description
+}
+
+// GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PolicyBundleRecord) GetDescriptionOk() (*string, bool) {
+	if o == nil || o.Description == nil {
+		return nil, false
+	}
+	return o.Description, true
+}
+
+// HasDescription returns a boolean if a field has been set.
+func (o *PolicyBundleRecord) HasDescription() bool {
+	if o != nil && o.Description != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetDescription gets a reference to the given string and assigns it to the Description field.
+func (o *PolicyBundleRecord) SetDescription(v string) {
+	o.Description = &v
+}
+
 func (o PolicyBundleRecord) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.CreatedAt != nil {
@@ -294,6 +395,15 @@ func (o PolicyBundleRecord) MarshalJSON() ([]byte, error) {
 	}
 	if o.Policybundle != nil {
 		toSerialize["policybundle"] = o.Policybundle
+	}
+	if o.Policybundlemeta != nil {
+		toSerialize["policybundlemeta"] = o.Policybundlemeta
+	}
+	if o.Name != nil {
+		toSerialize["name"] = o.Name
+	}
+	if o.Description != nil {
+		toSerialize["description"] = o.Description
 	}
 	return json.Marshal(toSerialize)
 }

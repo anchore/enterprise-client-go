@@ -9,11 +9,13 @@ Name | Type | Description | Notes
 **LastUpdated** | Pointer to **time.Time** |  | [optional] 
 **CreatedAt** | Pointer to **time.Time** |  | [optional] 
 **ImageDigest** | Pointer to **string** |  | [optional] 
+**ParentDigest** | Pointer to **string** |  | [optional] 
 **UserId** | Pointer to **string** |  | [optional] 
 **Annotations** | Pointer to **interface{}** |  | [optional] 
 **ImageStatus** | Pointer to **string** | State of the image | [optional] 
 **AnalysisStatus** | Pointer to **string** | A state value for the current status of the analysis progress of the image | [optional] 
 **RecordVersion** | Pointer to **string** | The version of the record, used for internal schema updates and data migrations. | [optional] 
+**AnalysisStatusDetail** | Pointer to [**[]AnalysisStatusDetail**](AnalysisStatusDetail.md) |  | [optional] 
 
 ## Methods
 
@@ -159,6 +161,31 @@ SetImageDigest sets ImageDigest field to given value.
 
 HasImageDigest returns a boolean if a field has been set.
 
+### GetParentDigest
+
+`func (o *AnchoreImage) GetParentDigest() string`
+
+GetParentDigest returns the ParentDigest field if non-nil, zero value otherwise.
+
+### GetParentDigestOk
+
+`func (o *AnchoreImage) GetParentDigestOk() (*string, bool)`
+
+GetParentDigestOk returns a tuple with the ParentDigest field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetParentDigest
+
+`func (o *AnchoreImage) SetParentDigest(v string)`
+
+SetParentDigest sets ParentDigest field to given value.
+
+### HasParentDigest
+
+`func (o *AnchoreImage) HasParentDigest() bool`
+
+HasParentDigest returns a boolean if a field has been set.
+
 ### GetUserId
 
 `func (o *AnchoreImage) GetUserId() string`
@@ -284,6 +311,41 @@ SetRecordVersion sets RecordVersion field to given value.
 
 HasRecordVersion returns a boolean if a field has been set.
 
+### GetAnalysisStatusDetail
+
+`func (o *AnchoreImage) GetAnalysisStatusDetail() []AnalysisStatusDetail`
+
+GetAnalysisStatusDetail returns the AnalysisStatusDetail field if non-nil, zero value otherwise.
+
+### GetAnalysisStatusDetailOk
+
+`func (o *AnchoreImage) GetAnalysisStatusDetailOk() (*[]AnalysisStatusDetail, bool)`
+
+GetAnalysisStatusDetailOk returns a tuple with the AnalysisStatusDetail field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetAnalysisStatusDetail
+
+`func (o *AnchoreImage) SetAnalysisStatusDetail(v []AnalysisStatusDetail)`
+
+SetAnalysisStatusDetail sets AnalysisStatusDetail field to given value.
+
+### HasAnalysisStatusDetail
+
+`func (o *AnchoreImage) HasAnalysisStatusDetail() bool`
+
+HasAnalysisStatusDetail returns a boolean if a field has been set.
+
+### SetAnalysisStatusDetailNil
+
+`func (o *AnchoreImage) SetAnalysisStatusDetailNil(b bool)`
+
+ SetAnalysisStatusDetailNil sets the value for AnalysisStatusDetail to be an explicit nil
+
+### UnsetAnalysisStatusDetail
+`func (o *AnchoreImage) UnsetAnalysisStatusDetail()`
+
+UnsetAnalysisStatusDetail ensures that no value is present for AnalysisStatusDetail, not even an explicit nil
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

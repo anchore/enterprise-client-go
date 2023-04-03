@@ -3,7 +3,7 @@ Anchore Enterprise API Server
 
 This is the Anchore Enterprise API. It provides additional external API routes and functionality for enterprise users.
 
-API version: 0.5.0
+API version: 0.7.0
 Contact: dev@anchore.com
 */
 
@@ -176,7 +176,7 @@ func (a *ComplianceApiService) AddRuntimeComplianceCheckExecute(r ApiAddRuntimeC
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-                localVarFile         *os.File
+		localVarFile         *os.File
 		localVarReturnValue  RuntimeComplianceCheck
 	)
 
@@ -246,7 +246,7 @@ func (a *ComplianceApiService) AddRuntimeComplianceCheckExecute(r ApiAddRuntimeC
 		localVarFileBytes = fbs
 		localVarFileName = localVarFile.Name()
 		localVarFile.Close()
-                localVarFile = nil
+		localVarFile = nil
 	}
 	localVarFormFileName = "report_file"
 	if r.reportFile != nil {
