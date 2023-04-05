@@ -6,6 +6,8 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**DeleteInventory**](InventoriesApi.md#DeleteInventory) | **Delete** /inventories | Delete runtime inventory by type and context
 [**GetImageInventory**](InventoriesApi.md#GetImageInventory) | **Get** /inventories | Return a list of the images in inventories for this account
+[**PostEcsInventory**](InventoriesApi.md#PostEcsInventory) | **Post** /ecs-inventory | Add container metadata from Amazon ECS
+[**PostKubernetesInventory**](InventoriesApi.md#PostKubernetesInventory) | **Post** /kubernetes-inventory | Add container metadata from a Kubernetes deployment
 [**SyncImageInventory**](InventoriesApi.md#SyncImageInventory) | **Post** /inventories | synchronizes the list of the images in a given cluster for the inventory
 
 
@@ -146,6 +148,136 @@ No authorization required
 
 - **Content-Type**: Not defined
 - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PostEcsInventory
+
+> PostEcsInventory(ctx).Inventory(inventory).Execute()
+
+Add container metadata from Amazon ECS
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    "time"
+    openapiclient "./openapi"
+)
+
+func main() {
+    inventory := *openapiclient.NewECSInventory("ClusterName_example", time.Now()) // ECSInventory | 
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.InventoriesApi.PostEcsInventory(context.Background()).Inventory(inventory).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `InventoriesApi.PostEcsInventory``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostEcsInventoryRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **inventory** | [**ECSInventory**](ECSInventory.md) |  | 
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PostKubernetesInventory
+
+> PostKubernetesInventory(ctx).Inventory(inventory).Execute()
+
+Add container metadata from a Kubernetes deployment
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    "time"
+    openapiclient "./openapi"
+)
+
+func main() {
+    inventory := *openapiclient.NewKubernetesInventory("ClusterName_example", time.Now()) // KubernetesInventory | 
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.InventoriesApi.PostKubernetesInventory(context.Background()).Inventory(inventory).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `InventoriesApi.PostKubernetesInventory``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostKubernetesInventoryRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **inventory** | [**KubernetesInventory**](KubernetesInventory.md) |  | 
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: Not defined
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

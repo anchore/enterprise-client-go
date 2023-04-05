@@ -2732,7 +2732,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/ApiErrorResponse'
           description: Internal error
-      summary: Create a new account. Only avaialble to admin user.
+      summary: Create a new account. Only available to admin user.
       tags:
       - User Management
       x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.accounts
@@ -2792,6 +2792,46 @@ paths:
       - User Management
       x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.accounts
       x-anchore-authz-action: getAccount
+    put:
+      operationId: update_account
+      parameters:
+      - in: path
+        name: accountname
+        required: true
+        schema:
+          format: path
+          type: string
+      - description: An account name to change the resource scope of the request to
+          that account, if permissions allow (admin only)
+        in: header
+        name: x-anchore-account
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AccountInfo'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Account'
+          description: Returns the account information
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+          description: Internal error
+      summary: Update the info for this specific account.
+      tags:
+      - User Management
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.accounts
+      x-anchore-authz-action: updateAccount
+      x-codegen-request-body-name: info
   /accounts/{accountname}/state:
     put:
       operationId: update_account_state
@@ -3545,7 +3585,7 @@ paths:
         "500":
           content: {}
           description: Internal Error
-      summary: Begin the import of an image analyzed by Syft into the system
+      summary: Begin the import of an image SBOM into the system
       tags:
       - Imports
       x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.image_imports
@@ -3893,6 +3933,174 @@ paths:
       x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.image_imports
       x-anchore-authz-action: importImage
       x-codegen-request-body-name: contents
+  /imports/images/{operation_id}/secret_searches:
+    get:
+      operationId: list_import_secret_searches
+      parameters:
+      - in: path
+        name: operation_id
+        required: true
+        schema:
+          format: path
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ImportContentDigestList'
+          description: success
+        "500":
+          content: {}
+          description: Internal Error
+      summary: List uploaded secret search results
+      tags:
+      - Imports
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.image_imports
+      x-anchore-authz-action: importImage
+    post:
+      operationId: import_secret_searches
+      parameters:
+      - in: path
+        name: operation_id
+        required: true
+        schema:
+          format: path
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ImageImportContentSearchList'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ImageImportContentResponse'
+          description: success
+        "500":
+          content: {}
+          description: Internal Error
+      summary: Import a secret search analysis catalog
+      tags:
+      - Imports
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.image_imports
+      x-anchore-authz-action: importImage
+      x-codegen-request-body-name: contents
+  /imports/images/{operation_id}/content_searches:
+    get:
+      operationId: list_import_content_searches
+      parameters:
+      - in: path
+        name: operation_id
+        required: true
+        schema:
+          format: path
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ImportContentDigestList'
+          description: success
+        "500":
+          content: {}
+          description: Internal Error
+      summary: List uploaded content search results
+      tags:
+      - Imports
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.image_imports
+      x-anchore-authz-action: importImage
+    post:
+      operationId: import_content_searches
+      parameters:
+      - in: path
+        name: operation_id
+        required: true
+        schema:
+          format: path
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ImageImportContentSearchList'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ImageImportContentResponse'
+          description: success
+        "500":
+          content: {}
+          description: Internal Error
+      summary: Import a content search analysis catalog
+      tags:
+      - Imports
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.image_imports
+      x-anchore-authz-action: importImage
+      x-codegen-request-body-name: contents
+  /imports/images/{operation_id}/file_contents:
+    get:
+      operationId: list_import_file_contents
+      parameters:
+      - in: path
+        name: operation_id
+        required: true
+        schema:
+          format: path
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ImportContentDigestList'
+          description: success
+        "500":
+          content: {}
+          description: Internal Error
+      summary: List uploaded file contents
+      tags:
+      - Imports
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.image_imports
+      x-anchore-authz-action: importImage
+    post:
+      operationId: import_file_contents
+      parameters:
+      - in: path
+        name: operation_id
+        required: true
+        schema:
+          format: path
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ImageImportFileContentList'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ImageImportContentResponse'
+          description: success
+        "500":
+          content: {}
+          description: Internal Error
+      summary: Import a file contents analysis catalog
+      tags:
+      - Imports
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.image_imports
+      x-anchore-authz-action: importImage
+      x-codegen-request-body-name: contents
 components:
   parameters:
     AsAccountParameter:
@@ -4118,10 +4326,13 @@ components:
             local_image_id: local_image_id
             operation_uuid: operation_uuid
             contents:
+              secret_searches: secret_searches
               parent_manifest: parent_manifest
               manifest: manifest
+              file_contents: file_contents
               dockerfile: dockerfile
               image_config: image_config
+              content_searches: content_searches
               packages: packages
             digest: digest
             parent_digest: parent_digest
@@ -4181,10 +4392,13 @@ components:
           local_image_id: local_image_id
           operation_uuid: operation_uuid
           contents:
+            secret_searches: secret_searches
             parent_manifest: parent_manifest
             manifest: manifest
+            file_contents: file_contents
             dockerfile: dockerfile
             image_config: image_config
+            content_searches: content_searches
             packages: packages
           digest: digest
           parent_digest: parent_digest
@@ -6440,6 +6654,17 @@ components:
       required:
       - name
       type: object
+    AccountInfo:
+      description: Account Information.
+      example:
+        email: email
+      properties:
+        email:
+          description: An optional email to associate with the account for contact
+            purposes
+          pattern: '[a-z0-9!#$%&''*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&''*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?'
+          type: string
+      type: object
     Account:
       description: Account information
       example:
@@ -7404,10 +7629,13 @@ components:
         local_image_id: local_image_id
         operation_uuid: operation_uuid
         contents:
+          secret_searches: secret_searches
           parent_manifest: parent_manifest
           manifest: manifest
+          file_contents: file_contents
           dockerfile: dockerfile
           image_config: image_config
+          content_searches: content_searches
           packages: packages
         digest: digest
         parent_digest: parent_digest
@@ -7446,10 +7674,13 @@ components:
     ImportContentDigests:
       description: Digest of content to use in the final import
       example:
+        secret_searches: secret_searches
         parent_manifest: parent_manifest
         manifest: manifest
+        file_contents: file_contents
         dockerfile: dockerfile
         image_config: image_config
+        content_searches: content_searches
         packages: packages
       properties:
         packages:
@@ -7466,6 +7697,15 @@ components:
           type: string
         dockerfile:
           description: Digest for reference content for dockerfile
+          type: string
+        secret_searches:
+          description: Digest for reference content for secret search results
+          type: string
+        content_searches:
+          description: Digest for reference content for content search results
+          type: string
+        file_contents:
+          description: Digest for reference content for file retrieve content
           type: string
       required:
       - image_config
@@ -7484,6 +7724,83 @@ components:
         description: String digest of an uploaded content
         type: string
       type: array
+    ImageImportFileContentList:
+      description: Array of ImageImportFileContent objects
+      items:
+        $ref: '#/components/schemas/ImageImportFileContent'
+      type: array
+    ImageImportFileContent:
+      example:
+        contents: contents
+        location:
+          path: path
+          layerID: layerID
+      properties:
+        location:
+          $ref: '#/components/schemas/ImportPackageLocation'
+        contents:
+          type: string
+      required:
+      - contents
+      - location
+      type: object
+    ImageImportContentSearchList:
+      description: Array of ImageImportContentSearch objects
+      items:
+        $ref: '#/components/schemas/ImageImportContentSearch'
+      type: array
+    ImageImportContentSearch:
+      example:
+        location:
+          path: path
+          layerID: layerID
+        contentsearches:
+        - lineOffset: 6
+          length: 5
+          seekPosition: 1
+          classification: classification
+          lineNumber: 0
+        - lineOffset: 6
+          length: 5
+          seekPosition: 1
+          classification: classification
+          lineNumber: 0
+      properties:
+        location:
+          $ref: '#/components/schemas/ImportPackageLocation'
+        contentsearches:
+          items:
+            $ref: '#/components/schemas/ImportContentSearchElement'
+          type: array
+      required:
+      - contentsearches
+      - location
+      type: object
+    ImportContentSearchElement:
+      example:
+        lineOffset: 6
+        length: 5
+        seekPosition: 1
+        classification: classification
+        lineNumber: 0
+      properties:
+        classification:
+          type: string
+        lineNumber:
+          type: integer
+        lineOffset:
+          type: integer
+        seekPosition:
+          type: integer
+        length:
+          type: integer
+      required:
+      - classification
+      - length
+      - lineNumber
+      - lineOffset
+      - seekPosition
+      type: object
     ImagePackageManifest:
       example:
         schema:
@@ -7495,6 +7812,23 @@ components:
           name: name
           id: id
           version: version
+        files:
+        - metadata: '{}'
+          digests:
+          - value: value
+            algorithm: algorithm
+          - value: value
+            algorithm: algorithm
+          location: '{}'
+          id: id
+        - metadata: '{}'
+          digests:
+          - value: value
+            algorithm: algorithm
+          - value: value
+            algorithm: algorithm
+          location: '{}'
+          id: id
         source:
           type: type
           target: '{}'
@@ -7567,6 +7901,10 @@ components:
         artifactRelationships:
           items:
             $ref: '#/components/schemas/ImportPackageRelationship'
+          type: array
+        files:
+          items:
+            $ref: '#/components/schemas/ImportFile'
           type: array
       required:
       - artifacts
@@ -7731,6 +8069,47 @@ components:
       - child
       - parent
       - type
+      type: object
+    ImportFile:
+      example:
+        metadata: '{}'
+        digests:
+        - value: value
+          algorithm: algorithm
+        - value: value
+          algorithm: algorithm
+        location: '{}'
+        id: id
+      properties:
+        id:
+          type: string
+        location:
+          properties: {}
+          type: object
+        metadata:
+          properties: {}
+          type: object
+        digests:
+          items:
+            $ref: '#/components/schemas/ImportFileDigest'
+          type: array
+      required:
+      - id
+      - location
+      - metadata
+      type: object
+    ImportFileDigest:
+      example:
+        value: value
+        algorithm: algorithm
+      properties:
+        algorithm:
+          type: string
+        value:
+          type: string
+      required:
+      - algorithm
+      - value
       type: object
     NativeSbom:
       type: object

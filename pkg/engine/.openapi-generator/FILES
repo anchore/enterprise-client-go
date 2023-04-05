@@ -23,6 +23,7 @@ configuration.go
 docs/AccessCredential.md
 docs/Account.md
 docs/AccountCreationRequest.md
+docs/AccountInfo.md
 docs/AccountStatus.md
 docs/AnalysisArchiveAddResult.md
 docs/AnalysisArchiveRulesSummary.md
@@ -81,6 +82,8 @@ docs/ImageAnalysisRequest.md
 docs/ImageDetail.md
 docs/ImageFilter.md
 docs/ImageImportContentResponse.md
+docs/ImageImportContentSearch.md
+docs/ImageImportFileContent.md
 docs/ImageImportManifest.md
 docs/ImageImportOperation.md
 docs/ImagePackageManifest.md
@@ -93,8 +96,11 @@ docs/ImageWithPackages.md
 docs/ImagesApi.md
 docs/ImportApi.md
 docs/ImportContentDigests.md
+docs/ImportContentSearchElement.md
 docs/ImportDescriptor.md
 docs/ImportDistribution.md
+docs/ImportFile.md
+docs/ImportFileDigest.md
 docs/ImportPackage.md
 docs/ImportPackageLocation.md
 docs/ImportPackageRelationship.md
@@ -189,6 +195,7 @@ go.sum
 model_access_credential.go
 model_account.go
 model_account_creation_request.go
+model_account_info.go
 model_account_status.go
 model_analysis_archive_add_result.go
 model_analysis_archive_rules_summary.go
@@ -243,6 +250,8 @@ model_image_analysis_request.go
 model_image_detail.go
 model_image_filter.go
 model_image_import_content_response.go
+model_image_import_content_search.go
+model_image_import_file_content.go
 model_image_import_manifest.go
 model_image_import_operation.go
 model_image_package_manifest.go
@@ -253,8 +262,11 @@ model_image_selector.go
 model_image_source.go
 model_image_with_packages.go
 model_import_content_digests.go
+model_import_content_search_element.go
 model_import_descriptor.go
 model_import_distribution.go
+model_import_file.go
+model_import_file_digest.go
 model_import_package.go
 model_import_package_location.go
 model_import_package_relationship.go

@@ -266,6 +266,52 @@ paths:
       tags:
         - Inventories
 
+  /kubernetes-inventory:
+      post:
+        x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.runtime_inventory
+        operationId: post_kubernetes_inventory
+        x-anchore-authz-action: postKubernetesInventory
+        summary: "Add container metadata from a Kubernetes deployment"
+        description: "Add container metadata from a Kubernetes deployment"
+        produces:
+          - "application/json"
+        parameters:
+          - name: inventory
+            in: body
+            required: true
+            schema:
+              $ref: "#/definitions/KubernetesInventory"
+        responses:
+          204:
+            description: "success"
+          500:
+            description: "Internal Error"
+        tags:
+          - Inventories
+
+  /ecs-inventory:
+      post:
+        x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.runtime_inventory
+        operationId: post_ecs_inventory
+        x-anchore-authz-action: postEcsInventory
+        summary: "Add container metadata from Amazon ECS"
+        description: "Add container metadata from Amazon ECS"
+        produces:
+          - "application/json"
+        parameters:
+          - name: inventory
+            in: body
+            required: true
+            schema:
+              $ref: "#/definitions/ECSInventory"
+        responses:
+          204:
+            description: "success"
+          500:
+            description: "Internal Error"
+        tags:
+          - Inventories
+
   /actions:
     get:
       x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.actions
@@ -2320,6 +2366,162 @@ definitions:
       last_seen:
         type: string
         format: date-time
+  KubernetesInventory:
+    type: object
+    required:
+      - cluster_name
+      - timestamp
+    properties:
+      cluster_name:
+        type: string
+      timestamp:
+        type: string
+        format: date-time
+      namespaces:
+        type: array
+        items:
+          type: object
+          required:
+            - uid
+            - name
+          properties:
+            uid:
+              $ref: "#/definitions/UUID"
+            name:
+              type: string
+            labels:
+              type: object
+              additionalProperties:
+                type: string
+            annotations:
+              type: object
+              additionalProperties:
+                type: string
+      nodes:
+        type: array
+        items:
+          type: object
+          required:
+            - uid
+            - name
+          properties:
+            uid:
+              $ref: "#/definitions/UUID"
+            name:
+              type: string
+            labels:
+              type: object
+              additionalProperties:
+                type: string
+            annotations:
+              type: object
+              additionalProperties:
+                type: string
+            kernel_version:
+              type: string
+            kubernetes_version:
+              type: string
+            arch:
+              type: string
+            container_runtime_version:
+              type: string
+            kube_proxy_version:
+              type: string
+            kubelet_version:
+              type: string
+            operating_system:
+              type: string
+      pods:
+        type: array
+        items:
+          type: object
+          required:
+            - uid
+            - name
+          properties:
+            uid:
+              type: string
+            name:
+              type: string
+            namespace_uid:
+              $ref: "#/definitions/UUID"
+            node_uid:
+              $ref: "#/definitions/UUID"
+            labels:
+              type: object
+              additionalProperties:
+                type: string
+            annotations:
+              type: object
+              additionalProperties:
+                type: string
+      containers:
+        type: array
+        items:
+          type: object
+          required:
+            - id
+            - name
+            - image_tag
+            - pod_uid
+          properties:
+            id:
+              type: string
+            name:
+              type: string
+            image_tag:
+              type: string
+            image_digest:
+              type: string
+            pod_uid:
+              $ref: "#/definitions/UUID"
+  ECSInventory:
+    type: object
+    required:
+      - cluster_name
+      - timestamp
+    properties:
+      cluster_name:
+        type: string
+      timestamp:
+        type: string
+        format: date-time
+      tasks:
+        type: array
+        x-nullable: true
+        items:
+          type: object
+          required:
+            - arn
+          properties:
+            arn:
+              type: string
+            service_arn:
+              type: string
+            cluster_arn:
+              type: string
+            task_definition_arn:
+              type: string
+            tags:
+              type: object
+              additionalProperties:
+                type: string
+      containers:
+        type: array
+        items:
+          type: object
+          required:
+            - arn
+            - image_tag
+          properties:
+            arn:
+              type: string
+            task_arn:
+              type: string
+            image_tag:
+              type: string
+            image_digest:
+              type: string
   ActionPlans:
     type: array
     description: List of Action Plans
@@ -3615,3 +3817,8 @@ definitions:
         $ref: "#/definitions/JsonPointer"
       value:
         description: Expected value for test
+  UUID:
+    type: string
+    pattern: '^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$'
+    minLength: 36
+    maxLength: 36

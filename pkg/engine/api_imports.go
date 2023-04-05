@@ -28,7 +28,7 @@ var (
 type ImportsApi interface {
 
 	/*
-	CreateOperation Begin the import of an image analyzed by Syft into the system
+	CreateOperation Begin the import of an image SBOM into the system
 
 	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	 @return ApiCreateOperationRequest
@@ -51,6 +51,32 @@ type ImportsApi interface {
 	// GetOperationExecute executes the request
 	//  @return ImageImportOperation
 	GetOperationExecute(r ApiGetOperationRequest) (ImageImportOperation, *_nethttp.Response, error)
+
+	/*
+	ImportContentSearches Import a content search analysis catalog
+
+	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	 @param operationId
+	 @return ApiImportContentSearchesRequest
+	*/
+	ImportContentSearches(ctx _context.Context, operationId string) ApiImportContentSearchesRequest
+
+	// ImportContentSearchesExecute executes the request
+	//  @return ImageImportContentResponse
+	ImportContentSearchesExecute(r ApiImportContentSearchesRequest) (ImageImportContentResponse, *_nethttp.Response, error)
+
+	/*
+	ImportFileContents Import a file contents analysis catalog
+
+	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	 @param operationId
+	 @return ApiImportFileContentsRequest
+	*/
+	ImportFileContents(ctx _context.Context, operationId string) ApiImportFileContentsRequest
+
+	// ImportFileContentsExecute executes the request
+	//  @return ImageImportContentResponse
+	ImportFileContentsExecute(r ApiImportFileContentsRequest) (ImageImportContentResponse, *_nethttp.Response, error)
 
 	/*
 	ImportImageConfig Import a docker or OCI image config to associate with the image
@@ -118,6 +144,19 @@ type ImportsApi interface {
 	ImportImageParentManifestExecute(r ApiImportImageParentManifestRequest) (ImageImportContentResponse, *_nethttp.Response, error)
 
 	/*
+	ImportSecretSearches Import a secret search analysis catalog
+
+	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	 @param operationId
+	 @return ApiImportSecretSearchesRequest
+	*/
+	ImportSecretSearches(ctx _context.Context, operationId string) ApiImportSecretSearchesRequest
+
+	// ImportSecretSearchesExecute executes the request
+	//  @return ImageImportContentResponse
+	ImportSecretSearchesExecute(r ApiImportSecretSearchesRequest) (ImageImportContentResponse, *_nethttp.Response, error)
+
+	/*
 	InvalidateOperation Invalidate operation ID so it can be garbage collected
 
 	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
@@ -131,6 +170,19 @@ type ImportsApi interface {
 	InvalidateOperationExecute(r ApiInvalidateOperationRequest) (ImageImportOperation, *_nethttp.Response, error)
 
 	/*
+	ListImportContentSearches List uploaded content search results
+
+	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	 @param operationId
+	 @return ApiListImportContentSearchesRequest
+	*/
+	ListImportContentSearches(ctx _context.Context, operationId string) ApiListImportContentSearchesRequest
+
+	// ListImportContentSearchesExecute executes the request
+	//  @return []string
+	ListImportContentSearchesExecute(r ApiListImportContentSearchesRequest) ([]string, *_nethttp.Response, error)
+
+	/*
 	ListImportDockerfiles List uploaded dockerfiles
 
 	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
@@ -142,6 +194,19 @@ type ImportsApi interface {
 	// ListImportDockerfilesExecute executes the request
 	//  @return []string
 	ListImportDockerfilesExecute(r ApiListImportDockerfilesRequest) ([]string, *_nethttp.Response, error)
+
+	/*
+	ListImportFileContents List uploaded file contents
+
+	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	 @param operationId
+	 @return ApiListImportFileContentsRequest
+	*/
+	ListImportFileContents(ctx _context.Context, operationId string) ApiListImportFileContentsRequest
+
+	// ListImportFileContentsExecute executes the request
+	//  @return []string
+	ListImportFileContentsExecute(r ApiListImportFileContentsRequest) ([]string, *_nethttp.Response, error)
 
 	/*
 	ListImportImageConfigs List uploaded image configs
@@ -196,6 +261,19 @@ type ImportsApi interface {
 	ListImportParentManifestsExecute(r ApiListImportParentManifestsRequest) ([]string, *_nethttp.Response, error)
 
 	/*
+	ListImportSecretSearches List uploaded secret search results
+
+	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	 @param operationId
+	 @return ApiListImportSecretSearchesRequest
+	*/
+	ListImportSecretSearches(ctx _context.Context, operationId string) ApiListImportSecretSearchesRequest
+
+	// ListImportSecretSearchesExecute executes the request
+	//  @return []string
+	ListImportSecretSearchesExecute(r ApiListImportSecretSearchesRequest) ([]string, *_nethttp.Response, error)
+
+	/*
 	ListOperations Lists in-progress imports
 
 	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
@@ -222,7 +300,7 @@ func (r ApiCreateOperationRequest) Execute() (ImageImportOperation, *_nethttp.Re
 }
 
 /*
-CreateOperation Begin the import of an image analyzed by Syft into the system
+CreateOperation Begin the import of an image SBOM into the system
 
  @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiCreateOperationRequest
@@ -378,6 +456,234 @@ func (a *ImportsApiService) GetOperationExecute(r ApiGetOperationRequest) (Image
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiImportContentSearchesRequest struct {
+	ctx _context.Context
+	ApiService ImportsApi
+	operationId string
+	contents *[]ImageImportContentSearch
+}
+
+func (r ApiImportContentSearchesRequest) Contents(contents []ImageImportContentSearch) ApiImportContentSearchesRequest {
+	r.contents = &contents
+	return r
+}
+
+func (r ApiImportContentSearchesRequest) Execute() (ImageImportContentResponse, *_nethttp.Response, error) {
+	return r.ApiService.ImportContentSearchesExecute(r)
+}
+
+/*
+ImportContentSearches Import a content search analysis catalog
+
+ @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param operationId
+ @return ApiImportContentSearchesRequest
+*/
+func (a *ImportsApiService) ImportContentSearches(ctx _context.Context, operationId string) ApiImportContentSearchesRequest {
+	return ApiImportContentSearchesRequest{
+		ApiService: a,
+		ctx: ctx,
+		operationId: operationId,
+	}
+}
+
+// Execute executes the request
+//  @return ImageImportContentResponse
+func (a *ImportsApiService) ImportContentSearchesExecute(r ApiImportContentSearchesRequest) (ImageImportContentResponse, *_nethttp.Response, error) {
+	var (
+		localVarHTTPMethod   = _nethttp.MethodPost
+		localVarPostBody     interface{}
+		localVarFormFileName string
+		localVarFileName     string
+		localVarFileBytes    []byte
+		localVarReturnValue  ImageImportContentResponse
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ImportsApiService.ImportContentSearches")
+	if err != nil {
+		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/imports/images/{operation_id}/content_searches"
+	localVarPath = strings.Replace(localVarPath, "{"+"operation_id"+"}", _neturl.PathEscape(parameterToString(r.operationId, "")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := _neturl.Values{}
+	localVarFormParams := _neturl.Values{}
+	if r.contents == nil {
+		return localVarReturnValue, nil, reportError("contents is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.contents
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiImportFileContentsRequest struct {
+	ctx _context.Context
+	ApiService ImportsApi
+	operationId string
+	contents *[]ImageImportFileContent
+}
+
+func (r ApiImportFileContentsRequest) Contents(contents []ImageImportFileContent) ApiImportFileContentsRequest {
+	r.contents = &contents
+	return r
+}
+
+func (r ApiImportFileContentsRequest) Execute() (ImageImportContentResponse, *_nethttp.Response, error) {
+	return r.ApiService.ImportFileContentsExecute(r)
+}
+
+/*
+ImportFileContents Import a file contents analysis catalog
+
+ @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param operationId
+ @return ApiImportFileContentsRequest
+*/
+func (a *ImportsApiService) ImportFileContents(ctx _context.Context, operationId string) ApiImportFileContentsRequest {
+	return ApiImportFileContentsRequest{
+		ApiService: a,
+		ctx: ctx,
+		operationId: operationId,
+	}
+}
+
+// Execute executes the request
+//  @return ImageImportContentResponse
+func (a *ImportsApiService) ImportFileContentsExecute(r ApiImportFileContentsRequest) (ImageImportContentResponse, *_nethttp.Response, error) {
+	var (
+		localVarHTTPMethod   = _nethttp.MethodPost
+		localVarPostBody     interface{}
+		localVarFormFileName string
+		localVarFileName     string
+		localVarFileBytes    []byte
+		localVarReturnValue  ImageImportContentResponse
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ImportsApiService.ImportFileContents")
+	if err != nil {
+		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/imports/images/{operation_id}/file_contents"
+	localVarPath = strings.Replace(localVarPath, "{"+"operation_id"+"}", _neturl.PathEscape(parameterToString(r.operationId, "")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := _neturl.Values{}
+	localVarFormParams := _neturl.Values{}
+	if r.contents == nil {
+		return localVarReturnValue, nil, reportError("contents is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.contents
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -985,6 +1291,120 @@ func (a *ImportsApiService) ImportImageParentManifestExecute(r ApiImportImagePar
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+type ApiImportSecretSearchesRequest struct {
+	ctx _context.Context
+	ApiService ImportsApi
+	operationId string
+	contents *[]ImageImportContentSearch
+}
+
+func (r ApiImportSecretSearchesRequest) Contents(contents []ImageImportContentSearch) ApiImportSecretSearchesRequest {
+	r.contents = &contents
+	return r
+}
+
+func (r ApiImportSecretSearchesRequest) Execute() (ImageImportContentResponse, *_nethttp.Response, error) {
+	return r.ApiService.ImportSecretSearchesExecute(r)
+}
+
+/*
+ImportSecretSearches Import a secret search analysis catalog
+
+ @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param operationId
+ @return ApiImportSecretSearchesRequest
+*/
+func (a *ImportsApiService) ImportSecretSearches(ctx _context.Context, operationId string) ApiImportSecretSearchesRequest {
+	return ApiImportSecretSearchesRequest{
+		ApiService: a,
+		ctx: ctx,
+		operationId: operationId,
+	}
+}
+
+// Execute executes the request
+//  @return ImageImportContentResponse
+func (a *ImportsApiService) ImportSecretSearchesExecute(r ApiImportSecretSearchesRequest) (ImageImportContentResponse, *_nethttp.Response, error) {
+	var (
+		localVarHTTPMethod   = _nethttp.MethodPost
+		localVarPostBody     interface{}
+		localVarFormFileName string
+		localVarFileName     string
+		localVarFileBytes    []byte
+		localVarReturnValue  ImageImportContentResponse
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ImportsApiService.ImportSecretSearches")
+	if err != nil {
+		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/imports/images/{operation_id}/secret_searches"
+	localVarPath = strings.Replace(localVarPath, "{"+"operation_id"+"}", _neturl.PathEscape(parameterToString(r.operationId, "")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := _neturl.Values{}
+	localVarFormParams := _neturl.Values{}
+	if r.contents == nil {
+		return localVarReturnValue, nil, reportError("contents is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.contents
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
 type ApiInvalidateOperationRequest struct {
 	ctx _context.Context
 	ApiService ImportsApi
@@ -1089,6 +1509,110 @@ func (a *ImportsApiService) InvalidateOperationExecute(r ApiInvalidateOperationR
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+type ApiListImportContentSearchesRequest struct {
+	ctx _context.Context
+	ApiService ImportsApi
+	operationId string
+}
+
+
+func (r ApiListImportContentSearchesRequest) Execute() ([]string, *_nethttp.Response, error) {
+	return r.ApiService.ListImportContentSearchesExecute(r)
+}
+
+/*
+ListImportContentSearches List uploaded content search results
+
+ @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param operationId
+ @return ApiListImportContentSearchesRequest
+*/
+func (a *ImportsApiService) ListImportContentSearches(ctx _context.Context, operationId string) ApiListImportContentSearchesRequest {
+	return ApiListImportContentSearchesRequest{
+		ApiService: a,
+		ctx: ctx,
+		operationId: operationId,
+	}
+}
+
+// Execute executes the request
+//  @return []string
+func (a *ImportsApiService) ListImportContentSearchesExecute(r ApiListImportContentSearchesRequest) ([]string, *_nethttp.Response, error) {
+	var (
+		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarPostBody     interface{}
+		localVarFormFileName string
+		localVarFileName     string
+		localVarFileBytes    []byte
+		localVarReturnValue  []string
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ImportsApiService.ListImportContentSearches")
+	if err != nil {
+		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/imports/images/{operation_id}/content_searches"
+	localVarPath = strings.Replace(localVarPath, "{"+"operation_id"+"}", _neturl.PathEscape(parameterToString(r.operationId, "")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := _neturl.Values{}
+	localVarFormParams := _neturl.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
 type ApiListImportDockerfilesRequest struct {
 	ctx _context.Context
 	ApiService ImportsApi
@@ -1133,6 +1657,110 @@ func (a *ImportsApiService) ListImportDockerfilesExecute(r ApiListImportDockerfi
 	}
 
 	localVarPath := localBasePath + "/imports/images/{operation_id}/dockerfile"
+	localVarPath = strings.Replace(localVarPath, "{"+"operation_id"+"}", _neturl.PathEscape(parameterToString(r.operationId, "")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := _neturl.Values{}
+	localVarFormParams := _neturl.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiListImportFileContentsRequest struct {
+	ctx _context.Context
+	ApiService ImportsApi
+	operationId string
+}
+
+
+func (r ApiListImportFileContentsRequest) Execute() ([]string, *_nethttp.Response, error) {
+	return r.ApiService.ListImportFileContentsExecute(r)
+}
+
+/*
+ListImportFileContents List uploaded file contents
+
+ @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param operationId
+ @return ApiListImportFileContentsRequest
+*/
+func (a *ImportsApiService) ListImportFileContents(ctx _context.Context, operationId string) ApiListImportFileContentsRequest {
+	return ApiListImportFileContentsRequest{
+		ApiService: a,
+		ctx: ctx,
+		operationId: operationId,
+	}
+}
+
+// Execute executes the request
+//  @return []string
+func (a *ImportsApiService) ListImportFileContentsExecute(r ApiListImportFileContentsRequest) ([]string, *_nethttp.Response, error) {
+	var (
+		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarPostBody     interface{}
+		localVarFormFileName string
+		localVarFileName     string
+		localVarFileBytes    []byte
+		localVarReturnValue  []string
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ImportsApiService.ListImportFileContents")
+	if err != nil {
+		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/imports/images/{operation_id}/file_contents"
 	localVarPath = strings.Replace(localVarPath, "{"+"operation_id"+"}", _neturl.PathEscape(parameterToString(r.operationId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -1549,6 +2177,110 @@ func (a *ImportsApiService) ListImportParentManifestsExecute(r ApiListImportPare
 	}
 
 	localVarPath := localBasePath + "/imports/images/{operation_id}/parent_manifest"
+	localVarPath = strings.Replace(localVarPath, "{"+"operation_id"+"}", _neturl.PathEscape(parameterToString(r.operationId, "")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := _neturl.Values{}
+	localVarFormParams := _neturl.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiListImportSecretSearchesRequest struct {
+	ctx _context.Context
+	ApiService ImportsApi
+	operationId string
+}
+
+
+func (r ApiListImportSecretSearchesRequest) Execute() ([]string, *_nethttp.Response, error) {
+	return r.ApiService.ListImportSecretSearchesExecute(r)
+}
+
+/*
+ListImportSecretSearches List uploaded secret search results
+
+ @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param operationId
+ @return ApiListImportSecretSearchesRequest
+*/
+func (a *ImportsApiService) ListImportSecretSearches(ctx _context.Context, operationId string) ApiListImportSecretSearchesRequest {
+	return ApiListImportSecretSearchesRequest{
+		ApiService: a,
+		ctx: ctx,
+		operationId: operationId,
+	}
+}
+
+// Execute executes the request
+//  @return []string
+func (a *ImportsApiService) ListImportSecretSearchesExecute(r ApiListImportSecretSearchesRequest) ([]string, *_nethttp.Response, error) {
+	var (
+		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarPostBody     interface{}
+		localVarFormFileName string
+		localVarFileName     string
+		localVarFileBytes    []byte
+		localVarReturnValue  []string
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ImportsApiService.ListImportSecretSearches")
+	if err != nil {
+		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/imports/images/{operation_id}/secret_searches"
 	localVarPath = strings.Replace(localVarPath, "{"+"operation_id"+"}", _neturl.PathEscape(parameterToString(r.operationId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
