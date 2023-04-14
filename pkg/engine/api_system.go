@@ -60,11 +60,11 @@ type SystemApi interface {
 	DeleteService Delete the service config
 
 	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @param servicename
-	 @param hostid
+	 @param serviceName
+	 @param hostId
 	 @return ApiDeleteServiceRequest
 	*/
-	DeleteService(ctx _context.Context, servicename string, hostid string) ApiDeleteServiceRequest
+	DeleteService(ctx _context.Context, serviceName string, hostId string) ApiDeleteServiceRequest
 
 	// DeleteServiceExecute executes the request
 	DeleteServiceExecute(r ApiDeleteServiceRequest) (*_nethttp.Response, error)
@@ -115,10 +115,10 @@ type SystemApi interface {
 	GetServicesByName Get a service configuration and state
 
 	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @param servicename
+	 @param serviceName
 	 @return ApiGetServicesByNameRequest
 	*/
-	GetServicesByName(ctx _context.Context, servicename string) ApiGetServicesByNameRequest
+	GetServicesByName(ctx _context.Context, serviceName string) ApiGetServicesByNameRequest
 
 	// GetServicesByNameExecute executes the request
 	//  @return []Service
@@ -128,11 +128,11 @@ type SystemApi interface {
 	GetServicesByNameAndHost Get service config for a specific host
 
 	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @param servicename
-	 @param hostid
+	 @param serviceName
+	 @param hostId
 	 @return ApiGetServicesByNameAndHostRequest
 	*/
-	GetServicesByNameAndHost(ctx _context.Context, servicename string, hostid string) ApiGetServicesByNameAndHostRequest
+	GetServicesByNameAndHost(ctx _context.Context, serviceName string, hostId string) ApiGetServicesByNameAndHostRequest
 
 	// GetServicesByNameAndHostExecute executes the request
 	//  @return []Service
@@ -438,8 +438,8 @@ func (a *SystemApiService) DeleteFeedGroupExecute(r ApiDeleteFeedGroupRequest) (
 type ApiDeleteServiceRequest struct {
 	ctx _context.Context
 	ApiService SystemApi
-	servicename string
-	hostid string
+	serviceName string
+	hostId string
 }
 
 
@@ -451,16 +451,16 @@ func (r ApiDeleteServiceRequest) Execute() (*_nethttp.Response, error) {
 DeleteService Delete the service config
 
  @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param servicename
- @param hostid
+ @param serviceName
+ @param hostId
  @return ApiDeleteServiceRequest
 */
-func (a *SystemApiService) DeleteService(ctx _context.Context, servicename string, hostid string) ApiDeleteServiceRequest {
+func (a *SystemApiService) DeleteService(ctx _context.Context, serviceName string, hostId string) ApiDeleteServiceRequest {
 	return ApiDeleteServiceRequest{
 		ApiService: a,
 		ctx: ctx,
-		servicename: servicename,
-		hostid: hostid,
+		serviceName: serviceName,
+		hostId: hostId,
 	}
 }
 
@@ -479,9 +479,9 @@ func (a *SystemApiService) DeleteServiceExecute(r ApiDeleteServiceRequest) (*_ne
 		return nil, GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/system/services/{servicename}/{hostid}"
-	localVarPath = strings.Replace(localVarPath, "{"+"servicename"+"}", _neturl.PathEscape(parameterToString(r.servicename, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"hostid"+"}", _neturl.PathEscape(parameterToString(r.hostid, "")), -1)
+	localVarPath := localBasePath + "/system/services/{service_name}/{host_id}"
+	localVarPath = strings.Replace(localVarPath, "{"+"service_name"+"}", _neturl.PathEscape(parameterToString(r.serviceName, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"host_id"+"}", _neturl.PathEscape(parameterToString(r.hostId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
@@ -859,7 +859,7 @@ func (a *SystemApiService) GetServiceDetailExecute(r ApiGetServiceDetailRequest)
 type ApiGetServicesByNameRequest struct {
 	ctx _context.Context
 	ApiService SystemApi
-	servicename string
+	serviceName string
 }
 
 
@@ -871,14 +871,14 @@ func (r ApiGetServicesByNameRequest) Execute() ([]Service, *_nethttp.Response, e
 GetServicesByName Get a service configuration and state
 
  @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param servicename
+ @param serviceName
  @return ApiGetServicesByNameRequest
 */
-func (a *SystemApiService) GetServicesByName(ctx _context.Context, servicename string) ApiGetServicesByNameRequest {
+func (a *SystemApiService) GetServicesByName(ctx _context.Context, serviceName string) ApiGetServicesByNameRequest {
 	return ApiGetServicesByNameRequest{
 		ApiService: a,
 		ctx: ctx,
-		servicename: servicename,
+		serviceName: serviceName,
 	}
 }
 
@@ -899,8 +899,8 @@ func (a *SystemApiService) GetServicesByNameExecute(r ApiGetServicesByNameReques
 		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/system/services/{servicename}"
-	localVarPath = strings.Replace(localVarPath, "{"+"servicename"+"}", _neturl.PathEscape(parameterToString(r.servicename, "")), -1)
+	localVarPath := localBasePath + "/system/services/{service_name}"
+	localVarPath = strings.Replace(localVarPath, "{"+"service_name"+"}", _neturl.PathEscape(parameterToString(r.serviceName, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
@@ -972,8 +972,8 @@ func (a *SystemApiService) GetServicesByNameExecute(r ApiGetServicesByNameReques
 type ApiGetServicesByNameAndHostRequest struct {
 	ctx _context.Context
 	ApiService SystemApi
-	servicename string
-	hostid string
+	serviceName string
+	hostId string
 }
 
 
@@ -985,16 +985,16 @@ func (r ApiGetServicesByNameAndHostRequest) Execute() ([]Service, *_nethttp.Resp
 GetServicesByNameAndHost Get service config for a specific host
 
  @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param servicename
- @param hostid
+ @param serviceName
+ @param hostId
  @return ApiGetServicesByNameAndHostRequest
 */
-func (a *SystemApiService) GetServicesByNameAndHost(ctx _context.Context, servicename string, hostid string) ApiGetServicesByNameAndHostRequest {
+func (a *SystemApiService) GetServicesByNameAndHost(ctx _context.Context, serviceName string, hostId string) ApiGetServicesByNameAndHostRequest {
 	return ApiGetServicesByNameAndHostRequest{
 		ApiService: a,
 		ctx: ctx,
-		servicename: servicename,
-		hostid: hostid,
+		serviceName: serviceName,
+		hostId: hostId,
 	}
 }
 
@@ -1015,9 +1015,9 @@ func (a *SystemApiService) GetServicesByNameAndHostExecute(r ApiGetServicesByNam
 		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/system/services/{servicename}/{hostid}"
-	localVarPath = strings.Replace(localVarPath, "{"+"servicename"+"}", _neturl.PathEscape(parameterToString(r.servicename, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"hostid"+"}", _neturl.PathEscape(parameterToString(r.hostid, "")), -1)
+	localVarPath := localBasePath + "/system/services/{service_name}/{host_id}"
+	localVarPath = strings.Replace(localVarPath, "{"+"service_name"+"}", _neturl.PathEscape(parameterToString(r.serviceName, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"host_id"+"}", _neturl.PathEscape(parameterToString(r.hostId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}

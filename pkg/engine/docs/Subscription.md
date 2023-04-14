@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **SubscriptionKey** | Pointer to **string** | The key value that the subscription references. E.g. a tag value or a repo name. | [optional] 
 **SubscriptionType** | Pointer to **string** | The type of the subscription | [optional] 
 **SubscriptionValue** | Pointer to **NullableString** | The value of the subscription target | [optional] 
-**UserId** | Pointer to **string** | The userId of the subscribed user | [optional] 
+**AccountName** | Pointer to **string** | The account_name of the subscribed user | [optional] 
 **Active** | Pointer to **bool** | Is the subscription currently active | [optional] 
 **SubscriptionId** | Pointer to **string** | the unique id for this subscription record | [optional] 
 
@@ -115,30 +115,30 @@ HasSubscriptionValue returns a boolean if a field has been set.
 `func (o *Subscription) UnsetSubscriptionValue()`
 
 UnsetSubscriptionValue ensures that no value is present for SubscriptionValue, not even an explicit nil
-### GetUserId
+### GetAccountName
 
-`func (o *Subscription) GetUserId() string`
+`func (o *Subscription) GetAccountName() string`
 
-GetUserId returns the UserId field if non-nil, zero value otherwise.
+GetAccountName returns the AccountName field if non-nil, zero value otherwise.
 
-### GetUserIdOk
+### GetAccountNameOk
 
-`func (o *Subscription) GetUserIdOk() (*string, bool)`
+`func (o *Subscription) GetAccountNameOk() (*string, bool)`
 
-GetUserIdOk returns a tuple with the UserId field if it's non-nil, zero value otherwise
+GetAccountNameOk returns a tuple with the AccountName field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetUserId
+### SetAccountName
 
-`func (o *Subscription) SetUserId(v string)`
+`func (o *Subscription) SetAccountName(v string)`
 
-SetUserId sets UserId field to given value.
+SetAccountName sets AccountName field to given value.
 
-### HasUserId
+### HasAccountName
 
-`func (o *Subscription) HasUserId() bool`
+`func (o *Subscription) HasAccountName() bool`
 
-HasUserId returns a boolean if a field has been set.
+HasAccountName returns a boolean if a field has been set.
 
 ### GetActive
 

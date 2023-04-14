@@ -17,9 +17,9 @@ import (
 
 // VulnUpdateNotification struct for VulnUpdateNotification
 type VulnUpdateNotification struct {
-	QueueId *string `json:"queueId,omitempty"`
-	UserId *string `json:"userId,omitempty"`
-	DataId *string `json:"dataId,omitempty"`
+	QueueId *string `json:"queue_id,omitempty"`
+	AccountName *string `json:"account_name,omitempty"`
+	DataId *string `json:"data_id,omitempty"`
 	CreatedAt *int32 `json:"created_at,omitempty"`
 	LastUpdated *int32 `json:"last_updated,omitempty"`
 	RecordStateKey *string `json:"record_state_key,omitempty"`
@@ -82,36 +82,36 @@ func (o *VulnUpdateNotification) SetQueueId(v string) {
 	o.QueueId = &v
 }
 
-// GetUserId returns the UserId field value if set, zero value otherwise.
-func (o *VulnUpdateNotification) GetUserId() string {
-	if o == nil || o.UserId == nil {
+// GetAccountName returns the AccountName field value if set, zero value otherwise.
+func (o *VulnUpdateNotification) GetAccountName() string {
+	if o == nil || o.AccountName == nil {
 		var ret string
 		return ret
 	}
-	return *o.UserId
+	return *o.AccountName
 }
 
-// GetUserIdOk returns a tuple with the UserId field value if set, nil otherwise
+// GetAccountNameOk returns a tuple with the AccountName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *VulnUpdateNotification) GetUserIdOk() (*string, bool) {
-	if o == nil || o.UserId == nil {
+func (o *VulnUpdateNotification) GetAccountNameOk() (*string, bool) {
+	if o == nil || o.AccountName == nil {
 		return nil, false
 	}
-	return o.UserId, true
+	return o.AccountName, true
 }
 
-// HasUserId returns a boolean if a field has been set.
-func (o *VulnUpdateNotification) HasUserId() bool {
-	if o != nil && o.UserId != nil {
+// HasAccountName returns a boolean if a field has been set.
+func (o *VulnUpdateNotification) HasAccountName() bool {
+	if o != nil && o.AccountName != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetUserId gets a reference to the given string and assigns it to the UserId field.
-func (o *VulnUpdateNotification) SetUserId(v string) {
-	o.UserId = &v
+// SetAccountName gets a reference to the given string and assigns it to the AccountName field.
+func (o *VulnUpdateNotification) SetAccountName(v string) {
+	o.AccountName = &v
 }
 
 // GetDataId returns the DataId field value if set, zero value otherwise.
@@ -383,13 +383,13 @@ func (o *VulnUpdateNotification) SetData(v VulnUpdateNotificationData) {
 func (o VulnUpdateNotification) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.QueueId != nil {
-		toSerialize["queueId"] = o.QueueId
+		toSerialize["queue_id"] = o.QueueId
 	}
-	if o.UserId != nil {
-		toSerialize["userId"] = o.UserId
+	if o.AccountName != nil {
+		toSerialize["account_name"] = o.AccountName
 	}
 	if o.DataId != nil {
-		toSerialize["dataId"] = o.DataId
+		toSerialize["data_id"] = o.DataId
 	}
 	if o.CreatedAt != nil {
 		toSerialize["created_at"] = o.CreatedAt

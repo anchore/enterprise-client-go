@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**UserId** | Pointer to **string** |  | [optional] 
+**AccountName** | Pointer to **string** |  | [optional] 
 **Id** | Pointer to **string** |  | [optional] 
 **Type** | Pointer to **string** |  | [optional] 
 
@@ -27,30 +27,30 @@ NewEventResponseEventResourceWithDefaults instantiates a new EventResponseEventR
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
-### GetUserId
+### GetAccountName
 
-`func (o *EventResponseEventResource) GetUserId() string`
+`func (o *EventResponseEventResource) GetAccountName() string`
 
-GetUserId returns the UserId field if non-nil, zero value otherwise.
+GetAccountName returns the AccountName field if non-nil, zero value otherwise.
 
-### GetUserIdOk
+### GetAccountNameOk
 
-`func (o *EventResponseEventResource) GetUserIdOk() (*string, bool)`
+`func (o *EventResponseEventResource) GetAccountNameOk() (*string, bool)`
 
-GetUserIdOk returns a tuple with the UserId field if it's non-nil, zero value otherwise
+GetAccountNameOk returns a tuple with the AccountName field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetUserId
+### SetAccountName
 
-`func (o *EventResponseEventResource) SetUserId(v string)`
+`func (o *EventResponseEventResource) SetAccountName(v string)`
 
-SetUserId sets UserId field to given value.
+SetAccountName sets AccountName field to given value.
 
-### HasUserId
+### HasAccountName
 
-`func (o *EventResponseEventResource) HasUserId() bool`
+`func (o *EventResponseEventResource) HasAccountName() bool`
 
-HasUserId returns a boolean if a field has been set.
+HasAccountName returns a boolean if a field has been set.
 
 ### GetId
 

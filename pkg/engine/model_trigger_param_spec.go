@@ -24,8 +24,8 @@ type TriggerParamSpec struct {
 	Example NullableString `json:"example,omitempty"`
 	// State of the trigger parameter
 	State *string `json:"state,omitempty"`
-	// The name of another trigger that supercedes this on functionally if this is deprecated
-	SupercededBy NullableString `json:"superceded_by,omitempty"`
+	// The name of another trigger that supersedes this on functionally if this is deprecated
+	SupersededBy NullableString `json:"superseded_by,omitempty"`
 	// Is this a required parameter or optional
 	Required *bool `json:"required,omitempty"`
 	// If present, a definition for validation of input. Typically a jsonschema object that can be used to validate an input against.
@@ -187,46 +187,46 @@ func (o *TriggerParamSpec) SetState(v string) {
 	o.State = &v
 }
 
-// GetSupercededBy returns the SupercededBy field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *TriggerParamSpec) GetSupercededBy() string {
-	if o == nil || o.SupercededBy.Get() == nil {
+// GetSupersededBy returns the SupersededBy field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *TriggerParamSpec) GetSupersededBy() string {
+	if o == nil || o.SupersededBy.Get() == nil {
 		var ret string
 		return ret
 	}
-	return *o.SupercededBy.Get()
+	return *o.SupersededBy.Get()
 }
 
-// GetSupercededByOk returns a tuple with the SupercededBy field value if set, nil otherwise
+// GetSupersededByOk returns a tuple with the SupersededBy field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *TriggerParamSpec) GetSupercededByOk() (*string, bool) {
+func (o *TriggerParamSpec) GetSupersededByOk() (*string, bool) {
 	if o == nil  {
 		return nil, false
 	}
-	return o.SupercededBy.Get(), o.SupercededBy.IsSet()
+	return o.SupersededBy.Get(), o.SupersededBy.IsSet()
 }
 
-// HasSupercededBy returns a boolean if a field has been set.
-func (o *TriggerParamSpec) HasSupercededBy() bool {
-	if o != nil && o.SupercededBy.IsSet() {
+// HasSupersededBy returns a boolean if a field has been set.
+func (o *TriggerParamSpec) HasSupersededBy() bool {
+	if o != nil && o.SupersededBy.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetSupercededBy gets a reference to the given NullableString and assigns it to the SupercededBy field.
-func (o *TriggerParamSpec) SetSupercededBy(v string) {
-	o.SupercededBy.Set(&v)
+// SetSupersededBy gets a reference to the given NullableString and assigns it to the SupersededBy field.
+func (o *TriggerParamSpec) SetSupersededBy(v string) {
+	o.SupersededBy.Set(&v)
 }
-// SetSupercededByNil sets the value for SupercededBy to be an explicit nil
-func (o *TriggerParamSpec) SetSupercededByNil() {
-	o.SupercededBy.Set(nil)
+// SetSupersededByNil sets the value for SupersededBy to be an explicit nil
+func (o *TriggerParamSpec) SetSupersededByNil() {
+	o.SupersededBy.Set(nil)
 }
 
-// UnsetSupercededBy ensures that no value is present for SupercededBy, not even an explicit nil
-func (o *TriggerParamSpec) UnsetSupercededBy() {
-	o.SupercededBy.Unset()
+// UnsetSupersededBy ensures that no value is present for SupersededBy, not even an explicit nil
+func (o *TriggerParamSpec) UnsetSupersededBy() {
+	o.SupersededBy.Unset()
 }
 
 // GetRequired returns the Required field value if set, zero value otherwise.
@@ -307,8 +307,8 @@ func (o TriggerParamSpec) MarshalJSON() ([]byte, error) {
 	if o.State != nil {
 		toSerialize["state"] = o.State
 	}
-	if o.SupercededBy.IsSet() {
-		toSerialize["superceded_by"] = o.SupercededBy.Get()
+	if o.SupersededBy.IsSet() {
+		toSerialize["superseded_by"] = o.SupersededBy.Get()
 	}
 	if o.Required != nil {
 		toSerialize["required"] = o.Required

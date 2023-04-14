@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **QueueId** | Pointer to **string** |  | [optional] 
-**UserId** | Pointer to **string** |  | [optional] 
+**AccountName** | Pointer to **string** |  | [optional] 
 **DataId** | Pointer to **string** |  | [optional] 
 **CreatedAt** | Pointer to **int32** |  | [optional] 
 **LastUpdated** | Pointer to **int32** |  | [optional] 
@@ -58,30 +58,30 @@ SetQueueId sets QueueId field to given value.
 
 HasQueueId returns a boolean if a field has been set.
 
-### GetUserId
+### GetAccountName
 
-`func (o *NotificationBase) GetUserId() string`
+`func (o *NotificationBase) GetAccountName() string`
 
-GetUserId returns the UserId field if non-nil, zero value otherwise.
+GetAccountName returns the AccountName field if non-nil, zero value otherwise.
 
-### GetUserIdOk
+### GetAccountNameOk
 
-`func (o *NotificationBase) GetUserIdOk() (*string, bool)`
+`func (o *NotificationBase) GetAccountNameOk() (*string, bool)`
 
-GetUserIdOk returns a tuple with the UserId field if it's non-nil, zero value otherwise
+GetAccountNameOk returns a tuple with the AccountName field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetUserId
+### SetAccountName
 
-`func (o *NotificationBase) SetUserId(v string)`
+`func (o *NotificationBase) SetAccountName(v string)`
 
-SetUserId sets UserId field to given value.
+SetAccountName sets AccountName field to given value.
 
-### HasUserId
+### HasAccountName
 
-`func (o *NotificationBase) HasUserId() bool`
+`func (o *NotificationBase) HasAccountName() bool`
 
-HasUserId returns a boolean if a field has been set.
+HasAccountName returns a boolean if a field has been set.
 
 ### GetDataId
 

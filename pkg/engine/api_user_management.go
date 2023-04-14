@@ -28,7 +28,7 @@ var (
 type UserManagementApi interface {
 
 	/*
-	CreateAccount Create a new account. Only avaialble to admin user.
+	CreateAccount Create a new account. Only available to admin user.
 
 	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	 @return ApiCreateAccountRequest
@@ -43,10 +43,10 @@ type UserManagementApi interface {
 	CreateUser Create a new user within the specified account.
 
 	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @param accountname
+	 @param accountName
 	 @return ApiCreateUserRequest
 	*/
-	CreateUser(ctx _context.Context, accountname string) ApiCreateUserRequest
+	CreateUser(ctx _context.Context, accountName string) ApiCreateUserRequest
 
 	// CreateUserExecute executes the request
 	//  @return User
@@ -56,11 +56,11 @@ type UserManagementApi interface {
 	CreateUserCredential add/replace credential
 
 	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @param accountname
+	 @param accountName
 	 @param username
 	 @return ApiCreateUserCredentialRequest
 	*/
-	CreateUserCredential(ctx _context.Context, accountname string, username string) ApiCreateUserCredentialRequest
+	CreateUserCredential(ctx _context.Context, accountName string, username string) ApiCreateUserCredentialRequest
 
 	// CreateUserCredentialExecute executes the request
 	//  @return AccessCredential
@@ -70,10 +70,10 @@ type UserManagementApi interface {
 	DeleteAccount Delete the specified account, only allowed if the account is in the disabled state. All users will be deleted along with the account and all resources will be garbage collected
 
 	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @param accountname
+	 @param accountName
 	 @return ApiDeleteAccountRequest
 	*/
-	DeleteAccount(ctx _context.Context, accountname string) ApiDeleteAccountRequest
+	DeleteAccount(ctx _context.Context, accountName string) ApiDeleteAccountRequest
 
 	// DeleteAccountExecute executes the request
 	DeleteAccountExecute(r ApiDeleteAccountRequest) (*_nethttp.Response, error)
@@ -82,11 +82,11 @@ type UserManagementApi interface {
 	DeleteUser Delete a specific user credential by username of the credential. Cannot be the credential used to authenticate the request.
 
 	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @param accountname
+	 @param accountName
 	 @param username
 	 @return ApiDeleteUserRequest
 	*/
-	DeleteUser(ctx _context.Context, accountname string, username string) ApiDeleteUserRequest
+	DeleteUser(ctx _context.Context, accountName string, username string) ApiDeleteUserRequest
 
 	// DeleteUserExecute executes the request
 	DeleteUserExecute(r ApiDeleteUserRequest) (*_nethttp.Response, error)
@@ -95,11 +95,11 @@ type UserManagementApi interface {
 	DeleteUserCredential Delete a credential by type
 
 	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @param accountname
+	 @param accountName
 	 @param username
 	 @return ApiDeleteUserCredentialRequest
 	*/
-	DeleteUserCredential(ctx _context.Context, accountname string, username string) ApiDeleteUserCredentialRequest
+	DeleteUserCredential(ctx _context.Context, accountName string, username string) ApiDeleteUserCredentialRequest
 
 	// DeleteUserCredentialExecute executes the request
 	DeleteUserCredentialExecute(r ApiDeleteUserCredentialRequest) (*_nethttp.Response, error)
@@ -108,10 +108,10 @@ type UserManagementApi interface {
 	GetAccount Get account info about this specific account.
 
 	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @param accountname
+	 @param accountName
 	 @return ApiGetAccountRequest
 	*/
-	GetAccount(ctx _context.Context, accountname string) ApiGetAccountRequest
+	GetAccount(ctx _context.Context, accountName string) ApiGetAccountRequest
 
 	// GetAccountExecute executes the request
 	//  @return Account
@@ -121,11 +121,11 @@ type UserManagementApi interface {
 	GetAccountUser Get a specific user in the specified account
 
 	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @param accountname
+	 @param accountName
 	 @param username
 	 @return ApiGetAccountUserRequest
 	*/
-	GetAccountUser(ctx _context.Context, accountname string, username string) ApiGetAccountUserRequest
+	GetAccountUser(ctx _context.Context, accountName string, username string) ApiGetAccountUserRequest
 
 	// GetAccountUserExecute executes the request
 	//  @return User
@@ -147,11 +147,11 @@ type UserManagementApi interface {
 	ListUserCredentials Get current credential summary
 
 	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @param accountname
+	 @param accountName
 	 @param username
 	 @return ApiListUserCredentialsRequest
 	*/
-	ListUserCredentials(ctx _context.Context, accountname string, username string) ApiListUserCredentialsRequest
+	ListUserCredentials(ctx _context.Context, accountName string, username string) ApiListUserCredentialsRequest
 
 	// ListUserCredentialsExecute executes the request
 	//  @return []AccessCredential
@@ -161,23 +161,36 @@ type UserManagementApi interface {
 	ListUsers List of users found in this account.
 
 	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @param accountname
+	 @param accountName
 	 @return ApiListUsersRequest
 	*/
-	ListUsers(ctx _context.Context, accountname string) ApiListUsersRequest
+	ListUsers(ctx _context.Context, accountName string) ApiListUsersRequest
 
 	// ListUsersExecute executes the request
 	//  @return []User
 	ListUsersExecute(r ApiListUsersRequest) ([]User, *_nethttp.Response, error)
 
 	/*
+	UpdateAccount Update the info for this specific account.
+
+	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	 @param accountName
+	 @return ApiUpdateAccountRequest
+	*/
+	UpdateAccount(ctx _context.Context, accountName string) ApiUpdateAccountRequest
+
+	// UpdateAccountExecute executes the request
+	//  @return Account
+	UpdateAccountExecute(r ApiUpdateAccountRequest) (Account, *_nethttp.Response, error)
+
+	/*
 	UpdateAccountState Update the state of an account to either enabled or disabled. For deletion use the DELETE route
 
 	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @param accountname
+	 @param accountName
 	 @return ApiUpdateAccountStateRequest
 	*/
-	UpdateAccountState(ctx _context.Context, accountname string) ApiUpdateAccountStateRequest
+	UpdateAccountState(ctx _context.Context, accountName string) ApiUpdateAccountStateRequest
 
 	// UpdateAccountStateExecute executes the request
 	//  @return AccountStatus
@@ -203,7 +216,7 @@ func (r ApiCreateAccountRequest) Execute() (Account, *_nethttp.Response, error) 
 }
 
 /*
-CreateAccount Create a new account. Only avaialble to admin user.
+CreateAccount Create a new account. Only available to admin user.
 
  @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiCreateAccountRequest
@@ -319,7 +332,7 @@ func (a *UserManagementApiService) CreateAccountExecute(r ApiCreateAccountReques
 type ApiCreateUserRequest struct {
 	ctx _context.Context
 	ApiService UserManagementApi
-	accountname string
+	accountName string
 	user *UserCreationRequest
 }
 
@@ -336,14 +349,14 @@ func (r ApiCreateUserRequest) Execute() (User, *_nethttp.Response, error) {
 CreateUser Create a new user within the specified account.
 
  @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param accountname
+ @param accountName
  @return ApiCreateUserRequest
 */
-func (a *UserManagementApiService) CreateUser(ctx _context.Context, accountname string) ApiCreateUserRequest {
+func (a *UserManagementApiService) CreateUser(ctx _context.Context, accountName string) ApiCreateUserRequest {
 	return ApiCreateUserRequest{
 		ApiService: a,
 		ctx: ctx,
-		accountname: accountname,
+		accountName: accountName,
 	}
 }
 
@@ -364,8 +377,8 @@ func (a *UserManagementApiService) CreateUserExecute(r ApiCreateUserRequest) (Us
 		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/accounts/{accountname}/users"
-	localVarPath = strings.Replace(localVarPath, "{"+"accountname"+"}", _neturl.PathEscape(parameterToString(r.accountname, "")), -1)
+	localVarPath := localBasePath + "/accounts/{account_name}/users"
+	localVarPath = strings.Replace(localVarPath, "{"+"account_name"+"}", _neturl.PathEscape(parameterToString(r.accountName, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
@@ -433,7 +446,7 @@ func (a *UserManagementApiService) CreateUserExecute(r ApiCreateUserRequest) (Us
 type ApiCreateUserCredentialRequest struct {
 	ctx _context.Context
 	ApiService UserManagementApi
-	accountname string
+	accountName string
 	username string
 	credential *AccessCredential
 }
@@ -451,15 +464,15 @@ func (r ApiCreateUserCredentialRequest) Execute() (AccessCredential, *_nethttp.R
 CreateUserCredential add/replace credential
 
  @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param accountname
+ @param accountName
  @param username
  @return ApiCreateUserCredentialRequest
 */
-func (a *UserManagementApiService) CreateUserCredential(ctx _context.Context, accountname string, username string) ApiCreateUserCredentialRequest {
+func (a *UserManagementApiService) CreateUserCredential(ctx _context.Context, accountName string, username string) ApiCreateUserCredentialRequest {
 	return ApiCreateUserCredentialRequest{
 		ApiService: a,
 		ctx: ctx,
-		accountname: accountname,
+		accountName: accountName,
 		username: username,
 	}
 }
@@ -481,8 +494,8 @@ func (a *UserManagementApiService) CreateUserCredentialExecute(r ApiCreateUserCr
 		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/accounts/{accountname}/users/{username}/credentials"
-	localVarPath = strings.Replace(localVarPath, "{"+"accountname"+"}", _neturl.PathEscape(parameterToString(r.accountname, "")), -1)
+	localVarPath := localBasePath + "/accounts/{account_name}/users/{username}/credentials"
+	localVarPath = strings.Replace(localVarPath, "{"+"account_name"+"}", _neturl.PathEscape(parameterToString(r.accountName, "")), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"username"+"}", _neturl.PathEscape(parameterToString(r.username, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -560,7 +573,7 @@ func (a *UserManagementApiService) CreateUserCredentialExecute(r ApiCreateUserCr
 type ApiDeleteAccountRequest struct {
 	ctx _context.Context
 	ApiService UserManagementApi
-	accountname string
+	accountName string
 }
 
 
@@ -572,14 +585,14 @@ func (r ApiDeleteAccountRequest) Execute() (*_nethttp.Response, error) {
 DeleteAccount Delete the specified account, only allowed if the account is in the disabled state. All users will be deleted along with the account and all resources will be garbage collected
 
  @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param accountname
+ @param accountName
  @return ApiDeleteAccountRequest
 */
-func (a *UserManagementApiService) DeleteAccount(ctx _context.Context, accountname string) ApiDeleteAccountRequest {
+func (a *UserManagementApiService) DeleteAccount(ctx _context.Context, accountName string) ApiDeleteAccountRequest {
 	return ApiDeleteAccountRequest{
 		ApiService: a,
 		ctx: ctx,
-		accountname: accountname,
+		accountName: accountName,
 	}
 }
 
@@ -598,8 +611,8 @@ func (a *UserManagementApiService) DeleteAccountExecute(r ApiDeleteAccountReques
 		return nil, GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/accounts/{accountname}"
-	localVarPath = strings.Replace(localVarPath, "{"+"accountname"+"}", _neturl.PathEscape(parameterToString(r.accountname, "")), -1)
+	localVarPath := localBasePath + "/accounts/{account_name}"
+	localVarPath = strings.Replace(localVarPath, "{"+"account_name"+"}", _neturl.PathEscape(parameterToString(r.accountName, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
@@ -662,7 +675,7 @@ func (a *UserManagementApiService) DeleteAccountExecute(r ApiDeleteAccountReques
 type ApiDeleteUserRequest struct {
 	ctx _context.Context
 	ApiService UserManagementApi
-	accountname string
+	accountName string
 	username string
 }
 
@@ -675,15 +688,15 @@ func (r ApiDeleteUserRequest) Execute() (*_nethttp.Response, error) {
 DeleteUser Delete a specific user credential by username of the credential. Cannot be the credential used to authenticate the request.
 
  @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param accountname
+ @param accountName
  @param username
  @return ApiDeleteUserRequest
 */
-func (a *UserManagementApiService) DeleteUser(ctx _context.Context, accountname string, username string) ApiDeleteUserRequest {
+func (a *UserManagementApiService) DeleteUser(ctx _context.Context, accountName string, username string) ApiDeleteUserRequest {
 	return ApiDeleteUserRequest{
 		ApiService: a,
 		ctx: ctx,
-		accountname: accountname,
+		accountName: accountName,
 		username: username,
 	}
 }
@@ -703,8 +716,8 @@ func (a *UserManagementApiService) DeleteUserExecute(r ApiDeleteUserRequest) (*_
 		return nil, GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/accounts/{accountname}/users/{username}"
-	localVarPath = strings.Replace(localVarPath, "{"+"accountname"+"}", _neturl.PathEscape(parameterToString(r.accountname, "")), -1)
+	localVarPath := localBasePath + "/accounts/{account_name}/users/{username}"
+	localVarPath = strings.Replace(localVarPath, "{"+"account_name"+"}", _neturl.PathEscape(parameterToString(r.accountName, "")), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"username"+"}", _neturl.PathEscape(parameterToString(r.username, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -768,7 +781,7 @@ func (a *UserManagementApiService) DeleteUserExecute(r ApiDeleteUserRequest) (*_
 type ApiDeleteUserCredentialRequest struct {
 	ctx _context.Context
 	ApiService UserManagementApi
-	accountname string
+	accountName string
 	username string
 	credentialType *string
 }
@@ -786,15 +799,15 @@ func (r ApiDeleteUserCredentialRequest) Execute() (*_nethttp.Response, error) {
 DeleteUserCredential Delete a credential by type
 
  @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param accountname
+ @param accountName
  @param username
  @return ApiDeleteUserCredentialRequest
 */
-func (a *UserManagementApiService) DeleteUserCredential(ctx _context.Context, accountname string, username string) ApiDeleteUserCredentialRequest {
+func (a *UserManagementApiService) DeleteUserCredential(ctx _context.Context, accountName string, username string) ApiDeleteUserCredentialRequest {
 	return ApiDeleteUserCredentialRequest{
 		ApiService: a,
 		ctx: ctx,
-		accountname: accountname,
+		accountName: accountName,
 		username: username,
 	}
 }
@@ -814,8 +827,8 @@ func (a *UserManagementApiService) DeleteUserCredentialExecute(r ApiDeleteUserCr
 		return nil, GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/accounts/{accountname}/users/{username}/credentials"
-	localVarPath = strings.Replace(localVarPath, "{"+"accountname"+"}", _neturl.PathEscape(parameterToString(r.accountname, "")), -1)
+	localVarPath := localBasePath + "/accounts/{account_name}/users/{username}/credentials"
+	localVarPath = strings.Replace(localVarPath, "{"+"account_name"+"}", _neturl.PathEscape(parameterToString(r.accountName, "")), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"username"+"}", _neturl.PathEscape(parameterToString(r.username, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -883,7 +896,7 @@ func (a *UserManagementApiService) DeleteUserCredentialExecute(r ApiDeleteUserCr
 type ApiGetAccountRequest struct {
 	ctx _context.Context
 	ApiService UserManagementApi
-	accountname string
+	accountName string
 }
 
 
@@ -895,14 +908,14 @@ func (r ApiGetAccountRequest) Execute() (Account, *_nethttp.Response, error) {
 GetAccount Get account info about this specific account.
 
  @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param accountname
+ @param accountName
  @return ApiGetAccountRequest
 */
-func (a *UserManagementApiService) GetAccount(ctx _context.Context, accountname string) ApiGetAccountRequest {
+func (a *UserManagementApiService) GetAccount(ctx _context.Context, accountName string) ApiGetAccountRequest {
 	return ApiGetAccountRequest{
 		ApiService: a,
 		ctx: ctx,
-		accountname: accountname,
+		accountName: accountName,
 	}
 }
 
@@ -923,8 +936,8 @@ func (a *UserManagementApiService) GetAccountExecute(r ApiGetAccountRequest) (Ac
 		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/accounts/{accountname}"
-	localVarPath = strings.Replace(localVarPath, "{"+"accountname"+"}", _neturl.PathEscape(parameterToString(r.accountname, "")), -1)
+	localVarPath := localBasePath + "/accounts/{account_name}"
+	localVarPath = strings.Replace(localVarPath, "{"+"account_name"+"}", _neturl.PathEscape(parameterToString(r.accountName, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
@@ -996,7 +1009,7 @@ func (a *UserManagementApiService) GetAccountExecute(r ApiGetAccountRequest) (Ac
 type ApiGetAccountUserRequest struct {
 	ctx _context.Context
 	ApiService UserManagementApi
-	accountname string
+	accountName string
 	username string
 }
 
@@ -1009,15 +1022,15 @@ func (r ApiGetAccountUserRequest) Execute() (User, *_nethttp.Response, error) {
 GetAccountUser Get a specific user in the specified account
 
  @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param accountname
+ @param accountName
  @param username
  @return ApiGetAccountUserRequest
 */
-func (a *UserManagementApiService) GetAccountUser(ctx _context.Context, accountname string, username string) ApiGetAccountUserRequest {
+func (a *UserManagementApiService) GetAccountUser(ctx _context.Context, accountName string, username string) ApiGetAccountUserRequest {
 	return ApiGetAccountUserRequest{
 		ApiService: a,
 		ctx: ctx,
-		accountname: accountname,
+		accountName: accountName,
 		username: username,
 	}
 }
@@ -1039,8 +1052,8 @@ func (a *UserManagementApiService) GetAccountUserExecute(r ApiGetAccountUserRequ
 		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/accounts/{accountname}/users/{username}"
-	localVarPath = strings.Replace(localVarPath, "{"+"accountname"+"}", _neturl.PathEscape(parameterToString(r.accountname, "")), -1)
+	localVarPath := localBasePath + "/accounts/{account_name}/users/{username}"
+	localVarPath = strings.Replace(localVarPath, "{"+"account_name"+"}", _neturl.PathEscape(parameterToString(r.accountName, "")), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"username"+"}", _neturl.PathEscape(parameterToString(r.username, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -1231,7 +1244,7 @@ func (a *UserManagementApiService) ListAccountsExecute(r ApiListAccountsRequest)
 type ApiListUserCredentialsRequest struct {
 	ctx _context.Context
 	ApiService UserManagementApi
-	accountname string
+	accountName string
 	username string
 }
 
@@ -1244,15 +1257,15 @@ func (r ApiListUserCredentialsRequest) Execute() ([]AccessCredential, *_nethttp.
 ListUserCredentials Get current credential summary
 
  @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param accountname
+ @param accountName
  @param username
  @return ApiListUserCredentialsRequest
 */
-func (a *UserManagementApiService) ListUserCredentials(ctx _context.Context, accountname string, username string) ApiListUserCredentialsRequest {
+func (a *UserManagementApiService) ListUserCredentials(ctx _context.Context, accountName string, username string) ApiListUserCredentialsRequest {
 	return ApiListUserCredentialsRequest{
 		ApiService: a,
 		ctx: ctx,
-		accountname: accountname,
+		accountName: accountName,
 		username: username,
 	}
 }
@@ -1274,8 +1287,8 @@ func (a *UserManagementApiService) ListUserCredentialsExecute(r ApiListUserCrede
 		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/accounts/{accountname}/users/{username}/credentials"
-	localVarPath = strings.Replace(localVarPath, "{"+"accountname"+"}", _neturl.PathEscape(parameterToString(r.accountname, "")), -1)
+	localVarPath := localBasePath + "/accounts/{account_name}/users/{username}/credentials"
+	localVarPath = strings.Replace(localVarPath, "{"+"account_name"+"}", _neturl.PathEscape(parameterToString(r.accountName, "")), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"username"+"}", _neturl.PathEscape(parameterToString(r.username, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -1348,7 +1361,7 @@ func (a *UserManagementApiService) ListUserCredentialsExecute(r ApiListUserCrede
 type ApiListUsersRequest struct {
 	ctx _context.Context
 	ApiService UserManagementApi
-	accountname string
+	accountName string
 }
 
 
@@ -1360,14 +1373,14 @@ func (r ApiListUsersRequest) Execute() ([]User, *_nethttp.Response, error) {
 ListUsers List of users found in this account.
 
  @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param accountname
+ @param accountName
  @return ApiListUsersRequest
 */
-func (a *UserManagementApiService) ListUsers(ctx _context.Context, accountname string) ApiListUsersRequest {
+func (a *UserManagementApiService) ListUsers(ctx _context.Context, accountName string) ApiListUsersRequest {
 	return ApiListUsersRequest{
 		ApiService: a,
 		ctx: ctx,
-		accountname: accountname,
+		accountName: accountName,
 	}
 }
 
@@ -1388,8 +1401,8 @@ func (a *UserManagementApiService) ListUsersExecute(r ApiListUsersRequest) ([]Us
 		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/accounts/{accountname}/users"
-	localVarPath = strings.Replace(localVarPath, "{"+"accountname"+"}", _neturl.PathEscape(parameterToString(r.accountname, "")), -1)
+	localVarPath := localBasePath + "/accounts/{account_name}/users"
+	localVarPath = strings.Replace(localVarPath, "{"+"account_name"+"}", _neturl.PathEscape(parameterToString(r.accountName, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
@@ -1458,10 +1471,142 @@ func (a *UserManagementApiService) ListUsersExecute(r ApiListUsersRequest) ([]Us
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+type ApiUpdateAccountRequest struct {
+	ctx _context.Context
+	ApiService UserManagementApi
+	accountName string
+	info *AccountInfo
+	xAnchoreAccount *string
+}
+
+func (r ApiUpdateAccountRequest) Info(info AccountInfo) ApiUpdateAccountRequest {
+	r.info = &info
+	return r
+}
+// An account name to change the resource scope of the request to that account, if permissions allow (admin only)
+func (r ApiUpdateAccountRequest) XAnchoreAccount(xAnchoreAccount string) ApiUpdateAccountRequest {
+	r.xAnchoreAccount = &xAnchoreAccount
+	return r
+}
+
+func (r ApiUpdateAccountRequest) Execute() (Account, *_nethttp.Response, error) {
+	return r.ApiService.UpdateAccountExecute(r)
+}
+
+/*
+UpdateAccount Update the info for this specific account.
+
+ @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param accountName
+ @return ApiUpdateAccountRequest
+*/
+func (a *UserManagementApiService) UpdateAccount(ctx _context.Context, accountName string) ApiUpdateAccountRequest {
+	return ApiUpdateAccountRequest{
+		ApiService: a,
+		ctx: ctx,
+		accountName: accountName,
+	}
+}
+
+// Execute executes the request
+//  @return Account
+func (a *UserManagementApiService) UpdateAccountExecute(r ApiUpdateAccountRequest) (Account, *_nethttp.Response, error) {
+	var (
+		localVarHTTPMethod   = _nethttp.MethodPut
+		localVarPostBody     interface{}
+		localVarFormFileName string
+		localVarFileName     string
+		localVarFileBytes    []byte
+		localVarReturnValue  Account
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UserManagementApiService.UpdateAccount")
+	if err != nil {
+		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/accounts/{account_name}"
+	localVarPath = strings.Replace(localVarPath, "{"+"account_name"+"}", _neturl.PathEscape(parameterToString(r.accountName, "")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := _neturl.Values{}
+	localVarFormParams := _neturl.Values{}
+	if r.info == nil {
+		return localVarReturnValue, nil, reportError("info is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	if r.xAnchoreAccount != nil {
+		localVarHeaderParams["x-anchore-account"] = parameterToString(*r.xAnchoreAccount, "")
+	}
+	// body params
+	localVarPostBody = r.info
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 500 {
+			var v ApiErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
 type ApiUpdateAccountStateRequest struct {
 	ctx _context.Context
 	ApiService UserManagementApi
-	accountname string
+	accountName string
 	desiredState *AccountStatus
 }
 
@@ -1478,14 +1623,14 @@ func (r ApiUpdateAccountStateRequest) Execute() (AccountStatus, *_nethttp.Respon
 UpdateAccountState Update the state of an account to either enabled or disabled. For deletion use the DELETE route
 
  @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param accountname
+ @param accountName
  @return ApiUpdateAccountStateRequest
 */
-func (a *UserManagementApiService) UpdateAccountState(ctx _context.Context, accountname string) ApiUpdateAccountStateRequest {
+func (a *UserManagementApiService) UpdateAccountState(ctx _context.Context, accountName string) ApiUpdateAccountStateRequest {
 	return ApiUpdateAccountStateRequest{
 		ApiService: a,
 		ctx: ctx,
-		accountname: accountname,
+		accountName: accountName,
 	}
 }
 
@@ -1506,8 +1651,8 @@ func (a *UserManagementApiService) UpdateAccountStateExecute(r ApiUpdateAccountS
 		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/accounts/{accountname}/state"
-	localVarPath = strings.Replace(localVarPath, "{"+"accountname"+"}", _neturl.PathEscape(parameterToString(r.accountname, "")), -1)
+	localVarPath := localBasePath + "/accounts/{account_name}/state"
+	localVarPath = strings.Replace(localVarPath, "{"+"account_name"+"}", _neturl.PathEscape(parameterToString(r.accountName, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}

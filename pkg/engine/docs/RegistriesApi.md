@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 ## CreateRegistry
 
-> []RegistryConfiguration CreateRegistry(ctx).Registrydata(registrydata).Validate(validate).XAnchoreAccount(xAnchoreAccount).Execute()
+> []RegistryConfiguration CreateRegistry(ctx).RegistryData(registryData).Validate(validate).XAnchoreAccount(xAnchoreAccount).Execute()
 
 Add a new registry
 
@@ -33,13 +33,13 @@ import (
 )
 
 func main() {
-    registrydata := *openapiclient.NewRegistryConfigurationRequest() // RegistryConfigurationRequest | 
+    registryData := *openapiclient.NewRegistryConfigurationRequest() // RegistryConfigurationRequest | 
     validate := true // bool | flag to determine whether or not to validate registry/credential at registry add time (optional)
     xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.RegistriesApi.CreateRegistry(context.Background()).Registrydata(registrydata).Validate(validate).XAnchoreAccount(xAnchoreAccount).Execute()
+    resp, r, err := api_client.RegistriesApi.CreateRegistry(context.Background()).RegistryData(registryData).Validate(validate).XAnchoreAccount(xAnchoreAccount).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `RegistriesApi.CreateRegistry``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -60,7 +60,7 @@ Other parameters are passed through a pointer to a apiCreateRegistryRequest stru
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **registrydata** | [**RegistryConfigurationRequest**](RegistryConfigurationRequest.md) |  | 
+ **registryData** | [**RegistryConfigurationRequest**](RegistryConfigurationRequest.md) |  | 
  **validate** | **bool** | flag to determine whether or not to validate registry/credential at registry add time | 
  **xAnchoreAccount** | **string** | An account name to change the resource scope of the request to that account, if permissions allow (admin only) | 
 
@@ -292,7 +292,7 @@ No authorization required
 
 ## UpdateRegistry
 
-> []RegistryConfiguration UpdateRegistry(ctx, registry).Registrydata(registrydata).Validate(validate).XAnchoreAccount(xAnchoreAccount).Execute()
+> []RegistryConfiguration UpdateRegistry(ctx, registry).RegistryData(registryData).Validate(validate).XAnchoreAccount(xAnchoreAccount).Execute()
 
 Update/replace a registry configuration
 
@@ -312,13 +312,13 @@ import (
 
 func main() {
     registry := "registry_example" // string | 
-    registrydata := *openapiclient.NewRegistryConfigurationRequest() // RegistryConfigurationRequest | 
+    registryData := *openapiclient.NewRegistryConfigurationRequest() // RegistryConfigurationRequest | 
     validate := true // bool | flag to determine whether or not to validate registry/credential at registry update time (optional)
     xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.RegistriesApi.UpdateRegistry(context.Background(), registry).Registrydata(registrydata).Validate(validate).XAnchoreAccount(xAnchoreAccount).Execute()
+    resp, r, err := api_client.RegistriesApi.UpdateRegistry(context.Background(), registry).RegistryData(registryData).Validate(validate).XAnchoreAccount(xAnchoreAccount).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `RegistriesApi.UpdateRegistry``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -344,7 +344,7 @@ Other parameters are passed through a pointer to a apiUpdateRegistryRequest stru
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **registrydata** | [**RegistryConfigurationRequest**](RegistryConfigurationRequest.md) |  | 
+ **registryData** | [**RegistryConfigurationRequest**](RegistryConfigurationRequest.md) |  | 
  **validate** | **bool** | flag to determine whether or not to validate registry/credential at registry update time | 
  **xAnchoreAccount** | **string** | An account name to change the resource scope of the request to that account, if permissions allow (admin only) | 
 

@@ -7,8 +7,8 @@ Name | Type | Description | Notes
 **Id** | Pointer to **string** |  | [optional] 
 **Name** | **string** |  | 
 **WhitelistIds** | Pointer to **[]string** |  | [optional] 
-**PolicyId** | Pointer to **string** | Optional single policy to evalute, if set will override any value in policy_ids, for backwards compatibility. Generally, policy_ids should be used even with a array of length 1. | [optional] 
-**PolicyIds** | Pointer to **[]string** | List of policyIds to evaluate in order, to completion | [optional] 
+**PolicyId** | Pointer to **string** | Optional single policy to evaluate, if set will override any value in policy_ids, for backwards compatibility. Generally, policy_ids should be used even with a array of length 1. | [optional] 
+**PolicyIds** | Pointer to **[]string** | List of policy_ids to evaluate in order, to completion | [optional] 
 **Registry** | **string** |  | 
 **Repository** | **string** |  | 
 **Image** | [**ImageRef**](ImageRef.md) |  | 

@@ -15,7 +15,7 @@ import (
 	"encoding/json"
 )
 
-// VulnUpdateNotificationAllOf The Notification Object definition for Tag Update Notifications
+// VulnUpdateNotificationAllOf The Notification Object definition for Vuln Update Notifications
 type VulnUpdateNotificationAllOf struct {
 	Data *VulnUpdateNotificationData `json:"data,omitempty"`
 }

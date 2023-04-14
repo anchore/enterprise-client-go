@@ -17,7 +17,7 @@ import (
 
 // EventResponseEventResource struct for EventResponseEventResource
 type EventResponseEventResource struct {
-	UserId *string `json:"user_id,omitempty"`
+	AccountName *string `json:"account_name,omitempty"`
 	Id *string `json:"id,omitempty"`
 	Type *string `json:"type,omitempty"`
 }
@@ -39,36 +39,36 @@ func NewEventResponseEventResourceWithDefaults() *EventResponseEventResource {
 	return &this
 }
 
-// GetUserId returns the UserId field value if set, zero value otherwise.
-func (o *EventResponseEventResource) GetUserId() string {
-	if o == nil || o.UserId == nil {
+// GetAccountName returns the AccountName field value if set, zero value otherwise.
+func (o *EventResponseEventResource) GetAccountName() string {
+	if o == nil || o.AccountName == nil {
 		var ret string
 		return ret
 	}
-	return *o.UserId
+	return *o.AccountName
 }
 
-// GetUserIdOk returns a tuple with the UserId field value if set, nil otherwise
+// GetAccountNameOk returns a tuple with the AccountName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *EventResponseEventResource) GetUserIdOk() (*string, bool) {
-	if o == nil || o.UserId == nil {
+func (o *EventResponseEventResource) GetAccountNameOk() (*string, bool) {
+	if o == nil || o.AccountName == nil {
 		return nil, false
 	}
-	return o.UserId, true
+	return o.AccountName, true
 }
 
-// HasUserId returns a boolean if a field has been set.
-func (o *EventResponseEventResource) HasUserId() bool {
-	if o != nil && o.UserId != nil {
+// HasAccountName returns a boolean if a field has been set.
+func (o *EventResponseEventResource) HasAccountName() bool {
+	if o != nil && o.AccountName != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetUserId gets a reference to the given string and assigns it to the UserId field.
-func (o *EventResponseEventResource) SetUserId(v string) {
-	o.UserId = &v
+// SetAccountName gets a reference to the given string and assigns it to the AccountName field.
+func (o *EventResponseEventResource) SetAccountName(v string) {
+	o.AccountName = &v
 }
 
 // GetId returns the Id field value if set, zero value otherwise.
@@ -137,8 +137,8 @@ func (o *EventResponseEventResource) SetType(v string) {
 
 func (o EventResponseEventResource) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
-	if o.UserId != nil {
-		toSerialize["user_id"] = o.UserId
+	if o.AccountName != nil {
+		toSerialize["account_name"] = o.AccountName
 	}
 	if o.Id != nil {
 		toSerialize["id"] = o.Id

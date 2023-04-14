@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Uuid** | Pointer to **string** | A system-assigned identifier unique for each source analysis | [optional] 
-**AccountId** | Pointer to **string** | The anchore account id that owns this resource | [optional] 
+**AccountName** | Pointer to **string** | The anchore account id that owns this resource | [optional] 
 **Host** | Pointer to **string** | Host name for the repository location (e.g. github.com) | [optional] 
 **RepositoryName** | Pointer to **string** | The name of the repository on the host (e.g. &#39;anchore/anchore-engine&#39;) | [optional] 
 **Revision** | Pointer to **string** | The commit ID for a git repository | [optional] 
@@ -58,30 +58,30 @@ SetUuid sets Uuid field to given value.
 
 HasUuid returns a boolean if a field has been set.
 
-### GetAccountId
+### GetAccountName
 
-`func (o *Source) GetAccountId() string`
+`func (o *Source) GetAccountName() string`
 
-GetAccountId returns the AccountId field if non-nil, zero value otherwise.
+GetAccountName returns the AccountName field if non-nil, zero value otherwise.
 
-### GetAccountIdOk
+### GetAccountNameOk
 
-`func (o *Source) GetAccountIdOk() (*string, bool)`
+`func (o *Source) GetAccountNameOk() (*string, bool)`
 
-GetAccountIdOk returns a tuple with the AccountId field if it's non-nil, zero value otherwise
+GetAccountNameOk returns a tuple with the AccountName field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetAccountId
+### SetAccountName
 
-`func (o *Source) SetAccountId(v string)`
+`func (o *Source) SetAccountName(v string)`
 
-SetAccountId sets AccountId field to given value.
+SetAccountName sets AccountName field to given value.
 
-### HasAccountId
+### HasAccountName
 
-`func (o *Source) HasAccountId() bool`
+`func (o *Source) HasAccountName() bool`
 
-HasAccountId returns a boolean if a field has been set.
+HasAccountName returns a boolean if a field has been set.
 
 ### GetHost
 

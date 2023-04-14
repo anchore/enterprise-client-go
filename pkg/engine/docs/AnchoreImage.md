@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **CreatedAt** | Pointer to **time.Time** |  | [optional] 
 **ImageDigest** | Pointer to **string** |  | [optional] 
 **ParentDigest** | Pointer to **string** |  | [optional] 
-**UserId** | Pointer to **string** |  | [optional] 
+**AccountName** | Pointer to **string** |  | [optional] 
 **Annotations** | Pointer to **interface{}** |  | [optional] 
 **ImageStatus** | Pointer to **string** | State of the image | [optional] 
 **AnalysisStatus** | Pointer to **string** | A state value for the current status of the analysis progress of the image | [optional] 
@@ -186,30 +186,30 @@ SetParentDigest sets ParentDigest field to given value.
 
 HasParentDigest returns a boolean if a field has been set.
 
-### GetUserId
+### GetAccountName
 
-`func (o *AnchoreImage) GetUserId() string`
+`func (o *AnchoreImage) GetAccountName() string`
 
-GetUserId returns the UserId field if non-nil, zero value otherwise.
+GetAccountName returns the AccountName field if non-nil, zero value otherwise.
 
-### GetUserIdOk
+### GetAccountNameOk
 
-`func (o *AnchoreImage) GetUserIdOk() (*string, bool)`
+`func (o *AnchoreImage) GetAccountNameOk() (*string, bool)`
 
-GetUserIdOk returns a tuple with the UserId field if it's non-nil, zero value otherwise
+GetAccountNameOk returns a tuple with the AccountName field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetUserId
+### SetAccountName
 
-`func (o *AnchoreImage) SetUserId(v string)`
+`func (o *AnchoreImage) SetAccountName(v string)`
 
-SetUserId sets UserId field to given value.
+SetAccountName sets AccountName field to given value.
 
-### HasUserId
+### HasAccountName
 
-`func (o *AnchoreImage) HasUserId() bool`
+`func (o *AnchoreImage) HasAccountName() bool`
 
-HasUserId returns a boolean if a field has been set.
+HasAccountName returns a boolean if a field has been set.
 
 ### GetAnnotations
 

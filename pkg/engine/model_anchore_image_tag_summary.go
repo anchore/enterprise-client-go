@@ -17,9 +17,9 @@ import (
 
 // AnchoreImageTagSummary A unique image in the engine.
 type AnchoreImageTagSummary struct {
-	ImageDigest *string `json:"imageDigest,omitempty"`
-	ParentDigest *string `json:"parentDigest,omitempty"`
-	ImageId *string `json:"imageId,omitempty"`
+	ImageDigest *string `json:"image_digest,omitempty"`
+	ParentDigest *string `json:"parent_digest,omitempty"`
+	ImageId *string `json:"image_id,omitempty"`
 	AnalysisStatus *string `json:"analysis_status,omitempty"`
 	Fulltag *string `json:"fulltag,omitempty"`
 	CreatedAt *int32 `json:"created_at,omitempty"`
@@ -336,13 +336,13 @@ func (o *AnchoreImageTagSummary) SetImageStatus(v string) {
 func (o AnchoreImageTagSummary) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.ImageDigest != nil {
-		toSerialize["imageDigest"] = o.ImageDigest
+		toSerialize["image_digest"] = o.ImageDigest
 	}
 	if o.ParentDigest != nil {
-		toSerialize["parentDigest"] = o.ParentDigest
+		toSerialize["parent_digest"] = o.ParentDigest
 	}
 	if o.ImageId != nil {
-		toSerialize["imageId"] = o.ImageId
+		toSerialize["image_id"] = o.ImageId
 	}
 	if o.AnalysisStatus != nil {
 		toSerialize["analysis_status"] = o.AnalysisStatus

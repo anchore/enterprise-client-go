@@ -17,12 +17,12 @@ import (
 
 // VulnUpdateNotificationPayload struct for VulnUpdateNotificationPayload
 type VulnUpdateNotificationPayload struct {
-	UserId *string `json:"userId,omitempty"`
+	AccountName *string `json:"account_name,omitempty"`
 	SubscriptionKey *string `json:"subscription_key,omitempty"`
 	SubscriptionType *string `json:"subscription_type,omitempty"`
-	NotificationId *string `json:"notificationId,omitempty"`
+	NotificationId *string `json:"notification_id,omitempty"`
 	DiffVulnerabilityResult *VulnDiffResult `json:"diff_vulnerability_result,omitempty"`
-	ImageDigest *string `json:"imageDigest,omitempty"`
+	ImageDigest *string `json:"image_digest,omitempty"`
 	// List of Corresponding Image Annotations
 	Annotations interface{} `json:"annotations,omitempty"`
 }
@@ -44,36 +44,36 @@ func NewVulnUpdateNotificationPayloadWithDefaults() *VulnUpdateNotificationPaylo
 	return &this
 }
 
-// GetUserId returns the UserId field value if set, zero value otherwise.
-func (o *VulnUpdateNotificationPayload) GetUserId() string {
-	if o == nil || o.UserId == nil {
+// GetAccountName returns the AccountName field value if set, zero value otherwise.
+func (o *VulnUpdateNotificationPayload) GetAccountName() string {
+	if o == nil || o.AccountName == nil {
 		var ret string
 		return ret
 	}
-	return *o.UserId
+	return *o.AccountName
 }
 
-// GetUserIdOk returns a tuple with the UserId field value if set, nil otherwise
+// GetAccountNameOk returns a tuple with the AccountName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *VulnUpdateNotificationPayload) GetUserIdOk() (*string, bool) {
-	if o == nil || o.UserId == nil {
+func (o *VulnUpdateNotificationPayload) GetAccountNameOk() (*string, bool) {
+	if o == nil || o.AccountName == nil {
 		return nil, false
 	}
-	return o.UserId, true
+	return o.AccountName, true
 }
 
-// HasUserId returns a boolean if a field has been set.
-func (o *VulnUpdateNotificationPayload) HasUserId() bool {
-	if o != nil && o.UserId != nil {
+// HasAccountName returns a boolean if a field has been set.
+func (o *VulnUpdateNotificationPayload) HasAccountName() bool {
+	if o != nil && o.AccountName != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetUserId gets a reference to the given string and assigns it to the UserId field.
-func (o *VulnUpdateNotificationPayload) SetUserId(v string) {
-	o.UserId = &v
+// SetAccountName gets a reference to the given string and assigns it to the AccountName field.
+func (o *VulnUpdateNotificationPayload) SetAccountName(v string) {
+	o.AccountName = &v
 }
 
 // GetSubscriptionKey returns the SubscriptionKey field value if set, zero value otherwise.
@@ -271,8 +271,8 @@ func (o *VulnUpdateNotificationPayload) SetAnnotations(v interface{}) {
 
 func (o VulnUpdateNotificationPayload) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
-	if o.UserId != nil {
-		toSerialize["userId"] = o.UserId
+	if o.AccountName != nil {
+		toSerialize["account_name"] = o.AccountName
 	}
 	if o.SubscriptionKey != nil {
 		toSerialize["subscription_key"] = o.SubscriptionKey
@@ -281,13 +281,13 @@ func (o VulnUpdateNotificationPayload) MarshalJSON() ([]byte, error) {
 		toSerialize["subscription_type"] = o.SubscriptionType
 	}
 	if o.NotificationId != nil {
-		toSerialize["notificationId"] = o.NotificationId
+		toSerialize["notification_id"] = o.NotificationId
 	}
 	if o.DiffVulnerabilityResult != nil {
 		toSerialize["diff_vulnerability_result"] = o.DiffVulnerabilityResult
 	}
 	if o.ImageDigest != nil {
-		toSerialize["imageDigest"] = o.ImageDigest
+		toSerialize["image_digest"] = o.ImageDigest
 	}
 	if o.Annotations != nil {
 		toSerialize["annotations"] = o.Annotations

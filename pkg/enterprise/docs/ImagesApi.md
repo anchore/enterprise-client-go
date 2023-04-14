@@ -5,8 +5,8 @@ All URIs are relative to *http://localhost/enterprise*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**GetImageAncestors**](ImagesApi.md#GetImageAncestors) | **Get** /images/{image_digest}/ancestors | Return the list of ancestor images for the given image
-[**GetImagePolicyCheckByDigest**](ImagesApi.md#GetImagePolicyCheckByDigest) | **Get** /images/{imageDigest}/check | Check policy evaluation status for image
-[**GetImageVulnerabilitiesByDigest**](ImagesApi.md#GetImageVulnerabilitiesByDigest) | **Get** /images/{imageDigest}/vuln/{vtype} | Get vulnerabilities by type
+[**GetImagePolicyCheckByDigest**](ImagesApi.md#GetImagePolicyCheckByDigest) | **Get** /images/{image_digest}/check | Check policy evaluation status for image
+[**GetImageVulnerabilitiesByDigest**](ImagesApi.md#GetImageVulnerabilitiesByDigest) | **Get** /images/{image_digest}/vuln/{vtype} | Get vulnerabilities by type
 
 
 

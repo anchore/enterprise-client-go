@@ -5,15 +5,15 @@ All URIs are relative to *http://localhost*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**AddIdp**](DefaultApi.md#AddIdp) | **Post** /saml/idps | 
-[**AddRoleUser**](DefaultApi.md#AddRoleUser) | **Post** /roles/{rolename}/members | Add a user to the role
+[**AddRoleUser**](DefaultApi.md#AddRoleUser) | **Post** /roles/{role_name}/members | Add a user to the role
 [**DeleteIdp**](DefaultApi.md#DeleteIdp) | **Delete** /saml/idps/{name} | 
-[**DeleteRoleUser**](DefaultApi.md#DeleteRoleUser) | **Delete** /roles/{rolename}/members | Remove a user from the role
+[**DeleteRoleUser**](DefaultApi.md#DeleteRoleUser) | **Delete** /roles/{role_name}/members | Remove a user from the role
 [**GetIdp**](DefaultApi.md#GetIdp) | **Get** /saml/idps/{name} | 
-[**GetRole**](DefaultApi.md#GetRole) | **Get** /roles/{rolename} | Get detailed information about a specific role
+[**GetRole**](DefaultApi.md#GetRole) | **Get** /roles/{role_name} | Get detailed information about a specific role
 [**GetStatus**](DefaultApi.md#GetStatus) | **Get** /status | Service status
 [**HealthCheck**](DefaultApi.md#HealthCheck) | **Get** /health | 
 [**ListIdps**](DefaultApi.md#ListIdps) | **Get** /saml/idps | 
-[**ListRoleMembers**](DefaultApi.md#ListRoleMembers) | **Get** /roles/{rolename}/members | Returns a list of objects that have members in the role. The list is filtered by &#39;listRoleMembers&#39; access for the &#39;account&#39; element of each entry.
+[**ListRoleMembers**](DefaultApi.md#ListRoleMembers) | **Get** /roles/{role_name}/members | Returns a list of objects that have members in the role. The list is filtered by &#39;listRoleMembers&#39; access for the &#39;account&#39; element of each entry.
 [**ListRoles**](DefaultApi.md#ListRoles) | **Get** /roles | List roles available in the system
 [**ListUserRoles**](DefaultApi.md#ListUserRoles) | **Get** /users/{username}/roles | List the roles for which the requested user is a member
 [**MyRoles**](DefaultApi.md#MyRoles) | **Get** /my_roles | List the roles for which the authenticated user is a member
@@ -92,7 +92,7 @@ No authorization required
 
 ## AddRoleUser
 
-> RoleMember AddRoleUser(ctx, rolename).Member(member).Execute()
+> RoleMember AddRoleUser(ctx, roleName).Member(member).Execute()
 
 Add a user to the role
 
@@ -109,12 +109,12 @@ import (
 )
 
 func main() {
-    rolename := "rolename_example" // string | 
+    roleName := "roleName_example" // string | 
     member := *openapiclient.NewRoleMember("Username_example", "ForAccount_example") // RoleMember | 
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.DefaultApi.AddRoleUser(context.Background(), rolename).Member(member).Execute()
+    resp, r, err := api_client.DefaultApi.AddRoleUser(context.Background(), roleName).Member(member).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.AddRoleUser``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -130,7 +130,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**rolename** | **string** |  | 
+**roleName** | **string** |  | 
 
 ### Other Parameters
 
@@ -230,7 +230,7 @@ No authorization required
 
 ## DeleteRoleUser
 
-> DeleteRoleUser(ctx, rolename).Username(username).ForAccount(forAccount).Execute()
+> DeleteRoleUser(ctx, roleName).Username(username).ForAccount(forAccount).Execute()
 
 Remove a user from the role
 
@@ -247,13 +247,13 @@ import (
 )
 
 func main() {
-    rolename := "rolename_example" // string | 
+    roleName := "roleName_example" // string | 
     username := "username_example" // string | The username to remove the role for
     forAccount := "forAccount_example" // string | The account that the user has the role to be removed
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.DefaultApi.DeleteRoleUser(context.Background(), rolename).Username(username).ForAccount(forAccount).Execute()
+    resp, r, err := api_client.DefaultApi.DeleteRoleUser(context.Background(), roleName).Username(username).ForAccount(forAccount).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.DeleteRoleUser``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -267,7 +267,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**rolename** | **string** |  | 
+**roleName** | **string** |  | 
 
 ### Other Parameters
 
@@ -370,7 +370,7 @@ No authorization required
 
 ## GetRole
 
-> Role GetRole(ctx, rolename).Execute()
+> Role GetRole(ctx, roleName).Execute()
 
 Get detailed information about a specific role
 
@@ -387,11 +387,11 @@ import (
 )
 
 func main() {
-    rolename := "rolename_example" // string | 
+    roleName := "roleName_example" // string | 
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.DefaultApi.GetRole(context.Background(), rolename).Execute()
+    resp, r, err := api_client.DefaultApi.GetRole(context.Background(), roleName).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.GetRole``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -407,7 +407,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**rolename** | **string** |  | 
+**roleName** | **string** |  | 
 
 ### Other Parameters
 
@@ -619,7 +619,7 @@ No authorization required
 
 ## ListRoleMembers
 
-> []RoleMember ListRoleMembers(ctx, rolename).ForAccount(forAccount).Execute()
+> []RoleMember ListRoleMembers(ctx, roleName).ForAccount(forAccount).Execute()
 
 Returns a list of objects that have members in the role. The list is filtered by 'listRoleMembers' access for the 'account' element of each entry.
 
@@ -636,12 +636,12 @@ import (
 )
 
 func main() {
-    rolename := "rolename_example" // string | 
+    roleName := "roleName_example" // string | 
     forAccount := "forAccount_example" // string | Optional filter parameter to limit the set fo returned items to only those with matching account. Will return Access Denied if caller does not have permission to listRoleMembers for that account. (optional)
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.DefaultApi.ListRoleMembers(context.Background(), rolename).ForAccount(forAccount).Execute()
+    resp, r, err := api_client.DefaultApi.ListRoleMembers(context.Background(), roleName).ForAccount(forAccount).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.ListRoleMembers``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -657,7 +657,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**rolename** | **string** |  | 
+**roleName** | **string** |  | 
 
 ### Other Parameters
 

@@ -27,24 +27,24 @@ var (
 type SummariesApi interface {
 
 	/*
-	ListImagetags List all visible image digests and tags
+	ListImageTags List all visible image digests and tags
 
 	List all image tags visible to the user
 
 	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @return ApiListImagetagsRequest
+	 @return ApiListImageTagsRequest
 	*/
-	ListImagetags(ctx _context.Context) ApiListImagetagsRequest
+	ListImageTags(ctx _context.Context) ApiListImageTagsRequest
 
-	// ListImagetagsExecute executes the request
+	// ListImageTagsExecute executes the request
 	//  @return []AnchoreImageTagSummary
-	ListImagetagsExecute(r ApiListImagetagsRequest) ([]AnchoreImageTagSummary, *_nethttp.Response, error)
+	ListImageTagsExecute(r ApiListImageTagsRequest) ([]AnchoreImageTagSummary, *_nethttp.Response, error)
 }
 
 // SummariesApiService SummariesApi service
 type SummariesApiService service
 
-type ApiListImagetagsRequest struct {
+type ApiListImageTagsRequest struct {
 	ctx _context.Context
 	ApiService SummariesApi
 	imageStatus *[]string
@@ -52,30 +52,30 @@ type ApiListImagetagsRequest struct {
 }
 
 // Filter images in one or more states such as active, deleting. Defaults to active images only if unspecified
-func (r ApiListImagetagsRequest) ImageStatus(imageStatus []string) ApiListImagetagsRequest {
+func (r ApiListImageTagsRequest) ImageStatus(imageStatus []string) ApiListImageTagsRequest {
 	r.imageStatus = &imageStatus
 	return r
 }
 // An account name to change the resource scope of the request to that account, if permissions allow (admin only)
-func (r ApiListImagetagsRequest) XAnchoreAccount(xAnchoreAccount string) ApiListImagetagsRequest {
+func (r ApiListImageTagsRequest) XAnchoreAccount(xAnchoreAccount string) ApiListImageTagsRequest {
 	r.xAnchoreAccount = &xAnchoreAccount
 	return r
 }
 
-func (r ApiListImagetagsRequest) Execute() ([]AnchoreImageTagSummary, *_nethttp.Response, error) {
-	return r.ApiService.ListImagetagsExecute(r)
+func (r ApiListImageTagsRequest) Execute() ([]AnchoreImageTagSummary, *_nethttp.Response, error) {
+	return r.ApiService.ListImageTagsExecute(r)
 }
 
 /*
-ListImagetags List all visible image digests and tags
+ListImageTags List all visible image digests and tags
 
 List all image tags visible to the user
 
  @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiListImagetagsRequest
+ @return ApiListImageTagsRequest
 */
-func (a *SummariesApiService) ListImagetags(ctx _context.Context) ApiListImagetagsRequest {
-	return ApiListImagetagsRequest{
+func (a *SummariesApiService) ListImageTags(ctx _context.Context) ApiListImageTagsRequest {
+	return ApiListImageTagsRequest{
 		ApiService: a,
 		ctx: ctx,
 	}
@@ -83,7 +83,7 @@ func (a *SummariesApiService) ListImagetags(ctx _context.Context) ApiListImageta
 
 // Execute executes the request
 //  @return []AnchoreImageTagSummary
-func (a *SummariesApiService) ListImagetagsExecute(r ApiListImagetagsRequest) ([]AnchoreImageTagSummary, *_nethttp.Response, error) {
+func (a *SummariesApiService) ListImageTagsExecute(r ApiListImageTagsRequest) ([]AnchoreImageTagSummary, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
@@ -93,12 +93,12 @@ func (a *SummariesApiService) ListImagetagsExecute(r ApiListImagetagsRequest) ([
 		localVarReturnValue  []AnchoreImageTagSummary
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SummariesApiService.ListImagetags")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SummariesApiService.ListImageTags")
 	if err != nil {
 		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/summaries/imagetags"
+	localVarPath := localBasePath + "/summaries/image-tags"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}

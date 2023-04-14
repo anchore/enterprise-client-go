@@ -109,7 +109,7 @@ import (
 func main() {
     vulnerabilityId := "vulnerabilityId_example" // string | The ID of the vulnerability to search for within all images stored in anchore-engine (e.g. CVE-1999-0001)
     namespace := "namespace_example" // string | Filter results to images within the given vulnerability namespace (e.g. debian:8, ubuntu:14.04) (optional)
-    affectedPackage := "affectedPackage_example" // string | Filter results to images with vulnable packages with the given package name (e.g. libssl) (optional)
+    affectedPackage := "affectedPackage_example" // string | Filter results to images with vulnerable packages with the given package name (e.g. libssl) (optional)
     severity := "severity_example" // string | Filter results to vulnerable package/vulnerability with the given severity (optional)
     vendorOnly := true // bool | Filter results to include only vulnerabilities that are not marked as invalid by upstream OS vendor data (optional) (default to true)
     page := int32(56) // int32 | The page of results to fetch. Pages start at 1 (optional)
@@ -141,7 +141,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **vulnerabilityId** | **string** | The ID of the vulnerability to search for within all images stored in anchore-engine (e.g. CVE-1999-0001) | 
  **namespace** | **string** | Filter results to images within the given vulnerability namespace (e.g. debian:8, ubuntu:14.04) | 
- **affectedPackage** | **string** | Filter results to images with vulnable packages with the given package name (e.g. libssl) | 
+ **affectedPackage** | **string** | Filter results to images with vulnerable packages with the given package name (e.g. libssl) | 
  **severity** | **string** | Filter results to vulnerable package/vulnerability with the given severity | 
  **vendorOnly** | **bool** | Filter results to include only vulnerabilities that are not marked as invalid by upstream OS vendor data | [default to true]
  **page** | **int32** | The page of results to fetch. Pages start at 1 | 

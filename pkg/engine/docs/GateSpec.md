@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **Description** | Pointer to **string** | Description of the gate | [optional] 
 **SupportedArtifactType** | Pointer to **string** |  | [optional] 
 **State** | Pointer to **string** | State of the gate and transitively all triggers it contains if not &#39;active&#39; | [optional] 
-**SupercededBy** | Pointer to **NullableString** | The name of another trigger that supercedes this on functionally if this is deprecated | [optional] 
+**SupersededBy** | Pointer to **NullableString** | The name of another trigger that supersedes this on functionally if this is deprecated | [optional] 
 **Triggers** | Pointer to [**[]TriggerSpec**](TriggerSpec.md) | List of the triggers that can fire for this Gate | [optional] 
 
 ## Methods
@@ -130,41 +130,41 @@ SetState sets State field to given value.
 
 HasState returns a boolean if a field has been set.
 
-### GetSupercededBy
+### GetSupersededBy
 
-`func (o *GateSpec) GetSupercededBy() string`
+`func (o *GateSpec) GetSupersededBy() string`
 
-GetSupercededBy returns the SupercededBy field if non-nil, zero value otherwise.
+GetSupersededBy returns the SupersededBy field if non-nil, zero value otherwise.
 
-### GetSupercededByOk
+### GetSupersededByOk
 
-`func (o *GateSpec) GetSupercededByOk() (*string, bool)`
+`func (o *GateSpec) GetSupersededByOk() (*string, bool)`
 
-GetSupercededByOk returns a tuple with the SupercededBy field if it's non-nil, zero value otherwise
+GetSupersededByOk returns a tuple with the SupersededBy field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetSupercededBy
+### SetSupersededBy
 
-`func (o *GateSpec) SetSupercededBy(v string)`
+`func (o *GateSpec) SetSupersededBy(v string)`
 
-SetSupercededBy sets SupercededBy field to given value.
+SetSupersededBy sets SupersededBy field to given value.
 
-### HasSupercededBy
+### HasSupersededBy
 
-`func (o *GateSpec) HasSupercededBy() bool`
+`func (o *GateSpec) HasSupersededBy() bool`
 
-HasSupercededBy returns a boolean if a field has been set.
+HasSupersededBy returns a boolean if a field has been set.
 
-### SetSupercededByNil
+### SetSupersededByNil
 
-`func (o *GateSpec) SetSupercededByNil(b bool)`
+`func (o *GateSpec) SetSupersededByNil(b bool)`
 
- SetSupercededByNil sets the value for SupercededBy to be an explicit nil
+ SetSupersededByNil sets the value for SupersededBy to be an explicit nil
 
-### UnsetSupercededBy
-`func (o *GateSpec) UnsetSupercededBy()`
+### UnsetSupersededBy
+`func (o *GateSpec) UnsetSupersededBy()`
 
-UnsetSupercededBy ensures that no value is present for SupercededBy, not even an explicit nil
+UnsetSupersededBy ensures that no value is present for SupersededBy, not even an explicit nil
 ### GetTriggers
 
 `func (o *GateSpec) GetTriggers() []TriggerSpec`

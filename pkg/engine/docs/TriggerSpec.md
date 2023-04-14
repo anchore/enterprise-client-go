@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **Name** | Pointer to **string** | Name of the trigger as it would appear in a policy document | [optional] 
 **Description** | Pointer to **string** | Trigger description for what it tests and when it will fire during evaluation | [optional] 
 **State** | Pointer to **string** | State of the trigger | [optional] 
-**SupercededBy** | Pointer to **NullableString** | The name of another trigger that supercedes this on functionally if this is deprecated | [optional] 
+**SupersededBy** | Pointer to **NullableString** | The name of another trigger that supersedes this on functionally if this is deprecated | [optional] 
 **Parameters** | Pointer to [**[]TriggerParamSpec**](TriggerParamSpec.md) | The list of parameters that are valid for this trigger | [optional] 
 
 ## Methods
@@ -104,41 +104,41 @@ SetState sets State field to given value.
 
 HasState returns a boolean if a field has been set.
 
-### GetSupercededBy
+### GetSupersededBy
 
-`func (o *TriggerSpec) GetSupercededBy() string`
+`func (o *TriggerSpec) GetSupersededBy() string`
 
-GetSupercededBy returns the SupercededBy field if non-nil, zero value otherwise.
+GetSupersededBy returns the SupersededBy field if non-nil, zero value otherwise.
 
-### GetSupercededByOk
+### GetSupersededByOk
 
-`func (o *TriggerSpec) GetSupercededByOk() (*string, bool)`
+`func (o *TriggerSpec) GetSupersededByOk() (*string, bool)`
 
-GetSupercededByOk returns a tuple with the SupercededBy field if it's non-nil, zero value otherwise
+GetSupersededByOk returns a tuple with the SupersededBy field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetSupercededBy
+### SetSupersededBy
 
-`func (o *TriggerSpec) SetSupercededBy(v string)`
+`func (o *TriggerSpec) SetSupersededBy(v string)`
 
-SetSupercededBy sets SupercededBy field to given value.
+SetSupersededBy sets SupersededBy field to given value.
 
-### HasSupercededBy
+### HasSupersededBy
 
-`func (o *TriggerSpec) HasSupercededBy() bool`
+`func (o *TriggerSpec) HasSupersededBy() bool`
 
-HasSupercededBy returns a boolean if a field has been set.
+HasSupersededBy returns a boolean if a field has been set.
 
-### SetSupercededByNil
+### SetSupersededByNil
 
-`func (o *TriggerSpec) SetSupercededByNil(b bool)`
+`func (o *TriggerSpec) SetSupersededByNil(b bool)`
 
- SetSupercededByNil sets the value for SupercededBy to be an explicit nil
+ SetSupersededByNil sets the value for SupersededBy to be an explicit nil
 
-### UnsetSupercededBy
-`func (o *TriggerSpec) UnsetSupercededBy()`
+### UnsetSupersededBy
+`func (o *TriggerSpec) UnsetSupersededBy()`
 
-UnsetSupercededBy ensures that no value is present for SupercededBy, not even an explicit nil
+UnsetSupersededBy ensures that no value is present for SupersededBy, not even an explicit nil
 ### GetParameters
 
 `func (o *TriggerSpec) GetParameters() []TriggerParamSpec`

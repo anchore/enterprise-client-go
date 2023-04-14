@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**AccountId** | Pointer to **string** |  | [optional] 
+**AccountName** | Pointer to **string** |  | [optional] 
 **PolicyId** | Pointer to **string** |  | [optional] 
 **EvaluationId** | Pointer to **string** |  | [optional] 
 **SourceId** | Pointer to **string** |  | [optional] 
@@ -35,30 +35,30 @@ NewPolicyEvaluationResultWithDefaults instantiates a new PolicyEvaluationResult 
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
-### GetAccountId
+### GetAccountName
 
-`func (o *PolicyEvaluationResult) GetAccountId() string`
+`func (o *PolicyEvaluationResult) GetAccountName() string`
 
-GetAccountId returns the AccountId field if non-nil, zero value otherwise.
+GetAccountName returns the AccountName field if non-nil, zero value otherwise.
 
-### GetAccountIdOk
+### GetAccountNameOk
 
-`func (o *PolicyEvaluationResult) GetAccountIdOk() (*string, bool)`
+`func (o *PolicyEvaluationResult) GetAccountNameOk() (*string, bool)`
 
-GetAccountIdOk returns a tuple with the AccountId field if it's non-nil, zero value otherwise
+GetAccountNameOk returns a tuple with the AccountName field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetAccountId
+### SetAccountName
 
-`func (o *PolicyEvaluationResult) SetAccountId(v string)`
+`func (o *PolicyEvaluationResult) SetAccountName(v string)`
 
-SetAccountId sets AccountId field to given value.
+SetAccountName sets AccountName field to given value.
 
-### HasAccountId
+### HasAccountName
 
-`func (o *PolicyEvaluationResult) HasAccountId() bool`
+`func (o *PolicyEvaluationResult) HasAccountName() bool`
 
-HasAccountId returns a boolean if a field has been set.
+HasAccountName returns a boolean if a field has been set.
 
 ### GetPolicyId
 

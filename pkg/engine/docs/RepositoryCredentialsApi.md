@@ -10,7 +10,7 @@ Method | HTTP request | Description
 
 ## AddRepository
 
-> []Subscription AddRepository(ctx).Repository(repository).Autosubscribe(autosubscribe).Dryrun(dryrun).XAnchoreAccount(xAnchoreAccount).Execute()
+> []Subscription AddRepository(ctx).Repository(repository).AutoSubscribe(autoSubscribe).DryRun(dryRun).XAnchoreAccount(xAnchoreAccount).Execute()
 
 Add repository to watch
 
@@ -28,13 +28,13 @@ import (
 
 func main() {
     repository := "repository_example" // string | full repository to add e.g. docker.io/library/alpine
-    autosubscribe := true // bool | flag to enable/disable auto tag_update activation when new images from a repo are added (optional)
-    dryrun := true // bool | flag to return tags in the repository without actually watching the repository, default is false (optional)
+    autoSubscribe := true // bool | flag to enable/disable auto tag_update activation when new images from a repo are added (optional)
+    dryRun := true // bool | flag to return tags in the repository without actually watching the repository, default is false (optional)
     xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.RepositoryCredentialsApi.AddRepository(context.Background()).Repository(repository).Autosubscribe(autosubscribe).Dryrun(dryrun).XAnchoreAccount(xAnchoreAccount).Execute()
+    resp, r, err := api_client.RepositoryCredentialsApi.AddRepository(context.Background()).Repository(repository).AutoSubscribe(autoSubscribe).DryRun(dryRun).XAnchoreAccount(xAnchoreAccount).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `RepositoryCredentialsApi.AddRepository``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -56,8 +56,8 @@ Other parameters are passed through a pointer to a apiAddRepositoryRequest struc
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **repository** | **string** | full repository to add e.g. docker.io/library/alpine | 
- **autosubscribe** | **bool** | flag to enable/disable auto tag_update activation when new images from a repo are added | 
- **dryrun** | **bool** | flag to return tags in the repository without actually watching the repository, default is false | 
+ **autoSubscribe** | **bool** | flag to enable/disable auto tag_update activation when new images from a repo are added | 
+ **dryRun** | **bool** | flag to return tags in the repository without actually watching the repository, default is false | 
  **xAnchoreAccount** | **string** | An account name to change the resource scope of the request to that account, if permissions allow (admin only) | 
 
 ### Return type

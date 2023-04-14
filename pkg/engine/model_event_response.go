@@ -16,9 +16,9 @@ import (
 	"time"
 )
 
-// EventResponse A record of occurance of an asynchronous event triggered either by system or by user activity
+// EventResponse A record of occurrence of an asynchronous event triggered either by system or by user activity
 type EventResponse struct {
-	GeneratedUuid *string `json:"generated_uuid,omitempty"`
+	EventId *string `json:"event_id,omitempty"`
 	CreatedAt *time.Time `json:"created_at,omitempty"`
 	Event *EventResponseEvent `json:"event,omitempty"`
 }
@@ -40,36 +40,36 @@ func NewEventResponseWithDefaults() *EventResponse {
 	return &this
 }
 
-// GetGeneratedUuid returns the GeneratedUuid field value if set, zero value otherwise.
-func (o *EventResponse) GetGeneratedUuid() string {
-	if o == nil || o.GeneratedUuid == nil {
+// GetEventId returns the EventId field value if set, zero value otherwise.
+func (o *EventResponse) GetEventId() string {
+	if o == nil || o.EventId == nil {
 		var ret string
 		return ret
 	}
-	return *o.GeneratedUuid
+	return *o.EventId
 }
 
-// GetGeneratedUuidOk returns a tuple with the GeneratedUuid field value if set, nil otherwise
+// GetEventIdOk returns a tuple with the EventId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *EventResponse) GetGeneratedUuidOk() (*string, bool) {
-	if o == nil || o.GeneratedUuid == nil {
+func (o *EventResponse) GetEventIdOk() (*string, bool) {
+	if o == nil || o.EventId == nil {
 		return nil, false
 	}
-	return o.GeneratedUuid, true
+	return o.EventId, true
 }
 
-// HasGeneratedUuid returns a boolean if a field has been set.
-func (o *EventResponse) HasGeneratedUuid() bool {
-	if o != nil && o.GeneratedUuid != nil {
+// HasEventId returns a boolean if a field has been set.
+func (o *EventResponse) HasEventId() bool {
+	if o != nil && o.EventId != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetGeneratedUuid gets a reference to the given string and assigns it to the GeneratedUuid field.
-func (o *EventResponse) SetGeneratedUuid(v string) {
-	o.GeneratedUuid = &v
+// SetEventId gets a reference to the given string and assigns it to the EventId field.
+func (o *EventResponse) SetEventId(v string) {
+	o.EventId = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
@@ -138,8 +138,8 @@ func (o *EventResponse) SetEvent(v EventResponseEvent) {
 
 func (o EventResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
-	if o.GeneratedUuid != nil {
-		toSerialize["generated_uuid"] = o.GeneratedUuid
+	if o.EventId != nil {
+		toSerialize["event_id"] = o.EventId
 	}
 	if o.CreatedAt != nil {
 		toSerialize["created_at"] = o.CreatedAt

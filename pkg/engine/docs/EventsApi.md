@@ -4,9 +4,9 @@ All URIs are relative to *http://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**DeleteEvent**](EventsApi.md#DeleteEvent) | **Delete** /events/{eventId} | Delete Event
+[**DeleteEvent**](EventsApi.md#DeleteEvent) | **Delete** /events/{event_id} | Delete Event
 [**DeleteEvents**](EventsApi.md#DeleteEvents) | **Delete** /events | Delete Events
-[**GetEvent**](EventsApi.md#GetEvent) | **Get** /events/{eventId} | Get Event
+[**GetEvent**](EventsApi.md#GetEvent) | **Get** /events/{event_id} | Get Event
 [**ListEventTypes**](EventsApi.md#ListEventTypes) | **Get** /event_types | List Event Types
 [**ListEvents**](EventsApi.md#ListEvents) | **Get** /events | List Events
 
@@ -289,7 +289,7 @@ No authorization required
 
 ## ListEvents
 
-> EventsList ListEvents(ctx).SourceServicename(sourceServicename).SourceHostid(sourceHostid).EventType(eventType).ResourceType(resourceType).ResourceId(resourceId).Level(level).Since(since).Before(before).Page(page).Limit(limit).XAnchoreAccount(xAnchoreAccount).Execute()
+> EventsList ListEvents(ctx).SourceServiceName(sourceServiceName).SourceHostId(sourceHostId).EventType(eventType).ResourceType(resourceType).ResourceId(resourceId).Level(level).Since(since).Before(before).Page(page).Limit(limit).XAnchoreAccount(xAnchoreAccount).Execute()
 
 List Events
 
@@ -308,10 +308,10 @@ import (
 )
 
 func main() {
-    sourceServicename := "sourceServicename_example" // string | Filter events by the originating service (optional)
-    sourceHostid := "sourceHostid_example" // string | Filter events by the originating host ID (optional)
+    sourceServiceName := "sourceServiceName_example" // string | Filter events by the originating service (optional)
+    sourceHostId := "sourceHostId_example" // string | Filter events by the originating host ID (optional)
     eventType := "eventType_example" // string | Filter events by a prefix match on the event type (e.g. \"user.image.\") (optional)
-    resourceType := "resourceType_example" // string | Filter events by the type of resource - tag, imageDigest, repository etc (optional)
+    resourceType := "resourceType_example" // string | Filter events by the type of resource - tag, image_digest, repository etc (optional)
     resourceId := "resourceId_example" // string | Filter events by the id of the resource (optional)
     level := "level_example" // string | Filter events by the level - INFO or ERROR (optional)
     since := "since_example" // string | Return events that occurred after the timestamp (optional)
@@ -322,7 +322,7 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.EventsApi.ListEvents(context.Background()).SourceServicename(sourceServicename).SourceHostid(sourceHostid).EventType(eventType).ResourceType(resourceType).ResourceId(resourceId).Level(level).Since(since).Before(before).Page(page).Limit(limit).XAnchoreAccount(xAnchoreAccount).Execute()
+    resp, r, err := api_client.EventsApi.ListEvents(context.Background()).SourceServiceName(sourceServiceName).SourceHostId(sourceHostId).EventType(eventType).ResourceType(resourceType).ResourceId(resourceId).Level(level).Since(since).Before(before).Page(page).Limit(limit).XAnchoreAccount(xAnchoreAccount).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `EventsApi.ListEvents``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -343,10 +343,10 @@ Other parameters are passed through a pointer to a apiListEventsRequest struct v
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **sourceServicename** | **string** | Filter events by the originating service | 
- **sourceHostid** | **string** | Filter events by the originating host ID | 
+ **sourceServiceName** | **string** | Filter events by the originating service | 
+ **sourceHostId** | **string** | Filter events by the originating host ID | 
  **eventType** | **string** | Filter events by a prefix match on the event type (e.g. \&quot;user.image.\&quot;) | 
- **resourceType** | **string** | Filter events by the type of resource - tag, imageDigest, repository etc | 
+ **resourceType** | **string** | Filter events by the type of resource - tag, image_digest, repository etc | 
  **resourceId** | **string** | Filter events by the id of the resource | 
  **level** | **string** | Filter events by the level - INFO or ERROR | 
  **since** | **string** | Return events that occurred after the timestamp | 

@@ -24,13 +24,13 @@ type ImageDetail struct {
 	Fulltag *string `json:"fulltag,omitempty"`
 	// Full docker-pullable digest string including the registry url and repository necessary get the image
 	Fulldigest *string `json:"fulldigest,omitempty"`
-	UserId *string `json:"userId,omitempty"`
-	ImageId *string `json:"imageId,omitempty"`
+	AccountName *string `json:"account_name,omitempty"`
+	ImageId *string `json:"image_id,omitempty"`
 	Registry *string `json:"registry,omitempty"`
 	Repo *string `json:"repo,omitempty"`
 	Dockerfile NullableString `json:"dockerfile,omitempty"`
 	// The parent Anchore Image record to which this detail maps
-	ImageDigest *string `json:"imageDigest,omitempty"`
+	ImageDigest *string `json:"image_digest,omitempty"`
 }
 
 // NewImageDetail instantiates a new ImageDetail object
@@ -178,36 +178,36 @@ func (o *ImageDetail) SetFulldigest(v string) {
 	o.Fulldigest = &v
 }
 
-// GetUserId returns the UserId field value if set, zero value otherwise.
-func (o *ImageDetail) GetUserId() string {
-	if o == nil || o.UserId == nil {
+// GetAccountName returns the AccountName field value if set, zero value otherwise.
+func (o *ImageDetail) GetAccountName() string {
+	if o == nil || o.AccountName == nil {
 		var ret string
 		return ret
 	}
-	return *o.UserId
+	return *o.AccountName
 }
 
-// GetUserIdOk returns a tuple with the UserId field value if set, nil otherwise
+// GetAccountNameOk returns a tuple with the AccountName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ImageDetail) GetUserIdOk() (*string, bool) {
-	if o == nil || o.UserId == nil {
+func (o *ImageDetail) GetAccountNameOk() (*string, bool) {
+	if o == nil || o.AccountName == nil {
 		return nil, false
 	}
-	return o.UserId, true
+	return o.AccountName, true
 }
 
-// HasUserId returns a boolean if a field has been set.
-func (o *ImageDetail) HasUserId() bool {
-	if o != nil && o.UserId != nil {
+// HasAccountName returns a boolean if a field has been set.
+func (o *ImageDetail) HasAccountName() bool {
+	if o != nil && o.AccountName != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetUserId gets a reference to the given string and assigns it to the UserId field.
-func (o *ImageDetail) SetUserId(v string) {
-	o.UserId = &v
+// SetAccountName gets a reference to the given string and assigns it to the AccountName field.
+func (o *ImageDetail) SetAccountName(v string) {
+	o.AccountName = &v
 }
 
 // GetImageId returns the ImageId field value if set, zero value otherwise.
@@ -394,11 +394,11 @@ func (o ImageDetail) MarshalJSON() ([]byte, error) {
 	if o.Fulldigest != nil {
 		toSerialize["fulldigest"] = o.Fulldigest
 	}
-	if o.UserId != nil {
-		toSerialize["userId"] = o.UserId
+	if o.AccountName != nil {
+		toSerialize["account_name"] = o.AccountName
 	}
 	if o.ImageId != nil {
-		toSerialize["imageId"] = o.ImageId
+		toSerialize["image_id"] = o.ImageId
 	}
 	if o.Registry != nil {
 		toSerialize["registry"] = o.Registry
@@ -410,7 +410,7 @@ func (o ImageDetail) MarshalJSON() ([]byte, error) {
 		toSerialize["dockerfile"] = o.Dockerfile.Get()
 	}
 	if o.ImageDigest != nil {
-		toSerialize["imageDigest"] = o.ImageDigest
+		toSerialize["image_digest"] = o.ImageDigest
 	}
 	return json.Marshal(toSerialize)
 }

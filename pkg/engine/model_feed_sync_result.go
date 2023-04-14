@@ -21,7 +21,7 @@ type FeedSyncResult struct {
 	Feed *string `json:"feed,omitempty"`
 	// The result of the sync operations, either co
 	Status *string `json:"status,omitempty"`
-	// The duratin, in seconds, of the sync of the feed, the sum of all the group syncs
+	// The duration, in seconds, of the sync of the feed, the sum of all the group syncs
 	TotalTimeSeconds *float32 `json:"total_time_seconds,omitempty"`
 	// Array of group sync results
 	Groups *[]GroupSyncResult `json:"groups,omitempty"`

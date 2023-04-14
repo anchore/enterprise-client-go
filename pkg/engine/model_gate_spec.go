@@ -24,8 +24,8 @@ type GateSpec struct {
 	SupportedArtifactType *string `json:"supported_artifact_type,omitempty"`
 	// State of the gate and transitively all triggers it contains if not 'active'
 	State *string `json:"state,omitempty"`
-	// The name of another trigger that supercedes this on functionally if this is deprecated
-	SupercededBy NullableString `json:"superceded_by,omitempty"`
+	// The name of another trigger that supersedes this on functionally if this is deprecated
+	SupersededBy NullableString `json:"superseded_by,omitempty"`
 	// List of the triggers that can fire for this Gate
 	Triggers *[]TriggerSpec `json:"triggers,omitempty"`
 }
@@ -175,46 +175,46 @@ func (o *GateSpec) SetState(v string) {
 	o.State = &v
 }
 
-// GetSupercededBy returns the SupercededBy field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *GateSpec) GetSupercededBy() string {
-	if o == nil || o.SupercededBy.Get() == nil {
+// GetSupersededBy returns the SupersededBy field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *GateSpec) GetSupersededBy() string {
+	if o == nil || o.SupersededBy.Get() == nil {
 		var ret string
 		return ret
 	}
-	return *o.SupercededBy.Get()
+	return *o.SupersededBy.Get()
 }
 
-// GetSupercededByOk returns a tuple with the SupercededBy field value if set, nil otherwise
+// GetSupersededByOk returns a tuple with the SupersededBy field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *GateSpec) GetSupercededByOk() (*string, bool) {
+func (o *GateSpec) GetSupersededByOk() (*string, bool) {
 	if o == nil  {
 		return nil, false
 	}
-	return o.SupercededBy.Get(), o.SupercededBy.IsSet()
+	return o.SupersededBy.Get(), o.SupersededBy.IsSet()
 }
 
-// HasSupercededBy returns a boolean if a field has been set.
-func (o *GateSpec) HasSupercededBy() bool {
-	if o != nil && o.SupercededBy.IsSet() {
+// HasSupersededBy returns a boolean if a field has been set.
+func (o *GateSpec) HasSupersededBy() bool {
+	if o != nil && o.SupersededBy.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetSupercededBy gets a reference to the given NullableString and assigns it to the SupercededBy field.
-func (o *GateSpec) SetSupercededBy(v string) {
-	o.SupercededBy.Set(&v)
+// SetSupersededBy gets a reference to the given NullableString and assigns it to the SupersededBy field.
+func (o *GateSpec) SetSupersededBy(v string) {
+	o.SupersededBy.Set(&v)
 }
-// SetSupercededByNil sets the value for SupercededBy to be an explicit nil
-func (o *GateSpec) SetSupercededByNil() {
-	o.SupercededBy.Set(nil)
+// SetSupersededByNil sets the value for SupersededBy to be an explicit nil
+func (o *GateSpec) SetSupersededByNil() {
+	o.SupersededBy.Set(nil)
 }
 
-// UnsetSupercededBy ensures that no value is present for SupercededBy, not even an explicit nil
-func (o *GateSpec) UnsetSupercededBy() {
-	o.SupercededBy.Unset()
+// UnsetSupersededBy ensures that no value is present for SupersededBy, not even an explicit nil
+func (o *GateSpec) UnsetSupersededBy() {
+	o.SupersededBy.Unset()
 }
 
 // GetTriggers returns the Triggers field value if set, zero value otherwise.
@@ -263,8 +263,8 @@ func (o GateSpec) MarshalJSON() ([]byte, error) {
 	if o.State != nil {
 		toSerialize["state"] = o.State
 	}
-	if o.SupercededBy.IsSet() {
-		toSerialize["superceded_by"] = o.SupercededBy.Get()
+	if o.SupersededBy.IsSet() {
+		toSerialize["superseded_by"] = o.SupersededBy.Get()
 	}
 	if o.Triggers != nil {
 		toSerialize["triggers"] = o.Triggers

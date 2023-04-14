@@ -20,9 +20,9 @@ type ImageImportManifest struct {
 	Contents ImportContentDigests `json:"contents"`
 	Tags []string `json:"tags"`
 	Digest string `json:"digest"`
-	// The digest of the images's manifest-list parent if it was accessed from a multi-arch tag where the tag pointed to a manifest-list. This allows preservation of that relationship in the data
+	// The digest of the image's manifest-list parent if it was accessed from a multi-arch tag where the tag pointed to a manifest-list. This allows preservation of that relationship in the data
 	ParentDigest *string `json:"parent_digest,omitempty"`
-	// An \"imageId\" as used by Docker if available
+	// An \"image_id\" as used by Docker if available
 	LocalImageId *string `json:"local_image_id,omitempty"`
 	OperationUuid string `json:"operation_uuid"`
 }

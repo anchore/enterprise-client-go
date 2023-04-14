@@ -23,7 +23,7 @@ type PackageReference struct {
 	Version NullableString `json:"version,omitempty"`
 	// Package type (e.g. package, rpm, deb, apk, jar, npm, gem, ...)
 	Type *string `json:"type,omitempty"`
-	// Whether a vendor will or will not fix a vulnerabitlity
+	// Whether a vendor will or will not fix a vulnerability
 	WillNotFix *bool `json:"will_not_fix,omitempty"`
 }
 

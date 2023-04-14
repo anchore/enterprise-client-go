@@ -56,7 +56,7 @@ type ImagesApi interface {
 	DeleteImageExecute(r ApiDeleteImageRequest) (DeleteImageResponse, *_nethttp.Response, error)
 
 	/*
-	DeleteImageByImageId Delete image by docker imageId
+	DeleteImageByImageId Delete image by docker image_id
 
 	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	 @param imageId
@@ -96,7 +96,7 @@ type ImagesApi interface {
 	GetImageExecute(r ApiGetImageRequest) ([]AnchoreImage, *_nethttp.Response, error)
 
 	/*
-	GetImageByImageId Lookup image by docker imageId
+	GetImageByImageId Lookup image by docker image_id
 
 	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	 @param imageId
@@ -113,10 +113,10 @@ type ImagesApi interface {
 
 	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	 @param imageDigest
-	 @param ctype
+	 @param contentType
 	 @return ApiGetImageContentByTypeRequest
 	*/
-	GetImageContentByType(ctx _context.Context, imageDigest string, ctype string) ApiGetImageContentByTypeRequest
+	GetImageContentByType(ctx _context.Context, imageDigest string, contentType string) ApiGetImageContentByTypeRequest
 
 	// GetImageContentByTypeExecute executes the request
 	//  @return ContentPackageResponse
@@ -140,10 +140,10 @@ type ImagesApi interface {
 
 	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	 @param imageId
-	 @param ctype
+	 @param contentType
 	 @return ApiGetImageContentByTypeImageIdRequest
 	*/
-	GetImageContentByTypeImageId(ctx _context.Context, imageId string, ctype string) ApiGetImageContentByTypeImageIdRequest
+	GetImageContentByTypeImageId(ctx _context.Context, imageId string, contentType string) ApiGetImageContentByTypeImageIdRequest
 
 	// GetImageContentByTypeImageIdExecute executes the request
 	//  @return ContentPackageResponse
@@ -163,30 +163,30 @@ type ImagesApi interface {
 	GetImageContentByTypeImageIdFilesExecute(r ApiGetImageContentByTypeImageIdFilesRequest) (ContentFilesResponse, *_nethttp.Response, error)
 
 	/*
-	GetImageContentByTypeImageIdJavapackage Get the content of an image by type java
+	GetImageContentByTypeImageIdJavaPackage Get the content of an image by type java
 
 	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	 @param imageId
-	 @return ApiGetImageContentByTypeImageIdJavapackageRequest
+	 @return ApiGetImageContentByTypeImageIdJavaPackageRequest
 	*/
-	GetImageContentByTypeImageIdJavapackage(ctx _context.Context, imageId string) ApiGetImageContentByTypeImageIdJavapackageRequest
+	GetImageContentByTypeImageIdJavaPackage(ctx _context.Context, imageId string) ApiGetImageContentByTypeImageIdJavaPackageRequest
 
-	// GetImageContentByTypeImageIdJavapackageExecute executes the request
+	// GetImageContentByTypeImageIdJavaPackageExecute executes the request
 	//  @return ContentJAVAPackageResponse
-	GetImageContentByTypeImageIdJavapackageExecute(r ApiGetImageContentByTypeImageIdJavapackageRequest) (ContentJAVAPackageResponse, *_nethttp.Response, error)
+	GetImageContentByTypeImageIdJavaPackageExecute(r ApiGetImageContentByTypeImageIdJavaPackageRequest) (ContentJAVAPackageResponse, *_nethttp.Response, error)
 
 	/*
-	GetImageContentByTypeJavapackage Get the content of an image by type java
+	GetImageContentByTypeJavaPackage Get the content of an image by type java
 
 	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	 @param imageDigest
-	 @return ApiGetImageContentByTypeJavapackageRequest
+	 @return ApiGetImageContentByTypeJavaPackageRequest
 	*/
-	GetImageContentByTypeJavapackage(ctx _context.Context, imageDigest string) ApiGetImageContentByTypeJavapackageRequest
+	GetImageContentByTypeJavaPackage(ctx _context.Context, imageDigest string) ApiGetImageContentByTypeJavaPackageRequest
 
-	// GetImageContentByTypeJavapackageExecute executes the request
+	// GetImageContentByTypeJavaPackageExecute executes the request
 	//  @return ContentJAVAPackageResponse
-	GetImageContentByTypeJavapackageExecute(r ApiGetImageContentByTypeJavapackageRequest) (ContentJAVAPackageResponse, *_nethttp.Response, error)
+	GetImageContentByTypeJavaPackageExecute(r ApiGetImageContentByTypeJavaPackageRequest) (ContentJAVAPackageResponse, *_nethttp.Response, error)
 
 	/*
 	GetImageContentByTypeMalware Get the content of an image by type malware
@@ -365,17 +365,17 @@ type ImagesApi interface {
 	ListImageContentExecute(r ApiListImageContentRequest) ([]string, *_nethttp.Response, error)
 
 	/*
-	ListImageContentByImageid List image content types
+	ListImageContentByImageId List image content types
 
 	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	 @param imageId
-	 @return ApiListImageContentByImageidRequest
+	 @return ApiListImageContentByImageIdRequest
 	*/
-	ListImageContentByImageid(ctx _context.Context, imageId string) ApiListImageContentByImageidRequest
+	ListImageContentByImageId(ctx _context.Context, imageId string) ApiListImageContentByImageIdRequest
 
-	// ListImageContentByImageidExecute executes the request
+	// ListImageContentByImageIdExecute executes the request
 	//  @return []string
-	ListImageContentByImageidExecute(r ApiListImageContentByImageidRequest) ([]string, *_nethttp.Response, error)
+	ListImageContentByImageIdExecute(r ApiListImageContentByImageIdRequest) ([]string, *_nethttp.Response, error)
 
 	/*
 	ListImageMetadata List image metadata types
@@ -413,7 +413,7 @@ type ApiAddImageRequest struct {
 	ApiService ImagesApi
 	image *ImageAnalysisRequest
 	force *bool
-	autosubscribe *bool
+	autoSubscribe *bool
 	xAnchoreAccount *string
 }
 
@@ -427,8 +427,8 @@ func (r ApiAddImageRequest) Force(force bool) ApiAddImageRequest {
 	return r
 }
 // Instruct engine to automatically begin watching the added tag for updates from registry
-func (r ApiAddImageRequest) Autosubscribe(autosubscribe bool) ApiAddImageRequest {
-	r.autosubscribe = &autosubscribe
+func (r ApiAddImageRequest) AutoSubscribe(autoSubscribe bool) ApiAddImageRequest {
+	r.autoSubscribe = &autoSubscribe
 	return r
 }
 // An account name to change the resource scope of the request to that account, if permissions allow (admin only)
@@ -485,8 +485,8 @@ func (a *ImagesApiService) AddImageExecute(r ApiAddImageRequest) ([]AnchoreImage
 	if r.force != nil {
 		localVarQueryParams.Add("force", parameterToString(*r.force, ""))
 	}
-	if r.autosubscribe != nil {
-		localVarQueryParams.Add("autosubscribe", parameterToString(*r.autosubscribe, ""))
+	if r.autoSubscribe != nil {
+		localVarQueryParams.Add("auto_subscribe", parameterToString(*r.autoSubscribe, ""))
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
@@ -610,8 +610,8 @@ func (a *ImagesApiService) DeleteImageExecute(r ApiDeleteImageRequest) (DeleteIm
 		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/images/{imageDigest}"
-	localVarPath = strings.Replace(localVarPath, "{"+"imageDigest"+"}", _neturl.PathEscape(parameterToString(r.imageDigest, "")), -1)
+	localVarPath := localBasePath + "/images/{image_digest}"
+	localVarPath = strings.Replace(localVarPath, "{"+"image_digest"+"}", _neturl.PathEscape(parameterToString(r.imageDigest, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
@@ -700,7 +700,7 @@ func (r ApiDeleteImageByImageIdRequest) Execute() (DeleteImageResponse, *_nethtt
 }
 
 /*
-DeleteImageByImageId Delete image by docker imageId
+DeleteImageByImageId Delete image by docker image_id
 
  @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param imageId
@@ -731,8 +731,8 @@ func (a *ImagesApiService) DeleteImageByImageIdExecute(r ApiDeleteImageByImageId
 		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/images/by_id/{imageId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"imageId"+"}", _neturl.PathEscape(parameterToString(r.imageId, "")), -1)
+	localVarPath := localBasePath + "/images/by_id/{image_id}"
+	localVarPath = strings.Replace(localVarPath, "{"+"image_id"+"}", _neturl.PathEscape(parameterToString(r.imageId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
@@ -874,7 +874,7 @@ func (a *ImagesApiService) DeleteImagesAsyncExecute(r ApiDeleteImagesAsyncReques
 		return localVarReturnValue, nil, reportError("imageDigests is required and must be specified")
 	}
 
-	localVarQueryParams.Add("imageDigests", parameterToString(*r.imageDigests, "csv"))
+	localVarQueryParams.Add("image_digests", parameterToString(*r.imageDigests, "csv"))
 	if r.force != nil {
 		localVarQueryParams.Add("force", parameterToString(*r.force, ""))
 	}
@@ -993,8 +993,8 @@ func (a *ImagesApiService) GetImageExecute(r ApiGetImageRequest) ([]AnchoreImage
 		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/images/{imageDigest}"
-	localVarPath = strings.Replace(localVarPath, "{"+"imageDigest"+"}", _neturl.PathEscape(parameterToString(r.imageDigest, "")), -1)
+	localVarPath := localBasePath + "/images/{image_digest}"
+	localVarPath = strings.Replace(localVarPath, "{"+"image_digest"+"}", _neturl.PathEscape(parameterToString(r.imageDigest, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
@@ -1084,7 +1084,7 @@ func (r ApiGetImageByImageIdRequest) Execute() ([]AnchoreImage, *_nethttp.Respon
 }
 
 /*
-GetImageByImageId Lookup image by docker imageId
+GetImageByImageId Lookup image by docker image_id
 
  @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param imageId
@@ -1115,8 +1115,8 @@ func (a *ImagesApiService) GetImageByImageIdExecute(r ApiGetImageByImageIdReques
 		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/images/by_id/{imageId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"imageId"+"}", _neturl.PathEscape(parameterToString(r.imageId, "")), -1)
+	localVarPath := localBasePath + "/images/by_id/{image_id}"
+	localVarPath = strings.Replace(localVarPath, "{"+"image_id"+"}", _neturl.PathEscape(parameterToString(r.imageId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
@@ -1192,7 +1192,7 @@ type ApiGetImageContentByTypeRequest struct {
 	ctx _context.Context
 	ApiService ImagesApi
 	imageDigest string
-	ctype string
+	contentType string
 	xAnchoreAccount *string
 }
 
@@ -1211,15 +1211,15 @@ GetImageContentByType Get the content of an image by type
 
  @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param imageDigest
- @param ctype
+ @param contentType
  @return ApiGetImageContentByTypeRequest
 */
-func (a *ImagesApiService) GetImageContentByType(ctx _context.Context, imageDigest string, ctype string) ApiGetImageContentByTypeRequest {
+func (a *ImagesApiService) GetImageContentByType(ctx _context.Context, imageDigest string, contentType string) ApiGetImageContentByTypeRequest {
 	return ApiGetImageContentByTypeRequest{
 		ApiService: a,
 		ctx: ctx,
 		imageDigest: imageDigest,
-		ctype: ctype,
+		contentType: contentType,
 	}
 }
 
@@ -1240,9 +1240,9 @@ func (a *ImagesApiService) GetImageContentByTypeExecute(r ApiGetImageContentByTy
 		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/images/{imageDigest}/content/{ctype}"
-	localVarPath = strings.Replace(localVarPath, "{"+"imageDigest"+"}", _neturl.PathEscape(parameterToString(r.imageDigest, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"ctype"+"}", _neturl.PathEscape(parameterToString(r.ctype, "")), -1)
+	localVarPath := localBasePath + "/images/{image_digest}/content/{content_type}"
+	localVarPath = strings.Replace(localVarPath, "{"+"image_digest"+"}", _neturl.PathEscape(parameterToString(r.imageDigest, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"content_type"+"}", _neturl.PathEscape(parameterToString(r.contentType, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
@@ -1363,8 +1363,8 @@ func (a *ImagesApiService) GetImageContentByTypeFilesExecute(r ApiGetImageConten
 		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/images/{imageDigest}/content/files"
-	localVarPath = strings.Replace(localVarPath, "{"+"imageDigest"+"}", _neturl.PathEscape(parameterToString(r.imageDigest, "")), -1)
+	localVarPath := localBasePath + "/images/{image_digest}/content/files"
+	localVarPath = strings.Replace(localVarPath, "{"+"image_digest"+"}", _neturl.PathEscape(parameterToString(r.imageDigest, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
@@ -1440,7 +1440,7 @@ type ApiGetImageContentByTypeImageIdRequest struct {
 	ctx _context.Context
 	ApiService ImagesApi
 	imageId string
-	ctype string
+	contentType string
 	xAnchoreAccount *string
 }
 
@@ -1459,15 +1459,15 @@ GetImageContentByTypeImageId Get the content of an image by type
 
  @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param imageId
- @param ctype
+ @param contentType
  @return ApiGetImageContentByTypeImageIdRequest
 */
-func (a *ImagesApiService) GetImageContentByTypeImageId(ctx _context.Context, imageId string, ctype string) ApiGetImageContentByTypeImageIdRequest {
+func (a *ImagesApiService) GetImageContentByTypeImageId(ctx _context.Context, imageId string, contentType string) ApiGetImageContentByTypeImageIdRequest {
 	return ApiGetImageContentByTypeImageIdRequest{
 		ApiService: a,
 		ctx: ctx,
 		imageId: imageId,
-		ctype: ctype,
+		contentType: contentType,
 	}
 }
 
@@ -1488,9 +1488,9 @@ func (a *ImagesApiService) GetImageContentByTypeImageIdExecute(r ApiGetImageCont
 		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/images/by_id/{imageId}/content/{ctype}"
-	localVarPath = strings.Replace(localVarPath, "{"+"imageId"+"}", _neturl.PathEscape(parameterToString(r.imageId, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"ctype"+"}", _neturl.PathEscape(parameterToString(r.ctype, "")), -1)
+	localVarPath := localBasePath + "/images/by_id/{image_id}/content/{content_type}"
+	localVarPath = strings.Replace(localVarPath, "{"+"image_id"+"}", _neturl.PathEscape(parameterToString(r.imageId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"content_type"+"}", _neturl.PathEscape(parameterToString(r.contentType, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
@@ -1611,8 +1611,8 @@ func (a *ImagesApiService) GetImageContentByTypeImageIdFilesExecute(r ApiGetImag
 		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/images/by_id/{imageId}/content/files"
-	localVarPath = strings.Replace(localVarPath, "{"+"imageId"+"}", _neturl.PathEscape(parameterToString(r.imageId, "")), -1)
+	localVarPath := localBasePath + "/images/by_id/{image_id}/content/files"
+	localVarPath = strings.Replace(localVarPath, "{"+"image_id"+"}", _neturl.PathEscape(parameterToString(r.imageId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
@@ -1684,7 +1684,7 @@ func (a *ImagesApiService) GetImageContentByTypeImageIdFilesExecute(r ApiGetImag
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiGetImageContentByTypeImageIdJavapackageRequest struct {
+type ApiGetImageContentByTypeImageIdJavaPackageRequest struct {
 	ctx _context.Context
 	ApiService ImagesApi
 	imageId string
@@ -1692,24 +1692,24 @@ type ApiGetImageContentByTypeImageIdJavapackageRequest struct {
 }
 
 // An account name to change the resource scope of the request to that account, if permissions allow (admin only)
-func (r ApiGetImageContentByTypeImageIdJavapackageRequest) XAnchoreAccount(xAnchoreAccount string) ApiGetImageContentByTypeImageIdJavapackageRequest {
+func (r ApiGetImageContentByTypeImageIdJavaPackageRequest) XAnchoreAccount(xAnchoreAccount string) ApiGetImageContentByTypeImageIdJavaPackageRequest {
 	r.xAnchoreAccount = &xAnchoreAccount
 	return r
 }
 
-func (r ApiGetImageContentByTypeImageIdJavapackageRequest) Execute() (ContentJAVAPackageResponse, *_nethttp.Response, error) {
-	return r.ApiService.GetImageContentByTypeImageIdJavapackageExecute(r)
+func (r ApiGetImageContentByTypeImageIdJavaPackageRequest) Execute() (ContentJAVAPackageResponse, *_nethttp.Response, error) {
+	return r.ApiService.GetImageContentByTypeImageIdJavaPackageExecute(r)
 }
 
 /*
-GetImageContentByTypeImageIdJavapackage Get the content of an image by type java
+GetImageContentByTypeImageIdJavaPackage Get the content of an image by type java
 
  @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param imageId
- @return ApiGetImageContentByTypeImageIdJavapackageRequest
+ @return ApiGetImageContentByTypeImageIdJavaPackageRequest
 */
-func (a *ImagesApiService) GetImageContentByTypeImageIdJavapackage(ctx _context.Context, imageId string) ApiGetImageContentByTypeImageIdJavapackageRequest {
-	return ApiGetImageContentByTypeImageIdJavapackageRequest{
+func (a *ImagesApiService) GetImageContentByTypeImageIdJavaPackage(ctx _context.Context, imageId string) ApiGetImageContentByTypeImageIdJavaPackageRequest {
+	return ApiGetImageContentByTypeImageIdJavaPackageRequest{
 		ApiService: a,
 		ctx: ctx,
 		imageId: imageId,
@@ -1718,7 +1718,7 @@ func (a *ImagesApiService) GetImageContentByTypeImageIdJavapackage(ctx _context.
 
 // Execute executes the request
 //  @return ContentJAVAPackageResponse
-func (a *ImagesApiService) GetImageContentByTypeImageIdJavapackageExecute(r ApiGetImageContentByTypeImageIdJavapackageRequest) (ContentJAVAPackageResponse, *_nethttp.Response, error) {
+func (a *ImagesApiService) GetImageContentByTypeImageIdJavaPackageExecute(r ApiGetImageContentByTypeImageIdJavaPackageRequest) (ContentJAVAPackageResponse, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
@@ -1728,13 +1728,13 @@ func (a *ImagesApiService) GetImageContentByTypeImageIdJavapackageExecute(r ApiG
 		localVarReturnValue  ContentJAVAPackageResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ImagesApiService.GetImageContentByTypeImageIdJavapackage")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ImagesApiService.GetImageContentByTypeImageIdJavaPackage")
 	if err != nil {
 		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/images/by_id/{imageId}/content/java"
-	localVarPath = strings.Replace(localVarPath, "{"+"imageId"+"}", _neturl.PathEscape(parameterToString(r.imageId, "")), -1)
+	localVarPath := localBasePath + "/images/by_id/{image_id}/content/java"
+	localVarPath = strings.Replace(localVarPath, "{"+"image_id"+"}", _neturl.PathEscape(parameterToString(r.imageId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
@@ -1806,7 +1806,7 @@ func (a *ImagesApiService) GetImageContentByTypeImageIdJavapackageExecute(r ApiG
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiGetImageContentByTypeJavapackageRequest struct {
+type ApiGetImageContentByTypeJavaPackageRequest struct {
 	ctx _context.Context
 	ApiService ImagesApi
 	imageDigest string
@@ -1814,24 +1814,24 @@ type ApiGetImageContentByTypeJavapackageRequest struct {
 }
 
 // An account name to change the resource scope of the request to that account, if permissions allow (admin only)
-func (r ApiGetImageContentByTypeJavapackageRequest) XAnchoreAccount(xAnchoreAccount string) ApiGetImageContentByTypeJavapackageRequest {
+func (r ApiGetImageContentByTypeJavaPackageRequest) XAnchoreAccount(xAnchoreAccount string) ApiGetImageContentByTypeJavaPackageRequest {
 	r.xAnchoreAccount = &xAnchoreAccount
 	return r
 }
 
-func (r ApiGetImageContentByTypeJavapackageRequest) Execute() (ContentJAVAPackageResponse, *_nethttp.Response, error) {
-	return r.ApiService.GetImageContentByTypeJavapackageExecute(r)
+func (r ApiGetImageContentByTypeJavaPackageRequest) Execute() (ContentJAVAPackageResponse, *_nethttp.Response, error) {
+	return r.ApiService.GetImageContentByTypeJavaPackageExecute(r)
 }
 
 /*
-GetImageContentByTypeJavapackage Get the content of an image by type java
+GetImageContentByTypeJavaPackage Get the content of an image by type java
 
  @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param imageDigest
- @return ApiGetImageContentByTypeJavapackageRequest
+ @return ApiGetImageContentByTypeJavaPackageRequest
 */
-func (a *ImagesApiService) GetImageContentByTypeJavapackage(ctx _context.Context, imageDigest string) ApiGetImageContentByTypeJavapackageRequest {
-	return ApiGetImageContentByTypeJavapackageRequest{
+func (a *ImagesApiService) GetImageContentByTypeJavaPackage(ctx _context.Context, imageDigest string) ApiGetImageContentByTypeJavaPackageRequest {
+	return ApiGetImageContentByTypeJavaPackageRequest{
 		ApiService: a,
 		ctx: ctx,
 		imageDigest: imageDigest,
@@ -1840,7 +1840,7 @@ func (a *ImagesApiService) GetImageContentByTypeJavapackage(ctx _context.Context
 
 // Execute executes the request
 //  @return ContentJAVAPackageResponse
-func (a *ImagesApiService) GetImageContentByTypeJavapackageExecute(r ApiGetImageContentByTypeJavapackageRequest) (ContentJAVAPackageResponse, *_nethttp.Response, error) {
+func (a *ImagesApiService) GetImageContentByTypeJavaPackageExecute(r ApiGetImageContentByTypeJavaPackageRequest) (ContentJAVAPackageResponse, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
@@ -1850,13 +1850,13 @@ func (a *ImagesApiService) GetImageContentByTypeJavapackageExecute(r ApiGetImage
 		localVarReturnValue  ContentJAVAPackageResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ImagesApiService.GetImageContentByTypeJavapackage")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ImagesApiService.GetImageContentByTypeJavaPackage")
 	if err != nil {
 		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/images/{imageDigest}/content/java"
-	localVarPath = strings.Replace(localVarPath, "{"+"imageDigest"+"}", _neturl.PathEscape(parameterToString(r.imageDigest, "")), -1)
+	localVarPath := localBasePath + "/images/{image_digest}/content/java"
+	localVarPath = strings.Replace(localVarPath, "{"+"image_digest"+"}", _neturl.PathEscape(parameterToString(r.imageDigest, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
@@ -1977,8 +1977,8 @@ func (a *ImagesApiService) GetImageContentByTypeMalwareExecute(r ApiGetImageCont
 		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/images/{imageDigest}/content/malware"
-	localVarPath = strings.Replace(localVarPath, "{"+"imageDigest"+"}", _neturl.PathEscape(parameterToString(r.imageDigest, "")), -1)
+	localVarPath := localBasePath + "/images/{image_digest}/content/malware"
+	localVarPath = strings.Replace(localVarPath, "{"+"image_digest"+"}", _neturl.PathEscape(parameterToString(r.imageDigest, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
@@ -2102,8 +2102,8 @@ func (a *ImagesApiService) GetImageMetadataByTypeExecute(r ApiGetImageMetadataBy
 		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/images/{imageDigest}/metadata/{mtype}"
-	localVarPath = strings.Replace(localVarPath, "{"+"imageDigest"+"}", _neturl.PathEscape(parameterToString(r.imageDigest, "")), -1)
+	localVarPath := localBasePath + "/images/{image_digest}/metadata/{mtype}"
+	localVarPath = strings.Replace(localVarPath, "{"+"image_digest"+"}", _neturl.PathEscape(parameterToString(r.imageDigest, "")), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"mtype"+"}", _neturl.PathEscape(parameterToString(r.mtype, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -2252,8 +2252,8 @@ func (a *ImagesApiService) GetImagePolicyCheckExecute(r ApiGetImagePolicyCheckRe
 		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/images/{imageDigest}/check"
-	localVarPath = strings.Replace(localVarPath, "{"+"imageDigest"+"}", _neturl.PathEscape(parameterToString(r.imageDigest, "")), -1)
+	localVarPath := localBasePath + "/images/{image_digest}/check"
+	localVarPath = strings.Replace(localVarPath, "{"+"image_digest"+"}", _neturl.PathEscape(parameterToString(r.imageDigest, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
@@ -2263,7 +2263,7 @@ func (a *ImagesApiService) GetImagePolicyCheckExecute(r ApiGetImagePolicyCheckRe
 	}
 
 	if r.policyId != nil {
-		localVarQueryParams.Add("policyId", parameterToString(*r.policyId, ""))
+		localVarQueryParams.Add("policy_id", parameterToString(*r.policyId, ""))
 	}
 	localVarQueryParams.Add("tag", parameterToString(*r.tag, ""))
 	if r.detail != nil {
@@ -2412,8 +2412,8 @@ func (a *ImagesApiService) GetImagePolicyCheckByImageIdExecute(r ApiGetImagePoli
 		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/images/by_id/{imageId}/check"
-	localVarPath = strings.Replace(localVarPath, "{"+"imageId"+"}", _neturl.PathEscape(parameterToString(r.imageId, "")), -1)
+	localVarPath := localBasePath + "/images/by_id/{image_id}/check"
+	localVarPath = strings.Replace(localVarPath, "{"+"image_id"+"}", _neturl.PathEscape(parameterToString(r.imageId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
@@ -2423,7 +2423,7 @@ func (a *ImagesApiService) GetImagePolicyCheckByImageIdExecute(r ApiGetImagePoli
 	}
 
 	if r.policyId != nil {
-		localVarQueryParams.Add("policyId", parameterToString(*r.policyId, ""))
+		localVarQueryParams.Add("policy_id", parameterToString(*r.policyId, ""))
 	}
 	localVarQueryParams.Add("tag", parameterToString(*r.tag, ""))
 	if r.detail != nil {
@@ -2547,8 +2547,8 @@ func (a *ImagesApiService) GetImageSbomCyclonedxJsonExecute(r ApiGetImageSbomCyc
 		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/images/{imageDigest}/sboms/cyclonedx-json"
-	localVarPath = strings.Replace(localVarPath, "{"+"imageDigest"+"}", _neturl.PathEscape(parameterToString(r.imageDigest, "")), -1)
+	localVarPath := localBasePath + "/images/{image_digest}/sboms/cyclonedx-json"
+	localVarPath = strings.Replace(localVarPath, "{"+"image_digest"+"}", _neturl.PathEscape(parameterToString(r.imageDigest, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
@@ -2669,8 +2669,8 @@ func (a *ImagesApiService) GetImageSbomNativeExecute(r ApiGetImageSbomNativeRequ
 		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/images/{imageDigest}/sboms/native"
-	localVarPath = strings.Replace(localVarPath, "{"+"imageDigest"+"}", _neturl.PathEscape(parameterToString(r.imageDigest, "")), -1)
+	localVarPath := localBasePath + "/images/{image_digest}/sboms/native"
+	localVarPath = strings.Replace(localVarPath, "{"+"image_digest"+"}", _neturl.PathEscape(parameterToString(r.imageDigest, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
@@ -2791,8 +2791,8 @@ func (a *ImagesApiService) GetImageSbomNativeJsonExecute(r ApiGetImageSbomNative
 		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/images/{imageDigest}/sboms/native-json"
-	localVarPath = strings.Replace(localVarPath, "{"+"imageDigest"+"}", _neturl.PathEscape(parameterToString(r.imageDigest, "")), -1)
+	localVarPath := localBasePath + "/images/{image_digest}/sboms/native-json"
+	localVarPath = strings.Replace(localVarPath, "{"+"image_digest"+"}", _neturl.PathEscape(parameterToString(r.imageDigest, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
@@ -2913,8 +2913,8 @@ func (a *ImagesApiService) GetImageSbomSpdxJsonExecute(r ApiGetImageSbomSpdxJson
 		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/images/{imageDigest}/sboms/spdx-json"
-	localVarPath = strings.Replace(localVarPath, "{"+"imageDigest"+"}", _neturl.PathEscape(parameterToString(r.imageDigest, "")), -1)
+	localVarPath := localBasePath + "/images/{image_digest}/sboms/spdx-json"
+	localVarPath = strings.Replace(localVarPath, "{"+"image_digest"+"}", _neturl.PathEscape(parameterToString(r.imageDigest, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
@@ -3049,8 +3049,8 @@ func (a *ImagesApiService) GetImageVulnerabilitiesByTypeExecute(r ApiGetImageVul
 		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/images/{imageDigest}/vuln/{vtype}"
-	localVarPath = strings.Replace(localVarPath, "{"+"imageDigest"+"}", _neturl.PathEscape(parameterToString(r.imageDigest, "")), -1)
+	localVarPath := localBasePath + "/images/{image_digest}/vuln/{vtype}"
+	localVarPath = strings.Replace(localVarPath, "{"+"image_digest"+"}", _neturl.PathEscape(parameterToString(r.imageDigest, "")), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"vtype"+"}", _neturl.PathEscape(parameterToString(r.vtype, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -3181,8 +3181,8 @@ func (a *ImagesApiService) GetImageVulnerabilitiesByTypeImageIdExecute(r ApiGetI
 		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/images/by_id/{imageId}/vuln/{vtype}"
-	localVarPath = strings.Replace(localVarPath, "{"+"imageId"+"}", _neturl.PathEscape(parameterToString(r.imageId, "")), -1)
+	localVarPath := localBasePath + "/images/by_id/{image_id}/vuln/{vtype}"
+	localVarPath = strings.Replace(localVarPath, "{"+"image_id"+"}", _neturl.PathEscape(parameterToString(r.imageId, "")), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"vtype"+"}", _neturl.PathEscape(parameterToString(r.vtype, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -3304,8 +3304,8 @@ func (a *ImagesApiService) GetImageVulnerabilityTypesExecute(r ApiGetImageVulner
 		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/images/{imageDigest}/vuln"
-	localVarPath = strings.Replace(localVarPath, "{"+"imageDigest"+"}", _neturl.PathEscape(parameterToString(r.imageDigest, "")), -1)
+	localVarPath := localBasePath + "/images/{image_digest}/vuln"
+	localVarPath = strings.Replace(localVarPath, "{"+"image_digest"+"}", _neturl.PathEscape(parameterToString(r.imageDigest, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
@@ -3426,8 +3426,8 @@ func (a *ImagesApiService) GetImageVulnerabilityTypesByImageIdExecute(r ApiGetIm
 		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/images/by_id/{imageId}/vuln"
-	localVarPath = strings.Replace(localVarPath, "{"+"imageId"+"}", _neturl.PathEscape(parameterToString(r.imageId, "")), -1)
+	localVarPath := localBasePath + "/images/by_id/{image_id}/vuln"
+	localVarPath = strings.Replace(localVarPath, "{"+"image_id"+"}", _neturl.PathEscape(parameterToString(r.imageId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
@@ -3548,8 +3548,8 @@ func (a *ImagesApiService) ListImageContentExecute(r ApiListImageContentRequest)
 		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/images/{imageDigest}/content"
-	localVarPath = strings.Replace(localVarPath, "{"+"imageDigest"+"}", _neturl.PathEscape(parameterToString(r.imageDigest, "")), -1)
+	localVarPath := localBasePath + "/images/{image_digest}/content"
+	localVarPath = strings.Replace(localVarPath, "{"+"image_digest"+"}", _neturl.PathEscape(parameterToString(r.imageDigest, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
@@ -3621,7 +3621,7 @@ func (a *ImagesApiService) ListImageContentExecute(r ApiListImageContentRequest)
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiListImageContentByImageidRequest struct {
+type ApiListImageContentByImageIdRequest struct {
 	ctx _context.Context
 	ApiService ImagesApi
 	imageId string
@@ -3629,24 +3629,24 @@ type ApiListImageContentByImageidRequest struct {
 }
 
 // An account name to change the resource scope of the request to that account, if permissions allow (admin only)
-func (r ApiListImageContentByImageidRequest) XAnchoreAccount(xAnchoreAccount string) ApiListImageContentByImageidRequest {
+func (r ApiListImageContentByImageIdRequest) XAnchoreAccount(xAnchoreAccount string) ApiListImageContentByImageIdRequest {
 	r.xAnchoreAccount = &xAnchoreAccount
 	return r
 }
 
-func (r ApiListImageContentByImageidRequest) Execute() ([]string, *_nethttp.Response, error) {
-	return r.ApiService.ListImageContentByImageidExecute(r)
+func (r ApiListImageContentByImageIdRequest) Execute() ([]string, *_nethttp.Response, error) {
+	return r.ApiService.ListImageContentByImageIdExecute(r)
 }
 
 /*
-ListImageContentByImageid List image content types
+ListImageContentByImageId List image content types
 
  @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param imageId
- @return ApiListImageContentByImageidRequest
+ @return ApiListImageContentByImageIdRequest
 */
-func (a *ImagesApiService) ListImageContentByImageid(ctx _context.Context, imageId string) ApiListImageContentByImageidRequest {
-	return ApiListImageContentByImageidRequest{
+func (a *ImagesApiService) ListImageContentByImageId(ctx _context.Context, imageId string) ApiListImageContentByImageIdRequest {
+	return ApiListImageContentByImageIdRequest{
 		ApiService: a,
 		ctx: ctx,
 		imageId: imageId,
@@ -3655,7 +3655,7 @@ func (a *ImagesApiService) ListImageContentByImageid(ctx _context.Context, image
 
 // Execute executes the request
 //  @return []string
-func (a *ImagesApiService) ListImageContentByImageidExecute(r ApiListImageContentByImageidRequest) ([]string, *_nethttp.Response, error) {
+func (a *ImagesApiService) ListImageContentByImageIdExecute(r ApiListImageContentByImageIdRequest) ([]string, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
@@ -3665,13 +3665,13 @@ func (a *ImagesApiService) ListImageContentByImageidExecute(r ApiListImageConten
 		localVarReturnValue  []string
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ImagesApiService.ListImageContentByImageid")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ImagesApiService.ListImageContentByImageId")
 	if err != nil {
 		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/images/by_id/{imageId}/content"
-	localVarPath = strings.Replace(localVarPath, "{"+"imageId"+"}", _neturl.PathEscape(parameterToString(r.imageId, "")), -1)
+	localVarPath := localBasePath + "/images/by_id/{image_id}/content"
+	localVarPath = strings.Replace(localVarPath, "{"+"image_id"+"}", _neturl.PathEscape(parameterToString(r.imageId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
@@ -3792,8 +3792,8 @@ func (a *ImagesApiService) ListImageMetadataExecute(r ApiListImageMetadataReques
 		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/images/{imageDigest}/metadata"
-	localVarPath = strings.Replace(localVarPath, "{"+"imageDigest"+"}", _neturl.PathEscape(parameterToString(r.imageDigest, "")), -1)
+	localVarPath := localBasePath + "/images/{image_digest}/metadata"
+	localVarPath = strings.Replace(localVarPath, "{"+"image_digest"+"}", _neturl.PathEscape(parameterToString(r.imageDigest, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}

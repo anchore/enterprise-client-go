@@ -428,8 +428,8 @@ func (a *DefaultApiService) ListFileContentSearchResultsExecute(r ApiListFileCon
 		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/images/{imageDigest}/artifacts/file_content_search"
-	localVarPath = strings.Replace(localVarPath, "{"+"imageDigest"+"}", _neturl.PathEscape(parameterToString(r.imageDigest, "")), -1)
+	localVarPath := localBasePath + "/images/{image_digest}/artifacts/file_content_search"
+	localVarPath = strings.Replace(localVarPath, "{"+"image_digest"+"}", _neturl.PathEscape(parameterToString(r.imageDigest, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
@@ -532,8 +532,8 @@ func (a *DefaultApiService) ListRetrievedFilesExecute(r ApiListRetrievedFilesReq
 		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/images/{imageDigest}/artifacts/retrieved_files"
-	localVarPath = strings.Replace(localVarPath, "{"+"imageDigest"+"}", _neturl.PathEscape(parameterToString(r.imageDigest, "")), -1)
+	localVarPath := localBasePath + "/images/{image_digest}/artifacts/retrieved_files"
+	localVarPath = strings.Replace(localVarPath, "{"+"image_digest"+"}", _neturl.PathEscape(parameterToString(r.imageDigest, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
@@ -636,8 +636,8 @@ func (a *DefaultApiService) ListSecretSearchResultsExecute(r ApiListSecretSearch
 		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/images/{imageDigest}/artifacts/secret_search"
-	localVarPath = strings.Replace(localVarPath, "{"+"imageDigest"+"}", _neturl.PathEscape(parameterToString(r.imageDigest, "")), -1)
+	localVarPath := localBasePath + "/images/{image_digest}/artifacts/secret_search"
+	localVarPath = strings.Replace(localVarPath, "{"+"image_digest"+"}", _neturl.PathEscape(parameterToString(r.imageDigest, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}

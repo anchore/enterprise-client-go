@@ -6,10 +6,10 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**ArchiveImageAnalysis**](ArchivesApi.md#ArchiveImageAnalysis) | **Post** /archives/images | 
 [**CreateAnalysisArchiveRule**](ArchivesApi.md#CreateAnalysisArchiveRule) | **Post** /archives/rules | 
-[**DeleteAnalysisArchiveRule**](ArchivesApi.md#DeleteAnalysisArchiveRule) | **Delete** /archives/rules/{ruleId} | 
-[**DeleteArchivedAnalysis**](ArchivesApi.md#DeleteArchivedAnalysis) | **Delete** /archives/images/{imageDigest} | 
-[**GetAnalysisArchiveRule**](ArchivesApi.md#GetAnalysisArchiveRule) | **Get** /archives/rules/{ruleId} | 
-[**GetArchivedAnalysis**](ArchivesApi.md#GetArchivedAnalysis) | **Get** /archives/images/{imageDigest} | 
+[**DeleteAnalysisArchiveRule**](ArchivesApi.md#DeleteAnalysisArchiveRule) | **Delete** /archives/rules/{rule_id} | 
+[**DeleteArchivedAnalysis**](ArchivesApi.md#DeleteArchivedAnalysis) | **Delete** /archives/images/{image_digest} | 
+[**GetAnalysisArchiveRule**](ArchivesApi.md#GetAnalysisArchiveRule) | **Get** /archives/rules/{rule_id} | 
+[**GetArchivedAnalysis**](ArchivesApi.md#GetArchivedAnalysis) | **Get** /archives/images/{image_digest} | 
 [**ListAnalysisArchive**](ArchivesApi.md#ListAnalysisArchive) | **Get** /archives/images | 
 [**ListAnalysisArchiveRules**](ArchivesApi.md#ListAnalysisArchiveRules) | **Get** /archives/rules | 
 [**ListArchives**](ArchivesApi.md#ListArchives) | **Get** /archives | 

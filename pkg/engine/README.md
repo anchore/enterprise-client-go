@@ -80,24 +80,24 @@ Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
 *ArchivesApi* | [**ArchiveImageAnalysis**](docs/ArchivesApi.md#archiveimageanalysis) | **Post** /archives/images | 
 *ArchivesApi* | [**CreateAnalysisArchiveRule**](docs/ArchivesApi.md#createanalysisarchiverule) | **Post** /archives/rules | 
-*ArchivesApi* | [**DeleteAnalysisArchiveRule**](docs/ArchivesApi.md#deleteanalysisarchiverule) | **Delete** /archives/rules/{ruleId} | 
-*ArchivesApi* | [**DeleteArchivedAnalysis**](docs/ArchivesApi.md#deletearchivedanalysis) | **Delete** /archives/images/{imageDigest} | 
-*ArchivesApi* | [**GetAnalysisArchiveRule**](docs/ArchivesApi.md#getanalysisarchiverule) | **Get** /archives/rules/{ruleId} | 
-*ArchivesApi* | [**GetArchivedAnalysis**](docs/ArchivesApi.md#getarchivedanalysis) | **Get** /archives/images/{imageDigest} | 
+*ArchivesApi* | [**DeleteAnalysisArchiveRule**](docs/ArchivesApi.md#deleteanalysisarchiverule) | **Delete** /archives/rules/{rule_id} | 
+*ArchivesApi* | [**DeleteArchivedAnalysis**](docs/ArchivesApi.md#deletearchivedanalysis) | **Delete** /archives/images/{image_digest} | 
+*ArchivesApi* | [**GetAnalysisArchiveRule**](docs/ArchivesApi.md#getanalysisarchiverule) | **Get** /archives/rules/{rule_id} | 
+*ArchivesApi* | [**GetArchivedAnalysis**](docs/ArchivesApi.md#getarchivedanalysis) | **Get** /archives/images/{image_digest} | 
 *ArchivesApi* | [**ListAnalysisArchive**](docs/ArchivesApi.md#listanalysisarchive) | **Get** /archives/images | 
 *ArchivesApi* | [**ListAnalysisArchiveRules**](docs/ArchivesApi.md#listanalysisarchiverules) | **Get** /archives/rules | 
 *ArchivesApi* | [**ListArchives**](docs/ArchivesApi.md#listarchives) | **Get** /archives | 
 *DefaultApi* | [**GetOauthToken**](docs/DefaultApi.md#getoauthtoken) | **Post** /oauth/token | 
 *DefaultApi* | [**HealthCheck**](docs/DefaultApi.md#healthcheck) | **Get** /health | 
-*DefaultApi* | [**ListFileContentSearchResults**](docs/DefaultApi.md#listfilecontentsearchresults) | **Get** /images/{imageDigest}/artifacts/file_content_search | Return a list of analyzer artifacts of the specified type
-*DefaultApi* | [**ListRetrievedFiles**](docs/DefaultApi.md#listretrievedfiles) | **Get** /images/{imageDigest}/artifacts/retrieved_files | Return a list of analyzer artifacts of the specified type
-*DefaultApi* | [**ListSecretSearchResults**](docs/DefaultApi.md#listsecretsearchresults) | **Get** /images/{imageDigest}/artifacts/secret_search | Return a list of analyzer artifacts of the specified type
+*DefaultApi* | [**ListFileContentSearchResults**](docs/DefaultApi.md#listfilecontentsearchresults) | **Get** /images/{image_digest}/artifacts/file_content_search | Return a list of analyzer artifacts of the specified type
+*DefaultApi* | [**ListRetrievedFiles**](docs/DefaultApi.md#listretrievedfiles) | **Get** /images/{image_digest}/artifacts/retrieved_files | Return a list of analyzer artifacts of the specified type
+*DefaultApi* | [**ListSecretSearchResults**](docs/DefaultApi.md#listsecretsearchresults) | **Get** /images/{image_digest}/artifacts/secret_search | Return a list of analyzer artifacts of the specified type
 *DefaultApi* | [**Ping**](docs/DefaultApi.md#ping) | **Get** / | 
 *DefaultApi* | [**RevokeOauthToken**](docs/DefaultApi.md#revokeoauthtoken) | **Post** /oauth/revoke | 
 *DefaultApi* | [**VersionCheck**](docs/DefaultApi.md#versioncheck) | **Get** /version | 
-*EventsApi* | [**DeleteEvent**](docs/EventsApi.md#deleteevent) | **Delete** /events/{eventId} | Delete Event
+*EventsApi* | [**DeleteEvent**](docs/EventsApi.md#deleteevent) | **Delete** /events/{event_id} | Delete Event
 *EventsApi* | [**DeleteEvents**](docs/EventsApi.md#deleteevents) | **Delete** /events | Delete Events
-*EventsApi* | [**GetEvent**](docs/EventsApi.md#getevent) | **Get** /events/{eventId} | Get Event
+*EventsApi* | [**GetEvent**](docs/EventsApi.md#getevent) | **Get** /events/{event_id} | Get Event
 *EventsApi* | [**ListEventTypes**](docs/EventsApi.md#listeventtypes) | **Get** /event_types | List Event Types
 *EventsApi* | [**ListEvents**](docs/EventsApi.md#listevents) | **Get** /events | List Events
 *IdentityApi* | [**AddCredential**](docs/IdentityApi.md#addcredential) | **Post** /user/credentials | add/replace credential
@@ -105,32 +105,32 @@ Class | Method | HTTP request | Description
 *IdentityApi* | [**GetUser**](docs/IdentityApi.md#getuser) | **Get** /user | List authenticated user info
 *IdentityApi* | [**GetUsersAccount**](docs/IdentityApi.md#getusersaccount) | **Get** /account | List the account for the authenticated user
 *ImagesApi* | [**AddImage**](docs/ImagesApi.md#addimage) | **Post** /images | Submit a new image for analysis by the engine
-*ImagesApi* | [**DeleteImage**](docs/ImagesApi.md#deleteimage) | **Delete** /images/{imageDigest} | Delete an image analysis
-*ImagesApi* | [**DeleteImageByImageId**](docs/ImagesApi.md#deleteimagebyimageid) | **Delete** /images/by_id/{imageId} | Delete image by docker imageId
+*ImagesApi* | [**DeleteImage**](docs/ImagesApi.md#deleteimage) | **Delete** /images/{image_digest} | Delete an image analysis
+*ImagesApi* | [**DeleteImageByImageId**](docs/ImagesApi.md#deleteimagebyimageid) | **Delete** /images/by_id/{image_id} | Delete image by docker image_id
 *ImagesApi* | [**DeleteImagesAsync**](docs/ImagesApi.md#deleteimagesasync) | **Delete** /images | Bulk mark images for deletion
-*ImagesApi* | [**GetImage**](docs/ImagesApi.md#getimage) | **Get** /images/{imageDigest} | Get image metadata
-*ImagesApi* | [**GetImageByImageId**](docs/ImagesApi.md#getimagebyimageid) | **Get** /images/by_id/{imageId} | Lookup image by docker imageId
-*ImagesApi* | [**GetImageContentByType**](docs/ImagesApi.md#getimagecontentbytype) | **Get** /images/{imageDigest}/content/{ctype} | Get the content of an image by type
-*ImagesApi* | [**GetImageContentByTypeFiles**](docs/ImagesApi.md#getimagecontentbytypefiles) | **Get** /images/{imageDigest}/content/files | Get the content of an image by type files
-*ImagesApi* | [**GetImageContentByTypeImageId**](docs/ImagesApi.md#getimagecontentbytypeimageid) | **Get** /images/by_id/{imageId}/content/{ctype} | Get the content of an image by type
-*ImagesApi* | [**GetImageContentByTypeImageIdFiles**](docs/ImagesApi.md#getimagecontentbytypeimageidfiles) | **Get** /images/by_id/{imageId}/content/files | Get the content of an image by type files
-*ImagesApi* | [**GetImageContentByTypeImageIdJavapackage**](docs/ImagesApi.md#getimagecontentbytypeimageidjavapackage) | **Get** /images/by_id/{imageId}/content/java | Get the content of an image by type java
-*ImagesApi* | [**GetImageContentByTypeJavapackage**](docs/ImagesApi.md#getimagecontentbytypejavapackage) | **Get** /images/{imageDigest}/content/java | Get the content of an image by type java
-*ImagesApi* | [**GetImageContentByTypeMalware**](docs/ImagesApi.md#getimagecontentbytypemalware) | **Get** /images/{imageDigest}/content/malware | Get the content of an image by type malware
-*ImagesApi* | [**GetImageMetadataByType**](docs/ImagesApi.md#getimagemetadatabytype) | **Get** /images/{imageDigest}/metadata/{mtype} | Get the metadata of an image by type
-*ImagesApi* | [**GetImagePolicyCheck**](docs/ImagesApi.md#getimagepolicycheck) | **Get** /images/{imageDigest}/check | Check policy evaluation status for image
-*ImagesApi* | [**GetImagePolicyCheckByImageId**](docs/ImagesApi.md#getimagepolicycheckbyimageid) | **Get** /images/by_id/{imageId}/check | Check policy evaluation status for image
-*ImagesApi* | [**GetImageSbomCyclonedxJson**](docs/ImagesApi.md#getimagesbomcyclonedxjson) | **Get** /images/{imageDigest}/sboms/cyclonedx-json | Get image sbom in the CycloneDX format
-*ImagesApi* | [**GetImageSbomNative**](docs/ImagesApi.md#getimagesbomnative) | **Get** /images/{imageDigest}/sboms/native | Get image sbom in the native Anchore format
-*ImagesApi* | [**GetImageSbomNativeJson**](docs/ImagesApi.md#getimagesbomnativejson) | **Get** /images/{imageDigest}/sboms/native-json | Get image sbom in the native Anchore format
-*ImagesApi* | [**GetImageSbomSpdxJson**](docs/ImagesApi.md#getimagesbomspdxjson) | **Get** /images/{imageDigest}/sboms/spdx-json | Get image sbom in the SPDX format
-*ImagesApi* | [**GetImageVulnerabilitiesByType**](docs/ImagesApi.md#getimagevulnerabilitiesbytype) | **Get** /images/{imageDigest}/vuln/{vtype} | Get vulnerabilities by type
-*ImagesApi* | [**GetImageVulnerabilitiesByTypeImageId**](docs/ImagesApi.md#getimagevulnerabilitiesbytypeimageid) | **Get** /images/by_id/{imageId}/vuln/{vtype} | Get vulnerabilities by type
-*ImagesApi* | [**GetImageVulnerabilityTypes**](docs/ImagesApi.md#getimagevulnerabilitytypes) | **Get** /images/{imageDigest}/vuln | Get vulnerability types
-*ImagesApi* | [**GetImageVulnerabilityTypesByImageId**](docs/ImagesApi.md#getimagevulnerabilitytypesbyimageid) | **Get** /images/by_id/{imageId}/vuln | Get vulnerability types
-*ImagesApi* | [**ListImageContent**](docs/ImagesApi.md#listimagecontent) | **Get** /images/{imageDigest}/content | List image content types
-*ImagesApi* | [**ListImageContentByImageid**](docs/ImagesApi.md#listimagecontentbyimageid) | **Get** /images/by_id/{imageId}/content | List image content types
-*ImagesApi* | [**ListImageMetadata**](docs/ImagesApi.md#listimagemetadata) | **Get** /images/{imageDigest}/metadata | List image metadata types
+*ImagesApi* | [**GetImage**](docs/ImagesApi.md#getimage) | **Get** /images/{image_digest} | Get image metadata
+*ImagesApi* | [**GetImageByImageId**](docs/ImagesApi.md#getimagebyimageid) | **Get** /images/by_id/{image_id} | Lookup image by docker image_id
+*ImagesApi* | [**GetImageContentByType**](docs/ImagesApi.md#getimagecontentbytype) | **Get** /images/{image_digest}/content/{content_type} | Get the content of an image by type
+*ImagesApi* | [**GetImageContentByTypeFiles**](docs/ImagesApi.md#getimagecontentbytypefiles) | **Get** /images/{image_digest}/content/files | Get the content of an image by type files
+*ImagesApi* | [**GetImageContentByTypeImageId**](docs/ImagesApi.md#getimagecontentbytypeimageid) | **Get** /images/by_id/{image_id}/content/{content_type} | Get the content of an image by type
+*ImagesApi* | [**GetImageContentByTypeImageIdFiles**](docs/ImagesApi.md#getimagecontentbytypeimageidfiles) | **Get** /images/by_id/{image_id}/content/files | Get the content of an image by type files
+*ImagesApi* | [**GetImageContentByTypeImageIdJavaPackage**](docs/ImagesApi.md#getimagecontentbytypeimageidjavapackage) | **Get** /images/by_id/{image_id}/content/java | Get the content of an image by type java
+*ImagesApi* | [**GetImageContentByTypeJavaPackage**](docs/ImagesApi.md#getimagecontentbytypejavapackage) | **Get** /images/{image_digest}/content/java | Get the content of an image by type java
+*ImagesApi* | [**GetImageContentByTypeMalware**](docs/ImagesApi.md#getimagecontentbytypemalware) | **Get** /images/{image_digest}/content/malware | Get the content of an image by type malware
+*ImagesApi* | [**GetImageMetadataByType**](docs/ImagesApi.md#getimagemetadatabytype) | **Get** /images/{image_digest}/metadata/{mtype} | Get the metadata of an image by type
+*ImagesApi* | [**GetImagePolicyCheck**](docs/ImagesApi.md#getimagepolicycheck) | **Get** /images/{image_digest}/check | Check policy evaluation status for image
+*ImagesApi* | [**GetImagePolicyCheckByImageId**](docs/ImagesApi.md#getimagepolicycheckbyimageid) | **Get** /images/by_id/{image_id}/check | Check policy evaluation status for image
+*ImagesApi* | [**GetImageSbomCyclonedxJson**](docs/ImagesApi.md#getimagesbomcyclonedxjson) | **Get** /images/{image_digest}/sboms/cyclonedx-json | Get image sbom in the CycloneDX format
+*ImagesApi* | [**GetImageSbomNative**](docs/ImagesApi.md#getimagesbomnative) | **Get** /images/{image_digest}/sboms/native | Get image sbom in the native Anchore format
+*ImagesApi* | [**GetImageSbomNativeJson**](docs/ImagesApi.md#getimagesbomnativejson) | **Get** /images/{image_digest}/sboms/native-json | Get image sbom in the native Anchore format
+*ImagesApi* | [**GetImageSbomSpdxJson**](docs/ImagesApi.md#getimagesbomspdxjson) | **Get** /images/{image_digest}/sboms/spdx-json | Get image sbom in the SPDX format
+*ImagesApi* | [**GetImageVulnerabilitiesByType**](docs/ImagesApi.md#getimagevulnerabilitiesbytype) | **Get** /images/{image_digest}/vuln/{vtype} | Get vulnerabilities by type
+*ImagesApi* | [**GetImageVulnerabilitiesByTypeImageId**](docs/ImagesApi.md#getimagevulnerabilitiesbytypeimageid) | **Get** /images/by_id/{image_id}/vuln/{vtype} | Get vulnerabilities by type
+*ImagesApi* | [**GetImageVulnerabilityTypes**](docs/ImagesApi.md#getimagevulnerabilitytypes) | **Get** /images/{image_digest}/vuln | Get vulnerability types
+*ImagesApi* | [**GetImageVulnerabilityTypesByImageId**](docs/ImagesApi.md#getimagevulnerabilitytypesbyimageid) | **Get** /images/by_id/{image_id}/vuln | Get vulnerability types
+*ImagesApi* | [**ListImageContent**](docs/ImagesApi.md#listimagecontent) | **Get** /images/{image_digest}/content | List image content types
+*ImagesApi* | [**ListImageContentByImageId**](docs/ImagesApi.md#listimagecontentbyimageid) | **Get** /images/by_id/{image_id}/content | List image content types
+*ImagesApi* | [**ListImageMetadata**](docs/ImagesApi.md#listimagemetadata) | **Get** /images/{image_digest}/metadata | List image metadata types
 *ImagesApi* | [**ListImages**](docs/ImagesApi.md#listimages) | **Get** /images | List all visible images
 *ImportApi* | [**ImportImageArchive**](docs/ImportApi.md#importimagearchive) | **Post** /import/images | Import an anchore image tar.gz archive file. This is a deprecated API replaced by the \&quot;/imports/images\&quot; route
 *ImportsApi* | [**CreateOperation**](docs/ImportsApi.md#createoperation) | **Post** /imports/images | Begin the import of an image analyzed by Syft into the system
@@ -148,10 +148,10 @@ Class | Method | HTTP request | Description
 *ImportsApi* | [**ListImportParentManifests**](docs/ImportsApi.md#listimportparentmanifests) | **Get** /imports/images/{operation_id}/parent_manifest | List uploaded parent manifests (manifest lists for a tag)
 *ImportsApi* | [**ListOperations**](docs/ImportsApi.md#listoperations) | **Get** /imports/images | Lists in-progress imports
 *PoliciesApi* | [**AddPolicy**](docs/PoliciesApi.md#addpolicy) | **Post** /policies | Add a new policy
-*PoliciesApi* | [**DeletePolicy**](docs/PoliciesApi.md#deletepolicy) | **Delete** /policies/{policyId} | Delete policy
-*PoliciesApi* | [**GetPolicy**](docs/PoliciesApi.md#getpolicy) | **Get** /policies/{policyId} | Get specific policy
+*PoliciesApi* | [**DeletePolicy**](docs/PoliciesApi.md#deletepolicy) | **Delete** /policies/{policy_id} | Delete policy
+*PoliciesApi* | [**GetPolicy**](docs/PoliciesApi.md#getpolicy) | **Get** /policies/{policy_id} | Get specific policy
 *PoliciesApi* | [**ListPolicies**](docs/PoliciesApi.md#listpolicies) | **Get** /policies | List policies
-*PoliciesApi* | [**UpdatePolicy**](docs/PoliciesApi.md#updatepolicy) | **Put** /policies/{policyId} | Update policy
+*PoliciesApi* | [**UpdatePolicy**](docs/PoliciesApi.md#updatepolicy) | **Put** /policies/{policy_id} | Update policy
 *QueryApi* | [**QueryImagesByPackage**](docs/QueryApi.md#queryimagesbypackage) | **Get** /query/images/by_package | List of images containing given package
 *QueryApi* | [**QueryImagesByVulnerability**](docs/QueryApi.md#queryimagesbyvulnerability) | **Get** /query/images/by_vulnerability | List images vulnerable to the specific vulnerability ID.
 *QueryApi* | [**QueryVulnerabilities**](docs/QueryApi.md#queryvulnerabilities) | **Get** /query/vulnerabilities | Listing information about given vulnerability
@@ -162,19 +162,19 @@ Class | Method | HTTP request | Description
 *RegistriesApi* | [**UpdateRegistry**](docs/RegistriesApi.md#updateregistry) | **Put** /registries/{registry} | Update/replace a registry configuration
 *RepositoryCredentialsApi* | [**AddRepository**](docs/RepositoryCredentialsApi.md#addrepository) | **Post** /repositories | Add repository to watch
 *SubscriptionsApi* | [**AddSubscription**](docs/SubscriptionsApi.md#addsubscription) | **Post** /subscriptions | Add a subscription of a specific type
-*SubscriptionsApi* | [**DeleteSubscription**](docs/SubscriptionsApi.md#deletesubscription) | **Delete** /subscriptions/{subscriptionId} | Delete subscriptions of a specific type
-*SubscriptionsApi* | [**GetSubscription**](docs/SubscriptionsApi.md#getsubscription) | **Get** /subscriptions/{subscriptionId} | Get a specific subscription set
+*SubscriptionsApi* | [**DeleteSubscription**](docs/SubscriptionsApi.md#deletesubscription) | **Delete** /subscriptions/{subscription_id} | Delete subscriptions of a specific type
+*SubscriptionsApi* | [**GetSubscription**](docs/SubscriptionsApi.md#getsubscription) | **Get** /subscriptions/{subscription_id} | Get a specific subscription set
 *SubscriptionsApi* | [**ListSubscriptions**](docs/SubscriptionsApi.md#listsubscriptions) | **Get** /subscriptions | List all subscriptions
-*SubscriptionsApi* | [**UpdateSubscription**](docs/SubscriptionsApi.md#updatesubscription) | **Put** /subscriptions/{subscriptionId} | Update an existing and specific subscription
-*SummariesApi* | [**ListImagetags**](docs/SummariesApi.md#listimagetags) | **Get** /summaries/imagetags | List all visible image digests and tags
+*SubscriptionsApi* | [**UpdateSubscription**](docs/SubscriptionsApi.md#updatesubscription) | **Put** /subscriptions/{subscription_id} | Update an existing and specific subscription
+*SummariesApi* | [**ListImageTags**](docs/SummariesApi.md#listimagetags) | **Get** /summaries/image-tags | List all visible image digests and tags
 *SystemApi* | [**DeleteFeed**](docs/SystemApi.md#deletefeed) | **Delete** /system/feeds/{feed} | 
 *SystemApi* | [**DeleteFeedGroup**](docs/SystemApi.md#deletefeedgroup) | **Delete** /system/feeds/{feed}/{group} | 
-*SystemApi* | [**DeleteService**](docs/SystemApi.md#deleteservice) | **Delete** /system/services/{servicename}/{hostid} | Delete the service config
+*SystemApi* | [**DeleteService**](docs/SystemApi.md#deleteservice) | **Delete** /system/services/{service_name}/{host_id} | Delete the service config
 *SystemApi* | [**DescribeErrorCodes**](docs/SystemApi.md#describeerrorcodes) | **Get** /system/error_codes | Describe anchore engine error codes.
 *SystemApi* | [**DescribePolicy**](docs/SystemApi.md#describepolicy) | **Get** /system/policy_spec | Describe the policy language spec implemented by this service.
 *SystemApi* | [**GetServiceDetail**](docs/SystemApi.md#getservicedetail) | **Get** /system | System status
-*SystemApi* | [**GetServicesByName**](docs/SystemApi.md#getservicesbyname) | **Get** /system/services/{servicename} | Get a service configuration and state
-*SystemApi* | [**GetServicesByNameAndHost**](docs/SystemApi.md#getservicesbynameandhost) | **Get** /system/services/{servicename}/{hostid} | Get service config for a specific host
+*SystemApi* | [**GetServicesByName**](docs/SystemApi.md#getservicesbyname) | **Get** /system/services/{service_name} | Get a service configuration and state
+*SystemApi* | [**GetServicesByNameAndHost**](docs/SystemApi.md#getservicesbynameandhost) | **Get** /system/services/{service_name}/{host_id} | Get service config for a specific host
 *SystemApi* | [**GetStatus**](docs/SystemApi.md#getstatus) | **Get** /status | Service status
 *SystemApi* | [**GetSystemFeeds**](docs/SystemApi.md#getsystemfeeds) | **Get** /system/feeds | list feeds operations and information
 *SystemApi* | [**ListServices**](docs/SystemApi.md#listservices) | **Get** /system/services | List system services
@@ -182,18 +182,19 @@ Class | Method | HTTP request | Description
 *SystemApi* | [**TestWebhook**](docs/SystemApi.md#testwebhook) | **Post** /system/webhooks/{webhook_type}/test | Adds the capabilities to test a webhook delivery for the given notification type
 *SystemApi* | [**ToggleFeedEnabled**](docs/SystemApi.md#togglefeedenabled) | **Put** /system/feeds/{feed} | 
 *SystemApi* | [**ToggleGroupEnabled**](docs/SystemApi.md#togglegroupenabled) | **Put** /system/feeds/{feed}/{group} | 
-*UserManagementApi* | [**CreateAccount**](docs/UserManagementApi.md#createaccount) | **Post** /accounts | Create a new account. Only avaialble to admin user.
-*UserManagementApi* | [**CreateUser**](docs/UserManagementApi.md#createuser) | **Post** /accounts/{accountname}/users | Create a new user within the specified account.
-*UserManagementApi* | [**CreateUserCredential**](docs/UserManagementApi.md#createusercredential) | **Post** /accounts/{accountname}/users/{username}/credentials | add/replace credential
-*UserManagementApi* | [**DeleteAccount**](docs/UserManagementApi.md#deleteaccount) | **Delete** /accounts/{accountname} | Delete the specified account, only allowed if the account is in the disabled state. All users will be deleted along with the account and all resources will be garbage collected
-*UserManagementApi* | [**DeleteUser**](docs/UserManagementApi.md#deleteuser) | **Delete** /accounts/{accountname}/users/{username} | Delete a specific user credential by username of the credential. Cannot be the credential used to authenticate the request.
-*UserManagementApi* | [**DeleteUserCredential**](docs/UserManagementApi.md#deleteusercredential) | **Delete** /accounts/{accountname}/users/{username}/credentials | Delete a credential by type
-*UserManagementApi* | [**GetAccount**](docs/UserManagementApi.md#getaccount) | **Get** /accounts/{accountname} | Get account info about this specific account.
-*UserManagementApi* | [**GetAccountUser**](docs/UserManagementApi.md#getaccountuser) | **Get** /accounts/{accountname}/users/{username} | Get a specific user in the specified account
+*UserManagementApi* | [**CreateAccount**](docs/UserManagementApi.md#createaccount) | **Post** /accounts | Create a new account. Only available to admin user.
+*UserManagementApi* | [**CreateUser**](docs/UserManagementApi.md#createuser) | **Post** /accounts/{account_name}/users | Create a new user within the specified account.
+*UserManagementApi* | [**CreateUserCredential**](docs/UserManagementApi.md#createusercredential) | **Post** /accounts/{account_name}/users/{username}/credentials | add/replace credential
+*UserManagementApi* | [**DeleteAccount**](docs/UserManagementApi.md#deleteaccount) | **Delete** /accounts/{account_name} | Delete the specified account, only allowed if the account is in the disabled state. All users will be deleted along with the account and all resources will be garbage collected
+*UserManagementApi* | [**DeleteUser**](docs/UserManagementApi.md#deleteuser) | **Delete** /accounts/{account_name}/users/{username} | Delete a specific user credential by username of the credential. Cannot be the credential used to authenticate the request.
+*UserManagementApi* | [**DeleteUserCredential**](docs/UserManagementApi.md#deleteusercredential) | **Delete** /accounts/{account_name}/users/{username}/credentials | Delete a credential by type
+*UserManagementApi* | [**GetAccount**](docs/UserManagementApi.md#getaccount) | **Get** /accounts/{account_name} | Get account info about this specific account.
+*UserManagementApi* | [**GetAccountUser**](docs/UserManagementApi.md#getaccountuser) | **Get** /accounts/{account_name}/users/{username} | Get a specific user in the specified account
 *UserManagementApi* | [**ListAccounts**](docs/UserManagementApi.md#listaccounts) | **Get** /accounts | List account summaries. Only available to the system admin user.
-*UserManagementApi* | [**ListUserCredentials**](docs/UserManagementApi.md#listusercredentials) | **Get** /accounts/{accountname}/users/{username}/credentials | Get current credential summary
-*UserManagementApi* | [**ListUsers**](docs/UserManagementApi.md#listusers) | **Get** /accounts/{accountname}/users | List of users found in this account.
-*UserManagementApi* | [**UpdateAccountState**](docs/UserManagementApi.md#updateaccountstate) | **Put** /accounts/{accountname}/state | Update the state of an account to either enabled or disabled. For deletion use the DELETE route
+*UserManagementApi* | [**ListUserCredentials**](docs/UserManagementApi.md#listusercredentials) | **Get** /accounts/{account_name}/users/{username}/credentials | Get current credential summary
+*UserManagementApi* | [**ListUsers**](docs/UserManagementApi.md#listusers) | **Get** /accounts/{account_name}/users | List of users found in this account.
+*UserManagementApi* | [**UpdateAccount**](docs/UserManagementApi.md#updateaccount) | **Put** /accounts/{account_name} | Update the info for this specific account.
+*UserManagementApi* | [**UpdateAccountState**](docs/UserManagementApi.md#updateaccountstate) | **Put** /accounts/{account_name}/state | Update the state of an account to either enabled or disabled. For deletion use the DELETE route
 
 
 ## Documentation For Models
@@ -201,6 +202,7 @@ Class | Method | HTTP request | Description
  - [AccessCredential](docs/AccessCredential.md)
  - [Account](docs/Account.md)
  - [AccountCreationRequest](docs/AccountCreationRequest.md)
+ - [AccountInfo](docs/AccountInfo.md)
  - [AccountStatus](docs/AccountStatus.md)
  - [AnalysisArchiveAddResult](docs/AnalysisArchiveAddResult.md)
  - [AnalysisArchiveRulesSummary](docs/AnalysisArchiveRulesSummary.md)

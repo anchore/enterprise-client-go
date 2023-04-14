@@ -282,8 +282,8 @@ func (a *PoliciesApiService) DeletePolicyExecute(r ApiDeletePolicyRequest) (*_ne
 		return nil, GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/policies/{policyId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"policyId"+"}", _neturl.PathEscape(parameterToString(r.policyId, "")), -1)
+	localVarPath := localBasePath + "/policies/{policy_id}"
+	localVarPath = strings.Replace(localVarPath, "{"+"policy_id"+"}", _neturl.PathEscape(parameterToString(r.policyId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
@@ -413,8 +413,8 @@ func (a *PoliciesApiService) GetPolicyExecute(r ApiGetPolicyRequest) ([]PolicyBu
 		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/policies/{policyId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"policyId"+"}", _neturl.PathEscape(parameterToString(r.policyId, "")), -1)
+	localVarPath := localBasePath + "/policies/{policy_id}"
+	localVarPath = strings.Replace(localVarPath, "{"+"policy_id"+"}", _neturl.PathEscape(parameterToString(r.policyId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
@@ -671,8 +671,8 @@ func (a *PoliciesApiService) UpdatePolicyExecute(r ApiUpdatePolicyRequest) ([]Po
 		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/policies/{policyId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"policyId"+"}", _neturl.PathEscape(parameterToString(r.policyId, "")), -1)
+	localVarPath := localBasePath + "/policies/{policy_id}"
+	localVarPath = strings.Replace(localVarPath, "{"+"policy_id"+"}", _neturl.PathEscape(parameterToString(r.policyId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}

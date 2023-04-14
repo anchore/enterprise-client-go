@@ -18,9 +18,9 @@ import (
 // ServiceReference A reference to a service in the system
 type ServiceReference struct {
 	// The unique id of the host on which the service is executing
-	Hostid *string `json:"hostid,omitempty"`
+	HostId *string `json:"host_id,omitempty"`
 	// Registered service name
-	Servicename *string `json:"servicename,omitempty"`
+	ServiceName *string `json:"service_name,omitempty"`
 }
 
 // NewServiceReference instantiates a new ServiceReference object
@@ -40,77 +40,77 @@ func NewServiceReferenceWithDefaults() *ServiceReference {
 	return &this
 }
 
-// GetHostid returns the Hostid field value if set, zero value otherwise.
-func (o *ServiceReference) GetHostid() string {
-	if o == nil || o.Hostid == nil {
+// GetHostId returns the HostId field value if set, zero value otherwise.
+func (o *ServiceReference) GetHostId() string {
+	if o == nil || o.HostId == nil {
 		var ret string
 		return ret
 	}
-	return *o.Hostid
+	return *o.HostId
 }
 
-// GetHostidOk returns a tuple with the Hostid field value if set, nil otherwise
+// GetHostIdOk returns a tuple with the HostId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ServiceReference) GetHostidOk() (*string, bool) {
-	if o == nil || o.Hostid == nil {
+func (o *ServiceReference) GetHostIdOk() (*string, bool) {
+	if o == nil || o.HostId == nil {
 		return nil, false
 	}
-	return o.Hostid, true
+	return o.HostId, true
 }
 
-// HasHostid returns a boolean if a field has been set.
-func (o *ServiceReference) HasHostid() bool {
-	if o != nil && o.Hostid != nil {
+// HasHostId returns a boolean if a field has been set.
+func (o *ServiceReference) HasHostId() bool {
+	if o != nil && o.HostId != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetHostid gets a reference to the given string and assigns it to the Hostid field.
-func (o *ServiceReference) SetHostid(v string) {
-	o.Hostid = &v
+// SetHostId gets a reference to the given string and assigns it to the HostId field.
+func (o *ServiceReference) SetHostId(v string) {
+	o.HostId = &v
 }
 
-// GetServicename returns the Servicename field value if set, zero value otherwise.
-func (o *ServiceReference) GetServicename() string {
-	if o == nil || o.Servicename == nil {
+// GetServiceName returns the ServiceName field value if set, zero value otherwise.
+func (o *ServiceReference) GetServiceName() string {
+	if o == nil || o.ServiceName == nil {
 		var ret string
 		return ret
 	}
-	return *o.Servicename
+	return *o.ServiceName
 }
 
-// GetServicenameOk returns a tuple with the Servicename field value if set, nil otherwise
+// GetServiceNameOk returns a tuple with the ServiceName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ServiceReference) GetServicenameOk() (*string, bool) {
-	if o == nil || o.Servicename == nil {
+func (o *ServiceReference) GetServiceNameOk() (*string, bool) {
+	if o == nil || o.ServiceName == nil {
 		return nil, false
 	}
-	return o.Servicename, true
+	return o.ServiceName, true
 }
 
-// HasServicename returns a boolean if a field has been set.
-func (o *ServiceReference) HasServicename() bool {
-	if o != nil && o.Servicename != nil {
+// HasServiceName returns a boolean if a field has been set.
+func (o *ServiceReference) HasServiceName() bool {
+	if o != nil && o.ServiceName != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetServicename gets a reference to the given string and assigns it to the Servicename field.
-func (o *ServiceReference) SetServicename(v string) {
-	o.Servicename = &v
+// SetServiceName gets a reference to the given string and assigns it to the ServiceName field.
+func (o *ServiceReference) SetServiceName(v string) {
+	o.ServiceName = &v
 }
 
 func (o ServiceReference) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Hostid != nil {
-		toSerialize["hostid"] = o.Hostid
+	if o.HostId != nil {
+		toSerialize["host_id"] = o.HostId
 	}
-	if o.Servicename != nil {
-		toSerialize["servicename"] = o.Servicename
+	if o.ServiceName != nil {
+		toSerialize["service_name"] = o.ServiceName
 	}
 	return json.Marshal(toSerialize)
 }

@@ -6,12 +6,12 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**DeleteFeed**](SystemApi.md#DeleteFeed) | **Delete** /system/feeds/{feed} | 
 [**DeleteFeedGroup**](SystemApi.md#DeleteFeedGroup) | **Delete** /system/feeds/{feed}/{group} | 
-[**DeleteService**](SystemApi.md#DeleteService) | **Delete** /system/services/{servicename}/{hostid} | Delete the service config
+[**DeleteService**](SystemApi.md#DeleteService) | **Delete** /system/services/{service_name}/{host_id} | Delete the service config
 [**DescribeErrorCodes**](SystemApi.md#DescribeErrorCodes) | **Get** /system/error_codes | Describe anchore engine error codes.
 [**DescribePolicy**](SystemApi.md#DescribePolicy) | **Get** /system/policy_spec | Describe the policy language spec implemented by this service.
 [**GetServiceDetail**](SystemApi.md#GetServiceDetail) | **Get** /system | System status
-[**GetServicesByName**](SystemApi.md#GetServicesByName) | **Get** /system/services/{servicename} | Get a service configuration and state
-[**GetServicesByNameAndHost**](SystemApi.md#GetServicesByNameAndHost) | **Get** /system/services/{servicename}/{hostid} | Get service config for a specific host
+[**GetServicesByName**](SystemApi.md#GetServicesByName) | **Get** /system/services/{service_name} | Get a service configuration and state
+[**GetServicesByNameAndHost**](SystemApi.md#GetServicesByNameAndHost) | **Get** /system/services/{service_name}/{host_id} | Get service config for a specific host
 [**GetStatus**](SystemApi.md#GetStatus) | **Get** /status | Service status
 [**GetSystemFeeds**](SystemApi.md#GetSystemFeeds) | **Get** /system/feeds | list feeds operations and information
 [**ListServices**](SystemApi.md#ListServices) | **Get** /system/services | List system services
@@ -163,7 +163,7 @@ No authorization required
 
 ## DeleteService
 
-> DeleteService(ctx, servicename, hostid).Execute()
+> DeleteService(ctx, serviceName, hostId).Execute()
 
 Delete the service config
 
@@ -180,12 +180,12 @@ import (
 )
 
 func main() {
-    servicename := "servicename_example" // string | 
-    hostid := "hostid_example" // string | 
+    serviceName := "serviceName_example" // string | 
+    hostId := "hostId_example" // string | 
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.SystemApi.DeleteService(context.Background(), servicename, hostid).Execute()
+    resp, r, err := api_client.SystemApi.DeleteService(context.Background(), serviceName, hostId).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `SystemApi.DeleteService``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -199,8 +199,8 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**servicename** | **string** |  | 
-**hostid** | **string** |  | 
+**serviceName** | **string** |  | 
+**hostId** | **string** |  | 
 
 ### Other Parameters
 
@@ -415,7 +415,7 @@ No authorization required
 
 ## GetServicesByName
 
-> []Service GetServicesByName(ctx, servicename).Execute()
+> []Service GetServicesByName(ctx, serviceName).Execute()
 
 Get a service configuration and state
 
@@ -432,11 +432,11 @@ import (
 )
 
 func main() {
-    servicename := "servicename_example" // string | 
+    serviceName := "serviceName_example" // string | 
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.SystemApi.GetServicesByName(context.Background(), servicename).Execute()
+    resp, r, err := api_client.SystemApi.GetServicesByName(context.Background(), serviceName).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `SystemApi.GetServicesByName``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -452,7 +452,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**servicename** | **string** |  | 
+**serviceName** | **string** |  | 
 
 ### Other Parameters
 
@@ -483,7 +483,7 @@ No authorization required
 
 ## GetServicesByNameAndHost
 
-> []Service GetServicesByNameAndHost(ctx, servicename, hostid).Execute()
+> []Service GetServicesByNameAndHost(ctx, serviceName, hostId).Execute()
 
 Get service config for a specific host
 
@@ -500,12 +500,12 @@ import (
 )
 
 func main() {
-    servicename := "servicename_example" // string | 
-    hostid := "hostid_example" // string | 
+    serviceName := "serviceName_example" // string | 
+    hostId := "hostId_example" // string | 
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.SystemApi.GetServicesByNameAndHost(context.Background(), servicename, hostid).Execute()
+    resp, r, err := api_client.SystemApi.GetServicesByNameAndHost(context.Background(), serviceName, hostId).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `SystemApi.GetServicesByNameAndHost``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -521,8 +521,8 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**servicename** | **string** |  | 
-**hostid** | **string** |  | 
+**serviceName** | **string** |  | 
+**hostId** | **string** |  | 
 
 ### Other Parameters
 

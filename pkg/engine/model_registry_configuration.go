@@ -19,13 +19,13 @@ import (
 // RegistryConfiguration A registry entry describing the endpoint and credentials for a registry to pull images from
 type RegistryConfiguration struct {
 	CreatedAt *time.Time `json:"created_at,omitempty"`
-	LastUpated *time.Time `json:"last_upated,omitempty"`
+	LastUpdated *time.Time `json:"last_updated,omitempty"`
 	// Username portion of credential to use for this registry
 	RegistryUser *string `json:"registry_user,omitempty"`
 	// Type of registry
 	RegistryType *string `json:"registry_type,omitempty"`
 	// Engine user that owns this registry entry
-	UserId *string `json:"userId,omitempty"`
+	AccountName *string `json:"account_name,omitempty"`
 	// hostname:port string for accessing the registry, as would be used in a docker pull operation
 	Registry *string `json:"registry,omitempty"`
 	// human readable name associated with registry record
@@ -83,36 +83,36 @@ func (o *RegistryConfiguration) SetCreatedAt(v time.Time) {
 	o.CreatedAt = &v
 }
 
-// GetLastUpated returns the LastUpated field value if set, zero value otherwise.
-func (o *RegistryConfiguration) GetLastUpated() time.Time {
-	if o == nil || o.LastUpated == nil {
+// GetLastUpdated returns the LastUpdated field value if set, zero value otherwise.
+func (o *RegistryConfiguration) GetLastUpdated() time.Time {
+	if o == nil || o.LastUpdated == nil {
 		var ret time.Time
 		return ret
 	}
-	return *o.LastUpated
+	return *o.LastUpdated
 }
 
-// GetLastUpatedOk returns a tuple with the LastUpated field value if set, nil otherwise
+// GetLastUpdatedOk returns a tuple with the LastUpdated field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RegistryConfiguration) GetLastUpatedOk() (*time.Time, bool) {
-	if o == nil || o.LastUpated == nil {
+func (o *RegistryConfiguration) GetLastUpdatedOk() (*time.Time, bool) {
+	if o == nil || o.LastUpdated == nil {
 		return nil, false
 	}
-	return o.LastUpated, true
+	return o.LastUpdated, true
 }
 
-// HasLastUpated returns a boolean if a field has been set.
-func (o *RegistryConfiguration) HasLastUpated() bool {
-	if o != nil && o.LastUpated != nil {
+// HasLastUpdated returns a boolean if a field has been set.
+func (o *RegistryConfiguration) HasLastUpdated() bool {
+	if o != nil && o.LastUpdated != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetLastUpated gets a reference to the given time.Time and assigns it to the LastUpated field.
-func (o *RegistryConfiguration) SetLastUpated(v time.Time) {
-	o.LastUpated = &v
+// SetLastUpdated gets a reference to the given time.Time and assigns it to the LastUpdated field.
+func (o *RegistryConfiguration) SetLastUpdated(v time.Time) {
+	o.LastUpdated = &v
 }
 
 // GetRegistryUser returns the RegistryUser field value if set, zero value otherwise.
@@ -179,36 +179,36 @@ func (o *RegistryConfiguration) SetRegistryType(v string) {
 	o.RegistryType = &v
 }
 
-// GetUserId returns the UserId field value if set, zero value otherwise.
-func (o *RegistryConfiguration) GetUserId() string {
-	if o == nil || o.UserId == nil {
+// GetAccountName returns the AccountName field value if set, zero value otherwise.
+func (o *RegistryConfiguration) GetAccountName() string {
+	if o == nil || o.AccountName == nil {
 		var ret string
 		return ret
 	}
-	return *o.UserId
+	return *o.AccountName
 }
 
-// GetUserIdOk returns a tuple with the UserId field value if set, nil otherwise
+// GetAccountNameOk returns a tuple with the AccountName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RegistryConfiguration) GetUserIdOk() (*string, bool) {
-	if o == nil || o.UserId == nil {
+func (o *RegistryConfiguration) GetAccountNameOk() (*string, bool) {
+	if o == nil || o.AccountName == nil {
 		return nil, false
 	}
-	return o.UserId, true
+	return o.AccountName, true
 }
 
-// HasUserId returns a boolean if a field has been set.
-func (o *RegistryConfiguration) HasUserId() bool {
-	if o != nil && o.UserId != nil {
+// HasAccountName returns a boolean if a field has been set.
+func (o *RegistryConfiguration) HasAccountName() bool {
+	if o != nil && o.AccountName != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetUserId gets a reference to the given string and assigns it to the UserId field.
-func (o *RegistryConfiguration) SetUserId(v string) {
-	o.UserId = &v
+// SetAccountName gets a reference to the given string and assigns it to the AccountName field.
+func (o *RegistryConfiguration) SetAccountName(v string) {
+	o.AccountName = &v
 }
 
 // GetRegistry returns the Registry field value if set, zero value otherwise.
@@ -312,8 +312,8 @@ func (o RegistryConfiguration) MarshalJSON() ([]byte, error) {
 	if o.CreatedAt != nil {
 		toSerialize["created_at"] = o.CreatedAt
 	}
-	if o.LastUpated != nil {
-		toSerialize["last_upated"] = o.LastUpated
+	if o.LastUpdated != nil {
+		toSerialize["last_updated"] = o.LastUpdated
 	}
 	if o.RegistryUser != nil {
 		toSerialize["registry_user"] = o.RegistryUser
@@ -321,8 +321,8 @@ func (o RegistryConfiguration) MarshalJSON() ([]byte, error) {
 	if o.RegistryType != nil {
 		toSerialize["registry_type"] = o.RegistryType
 	}
-	if o.UserId != nil {
-		toSerialize["userId"] = o.UserId
+	if o.AccountName != nil {
+		toSerialize["account_name"] = o.AccountName
 	}
 	if o.Registry != nil {
 		toSerialize["registry"] = o.Registry

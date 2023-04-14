@@ -17,7 +17,7 @@ import (
 
 // ContentResponse Generic wrapper for content listings from images
 type ContentResponse struct {
-	ImageDigest *string `json:"imageDigest,omitempty"`
+	ImageDigest *string `json:"image_digest,omitempty"`
 	ContentType *string `json:"content_type,omitempty"`
 	Content *[]interface{} `json:"content,omitempty"`
 }
@@ -138,7 +138,7 @@ func (o *ContentResponse) SetContent(v []interface{}) {
 func (o ContentResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.ImageDigest != nil {
-		toSerialize["imageDigest"] = o.ImageDigest
+		toSerialize["image_digest"] = o.ImageDigest
 	}
 	if o.ContentType != nil {
 		toSerialize["content_type"] = o.ContentType

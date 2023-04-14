@@ -17,7 +17,7 @@ import (
 
 // ContentPackageResponse Package content listings from images
 type ContentPackageResponse struct {
-	ImageDigest *string `json:"imageDigest,omitempty"`
+	ImageDigest *string `json:"image_digest,omitempty"`
 	ContentType *string `json:"content_type,omitempty"`
 	Content *[]ContentPackageResponseContent `json:"content,omitempty"`
 }
@@ -138,7 +138,7 @@ func (o *ContentPackageResponse) SetContent(v []ContentPackageResponseContent) {
 func (o ContentPackageResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.ImageDigest != nil {
-		toSerialize["imageDigest"] = o.ImageDigest
+		toSerialize["image_digest"] = o.ImageDigest
 	}
 	if o.ContentType != nil {
 		toSerialize["content_type"] = o.ContentType

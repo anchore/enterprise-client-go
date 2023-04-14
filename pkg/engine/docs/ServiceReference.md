@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Hostid** | Pointer to **string** | The unique id of the host on which the service is executing | [optional] 
-**Servicename** | Pointer to **string** | Registered service name | [optional] 
+**HostId** | Pointer to **string** | The unique id of the host on which the service is executing | [optional] 
+**ServiceName** | Pointer to **string** | Registered service name | [optional] 
 
 ## Methods
 
@@ -26,55 +26,55 @@ NewServiceReferenceWithDefaults instantiates a new ServiceReference object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
-### GetHostid
+### GetHostId
 
-`func (o *ServiceReference) GetHostid() string`
+`func (o *ServiceReference) GetHostId() string`
 
-GetHostid returns the Hostid field if non-nil, zero value otherwise.
+GetHostId returns the HostId field if non-nil, zero value otherwise.
 
-### GetHostidOk
+### GetHostIdOk
 
-`func (o *ServiceReference) GetHostidOk() (*string, bool)`
+`func (o *ServiceReference) GetHostIdOk() (*string, bool)`
 
-GetHostidOk returns a tuple with the Hostid field if it's non-nil, zero value otherwise
+GetHostIdOk returns a tuple with the HostId field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetHostid
+### SetHostId
 
-`func (o *ServiceReference) SetHostid(v string)`
+`func (o *ServiceReference) SetHostId(v string)`
 
-SetHostid sets Hostid field to given value.
+SetHostId sets HostId field to given value.
 
-### HasHostid
+### HasHostId
 
-`func (o *ServiceReference) HasHostid() bool`
+`func (o *ServiceReference) HasHostId() bool`
 
-HasHostid returns a boolean if a field has been set.
+HasHostId returns a boolean if a field has been set.
 
-### GetServicename
+### GetServiceName
 
-`func (o *ServiceReference) GetServicename() string`
+`func (o *ServiceReference) GetServiceName() string`
 
-GetServicename returns the Servicename field if non-nil, zero value otherwise.
+GetServiceName returns the ServiceName field if non-nil, zero value otherwise.
 
-### GetServicenameOk
+### GetServiceNameOk
 
-`func (o *ServiceReference) GetServicenameOk() (*string, bool)`
+`func (o *ServiceReference) GetServiceNameOk() (*string, bool)`
 
-GetServicenameOk returns a tuple with the Servicename field if it's non-nil, zero value otherwise
+GetServiceNameOk returns a tuple with the ServiceName field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetServicename
+### SetServiceName
 
-`func (o *ServiceReference) SetServicename(v string)`
+`func (o *ServiceReference) SetServiceName(v string)`
 
-SetServicename sets Servicename field to given value.
+SetServiceName sets ServiceName field to given value.
 
-### HasServicename
+### HasServiceName
 
-`func (o *ServiceReference) HasServicename() bool`
+`func (o *ServiceReference) HasServiceName() bool`
 
-HasServicename returns a boolean if a field has been set.
+HasServiceName returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

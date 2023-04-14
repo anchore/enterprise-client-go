@@ -18,7 +18,7 @@ import (
 // ImageAncestor An summary of an image and it's layers.
 type ImageAncestor struct {
 	// The digest of the image
-	ImageDigest *string `json:"imageDigest,omitempty"`
+	ImageDigest *string `json:"image_digest,omitempty"`
 	Tags *[]string `json:"tags,omitempty"`
 	// The full set of layers for this image
 	Layers *[]string `json:"layers,omitempty"`
@@ -140,7 +140,7 @@ func (o *ImageAncestor) SetLayers(v []string) {
 func (o ImageAncestor) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.ImageDigest != nil {
-		toSerialize["imageDigest"] = o.ImageDigest
+		toSerialize["image_digest"] = o.ImageDigest
 	}
 	if o.Tags != nil {
 		toSerialize["tags"] = o.Tags

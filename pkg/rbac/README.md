@@ -79,15 +79,15 @@ All URIs are relative to *http://localhost*
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
 *DefaultApi* | [**AddIdp**](docs/DefaultApi.md#addidp) | **Post** /saml/idps | 
-*DefaultApi* | [**AddRoleUser**](docs/DefaultApi.md#addroleuser) | **Post** /roles/{rolename}/members | Add a user to the role
+*DefaultApi* | [**AddRoleUser**](docs/DefaultApi.md#addroleuser) | **Post** /roles/{role_name}/members | Add a user to the role
 *DefaultApi* | [**DeleteIdp**](docs/DefaultApi.md#deleteidp) | **Delete** /saml/idps/{name} | 
-*DefaultApi* | [**DeleteRoleUser**](docs/DefaultApi.md#deleteroleuser) | **Delete** /roles/{rolename}/members | Remove a user from the role
+*DefaultApi* | [**DeleteRoleUser**](docs/DefaultApi.md#deleteroleuser) | **Delete** /roles/{role_name}/members | Remove a user from the role
 *DefaultApi* | [**GetIdp**](docs/DefaultApi.md#getidp) | **Get** /saml/idps/{name} | 
-*DefaultApi* | [**GetRole**](docs/DefaultApi.md#getrole) | **Get** /roles/{rolename} | Get detailed information about a specific role
+*DefaultApi* | [**GetRole**](docs/DefaultApi.md#getrole) | **Get** /roles/{role_name} | Get detailed information about a specific role
 *DefaultApi* | [**GetStatus**](docs/DefaultApi.md#getstatus) | **Get** /status | Service status
 *DefaultApi* | [**HealthCheck**](docs/DefaultApi.md#healthcheck) | **Get** /health | 
 *DefaultApi* | [**ListIdps**](docs/DefaultApi.md#listidps) | **Get** /saml/idps | 
-*DefaultApi* | [**ListRoleMembers**](docs/DefaultApi.md#listrolemembers) | **Get** /roles/{rolename}/members | Returns a list of objects that have members in the role. The list is filtered by &#39;listRoleMembers&#39; access for the &#39;account&#39; element of each entry.
+*DefaultApi* | [**ListRoleMembers**](docs/DefaultApi.md#listrolemembers) | **Get** /roles/{role_name}/members | Returns a list of objects that have members in the role. The list is filtered by &#39;listRoleMembers&#39; access for the &#39;account&#39; element of each entry.
 *DefaultApi* | [**ListRoles**](docs/DefaultApi.md#listroles) | **Get** /roles | List roles available in the system
 *DefaultApi* | [**ListUserRoles**](docs/DefaultApi.md#listuserroles) | **Get** /users/{username}/roles | List the roles for which the requested user is a member
 *DefaultApi* | [**MyRoles**](docs/DefaultApi.md#myroles) | **Get** /my_roles | List the roles for which the authenticated user is a member

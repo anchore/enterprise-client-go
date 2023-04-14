@@ -19,9 +19,9 @@ import (
 // ArchivedAnalysis struct for ArchivedAnalysis
 type ArchivedAnalysis struct {
 	// The image digest (digest of the manifest describing the image, per docker spec)
-	ImageDigest *string `json:"imageDigest,omitempty"`
+	ImageDigest *string `json:"image_digest,omitempty"`
 	// The digest of a parent manifest (for manifest-list images)
-	ParentDigest *string `json:"parentDigest,omitempty"`
+	ParentDigest *string `json:"parent_digest,omitempty"`
 	// User provided annotations as key-value pairs
 	Annotations *interface{} `json:"annotations,omitempty"`
 	// The archival status
@@ -343,10 +343,10 @@ func (o *ArchivedAnalysis) SetArchiveSizeBytes(v int32) {
 func (o ArchivedAnalysis) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.ImageDigest != nil {
-		toSerialize["imageDigest"] = o.ImageDigest
+		toSerialize["image_digest"] = o.ImageDigest
 	}
 	if o.ParentDigest != nil {
-		toSerialize["parentDigest"] = o.ParentDigest
+		toSerialize["parent_digest"] = o.ParentDigest
 	}
 	if o.Annotations != nil {
 		toSerialize["annotations"] = o.Annotations

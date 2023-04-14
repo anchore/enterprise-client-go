@@ -54,6 +54,32 @@ type InventoriesApi interface {
 	GetImageInventoryExecute(r ApiGetImageInventoryRequest) ([]InventoryItem, *_nethttp.Response, error)
 
 	/*
+	PostEcsInventory Add container metadata from Amazon ECS
+
+	Add container metadata from Amazon ECS
+
+	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	 @return ApiPostEcsInventoryRequest
+	*/
+	PostEcsInventory(ctx _context.Context) ApiPostEcsInventoryRequest
+
+	// PostEcsInventoryExecute executes the request
+	PostEcsInventoryExecute(r ApiPostEcsInventoryRequest) (*_nethttp.Response, error)
+
+	/*
+	PostKubernetesInventory Add container metadata from a Kubernetes deployment
+
+	Add container metadata from a Kubernetes deployment
+
+	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	 @return ApiPostKubernetesInventoryRequest
+	*/
+	PostKubernetesInventory(ctx _context.Context) ApiPostKubernetesInventoryRequest
+
+	// PostKubernetesInventoryExecute executes the request
+	PostKubernetesInventoryExecute(r ApiPostKubernetesInventoryRequest) (*_nethttp.Response, error)
+
+	/*
 	SyncImageInventory synchronizes the list of the images in a given cluster for the inventory
 
 	synchronizes the list of the images that are in use
@@ -330,6 +356,208 @@ func (a *InventoriesApiService) GetImageInventoryExecute(r ApiGetImageInventoryR
 	}
 
 	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiPostEcsInventoryRequest struct {
+	ctx _context.Context
+	ApiService InventoriesApi
+	inventory *ECSInventory
+}
+
+func (r ApiPostEcsInventoryRequest) Inventory(inventory ECSInventory) ApiPostEcsInventoryRequest {
+	r.inventory = &inventory
+	return r
+}
+
+func (r ApiPostEcsInventoryRequest) Execute() (*_nethttp.Response, error) {
+	return r.ApiService.PostEcsInventoryExecute(r)
+}
+
+/*
+PostEcsInventory Add container metadata from Amazon ECS
+
+Add container metadata from Amazon ECS
+
+ @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return ApiPostEcsInventoryRequest
+*/
+func (a *InventoriesApiService) PostEcsInventory(ctx _context.Context) ApiPostEcsInventoryRequest {
+	return ApiPostEcsInventoryRequest{
+		ApiService: a,
+		ctx: ctx,
+	}
+}
+
+// Execute executes the request
+func (a *InventoriesApiService) PostEcsInventoryExecute(r ApiPostEcsInventoryRequest) (*_nethttp.Response, error) {
+	var (
+		localVarHTTPMethod   = _nethttp.MethodPost
+		localVarPostBody     interface{}
+		localVarFormFileName string
+		localVarFileName     string
+		localVarFileBytes    []byte
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "InventoriesApiService.PostEcsInventory")
+	if err != nil {
+		return nil, GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/ecs-inventory"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := _neturl.Values{}
+	localVarFormParams := _neturl.Values{}
+	if r.inventory == nil {
+		return nil, reportError("inventory is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.inventory
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+type ApiPostKubernetesInventoryRequest struct {
+	ctx _context.Context
+	ApiService InventoriesApi
+	inventory *KubernetesInventory
+}
+
+func (r ApiPostKubernetesInventoryRequest) Inventory(inventory KubernetesInventory) ApiPostKubernetesInventoryRequest {
+	r.inventory = &inventory
+	return r
+}
+
+func (r ApiPostKubernetesInventoryRequest) Execute() (*_nethttp.Response, error) {
+	return r.ApiService.PostKubernetesInventoryExecute(r)
+}
+
+/*
+PostKubernetesInventory Add container metadata from a Kubernetes deployment
+
+Add container metadata from a Kubernetes deployment
+
+ @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return ApiPostKubernetesInventoryRequest
+*/
+func (a *InventoriesApiService) PostKubernetesInventory(ctx _context.Context) ApiPostKubernetesInventoryRequest {
+	return ApiPostKubernetesInventoryRequest{
+		ApiService: a,
+		ctx: ctx,
+	}
+}
+
+// Execute executes the request
+func (a *InventoriesApiService) PostKubernetesInventoryExecute(r ApiPostKubernetesInventoryRequest) (*_nethttp.Response, error) {
+	var (
+		localVarHTTPMethod   = _nethttp.MethodPost
+		localVarPostBody     interface{}
+		localVarFormFileName string
+		localVarFileName     string
+		localVarFileBytes    []byte
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "InventoriesApiService.PostKubernetesInventory")
+	if err != nil {
+		return nil, GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/kubernetes-inventory"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := _neturl.Values{}
+	localVarFormParams := _neturl.Values{}
+	if r.inventory == nil {
+		return nil, reportError("inventory is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.inventory
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
 }
 
 type ApiSyncImageInventoryRequest struct {

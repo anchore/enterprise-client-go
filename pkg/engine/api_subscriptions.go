@@ -263,8 +263,8 @@ func (a *SubscriptionsApiService) DeleteSubscriptionExecute(r ApiDeleteSubscript
 		return nil, GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/subscriptions/{subscriptionId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"subscriptionId"+"}", _neturl.PathEscape(parameterToString(r.subscriptionId, "")), -1)
+	localVarPath := localBasePath + "/subscriptions/{subscription_id}"
+	localVarPath = strings.Replace(localVarPath, "{"+"subscription_id"+"}", _neturl.PathEscape(parameterToString(r.subscriptionId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
@@ -376,8 +376,8 @@ func (a *SubscriptionsApiService) GetSubscriptionExecute(r ApiGetSubscriptionReq
 		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/subscriptions/{subscriptionId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"subscriptionId"+"}", _neturl.PathEscape(parameterToString(r.subscriptionId, "")), -1)
+	localVarPath := localBasePath + "/subscriptions/{subscription_id}"
+	localVarPath = strings.Replace(localVarPath, "{"+"subscription_id"+"}", _neturl.PathEscape(parameterToString(r.subscriptionId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
@@ -639,8 +639,8 @@ func (a *SubscriptionsApiService) UpdateSubscriptionExecute(r ApiUpdateSubscript
 		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/subscriptions/{subscriptionId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"subscriptionId"+"}", _neturl.PathEscape(parameterToString(r.subscriptionId, "")), -1)
+	localVarPath := localBasePath + "/subscriptions/{subscription_id}"
+	localVarPath = strings.Replace(localVarPath, "{"+"subscription_id"+"}", _neturl.PathEscape(parameterToString(r.subscriptionId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}

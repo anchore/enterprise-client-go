@@ -23,8 +23,8 @@ type Subscription struct {
 	SubscriptionType *string `json:"subscription_type,omitempty"`
 	// The value of the subscription target
 	SubscriptionValue NullableString `json:"subscription_value,omitempty"`
-	// The userId of the subscribed user
-	UserId *string `json:"userId,omitempty"`
+	// The account_name of the subscribed user
+	AccountName *string `json:"account_name,omitempty"`
 	// Is the subscription currently active
 	Active *bool `json:"active,omitempty"`
 	// the unique id for this subscription record
@@ -154,36 +154,36 @@ func (o *Subscription) UnsetSubscriptionValue() {
 	o.SubscriptionValue.Unset()
 }
 
-// GetUserId returns the UserId field value if set, zero value otherwise.
-func (o *Subscription) GetUserId() string {
-	if o == nil || o.UserId == nil {
+// GetAccountName returns the AccountName field value if set, zero value otherwise.
+func (o *Subscription) GetAccountName() string {
+	if o == nil || o.AccountName == nil {
 		var ret string
 		return ret
 	}
-	return *o.UserId
+	return *o.AccountName
 }
 
-// GetUserIdOk returns a tuple with the UserId field value if set, nil otherwise
+// GetAccountNameOk returns a tuple with the AccountName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Subscription) GetUserIdOk() (*string, bool) {
-	if o == nil || o.UserId == nil {
+func (o *Subscription) GetAccountNameOk() (*string, bool) {
+	if o == nil || o.AccountName == nil {
 		return nil, false
 	}
-	return o.UserId, true
+	return o.AccountName, true
 }
 
-// HasUserId returns a boolean if a field has been set.
-func (o *Subscription) HasUserId() bool {
-	if o != nil && o.UserId != nil {
+// HasAccountName returns a boolean if a field has been set.
+func (o *Subscription) HasAccountName() bool {
+	if o != nil && o.AccountName != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetUserId gets a reference to the given string and assigns it to the UserId field.
-func (o *Subscription) SetUserId(v string) {
-	o.UserId = &v
+// SetAccountName gets a reference to the given string and assigns it to the AccountName field.
+func (o *Subscription) SetAccountName(v string) {
+	o.AccountName = &v
 }
 
 // GetActive returns the Active field value if set, zero value otherwise.
@@ -261,8 +261,8 @@ func (o Subscription) MarshalJSON() ([]byte, error) {
 	if o.SubscriptionValue.IsSet() {
 		toSerialize["subscription_value"] = o.SubscriptionValue.Get()
 	}
-	if o.UserId != nil {
-		toSerialize["userId"] = o.UserId
+	if o.AccountName != nil {
+		toSerialize["account_name"] = o.AccountName
 	}
 	if o.Active != nil {
 		toSerialize["active"] = o.Active

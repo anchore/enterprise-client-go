@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**UserId** | Pointer to **string** |  | [optional] 
+**AccountName** | Pointer to **string** |  | [optional] 
 **SubscriptionKey** | Pointer to **string** |  | [optional] 
 **SubscriptionType** | Pointer to **string** |  | [optional] 
 **NotificationId** | Pointer to **string** |  | [optional] 
@@ -31,30 +31,30 @@ NewPolicyEvalNotificationPayloadWithDefaults instantiates a new PolicyEvalNotifi
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
-### GetUserId
+### GetAccountName
 
-`func (o *PolicyEvalNotificationPayload) GetUserId() string`
+`func (o *PolicyEvalNotificationPayload) GetAccountName() string`
 
-GetUserId returns the UserId field if non-nil, zero value otherwise.
+GetAccountName returns the AccountName field if non-nil, zero value otherwise.
 
-### GetUserIdOk
+### GetAccountNameOk
 
-`func (o *PolicyEvalNotificationPayload) GetUserIdOk() (*string, bool)`
+`func (o *PolicyEvalNotificationPayload) GetAccountNameOk() (*string, bool)`
 
-GetUserIdOk returns a tuple with the UserId field if it's non-nil, zero value otherwise
+GetAccountNameOk returns a tuple with the AccountName field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetUserId
+### SetAccountName
 
-`func (o *PolicyEvalNotificationPayload) SetUserId(v string)`
+`func (o *PolicyEvalNotificationPayload) SetAccountName(v string)`
 
-SetUserId sets UserId field to given value.
+SetAccountName sets AccountName field to given value.
 
-### HasUserId
+### HasAccountName
 
-`func (o *PolicyEvalNotificationPayload) HasUserId() bool`
+`func (o *PolicyEvalNotificationPayload) HasAccountName() bool`
 
-HasUserId returns a boolean if a field has been set.
+HasAccountName returns a boolean if a field has been set.
 
 ### GetSubscriptionKey
 

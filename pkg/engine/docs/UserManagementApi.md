@@ -4,18 +4,19 @@ All URIs are relative to *http://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateAccount**](UserManagementApi.md#CreateAccount) | **Post** /accounts | Create a new account. Only avaialble to admin user.
-[**CreateUser**](UserManagementApi.md#CreateUser) | **Post** /accounts/{accountname}/users | Create a new user within the specified account.
-[**CreateUserCredential**](UserManagementApi.md#CreateUserCredential) | **Post** /accounts/{accountname}/users/{username}/credentials | add/replace credential
-[**DeleteAccount**](UserManagementApi.md#DeleteAccount) | **Delete** /accounts/{accountname} | Delete the specified account, only allowed if the account is in the disabled state. All users will be deleted along with the account and all resources will be garbage collected
-[**DeleteUser**](UserManagementApi.md#DeleteUser) | **Delete** /accounts/{accountname}/users/{username} | Delete a specific user credential by username of the credential. Cannot be the credential used to authenticate the request.
-[**DeleteUserCredential**](UserManagementApi.md#DeleteUserCredential) | **Delete** /accounts/{accountname}/users/{username}/credentials | Delete a credential by type
-[**GetAccount**](UserManagementApi.md#GetAccount) | **Get** /accounts/{accountname} | Get account info about this specific account.
-[**GetAccountUser**](UserManagementApi.md#GetAccountUser) | **Get** /accounts/{accountname}/users/{username} | Get a specific user in the specified account
+[**CreateAccount**](UserManagementApi.md#CreateAccount) | **Post** /accounts | Create a new account. Only available to admin user.
+[**CreateUser**](UserManagementApi.md#CreateUser) | **Post** /accounts/{account_name}/users | Create a new user within the specified account.
+[**CreateUserCredential**](UserManagementApi.md#CreateUserCredential) | **Post** /accounts/{account_name}/users/{username}/credentials | add/replace credential
+[**DeleteAccount**](UserManagementApi.md#DeleteAccount) | **Delete** /accounts/{account_name} | Delete the specified account, only allowed if the account is in the disabled state. All users will be deleted along with the account and all resources will be garbage collected
+[**DeleteUser**](UserManagementApi.md#DeleteUser) | **Delete** /accounts/{account_name}/users/{username} | Delete a specific user credential by username of the credential. Cannot be the credential used to authenticate the request.
+[**DeleteUserCredential**](UserManagementApi.md#DeleteUserCredential) | **Delete** /accounts/{account_name}/users/{username}/credentials | Delete a credential by type
+[**GetAccount**](UserManagementApi.md#GetAccount) | **Get** /accounts/{account_name} | Get account info about this specific account.
+[**GetAccountUser**](UserManagementApi.md#GetAccountUser) | **Get** /accounts/{account_name}/users/{username} | Get a specific user in the specified account
 [**ListAccounts**](UserManagementApi.md#ListAccounts) | **Get** /accounts | List account summaries. Only available to the system admin user.
-[**ListUserCredentials**](UserManagementApi.md#ListUserCredentials) | **Get** /accounts/{accountname}/users/{username}/credentials | Get current credential summary
-[**ListUsers**](UserManagementApi.md#ListUsers) | **Get** /accounts/{accountname}/users | List of users found in this account.
-[**UpdateAccountState**](UserManagementApi.md#UpdateAccountState) | **Put** /accounts/{accountname}/state | Update the state of an account to either enabled or disabled. For deletion use the DELETE route
+[**ListUserCredentials**](UserManagementApi.md#ListUserCredentials) | **Get** /accounts/{account_name}/users/{username}/credentials | Get current credential summary
+[**ListUsers**](UserManagementApi.md#ListUsers) | **Get** /accounts/{account_name}/users | List of users found in this account.
+[**UpdateAccount**](UserManagementApi.md#UpdateAccount) | **Put** /accounts/{account_name} | Update the info for this specific account.
+[**UpdateAccountState**](UserManagementApi.md#UpdateAccountState) | **Put** /accounts/{account_name}/state | Update the state of an account to either enabled or disabled. For deletion use the DELETE route
 
 
 
@@ -23,7 +24,7 @@ Method | HTTP request | Description
 
 > Account CreateAccount(ctx).Account(account).Execute()
 
-Create a new account. Only avaialble to admin user.
+Create a new account. Only available to admin user.
 
 ### Example
 
@@ -85,7 +86,7 @@ No authorization required
 
 ## CreateUser
 
-> User CreateUser(ctx, accountname).User(user).Execute()
+> User CreateUser(ctx, accountName).User(user).Execute()
 
 Create a new user within the specified account.
 
@@ -102,12 +103,12 @@ import (
 )
 
 func main() {
-    accountname := "accountname_example" // string | 
+    accountName := "accountName_example" // string | 
     user := *openapiclient.NewUserCreationRequest("Username_example") // UserCreationRequest | 
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.UserManagementApi.CreateUser(context.Background(), accountname).User(user).Execute()
+    resp, r, err := api_client.UserManagementApi.CreateUser(context.Background(), accountName).User(user).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `UserManagementApi.CreateUser``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -123,7 +124,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**accountname** | **string** |  | 
+**accountName** | **string** |  | 
 
 ### Other Parameters
 
@@ -155,7 +156,7 @@ No authorization required
 
 ## CreateUserCredential
 
-> AccessCredential CreateUserCredential(ctx, accountname, username).Credential(credential).Execute()
+> AccessCredential CreateUserCredential(ctx, accountName, username).Credential(credential).Execute()
 
 add/replace credential
 
@@ -172,13 +173,13 @@ import (
 )
 
 func main() {
-    accountname := "accountname_example" // string | 
+    accountName := "accountName_example" // string | 
     username := "username_example" // string | 
     credential := *openapiclient.NewAccessCredential("Type_example", "Value_example") // AccessCredential | 
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.UserManagementApi.CreateUserCredential(context.Background(), accountname, username).Credential(credential).Execute()
+    resp, r, err := api_client.UserManagementApi.CreateUserCredential(context.Background(), accountName, username).Credential(credential).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `UserManagementApi.CreateUserCredential``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -194,7 +195,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**accountname** | **string** |  | 
+**accountName** | **string** |  | 
 **username** | **string** |  | 
 
 ### Other Parameters
@@ -228,7 +229,7 @@ No authorization required
 
 ## DeleteAccount
 
-> DeleteAccount(ctx, accountname).Execute()
+> DeleteAccount(ctx, accountName).Execute()
 
 Delete the specified account, only allowed if the account is in the disabled state. All users will be deleted along with the account and all resources will be garbage collected
 
@@ -245,11 +246,11 @@ import (
 )
 
 func main() {
-    accountname := "accountname_example" // string | 
+    accountName := "accountName_example" // string | 
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.UserManagementApi.DeleteAccount(context.Background(), accountname).Execute()
+    resp, r, err := api_client.UserManagementApi.DeleteAccount(context.Background(), accountName).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `UserManagementApi.DeleteAccount``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -263,7 +264,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**accountname** | **string** |  | 
+**accountName** | **string** |  | 
 
 ### Other Parameters
 
@@ -294,7 +295,7 @@ No authorization required
 
 ## DeleteUser
 
-> DeleteUser(ctx, accountname, username).Execute()
+> DeleteUser(ctx, accountName, username).Execute()
 
 Delete a specific user credential by username of the credential. Cannot be the credential used to authenticate the request.
 
@@ -311,12 +312,12 @@ import (
 )
 
 func main() {
-    accountname := "accountname_example" // string | 
+    accountName := "accountName_example" // string | 
     username := "username_example" // string | 
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.UserManagementApi.DeleteUser(context.Background(), accountname, username).Execute()
+    resp, r, err := api_client.UserManagementApi.DeleteUser(context.Background(), accountName, username).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `UserManagementApi.DeleteUser``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -330,7 +331,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**accountname** | **string** |  | 
+**accountName** | **string** |  | 
 **username** | **string** |  | 
 
 ### Other Parameters
@@ -363,7 +364,7 @@ No authorization required
 
 ## DeleteUserCredential
 
-> DeleteUserCredential(ctx, accountname, username).CredentialType(credentialType).Execute()
+> DeleteUserCredential(ctx, accountName, username).CredentialType(credentialType).Execute()
 
 Delete a credential by type
 
@@ -380,13 +381,13 @@ import (
 )
 
 func main() {
-    accountname := "accountname_example" // string | 
+    accountName := "accountName_example" // string | 
     username := "username_example" // string | 
     credentialType := "credentialType_example" // string | 
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.UserManagementApi.DeleteUserCredential(context.Background(), accountname, username).CredentialType(credentialType).Execute()
+    resp, r, err := api_client.UserManagementApi.DeleteUserCredential(context.Background(), accountName, username).CredentialType(credentialType).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `UserManagementApi.DeleteUserCredential``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -400,7 +401,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**accountname** | **string** |  | 
+**accountName** | **string** |  | 
 **username** | **string** |  | 
 
 ### Other Parameters
@@ -434,7 +435,7 @@ No authorization required
 
 ## GetAccount
 
-> Account GetAccount(ctx, accountname).Execute()
+> Account GetAccount(ctx, accountName).Execute()
 
 Get account info about this specific account.
 
@@ -451,11 +452,11 @@ import (
 )
 
 func main() {
-    accountname := "accountname_example" // string | 
+    accountName := "accountName_example" // string | 
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.UserManagementApi.GetAccount(context.Background(), accountname).Execute()
+    resp, r, err := api_client.UserManagementApi.GetAccount(context.Background(), accountName).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `UserManagementApi.GetAccount``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -471,7 +472,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**accountname** | **string** |  | 
+**accountName** | **string** |  | 
 
 ### Other Parameters
 
@@ -502,7 +503,7 @@ No authorization required
 
 ## GetAccountUser
 
-> User GetAccountUser(ctx, accountname, username).Execute()
+> User GetAccountUser(ctx, accountName, username).Execute()
 
 Get a specific user in the specified account
 
@@ -519,12 +520,12 @@ import (
 )
 
 func main() {
-    accountname := "accountname_example" // string | 
+    accountName := "accountName_example" // string | 
     username := "username_example" // string | 
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.UserManagementApi.GetAccountUser(context.Background(), accountname, username).Execute()
+    resp, r, err := api_client.UserManagementApi.GetAccountUser(context.Background(), accountName, username).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `UserManagementApi.GetAccountUser``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -540,7 +541,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**accountname** | **string** |  | 
+**accountName** | **string** |  | 
 **username** | **string** |  | 
 
 ### Other Parameters
@@ -637,7 +638,7 @@ No authorization required
 
 ## ListUserCredentials
 
-> []AccessCredential ListUserCredentials(ctx, accountname, username).Execute()
+> []AccessCredential ListUserCredentials(ctx, accountName, username).Execute()
 
 Get current credential summary
 
@@ -654,12 +655,12 @@ import (
 )
 
 func main() {
-    accountname := "accountname_example" // string | 
+    accountName := "accountName_example" // string | 
     username := "username_example" // string | 
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.UserManagementApi.ListUserCredentials(context.Background(), accountname, username).Execute()
+    resp, r, err := api_client.UserManagementApi.ListUserCredentials(context.Background(), accountName, username).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `UserManagementApi.ListUserCredentials``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -675,7 +676,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**accountname** | **string** |  | 
+**accountName** | **string** |  | 
 **username** | **string** |  | 
 
 ### Other Parameters
@@ -708,7 +709,7 @@ No authorization required
 
 ## ListUsers
 
-> []User ListUsers(ctx, accountname).Execute()
+> []User ListUsers(ctx, accountName).Execute()
 
 List of users found in this account.
 
@@ -725,11 +726,11 @@ import (
 )
 
 func main() {
-    accountname := "accountname_example" // string | 
+    accountName := "accountName_example" // string | 
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.UserManagementApi.ListUsers(context.Background(), accountname).Execute()
+    resp, r, err := api_client.UserManagementApi.ListUsers(context.Background(), accountName).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `UserManagementApi.ListUsers``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -745,7 +746,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**accountname** | **string** |  | 
+**accountName** | **string** |  | 
 
 ### Other Parameters
 
@@ -774,9 +775,81 @@ No authorization required
 [[Back to README]](../README.md)
 
 
+## UpdateAccount
+
+> Account UpdateAccount(ctx, accountName).Info(info).XAnchoreAccount(xAnchoreAccount).Execute()
+
+Update the info for this specific account.
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    accountName := "accountName_example" // string | 
+    info := *openapiclient.NewAccountInfo() // AccountInfo | 
+    xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.UserManagementApi.UpdateAccount(context.Background(), accountName).Info(info).XAnchoreAccount(xAnchoreAccount).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `UserManagementApi.UpdateAccount``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `UpdateAccount`: Account
+    fmt.Fprintf(os.Stdout, "Response from `UserManagementApi.UpdateAccount`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**accountName** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiUpdateAccountRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **info** | [**AccountInfo**](AccountInfo.md) |  | 
+ **xAnchoreAccount** | **string** | An account name to change the resource scope of the request to that account, if permissions allow (admin only) | 
+
+### Return type
+
+[**Account**](Account.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
 ## UpdateAccountState
 
-> AccountStatus UpdateAccountState(ctx, accountname).DesiredState(desiredState).Execute()
+> AccountStatus UpdateAccountState(ctx, accountName).DesiredState(desiredState).Execute()
 
 Update the state of an account to either enabled or disabled. For deletion use the DELETE route
 
@@ -793,12 +866,12 @@ import (
 )
 
 func main() {
-    accountname := "accountname_example" // string | 
+    accountName := "accountName_example" // string | 
     desiredState := *openapiclient.NewAccountStatus() // AccountStatus | 
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.UserManagementApi.UpdateAccountState(context.Background(), accountname).DesiredState(desiredState).Execute()
+    resp, r, err := api_client.UserManagementApi.UpdateAccountState(context.Background(), accountName).DesiredState(desiredState).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `UserManagementApi.UpdateAccountState``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -814,7 +887,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**accountname** | **string** |  | 
+**accountName** | **string** |  | 
 
 ### Other Parameters
 

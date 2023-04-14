@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Servicename** | Pointer to **string** |  | [optional] 
-**Hostid** | Pointer to **string** |  | [optional] 
+**ServiceName** | Pointer to **string** |  | [optional] 
+**HostId** | Pointer to **string** |  | [optional] 
 **BaseUrl** | Pointer to **string** |  | [optional] 
 **RequestId** | Pointer to **string** |  | [optional] 
 
@@ -28,55 +28,55 @@ NewEventResponseEventSourceWithDefaults instantiates a new EventResponseEventSou
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
-### GetServicename
+### GetServiceName
 
-`func (o *EventResponseEventSource) GetServicename() string`
+`func (o *EventResponseEventSource) GetServiceName() string`
 
-GetServicename returns the Servicename field if non-nil, zero value otherwise.
+GetServiceName returns the ServiceName field if non-nil, zero value otherwise.
 
-### GetServicenameOk
+### GetServiceNameOk
 
-`func (o *EventResponseEventSource) GetServicenameOk() (*string, bool)`
+`func (o *EventResponseEventSource) GetServiceNameOk() (*string, bool)`
 
-GetServicenameOk returns a tuple with the Servicename field if it's non-nil, zero value otherwise
+GetServiceNameOk returns a tuple with the ServiceName field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetServicename
+### SetServiceName
 
-`func (o *EventResponseEventSource) SetServicename(v string)`
+`func (o *EventResponseEventSource) SetServiceName(v string)`
 
-SetServicename sets Servicename field to given value.
+SetServiceName sets ServiceName field to given value.
 
-### HasServicename
+### HasServiceName
 
-`func (o *EventResponseEventSource) HasServicename() bool`
+`func (o *EventResponseEventSource) HasServiceName() bool`
 
-HasServicename returns a boolean if a field has been set.
+HasServiceName returns a boolean if a field has been set.
 
-### GetHostid
+### GetHostId
 
-`func (o *EventResponseEventSource) GetHostid() string`
+`func (o *EventResponseEventSource) GetHostId() string`
 
-GetHostid returns the Hostid field if non-nil, zero value otherwise.
+GetHostId returns the HostId field if non-nil, zero value otherwise.
 
-### GetHostidOk
+### GetHostIdOk
 
-`func (o *EventResponseEventSource) GetHostidOk() (*string, bool)`
+`func (o *EventResponseEventSource) GetHostIdOk() (*string, bool)`
 
-GetHostidOk returns a tuple with the Hostid field if it's non-nil, zero value otherwise
+GetHostIdOk returns a tuple with the HostId field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetHostid
+### SetHostId
 
-`func (o *EventResponseEventSource) SetHostid(v string)`
+`func (o *EventResponseEventSource) SetHostId(v string)`
 
-SetHostid sets Hostid field to given value.
+SetHostId sets HostId field to given value.
 
-### HasHostid
+### HasHostId
 
-`func (o *EventResponseEventSource) HasHostid() bool`
+`func (o *EventResponseEventSource) HasHostId() bool`
 
-HasHostid returns a boolean if a field has been set.
+HasHostId returns a boolean if a field has been set.
 
 ### GetBaseUrl
 

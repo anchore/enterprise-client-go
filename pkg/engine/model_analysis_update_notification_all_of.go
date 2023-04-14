@@ -15,7 +15,7 @@ import (
 	"encoding/json"
 )
 
-// AnalysisUpdateNotificationAllOf The Notification Object definition for Tag Update Notifications
+// AnalysisUpdateNotificationAllOf The Notification Object definition for Analysis Update Notifications
 type AnalysisUpdateNotificationAllOf struct {
 	Data *AnalysisUpdateNotificationData `json:"data,omitempty"`
 }

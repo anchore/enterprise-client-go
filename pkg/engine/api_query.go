@@ -261,7 +261,7 @@ func (r ApiQueryImagesByVulnerabilityRequest) Namespace(namespace string) ApiQue
 	r.namespace = &namespace
 	return r
 }
-// Filter results to images with vulnable packages with the given package name (e.g. libssl)
+// Filter results to images with vulnerable packages with the given package name (e.g. libssl)
 func (r ApiQueryImagesByVulnerabilityRequest) AffectedPackage(affectedPackage string) ApiQueryImagesByVulnerabilityRequest {
 	r.affectedPackage = &affectedPackage
 	return r

@@ -24,9 +24,9 @@ type AnchoreImage struct {
 	ImageDetail *[]ImageDetail `json:"image_detail,omitempty"`
 	LastUpdated *time.Time `json:"last_updated,omitempty"`
 	CreatedAt *time.Time `json:"created_at,omitempty"`
-	ImageDigest *string `json:"imageDigest,omitempty"`
-	ParentDigest *string `json:"parentDigest,omitempty"`
-	UserId *string `json:"userId,omitempty"`
+	ImageDigest *string `json:"image_digest,omitempty"`
+	ParentDigest *string `json:"parent_digest,omitempty"`
+	AccountName *string `json:"account_name,omitempty"`
 	Annotations *interface{} `json:"annotations,omitempty"`
 	// State of the image
 	ImageStatus *string `json:"image_status,omitempty"`
@@ -246,36 +246,36 @@ func (o *AnchoreImage) SetParentDigest(v string) {
 	o.ParentDigest = &v
 }
 
-// GetUserId returns the UserId field value if set, zero value otherwise.
-func (o *AnchoreImage) GetUserId() string {
-	if o == nil || o.UserId == nil {
+// GetAccountName returns the AccountName field value if set, zero value otherwise.
+func (o *AnchoreImage) GetAccountName() string {
+	if o == nil || o.AccountName == nil {
 		var ret string
 		return ret
 	}
-	return *o.UserId
+	return *o.AccountName
 }
 
-// GetUserIdOk returns a tuple with the UserId field value if set, nil otherwise
+// GetAccountNameOk returns a tuple with the AccountName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AnchoreImage) GetUserIdOk() (*string, bool) {
-	if o == nil || o.UserId == nil {
+func (o *AnchoreImage) GetAccountNameOk() (*string, bool) {
+	if o == nil || o.AccountName == nil {
 		return nil, false
 	}
-	return o.UserId, true
+	return o.AccountName, true
 }
 
-// HasUserId returns a boolean if a field has been set.
-func (o *AnchoreImage) HasUserId() bool {
-	if o != nil && o.UserId != nil {
+// HasAccountName returns a boolean if a field has been set.
+func (o *AnchoreImage) HasAccountName() bool {
+	if o != nil && o.AccountName != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetUserId gets a reference to the given string and assigns it to the UserId field.
-func (o *AnchoreImage) SetUserId(v string) {
-	o.UserId = &v
+// SetAccountName gets a reference to the given string and assigns it to the AccountName field.
+func (o *AnchoreImage) SetAccountName(v string) {
+	o.AccountName = &v
 }
 
 // GetAnnotations returns the Annotations field value if set, zero value otherwise.
@@ -454,13 +454,13 @@ func (o AnchoreImage) MarshalJSON() ([]byte, error) {
 		toSerialize["created_at"] = o.CreatedAt
 	}
 	if o.ImageDigest != nil {
-		toSerialize["imageDigest"] = o.ImageDigest
+		toSerialize["image_digest"] = o.ImageDigest
 	}
 	if o.ParentDigest != nil {
-		toSerialize["parentDigest"] = o.ParentDigest
+		toSerialize["parent_digest"] = o.ParentDigest
 	}
-	if o.UserId != nil {
-		toSerialize["userId"] = o.UserId
+	if o.AccountName != nil {
+		toSerialize["account_name"] = o.AccountName
 	}
 	if o.Annotations != nil {
 		toSerialize["annotations"] = o.Annotations

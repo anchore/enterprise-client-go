@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **Name** | Pointer to **string** | Package name | [optional] 
 **Version** | Pointer to **NullableString** | A version for the package. If null, then references all versions | [optional] 
 **Type** | Pointer to **string** | Package type (e.g. package, rpm, deb, apk, jar, npm, gem, ...) | [optional] 
-**WillNotFix** | Pointer to **bool** | Whether a vendor will or will not fix a vulnerabitlity | [optional] 
+**WillNotFix** | Pointer to **bool** | Whether a vendor will or will not fix a vulnerability | [optional] 
 
 ## Methods
 

@@ -18,7 +18,7 @@ import (
 // VulnUpdateNotificationPayloadAllOf struct for VulnUpdateNotificationPayloadAllOf
 type VulnUpdateNotificationPayloadAllOf struct {
 	DiffVulnerabilityResult *VulnDiffResult `json:"diff_vulnerability_result,omitempty"`
-	ImageDigest *string `json:"imageDigest,omitempty"`
+	ImageDigest *string `json:"image_digest,omitempty"`
 	// List of Corresponding Image Annotations
 	Annotations interface{} `json:"annotations,omitempty"`
 }
@@ -143,7 +143,7 @@ func (o VulnUpdateNotificationPayloadAllOf) MarshalJSON() ([]byte, error) {
 		toSerialize["diff_vulnerability_result"] = o.DiffVulnerabilityResult
 	}
 	if o.ImageDigest != nil {
-		toSerialize["imageDigest"] = o.ImageDigest
+		toSerialize["image_digest"] = o.ImageDigest
 	}
 	if o.Annotations != nil {
 		toSerialize["annotations"] = o.Annotations

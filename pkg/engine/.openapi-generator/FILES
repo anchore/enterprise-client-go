@@ -23,6 +23,7 @@ configuration.go
 docs/AccessCredential.md
 docs/Account.md
 docs/AccountCreationRequest.md
+docs/AccountInfo.md
 docs/AccountStatus.md
 docs/AnalysisArchiveAddResult.md
 docs/AnalysisArchiveRulesSummary.md
@@ -189,6 +190,7 @@ go.sum
 model_access_credential.go
 model_account.go
 model_account_creation_request.go
+model_account_info.go
 model_account_status.go
 model_analysis_archive_add_result.go
 model_analysis_archive_rules_summary.go

@@ -20,7 +20,7 @@ import (
 type ImageAnalysisRequest struct {
 	// Base64 encoded content of the dockerfile for the image, if available. Deprecated in favor of the 'source' field.
 	Dockerfile *string `json:"dockerfile,omitempty"`
-	// A digest string for an image, maybe a pull string or just a digest. e.g. nginx@sha256:123 or sha256:abc123. If a pull string, it must have same regisry/repo as the tag field. Deprecated in favor of the 'source' field
+	// A digest string for an image, maybe a pull string or just a digest. e.g. nginx@sha256:123 or sha256:abc123. If a pull string, it must have same registry/repo as the tag field. Deprecated in favor of the 'source' field
 	Digest *string `json:"digest,omitempty"`
 	// Full pullable tag reference for image. e.g. docker.io/nginx:latest. Deprecated in favor of the 'source' field
 	Tag *string `json:"tag,omitempty"`

@@ -6,9 +6,9 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**GetOauthToken**](DefaultApi.md#GetOauthToken) | **Post** /oauth/token | 
 [**HealthCheck**](DefaultApi.md#HealthCheck) | **Get** /health | 
-[**ListFileContentSearchResults**](DefaultApi.md#ListFileContentSearchResults) | **Get** /images/{imageDigest}/artifacts/file_content_search | Return a list of analyzer artifacts of the specified type
-[**ListRetrievedFiles**](DefaultApi.md#ListRetrievedFiles) | **Get** /images/{imageDigest}/artifacts/retrieved_files | Return a list of analyzer artifacts of the specified type
-[**ListSecretSearchResults**](DefaultApi.md#ListSecretSearchResults) | **Get** /images/{imageDigest}/artifacts/secret_search | Return a list of analyzer artifacts of the specified type
+[**ListFileContentSearchResults**](DefaultApi.md#ListFileContentSearchResults) | **Get** /images/{image_digest}/artifacts/file_content_search | Return a list of analyzer artifacts of the specified type
+[**ListRetrievedFiles**](DefaultApi.md#ListRetrievedFiles) | **Get** /images/{image_digest}/artifacts/retrieved_files | Return a list of analyzer artifacts of the specified type
+[**ListSecretSearchResults**](DefaultApi.md#ListSecretSearchResults) | **Get** /images/{image_digest}/artifacts/secret_search | Return a list of analyzer artifacts of the specified type
 [**Ping**](DefaultApi.md#Ping) | **Get** / | 
 [**RevokeOauthToken**](DefaultApi.md#RevokeOauthToken) | **Post** /oauth/revoke | 
 [**VersionCheck**](DefaultApi.md#VersionCheck) | **Get** /version | 

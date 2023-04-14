@@ -5,10 +5,10 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **CreatedAt** | Pointer to **time.Time** |  | [optional] 
-**LastUpated** | Pointer to **time.Time** |  | [optional] 
+**LastUpdated** | Pointer to **time.Time** |  | [optional] 
 **RegistryUser** | Pointer to **string** | Username portion of credential to use for this registry | [optional] 
 **RegistryType** | Pointer to **string** | Type of registry | [optional] 
-**UserId** | Pointer to **string** | Engine user that owns this registry entry | [optional] 
+**AccountName** | Pointer to **string** | Engine user that owns this registry entry | [optional] 
 **Registry** | Pointer to **string** | hostname:port string for accessing the registry, as would be used in a docker pull operation | [optional] 
 **RegistryName** | Pointer to **string** | human readable name associated with registry record | [optional] 
 **RegistryVerify** | Pointer to **bool** | Use TLS/SSL verification for the registry URL | [optional] 
@@ -57,30 +57,30 @@ SetCreatedAt sets CreatedAt field to given value.
 
 HasCreatedAt returns a boolean if a field has been set.
 
-### GetLastUpated
+### GetLastUpdated
 
-`func (o *RegistryConfiguration) GetLastUpated() time.Time`
+`func (o *RegistryConfiguration) GetLastUpdated() time.Time`
 
-GetLastUpated returns the LastUpated field if non-nil, zero value otherwise.
+GetLastUpdated returns the LastUpdated field if non-nil, zero value otherwise.
 
-### GetLastUpatedOk
+### GetLastUpdatedOk
 
-`func (o *RegistryConfiguration) GetLastUpatedOk() (*time.Time, bool)`
+`func (o *RegistryConfiguration) GetLastUpdatedOk() (*time.Time, bool)`
 
-GetLastUpatedOk returns a tuple with the LastUpated field if it's non-nil, zero value otherwise
+GetLastUpdatedOk returns a tuple with the LastUpdated field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetLastUpated
+### SetLastUpdated
 
-`func (o *RegistryConfiguration) SetLastUpated(v time.Time)`
+`func (o *RegistryConfiguration) SetLastUpdated(v time.Time)`
 
-SetLastUpated sets LastUpated field to given value.
+SetLastUpdated sets LastUpdated field to given value.
 
-### HasLastUpated
+### HasLastUpdated
 
-`func (o *RegistryConfiguration) HasLastUpated() bool`
+`func (o *RegistryConfiguration) HasLastUpdated() bool`
 
-HasLastUpated returns a boolean if a field has been set.
+HasLastUpdated returns a boolean if a field has been set.
 
 ### GetRegistryUser
 
@@ -132,30 +132,30 @@ SetRegistryType sets RegistryType field to given value.
 
 HasRegistryType returns a boolean if a field has been set.
 
-### GetUserId
+### GetAccountName
 
-`func (o *RegistryConfiguration) GetUserId() string`
+`func (o *RegistryConfiguration) GetAccountName() string`
 
-GetUserId returns the UserId field if non-nil, zero value otherwise.
+GetAccountName returns the AccountName field if non-nil, zero value otherwise.
 
-### GetUserIdOk
+### GetAccountNameOk
 
-`func (o *RegistryConfiguration) GetUserIdOk() (*string, bool)`
+`func (o *RegistryConfiguration) GetAccountNameOk() (*string, bool)`
 
-GetUserIdOk returns a tuple with the UserId field if it's non-nil, zero value otherwise
+GetAccountNameOk returns a tuple with the AccountName field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetUserId
+### SetAccountName
 
-`func (o *RegistryConfiguration) SetUserId(v string)`
+`func (o *RegistryConfiguration) SetAccountName(v string)`
 
-SetUserId sets UserId field to given value.
+SetAccountName sets AccountName field to given value.
 
-### HasUserId
+### HasAccountName
 
-`func (o *RegistryConfiguration) HasUserId() bool`
+`func (o *RegistryConfiguration) HasAccountName() bool`
 
-HasUserId returns a boolean if a field has been set.
+HasAccountName returns a boolean if a field has been set.
 
 ### GetRegistry
 

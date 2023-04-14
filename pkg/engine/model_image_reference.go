@@ -18,9 +18,9 @@ import (
 // ImageReference A summary of an image identity, including digest, id (if available), and any tags known to have ever been mapped to the digest
 type ImageReference struct {
 	// The image digest
-	ImageDigest *string `json:"imageDigest,omitempty"`
+	ImageDigest *string `json:"image_digest,omitempty"`
 	// The image id if available
-	ImageId *string `json:"imageId,omitempty"`
+	ImageId *string `json:"image_id,omitempty"`
 	// Timestamp, in rfc3339 format, indicating when the image state became 'analyzed' in Anchore Engine.
 	AnalyzedAt *string `json:"analyzed_at,omitempty"`
 	TagHistory *[]TagEntry `json:"tag_history,omitempty"`
@@ -174,10 +174,10 @@ func (o *ImageReference) SetTagHistory(v []TagEntry) {
 func (o ImageReference) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.ImageDigest != nil {
-		toSerialize["imageDigest"] = o.ImageDigest
+		toSerialize["image_digest"] = o.ImageDigest
 	}
 	if o.ImageId != nil {
-		toSerialize["imageId"] = o.ImageId
+		toSerialize["image_id"] = o.ImageId
 	}
 	if o.AnalyzedAt != nil {
 		toSerialize["analyzed_at"] = o.AnalyzedAt

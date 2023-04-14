@@ -18,9 +18,9 @@ import (
 // Service A service status record
 type Service struct {
 	// The unique id of the host on which the service is executing
-	Hostid *string `json:"hostid,omitempty"`
+	HostId *string `json:"host_id,omitempty"`
 	// Registered service name
-	Servicename *string `json:"servicename,omitempty"`
+	ServiceName *string `json:"service_name,omitempty"`
 	// The url to reach the service, including port as needed
 	BaseUrl *string `json:"base_url,omitempty"`
 	// A state indicating the condition of the service. Normal operation is 'registered'
@@ -48,68 +48,68 @@ func NewServiceWithDefaults() *Service {
 	return &this
 }
 
-// GetHostid returns the Hostid field value if set, zero value otherwise.
-func (o *Service) GetHostid() string {
-	if o == nil || o.Hostid == nil {
+// GetHostId returns the HostId field value if set, zero value otherwise.
+func (o *Service) GetHostId() string {
+	if o == nil || o.HostId == nil {
 		var ret string
 		return ret
 	}
-	return *o.Hostid
+	return *o.HostId
 }
 
-// GetHostidOk returns a tuple with the Hostid field value if set, nil otherwise
+// GetHostIdOk returns a tuple with the HostId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Service) GetHostidOk() (*string, bool) {
-	if o == nil || o.Hostid == nil {
+func (o *Service) GetHostIdOk() (*string, bool) {
+	if o == nil || o.HostId == nil {
 		return nil, false
 	}
-	return o.Hostid, true
+	return o.HostId, true
 }
 
-// HasHostid returns a boolean if a field has been set.
-func (o *Service) HasHostid() bool {
-	if o != nil && o.Hostid != nil {
+// HasHostId returns a boolean if a field has been set.
+func (o *Service) HasHostId() bool {
+	if o != nil && o.HostId != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetHostid gets a reference to the given string and assigns it to the Hostid field.
-func (o *Service) SetHostid(v string) {
-	o.Hostid = &v
+// SetHostId gets a reference to the given string and assigns it to the HostId field.
+func (o *Service) SetHostId(v string) {
+	o.HostId = &v
 }
 
-// GetServicename returns the Servicename field value if set, zero value otherwise.
-func (o *Service) GetServicename() string {
-	if o == nil || o.Servicename == nil {
+// GetServiceName returns the ServiceName field value if set, zero value otherwise.
+func (o *Service) GetServiceName() string {
+	if o == nil || o.ServiceName == nil {
 		var ret string
 		return ret
 	}
-	return *o.Servicename
+	return *o.ServiceName
 }
 
-// GetServicenameOk returns a tuple with the Servicename field value if set, nil otherwise
+// GetServiceNameOk returns a tuple with the ServiceName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Service) GetServicenameOk() (*string, bool) {
-	if o == nil || o.Servicename == nil {
+func (o *Service) GetServiceNameOk() (*string, bool) {
+	if o == nil || o.ServiceName == nil {
 		return nil, false
 	}
-	return o.Servicename, true
+	return o.ServiceName, true
 }
 
-// HasServicename returns a boolean if a field has been set.
-func (o *Service) HasServicename() bool {
-	if o != nil && o.Servicename != nil {
+// HasServiceName returns a boolean if a field has been set.
+func (o *Service) HasServiceName() bool {
+	if o != nil && o.ServiceName != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetServicename gets a reference to the given string and assigns it to the Servicename field.
-func (o *Service) SetServicename(v string) {
-	o.Servicename = &v
+// SetServiceName gets a reference to the given string and assigns it to the ServiceName field.
+func (o *Service) SetServiceName(v string) {
+	o.ServiceName = &v
 }
 
 // GetBaseUrl returns the BaseUrl field value if set, zero value otherwise.
@@ -274,11 +274,11 @@ func (o *Service) SetVersion(v string) {
 
 func (o Service) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Hostid != nil {
-		toSerialize["hostid"] = o.Hostid
+	if o.HostId != nil {
+		toSerialize["host_id"] = o.HostId
 	}
-	if o.Servicename != nil {
-		toSerialize["servicename"] = o.Servicename
+	if o.ServiceName != nil {
+		toSerialize["service_name"] = o.ServiceName
 	}
 	if o.BaseUrl != nil {
 		toSerialize["base_url"] = o.BaseUrl

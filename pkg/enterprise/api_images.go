@@ -272,8 +272,8 @@ func (a *ImagesApiService) GetImagePolicyCheckByDigestExecute(r ApiGetImagePolic
 		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/images/{imageDigest}/check"
-	localVarPath = strings.Replace(localVarPath, "{"+"imageDigest"+"}", _neturl.PathEscape(parameterToString(r.imageDigest, "")), -1)
+	localVarPath := localBasePath + "/images/{image_digest}/check"
+	localVarPath = strings.Replace(localVarPath, "{"+"image_digest"+"}", _neturl.PathEscape(parameterToString(r.imageDigest, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
@@ -283,7 +283,7 @@ func (a *ImagesApiService) GetImagePolicyCheckByDigestExecute(r ApiGetImagePolic
 	}
 
 	if r.policyId != nil {
-		localVarQueryParams.Add("policyId", parameterToString(*r.policyId, ""))
+		localVarQueryParams.Add("policy_id", parameterToString(*r.policyId, ""))
 	}
 	localVarQueryParams.Add("tag", parameterToString(*r.tag, ""))
 	if r.detail != nil {
@@ -433,8 +433,8 @@ func (a *ImagesApiService) GetImageVulnerabilitiesByDigestExecute(r ApiGetImageV
 		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/images/{imageDigest}/vuln/{vtype}"
-	localVarPath = strings.Replace(localVarPath, "{"+"imageDigest"+"}", _neturl.PathEscape(parameterToString(r.imageDigest, "")), -1)
+	localVarPath := localBasePath + "/images/{image_digest}/vuln/{vtype}"
+	localVarPath = strings.Replace(localVarPath, "{"+"image_digest"+"}", _neturl.PathEscape(parameterToString(r.imageDigest, "")), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"vtype"+"}", _neturl.PathEscape(parameterToString(r.vtype, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)

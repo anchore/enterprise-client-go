@@ -17,10 +17,10 @@ import (
 
 // AnalysisUpdateNotificationPayload struct for AnalysisUpdateNotificationPayload
 type AnalysisUpdateNotificationPayload struct {
-	UserId *string `json:"userId,omitempty"`
+	AccountName *string `json:"account_name,omitempty"`
 	SubscriptionKey *string `json:"subscription_key,omitempty"`
 	SubscriptionType *string `json:"subscription_type,omitempty"`
-	NotificationId *string `json:"notificationId,omitempty"`
+	NotificationId *string `json:"notification_id,omitempty"`
 	CurrEval *AnalysisUpdateEval `json:"curr_eval,omitempty"`
 	LastEval *AnalysisUpdateEval `json:"last_eval,omitempty"`
 	// List of Corresponding Image Annotations
@@ -44,36 +44,36 @@ func NewAnalysisUpdateNotificationPayloadWithDefaults() *AnalysisUpdateNotificat
 	return &this
 }
 
-// GetUserId returns the UserId field value if set, zero value otherwise.
-func (o *AnalysisUpdateNotificationPayload) GetUserId() string {
-	if o == nil || o.UserId == nil {
+// GetAccountName returns the AccountName field value if set, zero value otherwise.
+func (o *AnalysisUpdateNotificationPayload) GetAccountName() string {
+	if o == nil || o.AccountName == nil {
 		var ret string
 		return ret
 	}
-	return *o.UserId
+	return *o.AccountName
 }
 
-// GetUserIdOk returns a tuple with the UserId field value if set, nil otherwise
+// GetAccountNameOk returns a tuple with the AccountName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AnalysisUpdateNotificationPayload) GetUserIdOk() (*string, bool) {
-	if o == nil || o.UserId == nil {
+func (o *AnalysisUpdateNotificationPayload) GetAccountNameOk() (*string, bool) {
+	if o == nil || o.AccountName == nil {
 		return nil, false
 	}
-	return o.UserId, true
+	return o.AccountName, true
 }
 
-// HasUserId returns a boolean if a field has been set.
-func (o *AnalysisUpdateNotificationPayload) HasUserId() bool {
-	if o != nil && o.UserId != nil {
+// HasAccountName returns a boolean if a field has been set.
+func (o *AnalysisUpdateNotificationPayload) HasAccountName() bool {
+	if o != nil && o.AccountName != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetUserId gets a reference to the given string and assigns it to the UserId field.
-func (o *AnalysisUpdateNotificationPayload) SetUserId(v string) {
-	o.UserId = &v
+// SetAccountName gets a reference to the given string and assigns it to the AccountName field.
+func (o *AnalysisUpdateNotificationPayload) SetAccountName(v string) {
+	o.AccountName = &v
 }
 
 // GetSubscriptionKey returns the SubscriptionKey field value if set, zero value otherwise.
@@ -271,8 +271,8 @@ func (o *AnalysisUpdateNotificationPayload) SetAnnotations(v interface{}) {
 
 func (o AnalysisUpdateNotificationPayload) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
-	if o.UserId != nil {
-		toSerialize["userId"] = o.UserId
+	if o.AccountName != nil {
+		toSerialize["account_name"] = o.AccountName
 	}
 	if o.SubscriptionKey != nil {
 		toSerialize["subscription_key"] = o.SubscriptionKey
@@ -281,7 +281,7 @@ func (o AnalysisUpdateNotificationPayload) MarshalJSON() ([]byte, error) {
 		toSerialize["subscription_type"] = o.SubscriptionType
 	}
 	if o.NotificationId != nil {
-		toSerialize["notificationId"] = o.NotificationId
+		toSerialize["notification_id"] = o.NotificationId
 	}
 	if o.CurrEval != nil {
 		toSerialize["curr_eval"] = o.CurrEval

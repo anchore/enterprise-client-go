@@ -4,13 +4,13 @@ All URIs are relative to *http://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**ListImagetags**](SummariesApi.md#ListImagetags) | **Get** /summaries/imagetags | List all visible image digests and tags
+[**ListImageTags**](SummariesApi.md#ListImageTags) | **Get** /summaries/image-tags | List all visible image digests and tags
 
 
 
-## ListImagetags
+## ListImageTags
 
-> []AnchoreImageTagSummary ListImagetags(ctx).ImageStatus(imageStatus).XAnchoreAccount(xAnchoreAccount).Execute()
+> []AnchoreImageTagSummary ListImageTags(ctx).ImageStatus(imageStatus).XAnchoreAccount(xAnchoreAccount).Execute()
 
 List all visible image digests and tags
 
@@ -34,13 +34,13 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.SummariesApi.ListImagetags(context.Background()).ImageStatus(imageStatus).XAnchoreAccount(xAnchoreAccount).Execute()
+    resp, r, err := api_client.SummariesApi.ListImageTags(context.Background()).ImageStatus(imageStatus).XAnchoreAccount(xAnchoreAccount).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `SummariesApi.ListImagetags``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `SummariesApi.ListImageTags``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `ListImagetags`: []AnchoreImageTagSummary
-    fmt.Fprintf(os.Stdout, "Response from `SummariesApi.ListImagetags`: %v\n", resp)
+    // response from `ListImageTags`: []AnchoreImageTagSummary
+    fmt.Fprintf(os.Stdout, "Response from `SummariesApi.ListImageTags`: %v\n", resp)
 }
 ```
 
@@ -50,7 +50,7 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiListImagetagsRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiListImageTagsRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes

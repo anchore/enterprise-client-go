@@ -74,12 +74,12 @@ paths:
       summary: List roles available in the system
       x-swagger-router-controller: anchore_enterprise.services.rbac_manager.api.controllers.roles
       x-anchore-authz-action: listRoles
-  /roles/{rolename}:
+  /roles/{role_name}:
     get:
       operationId: get_role
       parameters:
       - in: path
-        name: rolename
+        name: role_name
         required: true
         schema:
           format: path
@@ -100,12 +100,12 @@ paths:
       summary: Get detailed information about a specific role
       x-swagger-router-controller: anchore_enterprise.services.rbac_manager.api.controllers.roles
       x-anchore-authz-action: getRole
-  /roles/{rolename}/members:
+  /roles/{role_name}/members:
     delete:
       operationId: delete_role_user
       parameters:
       - in: path
-        name: rolename
+        name: role_name
         required: true
         schema:
           format: path
@@ -139,7 +139,7 @@ paths:
       operationId: list_role_members
       parameters:
       - in: path
-        name: rolename
+        name: role_name
         required: true
         schema:
           format: path
@@ -172,7 +172,7 @@ paths:
       operationId: add_role_user
       parameters:
       - in: path
-        name: rolename
+        name: role_name
         required: true
         schema:
           format: path
@@ -544,7 +544,7 @@ components:
     RoleMemberList:
       description: List of members of the role, may be filtered by the calling user's
         access level (e.g. will not display members for which the caller doesn't have
-        listRoleMembers acocunt access)
+        listRoleMembers account access)
       items:
         $ref: '#/components/schemas/RoleMember'
       type: array

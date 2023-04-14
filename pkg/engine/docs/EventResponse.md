@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**GeneratedUuid** | Pointer to **string** |  | [optional] 
+**EventId** | Pointer to **string** |  | [optional] 
 **CreatedAt** | Pointer to **time.Time** |  | [optional] 
 **Event** | Pointer to [**EventResponseEvent**](EventResponseEvent.md) |  | [optional] 
 
@@ -27,30 +27,30 @@ NewEventResponseWithDefaults instantiates a new EventResponse object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
-### GetGeneratedUuid
+### GetEventId
 
-`func (o *EventResponse) GetGeneratedUuid() string`
+`func (o *EventResponse) GetEventId() string`
 
-GetGeneratedUuid returns the GeneratedUuid field if non-nil, zero value otherwise.
+GetEventId returns the EventId field if non-nil, zero value otherwise.
 
-### GetGeneratedUuidOk
+### GetEventIdOk
 
-`func (o *EventResponse) GetGeneratedUuidOk() (*string, bool)`
+`func (o *EventResponse) GetEventIdOk() (*string, bool)`
 
-GetGeneratedUuidOk returns a tuple with the GeneratedUuid field if it's non-nil, zero value otherwise
+GetEventIdOk returns a tuple with the EventId field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetGeneratedUuid
+### SetEventId
 
-`func (o *EventResponse) SetGeneratedUuid(v string)`
+`func (o *EventResponse) SetEventId(v string)`
 
-SetGeneratedUuid sets GeneratedUuid field to given value.
+SetEventId sets EventId field to given value.
 
-### HasGeneratedUuid
+### HasEventId
 
-`func (o *EventResponse) HasGeneratedUuid() bool`
+`func (o *EventResponse) HasEventId() bool`
 
-HasGeneratedUuid returns a boolean if a field has been set.
+HasEventId returns a boolean if a field has been set.
 
 ### GetCreatedAt
 

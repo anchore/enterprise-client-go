@@ -5,10 +5,10 @@ All URIs are relative to *http://localhost*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**AddPolicy**](PoliciesApi.md#AddPolicy) | **Post** /policies | Add a new policy
-[**DeletePolicy**](PoliciesApi.md#DeletePolicy) | **Delete** /policies/{policyId} | Delete policy
-[**GetPolicy**](PoliciesApi.md#GetPolicy) | **Get** /policies/{policyId} | Get specific policy
+[**DeletePolicy**](PoliciesApi.md#DeletePolicy) | **Delete** /policies/{policy_id} | Delete policy
+[**GetPolicy**](PoliciesApi.md#GetPolicy) | **Get** /policies/{policy_id} | Get specific policy
 [**ListPolicies**](PoliciesApi.md#ListPolicies) | **Get** /policies | List policies
-[**UpdatePolicy**](PoliciesApi.md#UpdatePolicy) | **Put** /policies/{policyId} | Update policy
+[**UpdatePolicy**](PoliciesApi.md#UpdatePolicy) | **Put** /policies/{policy_id} | Update policy
 
 
 

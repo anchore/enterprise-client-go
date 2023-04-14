@@ -46,8 +46,8 @@ type ApiAddRepositoryRequest struct {
 	ctx _context.Context
 	ApiService RepositoryCredentialsApi
 	repository *string
-	autosubscribe *bool
-	dryrun *bool
+	autoSubscribe *bool
+	dryRun *bool
 	xAnchoreAccount *string
 }
 
@@ -57,13 +57,13 @@ func (r ApiAddRepositoryRequest) Repository(repository string) ApiAddRepositoryR
 	return r
 }
 // flag to enable/disable auto tag_update activation when new images from a repo are added
-func (r ApiAddRepositoryRequest) Autosubscribe(autosubscribe bool) ApiAddRepositoryRequest {
-	r.autosubscribe = &autosubscribe
+func (r ApiAddRepositoryRequest) AutoSubscribe(autoSubscribe bool) ApiAddRepositoryRequest {
+	r.autoSubscribe = &autoSubscribe
 	return r
 }
 // flag to return tags in the repository without actually watching the repository, default is false
-func (r ApiAddRepositoryRequest) Dryrun(dryrun bool) ApiAddRepositoryRequest {
-	r.dryrun = &dryrun
+func (r ApiAddRepositoryRequest) DryRun(dryRun bool) ApiAddRepositoryRequest {
+	r.dryRun = &dryRun
 	return r
 }
 // An account name to change the resource scope of the request to that account, if permissions allow (admin only)
@@ -116,11 +116,11 @@ func (a *RepositoryCredentialsApiService) AddRepositoryExecute(r ApiAddRepositor
 	}
 
 	localVarQueryParams.Add("repository", parameterToString(*r.repository, ""))
-	if r.autosubscribe != nil {
-		localVarQueryParams.Add("autosubscribe", parameterToString(*r.autosubscribe, ""))
+	if r.autoSubscribe != nil {
+		localVarQueryParams.Add("auto_subscribe", parameterToString(*r.autoSubscribe, ""))
 	}
-	if r.dryrun != nil {
-		localVarQueryParams.Add("dryrun", parameterToString(*r.dryrun, ""))
+	if r.dryRun != nil {
+		localVarQueryParams.Add("dry_run", parameterToString(*r.dryRun, ""))
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}

@@ -19,7 +19,7 @@ import (
 // ImageArtifact Model for an image artifact
 type ImageArtifact struct {
 	// The account id
-	AccountId *string `json:"account_id,omitempty"`
+	AccountName *string `json:"account_name,omitempty"`
 	// The digest of the image
 	ImageDigest *string `json:"image_digest,omitempty"`
 	// The distro of the image
@@ -55,36 +55,36 @@ func NewImageArtifactWithDefaults() *ImageArtifact {
 	return &this
 }
 
-// GetAccountId returns the AccountId field value if set, zero value otherwise.
-func (o *ImageArtifact) GetAccountId() string {
-	if o == nil || o.AccountId == nil {
+// GetAccountName returns the AccountName field value if set, zero value otherwise.
+func (o *ImageArtifact) GetAccountName() string {
+	if o == nil || o.AccountName == nil {
 		var ret string
 		return ret
 	}
-	return *o.AccountId
+	return *o.AccountName
 }
 
-// GetAccountIdOk returns a tuple with the AccountId field value if set, nil otherwise
+// GetAccountNameOk returns a tuple with the AccountName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ImageArtifact) GetAccountIdOk() (*string, bool) {
-	if o == nil || o.AccountId == nil {
+func (o *ImageArtifact) GetAccountNameOk() (*string, bool) {
+	if o == nil || o.AccountName == nil {
 		return nil, false
 	}
-	return o.AccountId, true
+	return o.AccountName, true
 }
 
-// HasAccountId returns a boolean if a field has been set.
-func (o *ImageArtifact) HasAccountId() bool {
-	if o != nil && o.AccountId != nil {
+// HasAccountName returns a boolean if a field has been set.
+func (o *ImageArtifact) HasAccountName() bool {
+	if o != nil && o.AccountName != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetAccountId gets a reference to the given string and assigns it to the AccountId field.
-func (o *ImageArtifact) SetAccountId(v string) {
-	o.AccountId = &v
+// SetAccountName gets a reference to the given string and assigns it to the AccountName field.
+func (o *ImageArtifact) SetAccountName(v string) {
+	o.AccountName = &v
 }
 
 // GetImageDigest returns the ImageDigest field value if set, zero value otherwise.
@@ -345,8 +345,8 @@ func (o *ImageArtifact) SetLastUpdated(v time.Time) {
 
 func (o ImageArtifact) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
-	if o.AccountId != nil {
-		toSerialize["account_id"] = o.AccountId
+	if o.AccountName != nil {
+		toSerialize["account_name"] = o.AccountName
 	}
 	if o.ImageDigest != nil {
 		toSerialize["image_digest"] = o.ImageDigest

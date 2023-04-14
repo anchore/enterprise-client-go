@@ -151,8 +151,8 @@ func (a *EventsApiService) DeleteEventExecute(r ApiDeleteEventRequest) (*_nethtt
 		return nil, GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/events/{eventId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"eventId"+"}", _neturl.PathEscape(parameterToString(r.eventId, "")), -1)
+	localVarPath := localBasePath + "/events/{event_id}"
+	localVarPath = strings.Replace(localVarPath, "{"+"event_id"+"}", _neturl.PathEscape(parameterToString(r.eventId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
@@ -404,8 +404,8 @@ func (a *EventsApiService) GetEventExecute(r ApiGetEventRequest) (EventResponse,
 		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/events/{eventId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"eventId"+"}", _neturl.PathEscape(parameterToString(r.eventId, "")), -1)
+	localVarPath := localBasePath + "/events/{event_id}"
+	localVarPath = strings.Replace(localVarPath, "{"+"event_id"+"}", _neturl.PathEscape(parameterToString(r.eventId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
@@ -573,8 +573,8 @@ func (a *EventsApiService) ListEventTypesExecute(r ApiListEventTypesRequest) ([]
 type ApiListEventsRequest struct {
 	ctx _context.Context
 	ApiService EventsApi
-	sourceServicename *string
-	sourceHostid *string
+	sourceServiceName *string
+	sourceHostId *string
 	eventType *string
 	resourceType *string
 	resourceId *string
@@ -587,13 +587,13 @@ type ApiListEventsRequest struct {
 }
 
 // Filter events by the originating service
-func (r ApiListEventsRequest) SourceServicename(sourceServicename string) ApiListEventsRequest {
-	r.sourceServicename = &sourceServicename
+func (r ApiListEventsRequest) SourceServiceName(sourceServiceName string) ApiListEventsRequest {
+	r.sourceServiceName = &sourceServiceName
 	return r
 }
 // Filter events by the originating host ID
-func (r ApiListEventsRequest) SourceHostid(sourceHostid string) ApiListEventsRequest {
-	r.sourceHostid = &sourceHostid
+func (r ApiListEventsRequest) SourceHostId(sourceHostId string) ApiListEventsRequest {
+	r.sourceHostId = &sourceHostId
 	return r
 }
 // Filter events by a prefix match on the event type (e.g. \&quot;user.image.\&quot;)
@@ -601,7 +601,7 @@ func (r ApiListEventsRequest) EventType(eventType string) ApiListEventsRequest {
 	r.eventType = &eventType
 	return r
 }
-// Filter events by the type of resource - tag, imageDigest, repository etc
+// Filter events by the type of resource - tag, image_digest, repository etc
 func (r ApiListEventsRequest) ResourceType(resourceType string) ApiListEventsRequest {
 	r.resourceType = &resourceType
 	return r
@@ -684,11 +684,11 @@ func (a *EventsApiService) ListEventsExecute(r ApiListEventsRequest) (EventsList
 	localVarQueryParams := _neturl.Values{}
 	localVarFormParams := _neturl.Values{}
 
-	if r.sourceServicename != nil {
-		localVarQueryParams.Add("source_servicename", parameterToString(*r.sourceServicename, ""))
+	if r.sourceServiceName != nil {
+		localVarQueryParams.Add("source_service_name", parameterToString(*r.sourceServiceName, ""))
 	}
-	if r.sourceHostid != nil {
-		localVarQueryParams.Add("source_hostid", parameterToString(*r.sourceHostid, ""))
+	if r.sourceHostId != nil {
+		localVarQueryParams.Add("source_host_id", parameterToString(*r.sourceHostId, ""))
 	}
 	if r.eventType != nil {
 		localVarQueryParams.Add("event_type", parameterToString(*r.eventType, ""))

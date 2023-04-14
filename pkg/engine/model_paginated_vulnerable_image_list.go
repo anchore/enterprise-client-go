@@ -15,7 +15,7 @@ import (
 	"encoding/json"
 )
 
-// PaginatedVulnerableImageList Pagination wrapped list of images with vulnerabilties that match some filter
+// PaginatedVulnerableImageList Pagination wrapped list of images with vulnerabilities that match some filter
 type PaginatedVulnerableImageList struct {
 	// The page number returned (should match the requested page query string param)
 	Page *string `json:"page,omitempty"`

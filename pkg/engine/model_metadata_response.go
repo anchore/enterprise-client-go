@@ -17,7 +17,7 @@ import (
 
 // MetadataResponse Generic wrapper for metadata listings from images
 type MetadataResponse struct {
-	ImageDigest *string `json:"imageDigest,omitempty"`
+	ImageDigest *string `json:"image_digest,omitempty"`
 	MetadataType *string `json:"metadata_type,omitempty"`
 	Metadata *interface{} `json:"metadata,omitempty"`
 }
@@ -138,7 +138,7 @@ func (o *MetadataResponse) SetMetadata(v interface{}) {
 func (o MetadataResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.ImageDigest != nil {
-		toSerialize["imageDigest"] = o.ImageDigest
+		toSerialize["image_digest"] = o.ImageDigest
 	}
 	if o.MetadataType != nil {
 		toSerialize["metadata_type"] = o.MetadataType

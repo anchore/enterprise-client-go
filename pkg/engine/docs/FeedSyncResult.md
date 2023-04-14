@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Feed** | Pointer to **string** | The name of the feed synced | [optional] 
 **Status** | Pointer to **string** | The result of the sync operations, either co | [optional] 
-**TotalTimeSeconds** | Pointer to **float32** | The duratin, in seconds, of the sync of the feed, the sum of all the group syncs | [optional] 
+**TotalTimeSeconds** | Pointer to **float32** | The duration, in seconds, of the sync of the feed, the sum of all the group syncs | [optional] 
 **Groups** | Pointer to [**[]GroupSyncResult**](GroupSyncResult.md) | Array of group sync results | [optional] 
 
 ## Methods

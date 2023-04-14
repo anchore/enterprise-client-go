@@ -424,8 +424,8 @@ func (a *ArchivesApiService) DeleteAnalysisArchiveRuleExecute(r ApiDeleteAnalysi
 		return nil, GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/archives/rules/{ruleId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"ruleId"+"}", _neturl.PathEscape(parameterToString(r.ruleId, "")), -1)
+	localVarPath := localBasePath + "/archives/rules/{rule_id}"
+	localVarPath = strings.Replace(localVarPath, "{"+"rule_id"+"}", _neturl.PathEscape(parameterToString(r.ruleId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
@@ -533,8 +533,8 @@ func (a *ArchivesApiService) DeleteArchivedAnalysisExecute(r ApiDeleteArchivedAn
 		return nil, GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/archives/images/{imageDigest}"
-	localVarPath = strings.Replace(localVarPath, "{"+"imageDigest"+"}", _neturl.PathEscape(parameterToString(r.imageDigest, "")), -1)
+	localVarPath := localBasePath + "/archives/images/{image_digest}"
+	localVarPath = strings.Replace(localVarPath, "{"+"image_digest"+"}", _neturl.PathEscape(parameterToString(r.imageDigest, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
@@ -640,8 +640,8 @@ func (a *ArchivesApiService) GetAnalysisArchiveRuleExecute(r ApiGetAnalysisArchi
 		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/archives/rules/{ruleId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"ruleId"+"}", _neturl.PathEscape(parameterToString(r.ruleId, "")), -1)
+	localVarPath := localBasePath + "/archives/rules/{rule_id}"
+	localVarPath = strings.Replace(localVarPath, "{"+"rule_id"+"}", _neturl.PathEscape(parameterToString(r.ruleId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
@@ -755,8 +755,8 @@ func (a *ArchivesApiService) GetArchivedAnalysisExecute(r ApiGetArchivedAnalysis
 		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/archives/images/{imageDigest}"
-	localVarPath = strings.Replace(localVarPath, "{"+"imageDigest"+"}", _neturl.PathEscape(parameterToString(r.imageDigest, "")), -1)
+	localVarPath := localBasePath + "/archives/images/{image_digest}"
+	localVarPath = strings.Replace(localVarPath, "{"+"image_digest"+"}", _neturl.PathEscape(parameterToString(r.imageDigest, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}

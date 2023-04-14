@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Uuid** | Pointer to **string** |  | [optional] 
-**AccountId** | Pointer to **string** |  | [optional] 
+**AccountName** | Pointer to **string** |  | [optional] 
 **VcsType** | Pointer to **string** |  | [optional] 
 **Host** | Pointer to **string** |  | [optional] 
 **RepositoryName** | Pointer to **string** |  | [optional] 
@@ -60,30 +60,30 @@ SetUuid sets Uuid field to given value.
 
 HasUuid returns a boolean if a field has been set.
 
-### GetAccountId
+### GetAccountName
 
-`func (o *SourceManifest) GetAccountId() string`
+`func (o *SourceManifest) GetAccountName() string`
 
-GetAccountId returns the AccountId field if non-nil, zero value otherwise.
+GetAccountName returns the AccountName field if non-nil, zero value otherwise.
 
-### GetAccountIdOk
+### GetAccountNameOk
 
-`func (o *SourceManifest) GetAccountIdOk() (*string, bool)`
+`func (o *SourceManifest) GetAccountNameOk() (*string, bool)`
 
-GetAccountIdOk returns a tuple with the AccountId field if it's non-nil, zero value otherwise
+GetAccountNameOk returns a tuple with the AccountName field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetAccountId
+### SetAccountName
 
-`func (o *SourceManifest) SetAccountId(v string)`
+`func (o *SourceManifest) SetAccountName(v string)`
 
-SetAccountId sets AccountId field to given value.
+SetAccountName sets AccountName field to given value.
 
-### HasAccountId
+### HasAccountName
 
-`func (o *SourceManifest) HasAccountId() bool`
+`func (o *SourceManifest) HasAccountName() bool`
 
-HasAccountId returns a boolean if a field has been set.
+HasAccountName returns a boolean if a field has been set.
 
 ### GetVcsType
 

@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**UserId** | Pointer to **string** |  | [optional] 
+**AccountName** | Pointer to **string** |  | [optional] 
 **SubscriptionKey** | Pointer to **string** |  | [optional] 
 **SubscriptionType** | Pointer to **string** |  | [optional] 
 **NotificationId** | Pointer to **string** |  | [optional] 
@@ -28,30 +28,30 @@ NewGenericNotificationPayloadWithDefaults instantiates a new GenericNotification
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
-### GetUserId
+### GetAccountName
 
-`func (o *GenericNotificationPayload) GetUserId() string`
+`func (o *GenericNotificationPayload) GetAccountName() string`
 
-GetUserId returns the UserId field if non-nil, zero value otherwise.
+GetAccountName returns the AccountName field if non-nil, zero value otherwise.
 
-### GetUserIdOk
+### GetAccountNameOk
 
-`func (o *GenericNotificationPayload) GetUserIdOk() (*string, bool)`
+`func (o *GenericNotificationPayload) GetAccountNameOk() (*string, bool)`
 
-GetUserIdOk returns a tuple with the UserId field if it's non-nil, zero value otherwise
+GetAccountNameOk returns a tuple with the AccountName field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetUserId
+### SetAccountName
 
-`func (o *GenericNotificationPayload) SetUserId(v string)`
+`func (o *GenericNotificationPayload) SetAccountName(v string)`
 
-SetUserId sets UserId field to given value.
+SetAccountName sets AccountName field to given value.
 
-### HasUserId
+### HasAccountName
 
-`func (o *GenericNotificationPayload) HasUserId() bool`
+`func (o *GenericNotificationPayload) HasAccountName() bool`
 
-HasUserId returns a boolean if a field has been set.
+HasAccountName returns a boolean if a field has been set.
 
 ### GetSubscriptionKey
 

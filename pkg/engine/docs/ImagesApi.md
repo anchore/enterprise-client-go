@@ -5,39 +5,39 @@ All URIs are relative to *http://localhost*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**AddImage**](ImagesApi.md#AddImage) | **Post** /images | Submit a new image for analysis by the engine
-[**DeleteImage**](ImagesApi.md#DeleteImage) | **Delete** /images/{imageDigest} | Delete an image analysis
-[**DeleteImageByImageId**](ImagesApi.md#DeleteImageByImageId) | **Delete** /images/by_id/{imageId} | Delete image by docker imageId
+[**DeleteImage**](ImagesApi.md#DeleteImage) | **Delete** /images/{image_digest} | Delete an image analysis
+[**DeleteImageByImageId**](ImagesApi.md#DeleteImageByImageId) | **Delete** /images/by_id/{image_id} | Delete image by docker image_id
 [**DeleteImagesAsync**](ImagesApi.md#DeleteImagesAsync) | **Delete** /images | Bulk mark images for deletion
-[**GetImage**](ImagesApi.md#GetImage) | **Get** /images/{imageDigest} | Get image metadata
-[**GetImageByImageId**](ImagesApi.md#GetImageByImageId) | **Get** /images/by_id/{imageId} | Lookup image by docker imageId
-[**GetImageContentByType**](ImagesApi.md#GetImageContentByType) | **Get** /images/{imageDigest}/content/{ctype} | Get the content of an image by type
-[**GetImageContentByTypeFiles**](ImagesApi.md#GetImageContentByTypeFiles) | **Get** /images/{imageDigest}/content/files | Get the content of an image by type files
-[**GetImageContentByTypeImageId**](ImagesApi.md#GetImageContentByTypeImageId) | **Get** /images/by_id/{imageId}/content/{ctype} | Get the content of an image by type
-[**GetImageContentByTypeImageIdFiles**](ImagesApi.md#GetImageContentByTypeImageIdFiles) | **Get** /images/by_id/{imageId}/content/files | Get the content of an image by type files
-[**GetImageContentByTypeImageIdJavapackage**](ImagesApi.md#GetImageContentByTypeImageIdJavapackage) | **Get** /images/by_id/{imageId}/content/java | Get the content of an image by type java
-[**GetImageContentByTypeJavapackage**](ImagesApi.md#GetImageContentByTypeJavapackage) | **Get** /images/{imageDigest}/content/java | Get the content of an image by type java
-[**GetImageContentByTypeMalware**](ImagesApi.md#GetImageContentByTypeMalware) | **Get** /images/{imageDigest}/content/malware | Get the content of an image by type malware
-[**GetImageMetadataByType**](ImagesApi.md#GetImageMetadataByType) | **Get** /images/{imageDigest}/metadata/{mtype} | Get the metadata of an image by type
-[**GetImagePolicyCheck**](ImagesApi.md#GetImagePolicyCheck) | **Get** /images/{imageDigest}/check | Check policy evaluation status for image
-[**GetImagePolicyCheckByImageId**](ImagesApi.md#GetImagePolicyCheckByImageId) | **Get** /images/by_id/{imageId}/check | Check policy evaluation status for image
-[**GetImageSbomCyclonedxJson**](ImagesApi.md#GetImageSbomCyclonedxJson) | **Get** /images/{imageDigest}/sboms/cyclonedx-json | Get image sbom in the CycloneDX format
-[**GetImageSbomNative**](ImagesApi.md#GetImageSbomNative) | **Get** /images/{imageDigest}/sboms/native | Get image sbom in the native Anchore format
-[**GetImageSbomNativeJson**](ImagesApi.md#GetImageSbomNativeJson) | **Get** /images/{imageDigest}/sboms/native-json | Get image sbom in the native Anchore format
-[**GetImageSbomSpdxJson**](ImagesApi.md#GetImageSbomSpdxJson) | **Get** /images/{imageDigest}/sboms/spdx-json | Get image sbom in the SPDX format
-[**GetImageVulnerabilitiesByType**](ImagesApi.md#GetImageVulnerabilitiesByType) | **Get** /images/{imageDigest}/vuln/{vtype} | Get vulnerabilities by type
-[**GetImageVulnerabilitiesByTypeImageId**](ImagesApi.md#GetImageVulnerabilitiesByTypeImageId) | **Get** /images/by_id/{imageId}/vuln/{vtype} | Get vulnerabilities by type
-[**GetImageVulnerabilityTypes**](ImagesApi.md#GetImageVulnerabilityTypes) | **Get** /images/{imageDigest}/vuln | Get vulnerability types
-[**GetImageVulnerabilityTypesByImageId**](ImagesApi.md#GetImageVulnerabilityTypesByImageId) | **Get** /images/by_id/{imageId}/vuln | Get vulnerability types
-[**ListImageContent**](ImagesApi.md#ListImageContent) | **Get** /images/{imageDigest}/content | List image content types
-[**ListImageContentByImageid**](ImagesApi.md#ListImageContentByImageid) | **Get** /images/by_id/{imageId}/content | List image content types
-[**ListImageMetadata**](ImagesApi.md#ListImageMetadata) | **Get** /images/{imageDigest}/metadata | List image metadata types
+[**GetImage**](ImagesApi.md#GetImage) | **Get** /images/{image_digest} | Get image metadata
+[**GetImageByImageId**](ImagesApi.md#GetImageByImageId) | **Get** /images/by_id/{image_id} | Lookup image by docker image_id
+[**GetImageContentByType**](ImagesApi.md#GetImageContentByType) | **Get** /images/{image_digest}/content/{content_type} | Get the content of an image by type
+[**GetImageContentByTypeFiles**](ImagesApi.md#GetImageContentByTypeFiles) | **Get** /images/{image_digest}/content/files | Get the content of an image by type files
+[**GetImageContentByTypeImageId**](ImagesApi.md#GetImageContentByTypeImageId) | **Get** /images/by_id/{image_id}/content/{content_type} | Get the content of an image by type
+[**GetImageContentByTypeImageIdFiles**](ImagesApi.md#GetImageContentByTypeImageIdFiles) | **Get** /images/by_id/{image_id}/content/files | Get the content of an image by type files
+[**GetImageContentByTypeImageIdJavaPackage**](ImagesApi.md#GetImageContentByTypeImageIdJavaPackage) | **Get** /images/by_id/{image_id}/content/java | Get the content of an image by type java
+[**GetImageContentByTypeJavaPackage**](ImagesApi.md#GetImageContentByTypeJavaPackage) | **Get** /images/{image_digest}/content/java | Get the content of an image by type java
+[**GetImageContentByTypeMalware**](ImagesApi.md#GetImageContentByTypeMalware) | **Get** /images/{image_digest}/content/malware | Get the content of an image by type malware
+[**GetImageMetadataByType**](ImagesApi.md#GetImageMetadataByType) | **Get** /images/{image_digest}/metadata/{mtype} | Get the metadata of an image by type
+[**GetImagePolicyCheck**](ImagesApi.md#GetImagePolicyCheck) | **Get** /images/{image_digest}/check | Check policy evaluation status for image
+[**GetImagePolicyCheckByImageId**](ImagesApi.md#GetImagePolicyCheckByImageId) | **Get** /images/by_id/{image_id}/check | Check policy evaluation status for image
+[**GetImageSbomCyclonedxJson**](ImagesApi.md#GetImageSbomCyclonedxJson) | **Get** /images/{image_digest}/sboms/cyclonedx-json | Get image sbom in the CycloneDX format
+[**GetImageSbomNative**](ImagesApi.md#GetImageSbomNative) | **Get** /images/{image_digest}/sboms/native | Get image sbom in the native Anchore format
+[**GetImageSbomNativeJson**](ImagesApi.md#GetImageSbomNativeJson) | **Get** /images/{image_digest}/sboms/native-json | Get image sbom in the native Anchore format
+[**GetImageSbomSpdxJson**](ImagesApi.md#GetImageSbomSpdxJson) | **Get** /images/{image_digest}/sboms/spdx-json | Get image sbom in the SPDX format
+[**GetImageVulnerabilitiesByType**](ImagesApi.md#GetImageVulnerabilitiesByType) | **Get** /images/{image_digest}/vuln/{vtype} | Get vulnerabilities by type
+[**GetImageVulnerabilitiesByTypeImageId**](ImagesApi.md#GetImageVulnerabilitiesByTypeImageId) | **Get** /images/by_id/{image_id}/vuln/{vtype} | Get vulnerabilities by type
+[**GetImageVulnerabilityTypes**](ImagesApi.md#GetImageVulnerabilityTypes) | **Get** /images/{image_digest}/vuln | Get vulnerability types
+[**GetImageVulnerabilityTypesByImageId**](ImagesApi.md#GetImageVulnerabilityTypesByImageId) | **Get** /images/by_id/{image_id}/vuln | Get vulnerability types
+[**ListImageContent**](ImagesApi.md#ListImageContent) | **Get** /images/{image_digest}/content | List image content types
+[**ListImageContentByImageId**](ImagesApi.md#ListImageContentByImageId) | **Get** /images/by_id/{image_id}/content | List image content types
+[**ListImageMetadata**](ImagesApi.md#ListImageMetadata) | **Get** /images/{image_digest}/metadata | List image metadata types
 [**ListImages**](ImagesApi.md#ListImages) | **Get** /images | List all visible images
 
 
 
 ## AddImage
 
-> []AnchoreImage AddImage(ctx).Image(image).Force(force).Autosubscribe(autosubscribe).XAnchoreAccount(xAnchoreAccount).Execute()
+> []AnchoreImage AddImage(ctx).Image(image).Force(force).AutoSubscribe(autoSubscribe).XAnchoreAccount(xAnchoreAccount).Execute()
 
 Submit a new image for analysis by the engine
 
@@ -58,12 +58,12 @@ import (
 func main() {
     image := *openapiclient.NewImageAnalysisRequest() // ImageAnalysisRequest | 
     force := true // bool | Override any existing entry in the system (optional)
-    autosubscribe := true // bool | Instruct engine to automatically begin watching the added tag for updates from registry (optional)
+    autoSubscribe := true // bool | Instruct engine to automatically begin watching the added tag for updates from registry (optional)
     xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.ImagesApi.AddImage(context.Background()).Image(image).Force(force).Autosubscribe(autosubscribe).XAnchoreAccount(xAnchoreAccount).Execute()
+    resp, r, err := api_client.ImagesApi.AddImage(context.Background()).Image(image).Force(force).AutoSubscribe(autoSubscribe).XAnchoreAccount(xAnchoreAccount).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ImagesApi.AddImage``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -86,7 +86,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **image** | [**ImageAnalysisRequest**](ImageAnalysisRequest.md) |  | 
  **force** | **bool** | Override any existing entry in the system | 
- **autosubscribe** | **bool** | Instruct engine to automatically begin watching the added tag for updates from registry | 
+ **autoSubscribe** | **bool** | Instruct engine to automatically begin watching the added tag for updates from registry | 
  **xAnchoreAccount** | **string** | An account name to change the resource scope of the request to that account, if permissions allow (admin only) | 
 
 ### Return type
@@ -183,7 +183,7 @@ No authorization required
 
 > DeleteImageResponse DeleteImageByImageId(ctx, imageId).Force(force).XAnchoreAccount(xAnchoreAccount).Execute()
 
-Delete image by docker imageId
+Delete image by docker image_id
 
 ### Example
 
@@ -395,7 +395,7 @@ No authorization required
 
 > []AnchoreImage GetImageByImageId(ctx, imageId).XAnchoreAccount(xAnchoreAccount).Execute()
 
-Lookup image by docker imageId
+Lookup image by docker image_id
 
 ### Example
 
@@ -463,7 +463,7 @@ No authorization required
 
 ## GetImageContentByType
 
-> ContentPackageResponse GetImageContentByType(ctx, imageDigest, ctype).XAnchoreAccount(xAnchoreAccount).Execute()
+> ContentPackageResponse GetImageContentByType(ctx, imageDigest, contentType).XAnchoreAccount(xAnchoreAccount).Execute()
 
 Get the content of an image by type
 
@@ -481,12 +481,12 @@ import (
 
 func main() {
     imageDigest := "imageDigest_example" // string | 
-    ctype := "ctype_example" // string | 
+    contentType := "contentType_example" // string | 
     xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.ImagesApi.GetImageContentByType(context.Background(), imageDigest, ctype).XAnchoreAccount(xAnchoreAccount).Execute()
+    resp, r, err := api_client.ImagesApi.GetImageContentByType(context.Background(), imageDigest, contentType).XAnchoreAccount(xAnchoreAccount).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ImagesApi.GetImageContentByType``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -503,7 +503,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **imageDigest** | **string** |  | 
-**ctype** | **string** |  | 
+**contentType** | **string** |  | 
 
 ### Other Parameters
 
@@ -606,7 +606,7 @@ No authorization required
 
 ## GetImageContentByTypeImageId
 
-> ContentPackageResponse GetImageContentByTypeImageId(ctx, imageId, ctype).XAnchoreAccount(xAnchoreAccount).Execute()
+> ContentPackageResponse GetImageContentByTypeImageId(ctx, imageId, contentType).XAnchoreAccount(xAnchoreAccount).Execute()
 
 Get the content of an image by type
 
@@ -624,12 +624,12 @@ import (
 
 func main() {
     imageId := "imageId_example" // string | 
-    ctype := "ctype_example" // string | 
+    contentType := "contentType_example" // string | 
     xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.ImagesApi.GetImageContentByTypeImageId(context.Background(), imageId, ctype).XAnchoreAccount(xAnchoreAccount).Execute()
+    resp, r, err := api_client.ImagesApi.GetImageContentByTypeImageId(context.Background(), imageId, contentType).XAnchoreAccount(xAnchoreAccount).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ImagesApi.GetImageContentByTypeImageId``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -646,7 +646,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **imageId** | **string** |  | 
-**ctype** | **string** |  | 
+**contentType** | **string** |  | 
 
 ### Other Parameters
 
@@ -747,9 +747,9 @@ No authorization required
 [[Back to README]](../README.md)
 
 
-## GetImageContentByTypeImageIdJavapackage
+## GetImageContentByTypeImageIdJavaPackage
 
-> ContentJAVAPackageResponse GetImageContentByTypeImageIdJavapackage(ctx, imageId).XAnchoreAccount(xAnchoreAccount).Execute()
+> ContentJAVAPackageResponse GetImageContentByTypeImageIdJavaPackage(ctx, imageId).XAnchoreAccount(xAnchoreAccount).Execute()
 
 Get the content of an image by type java
 
@@ -771,13 +771,13 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.ImagesApi.GetImageContentByTypeImageIdJavapackage(context.Background(), imageId).XAnchoreAccount(xAnchoreAccount).Execute()
+    resp, r, err := api_client.ImagesApi.GetImageContentByTypeImageIdJavaPackage(context.Background(), imageId).XAnchoreAccount(xAnchoreAccount).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ImagesApi.GetImageContentByTypeImageIdJavapackage``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `ImagesApi.GetImageContentByTypeImageIdJavaPackage``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `GetImageContentByTypeImageIdJavapackage`: ContentJAVAPackageResponse
-    fmt.Fprintf(os.Stdout, "Response from `ImagesApi.GetImageContentByTypeImageIdJavapackage`: %v\n", resp)
+    // response from `GetImageContentByTypeImageIdJavaPackage`: ContentJAVAPackageResponse
+    fmt.Fprintf(os.Stdout, "Response from `ImagesApi.GetImageContentByTypeImageIdJavaPackage`: %v\n", resp)
 }
 ```
 
@@ -791,7 +791,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiGetImageContentByTypeImageIdJavapackageRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetImageContentByTypeImageIdJavaPackageRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -817,9 +817,9 @@ No authorization required
 [[Back to README]](../README.md)
 
 
-## GetImageContentByTypeJavapackage
+## GetImageContentByTypeJavaPackage
 
-> ContentJAVAPackageResponse GetImageContentByTypeJavapackage(ctx, imageDigest).XAnchoreAccount(xAnchoreAccount).Execute()
+> ContentJAVAPackageResponse GetImageContentByTypeJavaPackage(ctx, imageDigest).XAnchoreAccount(xAnchoreAccount).Execute()
 
 Get the content of an image by type java
 
@@ -841,13 +841,13 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.ImagesApi.GetImageContentByTypeJavapackage(context.Background(), imageDigest).XAnchoreAccount(xAnchoreAccount).Execute()
+    resp, r, err := api_client.ImagesApi.GetImageContentByTypeJavaPackage(context.Background(), imageDigest).XAnchoreAccount(xAnchoreAccount).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ImagesApi.GetImageContentByTypeJavapackage``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `ImagesApi.GetImageContentByTypeJavaPackage``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `GetImageContentByTypeJavapackage`: ContentJAVAPackageResponse
-    fmt.Fprintf(os.Stdout, "Response from `ImagesApi.GetImageContentByTypeJavapackage`: %v\n", resp)
+    // response from `GetImageContentByTypeJavaPackage`: ContentJAVAPackageResponse
+    fmt.Fprintf(os.Stdout, "Response from `ImagesApi.GetImageContentByTypeJavaPackage`: %v\n", resp)
 }
 ```
 
@@ -861,7 +861,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiGetImageContentByTypeJavapackageRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiGetImageContentByTypeJavaPackageRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -1832,9 +1832,9 @@ No authorization required
 [[Back to README]](../README.md)
 
 
-## ListImageContentByImageid
+## ListImageContentByImageId
 
-> []string ListImageContentByImageid(ctx, imageId).XAnchoreAccount(xAnchoreAccount).Execute()
+> []string ListImageContentByImageId(ctx, imageId).XAnchoreAccount(xAnchoreAccount).Execute()
 
 List image content types
 
@@ -1856,13 +1856,13 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.ImagesApi.ListImageContentByImageid(context.Background(), imageId).XAnchoreAccount(xAnchoreAccount).Execute()
+    resp, r, err := api_client.ImagesApi.ListImageContentByImageId(context.Background(), imageId).XAnchoreAccount(xAnchoreAccount).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ImagesApi.ListImageContentByImageid``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `ImagesApi.ListImageContentByImageId``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `ListImageContentByImageid`: []string
-    fmt.Fprintf(os.Stdout, "Response from `ImagesApi.ListImageContentByImageid`: %v\n", resp)
+    // response from `ListImageContentByImageId`: []string
+    fmt.Fprintf(os.Stdout, "Response from `ImagesApi.ListImageContentByImageId`: %v\n", resp)
 }
 ```
 
@@ -1876,7 +1876,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiListImageContentByImageidRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiListImageContentByImageIdRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes

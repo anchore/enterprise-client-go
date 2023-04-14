@@ -17,8 +17,8 @@ import (
 
 // EventResponseEventSource struct for EventResponseEventSource
 type EventResponseEventSource struct {
-	Servicename *string `json:"servicename,omitempty"`
-	Hostid *string `json:"hostid,omitempty"`
+	ServiceName *string `json:"service_name,omitempty"`
+	HostId *string `json:"host_id,omitempty"`
 	BaseUrl *string `json:"base_url,omitempty"`
 	RequestId *string `json:"request_id,omitempty"`
 }
@@ -40,68 +40,68 @@ func NewEventResponseEventSourceWithDefaults() *EventResponseEventSource {
 	return &this
 }
 
-// GetServicename returns the Servicename field value if set, zero value otherwise.
-func (o *EventResponseEventSource) GetServicename() string {
-	if o == nil || o.Servicename == nil {
+// GetServiceName returns the ServiceName field value if set, zero value otherwise.
+func (o *EventResponseEventSource) GetServiceName() string {
+	if o == nil || o.ServiceName == nil {
 		var ret string
 		return ret
 	}
-	return *o.Servicename
+	return *o.ServiceName
 }
 
-// GetServicenameOk returns a tuple with the Servicename field value if set, nil otherwise
+// GetServiceNameOk returns a tuple with the ServiceName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *EventResponseEventSource) GetServicenameOk() (*string, bool) {
-	if o == nil || o.Servicename == nil {
+func (o *EventResponseEventSource) GetServiceNameOk() (*string, bool) {
+	if o == nil || o.ServiceName == nil {
 		return nil, false
 	}
-	return o.Servicename, true
+	return o.ServiceName, true
 }
 
-// HasServicename returns a boolean if a field has been set.
-func (o *EventResponseEventSource) HasServicename() bool {
-	if o != nil && o.Servicename != nil {
+// HasServiceName returns a boolean if a field has been set.
+func (o *EventResponseEventSource) HasServiceName() bool {
+	if o != nil && o.ServiceName != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetServicename gets a reference to the given string and assigns it to the Servicename field.
-func (o *EventResponseEventSource) SetServicename(v string) {
-	o.Servicename = &v
+// SetServiceName gets a reference to the given string and assigns it to the ServiceName field.
+func (o *EventResponseEventSource) SetServiceName(v string) {
+	o.ServiceName = &v
 }
 
-// GetHostid returns the Hostid field value if set, zero value otherwise.
-func (o *EventResponseEventSource) GetHostid() string {
-	if o == nil || o.Hostid == nil {
+// GetHostId returns the HostId field value if set, zero value otherwise.
+func (o *EventResponseEventSource) GetHostId() string {
+	if o == nil || o.HostId == nil {
 		var ret string
 		return ret
 	}
-	return *o.Hostid
+	return *o.HostId
 }
 
-// GetHostidOk returns a tuple with the Hostid field value if set, nil otherwise
+// GetHostIdOk returns a tuple with the HostId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *EventResponseEventSource) GetHostidOk() (*string, bool) {
-	if o == nil || o.Hostid == nil {
+func (o *EventResponseEventSource) GetHostIdOk() (*string, bool) {
+	if o == nil || o.HostId == nil {
 		return nil, false
 	}
-	return o.Hostid, true
+	return o.HostId, true
 }
 
-// HasHostid returns a boolean if a field has been set.
-func (o *EventResponseEventSource) HasHostid() bool {
-	if o != nil && o.Hostid != nil {
+// HasHostId returns a boolean if a field has been set.
+func (o *EventResponseEventSource) HasHostId() bool {
+	if o != nil && o.HostId != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetHostid gets a reference to the given string and assigns it to the Hostid field.
-func (o *EventResponseEventSource) SetHostid(v string) {
-	o.Hostid = &v
+// SetHostId gets a reference to the given string and assigns it to the HostId field.
+func (o *EventResponseEventSource) SetHostId(v string) {
+	o.HostId = &v
 }
 
 // GetBaseUrl returns the BaseUrl field value if set, zero value otherwise.
@@ -170,11 +170,11 @@ func (o *EventResponseEventSource) SetRequestId(v string) {
 
 func (o EventResponseEventSource) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Servicename != nil {
-		toSerialize["servicename"] = o.Servicename
+	if o.ServiceName != nil {
+		toSerialize["service_name"] = o.ServiceName
 	}
-	if o.Hostid != nil {
-		toSerialize["hostid"] = o.Hostid
+	if o.HostId != nil {
+		toSerialize["host_id"] = o.HostId
 	}
 	if o.BaseUrl != nil {
 		toSerialize["base_url"] = o.BaseUrl

@@ -8,10 +8,10 @@ Name | Type | Description | Notes
 **LastUpdated** | Pointer to **time.Time** |  | [optional] 
 **PolicyId** | Pointer to **string** | The bundle&#39;s identifier | [optional] 
 **Active** | Pointer to **bool** | True if the bundle is currently defined to be used automatically | [optional] 
-**UserId** | Pointer to **string** | UserId of the user that owns the bundle | [optional] 
+**AccountName** | Pointer to **string** | UserId of the user that owns the bundle | [optional] 
 **PolicySource** | Pointer to **string** | Source location of where the policy bundle originated | [optional] 
-**Policybundle** | Pointer to [**PolicyBundle**](PolicyBundle.md) |  | [optional] 
-**Policybundlemeta** | Pointer to **interface{}** |  | [optional] 
+**PolicyBundle** | Pointer to [**PolicyBundle**](PolicyBundle.md) |  | [optional] 
+**PolicyBundleMeta** | Pointer to **interface{}** |  | [optional] 
 **Name** | Pointer to **string** | Name of the policy bundle | [optional] 
 **Description** | Pointer to **string** | Description of the bundle, human readable | [optional] 
 
@@ -134,30 +134,30 @@ SetActive sets Active field to given value.
 
 HasActive returns a boolean if a field has been set.
 
-### GetUserId
+### GetAccountName
 
-`func (o *PolicyBundleRecord) GetUserId() string`
+`func (o *PolicyBundleRecord) GetAccountName() string`
 
-GetUserId returns the UserId field if non-nil, zero value otherwise.
+GetAccountName returns the AccountName field if non-nil, zero value otherwise.
 
-### GetUserIdOk
+### GetAccountNameOk
 
-`func (o *PolicyBundleRecord) GetUserIdOk() (*string, bool)`
+`func (o *PolicyBundleRecord) GetAccountNameOk() (*string, bool)`
 
-GetUserIdOk returns a tuple with the UserId field if it's non-nil, zero value otherwise
+GetAccountNameOk returns a tuple with the AccountName field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetUserId
+### SetAccountName
 
-`func (o *PolicyBundleRecord) SetUserId(v string)`
+`func (o *PolicyBundleRecord) SetAccountName(v string)`
 
-SetUserId sets UserId field to given value.
+SetAccountName sets AccountName field to given value.
 
-### HasUserId
+### HasAccountName
 
-`func (o *PolicyBundleRecord) HasUserId() bool`
+`func (o *PolicyBundleRecord) HasAccountName() bool`
 
-HasUserId returns a boolean if a field has been set.
+HasAccountName returns a boolean if a field has been set.
 
 ### GetPolicySource
 
@@ -184,55 +184,55 @@ SetPolicySource sets PolicySource field to given value.
 
 HasPolicySource returns a boolean if a field has been set.
 
-### GetPolicybundle
+### GetPolicyBundle
 
-`func (o *PolicyBundleRecord) GetPolicybundle() PolicyBundle`
+`func (o *PolicyBundleRecord) GetPolicyBundle() PolicyBundle`
 
-GetPolicybundle returns the Policybundle field if non-nil, zero value otherwise.
+GetPolicyBundle returns the PolicyBundle field if non-nil, zero value otherwise.
 
-### GetPolicybundleOk
+### GetPolicyBundleOk
 
-`func (o *PolicyBundleRecord) GetPolicybundleOk() (*PolicyBundle, bool)`
+`func (o *PolicyBundleRecord) GetPolicyBundleOk() (*PolicyBundle, bool)`
 
-GetPolicybundleOk returns a tuple with the Policybundle field if it's non-nil, zero value otherwise
+GetPolicyBundleOk returns a tuple with the PolicyBundle field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetPolicybundle
+### SetPolicyBundle
 
-`func (o *PolicyBundleRecord) SetPolicybundle(v PolicyBundle)`
+`func (o *PolicyBundleRecord) SetPolicyBundle(v PolicyBundle)`
 
-SetPolicybundle sets Policybundle field to given value.
+SetPolicyBundle sets PolicyBundle field to given value.
 
-### HasPolicybundle
+### HasPolicyBundle
 
-`func (o *PolicyBundleRecord) HasPolicybundle() bool`
+`func (o *PolicyBundleRecord) HasPolicyBundle() bool`
 
-HasPolicybundle returns a boolean if a field has been set.
+HasPolicyBundle returns a boolean if a field has been set.
 
-### GetPolicybundlemeta
+### GetPolicyBundleMeta
 
-`func (o *PolicyBundleRecord) GetPolicybundlemeta() interface{}`
+`func (o *PolicyBundleRecord) GetPolicyBundleMeta() interface{}`
 
-GetPolicybundlemeta returns the Policybundlemeta field if non-nil, zero value otherwise.
+GetPolicyBundleMeta returns the PolicyBundleMeta field if non-nil, zero value otherwise.
 
-### GetPolicybundlemetaOk
+### GetPolicyBundleMetaOk
 
-`func (o *PolicyBundleRecord) GetPolicybundlemetaOk() (*interface{}, bool)`
+`func (o *PolicyBundleRecord) GetPolicyBundleMetaOk() (*interface{}, bool)`
 
-GetPolicybundlemetaOk returns a tuple with the Policybundlemeta field if it's non-nil, zero value otherwise
+GetPolicyBundleMetaOk returns a tuple with the PolicyBundleMeta field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetPolicybundlemeta
+### SetPolicyBundleMeta
 
-`func (o *PolicyBundleRecord) SetPolicybundlemeta(v interface{})`
+`func (o *PolicyBundleRecord) SetPolicyBundleMeta(v interface{})`
 
-SetPolicybundlemeta sets Policybundlemeta field to given value.
+SetPolicyBundleMeta sets PolicyBundleMeta field to given value.
 
-### HasPolicybundlemeta
+### HasPolicyBundleMeta
 
-`func (o *PolicyBundleRecord) HasPolicybundlemeta() bool`
+`func (o *PolicyBundleRecord) HasPolicyBundleMeta() bool`
 
-HasPolicybundlemeta returns a boolean if a field has been set.
+HasPolicyBundleMeta returns a boolean if a field has been set.
 
 ### GetName
 

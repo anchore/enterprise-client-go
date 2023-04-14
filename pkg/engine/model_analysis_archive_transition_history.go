@@ -21,7 +21,7 @@ type AnalysisArchiveTransitionHistory struct {
 	// The task that created & updated this entry
 	TransitionTaskId *string `json:"transition_task_id,omitempty"`
 	RuleId *string `json:"rule_id,omitempty"`
-	ImageDigest *string `json:"imageDigest,omitempty"`
+	ImageDigest *string `json:"image_digest,omitempty"`
 	Transition *string `json:"transition,omitempty"`
 	CreatedAt *time.Time `json:"created_at,omitempty"`
 	LastUpdated *time.Time `json:"last_updated,omitempty"`
@@ -245,7 +245,7 @@ func (o AnalysisArchiveTransitionHistory) MarshalJSON() ([]byte, error) {
 		toSerialize["rule_id"] = o.RuleId
 	}
 	if o.ImageDigest != nil {
-		toSerialize["imageDigest"] = o.ImageDigest
+		toSerialize["image_digest"] = o.ImageDigest
 	}
 	if o.Transition != nil {
 		toSerialize["transition"] = o.Transition

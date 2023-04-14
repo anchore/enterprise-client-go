@@ -45,10 +45,10 @@ type DefaultApi interface {
 	AddRoleUser Add a user to the role
 
 	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @param rolename
+	 @param roleName
 	 @return ApiAddRoleUserRequest
 	*/
-	AddRoleUser(ctx _context.Context, rolename string) ApiAddRoleUserRequest
+	AddRoleUser(ctx _context.Context, roleName string) ApiAddRoleUserRequest
 
 	// AddRoleUserExecute executes the request
 	//  @return RoleMember
@@ -72,10 +72,10 @@ type DefaultApi interface {
 	DeleteRoleUser Remove a user from the role
 
 	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @param rolename
+	 @param roleName
 	 @return ApiDeleteRoleUserRequest
 	*/
-	DeleteRoleUser(ctx _context.Context, rolename string) ApiDeleteRoleUserRequest
+	DeleteRoleUser(ctx _context.Context, roleName string) ApiDeleteRoleUserRequest
 
 	// DeleteRoleUserExecute executes the request
 	DeleteRoleUserExecute(r ApiDeleteRoleUserRequest) (*_nethttp.Response, error)
@@ -99,10 +99,10 @@ type DefaultApi interface {
 	GetRole Get detailed information about a specific role
 
 	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @param rolename
+	 @param roleName
 	 @return ApiGetRoleRequest
 	*/
-	GetRole(ctx _context.Context, rolename string) ApiGetRoleRequest
+	GetRole(ctx _context.Context, roleName string) ApiGetRoleRequest
 
 	// GetRoleExecute executes the request
 	//  @return Role
@@ -153,10 +153,10 @@ type DefaultApi interface {
 	ListRoleMembers Returns a list of objects that have members in the role. The list is filtered by 'listRoleMembers' access for the 'account' element of each entry.
 
 	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @param rolename
+	 @param roleName
 	 @return ApiListRoleMembersRequest
 	*/
-	ListRoleMembers(ctx _context.Context, rolename string) ApiListRoleMembersRequest
+	ListRoleMembers(ctx _context.Context, roleName string) ApiListRoleMembersRequest
 
 	// ListRoleMembersExecute executes the request
 	//  @return []RoleMember
@@ -396,7 +396,7 @@ func (a *DefaultApiService) AddIdpExecute(r ApiAddIdpRequest) (SamlConfiguration
 type ApiAddRoleUserRequest struct {
 	ctx _context.Context
 	ApiService DefaultApi
-	rolename string
+	roleName string
 	member *RoleMember
 }
 
@@ -413,14 +413,14 @@ func (r ApiAddRoleUserRequest) Execute() (RoleMember, *_nethttp.Response, error)
 AddRoleUser Add a user to the role
 
  @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param rolename
+ @param roleName
  @return ApiAddRoleUserRequest
 */
-func (a *DefaultApiService) AddRoleUser(ctx _context.Context, rolename string) ApiAddRoleUserRequest {
+func (a *DefaultApiService) AddRoleUser(ctx _context.Context, roleName string) ApiAddRoleUserRequest {
 	return ApiAddRoleUserRequest{
 		ApiService: a,
 		ctx: ctx,
-		rolename: rolename,
+		roleName: roleName,
 	}
 }
 
@@ -441,8 +441,8 @@ func (a *DefaultApiService) AddRoleUserExecute(r ApiAddRoleUserRequest) (RoleMem
 		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/roles/{rolename}/members"
-	localVarPath = strings.Replace(localVarPath, "{"+"rolename"+"}", _neturl.PathEscape(parameterToString(r.rolename, "")), -1)
+	localVarPath := localBasePath + "/roles/{role_name}/members"
+	localVarPath = strings.Replace(localVarPath, "{"+"role_name"+"}", _neturl.PathEscape(parameterToString(r.roleName, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
@@ -623,7 +623,7 @@ func (a *DefaultApiService) DeleteIdpExecute(r ApiDeleteIdpRequest) (*_nethttp.R
 type ApiDeleteRoleUserRequest struct {
 	ctx _context.Context
 	ApiService DefaultApi
-	rolename string
+	roleName string
 	username *string
 	forAccount *string
 }
@@ -647,14 +647,14 @@ func (r ApiDeleteRoleUserRequest) Execute() (*_nethttp.Response, error) {
 DeleteRoleUser Remove a user from the role
 
  @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param rolename
+ @param roleName
  @return ApiDeleteRoleUserRequest
 */
-func (a *DefaultApiService) DeleteRoleUser(ctx _context.Context, rolename string) ApiDeleteRoleUserRequest {
+func (a *DefaultApiService) DeleteRoleUser(ctx _context.Context, roleName string) ApiDeleteRoleUserRequest {
 	return ApiDeleteRoleUserRequest{
 		ApiService: a,
 		ctx: ctx,
-		rolename: rolename,
+		roleName: roleName,
 	}
 }
 
@@ -673,8 +673,8 @@ func (a *DefaultApiService) DeleteRoleUserExecute(r ApiDeleteRoleUserRequest) (*
 		return nil, GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/roles/{rolename}/members"
-	localVarPath = strings.Replace(localVarPath, "{"+"rolename"+"}", _neturl.PathEscape(parameterToString(r.rolename, "")), -1)
+	localVarPath := localBasePath + "/roles/{role_name}/members"
+	localVarPath = strings.Replace(localVarPath, "{"+"role_name"+"}", _neturl.PathEscape(parameterToString(r.roleName, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
@@ -870,7 +870,7 @@ func (a *DefaultApiService) GetIdpExecute(r ApiGetIdpRequest) (SamlConfiguration
 type ApiGetRoleRequest struct {
 	ctx _context.Context
 	ApiService DefaultApi
-	rolename string
+	roleName string
 }
 
 
@@ -882,14 +882,14 @@ func (r ApiGetRoleRequest) Execute() (Role, *_nethttp.Response, error) {
 GetRole Get detailed information about a specific role
 
  @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param rolename
+ @param roleName
  @return ApiGetRoleRequest
 */
-func (a *DefaultApiService) GetRole(ctx _context.Context, rolename string) ApiGetRoleRequest {
+func (a *DefaultApiService) GetRole(ctx _context.Context, roleName string) ApiGetRoleRequest {
 	return ApiGetRoleRequest{
 		ApiService: a,
 		ctx: ctx,
-		rolename: rolename,
+		roleName: roleName,
 	}
 }
 
@@ -910,8 +910,8 @@ func (a *DefaultApiService) GetRoleExecute(r ApiGetRoleRequest) (Role, *_nethttp
 		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/roles/{rolename}"
-	localVarPath = strings.Replace(localVarPath, "{"+"rolename"+"}", _neturl.PathEscape(parameterToString(r.rolename, "")), -1)
+	localVarPath := localBasePath + "/roles/{role_name}"
+	localVarPath = strings.Replace(localVarPath, "{"+"role_name"+"}", _neturl.PathEscape(parameterToString(r.roleName, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
@@ -1296,7 +1296,7 @@ func (a *DefaultApiService) ListIdpsExecute(r ApiListIdpsRequest) ([]string, *_n
 type ApiListRoleMembersRequest struct {
 	ctx _context.Context
 	ApiService DefaultApi
-	rolename string
+	roleName string
 	forAccount *string
 }
 
@@ -1314,14 +1314,14 @@ func (r ApiListRoleMembersRequest) Execute() ([]RoleMember, *_nethttp.Response, 
 ListRoleMembers Returns a list of objects that have members in the role. The list is filtered by 'listRoleMembers' access for the 'account' element of each entry.
 
  @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param rolename
+ @param roleName
  @return ApiListRoleMembersRequest
 */
-func (a *DefaultApiService) ListRoleMembers(ctx _context.Context, rolename string) ApiListRoleMembersRequest {
+func (a *DefaultApiService) ListRoleMembers(ctx _context.Context, roleName string) ApiListRoleMembersRequest {
 	return ApiListRoleMembersRequest{
 		ApiService: a,
 		ctx: ctx,
-		rolename: rolename,
+		roleName: roleName,
 	}
 }
 
@@ -1342,8 +1342,8 @@ func (a *DefaultApiService) ListRoleMembersExecute(r ApiListRoleMembersRequest) 
 		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/roles/{rolename}/members"
-	localVarPath = strings.Replace(localVarPath, "{"+"rolename"+"}", _neturl.PathEscape(parameterToString(r.rolename, "")), -1)
+	localVarPath := localBasePath + "/roles/{role_name}/members"
+	localVarPath = strings.Replace(localVarPath, "{"+"role_name"+"}", _neturl.PathEscape(parameterToString(r.roleName, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}

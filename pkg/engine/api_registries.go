@@ -106,13 +106,13 @@ type RegistriesApiService service
 type ApiCreateRegistryRequest struct {
 	ctx _context.Context
 	ApiService RegistriesApi
-	registrydata *RegistryConfigurationRequest
+	registryData *RegistryConfigurationRequest
 	validate *bool
 	xAnchoreAccount *string
 }
 
-func (r ApiCreateRegistryRequest) Registrydata(registrydata RegistryConfigurationRequest) ApiCreateRegistryRequest {
-	r.registrydata = &registrydata
+func (r ApiCreateRegistryRequest) RegistryData(registryData RegistryConfigurationRequest) ApiCreateRegistryRequest {
+	r.registryData = &registryData
 	return r
 }
 // flag to determine whether or not to validate registry/credential at registry add time
@@ -167,8 +167,8 @@ func (a *RegistriesApiService) CreateRegistryExecute(r ApiCreateRegistryRequest)
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
 	localVarFormParams := _neturl.Values{}
-	if r.registrydata == nil {
-		return localVarReturnValue, nil, reportError("registrydata is required and must be specified")
+	if r.registryData == nil {
+		return localVarReturnValue, nil, reportError("registryData is required and must be specified")
 	}
 
 	if r.validate != nil {
@@ -195,7 +195,7 @@ func (a *RegistriesApiService) CreateRegistryExecute(r ApiCreateRegistryRequest)
 		localVarHeaderParams["x-anchore-account"] = parameterToString(*r.xAnchoreAccount, "")
 	}
 	// body params
-	localVarPostBody = r.registrydata
+	localVarPostBody = r.registryData
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -585,13 +585,13 @@ type ApiUpdateRegistryRequest struct {
 	ctx _context.Context
 	ApiService RegistriesApi
 	registry string
-	registrydata *RegistryConfigurationRequest
+	registryData *RegistryConfigurationRequest
 	validate *bool
 	xAnchoreAccount *string
 }
 
-func (r ApiUpdateRegistryRequest) Registrydata(registrydata RegistryConfigurationRequest) ApiUpdateRegistryRequest {
-	r.registrydata = &registrydata
+func (r ApiUpdateRegistryRequest) RegistryData(registryData RegistryConfigurationRequest) ApiUpdateRegistryRequest {
+	r.registryData = &registryData
 	return r
 }
 // flag to determine whether or not to validate registry/credential at registry update time
@@ -649,8 +649,8 @@ func (a *RegistriesApiService) UpdateRegistryExecute(r ApiUpdateRegistryRequest)
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
 	localVarFormParams := _neturl.Values{}
-	if r.registrydata == nil {
-		return localVarReturnValue, nil, reportError("registrydata is required and must be specified")
+	if r.registryData == nil {
+		return localVarReturnValue, nil, reportError("registryData is required and must be specified")
 	}
 
 	if r.validate != nil {
@@ -677,7 +677,7 @@ func (a *RegistriesApiService) UpdateRegistryExecute(r ApiUpdateRegistryRequest)
 		localVarHeaderParams["x-anchore-account"] = parameterToString(*r.xAnchoreAccount, "")
 	}
 	// body params
-	localVarPostBody = r.registrydata
+	localVarPostBody = r.registryData
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return localVarReturnValue, nil, err
