@@ -1,9 +1,9 @@
 /*
-Anchore API
+Anchore Enterprise API Server
 
-This is the Anchore API. Provides the external API for users of Anchore Enterprise.
+This is the Anchore Enterprise API. It provides additional external API routes and functionality for enterprise users.
 
-API version: 2.0.0
+API version: 0.7.0
 Contact: dev@anchore.com
 */
 
@@ -17,7 +17,7 @@ import (
 
 // KubernetesNamespaces Namespaces defined in Kubernetes
 type KubernetesNamespaces struct {
-	Namespaces *[]KubernetesNamespace `json:"namespaces,omitempty"`
+	Namespaces *[]KubernetesNamespacesNamespaces `json:"namespaces,omitempty"`
 }
 
 // NewKubernetesNamespaces instantiates a new KubernetesNamespaces object
@@ -38,9 +38,9 @@ func NewKubernetesNamespacesWithDefaults() *KubernetesNamespaces {
 }
 
 // GetNamespaces returns the Namespaces field value if set, zero value otherwise.
-func (o *KubernetesNamespaces) GetNamespaces() []KubernetesNamespace {
+func (o *KubernetesNamespaces) GetNamespaces() []KubernetesNamespacesNamespaces {
 	if o == nil || o.Namespaces == nil {
-		var ret []KubernetesNamespace
+		var ret []KubernetesNamespacesNamespaces
 		return ret
 	}
 	return *o.Namespaces
@@ -48,7 +48,7 @@ func (o *KubernetesNamespaces) GetNamespaces() []KubernetesNamespace {
 
 // GetNamespacesOk returns a tuple with the Namespaces field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *KubernetesNamespaces) GetNamespacesOk() (*[]KubernetesNamespace, bool) {
+func (o *KubernetesNamespaces) GetNamespacesOk() (*[]KubernetesNamespacesNamespaces, bool) {
 	if o == nil || o.Namespaces == nil {
 		return nil, false
 	}
@@ -64,8 +64,8 @@ func (o *KubernetesNamespaces) HasNamespaces() bool {
 	return false
 }
 
-// SetNamespaces gets a reference to the given []KubernetesNamespace and assigns it to the Namespaces field.
-func (o *KubernetesNamespaces) SetNamespaces(v []KubernetesNamespace) {
+// SetNamespaces gets a reference to the given []KubernetesNamespacesNamespaces and assigns it to the Namespaces field.
+func (o *KubernetesNamespaces) SetNamespaces(v []KubernetesNamespacesNamespaces) {
 	o.Namespaces = &v
 }
 

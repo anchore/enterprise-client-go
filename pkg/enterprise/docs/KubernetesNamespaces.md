@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Namespaces** | Pointer to [**[]KubernetesNamespace**](KubernetesNamespace.md) |  | [optional] 
+**Namespaces** | Pointer to [**[]KubernetesNamespacesNamespaces**](KubernetesNamespacesNamespaces.md) |  | [optional] 
 
 ## Methods
 
@@ -27,20 +27,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetNamespaces
 
-`func (o *KubernetesNamespaces) GetNamespaces() []KubernetesNamespace`
+`func (o *KubernetesNamespaces) GetNamespaces() []KubernetesNamespacesNamespaces`
 
 GetNamespaces returns the Namespaces field if non-nil, zero value otherwise.
 
 ### GetNamespacesOk
 
-`func (o *KubernetesNamespaces) GetNamespacesOk() (*[]KubernetesNamespace, bool)`
+`func (o *KubernetesNamespaces) GetNamespacesOk() (*[]KubernetesNamespacesNamespaces, bool)`
 
 GetNamespacesOk returns a tuple with the Namespaces field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetNamespaces
 
-`func (o *KubernetesNamespaces) SetNamespaces(v []KubernetesNamespace)`
+`func (o *KubernetesNamespaces) SetNamespaces(v []KubernetesNamespacesNamespaces)`
 
 SetNamespaces sets Namespaces field to given value.
 
