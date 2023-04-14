@@ -1,9 +1,9 @@
 /*
-Anchore API
+Anchore Enterprise API Server
 
-This is the Anchore API. Provides the external API for users of Anchore Enterprise.
+This is the Anchore Enterprise API. It provides additional external API routes and functionality for enterprise users.
 
-API version: 2.0.0
+API version: 0.7.0
 Contact: dev@anchore.com
 */
 
@@ -17,6 +17,7 @@ import (
 	_ioutil "io/ioutil"
 	_nethttp "net/http"
 	_neturl "net/url"
+	"strings"
 )
 
 // Linger please
@@ -27,62 +28,68 @@ var (
 type StatelessApi interface {
 
 	/*
-	VulnerabilityScanSbom Return a vulnerability scan for the uploaded SBOM without storing the SBOM and without any side-effects in the system.
-
-	Use this operation for checking sboms for vulnerabilities in cases where the sbom does not need to be stored for later re-scans or added to the managed set of SBOMs in Anchore. If you need to upload and save an SBOM use the "/import/*" API set instead.
+	GetStatelessSbomVulnerabilities Get vulnerabilities for input sbom by type
 
 	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @return ApiVulnerabilityScanSbomRequest
+	 @param vulnType
+	 @return ApiGetStatelessSbomVulnerabilitiesRequest
 	*/
-	VulnerabilityScanSbom(ctx _context.Context) ApiVulnerabilityScanSbomRequest
+	GetStatelessSbomVulnerabilities(ctx _context.Context, vulnType string) ApiGetStatelessSbomVulnerabilitiesRequest
 
-	// VulnerabilityScanSbomExecute executes the request
+	// GetStatelessSbomVulnerabilitiesExecute executes the request
 	//  @return SBOMVulnerabilitiesResponse
-	VulnerabilityScanSbomExecute(r ApiVulnerabilityScanSbomRequest) (SBOMVulnerabilitiesResponse, *_nethttp.Response, error)
+	GetStatelessSbomVulnerabilitiesExecute(r ApiGetStatelessSbomVulnerabilitiesRequest) (SBOMVulnerabilitiesResponse, *_nethttp.Response, error)
 }
 
 // StatelessApiService StatelessApi service
 type StatelessApiService service
 
-type ApiVulnerabilityScanSbomRequest struct {
+type ApiGetStatelessSbomVulnerabilitiesRequest struct {
 	ctx _context.Context
 	ApiService StatelessApi
+	vulnType string
 	sbom *interface{}
+	willNotFix *bool
 	xAnchoreAccount *string
 }
 
-func (r ApiVulnerabilityScanSbomRequest) Sbom(sbom interface{}) ApiVulnerabilityScanSbomRequest {
+func (r ApiGetStatelessSbomVulnerabilitiesRequest) Sbom(sbom interface{}) ApiGetStatelessSbomVulnerabilitiesRequest {
 	r.sbom = &sbom
 	return r
 }
+// Vulnerability data publishers explicitly won&#39;t fix some vulnerabilities. This is captured by will_not_fix attribute of each result. If the query parameter is set, results matching it&#39;s value will be filtered. Results are not filtered if the query parameter is unset
+func (r ApiGetStatelessSbomVulnerabilitiesRequest) WillNotFix(willNotFix bool) ApiGetStatelessSbomVulnerabilitiesRequest {
+	r.willNotFix = &willNotFix
+	return r
+}
 // An account name to change the resource scope of the request to that account, if permissions allow (admin only)
-func (r ApiVulnerabilityScanSbomRequest) XAnchoreAccount(xAnchoreAccount string) ApiVulnerabilityScanSbomRequest {
+func (r ApiGetStatelessSbomVulnerabilitiesRequest) XAnchoreAccount(xAnchoreAccount string) ApiGetStatelessSbomVulnerabilitiesRequest {
 	r.xAnchoreAccount = &xAnchoreAccount
 	return r
 }
 
-func (r ApiVulnerabilityScanSbomRequest) Execute() (SBOMVulnerabilitiesResponse, *_nethttp.Response, error) {
-	return r.ApiService.VulnerabilityScanSbomExecute(r)
+func (r ApiGetStatelessSbomVulnerabilitiesRequest) Execute() (SBOMVulnerabilitiesResponse, *_nethttp.Response, error) {
+	return r.ApiService.GetStatelessSbomVulnerabilitiesExecute(r)
 }
 
 /*
-VulnerabilityScanSbom Return a vulnerability scan for the uploaded SBOM without storing the SBOM and without any side-effects in the system.
-
-Use this operation for checking sboms for vulnerabilities in cases where the sbom does not need to be stored for later re-scans or added to the managed set of SBOMs in Anchore. If you need to upload and save an SBOM use the "/import/*" API set instead.
+GetStatelessSbomVulnerabilities Get vulnerabilities for input sbom by type
 
  @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiVulnerabilityScanSbomRequest
+ @param vulnType
+ @return ApiGetStatelessSbomVulnerabilitiesRequest
 */
-func (a *StatelessApiService) VulnerabilityScanSbom(ctx _context.Context) ApiVulnerabilityScanSbomRequest {
-	return ApiVulnerabilityScanSbomRequest{
+func (a *StatelessApiService) GetStatelessSbomVulnerabilities(ctx _context.Context, vulnType string) ApiGetStatelessSbomVulnerabilitiesRequest {
+	return ApiGetStatelessSbomVulnerabilitiesRequest{
 		ApiService: a,
 		ctx: ctx,
+		vulnType: vulnType,
 	}
 }
 
 // Execute executes the request
 //  @return SBOMVulnerabilitiesResponse
-func (a *StatelessApiService) VulnerabilityScanSbomExecute(r ApiVulnerabilityScanSbomRequest) (SBOMVulnerabilitiesResponse, *_nethttp.Response, error) {
+func (a *StatelessApiService) GetStatelessSbomVulnerabilitiesExecute(r ApiGetStatelessSbomVulnerabilitiesRequest) (SBOMVulnerabilitiesResponse, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodPost
 		localVarPostBody     interface{}
@@ -92,12 +99,13 @@ func (a *StatelessApiService) VulnerabilityScanSbomExecute(r ApiVulnerabilitySca
 		localVarReturnValue  SBOMVulnerabilitiesResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "StatelessApiService.VulnerabilityScanSbom")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "StatelessApiService.GetStatelessSbomVulnerabilities")
 	if err != nil {
 		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/vulnerability-scan"
+	localVarPath := localBasePath + "/stateless/sbom/vuln/{vuln_type}"
+	localVarPath = strings.Replace(localVarPath, "{"+"vuln_type"+"}", _neturl.PathEscape(parameterToString(r.vulnType, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
@@ -106,6 +114,9 @@ func (a *StatelessApiService) VulnerabilityScanSbomExecute(r ApiVulnerabilitySca
 		return localVarReturnValue, nil, reportError("sbom is required and must be specified")
 	}
 
+	if r.willNotFix != nil {
+		localVarQueryParams.Add("will_not_fix", parameterToString(*r.willNotFix, ""))
+	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
 

@@ -302,10 +302,10 @@ type ImagesApi interface {
 
 	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	 @param imageDigest
-	 @param vtype
+	 @param vulnType
 	 @return ApiGetImageVulnerabilitiesByTypeRequest
 	*/
-	GetImageVulnerabilitiesByType(ctx _context.Context, imageDigest string, vtype string) ApiGetImageVulnerabilitiesByTypeRequest
+	GetImageVulnerabilitiesByType(ctx _context.Context, imageDigest string, vulnType string) ApiGetImageVulnerabilitiesByTypeRequest
 
 	// GetImageVulnerabilitiesByTypeExecute executes the request
 	//  @return VulnerabilityResponse
@@ -316,10 +316,10 @@ type ImagesApi interface {
 
 	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	 @param imageId
-	 @param vtype
+	 @param vulnType
 	 @return ApiGetImageVulnerabilitiesByTypeImageIdRequest
 	*/
-	GetImageVulnerabilitiesByTypeImageId(ctx _context.Context, imageId string, vtype string) ApiGetImageVulnerabilitiesByTypeImageIdRequest
+	GetImageVulnerabilitiesByTypeImageId(ctx _context.Context, imageId string, vulnType string) ApiGetImageVulnerabilitiesByTypeImageIdRequest
 
 	// GetImageVulnerabilitiesByTypeImageIdExecute executes the request
 	//  @return VulnerabilityResponse
@@ -2990,7 +2990,7 @@ type ApiGetImageVulnerabilitiesByTypeRequest struct {
 	ctx _context.Context
 	ApiService ImagesApi
 	imageDigest string
-	vtype string
+	vulnType string
 	forceRefresh *bool
 	vendorOnly *bool
 	xAnchoreAccount *string
@@ -3020,15 +3020,15 @@ GetImageVulnerabilitiesByType Get vulnerabilities by type
 
  @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param imageDigest
- @param vtype
+ @param vulnType
  @return ApiGetImageVulnerabilitiesByTypeRequest
 */
-func (a *ImagesApiService) GetImageVulnerabilitiesByType(ctx _context.Context, imageDigest string, vtype string) ApiGetImageVulnerabilitiesByTypeRequest {
+func (a *ImagesApiService) GetImageVulnerabilitiesByType(ctx _context.Context, imageDigest string, vulnType string) ApiGetImageVulnerabilitiesByTypeRequest {
 	return ApiGetImageVulnerabilitiesByTypeRequest{
 		ApiService: a,
 		ctx: ctx,
 		imageDigest: imageDigest,
-		vtype: vtype,
+		vulnType: vulnType,
 	}
 }
 
@@ -3049,9 +3049,9 @@ func (a *ImagesApiService) GetImageVulnerabilitiesByTypeExecute(r ApiGetImageVul
 		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/images/{image_digest}/vuln/{vtype}"
+	localVarPath := localBasePath + "/images/{image_digest}/vuln/{vuln_type}"
 	localVarPath = strings.Replace(localVarPath, "{"+"image_digest"+"}", _neturl.PathEscape(parameterToString(r.imageDigest, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"vtype"+"}", _neturl.PathEscape(parameterToString(r.vtype, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"vuln_type"+"}", _neturl.PathEscape(parameterToString(r.vulnType, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
@@ -3133,7 +3133,7 @@ type ApiGetImageVulnerabilitiesByTypeImageIdRequest struct {
 	ctx _context.Context
 	ApiService ImagesApi
 	imageId string
-	vtype string
+	vulnType string
 	xAnchoreAccount *string
 }
 
@@ -3152,15 +3152,15 @@ GetImageVulnerabilitiesByTypeImageId Get vulnerabilities by type
 
  @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param imageId
- @param vtype
+ @param vulnType
  @return ApiGetImageVulnerabilitiesByTypeImageIdRequest
 */
-func (a *ImagesApiService) GetImageVulnerabilitiesByTypeImageId(ctx _context.Context, imageId string, vtype string) ApiGetImageVulnerabilitiesByTypeImageIdRequest {
+func (a *ImagesApiService) GetImageVulnerabilitiesByTypeImageId(ctx _context.Context, imageId string, vulnType string) ApiGetImageVulnerabilitiesByTypeImageIdRequest {
 	return ApiGetImageVulnerabilitiesByTypeImageIdRequest{
 		ApiService: a,
 		ctx: ctx,
 		imageId: imageId,
-		vtype: vtype,
+		vulnType: vulnType,
 	}
 }
 
@@ -3181,9 +3181,9 @@ func (a *ImagesApiService) GetImageVulnerabilitiesByTypeImageIdExecute(r ApiGetI
 		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/images/by_id/{image_id}/vuln/{vtype}"
+	localVarPath := localBasePath + "/images/by_id/{image_id}/vuln/{vuln_type}"
 	localVarPath = strings.Replace(localVarPath, "{"+"image_id"+"}", _neturl.PathEscape(parameterToString(r.imageId, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"vtype"+"}", _neturl.PathEscape(parameterToString(r.vtype, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"vuln_type"+"}", _neturl.PathEscape(parameterToString(r.vulnType, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}

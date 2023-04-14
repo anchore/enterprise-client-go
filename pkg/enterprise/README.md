@@ -110,7 +110,7 @@ Class | Method | HTTP request | Description
 *DefaultApi* | [**GetKubernetesNamespaces**](docs/DefaultApi.md#getkubernetesnamespaces) | **Get** /kubernetes-namespaces | Return a list of Kubernetes namespaces that have been inventoried for this account
 *ImagesApi* | [**GetImageAncestors**](docs/ImagesApi.md#getimageancestors) | **Get** /images/{image_digest}/ancestors | Return the list of ancestor images for the given image
 *ImagesApi* | [**GetImagePolicyCheckByDigest**](docs/ImagesApi.md#getimagepolicycheckbydigest) | **Get** /images/{image_digest}/check | Check policy evaluation status for image
-*ImagesApi* | [**GetImageVulnerabilitiesByDigest**](docs/ImagesApi.md#getimagevulnerabilitiesbydigest) | **Get** /images/{image_digest}/vuln/{vtype} | Get vulnerabilities by type
+*ImagesApi* | [**GetImageVulnerabilitiesByDigest**](docs/ImagesApi.md#getimagevulnerabilitiesbydigest) | **Get** /images/{image_digest}/vuln/{vuln_type} | Get vulnerabilities by type
 *ImportsApi* | [**CreateOperation**](docs/ImportsApi.md#createoperation) | **Post** /imports/sources | Begin the import of a source code repository analyzed by Syft into the system
 *ImportsApi* | [**FinalizeOperation**](docs/ImportsApi.md#finalizeoperation) | **Post** /imports/sources/{operation_id}/finalize | Add source records to catalog db
 *ImportsApi* | [**GetImportSourcesSbom**](docs/ImportsApi.md#getimportsourcessbom) | **Get** /imports/sources/{operation_id}/sbom | list the packages of an imported source code repository
@@ -138,10 +138,10 @@ Class | Method | HTTP request | Description
 *SourcesApi* | [**GetSourceSbomNativeJson**](docs/SourcesApi.md#getsourcesbomnativejson) | **Get** /sources/{source_id}/sbom/native-json | Return the source SBOM in the native Anchore format
 *SourcesApi* | [**GetSourceSbomSpdxJson**](docs/SourcesApi.md#getsourcesbomspdxjson) | **Get** /sources/{source_id}/sbom/spdx-json | Return the source SBOM in the SPDX format
 *SourcesApi* | [**GetSourceSbomTypes**](docs/SourcesApi.md#getsourcesbomtypes) | **Get** /sources/{source_id}/sbom | Get a detailed source repository analysis metadata record
-*SourcesApi* | [**GetSourceVulnerabilities**](docs/SourcesApi.md#getsourcevulnerabilities) | **Get** /sources/{source_id}/vuln/{vtype} | Get vulnerabilities for the source by type
+*SourcesApi* | [**GetSourceVulnerabilities**](docs/SourcesApi.md#getsourcevulnerabilities) | **Get** /sources/{source_id}/vuln/{vuln_type} | Get vulnerabilities for the source by type
 *SourcesApi* | [**GetSourceVulnerabilityTypes**](docs/SourcesApi.md#getsourcevulnerabilitytypes) | **Get** /sources/{source_id}/vuln | Get the available vulnerability types for source
 *SourcesApi* | [**ListSources**](docs/SourcesApi.md#listsources) | **Get** /sources | List the source repository analysis records
-*StatelessApi* | [**GetStatelessSbomVulnerabilities**](docs/StatelessApi.md#getstatelesssbomvulnerabilities) | **Post** /stateless/sbom/vuln/{vtype} | Get vulnerabilities for input sbom by type
+*StatelessApi* | [**GetStatelessSbomVulnerabilities**](docs/StatelessApi.md#getstatelesssbomvulnerabilities) | **Post** /stateless/sbom/vuln/{vuln_type} | Get vulnerabilities for input sbom by type
 
 
 ## Documentation For Models

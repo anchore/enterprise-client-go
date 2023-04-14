@@ -948,7 +948,7 @@ paths:
       - Images
       x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.images
       x-anchore-authz-action: getImage
-  /images/{image_digest}/vuln/{vtype}:
+  /images/{image_digest}/vuln/{vuln_type}:
     get:
       operationId: get_image_vulnerabilities_by_type
       parameters:
@@ -959,7 +959,7 @@ paths:
           format: path
           type: string
       - in: path
-        name: vtype
+        name: vuln_type
         required: true
         schema:
           format: path
@@ -1040,7 +1040,7 @@ paths:
       - Images
       x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.images
       x-anchore-authz-action: getImage
-  /images/by_id/{image_id}/vuln/{vtype}:
+  /images/by_id/{image_id}/vuln/{vuln_type}:
     get:
       operationId: get_image_vulnerabilities_by_type_image_id
       parameters:
@@ -1051,7 +1051,7 @@ paths:
           format: path
           type: string
       - in: path
-        name: vtype
+        name: vuln_type
         required: true
         schema:
           format: path
