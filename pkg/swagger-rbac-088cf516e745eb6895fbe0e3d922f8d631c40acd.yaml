@@ -69,14 +69,14 @@ paths:
           description: Internal error
           schema:
             $ref: "#/definitions/ApiErrorResponse"
-  /roles/{rolename}:
+  /roles/{role_name}:
     get:
       x-swagger-router-controller: anchore_enterprise.services.rbac_manager.api.controllers.roles
       operationId: get_role
       x-anchore-authz-action: getRole
       summary: Get detailed information about a specific role
       parameters:
-      - name: rolename
+      - name: role_name
         in: path
         format: path
         required: true
@@ -90,14 +90,14 @@ paths:
           description: Internal error
           schema:
             $ref: "#/definitions/ApiErrorResponse"
-  /roles/{rolename}/members:
+  /roles/{role_name}/members:
     get:
       x-swagger-router-controller: anchore_enterprise.services.rbac_manager.api.controllers.roles
       operationId: list_role_members
       x-anchore-authz-action: listRoleMembers
       summary: Returns a list of objects that have members in the role. The list is filtered by 'listRoleMembers' access for the 'account' element of each entry.
       parameters:
-      - name: rolename
+      - name: role_name
         in: path
         format: path
         required: true
@@ -122,7 +122,7 @@ paths:
       x-anchore-authz-action: createRoleMember
       summary: Add a user to the role
       parameters:
-      - name: rolename
+      - name: role_name
         in: path
         format: path
         type: string
@@ -147,7 +147,7 @@ paths:
       x-anchore-authz-action: deleteRoleMember
       summary: Remove a user from the role
       parameters:
-      - name: rolename
+      - name: role_name
         in: path
         format: path
         type: string
@@ -478,7 +478,7 @@ definitions:
         format: date-time
   RoleMemberList:
     type: array
-    description: List of members of the role, may be filtered by the calling user's access level (e.g. will not display members for which the caller doesn't have listRoleMembers acocunt access)
+    description: List of members of the role, may be filtered by the calling user's access level (e.g. will not display members for which the caller doesn't have listRoleMembers account access)
     items:
       $ref: "#/definitions/RoleMember"
   RoleSummaryList:

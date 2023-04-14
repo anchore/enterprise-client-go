@@ -137,7 +137,7 @@ paths:
           description: Internal Error
           schema:
             $ref: "#/definitions/ApiErrorResponse"
-  /policies/{policyId}:
+  /policies/{policy_id}:
     get:
       tags:
         - Policies
@@ -147,7 +147,7 @@ paths:
       description: Get the policy bundle content
       summary: Get specific policy
       parameters:
-        - name: policyId
+        - name: policy_id
           in: path
           format: path
           type: string
@@ -181,7 +181,7 @@ paths:
           required: true
           schema:
             $ref: "#/definitions/PolicyBundleRecord"
-        - name: policyId
+        - name: policy_id
           in: path
           format: path
           type: string
@@ -210,7 +210,7 @@ paths:
       description: Delete the specified policy
       summary: Delete policy
       parameters:
-        - name: policyId
+        - name: policy_id
           in: path
           format: path
           required: true
@@ -236,12 +236,12 @@ paths:
       x-anchore-authz-action: listSubscriptions
       summary: List all subscriptions
       parameters:
-        - name: 'subscription_key'
+        - name: subscription_key
           in: query
           type: string
           description: "filter only subscriptions matching key"
           required: false
-        - name: 'subscription_type'
+        - name: subscription_type
           in: query
           type: string
           description: "filter only subscriptions matching type"
@@ -276,7 +276,7 @@ paths:
           description: Subscription add success
           schema:
             $ref: "#/definitions/SubscriptionList"
-  /subscriptions/{subscriptionId}:
+  /subscriptions/{subscription_id}:
     get:
       tags:
         - Subscriptions
@@ -285,7 +285,7 @@ paths:
       x-anchore-authz-action: getSubscription
       summary: Get a specific subscription set
       parameters:
-        - name: subscriptionId
+        - name: subscription_id
           in: path
           format: path
           required: true
@@ -308,7 +308,7 @@ paths:
       x-anchore-authz-action: updateSubscription
       summary: Update an existing and specific subscription
       parameters:
-        - name: subscriptionId
+        - name: subscription_id
           in: path
           format: path
           required: true
@@ -332,7 +332,7 @@ paths:
       x-anchore-authz-action: deleteSubscription
       summary: Delete subscriptions of a specific type
       parameters:
-        - name: subscriptionId
+        - name: subscription_id
           in: path
           format: path
           required: true
@@ -345,17 +345,17 @@ paths:
           description: Internal Error
           schema:
             $ref: "#/definitions/ApiErrorResponse"
-  /summaries/imagetags:
+  /summaries/image-tags:
     get:
       tags:
         - Summaries
       x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.images
-      operationId: list_imagetags
+      operationId: list_image_tags
       x-anchore-authz-action: listImages
       summary: List all visible image digests and tags
       description: List all image tags visible to the user
       parameters:
-        - name: 'image_status'
+        - name: image_status
           in: query
           type: array
           items:
@@ -394,7 +394,7 @@ paths:
           type: boolean
           required: false
           description: Override any existing entry in the system
-        - name: autosubscribe
+        - name: auto_subscribe
           in: query
           type: boolean
           required: false
@@ -472,7 +472,7 @@ paths:
       summary: Bulk mark images for deletion
       description: Delete analysis for image digests in the list asynchronously
       parameters:
-        - name: imageDigests
+        - name: image_digests
           in: query
           required: true
           x-nullable: false
@@ -519,7 +519,7 @@ paths:
           description: Internal Error
           schema:
             $ref: "#/definitions/ApiErrorResponse"
-  /images/{imageDigest}:
+  /images/{image_digest}:
     get:
       tags:
         - Images
@@ -528,7 +528,7 @@ paths:
       x-anchore-authz-action: getImage
       summary: Get image metadata
       parameters:
-        - name: imageDigest
+        - name: image_digest
           in: path
           format: path
           type: string
@@ -551,7 +551,7 @@ paths:
       x-anchore-authz-action: deleteImage
       summary: Delete an image analysis
       parameters:
-        - name: imageDigest
+        - name: image_digest
           in: path
           format: path
           type: string
@@ -566,16 +566,16 @@ paths:
           description: Image deletion success
           schema:
             $ref: "#/definitions/DeleteImageResponse"
-  /images/by_id/{imageId}:
+  /images/by_id/{image_id}:
     get:
       tags:
         - Images
       x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.images
-      operationId: get_image_by_imageId
+      operationId: get_image_by_image_id
       x-anchore-authz-action: getImage
-      summary: Lookup image by docker imageId
+      summary: Lookup image by docker image_id
       parameters:
-        - name: imageId
+        - name: image_id
           in: path
           format: path
           type: string
@@ -594,11 +594,11 @@ paths:
       tags:
         - Images
       x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.images
-      operationId: delete_image_by_imageId
+      operationId: delete_image_by_image_id
       x-anchore-authz-action: deleteImage
-      summary: Delete image by docker imageId
+      summary: Delete image by docker image_id
       parameters:
-        - name: imageId
+        - name: image_id
           in: path
           format: path
           type: string
@@ -617,7 +617,7 @@ paths:
           description: Internal error
           schema:
             $ref: "#/definitions/ApiErrorResponse"
-  /images/{imageDigest}/check:
+  /images/{image_digest}/check:
     get:
       tags:
         - Images
@@ -627,12 +627,12 @@ paths:
       description: Get the policy evaluation for the given image
       summary: Check policy evaluation status for image
       parameters:
-        - name: imageDigest
+        - name: image_digest
           in: path
           format: path
           type: string
           required: true
-        - name: policyId
+        - name: policy_id
           in: query
           required: false
           type: string
@@ -662,22 +662,22 @@ paths:
           description: Internal Error
           schema:
             $ref: "#/definitions/ApiErrorResponse"
-  /images/by_id/{imageId}/check:
+  /images/by_id/{image_id}/check:
     get:
       tags:
         - Images
       x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.images
-      operationId: get_image_policy_check_by_imageId
+      operationId: get_image_policy_check_by_image_id
       x-anchore-authz-action: getImageEvaluation
       description: Get the policy evaluation for the given image
       summary: Check policy evaluation status for image
       parameters:
-        - name: imageId
+        - name: image_id
           in: path
           format: path
           type: string
           required: true
-        - name: policyId
+        - name: policy_id
           in: query
           required: false
           type: string
@@ -703,7 +703,7 @@ paths:
           description: Internal Error
           schema:
             $ref: "#/definitions/ApiErrorResponse"
-  /images/{imageDigest}/vuln:
+  /images/{image_digest}/vuln:
     get:
       tags:
         - Images
@@ -712,7 +712,7 @@ paths:
       x-anchore-authz-action: getImage
       summary: Get vulnerability types
       parameters:
-        - name: imageDigest
+        - name: image_digest
           in: path
           format: path
           type: string
@@ -733,7 +733,7 @@ paths:
           description: Internal Error
           schema:
             $ref: "#/definitions/ApiErrorResponse"
-  /images/{imageDigest}/vuln/{vtype}:
+  /images/{image_digest}/vuln/{vuln_type}:
     get:
       tags:
         - Images
@@ -742,12 +742,12 @@ paths:
       x-anchore-authz-action: getImage
       summary: Get vulnerabilities by type
       parameters:
-        - name: imageDigest
+        - name: image_digest
           in: path
           format: path
           type: string
           required: true
-        - name: vtype
+        - name: vuln_type
           in: path
           format: path
           type: string
@@ -771,16 +771,16 @@ paths:
           description: Internal Error
           schema:
             $ref: "#/definitions/ApiErrorResponse"
-  /images/by_id/{imageId}/vuln:
+  /images/by_id/{image_id}/vuln:
     get:
       tags:
         - Images
       x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.images
-      operationId: get_image_vulnerability_types_by_imageId
+      operationId: get_image_vulnerability_types_by_image_id
       x-anchore-authz-action: getImage
       summary: Get vulnerability types
       parameters:
-        - name: imageId
+        - name: image_id
           in: path
           format: path
           type: string
@@ -801,21 +801,21 @@ paths:
           description: Internal Error
           schema:
             $ref: "#/definitions/ApiErrorResponse"
-  /images/by_id/{imageId}/vuln/{vtype}:
+  /images/by_id/{image_id}/vuln/{vuln_type}:
     get:
       tags:
         - Images
       x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.images
-      operationId: get_image_vulnerabilities_by_type_imageId
+      operationId: get_image_vulnerabilities_by_type_image_id
       x-anchore-authz-action: getImage
       summary: Get vulnerabilities by type
       parameters:
-        - name: imageId
+        - name: image_id
           in: path
           format: path
           type: string
           required: true
-        - name: vtype
+        - name: vuln_type
           in: path
           format: path
           type: string
@@ -830,7 +830,7 @@ paths:
           description: Internal Error
           schema:
             $ref: "#/definitions/ApiErrorResponse"
-  /images/{imageDigest}/content:
+  /images/{image_digest}/content:
     get:
       tags:
         - Images
@@ -839,7 +839,7 @@ paths:
       x-anchore-authz-action: getImage
       summary: List image content types
       parameters:
-        - name: imageDigest
+        - name: image_digest
           in: path
           format: path
           type: string
@@ -856,16 +856,16 @@ paths:
           description: Internal Error
           schema:
             $ref: "#/definitions/ApiErrorResponse"
-  /images/by_id/{imageId}/content:
+  /images/by_id/{image_id}/content:
     get:
       tags:
         - Images
       x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.images
-      operationId: list_image_content_by_imageid
+      operationId: list_image_content_by_image_id
       x-anchore-authz-action: getImage
       summary: List image content types
       parameters:
-        - name: imageId
+        - name: image_id
           in: path
           format: path
           type: string
@@ -882,7 +882,7 @@ paths:
           description: Internal error
           schema:
             $ref: "#/definitions/ApiErrorResponse"
-  /images/{imageDigest}/content/{ctype}:
+  /images/{image_digest}/content/{content_type}:
     get:
       tags:
         - Images
@@ -891,12 +891,12 @@ paths:
       x-anchore-authz-action: getImage
       summary: Get the content of an image by type
       parameters:
-        - name: imageDigest
+        - name: image_digest
           in: path
           format: path
           type: string
           required: true
-        - name: ctype
+        - name: content_type
           in: path
           format: path
           type: string
@@ -911,7 +911,7 @@ paths:
           description: Internal error
           schema:
             $ref: "#/definitions/ApiErrorResponse"
-  /images/{imageDigest}/content/files:
+  /images/{image_digest}/content/files:
     get:
       tags:
         - Images
@@ -920,7 +920,7 @@ paths:
       x-anchore-authz-action: getImage
       summary: Get the content of an image by type files
       parameters:
-        - name: imageDigest
+        - name: image_digest
           in: path
           format: path
           type: string
@@ -935,16 +935,16 @@ paths:
           description: Internal error
           schema:
             $ref: "#/definitions/ApiErrorResponse"
-  /images/{imageDigest}/content/java:
+  /images/{image_digest}/content/java:
     get:
       tags:
         - Images
       x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.images
-      operationId: get_image_content_by_type_javapackage
+      operationId: get_image_content_by_type_java_package
       x-anchore-authz-action: getImage
       summary: Get the content of an image by type java
       parameters:
-        - name: imageDigest
+        - name: image_digest
           in: path
           format: path
           type: string
@@ -959,7 +959,7 @@ paths:
           description: Internal error
           schema:
             $ref: "#/definitions/ApiErrorResponse"
-  /images/{imageDigest}/content/malware:
+  /images/{image_digest}/content/malware:
     get:
       tags:
         - Images
@@ -968,7 +968,7 @@ paths:
       x-anchore-authz-action: getImage
       summary: Get the content of an image by type malware
       parameters:
-        - name: imageDigest
+        - name: image_digest
           in: path
           format: path
           type: string
@@ -983,21 +983,21 @@ paths:
           description: Internal error
           schema:
             $ref: "#/definitions/ApiErrorResponse"
-  /images/by_id/{imageId}/content/{ctype}:
+  /images/by_id/{image_id}/content/{content_type}:
     get:
       tags:
         - Images
       x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.images
-      operationId: get_image_content_by_type_imageId
+      operationId: get_image_content_by_type_image_id
       x-anchore-authz-action: getImage
       summary: Get the content of an image by type
       parameters:
-        - name: imageId
+        - name: image_id
           in: path
           format: path
           type: string
           required: true
-        - name: ctype
+        - name: content_type
           in: path
           format: path
           type: string
@@ -1012,16 +1012,16 @@ paths:
           description: Internal error
           schema:
             $ref: "#/definitions/ApiErrorResponse"
-  /images/by_id/{imageId}/content/files:
+  /images/by_id/{image_id}/content/files:
     get:
       tags:
         - Images
       x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.images
-      operationId: get_image_content_by_type_imageId_files
+      operationId: get_image_content_by_type_image_id_files
       x-anchore-authz-action: getImage
       summary: Get the content of an image by type files
       parameters:
-        - name: imageId
+        - name: image_id
           in: path
           format: path
           type: string
@@ -1036,16 +1036,16 @@ paths:
           description: Internal error
           schema:
             $ref: "#/definitions/ApiErrorResponse"
-  /images/by_id/{imageId}/content/java:
+  /images/by_id/{image_id}/content/java:
     get:
       tags:
         - Images
       x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.images
-      operationId: get_image_content_by_type_imageId_javapackage
+      operationId: get_image_content_by_type_image_id_java_package
       x-anchore-authz-action: getImage
       summary: Get the content of an image by type java
       parameters:
-        - name: imageId
+        - name: image_id
           in: path
           format: path
           type: string
@@ -1060,7 +1060,7 @@ paths:
           description: Internal error
           schema:
             $ref: "#/definitions/ApiErrorResponse"
-  /images/{imageDigest}/artifacts/retrieved_files:
+  /images/{image_digest}/artifacts/retrieved_files:
     get:
       x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.images
       operationId: list_retrieved_files
@@ -1069,7 +1069,7 @@ paths:
       produces:
         - application/json
       parameters:
-        - name: imageDigest
+        - name: image_digest
           in: path
           format: path
           type: string
@@ -1081,7 +1081,7 @@ paths:
             $ref: "#/definitions/RetrievedFileList"
         404:
           description: "Image not found in this service"
-  /images/{imageDigest}/artifacts/file_content_search:
+  /images/{image_digest}/artifacts/file_content_search:
     get:
       x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.images
       operationId: list_file_content_search_results
@@ -1090,7 +1090,7 @@ paths:
       produces:
         - application/json
       parameters:
-        - name: imageDigest
+        - name: image_digest
           in: path
           format: path
           type: string
@@ -1102,7 +1102,7 @@ paths:
             $ref: "#/definitions/FileContentSearchList"
         404:
           description: "Image not found in this service"
-  /images/{imageDigest}/artifacts/secret_search:
+  /images/{image_digest}/artifacts/secret_search:
     get:
       x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.images
       operationId: list_secret_search_results
@@ -1111,7 +1111,7 @@ paths:
       produces:
         - application/json
       parameters:
-        - name: imageDigest
+        - name: image_digest
           in: path
           format: path
           type: string
@@ -1123,7 +1123,7 @@ paths:
             $ref: "#/definitions/SecretSearchList"
         404:
           description: "Image not found in this service"
-  /images/{imageDigest}/metadata:
+  /images/{image_digest}/metadata:
     get:
       tags:
         - Images
@@ -1132,7 +1132,7 @@ paths:
       x-anchore-authz-action: getImage
       summary: List image metadata types
       parameters:
-        - name: imageDigest
+        - name: image_digest
           in: path
           format: path
           type: string
@@ -1149,7 +1149,7 @@ paths:
           description: Internal Error
           schema:
             $ref: "#/definitions/ApiErrorResponse"
-  /images/{imageDigest}/sboms/native:
+  /images/{image_digest}/sboms/native:
     get:
       tags:
         - Images
@@ -1160,7 +1160,7 @@ paths:
       produces:
         - application/gzip
       parameters:
-        - name: imageDigest
+        - name: image_digest
           in: path
           format: path
           type: string
@@ -1175,7 +1175,7 @@ paths:
           description: Internal error
           schema:
             $ref: "#/definitions/ApiErrorResponse"
-  /images/{imageDigest}/sboms/native-json:
+  /images/{image_digest}/sboms/native-json:
     get:
       tags:
         - Images
@@ -1184,7 +1184,7 @@ paths:
       x-anchore-authz-action: getImage
       summary: Get image sbom in the native Anchore format
       parameters:
-        - name: imageDigest
+        - name: image_digest
           in: path
           format: path
           type: string
@@ -1199,7 +1199,7 @@ paths:
           description: Internal error
           schema:
             $ref: "#/definitions/ApiErrorResponse"
-  /images/{imageDigest}/sboms/spdx-json:
+  /images/{image_digest}/sboms/spdx-json:
     get:
       tags:
         - Images
@@ -1208,7 +1208,7 @@ paths:
       x-anchore-authz-action: getImage
       summary: Get image sbom in the SPDX format
       parameters:
-        - name: imageDigest
+        - name: image_digest
           in: path
           format: path
           type: string
@@ -1223,7 +1223,7 @@ paths:
           description: Internal error
           schema:
             $ref: "#/definitions/ApiErrorResponse"
-  /images/{imageDigest}/sboms/cyclonedx-json:
+  /images/{image_digest}/sboms/cyclonedx-json:
     get:
       tags:
         - Images
@@ -1232,7 +1232,7 @@ paths:
       x-anchore-authz-action: getImage
       summary: Get image sbom in the CycloneDX format
       parameters:
-        - name: imageDigest
+        - name: image_digest
           in: path
           format: path
           type: string
@@ -1248,7 +1248,7 @@ paths:
           schema:
             $ref: "#/definitions/ApiErrorResponse"
 
-  /images/{imageDigest}/metadata/{mtype}:
+  /images/{image_digest}/metadata/{mtype}:
     get:
       tags:
         - Images
@@ -1257,7 +1257,7 @@ paths:
       x-anchore-authz-action: getImage
       summary: Get the metadata of an image by type
       parameters:
-        - name: imageDigest
+        - name: image_digest
           in: path
           format: path
           type: string
@@ -1286,17 +1286,17 @@ paths:
       operationId: add_repository
       x-anchore-authz-action: createRepository
       parameters:
-        - name: 'repository'
+        - name: repository
           in: query
           type: string
           description: "full repository to add e.g. docker.io/library/alpine"
           required: true
-        - name: 'autosubscribe'
+        - name: auto_subscribe
           in: query
           type: boolean
           description: "flag to enable/disable auto tag_update activation when new images from a repo are added"
           required: false
-        - name: 'dryrun'
+        - name: dry_run
           in: query
           type: boolean
           description: "flag to return tags in the repository without actually watching the repository, default is false"
@@ -1333,12 +1333,12 @@ paths:
       summary: Add a new registry
       description: Adds a new registry to the system
       parameters:
-        - name: 'validate'
+        - name: validate
           in: query
           type: boolean
           description: "flag to determine whether or not to validate registry/credential at registry add time"
           required: false
-        - name: registrydata
+        - name: registry_data
           in: body
           required: true
           schema:
@@ -1388,12 +1388,12 @@ paths:
           format: path
           required: true
           type: string
-        - name: 'validate'
+        - name: validate
           in: query
           type: boolean
           description: "flag to determine whether or not to validate registry/credential at registry update time"
           required: false
-        - name: registrydata
+        - name: registry_data
           in: body
           required: true
           schema:
@@ -1494,12 +1494,12 @@ paths:
       operationId: "post_system_feeds"
       x-anchore-authz-action: updateFeeds
       parameters:
-        - name: 'flush'
+        - name: flush
           in: query
           type: boolean
           description: "instruct system to flush existing data feeds records from anchore-engine"
           required: false
-        - name: 'sync'
+        - name: sync
           in: query
           type: boolean
           description: "instruct system to re-sync data feeds"
@@ -1653,7 +1653,7 @@ paths:
           description: Internal Error
           schema:
             $ref: "#/definitions/ApiErrorResponse"
-  /system/services/{servicename}:
+  /system/services/{service_name}:
     get:
       tags:
         - System
@@ -1662,7 +1662,7 @@ paths:
       x-anchore-authz-action: getService
       summary: Get a service configuration and state
       parameters:
-        - name: servicename
+        - name: service_name
           in: path
           format: path
           type: string
@@ -1676,7 +1676,7 @@ paths:
           description: Internal Error
           schema:
             $ref: "#/definitions/ApiErrorResponse"
-  /system/services/{servicename}/{hostid}:
+  /system/services/{service_name}/{host_id}:
     get:
       tags:
         - System
@@ -1685,12 +1685,12 @@ paths:
       x-anchore-authz-action: getService
       summary: Get service config for a specific host
       parameters:
-        - name: servicename
+        - name: service_name
           in: path
           format: path
           type: string
           required: true
-        - name: hostid
+        - name: host_id
           in: path
           format: path
           type: string
@@ -1712,12 +1712,12 @@ paths:
       x-anchore-authz-action: deleteService
       summary: Delete the service config
       parameters:
-        - name: servicename
+        - name: service_name
           in: path
           format: path
           type: string
           required: true
-        - name: hostid
+        - name: host_id
           in: path
           format: path
           type: string
@@ -1784,12 +1784,12 @@ paths:
       summary: List Events
       description: Returns a paginated list of events in the descending order of their occurrence. Optional query parameters may be used for filtering results
       parameters:
-        - name: source_servicename
+        - name: source_service_name
           in: query
           type: string
           description: Filter events by the originating service
           required: false
-        - name: source_hostid
+        - name: source_host_id
           in: query
           type: string
           description: Filter events by the originating host ID
@@ -1803,7 +1803,7 @@ paths:
         - name: resource_type
           in: query
           type: string
-          description: Filter events by the type of resource - tag, imageDigest, repository etc
+          description: Filter events by the type of resource - tag, image_digest, repository etc
           required: false
         - name: resource_id
           in: query
@@ -1879,7 +1879,7 @@ paths:
           description: Internal Error
           schema:
             $ref: "#/definitions/ApiErrorResponse"
-  /events/{eventId}:
+  /events/{event_id}:
     get:
       tags:
         - Events
@@ -1889,7 +1889,7 @@ paths:
       summary: Get Event
       description: Lookup an event by its event ID
       parameters:
-        - name: eventId
+        - name: event_id
           in: path
           format: path
           type: string
@@ -1910,7 +1910,7 @@ paths:
       summary: Delete Event
       description: Delete an event by its event ID
       parameters:
-        - name: eventId
+        - name: event_id
           in: path
           format: path
           type: string
@@ -1942,7 +1942,7 @@ paths:
           type: string
         - name: affected_package
           in: query
-          description: Filter results to images with vulnable packages with the given package name (e.g. libssl)
+          description: Filter results to images with vulnerable packages with the given package name (e.g. libssl)
           required: false
           type: string
         - name: severity
@@ -2102,7 +2102,7 @@ paths:
           description: Filter accounts by state
       responses:
         200:
-          description: Accound summary listing
+          description: Account summary listing
           schema:
             $ref: "#/definitions/AccountList"
         500:
@@ -2115,7 +2115,7 @@ paths:
       x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.accounts
       operationId: create_account
       x-anchore-authz-action: createAccount
-      summary: Create a new account. Only avaialble to admin user.
+      summary: Create a new account. Only available to admin user.
       parameters:
         - name: account
           in: body
@@ -2135,7 +2135,7 @@ paths:
           description: Internal error
           schema:
             $ref: "#/definitions/ApiErrorResponse"
-  /accounts/{accountname}:
+  /accounts/{account_name}:
     get:
       tags:
         - User Management
@@ -2144,7 +2144,7 @@ paths:
       x-anchore-authz-action: getAccount
       summary: Get account info about this specific account.
       parameters:
-        - name: accountname
+        - name: account_name
           in: path
           format: path
           required: true
@@ -2152,6 +2152,34 @@ paths:
       responses:
         200:
           description: Get user information
+          schema:
+            $ref: "#/definitions/Account"
+        500:
+          description: Internal error
+          schema:
+            $ref: "#/definitions/ApiErrorResponse"
+    put:
+      tags:
+        - User Management
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.accounts
+      operationId: update_account
+      x-anchore-authz-action: updateAccount
+      summary: Update the info for this specific account.
+      parameters:
+        - name: account_name
+          in: path
+          format: path
+          required: true
+          type: string
+        - name: info
+          in: body
+          required: true
+          schema:
+            $ref: "#/definitions/AccountInfo"
+        - $ref: "#/parameters/AsAccountParameter"
+      responses:
+        200:
+          description: Returns the account information
           schema:
             $ref: "#/definitions/Account"
         500:
@@ -2166,7 +2194,7 @@ paths:
       x-anchore-authz-action: deleteAccount
       summary: Delete the specified account, only allowed if the account is in the disabled state. All users will be deleted along with the account and all resources will be garbage collected
       parameters:
-        - name: accountname
+        - name: account_name
           in: path
           format: path
           required: true
@@ -2178,7 +2206,7 @@ paths:
           description: Internal error
           schema:
             $ref: "#/definitions/ApiErrorResponse"
-  /accounts/{accountname}/state:
+  /accounts/{account_name}/state:
     put:
       tags:
         - User Management
@@ -2187,7 +2215,7 @@ paths:
       x-anchore-authz-action: updateAccount
       summary: Update the state of an account to either enabled or disabled. For deletion use the DELETE route
       parameters:
-        - name: accountname
+        - name: account_name
           in: path
           format: path
           required: true
@@ -2210,7 +2238,7 @@ paths:
           description: Internal error
           schema:
             $ref: "#/definitions/ApiErrorResponse"
-  /accounts/{accountname}/users:
+  /accounts/{account_name}/users:
     get:
       tags:
         - User Management
@@ -2219,7 +2247,7 @@ paths:
       x-anchore-authz-action: listUsers
       summary: List of users found in this account.
       parameters:
-        - name: accountname
+        - name: account_name
           in: path
           format: path
           type: string
@@ -2244,7 +2272,7 @@ paths:
       x-anchore-authz-action: createUser
       summary: Create a new user within the specified account.
       parameters:
-        - name: accountname
+        - name: account_name
           in: path
           format: path
           type: string
@@ -2259,7 +2287,7 @@ paths:
           description: Credential summary
           schema:
             $ref: "#/definitions/User"
-  /accounts/{accountname}/users/{username}:
+  /accounts/{account_name}/users/{username}:
     delete:
       tags:
         - User Management
@@ -2268,7 +2296,7 @@ paths:
       x-anchore-authz-action: deleteUser
       summary: Delete a specific user credential by username of the credential. Cannot be the credential used to authenticate the request.
       parameters:
-        - name: accountname
+        - name: account_name
           type: string
           in: path
           format: path
@@ -2293,7 +2321,7 @@ paths:
       x-anchore-authz-action: getUser
       summary: Get a specific user in the specified account
       parameters:
-        - name: accountname
+        - name: account_name
           type: string
           in: path
           format: path
@@ -2312,13 +2340,13 @@ paths:
           description: Internal error
           schema:
             $ref: "#/definitions/ApiErrorResponse"
-  /accounts/{accountname}/users/{username}/credentials:
+  /accounts/{account_name}/users/{username}/credentials:
     get:
       tags:
         - User Management
       summary: Get current credential summary
       parameters:
-        - name: accountname
+        - name: account_name
           in: path
           format: path
           type: string
@@ -2348,7 +2376,7 @@ paths:
       x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.accounts
       summary: add/replace credential
       parameters:
-        - name: accountname
+        - name: account_name
           in: path
           format: path
           type: string
@@ -2365,7 +2393,7 @@ paths:
             $ref: "#/definitions/AccessCredential"
       responses:
         200:
-          description: Add a credential, overwritting if already exists
+          description: Add a credential, overwriting if already exists
           schema:
             $ref: "#/definitions/AccessCredential"
         500:
@@ -2380,7 +2408,7 @@ paths:
       x-anchore-authz-action: updateUser
       x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.accounts
       parameters:
-        - name: accountname
+        - name: account_name
           in: path
           format: path
           type: string
@@ -2472,7 +2500,7 @@ paths:
             $ref: "#/definitions/AccessCredential"
       responses:
         200:
-          description: Add a credential, overwritting if already exists
+          description: Add a credential, over-writing if already exists
           schema:
             $ref: "#/definitions/User"
         500:
@@ -2539,7 +2567,7 @@ paths:
           description: Internal error
           schema:
             $ref: "#/definitions/ApiErrorResponse"
-  /archives/rules/{ruleId}:
+  /archives/rules/{rule_id}:
     get:
       tags:
         - Archives
@@ -2547,7 +2575,7 @@ paths:
       x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.archive
       x-anchore-authz-action: getArchiveTransitionRule
       parameters:
-        - name: ruleId
+        - name: rule_id
           type: string
           required: true
           in: path
@@ -2568,14 +2596,14 @@ paths:
       x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.archive
       x-anchore-authz-action: deleteArchiveTransitionRule
       parameters:
-        - name: ruleId
+        - name: rule_id
           type: string
           required: true
           in: path
           format: path
       responses:
         200:
-          description: Analysis archive rule succesfuly deleted
+          description: Analysis archive rule successfully deleted
         500:
           description: Internal error
           schema:
@@ -2625,7 +2653,7 @@ paths:
       x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.archive
       x-anchore-authz-action: createArchivedImageAnalysis
       parameters:
-        - name: imageReferences
+        - name: image_references
           in: body
           required: true
           schema:
@@ -2639,7 +2667,7 @@ paths:
           description: Internal error
           schema:
             $ref: "#/definitions/ApiErrorResponse"
-  /archives/images/{imageDigest}:
+  /archives/images/{image_digest}:
     get:
       tags:
         - Archives
@@ -2648,7 +2676,7 @@ paths:
       x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.archive
       x-anchore-authz-action: getArchivedImageAnalysis
       parameters:
-        - name: imageDigest
+        - name: image_digest
           in: path
           format: path
           required: true
@@ -2671,7 +2699,7 @@ paths:
       x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.archive
       x-anchore-authz-action: deleteArchivedImageAnalysis
       parameters:
-        - name: imageDigest
+        - name: image_digest
           in: path
           format: path
           required: true
@@ -2682,7 +2710,7 @@ paths:
           type: boolean
       responses:
         200:
-          description: ArchivdImageAnalysis successfully deleted
+          description: Archived Image Analysis was successfully deleted
         500:
           description: Internal error
           schema:
@@ -2748,9 +2776,9 @@ paths:
             - refresh_token
       responses:
         200:
-          description: The token has been sucessfully revoked
+          description: The token has been successfully revoked
         401:
-          description: Revokation of the provided token type is not supported
+          description: Revocation of the provided token type is not supported
         400:
           description: Error response
           schema:
@@ -3168,7 +3196,7 @@ definitions:
         description: Package type (e.g. package, rpm, deb, apk, jar, npm, gem, ...)
       will_not_fix:
         type: boolean
-        description: Whether a vendor will or will not fix a vulnerabitlity
+        description: Whether a vendor will or will not fix a vulnerability
     description: A record of a software item which is vulnerable or carries a fix for a vulnerability
   VulnerablePackageReference:
     type: object
@@ -3206,7 +3234,7 @@ definitions:
           $ref: '#/definitions/PackageReference'
       severity:
         type: string
-        description: Severity label specific to the namepsace
+        description: Severity label specific to the namespace
         enum:
           - Unknown
           - Negligible
@@ -3247,10 +3275,10 @@ definitions:
   ImageReference:
     type: object
     properties:
-      imageDigest:
+      image_digest:
         type: string
         description: The image digest
-      imageId:
+      image_id:
         type: string
         description: The image id if available
       analyzed_at:
@@ -3310,7 +3338,7 @@ definitions:
             type: array
             items:
               $ref: '#/definitions/VulnerableImage'
-    description: Pagination wrapped list of images with vulnerabilties that match some filter
+    description: Pagination wrapped list of images with vulnerabilities that match some filter
   PaginatedVulnerabilityList:
     allOf:
       - $ref: '#/definitions/PaginationProperties'
@@ -3342,7 +3370,7 @@ definitions:
         pattern: "^[a-zA-Z0-9+/=]+$"
       digest:
         type: string
-        description: "A digest string for an image, maybe a pull string or just a digest. e.g. nginx@sha256:123 or sha256:abc123. If a pull string, it must have same regisry/repo as the tag field. Deprecated in favor of the 'source' field"
+        description: "A digest string for an image, maybe a pull string or just a digest. e.g. nginx@sha256:123 or sha256:abc123. If a pull string, it must have same registry/repo as the tag field. Deprecated in favor of the 'source' field"
       tag:
         type: string
         description: "Full pullable tag reference for image. e.g. docker.io/nginx:latest. Deprecated in favor of the 'source' field"
@@ -3620,13 +3648,13 @@ definitions:
           type: string
       policy_id:
         type: string
-        description: Optional single policy to evalute, if set will override any value in policy_ids, for backwards compatibility. Generally, policy_ids should be used even with a array of length 1.
+        description: Optional single policy to evaluate, if set will override any value in policy_ids, for backwards compatibility. Generally, policy_ids should be used even with a array of length 1.
       policy_ids:
         type: array
-        description: List of policyIds to evaluate in order, to completion
+        description: List of policy_ids to evaluate in order, to completion
         items:
           type: string
-          description: PolicyId to evaluate
+          description: policy_id to evaluate
       host:
         type: string
       repository:
@@ -3649,13 +3677,13 @@ definitions:
           type: string
       policy_id:
         type: string
-        description: Optional single policy to evalute, if set will override any value in policy_ids, for backwards compatibility. Generally, policy_ids should be used even with a array of length 1.
+        description: Optional single policy to evaluate, if set will override any value in policy_ids, for backwards compatibility. Generally, policy_ids should be used even with a array of length 1.
       policy_ids:
         type: array
-        description: List of policyIds to evaluate in order, to completion
+        description: List of policy_ids to evaluate in order, to completion
         items:
           type: string
-          description: PolicyId to evaluate
+          description: policy_id to evaluate
       registry:
         type: string
       repository:
@@ -3672,21 +3700,21 @@ definitions:
       last_updated:
         type: string
         format: "date-time"
-      policyId:
+      policy_id:
         type: string
         description: The bundle's identifier
       active:
         type: boolean
         description: True if the bundle is currently defined to be used automatically
-      userId:
+      account_name:
         type: string
         description: UserId of the user that owns the bundle
       policy_source:
         type: string
         description: Source location of where the policy bundle originated
-      policybundle:
+      policy_bundle:
         $ref: "#/definitions/PolicyBundle"
-      policybundlemeta:
+      policy_bundle_meta:
         type: object
       name:
         type: string
@@ -3741,9 +3769,9 @@ definitions:
       fulldigest:
         description: "Full docker-pullable digest string including the registry url and repository necessary get the image"
         type: string
-      userId:
+      account_name:
         type: string
-      imageId:
+      image_id:
         type: string
       registry:
         type: string
@@ -3752,7 +3780,7 @@ definitions:
       dockerfile:
         type: string
         x-nullable: True
-      imageDigest:
+      image_digest:
         type: string
         description: The parent Anchore Image record to which this detail maps
   AnchoreImageTagSummaryList:
@@ -3764,11 +3792,11 @@ definitions:
     description: A unique image in the engine.
     type: object
     properties:
-      imageDigest:
+      image_digest:
         type: string
-      parentDigest:
+      parent_digest:
         type: string
-      imageId:
+      image_id:
         type: string
       analysis_status:
         type: string
@@ -3799,11 +3827,11 @@ definitions:
       created_at:
         type: string
         format: date-time
-      imageDigest:
+      image_digest:
         type: string
-      parentDigest:
+      parent_digest:
         type: string
-      userId:
+      account_name:
         type: string
       annotations:
         type: object
@@ -3852,10 +3880,10 @@ definitions:
     type: object
     description: A reference to a service in the system
     properties:
-      hostid:
+      host_id:
         type: string
         description: The unique id of the host on which the service is executing
-      servicename:
+      service_name:
         type: string
         description: Registered service name
   AnchoreImageList:
@@ -3908,10 +3936,10 @@ definitions:
     description: "A service status record"
     type: object
     properties:
-      hostid:
+      host_id:
         type: string
         description: The unique id of the host on which the service is executing
-      servicename:
+      service_name:
         type: string
         description: Registered service name
       base_url:
@@ -3936,7 +3964,7 @@ definitions:
     type: object
     description: "Generic wrapper for content listings from images"
     properties:
-      imageDigest:
+      image_digest:
         type: string
       content_type:
         type: string
@@ -3948,7 +3976,7 @@ definitions:
     type: object
     description: "File content listings from images"
     properties:
-      imageDigest:
+      image_digest:
         type: string
       content_type:
         type: string
@@ -3979,7 +4007,7 @@ definitions:
     type: object
     description: "Package content listings from images"
     properties:
-      imageDigest:
+      image_digest:
         type: string
       content_type:
         type: string
@@ -4022,7 +4050,7 @@ definitions:
     type: object
     description: Malware listing response
     properties:
-      imageDigest:
+      image_digest:
         type: string
       content_type:
         type: string
@@ -4059,7 +4087,7 @@ definitions:
     type: object
     description: "Java package content listings from images"
     properties:
-      imageDigest:
+      image_digest:
         type: string
       content_type:
         type: string
@@ -4091,7 +4119,7 @@ definitions:
     type: object
     description: "Generic wrapper for metadata listings from images"
     properties:
-      imageDigest:
+      image_digest:
         type: string
       metadata_type:
         type: string
@@ -4140,9 +4168,9 @@ definitions:
         type: string
         x-nullable: True
         description: The value of the subscription target
-      userId:
+      account_name:
         type: string
-        description: The userId of the subscribed user
+        description: The account_name of the subscribed user
       active:
         type: boolean
         description: Is the subscription currently active
@@ -4193,7 +4221,7 @@ definitions:
       created_at:
         type: string
         format: "date-time"
-      last_upated:
+      last_updated:
         type: string
         format: "date-time"
       registry_user:
@@ -4202,7 +4230,7 @@ definitions:
       registry_type:
         type: string
         description: Type of registry
-      userId:
+      account_name:
         type: string
         description: Engine user that owns this registry entry
       registry:
@@ -4327,7 +4355,7 @@ definitions:
     description: envelope containing list of vulnerabilities
     type: object
     properties:
-      imageDigest:
+      image_digest:
         type: string
       vulnerability_type:
         type: string
@@ -4377,10 +4405,10 @@ definitions:
           - active
           - deprecated
           - eol
-      superceded_by:
+      superseded_by:
         type: string
         x-nullable: True
-        description: The name of another trigger that supercedes this on functionally if this is deprecated
+        description: The name of another trigger that supersedes this on functionally if this is deprecated
       triggers:
         type: array
         description: List of the triggers that can fire for this Gate
@@ -4403,10 +4431,10 @@ definitions:
           - active
           - deprecated
           - eol
-      superceded_by:
+      superseded_by:
         type: string
         x-nullable: True
-        description: The name of another trigger that supercedes this on functionally if this is deprecated
+        description: The name of another trigger that supersedes this on functionally if this is deprecated
       parameters:
         type: array
         description: The list of parameters that are valid for this trigger
@@ -4431,10 +4459,10 @@ definitions:
           - active
           - deprecated
           - eol
-      superceded_by:
+      superseded_by:
         type: string
         x-nullable: True
-        description: The name of another trigger that supercedes this on functionally if this is deprecated
+        description: The name of another trigger that supersedes this on functionally if this is deprecated
       required:
         description: Is this a required parameter or optional
         type: boolean
@@ -4484,9 +4512,9 @@ definitions:
         description: If group is enabled
   EventResponse:
     type: object
-    description: A record of occurance of an asynchronous event triggered either by system or by user activity
+    description: A record of occurrence of an asynchronous event triggered either by system or by user activity
     properties:
-      generated_uuid:
+      event_id:
         type: string
       created_at:
         type: string
@@ -4497,9 +4525,9 @@ definitions:
           source:
             type: object
             properties:
-              servicename:
+              service_name:
                 type: string
-              hostid:
+              host_id:
                 type: string
               base_url:
                 type: string
@@ -4508,7 +4536,7 @@ definitions:
           resource:
             type: object
             properties:
-              user_id:
+              account_name:
                 type: string
               id:
                 type: string
@@ -4528,16 +4556,16 @@ definitions:
             type: string
             format: date-time
     example:
-      generated_uuid: b4cf3559e6f64077a7e335225f0945fb
+      event_id: b4cf3559e6f64077a7e335225f0945fb
       event:
         source:
-          servicename: catalog
-          hostid: anchore-quickstart
+          service_name: catalog
+          host_id: anchore-quickstart
           base_url: "http://catalog:8228"
         resource:
           id: "http://policy-engine:8228"
           type: service
-          user_id: admin
+          account_name: admin
         type: system.service.state_transition.orphaned
         level: error
         message: Service orphaned
@@ -4570,6 +4598,14 @@ definitions:
         type: string
         description: The account name to use. This will identify the account and must be globally unique in the system.
         pattern: ^[a-zA-Z0-9][ a-zA-Z0-9@.!#$+-=^_`~;]{1,126}[a-zA-Z0-9_]$
+      email:
+        type: string
+        description: An optional email to associate with the account for contact purposes
+        pattern: "[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?"
+  AccountInfo:
+    type: object
+    description: Account Information.
+    properties:
       email:
         type: string
         description: An optional email to associate with the account for contact purposes
@@ -4795,10 +4831,10 @@ definitions:
   ArchivedAnalysis:
     type: object
     properties:
-      imageDigest:
+      image_digest:
         type: string
         description: The image digest (digest of the manifest describing the image, per docker spec)
-      parentDigest:
+      parent_digest:
         type: string
         description: The digest of a parent manifest (for manifest-list images)
       annotations:
@@ -4859,7 +4895,7 @@ definitions:
     description: A docker-pullable tag value as well as deconstructed components
   AnalysisArchiveRules:
     type: array
-    description: Rule set for automatic archiving of system objects and flushing of archived objects (permament delete).
+    description: Rule set for automatic archiving of system objects and flushing of archived objects (permanent delete).
     items:
       $ref: "#/definitions/AnalysisArchiveTransitionRule"
   AnalysisArchiveTransitionRule:
@@ -4922,7 +4958,7 @@ definitions:
         description: The task that created & updated this entry
       rule_id:
         type: string
-      imageDigest:
+      image_digest:
         type: string
       transition:
         type: string
@@ -4968,7 +5004,7 @@ definitions:
           - failure
       total_time_seconds:
         type: number
-        description: The duratin, in seconds, of the sync of the feed, the sum of all the group syncs
+        description: The duration, in seconds, of the sync of the feed, the sum of all the group syncs
       groups:
         type: array
         description: Array of group sync results
@@ -5118,11 +5154,11 @@ definitions:
     type: object
     description: base object for Notifications (every notification has this basic structure)
     properties:
-      queueId:
+      queue_id:
         type: string
-      userId:
+      account_name:
         type: string
-      dataId:
+      data_id:
         type: string
       created_at:
         type: integer
@@ -5158,7 +5194,7 @@ definitions:
     allOf:
       - $ref: "#/definitions/NotificationBase"
       - type: object
-        description: The Notification Object definition for Tag Update Notifications
+        description: The Notification Object definition for Vuln Update Notifications
         properties:
           data:
             $ref: "#/definitions/VulnUpdateNotificationData"
@@ -5166,7 +5202,7 @@ definitions:
     allOf:
       - $ref: "#/definitions/NotificationBase"
       - type: object
-        description: The Notification Object definition for Tag Update Notifications
+        description: The Notification Object definition for Analysis Update Notifications
         properties:
           data:
             $ref: "#/definitions/AnalysisUpdateNotificationData"
@@ -5212,13 +5248,13 @@ definitions:
     type: object
     description: Parent class for Notification Payloads
     properties:
-      userId:
+      account_name:
         type: string
       subscription_key:
         type: string
       subscription_type:
         type: string
-      notificationId:
+      notification_id:
         type: string
   PolicyEvalNotificationPayload:
     allOf:
@@ -5259,7 +5295,7 @@ definitions:
         properties:
           diff_vulnerability_result:
             $ref: "#/definitions/VulnDiffResult"
-          imageDigest:
+          image_digest:
             type: string
           annotations:
             type: object
@@ -5353,10 +5389,10 @@ definitions:
         type: string
       parent_digest:
         type: string
-        description: The digest of the images's manifest-list parent if it was accessed from a multi-arch tag where the tag pointed to a manifest-list. This allows preservation of that relationship in the data
+        description: The digest of the image's manifest-list parent if it was accessed from a multi-arch tag where the tag pointed to a manifest-list. This allows preservation of that relationship in the data
       local_image_id:
         type: string
-        description: An "imageId" as used by Docker if available
+        description: An "image_id" as used by Docker if available
       operation_uuid:
         type: string
   ImportContentDigests:
@@ -5382,9 +5418,6 @@ definitions:
       dockerfile:
         type: string
         description: Digest for reference content for dockerfile
-  Annotations:
-    type: object
-    description: Simple key/value pairs where the value may be optional
   ImageImports:
     type: array
     items:
