@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **LastUpdated** | Pointer to **time.Time** |  | [optional] 
 **RegistryUser** | Pointer to **string** | Username portion of credential to use for this registry | [optional] 
 **RegistryType** | Pointer to **string** | Type of registry | [optional] 
-**AccountName** | Pointer to **string** | Anchore account that owns this registry entry | [optional] 
+**AccountName** | Pointer to **string** | Engine user that owns this registry entry | [optional] 
 **Registry** | Pointer to **string** | hostname:port string for accessing the registry, as would be used in a docker pull operation | [optional] 
 **RegistryName** | Pointer to **string** | human readable name associated with registry record | [optional] 
 **RegistryVerify** | Pointer to **bool** | Use TLS/SSL verification for the registry URL | [optional] 

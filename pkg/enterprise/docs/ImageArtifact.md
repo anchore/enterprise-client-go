@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**AccountName** | Pointer to **string** | The account name | [optional] 
+**AccountName** | Pointer to **string** | The account id | [optional] 
 **ImageDigest** | Pointer to **string** | The digest of the image | [optional] 
 **Distro** | Pointer to **string** | The distro of the image | [optional] 
 **DistroVersion** | Pointer to **string** | The distro version of the image | [optional] 

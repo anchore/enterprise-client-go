@@ -1,13 +1,14 @@
 # \SystemApi
 
-All URIs are relative to *http://localhost/v2*
+All URIs are relative to *http://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**DeleteFeed**](SystemApi.md#DeleteFeed) | **Delete** /system/feeds/{feed} | 
+[**DeleteFeedGroup**](SystemApi.md#DeleteFeedGroup) | **Delete** /system/feeds/{feed}/{group} | 
 [**DeleteService**](SystemApi.md#DeleteService) | **Delete** /system/services/{service_name}/{host_id} | Delete the service config
-[**DescribeErrorCodes**](SystemApi.md#DescribeErrorCodes) | **Get** /system/error-codes | Describe anchore engine error codes.
-[**DescribePolicy**](SystemApi.md#DescribePolicy) | **Get** /system/policy-spec | Describe the policy language spec implemented by this service.
+[**DescribeErrorCodes**](SystemApi.md#DescribeErrorCodes) | **Get** /system/error_codes | Describe anchore engine error codes.
+[**DescribePolicy**](SystemApi.md#DescribePolicy) | **Get** /system/policy_spec | Describe the policy language spec implemented by this service.
 [**GetServiceDetail**](SystemApi.md#GetServiceDetail) | **Get** /system | System status
 [**GetServicesByName**](SystemApi.md#GetServicesByName) | **Get** /system/services/{service_name} | Get a service configuration and state
 [**GetServicesByNameAndHost**](SystemApi.md#GetServicesByNameAndHost) | **Get** /system/services/{service_name}/{host_id} | Get service config for a specific host
@@ -17,6 +18,7 @@ Method | HTTP request | Description
 [**PostSystemFeeds**](SystemApi.md#PostSystemFeeds) | **Post** /system/feeds | trigger feeds operations
 [**TestWebhook**](SystemApi.md#TestWebhook) | **Post** /system/webhooks/{webhook_type}/test | Adds the capabilities to test a webhook delivery for the given notification type
 [**ToggleFeedEnabled**](SystemApi.md#ToggleFeedEnabled) | **Put** /system/feeds/{feed} | 
+[**ToggleGroupEnabled**](SystemApi.md#ToggleGroupEnabled) | **Put** /system/feeds/{feed}/{group} | 
 
 
 
@@ -68,6 +70,77 @@ Other parameters are passed through a pointer to a apiDeleteFeedRequest struct v
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## DeleteFeedGroup
+
+> DeleteFeedGroup(ctx, feed, group).Execute()
+
+
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    feed := "feed_example" // string | 
+    group := "group_example" // string | 
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.SystemApi.DeleteFeedGroup(context.Background(), feed, group).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `SystemApi.DeleteFeedGroup``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**feed** | **string** |  | 
+**group** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiDeleteFeedGroupRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
 
 
 ### Return type
@@ -662,7 +735,7 @@ No authorization required
 
 ## PostSystemFeeds
 
-> []FeedSyncResult PostSystemFeeds(ctx).Execute()
+> []FeedSyncResult PostSystemFeeds(ctx).Flush(flush).Sync(sync).Execute()
 
 trigger feeds operations
 
@@ -681,10 +754,12 @@ import (
 )
 
 func main() {
+    flush := true // bool | instruct system to flush existing data feeds records from anchore-engine (optional)
+    sync := true // bool | instruct system to re-sync data feeds (optional)
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.SystemApi.PostSystemFeeds(context.Background()).Execute()
+    resp, r, err := api_client.SystemApi.PostSystemFeeds(context.Background()).Flush(flush).Sync(sync).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `SystemApi.PostSystemFeeds``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -696,12 +771,17 @@ func main() {
 
 ### Path Parameters
 
-This endpoint does not need any parameter.
+
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiPostSystemFeedsRequest struct via the builder pattern
 
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **flush** | **bool** | instruct system to flush existing data feeds records from anchore-engine | 
+ **sync** | **bool** | instruct system to re-sync data feeds | 
 
 ### Return type
 
@@ -848,6 +928,81 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**FeedMetadata**](FeedMetadata.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## ToggleGroupEnabled
+
+> []FeedMetadata ToggleGroupEnabled(ctx, feed, group).Enabled(enabled).Execute()
+
+
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    feed := "feed_example" // string | 
+    group := "group_example" // string | 
+    enabled := true // bool | 
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.SystemApi.ToggleGroupEnabled(context.Background(), feed, group).Enabled(enabled).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `SystemApi.ToggleGroupEnabled``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ToggleGroupEnabled`: []FeedMetadata
+    fmt.Fprintf(os.Stdout, "Response from `SystemApi.ToggleGroupEnabled`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**feed** | **string** |  | 
+**group** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiToggleGroupEnabledRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+ **enabled** | **bool** |  | 
+
+### Return type
+
+[**[]FeedMetadata**](FeedMetadata.md)
 
 ### Authorization
 

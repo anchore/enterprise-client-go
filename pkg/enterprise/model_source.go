@@ -1,9 +1,9 @@
 /*
-Anchore API
+Anchore Enterprise API Server
 
-This is the Anchore API. Provides the external API for users of Anchore Enterprise.
+This is the Anchore Enterprise API. It provides additional external API routes and functionality for enterprise users.
 
-API version: 2.0.0
+API version: 0.7.0
 Contact: dev@anchore.com
 */
 
@@ -20,7 +20,7 @@ import (
 type Source struct {
 	// A system-assigned identifier unique for each source analysis
 	Uuid *string `json:"uuid,omitempty"`
-	// The anchore account name that owns this resource
+	// The anchore account id that owns this resource
 	AccountName *string `json:"account_name,omitempty"`
 	// Host name for the repository location (e.g. github.com)
 	Host *string `json:"host,omitempty"`

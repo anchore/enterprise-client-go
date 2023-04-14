@@ -1,6 +1,6 @@
 # \SummariesApi
 
-All URIs are relative to *http://localhost/v2*
+All URIs are relative to *http://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -10,7 +10,7 @@ Method | HTTP request | Description
 
 ## ListImageTags
 
-> AnchoreImageTagSummaryList ListImageTags(ctx).ImageStatus(imageStatus).XAnchoreAccount(xAnchoreAccount).Execute()
+> []AnchoreImageTagSummary ListImageTags(ctx).ImageStatus(imageStatus).XAnchoreAccount(xAnchoreAccount).Execute()
 
 List all visible image digests and tags
 
@@ -39,7 +39,7 @@ func main() {
         fmt.Fprintf(os.Stderr, "Error when calling `SummariesApi.ListImageTags``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `ListImageTags`: AnchoreImageTagSummaryList
+    // response from `ListImageTags`: []AnchoreImageTagSummary
     fmt.Fprintf(os.Stdout, "Response from `SummariesApi.ListImageTags`: %v\n", resp)
 }
 ```
@@ -60,7 +60,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**AnchoreImageTagSummaryList**](AnchoreImageTagSummaryList.md)
+[**[]AnchoreImageTagSummary**](AnchoreImageTagSummary.md)
 
 ### Authorization
 
