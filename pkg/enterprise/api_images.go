@@ -62,10 +62,10 @@ type ImagesApi interface {
 
 	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	 @param imageDigest
-	 @param vtype
+	 @param vulnType
 	 @return ApiGetImageVulnerabilitiesByDigestRequest
 	*/
-	GetImageVulnerabilitiesByDigest(ctx _context.Context, imageDigest string, vtype string) ApiGetImageVulnerabilitiesByDigestRequest
+	GetImageVulnerabilitiesByDigest(ctx _context.Context, imageDigest string, vulnType string) ApiGetImageVulnerabilitiesByDigestRequest
 
 	// GetImageVulnerabilitiesByDigestExecute executes the request
 	//  @return EnterpriseVulnerabilityResponse
@@ -368,7 +368,7 @@ type ApiGetImageVulnerabilitiesByDigestRequest struct {
 	ctx _context.Context
 	ApiService ImagesApi
 	imageDigest string
-	vtype string
+	vulnType string
 	forceRefresh *bool
 	vendorOnly *bool
 	baseDigest *string
@@ -404,15 +404,15 @@ GetImageVulnerabilitiesByDigest Get vulnerabilities by type
 
  @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param imageDigest
- @param vtype
+ @param vulnType
  @return ApiGetImageVulnerabilitiesByDigestRequest
 */
-func (a *ImagesApiService) GetImageVulnerabilitiesByDigest(ctx _context.Context, imageDigest string, vtype string) ApiGetImageVulnerabilitiesByDigestRequest {
+func (a *ImagesApiService) GetImageVulnerabilitiesByDigest(ctx _context.Context, imageDigest string, vulnType string) ApiGetImageVulnerabilitiesByDigestRequest {
 	return ApiGetImageVulnerabilitiesByDigestRequest{
 		ApiService: a,
 		ctx: ctx,
 		imageDigest: imageDigest,
-		vtype: vtype,
+		vulnType: vulnType,
 	}
 }
 
@@ -433,9 +433,9 @@ func (a *ImagesApiService) GetImageVulnerabilitiesByDigestExecute(r ApiGetImageV
 		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/images/{image_digest}/vuln/{vtype}"
+	localVarPath := localBasePath + "/images/{image_digest}/vuln/{vuln_type}"
 	localVarPath = strings.Replace(localVarPath, "{"+"image_digest"+"}", _neturl.PathEscape(parameterToString(r.imageDigest, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"vtype"+"}", _neturl.PathEscape(parameterToString(r.vtype, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"vuln_type"+"}", _neturl.PathEscape(parameterToString(r.vulnType, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}

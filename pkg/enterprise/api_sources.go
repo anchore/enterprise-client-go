@@ -164,10 +164,10 @@ type SourcesApi interface {
 
 	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	 @param sourceId
-	 @param vtype
+	 @param vulnType
 	 @return ApiGetSourceVulnerabilitiesRequest
 	*/
-	GetSourceVulnerabilities(ctx _context.Context, sourceId string, vtype string) ApiGetSourceVulnerabilitiesRequest
+	GetSourceVulnerabilities(ctx _context.Context, sourceId string, vulnType string) ApiGetSourceVulnerabilitiesRequest
 
 	// GetSourceVulnerabilitiesExecute executes the request
 	//  @return SourceVulnerabilitiesResponse
@@ -1276,7 +1276,7 @@ type ApiGetSourceVulnerabilitiesRequest struct {
 	ctx _context.Context
 	ApiService SourcesApi
 	sourceId string
-	vtype string
+	vulnType string
 	forceRefresh *bool
 	willNotFix *bool
 	xAnchoreAccount *string
@@ -1306,15 +1306,15 @@ GetSourceVulnerabilities Get vulnerabilities for the source by type
 
  @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param sourceId
- @param vtype
+ @param vulnType
  @return ApiGetSourceVulnerabilitiesRequest
 */
-func (a *SourcesApiService) GetSourceVulnerabilities(ctx _context.Context, sourceId string, vtype string) ApiGetSourceVulnerabilitiesRequest {
+func (a *SourcesApiService) GetSourceVulnerabilities(ctx _context.Context, sourceId string, vulnType string) ApiGetSourceVulnerabilitiesRequest {
 	return ApiGetSourceVulnerabilitiesRequest{
 		ApiService: a,
 		ctx: ctx,
 		sourceId: sourceId,
-		vtype: vtype,
+		vulnType: vulnType,
 	}
 }
 
@@ -1335,9 +1335,9 @@ func (a *SourcesApiService) GetSourceVulnerabilitiesExecute(r ApiGetSourceVulner
 		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/sources/{source_id}/vuln/{vtype}"
+	localVarPath := localBasePath + "/sources/{source_id}/vuln/{vuln_type}"
 	localVarPath = strings.Replace(localVarPath, "{"+"source_id"+"}", _neturl.PathEscape(parameterToString(r.sourceId, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"vtype"+"}", _neturl.PathEscape(parameterToString(r.vtype, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"vuln_type"+"}", _neturl.PathEscape(parameterToString(r.vulnType, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}

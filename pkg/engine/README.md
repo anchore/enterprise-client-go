@@ -124,8 +124,8 @@ Class | Method | HTTP request | Description
 *ImagesApi* | [**GetImageSbomNative**](docs/ImagesApi.md#getimagesbomnative) | **Get** /images/{image_digest}/sboms/native | Get image sbom in the native Anchore format
 *ImagesApi* | [**GetImageSbomNativeJson**](docs/ImagesApi.md#getimagesbomnativejson) | **Get** /images/{image_digest}/sboms/native-json | Get image sbom in the native Anchore format
 *ImagesApi* | [**GetImageSbomSpdxJson**](docs/ImagesApi.md#getimagesbomspdxjson) | **Get** /images/{image_digest}/sboms/spdx-json | Get image sbom in the SPDX format
-*ImagesApi* | [**GetImageVulnerabilitiesByType**](docs/ImagesApi.md#getimagevulnerabilitiesbytype) | **Get** /images/{image_digest}/vuln/{vtype} | Get vulnerabilities by type
-*ImagesApi* | [**GetImageVulnerabilitiesByTypeImageId**](docs/ImagesApi.md#getimagevulnerabilitiesbytypeimageid) | **Get** /images/by_id/{image_id}/vuln/{vtype} | Get vulnerabilities by type
+*ImagesApi* | [**GetImageVulnerabilitiesByType**](docs/ImagesApi.md#getimagevulnerabilitiesbytype) | **Get** /images/{image_digest}/vuln/{vuln_type} | Get vulnerabilities by type
+*ImagesApi* | [**GetImageVulnerabilitiesByTypeImageId**](docs/ImagesApi.md#getimagevulnerabilitiesbytypeimageid) | **Get** /images/by_id/{image_id}/vuln/{vuln_type} | Get vulnerabilities by type
 *ImagesApi* | [**GetImageVulnerabilityTypes**](docs/ImagesApi.md#getimagevulnerabilitytypes) | **Get** /images/{image_digest}/vuln | Get vulnerability types
 *ImagesApi* | [**GetImageVulnerabilityTypesByImageId**](docs/ImagesApi.md#getimagevulnerabilitytypesbyimageid) | **Get** /images/by_id/{image_id}/vuln | Get vulnerability types
 *ImagesApi* | [**ListImageContent**](docs/ImagesApi.md#listimagecontent) | **Get** /images/{image_digest}/content | List image content types

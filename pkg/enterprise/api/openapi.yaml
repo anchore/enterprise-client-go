@@ -95,7 +95,7 @@ paths:
       - Images
       x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.images
       x-anchore-authz-action: getImageEvaluation
-  /images/{image_digest}/vuln/{vtype}:
+  /images/{image_digest}/vuln/{vuln_type}:
     get:
       operationId: get_image_vulnerabilities_by_digest
       parameters:
@@ -106,7 +106,7 @@ paths:
           format: path
           type: string
       - in: path
-        name: vtype
+        name: vuln_type
         required: true
         schema:
           enum:
@@ -2102,7 +2102,7 @@ paths:
       - Sources
       x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.sources
       x-anchore-authz-action: getSource
-  /sources/{source_id}/vuln/{vtype}:
+  /sources/{source_id}/vuln/{vuln_type}:
     get:
       operationId: get_source_vulnerabilities
       parameters:
@@ -2113,7 +2113,7 @@ paths:
           format: path
           type: string
       - in: path
-        name: vtype
+        name: vuln_type
         required: true
         schema:
           enum:
@@ -2181,12 +2181,12 @@ paths:
       - Sources
       x-anchore-authz-action: getSourceEvaluation
       x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.sources
-  /stateless/sbom/vuln/{vtype}:
+  /stateless/sbom/vuln/{vuln_type}:
     post:
       operationId: get_stateless_sbom_vulnerabilities
       parameters:
       - in: path
-        name: vtype
+        name: vuln_type
         required: true
         schema:
           enum:

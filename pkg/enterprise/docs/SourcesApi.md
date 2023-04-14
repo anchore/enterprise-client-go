@@ -14,7 +14,7 @@ Method | HTTP request | Description
 [**GetSourceSbomNativeJson**](SourcesApi.md#GetSourceSbomNativeJson) | **Get** /sources/{source_id}/sbom/native-json | Return the source SBOM in the native Anchore format
 [**GetSourceSbomSpdxJson**](SourcesApi.md#GetSourceSbomSpdxJson) | **Get** /sources/{source_id}/sbom/spdx-json | Return the source SBOM in the SPDX format
 [**GetSourceSbomTypes**](SourcesApi.md#GetSourceSbomTypes) | **Get** /sources/{source_id}/sbom | Get a detailed source repository analysis metadata record
-[**GetSourceVulnerabilities**](SourcesApi.md#GetSourceVulnerabilities) | **Get** /sources/{source_id}/vuln/{vtype} | Get vulnerabilities for the source by type
+[**GetSourceVulnerabilities**](SourcesApi.md#GetSourceVulnerabilities) | **Get** /sources/{source_id}/vuln/{vuln_type} | Get vulnerabilities for the source by type
 [**GetSourceVulnerabilityTypes**](SourcesApi.md#GetSourceVulnerabilityTypes) | **Get** /sources/{source_id}/vuln | Get the available vulnerability types for source
 [**ListSources**](SourcesApi.md#ListSources) | **Get** /sources | List the source repository analysis records
 
@@ -709,7 +709,7 @@ No authorization required
 
 ## GetSourceVulnerabilities
 
-> SourceVulnerabilitiesResponse GetSourceVulnerabilities(ctx, sourceId, vtype).ForceRefresh(forceRefresh).WillNotFix(willNotFix).XAnchoreAccount(xAnchoreAccount).Execute()
+> SourceVulnerabilitiesResponse GetSourceVulnerabilities(ctx, sourceId, vulnType).ForceRefresh(forceRefresh).WillNotFix(willNotFix).XAnchoreAccount(xAnchoreAccount).Execute()
 
 Get vulnerabilities for the source by type
 
@@ -727,14 +727,14 @@ import (
 
 func main() {
     sourceId := "sourceId_example" // string | 
-    vtype := "vtype_example" // string | 
+    vulnType := "vulnType_example" // string | 
     forceRefresh := true // bool |  (optional)
     willNotFix := true // bool | Vulnerability data publishers explicitly won't fix some vulnerabilities. This is captured by will_not_fix attribute of each result. If the query parameter is set, results matching it's value will be filtered. Results are not filtered if the query parameter is unset (optional)
     xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.SourcesApi.GetSourceVulnerabilities(context.Background(), sourceId, vtype).ForceRefresh(forceRefresh).WillNotFix(willNotFix).XAnchoreAccount(xAnchoreAccount).Execute()
+    resp, r, err := api_client.SourcesApi.GetSourceVulnerabilities(context.Background(), sourceId, vulnType).ForceRefresh(forceRefresh).WillNotFix(willNotFix).XAnchoreAccount(xAnchoreAccount).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `SourcesApi.GetSourceVulnerabilities``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -751,7 +751,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **sourceId** | **string** |  | 
-**vtype** | **string** |  | 
+**vulnType** | **string** |  | 
 
 ### Other Parameters
 

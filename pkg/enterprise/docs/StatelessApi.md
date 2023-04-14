@@ -4,13 +4,13 @@ All URIs are relative to *http://localhost/enterprise*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**GetStatelessSbomVulnerabilities**](StatelessApi.md#GetStatelessSbomVulnerabilities) | **Post** /stateless/sbom/vuln/{vtype} | Get vulnerabilities for input sbom by type
+[**GetStatelessSbomVulnerabilities**](StatelessApi.md#GetStatelessSbomVulnerabilities) | **Post** /stateless/sbom/vuln/{vuln_type} | Get vulnerabilities for input sbom by type
 
 
 
 ## GetStatelessSbomVulnerabilities
 
-> SBOMVulnerabilitiesResponse GetStatelessSbomVulnerabilities(ctx, vtype).Sbom(sbom).WillNotFix(willNotFix).XAnchoreAccount(xAnchoreAccount).Execute()
+> SBOMVulnerabilitiesResponse GetStatelessSbomVulnerabilities(ctx, vulnType).Sbom(sbom).WillNotFix(willNotFix).XAnchoreAccount(xAnchoreAccount).Execute()
 
 Get vulnerabilities for input sbom by type
 
@@ -27,14 +27,14 @@ import (
 )
 
 func main() {
-    vtype := "vtype_example" // string | 
+    vulnType := "vulnType_example" // string | 
     sbom := interface{}(Object) // interface{} | 
     willNotFix := true // bool | Vulnerability data publishers explicitly won't fix some vulnerabilities. This is captured by will_not_fix attribute of each result. If the query parameter is set, results matching it's value will be filtered. Results are not filtered if the query parameter is unset (optional)
     xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.StatelessApi.GetStatelessSbomVulnerabilities(context.Background(), vtype).Sbom(sbom).WillNotFix(willNotFix).XAnchoreAccount(xAnchoreAccount).Execute()
+    resp, r, err := api_client.StatelessApi.GetStatelessSbomVulnerabilities(context.Background(), vulnType).Sbom(sbom).WillNotFix(willNotFix).XAnchoreAccount(xAnchoreAccount).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `StatelessApi.GetStatelessSbomVulnerabilities``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -50,7 +50,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**vtype** | **string** |  | 
+**vulnType** | **string** |  | 
 
 ### Other Parameters
 

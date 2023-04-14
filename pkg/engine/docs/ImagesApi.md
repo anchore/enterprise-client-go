@@ -24,8 +24,8 @@ Method | HTTP request | Description
 [**GetImageSbomNative**](ImagesApi.md#GetImageSbomNative) | **Get** /images/{image_digest}/sboms/native | Get image sbom in the native Anchore format
 [**GetImageSbomNativeJson**](ImagesApi.md#GetImageSbomNativeJson) | **Get** /images/{image_digest}/sboms/native-json | Get image sbom in the native Anchore format
 [**GetImageSbomSpdxJson**](ImagesApi.md#GetImageSbomSpdxJson) | **Get** /images/{image_digest}/sboms/spdx-json | Get image sbom in the SPDX format
-[**GetImageVulnerabilitiesByType**](ImagesApi.md#GetImageVulnerabilitiesByType) | **Get** /images/{image_digest}/vuln/{vtype} | Get vulnerabilities by type
-[**GetImageVulnerabilitiesByTypeImageId**](ImagesApi.md#GetImageVulnerabilitiesByTypeImageId) | **Get** /images/by_id/{image_id}/vuln/{vtype} | Get vulnerabilities by type
+[**GetImageVulnerabilitiesByType**](ImagesApi.md#GetImageVulnerabilitiesByType) | **Get** /images/{image_digest}/vuln/{vuln_type} | Get vulnerabilities by type
+[**GetImageVulnerabilitiesByTypeImageId**](ImagesApi.md#GetImageVulnerabilitiesByTypeImageId) | **Get** /images/by_id/{image_id}/vuln/{vuln_type} | Get vulnerabilities by type
 [**GetImageVulnerabilityTypes**](ImagesApi.md#GetImageVulnerabilityTypes) | **Get** /images/{image_digest}/vuln | Get vulnerability types
 [**GetImageVulnerabilityTypesByImageId**](ImagesApi.md#GetImageVulnerabilityTypesByImageId) | **Get** /images/by_id/{image_id}/vuln | Get vulnerability types
 [**ListImageContent**](ImagesApi.md#ListImageContent) | **Get** /images/{image_digest}/content | List image content types
@@ -1474,7 +1474,7 @@ No authorization required
 
 ## GetImageVulnerabilitiesByType
 
-> VulnerabilityResponse GetImageVulnerabilitiesByType(ctx, imageDigest, vtype).ForceRefresh(forceRefresh).VendorOnly(vendorOnly).XAnchoreAccount(xAnchoreAccount).Execute()
+> VulnerabilityResponse GetImageVulnerabilitiesByType(ctx, imageDigest, vulnType).ForceRefresh(forceRefresh).VendorOnly(vendorOnly).XAnchoreAccount(xAnchoreAccount).Execute()
 
 Get vulnerabilities by type
 
@@ -1492,14 +1492,14 @@ import (
 
 func main() {
     imageDigest := "imageDigest_example" // string | 
-    vtype := "vtype_example" // string | 
+    vulnType := "vulnType_example" // string | 
     forceRefresh := true // bool |  (optional)
     vendorOnly := true // bool | Filter results to include only vulnerabilities that are not marked as invalid by upstream OS vendor data. When set to true, it will filter out all vulnerabilities where `will_not_fix` is False. If false all vulnerabilities are returned regardless of `will_not_fix` (optional)
     xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.ImagesApi.GetImageVulnerabilitiesByType(context.Background(), imageDigest, vtype).ForceRefresh(forceRefresh).VendorOnly(vendorOnly).XAnchoreAccount(xAnchoreAccount).Execute()
+    resp, r, err := api_client.ImagesApi.GetImageVulnerabilitiesByType(context.Background(), imageDigest, vulnType).ForceRefresh(forceRefresh).VendorOnly(vendorOnly).XAnchoreAccount(xAnchoreAccount).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ImagesApi.GetImageVulnerabilitiesByType``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -1516,7 +1516,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **imageDigest** | **string** |  | 
-**vtype** | **string** |  | 
+**vulnType** | **string** |  | 
 
 ### Other Parameters
 
@@ -1551,7 +1551,7 @@ No authorization required
 
 ## GetImageVulnerabilitiesByTypeImageId
 
-> VulnerabilityResponse GetImageVulnerabilitiesByTypeImageId(ctx, imageId, vtype).XAnchoreAccount(xAnchoreAccount).Execute()
+> VulnerabilityResponse GetImageVulnerabilitiesByTypeImageId(ctx, imageId, vulnType).XAnchoreAccount(xAnchoreAccount).Execute()
 
 Get vulnerabilities by type
 
@@ -1569,12 +1569,12 @@ import (
 
 func main() {
     imageId := "imageId_example" // string | 
-    vtype := "vtype_example" // string | 
+    vulnType := "vulnType_example" // string | 
     xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.ImagesApi.GetImageVulnerabilitiesByTypeImageId(context.Background(), imageId, vtype).XAnchoreAccount(xAnchoreAccount).Execute()
+    resp, r, err := api_client.ImagesApi.GetImageVulnerabilitiesByTypeImageId(context.Background(), imageId, vulnType).XAnchoreAccount(xAnchoreAccount).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ImagesApi.GetImageVulnerabilitiesByTypeImageId``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -1591,7 +1591,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **imageId** | **string** |  | 
-**vtype** | **string** |  | 
+**vulnType** | **string** |  | 
 
 ### Other Parameters
 

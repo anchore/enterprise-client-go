@@ -31,10 +31,10 @@ type StatelessApi interface {
 	GetStatelessSbomVulnerabilities Get vulnerabilities for input sbom by type
 
 	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @param vtype
+	 @param vulnType
 	 @return ApiGetStatelessSbomVulnerabilitiesRequest
 	*/
-	GetStatelessSbomVulnerabilities(ctx _context.Context, vtype string) ApiGetStatelessSbomVulnerabilitiesRequest
+	GetStatelessSbomVulnerabilities(ctx _context.Context, vulnType string) ApiGetStatelessSbomVulnerabilitiesRequest
 
 	// GetStatelessSbomVulnerabilitiesExecute executes the request
 	//  @return SBOMVulnerabilitiesResponse
@@ -47,7 +47,7 @@ type StatelessApiService service
 type ApiGetStatelessSbomVulnerabilitiesRequest struct {
 	ctx _context.Context
 	ApiService StatelessApi
-	vtype string
+	vulnType string
 	sbom *interface{}
 	willNotFix *bool
 	xAnchoreAccount *string
@@ -76,14 +76,14 @@ func (r ApiGetStatelessSbomVulnerabilitiesRequest) Execute() (SBOMVulnerabilitie
 GetStatelessSbomVulnerabilities Get vulnerabilities for input sbom by type
 
  @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param vtype
+ @param vulnType
  @return ApiGetStatelessSbomVulnerabilitiesRequest
 */
-func (a *StatelessApiService) GetStatelessSbomVulnerabilities(ctx _context.Context, vtype string) ApiGetStatelessSbomVulnerabilitiesRequest {
+func (a *StatelessApiService) GetStatelessSbomVulnerabilities(ctx _context.Context, vulnType string) ApiGetStatelessSbomVulnerabilitiesRequest {
 	return ApiGetStatelessSbomVulnerabilitiesRequest{
 		ApiService: a,
 		ctx: ctx,
-		vtype: vtype,
+		vulnType: vulnType,
 	}
 }
 
@@ -104,8 +104,8 @@ func (a *StatelessApiService) GetStatelessSbomVulnerabilitiesExecute(r ApiGetSta
 		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/stateless/sbom/vuln/{vtype}"
-	localVarPath = strings.Replace(localVarPath, "{"+"vtype"+"}", _neturl.PathEscape(parameterToString(r.vtype, "")), -1)
+	localVarPath := localBasePath + "/stateless/sbom/vuln/{vuln_type}"
+	localVarPath = strings.Replace(localVarPath, "{"+"vuln_type"+"}", _neturl.PathEscape(parameterToString(r.vulnType, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
