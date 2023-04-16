@@ -77,6 +77,14 @@ generate-clients: $(ENTERPRISE_OPENAPI_DOC) $(ENGINE_OPENAPI_DOC) $(RBAC_OPENAPI
 	go generate .
 
 .PHONY :=
+generate-clients-direct: ## generate client code for engine external API without any clone, mostly for local dev prior to remote pushes of api specs
+	$(call generate_openapi_client,$(ENTERPRISE_OPENAPI_DOC),enterprise,$(ENTERPRISE_ROOT))
+	$(call generate_openapi_client,$(RBAC_OPENAPI_DOC),rbac,$(RBAC_ROOT))
+	$(call generate_openapi_client,$(ENGINE_OPENAPI_DOC),engine,$(ENGINE_ROOT))
+	# add any tailored code via go generate
+	go generate .
+
+.PHONY :=
 clean: ## remove all swagger documents and generated client code
 	rm -rf $(PROJECT_ROOT)
 
