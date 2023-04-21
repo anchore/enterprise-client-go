@@ -7754,52 +7754,52 @@ components:
         location:
           path: path
           layerID: layerID
-        contentsearches:
-        - lineOffset: 6
+        content_searches:
+        - line_number: 0
+          seek_position: 1
           length: 5
-          seekPosition: 1
           classification: classification
-          lineNumber: 0
-        - lineOffset: 6
+          line_offset: 6
+        - line_number: 0
+          seek_position: 1
           length: 5
-          seekPosition: 1
           classification: classification
-          lineNumber: 0
+          line_offset: 6
       properties:
         location:
           $ref: '#/components/schemas/ImportPackageLocation'
-        contentsearches:
+        content_searches:
           items:
             $ref: '#/components/schemas/ImportContentSearchElement'
           type: array
       required:
-      - contentsearches
+      - content_searches
       - location
       type: object
     ImportContentSearchElement:
       example:
-        lineOffset: 6
+        line_number: 0
+        seek_position: 1
         length: 5
-        seekPosition: 1
         classification: classification
-        lineNumber: 0
+        line_offset: 6
       properties:
         classification:
           type: string
-        lineNumber:
+        line_number:
           type: integer
-        lineOffset:
+        line_offset:
           type: integer
-        seekPosition:
+        seek_position:
           type: integer
         length:
           type: integer
       required:
       - classification
       - length
-      - lineNumber
-      - lineOffset
-      - seekPosition
+      - line_number
+      - line_offset
+      - seek_position
       type: object
     ImagePackageManifest:
       example:

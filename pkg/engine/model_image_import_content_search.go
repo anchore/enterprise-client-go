@@ -18,17 +18,17 @@ import (
 // ImageImportContentSearch struct for ImageImportContentSearch
 type ImageImportContentSearch struct {
 	Location ImportPackageLocation `json:"location"`
-	Contentsearches []ImportContentSearchElement `json:"contentsearches"`
+	ContentSearches []ImportContentSearchElement `json:"content_searches"`
 }
 
 // NewImageImportContentSearch instantiates a new ImageImportContentSearch object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewImageImportContentSearch(location ImportPackageLocation, contentsearches []ImportContentSearchElement) *ImageImportContentSearch {
+func NewImageImportContentSearch(location ImportPackageLocation, contentSearches []ImportContentSearchElement) *ImageImportContentSearch {
 	this := ImageImportContentSearch{}
 	this.Location = location
-	this.Contentsearches = contentsearches
+	this.ContentSearches = contentSearches
 	return &this
 }
 
@@ -64,28 +64,28 @@ func (o *ImageImportContentSearch) SetLocation(v ImportPackageLocation) {
 	o.Location = v
 }
 
-// GetContentsearches returns the Contentsearches field value
-func (o *ImageImportContentSearch) GetContentsearches() []ImportContentSearchElement {
+// GetContentSearches returns the ContentSearches field value
+func (o *ImageImportContentSearch) GetContentSearches() []ImportContentSearchElement {
 	if o == nil {
 		var ret []ImportContentSearchElement
 		return ret
 	}
 
-	return o.Contentsearches
+	return o.ContentSearches
 }
 
-// GetContentsearchesOk returns a tuple with the Contentsearches field value
+// GetContentSearchesOk returns a tuple with the ContentSearches field value
 // and a boolean to check if the value has been set.
-func (o *ImageImportContentSearch) GetContentsearchesOk() (*[]ImportContentSearchElement, bool) {
+func (o *ImageImportContentSearch) GetContentSearchesOk() (*[]ImportContentSearchElement, bool) {
 	if o == nil  {
 		return nil, false
 	}
-	return &o.Contentsearches, true
+	return &o.ContentSearches, true
 }
 
-// SetContentsearches sets field value
-func (o *ImageImportContentSearch) SetContentsearches(v []ImportContentSearchElement) {
-	o.Contentsearches = v
+// SetContentSearches sets field value
+func (o *ImageImportContentSearch) SetContentSearches(v []ImportContentSearchElement) {
+	o.ContentSearches = v
 }
 
 func (o ImageImportContentSearch) MarshalJSON() ([]byte, error) {
@@ -94,7 +94,7 @@ func (o ImageImportContentSearch) MarshalJSON() ([]byte, error) {
 		toSerialize["location"] = o.Location
 	}
 	if true {
-		toSerialize["contentsearches"] = o.Contentsearches
+		toSerialize["content_searches"] = o.ContentSearches
 	}
 	return json.Marshal(toSerialize)
 }

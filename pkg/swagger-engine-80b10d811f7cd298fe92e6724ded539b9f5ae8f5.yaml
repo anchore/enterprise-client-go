@@ -5611,29 +5611,29 @@ definitions:
   ImageImportContentSearch:
     required:
       - location
-      - contentsearches
+      - content_searches
     properties:
       location:
         "$ref": "#/definitions/ImportPackageLocation"
-      contentsearches:
+      content_searches:
         items:
           "$ref": "#/definitions/ImportContentSearchElement"
         type: array
   ImportContentSearchElement:
     required:
       - classification
-      - lineNumber
-      - lineOffset
-      - seekPosition
+      - line_number
+      - line_offset
+      - seek_position
       - length
     properties:
       classification:
         type: string
-      lineNumber:
+      line_number:
         type: integer
-      lineOffset:
+      line_offset:
         type: integer
-      seekPosition:
+      seek_position:
         type: integer
       length:
         type: integer

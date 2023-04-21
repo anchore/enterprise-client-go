@@ -18,9 +18,9 @@ import (
 // ImportContentSearchElement struct for ImportContentSearchElement
 type ImportContentSearchElement struct {
 	Classification string `json:"classification"`
-	LineNumber int32 `json:"lineNumber"`
-	LineOffset int32 `json:"lineOffset"`
-	SeekPosition int32 `json:"seekPosition"`
+	LineNumber int32 `json:"line_number"`
+	LineOffset int32 `json:"line_offset"`
+	SeekPosition int32 `json:"seek_position"`
 	Length int32 `json:"length"`
 }
 
@@ -172,13 +172,13 @@ func (o ImportContentSearchElement) MarshalJSON() ([]byte, error) {
 		toSerialize["classification"] = o.Classification
 	}
 	if true {
-		toSerialize["lineNumber"] = o.LineNumber
+		toSerialize["line_number"] = o.LineNumber
 	}
 	if true {
-		toSerialize["lineOffset"] = o.LineOffset
+		toSerialize["line_offset"] = o.LineOffset
 	}
 	if true {
-		toSerialize["seekPosition"] = o.SeekPosition
+		toSerialize["seek_position"] = o.SeekPosition
 	}
 	if true {
 		toSerialize["length"] = o.Length

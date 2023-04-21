@@ -5,13 +5,13 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Location** | [**ImportPackageLocation**](ImportPackageLocation.md) |  | 
-**Contentsearches** | [**[]ImportContentSearchElement**](ImportContentSearchElement.md) |  | 
+**ContentSearches** | [**[]ImportContentSearchElement**](ImportContentSearchElement.md) |  | 
 
 ## Methods
 
 ### NewImageImportContentSearch
 
-`func NewImageImportContentSearch(location ImportPackageLocation, contentsearches []ImportContentSearchElement, ) *ImageImportContentSearch`
+`func NewImageImportContentSearch(location ImportPackageLocation, contentSearches []ImportContentSearchElement, ) *ImageImportContentSearch`
 
 NewImageImportContentSearch instantiates a new ImageImportContentSearch object
 This constructor will assign default values to properties that have it defined,
@@ -46,24 +46,24 @@ and a boolean to check if the value has been set.
 SetLocation sets Location field to given value.
 
 
-### GetContentsearches
+### GetContentSearches
 
-`func (o *ImageImportContentSearch) GetContentsearches() []ImportContentSearchElement`
+`func (o *ImageImportContentSearch) GetContentSearches() []ImportContentSearchElement`
 
-GetContentsearches returns the Contentsearches field if non-nil, zero value otherwise.
+GetContentSearches returns the ContentSearches field if non-nil, zero value otherwise.
 
-### GetContentsearchesOk
+### GetContentSearchesOk
 
-`func (o *ImageImportContentSearch) GetContentsearchesOk() (*[]ImportContentSearchElement, bool)`
+`func (o *ImageImportContentSearch) GetContentSearchesOk() (*[]ImportContentSearchElement, bool)`
 
-GetContentsearchesOk returns a tuple with the Contentsearches field if it's non-nil, zero value otherwise
+GetContentSearchesOk returns a tuple with the ContentSearches field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetContentsearches
+### SetContentSearches
 
-`func (o *ImageImportContentSearch) SetContentsearches(v []ImportContentSearchElement)`
+`func (o *ImageImportContentSearch) SetContentSearches(v []ImportContentSearchElement)`
 
-SetContentsearches sets Contentsearches field to given value.
+SetContentSearches sets ContentSearches field to given value.
 
 
 
