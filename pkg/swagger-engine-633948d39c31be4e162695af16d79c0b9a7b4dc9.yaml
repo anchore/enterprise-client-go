@@ -5791,20 +5791,30 @@ definitions:
     required:
       - id
       - location
-      - metadata
     properties:
       id:
         type: string
+        description: Unique identifier within the sbom for the file for other elements in the sbom to reference
       location:
-        type: object
+        "$ref": "#/definitions/ImageImportFileCoordinate"
       metadata:
         type: object
+        description: File metadata such as mode, size, etc. This is populated by anchorectl analysis but is not available in older syft-generated SBOMs
       digests:
         type: array
         items:
           "$ref": "#/definitions/ImportFileDigest"
     additionalProperties: true
     type: object
+  ImageImportFileCoordinate:
+    type: object
+    properties:
+      path:
+        type: string
+        description: The path on the filesystem of the file within the given layer
+      layerID:
+        type: string
+        description: The image layer in which the file was found
   ImportFileDigest:
     required:
       - algorithm

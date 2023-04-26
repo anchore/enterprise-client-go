@@ -17,9 +17,11 @@ import (
 
 // ImportFile struct for ImportFile
 type ImportFile struct {
+	// Unique identifier within the sbom for the file for other elements in the sbom to reference
 	Id string `json:"id"`
-	Location interface{} `json:"location"`
-	Metadata interface{} `json:"metadata"`
+	Location ImageImportFileCoordinate `json:"location"`
+	// File metadata such as mode, size, etc. This is populated by anchorectl analysis but is not available in older syft-generated SBOMs
+	Metadata *interface{} `json:"metadata,omitempty"`
 	Digests *[]ImportFileDigest `json:"digests,omitempty"`
 }
 
@@ -27,11 +29,10 @@ type ImportFile struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewImportFile(id string, location interface{}, metadata interface{}) *ImportFile {
+func NewImportFile(id string, location ImageImportFileCoordinate) *ImportFile {
 	this := ImportFile{}
 	this.Id = id
 	this.Location = location
-	this.Metadata = metadata
 	return &this
 }
 
@@ -68,9 +69,9 @@ func (o *ImportFile) SetId(v string) {
 }
 
 // GetLocation returns the Location field value
-func (o *ImportFile) GetLocation() interface{} {
+func (o *ImportFile) GetLocation() ImageImportFileCoordinate {
 	if o == nil {
-		var ret interface{}
+		var ret ImageImportFileCoordinate
 		return ret
 	}
 
@@ -79,7 +80,7 @@ func (o *ImportFile) GetLocation() interface{} {
 
 // GetLocationOk returns a tuple with the Location field value
 // and a boolean to check if the value has been set.
-func (o *ImportFile) GetLocationOk() (*interface{}, bool) {
+func (o *ImportFile) GetLocationOk() (*ImageImportFileCoordinate, bool) {
 	if o == nil  {
 		return nil, false
 	}
@@ -87,32 +88,40 @@ func (o *ImportFile) GetLocationOk() (*interface{}, bool) {
 }
 
 // SetLocation sets field value
-func (o *ImportFile) SetLocation(v interface{}) {
+func (o *ImportFile) SetLocation(v ImageImportFileCoordinate) {
 	o.Location = v
 }
 
-// GetMetadata returns the Metadata field value
+// GetMetadata returns the Metadata field value if set, zero value otherwise.
 func (o *ImportFile) GetMetadata() interface{} {
-	if o == nil {
+	if o == nil || o.Metadata == nil {
 		var ret interface{}
 		return ret
 	}
-
-	return o.Metadata
+	return *o.Metadata
 }
 
-// GetMetadataOk returns a tuple with the Metadata field value
+// GetMetadataOk returns a tuple with the Metadata field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ImportFile) GetMetadataOk() (*interface{}, bool) {
-	if o == nil  {
+	if o == nil || o.Metadata == nil {
 		return nil, false
 	}
-	return &o.Metadata, true
+	return o.Metadata, true
 }
 
-// SetMetadata sets field value
+// HasMetadata returns a boolean if a field has been set.
+func (o *ImportFile) HasMetadata() bool {
+	if o != nil && o.Metadata != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetMetadata gets a reference to the given interface{} and assigns it to the Metadata field.
 func (o *ImportFile) SetMetadata(v interface{}) {
-	o.Metadata = v
+	o.Metadata = &v
 }
 
 // GetDigests returns the Digests field value if set, zero value otherwise.
@@ -155,7 +164,7 @@ func (o ImportFile) MarshalJSON() ([]byte, error) {
 	if true {
 		toSerialize["location"] = o.Location
 	}
-	if true {
+	if o.Metadata != nil {
 		toSerialize["metadata"] = o.Metadata
 	}
 	if o.Digests != nil {

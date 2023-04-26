@@ -84,6 +84,7 @@ docs/ImageFilter.md
 docs/ImageImportContentResponse.md
 docs/ImageImportContentSearch.md
 docs/ImageImportFileContent.md
+docs/ImageImportFileCoordinate.md
 docs/ImageImportManifest.md
 docs/ImageImportOperation.md
 docs/ImagePackageManifest.md
@@ -252,6 +253,7 @@ model_image_filter.go
 model_image_import_content_response.go
 model_image_import_content_search.go
 model_image_import_file_content.go
+model_image_import_file_coordinate.go
 model_image_import_manifest.go
 model_image_import_operation.go
 model_image_package_manifest.go

@@ -107,6 +107,7 @@ Class | Method | HTTP request | Description
 *CorrectionsApi* | [**GetCorrectionByUuid**](docs/CorrectionsApi.md#getcorrectionbyuuid) | **Get** /corrections/{uuid} | Retrieve a correction by UUID
 *CorrectionsApi* | [**GetCorrections**](docs/CorrectionsApi.md#getcorrections) | **Get** /corrections | Retrieve a list of corrections
 *CorrectionsApi* | [**UpdateCorrectionByUuid**](docs/CorrectionsApi.md#updatecorrectionbyuuid) | **Put** /corrections/{uuid} | Update a correction by UUID
+*DefaultApi* | [**GetKubernetesNamespaces**](docs/DefaultApi.md#getkubernetesnamespaces) | **Get** /kubernetes-namespaces | Return a list of Kubernetes namespaces that have been inventoried for this account
 *ImagesApi* | [**GetImageAncestors**](docs/ImagesApi.md#getimageancestors) | **Get** /images/{image_digest}/ancestors | Return the list of ancestor images for the given image
 *ImagesApi* | [**GetImagePolicyCheckByDigest**](docs/ImagesApi.md#getimagepolicycheckbydigest) | **Get** /images/{imageDigest}/check | Check policy evaluation status for image
 *ImagesApi* | [**GetImageVulnerabilitiesByDigest**](docs/ImagesApi.md#getimagevulnerabilitiesbydigest) | **Get** /images/{imageDigest}/vuln/{vtype} | Get vulnerabilities by type
@@ -198,6 +199,8 @@ Class | Method | HTTP request | Description
  - [KubernetesInventoryNamespaces](docs/KubernetesInventoryNamespaces.md)
  - [KubernetesInventoryNodes](docs/KubernetesInventoryNodes.md)
  - [KubernetesInventoryPods](docs/KubernetesInventoryPods.md)
+ - [KubernetesNamespaces](docs/KubernetesNamespaces.md)
+ - [KubernetesNamespacesNamespaces](docs/KubernetesNamespacesNamespaces.md)
  - [ModifiedPackage](docs/ModifiedPackage.md)
  - [NativeSBOM](docs/NativeSBOM.md)
  - [NativeSBOMDescriptor](docs/NativeSBOMDescriptor.md)

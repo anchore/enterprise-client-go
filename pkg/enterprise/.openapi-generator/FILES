@@ -8,6 +8,7 @@ api_alerts.go
 api_applications.go
 api_compliance.go
 api_corrections.go
+api_default.go
 api_images.go
 api_imports.go
 api_inventories.go
@@ -52,6 +53,7 @@ docs/CorrectionFieldMatch.md
 docs/CorrectionMatch.md
 docs/CorrectionsApi.md
 docs/CustomJsonPatch.md
+docs/DefaultApi.md
 docs/ECSInventory.md
 docs/ECSInventoryContainers.md
 docs/ECSInventoryTasks.md
@@ -77,6 +79,8 @@ docs/KubernetesInventoryContainers.md
 docs/KubernetesInventoryNamespaces.md
 docs/KubernetesInventoryNodes.md
 docs/KubernetesInventoryPods.md
+docs/KubernetesNamespaces.md
+docs/KubernetesNamespacesNamespaces.md
 docs/ModifiedPackage.md
 docs/NativeSBOM.md
 docs/NativeSBOMDescriptor.md
@@ -178,6 +182,8 @@ model_kubernetes_inventory_containers.go
 model_kubernetes_inventory_namespaces.go
 model_kubernetes_inventory_nodes.go
 model_kubernetes_inventory_pods.go
+model_kubernetes_namespaces.go
+model_kubernetes_namespaces_namespaces.go
 model_modified_package.go
 model_native_sbom.go
 model_native_sbom_descriptor.go

@@ -332,6 +332,25 @@ paths:
       x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.runtime_inventory
       x-anchore-authz-action: postKubernetesInventory
       x-codegen-request-body-name: inventory
+  /kubernetes-namespaces:
+    get:
+      description: Return a list of Kubernetes namespaces that have been inventoried
+        for this account
+      operationId: get_kubernetes_namespaces
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/KubernetesNamespaces'
+          description: success
+        "500":
+          content: {}
+          description: Internal Error
+      summary: Return a list of Kubernetes namespaces that have been inventoried for
+        this account
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.runtime_inventory
+      x-anchore-authz-action: getKubernetesNamespaces
   /ecs-inventory:
     post:
       description: Add container metadata from Amazon ECS
@@ -2985,6 +3004,28 @@ components:
         last_seen:
           format: date-time
           type: string
+      type: object
+    KubernetesNamespaces:
+      description: Namespaces defined in Kubernetes
+      example:
+        namespaces:
+        - uid: uid
+          name: name
+          annotations:
+            key: annotations
+          labels:
+            key: labels
+        - uid: uid
+          name: name
+          annotations:
+            key: annotations
+          labels:
+            key: labels
+      properties:
+        namespaces:
+          items:
+            $ref: '#/components/schemas/KubernetesNamespaces_namespaces'
+          type: array
       type: object
     KubernetesInventory:
       example:
@@ -5738,6 +5779,33 @@ components:
         change_author:
           nullable: true
           type: string
+      type: object
+    KubernetesNamespaces_namespaces:
+      example:
+        uid: uid
+        name: name
+        annotations:
+          key: annotations
+        labels:
+          key: labels
+      properties:
+        uid:
+          type: string
+        name:
+          type: string
+        labels:
+          additionalProperties:
+            type: string
+          type: object
+        annotations:
+          additionalProperties:
+            type: string
+          type: object
+      required:
+      - annotations
+      - labels
+      - name
+      - uid
       type: object
     KubernetesInventory_namespaces:
       example:

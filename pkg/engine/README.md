@@ -265,6 +265,7 @@ Class | Method | HTTP request | Description
  - [ImageImportContentResponse](docs/ImageImportContentResponse.md)
  - [ImageImportContentSearch](docs/ImageImportContentSearch.md)
  - [ImageImportFileContent](docs/ImageImportFileContent.md)
+ - [ImageImportFileCoordinate](docs/ImageImportFileCoordinate.md)
  - [ImageImportManifest](docs/ImageImportManifest.md)
  - [ImageImportOperation](docs/ImageImportOperation.md)
  - [ImagePackageManifest](docs/ImagePackageManifest.md)

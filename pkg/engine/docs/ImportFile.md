@@ -4,16 +4,16 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Id** | **string** |  | 
-**Location** | **interface{}** |  | 
-**Metadata** | **interface{}** |  | 
+**Id** | **string** | Unique identifier within the sbom for the file for other elements in the sbom to reference | 
+**Location** | [**ImageImportFileCoordinate**](ImageImportFileCoordinate.md) |  | 
+**Metadata** | Pointer to **interface{}** | File metadata such as mode, size, etc. This is populated by anchorectl analysis but is not available in older syft-generated SBOMs | [optional] 
 **Digests** | Pointer to [**[]ImportFileDigest**](ImportFileDigest.md) |  | [optional] 
 
 ## Methods
 
 ### NewImportFile
 
-`func NewImportFile(id string, location interface{}, metadata interface{}, ) *ImportFile`
+`func NewImportFile(id string, location ImageImportFileCoordinate, ) *ImportFile`
 
 NewImportFile instantiates a new ImportFile object
 This constructor will assign default values to properties that have it defined,
@@ -50,20 +50,20 @@ SetId sets Id field to given value.
 
 ### GetLocation
 
-`func (o *ImportFile) GetLocation() interface{}`
+`func (o *ImportFile) GetLocation() ImageImportFileCoordinate`
 
 GetLocation returns the Location field if non-nil, zero value otherwise.
 
 ### GetLocationOk
 
-`func (o *ImportFile) GetLocationOk() (*interface{}, bool)`
+`func (o *ImportFile) GetLocationOk() (*ImageImportFileCoordinate, bool)`
 
 GetLocationOk returns a tuple with the Location field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLocation
 
-`func (o *ImportFile) SetLocation(v interface{})`
+`func (o *ImportFile) SetLocation(v ImageImportFileCoordinate)`
 
 SetLocation sets Location field to given value.
 
@@ -87,6 +87,11 @@ and a boolean to check if the value has been set.
 
 SetMetadata sets Metadata field to given value.
 
+### HasMetadata
+
+`func (o *ImportFile) HasMetadata() bool`
+
+HasMetadata returns a boolean if a field has been set.
 
 ### GetDigests
 

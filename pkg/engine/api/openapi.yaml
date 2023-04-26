@@ -7819,7 +7819,9 @@ components:
             algorithm: algorithm
           - value: value
             algorithm: algorithm
-          location: '{}'
+          location:
+            path: path
+            layerID: layerID
           id: id
         - metadata: '{}'
           digests:
@@ -7827,7 +7829,9 @@ components:
             algorithm: algorithm
           - value: value
             algorithm: algorithm
-          location: '{}'
+          location:
+            path: path
+            layerID: layerID
           id: id
         source:
           type: type
@@ -8078,15 +8082,20 @@ components:
           algorithm: algorithm
         - value: value
           algorithm: algorithm
-        location: '{}'
+        location:
+          path: path
+          layerID: layerID
         id: id
       properties:
         id:
+          description: Unique identifier within the sbom for the file for other elements
+            in the sbom to reference
           type: string
         location:
-          properties: {}
-          type: object
+          $ref: '#/components/schemas/ImageImportFileCoordinate'
         metadata:
+          description: File metadata such as mode, size, etc. This is populated by
+            anchorectl analysis but is not available in older syft-generated SBOMs
           properties: {}
           type: object
         digests:
@@ -8096,7 +8105,18 @@ components:
       required:
       - id
       - location
-      - metadata
+      type: object
+    ImageImportFileCoordinate:
+      example:
+        path: path
+        layerID: layerID
+      properties:
+        path:
+          description: The path on the filesystem of the file within the given layer
+          type: string
+        layerID:
+          description: The image layer in which the file was found
+          type: string
       type: object
     ImportFileDigest:
       example:

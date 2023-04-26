@@ -288,6 +288,22 @@ paths:
             description: "Internal Error"
         tags:
           - Inventories
+  /kubernetes-namespaces:
+    get:
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.runtime_inventory
+      operationId: get_kubernetes_namespaces
+      x-anchore-authz-action: getKubernetesNamespaces
+      summary: "Return a list of Kubernetes namespaces that have been inventoried for this account"
+      description: "Return a list of Kubernetes namespaces that have been inventoried for this account"
+      produces:
+        - "application/json"
+      responses:
+        200:
+          description: "success"
+          schema:
+            $ref: "#/definitions/KubernetesNamespaces"
+        500:
+          description: "Internal Error"
 
   /ecs-inventory:
       post:
@@ -2366,6 +2382,32 @@ definitions:
       last_seen:
         type: string
         format: date-time
+  KubernetesNamespaces:
+    type: object
+    description: Namespaces defined in Kubernetes
+    properties:
+      namespaces:
+        type: array
+        items:
+          type: object
+          required:
+            - uid
+            - name
+            - labels
+            - annotations
+          properties:
+            uid:
+              type: string
+            name:
+              type: string
+            labels:
+              type: object
+              additionalProperties:
+                type: string
+            annotations:
+              type: object
+              additionalProperties:
+                type: string
   KubernetesInventory:
     type: object
     required:
