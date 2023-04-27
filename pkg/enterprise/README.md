@@ -107,6 +107,7 @@ Class | Method | HTTP request | Description
 *CorrectionsApi* | [**GetCorrectionByUuid**](docs/CorrectionsApi.md#getcorrectionbyuuid) | **Get** /corrections/{uuid} | Retrieve a correction by UUID
 *CorrectionsApi* | [**GetCorrections**](docs/CorrectionsApi.md#getcorrections) | **Get** /corrections | Retrieve a list of corrections
 *CorrectionsApi* | [**UpdateCorrectionByUuid**](docs/CorrectionsApi.md#updatecorrectionbyuuid) | **Put** /corrections/{uuid} | Update a correction by UUID
+*DefaultApi* | [**GetKubernetesNamespaces**](docs/DefaultApi.md#getkubernetesnamespaces) | **Get** /kubernetes-namespaces | Return a list of Kubernetes namespaces that have been inventoried for this account
 *ImagesApi* | [**GetImageAncestors**](docs/ImagesApi.md#getimageancestors) | **Get** /images/{image_digest}/ancestors | Return the list of ancestor images for the given image
 *ImagesApi* | [**GetImagePolicyCheckByDigest**](docs/ImagesApi.md#getimagepolicycheckbydigest) | **Get** /images/{imageDigest}/check | Check policy evaluation status for image
 *ImagesApi* | [**GetImageVulnerabilitiesByDigest**](docs/ImagesApi.md#getimagevulnerabilitiesbydigest) | **Get** /images/{imageDigest}/vuln/{vtype} | Get vulnerabilities by type
@@ -119,6 +120,8 @@ Class | Method | HTTP request | Description
 *ImportsApi* | [**UploadImportSourcesSbom**](docs/ImportsApi.md#uploadimportsourcessbom) | **Post** /imports/sources/{operation_id}/sbom | Begin the import of a source code repository analyzed by Syft into the system
 *InventoriesApi* | [**DeleteInventory**](docs/InventoriesApi.md#deleteinventory) | **Delete** /inventories | Delete runtime inventory by type and context
 *InventoriesApi* | [**GetImageInventory**](docs/InventoriesApi.md#getimageinventory) | **Get** /inventories | Return a list of the images in inventories for this account
+*InventoriesApi* | [**PostEcsInventory**](docs/InventoriesApi.md#postecsinventory) | **Post** /ecs-inventory | Add container metadata from Amazon ECS
+*InventoriesApi* | [**PostKubernetesInventory**](docs/InventoriesApi.md#postkubernetesinventory) | **Post** /kubernetes-inventory | Add container metadata from a Kubernetes deployment
 *InventoriesApi* | [**SyncImageInventory**](docs/InventoriesApi.md#syncimageinventory) | **Post** /inventories | synchronizes the list of the images in a given cluster for the inventory
 *RelationshipsApi* | [**AddArtifactRelationship**](docs/RelationshipsApi.md#addartifactrelationship) | **Post** /artifact_relationships | 
 *RelationshipsApi* | [**DeleteArtifactRelationships**](docs/RelationshipsApi.md#deleteartifactrelationships) | **Delete** /artifact_relationships | 
@@ -174,6 +177,9 @@ Class | Method | HTTP request | Description
  - [CorrectionFieldMatch](docs/CorrectionFieldMatch.md)
  - [CorrectionMatch](docs/CorrectionMatch.md)
  - [CustomJsonPatch](docs/CustomJsonPatch.md)
+ - [ECSInventory](docs/ECSInventory.md)
+ - [ECSInventoryContainers](docs/ECSInventoryContainers.md)
+ - [ECSInventoryTasks](docs/ECSInventoryTasks.md)
  - [EnterpriseVulnerability](docs/EnterpriseVulnerability.md)
  - [EnterpriseVulnerabilityResponse](docs/EnterpriseVulnerabilityResponse.md)
  - [ImageAncestor](docs/ImageAncestor.md)
@@ -188,6 +194,13 @@ Class | Method | HTTP request | Description
  - [JsonPatchRemove](docs/JsonPatchRemove.md)
  - [JsonPatchReplace](docs/JsonPatchReplace.md)
  - [JsonPatchTest](docs/JsonPatchTest.md)
+ - [KubernetesInventory](docs/KubernetesInventory.md)
+ - [KubernetesInventoryContainers](docs/KubernetesInventoryContainers.md)
+ - [KubernetesInventoryNamespaces](docs/KubernetesInventoryNamespaces.md)
+ - [KubernetesInventoryNodes](docs/KubernetesInventoryNodes.md)
+ - [KubernetesInventoryPods](docs/KubernetesInventoryPods.md)
+ - [KubernetesNamespaces](docs/KubernetesNamespaces.md)
+ - [KubernetesNamespacesNamespaces](docs/KubernetesNamespacesNamespaces.md)
  - [ModifiedPackage](docs/ModifiedPackage.md)
  - [NativeSBOM](docs/NativeSBOM.md)
  - [NativeSBOMDescriptor](docs/NativeSBOMDescriptor.md)

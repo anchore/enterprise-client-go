@@ -60,6 +60,8 @@ type APIClient struct {
 
 	CorrectionsApi CorrectionsApi
 
+	DefaultApi DefaultApi
+
 	ImagesApi ImagesApi
 
 	ImportsApi ImportsApi
@@ -94,6 +96,7 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.ApplicationsApi = (*ApplicationsApiService)(&c.common)
 	c.ComplianceApi = (*ComplianceApiService)(&c.common)
 	c.CorrectionsApi = (*CorrectionsApiService)(&c.common)
+	c.DefaultApi = (*DefaultApiService)(&c.common)
 	c.ImagesApi = (*ImagesApiService)(&c.common)
 	c.ImportsApi = (*ImportsApiService)(&c.common)
 	c.InventoriesApi = (*InventoriesApiService)(&c.common)

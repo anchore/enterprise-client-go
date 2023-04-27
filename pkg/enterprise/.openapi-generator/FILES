@@ -8,6 +8,7 @@ api_alerts.go
 api_applications.go
 api_compliance.go
 api_corrections.go
+api_default.go
 api_images.go
 api_imports.go
 api_inventories.go
@@ -52,6 +53,10 @@ docs/CorrectionFieldMatch.md
 docs/CorrectionMatch.md
 docs/CorrectionsApi.md
 docs/CustomJsonPatch.md
+docs/DefaultApi.md
+docs/ECSInventory.md
+docs/ECSInventoryContainers.md
+docs/ECSInventoryTasks.md
 docs/EnterpriseVulnerability.md
 docs/EnterpriseVulnerabilityResponse.md
 docs/ImageAncestor.md
@@ -69,6 +74,13 @@ docs/JsonPatchMove.md
 docs/JsonPatchRemove.md
 docs/JsonPatchReplace.md
 docs/JsonPatchTest.md
+docs/KubernetesInventory.md
+docs/KubernetesInventoryContainers.md
+docs/KubernetesInventoryNamespaces.md
+docs/KubernetesInventoryNodes.md
+docs/KubernetesInventoryPods.md
+docs/KubernetesNamespaces.md
+docs/KubernetesNamespacesNamespaces.md
 docs/ModifiedPackage.md
 docs/NativeSBOM.md
 docs/NativeSBOMDescriptor.md
@@ -148,6 +160,9 @@ model_correction_match.go
 model_custom_json_patch.go
 model_cvssv2_scores.go
 model_cvssv3_scores.go
+model_ecs_inventory.go
+model_ecs_inventory_containers.go
+model_ecs_inventory_tasks.go
 model_enterprise_vulnerability.go
 model_enterprise_vulnerability_response.go
 model_image_ancestor.go
@@ -162,6 +177,13 @@ model_json_patch_move.go
 model_json_patch_remove.go
 model_json_patch_replace.go
 model_json_patch_test_.go
+model_kubernetes_inventory.go
+model_kubernetes_inventory_containers.go
+model_kubernetes_inventory_namespaces.go
+model_kubernetes_inventory_nodes.go
+model_kubernetes_inventory_pods.go
+model_kubernetes_namespaces.go
+model_kubernetes_namespaces_namespaces.go
 model_modified_package.go
 model_native_sbom.go
 model_native_sbom_descriptor.go

@@ -309,6 +309,71 @@ paths:
       x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.runtime_inventory
       x-anchore-authz-action: syncInventory
       x-codegen-request-body-name: inventory
+  /kubernetes-inventory:
+    post:
+      description: Add container metadata from a Kubernetes deployment
+      operationId: post_kubernetes_inventory
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/KubernetesInventory'
+        required: true
+      responses:
+        "204":
+          content: {}
+          description: success
+        "500":
+          content: {}
+          description: Internal Error
+      summary: Add container metadata from a Kubernetes deployment
+      tags:
+      - Inventories
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.runtime_inventory
+      x-anchore-authz-action: postKubernetesInventory
+      x-codegen-request-body-name: inventory
+  /kubernetes-namespaces:
+    get:
+      description: Return a list of Kubernetes namespaces that have been inventoried
+        for this account
+      operationId: get_kubernetes_namespaces
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/KubernetesNamespaces'
+          description: success
+        "500":
+          content: {}
+          description: Internal Error
+      summary: Return a list of Kubernetes namespaces that have been inventoried for
+        this account
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.runtime_inventory
+      x-anchore-authz-action: getKubernetesNamespaces
+  /ecs-inventory:
+    post:
+      description: Add container metadata from Amazon ECS
+      operationId: post_ecs_inventory
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ECSInventory'
+        required: true
+      responses:
+        "204":
+          content: {}
+          description: success
+        "500":
+          content: {}
+          description: Internal Error
+      summary: Add container metadata from Amazon ECS
+      tags:
+      - Inventories
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.runtime_inventory
+      x-anchore-authz-action: postEcsInventory
+      x-codegen-request-body-name: inventory
   /actions:
     get:
       description: Retrieves a list of action plans that have been completed
@@ -2940,6 +3005,171 @@ components:
           format: date-time
           type: string
       type: object
+    KubernetesNamespaces:
+      description: Namespaces defined in Kubernetes
+      example:
+        namespaces:
+        - uid: uid
+          name: name
+          annotations:
+            key: annotations
+          labels:
+            key: labels
+        - uid: uid
+          name: name
+          annotations:
+            key: annotations
+          labels:
+            key: labels
+      properties:
+        namespaces:
+          items:
+            $ref: '#/components/schemas/KubernetesNamespaces_namespaces'
+          type: array
+      type: object
+    KubernetesInventory:
+      example:
+        cluster_name: cluster_name
+        nodes:
+        - uid: uid
+          kernel_version: kernel_version
+          kube_proxy_version: kube_proxy_version
+          name: name
+          kubernetes_version: kubernetes_version
+          annotations:
+            key: annotations
+          operating_system: operating_system
+          kubelet_version: kubelet_version
+          arch: arch
+          container_runtime_version: container_runtime_version
+          labels:
+            key: labels
+        - uid: uid
+          kernel_version: kernel_version
+          kube_proxy_version: kube_proxy_version
+          name: name
+          kubernetes_version: kubernetes_version
+          annotations:
+            key: annotations
+          operating_system: operating_system
+          kubelet_version: kubelet_version
+          arch: arch
+          container_runtime_version: container_runtime_version
+          labels:
+            key: labels
+        pods:
+        - uid: uid
+          node_uid: node_uid
+          name: name
+          annotations:
+            key: annotations
+          namespace_uid: namespace_uid
+          labels:
+            key: labels
+        - uid: uid
+          node_uid: node_uid
+          name: name
+          annotations:
+            key: annotations
+          namespace_uid: namespace_uid
+          labels:
+            key: labels
+        containers:
+        - image_digest: image_digest
+          pod_uid: pod_uid
+          name: name
+          id: id
+          image_tag: image_tag
+        - image_digest: image_digest
+          pod_uid: pod_uid
+          name: name
+          id: id
+          image_tag: image_tag
+        timestamp: 2000-01-23T04:56:07.000+00:00
+        namespaces:
+        - uid: uid
+          name: name
+          annotations:
+            key: annotations
+          labels:
+            key: labels
+        - uid: uid
+          name: name
+          annotations:
+            key: annotations
+          labels:
+            key: labels
+      properties:
+        cluster_name:
+          type: string
+        timestamp:
+          format: date-time
+          type: string
+        namespaces:
+          items:
+            $ref: '#/components/schemas/KubernetesInventory_namespaces'
+          type: array
+        nodes:
+          items:
+            $ref: '#/components/schemas/KubernetesInventory_nodes'
+          type: array
+        pods:
+          items:
+            $ref: '#/components/schemas/KubernetesInventory_pods'
+          type: array
+        containers:
+          items:
+            $ref: '#/components/schemas/KubernetesInventory_containers'
+          type: array
+      required:
+      - cluster_name
+      - timestamp
+      type: object
+    ECSInventory:
+      example:
+        cluster_name: cluster_name
+        containers:
+        - task_arn: task_arn
+          image_digest: image_digest
+          image_tag: image_tag
+          arn: arn
+        - task_arn: task_arn
+          image_digest: image_digest
+          image_tag: image_tag
+          arn: arn
+        tasks:
+        - cluster_arn: cluster_arn
+          service_arn: service_arn
+          task_definition_arn: task_definition_arn
+          arn: arn
+          tags:
+            key: tags
+        - cluster_arn: cluster_arn
+          service_arn: service_arn
+          task_definition_arn: task_definition_arn
+          arn: arn
+          tags:
+            key: tags
+        timestamp: 2000-01-23T04:56:07.000+00:00
+      properties:
+        cluster_name:
+          type: string
+        timestamp:
+          format: date-time
+          type: string
+        tasks:
+          items:
+            $ref: '#/components/schemas/ECSInventory_tasks'
+          nullable: true
+          type: array
+        containers:
+          items:
+            $ref: '#/components/schemas/ECSInventory_containers'
+          type: array
+      required:
+      - cluster_name
+      - timestamp
+      type: object
     ActionPlans:
       description: List of Action Plans
       items:
@@ -5520,6 +5750,11 @@ components:
       - path
       - value
       type: object
+    UUID:
+      maxLength: 36
+      minLength: 36
+      pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
+      type: string
     SourceManifest_metadata_records:
       description: Metadata associated with a source upload
       example:
@@ -5544,6 +5779,217 @@ components:
         change_author:
           nullable: true
           type: string
+      type: object
+    KubernetesNamespaces_namespaces:
+      example:
+        uid: uid
+        name: name
+        annotations:
+          key: annotations
+        labels:
+          key: labels
+      properties:
+        uid:
+          type: string
+        name:
+          type: string
+        labels:
+          additionalProperties:
+            type: string
+          type: object
+        annotations:
+          additionalProperties:
+            type: string
+          type: object
+      required:
+      - annotations
+      - labels
+      - name
+      - uid
+      type: object
+    KubernetesInventory_namespaces:
+      example:
+        uid: uid
+        name: name
+        annotations:
+          key: annotations
+        labels:
+          key: labels
+      properties:
+        uid:
+          maxLength: 36
+          minLength: 36
+          pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
+          type: string
+        name:
+          type: string
+        labels:
+          additionalProperties:
+            type: string
+          type: object
+        annotations:
+          additionalProperties:
+            type: string
+          type: object
+      required:
+      - name
+      - uid
+      type: object
+    KubernetesInventory_nodes:
+      example:
+        uid: uid
+        kernel_version: kernel_version
+        kube_proxy_version: kube_proxy_version
+        name: name
+        kubernetes_version: kubernetes_version
+        annotations:
+          key: annotations
+        operating_system: operating_system
+        kubelet_version: kubelet_version
+        arch: arch
+        container_runtime_version: container_runtime_version
+        labels:
+          key: labels
+      properties:
+        uid:
+          maxLength: 36
+          minLength: 36
+          pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
+          type: string
+        name:
+          type: string
+        labels:
+          additionalProperties:
+            type: string
+          type: object
+        annotations:
+          additionalProperties:
+            type: string
+          type: object
+        kernel_version:
+          type: string
+        kubernetes_version:
+          type: string
+        arch:
+          type: string
+        container_runtime_version:
+          type: string
+        kube_proxy_version:
+          type: string
+        kubelet_version:
+          type: string
+        operating_system:
+          type: string
+      required:
+      - name
+      - uid
+      type: object
+    KubernetesInventory_pods:
+      example:
+        uid: uid
+        node_uid: node_uid
+        name: name
+        annotations:
+          key: annotations
+        namespace_uid: namespace_uid
+        labels:
+          key: labels
+      properties:
+        uid:
+          type: string
+        name:
+          type: string
+        namespace_uid:
+          maxLength: 36
+          minLength: 36
+          pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
+          type: string
+        node_uid:
+          maxLength: 36
+          minLength: 36
+          pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
+          type: string
+        labels:
+          additionalProperties:
+            type: string
+          type: object
+        annotations:
+          additionalProperties:
+            type: string
+          type: object
+      required:
+      - name
+      - uid
+      type: object
+    KubernetesInventory_containers:
+      example:
+        image_digest: image_digest
+        pod_uid: pod_uid
+        name: name
+        id: id
+        image_tag: image_tag
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        image_tag:
+          type: string
+        image_digest:
+          type: string
+        pod_uid:
+          maxLength: 36
+          minLength: 36
+          pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
+          type: string
+      required:
+      - id
+      - image_tag
+      - name
+      - pod_uid
+      type: object
+    ECSInventory_tasks:
+      example:
+        cluster_arn: cluster_arn
+        service_arn: service_arn
+        task_definition_arn: task_definition_arn
+        arn: arn
+        tags:
+          key: tags
+      properties:
+        arn:
+          type: string
+        service_arn:
+          type: string
+        cluster_arn:
+          type: string
+        task_definition_arn:
+          type: string
+        tags:
+          additionalProperties:
+            type: string
+          type: object
+      required:
+      - arn
+      type: object
+    ECSInventory_containers:
+      example:
+        task_arn: task_arn
+        image_digest: image_digest
+        image_tag: image_tag
+        arn: arn
+      properties:
+        arn:
+          type: string
+        task_arn:
+          type: string
+        image_tag:
+          type: string
+        image_digest:
+          type: string
+      required:
+      - arn
+      - image_tag
       type: object
     ApplicationVersionVulnerabilityReport_application_artifacts:
       example:

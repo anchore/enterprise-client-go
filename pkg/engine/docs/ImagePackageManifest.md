@@ -10,6 +10,7 @@ Name | Type | Description | Notes
 **Descriptor** | Pointer to [**ImportDescriptor**](ImportDescriptor.md) |  | [optional] 
 **Schema** | Pointer to [**ImportSchema**](ImportSchema.md) |  | [optional] 
 **ArtifactRelationships** | Pointer to [**[]ImportPackageRelationship**](ImportPackageRelationship.md) |  | [optional] 
+**Files** | Pointer to [**[]ImportFile**](ImportFile.md) |  | [optional] 
 
 ## Methods
 
@@ -164,6 +165,31 @@ SetArtifactRelationships sets ArtifactRelationships field to given value.
 `func (o *ImagePackageManifest) HasArtifactRelationships() bool`
 
 HasArtifactRelationships returns a boolean if a field has been set.
+
+### GetFiles
+
+`func (o *ImagePackageManifest) GetFiles() []ImportFile`
+
+GetFiles returns the Files field if non-nil, zero value otherwise.
+
+### GetFilesOk
+
+`func (o *ImagePackageManifest) GetFilesOk() (*[]ImportFile, bool)`
+
+GetFilesOk returns a tuple with the Files field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetFiles
+
+`func (o *ImagePackageManifest) SetFiles(v []ImportFile)`
+
+SetFiles sets Files field to given value.
+
+### HasFiles
+
+`func (o *ImagePackageManifest) HasFiles() bool`
+
+HasFiles returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

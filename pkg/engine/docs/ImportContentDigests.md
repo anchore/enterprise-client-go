@@ -9,6 +9,9 @@ Name | Type | Description | Notes
 **Manifest** | **string** | Digest to reference content for the image manifest | 
 **ParentManifest** | Pointer to **string** | Digest for reference content for parent manifest | [optional] 
 **Dockerfile** | Pointer to **string** | Digest for reference content for dockerfile | [optional] 
+**SecretSearches** | Pointer to **string** | Digest for reference content for secret search results | [optional] 
+**ContentSearches** | Pointer to **string** | Digest for reference content for content search results | [optional] 
+**FileContents** | Pointer to **string** | Digest for reference content for file retrieve content | [optional] 
 
 ## Methods
 
@@ -138,6 +141,81 @@ SetDockerfile sets Dockerfile field to given value.
 `func (o *ImportContentDigests) HasDockerfile() bool`
 
 HasDockerfile returns a boolean if a field has been set.
+
+### GetSecretSearches
+
+`func (o *ImportContentDigests) GetSecretSearches() string`
+
+GetSecretSearches returns the SecretSearches field if non-nil, zero value otherwise.
+
+### GetSecretSearchesOk
+
+`func (o *ImportContentDigests) GetSecretSearchesOk() (*string, bool)`
+
+GetSecretSearchesOk returns a tuple with the SecretSearches field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetSecretSearches
+
+`func (o *ImportContentDigests) SetSecretSearches(v string)`
+
+SetSecretSearches sets SecretSearches field to given value.
+
+### HasSecretSearches
+
+`func (o *ImportContentDigests) HasSecretSearches() bool`
+
+HasSecretSearches returns a boolean if a field has been set.
+
+### GetContentSearches
+
+`func (o *ImportContentDigests) GetContentSearches() string`
+
+GetContentSearches returns the ContentSearches field if non-nil, zero value otherwise.
+
+### GetContentSearchesOk
+
+`func (o *ImportContentDigests) GetContentSearchesOk() (*string, bool)`
+
+GetContentSearchesOk returns a tuple with the ContentSearches field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetContentSearches
+
+`func (o *ImportContentDigests) SetContentSearches(v string)`
+
+SetContentSearches sets ContentSearches field to given value.
+
+### HasContentSearches
+
+`func (o *ImportContentDigests) HasContentSearches() bool`
+
+HasContentSearches returns a boolean if a field has been set.
+
+### GetFileContents
+
+`func (o *ImportContentDigests) GetFileContents() string`
+
+GetFileContents returns the FileContents field if non-nil, zero value otherwise.
+
+### GetFileContentsOk
+
+`func (o *ImportContentDigests) GetFileContentsOk() (*string, bool)`
+
+GetFileContentsOk returns a tuple with the FileContents field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetFileContents
+
+`func (o *ImportContentDigests) SetFileContents(v string)`
+
+SetFileContents sets FileContents field to given value.
+
+### HasFileContents
+
+`func (o *ImportContentDigests) HasFileContents() bool`
+
+HasFileContents returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

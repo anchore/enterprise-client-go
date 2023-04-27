@@ -133,19 +133,25 @@ Class | Method | HTTP request | Description
 *ImagesApi* | [**ListImageMetadata**](docs/ImagesApi.md#listimagemetadata) | **Get** /images/{imageDigest}/metadata | List image metadata types
 *ImagesApi* | [**ListImages**](docs/ImagesApi.md#listimages) | **Get** /images | List all visible images
 *ImportApi* | [**ImportImageArchive**](docs/ImportApi.md#importimagearchive) | **Post** /import/images | Import an anchore image tar.gz archive file. This is a deprecated API replaced by the \&quot;/imports/images\&quot; route
-*ImportsApi* | [**CreateOperation**](docs/ImportsApi.md#createoperation) | **Post** /imports/images | Begin the import of an image analyzed by Syft into the system
+*ImportsApi* | [**CreateOperation**](docs/ImportsApi.md#createoperation) | **Post** /imports/images | Begin the import of an image SBOM into the system
 *ImportsApi* | [**GetOperation**](docs/ImportsApi.md#getoperation) | **Get** /imports/images/{operation_id} | Get detail on a single import
+*ImportsApi* | [**ImportContentSearches**](docs/ImportsApi.md#importcontentsearches) | **Post** /imports/images/{operation_id}/content_searches | Import a content search analysis catalog
+*ImportsApi* | [**ImportFileContents**](docs/ImportsApi.md#importfilecontents) | **Post** /imports/images/{operation_id}/file_contents | Import a file contents analysis catalog
 *ImportsApi* | [**ImportImageConfig**](docs/ImportsApi.md#importimageconfig) | **Post** /imports/images/{operation_id}/image_config | Import a docker or OCI image config to associate with the image
 *ImportsApi* | [**ImportImageDockerfile**](docs/ImportsApi.md#importimagedockerfile) | **Post** /imports/images/{operation_id}/dockerfile | Begin the import of an image analyzed by Syft into the system
 *ImportsApi* | [**ImportImageManifest**](docs/ImportsApi.md#importimagemanifest) | **Post** /imports/images/{operation_id}/manifest | Import a docker or OCI distribution manifest to associate with the image
 *ImportsApi* | [**ImportImagePackages**](docs/ImportsApi.md#importimagepackages) | **Post** /imports/images/{operation_id}/packages | Begin the import of an image analyzed by Syft into the system
 *ImportsApi* | [**ImportImageParentManifest**](docs/ImportsApi.md#importimageparentmanifest) | **Post** /imports/images/{operation_id}/parent_manifest | Import a docker or OCI distribution manifest list to associate with the image
+*ImportsApi* | [**ImportSecretSearches**](docs/ImportsApi.md#importsecretsearches) | **Post** /imports/images/{operation_id}/secret_searches | Import a secret search analysis catalog
 *ImportsApi* | [**InvalidateOperation**](docs/ImportsApi.md#invalidateoperation) | **Delete** /imports/images/{operation_id} | Invalidate operation ID so it can be garbage collected
+*ImportsApi* | [**ListImportContentSearches**](docs/ImportsApi.md#listimportcontentsearches) | **Get** /imports/images/{operation_id}/content_searches | List uploaded content search results
 *ImportsApi* | [**ListImportDockerfiles**](docs/ImportsApi.md#listimportdockerfiles) | **Get** /imports/images/{operation_id}/dockerfile | List uploaded dockerfiles
+*ImportsApi* | [**ListImportFileContents**](docs/ImportsApi.md#listimportfilecontents) | **Get** /imports/images/{operation_id}/file_contents | List uploaded file contents
 *ImportsApi* | [**ListImportImageConfigs**](docs/ImportsApi.md#listimportimageconfigs) | **Get** /imports/images/{operation_id}/image_config | List uploaded image configs
 *ImportsApi* | [**ListImportImageManifests**](docs/ImportsApi.md#listimportimagemanifests) | **Get** /imports/images/{operation_id}/manifest | List uploaded image manifests
 *ImportsApi* | [**ListImportPackages**](docs/ImportsApi.md#listimportpackages) | **Get** /imports/images/{operation_id}/packages | List uploaded package manifests
 *ImportsApi* | [**ListImportParentManifests**](docs/ImportsApi.md#listimportparentmanifests) | **Get** /imports/images/{operation_id}/parent_manifest | List uploaded parent manifests (manifest lists for a tag)
+*ImportsApi* | [**ListImportSecretSearches**](docs/ImportsApi.md#listimportsecretsearches) | **Get** /imports/images/{operation_id}/secret_searches | List uploaded secret search results
 *ImportsApi* | [**ListOperations**](docs/ImportsApi.md#listoperations) | **Get** /imports/images | Lists in-progress imports
 *PoliciesApi* | [**AddPolicy**](docs/PoliciesApi.md#addpolicy) | **Post** /policies | Add a new policy
 *PoliciesApi* | [**DeletePolicy**](docs/PoliciesApi.md#deletepolicy) | **Delete** /policies/{policyId} | Delete policy
@@ -182,7 +188,7 @@ Class | Method | HTTP request | Description
 *SystemApi* | [**TestWebhook**](docs/SystemApi.md#testwebhook) | **Post** /system/webhooks/{webhook_type}/test | Adds the capabilities to test a webhook delivery for the given notification type
 *SystemApi* | [**ToggleFeedEnabled**](docs/SystemApi.md#togglefeedenabled) | **Put** /system/feeds/{feed} | 
 *SystemApi* | [**ToggleGroupEnabled**](docs/SystemApi.md#togglegroupenabled) | **Put** /system/feeds/{feed}/{group} | 
-*UserManagementApi* | [**CreateAccount**](docs/UserManagementApi.md#createaccount) | **Post** /accounts | Create a new account. Only avaialble to admin user.
+*UserManagementApi* | [**CreateAccount**](docs/UserManagementApi.md#createaccount) | **Post** /accounts | Create a new account. Only available to admin user.
 *UserManagementApi* | [**CreateUser**](docs/UserManagementApi.md#createuser) | **Post** /accounts/{accountname}/users | Create a new user within the specified account.
 *UserManagementApi* | [**CreateUserCredential**](docs/UserManagementApi.md#createusercredential) | **Post** /accounts/{accountname}/users/{username}/credentials | add/replace credential
 *UserManagementApi* | [**DeleteAccount**](docs/UserManagementApi.md#deleteaccount) | **Delete** /accounts/{accountname} | Delete the specified account, only allowed if the account is in the disabled state. All users will be deleted along with the account and all resources will be garbage collected
@@ -193,6 +199,7 @@ Class | Method | HTTP request | Description
 *UserManagementApi* | [**ListAccounts**](docs/UserManagementApi.md#listaccounts) | **Get** /accounts | List account summaries. Only available to the system admin user.
 *UserManagementApi* | [**ListUserCredentials**](docs/UserManagementApi.md#listusercredentials) | **Get** /accounts/{accountname}/users/{username}/credentials | Get current credential summary
 *UserManagementApi* | [**ListUsers**](docs/UserManagementApi.md#listusers) | **Get** /accounts/{accountname}/users | List of users found in this account.
+*UserManagementApi* | [**UpdateAccount**](docs/UserManagementApi.md#updateaccount) | **Put** /accounts/{accountname} | Update the info for this specific account.
 *UserManagementApi* | [**UpdateAccountState**](docs/UserManagementApi.md#updateaccountstate) | **Put** /accounts/{accountname}/state | Update the state of an account to either enabled or disabled. For deletion use the DELETE route
 
 
@@ -201,6 +208,7 @@ Class | Method | HTTP request | Description
  - [AccessCredential](docs/AccessCredential.md)
  - [Account](docs/Account.md)
  - [AccountCreationRequest](docs/AccountCreationRequest.md)
+ - [AccountInfo](docs/AccountInfo.md)
  - [AccountStatus](docs/AccountStatus.md)
  - [AnalysisArchiveAddResult](docs/AnalysisArchiveAddResult.md)
  - [AnalysisArchiveRulesSummary](docs/AnalysisArchiveRulesSummary.md)
@@ -255,6 +263,9 @@ Class | Method | HTTP request | Description
  - [ImageDetail](docs/ImageDetail.md)
  - [ImageFilter](docs/ImageFilter.md)
  - [ImageImportContentResponse](docs/ImageImportContentResponse.md)
+ - [ImageImportContentSearch](docs/ImageImportContentSearch.md)
+ - [ImageImportFileContent](docs/ImageImportFileContent.md)
+ - [ImageImportFileCoordinate](docs/ImageImportFileCoordinate.md)
  - [ImageImportManifest](docs/ImageImportManifest.md)
  - [ImageImportOperation](docs/ImageImportOperation.md)
  - [ImagePackageManifest](docs/ImagePackageManifest.md)
@@ -265,8 +276,11 @@ Class | Method | HTTP request | Description
  - [ImageSource](docs/ImageSource.md)
  - [ImageWithPackages](docs/ImageWithPackages.md)
  - [ImportContentDigests](docs/ImportContentDigests.md)
+ - [ImportContentSearchElement](docs/ImportContentSearchElement.md)
  - [ImportDescriptor](docs/ImportDescriptor.md)
  - [ImportDistribution](docs/ImportDistribution.md)
+ - [ImportFile](docs/ImportFile.md)
+ - [ImportFileDigest](docs/ImportFileDigest.md)
  - [ImportPackage](docs/ImportPackage.md)
  - [ImportPackageLocation](docs/ImportPackageLocation.md)
  - [ImportPackageRelationship](docs/ImportPackageRelationship.md)

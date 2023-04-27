@@ -2115,7 +2115,7 @@ paths:
       x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.accounts
       operationId: create_account
       x-anchore-authz-action: createAccount
-      summary: Create a new account. Only avaialble to admin user.
+      summary: Create a new account. Only available to admin user.
       parameters:
         - name: account
           in: body
@@ -2152,6 +2152,34 @@ paths:
       responses:
         200:
           description: Get user information
+          schema:
+            $ref: "#/definitions/Account"
+        500:
+          description: Internal error
+          schema:
+            $ref: "#/definitions/ApiErrorResponse"
+    put:
+      tags:
+        - User Management
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.accounts
+      operationId: update_account
+      x-anchore-authz-action: updateAccount
+      summary: Update the info for this specific account.
+      parameters:
+        - name: accountname
+          in: path
+          format: path
+          required: true
+          type: string
+        - name: info
+          in: body
+          required: true
+          schema:
+            $ref: "#/definitions/AccountInfo"
+        - $ref: "#/parameters/AsAccountParameter"
+      responses:
+        200:
+          description: Returns the account information
           schema:
             $ref: "#/definitions/Account"
         500:
@@ -2806,7 +2834,7 @@ paths:
       x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.image_imports
       operationId: create_operation
       x-anchore-authz-action: importImage
-      summary: "Begin the import of an image analyzed by Syft into the system"
+      summary: "Begin the import of an image SBOM into the system"
       produces:
         - "application/json"
       responses:
@@ -3132,6 +3160,156 @@ paths:
           required: true
           schema:
             type: object
+      responses:
+        200:
+          description: "success"
+          schema:
+            $ref: "#/definitions/ImageImportContentResponse"
+        500:
+          description: "Internal Error"
+  /imports/images/{operation_id}/secret_searches:
+    get:
+      tags:
+        - Imports
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.image_imports
+      operationId: list_import_secret_searches
+      x-anchore-authz-action: importImage
+      summary: "List uploaded secret search results"
+      produces:
+        - "application/json"
+      parameters:
+        - name: operation_id
+          in: path
+          format: path
+          type: string
+          required: true
+      responses:
+        200:
+          description: "success"
+          schema:
+            $ref: "#/definitions/ImportContentDigestList"
+        500:
+          description: "Internal Error"
+    post:
+      tags:
+        - Imports
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.image_imports
+      operationId: import_secret_searches
+      x-anchore-authz-action: importImage
+      summary: "Import a secret search analysis catalog"
+      produces:
+        - "application/json"
+      parameters:
+        - name: operation_id
+          in: path
+          format: path
+          type: string
+          required: true
+        - name: contents
+          in: body
+          required: true
+          schema:
+            $ref: "#/definitions/ImageImportContentSearchList"
+      responses:
+        200:
+          description: "success"
+          schema:
+            $ref: "#/definitions/ImageImportContentResponse"
+        500:
+          description: "Internal Error"
+  /imports/images/{operation_id}/content_searches:
+    get:
+      tags:
+        - Imports
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.image_imports
+      operationId: list_import_content_searches
+      x-anchore-authz-action: importImage
+      summary: "List uploaded content search results"
+      produces:
+        - "application/json"
+      parameters:
+        - name: operation_id
+          in: path
+          format: path
+          type: string
+          required: true
+      responses:
+        200:
+          description: "success"
+          schema:
+            $ref: "#/definitions/ImportContentDigestList"
+        500:
+          description: "Internal Error"
+    post:
+      tags:
+        - Imports
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.image_imports
+      operationId: import_content_searches
+      x-anchore-authz-action: importImage
+      summary: "Import a content search analysis catalog"
+      produces:
+        - "application/json"
+      parameters:
+        - name: operation_id
+          in: path
+          format: path
+          type: string
+          required: true
+        - name: contents
+          in: body
+          required: true
+          schema:
+            $ref: "#/definitions/ImageImportContentSearchList"
+      responses:
+        200:
+          description: "success"
+          schema:
+            $ref: "#/definitions/ImageImportContentResponse"
+        500:
+          description: "Internal Error"
+  /imports/images/{operation_id}/file_contents:
+    get:
+      tags:
+        - Imports
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.image_imports
+      operationId: list_import_file_contents
+      x-anchore-authz-action: importImage
+      summary: "List uploaded file contents"
+      produces:
+        - "application/json"
+      parameters:
+        - name: operation_id
+          in: path
+          format: path
+          type: string
+          required: true
+      responses:
+        200:
+          description: "success"
+          schema:
+            $ref: "#/definitions/ImportContentDigestList"
+        500:
+          description: "Internal Error"
+    post:
+      tags:
+        - Imports
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.image_imports
+      operationId: import_file_contents
+      x-anchore-authz-action: importImage
+      summary: "Import a file contents analysis catalog"
+      produces:
+        - "application/json"
+      parameters:
+        - name: operation_id
+          in: path
+          format: path
+          type: string
+          required: true
+        - name: contents
+          in: body
+          required: true
+          schema:
+            $ref: "#/definitions/ImageImportFileContentList"
       responses:
         200:
           description: "success"
@@ -4574,6 +4752,14 @@ definitions:
         type: string
         description: An optional email to associate with the account for contact purposes
         pattern: "[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?"
+  AccountInfo:
+    type: object
+    description: Account Information.
+    properties:
+      email:
+        type: string
+        description: An optional email to associate with the account for contact purposes
+        pattern: "[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?"
   Account:
     type: object
     description: Account information
@@ -5382,6 +5568,15 @@ definitions:
       dockerfile:
         type: string
         description: Digest for reference content for dockerfile
+      secret_searches:
+        type: string
+        description: Digest for reference content for secret search results
+      content_searches:
+        type: string
+        description: Digest for reference content for content search results
+      file_contents:
+        type: string
+        description: Digest for reference content for file retrieve content
   Annotations:
     type: object
     description: Simple key/value pairs where the value may be optional
@@ -5394,6 +5589,54 @@ definitions:
     items:
       type: string
       description: String digest of an uploaded content
+  ImageImportFileContentList:
+    type: array
+    description: Array of ImageImportFileContent objects
+    items:
+      $ref: "#/definitions/ImageImportFileContent"
+  ImageImportFileContent:
+    required:
+      - location
+      - contents
+    properties:
+      location:
+        "$ref": "#/definitions/ImportPackageLocation"
+      contents:
+        type: string
+  ImageImportContentSearchList:
+    type: array
+    description: Array of ImageImportContentSearch objects
+    items:
+      $ref: "#/definitions/ImageImportContentSearch"
+  ImageImportContentSearch:
+    required:
+      - location
+      - content_searches
+    properties:
+      location:
+        "$ref": "#/definitions/ImportPackageLocation"
+      content_searches:
+        items:
+          "$ref": "#/definitions/ImportContentSearchElement"
+        type: array
+  ImportContentSearchElement:
+    required:
+      - classification
+      - line_number
+      - line_offset
+      - seek_position
+      - length
+    properties:
+      classification:
+        type: string
+      line_number:
+        type: integer
+      line_offset:
+        type: integer
+      seek_position:
+        type: integer
+      length:
+        type: integer
   ImagePackageManifest:
     required:
       - artifacts
@@ -5415,6 +5658,10 @@ definitions:
       artifactRelationships:
         items:
           "$ref": "#/definitions/ImportPackageRelationship"
+        type: array
+      files:
+        items:
+          "$ref": "#/definitions/ImportFile"
         type: array
     additionalProperties: true
     type: object
@@ -5539,6 +5786,44 @@ definitions:
         additionalProperties: true
         type: object
     additionalProperties: true
+    type: object
+  ImportFile:
+    required:
+      - id
+      - location
+    properties:
+      id:
+        type: string
+        description: Unique identifier within the sbom for the file for other elements in the sbom to reference
+      location:
+        "$ref": "#/definitions/ImageImportFileCoordinate"
+      metadata:
+        type: object
+        description: File metadata such as mode, size, etc. This is populated by anchorectl analysis but is not available in older syft-generated SBOMs
+      digests:
+        type: array
+        items:
+          "$ref": "#/definitions/ImportFileDigest"
+    additionalProperties: true
+    type: object
+  ImageImportFileCoordinate:
+    type: object
+    properties:
+      path:
+        type: string
+        description: The path on the filesystem of the file within the given layer
+      layerID:
+        type: string
+        description: The image layer in which the file was found
+  ImportFileDigest:
+    required:
+      - algorithm
+      - value
+    properties:
+      algorithm:
+        type: string
+      value:
+        type: string
     type: object
   NativeSbom:
     type: object

@@ -27,6 +27,12 @@ type ImportContentDigests struct {
 	ParentManifest *string `json:"parent_manifest,omitempty"`
 	// Digest for reference content for dockerfile
 	Dockerfile *string `json:"dockerfile,omitempty"`
+	// Digest for reference content for secret search results
+	SecretSearches *string `json:"secret_searches,omitempty"`
+	// Digest for reference content for content search results
+	ContentSearches *string `json:"content_searches,omitempty"`
+	// Digest for reference content for file retrieve content
+	FileContents *string `json:"file_contents,omitempty"`
 }
 
 // NewImportContentDigests instantiates a new ImportContentDigests object
@@ -185,6 +191,102 @@ func (o *ImportContentDigests) SetDockerfile(v string) {
 	o.Dockerfile = &v
 }
 
+// GetSecretSearches returns the SecretSearches field value if set, zero value otherwise.
+func (o *ImportContentDigests) GetSecretSearches() string {
+	if o == nil || o.SecretSearches == nil {
+		var ret string
+		return ret
+	}
+	return *o.SecretSearches
+}
+
+// GetSecretSearchesOk returns a tuple with the SecretSearches field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ImportContentDigests) GetSecretSearchesOk() (*string, bool) {
+	if o == nil || o.SecretSearches == nil {
+		return nil, false
+	}
+	return o.SecretSearches, true
+}
+
+// HasSecretSearches returns a boolean if a field has been set.
+func (o *ImportContentDigests) HasSecretSearches() bool {
+	if o != nil && o.SecretSearches != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetSecretSearches gets a reference to the given string and assigns it to the SecretSearches field.
+func (o *ImportContentDigests) SetSecretSearches(v string) {
+	o.SecretSearches = &v
+}
+
+// GetContentSearches returns the ContentSearches field value if set, zero value otherwise.
+func (o *ImportContentDigests) GetContentSearches() string {
+	if o == nil || o.ContentSearches == nil {
+		var ret string
+		return ret
+	}
+	return *o.ContentSearches
+}
+
+// GetContentSearchesOk returns a tuple with the ContentSearches field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ImportContentDigests) GetContentSearchesOk() (*string, bool) {
+	if o == nil || o.ContentSearches == nil {
+		return nil, false
+	}
+	return o.ContentSearches, true
+}
+
+// HasContentSearches returns a boolean if a field has been set.
+func (o *ImportContentDigests) HasContentSearches() bool {
+	if o != nil && o.ContentSearches != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetContentSearches gets a reference to the given string and assigns it to the ContentSearches field.
+func (o *ImportContentDigests) SetContentSearches(v string) {
+	o.ContentSearches = &v
+}
+
+// GetFileContents returns the FileContents field value if set, zero value otherwise.
+func (o *ImportContentDigests) GetFileContents() string {
+	if o == nil || o.FileContents == nil {
+		var ret string
+		return ret
+	}
+	return *o.FileContents
+}
+
+// GetFileContentsOk returns a tuple with the FileContents field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ImportContentDigests) GetFileContentsOk() (*string, bool) {
+	if o == nil || o.FileContents == nil {
+		return nil, false
+	}
+	return o.FileContents, true
+}
+
+// HasFileContents returns a boolean if a field has been set.
+func (o *ImportContentDigests) HasFileContents() bool {
+	if o != nil && o.FileContents != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetFileContents gets a reference to the given string and assigns it to the FileContents field.
+func (o *ImportContentDigests) SetFileContents(v string) {
+	o.FileContents = &v
+}
+
 func (o ImportContentDigests) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
@@ -201,6 +303,15 @@ func (o ImportContentDigests) MarshalJSON() ([]byte, error) {
 	}
 	if o.Dockerfile != nil {
 		toSerialize["dockerfile"] = o.Dockerfile
+	}
+	if o.SecretSearches != nil {
+		toSerialize["secret_searches"] = o.SecretSearches
+	}
+	if o.ContentSearches != nil {
+		toSerialize["content_searches"] = o.ContentSearches
+	}
+	if o.FileContents != nil {
+		toSerialize["file_contents"] = o.FileContents
 	}
 	return json.Marshal(toSerialize)
 }

@@ -10,7 +10,7 @@ OPENAPI_GENERATOR_VERSION = v5.2.1
 
 # --- anchore enterprise references
 # a git tag/branch/commit within anchore/enterprise repo
-ENTERPRISE_REF = 9e75306bc4639540def50d4aeca2b4b7f920bcd2
+ENTERPRISE_REF = 633948d39c31be4e162695af16d79c0b9a7b4dc9
 ENTERPRISE_ROOT = $(PROJECT_ROOT)/enterprise
 RBAC_ROOT = $(PROJECT_ROOT)/rbac
 ENGINE_ROOT = $(PROJECT_ROOT)/engine
@@ -70,6 +70,14 @@ $(RBAC_OPENAPI_DOC) $(ENTERPRISE_OPENAPI_DOC) $(ENGINE_OPENAPI_DOC): $(PROJECT_R
 
 .PHONY :=
 generate-clients: $(ENTERPRISE_OPENAPI_DOC) $(ENGINE_OPENAPI_DOC) $(RBAC_OPENAPI_DOC) ## generate client code for engine external API
+	$(call generate_openapi_client,$(ENTERPRISE_OPENAPI_DOC),enterprise,$(ENTERPRISE_ROOT))
+	$(call generate_openapi_client,$(RBAC_OPENAPI_DOC),rbac,$(RBAC_ROOT))
+	$(call generate_openapi_client,$(ENGINE_OPENAPI_DOC),engine,$(ENGINE_ROOT))
+	# add any tailored code via go generate
+	go generate .
+
+.PHONY :=
+generate-clients-direct: ## generate client code for engine external API without any clone, mostly for local dev prior to remote pushes of api specs
 	$(call generate_openapi_client,$(ENTERPRISE_OPENAPI_DOC),enterprise,$(ENTERPRISE_ROOT))
 	$(call generate_openapi_client,$(RBAC_OPENAPI_DOC),rbac,$(RBAC_ROOT))
 	$(call generate_openapi_client,$(ENGINE_OPENAPI_DOC),engine,$(ENGINE_ROOT))

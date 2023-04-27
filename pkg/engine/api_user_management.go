@@ -28,7 +28,7 @@ var (
 type UserManagementApi interface {
 
 	/*
-	CreateAccount Create a new account. Only avaialble to admin user.
+	CreateAccount Create a new account. Only available to admin user.
 
 	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	 @return ApiCreateAccountRequest
@@ -171,6 +171,19 @@ type UserManagementApi interface {
 	ListUsersExecute(r ApiListUsersRequest) ([]User, *_nethttp.Response, error)
 
 	/*
+	UpdateAccount Update the info for this specific account.
+
+	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	 @param accountname
+	 @return ApiUpdateAccountRequest
+	*/
+	UpdateAccount(ctx _context.Context, accountname string) ApiUpdateAccountRequest
+
+	// UpdateAccountExecute executes the request
+	//  @return Account
+	UpdateAccountExecute(r ApiUpdateAccountRequest) (Account, *_nethttp.Response, error)
+
+	/*
 	UpdateAccountState Update the state of an account to either enabled or disabled. For deletion use the DELETE route
 
 	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
@@ -203,7 +216,7 @@ func (r ApiCreateAccountRequest) Execute() (Account, *_nethttp.Response, error) 
 }
 
 /*
-CreateAccount Create a new account. Only avaialble to admin user.
+CreateAccount Create a new account. Only available to admin user.
 
  @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiCreateAccountRequest
@@ -1412,6 +1425,138 @@ func (a *UserManagementApiService) ListUsersExecute(r ApiListUsersRequest) ([]Us
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 500 {
+			var v ApiErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiUpdateAccountRequest struct {
+	ctx _context.Context
+	ApiService UserManagementApi
+	accountname string
+	info *AccountInfo
+	xAnchoreAccount *string
+}
+
+func (r ApiUpdateAccountRequest) Info(info AccountInfo) ApiUpdateAccountRequest {
+	r.info = &info
+	return r
+}
+// An account name to change the resource scope of the request to that account, if permissions allow (admin only)
+func (r ApiUpdateAccountRequest) XAnchoreAccount(xAnchoreAccount string) ApiUpdateAccountRequest {
+	r.xAnchoreAccount = &xAnchoreAccount
+	return r
+}
+
+func (r ApiUpdateAccountRequest) Execute() (Account, *_nethttp.Response, error) {
+	return r.ApiService.UpdateAccountExecute(r)
+}
+
+/*
+UpdateAccount Update the info for this specific account.
+
+ @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param accountname
+ @return ApiUpdateAccountRequest
+*/
+func (a *UserManagementApiService) UpdateAccount(ctx _context.Context, accountname string) ApiUpdateAccountRequest {
+	return ApiUpdateAccountRequest{
+		ApiService: a,
+		ctx: ctx,
+		accountname: accountname,
+	}
+}
+
+// Execute executes the request
+//  @return Account
+func (a *UserManagementApiService) UpdateAccountExecute(r ApiUpdateAccountRequest) (Account, *_nethttp.Response, error) {
+	var (
+		localVarHTTPMethod   = _nethttp.MethodPut
+		localVarPostBody     interface{}
+		localVarFormFileName string
+		localVarFileName     string
+		localVarFileBytes    []byte
+		localVarReturnValue  Account
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UserManagementApiService.UpdateAccount")
+	if err != nil {
+		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/accounts/{accountname}"
+	localVarPath = strings.Replace(localVarPath, "{"+"accountname"+"}", _neturl.PathEscape(parameterToString(r.accountname, "")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := _neturl.Values{}
+	localVarFormParams := _neturl.Values{}
+	if r.info == nil {
+		return localVarReturnValue, nil, reportError("info is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	if r.xAnchoreAccount != nil {
+		localVarHeaderParams["x-anchore-account"] = parameterToString(*r.xAnchoreAccount, "")
+	}
+	// body params
+	localVarPostBody = r.info
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return localVarReturnValue, nil, err
