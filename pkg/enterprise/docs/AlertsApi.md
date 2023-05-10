@@ -1,13 +1,21 @@
 # \AlertsApi
 
+<<<<<<< HEAD
 All URIs are relative to *http://localhost/v2*
+=======
+All URIs are relative to *http://localhost*
+>>>>>>> 48fc108 (feat: updated the enterprise ref)
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**GetAlertSummaries**](AlertsApi.md#GetAlertSummaries) | **Get** /alerts/summaries | List all alert summaries scoped to the account
 [**GetComplianceViolationAlert**](AlertsApi.md#GetComplianceViolationAlert) | **Get** /alerts/compliance-violations/{uuid} | Get compliance violation alert by id
 [**GetComplianceViolationAlerts**](AlertsApi.md#GetComplianceViolationAlerts) | **Get** /alerts/compliance-violations | List all compliance violation alerts scoped to the account
+<<<<<<< HEAD
 [**UpdateComplianceViolationAlertState**](AlertsApi.md#UpdateComplianceViolationAlertState) | **Patch** /alerts/compliance-violations/{uuid} | Open or close a compliance violation alert
+=======
+[**UpdateComplianceViolationAlertState**](AlertsApi.md#UpdateComplianceViolationAlertState) | **Put** /alerts/compliance-violations/{uuid}/{state} | Open or close a compliance violation alert
+>>>>>>> 48fc108 (feat: updated the enterprise ref)
 
 
 

@@ -1,9 +1,9 @@
 /*
-Anchore Enterprise API Server
+Anchore API
 
-This is the Anchore Enterprise API. It provides additional external API routes and functionality for enterprise users.
+This is the Anchore API. Provides the external API for users of Anchore Enterprise.
 
-API version: 0.7.0
+API version: 0.1.0
 Contact: dev@anchore.com
 */
 
@@ -78,20 +78,6 @@ type InventoriesApi interface {
 
 	// PostKubernetesInventoryExecute executes the request
 	PostKubernetesInventoryExecute(r ApiPostKubernetesInventoryRequest) (*_nethttp.Response, error)
-
-	/*
-	SyncImageInventory synchronizes the list of the images in a given cluster for the inventory
-
-	synchronizes the list of the images that are in use
-
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @return ApiSyncImageInventoryRequest
-	*/
-	SyncImageInventory(ctx _context.Context) ApiSyncImageInventoryRequest
-
-	// SyncImageInventoryExecute executes the request
-	//  @return []InventoryItem
-	SyncImageInventoryExecute(r ApiSyncImageInventoryRequest) ([]InventoryItem, *_nethttp.Response, error)
 }
 
 // InventoriesApiService InventoriesApi service
@@ -558,125 +544,4 @@ func (a *InventoriesApiService) PostKubernetesInventoryExecute(r ApiPostKubernet
 	}
 
 	return localVarHTTPResponse, nil
-}
-
-type ApiSyncImageInventoryRequest struct {
-	ctx _context.Context
-	ApiService InventoriesApi
-	inventory *InventoryReport
-	xAnchoreAccount *string
-}
-
-func (r ApiSyncImageInventoryRequest) Inventory(inventory InventoryReport) ApiSyncImageInventoryRequest {
-	r.inventory = &inventory
-	return r
-}
-// An account name to change the resource scope of the request to that account, if permissions allow (admin only)
-func (r ApiSyncImageInventoryRequest) XAnchoreAccount(xAnchoreAccount string) ApiSyncImageInventoryRequest {
-	r.xAnchoreAccount = &xAnchoreAccount
-	return r
-}
-
-func (r ApiSyncImageInventoryRequest) Execute() ([]InventoryItem, *_nethttp.Response, error) {
-	return r.ApiService.SyncImageInventoryExecute(r)
-}
-
-/*
-SyncImageInventory synchronizes the list of the images in a given cluster for the inventory
-
-synchronizes the list of the images that are in use
-
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiSyncImageInventoryRequest
-*/
-func (a *InventoriesApiService) SyncImageInventory(ctx _context.Context) ApiSyncImageInventoryRequest {
-	return ApiSyncImageInventoryRequest{
-		ApiService: a,
-		ctx: ctx,
-	}
-}
-
-// Execute executes the request
-//  @return []InventoryItem
-func (a *InventoriesApiService) SyncImageInventoryExecute(r ApiSyncImageInventoryRequest) ([]InventoryItem, *_nethttp.Response, error) {
-	var (
-		localVarHTTPMethod   = _nethttp.MethodPost
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  []InventoryItem
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "InventoriesApiService.SyncImageInventory")
-	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/inventories"
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
-	if r.inventory == nil {
-		return localVarReturnValue, nil, reportError("inventory is required and must be specified")
-	}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	if r.xAnchoreAccount != nil {
-		localVarHeaderParams["x-anchore-account"] = parameterToString(*r.xAnchoreAccount, "")
-	}
-	// body params
-	localVarPostBody = r.inventory
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
 }

@@ -3,7 +3,11 @@ Anchore API
 
 This is the Anchore API. Provides the external API for users of Anchore Enterprise.
 
+<<<<<<< HEAD
 API version: 2.0.0
+=======
+API version: 0.1.0
+>>>>>>> 48fc108 (feat: updated the enterprise ref)
 Contact: dev@anchore.com
 */
 
@@ -24,7 +28,10 @@ type ImagePackageManifest struct {
 	Schema *ImportSchema `json:"schema,omitempty"`
 	ArtifactRelationships *[]ImportPackageRelationship `json:"artifactRelationships,omitempty"`
 	Files *[]ImportFile `json:"files,omitempty"`
+<<<<<<< HEAD
 	AdditionalProperties map[string]interface{}
+=======
+>>>>>>> 48fc108 (feat: updated the enterprise ref)
 }
 
 type _ImagePackageManifest ImagePackageManifest
@@ -272,11 +279,14 @@ func (o ImagePackageManifest) MarshalJSON() ([]byte, error) {
 	if o.Files != nil {
 		toSerialize["files"] = o.Files
 	}
+<<<<<<< HEAD
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
 	}
 
+=======
+>>>>>>> 48fc108 (feat: updated the enterprise ref)
 	return json.Marshal(toSerialize)
 }
 

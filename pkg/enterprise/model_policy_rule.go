@@ -3,7 +3,11 @@ Anchore API
 
 This is the Anchore API. Provides the external API for users of Anchore Enterprise.
 
+<<<<<<< HEAD
 API version: 2.0.0
+=======
+API version: 0.1.0
+>>>>>>> 48fc108 (feat: updated the enterprise ref)
 Contact: dev@anchore.com
 */
 
@@ -23,7 +27,11 @@ type PolicyRule struct {
 	Action string `json:"action"`
 	// Description of the policy rule, human readable
 	Description *string `json:"description,omitempty"`
+<<<<<<< HEAD
 	Params []PolicyRuleParams `json:"params"`
+=======
+	Params *[]PolicyRuleParams `json:"params,omitempty"`
+>>>>>>> 48fc108 (feat: updated the enterprise ref)
 	Recommendation *string `json:"recommendation,omitempty"`
 }
 
@@ -149,6 +157,41 @@ func (o *PolicyRule) SetAction(v string) {
 func (o *PolicyRule) GetDescription() string {
 	if o == nil || o.Description == nil {
 		var ret string
+<<<<<<< HEAD
+=======
+		return ret
+	}
+	return *o.Description
+}
+
+// GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PolicyRule) GetDescriptionOk() (*string, bool) {
+	if o == nil || o.Description == nil {
+		return nil, false
+	}
+	return o.Description, true
+}
+
+// HasDescription returns a boolean if a field has been set.
+func (o *PolicyRule) HasDescription() bool {
+	if o != nil && o.Description != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetDescription gets a reference to the given string and assigns it to the Description field.
+func (o *PolicyRule) SetDescription(v string) {
+	o.Description = &v
+}
+
+// GetParams returns the Params field value if set, zero value otherwise.
+func (o *PolicyRule) GetParams() []PolicyRuleParams {
+	if o == nil || o.Params == nil {
+		var ret []PolicyRuleParams
+>>>>>>> 48fc108 (feat: updated the enterprise ref)
 		return ret
 	}
 	return *o.Description
@@ -250,7 +293,11 @@ func (o PolicyRule) MarshalJSON() ([]byte, error) {
 	if o.Description != nil {
 		toSerialize["description"] = o.Description
 	}
+<<<<<<< HEAD
 	if true {
+=======
+	if o.Params != nil {
+>>>>>>> 48fc108 (feat: updated the enterprise ref)
 		toSerialize["params"] = o.Params
 	}
 	if o.Recommendation != nil {

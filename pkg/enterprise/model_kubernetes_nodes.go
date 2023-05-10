@@ -3,7 +3,11 @@ Anchore API
 
 This is the Anchore API. Provides the external API for users of Anchore Enterprise.
 
+<<<<<<< HEAD
 API version: 2.0.0
+=======
+API version: 0.1.0
+>>>>>>> 48fc108 (feat: updated the enterprise ref)
 Contact: dev@anchore.com
 */
 
@@ -17,7 +21,11 @@ import (
 
 // KubernetesNodes Nodes defined in Kubernetes
 type KubernetesNodes struct {
+<<<<<<< HEAD
 	Namespaces *[]KubernetesNode `json:"namespaces,omitempty"`
+=======
+	Namespaces *[]KubernetesNamespacesNamespaces `json:"namespaces,omitempty"`
+>>>>>>> 48fc108 (feat: updated the enterprise ref)
 }
 
 // NewKubernetesNodes instantiates a new KubernetesNodes object
@@ -38,9 +46,15 @@ func NewKubernetesNodesWithDefaults() *KubernetesNodes {
 }
 
 // GetNamespaces returns the Namespaces field value if set, zero value otherwise.
+<<<<<<< HEAD
 func (o *KubernetesNodes) GetNamespaces() []KubernetesNode {
 	if o == nil || o.Namespaces == nil {
 		var ret []KubernetesNode
+=======
+func (o *KubernetesNodes) GetNamespaces() []KubernetesNamespacesNamespaces {
+	if o == nil || o.Namespaces == nil {
+		var ret []KubernetesNamespacesNamespaces
+>>>>>>> 48fc108 (feat: updated the enterprise ref)
 		return ret
 	}
 	return *o.Namespaces
@@ -48,7 +62,11 @@ func (o *KubernetesNodes) GetNamespaces() []KubernetesNode {
 
 // GetNamespacesOk returns a tuple with the Namespaces field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+<<<<<<< HEAD
 func (o *KubernetesNodes) GetNamespacesOk() (*[]KubernetesNode, bool) {
+=======
+func (o *KubernetesNodes) GetNamespacesOk() (*[]KubernetesNamespacesNamespaces, bool) {
+>>>>>>> 48fc108 (feat: updated the enterprise ref)
 	if o == nil || o.Namespaces == nil {
 		return nil, false
 	}
@@ -64,8 +82,13 @@ func (o *KubernetesNodes) HasNamespaces() bool {
 	return false
 }
 
+<<<<<<< HEAD
 // SetNamespaces gets a reference to the given []KubernetesNode and assigns it to the Namespaces field.
 func (o *KubernetesNodes) SetNamespaces(v []KubernetesNode) {
+=======
+// SetNamespaces gets a reference to the given []KubernetesNamespacesNamespaces and assigns it to the Namespaces field.
+func (o *KubernetesNodes) SetNamespaces(v []KubernetesNamespacesNamespaces) {
+>>>>>>> 48fc108 (feat: updated the enterprise ref)
 	o.Namespaces = &v
 }
 

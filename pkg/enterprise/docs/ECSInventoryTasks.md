@@ -6,7 +6,6 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Arn** | **string** |  | 
 **ServiceArn** | Pointer to **string** |  | [optional] 
-**ClusterArn** | Pointer to **string** |  | [optional] 
 **TaskDefinitionArn** | Pointer to **string** |  | [optional] 
 **Tags** | Pointer to **map[string]string** |  | [optional] 
 
@@ -73,31 +72,6 @@ SetServiceArn sets ServiceArn field to given value.
 `func (o *ECSInventoryTasks) HasServiceArn() bool`
 
 HasServiceArn returns a boolean if a field has been set.
-
-### GetClusterArn
-
-`func (o *ECSInventoryTasks) GetClusterArn() string`
-
-GetClusterArn returns the ClusterArn field if non-nil, zero value otherwise.
-
-### GetClusterArnOk
-
-`func (o *ECSInventoryTasks) GetClusterArnOk() (*string, bool)`
-
-GetClusterArnOk returns a tuple with the ClusterArn field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetClusterArn
-
-`func (o *ECSInventoryTasks) SetClusterArn(v string)`
-
-SetClusterArn sets ClusterArn field to given value.
-
-### HasClusterArn
-
-`func (o *ECSInventoryTasks) HasClusterArn() bool`
-
-HasClusterArn returns a boolean if a field has been set.
 
 ### GetTaskDefinitionArn
 

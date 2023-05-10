@@ -3,7 +3,11 @@ Anchore API
 
 This is the Anchore API. Provides the external API for users of Anchore Enterprise.
 
+<<<<<<< HEAD
 API version: 2.0.0
+=======
+API version: 0.1.0
+>>>>>>> 48fc108 (feat: updated the enterprise ref)
 Contact: dev@anchore.com
 */
 
@@ -18,6 +22,7 @@ import (
 // ImportSource struct for ImportSource
 type ImportSource struct {
 	Type string `json:"type"`
+<<<<<<< HEAD
 	Target *map[string]interface{} `json:"target,omitempty"`
 	Metadata *map[string]interface{} `json:"metadata,omitempty"`
 	AdditionalProperties map[string]interface{}
@@ -25,13 +30,25 @@ type ImportSource struct {
 
 type _ImportSource ImportSource
 
+=======
+	Target interface{} `json:"target"`
+}
+
+>>>>>>> 48fc108 (feat: updated the enterprise ref)
 // NewImportSource instantiates a new ImportSource object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
+<<<<<<< HEAD
 func NewImportSource(type_ string) *ImportSource {
 	this := ImportSource{}
 	this.Type = type_
+=======
+func NewImportSource(type_ string, target interface{}) *ImportSource {
+	this := ImportSource{}
+	this.Type = type_
+	this.Target = target
+>>>>>>> 48fc108 (feat: updated the enterprise ref)
 	return &this
 }
 
@@ -67,6 +84,7 @@ func (o *ImportSource) SetType(v string) {
 	o.Type = v
 }
 
+<<<<<<< HEAD
 // GetTarget returns the Target field value if set, zero value otherwise.
 func (o *ImportSource) GetTarget() map[string]interface{} {
 	if o == nil || o.Target == nil {
@@ -129,6 +147,30 @@ func (o *ImportSource) HasMetadata() bool {
 // SetMetadata gets a reference to the given map[string]interface{} and assigns it to the Metadata field.
 func (o *ImportSource) SetMetadata(v map[string]interface{}) {
 	o.Metadata = &v
+=======
+// GetTarget returns the Target field value
+func (o *ImportSource) GetTarget() interface{} {
+	if o == nil {
+		var ret interface{}
+		return ret
+	}
+
+	return o.Target
+}
+
+// GetTargetOk returns a tuple with the Target field value
+// and a boolean to check if the value has been set.
+func (o *ImportSource) GetTargetOk() (*interface{}, bool) {
+	if o == nil  {
+		return nil, false
+	}
+	return &o.Target, true
+}
+
+// SetTarget sets field value
+func (o *ImportSource) SetTarget(v interface{}) {
+	o.Target = v
+>>>>>>> 48fc108 (feat: updated the enterprise ref)
 }
 
 func (o ImportSource) MarshalJSON() ([]byte, error) {
@@ -136,6 +178,7 @@ func (o ImportSource) MarshalJSON() ([]byte, error) {
 	if true {
 		toSerialize["type"] = o.Type
 	}
+<<<<<<< HEAD
 	if o.Target != nil {
 		toSerialize["target"] = o.Target
 	}
@@ -169,6 +212,14 @@ func (o *ImportSource) UnmarshalJSON(bytes []byte) (err error) {
 	return err
 }
 
+=======
+	if true {
+		toSerialize["target"] = o.Target
+	}
+	return json.Marshal(toSerialize)
+}
+
+>>>>>>> 48fc108 (feat: updated the enterprise ref)
 type NullableImportSource struct {
 	value *ImportSource
 	isSet bool

@@ -1,6 +1,6 @@
 # \InventoriesApi
 
-All URIs are relative to *http://localhost/enterprise*
+All URIs are relative to *http://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -8,7 +8,6 @@ Method | HTTP request | Description
 [**GetImageInventory**](InventoriesApi.md#GetImageInventory) | **Get** /inventories | Return a list of the images in inventories for this account
 [**PostEcsInventory**](InventoriesApi.md#PostEcsInventory) | **Post** /ecs-inventory | Add container metadata from Amazon ECS
 [**PostKubernetesInventory**](InventoriesApi.md#PostKubernetesInventory) | **Post** /kubernetes-inventory | Add container metadata from a Kubernetes deployment
-[**SyncImageInventory**](InventoriesApi.md#SyncImageInventory) | **Post** /inventories | synchronizes the list of the images in a given cluster for the inventory
 
 
 
@@ -176,7 +175,7 @@ import (
 )
 
 func main() {
-    inventory := *openapiclient.NewECSInventory("ClusterName_example", time.Now()) // ECSInventory | 
+    inventory := *openapiclient.NewECSInventory("ClusterArn_example", time.Now()) // ECSInventory | 
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
@@ -278,74 +277,6 @@ No authorization required
 
 - **Content-Type**: application/json
 - **Accept**: Not defined
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## SyncImageInventory
-
-> []InventoryItem SyncImageInventory(ctx).Inventory(inventory).XAnchoreAccount(xAnchoreAccount).Execute()
-
-synchronizes the list of the images in a given cluster for the inventory
-
-
-
-### Example
-
-```go
-package main
-
-import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
-)
-
-func main() {
-    inventory := *openapiclient.NewInventoryReport() // InventoryReport | 
-    xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
-
-    configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.InventoriesApi.SyncImageInventory(context.Background()).Inventory(inventory).XAnchoreAccount(xAnchoreAccount).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `InventoriesApi.SyncImageInventory``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `SyncImageInventory`: []InventoryItem
-    fmt.Fprintf(os.Stdout, "Response from `InventoriesApi.SyncImageInventory`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiSyncImageInventoryRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **inventory** | [**InventoryReport**](InventoryReport.md) |  | 
- **xAnchoreAccount** | **string** | An account name to change the resource scope of the request to that account, if permissions allow (admin only) | 
-
-### Return type
-
-[**[]InventoryItem**](InventoryItem.md)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

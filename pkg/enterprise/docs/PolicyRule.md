@@ -9,7 +9,11 @@ Name | Type | Description | Notes
 **Trigger** | **string** |  | 
 **Action** | **string** |  | 
 **Description** | Pointer to **string** | Description of the policy rule, human readable | [optional] 
+<<<<<<< HEAD
 **Params** | [**[]PolicyRuleParams**](PolicyRuleParams.md) |  | 
+=======
+**Params** | Pointer to [**[]PolicyRuleParams**](PolicyRuleParams.md) |  | [optional] 
+>>>>>>> 48fc108 (feat: updated the enterprise ref)
 **Recommendation** | Pointer to **string** |  | [optional] 
 
 ## Methods

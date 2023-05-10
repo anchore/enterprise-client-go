@@ -3,7 +3,11 @@ Anchore API
 
 This is the Anchore API. Provides the external API for users of Anchore Enterprise.
 
+<<<<<<< HEAD
 API version: 2.0.0
+=======
+API version: 0.1.0
+>>>>>>> 48fc108 (feat: updated the enterprise ref)
 Contact: dev@anchore.com
 */
 
@@ -29,7 +33,10 @@ type ImportPackage struct {
 	Purl *string `json:"purl,omitempty"`
 	MetadataType NullableString `json:"metadataType,omitempty"`
 	Metadata interface{} `json:"metadata,omitempty"`
+<<<<<<< HEAD
 	AdditionalProperties map[string]interface{}
+=======
+>>>>>>> 48fc108 (feat: updated the enterprise ref)
 }
 
 type _ImportPackage ImportPackage
@@ -38,7 +45,11 @@ type _ImportPackage ImportPackage
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
+<<<<<<< HEAD
 func NewImportPackage(name string, version string, type_ string, locations []ImportPackageLocation, licenses []interface{}, language string, cpes []string) *ImportPackage {
+=======
+func NewImportPackage(name string, version string, type_ string, locations []ImportPackageLocation, licenses []string, language string, cpes []string) *ImportPackage {
+>>>>>>> 48fc108 (feat: updated the enterprise ref)
 	this := ImportPackage{}
 	this.Name = name
 	this.Version = version

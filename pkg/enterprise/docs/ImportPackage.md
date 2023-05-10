@@ -21,7 +21,11 @@ Name | Type | Description | Notes
 
 ### NewImportPackage
 
+<<<<<<< HEAD
 `func NewImportPackage(name string, version string, type_ string, locations []ImportPackageLocation, licenses []interface{}, language string, cpes []string, ) *ImportPackage`
+=======
+`func NewImportPackage(name string, version string, type_ string, locations []ImportPackageLocation, licenses []string, language string, cpes []string, ) *ImportPackage`
+>>>>>>> 48fc108 (feat: updated the enterprise ref)
 
 NewImportPackage instantiates a new ImportPackage object
 This constructor will assign default values to properties that have it defined,

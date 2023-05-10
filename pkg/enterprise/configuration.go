@@ -3,7 +3,11 @@ Anchore API
 
 This is the Anchore API. Provides the external API for users of Anchore Enterprise.
 
+<<<<<<< HEAD
 API version: 2.0.0
+=======
+API version: 0.1.0
+>>>>>>> 48fc108 (feat: updated the enterprise ref)
 Contact: dev@anchore.com
 */
 
@@ -108,7 +112,11 @@ func NewConfiguration() *Configuration {
 		Debug:            false,
 		Servers:          ServerConfigurations{
 			{
+<<<<<<< HEAD
 				URL: "/v2",
+=======
+				URL: "",
+>>>>>>> 48fc108 (feat: updated the enterprise ref)
 				Description: "No description provided",
 			},
 		},

@@ -3,7 +3,11 @@ Anchore API
 
 This is the Anchore API. Provides the external API for users of Anchore Enterprise.
 
+<<<<<<< HEAD
 API version: 2.0.0
+=======
+API version: 0.1.0
+>>>>>>> 48fc108 (feat: updated the enterprise ref)
 Contact: dev@anchore.com
 */
 
@@ -15,6 +19,7 @@ import (
 	"encoding/json"
 )
 
+<<<<<<< HEAD
 // Policy A policy containing a rule-set, allowlists, and rules for mapping them to specific images
 type Policy struct {
 	// Id of the policy
@@ -39,12 +44,24 @@ type Policy struct {
 	DenylistedImages *[]ImageSelectionRule `json:"denylisted_images,omitempty"`
 	// The time at which the policy was last updated, informational only
 	LastUpdated *float32 `json:"last_updated,omitempty"`
+=======
+// Policy struct for Policy
+type Policy struct {
+	Id string `json:"id"`
+	Name *string `json:"name,omitempty"`
+	// Description of the Policy, human readable
+	Description *string `json:"description,omitempty"`
+	Version string `json:"version"`
+	ArtifactType *string `json:"artifact_type,omitempty"`
+	Rules *[]PolicyRule `json:"rules,omitempty"`
+>>>>>>> 48fc108 (feat: updated the enterprise ref)
 }
 
 // NewPolicy instantiates a new Policy object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
+<<<<<<< HEAD
 func NewPolicy(id string, name string, version string, ruleSets []RuleSet, mappings []MappingRule) *Policy {
 	this := Policy{}
 	this.Id = id
@@ -52,6 +69,12 @@ func NewPolicy(id string, name string, version string, ruleSets []RuleSet, mappi
 	this.Version = version
 	this.RuleSets = ruleSets
 	this.Mappings = mappings
+=======
+func NewPolicy(id string, version string) *Policy {
+	this := Policy{}
+	this.Id = id
+	this.Version = version
+>>>>>>> 48fc108 (feat: updated the enterprise ref)
 	return &this
 }
 
@@ -87,6 +110,7 @@ func (o *Policy) SetId(v string) {
 	o.Id = v
 }
 
+<<<<<<< HEAD
 // GetName returns the Name field value
 func (o *Policy) GetName() string {
 	if o == nil {
@@ -109,6 +133,38 @@ func (o *Policy) GetNameOk() (*string, bool) {
 // SetName sets field value
 func (o *Policy) SetName(v string) {
 	o.Name = v
+=======
+// GetName returns the Name field value if set, zero value otherwise.
+func (o *Policy) GetName() string {
+	if o == nil || o.Name == nil {
+		var ret string
+		return ret
+	}
+	return *o.Name
+}
+
+// GetNameOk returns a tuple with the Name field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Policy) GetNameOk() (*string, bool) {
+	if o == nil || o.Name == nil {
+		return nil, false
+	}
+	return o.Name, true
+}
+
+// HasName returns a boolean if a field has been set.
+func (o *Policy) HasName() bool {
+	if o != nil && o.Name != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetName gets a reference to the given string and assigns it to the Name field.
+func (o *Policy) SetName(v string) {
+	o.Name = &v
+>>>>>>> 48fc108 (feat: updated the enterprise ref)
 }
 
 // GetDescription returns the Description field value if set, zero value otherwise.
@@ -167,6 +223,7 @@ func (o *Policy) SetVersion(v string) {
 	o.Version = v
 }
 
+<<<<<<< HEAD
 // GetAllowlists returns the Allowlists field value if set, zero value otherwise.
 func (o *Policy) GetAllowlists() []Allowlist {
 	if o == nil || o.Allowlists == nil {
@@ -188,12 +245,36 @@ func (o *Policy) GetAllowlistsOk() (*[]Allowlist, bool) {
 // HasAllowlists returns a boolean if a field has been set.
 func (o *Policy) HasAllowlists() bool {
 	if o != nil && o.Allowlists != nil {
+=======
+// GetArtifactType returns the ArtifactType field value if set, zero value otherwise.
+func (o *Policy) GetArtifactType() string {
+	if o == nil || o.ArtifactType == nil {
+		var ret string
+		return ret
+	}
+	return *o.ArtifactType
+}
+
+// GetArtifactTypeOk returns a tuple with the ArtifactType field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Policy) GetArtifactTypeOk() (*string, bool) {
+	if o == nil || o.ArtifactType == nil {
+		return nil, false
+	}
+	return o.ArtifactType, true
+}
+
+// HasArtifactType returns a boolean if a field has been set.
+func (o *Policy) HasArtifactType() bool {
+	if o != nil && o.ArtifactType != nil {
+>>>>>>> 48fc108 (feat: updated the enterprise ref)
 		return true
 	}
 
 	return false
 }
 
+<<<<<<< HEAD
 // SetAllowlists gets a reference to the given []Allowlist and assigns it to the Allowlists field.
 func (o *Policy) SetAllowlists(v []Allowlist) {
 	o.Allowlists = &v
@@ -244,12 +325,41 @@ func (o *Policy) GetSourceMappingsOk() (*[]SourceMappingRule, bool) {
 // HasSourceMappings returns a boolean if a field has been set.
 func (o *Policy) HasSourceMappings() bool {
 	if o != nil && o.SourceMappings != nil {
+=======
+// SetArtifactType gets a reference to the given string and assigns it to the ArtifactType field.
+func (o *Policy) SetArtifactType(v string) {
+	o.ArtifactType = &v
+}
+
+// GetRules returns the Rules field value if set, zero value otherwise.
+func (o *Policy) GetRules() []PolicyRule {
+	if o == nil || o.Rules == nil {
+		var ret []PolicyRule
+		return ret
+	}
+	return *o.Rules
+}
+
+// GetRulesOk returns a tuple with the Rules field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Policy) GetRulesOk() (*[]PolicyRule, bool) {
+	if o == nil || o.Rules == nil {
+		return nil, false
+	}
+	return o.Rules, true
+}
+
+// HasRules returns a boolean if a field has been set.
+func (o *Policy) HasRules() bool {
+	if o != nil && o.Rules != nil {
+>>>>>>> 48fc108 (feat: updated the enterprise ref)
 		return true
 	}
 
 	return false
 }
 
+<<<<<<< HEAD
 // SetSourceMappings gets a reference to the given []SourceMappingRule and assigns it to the SourceMappings field.
 func (o *Policy) SetSourceMappings(v []SourceMappingRule) {
 	o.SourceMappings = &v
@@ -373,6 +483,11 @@ func (o *Policy) HasLastUpdated() bool {
 // SetLastUpdated gets a reference to the given float32 and assigns it to the LastUpdated field.
 func (o *Policy) SetLastUpdated(v float32) {
 	o.LastUpdated = &v
+=======
+// SetRules gets a reference to the given []PolicyRule and assigns it to the Rules field.
+func (o *Policy) SetRules(v []PolicyRule) {
+	o.Rules = &v
+>>>>>>> 48fc108 (feat: updated the enterprise ref)
 }
 
 func (o Policy) MarshalJSON() ([]byte, error) {
@@ -380,7 +495,11 @@ func (o Policy) MarshalJSON() ([]byte, error) {
 	if true {
 		toSerialize["id"] = o.Id
 	}
+<<<<<<< HEAD
 	if true {
+=======
+	if o.Name != nil {
+>>>>>>> 48fc108 (feat: updated the enterprise ref)
 		toSerialize["name"] = o.Name
 	}
 	if o.Description != nil {
@@ -389,6 +508,7 @@ func (o Policy) MarshalJSON() ([]byte, error) {
 	if true {
 		toSerialize["version"] = o.Version
 	}
+<<<<<<< HEAD
 	if o.Allowlists != nil {
 		toSerialize["allowlists"] = o.Allowlists
 	}
@@ -409,6 +529,13 @@ func (o Policy) MarshalJSON() ([]byte, error) {
 	}
 	if o.LastUpdated != nil {
 		toSerialize["last_updated"] = o.LastUpdated
+=======
+	if o.ArtifactType != nil {
+		toSerialize["artifact_type"] = o.ArtifactType
+	}
+	if o.Rules != nil {
+		toSerialize["rules"] = o.Rules
+>>>>>>> 48fc108 (feat: updated the enterprise ref)
 	}
 	return json.Marshal(toSerialize)
 }

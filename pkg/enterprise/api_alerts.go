@@ -3,7 +3,11 @@ Anchore API
 
 This is the Anchore API. Provides the external API for users of Anchore Enterprise.
 
+<<<<<<< HEAD
 API version: 2.0.0
+=======
+API version: 0.1.0
+>>>>>>> 48fc108 (feat: updated the enterprise ref)
 Contact: dev@anchore.com
 */
 
@@ -632,7 +636,11 @@ func (a *AlertsApiService) UpdateComplianceViolationAlertStateExecute(r ApiUpdat
 		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
 	}
 
+<<<<<<< HEAD
 	localVarPath := localBasePath + "/alerts/compliance-violations/{uuid}"
+=======
+	localVarPath := localBasePath + "/alerts/compliance-violations/{uuid}/{state}"
+>>>>>>> 48fc108 (feat: updated the enterprise ref)
 	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", _neturl.PathEscape(parameterToString(r.uuid, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)

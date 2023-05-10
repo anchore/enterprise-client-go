@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Uid** | **string** |  | 
 **Name** | **string** |  | 
-**NamespaceUid** | Pointer to **string** |  | [optional] 
+**NamespaceUid** | **string** |  | 
 **NodeUid** | Pointer to **string** |  | [optional] 
 **Labels** | Pointer to **map[string]string** |  | [optional] 
 **Annotations** | Pointer to **map[string]string** |  | [optional] 
@@ -15,7 +15,7 @@ Name | Type | Description | Notes
 
 ### NewKubernetesInventoryPods
 
-`func NewKubernetesInventoryPods(uid string, name string, ) *KubernetesInventoryPods`
+`func NewKubernetesInventoryPods(uid string, name string, namespaceUid string, ) *KubernetesInventoryPods`
 
 NewKubernetesInventoryPods instantiates a new KubernetesInventoryPods object
 This constructor will assign default values to properties that have it defined,
@@ -89,11 +89,6 @@ and a boolean to check if the value has been set.
 
 SetNamespaceUid sets NamespaceUid field to given value.
 
-### HasNamespaceUid
-
-`func (o *KubernetesInventoryPods) HasNamespaceUid() bool`
-
-HasNamespaceUid returns a boolean if a field has been set.
 
 ### GetNodeUid
 

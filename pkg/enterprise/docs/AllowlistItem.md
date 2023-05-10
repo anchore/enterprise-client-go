@@ -4,17 +4,28 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+<<<<<<< HEAD
 **Id** | **string** |  | 
 **Gate** | **string** |  | 
 **TriggerId** | **string** |  | 
 **ExpiresOn** | Pointer to **NullableTime** |  | [optional] 
+=======
+**Id** | Pointer to **string** |  | [optional] 
+**Gate** | **string** |  | 
+**TriggerId** | **string** |  | 
+**ExpiresOn** | Pointer to **time.Time** |  | [optional] 
+>>>>>>> 48fc108 (feat: updated the enterprise ref)
 **Description** | Pointer to **string** | Description of the Allowlist item, human readable | [optional] 
 
 ## Methods
 
 ### NewAllowlistItem
 
+<<<<<<< HEAD
 `func NewAllowlistItem(id string, gate string, triggerId string, ) *AllowlistItem`
+=======
+`func NewAllowlistItem(gate string, triggerId string, ) *AllowlistItem`
+>>>>>>> 48fc108 (feat: updated the enterprise ref)
 
 NewAllowlistItem instantiates a new AllowlistItem object
 This constructor will assign default values to properties that have it defined,
@@ -48,6 +59,14 @@ and a boolean to check if the value has been set.
 
 SetId sets Id field to given value.
 
+<<<<<<< HEAD
+=======
+### HasId
+
+`func (o *AllowlistItem) HasId() bool`
+
+HasId returns a boolean if a field has been set.
+>>>>>>> 48fc108 (feat: updated the enterprise ref)
 
 ### GetGate
 
@@ -114,6 +133,7 @@ SetExpiresOn sets ExpiresOn field to given value.
 
 HasExpiresOn returns a boolean if a field has been set.
 
+<<<<<<< HEAD
 ### SetExpiresOnNil
 
 `func (o *AllowlistItem) SetExpiresOnNil(b bool)`
@@ -124,6 +144,8 @@ HasExpiresOn returns a boolean if a field has been set.
 `func (o *AllowlistItem) UnsetExpiresOn()`
 
 UnsetExpiresOn ensures that no value is present for ExpiresOn, not even an explicit nil
+=======
+>>>>>>> 48fc108 (feat: updated the enterprise ref)
 ### GetDescription
 
 `func (o *AllowlistItem) GetDescription() string`

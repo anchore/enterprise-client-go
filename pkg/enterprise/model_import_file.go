@@ -3,7 +3,11 @@ Anchore API
 
 This is the Anchore API. Provides the external API for users of Anchore Enterprise.
 
+<<<<<<< HEAD
 API version: 2.0.0
+=======
+API version: 0.1.0
+>>>>>>> 48fc108 (feat: updated the enterprise ref)
 Contact: dev@anchore.com
 */
 
@@ -23,11 +27,16 @@ type ImportFile struct {
 	// File metadata such as mode, size, etc. This is populated by anchorectl analysis but is not available in older syft-generated SBOMs
 	Metadata *interface{} `json:"metadata,omitempty"`
 	Digests *[]ImportFileDigest `json:"digests,omitempty"`
+<<<<<<< HEAD
 	AdditionalProperties map[string]interface{}
 }
 
 type _ImportFile ImportFile
 
+=======
+}
+
+>>>>>>> 48fc108 (feat: updated the enterprise ref)
 // NewImportFile instantiates a new ImportFile object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
@@ -173,6 +182,7 @@ func (o ImportFile) MarshalJSON() ([]byte, error) {
 	if o.Digests != nil {
 		toSerialize["digests"] = o.Digests
 	}
+<<<<<<< HEAD
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -201,6 +211,11 @@ func (o *ImportFile) UnmarshalJSON(bytes []byte) (err error) {
 	return err
 }
 
+=======
+	return json.Marshal(toSerialize)
+}
+
+>>>>>>> 48fc108 (feat: updated the enterprise ref)
 type NullableImportFile struct {
 	value *ImportFile
 	isSet bool

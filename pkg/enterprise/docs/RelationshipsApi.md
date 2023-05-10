@@ -1,6 +1,10 @@
 # \RelationshipsApi
 
+<<<<<<< HEAD
 All URIs are relative to *http://localhost/v2*
+=======
+All URIs are relative to *http://localhost*
+>>>>>>> 48fc108 (feat: updated the enterprise ref)
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------

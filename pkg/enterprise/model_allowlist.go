@@ -3,7 +3,11 @@ Anchore API
 
 This is the Anchore API. Provides the external API for users of Anchore Enterprise.
 
+<<<<<<< HEAD
 API version: 2.0.0
+=======
+API version: 0.1.0
+>>>>>>> 48fc108 (feat: updated the enterprise ref)
 Contact: dev@anchore.com
 */
 
@@ -18,23 +22,38 @@ import (
 // Allowlist A collection of allowlist items to match a policy evaluation against.
 type Allowlist struct {
 	Id string `json:"id"`
+<<<<<<< HEAD
 	Name string `json:"name"`
 	Version string `json:"version"`
 	// Description of the Allowlist, human readable
 	Description *string `json:"description,omitempty"`
 	Items []AllowlistItem `json:"items"`
+=======
+	Name *string `json:"name,omitempty"`
+	Version string `json:"version"`
+	// Description of the Allowlist, human readable
+	Description *string `json:"description,omitempty"`
+	Items *[]AllowlistItem `json:"items,omitempty"`
+>>>>>>> 48fc108 (feat: updated the enterprise ref)
 }
 
 // NewAllowlist instantiates a new Allowlist object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
+<<<<<<< HEAD
 func NewAllowlist(id string, name string, version string, items []AllowlistItem) *Allowlist {
 	this := Allowlist{}
 	this.Id = id
 	this.Name = name
 	this.Version = version
 	this.Items = items
+=======
+func NewAllowlist(id string, version string) *Allowlist {
+	this := Allowlist{}
+	this.Id = id
+	this.Version = version
+>>>>>>> 48fc108 (feat: updated the enterprise ref)
 	return &this
 }
 
@@ -70,6 +89,7 @@ func (o *Allowlist) SetId(v string) {
 	o.Id = v
 }
 
+<<<<<<< HEAD
 // GetName returns the Name field value
 func (o *Allowlist) GetName() string {
 	if o == nil {
@@ -92,6 +112,38 @@ func (o *Allowlist) GetNameOk() (*string, bool) {
 // SetName sets field value
 func (o *Allowlist) SetName(v string) {
 	o.Name = v
+=======
+// GetName returns the Name field value if set, zero value otherwise.
+func (o *Allowlist) GetName() string {
+	if o == nil || o.Name == nil {
+		var ret string
+		return ret
+	}
+	return *o.Name
+}
+
+// GetNameOk returns a tuple with the Name field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Allowlist) GetNameOk() (*string, bool) {
+	if o == nil || o.Name == nil {
+		return nil, false
+	}
+	return o.Name, true
+}
+
+// HasName returns a boolean if a field has been set.
+func (o *Allowlist) HasName() bool {
+	if o != nil && o.Name != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetName gets a reference to the given string and assigns it to the Name field.
+func (o *Allowlist) SetName(v string) {
+	o.Name = &v
+>>>>>>> 48fc108 (feat: updated the enterprise ref)
 }
 
 // GetVersion returns the Version field value
@@ -150,6 +202,7 @@ func (o *Allowlist) SetDescription(v string) {
 	o.Description = &v
 }
 
+<<<<<<< HEAD
 // GetItems returns the Items field value
 func (o *Allowlist) GetItems() []AllowlistItem {
 	if o == nil {
@@ -172,6 +225,38 @@ func (o *Allowlist) GetItemsOk() (*[]AllowlistItem, bool) {
 // SetItems sets field value
 func (o *Allowlist) SetItems(v []AllowlistItem) {
 	o.Items = v
+=======
+// GetItems returns the Items field value if set, zero value otherwise.
+func (o *Allowlist) GetItems() []AllowlistItem {
+	if o == nil || o.Items == nil {
+		var ret []AllowlistItem
+		return ret
+	}
+	return *o.Items
+}
+
+// GetItemsOk returns a tuple with the Items field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Allowlist) GetItemsOk() (*[]AllowlistItem, bool) {
+	if o == nil || o.Items == nil {
+		return nil, false
+	}
+	return o.Items, true
+}
+
+// HasItems returns a boolean if a field has been set.
+func (o *Allowlist) HasItems() bool {
+	if o != nil && o.Items != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetItems gets a reference to the given []AllowlistItem and assigns it to the Items field.
+func (o *Allowlist) SetItems(v []AllowlistItem) {
+	o.Items = &v
+>>>>>>> 48fc108 (feat: updated the enterprise ref)
 }
 
 func (o Allowlist) MarshalJSON() ([]byte, error) {
@@ -179,7 +264,11 @@ func (o Allowlist) MarshalJSON() ([]byte, error) {
 	if true {
 		toSerialize["id"] = o.Id
 	}
+<<<<<<< HEAD
 	if true {
+=======
+	if o.Name != nil {
+>>>>>>> 48fc108 (feat: updated the enterprise ref)
 		toSerialize["name"] = o.Name
 	}
 	if true {
@@ -188,7 +277,11 @@ func (o Allowlist) MarshalJSON() ([]byte, error) {
 	if o.Description != nil {
 		toSerialize["description"] = o.Description
 	}
+<<<<<<< HEAD
 	if true {
+=======
+	if o.Items != nil {
+>>>>>>> 48fc108 (feat: updated the enterprise ref)
 		toSerialize["items"] = o.Items
 	}
 	return json.Marshal(toSerialize)

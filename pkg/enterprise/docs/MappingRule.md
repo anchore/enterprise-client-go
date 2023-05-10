@@ -6,12 +6,13 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Id** | Pointer to **string** |  | [optional] 
 **Name** | **string** |  | 
-**WhitelistIds** | Pointer to **[]string** |  | [optional] 
+**AllowlistIds** | Pointer to **[]string** |  | [optional] 
 **PolicyId** | Pointer to **string** | Optional single policy to evaluate, if set will override any value in policy_ids, for backwards compatibility. Generally, policy_ids should be used even with a array of length 1. | [optional] 
 **PolicyIds** | Pointer to **[]string** | List of policy_ids to evaluate in order, to completion | [optional] 
 **Registry** | **string** |  | 
 **Repository** | **string** |  | 
 **Image** | [**ImageRef**](ImageRef.md) |  | 
+**Description** | Pointer to **string** | Description of the image to policy mapping rule, human readable | [optional] 
 
 ## Methods
 
@@ -77,30 +78,30 @@ and a boolean to check if the value has been set.
 SetName sets Name field to given value.
 
 
-### GetWhitelistIds
+### GetAllowlistIds
 
-`func (o *MappingRule) GetWhitelistIds() []string`
+`func (o *MappingRule) GetAllowlistIds() []string`
 
-GetWhitelistIds returns the WhitelistIds field if non-nil, zero value otherwise.
+GetAllowlistIds returns the AllowlistIds field if non-nil, zero value otherwise.
 
-### GetWhitelistIdsOk
+### GetAllowlistIdsOk
 
-`func (o *MappingRule) GetWhitelistIdsOk() (*[]string, bool)`
+`func (o *MappingRule) GetAllowlistIdsOk() (*[]string, bool)`
 
-GetWhitelistIdsOk returns a tuple with the WhitelistIds field if it's non-nil, zero value otherwise
+GetAllowlistIdsOk returns a tuple with the AllowlistIds field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetWhitelistIds
+### SetAllowlistIds
 
-`func (o *MappingRule) SetWhitelistIds(v []string)`
+`func (o *MappingRule) SetAllowlistIds(v []string)`
 
-SetWhitelistIds sets WhitelistIds field to given value.
+SetAllowlistIds sets AllowlistIds field to given value.
 
-### HasWhitelistIds
+### HasAllowlistIds
 
-`func (o *MappingRule) HasWhitelistIds() bool`
+`func (o *MappingRule) HasAllowlistIds() bool`
 
-HasWhitelistIds returns a boolean if a field has been set.
+HasAllowlistIds returns a boolean if a field has been set.
 
 ### GetPolicyId
 
@@ -211,6 +212,31 @@ and a boolean to check if the value has been set.
 
 SetImage sets Image field to given value.
 
+
+### GetDescription
+
+`func (o *MappingRule) GetDescription() string`
+
+GetDescription returns the Description field if non-nil, zero value otherwise.
+
+### GetDescriptionOk
+
+`func (o *MappingRule) GetDescriptionOk() (*string, bool)`
+
+GetDescriptionOk returns a tuple with the Description field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDescription
+
+`func (o *MappingRule) SetDescription(v string)`
+
+SetDescription sets Description field to given value.
+
+### HasDescription
+
+`func (o *MappingRule) HasDescription() bool`
+
+HasDescription returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
