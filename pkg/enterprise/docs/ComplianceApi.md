@@ -1,12 +1,12 @@
 # \ComplianceApi
 
-All URIs are relative to *http://localhost/enterprise*
+All URIs are relative to *http://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**AddRuntimeComplianceCheck**](ComplianceApi.md#AddRuntimeComplianceCheck) | **Post** /runtime_compliance | Post a runtime compliance check
-[**GetRuntimeComplianceChecks**](ComplianceApi.md#GetRuntimeComplianceChecks) | **Get** /runtime_compliance | Get all runtime compliance checks or just those for a given image digest
-[**GetRuntimeComplianceResult**](ComplianceApi.md#GetRuntimeComplianceResult) | **Get** /runtime_compliance/result/{compliance_file_id} | Check the results of a a specific runtime compliance check
+[**AddRuntimeComplianceCheck**](ComplianceApi.md#AddRuntimeComplianceCheck) | **Post** /runtime-compliance | Post a runtime compliance check
+[**GetRuntimeComplianceChecks**](ComplianceApi.md#GetRuntimeComplianceChecks) | **Get** /runtime-compliance | Get all runtime compliance checks or just those for a given image digest
+[**GetRuntimeComplianceResult**](ComplianceApi.md#GetRuntimeComplianceResult) | **Get** /runtime-compliance/result/{compliance_file_id} | Check the results of a a specific runtime compliance check
 
 
 

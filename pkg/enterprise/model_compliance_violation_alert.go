@@ -1,9 +1,9 @@
 /*
-Anchore Enterprise API Server
+Anchore API
 
-This is the Anchore Enterprise API. It provides additional external API routes and functionality for enterprise users.
+This is the Anchore API. Provides the external API for users of Anchore Enterprise.
 
-API version: 0.7.0
+API version: 0.1.0
 Contact: dev@anchore.com
 */
 
@@ -33,7 +33,7 @@ type ComplianceViolationAlert struct {
 	CreatedAt *time.Time `json:"created_at,omitempty"`
 	// RFC 3339 formatted UTC timestamp when the alert was last modified
 	LastUpdated *time.Time `json:"last_updated,omitempty"`
-	// Reason for compliance check status. Compliance check could fail due to policy evaluation or blacklisting or errors evaluating compliance
+	// Reason for compliance check status. Compliance check could fail due to policy evaluation or denylisting or errors evaluating compliance
 	ComplianceStatusReason *string `json:"compliance_status_reason,omitempty"`
 	// Number of STOP action results in the compliance check report
 	ViolationsCount *int32 `json:"violations_count,omitempty"`

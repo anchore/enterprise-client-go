@@ -1,7 +1,6 @@
 package main
 
 import (
-	"github.com/anchore/enterprise-client-go/pkg/engine"
 	"github.com/anchore/enterprise-client-go/pkg/enterprise"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
@@ -19,11 +18,6 @@ func TestExtractServerBaseURL(t *testing.T) {
 			name: "enterprise api",
 			api:  enterprise.Document(),
 			want: "/enterprise",
-		},
-		{
-			name: "engine api",
-			api:  engine.Document(),
-			want: "/",
 		},
 		{
 			name:    "bad api",

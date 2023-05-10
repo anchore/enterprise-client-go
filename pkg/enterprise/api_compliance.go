@@ -1,9 +1,9 @@
 /*
-Anchore Enterprise API Server
+Anchore API
 
-This is the Anchore Enterprise API. It provides additional external API routes and functionality for enterprise users.
+This is the Anchore API. Provides the external API for users of Anchore Enterprise.
 
-API version: 0.7.0
+API version: 0.1.0
 Contact: dev@anchore.com
 */
 
@@ -185,7 +185,7 @@ func (a *ComplianceApiService) AddRuntimeComplianceCheckExecute(r ApiAddRuntimeC
 		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/runtime_compliance"
+	localVarPath := localBasePath + "/runtime-compliance"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
@@ -357,7 +357,7 @@ func (a *ComplianceApiService) GetRuntimeComplianceChecksExecute(r ApiGetRuntime
 		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/runtime_compliance"
+	localVarPath := localBasePath + "/runtime-compliance"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
@@ -483,7 +483,7 @@ func (a *ComplianceApiService) GetRuntimeComplianceResultExecute(r ApiGetRuntime
 		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/runtime_compliance/result/{compliance_file_id}"
+	localVarPath := localBasePath + "/runtime-compliance/result/{compliance_file_id}"
 	localVarPath = strings.Replace(localVarPath, "{"+"compliance_file_id"+"}", _neturl.PathEscape(parameterToString(r.complianceFileId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)

@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Arn** | **string** |  | 
-**TaskArn** | Pointer to **string** |  | [optional] 
+**TaskArn** | Pointer to **string** | When a task is provided, this must reference one of the task&#39;s arn in this payload | [optional] 
 **ImageTag** | **string** |  | 
 **ImageDigest** | Pointer to **string** |  | [optional] 
 

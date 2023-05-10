@@ -1,9 +1,9 @@
 /*
-Anchore Enterprise API Server
+Anchore API
 
-This is the Anchore Enterprise API. It provides additional external API routes and functionality for enterprise users.
+This is the Anchore API. Provides the external API for users of Anchore Enterprise.
 
-API version: 0.7.0
+API version: 0.1.0
 Contact: dev@anchore.com
 */
 
@@ -19,7 +19,7 @@ import (
 type SourceContentPackageResponse struct {
 	SourceId *string `json:"source_id,omitempty"`
 	ContentType *string `json:"content_type,omitempty"`
-	Content *[]SourceContentPackageResponseContent `json:"content,omitempty"`
+	Content *[]ContentPackageResponseContent `json:"content,omitempty"`
 }
 
 // NewSourceContentPackageResponse instantiates a new SourceContentPackageResponse object
@@ -104,9 +104,9 @@ func (o *SourceContentPackageResponse) SetContentType(v string) {
 }
 
 // GetContent returns the Content field value if set, zero value otherwise.
-func (o *SourceContentPackageResponse) GetContent() []SourceContentPackageResponseContent {
+func (o *SourceContentPackageResponse) GetContent() []ContentPackageResponseContent {
 	if o == nil || o.Content == nil {
-		var ret []SourceContentPackageResponseContent
+		var ret []ContentPackageResponseContent
 		return ret
 	}
 	return *o.Content
@@ -114,7 +114,7 @@ func (o *SourceContentPackageResponse) GetContent() []SourceContentPackageRespon
 
 // GetContentOk returns a tuple with the Content field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SourceContentPackageResponse) GetContentOk() (*[]SourceContentPackageResponseContent, bool) {
+func (o *SourceContentPackageResponse) GetContentOk() (*[]ContentPackageResponseContent, bool) {
 	if o == nil || o.Content == nil {
 		return nil, false
 	}
@@ -130,8 +130,8 @@ func (o *SourceContentPackageResponse) HasContent() bool {
 	return false
 }
 
-// SetContent gets a reference to the given []SourceContentPackageResponseContent and assigns it to the Content field.
-func (o *SourceContentPackageResponse) SetContent(v []SourceContentPackageResponseContent) {
+// SetContent gets a reference to the given []ContentPackageResponseContent and assigns it to the Content field.
+func (o *SourceContentPackageResponse) SetContent(v []ContentPackageResponseContent) {
 	o.Content = &v
 }
 

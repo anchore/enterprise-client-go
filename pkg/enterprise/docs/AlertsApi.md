@@ -1,13 +1,13 @@
 # \AlertsApi
 
-All URIs are relative to *http://localhost/enterprise*
+All URIs are relative to *http://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**GetAlertSummaries**](AlertsApi.md#GetAlertSummaries) | **Get** /alerts/summaries | List all alert summaries scoped to the account
-[**GetComplianceViolationAlert**](AlertsApi.md#GetComplianceViolationAlert) | **Get** /alerts/compliance_violations/{uuid} | Get compliance violation alert by id
-[**GetComplianceViolationAlerts**](AlertsApi.md#GetComplianceViolationAlerts) | **Get** /alerts/compliance_violations | List all compliance violation alerts scoped to the account
-[**UpdateComplianceViolationAlertState**](AlertsApi.md#UpdateComplianceViolationAlertState) | **Put** /alerts/compliance_violations/{uuid}/{state} | Open or close a compliance violation alert
+[**GetComplianceViolationAlert**](AlertsApi.md#GetComplianceViolationAlert) | **Get** /alerts/compliance-violations/{uuid} | Get compliance violation alert by id
+[**GetComplianceViolationAlerts**](AlertsApi.md#GetComplianceViolationAlerts) | **Get** /alerts/compliance-violations | List all compliance violation alerts scoped to the account
+[**UpdateComplianceViolationAlertState**](AlertsApi.md#UpdateComplianceViolationAlertState) | **Put** /alerts/compliance-violations/{uuid}/{state} | Open or close a compliance violation alert
 
 
 

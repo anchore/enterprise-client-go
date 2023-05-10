@@ -1,9 +1,9 @@
 /*
-Anchore Enterprise API Server
+Anchore API
 
-This is the Anchore Enterprise API. It provides additional external API routes and functionality for enterprise users.
+This is the Anchore API. Provides the external API for users of Anchore Enterprise.
 
-API version: 0.7.0
+API version: 0.1.0
 Contact: dev@anchore.com
 */
 
@@ -104,11 +104,11 @@ type Configuration struct {
 func NewConfiguration() *Configuration {
 	cfg := &Configuration{
 		DefaultHeader:    make(map[string]string),
-		UserAgent:        "anchore-client/4.6.0/go",
+		UserAgent:        "anchore-client/5.0.0/go",
 		Debug:            false,
 		Servers:          ServerConfigurations{
 			{
-				URL: "/enterprise",
+				URL: "",
 				Description: "No description provided",
 			},
 		},
