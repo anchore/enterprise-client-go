@@ -235,6 +235,7 @@ docs/ServiceVersionDb.md
 docs/ServiceVersionService.md
 docs/Source.md
 docs/SourceContentPackageResponse.md
+docs/SourceContentPackageResponseContent.md
 docs/SourceImportContentResponse.md
 docs/SourceImportMetadata.md
 docs/SourceImportMetadataContents.md
@@ -486,6 +487,7 @@ model_service_version_db.go
 model_service_version_service.go
 model_source.go
 model_source_content_package_response.go
+model_source_content_package_response_content.go
 model_source_import_content_response.go
 model_source_import_metadata.go
 model_source_import_metadata_contents.go
