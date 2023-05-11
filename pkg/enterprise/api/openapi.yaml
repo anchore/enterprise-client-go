@@ -12308,6 +12308,54 @@ components:
       - repository_name
       - revision
       type: object
+    SourceContentPackageResponseContent:
+      description: Package content listings from a source
+      example:
+        licenses:
+        - licenses
+        - licenses
+        metadata: '{}'
+        package: package
+        size: size
+        cpes:
+        - cpes
+        - cpes
+        metadata_type: metadata_type
+        origin: origin
+        location: location
+        type: type
+        version: version
+      properties:
+        package:
+          type: string
+        version:
+          type: string
+        size:
+          type: string
+        type:
+          type: string
+        origin:
+          type: string
+        licenses:
+          items:
+            type: string
+          type: array
+        location:
+          type: string
+        cpes:
+          description: A list of Common Platform Enumerations that may uniquely identify
+            the package
+          items:
+            type: string
+          type: array
+        metadata_type:
+          description: The type of the metadata entry
+          type: string
+        metadata:
+          description: Package type specific metadata
+          properties: {}
+          type: object
+      type: object
     SourceContentPackageResponse:
       description: Package content listings from analysis sbom
       example:
@@ -12349,7 +12397,7 @@ components:
           type: string
         content:
           items:
-            $ref: '#/components/schemas/ContentPackageResponse_content'
+            $ref: '#/components/schemas/SourceContentPackageResponseContent'
           type: array
       type: object
     SourceVulnerabilitiesResponse:

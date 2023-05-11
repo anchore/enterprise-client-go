@@ -9003,6 +9003,37 @@ definitions:
           sbom:
             type: string
             description: Digest to use for the sbom
+  SourceContentPackageResponseContent:
+    type: object
+    description: "Package content listings from a source"
+    properties:
+      package:
+        type: string
+      version:
+        type: string
+      size:
+        type: string
+      type:
+        type: string
+      origin:
+        type: string
+      licenses:
+        type: array
+        items:
+          type: string
+      location:
+        type: string
+      cpes:
+        type: array
+        items:
+          type: string
+        description: A list of Common Platform Enumerations that may uniquely identify the package
+      metadata_type:
+        description: The type of the metadata entry
+        type: string
+      metadata:
+        description: Package type specific metadata
+        type: object
   SourceContentPackageResponse:
     type: object
     description: "Package content listings from analysis sbom"
@@ -9014,35 +9045,7 @@ definitions:
       content:
         type: array
         items:
-          type: object
-          properties:
-            package:
-              type: string
-            version:
-              type: string
-            size:
-              type: string
-            type:
-              type: string
-            origin:
-              type: string
-            licenses:
-              type: array
-              items:
-                type: string
-            location:
-              type: string
-            cpes:
-              type: array
-              items:
-                type: string
-              description: A list of Common Platform Enumerations that may uniquely identify the package
-            metadata_type:
-              description: The type of the metadata entry
-              type: string
-            metadata:
-              description: Package type specific metadata
-              type: object
+          $ref: "#/definitions/SourceContentPackageResponseContent"
   SourceVulnerabilitiesResponse:
     description: "Envelope containing list of vulnerabilities for a source repo"
     type: object

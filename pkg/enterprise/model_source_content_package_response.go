@@ -19,7 +19,7 @@ import (
 type SourceContentPackageResponse struct {
 	SourceId *string `json:"source_id,omitempty"`
 	ContentType *string `json:"content_type,omitempty"`
-	Content *[]ContentPackageResponseContent `json:"content,omitempty"`
+	Content *[]SourceContentPackageResponseContent `json:"content,omitempty"`
 }
 
 // NewSourceContentPackageResponse instantiates a new SourceContentPackageResponse object
@@ -104,9 +104,9 @@ func (o *SourceContentPackageResponse) SetContentType(v string) {
 }
 
 // GetContent returns the Content field value if set, zero value otherwise.
-func (o *SourceContentPackageResponse) GetContent() []ContentPackageResponseContent {
+func (o *SourceContentPackageResponse) GetContent() []SourceContentPackageResponseContent {
 	if o == nil || o.Content == nil {
-		var ret []ContentPackageResponseContent
+		var ret []SourceContentPackageResponseContent
 		return ret
 	}
 	return *o.Content
@@ -114,7 +114,7 @@ func (o *SourceContentPackageResponse) GetContent() []ContentPackageResponseCont
 
 // GetContentOk returns a tuple with the Content field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SourceContentPackageResponse) GetContentOk() (*[]ContentPackageResponseContent, bool) {
+func (o *SourceContentPackageResponse) GetContentOk() (*[]SourceContentPackageResponseContent, bool) {
 	if o == nil || o.Content == nil {
 		return nil, false
 	}
@@ -130,8 +130,8 @@ func (o *SourceContentPackageResponse) HasContent() bool {
 	return false
 }
 
-// SetContent gets a reference to the given []ContentPackageResponseContent and assigns it to the Content field.
-func (o *SourceContentPackageResponse) SetContent(v []ContentPackageResponseContent) {
+// SetContent gets a reference to the given []SourceContentPackageResponseContent and assigns it to the Content field.
+func (o *SourceContentPackageResponse) SetContent(v []SourceContentPackageResponseContent) {
 	o.Content = &v
 }
 
