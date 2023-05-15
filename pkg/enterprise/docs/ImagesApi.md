@@ -1549,7 +1549,7 @@ No authorization required
 
 ## GetImageVulnerabilitiesByDigest
 
-> EnterpriseVulnerabilityResponse GetImageVulnerabilitiesByDigest(ctx, imageDigest, vulnType).ForceRefresh(forceRefresh).VendorOnly(vendorOnly).BaseDigest(baseDigest).XAnchoreAccount(xAnchoreAccount).Execute()
+> ImagePackageVulnerabilityResponse GetImageVulnerabilitiesByDigest(ctx, imageDigest, vulnType).ForceRefresh(forceRefresh).VendorOnly(vendorOnly).BaseDigest(baseDigest).XAnchoreAccount(xAnchoreAccount).Execute()
 
 Get vulnerabilities by type
 
@@ -1580,7 +1580,7 @@ func main() {
         fmt.Fprintf(os.Stderr, "Error when calling `ImagesApi.GetImageVulnerabilitiesByDigest``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `GetImageVulnerabilitiesByDigest`: EnterpriseVulnerabilityResponse
+    // response from `GetImageVulnerabilitiesByDigest`: ImagePackageVulnerabilityResponse
     fmt.Fprintf(os.Stdout, "Response from `ImagesApi.GetImageVulnerabilitiesByDigest`: %v\n", resp)
 }
 ```
@@ -1610,7 +1610,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**EnterpriseVulnerabilityResponse**](EnterpriseVulnerabilityResponse.md)
+[**ImagePackageVulnerabilityResponse**](ImagePackageVulnerabilityResponse.md)
 
 ### Authorization
 
@@ -1628,7 +1628,7 @@ No authorization required
 
 ## GetImageVulnerabilitiesByTypeImageId
 
-> VulnerabilityResponse GetImageVulnerabilitiesByTypeImageId(ctx, imageId, vulnType).XAnchoreAccount(xAnchoreAccount).Execute()
+> ImagePackageVulnerabilityResponse GetImageVulnerabilitiesByTypeImageId(ctx, imageId, vulnType).XAnchoreAccount(xAnchoreAccount).Execute()
 
 Get vulnerabilities by type
 
@@ -1656,7 +1656,7 @@ func main() {
         fmt.Fprintf(os.Stderr, "Error when calling `ImagesApi.GetImageVulnerabilitiesByTypeImageId``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `GetImageVulnerabilitiesByTypeImageId`: VulnerabilityResponse
+    // response from `GetImageVulnerabilitiesByTypeImageId`: ImagePackageVulnerabilityResponse
     fmt.Fprintf(os.Stdout, "Response from `ImagesApi.GetImageVulnerabilitiesByTypeImageId`: %v\n", resp)
 }
 ```
@@ -1683,7 +1683,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**VulnerabilityResponse**](VulnerabilityResponse.md)
+[**ImagePackageVulnerabilityResponse**](ImagePackageVulnerabilityResponse.md)
 
 ### Authorization
 

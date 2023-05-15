@@ -323,8 +323,8 @@ type ImagesApi interface {
 	GetImageVulnerabilitiesByDigest(ctx _context.Context, imageDigest string, vulnType string) ApiGetImageVulnerabilitiesByDigestRequest
 
 	// GetImageVulnerabilitiesByDigestExecute executes the request
-	//  @return EnterpriseVulnerabilityResponse
-	GetImageVulnerabilitiesByDigestExecute(r ApiGetImageVulnerabilitiesByDigestRequest) (EnterpriseVulnerabilityResponse, *_nethttp.Response, error)
+	//  @return ImagePackageVulnerabilityResponse
+	GetImageVulnerabilitiesByDigestExecute(r ApiGetImageVulnerabilitiesByDigestRequest) (ImagePackageVulnerabilityResponse, *_nethttp.Response, error)
 
 	/*
 	GetImageVulnerabilitiesByTypeImageId Get vulnerabilities by type
@@ -337,8 +337,8 @@ type ImagesApi interface {
 	GetImageVulnerabilitiesByTypeImageId(ctx _context.Context, imageId string, vulnType string) ApiGetImageVulnerabilitiesByTypeImageIdRequest
 
 	// GetImageVulnerabilitiesByTypeImageIdExecute executes the request
-	//  @return VulnerabilityResponse
-	GetImageVulnerabilitiesByTypeImageIdExecute(r ApiGetImageVulnerabilitiesByTypeImageIdRequest) (VulnerabilityResponse, *_nethttp.Response, error)
+	//  @return ImagePackageVulnerabilityResponse
+	GetImageVulnerabilitiesByTypeImageIdExecute(r ApiGetImageVulnerabilitiesByTypeImageIdRequest) (ImagePackageVulnerabilityResponse, *_nethttp.Response, error)
 
 	/*
 	GetImageVulnerabilityTypes Get vulnerability types
@@ -3156,7 +3156,7 @@ func (r ApiGetImageVulnerabilitiesByDigestRequest) XAnchoreAccount(xAnchoreAccou
 	return r
 }
 
-func (r ApiGetImageVulnerabilitiesByDigestRequest) Execute() (EnterpriseVulnerabilityResponse, *_nethttp.Response, error) {
+func (r ApiGetImageVulnerabilitiesByDigestRequest) Execute() (ImagePackageVulnerabilityResponse, *_nethttp.Response, error) {
 	return r.ApiService.GetImageVulnerabilitiesByDigestExecute(r)
 }
 
@@ -3178,15 +3178,15 @@ func (a *ImagesApiService) GetImageVulnerabilitiesByDigest(ctx _context.Context,
 }
 
 // Execute executes the request
-//  @return EnterpriseVulnerabilityResponse
-func (a *ImagesApiService) GetImageVulnerabilitiesByDigestExecute(r ApiGetImageVulnerabilitiesByDigestRequest) (EnterpriseVulnerabilityResponse, *_nethttp.Response, error) {
+//  @return ImagePackageVulnerabilityResponse
+func (a *ImagesApiService) GetImageVulnerabilitiesByDigestExecute(r ApiGetImageVulnerabilitiesByDigestRequest) (ImagePackageVulnerabilityResponse, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		localVarReturnValue  EnterpriseVulnerabilityResponse
+		localVarReturnValue  ImagePackageVulnerabilityResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ImagesApiService.GetImageVulnerabilitiesByDigest")
@@ -3291,7 +3291,7 @@ func (r ApiGetImageVulnerabilitiesByTypeImageIdRequest) XAnchoreAccount(xAnchore
 	return r
 }
 
-func (r ApiGetImageVulnerabilitiesByTypeImageIdRequest) Execute() (VulnerabilityResponse, *_nethttp.Response, error) {
+func (r ApiGetImageVulnerabilitiesByTypeImageIdRequest) Execute() (ImagePackageVulnerabilityResponse, *_nethttp.Response, error) {
 	return r.ApiService.GetImageVulnerabilitiesByTypeImageIdExecute(r)
 }
 
@@ -3313,15 +3313,15 @@ func (a *ImagesApiService) GetImageVulnerabilitiesByTypeImageId(ctx _context.Con
 }
 
 // Execute executes the request
-//  @return VulnerabilityResponse
-func (a *ImagesApiService) GetImageVulnerabilitiesByTypeImageIdExecute(r ApiGetImageVulnerabilitiesByTypeImageIdRequest) (VulnerabilityResponse, *_nethttp.Response, error) {
+//  @return ImagePackageVulnerabilityResponse
+func (a *ImagesApiService) GetImageVulnerabilitiesByTypeImageIdExecute(r ApiGetImageVulnerabilitiesByTypeImageIdRequest) (ImagePackageVulnerabilityResponse, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		localVarReturnValue  VulnerabilityResponse
+		localVarReturnValue  ImagePackageVulnerabilityResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ImagesApiService.GetImageVulnerabilitiesByTypeImageId")
