@@ -777,7 +777,7 @@ paths:
         200:
           description: Vulnerability listing for the image
           schema:
-            $ref: "#/definitions/EnterpriseVulnerabilityResponse"
+            $ref: "#/definitions/ImagePackageVulnerabilityResponse"
         500:
           description: Internal Error
           schema:
@@ -838,7 +838,7 @@ paths:
         200:
           description: Vulnerability listing for the image
           schema:
-            $ref: "#/definitions/VulnerabilityResponse"
+            $ref: "#/definitions/ImagePackageVulnerabilityResponse"
         500:
           description: Internal Error
           schema:
@@ -4966,7 +4966,7 @@ paths:
         200:
           description: Vulnerability listing for the source
           schema:
-            $ref: "#/definitions/SourceVulnerabilitiesResponse"
+            $ref: "#/definitions/SourcePackageVulnerabilityResponse"
         500:
           description: "Internal Error"
       tags:
@@ -6213,7 +6213,7 @@ definitions:
       registry_verify:
         type: boolean
         description: Use TLS/SSL verification for the registry URL
-  Vulnerability:
+  PackageVulnerability:
     type: object
     properties:
       vuln:
@@ -6317,21 +6317,6 @@ definitions:
       impact_score:
         type: number
         x-nullable: True
-  VulnerabilityList:
-    type: array
-    description: List of Vulnerability objects
-    items:
-      $ref: "#/definitions/Vulnerability"
-  VulnerabilityResponse:
-    description: envelope containing list of vulnerabilities
-    type: object
-    properties:
-      image_digest:
-        type: string
-      vulnerability_type:
-        type: string
-      vulnerabilities:
-        $ref: "#/definitions/VulnerabilityList"
   ImageFilter:
     type: object
     description: Filter for an image list by id, tag, or digest, but not both
@@ -7799,7 +7784,7 @@ definitions:
     type: array
     items:
       $ref: "#/definitions/EnterprisePolicyEvaluation"
-  EnterpriseVulnerability:
+  ImagePackageVulnerability:
     type: object
     properties:
       vuln:
@@ -7845,15 +7830,14 @@ definitions:
         $ref: "#/definitions/NvdDataList"
       vendor_data:
         $ref: "#/definitions/VendorDataList"
+      detected_at:
+        type: string
+        format: date-time
+        description: When the vulnerability was detected
       inherited_from_base:
         type: boolean
         description: True if the vulnerable artifact is found in the base image. False otherwise
-  EnterpriseVulnerabilityList:
-    type: array
-    description: List of Vulnerability objects
-    items:
-      $ref: "#/definitions/EnterpriseVulnerability"
-  EnterpriseVulnerabilityResponse:
+  ImagePackageVulnerabilityResponse:
     description: envelope containing list of vulnerabilities
     type: object
     properties:
@@ -7864,7 +7848,10 @@ definitions:
       vulnerability_type:
         type: string
       vulnerabilities:
-        $ref: "#/definitions/EnterpriseVulnerabilityList"
+        type: array
+        description: List of Vulnerability objects
+        items:
+          $ref: "#/definitions/ImagePackageVulnerability"
   ImageAncestry:
     type: array
     description: Array of ancestor objects. Sorted by the length of the layers array in each entry, effectively returning them in increasing order of number of common layers.
@@ -9046,7 +9033,7 @@ definitions:
         type: array
         items:
           $ref: "#/definitions/SourceContentPackageResponseContent"
-  SourceVulnerabilitiesResponse:
+  SourcePackageVulnerabilityResponse:
     description: "Envelope containing list of vulnerabilities for a source repo"
     type: object
     properties:
@@ -9055,7 +9042,9 @@ definitions:
       vulnerability_type:
         type: string
       vulnerabilities:
-        $ref: "#/definitions/VulnerabilityList"
+        type: array
+        items:
+          $ref: "#/definitions/PackageVulnerability"
   SBOMVulnerabilitiesResponse:
     description: "Envelope containing list of vulnerabilities for a source repo"
     type: object
@@ -9065,7 +9054,9 @@ definitions:
       vulnerability_type:
         type: string
       vulnerabilities:
-        $ref: "#/definitions/VulnerabilityList"
+        type: array
+        items:
+          $ref: "#/definitions/PackageVulnerability"
   ArtifactRelationship:
     type: object
     description: |

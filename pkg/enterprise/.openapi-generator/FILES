@@ -104,8 +104,6 @@ docs/ECSInventory.md
 docs/ECSInventoryContainers.md
 docs/ECSInventoryServices.md
 docs/ECSInventoryTasks.md
-docs/EnterpriseVulnerability.md
-docs/EnterpriseVulnerabilityResponse.md
 docs/EventCategory.md
 docs/EventDescription.md
 docs/EventResponse.md
@@ -135,6 +133,8 @@ docs/ImageImportFileCoordinate.md
 docs/ImageImportManifest.md
 docs/ImageImportOperation.md
 docs/ImagePackageManifest.md
+docs/ImagePackageVulnerability.md
+docs/ImagePackageVulnerabilityResponse.md
 docs/ImageRef.md
 docs/ImageReference.md
 docs/ImageSelectionRule.md
@@ -191,6 +191,7 @@ docs/NotificationBase.md
 docs/NvdDataObject.md
 docs/Package.md
 docs/PackageReference.md
+docs/PackageVulnerability.md
 docs/PaginatedImageList.md
 docs/PaginatedImageListAllOf.md
 docs/PaginatedVulnerabilityList.md
@@ -243,7 +244,7 @@ docs/SourceImportOperation.md
 docs/SourceManifest.md
 docs/SourceManifestMetadataRecords.md
 docs/SourceMappingRule.md
-docs/SourceVulnerabilitiesResponse.md
+docs/SourcePackageVulnerabilityResponse.md
 docs/SourcesApi.md
 docs/StandaloneVulnerability.md
 docs/StatelessApi.md
@@ -289,9 +290,7 @@ docs/VulnUpdateNotificationData.md
 docs/VulnUpdateNotificationDataAllOf.md
 docs/VulnUpdateNotificationPayload.md
 docs/VulnUpdateNotificationPayloadAllOf.md
-docs/Vulnerability.md
 docs/VulnerabilityReference.md
-docs/VulnerabilityResponse.md
 docs/VulnerableImage.md
 docs/VulnerablePackageReference.md
 git_push.sh
@@ -366,8 +365,6 @@ model_ecs_inventory.go
 model_ecs_inventory_containers.go
 model_ecs_inventory_services.go
 model_ecs_inventory_tasks.go
-model_enterprise_vulnerability.go
-model_enterprise_vulnerability_response.go
 model_event_category.go
 model_event_description.go
 model_event_response.go
@@ -395,6 +392,8 @@ model_image_import_file_coordinate.go
 model_image_import_manifest.go
 model_image_import_operation.go
 model_image_package_manifest.go
+model_image_package_vulnerability.go
+model_image_package_vulnerability_response.go
 model_image_ref.go
 model_image_reference.go
 model_image_selection_rule.go
@@ -448,6 +447,7 @@ model_notification_base.go
 model_nvd_data_object.go
 model_package.go
 model_package_reference.go
+model_package_vulnerability.go
 model_paginated_image_list.go
 model_paginated_image_list_all_of.go
 model_paginated_vulnerability_list.go
@@ -495,7 +495,7 @@ model_source_import_operation.go
 model_source_manifest.go
 model_source_manifest_metadata_records.go
 model_source_mapping_rule.go
-model_source_vulnerabilities_response.go
+model_source_package_vulnerability_response.go
 model_standalone_vulnerability.go
 model_status_response.go
 model_subscription.go
@@ -535,9 +535,7 @@ model_vuln_update_notification_data.go
 model_vuln_update_notification_data_all_of.go
 model_vuln_update_notification_payload.go
 model_vuln_update_notification_payload_all_of.go
-model_vulnerability.go
 model_vulnerability_reference.go
-model_vulnerability_response.go
 model_vulnerable_image.go
 model_vulnerable_package_reference.go
 response.go

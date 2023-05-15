@@ -993,7 +993,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/EnterpriseVulnerabilityResponse'
+                $ref: '#/components/schemas/ImagePackageVulnerabilityResponse'
           description: Vulnerability listing for the image
         "500":
           content:
@@ -1073,7 +1073,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/VulnerabilityResponse'
+                $ref: '#/components/schemas/ImagePackageVulnerabilityResponse'
           description: Vulnerability listing for the image
         "500":
           content:
@@ -6035,7 +6035,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/SourceVulnerabilitiesResponse'
+                $ref: '#/components/schemas/SourcePackageVulnerabilityResponse'
           description: Vulnerability listing for the source
         "500":
           content: {}
@@ -8125,7 +8125,7 @@ components:
           description: Use TLS/SSL verification for the registry URL
           type: boolean
       type: object
-    Vulnerability:
+    PackageVulnerability:
       example:
         severity: severity
         package: package
@@ -8317,132 +8317,6 @@ components:
         impact_score:
           nullable: true
           type: number
-      type: object
-    VulnerabilityList:
-      description: List of Vulnerability objects
-      items:
-        $ref: '#/components/schemas/Vulnerability'
-      type: array
-    VulnerabilityResponse:
-      description: envelope containing list of vulnerabilities
-      example:
-        vulnerability_type: vulnerability_type
-        image_digest: image_digest
-        vulnerabilities:
-        - severity: severity
-          package: package
-          package_path: package_path
-          nvd_data:
-          - cvss_v3:
-              base_score: 5.962133916683182
-              impact_score: 2.3021358869347655
-              exploitability_score: 5.637376656633329
-            cvss_v2:
-              base_score: 0.8008281904610115
-              impact_score: 1.4658129805029452
-              exploitability_score: 6.027456183070403
-            id: id
-          - cvss_v3:
-              base_score: 5.962133916683182
-              impact_score: 2.3021358869347655
-              exploitability_score: 5.637376656633329
-            cvss_v2:
-              base_score: 0.8008281904610115
-              impact_score: 1.4658129805029452
-              exploitability_score: 6.027456183070403
-            id: id
-          vendor_data:
-          - cvss_v3:
-              base_score: 5.962133916683182
-              impact_score: 2.3021358869347655
-              exploitability_score: 5.637376656633329
-            cvss_v2:
-              base_score: 0.8008281904610115
-              impact_score: 1.4658129805029452
-              exploitability_score: 6.027456183070403
-            id: id
-          - cvss_v3:
-              base_score: 5.962133916683182
-              impact_score: 2.3021358869347655
-              exploitability_score: 5.637376656633329
-            cvss_v2:
-              base_score: 0.8008281904610115
-              impact_score: 1.4658129805029452
-              exploitability_score: 6.027456183070403
-            id: id
-          package_type: package_type
-          package_cpe: package_cpe
-          url: url
-          will_not_fix: true
-          feed: feed
-          detected_at: 2000-01-23T04:56:07.000+00:00
-          package_version: package_version
-          fix: fix
-          vuln: vuln
-          feed_group: feed_group
-          package_name: package_name
-        - severity: severity
-          package: package
-          package_path: package_path
-          nvd_data:
-          - cvss_v3:
-              base_score: 5.962133916683182
-              impact_score: 2.3021358869347655
-              exploitability_score: 5.637376656633329
-            cvss_v2:
-              base_score: 0.8008281904610115
-              impact_score: 1.4658129805029452
-              exploitability_score: 6.027456183070403
-            id: id
-          - cvss_v3:
-              base_score: 5.962133916683182
-              impact_score: 2.3021358869347655
-              exploitability_score: 5.637376656633329
-            cvss_v2:
-              base_score: 0.8008281904610115
-              impact_score: 1.4658129805029452
-              exploitability_score: 6.027456183070403
-            id: id
-          vendor_data:
-          - cvss_v3:
-              base_score: 5.962133916683182
-              impact_score: 2.3021358869347655
-              exploitability_score: 5.637376656633329
-            cvss_v2:
-              base_score: 0.8008281904610115
-              impact_score: 1.4658129805029452
-              exploitability_score: 6.027456183070403
-            id: id
-          - cvss_v3:
-              base_score: 5.962133916683182
-              impact_score: 2.3021358869347655
-              exploitability_score: 5.637376656633329
-            cvss_v2:
-              base_score: 0.8008281904610115
-              impact_score: 1.4658129805029452
-              exploitability_score: 6.027456183070403
-            id: id
-          package_type: package_type
-          package_cpe: package_cpe
-          url: url
-          will_not_fix: true
-          feed: feed
-          detected_at: 2000-01-23T04:56:07.000+00:00
-          package_version: package_version
-          fix: fix
-          vuln: vuln
-          feed_group: feed_group
-          package_name: package_name
-      properties:
-        image_digest:
-          type: string
-        vulnerability_type:
-          type: string
-        vulnerabilities:
-          description: List of Vulnerability objects
-          items:
-            $ref: '#/components/schemas/Vulnerability'
-          type: array
       type: object
     ImageFilter:
       description: Filter for an image list by id, tag, or digest, but not both
@@ -10463,7 +10337,7 @@ components:
       items:
         $ref: '#/components/schemas/EnterprisePolicyEvaluation'
       type: array
-    EnterpriseVulnerability:
+    ImagePackageVulnerability:
       example:
         severity: severity
         package: package
@@ -10511,6 +10385,7 @@ components:
         url: url
         will_not_fix: true
         feed: feed
+        detected_at: 2000-01-23T04:56:07.000+00:00
         package_version: package_version
         fix: fix
         vuln: vuln
@@ -10569,17 +10444,16 @@ components:
           items:
             $ref: '#/components/schemas/VendorDataObject'
           type: array
+        detected_at:
+          description: When the vulnerability was detected
+          format: date-time
+          type: string
         inherited_from_base:
           description: True if the vulnerable artifact is found in the base image.
             False otherwise
           type: boolean
       type: object
-    EnterpriseVulnerabilityList:
-      description: List of Vulnerability objects
-      items:
-        $ref: '#/components/schemas/EnterpriseVulnerability'
-      type: array
-    EnterpriseVulnerabilityResponse:
+    ImagePackageVulnerabilityResponse:
       description: envelope containing list of vulnerabilities
       example:
         vulnerability_type: vulnerability_type
@@ -10632,6 +10506,7 @@ components:
           url: url
           will_not_fix: true
           feed: feed
+          detected_at: 2000-01-23T04:56:07.000+00:00
           package_version: package_version
           fix: fix
           vuln: vuln
@@ -10684,6 +10559,7 @@ components:
           url: url
           will_not_fix: true
           feed: feed
+          detected_at: 2000-01-23T04:56:07.000+00:00
           package_version: package_version
           fix: fix
           vuln: vuln
@@ -10700,7 +10576,7 @@ components:
         vulnerabilities:
           description: List of Vulnerability objects
           items:
-            $ref: '#/components/schemas/EnterpriseVulnerability'
+            $ref: '#/components/schemas/ImagePackageVulnerability'
           type: array
       type: object
     ImageAncestry:
@@ -12400,7 +12276,7 @@ components:
             $ref: '#/components/schemas/SourceContentPackageResponseContent'
           type: array
       type: object
-    SourceVulnerabilitiesResponse:
+    SourcePackageVulnerabilityResponse:
       description: Envelope containing list of vulnerabilities for a source repo
       example:
         vulnerability_type: vulnerability_type
@@ -12516,9 +12392,8 @@ components:
         vulnerability_type:
           type: string
         vulnerabilities:
-          description: List of Vulnerability objects
           items:
-            $ref: '#/components/schemas/Vulnerability'
+            $ref: '#/components/schemas/PackageVulnerability'
           type: array
       type: object
     SBOMVulnerabilitiesResponse:
@@ -12637,9 +12512,8 @@ components:
         vulnerability_type:
           type: string
         vulnerabilities:
-          description: List of Vulnerability objects
           items:
-            $ref: '#/components/schemas/Vulnerability'
+            $ref: '#/components/schemas/PackageVulnerability'
           type: array
       type: object
     ArtifactRelationship:

@@ -709,7 +709,7 @@ No authorization required
 
 ## GetSourceVulnerabilities
 
-> SourceVulnerabilitiesResponse GetSourceVulnerabilities(ctx, sourceId, vulnType).ForceRefresh(forceRefresh).WillNotFix(willNotFix).XAnchoreAccount(xAnchoreAccount).Execute()
+> SourcePackageVulnerabilityResponse GetSourceVulnerabilities(ctx, sourceId, vulnType).ForceRefresh(forceRefresh).WillNotFix(willNotFix).XAnchoreAccount(xAnchoreAccount).Execute()
 
 Get vulnerabilities for the source by type
 
@@ -739,7 +739,7 @@ func main() {
         fmt.Fprintf(os.Stderr, "Error when calling `SourcesApi.GetSourceVulnerabilities``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `GetSourceVulnerabilities`: SourceVulnerabilitiesResponse
+    // response from `GetSourceVulnerabilities`: SourcePackageVulnerabilityResponse
     fmt.Fprintf(os.Stdout, "Response from `SourcesApi.GetSourceVulnerabilities`: %v\n", resp)
 }
 ```
@@ -768,7 +768,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**SourceVulnerabilitiesResponse**](SourceVulnerabilitiesResponse.md)
+[**SourcePackageVulnerabilityResponse**](SourcePackageVulnerabilityResponse.md)
 
 ### Authorization
 

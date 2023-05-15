@@ -170,8 +170,8 @@ type SourcesApi interface {
 	GetSourceVulnerabilities(ctx _context.Context, sourceId string, vulnType string) ApiGetSourceVulnerabilitiesRequest
 
 	// GetSourceVulnerabilitiesExecute executes the request
-	//  @return SourceVulnerabilitiesResponse
-	GetSourceVulnerabilitiesExecute(r ApiGetSourceVulnerabilitiesRequest) (SourceVulnerabilitiesResponse, *_nethttp.Response, error)
+	//  @return SourcePackageVulnerabilityResponse
+	GetSourceVulnerabilitiesExecute(r ApiGetSourceVulnerabilitiesRequest) (SourcePackageVulnerabilityResponse, *_nethttp.Response, error)
 
 	/*
 	GetSourceVulnerabilityTypes Get the available vulnerability types for source
@@ -1297,7 +1297,7 @@ func (r ApiGetSourceVulnerabilitiesRequest) XAnchoreAccount(xAnchoreAccount stri
 	return r
 }
 
-func (r ApiGetSourceVulnerabilitiesRequest) Execute() (SourceVulnerabilitiesResponse, *_nethttp.Response, error) {
+func (r ApiGetSourceVulnerabilitiesRequest) Execute() (SourcePackageVulnerabilityResponse, *_nethttp.Response, error) {
 	return r.ApiService.GetSourceVulnerabilitiesExecute(r)
 }
 
@@ -1319,15 +1319,15 @@ func (a *SourcesApiService) GetSourceVulnerabilities(ctx _context.Context, sourc
 }
 
 // Execute executes the request
-//  @return SourceVulnerabilitiesResponse
-func (a *SourcesApiService) GetSourceVulnerabilitiesExecute(r ApiGetSourceVulnerabilitiesRequest) (SourceVulnerabilitiesResponse, *_nethttp.Response, error) {
+//  @return SourcePackageVulnerabilityResponse
+func (a *SourcesApiService) GetSourceVulnerabilitiesExecute(r ApiGetSourceVulnerabilitiesRequest) (SourcePackageVulnerabilityResponse, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		localVarReturnValue  SourceVulnerabilitiesResponse
+		localVarReturnValue  SourcePackageVulnerabilityResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SourcesApiService.GetSourceVulnerabilities")
