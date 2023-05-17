@@ -2,7 +2,7 @@ swagger: '2.0'
 info:
   description: This is the Anchore API. Provides the external API for users of Anchore
     Enterprise.
-  version: 0.1.0
+  version: 1.0.0
   title: Anchore API
   contact:
     email: dev@anchore.com
@@ -8799,15 +8799,14 @@ definitions:
     additionalProperties: true
     type: object
   ImagePackageVulnerability:
-    type: object
-    properties:
-      package_vulnerability:
-        items:
-          $ref: '#/definitions/PackageVulnerability'
-      inherited_from_base:
-        type: boolean
-        description: True if the vulnerable artifact is found in the base image. False
-          otherwise
+    allOf:
+    - $ref: '#/definitions/PackageVulnerability'
+    - type: object
+      properties:
+        inherited_from_base:
+          type: boolean
+          description: True if the vulnerable artifact is found in the base image.
+            False otherwise
   ImagePackageVulnerabilityResponse:
     description: envelope containing list of vulnerabilities
     type: object

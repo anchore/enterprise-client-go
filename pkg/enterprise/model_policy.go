@@ -3,11 +3,7 @@ Anchore API
 
 This is the Anchore API. Provides the external API for users of Anchore Enterprise.
 
-<<<<<<< HEAD
-API version: 2.0.0
-=======
-API version: 0.1.0
->>>>>>> 48fc108 (feat: updated the enterprise ref)
+API version: 1.0.0
 Contact: dev@anchore.com
 */
 
@@ -19,32 +15,6 @@ import (
 	"encoding/json"
 )
 
-<<<<<<< HEAD
-// Policy A policy containing a rule-set, allowlists, and rules for mapping them to specific images
-type Policy struct {
-	// Id of the policy
-	Id string `json:"id"`
-	// Human readable name for the policy
-	Name string `json:"name"`
-	// Description of the policy, human readable
-	Description *string `json:"description,omitempty"`
-	// Version id for this policy format
-	Version string `json:"version"`
-	// Allowlists which define which policy matches to disregard explicitly in the final policy decision
-	Allowlists *[]Allowlist `json:"allowlists,omitempty"`
-	// Collections of policy rules which define the go/stop/warn status of an image using rule matches on image properties
-	RuleSets []RuleSet `json:"rule_sets"`
-	// Mapping rules for defining which policy and allowlist(s) to apply to a source based on a match of the host and repo name. Evaluated in order.
-	SourceMappings *[]SourceMappingRule `json:"source_mappings,omitempty"`
-	// Mapping rules for defining which policy and allowlist(s) to apply to an image based on a match of the image tag or id. Evaluated in order.
-	Mappings []MappingRule `json:"mappings"`
-	// List of mapping rules that define which images should always be passed (unless also on the denylist), regardless of policy result.
-	AllowlistedImages *[]ImageSelectionRule `json:"allowlisted_images,omitempty"`
-	// List of mapping rules that define which images should always result in a STOP/FAIL policy result regardless of policy content or presence in allowlisted_images
-	DenylistedImages *[]ImageSelectionRule `json:"denylisted_images,omitempty"`
-	// The time at which the policy was last updated, informational only
-	LastUpdated *float32 `json:"last_updated,omitempty"`
-=======
 // Policy struct for Policy
 type Policy struct {
 	Id string `json:"id"`
@@ -54,27 +24,16 @@ type Policy struct {
 	Version string `json:"version"`
 	ArtifactType *string `json:"artifact_type,omitempty"`
 	Rules *[]PolicyRule `json:"rules,omitempty"`
->>>>>>> 48fc108 (feat: updated the enterprise ref)
 }
 
 // NewPolicy instantiates a new Policy object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-<<<<<<< HEAD
-func NewPolicy(id string, name string, version string, ruleSets []RuleSet, mappings []MappingRule) *Policy {
-	this := Policy{}
-	this.Id = id
-	this.Name = name
-	this.Version = version
-	this.RuleSets = ruleSets
-	this.Mappings = mappings
-=======
 func NewPolicy(id string, version string) *Policy {
 	this := Policy{}
 	this.Id = id
 	this.Version = version
->>>>>>> 48fc108 (feat: updated the enterprise ref)
 	return &this
 }
 
@@ -110,30 +69,6 @@ func (o *Policy) SetId(v string) {
 	o.Id = v
 }
 
-<<<<<<< HEAD
-// GetName returns the Name field value
-func (o *Policy) GetName() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.Name
-}
-
-// GetNameOk returns a tuple with the Name field value
-// and a boolean to check if the value has been set.
-func (o *Policy) GetNameOk() (*string, bool) {
-	if o == nil  {
-		return nil, false
-	}
-	return &o.Name, true
-}
-
-// SetName sets field value
-func (o *Policy) SetName(v string) {
-	o.Name = v
-=======
 // GetName returns the Name field value if set, zero value otherwise.
 func (o *Policy) GetName() string {
 	if o == nil || o.Name == nil {
@@ -164,7 +99,6 @@ func (o *Policy) HasName() bool {
 // SetName gets a reference to the given string and assigns it to the Name field.
 func (o *Policy) SetName(v string) {
 	o.Name = &v
->>>>>>> 48fc108 (feat: updated the enterprise ref)
 }
 
 // GetDescription returns the Description field value if set, zero value otherwise.
@@ -223,29 +157,6 @@ func (o *Policy) SetVersion(v string) {
 	o.Version = v
 }
 
-<<<<<<< HEAD
-// GetAllowlists returns the Allowlists field value if set, zero value otherwise.
-func (o *Policy) GetAllowlists() []Allowlist {
-	if o == nil || o.Allowlists == nil {
-		var ret []Allowlist
-		return ret
-	}
-	return *o.Allowlists
-}
-
-// GetAllowlistsOk returns a tuple with the Allowlists field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *Policy) GetAllowlistsOk() (*[]Allowlist, bool) {
-	if o == nil || o.Allowlists == nil {
-		return nil, false
-	}
-	return o.Allowlists, true
-}
-
-// HasAllowlists returns a boolean if a field has been set.
-func (o *Policy) HasAllowlists() bool {
-	if o != nil && o.Allowlists != nil {
-=======
 // GetArtifactType returns the ArtifactType field value if set, zero value otherwise.
 func (o *Policy) GetArtifactType() string {
 	if o == nil || o.ArtifactType == nil {
@@ -267,65 +178,12 @@ func (o *Policy) GetArtifactTypeOk() (*string, bool) {
 // HasArtifactType returns a boolean if a field has been set.
 func (o *Policy) HasArtifactType() bool {
 	if o != nil && o.ArtifactType != nil {
->>>>>>> 48fc108 (feat: updated the enterprise ref)
 		return true
 	}
 
 	return false
 }
 
-<<<<<<< HEAD
-// SetAllowlists gets a reference to the given []Allowlist and assigns it to the Allowlists field.
-func (o *Policy) SetAllowlists(v []Allowlist) {
-	o.Allowlists = &v
-}
-
-// GetRuleSets returns the RuleSets field value
-func (o *Policy) GetRuleSets() []RuleSet {
-	if o == nil {
-		var ret []RuleSet
-		return ret
-	}
-
-	return o.RuleSets
-}
-
-// GetRuleSetsOk returns a tuple with the RuleSets field value
-// and a boolean to check if the value has been set.
-func (o *Policy) GetRuleSetsOk() (*[]RuleSet, bool) {
-	if o == nil  {
-		return nil, false
-	}
-	return &o.RuleSets, true
-}
-
-// SetRuleSets sets field value
-func (o *Policy) SetRuleSets(v []RuleSet) {
-	o.RuleSets = v
-}
-
-// GetSourceMappings returns the SourceMappings field value if set, zero value otherwise.
-func (o *Policy) GetSourceMappings() []SourceMappingRule {
-	if o == nil || o.SourceMappings == nil {
-		var ret []SourceMappingRule
-		return ret
-	}
-	return *o.SourceMappings
-}
-
-// GetSourceMappingsOk returns a tuple with the SourceMappings field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *Policy) GetSourceMappingsOk() (*[]SourceMappingRule, bool) {
-	if o == nil || o.SourceMappings == nil {
-		return nil, false
-	}
-	return o.SourceMappings, true
-}
-
-// HasSourceMappings returns a boolean if a field has been set.
-func (o *Policy) HasSourceMappings() bool {
-	if o != nil && o.SourceMappings != nil {
-=======
 // SetArtifactType gets a reference to the given string and assigns it to the ArtifactType field.
 func (o *Policy) SetArtifactType(v string) {
 	o.ArtifactType = &v
@@ -352,142 +210,15 @@ func (o *Policy) GetRulesOk() (*[]PolicyRule, bool) {
 // HasRules returns a boolean if a field has been set.
 func (o *Policy) HasRules() bool {
 	if o != nil && o.Rules != nil {
->>>>>>> 48fc108 (feat: updated the enterprise ref)
 		return true
 	}
 
 	return false
 }
 
-<<<<<<< HEAD
-// SetSourceMappings gets a reference to the given []SourceMappingRule and assigns it to the SourceMappings field.
-func (o *Policy) SetSourceMappings(v []SourceMappingRule) {
-	o.SourceMappings = &v
-}
-
-// GetMappings returns the Mappings field value
-func (o *Policy) GetMappings() []MappingRule {
-	if o == nil {
-		var ret []MappingRule
-		return ret
-	}
-
-	return o.Mappings
-}
-
-// GetMappingsOk returns a tuple with the Mappings field value
-// and a boolean to check if the value has been set.
-func (o *Policy) GetMappingsOk() (*[]MappingRule, bool) {
-	if o == nil  {
-		return nil, false
-	}
-	return &o.Mappings, true
-}
-
-// SetMappings sets field value
-func (o *Policy) SetMappings(v []MappingRule) {
-	o.Mappings = v
-}
-
-// GetAllowlistedImages returns the AllowlistedImages field value if set, zero value otherwise.
-func (o *Policy) GetAllowlistedImages() []ImageSelectionRule {
-	if o == nil || o.AllowlistedImages == nil {
-		var ret []ImageSelectionRule
-		return ret
-	}
-	return *o.AllowlistedImages
-}
-
-// GetAllowlistedImagesOk returns a tuple with the AllowlistedImages field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *Policy) GetAllowlistedImagesOk() (*[]ImageSelectionRule, bool) {
-	if o == nil || o.AllowlistedImages == nil {
-		return nil, false
-	}
-	return o.AllowlistedImages, true
-}
-
-// HasAllowlistedImages returns a boolean if a field has been set.
-func (o *Policy) HasAllowlistedImages() bool {
-	if o != nil && o.AllowlistedImages != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetAllowlistedImages gets a reference to the given []ImageSelectionRule and assigns it to the AllowlistedImages field.
-func (o *Policy) SetAllowlistedImages(v []ImageSelectionRule) {
-	o.AllowlistedImages = &v
-}
-
-// GetDenylistedImages returns the DenylistedImages field value if set, zero value otherwise.
-func (o *Policy) GetDenylistedImages() []ImageSelectionRule {
-	if o == nil || o.DenylistedImages == nil {
-		var ret []ImageSelectionRule
-		return ret
-	}
-	return *o.DenylistedImages
-}
-
-// GetDenylistedImagesOk returns a tuple with the DenylistedImages field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *Policy) GetDenylistedImagesOk() (*[]ImageSelectionRule, bool) {
-	if o == nil || o.DenylistedImages == nil {
-		return nil, false
-	}
-	return o.DenylistedImages, true
-}
-
-// HasDenylistedImages returns a boolean if a field has been set.
-func (o *Policy) HasDenylistedImages() bool {
-	if o != nil && o.DenylistedImages != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetDenylistedImages gets a reference to the given []ImageSelectionRule and assigns it to the DenylistedImages field.
-func (o *Policy) SetDenylistedImages(v []ImageSelectionRule) {
-	o.DenylistedImages = &v
-}
-
-// GetLastUpdated returns the LastUpdated field value if set, zero value otherwise.
-func (o *Policy) GetLastUpdated() float32 {
-	if o == nil || o.LastUpdated == nil {
-		var ret float32
-		return ret
-	}
-	return *o.LastUpdated
-}
-
-// GetLastUpdatedOk returns a tuple with the LastUpdated field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *Policy) GetLastUpdatedOk() (*float32, bool) {
-	if o == nil || o.LastUpdated == nil {
-		return nil, false
-	}
-	return o.LastUpdated, true
-}
-
-// HasLastUpdated returns a boolean if a field has been set.
-func (o *Policy) HasLastUpdated() bool {
-	if o != nil && o.LastUpdated != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetLastUpdated gets a reference to the given float32 and assigns it to the LastUpdated field.
-func (o *Policy) SetLastUpdated(v float32) {
-	o.LastUpdated = &v
-=======
 // SetRules gets a reference to the given []PolicyRule and assigns it to the Rules field.
 func (o *Policy) SetRules(v []PolicyRule) {
 	o.Rules = &v
->>>>>>> 48fc108 (feat: updated the enterprise ref)
 }
 
 func (o Policy) MarshalJSON() ([]byte, error) {
@@ -495,11 +226,7 @@ func (o Policy) MarshalJSON() ([]byte, error) {
 	if true {
 		toSerialize["id"] = o.Id
 	}
-<<<<<<< HEAD
-	if true {
-=======
 	if o.Name != nil {
->>>>>>> 48fc108 (feat: updated the enterprise ref)
 		toSerialize["name"] = o.Name
 	}
 	if o.Description != nil {
@@ -508,34 +235,11 @@ func (o Policy) MarshalJSON() ([]byte, error) {
 	if true {
 		toSerialize["version"] = o.Version
 	}
-<<<<<<< HEAD
-	if o.Allowlists != nil {
-		toSerialize["allowlists"] = o.Allowlists
-	}
-	if true {
-		toSerialize["rule_sets"] = o.RuleSets
-	}
-	if o.SourceMappings != nil {
-		toSerialize["source_mappings"] = o.SourceMappings
-	}
-	if true {
-		toSerialize["mappings"] = o.Mappings
-	}
-	if o.AllowlistedImages != nil {
-		toSerialize["allowlisted_images"] = o.AllowlistedImages
-	}
-	if o.DenylistedImages != nil {
-		toSerialize["denylisted_images"] = o.DenylistedImages
-	}
-	if o.LastUpdated != nil {
-		toSerialize["last_updated"] = o.LastUpdated
-=======
 	if o.ArtifactType != nil {
 		toSerialize["artifact_type"] = o.ArtifactType
 	}
 	if o.Rules != nil {
 		toSerialize["rules"] = o.Rules
->>>>>>> 48fc108 (feat: updated the enterprise ref)
 	}
 	return json.Marshal(toSerialize)
 }

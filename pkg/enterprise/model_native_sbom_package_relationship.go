@@ -3,11 +3,7 @@ Anchore API
 
 This is the Anchore API. Provides the external API for users of Anchore Enterprise.
 
-<<<<<<< HEAD
-API version: 2.0.0
-=======
-API version: 0.1.0
->>>>>>> 48fc108 (feat: updated the enterprise ref)
+API version: 1.0.0
 Contact: dev@anchore.com
 */
 
@@ -24,11 +20,8 @@ type NativeSBOMPackageRelationship struct {
 	Parent string `json:"parent"`
 	Child string `json:"child"`
 	Type string `json:"type"`
-	Metadata *map[string]interface{} `json:"metadata,omitempty"`
-	AdditionalProperties map[string]interface{}
+	Metadata *interface{} `json:"metadata,omitempty"`
 }
-
-type _NativeSBOMPackageRelationship NativeSBOMPackageRelationship
 
 // NewNativeSBOMPackageRelationship instantiates a new NativeSBOMPackageRelationship object
 // This constructor will assign default values to properties that have it defined,
@@ -123,9 +116,9 @@ func (o *NativeSBOMPackageRelationship) SetType(v string) {
 }
 
 // GetMetadata returns the Metadata field value if set, zero value otherwise.
-func (o *NativeSBOMPackageRelationship) GetMetadata() map[string]interface{} {
+func (o *NativeSBOMPackageRelationship) GetMetadata() interface{} {
 	if o == nil || o.Metadata == nil {
-		var ret map[string]interface{}
+		var ret interface{}
 		return ret
 	}
 	return *o.Metadata
@@ -133,7 +126,7 @@ func (o *NativeSBOMPackageRelationship) GetMetadata() map[string]interface{} {
 
 // GetMetadataOk returns a tuple with the Metadata field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *NativeSBOMPackageRelationship) GetMetadataOk() (*map[string]interface{}, bool) {
+func (o *NativeSBOMPackageRelationship) GetMetadataOk() (*interface{}, bool) {
 	if o == nil || o.Metadata == nil {
 		return nil, false
 	}
@@ -149,8 +142,8 @@ func (o *NativeSBOMPackageRelationship) HasMetadata() bool {
 	return false
 }
 
-// SetMetadata gets a reference to the given map[string]interface{} and assigns it to the Metadata field.
-func (o *NativeSBOMPackageRelationship) SetMetadata(v map[string]interface{}) {
+// SetMetadata gets a reference to the given interface{} and assigns it to the Metadata field.
+func (o *NativeSBOMPackageRelationship) SetMetadata(v interface{}) {
 	o.Metadata = &v
 }
 
@@ -168,32 +161,7 @@ func (o NativeSBOMPackageRelationship) MarshalJSON() ([]byte, error) {
 	if o.Metadata != nil {
 		toSerialize["metadata"] = o.Metadata
 	}
-
-	for key, value := range o.AdditionalProperties {
-		toSerialize[key] = value
-	}
-
 	return json.Marshal(toSerialize)
-}
-
-func (o *NativeSBOMPackageRelationship) UnmarshalJSON(bytes []byte) (err error) {
-	varNativeSBOMPackageRelationship := _NativeSBOMPackageRelationship{}
-
-	if err = json.Unmarshal(bytes, &varNativeSBOMPackageRelationship); err == nil {
-		*o = NativeSBOMPackageRelationship(varNativeSBOMPackageRelationship)
-	}
-
-	additionalProperties := make(map[string]interface{})
-
-	if err = json.Unmarshal(bytes, &additionalProperties); err == nil {
-		delete(additionalProperties, "parent")
-		delete(additionalProperties, "child")
-		delete(additionalProperties, "type")
-		delete(additionalProperties, "metadata")
-		o.AdditionalProperties = additionalProperties
-	}
-
-	return err
 }
 
 type NullableNativeSBOMPackageRelationship struct {

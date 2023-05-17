@@ -3,11 +3,7 @@ Anchore API
 
 This is the Anchore API. Provides the external API for users of Anchore Enterprise.
 
-<<<<<<< HEAD
-API version: 2.0.0
-=======
-API version: 0.1.0
->>>>>>> 48fc108 (feat: updated the enterprise ref)
+API version: 1.0.0
 Contact: dev@anchore.com
 */
 
@@ -27,29 +23,19 @@ type ImportPackage struct {
 	Type string `json:"type"`
 	FoundBy *string `json:"foundBy,omitempty"`
 	Locations []ImportPackageLocation `json:"locations"`
-	Licenses []interface{} `json:"licenses"`
+	Licenses []string `json:"licenses"`
 	Language string `json:"language"`
 	Cpes []string `json:"cpes"`
 	Purl *string `json:"purl,omitempty"`
 	MetadataType NullableString `json:"metadataType,omitempty"`
 	Metadata interface{} `json:"metadata,omitempty"`
-<<<<<<< HEAD
-	AdditionalProperties map[string]interface{}
-=======
->>>>>>> 48fc108 (feat: updated the enterprise ref)
 }
-
-type _ImportPackage ImportPackage
 
 // NewImportPackage instantiates a new ImportPackage object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-<<<<<<< HEAD
-func NewImportPackage(name string, version string, type_ string, locations []ImportPackageLocation, licenses []interface{}, language string, cpes []string) *ImportPackage {
-=======
 func NewImportPackage(name string, version string, type_ string, locations []ImportPackageLocation, licenses []string, language string, cpes []string) *ImportPackage {
->>>>>>> 48fc108 (feat: updated the enterprise ref)
 	this := ImportPackage{}
 	this.Name = name
 	this.Version = version
@@ -230,9 +216,9 @@ func (o *ImportPackage) SetLocations(v []ImportPackageLocation) {
 }
 
 // GetLicenses returns the Licenses field value
-func (o *ImportPackage) GetLicenses() []interface{} {
+func (o *ImportPackage) GetLicenses() []string {
 	if o == nil {
-		var ret []interface{}
+		var ret []string
 		return ret
 	}
 
@@ -241,7 +227,7 @@ func (o *ImportPackage) GetLicenses() []interface{} {
 
 // GetLicensesOk returns a tuple with the Licenses field value
 // and a boolean to check if the value has been set.
-func (o *ImportPackage) GetLicensesOk() (*[]interface{}, bool) {
+func (o *ImportPackage) GetLicensesOk() (*[]string, bool) {
 	if o == nil  {
 		return nil, false
 	}
@@ -249,7 +235,7 @@ func (o *ImportPackage) GetLicensesOk() (*[]interface{}, bool) {
 }
 
 // SetLicenses sets field value
-func (o *ImportPackage) SetLicenses(v []interface{}) {
+func (o *ImportPackage) SetLicenses(v []string) {
 	o.Licenses = v
 }
 
@@ -446,40 +432,7 @@ func (o ImportPackage) MarshalJSON() ([]byte, error) {
 	if o.Metadata != nil {
 		toSerialize["metadata"] = o.Metadata
 	}
-
-	for key, value := range o.AdditionalProperties {
-		toSerialize[key] = value
-	}
-
 	return json.Marshal(toSerialize)
-}
-
-func (o *ImportPackage) UnmarshalJSON(bytes []byte) (err error) {
-	varImportPackage := _ImportPackage{}
-
-	if err = json.Unmarshal(bytes, &varImportPackage); err == nil {
-		*o = ImportPackage(varImportPackage)
-	}
-
-	additionalProperties := make(map[string]interface{})
-
-	if err = json.Unmarshal(bytes, &additionalProperties); err == nil {
-		delete(additionalProperties, "id")
-		delete(additionalProperties, "name")
-		delete(additionalProperties, "version")
-		delete(additionalProperties, "type")
-		delete(additionalProperties, "foundBy")
-		delete(additionalProperties, "locations")
-		delete(additionalProperties, "licenses")
-		delete(additionalProperties, "language")
-		delete(additionalProperties, "cpes")
-		delete(additionalProperties, "purl")
-		delete(additionalProperties, "metadataType")
-		delete(additionalProperties, "metadata")
-		o.AdditionalProperties = additionalProperties
-	}
-
-	return err
 }
 
 type NullableImportPackage struct {

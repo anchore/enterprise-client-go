@@ -3,11 +3,7 @@ Anchore API
 
 This is the Anchore API. Provides the external API for users of Anchore Enterprise.
 
-<<<<<<< HEAD
-API version: 2.0.0
-=======
-API version: 0.1.0
->>>>>>> 48fc108 (feat: updated the enterprise ref)
+API version: 1.0.0
 Contact: dev@anchore.com
 */
 
@@ -22,33 +18,17 @@ import (
 // ImportSource struct for ImportSource
 type ImportSource struct {
 	Type string `json:"type"`
-<<<<<<< HEAD
-	Target *map[string]interface{} `json:"target,omitempty"`
-	Metadata *map[string]interface{} `json:"metadata,omitempty"`
-	AdditionalProperties map[string]interface{}
-}
-
-type _ImportSource ImportSource
-
-=======
 	Target interface{} `json:"target"`
 }
 
->>>>>>> 48fc108 (feat: updated the enterprise ref)
 // NewImportSource instantiates a new ImportSource object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-<<<<<<< HEAD
-func NewImportSource(type_ string) *ImportSource {
-	this := ImportSource{}
-	this.Type = type_
-=======
 func NewImportSource(type_ string, target interface{}) *ImportSource {
 	this := ImportSource{}
 	this.Type = type_
 	this.Target = target
->>>>>>> 48fc108 (feat: updated the enterprise ref)
 	return &this
 }
 
@@ -84,70 +64,6 @@ func (o *ImportSource) SetType(v string) {
 	o.Type = v
 }
 
-<<<<<<< HEAD
-// GetTarget returns the Target field value if set, zero value otherwise.
-func (o *ImportSource) GetTarget() map[string]interface{} {
-	if o == nil || o.Target == nil {
-		var ret map[string]interface{}
-		return ret
-	}
-	return *o.Target
-}
-
-// GetTargetOk returns a tuple with the Target field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *ImportSource) GetTargetOk() (*map[string]interface{}, bool) {
-	if o == nil || o.Target == nil {
-		return nil, false
-	}
-	return o.Target, true
-}
-
-// HasTarget returns a boolean if a field has been set.
-func (o *ImportSource) HasTarget() bool {
-	if o != nil && o.Target != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetTarget gets a reference to the given map[string]interface{} and assigns it to the Target field.
-func (o *ImportSource) SetTarget(v map[string]interface{}) {
-	o.Target = &v
-}
-
-// GetMetadata returns the Metadata field value if set, zero value otherwise.
-func (o *ImportSource) GetMetadata() map[string]interface{} {
-	if o == nil || o.Metadata == nil {
-		var ret map[string]interface{}
-		return ret
-	}
-	return *o.Metadata
-}
-
-// GetMetadataOk returns a tuple with the Metadata field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *ImportSource) GetMetadataOk() (*map[string]interface{}, bool) {
-	if o == nil || o.Metadata == nil {
-		return nil, false
-	}
-	return o.Metadata, true
-}
-
-// HasMetadata returns a boolean if a field has been set.
-func (o *ImportSource) HasMetadata() bool {
-	if o != nil && o.Metadata != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetMetadata gets a reference to the given map[string]interface{} and assigns it to the Metadata field.
-func (o *ImportSource) SetMetadata(v map[string]interface{}) {
-	o.Metadata = &v
-=======
 // GetTarget returns the Target field value
 func (o *ImportSource) GetTarget() interface{} {
 	if o == nil {
@@ -170,7 +86,6 @@ func (o *ImportSource) GetTargetOk() (*interface{}, bool) {
 // SetTarget sets field value
 func (o *ImportSource) SetTarget(v interface{}) {
 	o.Target = v
->>>>>>> 48fc108 (feat: updated the enterprise ref)
 }
 
 func (o ImportSource) MarshalJSON() ([]byte, error) {
@@ -178,48 +93,12 @@ func (o ImportSource) MarshalJSON() ([]byte, error) {
 	if true {
 		toSerialize["type"] = o.Type
 	}
-<<<<<<< HEAD
-	if o.Target != nil {
-		toSerialize["target"] = o.Target
-	}
-	if o.Metadata != nil {
-		toSerialize["metadata"] = o.Metadata
-	}
-
-	for key, value := range o.AdditionalProperties {
-		toSerialize[key] = value
-	}
-
-	return json.Marshal(toSerialize)
-}
-
-func (o *ImportSource) UnmarshalJSON(bytes []byte) (err error) {
-	varImportSource := _ImportSource{}
-
-	if err = json.Unmarshal(bytes, &varImportSource); err == nil {
-		*o = ImportSource(varImportSource)
-	}
-
-	additionalProperties := make(map[string]interface{})
-
-	if err = json.Unmarshal(bytes, &additionalProperties); err == nil {
-		delete(additionalProperties, "type")
-		delete(additionalProperties, "target")
-		delete(additionalProperties, "metadata")
-		o.AdditionalProperties = additionalProperties
-	}
-
-	return err
-}
-
-=======
 	if true {
 		toSerialize["target"] = o.Target
 	}
 	return json.Marshal(toSerialize)
 }
 
->>>>>>> 48fc108 (feat: updated the enterprise ref)
 type NullableImportSource struct {
 	value *ImportSource
 	isSet bool

@@ -3,11 +3,7 @@ Anchore API
 
 This is the Anchore API. Provides the external API for users of Anchore Enterprise.
 
-<<<<<<< HEAD
-API version: 2.0.0
-=======
-API version: 0.1.0
->>>>>>> 48fc108 (feat: updated the enterprise ref)
+API version: 1.0.0
 Contact: dev@anchore.com
 */
 
@@ -83,9 +79,10 @@ type AlertsApi interface {
 
 	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	 @param uuid Identifier for the alert
+	 @param state
 	 @return ApiUpdateComplianceViolationAlertStateRequest
 	*/
-	UpdateComplianceViolationAlertState(ctx _context.Context, uuid string) ApiUpdateComplianceViolationAlertStateRequest
+	UpdateComplianceViolationAlertState(ctx _context.Context, uuid string, state string) ApiUpdateComplianceViolationAlertStateRequest
 
 	// UpdateComplianceViolationAlertStateExecute executes the request
 	//  @return ComplianceViolationAlert
@@ -584,14 +581,10 @@ type ApiUpdateComplianceViolationAlertStateRequest struct {
 	ctx _context.Context
 	ApiService AlertsApi
 	uuid string
-	body *ComplianceViolationAlertState
+	state string
 	xAnchoreAccount *string
 }
 
-func (r ApiUpdateComplianceViolationAlertStateRequest) Body(body ComplianceViolationAlertState) ApiUpdateComplianceViolationAlertStateRequest {
-	r.body = &body
-	return r
-}
 // An account name to change the resource scope of the request to that account, if permissions allow (admin only)
 func (r ApiUpdateComplianceViolationAlertStateRequest) XAnchoreAccount(xAnchoreAccount string) ApiUpdateComplianceViolationAlertStateRequest {
 	r.xAnchoreAccount = &xAnchoreAccount
@@ -609,13 +602,15 @@ Idempotent op for changing the alert state to open or closed
 
  @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param uuid Identifier for the alert
+ @param state
  @return ApiUpdateComplianceViolationAlertStateRequest
 */
-func (a *AlertsApiService) UpdateComplianceViolationAlertState(ctx _context.Context, uuid string) ApiUpdateComplianceViolationAlertStateRequest {
+func (a *AlertsApiService) UpdateComplianceViolationAlertState(ctx _context.Context, uuid string, state string) ApiUpdateComplianceViolationAlertStateRequest {
 	return ApiUpdateComplianceViolationAlertStateRequest{
 		ApiService: a,
 		ctx: ctx,
 		uuid: uuid,
+		state: state,
 	}
 }
 
@@ -623,7 +618,7 @@ func (a *AlertsApiService) UpdateComplianceViolationAlertState(ctx _context.Cont
 //  @return ComplianceViolationAlert
 func (a *AlertsApiService) UpdateComplianceViolationAlertStateExecute(r ApiUpdateComplianceViolationAlertStateRequest) (ComplianceViolationAlert, *_nethttp.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPatch
+		localVarHTTPMethod   = _nethttp.MethodPut
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
@@ -636,22 +631,16 @@ func (a *AlertsApiService) UpdateComplianceViolationAlertStateExecute(r ApiUpdat
 		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
 	}
 
-<<<<<<< HEAD
-	localVarPath := localBasePath + "/alerts/compliance-violations/{uuid}"
-=======
 	localVarPath := localBasePath + "/alerts/compliance-violations/{uuid}/{state}"
->>>>>>> 48fc108 (feat: updated the enterprise ref)
 	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", _neturl.PathEscape(parameterToString(r.uuid, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"state"+"}", _neturl.PathEscape(parameterToString(r.state, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
 	localVarFormParams := _neturl.Values{}
-	if r.body == nil {
-		return localVarReturnValue, nil, reportError("body is required and must be specified")
-	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
+	localVarHTTPContentTypes := []string{}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -670,8 +659,6 @@ func (a *AlertsApiService) UpdateComplianceViolationAlertStateExecute(r ApiUpdat
 	if r.xAnchoreAccount != nil {
 		localVarHeaderParams["x-anchore-account"] = parameterToString(*r.xAnchoreAccount, "")
 	}
-	// body params
-	localVarPostBody = r.body
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return localVarReturnValue, nil, err

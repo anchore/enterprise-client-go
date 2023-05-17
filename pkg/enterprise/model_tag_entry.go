@@ -3,11 +3,7 @@ Anchore API
 
 This is the Anchore API. Provides the external API for users of Anchore Enterprise.
 
-<<<<<<< HEAD
-API version: 2.0.0
-=======
-API version: 0.1.0
->>>>>>> 48fc108 (feat: updated the enterprise ref)
+API version: 1.0.0
 Contact: dev@anchore.com
 */
 
@@ -23,7 +19,7 @@ import (
 // TagEntry A docker-pullable tag value as well as deconstructed components
 type TagEntry struct {
 	// The pullable string for the tag. E.g. \"docker.io/library/node:latest\"
-	FullTag *string `json:"full_tag,omitempty"`
+	Fulltag *string `json:"fulltag,omitempty"`
 	// The registry hostname:port section of the pull string
 	Registry *string `json:"registry,omitempty"`
 	// The repository section of the pull string
@@ -51,36 +47,36 @@ func NewTagEntryWithDefaults() *TagEntry {
 	return &this
 }
 
-// GetFullTag returns the FullTag field value if set, zero value otherwise.
-func (o *TagEntry) GetFullTag() string {
-	if o == nil || o.FullTag == nil {
+// GetFulltag returns the Fulltag field value if set, zero value otherwise.
+func (o *TagEntry) GetFulltag() string {
+	if o == nil || o.Fulltag == nil {
 		var ret string
 		return ret
 	}
-	return *o.FullTag
+	return *o.Fulltag
 }
 
-// GetFullTagOk returns a tuple with the FullTag field value if set, nil otherwise
+// GetFulltagOk returns a tuple with the Fulltag field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *TagEntry) GetFullTagOk() (*string, bool) {
-	if o == nil || o.FullTag == nil {
+func (o *TagEntry) GetFulltagOk() (*string, bool) {
+	if o == nil || o.Fulltag == nil {
 		return nil, false
 	}
-	return o.FullTag, true
+	return o.Fulltag, true
 }
 
-// HasFullTag returns a boolean if a field has been set.
-func (o *TagEntry) HasFullTag() bool {
-	if o != nil && o.FullTag != nil {
+// HasFulltag returns a boolean if a field has been set.
+func (o *TagEntry) HasFulltag() bool {
+	if o != nil && o.Fulltag != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetFullTag gets a reference to the given string and assigns it to the FullTag field.
-func (o *TagEntry) SetFullTag(v string) {
-	o.FullTag = &v
+// SetFulltag gets a reference to the given string and assigns it to the Fulltag field.
+func (o *TagEntry) SetFulltag(v string) {
+	o.Fulltag = &v
 }
 
 // GetRegistry returns the Registry field value if set, zero value otherwise.
@@ -213,8 +209,8 @@ func (o *TagEntry) SetTagDetectedAt(v time.Time) {
 
 func (o TagEntry) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
-	if o.FullTag != nil {
-		toSerialize["full_tag"] = o.FullTag
+	if o.Fulltag != nil {
+		toSerialize["fulltag"] = o.Fulltag
 	}
 	if o.Registry != nil {
 		toSerialize["registry"] = o.Registry

@@ -3,11 +3,7 @@ Anchore API
 
 This is the Anchore API. Provides the external API for users of Anchore Enterprise.
 
-<<<<<<< HEAD
-API version: 2.0.0
-=======
-API version: 0.1.0
->>>>>>> 48fc108 (feat: updated the enterprise ref)
+API version: 1.0.0
 Contact: dev@anchore.com
 */
 
@@ -23,10 +19,7 @@ import (
 type NativeSBOMDescriptor struct {
 	Name string `json:"name"`
 	Version string `json:"version"`
-	AdditionalProperties map[string]interface{}
 }
-
-type _NativeSBOMDescriptor NativeSBOMDescriptor
 
 // NewNativeSBOMDescriptor instantiates a new NativeSBOMDescriptor object
 // This constructor will assign default values to properties that have it defined,
@@ -103,30 +96,7 @@ func (o NativeSBOMDescriptor) MarshalJSON() ([]byte, error) {
 	if true {
 		toSerialize["version"] = o.Version
 	}
-
-	for key, value := range o.AdditionalProperties {
-		toSerialize[key] = value
-	}
-
 	return json.Marshal(toSerialize)
-}
-
-func (o *NativeSBOMDescriptor) UnmarshalJSON(bytes []byte) (err error) {
-	varNativeSBOMDescriptor := _NativeSBOMDescriptor{}
-
-	if err = json.Unmarshal(bytes, &varNativeSBOMDescriptor); err == nil {
-		*o = NativeSBOMDescriptor(varNativeSBOMDescriptor)
-	}
-
-	additionalProperties := make(map[string]interface{})
-
-	if err = json.Unmarshal(bytes, &additionalProperties); err == nil {
-		delete(additionalProperties, "name")
-		delete(additionalProperties, "version")
-		o.AdditionalProperties = additionalProperties
-	}
-
-	return err
 }
 
 type NullableNativeSBOMDescriptor struct {

@@ -3,11 +3,7 @@ Anchore API
 
 This is the Anchore API. Provides the external API for users of Anchore Enterprise.
 
-<<<<<<< HEAD
-API version: 2.0.0
-=======
-API version: 0.1.0
->>>>>>> 48fc108 (feat: updated the enterprise ref)
+API version: 1.0.0
 Contact: dev@anchore.com
 */
 
@@ -22,17 +18,10 @@ import (
 
 // AllowlistItem Identifies a specific gate and trigger match from a policy against an image and indicates it should be ignored in final policy decisions
 type AllowlistItem struct {
-<<<<<<< HEAD
-	Id string `json:"id"`
-	Gate string `json:"gate"`
-	TriggerId string `json:"trigger_id"`
-	ExpiresOn NullableTime `json:"expires_on,omitempty"`
-=======
 	Id *string `json:"id,omitempty"`
 	Gate string `json:"gate"`
 	TriggerId string `json:"trigger_id"`
 	ExpiresOn *time.Time `json:"expires_on,omitempty"`
->>>>>>> 48fc108 (feat: updated the enterprise ref)
 	// Description of the Allowlist item, human readable
 	Description *string `json:"description,omitempty"`
 }
@@ -41,14 +30,8 @@ type AllowlistItem struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-<<<<<<< HEAD
-func NewAllowlistItem(id string, gate string, triggerId string) *AllowlistItem {
-	this := AllowlistItem{}
-	this.Id = id
-=======
 func NewAllowlistItem(gate string, triggerId string) *AllowlistItem {
 	this := AllowlistItem{}
->>>>>>> 48fc108 (feat: updated the enterprise ref)
 	this.Gate = gate
 	this.TriggerId = triggerId
 	return &this
@@ -62,30 +45,6 @@ func NewAllowlistItemWithDefaults() *AllowlistItem {
 	return &this
 }
 
-<<<<<<< HEAD
-// GetId returns the Id field value
-func (o *AllowlistItem) GetId() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.Id
-}
-
-// GetIdOk returns a tuple with the Id field value
-// and a boolean to check if the value has been set.
-func (o *AllowlistItem) GetIdOk() (*string, bool) {
-	if o == nil  {
-		return nil, false
-	}
-	return &o.Id, true
-}
-
-// SetId sets field value
-func (o *AllowlistItem) SetId(v string) {
-	o.Id = v
-=======
 // GetId returns the Id field value if set, zero value otherwise.
 func (o *AllowlistItem) GetId() string {
 	if o == nil || o.Id == nil {
@@ -116,7 +75,6 @@ func (o *AllowlistItem) HasId() bool {
 // SetId gets a reference to the given string and assigns it to the Id field.
 func (o *AllowlistItem) SetId(v string) {
 	o.Id = &v
->>>>>>> 48fc108 (feat: updated the enterprise ref)
 }
 
 // GetGate returns the Gate field value
@@ -167,15 +125,6 @@ func (o *AllowlistItem) SetTriggerId(v string) {
 	o.TriggerId = v
 }
 
-<<<<<<< HEAD
-// GetExpiresOn returns the ExpiresOn field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *AllowlistItem) GetExpiresOn() time.Time {
-	if o == nil || o.ExpiresOn.Get() == nil {
-		var ret time.Time
-		return ret
-	}
-	return *o.ExpiresOn.Get()
-=======
 // GetExpiresOn returns the ExpiresOn field value if set, zero value otherwise.
 func (o *AllowlistItem) GetExpiresOn() time.Time {
 	if o == nil || o.ExpiresOn == nil {
@@ -183,58 +132,29 @@ func (o *AllowlistItem) GetExpiresOn() time.Time {
 		return ret
 	}
 	return *o.ExpiresOn
->>>>>>> 48fc108 (feat: updated the enterprise ref)
 }
 
 // GetExpiresOnOk returns a tuple with the ExpiresOn field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-<<<<<<< HEAD
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *AllowlistItem) GetExpiresOnOk() (*time.Time, bool) {
-	if o == nil  {
-		return nil, false
-	}
-	return o.ExpiresOn.Get(), o.ExpiresOn.IsSet()
-=======
 func (o *AllowlistItem) GetExpiresOnOk() (*time.Time, bool) {
 	if o == nil || o.ExpiresOn == nil {
 		return nil, false
 	}
 	return o.ExpiresOn, true
->>>>>>> 48fc108 (feat: updated the enterprise ref)
 }
 
 // HasExpiresOn returns a boolean if a field has been set.
 func (o *AllowlistItem) HasExpiresOn() bool {
-<<<<<<< HEAD
-	if o != nil && o.ExpiresOn.IsSet() {
-=======
 	if o != nil && o.ExpiresOn != nil {
->>>>>>> 48fc108 (feat: updated the enterprise ref)
 		return true
 	}
 
 	return false
 }
 
-<<<<<<< HEAD
-// SetExpiresOn gets a reference to the given NullableTime and assigns it to the ExpiresOn field.
-func (o *AllowlistItem) SetExpiresOn(v time.Time) {
-	o.ExpiresOn.Set(&v)
-}
-// SetExpiresOnNil sets the value for ExpiresOn to be an explicit nil
-func (o *AllowlistItem) SetExpiresOnNil() {
-	o.ExpiresOn.Set(nil)
-}
-
-// UnsetExpiresOn ensures that no value is present for ExpiresOn, not even an explicit nil
-func (o *AllowlistItem) UnsetExpiresOn() {
-	o.ExpiresOn.Unset()
-=======
 // SetExpiresOn gets a reference to the given time.Time and assigns it to the ExpiresOn field.
 func (o *AllowlistItem) SetExpiresOn(v time.Time) {
 	o.ExpiresOn = &v
->>>>>>> 48fc108 (feat: updated the enterprise ref)
 }
 
 // GetDescription returns the Description field value if set, zero value otherwise.
@@ -271,11 +191,7 @@ func (o *AllowlistItem) SetDescription(v string) {
 
 func (o AllowlistItem) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
-<<<<<<< HEAD
-	if true {
-=======
 	if o.Id != nil {
->>>>>>> 48fc108 (feat: updated the enterprise ref)
 		toSerialize["id"] = o.Id
 	}
 	if true {
@@ -284,13 +200,8 @@ func (o AllowlistItem) MarshalJSON() ([]byte, error) {
 	if true {
 		toSerialize["trigger_id"] = o.TriggerId
 	}
-<<<<<<< HEAD
-	if o.ExpiresOn.IsSet() {
-		toSerialize["expires_on"] = o.ExpiresOn.Get()
-=======
 	if o.ExpiresOn != nil {
 		toSerialize["expires_on"] = o.ExpiresOn
->>>>>>> 48fc108 (feat: updated the enterprise ref)
 	}
 	if o.Description != nil {
 		toSerialize["description"] = o.Description

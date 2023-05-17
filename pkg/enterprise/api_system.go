@@ -3,11 +3,7 @@ Anchore API
 
 This is the Anchore API. Provides the external API for users of Anchore Enterprise.
 
-<<<<<<< HEAD
-API version: 2.0.0
-=======
-API version: 0.1.0
->>>>>>> 48fc108 (feat: updated the enterprise ref)
+API version: 1.0.0
 Contact: dev@anchore.com
 */
 
@@ -443,7 +439,7 @@ func (a *SystemApiService) DescribeErrorCodesExecute(r ApiDescribeErrorCodesRequ
 		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/system/error-codes"
+	localVarPath := localBasePath + "/system/error_codes"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
@@ -545,7 +541,7 @@ func (a *SystemApiService) DescribePolicyExecute(r ApiDescribePolicyRequest) ([]
 		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/system/policy-spec"
+	localVarPath := localBasePath + "/system/policy_spec"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}

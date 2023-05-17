@@ -3,11 +3,7 @@ Anchore API
 
 This is the Anchore API. Provides the external API for users of Anchore Enterprise.
 
-<<<<<<< HEAD
-API version: 2.0.0
-=======
-API version: 0.1.0
->>>>>>> 48fc108 (feat: updated the enterprise ref)
+API version: 1.0.0
 Contact: dev@anchore.com
 */
 
@@ -27,22 +23,19 @@ type NativeSBOMPackage struct {
 	Type string `json:"type"`
 	FoundBy *string `json:"foundBy,omitempty"`
 	Locations []NativeSBOMPackageLocation `json:"locations"`
-	Licenses []interface{} `json:"licenses"`
+	Licenses []string `json:"licenses"`
 	Language string `json:"language"`
 	Cpes []string `json:"cpes"`
 	Purl *string `json:"purl,omitempty"`
 	MetadataType NullableString `json:"metadataType,omitempty"`
 	Metadata interface{} `json:"metadata,omitempty"`
-	AdditionalProperties map[string]interface{}
 }
-
-type _NativeSBOMPackage NativeSBOMPackage
 
 // NewNativeSBOMPackage instantiates a new NativeSBOMPackage object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewNativeSBOMPackage(name string, version string, type_ string, locations []NativeSBOMPackageLocation, licenses []interface{}, language string, cpes []string) *NativeSBOMPackage {
+func NewNativeSBOMPackage(name string, version string, type_ string, locations []NativeSBOMPackageLocation, licenses []string, language string, cpes []string) *NativeSBOMPackage {
 	this := NativeSBOMPackage{}
 	this.Name = name
 	this.Version = version
@@ -223,9 +216,9 @@ func (o *NativeSBOMPackage) SetLocations(v []NativeSBOMPackageLocation) {
 }
 
 // GetLicenses returns the Licenses field value
-func (o *NativeSBOMPackage) GetLicenses() []interface{} {
+func (o *NativeSBOMPackage) GetLicenses() []string {
 	if o == nil {
-		var ret []interface{}
+		var ret []string
 		return ret
 	}
 
@@ -234,7 +227,7 @@ func (o *NativeSBOMPackage) GetLicenses() []interface{} {
 
 // GetLicensesOk returns a tuple with the Licenses field value
 // and a boolean to check if the value has been set.
-func (o *NativeSBOMPackage) GetLicensesOk() (*[]interface{}, bool) {
+func (o *NativeSBOMPackage) GetLicensesOk() (*[]string, bool) {
 	if o == nil  {
 		return nil, false
 	}
@@ -242,7 +235,7 @@ func (o *NativeSBOMPackage) GetLicensesOk() (*[]interface{}, bool) {
 }
 
 // SetLicenses sets field value
-func (o *NativeSBOMPackage) SetLicenses(v []interface{}) {
+func (o *NativeSBOMPackage) SetLicenses(v []string) {
 	o.Licenses = v
 }
 
@@ -439,40 +432,7 @@ func (o NativeSBOMPackage) MarshalJSON() ([]byte, error) {
 	if o.Metadata != nil {
 		toSerialize["metadata"] = o.Metadata
 	}
-
-	for key, value := range o.AdditionalProperties {
-		toSerialize[key] = value
-	}
-
 	return json.Marshal(toSerialize)
-}
-
-func (o *NativeSBOMPackage) UnmarshalJSON(bytes []byte) (err error) {
-	varNativeSBOMPackage := _NativeSBOMPackage{}
-
-	if err = json.Unmarshal(bytes, &varNativeSBOMPackage); err == nil {
-		*o = NativeSBOMPackage(varNativeSBOMPackage)
-	}
-
-	additionalProperties := make(map[string]interface{})
-
-	if err = json.Unmarshal(bytes, &additionalProperties); err == nil {
-		delete(additionalProperties, "id")
-		delete(additionalProperties, "name")
-		delete(additionalProperties, "version")
-		delete(additionalProperties, "type")
-		delete(additionalProperties, "foundBy")
-		delete(additionalProperties, "locations")
-		delete(additionalProperties, "licenses")
-		delete(additionalProperties, "language")
-		delete(additionalProperties, "cpes")
-		delete(additionalProperties, "purl")
-		delete(additionalProperties, "metadataType")
-		delete(additionalProperties, "metadata")
-		o.AdditionalProperties = additionalProperties
-	}
-
-	return err
 }
 
 type NullableNativeSBOMPackage struct {

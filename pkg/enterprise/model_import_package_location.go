@@ -3,11 +3,7 @@ Anchore API
 
 This is the Anchore API. Provides the external API for users of Anchore Enterprise.
 
-<<<<<<< HEAD
-API version: 2.0.0
-=======
-API version: 0.1.0
->>>>>>> 48fc108 (feat: updated the enterprise ref)
+API version: 1.0.0
 Contact: dev@anchore.com
 */
 
@@ -23,10 +19,7 @@ import (
 type ImportPackageLocation struct {
 	Path string `json:"path"`
 	LayerID *string `json:"layerID,omitempty"`
-	AdditionalProperties map[string]interface{}
 }
-
-type _ImportPackageLocation ImportPackageLocation
 
 // NewImportPackageLocation instantiates a new ImportPackageLocation object
 // This constructor will assign default values to properties that have it defined,
@@ -110,30 +103,7 @@ func (o ImportPackageLocation) MarshalJSON() ([]byte, error) {
 	if o.LayerID != nil {
 		toSerialize["layerID"] = o.LayerID
 	}
-
-	for key, value := range o.AdditionalProperties {
-		toSerialize[key] = value
-	}
-
 	return json.Marshal(toSerialize)
-}
-
-func (o *ImportPackageLocation) UnmarshalJSON(bytes []byte) (err error) {
-	varImportPackageLocation := _ImportPackageLocation{}
-
-	if err = json.Unmarshal(bytes, &varImportPackageLocation); err == nil {
-		*o = ImportPackageLocation(varImportPackageLocation)
-	}
-
-	additionalProperties := make(map[string]interface{})
-
-	if err = json.Unmarshal(bytes, &additionalProperties); err == nil {
-		delete(additionalProperties, "path")
-		delete(additionalProperties, "layerID")
-		o.AdditionalProperties = additionalProperties
-	}
-
-	return err
 }
 
 type NullableImportPackageLocation struct {

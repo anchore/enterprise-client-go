@@ -3,11 +3,7 @@ Anchore API
 
 This is the Anchore API. Provides the external API for users of Anchore Enterprise.
 
-<<<<<<< HEAD
-API version: 2.0.0
-=======
-API version: 0.1.0
->>>>>>> 48fc108 (feat: updated the enterprise ref)
+API version: 1.0.0
 Contact: dev@anchore.com
 */
 
@@ -23,7 +19,7 @@ import (
 // ArchiveTagEntry A docker-pullable tag value as well as deconstructed components
 type ArchiveTagEntry struct {
 	// The pullable string for the tag. E.g. \"docker.io/library/node:latest\"
-	PullString *string `json:"pull_string,omitempty"`
+	Pullstring *string `json:"pullstring,omitempty"`
 	// The registry hostname:port section of the pull string
 	Registry *string `json:"registry,omitempty"`
 	// The repository section of the pull string
@@ -55,36 +51,36 @@ func NewArchiveTagEntryWithDefaults() *ArchiveTagEntry {
 	return &this
 }
 
-// GetPullString returns the PullString field value if set, zero value otherwise.
-func (o *ArchiveTagEntry) GetPullString() string {
-	if o == nil || o.PullString == nil {
+// GetPullstring returns the Pullstring field value if set, zero value otherwise.
+func (o *ArchiveTagEntry) GetPullstring() string {
+	if o == nil || o.Pullstring == nil {
 		var ret string
 		return ret
 	}
-	return *o.PullString
+	return *o.Pullstring
 }
 
-// GetPullStringOk returns a tuple with the PullString field value if set, nil otherwise
+// GetPullstringOk returns a tuple with the Pullstring field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ArchiveTagEntry) GetPullStringOk() (*string, bool) {
-	if o == nil || o.PullString == nil {
+func (o *ArchiveTagEntry) GetPullstringOk() (*string, bool) {
+	if o == nil || o.Pullstring == nil {
 		return nil, false
 	}
-	return o.PullString, true
+	return o.Pullstring, true
 }
 
-// HasPullString returns a boolean if a field has been set.
-func (o *ArchiveTagEntry) HasPullString() bool {
-	if o != nil && o.PullString != nil {
+// HasPullstring returns a boolean if a field has been set.
+func (o *ArchiveTagEntry) HasPullstring() bool {
+	if o != nil && o.Pullstring != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetPullString gets a reference to the given string and assigns it to the PullString field.
-func (o *ArchiveTagEntry) SetPullString(v string) {
-	o.PullString = &v
+// SetPullstring gets a reference to the given string and assigns it to the Pullstring field.
+func (o *ArchiveTagEntry) SetPullstring(v string) {
+	o.Pullstring = &v
 }
 
 // GetRegistry returns the Registry field value if set, zero value otherwise.
@@ -281,8 +277,8 @@ func (o *ArchiveTagEntry) SetLastUpdated(v time.Time) {
 
 func (o ArchiveTagEntry) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
-	if o.PullString != nil {
-		toSerialize["pull_string"] = o.PullString
+	if o.Pullstring != nil {
+		toSerialize["pullstring"] = o.Pullstring
 	}
 	if o.Registry != nil {
 		toSerialize["registry"] = o.Registry

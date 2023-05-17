@@ -3,11 +3,7 @@ Anchore API
 
 This is the Anchore API. Provides the external API for users of Anchore Enterprise.
 
-<<<<<<< HEAD
-API version: 2.0.0
-=======
-API version: 0.1.0
->>>>>>> 48fc108 (feat: updated the enterprise ref)
+API version: 1.0.0
 Contact: dev@anchore.com
 */
 
@@ -34,7 +30,7 @@ type SubscriptionsApi interface {
 	/*
 	AddSubscription Add a subscription of a specific type
 
-	Create a new subscription
+	Create a new subscription to watch a tag and get notifications of changes
 
 	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	 @return ApiAddSubscriptionRequest
@@ -46,7 +42,7 @@ type SubscriptionsApi interface {
 	AddSubscriptionExecute(r ApiAddSubscriptionRequest) ([]Subscription, *_nethttp.Response, error)
 
 	/*
-	DeleteSubscription Delete specific subscription
+	DeleteSubscription Delete subscriptions of a specific type
 
 	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	 @param subscriptionId
@@ -123,7 +119,7 @@ func (r ApiAddSubscriptionRequest) Execute() ([]Subscription, *_nethttp.Response
 /*
 AddSubscription Add a subscription of a specific type
 
-Create a new subscription
+Create a new subscription to watch a tag and get notifications of changes
 
  @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiAddSubscriptionRequest
@@ -205,15 +201,6 @@ func (a *SubscriptionsApiService) AddSubscriptionExecute(r ApiAddSubscriptionReq
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		if localVarHTTPResponse.StatusCode == 500 {
-			var v ApiErrorResponse
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-			newErr.model = v
-		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -247,7 +234,7 @@ func (r ApiDeleteSubscriptionRequest) Execute() (*_nethttp.Response, error) {
 }
 
 /*
-DeleteSubscription Delete specific subscription
+DeleteSubscription Delete subscriptions of a specific type
 
  @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param subscriptionId
@@ -705,15 +692,6 @@ func (a *SubscriptionsApiService) UpdateSubscriptionExecute(r ApiUpdateSubscript
 		newErr := GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
-		}
-		if localVarHTTPResponse.StatusCode == 500 {
-			var v ApiErrorResponse
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}

@@ -3,11 +3,7 @@ Anchore API
 
 This is the Anchore API. Provides the external API for users of Anchore Enterprise.
 
-<<<<<<< HEAD
-API version: 2.0.0
-=======
-API version: 0.1.0
->>>>>>> 48fc108 (feat: updated the enterprise ref)
+API version: 1.0.0
 Contact: dev@anchore.com
 */
 
@@ -21,17 +17,13 @@ import (
 
 // PolicyRule A rule that defines and decision value if the match is found true for a given image.
 type PolicyRule struct {
-	Id string `json:"id"`
+	Id *string `json:"id,omitempty"`
 	Gate string `json:"gate"`
 	Trigger string `json:"trigger"`
 	Action string `json:"action"`
 	// Description of the policy rule, human readable
 	Description *string `json:"description,omitempty"`
-<<<<<<< HEAD
-	Params []PolicyRuleParams `json:"params"`
-=======
 	Params *[]PolicyRuleParams `json:"params,omitempty"`
->>>>>>> 48fc108 (feat: updated the enterprise ref)
 	Recommendation *string `json:"recommendation,omitempty"`
 }
 
@@ -39,13 +31,11 @@ type PolicyRule struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewPolicyRule(id string, gate string, trigger string, action string, params []PolicyRuleParams) *PolicyRule {
+func NewPolicyRule(gate string, trigger string, action string) *PolicyRule {
 	this := PolicyRule{}
-	this.Id = id
 	this.Gate = gate
 	this.Trigger = trigger
 	this.Action = action
-	this.Params = params
 	return &this
 }
 
@@ -57,28 +47,36 @@ func NewPolicyRuleWithDefaults() *PolicyRule {
 	return &this
 }
 
-// GetId returns the Id field value
+// GetId returns the Id field value if set, zero value otherwise.
 func (o *PolicyRule) GetId() string {
-	if o == nil {
+	if o == nil || o.Id == nil {
 		var ret string
 		return ret
 	}
-
-	return o.Id
+	return *o.Id
 }
 
-// GetIdOk returns a tuple with the Id field value
+// GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PolicyRule) GetIdOk() (*string, bool) {
-	if o == nil  {
+	if o == nil || o.Id == nil {
 		return nil, false
 	}
-	return &o.Id, true
+	return o.Id, true
 }
 
-// SetId sets field value
+// HasId returns a boolean if a field has been set.
+func (o *PolicyRule) HasId() bool {
+	if o != nil && o.Id != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetId gets a reference to the given string and assigns it to the Id field.
 func (o *PolicyRule) SetId(v string) {
-	o.Id = v
+	o.Id = &v
 }
 
 // GetGate returns the Gate field value
@@ -157,8 +155,6 @@ func (o *PolicyRule) SetAction(v string) {
 func (o *PolicyRule) GetDescription() string {
 	if o == nil || o.Description == nil {
 		var ret string
-<<<<<<< HEAD
-=======
 		return ret
 	}
 	return *o.Description
@@ -191,57 +187,32 @@ func (o *PolicyRule) SetDescription(v string) {
 func (o *PolicyRule) GetParams() []PolicyRuleParams {
 	if o == nil || o.Params == nil {
 		var ret []PolicyRuleParams
->>>>>>> 48fc108 (feat: updated the enterprise ref)
 		return ret
 	}
-	return *o.Description
+	return *o.Params
 }
 
-// GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
+// GetParamsOk returns a tuple with the Params field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *PolicyRule) GetDescriptionOk() (*string, bool) {
-	if o == nil || o.Description == nil {
+func (o *PolicyRule) GetParamsOk() (*[]PolicyRuleParams, bool) {
+	if o == nil || o.Params == nil {
 		return nil, false
 	}
-	return o.Description, true
+	return o.Params, true
 }
 
-// HasDescription returns a boolean if a field has been set.
-func (o *PolicyRule) HasDescription() bool {
-	if o != nil && o.Description != nil {
+// HasParams returns a boolean if a field has been set.
+func (o *PolicyRule) HasParams() bool {
+	if o != nil && o.Params != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetDescription gets a reference to the given string and assigns it to the Description field.
-func (o *PolicyRule) SetDescription(v string) {
-	o.Description = &v
-}
-
-// GetParams returns the Params field value
-func (o *PolicyRule) GetParams() []PolicyRuleParams {
-	if o == nil {
-		var ret []PolicyRuleParams
-		return ret
-	}
-
-	return o.Params
-}
-
-// GetParamsOk returns a tuple with the Params field value
-// and a boolean to check if the value has been set.
-func (o *PolicyRule) GetParamsOk() (*[]PolicyRuleParams, bool) {
-	if o == nil  {
-		return nil, false
-	}
-	return &o.Params, true
-}
-
-// SetParams sets field value
+// SetParams gets a reference to the given []PolicyRuleParams and assigns it to the Params field.
 func (o *PolicyRule) SetParams(v []PolicyRuleParams) {
-	o.Params = v
+	o.Params = &v
 }
 
 // GetRecommendation returns the Recommendation field value if set, zero value otherwise.
@@ -278,7 +249,7 @@ func (o *PolicyRule) SetRecommendation(v string) {
 
 func (o PolicyRule) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
-	if true {
+	if o.Id != nil {
 		toSerialize["id"] = o.Id
 	}
 	if true {
@@ -293,11 +264,7 @@ func (o PolicyRule) MarshalJSON() ([]byte, error) {
 	if o.Description != nil {
 		toSerialize["description"] = o.Description
 	}
-<<<<<<< HEAD
-	if true {
-=======
 	if o.Params != nil {
->>>>>>> 48fc108 (feat: updated the enterprise ref)
 		toSerialize["params"] = o.Params
 	}
 	if o.Recommendation != nil {

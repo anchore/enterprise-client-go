@@ -3,11 +3,7 @@ Anchore API
 
 This is the Anchore API. Provides the external API for users of Anchore Enterprise.
 
-<<<<<<< HEAD
-API version: 2.0.0
-=======
-API version: 0.1.0
->>>>>>> 48fc108 (feat: updated the enterprise ref)
+API version: 1.0.0
 Contact: dev@anchore.com
 */
 
@@ -23,7 +19,7 @@ import (
 type MetadataResponse struct {
 	ImageDigest *string `json:"image_digest,omitempty"`
 	MetadataType *string `json:"metadata_type,omitempty"`
-	Metadata interface{} `json:"metadata,omitempty"`
+	Metadata *interface{} `json:"metadata,omitempty"`
 }
 
 // NewMetadataResponse instantiates a new MetadataResponse object
@@ -107,23 +103,22 @@ func (o *MetadataResponse) SetMetadataType(v string) {
 	o.MetadataType = &v
 }
 
-// GetMetadata returns the Metadata field value if set, zero value otherwise (both if not set or set to explicit null).
+// GetMetadata returns the Metadata field value if set, zero value otherwise.
 func (o *MetadataResponse) GetMetadata() interface{} {
-	if o == nil  {
+	if o == nil || o.Metadata == nil {
 		var ret interface{}
 		return ret
 	}
-	return o.Metadata
+	return *o.Metadata
 }
 
 // GetMetadataOk returns a tuple with the Metadata field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *MetadataResponse) GetMetadataOk() (*interface{}, bool) {
 	if o == nil || o.Metadata == nil {
 		return nil, false
 	}
-	return &o.Metadata, true
+	return o.Metadata, true
 }
 
 // HasMetadata returns a boolean if a field has been set.
@@ -137,7 +132,7 @@ func (o *MetadataResponse) HasMetadata() bool {
 
 // SetMetadata gets a reference to the given interface{} and assigns it to the Metadata field.
 func (o *MetadataResponse) SetMetadata(v interface{}) {
-	o.Metadata = v
+	o.Metadata = &v
 }
 
 func (o MetadataResponse) MarshalJSON() ([]byte, error) {

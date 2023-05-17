@@ -3,11 +3,7 @@ Anchore API
 
 This is the Anchore API. Provides the external API for users of Anchore Enterprise.
 
-<<<<<<< HEAD
-API version: 2.0.0
-=======
-API version: 0.1.0
->>>>>>> 48fc108 (feat: updated the enterprise ref)
+API version: 1.0.0
 Contact: dev@anchore.com
 */
 
@@ -34,7 +30,6 @@ type ContentPackageResponseContent struct {
 	MetadataType *string `json:"metadata_type,omitempty"`
 	// Package type specific metadata
 	Metadata *interface{} `json:"metadata,omitempty"`
-	Purl *string `json:"purl,omitempty"`
 }
 
 // NewContentPackageResponseContent instantiates a new ContentPackageResponseContent object
@@ -374,38 +369,6 @@ func (o *ContentPackageResponseContent) SetMetadata(v interface{}) {
 	o.Metadata = &v
 }
 
-// GetPurl returns the Purl field value if set, zero value otherwise.
-func (o *ContentPackageResponseContent) GetPurl() string {
-	if o == nil || o.Purl == nil {
-		var ret string
-		return ret
-	}
-	return *o.Purl
-}
-
-// GetPurlOk returns a tuple with the Purl field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *ContentPackageResponseContent) GetPurlOk() (*string, bool) {
-	if o == nil || o.Purl == nil {
-		return nil, false
-	}
-	return o.Purl, true
-}
-
-// HasPurl returns a boolean if a field has been set.
-func (o *ContentPackageResponseContent) HasPurl() bool {
-	if o != nil && o.Purl != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetPurl gets a reference to the given string and assigns it to the Purl field.
-func (o *ContentPackageResponseContent) SetPurl(v string) {
-	o.Purl = &v
-}
-
 func (o ContentPackageResponseContent) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.Package != nil {
@@ -437,9 +400,6 @@ func (o ContentPackageResponseContent) MarshalJSON() ([]byte, error) {
 	}
 	if o.Metadata != nil {
 		toSerialize["metadata"] = o.Metadata
-	}
-	if o.Purl != nil {
-		toSerialize["purl"] = o.Purl
 	}
 	return json.Marshal(toSerialize)
 }

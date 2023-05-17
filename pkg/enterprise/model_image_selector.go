@@ -3,11 +3,7 @@ Anchore API
 
 This is the Anchore API. Provides the external API for users of Anchore Enterprise.
 
-<<<<<<< HEAD
-API version: 2.0.0
-=======
-API version: 0.1.0
->>>>>>> 48fc108 (feat: updated the enterprise ref)
+API version: 1.0.0
 Contact: dev@anchore.com
 */
 
@@ -19,7 +15,7 @@ import (
 	"encoding/json"
 )
 
-// ImageSelector A set of selection criteria to match an image by a tagged pull string based on its components, with regex support in each field
+// ImageSelector A set of selection criteria to match an image by a tagged pullstring based on its components, with regex support in each field
 type ImageSelector struct {
 	// The registry section of a pull string. e.g. with \"docker.io/anchore/anchore-engine:latest\", this is \"docker.io\"
 	Registry *string `json:"registry,omitempty"`
