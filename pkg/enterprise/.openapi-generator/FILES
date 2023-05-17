@@ -134,6 +134,7 @@ docs/ImageImportManifest.md
 docs/ImageImportOperation.md
 docs/ImagePackageManifest.md
 docs/ImagePackageVulnerability.md
+docs/ImagePackageVulnerabilityAllOf.md
 docs/ImagePackageVulnerabilityResponse.md
 docs/ImageRef.md
 docs/ImageReference.md
@@ -438,6 +439,7 @@ model_image_import_manifest.go
 model_image_import_operation.go
 model_image_package_manifest.go
 model_image_package_vulnerability.go
+model_image_package_vulnerability_all_of.go
 model_image_package_vulnerability_response.go
 model_image_ref.go
 model_image_reference.go

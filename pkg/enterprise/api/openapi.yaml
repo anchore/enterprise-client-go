@@ -8,7 +8,7 @@ info:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
   title: Anchore API
-  version: 0.1.0
+  version: 1.0.0
 servers:
 - url: /
 tags:
@@ -11193,17 +11193,9 @@ components:
       - source
       type: object
     ImagePackageVulnerability:
-      example:
-        package_vulnerability: '{}'
-        inherited_from_base: true
-      properties:
-        package_vulnerability:
-          type: object
-        inherited_from_base:
-          description: True if the vulnerable artifact is found in the base image.
-            False otherwise
-          type: boolean
-      type: object
+      allOf:
+      - $ref: '#/components/schemas/PackageVulnerability'
+      - $ref: '#/components/schemas/ImagePackageVulnerability_allOf'
     ImagePackageVulnerabilityResponse:
       description: envelope containing list of vulnerabilities
       example:
@@ -11211,10 +11203,8 @@ components:
         base_digest: base_digest
         image_digest: image_digest
         vulnerabilities:
-        - package_vulnerability: '{}'
-          inherited_from_base: true
-        - package_vulnerability: '{}'
-          inherited_from_base: true
+        - null
+        - null
       properties:
         image_digest:
           type: string
@@ -16262,6 +16252,13 @@ components:
         timestamp:
           format: date-time
           type: string
+      type: object
+    ImagePackageVulnerability_allOf:
+      properties:
+        inherited_from_base:
+          description: True if the vulnerable artifact is found in the base image.
+            False otherwise
+          type: boolean
       type: object
     KubernetesContainers_containers:
       example:
