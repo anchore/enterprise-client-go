@@ -116,17 +116,110 @@ Class | Method | HTTP request | Description
 *CorrectionsApi* | [**GetCorrectionByUuid**](docs/CorrectionsApi.md#getcorrectionbyuuid) | **Get** /corrections/{uuid} | Retrieve a correction by UUID
 *CorrectionsApi* | [**GetCorrections**](docs/CorrectionsApi.md#getcorrections) | **Get** /corrections | Retrieve a list of corrections
 *CorrectionsApi* | [**UpdateCorrectionByUuid**](docs/CorrectionsApi.md#updatecorrectionbyuuid) | **Put** /corrections/{uuid} | Update a correction by UUID
+*DefaultApi* | [**AddGithubConfiguration**](docs/DefaultApi.md#addgithubconfiguration) | **Post** /notifications/endpoints/github/configurations | 
+*DefaultApi* | [**AddGithubSelector**](docs/DefaultApi.md#addgithubselector) | **Post** /notifications/endpoints/github/configurations/{uuid}/selectors | 
+*DefaultApi* | [**AddIdp**](docs/DefaultApi.md#addidp) | **Post** /rbac-manager/saml/idps | 
+*DefaultApi* | [**AddJiraConfiguration**](docs/DefaultApi.md#addjiraconfiguration) | **Post** /notifications/endpoints/jira/configurations | 
+*DefaultApi* | [**AddJiraSelector**](docs/DefaultApi.md#addjiraselector) | **Post** /notifications/endpoints/jira/configurations/{uuid}/selectors | 
+*DefaultApi* | [**AddRoleUser**](docs/DefaultApi.md#addroleuser) | **Post** /rbac-manager/roles/{role_name}/members | Add a user to the role
+*DefaultApi* | [**AddSlackConfiguration**](docs/DefaultApi.md#addslackconfiguration) | **Post** /notifications/endpoints/slack/configurations | 
+*DefaultApi* | [**AddSlackSelector**](docs/DefaultApi.md#addslackselector) | **Post** /notifications/endpoints/slack/configurations/{uuid}/selectors | 
+*DefaultApi* | [**AddSmtpConfiguration**](docs/DefaultApi.md#addsmtpconfiguration) | **Post** /notifications/endpoints/smtp/configurations | 
+*DefaultApi* | [**AddSmtpSelector**](docs/DefaultApi.md#addsmtpselector) | **Post** /notifications/endpoints/smtp/configurations/{uuid}/selectors | 
+*DefaultApi* | [**AddTeamsConfiguration**](docs/DefaultApi.md#addteamsconfiguration) | **Post** /notifications/endpoints/teams/configurations | 
+*DefaultApi* | [**AddTeamsSelector**](docs/DefaultApi.md#addteamsselector) | **Post** /notifications/endpoints/teams/configurations/{uuid}/selectors | 
+*DefaultApi* | [**AddWebhookConfiguration**](docs/DefaultApi.md#addwebhookconfiguration) | **Post** /notifications/endpoints/webhook/configurations | 
+*DefaultApi* | [**AddWebhookSelector**](docs/DefaultApi.md#addwebhookselector) | **Post** /notifications/endpoints/webhook/configurations/{uuid}/selectors | 
+*DefaultApi* | [**DeleteGithubConfiguration**](docs/DefaultApi.md#deletegithubconfiguration) | **Delete** /notifications/endpoints/github/configurations/{uuid} | 
+*DefaultApi* | [**DeleteGithubSelector**](docs/DefaultApi.md#deletegithubselector) | **Delete** /notifications/endpoints/github/configurations/{configuration_uuid}/selectors/{selector_uuid} | 
+*DefaultApi* | [**DeleteIdp**](docs/DefaultApi.md#deleteidp) | **Delete** /rbac-manager/saml/idps/{name} | 
+*DefaultApi* | [**DeleteJiraConfiguration**](docs/DefaultApi.md#deletejiraconfiguration) | **Delete** /notifications/endpoints/jira/configurations/{uuid} | 
+*DefaultApi* | [**DeleteJiraSelector**](docs/DefaultApi.md#deletejiraselector) | **Delete** /notifications/endpoints/jira/configurations/{configuration_uuid}/selectors/{selector_uuid} | 
 *DefaultApi* | [**DeleteKubernetesNamespaces**](docs/DefaultApi.md#deletekubernetesnamespaces) | **Delete** /kubernetes-namespaces | Delete Kubernetes namespaces for a given criteria
+*DefaultApi* | [**DeleteRoleUser**](docs/DefaultApi.md#deleteroleuser) | **Delete** /rbac-manager/roles/{role_name}/members | Remove a user from the role
+*DefaultApi* | [**DeleteSlackConfiguration**](docs/DefaultApi.md#deleteslackconfiguration) | **Delete** /notifications/endpoints/slack/configurations/{uuid} | 
+*DefaultApi* | [**DeleteSlackSelector**](docs/DefaultApi.md#deleteslackselector) | **Delete** /notifications/endpoints/slack/configurations/{configuration_uuid}/selectors/{selector_uuid} | 
+*DefaultApi* | [**DeleteSmtpConfiguration**](docs/DefaultApi.md#deletesmtpconfiguration) | **Delete** /notifications/endpoints/smtp/configurations/{uuid} | 
+*DefaultApi* | [**DeleteSmtpSelector**](docs/DefaultApi.md#deletesmtpselector) | **Delete** /notifications/endpoints/smtp/configurations/{configuration_uuid}/selectors/{selector_uuid} | 
+*DefaultApi* | [**DeleteTeamsConfiguration**](docs/DefaultApi.md#deleteteamsconfiguration) | **Delete** /notifications/endpoints/teams/configurations/{uuid} | 
+*DefaultApi* | [**DeleteTeamsSelector**](docs/DefaultApi.md#deleteteamsselector) | **Delete** /notifications/endpoints/teams/configurations/{configuration_uuid}/selectors/{selector_uuid} | 
+*DefaultApi* | [**DeleteWebhookConfiguration**](docs/DefaultApi.md#deletewebhookconfiguration) | **Delete** /notifications/endpoints/webhook/configurations/{uuid} | 
+*DefaultApi* | [**DeleteWebhookSelector**](docs/DefaultApi.md#deletewebhookselector) | **Delete** /notifications/endpoints/webhook/configurations/{configuration_uuid}/selectors/{selector_uuid} | 
+*DefaultApi* | [**GetGithubConfiguration**](docs/DefaultApi.md#getgithubconfiguration) | **Get** /notifications/endpoints/github/configurations/{uuid} | 
+*DefaultApi* | [**GetGithubConfigurationStatus**](docs/DefaultApi.md#getgithubconfigurationstatus) | **Get** /notifications/endpoints/github/configurations/{uuid}/status | 
+*DefaultApi* | [**GetGithubSelector**](docs/DefaultApi.md#getgithubselector) | **Get** /notifications/endpoints/github/configurations/{configuration_uuid}/selectors/{selector_uuid} | 
+*DefaultApi* | [**GetGlobalQueryResult**](docs/DefaultApi.md#getglobalqueryresult) | **Get** /reporting/reports/global/scheduled-query-results/{result_uuid} | 
+*DefaultApi* | [**GetIdp**](docs/DefaultApi.md#getidp) | **Get** /rbac-manager/saml/idps/{name} | 
+*DefaultApi* | [**GetJiraConfiguration**](docs/DefaultApi.md#getjiraconfiguration) | **Get** /notifications/endpoints/jira/configurations/{uuid} | 
+*DefaultApi* | [**GetJiraConfigurationStatus**](docs/DefaultApi.md#getjiraconfigurationstatus) | **Get** /notifications/endpoints/jira/configurations/{uuid}/status | 
+*DefaultApi* | [**GetJiraSelector**](docs/DefaultApi.md#getjiraselector) | **Get** /notifications/endpoints/jira/configurations/{configuration_uuid}/selectors/{selector_uuid} | 
 *DefaultApi* | [**GetKubernetesContainers**](docs/DefaultApi.md#getkubernetescontainers) | **Get** /kubernetes-containers | Return a list of Kubernetes containers that have been inventoried for this account
 *DefaultApi* | [**GetKubernetesNamespaces**](docs/DefaultApi.md#getkubernetesnamespaces) | **Get** /kubernetes-namespaces | Return a list of Kubernetes namespaces that have been inventoried for this account
 *DefaultApi* | [**GetKubernetesNodes**](docs/DefaultApi.md#getkubernetesnodes) | **Get** /kubernetes-nodes | Return a list of Kubernetes nodes that have been inventoried for this account
 *DefaultApi* | [**GetOauthToken**](docs/DefaultApi.md#getoauthtoken) | **Post** /oauth/token | 
+*DefaultApi* | [**GetQueryResult**](docs/DefaultApi.md#getqueryresult) | **Get** /reporting/scheduled-query-results/{result_uuid} | 
+*DefaultApi* | [**GetRole**](docs/DefaultApi.md#getrole) | **Get** /rbac-manager/roles/{role_name} | Get detailed information about a specific role
+*DefaultApi* | [**GetSlackConfiguration**](docs/DefaultApi.md#getslackconfiguration) | **Get** /notifications/endpoints/slack/configurations/{uuid} | 
+*DefaultApi* | [**GetSlackConfigurationStatus**](docs/DefaultApi.md#getslackconfigurationstatus) | **Get** /notifications/endpoints/slack/configurations/{uuid}/status | 
+*DefaultApi* | [**GetSlackSelector**](docs/DefaultApi.md#getslackselector) | **Get** /notifications/endpoints/slack/configurations/{configuration_uuid}/selectors/{selector_uuid} | 
+*DefaultApi* | [**GetSmtpConfiguration**](docs/DefaultApi.md#getsmtpconfiguration) | **Get** /notifications/endpoints/smtp/configurations/{uuid} | 
+*DefaultApi* | [**GetSmtpConfigurationStatus**](docs/DefaultApi.md#getsmtpconfigurationstatus) | **Get** /notifications/endpoints/smtp/configurations/{uuid}/status | 
+*DefaultApi* | [**GetSmtpSelector**](docs/DefaultApi.md#getsmtpselector) | **Get** /notifications/endpoints/smtp/configurations/{configuration_uuid}/selectors/{selector_uuid} | 
+*DefaultApi* | [**GetStatus**](docs/DefaultApi.md#getstatus) | **Get** /status | Service status
+*DefaultApi* | [**GetTeamsConfiguration**](docs/DefaultApi.md#getteamsconfiguration) | **Get** /notifications/endpoints/teams/configurations/{uuid} | 
+*DefaultApi* | [**GetTeamsConfigurationStatus**](docs/DefaultApi.md#getteamsconfigurationstatus) | **Get** /notifications/endpoints/teams/configurations/{uuid}/status | 
+*DefaultApi* | [**GetTeamsSelector**](docs/DefaultApi.md#getteamsselector) | **Get** /notifications/endpoints/teams/configurations/{configuration_uuid}/selectors/{selector_uuid} | 
+*DefaultApi* | [**GetWebhookConfiguration**](docs/DefaultApi.md#getwebhookconfiguration) | **Get** /notifications/endpoints/webhook/configurations/{uuid} | 
+*DefaultApi* | [**GetWebhookConfigurationStatus**](docs/DefaultApi.md#getwebhookconfigurationstatus) | **Get** /notifications/endpoints/webhook/configurations/{uuid}/status | 
+*DefaultApi* | [**GetWebhookSelector**](docs/DefaultApi.md#getwebhookselector) | **Get** /notifications/endpoints/webhook/configurations/{configuration_uuid}/selectors/{selector_uuid} | 
 *DefaultApi* | [**HealthCheck**](docs/DefaultApi.md#healthcheck) | **Get** /health | 
+*DefaultApi* | [**ListEndpoints**](docs/DefaultApi.md#listendpoints) | **Get** /notifications/endpoints | 
 *DefaultApi* | [**ListFileContentSearchResults**](docs/DefaultApi.md#listfilecontentsearchresults) | **Get** /images/{image_digest}/artifacts/file_content_search | Return a list of analyzer artifacts of the specified type
+*DefaultApi* | [**ListGithubConfigurations**](docs/DefaultApi.md#listgithubconfigurations) | **Get** /notifications/endpoints/github/configurations | 
+*DefaultApi* | [**ListGithubSelectors**](docs/DefaultApi.md#listgithubselectors) | **Get** /notifications/endpoints/github/configurations/{uuid}/selectors | 
+*DefaultApi* | [**ListIdps**](docs/DefaultApi.md#listidps) | **Get** /rbac-manager/saml/idps | 
+*DefaultApi* | [**ListJiraConfigurations**](docs/DefaultApi.md#listjiraconfigurations) | **Get** /notifications/endpoints/jira/configurations | 
+*DefaultApi* | [**ListJiraSelectors**](docs/DefaultApi.md#listjiraselectors) | **Get** /notifications/endpoints/jira/configurations/{uuid}/selectors | 
 *DefaultApi* | [**ListRetrievedFiles**](docs/DefaultApi.md#listretrievedfiles) | **Get** /images/{image_digest}/artifacts/retrieved_files | Return a list of analyzer artifacts of the specified type
+*DefaultApi* | [**ListRoleMembers**](docs/DefaultApi.md#listrolemembers) | **Get** /rbac-manager/roles/{role_name}/members | Returns a list of objects that have members in the role. The list is filtered by &#39;listRoleMembers&#39; access for the &#39;account&#39; element of each entry.
+*DefaultApi* | [**ListRoles**](docs/DefaultApi.md#listroles) | **Get** /rbac-manager/roles | List roles available in the system
 *DefaultApi* | [**ListSecretSearchResults**](docs/DefaultApi.md#listsecretsearchresults) | **Get** /images/{image_digest}/artifacts/secret_search | Return a list of analyzer artifacts of the specified type
+*DefaultApi* | [**ListSelectors**](docs/DefaultApi.md#listselectors) | **Get** /notifications/selectors | 
+*DefaultApi* | [**ListSlackConfigurations**](docs/DefaultApi.md#listslackconfigurations) | **Get** /notifications/endpoints/slack/configurations | 
+*DefaultApi* | [**ListSlackSelectors**](docs/DefaultApi.md#listslackselectors) | **Get** /notifications/endpoints/slack/configurations/{uuid}/selectors | 
+*DefaultApi* | [**ListSmtpConfigurations**](docs/DefaultApi.md#listsmtpconfigurations) | **Get** /notifications/endpoints/smtp/configurations | 
+*DefaultApi* | [**ListSmtpSelectors**](docs/DefaultApi.md#listsmtpselectors) | **Get** /notifications/endpoints/smtp/configurations/{uuid}/selectors | 
+*DefaultApi* | [**ListTeamsConfigurations**](docs/DefaultApi.md#listteamsconfigurations) | **Get** /notifications/endpoints/teams/configurations | 
+*DefaultApi* | [**ListTeamsSelectors**](docs/DefaultApi.md#listteamsselectors) | **Get** /notifications/endpoints/teams/configurations/{uuid}/selectors | 
+*DefaultApi* | [**ListUserRoles**](docs/DefaultApi.md#listuserroles) | **Get** /rbac-manager/users/{username}/roles | List the roles for which the requested user is a member
+*DefaultApi* | [**ListWebhookConfigurations**](docs/DefaultApi.md#listwebhookconfigurations) | **Get** /notifications/endpoints/webhook/configurations | 
+*DefaultApi* | [**ListWebhookSelectors**](docs/DefaultApi.md#listwebhookselectors) | **Get** /notifications/endpoints/webhook/configurations/{uuid}/selectors | 
+*DefaultApi* | [**MyRoles**](docs/DefaultApi.md#myroles) | **Get** /rbac-manager/my-roles | List the roles for which the authenticated user is a member
+*DefaultApi* | [**Notify**](docs/DefaultApi.md#notify) | **Post** /notifications/internal/endpoints/{name}/configurations/{uuid}/notify | 
 *DefaultApi* | [**Ping**](docs/DefaultApi.md#ping) | **Get** / | 
 *DefaultApi* | [**RevokeOauthToken**](docs/DefaultApi.md#revokeoauthtoken) | **Post** /oauth/revoke | 
+*DefaultApi* | [**SamlLogin**](docs/DefaultApi.md#samllogin) | **Get** /rbac-manager/saml/login/{idp_name} | 
+*DefaultApi* | [**SamlSso**](docs/DefaultApi.md#samlsso) | **Post** /rbac-manager/saml/sso/{idp_name} | 
+*DefaultApi* | [**TestGithubConfiguration**](docs/DefaultApi.md#testgithubconfiguration) | **Post** /notifications/endpoints/github/test | 
+*DefaultApi* | [**TestJiraConfiguration**](docs/DefaultApi.md#testjiraconfiguration) | **Post** /notifications/endpoints/jira/test | 
+*DefaultApi* | [**TestSlackConfiguration**](docs/DefaultApi.md#testslackconfiguration) | **Post** /notifications/endpoints/slack/test | 
+*DefaultApi* | [**TestSmtpConfiguration**](docs/DefaultApi.md#testsmtpconfiguration) | **Post** /notifications/endpoints/smtp/test | 
+*DefaultApi* | [**TestTeamsConfiguration**](docs/DefaultApi.md#testteamsconfiguration) | **Post** /notifications/endpoints/teams/test | 
+*DefaultApi* | [**TestWebhookConfiguration**](docs/DefaultApi.md#testwebhookconfiguration) | **Post** /notifications/endpoints/webhook/test | 
+*DefaultApi* | [**UpdateEndpointStatus**](docs/DefaultApi.md#updateendpointstatus) | **Put** /notifications/endpoints/{name} | 
+*DefaultApi* | [**UpdateGithubConfiguration**](docs/DefaultApi.md#updategithubconfiguration) | **Put** /notifications/endpoints/github/configurations/{uuid} | 
+*DefaultApi* | [**UpdateGithubSelector**](docs/DefaultApi.md#updategithubselector) | **Put** /notifications/endpoints/github/configurations/{configuration_uuid}/selectors/{selector_uuid} | 
+*DefaultApi* | [**UpdateIdp**](docs/DefaultApi.md#updateidp) | **Put** /rbac-manager/saml/idps/{name} | 
+*DefaultApi* | [**UpdateJiraConfiguration**](docs/DefaultApi.md#updatejiraconfiguration) | **Put** /notifications/endpoints/jira/configurations/{uuid} | 
+*DefaultApi* | [**UpdateJiraSelector**](docs/DefaultApi.md#updatejiraselector) | **Put** /notifications/endpoints/jira/configurations/{configuration_uuid}/selectors/{selector_uuid} | 
+*DefaultApi* | [**UpdateSlackConfiguration**](docs/DefaultApi.md#updateslackconfiguration) | **Put** /notifications/endpoints/slack/configurations/{uuid} | 
+*DefaultApi* | [**UpdateSlackSelector**](docs/DefaultApi.md#updateslackselector) | **Put** /notifications/endpoints/slack/configurations/{configuration_uuid}/selectors/{selector_uuid} | 
+*DefaultApi* | [**UpdateSmtpConfiguration**](docs/DefaultApi.md#updatesmtpconfiguration) | **Put** /notifications/endpoints/smtp/configurations/{uuid} | 
+*DefaultApi* | [**UpdateSmtpSelector**](docs/DefaultApi.md#updatesmtpselector) | **Put** /notifications/endpoints/smtp/configurations/{configuration_uuid}/selectors/{selector_uuid} | 
+*DefaultApi* | [**UpdateTeamsConfiguration**](docs/DefaultApi.md#updateteamsconfiguration) | **Put** /notifications/endpoints/teams/configurations/{uuid} | 
+*DefaultApi* | [**UpdateTeamsSelector**](docs/DefaultApi.md#updateteamsselector) | **Put** /notifications/endpoints/teams/configurations/{configuration_uuid}/selectors/{selector_uuid} | 
+*DefaultApi* | [**UpdateWebhookConfiguration**](docs/DefaultApi.md#updatewebhookconfiguration) | **Put** /notifications/endpoints/webhook/configurations/{uuid} | 
+*DefaultApi* | [**UpdateWebhookSelector**](docs/DefaultApi.md#updatewebhookselector) | **Put** /notifications/endpoints/webhook/configurations/{configuration_uuid}/selectors/{selector_uuid} | 
 *DefaultApi* | [**VersionCheck**](docs/DefaultApi.md#versioncheck) | **Get** /version | 
 *EventsApi* | [**DeleteEvent**](docs/EventsApi.md#deleteevent) | **Delete** /events/{event_id} | Delete Event
 *EventsApi* | [**DeleteEvents**](docs/EventsApi.md#deleteevents) | **Delete** /events | Delete Events
@@ -243,7 +336,6 @@ Class | Method | HTTP request | Description
 *SystemApi* | [**GetServiceDetail**](docs/SystemApi.md#getservicedetail) | **Get** /system | System status
 *SystemApi* | [**GetServicesByName**](docs/SystemApi.md#getservicesbyname) | **Get** /system/services/{service_name} | Get a service configuration and state
 *SystemApi* | [**GetServicesByNameAndHost**](docs/SystemApi.md#getservicesbynameandhost) | **Get** /system/services/{service_name}/{host_id} | Get service config for a specific host
-*SystemApi* | [**GetStatus**](docs/SystemApi.md#getstatus) | **Get** /status | Service status
 *SystemApi* | [**GetSystemFeeds**](docs/SystemApi.md#getsystemfeeds) | **Get** /system/feeds | list feeds operations and information
 *SystemApi* | [**ListServices**](docs/SystemApi.md#listservices) | **Get** /system/services | List system services
 *SystemApi* | [**PostSystemFeeds**](docs/SystemApi.md#postsystemfeeds) | **Post** /system/feeds | trigger feeds operations
@@ -413,7 +505,41 @@ Class | Method | HTTP request | Description
  - [NativeSBOMPackageRelationship](docs/NativeSBOMPackageRelationship.md)
  - [NativeSBOMSchema](docs/NativeSBOMSchema.md)
  - [NativeSBOMSource](docs/NativeSBOMSource.md)
+ - [NotificationActionPlanNotificationPayload](docs/NotificationActionPlanNotificationPayload.md)
+ - [NotificationActionPlanNotificationPayloadAllOf](docs/NotificationActionPlanNotificationPayloadAllOf.md)
+ - [NotificationApiErrorResponse](docs/NotificationApiErrorResponse.md)
  - [NotificationBase](docs/NotificationBase.md)
+ - [NotificationDispatchResult](docs/NotificationDispatchResult.md)
+ - [NotificationEndpoint](docs/NotificationEndpoint.md)
+ - [NotificationEndpointConfiguration](docs/NotificationEndpointConfiguration.md)
+ - [NotificationEndpointEnabledStatus](docs/NotificationEndpointEnabledStatus.md)
+ - [NotificationEventSelector](docs/NotificationEventSelector.md)
+ - [NotificationGitHubEndpointConfiguration](docs/NotificationGitHubEndpointConfiguration.md)
+ - [NotificationGitHubEndpointConfigurationAllOf](docs/NotificationGitHubEndpointConfigurationAllOf.md)
+ - [NotificationGitHubTestResult](docs/NotificationGitHubTestResult.md)
+ - [NotificationJiraEndpointConfiguration](docs/NotificationJiraEndpointConfiguration.md)
+ - [NotificationJiraEndpointConfigurationAllOf](docs/NotificationJiraEndpointConfigurationAllOf.md)
+ - [NotificationJiraTestResult](docs/NotificationJiraTestResult.md)
+ - [NotificationOperationalStatus](docs/NotificationOperationalStatus.md)
+ - [NotificationSMTPEndpointConfiguration](docs/NotificationSMTPEndpointConfiguration.md)
+ - [NotificationSMTPEndpointConfigurationAllOf](docs/NotificationSMTPEndpointConfigurationAllOf.md)
+ - [NotificationSMTPTestResult](docs/NotificationSMTPTestResult.md)
+ - [NotificationSelector](docs/NotificationSelector.md)
+ - [NotificationServiceVersion](docs/NotificationServiceVersion.md)
+ - [NotificationServiceVersionApi](docs/NotificationServiceVersionApi.md)
+ - [NotificationServiceVersionDb](docs/NotificationServiceVersionDb.md)
+ - [NotificationServiceVersionEngine](docs/NotificationServiceVersionEngine.md)
+ - [NotificationServiceVersionService](docs/NotificationServiceVersionService.md)
+ - [NotificationSlackEndpointConfiguration](docs/NotificationSlackEndpointConfiguration.md)
+ - [NotificationSlackEndpointConfigurationAllOf](docs/NotificationSlackEndpointConfigurationAllOf.md)
+ - [NotificationSlackTestResult](docs/NotificationSlackTestResult.md)
+ - [NotificationStatusResponse](docs/NotificationStatusResponse.md)
+ - [NotificationSynchronousNotificationPayload](docs/NotificationSynchronousNotificationPayload.md)
+ - [NotificationTeamsEndpointConfiguration](docs/NotificationTeamsEndpointConfiguration.md)
+ - [NotificationTeamsTestResult](docs/NotificationTeamsTestResult.md)
+ - [NotificationWebhookEndpointConfiguration](docs/NotificationWebhookEndpointConfiguration.md)
+ - [NotificationWebhookEndpointConfigurationAllOf](docs/NotificationWebhookEndpointConfigurationAllOf.md)
+ - [NotificationWebhookTestResult](docs/NotificationWebhookTestResult.md)
  - [NvdDataObject](docs/NvdDataObject.md)
  - [Package](docs/Package.md)
  - [PackageReference](docs/PackageReference.md)
@@ -437,6 +563,17 @@ Class | Method | HTTP request | Description
  - [PolicyEvaluationResult](docs/PolicyEvaluationResult.md)
  - [PolicyRule](docs/PolicyRule.md)
  - [PolicyRuleParams](docs/PolicyRuleParams.md)
+ - [RbacManagerAccountRole](docs/RbacManagerAccountRole.md)
+ - [RbacManagerApiErrorResponse](docs/RbacManagerApiErrorResponse.md)
+ - [RbacManagerPermission](docs/RbacManagerPermission.md)
+ - [RbacManagerRole](docs/RbacManagerRole.md)
+ - [RbacManagerRoleMember](docs/RbacManagerRoleMember.md)
+ - [RbacManagerRoleMembership](docs/RbacManagerRoleMembership.md)
+ - [RbacManagerRoleSummary](docs/RbacManagerRoleSummary.md)
+ - [RbacManagerSamlConfiguration](docs/RbacManagerSamlConfiguration.md)
+ - [RbacManagerServiceVersion](docs/RbacManagerServiceVersion.md)
+ - [RbacManagerStatusResponse](docs/RbacManagerStatusResponse.md)
+ - [RbacManagerTokenResponse](docs/RbacManagerTokenResponse.md)
  - [RegexContentMatch](docs/RegexContentMatch.md)
  - [RegistryConfiguration](docs/RegistryConfiguration.md)
  - [RegistryConfigurationRequest](docs/RegistryConfigurationRequest.md)
@@ -444,6 +581,9 @@ Class | Method | HTTP request | Description
  - [RegistryTagSource](docs/RegistryTagSource.md)
  - [RelationshipSbomDiff](docs/RelationshipSbomDiff.md)
  - [RelationshipType](docs/RelationshipType.md)
+ - [ReportingApiErrorResponse](docs/ReportingApiErrorResponse.md)
+ - [ReportingServiceVersion](docs/ReportingServiceVersion.md)
+ - [ReportingStatusResponse](docs/ReportingStatusResponse.md)
  - [ResourceLabel](docs/ResourceLabel.md)
  - [RetrievedFile](docs/RetrievedFile.md)
  - [RuntimeComplianceCheck](docs/RuntimeComplianceCheck.md)
@@ -452,9 +592,6 @@ Class | Method | HTTP request | Description
  - [Service](docs/Service.md)
  - [ServiceReference](docs/ServiceReference.md)
  - [ServiceVersion](docs/ServiceVersion.md)
- - [ServiceVersionApi](docs/ServiceVersionApi.md)
- - [ServiceVersionDb](docs/ServiceVersionDb.md)
- - [ServiceVersionService](docs/ServiceVersionService.md)
  - [Source](docs/Source.md)
  - [SourceContentPackageResponse](docs/SourceContentPackageResponse.md)
  - [SourceContentPackageResponseContent](docs/SourceContentPackageResponseContent.md)
