@@ -10,11 +10,9 @@ OPENAPI_GENERATOR_VERSION = v5.2.1
 
 # --- anchore enterprise references
 # a git tag/branch/commit within anchore/enterprise repo
-ENTERPRISE_REF = 83861344c7152eb8eee5bf05d208b63de0dfaaef
+ENTERPRISE_REF = bfb4e93343b1293cba8296cd9ccff1cbdc3b33c9
 ENTERPRISE_ROOT = $(PROJECT_ROOT)/enterprise
-RBAC_ROOT = $(PROJECT_ROOT)/rbac
 ENTERPRISE_OPENAPI_DOC = $(PROJECT_ROOT)/anchore-api-swagger-$(ENTERPRISE_REF).yaml
-RBAC_OPENAPI_DOC = $(PROJECT_ROOT)/swagger-rbac-$(ENTERPRISE_REF).yaml
 
 define generate_openapi_client
 	# remove previous API clients
@@ -58,17 +56,15 @@ endef
 $(PROJECT_ROOT):
 	mkdir -p $(PROJECT_ROOT)
 
-$(RBAC_OPENAPI_DOC) $(ENTERPRISE_OPENAPI_DOC): $(PROJECT_ROOT) ## pull the enterprise external API swagger document
+$(ENTERPRISE_OPENAPI_DOC): $(PROJECT_ROOT) ## pull the enterprise external API swagger document
 	$(call clone)
 	# note: the existing upstream swagger document needs to be corrected, otherwise invalid code will be generated.
 	# the tr/sed cmds are a workaround for now.
 	cp $(CLONE_DIR)/anchore_enterprise/services/api/swagger/anchore_api_swagger.yaml $(ENTERPRISE_OPENAPI_DOC)
-	cp $(CLONE_DIR)/anchore_enterprise/swagger/rbac_manager_swagger.yaml $(RBAC_OPENAPI_DOC)
 
 .PHONY :=
-generate-clients: $(ENTERPRISE_OPENAPI_DOC) $(RBAC_OPENAPI_DOC) ## generate client code for anchore external API
+generate-clients: $(ENTERPRISE_OPENAPI_DOC) ## generate client code for anchore external API
 	$(call generate_openapi_client,$(ENTERPRISE_OPENAPI_DOC),enterprise,$(ENTERPRISE_ROOT))
-	$(call generate_openapi_client,$(RBAC_OPENAPI_DOC),rbac,$(RBAC_ROOT))
 	# add any tailored code via go generate
 	go generate .
 

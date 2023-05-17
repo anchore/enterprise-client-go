@@ -17,9 +17,9 @@ import (
 
 // ServiceVersion Version information for a service
 type ServiceVersion struct {
-	Service *ServiceVersionService `json:"service,omitempty"`
-	Api *ServiceVersionApi `json:"api,omitempty"`
-	Db *ServiceVersionDb `json:"db,omitempty"`
+	Service *NotificationServiceVersionService `json:"service,omitempty"`
+	Api *NotificationServiceVersionApi `json:"api,omitempty"`
+	Db *NotificationServiceVersionDb `json:"db,omitempty"`
 }
 
 // NewServiceVersion instantiates a new ServiceVersion object
@@ -40,9 +40,9 @@ func NewServiceVersionWithDefaults() *ServiceVersion {
 }
 
 // GetService returns the Service field value if set, zero value otherwise.
-func (o *ServiceVersion) GetService() ServiceVersionService {
+func (o *ServiceVersion) GetService() NotificationServiceVersionService {
 	if o == nil || o.Service == nil {
-		var ret ServiceVersionService
+		var ret NotificationServiceVersionService
 		return ret
 	}
 	return *o.Service
@@ -50,7 +50,7 @@ func (o *ServiceVersion) GetService() ServiceVersionService {
 
 // GetServiceOk returns a tuple with the Service field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ServiceVersion) GetServiceOk() (*ServiceVersionService, bool) {
+func (o *ServiceVersion) GetServiceOk() (*NotificationServiceVersionService, bool) {
 	if o == nil || o.Service == nil {
 		return nil, false
 	}
@@ -66,15 +66,15 @@ func (o *ServiceVersion) HasService() bool {
 	return false
 }
 
-// SetService gets a reference to the given ServiceVersionService and assigns it to the Service field.
-func (o *ServiceVersion) SetService(v ServiceVersionService) {
+// SetService gets a reference to the given NotificationServiceVersionService and assigns it to the Service field.
+func (o *ServiceVersion) SetService(v NotificationServiceVersionService) {
 	o.Service = &v
 }
 
 // GetApi returns the Api field value if set, zero value otherwise.
-func (o *ServiceVersion) GetApi() ServiceVersionApi {
+func (o *ServiceVersion) GetApi() NotificationServiceVersionApi {
 	if o == nil || o.Api == nil {
-		var ret ServiceVersionApi
+		var ret NotificationServiceVersionApi
 		return ret
 	}
 	return *o.Api
@@ -82,7 +82,7 @@ func (o *ServiceVersion) GetApi() ServiceVersionApi {
 
 // GetApiOk returns a tuple with the Api field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ServiceVersion) GetApiOk() (*ServiceVersionApi, bool) {
+func (o *ServiceVersion) GetApiOk() (*NotificationServiceVersionApi, bool) {
 	if o == nil || o.Api == nil {
 		return nil, false
 	}
@@ -98,15 +98,15 @@ func (o *ServiceVersion) HasApi() bool {
 	return false
 }
 
-// SetApi gets a reference to the given ServiceVersionApi and assigns it to the Api field.
-func (o *ServiceVersion) SetApi(v ServiceVersionApi) {
+// SetApi gets a reference to the given NotificationServiceVersionApi and assigns it to the Api field.
+func (o *ServiceVersion) SetApi(v NotificationServiceVersionApi) {
 	o.Api = &v
 }
 
 // GetDb returns the Db field value if set, zero value otherwise.
-func (o *ServiceVersion) GetDb() ServiceVersionDb {
+func (o *ServiceVersion) GetDb() NotificationServiceVersionDb {
 	if o == nil || o.Db == nil {
-		var ret ServiceVersionDb
+		var ret NotificationServiceVersionDb
 		return ret
 	}
 	return *o.Db
@@ -114,7 +114,7 @@ func (o *ServiceVersion) GetDb() ServiceVersionDb {
 
 // GetDbOk returns a tuple with the Db field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ServiceVersion) GetDbOk() (*ServiceVersionDb, bool) {
+func (o *ServiceVersion) GetDbOk() (*NotificationServiceVersionDb, bool) {
 	if o == nil || o.Db == nil {
 		return nil, false
 	}
@@ -130,8 +130,8 @@ func (o *ServiceVersion) HasDb() bool {
 	return false
 }
 
-// SetDb gets a reference to the given ServiceVersionDb and assigns it to the Db field.
-func (o *ServiceVersion) SetDb(v ServiceVersionDb) {
+// SetDb gets a reference to the given NotificationServiceVersionDb and assigns it to the Db field.
+func (o *ServiceVersion) SetDb(v NotificationServiceVersionDb) {
 	o.Db = &v
 }
 
