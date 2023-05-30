@@ -8,7 +8,7 @@ info:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
   title: Anchore Engine API Server
-  version: 0.6.0
+  version: 0.7.0
 servers:
 - url: /
 tags:
@@ -8013,8 +8013,10 @@ components:
         purl:
           type: string
         metadataType:
+          nullable: true
           type: string
         metadata:
+          nullable: true
           properties: {}
           type: object
       required:
@@ -8022,7 +8024,6 @@ components:
       - language
       - licenses
       - locations
-      - metadataType
       - name
       - type
       - version

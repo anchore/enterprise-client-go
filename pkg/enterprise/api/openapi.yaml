@@ -5,7 +5,7 @@ info:
   description: This is the Anchore Enterprise API. It provides additional external
     API routes and functionality for enterprise users.
   title: Anchore Enterprise API Server
-  version: 0.7.0
+  version: 0.8.0
 servers:
 - url: /enterprise
 tags:
@@ -330,9 +330,97 @@ paths:
       tags:
       - Inventories
       x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.runtime_inventory
-      x-anchore-authz-action: postKubernetesInventory
+      x-anchore-authz-action: syncInventory
       x-codegen-request-body-name: inventory
+  /kubernetes-containers:
+    get:
+      description: Return a list of Kubernetes containers that have been inventoried
+        for this account
+      operationId: get_kubernetes_containers
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/KubernetesContainers'
+          description: success
+        "500":
+          content: {}
+          description: Internal Error
+      summary: Return a list of Kubernetes containers that have been inventoried for
+        this account
+      tags:
+      - Inventories
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.runtime_inventory
+      x-anchore-authz-action: getKubernetesContainers
+  /kubernetes-nodes:
+    get:
+      description: Return a list of Kubernetes nodes that have been inventoried for
+        this account
+      operationId: get_kubernetes_nodes
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/KubernetesNodes'
+          description: success
+        "500":
+          content: {}
+          description: Internal Error
+      summary: Return a list of Kubernetes nodes that have been inventoried for this
+        account
+      tags:
+      - Inventories
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.runtime_inventory
+      x-anchore-authz-action: getKubernetesNodes
+  /kubernetes-nodes/{node_id}:
+    get:
+      description: Return Kubernetes node that has been inventoried for this account
+      operationId: get_kubernetes_node
+      parameters:
+      - in: path
+        name: node_id
+        required: true
+        schema:
+          format: path
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/KubernetesNode'
+          description: success
+        "500":
+          content: {}
+          description: Internal Error
+      summary: Return a Kubernetes node that has been inventoried for this account
+      tags:
+      - Inventories
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.runtime_inventory
+      x-anchore-authz-action: getKubernetesNodes
   /kubernetes-namespaces:
+    delete:
+      description: Delete Kubernetes namespaces for a given criteria
+      operationId: delete_kubernetes_namespaces
+      parameters:
+      - in: query
+        name: cluster_name
+        schema:
+          type: string
+      responses:
+        "204":
+          content: {}
+          description: success
+        "500":
+          content: {}
+          description: Internal Error
+      summary: Delete Kubernetes namespaces for a given criteria
+      tags:
+      - Inventories
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.runtime_inventory
+      x-anchore-authz-action: deleteKubernetesNamespaces
     get:
       description: Return a list of Kubernetes namespaces that have been inventoried
         for this account
@@ -349,8 +437,84 @@ paths:
           description: Internal Error
       summary: Return a list of Kubernetes namespaces that have been inventoried for
         this account
+      tags:
+      - Inventories
       x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.runtime_inventory
       x-anchore-authz-action: getKubernetesNamespaces
+  /kubernetes-namespaces/{namespace_id}:
+    get:
+      description: Return Kubernetes namespace that has been inventoried for this
+        account
+      operationId: get_kubernetes_namespace
+      parameters:
+      - in: path
+        name: namespace_id
+        required: true
+        schema:
+          format: path
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/KubernetesNamespace'
+          description: success
+        "500":
+          content: {}
+          description: Internal Error
+      summary: Return a Kubernetes namespace that has been inventoried for this account
+      tags:
+      - Inventories
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.runtime_inventory
+      x-anchore-authz-action: getKubernetesNamespaces
+  /kubernetes-pods:
+    get:
+      description: Return a list of Kubernetes pods that have been inventoried for
+        this account
+      operationId: get_kubernetes_pods
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/KubernetesPods'
+          description: success
+        "500":
+          content: {}
+          description: Internal Error
+      summary: Return a list of Kubernetes pods that have been inventoried for this
+        account
+      tags:
+      - Inventories
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.runtime_inventory
+      x-anchore-authz-action: getKubernetesPods
+  /kubernetes-pods/{pod_id}:
+    get:
+      description: Return a Kubernetes pod that has been inventoried for this account
+      operationId: get_kubernetes_pod
+      parameters:
+      - in: path
+        name: pod_id
+        required: true
+        schema:
+          format: path
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/KubernetesPod'
+          description: success
+        "500":
+          content: {}
+          description: Internal Error
+      summary: Return a Kubernetes pod that has been inventoried for this account
+      tags:
+      - Inventories
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.runtime_inventory
+      x-anchore-authz-action: getKubernetesPods
   /ecs-inventory:
     post:
       description: Add container metadata from Amazon ECS
@@ -372,8 +536,69 @@ paths:
       tags:
       - Inventories
       x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.runtime_inventory
-      x-anchore-authz-action: postEcsInventory
+      x-anchore-authz-action: syncInventory
       x-codegen-request-body-name: inventory
+  /ecs-containers:
+    get:
+      description: Return a list of ECS containers that have been inventoried for
+        this account
+      operationId: get_ecs_containers
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ECSContainers'
+          description: success
+        "500":
+          content: {}
+          description: Internal Error
+      summary: Return a list of ECS containers that have been inventoried for this
+        account
+      tags:
+      - Inventories
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.runtime_inventory
+      x-anchore-authz-action: getECSContainers
+  /ecs-tasks:
+    get:
+      description: Return a list of ECS tasks that have been inventoried for this
+        account
+      operationId: get_ecs_tasks
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ECSTasks'
+          description: success
+        "500":
+          content: {}
+          description: Internal Error
+      summary: Return a list of ECS tasks that have been inventoried for this account
+      tags:
+      - Inventories
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.runtime_inventory
+      x-anchore-authz-action: getECSTasks
+  /ecs-services:
+    get:
+      description: Return a list of ECS services that have been inventoried for this
+        account
+      operationId: get_ecs_services
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ECSServices'
+          description: success
+        "500":
+          content: {}
+          description: Internal Error
+      summary: Return a list of ECS services that have been inventoried for this account
+      tags:
+      - Inventories
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.runtime_inventory
+      x-anchore-authz-action: getECSServices
   /actions:
     get:
       description: Retrieves a list of action plans that have been completed
@@ -3005,17 +3230,43 @@ components:
           format: date-time
           type: string
       type: object
+    KubernetesContainers:
+      description: Containers defined in Kubernetes
+      example:
+        containers:
+        - image_digest: image_digest
+          account_name: account_name
+          name: name
+          context: context
+          id: id
+          image_tag: image_tag
+          pod_id: pod_id
+        - image_digest: image_digest
+          account_name: account_name
+          name: name
+          context: context
+          id: id
+          image_tag: image_tag
+          pod_id: pod_id
+      properties:
+        containers:
+          items:
+            $ref: '#/components/schemas/KubernetesContainers_containers'
+          type: array
+      type: object
     KubernetesNamespaces:
       description: Namespaces defined in Kubernetes
       example:
         namespaces:
         - uid: uid
+          last_seen: last_seen
           name: name
           annotations:
             key: annotations
           labels:
             key: labels
         - uid: uid
+          last_seen: last_seen
           name: name
           annotations:
             key: annotations
@@ -3024,8 +3275,162 @@ components:
       properties:
         namespaces:
           items:
-            $ref: '#/components/schemas/KubernetesNamespaces_namespaces'
+            $ref: '#/components/schemas/KubernetesNamespace'
           type: array
+      type: object
+    KubernetesNamespace:
+      example:
+        uid: uid
+        last_seen: last_seen
+        name: name
+        annotations:
+          key: annotations
+        labels:
+          key: labels
+      properties:
+        uid:
+          type: string
+        name:
+          type: string
+        labels:
+          additionalProperties:
+            type: string
+          type: object
+        annotations:
+          additionalProperties:
+            type: string
+          type: object
+        last_seen:
+          type: string
+      required:
+      - annotations
+      - labels
+      - name
+      - uid
+      type: object
+    KubernetesPods:
+      description: Pods defined in Kubernetes
+      example:
+        namespaces:
+        - namespace_id: namespace_id
+          last_seen: last_seen
+          account_name: account_name
+          name: name
+          annotations:
+            key: annotations
+          id: id
+          labels:
+            key: labels
+          node_id: node_id
+        - namespace_id: namespace_id
+          last_seen: last_seen
+          account_name: account_name
+          name: name
+          annotations:
+            key: annotations
+          id: id
+          labels:
+            key: labels
+          node_id: node_id
+      properties:
+        namespaces:
+          items:
+            $ref: '#/components/schemas/KubernetesPod'
+          type: array
+      type: object
+    KubernetesPod:
+      example:
+        namespace_id: namespace_id
+        last_seen: last_seen
+        account_name: account_name
+        name: name
+        annotations:
+          key: annotations
+        id: id
+        labels:
+          key: labels
+        node_id: node_id
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        account_name:
+          type: string
+        labels:
+          additionalProperties:
+            type: string
+          type: object
+        annotations:
+          additionalProperties:
+            type: string
+          type: object
+        node_id:
+          type: string
+        namespace_id:
+          type: string
+        last_seen:
+          type: string
+      required:
+      - account_name
+      - annotations
+      - id
+      - labels
+      - name
+      type: object
+    KubernetesNodes:
+      description: Nodes defined in Kubernetes
+      example:
+        namespaces:
+        - uid: uid
+          last_seen: last_seen
+          name: name
+          annotations:
+            key: annotations
+          labels:
+            key: labels
+        - uid: uid
+          last_seen: last_seen
+          name: name
+          annotations:
+            key: annotations
+          labels:
+            key: labels
+      properties:
+        namespaces:
+          items:
+            $ref: '#/components/schemas/KubernetesNode'
+          type: array
+      type: object
+    KubernetesNode:
+      example:
+        uid: uid
+        last_seen: last_seen
+        name: name
+        annotations:
+          key: annotations
+        labels:
+          key: labels
+      properties:
+        uid:
+          type: string
+        name:
+          type: string
+        labels:
+          additionalProperties:
+            type: string
+          type: object
+        annotations:
+          additionalProperties:
+            type: string
+          type: object
+        last_seen:
+          type: string
+      required:
+      - annotations
+      - labels
+      - name
+      - uid
       type: object
     KubernetesInventory:
       example:
@@ -3035,7 +3440,6 @@ components:
           kernel_version: kernel_version
           kube_proxy_version: kube_proxy_version
           name: name
-          kubernetes_version: kubernetes_version
           annotations:
             key: annotations
           operating_system: operating_system
@@ -3048,7 +3452,6 @@ components:
           kernel_version: kernel_version
           kube_proxy_version: kube_proxy_version
           name: name
-          kubernetes_version: kubernetes_version
           annotations:
             key: annotations
           operating_system: operating_system
@@ -3127,7 +3530,7 @@ components:
       type: object
     ECSInventory:
       example:
-        cluster_name: cluster_name
+        cluster_arn: cluster_arn
         containers:
         - task_arn: task_arn
           image_digest: image_digest
@@ -3137,22 +3540,27 @@ components:
           image_digest: image_digest
           image_tag: image_tag
           arn: arn
+        services:
+        - arn: arn
+          tags:
+            key: tags
+        - arn: arn
+          tags:
+            key: tags
         tasks:
-        - cluster_arn: cluster_arn
-          service_arn: service_arn
+        - service_arn: service_arn
           task_definition_arn: task_definition_arn
           arn: arn
           tags:
             key: tags
-        - cluster_arn: cluster_arn
-          service_arn: service_arn
+        - service_arn: service_arn
           task_definition_arn: task_definition_arn
           arn: arn
           tags:
             key: tags
         timestamp: 2000-01-23T04:56:07.000+00:00
       properties:
-        cluster_name:
+        cluster_arn:
           type: string
         timestamp:
           format: date-time
@@ -3166,9 +3574,80 @@ components:
           items:
             $ref: '#/components/schemas/ECSInventory_containers'
           type: array
+        services:
+          items:
+            $ref: '#/components/schemas/ECSInventory_services'
+          nullable: true
+          type: array
       required:
-      - cluster_name
+      - cluster_arn
       - timestamp
+      type: object
+    ECSContainers:
+      description: Containers defined in ECS
+      example:
+        containers:
+        - task_arn: task_arn
+          image_digest: image_digest
+          account_name: account_name
+          context: context
+          image_tag: image_tag
+          arn: arn
+        - task_arn: task_arn
+          image_digest: image_digest
+          account_name: account_name
+          context: context
+          image_tag: image_tag
+          arn: arn
+      properties:
+        containers:
+          items:
+            $ref: '#/components/schemas/ECSContainers_containers'
+          type: array
+      type: object
+    ECSTasks:
+      description: Tasks defined in ECS
+      example:
+        tasks:
+        - cluster_arn: cluster_arn
+          service_arn: service_arn
+          account_name: account_name
+          task_definition_arn: task_definition_arn
+          arn: arn
+          tags:
+            key: tags
+        - cluster_arn: cluster_arn
+          service_arn: service_arn
+          account_name: account_name
+          task_definition_arn: task_definition_arn
+          arn: arn
+          tags:
+            key: tags
+      properties:
+        tasks:
+          items:
+            $ref: '#/components/schemas/ECSTasks_tasks'
+          type: array
+      type: object
+    ECSServices:
+      description: Services defined in ECS
+      example:
+        services:
+        - cluster_arn: cluster_arn
+          account_name: account_name
+          arn: arn
+          tags:
+            key: tags
+        - cluster_arn: cluster_arn
+          account_name: account_name
+          arn: arn
+          tags:
+            key: tags
+      properties:
+        services:
+          items:
+            $ref: '#/components/schemas/ECSServices_services'
+          type: array
       type: object
     ActionPlans:
       description: List of Action Plans
@@ -5780,32 +6259,38 @@ components:
           nullable: true
           type: string
       type: object
-    KubernetesNamespaces_namespaces:
+    KubernetesContainers_containers:
       example:
-        uid: uid
+        image_digest: image_digest
+        account_name: account_name
         name: name
-        annotations:
-          key: annotations
-        labels:
-          key: labels
+        context: context
+        id: id
+        image_tag: image_tag
+        pod_id: pod_id
       properties:
-        uid:
+        id:
           type: string
         name:
           type: string
-        labels:
-          additionalProperties:
-            type: string
-          type: object
-        annotations:
-          additionalProperties:
-            type: string
-          type: object
+        pod_id:
+          type: string
+        account_name:
+          type: string
+        context:
+          type: string
+        image_tag:
+          type: string
+        image_digest:
+          type: string
       required:
-      - annotations
-      - labels
+      - account_name
+      - context
+      - id
+      - image_digest
+      - image_tag
       - name
-      - uid
+      - pod_id
       type: object
     KubernetesInventory_namespaces:
       example:
@@ -5841,7 +6326,6 @@ components:
         kernel_version: kernel_version
         kube_proxy_version: kube_proxy_version
         name: name
-        kubernetes_version: kubernetes_version
         annotations:
           key: annotations
         operating_system: operating_system
@@ -5867,8 +6351,6 @@ components:
             type: string
           type: object
         kernel_version:
-          type: string
-        kubernetes_version:
           type: string
         arch:
           type: string
@@ -5919,6 +6401,7 @@ components:
           type: object
       required:
       - name
+      - namespace_uid
       - uid
       type: object
     KubernetesInventory_containers:
@@ -5950,7 +6433,6 @@ components:
       type: object
     ECSInventory_tasks:
       example:
-        cluster_arn: cluster_arn
         service_arn: service_arn
         task_definition_arn: task_definition_arn
         arn: arn
@@ -5960,8 +6442,6 @@ components:
         arn:
           type: string
         service_arn:
-          type: string
-        cluster_arn:
           type: string
         task_definition_arn:
           type: string
@@ -5990,6 +6470,106 @@ components:
       required:
       - arn
       - image_tag
+      type: object
+    ECSInventory_services:
+      example:
+        arn: arn
+        tags:
+          key: tags
+      properties:
+        arn:
+          type: string
+        tags:
+          additionalProperties:
+            type: string
+          type: object
+      required:
+      - arn
+      type: object
+    ECSContainers_containers:
+      example:
+        task_arn: task_arn
+        image_digest: image_digest
+        account_name: account_name
+        context: context
+        image_tag: image_tag
+        arn: arn
+      properties:
+        arn:
+          type: string
+        task_arn:
+          type: string
+        account_name:
+          type: string
+        context:
+          type: string
+        image_tag:
+          type: string
+        image_digest:
+          type: string
+      required:
+      - account_name
+      - arn
+      - context
+      - image_digest
+      - image_tag
+      - task_arn
+      type: object
+    ECSTasks_tasks:
+      example:
+        cluster_arn: cluster_arn
+        service_arn: service_arn
+        account_name: account_name
+        task_definition_arn: task_definition_arn
+        arn: arn
+        tags:
+          key: tags
+      properties:
+        arn:
+          type: string
+        cluster_arn:
+          type: string
+        service_arn:
+          type: string
+        task_definition_arn:
+          type: string
+        tags:
+          additionalProperties:
+            type: string
+          type: object
+        account_name:
+          type: string
+      required:
+      - account_name
+      - arn
+      - cluster_arn
+      - service_arn
+      - tags
+      - task_definition_arn
+      type: object
+    ECSServices_services:
+      example:
+        cluster_arn: cluster_arn
+        account_name: account_name
+        arn: arn
+        tags:
+          key: tags
+      properties:
+        arn:
+          type: string
+        cluster_arn:
+          type: string
+        tags:
+          additionalProperties:
+            type: string
+          type: object
+        account_name:
+          type: string
+      required:
+      - account_name
+      - arn
+      - cluster_arn
+      - tags
       type: object
     ApplicationVersionVulnerabilityReport_application_artifacts:
       example:

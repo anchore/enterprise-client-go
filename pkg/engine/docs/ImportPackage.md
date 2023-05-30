@@ -14,14 +14,14 @@ Name | Type | Description | Notes
 **Language** | **string** |  | 
 **Cpes** | **[]string** |  | 
 **Purl** | Pointer to **string** |  | [optional] 
-**MetadataType** | **string** |  | 
+**MetadataType** | Pointer to **NullableString** |  | [optional] 
 **Metadata** | Pointer to **interface{}** |  | [optional] 
 
 ## Methods
 
 ### NewImportPackage
 
-`func NewImportPackage(name string, version string, type_ string, locations []ImportPackageLocation, licenses []string, language string, cpes []string, metadataType string, ) *ImportPackage`
+`func NewImportPackage(name string, version string, type_ string, locations []ImportPackageLocation, licenses []string, language string, cpes []string, ) *ImportPackage`
 
 NewImportPackage instantiates a new ImportPackage object
 This constructor will assign default values to properties that have it defined,
@@ -270,7 +270,22 @@ and a boolean to check if the value has been set.
 
 SetMetadataType sets MetadataType field to given value.
 
+### HasMetadataType
 
+`func (o *ImportPackage) HasMetadataType() bool`
+
+HasMetadataType returns a boolean if a field has been set.
+
+### SetMetadataTypeNil
+
+`func (o *ImportPackage) SetMetadataTypeNil(b bool)`
+
+ SetMetadataTypeNil sets the value for MetadataType to be an explicit nil
+
+### UnsetMetadataType
+`func (o *ImportPackage) UnsetMetadataType()`
+
+UnsetMetadataType ensures that no value is present for MetadataType, not even an explicit nil
 ### GetMetadata
 
 `func (o *ImportPackage) GetMetadata() interface{}`
@@ -296,6 +311,16 @@ SetMetadata sets Metadata field to given value.
 
 HasMetadata returns a boolean if a field has been set.
 
+### SetMetadataNil
+
+`func (o *ImportPackage) SetMetadataNil(b bool)`
+
+ SetMetadataNil sets the value for Metadata to be an explicit nil
+
+### UnsetMetadata
+`func (o *ImportPackage) UnsetMetadata()`
+
+UnsetMetadata ensures that no value is present for Metadata, not even an explicit nil
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
