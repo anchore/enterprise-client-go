@@ -3,7 +3,7 @@ Anchore Enterprise API Server
 
 This is the Anchore Enterprise API. It provides additional external API routes and functionality for enterprise users.
 
-API version: 0.7.0
+API version: 0.8.0
 Contact: dev@anchore.com
 */
 
@@ -19,7 +19,7 @@ import (
 type KubernetesInventoryPods struct {
 	Uid string `json:"uid"`
 	Name string `json:"name"`
-	NamespaceUid *string `json:"namespace_uid,omitempty"`
+	NamespaceUid string `json:"namespace_uid"`
 	NodeUid *string `json:"node_uid,omitempty"`
 	Labels *map[string]string `json:"labels,omitempty"`
 	Annotations *map[string]string `json:"annotations,omitempty"`
@@ -29,10 +29,11 @@ type KubernetesInventoryPods struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewKubernetesInventoryPods(uid string, name string) *KubernetesInventoryPods {
+func NewKubernetesInventoryPods(uid string, name string, namespaceUid string) *KubernetesInventoryPods {
 	this := KubernetesInventoryPods{}
 	this.Uid = uid
 	this.Name = name
+	this.NamespaceUid = namespaceUid
 	return &this
 }
 
@@ -92,36 +93,28 @@ func (o *KubernetesInventoryPods) SetName(v string) {
 	o.Name = v
 }
 
-// GetNamespaceUid returns the NamespaceUid field value if set, zero value otherwise.
+// GetNamespaceUid returns the NamespaceUid field value
 func (o *KubernetesInventoryPods) GetNamespaceUid() string {
-	if o == nil || o.NamespaceUid == nil {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.NamespaceUid
+
+	return o.NamespaceUid
 }
 
-// GetNamespaceUidOk returns a tuple with the NamespaceUid field value if set, nil otherwise
+// GetNamespaceUidOk returns a tuple with the NamespaceUid field value
 // and a boolean to check if the value has been set.
 func (o *KubernetesInventoryPods) GetNamespaceUidOk() (*string, bool) {
-	if o == nil || o.NamespaceUid == nil {
+	if o == nil  {
 		return nil, false
 	}
-	return o.NamespaceUid, true
+	return &o.NamespaceUid, true
 }
 
-// HasNamespaceUid returns a boolean if a field has been set.
-func (o *KubernetesInventoryPods) HasNamespaceUid() bool {
-	if o != nil && o.NamespaceUid != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetNamespaceUid gets a reference to the given string and assigns it to the NamespaceUid field.
+// SetNamespaceUid sets field value
 func (o *KubernetesInventoryPods) SetNamespaceUid(v string) {
-	o.NamespaceUid = &v
+	o.NamespaceUid = v
 }
 
 // GetNodeUid returns the NodeUid field value if set, zero value otherwise.
@@ -228,7 +221,7 @@ func (o KubernetesInventoryPods) MarshalJSON() ([]byte, error) {
 	if true {
 		toSerialize["name"] = o.Name
 	}
-	if o.NamespaceUid != nil {
+	if true {
 		toSerialize["namespace_uid"] = o.NamespaceUid
 	}
 	if o.NodeUid != nil {

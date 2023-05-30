@@ -9,7 +9,6 @@ Name | Type | Description | Notes
 **Labels** | Pointer to **map[string]string** |  | [optional] 
 **Annotations** | Pointer to **map[string]string** |  | [optional] 
 **KernelVersion** | Pointer to **string** |  | [optional] 
-**KubernetesVersion** | Pointer to **string** |  | [optional] 
 **Arch** | Pointer to **string** |  | [optional] 
 **ContainerRuntimeVersion** | Pointer to **string** |  | [optional] 
 **KubeProxyVersion** | Pointer to **string** |  | [optional] 
@@ -149,31 +148,6 @@ SetKernelVersion sets KernelVersion field to given value.
 `func (o *KubernetesInventoryNodes) HasKernelVersion() bool`
 
 HasKernelVersion returns a boolean if a field has been set.
-
-### GetKubernetesVersion
-
-`func (o *KubernetesInventoryNodes) GetKubernetesVersion() string`
-
-GetKubernetesVersion returns the KubernetesVersion field if non-nil, zero value otherwise.
-
-### GetKubernetesVersionOk
-
-`func (o *KubernetesInventoryNodes) GetKubernetesVersionOk() (*string, bool)`
-
-GetKubernetesVersionOk returns a tuple with the KubernetesVersion field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetKubernetesVersion
-
-`func (o *KubernetesInventoryNodes) SetKubernetesVersion(v string)`
-
-SetKubernetesVersion sets KubernetesVersion field to given value.
-
-### HasKubernetesVersion
-
-`func (o *KubernetesInventoryNodes) HasKubernetesVersion() bool`
-
-HasKubernetesVersion returns a boolean if a field has been set.
 
 ### GetArch
 

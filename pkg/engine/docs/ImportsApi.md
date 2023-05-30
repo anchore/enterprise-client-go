@@ -524,7 +524,7 @@ import (
 
 func main() {
     operationId := "operationId_example" // string | 
-    sbom := *openapiclient.NewImagePackageManifest([]openapiclient.ImportPackage{*openapiclient.NewImportPackage("Name_example", "Version_example", "Type_example", []openapiclient.ImportPackageLocation{*openapiclient.NewImportPackageLocation("Path_example")}, []string{"Licenses_example"}, "Language_example", []string{"Cpes_example"}, "MetadataType_example")}, *openapiclient.NewImportSource("Type_example", interface{}(123)), *openapiclient.NewImportDistribution()) // ImagePackageManifest | 
+    sbom := *openapiclient.NewImagePackageManifest([]openapiclient.ImportPackage{*openapiclient.NewImportPackage("Name_example", "Version_example", "Type_example", []openapiclient.ImportPackageLocation{*openapiclient.NewImportPackageLocation("Path_example")}, []string{"Licenses_example"}, "Language_example", []string{"Cpes_example"})}, *openapiclient.NewImportSource("Type_example", interface{}(123)), *openapiclient.NewImportDistribution()) // ImagePackageManifest | 
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)

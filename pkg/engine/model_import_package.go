@@ -3,7 +3,7 @@ Anchore Engine API Server
 
 This is the Anchore Engine API. Provides the primary external API for users of the service.
 
-API version: 0.6.0
+API version: 0.7.0
 Contact: nurmi@anchore.com
 */
 
@@ -27,15 +27,15 @@ type ImportPackage struct {
 	Language string `json:"language"`
 	Cpes []string `json:"cpes"`
 	Purl *string `json:"purl,omitempty"`
-	MetadataType string `json:"metadataType"`
-	Metadata *interface{} `json:"metadata,omitempty"`
+	MetadataType NullableString `json:"metadataType,omitempty"`
+	Metadata interface{} `json:"metadata,omitempty"`
 }
 
 // NewImportPackage instantiates a new ImportPackage object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewImportPackage(name string, version string, type_ string, locations []ImportPackageLocation, licenses []string, language string, cpes []string, metadataType string) *ImportPackage {
+func NewImportPackage(name string, version string, type_ string, locations []ImportPackageLocation, licenses []string, language string, cpes []string) *ImportPackage {
 	this := ImportPackage{}
 	this.Name = name
 	this.Version = version
@@ -44,7 +44,6 @@ func NewImportPackage(name string, version string, type_ string, locations []Imp
 	this.Licenses = licenses
 	this.Language = language
 	this.Cpes = cpes
-	this.MetadataType = metadataType
 	return &this
 }
 
@@ -320,46 +319,65 @@ func (o *ImportPackage) SetPurl(v string) {
 	o.Purl = &v
 }
 
-// GetMetadataType returns the MetadataType field value
+// GetMetadataType returns the MetadataType field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *ImportPackage) GetMetadataType() string {
-	if o == nil {
+	if o == nil || o.MetadataType.Get() == nil {
 		var ret string
 		return ret
 	}
-
-	return o.MetadataType
+	return *o.MetadataType.Get()
 }
 
-// GetMetadataTypeOk returns a tuple with the MetadataType field value
+// GetMetadataTypeOk returns a tuple with the MetadataType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *ImportPackage) GetMetadataTypeOk() (*string, bool) {
 	if o == nil  {
 		return nil, false
 	}
-	return &o.MetadataType, true
+	return o.MetadataType.Get(), o.MetadataType.IsSet()
 }
 
-// SetMetadataType sets field value
+// HasMetadataType returns a boolean if a field has been set.
+func (o *ImportPackage) HasMetadataType() bool {
+	if o != nil && o.MetadataType.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetMetadataType gets a reference to the given NullableString and assigns it to the MetadataType field.
 func (o *ImportPackage) SetMetadataType(v string) {
-	o.MetadataType = v
+	o.MetadataType.Set(&v)
+}
+// SetMetadataTypeNil sets the value for MetadataType to be an explicit nil
+func (o *ImportPackage) SetMetadataTypeNil() {
+	o.MetadataType.Set(nil)
 }
 
-// GetMetadata returns the Metadata field value if set, zero value otherwise.
+// UnsetMetadataType ensures that no value is present for MetadataType, not even an explicit nil
+func (o *ImportPackage) UnsetMetadataType() {
+	o.MetadataType.Unset()
+}
+
+// GetMetadata returns the Metadata field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *ImportPackage) GetMetadata() interface{} {
-	if o == nil || o.Metadata == nil {
+	if o == nil  {
 		var ret interface{}
 		return ret
 	}
-	return *o.Metadata
+	return o.Metadata
 }
 
 // GetMetadataOk returns a tuple with the Metadata field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *ImportPackage) GetMetadataOk() (*interface{}, bool) {
 	if o == nil || o.Metadata == nil {
 		return nil, false
 	}
-	return o.Metadata, true
+	return &o.Metadata, true
 }
 
 // HasMetadata returns a boolean if a field has been set.
@@ -373,7 +391,7 @@ func (o *ImportPackage) HasMetadata() bool {
 
 // SetMetadata gets a reference to the given interface{} and assigns it to the Metadata field.
 func (o *ImportPackage) SetMetadata(v interface{}) {
-	o.Metadata = &v
+	o.Metadata = v
 }
 
 func (o ImportPackage) MarshalJSON() ([]byte, error) {
@@ -408,8 +426,8 @@ func (o ImportPackage) MarshalJSON() ([]byte, error) {
 	if o.Purl != nil {
 		toSerialize["purl"] = o.Purl
 	}
-	if true {
-		toSerialize["metadataType"] = o.MetadataType
+	if o.MetadataType.IsSet() {
+		toSerialize["metadataType"] = o.MetadataType.Get()
 	}
 	if o.Metadata != nil {
 		toSerialize["metadata"] = o.Metadata

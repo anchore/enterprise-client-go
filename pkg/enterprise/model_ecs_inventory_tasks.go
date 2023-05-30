@@ -3,7 +3,7 @@ Anchore Enterprise API Server
 
 This is the Anchore Enterprise API. It provides additional external API routes and functionality for enterprise users.
 
-API version: 0.7.0
+API version: 0.8.0
 Contact: dev@anchore.com
 */
 
@@ -19,7 +19,6 @@ import (
 type ECSInventoryTasks struct {
 	Arn string `json:"arn"`
 	ServiceArn *string `json:"service_arn,omitempty"`
-	ClusterArn *string `json:"cluster_arn,omitempty"`
 	TaskDefinitionArn *string `json:"task_definition_arn,omitempty"`
 	Tags *map[string]string `json:"tags,omitempty"`
 }
@@ -98,38 +97,6 @@ func (o *ECSInventoryTasks) SetServiceArn(v string) {
 	o.ServiceArn = &v
 }
 
-// GetClusterArn returns the ClusterArn field value if set, zero value otherwise.
-func (o *ECSInventoryTasks) GetClusterArn() string {
-	if o == nil || o.ClusterArn == nil {
-		var ret string
-		return ret
-	}
-	return *o.ClusterArn
-}
-
-// GetClusterArnOk returns a tuple with the ClusterArn field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *ECSInventoryTasks) GetClusterArnOk() (*string, bool) {
-	if o == nil || o.ClusterArn == nil {
-		return nil, false
-	}
-	return o.ClusterArn, true
-}
-
-// HasClusterArn returns a boolean if a field has been set.
-func (o *ECSInventoryTasks) HasClusterArn() bool {
-	if o != nil && o.ClusterArn != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetClusterArn gets a reference to the given string and assigns it to the ClusterArn field.
-func (o *ECSInventoryTasks) SetClusterArn(v string) {
-	o.ClusterArn = &v
-}
-
 // GetTaskDefinitionArn returns the TaskDefinitionArn field value if set, zero value otherwise.
 func (o *ECSInventoryTasks) GetTaskDefinitionArn() string {
 	if o == nil || o.TaskDefinitionArn == nil {
@@ -201,9 +168,6 @@ func (o ECSInventoryTasks) MarshalJSON() ([]byte, error) {
 	}
 	if o.ServiceArn != nil {
 		toSerialize["service_arn"] = o.ServiceArn
-	}
-	if o.ClusterArn != nil {
-		toSerialize["cluster_arn"] = o.ClusterArn
 	}
 	if o.TaskDefinitionArn != nil {
 		toSerialize["task_definition_arn"] = o.TaskDefinitionArn

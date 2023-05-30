@@ -3,7 +3,7 @@ Anchore Enterprise API Server
 
 This is the Anchore Enterprise API. It provides additional external API routes and functionality for enterprise users.
 
-API version: 0.7.0
+API version: 0.8.0
 Contact: dev@anchore.com
 */
 
@@ -22,7 +22,6 @@ type KubernetesInventoryNodes struct {
 	Labels *map[string]string `json:"labels,omitempty"`
 	Annotations *map[string]string `json:"annotations,omitempty"`
 	KernelVersion *string `json:"kernel_version,omitempty"`
-	KubernetesVersion *string `json:"kubernetes_version,omitempty"`
 	Arch *string `json:"arch,omitempty"`
 	ContainerRuntimeVersion *string `json:"container_runtime_version,omitempty"`
 	KubeProxyVersion *string `json:"kube_proxy_version,omitempty"`
@@ -191,38 +190,6 @@ func (o *KubernetesInventoryNodes) HasKernelVersion() bool {
 // SetKernelVersion gets a reference to the given string and assigns it to the KernelVersion field.
 func (o *KubernetesInventoryNodes) SetKernelVersion(v string) {
 	o.KernelVersion = &v
-}
-
-// GetKubernetesVersion returns the KubernetesVersion field value if set, zero value otherwise.
-func (o *KubernetesInventoryNodes) GetKubernetesVersion() string {
-	if o == nil || o.KubernetesVersion == nil {
-		var ret string
-		return ret
-	}
-	return *o.KubernetesVersion
-}
-
-// GetKubernetesVersionOk returns a tuple with the KubernetesVersion field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *KubernetesInventoryNodes) GetKubernetesVersionOk() (*string, bool) {
-	if o == nil || o.KubernetesVersion == nil {
-		return nil, false
-	}
-	return o.KubernetesVersion, true
-}
-
-// HasKubernetesVersion returns a boolean if a field has been set.
-func (o *KubernetesInventoryNodes) HasKubernetesVersion() bool {
-	if o != nil && o.KubernetesVersion != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetKubernetesVersion gets a reference to the given string and assigns it to the KubernetesVersion field.
-func (o *KubernetesInventoryNodes) SetKubernetesVersion(v string) {
-	o.KubernetesVersion = &v
 }
 
 // GetArch returns the Arch field value if set, zero value otherwise.
@@ -401,9 +368,6 @@ func (o KubernetesInventoryNodes) MarshalJSON() ([]byte, error) {
 	}
 	if o.KernelVersion != nil {
 		toSerialize["kernel_version"] = o.KernelVersion
-	}
-	if o.KubernetesVersion != nil {
-		toSerialize["kubernetes_version"] = o.KubernetesVersion
 	}
 	if o.Arch != nil {
 		toSerialize["arch"] = o.Arch

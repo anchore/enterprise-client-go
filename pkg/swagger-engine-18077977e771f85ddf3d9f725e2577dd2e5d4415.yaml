@@ -1,7 +1,7 @@
 swagger: "2.0"
 info:
   description: "This is the Anchore Engine API. Provides the primary external API for users of the service."
-  version: "0.6.0"
+  version: "0.7.0"
   title: "Anchore Engine API Server"
   contact:
     email: "nurmi@anchore.com"
@@ -5714,7 +5714,6 @@ definitions:
       - licenses
       - language
       - cpes
-      - metadataType
     properties:
       id:
         type: string
@@ -5744,8 +5743,10 @@ definitions:
         type: string
       metadataType:
         type: string
+        x-nullable: true
       metadata:
         type: object
+        x-nullable: true
     additionalProperties: true
     type: object
   ImportSchema:

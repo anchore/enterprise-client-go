@@ -3,7 +3,7 @@ Anchore Enterprise API Server
 
 This is the Anchore Enterprise API. It provides additional external API routes and functionality for enterprise users.
 
-API version: 0.7.0
+API version: 0.8.0
 Contact: dev@anchore.com
 */
 
@@ -18,19 +18,20 @@ import (
 
 // ECSInventory struct for ECSInventory
 type ECSInventory struct {
-	ClusterName string `json:"cluster_name"`
+	ClusterArn string `json:"cluster_arn"`
 	Timestamp time.Time `json:"timestamp"`
 	Tasks []ECSInventoryTasks `json:"tasks,omitempty"`
 	Containers *[]ECSInventoryContainers `json:"containers,omitempty"`
+	Services []ECSInventoryServices `json:"services,omitempty"`
 }
 
 // NewECSInventory instantiates a new ECSInventory object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewECSInventory(clusterName string, timestamp time.Time) *ECSInventory {
+func NewECSInventory(clusterArn string, timestamp time.Time) *ECSInventory {
 	this := ECSInventory{}
-	this.ClusterName = clusterName
+	this.ClusterArn = clusterArn
 	this.Timestamp = timestamp
 	return &this
 }
@@ -43,28 +44,28 @@ func NewECSInventoryWithDefaults() *ECSInventory {
 	return &this
 }
 
-// GetClusterName returns the ClusterName field value
-func (o *ECSInventory) GetClusterName() string {
+// GetClusterArn returns the ClusterArn field value
+func (o *ECSInventory) GetClusterArn() string {
 	if o == nil {
 		var ret string
 		return ret
 	}
 
-	return o.ClusterName
+	return o.ClusterArn
 }
 
-// GetClusterNameOk returns a tuple with the ClusterName field value
+// GetClusterArnOk returns a tuple with the ClusterArn field value
 // and a boolean to check if the value has been set.
-func (o *ECSInventory) GetClusterNameOk() (*string, bool) {
+func (o *ECSInventory) GetClusterArnOk() (*string, bool) {
 	if o == nil  {
 		return nil, false
 	}
-	return &o.ClusterName, true
+	return &o.ClusterArn, true
 }
 
-// SetClusterName sets field value
-func (o *ECSInventory) SetClusterName(v string) {
-	o.ClusterName = v
+// SetClusterArn sets field value
+func (o *ECSInventory) SetClusterArn(v string) {
+	o.ClusterArn = v
 }
 
 // GetTimestamp returns the Timestamp field value
@@ -156,10 +157,43 @@ func (o *ECSInventory) SetContainers(v []ECSInventoryContainers) {
 	o.Containers = &v
 }
 
+// GetServices returns the Services field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *ECSInventory) GetServices() []ECSInventoryServices {
+	if o == nil  {
+		var ret []ECSInventoryServices
+		return ret
+	}
+	return o.Services
+}
+
+// GetServicesOk returns a tuple with the Services field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *ECSInventory) GetServicesOk() (*[]ECSInventoryServices, bool) {
+	if o == nil || o.Services == nil {
+		return nil, false
+	}
+	return &o.Services, true
+}
+
+// HasServices returns a boolean if a field has been set.
+func (o *ECSInventory) HasServices() bool {
+	if o != nil && o.Services != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetServices gets a reference to the given []ECSInventoryServices and assigns it to the Services field.
+func (o *ECSInventory) SetServices(v []ECSInventoryServices) {
+	o.Services = v
+}
+
 func (o ECSInventory) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
-		toSerialize["cluster_name"] = o.ClusterName
+		toSerialize["cluster_arn"] = o.ClusterArn
 	}
 	if true {
 		toSerialize["timestamp"] = o.Timestamp
@@ -169,6 +203,9 @@ func (o ECSInventory) MarshalJSON() ([]byte, error) {
 	}
 	if o.Containers != nil {
 		toSerialize["containers"] = o.Containers
+	}
+	if o.Services != nil {
+		toSerialize["services"] = o.Services
 	}
 	return json.Marshal(toSerialize)
 }

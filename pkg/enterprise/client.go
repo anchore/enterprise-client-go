@@ -3,7 +3,7 @@ Anchore Enterprise API Server
 
 This is the Anchore Enterprise API. It provides additional external API routes and functionality for enterprise users.
 
-API version: 0.7.0
+API version: 0.8.0
 Contact: dev@anchore.com
 */
 
@@ -42,7 +42,7 @@ var (
 	xmlCheck  = regexp.MustCompile(`(?i:(?:application|text)/xml)`)
 )
 
-// APIClient manages communication with the Anchore Enterprise API Server API v0.7.0
+// APIClient manages communication with the Anchore Enterprise API Server API v0.8.0
 // In most cases there should be only one, shared, APIClient.
 type APIClient struct {
 	cfg    *Configuration
@@ -59,8 +59,6 @@ type APIClient struct {
 	ComplianceApi ComplianceApi
 
 	CorrectionsApi CorrectionsApi
-
-	DefaultApi DefaultApi
 
 	ImagesApi ImagesApi
 
@@ -96,7 +94,6 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.ApplicationsApi = (*ApplicationsApiService)(&c.common)
 	c.ComplianceApi = (*ComplianceApiService)(&c.common)
 	c.CorrectionsApi = (*CorrectionsApiService)(&c.common)
-	c.DefaultApi = (*DefaultApiService)(&c.common)
 	c.ImagesApi = (*ImagesApiService)(&c.common)
 	c.ImportsApi = (*ImportsApiService)(&c.common)
 	c.InventoriesApi = (*InventoriesApiService)(&c.common)

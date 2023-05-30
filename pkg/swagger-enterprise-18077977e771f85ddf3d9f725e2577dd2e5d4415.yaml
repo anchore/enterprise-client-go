@@ -2,7 +2,7 @@
 swagger: "2.0"
 info:
   description: "This is the Anchore Enterprise API. It provides additional external API routes and functionality for enterprise users."
-  version: "0.7.0"
+  version: "0.8.0"
   title: "Anchore Enterprise API Server"
   contact:
     email: "dev@anchore.com"
@@ -270,7 +270,7 @@ paths:
       post:
         x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.runtime_inventory
         operationId: post_kubernetes_inventory
-        x-anchore-authz-action: postKubernetesInventory
+        x-anchore-authz-action: syncInventory
         summary: "Add container metadata from a Kubernetes deployment"
         description: "Add container metadata from a Kubernetes deployment"
         produces:
@@ -288,6 +288,66 @@ paths:
             description: "Internal Error"
         tags:
           - Inventories
+  /kubernetes-containers:
+    get:
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.runtime_inventory
+      operationId: get_kubernetes_containers
+      x-anchore-authz-action: getKubernetesContainers
+      summary: "Return a list of Kubernetes containers that have been inventoried for this account"
+      description: "Return a list of Kubernetes containers that have been inventoried for this account"
+      produces:
+        - "application/json"
+      responses:
+        200:
+          description: "success"
+          schema:
+            $ref: "#/definitions/KubernetesContainers"
+        500:
+          description: "Internal Error"
+      tags:
+        - Inventories
+  /kubernetes-nodes:
+    get:
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.runtime_inventory
+      operationId: get_kubernetes_nodes
+      x-anchore-authz-action: getKubernetesNodes
+      summary: "Return a list of Kubernetes nodes that have been inventoried for this account"
+      description: "Return a list of Kubernetes nodes that have been inventoried for this account"
+      produces:
+        - "application/json"
+      responses:
+        200:
+          description: "success"
+          schema:
+            $ref: "#/definitions/KubernetesNodes"
+        500:
+          description: "Internal Error"
+      tags:
+        - Inventories
+  /kubernetes-nodes/{node_id}:
+    get:
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.runtime_inventory
+      operationId: get_kubernetes_node
+      x-anchore-authz-action: getKubernetesNodes
+      summary: "Return a Kubernetes node that has been inventoried for this account"
+      description: "Return Kubernetes node that has been inventoried for this account"
+      produces:
+        - "application/json"
+      parameters:
+        - name: node_id
+          in: path
+          format: path
+          type: string
+          required: true
+      responses:
+        200:
+          description: "success"
+          schema:
+            $ref: "#/definitions/KubernetesNode"
+        500:
+          description: "Internal Error"
+      tags:
+        - Inventories
   /kubernetes-namespaces:
     get:
       x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.runtime_inventory
@@ -304,12 +364,100 @@ paths:
             $ref: "#/definitions/KubernetesNamespaces"
         500:
           description: "Internal Error"
+      tags:
+        - Inventories
+    delete:
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.runtime_inventory
+      operationId: delete_kubernetes_namespaces
+      x-anchore-authz-action: deleteKubernetesNamespaces
+      summary: "Delete Kubernetes namespaces for a given criteria"
+      description: "Delete Kubernetes namespaces for a given criteria"
+      produces:
+        - "application/json"
+      parameters:
+        - name: cluster_name
+          in: query
+          type: string
+      responses:
+        204:
+          description: "success"
+        500:
+          description: "Internal Error"
+      tags:
+        - Inventories
+  /kubernetes-namespaces/{namespace_id}:
+    get:
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.runtime_inventory
+      operationId: get_kubernetes_namespace
+      x-anchore-authz-action: getKubernetesNamespaces
+      summary: "Return a Kubernetes namespace that has been inventoried for this account"
+      description: "Return Kubernetes namespace that has been inventoried for this account"
+      produces:
+        - "application/json"
+      parameters:
+        - name: namespace_id
+          in: path
+          format: path
+          type: string
+          required: true
+      responses:
+        200:
+          description: "success"
+          schema:
+            $ref: "#/definitions/KubernetesNamespace"
+        500:
+          description: "Internal Error"
+      tags:
+        - Inventories
+  /kubernetes-pods:
+    get:
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.runtime_inventory
+      operationId: get_kubernetes_pods
+      x-anchore-authz-action: getKubernetesPods
+      summary: "Return a list of Kubernetes pods that have been inventoried for this account"
+      description: "Return a list of Kubernetes pods that have been inventoried for this account"
+      produces:
+        - "application/json"
+      responses:
+        200:
+          description: "success"
+          schema:
+            $ref: "#/definitions/KubernetesPods"
+        500:
+          description: "Internal Error"
+      tags:
+        - Inventories
+  /kubernetes-pods/{pod_id}:
+    get:
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.runtime_inventory
+      operationId: get_kubernetes_pod
+      x-anchore-authz-action: getKubernetesPods
+      summary: "Return a Kubernetes pod that has been inventoried for this account"
+      description: "Return a Kubernetes pod that has been inventoried for this account"
+      produces:
+        - "application/json"
+      parameters:
+        - name: pod_id
+          in: path
+          format: path
+          type: string
+          required: true
+      responses:
+        200:
+          description: "success"
+          schema:
+            $ref: "#/definitions/KubernetesPod"
+        500:
+          description: "Internal Error"
+      tags:
+        - Inventories
+
 
   /ecs-inventory:
       post:
         x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.runtime_inventory
         operationId: post_ecs_inventory
-        x-anchore-authz-action: postEcsInventory
+        x-anchore-authz-action: syncInventory
         summary: "Add container metadata from Amazon ECS"
         description: "Add container metadata from Amazon ECS"
         produces:
@@ -327,6 +475,60 @@ paths:
             description: "Internal Error"
         tags:
           - Inventories
+  /ecs-containers:
+    get:
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.runtime_inventory
+      operationId: get_ecs_containers
+      x-anchore-authz-action: getECSContainers
+      summary: "Return a list of ECS containers that have been inventoried for this account"
+      description: "Return a list of ECS containers that have been inventoried for this account"
+      produces:
+        - "application/json"
+      responses:
+        200:
+          description: "success"
+          schema:
+            $ref: "#/definitions/ECSContainers"
+        500:
+          description: "Internal Error"
+      tags:
+        - Inventories
+  /ecs-tasks:
+    get:
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.runtime_inventory
+      operationId: get_ecs_tasks
+      x-anchore-authz-action: getECSTasks
+      summary: "Return a list of ECS tasks that have been inventoried for this account"
+      description: "Return a list of ECS tasks that have been inventoried for this account"
+      produces:
+        - "application/json"
+      responses:
+        200:
+          description: "success"
+          schema:
+            $ref: "#/definitions/ECSTasks"
+        500:
+          description: "Internal Error"
+      tags:
+        - Inventories
+  /ecs-services:
+    get:
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.runtime_inventory
+      operationId: get_ecs_services
+      x-anchore-authz-action: getECSServices
+      summary: "Return a list of ECS services that have been inventoried for this account"
+      description: "Return a list of ECS services that have been inventoried for this account"
+      produces:
+        - "application/json"
+      responses:
+        200:
+          description: "success"
+          schema:
+            $ref: "#/definitions/ECSServices"
+        500:
+          description: "Internal Error"
+      tags:
+        - Inventories
 
   /actions:
     get:
@@ -2382,6 +2584,37 @@ definitions:
       last_seen:
         type: string
         format: date-time
+  KubernetesContainers:
+    type: object
+    description: Containers defined in Kubernetes
+    properties:
+      containers:
+        type: array
+        items:
+          type: object
+          required:
+            - id
+            - pod_id
+            - account_name
+            - context
+            - image_tag
+            - image_digest
+            - name
+          properties:
+            id:
+              type: string
+            name:
+              type: string
+            pod_id:
+              type: string
+            account_name:
+              type: string
+            context:
+              type: string
+            image_tag:
+              type: string
+            image_digest:
+              type: string
   KubernetesNamespaces:
     type: object
     description: Namespaces defined in Kubernetes
@@ -2389,25 +2622,97 @@ definitions:
       namespaces:
         type: array
         items:
-          type: object
-          required:
-            - uid
-            - name
-            - labels
-            - annotations
-          properties:
-            uid:
-              type: string
-            name:
-              type: string
-            labels:
-              type: object
-              additionalProperties:
-                type: string
-            annotations:
-              type: object
-              additionalProperties:
-                type: string
+          $ref: "#/definitions/KubernetesNamespace"
+  KubernetesNamespace:
+    type: object
+    required:
+      - uid
+      - name
+      - labels
+      - annotations
+    properties:
+      uid:
+        type: string
+      name:
+        type: string
+      labels:
+        type: object
+        additionalProperties:
+          type: string
+      annotations:
+        type: object
+        additionalProperties:
+          type: string
+      last_seen:
+        type: string
+  KubernetesPods:
+    type: object
+    description: Pods defined in Kubernetes
+    properties:
+      namespaces:
+        type: array
+        items:
+          $ref: "#/definitions/KubernetesPod"
+  KubernetesPod:
+    type: object
+    required:
+      - id
+      - name
+      - account_name
+      - labels
+      - annotations
+    properties:
+      id:
+        type: string
+      name:
+        type: string
+      account_name:
+        type: string
+      labels:
+        type: object
+        additionalProperties:
+          type: string
+      annotations:
+        type: object
+        additionalProperties:
+          type: string
+      node_id:
+        type: string
+      namespace_id:
+        type: string
+      last_seen:
+        type: string
+
+  KubernetesNodes:
+    type: object
+    description: Nodes defined in Kubernetes
+    properties:
+      namespaces:
+        type: array
+        items:
+          $ref: "#/definitions/KubernetesNode"
+  KubernetesNode:
+    type: object
+    required:
+      - uid
+      - name
+      - labels
+      - annotations
+    properties:
+      uid:
+        type: string
+      name:
+        type: string
+      labels:
+        type: object
+        additionalProperties:
+          type: string
+      annotations:
+        type: object
+        additionalProperties:
+          type: string
+      last_seen:
+        type: string
   KubernetesInventory:
     type: object
     required:
@@ -2461,8 +2766,6 @@ definitions:
                 type: string
             kernel_version:
               type: string
-            kubernetes_version:
-              type: string
             arch:
               type: string
             container_runtime_version:
@@ -2480,6 +2783,7 @@ definitions:
           required:
             - uid
             - name
+            - namespace_uid
           properties:
             uid:
               type: string
@@ -2520,10 +2824,10 @@ definitions:
   ECSInventory:
     type: object
     required:
-      - cluster_name
+      - cluster_arn
       - timestamp
     properties:
-      cluster_name:
+      cluster_arn:
         type: string
       timestamp:
         type: string
@@ -2539,8 +2843,6 @@ definitions:
             arn:
               type: string
             service_arn:
-              type: string
-            cluster_arn:
               type: string
             task_definition_arn:
               type: string
@@ -2563,6 +2865,101 @@ definitions:
             image_tag:
               type: string
             image_digest:
+              type: string
+      services:
+        type: array
+        x-nullable: true
+        items:
+          required:
+            - arn
+          properties:
+            arn:
+              type: string
+            tags:
+              type: object
+              additionalProperties:
+                type: string
+  ECSContainers:
+    type: object
+    description: Containers defined in ECS
+    properties:
+      containers:
+        type: array
+        items:
+          type: object
+          required:
+            - arn
+            - task_arn
+            - account_name
+            - context
+            - image_tag
+            - image_digest
+          properties:
+            arn:
+              type: string
+            task_arn:
+              type: string
+            account_name:
+              type: string
+            context:
+              type: string
+            image_tag:
+              type: string
+            image_digest:
+              type: string
+  ECSTasks:
+    type: object
+    description: Tasks defined in ECS
+    properties:
+      tasks:
+        type: array
+        items:
+          type: object
+          required:
+            - arn
+            - cluster_arn
+            - service_arn
+            - task_definition_arn
+            - tags
+            - account_name
+          properties:
+            arn:
+              type: string
+            cluster_arn:
+              type: string
+            service_arn:
+              type: string
+            task_definition_arn:
+              type: string
+            tags:
+              type: object
+              additionalProperties:
+                type: string
+            account_name:
+              type: string
+  ECSServices:
+    type: object
+    description: Services defined in ECS
+    properties:
+      services:
+        type: array
+        items:
+          type: object
+          required:
+            - arn
+            - cluster_arn
+            - tags
+            - account_name
+          properties:
+            arn:
+              type: string
+            cluster_arn:
+              type: string
+            tags:
+              type: object
+              additionalProperties:
+                type: string
+            account_name:
               type: string
   ActionPlans:
     type: array
