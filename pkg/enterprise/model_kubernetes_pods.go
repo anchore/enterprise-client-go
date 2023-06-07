@@ -15,32 +15,32 @@ import (
 	"encoding/json"
 )
 
-// KubernetesNamespaces Namespaces defined in Kubernetes
-type KubernetesNamespaces struct {
-	Namespaces *[]KubernetesNamespace `json:"namespaces,omitempty"`
+// KubernetesPods Pods defined in Kubernetes
+type KubernetesPods struct {
+	Namespaces *[]KubernetesPod `json:"namespaces,omitempty"`
 }
 
-// NewKubernetesNamespaces instantiates a new KubernetesNamespaces object
+// NewKubernetesPods instantiates a new KubernetesPods object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewKubernetesNamespaces() *KubernetesNamespaces {
-	this := KubernetesNamespaces{}
+func NewKubernetesPods() *KubernetesPods {
+	this := KubernetesPods{}
 	return &this
 }
 
-// NewKubernetesNamespacesWithDefaults instantiates a new KubernetesNamespaces object
+// NewKubernetesPodsWithDefaults instantiates a new KubernetesPods object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewKubernetesNamespacesWithDefaults() *KubernetesNamespaces {
-	this := KubernetesNamespaces{}
+func NewKubernetesPodsWithDefaults() *KubernetesPods {
+	this := KubernetesPods{}
 	return &this
 }
 
 // GetNamespaces returns the Namespaces field value if set, zero value otherwise.
-func (o *KubernetesNamespaces) GetNamespaces() []KubernetesNamespace {
+func (o *KubernetesPods) GetNamespaces() []KubernetesPod {
 	if o == nil || o.Namespaces == nil {
-		var ret []KubernetesNamespace
+		var ret []KubernetesPod
 		return ret
 	}
 	return *o.Namespaces
@@ -48,7 +48,7 @@ func (o *KubernetesNamespaces) GetNamespaces() []KubernetesNamespace {
 
 // GetNamespacesOk returns a tuple with the Namespaces field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *KubernetesNamespaces) GetNamespacesOk() (*[]KubernetesNamespace, bool) {
+func (o *KubernetesPods) GetNamespacesOk() (*[]KubernetesPod, bool) {
 	if o == nil || o.Namespaces == nil {
 		return nil, false
 	}
@@ -56,7 +56,7 @@ func (o *KubernetesNamespaces) GetNamespacesOk() (*[]KubernetesNamespace, bool) 
 }
 
 // HasNamespaces returns a boolean if a field has been set.
-func (o *KubernetesNamespaces) HasNamespaces() bool {
+func (o *KubernetesPods) HasNamespaces() bool {
 	if o != nil && o.Namespaces != nil {
 		return true
 	}
@@ -64,12 +64,12 @@ func (o *KubernetesNamespaces) HasNamespaces() bool {
 	return false
 }
 
-// SetNamespaces gets a reference to the given []KubernetesNamespace and assigns it to the Namespaces field.
-func (o *KubernetesNamespaces) SetNamespaces(v []KubernetesNamespace) {
+// SetNamespaces gets a reference to the given []KubernetesPod and assigns it to the Namespaces field.
+func (o *KubernetesPods) SetNamespaces(v []KubernetesPod) {
 	o.Namespaces = &v
 }
 
-func (o KubernetesNamespaces) MarshalJSON() ([]byte, error) {
+func (o KubernetesPods) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.Namespaces != nil {
 		toSerialize["namespaces"] = o.Namespaces
@@ -77,38 +77,38 @@ func (o KubernetesNamespaces) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
-type NullableKubernetesNamespaces struct {
-	value *KubernetesNamespaces
+type NullableKubernetesPods struct {
+	value *KubernetesPods
 	isSet bool
 }
 
-func (v NullableKubernetesNamespaces) Get() *KubernetesNamespaces {
+func (v NullableKubernetesPods) Get() *KubernetesPods {
 	return v.value
 }
 
-func (v *NullableKubernetesNamespaces) Set(val *KubernetesNamespaces) {
+func (v *NullableKubernetesPods) Set(val *KubernetesPods) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableKubernetesNamespaces) IsSet() bool {
+func (v NullableKubernetesPods) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableKubernetesNamespaces) Unset() {
+func (v *NullableKubernetesPods) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableKubernetesNamespaces(val *KubernetesNamespaces) *NullableKubernetesNamespaces {
-	return &NullableKubernetesNamespaces{value: val, isSet: true}
+func NewNullableKubernetesPods(val *KubernetesPods) *NullableKubernetesPods {
+	return &NullableKubernetesPods{value: val, isSet: true}
 }
 
-func (v NullableKubernetesNamespaces) MarshalJSON() ([]byte, error) {
+func (v NullableKubernetesPods) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableKubernetesNamespaces) UnmarshalJSON(src []byte) error {
+func (v *NullableKubernetesPods) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }

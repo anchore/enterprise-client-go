@@ -1193,7 +1193,7 @@ func (a *ApplicationsApiService) GetApplicationVersionSbomExecute(r ApiGetApplic
 		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/applications/{application_id}/versions/{application_version_id}/sboms/json"
+	localVarPath := localBasePath + "/applications/{application_id}/versions/{application_version_id}/sboms/native-json"
 	localVarPath = strings.Replace(localVarPath, "{"+"application_id"+"}", _neturl.PathEscape(parameterToString(r.applicationId, "")), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"application_version_id"+"}", _neturl.PathEscape(parameterToString(r.applicationVersionId, "")), -1)
 

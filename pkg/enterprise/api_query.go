@@ -150,7 +150,7 @@ func (a *QueryApiService) QueryImagesByPackageExecute(r ApiQueryImagesByPackageR
 		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/query/images/by_package"
+	localVarPath := localBasePath + "/query/images/by-package"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
@@ -328,7 +328,7 @@ func (a *QueryApiService) QueryImagesByVulnerabilityExecute(r ApiQueryImagesByVu
 		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/query/images/by_vulnerability"
+	localVarPath := localBasePath + "/query/images/by-vulnerability"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}

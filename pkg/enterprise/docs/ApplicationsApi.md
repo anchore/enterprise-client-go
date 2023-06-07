@@ -11,7 +11,7 @@ Method | HTTP request | Description
 [**DeleteApplicationVersion**](ApplicationsApi.md#DeleteApplicationVersion) | **Delete** /applications/{application_id}/versions/{application_version_id} | Delete an application version by application_id and application_version_id
 [**GetApplication**](ApplicationsApi.md#GetApplication) | **Get** /applications/{application_id} | Get an application by application_id
 [**GetApplicationVersion**](ApplicationsApi.md#GetApplicationVersion) | **Get** /applications/{application_id}/versions/{application_version_id} | Get an application version
-[**GetApplicationVersionSbom**](ApplicationsApi.md#GetApplicationVersionSbom) | **Get** /applications/{application_id}/versions/{application_version_id}/sboms/json | Get the combined sbom for the given application version, optionally filtered by artifact type
+[**GetApplicationVersionSbom**](ApplicationsApi.md#GetApplicationVersionSbom) | **Get** /applications/{application_id}/versions/{application_version_id}/sboms/native-json | Get the combined sbom for the given application version, optionally filtered by artifact type
 [**GetApplicationVersionVulnerabilities**](ApplicationsApi.md#GetApplicationVersionVulnerabilities) | **Get** /applications/{application_id}/versions/{application_version_id}/vulnerabilities | Get the vulnerabilities for a given application version
 [**GetApplicationVersions**](ApplicationsApi.md#GetApplicationVersions) | **Get** /applications/{application_id}/versions | List all application verions
 [**GetApplications**](ApplicationsApi.md#GetApplications) | **Get** /applications | List all applications

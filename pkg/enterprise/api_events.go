@@ -510,7 +510,7 @@ func (a *EventsApiService) ListEventTypesExecute(r ApiListEventTypesRequest) ([]
 		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/event_types"
+	localVarPath := localBasePath + "/event-types"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}

@@ -1,52 +1,52 @@
-# KubernetesNodes
+# KubernetesPods
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Namespaces** | Pointer to [**[]KubernetesNode**](KubernetesNode.md) |  | [optional] 
+**Namespaces** | Pointer to [**[]KubernetesPod**](KubernetesPod.md) |  | [optional] 
 
 ## Methods
 
-### NewKubernetesNodes
+### NewKubernetesPods
 
-`func NewKubernetesNodes() *KubernetesNodes`
+`func NewKubernetesPods() *KubernetesPods`
 
-NewKubernetesNodes instantiates a new KubernetesNodes object
+NewKubernetesPods instantiates a new KubernetesPods object
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
 will change when the set of required properties is changed
 
-### NewKubernetesNodesWithDefaults
+### NewKubernetesPodsWithDefaults
 
-`func NewKubernetesNodesWithDefaults() *KubernetesNodes`
+`func NewKubernetesPodsWithDefaults() *KubernetesPods`
 
-NewKubernetesNodesWithDefaults instantiates a new KubernetesNodes object
+NewKubernetesPodsWithDefaults instantiates a new KubernetesPods object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
 ### GetNamespaces
 
-`func (o *KubernetesNodes) GetNamespaces() []KubernetesNode`
+`func (o *KubernetesPods) GetNamespaces() []KubernetesPod`
 
 GetNamespaces returns the Namespaces field if non-nil, zero value otherwise.
 
 ### GetNamespacesOk
 
-`func (o *KubernetesNodes) GetNamespacesOk() (*[]KubernetesNode, bool)`
+`func (o *KubernetesPods) GetNamespacesOk() (*[]KubernetesPod, bool)`
 
 GetNamespacesOk returns a tuple with the Namespaces field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetNamespaces
 
-`func (o *KubernetesNodes) SetNamespaces(v []KubernetesNode)`
+`func (o *KubernetesPods) SetNamespaces(v []KubernetesPod)`
 
 SetNamespaces sets Namespaces field to given value.
 
 ### HasNamespaces
 
-`func (o *KubernetesNodes) HasNamespaces() bool`
+`func (o *KubernetesPods) HasNamespaces() bool`
 
 HasNamespaces returns a boolean if a field has been set.
 

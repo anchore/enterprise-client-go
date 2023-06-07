@@ -301,19 +301,6 @@ type DefaultApi interface {
 	DeleteJiraSelectorExecute(r ApiDeleteJiraSelectorRequest) (*_nethttp.Response, error)
 
 	/*
-	DeleteKubernetesNamespaces Delete Kubernetes namespaces for a given criteria
-
-	Delete Kubernetes namespaces for a given criteria
-
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @return ApiDeleteKubernetesNamespacesRequest
-	*/
-	DeleteKubernetesNamespaces(ctx _context.Context) ApiDeleteKubernetesNamespacesRequest
-
-	// DeleteKubernetesNamespacesExecute executes the request
-	DeleteKubernetesNamespacesExecute(r ApiDeleteKubernetesNamespacesRequest) (*_nethttp.Response, error)
-
-	/*
 	DeleteRoleUser Remove a user from the role
 
 	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
@@ -563,48 +550,6 @@ type DefaultApi interface {
 	GetJiraSelectorExecute(r ApiGetJiraSelectorRequest) (NotificationSelector, *_nethttp.Response, error)
 
 	/*
-	GetKubernetesContainers Return a list of Kubernetes containers that have been inventoried for this account
-
-	Return a list of Kubernetes containers that have been inventoried for this account
-
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @return ApiGetKubernetesContainersRequest
-	*/
-	GetKubernetesContainers(ctx _context.Context) ApiGetKubernetesContainersRequest
-
-	// GetKubernetesContainersExecute executes the request
-	//  @return KubernetesContainers
-	GetKubernetesContainersExecute(r ApiGetKubernetesContainersRequest) (KubernetesContainers, *_nethttp.Response, error)
-
-	/*
-	GetKubernetesNamespaces Return a list of Kubernetes namespaces that have been inventoried for this account
-
-	Return a list of Kubernetes namespaces that have been inventoried for this account
-
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @return ApiGetKubernetesNamespacesRequest
-	*/
-	GetKubernetesNamespaces(ctx _context.Context) ApiGetKubernetesNamespacesRequest
-
-	// GetKubernetesNamespacesExecute executes the request
-	//  @return KubernetesNamespaces
-	GetKubernetesNamespacesExecute(r ApiGetKubernetesNamespacesRequest) (KubernetesNamespaces, *_nethttp.Response, error)
-
-	/*
-	GetKubernetesNodes Return a list of Kubernetes nodes that have been inventoried for this account
-
-	Return a list of Kubernetes nodes that have been inventoried for this account
-
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @return ApiGetKubernetesNodesRequest
-	*/
-	GetKubernetesNodes(ctx _context.Context) ApiGetKubernetesNodesRequest
-
-	// GetKubernetesNodesExecute executes the request
-	//  @return KubernetesNodes
-	GetKubernetesNodesExecute(r ApiGetKubernetesNodesRequest) (KubernetesNodes, *_nethttp.Response, error)
-
-	/*
 	GetOauthToken Method for GetOauthToken
 
 	Request a jwt token for subsequent operations, this request is authenticated with normal HTTP auth
@@ -736,20 +681,6 @@ type DefaultApi interface {
 	// GetSmtpSelectorExecute executes the request
 	//  @return NotificationSelector
 	GetSmtpSelectorExecute(r ApiGetSmtpSelectorRequest) (NotificationSelector, *_nethttp.Response, error)
-
-	/*
-	GetStatus Service status
-
-	Get the API service status
-
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @return ApiGetStatusRequest
-	*/
-	GetStatus(ctx _context.Context) ApiGetStatusRequest
-
-	// GetStatusExecute executes the request
-	//  @return RbacManagerStatusResponse
-	GetStatusExecute(r ApiGetStatusRequest) (RbacManagerStatusResponse, *_nethttp.Response, error)
 
 	/*
 	GetTeamsConfiguration Method for GetTeamsConfiguration
@@ -1162,22 +1093,6 @@ type DefaultApi interface {
 	MyRolesExecute(r ApiMyRolesRequest) ([]RbacManagerAccountRole, *_nethttp.Response, error)
 
 	/*
-	Notify Method for Notify
-
-	notify the configuration for the specified endpoint with the provided payload. Currently only internal services can call this endpoint
-
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @param name
-	 @param uuid
-	 @return ApiNotifyRequest
-	*/
-	Notify(ctx _context.Context, name string, uuid string) ApiNotifyRequest
-
-	// NotifyExecute executes the request
-	//  @return NotificationDispatchResult
-	NotifyExecute(r ApiNotifyRequest) (NotificationDispatchResult, *_nethttp.Response, error)
-
-	/*
 	Ping Method for Ping
 
 	Simple status check
@@ -1545,8 +1460,8 @@ type DefaultApi interface {
 	VersionCheck(ctx _context.Context) ApiVersionCheckRequest
 
 	// VersionCheckExecute executes the request
-	//  @return RbacManagerServiceVersion
-	VersionCheckExecute(r ApiVersionCheckRequest) (RbacManagerServiceVersion, *_nethttp.Response, error)
+	//  @return ServiceVersion
+	VersionCheckExecute(r ApiVersionCheckRequest) (ServiceVersion, *_nethttp.Response, error)
 }
 
 // DefaultApiService DefaultApi service
@@ -3666,105 +3581,6 @@ func (a *DefaultApiService) DeleteJiraSelectorExecute(r ApiDeleteJiraSelectorReq
 	return localVarHTTPResponse, nil
 }
 
-type ApiDeleteKubernetesNamespacesRequest struct {
-	ctx _context.Context
-	ApiService DefaultApi
-	clusterName *string
-}
-
-func (r ApiDeleteKubernetesNamespacesRequest) ClusterName(clusterName string) ApiDeleteKubernetesNamespacesRequest {
-	r.clusterName = &clusterName
-	return r
-}
-
-func (r ApiDeleteKubernetesNamespacesRequest) Execute() (*_nethttp.Response, error) {
-	return r.ApiService.DeleteKubernetesNamespacesExecute(r)
-}
-
-/*
-DeleteKubernetesNamespaces Delete Kubernetes namespaces for a given criteria
-
-Delete Kubernetes namespaces for a given criteria
-
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiDeleteKubernetesNamespacesRequest
-*/
-func (a *DefaultApiService) DeleteKubernetesNamespaces(ctx _context.Context) ApiDeleteKubernetesNamespacesRequest {
-	return ApiDeleteKubernetesNamespacesRequest{
-		ApiService: a,
-		ctx: ctx,
-	}
-}
-
-// Execute executes the request
-func (a *DefaultApiService) DeleteKubernetesNamespacesExecute(r ApiDeleteKubernetesNamespacesRequest) (*_nethttp.Response, error) {
-	var (
-		localVarHTTPMethod   = _nethttp.MethodDelete
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.DeleteKubernetesNamespaces")
-	if err != nil {
-		return nil, GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/kubernetes-namespaces"
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
-
-	if r.clusterName != nil {
-		localVarQueryParams.Add("cluster_name", parameterToString(*r.clusterName, ""))
-	}
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
-	if err != nil {
-		return nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
-	}
-
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarHTTPResponse, newErr
-	}
-
-	return localVarHTTPResponse, nil
-}
-
 type ApiDeleteRoleUserRequest struct {
 	ctx _context.Context
 	ApiService DefaultApi
@@ -5536,312 +5352,6 @@ func (a *DefaultApiService) GetJiraSelectorExecute(r ApiGetJiraSelectorRequest) 
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiGetKubernetesContainersRequest struct {
-	ctx _context.Context
-	ApiService DefaultApi
-}
-
-
-func (r ApiGetKubernetesContainersRequest) Execute() (KubernetesContainers, *_nethttp.Response, error) {
-	return r.ApiService.GetKubernetesContainersExecute(r)
-}
-
-/*
-GetKubernetesContainers Return a list of Kubernetes containers that have been inventoried for this account
-
-Return a list of Kubernetes containers that have been inventoried for this account
-
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiGetKubernetesContainersRequest
-*/
-func (a *DefaultApiService) GetKubernetesContainers(ctx _context.Context) ApiGetKubernetesContainersRequest {
-	return ApiGetKubernetesContainersRequest{
-		ApiService: a,
-		ctx: ctx,
-	}
-}
-
-// Execute executes the request
-//  @return KubernetesContainers
-func (a *DefaultApiService) GetKubernetesContainersExecute(r ApiGetKubernetesContainersRequest) (KubernetesContainers, *_nethttp.Response, error) {
-	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  KubernetesContainers
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.GetKubernetesContainers")
-	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/kubernetes-containers"
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type ApiGetKubernetesNamespacesRequest struct {
-	ctx _context.Context
-	ApiService DefaultApi
-}
-
-
-func (r ApiGetKubernetesNamespacesRequest) Execute() (KubernetesNamespaces, *_nethttp.Response, error) {
-	return r.ApiService.GetKubernetesNamespacesExecute(r)
-}
-
-/*
-GetKubernetesNamespaces Return a list of Kubernetes namespaces that have been inventoried for this account
-
-Return a list of Kubernetes namespaces that have been inventoried for this account
-
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiGetKubernetesNamespacesRequest
-*/
-func (a *DefaultApiService) GetKubernetesNamespaces(ctx _context.Context) ApiGetKubernetesNamespacesRequest {
-	return ApiGetKubernetesNamespacesRequest{
-		ApiService: a,
-		ctx: ctx,
-	}
-}
-
-// Execute executes the request
-//  @return KubernetesNamespaces
-func (a *DefaultApiService) GetKubernetesNamespacesExecute(r ApiGetKubernetesNamespacesRequest) (KubernetesNamespaces, *_nethttp.Response, error) {
-	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  KubernetesNamespaces
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.GetKubernetesNamespaces")
-	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/kubernetes-namespaces"
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type ApiGetKubernetesNodesRequest struct {
-	ctx _context.Context
-	ApiService DefaultApi
-}
-
-
-func (r ApiGetKubernetesNodesRequest) Execute() (KubernetesNodes, *_nethttp.Response, error) {
-	return r.ApiService.GetKubernetesNodesExecute(r)
-}
-
-/*
-GetKubernetesNodes Return a list of Kubernetes nodes that have been inventoried for this account
-
-Return a list of Kubernetes nodes that have been inventoried for this account
-
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiGetKubernetesNodesRequest
-*/
-func (a *DefaultApiService) GetKubernetesNodes(ctx _context.Context) ApiGetKubernetesNodesRequest {
-	return ApiGetKubernetesNodesRequest{
-		ApiService: a,
-		ctx: ctx,
-	}
-}
-
-// Execute executes the request
-//  @return KubernetesNodes
-func (a *DefaultApiService) GetKubernetesNodesExecute(r ApiGetKubernetesNodesRequest) (KubernetesNodes, *_nethttp.Response, error) {
-	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  KubernetesNodes
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.GetKubernetesNodes")
-	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/kubernetes-nodes"
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
 type ApiGetOauthTokenRequest struct {
 	ctx _context.Context
 	ApiService DefaultApi
@@ -6859,117 +6369,6 @@ func (a *DefaultApiService) GetSmtpSelectorExecute(r ApiGetSmtpSelectorRequest) 
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiGetStatusRequest struct {
-	ctx _context.Context
-	ApiService DefaultApi
-}
-
-
-func (r ApiGetStatusRequest) Execute() (RbacManagerStatusResponse, *_nethttp.Response, error) {
-	return r.ApiService.GetStatusExecute(r)
-}
-
-/*
-GetStatus Service status
-
-Get the API service status
-
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiGetStatusRequest
-*/
-func (a *DefaultApiService) GetStatus(ctx _context.Context) ApiGetStatusRequest {
-	return ApiGetStatusRequest{
-		ApiService: a,
-		ctx: ctx,
-	}
-}
-
-// Execute executes the request
-//  @return RbacManagerStatusResponse
-func (a *DefaultApiService) GetStatusExecute(r ApiGetStatusRequest) (RbacManagerStatusResponse, *_nethttp.Response, error) {
-	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  RbacManagerStatusResponse
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.GetStatus")
-	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/status"
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		if localVarHTTPResponse.StatusCode == 500 {
-			var v RbacManagerApiErrorResponse
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-			newErr.model = v
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
 type ApiGetTeamsConfigurationRequest struct {
 	ctx _context.Context
 	ApiService DefaultApi
@@ -7850,7 +7249,7 @@ func (a *DefaultApiService) ListFileContentSearchResultsExecute(r ApiListFileCon
 		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/images/{image_digest}/artifacts/file_content_search"
+	localVarPath := localBasePath + "/images/{image_digest}/artifacts/file-content-search"
 	localVarPath = strings.Replace(localVarPath, "{"+"image_digest"+"}", _neturl.PathEscape(parameterToString(r.imageDigest, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -8481,7 +7880,7 @@ func (a *DefaultApiService) ListRetrievedFilesExecute(r ApiListRetrievedFilesReq
 		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/images/{image_digest}/artifacts/retrieved_files"
+	localVarPath := localBasePath + "/images/{image_digest}/artifacts/retrieved-files"
 	localVarPath = strings.Replace(localVarPath, "{"+"image_digest"+"}", _neturl.PathEscape(parameterToString(r.imageDigest, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -8816,7 +8215,7 @@ func (a *DefaultApiService) ListSecretSearchResultsExecute(r ApiListSecretSearch
 		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/images/{image_digest}/artifacts/secret_search"
+	localVarPath := localBasePath + "/images/{image_digest}/artifacts/secret-search"
 	localVarPath = strings.Replace(localVarPath, "{"+"image_digest"+"}", _neturl.PathEscape(parameterToString(r.imageDigest, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -10033,126 +9432,6 @@ func (a *DefaultApiService) MyRolesExecute(r ApiMyRolesRequest) ([]RbacManagerAc
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
 			newErr.model = v
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type ApiNotifyRequest struct {
-	ctx _context.Context
-	ApiService DefaultApi
-	name string
-	uuid string
-	payload *NotificationSynchronousNotificationPayload
-}
-
-func (r ApiNotifyRequest) Payload(payload NotificationSynchronousNotificationPayload) ApiNotifyRequest {
-	r.payload = &payload
-	return r
-}
-
-func (r ApiNotifyRequest) Execute() (NotificationDispatchResult, *_nethttp.Response, error) {
-	return r.ApiService.NotifyExecute(r)
-}
-
-/*
-Notify Method for Notify
-
-notify the configuration for the specified endpoint with the provided payload. Currently only internal services can call this endpoint
-
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param name
- @param uuid
- @return ApiNotifyRequest
-*/
-func (a *DefaultApiService) Notify(ctx _context.Context, name string, uuid string) ApiNotifyRequest {
-	return ApiNotifyRequest{
-		ApiService: a,
-		ctx: ctx,
-		name: name,
-		uuid: uuid,
-	}
-}
-
-// Execute executes the request
-//  @return NotificationDispatchResult
-func (a *DefaultApiService) NotifyExecute(r ApiNotifyRequest) (NotificationDispatchResult, *_nethttp.Response, error) {
-	var (
-		localVarHTTPMethod   = _nethttp.MethodPost
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  NotificationDispatchResult
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.Notify")
-	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/notifications/internal/endpoints/{name}/configurations/{uuid}/notify"
-	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", _neturl.PathEscape(parameterToString(r.name, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", _neturl.PathEscape(parameterToString(r.uuid, "")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
-	if r.payload == nil {
-		return localVarReturnValue, nil, reportError("payload is required and must be specified")
-	}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	// body params
-	localVarPostBody = r.payload
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -12975,7 +12254,7 @@ type ApiVersionCheckRequest struct {
 }
 
 
-func (r ApiVersionCheckRequest) Execute() (RbacManagerServiceVersion, *_nethttp.Response, error) {
+func (r ApiVersionCheckRequest) Execute() (ServiceVersion, *_nethttp.Response, error) {
 	return r.ApiService.VersionCheckExecute(r)
 }
 
@@ -12995,15 +12274,15 @@ func (a *DefaultApiService) VersionCheck(ctx _context.Context) ApiVersionCheckRe
 }
 
 // Execute executes the request
-//  @return RbacManagerServiceVersion
-func (a *DefaultApiService) VersionCheckExecute(r ApiVersionCheckRequest) (RbacManagerServiceVersion, *_nethttp.Response, error) {
+//  @return ServiceVersion
+func (a *DefaultApiService) VersionCheckExecute(r ApiVersionCheckRequest) (ServiceVersion, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		localVarReturnValue  RbacManagerServiceVersion
+		localVarReturnValue  ServiceVersion
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.VersionCheck")

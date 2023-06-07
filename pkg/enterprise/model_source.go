@@ -20,7 +20,7 @@ import (
 type Source struct {
 	// A system-assigned identifier unique for each source analysis
 	Uuid *string `json:"uuid,omitempty"`
-	// The anchore account id that owns this resource
+	// The anchore account name that owns this resource
 	AccountName *string `json:"account_name,omitempty"`
 	// Host name for the repository location (e.g. github.com)
 	Host *string `json:"host,omitempty"`

@@ -15,20 +15,21 @@ import (
 	"encoding/json"
 )
 
-// KubernetesNamespacesNamespaces struct for KubernetesNamespacesNamespaces
-type KubernetesNamespacesNamespaces struct {
+// KubernetesNode struct for KubernetesNode
+type KubernetesNode struct {
 	Uid string `json:"uid"`
 	Name string `json:"name"`
 	Labels map[string]string `json:"labels"`
 	Annotations map[string]string `json:"annotations"`
+	LastSeen *string `json:"last_seen,omitempty"`
 }
 
-// NewKubernetesNamespacesNamespaces instantiates a new KubernetesNamespacesNamespaces object
+// NewKubernetesNode instantiates a new KubernetesNode object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewKubernetesNamespacesNamespaces(uid string, name string, labels map[string]string, annotations map[string]string) *KubernetesNamespacesNamespaces {
-	this := KubernetesNamespacesNamespaces{}
+func NewKubernetesNode(uid string, name string, labels map[string]string, annotations map[string]string) *KubernetesNode {
+	this := KubernetesNode{}
 	this.Uid = uid
 	this.Name = name
 	this.Labels = labels
@@ -36,16 +37,16 @@ func NewKubernetesNamespacesNamespaces(uid string, name string, labels map[strin
 	return &this
 }
 
-// NewKubernetesNamespacesNamespacesWithDefaults instantiates a new KubernetesNamespacesNamespaces object
+// NewKubernetesNodeWithDefaults instantiates a new KubernetesNode object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewKubernetesNamespacesNamespacesWithDefaults() *KubernetesNamespacesNamespaces {
-	this := KubernetesNamespacesNamespaces{}
+func NewKubernetesNodeWithDefaults() *KubernetesNode {
+	this := KubernetesNode{}
 	return &this
 }
 
 // GetUid returns the Uid field value
-func (o *KubernetesNamespacesNamespaces) GetUid() string {
+func (o *KubernetesNode) GetUid() string {
 	if o == nil {
 		var ret string
 		return ret
@@ -56,7 +57,7 @@ func (o *KubernetesNamespacesNamespaces) GetUid() string {
 
 // GetUidOk returns a tuple with the Uid field value
 // and a boolean to check if the value has been set.
-func (o *KubernetesNamespacesNamespaces) GetUidOk() (*string, bool) {
+func (o *KubernetesNode) GetUidOk() (*string, bool) {
 	if o == nil  {
 		return nil, false
 	}
@@ -64,12 +65,12 @@ func (o *KubernetesNamespacesNamespaces) GetUidOk() (*string, bool) {
 }
 
 // SetUid sets field value
-func (o *KubernetesNamespacesNamespaces) SetUid(v string) {
+func (o *KubernetesNode) SetUid(v string) {
 	o.Uid = v
 }
 
 // GetName returns the Name field value
-func (o *KubernetesNamespacesNamespaces) GetName() string {
+func (o *KubernetesNode) GetName() string {
 	if o == nil {
 		var ret string
 		return ret
@@ -80,7 +81,7 @@ func (o *KubernetesNamespacesNamespaces) GetName() string {
 
 // GetNameOk returns a tuple with the Name field value
 // and a boolean to check if the value has been set.
-func (o *KubernetesNamespacesNamespaces) GetNameOk() (*string, bool) {
+func (o *KubernetesNode) GetNameOk() (*string, bool) {
 	if o == nil  {
 		return nil, false
 	}
@@ -88,12 +89,12 @@ func (o *KubernetesNamespacesNamespaces) GetNameOk() (*string, bool) {
 }
 
 // SetName sets field value
-func (o *KubernetesNamespacesNamespaces) SetName(v string) {
+func (o *KubernetesNode) SetName(v string) {
 	o.Name = v
 }
 
 // GetLabels returns the Labels field value
-func (o *KubernetesNamespacesNamespaces) GetLabels() map[string]string {
+func (o *KubernetesNode) GetLabels() map[string]string {
 	if o == nil {
 		var ret map[string]string
 		return ret
@@ -104,7 +105,7 @@ func (o *KubernetesNamespacesNamespaces) GetLabels() map[string]string {
 
 // GetLabelsOk returns a tuple with the Labels field value
 // and a boolean to check if the value has been set.
-func (o *KubernetesNamespacesNamespaces) GetLabelsOk() (*map[string]string, bool) {
+func (o *KubernetesNode) GetLabelsOk() (*map[string]string, bool) {
 	if o == nil  {
 		return nil, false
 	}
@@ -112,12 +113,12 @@ func (o *KubernetesNamespacesNamespaces) GetLabelsOk() (*map[string]string, bool
 }
 
 // SetLabels sets field value
-func (o *KubernetesNamespacesNamespaces) SetLabels(v map[string]string) {
+func (o *KubernetesNode) SetLabels(v map[string]string) {
 	o.Labels = v
 }
 
 // GetAnnotations returns the Annotations field value
-func (o *KubernetesNamespacesNamespaces) GetAnnotations() map[string]string {
+func (o *KubernetesNode) GetAnnotations() map[string]string {
 	if o == nil {
 		var ret map[string]string
 		return ret
@@ -128,7 +129,7 @@ func (o *KubernetesNamespacesNamespaces) GetAnnotations() map[string]string {
 
 // GetAnnotationsOk returns a tuple with the Annotations field value
 // and a boolean to check if the value has been set.
-func (o *KubernetesNamespacesNamespaces) GetAnnotationsOk() (*map[string]string, bool) {
+func (o *KubernetesNode) GetAnnotationsOk() (*map[string]string, bool) {
 	if o == nil  {
 		return nil, false
 	}
@@ -136,11 +137,43 @@ func (o *KubernetesNamespacesNamespaces) GetAnnotationsOk() (*map[string]string,
 }
 
 // SetAnnotations sets field value
-func (o *KubernetesNamespacesNamespaces) SetAnnotations(v map[string]string) {
+func (o *KubernetesNode) SetAnnotations(v map[string]string) {
 	o.Annotations = v
 }
 
-func (o KubernetesNamespacesNamespaces) MarshalJSON() ([]byte, error) {
+// GetLastSeen returns the LastSeen field value if set, zero value otherwise.
+func (o *KubernetesNode) GetLastSeen() string {
+	if o == nil || o.LastSeen == nil {
+		var ret string
+		return ret
+	}
+	return *o.LastSeen
+}
+
+// GetLastSeenOk returns a tuple with the LastSeen field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *KubernetesNode) GetLastSeenOk() (*string, bool) {
+	if o == nil || o.LastSeen == nil {
+		return nil, false
+	}
+	return o.LastSeen, true
+}
+
+// HasLastSeen returns a boolean if a field has been set.
+func (o *KubernetesNode) HasLastSeen() bool {
+	if o != nil && o.LastSeen != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetLastSeen gets a reference to the given string and assigns it to the LastSeen field.
+func (o *KubernetesNode) SetLastSeen(v string) {
+	o.LastSeen = &v
+}
+
+func (o KubernetesNode) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
 		toSerialize["uid"] = o.Uid
@@ -154,41 +187,44 @@ func (o KubernetesNamespacesNamespaces) MarshalJSON() ([]byte, error) {
 	if true {
 		toSerialize["annotations"] = o.Annotations
 	}
+	if o.LastSeen != nil {
+		toSerialize["last_seen"] = o.LastSeen
+	}
 	return json.Marshal(toSerialize)
 }
 
-type NullableKubernetesNamespacesNamespaces struct {
-	value *KubernetesNamespacesNamespaces
+type NullableKubernetesNode struct {
+	value *KubernetesNode
 	isSet bool
 }
 
-func (v NullableKubernetesNamespacesNamespaces) Get() *KubernetesNamespacesNamespaces {
+func (v NullableKubernetesNode) Get() *KubernetesNode {
 	return v.value
 }
 
-func (v *NullableKubernetesNamespacesNamespaces) Set(val *KubernetesNamespacesNamespaces) {
+func (v *NullableKubernetesNode) Set(val *KubernetesNode) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableKubernetesNamespacesNamespaces) IsSet() bool {
+func (v NullableKubernetesNode) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableKubernetesNamespacesNamespaces) Unset() {
+func (v *NullableKubernetesNode) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableKubernetesNamespacesNamespaces(val *KubernetesNamespacesNamespaces) *NullableKubernetesNamespacesNamespaces {
-	return &NullableKubernetesNamespacesNamespaces{value: val, isSet: true}
+func NewNullableKubernetesNode(val *KubernetesNode) *NullableKubernetesNode {
+	return &NullableKubernetesNode{value: val, isSet: true}
 }
 
-func (v NullableKubernetesNamespacesNamespaces) MarshalJSON() ([]byte, error) {
+func (v NullableKubernetesNode) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableKubernetesNamespacesNamespaces) UnmarshalJSON(src []byte) error {
+func (v *NullableKubernetesNode) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
