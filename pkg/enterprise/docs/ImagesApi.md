@@ -6,31 +6,21 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**AddImage**](ImagesApi.md#AddImage) | **Post** /images | Submit a new image for analysis by the engine
 [**DeleteImage**](ImagesApi.md#DeleteImage) | **Delete** /images/{image_digest} | Delete an image analysis
-[**DeleteImageByImageId**](ImagesApi.md#DeleteImageByImageId) | **Delete** /images/by-id/{image_id} | Delete image by docker image_id
 [**DeleteImagesAsync**](ImagesApi.md#DeleteImagesAsync) | **Delete** /images | Bulk mark images for deletion
 [**GetImage**](ImagesApi.md#GetImage) | **Get** /images/{image_digest} | Get image metadata
 [**GetImageAncestors**](ImagesApi.md#GetImageAncestors) | **Get** /images/{image_digest}/ancestors | Return the list of ancestor images for the given image
-[**GetImageByImageId**](ImagesApi.md#GetImageByImageId) | **Get** /images/by-id/{image_id} | Lookup image by docker image_id
 [**GetImageContentByType**](ImagesApi.md#GetImageContentByType) | **Get** /images/{image_digest}/content/{content_type} | Get the content of an image by type
 [**GetImageContentByTypeFiles**](ImagesApi.md#GetImageContentByTypeFiles) | **Get** /images/{image_digest}/content/files | Get the content of an image by type files
-[**GetImageContentByTypeImageId**](ImagesApi.md#GetImageContentByTypeImageId) | **Get** /images/by-id/{image_id}/content/{content_type} | Get the content of an image by type
-[**GetImageContentByTypeImageIdFiles**](ImagesApi.md#GetImageContentByTypeImageIdFiles) | **Get** /images/by-id/{image_id}/content/files | Get the content of an image by type files
-[**GetImageContentByTypeImageIdJavaPackage**](ImagesApi.md#GetImageContentByTypeImageIdJavaPackage) | **Get** /images/by-id/{image_id}/content/java | Get the content of an image by type java
 [**GetImageContentByTypeJavaPackage**](ImagesApi.md#GetImageContentByTypeJavaPackage) | **Get** /images/{image_digest}/content/java | Get the content of an image by type java
 [**GetImageContentByTypeMalware**](ImagesApi.md#GetImageContentByTypeMalware) | **Get** /images/{image_digest}/content/malware | Get the content of an image by type malware
-[**GetImageMetadataByType**](ImagesApi.md#GetImageMetadataByType) | **Get** /images/{image_digest}/metadata/{mtype} | Get the metadata of an image by type
+[**GetImageMetadataByType**](ImagesApi.md#GetImageMetadataByType) | **Get** /images/{image_digest}/metadata/{metadata_type} | Get the metadata of an image by type
 [**GetImagePolicyCheckByDigest**](ImagesApi.md#GetImagePolicyCheckByDigest) | **Get** /images/{image_digest}/check | Check policy evaluation status for image
-[**GetImagePolicyCheckByImageId**](ImagesApi.md#GetImagePolicyCheckByImageId) | **Get** /images/by-id/{image_id}/check | Check policy evaluation status for image
 [**GetImageSbomCyclonedxJson**](ImagesApi.md#GetImageSbomCyclonedxJson) | **Get** /images/{image_digest}/sboms/cyclonedx-json | Get image sbom in the CycloneDX format
-[**GetImageSbomNative**](ImagesApi.md#GetImageSbomNative) | **Get** /images/{image_digest}/sboms/native | Get image sbom in the native Anchore format
 [**GetImageSbomNativeJson**](ImagesApi.md#GetImageSbomNativeJson) | **Get** /images/{image_digest}/sboms/native-json | Get image sbom in the native Anchore format
 [**GetImageSbomSpdxJson**](ImagesApi.md#GetImageSbomSpdxJson) | **Get** /images/{image_digest}/sboms/spdx-json | Get image sbom in the SPDX format
 [**GetImageVulnerabilitiesByDigest**](ImagesApi.md#GetImageVulnerabilitiesByDigest) | **Get** /images/{image_digest}/vuln/{vuln_type} | Get vulnerabilities by type
-[**GetImageVulnerabilitiesByTypeImageId**](ImagesApi.md#GetImageVulnerabilitiesByTypeImageId) | **Get** /images/by-id/{image_id}/vuln/{vuln_type} | Get vulnerabilities by type
 [**GetImageVulnerabilityTypes**](ImagesApi.md#GetImageVulnerabilityTypes) | **Get** /images/{image_digest}/vuln | Get vulnerability types
-[**GetImageVulnerabilityTypesByImageId**](ImagesApi.md#GetImageVulnerabilityTypesByImageId) | **Get** /images/by-id/{image_id}/vuln | Get vulnerability types
 [**ListImageContent**](ImagesApi.md#ListImageContent) | **Get** /images/{image_digest}/content | List image content types
-[**ListImageContentByImageId**](ImagesApi.md#ListImageContentByImageId) | **Get** /images/by-id/{image_id}/content | List image content types
 [**ListImageMetadata**](ImagesApi.md#ListImageMetadata) | **Get** /images/{image_digest}/metadata | List image metadata types
 [**ListImages**](ImagesApi.md#ListImages) | **Get** /images | List all visible images
 
@@ -154,78 +144,6 @@ Name | Type | Description  | Notes
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiDeleteImageRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
- **force** | **bool** |  | 
- **xAnchoreAccount** | **string** | An account name to change the resource scope of the request to that account, if permissions allow (admin only) | 
-
-### Return type
-
-[**DeleteImageResponse**](DeleteImageResponse.md)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## DeleteImageByImageId
-
-> DeleteImageResponse DeleteImageByImageId(ctx, imageId).Force(force).XAnchoreAccount(xAnchoreAccount).Execute()
-
-Delete image by docker image_id
-
-### Example
-
-```go
-package main
-
-import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
-)
-
-func main() {
-    imageId := "imageId_example" // string | 
-    force := true // bool |  (optional)
-    xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
-
-    configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.ImagesApi.DeleteImageByImageId(context.Background(), imageId).Force(force).XAnchoreAccount(xAnchoreAccount).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ImagesApi.DeleteImageByImageId``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `DeleteImageByImageId`: DeleteImageResponse
-    fmt.Fprintf(os.Stdout, "Response from `ImagesApi.DeleteImageByImageId`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**imageId** | **string** |  | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiDeleteImageByImageIdRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -464,76 +382,6 @@ No authorization required
 [[Back to README]](../README.md)
 
 
-## GetImageByImageId
-
-> AnchoreImage GetImageByImageId(ctx, imageId).XAnchoreAccount(xAnchoreAccount).Execute()
-
-Lookup image by docker image_id
-
-### Example
-
-```go
-package main
-
-import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
-)
-
-func main() {
-    imageId := "imageId_example" // string | 
-    xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
-
-    configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.ImagesApi.GetImageByImageId(context.Background(), imageId).XAnchoreAccount(xAnchoreAccount).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ImagesApi.GetImageByImageId``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetImageByImageId`: AnchoreImage
-    fmt.Fprintf(os.Stdout, "Response from `ImagesApi.GetImageByImageId`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**imageId** | **string** |  | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiGetImageByImageIdRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
- **xAnchoreAccount** | **string** | An account name to change the resource scope of the request to that account, if permissions allow (admin only) | 
-
-### Return type
-
-[**AnchoreImage**](AnchoreImage.md)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
 ## GetImageContentByType
 
 > ContentPackageResponse GetImageContentByType(ctx, imageDigest, contentType).XAnchoreAccount(xAnchoreAccount).Execute()
@@ -662,219 +510,6 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**ContentFilesResponse**](ContentFilesResponse.md)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## GetImageContentByTypeImageId
-
-> ContentPackageResponse GetImageContentByTypeImageId(ctx, imageId, contentType).XAnchoreAccount(xAnchoreAccount).Execute()
-
-Get the content of an image by type
-
-### Example
-
-```go
-package main
-
-import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
-)
-
-func main() {
-    imageId := "imageId_example" // string | 
-    contentType := "contentType_example" // string | 
-    xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
-
-    configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.ImagesApi.GetImageContentByTypeImageId(context.Background(), imageId, contentType).XAnchoreAccount(xAnchoreAccount).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ImagesApi.GetImageContentByTypeImageId``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetImageContentByTypeImageId`: ContentPackageResponse
-    fmt.Fprintf(os.Stdout, "Response from `ImagesApi.GetImageContentByTypeImageId`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**imageId** | **string** |  | 
-**contentType** | **string** |  | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiGetImageContentByTypeImageIdRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
-
- **xAnchoreAccount** | **string** | An account name to change the resource scope of the request to that account, if permissions allow (admin only) | 
-
-### Return type
-
-[**ContentPackageResponse**](ContentPackageResponse.md)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## GetImageContentByTypeImageIdFiles
-
-> ContentFilesResponse GetImageContentByTypeImageIdFiles(ctx, imageId).XAnchoreAccount(xAnchoreAccount).Execute()
-
-Get the content of an image by type files
-
-### Example
-
-```go
-package main
-
-import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
-)
-
-func main() {
-    imageId := "imageId_example" // string | 
-    xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
-
-    configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.ImagesApi.GetImageContentByTypeImageIdFiles(context.Background(), imageId).XAnchoreAccount(xAnchoreAccount).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ImagesApi.GetImageContentByTypeImageIdFiles``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetImageContentByTypeImageIdFiles`: ContentFilesResponse
-    fmt.Fprintf(os.Stdout, "Response from `ImagesApi.GetImageContentByTypeImageIdFiles`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**imageId** | **string** |  | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiGetImageContentByTypeImageIdFilesRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
- **xAnchoreAccount** | **string** | An account name to change the resource scope of the request to that account, if permissions allow (admin only) | 
-
-### Return type
-
-[**ContentFilesResponse**](ContentFilesResponse.md)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## GetImageContentByTypeImageIdJavaPackage
-
-> ContentJAVAPackageResponse GetImageContentByTypeImageIdJavaPackage(ctx, imageId).XAnchoreAccount(xAnchoreAccount).Execute()
-
-Get the content of an image by type java
-
-### Example
-
-```go
-package main
-
-import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
-)
-
-func main() {
-    imageId := "imageId_example" // string | 
-    xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
-
-    configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.ImagesApi.GetImageContentByTypeImageIdJavaPackage(context.Background(), imageId).XAnchoreAccount(xAnchoreAccount).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ImagesApi.GetImageContentByTypeImageIdJavaPackage``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetImageContentByTypeImageIdJavaPackage`: ContentJAVAPackageResponse
-    fmt.Fprintf(os.Stdout, "Response from `ImagesApi.GetImageContentByTypeImageIdJavaPackage`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**imageId** | **string** |  | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiGetImageContentByTypeImageIdJavaPackageRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
- **xAnchoreAccount** | **string** | An account name to change the resource scope of the request to that account, if permissions allow (admin only) | 
-
-### Return type
-
-[**ContentJAVAPackageResponse**](ContentJAVAPackageResponse.md)
 
 ### Authorization
 
@@ -1032,7 +667,7 @@ No authorization required
 
 ## GetImageMetadataByType
 
-> MetadataResponse GetImageMetadataByType(ctx, imageDigest, mtype).XAnchoreAccount(xAnchoreAccount).Execute()
+> MetadataResponse GetImageMetadataByType(ctx, imageDigest, metadataType).XAnchoreAccount(xAnchoreAccount).Execute()
 
 Get the metadata of an image by type
 
@@ -1050,12 +685,12 @@ import (
 
 func main() {
     imageDigest := "imageDigest_example" // string | 
-    mtype := "mtype_example" // string | 
+    metadataType := "metadataType_example" // string | 
     xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.ImagesApi.GetImageMetadataByType(context.Background(), imageDigest, mtype).XAnchoreAccount(xAnchoreAccount).Execute()
+    resp, r, err := api_client.ImagesApi.GetImageMetadataByType(context.Background(), imageDigest, metadataType).XAnchoreAccount(xAnchoreAccount).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ImagesApi.GetImageMetadataByType``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -1072,7 +707,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **imageDigest** | **string** |  | 
-**mtype** | **string** |  | 
+**metadataType** | **string** |  | 
 
 ### Other Parameters
 
@@ -1187,86 +822,6 @@ No authorization required
 [[Back to README]](../README.md)
 
 
-## GetImagePolicyCheckByImageId
-
-> interface{} GetImagePolicyCheckByImageId(ctx, imageId).Tag(tag).PolicyId(policyId).Detail(detail).History(history).XAnchoreAccount(xAnchoreAccount).Execute()
-
-Check policy evaluation status for image
-
-
-
-### Example
-
-```go
-package main
-
-import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
-)
-
-func main() {
-    imageId := "imageId_example" // string | 
-    tag := "tag_example" // string | 
-    policyId := "policyId_example" // string |  (optional)
-    detail := true // bool |  (optional)
-    history := true // bool |  (optional)
-    xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
-
-    configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.ImagesApi.GetImagePolicyCheckByImageId(context.Background(), imageId).Tag(tag).PolicyId(policyId).Detail(detail).History(history).XAnchoreAccount(xAnchoreAccount).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ImagesApi.GetImagePolicyCheckByImageId``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetImagePolicyCheckByImageId`: interface{}
-    fmt.Fprintf(os.Stdout, "Response from `ImagesApi.GetImagePolicyCheckByImageId`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**imageId** | **string** |  | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiGetImagePolicyCheckByImageIdRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
- **tag** | **string** |  | 
- **policyId** | **string** |  | 
- **detail** | **bool** |  | 
- **history** | **bool** |  | 
- **xAnchoreAccount** | **string** | An account name to change the resource scope of the request to that account, if permissions allow (admin only) | 
-
-### Return type
-
-**interface{}**
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
 ## GetImageSbomCyclonedxJson
 
 > string GetImageSbomCyclonedxJson(ctx, imageDigest).XAnchoreAccount(xAnchoreAccount).Execute()
@@ -1331,76 +886,6 @@ No authorization required
 
 - **Content-Type**: Not defined
 - **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## GetImageSbomNative
-
-> *os.File GetImageSbomNative(ctx, imageDigest).XAnchoreAccount(xAnchoreAccount).Execute()
-
-Get image sbom in the native Anchore format
-
-### Example
-
-```go
-package main
-
-import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
-)
-
-func main() {
-    imageDigest := "imageDigest_example" // string | 
-    xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
-
-    configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.ImagesApi.GetImageSbomNative(context.Background(), imageDigest).XAnchoreAccount(xAnchoreAccount).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ImagesApi.GetImageSbomNative``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetImageSbomNative`: *os.File
-    fmt.Fprintf(os.Stdout, "Response from `ImagesApi.GetImageSbomNative`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**imageDigest** | **string** |  | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiGetImageSbomNativeRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
- **xAnchoreAccount** | **string** | An account name to change the resource scope of the request to that account, if permissions allow (admin only) | 
-
-### Return type
-
-[***os.File**](*os.File.md)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/gzip
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -1626,79 +1111,6 @@ No authorization required
 [[Back to README]](../README.md)
 
 
-## GetImageVulnerabilitiesByTypeImageId
-
-> ImagePackageVulnerabilityResponse GetImageVulnerabilitiesByTypeImageId(ctx, imageId, vulnType).XAnchoreAccount(xAnchoreAccount).Execute()
-
-Get vulnerabilities by type
-
-### Example
-
-```go
-package main
-
-import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
-)
-
-func main() {
-    imageId := "imageId_example" // string | 
-    vulnType := "vulnType_example" // string | 
-    xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
-
-    configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.ImagesApi.GetImageVulnerabilitiesByTypeImageId(context.Background(), imageId, vulnType).XAnchoreAccount(xAnchoreAccount).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ImagesApi.GetImageVulnerabilitiesByTypeImageId``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetImageVulnerabilitiesByTypeImageId`: ImagePackageVulnerabilityResponse
-    fmt.Fprintf(os.Stdout, "Response from `ImagesApi.GetImageVulnerabilitiesByTypeImageId`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**imageId** | **string** |  | 
-**vulnType** | **string** |  | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiGetImageVulnerabilitiesByTypeImageIdRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
-
- **xAnchoreAccount** | **string** | An account name to change the resource scope of the request to that account, if permissions allow (admin only) | 
-
-### Return type
-
-[**ImagePackageVulnerabilityResponse**](ImagePackageVulnerabilityResponse.md)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
 ## GetImageVulnerabilityTypes
 
 > []string GetImageVulnerabilityTypes(ctx, imageDigest).XAnchoreAccount(xAnchoreAccount).Execute()
@@ -1769,76 +1181,6 @@ No authorization required
 [[Back to README]](../README.md)
 
 
-## GetImageVulnerabilityTypesByImageId
-
-> []string GetImageVulnerabilityTypesByImageId(ctx, imageId).XAnchoreAccount(xAnchoreAccount).Execute()
-
-Get vulnerability types
-
-### Example
-
-```go
-package main
-
-import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
-)
-
-func main() {
-    imageId := "imageId_example" // string | 
-    xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
-
-    configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.ImagesApi.GetImageVulnerabilityTypesByImageId(context.Background(), imageId).XAnchoreAccount(xAnchoreAccount).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ImagesApi.GetImageVulnerabilityTypesByImageId``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetImageVulnerabilityTypesByImageId`: []string
-    fmt.Fprintf(os.Stdout, "Response from `ImagesApi.GetImageVulnerabilityTypesByImageId`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**imageId** | **string** |  | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiGetImageVulnerabilityTypesByImageIdRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
- **xAnchoreAccount** | **string** | An account name to change the resource scope of the request to that account, if permissions allow (admin only) | 
-
-### Return type
-
-**[]string**
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
 ## ListImageContent
 
 > []string ListImageContent(ctx, imageDigest).XAnchoreAccount(xAnchoreAccount).Execute()
@@ -1884,76 +1226,6 @@ Name | Type | Description  | Notes
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiListImageContentRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
- **xAnchoreAccount** | **string** | An account name to change the resource scope of the request to that account, if permissions allow (admin only) | 
-
-### Return type
-
-**[]string**
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## ListImageContentByImageId
-
-> []string ListImageContentByImageId(ctx, imageId).XAnchoreAccount(xAnchoreAccount).Execute()
-
-List image content types
-
-### Example
-
-```go
-package main
-
-import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
-)
-
-func main() {
-    imageId := "imageId_example" // string | 
-    xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
-
-    configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.ImagesApi.ListImageContentByImageId(context.Background(), imageId).XAnchoreAccount(xAnchoreAccount).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ImagesApi.ListImageContentByImageId``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ListImageContentByImageId`: []string
-    fmt.Fprintf(os.Stdout, "Response from `ImagesApi.ListImageContentByImageId`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**imageId** | **string** |  | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiListImageContentByImageIdRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -2051,7 +1323,7 @@ No authorization required
 
 ## ListImages
 
-> []AnchoreImage ListImages(ctx).History(history).Fulltag(fulltag).ImageStatus(imageStatus).AnalysisStatus(analysisStatus).XAnchoreAccount(xAnchoreAccount).Execute()
+> []AnchoreImage ListImages(ctx).ImageId(imageId).History(history).Fulltag(fulltag).ImageStatus(imageStatus).AnalysisStatus(analysisStatus).XAnchoreAccount(xAnchoreAccount).Execute()
 
 List all visible images
 
@@ -2070,6 +1342,7 @@ import (
 )
 
 func main() {
+    imageId := "imageId_example" // string | Filter results matching image ID (optional)
     history := true // bool | Include image history in the response (optional)
     fulltag := "fulltag_example" // string | Full docker-pull string to filter results by (e.g. docker.io/library/nginx:latest, or myhost.com:5000/testimages:v1.1.1) (optional)
     imageStatus := "imageStatus_example" // string | Filter by image_status value on the record. Default if omitted is 'active'. (optional) (default to "active")
@@ -2078,7 +1351,7 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.ImagesApi.ListImages(context.Background()).History(history).Fulltag(fulltag).ImageStatus(imageStatus).AnalysisStatus(analysisStatus).XAnchoreAccount(xAnchoreAccount).Execute()
+    resp, r, err := api_client.ImagesApi.ListImages(context.Background()).ImageId(imageId).History(history).Fulltag(fulltag).ImageStatus(imageStatus).AnalysisStatus(analysisStatus).XAnchoreAccount(xAnchoreAccount).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ImagesApi.ListImages``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -2099,6 +1372,7 @@ Other parameters are passed through a pointer to a apiListImagesRequest struct v
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **imageId** | **string** | Filter results matching image ID | 
  **history** | **bool** | Include image history in the response | 
  **fulltag** | **string** | Full docker-pull string to filter results by (e.g. docker.io/library/nginx:latest, or myhost.com:5000/testimages:v1.1.1) | 
  **imageStatus** | **string** | Filter by image_status value on the record. Default if omitted is &#39;active&#39;. | [default to &quot;active&quot;]

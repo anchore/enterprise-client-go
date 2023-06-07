@@ -17,7 +17,7 @@ import (
 
 // KubernetesNodes Nodes defined in Kubernetes
 type KubernetesNodes struct {
-	Namespaces *[]KubernetesNamespacesNamespaces `json:"namespaces,omitempty"`
+	Namespaces *[]KubernetesNode `json:"namespaces,omitempty"`
 }
 
 // NewKubernetesNodes instantiates a new KubernetesNodes object
@@ -38,9 +38,9 @@ func NewKubernetesNodesWithDefaults() *KubernetesNodes {
 }
 
 // GetNamespaces returns the Namespaces field value if set, zero value otherwise.
-func (o *KubernetesNodes) GetNamespaces() []KubernetesNamespacesNamespaces {
+func (o *KubernetesNodes) GetNamespaces() []KubernetesNode {
 	if o == nil || o.Namespaces == nil {
-		var ret []KubernetesNamespacesNamespaces
+		var ret []KubernetesNode
 		return ret
 	}
 	return *o.Namespaces
@@ -48,7 +48,7 @@ func (o *KubernetesNodes) GetNamespaces() []KubernetesNamespacesNamespaces {
 
 // GetNamespacesOk returns a tuple with the Namespaces field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *KubernetesNodes) GetNamespacesOk() (*[]KubernetesNamespacesNamespaces, bool) {
+func (o *KubernetesNodes) GetNamespacesOk() (*[]KubernetesNode, bool) {
 	if o == nil || o.Namespaces == nil {
 		return nil, false
 	}
@@ -64,8 +64,8 @@ func (o *KubernetesNodes) HasNamespaces() bool {
 	return false
 }
 
-// SetNamespaces gets a reference to the given []KubernetesNamespacesNamespaces and assigns it to the Namespaces field.
-func (o *KubernetesNodes) SetNamespaces(v []KubernetesNamespacesNamespaces) {
+// SetNamespaces gets a reference to the given []KubernetesNode and assigns it to the Namespaces field.
+func (o *KubernetesNodes) SetNamespaces(v []KubernetesNode) {
 	o.Namespaces = &v
 }
 

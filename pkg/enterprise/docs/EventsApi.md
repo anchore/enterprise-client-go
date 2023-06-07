@@ -7,7 +7,7 @@ Method | HTTP request | Description
 [**DeleteEvent**](EventsApi.md#DeleteEvent) | **Delete** /events/{event_id} | Delete Event
 [**DeleteEvents**](EventsApi.md#DeleteEvents) | **Delete** /events | Delete Events
 [**GetEvent**](EventsApi.md#GetEvent) | **Get** /events/{event_id} | Get Event
-[**ListEventTypes**](EventsApi.md#ListEventTypes) | **Get** /event_types | List Event Types
+[**ListEventTypes**](EventsApi.md#ListEventTypes) | **Get** /event-types | List Event Types
 [**ListEvents**](EventsApi.md#ListEvents) | **Get** /events | List Events
 
 

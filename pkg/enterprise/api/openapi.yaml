@@ -1391,7 +1391,7 @@ paths:
       - Applications
       x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.applications
       x-anchore-authz-action: deleteApplication
-  /applications/{application_id}/versions/{application_version_id}/sboms/json:
+  /applications/{application_id}/versions/{application_version_id}/sboms/native-json:
     get:
       description: Get the combined sbom for the given application version, optionally
         filtered by artifact type
@@ -1994,6 +1994,27 @@ paths:
       x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.corrections
       x-anchore-authz-action: updateCorrection
       x-codegen-request-body-name: correction
+  /ecs-containers:
+    get:
+      description: Return a list of ECS containers that have been inventoried for
+        this account
+      operationId: get_ecs_containers
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ECSContainers'
+          description: success
+        "500":
+          content: {}
+          description: Internal Error
+      summary: Return a list of ECS containers that have been inventoried for this
+        account
+      tags:
+      - Inventories
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.runtime_inventory
+      x-anchore-authz-action: getECSContainers
   /ecs-inventory:
     post:
       description: Add container metadata from Amazon ECS
@@ -2017,7 +2038,47 @@ paths:
       x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.runtime_inventory
       x-anchore-authz-action: postEcsInventory
       x-codegen-request-body-name: inventory
-  /event_types:
+  /ecs-services:
+    get:
+      description: Return a list of ECS services that have been inventoried for this
+        account
+      operationId: get_ecs_services
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ECSServices'
+          description: success
+        "500":
+          content: {}
+          description: Internal Error
+      summary: Return a list of ECS services that have been inventoried for this account
+      tags:
+      - Inventories
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.runtime_inventory
+      x-anchore-authz-action: getECSServices
+  /ecs-tasks:
+    get:
+      description: Return a list of ECS tasks that have been inventoried for this
+        account
+      operationId: get_ecs_tasks
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ECSTasks'
+          description: success
+        "500":
+          content: {}
+          description: Internal Error
+      summary: Return a list of ECS tasks that have been inventoried for this account
+      tags:
+      - Inventories
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.runtime_inventory
+      x-anchore-authz-action: getECSTasks
+  /event-types:
     get:
       description: Returns list of event types in the category hierarchy
       operationId: list_event_types
@@ -2271,6 +2332,11 @@ paths:
       description: List all images visible to the user
       operationId: list_images
       parameters:
+      - description: Filter results matching image ID
+        in: query
+        name: image_id
+        schema:
+          type: string
       - description: Include image history in the response
         in: query
         name: history
@@ -2372,353 +2438,6 @@ paths:
       x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.images
       x-anchore-authz-action: createImage
       x-codegen-request-body-name: image
-  /images/by-id/{image_id}:
-    delete:
-      operationId: delete_image_by_image_id
-      parameters:
-      - in: path
-        name: image_id
-        required: true
-        schema:
-          format: path
-          type: string
-      - in: query
-        name: force
-        schema:
-          type: boolean
-      - description: An account name to change the resource scope of the request to
-          that account, if permissions allow (admin only)
-        in: header
-        name: x-anchore-account
-        schema:
-          type: string
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/DeleteImageResponse'
-          description: Image deletion success
-        "500":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ApiErrorResponse'
-          description: Internal error
-      summary: Delete image by docker image_id
-      tags:
-      - Images
-      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.images
-      x-anchore-authz-action: deleteImage
-    get:
-      operationId: get_image_by_image_id
-      parameters:
-      - in: path
-        name: image_id
-        required: true
-        schema:
-          format: path
-          type: string
-      - description: An account name to change the resource scope of the request to
-          that account, if permissions allow (admin only)
-        in: header
-        name: x-anchore-account
-        schema:
-          type: string
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/AnchoreImage'
-          description: Image lookup success
-        "500":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ApiErrorResponse'
-          description: Internal error
-      summary: Lookup image by docker image_id
-      tags:
-      - Images
-      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.images
-      x-anchore-authz-action: getImage
-  /images/by-id/{image_id}/check:
-    get:
-      description: Get the policy evaluation for the given image
-      operationId: get_image_policy_check_by_image_id
-      parameters:
-      - in: path
-        name: image_id
-        required: true
-        schema:
-          format: path
-          type: string
-      - in: query
-        name: policy_id
-        schema:
-          type: string
-      - in: query
-        name: tag
-        required: true
-        schema:
-          type: string
-      - in: query
-        name: detail
-        schema:
-          type: boolean
-      - in: query
-        name: history
-        schema:
-          type: boolean
-      - description: An account name to change the resource scope of the request to
-          that account, if permissions allow (admin only)
-        in: header
-        name: x-anchore-account
-        schema:
-          type: string
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/PolicyEvaluation'
-          description: Policy evaluation success
-        "500":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ApiErrorResponse'
-          description: Internal Error
-      summary: Check policy evaluation status for image
-      tags:
-      - Images
-      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.images
-      x-anchore-authz-action: getImageEvaluation
-  /images/by-id/{image_id}/content:
-    get:
-      operationId: list_image_content_by_image_id
-      parameters:
-      - in: path
-        name: image_id
-        required: true
-        schema:
-          format: path
-          type: string
-      - description: An account name to change the resource scope of the request to
-          that account, if permissions allow (admin only)
-        in: header
-        name: x-anchore-account
-        schema:
-          type: string
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                items:
-                  type: string
-                type: array
-          description: Content of specified type from the image
-        "500":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ApiErrorResponse'
-          description: Internal error
-      summary: List image content types
-      tags:
-      - Images
-      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.images
-      x-anchore-authz-action: getImage
-  /images/by-id/{image_id}/content/files:
-    get:
-      operationId: get_image_content_by_type_image_id_files
-      parameters:
-      - in: path
-        name: image_id
-        required: true
-        schema:
-          format: path
-          type: string
-      - description: An account name to change the resource scope of the request to
-          that account, if permissions allow (admin only)
-        in: header
-        name: x-anchore-account
-        schema:
-          type: string
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ContentFilesResponse'
-          description: Content of specified type from the image
-        "500":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ApiErrorResponse'
-          description: Internal error
-      summary: Get the content of an image by type files
-      tags:
-      - Images
-      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.images
-      x-anchore-authz-action: getImage
-  /images/by-id/{image_id}/content/java:
-    get:
-      operationId: get_image_content_by_type_image_id_java_package
-      parameters:
-      - in: path
-        name: image_id
-        required: true
-        schema:
-          format: path
-          type: string
-      - description: An account name to change the resource scope of the request to
-          that account, if permissions allow (admin only)
-        in: header
-        name: x-anchore-account
-        schema:
-          type: string
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ContentJAVAPackageResponse'
-          description: Content of specified type from the image
-        "500":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ApiErrorResponse'
-          description: Internal error
-      summary: Get the content of an image by type java
-      tags:
-      - Images
-      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.images
-      x-anchore-authz-action: getImage
-  /images/by-id/{image_id}/content/{content_type}:
-    get:
-      operationId: get_image_content_by_type_image_id
-      parameters:
-      - in: path
-        name: image_id
-        required: true
-        schema:
-          format: path
-          type: string
-      - in: path
-        name: content_type
-        required: true
-        schema:
-          format: path
-          type: string
-      - description: An account name to change the resource scope of the request to
-          that account, if permissions allow (admin only)
-        in: header
-        name: x-anchore-account
-        schema:
-          type: string
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ContentPackageResponse'
-          description: Content of specified type from the image
-        "500":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ApiErrorResponse'
-          description: Internal error
-      summary: Get the content of an image by type
-      tags:
-      - Images
-      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.images
-      x-anchore-authz-action: getImage
-  /images/by-id/{image_id}/vuln:
-    get:
-      operationId: get_image_vulnerability_types_by_image_id
-      parameters:
-      - in: path
-        name: image_id
-        required: true
-        schema:
-          format: path
-          type: string
-      - description: An account name to change the resource scope of the request to
-          that account, if permissions allow (admin only)
-        in: header
-        name: x-anchore-account
-        schema:
-          type: string
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                items:
-                  enum:
-                  - all
-                  - os
-                  - non-os
-                  type: string
-                type: array
-          description: Vulnerability listing for the image
-        "500":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ApiErrorResponse'
-          description: Internal Error
-      summary: Get vulnerability types
-      tags:
-      - Images
-      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.images
-      x-anchore-authz-action: getImage
-  /images/by-id/{image_id}/vuln/{vuln_type}:
-    get:
-      operationId: get_image_vulnerabilities_by_type_image_id
-      parameters:
-      - in: path
-        name: image_id
-        required: true
-        schema:
-          format: path
-          type: string
-      - in: path
-        name: vuln_type
-        required: true
-        schema:
-          format: path
-          type: string
-      - description: An account name to change the resource scope of the request to
-          that account, if permissions allow (admin only)
-        in: header
-        name: x-anchore-account
-        schema:
-          type: string
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ImagePackageVulnerabilityResponse'
-          description: Vulnerability listing for the image
-        "500":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ApiErrorResponse'
-          description: Internal Error
-      summary: Get vulnerabilities by type
-      tags:
-      - Images
-      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.images
-      x-anchore-authz-action: getImage
   /images/{image_digest}:
     delete:
       operationId: delete_image
@@ -2820,7 +2539,7 @@ paths:
       - Images
       x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.images
       x-anchore-authz-action: getImage
-  /images/{image_digest}/artifacts/file_content_search:
+  /images/{image_digest}/artifacts/file-content-search:
     get:
       operationId: list_file_content_search_results
       parameters:
@@ -2843,7 +2562,7 @@ paths:
       summary: Return a list of analyzer artifacts of the specified type
       x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.images
       x-anchore-authz-action: getImage
-  /images/{image_digest}/artifacts/retrieved_files:
+  /images/{image_digest}/artifacts/retrieved-files:
     get:
       operationId: list_retrieved_files
       parameters:
@@ -2866,7 +2585,7 @@ paths:
       summary: Return a list of analyzer artifacts of the specified type
       x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.images
       x-anchore-authz-action: getImage
-  /images/{image_digest}/artifacts/secret_search:
+  /images/{image_digest}/artifacts/secret-search:
     get:
       operationId: list_secret_search_results
       parameters:
@@ -3168,7 +2887,7 @@ paths:
       - Images
       x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.images
       x-anchore-authz-action: getImage
-  /images/{image_digest}/metadata/{mtype}:
+  /images/{image_digest}/metadata/{metadata_type}:
     get:
       operationId: get_image_metadata_by_type
       parameters:
@@ -3179,7 +2898,7 @@ paths:
           format: path
           type: string
       - in: path
-        name: mtype
+        name: metadata_type
         required: true
         schema:
           format: path
@@ -3238,41 +2957,6 @@ paths:
                 $ref: '#/components/schemas/ApiErrorResponse'
           description: Internal error
       summary: Get image sbom in the CycloneDX format
-      tags:
-      - Images
-      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.images
-      x-anchore-authz-action: getImage
-  /images/{image_digest}/sboms/native:
-    get:
-      operationId: get_image_sbom_native
-      parameters:
-      - in: path
-        name: image_digest
-        required: true
-        schema:
-          format: path
-          type: string
-      - description: An account name to change the resource scope of the request to
-          that account, if permissions allow (admin only)
-        in: header
-        name: x-anchore-account
-        schema:
-          type: string
-      responses:
-        "200":
-          content:
-            application/gzip:
-              schema:
-                format: binary
-                type: string
-          description: Image lookup success
-        "500":
-          content:
-            application/gzip:
-              schema:
-                $ref: '#/components/schemas/ApiErrorResponse'
-          description: Internal error
-      summary: Get image sbom in the native Anchore format
       tags:
       - Images
       x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.images
@@ -3532,7 +3216,7 @@ paths:
       - Imports
       x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.image_imports
       x-anchore-authz-action: importImage
-  /imports/images/{operation_id}/content_searches:
+  /imports/images/{operation_id}/content-searches:
     get:
       operationId: list_import_content_searches
       parameters:
@@ -3644,7 +3328,7 @@ paths:
       x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.image_imports
       x-anchore-authz-action: importImage
       x-codegen-request-body-name: contents
-  /imports/images/{operation_id}/file_contents:
+  /imports/images/{operation_id}/file-contents:
     get:
       operationId: list_import_file_contents
       parameters:
@@ -3700,7 +3384,7 @@ paths:
       x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.image_imports
       x-anchore-authz-action: importImage
       x-codegen-request-body-name: contents
-  /imports/images/{operation_id}/image_config:
+  /imports/images/{operation_id}/image-config:
     get:
       operationId: list_import_image_configs
       parameters:
@@ -3878,7 +3562,7 @@ paths:
       x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.image_imports
       x-anchore-authz-action: importImage
       x-codegen-request-body-name: sbom
-  /imports/images/{operation_id}/parent_manifest:
+  /imports/images/{operation_id}/parent-manifest:
     get:
       operationId: list_import_parent_manifests
       parameters:
@@ -3938,7 +3622,7 @@ paths:
       x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.image_imports
       x-anchore-authz-action: importImage
       x-codegen-request-body-name: contents
-  /imports/images/{operation_id}/secret_searches:
+  /imports/images/{operation_id}/secret-searches:
     get:
       operationId: list_import_secret_searches
       parameters:
@@ -4268,6 +3952,8 @@ paths:
           description: Internal Error
       summary: Return a list of Kubernetes containers that have been inventoried for
         this account
+      tags:
+      - Inventories
       x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.runtime_inventory
       x-anchore-authz-action: getKubernetesContainers
   /kubernetes-inventory:
@@ -4310,6 +3996,8 @@ paths:
           content: {}
           description: Internal Error
       summary: Delete Kubernetes namespaces for a given criteria
+      tags:
+      - Inventories
       x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.runtime_inventory
       x-anchore-authz-action: deleteKubernetesNamespaces
     get:
@@ -4328,6 +4016,35 @@ paths:
           description: Internal Error
       summary: Return a list of Kubernetes namespaces that have been inventoried for
         this account
+      tags:
+      - Inventories
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.runtime_inventory
+      x-anchore-authz-action: getKubernetesNamespaces
+  /kubernetes-namespaces/{namespace_id}:
+    get:
+      description: Return Kubernetes namespace that has been inventoried for this
+        account
+      operationId: get_kubernetes_namespace
+      parameters:
+      - in: path
+        name: namespace_id
+        required: true
+        schema:
+          format: path
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/KubernetesNamespace'
+          description: success
+        "500":
+          content: {}
+          description: Internal Error
+      summary: Return a Kubernetes namespace that has been inventoried for this account
+      tags:
+      - Inventories
       x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.runtime_inventory
       x-anchore-authz-action: getKubernetesNamespaces
   /kubernetes-nodes:
@@ -4347,8 +4064,83 @@ paths:
           description: Internal Error
       summary: Return a list of Kubernetes nodes that have been inventoried for this
         account
+      tags:
+      - Inventories
       x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.runtime_inventory
       x-anchore-authz-action: getKubernetesNodes
+  /kubernetes-nodes/{node_id}:
+    get:
+      description: Return Kubernetes node that has been inventoried for this account
+      operationId: get_kubernetes_node
+      parameters:
+      - in: path
+        name: node_id
+        required: true
+        schema:
+          format: path
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/KubernetesNode'
+          description: success
+        "500":
+          content: {}
+          description: Internal Error
+      summary: Return a Kubernetes node that has been inventoried for this account
+      tags:
+      - Inventories
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.runtime_inventory
+      x-anchore-authz-action: getKubernetesNodes
+  /kubernetes-pods:
+    get:
+      description: Return a list of Kubernetes pods that have been inventoried for
+        this account
+      operationId: get_kubernetes_pods
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/KubernetesPods'
+          description: success
+        "500":
+          content: {}
+          description: Internal Error
+      summary: Return a list of Kubernetes pods that have been inventoried for this
+        account
+      tags:
+      - Inventories
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.runtime_inventory
+      x-anchore-authz-action: getKubernetesPods
+  /kubernetes-pods/{pod_id}:
+    get:
+      description: Return a Kubernetes pod that has been inventoried for this account
+      operationId: get_kubernetes_pod
+      parameters:
+      - in: path
+        name: pod_id
+        required: true
+        schema:
+          format: path
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/KubernetesPod'
+          description: success
+        "500":
+          content: {}
+          description: Internal Error
+      summary: Return a Kubernetes pod that has been inventoried for this account
+      tags:
+      - Inventories
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.runtime_inventory
+      x-anchore-authz-action: getKubernetesPods
   /notifications/endpoints:
     get:
       description: List the system installed notification endpoints
@@ -5966,47 +5758,6 @@ paths:
       x-swagger-router-controller: anchore_enterprise.services.notifications.api.controllers.endpoints
       x-anchore-authz-action: updateNotificationEndpoint
       x-codegen-request-body-name: status
-  /notifications/internal/endpoints/{name}/configurations/{uuid}/notify:
-    post:
-      description: notify the configuration for the specified endpoint with the provided
-        payload. Currently only internal services can call this endpoint
-      operationId: notify
-      parameters:
-      - in: path
-        name: name
-        required: true
-        schema:
-          enum:
-          - slack
-          - jira
-          - smtp
-          - github
-          - teams
-          - webhook
-          format: path
-          type: string
-      - in: path
-        name: uuid
-        required: true
-        schema:
-          format: path
-          type: string
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/NotificationSynchronousNotificationPayload'
-        required: true
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/NotificationDispatchResult'
-          description: The endpoint configuration was notified successfully
-      x-swagger-router-controller: anchore_enterprise.services.notifications.api.controllers.internal
-      x-anchore-authz-action: notifyEndpointConfiguration
-      x-codegen-request-body-name: payload
   /notifications/selectors:
     get:
       description: List all selectors mapped to endpoint configurations for the account
@@ -6283,7 +6034,7 @@ paths:
       x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.policies
       x-anchore-authz-action: updatePolicy
       x-codegen-request-body-name: bundle
-  /query/images/by_package:
+  /query/images/by-package:
     get:
       description: Filterable query interface to search for images containing specified
         package
@@ -6340,7 +6091,7 @@ paths:
       - Query
       x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.query
       x-anchore-authz-action: listImages
-  /query/images/by_vulnerability:
+  /query/images/by-vulnerability:
     get:
       description: Returns a listing of images and their respective packages vulnerable
         to the given vulnerability ID
@@ -7522,32 +7273,6 @@ paths:
       - Sources
       x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.sources
       x-anchore-authz-action: getSource
-  /sources/{source_id}/sbom/native:
-    get:
-      operationId: get_source_sbom_native
-      parameters:
-      - in: path
-        name: source_id
-        required: true
-        schema:
-          format: path
-          type: string
-      responses:
-        "200":
-          content:
-            application/gzip:
-              schema:
-                format: binary
-                type: string
-          description: success
-        "500":
-          content: {}
-          description: Internal Error
-      summary: Return the compressed source SBOM in the native Anchore format
-      tags:
-      - Sources
-      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.sources
-      x-anchore-authz-action: getSource
   /sources/{source_id}/sbom/native-json:
     get:
       operationId: get_source_sbom_native_json
@@ -7748,16 +7473,18 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/RbacManagerStatusResponse'
+                $ref: '#/components/schemas/StatusResponse'
           description: Status listing
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/RbacManagerApiErrorResponse'
+                $ref: '#/components/schemas/ApiErrorResponse'
           description: Internal error
       summary: Service status
-      x-swagger-router-controller: anchore_enterprise.services.rbac_manager.api.controllers.status
+      tags:
+      - System
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.system
       x-anchore-authz-action: None
   /subscriptions:
     get:
@@ -7994,7 +7721,7 @@ paths:
       - System
       x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.system
       x-anchore-authz-action: None
-  /system/error_codes:
+  /system/error-codes:
     get:
       description: Describe anchore engine error codes.
       operationId: describe_error_codes
@@ -8118,7 +7845,7 @@ paths:
       - System
       x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.system
       x-anchore-authz-action: updateFeeds
-  /system/policy_spec:
+  /system/policy-spec:
     get:
       description: Get the policy language spec for this service
       operationId: describe_policy
@@ -8374,9 +8101,9 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/RbacManagerServiceVersion'
+                $ref: '#/components/schemas/ServiceVersion'
           description: Version object describing version state
-      x-swagger-router-controller: anchore_enterprise.common.apis
+      x-swagger-router-controller: anchore_enterprise.common.common
       x-anchore-authz-action: None
 components:
   parameters:
@@ -10240,6 +9967,28 @@ components:
       items:
         $ref: '#/components/schemas/DeleteImageResponse'
       type: array
+    ECSContainers:
+      description: Containers defined in ECS
+      example:
+        containers:
+        - task_arn: task_arn
+          image_digest: image_digest
+          account_name: account_name
+          context: context
+          image_tag: image_tag
+          arn: arn
+        - task_arn: task_arn
+          image_digest: image_digest
+          account_name: account_name
+          context: context
+          image_tag: image_tag
+          arn: arn
+      properties:
+        containers:
+          items:
+            $ref: '#/components/schemas/ECSContainers_containers'
+          type: array
+      type: object
     ECSInventory:
       example:
         cluster_arn: cluster_arn
@@ -10294,6 +10043,50 @@ components:
       required:
       - cluster_arn
       - timestamp
+      type: object
+    ECSServices:
+      description: Services defined in ECS
+      example:
+        services:
+        - cluster_arn: cluster_arn
+          account_name: account_name
+          arn: arn
+          tags:
+            key: tags
+        - cluster_arn: cluster_arn
+          account_name: account_name
+          arn: arn
+          tags:
+            key: tags
+      properties:
+        services:
+          items:
+            $ref: '#/components/schemas/ECSServices_services'
+          type: array
+      type: object
+    ECSTasks:
+      description: Tasks defined in ECS
+      example:
+        tasks:
+        - cluster_arn: cluster_arn
+          service_arn: service_arn
+          account_name: account_name
+          task_definition_arn: task_definition_arn
+          arn: arn
+          tags:
+            key: tags
+        - cluster_arn: cluster_arn
+          service_arn: service_arn
+          account_name: account_name
+          task_definition_arn: task_definition_arn
+          arn: arn
+          tags:
+            key: tags
+      properties:
+        tasks:
+          items:
+            $ref: '#/components/schemas/ECSTasks_tasks'
+          type: array
       type: object
     EnterprisePolicyEvaluation:
       description: Evaluation response object
@@ -10838,7 +10631,7 @@ components:
         distro_version: distro_version
       properties:
         account_name:
-          description: The account id
+          description: The account name
           type: string
         image_digest:
           description: The digest of the image
@@ -11128,8 +10921,8 @@ components:
         artifacts:
         - foundBy: foundBy
           licenses:
-          - licenses
-          - licenses
+          - '{}'
+          - '{}'
           metadata: '{}'
           cpes:
           - cpes
@@ -11148,8 +10941,8 @@ components:
           metadataType: metadataType
         - foundBy: foundBy
           licenses:
-          - licenses
-          - licenses
+          - '{}'
+          - '{}'
           metadata: '{}'
           cpes:
           - cpes
@@ -11514,8 +11307,8 @@ components:
       example:
         foundBy: foundBy
         licenses:
-        - licenses
-        - licenses
+        - '{}'
+        - '{}'
         metadata: '{}'
         cpes:
         - cpes
@@ -11549,7 +11342,7 @@ components:
           type: array
         licenses:
           items:
-            type: string
+            type: object
           type: array
         language:
           type: string
@@ -11986,17 +11779,49 @@ components:
       - cluster_name
       - timestamp
       type: object
+    KubernetesNamespace:
+      example:
+        uid: uid
+        last_seen: last_seen
+        name: name
+        annotations:
+          key: annotations
+        labels:
+          key: labels
+      properties:
+        uid:
+          type: string
+        name:
+          type: string
+        labels:
+          additionalProperties:
+            type: string
+          type: object
+        annotations:
+          additionalProperties:
+            type: string
+          type: object
+        last_seen:
+          type: string
+      required:
+      - annotations
+      - labels
+      - name
+      - uid
+      type: object
     KubernetesNamespaces:
       description: Namespaces defined in Kubernetes
       example:
         namespaces:
         - uid: uid
+          last_seen: last_seen
           name: name
           annotations:
             key: annotations
           labels:
             key: labels
         - uid: uid
+          last_seen: last_seen
           name: name
           annotations:
             key: annotations
@@ -12005,20 +11830,52 @@ components:
       properties:
         namespaces:
           items:
-            $ref: '#/components/schemas/KubernetesNamespaces_namespaces'
+            $ref: '#/components/schemas/KubernetesNamespace'
           type: array
+      type: object
+    KubernetesNode:
+      example:
+        uid: uid
+        last_seen: last_seen
+        name: name
+        annotations:
+          key: annotations
+        labels:
+          key: labels
+      properties:
+        uid:
+          type: string
+        name:
+          type: string
+        labels:
+          additionalProperties:
+            type: string
+          type: object
+        annotations:
+          additionalProperties:
+            type: string
+          type: object
+        last_seen:
+          type: string
+      required:
+      - annotations
+      - labels
+      - name
+      - uid
       type: object
     KubernetesNodes:
       description: Nodes defined in Kubernetes
       example:
         namespaces:
         - uid: uid
+          last_seen: last_seen
           name: name
           annotations:
             key: annotations
           labels:
             key: labels
         - uid: uid
+          last_seen: last_seen
           name: name
           annotations:
             key: annotations
@@ -12027,7 +11884,77 @@ components:
       properties:
         namespaces:
           items:
-            $ref: '#/components/schemas/KubernetesNamespaces_namespaces'
+            $ref: '#/components/schemas/KubernetesNode'
+          type: array
+      type: object
+    KubernetesPod:
+      example:
+        namespace_id: namespace_id
+        last_seen: last_seen
+        account_name: account_name
+        name: name
+        annotations:
+          key: annotations
+        id: id
+        labels:
+          key: labels
+        node_id: node_id
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        account_name:
+          type: string
+        labels:
+          additionalProperties:
+            type: string
+          type: object
+        annotations:
+          additionalProperties:
+            type: string
+          type: object
+        node_id:
+          type: string
+        namespace_id:
+          type: string
+        last_seen:
+          type: string
+      required:
+      - account_name
+      - annotations
+      - id
+      - labels
+      - name
+      type: object
+    KubernetesPods:
+      description: Pods defined in Kubernetes
+      example:
+        namespaces:
+        - namespace_id: namespace_id
+          last_seen: last_seen
+          account_name: account_name
+          name: name
+          annotations:
+            key: annotations
+          id: id
+          labels:
+            key: labels
+          node_id: node_id
+        - namespace_id: namespace_id
+          last_seen: last_seen
+          account_name: account_name
+          name: name
+          annotations:
+            key: annotations
+          id: id
+          labels:
+            key: labels
+          node_id: node_id
+      properties:
+        namespaces:
+          items:
+            $ref: '#/components/schemas/KubernetesPod'
           type: array
       type: object
     LocalAnalysisSource:
@@ -12486,8 +12413,6 @@ components:
       - target
       - type
       type: object
-    NativeSbom:
-      type: object
     NotificationActionPlanNotificationPayload:
       allOf:
       - $ref: '#/components/schemas/NotificationSynchronousNotificationPayload'
@@ -12532,24 +12457,6 @@ components:
           type: integer
         max_tries:
           type: integer
-      type: object
-    NotificationDispatchResult:
-      description: Result of a notification dispatch request
-      example:
-        notification: '{}'
-        details: details
-        status: status
-      properties:
-        notification:
-          description: The notification object that was sent. Not documented in more
-            detail at present due to different notification schemas exposed
-          properties: {}
-          type: object
-        status:
-          type: string
-        details:
-          description: Additional delivery result details
-          type: string
       type: object
     NotificationEndpoint:
       example:
@@ -12789,8 +12696,6 @@ components:
       type: object
     NotificationSynchronousNotificationPayload:
       description: defines a notification payload that can be sent synchronously
-      example:
-        type: type
       properties:
         type:
           type: string
@@ -13987,16 +13892,6 @@ components:
       type: object
     RbacManagerServiceVersion:
       description: Version information for a service
-      example:
-        engine:
-          version: version
-          db: db
-        service:
-          version: version
-        api:
-          version: version
-        db:
-          schema_version: schema_version
       properties:
         service:
           $ref: '#/components/schemas/NotificationServiceVersion_service'
@@ -14009,10 +13904,6 @@ components:
       type: object
     RbacManagerStatusResponse:
       description: System status response
-      example:
-        busy: true
-        up: true
-        message: message
       properties:
         busy:
           type: boolean
@@ -14090,7 +13981,7 @@ components:
           description: Type of registry
           type: string
         account_name:
-          description: Engine user that owns this registry entry
+          description: Anchore account that owns this registry entry
           type: string
         registry:
           description: hostname:port string for accessing the registry, as would be
@@ -14867,6 +14758,13 @@ components:
       type: object
     ServiceVersion:
       description: Version information for a service
+      example:
+        service:
+          version: version
+        api:
+          version: version
+        db:
+          schema_version: schema_version
       properties:
         service:
           $ref: '#/components/schemas/NotificationServiceVersion_service'
@@ -14891,7 +14789,7 @@ components:
           description: A system-assigned identifier unique for each source analysis
           type: string
         account_name:
-          description: The anchore account id that owns this resource
+          description: The anchore account name that owns this resource
           type: string
         host:
           description: Host name for the repository location (e.g. github.com)
@@ -16155,6 +16053,35 @@ components:
           properties: {}
           type: object
       type: object
+    ECSContainers_containers:
+      example:
+        task_arn: task_arn
+        image_digest: image_digest
+        account_name: account_name
+        context: context
+        image_tag: image_tag
+        arn: arn
+      properties:
+        arn:
+          type: string
+        task_arn:
+          type: string
+        account_name:
+          type: string
+        context:
+          type: string
+        image_tag:
+          type: string
+        image_digest:
+          type: string
+      required:
+      - account_name
+      - arn
+      - context
+      - image_digest
+      - image_tag
+      - task_arn
+      type: object
     ECSInventory_tasks:
       example:
         service_arn: service_arn
@@ -16186,8 +16113,6 @@ components:
         arn:
           type: string
         task_arn:
-          description: When a task is provided, this must reference one of the task's
-            arn in this payload
           type: string
         image_tag:
           type: string
@@ -16211,6 +16136,62 @@ components:
           type: object
       required:
       - arn
+      type: object
+    ECSServices_services:
+      example:
+        cluster_arn: cluster_arn
+        account_name: account_name
+        arn: arn
+        tags:
+          key: tags
+      properties:
+        arn:
+          type: string
+        cluster_arn:
+          type: string
+        tags:
+          additionalProperties:
+            type: string
+          type: object
+        account_name:
+          type: string
+      required:
+      - account_name
+      - arn
+      - cluster_arn
+      - tags
+      type: object
+    ECSTasks_tasks:
+      example:
+        cluster_arn: cluster_arn
+        service_arn: service_arn
+        account_name: account_name
+        task_definition_arn: task_definition_arn
+        arn: arn
+        tags:
+          key: tags
+      properties:
+        arn:
+          type: string
+        cluster_arn:
+          type: string
+        service_arn:
+          type: string
+        task_definition_arn:
+          type: string
+        tags:
+          additionalProperties:
+            type: string
+          type: object
+        account_name:
+          type: string
+      required:
+      - account_name
+      - arn
+      - cluster_arn
+      - service_arn
+      - tags
+      - task_definition_arn
       type: object
     EventResponse_event_source:
       properties:
@@ -16436,33 +16417,6 @@ components:
       - name
       - pod_uid
       type: object
-    KubernetesNamespaces_namespaces:
-      example:
-        uid: uid
-        name: name
-        annotations:
-          key: annotations
-        labels:
-          key: labels
-      properties:
-        uid:
-          type: string
-        name:
-          type: string
-        labels:
-          additionalProperties:
-            type: string
-          type: object
-        annotations:
-          additionalProperties:
-            type: string
-          type: object
-      required:
-      - annotations
-      - labels
-      - name
-      - uid
-      type: object
     MalwareScan_findings:
       example:
         path: path
@@ -16617,9 +16571,6 @@ components:
           type: string
       type: object
     NotificationServiceVersion_engine:
-      example:
-        version: version
-        db: db
       properties:
         version:
           description: Version of the installed engine library

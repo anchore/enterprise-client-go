@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Uuid** | Pointer to **string** | A system-assigned identifier unique for each source analysis | [optional] 
-**AccountName** | Pointer to **string** | The anchore account id that owns this resource | [optional] 
+**AccountName** | Pointer to **string** | The anchore account name that owns this resource | [optional] 
 **Host** | Pointer to **string** | Host name for the repository location (e.g. github.com) | [optional] 
 **RepositoryName** | Pointer to **string** | The name of the repository on the host (e.g. &#39;anchore/anchore-engine&#39;) | [optional] 
 **Revision** | Pointer to **string** | The commit ID for a git repository | [optional] 

@@ -23,7 +23,6 @@ Method | HTTP request | Description
 [**DeleteIdp**](DefaultApi.md#DeleteIdp) | **Delete** /rbac-manager/saml/idps/{name} | 
 [**DeleteJiraConfiguration**](DefaultApi.md#DeleteJiraConfiguration) | **Delete** /notifications/endpoints/jira/configurations/{uuid} | 
 [**DeleteJiraSelector**](DefaultApi.md#DeleteJiraSelector) | **Delete** /notifications/endpoints/jira/configurations/{configuration_uuid}/selectors/{selector_uuid} | 
-[**DeleteKubernetesNamespaces**](DefaultApi.md#DeleteKubernetesNamespaces) | **Delete** /kubernetes-namespaces | Delete Kubernetes namespaces for a given criteria
 [**DeleteRoleUser**](DefaultApi.md#DeleteRoleUser) | **Delete** /rbac-manager/roles/{role_name}/members | Remove a user from the role
 [**DeleteSlackConfiguration**](DefaultApi.md#DeleteSlackConfiguration) | **Delete** /notifications/endpoints/slack/configurations/{uuid} | 
 [**DeleteSlackSelector**](DefaultApi.md#DeleteSlackSelector) | **Delete** /notifications/endpoints/slack/configurations/{configuration_uuid}/selectors/{selector_uuid} | 
@@ -41,9 +40,6 @@ Method | HTTP request | Description
 [**GetJiraConfiguration**](DefaultApi.md#GetJiraConfiguration) | **Get** /notifications/endpoints/jira/configurations/{uuid} | 
 [**GetJiraConfigurationStatus**](DefaultApi.md#GetJiraConfigurationStatus) | **Get** /notifications/endpoints/jira/configurations/{uuid}/status | 
 [**GetJiraSelector**](DefaultApi.md#GetJiraSelector) | **Get** /notifications/endpoints/jira/configurations/{configuration_uuid}/selectors/{selector_uuid} | 
-[**GetKubernetesContainers**](DefaultApi.md#GetKubernetesContainers) | **Get** /kubernetes-containers | Return a list of Kubernetes containers that have been inventoried for this account
-[**GetKubernetesNamespaces**](DefaultApi.md#GetKubernetesNamespaces) | **Get** /kubernetes-namespaces | Return a list of Kubernetes namespaces that have been inventoried for this account
-[**GetKubernetesNodes**](DefaultApi.md#GetKubernetesNodes) | **Get** /kubernetes-nodes | Return a list of Kubernetes nodes that have been inventoried for this account
 [**GetOauthToken**](DefaultApi.md#GetOauthToken) | **Post** /oauth/token | 
 [**GetQueryResult**](DefaultApi.md#GetQueryResult) | **Get** /reporting/scheduled-query-results/{result_uuid} | 
 [**GetRole**](DefaultApi.md#GetRole) | **Get** /rbac-manager/roles/{role_name} | Get detailed information about a specific role
@@ -53,7 +49,6 @@ Method | HTTP request | Description
 [**GetSmtpConfiguration**](DefaultApi.md#GetSmtpConfiguration) | **Get** /notifications/endpoints/smtp/configurations/{uuid} | 
 [**GetSmtpConfigurationStatus**](DefaultApi.md#GetSmtpConfigurationStatus) | **Get** /notifications/endpoints/smtp/configurations/{uuid}/status | 
 [**GetSmtpSelector**](DefaultApi.md#GetSmtpSelector) | **Get** /notifications/endpoints/smtp/configurations/{configuration_uuid}/selectors/{selector_uuid} | 
-[**GetStatus**](DefaultApi.md#GetStatus) | **Get** /status | Service status
 [**GetTeamsConfiguration**](DefaultApi.md#GetTeamsConfiguration) | **Get** /notifications/endpoints/teams/configurations/{uuid} | 
 [**GetTeamsConfigurationStatus**](DefaultApi.md#GetTeamsConfigurationStatus) | **Get** /notifications/endpoints/teams/configurations/{uuid}/status | 
 [**GetTeamsSelector**](DefaultApi.md#GetTeamsSelector) | **Get** /notifications/endpoints/teams/configurations/{configuration_uuid}/selectors/{selector_uuid} | 
@@ -62,16 +57,16 @@ Method | HTTP request | Description
 [**GetWebhookSelector**](DefaultApi.md#GetWebhookSelector) | **Get** /notifications/endpoints/webhook/configurations/{configuration_uuid}/selectors/{selector_uuid} | 
 [**HealthCheck**](DefaultApi.md#HealthCheck) | **Get** /health | 
 [**ListEndpoints**](DefaultApi.md#ListEndpoints) | **Get** /notifications/endpoints | 
-[**ListFileContentSearchResults**](DefaultApi.md#ListFileContentSearchResults) | **Get** /images/{image_digest}/artifacts/file_content_search | Return a list of analyzer artifacts of the specified type
+[**ListFileContentSearchResults**](DefaultApi.md#ListFileContentSearchResults) | **Get** /images/{image_digest}/artifacts/file-content-search | Return a list of analyzer artifacts of the specified type
 [**ListGithubConfigurations**](DefaultApi.md#ListGithubConfigurations) | **Get** /notifications/endpoints/github/configurations | 
 [**ListGithubSelectors**](DefaultApi.md#ListGithubSelectors) | **Get** /notifications/endpoints/github/configurations/{uuid}/selectors | 
 [**ListIdps**](DefaultApi.md#ListIdps) | **Get** /rbac-manager/saml/idps | 
 [**ListJiraConfigurations**](DefaultApi.md#ListJiraConfigurations) | **Get** /notifications/endpoints/jira/configurations | 
 [**ListJiraSelectors**](DefaultApi.md#ListJiraSelectors) | **Get** /notifications/endpoints/jira/configurations/{uuid}/selectors | 
-[**ListRetrievedFiles**](DefaultApi.md#ListRetrievedFiles) | **Get** /images/{image_digest}/artifacts/retrieved_files | Return a list of analyzer artifacts of the specified type
+[**ListRetrievedFiles**](DefaultApi.md#ListRetrievedFiles) | **Get** /images/{image_digest}/artifacts/retrieved-files | Return a list of analyzer artifacts of the specified type
 [**ListRoleMembers**](DefaultApi.md#ListRoleMembers) | **Get** /rbac-manager/roles/{role_name}/members | Returns a list of objects that have members in the role. The list is filtered by &#39;listRoleMembers&#39; access for the &#39;account&#39; element of each entry.
 [**ListRoles**](DefaultApi.md#ListRoles) | **Get** /rbac-manager/roles | List roles available in the system
-[**ListSecretSearchResults**](DefaultApi.md#ListSecretSearchResults) | **Get** /images/{image_digest}/artifacts/secret_search | Return a list of analyzer artifacts of the specified type
+[**ListSecretSearchResults**](DefaultApi.md#ListSecretSearchResults) | **Get** /images/{image_digest}/artifacts/secret-search | Return a list of analyzer artifacts of the specified type
 [**ListSelectors**](DefaultApi.md#ListSelectors) | **Get** /notifications/selectors | 
 [**ListSlackConfigurations**](DefaultApi.md#ListSlackConfigurations) | **Get** /notifications/endpoints/slack/configurations | 
 [**ListSlackSelectors**](DefaultApi.md#ListSlackSelectors) | **Get** /notifications/endpoints/slack/configurations/{uuid}/selectors | 
@@ -83,7 +78,6 @@ Method | HTTP request | Description
 [**ListWebhookConfigurations**](DefaultApi.md#ListWebhookConfigurations) | **Get** /notifications/endpoints/webhook/configurations | 
 [**ListWebhookSelectors**](DefaultApi.md#ListWebhookSelectors) | **Get** /notifications/endpoints/webhook/configurations/{uuid}/selectors | 
 [**MyRoles**](DefaultApi.md#MyRoles) | **Get** /rbac-manager/my-roles | List the roles for which the authenticated user is a member
-[**Notify**](DefaultApi.md#Notify) | **Post** /notifications/internal/endpoints/{name}/configurations/{uuid}/notify | 
 [**Ping**](DefaultApi.md#Ping) | **Get** / | 
 [**RevokeOauthToken**](DefaultApi.md#RevokeOauthToken) | **Post** /oauth/revoke | 
 [**SamlLogin**](DefaultApi.md#SamlLogin) | **Get** /rbac-manager/saml/login/{idp_name} | 
@@ -1422,70 +1416,6 @@ No authorization required
 [[Back to README]](../README.md)
 
 
-## DeleteKubernetesNamespaces
-
-> DeleteKubernetesNamespaces(ctx).ClusterName(clusterName).Execute()
-
-Delete Kubernetes namespaces for a given criteria
-
-
-
-### Example
-
-```go
-package main
-
-import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
-)
-
-func main() {
-    clusterName := "clusterName_example" // string |  (optional)
-
-    configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.DefaultApi.DeleteKubernetesNamespaces(context.Background()).ClusterName(clusterName).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.DeleteKubernetesNamespaces``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-}
-```
-
-### Path Parameters
-
-
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiDeleteKubernetesNamespacesRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **clusterName** | **string** |  | 
-
-### Return type
-
- (empty response body)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: Not defined
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
 ## DeleteRoleUser
 
 > DeleteRoleUser(ctx, roleName).Username(username).ForAccount(forAccount).Execute()
@@ -2678,189 +2608,6 @@ No authorization required
 [[Back to README]](../README.md)
 
 
-## GetKubernetesContainers
-
-> KubernetesContainers GetKubernetesContainers(ctx).Execute()
-
-Return a list of Kubernetes containers that have been inventoried for this account
-
-
-
-### Example
-
-```go
-package main
-
-import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
-)
-
-func main() {
-
-    configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.DefaultApi.GetKubernetesContainers(context.Background()).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.GetKubernetesContainers``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetKubernetesContainers`: KubernetesContainers
-    fmt.Fprintf(os.Stdout, "Response from `DefaultApi.GetKubernetesContainers`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-This endpoint does not need any parameter.
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiGetKubernetesContainersRequest struct via the builder pattern
-
-
-### Return type
-
-[**KubernetesContainers**](KubernetesContainers.md)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## GetKubernetesNamespaces
-
-> KubernetesNamespaces GetKubernetesNamespaces(ctx).Execute()
-
-Return a list of Kubernetes namespaces that have been inventoried for this account
-
-
-
-### Example
-
-```go
-package main
-
-import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
-)
-
-func main() {
-
-    configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.DefaultApi.GetKubernetesNamespaces(context.Background()).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.GetKubernetesNamespaces``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetKubernetesNamespaces`: KubernetesNamespaces
-    fmt.Fprintf(os.Stdout, "Response from `DefaultApi.GetKubernetesNamespaces`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-This endpoint does not need any parameter.
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiGetKubernetesNamespacesRequest struct via the builder pattern
-
-
-### Return type
-
-[**KubernetesNamespaces**](KubernetesNamespaces.md)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## GetKubernetesNodes
-
-> KubernetesNodes GetKubernetesNodes(ctx).Execute()
-
-Return a list of Kubernetes nodes that have been inventoried for this account
-
-
-
-### Example
-
-```go
-package main
-
-import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
-)
-
-func main() {
-
-    configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.DefaultApi.GetKubernetesNodes(context.Background()).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.GetKubernetesNodes``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetKubernetesNodes`: KubernetesNodes
-    fmt.Fprintf(os.Stdout, "Response from `DefaultApi.GetKubernetesNodes`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-This endpoint does not need any parameter.
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiGetKubernetesNodesRequest struct via the builder pattern
-
-
-### Return type
-
-[**KubernetesNodes**](KubernetesNodes.md)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
 ## GetOauthToken
 
 > TokenResponse GetOauthToken(ctx).GrantType(grantType).Username(username).Password(password).ClientId(clientId).RefreshToken(refreshToken).Execute()
@@ -3484,67 +3231,6 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**NotificationSelector**](NotificationSelector.md)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## GetStatus
-
-> RbacManagerStatusResponse GetStatus(ctx).Execute()
-
-Service status
-
-
-
-### Example
-
-```go
-package main
-
-import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
-)
-
-func main() {
-
-    configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.DefaultApi.GetStatus(context.Background()).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.GetStatus``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetStatus`: RbacManagerStatusResponse
-    fmt.Fprintf(os.Stdout, "Response from `DefaultApi.GetStatus`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-This endpoint does not need any parameter.
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiGetStatusRequest struct via the builder pattern
-
-
-### Return type
-
-[**RbacManagerStatusResponse**](RbacManagerStatusResponse.md)
 
 ### Authorization
 
@@ -5478,81 +5164,6 @@ No authorization required
 [[Back to README]](../README.md)
 
 
-## Notify
-
-> NotificationDispatchResult Notify(ctx, name, uuid).Payload(payload).Execute()
-
-
-
-
-
-### Example
-
-```go
-package main
-
-import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
-)
-
-func main() {
-    name := "name_example" // string | 
-    uuid := "uuid_example" // string | 
-    payload := *openapiclient.NewNotificationSynchronousNotificationPayload() // NotificationSynchronousNotificationPayload | 
-
-    configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.DefaultApi.Notify(context.Background(), name, uuid).Payload(payload).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.Notify``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `Notify`: NotificationDispatchResult
-    fmt.Fprintf(os.Stdout, "Response from `DefaultApi.Notify`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**name** | **string** |  | 
-**uuid** | **string** |  | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiNotifyRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
-
- **payload** | [**NotificationSynchronousNotificationPayload**](NotificationSynchronousNotificationPayload.md) |  | 
-
-### Return type
-
-[**NotificationDispatchResult**](NotificationDispatchResult.md)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
-- **Content-Type**: application/json
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
 ## Ping
 
 > string Ping(ctx).Execute()
@@ -7244,7 +6855,7 @@ No authorization required
 
 ## VersionCheck
 
-> RbacManagerServiceVersion VersionCheck(ctx).Execute()
+> ServiceVersion VersionCheck(ctx).Execute()
 
 
 
@@ -7271,7 +6882,7 @@ func main() {
         fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.VersionCheck``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `VersionCheck`: RbacManagerServiceVersion
+    // response from `VersionCheck`: ServiceVersion
     fmt.Fprintf(os.Stdout, "Response from `DefaultApi.VersionCheck`: %v\n", resp)
 }
 ```
@@ -7287,7 +6898,7 @@ Other parameters are passed through a pointer to a apiVersionCheckRequest struct
 
 ### Return type
 
-[**RbacManagerServiceVersion**](RbacManagerServiceVersion.md)
+[**ServiceVersion**](ServiceVersion.md)
 
 ### Authorization
 

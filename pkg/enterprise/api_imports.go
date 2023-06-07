@@ -1052,7 +1052,7 @@ func (a *ImportsApiService) ImportContentSearchesExecute(r ApiImportContentSearc
 		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/imports/images/{operation_id}/content_searches"
+	localVarPath := localBasePath + "/imports/images/{operation_id}/content-searches"
 	localVarPath = strings.Replace(localVarPath, "{"+"operation_id"+"}", _neturl.PathEscape(parameterToString(r.operationId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -1166,7 +1166,7 @@ func (a *ImportsApiService) ImportFileContentsExecute(r ApiImportFileContentsReq
 		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/imports/images/{operation_id}/file_contents"
+	localVarPath := localBasePath + "/imports/images/{operation_id}/file-contents"
 	localVarPath = strings.Replace(localVarPath, "{"+"operation_id"+"}", _neturl.PathEscape(parameterToString(r.operationId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -1280,7 +1280,7 @@ func (a *ImportsApiService) ImportImageConfigExecute(r ApiImportImageConfigReque
 		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/imports/images/{operation_id}/image_config"
+	localVarPath := localBasePath + "/imports/images/{operation_id}/image-config"
 	localVarPath = strings.Replace(localVarPath, "{"+"operation_id"+"}", _neturl.PathEscape(parameterToString(r.operationId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -1736,7 +1736,7 @@ func (a *ImportsApiService) ImportImageParentManifestExecute(r ApiImportImagePar
 		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/imports/images/{operation_id}/parent_manifest"
+	localVarPath := localBasePath + "/imports/images/{operation_id}/parent-manifest"
 	localVarPath = strings.Replace(localVarPath, "{"+"operation_id"+"}", _neturl.PathEscape(parameterToString(r.operationId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -1850,7 +1850,7 @@ func (a *ImportsApiService) ImportSecretSearchesExecute(r ApiImportSecretSearche
 		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/imports/images/{operation_id}/secret_searches"
+	localVarPath := localBasePath + "/imports/images/{operation_id}/secret-searches"
 	localVarPath = strings.Replace(localVarPath, "{"+"operation_id"+"}", _neturl.PathEscape(parameterToString(r.operationId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -2167,7 +2167,7 @@ func (a *ImportsApiService) ListImportContentSearchesExecute(r ApiListImportCont
 		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/imports/images/{operation_id}/content_searches"
+	localVarPath := localBasePath + "/imports/images/{operation_id}/content-searches"
 	localVarPath = strings.Replace(localVarPath, "{"+"operation_id"+"}", _neturl.PathEscape(parameterToString(r.operationId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -2375,7 +2375,7 @@ func (a *ImportsApiService) ListImportFileContentsExecute(r ApiListImportFileCon
 		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/imports/images/{operation_id}/file_contents"
+	localVarPath := localBasePath + "/imports/images/{operation_id}/file-contents"
 	localVarPath = strings.Replace(localVarPath, "{"+"operation_id"+"}", _neturl.PathEscape(parameterToString(r.operationId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -2479,7 +2479,7 @@ func (a *ImportsApiService) ListImportImageConfigsExecute(r ApiListImportImageCo
 		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/imports/images/{operation_id}/image_config"
+	localVarPath := localBasePath + "/imports/images/{operation_id}/image-config"
 	localVarPath = strings.Replace(localVarPath, "{"+"operation_id"+"}", _neturl.PathEscape(parameterToString(r.operationId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -2791,7 +2791,7 @@ func (a *ImportsApiService) ListImportParentManifestsExecute(r ApiListImportPare
 		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/imports/images/{operation_id}/parent_manifest"
+	localVarPath := localBasePath + "/imports/images/{operation_id}/parent-manifest"
 	localVarPath = strings.Replace(localVarPath, "{"+"operation_id"+"}", _neturl.PathEscape(parameterToString(r.operationId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -2895,7 +2895,7 @@ func (a *ImportsApiService) ListImportSecretSearchesExecute(r ApiListImportSecre
 		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/imports/images/{operation_id}/secret_searches"
+	localVarPath := localBasePath + "/imports/images/{operation_id}/secret-searches"
 	localVarPath = strings.Replace(localVarPath, "{"+"operation_id"+"}", _neturl.PathEscape(parameterToString(r.operationId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)

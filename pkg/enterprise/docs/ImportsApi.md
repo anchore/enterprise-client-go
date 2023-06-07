@@ -1,10 +1,6 @@
 # \ImportsApi
 
-<<<<<<< HEAD
-All URIs are relative to *http://localhost/v2*
-=======
 All URIs are relative to *http://localhost*
->>>>>>> 48fc108 (feat: updated the enterprise ref)
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -14,7 +10,6 @@ Method | HTTP request | Description
 [**GetImportSourcesSbom**](ImportsApi.md#GetImportSourcesSbom) | **Get** /imports/sources/{operation_id}/sbom | list the packages of an imported source code repository
 [**GetOperation**](ImportsApi.md#GetOperation) | **Get** /imports/images/{operation_id} | Get detail on a single import
 [**GetSourcesOperation**](ImportsApi.md#GetSourcesOperation) | **Get** /imports/sources/{operation_id} | Get detail on a single import
-<<<<<<< HEAD
 [**ImportContentSearches**](ImportsApi.md#ImportContentSearches) | **Post** /imports/images/{operation_id}/content-searches | Import a content search analysis catalog
 [**ImportFileContents**](ImportsApi.md#ImportFileContents) | **Post** /imports/images/{operation_id}/file-contents | Import a file contents analysis catalog
 [**ImportImageConfig**](ImportsApi.md#ImportImageConfig) | **Post** /imports/images/{operation_id}/image-config | Import a docker or OCI image config to associate with the image
@@ -33,26 +28,6 @@ Method | HTTP request | Description
 [**ListImportPackages**](ImportsApi.md#ListImportPackages) | **Get** /imports/images/{operation_id}/packages | List uploaded package manifests
 [**ListImportParentManifests**](ImportsApi.md#ListImportParentManifests) | **Get** /imports/images/{operation_id}/parent-manifest | List uploaded parent manifests (manifest lists for a tag)
 [**ListImportSecretSearches**](ImportsApi.md#ListImportSecretSearches) | **Get** /imports/images/{operation_id}/secret-searches | List uploaded secret search results
-=======
-[**ImportContentSearches**](ImportsApi.md#ImportContentSearches) | **Post** /imports/images/{operation_id}/content_searches | Import a content search analysis catalog
-[**ImportFileContents**](ImportsApi.md#ImportFileContents) | **Post** /imports/images/{operation_id}/file_contents | Import a file contents analysis catalog
-[**ImportImageConfig**](ImportsApi.md#ImportImageConfig) | **Post** /imports/images/{operation_id}/image_config | Import a docker or OCI image config to associate with the image
-[**ImportImageDockerfile**](ImportsApi.md#ImportImageDockerfile) | **Post** /imports/images/{operation_id}/dockerfile | Begin the import of an image analyzed by Syft into the system
-[**ImportImageManifest**](ImportsApi.md#ImportImageManifest) | **Post** /imports/images/{operation_id}/manifest | Import a docker or OCI distribution manifest to associate with the image
-[**ImportImagePackages**](ImportsApi.md#ImportImagePackages) | **Post** /imports/images/{operation_id}/packages | Begin the import of an image analyzed by Syft into the system
-[**ImportImageParentManifest**](ImportsApi.md#ImportImageParentManifest) | **Post** /imports/images/{operation_id}/parent_manifest | Import a docker or OCI distribution manifest list to associate with the image
-[**ImportSecretSearches**](ImportsApi.md#ImportSecretSearches) | **Post** /imports/images/{operation_id}/secret_searches | Import a secret search analysis catalog
-[**InvalidateOperation**](ImportsApi.md#InvalidateOperation) | **Delete** /imports/images/{operation_id} | Invalidate operation ID so it can be garbage collected
-[**InvalidateSourcesOperation**](ImportsApi.md#InvalidateSourcesOperation) | **Delete** /imports/sources/{operation_id} | Invalidate operation ID so it can be garbage collected
-[**ListImportContentSearches**](ImportsApi.md#ListImportContentSearches) | **Get** /imports/images/{operation_id}/content_searches | List uploaded content search results
-[**ListImportDockerfiles**](ImportsApi.md#ListImportDockerfiles) | **Get** /imports/images/{operation_id}/dockerfile | List uploaded dockerfiles
-[**ListImportFileContents**](ImportsApi.md#ListImportFileContents) | **Get** /imports/images/{operation_id}/file_contents | List uploaded file contents
-[**ListImportImageConfigs**](ImportsApi.md#ListImportImageConfigs) | **Get** /imports/images/{operation_id}/image_config | List uploaded image configs
-[**ListImportImageManifests**](ImportsApi.md#ListImportImageManifests) | **Get** /imports/images/{operation_id}/manifest | List uploaded image manifests
-[**ListImportPackages**](ImportsApi.md#ListImportPackages) | **Get** /imports/images/{operation_id}/packages | List uploaded package manifests
-[**ListImportParentManifests**](ImportsApi.md#ListImportParentManifests) | **Get** /imports/images/{operation_id}/parent_manifest | List uploaded parent manifests (manifest lists for a tag)
-[**ListImportSecretSearches**](ImportsApi.md#ListImportSecretSearches) | **Get** /imports/images/{operation_id}/secret_searches | List uploaded secret search results
->>>>>>> 48fc108 (feat: updated the enterprise ref)
 [**ListOperations**](ImportsApi.md#ListOperations) | **Get** /imports/images | Lists in-progress imports
 [**ListSourcesOperations**](ImportsApi.md#ListSourcesOperations) | **Get** /imports/sources | Lists in-progress imports
 [**UploadImportSourcesSbom**](ImportsApi.md#UploadImportSourcesSbom) | **Post** /imports/sources/{operation_id}/sbom | Begin the import of a source code repository analyzed by Syft into the system
@@ -821,11 +796,7 @@ import (
 
 func main() {
     operationId := "operationId_example" // string | 
-<<<<<<< HEAD
-    sbom := map[string]interface{}{"key": interface{}(123)} // map[string]interface{} | 
-=======
-    sbom := *openapiclient.NewImagePackageManifest([]openapiclient.ImportPackage{*openapiclient.NewImportPackage("Name_example", "Version_example", "Type_example", []openapiclient.ImportPackageLocation{*openapiclient.NewImportPackageLocation("Path_example")}, []string{"Licenses_example"}, "Language_example", []string{"Cpes_example"})}, *openapiclient.NewImportSource("Type_example", interface{}(123)), *openapiclient.NewImportDistribution()) // ImagePackageManifest | 
->>>>>>> 48fc108 (feat: updated the enterprise ref)
+    sbom := *openapiclient.NewImagePackageManifest([]openapiclient.ImportPackage{*openapiclient.NewImportPackage("Name_example", "Version_example", "Type_example", []openapiclient.ImportPackageLocation{*openapiclient.NewImportPackageLocation("Path_example")}, []interface{}{interface{}(123)}, "Language_example", []string{"Cpes_example"})}, *openapiclient.NewImportSource("Type_example", interface{}(123)), *openapiclient.NewImportDistribution()) // ImagePackageManifest | 
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
@@ -855,11 +826,7 @@ Other parameters are passed through a pointer to a apiImportImagePackagesRequest
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
-<<<<<<< HEAD
- **sbom** | **map[string]interface{}** |  | 
-=======
  **sbom** | [**ImagePackageManifest**](ImagePackageManifest.md) |  | 
->>>>>>> 48fc108 (feat: updated the enterprise ref)
 
 ### Return type
 
@@ -1837,7 +1804,7 @@ import (
 
 func main() {
     operationId := "operationId_example" // string | 
-    sbom := map[string]interface{}{"key": interface{}(123)} // map[string]interface{} | 
+    sbom := *openapiclient.NewNativeSBOM([]openapiclient.NativeSBOMPackage{*openapiclient.NewNativeSBOMPackage("Name_example", "Version_example", "Type_example", []openapiclient.NativeSBOMPackageLocation{*openapiclient.NewNativeSBOMPackageLocation("Path_example")}, []string{"Licenses_example"}, "Language_example", []string{"Cpes_example"})}, *openapiclient.NewNativeSBOMSource("Type_example", interface{}(123)), *openapiclient.NewNativeSBOMDistribution()) // NativeSBOM | 
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
@@ -1867,7 +1834,7 @@ Other parameters are passed through a pointer to a apiUploadImportSourcesSbomReq
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **sbom** | **map[string]interface{}** |  | 
+ **sbom** | [**NativeSBOM**](NativeSBOM.md) |  | 
 
 ### Return type
 

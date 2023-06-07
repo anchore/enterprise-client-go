@@ -24,7 +24,7 @@ type RegistryConfiguration struct {
 	RegistryUser *string `json:"registry_user,omitempty"`
 	// Type of registry
 	RegistryType *string `json:"registry_type,omitempty"`
-	// Engine user that owns this registry entry
+	// Anchore account that owns this registry entry
 	AccountName *string `json:"account_name,omitempty"`
 	// hostname:port string for accessing the registry, as would be used in a docker pull operation
 	Registry *string `json:"registry,omitempty"`

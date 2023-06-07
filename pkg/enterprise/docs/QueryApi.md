@@ -4,8 +4,8 @@ All URIs are relative to *http://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**QueryImagesByPackage**](QueryApi.md#QueryImagesByPackage) | **Get** /query/images/by_package | List of images containing given package
-[**QueryImagesByVulnerability**](QueryApi.md#QueryImagesByVulnerability) | **Get** /query/images/by_vulnerability | List images vulnerable to the specific vulnerability ID.
+[**QueryImagesByPackage**](QueryApi.md#QueryImagesByPackage) | **Get** /query/images/by-package | List of images containing given package
+[**QueryImagesByVulnerability**](QueryApi.md#QueryImagesByVulnerability) | **Get** /query/images/by-vulnerability | List images vulnerable to the specific vulnerability ID.
 [**QueryVulnerabilities**](QueryApi.md#QueryVulnerabilities) | **Get** /query/vulnerabilities | Listing information about given vulnerability
 
 

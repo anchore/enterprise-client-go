@@ -23,7 +23,7 @@ type ImportPackage struct {
 	Type string `json:"type"`
 	FoundBy *string `json:"foundBy,omitempty"`
 	Locations []ImportPackageLocation `json:"locations"`
-	Licenses []string `json:"licenses"`
+	Licenses []interface{} `json:"licenses"`
 	Language string `json:"language"`
 	Cpes []string `json:"cpes"`
 	Purl *string `json:"purl,omitempty"`
@@ -35,7 +35,7 @@ type ImportPackage struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewImportPackage(name string, version string, type_ string, locations []ImportPackageLocation, licenses []string, language string, cpes []string) *ImportPackage {
+func NewImportPackage(name string, version string, type_ string, locations []ImportPackageLocation, licenses []interface{}, language string, cpes []string) *ImportPackage {
 	this := ImportPackage{}
 	this.Name = name
 	this.Version = version
@@ -216,9 +216,9 @@ func (o *ImportPackage) SetLocations(v []ImportPackageLocation) {
 }
 
 // GetLicenses returns the Licenses field value
-func (o *ImportPackage) GetLicenses() []string {
+func (o *ImportPackage) GetLicenses() []interface{} {
 	if o == nil {
-		var ret []string
+		var ret []interface{}
 		return ret
 	}
 
@@ -227,7 +227,7 @@ func (o *ImportPackage) GetLicenses() []string {
 
 // GetLicensesOk returns a tuple with the Licenses field value
 // and a boolean to check if the value has been set.
-func (o *ImportPackage) GetLicensesOk() (*[]string, bool) {
+func (o *ImportPackage) GetLicensesOk() (*[]interface{}, bool) {
 	if o == nil  {
 		return nil, false
 	}
@@ -235,7 +235,7 @@ func (o *ImportPackage) GetLicensesOk() (*[]string, bool) {
 }
 
 // SetLicenses sets field value
-func (o *ImportPackage) SetLicenses(v []string) {
+func (o *ImportPackage) SetLicenses(v []interface{}) {
 	o.Licenses = v
 }
 

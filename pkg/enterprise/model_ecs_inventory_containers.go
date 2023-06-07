@@ -18,7 +18,6 @@ import (
 // ECSInventoryContainers struct for ECSInventoryContainers
 type ECSInventoryContainers struct {
 	Arn string `json:"arn"`
-	// When a task is provided, this must reference one of the task's arn in this payload
 	TaskArn *string `json:"task_arn,omitempty"`
 	ImageTag string `json:"image_tag"`
 	ImageDigest *string `json:"image_digest,omitempty"`

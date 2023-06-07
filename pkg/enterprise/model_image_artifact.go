@@ -18,7 +18,7 @@ import (
 
 // ImageArtifact Model for an image artifact
 type ImageArtifact struct {
-	// The account id
+	// The account name
 	AccountName *string `json:"account_name,omitempty"`
 	// The digest of the image
 	ImageDigest *string `json:"image_digest,omitempty"`
