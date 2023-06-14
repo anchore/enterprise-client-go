@@ -6,19 +6,20 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **CreatedAt** | Pointer to **time.Time** |  | [optional] 
 **LastUpdated** | Pointer to **time.Time** |  | [optional] 
-**PolicyId** | **string** | The policy&#39;s identifier | 
-**Active** | **bool** | True if the policy is currently defined to be used automatically | 
-**AccountName** | **string** | UserId of the user that owns the policy | 
-**PolicySource** | **string** | Source location of where the policy originated | 
-**Policy** | Pointer to [**NullablePolicy**](Policy.md) |  | [optional] 
-**Name** | **string** | Name of the policy | 
+**PolicyId** | Pointer to **string** | The policy&#39;s identifier | [optional] 
+**Active** | Pointer to **bool** | True if the policy is currently defined to be used automatically | [optional] 
+**AccountName** | Pointer to **string** | UserId of the user that owns the policy | [optional] 
+**PolicySource** | Pointer to **string** | Source location of where the policy originated | [optional] 
+**Policy** | Pointer to [**Policy**](Policy.md) |  | [optional] 
+**PolicyMeta** | Pointer to **interface{}** |  | [optional] 
+**Name** | Pointer to **string** | Name of the policy | [optional] 
 **Description** | Pointer to **string** | Description of the policy, human readable | [optional] 
 
 ## Methods
 
 ### NewPolicyRecord
 
-`func NewPolicyRecord(policyId string, active bool, accountName string, policySource string, name string, ) *PolicyRecord`
+`func NewPolicyRecord() *PolicyRecord`
 
 NewPolicyRecord instantiates a new PolicyRecord object
 This constructor will assign default values to properties that have it defined,
@@ -102,6 +103,11 @@ and a boolean to check if the value has been set.
 
 SetPolicyId sets PolicyId field to given value.
 
+### HasPolicyId
+
+`func (o *PolicyRecord) HasPolicyId() bool`
+
+HasPolicyId returns a boolean if a field has been set.
 
 ### GetActive
 
@@ -122,6 +128,11 @@ and a boolean to check if the value has been set.
 
 SetActive sets Active field to given value.
 
+### HasActive
+
+`func (o *PolicyRecord) HasActive() bool`
+
+HasActive returns a boolean if a field has been set.
 
 ### GetAccountName
 
@@ -142,6 +153,11 @@ and a boolean to check if the value has been set.
 
 SetAccountName sets AccountName field to given value.
 
+### HasAccountName
+
+`func (o *PolicyRecord) HasAccountName() bool`
+
+HasAccountName returns a boolean if a field has been set.
 
 ### GetPolicySource
 
@@ -162,6 +178,11 @@ and a boolean to check if the value has been set.
 
 SetPolicySource sets PolicySource field to given value.
 
+### HasPolicySource
+
+`func (o *PolicyRecord) HasPolicySource() bool`
+
+HasPolicySource returns a boolean if a field has been set.
 
 ### GetPolicy
 
@@ -188,16 +209,31 @@ SetPolicy sets Policy field to given value.
 
 HasPolicy returns a boolean if a field has been set.
 
-### SetPolicyNil
+### GetPolicyMeta
 
-`func (o *PolicyRecord) SetPolicyNil(b bool)`
+`func (o *PolicyRecord) GetPolicyMeta() interface{}`
 
- SetPolicyNil sets the value for Policy to be an explicit nil
+GetPolicyMeta returns the PolicyMeta field if non-nil, zero value otherwise.
 
-### UnsetPolicy
-`func (o *PolicyRecord) UnsetPolicy()`
+### GetPolicyMetaOk
 
-UnsetPolicy ensures that no value is present for Policy, not even an explicit nil
+`func (o *PolicyRecord) GetPolicyMetaOk() (*interface{}, bool)`
+
+GetPolicyMetaOk returns a tuple with the PolicyMeta field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetPolicyMeta
+
+`func (o *PolicyRecord) SetPolicyMeta(v interface{})`
+
+SetPolicyMeta sets PolicyMeta field to given value.
+
+### HasPolicyMeta
+
+`func (o *PolicyRecord) HasPolicyMeta() bool`
+
+HasPolicyMeta returns a boolean if a field has been set.
+
 ### GetName
 
 `func (o *PolicyRecord) GetName() string`
@@ -217,6 +253,11 @@ and a boolean to check if the value has been set.
 
 SetName sets Name field to given value.
 
+### HasName
+
+`func (o *PolicyRecord) HasName() bool`
+
+HasName returns a boolean if a field has been set.
 
 ### GetDescription
 

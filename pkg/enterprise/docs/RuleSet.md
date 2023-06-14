@@ -5,21 +5,17 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Id** | **string** |  | 
-<<<<<<<< HEAD:pkg/enterprise/docs/RuleSet.md
-**Name** | **string** |  | 
-========
 **Name** | Pointer to **string** |  | [optional] 
->>>>>>>> 48fc108 (feat: updated the enterprise ref):pkg/enterprise/docs/Policy.md
 **Description** | Pointer to **string** | Description of the Policy, human readable | [optional] 
 **Version** | **string** |  | 
 **ArtifactType** | Pointer to **string** |  | [optional] 
-**Rules** | [**[]PolicyRule**](PolicyRule.md) |  | 
+**Rules** | Pointer to [**[]PolicyRule**](PolicyRule.md) |  | [optional] 
 
 ## Methods
 
 ### NewRuleSet
 
-`func NewRuleSet(id string, name string, version string, rules []PolicyRule, ) *RuleSet`
+`func NewRuleSet(id string, version string, ) *RuleSet`
 
 NewRuleSet instantiates a new RuleSet object
 This constructor will assign default values to properties that have it defined,
@@ -73,50 +69,34 @@ and a boolean to check if the value has been set.
 
 SetName sets Name field to given value.
 
+### HasName
+
+`func (o *RuleSet) HasName() bool`
+
+HasName returns a boolean if a field has been set.
 
 ### GetDescription
 
 `func (o *RuleSet) GetDescription() string`
 
-<<<<<<<< HEAD:pkg/enterprise/docs/RuleSet.md
 GetDescription returns the Description field if non-nil, zero value otherwise.
 
 ### GetDescriptionOk
 
 `func (o *RuleSet) GetDescriptionOk() (*string, bool)`
 
-========
-### GetDescription
-
-`func (o *Policy) GetDescription() string`
-
-GetDescription returns the Description field if non-nil, zero value otherwise.
-
-### GetDescriptionOk
-
-`func (o *Policy) GetDescriptionOk() (*string, bool)`
-
->>>>>>>> 48fc108 (feat: updated the enterprise ref):pkg/enterprise/docs/Policy.md
 GetDescriptionOk returns a tuple with the Description field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetDescription
 
-<<<<<<<< HEAD:pkg/enterprise/docs/RuleSet.md
 `func (o *RuleSet) SetDescription(v string)`
-========
-`func (o *Policy) SetDescription(v string)`
->>>>>>>> 48fc108 (feat: updated the enterprise ref):pkg/enterprise/docs/Policy.md
 
 SetDescription sets Description field to given value.
 
 ### HasDescription
 
-<<<<<<<< HEAD:pkg/enterprise/docs/RuleSet.md
 `func (o *RuleSet) HasDescription() bool`
-========
-`func (o *Policy) HasDescription() bool`
->>>>>>>> 48fc108 (feat: updated the enterprise ref):pkg/enterprise/docs/Policy.md
 
 HasDescription returns a boolean if a field has been set.
 
@@ -184,6 +164,11 @@ and a boolean to check if the value has been set.
 
 SetRules sets Rules field to given value.
 
+### HasRules
+
+`func (o *RuleSet) HasRules() bool`
+
+HasRules returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

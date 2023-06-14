@@ -13,8 +13,8 @@ Name | Type | Description | Notes
 **Recommendation** | **string** | User provided details for resolving this finding | 
 **RuleId** | **string** | ID of the policy rule that that generated this finding | 
 **Allowlisted** | **bool** | Indicates if this finding was allowlisted or not | 
-**AllowlistMatch** | Pointer to [**NullablePolicyEvaluationFindingAllowlistMatch**](PolicyEvaluationFindingAllowlistMatch.md) |  | [optional] 
-**InheritedFromBase** | Pointer to **NullableBool** | Indicates if this finding was found in the base image | [optional] 
+**AllowlistMatch** | Pointer to [**PolicyEvaluationFindingAllowlistMatch**](PolicyEvaluationFindingAllowlistMatch.md) |  | [optional] 
+**InheritedFromBase** | Pointer to **bool** | Indicates if this finding was found in the base image | [optional] 
 
 ## Methods
 
@@ -240,16 +240,6 @@ SetAllowlistMatch sets AllowlistMatch field to given value.
 
 HasAllowlistMatch returns a boolean if a field has been set.
 
-### SetAllowlistMatchNil
-
-`func (o *PolicyEvaluationFinding) SetAllowlistMatchNil(b bool)`
-
- SetAllowlistMatchNil sets the value for AllowlistMatch to be an explicit nil
-
-### UnsetAllowlistMatch
-`func (o *PolicyEvaluationFinding) UnsetAllowlistMatch()`
-
-UnsetAllowlistMatch ensures that no value is present for AllowlistMatch, not even an explicit nil
 ### GetInheritedFromBase
 
 `func (o *PolicyEvaluationFinding) GetInheritedFromBase() bool`
@@ -275,16 +265,6 @@ SetInheritedFromBase sets InheritedFromBase field to given value.
 
 HasInheritedFromBase returns a boolean if a field has been set.
 
-### SetInheritedFromBaseNil
-
-`func (o *PolicyEvaluationFinding) SetInheritedFromBaseNil(b bool)`
-
- SetInheritedFromBaseNil sets the value for InheritedFromBase to be an explicit nil
-
-### UnsetInheritedFromBase
-`func (o *PolicyEvaluationFinding) UnsetInheritedFromBase()`
-
-UnsetInheritedFromBase ensures that no value is present for InheritedFromBase, not even an explicit nil
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

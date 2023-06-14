@@ -3,7 +3,7 @@ Anchore API
 
 This is the Anchore API. Provides the external API for users of Anchore Enterprise.
 
-API version: 2.0.0
+API version: 1.0.0
 Contact: dev@anchore.com
 */
 
@@ -21,16 +21,17 @@ type PolicyRecord struct {
 	CreatedAt *time.Time `json:"created_at,omitempty"`
 	LastUpdated *time.Time `json:"last_updated,omitempty"`
 	// The policy's identifier
-	PolicyId string `json:"policy_id"`
+	PolicyId *string `json:"policy_id,omitempty"`
 	// True if the policy is currently defined to be used automatically
-	Active bool `json:"active"`
+	Active *bool `json:"active,omitempty"`
 	// UserId of the user that owns the policy
-	AccountName string `json:"account_name"`
+	AccountName *string `json:"account_name,omitempty"`
 	// Source location of where the policy originated
-	PolicySource string `json:"policy_source"`
-	Policy NullablePolicy `json:"policy,omitempty"`
+	PolicySource *string `json:"policy_source,omitempty"`
+	Policy *Policy `json:"policy,omitempty"`
+	PolicyMeta *interface{} `json:"policy_meta,omitempty"`
 	// Name of the policy
-	Name string `json:"name"`
+	Name *string `json:"name,omitempty"`
 	// Description of the policy, human readable
 	Description *string `json:"description,omitempty"`
 }
@@ -39,13 +40,8 @@ type PolicyRecord struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewPolicyRecord(policyId string, active bool, accountName string, policySource string, name string) *PolicyRecord {
+func NewPolicyRecord() *PolicyRecord {
 	this := PolicyRecord{}
-	this.PolicyId = policyId
-	this.Active = active
-	this.AccountName = accountName
-	this.PolicySource = policySource
-	this.Name = name
 	return &this
 }
 
@@ -121,166 +117,228 @@ func (o *PolicyRecord) SetLastUpdated(v time.Time) {
 	o.LastUpdated = &v
 }
 
-// GetPolicyId returns the PolicyId field value
+// GetPolicyId returns the PolicyId field value if set, zero value otherwise.
 func (o *PolicyRecord) GetPolicyId() string {
-	if o == nil {
+	if o == nil || o.PolicyId == nil {
 		var ret string
 		return ret
 	}
-
-	return o.PolicyId
+	return *o.PolicyId
 }
 
-// GetPolicyIdOk returns a tuple with the PolicyId field value
+// GetPolicyIdOk returns a tuple with the PolicyId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PolicyRecord) GetPolicyIdOk() (*string, bool) {
-	if o == nil  {
+	if o == nil || o.PolicyId == nil {
 		return nil, false
 	}
-	return &o.PolicyId, true
+	return o.PolicyId, true
 }
 
-// SetPolicyId sets field value
-func (o *PolicyRecord) SetPolicyId(v string) {
-	o.PolicyId = v
-}
-
-// GetActive returns the Active field value
-func (o *PolicyRecord) GetActive() bool {
-	if o == nil {
-		var ret bool
-		return ret
-	}
-
-	return o.Active
-}
-
-// GetActiveOk returns a tuple with the Active field value
-// and a boolean to check if the value has been set.
-func (o *PolicyRecord) GetActiveOk() (*bool, bool) {
-	if o == nil  {
-		return nil, false
-	}
-	return &o.Active, true
-}
-
-// SetActive sets field value
-func (o *PolicyRecord) SetActive(v bool) {
-	o.Active = v
-}
-
-// GetAccountName returns the AccountName field value
-func (o *PolicyRecord) GetAccountName() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.AccountName
-}
-
-// GetAccountNameOk returns a tuple with the AccountName field value
-// and a boolean to check if the value has been set.
-func (o *PolicyRecord) GetAccountNameOk() (*string, bool) {
-	if o == nil  {
-		return nil, false
-	}
-	return &o.AccountName, true
-}
-
-// SetAccountName sets field value
-func (o *PolicyRecord) SetAccountName(v string) {
-	o.AccountName = v
-}
-
-// GetPolicySource returns the PolicySource field value
-func (o *PolicyRecord) GetPolicySource() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.PolicySource
-}
-
-// GetPolicySourceOk returns a tuple with the PolicySource field value
-// and a boolean to check if the value has been set.
-func (o *PolicyRecord) GetPolicySourceOk() (*string, bool) {
-	if o == nil  {
-		return nil, false
-	}
-	return &o.PolicySource, true
-}
-
-// SetPolicySource sets field value
-func (o *PolicyRecord) SetPolicySource(v string) {
-	o.PolicySource = v
-}
-
-// GetPolicy returns the Policy field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *PolicyRecord) GetPolicy() Policy {
-	if o == nil || o.Policy.Get() == nil {
-		var ret Policy
-		return ret
-	}
-	return *o.Policy.Get()
-}
-
-// GetPolicyOk returns a tuple with the Policy field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *PolicyRecord) GetPolicyOk() (*Policy, bool) {
-	if o == nil  {
-		return nil, false
-	}
-	return o.Policy.Get(), o.Policy.IsSet()
-}
-
-// HasPolicy returns a boolean if a field has been set.
-func (o *PolicyRecord) HasPolicy() bool {
-	if o != nil && o.Policy.IsSet() {
+// HasPolicyId returns a boolean if a field has been set.
+func (o *PolicyRecord) HasPolicyId() bool {
+	if o != nil && o.PolicyId != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetPolicy gets a reference to the given NullablePolicy and assigns it to the Policy field.
-func (o *PolicyRecord) SetPolicy(v Policy) {
-	o.Policy.Set(&v)
-}
-// SetPolicyNil sets the value for Policy to be an explicit nil
-func (o *PolicyRecord) SetPolicyNil() {
-	o.Policy.Set(nil)
+// SetPolicyId gets a reference to the given string and assigns it to the PolicyId field.
+func (o *PolicyRecord) SetPolicyId(v string) {
+	o.PolicyId = &v
 }
 
-// UnsetPolicy ensures that no value is present for Policy, not even an explicit nil
-func (o *PolicyRecord) UnsetPolicy() {
-	o.Policy.Unset()
+// GetActive returns the Active field value if set, zero value otherwise.
+func (o *PolicyRecord) GetActive() bool {
+	if o == nil || o.Active == nil {
+		var ret bool
+		return ret
+	}
+	return *o.Active
 }
 
-// GetName returns the Name field value
-func (o *PolicyRecord) GetName() string {
-	if o == nil {
+// GetActiveOk returns a tuple with the Active field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PolicyRecord) GetActiveOk() (*bool, bool) {
+	if o == nil || o.Active == nil {
+		return nil, false
+	}
+	return o.Active, true
+}
+
+// HasActive returns a boolean if a field has been set.
+func (o *PolicyRecord) HasActive() bool {
+	if o != nil && o.Active != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetActive gets a reference to the given bool and assigns it to the Active field.
+func (o *PolicyRecord) SetActive(v bool) {
+	o.Active = &v
+}
+
+// GetAccountName returns the AccountName field value if set, zero value otherwise.
+func (o *PolicyRecord) GetAccountName() string {
+	if o == nil || o.AccountName == nil {
 		var ret string
 		return ret
 	}
-
-	return o.Name
+	return *o.AccountName
 }
 
-// GetNameOk returns a tuple with the Name field value
+// GetAccountNameOk returns a tuple with the AccountName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *PolicyRecord) GetNameOk() (*string, bool) {
-	if o == nil  {
+func (o *PolicyRecord) GetAccountNameOk() (*string, bool) {
+	if o == nil || o.AccountName == nil {
 		return nil, false
 	}
-	return &o.Name, true
+	return o.AccountName, true
 }
 
-// SetName sets field value
+// HasAccountName returns a boolean if a field has been set.
+func (o *PolicyRecord) HasAccountName() bool {
+	if o != nil && o.AccountName != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetAccountName gets a reference to the given string and assigns it to the AccountName field.
+func (o *PolicyRecord) SetAccountName(v string) {
+	o.AccountName = &v
+}
+
+// GetPolicySource returns the PolicySource field value if set, zero value otherwise.
+func (o *PolicyRecord) GetPolicySource() string {
+	if o == nil || o.PolicySource == nil {
+		var ret string
+		return ret
+	}
+	return *o.PolicySource
+}
+
+// GetPolicySourceOk returns a tuple with the PolicySource field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PolicyRecord) GetPolicySourceOk() (*string, bool) {
+	if o == nil || o.PolicySource == nil {
+		return nil, false
+	}
+	return o.PolicySource, true
+}
+
+// HasPolicySource returns a boolean if a field has been set.
+func (o *PolicyRecord) HasPolicySource() bool {
+	if o != nil && o.PolicySource != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetPolicySource gets a reference to the given string and assigns it to the PolicySource field.
+func (o *PolicyRecord) SetPolicySource(v string) {
+	o.PolicySource = &v
+}
+
+// GetPolicy returns the Policy field value if set, zero value otherwise.
+func (o *PolicyRecord) GetPolicy() Policy {
+	if o == nil || o.Policy == nil {
+		var ret Policy
+		return ret
+	}
+	return *o.Policy
+}
+
+// GetPolicyOk returns a tuple with the Policy field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PolicyRecord) GetPolicyOk() (*Policy, bool) {
+	if o == nil || o.Policy == nil {
+		return nil, false
+	}
+	return o.Policy, true
+}
+
+// HasPolicy returns a boolean if a field has been set.
+func (o *PolicyRecord) HasPolicy() bool {
+	if o != nil && o.Policy != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetPolicy gets a reference to the given Policy and assigns it to the Policy field.
+func (o *PolicyRecord) SetPolicy(v Policy) {
+	o.Policy = &v
+}
+
+// GetPolicyMeta returns the PolicyMeta field value if set, zero value otherwise.
+func (o *PolicyRecord) GetPolicyMeta() interface{} {
+	if o == nil || o.PolicyMeta == nil {
+		var ret interface{}
+		return ret
+	}
+	return *o.PolicyMeta
+}
+
+// GetPolicyMetaOk returns a tuple with the PolicyMeta field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PolicyRecord) GetPolicyMetaOk() (*interface{}, bool) {
+	if o == nil || o.PolicyMeta == nil {
+		return nil, false
+	}
+	return o.PolicyMeta, true
+}
+
+// HasPolicyMeta returns a boolean if a field has been set.
+func (o *PolicyRecord) HasPolicyMeta() bool {
+	if o != nil && o.PolicyMeta != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetPolicyMeta gets a reference to the given interface{} and assigns it to the PolicyMeta field.
+func (o *PolicyRecord) SetPolicyMeta(v interface{}) {
+	o.PolicyMeta = &v
+}
+
+// GetName returns the Name field value if set, zero value otherwise.
+func (o *PolicyRecord) GetName() string {
+	if o == nil || o.Name == nil {
+		var ret string
+		return ret
+	}
+	return *o.Name
+}
+
+// GetNameOk returns a tuple with the Name field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PolicyRecord) GetNameOk() (*string, bool) {
+	if o == nil || o.Name == nil {
+		return nil, false
+	}
+	return o.Name, true
+}
+
+// HasName returns a boolean if a field has been set.
+func (o *PolicyRecord) HasName() bool {
+	if o != nil && o.Name != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetName gets a reference to the given string and assigns it to the Name field.
 func (o *PolicyRecord) SetName(v string) {
-	o.Name = v
+	o.Name = &v
 }
 
 // GetDescription returns the Description field value if set, zero value otherwise.
@@ -323,22 +381,25 @@ func (o PolicyRecord) MarshalJSON() ([]byte, error) {
 	if o.LastUpdated != nil {
 		toSerialize["last_updated"] = o.LastUpdated
 	}
-	if true {
+	if o.PolicyId != nil {
 		toSerialize["policy_id"] = o.PolicyId
 	}
-	if true {
+	if o.Active != nil {
 		toSerialize["active"] = o.Active
 	}
-	if true {
+	if o.AccountName != nil {
 		toSerialize["account_name"] = o.AccountName
 	}
-	if true {
+	if o.PolicySource != nil {
 		toSerialize["policy_source"] = o.PolicySource
 	}
-	if o.Policy.IsSet() {
-		toSerialize["policy"] = o.Policy.Get()
+	if o.Policy != nil {
+		toSerialize["policy"] = o.Policy
 	}
-	if true {
+	if o.PolicyMeta != nil {
+		toSerialize["policy_meta"] = o.PolicyMeta
+	}
+	if o.Name != nil {
 		toSerialize["name"] = o.Name
 	}
 	if o.Description != nil {

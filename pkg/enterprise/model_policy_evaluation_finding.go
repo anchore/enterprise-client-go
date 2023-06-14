@@ -3,7 +3,7 @@ Anchore API
 
 This is the Anchore API. Provides the external API for users of Anchore Enterprise.
 
-API version: 2.0.0
+API version: 1.0.0
 Contact: dev@anchore.com
 */
 
@@ -35,9 +35,9 @@ type PolicyEvaluationFinding struct {
 	RuleId string `json:"rule_id"`
 	// Indicates if this finding was allowlisted or not
 	Allowlisted bool `json:"allowlisted"`
-	AllowlistMatch NullablePolicyEvaluationFindingAllowlistMatch `json:"allowlist_match,omitempty"`
+	AllowlistMatch *PolicyEvaluationFindingAllowlistMatch `json:"allowlist_match,omitempty"`
 	// Indicates if this finding was found in the base image
-	InheritedFromBase NullableBool `json:"inherited_from_base,omitempty"`
+	InheritedFromBase *bool `json:"inherited_from_base,omitempty"`
 }
 
 // NewPolicyEvaluationFinding instantiates a new PolicyEvaluationFinding object
@@ -282,88 +282,68 @@ func (o *PolicyEvaluationFinding) SetAllowlisted(v bool) {
 	o.Allowlisted = v
 }
 
-// GetAllowlistMatch returns the AllowlistMatch field value if set, zero value otherwise (both if not set or set to explicit null).
+// GetAllowlistMatch returns the AllowlistMatch field value if set, zero value otherwise.
 func (o *PolicyEvaluationFinding) GetAllowlistMatch() PolicyEvaluationFindingAllowlistMatch {
-	if o == nil || o.AllowlistMatch.Get() == nil {
+	if o == nil || o.AllowlistMatch == nil {
 		var ret PolicyEvaluationFindingAllowlistMatch
 		return ret
 	}
-	return *o.AllowlistMatch.Get()
+	return *o.AllowlistMatch
 }
 
 // GetAllowlistMatchOk returns a tuple with the AllowlistMatch field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *PolicyEvaluationFinding) GetAllowlistMatchOk() (*PolicyEvaluationFindingAllowlistMatch, bool) {
-	if o == nil  {
+	if o == nil || o.AllowlistMatch == nil {
 		return nil, false
 	}
-	return o.AllowlistMatch.Get(), o.AllowlistMatch.IsSet()
+	return o.AllowlistMatch, true
 }
 
 // HasAllowlistMatch returns a boolean if a field has been set.
 func (o *PolicyEvaluationFinding) HasAllowlistMatch() bool {
-	if o != nil && o.AllowlistMatch.IsSet() {
+	if o != nil && o.AllowlistMatch != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetAllowlistMatch gets a reference to the given NullablePolicyEvaluationFindingAllowlistMatch and assigns it to the AllowlistMatch field.
+// SetAllowlistMatch gets a reference to the given PolicyEvaluationFindingAllowlistMatch and assigns it to the AllowlistMatch field.
 func (o *PolicyEvaluationFinding) SetAllowlistMatch(v PolicyEvaluationFindingAllowlistMatch) {
-	o.AllowlistMatch.Set(&v)
-}
-// SetAllowlistMatchNil sets the value for AllowlistMatch to be an explicit nil
-func (o *PolicyEvaluationFinding) SetAllowlistMatchNil() {
-	o.AllowlistMatch.Set(nil)
+	o.AllowlistMatch = &v
 }
 
-// UnsetAllowlistMatch ensures that no value is present for AllowlistMatch, not even an explicit nil
-func (o *PolicyEvaluationFinding) UnsetAllowlistMatch() {
-	o.AllowlistMatch.Unset()
-}
-
-// GetInheritedFromBase returns the InheritedFromBase field value if set, zero value otherwise (both if not set or set to explicit null).
+// GetInheritedFromBase returns the InheritedFromBase field value if set, zero value otherwise.
 func (o *PolicyEvaluationFinding) GetInheritedFromBase() bool {
-	if o == nil || o.InheritedFromBase.Get() == nil {
+	if o == nil || o.InheritedFromBase == nil {
 		var ret bool
 		return ret
 	}
-	return *o.InheritedFromBase.Get()
+	return *o.InheritedFromBase
 }
 
 // GetInheritedFromBaseOk returns a tuple with the InheritedFromBase field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *PolicyEvaluationFinding) GetInheritedFromBaseOk() (*bool, bool) {
-	if o == nil  {
+	if o == nil || o.InheritedFromBase == nil {
 		return nil, false
 	}
-	return o.InheritedFromBase.Get(), o.InheritedFromBase.IsSet()
+	return o.InheritedFromBase, true
 }
 
 // HasInheritedFromBase returns a boolean if a field has been set.
 func (o *PolicyEvaluationFinding) HasInheritedFromBase() bool {
-	if o != nil && o.InheritedFromBase.IsSet() {
+	if o != nil && o.InheritedFromBase != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetInheritedFromBase gets a reference to the given NullableBool and assigns it to the InheritedFromBase field.
+// SetInheritedFromBase gets a reference to the given bool and assigns it to the InheritedFromBase field.
 func (o *PolicyEvaluationFinding) SetInheritedFromBase(v bool) {
-	o.InheritedFromBase.Set(&v)
-}
-// SetInheritedFromBaseNil sets the value for InheritedFromBase to be an explicit nil
-func (o *PolicyEvaluationFinding) SetInheritedFromBaseNil() {
-	o.InheritedFromBase.Set(nil)
-}
-
-// UnsetInheritedFromBase ensures that no value is present for InheritedFromBase, not even an explicit nil
-func (o *PolicyEvaluationFinding) UnsetInheritedFromBase() {
-	o.InheritedFromBase.Unset()
+	o.InheritedFromBase = &v
 }
 
 func (o PolicyEvaluationFinding) MarshalJSON() ([]byte, error) {
@@ -395,11 +375,11 @@ func (o PolicyEvaluationFinding) MarshalJSON() ([]byte, error) {
 	if true {
 		toSerialize["allowlisted"] = o.Allowlisted
 	}
-	if o.AllowlistMatch.IsSet() {
-		toSerialize["allowlist_match"] = o.AllowlistMatch.Get()
+	if o.AllowlistMatch != nil {
+		toSerialize["allowlist_match"] = o.AllowlistMatch
 	}
-	if o.InheritedFromBase.IsSet() {
-		toSerialize["inherited_from_base"] = o.InheritedFromBase.Get()
+	if o.InheritedFromBase != nil {
+		toSerialize["inherited_from_base"] = o.InheritedFromBase
 	}
 	return json.Marshal(toSerialize)
 }

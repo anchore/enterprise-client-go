@@ -291,7 +291,6 @@ Class | Method | HTTP request | Description
 *PoliciesApi* | [**ListPolicies**](docs/PoliciesApi.md#listpolicies) | **Get** /policies | List policies
 *PoliciesApi* | [**UpdatePolicy**](docs/PoliciesApi.md#updatepolicy) | **Put** /policies/{policy_id} | Update policy
 *QueryApi* | [**QueryImagesByPackage**](docs/QueryApi.md#queryimagesbypackage) | **Get** /query/images/by-package | List of images containing given package
-*QueryApi* | [**QueryImagesByVulnerability**](docs/QueryApi.md#queryimagesbyvulnerability) | **Get** /query/images/by-vulnerability | List images vulnerable to the specific vulnerability ID.
 *QueryApi* | [**QueryVulnerabilities**](docs/QueryApi.md#queryvulnerabilities) | **Get** /query/vulnerabilities | Listing information about given vulnerability
 *RegistriesApi* | [**CreateRegistry**](docs/RegistriesApi.md#createregistry) | **Post** /registries | Add a new registry
 *RegistriesApi* | [**DeleteRegistry**](docs/RegistriesApi.md#deleteregistry) | **Delete** /registries/{registry} | Delete a registry configuration
@@ -552,19 +551,24 @@ Class | Method | HTTP request | Description
  - [PaginatedImageListAllOf](docs/PaginatedImageListAllOf.md)
  - [PaginatedVulnerabilityList](docs/PaginatedVulnerabilityList.md)
  - [PaginatedVulnerabilityListAllOf](docs/PaginatedVulnerabilityListAllOf.md)
- - [PaginatedVulnerableImageList](docs/PaginatedVulnerableImageList.md)
- - [PaginatedVulnerableImageListAllOf](docs/PaginatedVulnerableImageListAllOf.md)
  - [PaginationProperties](docs/PaginationProperties.md)
  - [Policy](docs/Policy.md)
- - [PolicyBundle](docs/PolicyBundle.md)
- - [PolicyBundleRecord](docs/PolicyBundleRecord.md)
  - [PolicyEvalNotification](docs/PolicyEvalNotification.md)
  - [PolicyEvalNotificationAllOf](docs/PolicyEvalNotificationAllOf.md)
  - [PolicyEvalNotificationData](docs/PolicyEvalNotificationData.md)
  - [PolicyEvalNotificationDataAllOf](docs/PolicyEvalNotificationDataAllOf.md)
  - [PolicyEvalNotificationPayload](docs/PolicyEvalNotificationPayload.md)
  - [PolicyEvalNotificationPayloadAllOf](docs/PolicyEvalNotificationPayloadAllOf.md)
+ - [PolicyEvaluation](docs/PolicyEvaluation.md)
+ - [PolicyEvaluationDetails](docs/PolicyEvaluationDetails.md)
+ - [PolicyEvaluationEvaluations](docs/PolicyEvaluationEvaluations.md)
+ - [PolicyEvaluationFinding](docs/PolicyEvaluationFinding.md)
+ - [PolicyEvaluationFindingAllowlistMatch](docs/PolicyEvaluationFindingAllowlistMatch.md)
+ - [PolicyEvaluationProblem](docs/PolicyEvaluationProblem.md)
+ - [PolicyEvaluationRemediation](docs/PolicyEvaluationRemediation.md)
+ - [PolicyEvaluationRemediationSuggestions](docs/PolicyEvaluationRemediationSuggestions.md)
  - [PolicyEvaluationResult](docs/PolicyEvaluationResult.md)
+ - [PolicyRecord](docs/PolicyRecord.md)
  - [PolicyRule](docs/PolicyRule.md)
  - [PolicyRuleParams](docs/PolicyRuleParams.md)
  - [RbacManagerAccountRole](docs/RbacManagerAccountRole.md)
@@ -590,6 +594,7 @@ Class | Method | HTTP request | Description
  - [ReportingStatusResponse](docs/ReportingStatusResponse.md)
  - [ResourceLabel](docs/ResourceLabel.md)
  - [RetrievedFile](docs/RetrievedFile.md)
+ - [RuleSet](docs/RuleSet.md)
  - [RuntimeComplianceCheck](docs/RuntimeComplianceCheck.md)
  - [SBOMVulnerabilitiesResponse](docs/SBOMVulnerabilitiesResponse.md)
  - [SecretSearchResult](docs/SecretSearchResult.md)

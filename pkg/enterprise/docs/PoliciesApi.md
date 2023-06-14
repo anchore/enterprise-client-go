@@ -1,6 +1,6 @@
 # \PoliciesApi
 
-All URIs are relative to *http://localhost/v2*
+All URIs are relative to *http://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -33,7 +33,7 @@ import (
 )
 
 func main() {
-    policy := *openapiclient.NewPolicy("Id_example", "Name_example", "Version_example", []openapiclient.RuleSet{*openapiclient.NewRuleSet("Id_example", "Name_example", "Version_example", []openapiclient.PolicyRule{*openapiclient.NewPolicyRule("Id_example", "Gate_example", "Trigger_example", "Action_example", []openapiclient.PolicyRuleParams{*openapiclient.NewPolicyRuleParams("Name_example", "Value_example")})})}, []openapiclient.MappingRule{*openapiclient.NewMappingRule("Id_example", "Name_example", []string{"AllowlistIds_example"}, []string{"RuleSetIds_example"}, "Registry_example", "Repository_example", *openapiclient.NewImageRef("Type_example", "Value_example"))}) // Policy | 
+    policy := *openapiclient.NewPolicy("Id_example", "Version_example", []openapiclient.RuleSet{*openapiclient.NewRuleSet("Id_example", "Version_example")}, []openapiclient.MappingRule{*openapiclient.NewMappingRule("Name_example", "Registry_example", "Repository_example", *openapiclient.NewImageRef("Type_example", "Value_example"))}) // Policy | 
     xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
 
     configuration := openapiclient.NewConfiguration()
@@ -152,7 +152,7 @@ No authorization required
 
 ## GetPolicy
 
-> PolicyRecord GetPolicy(ctx, policyId).Detail(detail).XAnchoreAccount(xAnchoreAccount).Execute()
+> []PolicyRecord GetPolicy(ctx, policyId).Detail(detail).XAnchoreAccount(xAnchoreAccount).Execute()
 
 Get specific policy
 
@@ -182,7 +182,7 @@ func main() {
         fmt.Fprintf(os.Stderr, "Error when calling `PoliciesApi.GetPolicy``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `GetPolicy`: PolicyRecord
+    // response from `GetPolicy`: []PolicyRecord
     fmt.Fprintf(os.Stdout, "Response from `PoliciesApi.GetPolicy`: %v\n", resp)
 }
 ```
@@ -208,7 +208,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PolicyRecord**](PolicyRecord.md)
+[**[]PolicyRecord**](PolicyRecord.md)
 
 ### Authorization
 
@@ -294,7 +294,7 @@ No authorization required
 
 ## UpdatePolicy
 
-> PolicyRecord UpdatePolicy(ctx, policyId).Policy(policy).Active(active).XAnchoreAccount(xAnchoreAccount).Execute()
+> []PolicyRecord UpdatePolicy(ctx, policyId).Policy(policy).Active(active).XAnchoreAccount(xAnchoreAccount).Execute()
 
 Update policy
 
@@ -314,7 +314,7 @@ import (
 
 func main() {
     policyId := "policyId_example" // string | 
-    policy := *openapiclient.NewPolicyRecord("PolicyId_example", false, "AccountName_example", "PolicySource_example", "Name_example") // PolicyRecord | 
+    policy := *openapiclient.NewPolicyRecord() // PolicyRecord | 
     active := true // bool | Mark policy as active (optional)
     xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
 
@@ -325,7 +325,7 @@ func main() {
         fmt.Fprintf(os.Stderr, "Error when calling `PoliciesApi.UpdatePolicy``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `UpdatePolicy`: PolicyRecord
+    // response from `UpdatePolicy`: []PolicyRecord
     fmt.Fprintf(os.Stdout, "Response from `PoliciesApi.UpdatePolicy`: %v\n", resp)
 }
 ```
@@ -352,7 +352,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PolicyRecord**](PolicyRecord.md)
+[**[]PolicyRecord**](PolicyRecord.md)
 
 ### Authorization
 

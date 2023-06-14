@@ -16,7 +16,7 @@ import (
 	"time"
 )
 
-// ComplianceResource A resource that ties compliance related artifacts - image digest, tag and policy bundle
+// ComplianceResource A resource that ties compliance related artifacts - image digest, tag and policy
 type ComplianceResource struct {
 	ImageDigest *string `json:"image_digest,omitempty"`
 	PolicyId *string `json:"policy_id,omitempty"`

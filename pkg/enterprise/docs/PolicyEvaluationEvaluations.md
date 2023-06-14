@@ -4,26 +4,26 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Details** | Pointer to [**NullablePolicyEvaluationDetails**](PolicyEvaluationDetails.md) |  | [optional] 
-**ComparisonImageDigest** | Pointer to **NullableString** | Image digest of the base image used during policy evaluation | [optional] 
+**Details** | Pointer to [**PolicyEvaluationDetails**](PolicyEvaluationDetails.md) |  | [optional] 
+**ComparisonImageDigest** | Pointer to **string** | Image digest of the base image used during policy evaluation | [optional] 
 **EvaluationTime** | **time.Time** | The date and time this policy evaluation was performed at | 
 **EvaluationProblems** | [**[]PolicyEvaluationProblem**](PolicyEvaluationProblem.md) | list of error objects indicating errors encountered during evaluation execution | 
 **Status** | **string** | The overall status of the policy evaluation | 
 **FinalAction** | **string** | The overall outcome of the evaluation. | 
 **FinalActionReason** | **string** | The reason for the final result | 
 **ImageAllowlisted** | **bool** | Whether the evaluated image matched an allowlist rule | 
-**MatchedAllowlistedImagesRule** | Pointer to [**NullableImageSelectionRule**](ImageSelectionRule.md) |  | [optional] 
+**MatchedAllowlistedImagesRule** | Pointer to [**ImageSelectionRule**](ImageSelectionRule.md) |  | [optional] 
 **ImageDenylisted** | **bool** | Whether the evaluated image matched a denylist rule | 
-**MatchedDenylistedImagesRule** | Pointer to [**NullableImageSelectionRule**](ImageSelectionRule.md) |  | [optional] 
-**ImageMappedToRule** | **bool** | Whether the evaluated image matched a policy rule | 
-**MatchedMappingRule** | Pointer to [**NullableMappingRule**](MappingRule.md) |  | [optional] 
+**MatchedDenylistedImagesRule** | Pointer to [**ImageSelectionRule**](ImageSelectionRule.md) |  | [optional] 
+**ImageMappedToRule** | Pointer to **bool** | Whether the evaluated image matched a policy rule | [optional] 
+**MatchedMappingRule** | Pointer to [**MappingRule**](MappingRule.md) |  | [optional] 
 **NumberOfFindings** | **int32** | Number of policy findings in the response | 
 
 ## Methods
 
 ### NewPolicyEvaluationEvaluations
 
-`func NewPolicyEvaluationEvaluations(evaluationTime time.Time, evaluationProblems []PolicyEvaluationProblem, status string, finalAction string, finalActionReason string, imageAllowlisted bool, imageDenylisted bool, imageMappedToRule bool, numberOfFindings int32, ) *PolicyEvaluationEvaluations`
+`func NewPolicyEvaluationEvaluations(evaluationTime time.Time, evaluationProblems []PolicyEvaluationProblem, status string, finalAction string, finalActionReason string, imageAllowlisted bool, imageDenylisted bool, numberOfFindings int32, ) *PolicyEvaluationEvaluations`
 
 NewPolicyEvaluationEvaluations instantiates a new PolicyEvaluationEvaluations object
 This constructor will assign default values to properties that have it defined,
@@ -63,16 +63,6 @@ SetDetails sets Details field to given value.
 
 HasDetails returns a boolean if a field has been set.
 
-### SetDetailsNil
-
-`func (o *PolicyEvaluationEvaluations) SetDetailsNil(b bool)`
-
- SetDetailsNil sets the value for Details to be an explicit nil
-
-### UnsetDetails
-`func (o *PolicyEvaluationEvaluations) UnsetDetails()`
-
-UnsetDetails ensures that no value is present for Details, not even an explicit nil
 ### GetComparisonImageDigest
 
 `func (o *PolicyEvaluationEvaluations) GetComparisonImageDigest() string`
@@ -98,16 +88,6 @@ SetComparisonImageDigest sets ComparisonImageDigest field to given value.
 
 HasComparisonImageDigest returns a boolean if a field has been set.
 
-### SetComparisonImageDigestNil
-
-`func (o *PolicyEvaluationEvaluations) SetComparisonImageDigestNil(b bool)`
-
- SetComparisonImageDigestNil sets the value for ComparisonImageDigest to be an explicit nil
-
-### UnsetComparisonImageDigest
-`func (o *PolicyEvaluationEvaluations) UnsetComparisonImageDigest()`
-
-UnsetComparisonImageDigest ensures that no value is present for ComparisonImageDigest, not even an explicit nil
 ### GetEvaluationTime
 
 `func (o *PolicyEvaluationEvaluations) GetEvaluationTime() time.Time`
@@ -253,16 +233,6 @@ SetMatchedAllowlistedImagesRule sets MatchedAllowlistedImagesRule field to given
 
 HasMatchedAllowlistedImagesRule returns a boolean if a field has been set.
 
-### SetMatchedAllowlistedImagesRuleNil
-
-`func (o *PolicyEvaluationEvaluations) SetMatchedAllowlistedImagesRuleNil(b bool)`
-
- SetMatchedAllowlistedImagesRuleNil sets the value for MatchedAllowlistedImagesRule to be an explicit nil
-
-### UnsetMatchedAllowlistedImagesRule
-`func (o *PolicyEvaluationEvaluations) UnsetMatchedAllowlistedImagesRule()`
-
-UnsetMatchedAllowlistedImagesRule ensures that no value is present for MatchedAllowlistedImagesRule, not even an explicit nil
 ### GetImageDenylisted
 
 `func (o *PolicyEvaluationEvaluations) GetImageDenylisted() bool`
@@ -308,16 +278,6 @@ SetMatchedDenylistedImagesRule sets MatchedDenylistedImagesRule field to given v
 
 HasMatchedDenylistedImagesRule returns a boolean if a field has been set.
 
-### SetMatchedDenylistedImagesRuleNil
-
-`func (o *PolicyEvaluationEvaluations) SetMatchedDenylistedImagesRuleNil(b bool)`
-
- SetMatchedDenylistedImagesRuleNil sets the value for MatchedDenylistedImagesRule to be an explicit nil
-
-### UnsetMatchedDenylistedImagesRule
-`func (o *PolicyEvaluationEvaluations) UnsetMatchedDenylistedImagesRule()`
-
-UnsetMatchedDenylistedImagesRule ensures that no value is present for MatchedDenylistedImagesRule, not even an explicit nil
 ### GetImageMappedToRule
 
 `func (o *PolicyEvaluationEvaluations) GetImageMappedToRule() bool`
@@ -337,6 +297,11 @@ and a boolean to check if the value has been set.
 
 SetImageMappedToRule sets ImageMappedToRule field to given value.
 
+### HasImageMappedToRule
+
+`func (o *PolicyEvaluationEvaluations) HasImageMappedToRule() bool`
+
+HasImageMappedToRule returns a boolean if a field has been set.
 
 ### GetMatchedMappingRule
 
@@ -363,16 +328,6 @@ SetMatchedMappingRule sets MatchedMappingRule field to given value.
 
 HasMatchedMappingRule returns a boolean if a field has been set.
 
-### SetMatchedMappingRuleNil
-
-`func (o *PolicyEvaluationEvaluations) SetMatchedMappingRuleNil(b bool)`
-
- SetMatchedMappingRuleNil sets the value for MatchedMappingRule to be an explicit nil
-
-### UnsetMatchedMappingRule
-`func (o *PolicyEvaluationEvaluations) UnsetMatchedMappingRule()`
-
-UnsetMatchedMappingRule ensures that no value is present for MatchedMappingRule, not even an explicit nil
 ### GetNumberOfFindings
 
 `func (o *PolicyEvaluationEvaluations) GetNumberOfFindings() int32`

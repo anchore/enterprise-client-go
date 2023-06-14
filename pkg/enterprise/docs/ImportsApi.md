@@ -1804,7 +1804,7 @@ import (
 
 func main() {
     operationId := "operationId_example" // string | 
-    sbom := *openapiclient.NewNativeSBOM([]openapiclient.NativeSBOMPackage{*openapiclient.NewNativeSBOMPackage("Name_example", "Version_example", "Type_example", []openapiclient.NativeSBOMPackageLocation{*openapiclient.NewNativeSBOMPackageLocation("Path_example")}, []string{"Licenses_example"}, "Language_example", []string{"Cpes_example"})}, *openapiclient.NewNativeSBOMSource("Type_example", interface{}(123)), *openapiclient.NewNativeSBOMDistribution()) // NativeSBOM | 
+    sbom := *openapiclient.NewNativeSBOM([]openapiclient.NativeSBOMPackage{*openapiclient.NewNativeSBOMPackage("Name_example", "Version_example", "Type_example", []openapiclient.NativeSBOMPackageLocation{*openapiclient.NewNativeSBOMPackageLocation("Path_example")}, []interface{}{interface{}(123)}, "Language_example", []string{"Cpes_example"})}, *openapiclient.NewNativeSBOMSource("Type_example", interface{}(123)), *openapiclient.NewNativeSBOMDistribution()) // NativeSBOM | 
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
