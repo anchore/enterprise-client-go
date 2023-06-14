@@ -175,8 +175,8 @@ type ImagesApi interface {
 	GetImagePolicyCheckByDigest(ctx _context.Context, imageDigest string) ApiGetImagePolicyCheckByDigestRequest
 
 	// GetImagePolicyCheckByDigestExecute executes the request
-	//  @return []interface{}
-	GetImagePolicyCheckByDigestExecute(r ApiGetImagePolicyCheckByDigestRequest) ([]interface{}, *_nethttp.Response, error)
+	//  @return PolicyEvaluation
+	GetImagePolicyCheckByDigestExecute(r ApiGetImagePolicyCheckByDigestRequest) (PolicyEvaluation, *_nethttp.Response, error)
 
 	/*
 	GetImageSbomCyclonedxJson Get image sbom in the CycloneDX format
@@ -1593,7 +1593,7 @@ func (r ApiGetImagePolicyCheckByDigestRequest) XAnchoreAccount(xAnchoreAccount s
 	return r
 }
 
-func (r ApiGetImagePolicyCheckByDigestRequest) Execute() ([]interface{}, *_nethttp.Response, error) {
+func (r ApiGetImagePolicyCheckByDigestRequest) Execute() (PolicyEvaluation, *_nethttp.Response, error) {
 	return r.ApiService.GetImagePolicyCheckByDigestExecute(r)
 }
 
@@ -1615,15 +1615,15 @@ func (a *ImagesApiService) GetImagePolicyCheckByDigest(ctx _context.Context, ima
 }
 
 // Execute executes the request
-//  @return []interface{}
-func (a *ImagesApiService) GetImagePolicyCheckByDigestExecute(r ApiGetImagePolicyCheckByDigestRequest) ([]interface{}, *_nethttp.Response, error) {
+//  @return PolicyEvaluation
+func (a *ImagesApiService) GetImagePolicyCheckByDigestExecute(r ApiGetImagePolicyCheckByDigestRequest) (PolicyEvaluation, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		localVarReturnValue  []interface{}
+		localVarReturnValue  PolicyEvaluation
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ImagesApiService.GetImagePolicyCheckByDigest")

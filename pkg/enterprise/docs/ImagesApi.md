@@ -740,7 +740,7 @@ No authorization required
 
 ## GetImagePolicyCheckByDigest
 
-> []interface{} GetImagePolicyCheckByDigest(ctx, imageDigest).Tag(tag).PolicyId(policyId).Detail(detail).History(history).Interactive(interactive).BaseDigest(baseDigest).XAnchoreAccount(xAnchoreAccount).Execute()
+> PolicyEvaluation GetImagePolicyCheckByDigest(ctx, imageDigest).Tag(tag).PolicyId(policyId).Detail(detail).History(history).Interactive(interactive).BaseDigest(baseDigest).XAnchoreAccount(xAnchoreAccount).Execute()
 
 Check policy evaluation status for image
 
@@ -775,7 +775,7 @@ func main() {
         fmt.Fprintf(os.Stderr, "Error when calling `ImagesApi.GetImagePolicyCheckByDigest``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `GetImagePolicyCheckByDigest`: []interface{}
+    // response from `GetImagePolicyCheckByDigest`: PolicyEvaluation
     fmt.Fprintf(os.Stdout, "Response from `ImagesApi.GetImagePolicyCheckByDigest`: %v\n", resp)
 }
 ```
@@ -806,7 +806,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**[]interface{}**
+[**PolicyEvaluation**](PolicyEvaluation.md)
 
 ### Authorization
 

@@ -30,7 +30,7 @@ type PoliciesApi interface {
 	/*
 	AddPolicy Add a new policy
 
-	Adds a new policy bundle to the system
+	Adds a new policy to the system
 
 	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	 @return ApiAddPolicyRequest
@@ -38,8 +38,8 @@ type PoliciesApi interface {
 	AddPolicy(ctx _context.Context) ApiAddPolicyRequest
 
 	// AddPolicyExecute executes the request
-	//  @return PolicyBundleRecord
-	AddPolicyExecute(r ApiAddPolicyRequest) (PolicyBundleRecord, *_nethttp.Response, error)
+	//  @return PolicyRecord
+	AddPolicyExecute(r ApiAddPolicyRequest) (PolicyRecord, *_nethttp.Response, error)
 
 	/*
 	DeletePolicy Delete policy
@@ -58,7 +58,7 @@ type PoliciesApi interface {
 	/*
 	GetPolicy Get specific policy
 
-	Get the policy bundle content
+	Get the policy content
 
 	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	 @param policyId
@@ -67,13 +67,13 @@ type PoliciesApi interface {
 	GetPolicy(ctx _context.Context, policyId string) ApiGetPolicyRequest
 
 	// GetPolicyExecute executes the request
-	//  @return []PolicyBundleRecord
-	GetPolicyExecute(r ApiGetPolicyRequest) ([]PolicyBundleRecord, *_nethttp.Response, error)
+	//  @return []PolicyRecord
+	GetPolicyExecute(r ApiGetPolicyRequest) ([]PolicyRecord, *_nethttp.Response, error)
 
 	/*
 	ListPolicies List policies
 
-	List all saved policy bundles
+	List all saved policies
 
 	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	 @return ApiListPoliciesRequest
@@ -81,8 +81,8 @@ type PoliciesApi interface {
 	ListPolicies(ctx _context.Context) ApiListPoliciesRequest
 
 	// ListPoliciesExecute executes the request
-	//  @return []PolicyBundleRecord
-	ListPoliciesExecute(r ApiListPoliciesRequest) ([]PolicyBundleRecord, *_nethttp.Response, error)
+	//  @return []PolicyRecord
+	ListPoliciesExecute(r ApiListPoliciesRequest) ([]PolicyRecord, *_nethttp.Response, error)
 
 	/*
 	UpdatePolicy Update policy
@@ -96,8 +96,8 @@ type PoliciesApi interface {
 	UpdatePolicy(ctx _context.Context, policyId string) ApiUpdatePolicyRequest
 
 	// UpdatePolicyExecute executes the request
-	//  @return []PolicyBundleRecord
-	UpdatePolicyExecute(r ApiUpdatePolicyRequest) ([]PolicyBundleRecord, *_nethttp.Response, error)
+	//  @return []PolicyRecord
+	UpdatePolicyExecute(r ApiUpdatePolicyRequest) ([]PolicyRecord, *_nethttp.Response, error)
 }
 
 // PoliciesApiService PoliciesApi service
@@ -106,12 +106,12 @@ type PoliciesApiService service
 type ApiAddPolicyRequest struct {
 	ctx _context.Context
 	ApiService PoliciesApi
-	bundle *PolicyBundle
+	policy *Policy
 	xAnchoreAccount *string
 }
 
-func (r ApiAddPolicyRequest) Bundle(bundle PolicyBundle) ApiAddPolicyRequest {
-	r.bundle = &bundle
+func (r ApiAddPolicyRequest) Policy(policy Policy) ApiAddPolicyRequest {
+	r.policy = &policy
 	return r
 }
 // An account name to change the resource scope of the request to that account, if permissions allow (admin only)
@@ -120,14 +120,14 @@ func (r ApiAddPolicyRequest) XAnchoreAccount(xAnchoreAccount string) ApiAddPolic
 	return r
 }
 
-func (r ApiAddPolicyRequest) Execute() (PolicyBundleRecord, *_nethttp.Response, error) {
+func (r ApiAddPolicyRequest) Execute() (PolicyRecord, *_nethttp.Response, error) {
 	return r.ApiService.AddPolicyExecute(r)
 }
 
 /*
 AddPolicy Add a new policy
 
-Adds a new policy bundle to the system
+Adds a new policy to the system
 
  @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiAddPolicyRequest
@@ -140,15 +140,15 @@ func (a *PoliciesApiService) AddPolicy(ctx _context.Context) ApiAddPolicyRequest
 }
 
 // Execute executes the request
-//  @return PolicyBundleRecord
-func (a *PoliciesApiService) AddPolicyExecute(r ApiAddPolicyRequest) (PolicyBundleRecord, *_nethttp.Response, error) {
+//  @return PolicyRecord
+func (a *PoliciesApiService) AddPolicyExecute(r ApiAddPolicyRequest) (PolicyRecord, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodPost
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		localVarReturnValue  PolicyBundleRecord
+		localVarReturnValue  PolicyRecord
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PoliciesApiService.AddPolicy")
@@ -161,8 +161,8 @@ func (a *PoliciesApiService) AddPolicyExecute(r ApiAddPolicyRequest) (PolicyBund
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
 	localVarFormParams := _neturl.Values{}
-	if r.bundle == nil {
-		return localVarReturnValue, nil, reportError("bundle is required and must be specified")
+	if r.policy == nil {
+		return localVarReturnValue, nil, reportError("policy is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -186,7 +186,7 @@ func (a *PoliciesApiService) AddPolicyExecute(r ApiAddPolicyRequest) (PolicyBund
 		localVarHeaderParams["x-anchore-account"] = parameterToString(*r.xAnchoreAccount, "")
 	}
 	// body params
-	localVarPostBody = r.bundle
+	localVarPostBody = r.policy
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -364,7 +364,7 @@ type ApiGetPolicyRequest struct {
 	xAnchoreAccount *string
 }
 
-// Include policy bundle detail in the form of the full bundle content for each entry
+// Include policy detail in the form of the full policy content for each entry
 func (r ApiGetPolicyRequest) Detail(detail bool) ApiGetPolicyRequest {
 	r.detail = &detail
 	return r
@@ -375,14 +375,14 @@ func (r ApiGetPolicyRequest) XAnchoreAccount(xAnchoreAccount string) ApiGetPolic
 	return r
 }
 
-func (r ApiGetPolicyRequest) Execute() ([]PolicyBundleRecord, *_nethttp.Response, error) {
+func (r ApiGetPolicyRequest) Execute() ([]PolicyRecord, *_nethttp.Response, error) {
 	return r.ApiService.GetPolicyExecute(r)
 }
 
 /*
 GetPolicy Get specific policy
 
-Get the policy bundle content
+Get the policy content
 
  @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param policyId
@@ -397,15 +397,15 @@ func (a *PoliciesApiService) GetPolicy(ctx _context.Context, policyId string) Ap
 }
 
 // Execute executes the request
-//  @return []PolicyBundleRecord
-func (a *PoliciesApiService) GetPolicyExecute(r ApiGetPolicyRequest) ([]PolicyBundleRecord, *_nethttp.Response, error) {
+//  @return []PolicyRecord
+func (a *PoliciesApiService) GetPolicyExecute(r ApiGetPolicyRequest) ([]PolicyRecord, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		localVarReturnValue  []PolicyBundleRecord
+		localVarReturnValue  []PolicyRecord
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PoliciesApiService.GetPolicy")
@@ -496,7 +496,7 @@ type ApiListPoliciesRequest struct {
 	xAnchoreAccount *string
 }
 
-// Include policy bundle detail in the form of the full bundle content for each entry
+// Include policy detail in the form of the full policy content for each entry
 func (r ApiListPoliciesRequest) Detail(detail bool) ApiListPoliciesRequest {
 	r.detail = &detail
 	return r
@@ -507,14 +507,14 @@ func (r ApiListPoliciesRequest) XAnchoreAccount(xAnchoreAccount string) ApiListP
 	return r
 }
 
-func (r ApiListPoliciesRequest) Execute() ([]PolicyBundleRecord, *_nethttp.Response, error) {
+func (r ApiListPoliciesRequest) Execute() ([]PolicyRecord, *_nethttp.Response, error) {
 	return r.ApiService.ListPoliciesExecute(r)
 }
 
 /*
 ListPolicies List policies
 
-List all saved policy bundles
+List all saved policies
 
  @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiListPoliciesRequest
@@ -527,15 +527,15 @@ func (a *PoliciesApiService) ListPolicies(ctx _context.Context) ApiListPoliciesR
 }
 
 // Execute executes the request
-//  @return []PolicyBundleRecord
-func (a *PoliciesApiService) ListPoliciesExecute(r ApiListPoliciesRequest) ([]PolicyBundleRecord, *_nethttp.Response, error) {
+//  @return []PolicyRecord
+func (a *PoliciesApiService) ListPoliciesExecute(r ApiListPoliciesRequest) ([]PolicyRecord, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		localVarReturnValue  []PolicyBundleRecord
+		localVarReturnValue  []PolicyRecord
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PoliciesApiService.ListPolicies")
@@ -613,13 +613,13 @@ type ApiUpdatePolicyRequest struct {
 	ctx _context.Context
 	ApiService PoliciesApi
 	policyId string
-	bundle *PolicyBundleRecord
+	policy *PolicyRecord
 	active *bool
 	xAnchoreAccount *string
 }
 
-func (r ApiUpdatePolicyRequest) Bundle(bundle PolicyBundleRecord) ApiUpdatePolicyRequest {
-	r.bundle = &bundle
+func (r ApiUpdatePolicyRequest) Policy(policy PolicyRecord) ApiUpdatePolicyRequest {
+	r.policy = &policy
 	return r
 }
 // Mark policy as active
@@ -633,7 +633,7 @@ func (r ApiUpdatePolicyRequest) XAnchoreAccount(xAnchoreAccount string) ApiUpdat
 	return r
 }
 
-func (r ApiUpdatePolicyRequest) Execute() ([]PolicyBundleRecord, *_nethttp.Response, error) {
+func (r ApiUpdatePolicyRequest) Execute() ([]PolicyRecord, *_nethttp.Response, error) {
 	return r.ApiService.UpdatePolicyExecute(r)
 }
 
@@ -655,15 +655,15 @@ func (a *PoliciesApiService) UpdatePolicy(ctx _context.Context, policyId string)
 }
 
 // Execute executes the request
-//  @return []PolicyBundleRecord
-func (a *PoliciesApiService) UpdatePolicyExecute(r ApiUpdatePolicyRequest) ([]PolicyBundleRecord, *_nethttp.Response, error) {
+//  @return []PolicyRecord
+func (a *PoliciesApiService) UpdatePolicyExecute(r ApiUpdatePolicyRequest) ([]PolicyRecord, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodPut
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		localVarReturnValue  []PolicyBundleRecord
+		localVarReturnValue  []PolicyRecord
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PoliciesApiService.UpdatePolicy")
@@ -677,8 +677,8 @@ func (a *PoliciesApiService) UpdatePolicyExecute(r ApiUpdatePolicyRequest) ([]Po
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
 	localVarFormParams := _neturl.Values{}
-	if r.bundle == nil {
-		return localVarReturnValue, nil, reportError("bundle is required and must be specified")
+	if r.policy == nil {
+		return localVarReturnValue, nil, reportError("policy is required and must be specified")
 	}
 
 	if r.active != nil {
@@ -705,7 +705,7 @@ func (a *PoliciesApiService) UpdatePolicyExecute(r ApiUpdatePolicyRequest) ([]Po
 		localVarHeaderParams["x-anchore-account"] = parameterToString(*r.xAnchoreAccount, "")
 	}
 	// body params
-	localVarPostBody = r.bundle
+	localVarPostBody = r.policy
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return localVarReturnValue, nil, err

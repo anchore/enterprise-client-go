@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 ## AddPolicy
 
-> PolicyBundleRecord AddPolicy(ctx).Bundle(bundle).XAnchoreAccount(xAnchoreAccount).Execute()
+> PolicyRecord AddPolicy(ctx).Policy(policy).XAnchoreAccount(xAnchoreAccount).Execute()
 
 Add a new policy
 
@@ -33,17 +33,17 @@ import (
 )
 
 func main() {
-    bundle := *openapiclient.NewPolicyBundle("Id_example", "Version_example", []openapiclient.Policy{*openapiclient.NewPolicy("Id_example", "Version_example")}, []openapiclient.MappingRule{*openapiclient.NewMappingRule("Name_example", "Registry_example", "Repository_example", *openapiclient.NewImageRef("Type_example", "Value_example"))}) // PolicyBundle | 
+    policy := *openapiclient.NewPolicy("Id_example", "Version_example", []openapiclient.RuleSet{*openapiclient.NewRuleSet("Id_example", "Version_example")}, []openapiclient.MappingRule{*openapiclient.NewMappingRule("Name_example", "Registry_example", "Repository_example", *openapiclient.NewImageRef("Type_example", "Value_example"))}) // Policy | 
     xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.PoliciesApi.AddPolicy(context.Background()).Bundle(bundle).XAnchoreAccount(xAnchoreAccount).Execute()
+    resp, r, err := api_client.PoliciesApi.AddPolicy(context.Background()).Policy(policy).XAnchoreAccount(xAnchoreAccount).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `PoliciesApi.AddPolicy``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `AddPolicy`: PolicyBundleRecord
+    // response from `AddPolicy`: PolicyRecord
     fmt.Fprintf(os.Stdout, "Response from `PoliciesApi.AddPolicy`: %v\n", resp)
 }
 ```
@@ -59,12 +59,12 @@ Other parameters are passed through a pointer to a apiAddPolicyRequest struct vi
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **bundle** | [**PolicyBundle**](PolicyBundle.md) |  | 
+ **policy** | [**Policy**](Policy.md) |  | 
  **xAnchoreAccount** | **string** | An account name to change the resource scope of the request to that account, if permissions allow (admin only) | 
 
 ### Return type
 
-[**PolicyBundleRecord**](PolicyBundleRecord.md)
+[**PolicyRecord**](PolicyRecord.md)
 
 ### Authorization
 
@@ -152,7 +152,7 @@ No authorization required
 
 ## GetPolicy
 
-> []PolicyBundleRecord GetPolicy(ctx, policyId).Detail(detail).XAnchoreAccount(xAnchoreAccount).Execute()
+> []PolicyRecord GetPolicy(ctx, policyId).Detail(detail).XAnchoreAccount(xAnchoreAccount).Execute()
 
 Get specific policy
 
@@ -172,7 +172,7 @@ import (
 
 func main() {
     policyId := "policyId_example" // string | 
-    detail := true // bool | Include policy bundle detail in the form of the full bundle content for each entry (optional)
+    detail := true // bool | Include policy detail in the form of the full policy content for each entry (optional)
     xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
 
     configuration := openapiclient.NewConfiguration()
@@ -182,7 +182,7 @@ func main() {
         fmt.Fprintf(os.Stderr, "Error when calling `PoliciesApi.GetPolicy``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `GetPolicy`: []PolicyBundleRecord
+    // response from `GetPolicy`: []PolicyRecord
     fmt.Fprintf(os.Stdout, "Response from `PoliciesApi.GetPolicy`: %v\n", resp)
 }
 ```
@@ -203,12 +203,12 @@ Other parameters are passed through a pointer to a apiGetPolicyRequest struct vi
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **detail** | **bool** | Include policy bundle detail in the form of the full bundle content for each entry | 
+ **detail** | **bool** | Include policy detail in the form of the full policy content for each entry | 
  **xAnchoreAccount** | **string** | An account name to change the resource scope of the request to that account, if permissions allow (admin only) | 
 
 ### Return type
 
-[**[]PolicyBundleRecord**](PolicyBundleRecord.md)
+[**[]PolicyRecord**](PolicyRecord.md)
 
 ### Authorization
 
@@ -226,7 +226,7 @@ No authorization required
 
 ## ListPolicies
 
-> []PolicyBundleRecord ListPolicies(ctx).Detail(detail).XAnchoreAccount(xAnchoreAccount).Execute()
+> []PolicyRecord ListPolicies(ctx).Detail(detail).XAnchoreAccount(xAnchoreAccount).Execute()
 
 List policies
 
@@ -245,7 +245,7 @@ import (
 )
 
 func main() {
-    detail := true // bool | Include policy bundle detail in the form of the full bundle content for each entry (optional)
+    detail := true // bool | Include policy detail in the form of the full policy content for each entry (optional)
     xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
 
     configuration := openapiclient.NewConfiguration()
@@ -255,7 +255,7 @@ func main() {
         fmt.Fprintf(os.Stderr, "Error when calling `PoliciesApi.ListPolicies``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `ListPolicies`: []PolicyBundleRecord
+    // response from `ListPolicies`: []PolicyRecord
     fmt.Fprintf(os.Stdout, "Response from `PoliciesApi.ListPolicies`: %v\n", resp)
 }
 ```
@@ -271,12 +271,12 @@ Other parameters are passed through a pointer to a apiListPoliciesRequest struct
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **detail** | **bool** | Include policy bundle detail in the form of the full bundle content for each entry | 
+ **detail** | **bool** | Include policy detail in the form of the full policy content for each entry | 
  **xAnchoreAccount** | **string** | An account name to change the resource scope of the request to that account, if permissions allow (admin only) | 
 
 ### Return type
 
-[**[]PolicyBundleRecord**](PolicyBundleRecord.md)
+[**[]PolicyRecord**](PolicyRecord.md)
 
 ### Authorization
 
@@ -294,7 +294,7 @@ No authorization required
 
 ## UpdatePolicy
 
-> []PolicyBundleRecord UpdatePolicy(ctx, policyId).Bundle(bundle).Active(active).XAnchoreAccount(xAnchoreAccount).Execute()
+> []PolicyRecord UpdatePolicy(ctx, policyId).Policy(policy).Active(active).XAnchoreAccount(xAnchoreAccount).Execute()
 
 Update policy
 
@@ -314,18 +314,18 @@ import (
 
 func main() {
     policyId := "policyId_example" // string | 
-    bundle := *openapiclient.NewPolicyBundleRecord() // PolicyBundleRecord | 
+    policy := *openapiclient.NewPolicyRecord() // PolicyRecord | 
     active := true // bool | Mark policy as active (optional)
     xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.PoliciesApi.UpdatePolicy(context.Background(), policyId).Bundle(bundle).Active(active).XAnchoreAccount(xAnchoreAccount).Execute()
+    resp, r, err := api_client.PoliciesApi.UpdatePolicy(context.Background(), policyId).Policy(policy).Active(active).XAnchoreAccount(xAnchoreAccount).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `PoliciesApi.UpdatePolicy``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `UpdatePolicy`: []PolicyBundleRecord
+    // response from `UpdatePolicy`: []PolicyRecord
     fmt.Fprintf(os.Stdout, "Response from `PoliciesApi.UpdatePolicy`: %v\n", resp)
 }
 ```
@@ -346,13 +346,13 @@ Other parameters are passed through a pointer to a apiUpdatePolicyRequest struct
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **bundle** | [**PolicyBundleRecord**](PolicyBundleRecord.md) |  | 
+ **policy** | [**PolicyRecord**](PolicyRecord.md) |  | 
  **active** | **bool** | Mark policy as active | 
  **xAnchoreAccount** | **string** | An account name to change the resource scope of the request to that account, if permissions allow (admin only) | 
 
 ### Return type
 
-[**[]PolicyBundleRecord**](PolicyBundleRecord.md)
+[**[]PolicyRecord**](PolicyRecord.md)
 
 ### Authorization
 

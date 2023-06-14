@@ -16,45 +16,45 @@ import (
 	"time"
 )
 
-// PolicyBundleRecord A policy bundle plus some metadata
-type PolicyBundleRecord struct {
+// PolicyRecord A policy plus some metadata
+type PolicyRecord struct {
 	CreatedAt *time.Time `json:"created_at,omitempty"`
 	LastUpdated *time.Time `json:"last_updated,omitempty"`
-	// The bundle's identifier
+	// The policy's identifier
 	PolicyId *string `json:"policy_id,omitempty"`
-	// True if the bundle is currently defined to be used automatically
+	// True if the policy is currently defined to be used automatically
 	Active *bool `json:"active,omitempty"`
-	// UserId of the user that owns the bundle
+	// UserId of the user that owns the policy
 	AccountName *string `json:"account_name,omitempty"`
-	// Source location of where the policy bundle originated
+	// Source location of where the policy originated
 	PolicySource *string `json:"policy_source,omitempty"`
-	PolicyBundle *PolicyBundle `json:"policy_bundle,omitempty"`
-	PolicyBundleMeta *interface{} `json:"policy_bundle_meta,omitempty"`
-	// Name of the policy bundle
+	Policy *Policy `json:"policy,omitempty"`
+	PolicyMeta *interface{} `json:"policy_meta,omitempty"`
+	// Name of the policy
 	Name *string `json:"name,omitempty"`
-	// Description of the bundle, human readable
+	// Description of the policy, human readable
 	Description *string `json:"description,omitempty"`
 }
 
-// NewPolicyBundleRecord instantiates a new PolicyBundleRecord object
+// NewPolicyRecord instantiates a new PolicyRecord object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewPolicyBundleRecord() *PolicyBundleRecord {
-	this := PolicyBundleRecord{}
+func NewPolicyRecord() *PolicyRecord {
+	this := PolicyRecord{}
 	return &this
 }
 
-// NewPolicyBundleRecordWithDefaults instantiates a new PolicyBundleRecord object
+// NewPolicyRecordWithDefaults instantiates a new PolicyRecord object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewPolicyBundleRecordWithDefaults() *PolicyBundleRecord {
-	this := PolicyBundleRecord{}
+func NewPolicyRecordWithDefaults() *PolicyRecord {
+	this := PolicyRecord{}
 	return &this
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
-func (o *PolicyBundleRecord) GetCreatedAt() time.Time {
+func (o *PolicyRecord) GetCreatedAt() time.Time {
 	if o == nil || o.CreatedAt == nil {
 		var ret time.Time
 		return ret
@@ -64,7 +64,7 @@ func (o *PolicyBundleRecord) GetCreatedAt() time.Time {
 
 // GetCreatedAtOk returns a tuple with the CreatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *PolicyBundleRecord) GetCreatedAtOk() (*time.Time, bool) {
+func (o *PolicyRecord) GetCreatedAtOk() (*time.Time, bool) {
 	if o == nil || o.CreatedAt == nil {
 		return nil, false
 	}
@@ -72,7 +72,7 @@ func (o *PolicyBundleRecord) GetCreatedAtOk() (*time.Time, bool) {
 }
 
 // HasCreatedAt returns a boolean if a field has been set.
-func (o *PolicyBundleRecord) HasCreatedAt() bool {
+func (o *PolicyRecord) HasCreatedAt() bool {
 	if o != nil && o.CreatedAt != nil {
 		return true
 	}
@@ -81,12 +81,12 @@ func (o *PolicyBundleRecord) HasCreatedAt() bool {
 }
 
 // SetCreatedAt gets a reference to the given time.Time and assigns it to the CreatedAt field.
-func (o *PolicyBundleRecord) SetCreatedAt(v time.Time) {
+func (o *PolicyRecord) SetCreatedAt(v time.Time) {
 	o.CreatedAt = &v
 }
 
 // GetLastUpdated returns the LastUpdated field value if set, zero value otherwise.
-func (o *PolicyBundleRecord) GetLastUpdated() time.Time {
+func (o *PolicyRecord) GetLastUpdated() time.Time {
 	if o == nil || o.LastUpdated == nil {
 		var ret time.Time
 		return ret
@@ -96,7 +96,7 @@ func (o *PolicyBundleRecord) GetLastUpdated() time.Time {
 
 // GetLastUpdatedOk returns a tuple with the LastUpdated field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *PolicyBundleRecord) GetLastUpdatedOk() (*time.Time, bool) {
+func (o *PolicyRecord) GetLastUpdatedOk() (*time.Time, bool) {
 	if o == nil || o.LastUpdated == nil {
 		return nil, false
 	}
@@ -104,7 +104,7 @@ func (o *PolicyBundleRecord) GetLastUpdatedOk() (*time.Time, bool) {
 }
 
 // HasLastUpdated returns a boolean if a field has been set.
-func (o *PolicyBundleRecord) HasLastUpdated() bool {
+func (o *PolicyRecord) HasLastUpdated() bool {
 	if o != nil && o.LastUpdated != nil {
 		return true
 	}
@@ -113,12 +113,12 @@ func (o *PolicyBundleRecord) HasLastUpdated() bool {
 }
 
 // SetLastUpdated gets a reference to the given time.Time and assigns it to the LastUpdated field.
-func (o *PolicyBundleRecord) SetLastUpdated(v time.Time) {
+func (o *PolicyRecord) SetLastUpdated(v time.Time) {
 	o.LastUpdated = &v
 }
 
 // GetPolicyId returns the PolicyId field value if set, zero value otherwise.
-func (o *PolicyBundleRecord) GetPolicyId() string {
+func (o *PolicyRecord) GetPolicyId() string {
 	if o == nil || o.PolicyId == nil {
 		var ret string
 		return ret
@@ -128,7 +128,7 @@ func (o *PolicyBundleRecord) GetPolicyId() string {
 
 // GetPolicyIdOk returns a tuple with the PolicyId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *PolicyBundleRecord) GetPolicyIdOk() (*string, bool) {
+func (o *PolicyRecord) GetPolicyIdOk() (*string, bool) {
 	if o == nil || o.PolicyId == nil {
 		return nil, false
 	}
@@ -136,7 +136,7 @@ func (o *PolicyBundleRecord) GetPolicyIdOk() (*string, bool) {
 }
 
 // HasPolicyId returns a boolean if a field has been set.
-func (o *PolicyBundleRecord) HasPolicyId() bool {
+func (o *PolicyRecord) HasPolicyId() bool {
 	if o != nil && o.PolicyId != nil {
 		return true
 	}
@@ -145,12 +145,12 @@ func (o *PolicyBundleRecord) HasPolicyId() bool {
 }
 
 // SetPolicyId gets a reference to the given string and assigns it to the PolicyId field.
-func (o *PolicyBundleRecord) SetPolicyId(v string) {
+func (o *PolicyRecord) SetPolicyId(v string) {
 	o.PolicyId = &v
 }
 
 // GetActive returns the Active field value if set, zero value otherwise.
-func (o *PolicyBundleRecord) GetActive() bool {
+func (o *PolicyRecord) GetActive() bool {
 	if o == nil || o.Active == nil {
 		var ret bool
 		return ret
@@ -160,7 +160,7 @@ func (o *PolicyBundleRecord) GetActive() bool {
 
 // GetActiveOk returns a tuple with the Active field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *PolicyBundleRecord) GetActiveOk() (*bool, bool) {
+func (o *PolicyRecord) GetActiveOk() (*bool, bool) {
 	if o == nil || o.Active == nil {
 		return nil, false
 	}
@@ -168,7 +168,7 @@ func (o *PolicyBundleRecord) GetActiveOk() (*bool, bool) {
 }
 
 // HasActive returns a boolean if a field has been set.
-func (o *PolicyBundleRecord) HasActive() bool {
+func (o *PolicyRecord) HasActive() bool {
 	if o != nil && o.Active != nil {
 		return true
 	}
@@ -177,12 +177,12 @@ func (o *PolicyBundleRecord) HasActive() bool {
 }
 
 // SetActive gets a reference to the given bool and assigns it to the Active field.
-func (o *PolicyBundleRecord) SetActive(v bool) {
+func (o *PolicyRecord) SetActive(v bool) {
 	o.Active = &v
 }
 
 // GetAccountName returns the AccountName field value if set, zero value otherwise.
-func (o *PolicyBundleRecord) GetAccountName() string {
+func (o *PolicyRecord) GetAccountName() string {
 	if o == nil || o.AccountName == nil {
 		var ret string
 		return ret
@@ -192,7 +192,7 @@ func (o *PolicyBundleRecord) GetAccountName() string {
 
 // GetAccountNameOk returns a tuple with the AccountName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *PolicyBundleRecord) GetAccountNameOk() (*string, bool) {
+func (o *PolicyRecord) GetAccountNameOk() (*string, bool) {
 	if o == nil || o.AccountName == nil {
 		return nil, false
 	}
@@ -200,7 +200,7 @@ func (o *PolicyBundleRecord) GetAccountNameOk() (*string, bool) {
 }
 
 // HasAccountName returns a boolean if a field has been set.
-func (o *PolicyBundleRecord) HasAccountName() bool {
+func (o *PolicyRecord) HasAccountName() bool {
 	if o != nil && o.AccountName != nil {
 		return true
 	}
@@ -209,12 +209,12 @@ func (o *PolicyBundleRecord) HasAccountName() bool {
 }
 
 // SetAccountName gets a reference to the given string and assigns it to the AccountName field.
-func (o *PolicyBundleRecord) SetAccountName(v string) {
+func (o *PolicyRecord) SetAccountName(v string) {
 	o.AccountName = &v
 }
 
 // GetPolicySource returns the PolicySource field value if set, zero value otherwise.
-func (o *PolicyBundleRecord) GetPolicySource() string {
+func (o *PolicyRecord) GetPolicySource() string {
 	if o == nil || o.PolicySource == nil {
 		var ret string
 		return ret
@@ -224,7 +224,7 @@ func (o *PolicyBundleRecord) GetPolicySource() string {
 
 // GetPolicySourceOk returns a tuple with the PolicySource field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *PolicyBundleRecord) GetPolicySourceOk() (*string, bool) {
+func (o *PolicyRecord) GetPolicySourceOk() (*string, bool) {
 	if o == nil || o.PolicySource == nil {
 		return nil, false
 	}
@@ -232,7 +232,7 @@ func (o *PolicyBundleRecord) GetPolicySourceOk() (*string, bool) {
 }
 
 // HasPolicySource returns a boolean if a field has been set.
-func (o *PolicyBundleRecord) HasPolicySource() bool {
+func (o *PolicyRecord) HasPolicySource() bool {
 	if o != nil && o.PolicySource != nil {
 		return true
 	}
@@ -241,76 +241,76 @@ func (o *PolicyBundleRecord) HasPolicySource() bool {
 }
 
 // SetPolicySource gets a reference to the given string and assigns it to the PolicySource field.
-func (o *PolicyBundleRecord) SetPolicySource(v string) {
+func (o *PolicyRecord) SetPolicySource(v string) {
 	o.PolicySource = &v
 }
 
-// GetPolicyBundle returns the PolicyBundle field value if set, zero value otherwise.
-func (o *PolicyBundleRecord) GetPolicyBundle() PolicyBundle {
-	if o == nil || o.PolicyBundle == nil {
-		var ret PolicyBundle
+// GetPolicy returns the Policy field value if set, zero value otherwise.
+func (o *PolicyRecord) GetPolicy() Policy {
+	if o == nil || o.Policy == nil {
+		var ret Policy
 		return ret
 	}
-	return *o.PolicyBundle
+	return *o.Policy
 }
 
-// GetPolicyBundleOk returns a tuple with the PolicyBundle field value if set, nil otherwise
+// GetPolicyOk returns a tuple with the Policy field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *PolicyBundleRecord) GetPolicyBundleOk() (*PolicyBundle, bool) {
-	if o == nil || o.PolicyBundle == nil {
+func (o *PolicyRecord) GetPolicyOk() (*Policy, bool) {
+	if o == nil || o.Policy == nil {
 		return nil, false
 	}
-	return o.PolicyBundle, true
+	return o.Policy, true
 }
 
-// HasPolicyBundle returns a boolean if a field has been set.
-func (o *PolicyBundleRecord) HasPolicyBundle() bool {
-	if o != nil && o.PolicyBundle != nil {
+// HasPolicy returns a boolean if a field has been set.
+func (o *PolicyRecord) HasPolicy() bool {
+	if o != nil && o.Policy != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetPolicyBundle gets a reference to the given PolicyBundle and assigns it to the PolicyBundle field.
-func (o *PolicyBundleRecord) SetPolicyBundle(v PolicyBundle) {
-	o.PolicyBundle = &v
+// SetPolicy gets a reference to the given Policy and assigns it to the Policy field.
+func (o *PolicyRecord) SetPolicy(v Policy) {
+	o.Policy = &v
 }
 
-// GetPolicyBundleMeta returns the PolicyBundleMeta field value if set, zero value otherwise.
-func (o *PolicyBundleRecord) GetPolicyBundleMeta() interface{} {
-	if o == nil || o.PolicyBundleMeta == nil {
+// GetPolicyMeta returns the PolicyMeta field value if set, zero value otherwise.
+func (o *PolicyRecord) GetPolicyMeta() interface{} {
+	if o == nil || o.PolicyMeta == nil {
 		var ret interface{}
 		return ret
 	}
-	return *o.PolicyBundleMeta
+	return *o.PolicyMeta
 }
 
-// GetPolicyBundleMetaOk returns a tuple with the PolicyBundleMeta field value if set, nil otherwise
+// GetPolicyMetaOk returns a tuple with the PolicyMeta field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *PolicyBundleRecord) GetPolicyBundleMetaOk() (*interface{}, bool) {
-	if o == nil || o.PolicyBundleMeta == nil {
+func (o *PolicyRecord) GetPolicyMetaOk() (*interface{}, bool) {
+	if o == nil || o.PolicyMeta == nil {
 		return nil, false
 	}
-	return o.PolicyBundleMeta, true
+	return o.PolicyMeta, true
 }
 
-// HasPolicyBundleMeta returns a boolean if a field has been set.
-func (o *PolicyBundleRecord) HasPolicyBundleMeta() bool {
-	if o != nil && o.PolicyBundleMeta != nil {
+// HasPolicyMeta returns a boolean if a field has been set.
+func (o *PolicyRecord) HasPolicyMeta() bool {
+	if o != nil && o.PolicyMeta != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetPolicyBundleMeta gets a reference to the given interface{} and assigns it to the PolicyBundleMeta field.
-func (o *PolicyBundleRecord) SetPolicyBundleMeta(v interface{}) {
-	o.PolicyBundleMeta = &v
+// SetPolicyMeta gets a reference to the given interface{} and assigns it to the PolicyMeta field.
+func (o *PolicyRecord) SetPolicyMeta(v interface{}) {
+	o.PolicyMeta = &v
 }
 
 // GetName returns the Name field value if set, zero value otherwise.
-func (o *PolicyBundleRecord) GetName() string {
+func (o *PolicyRecord) GetName() string {
 	if o == nil || o.Name == nil {
 		var ret string
 		return ret
@@ -320,7 +320,7 @@ func (o *PolicyBundleRecord) GetName() string {
 
 // GetNameOk returns a tuple with the Name field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *PolicyBundleRecord) GetNameOk() (*string, bool) {
+func (o *PolicyRecord) GetNameOk() (*string, bool) {
 	if o == nil || o.Name == nil {
 		return nil, false
 	}
@@ -328,7 +328,7 @@ func (o *PolicyBundleRecord) GetNameOk() (*string, bool) {
 }
 
 // HasName returns a boolean if a field has been set.
-func (o *PolicyBundleRecord) HasName() bool {
+func (o *PolicyRecord) HasName() bool {
 	if o != nil && o.Name != nil {
 		return true
 	}
@@ -337,12 +337,12 @@ func (o *PolicyBundleRecord) HasName() bool {
 }
 
 // SetName gets a reference to the given string and assigns it to the Name field.
-func (o *PolicyBundleRecord) SetName(v string) {
+func (o *PolicyRecord) SetName(v string) {
 	o.Name = &v
 }
 
 // GetDescription returns the Description field value if set, zero value otherwise.
-func (o *PolicyBundleRecord) GetDescription() string {
+func (o *PolicyRecord) GetDescription() string {
 	if o == nil || o.Description == nil {
 		var ret string
 		return ret
@@ -352,7 +352,7 @@ func (o *PolicyBundleRecord) GetDescription() string {
 
 // GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *PolicyBundleRecord) GetDescriptionOk() (*string, bool) {
+func (o *PolicyRecord) GetDescriptionOk() (*string, bool) {
 	if o == nil || o.Description == nil {
 		return nil, false
 	}
@@ -360,7 +360,7 @@ func (o *PolicyBundleRecord) GetDescriptionOk() (*string, bool) {
 }
 
 // HasDescription returns a boolean if a field has been set.
-func (o *PolicyBundleRecord) HasDescription() bool {
+func (o *PolicyRecord) HasDescription() bool {
 	if o != nil && o.Description != nil {
 		return true
 	}
@@ -369,11 +369,11 @@ func (o *PolicyBundleRecord) HasDescription() bool {
 }
 
 // SetDescription gets a reference to the given string and assigns it to the Description field.
-func (o *PolicyBundleRecord) SetDescription(v string) {
+func (o *PolicyRecord) SetDescription(v string) {
 	o.Description = &v
 }
 
-func (o PolicyBundleRecord) MarshalJSON() ([]byte, error) {
+func (o PolicyRecord) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.CreatedAt != nil {
 		toSerialize["created_at"] = o.CreatedAt
@@ -393,11 +393,11 @@ func (o PolicyBundleRecord) MarshalJSON() ([]byte, error) {
 	if o.PolicySource != nil {
 		toSerialize["policy_source"] = o.PolicySource
 	}
-	if o.PolicyBundle != nil {
-		toSerialize["policy_bundle"] = o.PolicyBundle
+	if o.Policy != nil {
+		toSerialize["policy"] = o.Policy
 	}
-	if o.PolicyBundleMeta != nil {
-		toSerialize["policy_bundle_meta"] = o.PolicyBundleMeta
+	if o.PolicyMeta != nil {
+		toSerialize["policy_meta"] = o.PolicyMeta
 	}
 	if o.Name != nil {
 		toSerialize["name"] = o.Name
@@ -408,38 +408,38 @@ func (o PolicyBundleRecord) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
-type NullablePolicyBundleRecord struct {
-	value *PolicyBundleRecord
+type NullablePolicyRecord struct {
+	value *PolicyRecord
 	isSet bool
 }
 
-func (v NullablePolicyBundleRecord) Get() *PolicyBundleRecord {
+func (v NullablePolicyRecord) Get() *PolicyRecord {
 	return v.value
 }
 
-func (v *NullablePolicyBundleRecord) Set(val *PolicyBundleRecord) {
+func (v *NullablePolicyRecord) Set(val *PolicyRecord) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullablePolicyBundleRecord) IsSet() bool {
+func (v NullablePolicyRecord) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullablePolicyBundleRecord) Unset() {
+func (v *NullablePolicyRecord) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullablePolicyBundleRecord(val *PolicyBundleRecord) *NullablePolicyBundleRecord {
-	return &NullablePolicyBundleRecord{value: val, isSet: true}
+func NewNullablePolicyRecord(val *PolicyRecord) *NullablePolicyRecord {
+	return &NullablePolicyRecord{value: val, isSet: true}
 }
 
-func (v NullablePolicyBundleRecord) MarshalJSON() ([]byte, error) {
+func (v NullablePolicyRecord) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullablePolicyBundleRecord) UnmarshalJSON(src []byte) error {
+func (v *NullablePolicyRecord) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }

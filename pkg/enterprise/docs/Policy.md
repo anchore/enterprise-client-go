@@ -4,18 +4,23 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Id** | **string** |  | 
-**Name** | Pointer to **string** |  | [optional] 
-**Description** | Pointer to **string** | Description of the Policy, human readable | [optional] 
-**Version** | **string** |  | 
-**ArtifactType** | Pointer to **string** |  | [optional] 
-**Rules** | Pointer to [**[]PolicyRule**](PolicyRule.md) |  | [optional] 
+**Id** | **string** | Id of the policy | 
+**Name** | Pointer to **string** | Human readable name for the policy | [optional] 
+**Description** | Pointer to **string** | Description of the policy, human readable | [optional] 
+**Version** | **string** | Version id for this policy format | 
+**Allowlists** | Pointer to [**[]Allowlist**](Allowlist.md) | Allowlists which define which policy matches to disregard explicitly in the final policy decision | [optional] 
+**RuleSets** | [**[]RuleSet**](RuleSet.md) | Collections of policy rules which define the go/stop/warn status of an image using rule matches on image properties | 
+**SourceMappings** | Pointer to [**[]SourceMappingRule**](SourceMappingRule.md) | Mapping rules for defining which policy and allowlist(s) to apply to a source based on a match of the host and repo name. Evaluated in order. | [optional] 
+**Mappings** | [**[]MappingRule**](MappingRule.md) | Mapping rules for defining which policy and allowlist(s) to apply to an image based on a match of the image tag or id. Evaluated in order. | 
+**AllowlistedImages** | Pointer to [**[]ImageSelectionRule**](ImageSelectionRule.md) | List of mapping rules that define which images should always be passed (unless also on the denylist), regardless of policy result. | [optional] 
+**DenylistedImages** | Pointer to [**[]ImageSelectionRule**](ImageSelectionRule.md) | List of mapping rules that define which images should always result in a STOP/FAIL policy result regardless of policy content or presence in allowlisted_images | [optional] 
+**LastUpdated** | Pointer to **float32** | The time at which the policy was last updated, informational only | [optional] 
 
 ## Methods
 
 ### NewPolicy
 
-`func NewPolicy(id string, version string, ) *Policy`
+`func NewPolicy(id string, version string, ruleSets []RuleSet, mappings []MappingRule, ) *Policy`
 
 NewPolicy instantiates a new Policy object
 This constructor will assign default values to properties that have it defined,
@@ -120,55 +125,170 @@ and a boolean to check if the value has been set.
 SetVersion sets Version field to given value.
 
 
-### GetArtifactType
+### GetAllowlists
 
-`func (o *Policy) GetArtifactType() string`
+`func (o *Policy) GetAllowlists() []Allowlist`
 
-GetArtifactType returns the ArtifactType field if non-nil, zero value otherwise.
+GetAllowlists returns the Allowlists field if non-nil, zero value otherwise.
 
-### GetArtifactTypeOk
+### GetAllowlistsOk
 
-`func (o *Policy) GetArtifactTypeOk() (*string, bool)`
+`func (o *Policy) GetAllowlistsOk() (*[]Allowlist, bool)`
 
-GetArtifactTypeOk returns a tuple with the ArtifactType field if it's non-nil, zero value otherwise
+GetAllowlistsOk returns a tuple with the Allowlists field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetArtifactType
+### SetAllowlists
 
-`func (o *Policy) SetArtifactType(v string)`
+`func (o *Policy) SetAllowlists(v []Allowlist)`
 
-SetArtifactType sets ArtifactType field to given value.
+SetAllowlists sets Allowlists field to given value.
 
-### HasArtifactType
+### HasAllowlists
 
-`func (o *Policy) HasArtifactType() bool`
+`func (o *Policy) HasAllowlists() bool`
 
-HasArtifactType returns a boolean if a field has been set.
+HasAllowlists returns a boolean if a field has been set.
 
-### GetRules
+### GetRuleSets
 
-`func (o *Policy) GetRules() []PolicyRule`
+`func (o *Policy) GetRuleSets() []RuleSet`
 
-GetRules returns the Rules field if non-nil, zero value otherwise.
+GetRuleSets returns the RuleSets field if non-nil, zero value otherwise.
 
-### GetRulesOk
+### GetRuleSetsOk
 
-`func (o *Policy) GetRulesOk() (*[]PolicyRule, bool)`
+`func (o *Policy) GetRuleSetsOk() (*[]RuleSet, bool)`
 
-GetRulesOk returns a tuple with the Rules field if it's non-nil, zero value otherwise
+GetRuleSetsOk returns a tuple with the RuleSets field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetRules
+### SetRuleSets
 
-`func (o *Policy) SetRules(v []PolicyRule)`
+`func (o *Policy) SetRuleSets(v []RuleSet)`
 
-SetRules sets Rules field to given value.
+SetRuleSets sets RuleSets field to given value.
 
-### HasRules
 
-`func (o *Policy) HasRules() bool`
+### GetSourceMappings
 
-HasRules returns a boolean if a field has been set.
+`func (o *Policy) GetSourceMappings() []SourceMappingRule`
+
+GetSourceMappings returns the SourceMappings field if non-nil, zero value otherwise.
+
+### GetSourceMappingsOk
+
+`func (o *Policy) GetSourceMappingsOk() (*[]SourceMappingRule, bool)`
+
+GetSourceMappingsOk returns a tuple with the SourceMappings field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetSourceMappings
+
+`func (o *Policy) SetSourceMappings(v []SourceMappingRule)`
+
+SetSourceMappings sets SourceMappings field to given value.
+
+### HasSourceMappings
+
+`func (o *Policy) HasSourceMappings() bool`
+
+HasSourceMappings returns a boolean if a field has been set.
+
+### GetMappings
+
+`func (o *Policy) GetMappings() []MappingRule`
+
+GetMappings returns the Mappings field if non-nil, zero value otherwise.
+
+### GetMappingsOk
+
+`func (o *Policy) GetMappingsOk() (*[]MappingRule, bool)`
+
+GetMappingsOk returns a tuple with the Mappings field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetMappings
+
+`func (o *Policy) SetMappings(v []MappingRule)`
+
+SetMappings sets Mappings field to given value.
+
+
+### GetAllowlistedImages
+
+`func (o *Policy) GetAllowlistedImages() []ImageSelectionRule`
+
+GetAllowlistedImages returns the AllowlistedImages field if non-nil, zero value otherwise.
+
+### GetAllowlistedImagesOk
+
+`func (o *Policy) GetAllowlistedImagesOk() (*[]ImageSelectionRule, bool)`
+
+GetAllowlistedImagesOk returns a tuple with the AllowlistedImages field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetAllowlistedImages
+
+`func (o *Policy) SetAllowlistedImages(v []ImageSelectionRule)`
+
+SetAllowlistedImages sets AllowlistedImages field to given value.
+
+### HasAllowlistedImages
+
+`func (o *Policy) HasAllowlistedImages() bool`
+
+HasAllowlistedImages returns a boolean if a field has been set.
+
+### GetDenylistedImages
+
+`func (o *Policy) GetDenylistedImages() []ImageSelectionRule`
+
+GetDenylistedImages returns the DenylistedImages field if non-nil, zero value otherwise.
+
+### GetDenylistedImagesOk
+
+`func (o *Policy) GetDenylistedImagesOk() (*[]ImageSelectionRule, bool)`
+
+GetDenylistedImagesOk returns a tuple with the DenylistedImages field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDenylistedImages
+
+`func (o *Policy) SetDenylistedImages(v []ImageSelectionRule)`
+
+SetDenylistedImages sets DenylistedImages field to given value.
+
+### HasDenylistedImages
+
+`func (o *Policy) HasDenylistedImages() bool`
+
+HasDenylistedImages returns a boolean if a field has been set.
+
+### GetLastUpdated
+
+`func (o *Policy) GetLastUpdated() float32`
+
+GetLastUpdated returns the LastUpdated field if non-nil, zero value otherwise.
+
+### GetLastUpdatedOk
+
+`func (o *Policy) GetLastUpdatedOk() (*float32, bool)`
+
+GetLastUpdatedOk returns a tuple with the LastUpdated field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetLastUpdated
+
+`func (o *Policy) SetLastUpdated(v float32)`
+
+SetLastUpdated sets LastUpdated field to given value.
+
+### HasLastUpdated
+
+`func (o *Policy) HasLastUpdated() bool`
+
+HasLastUpdated returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

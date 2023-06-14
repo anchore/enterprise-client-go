@@ -7,8 +7,7 @@ Name | Type | Description | Notes
 **Id** | Pointer to **string** |  | [optional] 
 **Name** | **string** |  | 
 **AllowlistIds** | Pointer to **[]string** |  | [optional] 
-**PolicyId** | Pointer to **string** | Optional single policy to evaluate, if set will override any value in policy_ids, for backwards compatibility. Generally, policy_ids should be used even with a array of length 1. | [optional] 
-**PolicyIds** | Pointer to **[]string** | List of policy_ids to evaluate in order, to completion | [optional] 
+**RuleSetIds** | Pointer to **[]string** | List of rule_set_ids to evaluate in order, to completion | [optional] 
 **Host** | **string** |  | 
 **Repository** | **string** |  | 
 **Description** | Pointer to **string** | Description of the source to policy rule, human readable | [optional] 
@@ -102,55 +101,30 @@ SetAllowlistIds sets AllowlistIds field to given value.
 
 HasAllowlistIds returns a boolean if a field has been set.
 
-### GetPolicyId
+### GetRuleSetIds
 
-`func (o *SourceMappingRule) GetPolicyId() string`
+`func (o *SourceMappingRule) GetRuleSetIds() []string`
 
-GetPolicyId returns the PolicyId field if non-nil, zero value otherwise.
+GetRuleSetIds returns the RuleSetIds field if non-nil, zero value otherwise.
 
-### GetPolicyIdOk
+### GetRuleSetIdsOk
 
-`func (o *SourceMappingRule) GetPolicyIdOk() (*string, bool)`
+`func (o *SourceMappingRule) GetRuleSetIdsOk() (*[]string, bool)`
 
-GetPolicyIdOk returns a tuple with the PolicyId field if it's non-nil, zero value otherwise
+GetRuleSetIdsOk returns a tuple with the RuleSetIds field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetPolicyId
+### SetRuleSetIds
 
-`func (o *SourceMappingRule) SetPolicyId(v string)`
+`func (o *SourceMappingRule) SetRuleSetIds(v []string)`
 
-SetPolicyId sets PolicyId field to given value.
+SetRuleSetIds sets RuleSetIds field to given value.
 
-### HasPolicyId
+### HasRuleSetIds
 
-`func (o *SourceMappingRule) HasPolicyId() bool`
+`func (o *SourceMappingRule) HasRuleSetIds() bool`
 
-HasPolicyId returns a boolean if a field has been set.
-
-### GetPolicyIds
-
-`func (o *SourceMappingRule) GetPolicyIds() []string`
-
-GetPolicyIds returns the PolicyIds field if non-nil, zero value otherwise.
-
-### GetPolicyIdsOk
-
-`func (o *SourceMappingRule) GetPolicyIdsOk() (*[]string, bool)`
-
-GetPolicyIdsOk returns a tuple with the PolicyIds field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetPolicyIds
-
-`func (o *SourceMappingRule) SetPolicyIds(v []string)`
-
-SetPolicyIds sets PolicyIds field to given value.
-
-### HasPolicyIds
-
-`func (o *SourceMappingRule) HasPolicyIds() bool`
-
-HasPolicyIds returns a boolean if a field has been set.
+HasRuleSetIds returns a boolean if a field has been set.
 
 ### GetHost
 

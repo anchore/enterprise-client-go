@@ -20,10 +20,8 @@ type MappingRule struct {
 	Id *string `json:"id,omitempty"`
 	Name string `json:"name"`
 	AllowlistIds *[]string `json:"allowlist_ids,omitempty"`
-	// Optional single policy to evaluate, if set will override any value in policy_ids, for backwards compatibility. Generally, policy_ids should be used even with a array of length 1.
-	PolicyId *string `json:"policy_id,omitempty"`
-	// List of policy_ids to evaluate in order, to completion
-	PolicyIds *[]string `json:"policy_ids,omitempty"`
+	// List of rule_set_ids to evaluate in order, to completion
+	RuleSetIds *[]string `json:"rule_set_ids,omitempty"`
 	Registry string `json:"registry"`
 	Repository string `json:"repository"`
 	Image ImageRef `json:"image"`
@@ -140,68 +138,36 @@ func (o *MappingRule) SetAllowlistIds(v []string) {
 	o.AllowlistIds = &v
 }
 
-// GetPolicyId returns the PolicyId field value if set, zero value otherwise.
-func (o *MappingRule) GetPolicyId() string {
-	if o == nil || o.PolicyId == nil {
-		var ret string
-		return ret
-	}
-	return *o.PolicyId
-}
-
-// GetPolicyIdOk returns a tuple with the PolicyId field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *MappingRule) GetPolicyIdOk() (*string, bool) {
-	if o == nil || o.PolicyId == nil {
-		return nil, false
-	}
-	return o.PolicyId, true
-}
-
-// HasPolicyId returns a boolean if a field has been set.
-func (o *MappingRule) HasPolicyId() bool {
-	if o != nil && o.PolicyId != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetPolicyId gets a reference to the given string and assigns it to the PolicyId field.
-func (o *MappingRule) SetPolicyId(v string) {
-	o.PolicyId = &v
-}
-
-// GetPolicyIds returns the PolicyIds field value if set, zero value otherwise.
-func (o *MappingRule) GetPolicyIds() []string {
-	if o == nil || o.PolicyIds == nil {
+// GetRuleSetIds returns the RuleSetIds field value if set, zero value otherwise.
+func (o *MappingRule) GetRuleSetIds() []string {
+	if o == nil || o.RuleSetIds == nil {
 		var ret []string
 		return ret
 	}
-	return *o.PolicyIds
+	return *o.RuleSetIds
 }
 
-// GetPolicyIdsOk returns a tuple with the PolicyIds field value if set, nil otherwise
+// GetRuleSetIdsOk returns a tuple with the RuleSetIds field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *MappingRule) GetPolicyIdsOk() (*[]string, bool) {
-	if o == nil || o.PolicyIds == nil {
+func (o *MappingRule) GetRuleSetIdsOk() (*[]string, bool) {
+	if o == nil || o.RuleSetIds == nil {
 		return nil, false
 	}
-	return o.PolicyIds, true
+	return o.RuleSetIds, true
 }
 
-// HasPolicyIds returns a boolean if a field has been set.
-func (o *MappingRule) HasPolicyIds() bool {
-	if o != nil && o.PolicyIds != nil {
+// HasRuleSetIds returns a boolean if a field has been set.
+func (o *MappingRule) HasRuleSetIds() bool {
+	if o != nil && o.RuleSetIds != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetPolicyIds gets a reference to the given []string and assigns it to the PolicyIds field.
-func (o *MappingRule) SetPolicyIds(v []string) {
-	o.PolicyIds = &v
+// SetRuleSetIds gets a reference to the given []string and assigns it to the RuleSetIds field.
+func (o *MappingRule) SetRuleSetIds(v []string) {
+	o.RuleSetIds = &v
 }
 
 // GetRegistry returns the Registry field value
@@ -319,11 +285,8 @@ func (o MappingRule) MarshalJSON() ([]byte, error) {
 	if o.AllowlistIds != nil {
 		toSerialize["allowlist_ids"] = o.AllowlistIds
 	}
-	if o.PolicyId != nil {
-		toSerialize["policy_id"] = o.PolicyId
-	}
-	if o.PolicyIds != nil {
-		toSerialize["policy_ids"] = o.PolicyIds
+	if o.RuleSetIds != nil {
+		toSerialize["rule_set_ids"] = o.RuleSetIds
 	}
 	if true {
 		toSerialize["registry"] = o.Registry
