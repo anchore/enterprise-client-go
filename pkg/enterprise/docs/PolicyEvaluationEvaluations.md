@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Details** | Pointer to [**PolicyEvaluationDetails**](PolicyEvaluationDetails.md) |  | [optional] 
-**ComparisonImageDigest** | Pointer to **string** | Image digest of the base image used during policy evaluation | [optional] 
+**Details** | Pointer to [**NullablePolicyEvaluationDetails**](PolicyEvaluationDetails.md) |  | [optional] 
+**ComparisonImageDigest** | Pointer to **NullableString** | Image digest of the base image used during policy evaluation | [optional] 
 **EvaluationTime** | **time.Time** | The date and time this policy evaluation was performed at | 
 **EvaluationProblems** | [**[]PolicyEvaluationProblem**](PolicyEvaluationProblem.md) | list of error objects indicating errors encountered during evaluation execution | 
 **Status** | **string** | The overall status of the policy evaluation | 
@@ -15,7 +15,7 @@ Name | Type | Description | Notes
 **MatchedAllowlistedImagesRule** | Pointer to [**ImageSelectionRule**](ImageSelectionRule.md) |  | [optional] 
 **ImageDenylisted** | **bool** | Whether the evaluated image matched a denylist rule | 
 **MatchedDenylistedImagesRule** | Pointer to [**ImageSelectionRule**](ImageSelectionRule.md) |  | [optional] 
-**ImageMappedToRule** | Pointer to **bool** | Whether the evaluated image matched a policy rule | [optional] 
+**ImageMappedToRule** | **bool** | Whether the evaluated image matched a policy rule | 
 **MatchedMappingRule** | Pointer to [**MappingRule**](MappingRule.md) |  | [optional] 
 **NumberOfFindings** | **int32** | Number of policy findings in the response | 
 
@@ -23,7 +23,7 @@ Name | Type | Description | Notes
 
 ### NewPolicyEvaluationEvaluations
 
-`func NewPolicyEvaluationEvaluations(evaluationTime time.Time, evaluationProblems []PolicyEvaluationProblem, status string, finalAction string, finalActionReason string, imageAllowlisted bool, imageDenylisted bool, numberOfFindings int32, ) *PolicyEvaluationEvaluations`
+`func NewPolicyEvaluationEvaluations(evaluationTime time.Time, evaluationProblems []PolicyEvaluationProblem, status string, finalAction string, finalActionReason string, imageAllowlisted bool, imageDenylisted bool, imageMappedToRule bool, numberOfFindings int32, ) *PolicyEvaluationEvaluations`
 
 NewPolicyEvaluationEvaluations instantiates a new PolicyEvaluationEvaluations object
 This constructor will assign default values to properties that have it defined,
@@ -63,6 +63,16 @@ SetDetails sets Details field to given value.
 
 HasDetails returns a boolean if a field has been set.
 
+### SetDetailsNil
+
+`func (o *PolicyEvaluationEvaluations) SetDetailsNil(b bool)`
+
+ SetDetailsNil sets the value for Details to be an explicit nil
+
+### UnsetDetails
+`func (o *PolicyEvaluationEvaluations) UnsetDetails()`
+
+UnsetDetails ensures that no value is present for Details, not even an explicit nil
 ### GetComparisonImageDigest
 
 `func (o *PolicyEvaluationEvaluations) GetComparisonImageDigest() string`
@@ -88,6 +98,16 @@ SetComparisonImageDigest sets ComparisonImageDigest field to given value.
 
 HasComparisonImageDigest returns a boolean if a field has been set.
 
+### SetComparisonImageDigestNil
+
+`func (o *PolicyEvaluationEvaluations) SetComparisonImageDigestNil(b bool)`
+
+ SetComparisonImageDigestNil sets the value for ComparisonImageDigest to be an explicit nil
+
+### UnsetComparisonImageDigest
+`func (o *PolicyEvaluationEvaluations) UnsetComparisonImageDigest()`
+
+UnsetComparisonImageDigest ensures that no value is present for ComparisonImageDigest, not even an explicit nil
 ### GetEvaluationTime
 
 `func (o *PolicyEvaluationEvaluations) GetEvaluationTime() time.Time`
@@ -297,11 +317,6 @@ and a boolean to check if the value has been set.
 
 SetImageMappedToRule sets ImageMappedToRule field to given value.
 
-### HasImageMappedToRule
-
-`func (o *PolicyEvaluationEvaluations) HasImageMappedToRule() bool`
-
-HasImageMappedToRule returns a boolean if a field has been set.
 
 ### GetMatchedMappingRule
 

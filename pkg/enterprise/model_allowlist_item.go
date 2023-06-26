@@ -21,7 +21,7 @@ type AllowlistItem struct {
 	Id *string `json:"id,omitempty"`
 	Gate string `json:"gate"`
 	TriggerId string `json:"trigger_id"`
-	ExpiresOn *time.Time `json:"expires_on,omitempty"`
+	ExpiresOn NullableTime `json:"expires_on,omitempty"`
 	// Description of the Allowlist item, human readable
 	Description *string `json:"description,omitempty"`
 }
@@ -125,36 +125,46 @@ func (o *AllowlistItem) SetTriggerId(v string) {
 	o.TriggerId = v
 }
 
-// GetExpiresOn returns the ExpiresOn field value if set, zero value otherwise.
+// GetExpiresOn returns the ExpiresOn field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *AllowlistItem) GetExpiresOn() time.Time {
-	if o == nil || o.ExpiresOn == nil {
+	if o == nil || o.ExpiresOn.Get() == nil {
 		var ret time.Time
 		return ret
 	}
-	return *o.ExpiresOn
+	return *o.ExpiresOn.Get()
 }
 
 // GetExpiresOnOk returns a tuple with the ExpiresOn field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *AllowlistItem) GetExpiresOnOk() (*time.Time, bool) {
-	if o == nil || o.ExpiresOn == nil {
+	if o == nil  {
 		return nil, false
 	}
-	return o.ExpiresOn, true
+	return o.ExpiresOn.Get(), o.ExpiresOn.IsSet()
 }
 
 // HasExpiresOn returns a boolean if a field has been set.
 func (o *AllowlistItem) HasExpiresOn() bool {
-	if o != nil && o.ExpiresOn != nil {
+	if o != nil && o.ExpiresOn.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetExpiresOn gets a reference to the given time.Time and assigns it to the ExpiresOn field.
+// SetExpiresOn gets a reference to the given NullableTime and assigns it to the ExpiresOn field.
 func (o *AllowlistItem) SetExpiresOn(v time.Time) {
-	o.ExpiresOn = &v
+	o.ExpiresOn.Set(&v)
+}
+// SetExpiresOnNil sets the value for ExpiresOn to be an explicit nil
+func (o *AllowlistItem) SetExpiresOnNil() {
+	o.ExpiresOn.Set(nil)
+}
+
+// UnsetExpiresOn ensures that no value is present for ExpiresOn, not even an explicit nil
+func (o *AllowlistItem) UnsetExpiresOn() {
+	o.ExpiresOn.Unset()
 }
 
 // GetDescription returns the Description field value if set, zero value otherwise.
@@ -200,8 +210,8 @@ func (o AllowlistItem) MarshalJSON() ([]byte, error) {
 	if true {
 		toSerialize["trigger_id"] = o.TriggerId
 	}
-	if o.ExpiresOn != nil {
-		toSerialize["expires_on"] = o.ExpiresOn
+	if o.ExpiresOn.IsSet() {
+		toSerialize["expires_on"] = o.ExpiresOn.Get()
 	}
 	if o.Description != nil {
 		toSerialize["description"] = o.Description

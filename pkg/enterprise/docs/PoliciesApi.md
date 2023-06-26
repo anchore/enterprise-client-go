@@ -152,7 +152,7 @@ No authorization required
 
 ## GetPolicy
 
-> []PolicyRecord GetPolicy(ctx, policyId).Detail(detail).XAnchoreAccount(xAnchoreAccount).Execute()
+> PolicyRecord GetPolicy(ctx, policyId).Detail(detail).XAnchoreAccount(xAnchoreAccount).Execute()
 
 Get specific policy
 
@@ -182,7 +182,7 @@ func main() {
         fmt.Fprintf(os.Stderr, "Error when calling `PoliciesApi.GetPolicy``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `GetPolicy`: []PolicyRecord
+    // response from `GetPolicy`: PolicyRecord
     fmt.Fprintf(os.Stdout, "Response from `PoliciesApi.GetPolicy`: %v\n", resp)
 }
 ```
@@ -208,7 +208,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[]PolicyRecord**](PolicyRecord.md)
+[**PolicyRecord**](PolicyRecord.md)
 
 ### Authorization
 
@@ -294,7 +294,7 @@ No authorization required
 
 ## UpdatePolicy
 
-> []PolicyRecord UpdatePolicy(ctx, policyId).Policy(policy).Active(active).XAnchoreAccount(xAnchoreAccount).Execute()
+> PolicyRecord UpdatePolicy(ctx, policyId).Policy(policy).Active(active).XAnchoreAccount(xAnchoreAccount).Execute()
 
 Update policy
 
@@ -325,7 +325,7 @@ func main() {
         fmt.Fprintf(os.Stderr, "Error when calling `PoliciesApi.UpdatePolicy``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `UpdatePolicy`: []PolicyRecord
+    // response from `UpdatePolicy`: PolicyRecord
     fmt.Fprintf(os.Stdout, "Response from `PoliciesApi.UpdatePolicy`: %v\n", resp)
 }
 ```
@@ -352,7 +352,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[]PolicyRecord**](PolicyRecord.md)
+[**PolicyRecord**](PolicyRecord.md)
 
 ### Authorization
 
