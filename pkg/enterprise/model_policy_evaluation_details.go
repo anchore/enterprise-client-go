@@ -21,7 +21,7 @@ type PolicyEvaluationDetails struct {
 	// The detailed policy findings
 	Findings []PolicyEvaluationFinding `json:"findings"`
 	// List of remediations for the findings
-	Remediations *[]PolicyEvaluationRemediation `json:"remediations,omitempty"`
+	Remediations []PolicyEvaluationRemediation `json:"remediations,omitempty"`
 }
 
 // NewPolicyEvaluationDetails instantiates a new PolicyEvaluationDetails object
@@ -91,22 +91,23 @@ func (o *PolicyEvaluationDetails) SetFindings(v []PolicyEvaluationFinding) {
 	o.Findings = v
 }
 
-// GetRemediations returns the Remediations field value if set, zero value otherwise.
+// GetRemediations returns the Remediations field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *PolicyEvaluationDetails) GetRemediations() []PolicyEvaluationRemediation {
-	if o == nil || o.Remediations == nil {
+	if o == nil  {
 		var ret []PolicyEvaluationRemediation
 		return ret
 	}
-	return *o.Remediations
+	return o.Remediations
 }
 
 // GetRemediationsOk returns a tuple with the Remediations field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *PolicyEvaluationDetails) GetRemediationsOk() (*[]PolicyEvaluationRemediation, bool) {
 	if o == nil || o.Remediations == nil {
 		return nil, false
 	}
-	return o.Remediations, true
+	return &o.Remediations, true
 }
 
 // HasRemediations returns a boolean if a field has been set.
@@ -120,7 +121,7 @@ func (o *PolicyEvaluationDetails) HasRemediations() bool {
 
 // SetRemediations gets a reference to the given []PolicyEvaluationRemediation and assigns it to the Remediations field.
 func (o *PolicyEvaluationDetails) SetRemediations(v []PolicyEvaluationRemediation) {
-	o.Remediations = &v
+	o.Remediations = v
 }
 
 func (o PolicyEvaluationDetails) MarshalJSON() ([]byte, error) {

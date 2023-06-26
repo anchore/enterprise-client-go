@@ -14,7 +14,7 @@ Name | Type | Description | Notes
 **RuleId** | **string** | ID of the policy rule that that generated this finding | 
 **Allowlisted** | **bool** | Indicates if this finding was allowlisted or not | 
 **AllowlistMatch** | Pointer to [**PolicyEvaluationFindingAllowlistMatch**](PolicyEvaluationFindingAllowlistMatch.md) |  | [optional] 
-**InheritedFromBase** | Pointer to **bool** | Indicates if this finding was found in the base image | [optional] 
+**InheritedFromBase** | Pointer to **NullableBool** | Indicates if this finding was found in the base image | [optional] 
 
 ## Methods
 
@@ -265,6 +265,16 @@ SetInheritedFromBase sets InheritedFromBase field to given value.
 
 HasInheritedFromBase returns a boolean if a field has been set.
 
+### SetInheritedFromBaseNil
+
+`func (o *PolicyEvaluationFinding) SetInheritedFromBaseNil(b bool)`
+
+ SetInheritedFromBaseNil sets the value for InheritedFromBase to be an explicit nil
+
+### UnsetInheritedFromBase
+`func (o *PolicyEvaluationFinding) UnsetInheritedFromBase()`
+
+UnsetInheritedFromBase ensures that no value is present for InheritedFromBase, not even an explicit nil
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

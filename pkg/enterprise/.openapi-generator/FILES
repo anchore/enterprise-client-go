@@ -256,7 +256,6 @@ docs/PolicyEvaluationFindingAllowlistMatch.md
 docs/PolicyEvaluationProblem.md
 docs/PolicyEvaluationRemediation.md
 docs/PolicyEvaluationRemediationSuggestions.md
-docs/PolicyEvaluationResult.md
 docs/PolicyRecord.md
 docs/PolicyRule.md
 docs/PolicyRuleParams.md
@@ -305,6 +304,8 @@ docs/SourceManifest.md
 docs/SourceManifestMetadataRecords.md
 docs/SourceMappingRule.md
 docs/SourcePackageVulnerabilityResponse.md
+docs/SourcePolicyEvaluation.md
+docs/SourcePolicyEvaluationFinding.md
 docs/SourcesApi.md
 docs/StandaloneVulnerability.md
 docs/StatelessApi.md
@@ -571,7 +572,6 @@ model_policy_evaluation_finding_allowlist_match.go
 model_policy_evaluation_problem.go
 model_policy_evaluation_remediation.go
 model_policy_evaluation_remediation_suggestions.go
-model_policy_evaluation_result.go
 model_policy_record.go
 model_policy_rule.go
 model_policy_rule_params.go
@@ -616,6 +616,8 @@ model_source_manifest.go
 model_source_manifest_metadata_records.go
 model_source_mapping_rule.go
 model_source_package_vulnerability_response.go
+model_source_policy_evaluation.go
+model_source_policy_evaluation_finding.go
 model_standalone_vulnerability.go
 model_status_response.go
 model_subscription.go

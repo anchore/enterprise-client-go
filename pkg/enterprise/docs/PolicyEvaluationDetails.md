@@ -92,6 +92,16 @@ SetRemediations sets Remediations field to given value.
 
 HasRemediations returns a boolean if a field has been set.
 
+### SetRemediationsNil
+
+`func (o *PolicyEvaluationDetails) SetRemediationsNil(b bool)`
+
+ SetRemediationsNil sets the value for Remediations to be an explicit nil
+
+### UnsetRemediations
+`func (o *PolicyEvaluationDetails) UnsetRemediations()`
+
+UnsetRemediations ensures that no value is present for Remediations, not even an explicit nil
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

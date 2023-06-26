@@ -37,7 +37,7 @@ type PolicyEvaluationFinding struct {
 	Allowlisted bool `json:"allowlisted"`
 	AllowlistMatch *PolicyEvaluationFindingAllowlistMatch `json:"allowlist_match,omitempty"`
 	// Indicates if this finding was found in the base image
-	InheritedFromBase *bool `json:"inherited_from_base,omitempty"`
+	InheritedFromBase NullableBool `json:"inherited_from_base,omitempty"`
 }
 
 // NewPolicyEvaluationFinding instantiates a new PolicyEvaluationFinding object
@@ -314,36 +314,46 @@ func (o *PolicyEvaluationFinding) SetAllowlistMatch(v PolicyEvaluationFindingAll
 	o.AllowlistMatch = &v
 }
 
-// GetInheritedFromBase returns the InheritedFromBase field value if set, zero value otherwise.
+// GetInheritedFromBase returns the InheritedFromBase field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *PolicyEvaluationFinding) GetInheritedFromBase() bool {
-	if o == nil || o.InheritedFromBase == nil {
+	if o == nil || o.InheritedFromBase.Get() == nil {
 		var ret bool
 		return ret
 	}
-	return *o.InheritedFromBase
+	return *o.InheritedFromBase.Get()
 }
 
 // GetInheritedFromBaseOk returns a tuple with the InheritedFromBase field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *PolicyEvaluationFinding) GetInheritedFromBaseOk() (*bool, bool) {
-	if o == nil || o.InheritedFromBase == nil {
+	if o == nil  {
 		return nil, false
 	}
-	return o.InheritedFromBase, true
+	return o.InheritedFromBase.Get(), o.InheritedFromBase.IsSet()
 }
 
 // HasInheritedFromBase returns a boolean if a field has been set.
 func (o *PolicyEvaluationFinding) HasInheritedFromBase() bool {
-	if o != nil && o.InheritedFromBase != nil {
+	if o != nil && o.InheritedFromBase.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetInheritedFromBase gets a reference to the given bool and assigns it to the InheritedFromBase field.
+// SetInheritedFromBase gets a reference to the given NullableBool and assigns it to the InheritedFromBase field.
 func (o *PolicyEvaluationFinding) SetInheritedFromBase(v bool) {
-	o.InheritedFromBase = &v
+	o.InheritedFromBase.Set(&v)
+}
+// SetInheritedFromBaseNil sets the value for InheritedFromBase to be an explicit nil
+func (o *PolicyEvaluationFinding) SetInheritedFromBaseNil() {
+	o.InheritedFromBase.Set(nil)
+}
+
+// UnsetInheritedFromBase ensures that no value is present for InheritedFromBase, not even an explicit nil
+func (o *PolicyEvaluationFinding) UnsetInheritedFromBase() {
+	o.InheritedFromBase.Unset()
 }
 
 func (o PolicyEvaluationFinding) MarshalJSON() ([]byte, error) {
@@ -378,8 +388,8 @@ func (o PolicyEvaluationFinding) MarshalJSON() ([]byte, error) {
 	if o.AllowlistMatch != nil {
 		toSerialize["allowlist_match"] = o.AllowlistMatch
 	}
-	if o.InheritedFromBase != nil {
-		toSerialize["inherited_from_base"] = o.InheritedFromBase
+	if o.InheritedFromBase.IsSet() {
+		toSerialize["inherited_from_base"] = o.InheritedFromBase.Get()
 	}
 	return json.Marshal(toSerialize)
 }

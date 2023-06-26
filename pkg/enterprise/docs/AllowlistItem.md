@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **Id** | Pointer to **string** |  | [optional] 
 **Gate** | **string** |  | 
 **TriggerId** | **string** |  | 
-**ExpiresOn** | Pointer to **time.Time** |  | [optional] 
+**ExpiresOn** | Pointer to **NullableTime** |  | [optional] 
 **Description** | Pointer to **string** | Description of the Allowlist item, human readable | [optional] 
 
 ## Methods
@@ -119,6 +119,16 @@ SetExpiresOn sets ExpiresOn field to given value.
 
 HasExpiresOn returns a boolean if a field has been set.
 
+### SetExpiresOnNil
+
+`func (o *AllowlistItem) SetExpiresOnNil(b bool)`
+
+ SetExpiresOnNil sets the value for ExpiresOn to be an explicit nil
+
+### UnsetExpiresOn
+`func (o *AllowlistItem) UnsetExpiresOn()`
+
+UnsetExpiresOn ensures that no value is present for ExpiresOn, not even an explicit nil
 ### GetDescription
 
 `func (o *AllowlistItem) GetDescription() string`

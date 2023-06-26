@@ -67,8 +67,8 @@ type PoliciesApi interface {
 	GetPolicy(ctx _context.Context, policyId string) ApiGetPolicyRequest
 
 	// GetPolicyExecute executes the request
-	//  @return []PolicyRecord
-	GetPolicyExecute(r ApiGetPolicyRequest) ([]PolicyRecord, *_nethttp.Response, error)
+	//  @return PolicyRecord
+	GetPolicyExecute(r ApiGetPolicyRequest) (PolicyRecord, *_nethttp.Response, error)
 
 	/*
 	ListPolicies List policies
@@ -96,8 +96,8 @@ type PoliciesApi interface {
 	UpdatePolicy(ctx _context.Context, policyId string) ApiUpdatePolicyRequest
 
 	// UpdatePolicyExecute executes the request
-	//  @return []PolicyRecord
-	UpdatePolicyExecute(r ApiUpdatePolicyRequest) ([]PolicyRecord, *_nethttp.Response, error)
+	//  @return PolicyRecord
+	UpdatePolicyExecute(r ApiUpdatePolicyRequest) (PolicyRecord, *_nethttp.Response, error)
 }
 
 // PoliciesApiService PoliciesApi service
@@ -375,7 +375,7 @@ func (r ApiGetPolicyRequest) XAnchoreAccount(xAnchoreAccount string) ApiGetPolic
 	return r
 }
 
-func (r ApiGetPolicyRequest) Execute() ([]PolicyRecord, *_nethttp.Response, error) {
+func (r ApiGetPolicyRequest) Execute() (PolicyRecord, *_nethttp.Response, error) {
 	return r.ApiService.GetPolicyExecute(r)
 }
 
@@ -397,15 +397,15 @@ func (a *PoliciesApiService) GetPolicy(ctx _context.Context, policyId string) Ap
 }
 
 // Execute executes the request
-//  @return []PolicyRecord
-func (a *PoliciesApiService) GetPolicyExecute(r ApiGetPolicyRequest) ([]PolicyRecord, *_nethttp.Response, error) {
+//  @return PolicyRecord
+func (a *PoliciesApiService) GetPolicyExecute(r ApiGetPolicyRequest) (PolicyRecord, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		localVarReturnValue  []PolicyRecord
+		localVarReturnValue  PolicyRecord
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PoliciesApiService.GetPolicy")
@@ -633,7 +633,7 @@ func (r ApiUpdatePolicyRequest) XAnchoreAccount(xAnchoreAccount string) ApiUpdat
 	return r
 }
 
-func (r ApiUpdatePolicyRequest) Execute() ([]PolicyRecord, *_nethttp.Response, error) {
+func (r ApiUpdatePolicyRequest) Execute() (PolicyRecord, *_nethttp.Response, error) {
 	return r.ApiService.UpdatePolicyExecute(r)
 }
 
@@ -655,15 +655,15 @@ func (a *PoliciesApiService) UpdatePolicy(ctx _context.Context, policyId string)
 }
 
 // Execute executes the request
-//  @return []PolicyRecord
-func (a *PoliciesApiService) UpdatePolicyExecute(r ApiUpdatePolicyRequest) ([]PolicyRecord, *_nethttp.Response, error) {
+//  @return PolicyRecord
+func (a *PoliciesApiService) UpdatePolicyExecute(r ApiUpdatePolicyRequest) (PolicyRecord, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodPut
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		localVarReturnValue  []PolicyRecord
+		localVarReturnValue  PolicyRecord
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PoliciesApiService.UpdatePolicy")

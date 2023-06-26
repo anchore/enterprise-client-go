@@ -234,6 +234,16 @@ SetPolicyMeta sets PolicyMeta field to given value.
 
 HasPolicyMeta returns a boolean if a field has been set.
 
+### SetPolicyMetaNil
+
+`func (o *PolicyRecord) SetPolicyMetaNil(b bool)`
+
+ SetPolicyMetaNil sets the value for PolicyMeta to be an explicit nil
+
+### UnsetPolicyMeta
+`func (o *PolicyRecord) UnsetPolicyMeta()`
+
+UnsetPolicyMeta ensures that no value is present for PolicyMeta, not even an explicit nil
 ### GetName
 
 `func (o *PolicyRecord) GetName() string`

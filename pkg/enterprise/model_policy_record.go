@@ -29,7 +29,7 @@ type PolicyRecord struct {
 	// Source location of where the policy originated
 	PolicySource *string `json:"policy_source,omitempty"`
 	Policy *Policy `json:"policy,omitempty"`
-	PolicyMeta *interface{} `json:"policy_meta,omitempty"`
+	PolicyMeta interface{} `json:"policy_meta,omitempty"`
 	// Name of the policy
 	Name *string `json:"name,omitempty"`
 	// Description of the policy, human readable
@@ -277,22 +277,23 @@ func (o *PolicyRecord) SetPolicy(v Policy) {
 	o.Policy = &v
 }
 
-// GetPolicyMeta returns the PolicyMeta field value if set, zero value otherwise.
+// GetPolicyMeta returns the PolicyMeta field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *PolicyRecord) GetPolicyMeta() interface{} {
-	if o == nil || o.PolicyMeta == nil {
+	if o == nil  {
 		var ret interface{}
 		return ret
 	}
-	return *o.PolicyMeta
+	return o.PolicyMeta
 }
 
 // GetPolicyMetaOk returns a tuple with the PolicyMeta field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *PolicyRecord) GetPolicyMetaOk() (*interface{}, bool) {
 	if o == nil || o.PolicyMeta == nil {
 		return nil, false
 	}
-	return o.PolicyMeta, true
+	return &o.PolicyMeta, true
 }
 
 // HasPolicyMeta returns a boolean if a field has been set.
@@ -306,7 +307,7 @@ func (o *PolicyRecord) HasPolicyMeta() bool {
 
 // SetPolicyMeta gets a reference to the given interface{} and assigns it to the PolicyMeta field.
 func (o *PolicyRecord) SetPolicyMeta(v interface{}) {
-	o.PolicyMeta = &v
+	o.PolicyMeta = v
 }
 
 // GetName returns the Name field value if set, zero value otherwise.
