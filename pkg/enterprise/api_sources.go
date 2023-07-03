@@ -89,8 +89,8 @@ type SourcesApi interface {
 	GetSourcePolicyCheck(ctx _context.Context, sourceId string) ApiGetSourcePolicyCheckRequest
 
 	// GetSourcePolicyCheckExecute executes the request
-	//  @return []PolicyEvaluationResult
-	GetSourcePolicyCheckExecute(r ApiGetSourcePolicyCheckRequest) ([]PolicyEvaluationResult, *_nethttp.Response, error)
+	//  @return SourcePolicyEvaluation
+	GetSourcePolicyCheckExecute(r ApiGetSourcePolicyCheckRequest) (SourcePolicyEvaluation, *_nethttp.Response, error)
 
 	/*
 	GetSourceSbomCyclonedxJson Return the source SBOM in the CycloneDX format
@@ -626,7 +626,7 @@ func (r ApiGetSourcePolicyCheckRequest) PolicyId(policyId string) ApiGetSourcePo
 	return r
 }
 
-func (r ApiGetSourcePolicyCheckRequest) Execute() ([]PolicyEvaluationResult, *_nethttp.Response, error) {
+func (r ApiGetSourcePolicyCheckRequest) Execute() (SourcePolicyEvaluation, *_nethttp.Response, error) {
 	return r.ApiService.GetSourcePolicyCheckExecute(r)
 }
 
@@ -646,15 +646,15 @@ func (a *SourcesApiService) GetSourcePolicyCheck(ctx _context.Context, sourceId 
 }
 
 // Execute executes the request
-//  @return []PolicyEvaluationResult
-func (a *SourcesApiService) GetSourcePolicyCheckExecute(r ApiGetSourcePolicyCheckRequest) ([]PolicyEvaluationResult, *_nethttp.Response, error) {
+//  @return SourcePolicyEvaluation
+func (a *SourcesApiService) GetSourcePolicyCheckExecute(r ApiGetSourcePolicyCheckRequest) (SourcePolicyEvaluation, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		localVarReturnValue  []PolicyEvaluationResult
+		localVarReturnValue  SourcePolicyEvaluation
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SourcesApiService.GetSourcePolicyCheck")

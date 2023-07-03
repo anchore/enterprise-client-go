@@ -296,7 +296,7 @@ No authorization required
 
 ## GetSourcePolicyCheck
 
-> []PolicyEvaluationResult GetSourcePolicyCheck(ctx, sourceId).PolicyId(policyId).Execute()
+> SourcePolicyEvaluation GetSourcePolicyCheck(ctx, sourceId).PolicyId(policyId).Execute()
 
 Fetch or calculate policy evaluation for a source
 
@@ -323,7 +323,7 @@ func main() {
         fmt.Fprintf(os.Stderr, "Error when calling `SourcesApi.GetSourcePolicyCheck``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `GetSourcePolicyCheck`: []PolicyEvaluationResult
+    // response from `GetSourcePolicyCheck`: SourcePolicyEvaluation
     fmt.Fprintf(os.Stdout, "Response from `SourcesApi.GetSourcePolicyCheck`: %v\n", resp)
 }
 ```
@@ -348,7 +348,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[]PolicyEvaluationResult**](PolicyEvaluationResult.md)
+[**SourcePolicyEvaluation**](SourcePolicyEvaluation.md)
 
 ### Authorization
 
