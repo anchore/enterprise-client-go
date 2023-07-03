@@ -5914,7 +5914,7 @@ paths:
         200:
           description: success
           schema:
-            $ref: '#/definitions/PolicyEvaluationListResponse'
+            $ref: '#/definitions/SourcePolicyEvaluation'
       tags:
       - Sources
   /sources/{source_id}/content:
@@ -7884,10 +7884,10 @@ definitions:
     type: object
     description: Image deletion response containing status and details
     required:
-    - image_digest
+    - digest
     - status
     properties:
-      image_digest:
+      digest:
         type: string
       status:
         type: string
@@ -10441,10 +10441,6 @@ definitions:
       matched_rule_id:
         type: string
         description: ID of the rule within the allowlist that matched this finding
-  PolicyEvaluationListResponse:
-    type: array
-    items:
-      $ref: '#/definitions/PolicyEvaluationResult'
   PolicyEvaluationProblem:
     type: object
     description: Details for an error or warning indicating a problem during policy
@@ -10497,33 +10493,6 @@ definitions:
           to
         items:
           type: string
-  PolicyEvaluationResult:
-    type: object
-    properties:
-      account_name:
-        type: string
-      policy_id:
-        type: string
-      evaluation_id:
-        type: string
-      source_id:
-        type: string
-      vcs_host:
-        type: string
-      repository_name:
-        type: string
-      final_action:
-        type: string
-      evaluation_url:
-        type: string
-      created_at:
-        type: string
-        format: date-time
-      last_updated:
-        type: string
-        format: date-time
-      result:
-        type: object
   PolicyList:
     type: array
     description: List of PolicyRecord objects
@@ -11520,6 +11489,134 @@ definitions:
         type: array
         items:
           $ref: '#/definitions/PackageVulnerability'
+  SourcePolicyEvaluation:
+    type: object
+    description: A policy bundle evaluation result for a specific image, tag, policy
+      tuple
+    required:
+    - account_name
+    - evaluation_id
+    - source_id
+    - host
+    - repository_name
+    - revision
+    - policy
+    - source_mapped_to_rule
+    - findings
+    - number_of_findings
+    - evaluation_time
+    - final_action
+    - final_action_reason
+    - evaluation_problems
+    - status
+    properties:
+      account_name:
+        type: string
+        description: The name of the account containing the source to evaluate
+      evaluation_id:
+        type: string
+        description: The ID of this policy evaluation
+      source_id:
+        type: string
+        description: The ID of the source repository that was evaluated
+      host:
+        type: string
+        description: Host name for the repository location (e.g. github.com)
+      repository_name:
+        type: string
+        description: The name of the repository on the host (e.g. 'anchore/anchore-engine')
+      revision:
+        type: string
+        description: The commit ID for a git repository
+      policy:
+        type: object
+        description: The policy used for evaluation
+        $ref: '#/definitions/Policy'
+      source_mapped_to_rule:
+        description: Whether the evaluated source repository matched a policy rule
+        type: boolean
+      matched_mapping_rule:
+        type: object
+        description: The policy mapping rule that the source repository being evaluated
+          matched against.
+      findings:
+        type: array
+        description: The detailed policy findings
+        items:
+          $ref: '#/definitions/SourcePolicyEvaluationFinding'
+      number_of_findings:
+        type: integer
+        description: Number of policy findings in the response
+      evaluation_time:
+        type: string
+        format: date-time
+        description: The date and time this policy evaluation was performed at
+      final_action:
+        type: string
+        description: The overall outcome of the evaluation.
+        enum:
+        - stop
+        - go
+        - warn
+      final_action_reason:
+        type: string
+        description: The reason for the final result
+        enum:
+        - allowlisted
+        - denylisted
+        - policy_evaluation
+      evaluation_problems:
+        type: array
+        description: list of error objects indicating errors encountered during evaluation
+          execution
+        items:
+          $ref: '#/definitions/PolicyEvaluationProblem'
+      status:
+        type: string
+        description: The overall status of the policy evaluation
+        enum:
+        - pass
+        - fail
+  SourcePolicyEvaluationFinding:
+    type: object
+    properties:
+      trigger_id:
+        type: string
+        description: ID of this policy trigger finding (can be used to allowlist this
+          finding)
+      gate:
+        type: string
+        description: Name of the gate that generated this finding
+      trigger:
+        type: string
+        description: Name of the trigger that generated this finding
+      message:
+        type: string
+        description: Description of the finding
+      action:
+        type: string
+        description: The action associated with this finding
+        enum:
+        - go
+        - stop
+        - warn
+      policy_id:
+        type: string
+        description: ID of the policy that this gate and trigger are a part of
+      recommendation:
+        type: string
+        description: User provided details for resolving this finding
+      rule_id:
+        type: string
+        description: ID of the policy rule that that generated this finding
+      allowlisted:
+        type: boolean
+        description: Indicates if this finding was allowlisted or not
+      allowlist_match:
+        x-nullable: true
+        type: object
+        description: Details about (possible) allowlist match
+        $ref: '#/definitions/PolicyEvaluationFindingAllowlistMatch'
   SourcesList:
     type: array
     items:

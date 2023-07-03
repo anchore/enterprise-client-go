@@ -7068,7 +7068,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/PolicyEvaluationListResponse'
+                $ref: '#/components/schemas/SourcePolicyEvaluation'
           description: success
       summary: Fetch or calculate policy evaluation for a source
       tags:
@@ -9826,11 +9826,11 @@ components:
     DeleteImageResponse:
       description: Image deletion response containing status and details
       example:
-        image_digest: image_digest
+        digest: digest
         detail: detail
         status: not_found
       properties:
-        image_digest:
+        digest:
           type: string
         status:
           description: Current status of the image deletion
@@ -9842,7 +9842,7 @@ components:
         detail:
           type: string
       required:
-      - image_digest
+      - digest
       - status
       type: object
     DeleteImageResponseList:
@@ -13756,10 +13756,6 @@ components:
           description: ID of the rule within the allowlist that matched this finding
           type: string
       type: object
-    PolicyEvaluationListResponse:
-      items:
-        $ref: '#/components/schemas/PolicyEvaluationResult'
-      type: array
     PolicyEvaluationProblem:
       description: Details for an error or warning indicating a problem during policy
         evaluation
@@ -13814,46 +13810,6 @@ components:
       required:
       - suggestions
       - trigger_ids
-      type: object
-    PolicyEvaluationResult:
-      example:
-        result: '{}'
-        evaluation_id: evaluation_id
-        last_updated: 2000-01-23T04:56:07.000+00:00
-        policy_id: policy_id
-        evaluation_url: evaluation_url
-        account_name: account_name
-        created_at: 2000-01-23T04:56:07.000+00:00
-        source_id: source_id
-        vcs_host: vcs_host
-        repository_name: repository_name
-        final_action: final_action
-      properties:
-        account_name:
-          type: string
-        policy_id:
-          type: string
-        evaluation_id:
-          type: string
-        source_id:
-          type: string
-        vcs_host:
-          type: string
-        repository_name:
-          type: string
-        final_action:
-          type: string
-        evaluation_url:
-          type: string
-        created_at:
-          format: date-time
-          type: string
-        last_updated:
-          format: date-time
-          type: string
-        result:
-          properties: {}
-          type: object
       type: object
     PolicyList:
       description: List of PolicyRecord objects
@@ -15763,6 +15719,372 @@ components:
           items:
             $ref: '#/components/schemas/PackageVulnerability'
           type: array
+      type: object
+    SourcePolicyEvaluation:
+      description: A policy bundle evaluation result for a specific image, tag, policy
+        tuple
+      example:
+        evaluation_id: evaluation_id
+        evaluation_time: 2000-01-23T04:56:07.000+00:00
+        evaluation_problems:
+        - severity: error
+          problem_type: problem_type
+          details: details
+        - severity: error
+          problem_type: problem_type
+          details: details
+        findings:
+        - rule_id: rule_id
+          policy_id: policy_id
+          allowlisted: true
+          trigger_id: trigger_id
+          action: go
+          recommendation: recommendation
+          gate: gate
+          trigger: trigger
+          message: message
+          allowlist_match:
+            matched_rule_id: matched_rule_id
+            name: name
+            id: id
+        - rule_id: rule_id
+          policy_id: policy_id
+          allowlisted: true
+          trigger_id: trigger_id
+          action: go
+          recommendation: recommendation
+          gate: gate
+          trigger: trigger
+          message: message
+          allowlist_match:
+            matched_rule_id: matched_rule_id
+            name: name
+            id: id
+        number_of_findings: 0
+        revision: revision
+        final_action: stop
+        final_action_reason: allowlisted
+        source_mapped_to_rule: true
+        account_name: account_name
+        host: host
+        matched_mapping_rule: '{}'
+        source_id: source_id
+        repository_name: repository_name
+        policy:
+          mappings:
+          - registry: registry
+            image:
+              type: tag
+              value: value
+            allowlist_ids:
+            - allowlist_ids
+            - allowlist_ids
+            name: name
+            description: description
+            rule_set_ids:
+            - rule_set_ids
+            - rule_set_ids
+            id: id
+            repository: repository
+          - registry: registry
+            image:
+              type: tag
+              value: value
+            allowlist_ids:
+            - allowlist_ids
+            - allowlist_ids
+            name: name
+            description: description
+            rule_set_ids:
+            - rule_set_ids
+            - rule_set_ids
+            id: id
+            repository: repository
+          last_updated: 0.8008281904610115
+          denylisted_images:
+          - registry: registry
+            image:
+              type: tag
+              value: value
+            name: name
+            description: description
+            id: id
+            repository: repository
+          - registry: registry
+            image:
+              type: tag
+              value: value
+            name: name
+            description: description
+            id: id
+            repository: repository
+          allowlists:
+          - name: name
+            description: description
+            id: id
+            version: version
+            items:
+            - trigger_id: trigger_id
+              expires_on: 2000-01-23T04:56:07.000+00:00
+              description: description
+              id: id
+              gate: gate
+            - trigger_id: trigger_id
+              expires_on: 2000-01-23T04:56:07.000+00:00
+              description: description
+              id: id
+              gate: gate
+          - name: name
+            description: description
+            id: id
+            version: version
+            items:
+            - trigger_id: trigger_id
+              expires_on: 2000-01-23T04:56:07.000+00:00
+              description: description
+              id: id
+              gate: gate
+            - trigger_id: trigger_id
+              expires_on: 2000-01-23T04:56:07.000+00:00
+              description: description
+              id: id
+              gate: gate
+          source_mappings:
+          - allowlist_ids:
+            - allowlist_ids
+            - allowlist_ids
+            name: name
+            host: host
+            description: description
+            rule_set_ids:
+            - rule_set_ids
+            - rule_set_ids
+            id: id
+            repository: repository
+          - allowlist_ids:
+            - allowlist_ids
+            - allowlist_ids
+            name: name
+            host: host
+            description: description
+            rule_set_ids:
+            - rule_set_ids
+            - rule_set_ids
+            id: id
+            repository: repository
+          name: name
+          description: description
+          rule_sets:
+          - artifact_type: image
+            name: name
+            description: description
+            rules:
+            - action: GO
+              description: description
+              recommendation: recommendation
+              id: id
+              gate: gate
+              trigger: trigger
+              params:
+              - name: name
+                value: value
+              - name: name
+                value: value
+            - action: GO
+              description: description
+              recommendation: recommendation
+              id: id
+              gate: gate
+              trigger: trigger
+              params:
+              - name: name
+                value: value
+              - name: name
+                value: value
+            id: id
+            version: version
+          - artifact_type: image
+            name: name
+            description: description
+            rules:
+            - action: GO
+              description: description
+              recommendation: recommendation
+              id: id
+              gate: gate
+              trigger: trigger
+              params:
+              - name: name
+                value: value
+              - name: name
+                value: value
+            - action: GO
+              description: description
+              recommendation: recommendation
+              id: id
+              gate: gate
+              trigger: trigger
+              params:
+              - name: name
+                value: value
+              - name: name
+                value: value
+            id: id
+            version: version
+          id: id
+          version: version
+          allowlisted_images:
+          - registry: registry
+            image:
+              type: tag
+              value: value
+            name: name
+            description: description
+            id: id
+            repository: repository
+          - registry: registry
+            image:
+              type: tag
+              value: value
+            name: name
+            description: description
+            id: id
+            repository: repository
+        status: pass
+      properties:
+        account_name:
+          description: The name of the account containing the source to evaluate
+          type: string
+        evaluation_id:
+          description: The ID of this policy evaluation
+          type: string
+        source_id:
+          description: The ID of the source repository that was evaluated
+          type: string
+        host:
+          description: Host name for the repository location (e.g. github.com)
+          type: string
+        repository_name:
+          description: The name of the repository on the host (e.g. 'anchore/anchore-engine')
+          type: string
+        revision:
+          description: The commit ID for a git repository
+          type: string
+        policy:
+          $ref: '#/components/schemas/Policy'
+        source_mapped_to_rule:
+          description: Whether the evaluated source repository matched a policy rule
+          type: boolean
+        matched_mapping_rule:
+          description: The policy mapping rule that the source repository being evaluated
+            matched against.
+          properties: {}
+          type: object
+        findings:
+          description: The detailed policy findings
+          items:
+            $ref: '#/components/schemas/SourcePolicyEvaluationFinding'
+          type: array
+        number_of_findings:
+          description: Number of policy findings in the response
+          type: integer
+        evaluation_time:
+          description: The date and time this policy evaluation was performed at
+          format: date-time
+          type: string
+        final_action:
+          description: The overall outcome of the evaluation.
+          enum:
+          - stop
+          - go
+          - warn
+          type: string
+        final_action_reason:
+          description: The reason for the final result
+          enum:
+          - allowlisted
+          - denylisted
+          - policy_evaluation
+          type: string
+        evaluation_problems:
+          description: list of error objects indicating errors encountered during
+            evaluation execution
+          items:
+            $ref: '#/components/schemas/PolicyEvaluationProblem'
+          type: array
+        status:
+          description: The overall status of the policy evaluation
+          enum:
+          - pass
+          - fail
+          type: string
+      required:
+      - account_name
+      - evaluation_id
+      - evaluation_problems
+      - evaluation_time
+      - final_action
+      - final_action_reason
+      - findings
+      - host
+      - number_of_findings
+      - policy
+      - repository_name
+      - revision
+      - source_id
+      - source_mapped_to_rule
+      - status
+      type: object
+    SourcePolicyEvaluationFinding:
+      example:
+        rule_id: rule_id
+        policy_id: policy_id
+        allowlisted: true
+        trigger_id: trigger_id
+        action: go
+        recommendation: recommendation
+        gate: gate
+        trigger: trigger
+        message: message
+        allowlist_match:
+          matched_rule_id: matched_rule_id
+          name: name
+          id: id
+      properties:
+        trigger_id:
+          description: ID of this policy trigger finding (can be used to allowlist
+            this finding)
+          type: string
+        gate:
+          description: Name of the gate that generated this finding
+          type: string
+        trigger:
+          description: Name of the trigger that generated this finding
+          type: string
+        message:
+          description: Description of the finding
+          type: string
+        action:
+          description: The action associated with this finding
+          enum:
+          - go
+          - stop
+          - warn
+          type: string
+        policy_id:
+          description: ID of the policy that this gate and trigger are a part of
+          type: string
+        recommendation:
+          description: User provided details for resolving this finding
+          type: string
+        rule_id:
+          description: ID of the policy rule that that generated this finding
+          type: string
+        allowlisted:
+          description: Indicates if this finding was allowlisted or not
+          type: boolean
+        allowlist_match:
+          $ref: '#/components/schemas/PolicyEvaluationFindingAllowlistMatch'
       type: object
     SourcesList:
       items:
