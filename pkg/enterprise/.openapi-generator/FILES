@@ -44,7 +44,6 @@ docs/AnalysisArchiveAddResult.md
 docs/AnalysisArchiveRulesSummary.md
 docs/AnalysisArchiveSource.md
 docs/AnalysisArchiveSummary.md
-docs/AnalysisArchiveTransitionHistory.md
 docs/AnalysisArchiveTransitionRule.md
 docs/AnalysisArchiveTransitionRuleExclude.md
 docs/AnalysisStatusDetail.md
@@ -92,7 +91,6 @@ docs/ContentJAVAPackageResponseContent.md
 docs/ContentMalwareResponse.md
 docs/ContentPackageResponse.md
 docs/ContentPackageResponseContent.md
-docs/ContentResponse.md
 docs/Correction.md
 docs/CorrectionFieldMatch.md
 docs/CorrectionMatch.md
@@ -131,7 +129,6 @@ docs/ImageAnalysisRequest.md
 docs/ImageAncestor.md
 docs/ImageArtifact.md
 docs/ImageDetail.md
-docs/ImageFilter.md
 docs/ImageImportContentResponse.md
 docs/ImageImportContentSearch.md
 docs/ImageImportFileContent.md
@@ -256,6 +253,7 @@ docs/PolicyEvaluationFindingAllowlistMatch.md
 docs/PolicyEvaluationProblem.md
 docs/PolicyEvaluationRemediation.md
 docs/PolicyEvaluationRemediationSuggestions.md
+docs/PolicyEvaluationResult.md
 docs/PolicyRecord.md
 docs/PolicyRule.md
 docs/PolicyRuleParams.md
@@ -304,8 +302,6 @@ docs/SourceManifest.md
 docs/SourceManifestMetadataRecords.md
 docs/SourceMappingRule.md
 docs/SourcePackageVulnerabilityResponse.md
-docs/SourcePolicyEvaluation.md
-docs/SourcePolicyEvaluationFinding.md
 docs/SourcesApi.md
 docs/StandaloneVulnerability.md
 docs/StatelessApi.md
@@ -352,8 +348,6 @@ docs/VulnUpdateNotificationDataAllOf.md
 docs/VulnUpdateNotificationPayload.md
 docs/VulnUpdateNotificationPayloadAllOf.md
 docs/VulnerabilityReference.md
-docs/VulnerableImage.md
-docs/VulnerablePackageReference.md
 git_push.sh
 go.mod
 go.sum
@@ -371,7 +365,6 @@ model_analysis_archive_add_result.go
 model_analysis_archive_rules_summary.go
 model_analysis_archive_source.go
 model_analysis_archive_summary.go
-model_analysis_archive_transition_history.go
 model_analysis_archive_transition_rule.go
 model_analysis_archive_transition_rule_exclude.go
 model_analysis_status_detail.go
@@ -414,7 +407,6 @@ model_content_java_package_response_content.go
 model_content_malware_response.go
 model_content_package_response.go
 model_content_package_response_content.go
-model_content_response.go
 model_correction.go
 model_correction_field_match.go
 model_correction_match.go
@@ -451,7 +443,6 @@ model_image_analysis_request.go
 model_image_ancestor.go
 model_image_artifact.go
 model_image_detail.go
-model_image_filter.go
 model_image_import_content_response.go
 model_image_import_content_search.go
 model_image_import_file_content.go
@@ -572,6 +563,7 @@ model_policy_evaluation_finding_allowlist_match.go
 model_policy_evaluation_problem.go
 model_policy_evaluation_remediation.go
 model_policy_evaluation_remediation_suggestions.go
+model_policy_evaluation_result.go
 model_policy_record.go
 model_policy_rule.go
 model_policy_rule_params.go
@@ -616,8 +608,6 @@ model_source_manifest.go
 model_source_manifest_metadata_records.go
 model_source_mapping_rule.go
 model_source_package_vulnerability_response.go
-model_source_policy_evaluation.go
-model_source_policy_evaluation_finding.go
 model_standalone_vulnerability.go
 model_status_response.go
 model_subscription.go
@@ -658,7 +648,5 @@ model_vuln_update_notification_data_all_of.go
 model_vuln_update_notification_payload.go
 model_vuln_update_notification_payload_all_of.go
 model_vulnerability_reference.go
-model_vulnerable_image.go
-model_vulnerable_package_reference.go
 response.go
 utils.go

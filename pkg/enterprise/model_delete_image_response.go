@@ -17,7 +17,7 @@ import (
 
 // DeleteImageResponse Image deletion response containing status and details
 type DeleteImageResponse struct {
-	Digest string `json:"digest"`
+	ImageDigest string `json:"image_digest"`
 	// Current status of the image deletion
 	Status string `json:"status"`
 	Detail *string `json:"detail,omitempty"`
@@ -27,9 +27,9 @@ type DeleteImageResponse struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewDeleteImageResponse(digest string, status string) *DeleteImageResponse {
+func NewDeleteImageResponse(imageDigest string, status string) *DeleteImageResponse {
 	this := DeleteImageResponse{}
-	this.Digest = digest
+	this.ImageDigest = imageDigest
 	this.Status = status
 	return &this
 }
@@ -42,28 +42,28 @@ func NewDeleteImageResponseWithDefaults() *DeleteImageResponse {
 	return &this
 }
 
-// GetDigest returns the Digest field value
-func (o *DeleteImageResponse) GetDigest() string {
+// GetImageDigest returns the ImageDigest field value
+func (o *DeleteImageResponse) GetImageDigest() string {
 	if o == nil {
 		var ret string
 		return ret
 	}
 
-	return o.Digest
+	return o.ImageDigest
 }
 
-// GetDigestOk returns a tuple with the Digest field value
+// GetImageDigestOk returns a tuple with the ImageDigest field value
 // and a boolean to check if the value has been set.
-func (o *DeleteImageResponse) GetDigestOk() (*string, bool) {
+func (o *DeleteImageResponse) GetImageDigestOk() (*string, bool) {
 	if o == nil  {
 		return nil, false
 	}
-	return &o.Digest, true
+	return &o.ImageDigest, true
 }
 
-// SetDigest sets field value
-func (o *DeleteImageResponse) SetDigest(v string) {
-	o.Digest = v
+// SetImageDigest sets field value
+func (o *DeleteImageResponse) SetImageDigest(v string) {
+	o.ImageDigest = v
 }
 
 // GetStatus returns the Status field value
@@ -125,7 +125,7 @@ func (o *DeleteImageResponse) SetDetail(v string) {
 func (o DeleteImageResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
-		toSerialize["digest"] = o.Digest
+		toSerialize["image_digest"] = o.ImageDigest
 	}
 	if true {
 		toSerialize["status"] = o.Status

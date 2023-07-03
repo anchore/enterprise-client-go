@@ -21,7 +21,7 @@ Method | HTTP request | Description
 
 ## DeleteSource
 
-> SourceManifest DeleteSource(ctx, sourceId).Force(force).Execute()
+> DeleteSource(ctx, sourceId).Force(force).Execute()
 
 Delete source record from DB
 
@@ -48,8 +48,6 @@ func main() {
         fmt.Fprintf(os.Stderr, "Error when calling `SourcesApi.DeleteSource``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `DeleteSource`: SourceManifest
-    fmt.Fprintf(os.Stdout, "Response from `SourcesApi.DeleteSource`: %v\n", resp)
 }
 ```
 
@@ -73,7 +71,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**SourceManifest**](SourceManifest.md)
+ (empty response body)
 
 ### Authorization
 
@@ -82,7 +80,7 @@ No authorization required
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: Not defined
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -298,7 +296,7 @@ No authorization required
 
 ## GetSourcePolicyCheck
 
-> SourcePolicyEvaluation GetSourcePolicyCheck(ctx, sourceId).PolicyId(policyId).Execute()
+> []PolicyEvaluationResult GetSourcePolicyCheck(ctx, sourceId).PolicyId(policyId).Execute()
 
 Fetch or calculate policy evaluation for a source
 
@@ -325,7 +323,7 @@ func main() {
         fmt.Fprintf(os.Stderr, "Error when calling `SourcesApi.GetSourcePolicyCheck``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `GetSourcePolicyCheck`: SourcePolicyEvaluation
+    // response from `GetSourcePolicyCheck`: []PolicyEvaluationResult
     fmt.Fprintf(os.Stdout, "Response from `SourcesApi.GetSourcePolicyCheck`: %v\n", resp)
 }
 ```
@@ -350,7 +348,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**SourcePolicyEvaluation**](SourcePolicyEvaluation.md)
+[**[]PolicyEvaluationResult**](PolicyEvaluationResult.md)
 
 ### Authorization
 
