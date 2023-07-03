@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Digest** | **string** |  | 
+**ImageDigest** | **string** |  | 
 **Status** | **string** | Current status of the image deletion | 
 **Detail** | Pointer to **string** |  | [optional] 
 
@@ -12,7 +12,7 @@ Name | Type | Description | Notes
 
 ### NewDeleteImageResponse
 
-`func NewDeleteImageResponse(digest string, status string, ) *DeleteImageResponse`
+`func NewDeleteImageResponse(imageDigest string, status string, ) *DeleteImageResponse`
 
 NewDeleteImageResponse instantiates a new DeleteImageResponse object
 This constructor will assign default values to properties that have it defined,
@@ -27,24 +27,24 @@ NewDeleteImageResponseWithDefaults instantiates a new DeleteImageResponse object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
-### GetDigest
+### GetImageDigest
 
-`func (o *DeleteImageResponse) GetDigest() string`
+`func (o *DeleteImageResponse) GetImageDigest() string`
 
-GetDigest returns the Digest field if non-nil, zero value otherwise.
+GetImageDigest returns the ImageDigest field if non-nil, zero value otherwise.
 
-### GetDigestOk
+### GetImageDigestOk
 
-`func (o *DeleteImageResponse) GetDigestOk() (*string, bool)`
+`func (o *DeleteImageResponse) GetImageDigestOk() (*string, bool)`
 
-GetDigestOk returns a tuple with the Digest field if it's non-nil, zero value otherwise
+GetImageDigestOk returns a tuple with the ImageDigest field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetDigest
+### SetImageDigest
 
-`func (o *DeleteImageResponse) SetDigest(v string)`
+`func (o *DeleteImageResponse) SetImageDigest(v string)`
 
-SetDigest sets Digest field to given value.
+SetImageDigest sets ImageDigest field to given value.
 
 
 ### GetStatus

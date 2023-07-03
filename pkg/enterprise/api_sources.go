@@ -37,8 +37,7 @@ type SourcesApi interface {
 	DeleteSource(ctx _context.Context, sourceId string) ApiDeleteSourceRequest
 
 	// DeleteSourceExecute executes the request
-	//  @return SourceManifest
-	DeleteSourceExecute(r ApiDeleteSourceRequest) (SourceManifest, *_nethttp.Response, error)
+	DeleteSourceExecute(r ApiDeleteSourceRequest) (*_nethttp.Response, error)
 
 	/*
 	GetSource Get a detailed source repository analysis metadata record
@@ -90,8 +89,8 @@ type SourcesApi interface {
 	GetSourcePolicyCheck(ctx _context.Context, sourceId string) ApiGetSourcePolicyCheckRequest
 
 	// GetSourcePolicyCheckExecute executes the request
-	//  @return SourcePolicyEvaluation
-	GetSourcePolicyCheckExecute(r ApiGetSourcePolicyCheckRequest) (SourcePolicyEvaluation, *_nethttp.Response, error)
+	//  @return []PolicyEvaluationResult
+	GetSourcePolicyCheckExecute(r ApiGetSourcePolicyCheckRequest) ([]PolicyEvaluationResult, *_nethttp.Response, error)
 
 	/*
 	GetSourceSbomCyclonedxJson Return the source SBOM in the CycloneDX format
@@ -201,7 +200,7 @@ func (r ApiDeleteSourceRequest) Force(force bool) ApiDeleteSourceRequest {
 	return r
 }
 
-func (r ApiDeleteSourceRequest) Execute() (SourceManifest, *_nethttp.Response, error) {
+func (r ApiDeleteSourceRequest) Execute() (*_nethttp.Response, error) {
 	return r.ApiService.DeleteSourceExecute(r)
 }
 
@@ -221,20 +220,18 @@ func (a *SourcesApiService) DeleteSource(ctx _context.Context, sourceId string) 
 }
 
 // Execute executes the request
-//  @return SourceManifest
-func (a *SourcesApiService) DeleteSourceExecute(r ApiDeleteSourceRequest) (SourceManifest, *_nethttp.Response, error) {
+func (a *SourcesApiService) DeleteSourceExecute(r ApiDeleteSourceRequest) (*_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodDelete
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		localVarReturnValue  SourceManifest
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SourcesApiService.DeleteSource")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return nil, GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/sources/{source_id}"
@@ -257,7 +254,7 @@ func (a *SourcesApiService) DeleteSourceExecute(r ApiDeleteSourceRequest) (Sourc
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -266,19 +263,19 @@ func (a *SourcesApiService) DeleteSourceExecute(r ApiDeleteSourceRequest) (Sourc
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -286,19 +283,10 @@ func (a *SourcesApiService) DeleteSourceExecute(r ApiDeleteSourceRequest) (Sourc
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type ApiGetSourceRequest struct {
@@ -638,7 +626,7 @@ func (r ApiGetSourcePolicyCheckRequest) PolicyId(policyId string) ApiGetSourcePo
 	return r
 }
 
-func (r ApiGetSourcePolicyCheckRequest) Execute() (SourcePolicyEvaluation, *_nethttp.Response, error) {
+func (r ApiGetSourcePolicyCheckRequest) Execute() ([]PolicyEvaluationResult, *_nethttp.Response, error) {
 	return r.ApiService.GetSourcePolicyCheckExecute(r)
 }
 
@@ -658,15 +646,15 @@ func (a *SourcesApiService) GetSourcePolicyCheck(ctx _context.Context, sourceId 
 }
 
 // Execute executes the request
-//  @return SourcePolicyEvaluation
-func (a *SourcesApiService) GetSourcePolicyCheckExecute(r ApiGetSourcePolicyCheckRequest) (SourcePolicyEvaluation, *_nethttp.Response, error) {
+//  @return []PolicyEvaluationResult
+func (a *SourcesApiService) GetSourcePolicyCheckExecute(r ApiGetSourcePolicyCheckRequest) ([]PolicyEvaluationResult, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		localVarReturnValue  SourcePolicyEvaluation
+		localVarReturnValue  []PolicyEvaluationResult
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SourcesApiService.GetSourcePolicyCheck")
