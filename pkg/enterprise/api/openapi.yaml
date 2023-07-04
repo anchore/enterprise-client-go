@@ -9826,11 +9826,11 @@ components:
     DeleteImageResponse:
       description: Image deletion response containing status and details
       example:
-        digest: digest
+        image_digest: image_digest
         detail: detail
         status: not_found
       properties:
-        digest:
+        image_digest:
           type: string
         status:
           description: Current status of the image deletion
@@ -9842,7 +9842,7 @@ components:
         detail:
           type: string
       required:
-      - digest
+      - image_digest
       - status
       type: object
     DeleteImageResponseList:
