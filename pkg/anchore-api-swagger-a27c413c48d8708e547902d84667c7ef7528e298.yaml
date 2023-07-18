@@ -64,7 +64,7 @@ tags:
   description: Reports and metrics interface
 - name: Users
   description: User management
-basePath: /
+basePath: /v2
 schemes:
 - http
 - https
