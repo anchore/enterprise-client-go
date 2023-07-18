@@ -108,7 +108,7 @@ func NewConfiguration() *Configuration {
 		Debug:            false,
 		Servers:          ServerConfigurations{
 			{
-				URL: "",
+				URL: "/v2",
 				Description: "No description provided",
 			},
 		},

@@ -10,7 +10,7 @@ info:
   title: Anchore API
   version: 1.0.0
 servers:
-- url: /
+- url: /v2
 tags:
 - description: Subscription Management
   name: Subscriptions

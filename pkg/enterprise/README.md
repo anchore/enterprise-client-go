@@ -74,7 +74,7 @@ ctx = context.WithValue(context.Background(), sw.ContextOperationServerVariables
 
 ## Documentation for API Endpoints
 
-All URIs are relative to *http://localhost*
+All URIs are relative to *http://localhost/v2*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
