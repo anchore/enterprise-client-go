@@ -7,7 +7,6 @@ api_actions.go
 api_alerts.go
 api_applications.go
 api_archives.go
-api_compliance.go
 api_corrections.go
 api_default.go
 api_events.go
@@ -81,7 +80,6 @@ docs/AssociatedSourceArtifact.md
 docs/BaseNotificationData.md
 docs/CVSSV2Scores.md
 docs/CVSSV3Scores.md
-docs/ComplianceApi.md
 docs/ComplianceResource.md
 docs/ComplianceViolationAlert.md
 docs/ContentFilesResponse.md

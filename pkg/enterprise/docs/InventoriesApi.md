@@ -158,7 +158,7 @@ No authorization required
 
 ## GetEcsContainers
 
-> ECSContainers GetEcsContainers(ctx).Execute()
+> ECSContainers GetEcsContainers(ctx).Page(page).PageSize(pageSize).Execute()
 
 Return a list of ECS containers that have been inventoried for this account
 
@@ -177,10 +177,12 @@ import (
 )
 
 func main() {
+    page := int32(56) // int32 |  (optional) (default to 1)
+    pageSize := int32(56) // int32 |  (optional) (default to 1000)
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.InventoriesApi.GetEcsContainers(context.Background()).Execute()
+    resp, r, err := api_client.InventoriesApi.GetEcsContainers(context.Background()).Page(page).PageSize(pageSize).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `InventoriesApi.GetEcsContainers``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -192,12 +194,17 @@ func main() {
 
 ### Path Parameters
 
-This endpoint does not need any parameter.
+
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiGetEcsContainersRequest struct via the builder pattern
 
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **page** | **int32** |  | [default to 1]
+ **pageSize** | **int32** |  | [default to 1000]
 
 ### Return type
 
@@ -219,7 +226,7 @@ No authorization required
 
 ## GetEcsServices
 
-> ECSServices GetEcsServices(ctx).Execute()
+> ECSServices GetEcsServices(ctx).Page(page).PageSize(pageSize).Execute()
 
 Return a list of ECS services that have been inventoried for this account
 
@@ -238,10 +245,12 @@ import (
 )
 
 func main() {
+    page := int32(56) // int32 |  (optional) (default to 1)
+    pageSize := int32(56) // int32 |  (optional) (default to 1000)
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.InventoriesApi.GetEcsServices(context.Background()).Execute()
+    resp, r, err := api_client.InventoriesApi.GetEcsServices(context.Background()).Page(page).PageSize(pageSize).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `InventoriesApi.GetEcsServices``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -253,12 +262,17 @@ func main() {
 
 ### Path Parameters
 
-This endpoint does not need any parameter.
+
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiGetEcsServicesRequest struct via the builder pattern
 
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **page** | **int32** |  | [default to 1]
+ **pageSize** | **int32** |  | [default to 1000]
 
 ### Return type
 
@@ -280,7 +294,7 @@ No authorization required
 
 ## GetEcsTasks
 
-> ECSTasks GetEcsTasks(ctx).Execute()
+> ECSTasks GetEcsTasks(ctx).Page(page).PageSize(pageSize).Execute()
 
 Return a list of ECS tasks that have been inventoried for this account
 
@@ -299,10 +313,12 @@ import (
 )
 
 func main() {
+    page := int32(56) // int32 |  (optional) (default to 1)
+    pageSize := int32(56) // int32 |  (optional) (default to 1000)
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.InventoriesApi.GetEcsTasks(context.Background()).Execute()
+    resp, r, err := api_client.InventoriesApi.GetEcsTasks(context.Background()).Page(page).PageSize(pageSize).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `InventoriesApi.GetEcsTasks``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -314,12 +330,17 @@ func main() {
 
 ### Path Parameters
 
-This endpoint does not need any parameter.
+
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiGetEcsTasksRequest struct via the builder pattern
 
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **page** | **int32** |  | [default to 1]
+ **pageSize** | **int32** |  | [default to 1000]
 
 ### Return type
 
@@ -413,7 +434,7 @@ No authorization required
 
 ## GetKubernetesContainers
 
-> KubernetesContainers GetKubernetesContainers(ctx).Execute()
+> KubernetesContainers GetKubernetesContainers(ctx).Page(page).PageSize(pageSize).Execute()
 
 Return a list of Kubernetes containers that have been inventoried for this account
 
@@ -432,10 +453,12 @@ import (
 )
 
 func main() {
+    page := int32(56) // int32 |  (optional) (default to 1)
+    pageSize := int32(56) // int32 |  (optional) (default to 1000)
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.InventoriesApi.GetKubernetesContainers(context.Background()).Execute()
+    resp, r, err := api_client.InventoriesApi.GetKubernetesContainers(context.Background()).Page(page).PageSize(pageSize).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `InventoriesApi.GetKubernetesContainers``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -447,12 +470,17 @@ func main() {
 
 ### Path Parameters
 
-This endpoint does not need any parameter.
+
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiGetKubernetesContainersRequest struct via the builder pattern
 
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **page** | **int32** |  | [default to 1]
+ **pageSize** | **int32** |  | [default to 1000]
 
 ### Return type
 
@@ -544,7 +572,7 @@ No authorization required
 
 ## GetKubernetesNamespaces
 
-> KubernetesNamespaces GetKubernetesNamespaces(ctx).Execute()
+> KubernetesNamespaces GetKubernetesNamespaces(ctx).Page(page).PageSize(pageSize).Execute()
 
 Return a list of Kubernetes namespaces that have been inventoried for this account
 
@@ -563,10 +591,12 @@ import (
 )
 
 func main() {
+    page := int32(56) // int32 |  (optional) (default to 1)
+    pageSize := int32(56) // int32 |  (optional) (default to 1000)
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.InventoriesApi.GetKubernetesNamespaces(context.Background()).Execute()
+    resp, r, err := api_client.InventoriesApi.GetKubernetesNamespaces(context.Background()).Page(page).PageSize(pageSize).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `InventoriesApi.GetKubernetesNamespaces``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -578,12 +608,17 @@ func main() {
 
 ### Path Parameters
 
-This endpoint does not need any parameter.
+
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiGetKubernetesNamespacesRequest struct via the builder pattern
 
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **page** | **int32** |  | [default to 1]
+ **pageSize** | **int32** |  | [default to 1000]
 
 ### Return type
 
@@ -675,7 +710,7 @@ No authorization required
 
 ## GetKubernetesNodes
 
-> KubernetesNodes GetKubernetesNodes(ctx).Execute()
+> KubernetesNodes GetKubernetesNodes(ctx).Page(page).PageSize(pageSize).Execute()
 
 Return a list of Kubernetes nodes that have been inventoried for this account
 
@@ -694,10 +729,12 @@ import (
 )
 
 func main() {
+    page := int32(56) // int32 |  (optional) (default to 1)
+    pageSize := int32(56) // int32 |  (optional) (default to 1000)
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.InventoriesApi.GetKubernetesNodes(context.Background()).Execute()
+    resp, r, err := api_client.InventoriesApi.GetKubernetesNodes(context.Background()).Page(page).PageSize(pageSize).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `InventoriesApi.GetKubernetesNodes``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -709,12 +746,17 @@ func main() {
 
 ### Path Parameters
 
-This endpoint does not need any parameter.
+
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiGetKubernetesNodesRequest struct via the builder pattern
 
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **page** | **int32** |  | [default to 1]
+ **pageSize** | **int32** |  | [default to 1000]
 
 ### Return type
 
@@ -806,7 +848,7 @@ No authorization required
 
 ## GetKubernetesPods
 
-> KubernetesPods GetKubernetesPods(ctx).Execute()
+> KubernetesPods GetKubernetesPods(ctx).Page(page).PageSize(pageSize).Execute()
 
 Return a list of Kubernetes pods that have been inventoried for this account
 
@@ -825,10 +867,12 @@ import (
 )
 
 func main() {
+    page := int32(56) // int32 |  (optional) (default to 1)
+    pageSize := int32(56) // int32 |  (optional) (default to 1000)
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.InventoriesApi.GetKubernetesPods(context.Background()).Execute()
+    resp, r, err := api_client.InventoriesApi.GetKubernetesPods(context.Background()).Page(page).PageSize(pageSize).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `InventoriesApi.GetKubernetesPods``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -840,12 +884,17 @@ func main() {
 
 ### Path Parameters
 
-This endpoint does not need any parameter.
+
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiGetKubernetesPodsRequest struct via the builder pattern
 
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **page** | **int32** |  | [default to 1]
+ **pageSize** | **int32** |  | [default to 1000]
 
 ### Return type
 

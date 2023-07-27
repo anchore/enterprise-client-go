@@ -1999,6 +1999,19 @@ paths:
       description: Return a list of ECS containers that have been inventoried for
         this account
       operationId: get_ecs_containers
+      parameters:
+      - in: query
+        name: page
+        schema:
+          default: 1
+          minimum: 1
+          type: integer
+      - in: query
+        name: page_size
+        schema:
+          default: 1000
+          minimum: 1
+          type: integer
       responses:
         "200":
           content:
@@ -2043,6 +2056,19 @@ paths:
       description: Return a list of ECS services that have been inventoried for this
         account
       operationId: get_ecs_services
+      parameters:
+      - in: query
+        name: page
+        schema:
+          default: 1
+          minimum: 1
+          type: integer
+      - in: query
+        name: page_size
+        schema:
+          default: 1000
+          minimum: 1
+          type: integer
       responses:
         "200":
           content:
@@ -2063,6 +2089,19 @@ paths:
       description: Return a list of ECS tasks that have been inventoried for this
         account
       operationId: get_ecs_tasks
+      parameters:
+      - in: query
+        name: page
+        schema:
+          default: 1
+          minimum: 1
+          type: integer
+      - in: query
+        name: page_size
+        schema:
+          default: 1000
+          minimum: 1
+          type: integer
       responses:
         "200":
           content:
@@ -3940,6 +3979,19 @@ paths:
       description: Return a list of Kubernetes containers that have been inventoried
         for this account
       operationId: get_kubernetes_containers
+      parameters:
+      - in: query
+        name: page
+        schema:
+          default: 1
+          minimum: 1
+          type: integer
+      - in: query
+        name: page_size
+        schema:
+          default: 1000
+          minimum: 1
+          type: integer
       responses:
         "200":
           content:
@@ -4004,6 +4056,19 @@ paths:
       description: Return a list of Kubernetes namespaces that have been inventoried
         for this account
       operationId: get_kubernetes_namespaces
+      parameters:
+      - in: query
+        name: page
+        schema:
+          default: 1
+          minimum: 1
+          type: integer
+      - in: query
+        name: page_size
+        schema:
+          default: 1000
+          minimum: 1
+          type: integer
       responses:
         "200":
           content:
@@ -4052,6 +4117,19 @@ paths:
       description: Return a list of Kubernetes nodes that have been inventoried for
         this account
       operationId: get_kubernetes_nodes
+      parameters:
+      - in: query
+        name: page
+        schema:
+          default: 1
+          minimum: 1
+          type: integer
+      - in: query
+        name: page_size
+        schema:
+          default: 1000
+          minimum: 1
+          type: integer
       responses:
         "200":
           content:
@@ -4099,6 +4177,19 @@ paths:
       description: Return a list of Kubernetes pods that have been inventoried for
         this account
       operationId: get_kubernetes_pods
+      parameters:
+      - in: query
+        name: page
+        schema:
+          default: 1
+          minimum: 1
+          type: integer
+      - in: query
+        name: page_size
+        schema:
+          default: 1000
+          minimum: 1
+          type: integer
       responses:
         "200":
           content:
@@ -6831,153 +6922,6 @@ paths:
       - Repository Credentials
       x-anchore-authz-action: createRepository
       x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.images
-  /runtime-compliance:
-    get:
-      description: Get all runtime compliance checks or just those for a given image
-        digest
-      operationId: get_runtime_compliance_checks
-      parameters:
-      - in: query
-        name: image_digest
-        schema:
-          type: string
-      - description: An account name to change the resource scope of the request to
-          that account, if permissions allow (admin only)
-        in: header
-        name: x-anchore-account
-        schema:
-          type: string
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/RuntimeComplianceCheckList'
-          description: Compliance evaluation retrieval success
-        "404":
-          content: {}
-          description: No runtime compliance checks found
-        "500":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ApiErrorResponse'
-          description: Internal Error
-      summary: Get all runtime compliance checks or just those for a given image digest
-      tags:
-      - Compliance
-      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.runtime_compliance
-      x-anchore-authz-action: getRuntimeComplianceCheck
-    post:
-      description: Post a runtime compliance check
-      operationId: add_runtime_compliance_check
-      parameters:
-      - description: An account name to change the resource scope of the request to
-          that account, if permissions allow (admin only)
-        in: header
-        name: x-anchore-account
-        schema:
-          type: string
-      requestBody:
-        content:
-          multipart/form-data:
-            schema:
-              properties:
-                check_type:
-                  description: The type of runtime compliance check
-                  type: string
-                image_digest:
-                  description: The digest of the pod the check was run against
-                  type: string
-                result:
-                  description: The result of the runtime compliance check
-                  type: string
-                pod:
-                  description: The pod the check was run against
-                  type: string
-                namespace:
-                  description: The namespace of the pod the check was run against
-                  type: string
-                image_tag:
-                  description: The tag of the image in the pod the check was run against
-                  type: string
-                start_time:
-                  description: The type of runtime compliance check
-                  format: date-time
-                  type: string
-                end_time:
-                  description: The type of runtime compliance check
-                  format: date-time
-                  type: string
-                result_file:
-                  description: The file with the check results
-                  format: binary
-                  type: string
-                report_file:
-                  description: The file with the check port
-                  format: binary
-                  type: string
-              required:
-              - check_type
-              - image_digest
-        required: true
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/RuntimeComplianceCheck'
-          description: success
-        "500":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ApiErrorResponse'
-          description: Internal Error
-      summary: Post a runtime compliance check
-      tags:
-      - Compliance
-      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.runtime_compliance
-      x-anchore-authz-action: createRuntimeComplianceCheck
-  /runtime-compliance/result/{compliance_file_id}:
-    get:
-      description: Get the results of a specific runtime compliance check
-      operationId: get_runtime_compliance_result
-      parameters:
-      - in: path
-        name: compliance_file_id
-        required: true
-        schema:
-          format: path
-          type: string
-      - description: An account name to change the resource scope of the request to
-          that account, if permissions allow (admin only)
-        in: header
-        name: x-anchore-account
-        schema:
-          type: string
-      responses:
-        "200":
-          content:
-            text/html:
-              schema:
-                format: binary
-                type: string
-          description: Compliance evaluation retrieval success
-        "404":
-          content: {}
-          description: No runtime compliance results found
-        "500":
-          content:
-            text/html:
-              schema:
-                $ref: '#/components/schemas/ApiErrorResponse'
-          description: Internal Error
-      summary: Check the results of a a specific runtime compliance check
-      tags:
-      - Compliance
-      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.runtime_compliance
-      x-anchore-authz-action: getRuntimeComplianceCheck
   /sources:
     get:
       operationId: list_sources
@@ -8022,6 +7966,46 @@ paths:
           description: Version object describing version state
       x-swagger-router-controller: anchore_enterprise.common.common
       x-anchore-authz-action: None
+  /vulnerability-scan:
+    post:
+      description: Use this operation for checking sboms for vulnerabilities in cases
+        where the sbom does not need to be stored for later re-scans or added to the
+        managed set of SBOMs in Anchore. If you need to upload and save an SBOM use
+        the "/import/*" API set instead.
+      operationId: vulnerability_scan_sbom
+      parameters:
+      - description: An account name to change the resource scope of the request to
+          that account, if permissions allow (admin only)
+        in: header
+        name: x-anchore-account
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SBOMVulnerabilitiesResponse'
+          description: Vulnerability listing for the sbom
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+          description: Internal Error
+      summary: Return a vulnerability scan for the uploaded SBOM without storing the
+        SBOM and without any side-effects in the system.
+      tags:
+      - Stateless
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.stateless
+      x-anchore-authz-action: getImage
+      x-codegen-request-body-name: sbom
 components:
   parameters:
     AsAccountParameter:
@@ -14997,17 +14981,6 @@ components:
       type: object
     RuntimeComplianceCheck:
       description: The result of a runtime compliance check
-      example:
-        result: result
-        start_time: 2000-01-23T04:56:07.000+00:00
-        compliance_file_ids:
-          key: compliance_file_ids
-        pod: pod
-        image_digest: image_digest
-        namespace: namespace
-        end_time: 2000-01-23T04:56:07.000+00:00
-        check_type: oscap
-        image_tag: image_tag
       properties:
         check_type:
           description: The type of runtime compliance check
