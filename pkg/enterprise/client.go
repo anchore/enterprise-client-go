@@ -58,8 +58,6 @@ type APIClient struct {
 
 	ArchivesApi ArchivesApi
 
-	ComplianceApi ComplianceApi
-
 	CorrectionsApi CorrectionsApi
 
 	DefaultApi DefaultApi
@@ -117,7 +115,6 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.AlertsApi = (*AlertsApiService)(&c.common)
 	c.ApplicationsApi = (*ApplicationsApiService)(&c.common)
 	c.ArchivesApi = (*ArchivesApiService)(&c.common)
-	c.ComplianceApi = (*ComplianceApiService)(&c.common)
 	c.CorrectionsApi = (*CorrectionsApiService)(&c.common)
 	c.DefaultApi = (*DefaultApiService)(&c.common)
 	c.EventsApi = (*EventsApiService)(&c.common)

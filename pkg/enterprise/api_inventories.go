@@ -468,8 +468,18 @@ func (a *InventoriesApiService) DeleteKubernetesNamespacesExecute(r ApiDeleteKub
 type ApiGetEcsContainersRequest struct {
 	ctx _context.Context
 	ApiService InventoriesApi
+	page *int32
+	pageSize *int32
 }
 
+func (r ApiGetEcsContainersRequest) Page(page int32) ApiGetEcsContainersRequest {
+	r.page = &page
+	return r
+}
+func (r ApiGetEcsContainersRequest) PageSize(pageSize int32) ApiGetEcsContainersRequest {
+	r.pageSize = &pageSize
+	return r
+}
 
 func (r ApiGetEcsContainersRequest) Execute() (ECSContainers, *_nethttp.Response, error) {
 	return r.ApiService.GetEcsContainersExecute(r)
@@ -513,6 +523,12 @@ func (a *InventoriesApiService) GetEcsContainersExecute(r ApiGetEcsContainersReq
 	localVarQueryParams := _neturl.Values{}
 	localVarFormParams := _neturl.Values{}
 
+	if r.page != nil {
+		localVarQueryParams.Add("page", parameterToString(*r.page, ""))
+	}
+	if r.pageSize != nil {
+		localVarQueryParams.Add("page_size", parameterToString(*r.pageSize, ""))
+	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -570,8 +586,18 @@ func (a *InventoriesApiService) GetEcsContainersExecute(r ApiGetEcsContainersReq
 type ApiGetEcsServicesRequest struct {
 	ctx _context.Context
 	ApiService InventoriesApi
+	page *int32
+	pageSize *int32
 }
 
+func (r ApiGetEcsServicesRequest) Page(page int32) ApiGetEcsServicesRequest {
+	r.page = &page
+	return r
+}
+func (r ApiGetEcsServicesRequest) PageSize(pageSize int32) ApiGetEcsServicesRequest {
+	r.pageSize = &pageSize
+	return r
+}
 
 func (r ApiGetEcsServicesRequest) Execute() (ECSServices, *_nethttp.Response, error) {
 	return r.ApiService.GetEcsServicesExecute(r)
@@ -615,6 +641,12 @@ func (a *InventoriesApiService) GetEcsServicesExecute(r ApiGetEcsServicesRequest
 	localVarQueryParams := _neturl.Values{}
 	localVarFormParams := _neturl.Values{}
 
+	if r.page != nil {
+		localVarQueryParams.Add("page", parameterToString(*r.page, ""))
+	}
+	if r.pageSize != nil {
+		localVarQueryParams.Add("page_size", parameterToString(*r.pageSize, ""))
+	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -672,8 +704,18 @@ func (a *InventoriesApiService) GetEcsServicesExecute(r ApiGetEcsServicesRequest
 type ApiGetEcsTasksRequest struct {
 	ctx _context.Context
 	ApiService InventoriesApi
+	page *int32
+	pageSize *int32
 }
 
+func (r ApiGetEcsTasksRequest) Page(page int32) ApiGetEcsTasksRequest {
+	r.page = &page
+	return r
+}
+func (r ApiGetEcsTasksRequest) PageSize(pageSize int32) ApiGetEcsTasksRequest {
+	r.pageSize = &pageSize
+	return r
+}
 
 func (r ApiGetEcsTasksRequest) Execute() (ECSTasks, *_nethttp.Response, error) {
 	return r.ApiService.GetEcsTasksExecute(r)
@@ -717,6 +759,12 @@ func (a *InventoriesApiService) GetEcsTasksExecute(r ApiGetEcsTasksRequest) (ECS
 	localVarQueryParams := _neturl.Values{}
 	localVarFormParams := _neturl.Values{}
 
+	if r.page != nil {
+		localVarQueryParams.Add("page", parameterToString(*r.page, ""))
+	}
+	if r.pageSize != nil {
+		localVarQueryParams.Add("page_size", parameterToString(*r.pageSize, ""))
+	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -909,8 +957,18 @@ func (a *InventoriesApiService) GetImageInventoryExecute(r ApiGetImageInventoryR
 type ApiGetKubernetesContainersRequest struct {
 	ctx _context.Context
 	ApiService InventoriesApi
+	page *int32
+	pageSize *int32
 }
 
+func (r ApiGetKubernetesContainersRequest) Page(page int32) ApiGetKubernetesContainersRequest {
+	r.page = &page
+	return r
+}
+func (r ApiGetKubernetesContainersRequest) PageSize(pageSize int32) ApiGetKubernetesContainersRequest {
+	r.pageSize = &pageSize
+	return r
+}
 
 func (r ApiGetKubernetesContainersRequest) Execute() (KubernetesContainers, *_nethttp.Response, error) {
 	return r.ApiService.GetKubernetesContainersExecute(r)
@@ -954,6 +1012,12 @@ func (a *InventoriesApiService) GetKubernetesContainersExecute(r ApiGetKubernete
 	localVarQueryParams := _neturl.Values{}
 	localVarFormParams := _neturl.Values{}
 
+	if r.page != nil {
+		localVarQueryParams.Add("page", parameterToString(*r.page, ""))
+	}
+	if r.pageSize != nil {
+		localVarQueryParams.Add("page_size", parameterToString(*r.pageSize, ""))
+	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -1117,8 +1181,18 @@ func (a *InventoriesApiService) GetKubernetesNamespaceExecute(r ApiGetKubernetes
 type ApiGetKubernetesNamespacesRequest struct {
 	ctx _context.Context
 	ApiService InventoriesApi
+	page *int32
+	pageSize *int32
 }
 
+func (r ApiGetKubernetesNamespacesRequest) Page(page int32) ApiGetKubernetesNamespacesRequest {
+	r.page = &page
+	return r
+}
+func (r ApiGetKubernetesNamespacesRequest) PageSize(pageSize int32) ApiGetKubernetesNamespacesRequest {
+	r.pageSize = &pageSize
+	return r
+}
 
 func (r ApiGetKubernetesNamespacesRequest) Execute() (KubernetesNamespaces, *_nethttp.Response, error) {
 	return r.ApiService.GetKubernetesNamespacesExecute(r)
@@ -1162,6 +1236,12 @@ func (a *InventoriesApiService) GetKubernetesNamespacesExecute(r ApiGetKubernete
 	localVarQueryParams := _neturl.Values{}
 	localVarFormParams := _neturl.Values{}
 
+	if r.page != nil {
+		localVarQueryParams.Add("page", parameterToString(*r.page, ""))
+	}
+	if r.pageSize != nil {
+		localVarQueryParams.Add("page_size", parameterToString(*r.pageSize, ""))
+	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -1325,8 +1405,18 @@ func (a *InventoriesApiService) GetKubernetesNodeExecute(r ApiGetKubernetesNodeR
 type ApiGetKubernetesNodesRequest struct {
 	ctx _context.Context
 	ApiService InventoriesApi
+	page *int32
+	pageSize *int32
 }
 
+func (r ApiGetKubernetesNodesRequest) Page(page int32) ApiGetKubernetesNodesRequest {
+	r.page = &page
+	return r
+}
+func (r ApiGetKubernetesNodesRequest) PageSize(pageSize int32) ApiGetKubernetesNodesRequest {
+	r.pageSize = &pageSize
+	return r
+}
 
 func (r ApiGetKubernetesNodesRequest) Execute() (KubernetesNodes, *_nethttp.Response, error) {
 	return r.ApiService.GetKubernetesNodesExecute(r)
@@ -1370,6 +1460,12 @@ func (a *InventoriesApiService) GetKubernetesNodesExecute(r ApiGetKubernetesNode
 	localVarQueryParams := _neturl.Values{}
 	localVarFormParams := _neturl.Values{}
 
+	if r.page != nil {
+		localVarQueryParams.Add("page", parameterToString(*r.page, ""))
+	}
+	if r.pageSize != nil {
+		localVarQueryParams.Add("page_size", parameterToString(*r.pageSize, ""))
+	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -1533,8 +1629,18 @@ func (a *InventoriesApiService) GetKubernetesPodExecute(r ApiGetKubernetesPodReq
 type ApiGetKubernetesPodsRequest struct {
 	ctx _context.Context
 	ApiService InventoriesApi
+	page *int32
+	pageSize *int32
 }
 
+func (r ApiGetKubernetesPodsRequest) Page(page int32) ApiGetKubernetesPodsRequest {
+	r.page = &page
+	return r
+}
+func (r ApiGetKubernetesPodsRequest) PageSize(pageSize int32) ApiGetKubernetesPodsRequest {
+	r.pageSize = &pageSize
+	return r
+}
 
 func (r ApiGetKubernetesPodsRequest) Execute() (KubernetesPods, *_nethttp.Response, error) {
 	return r.ApiService.GetKubernetesPodsExecute(r)
@@ -1578,6 +1684,12 @@ func (a *InventoriesApiService) GetKubernetesPodsExecute(r ApiGetKubernetesPodsR
 	localVarQueryParams := _neturl.Values{}
 	localVarFormParams := _neturl.Values{}
 
+	if r.page != nil {
+		localVarQueryParams.Add("page", parameterToString(*r.page, ""))
+	}
+	if r.pageSize != nil {
+		localVarQueryParams.Add("page_size", parameterToString(*r.pageSize, ""))
+	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 

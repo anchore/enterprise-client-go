@@ -108,9 +108,6 @@ Class | Method | HTTP request | Description
 *ArchivesApi* | [**ListAnalysisArchive**](docs/ArchivesApi.md#listanalysisarchive) | **Get** /archives/images | 
 *ArchivesApi* | [**ListAnalysisArchiveRules**](docs/ArchivesApi.md#listanalysisarchiverules) | **Get** /archives/rules | 
 *ArchivesApi* | [**ListArchives**](docs/ArchivesApi.md#listarchives) | **Get** /archives | 
-*ComplianceApi* | [**AddRuntimeComplianceCheck**](docs/ComplianceApi.md#addruntimecompliancecheck) | **Post** /runtime-compliance | Post a runtime compliance check
-*ComplianceApi* | [**GetRuntimeComplianceChecks**](docs/ComplianceApi.md#getruntimecompliancechecks) | **Get** /runtime-compliance | Get all runtime compliance checks or just those for a given image digest
-*ComplianceApi* | [**GetRuntimeComplianceResult**](docs/ComplianceApi.md#getruntimecomplianceresult) | **Get** /runtime-compliance/result/{compliance_file_id} | Check the results of a a specific runtime compliance check
 *CorrectionsApi* | [**AddCorrection**](docs/CorrectionsApi.md#addcorrection) | **Post** /corrections | Create a correction record
 *CorrectionsApi* | [**DeleteCorrectionByUuid**](docs/CorrectionsApi.md#deletecorrectionbyuuid) | **Delete** /corrections/{uuid} | Delete a correction by UUID
 *CorrectionsApi* | [**GetCorrectionByUuid**](docs/CorrectionsApi.md#getcorrectionbyuuid) | **Get** /corrections/{uuid} | Retrieve a correction by UUID
@@ -316,6 +313,7 @@ Class | Method | HTTP request | Description
 *SourcesApi* | [**GetSourceVulnerabilityTypes**](docs/SourcesApi.md#getsourcevulnerabilitytypes) | **Get** /sources/{source_id}/vuln | Get the available vulnerability types for source
 *SourcesApi* | [**ListSources**](docs/SourcesApi.md#listsources) | **Get** /sources | List the source repository analysis records
 *StatelessApi* | [**GetStatelessSbomVulnerabilities**](docs/StatelessApi.md#getstatelesssbomvulnerabilities) | **Post** /stateless/sbom/vuln/{vuln_type} | Get vulnerabilities for input sbom by type
+*StatelessApi* | [**VulnerabilityScanSbom**](docs/StatelessApi.md#vulnerabilityscansbom) | **Post** /vulnerability-scan | Return a vulnerability scan for the uploaded SBOM without storing the SBOM and without any side-effects in the system.
 *SubscriptionsApi* | [**AddSubscription**](docs/SubscriptionsApi.md#addsubscription) | **Post** /subscriptions | Add a subscription of a specific type
 *SubscriptionsApi* | [**DeleteSubscription**](docs/SubscriptionsApi.md#deletesubscription) | **Delete** /subscriptions/{subscription_id} | Delete subscriptions of a specific type
 *SubscriptionsApi* | [**GetSubscription**](docs/SubscriptionsApi.md#getsubscription) | **Get** /subscriptions/{subscription_id} | Get a specific subscription set
