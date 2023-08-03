@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Fulltag** | Pointer to **string** | The pullable string for the tag. E.g. \&quot;docker.io/library/node:latest\&quot; | [optional] 
+**FullTag** | Pointer to **string** | The pullable string for the tag. E.g. \&quot;docker.io/library/node:latest\&quot; | [optional] 
 **Registry** | Pointer to **string** | The registry hostname:port section of the pull string | [optional] 
 **Repo** | Pointer to **string** | The repository section of the pull string | [optional] 
 **Tag** | Pointer to **string** | The tag-only section of the pull string | [optional] 
@@ -29,30 +29,30 @@ NewTagEntryWithDefaults instantiates a new TagEntry object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
-### GetFulltag
+### GetFullTag
 
-`func (o *TagEntry) GetFulltag() string`
+`func (o *TagEntry) GetFullTag() string`
 
-GetFulltag returns the Fulltag field if non-nil, zero value otherwise.
+GetFullTag returns the FullTag field if non-nil, zero value otherwise.
 
-### GetFulltagOk
+### GetFullTagOk
 
-`func (o *TagEntry) GetFulltagOk() (*string, bool)`
+`func (o *TagEntry) GetFullTagOk() (*string, bool)`
 
-GetFulltagOk returns a tuple with the Fulltag field if it's non-nil, zero value otherwise
+GetFullTagOk returns a tuple with the FullTag field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetFulltag
+### SetFullTag
 
-`func (o *TagEntry) SetFulltag(v string)`
+`func (o *TagEntry) SetFullTag(v string)`
 
-SetFulltag sets Fulltag field to given value.
+SetFullTag sets FullTag field to given value.
 
-### HasFulltag
+### HasFullTag
 
-`func (o *TagEntry) HasFulltag() bool`
+`func (o *TagEntry) HasFullTag() bool`
 
-HasFulltag returns a boolean if a field has been set.
+HasFullTag returns a boolean if a field has been set.
 
 ### GetRegistry
 

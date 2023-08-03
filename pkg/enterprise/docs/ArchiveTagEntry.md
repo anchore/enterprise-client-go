@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Pullstring** | Pointer to **string** | The pullable string for the tag. E.g. \&quot;docker.io/library/node:latest\&quot; | [optional] 
+**PullString** | Pointer to **string** | The pullable string for the tag. E.g. \&quot;docker.io/library/node:latest\&quot; | [optional] 
 **Registry** | Pointer to **string** | The registry hostname:port section of the pull string | [optional] 
 **Repository** | Pointer to **string** | The repository section of the pull string | [optional] 
 **Tag** | Pointer to **string** | The tag-only section of the pull string | [optional] 
@@ -31,30 +31,30 @@ NewArchiveTagEntryWithDefaults instantiates a new ArchiveTagEntry object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
-### GetPullstring
+### GetPullString
 
-`func (o *ArchiveTagEntry) GetPullstring() string`
+`func (o *ArchiveTagEntry) GetPullString() string`
 
-GetPullstring returns the Pullstring field if non-nil, zero value otherwise.
+GetPullString returns the PullString field if non-nil, zero value otherwise.
 
-### GetPullstringOk
+### GetPullStringOk
 
-`func (o *ArchiveTagEntry) GetPullstringOk() (*string, bool)`
+`func (o *ArchiveTagEntry) GetPullStringOk() (*string, bool)`
 
-GetPullstringOk returns a tuple with the Pullstring field if it's non-nil, zero value otherwise
+GetPullStringOk returns a tuple with the PullString field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetPullstring
+### SetPullString
 
-`func (o *ArchiveTagEntry) SetPullstring(v string)`
+`func (o *ArchiveTagEntry) SetPullString(v string)`
 
-SetPullstring sets Pullstring field to given value.
+SetPullString sets PullString field to given value.
 
-### HasPullstring
+### HasPullString
 
-`func (o *ArchiveTagEntry) HasPullstring() bool`
+`func (o *ArchiveTagEntry) HasPullString() bool`
 
-HasPullstring returns a boolean if a field has been set.
+HasPullString returns a boolean if a field has been set.
 
 ### GetRegistry
 

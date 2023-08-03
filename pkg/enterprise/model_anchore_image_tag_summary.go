@@ -21,7 +21,7 @@ type AnchoreImageTagSummary struct {
 	ParentDigest *string `json:"parent_digest,omitempty"`
 	ImageId *string `json:"image_id,omitempty"`
 	AnalysisStatus *string `json:"analysis_status,omitempty"`
-	Fulltag *string `json:"fulltag,omitempty"`
+	FullTag *string `json:"full_tag,omitempty"`
 	CreatedAt *int32 `json:"created_at,omitempty"`
 	AnalyzedAt *int32 `json:"analyzed_at,omitempty"`
 	TagDetectedAt *int32 `json:"tag_detected_at,omitempty"`
@@ -173,36 +173,36 @@ func (o *AnchoreImageTagSummary) SetAnalysisStatus(v string) {
 	o.AnalysisStatus = &v
 }
 
-// GetFulltag returns the Fulltag field value if set, zero value otherwise.
-func (o *AnchoreImageTagSummary) GetFulltag() string {
-	if o == nil || o.Fulltag == nil {
+// GetFullTag returns the FullTag field value if set, zero value otherwise.
+func (o *AnchoreImageTagSummary) GetFullTag() string {
+	if o == nil || o.FullTag == nil {
 		var ret string
 		return ret
 	}
-	return *o.Fulltag
+	return *o.FullTag
 }
 
-// GetFulltagOk returns a tuple with the Fulltag field value if set, nil otherwise
+// GetFullTagOk returns a tuple with the FullTag field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AnchoreImageTagSummary) GetFulltagOk() (*string, bool) {
-	if o == nil || o.Fulltag == nil {
+func (o *AnchoreImageTagSummary) GetFullTagOk() (*string, bool) {
+	if o == nil || o.FullTag == nil {
 		return nil, false
 	}
-	return o.Fulltag, true
+	return o.FullTag, true
 }
 
-// HasFulltag returns a boolean if a field has been set.
-func (o *AnchoreImageTagSummary) HasFulltag() bool {
-	if o != nil && o.Fulltag != nil {
+// HasFullTag returns a boolean if a field has been set.
+func (o *AnchoreImageTagSummary) HasFullTag() bool {
+	if o != nil && o.FullTag != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetFulltag gets a reference to the given string and assigns it to the Fulltag field.
-func (o *AnchoreImageTagSummary) SetFulltag(v string) {
-	o.Fulltag = &v
+// SetFullTag gets a reference to the given string and assigns it to the FullTag field.
+func (o *AnchoreImageTagSummary) SetFullTag(v string) {
+	o.FullTag = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
@@ -347,8 +347,8 @@ func (o AnchoreImageTagSummary) MarshalJSON() ([]byte, error) {
 	if o.AnalysisStatus != nil {
 		toSerialize["analysis_status"] = o.AnalysisStatus
 	}
-	if o.Fulltag != nil {
-		toSerialize["fulltag"] = o.Fulltag
+	if o.FullTag != nil {
+		toSerialize["full_tag"] = o.FullTag
 	}
 	if o.CreatedAt != nil {
 		toSerialize["created_at"] = o.CreatedAt

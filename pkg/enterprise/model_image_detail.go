@@ -21,9 +21,9 @@ type ImageDetail struct {
 	CreatedAt *time.Time `json:"created_at,omitempty"`
 	LastUpdated *time.Time `json:"last_updated,omitempty"`
 	// Full docker-pullable tag string referencing the image
-	Fulltag *string `json:"fulltag,omitempty"`
+	FullTag *string `json:"full_tag,omitempty"`
 	// Full docker-pullable digest string including the registry url and repository necessary get the image
-	Fulldigest *string `json:"fulldigest,omitempty"`
+	FullDigest *string `json:"full_digest,omitempty"`
 	AccountName *string `json:"account_name,omitempty"`
 	ImageId *string `json:"image_id,omitempty"`
 	Registry *string `json:"registry,omitempty"`
@@ -114,68 +114,68 @@ func (o *ImageDetail) SetLastUpdated(v time.Time) {
 	o.LastUpdated = &v
 }
 
-// GetFulltag returns the Fulltag field value if set, zero value otherwise.
-func (o *ImageDetail) GetFulltag() string {
-	if o == nil || o.Fulltag == nil {
+// GetFullTag returns the FullTag field value if set, zero value otherwise.
+func (o *ImageDetail) GetFullTag() string {
+	if o == nil || o.FullTag == nil {
 		var ret string
 		return ret
 	}
-	return *o.Fulltag
+	return *o.FullTag
 }
 
-// GetFulltagOk returns a tuple with the Fulltag field value if set, nil otherwise
+// GetFullTagOk returns a tuple with the FullTag field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ImageDetail) GetFulltagOk() (*string, bool) {
-	if o == nil || o.Fulltag == nil {
+func (o *ImageDetail) GetFullTagOk() (*string, bool) {
+	if o == nil || o.FullTag == nil {
 		return nil, false
 	}
-	return o.Fulltag, true
+	return o.FullTag, true
 }
 
-// HasFulltag returns a boolean if a field has been set.
-func (o *ImageDetail) HasFulltag() bool {
-	if o != nil && o.Fulltag != nil {
+// HasFullTag returns a boolean if a field has been set.
+func (o *ImageDetail) HasFullTag() bool {
+	if o != nil && o.FullTag != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetFulltag gets a reference to the given string and assigns it to the Fulltag field.
-func (o *ImageDetail) SetFulltag(v string) {
-	o.Fulltag = &v
+// SetFullTag gets a reference to the given string and assigns it to the FullTag field.
+func (o *ImageDetail) SetFullTag(v string) {
+	o.FullTag = &v
 }
 
-// GetFulldigest returns the Fulldigest field value if set, zero value otherwise.
-func (o *ImageDetail) GetFulldigest() string {
-	if o == nil || o.Fulldigest == nil {
+// GetFullDigest returns the FullDigest field value if set, zero value otherwise.
+func (o *ImageDetail) GetFullDigest() string {
+	if o == nil || o.FullDigest == nil {
 		var ret string
 		return ret
 	}
-	return *o.Fulldigest
+	return *o.FullDigest
 }
 
-// GetFulldigestOk returns a tuple with the Fulldigest field value if set, nil otherwise
+// GetFullDigestOk returns a tuple with the FullDigest field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ImageDetail) GetFulldigestOk() (*string, bool) {
-	if o == nil || o.Fulldigest == nil {
+func (o *ImageDetail) GetFullDigestOk() (*string, bool) {
+	if o == nil || o.FullDigest == nil {
 		return nil, false
 	}
-	return o.Fulldigest, true
+	return o.FullDigest, true
 }
 
-// HasFulldigest returns a boolean if a field has been set.
-func (o *ImageDetail) HasFulldigest() bool {
-	if o != nil && o.Fulldigest != nil {
+// HasFullDigest returns a boolean if a field has been set.
+func (o *ImageDetail) HasFullDigest() bool {
+	if o != nil && o.FullDigest != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetFulldigest gets a reference to the given string and assigns it to the Fulldigest field.
-func (o *ImageDetail) SetFulldigest(v string) {
-	o.Fulldigest = &v
+// SetFullDigest gets a reference to the given string and assigns it to the FullDigest field.
+func (o *ImageDetail) SetFullDigest(v string) {
+	o.FullDigest = &v
 }
 
 // GetAccountName returns the AccountName field value if set, zero value otherwise.
@@ -388,11 +388,11 @@ func (o ImageDetail) MarshalJSON() ([]byte, error) {
 	if o.LastUpdated != nil {
 		toSerialize["last_updated"] = o.LastUpdated
 	}
-	if o.Fulltag != nil {
-		toSerialize["fulltag"] = o.Fulltag
+	if o.FullTag != nil {
+		toSerialize["full_tag"] = o.FullTag
 	}
-	if o.Fulldigest != nil {
-		toSerialize["fulldigest"] = o.Fulldigest
+	if o.FullDigest != nil {
+		toSerialize["full_digest"] = o.FullDigest
 	}
 	if o.AccountName != nil {
 		toSerialize["account_name"] = o.AccountName

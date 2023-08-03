@@ -15,7 +15,7 @@ import (
 	"encoding/json"
 )
 
-// ImageSelector A set of selection criteria to match an image by a tagged pullstring based on its components, with regex support in each field
+// ImageSelector A set of selection criteria to match an image by a tagged pull string based on its components, with regex support in each field
 type ImageSelector struct {
 	// The registry section of a pull string. e.g. with \"docker.io/anchore/anchore-engine:latest\", this is \"docker.io\"
 	Registry *string `json:"registry,omitempty"`

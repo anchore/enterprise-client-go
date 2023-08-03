@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Pullstring** | **string** | A digest-based pullstring (e.g. docker.io/nginx@sha256:123abc) | 
+**PullString** | **string** | A digest-based pull string (e.g. docker.io/nginx@sha256:123abc) | 
 **Tag** | **string** | A valid docker tag reference (e.g. docker.io/nginx:latest) that will be associated with the image but not used to pull the image. | 
 **CreationTimestampOverride** | Pointer to **time.Time** | Optional override of the image creation time to support proper tag history construction in cases of out-of-order analysis compared to registry history for the tag | [optional] 
 **Dockerfile** | Pointer to **string** | Base64 encoded content of the dockerfile used to build the image, if available. | [optional] 
@@ -13,7 +13,7 @@ Name | Type | Description | Notes
 
 ### NewRegistryDigestSource
 
-`func NewRegistryDigestSource(pullstring string, tag string, ) *RegistryDigestSource`
+`func NewRegistryDigestSource(pullString string, tag string, ) *RegistryDigestSource`
 
 NewRegistryDigestSource instantiates a new RegistryDigestSource object
 This constructor will assign default values to properties that have it defined,
@@ -28,24 +28,24 @@ NewRegistryDigestSourceWithDefaults instantiates a new RegistryDigestSource obje
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
-### GetPullstring
+### GetPullString
 
-`func (o *RegistryDigestSource) GetPullstring() string`
+`func (o *RegistryDigestSource) GetPullString() string`
 
-GetPullstring returns the Pullstring field if non-nil, zero value otherwise.
+GetPullString returns the PullString field if non-nil, zero value otherwise.
 
-### GetPullstringOk
+### GetPullStringOk
 
-`func (o *RegistryDigestSource) GetPullstringOk() (*string, bool)`
+`func (o *RegistryDigestSource) GetPullStringOk() (*string, bool)`
 
-GetPullstringOk returns a tuple with the Pullstring field if it's non-nil, zero value otherwise
+GetPullStringOk returns a tuple with the PullString field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetPullstring
+### SetPullString
 
-`func (o *RegistryDigestSource) SetPullstring(v string)`
+`func (o *RegistryDigestSource) SetPullString(v string)`
 
-SetPullstring sets Pullstring field to given value.
+SetPullString sets PullString field to given value.
 
 
 ### GetTag

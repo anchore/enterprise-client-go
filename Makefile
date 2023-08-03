@@ -10,7 +10,7 @@ OPENAPI_GENERATOR_VERSION = v5.2.1
 
 # --- anchore enterprise references
 # a git tag/branch/commit within anchore/enterprise repo
-ENTERPRISE_REF = c084b2ec1849fc9ca6b9d2acfede9ac713a4fc15
+ENTERPRISE_REF = 14c72a366501968da6f386dc04229cbef31edb34
 ENTERPRISE_ROOT = $(PROJECT_ROOT)/enterprise
 ENTERPRISE_OPENAPI_DOC = $(PROJECT_ROOT)/anchore-api-swagger-$(ENTERPRISE_REF).yaml
 
@@ -45,7 +45,7 @@ endef
 update: clean generate ## pull all swagger definitions and generate client code
 
 .PHONY :=
-generate: generate-clients patch ## generate all client code from all swagger documents
+generate: generate-clients ## generate all client code from all swagger documents
 
 define clone
 	if [ ! -d "./${CLONE_DIR}" ]; then git clone git@github.com:anchore/enterprise.git $(CLONE_DIR); fi
@@ -71,10 +71,6 @@ generate-clients: $(ENTERPRISE_OPENAPI_DOC) ## generate client code for anchore 
 .PHONY :=
 clean: ## remove all swagger documents and generated client code
 	rm -rf $(PROJECT_ROOT)
-
-.PHONY :=
-patch: ## applies any post-generation patches
-	git apply patches/compliance_binary_properties.patch
 
 .PHONY :=
 help:

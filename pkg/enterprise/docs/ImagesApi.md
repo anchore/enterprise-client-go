@@ -1323,7 +1323,7 @@ No authorization required
 
 ## ListImages
 
-> []AnchoreImage ListImages(ctx).ImageId(imageId).History(history).Fulltag(fulltag).ImageStatus(imageStatus).AnalysisStatus(analysisStatus).XAnchoreAccount(xAnchoreAccount).Execute()
+> []AnchoreImage ListImages(ctx).ImageId(imageId).History(history).FullTag(fullTag).ImageStatus(imageStatus).AnalysisStatus(analysisStatus).XAnchoreAccount(xAnchoreAccount).Execute()
 
 List all visible images
 
@@ -1344,14 +1344,14 @@ import (
 func main() {
     imageId := "imageId_example" // string | Filter results matching image ID (optional)
     history := true // bool | Include image history in the response (optional)
-    fulltag := "fulltag_example" // string | Full docker-pull string to filter results by (e.g. docker.io/library/nginx:latest, or myhost.com:5000/testimages:v1.1.1) (optional)
+    fullTag := "fullTag_example" // string | Full docker-pull string to filter results by (e.g. docker.io/library/nginx:latest, or myhost.com:5000/testimages:v1.1.1) (optional)
     imageStatus := "imageStatus_example" // string | Filter by image_status value on the record. Default if omitted is 'active'. (optional) (default to "active")
     analysisStatus := "analysisStatus_example" // string | Filter by analysis_status value on the record. (optional)
     xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.ImagesApi.ListImages(context.Background()).ImageId(imageId).History(history).Fulltag(fulltag).ImageStatus(imageStatus).AnalysisStatus(analysisStatus).XAnchoreAccount(xAnchoreAccount).Execute()
+    resp, r, err := api_client.ImagesApi.ListImages(context.Background()).ImageId(imageId).History(history).FullTag(fullTag).ImageStatus(imageStatus).AnalysisStatus(analysisStatus).XAnchoreAccount(xAnchoreAccount).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ImagesApi.ListImages``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -1374,7 +1374,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **imageId** | **string** | Filter results matching image ID | 
  **history** | **bool** | Include image history in the response | 
- **fulltag** | **string** | Full docker-pull string to filter results by (e.g. docker.io/library/nginx:latest, or myhost.com:5000/testimages:v1.1.1) | 
+ **fullTag** | **string** | Full docker-pull string to filter results by (e.g. docker.io/library/nginx:latest, or myhost.com:5000/testimages:v1.1.1) | 
  **imageStatus** | **string** | Filter by image_status value on the record. Default if omitted is &#39;active&#39;. | [default to &quot;active&quot;]
  **analysisStatus** | **string** | Filter by analysis_status value on the record. | 
  **xAnchoreAccount** | **string** | An account name to change the resource scope of the request to that account, if permissions allow (admin only) | 

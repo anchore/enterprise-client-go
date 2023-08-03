@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **ParentDigest** | Pointer to **string** |  | [optional] 
 **ImageId** | Pointer to **string** |  | [optional] 
 **AnalysisStatus** | Pointer to **string** |  | [optional] 
-**Fulltag** | Pointer to **string** |  | [optional] 
+**FullTag** | Pointer to **string** |  | [optional] 
 **CreatedAt** | Pointer to **int32** |  | [optional] 
 **AnalyzedAt** | Pointer to **int32** |  | [optional] 
 **TagDetectedAt** | Pointer to **int32** |  | [optional] 
@@ -133,30 +133,30 @@ SetAnalysisStatus sets AnalysisStatus field to given value.
 
 HasAnalysisStatus returns a boolean if a field has been set.
 
-### GetFulltag
+### GetFullTag
 
-`func (o *AnchoreImageTagSummary) GetFulltag() string`
+`func (o *AnchoreImageTagSummary) GetFullTag() string`
 
-GetFulltag returns the Fulltag field if non-nil, zero value otherwise.
+GetFullTag returns the FullTag field if non-nil, zero value otherwise.
 
-### GetFulltagOk
+### GetFullTagOk
 
-`func (o *AnchoreImageTagSummary) GetFulltagOk() (*string, bool)`
+`func (o *AnchoreImageTagSummary) GetFullTagOk() (*string, bool)`
 
-GetFulltagOk returns a tuple with the Fulltag field if it's non-nil, zero value otherwise
+GetFullTagOk returns a tuple with the FullTag field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetFulltag
+### SetFullTag
 
-`func (o *AnchoreImageTagSummary) SetFulltag(v string)`
+`func (o *AnchoreImageTagSummary) SetFullTag(v string)`
 
-SetFulltag sets Fulltag field to given value.
+SetFullTag sets FullTag field to given value.
 
-### HasFulltag
+### HasFullTag
 
-`func (o *AnchoreImageTagSummary) HasFulltag() bool`
+`func (o *AnchoreImageTagSummary) HasFullTag() bool`
 
-HasFulltag returns a boolean if a field has been set.
+HasFullTag returns a boolean if a field has been set.
 
 ### GetCreatedAt
 

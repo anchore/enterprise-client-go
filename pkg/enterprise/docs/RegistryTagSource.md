@@ -4,14 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Pullstring** | **string** | A docker pull string (e.g. docker.io/nginx:latest, or docker.io/nginx@sha256:abd) to retrieve the image | 
+**PullString** | **string** | A docker pull string (e.g. docker.io/nginx:latest, or docker.io/nginx@sha256:abd) to retrieve the image | 
 **Dockerfile** | Pointer to **string** | Base64 encoded content of the dockerfile used to build the image, if available. | [optional] 
 
 ## Methods
 
 ### NewRegistryTagSource
 
-`func NewRegistryTagSource(pullstring string, ) *RegistryTagSource`
+`func NewRegistryTagSource(pullString string, ) *RegistryTagSource`
 
 NewRegistryTagSource instantiates a new RegistryTagSource object
 This constructor will assign default values to properties that have it defined,
@@ -26,24 +26,24 @@ NewRegistryTagSourceWithDefaults instantiates a new RegistryTagSource object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
-### GetPullstring
+### GetPullString
 
-`func (o *RegistryTagSource) GetPullstring() string`
+`func (o *RegistryTagSource) GetPullString() string`
 
-GetPullstring returns the Pullstring field if non-nil, zero value otherwise.
+GetPullString returns the PullString field if non-nil, zero value otherwise.
 
-### GetPullstringOk
+### GetPullStringOk
 
-`func (o *RegistryTagSource) GetPullstringOk() (*string, bool)`
+`func (o *RegistryTagSource) GetPullStringOk() (*string, bool)`
 
-GetPullstringOk returns a tuple with the Pullstring field if it's non-nil, zero value otherwise
+GetPullStringOk returns a tuple with the PullString field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetPullstring
+### SetPullString
 
-`func (o *RegistryTagSource) SetPullstring(v string)`
+`func (o *RegistryTagSource) SetPullString(v string)`
 
-SetPullstring sets Pullstring field to given value.
+SetPullString sets PullString field to given value.
 
 
 ### GetDockerfile

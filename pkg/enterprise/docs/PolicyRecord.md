@@ -11,7 +11,6 @@ Name | Type | Description | Notes
 **AccountName** | Pointer to **string** | UserId of the user that owns the policy | [optional] 
 **PolicySource** | Pointer to **string** | Source location of where the policy originated | [optional] 
 **Policy** | Pointer to [**Policy**](Policy.md) |  | [optional] 
-**PolicyMeta** | Pointer to **interface{}** |  | [optional] 
 **Name** | Pointer to **string** | Name of the policy | [optional] 
 **Description** | Pointer to **string** | Description of the policy, human readable | [optional] 
 
@@ -209,41 +208,6 @@ SetPolicy sets Policy field to given value.
 
 HasPolicy returns a boolean if a field has been set.
 
-### GetPolicyMeta
-
-`func (o *PolicyRecord) GetPolicyMeta() interface{}`
-
-GetPolicyMeta returns the PolicyMeta field if non-nil, zero value otherwise.
-
-### GetPolicyMetaOk
-
-`func (o *PolicyRecord) GetPolicyMetaOk() (*interface{}, bool)`
-
-GetPolicyMetaOk returns a tuple with the PolicyMeta field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetPolicyMeta
-
-`func (o *PolicyRecord) SetPolicyMeta(v interface{})`
-
-SetPolicyMeta sets PolicyMeta field to given value.
-
-### HasPolicyMeta
-
-`func (o *PolicyRecord) HasPolicyMeta() bool`
-
-HasPolicyMeta returns a boolean if a field has been set.
-
-### SetPolicyMetaNil
-
-`func (o *PolicyRecord) SetPolicyMetaNil(b bool)`
-
- SetPolicyMetaNil sets the value for PolicyMeta to be an explicit nil
-
-### UnsetPolicyMeta
-`func (o *PolicyRecord) UnsetPolicyMeta()`
-
-UnsetPolicyMeta ensures that no value is present for PolicyMeta, not even an explicit nil
 ### GetName
 
 `func (o *PolicyRecord) GetName() string`

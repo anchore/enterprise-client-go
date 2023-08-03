@@ -2612,7 +2612,7 @@ type ApiListImagesRequest struct {
 	ApiService ImagesApi
 	imageId *string
 	history *bool
-	fulltag *string
+	fullTag *string
 	imageStatus *string
 	analysisStatus *string
 	xAnchoreAccount *string
@@ -2629,8 +2629,8 @@ func (r ApiListImagesRequest) History(history bool) ApiListImagesRequest {
 	return r
 }
 // Full docker-pull string to filter results by (e.g. docker.io/library/nginx:latest, or myhost.com:5000/testimages:v1.1.1)
-func (r ApiListImagesRequest) Fulltag(fulltag string) ApiListImagesRequest {
-	r.fulltag = &fulltag
+func (r ApiListImagesRequest) FullTag(fullTag string) ApiListImagesRequest {
+	r.fullTag = &fullTag
 	return r
 }
 // Filter by image_status value on the record. Default if omitted is &#39;active&#39;.
@@ -2697,8 +2697,8 @@ func (a *ImagesApiService) ListImagesExecute(r ApiListImagesRequest) ([]AnchoreI
 	if r.history != nil {
 		localVarQueryParams.Add("history", parameterToString(*r.history, ""))
 	}
-	if r.fulltag != nil {
-		localVarQueryParams.Add("fulltag", parameterToString(*r.fulltag, ""))
+	if r.fullTag != nil {
+		localVarQueryParams.Add("full_tag", parameterToString(*r.fullTag, ""))
 	}
 	if r.imageStatus != nil {
 		localVarQueryParams.Add("image_status", parameterToString(*r.imageStatus, ""))

@@ -19,7 +19,7 @@ import (
 // ArchiveTagEntry A docker-pullable tag value as well as deconstructed components
 type ArchiveTagEntry struct {
 	// The pullable string for the tag. E.g. \"docker.io/library/node:latest\"
-	Pullstring *string `json:"pullstring,omitempty"`
+	PullString *string `json:"pull_string,omitempty"`
 	// The registry hostname:port section of the pull string
 	Registry *string `json:"registry,omitempty"`
 	// The repository section of the pull string
@@ -51,36 +51,36 @@ func NewArchiveTagEntryWithDefaults() *ArchiveTagEntry {
 	return &this
 }
 
-// GetPullstring returns the Pullstring field value if set, zero value otherwise.
-func (o *ArchiveTagEntry) GetPullstring() string {
-	if o == nil || o.Pullstring == nil {
+// GetPullString returns the PullString field value if set, zero value otherwise.
+func (o *ArchiveTagEntry) GetPullString() string {
+	if o == nil || o.PullString == nil {
 		var ret string
 		return ret
 	}
-	return *o.Pullstring
+	return *o.PullString
 }
 
-// GetPullstringOk returns a tuple with the Pullstring field value if set, nil otherwise
+// GetPullStringOk returns a tuple with the PullString field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ArchiveTagEntry) GetPullstringOk() (*string, bool) {
-	if o == nil || o.Pullstring == nil {
+func (o *ArchiveTagEntry) GetPullStringOk() (*string, bool) {
+	if o == nil || o.PullString == nil {
 		return nil, false
 	}
-	return o.Pullstring, true
+	return o.PullString, true
 }
 
-// HasPullstring returns a boolean if a field has been set.
-func (o *ArchiveTagEntry) HasPullstring() bool {
-	if o != nil && o.Pullstring != nil {
+// HasPullString returns a boolean if a field has been set.
+func (o *ArchiveTagEntry) HasPullString() bool {
+	if o != nil && o.PullString != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetPullstring gets a reference to the given string and assigns it to the Pullstring field.
-func (o *ArchiveTagEntry) SetPullstring(v string) {
-	o.Pullstring = &v
+// SetPullString gets a reference to the given string and assigns it to the PullString field.
+func (o *ArchiveTagEntry) SetPullString(v string) {
+	o.PullString = &v
 }
 
 // GetRegistry returns the Registry field value if set, zero value otherwise.
@@ -277,8 +277,8 @@ func (o *ArchiveTagEntry) SetLastUpdated(v time.Time) {
 
 func (o ArchiveTagEntry) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Pullstring != nil {
-		toSerialize["pullstring"] = o.Pullstring
+	if o.PullString != nil {
+		toSerialize["pull_string"] = o.PullString
 	}
 	if o.Registry != nil {
 		toSerialize["registry"] = o.Registry
