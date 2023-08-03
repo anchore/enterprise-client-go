@@ -1668,6 +1668,19 @@ paths:
         this account
       produces:
       - application/json
+      parameters:
+      - name: page
+        in: query
+        required: false
+        type: integer
+        default: 1
+        minimum: 1
+      - name: page_size
+        in: query
+        required: false
+        type: integer
+        default: 1000
+        minimum: 1
       responses:
         200:
           description: success
@@ -1709,6 +1722,19 @@ paths:
         account
       produces:
       - application/json
+      parameters:
+      - name: page
+        in: query
+        required: false
+        type: integer
+        default: 1
+        minimum: 1
+      - name: page_size
+        in: query
+        required: false
+        type: integer
+        default: 1000
+        minimum: 1
       responses:
         200:
           description: success
@@ -1728,6 +1754,19 @@ paths:
         account
       produces:
       - application/json
+      parameters:
+      - name: page
+        in: query
+        required: false
+        type: integer
+        default: 1
+        minimum: 1
+      - name: page_size
+        in: query
+        required: false
+        type: integer
+        default: 1000
+        minimum: 1
       responses:
         200:
           description: success
@@ -1964,7 +2003,7 @@ paths:
         type: boolean
         required: false
         description: Include image history in the response
-      - name: fulltag
+      - name: full_tag
         in: query
         required: false
         type: string
@@ -3290,6 +3329,19 @@ paths:
         for this account
       produces:
       - application/json
+      parameters:
+      - name: page
+        in: query
+        required: false
+        type: integer
+        default: 1
+        minimum: 1
+      - name: page_size
+        in: query
+        required: false
+        type: integer
+        default: 1000
+        minimum: 1
       responses:
         200:
           description: success
@@ -3332,6 +3384,19 @@ paths:
         for this account
       produces:
       - application/json
+      parameters:
+      - name: page
+        in: query
+        required: false
+        type: integer
+        default: 1
+        minimum: 1
+      - name: page_size
+        in: query
+        required: false
+        type: integer
+        default: 1000
+        minimum: 1
       responses:
         200:
           description: success
@@ -3396,6 +3461,19 @@ paths:
         this account
       produces:
       - application/json
+      parameters:
+      - name: page
+        in: query
+        required: false
+        type: integer
+        default: 1
+        minimum: 1
+      - name: page_size
+        in: query
+        required: false
+        type: integer
+        default: 1000
+        minimum: 1
       responses:
         200:
           description: success
@@ -3440,6 +3518,19 @@ paths:
         this account
       produces:
       - application/json
+      parameters:
+      - name: page
+        in: query
+        required: false
+        type: integer
+        default: 1
+        minimum: 1
+      - name: page_size
+        in: query
+        required: false
+        type: integer
+        default: 1000
+        minimum: 1
       responses:
         200:
           description: success
@@ -5695,133 +5786,6 @@ paths:
           schema:
             $ref: '#/definitions/SubscriptionList'
       x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.images
-  /runtime-compliance:
-    post:
-      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.runtime_compliance
-      operationId: add_runtime_compliance_check
-      x-anchore-authz-action: createRuntimeComplianceCheck
-      summary: Post a runtime compliance check
-      description: Post a runtime compliance check
-      consumes:
-      - multipart/form-data
-      produces:
-      - application/json
-      parameters:
-      - name: check_type
-        in: formData
-        type: string
-        required: true
-        description: The type of runtime compliance check
-      - name: image_digest
-        in: formData
-        type: string
-        required: true
-        description: The digest of the pod the check was run against
-      - name: result
-        in: formData
-        type: string
-        description: The result of the runtime compliance check
-      - name: pod
-        in: formData
-        type: string
-        description: The pod the check was run against
-      - name: namespace
-        in: formData
-        type: string
-        description: The namespace of the pod the check was run against
-      - name: image_tag
-        in: formData
-        type: string
-        description: The tag of the image in the pod the check was run against
-      - name: start_time
-        in: formData
-        type: string
-        format: date-time
-        description: The type of runtime compliance check
-      - name: end_time
-        in: formData
-        type: string
-        format: date-time
-        description: The type of runtime compliance check
-      - name: result_file
-        in: formData
-        type: file
-        required: false
-        description: The file with the check results
-      - name: report_file
-        in: formData
-        type: file
-        required: false
-        description: The file with the check port
-      - $ref: '#/parameters/AsAccountParameter'
-      responses:
-        200:
-          description: success
-          schema:
-            $ref: '#/definitions/RuntimeComplianceCheck'
-        500:
-          description: Internal Error
-          schema:
-            $ref: '#/definitions/ApiErrorResponse'
-      tags:
-      - Compliance
-    get:
-      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.runtime_compliance
-      operationId: get_runtime_compliance_checks
-      x-anchore-authz-action: getRuntimeComplianceCheck
-      description: Get all runtime compliance checks or just those for a given image
-        digest
-      summary: Get all runtime compliance checks or just those for a given image digest
-      produces:
-      - application/json
-      parameters:
-      - name: image_digest
-        in: query
-        type: string
-        required: false
-      - $ref: '#/parameters/AsAccountParameter'
-      responses:
-        200:
-          description: Compliance evaluation retrieval success
-          schema:
-            $ref: '#/definitions/RuntimeComplianceCheckList'
-        404:
-          description: No runtime compliance checks found
-        500:
-          description: Internal Error
-          schema:
-            $ref: '#/definitions/ApiErrorResponse'
-      tags:
-      - Compliance
-  /runtime-compliance/result/{compliance_file_id}:
-    get:
-      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.runtime_compliance
-      operationId: get_runtime_compliance_result
-      x-anchore-authz-action: getRuntimeComplianceCheck
-      description: Get the results of a specific runtime compliance check
-      summary: Check the results of a a specific runtime compliance check
-      produces:
-      - text/html
-      parameters:
-      - name: compliance_file_id
-        in: path
-        format: path
-        type: string
-        required: true
-      - $ref: '#/parameters/AsAccountParameter'
-      responses:
-        200:
-          description: Compliance evaluation retrieval success
-          schema:
-            type: file
-        404:
-          description: No runtime compliance results found
-        500:
-          description: Internal Error
-          schema:
-            $ref: '#/definitions/ApiErrorResponse'
-      tags:
-      - Compliance
   /sources:
     get:
       x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.sources
@@ -6695,6 +6659,35 @@ paths:
           description: Version object describing version state
           schema:
             $ref: '#/definitions/ServiceVersion'
+  /vulnerability-scan:
+    post:
+      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.stateless
+      operationId: vulnerability_scan_sbom
+      x-anchore-authz-action: getImage
+      summary: Return a vulnerability scan for the uploaded SBOM without storing the
+        SBOM and without any side-effects in the system.
+      description: Use this operation for checking sboms for vulnerabilities in cases
+        where the sbom does not need to be stored for later re-scans or added to the
+        managed set of SBOMs in Anchore. If you need to upload and save an SBOM use
+        the "/import/*" API set instead.
+      parameters:
+      - name: sbom
+        in: body
+        required: true
+        schema:
+          type: object
+      - $ref: '#/parameters/AsAccountParameter'
+      responses:
+        200:
+          description: Vulnerability listing for the sbom
+          schema:
+            $ref: '#/definitions/SBOMVulnerabilitiesResponse'
+        500:
+          description: Internal Error
+          schema:
+            $ref: '#/definitions/ApiErrorResponse'
+      tags:
+      - Stateless
 definitions:
   AccessCredential:
     type: object
@@ -7203,7 +7196,7 @@ definitions:
         type: string
       analysis_status:
         type: string
-      fulltag:
+      full_tag:
         type: string
       created_at:
         type: integer
@@ -7367,7 +7360,7 @@ definitions:
   ArchiveTagEntry:
     type: object
     properties:
-      pullstring:
+      pull_string:
         type: string
         description: The pullable string for the tag. E.g. "docker.io/library/node:latest"
       registry:
@@ -8429,10 +8422,10 @@ definitions:
       last_updated:
         type: string
         format: date-time
-      fulltag:
+      full_tag:
         description: Full docker-pullable tag string referencing the image
         type: string
-      fulldigest:
+      full_digest:
         description: Full docker-pullable digest string including the registry url
           and repository necessary get the image
         type: string
@@ -8661,7 +8654,7 @@ definitions:
         type: string
         description: Description of the Allowlist or Denylist image match, human readable
   ImageSelector:
-    description: A set of selection criteria to match an image by a tagged pullstring
+    description: A set of selection criteria to match an image by a tagged pull string
       based on its components, with regex support in each field
     type: object
     properties:
@@ -10523,9 +10516,6 @@ definitions:
       policy:
         x-nullable: true
         $ref: '#/definitions/Policy'
-      policy_meta:
-        x-nullable: true
-        type: object
       name:
         type: string
         description: Name of the policy
@@ -10911,12 +10901,12 @@ definitions:
       tag and timestamp info in addition to the pull string to allow proper tag history
       reconstruction.
     required:
-    - pullstring
+    - pull_string
     - tag
     properties:
-      pullstring:
+      pull_string:
         type: string
-        description: A digest-based pullstring (e.g. docker.io/nginx@sha256:123abc)
+        description: A digest-based pull string (e.g. docker.io/nginx@sha256:123abc)
       tag:
         type: string
         description: A valid docker tag reference (e.g. docker.io/nginx:latest) that
@@ -10938,9 +10928,9 @@ definitions:
     description: An image reference using a tag in a registry, this is the most common
       source type.
     required:
-    - pullstring
+    - pull_string
     properties:
-      pullstring:
+      pull_string:
         type: string
         description: A docker pull string (e.g. docker.io/nginx:latest, or docker.io/nginx@sha256:abd)
           to retrieve the image
@@ -11746,7 +11736,7 @@ definitions:
   TagEntry:
     type: object
     properties:
-      fulltag:
+      full_tag:
         type: string
         description: The pullable string for the tag. E.g. "docker.io/library/node:latest"
       registry:

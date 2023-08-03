@@ -19,7 +19,7 @@ import (
 // TagEntry A docker-pullable tag value as well as deconstructed components
 type TagEntry struct {
 	// The pullable string for the tag. E.g. \"docker.io/library/node:latest\"
-	Fulltag *string `json:"fulltag,omitempty"`
+	FullTag *string `json:"full_tag,omitempty"`
 	// The registry hostname:port section of the pull string
 	Registry *string `json:"registry,omitempty"`
 	// The repository section of the pull string
@@ -47,36 +47,36 @@ func NewTagEntryWithDefaults() *TagEntry {
 	return &this
 }
 
-// GetFulltag returns the Fulltag field value if set, zero value otherwise.
-func (o *TagEntry) GetFulltag() string {
-	if o == nil || o.Fulltag == nil {
+// GetFullTag returns the FullTag field value if set, zero value otherwise.
+func (o *TagEntry) GetFullTag() string {
+	if o == nil || o.FullTag == nil {
 		var ret string
 		return ret
 	}
-	return *o.Fulltag
+	return *o.FullTag
 }
 
-// GetFulltagOk returns a tuple with the Fulltag field value if set, nil otherwise
+// GetFullTagOk returns a tuple with the FullTag field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *TagEntry) GetFulltagOk() (*string, bool) {
-	if o == nil || o.Fulltag == nil {
+func (o *TagEntry) GetFullTagOk() (*string, bool) {
+	if o == nil || o.FullTag == nil {
 		return nil, false
 	}
-	return o.Fulltag, true
+	return o.FullTag, true
 }
 
-// HasFulltag returns a boolean if a field has been set.
-func (o *TagEntry) HasFulltag() bool {
-	if o != nil && o.Fulltag != nil {
+// HasFullTag returns a boolean if a field has been set.
+func (o *TagEntry) HasFullTag() bool {
+	if o != nil && o.FullTag != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetFulltag gets a reference to the given string and assigns it to the Fulltag field.
-func (o *TagEntry) SetFulltag(v string) {
-	o.Fulltag = &v
+// SetFullTag gets a reference to the given string and assigns it to the FullTag field.
+func (o *TagEntry) SetFullTag(v string) {
+	o.FullTag = &v
 }
 
 // GetRegistry returns the Registry field value if set, zero value otherwise.
@@ -209,8 +209,8 @@ func (o *TagEntry) SetTagDetectedAt(v time.Time) {
 
 func (o TagEntry) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Fulltag != nil {
-		toSerialize["fulltag"] = o.Fulltag
+	if o.FullTag != nil {
+		toSerialize["full_tag"] = o.FullTag
 	}
 	if o.Registry != nil {
 		toSerialize["registry"] = o.Registry

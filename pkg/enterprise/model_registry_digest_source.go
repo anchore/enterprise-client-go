@@ -18,8 +18,8 @@ import (
 
 // RegistryDigestSource An image reference using a digest in a registry, includes some extra tag and timestamp info in addition to the pull string to allow proper tag history reconstruction.
 type RegistryDigestSource struct {
-	// A digest-based pullstring (e.g. docker.io/nginx@sha256:123abc)
-	Pullstring string `json:"pullstring"`
+	// A digest-based pull string (e.g. docker.io/nginx@sha256:123abc)
+	PullString string `json:"pull_string"`
 	// A valid docker tag reference (e.g. docker.io/nginx:latest) that will be associated with the image but not used to pull the image.
 	Tag string `json:"tag"`
 	// Optional override of the image creation time to support proper tag history construction in cases of out-of-order analysis compared to registry history for the tag
@@ -32,9 +32,9 @@ type RegistryDigestSource struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewRegistryDigestSource(pullstring string, tag string) *RegistryDigestSource {
+func NewRegistryDigestSource(pullString string, tag string) *RegistryDigestSource {
 	this := RegistryDigestSource{}
-	this.Pullstring = pullstring
+	this.PullString = pullString
 	this.Tag = tag
 	return &this
 }
@@ -47,28 +47,28 @@ func NewRegistryDigestSourceWithDefaults() *RegistryDigestSource {
 	return &this
 }
 
-// GetPullstring returns the Pullstring field value
-func (o *RegistryDigestSource) GetPullstring() string {
+// GetPullString returns the PullString field value
+func (o *RegistryDigestSource) GetPullString() string {
 	if o == nil {
 		var ret string
 		return ret
 	}
 
-	return o.Pullstring
+	return o.PullString
 }
 
-// GetPullstringOk returns a tuple with the Pullstring field value
+// GetPullStringOk returns a tuple with the PullString field value
 // and a boolean to check if the value has been set.
-func (o *RegistryDigestSource) GetPullstringOk() (*string, bool) {
+func (o *RegistryDigestSource) GetPullStringOk() (*string, bool) {
 	if o == nil  {
 		return nil, false
 	}
-	return &o.Pullstring, true
+	return &o.PullString, true
 }
 
-// SetPullstring sets field value
-func (o *RegistryDigestSource) SetPullstring(v string) {
-	o.Pullstring = v
+// SetPullString sets field value
+func (o *RegistryDigestSource) SetPullString(v string) {
+	o.PullString = v
 }
 
 // GetTag returns the Tag field value
@@ -162,7 +162,7 @@ func (o *RegistryDigestSource) SetDockerfile(v string) {
 func (o RegistryDigestSource) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
-		toSerialize["pullstring"] = o.Pullstring
+		toSerialize["pull_string"] = o.PullString
 	}
 	if true {
 		toSerialize["tag"] = o.Tag

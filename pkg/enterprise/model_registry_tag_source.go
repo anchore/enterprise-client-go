@@ -18,7 +18,7 @@ import (
 // RegistryTagSource An image reference using a tag in a registry, this is the most common source type.
 type RegistryTagSource struct {
 	// A docker pull string (e.g. docker.io/nginx:latest, or docker.io/nginx@sha256:abd) to retrieve the image
-	Pullstring string `json:"pullstring"`
+	PullString string `json:"pull_string"`
 	// Base64 encoded content of the dockerfile used to build the image, if available.
 	Dockerfile *string `json:"dockerfile,omitempty"`
 }
@@ -27,9 +27,9 @@ type RegistryTagSource struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewRegistryTagSource(pullstring string) *RegistryTagSource {
+func NewRegistryTagSource(pullString string) *RegistryTagSource {
 	this := RegistryTagSource{}
-	this.Pullstring = pullstring
+	this.PullString = pullString
 	return &this
 }
 
@@ -41,28 +41,28 @@ func NewRegistryTagSourceWithDefaults() *RegistryTagSource {
 	return &this
 }
 
-// GetPullstring returns the Pullstring field value
-func (o *RegistryTagSource) GetPullstring() string {
+// GetPullString returns the PullString field value
+func (o *RegistryTagSource) GetPullString() string {
 	if o == nil {
 		var ret string
 		return ret
 	}
 
-	return o.Pullstring
+	return o.PullString
 }
 
-// GetPullstringOk returns a tuple with the Pullstring field value
+// GetPullStringOk returns a tuple with the PullString field value
 // and a boolean to check if the value has been set.
-func (o *RegistryTagSource) GetPullstringOk() (*string, bool) {
+func (o *RegistryTagSource) GetPullStringOk() (*string, bool) {
 	if o == nil  {
 		return nil, false
 	}
-	return &o.Pullstring, true
+	return &o.PullString, true
 }
 
-// SetPullstring sets field value
-func (o *RegistryTagSource) SetPullstring(v string) {
-	o.Pullstring = v
+// SetPullString sets field value
+func (o *RegistryTagSource) SetPullString(v string) {
+	o.PullString = v
 }
 
 // GetDockerfile returns the Dockerfile field value if set, zero value otherwise.
@@ -100,7 +100,7 @@ func (o *RegistryTagSource) SetDockerfile(v string) {
 func (o RegistryTagSource) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
-		toSerialize["pullstring"] = o.Pullstring
+		toSerialize["pull_string"] = o.PullString
 	}
 	if o.Dockerfile != nil {
 		toSerialize["dockerfile"] = o.Dockerfile

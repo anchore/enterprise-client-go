@@ -2384,7 +2384,7 @@ paths:
       - description: Full docker-pull string to filter results by (e.g. docker.io/library/nginx:latest,
           or myhost.com:5000/testimages:v1.1.1)
         in: query
-        name: fulltag
+        name: full_tag
         schema:
           type: string
       - description: Filter by image_status value on the record. Default if omitted
@@ -8595,26 +8595,26 @@ components:
         record_version: record_version
         image_content: '{}'
         image_detail:
-        - registry: registry
+        - full_tag: full_tag
+          registry: registry
           last_updated: 2000-01-23T04:56:07.000+00:00
           image_digest: image_digest
-          fulldigest: fulldigest
           account_name: account_name
           repo: repo
           dockerfile: dockerfile
           created_at: 2000-01-23T04:56:07.000+00:00
-          fulltag: fulltag
           image_id: image_id
-        - registry: registry
+          full_digest: full_digest
+        - full_tag: full_tag
+          registry: registry
           last_updated: 2000-01-23T04:56:07.000+00:00
           image_digest: image_digest
-          fulldigest: fulldigest
           account_name: account_name
           repo: repo
           dockerfile: dockerfile
           created_at: 2000-01-23T04:56:07.000+00:00
-          fulltag: fulltag
           image_id: image_id
+          full_digest: full_digest
       properties:
         image_content:
           description: A metadata content record for a specific image, containing
@@ -8676,6 +8676,7 @@ components:
       description: A unique image in the engine.
       example:
         tag_detected_at: 1
+        full_tag: full_tag
         image_digest: image_digest
         analysis_status: analysis_status
         analyzed_at: 6
@@ -8683,7 +8684,6 @@ components:
         created_at: 0
         image_status: image_status
         image_id: image_id
-        fulltag: fulltag
       properties:
         image_digest:
           type: string
@@ -8693,7 +8693,7 @@ components:
           type: string
         analysis_status:
           type: string
-        fulltag:
+        full_tag:
           type: string
         created_at:
           type: integer
@@ -8975,12 +8975,12 @@ components:
         registry: registry
         detected_at: 2000-01-23T04:56:07.000+00:00
         last_updated: 2000-01-23T04:56:07.000+00:00
+        pull_string: pull_string
         created_at: 2000-01-23T04:56:07.000+00:00
-        pullstring: pullstring
         tag: tag
         repository: repository
       properties:
-        pullstring:
+        pull_string:
           description: The pullable string for the tag. E.g. "docker.io/library/node:latest"
           type: string
         registry:
@@ -9026,15 +9026,15 @@ components:
         - registry: registry
           detected_at: 2000-01-23T04:56:07.000+00:00
           last_updated: 2000-01-23T04:56:07.000+00:00
+          pull_string: pull_string
           created_at: 2000-01-23T04:56:07.000+00:00
-          pullstring: pullstring
           tag: tag
           repository: repository
         - registry: registry
           detected_at: 2000-01-23T04:56:07.000+00:00
           last_updated: 2000-01-23T04:56:07.000+00:00
+          pull_string: pull_string
           created_at: 2000-01-23T04:56:07.000+00:00
-          pullstring: pullstring
           tag: tag
           repository: repository
       properties:
@@ -10416,13 +10416,13 @@ components:
           digest:
             creation_timestamp_override: 2000-01-23T04:56:07.000+00:00
             dockerfile: dockerfile
-            pullstring: pullstring
+            pull_string: pull_string
             tag: tag
           archive:
             digest: digest
           tag:
             dockerfile: dockerfile
-            pullstring: pullstring
+            pull_string: pull_string
         image_type: image_type
       properties:
         image_type:
@@ -10525,16 +10525,16 @@ components:
       description: A metadata detail record for a specific image. Multiple detail
         records may map a single catalog image.
       example:
+        full_tag: full_tag
         registry: registry
         last_updated: 2000-01-23T04:56:07.000+00:00
         image_digest: image_digest
-        fulldigest: fulldigest
         account_name: account_name
         repo: repo
         dockerfile: dockerfile
         created_at: 2000-01-23T04:56:07.000+00:00
-        fulltag: fulltag
         image_id: image_id
+        full_digest: full_digest
       properties:
         created_at:
           format: date-time
@@ -10542,10 +10542,10 @@ components:
         last_updated:
           format: date-time
           type: string
-        fulltag:
+        full_tag:
           description: Full docker-pullable tag string referencing the image
           type: string
-        fulldigest:
+        full_digest:
           description: Full docker-pullable digest string including the registry url
             and repository necessary get the image
           type: string
@@ -10926,8 +10926,8 @@ components:
       - repository
       type: object
     ImageSelector:
-      description: A set of selection criteria to match an image by a tagged pullstring
-        based on its components, with regex support in each field
+      description: A set of selection criteria to match an image by a tagged pull
+        string based on its components, with regex support in each field
       example:
         registry: registry
         tag: tag
@@ -10970,13 +10970,13 @@ components:
         digest:
           creation_timestamp_override: 2000-01-23T04:56:07.000+00:00
           dockerfile: dockerfile
-          pullstring: pullstring
+          pull_string: pull_string
           tag: tag
         archive:
           digest: digest
         tag:
           dockerfile: dockerfile
-          pullstring: pullstring
+          pull_string: pull_string
       properties:
         tag:
           $ref: '#/components/schemas/RegistryTagSource'
@@ -13805,7 +13805,6 @@ components:
       example:
         policy_source: policy_source
         last_updated: 2000-01-23T04:56:07.000+00:00
-        policy_meta: '{}'
         policy_id: policy_id
         account_name: account_name
         name: name
@@ -14013,10 +14012,6 @@ components:
           type: string
         policy:
           $ref: '#/components/schemas/Policy'
-        policy_meta:
-          nullable: true
-          properties: {}
-          type: object
         name:
           description: Name of the policy
           type: string
@@ -14474,12 +14469,12 @@ components:
       example:
         creation_timestamp_override: 2000-01-23T04:56:07.000+00:00
         dockerfile: dockerfile
-        pullstring: pullstring
+        pull_string: pull_string
         tag: tag
       nullable: true
       properties:
-        pullstring:
-          description: A digest-based pullstring (e.g. docker.io/nginx@sha256:123abc)
+        pull_string:
+          description: A digest-based pull string (e.g. docker.io/nginx@sha256:123abc)
           type: string
         tag:
           description: A valid docker tag reference (e.g. docker.io/nginx:latest)
@@ -14497,7 +14492,7 @@ components:
           pattern: ^[a-zA-Z0-9+/=]+$
           type: string
       required:
-      - pullstring
+      - pull_string
       - tag
       type: object
       x-nullable: true
@@ -14506,10 +14501,10 @@ components:
         common source type.
       example:
         dockerfile: dockerfile
-        pullstring: pullstring
+        pull_string: pull_string
       nullable: true
       properties:
-        pullstring:
+        pull_string:
           description: A docker pull string (e.g. docker.io/nginx:latest, or docker.io/nginx@sha256:abd)
             to retrieve the image
           type: string
@@ -14519,7 +14514,7 @@ components:
           pattern: ^[a-zA-Z0-9+/=]+$
           type: string
       required:
-      - pullstring
+      - pull_string
       type: object
       x-nullable: true
     RelationshipSbomDiff:
@@ -16251,7 +16246,7 @@ components:
     TagEntry:
       description: A docker-pullable tag value as well as deconstructed components
       properties:
-        fulltag:
+        full_tag:
           description: The pullable string for the tag. E.g. "docker.io/library/node:latest"
           type: string
         registry:

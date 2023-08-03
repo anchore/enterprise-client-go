@@ -6,8 +6,8 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **CreatedAt** | Pointer to **time.Time** |  | [optional] 
 **LastUpdated** | Pointer to **time.Time** |  | [optional] 
-**Fulltag** | Pointer to **string** | Full docker-pullable tag string referencing the image | [optional] 
-**Fulldigest** | Pointer to **string** | Full docker-pullable digest string including the registry url and repository necessary get the image | [optional] 
+**FullTag** | Pointer to **string** | Full docker-pullable tag string referencing the image | [optional] 
+**FullDigest** | Pointer to **string** | Full docker-pullable digest string including the registry url and repository necessary get the image | [optional] 
 **AccountName** | Pointer to **string** |  | [optional] 
 **ImageId** | Pointer to **string** |  | [optional] 
 **Registry** | Pointer to **string** |  | [optional] 
@@ -84,55 +84,55 @@ SetLastUpdated sets LastUpdated field to given value.
 
 HasLastUpdated returns a boolean if a field has been set.
 
-### GetFulltag
+### GetFullTag
 
-`func (o *ImageDetail) GetFulltag() string`
+`func (o *ImageDetail) GetFullTag() string`
 
-GetFulltag returns the Fulltag field if non-nil, zero value otherwise.
+GetFullTag returns the FullTag field if non-nil, zero value otherwise.
 
-### GetFulltagOk
+### GetFullTagOk
 
-`func (o *ImageDetail) GetFulltagOk() (*string, bool)`
+`func (o *ImageDetail) GetFullTagOk() (*string, bool)`
 
-GetFulltagOk returns a tuple with the Fulltag field if it's non-nil, zero value otherwise
+GetFullTagOk returns a tuple with the FullTag field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetFulltag
+### SetFullTag
 
-`func (o *ImageDetail) SetFulltag(v string)`
+`func (o *ImageDetail) SetFullTag(v string)`
 
-SetFulltag sets Fulltag field to given value.
+SetFullTag sets FullTag field to given value.
 
-### HasFulltag
+### HasFullTag
 
-`func (o *ImageDetail) HasFulltag() bool`
+`func (o *ImageDetail) HasFullTag() bool`
 
-HasFulltag returns a boolean if a field has been set.
+HasFullTag returns a boolean if a field has been set.
 
-### GetFulldigest
+### GetFullDigest
 
-`func (o *ImageDetail) GetFulldigest() string`
+`func (o *ImageDetail) GetFullDigest() string`
 
-GetFulldigest returns the Fulldigest field if non-nil, zero value otherwise.
+GetFullDigest returns the FullDigest field if non-nil, zero value otherwise.
 
-### GetFulldigestOk
+### GetFullDigestOk
 
-`func (o *ImageDetail) GetFulldigestOk() (*string, bool)`
+`func (o *ImageDetail) GetFullDigestOk() (*string, bool)`
 
-GetFulldigestOk returns a tuple with the Fulldigest field if it's non-nil, zero value otherwise
+GetFullDigestOk returns a tuple with the FullDigest field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetFulldigest
+### SetFullDigest
 
-`func (o *ImageDetail) SetFulldigest(v string)`
+`func (o *ImageDetail) SetFullDigest(v string)`
 
-SetFulldigest sets Fulldigest field to given value.
+SetFullDigest sets FullDigest field to given value.
 
-### HasFulldigest
+### HasFullDigest
 
-`func (o *ImageDetail) HasFulldigest() bool`
+`func (o *ImageDetail) HasFullDigest() bool`
 
-HasFulldigest returns a boolean if a field has been set.
+HasFullDigest returns a boolean if a field has been set.
 
 ### GetAccountName
 
