@@ -12,7 +12,6 @@ Method | HTTP request | Description
 [**GetSourceSbomCyclonedxJson**](SourcesApi.md#GetSourceSbomCyclonedxJson) | **Get** /sources/{source_id}/sbom/cyclonedx-json | Return the source SBOM in the CycloneDX format
 [**GetSourceSbomNativeJson**](SourcesApi.md#GetSourceSbomNativeJson) | **Get** /sources/{source_id}/sbom/native-json | Return the source SBOM in the native Anchore format
 [**GetSourceSbomSpdxJson**](SourcesApi.md#GetSourceSbomSpdxJson) | **Get** /sources/{source_id}/sbom/spdx-json | Return the source SBOM in the SPDX format
-[**GetSourceSbomTypes**](SourcesApi.md#GetSourceSbomTypes) | **Get** /sources/{source_id}/sbom | Get a detailed source repository analysis metadata record
 [**GetSourceVulnerabilities**](SourcesApi.md#GetSourceVulnerabilities) | **Get** /sources/{source_id}/vuln/{vuln_type} | Get vulnerabilities for the source by type
 [**GetSourceVulnerabilityTypes**](SourcesApi.md#GetSourceVulnerabilityTypes) | **Get** /sources/{source_id}/vuln | Get the available vulnerability types for source
 [**ListSources**](SourcesApi.md#ListSources) | **Get** /sources | List the source repository analysis records
@@ -553,74 +552,6 @@ Name | Type | Description  | Notes
 ### Return type
 
 **string**
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## GetSourceSbomTypes
-
-> []string GetSourceSbomTypes(ctx, sourceId).Execute()
-
-Get a detailed source repository analysis metadata record
-
-### Example
-
-```go
-package main
-
-import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
-)
-
-func main() {
-    sourceId := "sourceId_example" // string | 
-
-    configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.SourcesApi.GetSourceSbomTypes(context.Background(), sourceId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `SourcesApi.GetSourceSbomTypes``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetSourceSbomTypes`: []string
-    fmt.Fprintf(os.Stdout, "Response from `SourcesApi.GetSourceSbomTypes`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**sourceId** | **string** |  | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiGetSourceSbomTypesRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
-
-### Return type
-
-**[]string**
 
 ### Authorization
 
