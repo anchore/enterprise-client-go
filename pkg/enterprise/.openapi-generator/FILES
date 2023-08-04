@@ -82,6 +82,7 @@ docs/CVSSV2Scores.md
 docs/CVSSV3Scores.md
 docs/ComplianceResource.md
 docs/ComplianceViolationAlert.md
+docs/ComplianceViolationAlertState.md
 docs/ContentFilesResponse.md
 docs/ContentFilesResponseContent.md
 docs/ContentJAVAPackageResponse.md
@@ -399,6 +400,7 @@ model_associated_source_artifact.go
 model_base_notification_data.go
 model_compliance_resource.go
 model_compliance_violation_alert.go
+model_compliance_violation_alert_state.go
 model_content_files_response.go
 model_content_files_response_content.go
 model_content_java_package_response.go

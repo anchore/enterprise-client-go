@@ -621,8 +621,7 @@ paths:
             $ref: '#/definitions/ComplianceViolationAlert'
       tags:
       - Alerts
-  /alerts/compliance-violations/{uuid}/{state}:
-    put:
+    patch:
       x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.alerts
       operationId: update_compliance_violation_alert_state
       x-anchore-authz-action: updateAlert
@@ -637,14 +636,11 @@ paths:
         type: string
         required: true
         description: Identifier for the alert
-      - name: state
-        in: path
-        format: path
-        type: string
+      - name: body
+        in: body
         required: true
-        enum:
-        - open
-        - closed
+        schema:
+          $ref: '#/definitions/ComplianceViolationAlertState'
       - $ref: '#/parameters/AsAccountParameter'
       responses:
         200:
@@ -1311,6 +1307,7 @@ paths:
         required: true
         type: string
         description: The image digest to identify the image analysis
+        pattern: ^sha256:[a-fA-F0-9]{64}$
       responses:
         200:
           description: Archived Image
@@ -1333,6 +1330,7 @@ paths:
         format: path
         required: true
         type: string
+        pattern: ^sha256:[a-fA-F0-9]{64}$
       - name: force
         in: query
         required: false
@@ -2085,6 +2083,7 @@ paths:
         format: path
         type: string
         required: true
+        pattern: ^sha256:[a-fA-F0-9]{64}$
       - $ref: '#/parameters/AsAccountParameter'
       responses:
         200:
@@ -2108,6 +2107,7 @@ paths:
         format: path
         type: string
         required: true
+        pattern: ^sha256:[a-fA-F0-9]{64}$
       - name: force
         in: query
         required: false
@@ -2134,6 +2134,7 @@ paths:
         format: path
         type: string
         required: true
+        pattern: ^sha256:[a-fA-F0-9]{64}$
       - $ref: '#/parameters/AsAccountParameter'
       responses:
         200:
@@ -2160,6 +2161,7 @@ paths:
         format: path
         type: string
         required: true
+        pattern: ^sha256:[a-fA-F0-9]{64}$
       responses:
         200:
           description: List of file metadata objects
@@ -2181,6 +2183,7 @@ paths:
         format: path
         type: string
         required: true
+        pattern: ^sha256:[a-fA-F0-9]{64}$
       responses:
         200:
           description: List of file metadata objects
@@ -2202,6 +2205,7 @@ paths:
         format: path
         type: string
         required: true
+        pattern: ^sha256:[a-fA-F0-9]{64}$
       responses:
         200:
           description: List of file metadata objects
@@ -2222,6 +2226,7 @@ paths:
         format: path
         type: string
         required: true
+        pattern: ^sha256:[a-fA-F0-9]{64}$
       - name: policy_id
         in: query
         type: string
@@ -2277,6 +2282,7 @@ paths:
         format: path
         type: string
         required: true
+        pattern: ^sha256:[a-fA-F0-9]{64}$
       - $ref: '#/parameters/AsAccountParameter'
       responses:
         200:
@@ -2303,6 +2309,7 @@ paths:
         format: path
         type: string
         required: true
+        pattern: ^sha256:[a-fA-F0-9]{64}$
       - $ref: '#/parameters/AsAccountParameter'
       responses:
         200:
@@ -2327,6 +2334,7 @@ paths:
         format: path
         type: string
         required: true
+        pattern: ^sha256:[a-fA-F0-9]{64}$
       - $ref: '#/parameters/AsAccountParameter'
       responses:
         200:
@@ -2351,6 +2359,7 @@ paths:
         format: path
         type: string
         required: true
+        pattern: ^sha256:[a-fA-F0-9]{64}$
       - $ref: '#/parameters/AsAccountParameter'
       responses:
         200:
@@ -2375,6 +2384,7 @@ paths:
         format: path
         type: string
         required: true
+        pattern: ^sha256:[a-fA-F0-9]{64}$
       - name: content_type
         in: path
         format: path
@@ -2404,6 +2414,7 @@ paths:
         format: path
         type: string
         required: true
+        pattern: ^sha256:[a-fA-F0-9]{64}$
       - $ref: '#/parameters/AsAccountParameter'
       responses:
         200:
@@ -2430,6 +2441,7 @@ paths:
         format: path
         type: string
         required: true
+        pattern: ^sha256:[a-fA-F0-9]{64}$
       - name: metadata_type
         in: path
         format: path
@@ -2459,6 +2471,7 @@ paths:
         format: path
         type: string
         required: true
+        pattern: ^sha256:[a-fA-F0-9]{64}$
       - $ref: '#/parameters/AsAccountParameter'
       responses:
         200:
@@ -2483,6 +2496,7 @@ paths:
         format: path
         type: string
         required: true
+        pattern: ^sha256:[a-fA-F0-9]{64}$
       - $ref: '#/parameters/AsAccountParameter'
       responses:
         200:
@@ -2507,6 +2521,7 @@ paths:
         format: path
         type: string
         required: true
+        pattern: ^sha256:[a-fA-F0-9]{64}$
       - $ref: '#/parameters/AsAccountParameter'
       responses:
         200:
@@ -2531,6 +2546,7 @@ paths:
         format: path
         type: string
         required: true
+        pattern: ^sha256:[a-fA-F0-9]{64}$
       - $ref: '#/parameters/AsAccountParameter'
       responses:
         200:
@@ -2559,6 +2575,7 @@ paths:
         format: path
         type: string
         required: true
+        pattern: ^sha256:[a-fA-F0-9]{64}$
       - name: vuln_type
         in: path
         type: string
@@ -5935,32 +5952,6 @@ paths:
             $ref: '#/definitions/ApiErrorResponse'
       tags:
       - Sources
-  /sources/{source_id}/sbom:
-    get:
-      x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.sources
-      operationId: get_source_sbom_types
-      x-anchore-authz-action: getSource
-      summary: Get a detailed source repository analysis metadata record
-      produces:
-      - application/json
-      parameters:
-      - name: source_id
-        in: path
-        format: path
-        type: string
-        required: true
-      responses:
-        200:
-          description: success
-          schema:
-            type: array
-            description: Array of available types
-            items:
-              type: string
-        500:
-          description: Internal Error
-      tags:
-      - Sources
   /sources/{source_id}/sbom/cyclonedx-json:
     get:
       x-swagger-router-controller: anchore_enterprise.services.api.api.controllers.sources
@@ -6405,6 +6396,9 @@ paths:
         format: path
         required: true
         type: string
+        enum:
+        - packages
+        - vulnerabilities
       - name: enabled
         type: boolean
         required: true
@@ -7659,6 +7653,18 @@ definitions:
     description: Array of compliance violation alerts
     items:
       $ref: '#/definitions/ComplianceViolationAlert'
+  ComplianceViolationAlertState:
+    type: object
+    description: State change for an existing ComplianceViolationAlert
+    required:
+    - state
+    properties:
+      state:
+        type: string
+        description: The new state of the compliance violation alert
+        enum:
+        - open
+        - closed
   ContentFilesResponse:
     type: object
     description: File content listings from images

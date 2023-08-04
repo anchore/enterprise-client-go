@@ -83,7 +83,7 @@ Class | Method | HTTP request | Description
 *AlertsApi* | [**GetAlertSummaries**](docs/AlertsApi.md#getalertsummaries) | **Get** /alerts/summaries | List all alert summaries scoped to the account
 *AlertsApi* | [**GetComplianceViolationAlert**](docs/AlertsApi.md#getcomplianceviolationalert) | **Get** /alerts/compliance-violations/{uuid} | Get compliance violation alert by id
 *AlertsApi* | [**GetComplianceViolationAlerts**](docs/AlertsApi.md#getcomplianceviolationalerts) | **Get** /alerts/compliance-violations | List all compliance violation alerts scoped to the account
-*AlertsApi* | [**UpdateComplianceViolationAlertState**](docs/AlertsApi.md#updatecomplianceviolationalertstate) | **Put** /alerts/compliance-violations/{uuid}/{state} | Open or close a compliance violation alert
+*AlertsApi* | [**UpdateComplianceViolationAlertState**](docs/AlertsApi.md#updatecomplianceviolationalertstate) | **Patch** /alerts/compliance-violations/{uuid} | Open or close a compliance violation alert
 *ApplicationsApi* | [**AddApplication**](docs/ApplicationsApi.md#addapplication) | **Post** /applications | Create an application
 *ApplicationsApi* | [**AddApplicationVersion**](docs/ApplicationsApi.md#addapplicationversion) | **Post** /applications/{application_id}/versions | Create an application version
 *ApplicationsApi* | [**AddArtifactToApplicationVersion**](docs/ApplicationsApi.md#addartifacttoapplicationversion) | **Post** /applications/{application_id}/versions/{application_version_id}/artifacts | Add an artifact to an application version
@@ -308,7 +308,6 @@ Class | Method | HTTP request | Description
 *SourcesApi* | [**GetSourceSbomCyclonedxJson**](docs/SourcesApi.md#getsourcesbomcyclonedxjson) | **Get** /sources/{source_id}/sbom/cyclonedx-json | Return the source SBOM in the CycloneDX format
 *SourcesApi* | [**GetSourceSbomNativeJson**](docs/SourcesApi.md#getsourcesbomnativejson) | **Get** /sources/{source_id}/sbom/native-json | Return the source SBOM in the native Anchore format
 *SourcesApi* | [**GetSourceSbomSpdxJson**](docs/SourcesApi.md#getsourcesbomspdxjson) | **Get** /sources/{source_id}/sbom/spdx-json | Return the source SBOM in the SPDX format
-*SourcesApi* | [**GetSourceSbomTypes**](docs/SourcesApi.md#getsourcesbomtypes) | **Get** /sources/{source_id}/sbom | Get a detailed source repository analysis metadata record
 *SourcesApi* | [**GetSourceVulnerabilities**](docs/SourcesApi.md#getsourcevulnerabilities) | **Get** /sources/{source_id}/vuln/{vuln_type} | Get vulnerabilities for the source by type
 *SourcesApi* | [**GetSourceVulnerabilityTypes**](docs/SourcesApi.md#getsourcevulnerabilitytypes) | **Get** /sources/{source_id}/vuln | Get the available vulnerability types for source
 *SourcesApi* | [**ListSources**](docs/SourcesApi.md#listsources) | **Get** /sources | List the source repository analysis records
@@ -401,6 +400,7 @@ Class | Method | HTTP request | Description
  - [CVSSV3Scores](docs/CVSSV3Scores.md)
  - [ComplianceResource](docs/ComplianceResource.md)
  - [ComplianceViolationAlert](docs/ComplianceViolationAlert.md)
+ - [ComplianceViolationAlertState](docs/ComplianceViolationAlertState.md)
  - [ContentFilesResponse](docs/ContentFilesResponse.md)
  - [ContentFilesResponseContent](docs/ContentFilesResponseContent.md)
  - [ContentJAVAPackageResponse](docs/ContentJAVAPackageResponse.md)

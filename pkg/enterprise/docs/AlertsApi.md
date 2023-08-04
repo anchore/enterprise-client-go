@@ -7,7 +7,7 @@ Method | HTTP request | Description
 [**GetAlertSummaries**](AlertsApi.md#GetAlertSummaries) | **Get** /alerts/summaries | List all alert summaries scoped to the account
 [**GetComplianceViolationAlert**](AlertsApi.md#GetComplianceViolationAlert) | **Get** /alerts/compliance-violations/{uuid} | Get compliance violation alert by id
 [**GetComplianceViolationAlerts**](AlertsApi.md#GetComplianceViolationAlerts) | **Get** /alerts/compliance-violations | List all compliance violation alerts scoped to the account
-[**UpdateComplianceViolationAlertState**](AlertsApi.md#UpdateComplianceViolationAlertState) | **Put** /alerts/compliance-violations/{uuid}/{state} | Open or close a compliance violation alert
+[**UpdateComplianceViolationAlertState**](AlertsApi.md#UpdateComplianceViolationAlertState) | **Patch** /alerts/compliance-violations/{uuid} | Open or close a compliance violation alert
 
 
 
@@ -251,7 +251,7 @@ No authorization required
 
 ## UpdateComplianceViolationAlertState
 
-> ComplianceViolationAlert UpdateComplianceViolationAlertState(ctx, uuid, state).XAnchoreAccount(xAnchoreAccount).Execute()
+> ComplianceViolationAlert UpdateComplianceViolationAlertState(ctx, uuid).Body(body).XAnchoreAccount(xAnchoreAccount).Execute()
 
 Open or close a compliance violation alert
 
@@ -271,12 +271,12 @@ import (
 
 func main() {
     uuid := "uuid_example" // string | Identifier for the alert
-    state := "state_example" // string | 
+    body := *openapiclient.NewComplianceViolationAlertState("State_example") // ComplianceViolationAlertState | 
     xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.AlertsApi.UpdateComplianceViolationAlertState(context.Background(), uuid, state).XAnchoreAccount(xAnchoreAccount).Execute()
+    resp, r, err := api_client.AlertsApi.UpdateComplianceViolationAlertState(context.Background(), uuid).Body(body).XAnchoreAccount(xAnchoreAccount).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `AlertsApi.UpdateComplianceViolationAlertState``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -293,7 +293,6 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **uuid** | **string** | Identifier for the alert | 
-**state** | **string** |  | 
 
 ### Other Parameters
 
@@ -303,7 +302,7 @@ Other parameters are passed through a pointer to a apiUpdateComplianceViolationA
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
-
+ **body** | [**ComplianceViolationAlertState**](ComplianceViolationAlertState.md) |  | 
  **xAnchoreAccount** | **string** | An account name to change the resource scope of the request to that account, if permissions allow (admin only) | 
 
 ### Return type
@@ -316,7 +315,7 @@ No authorization required
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)

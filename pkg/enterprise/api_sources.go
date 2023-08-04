@@ -132,19 +132,6 @@ type SourcesApi interface {
 	GetSourceSbomSpdxJsonExecute(r ApiGetSourceSbomSpdxJsonRequest) (string, *_nethttp.Response, error)
 
 	/*
-	GetSourceSbomTypes Get a detailed source repository analysis metadata record
-
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @param sourceId
-	 @return ApiGetSourceSbomTypesRequest
-	*/
-	GetSourceSbomTypes(ctx _context.Context, sourceId string) ApiGetSourceSbomTypesRequest
-
-	// GetSourceSbomTypesExecute executes the request
-	//  @return []string
-	GetSourceSbomTypesExecute(r ApiGetSourceSbomTypesRequest) ([]string, *_nethttp.Response, error)
-
-	/*
 	GetSourceVulnerabilities Get vulnerabilities for the source by type
 
 	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
@@ -978,110 +965,6 @@ func (a *SourcesApiService) GetSourceSbomSpdxJsonExecute(r ApiGetSourceSbomSpdxJ
 	}
 
 	localVarPath := localBasePath + "/sources/{source_id}/sbom/spdx-json"
-	localVarPath = strings.Replace(localVarPath, "{"+"source_id"+"}", _neturl.PathEscape(parameterToString(r.sourceId, "")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type ApiGetSourceSbomTypesRequest struct {
-	ctx _context.Context
-	ApiService SourcesApi
-	sourceId string
-}
-
-
-func (r ApiGetSourceSbomTypesRequest) Execute() ([]string, *_nethttp.Response, error) {
-	return r.ApiService.GetSourceSbomTypesExecute(r)
-}
-
-/*
-GetSourceSbomTypes Get a detailed source repository analysis metadata record
-
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param sourceId
- @return ApiGetSourceSbomTypesRequest
-*/
-func (a *SourcesApiService) GetSourceSbomTypes(ctx _context.Context, sourceId string) ApiGetSourceSbomTypesRequest {
-	return ApiGetSourceSbomTypesRequest{
-		ApiService: a,
-		ctx: ctx,
-		sourceId: sourceId,
-	}
-}
-
-// Execute executes the request
-//  @return []string
-func (a *SourcesApiService) GetSourceSbomTypesExecute(r ApiGetSourceSbomTypesRequest) ([]string, *_nethttp.Response, error) {
-	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  []string
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SourcesApiService.GetSourceSbomTypes")
-	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/sources/{source_id}/sbom"
 	localVarPath = strings.Replace(localVarPath, "{"+"source_id"+"}", _neturl.PathEscape(parameterToString(r.sourceId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
