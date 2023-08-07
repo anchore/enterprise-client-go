@@ -18,22 +18,24 @@ import (
 // RuleSet struct for RuleSet
 type RuleSet struct {
 	Id string `json:"id"`
-	Name *string `json:"name,omitempty"`
+	Name string `json:"name"`
 	// Description of the Policy, human readable
 	Description *string `json:"description,omitempty"`
 	Version string `json:"version"`
 	ArtifactType *string `json:"artifact_type,omitempty"`
-	Rules *[]PolicyRule `json:"rules,omitempty"`
+	Rules []PolicyRule `json:"rules"`
 }
 
 // NewRuleSet instantiates a new RuleSet object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewRuleSet(id string, version string) *RuleSet {
+func NewRuleSet(id string, name string, version string, rules []PolicyRule) *RuleSet {
 	this := RuleSet{}
 	this.Id = id
+	this.Name = name
 	this.Version = version
+	this.Rules = rules
 	return &this
 }
 
@@ -69,36 +71,28 @@ func (o *RuleSet) SetId(v string) {
 	o.Id = v
 }
 
-// GetName returns the Name field value if set, zero value otherwise.
+// GetName returns the Name field value
 func (o *RuleSet) GetName() string {
-	if o == nil || o.Name == nil {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Name
+
+	return o.Name
 }
 
-// GetNameOk returns a tuple with the Name field value if set, nil otherwise
+// GetNameOk returns a tuple with the Name field value
 // and a boolean to check if the value has been set.
 func (o *RuleSet) GetNameOk() (*string, bool) {
-	if o == nil || o.Name == nil {
+	if o == nil  {
 		return nil, false
 	}
-	return o.Name, true
+	return &o.Name, true
 }
 
-// HasName returns a boolean if a field has been set.
-func (o *RuleSet) HasName() bool {
-	if o != nil && o.Name != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetName gets a reference to the given string and assigns it to the Name field.
+// SetName sets field value
 func (o *RuleSet) SetName(v string) {
-	o.Name = &v
+	o.Name = v
 }
 
 // GetDescription returns the Description field value if set, zero value otherwise.
@@ -189,36 +183,28 @@ func (o *RuleSet) SetArtifactType(v string) {
 	o.ArtifactType = &v
 }
 
-// GetRules returns the Rules field value if set, zero value otherwise.
+// GetRules returns the Rules field value
 func (o *RuleSet) GetRules() []PolicyRule {
-	if o == nil || o.Rules == nil {
+	if o == nil {
 		var ret []PolicyRule
 		return ret
 	}
-	return *o.Rules
+
+	return o.Rules
 }
 
-// GetRulesOk returns a tuple with the Rules field value if set, nil otherwise
+// GetRulesOk returns a tuple with the Rules field value
 // and a boolean to check if the value has been set.
 func (o *RuleSet) GetRulesOk() (*[]PolicyRule, bool) {
-	if o == nil || o.Rules == nil {
+	if o == nil  {
 		return nil, false
 	}
-	return o.Rules, true
+	return &o.Rules, true
 }
 
-// HasRules returns a boolean if a field has been set.
-func (o *RuleSet) HasRules() bool {
-	if o != nil && o.Rules != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetRules gets a reference to the given []PolicyRule and assigns it to the Rules field.
+// SetRules sets field value
 func (o *RuleSet) SetRules(v []PolicyRule) {
-	o.Rules = &v
+	o.Rules = v
 }
 
 func (o RuleSet) MarshalJSON() ([]byte, error) {
@@ -226,7 +212,7 @@ func (o RuleSet) MarshalJSON() ([]byte, error) {
 	if true {
 		toSerialize["id"] = o.Id
 	}
-	if o.Name != nil {
+	if true {
 		toSerialize["name"] = o.Name
 	}
 	if o.Description != nil {
@@ -238,7 +224,7 @@ func (o RuleSet) MarshalJSON() ([]byte, error) {
 	if o.ArtifactType != nil {
 		toSerialize["artifact_type"] = o.ArtifactType
 	}
-	if o.Rules != nil {
+	if true {
 		toSerialize["rules"] = o.Rules
 	}
 	return json.Marshal(toSerialize)

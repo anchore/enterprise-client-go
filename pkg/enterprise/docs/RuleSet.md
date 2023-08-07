@@ -5,17 +5,17 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Id** | **string** |  | 
-**Name** | Pointer to **string** |  | [optional] 
+**Name** | **string** |  | 
 **Description** | Pointer to **string** | Description of the Policy, human readable | [optional] 
 **Version** | **string** |  | 
 **ArtifactType** | Pointer to **string** |  | [optional] 
-**Rules** | Pointer to [**[]PolicyRule**](PolicyRule.md) |  | [optional] 
+**Rules** | [**[]PolicyRule**](PolicyRule.md) |  | 
 
 ## Methods
 
 ### NewRuleSet
 
-`func NewRuleSet(id string, version string, ) *RuleSet`
+`func NewRuleSet(id string, name string, version string, rules []PolicyRule, ) *RuleSet`
 
 NewRuleSet instantiates a new RuleSet object
 This constructor will assign default values to properties that have it defined,
@@ -69,11 +69,6 @@ and a boolean to check if the value has been set.
 
 SetName sets Name field to given value.
 
-### HasName
-
-`func (o *RuleSet) HasName() bool`
-
-HasName returns a boolean if a field has been set.
 
 ### GetDescription
 
@@ -164,11 +159,6 @@ and a boolean to check if the value has been set.
 
 SetRules sets Rules field to given value.
 
-### HasRules
-
-`func (o *RuleSet) HasRules() bool`
-
-HasRules returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

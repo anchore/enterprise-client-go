@@ -18,7 +18,7 @@ import (
 
 // AllowlistItem Identifies a specific gate and trigger match from a policy against an image and indicates it should be ignored in final policy decisions
 type AllowlistItem struct {
-	Id *string `json:"id,omitempty"`
+	Id string `json:"id"`
 	Gate string `json:"gate"`
 	TriggerId string `json:"trigger_id"`
 	ExpiresOn NullableTime `json:"expires_on,omitempty"`
@@ -30,8 +30,9 @@ type AllowlistItem struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewAllowlistItem(gate string, triggerId string) *AllowlistItem {
+func NewAllowlistItem(id string, gate string, triggerId string) *AllowlistItem {
 	this := AllowlistItem{}
+	this.Id = id
 	this.Gate = gate
 	this.TriggerId = triggerId
 	return &this
@@ -45,36 +46,28 @@ func NewAllowlistItemWithDefaults() *AllowlistItem {
 	return &this
 }
 
-// GetId returns the Id field value if set, zero value otherwise.
+// GetId returns the Id field value
 func (o *AllowlistItem) GetId() string {
-	if o == nil || o.Id == nil {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Id
+
+	return o.Id
 }
 
-// GetIdOk returns a tuple with the Id field value if set, nil otherwise
+// GetIdOk returns a tuple with the Id field value
 // and a boolean to check if the value has been set.
 func (o *AllowlistItem) GetIdOk() (*string, bool) {
-	if o == nil || o.Id == nil {
+	if o == nil  {
 		return nil, false
 	}
-	return o.Id, true
+	return &o.Id, true
 }
 
-// HasId returns a boolean if a field has been set.
-func (o *AllowlistItem) HasId() bool {
-	if o != nil && o.Id != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetId gets a reference to the given string and assigns it to the Id field.
+// SetId sets field value
 func (o *AllowlistItem) SetId(v string) {
-	o.Id = &v
+	o.Id = v
 }
 
 // GetGate returns the Gate field value
@@ -201,7 +194,7 @@ func (o *AllowlistItem) SetDescription(v string) {
 
 func (o AllowlistItem) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Id != nil {
+	if true {
 		toSerialize["id"] = o.Id
 	}
 	if true {

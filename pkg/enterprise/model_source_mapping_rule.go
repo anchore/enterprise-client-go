@@ -17,11 +17,11 @@ import (
 
 // SourceMappingRule struct for SourceMappingRule
 type SourceMappingRule struct {
-	Id *string `json:"id,omitempty"`
+	Id string `json:"id"`
 	Name string `json:"name"`
-	AllowlistIds *[]string `json:"allowlist_ids,omitempty"`
+	AllowlistIds []string `json:"allowlist_ids"`
 	// List of rule_set_ids to evaluate in order, to completion
-	RuleSetIds *[]string `json:"rule_set_ids,omitempty"`
+	RuleSetIds []string `json:"rule_set_ids"`
 	Host string `json:"host"`
 	Repository string `json:"repository"`
 	// Description of the source to policy rule, human readable
@@ -32,9 +32,12 @@ type SourceMappingRule struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewSourceMappingRule(name string, host string, repository string) *SourceMappingRule {
+func NewSourceMappingRule(id string, name string, allowlistIds []string, ruleSetIds []string, host string, repository string) *SourceMappingRule {
 	this := SourceMappingRule{}
+	this.Id = id
 	this.Name = name
+	this.AllowlistIds = allowlistIds
+	this.RuleSetIds = ruleSetIds
 	this.Host = host
 	this.Repository = repository
 	return &this
@@ -48,36 +51,28 @@ func NewSourceMappingRuleWithDefaults() *SourceMappingRule {
 	return &this
 }
 
-// GetId returns the Id field value if set, zero value otherwise.
+// GetId returns the Id field value
 func (o *SourceMappingRule) GetId() string {
-	if o == nil || o.Id == nil {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Id
+
+	return o.Id
 }
 
-// GetIdOk returns a tuple with the Id field value if set, nil otherwise
+// GetIdOk returns a tuple with the Id field value
 // and a boolean to check if the value has been set.
 func (o *SourceMappingRule) GetIdOk() (*string, bool) {
-	if o == nil || o.Id == nil {
+	if o == nil  {
 		return nil, false
 	}
-	return o.Id, true
+	return &o.Id, true
 }
 
-// HasId returns a boolean if a field has been set.
-func (o *SourceMappingRule) HasId() bool {
-	if o != nil && o.Id != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetId gets a reference to the given string and assigns it to the Id field.
+// SetId sets field value
 func (o *SourceMappingRule) SetId(v string) {
-	o.Id = &v
+	o.Id = v
 }
 
 // GetName returns the Name field value
@@ -104,68 +99,52 @@ func (o *SourceMappingRule) SetName(v string) {
 	o.Name = v
 }
 
-// GetAllowlistIds returns the AllowlistIds field value if set, zero value otherwise.
+// GetAllowlistIds returns the AllowlistIds field value
 func (o *SourceMappingRule) GetAllowlistIds() []string {
-	if o == nil || o.AllowlistIds == nil {
+	if o == nil {
 		var ret []string
 		return ret
 	}
-	return *o.AllowlistIds
+
+	return o.AllowlistIds
 }
 
-// GetAllowlistIdsOk returns a tuple with the AllowlistIds field value if set, nil otherwise
+// GetAllowlistIdsOk returns a tuple with the AllowlistIds field value
 // and a boolean to check if the value has been set.
 func (o *SourceMappingRule) GetAllowlistIdsOk() (*[]string, bool) {
-	if o == nil || o.AllowlistIds == nil {
+	if o == nil  {
 		return nil, false
 	}
-	return o.AllowlistIds, true
+	return &o.AllowlistIds, true
 }
 
-// HasAllowlistIds returns a boolean if a field has been set.
-func (o *SourceMappingRule) HasAllowlistIds() bool {
-	if o != nil && o.AllowlistIds != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetAllowlistIds gets a reference to the given []string and assigns it to the AllowlistIds field.
+// SetAllowlistIds sets field value
 func (o *SourceMappingRule) SetAllowlistIds(v []string) {
-	o.AllowlistIds = &v
+	o.AllowlistIds = v
 }
 
-// GetRuleSetIds returns the RuleSetIds field value if set, zero value otherwise.
+// GetRuleSetIds returns the RuleSetIds field value
 func (o *SourceMappingRule) GetRuleSetIds() []string {
-	if o == nil || o.RuleSetIds == nil {
+	if o == nil {
 		var ret []string
 		return ret
 	}
-	return *o.RuleSetIds
+
+	return o.RuleSetIds
 }
 
-// GetRuleSetIdsOk returns a tuple with the RuleSetIds field value if set, nil otherwise
+// GetRuleSetIdsOk returns a tuple with the RuleSetIds field value
 // and a boolean to check if the value has been set.
 func (o *SourceMappingRule) GetRuleSetIdsOk() (*[]string, bool) {
-	if o == nil || o.RuleSetIds == nil {
+	if o == nil  {
 		return nil, false
 	}
-	return o.RuleSetIds, true
+	return &o.RuleSetIds, true
 }
 
-// HasRuleSetIds returns a boolean if a field has been set.
-func (o *SourceMappingRule) HasRuleSetIds() bool {
-	if o != nil && o.RuleSetIds != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetRuleSetIds gets a reference to the given []string and assigns it to the RuleSetIds field.
+// SetRuleSetIds sets field value
 func (o *SourceMappingRule) SetRuleSetIds(v []string) {
-	o.RuleSetIds = &v
+	o.RuleSetIds = v
 }
 
 // GetHost returns the Host field value
@@ -250,16 +229,16 @@ func (o *SourceMappingRule) SetDescription(v string) {
 
 func (o SourceMappingRule) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Id != nil {
+	if true {
 		toSerialize["id"] = o.Id
 	}
 	if true {
 		toSerialize["name"] = o.Name
 	}
-	if o.AllowlistIds != nil {
+	if true {
 		toSerialize["allowlist_ids"] = o.AllowlistIds
 	}
-	if o.RuleSetIds != nil {
+	if true {
 		toSerialize["rule_set_ids"] = o.RuleSetIds
 	}
 	if true {
