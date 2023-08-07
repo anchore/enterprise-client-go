@@ -106,8 +106,8 @@ type InventoriesApi interface {
 	GetImageInventory(ctx _context.Context) ApiGetImageInventoryRequest
 
 	// GetImageInventoryExecute executes the request
-	//  @return []InventoryItem
-	GetImageInventoryExecute(r ApiGetImageInventoryRequest) ([]InventoryItem, *_nethttp.Response, error)
+	//  @return InventoryItems
+	GetImageInventoryExecute(r ApiGetImageInventoryRequest) (InventoryItems, *_nethttp.Response, error)
 
 	/*
 	GetKubernetesContainers Return a list of Kubernetes containers that have been inventoried for this account
@@ -846,7 +846,7 @@ func (r ApiGetImageInventoryRequest) XAnchoreAccount(xAnchoreAccount string) Api
 	return r
 }
 
-func (r ApiGetImageInventoryRequest) Execute() ([]InventoryItem, *_nethttp.Response, error) {
+func (r ApiGetImageInventoryRequest) Execute() (InventoryItems, *_nethttp.Response, error) {
 	return r.ApiService.GetImageInventoryExecute(r)
 }
 
@@ -866,15 +866,15 @@ func (a *InventoriesApiService) GetImageInventory(ctx _context.Context) ApiGetIm
 }
 
 // Execute executes the request
-//  @return []InventoryItem
-func (a *InventoriesApiService) GetImageInventoryExecute(r ApiGetImageInventoryRequest) ([]InventoryItem, *_nethttp.Response, error) {
+//  @return InventoryItems
+func (a *InventoriesApiService) GetImageInventoryExecute(r ApiGetImageInventoryRequest) (InventoryItems, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		localVarReturnValue  []InventoryItem
+		localVarReturnValue  InventoryItems
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "InventoriesApiService.GetImageInventory")

@@ -362,7 +362,7 @@ No authorization required
 
 ## GetImageInventory
 
-> []InventoryItem GetImageInventory(ctx).InventoryType(inventoryType).ImageDigest(imageDigest).Context(context).XAnchoreAccount(xAnchoreAccount).Execute()
+> InventoryItems GetImageInventory(ctx).InventoryType(inventoryType).ImageDigest(imageDigest).Context(context).XAnchoreAccount(xAnchoreAccount).Execute()
 
 Return a list of the images in inventories for this account
 
@@ -393,7 +393,7 @@ func main() {
         fmt.Fprintf(os.Stderr, "Error when calling `InventoriesApi.GetImageInventory``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `GetImageInventory`: []InventoryItem
+    // response from `GetImageInventory`: InventoryItems
     fmt.Fprintf(os.Stdout, "Response from `InventoriesApi.GetImageInventory`: %v\n", resp)
 }
 ```
@@ -416,7 +416,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[]InventoryItem**](InventoryItem.md)
+[**InventoryItems**](InventoryItems.md)
 
 ### Authorization
 

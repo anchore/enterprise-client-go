@@ -167,8 +167,8 @@ type SourcesApi interface {
 	ListSources(ctx _context.Context) ApiListSourcesRequest
 
 	// ListSourcesExecute executes the request
-	//  @return []Source
-	ListSourcesExecute(r ApiListSourcesRequest) ([]Source, *_nethttp.Response, error)
+	//  @return SourcesList
+	ListSourcesExecute(r ApiListSourcesRequest) (SourcesList, *_nethttp.Response, error)
 }
 
 // SourcesApiService SourcesApi service
@@ -1278,7 +1278,7 @@ type ApiListSourcesRequest struct {
 }
 
 
-func (r ApiListSourcesRequest) Execute() ([]Source, *_nethttp.Response, error) {
+func (r ApiListSourcesRequest) Execute() (SourcesList, *_nethttp.Response, error) {
 	return r.ApiService.ListSourcesExecute(r)
 }
 
@@ -1296,15 +1296,15 @@ func (a *SourcesApiService) ListSources(ctx _context.Context) ApiListSourcesRequ
 }
 
 // Execute executes the request
-//  @return []Source
-func (a *SourcesApiService) ListSourcesExecute(r ApiListSourcesRequest) ([]Source, *_nethttp.Response, error) {
+//  @return SourcesList
+func (a *SourcesApiService) ListSourcesExecute(r ApiListSourcesRequest) (SourcesList, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		localVarReturnValue  []Source
+		localVarReturnValue  SourcesList
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SourcesApiService.ListSources")
