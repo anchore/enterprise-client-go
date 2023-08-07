@@ -28,7 +28,7 @@ Method | HTTP request | Description
 
 ## AddImage
 
-> []AnchoreImage AddImage(ctx).Image(image).Force(force).AutoSubscribe(autoSubscribe).XAnchoreAccount(xAnchoreAccount).Execute()
+> AnchoreImageList AddImage(ctx).Image(image).Force(force).AutoSubscribe(autoSubscribe).XAnchoreAccount(xAnchoreAccount).Execute()
 
 Submit a new image for analysis by the engine
 
@@ -59,7 +59,7 @@ func main() {
         fmt.Fprintf(os.Stderr, "Error when calling `ImagesApi.AddImage``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `AddImage`: []AnchoreImage
+    // response from `AddImage`: AnchoreImageList
     fmt.Fprintf(os.Stdout, "Response from `ImagesApi.AddImage`: %v\n", resp)
 }
 ```
@@ -82,7 +82,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[]AnchoreImage**](AnchoreImage.md)
+[**AnchoreImageList**](AnchoreImageList.md)
 
 ### Authorization
 
@@ -1323,7 +1323,7 @@ No authorization required
 
 ## ListImages
 
-> []AnchoreImage ListImages(ctx).ImageId(imageId).History(history).FullTag(fullTag).ImageStatus(imageStatus).AnalysisStatus(analysisStatus).XAnchoreAccount(xAnchoreAccount).Execute()
+> AnchoreImageList ListImages(ctx).ImageId(imageId).History(history).FullTag(fullTag).ImageStatus(imageStatus).AnalysisStatus(analysisStatus).XAnchoreAccount(xAnchoreAccount).Execute()
 
 List all visible images
 
@@ -1356,7 +1356,7 @@ func main() {
         fmt.Fprintf(os.Stderr, "Error when calling `ImagesApi.ListImages``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `ListImages`: []AnchoreImage
+    // response from `ListImages`: AnchoreImageList
     fmt.Fprintf(os.Stdout, "Response from `ImagesApi.ListImages`: %v\n", resp)
 }
 ```
@@ -1381,7 +1381,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[]AnchoreImage**](AnchoreImage.md)
+[**AnchoreImageList**](AnchoreImageList.md)
 
 ### Authorization
 

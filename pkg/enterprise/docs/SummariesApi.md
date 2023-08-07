@@ -10,7 +10,7 @@ Method | HTTP request | Description
 
 ## ListImageTags
 
-> []AnchoreImageTagSummary ListImageTags(ctx).ImageStatus(imageStatus).XAnchoreAccount(xAnchoreAccount).Execute()
+> AnchoreImageTagSummaryList ListImageTags(ctx).ImageStatus(imageStatus).XAnchoreAccount(xAnchoreAccount).Execute()
 
 List all visible image digests and tags
 
@@ -39,7 +39,7 @@ func main() {
         fmt.Fprintf(os.Stderr, "Error when calling `SummariesApi.ListImageTags``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `ListImageTags`: []AnchoreImageTagSummary
+    // response from `ListImageTags`: AnchoreImageTagSummaryList
     fmt.Fprintf(os.Stdout, "Response from `SummariesApi.ListImageTags`: %v\n", resp)
 }
 ```
@@ -60,7 +60,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[]AnchoreImageTagSummary**](AnchoreImageTagSummary.md)
+[**AnchoreImageTagSummaryList**](AnchoreImageTagSummaryList.md)
 
 ### Authorization
 

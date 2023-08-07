@@ -716,7 +716,7 @@ No authorization required
 
 ## ListSources
 
-> []Source ListSources(ctx).Execute()
+> SourcesList ListSources(ctx).Execute()
 
 List the source repository analysis records
 
@@ -741,7 +741,7 @@ func main() {
         fmt.Fprintf(os.Stderr, "Error when calling `SourcesApi.ListSources``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `ListSources`: []Source
+    // response from `ListSources`: SourcesList
     fmt.Fprintf(os.Stdout, "Response from `SourcesApi.ListSources`: %v\n", resp)
 }
 ```
@@ -757,7 +757,7 @@ Other parameters are passed through a pointer to a apiListSourcesRequest struct 
 
 ### Return type
 
-[**[]Source**](Source.md)
+[**SourcesList**](SourcesList.md)
 
 ### Authorization
 

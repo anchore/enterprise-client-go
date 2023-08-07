@@ -7178,9 +7178,12 @@ definitions:
           $ref: '#/definitions/AnalysisStatusDetail'
   AnchoreImageList:
     description: A list of Anchore Images
-    type: array
-    items:
-      $ref: '#/definitions/AnchoreImage'
+    type: object
+    properties:
+      items:
+        type: array
+        items:
+          $ref: '#/definitions/AnchoreImage'
   AnchoreImageTagSummary:
     description: A unique image in the engine.
     type: object
@@ -7205,9 +7208,12 @@ definitions:
         type: string
   AnchoreImageTagSummaryList:
     description: a list of AnchoreImageTagSummary objects
-    type: array
-    items:
-      $ref: '#/definitions/AnchoreImageTagSummary'
+    type: object
+    properties:
+      items:
+        type: array
+        items:
+          $ref: '#/definitions/AnchoreImageTagSummary'
   AnyValue: {}
   ApiErrorResponse:
     description: Generic HTTP API error response
@@ -8931,10 +8937,13 @@ definitions:
         type: string
         format: date-time
   InventoryItems:
-    type: array
+    type: object
     description: Inventory report for Images in Use
-    items:
-      $ref: '#/definitions/InventoryItem'
+    properties:
+      items:
+        type: array
+        items:
+          $ref: '#/definitions/InventoryItem'
   JsonPatchAdd:
     type: object
     description: The 'add' operation per RFC6902
@@ -11635,9 +11644,12 @@ definitions:
         description: Details about (possible) allowlist match
         $ref: '#/definitions/PolicyEvaluationFindingAllowlistMatch'
   SourcesList:
-    type: array
-    items:
-      $ref: '#/definitions/Source'
+    type: object
+    properties:
+      items:
+        type: array
+        items:
+          $ref: '#/definitions/Source'
   StandaloneVulnerability:
     type: object
     properties:

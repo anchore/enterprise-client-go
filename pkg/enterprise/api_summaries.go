@@ -37,8 +37,8 @@ type SummariesApi interface {
 	ListImageTags(ctx _context.Context) ApiListImageTagsRequest
 
 	// ListImageTagsExecute executes the request
-	//  @return []AnchoreImageTagSummary
-	ListImageTagsExecute(r ApiListImageTagsRequest) ([]AnchoreImageTagSummary, *_nethttp.Response, error)
+	//  @return AnchoreImageTagSummaryList
+	ListImageTagsExecute(r ApiListImageTagsRequest) (AnchoreImageTagSummaryList, *_nethttp.Response, error)
 }
 
 // SummariesApiService SummariesApi service
@@ -62,7 +62,7 @@ func (r ApiListImageTagsRequest) XAnchoreAccount(xAnchoreAccount string) ApiList
 	return r
 }
 
-func (r ApiListImageTagsRequest) Execute() ([]AnchoreImageTagSummary, *_nethttp.Response, error) {
+func (r ApiListImageTagsRequest) Execute() (AnchoreImageTagSummaryList, *_nethttp.Response, error) {
 	return r.ApiService.ListImageTagsExecute(r)
 }
 
@@ -82,15 +82,15 @@ func (a *SummariesApiService) ListImageTags(ctx _context.Context) ApiListImageTa
 }
 
 // Execute executes the request
-//  @return []AnchoreImageTagSummary
-func (a *SummariesApiService) ListImageTagsExecute(r ApiListImageTagsRequest) ([]AnchoreImageTagSummary, *_nethttp.Response, error) {
+//  @return AnchoreImageTagSummaryList
+func (a *SummariesApiService) ListImageTagsExecute(r ApiListImageTagsRequest) (AnchoreImageTagSummaryList, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		localVarReturnValue  []AnchoreImageTagSummary
+		localVarReturnValue  AnchoreImageTagSummaryList
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SummariesApiService.ListImageTags")

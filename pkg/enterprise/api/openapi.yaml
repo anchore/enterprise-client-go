@@ -8665,9 +8665,102 @@ components:
       type: object
     AnchoreImageList:
       description: A list of Anchore Images
-      items:
-        $ref: '#/components/schemas/AnchoreImage'
-      type: array
+      example:
+        items:
+        - last_updated: 2000-01-23T04:56:07.000+00:00
+          image_digest: image_digest
+          analysis_status_detail:
+          - to_status: to_status
+            from_status: from_status
+            source:
+              service_name: service_name
+              host_id: host_id
+            timestamp: timestamp
+          - to_status: to_status
+            from_status: from_status
+            source:
+              service_name: service_name
+              host_id: host_id
+            timestamp: timestamp
+          analysis_status: not_analyzed
+          account_name: account_name
+          created_at: 2000-01-23T04:56:07.000+00:00
+          parent_digest: parent_digest
+          annotations: '{}'
+          image_status: active
+          record_version: record_version
+          image_content: '{}'
+          image_detail:
+          - full_tag: full_tag
+            registry: registry
+            last_updated: 2000-01-23T04:56:07.000+00:00
+            image_digest: image_digest
+            account_name: account_name
+            repo: repo
+            dockerfile: dockerfile
+            created_at: 2000-01-23T04:56:07.000+00:00
+            image_id: image_id
+            full_digest: full_digest
+          - full_tag: full_tag
+            registry: registry
+            last_updated: 2000-01-23T04:56:07.000+00:00
+            image_digest: image_digest
+            account_name: account_name
+            repo: repo
+            dockerfile: dockerfile
+            created_at: 2000-01-23T04:56:07.000+00:00
+            image_id: image_id
+            full_digest: full_digest
+        - last_updated: 2000-01-23T04:56:07.000+00:00
+          image_digest: image_digest
+          analysis_status_detail:
+          - to_status: to_status
+            from_status: from_status
+            source:
+              service_name: service_name
+              host_id: host_id
+            timestamp: timestamp
+          - to_status: to_status
+            from_status: from_status
+            source:
+              service_name: service_name
+              host_id: host_id
+            timestamp: timestamp
+          analysis_status: not_analyzed
+          account_name: account_name
+          created_at: 2000-01-23T04:56:07.000+00:00
+          parent_digest: parent_digest
+          annotations: '{}'
+          image_status: active
+          record_version: record_version
+          image_content: '{}'
+          image_detail:
+          - full_tag: full_tag
+            registry: registry
+            last_updated: 2000-01-23T04:56:07.000+00:00
+            image_digest: image_digest
+            account_name: account_name
+            repo: repo
+            dockerfile: dockerfile
+            created_at: 2000-01-23T04:56:07.000+00:00
+            image_id: image_id
+            full_digest: full_digest
+          - full_tag: full_tag
+            registry: registry
+            last_updated: 2000-01-23T04:56:07.000+00:00
+            image_digest: image_digest
+            account_name: account_name
+            repo: repo
+            dockerfile: dockerfile
+            created_at: 2000-01-23T04:56:07.000+00:00
+            image_id: image_id
+            full_digest: full_digest
+      properties:
+        items:
+          items:
+            $ref: '#/components/schemas/AnchoreImage'
+          type: array
+      type: object
     AnchoreImageTagSummary:
       description: A unique image in the engine.
       example:
@@ -8702,9 +8795,32 @@ components:
       type: object
     AnchoreImageTagSummaryList:
       description: a list of AnchoreImageTagSummary objects
-      items:
-        $ref: '#/components/schemas/AnchoreImageTagSummary'
-      type: array
+      example:
+        items:
+        - tag_detected_at: 1
+          full_tag: full_tag
+          image_digest: image_digest
+          analysis_status: analysis_status
+          analyzed_at: 6
+          parent_digest: parent_digest
+          created_at: 0
+          image_status: image_status
+          image_id: image_id
+        - tag_detected_at: 1
+          full_tag: full_tag
+          image_digest: image_digest
+          analysis_status: analysis_status
+          analyzed_at: 6
+          parent_digest: parent_digest
+          created_at: 0
+          image_status: image_status
+          image_id: image_id
+      properties:
+        items:
+          items:
+            $ref: '#/components/schemas/AnchoreImageTagSummary'
+          type: array
+      type: object
     AnyValue:
       type: object
     ApiErrorResponse:
@@ -11315,9 +11431,28 @@ components:
       type: object
     InventoryItems:
       description: Inventory report for Images in Use
-      items:
-        $ref: '#/components/schemas/InventoryItem'
-      type: array
+      example:
+        items:
+        - last_updated: 2000-01-23T04:56:07.000+00:00
+          image_digest: image_digest
+          last_seen: 2000-01-23T04:56:07.000+00:00
+          context: context
+          created_at: 2000-01-23T04:56:07.000+00:00
+          inventory_type: inventory_type
+          image_tag: image_tag
+        - last_updated: 2000-01-23T04:56:07.000+00:00
+          image_digest: image_digest
+          last_seen: 2000-01-23T04:56:07.000+00:00
+          context: context
+          created_at: 2000-01-23T04:56:07.000+00:00
+          inventory_type: inventory_type
+          image_tag: image_tag
+      properties:
+        items:
+          items:
+            $ref: '#/components/schemas/InventoryItem'
+          type: array
+      type: object
     JsonPatchAdd:
       description: The 'add' operation per RFC6902
       example:
@@ -16083,9 +16218,32 @@ components:
           $ref: '#/components/schemas/PolicyEvaluationFindingAllowlistMatch'
       type: object
     SourcesList:
-      items:
-        $ref: '#/components/schemas/Source'
-      type: array
+      example:
+        items:
+        - last_updated: 2000-01-23T04:56:07.000+00:00
+          analysis_status: not_analyzed
+          account_name: account_name
+          host: host
+          created_at: 2000-01-23T04:56:07.000+00:00
+          uuid: uuid
+          repository_name: repository_name
+          source_status: active
+          revision: revision
+        - last_updated: 2000-01-23T04:56:07.000+00:00
+          analysis_status: not_analyzed
+          account_name: account_name
+          host: host
+          created_at: 2000-01-23T04:56:07.000+00:00
+          uuid: uuid
+          repository_name: repository_name
+          source_status: active
+          revision: revision
+      properties:
+        items:
+          items:
+            $ref: '#/components/schemas/Source'
+          type: array
+      type: object
     StandaloneVulnerability:
       description: A single vulnerability record in a single namespace, the unique
         key is the combination of the id and namespace
