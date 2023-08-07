@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Id** | **string** | Id of the policy | 
-**Name** | Pointer to **string** | Human readable name for the policy | [optional] 
+**Name** | **string** | Human readable name for the policy | 
 **Description** | Pointer to **string** | Description of the policy, human readable | [optional] 
 **Version** | **string** | Version id for this policy format | 
 **Allowlists** | Pointer to [**[]Allowlist**](Allowlist.md) | Allowlists which define which policy matches to disregard explicitly in the final policy decision | [optional] 
@@ -20,7 +20,7 @@ Name | Type | Description | Notes
 
 ### NewPolicy
 
-`func NewPolicy(id string, version string, ruleSets []RuleSet, mappings []MappingRule, ) *Policy`
+`func NewPolicy(id string, name string, version string, ruleSets []RuleSet, mappings []MappingRule, ) *Policy`
 
 NewPolicy instantiates a new Policy object
 This constructor will assign default values to properties that have it defined,
@@ -74,11 +74,6 @@ and a boolean to check if the value has been set.
 
 SetName sets Name field to given value.
 
-### HasName
-
-`func (o *Policy) HasName() bool`
-
-HasName returns a boolean if a field has been set.
 
 ### GetDescription
 

@@ -4,19 +4,19 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Id** | Pointer to **string** |  | [optional] 
+**Id** | **string** |  | 
 **Gate** | **string** |  | 
 **Trigger** | **string** |  | 
 **Action** | **string** |  | 
 **Description** | Pointer to **string** | Description of the policy rule, human readable | [optional] 
-**Params** | Pointer to [**[]PolicyRuleParams**](PolicyRuleParams.md) |  | [optional] 
+**Params** | [**[]PolicyRuleParams**](PolicyRuleParams.md) |  | 
 **Recommendation** | Pointer to **string** |  | [optional] 
 
 ## Methods
 
 ### NewPolicyRule
 
-`func NewPolicyRule(gate string, trigger string, action string, ) *PolicyRule`
+`func NewPolicyRule(id string, gate string, trigger string, action string, params []PolicyRuleParams, ) *PolicyRule`
 
 NewPolicyRule instantiates a new PolicyRule object
 This constructor will assign default values to properties that have it defined,
@@ -50,11 +50,6 @@ and a boolean to check if the value has been set.
 
 SetId sets Id field to given value.
 
-### HasId
-
-`func (o *PolicyRule) HasId() bool`
-
-HasId returns a boolean if a field has been set.
 
 ### GetGate
 
@@ -160,11 +155,6 @@ and a boolean to check if the value has been set.
 
 SetParams sets Params field to given value.
 
-### HasParams
-
-`func (o *PolicyRule) HasParams() bool`
-
-HasParams returns a boolean if a field has been set.
 
 ### GetRecommendation
 

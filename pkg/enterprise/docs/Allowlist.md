@@ -5,16 +5,16 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Id** | **string** |  | 
-**Name** | Pointer to **string** |  | [optional] 
+**Name** | **string** |  | 
 **Version** | **string** |  | 
 **Description** | Pointer to **string** | Description of the Allowlist, human readable | [optional] 
-**Items** | Pointer to [**[]AllowlistItem**](AllowlistItem.md) |  | [optional] 
+**Items** | [**[]AllowlistItem**](AllowlistItem.md) |  | 
 
 ## Methods
 
 ### NewAllowlist
 
-`func NewAllowlist(id string, version string, ) *Allowlist`
+`func NewAllowlist(id string, name string, version string, items []AllowlistItem, ) *Allowlist`
 
 NewAllowlist instantiates a new Allowlist object
 This constructor will assign default values to properties that have it defined,
@@ -68,11 +68,6 @@ and a boolean to check if the value has been set.
 
 SetName sets Name field to given value.
 
-### HasName
-
-`func (o *Allowlist) HasName() bool`
-
-HasName returns a boolean if a field has been set.
 
 ### GetVersion
 
@@ -138,11 +133,6 @@ and a boolean to check if the value has been set.
 
 SetItems sets Items field to given value.
 
-### HasItems
-
-`func (o *Allowlist) HasItems() bool`
-
-HasItems returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

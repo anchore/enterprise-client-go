@@ -20,7 +20,7 @@ type Policy struct {
 	// Id of the policy
 	Id string `json:"id"`
 	// Human readable name for the policy
-	Name *string `json:"name,omitempty"`
+	Name string `json:"name"`
 	// Description of the policy, human readable
 	Description *string `json:"description,omitempty"`
 	// Version id for this policy format
@@ -45,9 +45,10 @@ type Policy struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewPolicy(id string, version string, ruleSets []RuleSet, mappings []MappingRule) *Policy {
+func NewPolicy(id string, name string, version string, ruleSets []RuleSet, mappings []MappingRule) *Policy {
 	this := Policy{}
 	this.Id = id
+	this.Name = name
 	this.Version = version
 	this.RuleSets = ruleSets
 	this.Mappings = mappings
@@ -86,36 +87,28 @@ func (o *Policy) SetId(v string) {
 	o.Id = v
 }
 
-// GetName returns the Name field value if set, zero value otherwise.
+// GetName returns the Name field value
 func (o *Policy) GetName() string {
-	if o == nil || o.Name == nil {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Name
+
+	return o.Name
 }
 
-// GetNameOk returns a tuple with the Name field value if set, nil otherwise
+// GetNameOk returns a tuple with the Name field value
 // and a boolean to check if the value has been set.
 func (o *Policy) GetNameOk() (*string, bool) {
-	if o == nil || o.Name == nil {
+	if o == nil  {
 		return nil, false
 	}
-	return o.Name, true
+	return &o.Name, true
 }
 
-// HasName returns a boolean if a field has been set.
-func (o *Policy) HasName() bool {
-	if o != nil && o.Name != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetName gets a reference to the given string and assigns it to the Name field.
+// SetName sets field value
 func (o *Policy) SetName(v string) {
-	o.Name = &v
+	o.Name = v
 }
 
 // GetDescription returns the Description field value if set, zero value otherwise.
@@ -387,7 +380,7 @@ func (o Policy) MarshalJSON() ([]byte, error) {
 	if true {
 		toSerialize["id"] = o.Id
 	}
-	if o.Name != nil {
+	if true {
 		toSerialize["name"] = o.Name
 	}
 	if o.Description != nil {

@@ -4,10 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Id** | Pointer to **string** |  | [optional] 
+**Id** | **string** |  | 
 **Name** | **string** |  | 
-**AllowlistIds** | Pointer to **[]string** |  | [optional] 
-**RuleSetIds** | Pointer to **[]string** | List of rule_set_ids to evaluate in order, to completion | [optional] 
+**AllowlistIds** | **[]string** |  | 
+**RuleSetIds** | **[]string** | List of rule_set_ids to evaluate in order, to completion | 
 **Host** | **string** |  | 
 **Repository** | **string** |  | 
 **Description** | Pointer to **string** | Description of the source to policy rule, human readable | [optional] 
@@ -16,7 +16,7 @@ Name | Type | Description | Notes
 
 ### NewSourceMappingRule
 
-`func NewSourceMappingRule(name string, host string, repository string, ) *SourceMappingRule`
+`func NewSourceMappingRule(id string, name string, allowlistIds []string, ruleSetIds []string, host string, repository string, ) *SourceMappingRule`
 
 NewSourceMappingRule instantiates a new SourceMappingRule object
 This constructor will assign default values to properties that have it defined,
@@ -50,11 +50,6 @@ and a boolean to check if the value has been set.
 
 SetId sets Id field to given value.
 
-### HasId
-
-`func (o *SourceMappingRule) HasId() bool`
-
-HasId returns a boolean if a field has been set.
 
 ### GetName
 
@@ -95,11 +90,6 @@ and a boolean to check if the value has been set.
 
 SetAllowlistIds sets AllowlistIds field to given value.
 
-### HasAllowlistIds
-
-`func (o *SourceMappingRule) HasAllowlistIds() bool`
-
-HasAllowlistIds returns a boolean if a field has been set.
 
 ### GetRuleSetIds
 
@@ -120,11 +110,6 @@ and a boolean to check if the value has been set.
 
 SetRuleSetIds sets RuleSetIds field to given value.
 
-### HasRuleSetIds
-
-`func (o *SourceMappingRule) HasRuleSetIds() bool`
-
-HasRuleSetIds returns a boolean if a field has been set.
 
 ### GetHost
 

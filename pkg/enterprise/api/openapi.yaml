@@ -8299,6 +8299,8 @@ components:
           type: array
       required:
       - id
+      - items
+      - name
       - version
       type: object
     AllowlistItem:
@@ -8326,6 +8328,7 @@ components:
           type: string
       required:
       - gate
+      - id
       - trigger_id
       type: object
     AnalysisArchiveAddResult:
@@ -10927,6 +10930,7 @@ components:
             readable
           type: string
       required:
+      - id
       - image
       - name
       - registry
@@ -11884,10 +11888,13 @@ components:
           description: Description of the image to policy mapping rule, human readable
           type: string
       required:
+      - allowlist_ids
+      - id
       - image
       - name
       - registry
       - repository
+      - rule_set_ids
       type: object
     MetadataResponse:
       description: Generic wrapper for metadata listings from images
@@ -13073,6 +13080,7 @@ components:
       required:
       - id
       - mappings
+      - name
       - rule_sets
       - version
       type: object
@@ -14025,6 +14033,12 @@ components:
         description:
           description: Description of the policy, human readable
           type: string
+      required:
+      - account_name
+      - active
+      - name
+      - policy_id
+      - policy_source
       type: object
     PolicyRule:
       description: A rule that defines and decision value if the match is found true
@@ -14066,6 +14080,8 @@ components:
       required:
       - action
       - gate
+      - id
+      - params
       - trigger
       type: object
     RbacManagerAccountRole:
@@ -14979,6 +14995,8 @@ components:
           type: array
       required:
       - id
+      - name
+      - rules
       - version
       type: object
     RuntimeComplianceCheck:
@@ -15571,9 +15589,12 @@ components:
           description: Description of the source to policy rule, human readable
           type: string
       required:
+      - allowlist_ids
       - host
+      - id
       - name
       - repository
+      - rule_set_ids
       type: object
     SourcePackageVulnerabilityResponse:
       description: Envelope containing list of vulnerabilities for a source repo

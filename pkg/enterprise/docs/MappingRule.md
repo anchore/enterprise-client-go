@@ -4,10 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Id** | Pointer to **string** |  | [optional] 
+**Id** | **string** |  | 
 **Name** | **string** |  | 
-**AllowlistIds** | Pointer to **[]string** |  | [optional] 
-**RuleSetIds** | Pointer to **[]string** | List of rule_set_ids to evaluate in order, to completion | [optional] 
+**AllowlistIds** | **[]string** |  | 
+**RuleSetIds** | **[]string** | List of rule_set_ids to evaluate in order, to completion | 
 **Registry** | **string** |  | 
 **Repository** | **string** |  | 
 **Image** | [**ImageRef**](ImageRef.md) |  | 
@@ -17,7 +17,7 @@ Name | Type | Description | Notes
 
 ### NewMappingRule
 
-`func NewMappingRule(name string, registry string, repository string, image ImageRef, ) *MappingRule`
+`func NewMappingRule(id string, name string, allowlistIds []string, ruleSetIds []string, registry string, repository string, image ImageRef, ) *MappingRule`
 
 NewMappingRule instantiates a new MappingRule object
 This constructor will assign default values to properties that have it defined,
@@ -51,11 +51,6 @@ and a boolean to check if the value has been set.
 
 SetId sets Id field to given value.
 
-### HasId
-
-`func (o *MappingRule) HasId() bool`
-
-HasId returns a boolean if a field has been set.
 
 ### GetName
 
@@ -96,11 +91,6 @@ and a boolean to check if the value has been set.
 
 SetAllowlistIds sets AllowlistIds field to given value.
 
-### HasAllowlistIds
-
-`func (o *MappingRule) HasAllowlistIds() bool`
-
-HasAllowlistIds returns a boolean if a field has been set.
 
 ### GetRuleSetIds
 
@@ -121,11 +111,6 @@ and a boolean to check if the value has been set.
 
 SetRuleSetIds sets RuleSetIds field to given value.
 
-### HasRuleSetIds
-
-`func (o *MappingRule) HasRuleSetIds() bool`
-
-HasRuleSetIds returns a boolean if a field has been set.
 
 ### GetRegistry
 

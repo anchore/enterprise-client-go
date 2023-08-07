@@ -6885,7 +6885,9 @@ definitions:
     description: A collection of allowlist items to match a policy evaluation against.
     required:
     - id
+    - name
     - version
+    - items
     additionalProperties: false
     properties:
       id:
@@ -6906,6 +6908,7 @@ definitions:
     description: Identifies a specific gate and trigger match from a policy against
       an image and indicates it should be ignored in final policy decisions
     required:
+    - id
     - gate
     - trigger_id
     additionalProperties: false
@@ -8640,6 +8643,7 @@ definitions:
   ImageSelectionRule:
     type: object
     required:
+    - id
     - name
     - registry
     - repository
@@ -9351,7 +9355,10 @@ definitions:
   MappingRule:
     type: object
     required:
+    - id
     - name
+    - allowlist_ids
+    - rule_set_ids
     - registry
     - repository
     - image
@@ -10171,6 +10178,7 @@ definitions:
     type: object
     required:
     - id
+    - name
     - version
     - rule_sets
     - mappings
@@ -10500,6 +10508,12 @@ definitions:
   PolicyRecord:
     description: A policy plus some metadata
     type: object
+    required:
+    - policy_id
+    - active
+    - account_name
+    - policy_source
+    - name
     properties:
       created_at:
         type: string
@@ -10533,9 +10547,11 @@ definitions:
     description: A rule that defines and decision value if the match is found true
       for a given image.
     required:
+    - id
     - gate
     - trigger
     - action
+    - params
     additionalProperties: false
     properties:
       id:
@@ -11075,7 +11091,9 @@ definitions:
     type: object
     required:
     - id
+    - name
     - version
+    - rules
     additionalProperties: false
     properties:
       id:
@@ -11447,7 +11465,10 @@ definitions:
   SourceMappingRule:
     type: object
     required:
+    - id
     - name
+    - allowlist_ids
+    - rule_set_ids
     - host
     - repository
     additionalProperties: false

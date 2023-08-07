@@ -17,13 +17,13 @@ import (
 
 // PolicyRule A rule that defines and decision value if the match is found true for a given image.
 type PolicyRule struct {
-	Id *string `json:"id,omitempty"`
+	Id string `json:"id"`
 	Gate string `json:"gate"`
 	Trigger string `json:"trigger"`
 	Action string `json:"action"`
 	// Description of the policy rule, human readable
 	Description *string `json:"description,omitempty"`
-	Params *[]PolicyRuleParams `json:"params,omitempty"`
+	Params []PolicyRuleParams `json:"params"`
 	Recommendation *string `json:"recommendation,omitempty"`
 }
 
@@ -31,11 +31,13 @@ type PolicyRule struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewPolicyRule(gate string, trigger string, action string) *PolicyRule {
+func NewPolicyRule(id string, gate string, trigger string, action string, params []PolicyRuleParams) *PolicyRule {
 	this := PolicyRule{}
+	this.Id = id
 	this.Gate = gate
 	this.Trigger = trigger
 	this.Action = action
+	this.Params = params
 	return &this
 }
 
@@ -47,36 +49,28 @@ func NewPolicyRuleWithDefaults() *PolicyRule {
 	return &this
 }
 
-// GetId returns the Id field value if set, zero value otherwise.
+// GetId returns the Id field value
 func (o *PolicyRule) GetId() string {
-	if o == nil || o.Id == nil {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Id
+
+	return o.Id
 }
 
-// GetIdOk returns a tuple with the Id field value if set, nil otherwise
+// GetIdOk returns a tuple with the Id field value
 // and a boolean to check if the value has been set.
 func (o *PolicyRule) GetIdOk() (*string, bool) {
-	if o == nil || o.Id == nil {
+	if o == nil  {
 		return nil, false
 	}
-	return o.Id, true
+	return &o.Id, true
 }
 
-// HasId returns a boolean if a field has been set.
-func (o *PolicyRule) HasId() bool {
-	if o != nil && o.Id != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetId gets a reference to the given string and assigns it to the Id field.
+// SetId sets field value
 func (o *PolicyRule) SetId(v string) {
-	o.Id = &v
+	o.Id = v
 }
 
 // GetGate returns the Gate field value
@@ -183,36 +177,28 @@ func (o *PolicyRule) SetDescription(v string) {
 	o.Description = &v
 }
 
-// GetParams returns the Params field value if set, zero value otherwise.
+// GetParams returns the Params field value
 func (o *PolicyRule) GetParams() []PolicyRuleParams {
-	if o == nil || o.Params == nil {
+	if o == nil {
 		var ret []PolicyRuleParams
 		return ret
 	}
-	return *o.Params
+
+	return o.Params
 }
 
-// GetParamsOk returns a tuple with the Params field value if set, nil otherwise
+// GetParamsOk returns a tuple with the Params field value
 // and a boolean to check if the value has been set.
 func (o *PolicyRule) GetParamsOk() (*[]PolicyRuleParams, bool) {
-	if o == nil || o.Params == nil {
+	if o == nil  {
 		return nil, false
 	}
-	return o.Params, true
+	return &o.Params, true
 }
 
-// HasParams returns a boolean if a field has been set.
-func (o *PolicyRule) HasParams() bool {
-	if o != nil && o.Params != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetParams gets a reference to the given []PolicyRuleParams and assigns it to the Params field.
+// SetParams sets field value
 func (o *PolicyRule) SetParams(v []PolicyRuleParams) {
-	o.Params = &v
+	o.Params = v
 }
 
 // GetRecommendation returns the Recommendation field value if set, zero value otherwise.
@@ -249,7 +235,7 @@ func (o *PolicyRule) SetRecommendation(v string) {
 
 func (o PolicyRule) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Id != nil {
+	if true {
 		toSerialize["id"] = o.Id
 	}
 	if true {
@@ -264,7 +250,7 @@ func (o PolicyRule) MarshalJSON() ([]byte, error) {
 	if o.Description != nil {
 		toSerialize["description"] = o.Description
 	}
-	if o.Params != nil {
+	if true {
 		toSerialize["params"] = o.Params
 	}
 	if o.Recommendation != nil {

@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Id** | Pointer to **string** |  | [optional] 
+**Id** | **string** |  | 
 **Name** | **string** |  | 
 **Registry** | **string** |  | 
 **Repository** | **string** |  | 
@@ -15,7 +15,7 @@ Name | Type | Description | Notes
 
 ### NewImageSelectionRule
 
-`func NewImageSelectionRule(name string, registry string, repository string, image ImageRef, ) *ImageSelectionRule`
+`func NewImageSelectionRule(id string, name string, registry string, repository string, image ImageRef, ) *ImageSelectionRule`
 
 NewImageSelectionRule instantiates a new ImageSelectionRule object
 This constructor will assign default values to properties that have it defined,
@@ -49,11 +49,6 @@ and a boolean to check if the value has been set.
 
 SetId sets Id field to given value.
 
-### HasId
-
-`func (o *ImageSelectionRule) HasId() bool`
-
-HasId returns a boolean if a field has been set.
 
 ### GetName
 
