@@ -30,6 +30,7 @@ type SourceContentPackageResponseContent struct {
 	MetadataType *string `json:"metadata_type,omitempty"`
 	// Package type specific metadata
 	Metadata *interface{} `json:"metadata,omitempty"`
+	Purl *string `json:"purl,omitempty"`
 }
 
 // NewSourceContentPackageResponseContent instantiates a new SourceContentPackageResponseContent object
@@ -369,6 +370,38 @@ func (o *SourceContentPackageResponseContent) SetMetadata(v interface{}) {
 	o.Metadata = &v
 }
 
+// GetPurl returns the Purl field value if set, zero value otherwise.
+func (o *SourceContentPackageResponseContent) GetPurl() string {
+	if o == nil || o.Purl == nil {
+		var ret string
+		return ret
+	}
+	return *o.Purl
+}
+
+// GetPurlOk returns a tuple with the Purl field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SourceContentPackageResponseContent) GetPurlOk() (*string, bool) {
+	if o == nil || o.Purl == nil {
+		return nil, false
+	}
+	return o.Purl, true
+}
+
+// HasPurl returns a boolean if a field has been set.
+func (o *SourceContentPackageResponseContent) HasPurl() bool {
+	if o != nil && o.Purl != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetPurl gets a reference to the given string and assigns it to the Purl field.
+func (o *SourceContentPackageResponseContent) SetPurl(v string) {
+	o.Purl = &v
+}
+
 func (o SourceContentPackageResponseContent) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.Package != nil {
@@ -400,6 +433,9 @@ func (o SourceContentPackageResponseContent) MarshalJSON() ([]byte, error) {
 	}
 	if o.Metadata != nil {
 		toSerialize["metadata"] = o.Metadata
+	}
+	if o.Purl != nil {
+		toSerialize["purl"] = o.Purl
 	}
 	return json.Marshal(toSerialize)
 }

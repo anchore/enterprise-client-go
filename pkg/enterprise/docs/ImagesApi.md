@@ -28,7 +28,7 @@ Method | HTTP request | Description
 
 ## AddImage
 
-> AnchoreImageList AddImage(ctx).Image(image).Force(force).AutoSubscribe(autoSubscribe).XAnchoreAccount(xAnchoreAccount).Execute()
+> AnchoreImage AddImage(ctx).Image(image).Force(force).AutoSubscribe(autoSubscribe).XAnchoreAccount(xAnchoreAccount).Execute()
 
 Submit a new image for analysis by the engine
 
@@ -59,7 +59,7 @@ func main() {
         fmt.Fprintf(os.Stderr, "Error when calling `ImagesApi.AddImage``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `AddImage`: AnchoreImageList
+    // response from `AddImage`: AnchoreImage
     fmt.Fprintf(os.Stdout, "Response from `ImagesApi.AddImage`: %v\n", resp)
 }
 ```
@@ -82,7 +82,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**AnchoreImageList**](AnchoreImageList.md)
+[**AnchoreImage**](AnchoreImage.md)
 
 ### Authorization
 

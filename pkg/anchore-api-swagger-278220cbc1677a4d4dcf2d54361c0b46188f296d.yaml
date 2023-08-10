@@ -1977,7 +1977,7 @@ paths:
         200:
           description: Successfully added image to analysis queue
           schema:
-            $ref: '#/definitions/AnchoreImageList'
+            $ref: '#/definitions/AnchoreImage'
         500:
           description: Internal Error
           schema:
@@ -7738,6 +7738,8 @@ definitions:
                 type: string
               description: A list of Common Platform Enumerations that may uniquely
                 identify the package
+            purl:
+              type: string
   ContentMalwareResponse:
     type: object
     description: Malware listing response
@@ -7792,6 +7794,8 @@ definitions:
             metadata:
               description: Package type specific metadata
               type: object
+            purl:
+              type: string
   Correction:
     type: object
     description: Defines a correction object for false positive management
@@ -10072,6 +10076,8 @@ definitions:
         description: List of CPE strings for this package
         items:
           type: string
+      purl:
+        type: string
   PackageReference:
     type: object
     properties:
@@ -11342,6 +11348,8 @@ definitions:
       metadata:
         description: Package type specific metadata
         type: object
+      purl:
+        type: string
   SourceImportContentResponse:
     type: object
     properties:
