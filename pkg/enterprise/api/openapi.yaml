@@ -2462,7 +2462,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/AnchoreImageList'
+                $ref: '#/components/schemas/AnchoreImage'
           description: Successfully added image to analysis queue
         "500":
           content:
@@ -9635,6 +9635,7 @@ components:
           origin: origin
           maven-version: maven-version
           location: location
+          purl: purl
           type: type
           specification-version: specification-version
         - package: package
@@ -9645,6 +9646,7 @@ components:
           origin: origin
           maven-version: maven-version
           location: location
+          purl: purl
           type: type
           specification-version: specification-version
       properties:
@@ -9709,6 +9711,7 @@ components:
           metadata_type: metadata_type
           origin: origin
           location: location
+          purl: purl
           type: type
           version: version
         - licenses:
@@ -9723,6 +9726,7 @@ components:
           metadata_type: metadata_type
           origin: origin
           location: location
+          purl: purl
           type: type
           version: version
       properties:
@@ -12112,6 +12116,7 @@ components:
           release: release
           metadata_type: metadata_type
           origin: origin
+          purl: purl
           version: version
           maven_version: maven_version
           licenses:
@@ -12131,6 +12136,7 @@ components:
           release: release
           metadata_type: metadata_type
           origin: origin
+          purl: purl
           version: version
           maven_version: maven_version
           licenses:
@@ -12762,6 +12768,7 @@ components:
         release: release
         metadata_type: metadata_type
         origin: origin
+        purl: purl
         version: version
         maven_version: maven_version
         licenses:
@@ -12816,6 +12823,8 @@ components:
           items:
             type: string
           type: array
+        purl:
+          type: string
       type: object
     PackageReference:
       description: A record of a software item which is vulnerable or carries a fix
@@ -14687,6 +14696,7 @@ components:
           release: release
           metadata_type: metadata_type
           origin: origin
+          purl: purl
           version: version
           maven_version: maven_version
           licenses:
@@ -14705,6 +14715,7 @@ components:
           release: release
           metadata_type: metadata_type
           origin: origin
+          purl: purl
           version: version
           maven_version: maven_version
           licenses:
@@ -14781,6 +14792,7 @@ components:
             release: release
             metadata_type: metadata_type
             origin: origin
+            purl: purl
             version: version
             maven_version: maven_version
             licenses:
@@ -14800,6 +14812,7 @@ components:
             release: release
             metadata_type: metadata_type
             origin: origin
+            purl: purl
             version: version
             maven_version: maven_version
             licenses:
@@ -14875,6 +14888,7 @@ components:
             release: release
             metadata_type: metadata_type
             origin: origin
+            purl: purl
             version: version
             maven_version: maven_version
             licenses:
@@ -14894,6 +14908,7 @@ components:
             release: release
             metadata_type: metadata_type
             origin: origin
+            purl: purl
             version: version
             maven_version: maven_version
             licenses:
@@ -14913,6 +14928,7 @@ components:
           release: release
           metadata_type: metadata_type
           origin: origin
+          purl: purl
           version: version
           maven_version: maven_version
           licenses:
@@ -14931,6 +14947,7 @@ components:
           release: release
           metadata_type: metadata_type
           origin: origin
+          purl: purl
           version: version
           maven_version: maven_version
           licenses:
@@ -14950,6 +14967,7 @@ components:
           release: release
           metadata_type: metadata_type
           origin: origin
+          purl: purl
           version: version
           maven_version: maven_version
           licenses:
@@ -14968,6 +14986,7 @@ components:
           release: release
           metadata_type: metadata_type
           origin: origin
+          purl: purl
           version: version
           maven_version: maven_version
           licenses:
@@ -15468,6 +15487,7 @@ components:
           metadata_type: metadata_type
           origin: origin
           location: location
+          purl: purl
           type: type
           version: version
         - licenses:
@@ -15482,6 +15502,7 @@ components:
           metadata_type: metadata_type
           origin: origin
           location: location
+          purl: purl
           type: type
           version: version
       properties:
@@ -15509,6 +15530,7 @@ components:
         metadata_type: metadata_type
         origin: origin
         location: location
+        purl: purl
         type: type
         version: version
       properties:
@@ -15541,6 +15563,8 @@ components:
           description: Package type specific metadata
           properties: {}
           type: object
+        purl:
+          type: string
       type: object
     SourceImportContentResponse:
       example:
@@ -16960,6 +16984,7 @@ components:
         origin: origin
         maven-version: maven-version
         location: location
+        purl: purl
         type: type
         specification-version: specification-version
       properties:
@@ -16983,6 +17008,8 @@ components:
           items:
             type: string
           type: array
+        purl:
+          type: string
       type: object
     ContentPackageResponse_content:
       example:
@@ -16998,6 +17025,7 @@ components:
         metadata_type: metadata_type
         origin: origin
         location: location
+        purl: purl
         type: type
         version: version
       properties:
@@ -17030,6 +17058,8 @@ components:
           description: Package type specific metadata
           properties: {}
           type: object
+        purl:
+          type: string
       type: object
     ECSContainers_containers:
       example:

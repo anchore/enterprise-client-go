@@ -38,8 +38,8 @@ type ImagesApi interface {
 	AddImage(ctx _context.Context) ApiAddImageRequest
 
 	// AddImageExecute executes the request
-	//  @return AnchoreImageList
-	AddImageExecute(r ApiAddImageRequest) (AnchoreImageList, *_nethttp.Response, error)
+	//  @return AnchoreImage
+	AddImageExecute(r ApiAddImageRequest) (AnchoreImage, *_nethttp.Response, error)
 
 	/*
 	DeleteImage Delete an image analysis
@@ -317,7 +317,7 @@ func (r ApiAddImageRequest) XAnchoreAccount(xAnchoreAccount string) ApiAddImageR
 	return r
 }
 
-func (r ApiAddImageRequest) Execute() (AnchoreImageList, *_nethttp.Response, error) {
+func (r ApiAddImageRequest) Execute() (AnchoreImage, *_nethttp.Response, error) {
 	return r.ApiService.AddImageExecute(r)
 }
 
@@ -337,15 +337,15 @@ func (a *ImagesApiService) AddImage(ctx _context.Context) ApiAddImageRequest {
 }
 
 // Execute executes the request
-//  @return AnchoreImageList
-func (a *ImagesApiService) AddImageExecute(r ApiAddImageRequest) (AnchoreImageList, *_nethttp.Response, error) {
+//  @return AnchoreImage
+func (a *ImagesApiService) AddImageExecute(r ApiAddImageRequest) (AnchoreImage, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodPost
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		localVarReturnValue  AnchoreImageList
+		localVarReturnValue  AnchoreImage
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ImagesApiService.AddImage")
