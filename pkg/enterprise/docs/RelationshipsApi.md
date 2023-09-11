@@ -1,14 +1,14 @@
 # \RelationshipsApi
 
-All URIs are relative to *http://localhost/enterprise*
+All URIs are relative to *http://localhost/v2*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**AddArtifactRelationship**](RelationshipsApi.md#AddArtifactRelationship) | **Post** /artifact_relationships | 
-[**DeleteArtifactRelationships**](RelationshipsApi.md#DeleteArtifactRelationships) | **Delete** /artifact_relationships | 
-[**GetArtifactRelationship**](RelationshipsApi.md#GetArtifactRelationship) | **Get** /artifact_relationships/{relationship_id} | 
-[**GetRelationshipSbomDiff**](RelationshipsApi.md#GetRelationshipSbomDiff) | **Get** /artifact_relationships/{relationship_id}/diffs/sbom | 
-[**ListArtifactRelationships**](RelationshipsApi.md#ListArtifactRelationships) | **Get** /artifact_relationships | 
+[**AddArtifactRelationship**](RelationshipsApi.md#AddArtifactRelationship) | **Post** /artifact-relationships | 
+[**DeleteArtifactRelationships**](RelationshipsApi.md#DeleteArtifactRelationships) | **Delete** /artifact-relationships | 
+[**GetArtifactRelationship**](RelationshipsApi.md#GetArtifactRelationship) | **Get** /artifact-relationships/{relationship_id} | 
+[**GetRelationshipSbomDiff**](RelationshipsApi.md#GetRelationshipSbomDiff) | **Get** /artifact-relationships/{relationship_id}/diffs/sbom | 
+[**ListArtifactRelationships**](RelationshipsApi.md#ListArtifactRelationships) | **Get** /artifact-relationships | 
 
 
 

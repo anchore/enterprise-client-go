@@ -1,9 +1,9 @@
 /*
-Anchore Enterprise API Server
+Anchore API
 
-This is the Anchore Enterprise API. It provides additional external API routes and functionality for enterprise users.
+This is the Anchore API. Provides the external API for users of Anchore Enterprise.
 
-API version: 0.8.0
+API version: 2.0.0
 Contact: dev@anchore.com
 */
 
@@ -21,8 +21,11 @@ type NativeSBOMDistribution struct {
 	Id NullableString `json:"id,omitempty"`
 	Version NullableString `json:"version,omitempty"`
 	VersionID NullableString `json:"versionID,omitempty"`
-	IdLike *interface{} `json:"idLike,omitempty"`
+	IdLike interface{} `json:"idLike,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _NativeSBOMDistribution NativeSBOMDistribution
 
 // NewNativeSBOMDistribution instantiates a new NativeSBOMDistribution object
 // This constructor will assign default values to properties that have it defined,
@@ -209,22 +212,23 @@ func (o *NativeSBOMDistribution) UnsetVersionID() {
 	o.VersionID.Unset()
 }
 
-// GetIdLike returns the IdLike field value if set, zero value otherwise.
+// GetIdLike returns the IdLike field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *NativeSBOMDistribution) GetIdLike() interface{} {
-	if o == nil || o.IdLike == nil {
+	if o == nil  {
 		var ret interface{}
 		return ret
 	}
-	return *o.IdLike
+	return o.IdLike
 }
 
 // GetIdLikeOk returns a tuple with the IdLike field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *NativeSBOMDistribution) GetIdLikeOk() (*interface{}, bool) {
 	if o == nil || o.IdLike == nil {
 		return nil, false
 	}
-	return o.IdLike, true
+	return &o.IdLike, true
 }
 
 // HasIdLike returns a boolean if a field has been set.
@@ -238,7 +242,7 @@ func (o *NativeSBOMDistribution) HasIdLike() bool {
 
 // SetIdLike gets a reference to the given interface{} and assigns it to the IdLike field.
 func (o *NativeSBOMDistribution) SetIdLike(v interface{}) {
-	o.IdLike = &v
+	o.IdLike = v
 }
 
 func (o NativeSBOMDistribution) MarshalJSON() ([]byte, error) {
@@ -258,7 +262,33 @@ func (o NativeSBOMDistribution) MarshalJSON() ([]byte, error) {
 	if o.IdLike != nil {
 		toSerialize["idLike"] = o.IdLike
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return json.Marshal(toSerialize)
+}
+
+func (o *NativeSBOMDistribution) UnmarshalJSON(bytes []byte) (err error) {
+	varNativeSBOMDistribution := _NativeSBOMDistribution{}
+
+	if err = json.Unmarshal(bytes, &varNativeSBOMDistribution); err == nil {
+		*o = NativeSBOMDistribution(varNativeSBOMDistribution)
+	}
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(bytes, &additionalProperties); err == nil {
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "version")
+		delete(additionalProperties, "versionID")
+		delete(additionalProperties, "idLike")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableNativeSBOMDistribution struct {

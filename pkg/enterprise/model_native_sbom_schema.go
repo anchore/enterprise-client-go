@@ -1,9 +1,9 @@
 /*
-Anchore Enterprise API Server
+Anchore API
 
-This is the Anchore Enterprise API. It provides additional external API routes and functionality for enterprise users.
+This is the Anchore API. Provides the external API for users of Anchore Enterprise.
 
-API version: 0.8.0
+API version: 2.0.0
 Contact: dev@anchore.com
 */
 
@@ -19,7 +19,10 @@ import (
 type NativeSBOMSchema struct {
 	Version string `json:"version"`
 	Url string `json:"url"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _NativeSBOMSchema NativeSBOMSchema
 
 // NewNativeSBOMSchema instantiates a new NativeSBOMSchema object
 // This constructor will assign default values to properties that have it defined,
@@ -96,7 +99,30 @@ func (o NativeSBOMSchema) MarshalJSON() ([]byte, error) {
 	if true {
 		toSerialize["url"] = o.Url
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return json.Marshal(toSerialize)
+}
+
+func (o *NativeSBOMSchema) UnmarshalJSON(bytes []byte) (err error) {
+	varNativeSBOMSchema := _NativeSBOMSchema{}
+
+	if err = json.Unmarshal(bytes, &varNativeSBOMSchema); err == nil {
+		*o = NativeSBOMSchema(varNativeSBOMSchema)
+	}
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(bytes, &additionalProperties); err == nil {
+		delete(additionalProperties, "version")
+		delete(additionalProperties, "url")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableNativeSBOMSchema struct {

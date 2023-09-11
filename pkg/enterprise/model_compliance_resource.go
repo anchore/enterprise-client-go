@@ -1,9 +1,9 @@
 /*
-Anchore Enterprise API Server
+Anchore API
 
-This is the Anchore Enterprise API. It provides additional external API routes and functionality for enterprise users.
+This is the Anchore API. Provides the external API for users of Anchore Enterprise.
 
-API version: 0.8.0
+API version: 2.0.0
 Contact: dev@anchore.com
 */
 
@@ -16,7 +16,7 @@ import (
 	"time"
 )
 
-// ComplianceResource A resource that ties compliance related artifacts - image digest, tag and policy bundle
+// ComplianceResource A resource that ties compliance related artifacts - image digest, tag and policy
 type ComplianceResource struct {
 	ImageDigest *string `json:"image_digest,omitempty"`
 	PolicyId *string `json:"policy_id,omitempty"`

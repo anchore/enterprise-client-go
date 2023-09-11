@@ -1,9 +1,9 @@
 /*
-Anchore Enterprise API Server
+Anchore API
 
-This is the Anchore Enterprise API. It provides additional external API routes and functionality for enterprise users.
+This is the Anchore API. Provides the external API for users of Anchore Enterprise.
 
-API version: 0.8.0
+API version: 2.0.0
 Contact: dev@anchore.com
 */
 
@@ -23,7 +23,10 @@ type NativeSBOM struct {
 	Descriptor *NativeSBOMDescriptor `json:"descriptor,omitempty"`
 	Schema *NativeSBOMSchema `json:"schema,omitempty"`
 	ArtifactRelationships *[]NativeSBOMPackageRelationship `json:"artifactRelationships,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _NativeSBOM NativeSBOM
 
 // NewNativeSBOM instantiates a new NativeSBOM object
 // This constructor will assign default values to properties that have it defined,
@@ -233,7 +236,34 @@ func (o NativeSBOM) MarshalJSON() ([]byte, error) {
 	if o.ArtifactRelationships != nil {
 		toSerialize["artifactRelationships"] = o.ArtifactRelationships
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return json.Marshal(toSerialize)
+}
+
+func (o *NativeSBOM) UnmarshalJSON(bytes []byte) (err error) {
+	varNativeSBOM := _NativeSBOM{}
+
+	if err = json.Unmarshal(bytes, &varNativeSBOM); err == nil {
+		*o = NativeSBOM(varNativeSBOM)
+	}
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(bytes, &additionalProperties); err == nil {
+		delete(additionalProperties, "artifacts")
+		delete(additionalProperties, "source")
+		delete(additionalProperties, "distro")
+		delete(additionalProperties, "descriptor")
+		delete(additionalProperties, "schema")
+		delete(additionalProperties, "artifactRelationships")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableNativeSBOM struct {

@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**AccountId** | Pointer to **string** | The account id | [optional] 
+**AccountName** | Pointer to **string** | The account name | [optional] 
 **ImageDigest** | Pointer to **string** | The digest of the image | [optional] 
 **Distro** | Pointer to **string** | The distro of the image | [optional] 
 **DistroVersion** | Pointer to **string** | The distro version of the image | [optional] 
@@ -33,30 +33,30 @@ NewImageArtifactWithDefaults instantiates a new ImageArtifact object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
-### GetAccountId
+### GetAccountName
 
-`func (o *ImageArtifact) GetAccountId() string`
+`func (o *ImageArtifact) GetAccountName() string`
 
-GetAccountId returns the AccountId field if non-nil, zero value otherwise.
+GetAccountName returns the AccountName field if non-nil, zero value otherwise.
 
-### GetAccountIdOk
+### GetAccountNameOk
 
-`func (o *ImageArtifact) GetAccountIdOk() (*string, bool)`
+`func (o *ImageArtifact) GetAccountNameOk() (*string, bool)`
 
-GetAccountIdOk returns a tuple with the AccountId field if it's non-nil, zero value otherwise
+GetAccountNameOk returns a tuple with the AccountName field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetAccountId
+### SetAccountName
 
-`func (o *ImageArtifact) SetAccountId(v string)`
+`func (o *ImageArtifact) SetAccountName(v string)`
 
-SetAccountId sets AccountId field to given value.
+SetAccountName sets AccountName field to given value.
 
-### HasAccountId
+### HasAccountName
 
-`func (o *ImageArtifact) HasAccountId() bool`
+`func (o *ImageArtifact) HasAccountName() bool`
 
-HasAccountId returns a boolean if a field has been set.
+HasAccountName returns a boolean if a field has been set.
 
 ### GetImageDigest
 

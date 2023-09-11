@@ -1,9 +1,9 @@
 /*
-Anchore Enterprise API Server
+Anchore API
 
-This is the Anchore Enterprise API. It provides additional external API routes and functionality for enterprise users.
+This is the Anchore API. Provides the external API for users of Anchore Enterprise.
 
-API version: 0.8.0
+API version: 2.0.0
 Contact: dev@anchore.com
 */
 
@@ -18,9 +18,7 @@ import (
 // SBOMVulnerabilitiesResponse Envelope containing list of vulnerabilities for a source repo
 type SBOMVulnerabilitiesResponse struct {
 	SbomId *string `json:"sbom_id,omitempty"`
-	VulnerabilityType *string `json:"vulnerability_type,omitempty"`
-	// List of Vulnerability objects
-	Vulnerabilities *[]Vulnerability `json:"vulnerabilities,omitempty"`
+	Vulnerabilities *[]PackageVulnerability `json:"vulnerabilities,omitempty"`
 }
 
 // NewSBOMVulnerabilitiesResponse instantiates a new SBOMVulnerabilitiesResponse object
@@ -72,42 +70,10 @@ func (o *SBOMVulnerabilitiesResponse) SetSbomId(v string) {
 	o.SbomId = &v
 }
 
-// GetVulnerabilityType returns the VulnerabilityType field value if set, zero value otherwise.
-func (o *SBOMVulnerabilitiesResponse) GetVulnerabilityType() string {
-	if o == nil || o.VulnerabilityType == nil {
-		var ret string
-		return ret
-	}
-	return *o.VulnerabilityType
-}
-
-// GetVulnerabilityTypeOk returns a tuple with the VulnerabilityType field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *SBOMVulnerabilitiesResponse) GetVulnerabilityTypeOk() (*string, bool) {
-	if o == nil || o.VulnerabilityType == nil {
-		return nil, false
-	}
-	return o.VulnerabilityType, true
-}
-
-// HasVulnerabilityType returns a boolean if a field has been set.
-func (o *SBOMVulnerabilitiesResponse) HasVulnerabilityType() bool {
-	if o != nil && o.VulnerabilityType != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetVulnerabilityType gets a reference to the given string and assigns it to the VulnerabilityType field.
-func (o *SBOMVulnerabilitiesResponse) SetVulnerabilityType(v string) {
-	o.VulnerabilityType = &v
-}
-
 // GetVulnerabilities returns the Vulnerabilities field value if set, zero value otherwise.
-func (o *SBOMVulnerabilitiesResponse) GetVulnerabilities() []Vulnerability {
+func (o *SBOMVulnerabilitiesResponse) GetVulnerabilities() []PackageVulnerability {
 	if o == nil || o.Vulnerabilities == nil {
-		var ret []Vulnerability
+		var ret []PackageVulnerability
 		return ret
 	}
 	return *o.Vulnerabilities
@@ -115,7 +81,7 @@ func (o *SBOMVulnerabilitiesResponse) GetVulnerabilities() []Vulnerability {
 
 // GetVulnerabilitiesOk returns a tuple with the Vulnerabilities field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SBOMVulnerabilitiesResponse) GetVulnerabilitiesOk() (*[]Vulnerability, bool) {
+func (o *SBOMVulnerabilitiesResponse) GetVulnerabilitiesOk() (*[]PackageVulnerability, bool) {
 	if o == nil || o.Vulnerabilities == nil {
 		return nil, false
 	}
@@ -131,8 +97,8 @@ func (o *SBOMVulnerabilitiesResponse) HasVulnerabilities() bool {
 	return false
 }
 
-// SetVulnerabilities gets a reference to the given []Vulnerability and assigns it to the Vulnerabilities field.
-func (o *SBOMVulnerabilitiesResponse) SetVulnerabilities(v []Vulnerability) {
+// SetVulnerabilities gets a reference to the given []PackageVulnerability and assigns it to the Vulnerabilities field.
+func (o *SBOMVulnerabilitiesResponse) SetVulnerabilities(v []PackageVulnerability) {
 	o.Vulnerabilities = &v
 }
 
@@ -140,9 +106,6 @@ func (o SBOMVulnerabilitiesResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.SbomId != nil {
 		toSerialize["sbom_id"] = o.SbomId
-	}
-	if o.VulnerabilityType != nil {
-		toSerialize["vulnerability_type"] = o.VulnerabilityType
 	}
 	if o.Vulnerabilities != nil {
 		toSerialize["vulnerabilities"] = o.Vulnerabilities

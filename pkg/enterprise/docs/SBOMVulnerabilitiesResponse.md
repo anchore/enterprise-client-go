@@ -5,8 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **SbomId** | Pointer to **string** |  | [optional] 
-**VulnerabilityType** | Pointer to **string** |  | [optional] 
-**Vulnerabilities** | Pointer to [**[]Vulnerability**](Vulnerability.md) | List of Vulnerability objects | [optional] 
+**Vulnerabilities** | Pointer to [**[]PackageVulnerability**](PackageVulnerability.md) |  | [optional] 
 
 ## Methods
 
@@ -52,47 +51,22 @@ SetSbomId sets SbomId field to given value.
 
 HasSbomId returns a boolean if a field has been set.
 
-### GetVulnerabilityType
-
-`func (o *SBOMVulnerabilitiesResponse) GetVulnerabilityType() string`
-
-GetVulnerabilityType returns the VulnerabilityType field if non-nil, zero value otherwise.
-
-### GetVulnerabilityTypeOk
-
-`func (o *SBOMVulnerabilitiesResponse) GetVulnerabilityTypeOk() (*string, bool)`
-
-GetVulnerabilityTypeOk returns a tuple with the VulnerabilityType field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetVulnerabilityType
-
-`func (o *SBOMVulnerabilitiesResponse) SetVulnerabilityType(v string)`
-
-SetVulnerabilityType sets VulnerabilityType field to given value.
-
-### HasVulnerabilityType
-
-`func (o *SBOMVulnerabilitiesResponse) HasVulnerabilityType() bool`
-
-HasVulnerabilityType returns a boolean if a field has been set.
-
 ### GetVulnerabilities
 
-`func (o *SBOMVulnerabilitiesResponse) GetVulnerabilities() []Vulnerability`
+`func (o *SBOMVulnerabilitiesResponse) GetVulnerabilities() []PackageVulnerability`
 
 GetVulnerabilities returns the Vulnerabilities field if non-nil, zero value otherwise.
 
 ### GetVulnerabilitiesOk
 
-`func (o *SBOMVulnerabilitiesResponse) GetVulnerabilitiesOk() (*[]Vulnerability, bool)`
+`func (o *SBOMVulnerabilitiesResponse) GetVulnerabilitiesOk() (*[]PackageVulnerability, bool)`
 
 GetVulnerabilitiesOk returns a tuple with the Vulnerabilities field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetVulnerabilities
 
-`func (o *SBOMVulnerabilitiesResponse) SetVulnerabilities(v []Vulnerability)`
+`func (o *SBOMVulnerabilitiesResponse) SetVulnerabilities(v []PackageVulnerability)`
 
 SetVulnerabilities sets Vulnerabilities field to given value.
 

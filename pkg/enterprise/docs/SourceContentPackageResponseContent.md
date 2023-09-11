@@ -9,12 +9,12 @@ Name | Type | Description | Notes
 **Size** | Pointer to **string** |  | [optional] 
 **Type** | Pointer to **string** |  | [optional] 
 **Origin** | Pointer to **string** |  | [optional] 
-**License** | Pointer to **string** | Deprecated in favor of the &#39;licenses&#39; field\&quot; | [optional] 
 **Licenses** | Pointer to **[]string** |  | [optional] 
 **Location** | Pointer to **string** |  | [optional] 
 **Cpes** | Pointer to **[]string** | A list of Common Platform Enumerations that may uniquely identify the package | [optional] 
 **MetadataType** | Pointer to **string** | The type of the metadata entry | [optional] 
 **Metadata** | Pointer to **interface{}** | Package type specific metadata | [optional] 
+**Purl** | Pointer to **string** |  | [optional] 
 
 ## Methods
 
@@ -160,31 +160,6 @@ SetOrigin sets Origin field to given value.
 
 HasOrigin returns a boolean if a field has been set.
 
-### GetLicense
-
-`func (o *SourceContentPackageResponseContent) GetLicense() string`
-
-GetLicense returns the License field if non-nil, zero value otherwise.
-
-### GetLicenseOk
-
-`func (o *SourceContentPackageResponseContent) GetLicenseOk() (*string, bool)`
-
-GetLicenseOk returns a tuple with the License field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetLicense
-
-`func (o *SourceContentPackageResponseContent) SetLicense(v string)`
-
-SetLicense sets License field to given value.
-
-### HasLicense
-
-`func (o *SourceContentPackageResponseContent) HasLicense() bool`
-
-HasLicense returns a boolean if a field has been set.
-
 ### GetLicenses
 
 `func (o *SourceContentPackageResponseContent) GetLicenses() []string`
@@ -309,6 +284,31 @@ SetMetadata sets Metadata field to given value.
 `func (o *SourceContentPackageResponseContent) HasMetadata() bool`
 
 HasMetadata returns a boolean if a field has been set.
+
+### GetPurl
+
+`func (o *SourceContentPackageResponseContent) GetPurl() string`
+
+GetPurl returns the Purl field if non-nil, zero value otherwise.
+
+### GetPurlOk
+
+`func (o *SourceContentPackageResponseContent) GetPurlOk() (*string, bool)`
+
+GetPurlOk returns a tuple with the Purl field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetPurl
+
+`func (o *SourceContentPackageResponseContent) SetPurl(v string)`
+
+SetPurl sets Purl field to given value.
+
+### HasPurl
+
+`func (o *SourceContentPackageResponseContent) HasPurl() bool`
+
+HasPurl returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

@@ -1,18 +1,20 @@
 # \StatelessApi
 
-All URIs are relative to *http://localhost/enterprise*
+All URIs are relative to *http://localhost/v2*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**GetStatelessSbomVulnerabilities**](StatelessApi.md#GetStatelessSbomVulnerabilities) | **Post** /stateless/sbom/vuln/{vtype} | Get vulnerabilities for input sbom by type
+[**VulnerabilityScanSbom**](StatelessApi.md#VulnerabilityScanSbom) | **Post** /vulnerability-scan | Return a vulnerability scan for the uploaded SBOM without storing the SBOM and without any side-effects in the system.
 
 
 
-## GetStatelessSbomVulnerabilities
+## VulnerabilityScanSbom
 
-> SBOMVulnerabilitiesResponse GetStatelessSbomVulnerabilities(ctx, vtype).Sbom(sbom).WillNotFix(willNotFix).XAnchoreAccount(xAnchoreAccount).Execute()
+> SBOMVulnerabilitiesResponse VulnerabilityScanSbom(ctx).Sbom(sbom).XAnchoreAccount(xAnchoreAccount).Execute()
 
-Get vulnerabilities for input sbom by type
+Return a vulnerability scan for the uploaded SBOM without storing the SBOM and without any side-effects in the system.
+
+
 
 ### Example
 
@@ -27,41 +29,33 @@ import (
 )
 
 func main() {
-    vtype := "vtype_example" // string | 
     sbom := interface{}(Object) // interface{} | 
-    willNotFix := true // bool | Vulnerability data publishers explicitly won't fix some vulnerabilities. This is captured by will_not_fix attribute of each result. If the query parameter is set, results matching it's value will be filtered. Results are not filtered if the query parameter is unset (optional)
     xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.StatelessApi.GetStatelessSbomVulnerabilities(context.Background(), vtype).Sbom(sbom).WillNotFix(willNotFix).XAnchoreAccount(xAnchoreAccount).Execute()
+    resp, r, err := api_client.StatelessApi.VulnerabilityScanSbom(context.Background()).Sbom(sbom).XAnchoreAccount(xAnchoreAccount).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `StatelessApi.GetStatelessSbomVulnerabilities``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `StatelessApi.VulnerabilityScanSbom``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `GetStatelessSbomVulnerabilities`: SBOMVulnerabilitiesResponse
-    fmt.Fprintf(os.Stdout, "Response from `StatelessApi.GetStatelessSbomVulnerabilities`: %v\n", resp)
+    // response from `VulnerabilityScanSbom`: SBOMVulnerabilitiesResponse
+    fmt.Fprintf(os.Stdout, "Response from `StatelessApi.VulnerabilityScanSbom`: %v\n", resp)
 }
 ```
 
 ### Path Parameters
 
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**vtype** | **string** |  | 
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiGetStatelessSbomVulnerabilitiesRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiVulnerabilityScanSbomRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
-
  **sbom** | **interface{}** |  | 
- **willNotFix** | **bool** | Vulnerability data publishers explicitly won&#39;t fix some vulnerabilities. This is captured by will_not_fix attribute of each result. If the query parameter is set, results matching it&#39;s value will be filtered. Results are not filtered if the query parameter is unset | 
  **xAnchoreAccount** | **string** | An account name to change the resource scope of the request to that account, if permissions allow (admin only) | 
 
 ### Return type

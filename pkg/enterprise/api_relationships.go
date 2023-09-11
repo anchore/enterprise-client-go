@@ -1,9 +1,9 @@
 /*
-Anchore Enterprise API Server
+Anchore API
 
-This is the Anchore Enterprise API. It provides additional external API routes and functionality for enterprise users.
+This is the Anchore API. Provides the external API for users of Anchore Enterprise.
 
-API version: 0.8.0
+API version: 2.0.0
 Contact: dev@anchore.com
 */
 
@@ -150,7 +150,7 @@ func (a *RelationshipsApiService) AddArtifactRelationshipExecute(r ApiAddArtifac
 		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/artifact_relationships"
+	localVarPath := localBasePath + "/artifact-relationships"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
@@ -263,7 +263,7 @@ func (a *RelationshipsApiService) DeleteArtifactRelationshipsExecute(r ApiDelete
 		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/artifact_relationships"
+	localVarPath := localBasePath + "/artifact-relationships"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
@@ -372,7 +372,7 @@ func (a *RelationshipsApiService) GetArtifactRelationshipExecute(r ApiGetArtifac
 		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/artifact_relationships/{relationship_id}"
+	localVarPath := localBasePath + "/artifact-relationships/{relationship_id}"
 	localVarPath = strings.Replace(localVarPath, "{"+"relationship_id"+"}", _neturl.PathEscape(parameterToString(r.relationshipId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -478,7 +478,7 @@ func (a *RelationshipsApiService) GetRelationshipSbomDiffExecute(r ApiGetRelatio
 		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/artifact_relationships/{relationship_id}/diffs/sbom"
+	localVarPath := localBasePath + "/artifact-relationships/{relationship_id}/diffs/sbom"
 	localVarPath = strings.Replace(localVarPath, "{"+"relationship_id"+"}", _neturl.PathEscape(parameterToString(r.relationshipId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -593,7 +593,7 @@ func (a *RelationshipsApiService) ListArtifactRelationshipsExecute(r ApiListArti
 		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/artifact_relationships"
+	localVarPath := localBasePath + "/artifact-relationships"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
