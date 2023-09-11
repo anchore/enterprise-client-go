@@ -1,6 +1,6 @@
 # \CorrectionsApi
 
-All URIs are relative to *http://localhost/enterprise*
+All URIs are relative to *http://localhost/v2*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------

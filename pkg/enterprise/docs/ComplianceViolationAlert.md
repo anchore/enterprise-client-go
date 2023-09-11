@@ -12,7 +12,7 @@ Name | Type | Description | Notes
 **ClosedReason** | Pointer to **string** | Reason for closing the alert | [optional] 
 **CreatedAt** | Pointer to **time.Time** | RFC 3339 formatted UTC timestamp when the alert was generated | [optional] 
 **LastUpdated** | Pointer to **time.Time** | RFC 3339 formatted UTC timestamp when the alert was last modified | [optional] 
-**ComplianceStatusReason** | Pointer to **string** | Reason for compliance check status. Compliance check could fail due to policy evaluation or blacklisting or errors evaluating compliance | [optional] 
+**ComplianceStatusReason** | Pointer to **string** | Reason for compliance check status. Compliance check could fail due to policy evaluation or denylisting or errors evaluating compliance | [optional] 
 **ViolationsCount** | Pointer to **int32** | Number of STOP action results in the compliance check report | [optional] 
 
 ## Methods

@@ -1,9 +1,9 @@
 /*
-Anchore Enterprise API Server
+Anchore API
 
-This is the Anchore Enterprise API. It provides additional external API routes and functionality for enterprise users.
+This is the Anchore API. Provides the external API for users of Anchore Enterprise.
 
-API version: 0.8.0
+API version: 1.0.0
 Contact: dev@anchore.com
 */
 
@@ -23,7 +23,7 @@ type NativeSBOMPackage struct {
 	Type string `json:"type"`
 	FoundBy *string `json:"foundBy,omitempty"`
 	Locations []NativeSBOMPackageLocation `json:"locations"`
-	Licenses []string `json:"licenses"`
+	Licenses []interface{} `json:"licenses"`
 	Language string `json:"language"`
 	Cpes []string `json:"cpes"`
 	Purl *string `json:"purl,omitempty"`
@@ -35,7 +35,7 @@ type NativeSBOMPackage struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewNativeSBOMPackage(name string, version string, type_ string, locations []NativeSBOMPackageLocation, licenses []string, language string, cpes []string) *NativeSBOMPackage {
+func NewNativeSBOMPackage(name string, version string, type_ string, locations []NativeSBOMPackageLocation, licenses []interface{}, language string, cpes []string) *NativeSBOMPackage {
 	this := NativeSBOMPackage{}
 	this.Name = name
 	this.Version = version
@@ -216,9 +216,9 @@ func (o *NativeSBOMPackage) SetLocations(v []NativeSBOMPackageLocation) {
 }
 
 // GetLicenses returns the Licenses field value
-func (o *NativeSBOMPackage) GetLicenses() []string {
+func (o *NativeSBOMPackage) GetLicenses() []interface{} {
 	if o == nil {
-		var ret []string
+		var ret []interface{}
 		return ret
 	}
 
@@ -227,7 +227,7 @@ func (o *NativeSBOMPackage) GetLicenses() []string {
 
 // GetLicensesOk returns a tuple with the Licenses field value
 // and a boolean to check if the value has been set.
-func (o *NativeSBOMPackage) GetLicensesOk() (*[]string, bool) {
+func (o *NativeSBOMPackage) GetLicensesOk() (*[]interface{}, bool) {
 	if o == nil  {
 		return nil, false
 	}
@@ -235,7 +235,7 @@ func (o *NativeSBOMPackage) GetLicensesOk() (*[]string, bool) {
 }
 
 // SetLicenses sets field value
-func (o *NativeSBOMPackage) SetLicenses(v []string) {
+func (o *NativeSBOMPackage) SetLicenses(v []interface{}) {
 	o.Licenses = v
 }
 

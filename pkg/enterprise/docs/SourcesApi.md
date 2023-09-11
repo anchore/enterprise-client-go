@@ -1,6 +1,6 @@
 # \SourcesApi
 
-All URIs are relative to *http://localhost/enterprise*
+All URIs are relative to *http://localhost/v2*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -10,11 +10,9 @@ Method | HTTP request | Description
 [**GetSourceContentTypes**](SourcesApi.md#GetSourceContentTypes) | **Get** /sources/{source_id}/content | Get a detailed source repository analysis metadata record
 [**GetSourcePolicyCheck**](SourcesApi.md#GetSourcePolicyCheck) | **Get** /sources/{source_id}/check | Fetch or calculate policy evaluation for a source
 [**GetSourceSbomCyclonedxJson**](SourcesApi.md#GetSourceSbomCyclonedxJson) | **Get** /sources/{source_id}/sbom/cyclonedx-json | Return the source SBOM in the CycloneDX format
-[**GetSourceSbomNative**](SourcesApi.md#GetSourceSbomNative) | **Get** /sources/{source_id}/sbom/native | Return the compressed source SBOM in the native Anchore format
 [**GetSourceSbomNativeJson**](SourcesApi.md#GetSourceSbomNativeJson) | **Get** /sources/{source_id}/sbom/native-json | Return the source SBOM in the native Anchore format
 [**GetSourceSbomSpdxJson**](SourcesApi.md#GetSourceSbomSpdxJson) | **Get** /sources/{source_id}/sbom/spdx-json | Return the source SBOM in the SPDX format
-[**GetSourceSbomTypes**](SourcesApi.md#GetSourceSbomTypes) | **Get** /sources/{source_id}/sbom | Get a detailed source repository analysis metadata record
-[**GetSourceVulnerabilities**](SourcesApi.md#GetSourceVulnerabilities) | **Get** /sources/{source_id}/vuln/{vtype} | Get vulnerabilities for the source by type
+[**GetSourceVulnerabilities**](SourcesApi.md#GetSourceVulnerabilities) | **Get** /sources/{source_id}/vuln/{vuln_type} | Get vulnerabilities for the source by type
 [**GetSourceVulnerabilityTypes**](SourcesApi.md#GetSourceVulnerabilityTypes) | **Get** /sources/{source_id}/vuln | Get the available vulnerability types for source
 [**ListSources**](SourcesApi.md#ListSources) | **Get** /sources | List the source repository analysis records
 
@@ -22,7 +20,7 @@ Method | HTTP request | Description
 
 ## DeleteSource
 
-> SourceManifest DeleteSource(ctx, sourceId).Force(force).Execute()
+> DeleteSource(ctx, sourceId).Force(force).Execute()
 
 Delete source record from DB
 
@@ -49,8 +47,6 @@ func main() {
         fmt.Fprintf(os.Stderr, "Error when calling `SourcesApi.DeleteSource``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `DeleteSource`: SourceManifest
-    fmt.Fprintf(os.Stdout, "Response from `SourcesApi.DeleteSource`: %v\n", resp)
 }
 ```
 
@@ -74,7 +70,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**SourceManifest**](SourceManifest.md)
+ (empty response body)
 
 ### Authorization
 
@@ -83,7 +79,7 @@ No authorization required
 ### HTTP request headers
 
 - **Content-Type**: Not defined
-- **Accept**: application/json
+- **Accept**: Not defined
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -299,7 +295,7 @@ No authorization required
 
 ## GetSourcePolicyCheck
 
-> []PolicyEvaluationResult GetSourcePolicyCheck(ctx, sourceId).PolicyId(policyId).Execute()
+> SourcePolicyEvaluation GetSourcePolicyCheck(ctx, sourceId).PolicyId(policyId).Execute()
 
 Fetch or calculate policy evaluation for a source
 
@@ -326,7 +322,7 @@ func main() {
         fmt.Fprintf(os.Stderr, "Error when calling `SourcesApi.GetSourcePolicyCheck``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `GetSourcePolicyCheck`: []PolicyEvaluationResult
+    // response from `GetSourcePolicyCheck`: SourcePolicyEvaluation
     fmt.Fprintf(os.Stdout, "Response from `SourcesApi.GetSourcePolicyCheck`: %v\n", resp)
 }
 ```
@@ -351,7 +347,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[]PolicyEvaluationResult**](PolicyEvaluationResult.md)
+[**SourcePolicyEvaluation**](SourcePolicyEvaluation.md)
 
 ### Authorization
 
@@ -429,74 +425,6 @@ No authorization required
 
 - **Content-Type**: Not defined
 - **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## GetSourceSbomNative
-
-> *os.File GetSourceSbomNative(ctx, sourceId).Execute()
-
-Return the compressed source SBOM in the native Anchore format
-
-### Example
-
-```go
-package main
-
-import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
-)
-
-func main() {
-    sourceId := "sourceId_example" // string | 
-
-    configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.SourcesApi.GetSourceSbomNative(context.Background(), sourceId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `SourcesApi.GetSourceSbomNative``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetSourceSbomNative`: *os.File
-    fmt.Fprintf(os.Stdout, "Response from `SourcesApi.GetSourceSbomNative`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**sourceId** | **string** |  | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiGetSourceSbomNativeRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
-
-### Return type
-
-[***os.File**](*os.File.md)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/gzip
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -639,77 +567,9 @@ No authorization required
 [[Back to README]](../README.md)
 
 
-## GetSourceSbomTypes
-
-> []string GetSourceSbomTypes(ctx, sourceId).Execute()
-
-Get a detailed source repository analysis metadata record
-
-### Example
-
-```go
-package main
-
-import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
-)
-
-func main() {
-    sourceId := "sourceId_example" // string | 
-
-    configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.SourcesApi.GetSourceSbomTypes(context.Background(), sourceId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `SourcesApi.GetSourceSbomTypes``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetSourceSbomTypes`: []string
-    fmt.Fprintf(os.Stdout, "Response from `SourcesApi.GetSourceSbomTypes`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**sourceId** | **string** |  | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiGetSourceSbomTypesRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
-
-### Return type
-
-**[]string**
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
 ## GetSourceVulnerabilities
 
-> SourceVulnerabilitiesResponse GetSourceVulnerabilities(ctx, sourceId, vtype).ForceRefresh(forceRefresh).WillNotFix(willNotFix).XAnchoreAccount(xAnchoreAccount).Execute()
+> SourcePackageVulnerabilityResponse GetSourceVulnerabilities(ctx, sourceId, vulnType).ForceRefresh(forceRefresh).WillNotFix(willNotFix).XAnchoreAccount(xAnchoreAccount).Execute()
 
 Get vulnerabilities for the source by type
 
@@ -727,19 +587,19 @@ import (
 
 func main() {
     sourceId := "sourceId_example" // string | 
-    vtype := "vtype_example" // string | 
+    vulnType := "vulnType_example" // string | 
     forceRefresh := true // bool |  (optional)
     willNotFix := true // bool | Vulnerability data publishers explicitly won't fix some vulnerabilities. This is captured by will_not_fix attribute of each result. If the query parameter is set, results matching it's value will be filtered. Results are not filtered if the query parameter is unset (optional)
     xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.SourcesApi.GetSourceVulnerabilities(context.Background(), sourceId, vtype).ForceRefresh(forceRefresh).WillNotFix(willNotFix).XAnchoreAccount(xAnchoreAccount).Execute()
+    resp, r, err := api_client.SourcesApi.GetSourceVulnerabilities(context.Background(), sourceId, vulnType).ForceRefresh(forceRefresh).WillNotFix(willNotFix).XAnchoreAccount(xAnchoreAccount).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `SourcesApi.GetSourceVulnerabilities``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `GetSourceVulnerabilities`: SourceVulnerabilitiesResponse
+    // response from `GetSourceVulnerabilities`: SourcePackageVulnerabilityResponse
     fmt.Fprintf(os.Stdout, "Response from `SourcesApi.GetSourceVulnerabilities`: %v\n", resp)
 }
 ```
@@ -751,7 +611,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **sourceId** | **string** |  | 
-**vtype** | **string** |  | 
+**vulnType** | **string** |  | 
 
 ### Other Parameters
 
@@ -768,7 +628,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**SourceVulnerabilitiesResponse**](SourceVulnerabilitiesResponse.md)
+[**SourcePackageVulnerabilityResponse**](SourcePackageVulnerabilityResponse.md)
 
 ### Authorization
 
@@ -856,7 +716,7 @@ No authorization required
 
 ## ListSources
 
-> []Source ListSources(ctx).Execute()
+> SourcesList ListSources(ctx).Execute()
 
 List the source repository analysis records
 
@@ -881,7 +741,7 @@ func main() {
         fmt.Fprintf(os.Stderr, "Error when calling `SourcesApi.ListSources``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `ListSources`: []Source
+    // response from `ListSources`: SourcesList
     fmt.Fprintf(os.Stdout, "Response from `SourcesApi.ListSources`: %v\n", resp)
 }
 ```
@@ -897,7 +757,7 @@ Other parameters are passed through a pointer to a apiListSourcesRequest struct 
 
 ### Return type
 
-[**[]Source**](Source.md)
+[**SourcesList**](SourcesList.md)
 
 ### Authorization
 

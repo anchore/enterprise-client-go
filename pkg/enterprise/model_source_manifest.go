@@ -1,9 +1,9 @@
 /*
-Anchore Enterprise API Server
+Anchore API
 
-This is the Anchore Enterprise API. It provides additional external API routes and functionality for enterprise users.
+This is the Anchore API. Provides the external API for users of Anchore Enterprise.
 
-API version: 0.8.0
+API version: 1.0.0
 Contact: dev@anchore.com
 */
 
@@ -19,7 +19,7 @@ import (
 // SourceManifest struct for SourceManifest
 type SourceManifest struct {
 	Uuid *string `json:"uuid,omitempty"`
-	AccountId *string `json:"account_id,omitempty"`
+	AccountName *string `json:"account_name,omitempty"`
 	VcsType *string `json:"vcs_type,omitempty"`
 	Host *string `json:"host,omitempty"`
 	RepositoryName *string `json:"repository_name,omitempty"`
@@ -81,36 +81,36 @@ func (o *SourceManifest) SetUuid(v string) {
 	o.Uuid = &v
 }
 
-// GetAccountId returns the AccountId field value if set, zero value otherwise.
-func (o *SourceManifest) GetAccountId() string {
-	if o == nil || o.AccountId == nil {
+// GetAccountName returns the AccountName field value if set, zero value otherwise.
+func (o *SourceManifest) GetAccountName() string {
+	if o == nil || o.AccountName == nil {
 		var ret string
 		return ret
 	}
-	return *o.AccountId
+	return *o.AccountName
 }
 
-// GetAccountIdOk returns a tuple with the AccountId field value if set, nil otherwise
+// GetAccountNameOk returns a tuple with the AccountName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SourceManifest) GetAccountIdOk() (*string, bool) {
-	if o == nil || o.AccountId == nil {
+func (o *SourceManifest) GetAccountNameOk() (*string, bool) {
+	if o == nil || o.AccountName == nil {
 		return nil, false
 	}
-	return o.AccountId, true
+	return o.AccountName, true
 }
 
-// HasAccountId returns a boolean if a field has been set.
-func (o *SourceManifest) HasAccountId() bool {
-	if o != nil && o.AccountId != nil {
+// HasAccountName returns a boolean if a field has been set.
+func (o *SourceManifest) HasAccountName() bool {
+	if o != nil && o.AccountName != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetAccountId gets a reference to the given string and assigns it to the AccountId field.
-func (o *SourceManifest) SetAccountId(v string) {
-	o.AccountId = &v
+// SetAccountName gets a reference to the given string and assigns it to the AccountName field.
+func (o *SourceManifest) SetAccountName(v string) {
+	o.AccountName = &v
 }
 
 // GetVcsType returns the VcsType field value if set, zero value otherwise.
@@ -406,8 +406,8 @@ func (o SourceManifest) MarshalJSON() ([]byte, error) {
 	if o.Uuid != nil {
 		toSerialize["uuid"] = o.Uuid
 	}
-	if o.AccountId != nil {
-		toSerialize["account_id"] = o.AccountId
+	if o.AccountName != nil {
+		toSerialize["account_name"] = o.AccountName
 	}
 	if o.VcsType != nil {
 		toSerialize["vcs_type"] = o.VcsType
