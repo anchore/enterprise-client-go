@@ -3,7 +3,7 @@ Anchore API
 
 This is the Anchore API. Provides the external API for users of Anchore Enterprise.
 
-API version: 1.0.0
+API version: 2.0.0
 Contact: dev@anchore.com
 */
 
@@ -20,8 +20,11 @@ type ImportPackageRelationship struct {
 	Parent string `json:"parent"`
 	Child string `json:"child"`
 	Type string `json:"type"`
-	Metadata *interface{} `json:"metadata,omitempty"`
+	Metadata *map[string]interface{} `json:"metadata,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _ImportPackageRelationship ImportPackageRelationship
 
 // NewImportPackageRelationship instantiates a new ImportPackageRelationship object
 // This constructor will assign default values to properties that have it defined,
@@ -116,9 +119,9 @@ func (o *ImportPackageRelationship) SetType(v string) {
 }
 
 // GetMetadata returns the Metadata field value if set, zero value otherwise.
-func (o *ImportPackageRelationship) GetMetadata() interface{} {
+func (o *ImportPackageRelationship) GetMetadata() map[string]interface{} {
 	if o == nil || o.Metadata == nil {
-		var ret interface{}
+		var ret map[string]interface{}
 		return ret
 	}
 	return *o.Metadata
@@ -126,7 +129,7 @@ func (o *ImportPackageRelationship) GetMetadata() interface{} {
 
 // GetMetadataOk returns a tuple with the Metadata field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ImportPackageRelationship) GetMetadataOk() (*interface{}, bool) {
+func (o *ImportPackageRelationship) GetMetadataOk() (*map[string]interface{}, bool) {
 	if o == nil || o.Metadata == nil {
 		return nil, false
 	}
@@ -142,8 +145,8 @@ func (o *ImportPackageRelationship) HasMetadata() bool {
 	return false
 }
 
-// SetMetadata gets a reference to the given interface{} and assigns it to the Metadata field.
-func (o *ImportPackageRelationship) SetMetadata(v interface{}) {
+// SetMetadata gets a reference to the given map[string]interface{} and assigns it to the Metadata field.
+func (o *ImportPackageRelationship) SetMetadata(v map[string]interface{}) {
 	o.Metadata = &v
 }
 
@@ -161,7 +164,32 @@ func (o ImportPackageRelationship) MarshalJSON() ([]byte, error) {
 	if o.Metadata != nil {
 		toSerialize["metadata"] = o.Metadata
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return json.Marshal(toSerialize)
+}
+
+func (o *ImportPackageRelationship) UnmarshalJSON(bytes []byte) (err error) {
+	varImportPackageRelationship := _ImportPackageRelationship{}
+
+	if err = json.Unmarshal(bytes, &varImportPackageRelationship); err == nil {
+		*o = ImportPackageRelationship(varImportPackageRelationship)
+	}
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(bytes, &additionalProperties); err == nil {
+		delete(additionalProperties, "parent")
+		delete(additionalProperties, "child")
+		delete(additionalProperties, "type")
+		delete(additionalProperties, "metadata")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableImportPackageRelationship struct {

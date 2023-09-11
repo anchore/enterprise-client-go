@@ -3,7 +3,7 @@ Anchore API
 
 This is the Anchore API. Provides the external API for users of Anchore Enterprise.
 
-API version: 1.0.0
+API version: 2.0.0
 Contact: dev@anchore.com
 */
 
@@ -24,7 +24,10 @@ type ImagePackageManifest struct {
 	Schema *ImportSchema `json:"schema,omitempty"`
 	ArtifactRelationships *[]ImportPackageRelationship `json:"artifactRelationships,omitempty"`
 	Files *[]ImportFile `json:"files,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _ImagePackageManifest ImagePackageManifest
 
 // NewImagePackageManifest instantiates a new ImagePackageManifest object
 // This constructor will assign default values to properties that have it defined,
@@ -269,7 +272,35 @@ func (o ImagePackageManifest) MarshalJSON() ([]byte, error) {
 	if o.Files != nil {
 		toSerialize["files"] = o.Files
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return json.Marshal(toSerialize)
+}
+
+func (o *ImagePackageManifest) UnmarshalJSON(bytes []byte) (err error) {
+	varImagePackageManifest := _ImagePackageManifest{}
+
+	if err = json.Unmarshal(bytes, &varImagePackageManifest); err == nil {
+		*o = ImagePackageManifest(varImagePackageManifest)
+	}
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(bytes, &additionalProperties); err == nil {
+		delete(additionalProperties, "artifacts")
+		delete(additionalProperties, "source")
+		delete(additionalProperties, "distro")
+		delete(additionalProperties, "descriptor")
+		delete(additionalProperties, "schema")
+		delete(additionalProperties, "artifactRelationships")
+		delete(additionalProperties, "files")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableImagePackageManifest struct {

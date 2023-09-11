@@ -3,7 +3,7 @@ Anchore API
 
 This is the Anchore API. Provides the external API for users of Anchore Enterprise.
 
-API version: 1.0.0
+API version: 2.0.0
 Contact: dev@anchore.com
 */
 
@@ -21,8 +21,11 @@ type ImportDistribution struct {
 	Id NullableString `json:"id,omitempty"`
 	Version NullableString `json:"version,omitempty"`
 	VersionID NullableString `json:"versionID,omitempty"`
-	IdLike *interface{} `json:"idLike,omitempty"`
+	IdLike interface{} `json:"idLike,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _ImportDistribution ImportDistribution
 
 // NewImportDistribution instantiates a new ImportDistribution object
 // This constructor will assign default values to properties that have it defined,
@@ -209,22 +212,23 @@ func (o *ImportDistribution) UnsetVersionID() {
 	o.VersionID.Unset()
 }
 
-// GetIdLike returns the IdLike field value if set, zero value otherwise.
+// GetIdLike returns the IdLike field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *ImportDistribution) GetIdLike() interface{} {
-	if o == nil || o.IdLike == nil {
+	if o == nil  {
 		var ret interface{}
 		return ret
 	}
-	return *o.IdLike
+	return o.IdLike
 }
 
 // GetIdLikeOk returns a tuple with the IdLike field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *ImportDistribution) GetIdLikeOk() (*interface{}, bool) {
 	if o == nil || o.IdLike == nil {
 		return nil, false
 	}
-	return o.IdLike, true
+	return &o.IdLike, true
 }
 
 // HasIdLike returns a boolean if a field has been set.
@@ -238,7 +242,7 @@ func (o *ImportDistribution) HasIdLike() bool {
 
 // SetIdLike gets a reference to the given interface{} and assigns it to the IdLike field.
 func (o *ImportDistribution) SetIdLike(v interface{}) {
-	o.IdLike = &v
+	o.IdLike = v
 }
 
 func (o ImportDistribution) MarshalJSON() ([]byte, error) {
@@ -258,7 +262,33 @@ func (o ImportDistribution) MarshalJSON() ([]byte, error) {
 	if o.IdLike != nil {
 		toSerialize["idLike"] = o.IdLike
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return json.Marshal(toSerialize)
+}
+
+func (o *ImportDistribution) UnmarshalJSON(bytes []byte) (err error) {
+	varImportDistribution := _ImportDistribution{}
+
+	if err = json.Unmarshal(bytes, &varImportDistribution); err == nil {
+		*o = ImportDistribution(varImportDistribution)
+	}
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(bytes, &additionalProperties); err == nil {
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "version")
+		delete(additionalProperties, "versionID")
+		delete(additionalProperties, "idLike")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableImportDistribution struct {

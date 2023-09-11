@@ -3,7 +3,7 @@ Anchore API
 
 This is the Anchore API. Provides the external API for users of Anchore Enterprise.
 
-API version: 1.0.0
+API version: 2.0.0
 Contact: dev@anchore.com
 */
 
@@ -29,7 +29,10 @@ type NativeSBOMPackage struct {
 	Purl *string `json:"purl,omitempty"`
 	MetadataType NullableString `json:"metadataType,omitempty"`
 	Metadata interface{} `json:"metadata,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _NativeSBOMPackage NativeSBOMPackage
 
 // NewNativeSBOMPackage instantiates a new NativeSBOMPackage object
 // This constructor will assign default values to properties that have it defined,
@@ -432,7 +435,40 @@ func (o NativeSBOMPackage) MarshalJSON() ([]byte, error) {
 	if o.Metadata != nil {
 		toSerialize["metadata"] = o.Metadata
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return json.Marshal(toSerialize)
+}
+
+func (o *NativeSBOMPackage) UnmarshalJSON(bytes []byte) (err error) {
+	varNativeSBOMPackage := _NativeSBOMPackage{}
+
+	if err = json.Unmarshal(bytes, &varNativeSBOMPackage); err == nil {
+		*o = NativeSBOMPackage(varNativeSBOMPackage)
+	}
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(bytes, &additionalProperties); err == nil {
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "version")
+		delete(additionalProperties, "type")
+		delete(additionalProperties, "foundBy")
+		delete(additionalProperties, "locations")
+		delete(additionalProperties, "licenses")
+		delete(additionalProperties, "language")
+		delete(additionalProperties, "cpes")
+		delete(additionalProperties, "purl")
+		delete(additionalProperties, "metadataType")
+		delete(additionalProperties, "metadata")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableNativeSBOMPackage struct {

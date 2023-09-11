@@ -3,7 +3,7 @@ Anchore API
 
 This is the Anchore API. Provides the external API for users of Anchore Enterprise.
 
-API version: 1.0.0
+API version: 2.0.0
 Contact: dev@anchore.com
 */
 
@@ -38,8 +38,8 @@ type DefaultApi interface {
 	AddGithubConfiguration(ctx _context.Context) ApiAddGithubConfigurationRequest
 
 	// AddGithubConfigurationExecute executes the request
-	//  @return NotificationGitHubEndpointConfiguration
-	AddGithubConfigurationExecute(r ApiAddGithubConfigurationRequest) (NotificationGitHubEndpointConfiguration, *_nethttp.Response, error)
+	//  @return NotificationGitHubEndpointConfigurationBase
+	AddGithubConfigurationExecute(r ApiAddGithubConfigurationRequest) (NotificationGitHubEndpointConfigurationBase, *_nethttp.Response, error)
 
 	/*
 	AddGithubSelector Method for AddGithubSelector
@@ -81,8 +81,8 @@ type DefaultApi interface {
 	AddJiraConfiguration(ctx _context.Context) ApiAddJiraConfigurationRequest
 
 	// AddJiraConfigurationExecute executes the request
-	//  @return NotificationJiraEndpointConfiguration
-	AddJiraConfigurationExecute(r ApiAddJiraConfigurationRequest) (NotificationJiraEndpointConfiguration, *_nethttp.Response, error)
+	//  @return NotificationJiraEndpointConfigurationBase
+	AddJiraConfigurationExecute(r ApiAddJiraConfigurationRequest) (NotificationJiraEndpointConfigurationBase, *_nethttp.Response, error)
 
 	/*
 	AddJiraSelector Method for AddJiraSelector
@@ -440,8 +440,8 @@ type DefaultApi interface {
 	GetGithubConfiguration(ctx _context.Context, uuid string) ApiGetGithubConfigurationRequest
 
 	// GetGithubConfigurationExecute executes the request
-	//  @return NotificationGitHubEndpointConfiguration
-	GetGithubConfigurationExecute(r ApiGetGithubConfigurationRequest) (NotificationGitHubEndpointConfiguration, *_nethttp.Response, error)
+	//  @return NotificationGitHubEndpointConfigurationBase
+	GetGithubConfigurationExecute(r ApiGetGithubConfigurationRequest) (NotificationGitHubEndpointConfigurationBase, *_nethttp.Response, error)
 
 	/*
 	GetGithubConfigurationStatus Method for GetGithubConfigurationStatus
@@ -515,8 +515,8 @@ type DefaultApi interface {
 	GetJiraConfiguration(ctx _context.Context, uuid string) ApiGetJiraConfigurationRequest
 
 	// GetJiraConfigurationExecute executes the request
-	//  @return NotificationJiraEndpointConfiguration
-	GetJiraConfigurationExecute(r ApiGetJiraConfigurationRequest) (NotificationJiraEndpointConfiguration, *_nethttp.Response, error)
+	//  @return NotificationJiraEndpointConfigurationBase
+	GetJiraConfigurationExecute(r ApiGetJiraConfigurationRequest) (NotificationJiraEndpointConfigurationBase, *_nethttp.Response, error)
 
 	/*
 	GetJiraConfigurationStatus Method for GetJiraConfigurationStatus
@@ -825,8 +825,8 @@ type DefaultApi interface {
 	ListGithubConfigurations(ctx _context.Context) ApiListGithubConfigurationsRequest
 
 	// ListGithubConfigurationsExecute executes the request
-	//  @return []NotificationGitHubEndpointConfiguration
-	ListGithubConfigurationsExecute(r ApiListGithubConfigurationsRequest) ([]NotificationGitHubEndpointConfiguration, *_nethttp.Response, error)
+	//  @return []NotificationGitHubEndpointConfigurationBase
+	ListGithubConfigurationsExecute(r ApiListGithubConfigurationsRequest) ([]NotificationGitHubEndpointConfigurationBase, *_nethttp.Response, error)
 
 	/*
 	ListGithubSelectors Method for ListGithubSelectors
@@ -868,8 +868,8 @@ type DefaultApi interface {
 	ListJiraConfigurations(ctx _context.Context) ApiListJiraConfigurationsRequest
 
 	// ListJiraConfigurationsExecute executes the request
-	//  @return []NotificationJiraEndpointConfiguration
-	ListJiraConfigurationsExecute(r ApiListJiraConfigurationsRequest) ([]NotificationJiraEndpointConfiguration, *_nethttp.Response, error)
+	//  @return []NotificationJiraEndpointConfigurationBase
+	ListJiraConfigurationsExecute(r ApiListJiraConfigurationsRequest) ([]NotificationJiraEndpointConfigurationBase, *_nethttp.Response, error)
 
 	/*
 	ListJiraSelectors Method for ListJiraSelectors
@@ -1206,6 +1206,96 @@ type DefaultApi interface {
 	TestSmtpConfigurationExecute(r ApiTestSmtpConfigurationRequest) (NotificationSMTPTestResult, *_nethttp.Response, error)
 
 	/*
+	TestStoredGithubConfiguration Method for TestStoredGithubConfiguration
+
+	Test stored GitHub endpoint configuration
+
+	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	 @param uuid
+	 @return ApiTestStoredGithubConfigurationRequest
+	*/
+	TestStoredGithubConfiguration(ctx _context.Context, uuid string) ApiTestStoredGithubConfigurationRequest
+
+	// TestStoredGithubConfigurationExecute executes the request
+	//  @return NotificationGitHubTestResult
+	TestStoredGithubConfigurationExecute(r ApiTestStoredGithubConfigurationRequest) (NotificationGitHubTestResult, *_nethttp.Response, error)
+
+	/*
+	TestStoredJiraConfiguration Method for TestStoredJiraConfiguration
+
+	Test stored Jira endpoint configuration
+
+	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	 @param uuid
+	 @return ApiTestStoredJiraConfigurationRequest
+	*/
+	TestStoredJiraConfiguration(ctx _context.Context, uuid string) ApiTestStoredJiraConfigurationRequest
+
+	// TestStoredJiraConfigurationExecute executes the request
+	//  @return NotificationJiraTestResult
+	TestStoredJiraConfigurationExecute(r ApiTestStoredJiraConfigurationRequest) (NotificationJiraTestResult, *_nethttp.Response, error)
+
+	/*
+	TestStoredSlackConfiguration Method for TestStoredSlackConfiguration
+
+	Test stored Slack endpoint configuration
+
+	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	 @param uuid
+	 @return ApiTestStoredSlackConfigurationRequest
+	*/
+	TestStoredSlackConfiguration(ctx _context.Context, uuid string) ApiTestStoredSlackConfigurationRequest
+
+	// TestStoredSlackConfigurationExecute executes the request
+	//  @return NotificationSlackTestResult
+	TestStoredSlackConfigurationExecute(r ApiTestStoredSlackConfigurationRequest) (NotificationSlackTestResult, *_nethttp.Response, error)
+
+	/*
+	TestStoredSmtpConfiguration Method for TestStoredSmtpConfiguration
+
+	Test stored SMTP endpoint configuration
+
+	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	 @param uuid
+	 @return ApiTestStoredSmtpConfigurationRequest
+	*/
+	TestStoredSmtpConfiguration(ctx _context.Context, uuid string) ApiTestStoredSmtpConfigurationRequest
+
+	// TestStoredSmtpConfigurationExecute executes the request
+	//  @return NotificationSMTPTestResult
+	TestStoredSmtpConfigurationExecute(r ApiTestStoredSmtpConfigurationRequest) (NotificationSMTPTestResult, *_nethttp.Response, error)
+
+	/*
+	TestStoredTeamsConfiguration Method for TestStoredTeamsConfiguration
+
+	Test stored Teams endpoint configuration
+
+	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	 @param uuid
+	 @return ApiTestStoredTeamsConfigurationRequest
+	*/
+	TestStoredTeamsConfiguration(ctx _context.Context, uuid string) ApiTestStoredTeamsConfigurationRequest
+
+	// TestStoredTeamsConfigurationExecute executes the request
+	//  @return NotificationTeamsTestResult
+	TestStoredTeamsConfigurationExecute(r ApiTestStoredTeamsConfigurationRequest) (NotificationTeamsTestResult, *_nethttp.Response, error)
+
+	/*
+	TestStoredWebhookConfiguration Method for TestStoredWebhookConfiguration
+
+	Test stored Webhook endpoint configuration
+
+	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	 @param uuid
+	 @return ApiTestStoredWebhookConfigurationRequest
+	*/
+	TestStoredWebhookConfiguration(ctx _context.Context, uuid string) ApiTestStoredWebhookConfigurationRequest
+
+	// TestStoredWebhookConfigurationExecute executes the request
+	//  @return NotificationWebhookTestResult
+	TestStoredWebhookConfigurationExecute(r ApiTestStoredWebhookConfigurationRequest) (NotificationWebhookTestResult, *_nethttp.Response, error)
+
+	/*
 	TestTeamsConfiguration Method for TestTeamsConfiguration
 
 	Test Teams endpoint configuration
@@ -1260,8 +1350,8 @@ type DefaultApi interface {
 	UpdateGithubConfiguration(ctx _context.Context, uuid string) ApiUpdateGithubConfigurationRequest
 
 	// UpdateGithubConfigurationExecute executes the request
-	//  @return NotificationGitHubEndpointConfiguration
-	UpdateGithubConfigurationExecute(r ApiUpdateGithubConfigurationRequest) (NotificationGitHubEndpointConfiguration, *_nethttp.Response, error)
+	//  @return NotificationGitHubEndpointConfigurationBase
+	UpdateGithubConfigurationExecute(r ApiUpdateGithubConfigurationRequest) (NotificationGitHubEndpointConfigurationBase, *_nethttp.Response, error)
 
 	/*
 	UpdateGithubSelector Method for UpdateGithubSelector
@@ -1306,8 +1396,8 @@ type DefaultApi interface {
 	UpdateJiraConfiguration(ctx _context.Context, uuid string) ApiUpdateJiraConfigurationRequest
 
 	// UpdateJiraConfigurationExecute executes the request
-	//  @return NotificationJiraEndpointConfiguration
-	UpdateJiraConfigurationExecute(r ApiUpdateJiraConfigurationRequest) (NotificationJiraEndpointConfiguration, *_nethttp.Response, error)
+	//  @return NotificationJiraEndpointConfigurationBase
+	UpdateJiraConfigurationExecute(r ApiUpdateJiraConfigurationRequest) (NotificationJiraEndpointConfigurationBase, *_nethttp.Response, error)
 
 	/*
 	UpdateJiraSelector Method for UpdateJiraSelector
@@ -1470,15 +1560,15 @@ type DefaultApiService service
 type ApiAddGithubConfigurationRequest struct {
 	ctx _context.Context
 	ApiService DefaultApi
-	configuration *NotificationGitHubEndpointConfiguration
+	configuration *NotificationGitHubEndpointConfigurationPost
 }
 
-func (r ApiAddGithubConfigurationRequest) Configuration(configuration NotificationGitHubEndpointConfiguration) ApiAddGithubConfigurationRequest {
+func (r ApiAddGithubConfigurationRequest) Configuration(configuration NotificationGitHubEndpointConfigurationPost) ApiAddGithubConfigurationRequest {
 	r.configuration = &configuration
 	return r
 }
 
-func (r ApiAddGithubConfigurationRequest) Execute() (NotificationGitHubEndpointConfiguration, *_nethttp.Response, error) {
+func (r ApiAddGithubConfigurationRequest) Execute() (NotificationGitHubEndpointConfigurationBase, *_nethttp.Response, error) {
 	return r.ApiService.AddGithubConfigurationExecute(r)
 }
 
@@ -1498,15 +1588,15 @@ func (a *DefaultApiService) AddGithubConfiguration(ctx _context.Context) ApiAddG
 }
 
 // Execute executes the request
-//  @return NotificationGitHubEndpointConfiguration
-func (a *DefaultApiService) AddGithubConfigurationExecute(r ApiAddGithubConfigurationRequest) (NotificationGitHubEndpointConfiguration, *_nethttp.Response, error) {
+//  @return NotificationGitHubEndpointConfigurationBase
+func (a *DefaultApiService) AddGithubConfigurationExecute(r ApiAddGithubConfigurationRequest) (NotificationGitHubEndpointConfigurationBase, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodPost
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		localVarReturnValue  NotificationGitHubEndpointConfiguration
+		localVarReturnValue  NotificationGitHubEndpointConfigurationBase
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.AddGithubConfiguration")
@@ -1829,15 +1919,15 @@ func (a *DefaultApiService) AddIdpExecute(r ApiAddIdpRequest) (RbacManagerSamlCo
 type ApiAddJiraConfigurationRequest struct {
 	ctx _context.Context
 	ApiService DefaultApi
-	configuration *NotificationJiraEndpointConfiguration
+	configuration *NotificationJiraEndpointConfigurationPost
 }
 
-func (r ApiAddJiraConfigurationRequest) Configuration(configuration NotificationJiraEndpointConfiguration) ApiAddJiraConfigurationRequest {
+func (r ApiAddJiraConfigurationRequest) Configuration(configuration NotificationJiraEndpointConfigurationPost) ApiAddJiraConfigurationRequest {
 	r.configuration = &configuration
 	return r
 }
 
-func (r ApiAddJiraConfigurationRequest) Execute() (NotificationJiraEndpointConfiguration, *_nethttp.Response, error) {
+func (r ApiAddJiraConfigurationRequest) Execute() (NotificationJiraEndpointConfigurationBase, *_nethttp.Response, error) {
 	return r.ApiService.AddJiraConfigurationExecute(r)
 }
 
@@ -1857,15 +1947,15 @@ func (a *DefaultApiService) AddJiraConfiguration(ctx _context.Context) ApiAddJir
 }
 
 // Execute executes the request
-//  @return NotificationJiraEndpointConfiguration
-func (a *DefaultApiService) AddJiraConfigurationExecute(r ApiAddJiraConfigurationRequest) (NotificationJiraEndpointConfiguration, *_nethttp.Response, error) {
+//  @return NotificationJiraEndpointConfigurationBase
+func (a *DefaultApiService) AddJiraConfigurationExecute(r ApiAddJiraConfigurationRequest) (NotificationJiraEndpointConfigurationBase, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodPost
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		localVarReturnValue  NotificationJiraEndpointConfiguration
+		localVarReturnValue  NotificationJiraEndpointConfigurationBase
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.AddJiraConfiguration")
@@ -4486,7 +4576,7 @@ type ApiGetGithubConfigurationRequest struct {
 }
 
 
-func (r ApiGetGithubConfigurationRequest) Execute() (NotificationGitHubEndpointConfiguration, *_nethttp.Response, error) {
+func (r ApiGetGithubConfigurationRequest) Execute() (NotificationGitHubEndpointConfigurationBase, *_nethttp.Response, error) {
 	return r.ApiService.GetGithubConfigurationExecute(r)
 }
 
@@ -4508,15 +4598,15 @@ func (a *DefaultApiService) GetGithubConfiguration(ctx _context.Context, uuid st
 }
 
 // Execute executes the request
-//  @return NotificationGitHubEndpointConfiguration
-func (a *DefaultApiService) GetGithubConfigurationExecute(r ApiGetGithubConfigurationRequest) (NotificationGitHubEndpointConfiguration, *_nethttp.Response, error) {
+//  @return NotificationGitHubEndpointConfigurationBase
+func (a *DefaultApiService) GetGithubConfigurationExecute(r ApiGetGithubConfigurationRequest) (NotificationGitHubEndpointConfigurationBase, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		localVarReturnValue  NotificationGitHubEndpointConfiguration
+		localVarReturnValue  NotificationGitHubEndpointConfigurationBase
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.GetGithubConfiguration")
@@ -5037,7 +5127,7 @@ type ApiGetJiraConfigurationRequest struct {
 }
 
 
-func (r ApiGetJiraConfigurationRequest) Execute() (NotificationJiraEndpointConfiguration, *_nethttp.Response, error) {
+func (r ApiGetJiraConfigurationRequest) Execute() (NotificationJiraEndpointConfigurationBase, *_nethttp.Response, error) {
 	return r.ApiService.GetJiraConfigurationExecute(r)
 }
 
@@ -5059,15 +5149,15 @@ func (a *DefaultApiService) GetJiraConfiguration(ctx _context.Context, uuid stri
 }
 
 // Execute executes the request
-//  @return NotificationJiraEndpointConfiguration
-func (a *DefaultApiService) GetJiraConfigurationExecute(r ApiGetJiraConfigurationRequest) (NotificationJiraEndpointConfiguration, *_nethttp.Response, error) {
+//  @return NotificationJiraEndpointConfigurationBase
+func (a *DefaultApiService) GetJiraConfigurationExecute(r ApiGetJiraConfigurationRequest) (NotificationJiraEndpointConfigurationBase, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		localVarReturnValue  NotificationJiraEndpointConfiguration
+		localVarReturnValue  NotificationJiraEndpointConfigurationBase
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.GetJiraConfiguration")
@@ -7316,7 +7406,7 @@ type ApiListGithubConfigurationsRequest struct {
 }
 
 
-func (r ApiListGithubConfigurationsRequest) Execute() ([]NotificationGitHubEndpointConfiguration, *_nethttp.Response, error) {
+func (r ApiListGithubConfigurationsRequest) Execute() ([]NotificationGitHubEndpointConfigurationBase, *_nethttp.Response, error) {
 	return r.ApiService.ListGithubConfigurationsExecute(r)
 }
 
@@ -7336,15 +7426,15 @@ func (a *DefaultApiService) ListGithubConfigurations(ctx _context.Context) ApiLi
 }
 
 // Execute executes the request
-//  @return []NotificationGitHubEndpointConfiguration
-func (a *DefaultApiService) ListGithubConfigurationsExecute(r ApiListGithubConfigurationsRequest) ([]NotificationGitHubEndpointConfiguration, *_nethttp.Response, error) {
+//  @return []NotificationGitHubEndpointConfigurationBase
+func (a *DefaultApiService) ListGithubConfigurationsExecute(r ApiListGithubConfigurationsRequest) ([]NotificationGitHubEndpointConfigurationBase, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		localVarReturnValue  []NotificationGitHubEndpointConfiguration
+		localVarReturnValue  []NotificationGitHubEndpointConfigurationBase
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.ListGithubConfigurations")
@@ -7635,7 +7725,7 @@ type ApiListJiraConfigurationsRequest struct {
 }
 
 
-func (r ApiListJiraConfigurationsRequest) Execute() ([]NotificationJiraEndpointConfiguration, *_nethttp.Response, error) {
+func (r ApiListJiraConfigurationsRequest) Execute() ([]NotificationJiraEndpointConfigurationBase, *_nethttp.Response, error) {
 	return r.ApiService.ListJiraConfigurationsExecute(r)
 }
 
@@ -7655,15 +7745,15 @@ func (a *DefaultApiService) ListJiraConfigurations(ctx _context.Context) ApiList
 }
 
 // Execute executes the request
-//  @return []NotificationJiraEndpointConfiguration
-func (a *DefaultApiService) ListJiraConfigurationsExecute(r ApiListJiraConfigurationsRequest) ([]NotificationJiraEndpointConfiguration, *_nethttp.Response, error) {
+//  @return []NotificationJiraEndpointConfigurationBase
+func (a *DefaultApiService) ListJiraConfigurationsExecute(r ApiListJiraConfigurationsRequest) ([]NotificationJiraEndpointConfigurationBase, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		localVarReturnValue  []NotificationJiraEndpointConfiguration
+		localVarReturnValue  []NotificationJiraEndpointConfigurationBase
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.ListJiraConfigurations")
@@ -9902,10 +9992,10 @@ func (a *DefaultApiService) SamlSsoExecute(r ApiSamlSsoRequest) (RbacManagerToke
 type ApiTestGithubConfigurationRequest struct {
 	ctx _context.Context
 	ApiService DefaultApi
-	configuration *NotificationGitHubEndpointConfiguration
+	configuration *NotificationGitHubEndpointConfigurationPost
 }
 
-func (r ApiTestGithubConfigurationRequest) Configuration(configuration NotificationGitHubEndpointConfiguration) ApiTestGithubConfigurationRequest {
+func (r ApiTestGithubConfigurationRequest) Configuration(configuration NotificationGitHubEndpointConfigurationPost) ApiTestGithubConfigurationRequest {
 	r.configuration = &configuration
 	return r
 }
@@ -10014,10 +10104,10 @@ func (a *DefaultApiService) TestGithubConfigurationExecute(r ApiTestGithubConfig
 type ApiTestJiraConfigurationRequest struct {
 	ctx _context.Context
 	ApiService DefaultApi
-	configuration *NotificationJiraEndpointConfiguration
+	configuration *NotificationJiraEndpointConfigurationPost
 }
 
-func (r ApiTestJiraConfigurationRequest) Configuration(configuration NotificationJiraEndpointConfiguration) ApiTestJiraConfigurationRequest {
+func (r ApiTestJiraConfigurationRequest) Configuration(configuration NotificationJiraEndpointConfigurationPost) ApiTestJiraConfigurationRequest {
 	r.configuration = &configuration
 	return r
 }
@@ -10310,6 +10400,642 @@ func (a *DefaultApiService) TestSmtpConfigurationExecute(r ApiTestSmtpConfigurat
 	}
 	// body params
 	localVarPostBody = r.configuration
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiTestStoredGithubConfigurationRequest struct {
+	ctx _context.Context
+	ApiService DefaultApi
+	uuid string
+}
+
+
+func (r ApiTestStoredGithubConfigurationRequest) Execute() (NotificationGitHubTestResult, *_nethttp.Response, error) {
+	return r.ApiService.TestStoredGithubConfigurationExecute(r)
+}
+
+/*
+TestStoredGithubConfiguration Method for TestStoredGithubConfiguration
+
+Test stored GitHub endpoint configuration
+
+ @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param uuid
+ @return ApiTestStoredGithubConfigurationRequest
+*/
+func (a *DefaultApiService) TestStoredGithubConfiguration(ctx _context.Context, uuid string) ApiTestStoredGithubConfigurationRequest {
+	return ApiTestStoredGithubConfigurationRequest{
+		ApiService: a,
+		ctx: ctx,
+		uuid: uuid,
+	}
+}
+
+// Execute executes the request
+//  @return NotificationGitHubTestResult
+func (a *DefaultApiService) TestStoredGithubConfigurationExecute(r ApiTestStoredGithubConfigurationRequest) (NotificationGitHubTestResult, *_nethttp.Response, error) {
+	var (
+		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarPostBody     interface{}
+		localVarFormFileName string
+		localVarFileName     string
+		localVarFileBytes    []byte
+		localVarReturnValue  NotificationGitHubTestResult
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.TestStoredGithubConfiguration")
+	if err != nil {
+		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/notifications/endpoints/github/configurations/{uuid}/test"
+	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", _neturl.PathEscape(parameterToString(r.uuid, "")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := _neturl.Values{}
+	localVarFormParams := _neturl.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiTestStoredJiraConfigurationRequest struct {
+	ctx _context.Context
+	ApiService DefaultApi
+	uuid string
+}
+
+
+func (r ApiTestStoredJiraConfigurationRequest) Execute() (NotificationJiraTestResult, *_nethttp.Response, error) {
+	return r.ApiService.TestStoredJiraConfigurationExecute(r)
+}
+
+/*
+TestStoredJiraConfiguration Method for TestStoredJiraConfiguration
+
+Test stored Jira endpoint configuration
+
+ @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param uuid
+ @return ApiTestStoredJiraConfigurationRequest
+*/
+func (a *DefaultApiService) TestStoredJiraConfiguration(ctx _context.Context, uuid string) ApiTestStoredJiraConfigurationRequest {
+	return ApiTestStoredJiraConfigurationRequest{
+		ApiService: a,
+		ctx: ctx,
+		uuid: uuid,
+	}
+}
+
+// Execute executes the request
+//  @return NotificationJiraTestResult
+func (a *DefaultApiService) TestStoredJiraConfigurationExecute(r ApiTestStoredJiraConfigurationRequest) (NotificationJiraTestResult, *_nethttp.Response, error) {
+	var (
+		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarPostBody     interface{}
+		localVarFormFileName string
+		localVarFileName     string
+		localVarFileBytes    []byte
+		localVarReturnValue  NotificationJiraTestResult
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.TestStoredJiraConfiguration")
+	if err != nil {
+		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/notifications/endpoints/jira/configurations/{uuid}/test"
+	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", _neturl.PathEscape(parameterToString(r.uuid, "")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := _neturl.Values{}
+	localVarFormParams := _neturl.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiTestStoredSlackConfigurationRequest struct {
+	ctx _context.Context
+	ApiService DefaultApi
+	uuid string
+}
+
+
+func (r ApiTestStoredSlackConfigurationRequest) Execute() (NotificationSlackTestResult, *_nethttp.Response, error) {
+	return r.ApiService.TestStoredSlackConfigurationExecute(r)
+}
+
+/*
+TestStoredSlackConfiguration Method for TestStoredSlackConfiguration
+
+Test stored Slack endpoint configuration
+
+ @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param uuid
+ @return ApiTestStoredSlackConfigurationRequest
+*/
+func (a *DefaultApiService) TestStoredSlackConfiguration(ctx _context.Context, uuid string) ApiTestStoredSlackConfigurationRequest {
+	return ApiTestStoredSlackConfigurationRequest{
+		ApiService: a,
+		ctx: ctx,
+		uuid: uuid,
+	}
+}
+
+// Execute executes the request
+//  @return NotificationSlackTestResult
+func (a *DefaultApiService) TestStoredSlackConfigurationExecute(r ApiTestStoredSlackConfigurationRequest) (NotificationSlackTestResult, *_nethttp.Response, error) {
+	var (
+		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarPostBody     interface{}
+		localVarFormFileName string
+		localVarFileName     string
+		localVarFileBytes    []byte
+		localVarReturnValue  NotificationSlackTestResult
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.TestStoredSlackConfiguration")
+	if err != nil {
+		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/notifications/endpoints/slack/configurations/{uuid}/test"
+	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", _neturl.PathEscape(parameterToString(r.uuid, "")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := _neturl.Values{}
+	localVarFormParams := _neturl.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiTestStoredSmtpConfigurationRequest struct {
+	ctx _context.Context
+	ApiService DefaultApi
+	uuid string
+}
+
+
+func (r ApiTestStoredSmtpConfigurationRequest) Execute() (NotificationSMTPTestResult, *_nethttp.Response, error) {
+	return r.ApiService.TestStoredSmtpConfigurationExecute(r)
+}
+
+/*
+TestStoredSmtpConfiguration Method for TestStoredSmtpConfiguration
+
+Test stored SMTP endpoint configuration
+
+ @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param uuid
+ @return ApiTestStoredSmtpConfigurationRequest
+*/
+func (a *DefaultApiService) TestStoredSmtpConfiguration(ctx _context.Context, uuid string) ApiTestStoredSmtpConfigurationRequest {
+	return ApiTestStoredSmtpConfigurationRequest{
+		ApiService: a,
+		ctx: ctx,
+		uuid: uuid,
+	}
+}
+
+// Execute executes the request
+//  @return NotificationSMTPTestResult
+func (a *DefaultApiService) TestStoredSmtpConfigurationExecute(r ApiTestStoredSmtpConfigurationRequest) (NotificationSMTPTestResult, *_nethttp.Response, error) {
+	var (
+		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarPostBody     interface{}
+		localVarFormFileName string
+		localVarFileName     string
+		localVarFileBytes    []byte
+		localVarReturnValue  NotificationSMTPTestResult
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.TestStoredSmtpConfiguration")
+	if err != nil {
+		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/notifications/endpoints/smtp/configurations/{uuid}/test"
+	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", _neturl.PathEscape(parameterToString(r.uuid, "")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := _neturl.Values{}
+	localVarFormParams := _neturl.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiTestStoredTeamsConfigurationRequest struct {
+	ctx _context.Context
+	ApiService DefaultApi
+	uuid string
+}
+
+
+func (r ApiTestStoredTeamsConfigurationRequest) Execute() (NotificationTeamsTestResult, *_nethttp.Response, error) {
+	return r.ApiService.TestStoredTeamsConfigurationExecute(r)
+}
+
+/*
+TestStoredTeamsConfiguration Method for TestStoredTeamsConfiguration
+
+Test stored Teams endpoint configuration
+
+ @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param uuid
+ @return ApiTestStoredTeamsConfigurationRequest
+*/
+func (a *DefaultApiService) TestStoredTeamsConfiguration(ctx _context.Context, uuid string) ApiTestStoredTeamsConfigurationRequest {
+	return ApiTestStoredTeamsConfigurationRequest{
+		ApiService: a,
+		ctx: ctx,
+		uuid: uuid,
+	}
+}
+
+// Execute executes the request
+//  @return NotificationTeamsTestResult
+func (a *DefaultApiService) TestStoredTeamsConfigurationExecute(r ApiTestStoredTeamsConfigurationRequest) (NotificationTeamsTestResult, *_nethttp.Response, error) {
+	var (
+		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarPostBody     interface{}
+		localVarFormFileName string
+		localVarFileName     string
+		localVarFileBytes    []byte
+		localVarReturnValue  NotificationTeamsTestResult
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.TestStoredTeamsConfiguration")
+	if err != nil {
+		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/notifications/endpoints/teams/configurations/{uuid}/test"
+	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", _neturl.PathEscape(parameterToString(r.uuid, "")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := _neturl.Values{}
+	localVarFormParams := _neturl.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiTestStoredWebhookConfigurationRequest struct {
+	ctx _context.Context
+	ApiService DefaultApi
+	uuid string
+}
+
+
+func (r ApiTestStoredWebhookConfigurationRequest) Execute() (NotificationWebhookTestResult, *_nethttp.Response, error) {
+	return r.ApiService.TestStoredWebhookConfigurationExecute(r)
+}
+
+/*
+TestStoredWebhookConfiguration Method for TestStoredWebhookConfiguration
+
+Test stored Webhook endpoint configuration
+
+ @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param uuid
+ @return ApiTestStoredWebhookConfigurationRequest
+*/
+func (a *DefaultApiService) TestStoredWebhookConfiguration(ctx _context.Context, uuid string) ApiTestStoredWebhookConfigurationRequest {
+	return ApiTestStoredWebhookConfigurationRequest{
+		ApiService: a,
+		ctx: ctx,
+		uuid: uuid,
+	}
+}
+
+// Execute executes the request
+//  @return NotificationWebhookTestResult
+func (a *DefaultApiService) TestStoredWebhookConfigurationExecute(r ApiTestStoredWebhookConfigurationRequest) (NotificationWebhookTestResult, *_nethttp.Response, error) {
+	var (
+		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarPostBody     interface{}
+		localVarFormFileName string
+		localVarFileName     string
+		localVarFileBytes    []byte
+		localVarReturnValue  NotificationWebhookTestResult
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.TestStoredWebhookConfiguration")
+	if err != nil {
+		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/notifications/endpoints/webhook/configurations/{uuid}/test"
+	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", _neturl.PathEscape(parameterToString(r.uuid, "")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := _neturl.Values{}
+	localVarFormParams := _neturl.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -10691,15 +11417,15 @@ type ApiUpdateGithubConfigurationRequest struct {
 	ctx _context.Context
 	ApiService DefaultApi
 	uuid string
-	configuration *NotificationGitHubEndpointConfiguration
+	configuration *NotificationGitHubEndpointConfigurationPut
 }
 
-func (r ApiUpdateGithubConfigurationRequest) Configuration(configuration NotificationGitHubEndpointConfiguration) ApiUpdateGithubConfigurationRequest {
+func (r ApiUpdateGithubConfigurationRequest) Configuration(configuration NotificationGitHubEndpointConfigurationPut) ApiUpdateGithubConfigurationRequest {
 	r.configuration = &configuration
 	return r
 }
 
-func (r ApiUpdateGithubConfigurationRequest) Execute() (NotificationGitHubEndpointConfiguration, *_nethttp.Response, error) {
+func (r ApiUpdateGithubConfigurationRequest) Execute() (NotificationGitHubEndpointConfigurationBase, *_nethttp.Response, error) {
 	return r.ApiService.UpdateGithubConfigurationExecute(r)
 }
 
@@ -10721,15 +11447,15 @@ func (a *DefaultApiService) UpdateGithubConfiguration(ctx _context.Context, uuid
 }
 
 // Execute executes the request
-//  @return NotificationGitHubEndpointConfiguration
-func (a *DefaultApiService) UpdateGithubConfigurationExecute(r ApiUpdateGithubConfigurationRequest) (NotificationGitHubEndpointConfiguration, *_nethttp.Response, error) {
+//  @return NotificationGitHubEndpointConfigurationBase
+func (a *DefaultApiService) UpdateGithubConfigurationExecute(r ApiUpdateGithubConfigurationRequest) (NotificationGitHubEndpointConfigurationBase, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodPut
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		localVarReturnValue  NotificationGitHubEndpointConfiguration
+		localVarReturnValue  NotificationGitHubEndpointConfigurationBase
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.UpdateGithubConfiguration")
@@ -11072,15 +11798,15 @@ type ApiUpdateJiraConfigurationRequest struct {
 	ctx _context.Context
 	ApiService DefaultApi
 	uuid string
-	configuration *NotificationJiraEndpointConfiguration
+	configuration *NotificationJiraEndpointConfigurationPut
 }
 
-func (r ApiUpdateJiraConfigurationRequest) Configuration(configuration NotificationJiraEndpointConfiguration) ApiUpdateJiraConfigurationRequest {
+func (r ApiUpdateJiraConfigurationRequest) Configuration(configuration NotificationJiraEndpointConfigurationPut) ApiUpdateJiraConfigurationRequest {
 	r.configuration = &configuration
 	return r
 }
 
-func (r ApiUpdateJiraConfigurationRequest) Execute() (NotificationJiraEndpointConfiguration, *_nethttp.Response, error) {
+func (r ApiUpdateJiraConfigurationRequest) Execute() (NotificationJiraEndpointConfigurationBase, *_nethttp.Response, error) {
 	return r.ApiService.UpdateJiraConfigurationExecute(r)
 }
 
@@ -11102,15 +11828,15 @@ func (a *DefaultApiService) UpdateJiraConfiguration(ctx _context.Context, uuid s
 }
 
 // Execute executes the request
-//  @return NotificationJiraEndpointConfiguration
-func (a *DefaultApiService) UpdateJiraConfigurationExecute(r ApiUpdateJiraConfigurationRequest) (NotificationJiraEndpointConfiguration, *_nethttp.Response, error) {
+//  @return NotificationJiraEndpointConfigurationBase
+func (a *DefaultApiService) UpdateJiraConfigurationExecute(r ApiUpdateJiraConfigurationRequest) (NotificationJiraEndpointConfigurationBase, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodPut
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		localVarReturnValue  NotificationJiraEndpointConfiguration
+		localVarReturnValue  NotificationJiraEndpointConfigurationBase
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.UpdateJiraConfiguration")
