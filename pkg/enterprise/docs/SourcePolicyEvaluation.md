@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **Host** | **string** | Host name for the repository location (e.g. github.com) | 
 **RepositoryName** | **string** | The name of the repository on the host (e.g. &#39;anchore/anchore-engine&#39;) | 
 **Revision** | **string** | The commit ID for a git repository | 
-**Policy** | [**Policy**](Policy.md) |  | 
+**Policy** | [**NullablePolicy**](Policy.md) |  | 
 **SourceMappedToRule** | **bool** | Whether the evaluated source repository matched a policy rule | 
 **MatchedMappingRule** | Pointer to **interface{}** | The policy mapping rule that the source repository being evaluated matched against. | [optional] 
 **Findings** | [**[]SourcePolicyEvaluationFinding**](SourcePolicyEvaluationFinding.md) | The detailed policy findings | 
@@ -25,7 +25,7 @@ Name | Type | Description | Notes
 
 ### NewSourcePolicyEvaluation
 
-`func NewSourcePolicyEvaluation(accountName string, evaluationId string, sourceId string, host string, repositoryName string, revision string, policy Policy, sourceMappedToRule bool, findings []SourcePolicyEvaluationFinding, numberOfFindings int32, evaluationTime time.Time, finalAction string, finalActionReason string, evaluationProblems []PolicyEvaluationProblem, status string, ) *SourcePolicyEvaluation`
+`func NewSourcePolicyEvaluation(accountName string, evaluationId string, sourceId string, host string, repositoryName string, revision string, policy NullablePolicy, sourceMappedToRule bool, findings []SourcePolicyEvaluationFinding, numberOfFindings int32, evaluationTime time.Time, finalAction string, finalActionReason string, evaluationProblems []PolicyEvaluationProblem, status string, ) *SourcePolicyEvaluation`
 
 NewSourcePolicyEvaluation instantiates a new SourcePolicyEvaluation object
 This constructor will assign default values to properties that have it defined,
@@ -180,6 +180,16 @@ and a boolean to check if the value has been set.
 SetPolicy sets Policy field to given value.
 
 
+### SetPolicyNil
+
+`func (o *SourcePolicyEvaluation) SetPolicyNil(b bool)`
+
+ SetPolicyNil sets the value for Policy to be an explicit nil
+
+### UnsetPolicy
+`func (o *SourcePolicyEvaluation) UnsetPolicy()`
+
+UnsetPolicy ensures that no value is present for Policy, not even an explicit nil
 ### GetSourceMappedToRule
 
 `func (o *SourcePolicyEvaluation) GetSourceMappedToRule() bool`

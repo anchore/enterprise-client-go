@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Policy** | [**Policy**](Policy.md) |  | 
+**Policy** | [**NullablePolicy**](Policy.md) |  | 
 **Findings** | [**[]PolicyEvaluationFinding**](PolicyEvaluationFinding.md) | The detailed policy findings | 
 **Remediations** | Pointer to [**[]PolicyEvaluationRemediation**](PolicyEvaluationRemediation.md) | List of remediations for the findings | [optional] 
 
@@ -12,7 +12,7 @@ Name | Type | Description | Notes
 
 ### NewPolicyEvaluationDetails
 
-`func NewPolicyEvaluationDetails(policy Policy, findings []PolicyEvaluationFinding, ) *PolicyEvaluationDetails`
+`func NewPolicyEvaluationDetails(policy NullablePolicy, findings []PolicyEvaluationFinding, ) *PolicyEvaluationDetails`
 
 NewPolicyEvaluationDetails instantiates a new PolicyEvaluationDetails object
 This constructor will assign default values to properties that have it defined,
@@ -47,6 +47,16 @@ and a boolean to check if the value has been set.
 SetPolicy sets Policy field to given value.
 
 
+### SetPolicyNil
+
+`func (o *PolicyEvaluationDetails) SetPolicyNil(b bool)`
+
+ SetPolicyNil sets the value for Policy to be an explicit nil
+
+### UnsetPolicy
+`func (o *PolicyEvaluationDetails) UnsetPolicy()`
+
+UnsetPolicy ensures that no value is present for Policy, not even an explicit nil
 ### GetFindings
 
 `func (o *PolicyEvaluationDetails) GetFindings() []PolicyEvaluationFinding`

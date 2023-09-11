@@ -5,13 +5,14 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Type** | **string** |  | 
-**Target** | **interface{}** |  | 
+**Target** | Pointer to **map[string]interface{}** |  | [optional] 
+**Metadata** | Pointer to **map[string]interface{}** |  | [optional] 
 
 ## Methods
 
 ### NewNativeSBOMSource
 
-`func NewNativeSBOMSource(type_ string, target interface{}, ) *NativeSBOMSource`
+`func NewNativeSBOMSource(type_ string, ) *NativeSBOMSource`
 
 NewNativeSBOMSource instantiates a new NativeSBOMSource object
 This constructor will assign default values to properties that have it defined,
@@ -48,23 +49,53 @@ SetType sets Type field to given value.
 
 ### GetTarget
 
-`func (o *NativeSBOMSource) GetTarget() interface{}`
+`func (o *NativeSBOMSource) GetTarget() map[string]interface{}`
 
 GetTarget returns the Target field if non-nil, zero value otherwise.
 
 ### GetTargetOk
 
-`func (o *NativeSBOMSource) GetTargetOk() (*interface{}, bool)`
+`func (o *NativeSBOMSource) GetTargetOk() (*map[string]interface{}, bool)`
 
 GetTargetOk returns a tuple with the Target field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTarget
 
-`func (o *NativeSBOMSource) SetTarget(v interface{})`
+`func (o *NativeSBOMSource) SetTarget(v map[string]interface{})`
 
 SetTarget sets Target field to given value.
 
+### HasTarget
+
+`func (o *NativeSBOMSource) HasTarget() bool`
+
+HasTarget returns a boolean if a field has been set.
+
+### GetMetadata
+
+`func (o *NativeSBOMSource) GetMetadata() map[string]interface{}`
+
+GetMetadata returns the Metadata field if non-nil, zero value otherwise.
+
+### GetMetadataOk
+
+`func (o *NativeSBOMSource) GetMetadataOk() (*map[string]interface{}, bool)`
+
+GetMetadataOk returns a tuple with the Metadata field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetMetadata
+
+`func (o *NativeSBOMSource) SetMetadata(v map[string]interface{})`
+
+SetMetadata sets Metadata field to given value.
+
+### HasMetadata
+
+`func (o *NativeSBOMSource) HasMetadata() bool`
+
+HasMetadata returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

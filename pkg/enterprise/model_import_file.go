@@ -3,7 +3,7 @@ Anchore API
 
 This is the Anchore API. Provides the external API for users of Anchore Enterprise.
 
-API version: 1.0.0
+API version: 2.0.0
 Contact: dev@anchore.com
 */
 
@@ -23,7 +23,10 @@ type ImportFile struct {
 	// File metadata such as mode, size, etc. This is populated by anchorectl analysis but is not available in older syft-generated SBOMs
 	Metadata *interface{} `json:"metadata,omitempty"`
 	Digests *[]ImportFileDigest `json:"digests,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _ImportFile ImportFile
 
 // NewImportFile instantiates a new ImportFile object
 // This constructor will assign default values to properties that have it defined,
@@ -170,7 +173,32 @@ func (o ImportFile) MarshalJSON() ([]byte, error) {
 	if o.Digests != nil {
 		toSerialize["digests"] = o.Digests
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return json.Marshal(toSerialize)
+}
+
+func (o *ImportFile) UnmarshalJSON(bytes []byte) (err error) {
+	varImportFile := _ImportFile{}
+
+	if err = json.Unmarshal(bytes, &varImportFile); err == nil {
+		*o = ImportFile(varImportFile)
+	}
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(bytes, &additionalProperties); err == nil {
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "location")
+		delete(additionalProperties, "metadata")
+		delete(additionalProperties, "digests")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableImportFile struct {

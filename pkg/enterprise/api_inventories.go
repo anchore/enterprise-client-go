@@ -3,7 +3,7 @@ Anchore API
 
 This is the Anchore API. Provides the external API for users of Anchore Enterprise.
 
-API version: 1.0.0
+API version: 2.0.0
 Contact: dev@anchore.com
 */
 
@@ -522,10 +522,14 @@ func (a *InventoriesApiService) GetEcsContainersExecute(r ApiGetEcsContainersReq
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
 	localVarFormParams := _neturl.Values{}
-
-	if r.page != nil {
-		localVarQueryParams.Add("page", parameterToString(*r.page, ""))
+	if r.page == nil {
+		return localVarReturnValue, nil, reportError("page is required and must be specified")
 	}
+	if *r.page < 1 {
+		return localVarReturnValue, nil, reportError("page must be greater than 1")
+	}
+
+	localVarQueryParams.Add("page", parameterToString(*r.page, ""))
 	if r.pageSize != nil {
 		localVarQueryParams.Add("page_size", parameterToString(*r.pageSize, ""))
 	}
@@ -640,10 +644,14 @@ func (a *InventoriesApiService) GetEcsServicesExecute(r ApiGetEcsServicesRequest
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
 	localVarFormParams := _neturl.Values{}
-
-	if r.page != nil {
-		localVarQueryParams.Add("page", parameterToString(*r.page, ""))
+	if r.page == nil {
+		return localVarReturnValue, nil, reportError("page is required and must be specified")
 	}
+	if *r.page < 1 {
+		return localVarReturnValue, nil, reportError("page must be greater than 1")
+	}
+
+	localVarQueryParams.Add("page", parameterToString(*r.page, ""))
 	if r.pageSize != nil {
 		localVarQueryParams.Add("page_size", parameterToString(*r.pageSize, ""))
 	}
@@ -758,10 +766,14 @@ func (a *InventoriesApiService) GetEcsTasksExecute(r ApiGetEcsTasksRequest) (ECS
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
 	localVarFormParams := _neturl.Values{}
-
-	if r.page != nil {
-		localVarQueryParams.Add("page", parameterToString(*r.page, ""))
+	if r.page == nil {
+		return localVarReturnValue, nil, reportError("page is required and must be specified")
 	}
+	if *r.page < 1 {
+		return localVarReturnValue, nil, reportError("page must be greater than 1")
+	}
+
+	localVarQueryParams.Add("page", parameterToString(*r.page, ""))
 	if r.pageSize != nil {
 		localVarQueryParams.Add("page_size", parameterToString(*r.pageSize, ""))
 	}
@@ -1011,10 +1023,14 @@ func (a *InventoriesApiService) GetKubernetesContainersExecute(r ApiGetKubernete
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
 	localVarFormParams := _neturl.Values{}
-
-	if r.page != nil {
-		localVarQueryParams.Add("page", parameterToString(*r.page, ""))
+	if r.page == nil {
+		return localVarReturnValue, nil, reportError("page is required and must be specified")
 	}
+	if *r.page < 1 {
+		return localVarReturnValue, nil, reportError("page must be greater than 1")
+	}
+
+	localVarQueryParams.Add("page", parameterToString(*r.page, ""))
 	if r.pageSize != nil {
 		localVarQueryParams.Add("page_size", parameterToString(*r.pageSize, ""))
 	}
@@ -1235,10 +1251,14 @@ func (a *InventoriesApiService) GetKubernetesNamespacesExecute(r ApiGetKubernete
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
 	localVarFormParams := _neturl.Values{}
-
-	if r.page != nil {
-		localVarQueryParams.Add("page", parameterToString(*r.page, ""))
+	if r.page == nil {
+		return localVarReturnValue, nil, reportError("page is required and must be specified")
 	}
+	if *r.page < 1 {
+		return localVarReturnValue, nil, reportError("page must be greater than 1")
+	}
+
+	localVarQueryParams.Add("page", parameterToString(*r.page, ""))
 	if r.pageSize != nil {
 		localVarQueryParams.Add("page_size", parameterToString(*r.pageSize, ""))
 	}
@@ -1459,10 +1479,14 @@ func (a *InventoriesApiService) GetKubernetesNodesExecute(r ApiGetKubernetesNode
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
 	localVarFormParams := _neturl.Values{}
-
-	if r.page != nil {
-		localVarQueryParams.Add("page", parameterToString(*r.page, ""))
+	if r.page == nil {
+		return localVarReturnValue, nil, reportError("page is required and must be specified")
 	}
+	if *r.page < 1 {
+		return localVarReturnValue, nil, reportError("page must be greater than 1")
+	}
+
+	localVarQueryParams.Add("page", parameterToString(*r.page, ""))
 	if r.pageSize != nil {
 		localVarQueryParams.Add("page_size", parameterToString(*r.pageSize, ""))
 	}
@@ -1683,10 +1707,14 @@ func (a *InventoriesApiService) GetKubernetesPodsExecute(r ApiGetKubernetesPodsR
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
 	localVarFormParams := _neturl.Values{}
-
-	if r.page != nil {
-		localVarQueryParams.Add("page", parameterToString(*r.page, ""))
+	if r.page == nil {
+		return localVarReturnValue, nil, reportError("page is required and must be specified")
 	}
+	if *r.page < 1 {
+		return localVarReturnValue, nil, reportError("page must be greater than 1")
+	}
+
+	localVarQueryParams.Add("page", parameterToString(*r.page, ""))
 	if r.pageSize != nil {
 		localVarQueryParams.Add("page_size", parameterToString(*r.pageSize, ""))
 	}

@@ -86,6 +86,12 @@ Method | HTTP request | Description
 [**TestJiraConfiguration**](DefaultApi.md#TestJiraConfiguration) | **Post** /notifications/endpoints/jira/test | 
 [**TestSlackConfiguration**](DefaultApi.md#TestSlackConfiguration) | **Post** /notifications/endpoints/slack/test | 
 [**TestSmtpConfiguration**](DefaultApi.md#TestSmtpConfiguration) | **Post** /notifications/endpoints/smtp/test | 
+[**TestStoredGithubConfiguration**](DefaultApi.md#TestStoredGithubConfiguration) | **Get** /notifications/endpoints/github/configurations/{uuid}/test | 
+[**TestStoredJiraConfiguration**](DefaultApi.md#TestStoredJiraConfiguration) | **Get** /notifications/endpoints/jira/configurations/{uuid}/test | 
+[**TestStoredSlackConfiguration**](DefaultApi.md#TestStoredSlackConfiguration) | **Get** /notifications/endpoints/slack/configurations/{uuid}/test | 
+[**TestStoredSmtpConfiguration**](DefaultApi.md#TestStoredSmtpConfiguration) | **Get** /notifications/endpoints/smtp/configurations/{uuid}/test | 
+[**TestStoredTeamsConfiguration**](DefaultApi.md#TestStoredTeamsConfiguration) | **Get** /notifications/endpoints/teams/configurations/{uuid}/test | 
+[**TestStoredWebhookConfiguration**](DefaultApi.md#TestStoredWebhookConfiguration) | **Get** /notifications/endpoints/webhook/configurations/{uuid}/test | 
 [**TestTeamsConfiguration**](DefaultApi.md#TestTeamsConfiguration) | **Post** /notifications/endpoints/teams/test | 
 [**TestWebhookConfiguration**](DefaultApi.md#TestWebhookConfiguration) | **Post** /notifications/endpoints/webhook/test | 
 [**UpdateEndpointStatus**](DefaultApi.md#UpdateEndpointStatus) | **Put** /notifications/endpoints/{name} | 
@@ -108,7 +114,7 @@ Method | HTTP request | Description
 
 ## AddGithubConfiguration
 
-> NotificationGitHubEndpointConfiguration AddGithubConfiguration(ctx).Configuration(configuration).Execute()
+> NotificationGitHubEndpointConfigurationBase AddGithubConfiguration(ctx).Configuration(configuration).Execute()
 
 
 
@@ -127,7 +133,7 @@ import (
 )
 
 func main() {
-    configuration := *openapiclient.NewNotificationGitHubEndpointConfiguration("Username_example", "AccessToken_example", "Owner_example", "Repository_example") // NotificationGitHubEndpointConfiguration | 
+    configuration := *openapiclient.NewNotificationGitHubEndpointConfigurationPost("Username_example", "AccessToken_example", "Owner_example", "Repository_example") // NotificationGitHubEndpointConfigurationPost | 
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
@@ -136,7 +142,7 @@ func main() {
         fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.AddGithubConfiguration``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `AddGithubConfiguration`: NotificationGitHubEndpointConfiguration
+    // response from `AddGithubConfiguration`: NotificationGitHubEndpointConfigurationBase
     fmt.Fprintf(os.Stdout, "Response from `DefaultApi.AddGithubConfiguration`: %v\n", resp)
 }
 ```
@@ -152,11 +158,11 @@ Other parameters are passed through a pointer to a apiAddGithubConfigurationRequ
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **configuration** | [**NotificationGitHubEndpointConfiguration**](NotificationGitHubEndpointConfiguration.md) |  | 
+ **configuration** | [**NotificationGitHubEndpointConfigurationPost**](NotificationGitHubEndpointConfigurationPost.md) |  | 
 
 ### Return type
 
-[**NotificationGitHubEndpointConfiguration**](NotificationGitHubEndpointConfiguration.md)
+[**NotificationGitHubEndpointConfigurationBase**](NotificationGitHubEndpointConfigurationBase.md)
 
 ### Authorization
 
@@ -312,7 +318,7 @@ No authorization required
 
 ## AddJiraConfiguration
 
-> NotificationJiraEndpointConfiguration AddJiraConfiguration(ctx).Configuration(configuration).Execute()
+> NotificationJiraEndpointConfigurationBase AddJiraConfiguration(ctx).Configuration(configuration).Execute()
 
 
 
@@ -331,7 +337,7 @@ import (
 )
 
 func main() {
-    configuration := *openapiclient.NewNotificationJiraEndpointConfiguration("Url_example", "Username_example", "Password_example", "ProjectKey_example", "IssueType_example") // NotificationJiraEndpointConfiguration | 
+    configuration := *openapiclient.NewNotificationJiraEndpointConfigurationPost("Url_example", "Username_example", "Password_example", "ProjectKey_example", "IssueType_example") // NotificationJiraEndpointConfigurationPost | 
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
@@ -340,7 +346,7 @@ func main() {
         fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.AddJiraConfiguration``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `AddJiraConfiguration`: NotificationJiraEndpointConfiguration
+    // response from `AddJiraConfiguration`: NotificationJiraEndpointConfigurationBase
     fmt.Fprintf(os.Stdout, "Response from `DefaultApi.AddJiraConfiguration`: %v\n", resp)
 }
 ```
@@ -356,11 +362,11 @@ Other parameters are passed through a pointer to a apiAddJiraConfigurationReques
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **configuration** | [**NotificationJiraEndpointConfiguration**](NotificationJiraEndpointConfiguration.md) |  | 
+ **configuration** | [**NotificationJiraEndpointConfigurationPost**](NotificationJiraEndpointConfigurationPost.md) |  | 
 
 ### Return type
 
-[**NotificationJiraEndpointConfiguration**](NotificationJiraEndpointConfiguration.md)
+[**NotificationJiraEndpointConfigurationBase**](NotificationJiraEndpointConfigurationBase.md)
 
 ### Authorization
 
@@ -2044,7 +2050,7 @@ No authorization required
 
 ## GetGithubConfiguration
 
-> NotificationGitHubEndpointConfiguration GetGithubConfiguration(ctx, uuid).Execute()
+> NotificationGitHubEndpointConfigurationBase GetGithubConfiguration(ctx, uuid).Execute()
 
 
 
@@ -2072,7 +2078,7 @@ func main() {
         fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.GetGithubConfiguration``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `GetGithubConfiguration`: NotificationGitHubEndpointConfiguration
+    // response from `GetGithubConfiguration`: NotificationGitHubEndpointConfigurationBase
     fmt.Fprintf(os.Stdout, "Response from `DefaultApi.GetGithubConfiguration`: %v\n", resp)
 }
 ```
@@ -2096,7 +2102,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**NotificationGitHubEndpointConfiguration**](NotificationGitHubEndpointConfiguration.md)
+[**NotificationGitHubEndpointConfigurationBase**](NotificationGitHubEndpointConfigurationBase.md)
 
 ### Authorization
 
@@ -2397,7 +2403,7 @@ No authorization required
 
 ## GetJiraConfiguration
 
-> NotificationJiraEndpointConfiguration GetJiraConfiguration(ctx, uuid).Execute()
+> NotificationJiraEndpointConfigurationBase GetJiraConfiguration(ctx, uuid).Execute()
 
 
 
@@ -2425,7 +2431,7 @@ func main() {
         fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.GetJiraConfiguration``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `GetJiraConfiguration`: NotificationJiraEndpointConfiguration
+    // response from `GetJiraConfiguration`: NotificationJiraEndpointConfigurationBase
     fmt.Fprintf(os.Stdout, "Response from `DefaultApi.GetJiraConfiguration`: %v\n", resp)
 }
 ```
@@ -2449,7 +2455,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**NotificationJiraEndpointConfiguration**](NotificationJiraEndpointConfiguration.md)
+[**NotificationJiraEndpointConfigurationBase**](NotificationJiraEndpointConfigurationBase.md)
 
 ### Authorization
 
@@ -3862,7 +3868,7 @@ No authorization required
 
 ## ListGithubConfigurations
 
-> []NotificationGitHubEndpointConfiguration ListGithubConfigurations(ctx).Execute()
+> []NotificationGitHubEndpointConfigurationBase ListGithubConfigurations(ctx).Execute()
 
 
 
@@ -3889,7 +3895,7 @@ func main() {
         fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.ListGithubConfigurations``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `ListGithubConfigurations`: []NotificationGitHubEndpointConfiguration
+    // response from `ListGithubConfigurations`: []NotificationGitHubEndpointConfigurationBase
     fmt.Fprintf(os.Stdout, "Response from `DefaultApi.ListGithubConfigurations`: %v\n", resp)
 }
 ```
@@ -3905,7 +3911,7 @@ Other parameters are passed through a pointer to a apiListGithubConfigurationsRe
 
 ### Return type
 
-[**[]NotificationGitHubEndpointConfiguration**](NotificationGitHubEndpointConfiguration.md)
+[**[]NotificationGitHubEndpointConfigurationBase**](NotificationGitHubEndpointConfigurationBase.md)
 
 ### Authorization
 
@@ -4054,7 +4060,7 @@ No authorization required
 
 ## ListJiraConfigurations
 
-> []NotificationJiraEndpointConfiguration ListJiraConfigurations(ctx).Execute()
+> []NotificationJiraEndpointConfigurationBase ListJiraConfigurations(ctx).Execute()
 
 
 
@@ -4081,7 +4087,7 @@ func main() {
         fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.ListJiraConfigurations``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `ListJiraConfigurations`: []NotificationJiraEndpointConfiguration
+    // response from `ListJiraConfigurations`: []NotificationJiraEndpointConfigurationBase
     fmt.Fprintf(os.Stdout, "Response from `DefaultApi.ListJiraConfigurations`: %v\n", resp)
 }
 ```
@@ -4097,7 +4103,7 @@ Other parameters are passed through a pointer to a apiListJiraConfigurationsRequ
 
 ### Return type
 
-[**[]NotificationJiraEndpointConfiguration**](NotificationJiraEndpointConfiguration.md)
+[**[]NotificationJiraEndpointConfigurationBase**](NotificationJiraEndpointConfigurationBase.md)
 
 ### Authorization
 
@@ -5452,7 +5458,7 @@ import (
 )
 
 func main() {
-    configuration := *openapiclient.NewNotificationGitHubEndpointConfiguration("Username_example", "AccessToken_example", "Owner_example", "Repository_example") // NotificationGitHubEndpointConfiguration | 
+    configuration := *openapiclient.NewNotificationGitHubEndpointConfigurationPost("Username_example", "AccessToken_example", "Owner_example", "Repository_example") // NotificationGitHubEndpointConfigurationPost | 
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
@@ -5477,7 +5483,7 @@ Other parameters are passed through a pointer to a apiTestGithubConfigurationReq
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **configuration** | [**NotificationGitHubEndpointConfiguration**](NotificationGitHubEndpointConfiguration.md) |  | 
+ **configuration** | [**NotificationGitHubEndpointConfigurationPost**](NotificationGitHubEndpointConfigurationPost.md) |  | 
 
 ### Return type
 
@@ -5518,7 +5524,7 @@ import (
 )
 
 func main() {
-    configuration := *openapiclient.NewNotificationJiraEndpointConfiguration("Url_example", "Username_example", "Password_example", "ProjectKey_example", "IssueType_example") // NotificationJiraEndpointConfiguration | 
+    configuration := *openapiclient.NewNotificationJiraEndpointConfigurationPost("Url_example", "Username_example", "Password_example", "ProjectKey_example", "IssueType_example") // NotificationJiraEndpointConfigurationPost | 
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
@@ -5543,7 +5549,7 @@ Other parameters are passed through a pointer to a apiTestJiraConfigurationReque
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **configuration** | [**NotificationJiraEndpointConfiguration**](NotificationJiraEndpointConfiguration.md) |  | 
+ **configuration** | [**NotificationJiraEndpointConfigurationPost**](NotificationJiraEndpointConfigurationPost.md) |  | 
 
 ### Return type
 
@@ -5688,6 +5694,426 @@ No authorization required
 ### HTTP request headers
 
 - **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## TestStoredGithubConfiguration
+
+> NotificationGitHubTestResult TestStoredGithubConfiguration(ctx, uuid).Execute()
+
+
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    uuid := "uuid_example" // string | 
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.TestStoredGithubConfiguration(context.Background(), uuid).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.TestStoredGithubConfiguration``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `TestStoredGithubConfiguration`: NotificationGitHubTestResult
+    fmt.Fprintf(os.Stdout, "Response from `DefaultApi.TestStoredGithubConfiguration`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**uuid** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiTestStoredGithubConfigurationRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+[**NotificationGitHubTestResult**](NotificationGitHubTestResult.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## TestStoredJiraConfiguration
+
+> NotificationJiraTestResult TestStoredJiraConfiguration(ctx, uuid).Execute()
+
+
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    uuid := "uuid_example" // string | 
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.TestStoredJiraConfiguration(context.Background(), uuid).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.TestStoredJiraConfiguration``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `TestStoredJiraConfiguration`: NotificationJiraTestResult
+    fmt.Fprintf(os.Stdout, "Response from `DefaultApi.TestStoredJiraConfiguration`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**uuid** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiTestStoredJiraConfigurationRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+[**NotificationJiraTestResult**](NotificationJiraTestResult.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## TestStoredSlackConfiguration
+
+> NotificationSlackTestResult TestStoredSlackConfiguration(ctx, uuid).Execute()
+
+
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    uuid := "uuid_example" // string | 
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.TestStoredSlackConfiguration(context.Background(), uuid).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.TestStoredSlackConfiguration``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `TestStoredSlackConfiguration`: NotificationSlackTestResult
+    fmt.Fprintf(os.Stdout, "Response from `DefaultApi.TestStoredSlackConfiguration`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**uuid** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiTestStoredSlackConfigurationRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+[**NotificationSlackTestResult**](NotificationSlackTestResult.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## TestStoredSmtpConfiguration
+
+> NotificationSMTPTestResult TestStoredSmtpConfiguration(ctx, uuid).Execute()
+
+
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    uuid := "uuid_example" // string | 
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.TestStoredSmtpConfiguration(context.Background(), uuid).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.TestStoredSmtpConfiguration``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `TestStoredSmtpConfiguration`: NotificationSMTPTestResult
+    fmt.Fprintf(os.Stdout, "Response from `DefaultApi.TestStoredSmtpConfiguration`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**uuid** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiTestStoredSmtpConfigurationRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+[**NotificationSMTPTestResult**](NotificationSMTPTestResult.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## TestStoredTeamsConfiguration
+
+> NotificationTeamsTestResult TestStoredTeamsConfiguration(ctx, uuid).Execute()
+
+
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    uuid := "uuid_example" // string | 
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.TestStoredTeamsConfiguration(context.Background(), uuid).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.TestStoredTeamsConfiguration``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `TestStoredTeamsConfiguration`: NotificationTeamsTestResult
+    fmt.Fprintf(os.Stdout, "Response from `DefaultApi.TestStoredTeamsConfiguration`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**uuid** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiTestStoredTeamsConfigurationRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+[**NotificationTeamsTestResult**](NotificationTeamsTestResult.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## TestStoredWebhookConfiguration
+
+> NotificationWebhookTestResult TestStoredWebhookConfiguration(ctx, uuid).Execute()
+
+
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    uuid := "uuid_example" // string | 
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.TestStoredWebhookConfiguration(context.Background(), uuid).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.TestStoredWebhookConfiguration``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `TestStoredWebhookConfiguration`: NotificationWebhookTestResult
+    fmt.Fprintf(os.Stdout, "Response from `DefaultApi.TestStoredWebhookConfiguration`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**uuid** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiTestStoredWebhookConfigurationRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+[**NotificationWebhookTestResult**](NotificationWebhookTestResult.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
@@ -5901,7 +6327,7 @@ No authorization required
 
 ## UpdateGithubConfiguration
 
-> NotificationGitHubEndpointConfiguration UpdateGithubConfiguration(ctx, uuid).Configuration(configuration).Execute()
+> NotificationGitHubEndpointConfigurationBase UpdateGithubConfiguration(ctx, uuid).Configuration(configuration).Execute()
 
 
 
@@ -5921,7 +6347,7 @@ import (
 
 func main() {
     uuid := "uuid_example" // string | 
-    configuration := *openapiclient.NewNotificationGitHubEndpointConfiguration("Username_example", "AccessToken_example", "Owner_example", "Repository_example") // NotificationGitHubEndpointConfiguration | 
+    configuration := *openapiclient.NewNotificationGitHubEndpointConfigurationPut("Username_example", "Owner_example", "Repository_example") // NotificationGitHubEndpointConfigurationPut | 
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
@@ -5930,7 +6356,7 @@ func main() {
         fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.UpdateGithubConfiguration``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `UpdateGithubConfiguration`: NotificationGitHubEndpointConfiguration
+    // response from `UpdateGithubConfiguration`: NotificationGitHubEndpointConfigurationBase
     fmt.Fprintf(os.Stdout, "Response from `DefaultApi.UpdateGithubConfiguration`: %v\n", resp)
 }
 ```
@@ -5951,11 +6377,11 @@ Other parameters are passed through a pointer to a apiUpdateGithubConfigurationR
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **configuration** | [**NotificationGitHubEndpointConfiguration**](NotificationGitHubEndpointConfiguration.md) |  | 
+ **configuration** | [**NotificationGitHubEndpointConfigurationPut**](NotificationGitHubEndpointConfigurationPut.md) |  | 
 
 ### Return type
 
-[**NotificationGitHubEndpointConfiguration**](NotificationGitHubEndpointConfiguration.md)
+[**NotificationGitHubEndpointConfigurationBase**](NotificationGitHubEndpointConfigurationBase.md)
 
 ### Authorization
 
@@ -6120,7 +6546,7 @@ No authorization required
 
 ## UpdateJiraConfiguration
 
-> NotificationJiraEndpointConfiguration UpdateJiraConfiguration(ctx, uuid).Configuration(configuration).Execute()
+> NotificationJiraEndpointConfigurationBase UpdateJiraConfiguration(ctx, uuid).Configuration(configuration).Execute()
 
 
 
@@ -6140,7 +6566,7 @@ import (
 
 func main() {
     uuid := "uuid_example" // string | 
-    configuration := *openapiclient.NewNotificationJiraEndpointConfiguration("Url_example", "Username_example", "Password_example", "ProjectKey_example", "IssueType_example") // NotificationJiraEndpointConfiguration | 
+    configuration := *openapiclient.NewNotificationJiraEndpointConfigurationPut("Url_example", "Username_example", "ProjectKey_example", "IssueType_example") // NotificationJiraEndpointConfigurationPut | 
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
@@ -6149,7 +6575,7 @@ func main() {
         fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.UpdateJiraConfiguration``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `UpdateJiraConfiguration`: NotificationJiraEndpointConfiguration
+    // response from `UpdateJiraConfiguration`: NotificationJiraEndpointConfigurationBase
     fmt.Fprintf(os.Stdout, "Response from `DefaultApi.UpdateJiraConfiguration`: %v\n", resp)
 }
 ```
@@ -6170,11 +6596,11 @@ Other parameters are passed through a pointer to a apiUpdateJiraConfigurationReq
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **configuration** | [**NotificationJiraEndpointConfiguration**](NotificationJiraEndpointConfiguration.md) |  | 
+ **configuration** | [**NotificationJiraEndpointConfigurationPut**](NotificationJiraEndpointConfigurationPut.md) |  | 
 
 ### Return type
 
-[**NotificationJiraEndpointConfiguration**](NotificationJiraEndpointConfiguration.md)
+[**NotificationJiraEndpointConfigurationBase**](NotificationJiraEndpointConfigurationBase.md)
 
 ### Authorization
 

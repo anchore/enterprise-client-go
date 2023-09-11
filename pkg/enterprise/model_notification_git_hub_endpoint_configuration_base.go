@@ -3,7 +3,7 @@ Anchore API
 
 This is the Anchore API. Provides the external API for users of Anchore Enterprise.
 
-API version: 1.0.0
+API version: 2.0.0
 Contact: dev@anchore.com
 */
 
@@ -16,8 +16,8 @@ import (
 	"time"
 )
 
-// NotificationGitHubEndpointConfiguration Configuration for GitHub endpoint
-type NotificationGitHubEndpointConfiguration struct {
+// NotificationGitHubEndpointConfigurationBase Configuration for GitHub endpoint (Base model)
+type NotificationGitHubEndpointConfigurationBase struct {
 	// The instance identifier for the configuration
 	Uuid *string `json:"uuid,omitempty"`
 	// User friendly name or description for the configuration
@@ -31,13 +31,13 @@ type NotificationGitHubEndpointConfiguration struct {
 	// Github API endpoint, defaults to https://api.github.com if not specified
 	Url *string `json:"url,omitempty"`
 	// GitHub username for creating issues
-	Username string `json:"username"`
+	Username *string `json:"username,omitempty"`
 	// Personal access token for the GitHub account
-	AccessToken string `json:"access_token"`
+	AccessToken *string `json:"access_token,omitempty"`
 	// Owner of the repository to create issues against
-	Owner string `json:"owner"`
+	Owner *string `json:"owner,omitempty"`
 	// Name of the repository to create issues against
-	Repository string `json:"repository"`
+	Repository *string `json:"repository,omitempty"`
 	// Number of the milestone to associate with the issue
 	Milestone *int32 `json:"milestone,omitempty"`
 	// List of labels to associate with the issue
@@ -46,29 +46,25 @@ type NotificationGitHubEndpointConfiguration struct {
 	Assignees *[]string `json:"assignees,omitempty"`
 }
 
-// NewNotificationGitHubEndpointConfiguration instantiates a new NotificationGitHubEndpointConfiguration object
+// NewNotificationGitHubEndpointConfigurationBase instantiates a new NotificationGitHubEndpointConfigurationBase object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewNotificationGitHubEndpointConfiguration(username string, accessToken string, owner string, repository string) *NotificationGitHubEndpointConfiguration {
-	this := NotificationGitHubEndpointConfiguration{}
-	this.Username = username
-	this.AccessToken = accessToken
-	this.Owner = owner
-	this.Repository = repository
+func NewNotificationGitHubEndpointConfigurationBase() *NotificationGitHubEndpointConfigurationBase {
+	this := NotificationGitHubEndpointConfigurationBase{}
 	return &this
 }
 
-// NewNotificationGitHubEndpointConfigurationWithDefaults instantiates a new NotificationGitHubEndpointConfiguration object
+// NewNotificationGitHubEndpointConfigurationBaseWithDefaults instantiates a new NotificationGitHubEndpointConfigurationBase object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewNotificationGitHubEndpointConfigurationWithDefaults() *NotificationGitHubEndpointConfiguration {
-	this := NotificationGitHubEndpointConfiguration{}
+func NewNotificationGitHubEndpointConfigurationBaseWithDefaults() *NotificationGitHubEndpointConfigurationBase {
+	this := NotificationGitHubEndpointConfigurationBase{}
 	return &this
 }
 
 // GetUuid returns the Uuid field value if set, zero value otherwise.
-func (o *NotificationGitHubEndpointConfiguration) GetUuid() string {
+func (o *NotificationGitHubEndpointConfigurationBase) GetUuid() string {
 	if o == nil || o.Uuid == nil {
 		var ret string
 		return ret
@@ -78,7 +74,7 @@ func (o *NotificationGitHubEndpointConfiguration) GetUuid() string {
 
 // GetUuidOk returns a tuple with the Uuid field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *NotificationGitHubEndpointConfiguration) GetUuidOk() (*string, bool) {
+func (o *NotificationGitHubEndpointConfigurationBase) GetUuidOk() (*string, bool) {
 	if o == nil || o.Uuid == nil {
 		return nil, false
 	}
@@ -86,7 +82,7 @@ func (o *NotificationGitHubEndpointConfiguration) GetUuidOk() (*string, bool) {
 }
 
 // HasUuid returns a boolean if a field has been set.
-func (o *NotificationGitHubEndpointConfiguration) HasUuid() bool {
+func (o *NotificationGitHubEndpointConfigurationBase) HasUuid() bool {
 	if o != nil && o.Uuid != nil {
 		return true
 	}
@@ -95,12 +91,12 @@ func (o *NotificationGitHubEndpointConfiguration) HasUuid() bool {
 }
 
 // SetUuid gets a reference to the given string and assigns it to the Uuid field.
-func (o *NotificationGitHubEndpointConfiguration) SetUuid(v string) {
+func (o *NotificationGitHubEndpointConfigurationBase) SetUuid(v string) {
 	o.Uuid = &v
 }
 
 // GetDescription returns the Description field value if set, zero value otherwise.
-func (o *NotificationGitHubEndpointConfiguration) GetDescription() string {
+func (o *NotificationGitHubEndpointConfigurationBase) GetDescription() string {
 	if o == nil || o.Description == nil {
 		var ret string
 		return ret
@@ -110,7 +106,7 @@ func (o *NotificationGitHubEndpointConfiguration) GetDescription() string {
 
 // GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *NotificationGitHubEndpointConfiguration) GetDescriptionOk() (*string, bool) {
+func (o *NotificationGitHubEndpointConfigurationBase) GetDescriptionOk() (*string, bool) {
 	if o == nil || o.Description == nil {
 		return nil, false
 	}
@@ -118,7 +114,7 @@ func (o *NotificationGitHubEndpointConfiguration) GetDescriptionOk() (*string, b
 }
 
 // HasDescription returns a boolean if a field has been set.
-func (o *NotificationGitHubEndpointConfiguration) HasDescription() bool {
+func (o *NotificationGitHubEndpointConfigurationBase) HasDescription() bool {
 	if o != nil && o.Description != nil {
 		return true
 	}
@@ -127,12 +123,12 @@ func (o *NotificationGitHubEndpointConfiguration) HasDescription() bool {
 }
 
 // SetDescription gets a reference to the given string and assigns it to the Description field.
-func (o *NotificationGitHubEndpointConfiguration) SetDescription(v string) {
+func (o *NotificationGitHubEndpointConfigurationBase) SetDescription(v string) {
 	o.Description = &v
 }
 
 // GetVerifyTls returns the VerifyTls field value if set, zero value otherwise.
-func (o *NotificationGitHubEndpointConfiguration) GetVerifyTls() bool {
+func (o *NotificationGitHubEndpointConfigurationBase) GetVerifyTls() bool {
 	if o == nil || o.VerifyTls == nil {
 		var ret bool
 		return ret
@@ -142,7 +138,7 @@ func (o *NotificationGitHubEndpointConfiguration) GetVerifyTls() bool {
 
 // GetVerifyTlsOk returns a tuple with the VerifyTls field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *NotificationGitHubEndpointConfiguration) GetVerifyTlsOk() (*bool, bool) {
+func (o *NotificationGitHubEndpointConfigurationBase) GetVerifyTlsOk() (*bool, bool) {
 	if o == nil || o.VerifyTls == nil {
 		return nil, false
 	}
@@ -150,7 +146,7 @@ func (o *NotificationGitHubEndpointConfiguration) GetVerifyTlsOk() (*bool, bool)
 }
 
 // HasVerifyTls returns a boolean if a field has been set.
-func (o *NotificationGitHubEndpointConfiguration) HasVerifyTls() bool {
+func (o *NotificationGitHubEndpointConfigurationBase) HasVerifyTls() bool {
 	if o != nil && o.VerifyTls != nil {
 		return true
 	}
@@ -159,12 +155,12 @@ func (o *NotificationGitHubEndpointConfiguration) HasVerifyTls() bool {
 }
 
 // SetVerifyTls gets a reference to the given bool and assigns it to the VerifyTls field.
-func (o *NotificationGitHubEndpointConfiguration) SetVerifyTls(v bool) {
+func (o *NotificationGitHubEndpointConfigurationBase) SetVerifyTls(v bool) {
 	o.VerifyTls = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
-func (o *NotificationGitHubEndpointConfiguration) GetCreatedAt() time.Time {
+func (o *NotificationGitHubEndpointConfigurationBase) GetCreatedAt() time.Time {
 	if o == nil || o.CreatedAt == nil {
 		var ret time.Time
 		return ret
@@ -174,7 +170,7 @@ func (o *NotificationGitHubEndpointConfiguration) GetCreatedAt() time.Time {
 
 // GetCreatedAtOk returns a tuple with the CreatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *NotificationGitHubEndpointConfiguration) GetCreatedAtOk() (*time.Time, bool) {
+func (o *NotificationGitHubEndpointConfigurationBase) GetCreatedAtOk() (*time.Time, bool) {
 	if o == nil || o.CreatedAt == nil {
 		return nil, false
 	}
@@ -182,7 +178,7 @@ func (o *NotificationGitHubEndpointConfiguration) GetCreatedAtOk() (*time.Time, 
 }
 
 // HasCreatedAt returns a boolean if a field has been set.
-func (o *NotificationGitHubEndpointConfiguration) HasCreatedAt() bool {
+func (o *NotificationGitHubEndpointConfigurationBase) HasCreatedAt() bool {
 	if o != nil && o.CreatedAt != nil {
 		return true
 	}
@@ -191,12 +187,12 @@ func (o *NotificationGitHubEndpointConfiguration) HasCreatedAt() bool {
 }
 
 // SetCreatedAt gets a reference to the given time.Time and assigns it to the CreatedAt field.
-func (o *NotificationGitHubEndpointConfiguration) SetCreatedAt(v time.Time) {
+func (o *NotificationGitHubEndpointConfigurationBase) SetCreatedAt(v time.Time) {
 	o.CreatedAt = &v
 }
 
 // GetLastUpdated returns the LastUpdated field value if set, zero value otherwise.
-func (o *NotificationGitHubEndpointConfiguration) GetLastUpdated() time.Time {
+func (o *NotificationGitHubEndpointConfigurationBase) GetLastUpdated() time.Time {
 	if o == nil || o.LastUpdated == nil {
 		var ret time.Time
 		return ret
@@ -206,7 +202,7 @@ func (o *NotificationGitHubEndpointConfiguration) GetLastUpdated() time.Time {
 
 // GetLastUpdatedOk returns a tuple with the LastUpdated field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *NotificationGitHubEndpointConfiguration) GetLastUpdatedOk() (*time.Time, bool) {
+func (o *NotificationGitHubEndpointConfigurationBase) GetLastUpdatedOk() (*time.Time, bool) {
 	if o == nil || o.LastUpdated == nil {
 		return nil, false
 	}
@@ -214,7 +210,7 @@ func (o *NotificationGitHubEndpointConfiguration) GetLastUpdatedOk() (*time.Time
 }
 
 // HasLastUpdated returns a boolean if a field has been set.
-func (o *NotificationGitHubEndpointConfiguration) HasLastUpdated() bool {
+func (o *NotificationGitHubEndpointConfigurationBase) HasLastUpdated() bool {
 	if o != nil && o.LastUpdated != nil {
 		return true
 	}
@@ -223,12 +219,12 @@ func (o *NotificationGitHubEndpointConfiguration) HasLastUpdated() bool {
 }
 
 // SetLastUpdated gets a reference to the given time.Time and assigns it to the LastUpdated field.
-func (o *NotificationGitHubEndpointConfiguration) SetLastUpdated(v time.Time) {
+func (o *NotificationGitHubEndpointConfigurationBase) SetLastUpdated(v time.Time) {
 	o.LastUpdated = &v
 }
 
 // GetUrl returns the Url field value if set, zero value otherwise.
-func (o *NotificationGitHubEndpointConfiguration) GetUrl() string {
+func (o *NotificationGitHubEndpointConfigurationBase) GetUrl() string {
 	if o == nil || o.Url == nil {
 		var ret string
 		return ret
@@ -238,7 +234,7 @@ func (o *NotificationGitHubEndpointConfiguration) GetUrl() string {
 
 // GetUrlOk returns a tuple with the Url field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *NotificationGitHubEndpointConfiguration) GetUrlOk() (*string, bool) {
+func (o *NotificationGitHubEndpointConfigurationBase) GetUrlOk() (*string, bool) {
 	if o == nil || o.Url == nil {
 		return nil, false
 	}
@@ -246,7 +242,7 @@ func (o *NotificationGitHubEndpointConfiguration) GetUrlOk() (*string, bool) {
 }
 
 // HasUrl returns a boolean if a field has been set.
-func (o *NotificationGitHubEndpointConfiguration) HasUrl() bool {
+func (o *NotificationGitHubEndpointConfigurationBase) HasUrl() bool {
 	if o != nil && o.Url != nil {
 		return true
 	}
@@ -255,108 +251,140 @@ func (o *NotificationGitHubEndpointConfiguration) HasUrl() bool {
 }
 
 // SetUrl gets a reference to the given string and assigns it to the Url field.
-func (o *NotificationGitHubEndpointConfiguration) SetUrl(v string) {
+func (o *NotificationGitHubEndpointConfigurationBase) SetUrl(v string) {
 	o.Url = &v
 }
 
-// GetUsername returns the Username field value
-func (o *NotificationGitHubEndpointConfiguration) GetUsername() string {
-	if o == nil {
+// GetUsername returns the Username field value if set, zero value otherwise.
+func (o *NotificationGitHubEndpointConfigurationBase) GetUsername() string {
+	if o == nil || o.Username == nil {
 		var ret string
 		return ret
 	}
-
-	return o.Username
+	return *o.Username
 }
 
-// GetUsernameOk returns a tuple with the Username field value
+// GetUsernameOk returns a tuple with the Username field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *NotificationGitHubEndpointConfiguration) GetUsernameOk() (*string, bool) {
-	if o == nil  {
+func (o *NotificationGitHubEndpointConfigurationBase) GetUsernameOk() (*string, bool) {
+	if o == nil || o.Username == nil {
 		return nil, false
 	}
-	return &o.Username, true
+	return o.Username, true
 }
 
-// SetUsername sets field value
-func (o *NotificationGitHubEndpointConfiguration) SetUsername(v string) {
-	o.Username = v
+// HasUsername returns a boolean if a field has been set.
+func (o *NotificationGitHubEndpointConfigurationBase) HasUsername() bool {
+	if o != nil && o.Username != nil {
+		return true
+	}
+
+	return false
 }
 
-// GetAccessToken returns the AccessToken field value
-func (o *NotificationGitHubEndpointConfiguration) GetAccessToken() string {
-	if o == nil {
+// SetUsername gets a reference to the given string and assigns it to the Username field.
+func (o *NotificationGitHubEndpointConfigurationBase) SetUsername(v string) {
+	o.Username = &v
+}
+
+// GetAccessToken returns the AccessToken field value if set, zero value otherwise.
+func (o *NotificationGitHubEndpointConfigurationBase) GetAccessToken() string {
+	if o == nil || o.AccessToken == nil {
 		var ret string
 		return ret
 	}
-
-	return o.AccessToken
+	return *o.AccessToken
 }
 
-// GetAccessTokenOk returns a tuple with the AccessToken field value
+// GetAccessTokenOk returns a tuple with the AccessToken field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *NotificationGitHubEndpointConfiguration) GetAccessTokenOk() (*string, bool) {
-	if o == nil  {
+func (o *NotificationGitHubEndpointConfigurationBase) GetAccessTokenOk() (*string, bool) {
+	if o == nil || o.AccessToken == nil {
 		return nil, false
 	}
-	return &o.AccessToken, true
+	return o.AccessToken, true
 }
 
-// SetAccessToken sets field value
-func (o *NotificationGitHubEndpointConfiguration) SetAccessToken(v string) {
-	o.AccessToken = v
+// HasAccessToken returns a boolean if a field has been set.
+func (o *NotificationGitHubEndpointConfigurationBase) HasAccessToken() bool {
+	if o != nil && o.AccessToken != nil {
+		return true
+	}
+
+	return false
 }
 
-// GetOwner returns the Owner field value
-func (o *NotificationGitHubEndpointConfiguration) GetOwner() string {
-	if o == nil {
+// SetAccessToken gets a reference to the given string and assigns it to the AccessToken field.
+func (o *NotificationGitHubEndpointConfigurationBase) SetAccessToken(v string) {
+	o.AccessToken = &v
+}
+
+// GetOwner returns the Owner field value if set, zero value otherwise.
+func (o *NotificationGitHubEndpointConfigurationBase) GetOwner() string {
+	if o == nil || o.Owner == nil {
 		var ret string
 		return ret
 	}
-
-	return o.Owner
+	return *o.Owner
 }
 
-// GetOwnerOk returns a tuple with the Owner field value
+// GetOwnerOk returns a tuple with the Owner field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *NotificationGitHubEndpointConfiguration) GetOwnerOk() (*string, bool) {
-	if o == nil  {
+func (o *NotificationGitHubEndpointConfigurationBase) GetOwnerOk() (*string, bool) {
+	if o == nil || o.Owner == nil {
 		return nil, false
 	}
-	return &o.Owner, true
+	return o.Owner, true
 }
 
-// SetOwner sets field value
-func (o *NotificationGitHubEndpointConfiguration) SetOwner(v string) {
-	o.Owner = v
+// HasOwner returns a boolean if a field has been set.
+func (o *NotificationGitHubEndpointConfigurationBase) HasOwner() bool {
+	if o != nil && o.Owner != nil {
+		return true
+	}
+
+	return false
 }
 
-// GetRepository returns the Repository field value
-func (o *NotificationGitHubEndpointConfiguration) GetRepository() string {
-	if o == nil {
+// SetOwner gets a reference to the given string and assigns it to the Owner field.
+func (o *NotificationGitHubEndpointConfigurationBase) SetOwner(v string) {
+	o.Owner = &v
+}
+
+// GetRepository returns the Repository field value if set, zero value otherwise.
+func (o *NotificationGitHubEndpointConfigurationBase) GetRepository() string {
+	if o == nil || o.Repository == nil {
 		var ret string
 		return ret
 	}
-
-	return o.Repository
+	return *o.Repository
 }
 
-// GetRepositoryOk returns a tuple with the Repository field value
+// GetRepositoryOk returns a tuple with the Repository field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *NotificationGitHubEndpointConfiguration) GetRepositoryOk() (*string, bool) {
-	if o == nil  {
+func (o *NotificationGitHubEndpointConfigurationBase) GetRepositoryOk() (*string, bool) {
+	if o == nil || o.Repository == nil {
 		return nil, false
 	}
-	return &o.Repository, true
+	return o.Repository, true
 }
 
-// SetRepository sets field value
-func (o *NotificationGitHubEndpointConfiguration) SetRepository(v string) {
-	o.Repository = v
+// HasRepository returns a boolean if a field has been set.
+func (o *NotificationGitHubEndpointConfigurationBase) HasRepository() bool {
+	if o != nil && o.Repository != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetRepository gets a reference to the given string and assigns it to the Repository field.
+func (o *NotificationGitHubEndpointConfigurationBase) SetRepository(v string) {
+	o.Repository = &v
 }
 
 // GetMilestone returns the Milestone field value if set, zero value otherwise.
-func (o *NotificationGitHubEndpointConfiguration) GetMilestone() int32 {
+func (o *NotificationGitHubEndpointConfigurationBase) GetMilestone() int32 {
 	if o == nil || o.Milestone == nil {
 		var ret int32
 		return ret
@@ -366,7 +394,7 @@ func (o *NotificationGitHubEndpointConfiguration) GetMilestone() int32 {
 
 // GetMilestoneOk returns a tuple with the Milestone field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *NotificationGitHubEndpointConfiguration) GetMilestoneOk() (*int32, bool) {
+func (o *NotificationGitHubEndpointConfigurationBase) GetMilestoneOk() (*int32, bool) {
 	if o == nil || o.Milestone == nil {
 		return nil, false
 	}
@@ -374,7 +402,7 @@ func (o *NotificationGitHubEndpointConfiguration) GetMilestoneOk() (*int32, bool
 }
 
 // HasMilestone returns a boolean if a field has been set.
-func (o *NotificationGitHubEndpointConfiguration) HasMilestone() bool {
+func (o *NotificationGitHubEndpointConfigurationBase) HasMilestone() bool {
 	if o != nil && o.Milestone != nil {
 		return true
 	}
@@ -383,12 +411,12 @@ func (o *NotificationGitHubEndpointConfiguration) HasMilestone() bool {
 }
 
 // SetMilestone gets a reference to the given int32 and assigns it to the Milestone field.
-func (o *NotificationGitHubEndpointConfiguration) SetMilestone(v int32) {
+func (o *NotificationGitHubEndpointConfigurationBase) SetMilestone(v int32) {
 	o.Milestone = &v
 }
 
 // GetLabels returns the Labels field value if set, zero value otherwise.
-func (o *NotificationGitHubEndpointConfiguration) GetLabels() []string {
+func (o *NotificationGitHubEndpointConfigurationBase) GetLabels() []string {
 	if o == nil || o.Labels == nil {
 		var ret []string
 		return ret
@@ -398,7 +426,7 @@ func (o *NotificationGitHubEndpointConfiguration) GetLabels() []string {
 
 // GetLabelsOk returns a tuple with the Labels field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *NotificationGitHubEndpointConfiguration) GetLabelsOk() (*[]string, bool) {
+func (o *NotificationGitHubEndpointConfigurationBase) GetLabelsOk() (*[]string, bool) {
 	if o == nil || o.Labels == nil {
 		return nil, false
 	}
@@ -406,7 +434,7 @@ func (o *NotificationGitHubEndpointConfiguration) GetLabelsOk() (*[]string, bool
 }
 
 // HasLabels returns a boolean if a field has been set.
-func (o *NotificationGitHubEndpointConfiguration) HasLabels() bool {
+func (o *NotificationGitHubEndpointConfigurationBase) HasLabels() bool {
 	if o != nil && o.Labels != nil {
 		return true
 	}
@@ -415,12 +443,12 @@ func (o *NotificationGitHubEndpointConfiguration) HasLabels() bool {
 }
 
 // SetLabels gets a reference to the given []string and assigns it to the Labels field.
-func (o *NotificationGitHubEndpointConfiguration) SetLabels(v []string) {
+func (o *NotificationGitHubEndpointConfigurationBase) SetLabels(v []string) {
 	o.Labels = &v
 }
 
 // GetAssignees returns the Assignees field value if set, zero value otherwise.
-func (o *NotificationGitHubEndpointConfiguration) GetAssignees() []string {
+func (o *NotificationGitHubEndpointConfigurationBase) GetAssignees() []string {
 	if o == nil || o.Assignees == nil {
 		var ret []string
 		return ret
@@ -430,7 +458,7 @@ func (o *NotificationGitHubEndpointConfiguration) GetAssignees() []string {
 
 // GetAssigneesOk returns a tuple with the Assignees field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *NotificationGitHubEndpointConfiguration) GetAssigneesOk() (*[]string, bool) {
+func (o *NotificationGitHubEndpointConfigurationBase) GetAssigneesOk() (*[]string, bool) {
 	if o == nil || o.Assignees == nil {
 		return nil, false
 	}
@@ -438,7 +466,7 @@ func (o *NotificationGitHubEndpointConfiguration) GetAssigneesOk() (*[]string, b
 }
 
 // HasAssignees returns a boolean if a field has been set.
-func (o *NotificationGitHubEndpointConfiguration) HasAssignees() bool {
+func (o *NotificationGitHubEndpointConfigurationBase) HasAssignees() bool {
 	if o != nil && o.Assignees != nil {
 		return true
 	}
@@ -447,11 +475,11 @@ func (o *NotificationGitHubEndpointConfiguration) HasAssignees() bool {
 }
 
 // SetAssignees gets a reference to the given []string and assigns it to the Assignees field.
-func (o *NotificationGitHubEndpointConfiguration) SetAssignees(v []string) {
+func (o *NotificationGitHubEndpointConfigurationBase) SetAssignees(v []string) {
 	o.Assignees = &v
 }
 
-func (o NotificationGitHubEndpointConfiguration) MarshalJSON() ([]byte, error) {
+func (o NotificationGitHubEndpointConfigurationBase) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.Uuid != nil {
 		toSerialize["uuid"] = o.Uuid
@@ -471,16 +499,16 @@ func (o NotificationGitHubEndpointConfiguration) MarshalJSON() ([]byte, error) {
 	if o.Url != nil {
 		toSerialize["url"] = o.Url
 	}
-	if true {
+	if o.Username != nil {
 		toSerialize["username"] = o.Username
 	}
-	if true {
+	if o.AccessToken != nil {
 		toSerialize["access_token"] = o.AccessToken
 	}
-	if true {
+	if o.Owner != nil {
 		toSerialize["owner"] = o.Owner
 	}
-	if true {
+	if o.Repository != nil {
 		toSerialize["repository"] = o.Repository
 	}
 	if o.Milestone != nil {
@@ -495,38 +523,38 @@ func (o NotificationGitHubEndpointConfiguration) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
-type NullableNotificationGitHubEndpointConfiguration struct {
-	value *NotificationGitHubEndpointConfiguration
+type NullableNotificationGitHubEndpointConfigurationBase struct {
+	value *NotificationGitHubEndpointConfigurationBase
 	isSet bool
 }
 
-func (v NullableNotificationGitHubEndpointConfiguration) Get() *NotificationGitHubEndpointConfiguration {
+func (v NullableNotificationGitHubEndpointConfigurationBase) Get() *NotificationGitHubEndpointConfigurationBase {
 	return v.value
 }
 
-func (v *NullableNotificationGitHubEndpointConfiguration) Set(val *NotificationGitHubEndpointConfiguration) {
+func (v *NullableNotificationGitHubEndpointConfigurationBase) Set(val *NotificationGitHubEndpointConfigurationBase) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableNotificationGitHubEndpointConfiguration) IsSet() bool {
+func (v NullableNotificationGitHubEndpointConfigurationBase) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableNotificationGitHubEndpointConfiguration) Unset() {
+func (v *NullableNotificationGitHubEndpointConfigurationBase) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableNotificationGitHubEndpointConfiguration(val *NotificationGitHubEndpointConfiguration) *NullableNotificationGitHubEndpointConfiguration {
-	return &NullableNotificationGitHubEndpointConfiguration{value: val, isSet: true}
+func NewNullableNotificationGitHubEndpointConfigurationBase(val *NotificationGitHubEndpointConfigurationBase) *NullableNotificationGitHubEndpointConfigurationBase {
+	return &NullableNotificationGitHubEndpointConfigurationBase{value: val, isSet: true}
 }
 
-func (v NullableNotificationGitHubEndpointConfiguration) MarshalJSON() ([]byte, error) {
+func (v NullableNotificationGitHubEndpointConfigurationBase) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableNotificationGitHubEndpointConfiguration) UnmarshalJSON(src []byte) error {
+func (v *NullableNotificationGitHubEndpointConfigurationBase) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }

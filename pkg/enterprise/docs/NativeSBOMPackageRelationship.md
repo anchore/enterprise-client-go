@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **Parent** | **string** |  | 
 **Child** | **string** |  | 
 **Type** | **string** |  | 
-**Metadata** | Pointer to **interface{}** |  | [optional] 
+**Metadata** | Pointer to **map[string]interface{}** |  | [optional] 
 
 ## Methods
 
@@ -90,20 +90,20 @@ SetType sets Type field to given value.
 
 ### GetMetadata
 
-`func (o *NativeSBOMPackageRelationship) GetMetadata() interface{}`
+`func (o *NativeSBOMPackageRelationship) GetMetadata() map[string]interface{}`
 
 GetMetadata returns the Metadata field if non-nil, zero value otherwise.
 
 ### GetMetadataOk
 
-`func (o *NativeSBOMPackageRelationship) GetMetadataOk() (*interface{}, bool)`
+`func (o *NativeSBOMPackageRelationship) GetMetadataOk() (*map[string]interface{}, bool)`
 
 GetMetadataOk returns a tuple with the Metadata field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetMetadata
 
-`func (o *NativeSBOMPackageRelationship) SetMetadata(v interface{})`
+`func (o *NativeSBOMPackageRelationship) SetMetadata(v map[string]interface{})`
 
 SetMetadata sets Metadata field to given value.
 
