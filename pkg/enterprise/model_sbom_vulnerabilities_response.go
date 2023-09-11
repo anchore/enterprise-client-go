@@ -1,9 +1,9 @@
 /*
-Anchore Enterprise API Server
+Anchore API
 
-This is the Anchore Enterprise API. It provides additional external API routes and functionality for enterprise users.
+This is the Anchore API. Provides the external API for users of Anchore Enterprise.
 
-API version: 0.8.0
+API version: 1.0.0
 Contact: dev@anchore.com
 */
 
@@ -19,8 +19,7 @@ import (
 type SBOMVulnerabilitiesResponse struct {
 	SbomId *string `json:"sbom_id,omitempty"`
 	VulnerabilityType *string `json:"vulnerability_type,omitempty"`
-	// List of Vulnerability objects
-	Vulnerabilities *[]Vulnerability `json:"vulnerabilities,omitempty"`
+	Vulnerabilities *[]PackageVulnerability `json:"vulnerabilities,omitempty"`
 }
 
 // NewSBOMVulnerabilitiesResponse instantiates a new SBOMVulnerabilitiesResponse object
@@ -105,9 +104,9 @@ func (o *SBOMVulnerabilitiesResponse) SetVulnerabilityType(v string) {
 }
 
 // GetVulnerabilities returns the Vulnerabilities field value if set, zero value otherwise.
-func (o *SBOMVulnerabilitiesResponse) GetVulnerabilities() []Vulnerability {
+func (o *SBOMVulnerabilitiesResponse) GetVulnerabilities() []PackageVulnerability {
 	if o == nil || o.Vulnerabilities == nil {
-		var ret []Vulnerability
+		var ret []PackageVulnerability
 		return ret
 	}
 	return *o.Vulnerabilities
@@ -115,7 +114,7 @@ func (o *SBOMVulnerabilitiesResponse) GetVulnerabilities() []Vulnerability {
 
 // GetVulnerabilitiesOk returns a tuple with the Vulnerabilities field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SBOMVulnerabilitiesResponse) GetVulnerabilitiesOk() (*[]Vulnerability, bool) {
+func (o *SBOMVulnerabilitiesResponse) GetVulnerabilitiesOk() (*[]PackageVulnerability, bool) {
 	if o == nil || o.Vulnerabilities == nil {
 		return nil, false
 	}
@@ -131,8 +130,8 @@ func (o *SBOMVulnerabilitiesResponse) HasVulnerabilities() bool {
 	return false
 }
 
-// SetVulnerabilities gets a reference to the given []Vulnerability and assigns it to the Vulnerabilities field.
-func (o *SBOMVulnerabilitiesResponse) SetVulnerabilities(v []Vulnerability) {
+// SetVulnerabilities gets a reference to the given []PackageVulnerability and assigns it to the Vulnerabilities field.
+func (o *SBOMVulnerabilitiesResponse) SetVulnerabilities(v []PackageVulnerability) {
 	o.Vulnerabilities = &v
 }
 

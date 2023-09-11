@@ -1,9 +1,9 @@
 /*
-Anchore Enterprise API Server
+Anchore API
 
-This is the Anchore Enterprise API. It provides additional external API routes and functionality for enterprise users.
+This is the Anchore API. Provides the external API for users of Anchore Enterprise.
 
-API version: 0.8.0
+API version: 1.0.0
 Contact: dev@anchore.com
 */
 
@@ -15,15 +15,13 @@ import (
 	"encoding/json"
 )
 
-// SourceContentPackageResponseContent struct for SourceContentPackageResponseContent
+// SourceContentPackageResponseContent Package content listings from a source
 type SourceContentPackageResponseContent struct {
 	Package *string `json:"package,omitempty"`
 	Version *string `json:"version,omitempty"`
 	Size *string `json:"size,omitempty"`
 	Type *string `json:"type,omitempty"`
 	Origin *string `json:"origin,omitempty"`
-	// Deprecated in favor of the 'licenses' field\"
-	License *string `json:"license,omitempty"`
 	Licenses *[]string `json:"licenses,omitempty"`
 	Location *string `json:"location,omitempty"`
 	// A list of Common Platform Enumerations that may uniquely identify the package
@@ -32,6 +30,7 @@ type SourceContentPackageResponseContent struct {
 	MetadataType *string `json:"metadata_type,omitempty"`
 	// Package type specific metadata
 	Metadata *interface{} `json:"metadata,omitempty"`
+	Purl *string `json:"purl,omitempty"`
 }
 
 // NewSourceContentPackageResponseContent instantiates a new SourceContentPackageResponseContent object
@@ -211,38 +210,6 @@ func (o *SourceContentPackageResponseContent) SetOrigin(v string) {
 	o.Origin = &v
 }
 
-// GetLicense returns the License field value if set, zero value otherwise.
-func (o *SourceContentPackageResponseContent) GetLicense() string {
-	if o == nil || o.License == nil {
-		var ret string
-		return ret
-	}
-	return *o.License
-}
-
-// GetLicenseOk returns a tuple with the License field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *SourceContentPackageResponseContent) GetLicenseOk() (*string, bool) {
-	if o == nil || o.License == nil {
-		return nil, false
-	}
-	return o.License, true
-}
-
-// HasLicense returns a boolean if a field has been set.
-func (o *SourceContentPackageResponseContent) HasLicense() bool {
-	if o != nil && o.License != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetLicense gets a reference to the given string and assigns it to the License field.
-func (o *SourceContentPackageResponseContent) SetLicense(v string) {
-	o.License = &v
-}
-
 // GetLicenses returns the Licenses field value if set, zero value otherwise.
 func (o *SourceContentPackageResponseContent) GetLicenses() []string {
 	if o == nil || o.Licenses == nil {
@@ -403,6 +370,38 @@ func (o *SourceContentPackageResponseContent) SetMetadata(v interface{}) {
 	o.Metadata = &v
 }
 
+// GetPurl returns the Purl field value if set, zero value otherwise.
+func (o *SourceContentPackageResponseContent) GetPurl() string {
+	if o == nil || o.Purl == nil {
+		var ret string
+		return ret
+	}
+	return *o.Purl
+}
+
+// GetPurlOk returns a tuple with the Purl field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SourceContentPackageResponseContent) GetPurlOk() (*string, bool) {
+	if o == nil || o.Purl == nil {
+		return nil, false
+	}
+	return o.Purl, true
+}
+
+// HasPurl returns a boolean if a field has been set.
+func (o *SourceContentPackageResponseContent) HasPurl() bool {
+	if o != nil && o.Purl != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetPurl gets a reference to the given string and assigns it to the Purl field.
+func (o *SourceContentPackageResponseContent) SetPurl(v string) {
+	o.Purl = &v
+}
+
 func (o SourceContentPackageResponseContent) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.Package != nil {
@@ -420,9 +419,6 @@ func (o SourceContentPackageResponseContent) MarshalJSON() ([]byte, error) {
 	if o.Origin != nil {
 		toSerialize["origin"] = o.Origin
 	}
-	if o.License != nil {
-		toSerialize["license"] = o.License
-	}
 	if o.Licenses != nil {
 		toSerialize["licenses"] = o.Licenses
 	}
@@ -437,6 +433,9 @@ func (o SourceContentPackageResponseContent) MarshalJSON() ([]byte, error) {
 	}
 	if o.Metadata != nil {
 		toSerialize["metadata"] = o.Metadata
+	}
+	if o.Purl != nil {
+		toSerialize["purl"] = o.Purl
 	}
 	return json.Marshal(toSerialize)
 }

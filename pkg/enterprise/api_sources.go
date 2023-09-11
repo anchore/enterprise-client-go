@@ -1,9 +1,9 @@
 /*
-Anchore Enterprise API Server
+Anchore API
 
-This is the Anchore Enterprise API. It provides additional external API routes and functionality for enterprise users.
+This is the Anchore API. Provides the external API for users of Anchore Enterprise.
 
-API version: 0.8.0
+API version: 1.0.0
 Contact: dev@anchore.com
 */
 
@@ -18,7 +18,6 @@ import (
 	_nethttp "net/http"
 	_neturl "net/url"
 	"strings"
-	"os"
 )
 
 // Linger please
@@ -38,8 +37,7 @@ type SourcesApi interface {
 	DeleteSource(ctx _context.Context, sourceId string) ApiDeleteSourceRequest
 
 	// DeleteSourceExecute executes the request
-	//  @return SourceManifest
-	DeleteSourceExecute(r ApiDeleteSourceRequest) (SourceManifest, *_nethttp.Response, error)
+	DeleteSourceExecute(r ApiDeleteSourceRequest) (*_nethttp.Response, error)
 
 	/*
 	GetSource Get a detailed source repository analysis metadata record
@@ -91,8 +89,8 @@ type SourcesApi interface {
 	GetSourcePolicyCheck(ctx _context.Context, sourceId string) ApiGetSourcePolicyCheckRequest
 
 	// GetSourcePolicyCheckExecute executes the request
-	//  @return []PolicyEvaluationResult
-	GetSourcePolicyCheckExecute(r ApiGetSourcePolicyCheckRequest) ([]PolicyEvaluationResult, *_nethttp.Response, error)
+	//  @return SourcePolicyEvaluation
+	GetSourcePolicyCheckExecute(r ApiGetSourcePolicyCheckRequest) (SourcePolicyEvaluation, *_nethttp.Response, error)
 
 	/*
 	GetSourceSbomCyclonedxJson Return the source SBOM in the CycloneDX format
@@ -106,19 +104,6 @@ type SourcesApi interface {
 	// GetSourceSbomCyclonedxJsonExecute executes the request
 	//  @return string
 	GetSourceSbomCyclonedxJsonExecute(r ApiGetSourceSbomCyclonedxJsonRequest) (string, *_nethttp.Response, error)
-
-	/*
-	GetSourceSbomNative Return the compressed source SBOM in the native Anchore format
-
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @param sourceId
-	 @return ApiGetSourceSbomNativeRequest
-	*/
-	GetSourceSbomNative(ctx _context.Context, sourceId string) ApiGetSourceSbomNativeRequest
-
-	// GetSourceSbomNativeExecute executes the request
-	//  @return *os.File
-	GetSourceSbomNativeExecute(r ApiGetSourceSbomNativeRequest) (*os.File, *_nethttp.Response, error)
 
 	/*
 	GetSourceSbomNativeJson Return the source SBOM in the native Anchore format
@@ -147,31 +132,18 @@ type SourcesApi interface {
 	GetSourceSbomSpdxJsonExecute(r ApiGetSourceSbomSpdxJsonRequest) (string, *_nethttp.Response, error)
 
 	/*
-	GetSourceSbomTypes Get a detailed source repository analysis metadata record
-
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @param sourceId
-	 @return ApiGetSourceSbomTypesRequest
-	*/
-	GetSourceSbomTypes(ctx _context.Context, sourceId string) ApiGetSourceSbomTypesRequest
-
-	// GetSourceSbomTypesExecute executes the request
-	//  @return []string
-	GetSourceSbomTypesExecute(r ApiGetSourceSbomTypesRequest) ([]string, *_nethttp.Response, error)
-
-	/*
 	GetSourceVulnerabilities Get vulnerabilities for the source by type
 
 	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	 @param sourceId
-	 @param vtype
+	 @param vulnType
 	 @return ApiGetSourceVulnerabilitiesRequest
 	*/
-	GetSourceVulnerabilities(ctx _context.Context, sourceId string, vtype string) ApiGetSourceVulnerabilitiesRequest
+	GetSourceVulnerabilities(ctx _context.Context, sourceId string, vulnType string) ApiGetSourceVulnerabilitiesRequest
 
 	// GetSourceVulnerabilitiesExecute executes the request
-	//  @return SourceVulnerabilitiesResponse
-	GetSourceVulnerabilitiesExecute(r ApiGetSourceVulnerabilitiesRequest) (SourceVulnerabilitiesResponse, *_nethttp.Response, error)
+	//  @return SourcePackageVulnerabilityResponse
+	GetSourceVulnerabilitiesExecute(r ApiGetSourceVulnerabilitiesRequest) (SourcePackageVulnerabilityResponse, *_nethttp.Response, error)
 
 	/*
 	GetSourceVulnerabilityTypes Get the available vulnerability types for source
@@ -195,8 +167,8 @@ type SourcesApi interface {
 	ListSources(ctx _context.Context) ApiListSourcesRequest
 
 	// ListSourcesExecute executes the request
-	//  @return []Source
-	ListSourcesExecute(r ApiListSourcesRequest) ([]Source, *_nethttp.Response, error)
+	//  @return SourcesList
+	ListSourcesExecute(r ApiListSourcesRequest) (SourcesList, *_nethttp.Response, error)
 }
 
 // SourcesApiService SourcesApi service
@@ -215,7 +187,7 @@ func (r ApiDeleteSourceRequest) Force(force bool) ApiDeleteSourceRequest {
 	return r
 }
 
-func (r ApiDeleteSourceRequest) Execute() (SourceManifest, *_nethttp.Response, error) {
+func (r ApiDeleteSourceRequest) Execute() (*_nethttp.Response, error) {
 	return r.ApiService.DeleteSourceExecute(r)
 }
 
@@ -235,20 +207,18 @@ func (a *SourcesApiService) DeleteSource(ctx _context.Context, sourceId string) 
 }
 
 // Execute executes the request
-//  @return SourceManifest
-func (a *SourcesApiService) DeleteSourceExecute(r ApiDeleteSourceRequest) (SourceManifest, *_nethttp.Response, error) {
+func (a *SourcesApiService) DeleteSourceExecute(r ApiDeleteSourceRequest) (*_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodDelete
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		localVarReturnValue  SourceManifest
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SourcesApiService.DeleteSource")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return nil, GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/sources/{source_id}"
@@ -271,7 +241,7 @@ func (a *SourcesApiService) DeleteSourceExecute(r ApiDeleteSourceRequest) (Sourc
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -280,19 +250,19 @@ func (a *SourcesApiService) DeleteSourceExecute(r ApiDeleteSourceRequest) (Sourc
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
-		return localVarReturnValue, nil, err
+		return nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
+		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -300,19 +270,10 @@ func (a *SourcesApiService) DeleteSourceExecute(r ApiDeleteSourceRequest) (Sourc
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
+		return localVarHTTPResponse, newErr
 	}
 
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
+	return localVarHTTPResponse, nil
 }
 
 type ApiGetSourceRequest struct {
@@ -652,7 +613,7 @@ func (r ApiGetSourcePolicyCheckRequest) PolicyId(policyId string) ApiGetSourcePo
 	return r
 }
 
-func (r ApiGetSourcePolicyCheckRequest) Execute() ([]PolicyEvaluationResult, *_nethttp.Response, error) {
+func (r ApiGetSourcePolicyCheckRequest) Execute() (SourcePolicyEvaluation, *_nethttp.Response, error) {
 	return r.ApiService.GetSourcePolicyCheckExecute(r)
 }
 
@@ -672,15 +633,15 @@ func (a *SourcesApiService) GetSourcePolicyCheck(ctx _context.Context, sourceId 
 }
 
 // Execute executes the request
-//  @return []PolicyEvaluationResult
-func (a *SourcesApiService) GetSourcePolicyCheckExecute(r ApiGetSourcePolicyCheckRequest) ([]PolicyEvaluationResult, *_nethttp.Response, error) {
+//  @return SourcePolicyEvaluation
+func (a *SourcesApiService) GetSourcePolicyCheckExecute(r ApiGetSourcePolicyCheckRequest) (SourcePolicyEvaluation, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		localVarReturnValue  []PolicyEvaluationResult
+		localVarReturnValue  SourcePolicyEvaluation
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SourcesApiService.GetSourcePolicyCheck")
@@ -813,110 +774,6 @@ func (a *SourcesApiService) GetSourceSbomCyclonedxJsonExecute(r ApiGetSourceSbom
 
 	// to determine the Accept header
 	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type ApiGetSourceSbomNativeRequest struct {
-	ctx _context.Context
-	ApiService SourcesApi
-	sourceId string
-}
-
-
-func (r ApiGetSourceSbomNativeRequest) Execute() (*os.File, *_nethttp.Response, error) {
-	return r.ApiService.GetSourceSbomNativeExecute(r)
-}
-
-/*
-GetSourceSbomNative Return the compressed source SBOM in the native Anchore format
-
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param sourceId
- @return ApiGetSourceSbomNativeRequest
-*/
-func (a *SourcesApiService) GetSourceSbomNative(ctx _context.Context, sourceId string) ApiGetSourceSbomNativeRequest {
-	return ApiGetSourceSbomNativeRequest{
-		ApiService: a,
-		ctx: ctx,
-		sourceId: sourceId,
-	}
-}
-
-// Execute executes the request
-//  @return *os.File
-func (a *SourcesApiService) GetSourceSbomNativeExecute(r ApiGetSourceSbomNativeRequest) (*os.File, *_nethttp.Response, error) {
-	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  *os.File
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SourcesApiService.GetSourceSbomNative")
-	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/sources/{source_id}/sbom/native"
-	localVarPath = strings.Replace(localVarPath, "{"+"source_id"+"}", _neturl.PathEscape(parameterToString(r.sourceId, "")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/gzip"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -1168,115 +1025,11 @@ func (a *SourcesApiService) GetSourceSbomSpdxJsonExecute(r ApiGetSourceSbomSpdxJ
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiGetSourceSbomTypesRequest struct {
-	ctx _context.Context
-	ApiService SourcesApi
-	sourceId string
-}
-
-
-func (r ApiGetSourceSbomTypesRequest) Execute() ([]string, *_nethttp.Response, error) {
-	return r.ApiService.GetSourceSbomTypesExecute(r)
-}
-
-/*
-GetSourceSbomTypes Get a detailed source repository analysis metadata record
-
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param sourceId
- @return ApiGetSourceSbomTypesRequest
-*/
-func (a *SourcesApiService) GetSourceSbomTypes(ctx _context.Context, sourceId string) ApiGetSourceSbomTypesRequest {
-	return ApiGetSourceSbomTypesRequest{
-		ApiService: a,
-		ctx: ctx,
-		sourceId: sourceId,
-	}
-}
-
-// Execute executes the request
-//  @return []string
-func (a *SourcesApiService) GetSourceSbomTypesExecute(r ApiGetSourceSbomTypesRequest) ([]string, *_nethttp.Response, error) {
-	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  []string
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SourcesApiService.GetSourceSbomTypes")
-	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/sources/{source_id}/sbom"
-	localVarPath = strings.Replace(localVarPath, "{"+"source_id"+"}", _neturl.PathEscape(parameterToString(r.sourceId, "")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
 type ApiGetSourceVulnerabilitiesRequest struct {
 	ctx _context.Context
 	ApiService SourcesApi
 	sourceId string
-	vtype string
+	vulnType string
 	forceRefresh *bool
 	willNotFix *bool
 	xAnchoreAccount *string
@@ -1297,7 +1050,7 @@ func (r ApiGetSourceVulnerabilitiesRequest) XAnchoreAccount(xAnchoreAccount stri
 	return r
 }
 
-func (r ApiGetSourceVulnerabilitiesRequest) Execute() (SourceVulnerabilitiesResponse, *_nethttp.Response, error) {
+func (r ApiGetSourceVulnerabilitiesRequest) Execute() (SourcePackageVulnerabilityResponse, *_nethttp.Response, error) {
 	return r.ApiService.GetSourceVulnerabilitiesExecute(r)
 }
 
@@ -1306,28 +1059,28 @@ GetSourceVulnerabilities Get vulnerabilities for the source by type
 
  @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param sourceId
- @param vtype
+ @param vulnType
  @return ApiGetSourceVulnerabilitiesRequest
 */
-func (a *SourcesApiService) GetSourceVulnerabilities(ctx _context.Context, sourceId string, vtype string) ApiGetSourceVulnerabilitiesRequest {
+func (a *SourcesApiService) GetSourceVulnerabilities(ctx _context.Context, sourceId string, vulnType string) ApiGetSourceVulnerabilitiesRequest {
 	return ApiGetSourceVulnerabilitiesRequest{
 		ApiService: a,
 		ctx: ctx,
 		sourceId: sourceId,
-		vtype: vtype,
+		vulnType: vulnType,
 	}
 }
 
 // Execute executes the request
-//  @return SourceVulnerabilitiesResponse
-func (a *SourcesApiService) GetSourceVulnerabilitiesExecute(r ApiGetSourceVulnerabilitiesRequest) (SourceVulnerabilitiesResponse, *_nethttp.Response, error) {
+//  @return SourcePackageVulnerabilityResponse
+func (a *SourcesApiService) GetSourceVulnerabilitiesExecute(r ApiGetSourceVulnerabilitiesRequest) (SourcePackageVulnerabilityResponse, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		localVarReturnValue  SourceVulnerabilitiesResponse
+		localVarReturnValue  SourcePackageVulnerabilityResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SourcesApiService.GetSourceVulnerabilities")
@@ -1335,9 +1088,9 @@ func (a *SourcesApiService) GetSourceVulnerabilitiesExecute(r ApiGetSourceVulner
 		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/sources/{source_id}/vuln/{vtype}"
+	localVarPath := localBasePath + "/sources/{source_id}/vuln/{vuln_type}"
 	localVarPath = strings.Replace(localVarPath, "{"+"source_id"+"}", _neturl.PathEscape(parameterToString(r.sourceId, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"vtype"+"}", _neturl.PathEscape(parameterToString(r.vtype, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"vuln_type"+"}", _neturl.PathEscape(parameterToString(r.vulnType, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
@@ -1525,7 +1278,7 @@ type ApiListSourcesRequest struct {
 }
 
 
-func (r ApiListSourcesRequest) Execute() ([]Source, *_nethttp.Response, error) {
+func (r ApiListSourcesRequest) Execute() (SourcesList, *_nethttp.Response, error) {
 	return r.ApiService.ListSourcesExecute(r)
 }
 
@@ -1543,15 +1296,15 @@ func (a *SourcesApiService) ListSources(ctx _context.Context) ApiListSourcesRequ
 }
 
 // Execute executes the request
-//  @return []Source
-func (a *SourcesApiService) ListSourcesExecute(r ApiListSourcesRequest) ([]Source, *_nethttp.Response, error) {
+//  @return SourcesList
+func (a *SourcesApiService) ListSourcesExecute(r ApiListSourcesRequest) (SourcesList, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		localVarReturnValue  []Source
+		localVarReturnValue  SourcesList
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SourcesApiService.ListSources")

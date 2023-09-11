@@ -1,9 +1,9 @@
 /*
-Anchore Enterprise API Server
+Anchore API
 
-This is the Anchore Enterprise API. It provides additional external API routes and functionality for enterprise users.
+This is the Anchore API. Provides the external API for users of Anchore Enterprise.
 
-API version: 0.8.0
+API version: 1.0.0
 Contact: dev@anchore.com
 */
 
@@ -1193,7 +1193,7 @@ func (a *ApplicationsApiService) GetApplicationVersionSbomExecute(r ApiGetApplic
 		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/applications/{application_id}/versions/{application_version_id}/sboms/json"
+	localVarPath := localBasePath + "/applications/{application_id}/versions/{application_version_id}/sboms/native-json"
 	localVarPath = strings.Replace(localVarPath, "{"+"application_id"+"}", _neturl.PathEscape(parameterToString(r.applicationId, "")), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"application_version_id"+"}", _neturl.PathEscape(parameterToString(r.applicationVersionId, "")), -1)
 
