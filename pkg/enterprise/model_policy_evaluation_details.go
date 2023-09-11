@@ -3,7 +3,7 @@ Anchore API
 
 This is the Anchore API. Provides the external API for users of Anchore Enterprise.
 
-API version: 1.0.0
+API version: 2.0.0
 Contact: dev@anchore.com
 */
 
@@ -17,7 +17,7 @@ import (
 
 // PolicyEvaluationDetails Contains additional details about the policy evaluation
 type PolicyEvaluationDetails struct {
-	Policy Policy `json:"policy"`
+	Policy NullablePolicy `json:"policy"`
 	// The detailed policy findings
 	Findings []PolicyEvaluationFinding `json:"findings"`
 	// List of remediations for the findings
@@ -28,7 +28,7 @@ type PolicyEvaluationDetails struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewPolicyEvaluationDetails(policy Policy, findings []PolicyEvaluationFinding) *PolicyEvaluationDetails {
+func NewPolicyEvaluationDetails(policy NullablePolicy, findings []PolicyEvaluationFinding) *PolicyEvaluationDetails {
 	this := PolicyEvaluationDetails{}
 	this.Policy = policy
 	this.Findings = findings
@@ -44,27 +44,29 @@ func NewPolicyEvaluationDetailsWithDefaults() *PolicyEvaluationDetails {
 }
 
 // GetPolicy returns the Policy field value
+// If the value is explicit nil, the zero value for Policy will be returned
 func (o *PolicyEvaluationDetails) GetPolicy() Policy {
-	if o == nil {
+	if o == nil || o.Policy.Get() == nil {
 		var ret Policy
 		return ret
 	}
 
-	return o.Policy
+	return *o.Policy.Get()
 }
 
 // GetPolicyOk returns a tuple with the Policy field value
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *PolicyEvaluationDetails) GetPolicyOk() (*Policy, bool) {
 	if o == nil  {
 		return nil, false
 	}
-	return &o.Policy, true
+	return o.Policy.Get(), o.Policy.IsSet()
 }
 
 // SetPolicy sets field value
 func (o *PolicyEvaluationDetails) SetPolicy(v Policy) {
-	o.Policy = v
+	o.Policy.Set(&v)
 }
 
 // GetFindings returns the Findings field value
@@ -127,7 +129,7 @@ func (o *PolicyEvaluationDetails) SetRemediations(v []PolicyEvaluationRemediatio
 func (o PolicyEvaluationDetails) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
-		toSerialize["policy"] = o.Policy
+		toSerialize["policy"] = o.Policy.Get()
 	}
 	if true {
 		toSerialize["findings"] = o.Findings

@@ -3,7 +3,7 @@ Anchore API
 
 This is the Anchore API. Provides the external API for users of Anchore Enterprise.
 
-API version: 1.0.0
+API version: 2.0.0
 Contact: dev@anchore.com
 */
 
@@ -19,7 +19,10 @@ import (
 type NativeSBOMPackageLocation struct {
 	Path string `json:"path"`
 	LayerID *string `json:"layerID,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _NativeSBOMPackageLocation NativeSBOMPackageLocation
 
 // NewNativeSBOMPackageLocation instantiates a new NativeSBOMPackageLocation object
 // This constructor will assign default values to properties that have it defined,
@@ -103,7 +106,30 @@ func (o NativeSBOMPackageLocation) MarshalJSON() ([]byte, error) {
 	if o.LayerID != nil {
 		toSerialize["layerID"] = o.LayerID
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return json.Marshal(toSerialize)
+}
+
+func (o *NativeSBOMPackageLocation) UnmarshalJSON(bytes []byte) (err error) {
+	varNativeSBOMPackageLocation := _NativeSBOMPackageLocation{}
+
+	if err = json.Unmarshal(bytes, &varNativeSBOMPackageLocation); err == nil {
+		*o = NativeSBOMPackageLocation(varNativeSBOMPackageLocation)
+	}
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(bytes, &additionalProperties); err == nil {
+		delete(additionalProperties, "path")
+		delete(additionalProperties, "layerID")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableNativeSBOMPackageLocation struct {

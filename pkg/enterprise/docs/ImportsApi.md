@@ -796,7 +796,7 @@ import (
 
 func main() {
     operationId := "operationId_example" // string | 
-    sbom := *openapiclient.NewImagePackageManifest([]openapiclient.ImportPackage{*openapiclient.NewImportPackage("Name_example", "Version_example", "Type_example", []openapiclient.ImportPackageLocation{*openapiclient.NewImportPackageLocation("Path_example")}, []interface{}{interface{}(123)}, "Language_example", []string{"Cpes_example"})}, *openapiclient.NewImportSource("Type_example", interface{}(123)), *openapiclient.NewImportDistribution()) // ImagePackageManifest | 
+    sbom := map[string]interface{}{"key": interface{}(123)} // map[string]interface{} | 
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
@@ -826,7 +826,7 @@ Other parameters are passed through a pointer to a apiImportImagePackagesRequest
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **sbom** | [**ImagePackageManifest**](ImagePackageManifest.md) |  | 
+ **sbom** | **map[string]interface{}** |  | 
 
 ### Return type
 
@@ -1804,7 +1804,7 @@ import (
 
 func main() {
     operationId := "operationId_example" // string | 
-    sbom := *openapiclient.NewNativeSBOM([]openapiclient.NativeSBOMPackage{*openapiclient.NewNativeSBOMPackage("Name_example", "Version_example", "Type_example", []openapiclient.NativeSBOMPackageLocation{*openapiclient.NewNativeSBOMPackageLocation("Path_example")}, []interface{}{interface{}(123)}, "Language_example", []string{"Cpes_example"})}, *openapiclient.NewNativeSBOMSource("Type_example", interface{}(123)), *openapiclient.NewNativeSBOMDistribution()) // NativeSBOM | 
+    sbom := map[string]interface{}{"key": interface{}(123)} // map[string]interface{} | 
 
     configuration := openapiclient.NewConfiguration()
     api_client := openapiclient.NewAPIClient(configuration)
@@ -1834,7 +1834,7 @@ Other parameters are passed through a pointer to a apiUploadImportSourcesSbomReq
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **sbom** | [**NativeSBOM**](NativeSBOM.md) |  | 
+ **sbom** | **map[string]interface{}** |  | 
 
 ### Return type
 

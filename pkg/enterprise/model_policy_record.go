@@ -3,7 +3,7 @@ Anchore API
 
 This is the Anchore API. Provides the external API for users of Anchore Enterprise.
 
-API version: 1.0.0
+API version: 2.0.0
 Contact: dev@anchore.com
 */
 
@@ -28,7 +28,7 @@ type PolicyRecord struct {
 	AccountName string `json:"account_name"`
 	// Source location of where the policy originated
 	PolicySource string `json:"policy_source"`
-	Policy *Policy `json:"policy,omitempty"`
+	Policy NullablePolicy `json:"policy,omitempty"`
 	// Name of the policy
 	Name string `json:"name"`
 	// Description of the policy, human readable
@@ -217,36 +217,46 @@ func (o *PolicyRecord) SetPolicySource(v string) {
 	o.PolicySource = v
 }
 
-// GetPolicy returns the Policy field value if set, zero value otherwise.
+// GetPolicy returns the Policy field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *PolicyRecord) GetPolicy() Policy {
-	if o == nil || o.Policy == nil {
+	if o == nil || o.Policy.Get() == nil {
 		var ret Policy
 		return ret
 	}
-	return *o.Policy
+	return *o.Policy.Get()
 }
 
 // GetPolicyOk returns a tuple with the Policy field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *PolicyRecord) GetPolicyOk() (*Policy, bool) {
-	if o == nil || o.Policy == nil {
+	if o == nil  {
 		return nil, false
 	}
-	return o.Policy, true
+	return o.Policy.Get(), o.Policy.IsSet()
 }
 
 // HasPolicy returns a boolean if a field has been set.
 func (o *PolicyRecord) HasPolicy() bool {
-	if o != nil && o.Policy != nil {
+	if o != nil && o.Policy.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetPolicy gets a reference to the given Policy and assigns it to the Policy field.
+// SetPolicy gets a reference to the given NullablePolicy and assigns it to the Policy field.
 func (o *PolicyRecord) SetPolicy(v Policy) {
-	o.Policy = &v
+	o.Policy.Set(&v)
+}
+// SetPolicyNil sets the value for Policy to be an explicit nil
+func (o *PolicyRecord) SetPolicyNil() {
+	o.Policy.Set(nil)
+}
+
+// UnsetPolicy ensures that no value is present for Policy, not even an explicit nil
+func (o *PolicyRecord) UnsetPolicy() {
+	o.Policy.Unset()
 }
 
 // GetName returns the Name field value
@@ -325,8 +335,8 @@ func (o PolicyRecord) MarshalJSON() ([]byte, error) {
 	if true {
 		toSerialize["policy_source"] = o.PolicySource
 	}
-	if o.Policy != nil {
-		toSerialize["policy"] = o.Policy
+	if o.Policy.IsSet() {
+		toSerialize["policy"] = o.Policy.Get()
 	}
 	if true {
 		toSerialize["name"] = o.Name

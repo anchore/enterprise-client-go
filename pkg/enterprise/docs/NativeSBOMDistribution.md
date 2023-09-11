@@ -194,6 +194,16 @@ SetIdLike sets IdLike field to given value.
 
 HasIdLike returns a boolean if a field has been set.
 
+### SetIdLikeNil
+
+`func (o *NativeSBOMDistribution) SetIdLikeNil(b bool)`
+
+ SetIdLikeNil sets the value for IdLike to be an explicit nil
+
+### UnsetIdLike
+`func (o *NativeSBOMDistribution) UnsetIdLike()`
+
+UnsetIdLike ensures that no value is present for IdLike, not even an explicit nil
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
