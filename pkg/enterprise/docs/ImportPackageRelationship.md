@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **Parent** | **string** |  | 
 **Child** | **string** |  | 
 **Type** | **string** |  | 
-**Metadata** | Pointer to **interface{}** |  | [optional] 
+**Metadata** | Pointer to **map[string]interface{}** |  | [optional] 
 
 ## Methods
 
@@ -90,20 +90,20 @@ SetType sets Type field to given value.
 
 ### GetMetadata
 
-`func (o *ImportPackageRelationship) GetMetadata() interface{}`
+`func (o *ImportPackageRelationship) GetMetadata() map[string]interface{}`
 
 GetMetadata returns the Metadata field if non-nil, zero value otherwise.
 
 ### GetMetadataOk
 
-`func (o *ImportPackageRelationship) GetMetadataOk() (*interface{}, bool)`
+`func (o *ImportPackageRelationship) GetMetadataOk() (*map[string]interface{}, bool)`
 
 GetMetadataOk returns a tuple with the Metadata field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetMetadata
 
-`func (o *ImportPackageRelationship) SetMetadata(v interface{})`
+`func (o *ImportPackageRelationship) SetMetadata(v map[string]interface{})`
 
 SetMetadata sets Metadata field to given value.
 

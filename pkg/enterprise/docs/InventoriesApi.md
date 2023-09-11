@@ -177,7 +177,7 @@ import (
 )
 
 func main() {
-    page := int32(56) // int32 |  (optional) (default to 1)
+    page := int32(56) // int32 | 
     pageSize := int32(56) // int32 |  (optional) (default to 1000)
 
     configuration := openapiclient.NewConfiguration()
@@ -203,7 +203,7 @@ Other parameters are passed through a pointer to a apiGetEcsContainersRequest st
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **page** | **int32** |  | [default to 1]
+ **page** | **int32** |  | 
  **pageSize** | **int32** |  | [default to 1000]
 
 ### Return type
@@ -245,7 +245,7 @@ import (
 )
 
 func main() {
-    page := int32(56) // int32 |  (optional) (default to 1)
+    page := int32(56) // int32 | 
     pageSize := int32(56) // int32 |  (optional) (default to 1000)
 
     configuration := openapiclient.NewConfiguration()
@@ -271,7 +271,7 @@ Other parameters are passed through a pointer to a apiGetEcsServicesRequest stru
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **page** | **int32** |  | [default to 1]
+ **page** | **int32** |  | 
  **pageSize** | **int32** |  | [default to 1000]
 
 ### Return type
@@ -313,7 +313,7 @@ import (
 )
 
 func main() {
-    page := int32(56) // int32 |  (optional) (default to 1)
+    page := int32(56) // int32 | 
     pageSize := int32(56) // int32 |  (optional) (default to 1000)
 
     configuration := openapiclient.NewConfiguration()
@@ -339,7 +339,7 @@ Other parameters are passed through a pointer to a apiGetEcsTasksRequest struct 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **page** | **int32** |  | [default to 1]
+ **page** | **int32** |  | 
  **pageSize** | **int32** |  | [default to 1000]
 
 ### Return type
@@ -453,7 +453,7 @@ import (
 )
 
 func main() {
-    page := int32(56) // int32 |  (optional) (default to 1)
+    page := int32(56) // int32 | 
     pageSize := int32(56) // int32 |  (optional) (default to 1000)
 
     configuration := openapiclient.NewConfiguration()
@@ -479,7 +479,7 @@ Other parameters are passed through a pointer to a apiGetKubernetesContainersReq
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **page** | **int32** |  | [default to 1]
+ **page** | **int32** |  | 
  **pageSize** | **int32** |  | [default to 1000]
 
 ### Return type
@@ -591,7 +591,7 @@ import (
 )
 
 func main() {
-    page := int32(56) // int32 |  (optional) (default to 1)
+    page := int32(56) // int32 | 
     pageSize := int32(56) // int32 |  (optional) (default to 1000)
 
     configuration := openapiclient.NewConfiguration()
@@ -617,7 +617,7 @@ Other parameters are passed through a pointer to a apiGetKubernetesNamespacesReq
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **page** | **int32** |  | [default to 1]
+ **page** | **int32** |  | 
  **pageSize** | **int32** |  | [default to 1000]
 
 ### Return type
@@ -729,7 +729,7 @@ import (
 )
 
 func main() {
-    page := int32(56) // int32 |  (optional) (default to 1)
+    page := int32(56) // int32 | 
     pageSize := int32(56) // int32 |  (optional) (default to 1000)
 
     configuration := openapiclient.NewConfiguration()
@@ -755,7 +755,7 @@ Other parameters are passed through a pointer to a apiGetKubernetesNodesRequest 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **page** | **int32** |  | [default to 1]
+ **page** | **int32** |  | 
  **pageSize** | **int32** |  | [default to 1000]
 
 ### Return type
@@ -867,7 +867,7 @@ import (
 )
 
 func main() {
-    page := int32(56) // int32 |  (optional) (default to 1)
+    page := int32(56) // int32 | 
     pageSize := int32(56) // int32 |  (optional) (default to 1000)
 
     configuration := openapiclient.NewConfiguration()
@@ -893,7 +893,7 @@ Other parameters are passed through a pointer to a apiGetKubernetesPodsRequest s
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **page** | **int32** |  | [default to 1]
+ **page** | **int32** |  | 
  **pageSize** | **int32** |  | [default to 1000]
 
 ### Return type

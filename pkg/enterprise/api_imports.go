@@ -3,7 +3,7 @@ Anchore API
 
 This is the Anchore API. Provides the external API for users of Anchore Enterprise.
 
-API version: 1.0.0
+API version: 2.0.0
 Contact: dev@anchore.com
 */
 
@@ -1578,10 +1578,10 @@ type ApiImportImagePackagesRequest struct {
 	ctx _context.Context
 	ApiService ImportsApi
 	operationId string
-	sbom *ImagePackageManifest
+	sbom *map[string]interface{}
 }
 
-func (r ApiImportImagePackagesRequest) Sbom(sbom ImagePackageManifest) ApiImportImagePackagesRequest {
+func (r ApiImportImagePackagesRequest) Sbom(sbom map[string]interface{}) ApiImportImagePackagesRequest {
 	r.sbom = &sbom
 	return r
 }
@@ -3160,10 +3160,10 @@ type ApiUploadImportSourcesSbomRequest struct {
 	ctx _context.Context
 	ApiService ImportsApi
 	operationId string
-	sbom *NativeSBOM
+	sbom *map[string]interface{}
 }
 
-func (r ApiUploadImportSourcesSbomRequest) Sbom(sbom NativeSBOM) ApiUploadImportSourcesSbomRequest {
+func (r ApiUploadImportSourcesSbomRequest) Sbom(sbom map[string]interface{}) ApiUploadImportSourcesSbomRequest {
 	r.sbom = &sbom
 	return r
 }
