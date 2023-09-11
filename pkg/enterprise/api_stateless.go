@@ -3,7 +3,7 @@ Anchore API
 
 This is the Anchore API. Provides the external API for users of Anchore Enterprise.
 
-API version: 1.0.0
+API version: 2.0.0
 Contact: dev@anchore.com
 */
 
@@ -17,7 +17,6 @@ import (
 	_ioutil "io/ioutil"
 	_nethttp "net/http"
 	_neturl "net/url"
-	"strings"
 )
 
 // Linger please
@@ -26,19 +25,6 @@ var (
 )
 
 type StatelessApi interface {
-
-	/*
-	GetStatelessSbomVulnerabilities Get vulnerabilities for input sbom by type
-
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @param vulnType
-	 @return ApiGetStatelessSbomVulnerabilitiesRequest
-	*/
-	GetStatelessSbomVulnerabilities(ctx _context.Context, vulnType string) ApiGetStatelessSbomVulnerabilitiesRequest
-
-	// GetStatelessSbomVulnerabilitiesExecute executes the request
-	//  @return SBOMVulnerabilitiesResponse
-	GetStatelessSbomVulnerabilitiesExecute(r ApiGetStatelessSbomVulnerabilitiesRequest) (SBOMVulnerabilitiesResponse, *_nethttp.Response, error)
 
 	/*
 	VulnerabilityScanSbom Return a vulnerability scan for the uploaded SBOM without storing the SBOM and without any side-effects in the system.
@@ -57,147 +43,6 @@ type StatelessApi interface {
 
 // StatelessApiService StatelessApi service
 type StatelessApiService service
-
-type ApiGetStatelessSbomVulnerabilitiesRequest struct {
-	ctx _context.Context
-	ApiService StatelessApi
-	vulnType string
-	sbom *interface{}
-	willNotFix *bool
-	xAnchoreAccount *string
-}
-
-func (r ApiGetStatelessSbomVulnerabilitiesRequest) Sbom(sbom interface{}) ApiGetStatelessSbomVulnerabilitiesRequest {
-	r.sbom = &sbom
-	return r
-}
-// Vulnerability data publishers explicitly won&#39;t fix some vulnerabilities. This is captured by will_not_fix attribute of each result. If the query parameter is set, results matching it&#39;s value will be filtered. Results are not filtered if the query parameter is unset
-func (r ApiGetStatelessSbomVulnerabilitiesRequest) WillNotFix(willNotFix bool) ApiGetStatelessSbomVulnerabilitiesRequest {
-	r.willNotFix = &willNotFix
-	return r
-}
-// An account name to change the resource scope of the request to that account, if permissions allow (admin only)
-func (r ApiGetStatelessSbomVulnerabilitiesRequest) XAnchoreAccount(xAnchoreAccount string) ApiGetStatelessSbomVulnerabilitiesRequest {
-	r.xAnchoreAccount = &xAnchoreAccount
-	return r
-}
-
-func (r ApiGetStatelessSbomVulnerabilitiesRequest) Execute() (SBOMVulnerabilitiesResponse, *_nethttp.Response, error) {
-	return r.ApiService.GetStatelessSbomVulnerabilitiesExecute(r)
-}
-
-/*
-GetStatelessSbomVulnerabilities Get vulnerabilities for input sbom by type
-
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param vulnType
- @return ApiGetStatelessSbomVulnerabilitiesRequest
-*/
-func (a *StatelessApiService) GetStatelessSbomVulnerabilities(ctx _context.Context, vulnType string) ApiGetStatelessSbomVulnerabilitiesRequest {
-	return ApiGetStatelessSbomVulnerabilitiesRequest{
-		ApiService: a,
-		ctx: ctx,
-		vulnType: vulnType,
-	}
-}
-
-// Execute executes the request
-//  @return SBOMVulnerabilitiesResponse
-func (a *StatelessApiService) GetStatelessSbomVulnerabilitiesExecute(r ApiGetStatelessSbomVulnerabilitiesRequest) (SBOMVulnerabilitiesResponse, *_nethttp.Response, error) {
-	var (
-		localVarHTTPMethod   = _nethttp.MethodPost
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  SBOMVulnerabilitiesResponse
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "StatelessApiService.GetStatelessSbomVulnerabilities")
-	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/stateless/sbom/vuln/{vuln_type}"
-	localVarPath = strings.Replace(localVarPath, "{"+"vuln_type"+"}", _neturl.PathEscape(parameterToString(r.vulnType, "")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
-	if r.sbom == nil {
-		return localVarReturnValue, nil, reportError("sbom is required and must be specified")
-	}
-
-	if r.willNotFix != nil {
-		localVarQueryParams.Add("will_not_fix", parameterToString(*r.willNotFix, ""))
-	}
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	if r.xAnchoreAccount != nil {
-		localVarHeaderParams["x-anchore-account"] = parameterToString(*r.xAnchoreAccount, "")
-	}
-	// body params
-	localVarPostBody = r.sbom
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		if localVarHTTPResponse.StatusCode == 500 {
-			var v ApiErrorResponse
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-			newErr.model = v
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
 
 type ApiVulnerabilityScanSbomRequest struct {
 	ctx _context.Context

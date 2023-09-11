@@ -3,7 +3,7 @@ Anchore API
 
 This is the Anchore API. Provides the external API for users of Anchore Enterprise.
 
-API version: 1.0.0
+API version: 2.0.0
 Contact: dev@anchore.com
 */
 
@@ -29,7 +29,10 @@ type ImportPackage struct {
 	Purl *string `json:"purl,omitempty"`
 	MetadataType NullableString `json:"metadataType,omitempty"`
 	Metadata interface{} `json:"metadata,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _ImportPackage ImportPackage
 
 // NewImportPackage instantiates a new ImportPackage object
 // This constructor will assign default values to properties that have it defined,
@@ -432,7 +435,40 @@ func (o ImportPackage) MarshalJSON() ([]byte, error) {
 	if o.Metadata != nil {
 		toSerialize["metadata"] = o.Metadata
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return json.Marshal(toSerialize)
+}
+
+func (o *ImportPackage) UnmarshalJSON(bytes []byte) (err error) {
+	varImportPackage := _ImportPackage{}
+
+	if err = json.Unmarshal(bytes, &varImportPackage); err == nil {
+		*o = ImportPackage(varImportPackage)
+	}
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(bytes, &additionalProperties); err == nil {
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "version")
+		delete(additionalProperties, "type")
+		delete(additionalProperties, "foundBy")
+		delete(additionalProperties, "locations")
+		delete(additionalProperties, "licenses")
+		delete(additionalProperties, "language")
+		delete(additionalProperties, "cpes")
+		delete(additionalProperties, "purl")
+		delete(additionalProperties, "metadataType")
+		delete(additionalProperties, "metadata")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableImportPackage struct {

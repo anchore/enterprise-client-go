@@ -3,7 +3,7 @@ Anchore API
 
 This is the Anchore API. Provides the external API for users of Anchore Enterprise.
 
-API version: 1.0.0
+API version: 2.0.0
 Contact: dev@anchore.com
 */
 
@@ -18,7 +18,6 @@ import (
 // SBOMVulnerabilitiesResponse Envelope containing list of vulnerabilities for a source repo
 type SBOMVulnerabilitiesResponse struct {
 	SbomId *string `json:"sbom_id,omitempty"`
-	VulnerabilityType *string `json:"vulnerability_type,omitempty"`
 	Vulnerabilities *[]PackageVulnerability `json:"vulnerabilities,omitempty"`
 }
 
@@ -71,38 +70,6 @@ func (o *SBOMVulnerabilitiesResponse) SetSbomId(v string) {
 	o.SbomId = &v
 }
 
-// GetVulnerabilityType returns the VulnerabilityType field value if set, zero value otherwise.
-func (o *SBOMVulnerabilitiesResponse) GetVulnerabilityType() string {
-	if o == nil || o.VulnerabilityType == nil {
-		var ret string
-		return ret
-	}
-	return *o.VulnerabilityType
-}
-
-// GetVulnerabilityTypeOk returns a tuple with the VulnerabilityType field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *SBOMVulnerabilitiesResponse) GetVulnerabilityTypeOk() (*string, bool) {
-	if o == nil || o.VulnerabilityType == nil {
-		return nil, false
-	}
-	return o.VulnerabilityType, true
-}
-
-// HasVulnerabilityType returns a boolean if a field has been set.
-func (o *SBOMVulnerabilitiesResponse) HasVulnerabilityType() bool {
-	if o != nil && o.VulnerabilityType != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetVulnerabilityType gets a reference to the given string and assigns it to the VulnerabilityType field.
-func (o *SBOMVulnerabilitiesResponse) SetVulnerabilityType(v string) {
-	o.VulnerabilityType = &v
-}
-
 // GetVulnerabilities returns the Vulnerabilities field value if set, zero value otherwise.
 func (o *SBOMVulnerabilitiesResponse) GetVulnerabilities() []PackageVulnerability {
 	if o == nil || o.Vulnerabilities == nil {
@@ -139,9 +106,6 @@ func (o SBOMVulnerabilitiesResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.SbomId != nil {
 		toSerialize["sbom_id"] = o.SbomId
-	}
-	if o.VulnerabilityType != nil {
-		toSerialize["vulnerability_type"] = o.VulnerabilityType
 	}
 	if o.Vulnerabilities != nil {
 		toSerialize["vulnerabilities"] = o.Vulnerabilities
