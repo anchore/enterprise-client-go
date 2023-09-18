@@ -5,7 +5,7 @@ All URIs are relative to *http://localhost/v2*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**AddSubscription**](SubscriptionsApi.md#AddSubscription) | **Post** /subscriptions | Add a subscription of a specific type
-[**DeleteSubscription**](SubscriptionsApi.md#DeleteSubscription) | **Delete** /subscriptions/{subscription_id} | Delete subscriptions of a specific type
+[**DeleteSubscription**](SubscriptionsApi.md#DeleteSubscription) | **Delete** /subscriptions/{subscription_id} | Delete specific subscription
 [**GetSubscription**](SubscriptionsApi.md#GetSubscription) | **Get** /subscriptions/{subscription_id} | Get a specific subscription set
 [**ListSubscriptions**](SubscriptionsApi.md#ListSubscriptions) | **Get** /subscriptions | List all subscriptions
 [**UpdateSubscription**](SubscriptionsApi.md#UpdateSubscription) | **Put** /subscriptions/{subscription_id} | Update an existing and specific subscription
@@ -84,7 +84,7 @@ No authorization required
 
 > DeleteSubscription(ctx, subscriptionId).XAnchoreAccount(xAnchoreAccount).Execute()
 
-Delete subscriptions of a specific type
+Delete specific subscription
 
 ### Example
 

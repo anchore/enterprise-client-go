@@ -319,7 +319,7 @@ Class | Method | HTTP request | Description
 *SourcesApi* | [**ListSources**](docs/SourcesApi.md#listsources) | **Get** /sources | List the source repository analysis records
 *StatelessApi* | [**VulnerabilityScanSbom**](docs/StatelessApi.md#vulnerabilityscansbom) | **Post** /vulnerability-scan | Return a vulnerability scan for the uploaded SBOM without storing the SBOM and without any side-effects in the system.
 *SubscriptionsApi* | [**AddSubscription**](docs/SubscriptionsApi.md#addsubscription) | **Post** /subscriptions | Add a subscription of a specific type
-*SubscriptionsApi* | [**DeleteSubscription**](docs/SubscriptionsApi.md#deletesubscription) | **Delete** /subscriptions/{subscription_id} | Delete subscriptions of a specific type
+*SubscriptionsApi* | [**DeleteSubscription**](docs/SubscriptionsApi.md#deletesubscription) | **Delete** /subscriptions/{subscription_id} | Delete specific subscription
 *SubscriptionsApi* | [**GetSubscription**](docs/SubscriptionsApi.md#getsubscription) | **Get** /subscriptions/{subscription_id} | Get a specific subscription set
 *SubscriptionsApi* | [**ListSubscriptions**](docs/SubscriptionsApi.md#listsubscriptions) | **Get** /subscriptions | List all subscriptions
 *SubscriptionsApi* | [**UpdateSubscription**](docs/SubscriptionsApi.md#updatesubscription) | **Put** /subscriptions/{subscription_id} | Update an existing and specific subscription

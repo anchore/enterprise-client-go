@@ -7073,13 +7073,13 @@ paths:
           type: string
       responses:
         200:
-          description: Repository and discovered tags added
+          description: Repository Subscription
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/SubscriptionList'
       x-anchore-authz-action: createRepository
-      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.images
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.repositories
   /sources:
     get:
       tags:
@@ -7467,8 +7467,7 @@ paths:
       tags:
       - Subscriptions
       summary: Add a subscription of a specific type
-      description: Create a new subscription to watch a tag and get notifications
-        of changes
+      description: Create a new subscription
       operationId: add_subscription
       parameters:
       - name: x-anchore-account
@@ -7490,6 +7489,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/SubscriptionList'
+        500:
+          description: Internal Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
       x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.subscriptions
       x-anchore-authz-action: createSubscription
       x-codegen-request-body-name: subscription
@@ -7519,6 +7524,9 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/SubscriptionList'
+        404:
+          description: The Subscription was not found
+          content: {}
         500:
           description: Internal Error
           content:
@@ -7553,18 +7561,27 @@ paths:
         required: true
       responses:
         200:
-          description: Subscription add success
+          description: Subscription update success
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/SubscriptionList'
+        404:
+          description: The Subscription was not found
+          content: {}
+        500:
+          description: Internal Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
       x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.subscriptions
       x-anchore-authz-action: updateSubscription
       x-codegen-request-body-name: subscription
     delete:
       tags:
       - Subscriptions
-      summary: Delete subscriptions of a specific type
+      summary: Delete specific subscription
       operationId: delete_subscription
       parameters:
       - name: subscription_id
@@ -9867,6 +9884,11 @@ components:
         image_digest:
           type: string
           description: The parent Anchore Image record to which this detail maps
+        tag:
+          type: string
+        tag_detected_at:
+          type: string
+          format: date-time
       description: A metadata detail record for a specific image. Multiple detail
         records may map a single catalog image.
     ImageImportContentResponse:

@@ -7954,12 +7954,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/SubscriptionList'
-          description: Repository and discovered tags added
+          description: Repository Subscription
       summary: Add repository to watch
       tags:
       - Repository Credentials
       x-anchore-authz-action: createRepository
-      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.images
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.repositories
   /sources:
     get:
       operationId: list_sources
@@ -8395,8 +8395,7 @@ paths:
       x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.subscriptions
       x-anchore-authz-action: listSubscriptions
     post:
-      description: Create a new subscription to watch a tag and get notifications
-        of changes
+      description: Create a new subscription
       operationId: add_subscription
       parameters:
       - description: An account name to change the resource scope of the request to
@@ -8421,6 +8420,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/SubscriptionList'
           description: Subscription add success
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+          description: Internal Error
       summary: Add a subscription of a specific type
       tags:
       - Subscriptions
@@ -8461,7 +8466,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/ApiErrorResponse'
           description: Internal Error
-      summary: Delete subscriptions of a specific type
+      summary: Delete specific subscription
       tags:
       - Subscriptions
       x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.subscriptions
@@ -8493,6 +8498,9 @@ paths:
               schema:
                 $ref: '#/components/schemas/SubscriptionList'
           description: Filtered subscription list by type
+        "404":
+          content: {}
+          description: The Subscription was not found
         "500":
           content:
             application/json:
@@ -8536,7 +8544,16 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/SubscriptionList'
-          description: Subscription add success
+          description: Subscription update success
+        "404":
+          content: {}
+          description: The Subscription was not found
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+          description: Internal Error
       summary: Update an existing and specific subscription
       tags:
       - Subscriptions
@@ -9673,7 +9690,8 @@ components:
         record_version: record_version
         image_content: '{}'
         image_detail:
-        - full_tag: full_tag
+        - tag_detected_at: 2000-01-23T04:56:07.000+00:00
+          full_tag: full_tag
           registry: registry
           last_updated: 2000-01-23T04:56:07.000+00:00
           image_digest: image_digest
@@ -9681,9 +9699,11 @@ components:
           repo: repo
           dockerfile: dockerfile
           created_at: 2000-01-23T04:56:07.000+00:00
+          tag: tag
           image_id: image_id
           full_digest: full_digest
-        - full_tag: full_tag
+        - tag_detected_at: 2000-01-23T04:56:07.000+00:00
+          full_tag: full_tag
           registry: registry
           last_updated: 2000-01-23T04:56:07.000+00:00
           image_digest: image_digest
@@ -9691,6 +9711,7 @@ components:
           repo: repo
           dockerfile: dockerfile
           created_at: 2000-01-23T04:56:07.000+00:00
+          tag: tag
           image_id: image_id
           full_digest: full_digest
       properties:
@@ -9773,7 +9794,8 @@ components:
           record_version: record_version
           image_content: '{}'
           image_detail:
-          - full_tag: full_tag
+          - tag_detected_at: 2000-01-23T04:56:07.000+00:00
+            full_tag: full_tag
             registry: registry
             last_updated: 2000-01-23T04:56:07.000+00:00
             image_digest: image_digest
@@ -9781,9 +9803,11 @@ components:
             repo: repo
             dockerfile: dockerfile
             created_at: 2000-01-23T04:56:07.000+00:00
+            tag: tag
             image_id: image_id
             full_digest: full_digest
-          - full_tag: full_tag
+          - tag_detected_at: 2000-01-23T04:56:07.000+00:00
+            full_tag: full_tag
             registry: registry
             last_updated: 2000-01-23T04:56:07.000+00:00
             image_digest: image_digest
@@ -9791,6 +9815,7 @@ components:
             repo: repo
             dockerfile: dockerfile
             created_at: 2000-01-23T04:56:07.000+00:00
+            tag: tag
             image_id: image_id
             full_digest: full_digest
         - last_updated: 2000-01-23T04:56:07.000+00:00
@@ -9817,7 +9842,8 @@ components:
           record_version: record_version
           image_content: '{}'
           image_detail:
-          - full_tag: full_tag
+          - tag_detected_at: 2000-01-23T04:56:07.000+00:00
+            full_tag: full_tag
             registry: registry
             last_updated: 2000-01-23T04:56:07.000+00:00
             image_digest: image_digest
@@ -9825,9 +9851,11 @@ components:
             repo: repo
             dockerfile: dockerfile
             created_at: 2000-01-23T04:56:07.000+00:00
+            tag: tag
             image_id: image_id
             full_digest: full_digest
-          - full_tag: full_tag
+          - tag_detected_at: 2000-01-23T04:56:07.000+00:00
+            full_tag: full_tag
             registry: registry
             last_updated: 2000-01-23T04:56:07.000+00:00
             image_digest: image_digest
@@ -9835,6 +9863,7 @@ components:
             repo: repo
             dockerfile: dockerfile
             created_at: 2000-01-23T04:56:07.000+00:00
+            tag: tag
             image_id: image_id
             full_digest: full_digest
       properties:
@@ -11736,6 +11765,7 @@ components:
       description: A metadata detail record for a specific image. Multiple detail
         records may map a single catalog image.
       example:
+        tag_detected_at: 2000-01-23T04:56:07.000+00:00
         full_tag: full_tag
         registry: registry
         last_updated: 2000-01-23T04:56:07.000+00:00
@@ -11744,6 +11774,7 @@ components:
         repo: repo
         dockerfile: dockerfile
         created_at: 2000-01-23T04:56:07.000+00:00
+        tag: tag
         image_id: image_id
         full_digest: full_digest
       properties:
@@ -11773,6 +11804,11 @@ components:
           type: string
         image_digest:
           description: The parent Anchore Image record to which this detail maps
+          type: string
+        tag:
+          type: string
+        tag_detected_at:
+          format: date-time
           type: string
       type: object
     ImageImportContentResponse:
