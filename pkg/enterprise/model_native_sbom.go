@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the NativeSBOM type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &NativeSBOM{}
+
 // NativeSBOM struct for NativeSBOM
 type NativeSBOM struct {
 	Artifacts []NativeSBOMPackage `json:"artifacts"`
@@ -22,7 +25,7 @@ type NativeSBOM struct {
 	Distro NativeSBOMDistribution `json:"distro"`
 	Descriptor *NativeSBOMDescriptor `json:"descriptor,omitempty"`
 	Schema *NativeSBOMSchema `json:"schema,omitempty"`
-	ArtifactRelationships *[]NativeSBOMPackageRelationship `json:"artifactRelationships,omitempty"`
+	ArtifactRelationships []NativeSBOMPackageRelationship `json:"artifactRelationships,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -60,11 +63,11 @@ func (o *NativeSBOM) GetArtifacts() []NativeSBOMPackage {
 
 // GetArtifactsOk returns a tuple with the Artifacts field value
 // and a boolean to check if the value has been set.
-func (o *NativeSBOM) GetArtifactsOk() (*[]NativeSBOMPackage, bool) {
-	if o == nil  {
+func (o *NativeSBOM) GetArtifactsOk() ([]NativeSBOMPackage, bool) {
+	if o == nil {
 		return nil, false
 	}
-	return &o.Artifacts, true
+	return o.Artifacts, true
 }
 
 // SetArtifacts sets field value
@@ -85,7 +88,7 @@ func (o *NativeSBOM) GetSource() NativeSBOMSource {
 // GetSourceOk returns a tuple with the Source field value
 // and a boolean to check if the value has been set.
 func (o *NativeSBOM) GetSourceOk() (*NativeSBOMSource, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Source, true
@@ -109,7 +112,7 @@ func (o *NativeSBOM) GetDistro() NativeSBOMDistribution {
 // GetDistroOk returns a tuple with the Distro field value
 // and a boolean to check if the value has been set.
 func (o *NativeSBOM) GetDistroOk() (*NativeSBOMDistribution, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Distro, true
@@ -122,7 +125,7 @@ func (o *NativeSBOM) SetDistro(v NativeSBOMDistribution) {
 
 // GetDescriptor returns the Descriptor field value if set, zero value otherwise.
 func (o *NativeSBOM) GetDescriptor() NativeSBOMDescriptor {
-	if o == nil || o.Descriptor == nil {
+	if o == nil || IsNil(o.Descriptor) {
 		var ret NativeSBOMDescriptor
 		return ret
 	}
@@ -132,7 +135,7 @@ func (o *NativeSBOM) GetDescriptor() NativeSBOMDescriptor {
 // GetDescriptorOk returns a tuple with the Descriptor field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *NativeSBOM) GetDescriptorOk() (*NativeSBOMDescriptor, bool) {
-	if o == nil || o.Descriptor == nil {
+	if o == nil || IsNil(o.Descriptor) {
 		return nil, false
 	}
 	return o.Descriptor, true
@@ -140,7 +143,7 @@ func (o *NativeSBOM) GetDescriptorOk() (*NativeSBOMDescriptor, bool) {
 
 // HasDescriptor returns a boolean if a field has been set.
 func (o *NativeSBOM) HasDescriptor() bool {
-	if o != nil && o.Descriptor != nil {
+	if o != nil && !IsNil(o.Descriptor) {
 		return true
 	}
 
@@ -154,7 +157,7 @@ func (o *NativeSBOM) SetDescriptor(v NativeSBOMDescriptor) {
 
 // GetSchema returns the Schema field value if set, zero value otherwise.
 func (o *NativeSBOM) GetSchema() NativeSBOMSchema {
-	if o == nil || o.Schema == nil {
+	if o == nil || IsNil(o.Schema) {
 		var ret NativeSBOMSchema
 		return ret
 	}
@@ -164,7 +167,7 @@ func (o *NativeSBOM) GetSchema() NativeSBOMSchema {
 // GetSchemaOk returns a tuple with the Schema field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *NativeSBOM) GetSchemaOk() (*NativeSBOMSchema, bool) {
-	if o == nil || o.Schema == nil {
+	if o == nil || IsNil(o.Schema) {
 		return nil, false
 	}
 	return o.Schema, true
@@ -172,7 +175,7 @@ func (o *NativeSBOM) GetSchemaOk() (*NativeSBOMSchema, bool) {
 
 // HasSchema returns a boolean if a field has been set.
 func (o *NativeSBOM) HasSchema() bool {
-	if o != nil && o.Schema != nil {
+	if o != nil && !IsNil(o.Schema) {
 		return true
 	}
 
@@ -186,17 +189,17 @@ func (o *NativeSBOM) SetSchema(v NativeSBOMSchema) {
 
 // GetArtifactRelationships returns the ArtifactRelationships field value if set, zero value otherwise.
 func (o *NativeSBOM) GetArtifactRelationships() []NativeSBOMPackageRelationship {
-	if o == nil || o.ArtifactRelationships == nil {
+	if o == nil || IsNil(o.ArtifactRelationships) {
 		var ret []NativeSBOMPackageRelationship
 		return ret
 	}
-	return *o.ArtifactRelationships
+	return o.ArtifactRelationships
 }
 
 // GetArtifactRelationshipsOk returns a tuple with the ArtifactRelationships field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *NativeSBOM) GetArtifactRelationshipsOk() (*[]NativeSBOMPackageRelationship, bool) {
-	if o == nil || o.ArtifactRelationships == nil {
+func (o *NativeSBOM) GetArtifactRelationshipsOk() ([]NativeSBOMPackageRelationship, bool) {
+	if o == nil || IsNil(o.ArtifactRelationships) {
 		return nil, false
 	}
 	return o.ArtifactRelationships, true
@@ -204,7 +207,7 @@ func (o *NativeSBOM) GetArtifactRelationshipsOk() (*[]NativeSBOMPackageRelations
 
 // HasArtifactRelationships returns a boolean if a field has been set.
 func (o *NativeSBOM) HasArtifactRelationships() bool {
-	if o != nil && o.ArtifactRelationships != nil {
+	if o != nil && !IsNil(o.ArtifactRelationships) {
 		return true
 	}
 
@@ -213,27 +216,29 @@ func (o *NativeSBOM) HasArtifactRelationships() bool {
 
 // SetArtifactRelationships gets a reference to the given []NativeSBOMPackageRelationship and assigns it to the ArtifactRelationships field.
 func (o *NativeSBOM) SetArtifactRelationships(v []NativeSBOMPackageRelationship) {
-	o.ArtifactRelationships = &v
+	o.ArtifactRelationships = v
 }
 
 func (o NativeSBOM) MarshalJSON() ([]byte, error) {
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o NativeSBOM) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["artifacts"] = o.Artifacts
-	}
-	if true {
-		toSerialize["source"] = o.Source
-	}
-	if true {
-		toSerialize["distro"] = o.Distro
-	}
-	if o.Descriptor != nil {
+	toSerialize["artifacts"] = o.Artifacts
+	toSerialize["source"] = o.Source
+	toSerialize["distro"] = o.Distro
+	if !IsNil(o.Descriptor) {
 		toSerialize["descriptor"] = o.Descriptor
 	}
-	if o.Schema != nil {
+	if !IsNil(o.Schema) {
 		toSerialize["schema"] = o.Schema
 	}
-	if o.ArtifactRelationships != nil {
+	if !IsNil(o.ArtifactRelationships) {
 		toSerialize["artifactRelationships"] = o.ArtifactRelationships
 	}
 
@@ -241,15 +246,19 @@ func (o NativeSBOM) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
 func (o *NativeSBOM) UnmarshalJSON(bytes []byte) (err error) {
 	varNativeSBOM := _NativeSBOM{}
 
-	if err = json.Unmarshal(bytes, &varNativeSBOM); err == nil {
-		*o = NativeSBOM(varNativeSBOM)
+	err = json.Unmarshal(bytes, &varNativeSBOM)
+
+	if err != nil {
+		return err
 	}
+
+	*o = NativeSBOM(varNativeSBOM)
 
 	additionalProperties := make(map[string]interface{})
 

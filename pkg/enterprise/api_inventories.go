@@ -13,236 +13,232 @@ package enterprise
 
 import (
 	"bytes"
-	_context "context"
-	_ioutil "io/ioutil"
-	_nethttp "net/http"
-	_neturl "net/url"
+	"context"
+	"io"
+	"net/http"
+	"net/url"
 	"strings"
 )
 
-// Linger please
-var (
-	_ _context.Context
-)
 
-type InventoriesApi interface {
+type InventoriesAPI interface {
 
 	/*
 	DeleteInventory Delete runtime inventory by type and context
 
 	Delete runtime inventory by type and context
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @return ApiDeleteInventoryRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiDeleteInventoryRequest
 	*/
-	DeleteInventory(ctx _context.Context) ApiDeleteInventoryRequest
+	DeleteInventory(ctx context.Context) ApiDeleteInventoryRequest
 
 	// DeleteInventoryExecute executes the request
-	DeleteInventoryExecute(r ApiDeleteInventoryRequest) (*_nethttp.Response, error)
+	DeleteInventoryExecute(r ApiDeleteInventoryRequest) (*http.Response, error)
 
 	/*
 	DeleteKubernetesNamespaces Delete Kubernetes namespaces for a given criteria
 
 	Delete Kubernetes namespaces for a given criteria
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @return ApiDeleteKubernetesNamespacesRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiDeleteKubernetesNamespacesRequest
 	*/
-	DeleteKubernetesNamespaces(ctx _context.Context) ApiDeleteKubernetesNamespacesRequest
+	DeleteKubernetesNamespaces(ctx context.Context) ApiDeleteKubernetesNamespacesRequest
 
 	// DeleteKubernetesNamespacesExecute executes the request
-	DeleteKubernetesNamespacesExecute(r ApiDeleteKubernetesNamespacesRequest) (*_nethttp.Response, error)
+	DeleteKubernetesNamespacesExecute(r ApiDeleteKubernetesNamespacesRequest) (*http.Response, error)
 
 	/*
 	GetEcsContainers Return a list of ECS containers that have been inventoried for this account
 
 	Return a list of ECS containers that have been inventoried for this account
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @return ApiGetEcsContainersRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiGetEcsContainersRequest
 	*/
-	GetEcsContainers(ctx _context.Context) ApiGetEcsContainersRequest
+	GetEcsContainers(ctx context.Context) ApiGetEcsContainersRequest
 
 	// GetEcsContainersExecute executes the request
 	//  @return ECSContainers
-	GetEcsContainersExecute(r ApiGetEcsContainersRequest) (ECSContainers, *_nethttp.Response, error)
+	GetEcsContainersExecute(r ApiGetEcsContainersRequest) (*ECSContainers, *http.Response, error)
 
 	/*
 	GetEcsServices Return a list of ECS services that have been inventoried for this account
 
 	Return a list of ECS services that have been inventoried for this account
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @return ApiGetEcsServicesRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiGetEcsServicesRequest
 	*/
-	GetEcsServices(ctx _context.Context) ApiGetEcsServicesRequest
+	GetEcsServices(ctx context.Context) ApiGetEcsServicesRequest
 
 	// GetEcsServicesExecute executes the request
 	//  @return ECSServices
-	GetEcsServicesExecute(r ApiGetEcsServicesRequest) (ECSServices, *_nethttp.Response, error)
+	GetEcsServicesExecute(r ApiGetEcsServicesRequest) (*ECSServices, *http.Response, error)
 
 	/*
 	GetEcsTasks Return a list of ECS tasks that have been inventoried for this account
 
 	Return a list of ECS tasks that have been inventoried for this account
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @return ApiGetEcsTasksRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiGetEcsTasksRequest
 	*/
-	GetEcsTasks(ctx _context.Context) ApiGetEcsTasksRequest
+	GetEcsTasks(ctx context.Context) ApiGetEcsTasksRequest
 
 	// GetEcsTasksExecute executes the request
 	//  @return ECSTasks
-	GetEcsTasksExecute(r ApiGetEcsTasksRequest) (ECSTasks, *_nethttp.Response, error)
+	GetEcsTasksExecute(r ApiGetEcsTasksRequest) (*ECSTasks, *http.Response, error)
 
 	/*
 	GetImageInventory Return a list of the images in inventories for this account
 
 	Returns a list of the images that are in use
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @return ApiGetImageInventoryRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiGetImageInventoryRequest
 	*/
-	GetImageInventory(ctx _context.Context) ApiGetImageInventoryRequest
+	GetImageInventory(ctx context.Context) ApiGetImageInventoryRequest
 
 	// GetImageInventoryExecute executes the request
 	//  @return InventoryItems
-	GetImageInventoryExecute(r ApiGetImageInventoryRequest) (InventoryItems, *_nethttp.Response, error)
+	GetImageInventoryExecute(r ApiGetImageInventoryRequest) (*InventoryItems, *http.Response, error)
 
 	/*
 	GetKubernetesContainers Return a list of Kubernetes containers that have been inventoried for this account
 
 	Return a list of Kubernetes containers that have been inventoried for this account
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @return ApiGetKubernetesContainersRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiGetKubernetesContainersRequest
 	*/
-	GetKubernetesContainers(ctx _context.Context) ApiGetKubernetesContainersRequest
+	GetKubernetesContainers(ctx context.Context) ApiGetKubernetesContainersRequest
 
 	// GetKubernetesContainersExecute executes the request
 	//  @return KubernetesContainers
-	GetKubernetesContainersExecute(r ApiGetKubernetesContainersRequest) (KubernetesContainers, *_nethttp.Response, error)
+	GetKubernetesContainersExecute(r ApiGetKubernetesContainersRequest) (*KubernetesContainers, *http.Response, error)
 
 	/*
 	GetKubernetesNamespace Return a Kubernetes namespace that has been inventoried for this account
 
 	Return Kubernetes namespace that has been inventoried for this account
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @param namespaceId
-	 @return ApiGetKubernetesNamespaceRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param namespaceId
+	@return ApiGetKubernetesNamespaceRequest
 	*/
-	GetKubernetesNamespace(ctx _context.Context, namespaceId string) ApiGetKubernetesNamespaceRequest
+	GetKubernetesNamespace(ctx context.Context, namespaceId string) ApiGetKubernetesNamespaceRequest
 
 	// GetKubernetesNamespaceExecute executes the request
 	//  @return KubernetesNamespace
-	GetKubernetesNamespaceExecute(r ApiGetKubernetesNamespaceRequest) (KubernetesNamespace, *_nethttp.Response, error)
+	GetKubernetesNamespaceExecute(r ApiGetKubernetesNamespaceRequest) (*KubernetesNamespace, *http.Response, error)
 
 	/*
 	GetKubernetesNamespaces Return a list of Kubernetes namespaces that have been inventoried for this account
 
 	Return a list of Kubernetes namespaces that have been inventoried for this account
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @return ApiGetKubernetesNamespacesRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiGetKubernetesNamespacesRequest
 	*/
-	GetKubernetesNamespaces(ctx _context.Context) ApiGetKubernetesNamespacesRequest
+	GetKubernetesNamespaces(ctx context.Context) ApiGetKubernetesNamespacesRequest
 
 	// GetKubernetesNamespacesExecute executes the request
 	//  @return KubernetesNamespaces
-	GetKubernetesNamespacesExecute(r ApiGetKubernetesNamespacesRequest) (KubernetesNamespaces, *_nethttp.Response, error)
+	GetKubernetesNamespacesExecute(r ApiGetKubernetesNamespacesRequest) (*KubernetesNamespaces, *http.Response, error)
 
 	/*
 	GetKubernetesNode Return a Kubernetes node that has been inventoried for this account
 
 	Return Kubernetes node that has been inventoried for this account
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @param nodeId
-	 @return ApiGetKubernetesNodeRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param nodeId
+	@return ApiGetKubernetesNodeRequest
 	*/
-	GetKubernetesNode(ctx _context.Context, nodeId string) ApiGetKubernetesNodeRequest
+	GetKubernetesNode(ctx context.Context, nodeId string) ApiGetKubernetesNodeRequest
 
 	// GetKubernetesNodeExecute executes the request
 	//  @return KubernetesNode
-	GetKubernetesNodeExecute(r ApiGetKubernetesNodeRequest) (KubernetesNode, *_nethttp.Response, error)
+	GetKubernetesNodeExecute(r ApiGetKubernetesNodeRequest) (*KubernetesNode, *http.Response, error)
 
 	/*
 	GetKubernetesNodes Return a list of Kubernetes nodes that have been inventoried for this account
 
 	Return a list of Kubernetes nodes that have been inventoried for this account
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @return ApiGetKubernetesNodesRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiGetKubernetesNodesRequest
 	*/
-	GetKubernetesNodes(ctx _context.Context) ApiGetKubernetesNodesRequest
+	GetKubernetesNodes(ctx context.Context) ApiGetKubernetesNodesRequest
 
 	// GetKubernetesNodesExecute executes the request
 	//  @return KubernetesNodes
-	GetKubernetesNodesExecute(r ApiGetKubernetesNodesRequest) (KubernetesNodes, *_nethttp.Response, error)
+	GetKubernetesNodesExecute(r ApiGetKubernetesNodesRequest) (*KubernetesNodes, *http.Response, error)
 
 	/*
 	GetKubernetesPod Return a Kubernetes pod that has been inventoried for this account
 
 	Return a Kubernetes pod that has been inventoried for this account
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @param podId
-	 @return ApiGetKubernetesPodRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param podId
+	@return ApiGetKubernetesPodRequest
 	*/
-	GetKubernetesPod(ctx _context.Context, podId string) ApiGetKubernetesPodRequest
+	GetKubernetesPod(ctx context.Context, podId string) ApiGetKubernetesPodRequest
 
 	// GetKubernetesPodExecute executes the request
 	//  @return KubernetesPod
-	GetKubernetesPodExecute(r ApiGetKubernetesPodRequest) (KubernetesPod, *_nethttp.Response, error)
+	GetKubernetesPodExecute(r ApiGetKubernetesPodRequest) (*KubernetesPod, *http.Response, error)
 
 	/*
 	GetKubernetesPods Return a list of Kubernetes pods that have been inventoried for this account
 
 	Return a list of Kubernetes pods that have been inventoried for this account
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @return ApiGetKubernetesPodsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiGetKubernetesPodsRequest
 	*/
-	GetKubernetesPods(ctx _context.Context) ApiGetKubernetesPodsRequest
+	GetKubernetesPods(ctx context.Context) ApiGetKubernetesPodsRequest
 
 	// GetKubernetesPodsExecute executes the request
 	//  @return KubernetesPods
-	GetKubernetesPodsExecute(r ApiGetKubernetesPodsRequest) (KubernetesPods, *_nethttp.Response, error)
+	GetKubernetesPodsExecute(r ApiGetKubernetesPodsRequest) (*KubernetesPods, *http.Response, error)
 
 	/*
 	PostEcsInventory Add container metadata from Amazon ECS
 
 	Add container metadata from Amazon ECS
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @return ApiPostEcsInventoryRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiPostEcsInventoryRequest
 	*/
-	PostEcsInventory(ctx _context.Context) ApiPostEcsInventoryRequest
+	PostEcsInventory(ctx context.Context) ApiPostEcsInventoryRequest
 
 	// PostEcsInventoryExecute executes the request
-	PostEcsInventoryExecute(r ApiPostEcsInventoryRequest) (*_nethttp.Response, error)
+	PostEcsInventoryExecute(r ApiPostEcsInventoryRequest) (*http.Response, error)
 
 	/*
 	PostKubernetesInventory Add container metadata from a Kubernetes deployment
 
 	Add container metadata from a Kubernetes deployment
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @return ApiPostKubernetesInventoryRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiPostKubernetesInventoryRequest
 	*/
-	PostKubernetesInventory(ctx _context.Context) ApiPostKubernetesInventoryRequest
+	PostKubernetesInventory(ctx context.Context) ApiPostKubernetesInventoryRequest
 
 	// PostKubernetesInventoryExecute executes the request
-	PostKubernetesInventoryExecute(r ApiPostKubernetesInventoryRequest) (*_nethttp.Response, error)
+	PostKubernetesInventoryExecute(r ApiPostKubernetesInventoryRequest) (*http.Response, error)
 }
 
-// InventoriesApiService InventoriesApi service
-type InventoriesApiService service
+// InventoriesAPIService InventoriesAPI service
+type InventoriesAPIService service
 
 type ApiDeleteInventoryRequest struct {
-	ctx _context.Context
-	ApiService InventoriesApi
+	ctx context.Context
+	ApiService InventoriesAPI
 	inventoryType *string
 	context *string
 	imageDigest *string
@@ -253,21 +249,24 @@ func (r ApiDeleteInventoryRequest) InventoryType(inventoryType string) ApiDelete
 	r.inventoryType = &inventoryType
 	return r
 }
+
 func (r ApiDeleteInventoryRequest) Context(context string) ApiDeleteInventoryRequest {
 	r.context = &context
 	return r
 }
+
 func (r ApiDeleteInventoryRequest) ImageDigest(imageDigest string) ApiDeleteInventoryRequest {
 	r.imageDigest = &imageDigest
 	return r
 }
+
 // An account name to change the resource scope of the request to that account, if permissions allow (admin only)
 func (r ApiDeleteInventoryRequest) XAnchoreAccount(xAnchoreAccount string) ApiDeleteInventoryRequest {
 	r.xAnchoreAccount = &xAnchoreAccount
 	return r
 }
 
-func (r ApiDeleteInventoryRequest) Execute() (*_nethttp.Response, error) {
+func (r ApiDeleteInventoryRequest) Execute() (*http.Response, error) {
 	return r.ApiService.DeleteInventoryExecute(r)
 }
 
@@ -276,10 +275,10 @@ DeleteInventory Delete runtime inventory by type and context
 
 Delete runtime inventory by type and context
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiDeleteInventoryRequest
 */
-func (a *InventoriesApiService) DeleteInventory(ctx _context.Context) ApiDeleteInventoryRequest {
+func (a *InventoriesAPIService) DeleteInventory(ctx context.Context) ApiDeleteInventoryRequest {
 	return ApiDeleteInventoryRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -287,25 +286,23 @@ func (a *InventoriesApiService) DeleteInventory(ctx _context.Context) ApiDeleteI
 }
 
 // Execute executes the request
-func (a *InventoriesApiService) DeleteInventoryExecute(r ApiDeleteInventoryRequest) (*_nethttp.Response, error) {
+func (a *InventoriesAPIService) DeleteInventoryExecute(r ApiDeleteInventoryRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodDelete
+		localVarHTTPMethod   = http.MethodDelete
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
+		formFiles            []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "InventoriesApiService.DeleteInventory")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "InventoriesAPIService.DeleteInventory")
 	if err != nil {
-		return nil, GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/inventories"
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if r.inventoryType == nil {
 		return nil, reportError("inventoryType is required and must be specified")
 	}
@@ -313,10 +310,10 @@ func (a *InventoriesApiService) DeleteInventoryExecute(r ApiDeleteInventoryReque
 		return nil, reportError("context is required and must be specified")
 	}
 
-	localVarQueryParams.Add("inventory_type", parameterToString(*r.inventoryType, ""))
-	localVarQueryParams.Add("context", parameterToString(*r.context, ""))
+	parameterAddToHeaderOrQuery(localVarQueryParams, "inventory_type", r.inventoryType, "")
+	parameterAddToHeaderOrQuery(localVarQueryParams, "context", r.context, "")
 	if r.imageDigest != nil {
-		localVarQueryParams.Add("image_digest", parameterToString(*r.imageDigest, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "image_digest", r.imageDigest, "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -336,9 +333,9 @@ func (a *InventoriesApiService) DeleteInventoryExecute(r ApiDeleteInventoryReque
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.xAnchoreAccount != nil {
-		localVarHeaderParams["x-anchore-account"] = parameterToString(*r.xAnchoreAccount, "")
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "x-anchore-account", r.xAnchoreAccount, "")
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
 	}
@@ -348,15 +345,15 @@ func (a *InventoriesApiService) DeleteInventoryExecute(r ApiDeleteInventoryReque
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -367,8 +364,8 @@ func (a *InventoriesApiService) DeleteInventoryExecute(r ApiDeleteInventoryReque
 }
 
 type ApiDeleteKubernetesNamespacesRequest struct {
-	ctx _context.Context
-	ApiService InventoriesApi
+	ctx context.Context
+	ApiService InventoriesAPI
 	clusterName *string
 }
 
@@ -377,7 +374,7 @@ func (r ApiDeleteKubernetesNamespacesRequest) ClusterName(clusterName string) Ap
 	return r
 }
 
-func (r ApiDeleteKubernetesNamespacesRequest) Execute() (*_nethttp.Response, error) {
+func (r ApiDeleteKubernetesNamespacesRequest) Execute() (*http.Response, error) {
 	return r.ApiService.DeleteKubernetesNamespacesExecute(r)
 }
 
@@ -386,10 +383,10 @@ DeleteKubernetesNamespaces Delete Kubernetes namespaces for a given criteria
 
 Delete Kubernetes namespaces for a given criteria
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiDeleteKubernetesNamespacesRequest
 */
-func (a *InventoriesApiService) DeleteKubernetesNamespaces(ctx _context.Context) ApiDeleteKubernetesNamespacesRequest {
+func (a *InventoriesAPIService) DeleteKubernetesNamespaces(ctx context.Context) ApiDeleteKubernetesNamespacesRequest {
 	return ApiDeleteKubernetesNamespacesRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -397,28 +394,26 @@ func (a *InventoriesApiService) DeleteKubernetesNamespaces(ctx _context.Context)
 }
 
 // Execute executes the request
-func (a *InventoriesApiService) DeleteKubernetesNamespacesExecute(r ApiDeleteKubernetesNamespacesRequest) (*_nethttp.Response, error) {
+func (a *InventoriesAPIService) DeleteKubernetesNamespacesExecute(r ApiDeleteKubernetesNamespacesRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodDelete
+		localVarHTTPMethod   = http.MethodDelete
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
+		formFiles            []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "InventoriesApiService.DeleteKubernetesNamespaces")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "InventoriesAPIService.DeleteKubernetesNamespaces")
 	if err != nil {
-		return nil, GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/kubernetes-namespaces"
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	if r.clusterName != nil {
-		localVarQueryParams.Add("cluster_name", parameterToString(*r.clusterName, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "cluster_name", r.clusterName, "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -437,7 +432,7 @@ func (a *InventoriesApiService) DeleteKubernetesNamespacesExecute(r ApiDeleteKub
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
 	}
@@ -447,15 +442,15 @@ func (a *InventoriesApiService) DeleteKubernetesNamespacesExecute(r ApiDeleteKub
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -466,8 +461,8 @@ func (a *InventoriesApiService) DeleteKubernetesNamespacesExecute(r ApiDeleteKub
 }
 
 type ApiGetEcsContainersRequest struct {
-	ctx _context.Context
-	ApiService InventoriesApi
+	ctx context.Context
+	ApiService InventoriesAPI
 	page *int32
 	pageSize *int32
 }
@@ -476,12 +471,13 @@ func (r ApiGetEcsContainersRequest) Page(page int32) ApiGetEcsContainersRequest 
 	r.page = &page
 	return r
 }
+
 func (r ApiGetEcsContainersRequest) PageSize(pageSize int32) ApiGetEcsContainersRequest {
 	r.pageSize = &pageSize
 	return r
 }
 
-func (r ApiGetEcsContainersRequest) Execute() (ECSContainers, *_nethttp.Response, error) {
+func (r ApiGetEcsContainersRequest) Execute() (*ECSContainers, *http.Response, error) {
 	return r.ApiService.GetEcsContainersExecute(r)
 }
 
@@ -490,10 +486,10 @@ GetEcsContainers Return a list of ECS containers that have been inventoried for 
 
 Return a list of ECS containers that have been inventoried for this account
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiGetEcsContainersRequest
 */
-func (a *InventoriesApiService) GetEcsContainers(ctx _context.Context) ApiGetEcsContainersRequest {
+func (a *InventoriesAPIService) GetEcsContainers(ctx context.Context) ApiGetEcsContainersRequest {
 	return ApiGetEcsContainersRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -502,26 +498,24 @@ func (a *InventoriesApiService) GetEcsContainers(ctx _context.Context) ApiGetEcs
 
 // Execute executes the request
 //  @return ECSContainers
-func (a *InventoriesApiService) GetEcsContainersExecute(r ApiGetEcsContainersRequest) (ECSContainers, *_nethttp.Response, error) {
+func (a *InventoriesAPIService) GetEcsContainersExecute(r ApiGetEcsContainersRequest) (*ECSContainers, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  ECSContainers
+		formFiles            []formFile
+		localVarReturnValue  *ECSContainers
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "InventoriesApiService.GetEcsContainers")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "InventoriesAPIService.GetEcsContainers")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/ecs-containers"
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if r.page == nil {
 		return localVarReturnValue, nil, reportError("page is required and must be specified")
 	}
@@ -529,9 +523,12 @@ func (a *InventoriesApiService) GetEcsContainersExecute(r ApiGetEcsContainersReq
 		return localVarReturnValue, nil, reportError("page must be greater than 1")
 	}
 
-	localVarQueryParams.Add("page", parameterToString(*r.page, ""))
+	parameterAddToHeaderOrQuery(localVarQueryParams, "page", r.page, "")
 	if r.pageSize != nil {
-		localVarQueryParams.Add("page_size", parameterToString(*r.pageSize, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "page_size", r.pageSize, "")
+	} else {
+		var defaultValue int32 = 1000
+		r.pageSize = &defaultValue
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -550,7 +547,7 @@ func (a *InventoriesApiService) GetEcsContainersExecute(r ApiGetEcsContainersReq
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -560,15 +557,15 @@ func (a *InventoriesApiService) GetEcsContainersExecute(r ApiGetEcsContainersReq
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -577,7 +574,7 @@ func (a *InventoriesApiService) GetEcsContainersExecute(r ApiGetEcsContainersReq
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -588,8 +585,8 @@ func (a *InventoriesApiService) GetEcsContainersExecute(r ApiGetEcsContainersReq
 }
 
 type ApiGetEcsServicesRequest struct {
-	ctx _context.Context
-	ApiService InventoriesApi
+	ctx context.Context
+	ApiService InventoriesAPI
 	page *int32
 	pageSize *int32
 }
@@ -598,12 +595,13 @@ func (r ApiGetEcsServicesRequest) Page(page int32) ApiGetEcsServicesRequest {
 	r.page = &page
 	return r
 }
+
 func (r ApiGetEcsServicesRequest) PageSize(pageSize int32) ApiGetEcsServicesRequest {
 	r.pageSize = &pageSize
 	return r
 }
 
-func (r ApiGetEcsServicesRequest) Execute() (ECSServices, *_nethttp.Response, error) {
+func (r ApiGetEcsServicesRequest) Execute() (*ECSServices, *http.Response, error) {
 	return r.ApiService.GetEcsServicesExecute(r)
 }
 
@@ -612,10 +610,10 @@ GetEcsServices Return a list of ECS services that have been inventoried for this
 
 Return a list of ECS services that have been inventoried for this account
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiGetEcsServicesRequest
 */
-func (a *InventoriesApiService) GetEcsServices(ctx _context.Context) ApiGetEcsServicesRequest {
+func (a *InventoriesAPIService) GetEcsServices(ctx context.Context) ApiGetEcsServicesRequest {
 	return ApiGetEcsServicesRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -624,26 +622,24 @@ func (a *InventoriesApiService) GetEcsServices(ctx _context.Context) ApiGetEcsSe
 
 // Execute executes the request
 //  @return ECSServices
-func (a *InventoriesApiService) GetEcsServicesExecute(r ApiGetEcsServicesRequest) (ECSServices, *_nethttp.Response, error) {
+func (a *InventoriesAPIService) GetEcsServicesExecute(r ApiGetEcsServicesRequest) (*ECSServices, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  ECSServices
+		formFiles            []formFile
+		localVarReturnValue  *ECSServices
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "InventoriesApiService.GetEcsServices")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "InventoriesAPIService.GetEcsServices")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/ecs-services"
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if r.page == nil {
 		return localVarReturnValue, nil, reportError("page is required and must be specified")
 	}
@@ -651,9 +647,12 @@ func (a *InventoriesApiService) GetEcsServicesExecute(r ApiGetEcsServicesRequest
 		return localVarReturnValue, nil, reportError("page must be greater than 1")
 	}
 
-	localVarQueryParams.Add("page", parameterToString(*r.page, ""))
+	parameterAddToHeaderOrQuery(localVarQueryParams, "page", r.page, "")
 	if r.pageSize != nil {
-		localVarQueryParams.Add("page_size", parameterToString(*r.pageSize, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "page_size", r.pageSize, "")
+	} else {
+		var defaultValue int32 = 1000
+		r.pageSize = &defaultValue
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -672,7 +671,7 @@ func (a *InventoriesApiService) GetEcsServicesExecute(r ApiGetEcsServicesRequest
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -682,15 +681,15 @@ func (a *InventoriesApiService) GetEcsServicesExecute(r ApiGetEcsServicesRequest
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -699,7 +698,7 @@ func (a *InventoriesApiService) GetEcsServicesExecute(r ApiGetEcsServicesRequest
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -710,8 +709,8 @@ func (a *InventoriesApiService) GetEcsServicesExecute(r ApiGetEcsServicesRequest
 }
 
 type ApiGetEcsTasksRequest struct {
-	ctx _context.Context
-	ApiService InventoriesApi
+	ctx context.Context
+	ApiService InventoriesAPI
 	page *int32
 	pageSize *int32
 }
@@ -720,12 +719,13 @@ func (r ApiGetEcsTasksRequest) Page(page int32) ApiGetEcsTasksRequest {
 	r.page = &page
 	return r
 }
+
 func (r ApiGetEcsTasksRequest) PageSize(pageSize int32) ApiGetEcsTasksRequest {
 	r.pageSize = &pageSize
 	return r
 }
 
-func (r ApiGetEcsTasksRequest) Execute() (ECSTasks, *_nethttp.Response, error) {
+func (r ApiGetEcsTasksRequest) Execute() (*ECSTasks, *http.Response, error) {
 	return r.ApiService.GetEcsTasksExecute(r)
 }
 
@@ -734,10 +734,10 @@ GetEcsTasks Return a list of ECS tasks that have been inventoried for this accou
 
 Return a list of ECS tasks that have been inventoried for this account
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiGetEcsTasksRequest
 */
-func (a *InventoriesApiService) GetEcsTasks(ctx _context.Context) ApiGetEcsTasksRequest {
+func (a *InventoriesAPIService) GetEcsTasks(ctx context.Context) ApiGetEcsTasksRequest {
 	return ApiGetEcsTasksRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -746,26 +746,24 @@ func (a *InventoriesApiService) GetEcsTasks(ctx _context.Context) ApiGetEcsTasks
 
 // Execute executes the request
 //  @return ECSTasks
-func (a *InventoriesApiService) GetEcsTasksExecute(r ApiGetEcsTasksRequest) (ECSTasks, *_nethttp.Response, error) {
+func (a *InventoriesAPIService) GetEcsTasksExecute(r ApiGetEcsTasksRequest) (*ECSTasks, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  ECSTasks
+		formFiles            []formFile
+		localVarReturnValue  *ECSTasks
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "InventoriesApiService.GetEcsTasks")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "InventoriesAPIService.GetEcsTasks")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/ecs-tasks"
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if r.page == nil {
 		return localVarReturnValue, nil, reportError("page is required and must be specified")
 	}
@@ -773,9 +771,12 @@ func (a *InventoriesApiService) GetEcsTasksExecute(r ApiGetEcsTasksRequest) (ECS
 		return localVarReturnValue, nil, reportError("page must be greater than 1")
 	}
 
-	localVarQueryParams.Add("page", parameterToString(*r.page, ""))
+	parameterAddToHeaderOrQuery(localVarQueryParams, "page", r.page, "")
 	if r.pageSize != nil {
-		localVarQueryParams.Add("page_size", parameterToString(*r.pageSize, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "page_size", r.pageSize, "")
+	} else {
+		var defaultValue int32 = 1000
+		r.pageSize = &defaultValue
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -794,7 +795,7 @@ func (a *InventoriesApiService) GetEcsTasksExecute(r ApiGetEcsTasksRequest) (ECS
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -804,15 +805,15 @@ func (a *InventoriesApiService) GetEcsTasksExecute(r ApiGetEcsTasksRequest) (ECS
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -821,7 +822,7 @@ func (a *InventoriesApiService) GetEcsTasksExecute(r ApiGetEcsTasksRequest) (ECS
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -832,8 +833,8 @@ func (a *InventoriesApiService) GetEcsTasksExecute(r ApiGetEcsTasksRequest) (ECS
 }
 
 type ApiGetImageInventoryRequest struct {
-	ctx _context.Context
-	ApiService InventoriesApi
+	ctx context.Context
+	ApiService InventoriesAPI
 	inventoryType *string
 	imageDigest *string
 	context *string
@@ -844,21 +845,24 @@ func (r ApiGetImageInventoryRequest) InventoryType(inventoryType string) ApiGetI
 	r.inventoryType = &inventoryType
 	return r
 }
+
 func (r ApiGetImageInventoryRequest) ImageDigest(imageDigest string) ApiGetImageInventoryRequest {
 	r.imageDigest = &imageDigest
 	return r
 }
+
 func (r ApiGetImageInventoryRequest) Context(context string) ApiGetImageInventoryRequest {
 	r.context = &context
 	return r
 }
+
 // An account name to change the resource scope of the request to that account, if permissions allow (admin only)
 func (r ApiGetImageInventoryRequest) XAnchoreAccount(xAnchoreAccount string) ApiGetImageInventoryRequest {
 	r.xAnchoreAccount = &xAnchoreAccount
 	return r
 }
 
-func (r ApiGetImageInventoryRequest) Execute() (InventoryItems, *_nethttp.Response, error) {
+func (r ApiGetImageInventoryRequest) Execute() (*InventoryItems, *http.Response, error) {
 	return r.ApiService.GetImageInventoryExecute(r)
 }
 
@@ -867,10 +871,10 @@ GetImageInventory Return a list of the images in inventories for this account
 
 Returns a list of the images that are in use
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiGetImageInventoryRequest
 */
-func (a *InventoriesApiService) GetImageInventory(ctx _context.Context) ApiGetImageInventoryRequest {
+func (a *InventoriesAPIService) GetImageInventory(ctx context.Context) ApiGetImageInventoryRequest {
 	return ApiGetImageInventoryRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -879,35 +883,33 @@ func (a *InventoriesApiService) GetImageInventory(ctx _context.Context) ApiGetIm
 
 // Execute executes the request
 //  @return InventoryItems
-func (a *InventoriesApiService) GetImageInventoryExecute(r ApiGetImageInventoryRequest) (InventoryItems, *_nethttp.Response, error) {
+func (a *InventoriesAPIService) GetImageInventoryExecute(r ApiGetImageInventoryRequest) (*InventoryItems, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  InventoryItems
+		formFiles            []formFile
+		localVarReturnValue  *InventoryItems
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "InventoriesApiService.GetImageInventory")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "InventoriesAPIService.GetImageInventory")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/inventories"
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	if r.inventoryType != nil {
-		localVarQueryParams.Add("inventory_type", parameterToString(*r.inventoryType, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "inventory_type", r.inventoryType, "")
 	}
 	if r.imageDigest != nil {
-		localVarQueryParams.Add("image_digest", parameterToString(*r.imageDigest, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "image_digest", r.imageDigest, "")
 	}
 	if r.context != nil {
-		localVarQueryParams.Add("context", parameterToString(*r.context, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "context", r.context, "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -927,9 +929,9 @@ func (a *InventoriesApiService) GetImageInventoryExecute(r ApiGetImageInventoryR
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.xAnchoreAccount != nil {
-		localVarHeaderParams["x-anchore-account"] = parameterToString(*r.xAnchoreAccount, "")
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "x-anchore-account", r.xAnchoreAccount, "")
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -939,15 +941,15 @@ func (a *InventoriesApiService) GetImageInventoryExecute(r ApiGetImageInventoryR
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -956,7 +958,7 @@ func (a *InventoriesApiService) GetImageInventoryExecute(r ApiGetImageInventoryR
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -967,8 +969,8 @@ func (a *InventoriesApiService) GetImageInventoryExecute(r ApiGetImageInventoryR
 }
 
 type ApiGetKubernetesContainersRequest struct {
-	ctx _context.Context
-	ApiService InventoriesApi
+	ctx context.Context
+	ApiService InventoriesAPI
 	page *int32
 	pageSize *int32
 }
@@ -977,12 +979,13 @@ func (r ApiGetKubernetesContainersRequest) Page(page int32) ApiGetKubernetesCont
 	r.page = &page
 	return r
 }
+
 func (r ApiGetKubernetesContainersRequest) PageSize(pageSize int32) ApiGetKubernetesContainersRequest {
 	r.pageSize = &pageSize
 	return r
 }
 
-func (r ApiGetKubernetesContainersRequest) Execute() (KubernetesContainers, *_nethttp.Response, error) {
+func (r ApiGetKubernetesContainersRequest) Execute() (*KubernetesContainers, *http.Response, error) {
 	return r.ApiService.GetKubernetesContainersExecute(r)
 }
 
@@ -991,10 +994,10 @@ GetKubernetesContainers Return a list of Kubernetes containers that have been in
 
 Return a list of Kubernetes containers that have been inventoried for this account
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiGetKubernetesContainersRequest
 */
-func (a *InventoriesApiService) GetKubernetesContainers(ctx _context.Context) ApiGetKubernetesContainersRequest {
+func (a *InventoriesAPIService) GetKubernetesContainers(ctx context.Context) ApiGetKubernetesContainersRequest {
 	return ApiGetKubernetesContainersRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -1003,26 +1006,24 @@ func (a *InventoriesApiService) GetKubernetesContainers(ctx _context.Context) Ap
 
 // Execute executes the request
 //  @return KubernetesContainers
-func (a *InventoriesApiService) GetKubernetesContainersExecute(r ApiGetKubernetesContainersRequest) (KubernetesContainers, *_nethttp.Response, error) {
+func (a *InventoriesAPIService) GetKubernetesContainersExecute(r ApiGetKubernetesContainersRequest) (*KubernetesContainers, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  KubernetesContainers
+		formFiles            []formFile
+		localVarReturnValue  *KubernetesContainers
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "InventoriesApiService.GetKubernetesContainers")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "InventoriesAPIService.GetKubernetesContainers")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/kubernetes-containers"
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if r.page == nil {
 		return localVarReturnValue, nil, reportError("page is required and must be specified")
 	}
@@ -1030,9 +1031,12 @@ func (a *InventoriesApiService) GetKubernetesContainersExecute(r ApiGetKubernete
 		return localVarReturnValue, nil, reportError("page must be greater than 1")
 	}
 
-	localVarQueryParams.Add("page", parameterToString(*r.page, ""))
+	parameterAddToHeaderOrQuery(localVarQueryParams, "page", r.page, "")
 	if r.pageSize != nil {
-		localVarQueryParams.Add("page_size", parameterToString(*r.pageSize, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "page_size", r.pageSize, "")
+	} else {
+		var defaultValue int32 = 1000
+		r.pageSize = &defaultValue
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -1051,7 +1055,7 @@ func (a *InventoriesApiService) GetKubernetesContainersExecute(r ApiGetKubernete
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -1061,15 +1065,15 @@ func (a *InventoriesApiService) GetKubernetesContainersExecute(r ApiGetKubernete
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -1078,7 +1082,7 @@ func (a *InventoriesApiService) GetKubernetesContainersExecute(r ApiGetKubernete
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -1089,13 +1093,12 @@ func (a *InventoriesApiService) GetKubernetesContainersExecute(r ApiGetKubernete
 }
 
 type ApiGetKubernetesNamespaceRequest struct {
-	ctx _context.Context
-	ApiService InventoriesApi
+	ctx context.Context
+	ApiService InventoriesAPI
 	namespaceId string
 }
 
-
-func (r ApiGetKubernetesNamespaceRequest) Execute() (KubernetesNamespace, *_nethttp.Response, error) {
+func (r ApiGetKubernetesNamespaceRequest) Execute() (*KubernetesNamespace, *http.Response, error) {
 	return r.ApiService.GetKubernetesNamespaceExecute(r)
 }
 
@@ -1104,11 +1107,11 @@ GetKubernetesNamespace Return a Kubernetes namespace that has been inventoried f
 
 Return Kubernetes namespace that has been inventoried for this account
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param namespaceId
  @return ApiGetKubernetesNamespaceRequest
 */
-func (a *InventoriesApiService) GetKubernetesNamespace(ctx _context.Context, namespaceId string) ApiGetKubernetesNamespaceRequest {
+func (a *InventoriesAPIService) GetKubernetesNamespace(ctx context.Context, namespaceId string) ApiGetKubernetesNamespaceRequest {
 	return ApiGetKubernetesNamespaceRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -1118,27 +1121,25 @@ func (a *InventoriesApiService) GetKubernetesNamespace(ctx _context.Context, nam
 
 // Execute executes the request
 //  @return KubernetesNamespace
-func (a *InventoriesApiService) GetKubernetesNamespaceExecute(r ApiGetKubernetesNamespaceRequest) (KubernetesNamespace, *_nethttp.Response, error) {
+func (a *InventoriesAPIService) GetKubernetesNamespaceExecute(r ApiGetKubernetesNamespaceRequest) (*KubernetesNamespace, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  KubernetesNamespace
+		formFiles            []formFile
+		localVarReturnValue  *KubernetesNamespace
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "InventoriesApiService.GetKubernetesNamespace")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "InventoriesAPIService.GetKubernetesNamespace")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/kubernetes-namespaces/{namespace_id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"namespace_id"+"}", _neturl.PathEscape(parameterToString(r.namespaceId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"namespace_id"+"}", url.PathEscape(parameterValueToString(r.namespaceId, "namespaceId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -1157,7 +1158,7 @@ func (a *InventoriesApiService) GetKubernetesNamespaceExecute(r ApiGetKubernetes
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -1167,15 +1168,15 @@ func (a *InventoriesApiService) GetKubernetesNamespaceExecute(r ApiGetKubernetes
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -1184,7 +1185,7 @@ func (a *InventoriesApiService) GetKubernetesNamespaceExecute(r ApiGetKubernetes
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -1195,8 +1196,8 @@ func (a *InventoriesApiService) GetKubernetesNamespaceExecute(r ApiGetKubernetes
 }
 
 type ApiGetKubernetesNamespacesRequest struct {
-	ctx _context.Context
-	ApiService InventoriesApi
+	ctx context.Context
+	ApiService InventoriesAPI
 	page *int32
 	pageSize *int32
 }
@@ -1205,12 +1206,13 @@ func (r ApiGetKubernetesNamespacesRequest) Page(page int32) ApiGetKubernetesName
 	r.page = &page
 	return r
 }
+
 func (r ApiGetKubernetesNamespacesRequest) PageSize(pageSize int32) ApiGetKubernetesNamespacesRequest {
 	r.pageSize = &pageSize
 	return r
 }
 
-func (r ApiGetKubernetesNamespacesRequest) Execute() (KubernetesNamespaces, *_nethttp.Response, error) {
+func (r ApiGetKubernetesNamespacesRequest) Execute() (*KubernetesNamespaces, *http.Response, error) {
 	return r.ApiService.GetKubernetesNamespacesExecute(r)
 }
 
@@ -1219,10 +1221,10 @@ GetKubernetesNamespaces Return a list of Kubernetes namespaces that have been in
 
 Return a list of Kubernetes namespaces that have been inventoried for this account
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiGetKubernetesNamespacesRequest
 */
-func (a *InventoriesApiService) GetKubernetesNamespaces(ctx _context.Context) ApiGetKubernetesNamespacesRequest {
+func (a *InventoriesAPIService) GetKubernetesNamespaces(ctx context.Context) ApiGetKubernetesNamespacesRequest {
 	return ApiGetKubernetesNamespacesRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -1231,26 +1233,24 @@ func (a *InventoriesApiService) GetKubernetesNamespaces(ctx _context.Context) Ap
 
 // Execute executes the request
 //  @return KubernetesNamespaces
-func (a *InventoriesApiService) GetKubernetesNamespacesExecute(r ApiGetKubernetesNamespacesRequest) (KubernetesNamespaces, *_nethttp.Response, error) {
+func (a *InventoriesAPIService) GetKubernetesNamespacesExecute(r ApiGetKubernetesNamespacesRequest) (*KubernetesNamespaces, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  KubernetesNamespaces
+		formFiles            []formFile
+		localVarReturnValue  *KubernetesNamespaces
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "InventoriesApiService.GetKubernetesNamespaces")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "InventoriesAPIService.GetKubernetesNamespaces")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/kubernetes-namespaces"
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if r.page == nil {
 		return localVarReturnValue, nil, reportError("page is required and must be specified")
 	}
@@ -1258,9 +1258,12 @@ func (a *InventoriesApiService) GetKubernetesNamespacesExecute(r ApiGetKubernete
 		return localVarReturnValue, nil, reportError("page must be greater than 1")
 	}
 
-	localVarQueryParams.Add("page", parameterToString(*r.page, ""))
+	parameterAddToHeaderOrQuery(localVarQueryParams, "page", r.page, "")
 	if r.pageSize != nil {
-		localVarQueryParams.Add("page_size", parameterToString(*r.pageSize, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "page_size", r.pageSize, "")
+	} else {
+		var defaultValue int32 = 1000
+		r.pageSize = &defaultValue
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -1279,7 +1282,7 @@ func (a *InventoriesApiService) GetKubernetesNamespacesExecute(r ApiGetKubernete
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -1289,15 +1292,15 @@ func (a *InventoriesApiService) GetKubernetesNamespacesExecute(r ApiGetKubernete
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -1306,7 +1309,7 @@ func (a *InventoriesApiService) GetKubernetesNamespacesExecute(r ApiGetKubernete
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -1317,13 +1320,12 @@ func (a *InventoriesApiService) GetKubernetesNamespacesExecute(r ApiGetKubernete
 }
 
 type ApiGetKubernetesNodeRequest struct {
-	ctx _context.Context
-	ApiService InventoriesApi
+	ctx context.Context
+	ApiService InventoriesAPI
 	nodeId string
 }
 
-
-func (r ApiGetKubernetesNodeRequest) Execute() (KubernetesNode, *_nethttp.Response, error) {
+func (r ApiGetKubernetesNodeRequest) Execute() (*KubernetesNode, *http.Response, error) {
 	return r.ApiService.GetKubernetesNodeExecute(r)
 }
 
@@ -1332,11 +1334,11 @@ GetKubernetesNode Return a Kubernetes node that has been inventoried for this ac
 
 Return Kubernetes node that has been inventoried for this account
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param nodeId
  @return ApiGetKubernetesNodeRequest
 */
-func (a *InventoriesApiService) GetKubernetesNode(ctx _context.Context, nodeId string) ApiGetKubernetesNodeRequest {
+func (a *InventoriesAPIService) GetKubernetesNode(ctx context.Context, nodeId string) ApiGetKubernetesNodeRequest {
 	return ApiGetKubernetesNodeRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -1346,27 +1348,25 @@ func (a *InventoriesApiService) GetKubernetesNode(ctx _context.Context, nodeId s
 
 // Execute executes the request
 //  @return KubernetesNode
-func (a *InventoriesApiService) GetKubernetesNodeExecute(r ApiGetKubernetesNodeRequest) (KubernetesNode, *_nethttp.Response, error) {
+func (a *InventoriesAPIService) GetKubernetesNodeExecute(r ApiGetKubernetesNodeRequest) (*KubernetesNode, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  KubernetesNode
+		formFiles            []formFile
+		localVarReturnValue  *KubernetesNode
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "InventoriesApiService.GetKubernetesNode")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "InventoriesAPIService.GetKubernetesNode")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/kubernetes-nodes/{node_id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"node_id"+"}", _neturl.PathEscape(parameterToString(r.nodeId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"node_id"+"}", url.PathEscape(parameterValueToString(r.nodeId, "nodeId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -1385,7 +1385,7 @@ func (a *InventoriesApiService) GetKubernetesNodeExecute(r ApiGetKubernetesNodeR
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -1395,15 +1395,15 @@ func (a *InventoriesApiService) GetKubernetesNodeExecute(r ApiGetKubernetesNodeR
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -1412,7 +1412,7 @@ func (a *InventoriesApiService) GetKubernetesNodeExecute(r ApiGetKubernetesNodeR
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -1423,8 +1423,8 @@ func (a *InventoriesApiService) GetKubernetesNodeExecute(r ApiGetKubernetesNodeR
 }
 
 type ApiGetKubernetesNodesRequest struct {
-	ctx _context.Context
-	ApiService InventoriesApi
+	ctx context.Context
+	ApiService InventoriesAPI
 	page *int32
 	pageSize *int32
 }
@@ -1433,12 +1433,13 @@ func (r ApiGetKubernetesNodesRequest) Page(page int32) ApiGetKubernetesNodesRequ
 	r.page = &page
 	return r
 }
+
 func (r ApiGetKubernetesNodesRequest) PageSize(pageSize int32) ApiGetKubernetesNodesRequest {
 	r.pageSize = &pageSize
 	return r
 }
 
-func (r ApiGetKubernetesNodesRequest) Execute() (KubernetesNodes, *_nethttp.Response, error) {
+func (r ApiGetKubernetesNodesRequest) Execute() (*KubernetesNodes, *http.Response, error) {
 	return r.ApiService.GetKubernetesNodesExecute(r)
 }
 
@@ -1447,10 +1448,10 @@ GetKubernetesNodes Return a list of Kubernetes nodes that have been inventoried 
 
 Return a list of Kubernetes nodes that have been inventoried for this account
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiGetKubernetesNodesRequest
 */
-func (a *InventoriesApiService) GetKubernetesNodes(ctx _context.Context) ApiGetKubernetesNodesRequest {
+func (a *InventoriesAPIService) GetKubernetesNodes(ctx context.Context) ApiGetKubernetesNodesRequest {
 	return ApiGetKubernetesNodesRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -1459,26 +1460,24 @@ func (a *InventoriesApiService) GetKubernetesNodes(ctx _context.Context) ApiGetK
 
 // Execute executes the request
 //  @return KubernetesNodes
-func (a *InventoriesApiService) GetKubernetesNodesExecute(r ApiGetKubernetesNodesRequest) (KubernetesNodes, *_nethttp.Response, error) {
+func (a *InventoriesAPIService) GetKubernetesNodesExecute(r ApiGetKubernetesNodesRequest) (*KubernetesNodes, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  KubernetesNodes
+		formFiles            []formFile
+		localVarReturnValue  *KubernetesNodes
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "InventoriesApiService.GetKubernetesNodes")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "InventoriesAPIService.GetKubernetesNodes")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/kubernetes-nodes"
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if r.page == nil {
 		return localVarReturnValue, nil, reportError("page is required and must be specified")
 	}
@@ -1486,9 +1485,12 @@ func (a *InventoriesApiService) GetKubernetesNodesExecute(r ApiGetKubernetesNode
 		return localVarReturnValue, nil, reportError("page must be greater than 1")
 	}
 
-	localVarQueryParams.Add("page", parameterToString(*r.page, ""))
+	parameterAddToHeaderOrQuery(localVarQueryParams, "page", r.page, "")
 	if r.pageSize != nil {
-		localVarQueryParams.Add("page_size", parameterToString(*r.pageSize, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "page_size", r.pageSize, "")
+	} else {
+		var defaultValue int32 = 1000
+		r.pageSize = &defaultValue
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -1507,7 +1509,7 @@ func (a *InventoriesApiService) GetKubernetesNodesExecute(r ApiGetKubernetesNode
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -1517,15 +1519,15 @@ func (a *InventoriesApiService) GetKubernetesNodesExecute(r ApiGetKubernetesNode
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -1534,7 +1536,7 @@ func (a *InventoriesApiService) GetKubernetesNodesExecute(r ApiGetKubernetesNode
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -1545,13 +1547,12 @@ func (a *InventoriesApiService) GetKubernetesNodesExecute(r ApiGetKubernetesNode
 }
 
 type ApiGetKubernetesPodRequest struct {
-	ctx _context.Context
-	ApiService InventoriesApi
+	ctx context.Context
+	ApiService InventoriesAPI
 	podId string
 }
 
-
-func (r ApiGetKubernetesPodRequest) Execute() (KubernetesPod, *_nethttp.Response, error) {
+func (r ApiGetKubernetesPodRequest) Execute() (*KubernetesPod, *http.Response, error) {
 	return r.ApiService.GetKubernetesPodExecute(r)
 }
 
@@ -1560,11 +1561,11 @@ GetKubernetesPod Return a Kubernetes pod that has been inventoried for this acco
 
 Return a Kubernetes pod that has been inventoried for this account
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param podId
  @return ApiGetKubernetesPodRequest
 */
-func (a *InventoriesApiService) GetKubernetesPod(ctx _context.Context, podId string) ApiGetKubernetesPodRequest {
+func (a *InventoriesAPIService) GetKubernetesPod(ctx context.Context, podId string) ApiGetKubernetesPodRequest {
 	return ApiGetKubernetesPodRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -1574,27 +1575,25 @@ func (a *InventoriesApiService) GetKubernetesPod(ctx _context.Context, podId str
 
 // Execute executes the request
 //  @return KubernetesPod
-func (a *InventoriesApiService) GetKubernetesPodExecute(r ApiGetKubernetesPodRequest) (KubernetesPod, *_nethttp.Response, error) {
+func (a *InventoriesAPIService) GetKubernetesPodExecute(r ApiGetKubernetesPodRequest) (*KubernetesPod, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  KubernetesPod
+		formFiles            []formFile
+		localVarReturnValue  *KubernetesPod
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "InventoriesApiService.GetKubernetesPod")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "InventoriesAPIService.GetKubernetesPod")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/kubernetes-pods/{pod_id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"pod_id"+"}", _neturl.PathEscape(parameterToString(r.podId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"pod_id"+"}", url.PathEscape(parameterValueToString(r.podId, "podId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -1613,7 +1612,7 @@ func (a *InventoriesApiService) GetKubernetesPodExecute(r ApiGetKubernetesPodReq
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -1623,15 +1622,15 @@ func (a *InventoriesApiService) GetKubernetesPodExecute(r ApiGetKubernetesPodReq
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -1640,7 +1639,7 @@ func (a *InventoriesApiService) GetKubernetesPodExecute(r ApiGetKubernetesPodReq
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -1651,8 +1650,8 @@ func (a *InventoriesApiService) GetKubernetesPodExecute(r ApiGetKubernetesPodReq
 }
 
 type ApiGetKubernetesPodsRequest struct {
-	ctx _context.Context
-	ApiService InventoriesApi
+	ctx context.Context
+	ApiService InventoriesAPI
 	page *int32
 	pageSize *int32
 }
@@ -1661,12 +1660,13 @@ func (r ApiGetKubernetesPodsRequest) Page(page int32) ApiGetKubernetesPodsReques
 	r.page = &page
 	return r
 }
+
 func (r ApiGetKubernetesPodsRequest) PageSize(pageSize int32) ApiGetKubernetesPodsRequest {
 	r.pageSize = &pageSize
 	return r
 }
 
-func (r ApiGetKubernetesPodsRequest) Execute() (KubernetesPods, *_nethttp.Response, error) {
+func (r ApiGetKubernetesPodsRequest) Execute() (*KubernetesPods, *http.Response, error) {
 	return r.ApiService.GetKubernetesPodsExecute(r)
 }
 
@@ -1675,10 +1675,10 @@ GetKubernetesPods Return a list of Kubernetes pods that have been inventoried fo
 
 Return a list of Kubernetes pods that have been inventoried for this account
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiGetKubernetesPodsRequest
 */
-func (a *InventoriesApiService) GetKubernetesPods(ctx _context.Context) ApiGetKubernetesPodsRequest {
+func (a *InventoriesAPIService) GetKubernetesPods(ctx context.Context) ApiGetKubernetesPodsRequest {
 	return ApiGetKubernetesPodsRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -1687,26 +1687,24 @@ func (a *InventoriesApiService) GetKubernetesPods(ctx _context.Context) ApiGetKu
 
 // Execute executes the request
 //  @return KubernetesPods
-func (a *InventoriesApiService) GetKubernetesPodsExecute(r ApiGetKubernetesPodsRequest) (KubernetesPods, *_nethttp.Response, error) {
+func (a *InventoriesAPIService) GetKubernetesPodsExecute(r ApiGetKubernetesPodsRequest) (*KubernetesPods, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  KubernetesPods
+		formFiles            []formFile
+		localVarReturnValue  *KubernetesPods
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "InventoriesApiService.GetKubernetesPods")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "InventoriesAPIService.GetKubernetesPods")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/kubernetes-pods"
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if r.page == nil {
 		return localVarReturnValue, nil, reportError("page is required and must be specified")
 	}
@@ -1714,9 +1712,12 @@ func (a *InventoriesApiService) GetKubernetesPodsExecute(r ApiGetKubernetesPodsR
 		return localVarReturnValue, nil, reportError("page must be greater than 1")
 	}
 
-	localVarQueryParams.Add("page", parameterToString(*r.page, ""))
+	parameterAddToHeaderOrQuery(localVarQueryParams, "page", r.page, "")
 	if r.pageSize != nil {
-		localVarQueryParams.Add("page_size", parameterToString(*r.pageSize, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "page_size", r.pageSize, "")
+	} else {
+		var defaultValue int32 = 1000
+		r.pageSize = &defaultValue
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -1735,7 +1736,7 @@ func (a *InventoriesApiService) GetKubernetesPodsExecute(r ApiGetKubernetesPodsR
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -1745,15 +1746,15 @@ func (a *InventoriesApiService) GetKubernetesPodsExecute(r ApiGetKubernetesPodsR
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -1762,7 +1763,7 @@ func (a *InventoriesApiService) GetKubernetesPodsExecute(r ApiGetKubernetesPodsR
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -1773,8 +1774,8 @@ func (a *InventoriesApiService) GetKubernetesPodsExecute(r ApiGetKubernetesPodsR
 }
 
 type ApiPostEcsInventoryRequest struct {
-	ctx _context.Context
-	ApiService InventoriesApi
+	ctx context.Context
+	ApiService InventoriesAPI
 	inventory *ECSInventory
 }
 
@@ -1783,7 +1784,7 @@ func (r ApiPostEcsInventoryRequest) Inventory(inventory ECSInventory) ApiPostEcs
 	return r
 }
 
-func (r ApiPostEcsInventoryRequest) Execute() (*_nethttp.Response, error) {
+func (r ApiPostEcsInventoryRequest) Execute() (*http.Response, error) {
 	return r.ApiService.PostEcsInventoryExecute(r)
 }
 
@@ -1792,10 +1793,10 @@ PostEcsInventory Add container metadata from Amazon ECS
 
 Add container metadata from Amazon ECS
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiPostEcsInventoryRequest
 */
-func (a *InventoriesApiService) PostEcsInventory(ctx _context.Context) ApiPostEcsInventoryRequest {
+func (a *InventoriesAPIService) PostEcsInventory(ctx context.Context) ApiPostEcsInventoryRequest {
 	return ApiPostEcsInventoryRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -1803,25 +1804,23 @@ func (a *InventoriesApiService) PostEcsInventory(ctx _context.Context) ApiPostEc
 }
 
 // Execute executes the request
-func (a *InventoriesApiService) PostEcsInventoryExecute(r ApiPostEcsInventoryRequest) (*_nethttp.Response, error) {
+func (a *InventoriesAPIService) PostEcsInventoryExecute(r ApiPostEcsInventoryRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPost
+		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
+		formFiles            []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "InventoriesApiService.PostEcsInventory")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "InventoriesAPIService.PostEcsInventory")
 	if err != nil {
-		return nil, GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/ecs-inventory"
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if r.inventory == nil {
 		return nil, reportError("inventory is required and must be specified")
 	}
@@ -1845,7 +1844,7 @@ func (a *InventoriesApiService) PostEcsInventoryExecute(r ApiPostEcsInventoryReq
 	}
 	// body params
 	localVarPostBody = r.inventory
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
 	}
@@ -1855,15 +1854,15 @@ func (a *InventoriesApiService) PostEcsInventoryExecute(r ApiPostEcsInventoryReq
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -1874,8 +1873,8 @@ func (a *InventoriesApiService) PostEcsInventoryExecute(r ApiPostEcsInventoryReq
 }
 
 type ApiPostKubernetesInventoryRequest struct {
-	ctx _context.Context
-	ApiService InventoriesApi
+	ctx context.Context
+	ApiService InventoriesAPI
 	inventory *KubernetesInventory
 }
 
@@ -1884,7 +1883,7 @@ func (r ApiPostKubernetesInventoryRequest) Inventory(inventory KubernetesInvento
 	return r
 }
 
-func (r ApiPostKubernetesInventoryRequest) Execute() (*_nethttp.Response, error) {
+func (r ApiPostKubernetesInventoryRequest) Execute() (*http.Response, error) {
 	return r.ApiService.PostKubernetesInventoryExecute(r)
 }
 
@@ -1893,10 +1892,10 @@ PostKubernetesInventory Add container metadata from a Kubernetes deployment
 
 Add container metadata from a Kubernetes deployment
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiPostKubernetesInventoryRequest
 */
-func (a *InventoriesApiService) PostKubernetesInventory(ctx _context.Context) ApiPostKubernetesInventoryRequest {
+func (a *InventoriesAPIService) PostKubernetesInventory(ctx context.Context) ApiPostKubernetesInventoryRequest {
 	return ApiPostKubernetesInventoryRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -1904,25 +1903,23 @@ func (a *InventoriesApiService) PostKubernetesInventory(ctx _context.Context) Ap
 }
 
 // Execute executes the request
-func (a *InventoriesApiService) PostKubernetesInventoryExecute(r ApiPostKubernetesInventoryRequest) (*_nethttp.Response, error) {
+func (a *InventoriesAPIService) PostKubernetesInventoryExecute(r ApiPostKubernetesInventoryRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPost
+		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
+		formFiles            []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "InventoriesApiService.PostKubernetesInventory")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "InventoriesAPIService.PostKubernetesInventory")
 	if err != nil {
-		return nil, GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/kubernetes-inventory"
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if r.inventory == nil {
 		return nil, reportError("inventory is required and must be specified")
 	}
@@ -1946,7 +1943,7 @@ func (a *InventoriesApiService) PostKubernetesInventoryExecute(r ApiPostKubernet
 	}
 	// body params
 	localVarPostBody = r.inventory
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
 	}
@@ -1956,15 +1953,15 @@ func (a *InventoriesApiService) PostKubernetesInventoryExecute(r ApiPostKubernet
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}

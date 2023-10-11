@@ -15,14 +15,13 @@ Install the following dependencies:
 
 ```shell
 go get github.com/stretchr/testify/assert
-go get golang.org/x/oauth2
 go get golang.org/x/net/context
 ```
 
 Put the package under your project folder and add the following in import:
 
 ```golang
-import sw "./enterprise"
+import enterprise "github.com/anchore/enterprise-client-go"
 ```
 
 To use a proxy, set the environment variable `HTTP_PROXY`:
@@ -40,7 +39,7 @@ Default configuration comes with `Servers` field that contains server objects as
 For using other server than the one defined on index 0 set context value `sw.ContextServerIndex` of type `int`.
 
 ```golang
-ctx := context.WithValue(context.Background(), sw.ContextServerIndex, 1)
+ctx := context.WithValue(context.Background(), enterprise.ContextServerIndex, 1)
 ```
 
 ### Templated Server URL
@@ -48,7 +47,7 @@ ctx := context.WithValue(context.Background(), sw.ContextServerIndex, 1)
 Templated server URL is formatted using default variables from configuration or from context value `sw.ContextServerVariables` of type `map[string]string`.
 
 ```golang
-ctx := context.WithValue(context.Background(), sw.ContextServerVariables, map[string]string{
+ctx := context.WithValue(context.Background(), enterprise.ContextServerVariables, map[string]string{
 	"basePath": "v2",
 })
 ```
@@ -58,14 +57,14 @@ Note, enum values are always validated and all unused variables are silently ign
 ### URLs Configuration per Operation
 
 Each operation can use different server URL defined using `OperationServers` map in the `Configuration`.
-An operation is uniquely identifield by `"{classname}Service.{nickname}"` string.
+An operation is uniquely identified by `"{classname}Service.{nickname}"` string.
 Similar rules for overriding default operation server index and variables applies by using `sw.ContextOperationServerIndices` and `sw.ContextOperationServerVariables` context maps.
 
-```
-ctx := context.WithValue(context.Background(), sw.ContextOperationServerIndices, map[string]int{
+```golang
+ctx := context.WithValue(context.Background(), enterprise.ContextOperationServerIndices, map[string]int{
 	"{classname}Service.{nickname}": 2,
 })
-ctx = context.WithValue(context.Background(), sw.ContextOperationServerVariables, map[string]map[string]string{
+ctx = context.WithValue(context.Background(), enterprise.ContextOperationServerVariables, map[string]map[string]string{
 	"{classname}Service.{nickname}": {
 		"port": "8443",
 	},
@@ -74,282 +73,282 @@ ctx = context.WithValue(context.Background(), sw.ContextOperationServerVariables
 
 ## Documentation for API Endpoints
 
-All URIs are relative to *http://localhost/v2*
+All URIs are relative to */v2*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*ActionsApi* | [**AddActionPlan**](docs/ActionsApi.md#addactionplan) | **Post** /actions | Submits an Action Plan
-*ActionsApi* | [**GetActionPlans**](docs/ActionsApi.md#getactionplans) | **Get** /actions | Gets a list of submitted action (remediation) plans
-*AlertsApi* | [**GetAlertSummaries**](docs/AlertsApi.md#getalertsummaries) | **Get** /alerts/summaries | List all alert summaries scoped to the account
-*AlertsApi* | [**GetComplianceViolationAlert**](docs/AlertsApi.md#getcomplianceviolationalert) | **Get** /alerts/compliance-violations/{uuid} | Get compliance violation alert by id
-*AlertsApi* | [**GetComplianceViolationAlerts**](docs/AlertsApi.md#getcomplianceviolationalerts) | **Get** /alerts/compliance-violations | List all compliance violation alerts scoped to the account
-*AlertsApi* | [**UpdateComplianceViolationAlertState**](docs/AlertsApi.md#updatecomplianceviolationalertstate) | **Patch** /alerts/compliance-violations/{uuid} | Open or close a compliance violation alert
-*ApplicationsApi* | [**AddApplication**](docs/ApplicationsApi.md#addapplication) | **Post** /applications | Create an application
-*ApplicationsApi* | [**AddApplicationVersion**](docs/ApplicationsApi.md#addapplicationversion) | **Post** /applications/{application_id}/versions | Create an application version
-*ApplicationsApi* | [**AddArtifactToApplicationVersion**](docs/ApplicationsApi.md#addartifacttoapplicationversion) | **Post** /applications/{application_id}/versions/{application_version_id}/artifacts | Add an artifact to an application version
-*ApplicationsApi* | [**DeleteApplication**](docs/ApplicationsApi.md#deleteapplication) | **Delete** /applications/{application_id} | Delete an application by application_id
-*ApplicationsApi* | [**DeleteApplicationVersion**](docs/ApplicationsApi.md#deleteapplicationversion) | **Delete** /applications/{application_id}/versions/{application_version_id} | Delete an application version by application_id and application_version_id
-*ApplicationsApi* | [**GetApplication**](docs/ApplicationsApi.md#getapplication) | **Get** /applications/{application_id} | Get an application by application_id
-*ApplicationsApi* | [**GetApplicationVersion**](docs/ApplicationsApi.md#getapplicationversion) | **Get** /applications/{application_id}/versions/{application_version_id} | Get an application version
-*ApplicationsApi* | [**GetApplicationVersionSbom**](docs/ApplicationsApi.md#getapplicationversionsbom) | **Get** /applications/{application_id}/versions/{application_version_id}/sboms/native-json | Get the combined sbom for the given application version, optionally filtered by artifact type
-*ApplicationsApi* | [**GetApplicationVersionVulnerabilities**](docs/ApplicationsApi.md#getapplicationversionvulnerabilities) | **Get** /applications/{application_id}/versions/{application_version_id}/vulnerabilities | Get the vulnerabilities for a given application version
-*ApplicationsApi* | [**GetApplicationVersions**](docs/ApplicationsApi.md#getapplicationversions) | **Get** /applications/{application_id}/versions | List all application verions
-*ApplicationsApi* | [**GetApplications**](docs/ApplicationsApi.md#getapplications) | **Get** /applications | List all applications
-*ApplicationsApi* | [**ListArtifacts**](docs/ApplicationsApi.md#listartifacts) | **Get** /applications/{application_id}/versions/{application_version_id}/artifacts | List artifacts present on a given application version
-*ApplicationsApi* | [**RemoveArtifactFromApplicationVersion**](docs/ApplicationsApi.md#removeartifactfromapplicationversion) | **Delete** /applications/{application_id}/versions/{application_version_id}/artifacts/{association_id} | Delete an artifact from specified application version
-*ApplicationsApi* | [**UpdateApplication**](docs/ApplicationsApi.md#updateapplication) | **Put** /applications/{application_id} | Update application details
-*ApplicationsApi* | [**UpdateApplicationVersion**](docs/ApplicationsApi.md#updateapplicationversion) | **Put** /applications/{application_id}/versions/{application_version_id} | Update application version details
-*ArchivesApi* | [**ArchiveImageAnalysis**](docs/ArchivesApi.md#archiveimageanalysis) | **Post** /archives/images | 
-*ArchivesApi* | [**CreateAnalysisArchiveRule**](docs/ArchivesApi.md#createanalysisarchiverule) | **Post** /archives/rules | 
-*ArchivesApi* | [**DeleteAnalysisArchiveRule**](docs/ArchivesApi.md#deleteanalysisarchiverule) | **Delete** /archives/rules/{rule_id} | 
-*ArchivesApi* | [**DeleteArchivedAnalysis**](docs/ArchivesApi.md#deletearchivedanalysis) | **Delete** /archives/images/{image_digest} | 
-*ArchivesApi* | [**GetAnalysisArchiveRule**](docs/ArchivesApi.md#getanalysisarchiverule) | **Get** /archives/rules/{rule_id} | 
-*ArchivesApi* | [**GetArchivedAnalysis**](docs/ArchivesApi.md#getarchivedanalysis) | **Get** /archives/images/{image_digest} | 
-*ArchivesApi* | [**ListAnalysisArchive**](docs/ArchivesApi.md#listanalysisarchive) | **Get** /archives/images | 
-*ArchivesApi* | [**ListAnalysisArchiveRules**](docs/ArchivesApi.md#listanalysisarchiverules) | **Get** /archives/rules | 
-*ArchivesApi* | [**ListArchives**](docs/ArchivesApi.md#listarchives) | **Get** /archives | 
-*CorrectionsApi* | [**AddCorrection**](docs/CorrectionsApi.md#addcorrection) | **Post** /corrections | Create a correction record
-*CorrectionsApi* | [**DeleteCorrectionByUuid**](docs/CorrectionsApi.md#deletecorrectionbyuuid) | **Delete** /corrections/{uuid} | Delete a correction by UUID
-*CorrectionsApi* | [**GetCorrectionByUuid**](docs/CorrectionsApi.md#getcorrectionbyuuid) | **Get** /corrections/{uuid} | Retrieve a correction by UUID
-*CorrectionsApi* | [**GetCorrections**](docs/CorrectionsApi.md#getcorrections) | **Get** /corrections | Retrieve a list of corrections
-*CorrectionsApi* | [**UpdateCorrectionByUuid**](docs/CorrectionsApi.md#updatecorrectionbyuuid) | **Put** /corrections/{uuid} | Update a correction by UUID
-*DefaultApi* | [**AddGithubConfiguration**](docs/DefaultApi.md#addgithubconfiguration) | **Post** /notifications/endpoints/github/configurations | 
-*DefaultApi* | [**AddGithubSelector**](docs/DefaultApi.md#addgithubselector) | **Post** /notifications/endpoints/github/configurations/{uuid}/selectors | 
-*DefaultApi* | [**AddIdp**](docs/DefaultApi.md#addidp) | **Post** /rbac-manager/saml/idps | 
-*DefaultApi* | [**AddJiraConfiguration**](docs/DefaultApi.md#addjiraconfiguration) | **Post** /notifications/endpoints/jira/configurations | 
-*DefaultApi* | [**AddJiraSelector**](docs/DefaultApi.md#addjiraselector) | **Post** /notifications/endpoints/jira/configurations/{uuid}/selectors | 
-*DefaultApi* | [**AddRoleUser**](docs/DefaultApi.md#addroleuser) | **Post** /rbac-manager/roles/{role_name}/members | Add a user to the role
-*DefaultApi* | [**AddSlackConfiguration**](docs/DefaultApi.md#addslackconfiguration) | **Post** /notifications/endpoints/slack/configurations | 
-*DefaultApi* | [**AddSlackSelector**](docs/DefaultApi.md#addslackselector) | **Post** /notifications/endpoints/slack/configurations/{uuid}/selectors | 
-*DefaultApi* | [**AddSmtpConfiguration**](docs/DefaultApi.md#addsmtpconfiguration) | **Post** /notifications/endpoints/smtp/configurations | 
-*DefaultApi* | [**AddSmtpSelector**](docs/DefaultApi.md#addsmtpselector) | **Post** /notifications/endpoints/smtp/configurations/{uuid}/selectors | 
-*DefaultApi* | [**AddTeamsConfiguration**](docs/DefaultApi.md#addteamsconfiguration) | **Post** /notifications/endpoints/teams/configurations | 
-*DefaultApi* | [**AddTeamsSelector**](docs/DefaultApi.md#addteamsselector) | **Post** /notifications/endpoints/teams/configurations/{uuid}/selectors | 
-*DefaultApi* | [**AddWebhookConfiguration**](docs/DefaultApi.md#addwebhookconfiguration) | **Post** /notifications/endpoints/webhook/configurations | 
-*DefaultApi* | [**AddWebhookSelector**](docs/DefaultApi.md#addwebhookselector) | **Post** /notifications/endpoints/webhook/configurations/{uuid}/selectors | 
-*DefaultApi* | [**DeleteGithubConfiguration**](docs/DefaultApi.md#deletegithubconfiguration) | **Delete** /notifications/endpoints/github/configurations/{uuid} | 
-*DefaultApi* | [**DeleteGithubSelector**](docs/DefaultApi.md#deletegithubselector) | **Delete** /notifications/endpoints/github/configurations/{configuration_uuid}/selectors/{selector_uuid} | 
-*DefaultApi* | [**DeleteIdp**](docs/DefaultApi.md#deleteidp) | **Delete** /rbac-manager/saml/idps/{name} | 
-*DefaultApi* | [**DeleteJiraConfiguration**](docs/DefaultApi.md#deletejiraconfiguration) | **Delete** /notifications/endpoints/jira/configurations/{uuid} | 
-*DefaultApi* | [**DeleteJiraSelector**](docs/DefaultApi.md#deletejiraselector) | **Delete** /notifications/endpoints/jira/configurations/{configuration_uuid}/selectors/{selector_uuid} | 
-*DefaultApi* | [**DeleteRoleUser**](docs/DefaultApi.md#deleteroleuser) | **Delete** /rbac-manager/roles/{role_name}/members | Remove a user from the role
-*DefaultApi* | [**DeleteSlackConfiguration**](docs/DefaultApi.md#deleteslackconfiguration) | **Delete** /notifications/endpoints/slack/configurations/{uuid} | 
-*DefaultApi* | [**DeleteSlackSelector**](docs/DefaultApi.md#deleteslackselector) | **Delete** /notifications/endpoints/slack/configurations/{configuration_uuid}/selectors/{selector_uuid} | 
-*DefaultApi* | [**DeleteSmtpConfiguration**](docs/DefaultApi.md#deletesmtpconfiguration) | **Delete** /notifications/endpoints/smtp/configurations/{uuid} | 
-*DefaultApi* | [**DeleteSmtpSelector**](docs/DefaultApi.md#deletesmtpselector) | **Delete** /notifications/endpoints/smtp/configurations/{configuration_uuid}/selectors/{selector_uuid} | 
-*DefaultApi* | [**DeleteTeamsConfiguration**](docs/DefaultApi.md#deleteteamsconfiguration) | **Delete** /notifications/endpoints/teams/configurations/{uuid} | 
-*DefaultApi* | [**DeleteTeamsSelector**](docs/DefaultApi.md#deleteteamsselector) | **Delete** /notifications/endpoints/teams/configurations/{configuration_uuid}/selectors/{selector_uuid} | 
-*DefaultApi* | [**DeleteWebhookConfiguration**](docs/DefaultApi.md#deletewebhookconfiguration) | **Delete** /notifications/endpoints/webhook/configurations/{uuid} | 
-*DefaultApi* | [**DeleteWebhookSelector**](docs/DefaultApi.md#deletewebhookselector) | **Delete** /notifications/endpoints/webhook/configurations/{configuration_uuid}/selectors/{selector_uuid} | 
-*DefaultApi* | [**GetGithubConfiguration**](docs/DefaultApi.md#getgithubconfiguration) | **Get** /notifications/endpoints/github/configurations/{uuid} | 
-*DefaultApi* | [**GetGithubConfigurationStatus**](docs/DefaultApi.md#getgithubconfigurationstatus) | **Get** /notifications/endpoints/github/configurations/{uuid}/status | 
-*DefaultApi* | [**GetGithubSelector**](docs/DefaultApi.md#getgithubselector) | **Get** /notifications/endpoints/github/configurations/{configuration_uuid}/selectors/{selector_uuid} | 
-*DefaultApi* | [**GetGlobalQueryResult**](docs/DefaultApi.md#getglobalqueryresult) | **Get** /reporting/reports/global/scheduled-query-results/{result_uuid} | 
-*DefaultApi* | [**GetIdp**](docs/DefaultApi.md#getidp) | **Get** /rbac-manager/saml/idps/{name} | 
-*DefaultApi* | [**GetJiraConfiguration**](docs/DefaultApi.md#getjiraconfiguration) | **Get** /notifications/endpoints/jira/configurations/{uuid} | 
-*DefaultApi* | [**GetJiraConfigurationStatus**](docs/DefaultApi.md#getjiraconfigurationstatus) | **Get** /notifications/endpoints/jira/configurations/{uuid}/status | 
-*DefaultApi* | [**GetJiraSelector**](docs/DefaultApi.md#getjiraselector) | **Get** /notifications/endpoints/jira/configurations/{configuration_uuid}/selectors/{selector_uuid} | 
-*DefaultApi* | [**GetOauthToken**](docs/DefaultApi.md#getoauthtoken) | **Post** /oauth/token | 
-*DefaultApi* | [**GetQueryResult**](docs/DefaultApi.md#getqueryresult) | **Get** /reporting/scheduled-query-results/{result_uuid} | 
-*DefaultApi* | [**GetRole**](docs/DefaultApi.md#getrole) | **Get** /rbac-manager/roles/{role_name} | Get detailed information about a specific role
-*DefaultApi* | [**GetSlackConfiguration**](docs/DefaultApi.md#getslackconfiguration) | **Get** /notifications/endpoints/slack/configurations/{uuid} | 
-*DefaultApi* | [**GetSlackConfigurationStatus**](docs/DefaultApi.md#getslackconfigurationstatus) | **Get** /notifications/endpoints/slack/configurations/{uuid}/status | 
-*DefaultApi* | [**GetSlackSelector**](docs/DefaultApi.md#getslackselector) | **Get** /notifications/endpoints/slack/configurations/{configuration_uuid}/selectors/{selector_uuid} | 
-*DefaultApi* | [**GetSmtpConfiguration**](docs/DefaultApi.md#getsmtpconfiguration) | **Get** /notifications/endpoints/smtp/configurations/{uuid} | 
-*DefaultApi* | [**GetSmtpConfigurationStatus**](docs/DefaultApi.md#getsmtpconfigurationstatus) | **Get** /notifications/endpoints/smtp/configurations/{uuid}/status | 
-*DefaultApi* | [**GetSmtpSelector**](docs/DefaultApi.md#getsmtpselector) | **Get** /notifications/endpoints/smtp/configurations/{configuration_uuid}/selectors/{selector_uuid} | 
-*DefaultApi* | [**GetTeamsConfiguration**](docs/DefaultApi.md#getteamsconfiguration) | **Get** /notifications/endpoints/teams/configurations/{uuid} | 
-*DefaultApi* | [**GetTeamsConfigurationStatus**](docs/DefaultApi.md#getteamsconfigurationstatus) | **Get** /notifications/endpoints/teams/configurations/{uuid}/status | 
-*DefaultApi* | [**GetTeamsSelector**](docs/DefaultApi.md#getteamsselector) | **Get** /notifications/endpoints/teams/configurations/{configuration_uuid}/selectors/{selector_uuid} | 
-*DefaultApi* | [**GetWebhookConfiguration**](docs/DefaultApi.md#getwebhookconfiguration) | **Get** /notifications/endpoints/webhook/configurations/{uuid} | 
-*DefaultApi* | [**GetWebhookConfigurationStatus**](docs/DefaultApi.md#getwebhookconfigurationstatus) | **Get** /notifications/endpoints/webhook/configurations/{uuid}/status | 
-*DefaultApi* | [**GetWebhookSelector**](docs/DefaultApi.md#getwebhookselector) | **Get** /notifications/endpoints/webhook/configurations/{configuration_uuid}/selectors/{selector_uuid} | 
-*DefaultApi* | [**HealthCheck**](docs/DefaultApi.md#healthcheck) | **Get** /health | 
-*DefaultApi* | [**ListEndpoints**](docs/DefaultApi.md#listendpoints) | **Get** /notifications/endpoints | 
-*DefaultApi* | [**ListFileContentSearchResults**](docs/DefaultApi.md#listfilecontentsearchresults) | **Get** /images/{image_digest}/artifacts/file-content-search | Return a list of analyzer artifacts of the specified type
-*DefaultApi* | [**ListGithubConfigurations**](docs/DefaultApi.md#listgithubconfigurations) | **Get** /notifications/endpoints/github/configurations | 
-*DefaultApi* | [**ListGithubSelectors**](docs/DefaultApi.md#listgithubselectors) | **Get** /notifications/endpoints/github/configurations/{uuid}/selectors | 
-*DefaultApi* | [**ListIdps**](docs/DefaultApi.md#listidps) | **Get** /rbac-manager/saml/idps | 
-*DefaultApi* | [**ListJiraConfigurations**](docs/DefaultApi.md#listjiraconfigurations) | **Get** /notifications/endpoints/jira/configurations | 
-*DefaultApi* | [**ListJiraSelectors**](docs/DefaultApi.md#listjiraselectors) | **Get** /notifications/endpoints/jira/configurations/{uuid}/selectors | 
-*DefaultApi* | [**ListRetrievedFiles**](docs/DefaultApi.md#listretrievedfiles) | **Get** /images/{image_digest}/artifacts/retrieved-files | Return a list of analyzer artifacts of the specified type
-*DefaultApi* | [**ListRoleMembers**](docs/DefaultApi.md#listrolemembers) | **Get** /rbac-manager/roles/{role_name}/members | Returns a list of objects that have members in the role. The list is filtered by &#39;listRoleMembers&#39; access for the &#39;account&#39; element of each entry.
-*DefaultApi* | [**ListRoles**](docs/DefaultApi.md#listroles) | **Get** /rbac-manager/roles | List roles available in the system
-*DefaultApi* | [**ListSecretSearchResults**](docs/DefaultApi.md#listsecretsearchresults) | **Get** /images/{image_digest}/artifacts/secret-search | Return a list of analyzer artifacts of the specified type
-*DefaultApi* | [**ListSelectors**](docs/DefaultApi.md#listselectors) | **Get** /notifications/selectors | 
-*DefaultApi* | [**ListSlackConfigurations**](docs/DefaultApi.md#listslackconfigurations) | **Get** /notifications/endpoints/slack/configurations | 
-*DefaultApi* | [**ListSlackSelectors**](docs/DefaultApi.md#listslackselectors) | **Get** /notifications/endpoints/slack/configurations/{uuid}/selectors | 
-*DefaultApi* | [**ListSmtpConfigurations**](docs/DefaultApi.md#listsmtpconfigurations) | **Get** /notifications/endpoints/smtp/configurations | 
-*DefaultApi* | [**ListSmtpSelectors**](docs/DefaultApi.md#listsmtpselectors) | **Get** /notifications/endpoints/smtp/configurations/{uuid}/selectors | 
-*DefaultApi* | [**ListTeamsConfigurations**](docs/DefaultApi.md#listteamsconfigurations) | **Get** /notifications/endpoints/teams/configurations | 
-*DefaultApi* | [**ListTeamsSelectors**](docs/DefaultApi.md#listteamsselectors) | **Get** /notifications/endpoints/teams/configurations/{uuid}/selectors | 
-*DefaultApi* | [**ListUserRoles**](docs/DefaultApi.md#listuserroles) | **Get** /rbac-manager/users/{username}/roles | List the roles for which the requested user is a member
-*DefaultApi* | [**ListWebhookConfigurations**](docs/DefaultApi.md#listwebhookconfigurations) | **Get** /notifications/endpoints/webhook/configurations | 
-*DefaultApi* | [**ListWebhookSelectors**](docs/DefaultApi.md#listwebhookselectors) | **Get** /notifications/endpoints/webhook/configurations/{uuid}/selectors | 
-*DefaultApi* | [**MyRoles**](docs/DefaultApi.md#myroles) | **Get** /rbac-manager/my-roles | List the roles for which the authenticated user is a member
-*DefaultApi* | [**Ping**](docs/DefaultApi.md#ping) | **Get** / | 
-*DefaultApi* | [**RevokeOauthToken**](docs/DefaultApi.md#revokeoauthtoken) | **Post** /oauth/revoke | 
-*DefaultApi* | [**SamlLogin**](docs/DefaultApi.md#samllogin) | **Get** /rbac-manager/saml/login/{idp_name} | 
-*DefaultApi* | [**SamlSso**](docs/DefaultApi.md#samlsso) | **Post** /rbac-manager/saml/sso/{idp_name} | 
-*DefaultApi* | [**TestGithubConfiguration**](docs/DefaultApi.md#testgithubconfiguration) | **Post** /notifications/endpoints/github/test | 
-*DefaultApi* | [**TestJiraConfiguration**](docs/DefaultApi.md#testjiraconfiguration) | **Post** /notifications/endpoints/jira/test | 
-*DefaultApi* | [**TestSlackConfiguration**](docs/DefaultApi.md#testslackconfiguration) | **Post** /notifications/endpoints/slack/test | 
-*DefaultApi* | [**TestSmtpConfiguration**](docs/DefaultApi.md#testsmtpconfiguration) | **Post** /notifications/endpoints/smtp/test | 
-*DefaultApi* | [**TestStoredGithubConfiguration**](docs/DefaultApi.md#teststoredgithubconfiguration) | **Get** /notifications/endpoints/github/configurations/{uuid}/test | 
-*DefaultApi* | [**TestStoredJiraConfiguration**](docs/DefaultApi.md#teststoredjiraconfiguration) | **Get** /notifications/endpoints/jira/configurations/{uuid}/test | 
-*DefaultApi* | [**TestStoredSlackConfiguration**](docs/DefaultApi.md#teststoredslackconfiguration) | **Get** /notifications/endpoints/slack/configurations/{uuid}/test | 
-*DefaultApi* | [**TestStoredSmtpConfiguration**](docs/DefaultApi.md#teststoredsmtpconfiguration) | **Get** /notifications/endpoints/smtp/configurations/{uuid}/test | 
-*DefaultApi* | [**TestStoredTeamsConfiguration**](docs/DefaultApi.md#teststoredteamsconfiguration) | **Get** /notifications/endpoints/teams/configurations/{uuid}/test | 
-*DefaultApi* | [**TestStoredWebhookConfiguration**](docs/DefaultApi.md#teststoredwebhookconfiguration) | **Get** /notifications/endpoints/webhook/configurations/{uuid}/test | 
-*DefaultApi* | [**TestTeamsConfiguration**](docs/DefaultApi.md#testteamsconfiguration) | **Post** /notifications/endpoints/teams/test | 
-*DefaultApi* | [**TestWebhookConfiguration**](docs/DefaultApi.md#testwebhookconfiguration) | **Post** /notifications/endpoints/webhook/test | 
-*DefaultApi* | [**UpdateEndpointStatus**](docs/DefaultApi.md#updateendpointstatus) | **Put** /notifications/endpoints/{name} | 
-*DefaultApi* | [**UpdateGithubConfiguration**](docs/DefaultApi.md#updategithubconfiguration) | **Put** /notifications/endpoints/github/configurations/{uuid} | 
-*DefaultApi* | [**UpdateGithubSelector**](docs/DefaultApi.md#updategithubselector) | **Put** /notifications/endpoints/github/configurations/{configuration_uuid}/selectors/{selector_uuid} | 
-*DefaultApi* | [**UpdateIdp**](docs/DefaultApi.md#updateidp) | **Put** /rbac-manager/saml/idps/{name} | 
-*DefaultApi* | [**UpdateJiraConfiguration**](docs/DefaultApi.md#updatejiraconfiguration) | **Put** /notifications/endpoints/jira/configurations/{uuid} | 
-*DefaultApi* | [**UpdateJiraSelector**](docs/DefaultApi.md#updatejiraselector) | **Put** /notifications/endpoints/jira/configurations/{configuration_uuid}/selectors/{selector_uuid} | 
-*DefaultApi* | [**UpdateSlackConfiguration**](docs/DefaultApi.md#updateslackconfiguration) | **Put** /notifications/endpoints/slack/configurations/{uuid} | 
-*DefaultApi* | [**UpdateSlackSelector**](docs/DefaultApi.md#updateslackselector) | **Put** /notifications/endpoints/slack/configurations/{configuration_uuid}/selectors/{selector_uuid} | 
-*DefaultApi* | [**UpdateSmtpConfiguration**](docs/DefaultApi.md#updatesmtpconfiguration) | **Put** /notifications/endpoints/smtp/configurations/{uuid} | 
-*DefaultApi* | [**UpdateSmtpSelector**](docs/DefaultApi.md#updatesmtpselector) | **Put** /notifications/endpoints/smtp/configurations/{configuration_uuid}/selectors/{selector_uuid} | 
-*DefaultApi* | [**UpdateTeamsConfiguration**](docs/DefaultApi.md#updateteamsconfiguration) | **Put** /notifications/endpoints/teams/configurations/{uuid} | 
-*DefaultApi* | [**UpdateTeamsSelector**](docs/DefaultApi.md#updateteamsselector) | **Put** /notifications/endpoints/teams/configurations/{configuration_uuid}/selectors/{selector_uuid} | 
-*DefaultApi* | [**UpdateWebhookConfiguration**](docs/DefaultApi.md#updatewebhookconfiguration) | **Put** /notifications/endpoints/webhook/configurations/{uuid} | 
-*DefaultApi* | [**UpdateWebhookSelector**](docs/DefaultApi.md#updatewebhookselector) | **Put** /notifications/endpoints/webhook/configurations/{configuration_uuid}/selectors/{selector_uuid} | 
-*DefaultApi* | [**VersionCheck**](docs/DefaultApi.md#versioncheck) | **Get** /version | 
-*EventsApi* | [**DeleteEvent**](docs/EventsApi.md#deleteevent) | **Delete** /events/{event_id} | Delete Event
-*EventsApi* | [**DeleteEvents**](docs/EventsApi.md#deleteevents) | **Delete** /events | Delete Events
-*EventsApi* | [**GetEvent**](docs/EventsApi.md#getevent) | **Get** /events/{event_id} | Get Event
-*EventsApi* | [**ListEventTypes**](docs/EventsApi.md#listeventtypes) | **Get** /event-types | List Event Types
-*EventsApi* | [**ListEvents**](docs/EventsApi.md#listevents) | **Get** /events | List Events
-*IdentityApi* | [**AddCredential**](docs/IdentityApi.md#addcredential) | **Post** /user/credentials | add/replace credential
-*IdentityApi* | [**GetCredentials**](docs/IdentityApi.md#getcredentials) | **Get** /user/credentials | Get current credential summary
-*IdentityApi* | [**GetUser**](docs/IdentityApi.md#getuser) | **Get** /user | List authenticated user info
-*IdentityApi* | [**GetUsersAccount**](docs/IdentityApi.md#getusersaccount) | **Get** /account | List the account for the authenticated user
-*ImagesApi* | [**AddImage**](docs/ImagesApi.md#addimage) | **Post** /images | Submit a new image for analysis by the engine
-*ImagesApi* | [**DeleteImage**](docs/ImagesApi.md#deleteimage) | **Delete** /images/{image_digest} | Delete an image analysis
-*ImagesApi* | [**DeleteImagesAsync**](docs/ImagesApi.md#deleteimagesasync) | **Delete** /images | Bulk mark images for deletion
-*ImagesApi* | [**GetImage**](docs/ImagesApi.md#getimage) | **Get** /images/{image_digest} | Get image metadata
-*ImagesApi* | [**GetImageAncestors**](docs/ImagesApi.md#getimageancestors) | **Get** /images/{image_digest}/ancestors | Return the list of ancestor images for the given image
-*ImagesApi* | [**GetImageContentByType**](docs/ImagesApi.md#getimagecontentbytype) | **Get** /images/{image_digest}/content/{content_type} | Get the content of an image by type
-*ImagesApi* | [**GetImageContentByTypeFiles**](docs/ImagesApi.md#getimagecontentbytypefiles) | **Get** /images/{image_digest}/content/files | Get the content of an image by type files
-*ImagesApi* | [**GetImageContentByTypeJavaPackage**](docs/ImagesApi.md#getimagecontentbytypejavapackage) | **Get** /images/{image_digest}/content/java | Get the content of an image by type java
-*ImagesApi* | [**GetImageContentByTypeMalware**](docs/ImagesApi.md#getimagecontentbytypemalware) | **Get** /images/{image_digest}/content/malware | Get the content of an image by type malware
-*ImagesApi* | [**GetImageMetadataByType**](docs/ImagesApi.md#getimagemetadatabytype) | **Get** /images/{image_digest}/metadata/{metadata_type} | Get the metadata of an image by type
-*ImagesApi* | [**GetImagePolicyCheckByDigest**](docs/ImagesApi.md#getimagepolicycheckbydigest) | **Get** /images/{image_digest}/check | Check policy evaluation status for image
-*ImagesApi* | [**GetImageSbomCyclonedxJson**](docs/ImagesApi.md#getimagesbomcyclonedxjson) | **Get** /images/{image_digest}/sboms/cyclonedx-json | Get image sbom in the CycloneDX format
-*ImagesApi* | [**GetImageSbomNativeJson**](docs/ImagesApi.md#getimagesbomnativejson) | **Get** /images/{image_digest}/sboms/native-json | Get image sbom in the native Anchore format
-*ImagesApi* | [**GetImageSbomSpdxJson**](docs/ImagesApi.md#getimagesbomspdxjson) | **Get** /images/{image_digest}/sboms/spdx-json | Get image sbom in the SPDX format
-*ImagesApi* | [**GetImageVulnerabilitiesByDigest**](docs/ImagesApi.md#getimagevulnerabilitiesbydigest) | **Get** /images/{image_digest}/vuln/{vuln_type} | Get vulnerabilities by type
-*ImagesApi* | [**GetImageVulnerabilityTypes**](docs/ImagesApi.md#getimagevulnerabilitytypes) | **Get** /images/{image_digest}/vuln | Get vulnerability types
-*ImagesApi* | [**ListImageContent**](docs/ImagesApi.md#listimagecontent) | **Get** /images/{image_digest}/content | List image content types
-*ImagesApi* | [**ListImageMetadata**](docs/ImagesApi.md#listimagemetadata) | **Get** /images/{image_digest}/metadata | List image metadata types
-*ImagesApi* | [**ListImages**](docs/ImagesApi.md#listimages) | **Get** /images | List all visible images
-*ImportsApi* | [**CreateOperation**](docs/ImportsApi.md#createoperation) | **Post** /imports/images | Begin the import of an image SBOM into the system
-*ImportsApi* | [**CreateSourcesOperation**](docs/ImportsApi.md#createsourcesoperation) | **Post** /imports/sources | Begin the import of a source code repository analyzed by Syft into the system
-*ImportsApi* | [**FinalizeOperation**](docs/ImportsApi.md#finalizeoperation) | **Post** /imports/sources/{operation_id}/finalize | Add source records to catalog db
-*ImportsApi* | [**GetImportSourcesSbom**](docs/ImportsApi.md#getimportsourcessbom) | **Get** /imports/sources/{operation_id}/sbom | list the packages of an imported source code repository
-*ImportsApi* | [**GetOperation**](docs/ImportsApi.md#getoperation) | **Get** /imports/images/{operation_id} | Get detail on a single import
-*ImportsApi* | [**GetSourcesOperation**](docs/ImportsApi.md#getsourcesoperation) | **Get** /imports/sources/{operation_id} | Get detail on a single import
-*ImportsApi* | [**ImportContentSearches**](docs/ImportsApi.md#importcontentsearches) | **Post** /imports/images/{operation_id}/content-searches | Import a content search analysis catalog
-*ImportsApi* | [**ImportFileContents**](docs/ImportsApi.md#importfilecontents) | **Post** /imports/images/{operation_id}/file-contents | Import a file contents analysis catalog
-*ImportsApi* | [**ImportImageConfig**](docs/ImportsApi.md#importimageconfig) | **Post** /imports/images/{operation_id}/image-config | Import a docker or OCI image config to associate with the image
-*ImportsApi* | [**ImportImageDockerfile**](docs/ImportsApi.md#importimagedockerfile) | **Post** /imports/images/{operation_id}/dockerfile | Begin the import of an image analyzed by Syft into the system
-*ImportsApi* | [**ImportImageManifest**](docs/ImportsApi.md#importimagemanifest) | **Post** /imports/images/{operation_id}/manifest | Import a docker or OCI distribution manifest to associate with the image
-*ImportsApi* | [**ImportImagePackages**](docs/ImportsApi.md#importimagepackages) | **Post** /imports/images/{operation_id}/packages | Begin the import of an image analyzed by Syft into the system
-*ImportsApi* | [**ImportImageParentManifest**](docs/ImportsApi.md#importimageparentmanifest) | **Post** /imports/images/{operation_id}/parent-manifest | Import a docker or OCI distribution manifest list to associate with the image
-*ImportsApi* | [**ImportSecretSearches**](docs/ImportsApi.md#importsecretsearches) | **Post** /imports/images/{operation_id}/secret-searches | Import a secret search analysis catalog
-*ImportsApi* | [**InvalidateOperation**](docs/ImportsApi.md#invalidateoperation) | **Delete** /imports/images/{operation_id} | Invalidate operation ID so it can be garbage collected
-*ImportsApi* | [**InvalidateSourcesOperation**](docs/ImportsApi.md#invalidatesourcesoperation) | **Delete** /imports/sources/{operation_id} | Invalidate operation ID so it can be garbage collected
-*ImportsApi* | [**ListImportContentSearches**](docs/ImportsApi.md#listimportcontentsearches) | **Get** /imports/images/{operation_id}/content-searches | List uploaded content search results
-*ImportsApi* | [**ListImportDockerfiles**](docs/ImportsApi.md#listimportdockerfiles) | **Get** /imports/images/{operation_id}/dockerfile | List uploaded dockerfiles
-*ImportsApi* | [**ListImportFileContents**](docs/ImportsApi.md#listimportfilecontents) | **Get** /imports/images/{operation_id}/file-contents | List uploaded file contents
-*ImportsApi* | [**ListImportImageConfigs**](docs/ImportsApi.md#listimportimageconfigs) | **Get** /imports/images/{operation_id}/image-config | List uploaded image configs
-*ImportsApi* | [**ListImportImageManifests**](docs/ImportsApi.md#listimportimagemanifests) | **Get** /imports/images/{operation_id}/manifest | List uploaded image manifests
-*ImportsApi* | [**ListImportPackages**](docs/ImportsApi.md#listimportpackages) | **Get** /imports/images/{operation_id}/packages | List uploaded package manifests
-*ImportsApi* | [**ListImportParentManifests**](docs/ImportsApi.md#listimportparentmanifests) | **Get** /imports/images/{operation_id}/parent-manifest | List uploaded parent manifests (manifest lists for a tag)
-*ImportsApi* | [**ListImportSecretSearches**](docs/ImportsApi.md#listimportsecretsearches) | **Get** /imports/images/{operation_id}/secret-searches | List uploaded secret search results
-*ImportsApi* | [**ListOperations**](docs/ImportsApi.md#listoperations) | **Get** /imports/images | Lists in-progress imports
-*ImportsApi* | [**ListSourcesOperations**](docs/ImportsApi.md#listsourcesoperations) | **Get** /imports/sources | Lists in-progress imports
-*ImportsApi* | [**UploadImportSourcesSbom**](docs/ImportsApi.md#uploadimportsourcessbom) | **Post** /imports/sources/{operation_id}/sbom | Begin the import of a source code repository analyzed by Syft into the system
-*InventoriesApi* | [**DeleteInventory**](docs/InventoriesApi.md#deleteinventory) | **Delete** /inventories | Delete runtime inventory by type and context
-*InventoriesApi* | [**DeleteKubernetesNamespaces**](docs/InventoriesApi.md#deletekubernetesnamespaces) | **Delete** /kubernetes-namespaces | Delete Kubernetes namespaces for a given criteria
-*InventoriesApi* | [**GetEcsContainers**](docs/InventoriesApi.md#getecscontainers) | **Get** /ecs-containers | Return a list of ECS containers that have been inventoried for this account
-*InventoriesApi* | [**GetEcsServices**](docs/InventoriesApi.md#getecsservices) | **Get** /ecs-services | Return a list of ECS services that have been inventoried for this account
-*InventoriesApi* | [**GetEcsTasks**](docs/InventoriesApi.md#getecstasks) | **Get** /ecs-tasks | Return a list of ECS tasks that have been inventoried for this account
-*InventoriesApi* | [**GetImageInventory**](docs/InventoriesApi.md#getimageinventory) | **Get** /inventories | Return a list of the images in inventories for this account
-*InventoriesApi* | [**GetKubernetesContainers**](docs/InventoriesApi.md#getkubernetescontainers) | **Get** /kubernetes-containers | Return a list of Kubernetes containers that have been inventoried for this account
-*InventoriesApi* | [**GetKubernetesNamespace**](docs/InventoriesApi.md#getkubernetesnamespace) | **Get** /kubernetes-namespaces/{namespace_id} | Return a Kubernetes namespace that has been inventoried for this account
-*InventoriesApi* | [**GetKubernetesNamespaces**](docs/InventoriesApi.md#getkubernetesnamespaces) | **Get** /kubernetes-namespaces | Return a list of Kubernetes namespaces that have been inventoried for this account
-*InventoriesApi* | [**GetKubernetesNode**](docs/InventoriesApi.md#getkubernetesnode) | **Get** /kubernetes-nodes/{node_id} | Return a Kubernetes node that has been inventoried for this account
-*InventoriesApi* | [**GetKubernetesNodes**](docs/InventoriesApi.md#getkubernetesnodes) | **Get** /kubernetes-nodes | Return a list of Kubernetes nodes that have been inventoried for this account
-*InventoriesApi* | [**GetKubernetesPod**](docs/InventoriesApi.md#getkubernetespod) | **Get** /kubernetes-pods/{pod_id} | Return a Kubernetes pod that has been inventoried for this account
-*InventoriesApi* | [**GetKubernetesPods**](docs/InventoriesApi.md#getkubernetespods) | **Get** /kubernetes-pods | Return a list of Kubernetes pods that have been inventoried for this account
-*InventoriesApi* | [**PostEcsInventory**](docs/InventoriesApi.md#postecsinventory) | **Post** /ecs-inventory | Add container metadata from Amazon ECS
-*InventoriesApi* | [**PostKubernetesInventory**](docs/InventoriesApi.md#postkubernetesinventory) | **Post** /kubernetes-inventory | Add container metadata from a Kubernetes deployment
-*PoliciesApi* | [**AddPolicy**](docs/PoliciesApi.md#addpolicy) | **Post** /policies | Add a new policy
-*PoliciesApi* | [**DeletePolicy**](docs/PoliciesApi.md#deletepolicy) | **Delete** /policies/{policy_id} | Delete policy
-*PoliciesApi* | [**GetPolicy**](docs/PoliciesApi.md#getpolicy) | **Get** /policies/{policy_id} | Get specific policy
-*PoliciesApi* | [**ListPolicies**](docs/PoliciesApi.md#listpolicies) | **Get** /policies | List policies
-*PoliciesApi* | [**UpdatePolicy**](docs/PoliciesApi.md#updatepolicy) | **Put** /policies/{policy_id} | Update policy
-*QueryApi* | [**QueryImagesByPackage**](docs/QueryApi.md#queryimagesbypackage) | **Get** /query/images/by-package | List of images containing given package
-*QueryApi* | [**QueryVulnerabilities**](docs/QueryApi.md#queryvulnerabilities) | **Get** /query/vulnerabilities | Listing information about given vulnerability
-*RegistriesApi* | [**CreateRegistry**](docs/RegistriesApi.md#createregistry) | **Post** /registries | Add a new registry
-*RegistriesApi* | [**DeleteRegistry**](docs/RegistriesApi.md#deleteregistry) | **Delete** /registries/{registry} | Delete a registry configuration
-*RegistriesApi* | [**GetRegistry**](docs/RegistriesApi.md#getregistry) | **Get** /registries/{registry} | Get a specific registry configuration
-*RegistriesApi* | [**ListRegistries**](docs/RegistriesApi.md#listregistries) | **Get** /registries | List configured registries
-*RegistriesApi* | [**UpdateRegistry**](docs/RegistriesApi.md#updateregistry) | **Put** /registries/{registry} | Update/replace a registry configuration
-*RelationshipsApi* | [**AddArtifactRelationship**](docs/RelationshipsApi.md#addartifactrelationship) | **Post** /artifact-relationships | 
-*RelationshipsApi* | [**DeleteArtifactRelationships**](docs/RelationshipsApi.md#deleteartifactrelationships) | **Delete** /artifact-relationships | 
-*RelationshipsApi* | [**GetArtifactRelationship**](docs/RelationshipsApi.md#getartifactrelationship) | **Get** /artifact-relationships/{relationship_id} | 
-*RelationshipsApi* | [**GetRelationshipSbomDiff**](docs/RelationshipsApi.md#getrelationshipsbomdiff) | **Get** /artifact-relationships/{relationship_id}/diffs/sbom | 
-*RelationshipsApi* | [**ListArtifactRelationships**](docs/RelationshipsApi.md#listartifactrelationships) | **Get** /artifact-relationships | 
-*RepositoryCredentialsApi* | [**AddRepository**](docs/RepositoryCredentialsApi.md#addrepository) | **Post** /repositories | Add repository to watch
-*SourcesApi* | [**DeleteSource**](docs/SourcesApi.md#deletesource) | **Delete** /sources/{source_id} | Delete source record from DB
-*SourcesApi* | [**GetSource**](docs/SourcesApi.md#getsource) | **Get** /sources/{source_id} | Get a detailed source repository analysis metadata record
-*SourcesApi* | [**GetSourceContentByType**](docs/SourcesApi.md#getsourcecontentbytype) | **Get** /sources/{source_id}/content/{content_type} | Get the content of an analyzed source repository
-*SourcesApi* | [**GetSourceContentTypes**](docs/SourcesApi.md#getsourcecontenttypes) | **Get** /sources/{source_id}/content | Get a detailed source repository analysis metadata record
-*SourcesApi* | [**GetSourcePolicyCheck**](docs/SourcesApi.md#getsourcepolicycheck) | **Get** /sources/{source_id}/check | Fetch or calculate policy evaluation for a source
-*SourcesApi* | [**GetSourceSbomCyclonedxJson**](docs/SourcesApi.md#getsourcesbomcyclonedxjson) | **Get** /sources/{source_id}/sbom/cyclonedx-json | Return the source SBOM in the CycloneDX format
-*SourcesApi* | [**GetSourceSbomNativeJson**](docs/SourcesApi.md#getsourcesbomnativejson) | **Get** /sources/{source_id}/sbom/native-json | Return the source SBOM in the native Anchore format
-*SourcesApi* | [**GetSourceSbomSpdxJson**](docs/SourcesApi.md#getsourcesbomspdxjson) | **Get** /sources/{source_id}/sbom/spdx-json | Return the source SBOM in the SPDX format
-*SourcesApi* | [**GetSourceVulnerabilities**](docs/SourcesApi.md#getsourcevulnerabilities) | **Get** /sources/{source_id}/vuln/{vuln_type} | Get vulnerabilities for the source by type
-*SourcesApi* | [**GetSourceVulnerabilityTypes**](docs/SourcesApi.md#getsourcevulnerabilitytypes) | **Get** /sources/{source_id}/vuln | Get the available vulnerability types for source
-*SourcesApi* | [**ListSources**](docs/SourcesApi.md#listsources) | **Get** /sources | List the source repository analysis records
-*StatelessApi* | [**VulnerabilityScanSbom**](docs/StatelessApi.md#vulnerabilityscansbom) | **Post** /vulnerability-scan | Return a vulnerability scan for the uploaded SBOM without storing the SBOM and without any side-effects in the system.
-*SubscriptionsApi* | [**AddSubscription**](docs/SubscriptionsApi.md#addsubscription) | **Post** /subscriptions | Add a subscription of a specific type
-*SubscriptionsApi* | [**DeleteSubscription**](docs/SubscriptionsApi.md#deletesubscription) | **Delete** /subscriptions/{subscription_id} | Delete subscriptions of a specific type
-*SubscriptionsApi* | [**GetSubscription**](docs/SubscriptionsApi.md#getsubscription) | **Get** /subscriptions/{subscription_id} | Get a specific subscription set
-*SubscriptionsApi* | [**ListSubscriptions**](docs/SubscriptionsApi.md#listsubscriptions) | **Get** /subscriptions | List all subscriptions
-*SubscriptionsApi* | [**UpdateSubscription**](docs/SubscriptionsApi.md#updatesubscription) | **Put** /subscriptions/{subscription_id} | Update an existing and specific subscription
-*SummariesApi* | [**ListImageTags**](docs/SummariesApi.md#listimagetags) | **Get** /summaries/image-tags | List all visible image digests and tags
-*SystemApi* | [**DeleteFeed**](docs/SystemApi.md#deletefeed) | **Delete** /system/feeds/{feed} | 
-*SystemApi* | [**DeleteService**](docs/SystemApi.md#deleteservice) | **Delete** /system/services/{service_name}/{host_id} | Delete the service config
-*SystemApi* | [**DescribeErrorCodes**](docs/SystemApi.md#describeerrorcodes) | **Get** /system/error-codes | Describe anchore engine error codes.
-*SystemApi* | [**DescribePolicy**](docs/SystemApi.md#describepolicy) | **Get** /system/policy-spec | Describe the policy language spec implemented by this service.
-*SystemApi* | [**GetServiceDetail**](docs/SystemApi.md#getservicedetail) | **Get** /system | System status
-*SystemApi* | [**GetServicesByName**](docs/SystemApi.md#getservicesbyname) | **Get** /system/services/{service_name} | Get a service configuration and state
-*SystemApi* | [**GetServicesByNameAndHost**](docs/SystemApi.md#getservicesbynameandhost) | **Get** /system/services/{service_name}/{host_id} | Get service config for a specific host
-*SystemApi* | [**GetStatus**](docs/SystemApi.md#getstatus) | **Get** /status | Service status
-*SystemApi* | [**GetSystemFeeds**](docs/SystemApi.md#getsystemfeeds) | **Get** /system/feeds | list feeds operations and information
-*SystemApi* | [**ListServices**](docs/SystemApi.md#listservices) | **Get** /system/services | List system services
-*SystemApi* | [**PostSystemFeeds**](docs/SystemApi.md#postsystemfeeds) | **Post** /system/feeds | trigger feeds operations
-*SystemApi* | [**TestWebhook**](docs/SystemApi.md#testwebhook) | **Post** /system/webhooks/{webhook_type}/test | Adds the capabilities to test a webhook delivery for the given notification type
-*SystemApi* | [**ToggleFeedEnabled**](docs/SystemApi.md#togglefeedenabled) | **Put** /system/feeds/{feed} | 
-*UserManagementApi* | [**CreateAccount**](docs/UserManagementApi.md#createaccount) | **Post** /accounts | Create a new account. Only available to admin user.
-*UserManagementApi* | [**CreateUser**](docs/UserManagementApi.md#createuser) | **Post** /accounts/{account_name}/users | Create a new user within the specified account.
-*UserManagementApi* | [**CreateUserCredential**](docs/UserManagementApi.md#createusercredential) | **Post** /accounts/{account_name}/users/{username}/credentials | add/replace credential
-*UserManagementApi* | [**DeleteAccount**](docs/UserManagementApi.md#deleteaccount) | **Delete** /accounts/{account_name} | Delete the specified account, only allowed if the account is in the disabled state. All users will be deleted along with the account and all resources will be garbage collected
-*UserManagementApi* | [**DeleteUser**](docs/UserManagementApi.md#deleteuser) | **Delete** /accounts/{account_name}/users/{username} | Delete a specific user credential by username of the credential. Cannot be the credential used to authenticate the request.
-*UserManagementApi* | [**DeleteUserCredential**](docs/UserManagementApi.md#deleteusercredential) | **Delete** /accounts/{account_name}/users/{username}/credentials | Delete a credential by type
-*UserManagementApi* | [**GetAccount**](docs/UserManagementApi.md#getaccount) | **Get** /accounts/{account_name} | Get account info about this specific account.
-*UserManagementApi* | [**GetAccountUser**](docs/UserManagementApi.md#getaccountuser) | **Get** /accounts/{account_name}/users/{username} | Get a specific user in the specified account
-*UserManagementApi* | [**ListAccounts**](docs/UserManagementApi.md#listaccounts) | **Get** /accounts | List account summaries. Only available to the system admin user.
-*UserManagementApi* | [**ListUserCredentials**](docs/UserManagementApi.md#listusercredentials) | **Get** /accounts/{account_name}/users/{username}/credentials | Get current credential summary
-*UserManagementApi* | [**ListUsers**](docs/UserManagementApi.md#listusers) | **Get** /accounts/{account_name}/users | List of users found in this account.
-*UserManagementApi* | [**UpdateAccount**](docs/UserManagementApi.md#updateaccount) | **Put** /accounts/{account_name} | Update the info for this specific account.
-*UserManagementApi* | [**UpdateAccountState**](docs/UserManagementApi.md#updateaccountstate) | **Put** /accounts/{account_name}/state | Update the state of an account to either enabled or disabled. For deletion use the DELETE route
+*ActionsAPI* | [**AddActionPlan**](docs/ActionsAPI.md#addactionplan) | **Post** /actions | Submits an Action Plan
+*ActionsAPI* | [**GetActionPlans**](docs/ActionsAPI.md#getactionplans) | **Get** /actions | Gets a list of submitted action (remediation) plans
+*AlertsAPI* | [**GetAlertSummaries**](docs/AlertsAPI.md#getalertsummaries) | **Get** /alerts/summaries | List all alert summaries scoped to the account
+*AlertsAPI* | [**GetComplianceViolationAlert**](docs/AlertsAPI.md#getcomplianceviolationalert) | **Get** /alerts/compliance-violations/{uuid} | Get compliance violation alert by id
+*AlertsAPI* | [**GetComplianceViolationAlerts**](docs/AlertsAPI.md#getcomplianceviolationalerts) | **Get** /alerts/compliance-violations | List all compliance violation alerts scoped to the account
+*AlertsAPI* | [**UpdateComplianceViolationAlertState**](docs/AlertsAPI.md#updatecomplianceviolationalertstate) | **Patch** /alerts/compliance-violations/{uuid} | Open or close a compliance violation alert
+*ApplicationsAPI* | [**AddApplication**](docs/ApplicationsAPI.md#addapplication) | **Post** /applications | Create an application
+*ApplicationsAPI* | [**AddApplicationVersion**](docs/ApplicationsAPI.md#addapplicationversion) | **Post** /applications/{application_id}/versions | Create an application version
+*ApplicationsAPI* | [**AddArtifactToApplicationVersion**](docs/ApplicationsAPI.md#addartifacttoapplicationversion) | **Post** /applications/{application_id}/versions/{application_version_id}/artifacts | Add an artifact to an application version
+*ApplicationsAPI* | [**DeleteApplication**](docs/ApplicationsAPI.md#deleteapplication) | **Delete** /applications/{application_id} | Delete an application by application_id
+*ApplicationsAPI* | [**DeleteApplicationVersion**](docs/ApplicationsAPI.md#deleteapplicationversion) | **Delete** /applications/{application_id}/versions/{application_version_id} | Delete an application version by application_id and application_version_id
+*ApplicationsAPI* | [**GetApplication**](docs/ApplicationsAPI.md#getapplication) | **Get** /applications/{application_id} | Get an application by application_id
+*ApplicationsAPI* | [**GetApplicationVersion**](docs/ApplicationsAPI.md#getapplicationversion) | **Get** /applications/{application_id}/versions/{application_version_id} | Get an application version
+*ApplicationsAPI* | [**GetApplicationVersionSbom**](docs/ApplicationsAPI.md#getapplicationversionsbom) | **Get** /applications/{application_id}/versions/{application_version_id}/sboms/native-json | Get the combined sbom for the given application version, optionally filtered by artifact type
+*ApplicationsAPI* | [**GetApplicationVersionVulnerabilities**](docs/ApplicationsAPI.md#getapplicationversionvulnerabilities) | **Get** /applications/{application_id}/versions/{application_version_id}/vulnerabilities | Get the vulnerabilities for a given application version
+*ApplicationsAPI* | [**GetApplicationVersions**](docs/ApplicationsAPI.md#getapplicationversions) | **Get** /applications/{application_id}/versions | List all application verions
+*ApplicationsAPI* | [**GetApplications**](docs/ApplicationsAPI.md#getapplications) | **Get** /applications | List all applications
+*ApplicationsAPI* | [**ListArtifacts**](docs/ApplicationsAPI.md#listartifacts) | **Get** /applications/{application_id}/versions/{application_version_id}/artifacts | List artifacts present on a given application version
+*ApplicationsAPI* | [**RemoveArtifactFromApplicationVersion**](docs/ApplicationsAPI.md#removeartifactfromapplicationversion) | **Delete** /applications/{application_id}/versions/{application_version_id}/artifacts/{association_id} | Delete an artifact from specified application version
+*ApplicationsAPI* | [**UpdateApplication**](docs/ApplicationsAPI.md#updateapplication) | **Put** /applications/{application_id} | Update application details
+*ApplicationsAPI* | [**UpdateApplicationVersion**](docs/ApplicationsAPI.md#updateapplicationversion) | **Put** /applications/{application_id}/versions/{application_version_id} | Update application version details
+*ArchivesAPI* | [**ArchiveImageAnalysis**](docs/ArchivesAPI.md#archiveimageanalysis) | **Post** /archives/images | 
+*ArchivesAPI* | [**CreateAnalysisArchiveRule**](docs/ArchivesAPI.md#createanalysisarchiverule) | **Post** /archives/rules | 
+*ArchivesAPI* | [**DeleteAnalysisArchiveRule**](docs/ArchivesAPI.md#deleteanalysisarchiverule) | **Delete** /archives/rules/{rule_id} | 
+*ArchivesAPI* | [**DeleteArchivedAnalysis**](docs/ArchivesAPI.md#deletearchivedanalysis) | **Delete** /archives/images/{image_digest} | 
+*ArchivesAPI* | [**GetAnalysisArchiveRule**](docs/ArchivesAPI.md#getanalysisarchiverule) | **Get** /archives/rules/{rule_id} | 
+*ArchivesAPI* | [**GetArchivedAnalysis**](docs/ArchivesAPI.md#getarchivedanalysis) | **Get** /archives/images/{image_digest} | 
+*ArchivesAPI* | [**ListAnalysisArchive**](docs/ArchivesAPI.md#listanalysisarchive) | **Get** /archives/images | 
+*ArchivesAPI* | [**ListAnalysisArchiveRules**](docs/ArchivesAPI.md#listanalysisarchiverules) | **Get** /archives/rules | 
+*ArchivesAPI* | [**ListArchives**](docs/ArchivesAPI.md#listarchives) | **Get** /archives | 
+*CorrectionsAPI* | [**AddCorrection**](docs/CorrectionsAPI.md#addcorrection) | **Post** /corrections | Create a correction record
+*CorrectionsAPI* | [**DeleteCorrectionByUuid**](docs/CorrectionsAPI.md#deletecorrectionbyuuid) | **Delete** /corrections/{uuid} | Delete a correction by UUID
+*CorrectionsAPI* | [**GetCorrectionByUuid**](docs/CorrectionsAPI.md#getcorrectionbyuuid) | **Get** /corrections/{uuid} | Retrieve a correction by UUID
+*CorrectionsAPI* | [**GetCorrections**](docs/CorrectionsAPI.md#getcorrections) | **Get** /corrections | Retrieve a list of corrections
+*CorrectionsAPI* | [**UpdateCorrectionByUuid**](docs/CorrectionsAPI.md#updatecorrectionbyuuid) | **Put** /corrections/{uuid} | Update a correction by UUID
+*DefaultAPI* | [**AddGithubConfiguration**](docs/DefaultAPI.md#addgithubconfiguration) | **Post** /notifications/endpoints/github/configurations | 
+*DefaultAPI* | [**AddGithubSelector**](docs/DefaultAPI.md#addgithubselector) | **Post** /notifications/endpoints/github/configurations/{uuid}/selectors | 
+*DefaultAPI* | [**AddIdp**](docs/DefaultAPI.md#addidp) | **Post** /rbac-manager/saml/idps | 
+*DefaultAPI* | [**AddJiraConfiguration**](docs/DefaultAPI.md#addjiraconfiguration) | **Post** /notifications/endpoints/jira/configurations | 
+*DefaultAPI* | [**AddJiraSelector**](docs/DefaultAPI.md#addjiraselector) | **Post** /notifications/endpoints/jira/configurations/{uuid}/selectors | 
+*DefaultAPI* | [**AddRoleUser**](docs/DefaultAPI.md#addroleuser) | **Post** /rbac-manager/roles/{role_name}/members | Add a user to the role
+*DefaultAPI* | [**AddSlackConfiguration**](docs/DefaultAPI.md#addslackconfiguration) | **Post** /notifications/endpoints/slack/configurations | 
+*DefaultAPI* | [**AddSlackSelector**](docs/DefaultAPI.md#addslackselector) | **Post** /notifications/endpoints/slack/configurations/{uuid}/selectors | 
+*DefaultAPI* | [**AddSmtpConfiguration**](docs/DefaultAPI.md#addsmtpconfiguration) | **Post** /notifications/endpoints/smtp/configurations | 
+*DefaultAPI* | [**AddSmtpSelector**](docs/DefaultAPI.md#addsmtpselector) | **Post** /notifications/endpoints/smtp/configurations/{uuid}/selectors | 
+*DefaultAPI* | [**AddTeamsConfiguration**](docs/DefaultAPI.md#addteamsconfiguration) | **Post** /notifications/endpoints/teams/configurations | 
+*DefaultAPI* | [**AddTeamsSelector**](docs/DefaultAPI.md#addteamsselector) | **Post** /notifications/endpoints/teams/configurations/{uuid}/selectors | 
+*DefaultAPI* | [**AddWebhookConfiguration**](docs/DefaultAPI.md#addwebhookconfiguration) | **Post** /notifications/endpoints/webhook/configurations | 
+*DefaultAPI* | [**AddWebhookSelector**](docs/DefaultAPI.md#addwebhookselector) | **Post** /notifications/endpoints/webhook/configurations/{uuid}/selectors | 
+*DefaultAPI* | [**DeleteGithubConfiguration**](docs/DefaultAPI.md#deletegithubconfiguration) | **Delete** /notifications/endpoints/github/configurations/{uuid} | 
+*DefaultAPI* | [**DeleteGithubSelector**](docs/DefaultAPI.md#deletegithubselector) | **Delete** /notifications/endpoints/github/configurations/{configuration_uuid}/selectors/{selector_uuid} | 
+*DefaultAPI* | [**DeleteIdp**](docs/DefaultAPI.md#deleteidp) | **Delete** /rbac-manager/saml/idps/{name} | 
+*DefaultAPI* | [**DeleteJiraConfiguration**](docs/DefaultAPI.md#deletejiraconfiguration) | **Delete** /notifications/endpoints/jira/configurations/{uuid} | 
+*DefaultAPI* | [**DeleteJiraSelector**](docs/DefaultAPI.md#deletejiraselector) | **Delete** /notifications/endpoints/jira/configurations/{configuration_uuid}/selectors/{selector_uuid} | 
+*DefaultAPI* | [**DeleteRoleUser**](docs/DefaultAPI.md#deleteroleuser) | **Delete** /rbac-manager/roles/{role_name}/members | Remove a user from the role
+*DefaultAPI* | [**DeleteSlackConfiguration**](docs/DefaultAPI.md#deleteslackconfiguration) | **Delete** /notifications/endpoints/slack/configurations/{uuid} | 
+*DefaultAPI* | [**DeleteSlackSelector**](docs/DefaultAPI.md#deleteslackselector) | **Delete** /notifications/endpoints/slack/configurations/{configuration_uuid}/selectors/{selector_uuid} | 
+*DefaultAPI* | [**DeleteSmtpConfiguration**](docs/DefaultAPI.md#deletesmtpconfiguration) | **Delete** /notifications/endpoints/smtp/configurations/{uuid} | 
+*DefaultAPI* | [**DeleteSmtpSelector**](docs/DefaultAPI.md#deletesmtpselector) | **Delete** /notifications/endpoints/smtp/configurations/{configuration_uuid}/selectors/{selector_uuid} | 
+*DefaultAPI* | [**DeleteTeamsConfiguration**](docs/DefaultAPI.md#deleteteamsconfiguration) | **Delete** /notifications/endpoints/teams/configurations/{uuid} | 
+*DefaultAPI* | [**DeleteTeamsSelector**](docs/DefaultAPI.md#deleteteamsselector) | **Delete** /notifications/endpoints/teams/configurations/{configuration_uuid}/selectors/{selector_uuid} | 
+*DefaultAPI* | [**DeleteWebhookConfiguration**](docs/DefaultAPI.md#deletewebhookconfiguration) | **Delete** /notifications/endpoints/webhook/configurations/{uuid} | 
+*DefaultAPI* | [**DeleteWebhookSelector**](docs/DefaultAPI.md#deletewebhookselector) | **Delete** /notifications/endpoints/webhook/configurations/{configuration_uuid}/selectors/{selector_uuid} | 
+*DefaultAPI* | [**GetGithubConfiguration**](docs/DefaultAPI.md#getgithubconfiguration) | **Get** /notifications/endpoints/github/configurations/{uuid} | 
+*DefaultAPI* | [**GetGithubConfigurationStatus**](docs/DefaultAPI.md#getgithubconfigurationstatus) | **Get** /notifications/endpoints/github/configurations/{uuid}/status | 
+*DefaultAPI* | [**GetGithubSelector**](docs/DefaultAPI.md#getgithubselector) | **Get** /notifications/endpoints/github/configurations/{configuration_uuid}/selectors/{selector_uuid} | 
+*DefaultAPI* | [**GetGlobalQueryResult**](docs/DefaultAPI.md#getglobalqueryresult) | **Get** /reporting/reports/global/scheduled-query-results/{result_uuid} | 
+*DefaultAPI* | [**GetIdp**](docs/DefaultAPI.md#getidp) | **Get** /rbac-manager/saml/idps/{name} | 
+*DefaultAPI* | [**GetJiraConfiguration**](docs/DefaultAPI.md#getjiraconfiguration) | **Get** /notifications/endpoints/jira/configurations/{uuid} | 
+*DefaultAPI* | [**GetJiraConfigurationStatus**](docs/DefaultAPI.md#getjiraconfigurationstatus) | **Get** /notifications/endpoints/jira/configurations/{uuid}/status | 
+*DefaultAPI* | [**GetJiraSelector**](docs/DefaultAPI.md#getjiraselector) | **Get** /notifications/endpoints/jira/configurations/{configuration_uuid}/selectors/{selector_uuid} | 
+*DefaultAPI* | [**GetOauthToken**](docs/DefaultAPI.md#getoauthtoken) | **Post** /oauth/token | 
+*DefaultAPI* | [**GetQueryResult**](docs/DefaultAPI.md#getqueryresult) | **Get** /reporting/scheduled-query-results/{result_uuid} | 
+*DefaultAPI* | [**GetRole**](docs/DefaultAPI.md#getrole) | **Get** /rbac-manager/roles/{role_name} | Get detailed information about a specific role
+*DefaultAPI* | [**GetSlackConfiguration**](docs/DefaultAPI.md#getslackconfiguration) | **Get** /notifications/endpoints/slack/configurations/{uuid} | 
+*DefaultAPI* | [**GetSlackConfigurationStatus**](docs/DefaultAPI.md#getslackconfigurationstatus) | **Get** /notifications/endpoints/slack/configurations/{uuid}/status | 
+*DefaultAPI* | [**GetSlackSelector**](docs/DefaultAPI.md#getslackselector) | **Get** /notifications/endpoints/slack/configurations/{configuration_uuid}/selectors/{selector_uuid} | 
+*DefaultAPI* | [**GetSmtpConfiguration**](docs/DefaultAPI.md#getsmtpconfiguration) | **Get** /notifications/endpoints/smtp/configurations/{uuid} | 
+*DefaultAPI* | [**GetSmtpConfigurationStatus**](docs/DefaultAPI.md#getsmtpconfigurationstatus) | **Get** /notifications/endpoints/smtp/configurations/{uuid}/status | 
+*DefaultAPI* | [**GetSmtpSelector**](docs/DefaultAPI.md#getsmtpselector) | **Get** /notifications/endpoints/smtp/configurations/{configuration_uuid}/selectors/{selector_uuid} | 
+*DefaultAPI* | [**GetTeamsConfiguration**](docs/DefaultAPI.md#getteamsconfiguration) | **Get** /notifications/endpoints/teams/configurations/{uuid} | 
+*DefaultAPI* | [**GetTeamsConfigurationStatus**](docs/DefaultAPI.md#getteamsconfigurationstatus) | **Get** /notifications/endpoints/teams/configurations/{uuid}/status | 
+*DefaultAPI* | [**GetTeamsSelector**](docs/DefaultAPI.md#getteamsselector) | **Get** /notifications/endpoints/teams/configurations/{configuration_uuid}/selectors/{selector_uuid} | 
+*DefaultAPI* | [**GetWebhookConfiguration**](docs/DefaultAPI.md#getwebhookconfiguration) | **Get** /notifications/endpoints/webhook/configurations/{uuid} | 
+*DefaultAPI* | [**GetWebhookConfigurationStatus**](docs/DefaultAPI.md#getwebhookconfigurationstatus) | **Get** /notifications/endpoints/webhook/configurations/{uuid}/status | 
+*DefaultAPI* | [**GetWebhookSelector**](docs/DefaultAPI.md#getwebhookselector) | **Get** /notifications/endpoints/webhook/configurations/{configuration_uuid}/selectors/{selector_uuid} | 
+*DefaultAPI* | [**HealthCheck**](docs/DefaultAPI.md#healthcheck) | **Get** /health | 
+*DefaultAPI* | [**ListEndpoints**](docs/DefaultAPI.md#listendpoints) | **Get** /notifications/endpoints | 
+*DefaultAPI* | [**ListFileContentSearchResults**](docs/DefaultAPI.md#listfilecontentsearchresults) | **Get** /images/{image_digest}/artifacts/file-content-search | Return a list of analyzer artifacts of the specified type
+*DefaultAPI* | [**ListGithubConfigurations**](docs/DefaultAPI.md#listgithubconfigurations) | **Get** /notifications/endpoints/github/configurations | 
+*DefaultAPI* | [**ListGithubSelectors**](docs/DefaultAPI.md#listgithubselectors) | **Get** /notifications/endpoints/github/configurations/{uuid}/selectors | 
+*DefaultAPI* | [**ListIdps**](docs/DefaultAPI.md#listidps) | **Get** /rbac-manager/saml/idps | 
+*DefaultAPI* | [**ListJiraConfigurations**](docs/DefaultAPI.md#listjiraconfigurations) | **Get** /notifications/endpoints/jira/configurations | 
+*DefaultAPI* | [**ListJiraSelectors**](docs/DefaultAPI.md#listjiraselectors) | **Get** /notifications/endpoints/jira/configurations/{uuid}/selectors | 
+*DefaultAPI* | [**ListRetrievedFiles**](docs/DefaultAPI.md#listretrievedfiles) | **Get** /images/{image_digest}/artifacts/retrieved-files | Return a list of analyzer artifacts of the specified type
+*DefaultAPI* | [**ListRoleMembers**](docs/DefaultAPI.md#listrolemembers) | **Get** /rbac-manager/roles/{role_name}/members | Returns a list of objects that have members in the role. The list is filtered by &#39;listRoleMembers&#39; access for the &#39;account&#39; element of each entry.
+*DefaultAPI* | [**ListRoles**](docs/DefaultAPI.md#listroles) | **Get** /rbac-manager/roles | List roles available in the system
+*DefaultAPI* | [**ListSecretSearchResults**](docs/DefaultAPI.md#listsecretsearchresults) | **Get** /images/{image_digest}/artifacts/secret-search | Return a list of analyzer artifacts of the specified type
+*DefaultAPI* | [**ListSelectors**](docs/DefaultAPI.md#listselectors) | **Get** /notifications/selectors | 
+*DefaultAPI* | [**ListSlackConfigurations**](docs/DefaultAPI.md#listslackconfigurations) | **Get** /notifications/endpoints/slack/configurations | 
+*DefaultAPI* | [**ListSlackSelectors**](docs/DefaultAPI.md#listslackselectors) | **Get** /notifications/endpoints/slack/configurations/{uuid}/selectors | 
+*DefaultAPI* | [**ListSmtpConfigurations**](docs/DefaultAPI.md#listsmtpconfigurations) | **Get** /notifications/endpoints/smtp/configurations | 
+*DefaultAPI* | [**ListSmtpSelectors**](docs/DefaultAPI.md#listsmtpselectors) | **Get** /notifications/endpoints/smtp/configurations/{uuid}/selectors | 
+*DefaultAPI* | [**ListTeamsConfigurations**](docs/DefaultAPI.md#listteamsconfigurations) | **Get** /notifications/endpoints/teams/configurations | 
+*DefaultAPI* | [**ListTeamsSelectors**](docs/DefaultAPI.md#listteamsselectors) | **Get** /notifications/endpoints/teams/configurations/{uuid}/selectors | 
+*DefaultAPI* | [**ListUserRoles**](docs/DefaultAPI.md#listuserroles) | **Get** /rbac-manager/users/{username}/roles | List the roles for which the requested user is a member
+*DefaultAPI* | [**ListWebhookConfigurations**](docs/DefaultAPI.md#listwebhookconfigurations) | **Get** /notifications/endpoints/webhook/configurations | 
+*DefaultAPI* | [**ListWebhookSelectors**](docs/DefaultAPI.md#listwebhookselectors) | **Get** /notifications/endpoints/webhook/configurations/{uuid}/selectors | 
+*DefaultAPI* | [**MyRoles**](docs/DefaultAPI.md#myroles) | **Get** /rbac-manager/my-roles | List the roles for which the authenticated user is a member
+*DefaultAPI* | [**Ping**](docs/DefaultAPI.md#ping) | **Get** / | 
+*DefaultAPI* | [**RevokeOauthToken**](docs/DefaultAPI.md#revokeoauthtoken) | **Post** /oauth/revoke | 
+*DefaultAPI* | [**SamlLogin**](docs/DefaultAPI.md#samllogin) | **Get** /rbac-manager/saml/login/{idp_name} | 
+*DefaultAPI* | [**SamlSso**](docs/DefaultAPI.md#samlsso) | **Post** /rbac-manager/saml/sso/{idp_name} | 
+*DefaultAPI* | [**TestGithubConfiguration**](docs/DefaultAPI.md#testgithubconfiguration) | **Post** /notifications/endpoints/github/test | 
+*DefaultAPI* | [**TestJiraConfiguration**](docs/DefaultAPI.md#testjiraconfiguration) | **Post** /notifications/endpoints/jira/test | 
+*DefaultAPI* | [**TestSlackConfiguration**](docs/DefaultAPI.md#testslackconfiguration) | **Post** /notifications/endpoints/slack/test | 
+*DefaultAPI* | [**TestSmtpConfiguration**](docs/DefaultAPI.md#testsmtpconfiguration) | **Post** /notifications/endpoints/smtp/test | 
+*DefaultAPI* | [**TestStoredGithubConfiguration**](docs/DefaultAPI.md#teststoredgithubconfiguration) | **Get** /notifications/endpoints/github/configurations/{uuid}/test | 
+*DefaultAPI* | [**TestStoredJiraConfiguration**](docs/DefaultAPI.md#teststoredjiraconfiguration) | **Get** /notifications/endpoints/jira/configurations/{uuid}/test | 
+*DefaultAPI* | [**TestStoredSlackConfiguration**](docs/DefaultAPI.md#teststoredslackconfiguration) | **Get** /notifications/endpoints/slack/configurations/{uuid}/test | 
+*DefaultAPI* | [**TestStoredSmtpConfiguration**](docs/DefaultAPI.md#teststoredsmtpconfiguration) | **Get** /notifications/endpoints/smtp/configurations/{uuid}/test | 
+*DefaultAPI* | [**TestStoredTeamsConfiguration**](docs/DefaultAPI.md#teststoredteamsconfiguration) | **Get** /notifications/endpoints/teams/configurations/{uuid}/test | 
+*DefaultAPI* | [**TestStoredWebhookConfiguration**](docs/DefaultAPI.md#teststoredwebhookconfiguration) | **Get** /notifications/endpoints/webhook/configurations/{uuid}/test | 
+*DefaultAPI* | [**TestTeamsConfiguration**](docs/DefaultAPI.md#testteamsconfiguration) | **Post** /notifications/endpoints/teams/test | 
+*DefaultAPI* | [**TestWebhookConfiguration**](docs/DefaultAPI.md#testwebhookconfiguration) | **Post** /notifications/endpoints/webhook/test | 
+*DefaultAPI* | [**UpdateEndpointStatus**](docs/DefaultAPI.md#updateendpointstatus) | **Put** /notifications/endpoints/{name} | 
+*DefaultAPI* | [**UpdateGithubConfiguration**](docs/DefaultAPI.md#updategithubconfiguration) | **Put** /notifications/endpoints/github/configurations/{uuid} | 
+*DefaultAPI* | [**UpdateGithubSelector**](docs/DefaultAPI.md#updategithubselector) | **Put** /notifications/endpoints/github/configurations/{configuration_uuid}/selectors/{selector_uuid} | 
+*DefaultAPI* | [**UpdateIdp**](docs/DefaultAPI.md#updateidp) | **Put** /rbac-manager/saml/idps/{name} | 
+*DefaultAPI* | [**UpdateJiraConfiguration**](docs/DefaultAPI.md#updatejiraconfiguration) | **Put** /notifications/endpoints/jira/configurations/{uuid} | 
+*DefaultAPI* | [**UpdateJiraSelector**](docs/DefaultAPI.md#updatejiraselector) | **Put** /notifications/endpoints/jira/configurations/{configuration_uuid}/selectors/{selector_uuid} | 
+*DefaultAPI* | [**UpdateSlackConfiguration**](docs/DefaultAPI.md#updateslackconfiguration) | **Put** /notifications/endpoints/slack/configurations/{uuid} | 
+*DefaultAPI* | [**UpdateSlackSelector**](docs/DefaultAPI.md#updateslackselector) | **Put** /notifications/endpoints/slack/configurations/{configuration_uuid}/selectors/{selector_uuid} | 
+*DefaultAPI* | [**UpdateSmtpConfiguration**](docs/DefaultAPI.md#updatesmtpconfiguration) | **Put** /notifications/endpoints/smtp/configurations/{uuid} | 
+*DefaultAPI* | [**UpdateSmtpSelector**](docs/DefaultAPI.md#updatesmtpselector) | **Put** /notifications/endpoints/smtp/configurations/{configuration_uuid}/selectors/{selector_uuid} | 
+*DefaultAPI* | [**UpdateTeamsConfiguration**](docs/DefaultAPI.md#updateteamsconfiguration) | **Put** /notifications/endpoints/teams/configurations/{uuid} | 
+*DefaultAPI* | [**UpdateTeamsSelector**](docs/DefaultAPI.md#updateteamsselector) | **Put** /notifications/endpoints/teams/configurations/{configuration_uuid}/selectors/{selector_uuid} | 
+*DefaultAPI* | [**UpdateWebhookConfiguration**](docs/DefaultAPI.md#updatewebhookconfiguration) | **Put** /notifications/endpoints/webhook/configurations/{uuid} | 
+*DefaultAPI* | [**UpdateWebhookSelector**](docs/DefaultAPI.md#updatewebhookselector) | **Put** /notifications/endpoints/webhook/configurations/{configuration_uuid}/selectors/{selector_uuid} | 
+*DefaultAPI* | [**VersionCheck**](docs/DefaultAPI.md#versioncheck) | **Get** /version | 
+*EventsAPI* | [**DeleteEvent**](docs/EventsAPI.md#deleteevent) | **Delete** /events/{event_id} | Delete Event
+*EventsAPI* | [**DeleteEvents**](docs/EventsAPI.md#deleteevents) | **Delete** /events | Delete Events
+*EventsAPI* | [**GetEvent**](docs/EventsAPI.md#getevent) | **Get** /events/{event_id} | Get Event
+*EventsAPI* | [**ListEventTypes**](docs/EventsAPI.md#listeventtypes) | **Get** /event-types | List Event Types
+*EventsAPI* | [**ListEvents**](docs/EventsAPI.md#listevents) | **Get** /events | List Events
+*IdentityAPI* | [**AddCredential**](docs/IdentityAPI.md#addcredential) | **Post** /user/credentials | add/replace credential
+*IdentityAPI* | [**GetCredentials**](docs/IdentityAPI.md#getcredentials) | **Get** /user/credentials | Get current credential summary
+*IdentityAPI* | [**GetUser**](docs/IdentityAPI.md#getuser) | **Get** /user | List authenticated user info
+*IdentityAPI* | [**GetUsersAccount**](docs/IdentityAPI.md#getusersaccount) | **Get** /account | List the account for the authenticated user
+*ImagesAPI* | [**AddImage**](docs/ImagesAPI.md#addimage) | **Post** /images | Submit a new image for analysis by the engine
+*ImagesAPI* | [**DeleteImage**](docs/ImagesAPI.md#deleteimage) | **Delete** /images/{image_digest} | Delete an image analysis
+*ImagesAPI* | [**DeleteImagesAsync**](docs/ImagesAPI.md#deleteimagesasync) | **Delete** /images | Bulk mark images for deletion
+*ImagesAPI* | [**GetImage**](docs/ImagesAPI.md#getimage) | **Get** /images/{image_digest} | Get image metadata
+*ImagesAPI* | [**GetImageAncestors**](docs/ImagesAPI.md#getimageancestors) | **Get** /images/{image_digest}/ancestors | Return the list of ancestor images for the given image
+*ImagesAPI* | [**GetImageContentByType**](docs/ImagesAPI.md#getimagecontentbytype) | **Get** /images/{image_digest}/content/{content_type} | Get the content of an image by type
+*ImagesAPI* | [**GetImageContentByTypeFiles**](docs/ImagesAPI.md#getimagecontentbytypefiles) | **Get** /images/{image_digest}/content/files | Get the content of an image by type files
+*ImagesAPI* | [**GetImageContentByTypeJavaPackage**](docs/ImagesAPI.md#getimagecontentbytypejavapackage) | **Get** /images/{image_digest}/content/java | Get the content of an image by type java
+*ImagesAPI* | [**GetImageContentByTypeMalware**](docs/ImagesAPI.md#getimagecontentbytypemalware) | **Get** /images/{image_digest}/content/malware | Get the content of an image by type malware
+*ImagesAPI* | [**GetImageMetadataByType**](docs/ImagesAPI.md#getimagemetadatabytype) | **Get** /images/{image_digest}/metadata/{metadata_type} | Get the metadata of an image by type
+*ImagesAPI* | [**GetImagePolicyCheckByDigest**](docs/ImagesAPI.md#getimagepolicycheckbydigest) | **Get** /images/{image_digest}/check | Check policy evaluation status for image
+*ImagesAPI* | [**GetImageSbomCyclonedxJson**](docs/ImagesAPI.md#getimagesbomcyclonedxjson) | **Get** /images/{image_digest}/sboms/cyclonedx-json | Get image sbom in the CycloneDX format
+*ImagesAPI* | [**GetImageSbomNativeJson**](docs/ImagesAPI.md#getimagesbomnativejson) | **Get** /images/{image_digest}/sboms/native-json | Get image sbom in the native Anchore format
+*ImagesAPI* | [**GetImageSbomSpdxJson**](docs/ImagesAPI.md#getimagesbomspdxjson) | **Get** /images/{image_digest}/sboms/spdx-json | Get image sbom in the SPDX format
+*ImagesAPI* | [**GetImageVulnerabilitiesByDigest**](docs/ImagesAPI.md#getimagevulnerabilitiesbydigest) | **Get** /images/{image_digest}/vuln/{vuln_type} | Get vulnerabilities by type
+*ImagesAPI* | [**GetImageVulnerabilityTypes**](docs/ImagesAPI.md#getimagevulnerabilitytypes) | **Get** /images/{image_digest}/vuln | Get vulnerability types
+*ImagesAPI* | [**ListImageContent**](docs/ImagesAPI.md#listimagecontent) | **Get** /images/{image_digest}/content | List image content types
+*ImagesAPI* | [**ListImageMetadata**](docs/ImagesAPI.md#listimagemetadata) | **Get** /images/{image_digest}/metadata | List image metadata types
+*ImagesAPI* | [**ListImages**](docs/ImagesAPI.md#listimages) | **Get** /images | List all visible images
+*ImportsAPI* | [**CreateOperation**](docs/ImportsAPI.md#createoperation) | **Post** /imports/images | Begin the import of an image SBOM into the system
+*ImportsAPI* | [**CreateSourcesOperation**](docs/ImportsAPI.md#createsourcesoperation) | **Post** /imports/sources | Begin the import of a source code repository analyzed by Syft into the system
+*ImportsAPI* | [**FinalizeOperation**](docs/ImportsAPI.md#finalizeoperation) | **Post** /imports/sources/{operation_id}/finalize | Add source records to catalog db
+*ImportsAPI* | [**GetImportSourcesSbom**](docs/ImportsAPI.md#getimportsourcessbom) | **Get** /imports/sources/{operation_id}/sbom | list the packages of an imported source code repository
+*ImportsAPI* | [**GetOperation**](docs/ImportsAPI.md#getoperation) | **Get** /imports/images/{operation_id} | Get detail on a single import
+*ImportsAPI* | [**GetSourcesOperation**](docs/ImportsAPI.md#getsourcesoperation) | **Get** /imports/sources/{operation_id} | Get detail on a single import
+*ImportsAPI* | [**ImportContentSearches**](docs/ImportsAPI.md#importcontentsearches) | **Post** /imports/images/{operation_id}/content-searches | Import a content search analysis catalog
+*ImportsAPI* | [**ImportFileContents**](docs/ImportsAPI.md#importfilecontents) | **Post** /imports/images/{operation_id}/file-contents | Import a file contents analysis catalog
+*ImportsAPI* | [**ImportImageConfig**](docs/ImportsAPI.md#importimageconfig) | **Post** /imports/images/{operation_id}/image-config | Import a docker or OCI image config to associate with the image
+*ImportsAPI* | [**ImportImageDockerfile**](docs/ImportsAPI.md#importimagedockerfile) | **Post** /imports/images/{operation_id}/dockerfile | Begin the import of an image analyzed by Syft into the system
+*ImportsAPI* | [**ImportImageManifest**](docs/ImportsAPI.md#importimagemanifest) | **Post** /imports/images/{operation_id}/manifest | Import a docker or OCI distribution manifest to associate with the image
+*ImportsAPI* | [**ImportImagePackages**](docs/ImportsAPI.md#importimagepackages) | **Post** /imports/images/{operation_id}/packages | Begin the import of an image analyzed by Syft into the system
+*ImportsAPI* | [**ImportImageParentManifest**](docs/ImportsAPI.md#importimageparentmanifest) | **Post** /imports/images/{operation_id}/parent-manifest | Import a docker or OCI distribution manifest list to associate with the image
+*ImportsAPI* | [**ImportSecretSearches**](docs/ImportsAPI.md#importsecretsearches) | **Post** /imports/images/{operation_id}/secret-searches | Import a secret search analysis catalog
+*ImportsAPI* | [**InvalidateOperation**](docs/ImportsAPI.md#invalidateoperation) | **Delete** /imports/images/{operation_id} | Invalidate operation ID so it can be garbage collected
+*ImportsAPI* | [**InvalidateSourcesOperation**](docs/ImportsAPI.md#invalidatesourcesoperation) | **Delete** /imports/sources/{operation_id} | Invalidate operation ID so it can be garbage collected
+*ImportsAPI* | [**ListImportContentSearches**](docs/ImportsAPI.md#listimportcontentsearches) | **Get** /imports/images/{operation_id}/content-searches | List uploaded content search results
+*ImportsAPI* | [**ListImportDockerfiles**](docs/ImportsAPI.md#listimportdockerfiles) | **Get** /imports/images/{operation_id}/dockerfile | List uploaded dockerfiles
+*ImportsAPI* | [**ListImportFileContents**](docs/ImportsAPI.md#listimportfilecontents) | **Get** /imports/images/{operation_id}/file-contents | List uploaded file contents
+*ImportsAPI* | [**ListImportImageConfigs**](docs/ImportsAPI.md#listimportimageconfigs) | **Get** /imports/images/{operation_id}/image-config | List uploaded image configs
+*ImportsAPI* | [**ListImportImageManifests**](docs/ImportsAPI.md#listimportimagemanifests) | **Get** /imports/images/{operation_id}/manifest | List uploaded image manifests
+*ImportsAPI* | [**ListImportPackages**](docs/ImportsAPI.md#listimportpackages) | **Get** /imports/images/{operation_id}/packages | List uploaded package manifests
+*ImportsAPI* | [**ListImportParentManifests**](docs/ImportsAPI.md#listimportparentmanifests) | **Get** /imports/images/{operation_id}/parent-manifest | List uploaded parent manifests (manifest lists for a tag)
+*ImportsAPI* | [**ListImportSecretSearches**](docs/ImportsAPI.md#listimportsecretsearches) | **Get** /imports/images/{operation_id}/secret-searches | List uploaded secret search results
+*ImportsAPI* | [**ListOperations**](docs/ImportsAPI.md#listoperations) | **Get** /imports/images | Lists in-progress imports
+*ImportsAPI* | [**ListSourcesOperations**](docs/ImportsAPI.md#listsourcesoperations) | **Get** /imports/sources | Lists in-progress imports
+*ImportsAPI* | [**UploadImportSourcesSbom**](docs/ImportsAPI.md#uploadimportsourcessbom) | **Post** /imports/sources/{operation_id}/sbom | Begin the import of a source code repository analyzed by Syft into the system
+*InventoriesAPI* | [**DeleteInventory**](docs/InventoriesAPI.md#deleteinventory) | **Delete** /inventories | Delete runtime inventory by type and context
+*InventoriesAPI* | [**DeleteKubernetesNamespaces**](docs/InventoriesAPI.md#deletekubernetesnamespaces) | **Delete** /kubernetes-namespaces | Delete Kubernetes namespaces for a given criteria
+*InventoriesAPI* | [**GetEcsContainers**](docs/InventoriesAPI.md#getecscontainers) | **Get** /ecs-containers | Return a list of ECS containers that have been inventoried for this account
+*InventoriesAPI* | [**GetEcsServices**](docs/InventoriesAPI.md#getecsservices) | **Get** /ecs-services | Return a list of ECS services that have been inventoried for this account
+*InventoriesAPI* | [**GetEcsTasks**](docs/InventoriesAPI.md#getecstasks) | **Get** /ecs-tasks | Return a list of ECS tasks that have been inventoried for this account
+*InventoriesAPI* | [**GetImageInventory**](docs/InventoriesAPI.md#getimageinventory) | **Get** /inventories | Return a list of the images in inventories for this account
+*InventoriesAPI* | [**GetKubernetesContainers**](docs/InventoriesAPI.md#getkubernetescontainers) | **Get** /kubernetes-containers | Return a list of Kubernetes containers that have been inventoried for this account
+*InventoriesAPI* | [**GetKubernetesNamespace**](docs/InventoriesAPI.md#getkubernetesnamespace) | **Get** /kubernetes-namespaces/{namespace_id} | Return a Kubernetes namespace that has been inventoried for this account
+*InventoriesAPI* | [**GetKubernetesNamespaces**](docs/InventoriesAPI.md#getkubernetesnamespaces) | **Get** /kubernetes-namespaces | Return a list of Kubernetes namespaces that have been inventoried for this account
+*InventoriesAPI* | [**GetKubernetesNode**](docs/InventoriesAPI.md#getkubernetesnode) | **Get** /kubernetes-nodes/{node_id} | Return a Kubernetes node that has been inventoried for this account
+*InventoriesAPI* | [**GetKubernetesNodes**](docs/InventoriesAPI.md#getkubernetesnodes) | **Get** /kubernetes-nodes | Return a list of Kubernetes nodes that have been inventoried for this account
+*InventoriesAPI* | [**GetKubernetesPod**](docs/InventoriesAPI.md#getkubernetespod) | **Get** /kubernetes-pods/{pod_id} | Return a Kubernetes pod that has been inventoried for this account
+*InventoriesAPI* | [**GetKubernetesPods**](docs/InventoriesAPI.md#getkubernetespods) | **Get** /kubernetes-pods | Return a list of Kubernetes pods that have been inventoried for this account
+*InventoriesAPI* | [**PostEcsInventory**](docs/InventoriesAPI.md#postecsinventory) | **Post** /ecs-inventory | Add container metadata from Amazon ECS
+*InventoriesAPI* | [**PostKubernetesInventory**](docs/InventoriesAPI.md#postkubernetesinventory) | **Post** /kubernetes-inventory | Add container metadata from a Kubernetes deployment
+*PoliciesAPI* | [**AddPolicy**](docs/PoliciesAPI.md#addpolicy) | **Post** /policies | Add a new policy
+*PoliciesAPI* | [**DeletePolicy**](docs/PoliciesAPI.md#deletepolicy) | **Delete** /policies/{policy_id} | Delete policy
+*PoliciesAPI* | [**GetPolicy**](docs/PoliciesAPI.md#getpolicy) | **Get** /policies/{policy_id} | Get specific policy
+*PoliciesAPI* | [**ListPolicies**](docs/PoliciesAPI.md#listpolicies) | **Get** /policies | List policies
+*PoliciesAPI* | [**UpdatePolicy**](docs/PoliciesAPI.md#updatepolicy) | **Put** /policies/{policy_id} | Update policy
+*QueryAPI* | [**QueryImagesByPackage**](docs/QueryAPI.md#queryimagesbypackage) | **Get** /query/images/by-package | List of images containing given package
+*QueryAPI* | [**QueryVulnerabilities**](docs/QueryAPI.md#queryvulnerabilities) | **Get** /query/vulnerabilities | Listing information about given vulnerability
+*RegistriesAPI* | [**CreateRegistry**](docs/RegistriesAPI.md#createregistry) | **Post** /registries | Add a new registry
+*RegistriesAPI* | [**DeleteRegistry**](docs/RegistriesAPI.md#deleteregistry) | **Delete** /registries/{registry} | Delete a registry configuration
+*RegistriesAPI* | [**GetRegistry**](docs/RegistriesAPI.md#getregistry) | **Get** /registries/{registry} | Get a specific registry configuration
+*RegistriesAPI* | [**ListRegistries**](docs/RegistriesAPI.md#listregistries) | **Get** /registries | List configured registries
+*RegistriesAPI* | [**UpdateRegistry**](docs/RegistriesAPI.md#updateregistry) | **Put** /registries/{registry} | Update/replace a registry configuration
+*RelationshipsAPI* | [**AddArtifactRelationship**](docs/RelationshipsAPI.md#addartifactrelationship) | **Post** /artifact-relationships | 
+*RelationshipsAPI* | [**DeleteArtifactRelationships**](docs/RelationshipsAPI.md#deleteartifactrelationships) | **Delete** /artifact-relationships | 
+*RelationshipsAPI* | [**GetArtifactRelationship**](docs/RelationshipsAPI.md#getartifactrelationship) | **Get** /artifact-relationships/{relationship_id} | 
+*RelationshipsAPI* | [**GetRelationshipSbomDiff**](docs/RelationshipsAPI.md#getrelationshipsbomdiff) | **Get** /artifact-relationships/{relationship_id}/diffs/sbom | 
+*RelationshipsAPI* | [**ListArtifactRelationships**](docs/RelationshipsAPI.md#listartifactrelationships) | **Get** /artifact-relationships | 
+*RepositoryCredentialsAPI* | [**AddRepository**](docs/RepositoryCredentialsAPI.md#addrepository) | **Post** /repositories | Add repository to watch
+*SourcesAPI* | [**DeleteSource**](docs/SourcesAPI.md#deletesource) | **Delete** /sources/{source_id} | Delete source record from DB
+*SourcesAPI* | [**GetSource**](docs/SourcesAPI.md#getsource) | **Get** /sources/{source_id} | Get a detailed source repository analysis metadata record
+*SourcesAPI* | [**GetSourceContentByType**](docs/SourcesAPI.md#getsourcecontentbytype) | **Get** /sources/{source_id}/content/{content_type} | Get the content of an analyzed source repository
+*SourcesAPI* | [**GetSourceContentTypes**](docs/SourcesAPI.md#getsourcecontenttypes) | **Get** /sources/{source_id}/content | Get a detailed source repository analysis metadata record
+*SourcesAPI* | [**GetSourcePolicyCheck**](docs/SourcesAPI.md#getsourcepolicycheck) | **Get** /sources/{source_id}/check | Fetch or calculate policy evaluation for a source
+*SourcesAPI* | [**GetSourceSbomCyclonedxJson**](docs/SourcesAPI.md#getsourcesbomcyclonedxjson) | **Get** /sources/{source_id}/sbom/cyclonedx-json | Return the source SBOM in the CycloneDX format
+*SourcesAPI* | [**GetSourceSbomNativeJson**](docs/SourcesAPI.md#getsourcesbomnativejson) | **Get** /sources/{source_id}/sbom/native-json | Return the source SBOM in the native Anchore format
+*SourcesAPI* | [**GetSourceSbomSpdxJson**](docs/SourcesAPI.md#getsourcesbomspdxjson) | **Get** /sources/{source_id}/sbom/spdx-json | Return the source SBOM in the SPDX format
+*SourcesAPI* | [**GetSourceVulnerabilities**](docs/SourcesAPI.md#getsourcevulnerabilities) | **Get** /sources/{source_id}/vuln/{vuln_type} | Get vulnerabilities for the source by type
+*SourcesAPI* | [**GetSourceVulnerabilityTypes**](docs/SourcesAPI.md#getsourcevulnerabilitytypes) | **Get** /sources/{source_id}/vuln | Get the available vulnerability types for source
+*SourcesAPI* | [**ListSources**](docs/SourcesAPI.md#listsources) | **Get** /sources | List the source repository analysis records
+*StatelessAPI* | [**VulnerabilityScanSbom**](docs/StatelessAPI.md#vulnerabilityscansbom) | **Post** /vulnerability-scan | Return a vulnerability scan for the uploaded SBOM without storing the SBOM and without any side-effects in the system.
+*SubscriptionsAPI* | [**AddSubscription**](docs/SubscriptionsAPI.md#addsubscription) | **Post** /subscriptions | Add a subscription of a specific type
+*SubscriptionsAPI* | [**DeleteSubscription**](docs/SubscriptionsAPI.md#deletesubscription) | **Delete** /subscriptions/{subscription_id} | Delete specific subscription
+*SubscriptionsAPI* | [**GetSubscription**](docs/SubscriptionsAPI.md#getsubscription) | **Get** /subscriptions/{subscription_id} | Get a specific subscription set
+*SubscriptionsAPI* | [**ListSubscriptions**](docs/SubscriptionsAPI.md#listsubscriptions) | **Get** /subscriptions | List all subscriptions
+*SubscriptionsAPI* | [**UpdateSubscription**](docs/SubscriptionsAPI.md#updatesubscription) | **Put** /subscriptions/{subscription_id} | Update an existing and specific subscription
+*SummariesAPI* | [**ListImageTags**](docs/SummariesAPI.md#listimagetags) | **Get** /summaries/image-tags | List all visible image digests and tags
+*SystemAPI* | [**DeleteFeed**](docs/SystemAPI.md#deletefeed) | **Delete** /system/feeds/{feed} | 
+*SystemAPI* | [**DeleteService**](docs/SystemAPI.md#deleteservice) | **Delete** /system/services/{service_name}/{host_id} | Delete the service config
+*SystemAPI* | [**DescribeErrorCodes**](docs/SystemAPI.md#describeerrorcodes) | **Get** /system/error-codes | Describe anchore engine error codes.
+*SystemAPI* | [**DescribePolicy**](docs/SystemAPI.md#describepolicy) | **Get** /system/policy-spec | Describe the policy language spec implemented by this service.
+*SystemAPI* | [**GetServiceDetail**](docs/SystemAPI.md#getservicedetail) | **Get** /system | System status
+*SystemAPI* | [**GetServicesByName**](docs/SystemAPI.md#getservicesbyname) | **Get** /system/services/{service_name} | Get a service configuration and state
+*SystemAPI* | [**GetServicesByNameAndHost**](docs/SystemAPI.md#getservicesbynameandhost) | **Get** /system/services/{service_name}/{host_id} | Get service config for a specific host
+*SystemAPI* | [**GetStatus**](docs/SystemAPI.md#getstatus) | **Get** /status | Service status
+*SystemAPI* | [**GetSystemFeeds**](docs/SystemAPI.md#getsystemfeeds) | **Get** /system/feeds | list feeds operations and information
+*SystemAPI* | [**ListServices**](docs/SystemAPI.md#listservices) | **Get** /system/services | List system services
+*SystemAPI* | [**PostSystemFeeds**](docs/SystemAPI.md#postsystemfeeds) | **Post** /system/feeds | trigger feeds operations
+*SystemAPI* | [**TestWebhook**](docs/SystemAPI.md#testwebhook) | **Post** /system/webhooks/{webhook_type}/test | Adds the capabilities to test a webhook delivery for the given notification type
+*SystemAPI* | [**ToggleFeedEnabled**](docs/SystemAPI.md#togglefeedenabled) | **Put** /system/feeds/{feed} | 
+*UserManagementAPI* | [**CreateAccount**](docs/UserManagementAPI.md#createaccount) | **Post** /accounts | Create a new account. Only available to admin user.
+*UserManagementAPI* | [**CreateUser**](docs/UserManagementAPI.md#createuser) | **Post** /accounts/{account_name}/users | Create a new user within the specified account.
+*UserManagementAPI* | [**CreateUserCredential**](docs/UserManagementAPI.md#createusercredential) | **Post** /accounts/{account_name}/users/{username}/credentials | add/replace credential
+*UserManagementAPI* | [**DeleteAccount**](docs/UserManagementAPI.md#deleteaccount) | **Delete** /accounts/{account_name} | Delete the specified account, only allowed if the account is in the disabled state. All users will be deleted along with the account and all resources will be garbage collected
+*UserManagementAPI* | [**DeleteUser**](docs/UserManagementAPI.md#deleteuser) | **Delete** /accounts/{account_name}/users/{username} | Delete a specific user credential by username of the credential. Cannot be the credential used to authenticate the request.
+*UserManagementAPI* | [**DeleteUserCredential**](docs/UserManagementAPI.md#deleteusercredential) | **Delete** /accounts/{account_name}/users/{username}/credentials | Delete a credential by type
+*UserManagementAPI* | [**GetAccount**](docs/UserManagementAPI.md#getaccount) | **Get** /accounts/{account_name} | Get account info about this specific account.
+*UserManagementAPI* | [**GetAccountUser**](docs/UserManagementAPI.md#getaccountuser) | **Get** /accounts/{account_name}/users/{username} | Get a specific user in the specified account
+*UserManagementAPI* | [**ListAccounts**](docs/UserManagementAPI.md#listaccounts) | **Get** /accounts | List account summaries. Only available to the system admin user.
+*UserManagementAPI* | [**ListUserCredentials**](docs/UserManagementAPI.md#listusercredentials) | **Get** /accounts/{account_name}/users/{username}/credentials | Get current credential summary
+*UserManagementAPI* | [**ListUsers**](docs/UserManagementAPI.md#listusers) | **Get** /accounts/{account_name}/users | List of users found in this account.
+*UserManagementAPI* | [**UpdateAccount**](docs/UserManagementAPI.md#updateaccount) | **Put** /accounts/{account_name} | Update the info for this specific account.
+*UserManagementAPI* | [**UpdateAccountState**](docs/UserManagementAPI.md#updateaccountstate) | **Put** /accounts/{account_name}/state | Update the state of an account to either enabled or disabled. For deletion use the DELETE route
 
 
 ## Documentation For Models
@@ -373,11 +372,8 @@ Class | Method | HTTP request | Description
  - [AnalysisStatusDetail](docs/AnalysisStatusDetail.md)
  - [AnalysisUpdateEval](docs/AnalysisUpdateEval.md)
  - [AnalysisUpdateNotification](docs/AnalysisUpdateNotification.md)
- - [AnalysisUpdateNotificationAllOf](docs/AnalysisUpdateNotificationAllOf.md)
  - [AnalysisUpdateNotificationData](docs/AnalysisUpdateNotificationData.md)
- - [AnalysisUpdateNotificationDataAllOf](docs/AnalysisUpdateNotificationDataAllOf.md)
  - [AnalysisUpdateNotificationPayload](docs/AnalysisUpdateNotificationPayload.md)
- - [AnalysisUpdateNotificationPayloadAllOf](docs/AnalysisUpdateNotificationPayloadAllOf.md)
  - [AnchoreErrorCode](docs/AnchoreErrorCode.md)
  - [AnchoreImage](docs/AnchoreImage.md)
  - [AnchoreImageList](docs/AnchoreImageList.md)
@@ -409,27 +405,27 @@ Class | Method | HTTP request | Description
  - [ComplianceViolationAlert](docs/ComplianceViolationAlert.md)
  - [ComplianceViolationAlertState](docs/ComplianceViolationAlertState.md)
  - [ContentFilesResponse](docs/ContentFilesResponse.md)
- - [ContentFilesResponseContent](docs/ContentFilesResponseContent.md)
+ - [ContentFilesResponseContentInner](docs/ContentFilesResponseContentInner.md)
  - [ContentJAVAPackageResponse](docs/ContentJAVAPackageResponse.md)
- - [ContentJAVAPackageResponseContent](docs/ContentJAVAPackageResponseContent.md)
+ - [ContentJAVAPackageResponseContentInner](docs/ContentJAVAPackageResponseContentInner.md)
  - [ContentMalwareResponse](docs/ContentMalwareResponse.md)
  - [ContentPackageResponse](docs/ContentPackageResponse.md)
- - [ContentPackageResponseContent](docs/ContentPackageResponseContent.md)
+ - [ContentPackageResponseContentInner](docs/ContentPackageResponseContentInner.md)
  - [Correction](docs/Correction.md)
  - [CorrectionFieldMatch](docs/CorrectionFieldMatch.md)
  - [CorrectionMatch](docs/CorrectionMatch.md)
  - [CustomJsonPatch](docs/CustomJsonPatch.md)
  - [DeleteImageResponse](docs/DeleteImageResponse.md)
  - [ECSContainers](docs/ECSContainers.md)
- - [ECSContainersContainers](docs/ECSContainersContainers.md)
+ - [ECSContainersContainersInner](docs/ECSContainersContainersInner.md)
  - [ECSInventory](docs/ECSInventory.md)
- - [ECSInventoryContainers](docs/ECSInventoryContainers.md)
- - [ECSInventoryServices](docs/ECSInventoryServices.md)
- - [ECSInventoryTasks](docs/ECSInventoryTasks.md)
+ - [ECSInventoryContainersInner](docs/ECSInventoryContainersInner.md)
+ - [ECSInventoryServicesInner](docs/ECSInventoryServicesInner.md)
+ - [ECSInventoryTasksInner](docs/ECSInventoryTasksInner.md)
  - [ECSServices](docs/ECSServices.md)
- - [ECSServicesServices](docs/ECSServicesServices.md)
+ - [ECSServicesServicesInner](docs/ECSServicesServicesInner.md)
  - [ECSTasks](docs/ECSTasks.md)
- - [ECSTasksTasks](docs/ECSTasksTasks.md)
+ - [ECSTasksTasksInner](docs/ECSTasksTasksInner.md)
  - [EventCategory](docs/EventCategory.md)
  - [EventDescription](docs/EventDescription.md)
  - [EventResponse](docs/EventResponse.md)
@@ -457,7 +453,6 @@ Class | Method | HTTP request | Description
  - [ImageImportOperation](docs/ImageImportOperation.md)
  - [ImagePackageManifest](docs/ImagePackageManifest.md)
  - [ImagePackageVulnerability](docs/ImagePackageVulnerability.md)
- - [ImagePackageVulnerabilityAllOf](docs/ImagePackageVulnerabilityAllOf.md)
  - [ImagePackageVulnerabilityResponse](docs/ImagePackageVulnerabilityResponse.md)
  - [ImageRef](docs/ImageRef.md)
  - [ImageReference](docs/ImageReference.md)
@@ -476,7 +471,6 @@ Class | Method | HTTP request | Description
  - [ImportPackageRelationship](docs/ImportPackageRelationship.md)
  - [ImportSchema](docs/ImportSchema.md)
  - [ImportSource](docs/ImportSource.md)
- - [InlineResponse400](docs/InlineResponse400.md)
  - [InventoryItem](docs/InventoryItem.md)
  - [InventoryItems](docs/InventoryItems.md)
  - [JsonPatchAdd](docs/JsonPatchAdd.md)
@@ -486,12 +480,12 @@ Class | Method | HTTP request | Description
  - [JsonPatchReplace](docs/JsonPatchReplace.md)
  - [JsonPatchTest](docs/JsonPatchTest.md)
  - [KubernetesContainers](docs/KubernetesContainers.md)
- - [KubernetesContainersContainers](docs/KubernetesContainersContainers.md)
+ - [KubernetesContainersContainersInner](docs/KubernetesContainersContainersInner.md)
  - [KubernetesInventory](docs/KubernetesInventory.md)
- - [KubernetesInventoryContainers](docs/KubernetesInventoryContainers.md)
- - [KubernetesInventoryNamespaces](docs/KubernetesInventoryNamespaces.md)
- - [KubernetesInventoryNodes](docs/KubernetesInventoryNodes.md)
- - [KubernetesInventoryPods](docs/KubernetesInventoryPods.md)
+ - [KubernetesInventoryContainersInner](docs/KubernetesInventoryContainersInner.md)
+ - [KubernetesInventoryNamespacesInner](docs/KubernetesInventoryNamespacesInner.md)
+ - [KubernetesInventoryNodesInner](docs/KubernetesInventoryNodesInner.md)
+ - [KubernetesInventoryPodsInner](docs/KubernetesInventoryPodsInner.md)
  - [KubernetesNamespace](docs/KubernetesNamespace.md)
  - [KubernetesNamespaces](docs/KubernetesNamespaces.md)
  - [KubernetesNode](docs/KubernetesNode.md)
@@ -500,7 +494,7 @@ Class | Method | HTTP request | Description
  - [KubernetesPods](docs/KubernetesPods.md)
  - [LocalAnalysisSource](docs/LocalAnalysisSource.md)
  - [MalwareScan](docs/MalwareScan.md)
- - [MalwareScanFindings](docs/MalwareScanFindings.md)
+ - [MalwareScanFindingsInner](docs/MalwareScanFindingsInner.md)
  - [MappingRule](docs/MappingRule.md)
  - [MetadataResponse](docs/MetadataResponse.md)
  - [ModifiedPackage](docs/ModifiedPackage.md)
@@ -513,7 +507,6 @@ Class | Method | HTTP request | Description
  - [NativeSBOMSchema](docs/NativeSBOMSchema.md)
  - [NativeSBOMSource](docs/NativeSBOMSource.md)
  - [NotificationActionPlanNotificationPayload](docs/NotificationActionPlanNotificationPayload.md)
- - [NotificationActionPlanNotificationPayloadAllOf](docs/NotificationActionPlanNotificationPayloadAllOf.md)
  - [NotificationApiErrorResponse](docs/NotificationApiErrorResponse.md)
  - [NotificationBase](docs/NotificationBase.md)
  - [NotificationEndpoint](docs/NotificationEndpoint.md)
@@ -521,18 +514,15 @@ Class | Method | HTTP request | Description
  - [NotificationEndpointEnabledStatus](docs/NotificationEndpointEnabledStatus.md)
  - [NotificationEventSelector](docs/NotificationEventSelector.md)
  - [NotificationGitHubEndpointConfigurationBase](docs/NotificationGitHubEndpointConfigurationBase.md)
- - [NotificationGitHubEndpointConfigurationBaseAllOf](docs/NotificationGitHubEndpointConfigurationBaseAllOf.md)
  - [NotificationGitHubEndpointConfigurationPost](docs/NotificationGitHubEndpointConfigurationPost.md)
  - [NotificationGitHubEndpointConfigurationPut](docs/NotificationGitHubEndpointConfigurationPut.md)
  - [NotificationGitHubTestResult](docs/NotificationGitHubTestResult.md)
  - [NotificationJiraEndpointConfigurationBase](docs/NotificationJiraEndpointConfigurationBase.md)
- - [NotificationJiraEndpointConfigurationBaseAllOf](docs/NotificationJiraEndpointConfigurationBaseAllOf.md)
  - [NotificationJiraEndpointConfigurationPost](docs/NotificationJiraEndpointConfigurationPost.md)
  - [NotificationJiraEndpointConfigurationPut](docs/NotificationJiraEndpointConfigurationPut.md)
  - [NotificationJiraTestResult](docs/NotificationJiraTestResult.md)
  - [NotificationOperationalStatus](docs/NotificationOperationalStatus.md)
  - [NotificationSMTPEndpointConfiguration](docs/NotificationSMTPEndpointConfiguration.md)
- - [NotificationSMTPEndpointConfigurationAllOf](docs/NotificationSMTPEndpointConfigurationAllOf.md)
  - [NotificationSMTPTestResult](docs/NotificationSMTPTestResult.md)
  - [NotificationSelector](docs/NotificationSelector.md)
  - [NotificationServiceVersion](docs/NotificationServiceVersion.md)
@@ -541,42 +531,36 @@ Class | Method | HTTP request | Description
  - [NotificationServiceVersionEngine](docs/NotificationServiceVersionEngine.md)
  - [NotificationServiceVersionService](docs/NotificationServiceVersionService.md)
  - [NotificationSlackEndpointConfiguration](docs/NotificationSlackEndpointConfiguration.md)
- - [NotificationSlackEndpointConfigurationAllOf](docs/NotificationSlackEndpointConfigurationAllOf.md)
  - [NotificationSlackTestResult](docs/NotificationSlackTestResult.md)
  - [NotificationStatusResponse](docs/NotificationStatusResponse.md)
  - [NotificationSynchronousNotificationPayload](docs/NotificationSynchronousNotificationPayload.md)
  - [NotificationTeamsEndpointConfiguration](docs/NotificationTeamsEndpointConfiguration.md)
  - [NotificationTeamsTestResult](docs/NotificationTeamsTestResult.md)
  - [NotificationWebhookEndpointConfiguration](docs/NotificationWebhookEndpointConfiguration.md)
- - [NotificationWebhookEndpointConfigurationAllOf](docs/NotificationWebhookEndpointConfigurationAllOf.md)
  - [NotificationWebhookTestResult](docs/NotificationWebhookTestResult.md)
+ - [NullType](docs/NullType.md)
  - [NvdDataObject](docs/NvdDataObject.md)
  - [Package](docs/Package.md)
  - [PackageReference](docs/PackageReference.md)
  - [PackageVulnerability](docs/PackageVulnerability.md)
  - [PaginatedImageList](docs/PaginatedImageList.md)
- - [PaginatedImageListAllOf](docs/PaginatedImageListAllOf.md)
  - [PaginatedVulnerabilityList](docs/PaginatedVulnerabilityList.md)
- - [PaginatedVulnerabilityListAllOf](docs/PaginatedVulnerabilityListAllOf.md)
  - [PaginationProperties](docs/PaginationProperties.md)
  - [Policy](docs/Policy.md)
  - [PolicyEvalNotification](docs/PolicyEvalNotification.md)
- - [PolicyEvalNotificationAllOf](docs/PolicyEvalNotificationAllOf.md)
  - [PolicyEvalNotificationData](docs/PolicyEvalNotificationData.md)
- - [PolicyEvalNotificationDataAllOf](docs/PolicyEvalNotificationDataAllOf.md)
  - [PolicyEvalNotificationPayload](docs/PolicyEvalNotificationPayload.md)
- - [PolicyEvalNotificationPayloadAllOf](docs/PolicyEvalNotificationPayloadAllOf.md)
  - [PolicyEvaluation](docs/PolicyEvaluation.md)
- - [PolicyEvaluationDetails](docs/PolicyEvaluationDetails.md)
- - [PolicyEvaluationEvaluations](docs/PolicyEvaluationEvaluations.md)
+ - [PolicyEvaluationEvaluationsInner](docs/PolicyEvaluationEvaluationsInner.md)
+ - [PolicyEvaluationEvaluationsInnerDetails](docs/PolicyEvaluationEvaluationsInnerDetails.md)
  - [PolicyEvaluationFinding](docs/PolicyEvaluationFinding.md)
  - [PolicyEvaluationFindingAllowlistMatch](docs/PolicyEvaluationFindingAllowlistMatch.md)
  - [PolicyEvaluationProblem](docs/PolicyEvaluationProblem.md)
  - [PolicyEvaluationRemediation](docs/PolicyEvaluationRemediation.md)
- - [PolicyEvaluationRemediationSuggestions](docs/PolicyEvaluationRemediationSuggestions.md)
+ - [PolicyEvaluationRemediationSuggestionsInner](docs/PolicyEvaluationRemediationSuggestionsInner.md)
  - [PolicyRecord](docs/PolicyRecord.md)
  - [PolicyRule](docs/PolicyRule.md)
- - [PolicyRuleParams](docs/PolicyRuleParams.md)
+ - [PolicyRuleParamsInner](docs/PolicyRuleParamsInner.md)
  - [RbacManagerAccountRole](docs/RbacManagerAccountRole.md)
  - [RbacManagerApiErrorResponse](docs/RbacManagerApiErrorResponse.md)
  - [RbacManagerPermission](docs/RbacManagerPermission.md)
@@ -600,6 +584,7 @@ Class | Method | HTTP request | Description
  - [ReportingStatusResponse](docs/ReportingStatusResponse.md)
  - [ResourceLabel](docs/ResourceLabel.md)
  - [RetrievedFile](docs/RetrievedFile.md)
+ - [RevokeOauthToken400Response](docs/RevokeOauthToken400Response.md)
  - [RuleSet](docs/RuleSet.md)
  - [SBOMVulnerabilitiesResponse](docs/SBOMVulnerabilitiesResponse.md)
  - [SecretSearchResult](docs/SecretSearchResult.md)
@@ -614,7 +599,7 @@ Class | Method | HTTP request | Description
  - [SourceImportMetadataContents](docs/SourceImportMetadataContents.md)
  - [SourceImportOperation](docs/SourceImportOperation.md)
  - [SourceManifest](docs/SourceManifest.md)
- - [SourceManifestMetadataRecords](docs/SourceManifestMetadataRecords.md)
+ - [SourceManifestMetadataRecordsInner](docs/SourceManifestMetadataRecordsInner.md)
  - [SourceMappingRule](docs/SourceMappingRule.md)
  - [SourcePackageVulnerabilityResponse](docs/SourcePackageVulnerabilityResponse.md)
  - [SourcePolicyEvaluation](docs/SourcePolicyEvaluation.md)
@@ -628,11 +613,8 @@ Class | Method | HTTP request | Description
  - [SystemStatusResponse](docs/SystemStatusResponse.md)
  - [TagEntry](docs/TagEntry.md)
  - [TagUpdateNotification](docs/TagUpdateNotification.md)
- - [TagUpdateNotificationAllOf](docs/TagUpdateNotificationAllOf.md)
  - [TagUpdateNotificationData](docs/TagUpdateNotificationData.md)
- - [TagUpdateNotificationDataAllOf](docs/TagUpdateNotificationDataAllOf.md)
  - [TagUpdateNotificationPayload](docs/TagUpdateNotificationPayload.md)
- - [TagUpdateNotificationPayloadAllOf](docs/TagUpdateNotificationPayloadAllOf.md)
  - [TokenResponse](docs/TokenResponse.md)
  - [TriggerParamSpec](docs/TriggerParamSpec.md)
  - [TriggerSpec](docs/TriggerSpec.md)
@@ -645,26 +627,21 @@ Class | Method | HTTP request | Description
  - [VersionVulnerabilityMatchLocationArtifact](docs/VersionVulnerabilityMatchLocationArtifact.md)
  - [VersionVulnerabilityMatchLocationPackage](docs/VersionVulnerabilityMatchLocationPackage.md)
  - [VersionVulnerabilityNVD](docs/VersionVulnerabilityNVD.md)
- - [VersionVulnerabilityNVDAllOf](docs/VersionVulnerabilityNVDAllOf.md)
  - [VersionVulnerabilityReportImage](docs/VersionVulnerabilityReportImage.md)
  - [VersionVulnerabilityReportSource](docs/VersionVulnerabilityReportSource.md)
  - [VersionVulnerabilityVendor](docs/VersionVulnerabilityVendor.md)
- - [VersionVulnerabilityVendorAllOf](docs/VersionVulnerabilityVendorAllOf.md)
  - [VersionVulnerabilityVendorNVDCommon](docs/VersionVulnerabilityVendorNVDCommon.md)
  - [VersionVulnerabilityVendorNVDCommonCvss](docs/VersionVulnerabilityVendorNVDCommonCvss.md)
  - [VulnDiffResult](docs/VulnDiffResult.md)
  - [VulnUpdateNotification](docs/VulnUpdateNotification.md)
- - [VulnUpdateNotificationAllOf](docs/VulnUpdateNotificationAllOf.md)
  - [VulnUpdateNotificationData](docs/VulnUpdateNotificationData.md)
- - [VulnUpdateNotificationDataAllOf](docs/VulnUpdateNotificationDataAllOf.md)
  - [VulnUpdateNotificationPayload](docs/VulnUpdateNotificationPayload.md)
- - [VulnUpdateNotificationPayloadAllOf](docs/VulnUpdateNotificationPayloadAllOf.md)
  - [VulnerabilityReference](docs/VulnerabilityReference.md)
 
 
 ## Documentation For Authorization
 
- Endpoints do not require authorization.
+Endpoints do not require authorization.
 
 
 ## Documentation for Utility Methods

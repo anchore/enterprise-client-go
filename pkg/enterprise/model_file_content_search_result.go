@@ -15,10 +15,13 @@ import (
 	"encoding/json"
 )
 
+// checks if the FileContentSearchResult type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &FileContentSearchResult{}
+
 // FileContentSearchResult The retrieved file entry including content (b64 encoded)
 type FileContentSearchResult struct {
 	Path *string `json:"path,omitempty"`
-	Matches *[]RegexContentMatch `json:"matches,omitempty"`
+	Matches []RegexContentMatch `json:"matches,omitempty"`
 }
 
 // NewFileContentSearchResult instantiates a new FileContentSearchResult object
@@ -40,7 +43,7 @@ func NewFileContentSearchResultWithDefaults() *FileContentSearchResult {
 
 // GetPath returns the Path field value if set, zero value otherwise.
 func (o *FileContentSearchResult) GetPath() string {
-	if o == nil || o.Path == nil {
+	if o == nil || IsNil(o.Path) {
 		var ret string
 		return ret
 	}
@@ -50,7 +53,7 @@ func (o *FileContentSearchResult) GetPath() string {
 // GetPathOk returns a tuple with the Path field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *FileContentSearchResult) GetPathOk() (*string, bool) {
-	if o == nil || o.Path == nil {
+	if o == nil || IsNil(o.Path) {
 		return nil, false
 	}
 	return o.Path, true
@@ -58,7 +61,7 @@ func (o *FileContentSearchResult) GetPathOk() (*string, bool) {
 
 // HasPath returns a boolean if a field has been set.
 func (o *FileContentSearchResult) HasPath() bool {
-	if o != nil && o.Path != nil {
+	if o != nil && !IsNil(o.Path) {
 		return true
 	}
 
@@ -72,17 +75,17 @@ func (o *FileContentSearchResult) SetPath(v string) {
 
 // GetMatches returns the Matches field value if set, zero value otherwise.
 func (o *FileContentSearchResult) GetMatches() []RegexContentMatch {
-	if o == nil || o.Matches == nil {
+	if o == nil || IsNil(o.Matches) {
 		var ret []RegexContentMatch
 		return ret
 	}
-	return *o.Matches
+	return o.Matches
 }
 
 // GetMatchesOk returns a tuple with the Matches field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *FileContentSearchResult) GetMatchesOk() (*[]RegexContentMatch, bool) {
-	if o == nil || o.Matches == nil {
+func (o *FileContentSearchResult) GetMatchesOk() ([]RegexContentMatch, bool) {
+	if o == nil || IsNil(o.Matches) {
 		return nil, false
 	}
 	return o.Matches, true
@@ -90,7 +93,7 @@ func (o *FileContentSearchResult) GetMatchesOk() (*[]RegexContentMatch, bool) {
 
 // HasMatches returns a boolean if a field has been set.
 func (o *FileContentSearchResult) HasMatches() bool {
-	if o != nil && o.Matches != nil {
+	if o != nil && !IsNil(o.Matches) {
 		return true
 	}
 
@@ -99,18 +102,26 @@ func (o *FileContentSearchResult) HasMatches() bool {
 
 // SetMatches gets a reference to the given []RegexContentMatch and assigns it to the Matches field.
 func (o *FileContentSearchResult) SetMatches(v []RegexContentMatch) {
-	o.Matches = &v
+	o.Matches = v
 }
 
 func (o FileContentSearchResult) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Path != nil {
-		toSerialize["path"] = o.Path
-	}
-	if o.Matches != nil {
-		toSerialize["matches"] = o.Matches
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o FileContentSearchResult) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Path) {
+		toSerialize["path"] = o.Path
+	}
+	if !IsNil(o.Matches) {
+		toSerialize["matches"] = o.Matches
+	}
+	return toSerialize, nil
 }
 
 type NullableFileContentSearchResult struct {

@@ -1,20 +1,20 @@
-# \SourcesApi
+# \SourcesAPI
 
-All URIs are relative to *http://localhost/v2*
+All URIs are relative to */v2*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**DeleteSource**](SourcesApi.md#DeleteSource) | **Delete** /sources/{source_id} | Delete source record from DB
-[**GetSource**](SourcesApi.md#GetSource) | **Get** /sources/{source_id} | Get a detailed source repository analysis metadata record
-[**GetSourceContentByType**](SourcesApi.md#GetSourceContentByType) | **Get** /sources/{source_id}/content/{content_type} | Get the content of an analyzed source repository
-[**GetSourceContentTypes**](SourcesApi.md#GetSourceContentTypes) | **Get** /sources/{source_id}/content | Get a detailed source repository analysis metadata record
-[**GetSourcePolicyCheck**](SourcesApi.md#GetSourcePolicyCheck) | **Get** /sources/{source_id}/check | Fetch or calculate policy evaluation for a source
-[**GetSourceSbomCyclonedxJson**](SourcesApi.md#GetSourceSbomCyclonedxJson) | **Get** /sources/{source_id}/sbom/cyclonedx-json | Return the source SBOM in the CycloneDX format
-[**GetSourceSbomNativeJson**](SourcesApi.md#GetSourceSbomNativeJson) | **Get** /sources/{source_id}/sbom/native-json | Return the source SBOM in the native Anchore format
-[**GetSourceSbomSpdxJson**](SourcesApi.md#GetSourceSbomSpdxJson) | **Get** /sources/{source_id}/sbom/spdx-json | Return the source SBOM in the SPDX format
-[**GetSourceVulnerabilities**](SourcesApi.md#GetSourceVulnerabilities) | **Get** /sources/{source_id}/vuln/{vuln_type} | Get vulnerabilities for the source by type
-[**GetSourceVulnerabilityTypes**](SourcesApi.md#GetSourceVulnerabilityTypes) | **Get** /sources/{source_id}/vuln | Get the available vulnerability types for source
-[**ListSources**](SourcesApi.md#ListSources) | **Get** /sources | List the source repository analysis records
+[**DeleteSource**](SourcesAPI.md#DeleteSource) | **Delete** /sources/{source_id} | Delete source record from DB
+[**GetSource**](SourcesAPI.md#GetSource) | **Get** /sources/{source_id} | Get a detailed source repository analysis metadata record
+[**GetSourceContentByType**](SourcesAPI.md#GetSourceContentByType) | **Get** /sources/{source_id}/content/{content_type} | Get the content of an analyzed source repository
+[**GetSourceContentTypes**](SourcesAPI.md#GetSourceContentTypes) | **Get** /sources/{source_id}/content | Get a detailed source repository analysis metadata record
+[**GetSourcePolicyCheck**](SourcesAPI.md#GetSourcePolicyCheck) | **Get** /sources/{source_id}/check | Fetch or calculate policy evaluation for a source
+[**GetSourceSbomCyclonedxJson**](SourcesAPI.md#GetSourceSbomCyclonedxJson) | **Get** /sources/{source_id}/sbom/cyclonedx-json | Return the source SBOM in the CycloneDX format
+[**GetSourceSbomNativeJson**](SourcesAPI.md#GetSourceSbomNativeJson) | **Get** /sources/{source_id}/sbom/native-json | Return the source SBOM in the native Anchore format
+[**GetSourceSbomSpdxJson**](SourcesAPI.md#GetSourceSbomSpdxJson) | **Get** /sources/{source_id}/sbom/spdx-json | Return the source SBOM in the SPDX format
+[**GetSourceVulnerabilities**](SourcesAPI.md#GetSourceVulnerabilities) | **Get** /sources/{source_id}/vuln/{vuln_type} | Get vulnerabilities for the source by type
+[**GetSourceVulnerabilityTypes**](SourcesAPI.md#GetSourceVulnerabilityTypes) | **Get** /sources/{source_id}/vuln | Get the available vulnerability types for source
+[**ListSources**](SourcesAPI.md#ListSources) | **Get** /sources | List the source repository analysis records
 
 
 
@@ -33,7 +33,7 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+    openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
@@ -41,10 +41,10 @@ func main() {
     force := true // bool | force delete (optional)
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.SourcesApi.DeleteSource(context.Background(), sourceId).Force(force).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    r, err := apiClient.SourcesAPI.DeleteSource(context.Background(), sourceId).Force(force).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `SourcesApi.DeleteSource``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `SourcesAPI.DeleteSource``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
 }
@@ -101,21 +101,21 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+    openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
     sourceId := "sourceId_example" // string | 
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.SourcesApi.GetSource(context.Background(), sourceId).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.SourcesAPI.GetSource(context.Background(), sourceId).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `SourcesApi.GetSource``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `SourcesAPI.GetSource``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
     // response from `GetSource`: SourceManifest
-    fmt.Fprintf(os.Stdout, "Response from `SourcesApi.GetSource`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `SourcesAPI.GetSource`: %v\n", resp)
 }
 ```
 
@@ -169,7 +169,7 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+    openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
@@ -177,14 +177,14 @@ func main() {
     contentType := "contentType_example" // string | 
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.SourcesApi.GetSourceContentByType(context.Background(), sourceId, contentType).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.SourcesAPI.GetSourceContentByType(context.Background(), sourceId, contentType).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `SourcesApi.GetSourceContentByType``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `SourcesAPI.GetSourceContentByType``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
     // response from `GetSourceContentByType`: SourceContentPackageResponse
-    fmt.Fprintf(os.Stdout, "Response from `SourcesApi.GetSourceContentByType`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `SourcesAPI.GetSourceContentByType`: %v\n", resp)
 }
 ```
 
@@ -240,21 +240,21 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+    openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
     sourceId := "sourceId_example" // string | 
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.SourcesApi.GetSourceContentTypes(context.Background(), sourceId).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.SourcesAPI.GetSourceContentTypes(context.Background(), sourceId).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `SourcesApi.GetSourceContentTypes``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `SourcesAPI.GetSourceContentTypes``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
     // response from `GetSourceContentTypes`: []string
-    fmt.Fprintf(os.Stdout, "Response from `SourcesApi.GetSourceContentTypes`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `SourcesAPI.GetSourceContentTypes`: %v\n", resp)
 }
 ```
 
@@ -308,7 +308,7 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+    openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
@@ -316,14 +316,14 @@ func main() {
     policyId := "policyId_example" // string |  (optional)
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.SourcesApi.GetSourcePolicyCheck(context.Background(), sourceId).PolicyId(policyId).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.SourcesAPI.GetSourcePolicyCheck(context.Background(), sourceId).PolicyId(policyId).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `SourcesApi.GetSourcePolicyCheck``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `SourcesAPI.GetSourcePolicyCheck``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
     // response from `GetSourcePolicyCheck`: SourcePolicyEvaluation
-    fmt.Fprintf(os.Stdout, "Response from `SourcesApi.GetSourcePolicyCheck`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `SourcesAPI.GetSourcePolicyCheck`: %v\n", resp)
 }
 ```
 
@@ -378,21 +378,21 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+    openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
     sourceId := "sourceId_example" // string | 
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.SourcesApi.GetSourceSbomCyclonedxJson(context.Background(), sourceId).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.SourcesAPI.GetSourceSbomCyclonedxJson(context.Background(), sourceId).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `SourcesApi.GetSourceSbomCyclonedxJson``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `SourcesAPI.GetSourceSbomCyclonedxJson``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
     // response from `GetSourceSbomCyclonedxJson`: string
-    fmt.Fprintf(os.Stdout, "Response from `SourcesApi.GetSourceSbomCyclonedxJson`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `SourcesAPI.GetSourceSbomCyclonedxJson`: %v\n", resp)
 }
 ```
 
@@ -446,21 +446,21 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+    openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
     sourceId := "sourceId_example" // string | 
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.SourcesApi.GetSourceSbomNativeJson(context.Background(), sourceId).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.SourcesAPI.GetSourceSbomNativeJson(context.Background(), sourceId).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `SourcesApi.GetSourceSbomNativeJson``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `SourcesAPI.GetSourceSbomNativeJson``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
     // response from `GetSourceSbomNativeJson`: string
-    fmt.Fprintf(os.Stdout, "Response from `SourcesApi.GetSourceSbomNativeJson`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `SourcesAPI.GetSourceSbomNativeJson`: %v\n", resp)
 }
 ```
 
@@ -514,21 +514,21 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+    openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
     sourceId := "sourceId_example" // string | 
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.SourcesApi.GetSourceSbomSpdxJson(context.Background(), sourceId).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.SourcesAPI.GetSourceSbomSpdxJson(context.Background(), sourceId).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `SourcesApi.GetSourceSbomSpdxJson``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `SourcesAPI.GetSourceSbomSpdxJson``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
     // response from `GetSourceSbomSpdxJson`: string
-    fmt.Fprintf(os.Stdout, "Response from `SourcesApi.GetSourceSbomSpdxJson`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `SourcesAPI.GetSourceSbomSpdxJson`: %v\n", resp)
 }
 ```
 
@@ -582,7 +582,7 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+    openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
@@ -593,14 +593,14 @@ func main() {
     xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.SourcesApi.GetSourceVulnerabilities(context.Background(), sourceId, vulnType).ForceRefresh(forceRefresh).WillNotFix(willNotFix).XAnchoreAccount(xAnchoreAccount).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.SourcesAPI.GetSourceVulnerabilities(context.Background(), sourceId, vulnType).ForceRefresh(forceRefresh).WillNotFix(willNotFix).XAnchoreAccount(xAnchoreAccount).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `SourcesApi.GetSourceVulnerabilities``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `SourcesAPI.GetSourceVulnerabilities``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
     // response from `GetSourceVulnerabilities`: SourcePackageVulnerabilityResponse
-    fmt.Fprintf(os.Stdout, "Response from `SourcesApi.GetSourceVulnerabilities`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `SourcesAPI.GetSourceVulnerabilities`: %v\n", resp)
 }
 ```
 
@@ -659,7 +659,7 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+    openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
@@ -667,14 +667,14 @@ func main() {
     xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.SourcesApi.GetSourceVulnerabilityTypes(context.Background(), sourceId).XAnchoreAccount(xAnchoreAccount).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.SourcesAPI.GetSourceVulnerabilityTypes(context.Background(), sourceId).XAnchoreAccount(xAnchoreAccount).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `SourcesApi.GetSourceVulnerabilityTypes``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `SourcesAPI.GetSourceVulnerabilityTypes``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
     // response from `GetSourceVulnerabilityTypes`: []string
-    fmt.Fprintf(os.Stdout, "Response from `SourcesApi.GetSourceVulnerabilityTypes`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `SourcesAPI.GetSourceVulnerabilityTypes`: %v\n", resp)
 }
 ```
 
@@ -729,20 +729,20 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+    openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.SourcesApi.ListSources(context.Background()).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.SourcesAPI.ListSources(context.Background()).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `SourcesApi.ListSources``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `SourcesAPI.ListSources``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
     // response from `ListSources`: SourcesList
-    fmt.Fprintf(os.Stdout, "Response from `SourcesApi.ListSources`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `SourcesAPI.ListSources`: %v\n", resp)
 }
 ```
 

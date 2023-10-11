@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the ImageImportFileContent type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ImageImportFileContent{}
+
 // ImageImportFileContent struct for ImageImportFileContent
 type ImageImportFileContent struct {
 	Location ImportPackageLocation `json:"location"`
@@ -53,7 +56,7 @@ func (o *ImageImportFileContent) GetLocation() ImportPackageLocation {
 // GetLocationOk returns a tuple with the Location field value
 // and a boolean to check if the value has been set.
 func (o *ImageImportFileContent) GetLocationOk() (*ImportPackageLocation, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Location, true
@@ -77,7 +80,7 @@ func (o *ImageImportFileContent) GetContents() string {
 // GetContentsOk returns a tuple with the Contents field value
 // and a boolean to check if the value has been set.
 func (o *ImageImportFileContent) GetContentsOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Contents, true
@@ -89,14 +92,18 @@ func (o *ImageImportFileContent) SetContents(v string) {
 }
 
 func (o ImageImportFileContent) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["location"] = o.Location
-	}
-	if true {
-		toSerialize["contents"] = o.Contents
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o ImageImportFileContent) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["location"] = o.Location
+	toSerialize["contents"] = o.Contents
+	return toSerialize, nil
 }
 
 type NullableImageImportFileContent struct {

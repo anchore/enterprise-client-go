@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the KubernetesNamespace type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &KubernetesNamespace{}
+
 // KubernetesNamespace struct for KubernetesNamespace
 type KubernetesNamespace struct {
 	Uid string `json:"uid"`
@@ -58,7 +61,7 @@ func (o *KubernetesNamespace) GetUid() string {
 // GetUidOk returns a tuple with the Uid field value
 // and a boolean to check if the value has been set.
 func (o *KubernetesNamespace) GetUidOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Uid, true
@@ -82,7 +85,7 @@ func (o *KubernetesNamespace) GetName() string {
 // GetNameOk returns a tuple with the Name field value
 // and a boolean to check if the value has been set.
 func (o *KubernetesNamespace) GetNameOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Name, true
@@ -106,7 +109,7 @@ func (o *KubernetesNamespace) GetLabels() map[string]string {
 // GetLabelsOk returns a tuple with the Labels field value
 // and a boolean to check if the value has been set.
 func (o *KubernetesNamespace) GetLabelsOk() (*map[string]string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Labels, true
@@ -130,7 +133,7 @@ func (o *KubernetesNamespace) GetAnnotations() map[string]string {
 // GetAnnotationsOk returns a tuple with the Annotations field value
 // and a boolean to check if the value has been set.
 func (o *KubernetesNamespace) GetAnnotationsOk() (*map[string]string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Annotations, true
@@ -143,7 +146,7 @@ func (o *KubernetesNamespace) SetAnnotations(v map[string]string) {
 
 // GetLastSeen returns the LastSeen field value if set, zero value otherwise.
 func (o *KubernetesNamespace) GetLastSeen() string {
-	if o == nil || o.LastSeen == nil {
+	if o == nil || IsNil(o.LastSeen) {
 		var ret string
 		return ret
 	}
@@ -153,7 +156,7 @@ func (o *KubernetesNamespace) GetLastSeen() string {
 // GetLastSeenOk returns a tuple with the LastSeen field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *KubernetesNamespace) GetLastSeenOk() (*string, bool) {
-	if o == nil || o.LastSeen == nil {
+	if o == nil || IsNil(o.LastSeen) {
 		return nil, false
 	}
 	return o.LastSeen, true
@@ -161,7 +164,7 @@ func (o *KubernetesNamespace) GetLastSeenOk() (*string, bool) {
 
 // HasLastSeen returns a boolean if a field has been set.
 func (o *KubernetesNamespace) HasLastSeen() bool {
-	if o != nil && o.LastSeen != nil {
+	if o != nil && !IsNil(o.LastSeen) {
 		return true
 	}
 
@@ -174,23 +177,23 @@ func (o *KubernetesNamespace) SetLastSeen(v string) {
 }
 
 func (o KubernetesNamespace) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["uid"] = o.Uid
-	}
-	if true {
-		toSerialize["name"] = o.Name
-	}
-	if true {
-		toSerialize["labels"] = o.Labels
-	}
-	if true {
-		toSerialize["annotations"] = o.Annotations
-	}
-	if o.LastSeen != nil {
-		toSerialize["last_seen"] = o.LastSeen
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o KubernetesNamespace) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["uid"] = o.Uid
+	toSerialize["name"] = o.Name
+	toSerialize["labels"] = o.Labels
+	toSerialize["annotations"] = o.Annotations
+	if !IsNil(o.LastSeen) {
+		toSerialize["last_seen"] = o.LastSeen
+	}
+	return toSerialize, nil
 }
 
 type NullableKubernetesNamespace struct {

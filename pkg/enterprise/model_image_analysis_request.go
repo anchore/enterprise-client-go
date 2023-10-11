@@ -15,12 +15,15 @@ import (
 	"encoding/json"
 )
 
+// checks if the ImageAnalysisRequest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ImageAnalysisRequest{}
+
 // ImageAnalysisRequest A request to add an image to be watched and analyzed by the engine.
 type ImageAnalysisRequest struct {
 	// Optional. The type of image this is adding, defaults to \"docker\".
 	ImageType *string `json:"image_type,omitempty"`
 	// Annotations to be associated with the added image in key/value form
-	Annotations *interface{} `json:"annotations,omitempty"`
+	Annotations interface{} `json:"annotations,omitempty"`
 	Source *ImageSource `json:"source,omitempty"`
 }
 
@@ -43,7 +46,7 @@ func NewImageAnalysisRequestWithDefaults() *ImageAnalysisRequest {
 
 // GetImageType returns the ImageType field value if set, zero value otherwise.
 func (o *ImageAnalysisRequest) GetImageType() string {
-	if o == nil || o.ImageType == nil {
+	if o == nil || IsNil(o.ImageType) {
 		var ret string
 		return ret
 	}
@@ -53,7 +56,7 @@ func (o *ImageAnalysisRequest) GetImageType() string {
 // GetImageTypeOk returns a tuple with the ImageType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ImageAnalysisRequest) GetImageTypeOk() (*string, bool) {
-	if o == nil || o.ImageType == nil {
+	if o == nil || IsNil(o.ImageType) {
 		return nil, false
 	}
 	return o.ImageType, true
@@ -61,7 +64,7 @@ func (o *ImageAnalysisRequest) GetImageTypeOk() (*string, bool) {
 
 // HasImageType returns a boolean if a field has been set.
 func (o *ImageAnalysisRequest) HasImageType() bool {
-	if o != nil && o.ImageType != nil {
+	if o != nil && !IsNil(o.ImageType) {
 		return true
 	}
 
@@ -75,25 +78,25 @@ func (o *ImageAnalysisRequest) SetImageType(v string) {
 
 // GetAnnotations returns the Annotations field value if set, zero value otherwise.
 func (o *ImageAnalysisRequest) GetAnnotations() interface{} {
-	if o == nil || o.Annotations == nil {
+	if o == nil || IsNil(o.Annotations) {
 		var ret interface{}
 		return ret
 	}
-	return *o.Annotations
+	return o.Annotations
 }
 
 // GetAnnotationsOk returns a tuple with the Annotations field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ImageAnalysisRequest) GetAnnotationsOk() (*interface{}, bool) {
-	if o == nil || o.Annotations == nil {
-		return nil, false
+func (o *ImageAnalysisRequest) GetAnnotationsOk() (interface{}, bool) {
+	if o == nil || IsNil(o.Annotations) {
+		return interface{}{}, false
 	}
 	return o.Annotations, true
 }
 
 // HasAnnotations returns a boolean if a field has been set.
 func (o *ImageAnalysisRequest) HasAnnotations() bool {
-	if o != nil && o.Annotations != nil {
+	if o != nil && !IsNil(o.Annotations) {
 		return true
 	}
 
@@ -102,12 +105,12 @@ func (o *ImageAnalysisRequest) HasAnnotations() bool {
 
 // SetAnnotations gets a reference to the given interface{} and assigns it to the Annotations field.
 func (o *ImageAnalysisRequest) SetAnnotations(v interface{}) {
-	o.Annotations = &v
+	o.Annotations = v
 }
 
 // GetSource returns the Source field value if set, zero value otherwise.
 func (o *ImageAnalysisRequest) GetSource() ImageSource {
-	if o == nil || o.Source == nil {
+	if o == nil || IsNil(o.Source) {
 		var ret ImageSource
 		return ret
 	}
@@ -117,7 +120,7 @@ func (o *ImageAnalysisRequest) GetSource() ImageSource {
 // GetSourceOk returns a tuple with the Source field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ImageAnalysisRequest) GetSourceOk() (*ImageSource, bool) {
-	if o == nil || o.Source == nil {
+	if o == nil || IsNil(o.Source) {
 		return nil, false
 	}
 	return o.Source, true
@@ -125,7 +128,7 @@ func (o *ImageAnalysisRequest) GetSourceOk() (*ImageSource, bool) {
 
 // HasSource returns a boolean if a field has been set.
 func (o *ImageAnalysisRequest) HasSource() bool {
-	if o != nil && o.Source != nil {
+	if o != nil && !IsNil(o.Source) {
 		return true
 	}
 
@@ -138,17 +141,25 @@ func (o *ImageAnalysisRequest) SetSource(v ImageSource) {
 }
 
 func (o ImageAnalysisRequest) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.ImageType != nil {
-		toSerialize["image_type"] = o.ImageType
-	}
-	if o.Annotations != nil {
-		toSerialize["annotations"] = o.Annotations
-	}
-	if o.Source != nil {
-		toSerialize["source"] = o.Source
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o ImageAnalysisRequest) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.ImageType) {
+		toSerialize["image_type"] = o.ImageType
+	}
+	if !IsNil(o.Annotations) {
+		toSerialize["annotations"] = o.Annotations
+	}
+	if !IsNil(o.Source) {
+		toSerialize["source"] = o.Source
+	}
+	return toSerialize, nil
 }
 
 type NullableImageAnalysisRequest struct {

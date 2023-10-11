@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the NativeSBOMDistribution type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &NativeSBOMDistribution{}
+
 // NativeSBOMDistribution struct for NativeSBOMDistribution
 type NativeSBOMDistribution struct {
 	Name NullableString `json:"name,omitempty"`
@@ -46,7 +49,7 @@ func NewNativeSBOMDistributionWithDefaults() *NativeSBOMDistribution {
 
 // GetName returns the Name field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *NativeSBOMDistribution) GetName() string {
-	if o == nil || o.Name.Get() == nil {
+	if o == nil || IsNil(o.Name.Get()) {
 		var ret string
 		return ret
 	}
@@ -57,7 +60,7 @@ func (o *NativeSBOMDistribution) GetName() string {
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *NativeSBOMDistribution) GetNameOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return o.Name.Get(), o.Name.IsSet()
@@ -88,7 +91,7 @@ func (o *NativeSBOMDistribution) UnsetName() {
 
 // GetId returns the Id field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *NativeSBOMDistribution) GetId() string {
-	if o == nil || o.Id.Get() == nil {
+	if o == nil || IsNil(o.Id.Get()) {
 		var ret string
 		return ret
 	}
@@ -99,7 +102,7 @@ func (o *NativeSBOMDistribution) GetId() string {
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *NativeSBOMDistribution) GetIdOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return o.Id.Get(), o.Id.IsSet()
@@ -130,7 +133,7 @@ func (o *NativeSBOMDistribution) UnsetId() {
 
 // GetVersion returns the Version field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *NativeSBOMDistribution) GetVersion() string {
-	if o == nil || o.Version.Get() == nil {
+	if o == nil || IsNil(o.Version.Get()) {
 		var ret string
 		return ret
 	}
@@ -141,7 +144,7 @@ func (o *NativeSBOMDistribution) GetVersion() string {
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *NativeSBOMDistribution) GetVersionOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return o.Version.Get(), o.Version.IsSet()
@@ -172,7 +175,7 @@ func (o *NativeSBOMDistribution) UnsetVersion() {
 
 // GetVersionID returns the VersionID field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *NativeSBOMDistribution) GetVersionID() string {
-	if o == nil || o.VersionID.Get() == nil {
+	if o == nil || IsNil(o.VersionID.Get()) {
 		var ret string
 		return ret
 	}
@@ -183,7 +186,7 @@ func (o *NativeSBOMDistribution) GetVersionID() string {
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *NativeSBOMDistribution) GetVersionIDOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return o.VersionID.Get(), o.VersionID.IsSet()
@@ -214,7 +217,7 @@ func (o *NativeSBOMDistribution) UnsetVersionID() {
 
 // GetIdLike returns the IdLike field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *NativeSBOMDistribution) GetIdLike() interface{} {
-	if o == nil  {
+	if o == nil {
 		var ret interface{}
 		return ret
 	}
@@ -225,7 +228,7 @@ func (o *NativeSBOMDistribution) GetIdLike() interface{} {
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *NativeSBOMDistribution) GetIdLikeOk() (*interface{}, bool) {
-	if o == nil || o.IdLike == nil {
+	if o == nil || IsNil(o.IdLike) {
 		return nil, false
 	}
 	return &o.IdLike, true
@@ -233,7 +236,7 @@ func (o *NativeSBOMDistribution) GetIdLikeOk() (*interface{}, bool) {
 
 // HasIdLike returns a boolean if a field has been set.
 func (o *NativeSBOMDistribution) HasIdLike() bool {
-	if o != nil && o.IdLike != nil {
+	if o != nil && IsNil(o.IdLike) {
 		return true
 	}
 
@@ -246,6 +249,14 @@ func (o *NativeSBOMDistribution) SetIdLike(v interface{}) {
 }
 
 func (o NativeSBOMDistribution) MarshalJSON() ([]byte, error) {
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o NativeSBOMDistribution) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	if o.Name.IsSet() {
 		toSerialize["name"] = o.Name.Get()
@@ -267,15 +278,19 @@ func (o NativeSBOMDistribution) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
 func (o *NativeSBOMDistribution) UnmarshalJSON(bytes []byte) (err error) {
 	varNativeSBOMDistribution := _NativeSBOMDistribution{}
 
-	if err = json.Unmarshal(bytes, &varNativeSBOMDistribution); err == nil {
-		*o = NativeSBOMDistribution(varNativeSBOMDistribution)
+	err = json.Unmarshal(bytes, &varNativeSBOMDistribution)
+
+	if err != nil {
+		return err
 	}
+
+	*o = NativeSBOMDistribution(varNativeSBOMDistribution)
 
 	additionalProperties := make(map[string]interface{})
 

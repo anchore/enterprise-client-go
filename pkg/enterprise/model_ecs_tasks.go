@@ -15,9 +15,12 @@ import (
 	"encoding/json"
 )
 
+// checks if the ECSTasks type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ECSTasks{}
+
 // ECSTasks Tasks defined in ECS
 type ECSTasks struct {
-	Tasks *[]ECSTasksTasks `json:"tasks,omitempty"`
+	Tasks []ECSTasksTasksInner `json:"tasks,omitempty"`
 }
 
 // NewECSTasks instantiates a new ECSTasks object
@@ -38,18 +41,18 @@ func NewECSTasksWithDefaults() *ECSTasks {
 }
 
 // GetTasks returns the Tasks field value if set, zero value otherwise.
-func (o *ECSTasks) GetTasks() []ECSTasksTasks {
-	if o == nil || o.Tasks == nil {
-		var ret []ECSTasksTasks
+func (o *ECSTasks) GetTasks() []ECSTasksTasksInner {
+	if o == nil || IsNil(o.Tasks) {
+		var ret []ECSTasksTasksInner
 		return ret
 	}
-	return *o.Tasks
+	return o.Tasks
 }
 
 // GetTasksOk returns a tuple with the Tasks field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ECSTasks) GetTasksOk() (*[]ECSTasksTasks, bool) {
-	if o == nil || o.Tasks == nil {
+func (o *ECSTasks) GetTasksOk() ([]ECSTasksTasksInner, bool) {
+	if o == nil || IsNil(o.Tasks) {
 		return nil, false
 	}
 	return o.Tasks, true
@@ -57,24 +60,32 @@ func (o *ECSTasks) GetTasksOk() (*[]ECSTasksTasks, bool) {
 
 // HasTasks returns a boolean if a field has been set.
 func (o *ECSTasks) HasTasks() bool {
-	if o != nil && o.Tasks != nil {
+	if o != nil && !IsNil(o.Tasks) {
 		return true
 	}
 
 	return false
 }
 
-// SetTasks gets a reference to the given []ECSTasksTasks and assigns it to the Tasks field.
-func (o *ECSTasks) SetTasks(v []ECSTasksTasks) {
-	o.Tasks = &v
+// SetTasks gets a reference to the given []ECSTasksTasksInner and assigns it to the Tasks field.
+func (o *ECSTasks) SetTasks(v []ECSTasksTasksInner) {
+	o.Tasks = v
 }
 
 func (o ECSTasks) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Tasks != nil {
-		toSerialize["tasks"] = o.Tasks
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o ECSTasks) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Tasks) {
+		toSerialize["tasks"] = o.Tasks
+	}
+	return toSerialize, nil
 }
 
 type NullableECSTasks struct {

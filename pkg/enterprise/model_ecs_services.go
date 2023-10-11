@@ -15,9 +15,12 @@ import (
 	"encoding/json"
 )
 
+// checks if the ECSServices type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ECSServices{}
+
 // ECSServices Services defined in ECS
 type ECSServices struct {
-	Services *[]ECSServicesServices `json:"services,omitempty"`
+	Services []ECSServicesServicesInner `json:"services,omitempty"`
 }
 
 // NewECSServices instantiates a new ECSServices object
@@ -38,18 +41,18 @@ func NewECSServicesWithDefaults() *ECSServices {
 }
 
 // GetServices returns the Services field value if set, zero value otherwise.
-func (o *ECSServices) GetServices() []ECSServicesServices {
-	if o == nil || o.Services == nil {
-		var ret []ECSServicesServices
+func (o *ECSServices) GetServices() []ECSServicesServicesInner {
+	if o == nil || IsNil(o.Services) {
+		var ret []ECSServicesServicesInner
 		return ret
 	}
-	return *o.Services
+	return o.Services
 }
 
 // GetServicesOk returns a tuple with the Services field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ECSServices) GetServicesOk() (*[]ECSServicesServices, bool) {
-	if o == nil || o.Services == nil {
+func (o *ECSServices) GetServicesOk() ([]ECSServicesServicesInner, bool) {
+	if o == nil || IsNil(o.Services) {
 		return nil, false
 	}
 	return o.Services, true
@@ -57,24 +60,32 @@ func (o *ECSServices) GetServicesOk() (*[]ECSServicesServices, bool) {
 
 // HasServices returns a boolean if a field has been set.
 func (o *ECSServices) HasServices() bool {
-	if o != nil && o.Services != nil {
+	if o != nil && !IsNil(o.Services) {
 		return true
 	}
 
 	return false
 }
 
-// SetServices gets a reference to the given []ECSServicesServices and assigns it to the Services field.
-func (o *ECSServices) SetServices(v []ECSServicesServices) {
-	o.Services = &v
+// SetServices gets a reference to the given []ECSServicesServicesInner and assigns it to the Services field.
+func (o *ECSServices) SetServices(v []ECSServicesServicesInner) {
+	o.Services = v
 }
 
 func (o ECSServices) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Services != nil {
-		toSerialize["services"] = o.Services
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o ECSServices) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Services) {
+		toSerialize["services"] = o.Services
+	}
+	return toSerialize, nil
 }
 
 type NullableECSServices struct {

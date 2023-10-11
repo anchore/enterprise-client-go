@@ -15,10 +15,13 @@ import (
 	"encoding/json"
 )
 
+// checks if the SystemStatusResponse type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &SystemStatusResponse{}
+
 // SystemStatusResponse System status response
 type SystemStatusResponse struct {
 	// A list of service objects
-	ServiceStates *[]Service `json:"service_states,omitempty"`
+	ServiceStates []Service `json:"service_states,omitempty"`
 }
 
 // NewSystemStatusResponse instantiates a new SystemStatusResponse object
@@ -40,17 +43,17 @@ func NewSystemStatusResponseWithDefaults() *SystemStatusResponse {
 
 // GetServiceStates returns the ServiceStates field value if set, zero value otherwise.
 func (o *SystemStatusResponse) GetServiceStates() []Service {
-	if o == nil || o.ServiceStates == nil {
+	if o == nil || IsNil(o.ServiceStates) {
 		var ret []Service
 		return ret
 	}
-	return *o.ServiceStates
+	return o.ServiceStates
 }
 
 // GetServiceStatesOk returns a tuple with the ServiceStates field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SystemStatusResponse) GetServiceStatesOk() (*[]Service, bool) {
-	if o == nil || o.ServiceStates == nil {
+func (o *SystemStatusResponse) GetServiceStatesOk() ([]Service, bool) {
+	if o == nil || IsNil(o.ServiceStates) {
 		return nil, false
 	}
 	return o.ServiceStates, true
@@ -58,7 +61,7 @@ func (o *SystemStatusResponse) GetServiceStatesOk() (*[]Service, bool) {
 
 // HasServiceStates returns a boolean if a field has been set.
 func (o *SystemStatusResponse) HasServiceStates() bool {
-	if o != nil && o.ServiceStates != nil {
+	if o != nil && !IsNil(o.ServiceStates) {
 		return true
 	}
 
@@ -67,15 +70,23 @@ func (o *SystemStatusResponse) HasServiceStates() bool {
 
 // SetServiceStates gets a reference to the given []Service and assigns it to the ServiceStates field.
 func (o *SystemStatusResponse) SetServiceStates(v []Service) {
-	o.ServiceStates = &v
+	o.ServiceStates = v
 }
 
 func (o SystemStatusResponse) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.ServiceStates != nil {
-		toSerialize["service_states"] = o.ServiceStates
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o SystemStatusResponse) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.ServiceStates) {
+		toSerialize["service_states"] = o.ServiceStates
+	}
+	return toSerialize, nil
 }
 
 type NullableSystemStatusResponse struct {

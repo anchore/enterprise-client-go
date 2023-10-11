@@ -15,9 +15,12 @@ import (
 	"encoding/json"
 )
 
+// checks if the AnchoreImageTagSummaryList type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &AnchoreImageTagSummaryList{}
+
 // AnchoreImageTagSummaryList a list of AnchoreImageTagSummary objects
 type AnchoreImageTagSummaryList struct {
-	Items *[]AnchoreImageTagSummary `json:"items,omitempty"`
+	Items []AnchoreImageTagSummary `json:"items,omitempty"`
 }
 
 // NewAnchoreImageTagSummaryList instantiates a new AnchoreImageTagSummaryList object
@@ -39,17 +42,17 @@ func NewAnchoreImageTagSummaryListWithDefaults() *AnchoreImageTagSummaryList {
 
 // GetItems returns the Items field value if set, zero value otherwise.
 func (o *AnchoreImageTagSummaryList) GetItems() []AnchoreImageTagSummary {
-	if o == nil || o.Items == nil {
+	if o == nil || IsNil(o.Items) {
 		var ret []AnchoreImageTagSummary
 		return ret
 	}
-	return *o.Items
+	return o.Items
 }
 
 // GetItemsOk returns a tuple with the Items field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AnchoreImageTagSummaryList) GetItemsOk() (*[]AnchoreImageTagSummary, bool) {
-	if o == nil || o.Items == nil {
+func (o *AnchoreImageTagSummaryList) GetItemsOk() ([]AnchoreImageTagSummary, bool) {
+	if o == nil || IsNil(o.Items) {
 		return nil, false
 	}
 	return o.Items, true
@@ -57,7 +60,7 @@ func (o *AnchoreImageTagSummaryList) GetItemsOk() (*[]AnchoreImageTagSummary, bo
 
 // HasItems returns a boolean if a field has been set.
 func (o *AnchoreImageTagSummaryList) HasItems() bool {
-	if o != nil && o.Items != nil {
+	if o != nil && !IsNil(o.Items) {
 		return true
 	}
 
@@ -66,15 +69,23 @@ func (o *AnchoreImageTagSummaryList) HasItems() bool {
 
 // SetItems gets a reference to the given []AnchoreImageTagSummary and assigns it to the Items field.
 func (o *AnchoreImageTagSummaryList) SetItems(v []AnchoreImageTagSummary) {
-	o.Items = &v
+	o.Items = v
 }
 
 func (o AnchoreImageTagSummaryList) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Items != nil {
-		toSerialize["items"] = o.Items
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o AnchoreImageTagSummaryList) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Items) {
+		toSerialize["items"] = o.Items
+	}
+	return toSerialize, nil
 }
 
 type NullableAnchoreImageTagSummaryList struct {

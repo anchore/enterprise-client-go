@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the PaginatedImageList type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PaginatedImageList{}
+
 // PaginatedImageList Pagination wrapped list of images that match some filter
 type PaginatedImageList struct {
 	// The page number returned (should match the requested page query string param)
@@ -23,7 +26,7 @@ type PaginatedImageList struct {
 	NextPage *string `json:"next_page,omitempty"`
 	// The number of items sent in this response
 	ReturnedCount *int32 `json:"returned_count,omitempty"`
-	Images *[]ImageWithPackages `json:"images,omitempty"`
+	Images []ImageWithPackages `json:"images,omitempty"`
 }
 
 // NewPaginatedImageList instantiates a new PaginatedImageList object
@@ -45,7 +48,7 @@ func NewPaginatedImageListWithDefaults() *PaginatedImageList {
 
 // GetPage returns the Page field value if set, zero value otherwise.
 func (o *PaginatedImageList) GetPage() string {
-	if o == nil || o.Page == nil {
+	if o == nil || IsNil(o.Page) {
 		var ret string
 		return ret
 	}
@@ -55,7 +58,7 @@ func (o *PaginatedImageList) GetPage() string {
 // GetPageOk returns a tuple with the Page field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PaginatedImageList) GetPageOk() (*string, bool) {
-	if o == nil || o.Page == nil {
+	if o == nil || IsNil(o.Page) {
 		return nil, false
 	}
 	return o.Page, true
@@ -63,7 +66,7 @@ func (o *PaginatedImageList) GetPageOk() (*string, bool) {
 
 // HasPage returns a boolean if a field has been set.
 func (o *PaginatedImageList) HasPage() bool {
-	if o != nil && o.Page != nil {
+	if o != nil && !IsNil(o.Page) {
 		return true
 	}
 
@@ -77,7 +80,7 @@ func (o *PaginatedImageList) SetPage(v string) {
 
 // GetNextPage returns the NextPage field value if set, zero value otherwise.
 func (o *PaginatedImageList) GetNextPage() string {
-	if o == nil || o.NextPage == nil {
+	if o == nil || IsNil(o.NextPage) {
 		var ret string
 		return ret
 	}
@@ -87,7 +90,7 @@ func (o *PaginatedImageList) GetNextPage() string {
 // GetNextPageOk returns a tuple with the NextPage field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PaginatedImageList) GetNextPageOk() (*string, bool) {
-	if o == nil || o.NextPage == nil {
+	if o == nil || IsNil(o.NextPage) {
 		return nil, false
 	}
 	return o.NextPage, true
@@ -95,7 +98,7 @@ func (o *PaginatedImageList) GetNextPageOk() (*string, bool) {
 
 // HasNextPage returns a boolean if a field has been set.
 func (o *PaginatedImageList) HasNextPage() bool {
-	if o != nil && o.NextPage != nil {
+	if o != nil && !IsNil(o.NextPage) {
 		return true
 	}
 
@@ -109,7 +112,7 @@ func (o *PaginatedImageList) SetNextPage(v string) {
 
 // GetReturnedCount returns the ReturnedCount field value if set, zero value otherwise.
 func (o *PaginatedImageList) GetReturnedCount() int32 {
-	if o == nil || o.ReturnedCount == nil {
+	if o == nil || IsNil(o.ReturnedCount) {
 		var ret int32
 		return ret
 	}
@@ -119,7 +122,7 @@ func (o *PaginatedImageList) GetReturnedCount() int32 {
 // GetReturnedCountOk returns a tuple with the ReturnedCount field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PaginatedImageList) GetReturnedCountOk() (*int32, bool) {
-	if o == nil || o.ReturnedCount == nil {
+	if o == nil || IsNil(o.ReturnedCount) {
 		return nil, false
 	}
 	return o.ReturnedCount, true
@@ -127,7 +130,7 @@ func (o *PaginatedImageList) GetReturnedCountOk() (*int32, bool) {
 
 // HasReturnedCount returns a boolean if a field has been set.
 func (o *PaginatedImageList) HasReturnedCount() bool {
-	if o != nil && o.ReturnedCount != nil {
+	if o != nil && !IsNil(o.ReturnedCount) {
 		return true
 	}
 
@@ -141,17 +144,17 @@ func (o *PaginatedImageList) SetReturnedCount(v int32) {
 
 // GetImages returns the Images field value if set, zero value otherwise.
 func (o *PaginatedImageList) GetImages() []ImageWithPackages {
-	if o == nil || o.Images == nil {
+	if o == nil || IsNil(o.Images) {
 		var ret []ImageWithPackages
 		return ret
 	}
-	return *o.Images
+	return o.Images
 }
 
 // GetImagesOk returns a tuple with the Images field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *PaginatedImageList) GetImagesOk() (*[]ImageWithPackages, bool) {
-	if o == nil || o.Images == nil {
+func (o *PaginatedImageList) GetImagesOk() ([]ImageWithPackages, bool) {
+	if o == nil || IsNil(o.Images) {
 		return nil, false
 	}
 	return o.Images, true
@@ -159,7 +162,7 @@ func (o *PaginatedImageList) GetImagesOk() (*[]ImageWithPackages, bool) {
 
 // HasImages returns a boolean if a field has been set.
 func (o *PaginatedImageList) HasImages() bool {
-	if o != nil && o.Images != nil {
+	if o != nil && !IsNil(o.Images) {
 		return true
 	}
 
@@ -168,24 +171,32 @@ func (o *PaginatedImageList) HasImages() bool {
 
 // SetImages gets a reference to the given []ImageWithPackages and assigns it to the Images field.
 func (o *PaginatedImageList) SetImages(v []ImageWithPackages) {
-	o.Images = &v
+	o.Images = v
 }
 
 func (o PaginatedImageList) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Page != nil {
-		toSerialize["page"] = o.Page
-	}
-	if o.NextPage != nil {
-		toSerialize["next_page"] = o.NextPage
-	}
-	if o.ReturnedCount != nil {
-		toSerialize["returned_count"] = o.ReturnedCount
-	}
-	if o.Images != nil {
-		toSerialize["images"] = o.Images
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o PaginatedImageList) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Page) {
+		toSerialize["page"] = o.Page
+	}
+	if !IsNil(o.NextPage) {
+		toSerialize["next_page"] = o.NextPage
+	}
+	if !IsNil(o.ReturnedCount) {
+		toSerialize["returned_count"] = o.ReturnedCount
+	}
+	if !IsNil(o.Images) {
+		toSerialize["images"] = o.Images
+	}
+	return toSerialize, nil
 }
 
 type NullablePaginatedImageList struct {

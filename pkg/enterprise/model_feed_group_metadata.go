@@ -16,6 +16,9 @@ import (
 	"time"
 )
 
+// checks if the FeedGroupMetadata type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &FeedGroupMetadata{}
+
 // FeedGroupMetadata struct for FeedGroupMetadata
 type FeedGroupMetadata struct {
 	Name *string `json:"name,omitempty"`
@@ -45,7 +48,7 @@ func NewFeedGroupMetadataWithDefaults() *FeedGroupMetadata {
 
 // GetName returns the Name field value if set, zero value otherwise.
 func (o *FeedGroupMetadata) GetName() string {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		var ret string
 		return ret
 	}
@@ -55,7 +58,7 @@ func (o *FeedGroupMetadata) GetName() string {
 // GetNameOk returns a tuple with the Name field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *FeedGroupMetadata) GetNameOk() (*string, bool) {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		return nil, false
 	}
 	return o.Name, true
@@ -63,7 +66,7 @@ func (o *FeedGroupMetadata) GetNameOk() (*string, bool) {
 
 // HasName returns a boolean if a field has been set.
 func (o *FeedGroupMetadata) HasName() bool {
-	if o != nil && o.Name != nil {
+	if o != nil && !IsNil(o.Name) {
 		return true
 	}
 
@@ -77,7 +80,7 @@ func (o *FeedGroupMetadata) SetName(v string) {
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
 func (o *FeedGroupMetadata) GetCreatedAt() time.Time {
-	if o == nil || o.CreatedAt == nil {
+	if o == nil || IsNil(o.CreatedAt) {
 		var ret time.Time
 		return ret
 	}
@@ -87,7 +90,7 @@ func (o *FeedGroupMetadata) GetCreatedAt() time.Time {
 // GetCreatedAtOk returns a tuple with the CreatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *FeedGroupMetadata) GetCreatedAtOk() (*time.Time, bool) {
-	if o == nil || o.CreatedAt == nil {
+	if o == nil || IsNil(o.CreatedAt) {
 		return nil, false
 	}
 	return o.CreatedAt, true
@@ -95,7 +98,7 @@ func (o *FeedGroupMetadata) GetCreatedAtOk() (*time.Time, bool) {
 
 // HasCreatedAt returns a boolean if a field has been set.
 func (o *FeedGroupMetadata) HasCreatedAt() bool {
-	if o != nil && o.CreatedAt != nil {
+	if o != nil && !IsNil(o.CreatedAt) {
 		return true
 	}
 
@@ -109,7 +112,7 @@ func (o *FeedGroupMetadata) SetCreatedAt(v time.Time) {
 
 // GetLastSync returns the LastSync field value if set, zero value otherwise.
 func (o *FeedGroupMetadata) GetLastSync() time.Time {
-	if o == nil || o.LastSync == nil {
+	if o == nil || IsNil(o.LastSync) {
 		var ret time.Time
 		return ret
 	}
@@ -119,7 +122,7 @@ func (o *FeedGroupMetadata) GetLastSync() time.Time {
 // GetLastSyncOk returns a tuple with the LastSync field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *FeedGroupMetadata) GetLastSyncOk() (*time.Time, bool) {
-	if o == nil || o.LastSync == nil {
+	if o == nil || IsNil(o.LastSync) {
 		return nil, false
 	}
 	return o.LastSync, true
@@ -127,7 +130,7 @@ func (o *FeedGroupMetadata) GetLastSyncOk() (*time.Time, bool) {
 
 // HasLastSync returns a boolean if a field has been set.
 func (o *FeedGroupMetadata) HasLastSync() bool {
-	if o != nil && o.LastSync != nil {
+	if o != nil && !IsNil(o.LastSync) {
 		return true
 	}
 
@@ -141,7 +144,7 @@ func (o *FeedGroupMetadata) SetLastSync(v time.Time) {
 
 // GetRecordCount returns the RecordCount field value if set, zero value otherwise.
 func (o *FeedGroupMetadata) GetRecordCount() int32 {
-	if o == nil || o.RecordCount == nil {
+	if o == nil || IsNil(o.RecordCount) {
 		var ret int32
 		return ret
 	}
@@ -151,7 +154,7 @@ func (o *FeedGroupMetadata) GetRecordCount() int32 {
 // GetRecordCountOk returns a tuple with the RecordCount field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *FeedGroupMetadata) GetRecordCountOk() (*int32, bool) {
-	if o == nil || o.RecordCount == nil {
+	if o == nil || IsNil(o.RecordCount) {
 		return nil, false
 	}
 	return o.RecordCount, true
@@ -159,7 +162,7 @@ func (o *FeedGroupMetadata) GetRecordCountOk() (*int32, bool) {
 
 // HasRecordCount returns a boolean if a field has been set.
 func (o *FeedGroupMetadata) HasRecordCount() bool {
-	if o != nil && o.RecordCount != nil {
+	if o != nil && !IsNil(o.RecordCount) {
 		return true
 	}
 
@@ -173,7 +176,7 @@ func (o *FeedGroupMetadata) SetRecordCount(v int32) {
 
 // GetEnabled returns the Enabled field value if set, zero value otherwise.
 func (o *FeedGroupMetadata) GetEnabled() bool {
-	if o == nil || o.Enabled == nil {
+	if o == nil || IsNil(o.Enabled) {
 		var ret bool
 		return ret
 	}
@@ -183,7 +186,7 @@ func (o *FeedGroupMetadata) GetEnabled() bool {
 // GetEnabledOk returns a tuple with the Enabled field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *FeedGroupMetadata) GetEnabledOk() (*bool, bool) {
-	if o == nil || o.Enabled == nil {
+	if o == nil || IsNil(o.Enabled) {
 		return nil, false
 	}
 	return o.Enabled, true
@@ -191,7 +194,7 @@ func (o *FeedGroupMetadata) GetEnabledOk() (*bool, bool) {
 
 // HasEnabled returns a boolean if a field has been set.
 func (o *FeedGroupMetadata) HasEnabled() bool {
-	if o != nil && o.Enabled != nil {
+	if o != nil && !IsNil(o.Enabled) {
 		return true
 	}
 
@@ -204,23 +207,31 @@ func (o *FeedGroupMetadata) SetEnabled(v bool) {
 }
 
 func (o FeedGroupMetadata) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Name != nil {
-		toSerialize["name"] = o.Name
-	}
-	if o.CreatedAt != nil {
-		toSerialize["created_at"] = o.CreatedAt
-	}
-	if o.LastSync != nil {
-		toSerialize["last_sync"] = o.LastSync
-	}
-	if o.RecordCount != nil {
-		toSerialize["record_count"] = o.RecordCount
-	}
-	if o.Enabled != nil {
-		toSerialize["enabled"] = o.Enabled
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o FeedGroupMetadata) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Name) {
+		toSerialize["name"] = o.Name
+	}
+	if !IsNil(o.CreatedAt) {
+		toSerialize["created_at"] = o.CreatedAt
+	}
+	if !IsNil(o.LastSync) {
+		toSerialize["last_sync"] = o.LastSync
+	}
+	if !IsNil(o.RecordCount) {
+		toSerialize["record_count"] = o.RecordCount
+	}
+	if !IsNil(o.Enabled) {
+		toSerialize["enabled"] = o.Enabled
+	}
+	return toSerialize, nil
 }
 
 type NullableFeedGroupMetadata struct {

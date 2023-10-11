@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the AnalysisStatusDetail type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &AnalysisStatusDetail{}
+
 // AnalysisStatusDetail The detail of an analysis status change recording which service initiated the state change, when, and which transition
 type AnalysisStatusDetail struct {
 	FromStatus string `json:"from_status"`
@@ -57,7 +60,7 @@ func (o *AnalysisStatusDetail) GetFromStatus() string {
 // GetFromStatusOk returns a tuple with the FromStatus field value
 // and a boolean to check if the value has been set.
 func (o *AnalysisStatusDetail) GetFromStatusOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.FromStatus, true
@@ -81,7 +84,7 @@ func (o *AnalysisStatusDetail) GetToStatus() string {
 // GetToStatusOk returns a tuple with the ToStatus field value
 // and a boolean to check if the value has been set.
 func (o *AnalysisStatusDetail) GetToStatusOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.ToStatus, true
@@ -105,7 +108,7 @@ func (o *AnalysisStatusDetail) GetTimestamp() string {
 // GetTimestampOk returns a tuple with the Timestamp field value
 // and a boolean to check if the value has been set.
 func (o *AnalysisStatusDetail) GetTimestampOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Timestamp, true
@@ -129,7 +132,7 @@ func (o *AnalysisStatusDetail) GetSource() ServiceReference {
 // GetSourceOk returns a tuple with the Source field value
 // and a boolean to check if the value has been set.
 func (o *AnalysisStatusDetail) GetSourceOk() (*ServiceReference, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Source, true
@@ -141,20 +144,20 @@ func (o *AnalysisStatusDetail) SetSource(v ServiceReference) {
 }
 
 func (o AnalysisStatusDetail) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["from_status"] = o.FromStatus
-	}
-	if true {
-		toSerialize["to_status"] = o.ToStatus
-	}
-	if true {
-		toSerialize["timestamp"] = o.Timestamp
-	}
-	if true {
-		toSerialize["source"] = o.Source
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o AnalysisStatusDetail) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["from_status"] = o.FromStatus
+	toSerialize["to_status"] = o.ToStatus
+	toSerialize["timestamp"] = o.Timestamp
+	toSerialize["source"] = o.Source
+	return toSerialize, nil
 }
 
 type NullableAnalysisStatusDetail struct {

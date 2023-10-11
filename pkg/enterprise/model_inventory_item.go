@@ -16,6 +16,9 @@ import (
 	"time"
 )
 
+// checks if the InventoryItem type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &InventoryItem{}
+
 // InventoryItem Inventory result for a specific Namespace
 type InventoryItem struct {
 	InventoryType *string `json:"inventory_type,omitempty"`
@@ -46,7 +49,7 @@ func NewInventoryItemWithDefaults() *InventoryItem {
 
 // GetInventoryType returns the InventoryType field value if set, zero value otherwise.
 func (o *InventoryItem) GetInventoryType() string {
-	if o == nil || o.InventoryType == nil {
+	if o == nil || IsNil(o.InventoryType) {
 		var ret string
 		return ret
 	}
@@ -56,7 +59,7 @@ func (o *InventoryItem) GetInventoryType() string {
 // GetInventoryTypeOk returns a tuple with the InventoryType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *InventoryItem) GetInventoryTypeOk() (*string, bool) {
-	if o == nil || o.InventoryType == nil {
+	if o == nil || IsNil(o.InventoryType) {
 		return nil, false
 	}
 	return o.InventoryType, true
@@ -64,7 +67,7 @@ func (o *InventoryItem) GetInventoryTypeOk() (*string, bool) {
 
 // HasInventoryType returns a boolean if a field has been set.
 func (o *InventoryItem) HasInventoryType() bool {
-	if o != nil && o.InventoryType != nil {
+	if o != nil && !IsNil(o.InventoryType) {
 		return true
 	}
 
@@ -78,7 +81,7 @@ func (o *InventoryItem) SetInventoryType(v string) {
 
 // GetContext returns the Context field value if set, zero value otherwise.
 func (o *InventoryItem) GetContext() string {
-	if o == nil || o.Context == nil {
+	if o == nil || IsNil(o.Context) {
 		var ret string
 		return ret
 	}
@@ -88,7 +91,7 @@ func (o *InventoryItem) GetContext() string {
 // GetContextOk returns a tuple with the Context field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *InventoryItem) GetContextOk() (*string, bool) {
-	if o == nil || o.Context == nil {
+	if o == nil || IsNil(o.Context) {
 		return nil, false
 	}
 	return o.Context, true
@@ -96,7 +99,7 @@ func (o *InventoryItem) GetContextOk() (*string, bool) {
 
 // HasContext returns a boolean if a field has been set.
 func (o *InventoryItem) HasContext() bool {
-	if o != nil && o.Context != nil {
+	if o != nil && !IsNil(o.Context) {
 		return true
 	}
 
@@ -110,7 +113,7 @@ func (o *InventoryItem) SetContext(v string) {
 
 // GetImageTag returns the ImageTag field value if set, zero value otherwise.
 func (o *InventoryItem) GetImageTag() string {
-	if o == nil || o.ImageTag == nil {
+	if o == nil || IsNil(o.ImageTag) {
 		var ret string
 		return ret
 	}
@@ -120,7 +123,7 @@ func (o *InventoryItem) GetImageTag() string {
 // GetImageTagOk returns a tuple with the ImageTag field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *InventoryItem) GetImageTagOk() (*string, bool) {
-	if o == nil || o.ImageTag == nil {
+	if o == nil || IsNil(o.ImageTag) {
 		return nil, false
 	}
 	return o.ImageTag, true
@@ -128,7 +131,7 @@ func (o *InventoryItem) GetImageTagOk() (*string, bool) {
 
 // HasImageTag returns a boolean if a field has been set.
 func (o *InventoryItem) HasImageTag() bool {
-	if o != nil && o.ImageTag != nil {
+	if o != nil && !IsNil(o.ImageTag) {
 		return true
 	}
 
@@ -142,7 +145,7 @@ func (o *InventoryItem) SetImageTag(v string) {
 
 // GetImageDigest returns the ImageDigest field value if set, zero value otherwise.
 func (o *InventoryItem) GetImageDigest() string {
-	if o == nil || o.ImageDigest == nil {
+	if o == nil || IsNil(o.ImageDigest) {
 		var ret string
 		return ret
 	}
@@ -152,7 +155,7 @@ func (o *InventoryItem) GetImageDigest() string {
 // GetImageDigestOk returns a tuple with the ImageDigest field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *InventoryItem) GetImageDigestOk() (*string, bool) {
-	if o == nil || o.ImageDigest == nil {
+	if o == nil || IsNil(o.ImageDigest) {
 		return nil, false
 	}
 	return o.ImageDigest, true
@@ -160,7 +163,7 @@ func (o *InventoryItem) GetImageDigestOk() (*string, bool) {
 
 // HasImageDigest returns a boolean if a field has been set.
 func (o *InventoryItem) HasImageDigest() bool {
-	if o != nil && o.ImageDigest != nil {
+	if o != nil && !IsNil(o.ImageDigest) {
 		return true
 	}
 
@@ -174,7 +177,7 @@ func (o *InventoryItem) SetImageDigest(v string) {
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
 func (o *InventoryItem) GetCreatedAt() time.Time {
-	if o == nil || o.CreatedAt == nil {
+	if o == nil || IsNil(o.CreatedAt) {
 		var ret time.Time
 		return ret
 	}
@@ -184,7 +187,7 @@ func (o *InventoryItem) GetCreatedAt() time.Time {
 // GetCreatedAtOk returns a tuple with the CreatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *InventoryItem) GetCreatedAtOk() (*time.Time, bool) {
-	if o == nil || o.CreatedAt == nil {
+	if o == nil || IsNil(o.CreatedAt) {
 		return nil, false
 	}
 	return o.CreatedAt, true
@@ -192,7 +195,7 @@ func (o *InventoryItem) GetCreatedAtOk() (*time.Time, bool) {
 
 // HasCreatedAt returns a boolean if a field has been set.
 func (o *InventoryItem) HasCreatedAt() bool {
-	if o != nil && o.CreatedAt != nil {
+	if o != nil && !IsNil(o.CreatedAt) {
 		return true
 	}
 
@@ -206,7 +209,7 @@ func (o *InventoryItem) SetCreatedAt(v time.Time) {
 
 // GetLastUpdated returns the LastUpdated field value if set, zero value otherwise.
 func (o *InventoryItem) GetLastUpdated() time.Time {
-	if o == nil || o.LastUpdated == nil {
+	if o == nil || IsNil(o.LastUpdated) {
 		var ret time.Time
 		return ret
 	}
@@ -216,7 +219,7 @@ func (o *InventoryItem) GetLastUpdated() time.Time {
 // GetLastUpdatedOk returns a tuple with the LastUpdated field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *InventoryItem) GetLastUpdatedOk() (*time.Time, bool) {
-	if o == nil || o.LastUpdated == nil {
+	if o == nil || IsNil(o.LastUpdated) {
 		return nil, false
 	}
 	return o.LastUpdated, true
@@ -224,7 +227,7 @@ func (o *InventoryItem) GetLastUpdatedOk() (*time.Time, bool) {
 
 // HasLastUpdated returns a boolean if a field has been set.
 func (o *InventoryItem) HasLastUpdated() bool {
-	if o != nil && o.LastUpdated != nil {
+	if o != nil && !IsNil(o.LastUpdated) {
 		return true
 	}
 
@@ -238,7 +241,7 @@ func (o *InventoryItem) SetLastUpdated(v time.Time) {
 
 // GetLastSeen returns the LastSeen field value if set, zero value otherwise.
 func (o *InventoryItem) GetLastSeen() time.Time {
-	if o == nil || o.LastSeen == nil {
+	if o == nil || IsNil(o.LastSeen) {
 		var ret time.Time
 		return ret
 	}
@@ -248,7 +251,7 @@ func (o *InventoryItem) GetLastSeen() time.Time {
 // GetLastSeenOk returns a tuple with the LastSeen field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *InventoryItem) GetLastSeenOk() (*time.Time, bool) {
-	if o == nil || o.LastSeen == nil {
+	if o == nil || IsNil(o.LastSeen) {
 		return nil, false
 	}
 	return o.LastSeen, true
@@ -256,7 +259,7 @@ func (o *InventoryItem) GetLastSeenOk() (*time.Time, bool) {
 
 // HasLastSeen returns a boolean if a field has been set.
 func (o *InventoryItem) HasLastSeen() bool {
-	if o != nil && o.LastSeen != nil {
+	if o != nil && !IsNil(o.LastSeen) {
 		return true
 	}
 
@@ -269,29 +272,37 @@ func (o *InventoryItem) SetLastSeen(v time.Time) {
 }
 
 func (o InventoryItem) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.InventoryType != nil {
-		toSerialize["inventory_type"] = o.InventoryType
-	}
-	if o.Context != nil {
-		toSerialize["context"] = o.Context
-	}
-	if o.ImageTag != nil {
-		toSerialize["image_tag"] = o.ImageTag
-	}
-	if o.ImageDigest != nil {
-		toSerialize["image_digest"] = o.ImageDigest
-	}
-	if o.CreatedAt != nil {
-		toSerialize["created_at"] = o.CreatedAt
-	}
-	if o.LastUpdated != nil {
-		toSerialize["last_updated"] = o.LastUpdated
-	}
-	if o.LastSeen != nil {
-		toSerialize["last_seen"] = o.LastSeen
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o InventoryItem) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.InventoryType) {
+		toSerialize["inventory_type"] = o.InventoryType
+	}
+	if !IsNil(o.Context) {
+		toSerialize["context"] = o.Context
+	}
+	if !IsNil(o.ImageTag) {
+		toSerialize["image_tag"] = o.ImageTag
+	}
+	if !IsNil(o.ImageDigest) {
+		toSerialize["image_digest"] = o.ImageDigest
+	}
+	if !IsNil(o.CreatedAt) {
+		toSerialize["created_at"] = o.CreatedAt
+	}
+	if !IsNil(o.LastUpdated) {
+		toSerialize["last_updated"] = o.LastUpdated
+	}
+	if !IsNil(o.LastSeen) {
+		toSerialize["last_seen"] = o.LastSeen
+	}
+	return toSerialize, nil
 }
 
 type NullableInventoryItem struct {

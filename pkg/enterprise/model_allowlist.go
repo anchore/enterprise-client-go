@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the Allowlist type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &Allowlist{}
+
 // Allowlist A collection of allowlist items to match a policy evaluation against.
 type Allowlist struct {
 	Id string `json:"id"`
@@ -59,7 +62,7 @@ func (o *Allowlist) GetId() string {
 // GetIdOk returns a tuple with the Id field value
 // and a boolean to check if the value has been set.
 func (o *Allowlist) GetIdOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Id, true
@@ -83,7 +86,7 @@ func (o *Allowlist) GetName() string {
 // GetNameOk returns a tuple with the Name field value
 // and a boolean to check if the value has been set.
 func (o *Allowlist) GetNameOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Name, true
@@ -107,7 +110,7 @@ func (o *Allowlist) GetVersion() string {
 // GetVersionOk returns a tuple with the Version field value
 // and a boolean to check if the value has been set.
 func (o *Allowlist) GetVersionOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Version, true
@@ -120,7 +123,7 @@ func (o *Allowlist) SetVersion(v string) {
 
 // GetDescription returns the Description field value if set, zero value otherwise.
 func (o *Allowlist) GetDescription() string {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		var ret string
 		return ret
 	}
@@ -130,7 +133,7 @@ func (o *Allowlist) GetDescription() string {
 // GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Allowlist) GetDescriptionOk() (*string, bool) {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		return nil, false
 	}
 	return o.Description, true
@@ -138,7 +141,7 @@ func (o *Allowlist) GetDescriptionOk() (*string, bool) {
 
 // HasDescription returns a boolean if a field has been set.
 func (o *Allowlist) HasDescription() bool {
-	if o != nil && o.Description != nil {
+	if o != nil && !IsNil(o.Description) {
 		return true
 	}
 
@@ -162,11 +165,11 @@ func (o *Allowlist) GetItems() []AllowlistItem {
 
 // GetItemsOk returns a tuple with the Items field value
 // and a boolean to check if the value has been set.
-func (o *Allowlist) GetItemsOk() (*[]AllowlistItem, bool) {
-	if o == nil  {
+func (o *Allowlist) GetItemsOk() ([]AllowlistItem, bool) {
+	if o == nil {
 		return nil, false
 	}
-	return &o.Items, true
+	return o.Items, true
 }
 
 // SetItems sets field value
@@ -175,23 +178,23 @@ func (o *Allowlist) SetItems(v []AllowlistItem) {
 }
 
 func (o Allowlist) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["id"] = o.Id
-	}
-	if true {
-		toSerialize["name"] = o.Name
-	}
-	if true {
-		toSerialize["version"] = o.Version
-	}
-	if o.Description != nil {
-		toSerialize["description"] = o.Description
-	}
-	if true {
-		toSerialize["items"] = o.Items
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o Allowlist) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["id"] = o.Id
+	toSerialize["name"] = o.Name
+	toSerialize["version"] = o.Version
+	if !IsNil(o.Description) {
+		toSerialize["description"] = o.Description
+	}
+	toSerialize["items"] = o.Items
+	return toSerialize, nil
 }
 
 type NullableAllowlist struct {

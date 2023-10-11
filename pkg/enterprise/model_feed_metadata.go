@@ -16,6 +16,9 @@ import (
 	"time"
 )
 
+// checks if the FeedMetadata type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &FeedMetadata{}
+
 // FeedMetadata Metadata on a single feed based on what the engine finds from querying the endpoints
 type FeedMetadata struct {
 	// name of the feed
@@ -24,7 +27,7 @@ type FeedMetadata struct {
 	CreatedAt *time.Time `json:"created_at,omitempty"`
 	// Date the metadata was last updated
 	UpdatedAt *time.Time `json:"updated_at,omitempty"`
-	Groups *[]FeedGroupMetadata `json:"groups,omitempty"`
+	Groups []FeedGroupMetadata `json:"groups,omitempty"`
 	LastFullSync *time.Time `json:"last_full_sync,omitempty"`
 	// If feed is enabled
 	Enabled *bool `json:"enabled,omitempty"`
@@ -49,7 +52,7 @@ func NewFeedMetadataWithDefaults() *FeedMetadata {
 
 // GetName returns the Name field value if set, zero value otherwise.
 func (o *FeedMetadata) GetName() string {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		var ret string
 		return ret
 	}
@@ -59,7 +62,7 @@ func (o *FeedMetadata) GetName() string {
 // GetNameOk returns a tuple with the Name field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *FeedMetadata) GetNameOk() (*string, bool) {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		return nil, false
 	}
 	return o.Name, true
@@ -67,7 +70,7 @@ func (o *FeedMetadata) GetNameOk() (*string, bool) {
 
 // HasName returns a boolean if a field has been set.
 func (o *FeedMetadata) HasName() bool {
-	if o != nil && o.Name != nil {
+	if o != nil && !IsNil(o.Name) {
 		return true
 	}
 
@@ -81,7 +84,7 @@ func (o *FeedMetadata) SetName(v string) {
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
 func (o *FeedMetadata) GetCreatedAt() time.Time {
-	if o == nil || o.CreatedAt == nil {
+	if o == nil || IsNil(o.CreatedAt) {
 		var ret time.Time
 		return ret
 	}
@@ -91,7 +94,7 @@ func (o *FeedMetadata) GetCreatedAt() time.Time {
 // GetCreatedAtOk returns a tuple with the CreatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *FeedMetadata) GetCreatedAtOk() (*time.Time, bool) {
-	if o == nil || o.CreatedAt == nil {
+	if o == nil || IsNil(o.CreatedAt) {
 		return nil, false
 	}
 	return o.CreatedAt, true
@@ -99,7 +102,7 @@ func (o *FeedMetadata) GetCreatedAtOk() (*time.Time, bool) {
 
 // HasCreatedAt returns a boolean if a field has been set.
 func (o *FeedMetadata) HasCreatedAt() bool {
-	if o != nil && o.CreatedAt != nil {
+	if o != nil && !IsNil(o.CreatedAt) {
 		return true
 	}
 
@@ -113,7 +116,7 @@ func (o *FeedMetadata) SetCreatedAt(v time.Time) {
 
 // GetUpdatedAt returns the UpdatedAt field value if set, zero value otherwise.
 func (o *FeedMetadata) GetUpdatedAt() time.Time {
-	if o == nil || o.UpdatedAt == nil {
+	if o == nil || IsNil(o.UpdatedAt) {
 		var ret time.Time
 		return ret
 	}
@@ -123,7 +126,7 @@ func (o *FeedMetadata) GetUpdatedAt() time.Time {
 // GetUpdatedAtOk returns a tuple with the UpdatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *FeedMetadata) GetUpdatedAtOk() (*time.Time, bool) {
-	if o == nil || o.UpdatedAt == nil {
+	if o == nil || IsNil(o.UpdatedAt) {
 		return nil, false
 	}
 	return o.UpdatedAt, true
@@ -131,7 +134,7 @@ func (o *FeedMetadata) GetUpdatedAtOk() (*time.Time, bool) {
 
 // HasUpdatedAt returns a boolean if a field has been set.
 func (o *FeedMetadata) HasUpdatedAt() bool {
-	if o != nil && o.UpdatedAt != nil {
+	if o != nil && !IsNil(o.UpdatedAt) {
 		return true
 	}
 
@@ -145,17 +148,17 @@ func (o *FeedMetadata) SetUpdatedAt(v time.Time) {
 
 // GetGroups returns the Groups field value if set, zero value otherwise.
 func (o *FeedMetadata) GetGroups() []FeedGroupMetadata {
-	if o == nil || o.Groups == nil {
+	if o == nil || IsNil(o.Groups) {
 		var ret []FeedGroupMetadata
 		return ret
 	}
-	return *o.Groups
+	return o.Groups
 }
 
 // GetGroupsOk returns a tuple with the Groups field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *FeedMetadata) GetGroupsOk() (*[]FeedGroupMetadata, bool) {
-	if o == nil || o.Groups == nil {
+func (o *FeedMetadata) GetGroupsOk() ([]FeedGroupMetadata, bool) {
+	if o == nil || IsNil(o.Groups) {
 		return nil, false
 	}
 	return o.Groups, true
@@ -163,7 +166,7 @@ func (o *FeedMetadata) GetGroupsOk() (*[]FeedGroupMetadata, bool) {
 
 // HasGroups returns a boolean if a field has been set.
 func (o *FeedMetadata) HasGroups() bool {
-	if o != nil && o.Groups != nil {
+	if o != nil && !IsNil(o.Groups) {
 		return true
 	}
 
@@ -172,12 +175,12 @@ func (o *FeedMetadata) HasGroups() bool {
 
 // SetGroups gets a reference to the given []FeedGroupMetadata and assigns it to the Groups field.
 func (o *FeedMetadata) SetGroups(v []FeedGroupMetadata) {
-	o.Groups = &v
+	o.Groups = v
 }
 
 // GetLastFullSync returns the LastFullSync field value if set, zero value otherwise.
 func (o *FeedMetadata) GetLastFullSync() time.Time {
-	if o == nil || o.LastFullSync == nil {
+	if o == nil || IsNil(o.LastFullSync) {
 		var ret time.Time
 		return ret
 	}
@@ -187,7 +190,7 @@ func (o *FeedMetadata) GetLastFullSync() time.Time {
 // GetLastFullSyncOk returns a tuple with the LastFullSync field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *FeedMetadata) GetLastFullSyncOk() (*time.Time, bool) {
-	if o == nil || o.LastFullSync == nil {
+	if o == nil || IsNil(o.LastFullSync) {
 		return nil, false
 	}
 	return o.LastFullSync, true
@@ -195,7 +198,7 @@ func (o *FeedMetadata) GetLastFullSyncOk() (*time.Time, bool) {
 
 // HasLastFullSync returns a boolean if a field has been set.
 func (o *FeedMetadata) HasLastFullSync() bool {
-	if o != nil && o.LastFullSync != nil {
+	if o != nil && !IsNil(o.LastFullSync) {
 		return true
 	}
 
@@ -209,7 +212,7 @@ func (o *FeedMetadata) SetLastFullSync(v time.Time) {
 
 // GetEnabled returns the Enabled field value if set, zero value otherwise.
 func (o *FeedMetadata) GetEnabled() bool {
-	if o == nil || o.Enabled == nil {
+	if o == nil || IsNil(o.Enabled) {
 		var ret bool
 		return ret
 	}
@@ -219,7 +222,7 @@ func (o *FeedMetadata) GetEnabled() bool {
 // GetEnabledOk returns a tuple with the Enabled field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *FeedMetadata) GetEnabledOk() (*bool, bool) {
-	if o == nil || o.Enabled == nil {
+	if o == nil || IsNil(o.Enabled) {
 		return nil, false
 	}
 	return o.Enabled, true
@@ -227,7 +230,7 @@ func (o *FeedMetadata) GetEnabledOk() (*bool, bool) {
 
 // HasEnabled returns a boolean if a field has been set.
 func (o *FeedMetadata) HasEnabled() bool {
-	if o != nil && o.Enabled != nil {
+	if o != nil && !IsNil(o.Enabled) {
 		return true
 	}
 
@@ -240,26 +243,34 @@ func (o *FeedMetadata) SetEnabled(v bool) {
 }
 
 func (o FeedMetadata) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Name != nil {
-		toSerialize["name"] = o.Name
-	}
-	if o.CreatedAt != nil {
-		toSerialize["created_at"] = o.CreatedAt
-	}
-	if o.UpdatedAt != nil {
-		toSerialize["updated_at"] = o.UpdatedAt
-	}
-	if o.Groups != nil {
-		toSerialize["groups"] = o.Groups
-	}
-	if o.LastFullSync != nil {
-		toSerialize["last_full_sync"] = o.LastFullSync
-	}
-	if o.Enabled != nil {
-		toSerialize["enabled"] = o.Enabled
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o FeedMetadata) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Name) {
+		toSerialize["name"] = o.Name
+	}
+	if !IsNil(o.CreatedAt) {
+		toSerialize["created_at"] = o.CreatedAt
+	}
+	if !IsNil(o.UpdatedAt) {
+		toSerialize["updated_at"] = o.UpdatedAt
+	}
+	if !IsNil(o.Groups) {
+		toSerialize["groups"] = o.Groups
+	}
+	if !IsNil(o.LastFullSync) {
+		toSerialize["last_full_sync"] = o.LastFullSync
+	}
+	if !IsNil(o.Enabled) {
+		toSerialize["enabled"] = o.Enabled
+	}
+	return toSerialize, nil
 }
 
 type NullableFeedMetadata struct {

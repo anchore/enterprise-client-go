@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the ImageReference type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ImageReference{}
+
 // ImageReference A summary of an image identity, including digest, id (if available), and any tags known to have ever been mapped to the digest
 type ImageReference struct {
 	// The image digest
@@ -23,7 +26,7 @@ type ImageReference struct {
 	ImageId *string `json:"image_id,omitempty"`
 	// Timestamp, in rfc3339 format, indicating when the image state became 'analyzed' in Anchore Engine.
 	AnalyzedAt *string `json:"analyzed_at,omitempty"`
-	TagHistory *[]TagEntry `json:"tag_history,omitempty"`
+	TagHistory []TagEntry `json:"tag_history,omitempty"`
 }
 
 // NewImageReference instantiates a new ImageReference object
@@ -45,7 +48,7 @@ func NewImageReferenceWithDefaults() *ImageReference {
 
 // GetImageDigest returns the ImageDigest field value if set, zero value otherwise.
 func (o *ImageReference) GetImageDigest() string {
-	if o == nil || o.ImageDigest == nil {
+	if o == nil || IsNil(o.ImageDigest) {
 		var ret string
 		return ret
 	}
@@ -55,7 +58,7 @@ func (o *ImageReference) GetImageDigest() string {
 // GetImageDigestOk returns a tuple with the ImageDigest field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ImageReference) GetImageDigestOk() (*string, bool) {
-	if o == nil || o.ImageDigest == nil {
+	if o == nil || IsNil(o.ImageDigest) {
 		return nil, false
 	}
 	return o.ImageDigest, true
@@ -63,7 +66,7 @@ func (o *ImageReference) GetImageDigestOk() (*string, bool) {
 
 // HasImageDigest returns a boolean if a field has been set.
 func (o *ImageReference) HasImageDigest() bool {
-	if o != nil && o.ImageDigest != nil {
+	if o != nil && !IsNil(o.ImageDigest) {
 		return true
 	}
 
@@ -77,7 +80,7 @@ func (o *ImageReference) SetImageDigest(v string) {
 
 // GetImageId returns the ImageId field value if set, zero value otherwise.
 func (o *ImageReference) GetImageId() string {
-	if o == nil || o.ImageId == nil {
+	if o == nil || IsNil(o.ImageId) {
 		var ret string
 		return ret
 	}
@@ -87,7 +90,7 @@ func (o *ImageReference) GetImageId() string {
 // GetImageIdOk returns a tuple with the ImageId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ImageReference) GetImageIdOk() (*string, bool) {
-	if o == nil || o.ImageId == nil {
+	if o == nil || IsNil(o.ImageId) {
 		return nil, false
 	}
 	return o.ImageId, true
@@ -95,7 +98,7 @@ func (o *ImageReference) GetImageIdOk() (*string, bool) {
 
 // HasImageId returns a boolean if a field has been set.
 func (o *ImageReference) HasImageId() bool {
-	if o != nil && o.ImageId != nil {
+	if o != nil && !IsNil(o.ImageId) {
 		return true
 	}
 
@@ -109,7 +112,7 @@ func (o *ImageReference) SetImageId(v string) {
 
 // GetAnalyzedAt returns the AnalyzedAt field value if set, zero value otherwise.
 func (o *ImageReference) GetAnalyzedAt() string {
-	if o == nil || o.AnalyzedAt == nil {
+	if o == nil || IsNil(o.AnalyzedAt) {
 		var ret string
 		return ret
 	}
@@ -119,7 +122,7 @@ func (o *ImageReference) GetAnalyzedAt() string {
 // GetAnalyzedAtOk returns a tuple with the AnalyzedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ImageReference) GetAnalyzedAtOk() (*string, bool) {
-	if o == nil || o.AnalyzedAt == nil {
+	if o == nil || IsNil(o.AnalyzedAt) {
 		return nil, false
 	}
 	return o.AnalyzedAt, true
@@ -127,7 +130,7 @@ func (o *ImageReference) GetAnalyzedAtOk() (*string, bool) {
 
 // HasAnalyzedAt returns a boolean if a field has been set.
 func (o *ImageReference) HasAnalyzedAt() bool {
-	if o != nil && o.AnalyzedAt != nil {
+	if o != nil && !IsNil(o.AnalyzedAt) {
 		return true
 	}
 
@@ -141,17 +144,17 @@ func (o *ImageReference) SetAnalyzedAt(v string) {
 
 // GetTagHistory returns the TagHistory field value if set, zero value otherwise.
 func (o *ImageReference) GetTagHistory() []TagEntry {
-	if o == nil || o.TagHistory == nil {
+	if o == nil || IsNil(o.TagHistory) {
 		var ret []TagEntry
 		return ret
 	}
-	return *o.TagHistory
+	return o.TagHistory
 }
 
 // GetTagHistoryOk returns a tuple with the TagHistory field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ImageReference) GetTagHistoryOk() (*[]TagEntry, bool) {
-	if o == nil || o.TagHistory == nil {
+func (o *ImageReference) GetTagHistoryOk() ([]TagEntry, bool) {
+	if o == nil || IsNil(o.TagHistory) {
 		return nil, false
 	}
 	return o.TagHistory, true
@@ -159,7 +162,7 @@ func (o *ImageReference) GetTagHistoryOk() (*[]TagEntry, bool) {
 
 // HasTagHistory returns a boolean if a field has been set.
 func (o *ImageReference) HasTagHistory() bool {
-	if o != nil && o.TagHistory != nil {
+	if o != nil && !IsNil(o.TagHistory) {
 		return true
 	}
 
@@ -168,24 +171,32 @@ func (o *ImageReference) HasTagHistory() bool {
 
 // SetTagHistory gets a reference to the given []TagEntry and assigns it to the TagHistory field.
 func (o *ImageReference) SetTagHistory(v []TagEntry) {
-	o.TagHistory = &v
+	o.TagHistory = v
 }
 
 func (o ImageReference) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.ImageDigest != nil {
-		toSerialize["image_digest"] = o.ImageDigest
-	}
-	if o.ImageId != nil {
-		toSerialize["image_id"] = o.ImageId
-	}
-	if o.AnalyzedAt != nil {
-		toSerialize["analyzed_at"] = o.AnalyzedAt
-	}
-	if o.TagHistory != nil {
-		toSerialize["tag_history"] = o.TagHistory
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o ImageReference) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.ImageDigest) {
+		toSerialize["image_digest"] = o.ImageDigest
+	}
+	if !IsNil(o.ImageId) {
+		toSerialize["image_id"] = o.ImageId
+	}
+	if !IsNil(o.AnalyzedAt) {
+		toSerialize["analyzed_at"] = o.AnalyzedAt
+	}
+	if !IsNil(o.TagHistory) {
+		toSerialize["tag_history"] = o.TagHistory
+	}
+	return toSerialize, nil
 }
 
 type NullableImageReference struct {

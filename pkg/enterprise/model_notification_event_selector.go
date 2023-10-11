@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the NotificationEventSelector type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &NotificationEventSelector{}
+
 // NotificationEventSelector A selector of event properties
 type NotificationEventSelector struct {
 	// The level of the event to filter. '*' matches events of all levels. 'info' and 'error' match related events respectively
@@ -58,7 +61,7 @@ func (o *NotificationEventSelector) GetLevel() string {
 // GetLevelOk returns a tuple with the Level field value
 // and a boolean to check if the value has been set.
 func (o *NotificationEventSelector) GetLevelOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Level, true
@@ -82,7 +85,7 @@ func (o *NotificationEventSelector) GetResourceType() string {
 // GetResourceTypeOk returns a tuple with the ResourceType field value
 // and a boolean to check if the value has been set.
 func (o *NotificationEventSelector) GetResourceTypeOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.ResourceType, true
@@ -106,7 +109,7 @@ func (o *NotificationEventSelector) GetType() string {
 // GetTypeOk returns a tuple with the Type field value
 // and a boolean to check if the value has been set.
 func (o *NotificationEventSelector) GetTypeOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Type, true
@@ -118,17 +121,19 @@ func (o *NotificationEventSelector) SetType(v string) {
 }
 
 func (o NotificationEventSelector) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["level"] = o.Level
-	}
-	if true {
-		toSerialize["resource_type"] = o.ResourceType
-	}
-	if true {
-		toSerialize["type"] = o.Type
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o NotificationEventSelector) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["level"] = o.Level
+	toSerialize["resource_type"] = o.ResourceType
+	toSerialize["type"] = o.Type
+	return toSerialize, nil
 }
 
 type NullableNotificationEventSelector struct {

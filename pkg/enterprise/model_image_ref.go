@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the ImageRef type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ImageRef{}
+
 // ImageRef A reference to an image
 type ImageRef struct {
 	Type string `json:"type"`
@@ -53,7 +56,7 @@ func (o *ImageRef) GetType() string {
 // GetTypeOk returns a tuple with the Type field value
 // and a boolean to check if the value has been set.
 func (o *ImageRef) GetTypeOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Type, true
@@ -77,7 +80,7 @@ func (o *ImageRef) GetValue() string {
 // GetValueOk returns a tuple with the Value field value
 // and a boolean to check if the value has been set.
 func (o *ImageRef) GetValueOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Value, true
@@ -89,14 +92,18 @@ func (o *ImageRef) SetValue(v string) {
 }
 
 func (o ImageRef) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["type"] = o.Type
-	}
-	if true {
-		toSerialize["value"] = o.Value
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o ImageRef) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["type"] = o.Type
+	toSerialize["value"] = o.Value
+	return toSerialize, nil
 }
 
 type NullableImageRef struct {

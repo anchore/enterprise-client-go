@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the ReportingServiceVersion type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ReportingServiceVersion{}
+
 // ReportingServiceVersion Version information for a service
 type ReportingServiceVersion struct {
 	Service *NotificationServiceVersionService `json:"service,omitempty"`
@@ -42,7 +45,7 @@ func NewReportingServiceVersionWithDefaults() *ReportingServiceVersion {
 
 // GetService returns the Service field value if set, zero value otherwise.
 func (o *ReportingServiceVersion) GetService() NotificationServiceVersionService {
-	if o == nil || o.Service == nil {
+	if o == nil || IsNil(o.Service) {
 		var ret NotificationServiceVersionService
 		return ret
 	}
@@ -52,7 +55,7 @@ func (o *ReportingServiceVersion) GetService() NotificationServiceVersionService
 // GetServiceOk returns a tuple with the Service field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ReportingServiceVersion) GetServiceOk() (*NotificationServiceVersionService, bool) {
-	if o == nil || o.Service == nil {
+	if o == nil || IsNil(o.Service) {
 		return nil, false
 	}
 	return o.Service, true
@@ -60,7 +63,7 @@ func (o *ReportingServiceVersion) GetServiceOk() (*NotificationServiceVersionSer
 
 // HasService returns a boolean if a field has been set.
 func (o *ReportingServiceVersion) HasService() bool {
-	if o != nil && o.Service != nil {
+	if o != nil && !IsNil(o.Service) {
 		return true
 	}
 
@@ -74,7 +77,7 @@ func (o *ReportingServiceVersion) SetService(v NotificationServiceVersionService
 
 // GetApi returns the Api field value if set, zero value otherwise.
 func (o *ReportingServiceVersion) GetApi() NotificationServiceVersionApi {
-	if o == nil || o.Api == nil {
+	if o == nil || IsNil(o.Api) {
 		var ret NotificationServiceVersionApi
 		return ret
 	}
@@ -84,7 +87,7 @@ func (o *ReportingServiceVersion) GetApi() NotificationServiceVersionApi {
 // GetApiOk returns a tuple with the Api field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ReportingServiceVersion) GetApiOk() (*NotificationServiceVersionApi, bool) {
-	if o == nil || o.Api == nil {
+	if o == nil || IsNil(o.Api) {
 		return nil, false
 	}
 	return o.Api, true
@@ -92,7 +95,7 @@ func (o *ReportingServiceVersion) GetApiOk() (*NotificationServiceVersionApi, bo
 
 // HasApi returns a boolean if a field has been set.
 func (o *ReportingServiceVersion) HasApi() bool {
-	if o != nil && o.Api != nil {
+	if o != nil && !IsNil(o.Api) {
 		return true
 	}
 
@@ -106,7 +109,7 @@ func (o *ReportingServiceVersion) SetApi(v NotificationServiceVersionApi) {
 
 // GetDb returns the Db field value if set, zero value otherwise.
 func (o *ReportingServiceVersion) GetDb() NotificationServiceVersionDb {
-	if o == nil || o.Db == nil {
+	if o == nil || IsNil(o.Db) {
 		var ret NotificationServiceVersionDb
 		return ret
 	}
@@ -116,7 +119,7 @@ func (o *ReportingServiceVersion) GetDb() NotificationServiceVersionDb {
 // GetDbOk returns a tuple with the Db field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ReportingServiceVersion) GetDbOk() (*NotificationServiceVersionDb, bool) {
-	if o == nil || o.Db == nil {
+	if o == nil || IsNil(o.Db) {
 		return nil, false
 	}
 	return o.Db, true
@@ -124,7 +127,7 @@ func (o *ReportingServiceVersion) GetDbOk() (*NotificationServiceVersionDb, bool
 
 // HasDb returns a boolean if a field has been set.
 func (o *ReportingServiceVersion) HasDb() bool {
-	if o != nil && o.Db != nil {
+	if o != nil && !IsNil(o.Db) {
 		return true
 	}
 
@@ -138,7 +141,7 @@ func (o *ReportingServiceVersion) SetDb(v NotificationServiceVersionDb) {
 
 // GetEngine returns the Engine field value if set, zero value otherwise.
 func (o *ReportingServiceVersion) GetEngine() NotificationServiceVersionEngine {
-	if o == nil || o.Engine == nil {
+	if o == nil || IsNil(o.Engine) {
 		var ret NotificationServiceVersionEngine
 		return ret
 	}
@@ -148,7 +151,7 @@ func (o *ReportingServiceVersion) GetEngine() NotificationServiceVersionEngine {
 // GetEngineOk returns a tuple with the Engine field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ReportingServiceVersion) GetEngineOk() (*NotificationServiceVersionEngine, bool) {
-	if o == nil || o.Engine == nil {
+	if o == nil || IsNil(o.Engine) {
 		return nil, false
 	}
 	return o.Engine, true
@@ -156,7 +159,7 @@ func (o *ReportingServiceVersion) GetEngineOk() (*NotificationServiceVersionEngi
 
 // HasEngine returns a boolean if a field has been set.
 func (o *ReportingServiceVersion) HasEngine() bool {
-	if o != nil && o.Engine != nil {
+	if o != nil && !IsNil(o.Engine) {
 		return true
 	}
 
@@ -169,20 +172,28 @@ func (o *ReportingServiceVersion) SetEngine(v NotificationServiceVersionEngine) 
 }
 
 func (o ReportingServiceVersion) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Service != nil {
-		toSerialize["service"] = o.Service
-	}
-	if o.Api != nil {
-		toSerialize["api"] = o.Api
-	}
-	if o.Db != nil {
-		toSerialize["db"] = o.Db
-	}
-	if o.Engine != nil {
-		toSerialize["engine"] = o.Engine
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o ReportingServiceVersion) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Service) {
+		toSerialize["service"] = o.Service
+	}
+	if !IsNil(o.Api) {
+		toSerialize["api"] = o.Api
+	}
+	if !IsNil(o.Db) {
+		toSerialize["db"] = o.Db
+	}
+	if !IsNil(o.Engine) {
+		toSerialize["engine"] = o.Engine
+	}
+	return toSerialize, nil
 }
 
 type NullableReportingServiceVersion struct {

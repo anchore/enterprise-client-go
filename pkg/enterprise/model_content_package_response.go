@@ -15,11 +15,14 @@ import (
 	"encoding/json"
 )
 
+// checks if the ContentPackageResponse type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ContentPackageResponse{}
+
 // ContentPackageResponse Package content listings from images
 type ContentPackageResponse struct {
 	ImageDigest *string `json:"image_digest,omitempty"`
 	ContentType *string `json:"content_type,omitempty"`
-	Content *[]ContentPackageResponseContent `json:"content,omitempty"`
+	Content []ContentPackageResponseContentInner `json:"content,omitempty"`
 }
 
 // NewContentPackageResponse instantiates a new ContentPackageResponse object
@@ -41,7 +44,7 @@ func NewContentPackageResponseWithDefaults() *ContentPackageResponse {
 
 // GetImageDigest returns the ImageDigest field value if set, zero value otherwise.
 func (o *ContentPackageResponse) GetImageDigest() string {
-	if o == nil || o.ImageDigest == nil {
+	if o == nil || IsNil(o.ImageDigest) {
 		var ret string
 		return ret
 	}
@@ -51,7 +54,7 @@ func (o *ContentPackageResponse) GetImageDigest() string {
 // GetImageDigestOk returns a tuple with the ImageDigest field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ContentPackageResponse) GetImageDigestOk() (*string, bool) {
-	if o == nil || o.ImageDigest == nil {
+	if o == nil || IsNil(o.ImageDigest) {
 		return nil, false
 	}
 	return o.ImageDigest, true
@@ -59,7 +62,7 @@ func (o *ContentPackageResponse) GetImageDigestOk() (*string, bool) {
 
 // HasImageDigest returns a boolean if a field has been set.
 func (o *ContentPackageResponse) HasImageDigest() bool {
-	if o != nil && o.ImageDigest != nil {
+	if o != nil && !IsNil(o.ImageDigest) {
 		return true
 	}
 
@@ -73,7 +76,7 @@ func (o *ContentPackageResponse) SetImageDigest(v string) {
 
 // GetContentType returns the ContentType field value if set, zero value otherwise.
 func (o *ContentPackageResponse) GetContentType() string {
-	if o == nil || o.ContentType == nil {
+	if o == nil || IsNil(o.ContentType) {
 		var ret string
 		return ret
 	}
@@ -83,7 +86,7 @@ func (o *ContentPackageResponse) GetContentType() string {
 // GetContentTypeOk returns a tuple with the ContentType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ContentPackageResponse) GetContentTypeOk() (*string, bool) {
-	if o == nil || o.ContentType == nil {
+	if o == nil || IsNil(o.ContentType) {
 		return nil, false
 	}
 	return o.ContentType, true
@@ -91,7 +94,7 @@ func (o *ContentPackageResponse) GetContentTypeOk() (*string, bool) {
 
 // HasContentType returns a boolean if a field has been set.
 func (o *ContentPackageResponse) HasContentType() bool {
-	if o != nil && o.ContentType != nil {
+	if o != nil && !IsNil(o.ContentType) {
 		return true
 	}
 
@@ -104,18 +107,18 @@ func (o *ContentPackageResponse) SetContentType(v string) {
 }
 
 // GetContent returns the Content field value if set, zero value otherwise.
-func (o *ContentPackageResponse) GetContent() []ContentPackageResponseContent {
-	if o == nil || o.Content == nil {
-		var ret []ContentPackageResponseContent
+func (o *ContentPackageResponse) GetContent() []ContentPackageResponseContentInner {
+	if o == nil || IsNil(o.Content) {
+		var ret []ContentPackageResponseContentInner
 		return ret
 	}
-	return *o.Content
+	return o.Content
 }
 
 // GetContentOk returns a tuple with the Content field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ContentPackageResponse) GetContentOk() (*[]ContentPackageResponseContent, bool) {
-	if o == nil || o.Content == nil {
+func (o *ContentPackageResponse) GetContentOk() ([]ContentPackageResponseContentInner, bool) {
+	if o == nil || IsNil(o.Content) {
 		return nil, false
 	}
 	return o.Content, true
@@ -123,30 +126,38 @@ func (o *ContentPackageResponse) GetContentOk() (*[]ContentPackageResponseConten
 
 // HasContent returns a boolean if a field has been set.
 func (o *ContentPackageResponse) HasContent() bool {
-	if o != nil && o.Content != nil {
+	if o != nil && !IsNil(o.Content) {
 		return true
 	}
 
 	return false
 }
 
-// SetContent gets a reference to the given []ContentPackageResponseContent and assigns it to the Content field.
-func (o *ContentPackageResponse) SetContent(v []ContentPackageResponseContent) {
-	o.Content = &v
+// SetContent gets a reference to the given []ContentPackageResponseContentInner and assigns it to the Content field.
+func (o *ContentPackageResponse) SetContent(v []ContentPackageResponseContentInner) {
+	o.Content = v
 }
 
 func (o ContentPackageResponse) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.ImageDigest != nil {
-		toSerialize["image_digest"] = o.ImageDigest
-	}
-	if o.ContentType != nil {
-		toSerialize["content_type"] = o.ContentType
-	}
-	if o.Content != nil {
-		toSerialize["content"] = o.Content
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o ContentPackageResponse) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.ImageDigest) {
+		toSerialize["image_digest"] = o.ImageDigest
+	}
+	if !IsNil(o.ContentType) {
+		toSerialize["content_type"] = o.ContentType
+	}
+	if !IsNil(o.Content) {
+		toSerialize["content"] = o.Content
+	}
+	return toSerialize, nil
 }
 
 type NullableContentPackageResponse struct {

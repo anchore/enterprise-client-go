@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the DeleteImageResponse type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &DeleteImageResponse{}
+
 // DeleteImageResponse Image deletion response containing status and details
 type DeleteImageResponse struct {
 	ImageDigest string `json:"image_digest"`
@@ -55,7 +58,7 @@ func (o *DeleteImageResponse) GetImageDigest() string {
 // GetImageDigestOk returns a tuple with the ImageDigest field value
 // and a boolean to check if the value has been set.
 func (o *DeleteImageResponse) GetImageDigestOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.ImageDigest, true
@@ -79,7 +82,7 @@ func (o *DeleteImageResponse) GetStatus() string {
 // GetStatusOk returns a tuple with the Status field value
 // and a boolean to check if the value has been set.
 func (o *DeleteImageResponse) GetStatusOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Status, true
@@ -92,7 +95,7 @@ func (o *DeleteImageResponse) SetStatus(v string) {
 
 // GetDetail returns the Detail field value if set, zero value otherwise.
 func (o *DeleteImageResponse) GetDetail() string {
-	if o == nil || o.Detail == nil {
+	if o == nil || IsNil(o.Detail) {
 		var ret string
 		return ret
 	}
@@ -102,7 +105,7 @@ func (o *DeleteImageResponse) GetDetail() string {
 // GetDetailOk returns a tuple with the Detail field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DeleteImageResponse) GetDetailOk() (*string, bool) {
-	if o == nil || o.Detail == nil {
+	if o == nil || IsNil(o.Detail) {
 		return nil, false
 	}
 	return o.Detail, true
@@ -110,7 +113,7 @@ func (o *DeleteImageResponse) GetDetailOk() (*string, bool) {
 
 // HasDetail returns a boolean if a field has been set.
 func (o *DeleteImageResponse) HasDetail() bool {
-	if o != nil && o.Detail != nil {
+	if o != nil && !IsNil(o.Detail) {
 		return true
 	}
 
@@ -123,17 +126,21 @@ func (o *DeleteImageResponse) SetDetail(v string) {
 }
 
 func (o DeleteImageResponse) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["image_digest"] = o.ImageDigest
-	}
-	if true {
-		toSerialize["status"] = o.Status
-	}
-	if o.Detail != nil {
-		toSerialize["detail"] = o.Detail
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o DeleteImageResponse) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["image_digest"] = o.ImageDigest
+	toSerialize["status"] = o.Status
+	if !IsNil(o.Detail) {
+		toSerialize["detail"] = o.Detail
+	}
+	return toSerialize, nil
 }
 
 type NullableDeleteImageResponse struct {

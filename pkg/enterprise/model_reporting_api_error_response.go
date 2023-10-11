@@ -15,13 +15,16 @@ import (
 	"encoding/json"
 )
 
+// checks if the ReportingApiErrorResponse type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ReportingApiErrorResponse{}
+
 // ReportingApiErrorResponse Generic HTTP API error response
 type ReportingApiErrorResponse struct {
 	Code *int32 `json:"code,omitempty"`
 	ErrorType *string `json:"error_type,omitempty"`
 	Message *string `json:"message,omitempty"`
 	// Details structure for additional information about the error if available. Content and structure will be error specific.
-	Detail *interface{} `json:"detail,omitempty"`
+	Detail interface{} `json:"detail,omitempty"`
 }
 
 // NewReportingApiErrorResponse instantiates a new ReportingApiErrorResponse object
@@ -43,7 +46,7 @@ func NewReportingApiErrorResponseWithDefaults() *ReportingApiErrorResponse {
 
 // GetCode returns the Code field value if set, zero value otherwise.
 func (o *ReportingApiErrorResponse) GetCode() int32 {
-	if o == nil || o.Code == nil {
+	if o == nil || IsNil(o.Code) {
 		var ret int32
 		return ret
 	}
@@ -53,7 +56,7 @@ func (o *ReportingApiErrorResponse) GetCode() int32 {
 // GetCodeOk returns a tuple with the Code field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ReportingApiErrorResponse) GetCodeOk() (*int32, bool) {
-	if o == nil || o.Code == nil {
+	if o == nil || IsNil(o.Code) {
 		return nil, false
 	}
 	return o.Code, true
@@ -61,7 +64,7 @@ func (o *ReportingApiErrorResponse) GetCodeOk() (*int32, bool) {
 
 // HasCode returns a boolean if a field has been set.
 func (o *ReportingApiErrorResponse) HasCode() bool {
-	if o != nil && o.Code != nil {
+	if o != nil && !IsNil(o.Code) {
 		return true
 	}
 
@@ -75,7 +78,7 @@ func (o *ReportingApiErrorResponse) SetCode(v int32) {
 
 // GetErrorType returns the ErrorType field value if set, zero value otherwise.
 func (o *ReportingApiErrorResponse) GetErrorType() string {
-	if o == nil || o.ErrorType == nil {
+	if o == nil || IsNil(o.ErrorType) {
 		var ret string
 		return ret
 	}
@@ -85,7 +88,7 @@ func (o *ReportingApiErrorResponse) GetErrorType() string {
 // GetErrorTypeOk returns a tuple with the ErrorType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ReportingApiErrorResponse) GetErrorTypeOk() (*string, bool) {
-	if o == nil || o.ErrorType == nil {
+	if o == nil || IsNil(o.ErrorType) {
 		return nil, false
 	}
 	return o.ErrorType, true
@@ -93,7 +96,7 @@ func (o *ReportingApiErrorResponse) GetErrorTypeOk() (*string, bool) {
 
 // HasErrorType returns a boolean if a field has been set.
 func (o *ReportingApiErrorResponse) HasErrorType() bool {
-	if o != nil && o.ErrorType != nil {
+	if o != nil && !IsNil(o.ErrorType) {
 		return true
 	}
 
@@ -107,7 +110,7 @@ func (o *ReportingApiErrorResponse) SetErrorType(v string) {
 
 // GetMessage returns the Message field value if set, zero value otherwise.
 func (o *ReportingApiErrorResponse) GetMessage() string {
-	if o == nil || o.Message == nil {
+	if o == nil || IsNil(o.Message) {
 		var ret string
 		return ret
 	}
@@ -117,7 +120,7 @@ func (o *ReportingApiErrorResponse) GetMessage() string {
 // GetMessageOk returns a tuple with the Message field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ReportingApiErrorResponse) GetMessageOk() (*string, bool) {
-	if o == nil || o.Message == nil {
+	if o == nil || IsNil(o.Message) {
 		return nil, false
 	}
 	return o.Message, true
@@ -125,7 +128,7 @@ func (o *ReportingApiErrorResponse) GetMessageOk() (*string, bool) {
 
 // HasMessage returns a boolean if a field has been set.
 func (o *ReportingApiErrorResponse) HasMessage() bool {
-	if o != nil && o.Message != nil {
+	if o != nil && !IsNil(o.Message) {
 		return true
 	}
 
@@ -139,25 +142,25 @@ func (o *ReportingApiErrorResponse) SetMessage(v string) {
 
 // GetDetail returns the Detail field value if set, zero value otherwise.
 func (o *ReportingApiErrorResponse) GetDetail() interface{} {
-	if o == nil || o.Detail == nil {
+	if o == nil || IsNil(o.Detail) {
 		var ret interface{}
 		return ret
 	}
-	return *o.Detail
+	return o.Detail
 }
 
 // GetDetailOk returns a tuple with the Detail field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ReportingApiErrorResponse) GetDetailOk() (*interface{}, bool) {
-	if o == nil || o.Detail == nil {
-		return nil, false
+func (o *ReportingApiErrorResponse) GetDetailOk() (interface{}, bool) {
+	if o == nil || IsNil(o.Detail) {
+		return interface{}{}, false
 	}
 	return o.Detail, true
 }
 
 // HasDetail returns a boolean if a field has been set.
 func (o *ReportingApiErrorResponse) HasDetail() bool {
-	if o != nil && o.Detail != nil {
+	if o != nil && !IsNil(o.Detail) {
 		return true
 	}
 
@@ -166,24 +169,32 @@ func (o *ReportingApiErrorResponse) HasDetail() bool {
 
 // SetDetail gets a reference to the given interface{} and assigns it to the Detail field.
 func (o *ReportingApiErrorResponse) SetDetail(v interface{}) {
-	o.Detail = &v
+	o.Detail = v
 }
 
 func (o ReportingApiErrorResponse) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Code != nil {
-		toSerialize["code"] = o.Code
-	}
-	if o.ErrorType != nil {
-		toSerialize["error_type"] = o.ErrorType
-	}
-	if o.Message != nil {
-		toSerialize["message"] = o.Message
-	}
-	if o.Detail != nil {
-		toSerialize["detail"] = o.Detail
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o ReportingApiErrorResponse) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Code) {
+		toSerialize["code"] = o.Code
+	}
+	if !IsNil(o.ErrorType) {
+		toSerialize["error_type"] = o.ErrorType
+	}
+	if !IsNil(o.Message) {
+		toSerialize["message"] = o.Message
+	}
+	if !IsNil(o.Detail) {
+		toSerialize["detail"] = o.Detail
+	}
+	return toSerialize, nil
 }
 
 type NullableReportingApiErrorResponse struct {

@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the AnalysisUpdateNotificationPayload type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &AnalysisUpdateNotificationPayload{}
+
 // AnalysisUpdateNotificationPayload struct for AnalysisUpdateNotificationPayload
 type AnalysisUpdateNotificationPayload struct {
 	AccountName *string `json:"account_name,omitempty"`
@@ -46,7 +49,7 @@ func NewAnalysisUpdateNotificationPayloadWithDefaults() *AnalysisUpdateNotificat
 
 // GetAccountName returns the AccountName field value if set, zero value otherwise.
 func (o *AnalysisUpdateNotificationPayload) GetAccountName() string {
-	if o == nil || o.AccountName == nil {
+	if o == nil || IsNil(o.AccountName) {
 		var ret string
 		return ret
 	}
@@ -56,7 +59,7 @@ func (o *AnalysisUpdateNotificationPayload) GetAccountName() string {
 // GetAccountNameOk returns a tuple with the AccountName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AnalysisUpdateNotificationPayload) GetAccountNameOk() (*string, bool) {
-	if o == nil || o.AccountName == nil {
+	if o == nil || IsNil(o.AccountName) {
 		return nil, false
 	}
 	return o.AccountName, true
@@ -64,7 +67,7 @@ func (o *AnalysisUpdateNotificationPayload) GetAccountNameOk() (*string, bool) {
 
 // HasAccountName returns a boolean if a field has been set.
 func (o *AnalysisUpdateNotificationPayload) HasAccountName() bool {
-	if o != nil && o.AccountName != nil {
+	if o != nil && !IsNil(o.AccountName) {
 		return true
 	}
 
@@ -78,7 +81,7 @@ func (o *AnalysisUpdateNotificationPayload) SetAccountName(v string) {
 
 // GetSubscriptionKey returns the SubscriptionKey field value if set, zero value otherwise.
 func (o *AnalysisUpdateNotificationPayload) GetSubscriptionKey() string {
-	if o == nil || o.SubscriptionKey == nil {
+	if o == nil || IsNil(o.SubscriptionKey) {
 		var ret string
 		return ret
 	}
@@ -88,7 +91,7 @@ func (o *AnalysisUpdateNotificationPayload) GetSubscriptionKey() string {
 // GetSubscriptionKeyOk returns a tuple with the SubscriptionKey field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AnalysisUpdateNotificationPayload) GetSubscriptionKeyOk() (*string, bool) {
-	if o == nil || o.SubscriptionKey == nil {
+	if o == nil || IsNil(o.SubscriptionKey) {
 		return nil, false
 	}
 	return o.SubscriptionKey, true
@@ -96,7 +99,7 @@ func (o *AnalysisUpdateNotificationPayload) GetSubscriptionKeyOk() (*string, boo
 
 // HasSubscriptionKey returns a boolean if a field has been set.
 func (o *AnalysisUpdateNotificationPayload) HasSubscriptionKey() bool {
-	if o != nil && o.SubscriptionKey != nil {
+	if o != nil && !IsNil(o.SubscriptionKey) {
 		return true
 	}
 
@@ -110,7 +113,7 @@ func (o *AnalysisUpdateNotificationPayload) SetSubscriptionKey(v string) {
 
 // GetSubscriptionType returns the SubscriptionType field value if set, zero value otherwise.
 func (o *AnalysisUpdateNotificationPayload) GetSubscriptionType() string {
-	if o == nil || o.SubscriptionType == nil {
+	if o == nil || IsNil(o.SubscriptionType) {
 		var ret string
 		return ret
 	}
@@ -120,7 +123,7 @@ func (o *AnalysisUpdateNotificationPayload) GetSubscriptionType() string {
 // GetSubscriptionTypeOk returns a tuple with the SubscriptionType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AnalysisUpdateNotificationPayload) GetSubscriptionTypeOk() (*string, bool) {
-	if o == nil || o.SubscriptionType == nil {
+	if o == nil || IsNil(o.SubscriptionType) {
 		return nil, false
 	}
 	return o.SubscriptionType, true
@@ -128,7 +131,7 @@ func (o *AnalysisUpdateNotificationPayload) GetSubscriptionTypeOk() (*string, bo
 
 // HasSubscriptionType returns a boolean if a field has been set.
 func (o *AnalysisUpdateNotificationPayload) HasSubscriptionType() bool {
-	if o != nil && o.SubscriptionType != nil {
+	if o != nil && !IsNil(o.SubscriptionType) {
 		return true
 	}
 
@@ -142,7 +145,7 @@ func (o *AnalysisUpdateNotificationPayload) SetSubscriptionType(v string) {
 
 // GetNotificationId returns the NotificationId field value if set, zero value otherwise.
 func (o *AnalysisUpdateNotificationPayload) GetNotificationId() string {
-	if o == nil || o.NotificationId == nil {
+	if o == nil || IsNil(o.NotificationId) {
 		var ret string
 		return ret
 	}
@@ -152,7 +155,7 @@ func (o *AnalysisUpdateNotificationPayload) GetNotificationId() string {
 // GetNotificationIdOk returns a tuple with the NotificationId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AnalysisUpdateNotificationPayload) GetNotificationIdOk() (*string, bool) {
-	if o == nil || o.NotificationId == nil {
+	if o == nil || IsNil(o.NotificationId) {
 		return nil, false
 	}
 	return o.NotificationId, true
@@ -160,7 +163,7 @@ func (o *AnalysisUpdateNotificationPayload) GetNotificationIdOk() (*string, bool
 
 // HasNotificationId returns a boolean if a field has been set.
 func (o *AnalysisUpdateNotificationPayload) HasNotificationId() bool {
-	if o != nil && o.NotificationId != nil {
+	if o != nil && !IsNil(o.NotificationId) {
 		return true
 	}
 
@@ -174,7 +177,7 @@ func (o *AnalysisUpdateNotificationPayload) SetNotificationId(v string) {
 
 // GetCurrEval returns the CurrEval field value if set, zero value otherwise.
 func (o *AnalysisUpdateNotificationPayload) GetCurrEval() AnalysisUpdateEval {
-	if o == nil || o.CurrEval == nil {
+	if o == nil || IsNil(o.CurrEval) {
 		var ret AnalysisUpdateEval
 		return ret
 	}
@@ -184,7 +187,7 @@ func (o *AnalysisUpdateNotificationPayload) GetCurrEval() AnalysisUpdateEval {
 // GetCurrEvalOk returns a tuple with the CurrEval field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AnalysisUpdateNotificationPayload) GetCurrEvalOk() (*AnalysisUpdateEval, bool) {
-	if o == nil || o.CurrEval == nil {
+	if o == nil || IsNil(o.CurrEval) {
 		return nil, false
 	}
 	return o.CurrEval, true
@@ -192,7 +195,7 @@ func (o *AnalysisUpdateNotificationPayload) GetCurrEvalOk() (*AnalysisUpdateEval
 
 // HasCurrEval returns a boolean if a field has been set.
 func (o *AnalysisUpdateNotificationPayload) HasCurrEval() bool {
-	if o != nil && o.CurrEval != nil {
+	if o != nil && !IsNil(o.CurrEval) {
 		return true
 	}
 
@@ -206,7 +209,7 @@ func (o *AnalysisUpdateNotificationPayload) SetCurrEval(v AnalysisUpdateEval) {
 
 // GetLastEval returns the LastEval field value if set, zero value otherwise.
 func (o *AnalysisUpdateNotificationPayload) GetLastEval() AnalysisUpdateEval {
-	if o == nil || o.LastEval == nil {
+	if o == nil || IsNil(o.LastEval) {
 		var ret AnalysisUpdateEval
 		return ret
 	}
@@ -216,7 +219,7 @@ func (o *AnalysisUpdateNotificationPayload) GetLastEval() AnalysisUpdateEval {
 // GetLastEvalOk returns a tuple with the LastEval field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AnalysisUpdateNotificationPayload) GetLastEvalOk() (*AnalysisUpdateEval, bool) {
-	if o == nil || o.LastEval == nil {
+	if o == nil || IsNil(o.LastEval) {
 		return nil, false
 	}
 	return o.LastEval, true
@@ -224,7 +227,7 @@ func (o *AnalysisUpdateNotificationPayload) GetLastEvalOk() (*AnalysisUpdateEval
 
 // HasLastEval returns a boolean if a field has been set.
 func (o *AnalysisUpdateNotificationPayload) HasLastEval() bool {
-	if o != nil && o.LastEval != nil {
+	if o != nil && !IsNil(o.LastEval) {
 		return true
 	}
 
@@ -238,7 +241,7 @@ func (o *AnalysisUpdateNotificationPayload) SetLastEval(v AnalysisUpdateEval) {
 
 // GetAnnotations returns the Annotations field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *AnalysisUpdateNotificationPayload) GetAnnotations() interface{} {
-	if o == nil  {
+	if o == nil {
 		var ret interface{}
 		return ret
 	}
@@ -248,16 +251,16 @@ func (o *AnalysisUpdateNotificationPayload) GetAnnotations() interface{} {
 // GetAnnotationsOk returns a tuple with the Annotations field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *AnalysisUpdateNotificationPayload) GetAnnotationsOk() (*interface{}, bool) {
-	if o == nil || o.Annotations == nil {
-		return nil, false
+func (o *AnalysisUpdateNotificationPayload) GetAnnotationsOk() (interface{}, bool) {
+	if o == nil || IsNil(o.Annotations) {
+		return interface{}{}, false
 	}
-	return &o.Annotations, true
+	return o.Annotations, true
 }
 
 // HasAnnotations returns a boolean if a field has been set.
 func (o *AnalysisUpdateNotificationPayload) HasAnnotations() bool {
-	if o != nil && o.Annotations != nil {
+	if o != nil && IsNil(o.Annotations) {
 		return true
 	}
 
@@ -270,29 +273,37 @@ func (o *AnalysisUpdateNotificationPayload) SetAnnotations(v interface{}) {
 }
 
 func (o AnalysisUpdateNotificationPayload) MarshalJSON() ([]byte, error) {
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o AnalysisUpdateNotificationPayload) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.AccountName != nil {
+	if !IsNil(o.AccountName) {
 		toSerialize["account_name"] = o.AccountName
 	}
-	if o.SubscriptionKey != nil {
+	if !IsNil(o.SubscriptionKey) {
 		toSerialize["subscription_key"] = o.SubscriptionKey
 	}
-	if o.SubscriptionType != nil {
+	if !IsNil(o.SubscriptionType) {
 		toSerialize["subscription_type"] = o.SubscriptionType
 	}
-	if o.NotificationId != nil {
+	if !IsNil(o.NotificationId) {
 		toSerialize["notification_id"] = o.NotificationId
 	}
-	if o.CurrEval != nil {
+	if !IsNil(o.CurrEval) {
 		toSerialize["curr_eval"] = o.CurrEval
 	}
-	if o.LastEval != nil {
+	if !IsNil(o.LastEval) {
 		toSerialize["last_eval"] = o.LastEval
 	}
 	if o.Annotations != nil {
 		toSerialize["annotations"] = o.Annotations
 	}
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
 type NullableAnalysisUpdateNotificationPayload struct {

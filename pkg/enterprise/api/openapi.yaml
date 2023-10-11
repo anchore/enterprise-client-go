@@ -38,7 +38,7 @@ tags:
   name: Events
 - description: Resource Queries
   name: Queries
-- description: Manage Accounts, Users, and Credentials
+- description: "Manage Accounts, Users, and Credentials"
   name: User Management
 - description: Get and operate on the authenticated user's identity
   name: Identity
@@ -75,8 +75,8 @@ paths:
             application/json:
               schema:
                 type: string
-          description: Version check response, returns the api version prefix (e.g.
-            'v2')
+          description: "Version check response, returns the api version prefix (e.g.\
+            \ 'v2')"
       x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.system
       x-anchore-authz-action: None
   /account:
@@ -189,9 +189,9 @@ paths:
               schema:
                 $ref: '#/components/schemas/ApiErrorResponse'
           description: Internal error
-      summary: Delete the specified account, only allowed if the account is in the
-        disabled state. All users will be deleted along with the account and all resources
-        will be garbage collected
+      summary: "Delete the specified account, only allowed if the account is in the\
+        \ disabled state. All users will be deleted along with the account and all\
+        \ resources will be garbage collected"
       tags:
       - User Management
       x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.accounts
@@ -236,8 +236,8 @@ paths:
           format: path
           type: string
         style: simple
-      - description: An account name to change the resource scope of the request to
-          that account, if permissions allow (admin only)
+      - description: "An account name to change the resource scope of the request\
+          \ to that account, if permissions allow (admin only)"
         explode: false
         in: header
         name: x-anchore-account
@@ -485,8 +485,8 @@ paths:
           description: Successful deletion
         "400":
           content: {}
-          description: Conflict, cannot delete the credential used to authenticate
-            this request
+          description: "Conflict, cannot delete the credential used to authenticate\
+            \ this request"
         "500":
           content:
             application/json:
@@ -566,7 +566,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/AccessCredential'
-          description: Add a credential, overwriting if already exists
+          description: "Add a credential, overwriting if already exists"
         "500":
           content:
             application/json:
@@ -608,8 +608,8 @@ paths:
           format: date-time
           type: string
         style: form
-      - description: An account name to change the resource scope of the request to
-          that account, if permissions allow (admin only)
+      - description: "An account name to change the resource scope of the request\
+          \ to that account, if permissions allow (admin only)"
         explode: false
         in: header
         name: x-anchore-account
@@ -683,8 +683,8 @@ paths:
           minimum: 1
           type: integer
         style: form
-      - description: Filter for alerts by current state, defaults to open alerts unless
-          specified
+      - description: "Filter for alerts by current state, defaults to open alerts\
+          \ unless specified"
         explode: true
         in: query
         name: state
@@ -747,8 +747,8 @@ paths:
         schema:
           type: string
         style: form
-      - description: An account name to change the resource scope of the request to
-          that account, if permissions allow (admin only)
+      - description: "An account name to change the resource scope of the request\
+          \ to that account, if permissions allow (admin only)"
         explode: false
         in: header
         name: x-anchore-account
@@ -782,8 +782,8 @@ paths:
           format: path
           type: string
         style: simple
-      - description: An account name to change the resource scope of the request to
-          that account, if permissions allow (admin only)
+      - description: "An account name to change the resource scope of the request\
+          \ to that account, if permissions allow (admin only)"
         explode: false
         in: header
         name: x-anchore-account
@@ -816,8 +816,8 @@ paths:
           format: path
           type: string
         style: simple
-      - description: An account name to change the resource scope of the request to
-          that account, if permissions allow (admin only)
+      - description: "An account name to change the resource scope of the request\
+          \ to that account, if permissions allow (admin only)"
         explode: false
         in: header
         name: x-anchore-account
@@ -882,8 +882,8 @@ paths:
           - compliance_violation
           type: string
         style: form
-      - description: Filter for alerts by current state, defaults to open alerts unless
-          specified
+      - description: "Filter for alerts by current state, defaults to open alerts\
+          \ unless specified"
         explode: true
         in: query
         name: state
@@ -927,8 +927,8 @@ paths:
           type: array
           uniqueItems: true
         style: form
-      - description: An account name to change the resource scope of the request to
-          that account, if permissions allow (admin only)
+      - description: "An account name to change the resource scope of the request\
+          \ to that account, if permissions allow (admin only)"
         explode: false
         in: header
         name: x-anchore-account
@@ -961,8 +961,8 @@ paths:
           default: false
           type: boolean
         style: form
-      - description: An account name to change the resource scope of the request to
-          that account, if permissions allow (admin only)
+      - description: "An account name to change the resource scope of the request\
+          \ to that account, if permissions allow (admin only)"
         explode: false
         in: header
         name: x-anchore-account
@@ -992,8 +992,8 @@ paths:
       description: Create an application
       operationId: add_application
       parameters:
-      - description: An account name to change the resource scope of the request to
-          that account, if permissions allow (admin only)
+      - description: "An account name to change the resource scope of the request\
+          \ to that account, if permissions allow (admin only)"
         explode: false
         in: header
         name: x-anchore-account
@@ -1042,8 +1042,8 @@ paths:
           format: path
           type: string
         style: simple
-      - description: An account name to change the resource scope of the request to
-          that account, if permissions allow (admin only)
+      - description: "An account name to change the resource scope of the request\
+          \ to that account, if permissions allow (admin only)"
         explode: false
         in: header
         name: x-anchore-account
@@ -1080,8 +1080,8 @@ paths:
           default: false
           type: boolean
         style: form
-      - description: An account name to change the resource scope of the request to
-          that account, if permissions allow (admin only)
+      - description: "An account name to change the resource scope of the request\
+          \ to that account, if permissions allow (admin only)"
         explode: false
         in: header
         name: x-anchore-account
@@ -1122,8 +1122,8 @@ paths:
           format: path
           type: string
         style: simple
-      - description: An account name to change the resource scope of the request to
-          that account, if permissions allow (admin only)
+      - description: "An account name to change the resource scope of the request\
+          \ to that account, if permissions allow (admin only)"
         explode: false
         in: header
         name: x-anchore-account
@@ -1175,8 +1175,8 @@ paths:
           format: path
           type: string
         style: simple
-      - description: An account name to change the resource scope of the request to
-          that account, if permissions allow (admin only)
+      - description: "An account name to change the resource scope of the request\
+          \ to that account, if permissions allow (admin only)"
         explode: false
         in: header
         name: x-anchore-account
@@ -1217,8 +1217,8 @@ paths:
           format: path
           type: string
         style: simple
-      - description: An account name to change the resource scope of the request to
-          that account, if permissions allow (admin only)
+      - description: "An account name to change the resource scope of the request\
+          \ to that account, if permissions allow (admin only)"
         explode: false
         in: header
         name: x-anchore-account
@@ -1279,8 +1279,8 @@ paths:
           format: path
           type: string
         style: simple
-      - description: An account name to change the resource scope of the request to
-          that account, if permissions allow (admin only)
+      - description: "An account name to change the resource scope of the request\
+          \ to that account, if permissions allow (admin only)"
         explode: false
         in: header
         name: x-anchore-account
@@ -1320,8 +1320,8 @@ paths:
           format: path
           type: string
         style: simple
-      - description: An account name to change the resource scope of the request to
-          that account, if permissions allow (admin only)
+      - description: "An account name to change the resource scope of the request\
+          \ to that account, if permissions allow (admin only)"
         explode: false
         in: header
         name: x-anchore-account
@@ -1371,8 +1371,8 @@ paths:
           format: path
           type: string
         style: simple
-      - description: An account name to change the resource scope of the request to
-          that account, if permissions allow (admin only)
+      - description: "An account name to change the resource scope of the request\
+          \ to that account, if permissions allow (admin only)"
         explode: false
         in: header
         name: x-anchore-account
@@ -1445,8 +1445,8 @@ paths:
             type: string
           type: array
         style: form
-      - description: An account name to change the resource scope of the request to
-          that account, if permissions allow (admin only)
+      - description: "An account name to change the resource scope of the request\
+          \ to that account, if permissions allow (admin only)"
         explode: false
         in: header
         name: x-anchore-account
@@ -1495,8 +1495,8 @@ paths:
           format: path
           type: string
         style: simple
-      - description: An account name to change the resource scope of the request to
-          that account, if permissions allow (admin only)
+      - description: "An account name to change the resource scope of the request\
+          \ to that account, if permissions allow (admin only)"
         explode: false
         in: header
         name: x-anchore-account
@@ -1561,8 +1561,8 @@ paths:
           format: path
           type: string
         style: simple
-      - description: An account name to change the resource scope of the request to
-          that account, if permissions allow (admin only)
+      - description: "An account name to change the resource scope of the request\
+          \ to that account, if permissions allow (admin only)"
         explode: false
         in: header
         name: x-anchore-account
@@ -1584,8 +1584,8 @@ paths:
       x-anchore-authz-action: deleteApplication
   /applications/{application_id}/versions/{application_version_id}/sboms/native-json:
     get:
-      description: Get the combined sbom for the given application version, optionally
-        filtered by artifact type
+      description: "Get the combined sbom for the given application version, optionally\
+        \ filtered by artifact type"
       operationId: get_application_version_sbom
       parameters:
       - explode: false
@@ -1616,8 +1616,8 @@ paths:
             type: string
           type: array
         style: form
-      - description: An account name to change the resource scope of the request to
-          that account, if permissions allow (admin only)
+      - description: "An account name to change the resource scope of the request\
+          \ to that account, if permissions allow (admin only)"
         explode: false
         in: header
         name: x-anchore-account
@@ -1641,8 +1641,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/ApiErrorResponse'
           description: Internal Error
-      summary: Get the combined sbom for the given application version, optionally
-        filtered by artifact type
+      summary: "Get the combined sbom for the given application version, optionally\
+        \ filtered by artifact type"
       tags:
       - Applications
       x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.applications
@@ -1668,9 +1668,9 @@ paths:
           format: path
           type: string
         style: simple
-      - description: If true, include vulnerabilities that the vendor of an image
-          distribution either disagrees with or does not intend to prioritize for
-          remediation
+      - description: "If true, include vulnerabilities that the vendor of an image\
+          \ distribution either disagrees with or does not intend to prioritize for\
+          \ remediation"
         explode: true
         in: query
         name: will_not_fix
@@ -1678,8 +1678,8 @@ paths:
         schema:
           type: boolean
         style: form
-      - description: An account name to change the resource scope of the request to
-          that account, if permissions allow (admin only)
+      - description: "An account name to change the resource scope of the request\
+          \ to that account, if permissions allow (admin only)"
         explode: false
         in: header
         name: x-anchore-account
@@ -1786,7 +1786,7 @@ paths:
         required: true
         schema:
           format: path
-          pattern: ^sha256:[a-fA-F0-9]{64}$
+          pattern: "^sha256:[a-fA-F0-9]{64}$"
           type: string
         style: simple
       - explode: true
@@ -1822,7 +1822,7 @@ paths:
         required: true
         schema:
           format: path
-          pattern: ^sha256:[a-fA-F0-9]{64}$
+          pattern: "^sha256:[a-fA-F0-9]{64}$"
           type: string
         style: simple
       responses:
@@ -1980,8 +1980,8 @@ paths:
       x-anchore-authz-action: deleteArtifactRelationships
       x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.relationships
     get:
-      description: List the relationships between software supply chain artifacts
-        (images, source revisions, etc)
+      description: "List the relationships between software supply chain artifacts\
+        \ (images, source revisions, etc)"
       operationId: list_artifact_relationships
       parameters:
       - description: Filter for artifact type as either source or target
@@ -2035,8 +2035,8 @@ paths:
       x-codegen-request-body-name: relationship
   /artifact-relationships/{relationship_id}:
     get:
-      description: Get the relationship between software supply chain artifacts (images,
-        source revisions, etc)
+      description: "Get the relationship between software supply chain artifacts (images,\
+        \ source revisions, etc)"
       operationId: get_artifact_relationship
       parameters:
       - description: Id of record to retrieve
@@ -2095,8 +2095,8 @@ paths:
           - package
           type: string
         style: form
-      - description: An account name to change the resource scope of the request to
-          that account, if permissions allow (admin only)
+      - description: "An account name to change the resource scope of the request\
+          \ to that account, if permissions allow (admin only)"
         explode: false
         in: header
         name: x-anchore-account
@@ -2121,8 +2121,8 @@ paths:
         matches
       operationId: add_correction
       parameters:
-      - description: An account name to change the resource scope of the request to
-          that account, if permissions allow (admin only)
+      - description: "An account name to change the resource scope of the request\
+          \ to that account, if permissions allow (admin only)"
         explode: false
         in: header
         name: x-anchore-account
@@ -2151,7 +2151,7 @@ paths:
       x-codegen-request-body-name: correction
   /corrections/{uuid}:
     delete:
-      description: Delete a single correction, looked up via it's uuid
+      description: "Delete a single correction, looked up via it's uuid"
       operationId: delete_correction_by_uuid
       parameters:
       - explode: false
@@ -2162,8 +2162,8 @@ paths:
           format: path
           type: string
         style: simple
-      - description: An account name to change the resource scope of the request to
-          that account, if permissions allow (admin only)
+      - description: "An account name to change the resource scope of the request\
+          \ to that account, if permissions allow (admin only)"
         explode: false
         in: header
         name: x-anchore-account
@@ -2181,7 +2181,7 @@ paths:
       x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.corrections
       x-anchore-authz-action: deleteCorrection
     get:
-      description: Returns a single correction, looked up via it's uuid
+      description: "Returns a single correction, looked up via it's uuid"
       operationId: get_correction_by_uuid
       parameters:
       - explode: false
@@ -2192,8 +2192,8 @@ paths:
           format: path
           type: string
         style: simple
-      - description: An account name to change the resource scope of the request to
-          that account, if permissions allow (admin only)
+      - description: "An account name to change the resource scope of the request\
+          \ to that account, if permissions allow (admin only)"
         explode: false
         in: header
         name: x-anchore-account
@@ -2214,7 +2214,7 @@ paths:
       x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.corrections
       x-anchore-authz-action: getCorrection
     put:
-      description: Updates a single correction, looked up via it's uuid
+      description: "Updates a single correction, looked up via it's uuid"
       operationId: update_correction_by_uuid
       parameters:
       - explode: false
@@ -2225,8 +2225,8 @@ paths:
           format: path
           type: string
         style: simple
-      - description: An account name to change the resource scope of the request to
-          that account, if permissions allow (admin only)
+      - description: "An account name to change the resource scope of the request\
+          \ to that account, if permissions allow (admin only)"
         explode: false
         in: header
         name: x-anchore-account
@@ -2437,8 +2437,8 @@ paths:
         schema:
           type: string
         style: form
-      - description: An account name to change the resource scope of the request to
-          that account, if permissions allow (admin only)
+      - description: "An account name to change the resource scope of the request\
+          \ to that account, if permissions allow (admin only)"
         explode: false
         in: header
         name: x-anchore-account
@@ -2493,11 +2493,11 @@ paths:
         name: event_type
         required: false
         schema:
-          pattern: ^[a-z0-9-_.*]+$
+          pattern: "^[a-z0-9-_.*]+$"
           type: string
         style: form
-      - description: Filter events by the type of resource - tag, image_digest, repository
-          etc
+      - description: "Filter events by the type of resource - tag, image_digest, repository\
+          \ etc"
         explode: true
         in: query
         name: resource_type
@@ -2556,8 +2556,8 @@ paths:
           default: 100
           type: integer
         style: form
-      - description: An account name to change the resource scope of the request to
-          that account, if permissions allow (admin only)
+      - description: "An account name to change the resource scope of the request\
+          \ to that account, if permissions allow (admin only)"
         explode: false
         in: header
         name: x-anchore-account
@@ -2591,8 +2591,8 @@ paths:
           format: path
           type: string
         style: simple
-      - description: An account name to change the resource scope of the request to
-          that account, if permissions allow (admin only)
+      - description: "An account name to change the resource scope of the request\
+          \ to that account, if permissions allow (admin only)"
         explode: false
         in: header
         name: x-anchore-account
@@ -2622,8 +2622,8 @@ paths:
           format: path
           type: string
         style: simple
-      - description: An account name to change the resource scope of the request to
-          that account, if permissions allow (admin only)
+      - description: "An account name to change the resource scope of the request\
+          \ to that account, if permissions allow (admin only)"
         explode: false
         in: header
         name: x-anchore-account
@@ -2645,7 +2645,7 @@ paths:
       x-anchore-authz-action: getEvent
   /health:
     get:
-      description: Health check, returns 200 and no body if service is running
+      description: "Health check, returns 200 and no body if service is running"
       operationId: health_check
       responses:
         "200":
@@ -2675,8 +2675,8 @@ paths:
         schema:
           type: boolean
         style: form
-      - description: An account name to change the resource scope of the request to
-          that account, if permissions allow (admin only)
+      - description: "An account name to change the resource scope of the request\
+          \ to that account, if permissions allow (admin only)"
         explode: false
         in: header
         name: x-anchore-account
@@ -2722,8 +2722,8 @@ paths:
         schema:
           type: boolean
         style: form
-      - description: Full docker-pull string to filter results by (e.g. docker.io/library/nginx:latest,
-          or myhost.com:5000/testimages:v1.1.1)
+      - description: "Full docker-pull string to filter results by (e.g. docker.io/library/nginx:latest,\
+          \ or myhost.com:5000/testimages:v1.1.1)"
         explode: true
         in: query
         name: full_tag
@@ -2758,8 +2758,8 @@ paths:
           - analysis_failed
           type: string
         style: form
-      - description: An account name to change the resource scope of the request to
-          that account, if permissions allow (admin only)
+      - description: "An account name to change the resource scope of the request\
+          \ to that account, if permissions allow (admin only)"
         explode: false
         in: header
         name: x-anchore-account
@@ -2805,8 +2805,8 @@ paths:
         schema:
           type: boolean
         style: form
-      - description: An account name to change the resource scope of the request to
-          that account, if permissions allow (admin only)
+      - description: "An account name to change the resource scope of the request\
+          \ to that account, if permissions allow (admin only)"
         explode: false
         in: header
         name: x-anchore-account
@@ -2849,7 +2849,7 @@ paths:
         required: true
         schema:
           format: path
-          pattern: ^sha256:[a-fA-F0-9]{64}$
+          pattern: "^sha256:[a-fA-F0-9]{64}$"
           type: string
         style: simple
       - explode: true
@@ -2859,8 +2859,8 @@ paths:
         schema:
           type: boolean
         style: form
-      - description: An account name to change the resource scope of the request to
-          that account, if permissions allow (admin only)
+      - description: "An account name to change the resource scope of the request\
+          \ to that account, if permissions allow (admin only)"
         explode: false
         in: header
         name: x-anchore-account
@@ -2889,11 +2889,11 @@ paths:
         required: true
         schema:
           format: path
-          pattern: ^sha256:[a-fA-F0-9]{64}$
+          pattern: "^sha256:[a-fA-F0-9]{64}$"
           type: string
         style: simple
-      - description: An account name to change the resource scope of the request to
-          that account, if permissions allow (admin only)
+      - description: "An account name to change the resource scope of the request\
+          \ to that account, if permissions allow (admin only)"
         explode: false
         in: header
         name: x-anchore-account
@@ -2921,8 +2921,8 @@ paths:
       x-anchore-authz-action: getImage
   /images/{image_digest}/ancestors:
     get:
-      description: Returns list of ancestor images, which are the images that form
-        the base layers of the image
+      description: "Returns list of ancestor images, which are the images that form\
+        \ the base layers of the image"
       operationId: get_image_ancestors
       parameters:
       - explode: false
@@ -2931,11 +2931,11 @@ paths:
         required: true
         schema:
           format: path
-          pattern: ^sha256:[a-fA-F0-9]{64}$
+          pattern: "^sha256:[a-fA-F0-9]{64}$"
           type: string
         style: simple
-      - description: An account name to change the resource scope of the request to
-          that account, if permissions allow (admin only)
+      - description: "An account name to change the resource scope of the request\
+          \ to that account, if permissions allow (admin only)"
         explode: false
         in: header
         name: x-anchore-account
@@ -2971,7 +2971,7 @@ paths:
         required: true
         schema:
           format: path
-          pattern: ^sha256:[a-fA-F0-9]{64}$
+          pattern: "^sha256:[a-fA-F0-9]{64}$"
           type: string
         style: simple
       responses:
@@ -2997,7 +2997,7 @@ paths:
         required: true
         schema:
           format: path
-          pattern: ^sha256:[a-fA-F0-9]{64}$
+          pattern: "^sha256:[a-fA-F0-9]{64}$"
           type: string
         style: simple
       responses:
@@ -3023,7 +3023,7 @@ paths:
         required: true
         schema:
           format: path
-          pattern: ^sha256:[a-fA-F0-9]{64}$
+          pattern: "^sha256:[a-fA-F0-9]{64}$"
           type: string
         style: simple
       responses:
@@ -3050,7 +3050,7 @@ paths:
         required: true
         schema:
           format: path
-          pattern: ^sha256:[a-fA-F0-9]{64}$
+          pattern: "^sha256:[a-fA-F0-9]{64}$"
           type: string
         style: simple
       - explode: true
@@ -3100,8 +3100,8 @@ paths:
         schema:
           type: string
         style: form
-      - description: An account name to change the resource scope of the request to
-          that account, if permissions allow (admin only)
+      - description: "An account name to change the resource scope of the request\
+          \ to that account, if permissions allow (admin only)"
         explode: false
         in: header
         name: x-anchore-account
@@ -3137,11 +3137,11 @@ paths:
         required: true
         schema:
           format: path
-          pattern: ^sha256:[a-fA-F0-9]{64}$
+          pattern: "^sha256:[a-fA-F0-9]{64}$"
           type: string
         style: simple
-      - description: An account name to change the resource scope of the request to
-          that account, if permissions allow (admin only)
+      - description: "An account name to change the resource scope of the request\
+          \ to that account, if permissions allow (admin only)"
         explode: false
         in: header
         name: x-anchore-account
@@ -3179,11 +3179,11 @@ paths:
         required: true
         schema:
           format: path
-          pattern: ^sha256:[a-fA-F0-9]{64}$
+          pattern: "^sha256:[a-fA-F0-9]{64}$"
           type: string
         style: simple
-      - description: An account name to change the resource scope of the request to
-          that account, if permissions allow (admin only)
+      - description: "An account name to change the resource scope of the request\
+          \ to that account, if permissions allow (admin only)"
         explode: false
         in: header
         name: x-anchore-account
@@ -3219,11 +3219,11 @@ paths:
         required: true
         schema:
           format: path
-          pattern: ^sha256:[a-fA-F0-9]{64}$
+          pattern: "^sha256:[a-fA-F0-9]{64}$"
           type: string
         style: simple
-      - description: An account name to change the resource scope of the request to
-          that account, if permissions allow (admin only)
+      - description: "An account name to change the resource scope of the request\
+          \ to that account, if permissions allow (admin only)"
         explode: false
         in: header
         name: x-anchore-account
@@ -3259,11 +3259,11 @@ paths:
         required: true
         schema:
           format: path
-          pattern: ^sha256:[a-fA-F0-9]{64}$
+          pattern: "^sha256:[a-fA-F0-9]{64}$"
           type: string
         style: simple
-      - description: An account name to change the resource scope of the request to
-          that account, if permissions allow (admin only)
+      - description: "An account name to change the resource scope of the request\
+          \ to that account, if permissions allow (admin only)"
         explode: false
         in: header
         name: x-anchore-account
@@ -3299,7 +3299,7 @@ paths:
         required: true
         schema:
           format: path
-          pattern: ^sha256:[a-fA-F0-9]{64}$
+          pattern: "^sha256:[a-fA-F0-9]{64}$"
           type: string
         style: simple
       - explode: false
@@ -3310,8 +3310,8 @@ paths:
           format: path
           type: string
         style: simple
-      - description: An account name to change the resource scope of the request to
-          that account, if permissions allow (admin only)
+      - description: "An account name to change the resource scope of the request\
+          \ to that account, if permissions allow (admin only)"
         explode: false
         in: header
         name: x-anchore-account
@@ -3347,11 +3347,11 @@ paths:
         required: true
         schema:
           format: path
-          pattern: ^sha256:[a-fA-F0-9]{64}$
+          pattern: "^sha256:[a-fA-F0-9]{64}$"
           type: string
         style: simple
-      - description: An account name to change the resource scope of the request to
-          that account, if permissions allow (admin only)
+      - description: "An account name to change the resource scope of the request\
+          \ to that account, if permissions allow (admin only)"
         explode: false
         in: header
         name: x-anchore-account
@@ -3389,7 +3389,7 @@ paths:
         required: true
         schema:
           format: path
-          pattern: ^sha256:[a-fA-F0-9]{64}$
+          pattern: "^sha256:[a-fA-F0-9]{64}$"
           type: string
         style: simple
       - explode: false
@@ -3400,8 +3400,8 @@ paths:
           format: path
           type: string
         style: simple
-      - description: An account name to change the resource scope of the request to
-          that account, if permissions allow (admin only)
+      - description: "An account name to change the resource scope of the request\
+          \ to that account, if permissions allow (admin only)"
         explode: false
         in: header
         name: x-anchore-account
@@ -3437,11 +3437,11 @@ paths:
         required: true
         schema:
           format: path
-          pattern: ^sha256:[a-fA-F0-9]{64}$
+          pattern: "^sha256:[a-fA-F0-9]{64}$"
           type: string
         style: simple
-      - description: An account name to change the resource scope of the request to
-          that account, if permissions allow (admin only)
+      - description: "An account name to change the resource scope of the request\
+          \ to that account, if permissions allow (admin only)"
         explode: false
         in: header
         name: x-anchore-account
@@ -3477,11 +3477,11 @@ paths:
         required: true
         schema:
           format: path
-          pattern: ^sha256:[a-fA-F0-9]{64}$
+          pattern: "^sha256:[a-fA-F0-9]{64}$"
           type: string
         style: simple
-      - description: An account name to change the resource scope of the request to
-          that account, if permissions allow (admin only)
+      - description: "An account name to change the resource scope of the request\
+          \ to that account, if permissions allow (admin only)"
         explode: false
         in: header
         name: x-anchore-account
@@ -3517,11 +3517,11 @@ paths:
         required: true
         schema:
           format: path
-          pattern: ^sha256:[a-fA-F0-9]{64}$
+          pattern: "^sha256:[a-fA-F0-9]{64}$"
           type: string
         style: simple
-      - description: An account name to change the resource scope of the request to
-          that account, if permissions allow (admin only)
+      - description: "An account name to change the resource scope of the request\
+          \ to that account, if permissions allow (admin only)"
         explode: false
         in: header
         name: x-anchore-account
@@ -3557,11 +3557,11 @@ paths:
         required: true
         schema:
           format: path
-          pattern: ^sha256:[a-fA-F0-9]{64}$
+          pattern: "^sha256:[a-fA-F0-9]{64}$"
           type: string
         style: simple
-      - description: An account name to change the resource scope of the request to
-          that account, if permissions allow (admin only)
+      - description: "An account name to change the resource scope of the request\
+          \ to that account, if permissions allow (admin only)"
         explode: false
         in: header
         name: x-anchore-account
@@ -3603,7 +3603,7 @@ paths:
         required: true
         schema:
           format: path
-          pattern: ^sha256:[a-fA-F0-9]{64}$
+          pattern: "^sha256:[a-fA-F0-9]{64}$"
           type: string
         style: simple
       - explode: false
@@ -3625,10 +3625,10 @@ paths:
           default: false
           type: boolean
         style: form
-      - description: Filter results to include only vulnerabilities that are not marked
-          as invalid by upstream OS vendor data. When set to true, it will filter
-          out all vulnerabilities where `will_not_fix` is False. If false all vulnerabilities
-          are returned regardless of `will_not_fix`
+      - description: "Filter results to include only vulnerabilities that are not\
+          \ marked as invalid by upstream OS vendor data. When set to true, it will\
+          \ filter out all vulnerabilities where `will_not_fix` is False. If false\
+          \ all vulnerabilities are returned regardless of `will_not_fix`"
         explode: true
         in: query
         name: vendor_only
@@ -3646,8 +3646,8 @@ paths:
         schema:
           type: string
         style: form
-      - description: An account name to change the resource scope of the request to
-          that account, if permissions allow (admin only)
+      - description: "An account name to change the resource scope of the request\
+          \ to that account, if permissions allow (admin only)"
         explode: false
         in: header
         name: x-anchore-account
@@ -4468,8 +4468,8 @@ paths:
         schema:
           type: string
         style: form
-      - description: An account name to change the resource scope of the request to
-          that account, if permissions allow (admin only)
+      - description: "An account name to change the resource scope of the request\
+          \ to that account, if permissions allow (admin only)"
         explode: false
         in: header
         name: x-anchore-account
@@ -4520,8 +4520,8 @@ paths:
         schema:
           type: string
         style: form
-      - description: An account name to change the resource scope of the request to
-          that account, if permissions allow (admin only)
+      - description: "An account name to change the resource scope of the request\
+          \ to that account, if permissions allow (admin only)"
         explode: false
         in: header
         name: x-anchore-account
@@ -6760,20 +6760,10 @@ paths:
       description: Revoke a refresh token previously requested from /oauth/token
       operationId: revoke_oauth_token
       requestBody:
-        $ref: '#/components/requestBodies/inline_object'
         content:
           application/x-www-form-urlencoded:
             schema:
-              properties:
-                token:
-                  description: The token to be revoked
-                  type: string
-                token_type_hint:
-                  description: A hint about the type of token to be revoked
-                  enum:
-                  - refresh_token
-                  type: string
-              type: object
+              $ref: '#/components/schemas/revoke_oauth_token_request'
       responses:
         "200":
           content: {}
@@ -6782,7 +6772,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/inline_response_400'
+                $ref: '#/components/schemas/revoke_oauth_token_400_response'
           description: Error response
         "401":
           content: {}
@@ -6791,34 +6781,14 @@ paths:
       x-anchore-authz-action: None
   /oauth/token:
     post:
-      description: Request a jwt token for subsequent operations, this request is
-        authenticated with normal HTTP auth
+      description: "Request a jwt token for subsequent operations, this request is\
+        \ authenticated with normal HTTP auth"
       operationId: get_oauth_token
       requestBody:
-        $ref: '#/components/requestBodies/inline_object_1'
         content:
           application/x-www-form-urlencoded:
             schema:
-              properties:
-                grant_type:
-                  default: password
-                  description: OAuth Grant type for token
-                  type: string
-                username:
-                  description: User to assign OAuth token to
-                  type: string
-                password:
-                  description: Password for corresponding user
-                  type: string
-                client_id:
-                  default: anonymous
-                  description: The type of client used for the OAuth token
-                  type: string
-                refresh_token:
-                  description: The refresh token from a previous password grant request,
-                    used to get a new access_token
-                  type: string
-              type: object
+              $ref: '#/components/schemas/get_oauth_token_request'
       responses:
         "200":
           content:
@@ -6848,8 +6818,8 @@ paths:
         schema:
           type: boolean
         style: form
-      - description: An account name to change the resource scope of the request to
-          that account, if permissions allow (admin only)
+      - description: "An account name to change the resource scope of the request\
+          \ to that account, if permissions allow (admin only)"
         explode: false
         in: header
         name: x-anchore-account
@@ -6873,8 +6843,8 @@ paths:
       description: Adds a new policy to the system
       operationId: add_policy
       parameters:
-      - description: An account name to change the resource scope of the request to
-          that account, if permissions allow (admin only)
+      - description: "An account name to change the resource scope of the request\
+          \ to that account, if permissions allow (admin only)"
         explode: false
         in: header
         name: x-anchore-account
@@ -6920,8 +6890,8 @@ paths:
           format: path
           type: string
         style: simple
-      - description: An account name to change the resource scope of the request to
-          that account, if permissions allow (admin only)
+      - description: "An account name to change the resource scope of the request\
+          \ to that account, if permissions allow (admin only)"
         explode: false
         in: header
         name: x-anchore-account
@@ -6971,8 +6941,8 @@ paths:
         schema:
           type: boolean
         style: form
-      - description: An account name to change the resource scope of the request to
-          that account, if permissions allow (admin only)
+      - description: "An account name to change the resource scope of the request\
+          \ to that account, if permissions allow (admin only)"
         explode: false
         in: header
         name: x-anchore-account
@@ -7018,8 +6988,8 @@ paths:
         schema:
           type: boolean
         style: form
-      - description: An account name to change the resource scope of the request to
-          that account, if permissions allow (admin only)
+      - description: "An account name to change the resource scope of the request\
+          \ to that account, if permissions allow (admin only)"
         explode: false
         in: header
         name: x-anchore-account
@@ -7090,8 +7060,8 @@ paths:
         schema:
           type: string
         style: form
-      - description: Limit the number of records for the requested page. If omitted
-          or set to 0, return all results in a single page
+      - description: "Limit the number of records for the requested page. If omitted\
+          \ or set to 0, return all results in a single page"
         explode: true
         in: query
         name: limit
@@ -7099,8 +7069,8 @@ paths:
         schema:
           type: integer
         style: form
-      - description: An account name to change the resource scope of the request to
-          that account, if permissions allow (admin only)
+      - description: "An account name to change the resource scope of the request\
+          \ to that account, if permissions allow (admin only)"
         explode: false
         in: header
         name: x-anchore-account
@@ -7128,8 +7098,8 @@ paths:
       x-anchore-authz-action: listImages
   /query/vulnerabilities:
     get:
-      description: List (w/filters) vulnerability records known by the system, with
-        affected packages information if present
+      description: "List (w/filters) vulnerability records known by the system, with\
+        \ affected packages information if present"
       operationId: query_vulnerabilities
       parameters:
       - description: The ID of the vulnerability (e.g. CVE-1999-0001)
@@ -7167,8 +7137,8 @@ paths:
           default: "1"
           type: string
         style: form
-      - description: Limit the number of records for the requested page. If omitted
-          or set to 0, return all results in a single page
+      - description: "Limit the number of records for the requested page. If omitted\
+          \ or set to 0, return all results in a single page"
         explode: true
         in: query
         name: limit
@@ -7407,7 +7377,7 @@ paths:
       x-openapi-router-controller: anchore_enterprise.services.rbac_manager.api.controllers.auth
       x-anchore-authz-action: None
     post:
-      description: Add a new Identity Provider to the system, with a specific name
+      description: "Add a new Identity Provider to the system, with a specific name"
       operationId: add_idp
       requestBody:
         content:
@@ -7427,7 +7397,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/RbacManagerApiErrorResponse'
-          description: Conflict, entry already exists
+          description: "Conflict, entry already exists"
         "500":
           content:
             application/json:
@@ -7439,9 +7409,9 @@ paths:
       x-codegen-request-body-name: configuration
   /rbac-manager/saml/idps/{name}:
     delete:
-      description: Delete an idp configuration. Users will not longer be able to login
-        from this idp. In addition, any users that have been configured explicitly
-        or JIT Provisioned on this IDP will be deleted.
+      description: "Delete an idp configuration. Users will not longer be able to\
+        \ login from this idp. In addition, any users that have been configured explicitly\
+        \ or JIT Provisioned on this IDP will be deleted."
       operationId: delete_idp
       parameters:
       - explode: false
@@ -7577,8 +7547,8 @@ paths:
       x-anchore-authz-action: None
   /rbac-manager/saml/sso/{idp_name}:
     post:
-      description: Perform a login using a SAML assertion, no HTTP auth is required
-        as the SAML assertion is considered the authenticating token
+      description: "Perform a login using a SAML assertion, no HTTP auth is required\
+        \ as the SAML assertion is considered the authenticating token"
       operationId: saml_sso
       parameters:
       - explode: false
@@ -7651,8 +7621,8 @@ paths:
       description: List all configured registries the system can/will watch
       operationId: list_registries
       parameters:
-      - description: An account name to change the resource scope of the request to
-          that account, if permissions allow (admin only)
+      - description: "An account name to change the resource scope of the request\
+          \ to that account, if permissions allow (admin only)"
         explode: false
         in: header
         name: x-anchore-account
@@ -7685,8 +7655,8 @@ paths:
         schema:
           type: boolean
         style: form
-      - description: An account name to change the resource scope of the request to
-          that account, if permissions allow (admin only)
+      - description: "An account name to change the resource scope of the request\
+          \ to that account, if permissions allow (admin only)"
         explode: false
         in: header
         name: x-anchore-account
@@ -7733,8 +7703,8 @@ paths:
           format: path
           type: string
         style: simple
-      - description: An account name to change the resource scope of the request to
-          that account, if permissions allow (admin only)
+      - description: "An account name to change the resource scope of the request\
+          \ to that account, if permissions allow (admin only)"
         explode: false
         in: header
         name: x-anchore-account
@@ -7769,8 +7739,8 @@ paths:
           format: path
           type: string
         style: simple
-      - description: An account name to change the resource scope of the request to
-          that account, if permissions allow (admin only)
+      - description: "An account name to change the resource scope of the request\
+          \ to that account, if permissions allow (admin only)"
         explode: false
         in: header
         name: x-anchore-account
@@ -7811,8 +7781,8 @@ paths:
         schema:
           type: boolean
         style: form
-      - description: An account name to change the resource scope of the request to
-          that account, if permissions allow (admin only)
+      - description: "An account name to change the resource scope of the request\
+          \ to that account, if permissions allow (admin only)"
         explode: false
         in: header
         name: x-anchore-account
@@ -7856,11 +7826,11 @@ paths:
         required: true
         schema:
           format: path
-          pattern: '[0-9a-z-]+'
+          pattern: "[0-9a-z-]+"
           type: string
         style: simple
-      - description: Page number to fetch. If omitted, '1' is default. Page numbers
-          start at 1
+      - description: "Page number to fetch. If omitted, '1' is default. Page numbers\
+          \ start at 1"
         explode: true
         in: query
         name: page
@@ -7888,11 +7858,11 @@ paths:
         required: true
         schema:
           format: path
-          pattern: '[0-9a-z-]+'
+          pattern: "[0-9a-z-]+"
           type: string
         style: simple
-      - description: Page number to fetch. If omitted, '1' is default. Page numbers
-          start at 1
+      - description: "Page number to fetch. If omitted, '1' is default. Page numbers\
+          \ start at 1"
         explode: true
         in: query
         name: page
@@ -7930,8 +7900,8 @@ paths:
         schema:
           type: boolean
         style: form
-      - description: flag to return tags in the repository without actually watching
-          the repository, default is false
+      - description: "flag to return tags in the repository without actually watching\
+          \ the repository, default is false"
         explode: true
         in: query
         name: dry_run
@@ -7939,8 +7909,8 @@ paths:
         schema:
           type: boolean
         style: form
-      - description: An account name to change the resource scope of the request to
-          that account, if permissions allow (admin only)
+      - description: "An account name to change the resource scope of the request\
+          \ to that account, if permissions allow (admin only)"
         explode: false
         in: header
         name: x-anchore-account
@@ -7954,12 +7924,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/SubscriptionList'
-          description: Repository and discovered tags added
+          description: Repository Subscription
       summary: Add repository to watch
       tags:
       - Repository Credentials
       x-anchore-authz-action: createRepository
-      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.images
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.repositories
   /sources:
     get:
       operationId: list_sources
@@ -8230,8 +8200,8 @@ paths:
           format: path
           type: string
         style: simple
-      - description: An account name to change the resource scope of the request to
-          that account, if permissions allow (admin only)
+      - description: "An account name to change the resource scope of the request\
+          \ to that account, if permissions allow (admin only)"
         explode: false
         in: header
         name: x-anchore-account
@@ -8290,10 +8260,10 @@ paths:
         schema:
           type: boolean
         style: form
-      - description: Vulnerability data publishers explicitly won't fix some vulnerabilities.
-          This is captured by will_not_fix attribute of each result. If the query
-          parameter is set, results matching it's value will be filtered. Results
-          are not filtered if the query parameter is unset
+      - description: "Vulnerability data publishers explicitly won't fix some vulnerabilities.\
+          \ This is captured by will_not_fix attribute of each result. If the query\
+          \ parameter is set, results matching it's value will be filtered. Results\
+          \ are not filtered if the query parameter is unset"
         explode: true
         in: query
         name: will_not_fix
@@ -8301,8 +8271,8 @@ paths:
         schema:
           type: boolean
         style: form
-      - description: An account name to change the resource scope of the request to
-          that account, if permissions allow (admin only)
+      - description: "An account name to change the resource scope of the request\
+          \ to that account, if permissions allow (admin only)"
         explode: false
         in: header
         name: x-anchore-account
@@ -8367,8 +8337,8 @@ paths:
         schema:
           type: string
         style: form
-      - description: An account name to change the resource scope of the request to
-          that account, if permissions allow (admin only)
+      - description: "An account name to change the resource scope of the request\
+          \ to that account, if permissions allow (admin only)"
         explode: false
         in: header
         name: x-anchore-account
@@ -8395,12 +8365,11 @@ paths:
       x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.subscriptions
       x-anchore-authz-action: listSubscriptions
     post:
-      description: Create a new subscription to watch a tag and get notifications
-        of changes
+      description: Create a new subscription
       operationId: add_subscription
       parameters:
-      - description: An account name to change the resource scope of the request to
-          that account, if permissions allow (admin only)
+      - description: "An account name to change the resource scope of the request\
+          \ to that account, if permissions allow (admin only)"
         explode: false
         in: header
         name: x-anchore-account
@@ -8421,6 +8390,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/SubscriptionList'
           description: Subscription add success
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+          description: Internal Error
       summary: Add a subscription of a specific type
       tags:
       - Subscriptions
@@ -8439,8 +8414,8 @@ paths:
           format: path
           type: string
         style: simple
-      - description: An account name to change the resource scope of the request to
-          that account, if permissions allow (admin only)
+      - description: "An account name to change the resource scope of the request\
+          \ to that account, if permissions allow (admin only)"
         explode: false
         in: header
         name: x-anchore-account
@@ -8461,7 +8436,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/ApiErrorResponse'
           description: Internal Error
-      summary: Delete subscriptions of a specific type
+      summary: Delete specific subscription
       tags:
       - Subscriptions
       x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.subscriptions
@@ -8477,8 +8452,8 @@ paths:
           format: path
           type: string
         style: simple
-      - description: An account name to change the resource scope of the request to
-          that account, if permissions allow (admin only)
+      - description: "An account name to change the resource scope of the request\
+          \ to that account, if permissions allow (admin only)"
         explode: false
         in: header
         name: x-anchore-account
@@ -8493,6 +8468,9 @@ paths:
               schema:
                 $ref: '#/components/schemas/SubscriptionList'
           description: Filtered subscription list by type
+        "404":
+          content: {}
+          description: The Subscription was not found
         "500":
           content:
             application/json:
@@ -8515,8 +8493,8 @@ paths:
           format: path
           type: string
         style: simple
-      - description: An account name to change the resource scope of the request to
-          that account, if permissions allow (admin only)
+      - description: "An account name to change the resource scope of the request\
+          \ to that account, if permissions allow (admin only)"
         explode: false
         in: header
         name: x-anchore-account
@@ -8536,7 +8514,16 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/SubscriptionList'
-          description: Subscription add success
+          description: Subscription update success
+        "404":
+          content: {}
+          description: The Subscription was not found
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+          description: Internal Error
       summary: Update an existing and specific subscription
       tags:
       - Subscriptions
@@ -8548,8 +8535,8 @@ paths:
       description: List all image tags visible to the user
       operationId: list_image_tags
       parameters:
-      - description: Filter images in one or more states such as active, deleting.
-          Defaults to active images only if unspecified
+      - description: "Filter images in one or more states such as active, deleting.\
+          \ Defaults to active images only if unspecified"
         explode: false
         in: query
         name: image_status
@@ -8565,8 +8552,8 @@ paths:
             type: string
           type: array
         style: form
-      - description: An account name to change the resource scope of the request to
-          that account, if permissions allow (admin only)
+      - description: "An account name to change the resource scope of the request\
+          \ to that account, if permissions allow (admin only)"
         explode: false
         in: header
         name: x-anchore-account
@@ -8635,9 +8622,9 @@ paths:
       x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.system
   /system/feeds:
     get:
-      description: Return a list of feed and their groups along with update and record
-        count information. This data reflects the state of the policy engine, not
-        the upstream feed service itself.
+      description: "Return a list of feed and their groups along with update and record\
+        \ count information. This data reflects the state of the policy engine, not\
+        \ the upstream feed service itself."
       operationId: get_system_feeds
       responses:
         "200":
@@ -8660,8 +8647,8 @@ paths:
       x-anchore-authz-action: listFeeds
       x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.system
     post:
-      description: Execute a synchronous update of the latest GrypeDB with the policy-engine.
-        The response will block until complete, then return the result summary.
+      description: "Execute a synchronous update of the latest GrypeDB with the policy-engine.\
+        \ The response will block until complete, then return the result summary."
       operationId: post_system_feeds
       responses:
         "200":
@@ -8739,7 +8726,7 @@ paths:
           description: FeedInfo
         "400":
           content: {}
-          description: Bad request, fix and resend
+          description: "Bad request, fix and resend"
         "500":
           content: {}
           description: Internal server error processing the request. Retry expected
@@ -8888,8 +8875,8 @@ paths:
       x-anchore-authz-action: getService
   /system/webhooks/{webhook_type}/test:
     post:
-      description: Loads the Webhook configuration for webhook_type, and sends the
-        notification out as a test
+      description: "Loads the Webhook configuration for webhook_type, and sends the\
+        \ notification out as a test"
       operationId: test_webhook
       parameters:
       - description: The Webhook Type that we should test
@@ -8918,9 +8905,9 @@ paths:
       responses:
         "200":
           content: {}
-          description: The Webhook was sent successfully. Schemas may be found under
-            Models (PolicyEvalNotification, TagUpdateNotification, VulnUpdateNotification,
-            AnalysisUpdateNotification)
+          description: "The Webhook was sent successfully. Schemas may be found under\
+            \ Models (PolicyEvalNotification, TagUpdateNotification, VulnUpdateNotification,\
+            \ AnalysisUpdateNotification)"
         "400":
           content:
             application/json:
@@ -8995,7 +8982,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/User'
-          description: Add a credential, over-writing if already exists
+          description: "Add a credential, over-writing if already exists"
         "500":
           content:
             application/json:
@@ -9010,8 +8997,8 @@ paths:
       x-codegen-request-body-name: credential
   /version:
     get:
-      description: Returns the version object for the service, including db schema
-        version info
+      description: "Returns the version object for the service, including db schema\
+        \ version info"
       operationId: version_check
       responses:
         "200":
@@ -9030,8 +9017,8 @@ paths:
         the "/import/*" API set instead.
       operationId: vulnerability_scan_sbom
       parameters:
-      - description: An account name to change the resource scope of the request to
-          that account, if permissions allow (admin only)
+      - description: "An account name to change the resource scope of the request\
+          \ to that account, if permissions allow (admin only)"
         explode: false
         in: header
         name: x-anchore-account
@@ -9068,8 +9055,8 @@ paths:
 components:
   parameters:
     AsAccountParameter:
-      description: An account name to change the resource scope of the request to
-        that account, if permissions allow (admin only)
+      description: "An account name to change the resource scope of the request to\
+        \ that account, if permissions allow (admin only)"
       explode: false
       in: header
       name: x-anchore-account
@@ -9077,22 +9064,11 @@ components:
       schema:
         type: string
       style: simple
-  requestBodies:
-    inline_object_1:
-      content:
-        application/x-www-form-urlencoded:
-          schema:
-            $ref: '#/components/schemas/inline_object_1'
-    inline_object:
-      content:
-        application/x-www-form-urlencoded:
-          schema:
-            $ref: '#/components/schemas/inline_object'
   schemas:
     AccessCredential:
-      description: A login credential mapped to a user identity. For password credentials,
-        the username to present for Basic auth is the user's username from the user
-        record
+      description: "A login credential mapped to a user identity. For password credentials,\
+        \ the username to present for Basic auth is the user's username from the user\
+        \ record"
       example:
         created_at: created_at
         type: password
@@ -9124,21 +9100,21 @@ components:
         email: email
       properties:
         name:
-          description: The account identifier, not updatable after creation
+          description: "The account identifier, not updatable after creation"
           type: string
         type:
-          description: The user type (admin vs user). If not specified in a POST request,
-            'user' is default
+          description: "The user type (admin vs user). If not specified in a POST\
+            \ request, 'user' is default"
           enum:
           - user
           - admin
           - service
           type: string
         state:
-          description: State of the account. Disabled accounts prevent member users
-            from logging in, deleting accounts are disabled and pending deletion and
-            will be removed once all owned resources are garbage collected by the
-            system
+          description: "State of the account. Disabled accounts prevent member users\
+            \ from logging in, deleting accounts are disabled and pending deletion\
+            \ and will be removed once all owned resources are garbage collected by\
+            \ the system"
           enum:
           - enabled
           - disabled
@@ -9169,12 +9145,13 @@ components:
         name:
           description: The account name to use. This will identify the account and
             must be globally unique in the system.
-          pattern: ^[a-zA-Z0-9][ a-zA-Z0-9@.!#$+-=^_`~;]{1,126}[a-zA-Z0-9_]$
+          pattern: "^[a-zA-Z0-9][ a-zA-Z0-9@.!#$+-=^_`~;]{1,126}[a-zA-Z0-9_]$"
           type: string
         email:
           description: An optional email to associate with the account for contact
             purposes
-          pattern: '[a-z0-9!#$%&''*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&''*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?'
+          pattern: "[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\\
+            .)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?"
           type: string
       required:
       - name
@@ -9187,7 +9164,8 @@ components:
         email:
           description: An optional email to associate with the account for contact
             purposes
-          pattern: '[a-z0-9!#$%&''*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&''*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?'
+          pattern: "[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\\
+            .)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?"
           type: string
       type: object
     AccountList:
@@ -9372,7 +9350,7 @@ components:
         version:
           type: string
         description:
-          description: Description of the Allowlist, human readable
+          description: "Description of the Allowlist, human readable"
           type: string
         items:
           items:
@@ -9406,7 +9384,7 @@ components:
           nullable: true
           type: string
         description:
-          description: Description of the Allowlist item, human readable
+          description: "Description of the Allowlist item, human readable"
           type: string
       required:
       - gate
@@ -9432,7 +9410,7 @@ components:
           - error
           type: string
         detail:
-          description: Details on the status, e.g. the error message
+          description: "Details on the status, e.g. the error message"
           type: string
       type: object
     AnalysisArchiveRules:
@@ -9463,18 +9441,18 @@ components:
       nullable: true
       properties:
         digest:
-          description: The image digest identify the analysis. Archived analyses are
-            based on digest, tag records are restored as analysis is restored.
-          pattern: ^sha256:[a-fA-F0-9]{64}$
+          description: "The image digest identify the analysis. Archived analyses\
+            \ are based on digest, tag records are restored as analysis is restored."
+          pattern: "^sha256:[a-fA-F0-9]{64}$"
           type: string
       required:
       - digest
       type: object
       x-nullable: true
     AnalysisArchiveSummary:
-      description: A summarization of the analysis archive, including size, counts,
-        etc. This archive stores image analysis only, never the actual image content
-        or layers.
+      description: "A summarization of the analysis archive, including size, counts,\
+        \ etc. This archive stores image analysis only, never the actual image content\
+        \ or layers."
       example:
         last_updated: 2000-01-23T04:56:07.000+00:00
         total_image_count: 0
@@ -9490,9 +9468,9 @@ components:
             unique tag->digest mapping per record.
           type: integer
         total_data_bytes:
-          description: The total sum of all the bytes stored to the backing storage.
-            Accounts for anchore-applied compression, but not compression by the underlying
-            storage system.
+          description: "The total sum of all the bytes stored to the backing storage.\
+            \ Accounts for anchore-applied compression, but not compression by the\
+            \ underlying storage system."
           type: integer
         last_updated:
           description: The timestamp of the most recent archived image
@@ -9535,17 +9513,18 @@ components:
             of days
           type: integer
         transition:
-          description: The type of transition to make. If "archive", then archive
-            an image from the working set and remove it from the working set. If "delete",
-            then match against archived images and delete from the archive if match.
+          description: "The type of transition to make. If \"archive\", then archive\
+            \ an image from the working set and remove it from the working set. If\
+            \ \"delete\", then match against archived images and delete from the archive\
+            \ if match."
           enum:
           - archive
           - delete
           type: string
         system_global:
-          description: True if the rule applies to all accounts in the system. This
-            is only available to admin users to update/modify, but all users with
-            permission to list rules can see them
+          description: "True if the rule applies to all accounts in the system. This\
+            \ is only available to admin users to update/modify, but all users with\
+            \ permission to list rules can see them"
           type: boolean
         created_at:
           format: date-time
@@ -9584,8 +9563,8 @@ components:
           type: integer
       type: object
     AnalysisStatusDetail:
-      description: The detail of an analysis status change recording which service
-        initiated the state change, when, and which transition
+      description: "The detail of an analysis status change recording which service\
+        \ initiated the state change, when, and which transition"
       example:
         to_status: to_status
         from_status: from_status
@@ -9623,17 +9602,34 @@ components:
     AnalysisUpdateNotification:
       allOf:
       - $ref: '#/components/schemas/NotificationBase'
-      - $ref: '#/components/schemas/AnalysisUpdateNotification_allOf'
+      - description: The Notification Object definition for Analysis Update Notifications
+        properties:
+          data:
+            $ref: '#/components/schemas/AnalysisUpdateNotificationData'
+        type: object
     AnalysisUpdateNotificationData:
       allOf:
       - $ref: '#/components/schemas/BaseNotificationData'
-      - $ref: '#/components/schemas/AnalysisUpdateNotificationData_allOf'
+      - properties:
+          notification_payload:
+            $ref: '#/components/schemas/AnalysisUpdateNotificationPayload'
+        type: object
     AnalysisUpdateNotificationPayload:
       allOf:
       - $ref: '#/components/schemas/GenericNotificationPayload'
-      - $ref: '#/components/schemas/AnalysisUpdateNotificationPayload_allOf'
+      - properties:
+          curr_eval:
+            $ref: '#/components/schemas/AnalysisUpdateEval'
+          last_eval:
+            $ref: '#/components/schemas/AnalysisUpdateEval'
+          annotations:
+            description: List of Corresponding Image Annotations
+            nullable: true
+            properties: {}
+            type: object
+        type: object
     AnchoreErrorCode:
-      description: A description of an anchore error code (name, description)
+      description: "A description of an anchore error code (name, description)"
       example:
         name: name
         description: description
@@ -9668,12 +9664,13 @@ components:
         account_name: account_name
         created_at: 2000-01-23T04:56:07.000+00:00
         parent_digest: parent_digest
-        annotations: '{}'
+        annotations: "{}"
         image_status: active
         record_version: record_version
-        image_content: '{}'
+        image_content: "{}"
         image_detail:
-        - full_tag: full_tag
+        - tag_detected_at: 2000-01-23T04:56:07.000+00:00
+          full_tag: full_tag
           registry: registry
           last_updated: 2000-01-23T04:56:07.000+00:00
           image_digest: image_digest
@@ -9681,9 +9678,11 @@ components:
           repo: repo
           dockerfile: dockerfile
           created_at: 2000-01-23T04:56:07.000+00:00
+          tag: tag
           image_id: image_id
           full_digest: full_digest
-        - full_tag: full_tag
+        - tag_detected_at: 2000-01-23T04:56:07.000+00:00
+          full_tag: full_tag
           registry: registry
           last_updated: 2000-01-23T04:56:07.000+00:00
           image_digest: image_digest
@@ -9691,12 +9690,13 @@ components:
           repo: repo
           dockerfile: dockerfile
           created_at: 2000-01-23T04:56:07.000+00:00
+          tag: tag
           image_id: image_id
           full_digest: full_digest
       properties:
         image_content:
-          description: A metadata content record for a specific image, containing
-            different content type entries
+          description: "A metadata content record for a specific image, containing\
+            \ different content type entries"
           type: object
         image_detail:
           description: Details specific to an image reference and type such as tag
@@ -9736,8 +9736,8 @@ components:
           - analysis_failed
           type: string
         record_version:
-          description: The version of the record, used for internal schema updates
-            and data migrations.
+          description: "The version of the record, used for internal schema updates\
+            \ and data migrations."
           type: string
         analysis_status_detail:
           items:
@@ -9768,12 +9768,13 @@ components:
           account_name: account_name
           created_at: 2000-01-23T04:56:07.000+00:00
           parent_digest: parent_digest
-          annotations: '{}'
+          annotations: "{}"
           image_status: active
           record_version: record_version
-          image_content: '{}'
+          image_content: "{}"
           image_detail:
-          - full_tag: full_tag
+          - tag_detected_at: 2000-01-23T04:56:07.000+00:00
+            full_tag: full_tag
             registry: registry
             last_updated: 2000-01-23T04:56:07.000+00:00
             image_digest: image_digest
@@ -9781,9 +9782,11 @@ components:
             repo: repo
             dockerfile: dockerfile
             created_at: 2000-01-23T04:56:07.000+00:00
+            tag: tag
             image_id: image_id
             full_digest: full_digest
-          - full_tag: full_tag
+          - tag_detected_at: 2000-01-23T04:56:07.000+00:00
+            full_tag: full_tag
             registry: registry
             last_updated: 2000-01-23T04:56:07.000+00:00
             image_digest: image_digest
@@ -9791,6 +9794,7 @@ components:
             repo: repo
             dockerfile: dockerfile
             created_at: 2000-01-23T04:56:07.000+00:00
+            tag: tag
             image_id: image_id
             full_digest: full_digest
         - last_updated: 2000-01-23T04:56:07.000+00:00
@@ -9812,12 +9816,13 @@ components:
           account_name: account_name
           created_at: 2000-01-23T04:56:07.000+00:00
           parent_digest: parent_digest
-          annotations: '{}'
+          annotations: "{}"
           image_status: active
           record_version: record_version
-          image_content: '{}'
+          image_content: "{}"
           image_detail:
-          - full_tag: full_tag
+          - tag_detected_at: 2000-01-23T04:56:07.000+00:00
+            full_tag: full_tag
             registry: registry
             last_updated: 2000-01-23T04:56:07.000+00:00
             image_digest: image_digest
@@ -9825,9 +9830,11 @@ components:
             repo: repo
             dockerfile: dockerfile
             created_at: 2000-01-23T04:56:07.000+00:00
+            tag: tag
             image_id: image_id
             full_digest: full_digest
-          - full_tag: full_tag
+          - tag_detected_at: 2000-01-23T04:56:07.000+00:00
+            full_tag: full_tag
             registry: registry
             last_updated: 2000-01-23T04:56:07.000+00:00
             image_digest: image_digest
@@ -9835,6 +9842,7 @@ components:
             repo: repo
             dockerfile: dockerfile
             created_at: 2000-01-23T04:56:07.000+00:00
+            tag: tag
             image_id: image_id
             full_digest: full_digest
       properties:
@@ -10028,11 +10036,11 @@ components:
           application_id: application_id
         created_at: 2000-01-23T04:56:07.000+00:00
         source_sboms:
-        - '{}'
-        - '{}'
+        - "{}"
+        - "{}"
         image_sboms:
-        - '{}'
-        - '{}'
+        - "{}"
+        - "{}"
         application_version:
           application_version_id: application_version_id
           last_updated: 2000-01-23T04:56:07.000+00:00
@@ -10083,7 +10091,8 @@ components:
               repository_name: repository_name
               revision: revision
         vulnerabilities:
-        - id: id
+        - vendor_data: null
+          id: id
           nvd:
           - null
           - null
@@ -10108,7 +10117,8 @@ components:
                 location: location
                 type: type
                 version: version
-        - id: id
+        - vendor_data: null
+          id: id
           nvd:
           - null
           - null
@@ -10144,9 +10154,9 @@ components:
           type: array
       type: object
     ArchiveSummary:
-      description: A summarization of the available archives, a place to for long-term
-        storage of audit, analysis, or other data to remove it from the system's working
-        set but keep it available.
+      description: "A summarization of the available archives, a place to for long-term\
+        \ storage of audit, analysis, or other data to remove it from the system's\
+        \ working set but keep it available."
       example:
         images:
           last_updated: 2000-01-23T04:56:07.000+00:00
@@ -10211,7 +10221,7 @@ components:
         image_digest: image_digest
         analyzed_at: 2000-01-23T04:56:07.000+00:00
         parent_digest: parent_digest
-        annotations: '{}'
+        annotations: "{}"
         created_at: 2000-01-23T04:56:07.000+00:00
         archive_size_bytes: 0
         status: archiving
@@ -10232,8 +10242,8 @@ components:
           repository: repository
       properties:
         image_digest:
-          description: The image digest (digest of the manifest describing the image,
-            per docker spec)
+          description: "The image digest (digest of the manifest describing the image,\
+            \ per docker spec)"
           type: string
         parent_digest:
           description: The digest of a parent manifest (for manifest-list images)
@@ -10265,7 +10275,7 @@ components:
           format: date-time
           type: string
         archive_size_bytes:
-          description: The size, in bytes, of the analysis archive file
+          description: "The size, in bytes, of the analysis archive file"
           type: integer
       type: object
     ArtifactAssociationMetadata:
@@ -10294,7 +10304,7 @@ components:
       description: Request body for an artifact to associate with an application version
       example:
         artifact_type: image
-        artifact_keys: '{}'
+        artifact_keys: "{}"
       properties:
         artifact_type:
           description: The type of the artifact
@@ -10421,6 +10431,7 @@ components:
       type: object
     ArtifactReference:
       example:
+        artifact_type: null
         artifact_id: artifact_id
       properties:
         artifact_id:
@@ -10434,12 +10445,15 @@ components:
         and edge in a directed graph where edges are directional from the "source" to the "target". For example, an edge of type "contains"
         means the source artifact contains the content of the target artifact.
       example:
-        user_metadata: '{}'
+        user_metadata: "{}"
+        relationship_type: null
         created_at: 2000-01-23T04:56:07.000+00:00
         comment: comment
         source:
+          artifact_type: null
           artifact_id: artifact_id
         target:
+          artifact_type: null
           artifact_id: artifact_id
       properties:
         created_at:
@@ -10517,7 +10531,7 @@ components:
           $ref: '#/components/schemas/Source'
       type: object
     BaseNotificationData:
-      description: Every notification has a payload, which follows this basic structure
+      description: "Every notification has a payload, which follows this basic structure"
       properties:
         notification_user:
           type: string
@@ -10559,8 +10573,8 @@ components:
           type: number
       type: object
     ComplianceResource:
-      description: A resource that ties compliance related artifacts - image digest,
-        tag and policy
+      description: "A resource that ties compliance related artifacts - image digest,\
+        \ tag and policy"
       example:
         registry: registry
         evaluation_id: evaluation_id
@@ -10699,7 +10713,7 @@ components:
           type: string
         content:
           items:
-            $ref: '#/components/schemas/ContentFilesResponse_content'
+            $ref: '#/components/schemas/ContentFilesResponse_content_inner'
           type: array
       type: object
     ContentJAVAPackageResponse:
@@ -10718,6 +10732,7 @@ components:
           location: location
           purl: purl
           type: type
+          version: version
           specification-version: specification-version
         - package: package
           implementation-version: implementation-version
@@ -10729,6 +10744,7 @@ components:
           location: location
           purl: purl
           type: type
+          version: version
           specification-version: specification-version
       properties:
         image_digest:
@@ -10737,7 +10753,7 @@ components:
           type: string
         content:
           items:
-            $ref: '#/components/schemas/ContentJAVAPackageResponse_content'
+            $ref: '#/components/schemas/ContentJAVAPackageResponse_content_inner'
           type: array
       type: object
     ContentMalwareResponse:
@@ -10746,7 +10762,7 @@ components:
         image_digest: image_digest
         content_type: content_type
         content:
-        - metadata: '{}'
+        - metadata: "{}"
           findings:
           - path: path
             signature: signature
@@ -10754,7 +10770,7 @@ components:
             signature: signature
           scanner: scanner
           enabled: true
-        - metadata: '{}'
+        - metadata: "{}"
           findings:
           - path: path
             signature: signature
@@ -10768,8 +10784,8 @@ components:
         content_type:
           type: string
         content:
-          description: List of malware scan results, one per scanner configured to
-            run
+          description: "List of malware scan results, one per scanner configured to\
+            \ run"
           items:
             $ref: '#/components/schemas/MalwareScan'
           type: array
@@ -10783,7 +10799,7 @@ components:
         - licenses:
           - licenses
           - licenses
-          metadata: '{}'
+          metadata: "{}"
           package: package
           size: size
           cpes:
@@ -10798,7 +10814,7 @@ components:
         - licenses:
           - licenses
           - licenses
-          metadata: '{}'
+          metadata: "{}"
           package: package
           size: size
           cpes:
@@ -10817,7 +10833,7 @@ components:
           type: string
         content:
           items:
-            $ref: '#/components/schemas/ContentPackageResponse_content'
+            $ref: '#/components/schemas/ContentPackageResponse_content_inner'
           type: array
       type: object
     Correction:
@@ -10883,9 +10899,9 @@ components:
           example: name
           type: string
         field_value:
-          description: The package field value for the corresponding field_name above
-            to match. If field_name corresponds to a list value, this will search
-            the list
+          description: "The package field value for the corresponding field_name above\
+            \ to match. If field_name corresponds to a list value, this will search\
+            \ the list"
           type: string
       required:
       - field_name
@@ -10907,7 +10923,7 @@ components:
           field_name: name
       properties:
         type:
-          description: type of match [supports os, npm, gem, python, java, go]
+          description: "type of match [supports os, npm, gem, python, java, go]"
           example: npm
           type: string
         field_matches:
@@ -10931,11 +10947,11 @@ components:
         - op: add
           path: path
           id: id
-          value: '{}'
+          value: "{}"
         - op: add
           path: path
           id: id
-          value: '{}'
+          value: "{}"
         move:
         - op: move
           path: path
@@ -10952,20 +10968,20 @@ components:
         - op: test
           path: path
           id: id
-          value: '{}'
+          value: "{}"
         - op: test
           path: path
           id: id
-          value: '{}'
+          value: "{}"
         replace:
         - op: replace
           path: path
           id: id
-          value: '{}'
+          value: "{}"
         - op: replace
           path: path
           id: id
-          value: '{}'
+          value: "{}"
         copy:
         - op: copy
           path: path
@@ -10989,8 +11005,8 @@ components:
             be moved into a single array. This is a workaround for 'oneOf' support
             in OpenAPI 2.0
           items:
-            description: Operation ID, must be found in the add, remove, replace,
-              move, copy, or test list
+            description: "Operation ID, must be found in the add, remove, replace,\
+              \ move, copy, or test list"
             type: string
           type: array
         add:
@@ -11064,7 +11080,7 @@ components:
       properties:
         containers:
           items:
-            $ref: '#/components/schemas/ECSContainers_containers'
+            $ref: '#/components/schemas/ECSContainers_containers_inner'
           type: array
       type: object
     ECSInventory:
@@ -11106,16 +11122,16 @@ components:
           type: string
         tasks:
           items:
-            $ref: '#/components/schemas/ECSInventory_tasks'
+            $ref: '#/components/schemas/ECSInventory_tasks_inner'
           nullable: true
           type: array
         containers:
           items:
-            $ref: '#/components/schemas/ECSInventory_containers'
+            $ref: '#/components/schemas/ECSInventory_containers_inner'
           type: array
         services:
           items:
-            $ref: '#/components/schemas/ECSInventory_services'
+            $ref: '#/components/schemas/ECSInventory_services_inner'
           nullable: true
           type: array
       required:
@@ -11139,7 +11155,7 @@ components:
       properties:
         services:
           items:
-            $ref: '#/components/schemas/ECSServices_services'
+            $ref: '#/components/schemas/ECSServices_services_inner'
           type: array
       type: object
     ECSTasks:
@@ -11163,7 +11179,7 @@ components:
       properties:
         tasks:
           items:
-            $ref: '#/components/schemas/ECSTasks_tasks'
+            $ref: '#/components/schemas/ECSTasks_tasks_inner'
           type: array
       type: object
     EventCategory:
@@ -11325,8 +11341,8 @@ components:
             $ref: '#/components/schemas/EventResponse'
           type: array
         next_page:
-          description: Boolean flag, True indicates there are more events and False
-            otherwise
+          description: "Boolean flag, True indicates there are more events and False\
+            \ otherwise"
           type: boolean
         item_count:
           description: Number of events in this page
@@ -11423,14 +11439,14 @@ components:
           description: The name of the feed synced
           type: string
         status:
-          description: The result of the sync operations, either co
+          description: "The result of the sync operations, either co"
           enum:
           - success
           - failure
           type: string
         total_time_seconds:
-          description: The duration, in seconds, of the sync of the feed, the sum
-            of all the group syncs
+          description: "The duration, in seconds, of the sync of the feed, the sum\
+            \ of all the group syncs"
           type: number
         groups:
           description: Array of group sync results
@@ -11487,14 +11503,14 @@ components:
           superseded_by: superseded_by
           parameters:
           - name: name
-            validator: '{}'
+            validator: "{}"
             description: description
             state: active
             superseded_by: superseded_by
             required: true
             example: example
           - name: name
-            validator: '{}'
+            validator: "{}"
             description: description
             state: active
             superseded_by: superseded_by
@@ -11506,14 +11522,14 @@ components:
           superseded_by: superseded_by
           parameters:
           - name: name
-            validator: '{}'
+            validator: "{}"
             description: description
             state: active
             superseded_by: superseded_by
             required: true
             example: example
           - name: name
-            validator: '{}'
+            validator: "{}"
             description: description
             state: active
             superseded_by: superseded_by
@@ -11522,7 +11538,7 @@ components:
         superseded_by: superseded_by
       properties:
         name:
-          description: Gate name, as it would appear in a policy document
+          description: "Gate name, as it would appear in a policy document"
           type: string
         description:
           description: Description of the gate
@@ -11584,9 +11600,9 @@ components:
           - failure
           type: string
         updated_image_count:
-          description: The number of images updated by the this group sync, across
-            all accounts. This is typically only non-zero for vulnerability feeds
-            which update images' vulnerability results during the sync.
+          description: "The number of images updated by the this group sync, across\
+            \ all accounts. This is typically only non-zero for vulnerability feeds\
+            \ which update images' vulnerability results during the sync."
           type: integer
         updated_record_count:
           description: The number of feed data records synced down as either updates
@@ -11605,7 +11621,7 @@ components:
     ImageAnalysisRequest:
       description: A request to add an image to be watched and analyzed by the engine.
       example:
-        annotations: '{}'
+        annotations: "{}"
         source:
           import:
             local_image_id: local_image_id
@@ -11637,7 +11653,8 @@ components:
         image_type: image_type
       properties:
         image_type:
-          description: Optional. The type of image this is adding, defaults to "docker".
+          description: "Optional. The type of image this is adding, defaults to \"\
+            docker\"."
           type: string
         annotations:
           description: Annotations to be associated with the added image in key/value
@@ -11678,9 +11695,9 @@ components:
           type: array
       type: object
     ImageAncestry:
-      description: Array of ancestor objects. Sorted by the length of the layers array
-        in each entry, effectively returning them in increasing order of number of
-        common layers.
+      description: "Array of ancestor objects. Sorted by the length of the layers\
+        \ array in each entry, effectively returning them in increasing order of number\
+        \ of common layers."
       items:
         $ref: '#/components/schemas/ImageAncestor'
       type: array
@@ -11729,13 +11746,14 @@ components:
           type: string
       type: object
     ImageContent:
-      description: A metadata content record for a specific image, containing different
-        content type entries
+      description: "A metadata content record for a specific image, containing different\
+        \ content type entries"
       type: object
     ImageDetail:
       description: A metadata detail record for a specific image. Multiple detail
         records may map a single catalog image.
       example:
+        tag_detected_at: 2000-01-23T04:56:07.000+00:00
         full_tag: full_tag
         registry: registry
         last_updated: 2000-01-23T04:56:07.000+00:00
@@ -11744,6 +11762,7 @@ components:
         repo: repo
         dockerfile: dockerfile
         created_at: 2000-01-23T04:56:07.000+00:00
+        tag: tag
         image_id: image_id
         full_digest: full_digest
       properties:
@@ -11773,6 +11792,11 @@ components:
           type: string
         image_digest:
           description: The parent Anchore Image record to which this detail maps
+          type: string
+        tag:
+          type: string
+        tag_detected_at:
+          format: date-time
           type: string
       type: object
     ImageImportContentResponse:
@@ -11895,8 +11919,8 @@ components:
       type: object
       x-nullable: true
     ImageImportOperation:
-      description: An import record, creating a unique identifier for referencing
-        the operation as well as its state
+      description: "An import record, creating a unique identifier for referencing\
+        \ the operation as well as its state"
       example:
         expires_at: 2000-01-23T04:56:07.000+00:00
         created_at: 2000-01-23T04:56:07.000+00:00
@@ -11956,7 +11980,12 @@ components:
     ImagePackageVulnerability:
       allOf:
       - $ref: '#/components/schemas/PackageVulnerability'
-      - $ref: '#/components/schemas/ImagePackageVulnerability_allOf'
+      - properties:
+          inherited_from_base:
+            description: True if the vulnerable artifact is found in the base image.
+              False otherwise
+            type: boolean
+        type: object
     ImagePackageVulnerabilityResponse:
       description: envelope containing list of vulnerabilities
       example:
@@ -11999,8 +12028,8 @@ components:
       - value
       type: object
     ImageReference:
-      description: A summary of an image identity, including digest, id (if available),
-        and any tags known to have ever been mapped to the digest
+      description: "A summary of an image identity, including digest, id (if available),\
+        \ and any tags known to have ever been mapped to the digest"
       properties:
         image_digest:
           description: The image digest
@@ -12009,8 +12038,8 @@ components:
           description: The image id if available
           type: string
         analyzed_at:
-          description: Timestamp, in rfc3339 format, indicating when the image state
-            became 'analyzed' in Anchore Engine.
+          description: "Timestamp, in rfc3339 format, indicating when the image state\
+            \ became 'analyzed' in Anchore Engine."
           type: string
         tag_history:
           items:
@@ -12028,7 +12057,6 @@ components:
         description: description
         id: id
         repository: repository
-      nullable: true
       properties:
         id:
           type: string
@@ -12041,8 +12069,8 @@ components:
         image:
           $ref: '#/components/schemas/ImageRef'
         description:
-          description: Description of the Allowlist or Denylist image match, human
-            readable
+          description: "Description of the Allowlist or Denylist image match, human\
+            \ readable"
           type: string
       required:
       - id
@@ -12052,24 +12080,24 @@ components:
       - repository
       type: object
     ImageSelector:
-      description: A set of selection criteria to match an image by a tagged pull
-        string based on its components, with regex support in each field
+      description: "A set of selection criteria to match an image by a tagged pull\
+        \ string based on its components, with regex support in each field"
       example:
         registry: registry
         tag: tag
         repository: repository
       properties:
         registry:
-          description: The registry section of a pull string. e.g. with "docker.io/anchore/anchore-engine:latest",
-            this is "docker.io"
+          description: "The registry section of a pull string. e.g. with \"docker.io/anchore/anchore-engine:latest\"\
+            , this is \"docker.io\""
           type: string
         repository:
-          description: The repository section of a pull string. e.g. with "docker.io/anchore/anchore-engine:latest",
-            this is "anchore/anchore-engine"
+          description: "The repository section of a pull string. e.g. with \"docker.io/anchore/anchore-engine:latest\"\
+            , this is \"anchore/anchore-engine\""
           type: string
         tag:
-          description: The tag-only section of a pull string. e.g. with "docker.io/anchore/anchore-engine:latest",
-            this is "latest"
+          description: "The tag-only section of a pull string. e.g. with \"docker.io/anchore/anchore-engine:latest\"\
+            , this is \"latest\""
           type: string
       type: object
     ImageSource:
@@ -12232,8 +12260,8 @@ components:
         location:
           $ref: '#/components/schemas/ImageImportFileCoordinate'
         metadata:
-          description: File metadata such as mode, size, etc. This is populated by
-            anchorectl analysis but is not available in older syft-generated SBOMs
+          description: "File metadata such as mode, size, etc. This is populated by\
+            \ anchorectl analysis but is not available in older syft-generated SBOMs"
           type: object
         digests:
           items:
@@ -12411,10 +12439,10 @@ components:
         op: add
         path: path
         id: id
-        value: '{}'
+        value: "{}"
       properties:
         id:
-          description: Operation ID, referenced for ordering in the
+          description: "Operation ID, referenced for ordering in the"
           type: string
         op:
           enum:
@@ -12422,10 +12450,10 @@ components:
           type: string
         path:
           description: A JSONPointer per RFC6901
-          pattern: ^(/[^/~]*(~[01][^/~]*)*)*$
+          pattern: "^(/[^/~]*(~[01][^/~]*)*)*$"
           type: string
         value:
-          description: A valid json value, can be any valid json type
+          description: "A valid json value, can be any valid json type"
           type: object
       required:
       - op
@@ -12445,7 +12473,7 @@ components:
         id: id
       properties:
         id:
-          description: Operation ID, referenced for ordering in the
+          description: "Operation ID, referenced for ordering in the"
           type: string
         op:
           enum:
@@ -12453,11 +12481,11 @@ components:
           type: string
         path:
           description: A JSONPointer per RFC6901
-          pattern: ^(/[^/~]*(~[01][^/~]*)*)*$
+          pattern: "^(/[^/~]*(~[01][^/~]*)*)*$"
           type: string
         from:
           description: A JSONPointer per RFC6901
-          pattern: ^(/[^/~]*(~[01][^/~]*)*)*$
+          pattern: "^(/[^/~]*(~[01][^/~]*)*)*$"
           type: string
       required:
       - from
@@ -12477,7 +12505,7 @@ components:
         id: id
       properties:
         id:
-          description: Operation ID, referenced for ordering in the
+          description: "Operation ID, referenced for ordering in the"
           type: string
         op:
           enum:
@@ -12485,11 +12513,11 @@ components:
           type: string
         path:
           description: A JSONPointer per RFC6901
-          pattern: ^(/[^/~]*(~[01][^/~]*)*)*$
+          pattern: "^(/[^/~]*(~[01][^/~]*)*)*$"
           type: string
         from:
           description: A JSONPointer per RFC6901
-          pattern: ^(/[^/~]*(~[01][^/~]*)*)*$
+          pattern: "^(/[^/~]*(~[01][^/~]*)*)*$"
           type: string
       required:
       - from
@@ -12505,8 +12533,8 @@ components:
         imparts the total ordering of patches to apply such that they can be moved
         into a single array. This is a workaround for 'oneOf' support in OpenAPI 2.0
       items:
-        description: Operation ID, must be found in the add, remove, replace, move,
-          copy, or test list
+        description: "Operation ID, must be found in the add, remove, replace, move,\
+          \ copy, or test list"
         type: string
       type: array
     JsonPatchRemove:
@@ -12517,7 +12545,7 @@ components:
         id: id
       properties:
         id:
-          description: Operation ID, referenced for ordering in the
+          description: "Operation ID, referenced for ordering in the"
           type: string
         op:
           enum:
@@ -12525,7 +12553,7 @@ components:
           type: string
         path:
           description: A JSONPointer per RFC6901
-          pattern: ^(/[^/~]*(~[01][^/~]*)*)*$
+          pattern: "^(/[^/~]*(~[01][^/~]*)*)*$"
           type: string
       required:
       - op
@@ -12541,10 +12569,10 @@ components:
         op: replace
         path: path
         id: id
-        value: '{}'
+        value: "{}"
       properties:
         id:
-          description: Operation ID, referenced for ordering in the
+          description: "Operation ID, referenced for ordering in the"
           type: string
         op:
           enum:
@@ -12552,10 +12580,10 @@ components:
           type: string
         path:
           description: A JSONPointer per RFC6901
-          pattern: ^(/[^/~]*(~[01][^/~]*)*)*$
+          pattern: "^(/[^/~]*(~[01][^/~]*)*)*$"
           type: string
         value:
-          description: A valid json value, can be any valid json type
+          description: "A valid json value, can be any valid json type"
           type: object
       required:
       - op
@@ -12572,10 +12600,10 @@ components:
         op: test
         path: path
         id: id
-        value: '{}'
+        value: "{}"
       properties:
         id:
-          description: Operation ID, referenced for ordering in the
+          description: "Operation ID, referenced for ordering in the"
           type: string
         op:
           enum:
@@ -12583,7 +12611,7 @@ components:
           type: string
         path:
           description: A JSONPointer per RFC6901
-          pattern: ^(/[^/~]*(~[01][^/~]*)*)*$
+          pattern: "^(/[^/~]*(~[01][^/~]*)*)*$"
           type: string
         value:
           description: Expected value for test
@@ -12599,7 +12627,7 @@ components:
       type: array
     JsonPointer:
       description: A JSONPointer per RFC6901
-      pattern: ^(/[^/~]*(~[01][^/~]*)*)*$
+      pattern: "^(/[^/~]*(~[01][^/~]*)*)*$"
       type: string
     KubernetesContainers:
       description: Containers defined in Kubernetes
@@ -12622,7 +12650,7 @@ components:
       properties:
         containers:
           items:
-            $ref: '#/components/schemas/KubernetesContainers_containers'
+            $ref: '#/components/schemas/KubernetesContainers_containers_inner'
           type: array
       type: object
     KubernetesInventory:
@@ -12705,19 +12733,19 @@ components:
           type: string
         namespaces:
           items:
-            $ref: '#/components/schemas/KubernetesInventory_namespaces'
+            $ref: '#/components/schemas/KubernetesInventory_namespaces_inner'
           type: array
         nodes:
           items:
-            $ref: '#/components/schemas/KubernetesInventory_nodes'
+            $ref: '#/components/schemas/KubernetesInventory_nodes_inner'
           type: array
         pods:
           items:
-            $ref: '#/components/schemas/KubernetesInventory_pods'
+            $ref: '#/components/schemas/KubernetesInventory_pods_inner'
           type: array
         containers:
           items:
-            $ref: '#/components/schemas/KubernetesInventory_containers'
+            $ref: '#/components/schemas/KubernetesInventory_containers_inner'
           type: array
       required:
       - cluster_name
@@ -12909,7 +12937,7 @@ components:
     MalwareScan:
       description: A single scan from a scanner
       example:
-        metadata: '{}'
+        metadata: "{}"
         findings:
         - path: path
           signature: signature
@@ -12931,7 +12959,7 @@ components:
           type: object
         findings:
           items:
-            $ref: '#/components/schemas/MalwareScan_findings'
+            $ref: '#/components/schemas/MalwareScan_findings_inner'
           type: array
       type: object
     MappingRule:
@@ -12951,7 +12979,6 @@ components:
         - rule_set_ids
         id: id
         repository: repository
-      nullable: true
       properties:
         id:
           type: string
@@ -12962,7 +12989,7 @@ components:
             type: string
           type: array
         rule_set_ids:
-          description: List of rule_set_ids to evaluate in order, to completion
+          description: "List of rule_set_ids to evaluate in order, to completion"
           items:
             description: rule_set_id to evaluate
             type: string
@@ -12974,7 +13001,7 @@ components:
         image:
           $ref: '#/components/schemas/ImageRef'
         description:
-          description: Description of the image to policy mapping rule, human readable
+          description: "Description of the image to policy mapping rule, human readable"
           type: string
       required:
       - allowlist_ids
@@ -12985,7 +13012,6 @@ components:
       - repository
       - rule_set_ids
       type: object
-      x-nullable: true
     MetadataResponse:
       description: Generic wrapper for metadata listings from images
       example:
@@ -13010,11 +13036,11 @@ components:
           - op: add
             path: path
             id: id
-            value: '{}'
+            value: "{}"
           - op: add
             path: path
             id: id
-            value: '{}'
+            value: "{}"
           move:
           - op: move
             path: path
@@ -13031,20 +13057,20 @@ components:
           - op: test
             path: path
             id: id
-            value: '{}'
+            value: "{}"
           - op: test
             path: path
             id: id
-            value: '{}'
+            value: "{}"
           replace:
           - op: replace
             path: path
             id: id
-            value: '{}'
+            value: "{}"
           - op: replace
             path: path
             id: id
-            value: '{}'
+            value: "{}"
           copy:
           - op: copy
             path: path
@@ -13062,7 +13088,7 @@ components:
             path: path
             id: id
         source:
-          metadata: '{}'
+          metadata: "{}"
           release: release
           metadata_type: metadata_type
           origin: origin
@@ -13082,7 +13108,7 @@ components:
           location: location
           implementation_version: implementation_version
         target:
-          metadata: '{}'
+          metadata: "{}"
           release: release
           metadata_type: metadata_type
           origin: origin
@@ -13260,7 +13286,21 @@ components:
     NotificationActionPlanNotificationPayload:
       allOf:
       - $ref: '#/components/schemas/NotificationSynchronousNotificationPayload'
-      - $ref: '#/components/schemas/NotificationActionPlanNotificationPayload_allOf'
+      - description: defines an action plan payload that can be sent synchronously
+        properties:
+          uuid:
+            type: string
+          image_tag:
+            type: string
+          image_digest:
+            type: string
+          bundle_id:
+            type: string
+          subject:
+            type: string
+          message:
+            type: string
+        type: object
     NotificationApiErrorResponse:
       description: Generic HTTP API error response
       properties:
@@ -13312,8 +13352,8 @@ components:
           description: the name of the endpoint
           type: string
         enabled:
-          description: Is the endpoint enabled for use in the system. Affects all
-            usage, including system-level if set to false.
+          description: "Is the endpoint enabled for use in the system. Affects all\
+            \ usage, including system-level if set to false."
           type: boolean
         last_updated:
           description: The timestamp of the last change to the status
@@ -13348,8 +13388,8 @@ components:
         enabled: true
       properties:
         enabled:
-          description: Is the endpoint enabled for use in the system. Affects all
-            usage, including system-level if set to false.
+          description: "Is the endpoint enabled for use in the system. Affects all\
+            \ usage, including system-level if set to false."
           type: boolean
         last_updated:
           description: The timestamp of the last change to the status
@@ -13382,7 +13422,7 @@ components:
         type:
           description: |
             The type of event to filter, using wildcards against type field of the event. Event types have a structured format <category>.<subcategory>.<event>. Thus, '*' matches all types of events. 'system.*' matches all system events, 'user.*' matches events that are relevant to individual consumption, and omitting an asterisk will do an exact match. See the GET /event_types route definition in the engine's external API for the list of event types.
-          pattern: ^[a-z0-9-_.*]+$
+          pattern: "^[a-z0-9-_.*]+$"
           type: string
       required:
       - level
@@ -13392,7 +13432,38 @@ components:
     NotificationGitHubEndpointConfigurationBase:
       allOf:
       - $ref: '#/components/schemas/NotificationEndpointConfiguration'
-      - $ref: '#/components/schemas/NotificationGitHubEndpointConfigurationBase_allOf'
+      - properties:
+          url:
+            description: "Github API endpoint, defaults to https://api.github.com\
+              \ if not specified"
+            pattern: https?://.*
+            type: string
+          username:
+            description: GitHub username for creating issues
+            type: string
+          access_token:
+            description: Personal access token for the GitHub account
+            type: string
+          owner:
+            description: Owner of the repository to create issues against
+            type: string
+          repository:
+            description: Name of the repository to create issues against
+            type: string
+          milestone:
+            description: Number of the milestone to associate with the issue
+            type: integer
+          labels:
+            description: List of labels to associate with the issue
+            items:
+              type: string
+            type: array
+          assignees:
+            description: List of user logins to assign to the issue.
+            items:
+              type: string
+            type: array
+        type: object
       description: Configuration for GitHub endpoint (Base model)
     NotificationGitHubEndpointConfigurationList:
       description: List of GitHub endpoint configurations
@@ -13431,7 +13502,36 @@ components:
     NotificationJiraEndpointConfigurationBase:
       allOf:
       - $ref: '#/components/schemas/NotificationEndpointConfiguration'
-      - $ref: '#/components/schemas/NotificationJiraEndpointConfigurationBase_allOf'
+      - properties:
+          url:
+            description: "Jira endpoint URL including host and port, should begin\
+              \ with 'http://' or 'https://'"
+            pattern: https?://.*
+            type: string
+          username:
+            description: Jira username for creating issues
+            type: string
+          password:
+            description: Jira password for creating issues
+            type: string
+          project_key:
+            description: Key of the Jira project for creating issues
+            type: string
+          issue_type:
+            description: Type associated with the issue
+            type: string
+          priority:
+            description: Priority assigned to the issue
+            type: string
+          assignee:
+            description: Jira user to associate with the issue
+            type: string
+          labels:
+            description: List of labels to associate with the issue
+            items:
+              type: string
+            type: array
+        type: object
       description: Configuration for jira endpoint
     NotificationJiraEndpointConfigurationList:
       description: List of jira endpoint configurations
@@ -13484,7 +13584,30 @@ components:
     NotificationSMTPEndpointConfiguration:
       allOf:
       - $ref: '#/components/schemas/NotificationEndpointConfiguration'
-      - $ref: '#/components/schemas/NotificationSMTPEndpointConfiguration_allOf'
+      - properties:
+          host:
+            type: string
+          port:
+            type: integer
+          username:
+            type: string
+          password:
+            type: string
+          use_tls:
+            description: Encrypt the SMTP connection with TLS. Defaults to true
+            type: boolean
+          from:
+            description: The from address to use for emails send by this configuration
+            type: string
+          to:
+            description: The address to which the emails are sent
+            type: string
+        required:
+        - from
+        - host
+        - port
+        - to
+        type: object
       description: Configuration for email via smtp endpoint
     NotificationSMTPEndpointConfigurationList:
       description: List of email via smtp endpoint configurations
@@ -13519,9 +13642,9 @@ components:
           description: UUID of the endpoint configuration bound to this selector
           type: string
         scope:
-          description: The scope to filter events. 'global' scope encompasses all
-            the events in the system, only the admin account can request this selector
-            scope. 'account' covers events scoped to a specific account.
+          description: "The scope to filter events. 'global' scope encompasses all\
+            \ the events in the system, only the admin account can request this selector\
+            \ scope. 'account' covers events scoped to a specific account."
           enum:
           - global
           - account
@@ -13551,7 +13674,15 @@ components:
     NotificationSlackEndpointConfiguration:
       allOf:
       - $ref: '#/components/schemas/NotificationEndpointConfiguration'
-      - $ref: '#/components/schemas/NotificationSlackEndpointConfiguration_allOf'
+      - properties:
+          url:
+            description: "url to POST to, including any query parameters, should begin\
+              \ with 'http://' or 'https://'"
+            pattern: https?://.*
+            type: string
+        required:
+        - url
+        type: object
       description: Configuration for slack endpoint
     NotificationSlackEndpointConfigurationList:
       description: List of slack endpoint configurations
@@ -13587,7 +13718,15 @@ components:
     NotificationTeamsEndpointConfiguration:
       allOf:
       - $ref: '#/components/schemas/NotificationEndpointConfiguration'
-      - $ref: '#/components/schemas/NotificationSlackEndpointConfiguration_allOf'
+      - properties:
+          url:
+            description: "url to POST to, including any query parameters, should begin\
+              \ with 'http://' or 'https://'"
+            pattern: https?://.*
+            type: string
+        required:
+        - url
+        type: object
       description: Configuration for MS Teams endpoint
     NotificationTeamsEndpointConfigurationList:
       description: List of MS Teams endpoint configurations
@@ -13607,7 +13746,23 @@ components:
     NotificationWebhookEndpointConfiguration:
       allOf:
       - $ref: '#/components/schemas/NotificationEndpointConfiguration'
-      - $ref: '#/components/schemas/NotificationWebhookEndpointConfiguration_allOf'
+      - properties:
+          url:
+            description: "url to POST to, including any query parameters, should begin\
+              \ with 'http://' or 'https://'"
+            pattern: https?://.*
+            type: string
+          username:
+            type: string
+          password:
+            type: string
+          verify_ssl:
+            description: "Verify SSL certificates for HTTPS requests, disabled by\
+              \ default"
+            type: boolean
+        required:
+        - url
+        type: object
       description: Configuration for Webhook endpoint
     NotificationWebhookEndpointConfigurationList:
       description: List of Webhook endpoint configurations
@@ -13624,6 +13779,12 @@ components:
         response:
           type: string
       type: object
+    NullType:
+      description: for adding nullability to a ref
+      enum:
+      - null
+      title: OpenAPI 3.0.` null-type ref
+      type: string
     NvdDataList:
       description: List of Nvd Data objects
       items:
@@ -13653,7 +13814,7 @@ components:
       description: A normalized and simplified package that can represent any package
         type
       example:
-        metadata: '{}'
+        metadata: "{}"
         release: release
         metadata_type: metadata_type
         origin: origin
@@ -13723,11 +13884,12 @@ components:
           description: Package name
           type: string
         version:
-          description: A version for the package. If null, then references all versions
+          description: "A version for the package. If null, then references all versions"
           nullable: true
           type: string
         type:
-          description: Package type (e.g. package, rpm, deb, apk, jar, npm, gem, ...)
+          description: "Package type (e.g. package, rpm, deb, apk, jar, npm, gem,\
+            \ ...)"
           type: string
         will_not_fix:
           description: Whether a vendor will or will not fix a vulnerability
@@ -13790,10 +13952,10 @@ components:
         package_name: package_name
       properties:
         vuln:
-          description: The vulnerability identifier, such as CVE-2017-100, or RHSA-2017123
+          description: "The vulnerability identifier, such as CVE-2017-100, or RHSA-2017123"
           type: string
         fix:
-          description: The package containing a fix, if available
+          description: "The package containing a fix, if available"
           type: string
         severity:
           description: The severity of the vulnerability
@@ -13852,12 +14014,24 @@ components:
     PaginatedImageList:
       allOf:
       - $ref: '#/components/schemas/PaginationProperties'
-      - $ref: '#/components/schemas/PaginatedImageList_allOf'
+      - properties:
+          images:
+            items:
+              $ref: '#/components/schemas/ImageWithPackages'
+            type: array
+        type: object
       description: Pagination wrapped list of images that match some filter
     PaginatedVulnerabilityList:
       allOf:
       - $ref: '#/components/schemas/PaginationProperties'
-      - $ref: '#/components/schemas/PaginatedVulnerabilityList_allOf'
+      - properties:
+          vulnerabilities:
+            description: The listing of matching vulnerabilities for the query subject
+              to pagination
+            items:
+              $ref: '#/components/schemas/StandaloneVulnerability'
+            type: array
+        type: object
       description: A paginated listing of vulnerability records sorted by ID in descending
         order
     PaginationProperties:
@@ -13878,8 +14052,8 @@ components:
       type: object
     Policy:
       additionalProperties: false
-      description: A policy containing a rule-set, allowlists, and rules for mapping
-        them to specific images
+      description: "A policy containing a rule-set, allowlists, and rules for mapping\
+        \ them to specific images"
       example:
         mappings:
         - registry: registry
@@ -14060,7 +14234,6 @@ components:
           description: description
           id: id
           repository: repository
-      nullable: true
       properties:
         id:
           description: Id of the policy
@@ -14070,7 +14243,7 @@ components:
           minLength: 1
           type: string
         description:
-          description: Description of the policy, human readable
+          description: "Description of the policy, human readable"
           type: string
         version:
           description: Version id for this policy format
@@ -14102,8 +14275,8 @@ components:
             $ref: '#/components/schemas/MappingRule'
           type: array
         allowlisted_images:
-          description: List of mapping rules that define which images should always
-            be passed (unless also on the denylist), regardless of policy result.
+          description: "List of mapping rules that define which images should always\
+            \ be passed (unless also on the denylist), regardless of policy result."
           items:
             $ref: '#/components/schemas/ImageSelectionRule'
           type: array
@@ -14115,8 +14288,8 @@ components:
             $ref: '#/components/schemas/ImageSelectionRule'
           type: array
         last_updated:
-          description: The time at which the policy was last updated, informational
-            only
+          description: "The time at which the policy was last updated, informational\
+            \ only"
           type: number
       required:
       - id
@@ -14128,15 +14301,36 @@ components:
     PolicyEvalNotification:
       allOf:
       - $ref: '#/components/schemas/NotificationBase'
-      - $ref: '#/components/schemas/PolicyEvalNotification_allOf'
+      - description: The Notification Object definition for Policy Eval Notifications
+        properties:
+          data:
+            $ref: '#/components/schemas/PolicyEvalNotificationData'
+        type: object
     PolicyEvalNotificationData:
       allOf:
       - $ref: '#/components/schemas/BaseNotificationData'
-      - $ref: '#/components/schemas/PolicyEvalNotificationData_allOf'
+      - properties:
+          notification_payload:
+            $ref: '#/components/schemas/PolicyEvalNotificationPayload'
+        type: object
     PolicyEvalNotificationPayload:
       allOf:
       - $ref: '#/components/schemas/GenericNotificationPayload'
-      - $ref: '#/components/schemas/PolicyEvalNotificationPayload_allOf'
+      - properties:
+          curr_eval:
+            description: The Current Policy Evaluation result
+            properties: {}
+            type: object
+          last_eval:
+            description: The Previous Policy Evaluation result
+            properties: {}
+            type: object
+          annotations:
+            description: List of Corresponding Image Annotations
+            nullable: true
+            properties: {}
+            type: object
+        type: object
     PolicyEvaluation:
       description: Evaluation response object
       example:
@@ -14226,6 +14420,7 @@ components:
               trigger_ids:
               - trigger_ids
               - trigger_ids
+            policy_action: stop
             policy:
               mappings:
               - registry: registry
@@ -14502,6 +14697,7 @@ components:
               trigger_ids:
               - trigger_ids
               - trigger_ids
+            policy_action: stop
             policy:
               mappings:
               - registry: registry
@@ -14707,10 +14903,10 @@ components:
           description: Image tag used to evaluate policy for the given image
           type: string
         evaluations:
-          description: List of policy evaluations. Always has at least one result,
-            may contain multiple when the evaluation history is requested.
+          description: "List of policy evaluations. Always has at least one result,\
+            \ may contain multiple when the evaluation history is requested."
           items:
-            $ref: '#/components/schemas/PolicyEvaluation_evaluations'
+            $ref: '#/components/schemas/PolicyEvaluation_evaluations_inner'
           type: array
       type: object
     PolicyEvaluationFinding:
@@ -14785,7 +14981,6 @@ components:
         matched_rule_id: matched_rule_id
         name: name
         id: id
-      nullable: true
       properties:
         id:
           description: ID of the allowlist that matched this finding
@@ -14797,7 +14992,6 @@ components:
           description: ID of the rule within the allowlist that matched this finding
           type: string
       type: object
-      x-nullable: true
     PolicyEvaluationProblem:
       description: Details for an error or warning indicating a problem during policy
         evaluation
@@ -14807,17 +15001,17 @@ components:
         details: details
       properties:
         severity:
-          description: Severity of the policy evaluation problem. Problems with a
-            severity of "error" prevent the policy from being evaluated, while severity
-            "warn" indicates the policy was evaluated but the result may require additional
-            attention.
+          description: "Severity of the policy evaluation problem. Problems with a\
+            \ severity of \"error\" prevent the policy from being evaluated, while\
+            \ severity \"warn\" indicates the policy was evaluated but the result\
+            \ may require additional attention."
           enum:
           - error
           - warn
           type: string
         problem_type:
-          description: the type of problem encountered, such as a misconfiguration
-            or unavailable data
+          description: "the type of problem encountered, such as a misconfiguration\
+            \ or unavailable data"
           type: string
         details:
           description: Details about the problem itself and how to fix it
@@ -14841,7 +15035,7 @@ components:
         suggestions:
           description: Anchore generated options for resolving a finding
           items:
-            $ref: '#/components/schemas/PolicyEvaluationRemediation_suggestions'
+            $ref: '#/components/schemas/PolicyEvaluationRemediation_suggestions_inner'
           type: array
         trigger_ids:
           description: List of trigger IDs that these remediation suggestions apply
@@ -15074,7 +15268,7 @@ components:
           description: Name of the policy
           type: string
         description:
-          description: Description of the policy, human readable
+          description: "Description of the policy, human readable"
           type: string
       required:
       - account_name
@@ -15113,11 +15307,11 @@ components:
           - WARN
           type: string
         description:
-          description: Description of the policy rule, human readable
+          description: "Description of the policy rule, human readable"
           type: string
         params:
           items:
-            $ref: '#/components/schemas/PolicyRule_params'
+            $ref: '#/components/schemas/PolicyRule_params_inner'
           type: array
         recommendation:
           type: string
@@ -15242,9 +15436,9 @@ components:
       - username
       type: object
     RbacManagerRoleMemberList:
-      description: List of members of the role, may be filtered by the calling user's
-        access level (e.g. will not display members for which the caller doesn't have
-        listRoleMembers account access)
+      description: "List of members of the role, may be filtered by the calling user's\
+        \ access level (e.g. will not display members for which the caller doesn't\
+        \ have listRoleMembers account access)"
       items:
         $ref: '#/components/schemas/RbacManagerRoleMember'
       type: array
@@ -15252,19 +15446,15 @@ components:
       description: Membership for a role in an account
       example:
         role: role
-        for_account:
-        - for_account
-        - for_account
+        for_account: for_account
         created_at: 2000-01-23T04:56:07.000+00:00
       properties:
         role:
           description: The name of the role the user has permissions for
           type: string
         for_account:
-          items:
-            description: The accounts for which the user has the role permission
-            type: string
-          type: array
+          description: The account for which the user has the role permission
+          type: string
         created_at:
           format: date-time
           type: string
@@ -15313,25 +15503,25 @@ components:
           description: The name to use for referencing this IDP configuration. This
             will configured as part of the url string the Idp must have the client
             POST the saml assertion to.
-          pattern: ^[a-zA-Z0-9_-]+$
+          pattern: "^[a-zA-Z0-9_-]+$"
           type: string
         enabled:
           description: If this IDP configuration should be enabled for user logins
           type: boolean
         sp_entity_id:
-          description: The entity ID for this SP. Can be the same for all IDP configurations
-            in this installation or unique to each. This is typically a URL, but you
-            can use any value as long as you also configure the IDP to expect this
-            value.
+          description: "The entity ID for this SP. Can be the same for all IDP configurations\
+            \ in this installation or unique to each. This is typically a URL, but\
+            \ you can use any value as long as you also configure the IDP to expect\
+            \ this value."
           type: string
         acs_url:
-          description: The URL the IDP can use to access the Assertion Consumer Service
-            to provide the token for sso. This is the way to reach the rbac manager
-            services /service/sso/auth/{IDP_name} route externally
+          description: "The URL the IDP can use to access the Assertion Consumer Service\
+            \ to provide the token for sso. This is the way to reach the rbac manager\
+            \ services /service/sso/auth/{IDP_name} route externally"
           type: string
         acs_https_port:
-          description: The port number to use for https if not 443. If omitted or
-            -1, 443 is assumed and used as a default
+          description: "The port number to use for https if not 443. If omitted or\
+            \ -1, 443 is assumed and used as a default"
           type: integer
         idp_metadata_url:
           description: The url where the SP (anchore) can retrieve the metadata about
@@ -15339,21 +15529,21 @@ components:
             This is typically provided by the IDP.
           type: string
         idp_metadata_xml:
-          description: The direct metadata xml payload, if a url is not available.
-            Only one of this or metadata_url should be set.
+          description: "The direct metadata xml payload, if a url is not available.\
+            \ Only one of this or metadata_url should be set."
           type: string
         idp_username_attribute:
-          description: The SAML attribute to use from the response assertions to determine
-            the anchore username. If unset, the subject is used.
+          description: "The SAML attribute to use from the response assertions to\
+            \ determine the anchore username. If unset, the subject is used."
           type: string
         idp_account_attribute:
-          description: The SAML attribute to use from the response assertions to determine
-            the anchore account to use. If unset, the default is used.
+          description: "The SAML attribute to use from the response assertions to\
+            \ determine the anchore account to use. If unset, the default is used."
           type: string
         idp_role_attribute:
-          description: The SAML attribute to use from the response assertions to determine
-            the anchore role(s) to assign a new user in the specified account. If
-            unset, the default is used.
+          description: "The SAML attribute to use from the response assertions to\
+            \ determine the anchore role(s) to assign a new user in the specified\
+            \ account. If unset, the default is used."
           type: string
         default_account:
           description: The anchore account to assign all users to from this IDP if
@@ -15482,8 +15672,8 @@ components:
           description: Anchore account that owns this registry entry
           type: string
         registry:
-          description: hostname:port string for accessing the registry, as would be
-            used in a docker pull operation
+          description: "hostname:port string for accessing the registry, as would\
+            \ be used in a docker pull operation"
           type: string
         registry_name:
           description: human readable name associated with registry record
@@ -15518,9 +15708,9 @@ components:
           description: Type of registry
           type: string
         registry:
-          description: hostname:port string for accessing the registry, as would be
-            used in a docker pull operation. May include some or all of a repository
-            and wildcards (e.g. docker.io/library/* or gcr.io/myproject/myrepository)
+          description: "hostname:port string for accessing the registry, as would\
+            \ be used in a docker pull operation. May include some or all of a repository\
+            \ and wildcards (e.g. docker.io/library/* or gcr.io/myproject/myrepository)"
           type: string
         registry_name:
           description: human readable name associated with registry record
@@ -15530,9 +15720,9 @@ components:
           type: boolean
       type: object
     RegistryDigestSource:
-      description: An image reference using a digest in a registry, includes some
-        extra tag and timestamp info in addition to the pull string to allow proper
-        tag history reconstruction.
+      description: "An image reference using a digest in a registry, includes some\
+        \ extra tag and timestamp info in addition to the pull string to allow proper\
+        \ tag history reconstruction."
       example:
         creation_timestamp_override: 2000-01-23T04:56:07.000+00:00
         dockerfile: dockerfile
@@ -15554,9 +15744,9 @@ components:
           format: date-time
           type: string
         dockerfile:
-          description: Base64 encoded content of the dockerfile used to build the
-            image, if available.
-          pattern: ^[a-zA-Z0-9+/=]+$
+          description: "Base64 encoded content of the dockerfile used to build the\
+            \ image, if available."
+          pattern: "^[a-zA-Z0-9+/=]+$"
           type: string
       required:
       - pull_string
@@ -15564,21 +15754,21 @@ components:
       type: object
       x-nullable: true
     RegistryTagSource:
-      description: An image reference using a tag in a registry, this is the most
-        common source type.
+      description: "An image reference using a tag in a registry, this is the most\
+        \ common source type."
       example:
         dockerfile: dockerfile
         pull_string: pull_string
       nullable: true
       properties:
         pull_string:
-          description: A docker pull string (e.g. docker.io/nginx:latest, or docker.io/nginx@sha256:abd)
-            to retrieve the image
+          description: "A docker pull string (e.g. docker.io/nginx:latest, or docker.io/nginx@sha256:abd)\
+            \ to retrieve the image"
           type: string
         dockerfile:
-          description: Base64 encoded content of the dockerfile used to build the
-            image, if available.
-          pattern: ^[a-zA-Z0-9+/=]+$
+          description: "Base64 encoded content of the dockerfile used to build the\
+            \ image, if available."
+          pattern: "^[a-zA-Z0-9+/=]+$"
           type: string
       required:
       - pull_string
@@ -15592,7 +15782,7 @@ components:
         but not in the image, etc.
       example:
         source_only:
-        - metadata: '{}'
+        - metadata: "{}"
           release: release
           metadata_type: metadata_type
           origin: origin
@@ -15611,7 +15801,7 @@ components:
           name: name
           location: location
           implementation_version: implementation_version
-        - metadata: '{}'
+        - metadata: "{}"
           release: release
           metadata_type: metadata_type
           origin: origin
@@ -15636,11 +15826,11 @@ components:
             - op: add
               path: path
               id: id
-              value: '{}'
+              value: "{}"
             - op: add
               path: path
               id: id
-              value: '{}'
+              value: "{}"
             move:
             - op: move
               path: path
@@ -15657,20 +15847,20 @@ components:
             - op: test
               path: path
               id: id
-              value: '{}'
+              value: "{}"
             - op: test
               path: path
               id: id
-              value: '{}'
+              value: "{}"
             replace:
             - op: replace
               path: path
               id: id
-              value: '{}'
+              value: "{}"
             - op: replace
               path: path
               id: id
-              value: '{}'
+              value: "{}"
             copy:
             - op: copy
               path: path
@@ -15688,7 +15878,7 @@ components:
               path: path
               id: id
           source:
-            metadata: '{}'
+            metadata: "{}"
             release: release
             metadata_type: metadata_type
             origin: origin
@@ -15708,7 +15898,7 @@ components:
             location: location
             implementation_version: implementation_version
           target:
-            metadata: '{}'
+            metadata: "{}"
             release: release
             metadata_type: metadata_type
             origin: origin
@@ -15732,11 +15922,11 @@ components:
             - op: add
               path: path
               id: id
-              value: '{}'
+              value: "{}"
             - op: add
               path: path
               id: id
-              value: '{}'
+              value: "{}"
             move:
             - op: move
               path: path
@@ -15753,20 +15943,20 @@ components:
             - op: test
               path: path
               id: id
-              value: '{}'
+              value: "{}"
             - op: test
               path: path
               id: id
-              value: '{}'
+              value: "{}"
             replace:
             - op: replace
               path: path
               id: id
-              value: '{}'
+              value: "{}"
             - op: replace
               path: path
               id: id
-              value: '{}'
+              value: "{}"
             copy:
             - op: copy
               path: path
@@ -15784,7 +15974,7 @@ components:
               path: path
               id: id
           source:
-            metadata: '{}'
+            metadata: "{}"
             release: release
             metadata_type: metadata_type
             origin: origin
@@ -15804,7 +15994,7 @@ components:
             location: location
             implementation_version: implementation_version
           target:
-            metadata: '{}'
+            metadata: "{}"
             release: release
             metadata_type: metadata_type
             origin: origin
@@ -15824,7 +16014,7 @@ components:
             location: location
             implementation_version: implementation_version
         target_only:
-        - metadata: '{}'
+        - metadata: "{}"
           release: release
           metadata_type: metadata_type
           origin: origin
@@ -15843,7 +16033,7 @@ components:
           name: name
           location: location
           implementation_version: implementation_version
-        - metadata: '{}'
+        - metadata: "{}"
           release: release
           metadata_type: metadata_type
           origin: origin
@@ -15863,7 +16053,7 @@ components:
           location: location
           implementation_version: implementation_version
         both_unmodified:
-        - metadata: '{}'
+        - metadata: "{}"
           release: release
           metadata_type: metadata_type
           origin: origin
@@ -15882,7 +16072,7 @@ components:
           name: name
           location: location
           implementation_version: implementation_version
-        - metadata: '{}'
+        - metadata: "{}"
           release: release
           metadata_type: metadata_type
           origin: origin
@@ -16035,7 +16225,7 @@ components:
         name:
           type: string
         description:
-          description: Description of the Policy, human readable
+          description: "Description of the Policy, human readable"
           type: string
         version:
           type: string
@@ -16212,7 +16402,7 @@ components:
           busy: true
           available: true
           up: true
-          detail: '{}'
+          detail: "{}"
           message: message
           version: version
         version: version
@@ -16226,7 +16416,7 @@ components:
           description: Registered service name
           type: string
         base_url:
-          description: The url to reach the service, including port as needed
+          description: "The url to reach the service, including port as needed"
           type: string
         status_message:
           description: A state indicating the condition of the service. Normal operation
@@ -16334,7 +16524,7 @@ components:
         - licenses:
           - licenses
           - licenses
-          metadata: '{}'
+          metadata: "{}"
           package: package
           size: size
           cpes:
@@ -16349,7 +16539,7 @@ components:
         - licenses:
           - licenses
           - licenses
-          metadata: '{}'
+          metadata: "{}"
           package: package
           size: size
           cpes:
@@ -16377,7 +16567,7 @@ components:
         licenses:
         - licenses
         - licenses
-        metadata: '{}'
+        metadata: "{}"
         package: package
         size: size
         cpes:
@@ -16477,8 +16667,8 @@ components:
       - revision
       type: object
     SourceImportOperation:
-      description: An import record, creating a unique identifier for referencing
-        the operation as well as its state
+      description: "An import record, creating a unique identifier for referencing\
+        \ the operation as well as its state"
       example:
         last_updated: 2000-01-23T04:56:07.000+00:00
         expires_at: 2000-01-23T04:56:07.000+00:00
@@ -16565,7 +16755,7 @@ components:
         metadata_records:
           description: Array of metadata available
           items:
-            $ref: '#/components/schemas/SourceManifest_metadata_records'
+            $ref: '#/components/schemas/SourceManifest_metadata_records_inner'
           type: array
       type: object
     SourceMappingRule:
@@ -16592,7 +16782,7 @@ components:
             type: string
           type: array
         rule_set_ids:
-          description: List of rule_set_ids to evaluate in order, to completion
+          description: "List of rule_set_ids to evaluate in order, to completion"
           items:
             description: rule_set_id to evaluate
             type: string
@@ -16602,7 +16792,7 @@ components:
         repository:
           type: string
         description:
-          description: Description of the source to policy rule, human readable
+          description: "Description of the source to policy rule, human readable"
           type: string
       required:
       - allowlist_ids
@@ -16735,8 +16925,8 @@ components:
           type: array
       type: object
     SourcePolicyEvaluation:
-      description: A policy bundle evaluation result for a specific image, tag, policy
-        tuple
+      description: "A policy bundle evaluation result for a specific image, tag, policy\
+        \ tuple"
       example:
         evaluation_id: evaluation_id
         evaluation_time: 2000-01-23T04:56:07.000+00:00
@@ -16781,7 +16971,7 @@ components:
         source_mapped_to_rule: true
         account_name: account_name
         host: host
-        matched_mapping_rule: '{}'
+        matched_mapping_rule: "{}"
         source_id: source_id
         repository_name: repository_name
         policy:
@@ -17128,12 +17318,12 @@ components:
           type: array
       type: object
     StandaloneVulnerability:
-      description: A single vulnerability record in a single namespace, the unique
-        key is the combination of the id and namespace
+      description: "A single vulnerability record in a single namespace, the unique\
+        \ key is the combination of the id and namespace"
       properties:
         id:
-          description: Vulnerability identifier. May be CVE-X, RHSA-X, etc. Not necessarily
-            unique across namespaces
+          description: "Vulnerability identifier. May be CVE-X, RHSA-X, etc. Not necessarily\
+            \ unique across namespaces"
           type: string
         namespace:
           description: The namespace for the vulnerability record to avoid conflicts
@@ -17186,7 +17376,7 @@ components:
         busy: true
         available: true
         up: true
-        detail: '{}'
+        detail: "{}"
         message: message
         version: version
       properties:
@@ -17265,8 +17455,8 @@ components:
         active: true
       properties:
         subscription_value:
-          description: The new subscription value, e.g. the new tag to be subscribed
-            to
+          description: "The new subscription value, e.g. the new tag to be subscribed\
+            \ to"
           nullable: true
           type: string
         active:
@@ -17285,7 +17475,7 @@ components:
             busy: true
             available: true
             up: true
-            detail: '{}'
+            detail: "{}"
             message: message
             version: version
           version: version
@@ -17299,7 +17489,7 @@ components:
             busy: true
             available: true
             up: true
-            detail: '{}'
+            detail: "{}"
             message: message
             version: version
           version: version
@@ -17337,15 +17527,36 @@ components:
     TagUpdateNotification:
       allOf:
       - $ref: '#/components/schemas/NotificationBase'
-      - $ref: '#/components/schemas/TagUpdateNotification_allOf'
+      - description: The Notification Object definition for Tag Update Notifications
+        properties:
+          data:
+            $ref: '#/components/schemas/TagUpdateNotificationData'
+        type: object
     TagUpdateNotificationData:
       allOf:
       - $ref: '#/components/schemas/BaseNotificationData'
-      - $ref: '#/components/schemas/TagUpdateNotificationData_allOf'
+      - properties:
+          notification_payload:
+            $ref: '#/components/schemas/TagUpdateNotificationPayload'
+        type: object
     TagUpdateNotificationPayload:
       allOf:
       - $ref: '#/components/schemas/GenericNotificationPayload'
-      - $ref: '#/components/schemas/TagUpdateNotificationPayload_allOf'
+      - properties:
+          curr_eval:
+            description: A list containing the current image digest
+            items: {}
+            type: array
+          last_eval:
+            description: A list containing the previous image digests
+            items: {}
+            type: array
+          annotations:
+            description: List of Corresponding Image Annotations
+            nullable: true
+            properties: {}
+            type: object
+        type: object
     TokenResponse:
       example:
         access_token: access_token
@@ -17371,7 +17582,7 @@ components:
     TriggerParamSpec:
       example:
         name: name
-        validator: '{}'
+        validator: "{}"
         description: description
         state: active
         superseded_by: superseded_by
@@ -17404,8 +17615,8 @@ components:
           description: Is this a required parameter or optional
           type: boolean
         validator:
-          description: If present, a definition for validation of input. Typically
-            a jsonschema object that can be used to validate an input against.
+          description: "If present, a definition for validation of input. Typically\
+            \ a jsonschema object that can be used to validate an input against."
           properties: {}
           type: object
       type: object
@@ -17418,14 +17629,14 @@ components:
         superseded_by: superseded_by
         parameters:
         - name: name
-          validator: '{}'
+          validator: "{}"
           description: description
           state: active
           superseded_by: superseded_by
           required: true
           example: example
         - name: name
-          validator: '{}'
+          validator: "{}"
           description: description
           state: active
           superseded_by: superseded_by
@@ -17460,13 +17671,13 @@ components:
     UUID:
       maxLength: 36
       minLength: 36
-      pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
+      pattern: "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"
       type: string
     User:
-      description: A username for authenticating with one or more types of credentials.
-        User type defines the expected credentials allowed for the user. Native users
-        have passwords, other users have no credential internally. Internal users
-        are service/system users for inter-service communication.
+      description: "A username for authenticating with one or more types of credentials.\
+        \ User type defines the expected credentials allowed for the user. Native\
+        \ users have passwords, other users have no credential internally. Internal\
+        \ users are service/system users for inter-service communication."
       example:
         last_updated: 2000-01-23T04:56:07.000+00:00
         idp_name: idp_name
@@ -17485,9 +17696,9 @@ components:
           - saml
           type: string
         source:
-          description: When the user 'type' is 'saml', this will be the EntityId of
-            the IDP that they are authenticating from. Otherwise, this will be set
-            to null.
+          description: "When the user 'type' is 'saml', this will be the EntityId\
+            \ of the IDP that they are authenticating from. Otherwise, this will be\
+            \ set to null."
           type: string
         created_at:
           description: The timestamp of when the user record was created
@@ -17498,16 +17709,16 @@ components:
           format: date-time
           type: string
         idp_name:
-          description: When the user 'type' is 'saml', this will be the configured
-            name of the IDP that they are authenticating from.  Otherwise, this will
-            be set to null.
+          description: "When the user 'type' is 'saml', this will be the configured\
+            \ name of the IDP that they are authenticating from.  Otherwise, this\
+            \ will be set to null."
           type: string
       required:
       - username
       type: object
     UserCreationRequest:
-      description: A payload for creating a new user, includes the username and password
-        in a single request
+      description: "A payload for creating a new user, includes the username and password\
+        \ in a single request"
       example:
         password: password
         idp_name: idp_name
@@ -17516,12 +17727,12 @@ components:
       properties:
         username:
           description: The username to create
-          pattern: ^[a-zA-Z0-9][ a-zA-Z0-9@.!#$+-=^_`~;]{1,126}[a-zA-Z0-9_]$
+          pattern: "^[a-zA-Z0-9][ a-zA-Z0-9@.!#$+-=^_`~;]{1,126}[a-zA-Z0-9_]$"
           type: string
         password:
-          description: The initial password for the user, must be at least 6 characters,
-            up to 128. This must be null when the user_type is not 'native'.
-          pattern: .{6,128}$
+          description: "The initial password for the user, must be at least 6 characters,\
+            \ up to 128. This must be null when the user_type is not 'native'."
+          pattern: ".{6,128}$"
           type: string
         user_type:
           description: The user's type. A Native user authenticates using user/password
@@ -17531,8 +17742,8 @@ components:
           - saml
           type: string
         idp_name:
-          description: If the user is authenticating via an IDP, this is the name
-            of the IDP. A 'native' user should have this set to null.
+          description: "If the user is authenticating via an IDP, this is the name\
+            \ of the IDP. A 'native' user should have this set to null."
           type: string
       required:
       - username
@@ -17563,9 +17774,10 @@ components:
           $ref: '#/components/schemas/CVSSV3Scores'
       type: object
     VersionVulnerability:
-      description: A vulnerability in an application version vulnerability report
-        with vulenrability data, affected artifacts, and packages
+      description: "A vulnerability in an application version vulnerability report\
+        \ with vulenrability data, affected artifacts, and packages"
       example:
+        vendor_data: null
         id: id
         nvd:
         - null
@@ -17629,7 +17841,10 @@ components:
     VersionVulnerabilityNVD:
       allOf:
       - $ref: '#/components/schemas/VersionVulnerabilityVendorNVDCommon'
-      - $ref: '#/components/schemas/VersionVulnerabilityNVD_allOf'
+      - properties:
+          id:
+            type: string
+        type: object
       description: NVD entry for application version vulnerability
     VersionVulnerabilityReportImage:
       description: The definition of the image artifacts in the application version
@@ -17661,7 +17876,14 @@ components:
     VersionVulnerabilityVendor:
       allOf:
       - $ref: '#/components/schemas/VersionVulnerabilityVendorNVDCommon'
-      - $ref: '#/components/schemas/VersionVulnerabilityVendor_allOf'
+      - properties:
+          feed:
+            type: string
+          group:
+            type: string
+          will_not_fix:
+            type: boolean
+        type: object
       description: The vendor information of the vulnerability
     VersionVulnerabilityVendorNVDCommon:
       description: Values common to vendor and nvd entries in application version
@@ -17693,15 +17915,32 @@ components:
     VulnUpdateNotification:
       allOf:
       - $ref: '#/components/schemas/NotificationBase'
-      - $ref: '#/components/schemas/VulnUpdateNotification_allOf'
+      - description: The Notification Object definition for Vuln Update Notifications
+        properties:
+          data:
+            $ref: '#/components/schemas/VulnUpdateNotificationData'
+        type: object
     VulnUpdateNotificationData:
       allOf:
       - $ref: '#/components/schemas/BaseNotificationData'
-      - $ref: '#/components/schemas/VulnUpdateNotificationData_allOf'
+      - properties:
+          notification_payload:
+            $ref: '#/components/schemas/VulnUpdateNotificationPayload'
+        type: object
     VulnUpdateNotificationPayload:
       allOf:
       - $ref: '#/components/schemas/GenericNotificationPayload'
-      - $ref: '#/components/schemas/VulnUpdateNotificationPayload_allOf'
+      - properties:
+          diff_vulnerability_result:
+            $ref: '#/components/schemas/VulnDiffResult'
+          image_digest:
+            type: string
+          annotations:
+            description: List of Corresponding Image Annotations
+            nullable: true
+            properties: {}
+            type: object
+        type: object
     VulnerabilityReference:
       description: An external link/reference
       properties:
@@ -17716,7 +17955,7 @@ components:
           description: The reference url
           type: string
       type: object
-    inline_object:
+    revoke_oauth_token_request:
       properties:
         token:
           description: The token to be revoked
@@ -17727,13 +17966,13 @@ components:
           - refresh_token
           type: string
       type: object
-    inline_response_400:
+    revoke_oauth_token_400_response:
       properties:
         error:
           description: ASCII error code from RFC6749
           type: string
       type: object
-    inline_object_1:
+    get_oauth_token_request:
       properties:
         grant_type:
           default: password
@@ -17750,32 +17989,9 @@ components:
           description: The type of client used for the OAuth token
           type: string
         refresh_token:
-          description: The refresh token from a previous password grant request, used
-            to get a new access_token
+          description: "The refresh token from a previous password grant request,\
+            \ used to get a new access_token"
           type: string
-      type: object
-    AnalysisUpdateNotification_allOf:
-      description: The Notification Object definition for Analysis Update Notifications
-      properties:
-        data:
-          $ref: '#/components/schemas/AnalysisUpdateNotificationData'
-      type: object
-    AnalysisUpdateNotificationData_allOf:
-      properties:
-        notification_payload:
-          $ref: '#/components/schemas/AnalysisUpdateNotificationPayload'
-      type: object
-    AnalysisUpdateNotificationPayload_allOf:
-      properties:
-        curr_eval:
-          $ref: '#/components/schemas/AnalysisUpdateEval'
-        last_eval:
-          $ref: '#/components/schemas/AnalysisUpdateEval'
-        annotations:
-          description: List of Corresponding Image Annotations
-          nullable: true
-          properties: {}
-          type: object
       type: object
     ApplicationVersionVulnerabilityReport_application_artifacts:
       example:
@@ -17832,7 +18048,7 @@ components:
         artifacts:
           $ref: '#/components/schemas/ApplicationVersionVulnerabilityReport_application_artifacts'
       type: object
-    ContentFilesResponse_content:
+    ContentFilesResponse_content_inner:
       example:
         mode: mode
         uid: 1
@@ -17862,7 +18078,7 @@ components:
         uid:
           type: integer
       type: object
-    ContentJAVAPackageResponse_content:
+    ContentJAVAPackageResponse_content_inner:
       example:
         package: package
         implementation-version: implementation-version
@@ -17874,6 +18090,7 @@ components:
         location: location
         purl: purl
         type: type
+        version: version
         specification-version: specification-version
       properties:
         package:
@@ -17898,13 +18115,15 @@ components:
           type: array
         purl:
           type: string
+        version:
+          type: string
       type: object
-    ContentPackageResponse_content:
+    ContentPackageResponse_content_inner:
       example:
         licenses:
         - licenses
         - licenses
-        metadata: '{}'
+        metadata: "{}"
         package: package
         size: size
         cpes:
@@ -17949,7 +18168,7 @@ components:
         purl:
           type: string
       type: object
-    ECSContainers_containers:
+    ECSContainers_containers_inner:
       example:
         task_arn: task_arn
         image_digest: image_digest
@@ -17978,7 +18197,7 @@ components:
       - image_tag
       - task_arn
       type: object
-    ECSInventory_tasks:
+    ECSInventory_tasks_inner:
       example:
         service_arn: service_arn
         task_definition_arn: task_definition_arn
@@ -17999,7 +18218,7 @@ components:
       required:
       - arn
       type: object
-    ECSInventory_containers:
+    ECSInventory_containers_inner:
       example:
         task_arn: task_arn
         image_digest: image_digest
@@ -18018,7 +18237,7 @@ components:
       - arn
       - image_tag
       type: object
-    ECSInventory_services:
+    ECSInventory_services_inner:
       example:
         arn: arn
         tags:
@@ -18033,7 +18252,7 @@ components:
       required:
       - arn
       type: object
-    ECSServices_services:
+    ECSServices_services_inner:
       example:
         cluster_arn: cluster_arn
         account_name: account_name
@@ -18057,7 +18276,7 @@ components:
       - cluster_arn
       - tags
       type: object
-    ECSTasks_tasks:
+    ECSTasks_tasks_inner:
       example:
         cluster_arn: cluster_arn
         service_arn: service_arn
@@ -18130,14 +18349,7 @@ components:
           format: date-time
           type: string
       type: object
-    ImagePackageVulnerability_allOf:
-      properties:
-        inherited_from_base:
-          description: True if the vulnerable artifact is found in the base image.
-            False otherwise
-          type: boolean
-      type: object
-    KubernetesContainers_containers:
+    KubernetesContainers_containers_inner:
       example:
         image_digest: image_digest
         account_name: account_name
@@ -18170,7 +18382,7 @@ components:
       - name
       - pod_id
       type: object
-    KubernetesInventory_namespaces:
+    KubernetesInventory_namespaces_inner:
       example:
         uid: uid
         name: name
@@ -18182,7 +18394,7 @@ components:
         uid:
           maxLength: 36
           minLength: 36
-          pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
+          pattern: "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"
           type: string
         name:
           type: string
@@ -18198,7 +18410,7 @@ components:
       - name
       - uid
       type: object
-    KubernetesInventory_nodes:
+    KubernetesInventory_nodes_inner:
       example:
         uid: uid
         kernel_version: kernel_version
@@ -18217,7 +18429,7 @@ components:
         uid:
           maxLength: 36
           minLength: 36
-          pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
+          pattern: "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"
           type: string
         name:
           type: string
@@ -18247,7 +18459,7 @@ components:
       - name
       - uid
       type: object
-    KubernetesInventory_pods:
+    KubernetesInventory_pods_inner:
       example:
         uid: uid
         node_uid: node_uid
@@ -18265,12 +18477,12 @@ components:
         namespace_uid:
           maxLength: 36
           minLength: 36
-          pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
+          pattern: "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"
           type: string
         node_uid:
           maxLength: 36
           minLength: 36
-          pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
+          pattern: "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"
           type: string
         labels:
           additionalProperties:
@@ -18285,7 +18497,7 @@ components:
       - namespace_uid
       - uid
       type: object
-    KubernetesInventory_containers:
+    KubernetesInventory_containers_inner:
       example:
         image_digest: image_digest
         pod_uid: pod_uid
@@ -18305,7 +18517,7 @@ components:
         pod_uid:
           maxLength: 36
           minLength: 36
-          pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
+          pattern: "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"
           type: string
       required:
       - id
@@ -18313,7 +18525,7 @@ components:
       - name
       - pod_uid
       type: object
-    MalwareScan_findings:
+    MalwareScan_findings_inner:
       example:
         path: path
         signature: signature
@@ -18324,111 +18536,6 @@ components:
         signature:
           description: The malware signature found at the path
           type: string
-      type: object
-    NotificationActionPlanNotificationPayload_allOf:
-      description: defines an action plan payload that can be sent synchronously
-      properties:
-        uuid:
-          type: string
-        image_tag:
-          type: string
-        image_digest:
-          type: string
-        bundle_id:
-          type: string
-        subject:
-          type: string
-        message:
-          type: string
-      type: object
-    NotificationGitHubEndpointConfigurationBase_allOf:
-      properties:
-        url:
-          description: Github API endpoint, defaults to https://api.github.com if
-            not specified
-          pattern: https?://.*
-          type: string
-        username:
-          description: GitHub username for creating issues
-          type: string
-        access_token:
-          description: Personal access token for the GitHub account
-          type: string
-        owner:
-          description: Owner of the repository to create issues against
-          type: string
-        repository:
-          description: Name of the repository to create issues against
-          type: string
-        milestone:
-          description: Number of the milestone to associate with the issue
-          type: integer
-        labels:
-          description: List of labels to associate with the issue
-          items:
-            type: string
-          type: array
-        assignees:
-          description: List of user logins to assign to the issue.
-          items:
-            type: string
-          type: array
-      type: object
-    NotificationJiraEndpointConfigurationBase_allOf:
-      properties:
-        url:
-          description: Jira endpoint URL including host and port, should begin with
-            'http://' or 'https://'
-          pattern: https?://.*
-          type: string
-        username:
-          description: Jira username for creating issues
-          type: string
-        password:
-          description: Jira password for creating issues
-          type: string
-        project_key:
-          description: Key of the Jira project for creating issues
-          type: string
-        issue_type:
-          description: Type associated with the issue
-          type: string
-        priority:
-          description: Priority assigned to the issue
-          type: string
-        assignee:
-          description: Jira user to associate with the issue
-          type: string
-        labels:
-          description: List of labels to associate with the issue
-          items:
-            type: string
-          type: array
-      type: object
-    NotificationSMTPEndpointConfiguration_allOf:
-      properties:
-        host:
-          type: string
-        port:
-          type: integer
-        username:
-          type: string
-        password:
-          type: string
-        use_tls:
-          description: Encrypt the SMTP connection with TLS. Defaults to true
-          type: boolean
-        from:
-          description: The from address to use for emails send by this configuration
-          type: string
-        to:
-          description: The address to which the emails are sent
-          type: string
-      required:
-      - from
-      - host
-      - port
-      - to
       type: object
     NotificationServiceVersion_service:
       example:
@@ -18464,77 +18571,7 @@ components:
           description: Version of the installed engine db schema
           type: string
       type: object
-    NotificationSlackEndpointConfiguration_allOf:
-      properties:
-        url:
-          description: url to POST to, including any query parameters, should begin
-            with 'http://' or 'https://'
-          pattern: https?://.*
-          type: string
-      required:
-      - url
-      type: object
-    NotificationWebhookEndpointConfiguration_allOf:
-      properties:
-        url:
-          description: url to POST to, including any query parameters, should begin
-            with 'http://' or 'https://'
-          pattern: https?://.*
-          type: string
-        username:
-          type: string
-        password:
-          type: string
-        verify_ssl:
-          description: Verify SSL certificates for HTTPS requests, disabled by default
-          type: boolean
-      required:
-      - url
-      type: object
-    PaginatedImageList_allOf:
-      properties:
-        images:
-          items:
-            $ref: '#/components/schemas/ImageWithPackages'
-          type: array
-      type: object
-    PaginatedVulnerabilityList_allOf:
-      properties:
-        vulnerabilities:
-          description: The listing of matching vulnerabilities for the query subject
-            to pagination
-          items:
-            $ref: '#/components/schemas/StandaloneVulnerability'
-          type: array
-      type: object
-    PolicyEvalNotification_allOf:
-      description: The Notification Object definition for Policy Eval Notifications
-      properties:
-        data:
-          $ref: '#/components/schemas/PolicyEvalNotificationData'
-      type: object
-    PolicyEvalNotificationData_allOf:
-      properties:
-        notification_payload:
-          $ref: '#/components/schemas/PolicyEvalNotificationPayload'
-      type: object
-    PolicyEvalNotificationPayload_allOf:
-      properties:
-        curr_eval:
-          description: The Current Policy Evaluation result
-          properties: {}
-          type: object
-        last_eval:
-          description: The Previous Policy Evaluation result
-          properties: {}
-          type: object
-        annotations:
-          description: List of Corresponding Image Annotations
-          nullable: true
-          properties: {}
-          type: object
-      type: object
-    PolicyEvaluation_details:
+    PolicyEvaluation_evaluations_inner_details:
       description: Contains additional details about the policy evaluation
       example:
         findings:
@@ -18583,6 +18620,7 @@ components:
           trigger_ids:
           - trigger_ids
           - trigger_ids
+        policy_action: stop
         policy:
           mappings:
           - registry: registry
@@ -18772,6 +18810,14 @@ components:
           items:
             $ref: '#/components/schemas/PolicyEvaluationFinding'
           type: array
+        policy_action:
+          description: "The outcome of the policy evaluation, before allowlist/denylist\
+            \ evaluation."
+          enum:
+          - stop
+          - go
+          - warn
+          type: string
         remediations:
           description: List of remediations for the findings
           items:
@@ -18781,8 +18827,9 @@ components:
       required:
       - findings
       - policy
+      - policy_action
       type: object
-    PolicyEvaluation_evaluations:
+    PolicyEvaluation_evaluations_inner:
       example:
         comparison_image_digest: comparison_image_digest
         evaluation_time: 2000-01-23T04:56:07.000+00:00
@@ -18869,6 +18916,7 @@ components:
             trigger_ids:
             - trigger_ids
             - trigger_ids
+          policy_action: stop
           policy:
             mappings:
             - registry: registry
@@ -19062,7 +19110,7 @@ components:
         status: fail
       properties:
         details:
-          $ref: '#/components/schemas/PolicyEvaluation_details'
+          $ref: '#/components/schemas/PolicyEvaluation_evaluations_inner_details'
         comparison_image_digest:
           description: Image digest of the base image used during policy evaluation
           nullable: true
@@ -19126,7 +19174,7 @@ components:
       - number_of_findings
       - status
       type: object
-    PolicyEvaluationRemediation_suggestions:
+    PolicyEvaluationRemediation_suggestions_inner:
       example:
         message: message
         preferred: true
@@ -19141,7 +19189,8 @@ components:
       - message
       - preferred
       type: object
-    PolicyRule_params:
+    PolicyRule_params_inner:
+      additionalProperties: false
       example:
         name: name
         value: value
@@ -19165,7 +19214,7 @@ components:
       required:
       - sbom
       type: object
-    SourceManifest_metadata_records:
+    SourceManifest_metadata_records_inner:
       description: Metadata associated with a source upload
       example:
         ci_workflow_name: ci_workflow_name
@@ -19189,33 +19238,6 @@ components:
         change_author:
           nullable: true
           type: string
-      type: object
-    TagUpdateNotification_allOf:
-      description: The Notification Object definition for Tag Update Notifications
-      properties:
-        data:
-          $ref: '#/components/schemas/TagUpdateNotificationData'
-      type: object
-    TagUpdateNotificationData_allOf:
-      properties:
-        notification_payload:
-          $ref: '#/components/schemas/TagUpdateNotificationPayload'
-      type: object
-    TagUpdateNotificationPayload_allOf:
-      properties:
-        curr_eval:
-          description: A list containing the current image digest
-          items: {}
-          type: array
-        last_eval:
-          description: A list containing the previous image digests
-          items: {}
-          type: array
-        annotations:
-          description: List of Corresponding Image Annotations
-          nullable: true
-          properties: {}
-          type: object
       type: object
     VersionVulnerabilityMatch_location_artifact:
       example:
@@ -19244,8 +19266,8 @@ components:
           type: string
       type: object
     VersionVulnerabilityMatch_location:
-      description: The location of the match, which includes both the package and
-        the artifact it belongs to
+      description: "The location of the match, which includes both the package and\
+        \ the artifact it belongs to"
       example:
         artifact:
           id: id
@@ -19261,47 +19283,10 @@ components:
         package:
           $ref: '#/components/schemas/VersionVulnerabilityMatch_location_package'
       type: object
-    VersionVulnerabilityNVD_allOf:
-      properties:
-        id:
-          type: string
-      type: object
-    VersionVulnerabilityVendor_allOf:
-      properties:
-        feed:
-          type: string
-        group:
-          type: string
-        will_not_fix:
-          type: boolean
-      type: object
     VersionVulnerabilityVendorNVDCommon_cvss:
       properties:
         cvss_v2:
           $ref: '#/components/schemas/CVSSV2Scores'
         cvss_v3:
           $ref: '#/components/schemas/CVSSV3Scores'
-      type: object
-    VulnUpdateNotification_allOf:
-      description: The Notification Object definition for Vuln Update Notifications
-      properties:
-        data:
-          $ref: '#/components/schemas/VulnUpdateNotificationData'
-      type: object
-    VulnUpdateNotificationData_allOf:
-      properties:
-        notification_payload:
-          $ref: '#/components/schemas/VulnUpdateNotificationPayload'
-      type: object
-    VulnUpdateNotificationPayload_allOf:
-      properties:
-        diff_vulnerability_result:
-          $ref: '#/components/schemas/VulnDiffResult'
-        image_digest:
-          type: string
-        annotations:
-          description: List of Corresponding Image Annotations
-          nullable: true
-          properties: {}
-          type: object
       type: object

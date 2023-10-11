@@ -15,10 +15,13 @@ import (
 	"encoding/json"
 )
 
+// checks if the SBOMVulnerabilitiesResponse type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &SBOMVulnerabilitiesResponse{}
+
 // SBOMVulnerabilitiesResponse Envelope containing list of vulnerabilities for a source repo
 type SBOMVulnerabilitiesResponse struct {
 	SbomId *string `json:"sbom_id,omitempty"`
-	Vulnerabilities *[]PackageVulnerability `json:"vulnerabilities,omitempty"`
+	Vulnerabilities []PackageVulnerability `json:"vulnerabilities,omitempty"`
 }
 
 // NewSBOMVulnerabilitiesResponse instantiates a new SBOMVulnerabilitiesResponse object
@@ -40,7 +43,7 @@ func NewSBOMVulnerabilitiesResponseWithDefaults() *SBOMVulnerabilitiesResponse {
 
 // GetSbomId returns the SbomId field value if set, zero value otherwise.
 func (o *SBOMVulnerabilitiesResponse) GetSbomId() string {
-	if o == nil || o.SbomId == nil {
+	if o == nil || IsNil(o.SbomId) {
 		var ret string
 		return ret
 	}
@@ -50,7 +53,7 @@ func (o *SBOMVulnerabilitiesResponse) GetSbomId() string {
 // GetSbomIdOk returns a tuple with the SbomId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SBOMVulnerabilitiesResponse) GetSbomIdOk() (*string, bool) {
-	if o == nil || o.SbomId == nil {
+	if o == nil || IsNil(o.SbomId) {
 		return nil, false
 	}
 	return o.SbomId, true
@@ -58,7 +61,7 @@ func (o *SBOMVulnerabilitiesResponse) GetSbomIdOk() (*string, bool) {
 
 // HasSbomId returns a boolean if a field has been set.
 func (o *SBOMVulnerabilitiesResponse) HasSbomId() bool {
-	if o != nil && o.SbomId != nil {
+	if o != nil && !IsNil(o.SbomId) {
 		return true
 	}
 
@@ -72,17 +75,17 @@ func (o *SBOMVulnerabilitiesResponse) SetSbomId(v string) {
 
 // GetVulnerabilities returns the Vulnerabilities field value if set, zero value otherwise.
 func (o *SBOMVulnerabilitiesResponse) GetVulnerabilities() []PackageVulnerability {
-	if o == nil || o.Vulnerabilities == nil {
+	if o == nil || IsNil(o.Vulnerabilities) {
 		var ret []PackageVulnerability
 		return ret
 	}
-	return *o.Vulnerabilities
+	return o.Vulnerabilities
 }
 
 // GetVulnerabilitiesOk returns a tuple with the Vulnerabilities field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SBOMVulnerabilitiesResponse) GetVulnerabilitiesOk() (*[]PackageVulnerability, bool) {
-	if o == nil || o.Vulnerabilities == nil {
+func (o *SBOMVulnerabilitiesResponse) GetVulnerabilitiesOk() ([]PackageVulnerability, bool) {
+	if o == nil || IsNil(o.Vulnerabilities) {
 		return nil, false
 	}
 	return o.Vulnerabilities, true
@@ -90,7 +93,7 @@ func (o *SBOMVulnerabilitiesResponse) GetVulnerabilitiesOk() (*[]PackageVulnerab
 
 // HasVulnerabilities returns a boolean if a field has been set.
 func (o *SBOMVulnerabilitiesResponse) HasVulnerabilities() bool {
-	if o != nil && o.Vulnerabilities != nil {
+	if o != nil && !IsNil(o.Vulnerabilities) {
 		return true
 	}
 
@@ -99,18 +102,26 @@ func (o *SBOMVulnerabilitiesResponse) HasVulnerabilities() bool {
 
 // SetVulnerabilities gets a reference to the given []PackageVulnerability and assigns it to the Vulnerabilities field.
 func (o *SBOMVulnerabilitiesResponse) SetVulnerabilities(v []PackageVulnerability) {
-	o.Vulnerabilities = &v
+	o.Vulnerabilities = v
 }
 
 func (o SBOMVulnerabilitiesResponse) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.SbomId != nil {
-		toSerialize["sbom_id"] = o.SbomId
-	}
-	if o.Vulnerabilities != nil {
-		toSerialize["vulnerabilities"] = o.Vulnerabilities
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o SBOMVulnerabilitiesResponse) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.SbomId) {
+		toSerialize["sbom_id"] = o.SbomId
+	}
+	if !IsNil(o.Vulnerabilities) {
+		toSerialize["vulnerabilities"] = o.Vulnerabilities
+	}
+	return toSerialize, nil
 }
 
 type NullableSBOMVulnerabilitiesResponse struct {

@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the NvdDataObject type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &NvdDataObject{}
+
 // NvdDataObject struct for NvdDataObject
 type NvdDataObject struct {
 	// NVD Vulnerability ID
@@ -42,7 +45,7 @@ func NewNvdDataObjectWithDefaults() *NvdDataObject {
 
 // GetId returns the Id field value if set, zero value otherwise.
 func (o *NvdDataObject) GetId() string {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		var ret string
 		return ret
 	}
@@ -52,7 +55,7 @@ func (o *NvdDataObject) GetId() string {
 // GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *NvdDataObject) GetIdOk() (*string, bool) {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
 	return o.Id, true
@@ -60,7 +63,7 @@ func (o *NvdDataObject) GetIdOk() (*string, bool) {
 
 // HasId returns a boolean if a field has been set.
 func (o *NvdDataObject) HasId() bool {
-	if o != nil && o.Id != nil {
+	if o != nil && !IsNil(o.Id) {
 		return true
 	}
 
@@ -74,7 +77,7 @@ func (o *NvdDataObject) SetId(v string) {
 
 // GetCvssV2 returns the CvssV2 field value if set, zero value otherwise.
 func (o *NvdDataObject) GetCvssV2() CVSSV2Scores {
-	if o == nil || o.CvssV2 == nil {
+	if o == nil || IsNil(o.CvssV2) {
 		var ret CVSSV2Scores
 		return ret
 	}
@@ -84,7 +87,7 @@ func (o *NvdDataObject) GetCvssV2() CVSSV2Scores {
 // GetCvssV2Ok returns a tuple with the CvssV2 field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *NvdDataObject) GetCvssV2Ok() (*CVSSV2Scores, bool) {
-	if o == nil || o.CvssV2 == nil {
+	if o == nil || IsNil(o.CvssV2) {
 		return nil, false
 	}
 	return o.CvssV2, true
@@ -92,7 +95,7 @@ func (o *NvdDataObject) GetCvssV2Ok() (*CVSSV2Scores, bool) {
 
 // HasCvssV2 returns a boolean if a field has been set.
 func (o *NvdDataObject) HasCvssV2() bool {
-	if o != nil && o.CvssV2 != nil {
+	if o != nil && !IsNil(o.CvssV2) {
 		return true
 	}
 
@@ -106,7 +109,7 @@ func (o *NvdDataObject) SetCvssV2(v CVSSV2Scores) {
 
 // GetCvssV3 returns the CvssV3 field value if set, zero value otherwise.
 func (o *NvdDataObject) GetCvssV3() CVSSV3Scores {
-	if o == nil || o.CvssV3 == nil {
+	if o == nil || IsNil(o.CvssV3) {
 		var ret CVSSV3Scores
 		return ret
 	}
@@ -116,7 +119,7 @@ func (o *NvdDataObject) GetCvssV3() CVSSV3Scores {
 // GetCvssV3Ok returns a tuple with the CvssV3 field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *NvdDataObject) GetCvssV3Ok() (*CVSSV3Scores, bool) {
-	if o == nil || o.CvssV3 == nil {
+	if o == nil || IsNil(o.CvssV3) {
 		return nil, false
 	}
 	return o.CvssV3, true
@@ -124,7 +127,7 @@ func (o *NvdDataObject) GetCvssV3Ok() (*CVSSV3Scores, bool) {
 
 // HasCvssV3 returns a boolean if a field has been set.
 func (o *NvdDataObject) HasCvssV3() bool {
-	if o != nil && o.CvssV3 != nil {
+	if o != nil && !IsNil(o.CvssV3) {
 		return true
 	}
 
@@ -137,17 +140,25 @@ func (o *NvdDataObject) SetCvssV3(v CVSSV3Scores) {
 }
 
 func (o NvdDataObject) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Id != nil {
-		toSerialize["id"] = o.Id
-	}
-	if o.CvssV2 != nil {
-		toSerialize["cvss_v2"] = o.CvssV2
-	}
-	if o.CvssV3 != nil {
-		toSerialize["cvss_v3"] = o.CvssV3
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o NvdDataObject) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Id) {
+		toSerialize["id"] = o.Id
+	}
+	if !IsNil(o.CvssV2) {
+		toSerialize["cvss_v2"] = o.CvssV2
+	}
+	if !IsNil(o.CvssV3) {
+		toSerialize["cvss_v3"] = o.CvssV3
+	}
+	return toSerialize, nil
 }
 
 type NullableNvdDataObject struct {

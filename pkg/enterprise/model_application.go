@@ -16,6 +16,9 @@ import (
 	"time"
 )
 
+// checks if the Application type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &Application{}
+
 // Application A representation of an SLDC application
 type Application struct {
 	// The id of the application
@@ -25,7 +28,7 @@ type Application struct {
 	// The description of the application
 	Description *string `json:"description,omitempty"`
 	// List of application versions
-	ApplicationVersions *[]ApplicationVersion `json:"application_versions,omitempty"`
+	ApplicationVersions []ApplicationVersion `json:"application_versions,omitempty"`
 	// RFC 3339 formatted UTC timestamp when the application was created
 	CreatedAt *time.Time `json:"created_at,omitempty"`
 	// RFC 3339 formatted UTC timestamp when the application was last updated
@@ -51,7 +54,7 @@ func NewApplicationWithDefaults() *Application {
 
 // GetApplicationId returns the ApplicationId field value if set, zero value otherwise.
 func (o *Application) GetApplicationId() string {
-	if o == nil || o.ApplicationId == nil {
+	if o == nil || IsNil(o.ApplicationId) {
 		var ret string
 		return ret
 	}
@@ -61,7 +64,7 @@ func (o *Application) GetApplicationId() string {
 // GetApplicationIdOk returns a tuple with the ApplicationId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Application) GetApplicationIdOk() (*string, bool) {
-	if o == nil || o.ApplicationId == nil {
+	if o == nil || IsNil(o.ApplicationId) {
 		return nil, false
 	}
 	return o.ApplicationId, true
@@ -69,7 +72,7 @@ func (o *Application) GetApplicationIdOk() (*string, bool) {
 
 // HasApplicationId returns a boolean if a field has been set.
 func (o *Application) HasApplicationId() bool {
-	if o != nil && o.ApplicationId != nil {
+	if o != nil && !IsNil(o.ApplicationId) {
 		return true
 	}
 
@@ -83,7 +86,7 @@ func (o *Application) SetApplicationId(v string) {
 
 // GetName returns the Name field value if set, zero value otherwise.
 func (o *Application) GetName() string {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		var ret string
 		return ret
 	}
@@ -93,7 +96,7 @@ func (o *Application) GetName() string {
 // GetNameOk returns a tuple with the Name field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Application) GetNameOk() (*string, bool) {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		return nil, false
 	}
 	return o.Name, true
@@ -101,7 +104,7 @@ func (o *Application) GetNameOk() (*string, bool) {
 
 // HasName returns a boolean if a field has been set.
 func (o *Application) HasName() bool {
-	if o != nil && o.Name != nil {
+	if o != nil && !IsNil(o.Name) {
 		return true
 	}
 
@@ -115,7 +118,7 @@ func (o *Application) SetName(v string) {
 
 // GetDescription returns the Description field value if set, zero value otherwise.
 func (o *Application) GetDescription() string {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		var ret string
 		return ret
 	}
@@ -125,7 +128,7 @@ func (o *Application) GetDescription() string {
 // GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Application) GetDescriptionOk() (*string, bool) {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		return nil, false
 	}
 	return o.Description, true
@@ -133,7 +136,7 @@ func (o *Application) GetDescriptionOk() (*string, bool) {
 
 // HasDescription returns a boolean if a field has been set.
 func (o *Application) HasDescription() bool {
-	if o != nil && o.Description != nil {
+	if o != nil && !IsNil(o.Description) {
 		return true
 	}
 
@@ -147,17 +150,17 @@ func (o *Application) SetDescription(v string) {
 
 // GetApplicationVersions returns the ApplicationVersions field value if set, zero value otherwise.
 func (o *Application) GetApplicationVersions() []ApplicationVersion {
-	if o == nil || o.ApplicationVersions == nil {
+	if o == nil || IsNil(o.ApplicationVersions) {
 		var ret []ApplicationVersion
 		return ret
 	}
-	return *o.ApplicationVersions
+	return o.ApplicationVersions
 }
 
 // GetApplicationVersionsOk returns a tuple with the ApplicationVersions field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Application) GetApplicationVersionsOk() (*[]ApplicationVersion, bool) {
-	if o == nil || o.ApplicationVersions == nil {
+func (o *Application) GetApplicationVersionsOk() ([]ApplicationVersion, bool) {
+	if o == nil || IsNil(o.ApplicationVersions) {
 		return nil, false
 	}
 	return o.ApplicationVersions, true
@@ -165,7 +168,7 @@ func (o *Application) GetApplicationVersionsOk() (*[]ApplicationVersion, bool) {
 
 // HasApplicationVersions returns a boolean if a field has been set.
 func (o *Application) HasApplicationVersions() bool {
-	if o != nil && o.ApplicationVersions != nil {
+	if o != nil && !IsNil(o.ApplicationVersions) {
 		return true
 	}
 
@@ -174,12 +177,12 @@ func (o *Application) HasApplicationVersions() bool {
 
 // SetApplicationVersions gets a reference to the given []ApplicationVersion and assigns it to the ApplicationVersions field.
 func (o *Application) SetApplicationVersions(v []ApplicationVersion) {
-	o.ApplicationVersions = &v
+	o.ApplicationVersions = v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
 func (o *Application) GetCreatedAt() time.Time {
-	if o == nil || o.CreatedAt == nil {
+	if o == nil || IsNil(o.CreatedAt) {
 		var ret time.Time
 		return ret
 	}
@@ -189,7 +192,7 @@ func (o *Application) GetCreatedAt() time.Time {
 // GetCreatedAtOk returns a tuple with the CreatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Application) GetCreatedAtOk() (*time.Time, bool) {
-	if o == nil || o.CreatedAt == nil {
+	if o == nil || IsNil(o.CreatedAt) {
 		return nil, false
 	}
 	return o.CreatedAt, true
@@ -197,7 +200,7 @@ func (o *Application) GetCreatedAtOk() (*time.Time, bool) {
 
 // HasCreatedAt returns a boolean if a field has been set.
 func (o *Application) HasCreatedAt() bool {
-	if o != nil && o.CreatedAt != nil {
+	if o != nil && !IsNil(o.CreatedAt) {
 		return true
 	}
 
@@ -211,7 +214,7 @@ func (o *Application) SetCreatedAt(v time.Time) {
 
 // GetLastUpdated returns the LastUpdated field value if set, zero value otherwise.
 func (o *Application) GetLastUpdated() time.Time {
-	if o == nil || o.LastUpdated == nil {
+	if o == nil || IsNil(o.LastUpdated) {
 		var ret time.Time
 		return ret
 	}
@@ -221,7 +224,7 @@ func (o *Application) GetLastUpdated() time.Time {
 // GetLastUpdatedOk returns a tuple with the LastUpdated field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Application) GetLastUpdatedOk() (*time.Time, bool) {
-	if o == nil || o.LastUpdated == nil {
+	if o == nil || IsNil(o.LastUpdated) {
 		return nil, false
 	}
 	return o.LastUpdated, true
@@ -229,7 +232,7 @@ func (o *Application) GetLastUpdatedOk() (*time.Time, bool) {
 
 // HasLastUpdated returns a boolean if a field has been set.
 func (o *Application) HasLastUpdated() bool {
-	if o != nil && o.LastUpdated != nil {
+	if o != nil && !IsNil(o.LastUpdated) {
 		return true
 	}
 
@@ -242,26 +245,34 @@ func (o *Application) SetLastUpdated(v time.Time) {
 }
 
 func (o Application) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.ApplicationId != nil {
-		toSerialize["application_id"] = o.ApplicationId
-	}
-	if o.Name != nil {
-		toSerialize["name"] = o.Name
-	}
-	if o.Description != nil {
-		toSerialize["description"] = o.Description
-	}
-	if o.ApplicationVersions != nil {
-		toSerialize["application_versions"] = o.ApplicationVersions
-	}
-	if o.CreatedAt != nil {
-		toSerialize["created_at"] = o.CreatedAt
-	}
-	if o.LastUpdated != nil {
-		toSerialize["last_updated"] = o.LastUpdated
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o Application) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.ApplicationId) {
+		toSerialize["application_id"] = o.ApplicationId
+	}
+	if !IsNil(o.Name) {
+		toSerialize["name"] = o.Name
+	}
+	if !IsNil(o.Description) {
+		toSerialize["description"] = o.Description
+	}
+	if !IsNil(o.ApplicationVersions) {
+		toSerialize["application_versions"] = o.ApplicationVersions
+	}
+	if !IsNil(o.CreatedAt) {
+		toSerialize["created_at"] = o.CreatedAt
+	}
+	if !IsNil(o.LastUpdated) {
+		toSerialize["last_updated"] = o.LastUpdated
+	}
+	return toSerialize, nil
 }
 
 type NullableApplication struct {

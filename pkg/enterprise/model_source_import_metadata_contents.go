@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the SourceImportMetadataContents type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &SourceImportMetadataContents{}
+
 // SourceImportMetadataContents Digest of content to use in the final import
 type SourceImportMetadataContents struct {
 	// Digest to use for the sbom
@@ -52,7 +55,7 @@ func (o *SourceImportMetadataContents) GetSbom() string {
 // GetSbomOk returns a tuple with the Sbom field value
 // and a boolean to check if the value has been set.
 func (o *SourceImportMetadataContents) GetSbomOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Sbom, true
@@ -64,11 +67,17 @@ func (o *SourceImportMetadataContents) SetSbom(v string) {
 }
 
 func (o SourceImportMetadataContents) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["sbom"] = o.Sbom
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o SourceImportMetadataContents) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["sbom"] = o.Sbom
+	return toSerialize, nil
 }
 
 type NullableSourceImportMetadataContents struct {

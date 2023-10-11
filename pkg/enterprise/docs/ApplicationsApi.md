@@ -1,24 +1,24 @@
-# \ApplicationsApi
+# \ApplicationsAPI
 
-All URIs are relative to *http://localhost/v2*
+All URIs are relative to */v2*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**AddApplication**](ApplicationsApi.md#AddApplication) | **Post** /applications | Create an application
-[**AddApplicationVersion**](ApplicationsApi.md#AddApplicationVersion) | **Post** /applications/{application_id}/versions | Create an application version
-[**AddArtifactToApplicationVersion**](ApplicationsApi.md#AddArtifactToApplicationVersion) | **Post** /applications/{application_id}/versions/{application_version_id}/artifacts | Add an artifact to an application version
-[**DeleteApplication**](ApplicationsApi.md#DeleteApplication) | **Delete** /applications/{application_id} | Delete an application by application_id
-[**DeleteApplicationVersion**](ApplicationsApi.md#DeleteApplicationVersion) | **Delete** /applications/{application_id}/versions/{application_version_id} | Delete an application version by application_id and application_version_id
-[**GetApplication**](ApplicationsApi.md#GetApplication) | **Get** /applications/{application_id} | Get an application by application_id
-[**GetApplicationVersion**](ApplicationsApi.md#GetApplicationVersion) | **Get** /applications/{application_id}/versions/{application_version_id} | Get an application version
-[**GetApplicationVersionSbom**](ApplicationsApi.md#GetApplicationVersionSbom) | **Get** /applications/{application_id}/versions/{application_version_id}/sboms/native-json | Get the combined sbom for the given application version, optionally filtered by artifact type
-[**GetApplicationVersionVulnerabilities**](ApplicationsApi.md#GetApplicationVersionVulnerabilities) | **Get** /applications/{application_id}/versions/{application_version_id}/vulnerabilities | Get the vulnerabilities for a given application version
-[**GetApplicationVersions**](ApplicationsApi.md#GetApplicationVersions) | **Get** /applications/{application_id}/versions | List all application verions
-[**GetApplications**](ApplicationsApi.md#GetApplications) | **Get** /applications | List all applications
-[**ListArtifacts**](ApplicationsApi.md#ListArtifacts) | **Get** /applications/{application_id}/versions/{application_version_id}/artifacts | List artifacts present on a given application version
-[**RemoveArtifactFromApplicationVersion**](ApplicationsApi.md#RemoveArtifactFromApplicationVersion) | **Delete** /applications/{application_id}/versions/{application_version_id}/artifacts/{association_id} | Delete an artifact from specified application version
-[**UpdateApplication**](ApplicationsApi.md#UpdateApplication) | **Put** /applications/{application_id} | Update application details
-[**UpdateApplicationVersion**](ApplicationsApi.md#UpdateApplicationVersion) | **Put** /applications/{application_id}/versions/{application_version_id} | Update application version details
+[**AddApplication**](ApplicationsAPI.md#AddApplication) | **Post** /applications | Create an application
+[**AddApplicationVersion**](ApplicationsAPI.md#AddApplicationVersion) | **Post** /applications/{application_id}/versions | Create an application version
+[**AddArtifactToApplicationVersion**](ApplicationsAPI.md#AddArtifactToApplicationVersion) | **Post** /applications/{application_id}/versions/{application_version_id}/artifacts | Add an artifact to an application version
+[**DeleteApplication**](ApplicationsAPI.md#DeleteApplication) | **Delete** /applications/{application_id} | Delete an application by application_id
+[**DeleteApplicationVersion**](ApplicationsAPI.md#DeleteApplicationVersion) | **Delete** /applications/{application_id}/versions/{application_version_id} | Delete an application version by application_id and application_version_id
+[**GetApplication**](ApplicationsAPI.md#GetApplication) | **Get** /applications/{application_id} | Get an application by application_id
+[**GetApplicationVersion**](ApplicationsAPI.md#GetApplicationVersion) | **Get** /applications/{application_id}/versions/{application_version_id} | Get an application version
+[**GetApplicationVersionSbom**](ApplicationsAPI.md#GetApplicationVersionSbom) | **Get** /applications/{application_id}/versions/{application_version_id}/sboms/native-json | Get the combined sbom for the given application version, optionally filtered by artifact type
+[**GetApplicationVersionVulnerabilities**](ApplicationsAPI.md#GetApplicationVersionVulnerabilities) | **Get** /applications/{application_id}/versions/{application_version_id}/vulnerabilities | Get the vulnerabilities for a given application version
+[**GetApplicationVersions**](ApplicationsAPI.md#GetApplicationVersions) | **Get** /applications/{application_id}/versions | List all application verions
+[**GetApplications**](ApplicationsAPI.md#GetApplications) | **Get** /applications | List all applications
+[**ListArtifacts**](ApplicationsAPI.md#ListArtifacts) | **Get** /applications/{application_id}/versions/{application_version_id}/artifacts | List artifacts present on a given application version
+[**RemoveArtifactFromApplicationVersion**](ApplicationsAPI.md#RemoveArtifactFromApplicationVersion) | **Delete** /applications/{application_id}/versions/{application_version_id}/artifacts/{association_id} | Delete an artifact from specified application version
+[**UpdateApplication**](ApplicationsAPI.md#UpdateApplication) | **Put** /applications/{application_id} | Update application details
+[**UpdateApplicationVersion**](ApplicationsAPI.md#UpdateApplicationVersion) | **Put** /applications/{application_id}/versions/{application_version_id} | Update application version details
 
 
 
@@ -39,7 +39,7 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+    openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
@@ -47,14 +47,14 @@ func main() {
     xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.ApplicationsApi.AddApplication(context.Background()).Application(application).XAnchoreAccount(xAnchoreAccount).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.ApplicationsAPI.AddApplication(context.Background()).Application(application).XAnchoreAccount(xAnchoreAccount).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ApplicationsApi.AddApplication``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `ApplicationsAPI.AddApplication``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
     // response from `AddApplication`: Application
-    fmt.Fprintf(os.Stdout, "Response from `ApplicationsApi.AddApplication`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `ApplicationsAPI.AddApplication`: %v\n", resp)
 }
 ```
 
@@ -107,7 +107,7 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+    openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
@@ -116,14 +116,14 @@ func main() {
     xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.ApplicationsApi.AddApplicationVersion(context.Background(), applicationId).ApplicationVersion(applicationVersion).XAnchoreAccount(xAnchoreAccount).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.ApplicationsAPI.AddApplicationVersion(context.Background(), applicationId).ApplicationVersion(applicationVersion).XAnchoreAccount(xAnchoreAccount).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ApplicationsApi.AddApplicationVersion``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `ApplicationsAPI.AddApplicationVersion``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
     // response from `AddApplicationVersion`: ApplicationVersion
-    fmt.Fprintf(os.Stdout, "Response from `ApplicationsApi.AddApplicationVersion`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `ApplicationsAPI.AddApplicationVersion`: %v\n", resp)
 }
 ```
 
@@ -181,7 +181,7 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+    openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
@@ -191,14 +191,14 @@ func main() {
     xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.ApplicationsApi.AddArtifactToApplicationVersion(context.Background(), applicationId, applicationVersionId).ArtifactRequest(artifactRequest).XAnchoreAccount(xAnchoreAccount).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.ApplicationsAPI.AddArtifactToApplicationVersion(context.Background(), applicationId, applicationVersionId).ArtifactRequest(artifactRequest).XAnchoreAccount(xAnchoreAccount).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ApplicationsApi.AddArtifactToApplicationVersion``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `ApplicationsAPI.AddArtifactToApplicationVersion``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
     // response from `AddArtifactToApplicationVersion`: ArtifactAssociationResponse
-    fmt.Fprintf(os.Stdout, "Response from `ApplicationsApi.AddArtifactToApplicationVersion`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `ApplicationsAPI.AddArtifactToApplicationVersion`: %v\n", resp)
 }
 ```
 
@@ -258,7 +258,7 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+    openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
@@ -266,10 +266,10 @@ func main() {
     xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.ApplicationsApi.DeleteApplication(context.Background(), applicationId).XAnchoreAccount(xAnchoreAccount).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    r, err := apiClient.ApplicationsAPI.DeleteApplication(context.Background(), applicationId).XAnchoreAccount(xAnchoreAccount).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ApplicationsApi.DeleteApplication``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `ApplicationsAPI.DeleteApplication``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
 }
@@ -328,7 +328,7 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+    openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
@@ -337,10 +337,10 @@ func main() {
     xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.ApplicationsApi.DeleteApplicationVersion(context.Background(), applicationId, applicationVersionId).XAnchoreAccount(xAnchoreAccount).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    r, err := apiClient.ApplicationsAPI.DeleteApplicationVersion(context.Background(), applicationId, applicationVersionId).XAnchoreAccount(xAnchoreAccount).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ApplicationsApi.DeleteApplicationVersion``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `ApplicationsAPI.DeleteApplicationVersion``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
 }
@@ -401,7 +401,7 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+    openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
@@ -410,14 +410,14 @@ func main() {
     xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.ApplicationsApi.GetApplication(context.Background(), applicationId).IncludeVersions(includeVersions).XAnchoreAccount(xAnchoreAccount).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.ApplicationsAPI.GetApplication(context.Background(), applicationId).IncludeVersions(includeVersions).XAnchoreAccount(xAnchoreAccount).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ApplicationsApi.GetApplication``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `ApplicationsAPI.GetApplication``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
     // response from `GetApplication`: Application
-    fmt.Fprintf(os.Stdout, "Response from `ApplicationsApi.GetApplication`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `ApplicationsAPI.GetApplication`: %v\n", resp)
 }
 ```
 
@@ -475,7 +475,7 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+    openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
@@ -484,14 +484,14 @@ func main() {
     xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.ApplicationsApi.GetApplicationVersion(context.Background(), applicationId, applicationVersionId).XAnchoreAccount(xAnchoreAccount).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.ApplicationsAPI.GetApplicationVersion(context.Background(), applicationId, applicationVersionId).XAnchoreAccount(xAnchoreAccount).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ApplicationsApi.GetApplicationVersion``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `ApplicationsAPI.GetApplicationVersion``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
     // response from `GetApplicationVersion`: ApplicationVersion
-    fmt.Fprintf(os.Stdout, "Response from `ApplicationsApi.GetApplicationVersion`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `ApplicationsAPI.GetApplicationVersion`: %v\n", resp)
 }
 ```
 
@@ -550,7 +550,7 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+    openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
@@ -560,14 +560,14 @@ func main() {
     xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.ApplicationsApi.GetApplicationVersionSbom(context.Background(), applicationId, applicationVersionId).ArtifactTypes(artifactTypes).XAnchoreAccount(xAnchoreAccount).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.ApplicationsAPI.GetApplicationVersionSbom(context.Background(), applicationId, applicationVersionId).ArtifactTypes(artifactTypes).XAnchoreAccount(xAnchoreAccount).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ApplicationsApi.GetApplicationVersionSbom``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `ApplicationsAPI.GetApplicationVersionSbom``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
     // response from `GetApplicationVersionSbom`: ApplicationVersionSbom
-    fmt.Fprintf(os.Stdout, "Response from `ApplicationsApi.GetApplicationVersionSbom`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `ApplicationsAPI.GetApplicationVersionSbom`: %v\n", resp)
 }
 ```
 
@@ -627,7 +627,7 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+    openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
@@ -637,14 +637,14 @@ func main() {
     xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.ApplicationsApi.GetApplicationVersionVulnerabilities(context.Background(), applicationId, applicationVersionId).WillNotFix(willNotFix).XAnchoreAccount(xAnchoreAccount).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.ApplicationsAPI.GetApplicationVersionVulnerabilities(context.Background(), applicationId, applicationVersionId).WillNotFix(willNotFix).XAnchoreAccount(xAnchoreAccount).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ApplicationsApi.GetApplicationVersionVulnerabilities``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `ApplicationsAPI.GetApplicationVersionVulnerabilities``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
     // response from `GetApplicationVersionVulnerabilities`: ApplicationVersionVulnerabilityReport
-    fmt.Fprintf(os.Stdout, "Response from `ApplicationsApi.GetApplicationVersionVulnerabilities`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `ApplicationsAPI.GetApplicationVersionVulnerabilities`: %v\n", resp)
 }
 ```
 
@@ -704,7 +704,7 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+    openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
@@ -712,14 +712,14 @@ func main() {
     xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.ApplicationsApi.GetApplicationVersions(context.Background(), applicationId).XAnchoreAccount(xAnchoreAccount).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.ApplicationsAPI.GetApplicationVersions(context.Background(), applicationId).XAnchoreAccount(xAnchoreAccount).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ApplicationsApi.GetApplicationVersions``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `ApplicationsAPI.GetApplicationVersions``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
     // response from `GetApplicationVersions`: []ApplicationVersion
-    fmt.Fprintf(os.Stdout, "Response from `ApplicationsApi.GetApplicationVersions`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `ApplicationsAPI.GetApplicationVersions`: %v\n", resp)
 }
 ```
 
@@ -776,7 +776,7 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+    openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
@@ -784,14 +784,14 @@ func main() {
     xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.ApplicationsApi.GetApplications(context.Background()).IncludeVersions(includeVersions).XAnchoreAccount(xAnchoreAccount).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.ApplicationsAPI.GetApplications(context.Background()).IncludeVersions(includeVersions).XAnchoreAccount(xAnchoreAccount).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ApplicationsApi.GetApplications``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `ApplicationsAPI.GetApplications``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
     // response from `GetApplications`: []Application
-    fmt.Fprintf(os.Stdout, "Response from `ApplicationsApi.GetApplications`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `ApplicationsAPI.GetApplications`: %v\n", resp)
 }
 ```
 
@@ -844,7 +844,7 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+    openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
@@ -854,14 +854,14 @@ func main() {
     xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.ApplicationsApi.ListArtifacts(context.Background(), applicationId, applicationVersionId).ArtifactTypes(artifactTypes).XAnchoreAccount(xAnchoreAccount).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.ApplicationsAPI.ListArtifacts(context.Background(), applicationId, applicationVersionId).ArtifactTypes(artifactTypes).XAnchoreAccount(xAnchoreAccount).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ApplicationsApi.ListArtifacts``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `ApplicationsAPI.ListArtifacts``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
     // response from `ListArtifacts`: ArtifactListResponse
-    fmt.Fprintf(os.Stdout, "Response from `ApplicationsApi.ListArtifacts`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `ApplicationsAPI.ListArtifacts`: %v\n", resp)
 }
 ```
 
@@ -921,7 +921,7 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+    openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
@@ -931,10 +931,10 @@ func main() {
     xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.ApplicationsApi.RemoveArtifactFromApplicationVersion(context.Background(), applicationId, applicationVersionId, associationId).XAnchoreAccount(xAnchoreAccount).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    r, err := apiClient.ApplicationsAPI.RemoveArtifactFromApplicationVersion(context.Background(), applicationId, applicationVersionId, associationId).XAnchoreAccount(xAnchoreAccount).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ApplicationsApi.RemoveArtifactFromApplicationVersion``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `ApplicationsAPI.RemoveArtifactFromApplicationVersion``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
 }
@@ -997,7 +997,7 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+    openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
@@ -1006,14 +1006,14 @@ func main() {
     xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.ApplicationsApi.UpdateApplication(context.Background(), applicationId).Application(application).XAnchoreAccount(xAnchoreAccount).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.ApplicationsAPI.UpdateApplication(context.Background(), applicationId).Application(application).XAnchoreAccount(xAnchoreAccount).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ApplicationsApi.UpdateApplication``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `ApplicationsAPI.UpdateApplication``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
     // response from `UpdateApplication`: Application
-    fmt.Fprintf(os.Stdout, "Response from `ApplicationsApi.UpdateApplication`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `ApplicationsAPI.UpdateApplication`: %v\n", resp)
 }
 ```
 
@@ -1071,7 +1071,7 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+    openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
@@ -1081,14 +1081,14 @@ func main() {
     xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.ApplicationsApi.UpdateApplicationVersion(context.Background(), applicationId, applicationVersionId).ApplicationVersion(applicationVersion).XAnchoreAccount(xAnchoreAccount).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.ApplicationsAPI.UpdateApplicationVersion(context.Background(), applicationId, applicationVersionId).ApplicationVersion(applicationVersion).XAnchoreAccount(xAnchoreAccount).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ApplicationsApi.UpdateApplicationVersion``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `ApplicationsAPI.UpdateApplicationVersion``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
     // response from `UpdateApplicationVersion`: ApplicationVersion
-    fmt.Fprintf(os.Stdout, "Response from `ApplicationsApi.UpdateApplicationVersion`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `ApplicationsAPI.UpdateApplicationVersion`: %v\n", resp)
 }
 ```
 

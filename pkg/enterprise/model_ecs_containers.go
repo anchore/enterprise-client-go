@@ -15,9 +15,12 @@ import (
 	"encoding/json"
 )
 
+// checks if the ECSContainers type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ECSContainers{}
+
 // ECSContainers Containers defined in ECS
 type ECSContainers struct {
-	Containers *[]ECSContainersContainers `json:"containers,omitempty"`
+	Containers []ECSContainersContainersInner `json:"containers,omitempty"`
 }
 
 // NewECSContainers instantiates a new ECSContainers object
@@ -38,18 +41,18 @@ func NewECSContainersWithDefaults() *ECSContainers {
 }
 
 // GetContainers returns the Containers field value if set, zero value otherwise.
-func (o *ECSContainers) GetContainers() []ECSContainersContainers {
-	if o == nil || o.Containers == nil {
-		var ret []ECSContainersContainers
+func (o *ECSContainers) GetContainers() []ECSContainersContainersInner {
+	if o == nil || IsNil(o.Containers) {
+		var ret []ECSContainersContainersInner
 		return ret
 	}
-	return *o.Containers
+	return o.Containers
 }
 
 // GetContainersOk returns a tuple with the Containers field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ECSContainers) GetContainersOk() (*[]ECSContainersContainers, bool) {
-	if o == nil || o.Containers == nil {
+func (o *ECSContainers) GetContainersOk() ([]ECSContainersContainersInner, bool) {
+	if o == nil || IsNil(o.Containers) {
 		return nil, false
 	}
 	return o.Containers, true
@@ -57,24 +60,32 @@ func (o *ECSContainers) GetContainersOk() (*[]ECSContainersContainers, bool) {
 
 // HasContainers returns a boolean if a field has been set.
 func (o *ECSContainers) HasContainers() bool {
-	if o != nil && o.Containers != nil {
+	if o != nil && !IsNil(o.Containers) {
 		return true
 	}
 
 	return false
 }
 
-// SetContainers gets a reference to the given []ECSContainersContainers and assigns it to the Containers field.
-func (o *ECSContainers) SetContainers(v []ECSContainersContainers) {
-	o.Containers = &v
+// SetContainers gets a reference to the given []ECSContainersContainersInner and assigns it to the Containers field.
+func (o *ECSContainers) SetContainers(v []ECSContainersContainersInner) {
+	o.Containers = v
 }
 
 func (o ECSContainers) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Containers != nil {
-		toSerialize["containers"] = o.Containers
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o ECSContainers) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Containers) {
+		toSerialize["containers"] = o.Containers
+	}
+	return toSerialize, nil
 }
 
 type NullableECSContainers struct {

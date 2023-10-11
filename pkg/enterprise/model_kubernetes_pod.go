@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the KubernetesPod type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &KubernetesPod{}
+
 // KubernetesPod struct for KubernetesPod
 type KubernetesPod struct {
 	Id string `json:"id"`
@@ -62,7 +65,7 @@ func (o *KubernetesPod) GetId() string {
 // GetIdOk returns a tuple with the Id field value
 // and a boolean to check if the value has been set.
 func (o *KubernetesPod) GetIdOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Id, true
@@ -86,7 +89,7 @@ func (o *KubernetesPod) GetName() string {
 // GetNameOk returns a tuple with the Name field value
 // and a boolean to check if the value has been set.
 func (o *KubernetesPod) GetNameOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Name, true
@@ -110,7 +113,7 @@ func (o *KubernetesPod) GetAccountName() string {
 // GetAccountNameOk returns a tuple with the AccountName field value
 // and a boolean to check if the value has been set.
 func (o *KubernetesPod) GetAccountNameOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.AccountName, true
@@ -134,7 +137,7 @@ func (o *KubernetesPod) GetLabels() map[string]string {
 // GetLabelsOk returns a tuple with the Labels field value
 // and a boolean to check if the value has been set.
 func (o *KubernetesPod) GetLabelsOk() (*map[string]string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Labels, true
@@ -158,7 +161,7 @@ func (o *KubernetesPod) GetAnnotations() map[string]string {
 // GetAnnotationsOk returns a tuple with the Annotations field value
 // and a boolean to check if the value has been set.
 func (o *KubernetesPod) GetAnnotationsOk() (*map[string]string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Annotations, true
@@ -171,7 +174,7 @@ func (o *KubernetesPod) SetAnnotations(v map[string]string) {
 
 // GetNodeId returns the NodeId field value if set, zero value otherwise.
 func (o *KubernetesPod) GetNodeId() string {
-	if o == nil || o.NodeId == nil {
+	if o == nil || IsNil(o.NodeId) {
 		var ret string
 		return ret
 	}
@@ -181,7 +184,7 @@ func (o *KubernetesPod) GetNodeId() string {
 // GetNodeIdOk returns a tuple with the NodeId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *KubernetesPod) GetNodeIdOk() (*string, bool) {
-	if o == nil || o.NodeId == nil {
+	if o == nil || IsNil(o.NodeId) {
 		return nil, false
 	}
 	return o.NodeId, true
@@ -189,7 +192,7 @@ func (o *KubernetesPod) GetNodeIdOk() (*string, bool) {
 
 // HasNodeId returns a boolean if a field has been set.
 func (o *KubernetesPod) HasNodeId() bool {
-	if o != nil && o.NodeId != nil {
+	if o != nil && !IsNil(o.NodeId) {
 		return true
 	}
 
@@ -203,7 +206,7 @@ func (o *KubernetesPod) SetNodeId(v string) {
 
 // GetNamespaceId returns the NamespaceId field value if set, zero value otherwise.
 func (o *KubernetesPod) GetNamespaceId() string {
-	if o == nil || o.NamespaceId == nil {
+	if o == nil || IsNil(o.NamespaceId) {
 		var ret string
 		return ret
 	}
@@ -213,7 +216,7 @@ func (o *KubernetesPod) GetNamespaceId() string {
 // GetNamespaceIdOk returns a tuple with the NamespaceId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *KubernetesPod) GetNamespaceIdOk() (*string, bool) {
-	if o == nil || o.NamespaceId == nil {
+	if o == nil || IsNil(o.NamespaceId) {
 		return nil, false
 	}
 	return o.NamespaceId, true
@@ -221,7 +224,7 @@ func (o *KubernetesPod) GetNamespaceIdOk() (*string, bool) {
 
 // HasNamespaceId returns a boolean if a field has been set.
 func (o *KubernetesPod) HasNamespaceId() bool {
-	if o != nil && o.NamespaceId != nil {
+	if o != nil && !IsNil(o.NamespaceId) {
 		return true
 	}
 
@@ -235,7 +238,7 @@ func (o *KubernetesPod) SetNamespaceId(v string) {
 
 // GetLastSeen returns the LastSeen field value if set, zero value otherwise.
 func (o *KubernetesPod) GetLastSeen() string {
-	if o == nil || o.LastSeen == nil {
+	if o == nil || IsNil(o.LastSeen) {
 		var ret string
 		return ret
 	}
@@ -245,7 +248,7 @@ func (o *KubernetesPod) GetLastSeen() string {
 // GetLastSeenOk returns a tuple with the LastSeen field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *KubernetesPod) GetLastSeenOk() (*string, bool) {
-	if o == nil || o.LastSeen == nil {
+	if o == nil || IsNil(o.LastSeen) {
 		return nil, false
 	}
 	return o.LastSeen, true
@@ -253,7 +256,7 @@ func (o *KubernetesPod) GetLastSeenOk() (*string, bool) {
 
 // HasLastSeen returns a boolean if a field has been set.
 func (o *KubernetesPod) HasLastSeen() bool {
-	if o != nil && o.LastSeen != nil {
+	if o != nil && !IsNil(o.LastSeen) {
 		return true
 	}
 
@@ -266,32 +269,30 @@ func (o *KubernetesPod) SetLastSeen(v string) {
 }
 
 func (o KubernetesPod) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["id"] = o.Id
-	}
-	if true {
-		toSerialize["name"] = o.Name
-	}
-	if true {
-		toSerialize["account_name"] = o.AccountName
-	}
-	if true {
-		toSerialize["labels"] = o.Labels
-	}
-	if true {
-		toSerialize["annotations"] = o.Annotations
-	}
-	if o.NodeId != nil {
-		toSerialize["node_id"] = o.NodeId
-	}
-	if o.NamespaceId != nil {
-		toSerialize["namespace_id"] = o.NamespaceId
-	}
-	if o.LastSeen != nil {
-		toSerialize["last_seen"] = o.LastSeen
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o KubernetesPod) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["id"] = o.Id
+	toSerialize["name"] = o.Name
+	toSerialize["account_name"] = o.AccountName
+	toSerialize["labels"] = o.Labels
+	toSerialize["annotations"] = o.Annotations
+	if !IsNil(o.NodeId) {
+		toSerialize["node_id"] = o.NodeId
+	}
+	if !IsNil(o.NamespaceId) {
+		toSerialize["namespace_id"] = o.NamespaceId
+	}
+	if !IsNil(o.LastSeen) {
+		toSerialize["last_seen"] = o.LastSeen
+	}
+	return toSerialize, nil
 }
 
 type NullableKubernetesPod struct {

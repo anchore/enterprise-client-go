@@ -1,22 +1,22 @@
-# \UserManagementApi
+# \UserManagementAPI
 
-All URIs are relative to *http://localhost/v2*
+All URIs are relative to */v2*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateAccount**](UserManagementApi.md#CreateAccount) | **Post** /accounts | Create a new account. Only available to admin user.
-[**CreateUser**](UserManagementApi.md#CreateUser) | **Post** /accounts/{account_name}/users | Create a new user within the specified account.
-[**CreateUserCredential**](UserManagementApi.md#CreateUserCredential) | **Post** /accounts/{account_name}/users/{username}/credentials | add/replace credential
-[**DeleteAccount**](UserManagementApi.md#DeleteAccount) | **Delete** /accounts/{account_name} | Delete the specified account, only allowed if the account is in the disabled state. All users will be deleted along with the account and all resources will be garbage collected
-[**DeleteUser**](UserManagementApi.md#DeleteUser) | **Delete** /accounts/{account_name}/users/{username} | Delete a specific user credential by username of the credential. Cannot be the credential used to authenticate the request.
-[**DeleteUserCredential**](UserManagementApi.md#DeleteUserCredential) | **Delete** /accounts/{account_name}/users/{username}/credentials | Delete a credential by type
-[**GetAccount**](UserManagementApi.md#GetAccount) | **Get** /accounts/{account_name} | Get account info about this specific account.
-[**GetAccountUser**](UserManagementApi.md#GetAccountUser) | **Get** /accounts/{account_name}/users/{username} | Get a specific user in the specified account
-[**ListAccounts**](UserManagementApi.md#ListAccounts) | **Get** /accounts | List account summaries. Only available to the system admin user.
-[**ListUserCredentials**](UserManagementApi.md#ListUserCredentials) | **Get** /accounts/{account_name}/users/{username}/credentials | Get current credential summary
-[**ListUsers**](UserManagementApi.md#ListUsers) | **Get** /accounts/{account_name}/users | List of users found in this account.
-[**UpdateAccount**](UserManagementApi.md#UpdateAccount) | **Put** /accounts/{account_name} | Update the info for this specific account.
-[**UpdateAccountState**](UserManagementApi.md#UpdateAccountState) | **Put** /accounts/{account_name}/state | Update the state of an account to either enabled or disabled. For deletion use the DELETE route
+[**CreateAccount**](UserManagementAPI.md#CreateAccount) | **Post** /accounts | Create a new account. Only available to admin user.
+[**CreateUser**](UserManagementAPI.md#CreateUser) | **Post** /accounts/{account_name}/users | Create a new user within the specified account.
+[**CreateUserCredential**](UserManagementAPI.md#CreateUserCredential) | **Post** /accounts/{account_name}/users/{username}/credentials | add/replace credential
+[**DeleteAccount**](UserManagementAPI.md#DeleteAccount) | **Delete** /accounts/{account_name} | Delete the specified account, only allowed if the account is in the disabled state. All users will be deleted along with the account and all resources will be garbage collected
+[**DeleteUser**](UserManagementAPI.md#DeleteUser) | **Delete** /accounts/{account_name}/users/{username} | Delete a specific user credential by username of the credential. Cannot be the credential used to authenticate the request.
+[**DeleteUserCredential**](UserManagementAPI.md#DeleteUserCredential) | **Delete** /accounts/{account_name}/users/{username}/credentials | Delete a credential by type
+[**GetAccount**](UserManagementAPI.md#GetAccount) | **Get** /accounts/{account_name} | Get account info about this specific account.
+[**GetAccountUser**](UserManagementAPI.md#GetAccountUser) | **Get** /accounts/{account_name}/users/{username} | Get a specific user in the specified account
+[**ListAccounts**](UserManagementAPI.md#ListAccounts) | **Get** /accounts | List account summaries. Only available to the system admin user.
+[**ListUserCredentials**](UserManagementAPI.md#ListUserCredentials) | **Get** /accounts/{account_name}/users/{username}/credentials | Get current credential summary
+[**ListUsers**](UserManagementAPI.md#ListUsers) | **Get** /accounts/{account_name}/users | List of users found in this account.
+[**UpdateAccount**](UserManagementAPI.md#UpdateAccount) | **Put** /accounts/{account_name} | Update the info for this specific account.
+[**UpdateAccountState**](UserManagementAPI.md#UpdateAccountState) | **Put** /accounts/{account_name}/state | Update the state of an account to either enabled or disabled. For deletion use the DELETE route
 
 
 
@@ -35,21 +35,21 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+    openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
     account := *openapiclient.NewAccountCreationRequest("Name_example") // AccountCreationRequest | 
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.UserManagementApi.CreateAccount(context.Background()).Account(account).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.UserManagementAPI.CreateAccount(context.Background()).Account(account).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `UserManagementApi.CreateAccount``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `UserManagementAPI.CreateAccount``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
     // response from `CreateAccount`: Account
-    fmt.Fprintf(os.Stdout, "Response from `UserManagementApi.CreateAccount`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `UserManagementAPI.CreateAccount`: %v\n", resp)
 }
 ```
 
@@ -99,7 +99,7 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+    openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
@@ -107,14 +107,14 @@ func main() {
     user := *openapiclient.NewUserCreationRequest("Username_example") // UserCreationRequest | 
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.UserManagementApi.CreateUser(context.Background(), accountName).User(user).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.UserManagementAPI.CreateUser(context.Background(), accountName).User(user).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `UserManagementApi.CreateUser``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `UserManagementAPI.CreateUser``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
     // response from `CreateUser`: User
-    fmt.Fprintf(os.Stdout, "Response from `UserManagementApi.CreateUser`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `UserManagementAPI.CreateUser`: %v\n", resp)
 }
 ```
 
@@ -169,7 +169,7 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+    openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
@@ -178,14 +178,14 @@ func main() {
     credential := *openapiclient.NewAccessCredential("Type_example", "Value_example") // AccessCredential | 
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.UserManagementApi.CreateUserCredential(context.Background(), accountName, username).Credential(credential).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.UserManagementAPI.CreateUserCredential(context.Background(), accountName, username).Credential(credential).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `UserManagementApi.CreateUserCredential``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `UserManagementAPI.CreateUserCredential``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
     // response from `CreateUserCredential`: AccessCredential
-    fmt.Fprintf(os.Stdout, "Response from `UserManagementApi.CreateUserCredential`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `UserManagementAPI.CreateUserCredential`: %v\n", resp)
 }
 ```
 
@@ -242,17 +242,17 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+    openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
     accountName := "accountName_example" // string | 
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.UserManagementApi.DeleteAccount(context.Background(), accountName).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    r, err := apiClient.UserManagementAPI.DeleteAccount(context.Background(), accountName).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `UserManagementApi.DeleteAccount``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `UserManagementAPI.DeleteAccount``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
 }
@@ -308,7 +308,7 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+    openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
@@ -316,10 +316,10 @@ func main() {
     username := "username_example" // string | 
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.UserManagementApi.DeleteUser(context.Background(), accountName, username).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    r, err := apiClient.UserManagementAPI.DeleteUser(context.Background(), accountName, username).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `UserManagementApi.DeleteUser``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `UserManagementAPI.DeleteUser``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
 }
@@ -377,7 +377,7 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+    openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
@@ -386,10 +386,10 @@ func main() {
     credentialType := "credentialType_example" // string | 
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.UserManagementApi.DeleteUserCredential(context.Background(), accountName, username).CredentialType(credentialType).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    r, err := apiClient.UserManagementAPI.DeleteUserCredential(context.Background(), accountName, username).CredentialType(credentialType).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `UserManagementApi.DeleteUserCredential``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `UserManagementAPI.DeleteUserCredential``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
 }
@@ -448,21 +448,21 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+    openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
     accountName := "accountName_example" // string | 
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.UserManagementApi.GetAccount(context.Background(), accountName).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.UserManagementAPI.GetAccount(context.Background(), accountName).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `UserManagementApi.GetAccount``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `UserManagementAPI.GetAccount``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
     // response from `GetAccount`: Account
-    fmt.Fprintf(os.Stdout, "Response from `UserManagementApi.GetAccount`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `UserManagementAPI.GetAccount`: %v\n", resp)
 }
 ```
 
@@ -516,7 +516,7 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+    openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
@@ -524,14 +524,14 @@ func main() {
     username := "username_example" // string | 
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.UserManagementApi.GetAccountUser(context.Background(), accountName, username).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.UserManagementAPI.GetAccountUser(context.Background(), accountName, username).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `UserManagementApi.GetAccountUser``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `UserManagementAPI.GetAccountUser``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
     // response from `GetAccountUser`: User
-    fmt.Fprintf(os.Stdout, "Response from `UserManagementApi.GetAccountUser`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `UserManagementAPI.GetAccountUser`: %v\n", resp)
 }
 ```
 
@@ -587,21 +587,21 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+    openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
     state := "state_example" // string | Filter accounts by state (optional)
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.UserManagementApi.ListAccounts(context.Background()).State(state).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.UserManagementAPI.ListAccounts(context.Background()).State(state).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `UserManagementApi.ListAccounts``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `UserManagementAPI.ListAccounts``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
     // response from `ListAccounts`: []Account
-    fmt.Fprintf(os.Stdout, "Response from `UserManagementApi.ListAccounts`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `UserManagementAPI.ListAccounts`: %v\n", resp)
 }
 ```
 
@@ -651,7 +651,7 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+    openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
@@ -659,14 +659,14 @@ func main() {
     username := "username_example" // string | 
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.UserManagementApi.ListUserCredentials(context.Background(), accountName, username).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.UserManagementAPI.ListUserCredentials(context.Background(), accountName, username).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `UserManagementApi.ListUserCredentials``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `UserManagementAPI.ListUserCredentials``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
     // response from `ListUserCredentials`: []AccessCredential
-    fmt.Fprintf(os.Stdout, "Response from `UserManagementApi.ListUserCredentials`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `UserManagementAPI.ListUserCredentials`: %v\n", resp)
 }
 ```
 
@@ -722,21 +722,21 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+    openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
     accountName := "accountName_example" // string | 
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.UserManagementApi.ListUsers(context.Background(), accountName).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.UserManagementAPI.ListUsers(context.Background(), accountName).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `UserManagementApi.ListUsers``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `UserManagementAPI.ListUsers``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
     // response from `ListUsers`: []User
-    fmt.Fprintf(os.Stdout, "Response from `UserManagementApi.ListUsers`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `UserManagementAPI.ListUsers`: %v\n", resp)
 }
 ```
 
@@ -790,7 +790,7 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+    openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
@@ -799,14 +799,14 @@ func main() {
     xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.UserManagementApi.UpdateAccount(context.Background(), accountName).Info(info).XAnchoreAccount(xAnchoreAccount).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.UserManagementAPI.UpdateAccount(context.Background(), accountName).Info(info).XAnchoreAccount(xAnchoreAccount).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `UserManagementApi.UpdateAccount``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `UserManagementAPI.UpdateAccount``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
     // response from `UpdateAccount`: Account
-    fmt.Fprintf(os.Stdout, "Response from `UserManagementApi.UpdateAccount`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `UserManagementAPI.UpdateAccount`: %v\n", resp)
 }
 ```
 
@@ -862,7 +862,7 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+    openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
@@ -870,14 +870,14 @@ func main() {
     desiredState := *openapiclient.NewAccountStatus() // AccountStatus | 
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.UserManagementApi.UpdateAccountState(context.Background(), accountName).DesiredState(desiredState).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.UserManagementAPI.UpdateAccountState(context.Background(), accountName).DesiredState(desiredState).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `UserManagementApi.UpdateAccountState``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `UserManagementAPI.UpdateAccountState``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
     // response from `UpdateAccountState`: AccountStatus
-    fmt.Fprintf(os.Stdout, "Response from `UserManagementApi.UpdateAccountState`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `UserManagementAPI.UpdateAccountState`: %v\n", resp)
 }
 ```
 

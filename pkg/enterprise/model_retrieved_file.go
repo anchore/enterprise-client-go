@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the RetrievedFile type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &RetrievedFile{}
+
 // RetrievedFile The retrieved file entry including content (b64 encoded)
 type RetrievedFile struct {
 	Path *string `json:"path,omitempty"`
@@ -40,7 +43,7 @@ func NewRetrievedFileWithDefaults() *RetrievedFile {
 
 // GetPath returns the Path field value if set, zero value otherwise.
 func (o *RetrievedFile) GetPath() string {
-	if o == nil || o.Path == nil {
+	if o == nil || IsNil(o.Path) {
 		var ret string
 		return ret
 	}
@@ -50,7 +53,7 @@ func (o *RetrievedFile) GetPath() string {
 // GetPathOk returns a tuple with the Path field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RetrievedFile) GetPathOk() (*string, bool) {
-	if o == nil || o.Path == nil {
+	if o == nil || IsNil(o.Path) {
 		return nil, false
 	}
 	return o.Path, true
@@ -58,7 +61,7 @@ func (o *RetrievedFile) GetPathOk() (*string, bool) {
 
 // HasPath returns a boolean if a field has been set.
 func (o *RetrievedFile) HasPath() bool {
-	if o != nil && o.Path != nil {
+	if o != nil && !IsNil(o.Path) {
 		return true
 	}
 
@@ -72,7 +75,7 @@ func (o *RetrievedFile) SetPath(v string) {
 
 // GetB64Content returns the B64Content field value if set, zero value otherwise.
 func (o *RetrievedFile) GetB64Content() string {
-	if o == nil || o.B64Content == nil {
+	if o == nil || IsNil(o.B64Content) {
 		var ret string
 		return ret
 	}
@@ -82,7 +85,7 @@ func (o *RetrievedFile) GetB64Content() string {
 // GetB64ContentOk returns a tuple with the B64Content field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RetrievedFile) GetB64ContentOk() (*string, bool) {
-	if o == nil || o.B64Content == nil {
+	if o == nil || IsNil(o.B64Content) {
 		return nil, false
 	}
 	return o.B64Content, true
@@ -90,7 +93,7 @@ func (o *RetrievedFile) GetB64ContentOk() (*string, bool) {
 
 // HasB64Content returns a boolean if a field has been set.
 func (o *RetrievedFile) HasB64Content() bool {
-	if o != nil && o.B64Content != nil {
+	if o != nil && !IsNil(o.B64Content) {
 		return true
 	}
 
@@ -103,14 +106,22 @@ func (o *RetrievedFile) SetB64Content(v string) {
 }
 
 func (o RetrievedFile) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Path != nil {
-		toSerialize["path"] = o.Path
-	}
-	if o.B64Content != nil {
-		toSerialize["b64_content"] = o.B64Content
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o RetrievedFile) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Path) {
+		toSerialize["path"] = o.Path
+	}
+	if !IsNil(o.B64Content) {
+		toSerialize["b64_content"] = o.B64Content
+	}
+	return toSerialize, nil
 }
 
 type NullableRetrievedFile struct {

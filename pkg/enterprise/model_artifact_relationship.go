@@ -16,6 +16,9 @@ import (
 	"time"
 )
 
+// checks if the ArtifactRelationship type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ArtifactRelationship{}
+
 // ArtifactRelationship A relationship of a specific type between two SDLC artifacts (e.g. container image and source revision). This is and edge in a directed graph where edges are directional from the \"source\" to the \"target\". For example, an edge of type \"contains\" means the source artifact contains the content of the target artifact. 
 type ArtifactRelationship struct {
 	CreatedAt *time.Time `json:"created_at,omitempty"`
@@ -24,7 +27,7 @@ type ArtifactRelationship struct {
 	RelationshipType *RelationshipType `json:"relationship_type,omitempty"`
 	Comment *string `json:"comment,omitempty"`
 	// User-provided metadata about the relationship
-	UserMetadata *interface{} `json:"user_metadata,omitempty"`
+	UserMetadata interface{} `json:"user_metadata,omitempty"`
 }
 
 // NewArtifactRelationship instantiates a new ArtifactRelationship object
@@ -46,7 +49,7 @@ func NewArtifactRelationshipWithDefaults() *ArtifactRelationship {
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
 func (o *ArtifactRelationship) GetCreatedAt() time.Time {
-	if o == nil || o.CreatedAt == nil {
+	if o == nil || IsNil(o.CreatedAt) {
 		var ret time.Time
 		return ret
 	}
@@ -56,7 +59,7 @@ func (o *ArtifactRelationship) GetCreatedAt() time.Time {
 // GetCreatedAtOk returns a tuple with the CreatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ArtifactRelationship) GetCreatedAtOk() (*time.Time, bool) {
-	if o == nil || o.CreatedAt == nil {
+	if o == nil || IsNil(o.CreatedAt) {
 		return nil, false
 	}
 	return o.CreatedAt, true
@@ -64,7 +67,7 @@ func (o *ArtifactRelationship) GetCreatedAtOk() (*time.Time, bool) {
 
 // HasCreatedAt returns a boolean if a field has been set.
 func (o *ArtifactRelationship) HasCreatedAt() bool {
-	if o != nil && o.CreatedAt != nil {
+	if o != nil && !IsNil(o.CreatedAt) {
 		return true
 	}
 
@@ -78,7 +81,7 @@ func (o *ArtifactRelationship) SetCreatedAt(v time.Time) {
 
 // GetSource returns the Source field value if set, zero value otherwise.
 func (o *ArtifactRelationship) GetSource() ArtifactReference {
-	if o == nil || o.Source == nil {
+	if o == nil || IsNil(o.Source) {
 		var ret ArtifactReference
 		return ret
 	}
@@ -88,7 +91,7 @@ func (o *ArtifactRelationship) GetSource() ArtifactReference {
 // GetSourceOk returns a tuple with the Source field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ArtifactRelationship) GetSourceOk() (*ArtifactReference, bool) {
-	if o == nil || o.Source == nil {
+	if o == nil || IsNil(o.Source) {
 		return nil, false
 	}
 	return o.Source, true
@@ -96,7 +99,7 @@ func (o *ArtifactRelationship) GetSourceOk() (*ArtifactReference, bool) {
 
 // HasSource returns a boolean if a field has been set.
 func (o *ArtifactRelationship) HasSource() bool {
-	if o != nil && o.Source != nil {
+	if o != nil && !IsNil(o.Source) {
 		return true
 	}
 
@@ -110,7 +113,7 @@ func (o *ArtifactRelationship) SetSource(v ArtifactReference) {
 
 // GetTarget returns the Target field value if set, zero value otherwise.
 func (o *ArtifactRelationship) GetTarget() ArtifactReference {
-	if o == nil || o.Target == nil {
+	if o == nil || IsNil(o.Target) {
 		var ret ArtifactReference
 		return ret
 	}
@@ -120,7 +123,7 @@ func (o *ArtifactRelationship) GetTarget() ArtifactReference {
 // GetTargetOk returns a tuple with the Target field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ArtifactRelationship) GetTargetOk() (*ArtifactReference, bool) {
-	if o == nil || o.Target == nil {
+	if o == nil || IsNil(o.Target) {
 		return nil, false
 	}
 	return o.Target, true
@@ -128,7 +131,7 @@ func (o *ArtifactRelationship) GetTargetOk() (*ArtifactReference, bool) {
 
 // HasTarget returns a boolean if a field has been set.
 func (o *ArtifactRelationship) HasTarget() bool {
-	if o != nil && o.Target != nil {
+	if o != nil && !IsNil(o.Target) {
 		return true
 	}
 
@@ -142,7 +145,7 @@ func (o *ArtifactRelationship) SetTarget(v ArtifactReference) {
 
 // GetRelationshipType returns the RelationshipType field value if set, zero value otherwise.
 func (o *ArtifactRelationship) GetRelationshipType() RelationshipType {
-	if o == nil || o.RelationshipType == nil {
+	if o == nil || IsNil(o.RelationshipType) {
 		var ret RelationshipType
 		return ret
 	}
@@ -152,7 +155,7 @@ func (o *ArtifactRelationship) GetRelationshipType() RelationshipType {
 // GetRelationshipTypeOk returns a tuple with the RelationshipType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ArtifactRelationship) GetRelationshipTypeOk() (*RelationshipType, bool) {
-	if o == nil || o.RelationshipType == nil {
+	if o == nil || IsNil(o.RelationshipType) {
 		return nil, false
 	}
 	return o.RelationshipType, true
@@ -160,7 +163,7 @@ func (o *ArtifactRelationship) GetRelationshipTypeOk() (*RelationshipType, bool)
 
 // HasRelationshipType returns a boolean if a field has been set.
 func (o *ArtifactRelationship) HasRelationshipType() bool {
-	if o != nil && o.RelationshipType != nil {
+	if o != nil && !IsNil(o.RelationshipType) {
 		return true
 	}
 
@@ -174,7 +177,7 @@ func (o *ArtifactRelationship) SetRelationshipType(v RelationshipType) {
 
 // GetComment returns the Comment field value if set, zero value otherwise.
 func (o *ArtifactRelationship) GetComment() string {
-	if o == nil || o.Comment == nil {
+	if o == nil || IsNil(o.Comment) {
 		var ret string
 		return ret
 	}
@@ -184,7 +187,7 @@ func (o *ArtifactRelationship) GetComment() string {
 // GetCommentOk returns a tuple with the Comment field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ArtifactRelationship) GetCommentOk() (*string, bool) {
-	if o == nil || o.Comment == nil {
+	if o == nil || IsNil(o.Comment) {
 		return nil, false
 	}
 	return o.Comment, true
@@ -192,7 +195,7 @@ func (o *ArtifactRelationship) GetCommentOk() (*string, bool) {
 
 // HasComment returns a boolean if a field has been set.
 func (o *ArtifactRelationship) HasComment() bool {
-	if o != nil && o.Comment != nil {
+	if o != nil && !IsNil(o.Comment) {
 		return true
 	}
 
@@ -206,25 +209,25 @@ func (o *ArtifactRelationship) SetComment(v string) {
 
 // GetUserMetadata returns the UserMetadata field value if set, zero value otherwise.
 func (o *ArtifactRelationship) GetUserMetadata() interface{} {
-	if o == nil || o.UserMetadata == nil {
+	if o == nil || IsNil(o.UserMetadata) {
 		var ret interface{}
 		return ret
 	}
-	return *o.UserMetadata
+	return o.UserMetadata
 }
 
 // GetUserMetadataOk returns a tuple with the UserMetadata field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ArtifactRelationship) GetUserMetadataOk() (*interface{}, bool) {
-	if o == nil || o.UserMetadata == nil {
-		return nil, false
+func (o *ArtifactRelationship) GetUserMetadataOk() (interface{}, bool) {
+	if o == nil || IsNil(o.UserMetadata) {
+		return interface{}{}, false
 	}
 	return o.UserMetadata, true
 }
 
 // HasUserMetadata returns a boolean if a field has been set.
 func (o *ArtifactRelationship) HasUserMetadata() bool {
-	if o != nil && o.UserMetadata != nil {
+	if o != nil && !IsNil(o.UserMetadata) {
 		return true
 	}
 
@@ -233,30 +236,38 @@ func (o *ArtifactRelationship) HasUserMetadata() bool {
 
 // SetUserMetadata gets a reference to the given interface{} and assigns it to the UserMetadata field.
 func (o *ArtifactRelationship) SetUserMetadata(v interface{}) {
-	o.UserMetadata = &v
+	o.UserMetadata = v
 }
 
 func (o ArtifactRelationship) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.CreatedAt != nil {
-		toSerialize["created_at"] = o.CreatedAt
-	}
-	if o.Source != nil {
-		toSerialize["source"] = o.Source
-	}
-	if o.Target != nil {
-		toSerialize["target"] = o.Target
-	}
-	if o.RelationshipType != nil {
-		toSerialize["relationship_type"] = o.RelationshipType
-	}
-	if o.Comment != nil {
-		toSerialize["comment"] = o.Comment
-	}
-	if o.UserMetadata != nil {
-		toSerialize["user_metadata"] = o.UserMetadata
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o ArtifactRelationship) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.CreatedAt) {
+		toSerialize["created_at"] = o.CreatedAt
+	}
+	if !IsNil(o.Source) {
+		toSerialize["source"] = o.Source
+	}
+	if !IsNil(o.Target) {
+		toSerialize["target"] = o.Target
+	}
+	if !IsNil(o.RelationshipType) {
+		toSerialize["relationship_type"] = o.RelationshipType
+	}
+	if !IsNil(o.Comment) {
+		toSerialize["comment"] = o.Comment
+	}
+	if !IsNil(o.UserMetadata) {
+		toSerialize["user_metadata"] = o.UserMetadata
+	}
+	return toSerialize, nil
 }
 
 type NullableArtifactRelationship struct {

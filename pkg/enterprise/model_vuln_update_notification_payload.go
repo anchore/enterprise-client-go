@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the VulnUpdateNotificationPayload type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &VulnUpdateNotificationPayload{}
+
 // VulnUpdateNotificationPayload struct for VulnUpdateNotificationPayload
 type VulnUpdateNotificationPayload struct {
 	AccountName *string `json:"account_name,omitempty"`
@@ -46,7 +49,7 @@ func NewVulnUpdateNotificationPayloadWithDefaults() *VulnUpdateNotificationPaylo
 
 // GetAccountName returns the AccountName field value if set, zero value otherwise.
 func (o *VulnUpdateNotificationPayload) GetAccountName() string {
-	if o == nil || o.AccountName == nil {
+	if o == nil || IsNil(o.AccountName) {
 		var ret string
 		return ret
 	}
@@ -56,7 +59,7 @@ func (o *VulnUpdateNotificationPayload) GetAccountName() string {
 // GetAccountNameOk returns a tuple with the AccountName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *VulnUpdateNotificationPayload) GetAccountNameOk() (*string, bool) {
-	if o == nil || o.AccountName == nil {
+	if o == nil || IsNil(o.AccountName) {
 		return nil, false
 	}
 	return o.AccountName, true
@@ -64,7 +67,7 @@ func (o *VulnUpdateNotificationPayload) GetAccountNameOk() (*string, bool) {
 
 // HasAccountName returns a boolean if a field has been set.
 func (o *VulnUpdateNotificationPayload) HasAccountName() bool {
-	if o != nil && o.AccountName != nil {
+	if o != nil && !IsNil(o.AccountName) {
 		return true
 	}
 
@@ -78,7 +81,7 @@ func (o *VulnUpdateNotificationPayload) SetAccountName(v string) {
 
 // GetSubscriptionKey returns the SubscriptionKey field value if set, zero value otherwise.
 func (o *VulnUpdateNotificationPayload) GetSubscriptionKey() string {
-	if o == nil || o.SubscriptionKey == nil {
+	if o == nil || IsNil(o.SubscriptionKey) {
 		var ret string
 		return ret
 	}
@@ -88,7 +91,7 @@ func (o *VulnUpdateNotificationPayload) GetSubscriptionKey() string {
 // GetSubscriptionKeyOk returns a tuple with the SubscriptionKey field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *VulnUpdateNotificationPayload) GetSubscriptionKeyOk() (*string, bool) {
-	if o == nil || o.SubscriptionKey == nil {
+	if o == nil || IsNil(o.SubscriptionKey) {
 		return nil, false
 	}
 	return o.SubscriptionKey, true
@@ -96,7 +99,7 @@ func (o *VulnUpdateNotificationPayload) GetSubscriptionKeyOk() (*string, bool) {
 
 // HasSubscriptionKey returns a boolean if a field has been set.
 func (o *VulnUpdateNotificationPayload) HasSubscriptionKey() bool {
-	if o != nil && o.SubscriptionKey != nil {
+	if o != nil && !IsNil(o.SubscriptionKey) {
 		return true
 	}
 
@@ -110,7 +113,7 @@ func (o *VulnUpdateNotificationPayload) SetSubscriptionKey(v string) {
 
 // GetSubscriptionType returns the SubscriptionType field value if set, zero value otherwise.
 func (o *VulnUpdateNotificationPayload) GetSubscriptionType() string {
-	if o == nil || o.SubscriptionType == nil {
+	if o == nil || IsNil(o.SubscriptionType) {
 		var ret string
 		return ret
 	}
@@ -120,7 +123,7 @@ func (o *VulnUpdateNotificationPayload) GetSubscriptionType() string {
 // GetSubscriptionTypeOk returns a tuple with the SubscriptionType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *VulnUpdateNotificationPayload) GetSubscriptionTypeOk() (*string, bool) {
-	if o == nil || o.SubscriptionType == nil {
+	if o == nil || IsNil(o.SubscriptionType) {
 		return nil, false
 	}
 	return o.SubscriptionType, true
@@ -128,7 +131,7 @@ func (o *VulnUpdateNotificationPayload) GetSubscriptionTypeOk() (*string, bool) 
 
 // HasSubscriptionType returns a boolean if a field has been set.
 func (o *VulnUpdateNotificationPayload) HasSubscriptionType() bool {
-	if o != nil && o.SubscriptionType != nil {
+	if o != nil && !IsNil(o.SubscriptionType) {
 		return true
 	}
 
@@ -142,7 +145,7 @@ func (o *VulnUpdateNotificationPayload) SetSubscriptionType(v string) {
 
 // GetNotificationId returns the NotificationId field value if set, zero value otherwise.
 func (o *VulnUpdateNotificationPayload) GetNotificationId() string {
-	if o == nil || o.NotificationId == nil {
+	if o == nil || IsNil(o.NotificationId) {
 		var ret string
 		return ret
 	}
@@ -152,7 +155,7 @@ func (o *VulnUpdateNotificationPayload) GetNotificationId() string {
 // GetNotificationIdOk returns a tuple with the NotificationId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *VulnUpdateNotificationPayload) GetNotificationIdOk() (*string, bool) {
-	if o == nil || o.NotificationId == nil {
+	if o == nil || IsNil(o.NotificationId) {
 		return nil, false
 	}
 	return o.NotificationId, true
@@ -160,7 +163,7 @@ func (o *VulnUpdateNotificationPayload) GetNotificationIdOk() (*string, bool) {
 
 // HasNotificationId returns a boolean if a field has been set.
 func (o *VulnUpdateNotificationPayload) HasNotificationId() bool {
-	if o != nil && o.NotificationId != nil {
+	if o != nil && !IsNil(o.NotificationId) {
 		return true
 	}
 
@@ -174,7 +177,7 @@ func (o *VulnUpdateNotificationPayload) SetNotificationId(v string) {
 
 // GetDiffVulnerabilityResult returns the DiffVulnerabilityResult field value if set, zero value otherwise.
 func (o *VulnUpdateNotificationPayload) GetDiffVulnerabilityResult() VulnDiffResult {
-	if o == nil || o.DiffVulnerabilityResult == nil {
+	if o == nil || IsNil(o.DiffVulnerabilityResult) {
 		var ret VulnDiffResult
 		return ret
 	}
@@ -184,7 +187,7 @@ func (o *VulnUpdateNotificationPayload) GetDiffVulnerabilityResult() VulnDiffRes
 // GetDiffVulnerabilityResultOk returns a tuple with the DiffVulnerabilityResult field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *VulnUpdateNotificationPayload) GetDiffVulnerabilityResultOk() (*VulnDiffResult, bool) {
-	if o == nil || o.DiffVulnerabilityResult == nil {
+	if o == nil || IsNil(o.DiffVulnerabilityResult) {
 		return nil, false
 	}
 	return o.DiffVulnerabilityResult, true
@@ -192,7 +195,7 @@ func (o *VulnUpdateNotificationPayload) GetDiffVulnerabilityResultOk() (*VulnDif
 
 // HasDiffVulnerabilityResult returns a boolean if a field has been set.
 func (o *VulnUpdateNotificationPayload) HasDiffVulnerabilityResult() bool {
-	if o != nil && o.DiffVulnerabilityResult != nil {
+	if o != nil && !IsNil(o.DiffVulnerabilityResult) {
 		return true
 	}
 
@@ -206,7 +209,7 @@ func (o *VulnUpdateNotificationPayload) SetDiffVulnerabilityResult(v VulnDiffRes
 
 // GetImageDigest returns the ImageDigest field value if set, zero value otherwise.
 func (o *VulnUpdateNotificationPayload) GetImageDigest() string {
-	if o == nil || o.ImageDigest == nil {
+	if o == nil || IsNil(o.ImageDigest) {
 		var ret string
 		return ret
 	}
@@ -216,7 +219,7 @@ func (o *VulnUpdateNotificationPayload) GetImageDigest() string {
 // GetImageDigestOk returns a tuple with the ImageDigest field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *VulnUpdateNotificationPayload) GetImageDigestOk() (*string, bool) {
-	if o == nil || o.ImageDigest == nil {
+	if o == nil || IsNil(o.ImageDigest) {
 		return nil, false
 	}
 	return o.ImageDigest, true
@@ -224,7 +227,7 @@ func (o *VulnUpdateNotificationPayload) GetImageDigestOk() (*string, bool) {
 
 // HasImageDigest returns a boolean if a field has been set.
 func (o *VulnUpdateNotificationPayload) HasImageDigest() bool {
-	if o != nil && o.ImageDigest != nil {
+	if o != nil && !IsNil(o.ImageDigest) {
 		return true
 	}
 
@@ -238,7 +241,7 @@ func (o *VulnUpdateNotificationPayload) SetImageDigest(v string) {
 
 // GetAnnotations returns the Annotations field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *VulnUpdateNotificationPayload) GetAnnotations() interface{} {
-	if o == nil  {
+	if o == nil {
 		var ret interface{}
 		return ret
 	}
@@ -248,16 +251,16 @@ func (o *VulnUpdateNotificationPayload) GetAnnotations() interface{} {
 // GetAnnotationsOk returns a tuple with the Annotations field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *VulnUpdateNotificationPayload) GetAnnotationsOk() (*interface{}, bool) {
-	if o == nil || o.Annotations == nil {
-		return nil, false
+func (o *VulnUpdateNotificationPayload) GetAnnotationsOk() (interface{}, bool) {
+	if o == nil || IsNil(o.Annotations) {
+		return interface{}{}, false
 	}
-	return &o.Annotations, true
+	return o.Annotations, true
 }
 
 // HasAnnotations returns a boolean if a field has been set.
 func (o *VulnUpdateNotificationPayload) HasAnnotations() bool {
-	if o != nil && o.Annotations != nil {
+	if o != nil && IsNil(o.Annotations) {
 		return true
 	}
 
@@ -270,29 +273,37 @@ func (o *VulnUpdateNotificationPayload) SetAnnotations(v interface{}) {
 }
 
 func (o VulnUpdateNotificationPayload) MarshalJSON() ([]byte, error) {
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o VulnUpdateNotificationPayload) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.AccountName != nil {
+	if !IsNil(o.AccountName) {
 		toSerialize["account_name"] = o.AccountName
 	}
-	if o.SubscriptionKey != nil {
+	if !IsNil(o.SubscriptionKey) {
 		toSerialize["subscription_key"] = o.SubscriptionKey
 	}
-	if o.SubscriptionType != nil {
+	if !IsNil(o.SubscriptionType) {
 		toSerialize["subscription_type"] = o.SubscriptionType
 	}
-	if o.NotificationId != nil {
+	if !IsNil(o.NotificationId) {
 		toSerialize["notification_id"] = o.NotificationId
 	}
-	if o.DiffVulnerabilityResult != nil {
+	if !IsNil(o.DiffVulnerabilityResult) {
 		toSerialize["diff_vulnerability_result"] = o.DiffVulnerabilityResult
 	}
-	if o.ImageDigest != nil {
+	if !IsNil(o.ImageDigest) {
 		toSerialize["image_digest"] = o.ImageDigest
 	}
 	if o.Annotations != nil {
 		toSerialize["annotations"] = o.Annotations
 	}
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
 type NullableVulnUpdateNotificationPayload struct {

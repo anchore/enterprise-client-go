@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the CorrectionFieldMatch type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &CorrectionFieldMatch{}
+
 // CorrectionFieldMatch Defines a particular field name and value to match for a Correction
 type CorrectionFieldMatch struct {
 	// The package field name to match
@@ -55,7 +58,7 @@ func (o *CorrectionFieldMatch) GetFieldName() string {
 // GetFieldNameOk returns a tuple with the FieldName field value
 // and a boolean to check if the value has been set.
 func (o *CorrectionFieldMatch) GetFieldNameOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.FieldName, true
@@ -79,7 +82,7 @@ func (o *CorrectionFieldMatch) GetFieldValue() string {
 // GetFieldValueOk returns a tuple with the FieldValue field value
 // and a boolean to check if the value has been set.
 func (o *CorrectionFieldMatch) GetFieldValueOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.FieldValue, true
@@ -91,14 +94,18 @@ func (o *CorrectionFieldMatch) SetFieldValue(v string) {
 }
 
 func (o CorrectionFieldMatch) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["field_name"] = o.FieldName
-	}
-	if true {
-		toSerialize["field_value"] = o.FieldValue
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o CorrectionFieldMatch) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["field_name"] = o.FieldName
+	toSerialize["field_value"] = o.FieldValue
+	return toSerialize, nil
 }
 
 type NullableCorrectionFieldMatch struct {

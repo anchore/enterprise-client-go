@@ -1,10 +1,10 @@
-# \RepositoryCredentialsApi
+# \RepositoryCredentialsAPI
 
-All URIs are relative to *http://localhost/v2*
+All URIs are relative to */v2*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**AddRepository**](RepositoryCredentialsApi.md#AddRepository) | **Post** /repositories | Add repository to watch
+[**AddRepository**](RepositoryCredentialsAPI.md#AddRepository) | **Post** /repositories | Add repository to watch
 
 
 
@@ -23,7 +23,7 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+    openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
@@ -33,14 +33,14 @@ func main() {
     xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.RepositoryCredentialsApi.AddRepository(context.Background()).Repository(repository).AutoSubscribe(autoSubscribe).DryRun(dryRun).XAnchoreAccount(xAnchoreAccount).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.RepositoryCredentialsAPI.AddRepository(context.Background()).Repository(repository).AutoSubscribe(autoSubscribe).DryRun(dryRun).XAnchoreAccount(xAnchoreAccount).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `RepositoryCredentialsApi.AddRepository``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `RepositoryCredentialsAPI.AddRepository``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
     // response from `AddRepository`: []Subscription
-    fmt.Fprintf(os.Stdout, "Response from `RepositoryCredentialsApi.AddRepository`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `RepositoryCredentialsAPI.AddRepository`: %v\n", resp)
 }
 ```
 

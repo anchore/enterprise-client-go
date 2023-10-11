@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the AnalysisArchiveSource type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &AnalysisArchiveSource{}
+
 // AnalysisArchiveSource An image reference in the analysis archive for the purposes of loading analysis from the archive into th working set
 type AnalysisArchiveSource struct {
 	// The image digest identify the analysis. Archived analyses are based on digest, tag records are restored as analysis is restored.
@@ -52,7 +55,7 @@ func (o *AnalysisArchiveSource) GetDigest() string {
 // GetDigestOk returns a tuple with the Digest field value
 // and a boolean to check if the value has been set.
 func (o *AnalysisArchiveSource) GetDigestOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Digest, true
@@ -64,11 +67,17 @@ func (o *AnalysisArchiveSource) SetDigest(v string) {
 }
 
 func (o AnalysisArchiveSource) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["digest"] = o.Digest
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o AnalysisArchiveSource) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["digest"] = o.Digest
+	return toSerialize, nil
 }
 
 type NullableAnalysisArchiveSource struct {

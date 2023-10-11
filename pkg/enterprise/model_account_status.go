@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the AccountStatus type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &AccountStatus{}
+
 // AccountStatus A summary of account status
 type AccountStatus struct {
 	// The status of the account
@@ -40,7 +43,7 @@ func NewAccountStatusWithDefaults() *AccountStatus {
 
 // GetState returns the State field value if set, zero value otherwise.
 func (o *AccountStatus) GetState() string {
-	if o == nil || o.State == nil {
+	if o == nil || IsNil(o.State) {
 		var ret string
 		return ret
 	}
@@ -50,7 +53,7 @@ func (o *AccountStatus) GetState() string {
 // GetStateOk returns a tuple with the State field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AccountStatus) GetStateOk() (*string, bool) {
-	if o == nil || o.State == nil {
+	if o == nil || IsNil(o.State) {
 		return nil, false
 	}
 	return o.State, true
@@ -58,7 +61,7 @@ func (o *AccountStatus) GetStateOk() (*string, bool) {
 
 // HasState returns a boolean if a field has been set.
 func (o *AccountStatus) HasState() bool {
-	if o != nil && o.State != nil {
+	if o != nil && !IsNil(o.State) {
 		return true
 	}
 
@@ -71,11 +74,19 @@ func (o *AccountStatus) SetState(v string) {
 }
 
 func (o AccountStatus) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.State != nil {
-		toSerialize["state"] = o.State
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o AccountStatus) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.State) {
+		toSerialize["state"] = o.State
+	}
+	return toSerialize, nil
 }
 
 type NullableAccountStatus struct {

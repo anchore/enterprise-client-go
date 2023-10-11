@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the MappingRule type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &MappingRule{}
+
 // MappingRule struct for MappingRule
 type MappingRule struct {
 	Id string `json:"id"`
@@ -66,7 +69,7 @@ func (o *MappingRule) GetId() string {
 // GetIdOk returns a tuple with the Id field value
 // and a boolean to check if the value has been set.
 func (o *MappingRule) GetIdOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Id, true
@@ -90,7 +93,7 @@ func (o *MappingRule) GetName() string {
 // GetNameOk returns a tuple with the Name field value
 // and a boolean to check if the value has been set.
 func (o *MappingRule) GetNameOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Name, true
@@ -113,11 +116,11 @@ func (o *MappingRule) GetAllowlistIds() []string {
 
 // GetAllowlistIdsOk returns a tuple with the AllowlistIds field value
 // and a boolean to check if the value has been set.
-func (o *MappingRule) GetAllowlistIdsOk() (*[]string, bool) {
-	if o == nil  {
+func (o *MappingRule) GetAllowlistIdsOk() ([]string, bool) {
+	if o == nil {
 		return nil, false
 	}
-	return &o.AllowlistIds, true
+	return o.AllowlistIds, true
 }
 
 // SetAllowlistIds sets field value
@@ -137,11 +140,11 @@ func (o *MappingRule) GetRuleSetIds() []string {
 
 // GetRuleSetIdsOk returns a tuple with the RuleSetIds field value
 // and a boolean to check if the value has been set.
-func (o *MappingRule) GetRuleSetIdsOk() (*[]string, bool) {
-	if o == nil  {
+func (o *MappingRule) GetRuleSetIdsOk() ([]string, bool) {
+	if o == nil {
 		return nil, false
 	}
-	return &o.RuleSetIds, true
+	return o.RuleSetIds, true
 }
 
 // SetRuleSetIds sets field value
@@ -162,7 +165,7 @@ func (o *MappingRule) GetRegistry() string {
 // GetRegistryOk returns a tuple with the Registry field value
 // and a boolean to check if the value has been set.
 func (o *MappingRule) GetRegistryOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Registry, true
@@ -186,7 +189,7 @@ func (o *MappingRule) GetRepository() string {
 // GetRepositoryOk returns a tuple with the Repository field value
 // and a boolean to check if the value has been set.
 func (o *MappingRule) GetRepositoryOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Repository, true
@@ -210,7 +213,7 @@ func (o *MappingRule) GetImage() ImageRef {
 // GetImageOk returns a tuple with the Image field value
 // and a boolean to check if the value has been set.
 func (o *MappingRule) GetImageOk() (*ImageRef, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Image, true
@@ -223,7 +226,7 @@ func (o *MappingRule) SetImage(v ImageRef) {
 
 // GetDescription returns the Description field value if set, zero value otherwise.
 func (o *MappingRule) GetDescription() string {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		var ret string
 		return ret
 	}
@@ -233,7 +236,7 @@ func (o *MappingRule) GetDescription() string {
 // GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *MappingRule) GetDescriptionOk() (*string, bool) {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		return nil, false
 	}
 	return o.Description, true
@@ -241,7 +244,7 @@ func (o *MappingRule) GetDescriptionOk() (*string, bool) {
 
 // HasDescription returns a boolean if a field has been set.
 func (o *MappingRule) HasDescription() bool {
-	if o != nil && o.Description != nil {
+	if o != nil && !IsNil(o.Description) {
 		return true
 	}
 
@@ -254,32 +257,26 @@ func (o *MappingRule) SetDescription(v string) {
 }
 
 func (o MappingRule) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["id"] = o.Id
-	}
-	if true {
-		toSerialize["name"] = o.Name
-	}
-	if true {
-		toSerialize["allowlist_ids"] = o.AllowlistIds
-	}
-	if true {
-		toSerialize["rule_set_ids"] = o.RuleSetIds
-	}
-	if true {
-		toSerialize["registry"] = o.Registry
-	}
-	if true {
-		toSerialize["repository"] = o.Repository
-	}
-	if true {
-		toSerialize["image"] = o.Image
-	}
-	if o.Description != nil {
-		toSerialize["description"] = o.Description
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o MappingRule) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["id"] = o.Id
+	toSerialize["name"] = o.Name
+	toSerialize["allowlist_ids"] = o.AllowlistIds
+	toSerialize["rule_set_ids"] = o.RuleSetIds
+	toSerialize["registry"] = o.Registry
+	toSerialize["repository"] = o.Repository
+	toSerialize["image"] = o.Image
+	if !IsNil(o.Description) {
+		toSerialize["description"] = o.Description
+	}
+	return toSerialize, nil
 }
 
 type NullableMappingRule struct {

@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the PackageReference type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PackageReference{}
+
 // PackageReference A record of a software item which is vulnerable or carries a fix for a vulnerability
 type PackageReference struct {
 	// Package name
@@ -46,7 +49,7 @@ func NewPackageReferenceWithDefaults() *PackageReference {
 
 // GetName returns the Name field value if set, zero value otherwise.
 func (o *PackageReference) GetName() string {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		var ret string
 		return ret
 	}
@@ -56,7 +59,7 @@ func (o *PackageReference) GetName() string {
 // GetNameOk returns a tuple with the Name field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PackageReference) GetNameOk() (*string, bool) {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		return nil, false
 	}
 	return o.Name, true
@@ -64,7 +67,7 @@ func (o *PackageReference) GetNameOk() (*string, bool) {
 
 // HasName returns a boolean if a field has been set.
 func (o *PackageReference) HasName() bool {
-	if o != nil && o.Name != nil {
+	if o != nil && !IsNil(o.Name) {
 		return true
 	}
 
@@ -78,7 +81,7 @@ func (o *PackageReference) SetName(v string) {
 
 // GetVersion returns the Version field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *PackageReference) GetVersion() string {
-	if o == nil || o.Version.Get() == nil {
+	if o == nil || IsNil(o.Version.Get()) {
 		var ret string
 		return ret
 	}
@@ -89,7 +92,7 @@ func (o *PackageReference) GetVersion() string {
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *PackageReference) GetVersionOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return o.Version.Get(), o.Version.IsSet()
@@ -120,7 +123,7 @@ func (o *PackageReference) UnsetVersion() {
 
 // GetType returns the Type field value if set, zero value otherwise.
 func (o *PackageReference) GetType() string {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		var ret string
 		return ret
 	}
@@ -130,7 +133,7 @@ func (o *PackageReference) GetType() string {
 // GetTypeOk returns a tuple with the Type field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PackageReference) GetTypeOk() (*string, bool) {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		return nil, false
 	}
 	return o.Type, true
@@ -138,7 +141,7 @@ func (o *PackageReference) GetTypeOk() (*string, bool) {
 
 // HasType returns a boolean if a field has been set.
 func (o *PackageReference) HasType() bool {
-	if o != nil && o.Type != nil {
+	if o != nil && !IsNil(o.Type) {
 		return true
 	}
 
@@ -152,7 +155,7 @@ func (o *PackageReference) SetType(v string) {
 
 // GetWillNotFix returns the WillNotFix field value if set, zero value otherwise.
 func (o *PackageReference) GetWillNotFix() bool {
-	if o == nil || o.WillNotFix == nil {
+	if o == nil || IsNil(o.WillNotFix) {
 		var ret bool
 		return ret
 	}
@@ -162,7 +165,7 @@ func (o *PackageReference) GetWillNotFix() bool {
 // GetWillNotFixOk returns a tuple with the WillNotFix field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PackageReference) GetWillNotFixOk() (*bool, bool) {
-	if o == nil || o.WillNotFix == nil {
+	if o == nil || IsNil(o.WillNotFix) {
 		return nil, false
 	}
 	return o.WillNotFix, true
@@ -170,7 +173,7 @@ func (o *PackageReference) GetWillNotFixOk() (*bool, bool) {
 
 // HasWillNotFix returns a boolean if a field has been set.
 func (o *PackageReference) HasWillNotFix() bool {
-	if o != nil && o.WillNotFix != nil {
+	if o != nil && !IsNil(o.WillNotFix) {
 		return true
 	}
 
@@ -183,20 +186,28 @@ func (o *PackageReference) SetWillNotFix(v bool) {
 }
 
 func (o PackageReference) MarshalJSON() ([]byte, error) {
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o PackageReference) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Name != nil {
+	if !IsNil(o.Name) {
 		toSerialize["name"] = o.Name
 	}
 	if o.Version.IsSet() {
 		toSerialize["version"] = o.Version.Get()
 	}
-	if o.Type != nil {
+	if !IsNil(o.Type) {
 		toSerialize["type"] = o.Type
 	}
-	if o.WillNotFix != nil {
+	if !IsNil(o.WillNotFix) {
 		toSerialize["will_not_fix"] = o.WillNotFix
 	}
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
 type NullablePackageReference struct {

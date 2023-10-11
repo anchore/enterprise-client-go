@@ -16,6 +16,9 @@ import (
 	"time"
 )
 
+// checks if the AlertSummary type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &AlertSummary{}
+
 // AlertSummary A summary of the stateful indicator of a specific event in the system
 type AlertSummary struct {
 	// Identifier for the alert
@@ -24,7 +27,7 @@ type AlertSummary struct {
 	Type *string `json:"type,omitempty"`
 	// Current state of the alert
 	State *string `json:"state,omitempty"`
-	ResourceLabels *[]ResourceLabel `json:"resource_labels,omitempty"`
+	ResourceLabels []ResourceLabel `json:"resource_labels,omitempty"`
 	// Account that closed the alert
 	ClosedBy *string `json:"closed_by,omitempty"`
 	// Reason for closing the alert
@@ -54,7 +57,7 @@ func NewAlertSummaryWithDefaults() *AlertSummary {
 
 // GetUuid returns the Uuid field value if set, zero value otherwise.
 func (o *AlertSummary) GetUuid() string {
-	if o == nil || o.Uuid == nil {
+	if o == nil || IsNil(o.Uuid) {
 		var ret string
 		return ret
 	}
@@ -64,7 +67,7 @@ func (o *AlertSummary) GetUuid() string {
 // GetUuidOk returns a tuple with the Uuid field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AlertSummary) GetUuidOk() (*string, bool) {
-	if o == nil || o.Uuid == nil {
+	if o == nil || IsNil(o.Uuid) {
 		return nil, false
 	}
 	return o.Uuid, true
@@ -72,7 +75,7 @@ func (o *AlertSummary) GetUuidOk() (*string, bool) {
 
 // HasUuid returns a boolean if a field has been set.
 func (o *AlertSummary) HasUuid() bool {
-	if o != nil && o.Uuid != nil {
+	if o != nil && !IsNil(o.Uuid) {
 		return true
 	}
 
@@ -86,7 +89,7 @@ func (o *AlertSummary) SetUuid(v string) {
 
 // GetType returns the Type field value if set, zero value otherwise.
 func (o *AlertSummary) GetType() string {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		var ret string
 		return ret
 	}
@@ -96,7 +99,7 @@ func (o *AlertSummary) GetType() string {
 // GetTypeOk returns a tuple with the Type field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AlertSummary) GetTypeOk() (*string, bool) {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		return nil, false
 	}
 	return o.Type, true
@@ -104,7 +107,7 @@ func (o *AlertSummary) GetTypeOk() (*string, bool) {
 
 // HasType returns a boolean if a field has been set.
 func (o *AlertSummary) HasType() bool {
-	if o != nil && o.Type != nil {
+	if o != nil && !IsNil(o.Type) {
 		return true
 	}
 
@@ -118,7 +121,7 @@ func (o *AlertSummary) SetType(v string) {
 
 // GetState returns the State field value if set, zero value otherwise.
 func (o *AlertSummary) GetState() string {
-	if o == nil || o.State == nil {
+	if o == nil || IsNil(o.State) {
 		var ret string
 		return ret
 	}
@@ -128,7 +131,7 @@ func (o *AlertSummary) GetState() string {
 // GetStateOk returns a tuple with the State field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AlertSummary) GetStateOk() (*string, bool) {
-	if o == nil || o.State == nil {
+	if o == nil || IsNil(o.State) {
 		return nil, false
 	}
 	return o.State, true
@@ -136,7 +139,7 @@ func (o *AlertSummary) GetStateOk() (*string, bool) {
 
 // HasState returns a boolean if a field has been set.
 func (o *AlertSummary) HasState() bool {
-	if o != nil && o.State != nil {
+	if o != nil && !IsNil(o.State) {
 		return true
 	}
 
@@ -150,17 +153,17 @@ func (o *AlertSummary) SetState(v string) {
 
 // GetResourceLabels returns the ResourceLabels field value if set, zero value otherwise.
 func (o *AlertSummary) GetResourceLabels() []ResourceLabel {
-	if o == nil || o.ResourceLabels == nil {
+	if o == nil || IsNil(o.ResourceLabels) {
 		var ret []ResourceLabel
 		return ret
 	}
-	return *o.ResourceLabels
+	return o.ResourceLabels
 }
 
 // GetResourceLabelsOk returns a tuple with the ResourceLabels field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AlertSummary) GetResourceLabelsOk() (*[]ResourceLabel, bool) {
-	if o == nil || o.ResourceLabels == nil {
+func (o *AlertSummary) GetResourceLabelsOk() ([]ResourceLabel, bool) {
+	if o == nil || IsNil(o.ResourceLabels) {
 		return nil, false
 	}
 	return o.ResourceLabels, true
@@ -168,7 +171,7 @@ func (o *AlertSummary) GetResourceLabelsOk() (*[]ResourceLabel, bool) {
 
 // HasResourceLabels returns a boolean if a field has been set.
 func (o *AlertSummary) HasResourceLabels() bool {
-	if o != nil && o.ResourceLabels != nil {
+	if o != nil && !IsNil(o.ResourceLabels) {
 		return true
 	}
 
@@ -177,12 +180,12 @@ func (o *AlertSummary) HasResourceLabels() bool {
 
 // SetResourceLabels gets a reference to the given []ResourceLabel and assigns it to the ResourceLabels field.
 func (o *AlertSummary) SetResourceLabels(v []ResourceLabel) {
-	o.ResourceLabels = &v
+	o.ResourceLabels = v
 }
 
 // GetClosedBy returns the ClosedBy field value if set, zero value otherwise.
 func (o *AlertSummary) GetClosedBy() string {
-	if o == nil || o.ClosedBy == nil {
+	if o == nil || IsNil(o.ClosedBy) {
 		var ret string
 		return ret
 	}
@@ -192,7 +195,7 @@ func (o *AlertSummary) GetClosedBy() string {
 // GetClosedByOk returns a tuple with the ClosedBy field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AlertSummary) GetClosedByOk() (*string, bool) {
-	if o == nil || o.ClosedBy == nil {
+	if o == nil || IsNil(o.ClosedBy) {
 		return nil, false
 	}
 	return o.ClosedBy, true
@@ -200,7 +203,7 @@ func (o *AlertSummary) GetClosedByOk() (*string, bool) {
 
 // HasClosedBy returns a boolean if a field has been set.
 func (o *AlertSummary) HasClosedBy() bool {
-	if o != nil && o.ClosedBy != nil {
+	if o != nil && !IsNil(o.ClosedBy) {
 		return true
 	}
 
@@ -214,7 +217,7 @@ func (o *AlertSummary) SetClosedBy(v string) {
 
 // GetClosedReason returns the ClosedReason field value if set, zero value otherwise.
 func (o *AlertSummary) GetClosedReason() string {
-	if o == nil || o.ClosedReason == nil {
+	if o == nil || IsNil(o.ClosedReason) {
 		var ret string
 		return ret
 	}
@@ -224,7 +227,7 @@ func (o *AlertSummary) GetClosedReason() string {
 // GetClosedReasonOk returns a tuple with the ClosedReason field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AlertSummary) GetClosedReasonOk() (*string, bool) {
-	if o == nil || o.ClosedReason == nil {
+	if o == nil || IsNil(o.ClosedReason) {
 		return nil, false
 	}
 	return o.ClosedReason, true
@@ -232,7 +235,7 @@ func (o *AlertSummary) GetClosedReasonOk() (*string, bool) {
 
 // HasClosedReason returns a boolean if a field has been set.
 func (o *AlertSummary) HasClosedReason() bool {
-	if o != nil && o.ClosedReason != nil {
+	if o != nil && !IsNil(o.ClosedReason) {
 		return true
 	}
 
@@ -246,7 +249,7 @@ func (o *AlertSummary) SetClosedReason(v string) {
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
 func (o *AlertSummary) GetCreatedAt() time.Time {
-	if o == nil || o.CreatedAt == nil {
+	if o == nil || IsNil(o.CreatedAt) {
 		var ret time.Time
 		return ret
 	}
@@ -256,7 +259,7 @@ func (o *AlertSummary) GetCreatedAt() time.Time {
 // GetCreatedAtOk returns a tuple with the CreatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AlertSummary) GetCreatedAtOk() (*time.Time, bool) {
-	if o == nil || o.CreatedAt == nil {
+	if o == nil || IsNil(o.CreatedAt) {
 		return nil, false
 	}
 	return o.CreatedAt, true
@@ -264,7 +267,7 @@ func (o *AlertSummary) GetCreatedAtOk() (*time.Time, bool) {
 
 // HasCreatedAt returns a boolean if a field has been set.
 func (o *AlertSummary) HasCreatedAt() bool {
-	if o != nil && o.CreatedAt != nil {
+	if o != nil && !IsNil(o.CreatedAt) {
 		return true
 	}
 
@@ -278,7 +281,7 @@ func (o *AlertSummary) SetCreatedAt(v time.Time) {
 
 // GetLastUpdated returns the LastUpdated field value if set, zero value otherwise.
 func (o *AlertSummary) GetLastUpdated() time.Time {
-	if o == nil || o.LastUpdated == nil {
+	if o == nil || IsNil(o.LastUpdated) {
 		var ret time.Time
 		return ret
 	}
@@ -288,7 +291,7 @@ func (o *AlertSummary) GetLastUpdated() time.Time {
 // GetLastUpdatedOk returns a tuple with the LastUpdated field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AlertSummary) GetLastUpdatedOk() (*time.Time, bool) {
-	if o == nil || o.LastUpdated == nil {
+	if o == nil || IsNil(o.LastUpdated) {
 		return nil, false
 	}
 	return o.LastUpdated, true
@@ -296,7 +299,7 @@ func (o *AlertSummary) GetLastUpdatedOk() (*time.Time, bool) {
 
 // HasLastUpdated returns a boolean if a field has been set.
 func (o *AlertSummary) HasLastUpdated() bool {
-	if o != nil && o.LastUpdated != nil {
+	if o != nil && !IsNil(o.LastUpdated) {
 		return true
 	}
 
@@ -309,32 +312,40 @@ func (o *AlertSummary) SetLastUpdated(v time.Time) {
 }
 
 func (o AlertSummary) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Uuid != nil {
-		toSerialize["uuid"] = o.Uuid
-	}
-	if o.Type != nil {
-		toSerialize["type"] = o.Type
-	}
-	if o.State != nil {
-		toSerialize["state"] = o.State
-	}
-	if o.ResourceLabels != nil {
-		toSerialize["resource_labels"] = o.ResourceLabels
-	}
-	if o.ClosedBy != nil {
-		toSerialize["closed_by"] = o.ClosedBy
-	}
-	if o.ClosedReason != nil {
-		toSerialize["closed_reason"] = o.ClosedReason
-	}
-	if o.CreatedAt != nil {
-		toSerialize["created_at"] = o.CreatedAt
-	}
-	if o.LastUpdated != nil {
-		toSerialize["last_updated"] = o.LastUpdated
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o AlertSummary) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Uuid) {
+		toSerialize["uuid"] = o.Uuid
+	}
+	if !IsNil(o.Type) {
+		toSerialize["type"] = o.Type
+	}
+	if !IsNil(o.State) {
+		toSerialize["state"] = o.State
+	}
+	if !IsNil(o.ResourceLabels) {
+		toSerialize["resource_labels"] = o.ResourceLabels
+	}
+	if !IsNil(o.ClosedBy) {
+		toSerialize["closed_by"] = o.ClosedBy
+	}
+	if !IsNil(o.ClosedReason) {
+		toSerialize["closed_reason"] = o.ClosedReason
+	}
+	if !IsNil(o.CreatedAt) {
+		toSerialize["created_at"] = o.CreatedAt
+	}
+	if !IsNil(o.LastUpdated) {
+		toSerialize["last_updated"] = o.LastUpdated
+	}
+	return toSerialize, nil
 }
 
 type NullableAlertSummary struct {

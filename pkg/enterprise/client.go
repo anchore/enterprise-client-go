@@ -50,49 +50,49 @@ type APIClient struct {
 
 	// API Services
 
-	ActionsApi ActionsApi
+	ActionsAPI ActionsAPI
 
-	AlertsApi AlertsApi
+	AlertsAPI AlertsAPI
 
-	ApplicationsApi ApplicationsApi
+	ApplicationsAPI ApplicationsAPI
 
-	ArchivesApi ArchivesApi
+	ArchivesAPI ArchivesAPI
 
-	CorrectionsApi CorrectionsApi
+	CorrectionsAPI CorrectionsAPI
 
-	DefaultApi DefaultApi
+	DefaultAPI DefaultAPI
 
-	EventsApi EventsApi
+	EventsAPI EventsAPI
 
-	IdentityApi IdentityApi
+	IdentityAPI IdentityAPI
 
-	ImagesApi ImagesApi
+	ImagesAPI ImagesAPI
 
-	ImportsApi ImportsApi
+	ImportsAPI ImportsAPI
 
-	InventoriesApi InventoriesApi
+	InventoriesAPI InventoriesAPI
 
-	PoliciesApi PoliciesApi
+	PoliciesAPI PoliciesAPI
 
-	QueryApi QueryApi
+	QueryAPI QueryAPI
 
-	RegistriesApi RegistriesApi
+	RegistriesAPI RegistriesAPI
 
-	RelationshipsApi RelationshipsApi
+	RelationshipsAPI RelationshipsAPI
 
-	RepositoryCredentialsApi RepositoryCredentialsApi
+	RepositoryCredentialsAPI RepositoryCredentialsAPI
 
-	SourcesApi SourcesApi
+	SourcesAPI SourcesAPI
 
-	StatelessApi StatelessApi
+	StatelessAPI StatelessAPI
 
-	SubscriptionsApi SubscriptionsApi
+	SubscriptionsAPI SubscriptionsAPI
 
-	SummariesApi SummariesApi
+	SummariesAPI SummariesAPI
 
-	SystemApi SystemApi
+	SystemAPI SystemAPI
 
-	UserManagementApi UserManagementApi
+	UserManagementAPI UserManagementAPI
 }
 
 type service struct {
@@ -111,28 +111,28 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.common.client = c
 
 	// API Services
-	c.ActionsApi = (*ActionsApiService)(&c.common)
-	c.AlertsApi = (*AlertsApiService)(&c.common)
-	c.ApplicationsApi = (*ApplicationsApiService)(&c.common)
-	c.ArchivesApi = (*ArchivesApiService)(&c.common)
-	c.CorrectionsApi = (*CorrectionsApiService)(&c.common)
-	c.DefaultApi = (*DefaultApiService)(&c.common)
-	c.EventsApi = (*EventsApiService)(&c.common)
-	c.IdentityApi = (*IdentityApiService)(&c.common)
-	c.ImagesApi = (*ImagesApiService)(&c.common)
-	c.ImportsApi = (*ImportsApiService)(&c.common)
-	c.InventoriesApi = (*InventoriesApiService)(&c.common)
-	c.PoliciesApi = (*PoliciesApiService)(&c.common)
-	c.QueryApi = (*QueryApiService)(&c.common)
-	c.RegistriesApi = (*RegistriesApiService)(&c.common)
-	c.RelationshipsApi = (*RelationshipsApiService)(&c.common)
-	c.RepositoryCredentialsApi = (*RepositoryCredentialsApiService)(&c.common)
-	c.SourcesApi = (*SourcesApiService)(&c.common)
-	c.StatelessApi = (*StatelessApiService)(&c.common)
-	c.SubscriptionsApi = (*SubscriptionsApiService)(&c.common)
-	c.SummariesApi = (*SummariesApiService)(&c.common)
-	c.SystemApi = (*SystemApiService)(&c.common)
-	c.UserManagementApi = (*UserManagementApiService)(&c.common)
+	c.ActionsAPI = (*ActionsAPIService)(&c.common)
+	c.AlertsAPI = (*AlertsAPIService)(&c.common)
+	c.ApplicationsAPI = (*ApplicationsAPIService)(&c.common)
+	c.ArchivesAPI = (*ArchivesAPIService)(&c.common)
+	c.CorrectionsAPI = (*CorrectionsAPIService)(&c.common)
+	c.DefaultAPI = (*DefaultAPIService)(&c.common)
+	c.EventsAPI = (*EventsAPIService)(&c.common)
+	c.IdentityAPI = (*IdentityAPIService)(&c.common)
+	c.ImagesAPI = (*ImagesAPIService)(&c.common)
+	c.ImportsAPI = (*ImportsAPIService)(&c.common)
+	c.InventoriesAPI = (*InventoriesAPIService)(&c.common)
+	c.PoliciesAPI = (*PoliciesAPIService)(&c.common)
+	c.QueryAPI = (*QueryAPIService)(&c.common)
+	c.RegistriesAPI = (*RegistriesAPIService)(&c.common)
+	c.RelationshipsAPI = (*RelationshipsAPIService)(&c.common)
+	c.RepositoryCredentialsAPI = (*RepositoryCredentialsAPIService)(&c.common)
+	c.SourcesAPI = (*SourcesAPIService)(&c.common)
+	c.StatelessAPI = (*StatelessAPIService)(&c.common)
+	c.SubscriptionsAPI = (*SubscriptionsAPIService)(&c.common)
+	c.SummariesAPI = (*SummariesAPIService)(&c.common)
+	c.SystemAPI = (*SystemAPIService)(&c.common)
+	c.UserManagementAPI = (*UserManagementAPIService)(&c.common)
 
 	return c
 }

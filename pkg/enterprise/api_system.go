@@ -13,211 +13,206 @@ package enterprise
 
 import (
 	"bytes"
-	_context "context"
-	_ioutil "io/ioutil"
-	_nethttp "net/http"
-	_neturl "net/url"
+	"context"
+	"io"
+	"net/http"
+	"net/url"
 	"strings"
 )
 
-// Linger please
-var (
-	_ _context.Context
-)
 
-type SystemApi interface {
+type SystemAPI interface {
 
 	/*
 	DeleteFeed Method for DeleteFeed
 
 	Delete the groups and data for the feed and disable the feed itself
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @param feed
-	 @return ApiDeleteFeedRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param feed
+	@return ApiDeleteFeedRequest
 	*/
-	DeleteFeed(ctx _context.Context, feed string) ApiDeleteFeedRequest
+	DeleteFeed(ctx context.Context, feed string) ApiDeleteFeedRequest
 
 	// DeleteFeedExecute executes the request
-	DeleteFeedExecute(r ApiDeleteFeedRequest) (*_nethttp.Response, error)
+	DeleteFeedExecute(r ApiDeleteFeedRequest) (*http.Response, error)
 
 	/*
 	DeleteService Delete the service config
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @param serviceName
-	 @param hostId
-	 @return ApiDeleteServiceRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param serviceName
+	@param hostId
+	@return ApiDeleteServiceRequest
 	*/
-	DeleteService(ctx _context.Context, serviceName string, hostId string) ApiDeleteServiceRequest
+	DeleteService(ctx context.Context, serviceName string, hostId string) ApiDeleteServiceRequest
 
 	// DeleteServiceExecute executes the request
-	DeleteServiceExecute(r ApiDeleteServiceRequest) (*_nethttp.Response, error)
+	DeleteServiceExecute(r ApiDeleteServiceRequest) (*http.Response, error)
 
 	/*
 	DescribeErrorCodes Describe anchore engine error codes.
 
 	Describe anchore engine error codes.
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @return ApiDescribeErrorCodesRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiDescribeErrorCodesRequest
 	*/
-	DescribeErrorCodes(ctx _context.Context) ApiDescribeErrorCodesRequest
+	DescribeErrorCodes(ctx context.Context) ApiDescribeErrorCodesRequest
 
 	// DescribeErrorCodesExecute executes the request
 	//  @return []AnchoreErrorCode
-	DescribeErrorCodesExecute(r ApiDescribeErrorCodesRequest) ([]AnchoreErrorCode, *_nethttp.Response, error)
+	DescribeErrorCodesExecute(r ApiDescribeErrorCodesRequest) ([]AnchoreErrorCode, *http.Response, error)
 
 	/*
 	DescribePolicy Describe the policy language spec implemented by this service.
 
 	Get the policy language spec for this service
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @return ApiDescribePolicyRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiDescribePolicyRequest
 	*/
-	DescribePolicy(ctx _context.Context) ApiDescribePolicyRequest
+	DescribePolicy(ctx context.Context) ApiDescribePolicyRequest
 
 	// DescribePolicyExecute executes the request
 	//  @return []GateSpec
-	DescribePolicyExecute(r ApiDescribePolicyRequest) ([]GateSpec, *_nethttp.Response, error)
+	DescribePolicyExecute(r ApiDescribePolicyRequest) ([]GateSpec, *http.Response, error)
 
 	/*
 	GetServiceDetail System status
 
 	Get the system status including queue lengths
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @return ApiGetServiceDetailRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiGetServiceDetailRequest
 	*/
-	GetServiceDetail(ctx _context.Context) ApiGetServiceDetailRequest
+	GetServiceDetail(ctx context.Context) ApiGetServiceDetailRequest
 
 	// GetServiceDetailExecute executes the request
 	//  @return SystemStatusResponse
-	GetServiceDetailExecute(r ApiGetServiceDetailRequest) (SystemStatusResponse, *_nethttp.Response, error)
+	GetServiceDetailExecute(r ApiGetServiceDetailRequest) (*SystemStatusResponse, *http.Response, error)
 
 	/*
 	GetServicesByName Get a service configuration and state
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @param serviceName
-	 @return ApiGetServicesByNameRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param serviceName
+	@return ApiGetServicesByNameRequest
 	*/
-	GetServicesByName(ctx _context.Context, serviceName string) ApiGetServicesByNameRequest
+	GetServicesByName(ctx context.Context, serviceName string) ApiGetServicesByNameRequest
 
 	// GetServicesByNameExecute executes the request
 	//  @return []Service
-	GetServicesByNameExecute(r ApiGetServicesByNameRequest) ([]Service, *_nethttp.Response, error)
+	GetServicesByNameExecute(r ApiGetServicesByNameRequest) ([]Service, *http.Response, error)
 
 	/*
 	GetServicesByNameAndHost Get service config for a specific host
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @param serviceName
-	 @param hostId
-	 @return ApiGetServicesByNameAndHostRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param serviceName
+	@param hostId
+	@return ApiGetServicesByNameAndHostRequest
 	*/
-	GetServicesByNameAndHost(ctx _context.Context, serviceName string, hostId string) ApiGetServicesByNameAndHostRequest
+	GetServicesByNameAndHost(ctx context.Context, serviceName string, hostId string) ApiGetServicesByNameAndHostRequest
 
 	// GetServicesByNameAndHostExecute executes the request
 	//  @return []Service
-	GetServicesByNameAndHostExecute(r ApiGetServicesByNameAndHostRequest) ([]Service, *_nethttp.Response, error)
+	GetServicesByNameAndHostExecute(r ApiGetServicesByNameAndHostRequest) ([]Service, *http.Response, error)
 
 	/*
 	GetStatus Service status
 
 	Get the API service status
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @return ApiGetStatusRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiGetStatusRequest
 	*/
-	GetStatus(ctx _context.Context) ApiGetStatusRequest
+	GetStatus(ctx context.Context) ApiGetStatusRequest
 
 	// GetStatusExecute executes the request
 	//  @return StatusResponse
-	GetStatusExecute(r ApiGetStatusRequest) (StatusResponse, *_nethttp.Response, error)
+	GetStatusExecute(r ApiGetStatusRequest) (*StatusResponse, *http.Response, error)
 
 	/*
 	GetSystemFeeds list feeds operations and information
 
 	Return a list of feed and their groups along with update and record count information. This data reflects the state of the policy engine, not the upstream feed service itself.
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @return ApiGetSystemFeedsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiGetSystemFeedsRequest
 	*/
-	GetSystemFeeds(ctx _context.Context) ApiGetSystemFeedsRequest
+	GetSystemFeeds(ctx context.Context) ApiGetSystemFeedsRequest
 
 	// GetSystemFeedsExecute executes the request
 	//  @return []FeedMetadata
-	GetSystemFeedsExecute(r ApiGetSystemFeedsRequest) ([]FeedMetadata, *_nethttp.Response, error)
+	GetSystemFeedsExecute(r ApiGetSystemFeedsRequest) ([]FeedMetadata, *http.Response, error)
 
 	/*
 	ListServices List system services
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @return ApiListServicesRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiListServicesRequest
 	*/
-	ListServices(ctx _context.Context) ApiListServicesRequest
+	ListServices(ctx context.Context) ApiListServicesRequest
 
 	// ListServicesExecute executes the request
 	//  @return []Service
-	ListServicesExecute(r ApiListServicesRequest) ([]Service, *_nethttp.Response, error)
+	ListServicesExecute(r ApiListServicesRequest) ([]Service, *http.Response, error)
 
 	/*
 	PostSystemFeeds trigger feeds operations
 
 	Execute a synchronous update of the latest GrypeDB with the policy-engine. The response will block until complete, then return the result summary.
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @return ApiPostSystemFeedsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiPostSystemFeedsRequest
 	*/
-	PostSystemFeeds(ctx _context.Context) ApiPostSystemFeedsRequest
+	PostSystemFeeds(ctx context.Context) ApiPostSystemFeedsRequest
 
 	// PostSystemFeedsExecute executes the request
 	//  @return []FeedSyncResult
-	PostSystemFeedsExecute(r ApiPostSystemFeedsRequest) ([]FeedSyncResult, *_nethttp.Response, error)
+	PostSystemFeedsExecute(r ApiPostSystemFeedsRequest) ([]FeedSyncResult, *http.Response, error)
 
 	/*
 	TestWebhook Adds the capabilities to test a webhook delivery for the given notification type
 
 	Loads the Webhook configuration for webhook_type, and sends the notification out as a test
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @param webhookType The Webhook Type that we should test
-	 @return ApiTestWebhookRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param webhookType The Webhook Type that we should test
+	@return ApiTestWebhookRequest
 	*/
-	TestWebhook(ctx _context.Context, webhookType string) ApiTestWebhookRequest
+	TestWebhook(ctx context.Context, webhookType string) ApiTestWebhookRequest
 
 	// TestWebhookExecute executes the request
-	TestWebhookExecute(r ApiTestWebhookRequest) (*_nethttp.Response, error)
+	TestWebhookExecute(r ApiTestWebhookRequest) (*http.Response, error)
 
 	/*
 	ToggleFeedEnabled Method for ToggleFeedEnabled
 
 	Disable the feed so that it does not sync on subsequent sync operations
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @param feed
-	 @return ApiToggleFeedEnabledRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param feed
+	@return ApiToggleFeedEnabledRequest
 	*/
-	ToggleFeedEnabled(ctx _context.Context, feed string) ApiToggleFeedEnabledRequest
+	ToggleFeedEnabled(ctx context.Context, feed string) ApiToggleFeedEnabledRequest
 
 	// ToggleFeedEnabledExecute executes the request
 	//  @return FeedMetadata
-	ToggleFeedEnabledExecute(r ApiToggleFeedEnabledRequest) (FeedMetadata, *_nethttp.Response, error)
+	ToggleFeedEnabledExecute(r ApiToggleFeedEnabledRequest) (*FeedMetadata, *http.Response, error)
 }
 
-// SystemApiService SystemApi service
-type SystemApiService service
+// SystemAPIService SystemAPI service
+type SystemAPIService service
 
 type ApiDeleteFeedRequest struct {
-	ctx _context.Context
-	ApiService SystemApi
+	ctx context.Context
+	ApiService SystemAPI
 	feed string
 }
 
-
-func (r ApiDeleteFeedRequest) Execute() (*_nethttp.Response, error) {
+func (r ApiDeleteFeedRequest) Execute() (*http.Response, error) {
 	return r.ApiService.DeleteFeedExecute(r)
 }
 
@@ -226,11 +221,11 @@ DeleteFeed Method for DeleteFeed
 
 Delete the groups and data for the feed and disable the feed itself
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param feed
  @return ApiDeleteFeedRequest
 */
-func (a *SystemApiService) DeleteFeed(ctx _context.Context, feed string) ApiDeleteFeedRequest {
+func (a *SystemAPIService) DeleteFeed(ctx context.Context, feed string) ApiDeleteFeedRequest {
 	return ApiDeleteFeedRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -239,26 +234,24 @@ func (a *SystemApiService) DeleteFeed(ctx _context.Context, feed string) ApiDele
 }
 
 // Execute executes the request
-func (a *SystemApiService) DeleteFeedExecute(r ApiDeleteFeedRequest) (*_nethttp.Response, error) {
+func (a *SystemAPIService) DeleteFeedExecute(r ApiDeleteFeedRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodDelete
+		localVarHTTPMethod   = http.MethodDelete
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
+		formFiles            []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SystemApiService.DeleteFeed")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SystemAPIService.DeleteFeed")
 	if err != nil {
-		return nil, GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/system/feeds/{feed}"
-	localVarPath = strings.Replace(localVarPath, "{"+"feed"+"}", _neturl.PathEscape(parameterToString(r.feed, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"feed"+"}", url.PathEscape(parameterValueToString(r.feed, "feed")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -277,7 +270,7 @@ func (a *SystemApiService) DeleteFeedExecute(r ApiDeleteFeedRequest) (*_nethttp.
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
 	}
@@ -287,15 +280,15 @@ func (a *SystemApiService) DeleteFeedExecute(r ApiDeleteFeedRequest) (*_nethttp.
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -306,26 +299,25 @@ func (a *SystemApiService) DeleteFeedExecute(r ApiDeleteFeedRequest) (*_nethttp.
 }
 
 type ApiDeleteServiceRequest struct {
-	ctx _context.Context
-	ApiService SystemApi
+	ctx context.Context
+	ApiService SystemAPI
 	serviceName string
 	hostId string
 }
 
-
-func (r ApiDeleteServiceRequest) Execute() (*_nethttp.Response, error) {
+func (r ApiDeleteServiceRequest) Execute() (*http.Response, error) {
 	return r.ApiService.DeleteServiceExecute(r)
 }
 
 /*
 DeleteService Delete the service config
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param serviceName
  @param hostId
  @return ApiDeleteServiceRequest
 */
-func (a *SystemApiService) DeleteService(ctx _context.Context, serviceName string, hostId string) ApiDeleteServiceRequest {
+func (a *SystemAPIService) DeleteService(ctx context.Context, serviceName string, hostId string) ApiDeleteServiceRequest {
 	return ApiDeleteServiceRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -335,27 +327,25 @@ func (a *SystemApiService) DeleteService(ctx _context.Context, serviceName strin
 }
 
 // Execute executes the request
-func (a *SystemApiService) DeleteServiceExecute(r ApiDeleteServiceRequest) (*_nethttp.Response, error) {
+func (a *SystemAPIService) DeleteServiceExecute(r ApiDeleteServiceRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodDelete
+		localVarHTTPMethod   = http.MethodDelete
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
+		formFiles            []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SystemApiService.DeleteService")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SystemAPIService.DeleteService")
 	if err != nil {
-		return nil, GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/system/services/{service_name}/{host_id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"service_name"+"}", _neturl.PathEscape(parameterToString(r.serviceName, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"host_id"+"}", _neturl.PathEscape(parameterToString(r.hostId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"service_name"+"}", url.PathEscape(parameterValueToString(r.serviceName, "serviceName")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"host_id"+"}", url.PathEscape(parameterValueToString(r.hostId, "hostId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -374,7 +364,7 @@ func (a *SystemApiService) DeleteServiceExecute(r ApiDeleteServiceRequest) (*_ne
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
 	}
@@ -384,15 +374,15 @@ func (a *SystemApiService) DeleteServiceExecute(r ApiDeleteServiceRequest) (*_ne
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -403,7 +393,8 @@ func (a *SystemApiService) DeleteServiceExecute(r ApiDeleteServiceRequest) (*_ne
 				newErr.error = err.Error()
 				return localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarHTTPResponse, newErr
 	}
@@ -412,12 +403,11 @@ func (a *SystemApiService) DeleteServiceExecute(r ApiDeleteServiceRequest) (*_ne
 }
 
 type ApiDescribeErrorCodesRequest struct {
-	ctx _context.Context
-	ApiService SystemApi
+	ctx context.Context
+	ApiService SystemAPI
 }
 
-
-func (r ApiDescribeErrorCodesRequest) Execute() ([]AnchoreErrorCode, *_nethttp.Response, error) {
+func (r ApiDescribeErrorCodesRequest) Execute() ([]AnchoreErrorCode, *http.Response, error) {
 	return r.ApiService.DescribeErrorCodesExecute(r)
 }
 
@@ -426,10 +416,10 @@ DescribeErrorCodes Describe anchore engine error codes.
 
 Describe anchore engine error codes.
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiDescribeErrorCodesRequest
 */
-func (a *SystemApiService) DescribeErrorCodes(ctx _context.Context) ApiDescribeErrorCodesRequest {
+func (a *SystemAPIService) DescribeErrorCodes(ctx context.Context) ApiDescribeErrorCodesRequest {
 	return ApiDescribeErrorCodesRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -438,26 +428,24 @@ func (a *SystemApiService) DescribeErrorCodes(ctx _context.Context) ApiDescribeE
 
 // Execute executes the request
 //  @return []AnchoreErrorCode
-func (a *SystemApiService) DescribeErrorCodesExecute(r ApiDescribeErrorCodesRequest) ([]AnchoreErrorCode, *_nethttp.Response, error) {
+func (a *SystemAPIService) DescribeErrorCodesExecute(r ApiDescribeErrorCodesRequest) ([]AnchoreErrorCode, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
+		formFiles            []formFile
 		localVarReturnValue  []AnchoreErrorCode
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SystemApiService.DescribeErrorCodes")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SystemAPIService.DescribeErrorCodes")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/system/error-codes"
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -476,7 +464,7 @@ func (a *SystemApiService) DescribeErrorCodesExecute(r ApiDescribeErrorCodesRequ
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -486,15 +474,15 @@ func (a *SystemApiService) DescribeErrorCodesExecute(r ApiDescribeErrorCodesRequ
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -503,7 +491,7 @@ func (a *SystemApiService) DescribeErrorCodesExecute(r ApiDescribeErrorCodesRequ
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -514,12 +502,11 @@ func (a *SystemApiService) DescribeErrorCodesExecute(r ApiDescribeErrorCodesRequ
 }
 
 type ApiDescribePolicyRequest struct {
-	ctx _context.Context
-	ApiService SystemApi
+	ctx context.Context
+	ApiService SystemAPI
 }
 
-
-func (r ApiDescribePolicyRequest) Execute() ([]GateSpec, *_nethttp.Response, error) {
+func (r ApiDescribePolicyRequest) Execute() ([]GateSpec, *http.Response, error) {
 	return r.ApiService.DescribePolicyExecute(r)
 }
 
@@ -528,10 +515,10 @@ DescribePolicy Describe the policy language spec implemented by this service.
 
 Get the policy language spec for this service
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiDescribePolicyRequest
 */
-func (a *SystemApiService) DescribePolicy(ctx _context.Context) ApiDescribePolicyRequest {
+func (a *SystemAPIService) DescribePolicy(ctx context.Context) ApiDescribePolicyRequest {
 	return ApiDescribePolicyRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -540,26 +527,24 @@ func (a *SystemApiService) DescribePolicy(ctx _context.Context) ApiDescribePolic
 
 // Execute executes the request
 //  @return []GateSpec
-func (a *SystemApiService) DescribePolicyExecute(r ApiDescribePolicyRequest) ([]GateSpec, *_nethttp.Response, error) {
+func (a *SystemAPIService) DescribePolicyExecute(r ApiDescribePolicyRequest) ([]GateSpec, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
+		formFiles            []formFile
 		localVarReturnValue  []GateSpec
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SystemApiService.DescribePolicy")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SystemAPIService.DescribePolicy")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/system/policy-spec"
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -578,7 +563,7 @@ func (a *SystemApiService) DescribePolicyExecute(r ApiDescribePolicyRequest) ([]
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -588,15 +573,15 @@ func (a *SystemApiService) DescribePolicyExecute(r ApiDescribePolicyRequest) ([]
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -605,7 +590,7 @@ func (a *SystemApiService) DescribePolicyExecute(r ApiDescribePolicyRequest) ([]
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -616,12 +601,11 @@ func (a *SystemApiService) DescribePolicyExecute(r ApiDescribePolicyRequest) ([]
 }
 
 type ApiGetServiceDetailRequest struct {
-	ctx _context.Context
-	ApiService SystemApi
+	ctx context.Context
+	ApiService SystemAPI
 }
 
-
-func (r ApiGetServiceDetailRequest) Execute() (SystemStatusResponse, *_nethttp.Response, error) {
+func (r ApiGetServiceDetailRequest) Execute() (*SystemStatusResponse, *http.Response, error) {
 	return r.ApiService.GetServiceDetailExecute(r)
 }
 
@@ -630,10 +614,10 @@ GetServiceDetail System status
 
 Get the system status including queue lengths
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiGetServiceDetailRequest
 */
-func (a *SystemApiService) GetServiceDetail(ctx _context.Context) ApiGetServiceDetailRequest {
+func (a *SystemAPIService) GetServiceDetail(ctx context.Context) ApiGetServiceDetailRequest {
 	return ApiGetServiceDetailRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -642,26 +626,24 @@ func (a *SystemApiService) GetServiceDetail(ctx _context.Context) ApiGetServiceD
 
 // Execute executes the request
 //  @return SystemStatusResponse
-func (a *SystemApiService) GetServiceDetailExecute(r ApiGetServiceDetailRequest) (SystemStatusResponse, *_nethttp.Response, error) {
+func (a *SystemAPIService) GetServiceDetailExecute(r ApiGetServiceDetailRequest) (*SystemStatusResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  SystemStatusResponse
+		formFiles            []formFile
+		localVarReturnValue  *SystemStatusResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SystemApiService.GetServiceDetail")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SystemAPIService.GetServiceDetail")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/system"
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -680,7 +662,7 @@ func (a *SystemApiService) GetServiceDetailExecute(r ApiGetServiceDetailRequest)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -690,15 +672,15 @@ func (a *SystemApiService) GetServiceDetailExecute(r ApiGetServiceDetailRequest)
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -709,14 +691,15 @@ func (a *SystemApiService) GetServiceDetailExecute(r ApiGetServiceDetailRequest)
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -727,24 +710,23 @@ func (a *SystemApiService) GetServiceDetailExecute(r ApiGetServiceDetailRequest)
 }
 
 type ApiGetServicesByNameRequest struct {
-	ctx _context.Context
-	ApiService SystemApi
+	ctx context.Context
+	ApiService SystemAPI
 	serviceName string
 }
 
-
-func (r ApiGetServicesByNameRequest) Execute() ([]Service, *_nethttp.Response, error) {
+func (r ApiGetServicesByNameRequest) Execute() ([]Service, *http.Response, error) {
 	return r.ApiService.GetServicesByNameExecute(r)
 }
 
 /*
 GetServicesByName Get a service configuration and state
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param serviceName
  @return ApiGetServicesByNameRequest
 */
-func (a *SystemApiService) GetServicesByName(ctx _context.Context, serviceName string) ApiGetServicesByNameRequest {
+func (a *SystemAPIService) GetServicesByName(ctx context.Context, serviceName string) ApiGetServicesByNameRequest {
 	return ApiGetServicesByNameRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -754,27 +736,25 @@ func (a *SystemApiService) GetServicesByName(ctx _context.Context, serviceName s
 
 // Execute executes the request
 //  @return []Service
-func (a *SystemApiService) GetServicesByNameExecute(r ApiGetServicesByNameRequest) ([]Service, *_nethttp.Response, error) {
+func (a *SystemAPIService) GetServicesByNameExecute(r ApiGetServicesByNameRequest) ([]Service, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
+		formFiles            []formFile
 		localVarReturnValue  []Service
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SystemApiService.GetServicesByName")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SystemAPIService.GetServicesByName")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/system/services/{service_name}"
-	localVarPath = strings.Replace(localVarPath, "{"+"service_name"+"}", _neturl.PathEscape(parameterToString(r.serviceName, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"service_name"+"}", url.PathEscape(parameterValueToString(r.serviceName, "serviceName")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -793,7 +773,7 @@ func (a *SystemApiService) GetServicesByNameExecute(r ApiGetServicesByNameReques
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -803,15 +783,15 @@ func (a *SystemApiService) GetServicesByNameExecute(r ApiGetServicesByNameReques
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -822,14 +802,15 @@ func (a *SystemApiService) GetServicesByNameExecute(r ApiGetServicesByNameReques
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -840,26 +821,25 @@ func (a *SystemApiService) GetServicesByNameExecute(r ApiGetServicesByNameReques
 }
 
 type ApiGetServicesByNameAndHostRequest struct {
-	ctx _context.Context
-	ApiService SystemApi
+	ctx context.Context
+	ApiService SystemAPI
 	serviceName string
 	hostId string
 }
 
-
-func (r ApiGetServicesByNameAndHostRequest) Execute() ([]Service, *_nethttp.Response, error) {
+func (r ApiGetServicesByNameAndHostRequest) Execute() ([]Service, *http.Response, error) {
 	return r.ApiService.GetServicesByNameAndHostExecute(r)
 }
 
 /*
 GetServicesByNameAndHost Get service config for a specific host
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param serviceName
  @param hostId
  @return ApiGetServicesByNameAndHostRequest
 */
-func (a *SystemApiService) GetServicesByNameAndHost(ctx _context.Context, serviceName string, hostId string) ApiGetServicesByNameAndHostRequest {
+func (a *SystemAPIService) GetServicesByNameAndHost(ctx context.Context, serviceName string, hostId string) ApiGetServicesByNameAndHostRequest {
 	return ApiGetServicesByNameAndHostRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -870,28 +850,26 @@ func (a *SystemApiService) GetServicesByNameAndHost(ctx _context.Context, servic
 
 // Execute executes the request
 //  @return []Service
-func (a *SystemApiService) GetServicesByNameAndHostExecute(r ApiGetServicesByNameAndHostRequest) ([]Service, *_nethttp.Response, error) {
+func (a *SystemAPIService) GetServicesByNameAndHostExecute(r ApiGetServicesByNameAndHostRequest) ([]Service, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
+		formFiles            []formFile
 		localVarReturnValue  []Service
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SystemApiService.GetServicesByNameAndHost")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SystemAPIService.GetServicesByNameAndHost")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/system/services/{service_name}/{host_id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"service_name"+"}", _neturl.PathEscape(parameterToString(r.serviceName, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"host_id"+"}", _neturl.PathEscape(parameterToString(r.hostId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"service_name"+"}", url.PathEscape(parameterValueToString(r.serviceName, "serviceName")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"host_id"+"}", url.PathEscape(parameterValueToString(r.hostId, "hostId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -910,7 +888,7 @@ func (a *SystemApiService) GetServicesByNameAndHostExecute(r ApiGetServicesByNam
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -920,15 +898,15 @@ func (a *SystemApiService) GetServicesByNameAndHostExecute(r ApiGetServicesByNam
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -939,14 +917,15 @@ func (a *SystemApiService) GetServicesByNameAndHostExecute(r ApiGetServicesByNam
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -957,12 +936,11 @@ func (a *SystemApiService) GetServicesByNameAndHostExecute(r ApiGetServicesByNam
 }
 
 type ApiGetStatusRequest struct {
-	ctx _context.Context
-	ApiService SystemApi
+	ctx context.Context
+	ApiService SystemAPI
 }
 
-
-func (r ApiGetStatusRequest) Execute() (StatusResponse, *_nethttp.Response, error) {
+func (r ApiGetStatusRequest) Execute() (*StatusResponse, *http.Response, error) {
 	return r.ApiService.GetStatusExecute(r)
 }
 
@@ -971,10 +949,10 @@ GetStatus Service status
 
 Get the API service status
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiGetStatusRequest
 */
-func (a *SystemApiService) GetStatus(ctx _context.Context) ApiGetStatusRequest {
+func (a *SystemAPIService) GetStatus(ctx context.Context) ApiGetStatusRequest {
 	return ApiGetStatusRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -983,26 +961,24 @@ func (a *SystemApiService) GetStatus(ctx _context.Context) ApiGetStatusRequest {
 
 // Execute executes the request
 //  @return StatusResponse
-func (a *SystemApiService) GetStatusExecute(r ApiGetStatusRequest) (StatusResponse, *_nethttp.Response, error) {
+func (a *SystemAPIService) GetStatusExecute(r ApiGetStatusRequest) (*StatusResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  StatusResponse
+		formFiles            []formFile
+		localVarReturnValue  *StatusResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SystemApiService.GetStatus")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SystemAPIService.GetStatus")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/status"
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -1021,7 +997,7 @@ func (a *SystemApiService) GetStatusExecute(r ApiGetStatusRequest) (StatusRespon
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -1031,15 +1007,15 @@ func (a *SystemApiService) GetStatusExecute(r ApiGetStatusRequest) (StatusRespon
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -1050,14 +1026,15 @@ func (a *SystemApiService) GetStatusExecute(r ApiGetStatusRequest) (StatusRespon
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -1068,12 +1045,11 @@ func (a *SystemApiService) GetStatusExecute(r ApiGetStatusRequest) (StatusRespon
 }
 
 type ApiGetSystemFeedsRequest struct {
-	ctx _context.Context
-	ApiService SystemApi
+	ctx context.Context
+	ApiService SystemAPI
 }
 
-
-func (r ApiGetSystemFeedsRequest) Execute() ([]FeedMetadata, *_nethttp.Response, error) {
+func (r ApiGetSystemFeedsRequest) Execute() ([]FeedMetadata, *http.Response, error) {
 	return r.ApiService.GetSystemFeedsExecute(r)
 }
 
@@ -1082,10 +1058,10 @@ GetSystemFeeds list feeds operations and information
 
 Return a list of feed and their groups along with update and record count information. This data reflects the state of the policy engine, not the upstream feed service itself.
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiGetSystemFeedsRequest
 */
-func (a *SystemApiService) GetSystemFeeds(ctx _context.Context) ApiGetSystemFeedsRequest {
+func (a *SystemAPIService) GetSystemFeeds(ctx context.Context) ApiGetSystemFeedsRequest {
 	return ApiGetSystemFeedsRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -1094,26 +1070,24 @@ func (a *SystemApiService) GetSystemFeeds(ctx _context.Context) ApiGetSystemFeed
 
 // Execute executes the request
 //  @return []FeedMetadata
-func (a *SystemApiService) GetSystemFeedsExecute(r ApiGetSystemFeedsRequest) ([]FeedMetadata, *_nethttp.Response, error) {
+func (a *SystemAPIService) GetSystemFeedsExecute(r ApiGetSystemFeedsRequest) ([]FeedMetadata, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
+		formFiles            []formFile
 		localVarReturnValue  []FeedMetadata
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SystemApiService.GetSystemFeeds")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SystemAPIService.GetSystemFeeds")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/system/feeds"
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -1132,7 +1106,7 @@ func (a *SystemApiService) GetSystemFeedsExecute(r ApiGetSystemFeedsRequest) ([]
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -1142,15 +1116,15 @@ func (a *SystemApiService) GetSystemFeedsExecute(r ApiGetSystemFeedsRequest) ([]
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -1161,14 +1135,15 @@ func (a *SystemApiService) GetSystemFeedsExecute(r ApiGetSystemFeedsRequest) ([]
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -1179,22 +1154,21 @@ func (a *SystemApiService) GetSystemFeedsExecute(r ApiGetSystemFeedsRequest) ([]
 }
 
 type ApiListServicesRequest struct {
-	ctx _context.Context
-	ApiService SystemApi
+	ctx context.Context
+	ApiService SystemAPI
 }
 
-
-func (r ApiListServicesRequest) Execute() ([]Service, *_nethttp.Response, error) {
+func (r ApiListServicesRequest) Execute() ([]Service, *http.Response, error) {
 	return r.ApiService.ListServicesExecute(r)
 }
 
 /*
 ListServices List system services
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiListServicesRequest
 */
-func (a *SystemApiService) ListServices(ctx _context.Context) ApiListServicesRequest {
+func (a *SystemAPIService) ListServices(ctx context.Context) ApiListServicesRequest {
 	return ApiListServicesRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -1203,26 +1177,24 @@ func (a *SystemApiService) ListServices(ctx _context.Context) ApiListServicesReq
 
 // Execute executes the request
 //  @return []Service
-func (a *SystemApiService) ListServicesExecute(r ApiListServicesRequest) ([]Service, *_nethttp.Response, error) {
+func (a *SystemAPIService) ListServicesExecute(r ApiListServicesRequest) ([]Service, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
+		formFiles            []formFile
 		localVarReturnValue  []Service
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SystemApiService.ListServices")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SystemAPIService.ListServices")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/system/services"
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -1241,7 +1213,7 @@ func (a *SystemApiService) ListServicesExecute(r ApiListServicesRequest) ([]Serv
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -1251,15 +1223,15 @@ func (a *SystemApiService) ListServicesExecute(r ApiListServicesRequest) ([]Serv
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -1270,14 +1242,15 @@ func (a *SystemApiService) ListServicesExecute(r ApiListServicesRequest) ([]Serv
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -1288,12 +1261,11 @@ func (a *SystemApiService) ListServicesExecute(r ApiListServicesRequest) ([]Serv
 }
 
 type ApiPostSystemFeedsRequest struct {
-	ctx _context.Context
-	ApiService SystemApi
+	ctx context.Context
+	ApiService SystemAPI
 }
 
-
-func (r ApiPostSystemFeedsRequest) Execute() ([]FeedSyncResult, *_nethttp.Response, error) {
+func (r ApiPostSystemFeedsRequest) Execute() ([]FeedSyncResult, *http.Response, error) {
 	return r.ApiService.PostSystemFeedsExecute(r)
 }
 
@@ -1302,10 +1274,10 @@ PostSystemFeeds trigger feeds operations
 
 Execute a synchronous update of the latest GrypeDB with the policy-engine. The response will block until complete, then return the result summary.
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiPostSystemFeedsRequest
 */
-func (a *SystemApiService) PostSystemFeeds(ctx _context.Context) ApiPostSystemFeedsRequest {
+func (a *SystemAPIService) PostSystemFeeds(ctx context.Context) ApiPostSystemFeedsRequest {
 	return ApiPostSystemFeedsRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -1314,26 +1286,24 @@ func (a *SystemApiService) PostSystemFeeds(ctx _context.Context) ApiPostSystemFe
 
 // Execute executes the request
 //  @return []FeedSyncResult
-func (a *SystemApiService) PostSystemFeedsExecute(r ApiPostSystemFeedsRequest) ([]FeedSyncResult, *_nethttp.Response, error) {
+func (a *SystemAPIService) PostSystemFeedsExecute(r ApiPostSystemFeedsRequest) ([]FeedSyncResult, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPost
+		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
+		formFiles            []formFile
 		localVarReturnValue  []FeedSyncResult
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SystemApiService.PostSystemFeeds")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SystemAPIService.PostSystemFeeds")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/system/feeds"
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -1352,7 +1322,7 @@ func (a *SystemApiService) PostSystemFeedsExecute(r ApiPostSystemFeedsRequest) (
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -1362,15 +1332,15 @@ func (a *SystemApiService) PostSystemFeedsExecute(r ApiPostSystemFeedsRequest) (
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -1381,14 +1351,15 @@ func (a *SystemApiService) PostSystemFeedsExecute(r ApiPostSystemFeedsRequest) (
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -1399,8 +1370,8 @@ func (a *SystemApiService) PostSystemFeedsExecute(r ApiPostSystemFeedsRequest) (
 }
 
 type ApiTestWebhookRequest struct {
-	ctx _context.Context
-	ApiService SystemApi
+	ctx context.Context
+	ApiService SystemAPI
 	webhookType string
 	notificationType *string
 }
@@ -1411,7 +1382,7 @@ func (r ApiTestWebhookRequest) NotificationType(notificationType string) ApiTest
 	return r
 }
 
-func (r ApiTestWebhookRequest) Execute() (*_nethttp.Response, error) {
+func (r ApiTestWebhookRequest) Execute() (*http.Response, error) {
 	return r.ApiService.TestWebhookExecute(r)
 }
 
@@ -1420,11 +1391,11 @@ TestWebhook Adds the capabilities to test a webhook delivery for the given notif
 
 Loads the Webhook configuration for webhook_type, and sends the notification out as a test
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param webhookType The Webhook Type that we should test
  @return ApiTestWebhookRequest
 */
-func (a *SystemApiService) TestWebhook(ctx _context.Context, webhookType string) ApiTestWebhookRequest {
+func (a *SystemAPIService) TestWebhook(ctx context.Context, webhookType string) ApiTestWebhookRequest {
 	return ApiTestWebhookRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -1433,29 +1404,30 @@ func (a *SystemApiService) TestWebhook(ctx _context.Context, webhookType string)
 }
 
 // Execute executes the request
-func (a *SystemApiService) TestWebhookExecute(r ApiTestWebhookRequest) (*_nethttp.Response, error) {
+func (a *SystemAPIService) TestWebhookExecute(r ApiTestWebhookRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPost
+		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
+		formFiles            []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SystemApiService.TestWebhook")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SystemAPIService.TestWebhook")
 	if err != nil {
-		return nil, GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/system/webhooks/{webhook_type}/test"
-	localVarPath = strings.Replace(localVarPath, "{"+"webhook_type"+"}", _neturl.PathEscape(parameterToString(r.webhookType, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"webhook_type"+"}", url.PathEscape(parameterValueToString(r.webhookType, "webhookType")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	if r.notificationType != nil {
-		localVarQueryParams.Add("notification_type", parameterToString(*r.notificationType, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "notification_type", r.notificationType, "")
+	} else {
+		var defaultValue string = "tag_update"
+		r.notificationType = &defaultValue
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -1474,7 +1446,7 @@ func (a *SystemApiService) TestWebhookExecute(r ApiTestWebhookRequest) (*_nethtt
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
 	}
@@ -1484,15 +1456,15 @@ func (a *SystemApiService) TestWebhookExecute(r ApiTestWebhookRequest) (*_nethtt
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -1503,7 +1475,8 @@ func (a *SystemApiService) TestWebhookExecute(r ApiTestWebhookRequest) (*_nethtt
 				newErr.error = err.Error()
 				return localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 500 {
@@ -1513,7 +1486,8 @@ func (a *SystemApiService) TestWebhookExecute(r ApiTestWebhookRequest) (*_nethtt
 				newErr.error = err.Error()
 				return localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarHTTPResponse, newErr
 	}
@@ -1522,8 +1496,8 @@ func (a *SystemApiService) TestWebhookExecute(r ApiTestWebhookRequest) (*_nethtt
 }
 
 type ApiToggleFeedEnabledRequest struct {
-	ctx _context.Context
-	ApiService SystemApi
+	ctx context.Context
+	ApiService SystemAPI
 	feed string
 	enabled *bool
 }
@@ -1533,7 +1507,7 @@ func (r ApiToggleFeedEnabledRequest) Enabled(enabled bool) ApiToggleFeedEnabledR
 	return r
 }
 
-func (r ApiToggleFeedEnabledRequest) Execute() (FeedMetadata, *_nethttp.Response, error) {
+func (r ApiToggleFeedEnabledRequest) Execute() (*FeedMetadata, *http.Response, error) {
 	return r.ApiService.ToggleFeedEnabledExecute(r)
 }
 
@@ -1542,11 +1516,11 @@ ToggleFeedEnabled Method for ToggleFeedEnabled
 
 Disable the feed so that it does not sync on subsequent sync operations
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param feed
  @return ApiToggleFeedEnabledRequest
 */
-func (a *SystemApiService) ToggleFeedEnabled(ctx _context.Context, feed string) ApiToggleFeedEnabledRequest {
+func (a *SystemAPIService) ToggleFeedEnabled(ctx context.Context, feed string) ApiToggleFeedEnabledRequest {
 	return ApiToggleFeedEnabledRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -1556,32 +1530,30 @@ func (a *SystemApiService) ToggleFeedEnabled(ctx _context.Context, feed string) 
 
 // Execute executes the request
 //  @return FeedMetadata
-func (a *SystemApiService) ToggleFeedEnabledExecute(r ApiToggleFeedEnabledRequest) (FeedMetadata, *_nethttp.Response, error) {
+func (a *SystemAPIService) ToggleFeedEnabledExecute(r ApiToggleFeedEnabledRequest) (*FeedMetadata, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPut
+		localVarHTTPMethod   = http.MethodPut
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  FeedMetadata
+		formFiles            []formFile
+		localVarReturnValue  *FeedMetadata
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SystemApiService.ToggleFeedEnabled")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SystemAPIService.ToggleFeedEnabled")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/system/feeds/{feed}"
-	localVarPath = strings.Replace(localVarPath, "{"+"feed"+"}", _neturl.PathEscape(parameterToString(r.feed, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"feed"+"}", url.PathEscape(parameterValueToString(r.feed, "feed")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if r.enabled == nil {
 		return localVarReturnValue, nil, reportError("enabled is required and must be specified")
 	}
 
-	localVarQueryParams.Add("enabled", parameterToString(*r.enabled, ""))
+	parameterAddToHeaderOrQuery(localVarQueryParams, "enabled", r.enabled, "")
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -1599,7 +1571,7 @@ func (a *SystemApiService) ToggleFeedEnabledExecute(r ApiToggleFeedEnabledReques
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -1609,15 +1581,15 @@ func (a *SystemApiService) ToggleFeedEnabledExecute(r ApiToggleFeedEnabledReques
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -1626,7 +1598,7 @@ func (a *SystemApiService) ToggleFeedEnabledExecute(r ApiToggleFeedEnabledReques
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}

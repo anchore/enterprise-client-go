@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the AccountCreationRequest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &AccountCreationRequest{}
+
 // AccountCreationRequest An account to create/add to the system. If already exists will return 400.
 type AccountCreationRequest struct {
 	// The account name to use. This will identify the account and must be globally unique in the system.
@@ -54,7 +57,7 @@ func (o *AccountCreationRequest) GetName() string {
 // GetNameOk returns a tuple with the Name field value
 // and a boolean to check if the value has been set.
 func (o *AccountCreationRequest) GetNameOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Name, true
@@ -67,7 +70,7 @@ func (o *AccountCreationRequest) SetName(v string) {
 
 // GetEmail returns the Email field value if set, zero value otherwise.
 func (o *AccountCreationRequest) GetEmail() string {
-	if o == nil || o.Email == nil {
+	if o == nil || IsNil(o.Email) {
 		var ret string
 		return ret
 	}
@@ -77,7 +80,7 @@ func (o *AccountCreationRequest) GetEmail() string {
 // GetEmailOk returns a tuple with the Email field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AccountCreationRequest) GetEmailOk() (*string, bool) {
-	if o == nil || o.Email == nil {
+	if o == nil || IsNil(o.Email) {
 		return nil, false
 	}
 	return o.Email, true
@@ -85,7 +88,7 @@ func (o *AccountCreationRequest) GetEmailOk() (*string, bool) {
 
 // HasEmail returns a boolean if a field has been set.
 func (o *AccountCreationRequest) HasEmail() bool {
-	if o != nil && o.Email != nil {
+	if o != nil && !IsNil(o.Email) {
 		return true
 	}
 
@@ -98,14 +101,20 @@ func (o *AccountCreationRequest) SetEmail(v string) {
 }
 
 func (o AccountCreationRequest) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["name"] = o.Name
-	}
-	if o.Email != nil {
-		toSerialize["email"] = o.Email
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o AccountCreationRequest) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["name"] = o.Name
+	if !IsNil(o.Email) {
+		toSerialize["email"] = o.Email
+	}
+	return toSerialize, nil
 }
 
 type NullableAccountCreationRequest struct {

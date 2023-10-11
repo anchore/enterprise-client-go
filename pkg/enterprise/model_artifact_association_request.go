@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the ArtifactAssociationRequest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ArtifactAssociationRequest{}
+
 // ArtifactAssociationRequest Request body for an artifact to associate with an application version
 type ArtifactAssociationRequest struct {
 	// The type of the artifact
@@ -55,7 +58,7 @@ func (o *ArtifactAssociationRequest) GetArtifactType() string {
 // GetArtifactTypeOk returns a tuple with the ArtifactType field value
 // and a boolean to check if the value has been set.
 func (o *ArtifactAssociationRequest) GetArtifactTypeOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.ArtifactType, true
@@ -78,11 +81,11 @@ func (o *ArtifactAssociationRequest) GetArtifactKeys() interface{} {
 
 // GetArtifactKeysOk returns a tuple with the ArtifactKeys field value
 // and a boolean to check if the value has been set.
-func (o *ArtifactAssociationRequest) GetArtifactKeysOk() (*interface{}, bool) {
-	if o == nil  {
-		return nil, false
+func (o *ArtifactAssociationRequest) GetArtifactKeysOk() (interface{}, bool) {
+	if o == nil {
+		return interface{}{}, false
 	}
-	return &o.ArtifactKeys, true
+	return o.ArtifactKeys, true
 }
 
 // SetArtifactKeys sets field value
@@ -91,14 +94,18 @@ func (o *ArtifactAssociationRequest) SetArtifactKeys(v interface{}) {
 }
 
 func (o ArtifactAssociationRequest) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["artifact_type"] = o.ArtifactType
-	}
-	if true {
-		toSerialize["artifact_keys"] = o.ArtifactKeys
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o ArtifactAssociationRequest) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["artifact_type"] = o.ArtifactType
+	toSerialize["artifact_keys"] = o.ArtifactKeys
+	return toSerialize, nil
 }
 
 type NullableArtifactAssociationRequest struct {

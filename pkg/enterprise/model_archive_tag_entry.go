@@ -16,6 +16,9 @@ import (
 	"time"
 )
 
+// checks if the ArchiveTagEntry type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ArchiveTagEntry{}
+
 // ArchiveTagEntry A docker-pullable tag value as well as deconstructed components
 type ArchiveTagEntry struct {
 	// The pullable string for the tag. E.g. \"docker.io/library/node:latest\"
@@ -53,7 +56,7 @@ func NewArchiveTagEntryWithDefaults() *ArchiveTagEntry {
 
 // GetPullString returns the PullString field value if set, zero value otherwise.
 func (o *ArchiveTagEntry) GetPullString() string {
-	if o == nil || o.PullString == nil {
+	if o == nil || IsNil(o.PullString) {
 		var ret string
 		return ret
 	}
@@ -63,7 +66,7 @@ func (o *ArchiveTagEntry) GetPullString() string {
 // GetPullStringOk returns a tuple with the PullString field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ArchiveTagEntry) GetPullStringOk() (*string, bool) {
-	if o == nil || o.PullString == nil {
+	if o == nil || IsNil(o.PullString) {
 		return nil, false
 	}
 	return o.PullString, true
@@ -71,7 +74,7 @@ func (o *ArchiveTagEntry) GetPullStringOk() (*string, bool) {
 
 // HasPullString returns a boolean if a field has been set.
 func (o *ArchiveTagEntry) HasPullString() bool {
-	if o != nil && o.PullString != nil {
+	if o != nil && !IsNil(o.PullString) {
 		return true
 	}
 
@@ -85,7 +88,7 @@ func (o *ArchiveTagEntry) SetPullString(v string) {
 
 // GetRegistry returns the Registry field value if set, zero value otherwise.
 func (o *ArchiveTagEntry) GetRegistry() string {
-	if o == nil || o.Registry == nil {
+	if o == nil || IsNil(o.Registry) {
 		var ret string
 		return ret
 	}
@@ -95,7 +98,7 @@ func (o *ArchiveTagEntry) GetRegistry() string {
 // GetRegistryOk returns a tuple with the Registry field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ArchiveTagEntry) GetRegistryOk() (*string, bool) {
-	if o == nil || o.Registry == nil {
+	if o == nil || IsNil(o.Registry) {
 		return nil, false
 	}
 	return o.Registry, true
@@ -103,7 +106,7 @@ func (o *ArchiveTagEntry) GetRegistryOk() (*string, bool) {
 
 // HasRegistry returns a boolean if a field has been set.
 func (o *ArchiveTagEntry) HasRegistry() bool {
-	if o != nil && o.Registry != nil {
+	if o != nil && !IsNil(o.Registry) {
 		return true
 	}
 
@@ -117,7 +120,7 @@ func (o *ArchiveTagEntry) SetRegistry(v string) {
 
 // GetRepository returns the Repository field value if set, zero value otherwise.
 func (o *ArchiveTagEntry) GetRepository() string {
-	if o == nil || o.Repository == nil {
+	if o == nil || IsNil(o.Repository) {
 		var ret string
 		return ret
 	}
@@ -127,7 +130,7 @@ func (o *ArchiveTagEntry) GetRepository() string {
 // GetRepositoryOk returns a tuple with the Repository field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ArchiveTagEntry) GetRepositoryOk() (*string, bool) {
-	if o == nil || o.Repository == nil {
+	if o == nil || IsNil(o.Repository) {
 		return nil, false
 	}
 	return o.Repository, true
@@ -135,7 +138,7 @@ func (o *ArchiveTagEntry) GetRepositoryOk() (*string, bool) {
 
 // HasRepository returns a boolean if a field has been set.
 func (o *ArchiveTagEntry) HasRepository() bool {
-	if o != nil && o.Repository != nil {
+	if o != nil && !IsNil(o.Repository) {
 		return true
 	}
 
@@ -149,7 +152,7 @@ func (o *ArchiveTagEntry) SetRepository(v string) {
 
 // GetTag returns the Tag field value if set, zero value otherwise.
 func (o *ArchiveTagEntry) GetTag() string {
-	if o == nil || o.Tag == nil {
+	if o == nil || IsNil(o.Tag) {
 		var ret string
 		return ret
 	}
@@ -159,7 +162,7 @@ func (o *ArchiveTagEntry) GetTag() string {
 // GetTagOk returns a tuple with the Tag field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ArchiveTagEntry) GetTagOk() (*string, bool) {
-	if o == nil || o.Tag == nil {
+	if o == nil || IsNil(o.Tag) {
 		return nil, false
 	}
 	return o.Tag, true
@@ -167,7 +170,7 @@ func (o *ArchiveTagEntry) GetTagOk() (*string, bool) {
 
 // HasTag returns a boolean if a field has been set.
 func (o *ArchiveTagEntry) HasTag() bool {
-	if o != nil && o.Tag != nil {
+	if o != nil && !IsNil(o.Tag) {
 		return true
 	}
 
@@ -181,7 +184,7 @@ func (o *ArchiveTagEntry) SetTag(v string) {
 
 // GetDetectedAt returns the DetectedAt field value if set, zero value otherwise.
 func (o *ArchiveTagEntry) GetDetectedAt() time.Time {
-	if o == nil || o.DetectedAt == nil {
+	if o == nil || IsNil(o.DetectedAt) {
 		var ret time.Time
 		return ret
 	}
@@ -191,7 +194,7 @@ func (o *ArchiveTagEntry) GetDetectedAt() time.Time {
 // GetDetectedAtOk returns a tuple with the DetectedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ArchiveTagEntry) GetDetectedAtOk() (*time.Time, bool) {
-	if o == nil || o.DetectedAt == nil {
+	if o == nil || IsNil(o.DetectedAt) {
 		return nil, false
 	}
 	return o.DetectedAt, true
@@ -199,7 +202,7 @@ func (o *ArchiveTagEntry) GetDetectedAtOk() (*time.Time, bool) {
 
 // HasDetectedAt returns a boolean if a field has been set.
 func (o *ArchiveTagEntry) HasDetectedAt() bool {
-	if o != nil && o.DetectedAt != nil {
+	if o != nil && !IsNil(o.DetectedAt) {
 		return true
 	}
 
@@ -213,7 +216,7 @@ func (o *ArchiveTagEntry) SetDetectedAt(v time.Time) {
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
 func (o *ArchiveTagEntry) GetCreatedAt() time.Time {
-	if o == nil || o.CreatedAt == nil {
+	if o == nil || IsNil(o.CreatedAt) {
 		var ret time.Time
 		return ret
 	}
@@ -223,7 +226,7 @@ func (o *ArchiveTagEntry) GetCreatedAt() time.Time {
 // GetCreatedAtOk returns a tuple with the CreatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ArchiveTagEntry) GetCreatedAtOk() (*time.Time, bool) {
-	if o == nil || o.CreatedAt == nil {
+	if o == nil || IsNil(o.CreatedAt) {
 		return nil, false
 	}
 	return o.CreatedAt, true
@@ -231,7 +234,7 @@ func (o *ArchiveTagEntry) GetCreatedAtOk() (*time.Time, bool) {
 
 // HasCreatedAt returns a boolean if a field has been set.
 func (o *ArchiveTagEntry) HasCreatedAt() bool {
-	if o != nil && o.CreatedAt != nil {
+	if o != nil && !IsNil(o.CreatedAt) {
 		return true
 	}
 
@@ -245,7 +248,7 @@ func (o *ArchiveTagEntry) SetCreatedAt(v time.Time) {
 
 // GetLastUpdated returns the LastUpdated field value if set, zero value otherwise.
 func (o *ArchiveTagEntry) GetLastUpdated() time.Time {
-	if o == nil || o.LastUpdated == nil {
+	if o == nil || IsNil(o.LastUpdated) {
 		var ret time.Time
 		return ret
 	}
@@ -255,7 +258,7 @@ func (o *ArchiveTagEntry) GetLastUpdated() time.Time {
 // GetLastUpdatedOk returns a tuple with the LastUpdated field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ArchiveTagEntry) GetLastUpdatedOk() (*time.Time, bool) {
-	if o == nil || o.LastUpdated == nil {
+	if o == nil || IsNil(o.LastUpdated) {
 		return nil, false
 	}
 	return o.LastUpdated, true
@@ -263,7 +266,7 @@ func (o *ArchiveTagEntry) GetLastUpdatedOk() (*time.Time, bool) {
 
 // HasLastUpdated returns a boolean if a field has been set.
 func (o *ArchiveTagEntry) HasLastUpdated() bool {
-	if o != nil && o.LastUpdated != nil {
+	if o != nil && !IsNil(o.LastUpdated) {
 		return true
 	}
 
@@ -276,29 +279,37 @@ func (o *ArchiveTagEntry) SetLastUpdated(v time.Time) {
 }
 
 func (o ArchiveTagEntry) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.PullString != nil {
-		toSerialize["pull_string"] = o.PullString
-	}
-	if o.Registry != nil {
-		toSerialize["registry"] = o.Registry
-	}
-	if o.Repository != nil {
-		toSerialize["repository"] = o.Repository
-	}
-	if o.Tag != nil {
-		toSerialize["tag"] = o.Tag
-	}
-	if o.DetectedAt != nil {
-		toSerialize["detected_at"] = o.DetectedAt
-	}
-	if o.CreatedAt != nil {
-		toSerialize["created_at"] = o.CreatedAt
-	}
-	if o.LastUpdated != nil {
-		toSerialize["last_updated"] = o.LastUpdated
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o ArchiveTagEntry) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.PullString) {
+		toSerialize["pull_string"] = o.PullString
+	}
+	if !IsNil(o.Registry) {
+		toSerialize["registry"] = o.Registry
+	}
+	if !IsNil(o.Repository) {
+		toSerialize["repository"] = o.Repository
+	}
+	if !IsNil(o.Tag) {
+		toSerialize["tag"] = o.Tag
+	}
+	if !IsNil(o.DetectedAt) {
+		toSerialize["detected_at"] = o.DetectedAt
+	}
+	if !IsNil(o.CreatedAt) {
+		toSerialize["created_at"] = o.CreatedAt
+	}
+	if !IsNil(o.LastUpdated) {
+		toSerialize["last_updated"] = o.LastUpdated
+	}
+	return toSerialize, nil
 }
 
 type NullableArchiveTagEntry struct {

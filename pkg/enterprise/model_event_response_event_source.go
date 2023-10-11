@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the EventResponseEventSource type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &EventResponseEventSource{}
+
 // EventResponseEventSource struct for EventResponseEventSource
 type EventResponseEventSource struct {
 	ServiceName *string `json:"service_name,omitempty"`
@@ -42,7 +45,7 @@ func NewEventResponseEventSourceWithDefaults() *EventResponseEventSource {
 
 // GetServiceName returns the ServiceName field value if set, zero value otherwise.
 func (o *EventResponseEventSource) GetServiceName() string {
-	if o == nil || o.ServiceName == nil {
+	if o == nil || IsNil(o.ServiceName) {
 		var ret string
 		return ret
 	}
@@ -52,7 +55,7 @@ func (o *EventResponseEventSource) GetServiceName() string {
 // GetServiceNameOk returns a tuple with the ServiceName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *EventResponseEventSource) GetServiceNameOk() (*string, bool) {
-	if o == nil || o.ServiceName == nil {
+	if o == nil || IsNil(o.ServiceName) {
 		return nil, false
 	}
 	return o.ServiceName, true
@@ -60,7 +63,7 @@ func (o *EventResponseEventSource) GetServiceNameOk() (*string, bool) {
 
 // HasServiceName returns a boolean if a field has been set.
 func (o *EventResponseEventSource) HasServiceName() bool {
-	if o != nil && o.ServiceName != nil {
+	if o != nil && !IsNil(o.ServiceName) {
 		return true
 	}
 
@@ -74,7 +77,7 @@ func (o *EventResponseEventSource) SetServiceName(v string) {
 
 // GetHostId returns the HostId field value if set, zero value otherwise.
 func (o *EventResponseEventSource) GetHostId() string {
-	if o == nil || o.HostId == nil {
+	if o == nil || IsNil(o.HostId) {
 		var ret string
 		return ret
 	}
@@ -84,7 +87,7 @@ func (o *EventResponseEventSource) GetHostId() string {
 // GetHostIdOk returns a tuple with the HostId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *EventResponseEventSource) GetHostIdOk() (*string, bool) {
-	if o == nil || o.HostId == nil {
+	if o == nil || IsNil(o.HostId) {
 		return nil, false
 	}
 	return o.HostId, true
@@ -92,7 +95,7 @@ func (o *EventResponseEventSource) GetHostIdOk() (*string, bool) {
 
 // HasHostId returns a boolean if a field has been set.
 func (o *EventResponseEventSource) HasHostId() bool {
-	if o != nil && o.HostId != nil {
+	if o != nil && !IsNil(o.HostId) {
 		return true
 	}
 
@@ -106,7 +109,7 @@ func (o *EventResponseEventSource) SetHostId(v string) {
 
 // GetBaseUrl returns the BaseUrl field value if set, zero value otherwise.
 func (o *EventResponseEventSource) GetBaseUrl() string {
-	if o == nil || o.BaseUrl == nil {
+	if o == nil || IsNil(o.BaseUrl) {
 		var ret string
 		return ret
 	}
@@ -116,7 +119,7 @@ func (o *EventResponseEventSource) GetBaseUrl() string {
 // GetBaseUrlOk returns a tuple with the BaseUrl field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *EventResponseEventSource) GetBaseUrlOk() (*string, bool) {
-	if o == nil || o.BaseUrl == nil {
+	if o == nil || IsNil(o.BaseUrl) {
 		return nil, false
 	}
 	return o.BaseUrl, true
@@ -124,7 +127,7 @@ func (o *EventResponseEventSource) GetBaseUrlOk() (*string, bool) {
 
 // HasBaseUrl returns a boolean if a field has been set.
 func (o *EventResponseEventSource) HasBaseUrl() bool {
-	if o != nil && o.BaseUrl != nil {
+	if o != nil && !IsNil(o.BaseUrl) {
 		return true
 	}
 
@@ -138,7 +141,7 @@ func (o *EventResponseEventSource) SetBaseUrl(v string) {
 
 // GetRequestId returns the RequestId field value if set, zero value otherwise.
 func (o *EventResponseEventSource) GetRequestId() string {
-	if o == nil || o.RequestId == nil {
+	if o == nil || IsNil(o.RequestId) {
 		var ret string
 		return ret
 	}
@@ -148,7 +151,7 @@ func (o *EventResponseEventSource) GetRequestId() string {
 // GetRequestIdOk returns a tuple with the RequestId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *EventResponseEventSource) GetRequestIdOk() (*string, bool) {
-	if o == nil || o.RequestId == nil {
+	if o == nil || IsNil(o.RequestId) {
 		return nil, false
 	}
 	return o.RequestId, true
@@ -156,7 +159,7 @@ func (o *EventResponseEventSource) GetRequestIdOk() (*string, bool) {
 
 // HasRequestId returns a boolean if a field has been set.
 func (o *EventResponseEventSource) HasRequestId() bool {
-	if o != nil && o.RequestId != nil {
+	if o != nil && !IsNil(o.RequestId) {
 		return true
 	}
 
@@ -169,20 +172,28 @@ func (o *EventResponseEventSource) SetRequestId(v string) {
 }
 
 func (o EventResponseEventSource) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.ServiceName != nil {
-		toSerialize["service_name"] = o.ServiceName
-	}
-	if o.HostId != nil {
-		toSerialize["host_id"] = o.HostId
-	}
-	if o.BaseUrl != nil {
-		toSerialize["base_url"] = o.BaseUrl
-	}
-	if o.RequestId != nil {
-		toSerialize["request_id"] = o.RequestId
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o EventResponseEventSource) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.ServiceName) {
+		toSerialize["service_name"] = o.ServiceName
+	}
+	if !IsNil(o.HostId) {
+		toSerialize["host_id"] = o.HostId
+	}
+	if !IsNil(o.BaseUrl) {
+		toSerialize["base_url"] = o.BaseUrl
+	}
+	if !IsNil(o.RequestId) {
+		toSerialize["request_id"] = o.RequestId
+	}
+	return toSerialize, nil
 }
 
 type NullableEventResponseEventSource struct {

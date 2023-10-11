@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the TagUpdateNotificationPayload type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &TagUpdateNotificationPayload{}
+
 // TagUpdateNotificationPayload struct for TagUpdateNotificationPayload
 type TagUpdateNotificationPayload struct {
 	AccountName *string `json:"account_name,omitempty"`
@@ -22,9 +25,9 @@ type TagUpdateNotificationPayload struct {
 	SubscriptionType *string `json:"subscription_type,omitempty"`
 	NotificationId *string `json:"notification_id,omitempty"`
 	// A list containing the current image digest
-	CurrEval *[]interface{} `json:"curr_eval,omitempty"`
+	CurrEval []interface{} `json:"curr_eval,omitempty"`
 	// A list containing the previous image digests
-	LastEval *[]interface{} `json:"last_eval,omitempty"`
+	LastEval []interface{} `json:"last_eval,omitempty"`
 	// List of Corresponding Image Annotations
 	Annotations interface{} `json:"annotations,omitempty"`
 }
@@ -48,7 +51,7 @@ func NewTagUpdateNotificationPayloadWithDefaults() *TagUpdateNotificationPayload
 
 // GetAccountName returns the AccountName field value if set, zero value otherwise.
 func (o *TagUpdateNotificationPayload) GetAccountName() string {
-	if o == nil || o.AccountName == nil {
+	if o == nil || IsNil(o.AccountName) {
 		var ret string
 		return ret
 	}
@@ -58,7 +61,7 @@ func (o *TagUpdateNotificationPayload) GetAccountName() string {
 // GetAccountNameOk returns a tuple with the AccountName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TagUpdateNotificationPayload) GetAccountNameOk() (*string, bool) {
-	if o == nil || o.AccountName == nil {
+	if o == nil || IsNil(o.AccountName) {
 		return nil, false
 	}
 	return o.AccountName, true
@@ -66,7 +69,7 @@ func (o *TagUpdateNotificationPayload) GetAccountNameOk() (*string, bool) {
 
 // HasAccountName returns a boolean if a field has been set.
 func (o *TagUpdateNotificationPayload) HasAccountName() bool {
-	if o != nil && o.AccountName != nil {
+	if o != nil && !IsNil(o.AccountName) {
 		return true
 	}
 
@@ -80,7 +83,7 @@ func (o *TagUpdateNotificationPayload) SetAccountName(v string) {
 
 // GetSubscriptionKey returns the SubscriptionKey field value if set, zero value otherwise.
 func (o *TagUpdateNotificationPayload) GetSubscriptionKey() string {
-	if o == nil || o.SubscriptionKey == nil {
+	if o == nil || IsNil(o.SubscriptionKey) {
 		var ret string
 		return ret
 	}
@@ -90,7 +93,7 @@ func (o *TagUpdateNotificationPayload) GetSubscriptionKey() string {
 // GetSubscriptionKeyOk returns a tuple with the SubscriptionKey field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TagUpdateNotificationPayload) GetSubscriptionKeyOk() (*string, bool) {
-	if o == nil || o.SubscriptionKey == nil {
+	if o == nil || IsNil(o.SubscriptionKey) {
 		return nil, false
 	}
 	return o.SubscriptionKey, true
@@ -98,7 +101,7 @@ func (o *TagUpdateNotificationPayload) GetSubscriptionKeyOk() (*string, bool) {
 
 // HasSubscriptionKey returns a boolean if a field has been set.
 func (o *TagUpdateNotificationPayload) HasSubscriptionKey() bool {
-	if o != nil && o.SubscriptionKey != nil {
+	if o != nil && !IsNil(o.SubscriptionKey) {
 		return true
 	}
 
@@ -112,7 +115,7 @@ func (o *TagUpdateNotificationPayload) SetSubscriptionKey(v string) {
 
 // GetSubscriptionType returns the SubscriptionType field value if set, zero value otherwise.
 func (o *TagUpdateNotificationPayload) GetSubscriptionType() string {
-	if o == nil || o.SubscriptionType == nil {
+	if o == nil || IsNil(o.SubscriptionType) {
 		var ret string
 		return ret
 	}
@@ -122,7 +125,7 @@ func (o *TagUpdateNotificationPayload) GetSubscriptionType() string {
 // GetSubscriptionTypeOk returns a tuple with the SubscriptionType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TagUpdateNotificationPayload) GetSubscriptionTypeOk() (*string, bool) {
-	if o == nil || o.SubscriptionType == nil {
+	if o == nil || IsNil(o.SubscriptionType) {
 		return nil, false
 	}
 	return o.SubscriptionType, true
@@ -130,7 +133,7 @@ func (o *TagUpdateNotificationPayload) GetSubscriptionTypeOk() (*string, bool) {
 
 // HasSubscriptionType returns a boolean if a field has been set.
 func (o *TagUpdateNotificationPayload) HasSubscriptionType() bool {
-	if o != nil && o.SubscriptionType != nil {
+	if o != nil && !IsNil(o.SubscriptionType) {
 		return true
 	}
 
@@ -144,7 +147,7 @@ func (o *TagUpdateNotificationPayload) SetSubscriptionType(v string) {
 
 // GetNotificationId returns the NotificationId field value if set, zero value otherwise.
 func (o *TagUpdateNotificationPayload) GetNotificationId() string {
-	if o == nil || o.NotificationId == nil {
+	if o == nil || IsNil(o.NotificationId) {
 		var ret string
 		return ret
 	}
@@ -154,7 +157,7 @@ func (o *TagUpdateNotificationPayload) GetNotificationId() string {
 // GetNotificationIdOk returns a tuple with the NotificationId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TagUpdateNotificationPayload) GetNotificationIdOk() (*string, bool) {
-	if o == nil || o.NotificationId == nil {
+	if o == nil || IsNil(o.NotificationId) {
 		return nil, false
 	}
 	return o.NotificationId, true
@@ -162,7 +165,7 @@ func (o *TagUpdateNotificationPayload) GetNotificationIdOk() (*string, bool) {
 
 // HasNotificationId returns a boolean if a field has been set.
 func (o *TagUpdateNotificationPayload) HasNotificationId() bool {
-	if o != nil && o.NotificationId != nil {
+	if o != nil && !IsNil(o.NotificationId) {
 		return true
 	}
 
@@ -176,17 +179,17 @@ func (o *TagUpdateNotificationPayload) SetNotificationId(v string) {
 
 // GetCurrEval returns the CurrEval field value if set, zero value otherwise.
 func (o *TagUpdateNotificationPayload) GetCurrEval() []interface{} {
-	if o == nil || o.CurrEval == nil {
+	if o == nil || IsNil(o.CurrEval) {
 		var ret []interface{}
 		return ret
 	}
-	return *o.CurrEval
+	return o.CurrEval
 }
 
 // GetCurrEvalOk returns a tuple with the CurrEval field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *TagUpdateNotificationPayload) GetCurrEvalOk() (*[]interface{}, bool) {
-	if o == nil || o.CurrEval == nil {
+func (o *TagUpdateNotificationPayload) GetCurrEvalOk() ([]interface{}, bool) {
+	if o == nil || IsNil(o.CurrEval) {
 		return nil, false
 	}
 	return o.CurrEval, true
@@ -194,7 +197,7 @@ func (o *TagUpdateNotificationPayload) GetCurrEvalOk() (*[]interface{}, bool) {
 
 // HasCurrEval returns a boolean if a field has been set.
 func (o *TagUpdateNotificationPayload) HasCurrEval() bool {
-	if o != nil && o.CurrEval != nil {
+	if o != nil && !IsNil(o.CurrEval) {
 		return true
 	}
 
@@ -203,22 +206,22 @@ func (o *TagUpdateNotificationPayload) HasCurrEval() bool {
 
 // SetCurrEval gets a reference to the given []interface{} and assigns it to the CurrEval field.
 func (o *TagUpdateNotificationPayload) SetCurrEval(v []interface{}) {
-	o.CurrEval = &v
+	o.CurrEval = v
 }
 
 // GetLastEval returns the LastEval field value if set, zero value otherwise.
 func (o *TagUpdateNotificationPayload) GetLastEval() []interface{} {
-	if o == nil || o.LastEval == nil {
+	if o == nil || IsNil(o.LastEval) {
 		var ret []interface{}
 		return ret
 	}
-	return *o.LastEval
+	return o.LastEval
 }
 
 // GetLastEvalOk returns a tuple with the LastEval field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *TagUpdateNotificationPayload) GetLastEvalOk() (*[]interface{}, bool) {
-	if o == nil || o.LastEval == nil {
+func (o *TagUpdateNotificationPayload) GetLastEvalOk() ([]interface{}, bool) {
+	if o == nil || IsNil(o.LastEval) {
 		return nil, false
 	}
 	return o.LastEval, true
@@ -226,7 +229,7 @@ func (o *TagUpdateNotificationPayload) GetLastEvalOk() (*[]interface{}, bool) {
 
 // HasLastEval returns a boolean if a field has been set.
 func (o *TagUpdateNotificationPayload) HasLastEval() bool {
-	if o != nil && o.LastEval != nil {
+	if o != nil && !IsNil(o.LastEval) {
 		return true
 	}
 
@@ -235,12 +238,12 @@ func (o *TagUpdateNotificationPayload) HasLastEval() bool {
 
 // SetLastEval gets a reference to the given []interface{} and assigns it to the LastEval field.
 func (o *TagUpdateNotificationPayload) SetLastEval(v []interface{}) {
-	o.LastEval = &v
+	o.LastEval = v
 }
 
 // GetAnnotations returns the Annotations field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *TagUpdateNotificationPayload) GetAnnotations() interface{} {
-	if o == nil  {
+	if o == nil {
 		var ret interface{}
 		return ret
 	}
@@ -250,16 +253,16 @@ func (o *TagUpdateNotificationPayload) GetAnnotations() interface{} {
 // GetAnnotationsOk returns a tuple with the Annotations field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *TagUpdateNotificationPayload) GetAnnotationsOk() (*interface{}, bool) {
-	if o == nil || o.Annotations == nil {
-		return nil, false
+func (o *TagUpdateNotificationPayload) GetAnnotationsOk() (interface{}, bool) {
+	if o == nil || IsNil(o.Annotations) {
+		return interface{}{}, false
 	}
-	return &o.Annotations, true
+	return o.Annotations, true
 }
 
 // HasAnnotations returns a boolean if a field has been set.
 func (o *TagUpdateNotificationPayload) HasAnnotations() bool {
-	if o != nil && o.Annotations != nil {
+	if o != nil && IsNil(o.Annotations) {
 		return true
 	}
 
@@ -272,29 +275,37 @@ func (o *TagUpdateNotificationPayload) SetAnnotations(v interface{}) {
 }
 
 func (o TagUpdateNotificationPayload) MarshalJSON() ([]byte, error) {
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o TagUpdateNotificationPayload) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.AccountName != nil {
+	if !IsNil(o.AccountName) {
 		toSerialize["account_name"] = o.AccountName
 	}
-	if o.SubscriptionKey != nil {
+	if !IsNil(o.SubscriptionKey) {
 		toSerialize["subscription_key"] = o.SubscriptionKey
 	}
-	if o.SubscriptionType != nil {
+	if !IsNil(o.SubscriptionType) {
 		toSerialize["subscription_type"] = o.SubscriptionType
 	}
-	if o.NotificationId != nil {
+	if !IsNil(o.NotificationId) {
 		toSerialize["notification_id"] = o.NotificationId
 	}
-	if o.CurrEval != nil {
+	if !IsNil(o.CurrEval) {
 		toSerialize["curr_eval"] = o.CurrEval
 	}
-	if o.LastEval != nil {
+	if !IsNil(o.LastEval) {
 		toSerialize["last_eval"] = o.LastEval
 	}
 	if o.Annotations != nil {
 		toSerialize["annotations"] = o.Annotations
 	}
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
 type NullableTagUpdateNotificationPayload struct {

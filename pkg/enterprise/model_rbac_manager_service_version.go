@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the RbacManagerServiceVersion type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &RbacManagerServiceVersion{}
+
 // RbacManagerServiceVersion Version information for a service
 type RbacManagerServiceVersion struct {
 	Service *NotificationServiceVersionService `json:"service,omitempty"`
@@ -42,7 +45,7 @@ func NewRbacManagerServiceVersionWithDefaults() *RbacManagerServiceVersion {
 
 // GetService returns the Service field value if set, zero value otherwise.
 func (o *RbacManagerServiceVersion) GetService() NotificationServiceVersionService {
-	if o == nil || o.Service == nil {
+	if o == nil || IsNil(o.Service) {
 		var ret NotificationServiceVersionService
 		return ret
 	}
@@ -52,7 +55,7 @@ func (o *RbacManagerServiceVersion) GetService() NotificationServiceVersionServi
 // GetServiceOk returns a tuple with the Service field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RbacManagerServiceVersion) GetServiceOk() (*NotificationServiceVersionService, bool) {
-	if o == nil || o.Service == nil {
+	if o == nil || IsNil(o.Service) {
 		return nil, false
 	}
 	return o.Service, true
@@ -60,7 +63,7 @@ func (o *RbacManagerServiceVersion) GetServiceOk() (*NotificationServiceVersionS
 
 // HasService returns a boolean if a field has been set.
 func (o *RbacManagerServiceVersion) HasService() bool {
-	if o != nil && o.Service != nil {
+	if o != nil && !IsNil(o.Service) {
 		return true
 	}
 
@@ -74,7 +77,7 @@ func (o *RbacManagerServiceVersion) SetService(v NotificationServiceVersionServi
 
 // GetApi returns the Api field value if set, zero value otherwise.
 func (o *RbacManagerServiceVersion) GetApi() NotificationServiceVersionApi {
-	if o == nil || o.Api == nil {
+	if o == nil || IsNil(o.Api) {
 		var ret NotificationServiceVersionApi
 		return ret
 	}
@@ -84,7 +87,7 @@ func (o *RbacManagerServiceVersion) GetApi() NotificationServiceVersionApi {
 // GetApiOk returns a tuple with the Api field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RbacManagerServiceVersion) GetApiOk() (*NotificationServiceVersionApi, bool) {
-	if o == nil || o.Api == nil {
+	if o == nil || IsNil(o.Api) {
 		return nil, false
 	}
 	return o.Api, true
@@ -92,7 +95,7 @@ func (o *RbacManagerServiceVersion) GetApiOk() (*NotificationServiceVersionApi, 
 
 // HasApi returns a boolean if a field has been set.
 func (o *RbacManagerServiceVersion) HasApi() bool {
-	if o != nil && o.Api != nil {
+	if o != nil && !IsNil(o.Api) {
 		return true
 	}
 
@@ -106,7 +109,7 @@ func (o *RbacManagerServiceVersion) SetApi(v NotificationServiceVersionApi) {
 
 // GetDb returns the Db field value if set, zero value otherwise.
 func (o *RbacManagerServiceVersion) GetDb() NotificationServiceVersionDb {
-	if o == nil || o.Db == nil {
+	if o == nil || IsNil(o.Db) {
 		var ret NotificationServiceVersionDb
 		return ret
 	}
@@ -116,7 +119,7 @@ func (o *RbacManagerServiceVersion) GetDb() NotificationServiceVersionDb {
 // GetDbOk returns a tuple with the Db field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RbacManagerServiceVersion) GetDbOk() (*NotificationServiceVersionDb, bool) {
-	if o == nil || o.Db == nil {
+	if o == nil || IsNil(o.Db) {
 		return nil, false
 	}
 	return o.Db, true
@@ -124,7 +127,7 @@ func (o *RbacManagerServiceVersion) GetDbOk() (*NotificationServiceVersionDb, bo
 
 // HasDb returns a boolean if a field has been set.
 func (o *RbacManagerServiceVersion) HasDb() bool {
-	if o != nil && o.Db != nil {
+	if o != nil && !IsNil(o.Db) {
 		return true
 	}
 
@@ -138,7 +141,7 @@ func (o *RbacManagerServiceVersion) SetDb(v NotificationServiceVersionDb) {
 
 // GetEngine returns the Engine field value if set, zero value otherwise.
 func (o *RbacManagerServiceVersion) GetEngine() NotificationServiceVersionEngine {
-	if o == nil || o.Engine == nil {
+	if o == nil || IsNil(o.Engine) {
 		var ret NotificationServiceVersionEngine
 		return ret
 	}
@@ -148,7 +151,7 @@ func (o *RbacManagerServiceVersion) GetEngine() NotificationServiceVersionEngine
 // GetEngineOk returns a tuple with the Engine field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RbacManagerServiceVersion) GetEngineOk() (*NotificationServiceVersionEngine, bool) {
-	if o == nil || o.Engine == nil {
+	if o == nil || IsNil(o.Engine) {
 		return nil, false
 	}
 	return o.Engine, true
@@ -156,7 +159,7 @@ func (o *RbacManagerServiceVersion) GetEngineOk() (*NotificationServiceVersionEn
 
 // HasEngine returns a boolean if a field has been set.
 func (o *RbacManagerServiceVersion) HasEngine() bool {
-	if o != nil && o.Engine != nil {
+	if o != nil && !IsNil(o.Engine) {
 		return true
 	}
 
@@ -169,20 +172,28 @@ func (o *RbacManagerServiceVersion) SetEngine(v NotificationServiceVersionEngine
 }
 
 func (o RbacManagerServiceVersion) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Service != nil {
-		toSerialize["service"] = o.Service
-	}
-	if o.Api != nil {
-		toSerialize["api"] = o.Api
-	}
-	if o.Db != nil {
-		toSerialize["db"] = o.Db
-	}
-	if o.Engine != nil {
-		toSerialize["engine"] = o.Engine
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o RbacManagerServiceVersion) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Service) {
+		toSerialize["service"] = o.Service
+	}
+	if !IsNil(o.Api) {
+		toSerialize["api"] = o.Api
+	}
+	if !IsNil(o.Db) {
+		toSerialize["db"] = o.Db
+	}
+	if !IsNil(o.Engine) {
+		toSerialize["engine"] = o.Engine
+	}
+	return toSerialize, nil
 }
 
 type NullableRbacManagerServiceVersion struct {

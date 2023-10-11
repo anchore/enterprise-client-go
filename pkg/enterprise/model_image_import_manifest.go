@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the ImageImportManifest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ImageImportManifest{}
+
 // ImageImportManifest struct for ImageImportManifest
 type ImageImportManifest struct {
 	Contents ImportContentDigests `json:"contents"`
@@ -61,7 +64,7 @@ func (o *ImageImportManifest) GetContents() ImportContentDigests {
 // GetContentsOk returns a tuple with the Contents field value
 // and a boolean to check if the value has been set.
 func (o *ImageImportManifest) GetContentsOk() (*ImportContentDigests, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Contents, true
@@ -84,11 +87,11 @@ func (o *ImageImportManifest) GetTags() []string {
 
 // GetTagsOk returns a tuple with the Tags field value
 // and a boolean to check if the value has been set.
-func (o *ImageImportManifest) GetTagsOk() (*[]string, bool) {
-	if o == nil  {
+func (o *ImageImportManifest) GetTagsOk() ([]string, bool) {
+	if o == nil {
 		return nil, false
 	}
-	return &o.Tags, true
+	return o.Tags, true
 }
 
 // SetTags sets field value
@@ -109,7 +112,7 @@ func (o *ImageImportManifest) GetDigest() string {
 // GetDigestOk returns a tuple with the Digest field value
 // and a boolean to check if the value has been set.
 func (o *ImageImportManifest) GetDigestOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Digest, true
@@ -122,7 +125,7 @@ func (o *ImageImportManifest) SetDigest(v string) {
 
 // GetParentDigest returns the ParentDigest field value if set, zero value otherwise.
 func (o *ImageImportManifest) GetParentDigest() string {
-	if o == nil || o.ParentDigest == nil {
+	if o == nil || IsNil(o.ParentDigest) {
 		var ret string
 		return ret
 	}
@@ -132,7 +135,7 @@ func (o *ImageImportManifest) GetParentDigest() string {
 // GetParentDigestOk returns a tuple with the ParentDigest field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ImageImportManifest) GetParentDigestOk() (*string, bool) {
-	if o == nil || o.ParentDigest == nil {
+	if o == nil || IsNil(o.ParentDigest) {
 		return nil, false
 	}
 	return o.ParentDigest, true
@@ -140,7 +143,7 @@ func (o *ImageImportManifest) GetParentDigestOk() (*string, bool) {
 
 // HasParentDigest returns a boolean if a field has been set.
 func (o *ImageImportManifest) HasParentDigest() bool {
-	if o != nil && o.ParentDigest != nil {
+	if o != nil && !IsNil(o.ParentDigest) {
 		return true
 	}
 
@@ -154,7 +157,7 @@ func (o *ImageImportManifest) SetParentDigest(v string) {
 
 // GetLocalImageId returns the LocalImageId field value if set, zero value otherwise.
 func (o *ImageImportManifest) GetLocalImageId() string {
-	if o == nil || o.LocalImageId == nil {
+	if o == nil || IsNil(o.LocalImageId) {
 		var ret string
 		return ret
 	}
@@ -164,7 +167,7 @@ func (o *ImageImportManifest) GetLocalImageId() string {
 // GetLocalImageIdOk returns a tuple with the LocalImageId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ImageImportManifest) GetLocalImageIdOk() (*string, bool) {
-	if o == nil || o.LocalImageId == nil {
+	if o == nil || IsNil(o.LocalImageId) {
 		return nil, false
 	}
 	return o.LocalImageId, true
@@ -172,7 +175,7 @@ func (o *ImageImportManifest) GetLocalImageIdOk() (*string, bool) {
 
 // HasLocalImageId returns a boolean if a field has been set.
 func (o *ImageImportManifest) HasLocalImageId() bool {
-	if o != nil && o.LocalImageId != nil {
+	if o != nil && !IsNil(o.LocalImageId) {
 		return true
 	}
 
@@ -197,7 +200,7 @@ func (o *ImageImportManifest) GetOperationUuid() string {
 // GetOperationUuidOk returns a tuple with the OperationUuid field value
 // and a boolean to check if the value has been set.
 func (o *ImageImportManifest) GetOperationUuidOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.OperationUuid, true
@@ -209,26 +212,26 @@ func (o *ImageImportManifest) SetOperationUuid(v string) {
 }
 
 func (o ImageImportManifest) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["contents"] = o.Contents
-	}
-	if true {
-		toSerialize["tags"] = o.Tags
-	}
-	if true {
-		toSerialize["digest"] = o.Digest
-	}
-	if o.ParentDigest != nil {
-		toSerialize["parent_digest"] = o.ParentDigest
-	}
-	if o.LocalImageId != nil {
-		toSerialize["local_image_id"] = o.LocalImageId
-	}
-	if true {
-		toSerialize["operation_uuid"] = o.OperationUuid
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o ImageImportManifest) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["contents"] = o.Contents
+	toSerialize["tags"] = o.Tags
+	toSerialize["digest"] = o.Digest
+	if !IsNil(o.ParentDigest) {
+		toSerialize["parent_digest"] = o.ParentDigest
+	}
+	if !IsNil(o.LocalImageId) {
+		toSerialize["local_image_id"] = o.LocalImageId
+	}
+	toSerialize["operation_uuid"] = o.OperationUuid
+	return toSerialize, nil
 }
 
 type NullableImageImportManifest struct {

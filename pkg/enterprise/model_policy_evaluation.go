@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the PolicyEvaluation type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PolicyEvaluation{}
+
 // PolicyEvaluation Evaluation response object
 type PolicyEvaluation struct {
 	// The ID of the policy used to evaluate the image
@@ -24,7 +27,7 @@ type PolicyEvaluation struct {
 	// Image tag used to evaluate policy for the given image
 	EvaluatedTag *string `json:"evaluated_tag,omitempty"`
 	// List of policy evaluations. Always has at least one result, may contain multiple when the evaluation history is requested.
-	Evaluations *[]PolicyEvaluationEvaluations `json:"evaluations,omitempty"`
+	Evaluations []PolicyEvaluationEvaluationsInner `json:"evaluations,omitempty"`
 }
 
 // NewPolicyEvaluation instantiates a new PolicyEvaluation object
@@ -46,7 +49,7 @@ func NewPolicyEvaluationWithDefaults() *PolicyEvaluation {
 
 // GetPolicyId returns the PolicyId field value if set, zero value otherwise.
 func (o *PolicyEvaluation) GetPolicyId() string {
-	if o == nil || o.PolicyId == nil {
+	if o == nil || IsNil(o.PolicyId) {
 		var ret string
 		return ret
 	}
@@ -56,7 +59,7 @@ func (o *PolicyEvaluation) GetPolicyId() string {
 // GetPolicyIdOk returns a tuple with the PolicyId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PolicyEvaluation) GetPolicyIdOk() (*string, bool) {
-	if o == nil || o.PolicyId == nil {
+	if o == nil || IsNil(o.PolicyId) {
 		return nil, false
 	}
 	return o.PolicyId, true
@@ -64,7 +67,7 @@ func (o *PolicyEvaluation) GetPolicyIdOk() (*string, bool) {
 
 // HasPolicyId returns a boolean if a field has been set.
 func (o *PolicyEvaluation) HasPolicyId() bool {
-	if o != nil && o.PolicyId != nil {
+	if o != nil && !IsNil(o.PolicyId) {
 		return true
 	}
 
@@ -78,7 +81,7 @@ func (o *PolicyEvaluation) SetPolicyId(v string) {
 
 // GetImageDigest returns the ImageDigest field value if set, zero value otherwise.
 func (o *PolicyEvaluation) GetImageDigest() string {
-	if o == nil || o.ImageDigest == nil {
+	if o == nil || IsNil(o.ImageDigest) {
 		var ret string
 		return ret
 	}
@@ -88,7 +91,7 @@ func (o *PolicyEvaluation) GetImageDigest() string {
 // GetImageDigestOk returns a tuple with the ImageDigest field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PolicyEvaluation) GetImageDigestOk() (*string, bool) {
-	if o == nil || o.ImageDigest == nil {
+	if o == nil || IsNil(o.ImageDigest) {
 		return nil, false
 	}
 	return o.ImageDigest, true
@@ -96,7 +99,7 @@ func (o *PolicyEvaluation) GetImageDigestOk() (*string, bool) {
 
 // HasImageDigest returns a boolean if a field has been set.
 func (o *PolicyEvaluation) HasImageDigest() bool {
-	if o != nil && o.ImageDigest != nil {
+	if o != nil && !IsNil(o.ImageDigest) {
 		return true
 	}
 
@@ -110,7 +113,7 @@ func (o *PolicyEvaluation) SetImageDigest(v string) {
 
 // GetEvaluatedTag returns the EvaluatedTag field value if set, zero value otherwise.
 func (o *PolicyEvaluation) GetEvaluatedTag() string {
-	if o == nil || o.EvaluatedTag == nil {
+	if o == nil || IsNil(o.EvaluatedTag) {
 		var ret string
 		return ret
 	}
@@ -120,7 +123,7 @@ func (o *PolicyEvaluation) GetEvaluatedTag() string {
 // GetEvaluatedTagOk returns a tuple with the EvaluatedTag field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PolicyEvaluation) GetEvaluatedTagOk() (*string, bool) {
-	if o == nil || o.EvaluatedTag == nil {
+	if o == nil || IsNil(o.EvaluatedTag) {
 		return nil, false
 	}
 	return o.EvaluatedTag, true
@@ -128,7 +131,7 @@ func (o *PolicyEvaluation) GetEvaluatedTagOk() (*string, bool) {
 
 // HasEvaluatedTag returns a boolean if a field has been set.
 func (o *PolicyEvaluation) HasEvaluatedTag() bool {
-	if o != nil && o.EvaluatedTag != nil {
+	if o != nil && !IsNil(o.EvaluatedTag) {
 		return true
 	}
 
@@ -141,18 +144,18 @@ func (o *PolicyEvaluation) SetEvaluatedTag(v string) {
 }
 
 // GetEvaluations returns the Evaluations field value if set, zero value otherwise.
-func (o *PolicyEvaluation) GetEvaluations() []PolicyEvaluationEvaluations {
-	if o == nil || o.Evaluations == nil {
-		var ret []PolicyEvaluationEvaluations
+func (o *PolicyEvaluation) GetEvaluations() []PolicyEvaluationEvaluationsInner {
+	if o == nil || IsNil(o.Evaluations) {
+		var ret []PolicyEvaluationEvaluationsInner
 		return ret
 	}
-	return *o.Evaluations
+	return o.Evaluations
 }
 
 // GetEvaluationsOk returns a tuple with the Evaluations field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *PolicyEvaluation) GetEvaluationsOk() (*[]PolicyEvaluationEvaluations, bool) {
-	if o == nil || o.Evaluations == nil {
+func (o *PolicyEvaluation) GetEvaluationsOk() ([]PolicyEvaluationEvaluationsInner, bool) {
+	if o == nil || IsNil(o.Evaluations) {
 		return nil, false
 	}
 	return o.Evaluations, true
@@ -160,33 +163,41 @@ func (o *PolicyEvaluation) GetEvaluationsOk() (*[]PolicyEvaluationEvaluations, b
 
 // HasEvaluations returns a boolean if a field has been set.
 func (o *PolicyEvaluation) HasEvaluations() bool {
-	if o != nil && o.Evaluations != nil {
+	if o != nil && !IsNil(o.Evaluations) {
 		return true
 	}
 
 	return false
 }
 
-// SetEvaluations gets a reference to the given []PolicyEvaluationEvaluations and assigns it to the Evaluations field.
-func (o *PolicyEvaluation) SetEvaluations(v []PolicyEvaluationEvaluations) {
-	o.Evaluations = &v
+// SetEvaluations gets a reference to the given []PolicyEvaluationEvaluationsInner and assigns it to the Evaluations field.
+func (o *PolicyEvaluation) SetEvaluations(v []PolicyEvaluationEvaluationsInner) {
+	o.Evaluations = v
 }
 
 func (o PolicyEvaluation) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.PolicyId != nil {
-		toSerialize["policy_id"] = o.PolicyId
-	}
-	if o.ImageDigest != nil {
-		toSerialize["image_digest"] = o.ImageDigest
-	}
-	if o.EvaluatedTag != nil {
-		toSerialize["evaluated_tag"] = o.EvaluatedTag
-	}
-	if o.Evaluations != nil {
-		toSerialize["evaluations"] = o.Evaluations
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o PolicyEvaluation) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.PolicyId) {
+		toSerialize["policy_id"] = o.PolicyId
+	}
+	if !IsNil(o.ImageDigest) {
+		toSerialize["image_digest"] = o.ImageDigest
+	}
+	if !IsNil(o.EvaluatedTag) {
+		toSerialize["evaluated_tag"] = o.EvaluatedTag
+	}
+	if !IsNil(o.Evaluations) {
+		toSerialize["evaluations"] = o.Evaluations
+	}
+	return toSerialize, nil
 }
 
 type NullablePolicyEvaluation struct {

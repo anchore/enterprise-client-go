@@ -13,74 +13,70 @@ package enterprise
 
 import (
 	"bytes"
-	_context "context"
-	_ioutil "io/ioutil"
-	_nethttp "net/http"
-	_neturl "net/url"
+	"context"
+	"io"
+	"net/http"
+	"net/url"
 )
 
-// Linger please
-var (
-	_ _context.Context
-)
 
-type IdentityApi interface {
+type IdentityAPI interface {
 
 	/*
 	AddCredential add/replace credential
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @return ApiAddCredentialRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiAddCredentialRequest
 	*/
-	AddCredential(ctx _context.Context) ApiAddCredentialRequest
+	AddCredential(ctx context.Context) ApiAddCredentialRequest
 
 	// AddCredentialExecute executes the request
 	//  @return User
-	AddCredentialExecute(r ApiAddCredentialRequest) (User, *_nethttp.Response, error)
+	AddCredentialExecute(r ApiAddCredentialRequest) (*User, *http.Response, error)
 
 	/*
 	GetCredentials Get current credential summary
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @return ApiGetCredentialsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiGetCredentialsRequest
 	*/
-	GetCredentials(ctx _context.Context) ApiGetCredentialsRequest
+	GetCredentials(ctx context.Context) ApiGetCredentialsRequest
 
 	// GetCredentialsExecute executes the request
 	//  @return []AccessCredential
-	GetCredentialsExecute(r ApiGetCredentialsRequest) ([]AccessCredential, *_nethttp.Response, error)
+	GetCredentialsExecute(r ApiGetCredentialsRequest) ([]AccessCredential, *http.Response, error)
 
 	/*
 	GetUser List authenticated user info
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @return ApiGetUserRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiGetUserRequest
 	*/
-	GetUser(ctx _context.Context) ApiGetUserRequest
+	GetUser(ctx context.Context) ApiGetUserRequest
 
 	// GetUserExecute executes the request
 	//  @return User
-	GetUserExecute(r ApiGetUserRequest) (User, *_nethttp.Response, error)
+	GetUserExecute(r ApiGetUserRequest) (*User, *http.Response, error)
 
 	/*
 	GetUsersAccount List the account for the authenticated user
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @return ApiGetUsersAccountRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiGetUsersAccountRequest
 	*/
-	GetUsersAccount(ctx _context.Context) ApiGetUsersAccountRequest
+	GetUsersAccount(ctx context.Context) ApiGetUsersAccountRequest
 
 	// GetUsersAccountExecute executes the request
 	//  @return Account
-	GetUsersAccountExecute(r ApiGetUsersAccountRequest) (Account, *_nethttp.Response, error)
+	GetUsersAccountExecute(r ApiGetUsersAccountRequest) (*Account, *http.Response, error)
 }
 
-// IdentityApiService IdentityApi service
-type IdentityApiService service
+// IdentityAPIService IdentityAPI service
+type IdentityAPIService service
 
 type ApiAddCredentialRequest struct {
-	ctx _context.Context
-	ApiService IdentityApi
+	ctx context.Context
+	ApiService IdentityAPI
 	credential *AccessCredential
 }
 
@@ -89,17 +85,17 @@ func (r ApiAddCredentialRequest) Credential(credential AccessCredential) ApiAddC
 	return r
 }
 
-func (r ApiAddCredentialRequest) Execute() (User, *_nethttp.Response, error) {
+func (r ApiAddCredentialRequest) Execute() (*User, *http.Response, error) {
 	return r.ApiService.AddCredentialExecute(r)
 }
 
 /*
 AddCredential add/replace credential
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiAddCredentialRequest
 */
-func (a *IdentityApiService) AddCredential(ctx _context.Context) ApiAddCredentialRequest {
+func (a *IdentityAPIService) AddCredential(ctx context.Context) ApiAddCredentialRequest {
 	return ApiAddCredentialRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -108,26 +104,24 @@ func (a *IdentityApiService) AddCredential(ctx _context.Context) ApiAddCredentia
 
 // Execute executes the request
 //  @return User
-func (a *IdentityApiService) AddCredentialExecute(r ApiAddCredentialRequest) (User, *_nethttp.Response, error) {
+func (a *IdentityAPIService) AddCredentialExecute(r ApiAddCredentialRequest) (*User, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPost
+		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  User
+		formFiles            []formFile
+		localVarReturnValue  *User
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IdentityApiService.AddCredential")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IdentityAPIService.AddCredential")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/user/credentials"
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if r.credential == nil {
 		return localVarReturnValue, nil, reportError("credential is required and must be specified")
 	}
@@ -151,7 +145,7 @@ func (a *IdentityApiService) AddCredentialExecute(r ApiAddCredentialRequest) (Us
 	}
 	// body params
 	localVarPostBody = r.credential
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -161,15 +155,15 @@ func (a *IdentityApiService) AddCredentialExecute(r ApiAddCredentialRequest) (Us
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -180,14 +174,15 @@ func (a *IdentityApiService) AddCredentialExecute(r ApiAddCredentialRequest) (Us
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -198,22 +193,21 @@ func (a *IdentityApiService) AddCredentialExecute(r ApiAddCredentialRequest) (Us
 }
 
 type ApiGetCredentialsRequest struct {
-	ctx _context.Context
-	ApiService IdentityApi
+	ctx context.Context
+	ApiService IdentityAPI
 }
 
-
-func (r ApiGetCredentialsRequest) Execute() ([]AccessCredential, *_nethttp.Response, error) {
+func (r ApiGetCredentialsRequest) Execute() ([]AccessCredential, *http.Response, error) {
 	return r.ApiService.GetCredentialsExecute(r)
 }
 
 /*
 GetCredentials Get current credential summary
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiGetCredentialsRequest
 */
-func (a *IdentityApiService) GetCredentials(ctx _context.Context) ApiGetCredentialsRequest {
+func (a *IdentityAPIService) GetCredentials(ctx context.Context) ApiGetCredentialsRequest {
 	return ApiGetCredentialsRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -222,26 +216,24 @@ func (a *IdentityApiService) GetCredentials(ctx _context.Context) ApiGetCredenti
 
 // Execute executes the request
 //  @return []AccessCredential
-func (a *IdentityApiService) GetCredentialsExecute(r ApiGetCredentialsRequest) ([]AccessCredential, *_nethttp.Response, error) {
+func (a *IdentityAPIService) GetCredentialsExecute(r ApiGetCredentialsRequest) ([]AccessCredential, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
+		formFiles            []formFile
 		localVarReturnValue  []AccessCredential
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IdentityApiService.GetCredentials")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IdentityAPIService.GetCredentials")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/user/credentials"
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -260,7 +252,7 @@ func (a *IdentityApiService) GetCredentialsExecute(r ApiGetCredentialsRequest) (
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -270,15 +262,15 @@ func (a *IdentityApiService) GetCredentialsExecute(r ApiGetCredentialsRequest) (
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -289,14 +281,15 @@ func (a *IdentityApiService) GetCredentialsExecute(r ApiGetCredentialsRequest) (
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -307,22 +300,21 @@ func (a *IdentityApiService) GetCredentialsExecute(r ApiGetCredentialsRequest) (
 }
 
 type ApiGetUserRequest struct {
-	ctx _context.Context
-	ApiService IdentityApi
+	ctx context.Context
+	ApiService IdentityAPI
 }
 
-
-func (r ApiGetUserRequest) Execute() (User, *_nethttp.Response, error) {
+func (r ApiGetUserRequest) Execute() (*User, *http.Response, error) {
 	return r.ApiService.GetUserExecute(r)
 }
 
 /*
 GetUser List authenticated user info
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiGetUserRequest
 */
-func (a *IdentityApiService) GetUser(ctx _context.Context) ApiGetUserRequest {
+func (a *IdentityAPIService) GetUser(ctx context.Context) ApiGetUserRequest {
 	return ApiGetUserRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -331,26 +323,24 @@ func (a *IdentityApiService) GetUser(ctx _context.Context) ApiGetUserRequest {
 
 // Execute executes the request
 //  @return User
-func (a *IdentityApiService) GetUserExecute(r ApiGetUserRequest) (User, *_nethttp.Response, error) {
+func (a *IdentityAPIService) GetUserExecute(r ApiGetUserRequest) (*User, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  User
+		formFiles            []formFile
+		localVarReturnValue  *User
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IdentityApiService.GetUser")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IdentityAPIService.GetUser")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/user"
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -369,7 +359,7 @@ func (a *IdentityApiService) GetUserExecute(r ApiGetUserRequest) (User, *_nethtt
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -379,15 +369,15 @@ func (a *IdentityApiService) GetUserExecute(r ApiGetUserRequest) (User, *_nethtt
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -398,14 +388,15 @@ func (a *IdentityApiService) GetUserExecute(r ApiGetUserRequest) (User, *_nethtt
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -416,22 +407,21 @@ func (a *IdentityApiService) GetUserExecute(r ApiGetUserRequest) (User, *_nethtt
 }
 
 type ApiGetUsersAccountRequest struct {
-	ctx _context.Context
-	ApiService IdentityApi
+	ctx context.Context
+	ApiService IdentityAPI
 }
 
-
-func (r ApiGetUsersAccountRequest) Execute() (Account, *_nethttp.Response, error) {
+func (r ApiGetUsersAccountRequest) Execute() (*Account, *http.Response, error) {
 	return r.ApiService.GetUsersAccountExecute(r)
 }
 
 /*
 GetUsersAccount List the account for the authenticated user
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiGetUsersAccountRequest
 */
-func (a *IdentityApiService) GetUsersAccount(ctx _context.Context) ApiGetUsersAccountRequest {
+func (a *IdentityAPIService) GetUsersAccount(ctx context.Context) ApiGetUsersAccountRequest {
 	return ApiGetUsersAccountRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -440,26 +430,24 @@ func (a *IdentityApiService) GetUsersAccount(ctx _context.Context) ApiGetUsersAc
 
 // Execute executes the request
 //  @return Account
-func (a *IdentityApiService) GetUsersAccountExecute(r ApiGetUsersAccountRequest) (Account, *_nethttp.Response, error) {
+func (a *IdentityAPIService) GetUsersAccountExecute(r ApiGetUsersAccountRequest) (*Account, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  Account
+		formFiles            []formFile
+		localVarReturnValue  *Account
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IdentityApiService.GetUsersAccount")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IdentityAPIService.GetUsersAccount")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/account"
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -478,7 +466,7 @@ func (a *IdentityApiService) GetUsersAccountExecute(r ApiGetUsersAccountRequest)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -488,15 +476,15 @@ func (a *IdentityApiService) GetUsersAccountExecute(r ApiGetUsersAccountRequest)
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -507,14 +495,15 @@ func (a *IdentityApiService) GetUsersAccountExecute(r ApiGetUsersAccountRequest)
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}

@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the NotificationServiceVersionEngine type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &NotificationServiceVersionEngine{}
+
 // NotificationServiceVersionEngine struct for NotificationServiceVersionEngine
 type NotificationServiceVersionEngine struct {
 	// Version of the installed engine library
@@ -42,7 +45,7 @@ func NewNotificationServiceVersionEngineWithDefaults() *NotificationServiceVersi
 
 // GetVersion returns the Version field value if set, zero value otherwise.
 func (o *NotificationServiceVersionEngine) GetVersion() string {
-	if o == nil || o.Version == nil {
+	if o == nil || IsNil(o.Version) {
 		var ret string
 		return ret
 	}
@@ -52,7 +55,7 @@ func (o *NotificationServiceVersionEngine) GetVersion() string {
 // GetVersionOk returns a tuple with the Version field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *NotificationServiceVersionEngine) GetVersionOk() (*string, bool) {
-	if o == nil || o.Version == nil {
+	if o == nil || IsNil(o.Version) {
 		return nil, false
 	}
 	return o.Version, true
@@ -60,7 +63,7 @@ func (o *NotificationServiceVersionEngine) GetVersionOk() (*string, bool) {
 
 // HasVersion returns a boolean if a field has been set.
 func (o *NotificationServiceVersionEngine) HasVersion() bool {
-	if o != nil && o.Version != nil {
+	if o != nil && !IsNil(o.Version) {
 		return true
 	}
 
@@ -74,7 +77,7 @@ func (o *NotificationServiceVersionEngine) SetVersion(v string) {
 
 // GetDb returns the Db field value if set, zero value otherwise.
 func (o *NotificationServiceVersionEngine) GetDb() string {
-	if o == nil || o.Db == nil {
+	if o == nil || IsNil(o.Db) {
 		var ret string
 		return ret
 	}
@@ -84,7 +87,7 @@ func (o *NotificationServiceVersionEngine) GetDb() string {
 // GetDbOk returns a tuple with the Db field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *NotificationServiceVersionEngine) GetDbOk() (*string, bool) {
-	if o == nil || o.Db == nil {
+	if o == nil || IsNil(o.Db) {
 		return nil, false
 	}
 	return o.Db, true
@@ -92,7 +95,7 @@ func (o *NotificationServiceVersionEngine) GetDbOk() (*string, bool) {
 
 // HasDb returns a boolean if a field has been set.
 func (o *NotificationServiceVersionEngine) HasDb() bool {
-	if o != nil && o.Db != nil {
+	if o != nil && !IsNil(o.Db) {
 		return true
 	}
 
@@ -105,14 +108,22 @@ func (o *NotificationServiceVersionEngine) SetDb(v string) {
 }
 
 func (o NotificationServiceVersionEngine) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Version != nil {
-		toSerialize["version"] = o.Version
-	}
-	if o.Db != nil {
-		toSerialize["db"] = o.Db
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o NotificationServiceVersionEngine) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Version) {
+		toSerialize["version"] = o.Version
+	}
+	if !IsNil(o.Db) {
+		toSerialize["db"] = o.Db
+	}
+	return toSerialize, nil
 }
 
 type NullableNotificationServiceVersionEngine struct {

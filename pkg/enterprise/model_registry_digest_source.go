@@ -16,6 +16,9 @@ import (
 	"time"
 )
 
+// checks if the RegistryDigestSource type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &RegistryDigestSource{}
+
 // RegistryDigestSource An image reference using a digest in a registry, includes some extra tag and timestamp info in addition to the pull string to allow proper tag history reconstruction.
 type RegistryDigestSource struct {
 	// A digest-based pull string (e.g. docker.io/nginx@sha256:123abc)
@@ -60,7 +63,7 @@ func (o *RegistryDigestSource) GetPullString() string {
 // GetPullStringOk returns a tuple with the PullString field value
 // and a boolean to check if the value has been set.
 func (o *RegistryDigestSource) GetPullStringOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.PullString, true
@@ -84,7 +87,7 @@ func (o *RegistryDigestSource) GetTag() string {
 // GetTagOk returns a tuple with the Tag field value
 // and a boolean to check if the value has been set.
 func (o *RegistryDigestSource) GetTagOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Tag, true
@@ -97,7 +100,7 @@ func (o *RegistryDigestSource) SetTag(v string) {
 
 // GetCreationTimestampOverride returns the CreationTimestampOverride field value if set, zero value otherwise.
 func (o *RegistryDigestSource) GetCreationTimestampOverride() time.Time {
-	if o == nil || o.CreationTimestampOverride == nil {
+	if o == nil || IsNil(o.CreationTimestampOverride) {
 		var ret time.Time
 		return ret
 	}
@@ -107,7 +110,7 @@ func (o *RegistryDigestSource) GetCreationTimestampOverride() time.Time {
 // GetCreationTimestampOverrideOk returns a tuple with the CreationTimestampOverride field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RegistryDigestSource) GetCreationTimestampOverrideOk() (*time.Time, bool) {
-	if o == nil || o.CreationTimestampOverride == nil {
+	if o == nil || IsNil(o.CreationTimestampOverride) {
 		return nil, false
 	}
 	return o.CreationTimestampOverride, true
@@ -115,7 +118,7 @@ func (o *RegistryDigestSource) GetCreationTimestampOverrideOk() (*time.Time, boo
 
 // HasCreationTimestampOverride returns a boolean if a field has been set.
 func (o *RegistryDigestSource) HasCreationTimestampOverride() bool {
-	if o != nil && o.CreationTimestampOverride != nil {
+	if o != nil && !IsNil(o.CreationTimestampOverride) {
 		return true
 	}
 
@@ -129,7 +132,7 @@ func (o *RegistryDigestSource) SetCreationTimestampOverride(v time.Time) {
 
 // GetDockerfile returns the Dockerfile field value if set, zero value otherwise.
 func (o *RegistryDigestSource) GetDockerfile() string {
-	if o == nil || o.Dockerfile == nil {
+	if o == nil || IsNil(o.Dockerfile) {
 		var ret string
 		return ret
 	}
@@ -139,7 +142,7 @@ func (o *RegistryDigestSource) GetDockerfile() string {
 // GetDockerfileOk returns a tuple with the Dockerfile field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RegistryDigestSource) GetDockerfileOk() (*string, bool) {
-	if o == nil || o.Dockerfile == nil {
+	if o == nil || IsNil(o.Dockerfile) {
 		return nil, false
 	}
 	return o.Dockerfile, true
@@ -147,7 +150,7 @@ func (o *RegistryDigestSource) GetDockerfileOk() (*string, bool) {
 
 // HasDockerfile returns a boolean if a field has been set.
 func (o *RegistryDigestSource) HasDockerfile() bool {
-	if o != nil && o.Dockerfile != nil {
+	if o != nil && !IsNil(o.Dockerfile) {
 		return true
 	}
 
@@ -160,20 +163,24 @@ func (o *RegistryDigestSource) SetDockerfile(v string) {
 }
 
 func (o RegistryDigestSource) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["pull_string"] = o.PullString
-	}
-	if true {
-		toSerialize["tag"] = o.Tag
-	}
-	if o.CreationTimestampOverride != nil {
-		toSerialize["creation_timestamp_override"] = o.CreationTimestampOverride
-	}
-	if o.Dockerfile != nil {
-		toSerialize["dockerfile"] = o.Dockerfile
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o RegistryDigestSource) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["pull_string"] = o.PullString
+	toSerialize["tag"] = o.Tag
+	if !IsNil(o.CreationTimestampOverride) {
+		toSerialize["creation_timestamp_override"] = o.CreationTimestampOverride
+	}
+	if !IsNil(o.Dockerfile) {
+		toSerialize["dockerfile"] = o.Dockerfile
+	}
+	return toSerialize, nil
 }
 
 type NullableRegistryDigestSource struct {

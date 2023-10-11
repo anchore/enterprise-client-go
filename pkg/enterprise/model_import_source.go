@@ -15,11 +15,14 @@ import (
 	"encoding/json"
 )
 
+// checks if the ImportSource type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ImportSource{}
+
 // ImportSource struct for ImportSource
 type ImportSource struct {
 	Type string `json:"type"`
-	Target *map[string]interface{} `json:"target,omitempty"`
-	Metadata *map[string]interface{} `json:"metadata,omitempty"`
+	Target map[string]interface{} `json:"target,omitempty"`
+	Metadata map[string]interface{} `json:"metadata,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -56,7 +59,7 @@ func (o *ImportSource) GetType() string {
 // GetTypeOk returns a tuple with the Type field value
 // and a boolean to check if the value has been set.
 func (o *ImportSource) GetTypeOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Type, true
@@ -69,25 +72,25 @@ func (o *ImportSource) SetType(v string) {
 
 // GetTarget returns the Target field value if set, zero value otherwise.
 func (o *ImportSource) GetTarget() map[string]interface{} {
-	if o == nil || o.Target == nil {
+	if o == nil || IsNil(o.Target) {
 		var ret map[string]interface{}
 		return ret
 	}
-	return *o.Target
+	return o.Target
 }
 
 // GetTargetOk returns a tuple with the Target field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ImportSource) GetTargetOk() (*map[string]interface{}, bool) {
-	if o == nil || o.Target == nil {
-		return nil, false
+func (o *ImportSource) GetTargetOk() (map[string]interface{}, bool) {
+	if o == nil || IsNil(o.Target) {
+		return map[string]interface{}{}, false
 	}
 	return o.Target, true
 }
 
 // HasTarget returns a boolean if a field has been set.
 func (o *ImportSource) HasTarget() bool {
-	if o != nil && o.Target != nil {
+	if o != nil && !IsNil(o.Target) {
 		return true
 	}
 
@@ -96,30 +99,30 @@ func (o *ImportSource) HasTarget() bool {
 
 // SetTarget gets a reference to the given map[string]interface{} and assigns it to the Target field.
 func (o *ImportSource) SetTarget(v map[string]interface{}) {
-	o.Target = &v
+	o.Target = v
 }
 
 // GetMetadata returns the Metadata field value if set, zero value otherwise.
 func (o *ImportSource) GetMetadata() map[string]interface{} {
-	if o == nil || o.Metadata == nil {
+	if o == nil || IsNil(o.Metadata) {
 		var ret map[string]interface{}
 		return ret
 	}
-	return *o.Metadata
+	return o.Metadata
 }
 
 // GetMetadataOk returns a tuple with the Metadata field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ImportSource) GetMetadataOk() (*map[string]interface{}, bool) {
-	if o == nil || o.Metadata == nil {
-		return nil, false
+func (o *ImportSource) GetMetadataOk() (map[string]interface{}, bool) {
+	if o == nil || IsNil(o.Metadata) {
+		return map[string]interface{}{}, false
 	}
 	return o.Metadata, true
 }
 
 // HasMetadata returns a boolean if a field has been set.
 func (o *ImportSource) HasMetadata() bool {
-	if o != nil && o.Metadata != nil {
+	if o != nil && !IsNil(o.Metadata) {
 		return true
 	}
 
@@ -128,18 +131,24 @@ func (o *ImportSource) HasMetadata() bool {
 
 // SetMetadata gets a reference to the given map[string]interface{} and assigns it to the Metadata field.
 func (o *ImportSource) SetMetadata(v map[string]interface{}) {
-	o.Metadata = &v
+	o.Metadata = v
 }
 
 func (o ImportSource) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["type"] = o.Type
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
-	if o.Target != nil {
+	return json.Marshal(toSerialize)
+}
+
+func (o ImportSource) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["type"] = o.Type
+	if !IsNil(o.Target) {
 		toSerialize["target"] = o.Target
 	}
-	if o.Metadata != nil {
+	if !IsNil(o.Metadata) {
 		toSerialize["metadata"] = o.Metadata
 	}
 
@@ -147,15 +156,19 @@ func (o ImportSource) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
 func (o *ImportSource) UnmarshalJSON(bytes []byte) (err error) {
 	varImportSource := _ImportSource{}
 
-	if err = json.Unmarshal(bytes, &varImportSource); err == nil {
-		*o = ImportSource(varImportSource)
+	err = json.Unmarshal(bytes, &varImportSource)
+
+	if err != nil {
+		return err
 	}
+
+	*o = ImportSource(varImportSource)
 
 	additionalProperties := make(map[string]interface{})
 

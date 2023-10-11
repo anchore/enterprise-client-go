@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the ReportingStatusResponse type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ReportingStatusResponse{}
+
 // ReportingStatusResponse System status response
 type ReportingStatusResponse struct {
 	Busy *bool `json:"busy,omitempty"`
@@ -41,7 +44,7 @@ func NewReportingStatusResponseWithDefaults() *ReportingStatusResponse {
 
 // GetBusy returns the Busy field value if set, zero value otherwise.
 func (o *ReportingStatusResponse) GetBusy() bool {
-	if o == nil || o.Busy == nil {
+	if o == nil || IsNil(o.Busy) {
 		var ret bool
 		return ret
 	}
@@ -51,7 +54,7 @@ func (o *ReportingStatusResponse) GetBusy() bool {
 // GetBusyOk returns a tuple with the Busy field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ReportingStatusResponse) GetBusyOk() (*bool, bool) {
-	if o == nil || o.Busy == nil {
+	if o == nil || IsNil(o.Busy) {
 		return nil, false
 	}
 	return o.Busy, true
@@ -59,7 +62,7 @@ func (o *ReportingStatusResponse) GetBusyOk() (*bool, bool) {
 
 // HasBusy returns a boolean if a field has been set.
 func (o *ReportingStatusResponse) HasBusy() bool {
-	if o != nil && o.Busy != nil {
+	if o != nil && !IsNil(o.Busy) {
 		return true
 	}
 
@@ -73,7 +76,7 @@ func (o *ReportingStatusResponse) SetBusy(v bool) {
 
 // GetUp returns the Up field value if set, zero value otherwise.
 func (o *ReportingStatusResponse) GetUp() bool {
-	if o == nil || o.Up == nil {
+	if o == nil || IsNil(o.Up) {
 		var ret bool
 		return ret
 	}
@@ -83,7 +86,7 @@ func (o *ReportingStatusResponse) GetUp() bool {
 // GetUpOk returns a tuple with the Up field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ReportingStatusResponse) GetUpOk() (*bool, bool) {
-	if o == nil || o.Up == nil {
+	if o == nil || IsNil(o.Up) {
 		return nil, false
 	}
 	return o.Up, true
@@ -91,7 +94,7 @@ func (o *ReportingStatusResponse) GetUpOk() (*bool, bool) {
 
 // HasUp returns a boolean if a field has been set.
 func (o *ReportingStatusResponse) HasUp() bool {
-	if o != nil && o.Up != nil {
+	if o != nil && !IsNil(o.Up) {
 		return true
 	}
 
@@ -105,7 +108,7 @@ func (o *ReportingStatusResponse) SetUp(v bool) {
 
 // GetMessage returns the Message field value if set, zero value otherwise.
 func (o *ReportingStatusResponse) GetMessage() string {
-	if o == nil || o.Message == nil {
+	if o == nil || IsNil(o.Message) {
 		var ret string
 		return ret
 	}
@@ -115,7 +118,7 @@ func (o *ReportingStatusResponse) GetMessage() string {
 // GetMessageOk returns a tuple with the Message field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ReportingStatusResponse) GetMessageOk() (*string, bool) {
-	if o == nil || o.Message == nil {
+	if o == nil || IsNil(o.Message) {
 		return nil, false
 	}
 	return o.Message, true
@@ -123,7 +126,7 @@ func (o *ReportingStatusResponse) GetMessageOk() (*string, bool) {
 
 // HasMessage returns a boolean if a field has been set.
 func (o *ReportingStatusResponse) HasMessage() bool {
-	if o != nil && o.Message != nil {
+	if o != nil && !IsNil(o.Message) {
 		return true
 	}
 
@@ -136,17 +139,25 @@ func (o *ReportingStatusResponse) SetMessage(v string) {
 }
 
 func (o ReportingStatusResponse) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Busy != nil {
-		toSerialize["busy"] = o.Busy
-	}
-	if o.Up != nil {
-		toSerialize["up"] = o.Up
-	}
-	if o.Message != nil {
-		toSerialize["message"] = o.Message
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o ReportingStatusResponse) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Busy) {
+		toSerialize["busy"] = o.Busy
+	}
+	if !IsNil(o.Up) {
+		toSerialize["up"] = o.Up
+	}
+	if !IsNil(o.Message) {
+		toSerialize["message"] = o.Message
+	}
+	return toSerialize, nil
 }
 
 type NullableReportingStatusResponse struct {

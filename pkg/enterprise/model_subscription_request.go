@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the SubscriptionRequest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &SubscriptionRequest{}
+
 // SubscriptionRequest A subscription entry to add to the system
 type SubscriptionRequest struct {
 	SubscriptionKey *string `json:"subscription_key,omitempty"`
@@ -41,7 +44,7 @@ func NewSubscriptionRequestWithDefaults() *SubscriptionRequest {
 
 // GetSubscriptionKey returns the SubscriptionKey field value if set, zero value otherwise.
 func (o *SubscriptionRequest) GetSubscriptionKey() string {
-	if o == nil || o.SubscriptionKey == nil {
+	if o == nil || IsNil(o.SubscriptionKey) {
 		var ret string
 		return ret
 	}
@@ -51,7 +54,7 @@ func (o *SubscriptionRequest) GetSubscriptionKey() string {
 // GetSubscriptionKeyOk returns a tuple with the SubscriptionKey field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SubscriptionRequest) GetSubscriptionKeyOk() (*string, bool) {
-	if o == nil || o.SubscriptionKey == nil {
+	if o == nil || IsNil(o.SubscriptionKey) {
 		return nil, false
 	}
 	return o.SubscriptionKey, true
@@ -59,7 +62,7 @@ func (o *SubscriptionRequest) GetSubscriptionKeyOk() (*string, bool) {
 
 // HasSubscriptionKey returns a boolean if a field has been set.
 func (o *SubscriptionRequest) HasSubscriptionKey() bool {
-	if o != nil && o.SubscriptionKey != nil {
+	if o != nil && !IsNil(o.SubscriptionKey) {
 		return true
 	}
 
@@ -73,7 +76,7 @@ func (o *SubscriptionRequest) SetSubscriptionKey(v string) {
 
 // GetSubscriptionValue returns the SubscriptionValue field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *SubscriptionRequest) GetSubscriptionValue() string {
-	if o == nil || o.SubscriptionValue.Get() == nil {
+	if o == nil || IsNil(o.SubscriptionValue.Get()) {
 		var ret string
 		return ret
 	}
@@ -84,7 +87,7 @@ func (o *SubscriptionRequest) GetSubscriptionValue() string {
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *SubscriptionRequest) GetSubscriptionValueOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return o.SubscriptionValue.Get(), o.SubscriptionValue.IsSet()
@@ -115,7 +118,7 @@ func (o *SubscriptionRequest) UnsetSubscriptionValue() {
 
 // GetSubscriptionType returns the SubscriptionType field value if set, zero value otherwise.
 func (o *SubscriptionRequest) GetSubscriptionType() string {
-	if o == nil || o.SubscriptionType == nil {
+	if o == nil || IsNil(o.SubscriptionType) {
 		var ret string
 		return ret
 	}
@@ -125,7 +128,7 @@ func (o *SubscriptionRequest) GetSubscriptionType() string {
 // GetSubscriptionTypeOk returns a tuple with the SubscriptionType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SubscriptionRequest) GetSubscriptionTypeOk() (*string, bool) {
-	if o == nil || o.SubscriptionType == nil {
+	if o == nil || IsNil(o.SubscriptionType) {
 		return nil, false
 	}
 	return o.SubscriptionType, true
@@ -133,7 +136,7 @@ func (o *SubscriptionRequest) GetSubscriptionTypeOk() (*string, bool) {
 
 // HasSubscriptionType returns a boolean if a field has been set.
 func (o *SubscriptionRequest) HasSubscriptionType() bool {
-	if o != nil && o.SubscriptionType != nil {
+	if o != nil && !IsNil(o.SubscriptionType) {
 		return true
 	}
 
@@ -146,17 +149,25 @@ func (o *SubscriptionRequest) SetSubscriptionType(v string) {
 }
 
 func (o SubscriptionRequest) MarshalJSON() ([]byte, error) {
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o SubscriptionRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.SubscriptionKey != nil {
+	if !IsNil(o.SubscriptionKey) {
 		toSerialize["subscription_key"] = o.SubscriptionKey
 	}
 	if o.SubscriptionValue.IsSet() {
 		toSerialize["subscription_value"] = o.SubscriptionValue.Get()
 	}
-	if o.SubscriptionType != nil {
+	if !IsNil(o.SubscriptionType) {
 		toSerialize["subscription_type"] = o.SubscriptionType
 	}
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
 type NullableSubscriptionRequest struct {

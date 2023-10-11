@@ -1,11 +1,11 @@
-# \ActionsApi
+# \ActionsAPI
 
-All URIs are relative to *http://localhost/v2*
+All URIs are relative to */v2*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**AddActionPlan**](ActionsApi.md#AddActionPlan) | **Post** /actions | Submits an Action Plan
-[**GetActionPlans**](ActionsApi.md#GetActionPlans) | **Get** /actions | Gets a list of submitted action (remediation) plans
+[**AddActionPlan**](ActionsAPI.md#AddActionPlan) | **Post** /actions | Submits an Action Plan
+[**GetActionPlans**](ActionsAPI.md#GetActionPlans) | **Get** /actions | Gets a list of submitted action (remediation) plans
 
 
 
@@ -26,21 +26,21 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+    openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
     actionPlan := *openapiclient.NewActionPlan() // ActionPlan | 
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.ActionsApi.AddActionPlan(context.Background()).ActionPlan(actionPlan).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.ActionsAPI.AddActionPlan(context.Background()).ActionPlan(actionPlan).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ActionsApi.AddActionPlan``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `ActionsAPI.AddActionPlan``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
     // response from `AddActionPlan`: ActionPlan
-    fmt.Fprintf(os.Stdout, "Response from `ActionsApi.AddActionPlan`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `ActionsAPI.AddActionPlan`: %v\n", resp)
 }
 ```
 
@@ -93,7 +93,7 @@ import (
     "fmt"
     "os"
     "time"
-    openapiclient "./openapi"
+    openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
@@ -103,14 +103,14 @@ func main() {
     xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.ActionsApi.GetActionPlans(context.Background()).ImageTag(imageTag).ImageDigest(imageDigest).CreatedAfter(createdAfter).XAnchoreAccount(xAnchoreAccount).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.ActionsAPI.GetActionPlans(context.Background()).ImageTag(imageTag).ImageDigest(imageDigest).CreatedAfter(createdAfter).XAnchoreAccount(xAnchoreAccount).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ActionsApi.GetActionPlans``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `ActionsAPI.GetActionPlans``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
     // response from `GetActionPlans`: []ActionPlan
-    fmt.Fprintf(os.Stdout, "Response from `ActionsApi.GetActionPlans`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `ActionsAPI.GetActionPlans`: %v\n", resp)
 }
 ```
 

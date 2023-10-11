@@ -15,10 +15,13 @@ import (
 	"encoding/json"
 )
 
+// checks if the PolicyEvaluationRemediation type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PolicyEvaluationRemediation{}
+
 // PolicyEvaluationRemediation struct for PolicyEvaluationRemediation
 type PolicyEvaluationRemediation struct {
 	// Anchore generated options for resolving a finding
-	Suggestions []PolicyEvaluationRemediationSuggestions `json:"suggestions"`
+	Suggestions []PolicyEvaluationRemediationSuggestionsInner `json:"suggestions"`
 	// List of trigger IDs that these remediation suggestions apply to
 	TriggerIds []string `json:"trigger_ids"`
 }
@@ -27,7 +30,7 @@ type PolicyEvaluationRemediation struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewPolicyEvaluationRemediation(suggestions []PolicyEvaluationRemediationSuggestions, triggerIds []string) *PolicyEvaluationRemediation {
+func NewPolicyEvaluationRemediation(suggestions []PolicyEvaluationRemediationSuggestionsInner, triggerIds []string) *PolicyEvaluationRemediation {
 	this := PolicyEvaluationRemediation{}
 	this.Suggestions = suggestions
 	this.TriggerIds = triggerIds
@@ -43,9 +46,9 @@ func NewPolicyEvaluationRemediationWithDefaults() *PolicyEvaluationRemediation {
 }
 
 // GetSuggestions returns the Suggestions field value
-func (o *PolicyEvaluationRemediation) GetSuggestions() []PolicyEvaluationRemediationSuggestions {
+func (o *PolicyEvaluationRemediation) GetSuggestions() []PolicyEvaluationRemediationSuggestionsInner {
 	if o == nil {
-		var ret []PolicyEvaluationRemediationSuggestions
+		var ret []PolicyEvaluationRemediationSuggestionsInner
 		return ret
 	}
 
@@ -54,15 +57,15 @@ func (o *PolicyEvaluationRemediation) GetSuggestions() []PolicyEvaluationRemedia
 
 // GetSuggestionsOk returns a tuple with the Suggestions field value
 // and a boolean to check if the value has been set.
-func (o *PolicyEvaluationRemediation) GetSuggestionsOk() (*[]PolicyEvaluationRemediationSuggestions, bool) {
-	if o == nil  {
+func (o *PolicyEvaluationRemediation) GetSuggestionsOk() ([]PolicyEvaluationRemediationSuggestionsInner, bool) {
+	if o == nil {
 		return nil, false
 	}
-	return &o.Suggestions, true
+	return o.Suggestions, true
 }
 
 // SetSuggestions sets field value
-func (o *PolicyEvaluationRemediation) SetSuggestions(v []PolicyEvaluationRemediationSuggestions) {
+func (o *PolicyEvaluationRemediation) SetSuggestions(v []PolicyEvaluationRemediationSuggestionsInner) {
 	o.Suggestions = v
 }
 
@@ -78,11 +81,11 @@ func (o *PolicyEvaluationRemediation) GetTriggerIds() []string {
 
 // GetTriggerIdsOk returns a tuple with the TriggerIds field value
 // and a boolean to check if the value has been set.
-func (o *PolicyEvaluationRemediation) GetTriggerIdsOk() (*[]string, bool) {
-	if o == nil  {
+func (o *PolicyEvaluationRemediation) GetTriggerIdsOk() ([]string, bool) {
+	if o == nil {
 		return nil, false
 	}
-	return &o.TriggerIds, true
+	return o.TriggerIds, true
 }
 
 // SetTriggerIds sets field value
@@ -91,14 +94,18 @@ func (o *PolicyEvaluationRemediation) SetTriggerIds(v []string) {
 }
 
 func (o PolicyEvaluationRemediation) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["suggestions"] = o.Suggestions
-	}
-	if true {
-		toSerialize["trigger_ids"] = o.TriggerIds
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o PolicyEvaluationRemediation) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["suggestions"] = o.Suggestions
+	toSerialize["trigger_ids"] = o.TriggerIds
+	return toSerialize, nil
 }
 
 type NullablePolicyEvaluationRemediation struct {

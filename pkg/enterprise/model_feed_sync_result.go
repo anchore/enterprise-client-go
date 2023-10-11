@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the FeedSyncResult type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &FeedSyncResult{}
+
 // FeedSyncResult The result of a sync of a single feed
 type FeedSyncResult struct {
 	// The name of the feed synced
@@ -24,7 +27,7 @@ type FeedSyncResult struct {
 	// The duration, in seconds, of the sync of the feed, the sum of all the group syncs
 	TotalTimeSeconds *float32 `json:"total_time_seconds,omitempty"`
 	// Array of group sync results
-	Groups *[]GroupSyncResult `json:"groups,omitempty"`
+	Groups []GroupSyncResult `json:"groups,omitempty"`
 }
 
 // NewFeedSyncResult instantiates a new FeedSyncResult object
@@ -46,7 +49,7 @@ func NewFeedSyncResultWithDefaults() *FeedSyncResult {
 
 // GetFeed returns the Feed field value if set, zero value otherwise.
 func (o *FeedSyncResult) GetFeed() string {
-	if o == nil || o.Feed == nil {
+	if o == nil || IsNil(o.Feed) {
 		var ret string
 		return ret
 	}
@@ -56,7 +59,7 @@ func (o *FeedSyncResult) GetFeed() string {
 // GetFeedOk returns a tuple with the Feed field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *FeedSyncResult) GetFeedOk() (*string, bool) {
-	if o == nil || o.Feed == nil {
+	if o == nil || IsNil(o.Feed) {
 		return nil, false
 	}
 	return o.Feed, true
@@ -64,7 +67,7 @@ func (o *FeedSyncResult) GetFeedOk() (*string, bool) {
 
 // HasFeed returns a boolean if a field has been set.
 func (o *FeedSyncResult) HasFeed() bool {
-	if o != nil && o.Feed != nil {
+	if o != nil && !IsNil(o.Feed) {
 		return true
 	}
 
@@ -78,7 +81,7 @@ func (o *FeedSyncResult) SetFeed(v string) {
 
 // GetStatus returns the Status field value if set, zero value otherwise.
 func (o *FeedSyncResult) GetStatus() string {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		var ret string
 		return ret
 	}
@@ -88,7 +91,7 @@ func (o *FeedSyncResult) GetStatus() string {
 // GetStatusOk returns a tuple with the Status field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *FeedSyncResult) GetStatusOk() (*string, bool) {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		return nil, false
 	}
 	return o.Status, true
@@ -96,7 +99,7 @@ func (o *FeedSyncResult) GetStatusOk() (*string, bool) {
 
 // HasStatus returns a boolean if a field has been set.
 func (o *FeedSyncResult) HasStatus() bool {
-	if o != nil && o.Status != nil {
+	if o != nil && !IsNil(o.Status) {
 		return true
 	}
 
@@ -110,7 +113,7 @@ func (o *FeedSyncResult) SetStatus(v string) {
 
 // GetTotalTimeSeconds returns the TotalTimeSeconds field value if set, zero value otherwise.
 func (o *FeedSyncResult) GetTotalTimeSeconds() float32 {
-	if o == nil || o.TotalTimeSeconds == nil {
+	if o == nil || IsNil(o.TotalTimeSeconds) {
 		var ret float32
 		return ret
 	}
@@ -120,7 +123,7 @@ func (o *FeedSyncResult) GetTotalTimeSeconds() float32 {
 // GetTotalTimeSecondsOk returns a tuple with the TotalTimeSeconds field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *FeedSyncResult) GetTotalTimeSecondsOk() (*float32, bool) {
-	if o == nil || o.TotalTimeSeconds == nil {
+	if o == nil || IsNil(o.TotalTimeSeconds) {
 		return nil, false
 	}
 	return o.TotalTimeSeconds, true
@@ -128,7 +131,7 @@ func (o *FeedSyncResult) GetTotalTimeSecondsOk() (*float32, bool) {
 
 // HasTotalTimeSeconds returns a boolean if a field has been set.
 func (o *FeedSyncResult) HasTotalTimeSeconds() bool {
-	if o != nil && o.TotalTimeSeconds != nil {
+	if o != nil && !IsNil(o.TotalTimeSeconds) {
 		return true
 	}
 
@@ -142,17 +145,17 @@ func (o *FeedSyncResult) SetTotalTimeSeconds(v float32) {
 
 // GetGroups returns the Groups field value if set, zero value otherwise.
 func (o *FeedSyncResult) GetGroups() []GroupSyncResult {
-	if o == nil || o.Groups == nil {
+	if o == nil || IsNil(o.Groups) {
 		var ret []GroupSyncResult
 		return ret
 	}
-	return *o.Groups
+	return o.Groups
 }
 
 // GetGroupsOk returns a tuple with the Groups field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *FeedSyncResult) GetGroupsOk() (*[]GroupSyncResult, bool) {
-	if o == nil || o.Groups == nil {
+func (o *FeedSyncResult) GetGroupsOk() ([]GroupSyncResult, bool) {
+	if o == nil || IsNil(o.Groups) {
 		return nil, false
 	}
 	return o.Groups, true
@@ -160,7 +163,7 @@ func (o *FeedSyncResult) GetGroupsOk() (*[]GroupSyncResult, bool) {
 
 // HasGroups returns a boolean if a field has been set.
 func (o *FeedSyncResult) HasGroups() bool {
-	if o != nil && o.Groups != nil {
+	if o != nil && !IsNil(o.Groups) {
 		return true
 	}
 
@@ -169,24 +172,32 @@ func (o *FeedSyncResult) HasGroups() bool {
 
 // SetGroups gets a reference to the given []GroupSyncResult and assigns it to the Groups field.
 func (o *FeedSyncResult) SetGroups(v []GroupSyncResult) {
-	o.Groups = &v
+	o.Groups = v
 }
 
 func (o FeedSyncResult) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Feed != nil {
-		toSerialize["feed"] = o.Feed
-	}
-	if o.Status != nil {
-		toSerialize["status"] = o.Status
-	}
-	if o.TotalTimeSeconds != nil {
-		toSerialize["total_time_seconds"] = o.TotalTimeSeconds
-	}
-	if o.Groups != nil {
-		toSerialize["groups"] = o.Groups
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o FeedSyncResult) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Feed) {
+		toSerialize["feed"] = o.Feed
+	}
+	if !IsNil(o.Status) {
+		toSerialize["status"] = o.Status
+	}
+	if !IsNil(o.TotalTimeSeconds) {
+		toSerialize["total_time_seconds"] = o.TotalTimeSeconds
+	}
+	if !IsNil(o.Groups) {
+		toSerialize["groups"] = o.Groups
+	}
+	return toSerialize, nil
 }
 
 type NullableFeedSyncResult struct {

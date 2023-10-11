@@ -16,6 +16,9 @@ import (
 	"time"
 )
 
+// checks if the ComplianceResource type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ComplianceResource{}
+
 // ComplianceResource A resource that ties compliance related artifacts - image digest, tag and policy
 type ComplianceResource struct {
 	ImageDigest *string `json:"image_digest,omitempty"`
@@ -46,7 +49,7 @@ func NewComplianceResourceWithDefaults() *ComplianceResource {
 
 // GetImageDigest returns the ImageDigest field value if set, zero value otherwise.
 func (o *ComplianceResource) GetImageDigest() string {
-	if o == nil || o.ImageDigest == nil {
+	if o == nil || IsNil(o.ImageDigest) {
 		var ret string
 		return ret
 	}
@@ -56,7 +59,7 @@ func (o *ComplianceResource) GetImageDigest() string {
 // GetImageDigestOk returns a tuple with the ImageDigest field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ComplianceResource) GetImageDigestOk() (*string, bool) {
-	if o == nil || o.ImageDigest == nil {
+	if o == nil || IsNil(o.ImageDigest) {
 		return nil, false
 	}
 	return o.ImageDigest, true
@@ -64,7 +67,7 @@ func (o *ComplianceResource) GetImageDigestOk() (*string, bool) {
 
 // HasImageDigest returns a boolean if a field has been set.
 func (o *ComplianceResource) HasImageDigest() bool {
-	if o != nil && o.ImageDigest != nil {
+	if o != nil && !IsNil(o.ImageDigest) {
 		return true
 	}
 
@@ -78,7 +81,7 @@ func (o *ComplianceResource) SetImageDigest(v string) {
 
 // GetPolicyId returns the PolicyId field value if set, zero value otherwise.
 func (o *ComplianceResource) GetPolicyId() string {
-	if o == nil || o.PolicyId == nil {
+	if o == nil || IsNil(o.PolicyId) {
 		var ret string
 		return ret
 	}
@@ -88,7 +91,7 @@ func (o *ComplianceResource) GetPolicyId() string {
 // GetPolicyIdOk returns a tuple with the PolicyId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ComplianceResource) GetPolicyIdOk() (*string, bool) {
-	if o == nil || o.PolicyId == nil {
+	if o == nil || IsNil(o.PolicyId) {
 		return nil, false
 	}
 	return o.PolicyId, true
@@ -96,7 +99,7 @@ func (o *ComplianceResource) GetPolicyIdOk() (*string, bool) {
 
 // HasPolicyId returns a boolean if a field has been set.
 func (o *ComplianceResource) HasPolicyId() bool {
-	if o != nil && o.PolicyId != nil {
+	if o != nil && !IsNil(o.PolicyId) {
 		return true
 	}
 
@@ -110,7 +113,7 @@ func (o *ComplianceResource) SetPolicyId(v string) {
 
 // GetImageTag returns the ImageTag field value if set, zero value otherwise.
 func (o *ComplianceResource) GetImageTag() string {
-	if o == nil || o.ImageTag == nil {
+	if o == nil || IsNil(o.ImageTag) {
 		var ret string
 		return ret
 	}
@@ -120,7 +123,7 @@ func (o *ComplianceResource) GetImageTag() string {
 // GetImageTagOk returns a tuple with the ImageTag field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ComplianceResource) GetImageTagOk() (*string, bool) {
-	if o == nil || o.ImageTag == nil {
+	if o == nil || IsNil(o.ImageTag) {
 		return nil, false
 	}
 	return o.ImageTag, true
@@ -128,7 +131,7 @@ func (o *ComplianceResource) GetImageTagOk() (*string, bool) {
 
 // HasImageTag returns a boolean if a field has been set.
 func (o *ComplianceResource) HasImageTag() bool {
-	if o != nil && o.ImageTag != nil {
+	if o != nil && !IsNil(o.ImageTag) {
 		return true
 	}
 
@@ -142,7 +145,7 @@ func (o *ComplianceResource) SetImageTag(v string) {
 
 // GetRegistry returns the Registry field value if set, zero value otherwise.
 func (o *ComplianceResource) GetRegistry() string {
-	if o == nil || o.Registry == nil {
+	if o == nil || IsNil(o.Registry) {
 		var ret string
 		return ret
 	}
@@ -152,7 +155,7 @@ func (o *ComplianceResource) GetRegistry() string {
 // GetRegistryOk returns a tuple with the Registry field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ComplianceResource) GetRegistryOk() (*string, bool) {
-	if o == nil || o.Registry == nil {
+	if o == nil || IsNil(o.Registry) {
 		return nil, false
 	}
 	return o.Registry, true
@@ -160,7 +163,7 @@ func (o *ComplianceResource) GetRegistryOk() (*string, bool) {
 
 // HasRegistry returns a boolean if a field has been set.
 func (o *ComplianceResource) HasRegistry() bool {
-	if o != nil && o.Registry != nil {
+	if o != nil && !IsNil(o.Registry) {
 		return true
 	}
 
@@ -174,7 +177,7 @@ func (o *ComplianceResource) SetRegistry(v string) {
 
 // GetRepository returns the Repository field value if set, zero value otherwise.
 func (o *ComplianceResource) GetRepository() string {
-	if o == nil || o.Repository == nil {
+	if o == nil || IsNil(o.Repository) {
 		var ret string
 		return ret
 	}
@@ -184,7 +187,7 @@ func (o *ComplianceResource) GetRepository() string {
 // GetRepositoryOk returns a tuple with the Repository field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ComplianceResource) GetRepositoryOk() (*string, bool) {
-	if o == nil || o.Repository == nil {
+	if o == nil || IsNil(o.Repository) {
 		return nil, false
 	}
 	return o.Repository, true
@@ -192,7 +195,7 @@ func (o *ComplianceResource) GetRepositoryOk() (*string, bool) {
 
 // HasRepository returns a boolean if a field has been set.
 func (o *ComplianceResource) HasRepository() bool {
-	if o != nil && o.Repository != nil {
+	if o != nil && !IsNil(o.Repository) {
 		return true
 	}
 
@@ -206,7 +209,7 @@ func (o *ComplianceResource) SetRepository(v string) {
 
 // GetEvaluationId returns the EvaluationId field value if set, zero value otherwise.
 func (o *ComplianceResource) GetEvaluationId() string {
-	if o == nil || o.EvaluationId == nil {
+	if o == nil || IsNil(o.EvaluationId) {
 		var ret string
 		return ret
 	}
@@ -216,7 +219,7 @@ func (o *ComplianceResource) GetEvaluationId() string {
 // GetEvaluationIdOk returns a tuple with the EvaluationId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ComplianceResource) GetEvaluationIdOk() (*string, bool) {
-	if o == nil || o.EvaluationId == nil {
+	if o == nil || IsNil(o.EvaluationId) {
 		return nil, false
 	}
 	return o.EvaluationId, true
@@ -224,7 +227,7 @@ func (o *ComplianceResource) GetEvaluationIdOk() (*string, bool) {
 
 // HasEvaluationId returns a boolean if a field has been set.
 func (o *ComplianceResource) HasEvaluationId() bool {
-	if o != nil && o.EvaluationId != nil {
+	if o != nil && !IsNil(o.EvaluationId) {
 		return true
 	}
 
@@ -238,7 +241,7 @@ func (o *ComplianceResource) SetEvaluationId(v string) {
 
 // GetEvaluatedAt returns the EvaluatedAt field value if set, zero value otherwise.
 func (o *ComplianceResource) GetEvaluatedAt() time.Time {
-	if o == nil || o.EvaluatedAt == nil {
+	if o == nil || IsNil(o.EvaluatedAt) {
 		var ret time.Time
 		return ret
 	}
@@ -248,7 +251,7 @@ func (o *ComplianceResource) GetEvaluatedAt() time.Time {
 // GetEvaluatedAtOk returns a tuple with the EvaluatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ComplianceResource) GetEvaluatedAtOk() (*time.Time, bool) {
-	if o == nil || o.EvaluatedAt == nil {
+	if o == nil || IsNil(o.EvaluatedAt) {
 		return nil, false
 	}
 	return o.EvaluatedAt, true
@@ -256,7 +259,7 @@ func (o *ComplianceResource) GetEvaluatedAtOk() (*time.Time, bool) {
 
 // HasEvaluatedAt returns a boolean if a field has been set.
 func (o *ComplianceResource) HasEvaluatedAt() bool {
-	if o != nil && o.EvaluatedAt != nil {
+	if o != nil && !IsNil(o.EvaluatedAt) {
 		return true
 	}
 
@@ -269,29 +272,37 @@ func (o *ComplianceResource) SetEvaluatedAt(v time.Time) {
 }
 
 func (o ComplianceResource) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.ImageDigest != nil {
-		toSerialize["image_digest"] = o.ImageDigest
-	}
-	if o.PolicyId != nil {
-		toSerialize["policy_id"] = o.PolicyId
-	}
-	if o.ImageTag != nil {
-		toSerialize["image_tag"] = o.ImageTag
-	}
-	if o.Registry != nil {
-		toSerialize["registry"] = o.Registry
-	}
-	if o.Repository != nil {
-		toSerialize["repository"] = o.Repository
-	}
-	if o.EvaluationId != nil {
-		toSerialize["evaluation_id"] = o.EvaluationId
-	}
-	if o.EvaluatedAt != nil {
-		toSerialize["evaluated_at"] = o.EvaluatedAt
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o ComplianceResource) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.ImageDigest) {
+		toSerialize["image_digest"] = o.ImageDigest
+	}
+	if !IsNil(o.PolicyId) {
+		toSerialize["policy_id"] = o.PolicyId
+	}
+	if !IsNil(o.ImageTag) {
+		toSerialize["image_tag"] = o.ImageTag
+	}
+	if !IsNil(o.Registry) {
+		toSerialize["registry"] = o.Registry
+	}
+	if !IsNil(o.Repository) {
+		toSerialize["repository"] = o.Repository
+	}
+	if !IsNil(o.EvaluationId) {
+		toSerialize["evaluation_id"] = o.EvaluationId
+	}
+	if !IsNil(o.EvaluatedAt) {
+		toSerialize["evaluated_at"] = o.EvaluatedAt
+	}
+	return toSerialize, nil
 }
 
 type NullableComplianceResource struct {

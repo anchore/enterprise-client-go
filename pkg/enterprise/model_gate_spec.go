@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the GateSpec type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &GateSpec{}
+
 // GateSpec A description of the set of gates available in this engine and the triggers and parameters supported
 type GateSpec struct {
 	// Gate name, as it would appear in a policy document
@@ -27,7 +30,7 @@ type GateSpec struct {
 	// The name of another trigger that supersedes this on functionally if this is deprecated
 	SupersededBy NullableString `json:"superseded_by,omitempty"`
 	// List of the triggers that can fire for this Gate
-	Triggers *[]TriggerSpec `json:"triggers,omitempty"`
+	Triggers []TriggerSpec `json:"triggers,omitempty"`
 }
 
 // NewGateSpec instantiates a new GateSpec object
@@ -49,7 +52,7 @@ func NewGateSpecWithDefaults() *GateSpec {
 
 // GetName returns the Name field value if set, zero value otherwise.
 func (o *GateSpec) GetName() string {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		var ret string
 		return ret
 	}
@@ -59,7 +62,7 @@ func (o *GateSpec) GetName() string {
 // GetNameOk returns a tuple with the Name field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *GateSpec) GetNameOk() (*string, bool) {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		return nil, false
 	}
 	return o.Name, true
@@ -67,7 +70,7 @@ func (o *GateSpec) GetNameOk() (*string, bool) {
 
 // HasName returns a boolean if a field has been set.
 func (o *GateSpec) HasName() bool {
-	if o != nil && o.Name != nil {
+	if o != nil && !IsNil(o.Name) {
 		return true
 	}
 
@@ -81,7 +84,7 @@ func (o *GateSpec) SetName(v string) {
 
 // GetDescription returns the Description field value if set, zero value otherwise.
 func (o *GateSpec) GetDescription() string {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		var ret string
 		return ret
 	}
@@ -91,7 +94,7 @@ func (o *GateSpec) GetDescription() string {
 // GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *GateSpec) GetDescriptionOk() (*string, bool) {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		return nil, false
 	}
 	return o.Description, true
@@ -99,7 +102,7 @@ func (o *GateSpec) GetDescriptionOk() (*string, bool) {
 
 // HasDescription returns a boolean if a field has been set.
 func (o *GateSpec) HasDescription() bool {
-	if o != nil && o.Description != nil {
+	if o != nil && !IsNil(o.Description) {
 		return true
 	}
 
@@ -113,7 +116,7 @@ func (o *GateSpec) SetDescription(v string) {
 
 // GetSupportedArtifactType returns the SupportedArtifactType field value if set, zero value otherwise.
 func (o *GateSpec) GetSupportedArtifactType() string {
-	if o == nil || o.SupportedArtifactType == nil {
+	if o == nil || IsNil(o.SupportedArtifactType) {
 		var ret string
 		return ret
 	}
@@ -123,7 +126,7 @@ func (o *GateSpec) GetSupportedArtifactType() string {
 // GetSupportedArtifactTypeOk returns a tuple with the SupportedArtifactType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *GateSpec) GetSupportedArtifactTypeOk() (*string, bool) {
-	if o == nil || o.SupportedArtifactType == nil {
+	if o == nil || IsNil(o.SupportedArtifactType) {
 		return nil, false
 	}
 	return o.SupportedArtifactType, true
@@ -131,7 +134,7 @@ func (o *GateSpec) GetSupportedArtifactTypeOk() (*string, bool) {
 
 // HasSupportedArtifactType returns a boolean if a field has been set.
 func (o *GateSpec) HasSupportedArtifactType() bool {
-	if o != nil && o.SupportedArtifactType != nil {
+	if o != nil && !IsNil(o.SupportedArtifactType) {
 		return true
 	}
 
@@ -145,7 +148,7 @@ func (o *GateSpec) SetSupportedArtifactType(v string) {
 
 // GetState returns the State field value if set, zero value otherwise.
 func (o *GateSpec) GetState() string {
-	if o == nil || o.State == nil {
+	if o == nil || IsNil(o.State) {
 		var ret string
 		return ret
 	}
@@ -155,7 +158,7 @@ func (o *GateSpec) GetState() string {
 // GetStateOk returns a tuple with the State field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *GateSpec) GetStateOk() (*string, bool) {
-	if o == nil || o.State == nil {
+	if o == nil || IsNil(o.State) {
 		return nil, false
 	}
 	return o.State, true
@@ -163,7 +166,7 @@ func (o *GateSpec) GetStateOk() (*string, bool) {
 
 // HasState returns a boolean if a field has been set.
 func (o *GateSpec) HasState() bool {
-	if o != nil && o.State != nil {
+	if o != nil && !IsNil(o.State) {
 		return true
 	}
 
@@ -177,7 +180,7 @@ func (o *GateSpec) SetState(v string) {
 
 // GetSupersededBy returns the SupersededBy field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *GateSpec) GetSupersededBy() string {
-	if o == nil || o.SupersededBy.Get() == nil {
+	if o == nil || IsNil(o.SupersededBy.Get()) {
 		var ret string
 		return ret
 	}
@@ -188,7 +191,7 @@ func (o *GateSpec) GetSupersededBy() string {
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *GateSpec) GetSupersededByOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return o.SupersededBy.Get(), o.SupersededBy.IsSet()
@@ -219,17 +222,17 @@ func (o *GateSpec) UnsetSupersededBy() {
 
 // GetTriggers returns the Triggers field value if set, zero value otherwise.
 func (o *GateSpec) GetTriggers() []TriggerSpec {
-	if o == nil || o.Triggers == nil {
+	if o == nil || IsNil(o.Triggers) {
 		var ret []TriggerSpec
 		return ret
 	}
-	return *o.Triggers
+	return o.Triggers
 }
 
 // GetTriggersOk returns a tuple with the Triggers field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *GateSpec) GetTriggersOk() (*[]TriggerSpec, bool) {
-	if o == nil || o.Triggers == nil {
+func (o *GateSpec) GetTriggersOk() ([]TriggerSpec, bool) {
+	if o == nil || IsNil(o.Triggers) {
 		return nil, false
 	}
 	return o.Triggers, true
@@ -237,7 +240,7 @@ func (o *GateSpec) GetTriggersOk() (*[]TriggerSpec, bool) {
 
 // HasTriggers returns a boolean if a field has been set.
 func (o *GateSpec) HasTriggers() bool {
-	if o != nil && o.Triggers != nil {
+	if o != nil && !IsNil(o.Triggers) {
 		return true
 	}
 
@@ -246,30 +249,38 @@ func (o *GateSpec) HasTriggers() bool {
 
 // SetTriggers gets a reference to the given []TriggerSpec and assigns it to the Triggers field.
 func (o *GateSpec) SetTriggers(v []TriggerSpec) {
-	o.Triggers = &v
+	o.Triggers = v
 }
 
 func (o GateSpec) MarshalJSON() ([]byte, error) {
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o GateSpec) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Name != nil {
+	if !IsNil(o.Name) {
 		toSerialize["name"] = o.Name
 	}
-	if o.Description != nil {
+	if !IsNil(o.Description) {
 		toSerialize["description"] = o.Description
 	}
-	if o.SupportedArtifactType != nil {
+	if !IsNil(o.SupportedArtifactType) {
 		toSerialize["supported_artifact_type"] = o.SupportedArtifactType
 	}
-	if o.State != nil {
+	if !IsNil(o.State) {
 		toSerialize["state"] = o.State
 	}
 	if o.SupersededBy.IsSet() {
 		toSerialize["superseded_by"] = o.SupersededBy.Get()
 	}
-	if o.Triggers != nil {
+	if !IsNil(o.Triggers) {
 		toSerialize["triggers"] = o.Triggers
 	}
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
 type NullableGateSpec struct {

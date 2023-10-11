@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the RbacManagerPermission type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &RbacManagerPermission{}
+
 // RbacManagerPermission A grant of specific action against a specific scope and target
 type RbacManagerPermission struct {
 	// The allowed action. e.g. getImage
@@ -42,7 +45,7 @@ func NewRbacManagerPermissionWithDefaults() *RbacManagerPermission {
 
 // GetAction returns the Action field value if set, zero value otherwise.
 func (o *RbacManagerPermission) GetAction() string {
-	if o == nil || o.Action == nil {
+	if o == nil || IsNil(o.Action) {
 		var ret string
 		return ret
 	}
@@ -52,7 +55,7 @@ func (o *RbacManagerPermission) GetAction() string {
 // GetActionOk returns a tuple with the Action field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RbacManagerPermission) GetActionOk() (*string, bool) {
-	if o == nil || o.Action == nil {
+	if o == nil || IsNil(o.Action) {
 		return nil, false
 	}
 	return o.Action, true
@@ -60,7 +63,7 @@ func (o *RbacManagerPermission) GetActionOk() (*string, bool) {
 
 // HasAction returns a boolean if a field has been set.
 func (o *RbacManagerPermission) HasAction() bool {
-	if o != nil && o.Action != nil {
+	if o != nil && !IsNil(o.Action) {
 		return true
 	}
 
@@ -74,7 +77,7 @@ func (o *RbacManagerPermission) SetAction(v string) {
 
 // GetTarget returns the Target field value if set, zero value otherwise.
 func (o *RbacManagerPermission) GetTarget() string {
-	if o == nil || o.Target == nil {
+	if o == nil || IsNil(o.Target) {
 		var ret string
 		return ret
 	}
@@ -84,7 +87,7 @@ func (o *RbacManagerPermission) GetTarget() string {
 // GetTargetOk returns a tuple with the Target field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RbacManagerPermission) GetTargetOk() (*string, bool) {
-	if o == nil || o.Target == nil {
+	if o == nil || IsNil(o.Target) {
 		return nil, false
 	}
 	return o.Target, true
@@ -92,7 +95,7 @@ func (o *RbacManagerPermission) GetTargetOk() (*string, bool) {
 
 // HasTarget returns a boolean if a field has been set.
 func (o *RbacManagerPermission) HasTarget() bool {
-	if o != nil && o.Target != nil {
+	if o != nil && !IsNil(o.Target) {
 		return true
 	}
 
@@ -105,14 +108,22 @@ func (o *RbacManagerPermission) SetTarget(v string) {
 }
 
 func (o RbacManagerPermission) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Action != nil {
-		toSerialize["action"] = o.Action
-	}
-	if o.Target != nil {
-		toSerialize["target"] = o.Target
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o RbacManagerPermission) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Action) {
+		toSerialize["action"] = o.Action
+	}
+	if !IsNil(o.Target) {
+		toSerialize["target"] = o.Target
+	}
+	return toSerialize, nil
 }
 
 type NullableRbacManagerPermission struct {

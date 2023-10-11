@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the NativeSBOMDescriptor type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &NativeSBOMDescriptor{}
+
 // NativeSBOMDescriptor struct for NativeSBOMDescriptor
 type NativeSBOMDescriptor struct {
 	Name string `json:"name"`
@@ -56,7 +59,7 @@ func (o *NativeSBOMDescriptor) GetName() string {
 // GetNameOk returns a tuple with the Name field value
 // and a boolean to check if the value has been set.
 func (o *NativeSBOMDescriptor) GetNameOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Name, true
@@ -80,7 +83,7 @@ func (o *NativeSBOMDescriptor) GetVersion() string {
 // GetVersionOk returns a tuple with the Version field value
 // and a boolean to check if the value has been set.
 func (o *NativeSBOMDescriptor) GetVersionOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Version, true
@@ -92,27 +95,35 @@ func (o *NativeSBOMDescriptor) SetVersion(v string) {
 }
 
 func (o NativeSBOMDescriptor) MarshalJSON() ([]byte, error) {
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o NativeSBOMDescriptor) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["name"] = o.Name
-	}
-	if true {
-		toSerialize["version"] = o.Version
-	}
+	toSerialize["name"] = o.Name
+	toSerialize["version"] = o.Version
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
 func (o *NativeSBOMDescriptor) UnmarshalJSON(bytes []byte) (err error) {
 	varNativeSBOMDescriptor := _NativeSBOMDescriptor{}
 
-	if err = json.Unmarshal(bytes, &varNativeSBOMDescriptor); err == nil {
-		*o = NativeSBOMDescriptor(varNativeSBOMDescriptor)
+	err = json.Unmarshal(bytes, &varNativeSBOMDescriptor)
+
+	if err != nil {
+		return err
 	}
+
+	*o = NativeSBOMDescriptor(varNativeSBOMDescriptor)
 
 	additionalProperties := make(map[string]interface{})
 

@@ -16,6 +16,9 @@ import (
 	"time"
 )
 
+// checks if the NotificationJiraEndpointConfigurationBase type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &NotificationJiraEndpointConfigurationBase{}
+
 // NotificationJiraEndpointConfigurationBase Configuration for jira endpoint
 type NotificationJiraEndpointConfigurationBase struct {
 	// The instance identifier for the configuration
@@ -43,7 +46,7 @@ type NotificationJiraEndpointConfigurationBase struct {
 	// Jira user to associate with the issue
 	Assignee *string `json:"assignee,omitempty"`
 	// List of labels to associate with the issue
-	Labels *[]string `json:"labels,omitempty"`
+	Labels []string `json:"labels,omitempty"`
 }
 
 // NewNotificationJiraEndpointConfigurationBase instantiates a new NotificationJiraEndpointConfigurationBase object
@@ -65,7 +68,7 @@ func NewNotificationJiraEndpointConfigurationBaseWithDefaults() *NotificationJir
 
 // GetUuid returns the Uuid field value if set, zero value otherwise.
 func (o *NotificationJiraEndpointConfigurationBase) GetUuid() string {
-	if o == nil || o.Uuid == nil {
+	if o == nil || IsNil(o.Uuid) {
 		var ret string
 		return ret
 	}
@@ -75,7 +78,7 @@ func (o *NotificationJiraEndpointConfigurationBase) GetUuid() string {
 // GetUuidOk returns a tuple with the Uuid field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *NotificationJiraEndpointConfigurationBase) GetUuidOk() (*string, bool) {
-	if o == nil || o.Uuid == nil {
+	if o == nil || IsNil(o.Uuid) {
 		return nil, false
 	}
 	return o.Uuid, true
@@ -83,7 +86,7 @@ func (o *NotificationJiraEndpointConfigurationBase) GetUuidOk() (*string, bool) 
 
 // HasUuid returns a boolean if a field has been set.
 func (o *NotificationJiraEndpointConfigurationBase) HasUuid() bool {
-	if o != nil && o.Uuid != nil {
+	if o != nil && !IsNil(o.Uuid) {
 		return true
 	}
 
@@ -97,7 +100,7 @@ func (o *NotificationJiraEndpointConfigurationBase) SetUuid(v string) {
 
 // GetDescription returns the Description field value if set, zero value otherwise.
 func (o *NotificationJiraEndpointConfigurationBase) GetDescription() string {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		var ret string
 		return ret
 	}
@@ -107,7 +110,7 @@ func (o *NotificationJiraEndpointConfigurationBase) GetDescription() string {
 // GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *NotificationJiraEndpointConfigurationBase) GetDescriptionOk() (*string, bool) {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		return nil, false
 	}
 	return o.Description, true
@@ -115,7 +118,7 @@ func (o *NotificationJiraEndpointConfigurationBase) GetDescriptionOk() (*string,
 
 // HasDescription returns a boolean if a field has been set.
 func (o *NotificationJiraEndpointConfigurationBase) HasDescription() bool {
-	if o != nil && o.Description != nil {
+	if o != nil && !IsNil(o.Description) {
 		return true
 	}
 
@@ -129,7 +132,7 @@ func (o *NotificationJiraEndpointConfigurationBase) SetDescription(v string) {
 
 // GetVerifyTls returns the VerifyTls field value if set, zero value otherwise.
 func (o *NotificationJiraEndpointConfigurationBase) GetVerifyTls() bool {
-	if o == nil || o.VerifyTls == nil {
+	if o == nil || IsNil(o.VerifyTls) {
 		var ret bool
 		return ret
 	}
@@ -139,7 +142,7 @@ func (o *NotificationJiraEndpointConfigurationBase) GetVerifyTls() bool {
 // GetVerifyTlsOk returns a tuple with the VerifyTls field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *NotificationJiraEndpointConfigurationBase) GetVerifyTlsOk() (*bool, bool) {
-	if o == nil || o.VerifyTls == nil {
+	if o == nil || IsNil(o.VerifyTls) {
 		return nil, false
 	}
 	return o.VerifyTls, true
@@ -147,7 +150,7 @@ func (o *NotificationJiraEndpointConfigurationBase) GetVerifyTlsOk() (*bool, boo
 
 // HasVerifyTls returns a boolean if a field has been set.
 func (o *NotificationJiraEndpointConfigurationBase) HasVerifyTls() bool {
-	if o != nil && o.VerifyTls != nil {
+	if o != nil && !IsNil(o.VerifyTls) {
 		return true
 	}
 
@@ -161,7 +164,7 @@ func (o *NotificationJiraEndpointConfigurationBase) SetVerifyTls(v bool) {
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
 func (o *NotificationJiraEndpointConfigurationBase) GetCreatedAt() time.Time {
-	if o == nil || o.CreatedAt == nil {
+	if o == nil || IsNil(o.CreatedAt) {
 		var ret time.Time
 		return ret
 	}
@@ -171,7 +174,7 @@ func (o *NotificationJiraEndpointConfigurationBase) GetCreatedAt() time.Time {
 // GetCreatedAtOk returns a tuple with the CreatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *NotificationJiraEndpointConfigurationBase) GetCreatedAtOk() (*time.Time, bool) {
-	if o == nil || o.CreatedAt == nil {
+	if o == nil || IsNil(o.CreatedAt) {
 		return nil, false
 	}
 	return o.CreatedAt, true
@@ -179,7 +182,7 @@ func (o *NotificationJiraEndpointConfigurationBase) GetCreatedAtOk() (*time.Time
 
 // HasCreatedAt returns a boolean if a field has been set.
 func (o *NotificationJiraEndpointConfigurationBase) HasCreatedAt() bool {
-	if o != nil && o.CreatedAt != nil {
+	if o != nil && !IsNil(o.CreatedAt) {
 		return true
 	}
 
@@ -193,7 +196,7 @@ func (o *NotificationJiraEndpointConfigurationBase) SetCreatedAt(v time.Time) {
 
 // GetLastUpdated returns the LastUpdated field value if set, zero value otherwise.
 func (o *NotificationJiraEndpointConfigurationBase) GetLastUpdated() time.Time {
-	if o == nil || o.LastUpdated == nil {
+	if o == nil || IsNil(o.LastUpdated) {
 		var ret time.Time
 		return ret
 	}
@@ -203,7 +206,7 @@ func (o *NotificationJiraEndpointConfigurationBase) GetLastUpdated() time.Time {
 // GetLastUpdatedOk returns a tuple with the LastUpdated field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *NotificationJiraEndpointConfigurationBase) GetLastUpdatedOk() (*time.Time, bool) {
-	if o == nil || o.LastUpdated == nil {
+	if o == nil || IsNil(o.LastUpdated) {
 		return nil, false
 	}
 	return o.LastUpdated, true
@@ -211,7 +214,7 @@ func (o *NotificationJiraEndpointConfigurationBase) GetLastUpdatedOk() (*time.Ti
 
 // HasLastUpdated returns a boolean if a field has been set.
 func (o *NotificationJiraEndpointConfigurationBase) HasLastUpdated() bool {
-	if o != nil && o.LastUpdated != nil {
+	if o != nil && !IsNil(o.LastUpdated) {
 		return true
 	}
 
@@ -225,7 +228,7 @@ func (o *NotificationJiraEndpointConfigurationBase) SetLastUpdated(v time.Time) 
 
 // GetUrl returns the Url field value if set, zero value otherwise.
 func (o *NotificationJiraEndpointConfigurationBase) GetUrl() string {
-	if o == nil || o.Url == nil {
+	if o == nil || IsNil(o.Url) {
 		var ret string
 		return ret
 	}
@@ -235,7 +238,7 @@ func (o *NotificationJiraEndpointConfigurationBase) GetUrl() string {
 // GetUrlOk returns a tuple with the Url field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *NotificationJiraEndpointConfigurationBase) GetUrlOk() (*string, bool) {
-	if o == nil || o.Url == nil {
+	if o == nil || IsNil(o.Url) {
 		return nil, false
 	}
 	return o.Url, true
@@ -243,7 +246,7 @@ func (o *NotificationJiraEndpointConfigurationBase) GetUrlOk() (*string, bool) {
 
 // HasUrl returns a boolean if a field has been set.
 func (o *NotificationJiraEndpointConfigurationBase) HasUrl() bool {
-	if o != nil && o.Url != nil {
+	if o != nil && !IsNil(o.Url) {
 		return true
 	}
 
@@ -257,7 +260,7 @@ func (o *NotificationJiraEndpointConfigurationBase) SetUrl(v string) {
 
 // GetUsername returns the Username field value if set, zero value otherwise.
 func (o *NotificationJiraEndpointConfigurationBase) GetUsername() string {
-	if o == nil || o.Username == nil {
+	if o == nil || IsNil(o.Username) {
 		var ret string
 		return ret
 	}
@@ -267,7 +270,7 @@ func (o *NotificationJiraEndpointConfigurationBase) GetUsername() string {
 // GetUsernameOk returns a tuple with the Username field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *NotificationJiraEndpointConfigurationBase) GetUsernameOk() (*string, bool) {
-	if o == nil || o.Username == nil {
+	if o == nil || IsNil(o.Username) {
 		return nil, false
 	}
 	return o.Username, true
@@ -275,7 +278,7 @@ func (o *NotificationJiraEndpointConfigurationBase) GetUsernameOk() (*string, bo
 
 // HasUsername returns a boolean if a field has been set.
 func (o *NotificationJiraEndpointConfigurationBase) HasUsername() bool {
-	if o != nil && o.Username != nil {
+	if o != nil && !IsNil(o.Username) {
 		return true
 	}
 
@@ -289,7 +292,7 @@ func (o *NotificationJiraEndpointConfigurationBase) SetUsername(v string) {
 
 // GetPassword returns the Password field value if set, zero value otherwise.
 func (o *NotificationJiraEndpointConfigurationBase) GetPassword() string {
-	if o == nil || o.Password == nil {
+	if o == nil || IsNil(o.Password) {
 		var ret string
 		return ret
 	}
@@ -299,7 +302,7 @@ func (o *NotificationJiraEndpointConfigurationBase) GetPassword() string {
 // GetPasswordOk returns a tuple with the Password field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *NotificationJiraEndpointConfigurationBase) GetPasswordOk() (*string, bool) {
-	if o == nil || o.Password == nil {
+	if o == nil || IsNil(o.Password) {
 		return nil, false
 	}
 	return o.Password, true
@@ -307,7 +310,7 @@ func (o *NotificationJiraEndpointConfigurationBase) GetPasswordOk() (*string, bo
 
 // HasPassword returns a boolean if a field has been set.
 func (o *NotificationJiraEndpointConfigurationBase) HasPassword() bool {
-	if o != nil && o.Password != nil {
+	if o != nil && !IsNil(o.Password) {
 		return true
 	}
 
@@ -321,7 +324,7 @@ func (o *NotificationJiraEndpointConfigurationBase) SetPassword(v string) {
 
 // GetProjectKey returns the ProjectKey field value if set, zero value otherwise.
 func (o *NotificationJiraEndpointConfigurationBase) GetProjectKey() string {
-	if o == nil || o.ProjectKey == nil {
+	if o == nil || IsNil(o.ProjectKey) {
 		var ret string
 		return ret
 	}
@@ -331,7 +334,7 @@ func (o *NotificationJiraEndpointConfigurationBase) GetProjectKey() string {
 // GetProjectKeyOk returns a tuple with the ProjectKey field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *NotificationJiraEndpointConfigurationBase) GetProjectKeyOk() (*string, bool) {
-	if o == nil || o.ProjectKey == nil {
+	if o == nil || IsNil(o.ProjectKey) {
 		return nil, false
 	}
 	return o.ProjectKey, true
@@ -339,7 +342,7 @@ func (o *NotificationJiraEndpointConfigurationBase) GetProjectKeyOk() (*string, 
 
 // HasProjectKey returns a boolean if a field has been set.
 func (o *NotificationJiraEndpointConfigurationBase) HasProjectKey() bool {
-	if o != nil && o.ProjectKey != nil {
+	if o != nil && !IsNil(o.ProjectKey) {
 		return true
 	}
 
@@ -353,7 +356,7 @@ func (o *NotificationJiraEndpointConfigurationBase) SetProjectKey(v string) {
 
 // GetIssueType returns the IssueType field value if set, zero value otherwise.
 func (o *NotificationJiraEndpointConfigurationBase) GetIssueType() string {
-	if o == nil || o.IssueType == nil {
+	if o == nil || IsNil(o.IssueType) {
 		var ret string
 		return ret
 	}
@@ -363,7 +366,7 @@ func (o *NotificationJiraEndpointConfigurationBase) GetIssueType() string {
 // GetIssueTypeOk returns a tuple with the IssueType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *NotificationJiraEndpointConfigurationBase) GetIssueTypeOk() (*string, bool) {
-	if o == nil || o.IssueType == nil {
+	if o == nil || IsNil(o.IssueType) {
 		return nil, false
 	}
 	return o.IssueType, true
@@ -371,7 +374,7 @@ func (o *NotificationJiraEndpointConfigurationBase) GetIssueTypeOk() (*string, b
 
 // HasIssueType returns a boolean if a field has been set.
 func (o *NotificationJiraEndpointConfigurationBase) HasIssueType() bool {
-	if o != nil && o.IssueType != nil {
+	if o != nil && !IsNil(o.IssueType) {
 		return true
 	}
 
@@ -385,7 +388,7 @@ func (o *NotificationJiraEndpointConfigurationBase) SetIssueType(v string) {
 
 // GetPriority returns the Priority field value if set, zero value otherwise.
 func (o *NotificationJiraEndpointConfigurationBase) GetPriority() string {
-	if o == nil || o.Priority == nil {
+	if o == nil || IsNil(o.Priority) {
 		var ret string
 		return ret
 	}
@@ -395,7 +398,7 @@ func (o *NotificationJiraEndpointConfigurationBase) GetPriority() string {
 // GetPriorityOk returns a tuple with the Priority field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *NotificationJiraEndpointConfigurationBase) GetPriorityOk() (*string, bool) {
-	if o == nil || o.Priority == nil {
+	if o == nil || IsNil(o.Priority) {
 		return nil, false
 	}
 	return o.Priority, true
@@ -403,7 +406,7 @@ func (o *NotificationJiraEndpointConfigurationBase) GetPriorityOk() (*string, bo
 
 // HasPriority returns a boolean if a field has been set.
 func (o *NotificationJiraEndpointConfigurationBase) HasPriority() bool {
-	if o != nil && o.Priority != nil {
+	if o != nil && !IsNil(o.Priority) {
 		return true
 	}
 
@@ -417,7 +420,7 @@ func (o *NotificationJiraEndpointConfigurationBase) SetPriority(v string) {
 
 // GetAssignee returns the Assignee field value if set, zero value otherwise.
 func (o *NotificationJiraEndpointConfigurationBase) GetAssignee() string {
-	if o == nil || o.Assignee == nil {
+	if o == nil || IsNil(o.Assignee) {
 		var ret string
 		return ret
 	}
@@ -427,7 +430,7 @@ func (o *NotificationJiraEndpointConfigurationBase) GetAssignee() string {
 // GetAssigneeOk returns a tuple with the Assignee field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *NotificationJiraEndpointConfigurationBase) GetAssigneeOk() (*string, bool) {
-	if o == nil || o.Assignee == nil {
+	if o == nil || IsNil(o.Assignee) {
 		return nil, false
 	}
 	return o.Assignee, true
@@ -435,7 +438,7 @@ func (o *NotificationJiraEndpointConfigurationBase) GetAssigneeOk() (*string, bo
 
 // HasAssignee returns a boolean if a field has been set.
 func (o *NotificationJiraEndpointConfigurationBase) HasAssignee() bool {
-	if o != nil && o.Assignee != nil {
+	if o != nil && !IsNil(o.Assignee) {
 		return true
 	}
 
@@ -449,17 +452,17 @@ func (o *NotificationJiraEndpointConfigurationBase) SetAssignee(v string) {
 
 // GetLabels returns the Labels field value if set, zero value otherwise.
 func (o *NotificationJiraEndpointConfigurationBase) GetLabels() []string {
-	if o == nil || o.Labels == nil {
+	if o == nil || IsNil(o.Labels) {
 		var ret []string
 		return ret
 	}
-	return *o.Labels
+	return o.Labels
 }
 
 // GetLabelsOk returns a tuple with the Labels field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *NotificationJiraEndpointConfigurationBase) GetLabelsOk() (*[]string, bool) {
-	if o == nil || o.Labels == nil {
+func (o *NotificationJiraEndpointConfigurationBase) GetLabelsOk() ([]string, bool) {
+	if o == nil || IsNil(o.Labels) {
 		return nil, false
 	}
 	return o.Labels, true
@@ -467,7 +470,7 @@ func (o *NotificationJiraEndpointConfigurationBase) GetLabelsOk() (*[]string, bo
 
 // HasLabels returns a boolean if a field has been set.
 func (o *NotificationJiraEndpointConfigurationBase) HasLabels() bool {
-	if o != nil && o.Labels != nil {
+	if o != nil && !IsNil(o.Labels) {
 		return true
 	}
 
@@ -476,51 +479,59 @@ func (o *NotificationJiraEndpointConfigurationBase) HasLabels() bool {
 
 // SetLabels gets a reference to the given []string and assigns it to the Labels field.
 func (o *NotificationJiraEndpointConfigurationBase) SetLabels(v []string) {
-	o.Labels = &v
+	o.Labels = v
 }
 
 func (o NotificationJiraEndpointConfigurationBase) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Uuid != nil {
-		toSerialize["uuid"] = o.Uuid
-	}
-	if o.Description != nil {
-		toSerialize["description"] = o.Description
-	}
-	if o.VerifyTls != nil {
-		toSerialize["verify_tls"] = o.VerifyTls
-	}
-	if o.CreatedAt != nil {
-		toSerialize["created_at"] = o.CreatedAt
-	}
-	if o.LastUpdated != nil {
-		toSerialize["last_updated"] = o.LastUpdated
-	}
-	if o.Url != nil {
-		toSerialize["url"] = o.Url
-	}
-	if o.Username != nil {
-		toSerialize["username"] = o.Username
-	}
-	if o.Password != nil {
-		toSerialize["password"] = o.Password
-	}
-	if o.ProjectKey != nil {
-		toSerialize["project_key"] = o.ProjectKey
-	}
-	if o.IssueType != nil {
-		toSerialize["issue_type"] = o.IssueType
-	}
-	if o.Priority != nil {
-		toSerialize["priority"] = o.Priority
-	}
-	if o.Assignee != nil {
-		toSerialize["assignee"] = o.Assignee
-	}
-	if o.Labels != nil {
-		toSerialize["labels"] = o.Labels
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o NotificationJiraEndpointConfigurationBase) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Uuid) {
+		toSerialize["uuid"] = o.Uuid
+	}
+	if !IsNil(o.Description) {
+		toSerialize["description"] = o.Description
+	}
+	if !IsNil(o.VerifyTls) {
+		toSerialize["verify_tls"] = o.VerifyTls
+	}
+	if !IsNil(o.CreatedAt) {
+		toSerialize["created_at"] = o.CreatedAt
+	}
+	if !IsNil(o.LastUpdated) {
+		toSerialize["last_updated"] = o.LastUpdated
+	}
+	if !IsNil(o.Url) {
+		toSerialize["url"] = o.Url
+	}
+	if !IsNil(o.Username) {
+		toSerialize["username"] = o.Username
+	}
+	if !IsNil(o.Password) {
+		toSerialize["password"] = o.Password
+	}
+	if !IsNil(o.ProjectKey) {
+		toSerialize["project_key"] = o.ProjectKey
+	}
+	if !IsNil(o.IssueType) {
+		toSerialize["issue_type"] = o.IssueType
+	}
+	if !IsNil(o.Priority) {
+		toSerialize["priority"] = o.Priority
+	}
+	if !IsNil(o.Assignee) {
+		toSerialize["assignee"] = o.Assignee
+	}
+	if !IsNil(o.Labels) {
+		toSerialize["labels"] = o.Labels
+	}
+	return toSerialize, nil
 }
 
 type NullableNotificationJiraEndpointConfigurationBase struct {

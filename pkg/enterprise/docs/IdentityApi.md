@@ -1,13 +1,13 @@
-# \IdentityApi
+# \IdentityAPI
 
-All URIs are relative to *http://localhost/v2*
+All URIs are relative to */v2*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**AddCredential**](IdentityApi.md#AddCredential) | **Post** /user/credentials | add/replace credential
-[**GetCredentials**](IdentityApi.md#GetCredentials) | **Get** /user/credentials | Get current credential summary
-[**GetUser**](IdentityApi.md#GetUser) | **Get** /user | List authenticated user info
-[**GetUsersAccount**](IdentityApi.md#GetUsersAccount) | **Get** /account | List the account for the authenticated user
+[**AddCredential**](IdentityAPI.md#AddCredential) | **Post** /user/credentials | add/replace credential
+[**GetCredentials**](IdentityAPI.md#GetCredentials) | **Get** /user/credentials | Get current credential summary
+[**GetUser**](IdentityAPI.md#GetUser) | **Get** /user | List authenticated user info
+[**GetUsersAccount**](IdentityAPI.md#GetUsersAccount) | **Get** /account | List the account for the authenticated user
 
 
 
@@ -26,21 +26,21 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+    openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
     credential := *openapiclient.NewAccessCredential("Type_example", "Value_example") // AccessCredential | 
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.IdentityApi.AddCredential(context.Background()).Credential(credential).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.IdentityAPI.AddCredential(context.Background()).Credential(credential).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `IdentityApi.AddCredential``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `IdentityAPI.AddCredential``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
     // response from `AddCredential`: User
-    fmt.Fprintf(os.Stdout, "Response from `IdentityApi.AddCredential`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `IdentityAPI.AddCredential`: %v\n", resp)
 }
 ```
 
@@ -90,20 +90,20 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+    openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.IdentityApi.GetCredentials(context.Background()).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.IdentityAPI.GetCredentials(context.Background()).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `IdentityApi.GetCredentials``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `IdentityAPI.GetCredentials``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
     // response from `GetCredentials`: []AccessCredential
-    fmt.Fprintf(os.Stdout, "Response from `IdentityApi.GetCredentials`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `IdentityAPI.GetCredentials`: %v\n", resp)
 }
 ```
 
@@ -149,20 +149,20 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+    openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.IdentityApi.GetUser(context.Background()).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.IdentityAPI.GetUser(context.Background()).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `IdentityApi.GetUser``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `IdentityAPI.GetUser``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
     // response from `GetUser`: User
-    fmt.Fprintf(os.Stdout, "Response from `IdentityApi.GetUser`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `IdentityAPI.GetUser`: %v\n", resp)
 }
 ```
 
@@ -208,20 +208,20 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+    openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.IdentityApi.GetUsersAccount(context.Background()).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.IdentityAPI.GetUsersAccount(context.Background()).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `IdentityApi.GetUsersAccount``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `IdentityAPI.GetUsersAccount``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
     // response from `GetUsersAccount`: Account
-    fmt.Fprintf(os.Stdout, "Response from `IdentityApi.GetUsersAccount`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `IdentityAPI.GetUsersAccount`: %v\n", resp)
 }
 ```
 

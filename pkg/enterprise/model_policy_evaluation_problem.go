@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the PolicyEvaluationProblem type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PolicyEvaluationProblem{}
+
 // PolicyEvaluationProblem Details for an error or warning indicating a problem during policy evaluation
 type PolicyEvaluationProblem struct {
 	// Severity of the policy evaluation problem. Problems with a severity of \"error\" prevent the policy from being evaluated, while severity \"warn\" indicates the policy was evaluated but the result may require additional attention.
@@ -58,7 +61,7 @@ func (o *PolicyEvaluationProblem) GetSeverity() string {
 // GetSeverityOk returns a tuple with the Severity field value
 // and a boolean to check if the value has been set.
 func (o *PolicyEvaluationProblem) GetSeverityOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Severity, true
@@ -82,7 +85,7 @@ func (o *PolicyEvaluationProblem) GetProblemType() string {
 // GetProblemTypeOk returns a tuple with the ProblemType field value
 // and a boolean to check if the value has been set.
 func (o *PolicyEvaluationProblem) GetProblemTypeOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.ProblemType, true
@@ -106,7 +109,7 @@ func (o *PolicyEvaluationProblem) GetDetails() string {
 // GetDetailsOk returns a tuple with the Details field value
 // and a boolean to check if the value has been set.
 func (o *PolicyEvaluationProblem) GetDetailsOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Details, true
@@ -118,17 +121,19 @@ func (o *PolicyEvaluationProblem) SetDetails(v string) {
 }
 
 func (o PolicyEvaluationProblem) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["severity"] = o.Severity
-	}
-	if true {
-		toSerialize["problem_type"] = o.ProblemType
-	}
-	if true {
-		toSerialize["details"] = o.Details
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o PolicyEvaluationProblem) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["severity"] = o.Severity
+	toSerialize["problem_type"] = o.ProblemType
+	toSerialize["details"] = o.Details
+	return toSerialize, nil
 }
 
 type NullablePolicyEvaluationProblem struct {

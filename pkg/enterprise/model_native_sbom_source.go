@@ -15,11 +15,14 @@ import (
 	"encoding/json"
 )
 
+// checks if the NativeSBOMSource type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &NativeSBOMSource{}
+
 // NativeSBOMSource struct for NativeSBOMSource
 type NativeSBOMSource struct {
 	Type string `json:"type"`
-	Target *map[string]interface{} `json:"target,omitempty"`
-	Metadata *map[string]interface{} `json:"metadata,omitempty"`
+	Target map[string]interface{} `json:"target,omitempty"`
+	Metadata map[string]interface{} `json:"metadata,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -56,7 +59,7 @@ func (o *NativeSBOMSource) GetType() string {
 // GetTypeOk returns a tuple with the Type field value
 // and a boolean to check if the value has been set.
 func (o *NativeSBOMSource) GetTypeOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Type, true
@@ -69,25 +72,25 @@ func (o *NativeSBOMSource) SetType(v string) {
 
 // GetTarget returns the Target field value if set, zero value otherwise.
 func (o *NativeSBOMSource) GetTarget() map[string]interface{} {
-	if o == nil || o.Target == nil {
+	if o == nil || IsNil(o.Target) {
 		var ret map[string]interface{}
 		return ret
 	}
-	return *o.Target
+	return o.Target
 }
 
 // GetTargetOk returns a tuple with the Target field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *NativeSBOMSource) GetTargetOk() (*map[string]interface{}, bool) {
-	if o == nil || o.Target == nil {
-		return nil, false
+func (o *NativeSBOMSource) GetTargetOk() (map[string]interface{}, bool) {
+	if o == nil || IsNil(o.Target) {
+		return map[string]interface{}{}, false
 	}
 	return o.Target, true
 }
 
 // HasTarget returns a boolean if a field has been set.
 func (o *NativeSBOMSource) HasTarget() bool {
-	if o != nil && o.Target != nil {
+	if o != nil && !IsNil(o.Target) {
 		return true
 	}
 
@@ -96,30 +99,30 @@ func (o *NativeSBOMSource) HasTarget() bool {
 
 // SetTarget gets a reference to the given map[string]interface{} and assigns it to the Target field.
 func (o *NativeSBOMSource) SetTarget(v map[string]interface{}) {
-	o.Target = &v
+	o.Target = v
 }
 
 // GetMetadata returns the Metadata field value if set, zero value otherwise.
 func (o *NativeSBOMSource) GetMetadata() map[string]interface{} {
-	if o == nil || o.Metadata == nil {
+	if o == nil || IsNil(o.Metadata) {
 		var ret map[string]interface{}
 		return ret
 	}
-	return *o.Metadata
+	return o.Metadata
 }
 
 // GetMetadataOk returns a tuple with the Metadata field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *NativeSBOMSource) GetMetadataOk() (*map[string]interface{}, bool) {
-	if o == nil || o.Metadata == nil {
-		return nil, false
+func (o *NativeSBOMSource) GetMetadataOk() (map[string]interface{}, bool) {
+	if o == nil || IsNil(o.Metadata) {
+		return map[string]interface{}{}, false
 	}
 	return o.Metadata, true
 }
 
 // HasMetadata returns a boolean if a field has been set.
 func (o *NativeSBOMSource) HasMetadata() bool {
-	if o != nil && o.Metadata != nil {
+	if o != nil && !IsNil(o.Metadata) {
 		return true
 	}
 
@@ -128,18 +131,24 @@ func (o *NativeSBOMSource) HasMetadata() bool {
 
 // SetMetadata gets a reference to the given map[string]interface{} and assigns it to the Metadata field.
 func (o *NativeSBOMSource) SetMetadata(v map[string]interface{}) {
-	o.Metadata = &v
+	o.Metadata = v
 }
 
 func (o NativeSBOMSource) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["type"] = o.Type
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
-	if o.Target != nil {
+	return json.Marshal(toSerialize)
+}
+
+func (o NativeSBOMSource) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["type"] = o.Type
+	if !IsNil(o.Target) {
 		toSerialize["target"] = o.Target
 	}
-	if o.Metadata != nil {
+	if !IsNil(o.Metadata) {
 		toSerialize["metadata"] = o.Metadata
 	}
 
@@ -147,15 +156,19 @@ func (o NativeSBOMSource) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
 func (o *NativeSBOMSource) UnmarshalJSON(bytes []byte) (err error) {
 	varNativeSBOMSource := _NativeSBOMSource{}
 
-	if err = json.Unmarshal(bytes, &varNativeSBOMSource); err == nil {
-		*o = NativeSBOMSource(varNativeSBOMSource)
+	err = json.Unmarshal(bytes, &varNativeSBOMSource)
+
+	if err != nil {
+		return err
 	}
+
+	*o = NativeSBOMSource(varNativeSBOMSource)
 
 	additionalProperties := make(map[string]interface{})
 

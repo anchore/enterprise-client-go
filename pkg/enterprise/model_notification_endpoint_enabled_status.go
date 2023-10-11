@@ -16,6 +16,9 @@ import (
 	"time"
 )
 
+// checks if the NotificationEndpointEnabledStatus type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &NotificationEndpointEnabledStatus{}
+
 // NotificationEndpointEnabledStatus struct for NotificationEndpointEnabledStatus
 type NotificationEndpointEnabledStatus struct {
 	// Is the endpoint enabled for use in the system. Affects all usage, including system-level if set to false.
@@ -43,7 +46,7 @@ func NewNotificationEndpointEnabledStatusWithDefaults() *NotificationEndpointEna
 
 // GetEnabled returns the Enabled field value if set, zero value otherwise.
 func (o *NotificationEndpointEnabledStatus) GetEnabled() bool {
-	if o == nil || o.Enabled == nil {
+	if o == nil || IsNil(o.Enabled) {
 		var ret bool
 		return ret
 	}
@@ -53,7 +56,7 @@ func (o *NotificationEndpointEnabledStatus) GetEnabled() bool {
 // GetEnabledOk returns a tuple with the Enabled field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *NotificationEndpointEnabledStatus) GetEnabledOk() (*bool, bool) {
-	if o == nil || o.Enabled == nil {
+	if o == nil || IsNil(o.Enabled) {
 		return nil, false
 	}
 	return o.Enabled, true
@@ -61,7 +64,7 @@ func (o *NotificationEndpointEnabledStatus) GetEnabledOk() (*bool, bool) {
 
 // HasEnabled returns a boolean if a field has been set.
 func (o *NotificationEndpointEnabledStatus) HasEnabled() bool {
-	if o != nil && o.Enabled != nil {
+	if o != nil && !IsNil(o.Enabled) {
 		return true
 	}
 
@@ -75,7 +78,7 @@ func (o *NotificationEndpointEnabledStatus) SetEnabled(v bool) {
 
 // GetLastUpdated returns the LastUpdated field value if set, zero value otherwise.
 func (o *NotificationEndpointEnabledStatus) GetLastUpdated() time.Time {
-	if o == nil || o.LastUpdated == nil {
+	if o == nil || IsNil(o.LastUpdated) {
 		var ret time.Time
 		return ret
 	}
@@ -85,7 +88,7 @@ func (o *NotificationEndpointEnabledStatus) GetLastUpdated() time.Time {
 // GetLastUpdatedOk returns a tuple with the LastUpdated field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *NotificationEndpointEnabledStatus) GetLastUpdatedOk() (*time.Time, bool) {
-	if o == nil || o.LastUpdated == nil {
+	if o == nil || IsNil(o.LastUpdated) {
 		return nil, false
 	}
 	return o.LastUpdated, true
@@ -93,7 +96,7 @@ func (o *NotificationEndpointEnabledStatus) GetLastUpdatedOk() (*time.Time, bool
 
 // HasLastUpdated returns a boolean if a field has been set.
 func (o *NotificationEndpointEnabledStatus) HasLastUpdated() bool {
-	if o != nil && o.LastUpdated != nil {
+	if o != nil && !IsNil(o.LastUpdated) {
 		return true
 	}
 
@@ -106,14 +109,22 @@ func (o *NotificationEndpointEnabledStatus) SetLastUpdated(v time.Time) {
 }
 
 func (o NotificationEndpointEnabledStatus) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Enabled != nil {
-		toSerialize["enabled"] = o.Enabled
-	}
-	if o.LastUpdated != nil {
-		toSerialize["last_updated"] = o.LastUpdated
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o NotificationEndpointEnabledStatus) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Enabled) {
+		toSerialize["enabled"] = o.Enabled
+	}
+	if !IsNil(o.LastUpdated) {
+		toSerialize["last_updated"] = o.LastUpdated
+	}
+	return toSerialize, nil
 }
 
 type NullableNotificationEndpointEnabledStatus struct {

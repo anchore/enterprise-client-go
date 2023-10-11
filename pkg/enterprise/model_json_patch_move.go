@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the JsonPatchMove type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &JsonPatchMove{}
+
 // JsonPatchMove The 'move' operation per RFC6902
 type JsonPatchMove struct {
 	// Operation ID, referenced for ordering in the
@@ -48,7 +51,7 @@ func NewJsonPatchMoveWithDefaults() *JsonPatchMove {
 
 // GetId returns the Id field value if set, zero value otherwise.
 func (o *JsonPatchMove) GetId() string {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		var ret string
 		return ret
 	}
@@ -58,7 +61,7 @@ func (o *JsonPatchMove) GetId() string {
 // GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *JsonPatchMove) GetIdOk() (*string, bool) {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
 	return o.Id, true
@@ -66,7 +69,7 @@ func (o *JsonPatchMove) GetIdOk() (*string, bool) {
 
 // HasId returns a boolean if a field has been set.
 func (o *JsonPatchMove) HasId() bool {
-	if o != nil && o.Id != nil {
+	if o != nil && !IsNil(o.Id) {
 		return true
 	}
 
@@ -91,7 +94,7 @@ func (o *JsonPatchMove) GetOp() string {
 // GetOpOk returns a tuple with the Op field value
 // and a boolean to check if the value has been set.
 func (o *JsonPatchMove) GetOpOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Op, true
@@ -115,7 +118,7 @@ func (o *JsonPatchMove) GetPath() string {
 // GetPathOk returns a tuple with the Path field value
 // and a boolean to check if the value has been set.
 func (o *JsonPatchMove) GetPathOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Path, true
@@ -139,7 +142,7 @@ func (o *JsonPatchMove) GetFrom() string {
 // GetFromOk returns a tuple with the From field value
 // and a boolean to check if the value has been set.
 func (o *JsonPatchMove) GetFromOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.From, true
@@ -151,20 +154,22 @@ func (o *JsonPatchMove) SetFrom(v string) {
 }
 
 func (o JsonPatchMove) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Id != nil {
-		toSerialize["id"] = o.Id
-	}
-	if true {
-		toSerialize["op"] = o.Op
-	}
-	if true {
-		toSerialize["path"] = o.Path
-	}
-	if true {
-		toSerialize["from"] = o.From
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o JsonPatchMove) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Id) {
+		toSerialize["id"] = o.Id
+	}
+	toSerialize["op"] = o.Op
+	toSerialize["path"] = o.Path
+	toSerialize["from"] = o.From
+	return toSerialize, nil
 }
 
 type NullableJsonPatchMove struct {

@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the ImportPackageLocation type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ImportPackageLocation{}
+
 // ImportPackageLocation struct for ImportPackageLocation
 type ImportPackageLocation struct {
 	Path string `json:"path"`
@@ -55,7 +58,7 @@ func (o *ImportPackageLocation) GetPath() string {
 // GetPathOk returns a tuple with the Path field value
 // and a boolean to check if the value has been set.
 func (o *ImportPackageLocation) GetPathOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Path, true
@@ -68,7 +71,7 @@ func (o *ImportPackageLocation) SetPath(v string) {
 
 // GetLayerID returns the LayerID field value if set, zero value otherwise.
 func (o *ImportPackageLocation) GetLayerID() string {
-	if o == nil || o.LayerID == nil {
+	if o == nil || IsNil(o.LayerID) {
 		var ret string
 		return ret
 	}
@@ -78,7 +81,7 @@ func (o *ImportPackageLocation) GetLayerID() string {
 // GetLayerIDOk returns a tuple with the LayerID field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ImportPackageLocation) GetLayerIDOk() (*string, bool) {
-	if o == nil || o.LayerID == nil {
+	if o == nil || IsNil(o.LayerID) {
 		return nil, false
 	}
 	return o.LayerID, true
@@ -86,7 +89,7 @@ func (o *ImportPackageLocation) GetLayerIDOk() (*string, bool) {
 
 // HasLayerID returns a boolean if a field has been set.
 func (o *ImportPackageLocation) HasLayerID() bool {
-	if o != nil && o.LayerID != nil {
+	if o != nil && !IsNil(o.LayerID) {
 		return true
 	}
 
@@ -99,11 +102,17 @@ func (o *ImportPackageLocation) SetLayerID(v string) {
 }
 
 func (o ImportPackageLocation) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["path"] = o.Path
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
-	if o.LayerID != nil {
+	return json.Marshal(toSerialize)
+}
+
+func (o ImportPackageLocation) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["path"] = o.Path
+	if !IsNil(o.LayerID) {
 		toSerialize["layerID"] = o.LayerID
 	}
 
@@ -111,15 +120,19 @@ func (o ImportPackageLocation) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
 func (o *ImportPackageLocation) UnmarshalJSON(bytes []byte) (err error) {
 	varImportPackageLocation := _ImportPackageLocation{}
 
-	if err = json.Unmarshal(bytes, &varImportPackageLocation); err == nil {
-		*o = ImportPackageLocation(varImportPackageLocation)
+	err = json.Unmarshal(bytes, &varImportPackageLocation)
+
+	if err != nil {
+		return err
 	}
+
+	*o = ImportPackageLocation(varImportPackageLocation)
 
 	additionalProperties := make(map[string]interface{})
 

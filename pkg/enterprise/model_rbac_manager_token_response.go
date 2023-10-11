@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the RbacManagerTokenResponse type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &RbacManagerTokenResponse{}
+
 // RbacManagerTokenResponse An auth token for use in future requests as an Authorization header value of type 'bearer'
 type RbacManagerTokenResponse struct {
 	// The token content
@@ -52,7 +55,7 @@ func (o *RbacManagerTokenResponse) GetToken() string {
 // GetTokenOk returns a tuple with the Token field value
 // and a boolean to check if the value has been set.
 func (o *RbacManagerTokenResponse) GetTokenOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Token, true
@@ -64,11 +67,17 @@ func (o *RbacManagerTokenResponse) SetToken(v string) {
 }
 
 func (o RbacManagerTokenResponse) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["token"] = o.Token
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o RbacManagerTokenResponse) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["token"] = o.Token
+	return toSerialize, nil
 }
 
 type NullableRbacManagerTokenResponse struct {

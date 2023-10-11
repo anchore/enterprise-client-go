@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Role** | Pointer to **string** | The name of the role the user has permissions for | [optional] 
-**ForAccount** | Pointer to **[]string** |  | [optional] 
+**ForAccount** | Pointer to **string** | The account for which the user has the role permission | [optional] 
 **CreatedAt** | Pointer to **time.Time** |  | [optional] 
 
 ## Methods
@@ -54,20 +54,20 @@ HasRole returns a boolean if a field has been set.
 
 ### GetForAccount
 
-`func (o *RbacManagerRoleMembership) GetForAccount() []string`
+`func (o *RbacManagerRoleMembership) GetForAccount() string`
 
 GetForAccount returns the ForAccount field if non-nil, zero value otherwise.
 
 ### GetForAccountOk
 
-`func (o *RbacManagerRoleMembership) GetForAccountOk() (*[]string, bool)`
+`func (o *RbacManagerRoleMembership) GetForAccountOk() (*string, bool)`
 
 GetForAccountOk returns a tuple with the ForAccount field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetForAccount
 
-`func (o *RbacManagerRoleMembership) SetForAccount(v []string)`
+`func (o *RbacManagerRoleMembership) SetForAccount(v string)`
 
 SetForAccount sets ForAccount field to given value.
 

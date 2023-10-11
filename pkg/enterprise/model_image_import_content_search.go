@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the ImageImportContentSearch type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ImageImportContentSearch{}
+
 // ImageImportContentSearch struct for ImageImportContentSearch
 type ImageImportContentSearch struct {
 	Location ImportPackageLocation `json:"location"`
@@ -53,7 +56,7 @@ func (o *ImageImportContentSearch) GetLocation() ImportPackageLocation {
 // GetLocationOk returns a tuple with the Location field value
 // and a boolean to check if the value has been set.
 func (o *ImageImportContentSearch) GetLocationOk() (*ImportPackageLocation, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Location, true
@@ -76,11 +79,11 @@ func (o *ImageImportContentSearch) GetContentSearches() []ImportContentSearchEle
 
 // GetContentSearchesOk returns a tuple with the ContentSearches field value
 // and a boolean to check if the value has been set.
-func (o *ImageImportContentSearch) GetContentSearchesOk() (*[]ImportContentSearchElement, bool) {
-	if o == nil  {
+func (o *ImageImportContentSearch) GetContentSearchesOk() ([]ImportContentSearchElement, bool) {
+	if o == nil {
 		return nil, false
 	}
-	return &o.ContentSearches, true
+	return o.ContentSearches, true
 }
 
 // SetContentSearches sets field value
@@ -89,14 +92,18 @@ func (o *ImageImportContentSearch) SetContentSearches(v []ImportContentSearchEle
 }
 
 func (o ImageImportContentSearch) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["location"] = o.Location
-	}
-	if true {
-		toSerialize["content_searches"] = o.ContentSearches
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o ImageImportContentSearch) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["location"] = o.Location
+	toSerialize["content_searches"] = o.ContentSearches
+	return toSerialize, nil
 }
 
 type NullableImageImportContentSearch struct {

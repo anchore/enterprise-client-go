@@ -1,24 +1,24 @@
-# \InventoriesApi
+# \InventoriesAPI
 
-All URIs are relative to *http://localhost/v2*
+All URIs are relative to */v2*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**DeleteInventory**](InventoriesApi.md#DeleteInventory) | **Delete** /inventories | Delete runtime inventory by type and context
-[**DeleteKubernetesNamespaces**](InventoriesApi.md#DeleteKubernetesNamespaces) | **Delete** /kubernetes-namespaces | Delete Kubernetes namespaces for a given criteria
-[**GetEcsContainers**](InventoriesApi.md#GetEcsContainers) | **Get** /ecs-containers | Return a list of ECS containers that have been inventoried for this account
-[**GetEcsServices**](InventoriesApi.md#GetEcsServices) | **Get** /ecs-services | Return a list of ECS services that have been inventoried for this account
-[**GetEcsTasks**](InventoriesApi.md#GetEcsTasks) | **Get** /ecs-tasks | Return a list of ECS tasks that have been inventoried for this account
-[**GetImageInventory**](InventoriesApi.md#GetImageInventory) | **Get** /inventories | Return a list of the images in inventories for this account
-[**GetKubernetesContainers**](InventoriesApi.md#GetKubernetesContainers) | **Get** /kubernetes-containers | Return a list of Kubernetes containers that have been inventoried for this account
-[**GetKubernetesNamespace**](InventoriesApi.md#GetKubernetesNamespace) | **Get** /kubernetes-namespaces/{namespace_id} | Return a Kubernetes namespace that has been inventoried for this account
-[**GetKubernetesNamespaces**](InventoriesApi.md#GetKubernetesNamespaces) | **Get** /kubernetes-namespaces | Return a list of Kubernetes namespaces that have been inventoried for this account
-[**GetKubernetesNode**](InventoriesApi.md#GetKubernetesNode) | **Get** /kubernetes-nodes/{node_id} | Return a Kubernetes node that has been inventoried for this account
-[**GetKubernetesNodes**](InventoriesApi.md#GetKubernetesNodes) | **Get** /kubernetes-nodes | Return a list of Kubernetes nodes that have been inventoried for this account
-[**GetKubernetesPod**](InventoriesApi.md#GetKubernetesPod) | **Get** /kubernetes-pods/{pod_id} | Return a Kubernetes pod that has been inventoried for this account
-[**GetKubernetesPods**](InventoriesApi.md#GetKubernetesPods) | **Get** /kubernetes-pods | Return a list of Kubernetes pods that have been inventoried for this account
-[**PostEcsInventory**](InventoriesApi.md#PostEcsInventory) | **Post** /ecs-inventory | Add container metadata from Amazon ECS
-[**PostKubernetesInventory**](InventoriesApi.md#PostKubernetesInventory) | **Post** /kubernetes-inventory | Add container metadata from a Kubernetes deployment
+[**DeleteInventory**](InventoriesAPI.md#DeleteInventory) | **Delete** /inventories | Delete runtime inventory by type and context
+[**DeleteKubernetesNamespaces**](InventoriesAPI.md#DeleteKubernetesNamespaces) | **Delete** /kubernetes-namespaces | Delete Kubernetes namespaces for a given criteria
+[**GetEcsContainers**](InventoriesAPI.md#GetEcsContainers) | **Get** /ecs-containers | Return a list of ECS containers that have been inventoried for this account
+[**GetEcsServices**](InventoriesAPI.md#GetEcsServices) | **Get** /ecs-services | Return a list of ECS services that have been inventoried for this account
+[**GetEcsTasks**](InventoriesAPI.md#GetEcsTasks) | **Get** /ecs-tasks | Return a list of ECS tasks that have been inventoried for this account
+[**GetImageInventory**](InventoriesAPI.md#GetImageInventory) | **Get** /inventories | Return a list of the images in inventories for this account
+[**GetKubernetesContainers**](InventoriesAPI.md#GetKubernetesContainers) | **Get** /kubernetes-containers | Return a list of Kubernetes containers that have been inventoried for this account
+[**GetKubernetesNamespace**](InventoriesAPI.md#GetKubernetesNamespace) | **Get** /kubernetes-namespaces/{namespace_id} | Return a Kubernetes namespace that has been inventoried for this account
+[**GetKubernetesNamespaces**](InventoriesAPI.md#GetKubernetesNamespaces) | **Get** /kubernetes-namespaces | Return a list of Kubernetes namespaces that have been inventoried for this account
+[**GetKubernetesNode**](InventoriesAPI.md#GetKubernetesNode) | **Get** /kubernetes-nodes/{node_id} | Return a Kubernetes node that has been inventoried for this account
+[**GetKubernetesNodes**](InventoriesAPI.md#GetKubernetesNodes) | **Get** /kubernetes-nodes | Return a list of Kubernetes nodes that have been inventoried for this account
+[**GetKubernetesPod**](InventoriesAPI.md#GetKubernetesPod) | **Get** /kubernetes-pods/{pod_id} | Return a Kubernetes pod that has been inventoried for this account
+[**GetKubernetesPods**](InventoriesAPI.md#GetKubernetesPods) | **Get** /kubernetes-pods | Return a list of Kubernetes pods that have been inventoried for this account
+[**PostEcsInventory**](InventoriesAPI.md#PostEcsInventory) | **Post** /ecs-inventory | Add container metadata from Amazon ECS
+[**PostKubernetesInventory**](InventoriesAPI.md#PostKubernetesInventory) | **Post** /kubernetes-inventory | Add container metadata from a Kubernetes deployment
 
 
 
@@ -39,7 +39,7 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+    openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
@@ -49,10 +49,10 @@ func main() {
     xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.InventoriesApi.DeleteInventory(context.Background()).InventoryType(inventoryType).Context(context).ImageDigest(imageDigest).XAnchoreAccount(xAnchoreAccount).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    r, err := apiClient.InventoriesAPI.DeleteInventory(context.Background()).InventoryType(inventoryType).Context(context).ImageDigest(imageDigest).XAnchoreAccount(xAnchoreAccount).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `InventoriesApi.DeleteInventory``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `InventoriesAPI.DeleteInventory``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
 }
@@ -109,17 +109,17 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+    openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
     clusterName := "clusterName_example" // string |  (optional)
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.InventoriesApi.DeleteKubernetesNamespaces(context.Background()).ClusterName(clusterName).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    r, err := apiClient.InventoriesAPI.DeleteKubernetesNamespaces(context.Background()).ClusterName(clusterName).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `InventoriesApi.DeleteKubernetesNamespaces``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `InventoriesAPI.DeleteKubernetesNamespaces``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
 }
@@ -173,7 +173,7 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+    openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
@@ -181,14 +181,14 @@ func main() {
     pageSize := int32(56) // int32 |  (optional) (default to 1000)
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.InventoriesApi.GetEcsContainers(context.Background()).Page(page).PageSize(pageSize).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.InventoriesAPI.GetEcsContainers(context.Background()).Page(page).PageSize(pageSize).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `InventoriesApi.GetEcsContainers``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `InventoriesAPI.GetEcsContainers``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
     // response from `GetEcsContainers`: ECSContainers
-    fmt.Fprintf(os.Stdout, "Response from `InventoriesApi.GetEcsContainers`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `InventoriesAPI.GetEcsContainers`: %v\n", resp)
 }
 ```
 
@@ -241,7 +241,7 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+    openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
@@ -249,14 +249,14 @@ func main() {
     pageSize := int32(56) // int32 |  (optional) (default to 1000)
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.InventoriesApi.GetEcsServices(context.Background()).Page(page).PageSize(pageSize).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.InventoriesAPI.GetEcsServices(context.Background()).Page(page).PageSize(pageSize).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `InventoriesApi.GetEcsServices``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `InventoriesAPI.GetEcsServices``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
     // response from `GetEcsServices`: ECSServices
-    fmt.Fprintf(os.Stdout, "Response from `InventoriesApi.GetEcsServices`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `InventoriesAPI.GetEcsServices`: %v\n", resp)
 }
 ```
 
@@ -309,7 +309,7 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+    openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
@@ -317,14 +317,14 @@ func main() {
     pageSize := int32(56) // int32 |  (optional) (default to 1000)
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.InventoriesApi.GetEcsTasks(context.Background()).Page(page).PageSize(pageSize).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.InventoriesAPI.GetEcsTasks(context.Background()).Page(page).PageSize(pageSize).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `InventoriesApi.GetEcsTasks``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `InventoriesAPI.GetEcsTasks``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
     // response from `GetEcsTasks`: ECSTasks
-    fmt.Fprintf(os.Stdout, "Response from `InventoriesApi.GetEcsTasks`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `InventoriesAPI.GetEcsTasks`: %v\n", resp)
 }
 ```
 
@@ -377,7 +377,7 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+    openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
@@ -387,14 +387,14 @@ func main() {
     xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.InventoriesApi.GetImageInventory(context.Background()).InventoryType(inventoryType).ImageDigest(imageDigest).Context(context).XAnchoreAccount(xAnchoreAccount).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.InventoriesAPI.GetImageInventory(context.Background()).InventoryType(inventoryType).ImageDigest(imageDigest).Context(context).XAnchoreAccount(xAnchoreAccount).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `InventoriesApi.GetImageInventory``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `InventoriesAPI.GetImageInventory``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
     // response from `GetImageInventory`: InventoryItems
-    fmt.Fprintf(os.Stdout, "Response from `InventoriesApi.GetImageInventory`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `InventoriesAPI.GetImageInventory`: %v\n", resp)
 }
 ```
 
@@ -449,7 +449,7 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+    openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
@@ -457,14 +457,14 @@ func main() {
     pageSize := int32(56) // int32 |  (optional) (default to 1000)
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.InventoriesApi.GetKubernetesContainers(context.Background()).Page(page).PageSize(pageSize).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.InventoriesAPI.GetKubernetesContainers(context.Background()).Page(page).PageSize(pageSize).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `InventoriesApi.GetKubernetesContainers``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `InventoriesAPI.GetKubernetesContainers``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
     // response from `GetKubernetesContainers`: KubernetesContainers
-    fmt.Fprintf(os.Stdout, "Response from `InventoriesApi.GetKubernetesContainers`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `InventoriesAPI.GetKubernetesContainers`: %v\n", resp)
 }
 ```
 
@@ -517,21 +517,21 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+    openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
     namespaceId := "namespaceId_example" // string | 
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.InventoriesApi.GetKubernetesNamespace(context.Background(), namespaceId).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.InventoriesAPI.GetKubernetesNamespace(context.Background(), namespaceId).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `InventoriesApi.GetKubernetesNamespace``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `InventoriesAPI.GetKubernetesNamespace``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
     // response from `GetKubernetesNamespace`: KubernetesNamespace
-    fmt.Fprintf(os.Stdout, "Response from `InventoriesApi.GetKubernetesNamespace`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `InventoriesAPI.GetKubernetesNamespace`: %v\n", resp)
 }
 ```
 
@@ -587,7 +587,7 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+    openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
@@ -595,14 +595,14 @@ func main() {
     pageSize := int32(56) // int32 |  (optional) (default to 1000)
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.InventoriesApi.GetKubernetesNamespaces(context.Background()).Page(page).PageSize(pageSize).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.InventoriesAPI.GetKubernetesNamespaces(context.Background()).Page(page).PageSize(pageSize).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `InventoriesApi.GetKubernetesNamespaces``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `InventoriesAPI.GetKubernetesNamespaces``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
     // response from `GetKubernetesNamespaces`: KubernetesNamespaces
-    fmt.Fprintf(os.Stdout, "Response from `InventoriesApi.GetKubernetesNamespaces`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `InventoriesAPI.GetKubernetesNamespaces`: %v\n", resp)
 }
 ```
 
@@ -655,21 +655,21 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+    openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
     nodeId := "nodeId_example" // string | 
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.InventoriesApi.GetKubernetesNode(context.Background(), nodeId).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.InventoriesAPI.GetKubernetesNode(context.Background(), nodeId).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `InventoriesApi.GetKubernetesNode``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `InventoriesAPI.GetKubernetesNode``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
     // response from `GetKubernetesNode`: KubernetesNode
-    fmt.Fprintf(os.Stdout, "Response from `InventoriesApi.GetKubernetesNode`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `InventoriesAPI.GetKubernetesNode`: %v\n", resp)
 }
 ```
 
@@ -725,7 +725,7 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+    openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
@@ -733,14 +733,14 @@ func main() {
     pageSize := int32(56) // int32 |  (optional) (default to 1000)
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.InventoriesApi.GetKubernetesNodes(context.Background()).Page(page).PageSize(pageSize).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.InventoriesAPI.GetKubernetesNodes(context.Background()).Page(page).PageSize(pageSize).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `InventoriesApi.GetKubernetesNodes``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `InventoriesAPI.GetKubernetesNodes``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
     // response from `GetKubernetesNodes`: KubernetesNodes
-    fmt.Fprintf(os.Stdout, "Response from `InventoriesApi.GetKubernetesNodes`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `InventoriesAPI.GetKubernetesNodes`: %v\n", resp)
 }
 ```
 
@@ -793,21 +793,21 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+    openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
     podId := "podId_example" // string | 
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.InventoriesApi.GetKubernetesPod(context.Background(), podId).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.InventoriesAPI.GetKubernetesPod(context.Background(), podId).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `InventoriesApi.GetKubernetesPod``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `InventoriesAPI.GetKubernetesPod``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
     // response from `GetKubernetesPod`: KubernetesPod
-    fmt.Fprintf(os.Stdout, "Response from `InventoriesApi.GetKubernetesPod`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `InventoriesAPI.GetKubernetesPod`: %v\n", resp)
 }
 ```
 
@@ -863,7 +863,7 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+    openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
@@ -871,14 +871,14 @@ func main() {
     pageSize := int32(56) // int32 |  (optional) (default to 1000)
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.InventoriesApi.GetKubernetesPods(context.Background()).Page(page).PageSize(pageSize).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.InventoriesAPI.GetKubernetesPods(context.Background()).Page(page).PageSize(pageSize).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `InventoriesApi.GetKubernetesPods``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `InventoriesAPI.GetKubernetesPods``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
     // response from `GetKubernetesPods`: KubernetesPods
-    fmt.Fprintf(os.Stdout, "Response from `InventoriesApi.GetKubernetesPods`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `InventoriesAPI.GetKubernetesPods`: %v\n", resp)
 }
 ```
 
@@ -932,17 +932,17 @@ import (
     "fmt"
     "os"
     "time"
-    openapiclient "./openapi"
+    openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
     inventory := *openapiclient.NewECSInventory("ClusterArn_example", time.Now()) // ECSInventory | 
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.InventoriesApi.PostEcsInventory(context.Background()).Inventory(inventory).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    r, err := apiClient.InventoriesAPI.PostEcsInventory(context.Background()).Inventory(inventory).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `InventoriesApi.PostEcsInventory``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `InventoriesAPI.PostEcsInventory``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
 }
@@ -997,17 +997,17 @@ import (
     "fmt"
     "os"
     "time"
-    openapiclient "./openapi"
+    openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
     inventory := *openapiclient.NewKubernetesInventory("ClusterName_example", time.Now()) // KubernetesInventory | 
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.InventoriesApi.PostKubernetesInventory(context.Background()).Inventory(inventory).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    r, err := apiClient.InventoriesAPI.PostKubernetesInventory(context.Background()).Inventory(inventory).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `InventoriesApi.PostKubernetesInventory``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `InventoriesAPI.PostKubernetesInventory``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
 }

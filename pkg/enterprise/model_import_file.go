@@ -15,14 +15,17 @@ import (
 	"encoding/json"
 )
 
+// checks if the ImportFile type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ImportFile{}
+
 // ImportFile struct for ImportFile
 type ImportFile struct {
 	// Unique identifier within the sbom for the file for other elements in the sbom to reference
 	Id string `json:"id"`
 	Location ImageImportFileCoordinate `json:"location"`
 	// File metadata such as mode, size, etc. This is populated by anchorectl analysis but is not available in older syft-generated SBOMs
-	Metadata *interface{} `json:"metadata,omitempty"`
-	Digests *[]ImportFileDigest `json:"digests,omitempty"`
+	Metadata interface{} `json:"metadata,omitempty"`
+	Digests []ImportFileDigest `json:"digests,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -60,7 +63,7 @@ func (o *ImportFile) GetId() string {
 // GetIdOk returns a tuple with the Id field value
 // and a boolean to check if the value has been set.
 func (o *ImportFile) GetIdOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Id, true
@@ -84,7 +87,7 @@ func (o *ImportFile) GetLocation() ImageImportFileCoordinate {
 // GetLocationOk returns a tuple with the Location field value
 // and a boolean to check if the value has been set.
 func (o *ImportFile) GetLocationOk() (*ImageImportFileCoordinate, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Location, true
@@ -97,25 +100,25 @@ func (o *ImportFile) SetLocation(v ImageImportFileCoordinate) {
 
 // GetMetadata returns the Metadata field value if set, zero value otherwise.
 func (o *ImportFile) GetMetadata() interface{} {
-	if o == nil || o.Metadata == nil {
+	if o == nil || IsNil(o.Metadata) {
 		var ret interface{}
 		return ret
 	}
-	return *o.Metadata
+	return o.Metadata
 }
 
 // GetMetadataOk returns a tuple with the Metadata field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ImportFile) GetMetadataOk() (*interface{}, bool) {
-	if o == nil || o.Metadata == nil {
-		return nil, false
+func (o *ImportFile) GetMetadataOk() (interface{}, bool) {
+	if o == nil || IsNil(o.Metadata) {
+		return interface{}{}, false
 	}
 	return o.Metadata, true
 }
 
 // HasMetadata returns a boolean if a field has been set.
 func (o *ImportFile) HasMetadata() bool {
-	if o != nil && o.Metadata != nil {
+	if o != nil && !IsNil(o.Metadata) {
 		return true
 	}
 
@@ -124,22 +127,22 @@ func (o *ImportFile) HasMetadata() bool {
 
 // SetMetadata gets a reference to the given interface{} and assigns it to the Metadata field.
 func (o *ImportFile) SetMetadata(v interface{}) {
-	o.Metadata = &v
+	o.Metadata = v
 }
 
 // GetDigests returns the Digests field value if set, zero value otherwise.
 func (o *ImportFile) GetDigests() []ImportFileDigest {
-	if o == nil || o.Digests == nil {
+	if o == nil || IsNil(o.Digests) {
 		var ret []ImportFileDigest
 		return ret
 	}
-	return *o.Digests
+	return o.Digests
 }
 
 // GetDigestsOk returns a tuple with the Digests field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ImportFile) GetDigestsOk() (*[]ImportFileDigest, bool) {
-	if o == nil || o.Digests == nil {
+func (o *ImportFile) GetDigestsOk() ([]ImportFileDigest, bool) {
+	if o == nil || IsNil(o.Digests) {
 		return nil, false
 	}
 	return o.Digests, true
@@ -147,7 +150,7 @@ func (o *ImportFile) GetDigestsOk() (*[]ImportFileDigest, bool) {
 
 // HasDigests returns a boolean if a field has been set.
 func (o *ImportFile) HasDigests() bool {
-	if o != nil && o.Digests != nil {
+	if o != nil && !IsNil(o.Digests) {
 		return true
 	}
 
@@ -156,21 +159,25 @@ func (o *ImportFile) HasDigests() bool {
 
 // SetDigests gets a reference to the given []ImportFileDigest and assigns it to the Digests field.
 func (o *ImportFile) SetDigests(v []ImportFileDigest) {
-	o.Digests = &v
+	o.Digests = v
 }
 
 func (o ImportFile) MarshalJSON() ([]byte, error) {
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o ImportFile) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["id"] = o.Id
-	}
-	if true {
-		toSerialize["location"] = o.Location
-	}
-	if o.Metadata != nil {
+	toSerialize["id"] = o.Id
+	toSerialize["location"] = o.Location
+	if !IsNil(o.Metadata) {
 		toSerialize["metadata"] = o.Metadata
 	}
-	if o.Digests != nil {
+	if !IsNil(o.Digests) {
 		toSerialize["digests"] = o.Digests
 	}
 
@@ -178,15 +185,19 @@ func (o ImportFile) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
 func (o *ImportFile) UnmarshalJSON(bytes []byte) (err error) {
 	varImportFile := _ImportFile{}
 
-	if err = json.Unmarshal(bytes, &varImportFile); err == nil {
-		*o = ImportFile(varImportFile)
+	err = json.Unmarshal(bytes, &varImportFile)
+
+	if err != nil {
+		return err
 	}
+
+	*o = ImportFile(varImportFile)
 
 	additionalProperties := make(map[string]interface{})
 

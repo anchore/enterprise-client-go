@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the ServiceReference type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ServiceReference{}
+
 // ServiceReference A reference to a service in the system
 type ServiceReference struct {
 	// The unique id of the host on which the service is executing
@@ -42,7 +45,7 @@ func NewServiceReferenceWithDefaults() *ServiceReference {
 
 // GetHostId returns the HostId field value if set, zero value otherwise.
 func (o *ServiceReference) GetHostId() string {
-	if o == nil || o.HostId == nil {
+	if o == nil || IsNil(o.HostId) {
 		var ret string
 		return ret
 	}
@@ -52,7 +55,7 @@ func (o *ServiceReference) GetHostId() string {
 // GetHostIdOk returns a tuple with the HostId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ServiceReference) GetHostIdOk() (*string, bool) {
-	if o == nil || o.HostId == nil {
+	if o == nil || IsNil(o.HostId) {
 		return nil, false
 	}
 	return o.HostId, true
@@ -60,7 +63,7 @@ func (o *ServiceReference) GetHostIdOk() (*string, bool) {
 
 // HasHostId returns a boolean if a field has been set.
 func (o *ServiceReference) HasHostId() bool {
-	if o != nil && o.HostId != nil {
+	if o != nil && !IsNil(o.HostId) {
 		return true
 	}
 
@@ -74,7 +77,7 @@ func (o *ServiceReference) SetHostId(v string) {
 
 // GetServiceName returns the ServiceName field value if set, zero value otherwise.
 func (o *ServiceReference) GetServiceName() string {
-	if o == nil || o.ServiceName == nil {
+	if o == nil || IsNil(o.ServiceName) {
 		var ret string
 		return ret
 	}
@@ -84,7 +87,7 @@ func (o *ServiceReference) GetServiceName() string {
 // GetServiceNameOk returns a tuple with the ServiceName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ServiceReference) GetServiceNameOk() (*string, bool) {
-	if o == nil || o.ServiceName == nil {
+	if o == nil || IsNil(o.ServiceName) {
 		return nil, false
 	}
 	return o.ServiceName, true
@@ -92,7 +95,7 @@ func (o *ServiceReference) GetServiceNameOk() (*string, bool) {
 
 // HasServiceName returns a boolean if a field has been set.
 func (o *ServiceReference) HasServiceName() bool {
-	if o != nil && o.ServiceName != nil {
+	if o != nil && !IsNil(o.ServiceName) {
 		return true
 	}
 
@@ -105,14 +108,22 @@ func (o *ServiceReference) SetServiceName(v string) {
 }
 
 func (o ServiceReference) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.HostId != nil {
-		toSerialize["host_id"] = o.HostId
-	}
-	if o.ServiceName != nil {
-		toSerialize["service_name"] = o.ServiceName
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o ServiceReference) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.HostId) {
+		toSerialize["host_id"] = o.HostId
+	}
+	if !IsNil(o.ServiceName) {
+		toSerialize["service_name"] = o.ServiceName
+	}
+	return toSerialize, nil
 }
 
 type NullableServiceReference struct {

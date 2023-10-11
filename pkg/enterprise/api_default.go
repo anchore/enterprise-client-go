@@ -13,1553 +13,1549 @@ package enterprise
 
 import (
 	"bytes"
-	_context "context"
-	_ioutil "io/ioutil"
-	_nethttp "net/http"
-	_neturl "net/url"
+	"context"
+	"io"
+	"net/http"
+	"net/url"
 	"strings"
 )
 
-// Linger please
-var (
-	_ _context.Context
-)
 
-type DefaultApi interface {
+type DefaultAPI interface {
 
 	/*
 	AddGithubConfiguration Method for AddGithubConfiguration
 
 	Create a new GitHub endpoint configuration
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @return ApiAddGithubConfigurationRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiAddGithubConfigurationRequest
 	*/
-	AddGithubConfiguration(ctx _context.Context) ApiAddGithubConfigurationRequest
+	AddGithubConfiguration(ctx context.Context) ApiAddGithubConfigurationRequest
 
 	// AddGithubConfigurationExecute executes the request
 	//  @return NotificationGitHubEndpointConfigurationBase
-	AddGithubConfigurationExecute(r ApiAddGithubConfigurationRequest) (NotificationGitHubEndpointConfigurationBase, *_nethttp.Response, error)
+	AddGithubConfigurationExecute(r ApiAddGithubConfigurationRequest) (*NotificationGitHubEndpointConfigurationBase, *http.Response, error)
 
 	/*
 	AddGithubSelector Method for AddGithubSelector
 
 	Add selector for mapping events for delivery to a GitHub endpoint configuration
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @param uuid
-	 @return ApiAddGithubSelectorRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param uuid
+	@return ApiAddGithubSelectorRequest
 	*/
-	AddGithubSelector(ctx _context.Context, uuid string) ApiAddGithubSelectorRequest
+	AddGithubSelector(ctx context.Context, uuid string) ApiAddGithubSelectorRequest
 
 	// AddGithubSelectorExecute executes the request
 	//  @return NotificationSelector
-	AddGithubSelectorExecute(r ApiAddGithubSelectorRequest) (NotificationSelector, *_nethttp.Response, error)
+	AddGithubSelectorExecute(r ApiAddGithubSelectorRequest) (*NotificationSelector, *http.Response, error)
 
 	/*
 	AddIdp Method for AddIdp
 
 	Add a new Identity Provider to the system, with a specific name
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @return ApiAddIdpRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiAddIdpRequest
 	*/
-	AddIdp(ctx _context.Context) ApiAddIdpRequest
+	AddIdp(ctx context.Context) ApiAddIdpRequest
 
 	// AddIdpExecute executes the request
 	//  @return RbacManagerSamlConfiguration
-	AddIdpExecute(r ApiAddIdpRequest) (RbacManagerSamlConfiguration, *_nethttp.Response, error)
+	AddIdpExecute(r ApiAddIdpRequest) (*RbacManagerSamlConfiguration, *http.Response, error)
 
 	/*
 	AddJiraConfiguration Method for AddJiraConfiguration
 
 	Create a new Jira endpoint configuration
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @return ApiAddJiraConfigurationRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiAddJiraConfigurationRequest
 	*/
-	AddJiraConfiguration(ctx _context.Context) ApiAddJiraConfigurationRequest
+	AddJiraConfiguration(ctx context.Context) ApiAddJiraConfigurationRequest
 
 	// AddJiraConfigurationExecute executes the request
 	//  @return NotificationJiraEndpointConfigurationBase
-	AddJiraConfigurationExecute(r ApiAddJiraConfigurationRequest) (NotificationJiraEndpointConfigurationBase, *_nethttp.Response, error)
+	AddJiraConfigurationExecute(r ApiAddJiraConfigurationRequest) (*NotificationJiraEndpointConfigurationBase, *http.Response, error)
 
 	/*
 	AddJiraSelector Method for AddJiraSelector
 
 	Add selector for mapping events for delivery to a Jira endpoint configuration
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @param uuid
-	 @return ApiAddJiraSelectorRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param uuid
+	@return ApiAddJiraSelectorRequest
 	*/
-	AddJiraSelector(ctx _context.Context, uuid string) ApiAddJiraSelectorRequest
+	AddJiraSelector(ctx context.Context, uuid string) ApiAddJiraSelectorRequest
 
 	// AddJiraSelectorExecute executes the request
 	//  @return NotificationSelector
-	AddJiraSelectorExecute(r ApiAddJiraSelectorRequest) (NotificationSelector, *_nethttp.Response, error)
+	AddJiraSelectorExecute(r ApiAddJiraSelectorRequest) (*NotificationSelector, *http.Response, error)
 
 	/*
 	AddRoleUser Add a user to the role
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @param roleName
-	 @return ApiAddRoleUserRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param roleName
+	@return ApiAddRoleUserRequest
 	*/
-	AddRoleUser(ctx _context.Context, roleName string) ApiAddRoleUserRequest
+	AddRoleUser(ctx context.Context, roleName string) ApiAddRoleUserRequest
 
 	// AddRoleUserExecute executes the request
 	//  @return RbacManagerRoleMember
-	AddRoleUserExecute(r ApiAddRoleUserRequest) (RbacManagerRoleMember, *_nethttp.Response, error)
+	AddRoleUserExecute(r ApiAddRoleUserRequest) (*RbacManagerRoleMember, *http.Response, error)
 
 	/*
 	AddSlackConfiguration Method for AddSlackConfiguration
 
 	Create a new Slack endpoint configuration
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @return ApiAddSlackConfigurationRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiAddSlackConfigurationRequest
 	*/
-	AddSlackConfiguration(ctx _context.Context) ApiAddSlackConfigurationRequest
+	AddSlackConfiguration(ctx context.Context) ApiAddSlackConfigurationRequest
 
 	// AddSlackConfigurationExecute executes the request
 	//  @return NotificationSlackEndpointConfiguration
-	AddSlackConfigurationExecute(r ApiAddSlackConfigurationRequest) (NotificationSlackEndpointConfiguration, *_nethttp.Response, error)
+	AddSlackConfigurationExecute(r ApiAddSlackConfigurationRequest) (*NotificationSlackEndpointConfiguration, *http.Response, error)
 
 	/*
 	AddSlackSelector Method for AddSlackSelector
 
 	Add selector for mapping events for delivery to a Slack endpoint configuration
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @param uuid
-	 @return ApiAddSlackSelectorRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param uuid
+	@return ApiAddSlackSelectorRequest
 	*/
-	AddSlackSelector(ctx _context.Context, uuid string) ApiAddSlackSelectorRequest
+	AddSlackSelector(ctx context.Context, uuid string) ApiAddSlackSelectorRequest
 
 	// AddSlackSelectorExecute executes the request
 	//  @return NotificationSelector
-	AddSlackSelectorExecute(r ApiAddSlackSelectorRequest) (NotificationSelector, *_nethttp.Response, error)
+	AddSlackSelectorExecute(r ApiAddSlackSelectorRequest) (*NotificationSelector, *http.Response, error)
 
 	/*
 	AddSmtpConfiguration Method for AddSmtpConfiguration
 
 	Create a new SMTP endpoint configuration
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @return ApiAddSmtpConfigurationRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiAddSmtpConfigurationRequest
 	*/
-	AddSmtpConfiguration(ctx _context.Context) ApiAddSmtpConfigurationRequest
+	AddSmtpConfiguration(ctx context.Context) ApiAddSmtpConfigurationRequest
 
 	// AddSmtpConfigurationExecute executes the request
 	//  @return NotificationSMTPEndpointConfiguration
-	AddSmtpConfigurationExecute(r ApiAddSmtpConfigurationRequest) (NotificationSMTPEndpointConfiguration, *_nethttp.Response, error)
+	AddSmtpConfigurationExecute(r ApiAddSmtpConfigurationRequest) (*NotificationSMTPEndpointConfiguration, *http.Response, error)
 
 	/*
 	AddSmtpSelector Method for AddSmtpSelector
 
 	Add selector for mapping events for delivery to a SMTP endpoint configuration
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @param uuid
-	 @return ApiAddSmtpSelectorRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param uuid
+	@return ApiAddSmtpSelectorRequest
 	*/
-	AddSmtpSelector(ctx _context.Context, uuid string) ApiAddSmtpSelectorRequest
+	AddSmtpSelector(ctx context.Context, uuid string) ApiAddSmtpSelectorRequest
 
 	// AddSmtpSelectorExecute executes the request
 	//  @return NotificationSelector
-	AddSmtpSelectorExecute(r ApiAddSmtpSelectorRequest) (NotificationSelector, *_nethttp.Response, error)
+	AddSmtpSelectorExecute(r ApiAddSmtpSelectorRequest) (*NotificationSelector, *http.Response, error)
 
 	/*
 	AddTeamsConfiguration Method for AddTeamsConfiguration
 
 	Create a new Teams endpoint configuration
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @return ApiAddTeamsConfigurationRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiAddTeamsConfigurationRequest
 	*/
-	AddTeamsConfiguration(ctx _context.Context) ApiAddTeamsConfigurationRequest
+	AddTeamsConfiguration(ctx context.Context) ApiAddTeamsConfigurationRequest
 
 	// AddTeamsConfigurationExecute executes the request
 	//  @return NotificationTeamsEndpointConfiguration
-	AddTeamsConfigurationExecute(r ApiAddTeamsConfigurationRequest) (NotificationTeamsEndpointConfiguration, *_nethttp.Response, error)
+	AddTeamsConfigurationExecute(r ApiAddTeamsConfigurationRequest) (*NotificationTeamsEndpointConfiguration, *http.Response, error)
 
 	/*
 	AddTeamsSelector Method for AddTeamsSelector
 
 	Add selector for mapping events for delivery to a Teams endpoint configuration
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @param uuid
-	 @return ApiAddTeamsSelectorRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param uuid
+	@return ApiAddTeamsSelectorRequest
 	*/
-	AddTeamsSelector(ctx _context.Context, uuid string) ApiAddTeamsSelectorRequest
+	AddTeamsSelector(ctx context.Context, uuid string) ApiAddTeamsSelectorRequest
 
 	// AddTeamsSelectorExecute executes the request
 	//  @return NotificationSelector
-	AddTeamsSelectorExecute(r ApiAddTeamsSelectorRequest) (NotificationSelector, *_nethttp.Response, error)
+	AddTeamsSelectorExecute(r ApiAddTeamsSelectorRequest) (*NotificationSelector, *http.Response, error)
 
 	/*
 	AddWebhookConfiguration Method for AddWebhookConfiguration
 
 	Create a new Webhook endpoint configuration
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @return ApiAddWebhookConfigurationRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiAddWebhookConfigurationRequest
 	*/
-	AddWebhookConfiguration(ctx _context.Context) ApiAddWebhookConfigurationRequest
+	AddWebhookConfiguration(ctx context.Context) ApiAddWebhookConfigurationRequest
 
 	// AddWebhookConfigurationExecute executes the request
 	//  @return NotificationWebhookEndpointConfiguration
-	AddWebhookConfigurationExecute(r ApiAddWebhookConfigurationRequest) (NotificationWebhookEndpointConfiguration, *_nethttp.Response, error)
+	AddWebhookConfigurationExecute(r ApiAddWebhookConfigurationRequest) (*NotificationWebhookEndpointConfiguration, *http.Response, error)
 
 	/*
 	AddWebhookSelector Method for AddWebhookSelector
 
 	Add selector for mapping events for delivery to a Webhook endpoint configuration
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @param uuid
-	 @return ApiAddWebhookSelectorRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param uuid
+	@return ApiAddWebhookSelectorRequest
 	*/
-	AddWebhookSelector(ctx _context.Context, uuid string) ApiAddWebhookSelectorRequest
+	AddWebhookSelector(ctx context.Context, uuid string) ApiAddWebhookSelectorRequest
 
 	// AddWebhookSelectorExecute executes the request
 	//  @return NotificationSelector
-	AddWebhookSelectorExecute(r ApiAddWebhookSelectorRequest) (NotificationSelector, *_nethttp.Response, error)
+	AddWebhookSelectorExecute(r ApiAddWebhookSelectorRequest) (*NotificationSelector, *http.Response, error)
 
 	/*
 	DeleteGithubConfiguration Method for DeleteGithubConfiguration
 
 	Delete a GitHub endpoint configuration by it's UUID
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @param uuid
-	 @return ApiDeleteGithubConfigurationRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param uuid
+	@return ApiDeleteGithubConfigurationRequest
 	*/
-	DeleteGithubConfiguration(ctx _context.Context, uuid string) ApiDeleteGithubConfigurationRequest
+	DeleteGithubConfiguration(ctx context.Context, uuid string) ApiDeleteGithubConfigurationRequest
 
 	// DeleteGithubConfigurationExecute executes the request
-	DeleteGithubConfigurationExecute(r ApiDeleteGithubConfigurationRequest) (*_nethttp.Response, error)
+	DeleteGithubConfigurationExecute(r ApiDeleteGithubConfigurationRequest) (*http.Response, error)
 
 	/*
 	DeleteGithubSelector Method for DeleteGithubSelector
 
 	Delete a selector mapped to a GitHub endpoint configuration
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @param configurationUuid
-	 @param selectorUuid
-	 @return ApiDeleteGithubSelectorRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param configurationUuid
+	@param selectorUuid
+	@return ApiDeleteGithubSelectorRequest
 	*/
-	DeleteGithubSelector(ctx _context.Context, configurationUuid string, selectorUuid string) ApiDeleteGithubSelectorRequest
+	DeleteGithubSelector(ctx context.Context, configurationUuid string, selectorUuid string) ApiDeleteGithubSelectorRequest
 
 	// DeleteGithubSelectorExecute executes the request
-	DeleteGithubSelectorExecute(r ApiDeleteGithubSelectorRequest) (*_nethttp.Response, error)
+	DeleteGithubSelectorExecute(r ApiDeleteGithubSelectorRequest) (*http.Response, error)
 
 	/*
 	DeleteIdp Method for DeleteIdp
 
 	Delete an idp configuration. Users will not longer be able to login from this idp. In addition, any users that have been configured explicitly or JIT Provisioned on this IDP will be deleted.
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @param name
-	 @return ApiDeleteIdpRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param name
+	@return ApiDeleteIdpRequest
 	*/
-	DeleteIdp(ctx _context.Context, name string) ApiDeleteIdpRequest
+	DeleteIdp(ctx context.Context, name string) ApiDeleteIdpRequest
 
 	// DeleteIdpExecute executes the request
-	DeleteIdpExecute(r ApiDeleteIdpRequest) (*_nethttp.Response, error)
+	DeleteIdpExecute(r ApiDeleteIdpRequest) (*http.Response, error)
 
 	/*
 	DeleteJiraConfiguration Method for DeleteJiraConfiguration
 
 	Delete a Jira endpoint configuration by it's UUID
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @param uuid
-	 @return ApiDeleteJiraConfigurationRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param uuid
+	@return ApiDeleteJiraConfigurationRequest
 	*/
-	DeleteJiraConfiguration(ctx _context.Context, uuid string) ApiDeleteJiraConfigurationRequest
+	DeleteJiraConfiguration(ctx context.Context, uuid string) ApiDeleteJiraConfigurationRequest
 
 	// DeleteJiraConfigurationExecute executes the request
-	DeleteJiraConfigurationExecute(r ApiDeleteJiraConfigurationRequest) (*_nethttp.Response, error)
+	DeleteJiraConfigurationExecute(r ApiDeleteJiraConfigurationRequest) (*http.Response, error)
 
 	/*
 	DeleteJiraSelector Method for DeleteJiraSelector
 
 	Delete a selector mapped to a Jira endpoint configuration
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @param configurationUuid
-	 @param selectorUuid
-	 @return ApiDeleteJiraSelectorRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param configurationUuid
+	@param selectorUuid
+	@return ApiDeleteJiraSelectorRequest
 	*/
-	DeleteJiraSelector(ctx _context.Context, configurationUuid string, selectorUuid string) ApiDeleteJiraSelectorRequest
+	DeleteJiraSelector(ctx context.Context, configurationUuid string, selectorUuid string) ApiDeleteJiraSelectorRequest
 
 	// DeleteJiraSelectorExecute executes the request
-	DeleteJiraSelectorExecute(r ApiDeleteJiraSelectorRequest) (*_nethttp.Response, error)
+	DeleteJiraSelectorExecute(r ApiDeleteJiraSelectorRequest) (*http.Response, error)
 
 	/*
 	DeleteRoleUser Remove a user from the role
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @param roleName
-	 @return ApiDeleteRoleUserRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param roleName
+	@return ApiDeleteRoleUserRequest
 	*/
-	DeleteRoleUser(ctx _context.Context, roleName string) ApiDeleteRoleUserRequest
+	DeleteRoleUser(ctx context.Context, roleName string) ApiDeleteRoleUserRequest
 
 	// DeleteRoleUserExecute executes the request
-	DeleteRoleUserExecute(r ApiDeleteRoleUserRequest) (*_nethttp.Response, error)
+	DeleteRoleUserExecute(r ApiDeleteRoleUserRequest) (*http.Response, error)
 
 	/*
 	DeleteSlackConfiguration Method for DeleteSlackConfiguration
 
 	Delete a Slack endpoint configuration by it's UUID
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @param uuid
-	 @return ApiDeleteSlackConfigurationRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param uuid
+	@return ApiDeleteSlackConfigurationRequest
 	*/
-	DeleteSlackConfiguration(ctx _context.Context, uuid string) ApiDeleteSlackConfigurationRequest
+	DeleteSlackConfiguration(ctx context.Context, uuid string) ApiDeleteSlackConfigurationRequest
 
 	// DeleteSlackConfigurationExecute executes the request
-	DeleteSlackConfigurationExecute(r ApiDeleteSlackConfigurationRequest) (*_nethttp.Response, error)
+	DeleteSlackConfigurationExecute(r ApiDeleteSlackConfigurationRequest) (*http.Response, error)
 
 	/*
 	DeleteSlackSelector Method for DeleteSlackSelector
 
 	Delete a selector mapped to a Slack endpoint configuration
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @param configurationUuid
-	 @param selectorUuid
-	 @return ApiDeleteSlackSelectorRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param configurationUuid
+	@param selectorUuid
+	@return ApiDeleteSlackSelectorRequest
 	*/
-	DeleteSlackSelector(ctx _context.Context, configurationUuid string, selectorUuid string) ApiDeleteSlackSelectorRequest
+	DeleteSlackSelector(ctx context.Context, configurationUuid string, selectorUuid string) ApiDeleteSlackSelectorRequest
 
 	// DeleteSlackSelectorExecute executes the request
-	DeleteSlackSelectorExecute(r ApiDeleteSlackSelectorRequest) (*_nethttp.Response, error)
+	DeleteSlackSelectorExecute(r ApiDeleteSlackSelectorRequest) (*http.Response, error)
 
 	/*
 	DeleteSmtpConfiguration Method for DeleteSmtpConfiguration
 
 	Delete a SMTP endpoint configuration by it's UUID
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @param uuid
-	 @return ApiDeleteSmtpConfigurationRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param uuid
+	@return ApiDeleteSmtpConfigurationRequest
 	*/
-	DeleteSmtpConfiguration(ctx _context.Context, uuid string) ApiDeleteSmtpConfigurationRequest
+	DeleteSmtpConfiguration(ctx context.Context, uuid string) ApiDeleteSmtpConfigurationRequest
 
 	// DeleteSmtpConfigurationExecute executes the request
-	DeleteSmtpConfigurationExecute(r ApiDeleteSmtpConfigurationRequest) (*_nethttp.Response, error)
+	DeleteSmtpConfigurationExecute(r ApiDeleteSmtpConfigurationRequest) (*http.Response, error)
 
 	/*
 	DeleteSmtpSelector Method for DeleteSmtpSelector
 
 	Delete a selector mapped to a SMTP endpoint configuration
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @param configurationUuid
-	 @param selectorUuid
-	 @return ApiDeleteSmtpSelectorRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param configurationUuid
+	@param selectorUuid
+	@return ApiDeleteSmtpSelectorRequest
 	*/
-	DeleteSmtpSelector(ctx _context.Context, configurationUuid string, selectorUuid string) ApiDeleteSmtpSelectorRequest
+	DeleteSmtpSelector(ctx context.Context, configurationUuid string, selectorUuid string) ApiDeleteSmtpSelectorRequest
 
 	// DeleteSmtpSelectorExecute executes the request
-	DeleteSmtpSelectorExecute(r ApiDeleteSmtpSelectorRequest) (*_nethttp.Response, error)
+	DeleteSmtpSelectorExecute(r ApiDeleteSmtpSelectorRequest) (*http.Response, error)
 
 	/*
 	DeleteTeamsConfiguration Method for DeleteTeamsConfiguration
 
 	Delete a Teams endpoint configuration by it's UUID
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @param uuid
-	 @return ApiDeleteTeamsConfigurationRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param uuid
+	@return ApiDeleteTeamsConfigurationRequest
 	*/
-	DeleteTeamsConfiguration(ctx _context.Context, uuid string) ApiDeleteTeamsConfigurationRequest
+	DeleteTeamsConfiguration(ctx context.Context, uuid string) ApiDeleteTeamsConfigurationRequest
 
 	// DeleteTeamsConfigurationExecute executes the request
-	DeleteTeamsConfigurationExecute(r ApiDeleteTeamsConfigurationRequest) (*_nethttp.Response, error)
+	DeleteTeamsConfigurationExecute(r ApiDeleteTeamsConfigurationRequest) (*http.Response, error)
 
 	/*
 	DeleteTeamsSelector Method for DeleteTeamsSelector
 
 	Delete a selector mapped to a Teams endpoint configuration
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @param configurationUuid
-	 @param selectorUuid
-	 @return ApiDeleteTeamsSelectorRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param configurationUuid
+	@param selectorUuid
+	@return ApiDeleteTeamsSelectorRequest
 	*/
-	DeleteTeamsSelector(ctx _context.Context, configurationUuid string, selectorUuid string) ApiDeleteTeamsSelectorRequest
+	DeleteTeamsSelector(ctx context.Context, configurationUuid string, selectorUuid string) ApiDeleteTeamsSelectorRequest
 
 	// DeleteTeamsSelectorExecute executes the request
-	DeleteTeamsSelectorExecute(r ApiDeleteTeamsSelectorRequest) (*_nethttp.Response, error)
+	DeleteTeamsSelectorExecute(r ApiDeleteTeamsSelectorRequest) (*http.Response, error)
 
 	/*
 	DeleteWebhookConfiguration Method for DeleteWebhookConfiguration
 
 	Delete a Webhook endpoint configuration by it's UUID
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @param uuid
-	 @return ApiDeleteWebhookConfigurationRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param uuid
+	@return ApiDeleteWebhookConfigurationRequest
 	*/
-	DeleteWebhookConfiguration(ctx _context.Context, uuid string) ApiDeleteWebhookConfigurationRequest
+	DeleteWebhookConfiguration(ctx context.Context, uuid string) ApiDeleteWebhookConfigurationRequest
 
 	// DeleteWebhookConfigurationExecute executes the request
-	DeleteWebhookConfigurationExecute(r ApiDeleteWebhookConfigurationRequest) (*_nethttp.Response, error)
+	DeleteWebhookConfigurationExecute(r ApiDeleteWebhookConfigurationRequest) (*http.Response, error)
 
 	/*
 	DeleteWebhookSelector Method for DeleteWebhookSelector
 
 	Delete a selector mapped to a Webhook endpoint configuration
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @param configurationUuid
-	 @param selectorUuid
-	 @return ApiDeleteWebhookSelectorRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param configurationUuid
+	@param selectorUuid
+	@return ApiDeleteWebhookSelectorRequest
 	*/
-	DeleteWebhookSelector(ctx _context.Context, configurationUuid string, selectorUuid string) ApiDeleteWebhookSelectorRequest
+	DeleteWebhookSelector(ctx context.Context, configurationUuid string, selectorUuid string) ApiDeleteWebhookSelectorRequest
 
 	// DeleteWebhookSelectorExecute executes the request
-	DeleteWebhookSelectorExecute(r ApiDeleteWebhookSelectorRequest) (*_nethttp.Response, error)
+	DeleteWebhookSelectorExecute(r ApiDeleteWebhookSelectorRequest) (*http.Response, error)
 
 	/*
 	GetGithubConfiguration Method for GetGithubConfiguration
 
 	Get a GitHub endpoint configuration by it's UUID
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @param uuid
-	 @return ApiGetGithubConfigurationRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param uuid
+	@return ApiGetGithubConfigurationRequest
 	*/
-	GetGithubConfiguration(ctx _context.Context, uuid string) ApiGetGithubConfigurationRequest
+	GetGithubConfiguration(ctx context.Context, uuid string) ApiGetGithubConfigurationRequest
 
 	// GetGithubConfigurationExecute executes the request
 	//  @return NotificationGitHubEndpointConfigurationBase
-	GetGithubConfigurationExecute(r ApiGetGithubConfigurationRequest) (NotificationGitHubEndpointConfigurationBase, *_nethttp.Response, error)
+	GetGithubConfigurationExecute(r ApiGetGithubConfigurationRequest) (*NotificationGitHubEndpointConfigurationBase, *http.Response, error)
 
 	/*
 	GetGithubConfigurationStatus Method for GetGithubConfigurationStatus
 
 	Get operational status for a GitHub endpoint configuration
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @param uuid
-	 @return ApiGetGithubConfigurationStatusRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param uuid
+	@return ApiGetGithubConfigurationStatusRequest
 	*/
-	GetGithubConfigurationStatus(ctx _context.Context, uuid string) ApiGetGithubConfigurationStatusRequest
+	GetGithubConfigurationStatus(ctx context.Context, uuid string) ApiGetGithubConfigurationStatusRequest
 
 	// GetGithubConfigurationStatusExecute executes the request
 	//  @return NotificationOperationalStatus
-	GetGithubConfigurationStatusExecute(r ApiGetGithubConfigurationStatusRequest) (NotificationOperationalStatus, *_nethttp.Response, error)
+	GetGithubConfigurationStatusExecute(r ApiGetGithubConfigurationStatusRequest) (*NotificationOperationalStatus, *http.Response, error)
 
 	/*
 	GetGithubSelector Method for GetGithubSelector
 
 	Get a selector mapped to a GitHub endpoint configuration
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @param configurationUuid
-	 @param selectorUuid
-	 @return ApiGetGithubSelectorRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param configurationUuid
+	@param selectorUuid
+	@return ApiGetGithubSelectorRequest
 	*/
-	GetGithubSelector(ctx _context.Context, configurationUuid string, selectorUuid string) ApiGetGithubSelectorRequest
+	GetGithubSelector(ctx context.Context, configurationUuid string, selectorUuid string) ApiGetGithubSelectorRequest
 
 	// GetGithubSelectorExecute executes the request
 	//  @return NotificationSelector
-	GetGithubSelectorExecute(r ApiGetGithubSelectorRequest) (NotificationSelector, *_nethttp.Response, error)
+	GetGithubSelectorExecute(r ApiGetGithubSelectorRequest) (*NotificationSelector, *http.Response, error)
 
 	/*
 	GetGlobalQueryResult Method for GetGlobalQueryResult
 
 	Get a single saved global query result
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @param resultUuid
-	 @return ApiGetGlobalQueryResultRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param resultUuid
+	@return ApiGetGlobalQueryResultRequest
 	*/
-	GetGlobalQueryResult(ctx _context.Context, resultUuid string) ApiGetGlobalQueryResultRequest
+	GetGlobalQueryResult(ctx context.Context, resultUuid string) ApiGetGlobalQueryResultRequest
 
 	// GetGlobalQueryResultExecute executes the request
-	GetGlobalQueryResultExecute(r ApiGetGlobalQueryResultRequest) (*_nethttp.Response, error)
+	GetGlobalQueryResultExecute(r ApiGetGlobalQueryResultRequest) (*http.Response, error)
 
 	/*
 	GetIdp Method for GetIdp
 
 	Return the configuration for a named Identity Provider
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @param name
-	 @return ApiGetIdpRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param name
+	@return ApiGetIdpRequest
 	*/
-	GetIdp(ctx _context.Context, name string) ApiGetIdpRequest
+	GetIdp(ctx context.Context, name string) ApiGetIdpRequest
 
 	// GetIdpExecute executes the request
 	//  @return RbacManagerSamlConfiguration
-	GetIdpExecute(r ApiGetIdpRequest) (RbacManagerSamlConfiguration, *_nethttp.Response, error)
+	GetIdpExecute(r ApiGetIdpRequest) (*RbacManagerSamlConfiguration, *http.Response, error)
 
 	/*
 	GetJiraConfiguration Method for GetJiraConfiguration
 
 	Get a Jira endpoint configuration by it's UUID
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @param uuid
-	 @return ApiGetJiraConfigurationRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param uuid
+	@return ApiGetJiraConfigurationRequest
 	*/
-	GetJiraConfiguration(ctx _context.Context, uuid string) ApiGetJiraConfigurationRequest
+	GetJiraConfiguration(ctx context.Context, uuid string) ApiGetJiraConfigurationRequest
 
 	// GetJiraConfigurationExecute executes the request
 	//  @return NotificationJiraEndpointConfigurationBase
-	GetJiraConfigurationExecute(r ApiGetJiraConfigurationRequest) (NotificationJiraEndpointConfigurationBase, *_nethttp.Response, error)
+	GetJiraConfigurationExecute(r ApiGetJiraConfigurationRequest) (*NotificationJiraEndpointConfigurationBase, *http.Response, error)
 
 	/*
 	GetJiraConfigurationStatus Method for GetJiraConfigurationStatus
 
 	Get operational status for a Jira endpoint configuration
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @param uuid
-	 @return ApiGetJiraConfigurationStatusRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param uuid
+	@return ApiGetJiraConfigurationStatusRequest
 	*/
-	GetJiraConfigurationStatus(ctx _context.Context, uuid string) ApiGetJiraConfigurationStatusRequest
+	GetJiraConfigurationStatus(ctx context.Context, uuid string) ApiGetJiraConfigurationStatusRequest
 
 	// GetJiraConfigurationStatusExecute executes the request
 	//  @return NotificationOperationalStatus
-	GetJiraConfigurationStatusExecute(r ApiGetJiraConfigurationStatusRequest) (NotificationOperationalStatus, *_nethttp.Response, error)
+	GetJiraConfigurationStatusExecute(r ApiGetJiraConfigurationStatusRequest) (*NotificationOperationalStatus, *http.Response, error)
 
 	/*
 	GetJiraSelector Method for GetJiraSelector
 
 	Get a selector mapped to a Jira endpoint configuration
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @param configurationUuid
-	 @param selectorUuid
-	 @return ApiGetJiraSelectorRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param configurationUuid
+	@param selectorUuid
+	@return ApiGetJiraSelectorRequest
 	*/
-	GetJiraSelector(ctx _context.Context, configurationUuid string, selectorUuid string) ApiGetJiraSelectorRequest
+	GetJiraSelector(ctx context.Context, configurationUuid string, selectorUuid string) ApiGetJiraSelectorRequest
 
 	// GetJiraSelectorExecute executes the request
 	//  @return NotificationSelector
-	GetJiraSelectorExecute(r ApiGetJiraSelectorRequest) (NotificationSelector, *_nethttp.Response, error)
+	GetJiraSelectorExecute(r ApiGetJiraSelectorRequest) (*NotificationSelector, *http.Response, error)
 
 	/*
 	GetOauthToken Method for GetOauthToken
 
 	Request a jwt token for subsequent operations, this request is authenticated with normal HTTP auth
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @return ApiGetOauthTokenRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiGetOauthTokenRequest
 	*/
-	GetOauthToken(ctx _context.Context) ApiGetOauthTokenRequest
+	GetOauthToken(ctx context.Context) ApiGetOauthTokenRequest
 
 	// GetOauthTokenExecute executes the request
 	//  @return TokenResponse
-	GetOauthTokenExecute(r ApiGetOauthTokenRequest) (TokenResponse, *_nethttp.Response, error)
+	GetOauthTokenExecute(r ApiGetOauthTokenRequest) (*TokenResponse, *http.Response, error)
 
 	/*
 	GetQueryResult Method for GetQueryResult
 
 	Get a single saved query result
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @param resultUuid
-	 @return ApiGetQueryResultRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param resultUuid
+	@return ApiGetQueryResultRequest
 	*/
-	GetQueryResult(ctx _context.Context, resultUuid string) ApiGetQueryResultRequest
+	GetQueryResult(ctx context.Context, resultUuid string) ApiGetQueryResultRequest
 
 	// GetQueryResultExecute executes the request
-	GetQueryResultExecute(r ApiGetQueryResultRequest) (*_nethttp.Response, error)
+	GetQueryResultExecute(r ApiGetQueryResultRequest) (*http.Response, error)
 
 	/*
 	GetRole Get detailed information about a specific role
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @param roleName
-	 @return ApiGetRoleRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param roleName
+	@return ApiGetRoleRequest
 	*/
-	GetRole(ctx _context.Context, roleName string) ApiGetRoleRequest
+	GetRole(ctx context.Context, roleName string) ApiGetRoleRequest
 
 	// GetRoleExecute executes the request
 	//  @return RbacManagerRole
-	GetRoleExecute(r ApiGetRoleRequest) (RbacManagerRole, *_nethttp.Response, error)
+	GetRoleExecute(r ApiGetRoleRequest) (*RbacManagerRole, *http.Response, error)
 
 	/*
 	GetSlackConfiguration Method for GetSlackConfiguration
 
 	Get a Slack endpoint configuration by it's UUID
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @param uuid
-	 @return ApiGetSlackConfigurationRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param uuid
+	@return ApiGetSlackConfigurationRequest
 	*/
-	GetSlackConfiguration(ctx _context.Context, uuid string) ApiGetSlackConfigurationRequest
+	GetSlackConfiguration(ctx context.Context, uuid string) ApiGetSlackConfigurationRequest
 
 	// GetSlackConfigurationExecute executes the request
 	//  @return NotificationSlackEndpointConfiguration
-	GetSlackConfigurationExecute(r ApiGetSlackConfigurationRequest) (NotificationSlackEndpointConfiguration, *_nethttp.Response, error)
+	GetSlackConfigurationExecute(r ApiGetSlackConfigurationRequest) (*NotificationSlackEndpointConfiguration, *http.Response, error)
 
 	/*
 	GetSlackConfigurationStatus Method for GetSlackConfigurationStatus
 
 	Get operational status for a Slack endpoint configuration
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @param uuid
-	 @return ApiGetSlackConfigurationStatusRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param uuid
+	@return ApiGetSlackConfigurationStatusRequest
 	*/
-	GetSlackConfigurationStatus(ctx _context.Context, uuid string) ApiGetSlackConfigurationStatusRequest
+	GetSlackConfigurationStatus(ctx context.Context, uuid string) ApiGetSlackConfigurationStatusRequest
 
 	// GetSlackConfigurationStatusExecute executes the request
 	//  @return NotificationOperationalStatus
-	GetSlackConfigurationStatusExecute(r ApiGetSlackConfigurationStatusRequest) (NotificationOperationalStatus, *_nethttp.Response, error)
+	GetSlackConfigurationStatusExecute(r ApiGetSlackConfigurationStatusRequest) (*NotificationOperationalStatus, *http.Response, error)
 
 	/*
 	GetSlackSelector Method for GetSlackSelector
 
 	Get a selector mapped to a Slack endpoint configuration
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @param configurationUuid
-	 @param selectorUuid
-	 @return ApiGetSlackSelectorRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param configurationUuid
+	@param selectorUuid
+	@return ApiGetSlackSelectorRequest
 	*/
-	GetSlackSelector(ctx _context.Context, configurationUuid string, selectorUuid string) ApiGetSlackSelectorRequest
+	GetSlackSelector(ctx context.Context, configurationUuid string, selectorUuid string) ApiGetSlackSelectorRequest
 
 	// GetSlackSelectorExecute executes the request
 	//  @return NotificationSelector
-	GetSlackSelectorExecute(r ApiGetSlackSelectorRequest) (NotificationSelector, *_nethttp.Response, error)
+	GetSlackSelectorExecute(r ApiGetSlackSelectorRequest) (*NotificationSelector, *http.Response, error)
 
 	/*
 	GetSmtpConfiguration Method for GetSmtpConfiguration
 
 	Get a SMTP endpoint configuration by it's UUID
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @param uuid
-	 @return ApiGetSmtpConfigurationRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param uuid
+	@return ApiGetSmtpConfigurationRequest
 	*/
-	GetSmtpConfiguration(ctx _context.Context, uuid string) ApiGetSmtpConfigurationRequest
+	GetSmtpConfiguration(ctx context.Context, uuid string) ApiGetSmtpConfigurationRequest
 
 	// GetSmtpConfigurationExecute executes the request
 	//  @return NotificationSMTPEndpointConfiguration
-	GetSmtpConfigurationExecute(r ApiGetSmtpConfigurationRequest) (NotificationSMTPEndpointConfiguration, *_nethttp.Response, error)
+	GetSmtpConfigurationExecute(r ApiGetSmtpConfigurationRequest) (*NotificationSMTPEndpointConfiguration, *http.Response, error)
 
 	/*
 	GetSmtpConfigurationStatus Method for GetSmtpConfigurationStatus
 
 	Get operational status for a SMTP endpoint configuration
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @param uuid
-	 @return ApiGetSmtpConfigurationStatusRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param uuid
+	@return ApiGetSmtpConfigurationStatusRequest
 	*/
-	GetSmtpConfigurationStatus(ctx _context.Context, uuid string) ApiGetSmtpConfigurationStatusRequest
+	GetSmtpConfigurationStatus(ctx context.Context, uuid string) ApiGetSmtpConfigurationStatusRequest
 
 	// GetSmtpConfigurationStatusExecute executes the request
 	//  @return NotificationOperationalStatus
-	GetSmtpConfigurationStatusExecute(r ApiGetSmtpConfigurationStatusRequest) (NotificationOperationalStatus, *_nethttp.Response, error)
+	GetSmtpConfigurationStatusExecute(r ApiGetSmtpConfigurationStatusRequest) (*NotificationOperationalStatus, *http.Response, error)
 
 	/*
 	GetSmtpSelector Method for GetSmtpSelector
 
 	Get a selector mapped to a SMTP endpoint configuration
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @param configurationUuid
-	 @param selectorUuid
-	 @return ApiGetSmtpSelectorRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param configurationUuid
+	@param selectorUuid
+	@return ApiGetSmtpSelectorRequest
 	*/
-	GetSmtpSelector(ctx _context.Context, configurationUuid string, selectorUuid string) ApiGetSmtpSelectorRequest
+	GetSmtpSelector(ctx context.Context, configurationUuid string, selectorUuid string) ApiGetSmtpSelectorRequest
 
 	// GetSmtpSelectorExecute executes the request
 	//  @return NotificationSelector
-	GetSmtpSelectorExecute(r ApiGetSmtpSelectorRequest) (NotificationSelector, *_nethttp.Response, error)
+	GetSmtpSelectorExecute(r ApiGetSmtpSelectorRequest) (*NotificationSelector, *http.Response, error)
 
 	/*
 	GetTeamsConfiguration Method for GetTeamsConfiguration
 
 	Get a Teams endpoint configuration by it's UUID
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @param uuid
-	 @return ApiGetTeamsConfigurationRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param uuid
+	@return ApiGetTeamsConfigurationRequest
 	*/
-	GetTeamsConfiguration(ctx _context.Context, uuid string) ApiGetTeamsConfigurationRequest
+	GetTeamsConfiguration(ctx context.Context, uuid string) ApiGetTeamsConfigurationRequest
 
 	// GetTeamsConfigurationExecute executes the request
 	//  @return NotificationTeamsEndpointConfiguration
-	GetTeamsConfigurationExecute(r ApiGetTeamsConfigurationRequest) (NotificationTeamsEndpointConfiguration, *_nethttp.Response, error)
+	GetTeamsConfigurationExecute(r ApiGetTeamsConfigurationRequest) (*NotificationTeamsEndpointConfiguration, *http.Response, error)
 
 	/*
 	GetTeamsConfigurationStatus Method for GetTeamsConfigurationStatus
 
 	Get operational status for a Teams endpoint configuration
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @param uuid
-	 @return ApiGetTeamsConfigurationStatusRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param uuid
+	@return ApiGetTeamsConfigurationStatusRequest
 	*/
-	GetTeamsConfigurationStatus(ctx _context.Context, uuid string) ApiGetTeamsConfigurationStatusRequest
+	GetTeamsConfigurationStatus(ctx context.Context, uuid string) ApiGetTeamsConfigurationStatusRequest
 
 	// GetTeamsConfigurationStatusExecute executes the request
 	//  @return NotificationOperationalStatus
-	GetTeamsConfigurationStatusExecute(r ApiGetTeamsConfigurationStatusRequest) (NotificationOperationalStatus, *_nethttp.Response, error)
+	GetTeamsConfigurationStatusExecute(r ApiGetTeamsConfigurationStatusRequest) (*NotificationOperationalStatus, *http.Response, error)
 
 	/*
 	GetTeamsSelector Method for GetTeamsSelector
 
 	Get a selector mapped to a Teams endpoint configuration
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @param configurationUuid
-	 @param selectorUuid
-	 @return ApiGetTeamsSelectorRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param configurationUuid
+	@param selectorUuid
+	@return ApiGetTeamsSelectorRequest
 	*/
-	GetTeamsSelector(ctx _context.Context, configurationUuid string, selectorUuid string) ApiGetTeamsSelectorRequest
+	GetTeamsSelector(ctx context.Context, configurationUuid string, selectorUuid string) ApiGetTeamsSelectorRequest
 
 	// GetTeamsSelectorExecute executes the request
 	//  @return NotificationSelector
-	GetTeamsSelectorExecute(r ApiGetTeamsSelectorRequest) (NotificationSelector, *_nethttp.Response, error)
+	GetTeamsSelectorExecute(r ApiGetTeamsSelectorRequest) (*NotificationSelector, *http.Response, error)
 
 	/*
 	GetWebhookConfiguration Method for GetWebhookConfiguration
 
 	Get a Webhook endpoint configuration by it's UUID
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @param uuid
-	 @return ApiGetWebhookConfigurationRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param uuid
+	@return ApiGetWebhookConfigurationRequest
 	*/
-	GetWebhookConfiguration(ctx _context.Context, uuid string) ApiGetWebhookConfigurationRequest
+	GetWebhookConfiguration(ctx context.Context, uuid string) ApiGetWebhookConfigurationRequest
 
 	// GetWebhookConfigurationExecute executes the request
 	//  @return NotificationWebhookEndpointConfiguration
-	GetWebhookConfigurationExecute(r ApiGetWebhookConfigurationRequest) (NotificationWebhookEndpointConfiguration, *_nethttp.Response, error)
+	GetWebhookConfigurationExecute(r ApiGetWebhookConfigurationRequest) (*NotificationWebhookEndpointConfiguration, *http.Response, error)
 
 	/*
 	GetWebhookConfigurationStatus Method for GetWebhookConfigurationStatus
 
 	Get operational status for a Webhook endpoint configuration
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @param uuid
-	 @return ApiGetWebhookConfigurationStatusRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param uuid
+	@return ApiGetWebhookConfigurationStatusRequest
 	*/
-	GetWebhookConfigurationStatus(ctx _context.Context, uuid string) ApiGetWebhookConfigurationStatusRequest
+	GetWebhookConfigurationStatus(ctx context.Context, uuid string) ApiGetWebhookConfigurationStatusRequest
 
 	// GetWebhookConfigurationStatusExecute executes the request
 	//  @return NotificationOperationalStatus
-	GetWebhookConfigurationStatusExecute(r ApiGetWebhookConfigurationStatusRequest) (NotificationOperationalStatus, *_nethttp.Response, error)
+	GetWebhookConfigurationStatusExecute(r ApiGetWebhookConfigurationStatusRequest) (*NotificationOperationalStatus, *http.Response, error)
 
 	/*
 	GetWebhookSelector Method for GetWebhookSelector
 
 	Get a selector mapped to a Webhook endpoint configuration
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @param configurationUuid
-	 @param selectorUuid
-	 @return ApiGetWebhookSelectorRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param configurationUuid
+	@param selectorUuid
+	@return ApiGetWebhookSelectorRequest
 	*/
-	GetWebhookSelector(ctx _context.Context, configurationUuid string, selectorUuid string) ApiGetWebhookSelectorRequest
+	GetWebhookSelector(ctx context.Context, configurationUuid string, selectorUuid string) ApiGetWebhookSelectorRequest
 
 	// GetWebhookSelectorExecute executes the request
 	//  @return NotificationSelector
-	GetWebhookSelectorExecute(r ApiGetWebhookSelectorRequest) (NotificationSelector, *_nethttp.Response, error)
+	GetWebhookSelectorExecute(r ApiGetWebhookSelectorRequest) (*NotificationSelector, *http.Response, error)
 
 	/*
 	HealthCheck Method for HealthCheck
 
 	Health check, returns 200 and no body if service is running
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @return ApiHealthCheckRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiHealthCheckRequest
 	*/
-	HealthCheck(ctx _context.Context) ApiHealthCheckRequest
+	HealthCheck(ctx context.Context) ApiHealthCheckRequest
 
 	// HealthCheckExecute executes the request
-	HealthCheckExecute(r ApiHealthCheckRequest) (*_nethttp.Response, error)
+	HealthCheckExecute(r ApiHealthCheckRequest) (*http.Response, error)
 
 	/*
 	ListEndpoints Method for ListEndpoints
 
 	List the system installed notification endpoints
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @return ApiListEndpointsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiListEndpointsRequest
 	*/
-	ListEndpoints(ctx _context.Context) ApiListEndpointsRequest
+	ListEndpoints(ctx context.Context) ApiListEndpointsRequest
 
 	// ListEndpointsExecute executes the request
 	//  @return []NotificationEndpoint
-	ListEndpointsExecute(r ApiListEndpointsRequest) ([]NotificationEndpoint, *_nethttp.Response, error)
+	ListEndpointsExecute(r ApiListEndpointsRequest) ([]NotificationEndpoint, *http.Response, error)
 
 	/*
 	ListFileContentSearchResults Return a list of analyzer artifacts of the specified type
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @param imageDigest
-	 @return ApiListFileContentSearchResultsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param imageDigest
+	@return ApiListFileContentSearchResultsRequest
 	*/
-	ListFileContentSearchResults(ctx _context.Context, imageDigest string) ApiListFileContentSearchResultsRequest
+	ListFileContentSearchResults(ctx context.Context, imageDigest string) ApiListFileContentSearchResultsRequest
 
 	// ListFileContentSearchResultsExecute executes the request
 	//  @return []FileContentSearchResult
-	ListFileContentSearchResultsExecute(r ApiListFileContentSearchResultsRequest) ([]FileContentSearchResult, *_nethttp.Response, error)
+	ListFileContentSearchResultsExecute(r ApiListFileContentSearchResultsRequest) ([]FileContentSearchResult, *http.Response, error)
 
 	/*
 	ListGithubConfigurations Method for ListGithubConfigurations
 
 	List GitHub endpoint configurations
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @return ApiListGithubConfigurationsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiListGithubConfigurationsRequest
 	*/
-	ListGithubConfigurations(ctx _context.Context) ApiListGithubConfigurationsRequest
+	ListGithubConfigurations(ctx context.Context) ApiListGithubConfigurationsRequest
 
 	// ListGithubConfigurationsExecute executes the request
 	//  @return []NotificationGitHubEndpointConfigurationBase
-	ListGithubConfigurationsExecute(r ApiListGithubConfigurationsRequest) ([]NotificationGitHubEndpointConfigurationBase, *_nethttp.Response, error)
+	ListGithubConfigurationsExecute(r ApiListGithubConfigurationsRequest) ([]NotificationGitHubEndpointConfigurationBase, *http.Response, error)
 
 	/*
 	ListGithubSelectors Method for ListGithubSelectors
 
 	List selectors mapping events for delivery to a GitHub endpoint configuration
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @param uuid
-	 @return ApiListGithubSelectorsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param uuid
+	@return ApiListGithubSelectorsRequest
 	*/
-	ListGithubSelectors(ctx _context.Context, uuid string) ApiListGithubSelectorsRequest
+	ListGithubSelectors(ctx context.Context, uuid string) ApiListGithubSelectorsRequest
 
 	// ListGithubSelectorsExecute executes the request
 	//  @return []NotificationSelector
-	ListGithubSelectorsExecute(r ApiListGithubSelectorsRequest) ([]NotificationSelector, *_nethttp.Response, error)
+	ListGithubSelectorsExecute(r ApiListGithubSelectorsRequest) ([]NotificationSelector, *http.Response, error)
 
 	/*
 	ListIdps Method for ListIdps
 
 	List the names of configured Identity Providers for this anchore installation
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @return ApiListIdpsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiListIdpsRequest
 	*/
-	ListIdps(ctx _context.Context) ApiListIdpsRequest
+	ListIdps(ctx context.Context) ApiListIdpsRequest
 
 	// ListIdpsExecute executes the request
 	//  @return []string
-	ListIdpsExecute(r ApiListIdpsRequest) ([]string, *_nethttp.Response, error)
+	ListIdpsExecute(r ApiListIdpsRequest) ([]string, *http.Response, error)
 
 	/*
 	ListJiraConfigurations Method for ListJiraConfigurations
 
 	List Jira endpoint configurations
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @return ApiListJiraConfigurationsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiListJiraConfigurationsRequest
 	*/
-	ListJiraConfigurations(ctx _context.Context) ApiListJiraConfigurationsRequest
+	ListJiraConfigurations(ctx context.Context) ApiListJiraConfigurationsRequest
 
 	// ListJiraConfigurationsExecute executes the request
 	//  @return []NotificationJiraEndpointConfigurationBase
-	ListJiraConfigurationsExecute(r ApiListJiraConfigurationsRequest) ([]NotificationJiraEndpointConfigurationBase, *_nethttp.Response, error)
+	ListJiraConfigurationsExecute(r ApiListJiraConfigurationsRequest) ([]NotificationJiraEndpointConfigurationBase, *http.Response, error)
 
 	/*
 	ListJiraSelectors Method for ListJiraSelectors
 
 	List selectors mapping events for delivery to a Jira endpoint configuration
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @param uuid
-	 @return ApiListJiraSelectorsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param uuid
+	@return ApiListJiraSelectorsRequest
 	*/
-	ListJiraSelectors(ctx _context.Context, uuid string) ApiListJiraSelectorsRequest
+	ListJiraSelectors(ctx context.Context, uuid string) ApiListJiraSelectorsRequest
 
 	// ListJiraSelectorsExecute executes the request
 	//  @return []NotificationSelector
-	ListJiraSelectorsExecute(r ApiListJiraSelectorsRequest) ([]NotificationSelector, *_nethttp.Response, error)
+	ListJiraSelectorsExecute(r ApiListJiraSelectorsRequest) ([]NotificationSelector, *http.Response, error)
 
 	/*
 	ListRetrievedFiles Return a list of analyzer artifacts of the specified type
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @param imageDigest
-	 @return ApiListRetrievedFilesRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param imageDigest
+	@return ApiListRetrievedFilesRequest
 	*/
-	ListRetrievedFiles(ctx _context.Context, imageDigest string) ApiListRetrievedFilesRequest
+	ListRetrievedFiles(ctx context.Context, imageDigest string) ApiListRetrievedFilesRequest
 
 	// ListRetrievedFilesExecute executes the request
 	//  @return []RetrievedFile
-	ListRetrievedFilesExecute(r ApiListRetrievedFilesRequest) ([]RetrievedFile, *_nethttp.Response, error)
+	ListRetrievedFilesExecute(r ApiListRetrievedFilesRequest) ([]RetrievedFile, *http.Response, error)
 
 	/*
 	ListRoleMembers Returns a list of objects that have members in the role. The list is filtered by 'listRoleMembers' access for the 'account' element of each entry.
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @param roleName
-	 @return ApiListRoleMembersRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param roleName
+	@return ApiListRoleMembersRequest
 	*/
-	ListRoleMembers(ctx _context.Context, roleName string) ApiListRoleMembersRequest
+	ListRoleMembers(ctx context.Context, roleName string) ApiListRoleMembersRequest
 
 	// ListRoleMembersExecute executes the request
 	//  @return []RbacManagerRoleMember
-	ListRoleMembersExecute(r ApiListRoleMembersRequest) ([]RbacManagerRoleMember, *_nethttp.Response, error)
+	ListRoleMembersExecute(r ApiListRoleMembersRequest) ([]RbacManagerRoleMember, *http.Response, error)
 
 	/*
 	ListRoles List roles available in the system
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @return ApiListRolesRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiListRolesRequest
 	*/
-	ListRoles(ctx _context.Context) ApiListRolesRequest
+	ListRoles(ctx context.Context) ApiListRolesRequest
 
 	// ListRolesExecute executes the request
 	//  @return []RbacManagerRoleSummary
-	ListRolesExecute(r ApiListRolesRequest) ([]RbacManagerRoleSummary, *_nethttp.Response, error)
+	ListRolesExecute(r ApiListRolesRequest) ([]RbacManagerRoleSummary, *http.Response, error)
 
 	/*
 	ListSecretSearchResults Return a list of analyzer artifacts of the specified type
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @param imageDigest
-	 @return ApiListSecretSearchResultsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param imageDigest
+	@return ApiListSecretSearchResultsRequest
 	*/
-	ListSecretSearchResults(ctx _context.Context, imageDigest string) ApiListSecretSearchResultsRequest
+	ListSecretSearchResults(ctx context.Context, imageDigest string) ApiListSecretSearchResultsRequest
 
 	// ListSecretSearchResultsExecute executes the request
 	//  @return []SecretSearchResult
-	ListSecretSearchResultsExecute(r ApiListSecretSearchResultsRequest) ([]SecretSearchResult, *_nethttp.Response, error)
+	ListSecretSearchResultsExecute(r ApiListSecretSearchResultsRequest) ([]SecretSearchResult, *http.Response, error)
 
 	/*
 	ListSelectors Method for ListSelectors
 
 	List all selectors mapped to endpoint configurations for the account
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @return ApiListSelectorsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiListSelectorsRequest
 	*/
-	ListSelectors(ctx _context.Context) ApiListSelectorsRequest
+	ListSelectors(ctx context.Context) ApiListSelectorsRequest
 
 	// ListSelectorsExecute executes the request
 	//  @return []NotificationSelector
-	ListSelectorsExecute(r ApiListSelectorsRequest) ([]NotificationSelector, *_nethttp.Response, error)
+	ListSelectorsExecute(r ApiListSelectorsRequest) ([]NotificationSelector, *http.Response, error)
 
 	/*
 	ListSlackConfigurations Method for ListSlackConfigurations
 
 	List Slack endpoint configurations
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @return ApiListSlackConfigurationsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiListSlackConfigurationsRequest
 	*/
-	ListSlackConfigurations(ctx _context.Context) ApiListSlackConfigurationsRequest
+	ListSlackConfigurations(ctx context.Context) ApiListSlackConfigurationsRequest
 
 	// ListSlackConfigurationsExecute executes the request
 	//  @return []NotificationSlackEndpointConfiguration
-	ListSlackConfigurationsExecute(r ApiListSlackConfigurationsRequest) ([]NotificationSlackEndpointConfiguration, *_nethttp.Response, error)
+	ListSlackConfigurationsExecute(r ApiListSlackConfigurationsRequest) ([]NotificationSlackEndpointConfiguration, *http.Response, error)
 
 	/*
 	ListSlackSelectors Method for ListSlackSelectors
 
 	List selectors mapping events for delivery to a Slack endpoint configuration
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @param uuid
-	 @return ApiListSlackSelectorsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param uuid
+	@return ApiListSlackSelectorsRequest
 	*/
-	ListSlackSelectors(ctx _context.Context, uuid string) ApiListSlackSelectorsRequest
+	ListSlackSelectors(ctx context.Context, uuid string) ApiListSlackSelectorsRequest
 
 	// ListSlackSelectorsExecute executes the request
 	//  @return []NotificationSelector
-	ListSlackSelectorsExecute(r ApiListSlackSelectorsRequest) ([]NotificationSelector, *_nethttp.Response, error)
+	ListSlackSelectorsExecute(r ApiListSlackSelectorsRequest) ([]NotificationSelector, *http.Response, error)
 
 	/*
 	ListSmtpConfigurations Method for ListSmtpConfigurations
 
 	List SMTP endpoint configurations
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @return ApiListSmtpConfigurationsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiListSmtpConfigurationsRequest
 	*/
-	ListSmtpConfigurations(ctx _context.Context) ApiListSmtpConfigurationsRequest
+	ListSmtpConfigurations(ctx context.Context) ApiListSmtpConfigurationsRequest
 
 	// ListSmtpConfigurationsExecute executes the request
 	//  @return []NotificationSMTPEndpointConfiguration
-	ListSmtpConfigurationsExecute(r ApiListSmtpConfigurationsRequest) ([]NotificationSMTPEndpointConfiguration, *_nethttp.Response, error)
+	ListSmtpConfigurationsExecute(r ApiListSmtpConfigurationsRequest) ([]NotificationSMTPEndpointConfiguration, *http.Response, error)
 
 	/*
 	ListSmtpSelectors Method for ListSmtpSelectors
 
 	List selectors mapping events for delivery to a SMTP endpoint configuration
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @param uuid
-	 @return ApiListSmtpSelectorsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param uuid
+	@return ApiListSmtpSelectorsRequest
 	*/
-	ListSmtpSelectors(ctx _context.Context, uuid string) ApiListSmtpSelectorsRequest
+	ListSmtpSelectors(ctx context.Context, uuid string) ApiListSmtpSelectorsRequest
 
 	// ListSmtpSelectorsExecute executes the request
 	//  @return []NotificationSelector
-	ListSmtpSelectorsExecute(r ApiListSmtpSelectorsRequest) ([]NotificationSelector, *_nethttp.Response, error)
+	ListSmtpSelectorsExecute(r ApiListSmtpSelectorsRequest) ([]NotificationSelector, *http.Response, error)
 
 	/*
 	ListTeamsConfigurations Method for ListTeamsConfigurations
 
 	List Teams endpoint configurations
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @return ApiListTeamsConfigurationsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiListTeamsConfigurationsRequest
 	*/
-	ListTeamsConfigurations(ctx _context.Context) ApiListTeamsConfigurationsRequest
+	ListTeamsConfigurations(ctx context.Context) ApiListTeamsConfigurationsRequest
 
 	// ListTeamsConfigurationsExecute executes the request
 	//  @return []NotificationTeamsEndpointConfiguration
-	ListTeamsConfigurationsExecute(r ApiListTeamsConfigurationsRequest) ([]NotificationTeamsEndpointConfiguration, *_nethttp.Response, error)
+	ListTeamsConfigurationsExecute(r ApiListTeamsConfigurationsRequest) ([]NotificationTeamsEndpointConfiguration, *http.Response, error)
 
 	/*
 	ListTeamsSelectors Method for ListTeamsSelectors
 
 	List selectors mapping events for delivery to a Teams endpoint configuration
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @param uuid
-	 @return ApiListTeamsSelectorsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param uuid
+	@return ApiListTeamsSelectorsRequest
 	*/
-	ListTeamsSelectors(ctx _context.Context, uuid string) ApiListTeamsSelectorsRequest
+	ListTeamsSelectors(ctx context.Context, uuid string) ApiListTeamsSelectorsRequest
 
 	// ListTeamsSelectorsExecute executes the request
 	//  @return []NotificationSelector
-	ListTeamsSelectorsExecute(r ApiListTeamsSelectorsRequest) ([]NotificationSelector, *_nethttp.Response, error)
+	ListTeamsSelectorsExecute(r ApiListTeamsSelectorsRequest) ([]NotificationSelector, *http.Response, error)
 
 	/*
 	ListUserRoles List the roles for which the requested user is a member
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @param username
-	 @return ApiListUserRolesRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param username
+	@return ApiListUserRolesRequest
 	*/
-	ListUserRoles(ctx _context.Context, username string) ApiListUserRolesRequest
+	ListUserRoles(ctx context.Context, username string) ApiListUserRolesRequest
 
 	// ListUserRolesExecute executes the request
 	//  @return []RbacManagerRoleMembership
-	ListUserRolesExecute(r ApiListUserRolesRequest) ([]RbacManagerRoleMembership, *_nethttp.Response, error)
+	ListUserRolesExecute(r ApiListUserRolesRequest) ([]RbacManagerRoleMembership, *http.Response, error)
 
 	/*
 	ListWebhookConfigurations Method for ListWebhookConfigurations
 
 	List Webhook endpoint configurations
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @return ApiListWebhookConfigurationsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiListWebhookConfigurationsRequest
 	*/
-	ListWebhookConfigurations(ctx _context.Context) ApiListWebhookConfigurationsRequest
+	ListWebhookConfigurations(ctx context.Context) ApiListWebhookConfigurationsRequest
 
 	// ListWebhookConfigurationsExecute executes the request
 	//  @return []NotificationWebhookEndpointConfiguration
-	ListWebhookConfigurationsExecute(r ApiListWebhookConfigurationsRequest) ([]NotificationWebhookEndpointConfiguration, *_nethttp.Response, error)
+	ListWebhookConfigurationsExecute(r ApiListWebhookConfigurationsRequest) ([]NotificationWebhookEndpointConfiguration, *http.Response, error)
 
 	/*
 	ListWebhookSelectors Method for ListWebhookSelectors
 
 	List selectors mapping events for delivery to a Webhook endpoint configuration
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @param uuid
-	 @return ApiListWebhookSelectorsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param uuid
+	@return ApiListWebhookSelectorsRequest
 	*/
-	ListWebhookSelectors(ctx _context.Context, uuid string) ApiListWebhookSelectorsRequest
+	ListWebhookSelectors(ctx context.Context, uuid string) ApiListWebhookSelectorsRequest
 
 	// ListWebhookSelectorsExecute executes the request
 	//  @return []NotificationSelector
-	ListWebhookSelectorsExecute(r ApiListWebhookSelectorsRequest) ([]NotificationSelector, *_nethttp.Response, error)
+	ListWebhookSelectorsExecute(r ApiListWebhookSelectorsRequest) ([]NotificationSelector, *http.Response, error)
 
 	/*
 	MyRoles List the roles for which the authenticated user is a member
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @return ApiMyRolesRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiMyRolesRequest
 	*/
-	MyRoles(ctx _context.Context) ApiMyRolesRequest
+	MyRoles(ctx context.Context) ApiMyRolesRequest
 
 	// MyRolesExecute executes the request
 	//  @return []RbacManagerAccountRole
-	MyRolesExecute(r ApiMyRolesRequest) ([]RbacManagerAccountRole, *_nethttp.Response, error)
+	MyRolesExecute(r ApiMyRolesRequest) ([]RbacManagerAccountRole, *http.Response, error)
 
 	/*
 	Ping Method for Ping
 
 	Simple status check
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @return ApiPingRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiPingRequest
 	*/
-	Ping(ctx _context.Context) ApiPingRequest
+	Ping(ctx context.Context) ApiPingRequest
 
 	// PingExecute executes the request
 	//  @return string
-	PingExecute(r ApiPingRequest) (string, *_nethttp.Response, error)
+	PingExecute(r ApiPingRequest) (string, *http.Response, error)
 
 	/*
 	RevokeOauthToken Method for RevokeOauthToken
 
 	Revoke a refresh token previously requested from /oauth/token
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @return ApiRevokeOauthTokenRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiRevokeOauthTokenRequest
 	*/
-	RevokeOauthToken(ctx _context.Context) ApiRevokeOauthTokenRequest
+	RevokeOauthToken(ctx context.Context) ApiRevokeOauthTokenRequest
 
 	// RevokeOauthTokenExecute executes the request
-	RevokeOauthTokenExecute(r ApiRevokeOauthTokenRequest) (*_nethttp.Response, error)
+	RevokeOauthTokenExecute(r ApiRevokeOauthTokenRequest) (*http.Response, error)
 
 	/*
 	SamlLogin Method for SamlLogin
 
 	Initiate an SP-initiated login sequence for the Idp. The SP will respond with the SAML AuthN Request the client must send to the Idp URL
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @param idpName
-	 @return ApiSamlLoginRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param idpName
+	@return ApiSamlLoginRequest
 	*/
-	SamlLogin(ctx _context.Context, idpName string) ApiSamlLoginRequest
+	SamlLogin(ctx context.Context, idpName string) ApiSamlLoginRequest
 
 	// SamlLoginExecute executes the request
 	//  @return RbacManagerTokenResponse
-	SamlLoginExecute(r ApiSamlLoginRequest) (RbacManagerTokenResponse, *_nethttp.Response, error)
+	SamlLoginExecute(r ApiSamlLoginRequest) (*RbacManagerTokenResponse, *http.Response, error)
 
 	/*
 	SamlSso Method for SamlSso
 
 	Perform a login using a SAML assertion, no HTTP auth is required as the SAML assertion is considered the authenticating token
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @param idpName
-	 @return ApiSamlSsoRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param idpName
+	@return ApiSamlSsoRequest
 	*/
-	SamlSso(ctx _context.Context, idpName string) ApiSamlSsoRequest
+	SamlSso(ctx context.Context, idpName string) ApiSamlSsoRequest
 
 	// SamlSsoExecute executes the request
 	//  @return RbacManagerTokenResponse
-	SamlSsoExecute(r ApiSamlSsoRequest) (RbacManagerTokenResponse, *_nethttp.Response, error)
+	SamlSsoExecute(r ApiSamlSsoRequest) (*RbacManagerTokenResponse, *http.Response, error)
 
 	/*
 	TestGithubConfiguration Method for TestGithubConfiguration
 
 	Test GitHub endpoint configuration
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @return ApiTestGithubConfigurationRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiTestGithubConfigurationRequest
 	*/
-	TestGithubConfiguration(ctx _context.Context) ApiTestGithubConfigurationRequest
+	TestGithubConfiguration(ctx context.Context) ApiTestGithubConfigurationRequest
 
 	// TestGithubConfigurationExecute executes the request
 	//  @return NotificationGitHubTestResult
-	TestGithubConfigurationExecute(r ApiTestGithubConfigurationRequest) (NotificationGitHubTestResult, *_nethttp.Response, error)
+	TestGithubConfigurationExecute(r ApiTestGithubConfigurationRequest) (*NotificationGitHubTestResult, *http.Response, error)
 
 	/*
 	TestJiraConfiguration Method for TestJiraConfiguration
 
 	Test Jira endpoint configuration
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @return ApiTestJiraConfigurationRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiTestJiraConfigurationRequest
 	*/
-	TestJiraConfiguration(ctx _context.Context) ApiTestJiraConfigurationRequest
+	TestJiraConfiguration(ctx context.Context) ApiTestJiraConfigurationRequest
 
 	// TestJiraConfigurationExecute executes the request
 	//  @return NotificationJiraTestResult
-	TestJiraConfigurationExecute(r ApiTestJiraConfigurationRequest) (NotificationJiraTestResult, *_nethttp.Response, error)
+	TestJiraConfigurationExecute(r ApiTestJiraConfigurationRequest) (*NotificationJiraTestResult, *http.Response, error)
 
 	/*
 	TestSlackConfiguration Method for TestSlackConfiguration
 
 	Test Slack endpoint configuration
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @return ApiTestSlackConfigurationRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiTestSlackConfigurationRequest
 	*/
-	TestSlackConfiguration(ctx _context.Context) ApiTestSlackConfigurationRequest
+	TestSlackConfiguration(ctx context.Context) ApiTestSlackConfigurationRequest
 
 	// TestSlackConfigurationExecute executes the request
 	//  @return NotificationSlackTestResult
-	TestSlackConfigurationExecute(r ApiTestSlackConfigurationRequest) (NotificationSlackTestResult, *_nethttp.Response, error)
+	TestSlackConfigurationExecute(r ApiTestSlackConfigurationRequest) (*NotificationSlackTestResult, *http.Response, error)
 
 	/*
 	TestSmtpConfiguration Method for TestSmtpConfiguration
 
 	Test SMTP endpoint configuration
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @return ApiTestSmtpConfigurationRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiTestSmtpConfigurationRequest
 	*/
-	TestSmtpConfiguration(ctx _context.Context) ApiTestSmtpConfigurationRequest
+	TestSmtpConfiguration(ctx context.Context) ApiTestSmtpConfigurationRequest
 
 	// TestSmtpConfigurationExecute executes the request
 	//  @return NotificationSMTPTestResult
-	TestSmtpConfigurationExecute(r ApiTestSmtpConfigurationRequest) (NotificationSMTPTestResult, *_nethttp.Response, error)
+	TestSmtpConfigurationExecute(r ApiTestSmtpConfigurationRequest) (*NotificationSMTPTestResult, *http.Response, error)
 
 	/*
 	TestStoredGithubConfiguration Method for TestStoredGithubConfiguration
 
 	Test stored GitHub endpoint configuration
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @param uuid
-	 @return ApiTestStoredGithubConfigurationRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param uuid
+	@return ApiTestStoredGithubConfigurationRequest
 	*/
-	TestStoredGithubConfiguration(ctx _context.Context, uuid string) ApiTestStoredGithubConfigurationRequest
+	TestStoredGithubConfiguration(ctx context.Context, uuid string) ApiTestStoredGithubConfigurationRequest
 
 	// TestStoredGithubConfigurationExecute executes the request
 	//  @return NotificationGitHubTestResult
-	TestStoredGithubConfigurationExecute(r ApiTestStoredGithubConfigurationRequest) (NotificationGitHubTestResult, *_nethttp.Response, error)
+	TestStoredGithubConfigurationExecute(r ApiTestStoredGithubConfigurationRequest) (*NotificationGitHubTestResult, *http.Response, error)
 
 	/*
 	TestStoredJiraConfiguration Method for TestStoredJiraConfiguration
 
 	Test stored Jira endpoint configuration
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @param uuid
-	 @return ApiTestStoredJiraConfigurationRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param uuid
+	@return ApiTestStoredJiraConfigurationRequest
 	*/
-	TestStoredJiraConfiguration(ctx _context.Context, uuid string) ApiTestStoredJiraConfigurationRequest
+	TestStoredJiraConfiguration(ctx context.Context, uuid string) ApiTestStoredJiraConfigurationRequest
 
 	// TestStoredJiraConfigurationExecute executes the request
 	//  @return NotificationJiraTestResult
-	TestStoredJiraConfigurationExecute(r ApiTestStoredJiraConfigurationRequest) (NotificationJiraTestResult, *_nethttp.Response, error)
+	TestStoredJiraConfigurationExecute(r ApiTestStoredJiraConfigurationRequest) (*NotificationJiraTestResult, *http.Response, error)
 
 	/*
 	TestStoredSlackConfiguration Method for TestStoredSlackConfiguration
 
 	Test stored Slack endpoint configuration
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @param uuid
-	 @return ApiTestStoredSlackConfigurationRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param uuid
+	@return ApiTestStoredSlackConfigurationRequest
 	*/
-	TestStoredSlackConfiguration(ctx _context.Context, uuid string) ApiTestStoredSlackConfigurationRequest
+	TestStoredSlackConfiguration(ctx context.Context, uuid string) ApiTestStoredSlackConfigurationRequest
 
 	// TestStoredSlackConfigurationExecute executes the request
 	//  @return NotificationSlackTestResult
-	TestStoredSlackConfigurationExecute(r ApiTestStoredSlackConfigurationRequest) (NotificationSlackTestResult, *_nethttp.Response, error)
+	TestStoredSlackConfigurationExecute(r ApiTestStoredSlackConfigurationRequest) (*NotificationSlackTestResult, *http.Response, error)
 
 	/*
 	TestStoredSmtpConfiguration Method for TestStoredSmtpConfiguration
 
 	Test stored SMTP endpoint configuration
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @param uuid
-	 @return ApiTestStoredSmtpConfigurationRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param uuid
+	@return ApiTestStoredSmtpConfigurationRequest
 	*/
-	TestStoredSmtpConfiguration(ctx _context.Context, uuid string) ApiTestStoredSmtpConfigurationRequest
+	TestStoredSmtpConfiguration(ctx context.Context, uuid string) ApiTestStoredSmtpConfigurationRequest
 
 	// TestStoredSmtpConfigurationExecute executes the request
 	//  @return NotificationSMTPTestResult
-	TestStoredSmtpConfigurationExecute(r ApiTestStoredSmtpConfigurationRequest) (NotificationSMTPTestResult, *_nethttp.Response, error)
+	TestStoredSmtpConfigurationExecute(r ApiTestStoredSmtpConfigurationRequest) (*NotificationSMTPTestResult, *http.Response, error)
 
 	/*
 	TestStoredTeamsConfiguration Method for TestStoredTeamsConfiguration
 
 	Test stored Teams endpoint configuration
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @param uuid
-	 @return ApiTestStoredTeamsConfigurationRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param uuid
+	@return ApiTestStoredTeamsConfigurationRequest
 	*/
-	TestStoredTeamsConfiguration(ctx _context.Context, uuid string) ApiTestStoredTeamsConfigurationRequest
+	TestStoredTeamsConfiguration(ctx context.Context, uuid string) ApiTestStoredTeamsConfigurationRequest
 
 	// TestStoredTeamsConfigurationExecute executes the request
 	//  @return NotificationTeamsTestResult
-	TestStoredTeamsConfigurationExecute(r ApiTestStoredTeamsConfigurationRequest) (NotificationTeamsTestResult, *_nethttp.Response, error)
+	TestStoredTeamsConfigurationExecute(r ApiTestStoredTeamsConfigurationRequest) (*NotificationTeamsTestResult, *http.Response, error)
 
 	/*
 	TestStoredWebhookConfiguration Method for TestStoredWebhookConfiguration
 
 	Test stored Webhook endpoint configuration
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @param uuid
-	 @return ApiTestStoredWebhookConfigurationRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param uuid
+	@return ApiTestStoredWebhookConfigurationRequest
 	*/
-	TestStoredWebhookConfiguration(ctx _context.Context, uuid string) ApiTestStoredWebhookConfigurationRequest
+	TestStoredWebhookConfiguration(ctx context.Context, uuid string) ApiTestStoredWebhookConfigurationRequest
 
 	// TestStoredWebhookConfigurationExecute executes the request
 	//  @return NotificationWebhookTestResult
-	TestStoredWebhookConfigurationExecute(r ApiTestStoredWebhookConfigurationRequest) (NotificationWebhookTestResult, *_nethttp.Response, error)
+	TestStoredWebhookConfigurationExecute(r ApiTestStoredWebhookConfigurationRequest) (*NotificationWebhookTestResult, *http.Response, error)
 
 	/*
 	TestTeamsConfiguration Method for TestTeamsConfiguration
 
 	Test Teams endpoint configuration
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @return ApiTestTeamsConfigurationRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiTestTeamsConfigurationRequest
 	*/
-	TestTeamsConfiguration(ctx _context.Context) ApiTestTeamsConfigurationRequest
+	TestTeamsConfiguration(ctx context.Context) ApiTestTeamsConfigurationRequest
 
 	// TestTeamsConfigurationExecute executes the request
 	//  @return NotificationTeamsTestResult
-	TestTeamsConfigurationExecute(r ApiTestTeamsConfigurationRequest) (NotificationTeamsTestResult, *_nethttp.Response, error)
+	TestTeamsConfigurationExecute(r ApiTestTeamsConfigurationRequest) (*NotificationTeamsTestResult, *http.Response, error)
 
 	/*
 	TestWebhookConfiguration Method for TestWebhookConfiguration
 
 	Test Webhook endpoint configuration
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @return ApiTestWebhookConfigurationRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiTestWebhookConfigurationRequest
 	*/
-	TestWebhookConfiguration(ctx _context.Context) ApiTestWebhookConfigurationRequest
+	TestWebhookConfiguration(ctx context.Context) ApiTestWebhookConfigurationRequest
 
 	// TestWebhookConfigurationExecute executes the request
 	//  @return NotificationWebhookTestResult
-	TestWebhookConfigurationExecute(r ApiTestWebhookConfigurationRequest) (NotificationWebhookTestResult, *_nethttp.Response, error)
+	TestWebhookConfigurationExecute(r ApiTestWebhookConfigurationRequest) (*NotificationWebhookTestResult, *http.Response, error)
 
 	/*
 	UpdateEndpointStatus Method for UpdateEndpointStatus
 
 	Update enabled status of an endpoint
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @param name
-	 @return ApiUpdateEndpointStatusRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param name
+	@return ApiUpdateEndpointStatusRequest
 	*/
-	UpdateEndpointStatus(ctx _context.Context, name string) ApiUpdateEndpointStatusRequest
+	UpdateEndpointStatus(ctx context.Context, name string) ApiUpdateEndpointStatusRequest
 
 	// UpdateEndpointStatusExecute executes the request
 	//  @return NotificationEndpointEnabledStatus
-	UpdateEndpointStatusExecute(r ApiUpdateEndpointStatusRequest) (NotificationEndpointEnabledStatus, *_nethttp.Response, error)
+	UpdateEndpointStatusExecute(r ApiUpdateEndpointStatusRequest) (*NotificationEndpointEnabledStatus, *http.Response, error)
 
 	/*
 	UpdateGithubConfiguration Method for UpdateGithubConfiguration
 
 	Update a GitHub endpoint configuration by it's UUID
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @param uuid
-	 @return ApiUpdateGithubConfigurationRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param uuid
+	@return ApiUpdateGithubConfigurationRequest
 	*/
-	UpdateGithubConfiguration(ctx _context.Context, uuid string) ApiUpdateGithubConfigurationRequest
+	UpdateGithubConfiguration(ctx context.Context, uuid string) ApiUpdateGithubConfigurationRequest
 
 	// UpdateGithubConfigurationExecute executes the request
 	//  @return NotificationGitHubEndpointConfigurationBase
-	UpdateGithubConfigurationExecute(r ApiUpdateGithubConfigurationRequest) (NotificationGitHubEndpointConfigurationBase, *_nethttp.Response, error)
+	UpdateGithubConfigurationExecute(r ApiUpdateGithubConfigurationRequest) (*NotificationGitHubEndpointConfigurationBase, *http.Response, error)
 
 	/*
 	UpdateGithubSelector Method for UpdateGithubSelector
 
 	Update a selector mapped to a GitHub endpoint configuration
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @param configurationUuid
-	 @param selectorUuid
-	 @return ApiUpdateGithubSelectorRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param configurationUuid
+	@param selectorUuid
+	@return ApiUpdateGithubSelectorRequest
 	*/
-	UpdateGithubSelector(ctx _context.Context, configurationUuid string, selectorUuid string) ApiUpdateGithubSelectorRequest
+	UpdateGithubSelector(ctx context.Context, configurationUuid string, selectorUuid string) ApiUpdateGithubSelectorRequest
 
 	// UpdateGithubSelectorExecute executes the request
 	//  @return NotificationSelector
-	UpdateGithubSelectorExecute(r ApiUpdateGithubSelectorRequest) (NotificationSelector, *_nethttp.Response, error)
+	UpdateGithubSelectorExecute(r ApiUpdateGithubSelectorRequest) (*NotificationSelector, *http.Response, error)
 
 	/*
 	UpdateIdp Method for UpdateIdp
 
 	Update an existing Identity Provider configuration
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @param name
-	 @return ApiUpdateIdpRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param name
+	@return ApiUpdateIdpRequest
 	*/
-	UpdateIdp(ctx _context.Context, name string) ApiUpdateIdpRequest
+	UpdateIdp(ctx context.Context, name string) ApiUpdateIdpRequest
 
 	// UpdateIdpExecute executes the request
 	//  @return RbacManagerSamlConfiguration
-	UpdateIdpExecute(r ApiUpdateIdpRequest) (RbacManagerSamlConfiguration, *_nethttp.Response, error)
+	UpdateIdpExecute(r ApiUpdateIdpRequest) (*RbacManagerSamlConfiguration, *http.Response, error)
 
 	/*
 	UpdateJiraConfiguration Method for UpdateJiraConfiguration
 
 	Update a Jira endpoint configuration by it's UUID
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @param uuid
-	 @return ApiUpdateJiraConfigurationRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param uuid
+	@return ApiUpdateJiraConfigurationRequest
 	*/
-	UpdateJiraConfiguration(ctx _context.Context, uuid string) ApiUpdateJiraConfigurationRequest
+	UpdateJiraConfiguration(ctx context.Context, uuid string) ApiUpdateJiraConfigurationRequest
 
 	// UpdateJiraConfigurationExecute executes the request
 	//  @return NotificationJiraEndpointConfigurationBase
-	UpdateJiraConfigurationExecute(r ApiUpdateJiraConfigurationRequest) (NotificationJiraEndpointConfigurationBase, *_nethttp.Response, error)
+	UpdateJiraConfigurationExecute(r ApiUpdateJiraConfigurationRequest) (*NotificationJiraEndpointConfigurationBase, *http.Response, error)
 
 	/*
 	UpdateJiraSelector Method for UpdateJiraSelector
 
 	Update a selector mapped to a Jira endpoint configuration
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @param configurationUuid
-	 @param selectorUuid
-	 @return ApiUpdateJiraSelectorRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param configurationUuid
+	@param selectorUuid
+	@return ApiUpdateJiraSelectorRequest
 	*/
-	UpdateJiraSelector(ctx _context.Context, configurationUuid string, selectorUuid string) ApiUpdateJiraSelectorRequest
+	UpdateJiraSelector(ctx context.Context, configurationUuid string, selectorUuid string) ApiUpdateJiraSelectorRequest
 
 	// UpdateJiraSelectorExecute executes the request
 	//  @return NotificationSelector
-	UpdateJiraSelectorExecute(r ApiUpdateJiraSelectorRequest) (NotificationSelector, *_nethttp.Response, error)
+	UpdateJiraSelectorExecute(r ApiUpdateJiraSelectorRequest) (*NotificationSelector, *http.Response, error)
 
 	/*
 	UpdateSlackConfiguration Method for UpdateSlackConfiguration
 
 	Update a Slack endpoint configuration by it's UUID
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @param uuid
-	 @return ApiUpdateSlackConfigurationRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param uuid
+	@return ApiUpdateSlackConfigurationRequest
 	*/
-	UpdateSlackConfiguration(ctx _context.Context, uuid string) ApiUpdateSlackConfigurationRequest
+	UpdateSlackConfiguration(ctx context.Context, uuid string) ApiUpdateSlackConfigurationRequest
 
 	// UpdateSlackConfigurationExecute executes the request
 	//  @return NotificationSlackEndpointConfiguration
-	UpdateSlackConfigurationExecute(r ApiUpdateSlackConfigurationRequest) (NotificationSlackEndpointConfiguration, *_nethttp.Response, error)
+	UpdateSlackConfigurationExecute(r ApiUpdateSlackConfigurationRequest) (*NotificationSlackEndpointConfiguration, *http.Response, error)
 
 	/*
 	UpdateSlackSelector Method for UpdateSlackSelector
 
 	Update a selector mapped to a Slack endpoint configuration
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @param configurationUuid
-	 @param selectorUuid
-	 @return ApiUpdateSlackSelectorRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param configurationUuid
+	@param selectorUuid
+	@return ApiUpdateSlackSelectorRequest
 	*/
-	UpdateSlackSelector(ctx _context.Context, configurationUuid string, selectorUuid string) ApiUpdateSlackSelectorRequest
+	UpdateSlackSelector(ctx context.Context, configurationUuid string, selectorUuid string) ApiUpdateSlackSelectorRequest
 
 	// UpdateSlackSelectorExecute executes the request
 	//  @return NotificationSelector
-	UpdateSlackSelectorExecute(r ApiUpdateSlackSelectorRequest) (NotificationSelector, *_nethttp.Response, error)
+	UpdateSlackSelectorExecute(r ApiUpdateSlackSelectorRequest) (*NotificationSelector, *http.Response, error)
 
 	/*
 	UpdateSmtpConfiguration Method for UpdateSmtpConfiguration
 
 	Update a SMTP endpoint configuration by it's UUID
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @param uuid
-	 @return ApiUpdateSmtpConfigurationRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param uuid
+	@return ApiUpdateSmtpConfigurationRequest
 	*/
-	UpdateSmtpConfiguration(ctx _context.Context, uuid string) ApiUpdateSmtpConfigurationRequest
+	UpdateSmtpConfiguration(ctx context.Context, uuid string) ApiUpdateSmtpConfigurationRequest
 
 	// UpdateSmtpConfigurationExecute executes the request
 	//  @return NotificationSMTPEndpointConfiguration
-	UpdateSmtpConfigurationExecute(r ApiUpdateSmtpConfigurationRequest) (NotificationSMTPEndpointConfiguration, *_nethttp.Response, error)
+	UpdateSmtpConfigurationExecute(r ApiUpdateSmtpConfigurationRequest) (*NotificationSMTPEndpointConfiguration, *http.Response, error)
 
 	/*
 	UpdateSmtpSelector Method for UpdateSmtpSelector
 
 	Update a selector mapped to a SMTP endpoint configuration
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @param configurationUuid
-	 @param selectorUuid
-	 @return ApiUpdateSmtpSelectorRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param configurationUuid
+	@param selectorUuid
+	@return ApiUpdateSmtpSelectorRequest
 	*/
-	UpdateSmtpSelector(ctx _context.Context, configurationUuid string, selectorUuid string) ApiUpdateSmtpSelectorRequest
+	UpdateSmtpSelector(ctx context.Context, configurationUuid string, selectorUuid string) ApiUpdateSmtpSelectorRequest
 
 	// UpdateSmtpSelectorExecute executes the request
 	//  @return NotificationSelector
-	UpdateSmtpSelectorExecute(r ApiUpdateSmtpSelectorRequest) (NotificationSelector, *_nethttp.Response, error)
+	UpdateSmtpSelectorExecute(r ApiUpdateSmtpSelectorRequest) (*NotificationSelector, *http.Response, error)
 
 	/*
 	UpdateTeamsConfiguration Method for UpdateTeamsConfiguration
 
 	Update a Teams endpoint configuration by it's UUID
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @param uuid
-	 @return ApiUpdateTeamsConfigurationRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param uuid
+	@return ApiUpdateTeamsConfigurationRequest
 	*/
-	UpdateTeamsConfiguration(ctx _context.Context, uuid string) ApiUpdateTeamsConfigurationRequest
+	UpdateTeamsConfiguration(ctx context.Context, uuid string) ApiUpdateTeamsConfigurationRequest
 
 	// UpdateTeamsConfigurationExecute executes the request
 	//  @return NotificationTeamsEndpointConfiguration
-	UpdateTeamsConfigurationExecute(r ApiUpdateTeamsConfigurationRequest) (NotificationTeamsEndpointConfiguration, *_nethttp.Response, error)
+	UpdateTeamsConfigurationExecute(r ApiUpdateTeamsConfigurationRequest) (*NotificationTeamsEndpointConfiguration, *http.Response, error)
 
 	/*
 	UpdateTeamsSelector Method for UpdateTeamsSelector
 
 	Update a selector mapped to a Teams endpoint configuration
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @param configurationUuid
-	 @param selectorUuid
-	 @return ApiUpdateTeamsSelectorRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param configurationUuid
+	@param selectorUuid
+	@return ApiUpdateTeamsSelectorRequest
 	*/
-	UpdateTeamsSelector(ctx _context.Context, configurationUuid string, selectorUuid string) ApiUpdateTeamsSelectorRequest
+	UpdateTeamsSelector(ctx context.Context, configurationUuid string, selectorUuid string) ApiUpdateTeamsSelectorRequest
 
 	// UpdateTeamsSelectorExecute executes the request
 	//  @return NotificationSelector
-	UpdateTeamsSelectorExecute(r ApiUpdateTeamsSelectorRequest) (NotificationSelector, *_nethttp.Response, error)
+	UpdateTeamsSelectorExecute(r ApiUpdateTeamsSelectorRequest) (*NotificationSelector, *http.Response, error)
 
 	/*
 	UpdateWebhookConfiguration Method for UpdateWebhookConfiguration
 
 	Update a Webhook endpoint configuration by it's UUID
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @param uuid
-	 @return ApiUpdateWebhookConfigurationRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param uuid
+	@return ApiUpdateWebhookConfigurationRequest
 	*/
-	UpdateWebhookConfiguration(ctx _context.Context, uuid string) ApiUpdateWebhookConfigurationRequest
+	UpdateWebhookConfiguration(ctx context.Context, uuid string) ApiUpdateWebhookConfigurationRequest
 
 	// UpdateWebhookConfigurationExecute executes the request
 	//  @return NotificationWebhookEndpointConfiguration
-	UpdateWebhookConfigurationExecute(r ApiUpdateWebhookConfigurationRequest) (NotificationWebhookEndpointConfiguration, *_nethttp.Response, error)
+	UpdateWebhookConfigurationExecute(r ApiUpdateWebhookConfigurationRequest) (*NotificationWebhookEndpointConfiguration, *http.Response, error)
 
 	/*
 	UpdateWebhookSelector Method for UpdateWebhookSelector
 
 	Update a selector mapped to a Webhook endpoint configuration
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @param configurationUuid
-	 @param selectorUuid
-	 @return ApiUpdateWebhookSelectorRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param configurationUuid
+	@param selectorUuid
+	@return ApiUpdateWebhookSelectorRequest
 	*/
-	UpdateWebhookSelector(ctx _context.Context, configurationUuid string, selectorUuid string) ApiUpdateWebhookSelectorRequest
+	UpdateWebhookSelector(ctx context.Context, configurationUuid string, selectorUuid string) ApiUpdateWebhookSelectorRequest
 
 	// UpdateWebhookSelectorExecute executes the request
 	//  @return NotificationSelector
-	UpdateWebhookSelectorExecute(r ApiUpdateWebhookSelectorRequest) (NotificationSelector, *_nethttp.Response, error)
+	UpdateWebhookSelectorExecute(r ApiUpdateWebhookSelectorRequest) (*NotificationSelector, *http.Response, error)
 
 	/*
 	VersionCheck Method for VersionCheck
 
 	Returns the version object for the service, including db schema version info
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @return ApiVersionCheckRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiVersionCheckRequest
 	*/
-	VersionCheck(ctx _context.Context) ApiVersionCheckRequest
+	VersionCheck(ctx context.Context) ApiVersionCheckRequest
 
 	// VersionCheckExecute executes the request
 	//  @return ServiceVersion
-	VersionCheckExecute(r ApiVersionCheckRequest) (ServiceVersion, *_nethttp.Response, error)
+	VersionCheckExecute(r ApiVersionCheckRequest) (*ServiceVersion, *http.Response, error)
 }
 
-// DefaultApiService DefaultApi service
-type DefaultApiService service
+// DefaultAPIService DefaultAPI service
+type DefaultAPIService service
 
 type ApiAddGithubConfigurationRequest struct {
-	ctx _context.Context
-	ApiService DefaultApi
+	ctx context.Context
+	ApiService DefaultAPI
 	configuration *NotificationGitHubEndpointConfigurationPost
 }
 
@@ -1568,7 +1564,7 @@ func (r ApiAddGithubConfigurationRequest) Configuration(configuration Notificati
 	return r
 }
 
-func (r ApiAddGithubConfigurationRequest) Execute() (NotificationGitHubEndpointConfigurationBase, *_nethttp.Response, error) {
+func (r ApiAddGithubConfigurationRequest) Execute() (*NotificationGitHubEndpointConfigurationBase, *http.Response, error) {
 	return r.ApiService.AddGithubConfigurationExecute(r)
 }
 
@@ -1577,10 +1573,10 @@ AddGithubConfiguration Method for AddGithubConfiguration
 
 Create a new GitHub endpoint configuration
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiAddGithubConfigurationRequest
 */
-func (a *DefaultApiService) AddGithubConfiguration(ctx _context.Context) ApiAddGithubConfigurationRequest {
+func (a *DefaultAPIService) AddGithubConfiguration(ctx context.Context) ApiAddGithubConfigurationRequest {
 	return ApiAddGithubConfigurationRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -1589,26 +1585,24 @@ func (a *DefaultApiService) AddGithubConfiguration(ctx _context.Context) ApiAddG
 
 // Execute executes the request
 //  @return NotificationGitHubEndpointConfigurationBase
-func (a *DefaultApiService) AddGithubConfigurationExecute(r ApiAddGithubConfigurationRequest) (NotificationGitHubEndpointConfigurationBase, *_nethttp.Response, error) {
+func (a *DefaultAPIService) AddGithubConfigurationExecute(r ApiAddGithubConfigurationRequest) (*NotificationGitHubEndpointConfigurationBase, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPost
+		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  NotificationGitHubEndpointConfigurationBase
+		formFiles            []formFile
+		localVarReturnValue  *NotificationGitHubEndpointConfigurationBase
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.AddGithubConfiguration")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.AddGithubConfiguration")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/notifications/endpoints/github/configurations"
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if r.configuration == nil {
 		return localVarReturnValue, nil, reportError("configuration is required and must be specified")
 	}
@@ -1632,7 +1626,7 @@ func (a *DefaultApiService) AddGithubConfigurationExecute(r ApiAddGithubConfigur
 	}
 	// body params
 	localVarPostBody = r.configuration
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -1642,15 +1636,15 @@ func (a *DefaultApiService) AddGithubConfigurationExecute(r ApiAddGithubConfigur
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -1659,7 +1653,7 @@ func (a *DefaultApiService) AddGithubConfigurationExecute(r ApiAddGithubConfigur
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -1670,8 +1664,8 @@ func (a *DefaultApiService) AddGithubConfigurationExecute(r ApiAddGithubConfigur
 }
 
 type ApiAddGithubSelectorRequest struct {
-	ctx _context.Context
-	ApiService DefaultApi
+	ctx context.Context
+	ApiService DefaultAPI
 	uuid string
 	selector *NotificationSelector
 }
@@ -1681,7 +1675,7 @@ func (r ApiAddGithubSelectorRequest) Selector(selector NotificationSelector) Api
 	return r
 }
 
-func (r ApiAddGithubSelectorRequest) Execute() (NotificationSelector, *_nethttp.Response, error) {
+func (r ApiAddGithubSelectorRequest) Execute() (*NotificationSelector, *http.Response, error) {
 	return r.ApiService.AddGithubSelectorExecute(r)
 }
 
@@ -1690,11 +1684,11 @@ AddGithubSelector Method for AddGithubSelector
 
 Add selector for mapping events for delivery to a GitHub endpoint configuration
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param uuid
  @return ApiAddGithubSelectorRequest
 */
-func (a *DefaultApiService) AddGithubSelector(ctx _context.Context, uuid string) ApiAddGithubSelectorRequest {
+func (a *DefaultAPIService) AddGithubSelector(ctx context.Context, uuid string) ApiAddGithubSelectorRequest {
 	return ApiAddGithubSelectorRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -1704,27 +1698,25 @@ func (a *DefaultApiService) AddGithubSelector(ctx _context.Context, uuid string)
 
 // Execute executes the request
 //  @return NotificationSelector
-func (a *DefaultApiService) AddGithubSelectorExecute(r ApiAddGithubSelectorRequest) (NotificationSelector, *_nethttp.Response, error) {
+func (a *DefaultAPIService) AddGithubSelectorExecute(r ApiAddGithubSelectorRequest) (*NotificationSelector, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPost
+		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  NotificationSelector
+		formFiles            []formFile
+		localVarReturnValue  *NotificationSelector
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.AddGithubSelector")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.AddGithubSelector")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/notifications/endpoints/github/configurations/{uuid}/selectors"
-	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", _neturl.PathEscape(parameterToString(r.uuid, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", url.PathEscape(parameterValueToString(r.uuid, "uuid")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if r.selector == nil {
 		return localVarReturnValue, nil, reportError("selector is required and must be specified")
 	}
@@ -1748,7 +1740,7 @@ func (a *DefaultApiService) AddGithubSelectorExecute(r ApiAddGithubSelectorReque
 	}
 	// body params
 	localVarPostBody = r.selector
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -1758,15 +1750,15 @@ func (a *DefaultApiService) AddGithubSelectorExecute(r ApiAddGithubSelectorReque
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -1775,7 +1767,7 @@ func (a *DefaultApiService) AddGithubSelectorExecute(r ApiAddGithubSelectorReque
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -1786,8 +1778,8 @@ func (a *DefaultApiService) AddGithubSelectorExecute(r ApiAddGithubSelectorReque
 }
 
 type ApiAddIdpRequest struct {
-	ctx _context.Context
-	ApiService DefaultApi
+	ctx context.Context
+	ApiService DefaultAPI
 	configuration *RbacManagerSamlConfiguration
 }
 
@@ -1796,7 +1788,7 @@ func (r ApiAddIdpRequest) Configuration(configuration RbacManagerSamlConfigurati
 	return r
 }
 
-func (r ApiAddIdpRequest) Execute() (RbacManagerSamlConfiguration, *_nethttp.Response, error) {
+func (r ApiAddIdpRequest) Execute() (*RbacManagerSamlConfiguration, *http.Response, error) {
 	return r.ApiService.AddIdpExecute(r)
 }
 
@@ -1805,10 +1797,10 @@ AddIdp Method for AddIdp
 
 Add a new Identity Provider to the system, with a specific name
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiAddIdpRequest
 */
-func (a *DefaultApiService) AddIdp(ctx _context.Context) ApiAddIdpRequest {
+func (a *DefaultAPIService) AddIdp(ctx context.Context) ApiAddIdpRequest {
 	return ApiAddIdpRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -1817,26 +1809,24 @@ func (a *DefaultApiService) AddIdp(ctx _context.Context) ApiAddIdpRequest {
 
 // Execute executes the request
 //  @return RbacManagerSamlConfiguration
-func (a *DefaultApiService) AddIdpExecute(r ApiAddIdpRequest) (RbacManagerSamlConfiguration, *_nethttp.Response, error) {
+func (a *DefaultAPIService) AddIdpExecute(r ApiAddIdpRequest) (*RbacManagerSamlConfiguration, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPost
+		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  RbacManagerSamlConfiguration
+		formFiles            []formFile
+		localVarReturnValue  *RbacManagerSamlConfiguration
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.AddIdp")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.AddIdp")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/rbac-manager/saml/idps"
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if r.configuration == nil {
 		return localVarReturnValue, nil, reportError("configuration is required and must be specified")
 	}
@@ -1860,7 +1850,7 @@ func (a *DefaultApiService) AddIdpExecute(r ApiAddIdpRequest) (RbacManagerSamlCo
 	}
 	// body params
 	localVarPostBody = r.configuration
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -1870,15 +1860,15 @@ func (a *DefaultApiService) AddIdpExecute(r ApiAddIdpRequest) (RbacManagerSamlCo
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -1889,7 +1879,8 @@ func (a *DefaultApiService) AddIdpExecute(r ApiAddIdpRequest) (RbacManagerSamlCo
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 500 {
@@ -1899,14 +1890,15 @@ func (a *DefaultApiService) AddIdpExecute(r ApiAddIdpRequest) (RbacManagerSamlCo
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -1917,8 +1909,8 @@ func (a *DefaultApiService) AddIdpExecute(r ApiAddIdpRequest) (RbacManagerSamlCo
 }
 
 type ApiAddJiraConfigurationRequest struct {
-	ctx _context.Context
-	ApiService DefaultApi
+	ctx context.Context
+	ApiService DefaultAPI
 	configuration *NotificationJiraEndpointConfigurationPost
 }
 
@@ -1927,7 +1919,7 @@ func (r ApiAddJiraConfigurationRequest) Configuration(configuration Notification
 	return r
 }
 
-func (r ApiAddJiraConfigurationRequest) Execute() (NotificationJiraEndpointConfigurationBase, *_nethttp.Response, error) {
+func (r ApiAddJiraConfigurationRequest) Execute() (*NotificationJiraEndpointConfigurationBase, *http.Response, error) {
 	return r.ApiService.AddJiraConfigurationExecute(r)
 }
 
@@ -1936,10 +1928,10 @@ AddJiraConfiguration Method for AddJiraConfiguration
 
 Create a new Jira endpoint configuration
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiAddJiraConfigurationRequest
 */
-func (a *DefaultApiService) AddJiraConfiguration(ctx _context.Context) ApiAddJiraConfigurationRequest {
+func (a *DefaultAPIService) AddJiraConfiguration(ctx context.Context) ApiAddJiraConfigurationRequest {
 	return ApiAddJiraConfigurationRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -1948,26 +1940,24 @@ func (a *DefaultApiService) AddJiraConfiguration(ctx _context.Context) ApiAddJir
 
 // Execute executes the request
 //  @return NotificationJiraEndpointConfigurationBase
-func (a *DefaultApiService) AddJiraConfigurationExecute(r ApiAddJiraConfigurationRequest) (NotificationJiraEndpointConfigurationBase, *_nethttp.Response, error) {
+func (a *DefaultAPIService) AddJiraConfigurationExecute(r ApiAddJiraConfigurationRequest) (*NotificationJiraEndpointConfigurationBase, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPost
+		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  NotificationJiraEndpointConfigurationBase
+		formFiles            []formFile
+		localVarReturnValue  *NotificationJiraEndpointConfigurationBase
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.AddJiraConfiguration")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.AddJiraConfiguration")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/notifications/endpoints/jira/configurations"
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if r.configuration == nil {
 		return localVarReturnValue, nil, reportError("configuration is required and must be specified")
 	}
@@ -1991,7 +1981,7 @@ func (a *DefaultApiService) AddJiraConfigurationExecute(r ApiAddJiraConfiguratio
 	}
 	// body params
 	localVarPostBody = r.configuration
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -2001,15 +1991,15 @@ func (a *DefaultApiService) AddJiraConfigurationExecute(r ApiAddJiraConfiguratio
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -2018,7 +2008,7 @@ func (a *DefaultApiService) AddJiraConfigurationExecute(r ApiAddJiraConfiguratio
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -2029,8 +2019,8 @@ func (a *DefaultApiService) AddJiraConfigurationExecute(r ApiAddJiraConfiguratio
 }
 
 type ApiAddJiraSelectorRequest struct {
-	ctx _context.Context
-	ApiService DefaultApi
+	ctx context.Context
+	ApiService DefaultAPI
 	uuid string
 	selector *NotificationSelector
 }
@@ -2040,7 +2030,7 @@ func (r ApiAddJiraSelectorRequest) Selector(selector NotificationSelector) ApiAd
 	return r
 }
 
-func (r ApiAddJiraSelectorRequest) Execute() (NotificationSelector, *_nethttp.Response, error) {
+func (r ApiAddJiraSelectorRequest) Execute() (*NotificationSelector, *http.Response, error) {
 	return r.ApiService.AddJiraSelectorExecute(r)
 }
 
@@ -2049,11 +2039,11 @@ AddJiraSelector Method for AddJiraSelector
 
 Add selector for mapping events for delivery to a Jira endpoint configuration
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param uuid
  @return ApiAddJiraSelectorRequest
 */
-func (a *DefaultApiService) AddJiraSelector(ctx _context.Context, uuid string) ApiAddJiraSelectorRequest {
+func (a *DefaultAPIService) AddJiraSelector(ctx context.Context, uuid string) ApiAddJiraSelectorRequest {
 	return ApiAddJiraSelectorRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -2063,27 +2053,25 @@ func (a *DefaultApiService) AddJiraSelector(ctx _context.Context, uuid string) A
 
 // Execute executes the request
 //  @return NotificationSelector
-func (a *DefaultApiService) AddJiraSelectorExecute(r ApiAddJiraSelectorRequest) (NotificationSelector, *_nethttp.Response, error) {
+func (a *DefaultAPIService) AddJiraSelectorExecute(r ApiAddJiraSelectorRequest) (*NotificationSelector, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPost
+		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  NotificationSelector
+		formFiles            []formFile
+		localVarReturnValue  *NotificationSelector
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.AddJiraSelector")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.AddJiraSelector")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/notifications/endpoints/jira/configurations/{uuid}/selectors"
-	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", _neturl.PathEscape(parameterToString(r.uuid, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", url.PathEscape(parameterValueToString(r.uuid, "uuid")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if r.selector == nil {
 		return localVarReturnValue, nil, reportError("selector is required and must be specified")
 	}
@@ -2107,7 +2095,7 @@ func (a *DefaultApiService) AddJiraSelectorExecute(r ApiAddJiraSelectorRequest) 
 	}
 	// body params
 	localVarPostBody = r.selector
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -2117,15 +2105,15 @@ func (a *DefaultApiService) AddJiraSelectorExecute(r ApiAddJiraSelectorRequest) 
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -2134,7 +2122,7 @@ func (a *DefaultApiService) AddJiraSelectorExecute(r ApiAddJiraSelectorRequest) 
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -2145,8 +2133,8 @@ func (a *DefaultApiService) AddJiraSelectorExecute(r ApiAddJiraSelectorRequest) 
 }
 
 type ApiAddRoleUserRequest struct {
-	ctx _context.Context
-	ApiService DefaultApi
+	ctx context.Context
+	ApiService DefaultAPI
 	roleName string
 	member *RbacManagerRoleMember
 }
@@ -2156,18 +2144,18 @@ func (r ApiAddRoleUserRequest) Member(member RbacManagerRoleMember) ApiAddRoleUs
 	return r
 }
 
-func (r ApiAddRoleUserRequest) Execute() (RbacManagerRoleMember, *_nethttp.Response, error) {
+func (r ApiAddRoleUserRequest) Execute() (*RbacManagerRoleMember, *http.Response, error) {
 	return r.ApiService.AddRoleUserExecute(r)
 }
 
 /*
 AddRoleUser Add a user to the role
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param roleName
  @return ApiAddRoleUserRequest
 */
-func (a *DefaultApiService) AddRoleUser(ctx _context.Context, roleName string) ApiAddRoleUserRequest {
+func (a *DefaultAPIService) AddRoleUser(ctx context.Context, roleName string) ApiAddRoleUserRequest {
 	return ApiAddRoleUserRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -2177,27 +2165,25 @@ func (a *DefaultApiService) AddRoleUser(ctx _context.Context, roleName string) A
 
 // Execute executes the request
 //  @return RbacManagerRoleMember
-func (a *DefaultApiService) AddRoleUserExecute(r ApiAddRoleUserRequest) (RbacManagerRoleMember, *_nethttp.Response, error) {
+func (a *DefaultAPIService) AddRoleUserExecute(r ApiAddRoleUserRequest) (*RbacManagerRoleMember, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPost
+		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  RbacManagerRoleMember
+		formFiles            []formFile
+		localVarReturnValue  *RbacManagerRoleMember
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.AddRoleUser")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.AddRoleUser")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/rbac-manager/roles/{role_name}/members"
-	localVarPath = strings.Replace(localVarPath, "{"+"role_name"+"}", _neturl.PathEscape(parameterToString(r.roleName, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"role_name"+"}", url.PathEscape(parameterValueToString(r.roleName, "roleName")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if r.member == nil {
 		return localVarReturnValue, nil, reportError("member is required and must be specified")
 	}
@@ -2221,7 +2207,7 @@ func (a *DefaultApiService) AddRoleUserExecute(r ApiAddRoleUserRequest) (RbacMan
 	}
 	// body params
 	localVarPostBody = r.member
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -2231,15 +2217,15 @@ func (a *DefaultApiService) AddRoleUserExecute(r ApiAddRoleUserRequest) (RbacMan
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -2250,14 +2236,15 @@ func (a *DefaultApiService) AddRoleUserExecute(r ApiAddRoleUserRequest) (RbacMan
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -2268,8 +2255,8 @@ func (a *DefaultApiService) AddRoleUserExecute(r ApiAddRoleUserRequest) (RbacMan
 }
 
 type ApiAddSlackConfigurationRequest struct {
-	ctx _context.Context
-	ApiService DefaultApi
+	ctx context.Context
+	ApiService DefaultAPI
 	configuration *NotificationSlackEndpointConfiguration
 }
 
@@ -2278,7 +2265,7 @@ func (r ApiAddSlackConfigurationRequest) Configuration(configuration Notificatio
 	return r
 }
 
-func (r ApiAddSlackConfigurationRequest) Execute() (NotificationSlackEndpointConfiguration, *_nethttp.Response, error) {
+func (r ApiAddSlackConfigurationRequest) Execute() (*NotificationSlackEndpointConfiguration, *http.Response, error) {
 	return r.ApiService.AddSlackConfigurationExecute(r)
 }
 
@@ -2287,10 +2274,10 @@ AddSlackConfiguration Method for AddSlackConfiguration
 
 Create a new Slack endpoint configuration
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiAddSlackConfigurationRequest
 */
-func (a *DefaultApiService) AddSlackConfiguration(ctx _context.Context) ApiAddSlackConfigurationRequest {
+func (a *DefaultAPIService) AddSlackConfiguration(ctx context.Context) ApiAddSlackConfigurationRequest {
 	return ApiAddSlackConfigurationRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -2299,26 +2286,24 @@ func (a *DefaultApiService) AddSlackConfiguration(ctx _context.Context) ApiAddSl
 
 // Execute executes the request
 //  @return NotificationSlackEndpointConfiguration
-func (a *DefaultApiService) AddSlackConfigurationExecute(r ApiAddSlackConfigurationRequest) (NotificationSlackEndpointConfiguration, *_nethttp.Response, error) {
+func (a *DefaultAPIService) AddSlackConfigurationExecute(r ApiAddSlackConfigurationRequest) (*NotificationSlackEndpointConfiguration, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPost
+		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  NotificationSlackEndpointConfiguration
+		formFiles            []formFile
+		localVarReturnValue  *NotificationSlackEndpointConfiguration
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.AddSlackConfiguration")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.AddSlackConfiguration")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/notifications/endpoints/slack/configurations"
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if r.configuration == nil {
 		return localVarReturnValue, nil, reportError("configuration is required and must be specified")
 	}
@@ -2342,7 +2327,7 @@ func (a *DefaultApiService) AddSlackConfigurationExecute(r ApiAddSlackConfigurat
 	}
 	// body params
 	localVarPostBody = r.configuration
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -2352,15 +2337,15 @@ func (a *DefaultApiService) AddSlackConfigurationExecute(r ApiAddSlackConfigurat
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -2369,7 +2354,7 @@ func (a *DefaultApiService) AddSlackConfigurationExecute(r ApiAddSlackConfigurat
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -2380,8 +2365,8 @@ func (a *DefaultApiService) AddSlackConfigurationExecute(r ApiAddSlackConfigurat
 }
 
 type ApiAddSlackSelectorRequest struct {
-	ctx _context.Context
-	ApiService DefaultApi
+	ctx context.Context
+	ApiService DefaultAPI
 	uuid string
 	selector *NotificationSelector
 }
@@ -2391,7 +2376,7 @@ func (r ApiAddSlackSelectorRequest) Selector(selector NotificationSelector) ApiA
 	return r
 }
 
-func (r ApiAddSlackSelectorRequest) Execute() (NotificationSelector, *_nethttp.Response, error) {
+func (r ApiAddSlackSelectorRequest) Execute() (*NotificationSelector, *http.Response, error) {
 	return r.ApiService.AddSlackSelectorExecute(r)
 }
 
@@ -2400,11 +2385,11 @@ AddSlackSelector Method for AddSlackSelector
 
 Add selector for mapping events for delivery to a Slack endpoint configuration
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param uuid
  @return ApiAddSlackSelectorRequest
 */
-func (a *DefaultApiService) AddSlackSelector(ctx _context.Context, uuid string) ApiAddSlackSelectorRequest {
+func (a *DefaultAPIService) AddSlackSelector(ctx context.Context, uuid string) ApiAddSlackSelectorRequest {
 	return ApiAddSlackSelectorRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -2414,27 +2399,25 @@ func (a *DefaultApiService) AddSlackSelector(ctx _context.Context, uuid string) 
 
 // Execute executes the request
 //  @return NotificationSelector
-func (a *DefaultApiService) AddSlackSelectorExecute(r ApiAddSlackSelectorRequest) (NotificationSelector, *_nethttp.Response, error) {
+func (a *DefaultAPIService) AddSlackSelectorExecute(r ApiAddSlackSelectorRequest) (*NotificationSelector, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPost
+		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  NotificationSelector
+		formFiles            []formFile
+		localVarReturnValue  *NotificationSelector
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.AddSlackSelector")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.AddSlackSelector")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/notifications/endpoints/slack/configurations/{uuid}/selectors"
-	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", _neturl.PathEscape(parameterToString(r.uuid, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", url.PathEscape(parameterValueToString(r.uuid, "uuid")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if r.selector == nil {
 		return localVarReturnValue, nil, reportError("selector is required and must be specified")
 	}
@@ -2458,7 +2441,7 @@ func (a *DefaultApiService) AddSlackSelectorExecute(r ApiAddSlackSelectorRequest
 	}
 	// body params
 	localVarPostBody = r.selector
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -2468,15 +2451,15 @@ func (a *DefaultApiService) AddSlackSelectorExecute(r ApiAddSlackSelectorRequest
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -2485,7 +2468,7 @@ func (a *DefaultApiService) AddSlackSelectorExecute(r ApiAddSlackSelectorRequest
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -2496,8 +2479,8 @@ func (a *DefaultApiService) AddSlackSelectorExecute(r ApiAddSlackSelectorRequest
 }
 
 type ApiAddSmtpConfigurationRequest struct {
-	ctx _context.Context
-	ApiService DefaultApi
+	ctx context.Context
+	ApiService DefaultAPI
 	configuration *NotificationSMTPEndpointConfiguration
 }
 
@@ -2506,7 +2489,7 @@ func (r ApiAddSmtpConfigurationRequest) Configuration(configuration Notification
 	return r
 }
 
-func (r ApiAddSmtpConfigurationRequest) Execute() (NotificationSMTPEndpointConfiguration, *_nethttp.Response, error) {
+func (r ApiAddSmtpConfigurationRequest) Execute() (*NotificationSMTPEndpointConfiguration, *http.Response, error) {
 	return r.ApiService.AddSmtpConfigurationExecute(r)
 }
 
@@ -2515,10 +2498,10 @@ AddSmtpConfiguration Method for AddSmtpConfiguration
 
 Create a new SMTP endpoint configuration
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiAddSmtpConfigurationRequest
 */
-func (a *DefaultApiService) AddSmtpConfiguration(ctx _context.Context) ApiAddSmtpConfigurationRequest {
+func (a *DefaultAPIService) AddSmtpConfiguration(ctx context.Context) ApiAddSmtpConfigurationRequest {
 	return ApiAddSmtpConfigurationRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -2527,26 +2510,24 @@ func (a *DefaultApiService) AddSmtpConfiguration(ctx _context.Context) ApiAddSmt
 
 // Execute executes the request
 //  @return NotificationSMTPEndpointConfiguration
-func (a *DefaultApiService) AddSmtpConfigurationExecute(r ApiAddSmtpConfigurationRequest) (NotificationSMTPEndpointConfiguration, *_nethttp.Response, error) {
+func (a *DefaultAPIService) AddSmtpConfigurationExecute(r ApiAddSmtpConfigurationRequest) (*NotificationSMTPEndpointConfiguration, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPost
+		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  NotificationSMTPEndpointConfiguration
+		formFiles            []formFile
+		localVarReturnValue  *NotificationSMTPEndpointConfiguration
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.AddSmtpConfiguration")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.AddSmtpConfiguration")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/notifications/endpoints/smtp/configurations"
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if r.configuration == nil {
 		return localVarReturnValue, nil, reportError("configuration is required and must be specified")
 	}
@@ -2570,7 +2551,7 @@ func (a *DefaultApiService) AddSmtpConfigurationExecute(r ApiAddSmtpConfiguratio
 	}
 	// body params
 	localVarPostBody = r.configuration
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -2580,15 +2561,15 @@ func (a *DefaultApiService) AddSmtpConfigurationExecute(r ApiAddSmtpConfiguratio
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -2597,7 +2578,7 @@ func (a *DefaultApiService) AddSmtpConfigurationExecute(r ApiAddSmtpConfiguratio
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -2608,8 +2589,8 @@ func (a *DefaultApiService) AddSmtpConfigurationExecute(r ApiAddSmtpConfiguratio
 }
 
 type ApiAddSmtpSelectorRequest struct {
-	ctx _context.Context
-	ApiService DefaultApi
+	ctx context.Context
+	ApiService DefaultAPI
 	uuid string
 	selector *NotificationSelector
 }
@@ -2619,7 +2600,7 @@ func (r ApiAddSmtpSelectorRequest) Selector(selector NotificationSelector) ApiAd
 	return r
 }
 
-func (r ApiAddSmtpSelectorRequest) Execute() (NotificationSelector, *_nethttp.Response, error) {
+func (r ApiAddSmtpSelectorRequest) Execute() (*NotificationSelector, *http.Response, error) {
 	return r.ApiService.AddSmtpSelectorExecute(r)
 }
 
@@ -2628,11 +2609,11 @@ AddSmtpSelector Method for AddSmtpSelector
 
 Add selector for mapping events for delivery to a SMTP endpoint configuration
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param uuid
  @return ApiAddSmtpSelectorRequest
 */
-func (a *DefaultApiService) AddSmtpSelector(ctx _context.Context, uuid string) ApiAddSmtpSelectorRequest {
+func (a *DefaultAPIService) AddSmtpSelector(ctx context.Context, uuid string) ApiAddSmtpSelectorRequest {
 	return ApiAddSmtpSelectorRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -2642,27 +2623,25 @@ func (a *DefaultApiService) AddSmtpSelector(ctx _context.Context, uuid string) A
 
 // Execute executes the request
 //  @return NotificationSelector
-func (a *DefaultApiService) AddSmtpSelectorExecute(r ApiAddSmtpSelectorRequest) (NotificationSelector, *_nethttp.Response, error) {
+func (a *DefaultAPIService) AddSmtpSelectorExecute(r ApiAddSmtpSelectorRequest) (*NotificationSelector, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPost
+		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  NotificationSelector
+		formFiles            []formFile
+		localVarReturnValue  *NotificationSelector
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.AddSmtpSelector")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.AddSmtpSelector")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/notifications/endpoints/smtp/configurations/{uuid}/selectors"
-	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", _neturl.PathEscape(parameterToString(r.uuid, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", url.PathEscape(parameterValueToString(r.uuid, "uuid")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if r.selector == nil {
 		return localVarReturnValue, nil, reportError("selector is required and must be specified")
 	}
@@ -2686,7 +2665,7 @@ func (a *DefaultApiService) AddSmtpSelectorExecute(r ApiAddSmtpSelectorRequest) 
 	}
 	// body params
 	localVarPostBody = r.selector
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -2696,15 +2675,15 @@ func (a *DefaultApiService) AddSmtpSelectorExecute(r ApiAddSmtpSelectorRequest) 
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -2713,7 +2692,7 @@ func (a *DefaultApiService) AddSmtpSelectorExecute(r ApiAddSmtpSelectorRequest) 
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -2724,8 +2703,8 @@ func (a *DefaultApiService) AddSmtpSelectorExecute(r ApiAddSmtpSelectorRequest) 
 }
 
 type ApiAddTeamsConfigurationRequest struct {
-	ctx _context.Context
-	ApiService DefaultApi
+	ctx context.Context
+	ApiService DefaultAPI
 	configuration *NotificationTeamsEndpointConfiguration
 }
 
@@ -2734,7 +2713,7 @@ func (r ApiAddTeamsConfigurationRequest) Configuration(configuration Notificatio
 	return r
 }
 
-func (r ApiAddTeamsConfigurationRequest) Execute() (NotificationTeamsEndpointConfiguration, *_nethttp.Response, error) {
+func (r ApiAddTeamsConfigurationRequest) Execute() (*NotificationTeamsEndpointConfiguration, *http.Response, error) {
 	return r.ApiService.AddTeamsConfigurationExecute(r)
 }
 
@@ -2743,10 +2722,10 @@ AddTeamsConfiguration Method for AddTeamsConfiguration
 
 Create a new Teams endpoint configuration
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiAddTeamsConfigurationRequest
 */
-func (a *DefaultApiService) AddTeamsConfiguration(ctx _context.Context) ApiAddTeamsConfigurationRequest {
+func (a *DefaultAPIService) AddTeamsConfiguration(ctx context.Context) ApiAddTeamsConfigurationRequest {
 	return ApiAddTeamsConfigurationRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -2755,26 +2734,24 @@ func (a *DefaultApiService) AddTeamsConfiguration(ctx _context.Context) ApiAddTe
 
 // Execute executes the request
 //  @return NotificationTeamsEndpointConfiguration
-func (a *DefaultApiService) AddTeamsConfigurationExecute(r ApiAddTeamsConfigurationRequest) (NotificationTeamsEndpointConfiguration, *_nethttp.Response, error) {
+func (a *DefaultAPIService) AddTeamsConfigurationExecute(r ApiAddTeamsConfigurationRequest) (*NotificationTeamsEndpointConfiguration, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPost
+		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  NotificationTeamsEndpointConfiguration
+		formFiles            []formFile
+		localVarReturnValue  *NotificationTeamsEndpointConfiguration
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.AddTeamsConfiguration")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.AddTeamsConfiguration")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/notifications/endpoints/teams/configurations"
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if r.configuration == nil {
 		return localVarReturnValue, nil, reportError("configuration is required and must be specified")
 	}
@@ -2798,7 +2775,7 @@ func (a *DefaultApiService) AddTeamsConfigurationExecute(r ApiAddTeamsConfigurat
 	}
 	// body params
 	localVarPostBody = r.configuration
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -2808,15 +2785,15 @@ func (a *DefaultApiService) AddTeamsConfigurationExecute(r ApiAddTeamsConfigurat
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -2825,7 +2802,7 @@ func (a *DefaultApiService) AddTeamsConfigurationExecute(r ApiAddTeamsConfigurat
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -2836,8 +2813,8 @@ func (a *DefaultApiService) AddTeamsConfigurationExecute(r ApiAddTeamsConfigurat
 }
 
 type ApiAddTeamsSelectorRequest struct {
-	ctx _context.Context
-	ApiService DefaultApi
+	ctx context.Context
+	ApiService DefaultAPI
 	uuid string
 	selector *NotificationSelector
 }
@@ -2847,7 +2824,7 @@ func (r ApiAddTeamsSelectorRequest) Selector(selector NotificationSelector) ApiA
 	return r
 }
 
-func (r ApiAddTeamsSelectorRequest) Execute() (NotificationSelector, *_nethttp.Response, error) {
+func (r ApiAddTeamsSelectorRequest) Execute() (*NotificationSelector, *http.Response, error) {
 	return r.ApiService.AddTeamsSelectorExecute(r)
 }
 
@@ -2856,11 +2833,11 @@ AddTeamsSelector Method for AddTeamsSelector
 
 Add selector for mapping events for delivery to a Teams endpoint configuration
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param uuid
  @return ApiAddTeamsSelectorRequest
 */
-func (a *DefaultApiService) AddTeamsSelector(ctx _context.Context, uuid string) ApiAddTeamsSelectorRequest {
+func (a *DefaultAPIService) AddTeamsSelector(ctx context.Context, uuid string) ApiAddTeamsSelectorRequest {
 	return ApiAddTeamsSelectorRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -2870,27 +2847,25 @@ func (a *DefaultApiService) AddTeamsSelector(ctx _context.Context, uuid string) 
 
 // Execute executes the request
 //  @return NotificationSelector
-func (a *DefaultApiService) AddTeamsSelectorExecute(r ApiAddTeamsSelectorRequest) (NotificationSelector, *_nethttp.Response, error) {
+func (a *DefaultAPIService) AddTeamsSelectorExecute(r ApiAddTeamsSelectorRequest) (*NotificationSelector, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPost
+		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  NotificationSelector
+		formFiles            []formFile
+		localVarReturnValue  *NotificationSelector
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.AddTeamsSelector")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.AddTeamsSelector")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/notifications/endpoints/teams/configurations/{uuid}/selectors"
-	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", _neturl.PathEscape(parameterToString(r.uuid, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", url.PathEscape(parameterValueToString(r.uuid, "uuid")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if r.selector == nil {
 		return localVarReturnValue, nil, reportError("selector is required and must be specified")
 	}
@@ -2914,7 +2889,7 @@ func (a *DefaultApiService) AddTeamsSelectorExecute(r ApiAddTeamsSelectorRequest
 	}
 	// body params
 	localVarPostBody = r.selector
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -2924,15 +2899,15 @@ func (a *DefaultApiService) AddTeamsSelectorExecute(r ApiAddTeamsSelectorRequest
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -2941,7 +2916,7 @@ func (a *DefaultApiService) AddTeamsSelectorExecute(r ApiAddTeamsSelectorRequest
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -2952,8 +2927,8 @@ func (a *DefaultApiService) AddTeamsSelectorExecute(r ApiAddTeamsSelectorRequest
 }
 
 type ApiAddWebhookConfigurationRequest struct {
-	ctx _context.Context
-	ApiService DefaultApi
+	ctx context.Context
+	ApiService DefaultAPI
 	configuration *NotificationWebhookEndpointConfiguration
 }
 
@@ -2962,7 +2937,7 @@ func (r ApiAddWebhookConfigurationRequest) Configuration(configuration Notificat
 	return r
 }
 
-func (r ApiAddWebhookConfigurationRequest) Execute() (NotificationWebhookEndpointConfiguration, *_nethttp.Response, error) {
+func (r ApiAddWebhookConfigurationRequest) Execute() (*NotificationWebhookEndpointConfiguration, *http.Response, error) {
 	return r.ApiService.AddWebhookConfigurationExecute(r)
 }
 
@@ -2971,10 +2946,10 @@ AddWebhookConfiguration Method for AddWebhookConfiguration
 
 Create a new Webhook endpoint configuration
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiAddWebhookConfigurationRequest
 */
-func (a *DefaultApiService) AddWebhookConfiguration(ctx _context.Context) ApiAddWebhookConfigurationRequest {
+func (a *DefaultAPIService) AddWebhookConfiguration(ctx context.Context) ApiAddWebhookConfigurationRequest {
 	return ApiAddWebhookConfigurationRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -2983,26 +2958,24 @@ func (a *DefaultApiService) AddWebhookConfiguration(ctx _context.Context) ApiAdd
 
 // Execute executes the request
 //  @return NotificationWebhookEndpointConfiguration
-func (a *DefaultApiService) AddWebhookConfigurationExecute(r ApiAddWebhookConfigurationRequest) (NotificationWebhookEndpointConfiguration, *_nethttp.Response, error) {
+func (a *DefaultAPIService) AddWebhookConfigurationExecute(r ApiAddWebhookConfigurationRequest) (*NotificationWebhookEndpointConfiguration, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPost
+		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  NotificationWebhookEndpointConfiguration
+		formFiles            []formFile
+		localVarReturnValue  *NotificationWebhookEndpointConfiguration
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.AddWebhookConfiguration")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.AddWebhookConfiguration")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/notifications/endpoints/webhook/configurations"
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if r.configuration == nil {
 		return localVarReturnValue, nil, reportError("configuration is required and must be specified")
 	}
@@ -3026,7 +2999,7 @@ func (a *DefaultApiService) AddWebhookConfigurationExecute(r ApiAddWebhookConfig
 	}
 	// body params
 	localVarPostBody = r.configuration
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -3036,15 +3009,15 @@ func (a *DefaultApiService) AddWebhookConfigurationExecute(r ApiAddWebhookConfig
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -3053,7 +3026,7 @@ func (a *DefaultApiService) AddWebhookConfigurationExecute(r ApiAddWebhookConfig
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -3064,8 +3037,8 @@ func (a *DefaultApiService) AddWebhookConfigurationExecute(r ApiAddWebhookConfig
 }
 
 type ApiAddWebhookSelectorRequest struct {
-	ctx _context.Context
-	ApiService DefaultApi
+	ctx context.Context
+	ApiService DefaultAPI
 	uuid string
 	selector *NotificationSelector
 }
@@ -3075,7 +3048,7 @@ func (r ApiAddWebhookSelectorRequest) Selector(selector NotificationSelector) Ap
 	return r
 }
 
-func (r ApiAddWebhookSelectorRequest) Execute() (NotificationSelector, *_nethttp.Response, error) {
+func (r ApiAddWebhookSelectorRequest) Execute() (*NotificationSelector, *http.Response, error) {
 	return r.ApiService.AddWebhookSelectorExecute(r)
 }
 
@@ -3084,11 +3057,11 @@ AddWebhookSelector Method for AddWebhookSelector
 
 Add selector for mapping events for delivery to a Webhook endpoint configuration
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param uuid
  @return ApiAddWebhookSelectorRequest
 */
-func (a *DefaultApiService) AddWebhookSelector(ctx _context.Context, uuid string) ApiAddWebhookSelectorRequest {
+func (a *DefaultAPIService) AddWebhookSelector(ctx context.Context, uuid string) ApiAddWebhookSelectorRequest {
 	return ApiAddWebhookSelectorRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -3098,27 +3071,25 @@ func (a *DefaultApiService) AddWebhookSelector(ctx _context.Context, uuid string
 
 // Execute executes the request
 //  @return NotificationSelector
-func (a *DefaultApiService) AddWebhookSelectorExecute(r ApiAddWebhookSelectorRequest) (NotificationSelector, *_nethttp.Response, error) {
+func (a *DefaultAPIService) AddWebhookSelectorExecute(r ApiAddWebhookSelectorRequest) (*NotificationSelector, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPost
+		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  NotificationSelector
+		formFiles            []formFile
+		localVarReturnValue  *NotificationSelector
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.AddWebhookSelector")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.AddWebhookSelector")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/notifications/endpoints/webhook/configurations/{uuid}/selectors"
-	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", _neturl.PathEscape(parameterToString(r.uuid, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", url.PathEscape(parameterValueToString(r.uuid, "uuid")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if r.selector == nil {
 		return localVarReturnValue, nil, reportError("selector is required and must be specified")
 	}
@@ -3142,7 +3113,7 @@ func (a *DefaultApiService) AddWebhookSelectorExecute(r ApiAddWebhookSelectorReq
 	}
 	// body params
 	localVarPostBody = r.selector
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -3152,15 +3123,15 @@ func (a *DefaultApiService) AddWebhookSelectorExecute(r ApiAddWebhookSelectorReq
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -3169,7 +3140,7 @@ func (a *DefaultApiService) AddWebhookSelectorExecute(r ApiAddWebhookSelectorReq
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -3180,13 +3151,12 @@ func (a *DefaultApiService) AddWebhookSelectorExecute(r ApiAddWebhookSelectorReq
 }
 
 type ApiDeleteGithubConfigurationRequest struct {
-	ctx _context.Context
-	ApiService DefaultApi
+	ctx context.Context
+	ApiService DefaultAPI
 	uuid string
 }
 
-
-func (r ApiDeleteGithubConfigurationRequest) Execute() (*_nethttp.Response, error) {
+func (r ApiDeleteGithubConfigurationRequest) Execute() (*http.Response, error) {
 	return r.ApiService.DeleteGithubConfigurationExecute(r)
 }
 
@@ -3195,11 +3165,11 @@ DeleteGithubConfiguration Method for DeleteGithubConfiguration
 
 Delete a GitHub endpoint configuration by it's UUID
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param uuid
  @return ApiDeleteGithubConfigurationRequest
 */
-func (a *DefaultApiService) DeleteGithubConfiguration(ctx _context.Context, uuid string) ApiDeleteGithubConfigurationRequest {
+func (a *DefaultAPIService) DeleteGithubConfiguration(ctx context.Context, uuid string) ApiDeleteGithubConfigurationRequest {
 	return ApiDeleteGithubConfigurationRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -3208,26 +3178,24 @@ func (a *DefaultApiService) DeleteGithubConfiguration(ctx _context.Context, uuid
 }
 
 // Execute executes the request
-func (a *DefaultApiService) DeleteGithubConfigurationExecute(r ApiDeleteGithubConfigurationRequest) (*_nethttp.Response, error) {
+func (a *DefaultAPIService) DeleteGithubConfigurationExecute(r ApiDeleteGithubConfigurationRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodDelete
+		localVarHTTPMethod   = http.MethodDelete
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
+		formFiles            []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.DeleteGithubConfiguration")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.DeleteGithubConfiguration")
 	if err != nil {
-		return nil, GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/notifications/endpoints/github/configurations/{uuid}"
-	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", _neturl.PathEscape(parameterToString(r.uuid, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", url.PathEscape(parameterValueToString(r.uuid, "uuid")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -3246,7 +3214,7 @@ func (a *DefaultApiService) DeleteGithubConfigurationExecute(r ApiDeleteGithubCo
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
 	}
@@ -3256,15 +3224,15 @@ func (a *DefaultApiService) DeleteGithubConfigurationExecute(r ApiDeleteGithubCo
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -3275,14 +3243,13 @@ func (a *DefaultApiService) DeleteGithubConfigurationExecute(r ApiDeleteGithubCo
 }
 
 type ApiDeleteGithubSelectorRequest struct {
-	ctx _context.Context
-	ApiService DefaultApi
+	ctx context.Context
+	ApiService DefaultAPI
 	configurationUuid string
 	selectorUuid string
 }
 
-
-func (r ApiDeleteGithubSelectorRequest) Execute() (*_nethttp.Response, error) {
+func (r ApiDeleteGithubSelectorRequest) Execute() (*http.Response, error) {
 	return r.ApiService.DeleteGithubSelectorExecute(r)
 }
 
@@ -3291,12 +3258,12 @@ DeleteGithubSelector Method for DeleteGithubSelector
 
 Delete a selector mapped to a GitHub endpoint configuration
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param configurationUuid
  @param selectorUuid
  @return ApiDeleteGithubSelectorRequest
 */
-func (a *DefaultApiService) DeleteGithubSelector(ctx _context.Context, configurationUuid string, selectorUuid string) ApiDeleteGithubSelectorRequest {
+func (a *DefaultAPIService) DeleteGithubSelector(ctx context.Context, configurationUuid string, selectorUuid string) ApiDeleteGithubSelectorRequest {
 	return ApiDeleteGithubSelectorRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -3306,27 +3273,25 @@ func (a *DefaultApiService) DeleteGithubSelector(ctx _context.Context, configura
 }
 
 // Execute executes the request
-func (a *DefaultApiService) DeleteGithubSelectorExecute(r ApiDeleteGithubSelectorRequest) (*_nethttp.Response, error) {
+func (a *DefaultAPIService) DeleteGithubSelectorExecute(r ApiDeleteGithubSelectorRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodDelete
+		localVarHTTPMethod   = http.MethodDelete
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
+		formFiles            []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.DeleteGithubSelector")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.DeleteGithubSelector")
 	if err != nil {
-		return nil, GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/notifications/endpoints/github/configurations/{configuration_uuid}/selectors/{selector_uuid}"
-	localVarPath = strings.Replace(localVarPath, "{"+"configuration_uuid"+"}", _neturl.PathEscape(parameterToString(r.configurationUuid, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"selector_uuid"+"}", _neturl.PathEscape(parameterToString(r.selectorUuid, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"configuration_uuid"+"}", url.PathEscape(parameterValueToString(r.configurationUuid, "configurationUuid")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"selector_uuid"+"}", url.PathEscape(parameterValueToString(r.selectorUuid, "selectorUuid")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -3345,7 +3310,7 @@ func (a *DefaultApiService) DeleteGithubSelectorExecute(r ApiDeleteGithubSelecto
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
 	}
@@ -3355,15 +3320,15 @@ func (a *DefaultApiService) DeleteGithubSelectorExecute(r ApiDeleteGithubSelecto
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -3374,13 +3339,12 @@ func (a *DefaultApiService) DeleteGithubSelectorExecute(r ApiDeleteGithubSelecto
 }
 
 type ApiDeleteIdpRequest struct {
-	ctx _context.Context
-	ApiService DefaultApi
+	ctx context.Context
+	ApiService DefaultAPI
 	name string
 }
 
-
-func (r ApiDeleteIdpRequest) Execute() (*_nethttp.Response, error) {
+func (r ApiDeleteIdpRequest) Execute() (*http.Response, error) {
 	return r.ApiService.DeleteIdpExecute(r)
 }
 
@@ -3389,11 +3353,11 @@ DeleteIdp Method for DeleteIdp
 
 Delete an idp configuration. Users will not longer be able to login from this idp. In addition, any users that have been configured explicitly or JIT Provisioned on this IDP will be deleted.
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param name
  @return ApiDeleteIdpRequest
 */
-func (a *DefaultApiService) DeleteIdp(ctx _context.Context, name string) ApiDeleteIdpRequest {
+func (a *DefaultAPIService) DeleteIdp(ctx context.Context, name string) ApiDeleteIdpRequest {
 	return ApiDeleteIdpRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -3402,26 +3366,24 @@ func (a *DefaultApiService) DeleteIdp(ctx _context.Context, name string) ApiDele
 }
 
 // Execute executes the request
-func (a *DefaultApiService) DeleteIdpExecute(r ApiDeleteIdpRequest) (*_nethttp.Response, error) {
+func (a *DefaultAPIService) DeleteIdpExecute(r ApiDeleteIdpRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodDelete
+		localVarHTTPMethod   = http.MethodDelete
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
+		formFiles            []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.DeleteIdp")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.DeleteIdp")
 	if err != nil {
-		return nil, GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/rbac-manager/saml/idps/{name}"
-	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", _neturl.PathEscape(parameterToString(r.name, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(parameterValueToString(r.name, "name")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -3440,7 +3402,7 @@ func (a *DefaultApiService) DeleteIdpExecute(r ApiDeleteIdpRequest) (*_nethttp.R
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
 	}
@@ -3450,15 +3412,15 @@ func (a *DefaultApiService) DeleteIdpExecute(r ApiDeleteIdpRequest) (*_nethttp.R
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -3469,7 +3431,8 @@ func (a *DefaultApiService) DeleteIdpExecute(r ApiDeleteIdpRequest) (*_nethttp.R
 				newErr.error = err.Error()
 				return localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarHTTPResponse, newErr
 	}
@@ -3478,13 +3441,12 @@ func (a *DefaultApiService) DeleteIdpExecute(r ApiDeleteIdpRequest) (*_nethttp.R
 }
 
 type ApiDeleteJiraConfigurationRequest struct {
-	ctx _context.Context
-	ApiService DefaultApi
+	ctx context.Context
+	ApiService DefaultAPI
 	uuid string
 }
 
-
-func (r ApiDeleteJiraConfigurationRequest) Execute() (*_nethttp.Response, error) {
+func (r ApiDeleteJiraConfigurationRequest) Execute() (*http.Response, error) {
 	return r.ApiService.DeleteJiraConfigurationExecute(r)
 }
 
@@ -3493,11 +3455,11 @@ DeleteJiraConfiguration Method for DeleteJiraConfiguration
 
 Delete a Jira endpoint configuration by it's UUID
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param uuid
  @return ApiDeleteJiraConfigurationRequest
 */
-func (a *DefaultApiService) DeleteJiraConfiguration(ctx _context.Context, uuid string) ApiDeleteJiraConfigurationRequest {
+func (a *DefaultAPIService) DeleteJiraConfiguration(ctx context.Context, uuid string) ApiDeleteJiraConfigurationRequest {
 	return ApiDeleteJiraConfigurationRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -3506,26 +3468,24 @@ func (a *DefaultApiService) DeleteJiraConfiguration(ctx _context.Context, uuid s
 }
 
 // Execute executes the request
-func (a *DefaultApiService) DeleteJiraConfigurationExecute(r ApiDeleteJiraConfigurationRequest) (*_nethttp.Response, error) {
+func (a *DefaultAPIService) DeleteJiraConfigurationExecute(r ApiDeleteJiraConfigurationRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodDelete
+		localVarHTTPMethod   = http.MethodDelete
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
+		formFiles            []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.DeleteJiraConfiguration")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.DeleteJiraConfiguration")
 	if err != nil {
-		return nil, GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/notifications/endpoints/jira/configurations/{uuid}"
-	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", _neturl.PathEscape(parameterToString(r.uuid, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", url.PathEscape(parameterValueToString(r.uuid, "uuid")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -3544,7 +3504,7 @@ func (a *DefaultApiService) DeleteJiraConfigurationExecute(r ApiDeleteJiraConfig
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
 	}
@@ -3554,15 +3514,15 @@ func (a *DefaultApiService) DeleteJiraConfigurationExecute(r ApiDeleteJiraConfig
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -3573,14 +3533,13 @@ func (a *DefaultApiService) DeleteJiraConfigurationExecute(r ApiDeleteJiraConfig
 }
 
 type ApiDeleteJiraSelectorRequest struct {
-	ctx _context.Context
-	ApiService DefaultApi
+	ctx context.Context
+	ApiService DefaultAPI
 	configurationUuid string
 	selectorUuid string
 }
 
-
-func (r ApiDeleteJiraSelectorRequest) Execute() (*_nethttp.Response, error) {
+func (r ApiDeleteJiraSelectorRequest) Execute() (*http.Response, error) {
 	return r.ApiService.DeleteJiraSelectorExecute(r)
 }
 
@@ -3589,12 +3548,12 @@ DeleteJiraSelector Method for DeleteJiraSelector
 
 Delete a selector mapped to a Jira endpoint configuration
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param configurationUuid
  @param selectorUuid
  @return ApiDeleteJiraSelectorRequest
 */
-func (a *DefaultApiService) DeleteJiraSelector(ctx _context.Context, configurationUuid string, selectorUuid string) ApiDeleteJiraSelectorRequest {
+func (a *DefaultAPIService) DeleteJiraSelector(ctx context.Context, configurationUuid string, selectorUuid string) ApiDeleteJiraSelectorRequest {
 	return ApiDeleteJiraSelectorRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -3604,27 +3563,25 @@ func (a *DefaultApiService) DeleteJiraSelector(ctx _context.Context, configurati
 }
 
 // Execute executes the request
-func (a *DefaultApiService) DeleteJiraSelectorExecute(r ApiDeleteJiraSelectorRequest) (*_nethttp.Response, error) {
+func (a *DefaultAPIService) DeleteJiraSelectorExecute(r ApiDeleteJiraSelectorRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodDelete
+		localVarHTTPMethod   = http.MethodDelete
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
+		formFiles            []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.DeleteJiraSelector")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.DeleteJiraSelector")
 	if err != nil {
-		return nil, GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/notifications/endpoints/jira/configurations/{configuration_uuid}/selectors/{selector_uuid}"
-	localVarPath = strings.Replace(localVarPath, "{"+"configuration_uuid"+"}", _neturl.PathEscape(parameterToString(r.configurationUuid, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"selector_uuid"+"}", _neturl.PathEscape(parameterToString(r.selectorUuid, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"configuration_uuid"+"}", url.PathEscape(parameterValueToString(r.configurationUuid, "configurationUuid")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"selector_uuid"+"}", url.PathEscape(parameterValueToString(r.selectorUuid, "selectorUuid")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -3643,7 +3600,7 @@ func (a *DefaultApiService) DeleteJiraSelectorExecute(r ApiDeleteJiraSelectorReq
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
 	}
@@ -3653,15 +3610,15 @@ func (a *DefaultApiService) DeleteJiraSelectorExecute(r ApiDeleteJiraSelectorReq
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -3672,8 +3629,8 @@ func (a *DefaultApiService) DeleteJiraSelectorExecute(r ApiDeleteJiraSelectorReq
 }
 
 type ApiDeleteRoleUserRequest struct {
-	ctx _context.Context
-	ApiService DefaultApi
+	ctx context.Context
+	ApiService DefaultAPI
 	roleName string
 	username *string
 	forAccount *string
@@ -3684,24 +3641,25 @@ func (r ApiDeleteRoleUserRequest) Username(username string) ApiDeleteRoleUserReq
 	r.username = &username
 	return r
 }
+
 // The account that the user has the role to be removed
 func (r ApiDeleteRoleUserRequest) ForAccount(forAccount string) ApiDeleteRoleUserRequest {
 	r.forAccount = &forAccount
 	return r
 }
 
-func (r ApiDeleteRoleUserRequest) Execute() (*_nethttp.Response, error) {
+func (r ApiDeleteRoleUserRequest) Execute() (*http.Response, error) {
 	return r.ApiService.DeleteRoleUserExecute(r)
 }
 
 /*
 DeleteRoleUser Remove a user from the role
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param roleName
  @return ApiDeleteRoleUserRequest
 */
-func (a *DefaultApiService) DeleteRoleUser(ctx _context.Context, roleName string) ApiDeleteRoleUserRequest {
+func (a *DefaultAPIService) DeleteRoleUser(ctx context.Context, roleName string) ApiDeleteRoleUserRequest {
 	return ApiDeleteRoleUserRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -3710,26 +3668,24 @@ func (a *DefaultApiService) DeleteRoleUser(ctx _context.Context, roleName string
 }
 
 // Execute executes the request
-func (a *DefaultApiService) DeleteRoleUserExecute(r ApiDeleteRoleUserRequest) (*_nethttp.Response, error) {
+func (a *DefaultAPIService) DeleteRoleUserExecute(r ApiDeleteRoleUserRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodDelete
+		localVarHTTPMethod   = http.MethodDelete
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
+		formFiles            []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.DeleteRoleUser")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.DeleteRoleUser")
 	if err != nil {
-		return nil, GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/rbac-manager/roles/{role_name}/members"
-	localVarPath = strings.Replace(localVarPath, "{"+"role_name"+"}", _neturl.PathEscape(parameterToString(r.roleName, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"role_name"+"}", url.PathEscape(parameterValueToString(r.roleName, "roleName")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if r.username == nil {
 		return nil, reportError("username is required and must be specified")
 	}
@@ -3737,8 +3693,8 @@ func (a *DefaultApiService) DeleteRoleUserExecute(r ApiDeleteRoleUserRequest) (*
 		return nil, reportError("forAccount is required and must be specified")
 	}
 
-	localVarQueryParams.Add("username", parameterToString(*r.username, ""))
-	localVarQueryParams.Add("for_account", parameterToString(*r.forAccount, ""))
+	parameterAddToHeaderOrQuery(localVarQueryParams, "username", r.username, "")
+	parameterAddToHeaderOrQuery(localVarQueryParams, "for_account", r.forAccount, "")
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -3756,7 +3712,7 @@ func (a *DefaultApiService) DeleteRoleUserExecute(r ApiDeleteRoleUserRequest) (*
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
 	}
@@ -3766,15 +3722,15 @@ func (a *DefaultApiService) DeleteRoleUserExecute(r ApiDeleteRoleUserRequest) (*
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -3785,7 +3741,8 @@ func (a *DefaultApiService) DeleteRoleUserExecute(r ApiDeleteRoleUserRequest) (*
 				newErr.error = err.Error()
 				return localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarHTTPResponse, newErr
 	}
@@ -3794,13 +3751,12 @@ func (a *DefaultApiService) DeleteRoleUserExecute(r ApiDeleteRoleUserRequest) (*
 }
 
 type ApiDeleteSlackConfigurationRequest struct {
-	ctx _context.Context
-	ApiService DefaultApi
+	ctx context.Context
+	ApiService DefaultAPI
 	uuid string
 }
 
-
-func (r ApiDeleteSlackConfigurationRequest) Execute() (*_nethttp.Response, error) {
+func (r ApiDeleteSlackConfigurationRequest) Execute() (*http.Response, error) {
 	return r.ApiService.DeleteSlackConfigurationExecute(r)
 }
 
@@ -3809,11 +3765,11 @@ DeleteSlackConfiguration Method for DeleteSlackConfiguration
 
 Delete a Slack endpoint configuration by it's UUID
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param uuid
  @return ApiDeleteSlackConfigurationRequest
 */
-func (a *DefaultApiService) DeleteSlackConfiguration(ctx _context.Context, uuid string) ApiDeleteSlackConfigurationRequest {
+func (a *DefaultAPIService) DeleteSlackConfiguration(ctx context.Context, uuid string) ApiDeleteSlackConfigurationRequest {
 	return ApiDeleteSlackConfigurationRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -3822,26 +3778,24 @@ func (a *DefaultApiService) DeleteSlackConfiguration(ctx _context.Context, uuid 
 }
 
 // Execute executes the request
-func (a *DefaultApiService) DeleteSlackConfigurationExecute(r ApiDeleteSlackConfigurationRequest) (*_nethttp.Response, error) {
+func (a *DefaultAPIService) DeleteSlackConfigurationExecute(r ApiDeleteSlackConfigurationRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodDelete
+		localVarHTTPMethod   = http.MethodDelete
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
+		formFiles            []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.DeleteSlackConfiguration")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.DeleteSlackConfiguration")
 	if err != nil {
-		return nil, GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/notifications/endpoints/slack/configurations/{uuid}"
-	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", _neturl.PathEscape(parameterToString(r.uuid, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", url.PathEscape(parameterValueToString(r.uuid, "uuid")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -3860,7 +3814,7 @@ func (a *DefaultApiService) DeleteSlackConfigurationExecute(r ApiDeleteSlackConf
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
 	}
@@ -3870,15 +3824,15 @@ func (a *DefaultApiService) DeleteSlackConfigurationExecute(r ApiDeleteSlackConf
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -3889,14 +3843,13 @@ func (a *DefaultApiService) DeleteSlackConfigurationExecute(r ApiDeleteSlackConf
 }
 
 type ApiDeleteSlackSelectorRequest struct {
-	ctx _context.Context
-	ApiService DefaultApi
+	ctx context.Context
+	ApiService DefaultAPI
 	configurationUuid string
 	selectorUuid string
 }
 
-
-func (r ApiDeleteSlackSelectorRequest) Execute() (*_nethttp.Response, error) {
+func (r ApiDeleteSlackSelectorRequest) Execute() (*http.Response, error) {
 	return r.ApiService.DeleteSlackSelectorExecute(r)
 }
 
@@ -3905,12 +3858,12 @@ DeleteSlackSelector Method for DeleteSlackSelector
 
 Delete a selector mapped to a Slack endpoint configuration
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param configurationUuid
  @param selectorUuid
  @return ApiDeleteSlackSelectorRequest
 */
-func (a *DefaultApiService) DeleteSlackSelector(ctx _context.Context, configurationUuid string, selectorUuid string) ApiDeleteSlackSelectorRequest {
+func (a *DefaultAPIService) DeleteSlackSelector(ctx context.Context, configurationUuid string, selectorUuid string) ApiDeleteSlackSelectorRequest {
 	return ApiDeleteSlackSelectorRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -3920,27 +3873,25 @@ func (a *DefaultApiService) DeleteSlackSelector(ctx _context.Context, configurat
 }
 
 // Execute executes the request
-func (a *DefaultApiService) DeleteSlackSelectorExecute(r ApiDeleteSlackSelectorRequest) (*_nethttp.Response, error) {
+func (a *DefaultAPIService) DeleteSlackSelectorExecute(r ApiDeleteSlackSelectorRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodDelete
+		localVarHTTPMethod   = http.MethodDelete
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
+		formFiles            []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.DeleteSlackSelector")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.DeleteSlackSelector")
 	if err != nil {
-		return nil, GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/notifications/endpoints/slack/configurations/{configuration_uuid}/selectors/{selector_uuid}"
-	localVarPath = strings.Replace(localVarPath, "{"+"configuration_uuid"+"}", _neturl.PathEscape(parameterToString(r.configurationUuid, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"selector_uuid"+"}", _neturl.PathEscape(parameterToString(r.selectorUuid, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"configuration_uuid"+"}", url.PathEscape(parameterValueToString(r.configurationUuid, "configurationUuid")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"selector_uuid"+"}", url.PathEscape(parameterValueToString(r.selectorUuid, "selectorUuid")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -3959,7 +3910,7 @@ func (a *DefaultApiService) DeleteSlackSelectorExecute(r ApiDeleteSlackSelectorR
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
 	}
@@ -3969,15 +3920,15 @@ func (a *DefaultApiService) DeleteSlackSelectorExecute(r ApiDeleteSlackSelectorR
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -3988,13 +3939,12 @@ func (a *DefaultApiService) DeleteSlackSelectorExecute(r ApiDeleteSlackSelectorR
 }
 
 type ApiDeleteSmtpConfigurationRequest struct {
-	ctx _context.Context
-	ApiService DefaultApi
+	ctx context.Context
+	ApiService DefaultAPI
 	uuid string
 }
 
-
-func (r ApiDeleteSmtpConfigurationRequest) Execute() (*_nethttp.Response, error) {
+func (r ApiDeleteSmtpConfigurationRequest) Execute() (*http.Response, error) {
 	return r.ApiService.DeleteSmtpConfigurationExecute(r)
 }
 
@@ -4003,11 +3953,11 @@ DeleteSmtpConfiguration Method for DeleteSmtpConfiguration
 
 Delete a SMTP endpoint configuration by it's UUID
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param uuid
  @return ApiDeleteSmtpConfigurationRequest
 */
-func (a *DefaultApiService) DeleteSmtpConfiguration(ctx _context.Context, uuid string) ApiDeleteSmtpConfigurationRequest {
+func (a *DefaultAPIService) DeleteSmtpConfiguration(ctx context.Context, uuid string) ApiDeleteSmtpConfigurationRequest {
 	return ApiDeleteSmtpConfigurationRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -4016,26 +3966,24 @@ func (a *DefaultApiService) DeleteSmtpConfiguration(ctx _context.Context, uuid s
 }
 
 // Execute executes the request
-func (a *DefaultApiService) DeleteSmtpConfigurationExecute(r ApiDeleteSmtpConfigurationRequest) (*_nethttp.Response, error) {
+func (a *DefaultAPIService) DeleteSmtpConfigurationExecute(r ApiDeleteSmtpConfigurationRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodDelete
+		localVarHTTPMethod   = http.MethodDelete
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
+		formFiles            []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.DeleteSmtpConfiguration")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.DeleteSmtpConfiguration")
 	if err != nil {
-		return nil, GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/notifications/endpoints/smtp/configurations/{uuid}"
-	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", _neturl.PathEscape(parameterToString(r.uuid, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", url.PathEscape(parameterValueToString(r.uuid, "uuid")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -4054,7 +4002,7 @@ func (a *DefaultApiService) DeleteSmtpConfigurationExecute(r ApiDeleteSmtpConfig
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
 	}
@@ -4064,15 +4012,15 @@ func (a *DefaultApiService) DeleteSmtpConfigurationExecute(r ApiDeleteSmtpConfig
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -4083,14 +4031,13 @@ func (a *DefaultApiService) DeleteSmtpConfigurationExecute(r ApiDeleteSmtpConfig
 }
 
 type ApiDeleteSmtpSelectorRequest struct {
-	ctx _context.Context
-	ApiService DefaultApi
+	ctx context.Context
+	ApiService DefaultAPI
 	configurationUuid string
 	selectorUuid string
 }
 
-
-func (r ApiDeleteSmtpSelectorRequest) Execute() (*_nethttp.Response, error) {
+func (r ApiDeleteSmtpSelectorRequest) Execute() (*http.Response, error) {
 	return r.ApiService.DeleteSmtpSelectorExecute(r)
 }
 
@@ -4099,12 +4046,12 @@ DeleteSmtpSelector Method for DeleteSmtpSelector
 
 Delete a selector mapped to a SMTP endpoint configuration
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param configurationUuid
  @param selectorUuid
  @return ApiDeleteSmtpSelectorRequest
 */
-func (a *DefaultApiService) DeleteSmtpSelector(ctx _context.Context, configurationUuid string, selectorUuid string) ApiDeleteSmtpSelectorRequest {
+func (a *DefaultAPIService) DeleteSmtpSelector(ctx context.Context, configurationUuid string, selectorUuid string) ApiDeleteSmtpSelectorRequest {
 	return ApiDeleteSmtpSelectorRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -4114,27 +4061,25 @@ func (a *DefaultApiService) DeleteSmtpSelector(ctx _context.Context, configurati
 }
 
 // Execute executes the request
-func (a *DefaultApiService) DeleteSmtpSelectorExecute(r ApiDeleteSmtpSelectorRequest) (*_nethttp.Response, error) {
+func (a *DefaultAPIService) DeleteSmtpSelectorExecute(r ApiDeleteSmtpSelectorRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodDelete
+		localVarHTTPMethod   = http.MethodDelete
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
+		formFiles            []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.DeleteSmtpSelector")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.DeleteSmtpSelector")
 	if err != nil {
-		return nil, GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/notifications/endpoints/smtp/configurations/{configuration_uuid}/selectors/{selector_uuid}"
-	localVarPath = strings.Replace(localVarPath, "{"+"configuration_uuid"+"}", _neturl.PathEscape(parameterToString(r.configurationUuid, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"selector_uuid"+"}", _neturl.PathEscape(parameterToString(r.selectorUuid, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"configuration_uuid"+"}", url.PathEscape(parameterValueToString(r.configurationUuid, "configurationUuid")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"selector_uuid"+"}", url.PathEscape(parameterValueToString(r.selectorUuid, "selectorUuid")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -4153,7 +4098,7 @@ func (a *DefaultApiService) DeleteSmtpSelectorExecute(r ApiDeleteSmtpSelectorReq
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
 	}
@@ -4163,15 +4108,15 @@ func (a *DefaultApiService) DeleteSmtpSelectorExecute(r ApiDeleteSmtpSelectorReq
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -4182,13 +4127,12 @@ func (a *DefaultApiService) DeleteSmtpSelectorExecute(r ApiDeleteSmtpSelectorReq
 }
 
 type ApiDeleteTeamsConfigurationRequest struct {
-	ctx _context.Context
-	ApiService DefaultApi
+	ctx context.Context
+	ApiService DefaultAPI
 	uuid string
 }
 
-
-func (r ApiDeleteTeamsConfigurationRequest) Execute() (*_nethttp.Response, error) {
+func (r ApiDeleteTeamsConfigurationRequest) Execute() (*http.Response, error) {
 	return r.ApiService.DeleteTeamsConfigurationExecute(r)
 }
 
@@ -4197,11 +4141,11 @@ DeleteTeamsConfiguration Method for DeleteTeamsConfiguration
 
 Delete a Teams endpoint configuration by it's UUID
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param uuid
  @return ApiDeleteTeamsConfigurationRequest
 */
-func (a *DefaultApiService) DeleteTeamsConfiguration(ctx _context.Context, uuid string) ApiDeleteTeamsConfigurationRequest {
+func (a *DefaultAPIService) DeleteTeamsConfiguration(ctx context.Context, uuid string) ApiDeleteTeamsConfigurationRequest {
 	return ApiDeleteTeamsConfigurationRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -4210,26 +4154,24 @@ func (a *DefaultApiService) DeleteTeamsConfiguration(ctx _context.Context, uuid 
 }
 
 // Execute executes the request
-func (a *DefaultApiService) DeleteTeamsConfigurationExecute(r ApiDeleteTeamsConfigurationRequest) (*_nethttp.Response, error) {
+func (a *DefaultAPIService) DeleteTeamsConfigurationExecute(r ApiDeleteTeamsConfigurationRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodDelete
+		localVarHTTPMethod   = http.MethodDelete
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
+		formFiles            []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.DeleteTeamsConfiguration")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.DeleteTeamsConfiguration")
 	if err != nil {
-		return nil, GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/notifications/endpoints/teams/configurations/{uuid}"
-	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", _neturl.PathEscape(parameterToString(r.uuid, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", url.PathEscape(parameterValueToString(r.uuid, "uuid")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -4248,7 +4190,7 @@ func (a *DefaultApiService) DeleteTeamsConfigurationExecute(r ApiDeleteTeamsConf
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
 	}
@@ -4258,15 +4200,15 @@ func (a *DefaultApiService) DeleteTeamsConfigurationExecute(r ApiDeleteTeamsConf
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -4277,14 +4219,13 @@ func (a *DefaultApiService) DeleteTeamsConfigurationExecute(r ApiDeleteTeamsConf
 }
 
 type ApiDeleteTeamsSelectorRequest struct {
-	ctx _context.Context
-	ApiService DefaultApi
+	ctx context.Context
+	ApiService DefaultAPI
 	configurationUuid string
 	selectorUuid string
 }
 
-
-func (r ApiDeleteTeamsSelectorRequest) Execute() (*_nethttp.Response, error) {
+func (r ApiDeleteTeamsSelectorRequest) Execute() (*http.Response, error) {
 	return r.ApiService.DeleteTeamsSelectorExecute(r)
 }
 
@@ -4293,12 +4234,12 @@ DeleteTeamsSelector Method for DeleteTeamsSelector
 
 Delete a selector mapped to a Teams endpoint configuration
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param configurationUuid
  @param selectorUuid
  @return ApiDeleteTeamsSelectorRequest
 */
-func (a *DefaultApiService) DeleteTeamsSelector(ctx _context.Context, configurationUuid string, selectorUuid string) ApiDeleteTeamsSelectorRequest {
+func (a *DefaultAPIService) DeleteTeamsSelector(ctx context.Context, configurationUuid string, selectorUuid string) ApiDeleteTeamsSelectorRequest {
 	return ApiDeleteTeamsSelectorRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -4308,27 +4249,25 @@ func (a *DefaultApiService) DeleteTeamsSelector(ctx _context.Context, configurat
 }
 
 // Execute executes the request
-func (a *DefaultApiService) DeleteTeamsSelectorExecute(r ApiDeleteTeamsSelectorRequest) (*_nethttp.Response, error) {
+func (a *DefaultAPIService) DeleteTeamsSelectorExecute(r ApiDeleteTeamsSelectorRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodDelete
+		localVarHTTPMethod   = http.MethodDelete
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
+		formFiles            []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.DeleteTeamsSelector")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.DeleteTeamsSelector")
 	if err != nil {
-		return nil, GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/notifications/endpoints/teams/configurations/{configuration_uuid}/selectors/{selector_uuid}"
-	localVarPath = strings.Replace(localVarPath, "{"+"configuration_uuid"+"}", _neturl.PathEscape(parameterToString(r.configurationUuid, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"selector_uuid"+"}", _neturl.PathEscape(parameterToString(r.selectorUuid, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"configuration_uuid"+"}", url.PathEscape(parameterValueToString(r.configurationUuid, "configurationUuid")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"selector_uuid"+"}", url.PathEscape(parameterValueToString(r.selectorUuid, "selectorUuid")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -4347,7 +4286,7 @@ func (a *DefaultApiService) DeleteTeamsSelectorExecute(r ApiDeleteTeamsSelectorR
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
 	}
@@ -4357,15 +4296,15 @@ func (a *DefaultApiService) DeleteTeamsSelectorExecute(r ApiDeleteTeamsSelectorR
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -4376,13 +4315,12 @@ func (a *DefaultApiService) DeleteTeamsSelectorExecute(r ApiDeleteTeamsSelectorR
 }
 
 type ApiDeleteWebhookConfigurationRequest struct {
-	ctx _context.Context
-	ApiService DefaultApi
+	ctx context.Context
+	ApiService DefaultAPI
 	uuid string
 }
 
-
-func (r ApiDeleteWebhookConfigurationRequest) Execute() (*_nethttp.Response, error) {
+func (r ApiDeleteWebhookConfigurationRequest) Execute() (*http.Response, error) {
 	return r.ApiService.DeleteWebhookConfigurationExecute(r)
 }
 
@@ -4391,11 +4329,11 @@ DeleteWebhookConfiguration Method for DeleteWebhookConfiguration
 
 Delete a Webhook endpoint configuration by it's UUID
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param uuid
  @return ApiDeleteWebhookConfigurationRequest
 */
-func (a *DefaultApiService) DeleteWebhookConfiguration(ctx _context.Context, uuid string) ApiDeleteWebhookConfigurationRequest {
+func (a *DefaultAPIService) DeleteWebhookConfiguration(ctx context.Context, uuid string) ApiDeleteWebhookConfigurationRequest {
 	return ApiDeleteWebhookConfigurationRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -4404,26 +4342,24 @@ func (a *DefaultApiService) DeleteWebhookConfiguration(ctx _context.Context, uui
 }
 
 // Execute executes the request
-func (a *DefaultApiService) DeleteWebhookConfigurationExecute(r ApiDeleteWebhookConfigurationRequest) (*_nethttp.Response, error) {
+func (a *DefaultAPIService) DeleteWebhookConfigurationExecute(r ApiDeleteWebhookConfigurationRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodDelete
+		localVarHTTPMethod   = http.MethodDelete
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
+		formFiles            []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.DeleteWebhookConfiguration")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.DeleteWebhookConfiguration")
 	if err != nil {
-		return nil, GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/notifications/endpoints/webhook/configurations/{uuid}"
-	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", _neturl.PathEscape(parameterToString(r.uuid, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", url.PathEscape(parameterValueToString(r.uuid, "uuid")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -4442,7 +4378,7 @@ func (a *DefaultApiService) DeleteWebhookConfigurationExecute(r ApiDeleteWebhook
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
 	}
@@ -4452,15 +4388,15 @@ func (a *DefaultApiService) DeleteWebhookConfigurationExecute(r ApiDeleteWebhook
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -4471,14 +4407,13 @@ func (a *DefaultApiService) DeleteWebhookConfigurationExecute(r ApiDeleteWebhook
 }
 
 type ApiDeleteWebhookSelectorRequest struct {
-	ctx _context.Context
-	ApiService DefaultApi
+	ctx context.Context
+	ApiService DefaultAPI
 	configurationUuid string
 	selectorUuid string
 }
 
-
-func (r ApiDeleteWebhookSelectorRequest) Execute() (*_nethttp.Response, error) {
+func (r ApiDeleteWebhookSelectorRequest) Execute() (*http.Response, error) {
 	return r.ApiService.DeleteWebhookSelectorExecute(r)
 }
 
@@ -4487,12 +4422,12 @@ DeleteWebhookSelector Method for DeleteWebhookSelector
 
 Delete a selector mapped to a Webhook endpoint configuration
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param configurationUuid
  @param selectorUuid
  @return ApiDeleteWebhookSelectorRequest
 */
-func (a *DefaultApiService) DeleteWebhookSelector(ctx _context.Context, configurationUuid string, selectorUuid string) ApiDeleteWebhookSelectorRequest {
+func (a *DefaultAPIService) DeleteWebhookSelector(ctx context.Context, configurationUuid string, selectorUuid string) ApiDeleteWebhookSelectorRequest {
 	return ApiDeleteWebhookSelectorRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -4502,27 +4437,25 @@ func (a *DefaultApiService) DeleteWebhookSelector(ctx _context.Context, configur
 }
 
 // Execute executes the request
-func (a *DefaultApiService) DeleteWebhookSelectorExecute(r ApiDeleteWebhookSelectorRequest) (*_nethttp.Response, error) {
+func (a *DefaultAPIService) DeleteWebhookSelectorExecute(r ApiDeleteWebhookSelectorRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodDelete
+		localVarHTTPMethod   = http.MethodDelete
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
+		formFiles            []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.DeleteWebhookSelector")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.DeleteWebhookSelector")
 	if err != nil {
-		return nil, GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/notifications/endpoints/webhook/configurations/{configuration_uuid}/selectors/{selector_uuid}"
-	localVarPath = strings.Replace(localVarPath, "{"+"configuration_uuid"+"}", _neturl.PathEscape(parameterToString(r.configurationUuid, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"selector_uuid"+"}", _neturl.PathEscape(parameterToString(r.selectorUuid, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"configuration_uuid"+"}", url.PathEscape(parameterValueToString(r.configurationUuid, "configurationUuid")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"selector_uuid"+"}", url.PathEscape(parameterValueToString(r.selectorUuid, "selectorUuid")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -4541,7 +4474,7 @@ func (a *DefaultApiService) DeleteWebhookSelectorExecute(r ApiDeleteWebhookSelec
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
 	}
@@ -4551,15 +4484,15 @@ func (a *DefaultApiService) DeleteWebhookSelectorExecute(r ApiDeleteWebhookSelec
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -4570,13 +4503,12 @@ func (a *DefaultApiService) DeleteWebhookSelectorExecute(r ApiDeleteWebhookSelec
 }
 
 type ApiGetGithubConfigurationRequest struct {
-	ctx _context.Context
-	ApiService DefaultApi
+	ctx context.Context
+	ApiService DefaultAPI
 	uuid string
 }
 
-
-func (r ApiGetGithubConfigurationRequest) Execute() (NotificationGitHubEndpointConfigurationBase, *_nethttp.Response, error) {
+func (r ApiGetGithubConfigurationRequest) Execute() (*NotificationGitHubEndpointConfigurationBase, *http.Response, error) {
 	return r.ApiService.GetGithubConfigurationExecute(r)
 }
 
@@ -4585,11 +4517,11 @@ GetGithubConfiguration Method for GetGithubConfiguration
 
 Get a GitHub endpoint configuration by it's UUID
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param uuid
  @return ApiGetGithubConfigurationRequest
 */
-func (a *DefaultApiService) GetGithubConfiguration(ctx _context.Context, uuid string) ApiGetGithubConfigurationRequest {
+func (a *DefaultAPIService) GetGithubConfiguration(ctx context.Context, uuid string) ApiGetGithubConfigurationRequest {
 	return ApiGetGithubConfigurationRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -4599,27 +4531,25 @@ func (a *DefaultApiService) GetGithubConfiguration(ctx _context.Context, uuid st
 
 // Execute executes the request
 //  @return NotificationGitHubEndpointConfigurationBase
-func (a *DefaultApiService) GetGithubConfigurationExecute(r ApiGetGithubConfigurationRequest) (NotificationGitHubEndpointConfigurationBase, *_nethttp.Response, error) {
+func (a *DefaultAPIService) GetGithubConfigurationExecute(r ApiGetGithubConfigurationRequest) (*NotificationGitHubEndpointConfigurationBase, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  NotificationGitHubEndpointConfigurationBase
+		formFiles            []formFile
+		localVarReturnValue  *NotificationGitHubEndpointConfigurationBase
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.GetGithubConfiguration")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.GetGithubConfiguration")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/notifications/endpoints/github/configurations/{uuid}"
-	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", _neturl.PathEscape(parameterToString(r.uuid, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", url.PathEscape(parameterValueToString(r.uuid, "uuid")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -4638,7 +4568,7 @@ func (a *DefaultApiService) GetGithubConfigurationExecute(r ApiGetGithubConfigur
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -4648,15 +4578,15 @@ func (a *DefaultApiService) GetGithubConfigurationExecute(r ApiGetGithubConfigur
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -4665,7 +4595,7 @@ func (a *DefaultApiService) GetGithubConfigurationExecute(r ApiGetGithubConfigur
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -4676,13 +4606,12 @@ func (a *DefaultApiService) GetGithubConfigurationExecute(r ApiGetGithubConfigur
 }
 
 type ApiGetGithubConfigurationStatusRequest struct {
-	ctx _context.Context
-	ApiService DefaultApi
+	ctx context.Context
+	ApiService DefaultAPI
 	uuid string
 }
 
-
-func (r ApiGetGithubConfigurationStatusRequest) Execute() (NotificationOperationalStatus, *_nethttp.Response, error) {
+func (r ApiGetGithubConfigurationStatusRequest) Execute() (*NotificationOperationalStatus, *http.Response, error) {
 	return r.ApiService.GetGithubConfigurationStatusExecute(r)
 }
 
@@ -4691,11 +4620,11 @@ GetGithubConfigurationStatus Method for GetGithubConfigurationStatus
 
 Get operational status for a GitHub endpoint configuration
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param uuid
  @return ApiGetGithubConfigurationStatusRequest
 */
-func (a *DefaultApiService) GetGithubConfigurationStatus(ctx _context.Context, uuid string) ApiGetGithubConfigurationStatusRequest {
+func (a *DefaultAPIService) GetGithubConfigurationStatus(ctx context.Context, uuid string) ApiGetGithubConfigurationStatusRequest {
 	return ApiGetGithubConfigurationStatusRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -4705,27 +4634,25 @@ func (a *DefaultApiService) GetGithubConfigurationStatus(ctx _context.Context, u
 
 // Execute executes the request
 //  @return NotificationOperationalStatus
-func (a *DefaultApiService) GetGithubConfigurationStatusExecute(r ApiGetGithubConfigurationStatusRequest) (NotificationOperationalStatus, *_nethttp.Response, error) {
+func (a *DefaultAPIService) GetGithubConfigurationStatusExecute(r ApiGetGithubConfigurationStatusRequest) (*NotificationOperationalStatus, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  NotificationOperationalStatus
+		formFiles            []formFile
+		localVarReturnValue  *NotificationOperationalStatus
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.GetGithubConfigurationStatus")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.GetGithubConfigurationStatus")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/notifications/endpoints/github/configurations/{uuid}/status"
-	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", _neturl.PathEscape(parameterToString(r.uuid, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", url.PathEscape(parameterValueToString(r.uuid, "uuid")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -4744,7 +4671,7 @@ func (a *DefaultApiService) GetGithubConfigurationStatusExecute(r ApiGetGithubCo
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -4754,15 +4681,15 @@ func (a *DefaultApiService) GetGithubConfigurationStatusExecute(r ApiGetGithubCo
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -4771,7 +4698,7 @@ func (a *DefaultApiService) GetGithubConfigurationStatusExecute(r ApiGetGithubCo
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -4782,14 +4709,13 @@ func (a *DefaultApiService) GetGithubConfigurationStatusExecute(r ApiGetGithubCo
 }
 
 type ApiGetGithubSelectorRequest struct {
-	ctx _context.Context
-	ApiService DefaultApi
+	ctx context.Context
+	ApiService DefaultAPI
 	configurationUuid string
 	selectorUuid string
 }
 
-
-func (r ApiGetGithubSelectorRequest) Execute() (NotificationSelector, *_nethttp.Response, error) {
+func (r ApiGetGithubSelectorRequest) Execute() (*NotificationSelector, *http.Response, error) {
 	return r.ApiService.GetGithubSelectorExecute(r)
 }
 
@@ -4798,12 +4724,12 @@ GetGithubSelector Method for GetGithubSelector
 
 Get a selector mapped to a GitHub endpoint configuration
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param configurationUuid
  @param selectorUuid
  @return ApiGetGithubSelectorRequest
 */
-func (a *DefaultApiService) GetGithubSelector(ctx _context.Context, configurationUuid string, selectorUuid string) ApiGetGithubSelectorRequest {
+func (a *DefaultAPIService) GetGithubSelector(ctx context.Context, configurationUuid string, selectorUuid string) ApiGetGithubSelectorRequest {
 	return ApiGetGithubSelectorRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -4814,28 +4740,26 @@ func (a *DefaultApiService) GetGithubSelector(ctx _context.Context, configuratio
 
 // Execute executes the request
 //  @return NotificationSelector
-func (a *DefaultApiService) GetGithubSelectorExecute(r ApiGetGithubSelectorRequest) (NotificationSelector, *_nethttp.Response, error) {
+func (a *DefaultAPIService) GetGithubSelectorExecute(r ApiGetGithubSelectorRequest) (*NotificationSelector, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  NotificationSelector
+		formFiles            []formFile
+		localVarReturnValue  *NotificationSelector
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.GetGithubSelector")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.GetGithubSelector")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/notifications/endpoints/github/configurations/{configuration_uuid}/selectors/{selector_uuid}"
-	localVarPath = strings.Replace(localVarPath, "{"+"configuration_uuid"+"}", _neturl.PathEscape(parameterToString(r.configurationUuid, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"selector_uuid"+"}", _neturl.PathEscape(parameterToString(r.selectorUuid, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"configuration_uuid"+"}", url.PathEscape(parameterValueToString(r.configurationUuid, "configurationUuid")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"selector_uuid"+"}", url.PathEscape(parameterValueToString(r.selectorUuid, "selectorUuid")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -4854,7 +4778,7 @@ func (a *DefaultApiService) GetGithubSelectorExecute(r ApiGetGithubSelectorReque
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -4864,15 +4788,15 @@ func (a *DefaultApiService) GetGithubSelectorExecute(r ApiGetGithubSelectorReque
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -4881,7 +4805,7 @@ func (a *DefaultApiService) GetGithubSelectorExecute(r ApiGetGithubSelectorReque
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -4892,8 +4816,8 @@ func (a *DefaultApiService) GetGithubSelectorExecute(r ApiGetGithubSelectorReque
 }
 
 type ApiGetGlobalQueryResultRequest struct {
-	ctx _context.Context
-	ApiService DefaultApi
+	ctx context.Context
+	ApiService DefaultAPI
 	resultUuid string
 	page *int32
 }
@@ -4904,7 +4828,7 @@ func (r ApiGetGlobalQueryResultRequest) Page(page int32) ApiGetGlobalQueryResult
 	return r
 }
 
-func (r ApiGetGlobalQueryResultRequest) Execute() (*_nethttp.Response, error) {
+func (r ApiGetGlobalQueryResultRequest) Execute() (*http.Response, error) {
 	return r.ApiService.GetGlobalQueryResultExecute(r)
 }
 
@@ -4913,11 +4837,11 @@ GetGlobalQueryResult Method for GetGlobalQueryResult
 
 Get a single saved global query result
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param resultUuid
  @return ApiGetGlobalQueryResultRequest
 */
-func (a *DefaultApiService) GetGlobalQueryResult(ctx _context.Context, resultUuid string) ApiGetGlobalQueryResultRequest {
+func (a *DefaultAPIService) GetGlobalQueryResult(ctx context.Context, resultUuid string) ApiGetGlobalQueryResultRequest {
 	return ApiGetGlobalQueryResultRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -4926,29 +4850,27 @@ func (a *DefaultApiService) GetGlobalQueryResult(ctx _context.Context, resultUui
 }
 
 // Execute executes the request
-func (a *DefaultApiService) GetGlobalQueryResultExecute(r ApiGetGlobalQueryResultRequest) (*_nethttp.Response, error) {
+func (a *DefaultAPIService) GetGlobalQueryResultExecute(r ApiGetGlobalQueryResultRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
+		formFiles            []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.GetGlobalQueryResult")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.GetGlobalQueryResult")
 	if err != nil {
-		return nil, GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/reporting/reports/global/scheduled-query-results/{result_uuid}"
-	localVarPath = strings.Replace(localVarPath, "{"+"result_uuid"+"}", _neturl.PathEscape(parameterToString(r.resultUuid, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"result_uuid"+"}", url.PathEscape(parameterValueToString(r.resultUuid, "resultUuid")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	if r.page != nil {
-		localVarQueryParams.Add("page", parameterToString(*r.page, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "page", r.page, "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -4967,7 +4889,7 @@ func (a *DefaultApiService) GetGlobalQueryResultExecute(r ApiGetGlobalQueryResul
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
 	}
@@ -4977,15 +4899,15 @@ func (a *DefaultApiService) GetGlobalQueryResultExecute(r ApiGetGlobalQueryResul
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -4996,13 +4918,12 @@ func (a *DefaultApiService) GetGlobalQueryResultExecute(r ApiGetGlobalQueryResul
 }
 
 type ApiGetIdpRequest struct {
-	ctx _context.Context
-	ApiService DefaultApi
+	ctx context.Context
+	ApiService DefaultAPI
 	name string
 }
 
-
-func (r ApiGetIdpRequest) Execute() (RbacManagerSamlConfiguration, *_nethttp.Response, error) {
+func (r ApiGetIdpRequest) Execute() (*RbacManagerSamlConfiguration, *http.Response, error) {
 	return r.ApiService.GetIdpExecute(r)
 }
 
@@ -5011,11 +4932,11 @@ GetIdp Method for GetIdp
 
 Return the configuration for a named Identity Provider
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param name
  @return ApiGetIdpRequest
 */
-func (a *DefaultApiService) GetIdp(ctx _context.Context, name string) ApiGetIdpRequest {
+func (a *DefaultAPIService) GetIdp(ctx context.Context, name string) ApiGetIdpRequest {
 	return ApiGetIdpRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -5025,27 +4946,25 @@ func (a *DefaultApiService) GetIdp(ctx _context.Context, name string) ApiGetIdpR
 
 // Execute executes the request
 //  @return RbacManagerSamlConfiguration
-func (a *DefaultApiService) GetIdpExecute(r ApiGetIdpRequest) (RbacManagerSamlConfiguration, *_nethttp.Response, error) {
+func (a *DefaultAPIService) GetIdpExecute(r ApiGetIdpRequest) (*RbacManagerSamlConfiguration, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  RbacManagerSamlConfiguration
+		formFiles            []formFile
+		localVarReturnValue  *RbacManagerSamlConfiguration
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.GetIdp")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.GetIdp")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/rbac-manager/saml/idps/{name}"
-	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", _neturl.PathEscape(parameterToString(r.name, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(parameterValueToString(r.name, "name")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -5064,7 +4983,7 @@ func (a *DefaultApiService) GetIdpExecute(r ApiGetIdpRequest) (RbacManagerSamlCo
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -5074,15 +4993,15 @@ func (a *DefaultApiService) GetIdpExecute(r ApiGetIdpRequest) (RbacManagerSamlCo
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -5093,7 +5012,8 @@ func (a *DefaultApiService) GetIdpExecute(r ApiGetIdpRequest) (RbacManagerSamlCo
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 500 {
@@ -5103,14 +5023,15 @@ func (a *DefaultApiService) GetIdpExecute(r ApiGetIdpRequest) (RbacManagerSamlCo
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -5121,13 +5042,12 @@ func (a *DefaultApiService) GetIdpExecute(r ApiGetIdpRequest) (RbacManagerSamlCo
 }
 
 type ApiGetJiraConfigurationRequest struct {
-	ctx _context.Context
-	ApiService DefaultApi
+	ctx context.Context
+	ApiService DefaultAPI
 	uuid string
 }
 
-
-func (r ApiGetJiraConfigurationRequest) Execute() (NotificationJiraEndpointConfigurationBase, *_nethttp.Response, error) {
+func (r ApiGetJiraConfigurationRequest) Execute() (*NotificationJiraEndpointConfigurationBase, *http.Response, error) {
 	return r.ApiService.GetJiraConfigurationExecute(r)
 }
 
@@ -5136,11 +5056,11 @@ GetJiraConfiguration Method for GetJiraConfiguration
 
 Get a Jira endpoint configuration by it's UUID
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param uuid
  @return ApiGetJiraConfigurationRequest
 */
-func (a *DefaultApiService) GetJiraConfiguration(ctx _context.Context, uuid string) ApiGetJiraConfigurationRequest {
+func (a *DefaultAPIService) GetJiraConfiguration(ctx context.Context, uuid string) ApiGetJiraConfigurationRequest {
 	return ApiGetJiraConfigurationRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -5150,27 +5070,25 @@ func (a *DefaultApiService) GetJiraConfiguration(ctx _context.Context, uuid stri
 
 // Execute executes the request
 //  @return NotificationJiraEndpointConfigurationBase
-func (a *DefaultApiService) GetJiraConfigurationExecute(r ApiGetJiraConfigurationRequest) (NotificationJiraEndpointConfigurationBase, *_nethttp.Response, error) {
+func (a *DefaultAPIService) GetJiraConfigurationExecute(r ApiGetJiraConfigurationRequest) (*NotificationJiraEndpointConfigurationBase, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  NotificationJiraEndpointConfigurationBase
+		formFiles            []formFile
+		localVarReturnValue  *NotificationJiraEndpointConfigurationBase
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.GetJiraConfiguration")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.GetJiraConfiguration")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/notifications/endpoints/jira/configurations/{uuid}"
-	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", _neturl.PathEscape(parameterToString(r.uuid, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", url.PathEscape(parameterValueToString(r.uuid, "uuid")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -5189,7 +5107,7 @@ func (a *DefaultApiService) GetJiraConfigurationExecute(r ApiGetJiraConfiguratio
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -5199,15 +5117,15 @@ func (a *DefaultApiService) GetJiraConfigurationExecute(r ApiGetJiraConfiguratio
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -5216,7 +5134,7 @@ func (a *DefaultApiService) GetJiraConfigurationExecute(r ApiGetJiraConfiguratio
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -5227,13 +5145,12 @@ func (a *DefaultApiService) GetJiraConfigurationExecute(r ApiGetJiraConfiguratio
 }
 
 type ApiGetJiraConfigurationStatusRequest struct {
-	ctx _context.Context
-	ApiService DefaultApi
+	ctx context.Context
+	ApiService DefaultAPI
 	uuid string
 }
 
-
-func (r ApiGetJiraConfigurationStatusRequest) Execute() (NotificationOperationalStatus, *_nethttp.Response, error) {
+func (r ApiGetJiraConfigurationStatusRequest) Execute() (*NotificationOperationalStatus, *http.Response, error) {
 	return r.ApiService.GetJiraConfigurationStatusExecute(r)
 }
 
@@ -5242,11 +5159,11 @@ GetJiraConfigurationStatus Method for GetJiraConfigurationStatus
 
 Get operational status for a Jira endpoint configuration
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param uuid
  @return ApiGetJiraConfigurationStatusRequest
 */
-func (a *DefaultApiService) GetJiraConfigurationStatus(ctx _context.Context, uuid string) ApiGetJiraConfigurationStatusRequest {
+func (a *DefaultAPIService) GetJiraConfigurationStatus(ctx context.Context, uuid string) ApiGetJiraConfigurationStatusRequest {
 	return ApiGetJiraConfigurationStatusRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -5256,27 +5173,25 @@ func (a *DefaultApiService) GetJiraConfigurationStatus(ctx _context.Context, uui
 
 // Execute executes the request
 //  @return NotificationOperationalStatus
-func (a *DefaultApiService) GetJiraConfigurationStatusExecute(r ApiGetJiraConfigurationStatusRequest) (NotificationOperationalStatus, *_nethttp.Response, error) {
+func (a *DefaultAPIService) GetJiraConfigurationStatusExecute(r ApiGetJiraConfigurationStatusRequest) (*NotificationOperationalStatus, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  NotificationOperationalStatus
+		formFiles            []formFile
+		localVarReturnValue  *NotificationOperationalStatus
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.GetJiraConfigurationStatus")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.GetJiraConfigurationStatus")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/notifications/endpoints/jira/configurations/{uuid}/status"
-	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", _neturl.PathEscape(parameterToString(r.uuid, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", url.PathEscape(parameterValueToString(r.uuid, "uuid")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -5295,7 +5210,7 @@ func (a *DefaultApiService) GetJiraConfigurationStatusExecute(r ApiGetJiraConfig
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -5305,15 +5220,15 @@ func (a *DefaultApiService) GetJiraConfigurationStatusExecute(r ApiGetJiraConfig
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -5322,7 +5237,7 @@ func (a *DefaultApiService) GetJiraConfigurationStatusExecute(r ApiGetJiraConfig
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -5333,14 +5248,13 @@ func (a *DefaultApiService) GetJiraConfigurationStatusExecute(r ApiGetJiraConfig
 }
 
 type ApiGetJiraSelectorRequest struct {
-	ctx _context.Context
-	ApiService DefaultApi
+	ctx context.Context
+	ApiService DefaultAPI
 	configurationUuid string
 	selectorUuid string
 }
 
-
-func (r ApiGetJiraSelectorRequest) Execute() (NotificationSelector, *_nethttp.Response, error) {
+func (r ApiGetJiraSelectorRequest) Execute() (*NotificationSelector, *http.Response, error) {
 	return r.ApiService.GetJiraSelectorExecute(r)
 }
 
@@ -5349,12 +5263,12 @@ GetJiraSelector Method for GetJiraSelector
 
 Get a selector mapped to a Jira endpoint configuration
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param configurationUuid
  @param selectorUuid
  @return ApiGetJiraSelectorRequest
 */
-func (a *DefaultApiService) GetJiraSelector(ctx _context.Context, configurationUuid string, selectorUuid string) ApiGetJiraSelectorRequest {
+func (a *DefaultAPIService) GetJiraSelector(ctx context.Context, configurationUuid string, selectorUuid string) ApiGetJiraSelectorRequest {
 	return ApiGetJiraSelectorRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -5365,28 +5279,26 @@ func (a *DefaultApiService) GetJiraSelector(ctx _context.Context, configurationU
 
 // Execute executes the request
 //  @return NotificationSelector
-func (a *DefaultApiService) GetJiraSelectorExecute(r ApiGetJiraSelectorRequest) (NotificationSelector, *_nethttp.Response, error) {
+func (a *DefaultAPIService) GetJiraSelectorExecute(r ApiGetJiraSelectorRequest) (*NotificationSelector, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  NotificationSelector
+		formFiles            []formFile
+		localVarReturnValue  *NotificationSelector
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.GetJiraSelector")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.GetJiraSelector")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/notifications/endpoints/jira/configurations/{configuration_uuid}/selectors/{selector_uuid}"
-	localVarPath = strings.Replace(localVarPath, "{"+"configuration_uuid"+"}", _neturl.PathEscape(parameterToString(r.configurationUuid, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"selector_uuid"+"}", _neturl.PathEscape(parameterToString(r.selectorUuid, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"configuration_uuid"+"}", url.PathEscape(parameterValueToString(r.configurationUuid, "configurationUuid")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"selector_uuid"+"}", url.PathEscape(parameterValueToString(r.selectorUuid, "selectorUuid")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -5405,7 +5317,7 @@ func (a *DefaultApiService) GetJiraSelectorExecute(r ApiGetJiraSelectorRequest) 
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -5415,15 +5327,15 @@ func (a *DefaultApiService) GetJiraSelectorExecute(r ApiGetJiraSelectorRequest) 
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -5432,7 +5344,7 @@ func (a *DefaultApiService) GetJiraSelectorExecute(r ApiGetJiraSelectorRequest) 
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -5443,8 +5355,8 @@ func (a *DefaultApiService) GetJiraSelectorExecute(r ApiGetJiraSelectorRequest) 
 }
 
 type ApiGetOauthTokenRequest struct {
-	ctx _context.Context
-	ApiService DefaultApi
+	ctx context.Context
+	ApiService DefaultAPI
 	grantType *string
 	username *string
 	password *string
@@ -5457,28 +5369,32 @@ func (r ApiGetOauthTokenRequest) GrantType(grantType string) ApiGetOauthTokenReq
 	r.grantType = &grantType
 	return r
 }
+
 // User to assign OAuth token to
 func (r ApiGetOauthTokenRequest) Username(username string) ApiGetOauthTokenRequest {
 	r.username = &username
 	return r
 }
+
 // Password for corresponding user
 func (r ApiGetOauthTokenRequest) Password(password string) ApiGetOauthTokenRequest {
 	r.password = &password
 	return r
 }
+
 // The type of client used for the OAuth token
 func (r ApiGetOauthTokenRequest) ClientId(clientId string) ApiGetOauthTokenRequest {
 	r.clientId = &clientId
 	return r
 }
+
 // The refresh token from a previous password grant request, used to get a new access_token
 func (r ApiGetOauthTokenRequest) RefreshToken(refreshToken string) ApiGetOauthTokenRequest {
 	r.refreshToken = &refreshToken
 	return r
 }
 
-func (r ApiGetOauthTokenRequest) Execute() (TokenResponse, *_nethttp.Response, error) {
+func (r ApiGetOauthTokenRequest) Execute() (*TokenResponse, *http.Response, error) {
 	return r.ApiService.GetOauthTokenExecute(r)
 }
 
@@ -5487,10 +5403,10 @@ GetOauthToken Method for GetOauthToken
 
 Request a jwt token for subsequent operations, this request is authenticated with normal HTTP auth
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiGetOauthTokenRequest
 */
-func (a *DefaultApiService) GetOauthToken(ctx _context.Context) ApiGetOauthTokenRequest {
+func (a *DefaultAPIService) GetOauthToken(ctx context.Context) ApiGetOauthTokenRequest {
 	return ApiGetOauthTokenRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -5499,26 +5415,24 @@ func (a *DefaultApiService) GetOauthToken(ctx _context.Context) ApiGetOauthToken
 
 // Execute executes the request
 //  @return TokenResponse
-func (a *DefaultApiService) GetOauthTokenExecute(r ApiGetOauthTokenRequest) (TokenResponse, *_nethttp.Response, error) {
+func (a *DefaultAPIService) GetOauthTokenExecute(r ApiGetOauthTokenRequest) (*TokenResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPost
+		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  TokenResponse
+		formFiles            []formFile
+		localVarReturnValue  *TokenResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.GetOauthToken")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.GetOauthToken")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/oauth/token"
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/x-www-form-urlencoded"}
@@ -5538,21 +5452,21 @@ func (a *DefaultApiService) GetOauthTokenExecute(r ApiGetOauthTokenRequest) (Tok
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.grantType != nil {
-		localVarFormParams.Add("grant_type", parameterToString(*r.grantType, ""))
+		parameterAddToHeaderOrQuery(localVarFormParams, "grant_type", r.grantType, "")
 	}
 	if r.username != nil {
-		localVarFormParams.Add("username", parameterToString(*r.username, ""))
+		parameterAddToHeaderOrQuery(localVarFormParams, "username", r.username, "")
 	}
 	if r.password != nil {
-		localVarFormParams.Add("password", parameterToString(*r.password, ""))
+		parameterAddToHeaderOrQuery(localVarFormParams, "password", r.password, "")
 	}
 	if r.clientId != nil {
-		localVarFormParams.Add("client_id", parameterToString(*r.clientId, ""))
+		parameterAddToHeaderOrQuery(localVarFormParams, "client_id", r.clientId, "")
 	}
 	if r.refreshToken != nil {
-		localVarFormParams.Add("refresh_token", parameterToString(*r.refreshToken, ""))
+		parameterAddToHeaderOrQuery(localVarFormParams, "refresh_token", r.refreshToken, "")
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -5562,15 +5476,15 @@ func (a *DefaultApiService) GetOauthTokenExecute(r ApiGetOauthTokenRequest) (Tok
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -5581,14 +5495,15 @@ func (a *DefaultApiService) GetOauthTokenExecute(r ApiGetOauthTokenRequest) (Tok
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -5599,8 +5514,8 @@ func (a *DefaultApiService) GetOauthTokenExecute(r ApiGetOauthTokenRequest) (Tok
 }
 
 type ApiGetQueryResultRequest struct {
-	ctx _context.Context
-	ApiService DefaultApi
+	ctx context.Context
+	ApiService DefaultAPI
 	resultUuid string
 	page *int32
 }
@@ -5611,7 +5526,7 @@ func (r ApiGetQueryResultRequest) Page(page int32) ApiGetQueryResultRequest {
 	return r
 }
 
-func (r ApiGetQueryResultRequest) Execute() (*_nethttp.Response, error) {
+func (r ApiGetQueryResultRequest) Execute() (*http.Response, error) {
 	return r.ApiService.GetQueryResultExecute(r)
 }
 
@@ -5620,11 +5535,11 @@ GetQueryResult Method for GetQueryResult
 
 Get a single saved query result
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param resultUuid
  @return ApiGetQueryResultRequest
 */
-func (a *DefaultApiService) GetQueryResult(ctx _context.Context, resultUuid string) ApiGetQueryResultRequest {
+func (a *DefaultAPIService) GetQueryResult(ctx context.Context, resultUuid string) ApiGetQueryResultRequest {
 	return ApiGetQueryResultRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -5633,29 +5548,27 @@ func (a *DefaultApiService) GetQueryResult(ctx _context.Context, resultUuid stri
 }
 
 // Execute executes the request
-func (a *DefaultApiService) GetQueryResultExecute(r ApiGetQueryResultRequest) (*_nethttp.Response, error) {
+func (a *DefaultAPIService) GetQueryResultExecute(r ApiGetQueryResultRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
+		formFiles            []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.GetQueryResult")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.GetQueryResult")
 	if err != nil {
-		return nil, GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/reporting/scheduled-query-results/{result_uuid}"
-	localVarPath = strings.Replace(localVarPath, "{"+"result_uuid"+"}", _neturl.PathEscape(parameterToString(r.resultUuid, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"result_uuid"+"}", url.PathEscape(parameterValueToString(r.resultUuid, "resultUuid")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	if r.page != nil {
-		localVarQueryParams.Add("page", parameterToString(*r.page, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "page", r.page, "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -5674,7 +5587,7 @@ func (a *DefaultApiService) GetQueryResultExecute(r ApiGetQueryResultRequest) (*
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
 	}
@@ -5684,15 +5597,15 @@ func (a *DefaultApiService) GetQueryResultExecute(r ApiGetQueryResultRequest) (*
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -5703,24 +5616,23 @@ func (a *DefaultApiService) GetQueryResultExecute(r ApiGetQueryResultRequest) (*
 }
 
 type ApiGetRoleRequest struct {
-	ctx _context.Context
-	ApiService DefaultApi
+	ctx context.Context
+	ApiService DefaultAPI
 	roleName string
 }
 
-
-func (r ApiGetRoleRequest) Execute() (RbacManagerRole, *_nethttp.Response, error) {
+func (r ApiGetRoleRequest) Execute() (*RbacManagerRole, *http.Response, error) {
 	return r.ApiService.GetRoleExecute(r)
 }
 
 /*
 GetRole Get detailed information about a specific role
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param roleName
  @return ApiGetRoleRequest
 */
-func (a *DefaultApiService) GetRole(ctx _context.Context, roleName string) ApiGetRoleRequest {
+func (a *DefaultAPIService) GetRole(ctx context.Context, roleName string) ApiGetRoleRequest {
 	return ApiGetRoleRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -5730,27 +5642,25 @@ func (a *DefaultApiService) GetRole(ctx _context.Context, roleName string) ApiGe
 
 // Execute executes the request
 //  @return RbacManagerRole
-func (a *DefaultApiService) GetRoleExecute(r ApiGetRoleRequest) (RbacManagerRole, *_nethttp.Response, error) {
+func (a *DefaultAPIService) GetRoleExecute(r ApiGetRoleRequest) (*RbacManagerRole, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  RbacManagerRole
+		formFiles            []formFile
+		localVarReturnValue  *RbacManagerRole
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.GetRole")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.GetRole")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/rbac-manager/roles/{role_name}"
-	localVarPath = strings.Replace(localVarPath, "{"+"role_name"+"}", _neturl.PathEscape(parameterToString(r.roleName, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"role_name"+"}", url.PathEscape(parameterValueToString(r.roleName, "roleName")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -5769,7 +5679,7 @@ func (a *DefaultApiService) GetRoleExecute(r ApiGetRoleRequest) (RbacManagerRole
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -5779,15 +5689,15 @@ func (a *DefaultApiService) GetRoleExecute(r ApiGetRoleRequest) (RbacManagerRole
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -5798,14 +5708,15 @@ func (a *DefaultApiService) GetRoleExecute(r ApiGetRoleRequest) (RbacManagerRole
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -5816,13 +5727,12 @@ func (a *DefaultApiService) GetRoleExecute(r ApiGetRoleRequest) (RbacManagerRole
 }
 
 type ApiGetSlackConfigurationRequest struct {
-	ctx _context.Context
-	ApiService DefaultApi
+	ctx context.Context
+	ApiService DefaultAPI
 	uuid string
 }
 
-
-func (r ApiGetSlackConfigurationRequest) Execute() (NotificationSlackEndpointConfiguration, *_nethttp.Response, error) {
+func (r ApiGetSlackConfigurationRequest) Execute() (*NotificationSlackEndpointConfiguration, *http.Response, error) {
 	return r.ApiService.GetSlackConfigurationExecute(r)
 }
 
@@ -5831,11 +5741,11 @@ GetSlackConfiguration Method for GetSlackConfiguration
 
 Get a Slack endpoint configuration by it's UUID
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param uuid
  @return ApiGetSlackConfigurationRequest
 */
-func (a *DefaultApiService) GetSlackConfiguration(ctx _context.Context, uuid string) ApiGetSlackConfigurationRequest {
+func (a *DefaultAPIService) GetSlackConfiguration(ctx context.Context, uuid string) ApiGetSlackConfigurationRequest {
 	return ApiGetSlackConfigurationRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -5845,27 +5755,25 @@ func (a *DefaultApiService) GetSlackConfiguration(ctx _context.Context, uuid str
 
 // Execute executes the request
 //  @return NotificationSlackEndpointConfiguration
-func (a *DefaultApiService) GetSlackConfigurationExecute(r ApiGetSlackConfigurationRequest) (NotificationSlackEndpointConfiguration, *_nethttp.Response, error) {
+func (a *DefaultAPIService) GetSlackConfigurationExecute(r ApiGetSlackConfigurationRequest) (*NotificationSlackEndpointConfiguration, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  NotificationSlackEndpointConfiguration
+		formFiles            []formFile
+		localVarReturnValue  *NotificationSlackEndpointConfiguration
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.GetSlackConfiguration")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.GetSlackConfiguration")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/notifications/endpoints/slack/configurations/{uuid}"
-	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", _neturl.PathEscape(parameterToString(r.uuid, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", url.PathEscape(parameterValueToString(r.uuid, "uuid")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -5884,7 +5792,7 @@ func (a *DefaultApiService) GetSlackConfigurationExecute(r ApiGetSlackConfigurat
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -5894,15 +5802,15 @@ func (a *DefaultApiService) GetSlackConfigurationExecute(r ApiGetSlackConfigurat
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -5911,7 +5819,7 @@ func (a *DefaultApiService) GetSlackConfigurationExecute(r ApiGetSlackConfigurat
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -5922,13 +5830,12 @@ func (a *DefaultApiService) GetSlackConfigurationExecute(r ApiGetSlackConfigurat
 }
 
 type ApiGetSlackConfigurationStatusRequest struct {
-	ctx _context.Context
-	ApiService DefaultApi
+	ctx context.Context
+	ApiService DefaultAPI
 	uuid string
 }
 
-
-func (r ApiGetSlackConfigurationStatusRequest) Execute() (NotificationOperationalStatus, *_nethttp.Response, error) {
+func (r ApiGetSlackConfigurationStatusRequest) Execute() (*NotificationOperationalStatus, *http.Response, error) {
 	return r.ApiService.GetSlackConfigurationStatusExecute(r)
 }
 
@@ -5937,11 +5844,11 @@ GetSlackConfigurationStatus Method for GetSlackConfigurationStatus
 
 Get operational status for a Slack endpoint configuration
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param uuid
  @return ApiGetSlackConfigurationStatusRequest
 */
-func (a *DefaultApiService) GetSlackConfigurationStatus(ctx _context.Context, uuid string) ApiGetSlackConfigurationStatusRequest {
+func (a *DefaultAPIService) GetSlackConfigurationStatus(ctx context.Context, uuid string) ApiGetSlackConfigurationStatusRequest {
 	return ApiGetSlackConfigurationStatusRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -5951,27 +5858,25 @@ func (a *DefaultApiService) GetSlackConfigurationStatus(ctx _context.Context, uu
 
 // Execute executes the request
 //  @return NotificationOperationalStatus
-func (a *DefaultApiService) GetSlackConfigurationStatusExecute(r ApiGetSlackConfigurationStatusRequest) (NotificationOperationalStatus, *_nethttp.Response, error) {
+func (a *DefaultAPIService) GetSlackConfigurationStatusExecute(r ApiGetSlackConfigurationStatusRequest) (*NotificationOperationalStatus, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  NotificationOperationalStatus
+		formFiles            []formFile
+		localVarReturnValue  *NotificationOperationalStatus
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.GetSlackConfigurationStatus")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.GetSlackConfigurationStatus")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/notifications/endpoints/slack/configurations/{uuid}/status"
-	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", _neturl.PathEscape(parameterToString(r.uuid, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", url.PathEscape(parameterValueToString(r.uuid, "uuid")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -5990,7 +5895,7 @@ func (a *DefaultApiService) GetSlackConfigurationStatusExecute(r ApiGetSlackConf
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -6000,15 +5905,15 @@ func (a *DefaultApiService) GetSlackConfigurationStatusExecute(r ApiGetSlackConf
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -6017,7 +5922,7 @@ func (a *DefaultApiService) GetSlackConfigurationStatusExecute(r ApiGetSlackConf
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -6028,14 +5933,13 @@ func (a *DefaultApiService) GetSlackConfigurationStatusExecute(r ApiGetSlackConf
 }
 
 type ApiGetSlackSelectorRequest struct {
-	ctx _context.Context
-	ApiService DefaultApi
+	ctx context.Context
+	ApiService DefaultAPI
 	configurationUuid string
 	selectorUuid string
 }
 
-
-func (r ApiGetSlackSelectorRequest) Execute() (NotificationSelector, *_nethttp.Response, error) {
+func (r ApiGetSlackSelectorRequest) Execute() (*NotificationSelector, *http.Response, error) {
 	return r.ApiService.GetSlackSelectorExecute(r)
 }
 
@@ -6044,12 +5948,12 @@ GetSlackSelector Method for GetSlackSelector
 
 Get a selector mapped to a Slack endpoint configuration
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param configurationUuid
  @param selectorUuid
  @return ApiGetSlackSelectorRequest
 */
-func (a *DefaultApiService) GetSlackSelector(ctx _context.Context, configurationUuid string, selectorUuid string) ApiGetSlackSelectorRequest {
+func (a *DefaultAPIService) GetSlackSelector(ctx context.Context, configurationUuid string, selectorUuid string) ApiGetSlackSelectorRequest {
 	return ApiGetSlackSelectorRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -6060,28 +5964,26 @@ func (a *DefaultApiService) GetSlackSelector(ctx _context.Context, configuration
 
 // Execute executes the request
 //  @return NotificationSelector
-func (a *DefaultApiService) GetSlackSelectorExecute(r ApiGetSlackSelectorRequest) (NotificationSelector, *_nethttp.Response, error) {
+func (a *DefaultAPIService) GetSlackSelectorExecute(r ApiGetSlackSelectorRequest) (*NotificationSelector, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  NotificationSelector
+		formFiles            []formFile
+		localVarReturnValue  *NotificationSelector
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.GetSlackSelector")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.GetSlackSelector")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/notifications/endpoints/slack/configurations/{configuration_uuid}/selectors/{selector_uuid}"
-	localVarPath = strings.Replace(localVarPath, "{"+"configuration_uuid"+"}", _neturl.PathEscape(parameterToString(r.configurationUuid, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"selector_uuid"+"}", _neturl.PathEscape(parameterToString(r.selectorUuid, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"configuration_uuid"+"}", url.PathEscape(parameterValueToString(r.configurationUuid, "configurationUuid")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"selector_uuid"+"}", url.PathEscape(parameterValueToString(r.selectorUuid, "selectorUuid")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -6100,7 +6002,7 @@ func (a *DefaultApiService) GetSlackSelectorExecute(r ApiGetSlackSelectorRequest
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -6110,15 +6012,15 @@ func (a *DefaultApiService) GetSlackSelectorExecute(r ApiGetSlackSelectorRequest
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -6127,7 +6029,7 @@ func (a *DefaultApiService) GetSlackSelectorExecute(r ApiGetSlackSelectorRequest
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -6138,13 +6040,12 @@ func (a *DefaultApiService) GetSlackSelectorExecute(r ApiGetSlackSelectorRequest
 }
 
 type ApiGetSmtpConfigurationRequest struct {
-	ctx _context.Context
-	ApiService DefaultApi
+	ctx context.Context
+	ApiService DefaultAPI
 	uuid string
 }
 
-
-func (r ApiGetSmtpConfigurationRequest) Execute() (NotificationSMTPEndpointConfiguration, *_nethttp.Response, error) {
+func (r ApiGetSmtpConfigurationRequest) Execute() (*NotificationSMTPEndpointConfiguration, *http.Response, error) {
 	return r.ApiService.GetSmtpConfigurationExecute(r)
 }
 
@@ -6153,11 +6054,11 @@ GetSmtpConfiguration Method for GetSmtpConfiguration
 
 Get a SMTP endpoint configuration by it's UUID
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param uuid
  @return ApiGetSmtpConfigurationRequest
 */
-func (a *DefaultApiService) GetSmtpConfiguration(ctx _context.Context, uuid string) ApiGetSmtpConfigurationRequest {
+func (a *DefaultAPIService) GetSmtpConfiguration(ctx context.Context, uuid string) ApiGetSmtpConfigurationRequest {
 	return ApiGetSmtpConfigurationRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -6167,27 +6068,25 @@ func (a *DefaultApiService) GetSmtpConfiguration(ctx _context.Context, uuid stri
 
 // Execute executes the request
 //  @return NotificationSMTPEndpointConfiguration
-func (a *DefaultApiService) GetSmtpConfigurationExecute(r ApiGetSmtpConfigurationRequest) (NotificationSMTPEndpointConfiguration, *_nethttp.Response, error) {
+func (a *DefaultAPIService) GetSmtpConfigurationExecute(r ApiGetSmtpConfigurationRequest) (*NotificationSMTPEndpointConfiguration, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  NotificationSMTPEndpointConfiguration
+		formFiles            []formFile
+		localVarReturnValue  *NotificationSMTPEndpointConfiguration
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.GetSmtpConfiguration")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.GetSmtpConfiguration")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/notifications/endpoints/smtp/configurations/{uuid}"
-	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", _neturl.PathEscape(parameterToString(r.uuid, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", url.PathEscape(parameterValueToString(r.uuid, "uuid")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -6206,7 +6105,7 @@ func (a *DefaultApiService) GetSmtpConfigurationExecute(r ApiGetSmtpConfiguratio
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -6216,15 +6115,15 @@ func (a *DefaultApiService) GetSmtpConfigurationExecute(r ApiGetSmtpConfiguratio
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -6233,7 +6132,7 @@ func (a *DefaultApiService) GetSmtpConfigurationExecute(r ApiGetSmtpConfiguratio
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -6244,13 +6143,12 @@ func (a *DefaultApiService) GetSmtpConfigurationExecute(r ApiGetSmtpConfiguratio
 }
 
 type ApiGetSmtpConfigurationStatusRequest struct {
-	ctx _context.Context
-	ApiService DefaultApi
+	ctx context.Context
+	ApiService DefaultAPI
 	uuid string
 }
 
-
-func (r ApiGetSmtpConfigurationStatusRequest) Execute() (NotificationOperationalStatus, *_nethttp.Response, error) {
+func (r ApiGetSmtpConfigurationStatusRequest) Execute() (*NotificationOperationalStatus, *http.Response, error) {
 	return r.ApiService.GetSmtpConfigurationStatusExecute(r)
 }
 
@@ -6259,11 +6157,11 @@ GetSmtpConfigurationStatus Method for GetSmtpConfigurationStatus
 
 Get operational status for a SMTP endpoint configuration
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param uuid
  @return ApiGetSmtpConfigurationStatusRequest
 */
-func (a *DefaultApiService) GetSmtpConfigurationStatus(ctx _context.Context, uuid string) ApiGetSmtpConfigurationStatusRequest {
+func (a *DefaultAPIService) GetSmtpConfigurationStatus(ctx context.Context, uuid string) ApiGetSmtpConfigurationStatusRequest {
 	return ApiGetSmtpConfigurationStatusRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -6273,27 +6171,25 @@ func (a *DefaultApiService) GetSmtpConfigurationStatus(ctx _context.Context, uui
 
 // Execute executes the request
 //  @return NotificationOperationalStatus
-func (a *DefaultApiService) GetSmtpConfigurationStatusExecute(r ApiGetSmtpConfigurationStatusRequest) (NotificationOperationalStatus, *_nethttp.Response, error) {
+func (a *DefaultAPIService) GetSmtpConfigurationStatusExecute(r ApiGetSmtpConfigurationStatusRequest) (*NotificationOperationalStatus, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  NotificationOperationalStatus
+		formFiles            []formFile
+		localVarReturnValue  *NotificationOperationalStatus
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.GetSmtpConfigurationStatus")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.GetSmtpConfigurationStatus")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/notifications/endpoints/smtp/configurations/{uuid}/status"
-	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", _neturl.PathEscape(parameterToString(r.uuid, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", url.PathEscape(parameterValueToString(r.uuid, "uuid")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -6312,7 +6208,7 @@ func (a *DefaultApiService) GetSmtpConfigurationStatusExecute(r ApiGetSmtpConfig
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -6322,15 +6218,15 @@ func (a *DefaultApiService) GetSmtpConfigurationStatusExecute(r ApiGetSmtpConfig
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -6339,7 +6235,7 @@ func (a *DefaultApiService) GetSmtpConfigurationStatusExecute(r ApiGetSmtpConfig
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -6350,14 +6246,13 @@ func (a *DefaultApiService) GetSmtpConfigurationStatusExecute(r ApiGetSmtpConfig
 }
 
 type ApiGetSmtpSelectorRequest struct {
-	ctx _context.Context
-	ApiService DefaultApi
+	ctx context.Context
+	ApiService DefaultAPI
 	configurationUuid string
 	selectorUuid string
 }
 
-
-func (r ApiGetSmtpSelectorRequest) Execute() (NotificationSelector, *_nethttp.Response, error) {
+func (r ApiGetSmtpSelectorRequest) Execute() (*NotificationSelector, *http.Response, error) {
 	return r.ApiService.GetSmtpSelectorExecute(r)
 }
 
@@ -6366,12 +6261,12 @@ GetSmtpSelector Method for GetSmtpSelector
 
 Get a selector mapped to a SMTP endpoint configuration
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param configurationUuid
  @param selectorUuid
  @return ApiGetSmtpSelectorRequest
 */
-func (a *DefaultApiService) GetSmtpSelector(ctx _context.Context, configurationUuid string, selectorUuid string) ApiGetSmtpSelectorRequest {
+func (a *DefaultAPIService) GetSmtpSelector(ctx context.Context, configurationUuid string, selectorUuid string) ApiGetSmtpSelectorRequest {
 	return ApiGetSmtpSelectorRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -6382,28 +6277,26 @@ func (a *DefaultApiService) GetSmtpSelector(ctx _context.Context, configurationU
 
 // Execute executes the request
 //  @return NotificationSelector
-func (a *DefaultApiService) GetSmtpSelectorExecute(r ApiGetSmtpSelectorRequest) (NotificationSelector, *_nethttp.Response, error) {
+func (a *DefaultAPIService) GetSmtpSelectorExecute(r ApiGetSmtpSelectorRequest) (*NotificationSelector, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  NotificationSelector
+		formFiles            []formFile
+		localVarReturnValue  *NotificationSelector
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.GetSmtpSelector")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.GetSmtpSelector")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/notifications/endpoints/smtp/configurations/{configuration_uuid}/selectors/{selector_uuid}"
-	localVarPath = strings.Replace(localVarPath, "{"+"configuration_uuid"+"}", _neturl.PathEscape(parameterToString(r.configurationUuid, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"selector_uuid"+"}", _neturl.PathEscape(parameterToString(r.selectorUuid, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"configuration_uuid"+"}", url.PathEscape(parameterValueToString(r.configurationUuid, "configurationUuid")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"selector_uuid"+"}", url.PathEscape(parameterValueToString(r.selectorUuid, "selectorUuid")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -6422,7 +6315,7 @@ func (a *DefaultApiService) GetSmtpSelectorExecute(r ApiGetSmtpSelectorRequest) 
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -6432,15 +6325,15 @@ func (a *DefaultApiService) GetSmtpSelectorExecute(r ApiGetSmtpSelectorRequest) 
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -6449,7 +6342,7 @@ func (a *DefaultApiService) GetSmtpSelectorExecute(r ApiGetSmtpSelectorRequest) 
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -6460,13 +6353,12 @@ func (a *DefaultApiService) GetSmtpSelectorExecute(r ApiGetSmtpSelectorRequest) 
 }
 
 type ApiGetTeamsConfigurationRequest struct {
-	ctx _context.Context
-	ApiService DefaultApi
+	ctx context.Context
+	ApiService DefaultAPI
 	uuid string
 }
 
-
-func (r ApiGetTeamsConfigurationRequest) Execute() (NotificationTeamsEndpointConfiguration, *_nethttp.Response, error) {
+func (r ApiGetTeamsConfigurationRequest) Execute() (*NotificationTeamsEndpointConfiguration, *http.Response, error) {
 	return r.ApiService.GetTeamsConfigurationExecute(r)
 }
 
@@ -6475,11 +6367,11 @@ GetTeamsConfiguration Method for GetTeamsConfiguration
 
 Get a Teams endpoint configuration by it's UUID
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param uuid
  @return ApiGetTeamsConfigurationRequest
 */
-func (a *DefaultApiService) GetTeamsConfiguration(ctx _context.Context, uuid string) ApiGetTeamsConfigurationRequest {
+func (a *DefaultAPIService) GetTeamsConfiguration(ctx context.Context, uuid string) ApiGetTeamsConfigurationRequest {
 	return ApiGetTeamsConfigurationRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -6489,27 +6381,25 @@ func (a *DefaultApiService) GetTeamsConfiguration(ctx _context.Context, uuid str
 
 // Execute executes the request
 //  @return NotificationTeamsEndpointConfiguration
-func (a *DefaultApiService) GetTeamsConfigurationExecute(r ApiGetTeamsConfigurationRequest) (NotificationTeamsEndpointConfiguration, *_nethttp.Response, error) {
+func (a *DefaultAPIService) GetTeamsConfigurationExecute(r ApiGetTeamsConfigurationRequest) (*NotificationTeamsEndpointConfiguration, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  NotificationTeamsEndpointConfiguration
+		formFiles            []formFile
+		localVarReturnValue  *NotificationTeamsEndpointConfiguration
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.GetTeamsConfiguration")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.GetTeamsConfiguration")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/notifications/endpoints/teams/configurations/{uuid}"
-	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", _neturl.PathEscape(parameterToString(r.uuid, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", url.PathEscape(parameterValueToString(r.uuid, "uuid")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -6528,7 +6418,7 @@ func (a *DefaultApiService) GetTeamsConfigurationExecute(r ApiGetTeamsConfigurat
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -6538,15 +6428,15 @@ func (a *DefaultApiService) GetTeamsConfigurationExecute(r ApiGetTeamsConfigurat
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -6555,7 +6445,7 @@ func (a *DefaultApiService) GetTeamsConfigurationExecute(r ApiGetTeamsConfigurat
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -6566,13 +6456,12 @@ func (a *DefaultApiService) GetTeamsConfigurationExecute(r ApiGetTeamsConfigurat
 }
 
 type ApiGetTeamsConfigurationStatusRequest struct {
-	ctx _context.Context
-	ApiService DefaultApi
+	ctx context.Context
+	ApiService DefaultAPI
 	uuid string
 }
 
-
-func (r ApiGetTeamsConfigurationStatusRequest) Execute() (NotificationOperationalStatus, *_nethttp.Response, error) {
+func (r ApiGetTeamsConfigurationStatusRequest) Execute() (*NotificationOperationalStatus, *http.Response, error) {
 	return r.ApiService.GetTeamsConfigurationStatusExecute(r)
 }
 
@@ -6581,11 +6470,11 @@ GetTeamsConfigurationStatus Method for GetTeamsConfigurationStatus
 
 Get operational status for a Teams endpoint configuration
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param uuid
  @return ApiGetTeamsConfigurationStatusRequest
 */
-func (a *DefaultApiService) GetTeamsConfigurationStatus(ctx _context.Context, uuid string) ApiGetTeamsConfigurationStatusRequest {
+func (a *DefaultAPIService) GetTeamsConfigurationStatus(ctx context.Context, uuid string) ApiGetTeamsConfigurationStatusRequest {
 	return ApiGetTeamsConfigurationStatusRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -6595,27 +6484,25 @@ func (a *DefaultApiService) GetTeamsConfigurationStatus(ctx _context.Context, uu
 
 // Execute executes the request
 //  @return NotificationOperationalStatus
-func (a *DefaultApiService) GetTeamsConfigurationStatusExecute(r ApiGetTeamsConfigurationStatusRequest) (NotificationOperationalStatus, *_nethttp.Response, error) {
+func (a *DefaultAPIService) GetTeamsConfigurationStatusExecute(r ApiGetTeamsConfigurationStatusRequest) (*NotificationOperationalStatus, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  NotificationOperationalStatus
+		formFiles            []formFile
+		localVarReturnValue  *NotificationOperationalStatus
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.GetTeamsConfigurationStatus")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.GetTeamsConfigurationStatus")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/notifications/endpoints/teams/configurations/{uuid}/status"
-	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", _neturl.PathEscape(parameterToString(r.uuid, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", url.PathEscape(parameterValueToString(r.uuid, "uuid")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -6634,7 +6521,7 @@ func (a *DefaultApiService) GetTeamsConfigurationStatusExecute(r ApiGetTeamsConf
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -6644,15 +6531,15 @@ func (a *DefaultApiService) GetTeamsConfigurationStatusExecute(r ApiGetTeamsConf
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -6661,7 +6548,7 @@ func (a *DefaultApiService) GetTeamsConfigurationStatusExecute(r ApiGetTeamsConf
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -6672,14 +6559,13 @@ func (a *DefaultApiService) GetTeamsConfigurationStatusExecute(r ApiGetTeamsConf
 }
 
 type ApiGetTeamsSelectorRequest struct {
-	ctx _context.Context
-	ApiService DefaultApi
+	ctx context.Context
+	ApiService DefaultAPI
 	configurationUuid string
 	selectorUuid string
 }
 
-
-func (r ApiGetTeamsSelectorRequest) Execute() (NotificationSelector, *_nethttp.Response, error) {
+func (r ApiGetTeamsSelectorRequest) Execute() (*NotificationSelector, *http.Response, error) {
 	return r.ApiService.GetTeamsSelectorExecute(r)
 }
 
@@ -6688,12 +6574,12 @@ GetTeamsSelector Method for GetTeamsSelector
 
 Get a selector mapped to a Teams endpoint configuration
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param configurationUuid
  @param selectorUuid
  @return ApiGetTeamsSelectorRequest
 */
-func (a *DefaultApiService) GetTeamsSelector(ctx _context.Context, configurationUuid string, selectorUuid string) ApiGetTeamsSelectorRequest {
+func (a *DefaultAPIService) GetTeamsSelector(ctx context.Context, configurationUuid string, selectorUuid string) ApiGetTeamsSelectorRequest {
 	return ApiGetTeamsSelectorRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -6704,28 +6590,26 @@ func (a *DefaultApiService) GetTeamsSelector(ctx _context.Context, configuration
 
 // Execute executes the request
 //  @return NotificationSelector
-func (a *DefaultApiService) GetTeamsSelectorExecute(r ApiGetTeamsSelectorRequest) (NotificationSelector, *_nethttp.Response, error) {
+func (a *DefaultAPIService) GetTeamsSelectorExecute(r ApiGetTeamsSelectorRequest) (*NotificationSelector, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  NotificationSelector
+		formFiles            []formFile
+		localVarReturnValue  *NotificationSelector
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.GetTeamsSelector")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.GetTeamsSelector")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/notifications/endpoints/teams/configurations/{configuration_uuid}/selectors/{selector_uuid}"
-	localVarPath = strings.Replace(localVarPath, "{"+"configuration_uuid"+"}", _neturl.PathEscape(parameterToString(r.configurationUuid, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"selector_uuid"+"}", _neturl.PathEscape(parameterToString(r.selectorUuid, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"configuration_uuid"+"}", url.PathEscape(parameterValueToString(r.configurationUuid, "configurationUuid")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"selector_uuid"+"}", url.PathEscape(parameterValueToString(r.selectorUuid, "selectorUuid")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -6744,7 +6628,7 @@ func (a *DefaultApiService) GetTeamsSelectorExecute(r ApiGetTeamsSelectorRequest
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -6754,15 +6638,15 @@ func (a *DefaultApiService) GetTeamsSelectorExecute(r ApiGetTeamsSelectorRequest
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -6771,7 +6655,7 @@ func (a *DefaultApiService) GetTeamsSelectorExecute(r ApiGetTeamsSelectorRequest
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -6782,13 +6666,12 @@ func (a *DefaultApiService) GetTeamsSelectorExecute(r ApiGetTeamsSelectorRequest
 }
 
 type ApiGetWebhookConfigurationRequest struct {
-	ctx _context.Context
-	ApiService DefaultApi
+	ctx context.Context
+	ApiService DefaultAPI
 	uuid string
 }
 
-
-func (r ApiGetWebhookConfigurationRequest) Execute() (NotificationWebhookEndpointConfiguration, *_nethttp.Response, error) {
+func (r ApiGetWebhookConfigurationRequest) Execute() (*NotificationWebhookEndpointConfiguration, *http.Response, error) {
 	return r.ApiService.GetWebhookConfigurationExecute(r)
 }
 
@@ -6797,11 +6680,11 @@ GetWebhookConfiguration Method for GetWebhookConfiguration
 
 Get a Webhook endpoint configuration by it's UUID
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param uuid
  @return ApiGetWebhookConfigurationRequest
 */
-func (a *DefaultApiService) GetWebhookConfiguration(ctx _context.Context, uuid string) ApiGetWebhookConfigurationRequest {
+func (a *DefaultAPIService) GetWebhookConfiguration(ctx context.Context, uuid string) ApiGetWebhookConfigurationRequest {
 	return ApiGetWebhookConfigurationRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -6811,27 +6694,25 @@ func (a *DefaultApiService) GetWebhookConfiguration(ctx _context.Context, uuid s
 
 // Execute executes the request
 //  @return NotificationWebhookEndpointConfiguration
-func (a *DefaultApiService) GetWebhookConfigurationExecute(r ApiGetWebhookConfigurationRequest) (NotificationWebhookEndpointConfiguration, *_nethttp.Response, error) {
+func (a *DefaultAPIService) GetWebhookConfigurationExecute(r ApiGetWebhookConfigurationRequest) (*NotificationWebhookEndpointConfiguration, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  NotificationWebhookEndpointConfiguration
+		formFiles            []formFile
+		localVarReturnValue  *NotificationWebhookEndpointConfiguration
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.GetWebhookConfiguration")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.GetWebhookConfiguration")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/notifications/endpoints/webhook/configurations/{uuid}"
-	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", _neturl.PathEscape(parameterToString(r.uuid, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", url.PathEscape(parameterValueToString(r.uuid, "uuid")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -6850,7 +6731,7 @@ func (a *DefaultApiService) GetWebhookConfigurationExecute(r ApiGetWebhookConfig
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -6860,15 +6741,15 @@ func (a *DefaultApiService) GetWebhookConfigurationExecute(r ApiGetWebhookConfig
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -6877,7 +6758,7 @@ func (a *DefaultApiService) GetWebhookConfigurationExecute(r ApiGetWebhookConfig
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -6888,13 +6769,12 @@ func (a *DefaultApiService) GetWebhookConfigurationExecute(r ApiGetWebhookConfig
 }
 
 type ApiGetWebhookConfigurationStatusRequest struct {
-	ctx _context.Context
-	ApiService DefaultApi
+	ctx context.Context
+	ApiService DefaultAPI
 	uuid string
 }
 
-
-func (r ApiGetWebhookConfigurationStatusRequest) Execute() (NotificationOperationalStatus, *_nethttp.Response, error) {
+func (r ApiGetWebhookConfigurationStatusRequest) Execute() (*NotificationOperationalStatus, *http.Response, error) {
 	return r.ApiService.GetWebhookConfigurationStatusExecute(r)
 }
 
@@ -6903,11 +6783,11 @@ GetWebhookConfigurationStatus Method for GetWebhookConfigurationStatus
 
 Get operational status for a Webhook endpoint configuration
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param uuid
  @return ApiGetWebhookConfigurationStatusRequest
 */
-func (a *DefaultApiService) GetWebhookConfigurationStatus(ctx _context.Context, uuid string) ApiGetWebhookConfigurationStatusRequest {
+func (a *DefaultAPIService) GetWebhookConfigurationStatus(ctx context.Context, uuid string) ApiGetWebhookConfigurationStatusRequest {
 	return ApiGetWebhookConfigurationStatusRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -6917,27 +6797,25 @@ func (a *DefaultApiService) GetWebhookConfigurationStatus(ctx _context.Context, 
 
 // Execute executes the request
 //  @return NotificationOperationalStatus
-func (a *DefaultApiService) GetWebhookConfigurationStatusExecute(r ApiGetWebhookConfigurationStatusRequest) (NotificationOperationalStatus, *_nethttp.Response, error) {
+func (a *DefaultAPIService) GetWebhookConfigurationStatusExecute(r ApiGetWebhookConfigurationStatusRequest) (*NotificationOperationalStatus, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  NotificationOperationalStatus
+		formFiles            []formFile
+		localVarReturnValue  *NotificationOperationalStatus
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.GetWebhookConfigurationStatus")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.GetWebhookConfigurationStatus")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/notifications/endpoints/webhook/configurations/{uuid}/status"
-	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", _neturl.PathEscape(parameterToString(r.uuid, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", url.PathEscape(parameterValueToString(r.uuid, "uuid")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -6956,7 +6834,7 @@ func (a *DefaultApiService) GetWebhookConfigurationStatusExecute(r ApiGetWebhook
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -6966,15 +6844,15 @@ func (a *DefaultApiService) GetWebhookConfigurationStatusExecute(r ApiGetWebhook
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -6983,7 +6861,7 @@ func (a *DefaultApiService) GetWebhookConfigurationStatusExecute(r ApiGetWebhook
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -6994,14 +6872,13 @@ func (a *DefaultApiService) GetWebhookConfigurationStatusExecute(r ApiGetWebhook
 }
 
 type ApiGetWebhookSelectorRequest struct {
-	ctx _context.Context
-	ApiService DefaultApi
+	ctx context.Context
+	ApiService DefaultAPI
 	configurationUuid string
 	selectorUuid string
 }
 
-
-func (r ApiGetWebhookSelectorRequest) Execute() (NotificationSelector, *_nethttp.Response, error) {
+func (r ApiGetWebhookSelectorRequest) Execute() (*NotificationSelector, *http.Response, error) {
 	return r.ApiService.GetWebhookSelectorExecute(r)
 }
 
@@ -7010,12 +6887,12 @@ GetWebhookSelector Method for GetWebhookSelector
 
 Get a selector mapped to a Webhook endpoint configuration
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param configurationUuid
  @param selectorUuid
  @return ApiGetWebhookSelectorRequest
 */
-func (a *DefaultApiService) GetWebhookSelector(ctx _context.Context, configurationUuid string, selectorUuid string) ApiGetWebhookSelectorRequest {
+func (a *DefaultAPIService) GetWebhookSelector(ctx context.Context, configurationUuid string, selectorUuid string) ApiGetWebhookSelectorRequest {
 	return ApiGetWebhookSelectorRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -7026,28 +6903,26 @@ func (a *DefaultApiService) GetWebhookSelector(ctx _context.Context, configurati
 
 // Execute executes the request
 //  @return NotificationSelector
-func (a *DefaultApiService) GetWebhookSelectorExecute(r ApiGetWebhookSelectorRequest) (NotificationSelector, *_nethttp.Response, error) {
+func (a *DefaultAPIService) GetWebhookSelectorExecute(r ApiGetWebhookSelectorRequest) (*NotificationSelector, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  NotificationSelector
+		formFiles            []formFile
+		localVarReturnValue  *NotificationSelector
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.GetWebhookSelector")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.GetWebhookSelector")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/notifications/endpoints/webhook/configurations/{configuration_uuid}/selectors/{selector_uuid}"
-	localVarPath = strings.Replace(localVarPath, "{"+"configuration_uuid"+"}", _neturl.PathEscape(parameterToString(r.configurationUuid, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"selector_uuid"+"}", _neturl.PathEscape(parameterToString(r.selectorUuid, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"configuration_uuid"+"}", url.PathEscape(parameterValueToString(r.configurationUuid, "configurationUuid")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"selector_uuid"+"}", url.PathEscape(parameterValueToString(r.selectorUuid, "selectorUuid")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -7066,7 +6941,7 @@ func (a *DefaultApiService) GetWebhookSelectorExecute(r ApiGetWebhookSelectorReq
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -7076,15 +6951,15 @@ func (a *DefaultApiService) GetWebhookSelectorExecute(r ApiGetWebhookSelectorReq
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -7093,7 +6968,7 @@ func (a *DefaultApiService) GetWebhookSelectorExecute(r ApiGetWebhookSelectorReq
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -7104,12 +6979,11 @@ func (a *DefaultApiService) GetWebhookSelectorExecute(r ApiGetWebhookSelectorReq
 }
 
 type ApiHealthCheckRequest struct {
-	ctx _context.Context
-	ApiService DefaultApi
+	ctx context.Context
+	ApiService DefaultAPI
 }
 
-
-func (r ApiHealthCheckRequest) Execute() (*_nethttp.Response, error) {
+func (r ApiHealthCheckRequest) Execute() (*http.Response, error) {
 	return r.ApiService.HealthCheckExecute(r)
 }
 
@@ -7118,10 +6992,10 @@ HealthCheck Method for HealthCheck
 
 Health check, returns 200 and no body if service is running
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiHealthCheckRequest
 */
-func (a *DefaultApiService) HealthCheck(ctx _context.Context) ApiHealthCheckRequest {
+func (a *DefaultAPIService) HealthCheck(ctx context.Context) ApiHealthCheckRequest {
 	return ApiHealthCheckRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -7129,25 +7003,23 @@ func (a *DefaultApiService) HealthCheck(ctx _context.Context) ApiHealthCheckRequ
 }
 
 // Execute executes the request
-func (a *DefaultApiService) HealthCheckExecute(r ApiHealthCheckRequest) (*_nethttp.Response, error) {
+func (a *DefaultAPIService) HealthCheckExecute(r ApiHealthCheckRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
+		formFiles            []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.HealthCheck")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.HealthCheck")
 	if err != nil {
-		return nil, GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/health"
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -7166,7 +7038,7 @@ func (a *DefaultApiService) HealthCheckExecute(r ApiHealthCheckRequest) (*_netht
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
 	}
@@ -7176,15 +7048,15 @@ func (a *DefaultApiService) HealthCheckExecute(r ApiHealthCheckRequest) (*_netht
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -7195,12 +7067,11 @@ func (a *DefaultApiService) HealthCheckExecute(r ApiHealthCheckRequest) (*_netht
 }
 
 type ApiListEndpointsRequest struct {
-	ctx _context.Context
-	ApiService DefaultApi
+	ctx context.Context
+	ApiService DefaultAPI
 }
 
-
-func (r ApiListEndpointsRequest) Execute() ([]NotificationEndpoint, *_nethttp.Response, error) {
+func (r ApiListEndpointsRequest) Execute() ([]NotificationEndpoint, *http.Response, error) {
 	return r.ApiService.ListEndpointsExecute(r)
 }
 
@@ -7209,10 +7080,10 @@ ListEndpoints Method for ListEndpoints
 
 List the system installed notification endpoints
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiListEndpointsRequest
 */
-func (a *DefaultApiService) ListEndpoints(ctx _context.Context) ApiListEndpointsRequest {
+func (a *DefaultAPIService) ListEndpoints(ctx context.Context) ApiListEndpointsRequest {
 	return ApiListEndpointsRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -7221,26 +7092,24 @@ func (a *DefaultApiService) ListEndpoints(ctx _context.Context) ApiListEndpoints
 
 // Execute executes the request
 //  @return []NotificationEndpoint
-func (a *DefaultApiService) ListEndpointsExecute(r ApiListEndpointsRequest) ([]NotificationEndpoint, *_nethttp.Response, error) {
+func (a *DefaultAPIService) ListEndpointsExecute(r ApiListEndpointsRequest) ([]NotificationEndpoint, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
+		formFiles            []formFile
 		localVarReturnValue  []NotificationEndpoint
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.ListEndpoints")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.ListEndpoints")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/notifications/endpoints"
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -7259,7 +7128,7 @@ func (a *DefaultApiService) ListEndpointsExecute(r ApiListEndpointsRequest) ([]N
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -7269,15 +7138,15 @@ func (a *DefaultApiService) ListEndpointsExecute(r ApiListEndpointsRequest) ([]N
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -7286,7 +7155,7 @@ func (a *DefaultApiService) ListEndpointsExecute(r ApiListEndpointsRequest) ([]N
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -7297,24 +7166,23 @@ func (a *DefaultApiService) ListEndpointsExecute(r ApiListEndpointsRequest) ([]N
 }
 
 type ApiListFileContentSearchResultsRequest struct {
-	ctx _context.Context
-	ApiService DefaultApi
+	ctx context.Context
+	ApiService DefaultAPI
 	imageDigest string
 }
 
-
-func (r ApiListFileContentSearchResultsRequest) Execute() ([]FileContentSearchResult, *_nethttp.Response, error) {
+func (r ApiListFileContentSearchResultsRequest) Execute() ([]FileContentSearchResult, *http.Response, error) {
 	return r.ApiService.ListFileContentSearchResultsExecute(r)
 }
 
 /*
 ListFileContentSearchResults Return a list of analyzer artifacts of the specified type
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param imageDigest
  @return ApiListFileContentSearchResultsRequest
 */
-func (a *DefaultApiService) ListFileContentSearchResults(ctx _context.Context, imageDigest string) ApiListFileContentSearchResultsRequest {
+func (a *DefaultAPIService) ListFileContentSearchResults(ctx context.Context, imageDigest string) ApiListFileContentSearchResultsRequest {
 	return ApiListFileContentSearchResultsRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -7324,27 +7192,25 @@ func (a *DefaultApiService) ListFileContentSearchResults(ctx _context.Context, i
 
 // Execute executes the request
 //  @return []FileContentSearchResult
-func (a *DefaultApiService) ListFileContentSearchResultsExecute(r ApiListFileContentSearchResultsRequest) ([]FileContentSearchResult, *_nethttp.Response, error) {
+func (a *DefaultAPIService) ListFileContentSearchResultsExecute(r ApiListFileContentSearchResultsRequest) ([]FileContentSearchResult, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
+		formFiles            []formFile
 		localVarReturnValue  []FileContentSearchResult
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.ListFileContentSearchResults")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.ListFileContentSearchResults")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/images/{image_digest}/artifacts/file-content-search"
-	localVarPath = strings.Replace(localVarPath, "{"+"image_digest"+"}", _neturl.PathEscape(parameterToString(r.imageDigest, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"image_digest"+"}", url.PathEscape(parameterValueToString(r.imageDigest, "imageDigest")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -7363,7 +7229,7 @@ func (a *DefaultApiService) ListFileContentSearchResultsExecute(r ApiListFileCon
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -7373,15 +7239,15 @@ func (a *DefaultApiService) ListFileContentSearchResultsExecute(r ApiListFileCon
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -7390,7 +7256,7 @@ func (a *DefaultApiService) ListFileContentSearchResultsExecute(r ApiListFileCon
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -7401,12 +7267,11 @@ func (a *DefaultApiService) ListFileContentSearchResultsExecute(r ApiListFileCon
 }
 
 type ApiListGithubConfigurationsRequest struct {
-	ctx _context.Context
-	ApiService DefaultApi
+	ctx context.Context
+	ApiService DefaultAPI
 }
 
-
-func (r ApiListGithubConfigurationsRequest) Execute() ([]NotificationGitHubEndpointConfigurationBase, *_nethttp.Response, error) {
+func (r ApiListGithubConfigurationsRequest) Execute() ([]NotificationGitHubEndpointConfigurationBase, *http.Response, error) {
 	return r.ApiService.ListGithubConfigurationsExecute(r)
 }
 
@@ -7415,10 +7280,10 @@ ListGithubConfigurations Method for ListGithubConfigurations
 
 List GitHub endpoint configurations
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiListGithubConfigurationsRequest
 */
-func (a *DefaultApiService) ListGithubConfigurations(ctx _context.Context) ApiListGithubConfigurationsRequest {
+func (a *DefaultAPIService) ListGithubConfigurations(ctx context.Context) ApiListGithubConfigurationsRequest {
 	return ApiListGithubConfigurationsRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -7427,26 +7292,24 @@ func (a *DefaultApiService) ListGithubConfigurations(ctx _context.Context) ApiLi
 
 // Execute executes the request
 //  @return []NotificationGitHubEndpointConfigurationBase
-func (a *DefaultApiService) ListGithubConfigurationsExecute(r ApiListGithubConfigurationsRequest) ([]NotificationGitHubEndpointConfigurationBase, *_nethttp.Response, error) {
+func (a *DefaultAPIService) ListGithubConfigurationsExecute(r ApiListGithubConfigurationsRequest) ([]NotificationGitHubEndpointConfigurationBase, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
+		formFiles            []formFile
 		localVarReturnValue  []NotificationGitHubEndpointConfigurationBase
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.ListGithubConfigurations")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.ListGithubConfigurations")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/notifications/endpoints/github/configurations"
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -7465,7 +7328,7 @@ func (a *DefaultApiService) ListGithubConfigurationsExecute(r ApiListGithubConfi
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -7475,15 +7338,15 @@ func (a *DefaultApiService) ListGithubConfigurationsExecute(r ApiListGithubConfi
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -7492,7 +7355,7 @@ func (a *DefaultApiService) ListGithubConfigurationsExecute(r ApiListGithubConfi
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -7503,13 +7366,12 @@ func (a *DefaultApiService) ListGithubConfigurationsExecute(r ApiListGithubConfi
 }
 
 type ApiListGithubSelectorsRequest struct {
-	ctx _context.Context
-	ApiService DefaultApi
+	ctx context.Context
+	ApiService DefaultAPI
 	uuid string
 }
 
-
-func (r ApiListGithubSelectorsRequest) Execute() ([]NotificationSelector, *_nethttp.Response, error) {
+func (r ApiListGithubSelectorsRequest) Execute() ([]NotificationSelector, *http.Response, error) {
 	return r.ApiService.ListGithubSelectorsExecute(r)
 }
 
@@ -7518,11 +7380,11 @@ ListGithubSelectors Method for ListGithubSelectors
 
 List selectors mapping events for delivery to a GitHub endpoint configuration
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param uuid
  @return ApiListGithubSelectorsRequest
 */
-func (a *DefaultApiService) ListGithubSelectors(ctx _context.Context, uuid string) ApiListGithubSelectorsRequest {
+func (a *DefaultAPIService) ListGithubSelectors(ctx context.Context, uuid string) ApiListGithubSelectorsRequest {
 	return ApiListGithubSelectorsRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -7532,27 +7394,25 @@ func (a *DefaultApiService) ListGithubSelectors(ctx _context.Context, uuid strin
 
 // Execute executes the request
 //  @return []NotificationSelector
-func (a *DefaultApiService) ListGithubSelectorsExecute(r ApiListGithubSelectorsRequest) ([]NotificationSelector, *_nethttp.Response, error) {
+func (a *DefaultAPIService) ListGithubSelectorsExecute(r ApiListGithubSelectorsRequest) ([]NotificationSelector, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
+		formFiles            []formFile
 		localVarReturnValue  []NotificationSelector
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.ListGithubSelectors")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.ListGithubSelectors")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/notifications/endpoints/github/configurations/{uuid}/selectors"
-	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", _neturl.PathEscape(parameterToString(r.uuid, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", url.PathEscape(parameterValueToString(r.uuid, "uuid")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -7571,7 +7431,7 @@ func (a *DefaultApiService) ListGithubSelectorsExecute(r ApiListGithubSelectorsR
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -7581,15 +7441,15 @@ func (a *DefaultApiService) ListGithubSelectorsExecute(r ApiListGithubSelectorsR
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -7598,7 +7458,7 @@ func (a *DefaultApiService) ListGithubSelectorsExecute(r ApiListGithubSelectorsR
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -7609,12 +7469,11 @@ func (a *DefaultApiService) ListGithubSelectorsExecute(r ApiListGithubSelectorsR
 }
 
 type ApiListIdpsRequest struct {
-	ctx _context.Context
-	ApiService DefaultApi
+	ctx context.Context
+	ApiService DefaultAPI
 }
 
-
-func (r ApiListIdpsRequest) Execute() ([]string, *_nethttp.Response, error) {
+func (r ApiListIdpsRequest) Execute() ([]string, *http.Response, error) {
 	return r.ApiService.ListIdpsExecute(r)
 }
 
@@ -7623,10 +7482,10 @@ ListIdps Method for ListIdps
 
 List the names of configured Identity Providers for this anchore installation
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiListIdpsRequest
 */
-func (a *DefaultApiService) ListIdps(ctx _context.Context) ApiListIdpsRequest {
+func (a *DefaultAPIService) ListIdps(ctx context.Context) ApiListIdpsRequest {
 	return ApiListIdpsRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -7635,26 +7494,24 @@ func (a *DefaultApiService) ListIdps(ctx _context.Context) ApiListIdpsRequest {
 
 // Execute executes the request
 //  @return []string
-func (a *DefaultApiService) ListIdpsExecute(r ApiListIdpsRequest) ([]string, *_nethttp.Response, error) {
+func (a *DefaultAPIService) ListIdpsExecute(r ApiListIdpsRequest) ([]string, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
+		formFiles            []formFile
 		localVarReturnValue  []string
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.ListIdps")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.ListIdps")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/rbac-manager/saml/idps"
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -7673,7 +7530,7 @@ func (a *DefaultApiService) ListIdpsExecute(r ApiListIdpsRequest) ([]string, *_n
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -7683,15 +7540,15 @@ func (a *DefaultApiService) ListIdpsExecute(r ApiListIdpsRequest) ([]string, *_n
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -7702,14 +7559,15 @@ func (a *DefaultApiService) ListIdpsExecute(r ApiListIdpsRequest) ([]string, *_n
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -7720,12 +7578,11 @@ func (a *DefaultApiService) ListIdpsExecute(r ApiListIdpsRequest) ([]string, *_n
 }
 
 type ApiListJiraConfigurationsRequest struct {
-	ctx _context.Context
-	ApiService DefaultApi
+	ctx context.Context
+	ApiService DefaultAPI
 }
 
-
-func (r ApiListJiraConfigurationsRequest) Execute() ([]NotificationJiraEndpointConfigurationBase, *_nethttp.Response, error) {
+func (r ApiListJiraConfigurationsRequest) Execute() ([]NotificationJiraEndpointConfigurationBase, *http.Response, error) {
 	return r.ApiService.ListJiraConfigurationsExecute(r)
 }
 
@@ -7734,10 +7591,10 @@ ListJiraConfigurations Method for ListJiraConfigurations
 
 List Jira endpoint configurations
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiListJiraConfigurationsRequest
 */
-func (a *DefaultApiService) ListJiraConfigurations(ctx _context.Context) ApiListJiraConfigurationsRequest {
+func (a *DefaultAPIService) ListJiraConfigurations(ctx context.Context) ApiListJiraConfigurationsRequest {
 	return ApiListJiraConfigurationsRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -7746,26 +7603,24 @@ func (a *DefaultApiService) ListJiraConfigurations(ctx _context.Context) ApiList
 
 // Execute executes the request
 //  @return []NotificationJiraEndpointConfigurationBase
-func (a *DefaultApiService) ListJiraConfigurationsExecute(r ApiListJiraConfigurationsRequest) ([]NotificationJiraEndpointConfigurationBase, *_nethttp.Response, error) {
+func (a *DefaultAPIService) ListJiraConfigurationsExecute(r ApiListJiraConfigurationsRequest) ([]NotificationJiraEndpointConfigurationBase, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
+		formFiles            []formFile
 		localVarReturnValue  []NotificationJiraEndpointConfigurationBase
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.ListJiraConfigurations")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.ListJiraConfigurations")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/notifications/endpoints/jira/configurations"
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -7784,7 +7639,7 @@ func (a *DefaultApiService) ListJiraConfigurationsExecute(r ApiListJiraConfigura
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -7794,15 +7649,15 @@ func (a *DefaultApiService) ListJiraConfigurationsExecute(r ApiListJiraConfigura
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -7811,7 +7666,7 @@ func (a *DefaultApiService) ListJiraConfigurationsExecute(r ApiListJiraConfigura
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -7822,13 +7677,12 @@ func (a *DefaultApiService) ListJiraConfigurationsExecute(r ApiListJiraConfigura
 }
 
 type ApiListJiraSelectorsRequest struct {
-	ctx _context.Context
-	ApiService DefaultApi
+	ctx context.Context
+	ApiService DefaultAPI
 	uuid string
 }
 
-
-func (r ApiListJiraSelectorsRequest) Execute() ([]NotificationSelector, *_nethttp.Response, error) {
+func (r ApiListJiraSelectorsRequest) Execute() ([]NotificationSelector, *http.Response, error) {
 	return r.ApiService.ListJiraSelectorsExecute(r)
 }
 
@@ -7837,11 +7691,11 @@ ListJiraSelectors Method for ListJiraSelectors
 
 List selectors mapping events for delivery to a Jira endpoint configuration
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param uuid
  @return ApiListJiraSelectorsRequest
 */
-func (a *DefaultApiService) ListJiraSelectors(ctx _context.Context, uuid string) ApiListJiraSelectorsRequest {
+func (a *DefaultAPIService) ListJiraSelectors(ctx context.Context, uuid string) ApiListJiraSelectorsRequest {
 	return ApiListJiraSelectorsRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -7851,27 +7705,25 @@ func (a *DefaultApiService) ListJiraSelectors(ctx _context.Context, uuid string)
 
 // Execute executes the request
 //  @return []NotificationSelector
-func (a *DefaultApiService) ListJiraSelectorsExecute(r ApiListJiraSelectorsRequest) ([]NotificationSelector, *_nethttp.Response, error) {
+func (a *DefaultAPIService) ListJiraSelectorsExecute(r ApiListJiraSelectorsRequest) ([]NotificationSelector, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
+		formFiles            []formFile
 		localVarReturnValue  []NotificationSelector
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.ListJiraSelectors")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.ListJiraSelectors")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/notifications/endpoints/jira/configurations/{uuid}/selectors"
-	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", _neturl.PathEscape(parameterToString(r.uuid, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", url.PathEscape(parameterValueToString(r.uuid, "uuid")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -7890,7 +7742,7 @@ func (a *DefaultApiService) ListJiraSelectorsExecute(r ApiListJiraSelectorsReque
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -7900,15 +7752,15 @@ func (a *DefaultApiService) ListJiraSelectorsExecute(r ApiListJiraSelectorsReque
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -7917,7 +7769,7 @@ func (a *DefaultApiService) ListJiraSelectorsExecute(r ApiListJiraSelectorsReque
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -7928,24 +7780,23 @@ func (a *DefaultApiService) ListJiraSelectorsExecute(r ApiListJiraSelectorsReque
 }
 
 type ApiListRetrievedFilesRequest struct {
-	ctx _context.Context
-	ApiService DefaultApi
+	ctx context.Context
+	ApiService DefaultAPI
 	imageDigest string
 }
 
-
-func (r ApiListRetrievedFilesRequest) Execute() ([]RetrievedFile, *_nethttp.Response, error) {
+func (r ApiListRetrievedFilesRequest) Execute() ([]RetrievedFile, *http.Response, error) {
 	return r.ApiService.ListRetrievedFilesExecute(r)
 }
 
 /*
 ListRetrievedFiles Return a list of analyzer artifacts of the specified type
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param imageDigest
  @return ApiListRetrievedFilesRequest
 */
-func (a *DefaultApiService) ListRetrievedFiles(ctx _context.Context, imageDigest string) ApiListRetrievedFilesRequest {
+func (a *DefaultAPIService) ListRetrievedFiles(ctx context.Context, imageDigest string) ApiListRetrievedFilesRequest {
 	return ApiListRetrievedFilesRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -7955,27 +7806,25 @@ func (a *DefaultApiService) ListRetrievedFiles(ctx _context.Context, imageDigest
 
 // Execute executes the request
 //  @return []RetrievedFile
-func (a *DefaultApiService) ListRetrievedFilesExecute(r ApiListRetrievedFilesRequest) ([]RetrievedFile, *_nethttp.Response, error) {
+func (a *DefaultAPIService) ListRetrievedFilesExecute(r ApiListRetrievedFilesRequest) ([]RetrievedFile, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
+		formFiles            []formFile
 		localVarReturnValue  []RetrievedFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.ListRetrievedFiles")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.ListRetrievedFiles")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/images/{image_digest}/artifacts/retrieved-files"
-	localVarPath = strings.Replace(localVarPath, "{"+"image_digest"+"}", _neturl.PathEscape(parameterToString(r.imageDigest, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"image_digest"+"}", url.PathEscape(parameterValueToString(r.imageDigest, "imageDigest")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -7994,7 +7843,7 @@ func (a *DefaultApiService) ListRetrievedFilesExecute(r ApiListRetrievedFilesReq
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -8004,15 +7853,15 @@ func (a *DefaultApiService) ListRetrievedFilesExecute(r ApiListRetrievedFilesReq
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -8021,7 +7870,7 @@ func (a *DefaultApiService) ListRetrievedFilesExecute(r ApiListRetrievedFilesReq
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -8032,8 +7881,8 @@ func (a *DefaultApiService) ListRetrievedFilesExecute(r ApiListRetrievedFilesReq
 }
 
 type ApiListRoleMembersRequest struct {
-	ctx _context.Context
-	ApiService DefaultApi
+	ctx context.Context
+	ApiService DefaultAPI
 	roleName string
 	forAccount *string
 }
@@ -8044,18 +7893,18 @@ func (r ApiListRoleMembersRequest) ForAccount(forAccount string) ApiListRoleMemb
 	return r
 }
 
-func (r ApiListRoleMembersRequest) Execute() ([]RbacManagerRoleMember, *_nethttp.Response, error) {
+func (r ApiListRoleMembersRequest) Execute() ([]RbacManagerRoleMember, *http.Response, error) {
 	return r.ApiService.ListRoleMembersExecute(r)
 }
 
 /*
 ListRoleMembers Returns a list of objects that have members in the role. The list is filtered by 'listRoleMembers' access for the 'account' element of each entry.
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param roleName
  @return ApiListRoleMembersRequest
 */
-func (a *DefaultApiService) ListRoleMembers(ctx _context.Context, roleName string) ApiListRoleMembersRequest {
+func (a *DefaultAPIService) ListRoleMembers(ctx context.Context, roleName string) ApiListRoleMembersRequest {
 	return ApiListRoleMembersRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -8065,30 +7914,28 @@ func (a *DefaultApiService) ListRoleMembers(ctx _context.Context, roleName strin
 
 // Execute executes the request
 //  @return []RbacManagerRoleMember
-func (a *DefaultApiService) ListRoleMembersExecute(r ApiListRoleMembersRequest) ([]RbacManagerRoleMember, *_nethttp.Response, error) {
+func (a *DefaultAPIService) ListRoleMembersExecute(r ApiListRoleMembersRequest) ([]RbacManagerRoleMember, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
+		formFiles            []formFile
 		localVarReturnValue  []RbacManagerRoleMember
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.ListRoleMembers")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.ListRoleMembers")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/rbac-manager/roles/{role_name}/members"
-	localVarPath = strings.Replace(localVarPath, "{"+"role_name"+"}", _neturl.PathEscape(parameterToString(r.roleName, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"role_name"+"}", url.PathEscape(parameterValueToString(r.roleName, "roleName")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	if r.forAccount != nil {
-		localVarQueryParams.Add("for_account", parameterToString(*r.forAccount, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "for_account", r.forAccount, "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -8107,7 +7954,7 @@ func (a *DefaultApiService) ListRoleMembersExecute(r ApiListRoleMembersRequest) 
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -8117,15 +7964,15 @@ func (a *DefaultApiService) ListRoleMembersExecute(r ApiListRoleMembersRequest) 
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -8136,14 +7983,15 @@ func (a *DefaultApiService) ListRoleMembersExecute(r ApiListRoleMembersRequest) 
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -8154,22 +8002,21 @@ func (a *DefaultApiService) ListRoleMembersExecute(r ApiListRoleMembersRequest) 
 }
 
 type ApiListRolesRequest struct {
-	ctx _context.Context
-	ApiService DefaultApi
+	ctx context.Context
+	ApiService DefaultAPI
 }
 
-
-func (r ApiListRolesRequest) Execute() ([]RbacManagerRoleSummary, *_nethttp.Response, error) {
+func (r ApiListRolesRequest) Execute() ([]RbacManagerRoleSummary, *http.Response, error) {
 	return r.ApiService.ListRolesExecute(r)
 }
 
 /*
 ListRoles List roles available in the system
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiListRolesRequest
 */
-func (a *DefaultApiService) ListRoles(ctx _context.Context) ApiListRolesRequest {
+func (a *DefaultAPIService) ListRoles(ctx context.Context) ApiListRolesRequest {
 	return ApiListRolesRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -8178,26 +8025,24 @@ func (a *DefaultApiService) ListRoles(ctx _context.Context) ApiListRolesRequest 
 
 // Execute executes the request
 //  @return []RbacManagerRoleSummary
-func (a *DefaultApiService) ListRolesExecute(r ApiListRolesRequest) ([]RbacManagerRoleSummary, *_nethttp.Response, error) {
+func (a *DefaultAPIService) ListRolesExecute(r ApiListRolesRequest) ([]RbacManagerRoleSummary, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
+		formFiles            []formFile
 		localVarReturnValue  []RbacManagerRoleSummary
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.ListRoles")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.ListRoles")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/rbac-manager/roles"
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -8216,7 +8061,7 @@ func (a *DefaultApiService) ListRolesExecute(r ApiListRolesRequest) ([]RbacManag
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -8226,15 +8071,15 @@ func (a *DefaultApiService) ListRolesExecute(r ApiListRolesRequest) ([]RbacManag
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -8245,14 +8090,15 @@ func (a *DefaultApiService) ListRolesExecute(r ApiListRolesRequest) ([]RbacManag
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -8263,24 +8109,23 @@ func (a *DefaultApiService) ListRolesExecute(r ApiListRolesRequest) ([]RbacManag
 }
 
 type ApiListSecretSearchResultsRequest struct {
-	ctx _context.Context
-	ApiService DefaultApi
+	ctx context.Context
+	ApiService DefaultAPI
 	imageDigest string
 }
 
-
-func (r ApiListSecretSearchResultsRequest) Execute() ([]SecretSearchResult, *_nethttp.Response, error) {
+func (r ApiListSecretSearchResultsRequest) Execute() ([]SecretSearchResult, *http.Response, error) {
 	return r.ApiService.ListSecretSearchResultsExecute(r)
 }
 
 /*
 ListSecretSearchResults Return a list of analyzer artifacts of the specified type
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param imageDigest
  @return ApiListSecretSearchResultsRequest
 */
-func (a *DefaultApiService) ListSecretSearchResults(ctx _context.Context, imageDigest string) ApiListSecretSearchResultsRequest {
+func (a *DefaultAPIService) ListSecretSearchResults(ctx context.Context, imageDigest string) ApiListSecretSearchResultsRequest {
 	return ApiListSecretSearchResultsRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -8290,27 +8135,25 @@ func (a *DefaultApiService) ListSecretSearchResults(ctx _context.Context, imageD
 
 // Execute executes the request
 //  @return []SecretSearchResult
-func (a *DefaultApiService) ListSecretSearchResultsExecute(r ApiListSecretSearchResultsRequest) ([]SecretSearchResult, *_nethttp.Response, error) {
+func (a *DefaultAPIService) ListSecretSearchResultsExecute(r ApiListSecretSearchResultsRequest) ([]SecretSearchResult, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
+		formFiles            []formFile
 		localVarReturnValue  []SecretSearchResult
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.ListSecretSearchResults")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.ListSecretSearchResults")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/images/{image_digest}/artifacts/secret-search"
-	localVarPath = strings.Replace(localVarPath, "{"+"image_digest"+"}", _neturl.PathEscape(parameterToString(r.imageDigest, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"image_digest"+"}", url.PathEscape(parameterValueToString(r.imageDigest, "imageDigest")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -8329,7 +8172,7 @@ func (a *DefaultApiService) ListSecretSearchResultsExecute(r ApiListSecretSearch
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -8339,15 +8182,15 @@ func (a *DefaultApiService) ListSecretSearchResultsExecute(r ApiListSecretSearch
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -8356,7 +8199,7 @@ func (a *DefaultApiService) ListSecretSearchResultsExecute(r ApiListSecretSearch
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -8367,12 +8210,11 @@ func (a *DefaultApiService) ListSecretSearchResultsExecute(r ApiListSecretSearch
 }
 
 type ApiListSelectorsRequest struct {
-	ctx _context.Context
-	ApiService DefaultApi
+	ctx context.Context
+	ApiService DefaultAPI
 }
 
-
-func (r ApiListSelectorsRequest) Execute() ([]NotificationSelector, *_nethttp.Response, error) {
+func (r ApiListSelectorsRequest) Execute() ([]NotificationSelector, *http.Response, error) {
 	return r.ApiService.ListSelectorsExecute(r)
 }
 
@@ -8381,10 +8223,10 @@ ListSelectors Method for ListSelectors
 
 List all selectors mapped to endpoint configurations for the account
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiListSelectorsRequest
 */
-func (a *DefaultApiService) ListSelectors(ctx _context.Context) ApiListSelectorsRequest {
+func (a *DefaultAPIService) ListSelectors(ctx context.Context) ApiListSelectorsRequest {
 	return ApiListSelectorsRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -8393,26 +8235,24 @@ func (a *DefaultApiService) ListSelectors(ctx _context.Context) ApiListSelectors
 
 // Execute executes the request
 //  @return []NotificationSelector
-func (a *DefaultApiService) ListSelectorsExecute(r ApiListSelectorsRequest) ([]NotificationSelector, *_nethttp.Response, error) {
+func (a *DefaultAPIService) ListSelectorsExecute(r ApiListSelectorsRequest) ([]NotificationSelector, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
+		formFiles            []formFile
 		localVarReturnValue  []NotificationSelector
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.ListSelectors")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.ListSelectors")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/notifications/selectors"
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -8431,7 +8271,7 @@ func (a *DefaultApiService) ListSelectorsExecute(r ApiListSelectorsRequest) ([]N
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -8441,15 +8281,15 @@ func (a *DefaultApiService) ListSelectorsExecute(r ApiListSelectorsRequest) ([]N
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -8458,7 +8298,7 @@ func (a *DefaultApiService) ListSelectorsExecute(r ApiListSelectorsRequest) ([]N
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -8469,12 +8309,11 @@ func (a *DefaultApiService) ListSelectorsExecute(r ApiListSelectorsRequest) ([]N
 }
 
 type ApiListSlackConfigurationsRequest struct {
-	ctx _context.Context
-	ApiService DefaultApi
+	ctx context.Context
+	ApiService DefaultAPI
 }
 
-
-func (r ApiListSlackConfigurationsRequest) Execute() ([]NotificationSlackEndpointConfiguration, *_nethttp.Response, error) {
+func (r ApiListSlackConfigurationsRequest) Execute() ([]NotificationSlackEndpointConfiguration, *http.Response, error) {
 	return r.ApiService.ListSlackConfigurationsExecute(r)
 }
 
@@ -8483,10 +8322,10 @@ ListSlackConfigurations Method for ListSlackConfigurations
 
 List Slack endpoint configurations
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiListSlackConfigurationsRequest
 */
-func (a *DefaultApiService) ListSlackConfigurations(ctx _context.Context) ApiListSlackConfigurationsRequest {
+func (a *DefaultAPIService) ListSlackConfigurations(ctx context.Context) ApiListSlackConfigurationsRequest {
 	return ApiListSlackConfigurationsRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -8495,26 +8334,24 @@ func (a *DefaultApiService) ListSlackConfigurations(ctx _context.Context) ApiLis
 
 // Execute executes the request
 //  @return []NotificationSlackEndpointConfiguration
-func (a *DefaultApiService) ListSlackConfigurationsExecute(r ApiListSlackConfigurationsRequest) ([]NotificationSlackEndpointConfiguration, *_nethttp.Response, error) {
+func (a *DefaultAPIService) ListSlackConfigurationsExecute(r ApiListSlackConfigurationsRequest) ([]NotificationSlackEndpointConfiguration, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
+		formFiles            []formFile
 		localVarReturnValue  []NotificationSlackEndpointConfiguration
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.ListSlackConfigurations")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.ListSlackConfigurations")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/notifications/endpoints/slack/configurations"
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -8533,7 +8370,7 @@ func (a *DefaultApiService) ListSlackConfigurationsExecute(r ApiListSlackConfigu
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -8543,15 +8380,15 @@ func (a *DefaultApiService) ListSlackConfigurationsExecute(r ApiListSlackConfigu
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -8560,7 +8397,7 @@ func (a *DefaultApiService) ListSlackConfigurationsExecute(r ApiListSlackConfigu
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -8571,13 +8408,12 @@ func (a *DefaultApiService) ListSlackConfigurationsExecute(r ApiListSlackConfigu
 }
 
 type ApiListSlackSelectorsRequest struct {
-	ctx _context.Context
-	ApiService DefaultApi
+	ctx context.Context
+	ApiService DefaultAPI
 	uuid string
 }
 
-
-func (r ApiListSlackSelectorsRequest) Execute() ([]NotificationSelector, *_nethttp.Response, error) {
+func (r ApiListSlackSelectorsRequest) Execute() ([]NotificationSelector, *http.Response, error) {
 	return r.ApiService.ListSlackSelectorsExecute(r)
 }
 
@@ -8586,11 +8422,11 @@ ListSlackSelectors Method for ListSlackSelectors
 
 List selectors mapping events for delivery to a Slack endpoint configuration
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param uuid
  @return ApiListSlackSelectorsRequest
 */
-func (a *DefaultApiService) ListSlackSelectors(ctx _context.Context, uuid string) ApiListSlackSelectorsRequest {
+func (a *DefaultAPIService) ListSlackSelectors(ctx context.Context, uuid string) ApiListSlackSelectorsRequest {
 	return ApiListSlackSelectorsRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -8600,27 +8436,25 @@ func (a *DefaultApiService) ListSlackSelectors(ctx _context.Context, uuid string
 
 // Execute executes the request
 //  @return []NotificationSelector
-func (a *DefaultApiService) ListSlackSelectorsExecute(r ApiListSlackSelectorsRequest) ([]NotificationSelector, *_nethttp.Response, error) {
+func (a *DefaultAPIService) ListSlackSelectorsExecute(r ApiListSlackSelectorsRequest) ([]NotificationSelector, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
+		formFiles            []formFile
 		localVarReturnValue  []NotificationSelector
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.ListSlackSelectors")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.ListSlackSelectors")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/notifications/endpoints/slack/configurations/{uuid}/selectors"
-	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", _neturl.PathEscape(parameterToString(r.uuid, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", url.PathEscape(parameterValueToString(r.uuid, "uuid")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -8639,7 +8473,7 @@ func (a *DefaultApiService) ListSlackSelectorsExecute(r ApiListSlackSelectorsReq
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -8649,15 +8483,15 @@ func (a *DefaultApiService) ListSlackSelectorsExecute(r ApiListSlackSelectorsReq
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -8666,7 +8500,7 @@ func (a *DefaultApiService) ListSlackSelectorsExecute(r ApiListSlackSelectorsReq
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -8677,12 +8511,11 @@ func (a *DefaultApiService) ListSlackSelectorsExecute(r ApiListSlackSelectorsReq
 }
 
 type ApiListSmtpConfigurationsRequest struct {
-	ctx _context.Context
-	ApiService DefaultApi
+	ctx context.Context
+	ApiService DefaultAPI
 }
 
-
-func (r ApiListSmtpConfigurationsRequest) Execute() ([]NotificationSMTPEndpointConfiguration, *_nethttp.Response, error) {
+func (r ApiListSmtpConfigurationsRequest) Execute() ([]NotificationSMTPEndpointConfiguration, *http.Response, error) {
 	return r.ApiService.ListSmtpConfigurationsExecute(r)
 }
 
@@ -8691,10 +8524,10 @@ ListSmtpConfigurations Method for ListSmtpConfigurations
 
 List SMTP endpoint configurations
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiListSmtpConfigurationsRequest
 */
-func (a *DefaultApiService) ListSmtpConfigurations(ctx _context.Context) ApiListSmtpConfigurationsRequest {
+func (a *DefaultAPIService) ListSmtpConfigurations(ctx context.Context) ApiListSmtpConfigurationsRequest {
 	return ApiListSmtpConfigurationsRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -8703,26 +8536,24 @@ func (a *DefaultApiService) ListSmtpConfigurations(ctx _context.Context) ApiList
 
 // Execute executes the request
 //  @return []NotificationSMTPEndpointConfiguration
-func (a *DefaultApiService) ListSmtpConfigurationsExecute(r ApiListSmtpConfigurationsRequest) ([]NotificationSMTPEndpointConfiguration, *_nethttp.Response, error) {
+func (a *DefaultAPIService) ListSmtpConfigurationsExecute(r ApiListSmtpConfigurationsRequest) ([]NotificationSMTPEndpointConfiguration, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
+		formFiles            []formFile
 		localVarReturnValue  []NotificationSMTPEndpointConfiguration
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.ListSmtpConfigurations")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.ListSmtpConfigurations")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/notifications/endpoints/smtp/configurations"
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -8741,7 +8572,7 @@ func (a *DefaultApiService) ListSmtpConfigurationsExecute(r ApiListSmtpConfigura
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -8751,15 +8582,15 @@ func (a *DefaultApiService) ListSmtpConfigurationsExecute(r ApiListSmtpConfigura
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -8768,7 +8599,7 @@ func (a *DefaultApiService) ListSmtpConfigurationsExecute(r ApiListSmtpConfigura
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -8779,13 +8610,12 @@ func (a *DefaultApiService) ListSmtpConfigurationsExecute(r ApiListSmtpConfigura
 }
 
 type ApiListSmtpSelectorsRequest struct {
-	ctx _context.Context
-	ApiService DefaultApi
+	ctx context.Context
+	ApiService DefaultAPI
 	uuid string
 }
 
-
-func (r ApiListSmtpSelectorsRequest) Execute() ([]NotificationSelector, *_nethttp.Response, error) {
+func (r ApiListSmtpSelectorsRequest) Execute() ([]NotificationSelector, *http.Response, error) {
 	return r.ApiService.ListSmtpSelectorsExecute(r)
 }
 
@@ -8794,11 +8624,11 @@ ListSmtpSelectors Method for ListSmtpSelectors
 
 List selectors mapping events for delivery to a SMTP endpoint configuration
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param uuid
  @return ApiListSmtpSelectorsRequest
 */
-func (a *DefaultApiService) ListSmtpSelectors(ctx _context.Context, uuid string) ApiListSmtpSelectorsRequest {
+func (a *DefaultAPIService) ListSmtpSelectors(ctx context.Context, uuid string) ApiListSmtpSelectorsRequest {
 	return ApiListSmtpSelectorsRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -8808,27 +8638,25 @@ func (a *DefaultApiService) ListSmtpSelectors(ctx _context.Context, uuid string)
 
 // Execute executes the request
 //  @return []NotificationSelector
-func (a *DefaultApiService) ListSmtpSelectorsExecute(r ApiListSmtpSelectorsRequest) ([]NotificationSelector, *_nethttp.Response, error) {
+func (a *DefaultAPIService) ListSmtpSelectorsExecute(r ApiListSmtpSelectorsRequest) ([]NotificationSelector, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
+		formFiles            []formFile
 		localVarReturnValue  []NotificationSelector
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.ListSmtpSelectors")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.ListSmtpSelectors")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/notifications/endpoints/smtp/configurations/{uuid}/selectors"
-	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", _neturl.PathEscape(parameterToString(r.uuid, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", url.PathEscape(parameterValueToString(r.uuid, "uuid")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -8847,7 +8675,7 @@ func (a *DefaultApiService) ListSmtpSelectorsExecute(r ApiListSmtpSelectorsReque
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -8857,15 +8685,15 @@ func (a *DefaultApiService) ListSmtpSelectorsExecute(r ApiListSmtpSelectorsReque
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -8874,7 +8702,7 @@ func (a *DefaultApiService) ListSmtpSelectorsExecute(r ApiListSmtpSelectorsReque
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -8885,12 +8713,11 @@ func (a *DefaultApiService) ListSmtpSelectorsExecute(r ApiListSmtpSelectorsReque
 }
 
 type ApiListTeamsConfigurationsRequest struct {
-	ctx _context.Context
-	ApiService DefaultApi
+	ctx context.Context
+	ApiService DefaultAPI
 }
 
-
-func (r ApiListTeamsConfigurationsRequest) Execute() ([]NotificationTeamsEndpointConfiguration, *_nethttp.Response, error) {
+func (r ApiListTeamsConfigurationsRequest) Execute() ([]NotificationTeamsEndpointConfiguration, *http.Response, error) {
 	return r.ApiService.ListTeamsConfigurationsExecute(r)
 }
 
@@ -8899,10 +8726,10 @@ ListTeamsConfigurations Method for ListTeamsConfigurations
 
 List Teams endpoint configurations
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiListTeamsConfigurationsRequest
 */
-func (a *DefaultApiService) ListTeamsConfigurations(ctx _context.Context) ApiListTeamsConfigurationsRequest {
+func (a *DefaultAPIService) ListTeamsConfigurations(ctx context.Context) ApiListTeamsConfigurationsRequest {
 	return ApiListTeamsConfigurationsRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -8911,26 +8738,24 @@ func (a *DefaultApiService) ListTeamsConfigurations(ctx _context.Context) ApiLis
 
 // Execute executes the request
 //  @return []NotificationTeamsEndpointConfiguration
-func (a *DefaultApiService) ListTeamsConfigurationsExecute(r ApiListTeamsConfigurationsRequest) ([]NotificationTeamsEndpointConfiguration, *_nethttp.Response, error) {
+func (a *DefaultAPIService) ListTeamsConfigurationsExecute(r ApiListTeamsConfigurationsRequest) ([]NotificationTeamsEndpointConfiguration, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
+		formFiles            []formFile
 		localVarReturnValue  []NotificationTeamsEndpointConfiguration
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.ListTeamsConfigurations")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.ListTeamsConfigurations")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/notifications/endpoints/teams/configurations"
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -8949,7 +8774,7 @@ func (a *DefaultApiService) ListTeamsConfigurationsExecute(r ApiListTeamsConfigu
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -8959,15 +8784,15 @@ func (a *DefaultApiService) ListTeamsConfigurationsExecute(r ApiListTeamsConfigu
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -8976,7 +8801,7 @@ func (a *DefaultApiService) ListTeamsConfigurationsExecute(r ApiListTeamsConfigu
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -8987,13 +8812,12 @@ func (a *DefaultApiService) ListTeamsConfigurationsExecute(r ApiListTeamsConfigu
 }
 
 type ApiListTeamsSelectorsRequest struct {
-	ctx _context.Context
-	ApiService DefaultApi
+	ctx context.Context
+	ApiService DefaultAPI
 	uuid string
 }
 
-
-func (r ApiListTeamsSelectorsRequest) Execute() ([]NotificationSelector, *_nethttp.Response, error) {
+func (r ApiListTeamsSelectorsRequest) Execute() ([]NotificationSelector, *http.Response, error) {
 	return r.ApiService.ListTeamsSelectorsExecute(r)
 }
 
@@ -9002,11 +8826,11 @@ ListTeamsSelectors Method for ListTeamsSelectors
 
 List selectors mapping events for delivery to a Teams endpoint configuration
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param uuid
  @return ApiListTeamsSelectorsRequest
 */
-func (a *DefaultApiService) ListTeamsSelectors(ctx _context.Context, uuid string) ApiListTeamsSelectorsRequest {
+func (a *DefaultAPIService) ListTeamsSelectors(ctx context.Context, uuid string) ApiListTeamsSelectorsRequest {
 	return ApiListTeamsSelectorsRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -9016,27 +8840,25 @@ func (a *DefaultApiService) ListTeamsSelectors(ctx _context.Context, uuid string
 
 // Execute executes the request
 //  @return []NotificationSelector
-func (a *DefaultApiService) ListTeamsSelectorsExecute(r ApiListTeamsSelectorsRequest) ([]NotificationSelector, *_nethttp.Response, error) {
+func (a *DefaultAPIService) ListTeamsSelectorsExecute(r ApiListTeamsSelectorsRequest) ([]NotificationSelector, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
+		formFiles            []formFile
 		localVarReturnValue  []NotificationSelector
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.ListTeamsSelectors")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.ListTeamsSelectors")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/notifications/endpoints/teams/configurations/{uuid}/selectors"
-	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", _neturl.PathEscape(parameterToString(r.uuid, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", url.PathEscape(parameterValueToString(r.uuid, "uuid")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -9055,7 +8877,7 @@ func (a *DefaultApiService) ListTeamsSelectorsExecute(r ApiListTeamsSelectorsReq
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -9065,15 +8887,15 @@ func (a *DefaultApiService) ListTeamsSelectorsExecute(r ApiListTeamsSelectorsReq
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -9082,7 +8904,7 @@ func (a *DefaultApiService) ListTeamsSelectorsExecute(r ApiListTeamsSelectorsReq
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -9093,8 +8915,8 @@ func (a *DefaultApiService) ListTeamsSelectorsExecute(r ApiListTeamsSelectorsReq
 }
 
 type ApiListUserRolesRequest struct {
-	ctx _context.Context
-	ApiService DefaultApi
+	ctx context.Context
+	ApiService DefaultAPI
 	username string
 	forAccount *string
 	role *string
@@ -9104,23 +8926,24 @@ func (r ApiListUserRolesRequest) ForAccount(forAccount string) ApiListUserRolesR
 	r.forAccount = &forAccount
 	return r
 }
+
 func (r ApiListUserRolesRequest) Role(role string) ApiListUserRolesRequest {
 	r.role = &role
 	return r
 }
 
-func (r ApiListUserRolesRequest) Execute() ([]RbacManagerRoleMembership, *_nethttp.Response, error) {
+func (r ApiListUserRolesRequest) Execute() ([]RbacManagerRoleMembership, *http.Response, error) {
 	return r.ApiService.ListUserRolesExecute(r)
 }
 
 /*
 ListUserRoles List the roles for which the requested user is a member
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param username
  @return ApiListUserRolesRequest
 */
-func (a *DefaultApiService) ListUserRoles(ctx _context.Context, username string) ApiListUserRolesRequest {
+func (a *DefaultAPIService) ListUserRoles(ctx context.Context, username string) ApiListUserRolesRequest {
 	return ApiListUserRolesRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -9130,33 +8953,31 @@ func (a *DefaultApiService) ListUserRoles(ctx _context.Context, username string)
 
 // Execute executes the request
 //  @return []RbacManagerRoleMembership
-func (a *DefaultApiService) ListUserRolesExecute(r ApiListUserRolesRequest) ([]RbacManagerRoleMembership, *_nethttp.Response, error) {
+func (a *DefaultAPIService) ListUserRolesExecute(r ApiListUserRolesRequest) ([]RbacManagerRoleMembership, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
+		formFiles            []formFile
 		localVarReturnValue  []RbacManagerRoleMembership
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.ListUserRoles")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.ListUserRoles")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/rbac-manager/users/{username}/roles"
-	localVarPath = strings.Replace(localVarPath, "{"+"username"+"}", _neturl.PathEscape(parameterToString(r.username, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"username"+"}", url.PathEscape(parameterValueToString(r.username, "username")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	if r.forAccount != nil {
-		localVarQueryParams.Add("for_account", parameterToString(*r.forAccount, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "for_account", r.forAccount, "")
 	}
 	if r.role != nil {
-		localVarQueryParams.Add("role", parameterToString(*r.role, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "role", r.role, "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -9175,7 +8996,7 @@ func (a *DefaultApiService) ListUserRolesExecute(r ApiListUserRolesRequest) ([]R
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -9185,15 +9006,15 @@ func (a *DefaultApiService) ListUserRolesExecute(r ApiListUserRolesRequest) ([]R
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -9204,14 +9025,15 @@ func (a *DefaultApiService) ListUserRolesExecute(r ApiListUserRolesRequest) ([]R
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -9222,12 +9044,11 @@ func (a *DefaultApiService) ListUserRolesExecute(r ApiListUserRolesRequest) ([]R
 }
 
 type ApiListWebhookConfigurationsRequest struct {
-	ctx _context.Context
-	ApiService DefaultApi
+	ctx context.Context
+	ApiService DefaultAPI
 }
 
-
-func (r ApiListWebhookConfigurationsRequest) Execute() ([]NotificationWebhookEndpointConfiguration, *_nethttp.Response, error) {
+func (r ApiListWebhookConfigurationsRequest) Execute() ([]NotificationWebhookEndpointConfiguration, *http.Response, error) {
 	return r.ApiService.ListWebhookConfigurationsExecute(r)
 }
 
@@ -9236,10 +9057,10 @@ ListWebhookConfigurations Method for ListWebhookConfigurations
 
 List Webhook endpoint configurations
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiListWebhookConfigurationsRequest
 */
-func (a *DefaultApiService) ListWebhookConfigurations(ctx _context.Context) ApiListWebhookConfigurationsRequest {
+func (a *DefaultAPIService) ListWebhookConfigurations(ctx context.Context) ApiListWebhookConfigurationsRequest {
 	return ApiListWebhookConfigurationsRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -9248,26 +9069,24 @@ func (a *DefaultApiService) ListWebhookConfigurations(ctx _context.Context) ApiL
 
 // Execute executes the request
 //  @return []NotificationWebhookEndpointConfiguration
-func (a *DefaultApiService) ListWebhookConfigurationsExecute(r ApiListWebhookConfigurationsRequest) ([]NotificationWebhookEndpointConfiguration, *_nethttp.Response, error) {
+func (a *DefaultAPIService) ListWebhookConfigurationsExecute(r ApiListWebhookConfigurationsRequest) ([]NotificationWebhookEndpointConfiguration, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
+		formFiles            []formFile
 		localVarReturnValue  []NotificationWebhookEndpointConfiguration
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.ListWebhookConfigurations")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.ListWebhookConfigurations")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/notifications/endpoints/webhook/configurations"
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -9286,7 +9105,7 @@ func (a *DefaultApiService) ListWebhookConfigurationsExecute(r ApiListWebhookCon
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -9296,15 +9115,15 @@ func (a *DefaultApiService) ListWebhookConfigurationsExecute(r ApiListWebhookCon
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -9313,7 +9132,7 @@ func (a *DefaultApiService) ListWebhookConfigurationsExecute(r ApiListWebhookCon
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -9324,13 +9143,12 @@ func (a *DefaultApiService) ListWebhookConfigurationsExecute(r ApiListWebhookCon
 }
 
 type ApiListWebhookSelectorsRequest struct {
-	ctx _context.Context
-	ApiService DefaultApi
+	ctx context.Context
+	ApiService DefaultAPI
 	uuid string
 }
 
-
-func (r ApiListWebhookSelectorsRequest) Execute() ([]NotificationSelector, *_nethttp.Response, error) {
+func (r ApiListWebhookSelectorsRequest) Execute() ([]NotificationSelector, *http.Response, error) {
 	return r.ApiService.ListWebhookSelectorsExecute(r)
 }
 
@@ -9339,11 +9157,11 @@ ListWebhookSelectors Method for ListWebhookSelectors
 
 List selectors mapping events for delivery to a Webhook endpoint configuration
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param uuid
  @return ApiListWebhookSelectorsRequest
 */
-func (a *DefaultApiService) ListWebhookSelectors(ctx _context.Context, uuid string) ApiListWebhookSelectorsRequest {
+func (a *DefaultAPIService) ListWebhookSelectors(ctx context.Context, uuid string) ApiListWebhookSelectorsRequest {
 	return ApiListWebhookSelectorsRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -9353,27 +9171,25 @@ func (a *DefaultApiService) ListWebhookSelectors(ctx _context.Context, uuid stri
 
 // Execute executes the request
 //  @return []NotificationSelector
-func (a *DefaultApiService) ListWebhookSelectorsExecute(r ApiListWebhookSelectorsRequest) ([]NotificationSelector, *_nethttp.Response, error) {
+func (a *DefaultAPIService) ListWebhookSelectorsExecute(r ApiListWebhookSelectorsRequest) ([]NotificationSelector, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
+		formFiles            []formFile
 		localVarReturnValue  []NotificationSelector
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.ListWebhookSelectors")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.ListWebhookSelectors")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/notifications/endpoints/webhook/configurations/{uuid}/selectors"
-	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", _neturl.PathEscape(parameterToString(r.uuid, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", url.PathEscape(parameterValueToString(r.uuid, "uuid")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -9392,7 +9208,7 @@ func (a *DefaultApiService) ListWebhookSelectorsExecute(r ApiListWebhookSelector
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -9402,15 +9218,15 @@ func (a *DefaultApiService) ListWebhookSelectorsExecute(r ApiListWebhookSelector
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -9419,7 +9235,7 @@ func (a *DefaultApiService) ListWebhookSelectorsExecute(r ApiListWebhookSelector
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -9430,22 +9246,21 @@ func (a *DefaultApiService) ListWebhookSelectorsExecute(r ApiListWebhookSelector
 }
 
 type ApiMyRolesRequest struct {
-	ctx _context.Context
-	ApiService DefaultApi
+	ctx context.Context
+	ApiService DefaultAPI
 }
 
-
-func (r ApiMyRolesRequest) Execute() ([]RbacManagerAccountRole, *_nethttp.Response, error) {
+func (r ApiMyRolesRequest) Execute() ([]RbacManagerAccountRole, *http.Response, error) {
 	return r.ApiService.MyRolesExecute(r)
 }
 
 /*
 MyRoles List the roles for which the authenticated user is a member
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiMyRolesRequest
 */
-func (a *DefaultApiService) MyRoles(ctx _context.Context) ApiMyRolesRequest {
+func (a *DefaultAPIService) MyRoles(ctx context.Context) ApiMyRolesRequest {
 	return ApiMyRolesRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -9454,26 +9269,24 @@ func (a *DefaultApiService) MyRoles(ctx _context.Context) ApiMyRolesRequest {
 
 // Execute executes the request
 //  @return []RbacManagerAccountRole
-func (a *DefaultApiService) MyRolesExecute(r ApiMyRolesRequest) ([]RbacManagerAccountRole, *_nethttp.Response, error) {
+func (a *DefaultAPIService) MyRolesExecute(r ApiMyRolesRequest) ([]RbacManagerAccountRole, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
+		formFiles            []formFile
 		localVarReturnValue  []RbacManagerAccountRole
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.MyRoles")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.MyRoles")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/rbac-manager/my-roles"
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -9492,7 +9305,7 @@ func (a *DefaultApiService) MyRolesExecute(r ApiMyRolesRequest) ([]RbacManagerAc
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -9502,15 +9315,15 @@ func (a *DefaultApiService) MyRolesExecute(r ApiMyRolesRequest) ([]RbacManagerAc
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -9521,14 +9334,15 @@ func (a *DefaultApiService) MyRolesExecute(r ApiMyRolesRequest) ([]RbacManagerAc
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -9539,12 +9353,11 @@ func (a *DefaultApiService) MyRolesExecute(r ApiMyRolesRequest) ([]RbacManagerAc
 }
 
 type ApiPingRequest struct {
-	ctx _context.Context
-	ApiService DefaultApi
+	ctx context.Context
+	ApiService DefaultAPI
 }
 
-
-func (r ApiPingRequest) Execute() (string, *_nethttp.Response, error) {
+func (r ApiPingRequest) Execute() (string, *http.Response, error) {
 	return r.ApiService.PingExecute(r)
 }
 
@@ -9553,10 +9366,10 @@ Ping Method for Ping
 
 Simple status check
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiPingRequest
 */
-func (a *DefaultApiService) Ping(ctx _context.Context) ApiPingRequest {
+func (a *DefaultAPIService) Ping(ctx context.Context) ApiPingRequest {
 	return ApiPingRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -9565,26 +9378,24 @@ func (a *DefaultApiService) Ping(ctx _context.Context) ApiPingRequest {
 
 // Execute executes the request
 //  @return string
-func (a *DefaultApiService) PingExecute(r ApiPingRequest) (string, *_nethttp.Response, error) {
+func (a *DefaultAPIService) PingExecute(r ApiPingRequest) (string, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
+		formFiles            []formFile
 		localVarReturnValue  string
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.Ping")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.Ping")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/"
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -9603,7 +9414,7 @@ func (a *DefaultApiService) PingExecute(r ApiPingRequest) (string, *_nethttp.Res
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -9613,15 +9424,15 @@ func (a *DefaultApiService) PingExecute(r ApiPingRequest) (string, *_nethttp.Res
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -9630,7 +9441,7 @@ func (a *DefaultApiService) PingExecute(r ApiPingRequest) (string, *_nethttp.Res
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -9641,8 +9452,8 @@ func (a *DefaultApiService) PingExecute(r ApiPingRequest) (string, *_nethttp.Res
 }
 
 type ApiRevokeOauthTokenRequest struct {
-	ctx _context.Context
-	ApiService DefaultApi
+	ctx context.Context
+	ApiService DefaultAPI
 	token *string
 	tokenTypeHint *string
 }
@@ -9652,13 +9463,14 @@ func (r ApiRevokeOauthTokenRequest) Token(token string) ApiRevokeOauthTokenReque
 	r.token = &token
 	return r
 }
+
 // A hint about the type of token to be revoked
 func (r ApiRevokeOauthTokenRequest) TokenTypeHint(tokenTypeHint string) ApiRevokeOauthTokenRequest {
 	r.tokenTypeHint = &tokenTypeHint
 	return r
 }
 
-func (r ApiRevokeOauthTokenRequest) Execute() (*_nethttp.Response, error) {
+func (r ApiRevokeOauthTokenRequest) Execute() (*http.Response, error) {
 	return r.ApiService.RevokeOauthTokenExecute(r)
 }
 
@@ -9667,10 +9479,10 @@ RevokeOauthToken Method for RevokeOauthToken
 
 Revoke a refresh token previously requested from /oauth/token
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiRevokeOauthTokenRequest
 */
-func (a *DefaultApiService) RevokeOauthToken(ctx _context.Context) ApiRevokeOauthTokenRequest {
+func (a *DefaultAPIService) RevokeOauthToken(ctx context.Context) ApiRevokeOauthTokenRequest {
 	return ApiRevokeOauthTokenRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -9678,25 +9490,23 @@ func (a *DefaultApiService) RevokeOauthToken(ctx _context.Context) ApiRevokeOaut
 }
 
 // Execute executes the request
-func (a *DefaultApiService) RevokeOauthTokenExecute(r ApiRevokeOauthTokenRequest) (*_nethttp.Response, error) {
+func (a *DefaultAPIService) RevokeOauthTokenExecute(r ApiRevokeOauthTokenRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPost
+		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
+		formFiles            []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.RevokeOauthToken")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.RevokeOauthToken")
 	if err != nil {
-		return nil, GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/oauth/revoke"
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/x-www-form-urlencoded"}
@@ -9716,12 +9526,12 @@ func (a *DefaultApiService) RevokeOauthTokenExecute(r ApiRevokeOauthTokenRequest
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.token != nil {
-		localVarFormParams.Add("token", parameterToString(*r.token, ""))
+		parameterAddToHeaderOrQuery(localVarFormParams, "token", r.token, "")
 	}
 	if r.tokenTypeHint != nil {
-		localVarFormParams.Add("token_type_hint", parameterToString(*r.tokenTypeHint, ""))
+		parameterAddToHeaderOrQuery(localVarFormParams, "token_type_hint", r.tokenTypeHint, "")
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
 	}
@@ -9731,26 +9541,27 @@ func (a *DefaultApiService) RevokeOauthTokenExecute(r ApiRevokeOauthTokenRequest
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
 		if localVarHTTPResponse.StatusCode == 400 {
-			var v InlineResponse400
+			var v RevokeOauthToken400Response
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
 				return localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarHTTPResponse, newErr
 		}
 		return localVarHTTPResponse, newErr
@@ -9760,13 +9571,12 @@ func (a *DefaultApiService) RevokeOauthTokenExecute(r ApiRevokeOauthTokenRequest
 }
 
 type ApiSamlLoginRequest struct {
-	ctx _context.Context
-	ApiService DefaultApi
+	ctx context.Context
+	ApiService DefaultAPI
 	idpName string
 }
 
-
-func (r ApiSamlLoginRequest) Execute() (RbacManagerTokenResponse, *_nethttp.Response, error) {
+func (r ApiSamlLoginRequest) Execute() (*RbacManagerTokenResponse, *http.Response, error) {
 	return r.ApiService.SamlLoginExecute(r)
 }
 
@@ -9775,11 +9585,11 @@ SamlLogin Method for SamlLogin
 
 Initiate an SP-initiated login sequence for the Idp. The SP will respond with the SAML AuthN Request the client must send to the Idp URL
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param idpName
  @return ApiSamlLoginRequest
 */
-func (a *DefaultApiService) SamlLogin(ctx _context.Context, idpName string) ApiSamlLoginRequest {
+func (a *DefaultAPIService) SamlLogin(ctx context.Context, idpName string) ApiSamlLoginRequest {
 	return ApiSamlLoginRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -9789,27 +9599,25 @@ func (a *DefaultApiService) SamlLogin(ctx _context.Context, idpName string) ApiS
 
 // Execute executes the request
 //  @return RbacManagerTokenResponse
-func (a *DefaultApiService) SamlLoginExecute(r ApiSamlLoginRequest) (RbacManagerTokenResponse, *_nethttp.Response, error) {
+func (a *DefaultAPIService) SamlLoginExecute(r ApiSamlLoginRequest) (*RbacManagerTokenResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  RbacManagerTokenResponse
+		formFiles            []formFile
+		localVarReturnValue  *RbacManagerTokenResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.SamlLogin")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.SamlLogin")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/rbac-manager/saml/login/{idp_name}"
-	localVarPath = strings.Replace(localVarPath, "{"+"idp_name"+"}", _neturl.PathEscape(parameterToString(r.idpName, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"idp_name"+"}", url.PathEscape(parameterValueToString(r.idpName, "idpName")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -9828,7 +9636,7 @@ func (a *DefaultApiService) SamlLoginExecute(r ApiSamlLoginRequest) (RbacManager
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -9838,15 +9646,15 @@ func (a *DefaultApiService) SamlLoginExecute(r ApiSamlLoginRequest) (RbacManager
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -9857,14 +9665,15 @@ func (a *DefaultApiService) SamlLoginExecute(r ApiSamlLoginRequest) (RbacManager
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -9875,13 +9684,12 @@ func (a *DefaultApiService) SamlLoginExecute(r ApiSamlLoginRequest) (RbacManager
 }
 
 type ApiSamlSsoRequest struct {
-	ctx _context.Context
-	ApiService DefaultApi
+	ctx context.Context
+	ApiService DefaultAPI
 	idpName string
 }
 
-
-func (r ApiSamlSsoRequest) Execute() (RbacManagerTokenResponse, *_nethttp.Response, error) {
+func (r ApiSamlSsoRequest) Execute() (*RbacManagerTokenResponse, *http.Response, error) {
 	return r.ApiService.SamlSsoExecute(r)
 }
 
@@ -9890,11 +9698,11 @@ SamlSso Method for SamlSso
 
 Perform a login using a SAML assertion, no HTTP auth is required as the SAML assertion is considered the authenticating token
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param idpName
  @return ApiSamlSsoRequest
 */
-func (a *DefaultApiService) SamlSso(ctx _context.Context, idpName string) ApiSamlSsoRequest {
+func (a *DefaultAPIService) SamlSso(ctx context.Context, idpName string) ApiSamlSsoRequest {
 	return ApiSamlSsoRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -9904,27 +9712,25 @@ func (a *DefaultApiService) SamlSso(ctx _context.Context, idpName string) ApiSam
 
 // Execute executes the request
 //  @return RbacManagerTokenResponse
-func (a *DefaultApiService) SamlSsoExecute(r ApiSamlSsoRequest) (RbacManagerTokenResponse, *_nethttp.Response, error) {
+func (a *DefaultAPIService) SamlSsoExecute(r ApiSamlSsoRequest) (*RbacManagerTokenResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPost
+		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  RbacManagerTokenResponse
+		formFiles            []formFile
+		localVarReturnValue  *RbacManagerTokenResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.SamlSso")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.SamlSso")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/rbac-manager/saml/sso/{idp_name}"
-	localVarPath = strings.Replace(localVarPath, "{"+"idp_name"+"}", _neturl.PathEscape(parameterToString(r.idpName, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"idp_name"+"}", url.PathEscape(parameterValueToString(r.idpName, "idpName")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -9943,7 +9749,7 @@ func (a *DefaultApiService) SamlSsoExecute(r ApiSamlSsoRequest) (RbacManagerToke
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -9953,15 +9759,15 @@ func (a *DefaultApiService) SamlSsoExecute(r ApiSamlSsoRequest) (RbacManagerToke
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -9972,14 +9778,15 @@ func (a *DefaultApiService) SamlSsoExecute(r ApiSamlSsoRequest) (RbacManagerToke
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -9990,8 +9797,8 @@ func (a *DefaultApiService) SamlSsoExecute(r ApiSamlSsoRequest) (RbacManagerToke
 }
 
 type ApiTestGithubConfigurationRequest struct {
-	ctx _context.Context
-	ApiService DefaultApi
+	ctx context.Context
+	ApiService DefaultAPI
 	configuration *NotificationGitHubEndpointConfigurationPost
 }
 
@@ -10000,7 +9807,7 @@ func (r ApiTestGithubConfigurationRequest) Configuration(configuration Notificat
 	return r
 }
 
-func (r ApiTestGithubConfigurationRequest) Execute() (NotificationGitHubTestResult, *_nethttp.Response, error) {
+func (r ApiTestGithubConfigurationRequest) Execute() (*NotificationGitHubTestResult, *http.Response, error) {
 	return r.ApiService.TestGithubConfigurationExecute(r)
 }
 
@@ -10009,10 +9816,10 @@ TestGithubConfiguration Method for TestGithubConfiguration
 
 Test GitHub endpoint configuration
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiTestGithubConfigurationRequest
 */
-func (a *DefaultApiService) TestGithubConfiguration(ctx _context.Context) ApiTestGithubConfigurationRequest {
+func (a *DefaultAPIService) TestGithubConfiguration(ctx context.Context) ApiTestGithubConfigurationRequest {
 	return ApiTestGithubConfigurationRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -10021,26 +9828,24 @@ func (a *DefaultApiService) TestGithubConfiguration(ctx _context.Context) ApiTes
 
 // Execute executes the request
 //  @return NotificationGitHubTestResult
-func (a *DefaultApiService) TestGithubConfigurationExecute(r ApiTestGithubConfigurationRequest) (NotificationGitHubTestResult, *_nethttp.Response, error) {
+func (a *DefaultAPIService) TestGithubConfigurationExecute(r ApiTestGithubConfigurationRequest) (*NotificationGitHubTestResult, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPost
+		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  NotificationGitHubTestResult
+		formFiles            []formFile
+		localVarReturnValue  *NotificationGitHubTestResult
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.TestGithubConfiguration")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.TestGithubConfiguration")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/notifications/endpoints/github/test"
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if r.configuration == nil {
 		return localVarReturnValue, nil, reportError("configuration is required and must be specified")
 	}
@@ -10064,7 +9869,7 @@ func (a *DefaultApiService) TestGithubConfigurationExecute(r ApiTestGithubConfig
 	}
 	// body params
 	localVarPostBody = r.configuration
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -10074,15 +9879,15 @@ func (a *DefaultApiService) TestGithubConfigurationExecute(r ApiTestGithubConfig
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -10091,7 +9896,7 @@ func (a *DefaultApiService) TestGithubConfigurationExecute(r ApiTestGithubConfig
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -10102,8 +9907,8 @@ func (a *DefaultApiService) TestGithubConfigurationExecute(r ApiTestGithubConfig
 }
 
 type ApiTestJiraConfigurationRequest struct {
-	ctx _context.Context
-	ApiService DefaultApi
+	ctx context.Context
+	ApiService DefaultAPI
 	configuration *NotificationJiraEndpointConfigurationPost
 }
 
@@ -10112,7 +9917,7 @@ func (r ApiTestJiraConfigurationRequest) Configuration(configuration Notificatio
 	return r
 }
 
-func (r ApiTestJiraConfigurationRequest) Execute() (NotificationJiraTestResult, *_nethttp.Response, error) {
+func (r ApiTestJiraConfigurationRequest) Execute() (*NotificationJiraTestResult, *http.Response, error) {
 	return r.ApiService.TestJiraConfigurationExecute(r)
 }
 
@@ -10121,10 +9926,10 @@ TestJiraConfiguration Method for TestJiraConfiguration
 
 Test Jira endpoint configuration
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiTestJiraConfigurationRequest
 */
-func (a *DefaultApiService) TestJiraConfiguration(ctx _context.Context) ApiTestJiraConfigurationRequest {
+func (a *DefaultAPIService) TestJiraConfiguration(ctx context.Context) ApiTestJiraConfigurationRequest {
 	return ApiTestJiraConfigurationRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -10133,26 +9938,24 @@ func (a *DefaultApiService) TestJiraConfiguration(ctx _context.Context) ApiTestJ
 
 // Execute executes the request
 //  @return NotificationJiraTestResult
-func (a *DefaultApiService) TestJiraConfigurationExecute(r ApiTestJiraConfigurationRequest) (NotificationJiraTestResult, *_nethttp.Response, error) {
+func (a *DefaultAPIService) TestJiraConfigurationExecute(r ApiTestJiraConfigurationRequest) (*NotificationJiraTestResult, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPost
+		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  NotificationJiraTestResult
+		formFiles            []formFile
+		localVarReturnValue  *NotificationJiraTestResult
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.TestJiraConfiguration")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.TestJiraConfiguration")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/notifications/endpoints/jira/test"
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if r.configuration == nil {
 		return localVarReturnValue, nil, reportError("configuration is required and must be specified")
 	}
@@ -10176,7 +9979,7 @@ func (a *DefaultApiService) TestJiraConfigurationExecute(r ApiTestJiraConfigurat
 	}
 	// body params
 	localVarPostBody = r.configuration
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -10186,15 +9989,15 @@ func (a *DefaultApiService) TestJiraConfigurationExecute(r ApiTestJiraConfigurat
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -10203,7 +10006,7 @@ func (a *DefaultApiService) TestJiraConfigurationExecute(r ApiTestJiraConfigurat
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -10214,8 +10017,8 @@ func (a *DefaultApiService) TestJiraConfigurationExecute(r ApiTestJiraConfigurat
 }
 
 type ApiTestSlackConfigurationRequest struct {
-	ctx _context.Context
-	ApiService DefaultApi
+	ctx context.Context
+	ApiService DefaultAPI
 	configuration *NotificationSlackEndpointConfiguration
 }
 
@@ -10224,7 +10027,7 @@ func (r ApiTestSlackConfigurationRequest) Configuration(configuration Notificati
 	return r
 }
 
-func (r ApiTestSlackConfigurationRequest) Execute() (NotificationSlackTestResult, *_nethttp.Response, error) {
+func (r ApiTestSlackConfigurationRequest) Execute() (*NotificationSlackTestResult, *http.Response, error) {
 	return r.ApiService.TestSlackConfigurationExecute(r)
 }
 
@@ -10233,10 +10036,10 @@ TestSlackConfiguration Method for TestSlackConfiguration
 
 Test Slack endpoint configuration
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiTestSlackConfigurationRequest
 */
-func (a *DefaultApiService) TestSlackConfiguration(ctx _context.Context) ApiTestSlackConfigurationRequest {
+func (a *DefaultAPIService) TestSlackConfiguration(ctx context.Context) ApiTestSlackConfigurationRequest {
 	return ApiTestSlackConfigurationRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -10245,26 +10048,24 @@ func (a *DefaultApiService) TestSlackConfiguration(ctx _context.Context) ApiTest
 
 // Execute executes the request
 //  @return NotificationSlackTestResult
-func (a *DefaultApiService) TestSlackConfigurationExecute(r ApiTestSlackConfigurationRequest) (NotificationSlackTestResult, *_nethttp.Response, error) {
+func (a *DefaultAPIService) TestSlackConfigurationExecute(r ApiTestSlackConfigurationRequest) (*NotificationSlackTestResult, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPost
+		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  NotificationSlackTestResult
+		formFiles            []formFile
+		localVarReturnValue  *NotificationSlackTestResult
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.TestSlackConfiguration")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.TestSlackConfiguration")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/notifications/endpoints/slack/test"
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if r.configuration == nil {
 		return localVarReturnValue, nil, reportError("configuration is required and must be specified")
 	}
@@ -10288,7 +10089,7 @@ func (a *DefaultApiService) TestSlackConfigurationExecute(r ApiTestSlackConfigur
 	}
 	// body params
 	localVarPostBody = r.configuration
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -10298,15 +10099,15 @@ func (a *DefaultApiService) TestSlackConfigurationExecute(r ApiTestSlackConfigur
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -10315,7 +10116,7 @@ func (a *DefaultApiService) TestSlackConfigurationExecute(r ApiTestSlackConfigur
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -10326,8 +10127,8 @@ func (a *DefaultApiService) TestSlackConfigurationExecute(r ApiTestSlackConfigur
 }
 
 type ApiTestSmtpConfigurationRequest struct {
-	ctx _context.Context
-	ApiService DefaultApi
+	ctx context.Context
+	ApiService DefaultAPI
 	configuration *NotificationSMTPEndpointConfiguration
 }
 
@@ -10336,7 +10137,7 @@ func (r ApiTestSmtpConfigurationRequest) Configuration(configuration Notificatio
 	return r
 }
 
-func (r ApiTestSmtpConfigurationRequest) Execute() (NotificationSMTPTestResult, *_nethttp.Response, error) {
+func (r ApiTestSmtpConfigurationRequest) Execute() (*NotificationSMTPTestResult, *http.Response, error) {
 	return r.ApiService.TestSmtpConfigurationExecute(r)
 }
 
@@ -10345,10 +10146,10 @@ TestSmtpConfiguration Method for TestSmtpConfiguration
 
 Test SMTP endpoint configuration
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiTestSmtpConfigurationRequest
 */
-func (a *DefaultApiService) TestSmtpConfiguration(ctx _context.Context) ApiTestSmtpConfigurationRequest {
+func (a *DefaultAPIService) TestSmtpConfiguration(ctx context.Context) ApiTestSmtpConfigurationRequest {
 	return ApiTestSmtpConfigurationRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -10357,26 +10158,24 @@ func (a *DefaultApiService) TestSmtpConfiguration(ctx _context.Context) ApiTestS
 
 // Execute executes the request
 //  @return NotificationSMTPTestResult
-func (a *DefaultApiService) TestSmtpConfigurationExecute(r ApiTestSmtpConfigurationRequest) (NotificationSMTPTestResult, *_nethttp.Response, error) {
+func (a *DefaultAPIService) TestSmtpConfigurationExecute(r ApiTestSmtpConfigurationRequest) (*NotificationSMTPTestResult, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPost
+		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  NotificationSMTPTestResult
+		formFiles            []formFile
+		localVarReturnValue  *NotificationSMTPTestResult
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.TestSmtpConfiguration")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.TestSmtpConfiguration")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/notifications/endpoints/smtp/test"
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if r.configuration == nil {
 		return localVarReturnValue, nil, reportError("configuration is required and must be specified")
 	}
@@ -10400,7 +10199,7 @@ func (a *DefaultApiService) TestSmtpConfigurationExecute(r ApiTestSmtpConfigurat
 	}
 	// body params
 	localVarPostBody = r.configuration
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -10410,15 +10209,15 @@ func (a *DefaultApiService) TestSmtpConfigurationExecute(r ApiTestSmtpConfigurat
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -10427,7 +10226,7 @@ func (a *DefaultApiService) TestSmtpConfigurationExecute(r ApiTestSmtpConfigurat
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -10438,13 +10237,12 @@ func (a *DefaultApiService) TestSmtpConfigurationExecute(r ApiTestSmtpConfigurat
 }
 
 type ApiTestStoredGithubConfigurationRequest struct {
-	ctx _context.Context
-	ApiService DefaultApi
+	ctx context.Context
+	ApiService DefaultAPI
 	uuid string
 }
 
-
-func (r ApiTestStoredGithubConfigurationRequest) Execute() (NotificationGitHubTestResult, *_nethttp.Response, error) {
+func (r ApiTestStoredGithubConfigurationRequest) Execute() (*NotificationGitHubTestResult, *http.Response, error) {
 	return r.ApiService.TestStoredGithubConfigurationExecute(r)
 }
 
@@ -10453,11 +10251,11 @@ TestStoredGithubConfiguration Method for TestStoredGithubConfiguration
 
 Test stored GitHub endpoint configuration
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param uuid
  @return ApiTestStoredGithubConfigurationRequest
 */
-func (a *DefaultApiService) TestStoredGithubConfiguration(ctx _context.Context, uuid string) ApiTestStoredGithubConfigurationRequest {
+func (a *DefaultAPIService) TestStoredGithubConfiguration(ctx context.Context, uuid string) ApiTestStoredGithubConfigurationRequest {
 	return ApiTestStoredGithubConfigurationRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -10467,27 +10265,25 @@ func (a *DefaultApiService) TestStoredGithubConfiguration(ctx _context.Context, 
 
 // Execute executes the request
 //  @return NotificationGitHubTestResult
-func (a *DefaultApiService) TestStoredGithubConfigurationExecute(r ApiTestStoredGithubConfigurationRequest) (NotificationGitHubTestResult, *_nethttp.Response, error) {
+func (a *DefaultAPIService) TestStoredGithubConfigurationExecute(r ApiTestStoredGithubConfigurationRequest) (*NotificationGitHubTestResult, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  NotificationGitHubTestResult
+		formFiles            []formFile
+		localVarReturnValue  *NotificationGitHubTestResult
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.TestStoredGithubConfiguration")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.TestStoredGithubConfiguration")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/notifications/endpoints/github/configurations/{uuid}/test"
-	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", _neturl.PathEscape(parameterToString(r.uuid, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", url.PathEscape(parameterValueToString(r.uuid, "uuid")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -10506,7 +10302,7 @@ func (a *DefaultApiService) TestStoredGithubConfigurationExecute(r ApiTestStored
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -10516,15 +10312,15 @@ func (a *DefaultApiService) TestStoredGithubConfigurationExecute(r ApiTestStored
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -10533,7 +10329,7 @@ func (a *DefaultApiService) TestStoredGithubConfigurationExecute(r ApiTestStored
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -10544,13 +10340,12 @@ func (a *DefaultApiService) TestStoredGithubConfigurationExecute(r ApiTestStored
 }
 
 type ApiTestStoredJiraConfigurationRequest struct {
-	ctx _context.Context
-	ApiService DefaultApi
+	ctx context.Context
+	ApiService DefaultAPI
 	uuid string
 }
 
-
-func (r ApiTestStoredJiraConfigurationRequest) Execute() (NotificationJiraTestResult, *_nethttp.Response, error) {
+func (r ApiTestStoredJiraConfigurationRequest) Execute() (*NotificationJiraTestResult, *http.Response, error) {
 	return r.ApiService.TestStoredJiraConfigurationExecute(r)
 }
 
@@ -10559,11 +10354,11 @@ TestStoredJiraConfiguration Method for TestStoredJiraConfiguration
 
 Test stored Jira endpoint configuration
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param uuid
  @return ApiTestStoredJiraConfigurationRequest
 */
-func (a *DefaultApiService) TestStoredJiraConfiguration(ctx _context.Context, uuid string) ApiTestStoredJiraConfigurationRequest {
+func (a *DefaultAPIService) TestStoredJiraConfiguration(ctx context.Context, uuid string) ApiTestStoredJiraConfigurationRequest {
 	return ApiTestStoredJiraConfigurationRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -10573,27 +10368,25 @@ func (a *DefaultApiService) TestStoredJiraConfiguration(ctx _context.Context, uu
 
 // Execute executes the request
 //  @return NotificationJiraTestResult
-func (a *DefaultApiService) TestStoredJiraConfigurationExecute(r ApiTestStoredJiraConfigurationRequest) (NotificationJiraTestResult, *_nethttp.Response, error) {
+func (a *DefaultAPIService) TestStoredJiraConfigurationExecute(r ApiTestStoredJiraConfigurationRequest) (*NotificationJiraTestResult, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  NotificationJiraTestResult
+		formFiles            []formFile
+		localVarReturnValue  *NotificationJiraTestResult
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.TestStoredJiraConfiguration")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.TestStoredJiraConfiguration")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/notifications/endpoints/jira/configurations/{uuid}/test"
-	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", _neturl.PathEscape(parameterToString(r.uuid, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", url.PathEscape(parameterValueToString(r.uuid, "uuid")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -10612,7 +10405,7 @@ func (a *DefaultApiService) TestStoredJiraConfigurationExecute(r ApiTestStoredJi
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -10622,15 +10415,15 @@ func (a *DefaultApiService) TestStoredJiraConfigurationExecute(r ApiTestStoredJi
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -10639,7 +10432,7 @@ func (a *DefaultApiService) TestStoredJiraConfigurationExecute(r ApiTestStoredJi
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -10650,13 +10443,12 @@ func (a *DefaultApiService) TestStoredJiraConfigurationExecute(r ApiTestStoredJi
 }
 
 type ApiTestStoredSlackConfigurationRequest struct {
-	ctx _context.Context
-	ApiService DefaultApi
+	ctx context.Context
+	ApiService DefaultAPI
 	uuid string
 }
 
-
-func (r ApiTestStoredSlackConfigurationRequest) Execute() (NotificationSlackTestResult, *_nethttp.Response, error) {
+func (r ApiTestStoredSlackConfigurationRequest) Execute() (*NotificationSlackTestResult, *http.Response, error) {
 	return r.ApiService.TestStoredSlackConfigurationExecute(r)
 }
 
@@ -10665,11 +10457,11 @@ TestStoredSlackConfiguration Method for TestStoredSlackConfiguration
 
 Test stored Slack endpoint configuration
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param uuid
  @return ApiTestStoredSlackConfigurationRequest
 */
-func (a *DefaultApiService) TestStoredSlackConfiguration(ctx _context.Context, uuid string) ApiTestStoredSlackConfigurationRequest {
+func (a *DefaultAPIService) TestStoredSlackConfiguration(ctx context.Context, uuid string) ApiTestStoredSlackConfigurationRequest {
 	return ApiTestStoredSlackConfigurationRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -10679,27 +10471,25 @@ func (a *DefaultApiService) TestStoredSlackConfiguration(ctx _context.Context, u
 
 // Execute executes the request
 //  @return NotificationSlackTestResult
-func (a *DefaultApiService) TestStoredSlackConfigurationExecute(r ApiTestStoredSlackConfigurationRequest) (NotificationSlackTestResult, *_nethttp.Response, error) {
+func (a *DefaultAPIService) TestStoredSlackConfigurationExecute(r ApiTestStoredSlackConfigurationRequest) (*NotificationSlackTestResult, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  NotificationSlackTestResult
+		formFiles            []formFile
+		localVarReturnValue  *NotificationSlackTestResult
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.TestStoredSlackConfiguration")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.TestStoredSlackConfiguration")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/notifications/endpoints/slack/configurations/{uuid}/test"
-	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", _neturl.PathEscape(parameterToString(r.uuid, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", url.PathEscape(parameterValueToString(r.uuid, "uuid")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -10718,7 +10508,7 @@ func (a *DefaultApiService) TestStoredSlackConfigurationExecute(r ApiTestStoredS
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -10728,15 +10518,15 @@ func (a *DefaultApiService) TestStoredSlackConfigurationExecute(r ApiTestStoredS
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -10745,7 +10535,7 @@ func (a *DefaultApiService) TestStoredSlackConfigurationExecute(r ApiTestStoredS
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -10756,13 +10546,12 @@ func (a *DefaultApiService) TestStoredSlackConfigurationExecute(r ApiTestStoredS
 }
 
 type ApiTestStoredSmtpConfigurationRequest struct {
-	ctx _context.Context
-	ApiService DefaultApi
+	ctx context.Context
+	ApiService DefaultAPI
 	uuid string
 }
 
-
-func (r ApiTestStoredSmtpConfigurationRequest) Execute() (NotificationSMTPTestResult, *_nethttp.Response, error) {
+func (r ApiTestStoredSmtpConfigurationRequest) Execute() (*NotificationSMTPTestResult, *http.Response, error) {
 	return r.ApiService.TestStoredSmtpConfigurationExecute(r)
 }
 
@@ -10771,11 +10560,11 @@ TestStoredSmtpConfiguration Method for TestStoredSmtpConfiguration
 
 Test stored SMTP endpoint configuration
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param uuid
  @return ApiTestStoredSmtpConfigurationRequest
 */
-func (a *DefaultApiService) TestStoredSmtpConfiguration(ctx _context.Context, uuid string) ApiTestStoredSmtpConfigurationRequest {
+func (a *DefaultAPIService) TestStoredSmtpConfiguration(ctx context.Context, uuid string) ApiTestStoredSmtpConfigurationRequest {
 	return ApiTestStoredSmtpConfigurationRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -10785,27 +10574,25 @@ func (a *DefaultApiService) TestStoredSmtpConfiguration(ctx _context.Context, uu
 
 // Execute executes the request
 //  @return NotificationSMTPTestResult
-func (a *DefaultApiService) TestStoredSmtpConfigurationExecute(r ApiTestStoredSmtpConfigurationRequest) (NotificationSMTPTestResult, *_nethttp.Response, error) {
+func (a *DefaultAPIService) TestStoredSmtpConfigurationExecute(r ApiTestStoredSmtpConfigurationRequest) (*NotificationSMTPTestResult, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  NotificationSMTPTestResult
+		formFiles            []formFile
+		localVarReturnValue  *NotificationSMTPTestResult
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.TestStoredSmtpConfiguration")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.TestStoredSmtpConfiguration")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/notifications/endpoints/smtp/configurations/{uuid}/test"
-	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", _neturl.PathEscape(parameterToString(r.uuid, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", url.PathEscape(parameterValueToString(r.uuid, "uuid")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -10824,7 +10611,7 @@ func (a *DefaultApiService) TestStoredSmtpConfigurationExecute(r ApiTestStoredSm
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -10834,15 +10621,15 @@ func (a *DefaultApiService) TestStoredSmtpConfigurationExecute(r ApiTestStoredSm
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -10851,7 +10638,7 @@ func (a *DefaultApiService) TestStoredSmtpConfigurationExecute(r ApiTestStoredSm
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -10862,13 +10649,12 @@ func (a *DefaultApiService) TestStoredSmtpConfigurationExecute(r ApiTestStoredSm
 }
 
 type ApiTestStoredTeamsConfigurationRequest struct {
-	ctx _context.Context
-	ApiService DefaultApi
+	ctx context.Context
+	ApiService DefaultAPI
 	uuid string
 }
 
-
-func (r ApiTestStoredTeamsConfigurationRequest) Execute() (NotificationTeamsTestResult, *_nethttp.Response, error) {
+func (r ApiTestStoredTeamsConfigurationRequest) Execute() (*NotificationTeamsTestResult, *http.Response, error) {
 	return r.ApiService.TestStoredTeamsConfigurationExecute(r)
 }
 
@@ -10877,11 +10663,11 @@ TestStoredTeamsConfiguration Method for TestStoredTeamsConfiguration
 
 Test stored Teams endpoint configuration
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param uuid
  @return ApiTestStoredTeamsConfigurationRequest
 */
-func (a *DefaultApiService) TestStoredTeamsConfiguration(ctx _context.Context, uuid string) ApiTestStoredTeamsConfigurationRequest {
+func (a *DefaultAPIService) TestStoredTeamsConfiguration(ctx context.Context, uuid string) ApiTestStoredTeamsConfigurationRequest {
 	return ApiTestStoredTeamsConfigurationRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -10891,27 +10677,25 @@ func (a *DefaultApiService) TestStoredTeamsConfiguration(ctx _context.Context, u
 
 // Execute executes the request
 //  @return NotificationTeamsTestResult
-func (a *DefaultApiService) TestStoredTeamsConfigurationExecute(r ApiTestStoredTeamsConfigurationRequest) (NotificationTeamsTestResult, *_nethttp.Response, error) {
+func (a *DefaultAPIService) TestStoredTeamsConfigurationExecute(r ApiTestStoredTeamsConfigurationRequest) (*NotificationTeamsTestResult, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  NotificationTeamsTestResult
+		formFiles            []formFile
+		localVarReturnValue  *NotificationTeamsTestResult
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.TestStoredTeamsConfiguration")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.TestStoredTeamsConfiguration")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/notifications/endpoints/teams/configurations/{uuid}/test"
-	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", _neturl.PathEscape(parameterToString(r.uuid, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", url.PathEscape(parameterValueToString(r.uuid, "uuid")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -10930,7 +10714,7 @@ func (a *DefaultApiService) TestStoredTeamsConfigurationExecute(r ApiTestStoredT
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -10940,15 +10724,15 @@ func (a *DefaultApiService) TestStoredTeamsConfigurationExecute(r ApiTestStoredT
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -10957,7 +10741,7 @@ func (a *DefaultApiService) TestStoredTeamsConfigurationExecute(r ApiTestStoredT
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -10968,13 +10752,12 @@ func (a *DefaultApiService) TestStoredTeamsConfigurationExecute(r ApiTestStoredT
 }
 
 type ApiTestStoredWebhookConfigurationRequest struct {
-	ctx _context.Context
-	ApiService DefaultApi
+	ctx context.Context
+	ApiService DefaultAPI
 	uuid string
 }
 
-
-func (r ApiTestStoredWebhookConfigurationRequest) Execute() (NotificationWebhookTestResult, *_nethttp.Response, error) {
+func (r ApiTestStoredWebhookConfigurationRequest) Execute() (*NotificationWebhookTestResult, *http.Response, error) {
 	return r.ApiService.TestStoredWebhookConfigurationExecute(r)
 }
 
@@ -10983,11 +10766,11 @@ TestStoredWebhookConfiguration Method for TestStoredWebhookConfiguration
 
 Test stored Webhook endpoint configuration
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param uuid
  @return ApiTestStoredWebhookConfigurationRequest
 */
-func (a *DefaultApiService) TestStoredWebhookConfiguration(ctx _context.Context, uuid string) ApiTestStoredWebhookConfigurationRequest {
+func (a *DefaultAPIService) TestStoredWebhookConfiguration(ctx context.Context, uuid string) ApiTestStoredWebhookConfigurationRequest {
 	return ApiTestStoredWebhookConfigurationRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -10997,27 +10780,25 @@ func (a *DefaultApiService) TestStoredWebhookConfiguration(ctx _context.Context,
 
 // Execute executes the request
 //  @return NotificationWebhookTestResult
-func (a *DefaultApiService) TestStoredWebhookConfigurationExecute(r ApiTestStoredWebhookConfigurationRequest) (NotificationWebhookTestResult, *_nethttp.Response, error) {
+func (a *DefaultAPIService) TestStoredWebhookConfigurationExecute(r ApiTestStoredWebhookConfigurationRequest) (*NotificationWebhookTestResult, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  NotificationWebhookTestResult
+		formFiles            []formFile
+		localVarReturnValue  *NotificationWebhookTestResult
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.TestStoredWebhookConfiguration")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.TestStoredWebhookConfiguration")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/notifications/endpoints/webhook/configurations/{uuid}/test"
-	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", _neturl.PathEscape(parameterToString(r.uuid, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", url.PathEscape(parameterValueToString(r.uuid, "uuid")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -11036,7 +10817,7 @@ func (a *DefaultApiService) TestStoredWebhookConfigurationExecute(r ApiTestStore
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -11046,15 +10827,15 @@ func (a *DefaultApiService) TestStoredWebhookConfigurationExecute(r ApiTestStore
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -11063,7 +10844,7 @@ func (a *DefaultApiService) TestStoredWebhookConfigurationExecute(r ApiTestStore
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -11074,8 +10855,8 @@ func (a *DefaultApiService) TestStoredWebhookConfigurationExecute(r ApiTestStore
 }
 
 type ApiTestTeamsConfigurationRequest struct {
-	ctx _context.Context
-	ApiService DefaultApi
+	ctx context.Context
+	ApiService DefaultAPI
 	configuration *NotificationTeamsEndpointConfiguration
 }
 
@@ -11084,7 +10865,7 @@ func (r ApiTestTeamsConfigurationRequest) Configuration(configuration Notificati
 	return r
 }
 
-func (r ApiTestTeamsConfigurationRequest) Execute() (NotificationTeamsTestResult, *_nethttp.Response, error) {
+func (r ApiTestTeamsConfigurationRequest) Execute() (*NotificationTeamsTestResult, *http.Response, error) {
 	return r.ApiService.TestTeamsConfigurationExecute(r)
 }
 
@@ -11093,10 +10874,10 @@ TestTeamsConfiguration Method for TestTeamsConfiguration
 
 Test Teams endpoint configuration
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiTestTeamsConfigurationRequest
 */
-func (a *DefaultApiService) TestTeamsConfiguration(ctx _context.Context) ApiTestTeamsConfigurationRequest {
+func (a *DefaultAPIService) TestTeamsConfiguration(ctx context.Context) ApiTestTeamsConfigurationRequest {
 	return ApiTestTeamsConfigurationRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -11105,26 +10886,24 @@ func (a *DefaultApiService) TestTeamsConfiguration(ctx _context.Context) ApiTest
 
 // Execute executes the request
 //  @return NotificationTeamsTestResult
-func (a *DefaultApiService) TestTeamsConfigurationExecute(r ApiTestTeamsConfigurationRequest) (NotificationTeamsTestResult, *_nethttp.Response, error) {
+func (a *DefaultAPIService) TestTeamsConfigurationExecute(r ApiTestTeamsConfigurationRequest) (*NotificationTeamsTestResult, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPost
+		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  NotificationTeamsTestResult
+		formFiles            []formFile
+		localVarReturnValue  *NotificationTeamsTestResult
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.TestTeamsConfiguration")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.TestTeamsConfiguration")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/notifications/endpoints/teams/test"
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if r.configuration == nil {
 		return localVarReturnValue, nil, reportError("configuration is required and must be specified")
 	}
@@ -11148,7 +10927,7 @@ func (a *DefaultApiService) TestTeamsConfigurationExecute(r ApiTestTeamsConfigur
 	}
 	// body params
 	localVarPostBody = r.configuration
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -11158,15 +10937,15 @@ func (a *DefaultApiService) TestTeamsConfigurationExecute(r ApiTestTeamsConfigur
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -11175,7 +10954,7 @@ func (a *DefaultApiService) TestTeamsConfigurationExecute(r ApiTestTeamsConfigur
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -11186,8 +10965,8 @@ func (a *DefaultApiService) TestTeamsConfigurationExecute(r ApiTestTeamsConfigur
 }
 
 type ApiTestWebhookConfigurationRequest struct {
-	ctx _context.Context
-	ApiService DefaultApi
+	ctx context.Context
+	ApiService DefaultAPI
 	configuration *NotificationWebhookEndpointConfiguration
 }
 
@@ -11196,7 +10975,7 @@ func (r ApiTestWebhookConfigurationRequest) Configuration(configuration Notifica
 	return r
 }
 
-func (r ApiTestWebhookConfigurationRequest) Execute() (NotificationWebhookTestResult, *_nethttp.Response, error) {
+func (r ApiTestWebhookConfigurationRequest) Execute() (*NotificationWebhookTestResult, *http.Response, error) {
 	return r.ApiService.TestWebhookConfigurationExecute(r)
 }
 
@@ -11205,10 +10984,10 @@ TestWebhookConfiguration Method for TestWebhookConfiguration
 
 Test Webhook endpoint configuration
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiTestWebhookConfigurationRequest
 */
-func (a *DefaultApiService) TestWebhookConfiguration(ctx _context.Context) ApiTestWebhookConfigurationRequest {
+func (a *DefaultAPIService) TestWebhookConfiguration(ctx context.Context) ApiTestWebhookConfigurationRequest {
 	return ApiTestWebhookConfigurationRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -11217,26 +10996,24 @@ func (a *DefaultApiService) TestWebhookConfiguration(ctx _context.Context) ApiTe
 
 // Execute executes the request
 //  @return NotificationWebhookTestResult
-func (a *DefaultApiService) TestWebhookConfigurationExecute(r ApiTestWebhookConfigurationRequest) (NotificationWebhookTestResult, *_nethttp.Response, error) {
+func (a *DefaultAPIService) TestWebhookConfigurationExecute(r ApiTestWebhookConfigurationRequest) (*NotificationWebhookTestResult, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPost
+		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  NotificationWebhookTestResult
+		formFiles            []formFile
+		localVarReturnValue  *NotificationWebhookTestResult
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.TestWebhookConfiguration")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.TestWebhookConfiguration")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/notifications/endpoints/webhook/test"
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if r.configuration == nil {
 		return localVarReturnValue, nil, reportError("configuration is required and must be specified")
 	}
@@ -11260,7 +11037,7 @@ func (a *DefaultApiService) TestWebhookConfigurationExecute(r ApiTestWebhookConf
 	}
 	// body params
 	localVarPostBody = r.configuration
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -11270,15 +11047,15 @@ func (a *DefaultApiService) TestWebhookConfigurationExecute(r ApiTestWebhookConf
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -11287,7 +11064,7 @@ func (a *DefaultApiService) TestWebhookConfigurationExecute(r ApiTestWebhookConf
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -11298,8 +11075,8 @@ func (a *DefaultApiService) TestWebhookConfigurationExecute(r ApiTestWebhookConf
 }
 
 type ApiUpdateEndpointStatusRequest struct {
-	ctx _context.Context
-	ApiService DefaultApi
+	ctx context.Context
+	ApiService DefaultAPI
 	name string
 	status *NotificationEndpointEnabledStatus
 }
@@ -11309,7 +11086,7 @@ func (r ApiUpdateEndpointStatusRequest) Status(status NotificationEndpointEnable
 	return r
 }
 
-func (r ApiUpdateEndpointStatusRequest) Execute() (NotificationEndpointEnabledStatus, *_nethttp.Response, error) {
+func (r ApiUpdateEndpointStatusRequest) Execute() (*NotificationEndpointEnabledStatus, *http.Response, error) {
 	return r.ApiService.UpdateEndpointStatusExecute(r)
 }
 
@@ -11318,11 +11095,11 @@ UpdateEndpointStatus Method for UpdateEndpointStatus
 
 Update enabled status of an endpoint
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param name
  @return ApiUpdateEndpointStatusRequest
 */
-func (a *DefaultApiService) UpdateEndpointStatus(ctx _context.Context, name string) ApiUpdateEndpointStatusRequest {
+func (a *DefaultAPIService) UpdateEndpointStatus(ctx context.Context, name string) ApiUpdateEndpointStatusRequest {
 	return ApiUpdateEndpointStatusRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -11332,27 +11109,25 @@ func (a *DefaultApiService) UpdateEndpointStatus(ctx _context.Context, name stri
 
 // Execute executes the request
 //  @return NotificationEndpointEnabledStatus
-func (a *DefaultApiService) UpdateEndpointStatusExecute(r ApiUpdateEndpointStatusRequest) (NotificationEndpointEnabledStatus, *_nethttp.Response, error) {
+func (a *DefaultAPIService) UpdateEndpointStatusExecute(r ApiUpdateEndpointStatusRequest) (*NotificationEndpointEnabledStatus, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPut
+		localVarHTTPMethod   = http.MethodPut
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  NotificationEndpointEnabledStatus
+		formFiles            []formFile
+		localVarReturnValue  *NotificationEndpointEnabledStatus
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.UpdateEndpointStatus")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.UpdateEndpointStatus")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/notifications/endpoints/{name}"
-	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", _neturl.PathEscape(parameterToString(r.name, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(parameterValueToString(r.name, "name")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if r.status == nil {
 		return localVarReturnValue, nil, reportError("status is required and must be specified")
 	}
@@ -11376,7 +11151,7 @@ func (a *DefaultApiService) UpdateEndpointStatusExecute(r ApiUpdateEndpointStatu
 	}
 	// body params
 	localVarPostBody = r.status
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -11386,15 +11161,15 @@ func (a *DefaultApiService) UpdateEndpointStatusExecute(r ApiUpdateEndpointStatu
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -11403,7 +11178,7 @@ func (a *DefaultApiService) UpdateEndpointStatusExecute(r ApiUpdateEndpointStatu
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -11414,8 +11189,8 @@ func (a *DefaultApiService) UpdateEndpointStatusExecute(r ApiUpdateEndpointStatu
 }
 
 type ApiUpdateGithubConfigurationRequest struct {
-	ctx _context.Context
-	ApiService DefaultApi
+	ctx context.Context
+	ApiService DefaultAPI
 	uuid string
 	configuration *NotificationGitHubEndpointConfigurationPut
 }
@@ -11425,7 +11200,7 @@ func (r ApiUpdateGithubConfigurationRequest) Configuration(configuration Notific
 	return r
 }
 
-func (r ApiUpdateGithubConfigurationRequest) Execute() (NotificationGitHubEndpointConfigurationBase, *_nethttp.Response, error) {
+func (r ApiUpdateGithubConfigurationRequest) Execute() (*NotificationGitHubEndpointConfigurationBase, *http.Response, error) {
 	return r.ApiService.UpdateGithubConfigurationExecute(r)
 }
 
@@ -11434,11 +11209,11 @@ UpdateGithubConfiguration Method for UpdateGithubConfiguration
 
 Update a GitHub endpoint configuration by it's UUID
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param uuid
  @return ApiUpdateGithubConfigurationRequest
 */
-func (a *DefaultApiService) UpdateGithubConfiguration(ctx _context.Context, uuid string) ApiUpdateGithubConfigurationRequest {
+func (a *DefaultAPIService) UpdateGithubConfiguration(ctx context.Context, uuid string) ApiUpdateGithubConfigurationRequest {
 	return ApiUpdateGithubConfigurationRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -11448,27 +11223,25 @@ func (a *DefaultApiService) UpdateGithubConfiguration(ctx _context.Context, uuid
 
 // Execute executes the request
 //  @return NotificationGitHubEndpointConfigurationBase
-func (a *DefaultApiService) UpdateGithubConfigurationExecute(r ApiUpdateGithubConfigurationRequest) (NotificationGitHubEndpointConfigurationBase, *_nethttp.Response, error) {
+func (a *DefaultAPIService) UpdateGithubConfigurationExecute(r ApiUpdateGithubConfigurationRequest) (*NotificationGitHubEndpointConfigurationBase, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPut
+		localVarHTTPMethod   = http.MethodPut
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  NotificationGitHubEndpointConfigurationBase
+		formFiles            []formFile
+		localVarReturnValue  *NotificationGitHubEndpointConfigurationBase
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.UpdateGithubConfiguration")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.UpdateGithubConfiguration")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/notifications/endpoints/github/configurations/{uuid}"
-	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", _neturl.PathEscape(parameterToString(r.uuid, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", url.PathEscape(parameterValueToString(r.uuid, "uuid")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if r.configuration == nil {
 		return localVarReturnValue, nil, reportError("configuration is required and must be specified")
 	}
@@ -11492,7 +11265,7 @@ func (a *DefaultApiService) UpdateGithubConfigurationExecute(r ApiUpdateGithubCo
 	}
 	// body params
 	localVarPostBody = r.configuration
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -11502,15 +11275,15 @@ func (a *DefaultApiService) UpdateGithubConfigurationExecute(r ApiUpdateGithubCo
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -11519,7 +11292,7 @@ func (a *DefaultApiService) UpdateGithubConfigurationExecute(r ApiUpdateGithubCo
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -11530,8 +11303,8 @@ func (a *DefaultApiService) UpdateGithubConfigurationExecute(r ApiUpdateGithubCo
 }
 
 type ApiUpdateGithubSelectorRequest struct {
-	ctx _context.Context
-	ApiService DefaultApi
+	ctx context.Context
+	ApiService DefaultAPI
 	configurationUuid string
 	selectorUuid string
 	selector *NotificationSelector
@@ -11542,7 +11315,7 @@ func (r ApiUpdateGithubSelectorRequest) Selector(selector NotificationSelector) 
 	return r
 }
 
-func (r ApiUpdateGithubSelectorRequest) Execute() (NotificationSelector, *_nethttp.Response, error) {
+func (r ApiUpdateGithubSelectorRequest) Execute() (*NotificationSelector, *http.Response, error) {
 	return r.ApiService.UpdateGithubSelectorExecute(r)
 }
 
@@ -11551,12 +11324,12 @@ UpdateGithubSelector Method for UpdateGithubSelector
 
 Update a selector mapped to a GitHub endpoint configuration
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param configurationUuid
  @param selectorUuid
  @return ApiUpdateGithubSelectorRequest
 */
-func (a *DefaultApiService) UpdateGithubSelector(ctx _context.Context, configurationUuid string, selectorUuid string) ApiUpdateGithubSelectorRequest {
+func (a *DefaultAPIService) UpdateGithubSelector(ctx context.Context, configurationUuid string, selectorUuid string) ApiUpdateGithubSelectorRequest {
 	return ApiUpdateGithubSelectorRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -11567,28 +11340,26 @@ func (a *DefaultApiService) UpdateGithubSelector(ctx _context.Context, configura
 
 // Execute executes the request
 //  @return NotificationSelector
-func (a *DefaultApiService) UpdateGithubSelectorExecute(r ApiUpdateGithubSelectorRequest) (NotificationSelector, *_nethttp.Response, error) {
+func (a *DefaultAPIService) UpdateGithubSelectorExecute(r ApiUpdateGithubSelectorRequest) (*NotificationSelector, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPut
+		localVarHTTPMethod   = http.MethodPut
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  NotificationSelector
+		formFiles            []formFile
+		localVarReturnValue  *NotificationSelector
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.UpdateGithubSelector")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.UpdateGithubSelector")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/notifications/endpoints/github/configurations/{configuration_uuid}/selectors/{selector_uuid}"
-	localVarPath = strings.Replace(localVarPath, "{"+"configuration_uuid"+"}", _neturl.PathEscape(parameterToString(r.configurationUuid, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"selector_uuid"+"}", _neturl.PathEscape(parameterToString(r.selectorUuid, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"configuration_uuid"+"}", url.PathEscape(parameterValueToString(r.configurationUuid, "configurationUuid")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"selector_uuid"+"}", url.PathEscape(parameterValueToString(r.selectorUuid, "selectorUuid")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if r.selector == nil {
 		return localVarReturnValue, nil, reportError("selector is required and must be specified")
 	}
@@ -11612,7 +11383,7 @@ func (a *DefaultApiService) UpdateGithubSelectorExecute(r ApiUpdateGithubSelecto
 	}
 	// body params
 	localVarPostBody = r.selector
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -11622,15 +11393,15 @@ func (a *DefaultApiService) UpdateGithubSelectorExecute(r ApiUpdateGithubSelecto
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -11639,7 +11410,7 @@ func (a *DefaultApiService) UpdateGithubSelectorExecute(r ApiUpdateGithubSelecto
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -11650,8 +11421,8 @@ func (a *DefaultApiService) UpdateGithubSelectorExecute(r ApiUpdateGithubSelecto
 }
 
 type ApiUpdateIdpRequest struct {
-	ctx _context.Context
-	ApiService DefaultApi
+	ctx context.Context
+	ApiService DefaultAPI
 	name string
 	configuration *RbacManagerSamlConfiguration
 }
@@ -11661,7 +11432,7 @@ func (r ApiUpdateIdpRequest) Configuration(configuration RbacManagerSamlConfigur
 	return r
 }
 
-func (r ApiUpdateIdpRequest) Execute() (RbacManagerSamlConfiguration, *_nethttp.Response, error) {
+func (r ApiUpdateIdpRequest) Execute() (*RbacManagerSamlConfiguration, *http.Response, error) {
 	return r.ApiService.UpdateIdpExecute(r)
 }
 
@@ -11670,11 +11441,11 @@ UpdateIdp Method for UpdateIdp
 
 Update an existing Identity Provider configuration
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param name
  @return ApiUpdateIdpRequest
 */
-func (a *DefaultApiService) UpdateIdp(ctx _context.Context, name string) ApiUpdateIdpRequest {
+func (a *DefaultAPIService) UpdateIdp(ctx context.Context, name string) ApiUpdateIdpRequest {
 	return ApiUpdateIdpRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -11684,27 +11455,25 @@ func (a *DefaultApiService) UpdateIdp(ctx _context.Context, name string) ApiUpda
 
 // Execute executes the request
 //  @return RbacManagerSamlConfiguration
-func (a *DefaultApiService) UpdateIdpExecute(r ApiUpdateIdpRequest) (RbacManagerSamlConfiguration, *_nethttp.Response, error) {
+func (a *DefaultAPIService) UpdateIdpExecute(r ApiUpdateIdpRequest) (*RbacManagerSamlConfiguration, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPut
+		localVarHTTPMethod   = http.MethodPut
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  RbacManagerSamlConfiguration
+		formFiles            []formFile
+		localVarReturnValue  *RbacManagerSamlConfiguration
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.UpdateIdp")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.UpdateIdp")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/rbac-manager/saml/idps/{name}"
-	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", _neturl.PathEscape(parameterToString(r.name, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(parameterValueToString(r.name, "name")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if r.configuration == nil {
 		return localVarReturnValue, nil, reportError("configuration is required and must be specified")
 	}
@@ -11728,7 +11497,7 @@ func (a *DefaultApiService) UpdateIdpExecute(r ApiUpdateIdpRequest) (RbacManager
 	}
 	// body params
 	localVarPostBody = r.configuration
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -11738,15 +11507,15 @@ func (a *DefaultApiService) UpdateIdpExecute(r ApiUpdateIdpRequest) (RbacManager
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -11757,7 +11526,8 @@ func (a *DefaultApiService) UpdateIdpExecute(r ApiUpdateIdpRequest) (RbacManager
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -11767,7 +11537,8 @@ func (a *DefaultApiService) UpdateIdpExecute(r ApiUpdateIdpRequest) (RbacManager
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 500 {
@@ -11777,14 +11548,15 @@ func (a *DefaultApiService) UpdateIdpExecute(r ApiUpdateIdpRequest) (RbacManager
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -11795,8 +11567,8 @@ func (a *DefaultApiService) UpdateIdpExecute(r ApiUpdateIdpRequest) (RbacManager
 }
 
 type ApiUpdateJiraConfigurationRequest struct {
-	ctx _context.Context
-	ApiService DefaultApi
+	ctx context.Context
+	ApiService DefaultAPI
 	uuid string
 	configuration *NotificationJiraEndpointConfigurationPut
 }
@@ -11806,7 +11578,7 @@ func (r ApiUpdateJiraConfigurationRequest) Configuration(configuration Notificat
 	return r
 }
 
-func (r ApiUpdateJiraConfigurationRequest) Execute() (NotificationJiraEndpointConfigurationBase, *_nethttp.Response, error) {
+func (r ApiUpdateJiraConfigurationRequest) Execute() (*NotificationJiraEndpointConfigurationBase, *http.Response, error) {
 	return r.ApiService.UpdateJiraConfigurationExecute(r)
 }
 
@@ -11815,11 +11587,11 @@ UpdateJiraConfiguration Method for UpdateJiraConfiguration
 
 Update a Jira endpoint configuration by it's UUID
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param uuid
  @return ApiUpdateJiraConfigurationRequest
 */
-func (a *DefaultApiService) UpdateJiraConfiguration(ctx _context.Context, uuid string) ApiUpdateJiraConfigurationRequest {
+func (a *DefaultAPIService) UpdateJiraConfiguration(ctx context.Context, uuid string) ApiUpdateJiraConfigurationRequest {
 	return ApiUpdateJiraConfigurationRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -11829,27 +11601,25 @@ func (a *DefaultApiService) UpdateJiraConfiguration(ctx _context.Context, uuid s
 
 // Execute executes the request
 //  @return NotificationJiraEndpointConfigurationBase
-func (a *DefaultApiService) UpdateJiraConfigurationExecute(r ApiUpdateJiraConfigurationRequest) (NotificationJiraEndpointConfigurationBase, *_nethttp.Response, error) {
+func (a *DefaultAPIService) UpdateJiraConfigurationExecute(r ApiUpdateJiraConfigurationRequest) (*NotificationJiraEndpointConfigurationBase, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPut
+		localVarHTTPMethod   = http.MethodPut
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  NotificationJiraEndpointConfigurationBase
+		formFiles            []formFile
+		localVarReturnValue  *NotificationJiraEndpointConfigurationBase
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.UpdateJiraConfiguration")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.UpdateJiraConfiguration")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/notifications/endpoints/jira/configurations/{uuid}"
-	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", _neturl.PathEscape(parameterToString(r.uuid, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", url.PathEscape(parameterValueToString(r.uuid, "uuid")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if r.configuration == nil {
 		return localVarReturnValue, nil, reportError("configuration is required and must be specified")
 	}
@@ -11873,7 +11643,7 @@ func (a *DefaultApiService) UpdateJiraConfigurationExecute(r ApiUpdateJiraConfig
 	}
 	// body params
 	localVarPostBody = r.configuration
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -11883,15 +11653,15 @@ func (a *DefaultApiService) UpdateJiraConfigurationExecute(r ApiUpdateJiraConfig
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -11900,7 +11670,7 @@ func (a *DefaultApiService) UpdateJiraConfigurationExecute(r ApiUpdateJiraConfig
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -11911,8 +11681,8 @@ func (a *DefaultApiService) UpdateJiraConfigurationExecute(r ApiUpdateJiraConfig
 }
 
 type ApiUpdateJiraSelectorRequest struct {
-	ctx _context.Context
-	ApiService DefaultApi
+	ctx context.Context
+	ApiService DefaultAPI
 	configurationUuid string
 	selectorUuid string
 	selector *NotificationSelector
@@ -11923,7 +11693,7 @@ func (r ApiUpdateJiraSelectorRequest) Selector(selector NotificationSelector) Ap
 	return r
 }
 
-func (r ApiUpdateJiraSelectorRequest) Execute() (NotificationSelector, *_nethttp.Response, error) {
+func (r ApiUpdateJiraSelectorRequest) Execute() (*NotificationSelector, *http.Response, error) {
 	return r.ApiService.UpdateJiraSelectorExecute(r)
 }
 
@@ -11932,12 +11702,12 @@ UpdateJiraSelector Method for UpdateJiraSelector
 
 Update a selector mapped to a Jira endpoint configuration
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param configurationUuid
  @param selectorUuid
  @return ApiUpdateJiraSelectorRequest
 */
-func (a *DefaultApiService) UpdateJiraSelector(ctx _context.Context, configurationUuid string, selectorUuid string) ApiUpdateJiraSelectorRequest {
+func (a *DefaultAPIService) UpdateJiraSelector(ctx context.Context, configurationUuid string, selectorUuid string) ApiUpdateJiraSelectorRequest {
 	return ApiUpdateJiraSelectorRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -11948,28 +11718,26 @@ func (a *DefaultApiService) UpdateJiraSelector(ctx _context.Context, configurati
 
 // Execute executes the request
 //  @return NotificationSelector
-func (a *DefaultApiService) UpdateJiraSelectorExecute(r ApiUpdateJiraSelectorRequest) (NotificationSelector, *_nethttp.Response, error) {
+func (a *DefaultAPIService) UpdateJiraSelectorExecute(r ApiUpdateJiraSelectorRequest) (*NotificationSelector, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPut
+		localVarHTTPMethod   = http.MethodPut
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  NotificationSelector
+		formFiles            []formFile
+		localVarReturnValue  *NotificationSelector
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.UpdateJiraSelector")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.UpdateJiraSelector")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/notifications/endpoints/jira/configurations/{configuration_uuid}/selectors/{selector_uuid}"
-	localVarPath = strings.Replace(localVarPath, "{"+"configuration_uuid"+"}", _neturl.PathEscape(parameterToString(r.configurationUuid, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"selector_uuid"+"}", _neturl.PathEscape(parameterToString(r.selectorUuid, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"configuration_uuid"+"}", url.PathEscape(parameterValueToString(r.configurationUuid, "configurationUuid")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"selector_uuid"+"}", url.PathEscape(parameterValueToString(r.selectorUuid, "selectorUuid")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if r.selector == nil {
 		return localVarReturnValue, nil, reportError("selector is required and must be specified")
 	}
@@ -11993,7 +11761,7 @@ func (a *DefaultApiService) UpdateJiraSelectorExecute(r ApiUpdateJiraSelectorReq
 	}
 	// body params
 	localVarPostBody = r.selector
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -12003,15 +11771,15 @@ func (a *DefaultApiService) UpdateJiraSelectorExecute(r ApiUpdateJiraSelectorReq
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -12020,7 +11788,7 @@ func (a *DefaultApiService) UpdateJiraSelectorExecute(r ApiUpdateJiraSelectorReq
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -12031,8 +11799,8 @@ func (a *DefaultApiService) UpdateJiraSelectorExecute(r ApiUpdateJiraSelectorReq
 }
 
 type ApiUpdateSlackConfigurationRequest struct {
-	ctx _context.Context
-	ApiService DefaultApi
+	ctx context.Context
+	ApiService DefaultAPI
 	uuid string
 	configuration *NotificationSlackEndpointConfiguration
 }
@@ -12042,7 +11810,7 @@ func (r ApiUpdateSlackConfigurationRequest) Configuration(configuration Notifica
 	return r
 }
 
-func (r ApiUpdateSlackConfigurationRequest) Execute() (NotificationSlackEndpointConfiguration, *_nethttp.Response, error) {
+func (r ApiUpdateSlackConfigurationRequest) Execute() (*NotificationSlackEndpointConfiguration, *http.Response, error) {
 	return r.ApiService.UpdateSlackConfigurationExecute(r)
 }
 
@@ -12051,11 +11819,11 @@ UpdateSlackConfiguration Method for UpdateSlackConfiguration
 
 Update a Slack endpoint configuration by it's UUID
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param uuid
  @return ApiUpdateSlackConfigurationRequest
 */
-func (a *DefaultApiService) UpdateSlackConfiguration(ctx _context.Context, uuid string) ApiUpdateSlackConfigurationRequest {
+func (a *DefaultAPIService) UpdateSlackConfiguration(ctx context.Context, uuid string) ApiUpdateSlackConfigurationRequest {
 	return ApiUpdateSlackConfigurationRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -12065,27 +11833,25 @@ func (a *DefaultApiService) UpdateSlackConfiguration(ctx _context.Context, uuid 
 
 // Execute executes the request
 //  @return NotificationSlackEndpointConfiguration
-func (a *DefaultApiService) UpdateSlackConfigurationExecute(r ApiUpdateSlackConfigurationRequest) (NotificationSlackEndpointConfiguration, *_nethttp.Response, error) {
+func (a *DefaultAPIService) UpdateSlackConfigurationExecute(r ApiUpdateSlackConfigurationRequest) (*NotificationSlackEndpointConfiguration, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPut
+		localVarHTTPMethod   = http.MethodPut
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  NotificationSlackEndpointConfiguration
+		formFiles            []formFile
+		localVarReturnValue  *NotificationSlackEndpointConfiguration
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.UpdateSlackConfiguration")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.UpdateSlackConfiguration")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/notifications/endpoints/slack/configurations/{uuid}"
-	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", _neturl.PathEscape(parameterToString(r.uuid, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", url.PathEscape(parameterValueToString(r.uuid, "uuid")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if r.configuration == nil {
 		return localVarReturnValue, nil, reportError("configuration is required and must be specified")
 	}
@@ -12109,7 +11875,7 @@ func (a *DefaultApiService) UpdateSlackConfigurationExecute(r ApiUpdateSlackConf
 	}
 	// body params
 	localVarPostBody = r.configuration
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -12119,15 +11885,15 @@ func (a *DefaultApiService) UpdateSlackConfigurationExecute(r ApiUpdateSlackConf
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -12136,7 +11902,7 @@ func (a *DefaultApiService) UpdateSlackConfigurationExecute(r ApiUpdateSlackConf
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -12147,8 +11913,8 @@ func (a *DefaultApiService) UpdateSlackConfigurationExecute(r ApiUpdateSlackConf
 }
 
 type ApiUpdateSlackSelectorRequest struct {
-	ctx _context.Context
-	ApiService DefaultApi
+	ctx context.Context
+	ApiService DefaultAPI
 	configurationUuid string
 	selectorUuid string
 	selector *NotificationSelector
@@ -12159,7 +11925,7 @@ func (r ApiUpdateSlackSelectorRequest) Selector(selector NotificationSelector) A
 	return r
 }
 
-func (r ApiUpdateSlackSelectorRequest) Execute() (NotificationSelector, *_nethttp.Response, error) {
+func (r ApiUpdateSlackSelectorRequest) Execute() (*NotificationSelector, *http.Response, error) {
 	return r.ApiService.UpdateSlackSelectorExecute(r)
 }
 
@@ -12168,12 +11934,12 @@ UpdateSlackSelector Method for UpdateSlackSelector
 
 Update a selector mapped to a Slack endpoint configuration
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param configurationUuid
  @param selectorUuid
  @return ApiUpdateSlackSelectorRequest
 */
-func (a *DefaultApiService) UpdateSlackSelector(ctx _context.Context, configurationUuid string, selectorUuid string) ApiUpdateSlackSelectorRequest {
+func (a *DefaultAPIService) UpdateSlackSelector(ctx context.Context, configurationUuid string, selectorUuid string) ApiUpdateSlackSelectorRequest {
 	return ApiUpdateSlackSelectorRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -12184,28 +11950,26 @@ func (a *DefaultApiService) UpdateSlackSelector(ctx _context.Context, configurat
 
 // Execute executes the request
 //  @return NotificationSelector
-func (a *DefaultApiService) UpdateSlackSelectorExecute(r ApiUpdateSlackSelectorRequest) (NotificationSelector, *_nethttp.Response, error) {
+func (a *DefaultAPIService) UpdateSlackSelectorExecute(r ApiUpdateSlackSelectorRequest) (*NotificationSelector, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPut
+		localVarHTTPMethod   = http.MethodPut
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  NotificationSelector
+		formFiles            []formFile
+		localVarReturnValue  *NotificationSelector
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.UpdateSlackSelector")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.UpdateSlackSelector")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/notifications/endpoints/slack/configurations/{configuration_uuid}/selectors/{selector_uuid}"
-	localVarPath = strings.Replace(localVarPath, "{"+"configuration_uuid"+"}", _neturl.PathEscape(parameterToString(r.configurationUuid, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"selector_uuid"+"}", _neturl.PathEscape(parameterToString(r.selectorUuid, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"configuration_uuid"+"}", url.PathEscape(parameterValueToString(r.configurationUuid, "configurationUuid")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"selector_uuid"+"}", url.PathEscape(parameterValueToString(r.selectorUuid, "selectorUuid")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if r.selector == nil {
 		return localVarReturnValue, nil, reportError("selector is required and must be specified")
 	}
@@ -12229,7 +11993,7 @@ func (a *DefaultApiService) UpdateSlackSelectorExecute(r ApiUpdateSlackSelectorR
 	}
 	// body params
 	localVarPostBody = r.selector
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -12239,15 +12003,15 @@ func (a *DefaultApiService) UpdateSlackSelectorExecute(r ApiUpdateSlackSelectorR
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -12256,7 +12020,7 @@ func (a *DefaultApiService) UpdateSlackSelectorExecute(r ApiUpdateSlackSelectorR
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -12267,8 +12031,8 @@ func (a *DefaultApiService) UpdateSlackSelectorExecute(r ApiUpdateSlackSelectorR
 }
 
 type ApiUpdateSmtpConfigurationRequest struct {
-	ctx _context.Context
-	ApiService DefaultApi
+	ctx context.Context
+	ApiService DefaultAPI
 	uuid string
 	configuration *NotificationSMTPEndpointConfiguration
 }
@@ -12278,7 +12042,7 @@ func (r ApiUpdateSmtpConfigurationRequest) Configuration(configuration Notificat
 	return r
 }
 
-func (r ApiUpdateSmtpConfigurationRequest) Execute() (NotificationSMTPEndpointConfiguration, *_nethttp.Response, error) {
+func (r ApiUpdateSmtpConfigurationRequest) Execute() (*NotificationSMTPEndpointConfiguration, *http.Response, error) {
 	return r.ApiService.UpdateSmtpConfigurationExecute(r)
 }
 
@@ -12287,11 +12051,11 @@ UpdateSmtpConfiguration Method for UpdateSmtpConfiguration
 
 Update a SMTP endpoint configuration by it's UUID
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param uuid
  @return ApiUpdateSmtpConfigurationRequest
 */
-func (a *DefaultApiService) UpdateSmtpConfiguration(ctx _context.Context, uuid string) ApiUpdateSmtpConfigurationRequest {
+func (a *DefaultAPIService) UpdateSmtpConfiguration(ctx context.Context, uuid string) ApiUpdateSmtpConfigurationRequest {
 	return ApiUpdateSmtpConfigurationRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -12301,27 +12065,25 @@ func (a *DefaultApiService) UpdateSmtpConfiguration(ctx _context.Context, uuid s
 
 // Execute executes the request
 //  @return NotificationSMTPEndpointConfiguration
-func (a *DefaultApiService) UpdateSmtpConfigurationExecute(r ApiUpdateSmtpConfigurationRequest) (NotificationSMTPEndpointConfiguration, *_nethttp.Response, error) {
+func (a *DefaultAPIService) UpdateSmtpConfigurationExecute(r ApiUpdateSmtpConfigurationRequest) (*NotificationSMTPEndpointConfiguration, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPut
+		localVarHTTPMethod   = http.MethodPut
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  NotificationSMTPEndpointConfiguration
+		formFiles            []formFile
+		localVarReturnValue  *NotificationSMTPEndpointConfiguration
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.UpdateSmtpConfiguration")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.UpdateSmtpConfiguration")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/notifications/endpoints/smtp/configurations/{uuid}"
-	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", _neturl.PathEscape(parameterToString(r.uuid, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", url.PathEscape(parameterValueToString(r.uuid, "uuid")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if r.configuration == nil {
 		return localVarReturnValue, nil, reportError("configuration is required and must be specified")
 	}
@@ -12345,7 +12107,7 @@ func (a *DefaultApiService) UpdateSmtpConfigurationExecute(r ApiUpdateSmtpConfig
 	}
 	// body params
 	localVarPostBody = r.configuration
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -12355,15 +12117,15 @@ func (a *DefaultApiService) UpdateSmtpConfigurationExecute(r ApiUpdateSmtpConfig
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -12372,7 +12134,7 @@ func (a *DefaultApiService) UpdateSmtpConfigurationExecute(r ApiUpdateSmtpConfig
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -12383,8 +12145,8 @@ func (a *DefaultApiService) UpdateSmtpConfigurationExecute(r ApiUpdateSmtpConfig
 }
 
 type ApiUpdateSmtpSelectorRequest struct {
-	ctx _context.Context
-	ApiService DefaultApi
+	ctx context.Context
+	ApiService DefaultAPI
 	configurationUuid string
 	selectorUuid string
 	selector *NotificationSelector
@@ -12395,7 +12157,7 @@ func (r ApiUpdateSmtpSelectorRequest) Selector(selector NotificationSelector) Ap
 	return r
 }
 
-func (r ApiUpdateSmtpSelectorRequest) Execute() (NotificationSelector, *_nethttp.Response, error) {
+func (r ApiUpdateSmtpSelectorRequest) Execute() (*NotificationSelector, *http.Response, error) {
 	return r.ApiService.UpdateSmtpSelectorExecute(r)
 }
 
@@ -12404,12 +12166,12 @@ UpdateSmtpSelector Method for UpdateSmtpSelector
 
 Update a selector mapped to a SMTP endpoint configuration
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param configurationUuid
  @param selectorUuid
  @return ApiUpdateSmtpSelectorRequest
 */
-func (a *DefaultApiService) UpdateSmtpSelector(ctx _context.Context, configurationUuid string, selectorUuid string) ApiUpdateSmtpSelectorRequest {
+func (a *DefaultAPIService) UpdateSmtpSelector(ctx context.Context, configurationUuid string, selectorUuid string) ApiUpdateSmtpSelectorRequest {
 	return ApiUpdateSmtpSelectorRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -12420,28 +12182,26 @@ func (a *DefaultApiService) UpdateSmtpSelector(ctx _context.Context, configurati
 
 // Execute executes the request
 //  @return NotificationSelector
-func (a *DefaultApiService) UpdateSmtpSelectorExecute(r ApiUpdateSmtpSelectorRequest) (NotificationSelector, *_nethttp.Response, error) {
+func (a *DefaultAPIService) UpdateSmtpSelectorExecute(r ApiUpdateSmtpSelectorRequest) (*NotificationSelector, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPut
+		localVarHTTPMethod   = http.MethodPut
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  NotificationSelector
+		formFiles            []formFile
+		localVarReturnValue  *NotificationSelector
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.UpdateSmtpSelector")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.UpdateSmtpSelector")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/notifications/endpoints/smtp/configurations/{configuration_uuid}/selectors/{selector_uuid}"
-	localVarPath = strings.Replace(localVarPath, "{"+"configuration_uuid"+"}", _neturl.PathEscape(parameterToString(r.configurationUuid, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"selector_uuid"+"}", _neturl.PathEscape(parameterToString(r.selectorUuid, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"configuration_uuid"+"}", url.PathEscape(parameterValueToString(r.configurationUuid, "configurationUuid")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"selector_uuid"+"}", url.PathEscape(parameterValueToString(r.selectorUuid, "selectorUuid")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if r.selector == nil {
 		return localVarReturnValue, nil, reportError("selector is required and must be specified")
 	}
@@ -12465,7 +12225,7 @@ func (a *DefaultApiService) UpdateSmtpSelectorExecute(r ApiUpdateSmtpSelectorReq
 	}
 	// body params
 	localVarPostBody = r.selector
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -12475,15 +12235,15 @@ func (a *DefaultApiService) UpdateSmtpSelectorExecute(r ApiUpdateSmtpSelectorReq
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -12492,7 +12252,7 @@ func (a *DefaultApiService) UpdateSmtpSelectorExecute(r ApiUpdateSmtpSelectorReq
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -12503,8 +12263,8 @@ func (a *DefaultApiService) UpdateSmtpSelectorExecute(r ApiUpdateSmtpSelectorReq
 }
 
 type ApiUpdateTeamsConfigurationRequest struct {
-	ctx _context.Context
-	ApiService DefaultApi
+	ctx context.Context
+	ApiService DefaultAPI
 	uuid string
 	configuration *NotificationTeamsEndpointConfiguration
 }
@@ -12514,7 +12274,7 @@ func (r ApiUpdateTeamsConfigurationRequest) Configuration(configuration Notifica
 	return r
 }
 
-func (r ApiUpdateTeamsConfigurationRequest) Execute() (NotificationTeamsEndpointConfiguration, *_nethttp.Response, error) {
+func (r ApiUpdateTeamsConfigurationRequest) Execute() (*NotificationTeamsEndpointConfiguration, *http.Response, error) {
 	return r.ApiService.UpdateTeamsConfigurationExecute(r)
 }
 
@@ -12523,11 +12283,11 @@ UpdateTeamsConfiguration Method for UpdateTeamsConfiguration
 
 Update a Teams endpoint configuration by it's UUID
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param uuid
  @return ApiUpdateTeamsConfigurationRequest
 */
-func (a *DefaultApiService) UpdateTeamsConfiguration(ctx _context.Context, uuid string) ApiUpdateTeamsConfigurationRequest {
+func (a *DefaultAPIService) UpdateTeamsConfiguration(ctx context.Context, uuid string) ApiUpdateTeamsConfigurationRequest {
 	return ApiUpdateTeamsConfigurationRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -12537,27 +12297,25 @@ func (a *DefaultApiService) UpdateTeamsConfiguration(ctx _context.Context, uuid 
 
 // Execute executes the request
 //  @return NotificationTeamsEndpointConfiguration
-func (a *DefaultApiService) UpdateTeamsConfigurationExecute(r ApiUpdateTeamsConfigurationRequest) (NotificationTeamsEndpointConfiguration, *_nethttp.Response, error) {
+func (a *DefaultAPIService) UpdateTeamsConfigurationExecute(r ApiUpdateTeamsConfigurationRequest) (*NotificationTeamsEndpointConfiguration, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPut
+		localVarHTTPMethod   = http.MethodPut
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  NotificationTeamsEndpointConfiguration
+		formFiles            []formFile
+		localVarReturnValue  *NotificationTeamsEndpointConfiguration
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.UpdateTeamsConfiguration")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.UpdateTeamsConfiguration")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/notifications/endpoints/teams/configurations/{uuid}"
-	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", _neturl.PathEscape(parameterToString(r.uuid, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", url.PathEscape(parameterValueToString(r.uuid, "uuid")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if r.configuration == nil {
 		return localVarReturnValue, nil, reportError("configuration is required and must be specified")
 	}
@@ -12581,7 +12339,7 @@ func (a *DefaultApiService) UpdateTeamsConfigurationExecute(r ApiUpdateTeamsConf
 	}
 	// body params
 	localVarPostBody = r.configuration
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -12591,15 +12349,15 @@ func (a *DefaultApiService) UpdateTeamsConfigurationExecute(r ApiUpdateTeamsConf
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -12608,7 +12366,7 @@ func (a *DefaultApiService) UpdateTeamsConfigurationExecute(r ApiUpdateTeamsConf
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -12619,8 +12377,8 @@ func (a *DefaultApiService) UpdateTeamsConfigurationExecute(r ApiUpdateTeamsConf
 }
 
 type ApiUpdateTeamsSelectorRequest struct {
-	ctx _context.Context
-	ApiService DefaultApi
+	ctx context.Context
+	ApiService DefaultAPI
 	configurationUuid string
 	selectorUuid string
 	selector *NotificationSelector
@@ -12631,7 +12389,7 @@ func (r ApiUpdateTeamsSelectorRequest) Selector(selector NotificationSelector) A
 	return r
 }
 
-func (r ApiUpdateTeamsSelectorRequest) Execute() (NotificationSelector, *_nethttp.Response, error) {
+func (r ApiUpdateTeamsSelectorRequest) Execute() (*NotificationSelector, *http.Response, error) {
 	return r.ApiService.UpdateTeamsSelectorExecute(r)
 }
 
@@ -12640,12 +12398,12 @@ UpdateTeamsSelector Method for UpdateTeamsSelector
 
 Update a selector mapped to a Teams endpoint configuration
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param configurationUuid
  @param selectorUuid
  @return ApiUpdateTeamsSelectorRequest
 */
-func (a *DefaultApiService) UpdateTeamsSelector(ctx _context.Context, configurationUuid string, selectorUuid string) ApiUpdateTeamsSelectorRequest {
+func (a *DefaultAPIService) UpdateTeamsSelector(ctx context.Context, configurationUuid string, selectorUuid string) ApiUpdateTeamsSelectorRequest {
 	return ApiUpdateTeamsSelectorRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -12656,28 +12414,26 @@ func (a *DefaultApiService) UpdateTeamsSelector(ctx _context.Context, configurat
 
 // Execute executes the request
 //  @return NotificationSelector
-func (a *DefaultApiService) UpdateTeamsSelectorExecute(r ApiUpdateTeamsSelectorRequest) (NotificationSelector, *_nethttp.Response, error) {
+func (a *DefaultAPIService) UpdateTeamsSelectorExecute(r ApiUpdateTeamsSelectorRequest) (*NotificationSelector, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPut
+		localVarHTTPMethod   = http.MethodPut
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  NotificationSelector
+		formFiles            []formFile
+		localVarReturnValue  *NotificationSelector
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.UpdateTeamsSelector")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.UpdateTeamsSelector")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/notifications/endpoints/teams/configurations/{configuration_uuid}/selectors/{selector_uuid}"
-	localVarPath = strings.Replace(localVarPath, "{"+"configuration_uuid"+"}", _neturl.PathEscape(parameterToString(r.configurationUuid, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"selector_uuid"+"}", _neturl.PathEscape(parameterToString(r.selectorUuid, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"configuration_uuid"+"}", url.PathEscape(parameterValueToString(r.configurationUuid, "configurationUuid")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"selector_uuid"+"}", url.PathEscape(parameterValueToString(r.selectorUuid, "selectorUuid")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if r.selector == nil {
 		return localVarReturnValue, nil, reportError("selector is required and must be specified")
 	}
@@ -12701,7 +12457,7 @@ func (a *DefaultApiService) UpdateTeamsSelectorExecute(r ApiUpdateTeamsSelectorR
 	}
 	// body params
 	localVarPostBody = r.selector
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -12711,15 +12467,15 @@ func (a *DefaultApiService) UpdateTeamsSelectorExecute(r ApiUpdateTeamsSelectorR
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -12728,7 +12484,7 @@ func (a *DefaultApiService) UpdateTeamsSelectorExecute(r ApiUpdateTeamsSelectorR
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -12739,8 +12495,8 @@ func (a *DefaultApiService) UpdateTeamsSelectorExecute(r ApiUpdateTeamsSelectorR
 }
 
 type ApiUpdateWebhookConfigurationRequest struct {
-	ctx _context.Context
-	ApiService DefaultApi
+	ctx context.Context
+	ApiService DefaultAPI
 	uuid string
 	configuration *NotificationWebhookEndpointConfiguration
 }
@@ -12750,7 +12506,7 @@ func (r ApiUpdateWebhookConfigurationRequest) Configuration(configuration Notifi
 	return r
 }
 
-func (r ApiUpdateWebhookConfigurationRequest) Execute() (NotificationWebhookEndpointConfiguration, *_nethttp.Response, error) {
+func (r ApiUpdateWebhookConfigurationRequest) Execute() (*NotificationWebhookEndpointConfiguration, *http.Response, error) {
 	return r.ApiService.UpdateWebhookConfigurationExecute(r)
 }
 
@@ -12759,11 +12515,11 @@ UpdateWebhookConfiguration Method for UpdateWebhookConfiguration
 
 Update a Webhook endpoint configuration by it's UUID
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param uuid
  @return ApiUpdateWebhookConfigurationRequest
 */
-func (a *DefaultApiService) UpdateWebhookConfiguration(ctx _context.Context, uuid string) ApiUpdateWebhookConfigurationRequest {
+func (a *DefaultAPIService) UpdateWebhookConfiguration(ctx context.Context, uuid string) ApiUpdateWebhookConfigurationRequest {
 	return ApiUpdateWebhookConfigurationRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -12773,27 +12529,25 @@ func (a *DefaultApiService) UpdateWebhookConfiguration(ctx _context.Context, uui
 
 // Execute executes the request
 //  @return NotificationWebhookEndpointConfiguration
-func (a *DefaultApiService) UpdateWebhookConfigurationExecute(r ApiUpdateWebhookConfigurationRequest) (NotificationWebhookEndpointConfiguration, *_nethttp.Response, error) {
+func (a *DefaultAPIService) UpdateWebhookConfigurationExecute(r ApiUpdateWebhookConfigurationRequest) (*NotificationWebhookEndpointConfiguration, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPut
+		localVarHTTPMethod   = http.MethodPut
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  NotificationWebhookEndpointConfiguration
+		formFiles            []formFile
+		localVarReturnValue  *NotificationWebhookEndpointConfiguration
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.UpdateWebhookConfiguration")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.UpdateWebhookConfiguration")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/notifications/endpoints/webhook/configurations/{uuid}"
-	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", _neturl.PathEscape(parameterToString(r.uuid, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", url.PathEscape(parameterValueToString(r.uuid, "uuid")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if r.configuration == nil {
 		return localVarReturnValue, nil, reportError("configuration is required and must be specified")
 	}
@@ -12817,7 +12571,7 @@ func (a *DefaultApiService) UpdateWebhookConfigurationExecute(r ApiUpdateWebhook
 	}
 	// body params
 	localVarPostBody = r.configuration
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -12827,15 +12581,15 @@ func (a *DefaultApiService) UpdateWebhookConfigurationExecute(r ApiUpdateWebhook
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -12844,7 +12598,7 @@ func (a *DefaultApiService) UpdateWebhookConfigurationExecute(r ApiUpdateWebhook
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -12855,8 +12609,8 @@ func (a *DefaultApiService) UpdateWebhookConfigurationExecute(r ApiUpdateWebhook
 }
 
 type ApiUpdateWebhookSelectorRequest struct {
-	ctx _context.Context
-	ApiService DefaultApi
+	ctx context.Context
+	ApiService DefaultAPI
 	configurationUuid string
 	selectorUuid string
 	selector *NotificationSelector
@@ -12867,7 +12621,7 @@ func (r ApiUpdateWebhookSelectorRequest) Selector(selector NotificationSelector)
 	return r
 }
 
-func (r ApiUpdateWebhookSelectorRequest) Execute() (NotificationSelector, *_nethttp.Response, error) {
+func (r ApiUpdateWebhookSelectorRequest) Execute() (*NotificationSelector, *http.Response, error) {
 	return r.ApiService.UpdateWebhookSelectorExecute(r)
 }
 
@@ -12876,12 +12630,12 @@ UpdateWebhookSelector Method for UpdateWebhookSelector
 
 Update a selector mapped to a Webhook endpoint configuration
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param configurationUuid
  @param selectorUuid
  @return ApiUpdateWebhookSelectorRequest
 */
-func (a *DefaultApiService) UpdateWebhookSelector(ctx _context.Context, configurationUuid string, selectorUuid string) ApiUpdateWebhookSelectorRequest {
+func (a *DefaultAPIService) UpdateWebhookSelector(ctx context.Context, configurationUuid string, selectorUuid string) ApiUpdateWebhookSelectorRequest {
 	return ApiUpdateWebhookSelectorRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -12892,28 +12646,26 @@ func (a *DefaultApiService) UpdateWebhookSelector(ctx _context.Context, configur
 
 // Execute executes the request
 //  @return NotificationSelector
-func (a *DefaultApiService) UpdateWebhookSelectorExecute(r ApiUpdateWebhookSelectorRequest) (NotificationSelector, *_nethttp.Response, error) {
+func (a *DefaultAPIService) UpdateWebhookSelectorExecute(r ApiUpdateWebhookSelectorRequest) (*NotificationSelector, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPut
+		localVarHTTPMethod   = http.MethodPut
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  NotificationSelector
+		formFiles            []formFile
+		localVarReturnValue  *NotificationSelector
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.UpdateWebhookSelector")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.UpdateWebhookSelector")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/notifications/endpoints/webhook/configurations/{configuration_uuid}/selectors/{selector_uuid}"
-	localVarPath = strings.Replace(localVarPath, "{"+"configuration_uuid"+"}", _neturl.PathEscape(parameterToString(r.configurationUuid, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"selector_uuid"+"}", _neturl.PathEscape(parameterToString(r.selectorUuid, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"configuration_uuid"+"}", url.PathEscape(parameterValueToString(r.configurationUuid, "configurationUuid")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"selector_uuid"+"}", url.PathEscape(parameterValueToString(r.selectorUuid, "selectorUuid")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if r.selector == nil {
 		return localVarReturnValue, nil, reportError("selector is required and must be specified")
 	}
@@ -12937,7 +12689,7 @@ func (a *DefaultApiService) UpdateWebhookSelectorExecute(r ApiUpdateWebhookSelec
 	}
 	// body params
 	localVarPostBody = r.selector
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -12947,15 +12699,15 @@ func (a *DefaultApiService) UpdateWebhookSelectorExecute(r ApiUpdateWebhookSelec
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -12964,7 +12716,7 @@ func (a *DefaultApiService) UpdateWebhookSelectorExecute(r ApiUpdateWebhookSelec
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -12975,12 +12727,11 @@ func (a *DefaultApiService) UpdateWebhookSelectorExecute(r ApiUpdateWebhookSelec
 }
 
 type ApiVersionCheckRequest struct {
-	ctx _context.Context
-	ApiService DefaultApi
+	ctx context.Context
+	ApiService DefaultAPI
 }
 
-
-func (r ApiVersionCheckRequest) Execute() (ServiceVersion, *_nethttp.Response, error) {
+func (r ApiVersionCheckRequest) Execute() (*ServiceVersion, *http.Response, error) {
 	return r.ApiService.VersionCheckExecute(r)
 }
 
@@ -12989,10 +12740,10 @@ VersionCheck Method for VersionCheck
 
 Returns the version object for the service, including db schema version info
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiVersionCheckRequest
 */
-func (a *DefaultApiService) VersionCheck(ctx _context.Context) ApiVersionCheckRequest {
+func (a *DefaultAPIService) VersionCheck(ctx context.Context) ApiVersionCheckRequest {
 	return ApiVersionCheckRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -13001,26 +12752,24 @@ func (a *DefaultApiService) VersionCheck(ctx _context.Context) ApiVersionCheckRe
 
 // Execute executes the request
 //  @return ServiceVersion
-func (a *DefaultApiService) VersionCheckExecute(r ApiVersionCheckRequest) (ServiceVersion, *_nethttp.Response, error) {
+func (a *DefaultAPIService) VersionCheckExecute(r ApiVersionCheckRequest) (*ServiceVersion, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  ServiceVersion
+		formFiles            []formFile
+		localVarReturnValue  *ServiceVersion
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.VersionCheck")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.VersionCheck")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/version"
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -13039,7 +12788,7 @@ func (a *DefaultApiService) VersionCheckExecute(r ApiVersionCheckRequest) (Servi
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -13049,15 +12798,15 @@ func (a *DefaultApiService) VersionCheckExecute(r ApiVersionCheckRequest) (Servi
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -13066,7 +12815,7 @@ func (a *DefaultApiService) VersionCheckExecute(r ApiVersionCheckRequest) (Servi
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}

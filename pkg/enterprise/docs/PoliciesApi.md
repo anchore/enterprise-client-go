@@ -1,14 +1,14 @@
-# \PoliciesApi
+# \PoliciesAPI
 
-All URIs are relative to *http://localhost/v2*
+All URIs are relative to */v2*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**AddPolicy**](PoliciesApi.md#AddPolicy) | **Post** /policies | Add a new policy
-[**DeletePolicy**](PoliciesApi.md#DeletePolicy) | **Delete** /policies/{policy_id} | Delete policy
-[**GetPolicy**](PoliciesApi.md#GetPolicy) | **Get** /policies/{policy_id} | Get specific policy
-[**ListPolicies**](PoliciesApi.md#ListPolicies) | **Get** /policies | List policies
-[**UpdatePolicy**](PoliciesApi.md#UpdatePolicy) | **Put** /policies/{policy_id} | Update policy
+[**AddPolicy**](PoliciesAPI.md#AddPolicy) | **Post** /policies | Add a new policy
+[**DeletePolicy**](PoliciesAPI.md#DeletePolicy) | **Delete** /policies/{policy_id} | Delete policy
+[**GetPolicy**](PoliciesAPI.md#GetPolicy) | **Get** /policies/{policy_id} | Get specific policy
+[**ListPolicies**](PoliciesAPI.md#ListPolicies) | **Get** /policies | List policies
+[**UpdatePolicy**](PoliciesAPI.md#UpdatePolicy) | **Put** /policies/{policy_id} | Update policy
 
 
 
@@ -29,22 +29,22 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+    openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
-    policy := *openapiclient.NewPolicy("Id_example", "Name_example", "Version_example", []openapiclient.RuleSet{*openapiclient.NewRuleSet("Id_example", "Name_example", "Version_example", []openapiclient.PolicyRule{*openapiclient.NewPolicyRule("Id_example", "Gate_example", "Trigger_example", "Action_example", []openapiclient.PolicyRuleParams{*openapiclient.NewPolicyRuleParams("Name_example", "Value_example")})})}, []openapiclient.MappingRule{*openapiclient.NewMappingRule("Id_example", "Name_example", []string{"AllowlistIds_example"}, []string{"RuleSetIds_example"}, "Registry_example", "Repository_example", *openapiclient.NewImageRef("Type_example", "Value_example"))}) // Policy | 
+    policy := *openapiclient.NewPolicy("Id_example", "Name_example", "Version_example", []openapiclient.RuleSet{*openapiclient.NewRuleSet("Id_example", "Name_example", "Version_example", []openapiclient.PolicyRule{*openapiclient.NewPolicyRule("Id_example", "Gate_example", "Trigger_example", "Action_example", []openapiclient.PolicyRuleParamsInner{*openapiclient.NewPolicyRuleParamsInner("Name_example", "Value_example")})})}, []openapiclient.MappingRule{*openapiclient.NewMappingRule("Id_example", "Name_example", []string{"AllowlistIds_example"}, []string{"RuleSetIds_example"}, "Registry_example", "Repository_example", *openapiclient.NewImageRef("Type_example", "Value_example"))}) // Policy | 
     xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.PoliciesApi.AddPolicy(context.Background()).Policy(policy).XAnchoreAccount(xAnchoreAccount).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.PoliciesAPI.AddPolicy(context.Background()).Policy(policy).XAnchoreAccount(xAnchoreAccount).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `PoliciesApi.AddPolicy``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `PoliciesAPI.AddPolicy``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
     // response from `AddPolicy`: PolicyRecord
-    fmt.Fprintf(os.Stdout, "Response from `PoliciesApi.AddPolicy`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `PoliciesAPI.AddPolicy`: %v\n", resp)
 }
 ```
 
@@ -97,7 +97,7 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+    openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
@@ -105,10 +105,10 @@ func main() {
     xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.PoliciesApi.DeletePolicy(context.Background(), policyId).XAnchoreAccount(xAnchoreAccount).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    r, err := apiClient.PoliciesAPI.DeletePolicy(context.Background(), policyId).XAnchoreAccount(xAnchoreAccount).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `PoliciesApi.DeletePolicy``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `PoliciesAPI.DeletePolicy``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
 }
@@ -167,7 +167,7 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+    openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
@@ -176,14 +176,14 @@ func main() {
     xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.PoliciesApi.GetPolicy(context.Background(), policyId).Detail(detail).XAnchoreAccount(xAnchoreAccount).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.PoliciesAPI.GetPolicy(context.Background(), policyId).Detail(detail).XAnchoreAccount(xAnchoreAccount).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `PoliciesApi.GetPolicy``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `PoliciesAPI.GetPolicy``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
     // response from `GetPolicy`: PolicyRecord
-    fmt.Fprintf(os.Stdout, "Response from `PoliciesApi.GetPolicy`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `PoliciesAPI.GetPolicy`: %v\n", resp)
 }
 ```
 
@@ -241,7 +241,7 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+    openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
@@ -249,14 +249,14 @@ func main() {
     xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.PoliciesApi.ListPolicies(context.Background()).Detail(detail).XAnchoreAccount(xAnchoreAccount).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.PoliciesAPI.ListPolicies(context.Background()).Detail(detail).XAnchoreAccount(xAnchoreAccount).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `PoliciesApi.ListPolicies``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `PoliciesAPI.ListPolicies``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
     // response from `ListPolicies`: []PolicyRecord
-    fmt.Fprintf(os.Stdout, "Response from `PoliciesApi.ListPolicies`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `PoliciesAPI.ListPolicies`: %v\n", resp)
 }
 ```
 
@@ -309,7 +309,7 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+    openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
@@ -319,14 +319,14 @@ func main() {
     xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.PoliciesApi.UpdatePolicy(context.Background(), policyId).Policy(policy).Active(active).XAnchoreAccount(xAnchoreAccount).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.PoliciesAPI.UpdatePolicy(context.Background(), policyId).Policy(policy).Active(active).XAnchoreAccount(xAnchoreAccount).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `PoliciesApi.UpdatePolicy``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `PoliciesAPI.UpdatePolicy``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
     // response from `UpdatePolicy`: PolicyRecord
-    fmt.Fprintf(os.Stdout, "Response from `PoliciesApi.UpdatePolicy`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `PoliciesAPI.UpdatePolicy`: %v\n", resp)
 }
 ```
 

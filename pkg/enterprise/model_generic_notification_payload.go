@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the GenericNotificationPayload type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &GenericNotificationPayload{}
+
 // GenericNotificationPayload Parent class for Notification Payloads
 type GenericNotificationPayload struct {
 	AccountName *string `json:"account_name,omitempty"`
@@ -42,7 +45,7 @@ func NewGenericNotificationPayloadWithDefaults() *GenericNotificationPayload {
 
 // GetAccountName returns the AccountName field value if set, zero value otherwise.
 func (o *GenericNotificationPayload) GetAccountName() string {
-	if o == nil || o.AccountName == nil {
+	if o == nil || IsNil(o.AccountName) {
 		var ret string
 		return ret
 	}
@@ -52,7 +55,7 @@ func (o *GenericNotificationPayload) GetAccountName() string {
 // GetAccountNameOk returns a tuple with the AccountName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *GenericNotificationPayload) GetAccountNameOk() (*string, bool) {
-	if o == nil || o.AccountName == nil {
+	if o == nil || IsNil(o.AccountName) {
 		return nil, false
 	}
 	return o.AccountName, true
@@ -60,7 +63,7 @@ func (o *GenericNotificationPayload) GetAccountNameOk() (*string, bool) {
 
 // HasAccountName returns a boolean if a field has been set.
 func (o *GenericNotificationPayload) HasAccountName() bool {
-	if o != nil && o.AccountName != nil {
+	if o != nil && !IsNil(o.AccountName) {
 		return true
 	}
 
@@ -74,7 +77,7 @@ func (o *GenericNotificationPayload) SetAccountName(v string) {
 
 // GetSubscriptionKey returns the SubscriptionKey field value if set, zero value otherwise.
 func (o *GenericNotificationPayload) GetSubscriptionKey() string {
-	if o == nil || o.SubscriptionKey == nil {
+	if o == nil || IsNil(o.SubscriptionKey) {
 		var ret string
 		return ret
 	}
@@ -84,7 +87,7 @@ func (o *GenericNotificationPayload) GetSubscriptionKey() string {
 // GetSubscriptionKeyOk returns a tuple with the SubscriptionKey field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *GenericNotificationPayload) GetSubscriptionKeyOk() (*string, bool) {
-	if o == nil || o.SubscriptionKey == nil {
+	if o == nil || IsNil(o.SubscriptionKey) {
 		return nil, false
 	}
 	return o.SubscriptionKey, true
@@ -92,7 +95,7 @@ func (o *GenericNotificationPayload) GetSubscriptionKeyOk() (*string, bool) {
 
 // HasSubscriptionKey returns a boolean if a field has been set.
 func (o *GenericNotificationPayload) HasSubscriptionKey() bool {
-	if o != nil && o.SubscriptionKey != nil {
+	if o != nil && !IsNil(o.SubscriptionKey) {
 		return true
 	}
 
@@ -106,7 +109,7 @@ func (o *GenericNotificationPayload) SetSubscriptionKey(v string) {
 
 // GetSubscriptionType returns the SubscriptionType field value if set, zero value otherwise.
 func (o *GenericNotificationPayload) GetSubscriptionType() string {
-	if o == nil || o.SubscriptionType == nil {
+	if o == nil || IsNil(o.SubscriptionType) {
 		var ret string
 		return ret
 	}
@@ -116,7 +119,7 @@ func (o *GenericNotificationPayload) GetSubscriptionType() string {
 // GetSubscriptionTypeOk returns a tuple with the SubscriptionType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *GenericNotificationPayload) GetSubscriptionTypeOk() (*string, bool) {
-	if o == nil || o.SubscriptionType == nil {
+	if o == nil || IsNil(o.SubscriptionType) {
 		return nil, false
 	}
 	return o.SubscriptionType, true
@@ -124,7 +127,7 @@ func (o *GenericNotificationPayload) GetSubscriptionTypeOk() (*string, bool) {
 
 // HasSubscriptionType returns a boolean if a field has been set.
 func (o *GenericNotificationPayload) HasSubscriptionType() bool {
-	if o != nil && o.SubscriptionType != nil {
+	if o != nil && !IsNil(o.SubscriptionType) {
 		return true
 	}
 
@@ -138,7 +141,7 @@ func (o *GenericNotificationPayload) SetSubscriptionType(v string) {
 
 // GetNotificationId returns the NotificationId field value if set, zero value otherwise.
 func (o *GenericNotificationPayload) GetNotificationId() string {
-	if o == nil || o.NotificationId == nil {
+	if o == nil || IsNil(o.NotificationId) {
 		var ret string
 		return ret
 	}
@@ -148,7 +151,7 @@ func (o *GenericNotificationPayload) GetNotificationId() string {
 // GetNotificationIdOk returns a tuple with the NotificationId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *GenericNotificationPayload) GetNotificationIdOk() (*string, bool) {
-	if o == nil || o.NotificationId == nil {
+	if o == nil || IsNil(o.NotificationId) {
 		return nil, false
 	}
 	return o.NotificationId, true
@@ -156,7 +159,7 @@ func (o *GenericNotificationPayload) GetNotificationIdOk() (*string, bool) {
 
 // HasNotificationId returns a boolean if a field has been set.
 func (o *GenericNotificationPayload) HasNotificationId() bool {
-	if o != nil && o.NotificationId != nil {
+	if o != nil && !IsNil(o.NotificationId) {
 		return true
 	}
 
@@ -169,20 +172,28 @@ func (o *GenericNotificationPayload) SetNotificationId(v string) {
 }
 
 func (o GenericNotificationPayload) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.AccountName != nil {
-		toSerialize["account_name"] = o.AccountName
-	}
-	if o.SubscriptionKey != nil {
-		toSerialize["subscription_key"] = o.SubscriptionKey
-	}
-	if o.SubscriptionType != nil {
-		toSerialize["subscription_type"] = o.SubscriptionType
-	}
-	if o.NotificationId != nil {
-		toSerialize["notification_id"] = o.NotificationId
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o GenericNotificationPayload) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.AccountName) {
+		toSerialize["account_name"] = o.AccountName
+	}
+	if !IsNil(o.SubscriptionKey) {
+		toSerialize["subscription_key"] = o.SubscriptionKey
+	}
+	if !IsNil(o.SubscriptionType) {
+		toSerialize["subscription_type"] = o.SubscriptionType
+	}
+	if !IsNil(o.NotificationId) {
+		toSerialize["notification_id"] = o.NotificationId
+	}
+	return toSerialize, nil
 }
 
 type NullableGenericNotificationPayload struct {

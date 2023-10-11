@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the TagUpdateNotification type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &TagUpdateNotification{}
+
 // TagUpdateNotification struct for TagUpdateNotification
 type TagUpdateNotification struct {
 	QueueId *string `json:"queue_id,omitempty"`
@@ -52,7 +55,7 @@ func NewTagUpdateNotificationWithDefaults() *TagUpdateNotification {
 
 // GetQueueId returns the QueueId field value if set, zero value otherwise.
 func (o *TagUpdateNotification) GetQueueId() string {
-	if o == nil || o.QueueId == nil {
+	if o == nil || IsNil(o.QueueId) {
 		var ret string
 		return ret
 	}
@@ -62,7 +65,7 @@ func (o *TagUpdateNotification) GetQueueId() string {
 // GetQueueIdOk returns a tuple with the QueueId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TagUpdateNotification) GetQueueIdOk() (*string, bool) {
-	if o == nil || o.QueueId == nil {
+	if o == nil || IsNil(o.QueueId) {
 		return nil, false
 	}
 	return o.QueueId, true
@@ -70,7 +73,7 @@ func (o *TagUpdateNotification) GetQueueIdOk() (*string, bool) {
 
 // HasQueueId returns a boolean if a field has been set.
 func (o *TagUpdateNotification) HasQueueId() bool {
-	if o != nil && o.QueueId != nil {
+	if o != nil && !IsNil(o.QueueId) {
 		return true
 	}
 
@@ -84,7 +87,7 @@ func (o *TagUpdateNotification) SetQueueId(v string) {
 
 // GetAccountName returns the AccountName field value if set, zero value otherwise.
 func (o *TagUpdateNotification) GetAccountName() string {
-	if o == nil || o.AccountName == nil {
+	if o == nil || IsNil(o.AccountName) {
 		var ret string
 		return ret
 	}
@@ -94,7 +97,7 @@ func (o *TagUpdateNotification) GetAccountName() string {
 // GetAccountNameOk returns a tuple with the AccountName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TagUpdateNotification) GetAccountNameOk() (*string, bool) {
-	if o == nil || o.AccountName == nil {
+	if o == nil || IsNil(o.AccountName) {
 		return nil, false
 	}
 	return o.AccountName, true
@@ -102,7 +105,7 @@ func (o *TagUpdateNotification) GetAccountNameOk() (*string, bool) {
 
 // HasAccountName returns a boolean if a field has been set.
 func (o *TagUpdateNotification) HasAccountName() bool {
-	if o != nil && o.AccountName != nil {
+	if o != nil && !IsNil(o.AccountName) {
 		return true
 	}
 
@@ -116,7 +119,7 @@ func (o *TagUpdateNotification) SetAccountName(v string) {
 
 // GetDataId returns the DataId field value if set, zero value otherwise.
 func (o *TagUpdateNotification) GetDataId() string {
-	if o == nil || o.DataId == nil {
+	if o == nil || IsNil(o.DataId) {
 		var ret string
 		return ret
 	}
@@ -126,7 +129,7 @@ func (o *TagUpdateNotification) GetDataId() string {
 // GetDataIdOk returns a tuple with the DataId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TagUpdateNotification) GetDataIdOk() (*string, bool) {
-	if o == nil || o.DataId == nil {
+	if o == nil || IsNil(o.DataId) {
 		return nil, false
 	}
 	return o.DataId, true
@@ -134,7 +137,7 @@ func (o *TagUpdateNotification) GetDataIdOk() (*string, bool) {
 
 // HasDataId returns a boolean if a field has been set.
 func (o *TagUpdateNotification) HasDataId() bool {
-	if o != nil && o.DataId != nil {
+	if o != nil && !IsNil(o.DataId) {
 		return true
 	}
 
@@ -148,7 +151,7 @@ func (o *TagUpdateNotification) SetDataId(v string) {
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
 func (o *TagUpdateNotification) GetCreatedAt() int32 {
-	if o == nil || o.CreatedAt == nil {
+	if o == nil || IsNil(o.CreatedAt) {
 		var ret int32
 		return ret
 	}
@@ -158,7 +161,7 @@ func (o *TagUpdateNotification) GetCreatedAt() int32 {
 // GetCreatedAtOk returns a tuple with the CreatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TagUpdateNotification) GetCreatedAtOk() (*int32, bool) {
-	if o == nil || o.CreatedAt == nil {
+	if o == nil || IsNil(o.CreatedAt) {
 		return nil, false
 	}
 	return o.CreatedAt, true
@@ -166,7 +169,7 @@ func (o *TagUpdateNotification) GetCreatedAtOk() (*int32, bool) {
 
 // HasCreatedAt returns a boolean if a field has been set.
 func (o *TagUpdateNotification) HasCreatedAt() bool {
-	if o != nil && o.CreatedAt != nil {
+	if o != nil && !IsNil(o.CreatedAt) {
 		return true
 	}
 
@@ -180,7 +183,7 @@ func (o *TagUpdateNotification) SetCreatedAt(v int32) {
 
 // GetLastUpdated returns the LastUpdated field value if set, zero value otherwise.
 func (o *TagUpdateNotification) GetLastUpdated() int32 {
-	if o == nil || o.LastUpdated == nil {
+	if o == nil || IsNil(o.LastUpdated) {
 		var ret int32
 		return ret
 	}
@@ -190,7 +193,7 @@ func (o *TagUpdateNotification) GetLastUpdated() int32 {
 // GetLastUpdatedOk returns a tuple with the LastUpdated field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TagUpdateNotification) GetLastUpdatedOk() (*int32, bool) {
-	if o == nil || o.LastUpdated == nil {
+	if o == nil || IsNil(o.LastUpdated) {
 		return nil, false
 	}
 	return o.LastUpdated, true
@@ -198,7 +201,7 @@ func (o *TagUpdateNotification) GetLastUpdatedOk() (*int32, bool) {
 
 // HasLastUpdated returns a boolean if a field has been set.
 func (o *TagUpdateNotification) HasLastUpdated() bool {
-	if o != nil && o.LastUpdated != nil {
+	if o != nil && !IsNil(o.LastUpdated) {
 		return true
 	}
 
@@ -212,7 +215,7 @@ func (o *TagUpdateNotification) SetLastUpdated(v int32) {
 
 // GetRecordStateKey returns the RecordStateKey field value if set, zero value otherwise.
 func (o *TagUpdateNotification) GetRecordStateKey() string {
-	if o == nil || o.RecordStateKey == nil {
+	if o == nil || IsNil(o.RecordStateKey) {
 		var ret string
 		return ret
 	}
@@ -222,7 +225,7 @@ func (o *TagUpdateNotification) GetRecordStateKey() string {
 // GetRecordStateKeyOk returns a tuple with the RecordStateKey field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TagUpdateNotification) GetRecordStateKeyOk() (*string, bool) {
-	if o == nil || o.RecordStateKey == nil {
+	if o == nil || IsNil(o.RecordStateKey) {
 		return nil, false
 	}
 	return o.RecordStateKey, true
@@ -230,7 +233,7 @@ func (o *TagUpdateNotification) GetRecordStateKeyOk() (*string, bool) {
 
 // HasRecordStateKey returns a boolean if a field has been set.
 func (o *TagUpdateNotification) HasRecordStateKey() bool {
-	if o != nil && o.RecordStateKey != nil {
+	if o != nil && !IsNil(o.RecordStateKey) {
 		return true
 	}
 
@@ -244,7 +247,7 @@ func (o *TagUpdateNotification) SetRecordStateKey(v string) {
 
 // GetRecordStateVal returns the RecordStateVal field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *TagUpdateNotification) GetRecordStateVal() string {
-	if o == nil || o.RecordStateVal.Get() == nil {
+	if o == nil || IsNil(o.RecordStateVal.Get()) {
 		var ret string
 		return ret
 	}
@@ -255,7 +258,7 @@ func (o *TagUpdateNotification) GetRecordStateVal() string {
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *TagUpdateNotification) GetRecordStateValOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return o.RecordStateVal.Get(), o.RecordStateVal.IsSet()
@@ -286,7 +289,7 @@ func (o *TagUpdateNotification) UnsetRecordStateVal() {
 
 // GetTries returns the Tries field value if set, zero value otherwise.
 func (o *TagUpdateNotification) GetTries() int32 {
-	if o == nil || o.Tries == nil {
+	if o == nil || IsNil(o.Tries) {
 		var ret int32
 		return ret
 	}
@@ -296,7 +299,7 @@ func (o *TagUpdateNotification) GetTries() int32 {
 // GetTriesOk returns a tuple with the Tries field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TagUpdateNotification) GetTriesOk() (*int32, bool) {
-	if o == nil || o.Tries == nil {
+	if o == nil || IsNil(o.Tries) {
 		return nil, false
 	}
 	return o.Tries, true
@@ -304,7 +307,7 @@ func (o *TagUpdateNotification) GetTriesOk() (*int32, bool) {
 
 // HasTries returns a boolean if a field has been set.
 func (o *TagUpdateNotification) HasTries() bool {
-	if o != nil && o.Tries != nil {
+	if o != nil && !IsNil(o.Tries) {
 		return true
 	}
 
@@ -318,7 +321,7 @@ func (o *TagUpdateNotification) SetTries(v int32) {
 
 // GetMaxTries returns the MaxTries field value if set, zero value otherwise.
 func (o *TagUpdateNotification) GetMaxTries() int32 {
-	if o == nil || o.MaxTries == nil {
+	if o == nil || IsNil(o.MaxTries) {
 		var ret int32
 		return ret
 	}
@@ -328,7 +331,7 @@ func (o *TagUpdateNotification) GetMaxTries() int32 {
 // GetMaxTriesOk returns a tuple with the MaxTries field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TagUpdateNotification) GetMaxTriesOk() (*int32, bool) {
-	if o == nil || o.MaxTries == nil {
+	if o == nil || IsNil(o.MaxTries) {
 		return nil, false
 	}
 	return o.MaxTries, true
@@ -336,7 +339,7 @@ func (o *TagUpdateNotification) GetMaxTriesOk() (*int32, bool) {
 
 // HasMaxTries returns a boolean if a field has been set.
 func (o *TagUpdateNotification) HasMaxTries() bool {
-	if o != nil && o.MaxTries != nil {
+	if o != nil && !IsNil(o.MaxTries) {
 		return true
 	}
 
@@ -350,7 +353,7 @@ func (o *TagUpdateNotification) SetMaxTries(v int32) {
 
 // GetData returns the Data field value if set, zero value otherwise.
 func (o *TagUpdateNotification) GetData() TagUpdateNotificationData {
-	if o == nil || o.Data == nil {
+	if o == nil || IsNil(o.Data) {
 		var ret TagUpdateNotificationData
 		return ret
 	}
@@ -360,7 +363,7 @@ func (o *TagUpdateNotification) GetData() TagUpdateNotificationData {
 // GetDataOk returns a tuple with the Data field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TagUpdateNotification) GetDataOk() (*TagUpdateNotificationData, bool) {
-	if o == nil || o.Data == nil {
+	if o == nil || IsNil(o.Data) {
 		return nil, false
 	}
 	return o.Data, true
@@ -368,7 +371,7 @@ func (o *TagUpdateNotification) GetDataOk() (*TagUpdateNotificationData, bool) {
 
 // HasData returns a boolean if a field has been set.
 func (o *TagUpdateNotification) HasData() bool {
-	if o != nil && o.Data != nil {
+	if o != nil && !IsNil(o.Data) {
 		return true
 	}
 
@@ -381,38 +384,46 @@ func (o *TagUpdateNotification) SetData(v TagUpdateNotificationData) {
 }
 
 func (o TagUpdateNotification) MarshalJSON() ([]byte, error) {
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o TagUpdateNotification) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.QueueId != nil {
+	if !IsNil(o.QueueId) {
 		toSerialize["queue_id"] = o.QueueId
 	}
-	if o.AccountName != nil {
+	if !IsNil(o.AccountName) {
 		toSerialize["account_name"] = o.AccountName
 	}
-	if o.DataId != nil {
+	if !IsNil(o.DataId) {
 		toSerialize["data_id"] = o.DataId
 	}
-	if o.CreatedAt != nil {
+	if !IsNil(o.CreatedAt) {
 		toSerialize["created_at"] = o.CreatedAt
 	}
-	if o.LastUpdated != nil {
+	if !IsNil(o.LastUpdated) {
 		toSerialize["last_updated"] = o.LastUpdated
 	}
-	if o.RecordStateKey != nil {
+	if !IsNil(o.RecordStateKey) {
 		toSerialize["record_state_key"] = o.RecordStateKey
 	}
 	if o.RecordStateVal.IsSet() {
 		toSerialize["record_state_val"] = o.RecordStateVal.Get()
 	}
-	if o.Tries != nil {
+	if !IsNil(o.Tries) {
 		toSerialize["tries"] = o.Tries
 	}
-	if o.MaxTries != nil {
+	if !IsNil(o.MaxTries) {
 		toSerialize["max_tries"] = o.MaxTries
 	}
-	if o.Data != nil {
+	if !IsNil(o.Data) {
 		toSerialize["data"] = o.Data
 	}
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
 type NullableTagUpdateNotification struct {

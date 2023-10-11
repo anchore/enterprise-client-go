@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the ComplianceViolationAlertState type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ComplianceViolationAlertState{}
+
 // ComplianceViolationAlertState State change for an existing ComplianceViolationAlert
 type ComplianceViolationAlertState struct {
 	// The new state of the compliance violation alert
@@ -52,7 +55,7 @@ func (o *ComplianceViolationAlertState) GetState() string {
 // GetStateOk returns a tuple with the State field value
 // and a boolean to check if the value has been set.
 func (o *ComplianceViolationAlertState) GetStateOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.State, true
@@ -64,11 +67,17 @@ func (o *ComplianceViolationAlertState) SetState(v string) {
 }
 
 func (o ComplianceViolationAlertState) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["state"] = o.State
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o ComplianceViolationAlertState) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["state"] = o.State
+	return toSerialize, nil
 }
 
 type NullableComplianceViolationAlertState struct {

@@ -15,9 +15,12 @@ import (
 	"encoding/json"
 )
 
+// checks if the KubernetesContainers type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &KubernetesContainers{}
+
 // KubernetesContainers Containers defined in Kubernetes
 type KubernetesContainers struct {
-	Containers *[]KubernetesContainersContainers `json:"containers,omitempty"`
+	Containers []KubernetesContainersContainersInner `json:"containers,omitempty"`
 }
 
 // NewKubernetesContainers instantiates a new KubernetesContainers object
@@ -38,18 +41,18 @@ func NewKubernetesContainersWithDefaults() *KubernetesContainers {
 }
 
 // GetContainers returns the Containers field value if set, zero value otherwise.
-func (o *KubernetesContainers) GetContainers() []KubernetesContainersContainers {
-	if o == nil || o.Containers == nil {
-		var ret []KubernetesContainersContainers
+func (o *KubernetesContainers) GetContainers() []KubernetesContainersContainersInner {
+	if o == nil || IsNil(o.Containers) {
+		var ret []KubernetesContainersContainersInner
 		return ret
 	}
-	return *o.Containers
+	return o.Containers
 }
 
 // GetContainersOk returns a tuple with the Containers field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *KubernetesContainers) GetContainersOk() (*[]KubernetesContainersContainers, bool) {
-	if o == nil || o.Containers == nil {
+func (o *KubernetesContainers) GetContainersOk() ([]KubernetesContainersContainersInner, bool) {
+	if o == nil || IsNil(o.Containers) {
 		return nil, false
 	}
 	return o.Containers, true
@@ -57,24 +60,32 @@ func (o *KubernetesContainers) GetContainersOk() (*[]KubernetesContainersContain
 
 // HasContainers returns a boolean if a field has been set.
 func (o *KubernetesContainers) HasContainers() bool {
-	if o != nil && o.Containers != nil {
+	if o != nil && !IsNil(o.Containers) {
 		return true
 	}
 
 	return false
 }
 
-// SetContainers gets a reference to the given []KubernetesContainersContainers and assigns it to the Containers field.
-func (o *KubernetesContainers) SetContainers(v []KubernetesContainersContainers) {
-	o.Containers = &v
+// SetContainers gets a reference to the given []KubernetesContainersContainersInner and assigns it to the Containers field.
+func (o *KubernetesContainers) SetContainers(v []KubernetesContainersContainersInner) {
+	o.Containers = v
 }
 
 func (o KubernetesContainers) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Containers != nil {
-		toSerialize["containers"] = o.Containers
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o KubernetesContainers) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Containers) {
+		toSerialize["containers"] = o.Containers
+	}
+	return toSerialize, nil
 }
 
 type NullableKubernetesContainers struct {

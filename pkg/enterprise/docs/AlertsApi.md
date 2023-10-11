@@ -1,13 +1,13 @@
-# \AlertsApi
+# \AlertsAPI
 
-All URIs are relative to *http://localhost/v2*
+All URIs are relative to */v2*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**GetAlertSummaries**](AlertsApi.md#GetAlertSummaries) | **Get** /alerts/summaries | List all alert summaries scoped to the account
-[**GetComplianceViolationAlert**](AlertsApi.md#GetComplianceViolationAlert) | **Get** /alerts/compliance-violations/{uuid} | Get compliance violation alert by id
-[**GetComplianceViolationAlerts**](AlertsApi.md#GetComplianceViolationAlerts) | **Get** /alerts/compliance-violations | List all compliance violation alerts scoped to the account
-[**UpdateComplianceViolationAlertState**](AlertsApi.md#UpdateComplianceViolationAlertState) | **Patch** /alerts/compliance-violations/{uuid} | Open or close a compliance violation alert
+[**GetAlertSummaries**](AlertsAPI.md#GetAlertSummaries) | **Get** /alerts/summaries | List all alert summaries scoped to the account
+[**GetComplianceViolationAlert**](AlertsAPI.md#GetComplianceViolationAlert) | **Get** /alerts/compliance-violations/{uuid} | Get compliance violation alert by id
+[**GetComplianceViolationAlerts**](AlertsAPI.md#GetComplianceViolationAlerts) | **Get** /alerts/compliance-violations | List all compliance violation alerts scoped to the account
+[**UpdateComplianceViolationAlertState**](AlertsAPI.md#UpdateComplianceViolationAlertState) | **Patch** /alerts/compliance-violations/{uuid} | Open or close a compliance violation alert
 
 
 
@@ -29,7 +29,7 @@ import (
     "fmt"
     "os"
     "time"
-    openapiclient "./openapi"
+    openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
@@ -43,14 +43,14 @@ func main() {
     xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.AlertsApi.GetAlertSummaries(context.Background()).Page(page).Limit(limit).Type_(type_).State(state).CreatedAfter(createdAfter).CreatedBefore(createdBefore).ResourceLabel(resourceLabel).XAnchoreAccount(xAnchoreAccount).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.AlertsAPI.GetAlertSummaries(context.Background()).Page(page).Limit(limit).Type_(type_).State(state).CreatedAfter(createdAfter).CreatedBefore(createdBefore).ResourceLabel(resourceLabel).XAnchoreAccount(xAnchoreAccount).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `AlertsApi.GetAlertSummaries``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `AlertsAPI.GetAlertSummaries``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
     // response from `GetAlertSummaries`: []AlertSummary
-    fmt.Fprintf(os.Stdout, "Response from `AlertsApi.GetAlertSummaries`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `AlertsAPI.GetAlertSummaries`: %v\n", resp)
 }
 ```
 
@@ -109,7 +109,7 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+    openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
@@ -117,14 +117,14 @@ func main() {
     xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.AlertsApi.GetComplianceViolationAlert(context.Background(), uuid).XAnchoreAccount(xAnchoreAccount).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.AlertsAPI.GetComplianceViolationAlert(context.Background(), uuid).XAnchoreAccount(xAnchoreAccount).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `AlertsApi.GetComplianceViolationAlert``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `AlertsAPI.GetComplianceViolationAlert``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
     // response from `GetComplianceViolationAlert`: ComplianceViolationAlert
-    fmt.Fprintf(os.Stdout, "Response from `AlertsApi.GetComplianceViolationAlert`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `AlertsAPI.GetComplianceViolationAlert`: %v\n", resp)
 }
 ```
 
@@ -182,7 +182,7 @@ import (
     "fmt"
     "os"
     "time"
-    openapiclient "./openapi"
+    openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
@@ -198,14 +198,14 @@ func main() {
     xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.AlertsApi.GetComplianceViolationAlerts(context.Background()).Page(page).Limit(limit).State(state).CreatedAfter(createdAfter).CreatedBefore(createdBefore).ResourceImageDigest(resourceImageDigest).ResourceImageTag(resourceImageTag).ResourceRegistry(resourceRegistry).ResourceRepository(resourceRepository).XAnchoreAccount(xAnchoreAccount).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.AlertsAPI.GetComplianceViolationAlerts(context.Background()).Page(page).Limit(limit).State(state).CreatedAfter(createdAfter).CreatedBefore(createdBefore).ResourceImageDigest(resourceImageDigest).ResourceImageTag(resourceImageTag).ResourceRegistry(resourceRegistry).ResourceRepository(resourceRepository).XAnchoreAccount(xAnchoreAccount).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `AlertsApi.GetComplianceViolationAlerts``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `AlertsAPI.GetComplianceViolationAlerts``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
     // response from `GetComplianceViolationAlerts`: []ComplianceViolationAlert
-    fmt.Fprintf(os.Stdout, "Response from `AlertsApi.GetComplianceViolationAlerts`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `AlertsAPI.GetComplianceViolationAlerts`: %v\n", resp)
 }
 ```
 
@@ -266,7 +266,7 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+    openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
@@ -275,14 +275,14 @@ func main() {
     xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.AlertsApi.UpdateComplianceViolationAlertState(context.Background(), uuid).Body(body).XAnchoreAccount(xAnchoreAccount).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.AlertsAPI.UpdateComplianceViolationAlertState(context.Background(), uuid).Body(body).XAnchoreAccount(xAnchoreAccount).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `AlertsApi.UpdateComplianceViolationAlertState``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `AlertsAPI.UpdateComplianceViolationAlertState``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
     // response from `UpdateComplianceViolationAlertState`: ComplianceViolationAlert
-    fmt.Fprintf(os.Stdout, "Response from `AlertsApi.UpdateComplianceViolationAlertState`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `AlertsAPI.UpdateComplianceViolationAlertState`: %v\n", resp)
 }
 ```
 

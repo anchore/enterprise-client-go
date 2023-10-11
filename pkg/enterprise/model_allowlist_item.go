@@ -16,6 +16,9 @@ import (
 	"time"
 )
 
+// checks if the AllowlistItem type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &AllowlistItem{}
+
 // AllowlistItem Identifies a specific gate and trigger match from a policy against an image and indicates it should be ignored in final policy decisions
 type AllowlistItem struct {
 	Id string `json:"id"`
@@ -59,7 +62,7 @@ func (o *AllowlistItem) GetId() string {
 // GetIdOk returns a tuple with the Id field value
 // and a boolean to check if the value has been set.
 func (o *AllowlistItem) GetIdOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Id, true
@@ -83,7 +86,7 @@ func (o *AllowlistItem) GetGate() string {
 // GetGateOk returns a tuple with the Gate field value
 // and a boolean to check if the value has been set.
 func (o *AllowlistItem) GetGateOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Gate, true
@@ -107,7 +110,7 @@ func (o *AllowlistItem) GetTriggerId() string {
 // GetTriggerIdOk returns a tuple with the TriggerId field value
 // and a boolean to check if the value has been set.
 func (o *AllowlistItem) GetTriggerIdOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.TriggerId, true
@@ -120,7 +123,7 @@ func (o *AllowlistItem) SetTriggerId(v string) {
 
 // GetExpiresOn returns the ExpiresOn field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *AllowlistItem) GetExpiresOn() time.Time {
-	if o == nil || o.ExpiresOn.Get() == nil {
+	if o == nil || IsNil(o.ExpiresOn.Get()) {
 		var ret time.Time
 		return ret
 	}
@@ -131,7 +134,7 @@ func (o *AllowlistItem) GetExpiresOn() time.Time {
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *AllowlistItem) GetExpiresOnOk() (*time.Time, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return o.ExpiresOn.Get(), o.ExpiresOn.IsSet()
@@ -162,7 +165,7 @@ func (o *AllowlistItem) UnsetExpiresOn() {
 
 // GetDescription returns the Description field value if set, zero value otherwise.
 func (o *AllowlistItem) GetDescription() string {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		var ret string
 		return ret
 	}
@@ -172,7 +175,7 @@ func (o *AllowlistItem) GetDescription() string {
 // GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AllowlistItem) GetDescriptionOk() (*string, bool) {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		return nil, false
 	}
 	return o.Description, true
@@ -180,7 +183,7 @@ func (o *AllowlistItem) GetDescriptionOk() (*string, bool) {
 
 // HasDescription returns a boolean if a field has been set.
 func (o *AllowlistItem) HasDescription() bool {
-	if o != nil && o.Description != nil {
+	if o != nil && !IsNil(o.Description) {
 		return true
 	}
 
@@ -193,23 +196,25 @@ func (o *AllowlistItem) SetDescription(v string) {
 }
 
 func (o AllowlistItem) MarshalJSON() ([]byte, error) {
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o AllowlistItem) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["id"] = o.Id
-	}
-	if true {
-		toSerialize["gate"] = o.Gate
-	}
-	if true {
-		toSerialize["trigger_id"] = o.TriggerId
-	}
+	toSerialize["id"] = o.Id
+	toSerialize["gate"] = o.Gate
+	toSerialize["trigger_id"] = o.TriggerId
 	if o.ExpiresOn.IsSet() {
 		toSerialize["expires_on"] = o.ExpiresOn.Get()
 	}
-	if o.Description != nil {
+	if !IsNil(o.Description) {
 		toSerialize["description"] = o.Description
 	}
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
 type NullableAllowlistItem struct {

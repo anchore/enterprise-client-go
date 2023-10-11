@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the ImportContentSearchElement type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ImportContentSearchElement{}
+
 // ImportContentSearchElement struct for ImportContentSearchElement
 type ImportContentSearchElement struct {
 	Classification string `json:"classification"`
@@ -59,7 +62,7 @@ func (o *ImportContentSearchElement) GetClassification() string {
 // GetClassificationOk returns a tuple with the Classification field value
 // and a boolean to check if the value has been set.
 func (o *ImportContentSearchElement) GetClassificationOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Classification, true
@@ -83,7 +86,7 @@ func (o *ImportContentSearchElement) GetLineNumber() int32 {
 // GetLineNumberOk returns a tuple with the LineNumber field value
 // and a boolean to check if the value has been set.
 func (o *ImportContentSearchElement) GetLineNumberOk() (*int32, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.LineNumber, true
@@ -107,7 +110,7 @@ func (o *ImportContentSearchElement) GetLineOffset() int32 {
 // GetLineOffsetOk returns a tuple with the LineOffset field value
 // and a boolean to check if the value has been set.
 func (o *ImportContentSearchElement) GetLineOffsetOk() (*int32, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.LineOffset, true
@@ -131,7 +134,7 @@ func (o *ImportContentSearchElement) GetSeekPosition() int32 {
 // GetSeekPositionOk returns a tuple with the SeekPosition field value
 // and a boolean to check if the value has been set.
 func (o *ImportContentSearchElement) GetSeekPositionOk() (*int32, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.SeekPosition, true
@@ -155,7 +158,7 @@ func (o *ImportContentSearchElement) GetLength() int32 {
 // GetLengthOk returns a tuple with the Length field value
 // and a boolean to check if the value has been set.
 func (o *ImportContentSearchElement) GetLengthOk() (*int32, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Length, true
@@ -167,23 +170,21 @@ func (o *ImportContentSearchElement) SetLength(v int32) {
 }
 
 func (o ImportContentSearchElement) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["classification"] = o.Classification
-	}
-	if true {
-		toSerialize["line_number"] = o.LineNumber
-	}
-	if true {
-		toSerialize["line_offset"] = o.LineOffset
-	}
-	if true {
-		toSerialize["seek_position"] = o.SeekPosition
-	}
-	if true {
-		toSerialize["length"] = o.Length
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o ImportContentSearchElement) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["classification"] = o.Classification
+	toSerialize["line_number"] = o.LineNumber
+	toSerialize["line_offset"] = o.LineOffset
+	toSerialize["seek_position"] = o.SeekPosition
+	toSerialize["length"] = o.Length
+	return toSerialize, nil
 }
 
 type NullableImportContentSearchElement struct {

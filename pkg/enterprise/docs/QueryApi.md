@@ -1,11 +1,11 @@
-# \QueryApi
+# \QueryAPI
 
-All URIs are relative to *http://localhost/v2*
+All URIs are relative to */v2*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**QueryImagesByPackage**](QueryApi.md#QueryImagesByPackage) | **Get** /query/images/by-package | List of images containing given package
-[**QueryVulnerabilities**](QueryApi.md#QueryVulnerabilities) | **Get** /query/vulnerabilities | Listing information about given vulnerability
+[**QueryImagesByPackage**](QueryAPI.md#QueryImagesByPackage) | **Get** /query/images/by-package | List of images containing given package
+[**QueryVulnerabilities**](QueryAPI.md#QueryVulnerabilities) | **Get** /query/vulnerabilities | Listing information about given vulnerability
 
 
 
@@ -26,7 +26,7 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+    openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
@@ -38,14 +38,14 @@ func main() {
     xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.QueryApi.QueryImagesByPackage(context.Background()).Name(name).PackageType(packageType).Version(version).Page(page).Limit(limit).XAnchoreAccount(xAnchoreAccount).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.QueryAPI.QueryImagesByPackage(context.Background()).Name(name).PackageType(packageType).Version(version).Page(page).Limit(limit).XAnchoreAccount(xAnchoreAccount).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `QueryApi.QueryImagesByPackage``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `QueryAPI.QueryImagesByPackage``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
     // response from `QueryImagesByPackage`: PaginatedImageList
-    fmt.Fprintf(os.Stdout, "Response from `QueryApi.QueryImagesByPackage`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `QueryAPI.QueryImagesByPackage`: %v\n", resp)
 }
 ```
 
@@ -102,7 +102,7 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+    openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
@@ -114,14 +114,14 @@ func main() {
     namespace := []string{"Inner_example"} // []string | Namespace(s) to filter vulnerability records by (optional)
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.QueryApi.QueryVulnerabilities(context.Background()).Id(id).AffectedPackage(affectedPackage).AffectedPackageVersion(affectedPackageVersion).Page(page).Limit(limit).Namespace(namespace).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.QueryAPI.QueryVulnerabilities(context.Background()).Id(id).AffectedPackage(affectedPackage).AffectedPackageVersion(affectedPackageVersion).Page(page).Limit(limit).Namespace(namespace).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `QueryApi.QueryVulnerabilities``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `QueryAPI.QueryVulnerabilities``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
     // response from `QueryVulnerabilities`: PaginatedVulnerabilityList
-    fmt.Fprintf(os.Stdout, "Response from `QueryApi.QueryVulnerabilities`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `QueryAPI.QueryVulnerabilities`: %v\n", resp)
 }
 ```
 

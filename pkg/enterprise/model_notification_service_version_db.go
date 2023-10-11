@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the NotificationServiceVersionDb type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &NotificationServiceVersionDb{}
+
 // NotificationServiceVersionDb struct for NotificationServiceVersionDb
 type NotificationServiceVersionDb struct {
 	// Semantic version of the db schema
@@ -40,7 +43,7 @@ func NewNotificationServiceVersionDbWithDefaults() *NotificationServiceVersionDb
 
 // GetSchemaVersion returns the SchemaVersion field value if set, zero value otherwise.
 func (o *NotificationServiceVersionDb) GetSchemaVersion() string {
-	if o == nil || o.SchemaVersion == nil {
+	if o == nil || IsNil(o.SchemaVersion) {
 		var ret string
 		return ret
 	}
@@ -50,7 +53,7 @@ func (o *NotificationServiceVersionDb) GetSchemaVersion() string {
 // GetSchemaVersionOk returns a tuple with the SchemaVersion field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *NotificationServiceVersionDb) GetSchemaVersionOk() (*string, bool) {
-	if o == nil || o.SchemaVersion == nil {
+	if o == nil || IsNil(o.SchemaVersion) {
 		return nil, false
 	}
 	return o.SchemaVersion, true
@@ -58,7 +61,7 @@ func (o *NotificationServiceVersionDb) GetSchemaVersionOk() (*string, bool) {
 
 // HasSchemaVersion returns a boolean if a field has been set.
 func (o *NotificationServiceVersionDb) HasSchemaVersion() bool {
-	if o != nil && o.SchemaVersion != nil {
+	if o != nil && !IsNil(o.SchemaVersion) {
 		return true
 	}
 
@@ -71,11 +74,19 @@ func (o *NotificationServiceVersionDb) SetSchemaVersion(v string) {
 }
 
 func (o NotificationServiceVersionDb) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.SchemaVersion != nil {
-		toSerialize["schema_version"] = o.SchemaVersion
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o NotificationServiceVersionDb) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.SchemaVersion) {
+		toSerialize["schema_version"] = o.SchemaVersion
+	}
+	return toSerialize, nil
 }
 
 type NullableNotificationServiceVersionDb struct {

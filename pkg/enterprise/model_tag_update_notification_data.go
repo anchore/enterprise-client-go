@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the TagUpdateNotificationData type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &TagUpdateNotificationData{}
+
 // TagUpdateNotificationData struct for TagUpdateNotificationData
 type TagUpdateNotificationData struct {
 	NotificationUser *string `json:"notification_user,omitempty"`
@@ -42,7 +45,7 @@ func NewTagUpdateNotificationDataWithDefaults() *TagUpdateNotificationData {
 
 // GetNotificationUser returns the NotificationUser field value if set, zero value otherwise.
 func (o *TagUpdateNotificationData) GetNotificationUser() string {
-	if o == nil || o.NotificationUser == nil {
+	if o == nil || IsNil(o.NotificationUser) {
 		var ret string
 		return ret
 	}
@@ -52,7 +55,7 @@ func (o *TagUpdateNotificationData) GetNotificationUser() string {
 // GetNotificationUserOk returns a tuple with the NotificationUser field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TagUpdateNotificationData) GetNotificationUserOk() (*string, bool) {
-	if o == nil || o.NotificationUser == nil {
+	if o == nil || IsNil(o.NotificationUser) {
 		return nil, false
 	}
 	return o.NotificationUser, true
@@ -60,7 +63,7 @@ func (o *TagUpdateNotificationData) GetNotificationUserOk() (*string, bool) {
 
 // HasNotificationUser returns a boolean if a field has been set.
 func (o *TagUpdateNotificationData) HasNotificationUser() bool {
-	if o != nil && o.NotificationUser != nil {
+	if o != nil && !IsNil(o.NotificationUser) {
 		return true
 	}
 
@@ -74,7 +77,7 @@ func (o *TagUpdateNotificationData) SetNotificationUser(v string) {
 
 // GetNotificationUserEmail returns the NotificationUserEmail field value if set, zero value otherwise.
 func (o *TagUpdateNotificationData) GetNotificationUserEmail() string {
-	if o == nil || o.NotificationUserEmail == nil {
+	if o == nil || IsNil(o.NotificationUserEmail) {
 		var ret string
 		return ret
 	}
@@ -84,7 +87,7 @@ func (o *TagUpdateNotificationData) GetNotificationUserEmail() string {
 // GetNotificationUserEmailOk returns a tuple with the NotificationUserEmail field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TagUpdateNotificationData) GetNotificationUserEmailOk() (*string, bool) {
-	if o == nil || o.NotificationUserEmail == nil {
+	if o == nil || IsNil(o.NotificationUserEmail) {
 		return nil, false
 	}
 	return o.NotificationUserEmail, true
@@ -92,7 +95,7 @@ func (o *TagUpdateNotificationData) GetNotificationUserEmailOk() (*string, bool)
 
 // HasNotificationUserEmail returns a boolean if a field has been set.
 func (o *TagUpdateNotificationData) HasNotificationUserEmail() bool {
-	if o != nil && o.NotificationUserEmail != nil {
+	if o != nil && !IsNil(o.NotificationUserEmail) {
 		return true
 	}
 
@@ -106,7 +109,7 @@ func (o *TagUpdateNotificationData) SetNotificationUserEmail(v string) {
 
 // GetNotificationType returns the NotificationType field value if set, zero value otherwise.
 func (o *TagUpdateNotificationData) GetNotificationType() string {
-	if o == nil || o.NotificationType == nil {
+	if o == nil || IsNil(o.NotificationType) {
 		var ret string
 		return ret
 	}
@@ -116,7 +119,7 @@ func (o *TagUpdateNotificationData) GetNotificationType() string {
 // GetNotificationTypeOk returns a tuple with the NotificationType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TagUpdateNotificationData) GetNotificationTypeOk() (*string, bool) {
-	if o == nil || o.NotificationType == nil {
+	if o == nil || IsNil(o.NotificationType) {
 		return nil, false
 	}
 	return o.NotificationType, true
@@ -124,7 +127,7 @@ func (o *TagUpdateNotificationData) GetNotificationTypeOk() (*string, bool) {
 
 // HasNotificationType returns a boolean if a field has been set.
 func (o *TagUpdateNotificationData) HasNotificationType() bool {
-	if o != nil && o.NotificationType != nil {
+	if o != nil && !IsNil(o.NotificationType) {
 		return true
 	}
 
@@ -138,7 +141,7 @@ func (o *TagUpdateNotificationData) SetNotificationType(v string) {
 
 // GetNotificationPayload returns the NotificationPayload field value if set, zero value otherwise.
 func (o *TagUpdateNotificationData) GetNotificationPayload() TagUpdateNotificationPayload {
-	if o == nil || o.NotificationPayload == nil {
+	if o == nil || IsNil(o.NotificationPayload) {
 		var ret TagUpdateNotificationPayload
 		return ret
 	}
@@ -148,7 +151,7 @@ func (o *TagUpdateNotificationData) GetNotificationPayload() TagUpdateNotificati
 // GetNotificationPayloadOk returns a tuple with the NotificationPayload field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TagUpdateNotificationData) GetNotificationPayloadOk() (*TagUpdateNotificationPayload, bool) {
-	if o == nil || o.NotificationPayload == nil {
+	if o == nil || IsNil(o.NotificationPayload) {
 		return nil, false
 	}
 	return o.NotificationPayload, true
@@ -156,7 +159,7 @@ func (o *TagUpdateNotificationData) GetNotificationPayloadOk() (*TagUpdateNotifi
 
 // HasNotificationPayload returns a boolean if a field has been set.
 func (o *TagUpdateNotificationData) HasNotificationPayload() bool {
-	if o != nil && o.NotificationPayload != nil {
+	if o != nil && !IsNil(o.NotificationPayload) {
 		return true
 	}
 
@@ -169,20 +172,28 @@ func (o *TagUpdateNotificationData) SetNotificationPayload(v TagUpdateNotificati
 }
 
 func (o TagUpdateNotificationData) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.NotificationUser != nil {
-		toSerialize["notification_user"] = o.NotificationUser
-	}
-	if o.NotificationUserEmail != nil {
-		toSerialize["notification_user_email"] = o.NotificationUserEmail
-	}
-	if o.NotificationType != nil {
-		toSerialize["notification_type"] = o.NotificationType
-	}
-	if o.NotificationPayload != nil {
-		toSerialize["notification_payload"] = o.NotificationPayload
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o TagUpdateNotificationData) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.NotificationUser) {
+		toSerialize["notification_user"] = o.NotificationUser
+	}
+	if !IsNil(o.NotificationUserEmail) {
+		toSerialize["notification_user_email"] = o.NotificationUserEmail
+	}
+	if !IsNil(o.NotificationType) {
+		toSerialize["notification_type"] = o.NotificationType
+	}
+	if !IsNil(o.NotificationPayload) {
+		toSerialize["notification_payload"] = o.NotificationPayload
+	}
+	return toSerialize, nil
 }
 
 type NullableTagUpdateNotificationData struct {

@@ -1,10 +1,10 @@
-# \StatelessApi
+# \StatelessAPI
 
-All URIs are relative to *http://localhost/v2*
+All URIs are relative to */v2*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**VulnerabilityScanSbom**](StatelessApi.md#VulnerabilityScanSbom) | **Post** /vulnerability-scan | Return a vulnerability scan for the uploaded SBOM without storing the SBOM and without any side-effects in the system.
+[**VulnerabilityScanSbom**](StatelessAPI.md#VulnerabilityScanSbom) | **Post** /vulnerability-scan | Return a vulnerability scan for the uploaded SBOM without storing the SBOM and without any side-effects in the system.
 
 
 
@@ -25,22 +25,22 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+    openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
-    sbom := interface{}(Object) // interface{} | 
+    sbom := interface{}{ ... } // interface{} | 
     xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.StatelessApi.VulnerabilityScanSbom(context.Background()).Sbom(sbom).XAnchoreAccount(xAnchoreAccount).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.StatelessAPI.VulnerabilityScanSbom(context.Background()).Sbom(sbom).XAnchoreAccount(xAnchoreAccount).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `StatelessApi.VulnerabilityScanSbom``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `StatelessAPI.VulnerabilityScanSbom``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
     // response from `VulnerabilityScanSbom`: SBOMVulnerabilitiesResponse
-    fmt.Fprintf(os.Stdout, "Response from `StatelessApi.VulnerabilityScanSbom`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `StatelessAPI.VulnerabilityScanSbom`: %v\n", resp)
 }
 ```
 

@@ -15,11 +15,14 @@ import (
 	"encoding/json"
 )
 
+// checks if the EventCategory type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &EventCategory{}
+
 // EventCategory A collection of event subcategories
 type EventCategory struct {
 	Category *string `json:"category,omitempty"`
 	Description *string `json:"description,omitempty"`
-	Subcategories *[]EventSubcategory `json:"subcategories,omitempty"`
+	Subcategories []EventSubcategory `json:"subcategories,omitempty"`
 }
 
 // NewEventCategory instantiates a new EventCategory object
@@ -41,7 +44,7 @@ func NewEventCategoryWithDefaults() *EventCategory {
 
 // GetCategory returns the Category field value if set, zero value otherwise.
 func (o *EventCategory) GetCategory() string {
-	if o == nil || o.Category == nil {
+	if o == nil || IsNil(o.Category) {
 		var ret string
 		return ret
 	}
@@ -51,7 +54,7 @@ func (o *EventCategory) GetCategory() string {
 // GetCategoryOk returns a tuple with the Category field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *EventCategory) GetCategoryOk() (*string, bool) {
-	if o == nil || o.Category == nil {
+	if o == nil || IsNil(o.Category) {
 		return nil, false
 	}
 	return o.Category, true
@@ -59,7 +62,7 @@ func (o *EventCategory) GetCategoryOk() (*string, bool) {
 
 // HasCategory returns a boolean if a field has been set.
 func (o *EventCategory) HasCategory() bool {
-	if o != nil && o.Category != nil {
+	if o != nil && !IsNil(o.Category) {
 		return true
 	}
 
@@ -73,7 +76,7 @@ func (o *EventCategory) SetCategory(v string) {
 
 // GetDescription returns the Description field value if set, zero value otherwise.
 func (o *EventCategory) GetDescription() string {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		var ret string
 		return ret
 	}
@@ -83,7 +86,7 @@ func (o *EventCategory) GetDescription() string {
 // GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *EventCategory) GetDescriptionOk() (*string, bool) {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		return nil, false
 	}
 	return o.Description, true
@@ -91,7 +94,7 @@ func (o *EventCategory) GetDescriptionOk() (*string, bool) {
 
 // HasDescription returns a boolean if a field has been set.
 func (o *EventCategory) HasDescription() bool {
-	if o != nil && o.Description != nil {
+	if o != nil && !IsNil(o.Description) {
 		return true
 	}
 
@@ -105,17 +108,17 @@ func (o *EventCategory) SetDescription(v string) {
 
 // GetSubcategories returns the Subcategories field value if set, zero value otherwise.
 func (o *EventCategory) GetSubcategories() []EventSubcategory {
-	if o == nil || o.Subcategories == nil {
+	if o == nil || IsNil(o.Subcategories) {
 		var ret []EventSubcategory
 		return ret
 	}
-	return *o.Subcategories
+	return o.Subcategories
 }
 
 // GetSubcategoriesOk returns a tuple with the Subcategories field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *EventCategory) GetSubcategoriesOk() (*[]EventSubcategory, bool) {
-	if o == nil || o.Subcategories == nil {
+func (o *EventCategory) GetSubcategoriesOk() ([]EventSubcategory, bool) {
+	if o == nil || IsNil(o.Subcategories) {
 		return nil, false
 	}
 	return o.Subcategories, true
@@ -123,7 +126,7 @@ func (o *EventCategory) GetSubcategoriesOk() (*[]EventSubcategory, bool) {
 
 // HasSubcategories returns a boolean if a field has been set.
 func (o *EventCategory) HasSubcategories() bool {
-	if o != nil && o.Subcategories != nil {
+	if o != nil && !IsNil(o.Subcategories) {
 		return true
 	}
 
@@ -132,21 +135,29 @@ func (o *EventCategory) HasSubcategories() bool {
 
 // SetSubcategories gets a reference to the given []EventSubcategory and assigns it to the Subcategories field.
 func (o *EventCategory) SetSubcategories(v []EventSubcategory) {
-	o.Subcategories = &v
+	o.Subcategories = v
 }
 
 func (o EventCategory) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Category != nil {
-		toSerialize["category"] = o.Category
-	}
-	if o.Description != nil {
-		toSerialize["description"] = o.Description
-	}
-	if o.Subcategories != nil {
-		toSerialize["subcategories"] = o.Subcategories
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o EventCategory) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Category) {
+		toSerialize["category"] = o.Category
+	}
+	if !IsNil(o.Description) {
+		toSerialize["description"] = o.Description
+	}
+	if !IsNil(o.Subcategories) {
+		toSerialize["subcategories"] = o.Subcategories
+	}
+	return toSerialize, nil
 }
 
 type NullableEventCategory struct {

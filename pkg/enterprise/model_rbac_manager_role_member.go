@@ -16,6 +16,9 @@ import (
 	"time"
 )
 
+// checks if the RbacManagerRoleMember type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &RbacManagerRoleMember{}
+
 // RbacManagerRoleMember A mapping between a username and a role with an account context
 type RbacManagerRoleMember struct {
 	Username string `json:"username"`
@@ -55,7 +58,7 @@ func (o *RbacManagerRoleMember) GetUsername() string {
 // GetUsernameOk returns a tuple with the Username field value
 // and a boolean to check if the value has been set.
 func (o *RbacManagerRoleMember) GetUsernameOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Username, true
@@ -79,7 +82,7 @@ func (o *RbacManagerRoleMember) GetForAccount() string {
 // GetForAccountOk returns a tuple with the ForAccount field value
 // and a boolean to check if the value has been set.
 func (o *RbacManagerRoleMember) GetForAccountOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.ForAccount, true
@@ -92,7 +95,7 @@ func (o *RbacManagerRoleMember) SetForAccount(v string) {
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
 func (o *RbacManagerRoleMember) GetCreatedAt() time.Time {
-	if o == nil || o.CreatedAt == nil {
+	if o == nil || IsNil(o.CreatedAt) {
 		var ret time.Time
 		return ret
 	}
@@ -102,7 +105,7 @@ func (o *RbacManagerRoleMember) GetCreatedAt() time.Time {
 // GetCreatedAtOk returns a tuple with the CreatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RbacManagerRoleMember) GetCreatedAtOk() (*time.Time, bool) {
-	if o == nil || o.CreatedAt == nil {
+	if o == nil || IsNil(o.CreatedAt) {
 		return nil, false
 	}
 	return o.CreatedAt, true
@@ -110,7 +113,7 @@ func (o *RbacManagerRoleMember) GetCreatedAtOk() (*time.Time, bool) {
 
 // HasCreatedAt returns a boolean if a field has been set.
 func (o *RbacManagerRoleMember) HasCreatedAt() bool {
-	if o != nil && o.CreatedAt != nil {
+	if o != nil && !IsNil(o.CreatedAt) {
 		return true
 	}
 
@@ -123,17 +126,21 @@ func (o *RbacManagerRoleMember) SetCreatedAt(v time.Time) {
 }
 
 func (o RbacManagerRoleMember) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["username"] = o.Username
-	}
-	if true {
-		toSerialize["for_account"] = o.ForAccount
-	}
-	if o.CreatedAt != nil {
-		toSerialize["created_at"] = o.CreatedAt
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o RbacManagerRoleMember) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["username"] = o.Username
+	toSerialize["for_account"] = o.ForAccount
+	if !IsNil(o.CreatedAt) {
+		toSerialize["created_at"] = o.CreatedAt
+	}
+	return toSerialize, nil
 }
 
 type NullableRbacManagerRoleMember struct {

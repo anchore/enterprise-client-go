@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the ImportSchema type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ImportSchema{}
+
 // ImportSchema struct for ImportSchema
 type ImportSchema struct {
 	Version string `json:"version"`
@@ -56,7 +59,7 @@ func (o *ImportSchema) GetVersion() string {
 // GetVersionOk returns a tuple with the Version field value
 // and a boolean to check if the value has been set.
 func (o *ImportSchema) GetVersionOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Version, true
@@ -80,7 +83,7 @@ func (o *ImportSchema) GetUrl() string {
 // GetUrlOk returns a tuple with the Url field value
 // and a boolean to check if the value has been set.
 func (o *ImportSchema) GetUrlOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Url, true
@@ -92,27 +95,35 @@ func (o *ImportSchema) SetUrl(v string) {
 }
 
 func (o ImportSchema) MarshalJSON() ([]byte, error) {
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o ImportSchema) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["version"] = o.Version
-	}
-	if true {
-		toSerialize["url"] = o.Url
-	}
+	toSerialize["version"] = o.Version
+	toSerialize["url"] = o.Url
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
 func (o *ImportSchema) UnmarshalJSON(bytes []byte) (err error) {
 	varImportSchema := _ImportSchema{}
 
-	if err = json.Unmarshal(bytes, &varImportSchema); err == nil {
-		*o = ImportSchema(varImportSchema)
+	err = json.Unmarshal(bytes, &varImportSchema)
+
+	if err != nil {
+		return err
 	}
+
+	*o = ImportSchema(varImportSchema)
 
 	additionalProperties := make(map[string]interface{})
 

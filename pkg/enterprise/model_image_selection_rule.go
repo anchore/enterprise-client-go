@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the ImageSelectionRule type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ImageSelectionRule{}
+
 // ImageSelectionRule struct for ImageSelectionRule
 type ImageSelectionRule struct {
 	Id string `json:"id"`
@@ -61,7 +64,7 @@ func (o *ImageSelectionRule) GetId() string {
 // GetIdOk returns a tuple with the Id field value
 // and a boolean to check if the value has been set.
 func (o *ImageSelectionRule) GetIdOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Id, true
@@ -85,7 +88,7 @@ func (o *ImageSelectionRule) GetName() string {
 // GetNameOk returns a tuple with the Name field value
 // and a boolean to check if the value has been set.
 func (o *ImageSelectionRule) GetNameOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Name, true
@@ -109,7 +112,7 @@ func (o *ImageSelectionRule) GetRegistry() string {
 // GetRegistryOk returns a tuple with the Registry field value
 // and a boolean to check if the value has been set.
 func (o *ImageSelectionRule) GetRegistryOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Registry, true
@@ -133,7 +136,7 @@ func (o *ImageSelectionRule) GetRepository() string {
 // GetRepositoryOk returns a tuple with the Repository field value
 // and a boolean to check if the value has been set.
 func (o *ImageSelectionRule) GetRepositoryOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Repository, true
@@ -157,7 +160,7 @@ func (o *ImageSelectionRule) GetImage() ImageRef {
 // GetImageOk returns a tuple with the Image field value
 // and a boolean to check if the value has been set.
 func (o *ImageSelectionRule) GetImageOk() (*ImageRef, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Image, true
@@ -170,7 +173,7 @@ func (o *ImageSelectionRule) SetImage(v ImageRef) {
 
 // GetDescription returns the Description field value if set, zero value otherwise.
 func (o *ImageSelectionRule) GetDescription() string {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		var ret string
 		return ret
 	}
@@ -180,7 +183,7 @@ func (o *ImageSelectionRule) GetDescription() string {
 // GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ImageSelectionRule) GetDescriptionOk() (*string, bool) {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		return nil, false
 	}
 	return o.Description, true
@@ -188,7 +191,7 @@ func (o *ImageSelectionRule) GetDescriptionOk() (*string, bool) {
 
 // HasDescription returns a boolean if a field has been set.
 func (o *ImageSelectionRule) HasDescription() bool {
-	if o != nil && o.Description != nil {
+	if o != nil && !IsNil(o.Description) {
 		return true
 	}
 
@@ -201,26 +204,24 @@ func (o *ImageSelectionRule) SetDescription(v string) {
 }
 
 func (o ImageSelectionRule) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["id"] = o.Id
-	}
-	if true {
-		toSerialize["name"] = o.Name
-	}
-	if true {
-		toSerialize["registry"] = o.Registry
-	}
-	if true {
-		toSerialize["repository"] = o.Repository
-	}
-	if true {
-		toSerialize["image"] = o.Image
-	}
-	if o.Description != nil {
-		toSerialize["description"] = o.Description
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o ImageSelectionRule) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["id"] = o.Id
+	toSerialize["name"] = o.Name
+	toSerialize["registry"] = o.Registry
+	toSerialize["repository"] = o.Repository
+	toSerialize["image"] = o.Image
+	if !IsNil(o.Description) {
+		toSerialize["description"] = o.Description
+	}
+	return toSerialize, nil
 }
 
 type NullableImageSelectionRule struct {

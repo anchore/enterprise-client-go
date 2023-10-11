@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the PolicyEvaluationFindingAllowlistMatch type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PolicyEvaluationFindingAllowlistMatch{}
+
 // PolicyEvaluationFindingAllowlistMatch Details about (possible) allowlist match
 type PolicyEvaluationFindingAllowlistMatch struct {
 	// ID of the allowlist that matched this finding
@@ -44,7 +47,7 @@ func NewPolicyEvaluationFindingAllowlistMatchWithDefaults() *PolicyEvaluationFin
 
 // GetId returns the Id field value if set, zero value otherwise.
 func (o *PolicyEvaluationFindingAllowlistMatch) GetId() string {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		var ret string
 		return ret
 	}
@@ -54,7 +57,7 @@ func (o *PolicyEvaluationFindingAllowlistMatch) GetId() string {
 // GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PolicyEvaluationFindingAllowlistMatch) GetIdOk() (*string, bool) {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
 	return o.Id, true
@@ -62,7 +65,7 @@ func (o *PolicyEvaluationFindingAllowlistMatch) GetIdOk() (*string, bool) {
 
 // HasId returns a boolean if a field has been set.
 func (o *PolicyEvaluationFindingAllowlistMatch) HasId() bool {
-	if o != nil && o.Id != nil {
+	if o != nil && !IsNil(o.Id) {
 		return true
 	}
 
@@ -76,7 +79,7 @@ func (o *PolicyEvaluationFindingAllowlistMatch) SetId(v string) {
 
 // GetName returns the Name field value if set, zero value otherwise.
 func (o *PolicyEvaluationFindingAllowlistMatch) GetName() string {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		var ret string
 		return ret
 	}
@@ -86,7 +89,7 @@ func (o *PolicyEvaluationFindingAllowlistMatch) GetName() string {
 // GetNameOk returns a tuple with the Name field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PolicyEvaluationFindingAllowlistMatch) GetNameOk() (*string, bool) {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		return nil, false
 	}
 	return o.Name, true
@@ -94,7 +97,7 @@ func (o *PolicyEvaluationFindingAllowlistMatch) GetNameOk() (*string, bool) {
 
 // HasName returns a boolean if a field has been set.
 func (o *PolicyEvaluationFindingAllowlistMatch) HasName() bool {
-	if o != nil && o.Name != nil {
+	if o != nil && !IsNil(o.Name) {
 		return true
 	}
 
@@ -108,7 +111,7 @@ func (o *PolicyEvaluationFindingAllowlistMatch) SetName(v string) {
 
 // GetMatchedRuleId returns the MatchedRuleId field value if set, zero value otherwise.
 func (o *PolicyEvaluationFindingAllowlistMatch) GetMatchedRuleId() string {
-	if o == nil || o.MatchedRuleId == nil {
+	if o == nil || IsNil(o.MatchedRuleId) {
 		var ret string
 		return ret
 	}
@@ -118,7 +121,7 @@ func (o *PolicyEvaluationFindingAllowlistMatch) GetMatchedRuleId() string {
 // GetMatchedRuleIdOk returns a tuple with the MatchedRuleId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PolicyEvaluationFindingAllowlistMatch) GetMatchedRuleIdOk() (*string, bool) {
-	if o == nil || o.MatchedRuleId == nil {
+	if o == nil || IsNil(o.MatchedRuleId) {
 		return nil, false
 	}
 	return o.MatchedRuleId, true
@@ -126,7 +129,7 @@ func (o *PolicyEvaluationFindingAllowlistMatch) GetMatchedRuleIdOk() (*string, b
 
 // HasMatchedRuleId returns a boolean if a field has been set.
 func (o *PolicyEvaluationFindingAllowlistMatch) HasMatchedRuleId() bool {
-	if o != nil && o.MatchedRuleId != nil {
+	if o != nil && !IsNil(o.MatchedRuleId) {
 		return true
 	}
 
@@ -139,17 +142,25 @@ func (o *PolicyEvaluationFindingAllowlistMatch) SetMatchedRuleId(v string) {
 }
 
 func (o PolicyEvaluationFindingAllowlistMatch) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Id != nil {
-		toSerialize["id"] = o.Id
-	}
-	if o.Name != nil {
-		toSerialize["name"] = o.Name
-	}
-	if o.MatchedRuleId != nil {
-		toSerialize["matched_rule_id"] = o.MatchedRuleId
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o PolicyEvaluationFindingAllowlistMatch) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Id) {
+		toSerialize["id"] = o.Id
+	}
+	if !IsNil(o.Name) {
+		toSerialize["name"] = o.Name
+	}
+	if !IsNil(o.MatchedRuleId) {
+		toSerialize["matched_rule_id"] = o.MatchedRuleId
+	}
+	return toSerialize, nil
 }
 
 type NullablePolicyEvaluationFindingAllowlistMatch struct {

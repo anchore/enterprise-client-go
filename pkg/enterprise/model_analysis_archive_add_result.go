@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the AnalysisArchiveAddResult type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &AnalysisArchiveAddResult{}
+
 // AnalysisArchiveAddResult The result of adding a single digest to the archive
 type AnalysisArchiveAddResult struct {
 	// The image digest requested to be added
@@ -44,7 +47,7 @@ func NewAnalysisArchiveAddResultWithDefaults() *AnalysisArchiveAddResult {
 
 // GetDigest returns the Digest field value if set, zero value otherwise.
 func (o *AnalysisArchiveAddResult) GetDigest() string {
-	if o == nil || o.Digest == nil {
+	if o == nil || IsNil(o.Digest) {
 		var ret string
 		return ret
 	}
@@ -54,7 +57,7 @@ func (o *AnalysisArchiveAddResult) GetDigest() string {
 // GetDigestOk returns a tuple with the Digest field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AnalysisArchiveAddResult) GetDigestOk() (*string, bool) {
-	if o == nil || o.Digest == nil {
+	if o == nil || IsNil(o.Digest) {
 		return nil, false
 	}
 	return o.Digest, true
@@ -62,7 +65,7 @@ func (o *AnalysisArchiveAddResult) GetDigestOk() (*string, bool) {
 
 // HasDigest returns a boolean if a field has been set.
 func (o *AnalysisArchiveAddResult) HasDigest() bool {
-	if o != nil && o.Digest != nil {
+	if o != nil && !IsNil(o.Digest) {
 		return true
 	}
 
@@ -76,7 +79,7 @@ func (o *AnalysisArchiveAddResult) SetDigest(v string) {
 
 // GetStatus returns the Status field value if set, zero value otherwise.
 func (o *AnalysisArchiveAddResult) GetStatus() string {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		var ret string
 		return ret
 	}
@@ -86,7 +89,7 @@ func (o *AnalysisArchiveAddResult) GetStatus() string {
 // GetStatusOk returns a tuple with the Status field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AnalysisArchiveAddResult) GetStatusOk() (*string, bool) {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		return nil, false
 	}
 	return o.Status, true
@@ -94,7 +97,7 @@ func (o *AnalysisArchiveAddResult) GetStatusOk() (*string, bool) {
 
 // HasStatus returns a boolean if a field has been set.
 func (o *AnalysisArchiveAddResult) HasStatus() bool {
-	if o != nil && o.Status != nil {
+	if o != nil && !IsNil(o.Status) {
 		return true
 	}
 
@@ -108,7 +111,7 @@ func (o *AnalysisArchiveAddResult) SetStatus(v string) {
 
 // GetDetail returns the Detail field value if set, zero value otherwise.
 func (o *AnalysisArchiveAddResult) GetDetail() string {
-	if o == nil || o.Detail == nil {
+	if o == nil || IsNil(o.Detail) {
 		var ret string
 		return ret
 	}
@@ -118,7 +121,7 @@ func (o *AnalysisArchiveAddResult) GetDetail() string {
 // GetDetailOk returns a tuple with the Detail field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AnalysisArchiveAddResult) GetDetailOk() (*string, bool) {
-	if o == nil || o.Detail == nil {
+	if o == nil || IsNil(o.Detail) {
 		return nil, false
 	}
 	return o.Detail, true
@@ -126,7 +129,7 @@ func (o *AnalysisArchiveAddResult) GetDetailOk() (*string, bool) {
 
 // HasDetail returns a boolean if a field has been set.
 func (o *AnalysisArchiveAddResult) HasDetail() bool {
-	if o != nil && o.Detail != nil {
+	if o != nil && !IsNil(o.Detail) {
 		return true
 	}
 
@@ -139,17 +142,25 @@ func (o *AnalysisArchiveAddResult) SetDetail(v string) {
 }
 
 func (o AnalysisArchiveAddResult) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Digest != nil {
-		toSerialize["digest"] = o.Digest
-	}
-	if o.Status != nil {
-		toSerialize["status"] = o.Status
-	}
-	if o.Detail != nil {
-		toSerialize["detail"] = o.Detail
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o AnalysisArchiveAddResult) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Digest) {
+		toSerialize["digest"] = o.Digest
+	}
+	if !IsNil(o.Status) {
+		toSerialize["status"] = o.Status
+	}
+	if !IsNil(o.Detail) {
+		toSerialize["detail"] = o.Detail
+	}
+	return toSerialize, nil
 }
 
 type NullableAnalysisArchiveAddResult struct {

@@ -16,6 +16,9 @@ import (
 	"time"
 )
 
+// checks if the Source type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &Source{}
+
 // Source struct for Source
 type Source struct {
 	// A system-assigned identifier unique for each source analysis
@@ -55,7 +58,7 @@ func NewSourceWithDefaults() *Source {
 
 // GetUuid returns the Uuid field value if set, zero value otherwise.
 func (o *Source) GetUuid() string {
-	if o == nil || o.Uuid == nil {
+	if o == nil || IsNil(o.Uuid) {
 		var ret string
 		return ret
 	}
@@ -65,7 +68,7 @@ func (o *Source) GetUuid() string {
 // GetUuidOk returns a tuple with the Uuid field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Source) GetUuidOk() (*string, bool) {
-	if o == nil || o.Uuid == nil {
+	if o == nil || IsNil(o.Uuid) {
 		return nil, false
 	}
 	return o.Uuid, true
@@ -73,7 +76,7 @@ func (o *Source) GetUuidOk() (*string, bool) {
 
 // HasUuid returns a boolean if a field has been set.
 func (o *Source) HasUuid() bool {
-	if o != nil && o.Uuid != nil {
+	if o != nil && !IsNil(o.Uuid) {
 		return true
 	}
 
@@ -87,7 +90,7 @@ func (o *Source) SetUuid(v string) {
 
 // GetAccountName returns the AccountName field value if set, zero value otherwise.
 func (o *Source) GetAccountName() string {
-	if o == nil || o.AccountName == nil {
+	if o == nil || IsNil(o.AccountName) {
 		var ret string
 		return ret
 	}
@@ -97,7 +100,7 @@ func (o *Source) GetAccountName() string {
 // GetAccountNameOk returns a tuple with the AccountName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Source) GetAccountNameOk() (*string, bool) {
-	if o == nil || o.AccountName == nil {
+	if o == nil || IsNil(o.AccountName) {
 		return nil, false
 	}
 	return o.AccountName, true
@@ -105,7 +108,7 @@ func (o *Source) GetAccountNameOk() (*string, bool) {
 
 // HasAccountName returns a boolean if a field has been set.
 func (o *Source) HasAccountName() bool {
-	if o != nil && o.AccountName != nil {
+	if o != nil && !IsNil(o.AccountName) {
 		return true
 	}
 
@@ -119,7 +122,7 @@ func (o *Source) SetAccountName(v string) {
 
 // GetHost returns the Host field value if set, zero value otherwise.
 func (o *Source) GetHost() string {
-	if o == nil || o.Host == nil {
+	if o == nil || IsNil(o.Host) {
 		var ret string
 		return ret
 	}
@@ -129,7 +132,7 @@ func (o *Source) GetHost() string {
 // GetHostOk returns a tuple with the Host field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Source) GetHostOk() (*string, bool) {
-	if o == nil || o.Host == nil {
+	if o == nil || IsNil(o.Host) {
 		return nil, false
 	}
 	return o.Host, true
@@ -137,7 +140,7 @@ func (o *Source) GetHostOk() (*string, bool) {
 
 // HasHost returns a boolean if a field has been set.
 func (o *Source) HasHost() bool {
-	if o != nil && o.Host != nil {
+	if o != nil && !IsNil(o.Host) {
 		return true
 	}
 
@@ -151,7 +154,7 @@ func (o *Source) SetHost(v string) {
 
 // GetRepositoryName returns the RepositoryName field value if set, zero value otherwise.
 func (o *Source) GetRepositoryName() string {
-	if o == nil || o.RepositoryName == nil {
+	if o == nil || IsNil(o.RepositoryName) {
 		var ret string
 		return ret
 	}
@@ -161,7 +164,7 @@ func (o *Source) GetRepositoryName() string {
 // GetRepositoryNameOk returns a tuple with the RepositoryName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Source) GetRepositoryNameOk() (*string, bool) {
-	if o == nil || o.RepositoryName == nil {
+	if o == nil || IsNil(o.RepositoryName) {
 		return nil, false
 	}
 	return o.RepositoryName, true
@@ -169,7 +172,7 @@ func (o *Source) GetRepositoryNameOk() (*string, bool) {
 
 // HasRepositoryName returns a boolean if a field has been set.
 func (o *Source) HasRepositoryName() bool {
-	if o != nil && o.RepositoryName != nil {
+	if o != nil && !IsNil(o.RepositoryName) {
 		return true
 	}
 
@@ -183,7 +186,7 @@ func (o *Source) SetRepositoryName(v string) {
 
 // GetRevision returns the Revision field value if set, zero value otherwise.
 func (o *Source) GetRevision() string {
-	if o == nil || o.Revision == nil {
+	if o == nil || IsNil(o.Revision) {
 		var ret string
 		return ret
 	}
@@ -193,7 +196,7 @@ func (o *Source) GetRevision() string {
 // GetRevisionOk returns a tuple with the Revision field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Source) GetRevisionOk() (*string, bool) {
-	if o == nil || o.Revision == nil {
+	if o == nil || IsNil(o.Revision) {
 		return nil, false
 	}
 	return o.Revision, true
@@ -201,7 +204,7 @@ func (o *Source) GetRevisionOk() (*string, bool) {
 
 // HasRevision returns a boolean if a field has been set.
 func (o *Source) HasRevision() bool {
-	if o != nil && o.Revision != nil {
+	if o != nil && !IsNil(o.Revision) {
 		return true
 	}
 
@@ -215,7 +218,7 @@ func (o *Source) SetRevision(v string) {
 
 // GetAnalysisStatus returns the AnalysisStatus field value if set, zero value otherwise.
 func (o *Source) GetAnalysisStatus() string {
-	if o == nil || o.AnalysisStatus == nil {
+	if o == nil || IsNil(o.AnalysisStatus) {
 		var ret string
 		return ret
 	}
@@ -225,7 +228,7 @@ func (o *Source) GetAnalysisStatus() string {
 // GetAnalysisStatusOk returns a tuple with the AnalysisStatus field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Source) GetAnalysisStatusOk() (*string, bool) {
-	if o == nil || o.AnalysisStatus == nil {
+	if o == nil || IsNil(o.AnalysisStatus) {
 		return nil, false
 	}
 	return o.AnalysisStatus, true
@@ -233,7 +236,7 @@ func (o *Source) GetAnalysisStatusOk() (*string, bool) {
 
 // HasAnalysisStatus returns a boolean if a field has been set.
 func (o *Source) HasAnalysisStatus() bool {
-	if o != nil && o.AnalysisStatus != nil {
+	if o != nil && !IsNil(o.AnalysisStatus) {
 		return true
 	}
 
@@ -247,7 +250,7 @@ func (o *Source) SetAnalysisStatus(v string) {
 
 // GetSourceStatus returns the SourceStatus field value if set, zero value otherwise.
 func (o *Source) GetSourceStatus() string {
-	if o == nil || o.SourceStatus == nil {
+	if o == nil || IsNil(o.SourceStatus) {
 		var ret string
 		return ret
 	}
@@ -257,7 +260,7 @@ func (o *Source) GetSourceStatus() string {
 // GetSourceStatusOk returns a tuple with the SourceStatus field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Source) GetSourceStatusOk() (*string, bool) {
-	if o == nil || o.SourceStatus == nil {
+	if o == nil || IsNil(o.SourceStatus) {
 		return nil, false
 	}
 	return o.SourceStatus, true
@@ -265,7 +268,7 @@ func (o *Source) GetSourceStatusOk() (*string, bool) {
 
 // HasSourceStatus returns a boolean if a field has been set.
 func (o *Source) HasSourceStatus() bool {
-	if o != nil && o.SourceStatus != nil {
+	if o != nil && !IsNil(o.SourceStatus) {
 		return true
 	}
 
@@ -279,7 +282,7 @@ func (o *Source) SetSourceStatus(v string) {
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
 func (o *Source) GetCreatedAt() time.Time {
-	if o == nil || o.CreatedAt == nil {
+	if o == nil || IsNil(o.CreatedAt) {
 		var ret time.Time
 		return ret
 	}
@@ -289,7 +292,7 @@ func (o *Source) GetCreatedAt() time.Time {
 // GetCreatedAtOk returns a tuple with the CreatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Source) GetCreatedAtOk() (*time.Time, bool) {
-	if o == nil || o.CreatedAt == nil {
+	if o == nil || IsNil(o.CreatedAt) {
 		return nil, false
 	}
 	return o.CreatedAt, true
@@ -297,7 +300,7 @@ func (o *Source) GetCreatedAtOk() (*time.Time, bool) {
 
 // HasCreatedAt returns a boolean if a field has been set.
 func (o *Source) HasCreatedAt() bool {
-	if o != nil && o.CreatedAt != nil {
+	if o != nil && !IsNil(o.CreatedAt) {
 		return true
 	}
 
@@ -311,7 +314,7 @@ func (o *Source) SetCreatedAt(v time.Time) {
 
 // GetLastUpdated returns the LastUpdated field value if set, zero value otherwise.
 func (o *Source) GetLastUpdated() time.Time {
-	if o == nil || o.LastUpdated == nil {
+	if o == nil || IsNil(o.LastUpdated) {
 		var ret time.Time
 		return ret
 	}
@@ -321,7 +324,7 @@ func (o *Source) GetLastUpdated() time.Time {
 // GetLastUpdatedOk returns a tuple with the LastUpdated field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Source) GetLastUpdatedOk() (*time.Time, bool) {
-	if o == nil || o.LastUpdated == nil {
+	if o == nil || IsNil(o.LastUpdated) {
 		return nil, false
 	}
 	return o.LastUpdated, true
@@ -329,7 +332,7 @@ func (o *Source) GetLastUpdatedOk() (*time.Time, bool) {
 
 // HasLastUpdated returns a boolean if a field has been set.
 func (o *Source) HasLastUpdated() bool {
-	if o != nil && o.LastUpdated != nil {
+	if o != nil && !IsNil(o.LastUpdated) {
 		return true
 	}
 
@@ -342,35 +345,43 @@ func (o *Source) SetLastUpdated(v time.Time) {
 }
 
 func (o Source) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Uuid != nil {
-		toSerialize["uuid"] = o.Uuid
-	}
-	if o.AccountName != nil {
-		toSerialize["account_name"] = o.AccountName
-	}
-	if o.Host != nil {
-		toSerialize["host"] = o.Host
-	}
-	if o.RepositoryName != nil {
-		toSerialize["repository_name"] = o.RepositoryName
-	}
-	if o.Revision != nil {
-		toSerialize["revision"] = o.Revision
-	}
-	if o.AnalysisStatus != nil {
-		toSerialize["analysis_status"] = o.AnalysisStatus
-	}
-	if o.SourceStatus != nil {
-		toSerialize["source_status"] = o.SourceStatus
-	}
-	if o.CreatedAt != nil {
-		toSerialize["created_at"] = o.CreatedAt
-	}
-	if o.LastUpdated != nil {
-		toSerialize["last_updated"] = o.LastUpdated
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o Source) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Uuid) {
+		toSerialize["uuid"] = o.Uuid
+	}
+	if !IsNil(o.AccountName) {
+		toSerialize["account_name"] = o.AccountName
+	}
+	if !IsNil(o.Host) {
+		toSerialize["host"] = o.Host
+	}
+	if !IsNil(o.RepositoryName) {
+		toSerialize["repository_name"] = o.RepositoryName
+	}
+	if !IsNil(o.Revision) {
+		toSerialize["revision"] = o.Revision
+	}
+	if !IsNil(o.AnalysisStatus) {
+		toSerialize["analysis_status"] = o.AnalysisStatus
+	}
+	if !IsNil(o.SourceStatus) {
+		toSerialize["source_status"] = o.SourceStatus
+	}
+	if !IsNil(o.CreatedAt) {
+		toSerialize["created_at"] = o.CreatedAt
+	}
+	if !IsNil(o.LastUpdated) {
+		toSerialize["last_updated"] = o.LastUpdated
+	}
+	return toSerialize, nil
 }
 
 type NullableSource struct {

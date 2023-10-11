@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the TriggerSpec type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &TriggerSpec{}
+
 // TriggerSpec Definition of a trigger and its parameters
 type TriggerSpec struct {
 	// Name of the trigger as it would appear in a policy document
@@ -26,7 +29,7 @@ type TriggerSpec struct {
 	// The name of another trigger that supersedes this on functionally if this is deprecated
 	SupersededBy NullableString `json:"superseded_by,omitempty"`
 	// The list of parameters that are valid for this trigger
-	Parameters *[]TriggerParamSpec `json:"parameters,omitempty"`
+	Parameters []TriggerParamSpec `json:"parameters,omitempty"`
 }
 
 // NewTriggerSpec instantiates a new TriggerSpec object
@@ -48,7 +51,7 @@ func NewTriggerSpecWithDefaults() *TriggerSpec {
 
 // GetName returns the Name field value if set, zero value otherwise.
 func (o *TriggerSpec) GetName() string {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		var ret string
 		return ret
 	}
@@ -58,7 +61,7 @@ func (o *TriggerSpec) GetName() string {
 // GetNameOk returns a tuple with the Name field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TriggerSpec) GetNameOk() (*string, bool) {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		return nil, false
 	}
 	return o.Name, true
@@ -66,7 +69,7 @@ func (o *TriggerSpec) GetNameOk() (*string, bool) {
 
 // HasName returns a boolean if a field has been set.
 func (o *TriggerSpec) HasName() bool {
-	if o != nil && o.Name != nil {
+	if o != nil && !IsNil(o.Name) {
 		return true
 	}
 
@@ -80,7 +83,7 @@ func (o *TriggerSpec) SetName(v string) {
 
 // GetDescription returns the Description field value if set, zero value otherwise.
 func (o *TriggerSpec) GetDescription() string {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		var ret string
 		return ret
 	}
@@ -90,7 +93,7 @@ func (o *TriggerSpec) GetDescription() string {
 // GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TriggerSpec) GetDescriptionOk() (*string, bool) {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		return nil, false
 	}
 	return o.Description, true
@@ -98,7 +101,7 @@ func (o *TriggerSpec) GetDescriptionOk() (*string, bool) {
 
 // HasDescription returns a boolean if a field has been set.
 func (o *TriggerSpec) HasDescription() bool {
-	if o != nil && o.Description != nil {
+	if o != nil && !IsNil(o.Description) {
 		return true
 	}
 
@@ -112,7 +115,7 @@ func (o *TriggerSpec) SetDescription(v string) {
 
 // GetState returns the State field value if set, zero value otherwise.
 func (o *TriggerSpec) GetState() string {
-	if o == nil || o.State == nil {
+	if o == nil || IsNil(o.State) {
 		var ret string
 		return ret
 	}
@@ -122,7 +125,7 @@ func (o *TriggerSpec) GetState() string {
 // GetStateOk returns a tuple with the State field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TriggerSpec) GetStateOk() (*string, bool) {
-	if o == nil || o.State == nil {
+	if o == nil || IsNil(o.State) {
 		return nil, false
 	}
 	return o.State, true
@@ -130,7 +133,7 @@ func (o *TriggerSpec) GetStateOk() (*string, bool) {
 
 // HasState returns a boolean if a field has been set.
 func (o *TriggerSpec) HasState() bool {
-	if o != nil && o.State != nil {
+	if o != nil && !IsNil(o.State) {
 		return true
 	}
 
@@ -144,7 +147,7 @@ func (o *TriggerSpec) SetState(v string) {
 
 // GetSupersededBy returns the SupersededBy field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *TriggerSpec) GetSupersededBy() string {
-	if o == nil || o.SupersededBy.Get() == nil {
+	if o == nil || IsNil(o.SupersededBy.Get()) {
 		var ret string
 		return ret
 	}
@@ -155,7 +158,7 @@ func (o *TriggerSpec) GetSupersededBy() string {
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *TriggerSpec) GetSupersededByOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return o.SupersededBy.Get(), o.SupersededBy.IsSet()
@@ -186,17 +189,17 @@ func (o *TriggerSpec) UnsetSupersededBy() {
 
 // GetParameters returns the Parameters field value if set, zero value otherwise.
 func (o *TriggerSpec) GetParameters() []TriggerParamSpec {
-	if o == nil || o.Parameters == nil {
+	if o == nil || IsNil(o.Parameters) {
 		var ret []TriggerParamSpec
 		return ret
 	}
-	return *o.Parameters
+	return o.Parameters
 }
 
 // GetParametersOk returns a tuple with the Parameters field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *TriggerSpec) GetParametersOk() (*[]TriggerParamSpec, bool) {
-	if o == nil || o.Parameters == nil {
+func (o *TriggerSpec) GetParametersOk() ([]TriggerParamSpec, bool) {
+	if o == nil || IsNil(o.Parameters) {
 		return nil, false
 	}
 	return o.Parameters, true
@@ -204,7 +207,7 @@ func (o *TriggerSpec) GetParametersOk() (*[]TriggerParamSpec, bool) {
 
 // HasParameters returns a boolean if a field has been set.
 func (o *TriggerSpec) HasParameters() bool {
-	if o != nil && o.Parameters != nil {
+	if o != nil && !IsNil(o.Parameters) {
 		return true
 	}
 
@@ -213,27 +216,35 @@ func (o *TriggerSpec) HasParameters() bool {
 
 // SetParameters gets a reference to the given []TriggerParamSpec and assigns it to the Parameters field.
 func (o *TriggerSpec) SetParameters(v []TriggerParamSpec) {
-	o.Parameters = &v
+	o.Parameters = v
 }
 
 func (o TriggerSpec) MarshalJSON() ([]byte, error) {
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o TriggerSpec) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Name != nil {
+	if !IsNil(o.Name) {
 		toSerialize["name"] = o.Name
 	}
-	if o.Description != nil {
+	if !IsNil(o.Description) {
 		toSerialize["description"] = o.Description
 	}
-	if o.State != nil {
+	if !IsNil(o.State) {
 		toSerialize["state"] = o.State
 	}
 	if o.SupersededBy.IsSet() {
 		toSerialize["superseded_by"] = o.SupersededBy.Get()
 	}
-	if o.Parameters != nil {
+	if !IsNil(o.Parameters) {
 		toSerialize["parameters"] = o.Parameters
 	}
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
 type NullableTriggerSpec struct {

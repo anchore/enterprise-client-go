@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the PolicyEvaluationFinding type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PolicyEvaluationFinding{}
+
 // PolicyEvaluationFinding struct for PolicyEvaluationFinding
 type PolicyEvaluationFinding struct {
 	// ID of this policy trigger finding (can be used to allowlist this finding)
@@ -79,7 +82,7 @@ func (o *PolicyEvaluationFinding) GetTriggerId() string {
 // GetTriggerIdOk returns a tuple with the TriggerId field value
 // and a boolean to check if the value has been set.
 func (o *PolicyEvaluationFinding) GetTriggerIdOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.TriggerId, true
@@ -103,7 +106,7 @@ func (o *PolicyEvaluationFinding) GetGate() string {
 // GetGateOk returns a tuple with the Gate field value
 // and a boolean to check if the value has been set.
 func (o *PolicyEvaluationFinding) GetGateOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Gate, true
@@ -127,7 +130,7 @@ func (o *PolicyEvaluationFinding) GetTrigger() string {
 // GetTriggerOk returns a tuple with the Trigger field value
 // and a boolean to check if the value has been set.
 func (o *PolicyEvaluationFinding) GetTriggerOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Trigger, true
@@ -151,7 +154,7 @@ func (o *PolicyEvaluationFinding) GetMessage() string {
 // GetMessageOk returns a tuple with the Message field value
 // and a boolean to check if the value has been set.
 func (o *PolicyEvaluationFinding) GetMessageOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Message, true
@@ -175,7 +178,7 @@ func (o *PolicyEvaluationFinding) GetAction() string {
 // GetActionOk returns a tuple with the Action field value
 // and a boolean to check if the value has been set.
 func (o *PolicyEvaluationFinding) GetActionOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Action, true
@@ -199,7 +202,7 @@ func (o *PolicyEvaluationFinding) GetPolicyId() string {
 // GetPolicyIdOk returns a tuple with the PolicyId field value
 // and a boolean to check if the value has been set.
 func (o *PolicyEvaluationFinding) GetPolicyIdOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.PolicyId, true
@@ -223,7 +226,7 @@ func (o *PolicyEvaluationFinding) GetRecommendation() string {
 // GetRecommendationOk returns a tuple with the Recommendation field value
 // and a boolean to check if the value has been set.
 func (o *PolicyEvaluationFinding) GetRecommendationOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Recommendation, true
@@ -247,7 +250,7 @@ func (o *PolicyEvaluationFinding) GetRuleId() string {
 // GetRuleIdOk returns a tuple with the RuleId field value
 // and a boolean to check if the value has been set.
 func (o *PolicyEvaluationFinding) GetRuleIdOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.RuleId, true
@@ -271,7 +274,7 @@ func (o *PolicyEvaluationFinding) GetAllowlisted() bool {
 // GetAllowlistedOk returns a tuple with the Allowlisted field value
 // and a boolean to check if the value has been set.
 func (o *PolicyEvaluationFinding) GetAllowlistedOk() (*bool, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Allowlisted, true
@@ -284,7 +287,7 @@ func (o *PolicyEvaluationFinding) SetAllowlisted(v bool) {
 
 // GetAllowlistMatch returns the AllowlistMatch field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *PolicyEvaluationFinding) GetAllowlistMatch() PolicyEvaluationFindingAllowlistMatch {
-	if o == nil || o.AllowlistMatch.Get() == nil {
+	if o == nil || IsNil(o.AllowlistMatch.Get()) {
 		var ret PolicyEvaluationFindingAllowlistMatch
 		return ret
 	}
@@ -295,7 +298,7 @@ func (o *PolicyEvaluationFinding) GetAllowlistMatch() PolicyEvaluationFindingAll
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *PolicyEvaluationFinding) GetAllowlistMatchOk() (*PolicyEvaluationFindingAllowlistMatch, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return o.AllowlistMatch.Get(), o.AllowlistMatch.IsSet()
@@ -326,7 +329,7 @@ func (o *PolicyEvaluationFinding) UnsetAllowlistMatch() {
 
 // GetInheritedFromBase returns the InheritedFromBase field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *PolicyEvaluationFinding) GetInheritedFromBase() bool {
-	if o == nil || o.InheritedFromBase.Get() == nil {
+	if o == nil || IsNil(o.InheritedFromBase.Get()) {
 		var ret bool
 		return ret
 	}
@@ -337,7 +340,7 @@ func (o *PolicyEvaluationFinding) GetInheritedFromBase() bool {
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *PolicyEvaluationFinding) GetInheritedFromBaseOk() (*bool, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return o.InheritedFromBase.Get(), o.InheritedFromBase.IsSet()
@@ -367,41 +370,31 @@ func (o *PolicyEvaluationFinding) UnsetInheritedFromBase() {
 }
 
 func (o PolicyEvaluationFinding) MarshalJSON() ([]byte, error) {
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o PolicyEvaluationFinding) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["trigger_id"] = o.TriggerId
-	}
-	if true {
-		toSerialize["gate"] = o.Gate
-	}
-	if true {
-		toSerialize["trigger"] = o.Trigger
-	}
-	if true {
-		toSerialize["message"] = o.Message
-	}
-	if true {
-		toSerialize["action"] = o.Action
-	}
-	if true {
-		toSerialize["policy_id"] = o.PolicyId
-	}
-	if true {
-		toSerialize["recommendation"] = o.Recommendation
-	}
-	if true {
-		toSerialize["rule_id"] = o.RuleId
-	}
-	if true {
-		toSerialize["allowlisted"] = o.Allowlisted
-	}
+	toSerialize["trigger_id"] = o.TriggerId
+	toSerialize["gate"] = o.Gate
+	toSerialize["trigger"] = o.Trigger
+	toSerialize["message"] = o.Message
+	toSerialize["action"] = o.Action
+	toSerialize["policy_id"] = o.PolicyId
+	toSerialize["recommendation"] = o.Recommendation
+	toSerialize["rule_id"] = o.RuleId
+	toSerialize["allowlisted"] = o.Allowlisted
 	if o.AllowlistMatch.IsSet() {
 		toSerialize["allowlist_match"] = o.AllowlistMatch.Get()
 	}
 	if o.InheritedFromBase.IsSet() {
 		toSerialize["inherited_from_base"] = o.InheritedFromBase.Get()
 	}
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
 type NullablePolicyEvaluationFinding struct {

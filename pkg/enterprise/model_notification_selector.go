@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the NotificationSelector type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &NotificationSelector{}
+
 // NotificationSelector A selector for notifications that determines which notifications are passed to a specific endpoint configuration
 type NotificationSelector struct {
 	Uuid *string `json:"uuid,omitempty"`
@@ -46,7 +49,7 @@ func NewNotificationSelectorWithDefaults() *NotificationSelector {
 
 // GetUuid returns the Uuid field value if set, zero value otherwise.
 func (o *NotificationSelector) GetUuid() string {
-	if o == nil || o.Uuid == nil {
+	if o == nil || IsNil(o.Uuid) {
 		var ret string
 		return ret
 	}
@@ -56,7 +59,7 @@ func (o *NotificationSelector) GetUuid() string {
 // GetUuidOk returns a tuple with the Uuid field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *NotificationSelector) GetUuidOk() (*string, bool) {
-	if o == nil || o.Uuid == nil {
+	if o == nil || IsNil(o.Uuid) {
 		return nil, false
 	}
 	return o.Uuid, true
@@ -64,7 +67,7 @@ func (o *NotificationSelector) GetUuidOk() (*string, bool) {
 
 // HasUuid returns a boolean if a field has been set.
 func (o *NotificationSelector) HasUuid() bool {
-	if o != nil && o.Uuid != nil {
+	if o != nil && !IsNil(o.Uuid) {
 		return true
 	}
 
@@ -78,7 +81,7 @@ func (o *NotificationSelector) SetUuid(v string) {
 
 // GetConfigurationUuid returns the ConfigurationUuid field value if set, zero value otherwise.
 func (o *NotificationSelector) GetConfigurationUuid() string {
-	if o == nil || o.ConfigurationUuid == nil {
+	if o == nil || IsNil(o.ConfigurationUuid) {
 		var ret string
 		return ret
 	}
@@ -88,7 +91,7 @@ func (o *NotificationSelector) GetConfigurationUuid() string {
 // GetConfigurationUuidOk returns a tuple with the ConfigurationUuid field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *NotificationSelector) GetConfigurationUuidOk() (*string, bool) {
-	if o == nil || o.ConfigurationUuid == nil {
+	if o == nil || IsNil(o.ConfigurationUuid) {
 		return nil, false
 	}
 	return o.ConfigurationUuid, true
@@ -96,7 +99,7 @@ func (o *NotificationSelector) GetConfigurationUuidOk() (*string, bool) {
 
 // HasConfigurationUuid returns a boolean if a field has been set.
 func (o *NotificationSelector) HasConfigurationUuid() bool {
-	if o != nil && o.ConfigurationUuid != nil {
+	if o != nil && !IsNil(o.ConfigurationUuid) {
 		return true
 	}
 
@@ -121,7 +124,7 @@ func (o *NotificationSelector) GetScope() string {
 // GetScopeOk returns a tuple with the Scope field value
 // and a boolean to check if the value has been set.
 func (o *NotificationSelector) GetScopeOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Scope, true
@@ -145,7 +148,7 @@ func (o *NotificationSelector) GetEvent() NotificationEventSelector {
 // GetEventOk returns a tuple with the Event field value
 // and a boolean to check if the value has been set.
 func (o *NotificationSelector) GetEventOk() (*NotificationEventSelector, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Event, true
@@ -157,20 +160,24 @@ func (o *NotificationSelector) SetEvent(v NotificationEventSelector) {
 }
 
 func (o NotificationSelector) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Uuid != nil {
-		toSerialize["uuid"] = o.Uuid
-	}
-	if o.ConfigurationUuid != nil {
-		toSerialize["configuration_uuid"] = o.ConfigurationUuid
-	}
-	if true {
-		toSerialize["scope"] = o.Scope
-	}
-	if true {
-		toSerialize["event"] = o.Event
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o NotificationSelector) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Uuid) {
+		toSerialize["uuid"] = o.Uuid
+	}
+	if !IsNil(o.ConfigurationUuid) {
+		toSerialize["configuration_uuid"] = o.ConfigurationUuid
+	}
+	toSerialize["scope"] = o.Scope
+	toSerialize["event"] = o.Event
+	return toSerialize, nil
 }
 
 type NullableNotificationSelector struct {

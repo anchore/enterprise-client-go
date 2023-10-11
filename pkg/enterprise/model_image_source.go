@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the ImageSource type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ImageSource{}
+
 // ImageSource A set of analysis source types. Only one may be set in any given request.
 type ImageSource struct {
 	Tag NullableRegistryTagSource `json:"tag,omitempty"`
@@ -42,7 +45,7 @@ func NewImageSourceWithDefaults() *ImageSource {
 
 // GetTag returns the Tag field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *ImageSource) GetTag() RegistryTagSource {
-	if o == nil || o.Tag.Get() == nil {
+	if o == nil || IsNil(o.Tag.Get()) {
 		var ret RegistryTagSource
 		return ret
 	}
@@ -53,7 +56,7 @@ func (o *ImageSource) GetTag() RegistryTagSource {
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *ImageSource) GetTagOk() (*RegistryTagSource, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return o.Tag.Get(), o.Tag.IsSet()
@@ -84,7 +87,7 @@ func (o *ImageSource) UnsetTag() {
 
 // GetDigest returns the Digest field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *ImageSource) GetDigest() RegistryDigestSource {
-	if o == nil || o.Digest.Get() == nil {
+	if o == nil || IsNil(o.Digest.Get()) {
 		var ret RegistryDigestSource
 		return ret
 	}
@@ -95,7 +98,7 @@ func (o *ImageSource) GetDigest() RegistryDigestSource {
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *ImageSource) GetDigestOk() (*RegistryDigestSource, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return o.Digest.Get(), o.Digest.IsSet()
@@ -126,7 +129,7 @@ func (o *ImageSource) UnsetDigest() {
 
 // GetArchive returns the Archive field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *ImageSource) GetArchive() AnalysisArchiveSource {
-	if o == nil || o.Archive.Get() == nil {
+	if o == nil || IsNil(o.Archive.Get()) {
 		var ret AnalysisArchiveSource
 		return ret
 	}
@@ -137,7 +140,7 @@ func (o *ImageSource) GetArchive() AnalysisArchiveSource {
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *ImageSource) GetArchiveOk() (*AnalysisArchiveSource, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return o.Archive.Get(), o.Archive.IsSet()
@@ -168,7 +171,7 @@ func (o *ImageSource) UnsetArchive() {
 
 // GetImport returns the Import field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *ImageSource) GetImport() ImageImportManifest {
-	if o == nil || o.Import.Get() == nil {
+	if o == nil || IsNil(o.Import.Get()) {
 		var ret ImageImportManifest
 		return ret
 	}
@@ -179,7 +182,7 @@ func (o *ImageSource) GetImport() ImageImportManifest {
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *ImageSource) GetImportOk() (*ImageImportManifest, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return o.Import.Get(), o.Import.IsSet()
@@ -209,6 +212,14 @@ func (o *ImageSource) UnsetImport() {
 }
 
 func (o ImageSource) MarshalJSON() ([]byte, error) {
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o ImageSource) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	if o.Tag.IsSet() {
 		toSerialize["tag"] = o.Tag.Get()
@@ -222,7 +233,7 @@ func (o ImageSource) MarshalJSON() ([]byte, error) {
 	if o.Import.IsSet() {
 		toSerialize["import"] = o.Import.Get()
 	}
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
 type NullableImageSource struct {

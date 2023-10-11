@@ -16,6 +16,9 @@ import (
 	"time"
 )
 
+// checks if the User type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &User{}
+
 // User A username for authenticating with one or more types of credentials. User type defines the expected credentials allowed for the user. Native users have passwords, other users have no credential internally. Internal users are service/system users for inter-service communication.
 type User struct {
 	// The username to authenticate with
@@ -63,7 +66,7 @@ func (o *User) GetUsername() string {
 // GetUsernameOk returns a tuple with the Username field value
 // and a boolean to check if the value has been set.
 func (o *User) GetUsernameOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Username, true
@@ -76,7 +79,7 @@ func (o *User) SetUsername(v string) {
 
 // GetType returns the Type field value if set, zero value otherwise.
 func (o *User) GetType() string {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		var ret string
 		return ret
 	}
@@ -86,7 +89,7 @@ func (o *User) GetType() string {
 // GetTypeOk returns a tuple with the Type field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *User) GetTypeOk() (*string, bool) {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		return nil, false
 	}
 	return o.Type, true
@@ -94,7 +97,7 @@ func (o *User) GetTypeOk() (*string, bool) {
 
 // HasType returns a boolean if a field has been set.
 func (o *User) HasType() bool {
-	if o != nil && o.Type != nil {
+	if o != nil && !IsNil(o.Type) {
 		return true
 	}
 
@@ -108,7 +111,7 @@ func (o *User) SetType(v string) {
 
 // GetSource returns the Source field value if set, zero value otherwise.
 func (o *User) GetSource() string {
-	if o == nil || o.Source == nil {
+	if o == nil || IsNil(o.Source) {
 		var ret string
 		return ret
 	}
@@ -118,7 +121,7 @@ func (o *User) GetSource() string {
 // GetSourceOk returns a tuple with the Source field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *User) GetSourceOk() (*string, bool) {
-	if o == nil || o.Source == nil {
+	if o == nil || IsNil(o.Source) {
 		return nil, false
 	}
 	return o.Source, true
@@ -126,7 +129,7 @@ func (o *User) GetSourceOk() (*string, bool) {
 
 // HasSource returns a boolean if a field has been set.
 func (o *User) HasSource() bool {
-	if o != nil && o.Source != nil {
+	if o != nil && !IsNil(o.Source) {
 		return true
 	}
 
@@ -140,7 +143,7 @@ func (o *User) SetSource(v string) {
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
 func (o *User) GetCreatedAt() time.Time {
-	if o == nil || o.CreatedAt == nil {
+	if o == nil || IsNil(o.CreatedAt) {
 		var ret time.Time
 		return ret
 	}
@@ -150,7 +153,7 @@ func (o *User) GetCreatedAt() time.Time {
 // GetCreatedAtOk returns a tuple with the CreatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *User) GetCreatedAtOk() (*time.Time, bool) {
-	if o == nil || o.CreatedAt == nil {
+	if o == nil || IsNil(o.CreatedAt) {
 		return nil, false
 	}
 	return o.CreatedAt, true
@@ -158,7 +161,7 @@ func (o *User) GetCreatedAtOk() (*time.Time, bool) {
 
 // HasCreatedAt returns a boolean if a field has been set.
 func (o *User) HasCreatedAt() bool {
-	if o != nil && o.CreatedAt != nil {
+	if o != nil && !IsNil(o.CreatedAt) {
 		return true
 	}
 
@@ -172,7 +175,7 @@ func (o *User) SetCreatedAt(v time.Time) {
 
 // GetLastUpdated returns the LastUpdated field value if set, zero value otherwise.
 func (o *User) GetLastUpdated() time.Time {
-	if o == nil || o.LastUpdated == nil {
+	if o == nil || IsNil(o.LastUpdated) {
 		var ret time.Time
 		return ret
 	}
@@ -182,7 +185,7 @@ func (o *User) GetLastUpdated() time.Time {
 // GetLastUpdatedOk returns a tuple with the LastUpdated field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *User) GetLastUpdatedOk() (*time.Time, bool) {
-	if o == nil || o.LastUpdated == nil {
+	if o == nil || IsNil(o.LastUpdated) {
 		return nil, false
 	}
 	return o.LastUpdated, true
@@ -190,7 +193,7 @@ func (o *User) GetLastUpdatedOk() (*time.Time, bool) {
 
 // HasLastUpdated returns a boolean if a field has been set.
 func (o *User) HasLastUpdated() bool {
-	if o != nil && o.LastUpdated != nil {
+	if o != nil && !IsNil(o.LastUpdated) {
 		return true
 	}
 
@@ -204,7 +207,7 @@ func (o *User) SetLastUpdated(v time.Time) {
 
 // GetIdpName returns the IdpName field value if set, zero value otherwise.
 func (o *User) GetIdpName() string {
-	if o == nil || o.IdpName == nil {
+	if o == nil || IsNil(o.IdpName) {
 		var ret string
 		return ret
 	}
@@ -214,7 +217,7 @@ func (o *User) GetIdpName() string {
 // GetIdpNameOk returns a tuple with the IdpName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *User) GetIdpNameOk() (*string, bool) {
-	if o == nil || o.IdpName == nil {
+	if o == nil || IsNil(o.IdpName) {
 		return nil, false
 	}
 	return o.IdpName, true
@@ -222,7 +225,7 @@ func (o *User) GetIdpNameOk() (*string, bool) {
 
 // HasIdpName returns a boolean if a field has been set.
 func (o *User) HasIdpName() bool {
-	if o != nil && o.IdpName != nil {
+	if o != nil && !IsNil(o.IdpName) {
 		return true
 	}
 
@@ -235,26 +238,32 @@ func (o *User) SetIdpName(v string) {
 }
 
 func (o User) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["username"] = o.Username
-	}
-	if o.Type != nil {
-		toSerialize["type"] = o.Type
-	}
-	if o.Source != nil {
-		toSerialize["source"] = o.Source
-	}
-	if o.CreatedAt != nil {
-		toSerialize["created_at"] = o.CreatedAt
-	}
-	if o.LastUpdated != nil {
-		toSerialize["last_updated"] = o.LastUpdated
-	}
-	if o.IdpName != nil {
-		toSerialize["idp_name"] = o.IdpName
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o User) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["username"] = o.Username
+	if !IsNil(o.Type) {
+		toSerialize["type"] = o.Type
+	}
+	if !IsNil(o.Source) {
+		toSerialize["source"] = o.Source
+	}
+	if !IsNil(o.CreatedAt) {
+		toSerialize["created_at"] = o.CreatedAt
+	}
+	if !IsNil(o.LastUpdated) {
+		toSerialize["last_updated"] = o.LastUpdated
+	}
+	if !IsNil(o.IdpName) {
+		toSerialize["idp_name"] = o.IdpName
+	}
+	return toSerialize, nil
 }
 
 type NullableUser struct {

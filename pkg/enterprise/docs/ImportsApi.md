@@ -1,36 +1,36 @@
-# \ImportsApi
+# \ImportsAPI
 
-All URIs are relative to *http://localhost/v2*
+All URIs are relative to */v2*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateOperation**](ImportsApi.md#CreateOperation) | **Post** /imports/images | Begin the import of an image SBOM into the system
-[**CreateSourcesOperation**](ImportsApi.md#CreateSourcesOperation) | **Post** /imports/sources | Begin the import of a source code repository analyzed by Syft into the system
-[**FinalizeOperation**](ImportsApi.md#FinalizeOperation) | **Post** /imports/sources/{operation_id}/finalize | Add source records to catalog db
-[**GetImportSourcesSbom**](ImportsApi.md#GetImportSourcesSbom) | **Get** /imports/sources/{operation_id}/sbom | list the packages of an imported source code repository
-[**GetOperation**](ImportsApi.md#GetOperation) | **Get** /imports/images/{operation_id} | Get detail on a single import
-[**GetSourcesOperation**](ImportsApi.md#GetSourcesOperation) | **Get** /imports/sources/{operation_id} | Get detail on a single import
-[**ImportContentSearches**](ImportsApi.md#ImportContentSearches) | **Post** /imports/images/{operation_id}/content-searches | Import a content search analysis catalog
-[**ImportFileContents**](ImportsApi.md#ImportFileContents) | **Post** /imports/images/{operation_id}/file-contents | Import a file contents analysis catalog
-[**ImportImageConfig**](ImportsApi.md#ImportImageConfig) | **Post** /imports/images/{operation_id}/image-config | Import a docker or OCI image config to associate with the image
-[**ImportImageDockerfile**](ImportsApi.md#ImportImageDockerfile) | **Post** /imports/images/{operation_id}/dockerfile | Begin the import of an image analyzed by Syft into the system
-[**ImportImageManifest**](ImportsApi.md#ImportImageManifest) | **Post** /imports/images/{operation_id}/manifest | Import a docker or OCI distribution manifest to associate with the image
-[**ImportImagePackages**](ImportsApi.md#ImportImagePackages) | **Post** /imports/images/{operation_id}/packages | Begin the import of an image analyzed by Syft into the system
-[**ImportImageParentManifest**](ImportsApi.md#ImportImageParentManifest) | **Post** /imports/images/{operation_id}/parent-manifest | Import a docker or OCI distribution manifest list to associate with the image
-[**ImportSecretSearches**](ImportsApi.md#ImportSecretSearches) | **Post** /imports/images/{operation_id}/secret-searches | Import a secret search analysis catalog
-[**InvalidateOperation**](ImportsApi.md#InvalidateOperation) | **Delete** /imports/images/{operation_id} | Invalidate operation ID so it can be garbage collected
-[**InvalidateSourcesOperation**](ImportsApi.md#InvalidateSourcesOperation) | **Delete** /imports/sources/{operation_id} | Invalidate operation ID so it can be garbage collected
-[**ListImportContentSearches**](ImportsApi.md#ListImportContentSearches) | **Get** /imports/images/{operation_id}/content-searches | List uploaded content search results
-[**ListImportDockerfiles**](ImportsApi.md#ListImportDockerfiles) | **Get** /imports/images/{operation_id}/dockerfile | List uploaded dockerfiles
-[**ListImportFileContents**](ImportsApi.md#ListImportFileContents) | **Get** /imports/images/{operation_id}/file-contents | List uploaded file contents
-[**ListImportImageConfigs**](ImportsApi.md#ListImportImageConfigs) | **Get** /imports/images/{operation_id}/image-config | List uploaded image configs
-[**ListImportImageManifests**](ImportsApi.md#ListImportImageManifests) | **Get** /imports/images/{operation_id}/manifest | List uploaded image manifests
-[**ListImportPackages**](ImportsApi.md#ListImportPackages) | **Get** /imports/images/{operation_id}/packages | List uploaded package manifests
-[**ListImportParentManifests**](ImportsApi.md#ListImportParentManifests) | **Get** /imports/images/{operation_id}/parent-manifest | List uploaded parent manifests (manifest lists for a tag)
-[**ListImportSecretSearches**](ImportsApi.md#ListImportSecretSearches) | **Get** /imports/images/{operation_id}/secret-searches | List uploaded secret search results
-[**ListOperations**](ImportsApi.md#ListOperations) | **Get** /imports/images | Lists in-progress imports
-[**ListSourcesOperations**](ImportsApi.md#ListSourcesOperations) | **Get** /imports/sources | Lists in-progress imports
-[**UploadImportSourcesSbom**](ImportsApi.md#UploadImportSourcesSbom) | **Post** /imports/sources/{operation_id}/sbom | Begin the import of a source code repository analyzed by Syft into the system
+[**CreateOperation**](ImportsAPI.md#CreateOperation) | **Post** /imports/images | Begin the import of an image SBOM into the system
+[**CreateSourcesOperation**](ImportsAPI.md#CreateSourcesOperation) | **Post** /imports/sources | Begin the import of a source code repository analyzed by Syft into the system
+[**FinalizeOperation**](ImportsAPI.md#FinalizeOperation) | **Post** /imports/sources/{operation_id}/finalize | Add source records to catalog db
+[**GetImportSourcesSbom**](ImportsAPI.md#GetImportSourcesSbom) | **Get** /imports/sources/{operation_id}/sbom | list the packages of an imported source code repository
+[**GetOperation**](ImportsAPI.md#GetOperation) | **Get** /imports/images/{operation_id} | Get detail on a single import
+[**GetSourcesOperation**](ImportsAPI.md#GetSourcesOperation) | **Get** /imports/sources/{operation_id} | Get detail on a single import
+[**ImportContentSearches**](ImportsAPI.md#ImportContentSearches) | **Post** /imports/images/{operation_id}/content-searches | Import a content search analysis catalog
+[**ImportFileContents**](ImportsAPI.md#ImportFileContents) | **Post** /imports/images/{operation_id}/file-contents | Import a file contents analysis catalog
+[**ImportImageConfig**](ImportsAPI.md#ImportImageConfig) | **Post** /imports/images/{operation_id}/image-config | Import a docker or OCI image config to associate with the image
+[**ImportImageDockerfile**](ImportsAPI.md#ImportImageDockerfile) | **Post** /imports/images/{operation_id}/dockerfile | Begin the import of an image analyzed by Syft into the system
+[**ImportImageManifest**](ImportsAPI.md#ImportImageManifest) | **Post** /imports/images/{operation_id}/manifest | Import a docker or OCI distribution manifest to associate with the image
+[**ImportImagePackages**](ImportsAPI.md#ImportImagePackages) | **Post** /imports/images/{operation_id}/packages | Begin the import of an image analyzed by Syft into the system
+[**ImportImageParentManifest**](ImportsAPI.md#ImportImageParentManifest) | **Post** /imports/images/{operation_id}/parent-manifest | Import a docker or OCI distribution manifest list to associate with the image
+[**ImportSecretSearches**](ImportsAPI.md#ImportSecretSearches) | **Post** /imports/images/{operation_id}/secret-searches | Import a secret search analysis catalog
+[**InvalidateOperation**](ImportsAPI.md#InvalidateOperation) | **Delete** /imports/images/{operation_id} | Invalidate operation ID so it can be garbage collected
+[**InvalidateSourcesOperation**](ImportsAPI.md#InvalidateSourcesOperation) | **Delete** /imports/sources/{operation_id} | Invalidate operation ID so it can be garbage collected
+[**ListImportContentSearches**](ImportsAPI.md#ListImportContentSearches) | **Get** /imports/images/{operation_id}/content-searches | List uploaded content search results
+[**ListImportDockerfiles**](ImportsAPI.md#ListImportDockerfiles) | **Get** /imports/images/{operation_id}/dockerfile | List uploaded dockerfiles
+[**ListImportFileContents**](ImportsAPI.md#ListImportFileContents) | **Get** /imports/images/{operation_id}/file-contents | List uploaded file contents
+[**ListImportImageConfigs**](ImportsAPI.md#ListImportImageConfigs) | **Get** /imports/images/{operation_id}/image-config | List uploaded image configs
+[**ListImportImageManifests**](ImportsAPI.md#ListImportImageManifests) | **Get** /imports/images/{operation_id}/manifest | List uploaded image manifests
+[**ListImportPackages**](ImportsAPI.md#ListImportPackages) | **Get** /imports/images/{operation_id}/packages | List uploaded package manifests
+[**ListImportParentManifests**](ImportsAPI.md#ListImportParentManifests) | **Get** /imports/images/{operation_id}/parent-manifest | List uploaded parent manifests (manifest lists for a tag)
+[**ListImportSecretSearches**](ImportsAPI.md#ListImportSecretSearches) | **Get** /imports/images/{operation_id}/secret-searches | List uploaded secret search results
+[**ListOperations**](ImportsAPI.md#ListOperations) | **Get** /imports/images | Lists in-progress imports
+[**ListSourcesOperations**](ImportsAPI.md#ListSourcesOperations) | **Get** /imports/sources | Lists in-progress imports
+[**UploadImportSourcesSbom**](ImportsAPI.md#UploadImportSourcesSbom) | **Post** /imports/sources/{operation_id}/sbom | Begin the import of a source code repository analyzed by Syft into the system
 
 
 
@@ -49,20 +49,20 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+    openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.ImportsApi.CreateOperation(context.Background()).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.ImportsAPI.CreateOperation(context.Background()).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ImportsApi.CreateOperation``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `ImportsAPI.CreateOperation``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
     // response from `CreateOperation`: ImageImportOperation
-    fmt.Fprintf(os.Stdout, "Response from `ImportsApi.CreateOperation`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `ImportsAPI.CreateOperation`: %v\n", resp)
 }
 ```
 
@@ -108,20 +108,20 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+    openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.ImportsApi.CreateSourcesOperation(context.Background()).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.ImportsAPI.CreateSourcesOperation(context.Background()).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ImportsApi.CreateSourcesOperation``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `ImportsAPI.CreateSourcesOperation``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
     // response from `CreateSourcesOperation`: SourceImportOperation
-    fmt.Fprintf(os.Stdout, "Response from `ImportsApi.CreateSourcesOperation`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `ImportsAPI.CreateSourcesOperation`: %v\n", resp)
 }
 ```
 
@@ -167,7 +167,7 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+    openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
@@ -175,14 +175,14 @@ func main() {
     metadata := *openapiclient.NewSourceImportMetadata("Host_example", "RepositoryName_example", "Revision_example", *openapiclient.NewSourceImportMetadataContents("Sbom_example")) // SourceImportMetadata | 
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.ImportsApi.FinalizeOperation(context.Background(), operationId).Metadata(metadata).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.ImportsAPI.FinalizeOperation(context.Background(), operationId).Metadata(metadata).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ImportsApi.FinalizeOperation``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `ImportsAPI.FinalizeOperation``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
     // response from `FinalizeOperation`: SourceManifest
-    fmt.Fprintf(os.Stdout, "Response from `ImportsApi.FinalizeOperation`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `ImportsAPI.FinalizeOperation`: %v\n", resp)
 }
 ```
 
@@ -237,21 +237,21 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+    openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
     operationId := "operationId_example" // string | 
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.ImportsApi.GetImportSourcesSbom(context.Background(), operationId).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.ImportsAPI.GetImportSourcesSbom(context.Background(), operationId).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ImportsApi.GetImportSourcesSbom``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `ImportsAPI.GetImportSourcesSbom``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
     // response from `GetImportSourcesSbom`: SourceImportContentResponse
-    fmt.Fprintf(os.Stdout, "Response from `ImportsApi.GetImportSourcesSbom`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `ImportsAPI.GetImportSourcesSbom`: %v\n", resp)
 }
 ```
 
@@ -305,21 +305,21 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+    openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
     operationId := "operationId_example" // string | 
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.ImportsApi.GetOperation(context.Background(), operationId).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.ImportsAPI.GetOperation(context.Background(), operationId).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ImportsApi.GetOperation``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `ImportsAPI.GetOperation``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
     // response from `GetOperation`: ImageImportOperation
-    fmt.Fprintf(os.Stdout, "Response from `ImportsApi.GetOperation`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `ImportsAPI.GetOperation`: %v\n", resp)
 }
 ```
 
@@ -373,21 +373,21 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+    openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
     operationId := "operationId_example" // string | 
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.ImportsApi.GetSourcesOperation(context.Background(), operationId).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.ImportsAPI.GetSourcesOperation(context.Background(), operationId).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ImportsApi.GetSourcesOperation``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `ImportsAPI.GetSourcesOperation``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
     // response from `GetSourcesOperation`: SourceImportOperation
-    fmt.Fprintf(os.Stdout, "Response from `ImportsApi.GetSourcesOperation`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `ImportsAPI.GetSourcesOperation`: %v\n", resp)
 }
 ```
 
@@ -441,7 +441,7 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+    openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
@@ -449,14 +449,14 @@ func main() {
     contents := []openapiclient.ImageImportContentSearch{*openapiclient.NewImageImportContentSearch(*openapiclient.NewImportPackageLocation("Path_example"), []openapiclient.ImportContentSearchElement{*openapiclient.NewImportContentSearchElement("Classification_example", int32(123), int32(123), int32(123), int32(123))})} // []ImageImportContentSearch | 
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.ImportsApi.ImportContentSearches(context.Background(), operationId).Contents(contents).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.ImportsAPI.ImportContentSearches(context.Background(), operationId).Contents(contents).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ImportsApi.ImportContentSearches``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `ImportsAPI.ImportContentSearches``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
     // response from `ImportContentSearches`: ImageImportContentResponse
-    fmt.Fprintf(os.Stdout, "Response from `ImportsApi.ImportContentSearches`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `ImportsAPI.ImportContentSearches`: %v\n", resp)
 }
 ```
 
@@ -511,7 +511,7 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+    openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
@@ -519,14 +519,14 @@ func main() {
     contents := []openapiclient.ImageImportFileContent{*openapiclient.NewImageImportFileContent(*openapiclient.NewImportPackageLocation("Path_example"), "Contents_example")} // []ImageImportFileContent | 
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.ImportsApi.ImportFileContents(context.Background(), operationId).Contents(contents).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.ImportsAPI.ImportFileContents(context.Background(), operationId).Contents(contents).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ImportsApi.ImportFileContents``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `ImportsAPI.ImportFileContents``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
     // response from `ImportFileContents`: ImageImportContentResponse
-    fmt.Fprintf(os.Stdout, "Response from `ImportsApi.ImportFileContents`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `ImportsAPI.ImportFileContents`: %v\n", resp)
 }
 ```
 
@@ -581,22 +581,22 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+    openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
     operationId := "operationId_example" // string | 
-    contents := interface{}(Object) // interface{} | 
+    contents := interface{}{ ... } // interface{} | 
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.ImportsApi.ImportImageConfig(context.Background(), operationId).Contents(contents).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.ImportsAPI.ImportImageConfig(context.Background(), operationId).Contents(contents).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ImportsApi.ImportImageConfig``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `ImportsAPI.ImportImageConfig``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
     // response from `ImportImageConfig`: ImageImportContentResponse
-    fmt.Fprintf(os.Stdout, "Response from `ImportsApi.ImportImageConfig`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `ImportsAPI.ImportImageConfig`: %v\n", resp)
 }
 ```
 
@@ -651,7 +651,7 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+    openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
@@ -659,14 +659,14 @@ func main() {
     contents := "contents_example" // string | 
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.ImportsApi.ImportImageDockerfile(context.Background(), operationId).Contents(contents).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.ImportsAPI.ImportImageDockerfile(context.Background(), operationId).Contents(contents).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ImportsApi.ImportImageDockerfile``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `ImportsAPI.ImportImageDockerfile``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
     // response from `ImportImageDockerfile`: ImageImportContentResponse
-    fmt.Fprintf(os.Stdout, "Response from `ImportsApi.ImportImageDockerfile`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `ImportsAPI.ImportImageDockerfile`: %v\n", resp)
 }
 ```
 
@@ -721,22 +721,22 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+    openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
     operationId := "operationId_example" // string | 
-    contents := interface{}(Object) // interface{} | 
+    contents := interface{}{ ... } // interface{} | 
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.ImportsApi.ImportImageManifest(context.Background(), operationId).Contents(contents).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.ImportsAPI.ImportImageManifest(context.Background(), operationId).Contents(contents).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ImportsApi.ImportImageManifest``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `ImportsAPI.ImportImageManifest``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
     // response from `ImportImageManifest`: ImageImportContentResponse
-    fmt.Fprintf(os.Stdout, "Response from `ImportsApi.ImportImageManifest`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `ImportsAPI.ImportImageManifest`: %v\n", resp)
 }
 ```
 
@@ -791,7 +791,7 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+    openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
@@ -799,14 +799,14 @@ func main() {
     sbom := map[string]interface{}{"key": interface{}(123)} // map[string]interface{} | 
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.ImportsApi.ImportImagePackages(context.Background(), operationId).Sbom(sbom).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.ImportsAPI.ImportImagePackages(context.Background(), operationId).Sbom(sbom).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ImportsApi.ImportImagePackages``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `ImportsAPI.ImportImagePackages``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
     // response from `ImportImagePackages`: ImageImportContentResponse
-    fmt.Fprintf(os.Stdout, "Response from `ImportsApi.ImportImagePackages`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `ImportsAPI.ImportImagePackages`: %v\n", resp)
 }
 ```
 
@@ -861,22 +861,22 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+    openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
     operationId := "operationId_example" // string | 
-    contents := interface{}(Object) // interface{} | 
+    contents := interface{}{ ... } // interface{} | 
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.ImportsApi.ImportImageParentManifest(context.Background(), operationId).Contents(contents).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.ImportsAPI.ImportImageParentManifest(context.Background(), operationId).Contents(contents).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ImportsApi.ImportImageParentManifest``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `ImportsAPI.ImportImageParentManifest``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
     // response from `ImportImageParentManifest`: ImageImportContentResponse
-    fmt.Fprintf(os.Stdout, "Response from `ImportsApi.ImportImageParentManifest`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `ImportsAPI.ImportImageParentManifest`: %v\n", resp)
 }
 ```
 
@@ -931,7 +931,7 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+    openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
@@ -939,14 +939,14 @@ func main() {
     contents := []openapiclient.ImageImportContentSearch{*openapiclient.NewImageImportContentSearch(*openapiclient.NewImportPackageLocation("Path_example"), []openapiclient.ImportContentSearchElement{*openapiclient.NewImportContentSearchElement("Classification_example", int32(123), int32(123), int32(123), int32(123))})} // []ImageImportContentSearch | 
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.ImportsApi.ImportSecretSearches(context.Background(), operationId).Contents(contents).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.ImportsAPI.ImportSecretSearches(context.Background(), operationId).Contents(contents).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ImportsApi.ImportSecretSearches``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `ImportsAPI.ImportSecretSearches``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
     // response from `ImportSecretSearches`: ImageImportContentResponse
-    fmt.Fprintf(os.Stdout, "Response from `ImportsApi.ImportSecretSearches`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `ImportsAPI.ImportSecretSearches`: %v\n", resp)
 }
 ```
 
@@ -1001,21 +1001,21 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+    openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
     operationId := "operationId_example" // string | 
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.ImportsApi.InvalidateOperation(context.Background(), operationId).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.ImportsAPI.InvalidateOperation(context.Background(), operationId).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ImportsApi.InvalidateOperation``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `ImportsAPI.InvalidateOperation``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
     // response from `InvalidateOperation`: ImageImportOperation
-    fmt.Fprintf(os.Stdout, "Response from `ImportsApi.InvalidateOperation`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `ImportsAPI.InvalidateOperation`: %v\n", resp)
 }
 ```
 
@@ -1069,21 +1069,21 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+    openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
     operationId := "operationId_example" // string | 
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.ImportsApi.InvalidateSourcesOperation(context.Background(), operationId).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.ImportsAPI.InvalidateSourcesOperation(context.Background(), operationId).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ImportsApi.InvalidateSourcesOperation``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `ImportsAPI.InvalidateSourcesOperation``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
     // response from `InvalidateSourcesOperation`: SourceImportOperation
-    fmt.Fprintf(os.Stdout, "Response from `ImportsApi.InvalidateSourcesOperation`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `ImportsAPI.InvalidateSourcesOperation`: %v\n", resp)
 }
 ```
 
@@ -1137,21 +1137,21 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+    openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
     operationId := "operationId_example" // string | 
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.ImportsApi.ListImportContentSearches(context.Background(), operationId).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.ImportsAPI.ListImportContentSearches(context.Background(), operationId).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ImportsApi.ListImportContentSearches``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `ImportsAPI.ListImportContentSearches``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
     // response from `ListImportContentSearches`: []string
-    fmt.Fprintf(os.Stdout, "Response from `ImportsApi.ListImportContentSearches`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `ImportsAPI.ListImportContentSearches`: %v\n", resp)
 }
 ```
 
@@ -1205,21 +1205,21 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+    openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
     operationId := "operationId_example" // string | 
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.ImportsApi.ListImportDockerfiles(context.Background(), operationId).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.ImportsAPI.ListImportDockerfiles(context.Background(), operationId).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ImportsApi.ListImportDockerfiles``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `ImportsAPI.ListImportDockerfiles``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
     // response from `ListImportDockerfiles`: []string
-    fmt.Fprintf(os.Stdout, "Response from `ImportsApi.ListImportDockerfiles`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `ImportsAPI.ListImportDockerfiles`: %v\n", resp)
 }
 ```
 
@@ -1273,21 +1273,21 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+    openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
     operationId := "operationId_example" // string | 
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.ImportsApi.ListImportFileContents(context.Background(), operationId).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.ImportsAPI.ListImportFileContents(context.Background(), operationId).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ImportsApi.ListImportFileContents``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `ImportsAPI.ListImportFileContents``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
     // response from `ListImportFileContents`: []string
-    fmt.Fprintf(os.Stdout, "Response from `ImportsApi.ListImportFileContents`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `ImportsAPI.ListImportFileContents`: %v\n", resp)
 }
 ```
 
@@ -1341,21 +1341,21 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+    openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
     operationId := "operationId_example" // string | 
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.ImportsApi.ListImportImageConfigs(context.Background(), operationId).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.ImportsAPI.ListImportImageConfigs(context.Background(), operationId).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ImportsApi.ListImportImageConfigs``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `ImportsAPI.ListImportImageConfigs``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
     // response from `ListImportImageConfigs`: []string
-    fmt.Fprintf(os.Stdout, "Response from `ImportsApi.ListImportImageConfigs`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `ImportsAPI.ListImportImageConfigs`: %v\n", resp)
 }
 ```
 
@@ -1409,21 +1409,21 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+    openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
     operationId := "operationId_example" // string | 
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.ImportsApi.ListImportImageManifests(context.Background(), operationId).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.ImportsAPI.ListImportImageManifests(context.Background(), operationId).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ImportsApi.ListImportImageManifests``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `ImportsAPI.ListImportImageManifests``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
     // response from `ListImportImageManifests`: []string
-    fmt.Fprintf(os.Stdout, "Response from `ImportsApi.ListImportImageManifests`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `ImportsAPI.ListImportImageManifests`: %v\n", resp)
 }
 ```
 
@@ -1477,21 +1477,21 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+    openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
     operationId := "operationId_example" // string | 
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.ImportsApi.ListImportPackages(context.Background(), operationId).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.ImportsAPI.ListImportPackages(context.Background(), operationId).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ImportsApi.ListImportPackages``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `ImportsAPI.ListImportPackages``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
     // response from `ListImportPackages`: []string
-    fmt.Fprintf(os.Stdout, "Response from `ImportsApi.ListImportPackages`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `ImportsAPI.ListImportPackages`: %v\n", resp)
 }
 ```
 
@@ -1545,21 +1545,21 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+    openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
     operationId := "operationId_example" // string | 
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.ImportsApi.ListImportParentManifests(context.Background(), operationId).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.ImportsAPI.ListImportParentManifests(context.Background(), operationId).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ImportsApi.ListImportParentManifests``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `ImportsAPI.ListImportParentManifests``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
     // response from `ListImportParentManifests`: []string
-    fmt.Fprintf(os.Stdout, "Response from `ImportsApi.ListImportParentManifests`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `ImportsAPI.ListImportParentManifests`: %v\n", resp)
 }
 ```
 
@@ -1613,21 +1613,21 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+    openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
     operationId := "operationId_example" // string | 
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.ImportsApi.ListImportSecretSearches(context.Background(), operationId).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.ImportsAPI.ListImportSecretSearches(context.Background(), operationId).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ImportsApi.ListImportSecretSearches``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `ImportsAPI.ListImportSecretSearches``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
     // response from `ListImportSecretSearches`: []string
-    fmt.Fprintf(os.Stdout, "Response from `ImportsApi.ListImportSecretSearches`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `ImportsAPI.ListImportSecretSearches`: %v\n", resp)
 }
 ```
 
@@ -1681,20 +1681,20 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+    openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.ImportsApi.ListOperations(context.Background()).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.ImportsAPI.ListOperations(context.Background()).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ImportsApi.ListOperations``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `ImportsAPI.ListOperations``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
     // response from `ListOperations`: []ImageImportOperation
-    fmt.Fprintf(os.Stdout, "Response from `ImportsApi.ListOperations`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `ImportsAPI.ListOperations`: %v\n", resp)
 }
 ```
 
@@ -1740,20 +1740,20 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+    openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.ImportsApi.ListSourcesOperations(context.Background()).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.ImportsAPI.ListSourcesOperations(context.Background()).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ImportsApi.ListSourcesOperations``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `ImportsAPI.ListSourcesOperations``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
     // response from `ListSourcesOperations`: []SourceImportOperation
-    fmt.Fprintf(os.Stdout, "Response from `ImportsApi.ListSourcesOperations`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `ImportsAPI.ListSourcesOperations`: %v\n", resp)
 }
 ```
 
@@ -1799,7 +1799,7 @@ import (
     "context"
     "fmt"
     "os"
-    openapiclient "./openapi"
+    openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
@@ -1807,14 +1807,14 @@ func main() {
     sbom := map[string]interface{}{"key": interface{}(123)} // map[string]interface{} | 
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.ImportsApi.UploadImportSourcesSbom(context.Background(), operationId).Sbom(sbom).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.ImportsAPI.UploadImportSourcesSbom(context.Background(), operationId).Sbom(sbom).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ImportsApi.UploadImportSourcesSbom``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `ImportsAPI.UploadImportSourcesSbom``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
     // response from `UploadImportSourcesSbom`: SourceImportContentResponse
-    fmt.Fprintf(os.Stdout, "Response from `ImportsApi.UploadImportSourcesSbom`: %v\n", resp)
+    fmt.Fprintf(os.Stdout, "Response from `ImportsAPI.UploadImportSourcesSbom`: %v\n", resp)
 }
 ```
 

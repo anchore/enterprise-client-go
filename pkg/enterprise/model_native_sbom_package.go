@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the NativeSBOMPackage type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &NativeSBOMPackage{}
+
 // NativeSBOMPackage struct for NativeSBOMPackage
 type NativeSBOMPackage struct {
 	Id *string `json:"id,omitempty"`
@@ -60,7 +63,7 @@ func NewNativeSBOMPackageWithDefaults() *NativeSBOMPackage {
 
 // GetId returns the Id field value if set, zero value otherwise.
 func (o *NativeSBOMPackage) GetId() string {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		var ret string
 		return ret
 	}
@@ -70,7 +73,7 @@ func (o *NativeSBOMPackage) GetId() string {
 // GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *NativeSBOMPackage) GetIdOk() (*string, bool) {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
 	return o.Id, true
@@ -78,7 +81,7 @@ func (o *NativeSBOMPackage) GetIdOk() (*string, bool) {
 
 // HasId returns a boolean if a field has been set.
 func (o *NativeSBOMPackage) HasId() bool {
-	if o != nil && o.Id != nil {
+	if o != nil && !IsNil(o.Id) {
 		return true
 	}
 
@@ -103,7 +106,7 @@ func (o *NativeSBOMPackage) GetName() string {
 // GetNameOk returns a tuple with the Name field value
 // and a boolean to check if the value has been set.
 func (o *NativeSBOMPackage) GetNameOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Name, true
@@ -127,7 +130,7 @@ func (o *NativeSBOMPackage) GetVersion() string {
 // GetVersionOk returns a tuple with the Version field value
 // and a boolean to check if the value has been set.
 func (o *NativeSBOMPackage) GetVersionOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Version, true
@@ -151,7 +154,7 @@ func (o *NativeSBOMPackage) GetType() string {
 // GetTypeOk returns a tuple with the Type field value
 // and a boolean to check if the value has been set.
 func (o *NativeSBOMPackage) GetTypeOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Type, true
@@ -164,7 +167,7 @@ func (o *NativeSBOMPackage) SetType(v string) {
 
 // GetFoundBy returns the FoundBy field value if set, zero value otherwise.
 func (o *NativeSBOMPackage) GetFoundBy() string {
-	if o == nil || o.FoundBy == nil {
+	if o == nil || IsNil(o.FoundBy) {
 		var ret string
 		return ret
 	}
@@ -174,7 +177,7 @@ func (o *NativeSBOMPackage) GetFoundBy() string {
 // GetFoundByOk returns a tuple with the FoundBy field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *NativeSBOMPackage) GetFoundByOk() (*string, bool) {
-	if o == nil || o.FoundBy == nil {
+	if o == nil || IsNil(o.FoundBy) {
 		return nil, false
 	}
 	return o.FoundBy, true
@@ -182,7 +185,7 @@ func (o *NativeSBOMPackage) GetFoundByOk() (*string, bool) {
 
 // HasFoundBy returns a boolean if a field has been set.
 func (o *NativeSBOMPackage) HasFoundBy() bool {
-	if o != nil && o.FoundBy != nil {
+	if o != nil && !IsNil(o.FoundBy) {
 		return true
 	}
 
@@ -206,11 +209,11 @@ func (o *NativeSBOMPackage) GetLocations() []NativeSBOMPackageLocation {
 
 // GetLocationsOk returns a tuple with the Locations field value
 // and a boolean to check if the value has been set.
-func (o *NativeSBOMPackage) GetLocationsOk() (*[]NativeSBOMPackageLocation, bool) {
-	if o == nil  {
+func (o *NativeSBOMPackage) GetLocationsOk() ([]NativeSBOMPackageLocation, bool) {
+	if o == nil {
 		return nil, false
 	}
-	return &o.Locations, true
+	return o.Locations, true
 }
 
 // SetLocations sets field value
@@ -230,11 +233,11 @@ func (o *NativeSBOMPackage) GetLicenses() []interface{} {
 
 // GetLicensesOk returns a tuple with the Licenses field value
 // and a boolean to check if the value has been set.
-func (o *NativeSBOMPackage) GetLicensesOk() (*[]interface{}, bool) {
-	if o == nil  {
+func (o *NativeSBOMPackage) GetLicensesOk() ([]interface{}, bool) {
+	if o == nil {
 		return nil, false
 	}
-	return &o.Licenses, true
+	return o.Licenses, true
 }
 
 // SetLicenses sets field value
@@ -255,7 +258,7 @@ func (o *NativeSBOMPackage) GetLanguage() string {
 // GetLanguageOk returns a tuple with the Language field value
 // and a boolean to check if the value has been set.
 func (o *NativeSBOMPackage) GetLanguageOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Language, true
@@ -278,11 +281,11 @@ func (o *NativeSBOMPackage) GetCpes() []string {
 
 // GetCpesOk returns a tuple with the Cpes field value
 // and a boolean to check if the value has been set.
-func (o *NativeSBOMPackage) GetCpesOk() (*[]string, bool) {
-	if o == nil  {
+func (o *NativeSBOMPackage) GetCpesOk() ([]string, bool) {
+	if o == nil {
 		return nil, false
 	}
-	return &o.Cpes, true
+	return o.Cpes, true
 }
 
 // SetCpes sets field value
@@ -292,7 +295,7 @@ func (o *NativeSBOMPackage) SetCpes(v []string) {
 
 // GetPurl returns the Purl field value if set, zero value otherwise.
 func (o *NativeSBOMPackage) GetPurl() string {
-	if o == nil || o.Purl == nil {
+	if o == nil || IsNil(o.Purl) {
 		var ret string
 		return ret
 	}
@@ -302,7 +305,7 @@ func (o *NativeSBOMPackage) GetPurl() string {
 // GetPurlOk returns a tuple with the Purl field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *NativeSBOMPackage) GetPurlOk() (*string, bool) {
-	if o == nil || o.Purl == nil {
+	if o == nil || IsNil(o.Purl) {
 		return nil, false
 	}
 	return o.Purl, true
@@ -310,7 +313,7 @@ func (o *NativeSBOMPackage) GetPurlOk() (*string, bool) {
 
 // HasPurl returns a boolean if a field has been set.
 func (o *NativeSBOMPackage) HasPurl() bool {
-	if o != nil && o.Purl != nil {
+	if o != nil && !IsNil(o.Purl) {
 		return true
 	}
 
@@ -324,7 +327,7 @@ func (o *NativeSBOMPackage) SetPurl(v string) {
 
 // GetMetadataType returns the MetadataType field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *NativeSBOMPackage) GetMetadataType() string {
-	if o == nil || o.MetadataType.Get() == nil {
+	if o == nil || IsNil(o.MetadataType.Get()) {
 		var ret string
 		return ret
 	}
@@ -335,7 +338,7 @@ func (o *NativeSBOMPackage) GetMetadataType() string {
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *NativeSBOMPackage) GetMetadataTypeOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return o.MetadataType.Get(), o.MetadataType.IsSet()
@@ -366,7 +369,7 @@ func (o *NativeSBOMPackage) UnsetMetadataType() {
 
 // GetMetadata returns the Metadata field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *NativeSBOMPackage) GetMetadata() interface{} {
-	if o == nil  {
+	if o == nil {
 		var ret interface{}
 		return ret
 	}
@@ -376,16 +379,16 @@ func (o *NativeSBOMPackage) GetMetadata() interface{} {
 // GetMetadataOk returns a tuple with the Metadata field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *NativeSBOMPackage) GetMetadataOk() (*interface{}, bool) {
-	if o == nil || o.Metadata == nil {
-		return nil, false
+func (o *NativeSBOMPackage) GetMetadataOk() (interface{}, bool) {
+	if o == nil || IsNil(o.Metadata) {
+		return interface{}{}, false
 	}
-	return &o.Metadata, true
+	return o.Metadata, true
 }
 
 // HasMetadata returns a boolean if a field has been set.
 func (o *NativeSBOMPackage) HasMetadata() bool {
-	if o != nil && o.Metadata != nil {
+	if o != nil && IsNil(o.Metadata) {
 		return true
 	}
 
@@ -398,35 +401,29 @@ func (o *NativeSBOMPackage) SetMetadata(v interface{}) {
 }
 
 func (o NativeSBOMPackage) MarshalJSON() ([]byte, error) {
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o NativeSBOMPackage) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Id != nil {
+	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
 	}
-	if true {
-		toSerialize["name"] = o.Name
-	}
-	if true {
-		toSerialize["version"] = o.Version
-	}
-	if true {
-		toSerialize["type"] = o.Type
-	}
-	if o.FoundBy != nil {
+	toSerialize["name"] = o.Name
+	toSerialize["version"] = o.Version
+	toSerialize["type"] = o.Type
+	if !IsNil(o.FoundBy) {
 		toSerialize["foundBy"] = o.FoundBy
 	}
-	if true {
-		toSerialize["locations"] = o.Locations
-	}
-	if true {
-		toSerialize["licenses"] = o.Licenses
-	}
-	if true {
-		toSerialize["language"] = o.Language
-	}
-	if true {
-		toSerialize["cpes"] = o.Cpes
-	}
-	if o.Purl != nil {
+	toSerialize["locations"] = o.Locations
+	toSerialize["licenses"] = o.Licenses
+	toSerialize["language"] = o.Language
+	toSerialize["cpes"] = o.Cpes
+	if !IsNil(o.Purl) {
 		toSerialize["purl"] = o.Purl
 	}
 	if o.MetadataType.IsSet() {
@@ -440,15 +437,19 @@ func (o NativeSBOMPackage) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
 func (o *NativeSBOMPackage) UnmarshalJSON(bytes []byte) (err error) {
 	varNativeSBOMPackage := _NativeSBOMPackage{}
 
-	if err = json.Unmarshal(bytes, &varNativeSBOMPackage); err == nil {
-		*o = NativeSBOMPackage(varNativeSBOMPackage)
+	err = json.Unmarshal(bytes, &varNativeSBOMPackage)
+
+	if err != nil {
+		return err
 	}
+
+	*o = NativeSBOMPackage(varNativeSBOMPackage)
 
 	additionalProperties := make(map[string]interface{})
 

@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the RegistryTagSource type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &RegistryTagSource{}
+
 // RegistryTagSource An image reference using a tag in a registry, this is the most common source type.
 type RegistryTagSource struct {
 	// A docker pull string (e.g. docker.io/nginx:latest, or docker.io/nginx@sha256:abd) to retrieve the image
@@ -54,7 +57,7 @@ func (o *RegistryTagSource) GetPullString() string {
 // GetPullStringOk returns a tuple with the PullString field value
 // and a boolean to check if the value has been set.
 func (o *RegistryTagSource) GetPullStringOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.PullString, true
@@ -67,7 +70,7 @@ func (o *RegistryTagSource) SetPullString(v string) {
 
 // GetDockerfile returns the Dockerfile field value if set, zero value otherwise.
 func (o *RegistryTagSource) GetDockerfile() string {
-	if o == nil || o.Dockerfile == nil {
+	if o == nil || IsNil(o.Dockerfile) {
 		var ret string
 		return ret
 	}
@@ -77,7 +80,7 @@ func (o *RegistryTagSource) GetDockerfile() string {
 // GetDockerfileOk returns a tuple with the Dockerfile field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RegistryTagSource) GetDockerfileOk() (*string, bool) {
-	if o == nil || o.Dockerfile == nil {
+	if o == nil || IsNil(o.Dockerfile) {
 		return nil, false
 	}
 	return o.Dockerfile, true
@@ -85,7 +88,7 @@ func (o *RegistryTagSource) GetDockerfileOk() (*string, bool) {
 
 // HasDockerfile returns a boolean if a field has been set.
 func (o *RegistryTagSource) HasDockerfile() bool {
-	if o != nil && o.Dockerfile != nil {
+	if o != nil && !IsNil(o.Dockerfile) {
 		return true
 	}
 
@@ -98,14 +101,20 @@ func (o *RegistryTagSource) SetDockerfile(v string) {
 }
 
 func (o RegistryTagSource) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["pull_string"] = o.PullString
-	}
-	if o.Dockerfile != nil {
-		toSerialize["dockerfile"] = o.Dockerfile
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o RegistryTagSource) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["pull_string"] = o.PullString
+	if !IsNil(o.Dockerfile) {
+		toSerialize["dockerfile"] = o.Dockerfile
+	}
+	return toSerialize, nil
 }
 
 type NullableRegistryTagSource struct {

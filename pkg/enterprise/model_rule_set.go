@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the RuleSet type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &RuleSet{}
+
 // RuleSet struct for RuleSet
 type RuleSet struct {
 	Id string `json:"id"`
@@ -60,7 +63,7 @@ func (o *RuleSet) GetId() string {
 // GetIdOk returns a tuple with the Id field value
 // and a boolean to check if the value has been set.
 func (o *RuleSet) GetIdOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Id, true
@@ -84,7 +87,7 @@ func (o *RuleSet) GetName() string {
 // GetNameOk returns a tuple with the Name field value
 // and a boolean to check if the value has been set.
 func (o *RuleSet) GetNameOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Name, true
@@ -97,7 +100,7 @@ func (o *RuleSet) SetName(v string) {
 
 // GetDescription returns the Description field value if set, zero value otherwise.
 func (o *RuleSet) GetDescription() string {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		var ret string
 		return ret
 	}
@@ -107,7 +110,7 @@ func (o *RuleSet) GetDescription() string {
 // GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RuleSet) GetDescriptionOk() (*string, bool) {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		return nil, false
 	}
 	return o.Description, true
@@ -115,7 +118,7 @@ func (o *RuleSet) GetDescriptionOk() (*string, bool) {
 
 // HasDescription returns a boolean if a field has been set.
 func (o *RuleSet) HasDescription() bool {
-	if o != nil && o.Description != nil {
+	if o != nil && !IsNil(o.Description) {
 		return true
 	}
 
@@ -140,7 +143,7 @@ func (o *RuleSet) GetVersion() string {
 // GetVersionOk returns a tuple with the Version field value
 // and a boolean to check if the value has been set.
 func (o *RuleSet) GetVersionOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Version, true
@@ -153,7 +156,7 @@ func (o *RuleSet) SetVersion(v string) {
 
 // GetArtifactType returns the ArtifactType field value if set, zero value otherwise.
 func (o *RuleSet) GetArtifactType() string {
-	if o == nil || o.ArtifactType == nil {
+	if o == nil || IsNil(o.ArtifactType) {
 		var ret string
 		return ret
 	}
@@ -163,7 +166,7 @@ func (o *RuleSet) GetArtifactType() string {
 // GetArtifactTypeOk returns a tuple with the ArtifactType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RuleSet) GetArtifactTypeOk() (*string, bool) {
-	if o == nil || o.ArtifactType == nil {
+	if o == nil || IsNil(o.ArtifactType) {
 		return nil, false
 	}
 	return o.ArtifactType, true
@@ -171,7 +174,7 @@ func (o *RuleSet) GetArtifactTypeOk() (*string, bool) {
 
 // HasArtifactType returns a boolean if a field has been set.
 func (o *RuleSet) HasArtifactType() bool {
-	if o != nil && o.ArtifactType != nil {
+	if o != nil && !IsNil(o.ArtifactType) {
 		return true
 	}
 
@@ -195,11 +198,11 @@ func (o *RuleSet) GetRules() []PolicyRule {
 
 // GetRulesOk returns a tuple with the Rules field value
 // and a boolean to check if the value has been set.
-func (o *RuleSet) GetRulesOk() (*[]PolicyRule, bool) {
-	if o == nil  {
+func (o *RuleSet) GetRulesOk() ([]PolicyRule, bool) {
+	if o == nil {
 		return nil, false
 	}
-	return &o.Rules, true
+	return o.Rules, true
 }
 
 // SetRules sets field value
@@ -208,26 +211,26 @@ func (o *RuleSet) SetRules(v []PolicyRule) {
 }
 
 func (o RuleSet) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["id"] = o.Id
-	}
-	if true {
-		toSerialize["name"] = o.Name
-	}
-	if o.Description != nil {
-		toSerialize["description"] = o.Description
-	}
-	if true {
-		toSerialize["version"] = o.Version
-	}
-	if o.ArtifactType != nil {
-		toSerialize["artifact_type"] = o.ArtifactType
-	}
-	if true {
-		toSerialize["rules"] = o.Rules
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o RuleSet) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["id"] = o.Id
+	toSerialize["name"] = o.Name
+	if !IsNil(o.Description) {
+		toSerialize["description"] = o.Description
+	}
+	toSerialize["version"] = o.Version
+	if !IsNil(o.ArtifactType) {
+		toSerialize["artifact_type"] = o.ArtifactType
+	}
+	toSerialize["rules"] = o.Rules
+	return toSerialize, nil
 }
 
 type NullableRuleSet struct {
