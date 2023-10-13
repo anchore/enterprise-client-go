@@ -62,7 +62,7 @@ func (o *SourceImportMetadata) GetCiWorkflowName() string {
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *SourceImportMetadata) GetCiWorkflowNameOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return o.CiWorkflowName.Get(), o.CiWorkflowName.IsSet()
@@ -104,7 +104,7 @@ func (o *SourceImportMetadata) GetCiWorkflowExecutionTime() time.Time {
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *SourceImportMetadata) GetCiWorkflowExecutionTimeOk() (*time.Time, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return o.CiWorkflowExecutionTime.Get(), o.CiWorkflowExecutionTime.IsSet()
@@ -146,7 +146,7 @@ func (o *SourceImportMetadata) GetHost() string {
 // GetHostOk returns a tuple with the Host field value
 // and a boolean to check if the value has been set.
 func (o *SourceImportMetadata) GetHostOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Host, true
@@ -170,7 +170,7 @@ func (o *SourceImportMetadata) GetRepositoryName() string {
 // GetRepositoryNameOk returns a tuple with the RepositoryName field value
 // and a boolean to check if the value has been set.
 func (o *SourceImportMetadata) GetRepositoryNameOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.RepositoryName, true
@@ -194,7 +194,7 @@ func (o *SourceImportMetadata) GetBranchName() string {
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *SourceImportMetadata) GetBranchNameOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return o.BranchName.Get(), o.BranchName.IsSet()
@@ -236,7 +236,7 @@ func (o *SourceImportMetadata) GetRevision() string {
 // GetRevisionOk returns a tuple with the Revision field value
 // and a boolean to check if the value has been set.
 func (o *SourceImportMetadata) GetRevisionOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Revision, true
@@ -260,7 +260,7 @@ func (o *SourceImportMetadata) GetChangeAuthor() string {
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *SourceImportMetadata) GetChangeAuthorOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return o.ChangeAuthor.Get(), o.ChangeAuthor.IsSet()
@@ -302,7 +302,7 @@ func (o *SourceImportMetadata) GetContents() SourceImportMetadataContents {
 // GetContentsOk returns a tuple with the Contents field value
 // and a boolean to check if the value has been set.
 func (o *SourceImportMetadata) GetContentsOk() (*SourceImportMetadataContents, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Contents, true

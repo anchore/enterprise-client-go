@@ -19,7 +19,7 @@ import (
 type SourceContentPackageResponse struct {
 	SourceId *string `json:"source_id,omitempty"`
 	ContentType *string `json:"content_type,omitempty"`
-	Content *[]SourceContentPackageResponseContent `json:"content,omitempty"`
+	Content []SourceContentPackageResponseContent `json:"content,omitempty"`
 }
 
 // NewSourceContentPackageResponse instantiates a new SourceContentPackageResponse object
@@ -109,12 +109,12 @@ func (o *SourceContentPackageResponse) GetContent() []SourceContentPackageRespon
 		var ret []SourceContentPackageResponseContent
 		return ret
 	}
-	return *o.Content
+	return o.Content
 }
 
 // GetContentOk returns a tuple with the Content field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SourceContentPackageResponse) GetContentOk() (*[]SourceContentPackageResponseContent, bool) {
+func (o *SourceContentPackageResponse) GetContentOk() ([]SourceContentPackageResponseContent, bool) {
 	if o == nil || o.Content == nil {
 		return nil, false
 	}
@@ -132,7 +132,7 @@ func (o *SourceContentPackageResponse) HasContent() bool {
 
 // SetContent gets a reference to the given []SourceContentPackageResponseContent and assigns it to the Content field.
 func (o *SourceContentPackageResponse) SetContent(v []SourceContentPackageResponseContent) {
-	o.Content = &v
+	o.Content = v
 }
 
 func (o SourceContentPackageResponse) MarshalJSON() ([]byte, error) {

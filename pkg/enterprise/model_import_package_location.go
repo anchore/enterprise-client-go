@@ -55,7 +55,7 @@ func (o *ImportPackageLocation) GetPath() string {
 // GetPathOk returns a tuple with the Path field value
 // and a boolean to check if the value has been set.
 func (o *ImportPackageLocation) GetPathOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Path, true

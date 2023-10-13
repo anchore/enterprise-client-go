@@ -1,6 +1,6 @@
 # \RelationshipsApi
 
-All URIs are relative to *http://localhost/v2*
+All URIs are relative to */v2*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -36,8 +36,8 @@ func main() {
     relationship := *openapiclient.NewArtifactRelationship() // ArtifactRelationship | 
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.RelationshipsApi.AddArtifactRelationship(context.Background()).Relationship(relationship).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.RelationshipsApi.AddArtifactRelationship(context.Background()).Relationship(relationship).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `RelationshipsApi.AddArtifactRelationship``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -102,8 +102,8 @@ func main() {
     relationshipIds := []string{"Inner_example"} // []string | List of relationship Ids to delete
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.RelationshipsApi.DeleteArtifactRelationships(context.Background()).RelationshipIds(relationshipIds).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.RelationshipsApi.DeleteArtifactRelationships(context.Background()).RelationshipIds(relationshipIds).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `RelationshipsApi.DeleteArtifactRelationships``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -168,8 +168,8 @@ func main() {
     relationshipId := "relationshipId_example" // string | Id of record to retrieve
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.RelationshipsApi.GetArtifactRelationship(context.Background(), relationshipId).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.RelationshipsApi.GetArtifactRelationship(context.Background(), relationshipId).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `RelationshipsApi.GetArtifactRelationship``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -238,8 +238,8 @@ func main() {
     relationshipId := "relationshipId_example" // string | 
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.RelationshipsApi.GetRelationshipSbomDiff(context.Background(), relationshipId).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.RelationshipsApi.GetRelationshipSbomDiff(context.Background(), relationshipId).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `RelationshipsApi.GetRelationshipSbomDiff``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -309,8 +309,8 @@ func main() {
     artifactId := "artifactId_example" // string | Filter for artifact id as either source or target (optional)
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.RelationshipsApi.ListArtifactRelationships(context.Background()).ArtifactType(artifactType).ArtifactId(artifactId).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.RelationshipsApi.ListArtifactRelationships(context.Background()).ArtifactType(artifactType).ArtifactId(artifactId).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `RelationshipsApi.ListArtifactRelationships``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)

@@ -19,7 +19,7 @@ import (
 type ContentFilesResponse struct {
 	ImageDigest *string `json:"image_digest,omitempty"`
 	ContentType *string `json:"content_type,omitempty"`
-	Content *[]ContentFilesResponseContent `json:"content,omitempty"`
+	Content []ContentFilesResponseContentInner `json:"content,omitempty"`
 }
 
 // NewContentFilesResponse instantiates a new ContentFilesResponse object
@@ -104,17 +104,17 @@ func (o *ContentFilesResponse) SetContentType(v string) {
 }
 
 // GetContent returns the Content field value if set, zero value otherwise.
-func (o *ContentFilesResponse) GetContent() []ContentFilesResponseContent {
+func (o *ContentFilesResponse) GetContent() []ContentFilesResponseContentInner {
 	if o == nil || o.Content == nil {
-		var ret []ContentFilesResponseContent
+		var ret []ContentFilesResponseContentInner
 		return ret
 	}
-	return *o.Content
+	return o.Content
 }
 
 // GetContentOk returns a tuple with the Content field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ContentFilesResponse) GetContentOk() (*[]ContentFilesResponseContent, bool) {
+func (o *ContentFilesResponse) GetContentOk() ([]ContentFilesResponseContentInner, bool) {
 	if o == nil || o.Content == nil {
 		return nil, false
 	}
@@ -130,9 +130,9 @@ func (o *ContentFilesResponse) HasContent() bool {
 	return false
 }
 
-// SetContent gets a reference to the given []ContentFilesResponseContent and assigns it to the Content field.
-func (o *ContentFilesResponse) SetContent(v []ContentFilesResponseContent) {
-	o.Content = &v
+// SetContent gets a reference to the given []ContentFilesResponseContentInner and assigns it to the Content field.
+func (o *ContentFilesResponse) SetContent(v []ContentFilesResponseContentInner) {
+	o.Content = v
 }
 
 func (o ContentFilesResponse) MarshalJSON() ([]byte, error) {

@@ -223,7 +223,7 @@ func (o *NotificationTeamsEndpointConfiguration) GetUrl() string {
 // GetUrlOk returns a tuple with the Url field value
 // and a boolean to check if the value has been set.
 func (o *NotificationTeamsEndpointConfiguration) GetUrlOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Url, true

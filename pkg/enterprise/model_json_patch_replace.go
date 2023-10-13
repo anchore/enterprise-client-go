@@ -91,7 +91,7 @@ func (o *JsonPatchReplace) GetOp() string {
 // GetOpOk returns a tuple with the Op field value
 // and a boolean to check if the value has been set.
 func (o *JsonPatchReplace) GetOpOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Op, true
@@ -115,7 +115,7 @@ func (o *JsonPatchReplace) GetPath() string {
 // GetPathOk returns a tuple with the Path field value
 // and a boolean to check if the value has been set.
 func (o *JsonPatchReplace) GetPathOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Path, true
@@ -138,11 +138,11 @@ func (o *JsonPatchReplace) GetValue() interface{} {
 
 // GetValueOk returns a tuple with the Value field value
 // and a boolean to check if the value has been set.
-func (o *JsonPatchReplace) GetValueOk() (*interface{}, bool) {
-	if o == nil  {
+func (o *JsonPatchReplace) GetValueOk() (interface{}, bool) {
+	if o == nil {
 		return nil, false
 	}
-	return &o.Value, true
+	return o.Value, true
 }
 
 // SetValue sets field value

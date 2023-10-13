@@ -24,7 +24,7 @@ type PolicyEvaluation struct {
 	// Image tag used to evaluate policy for the given image
 	EvaluatedTag *string `json:"evaluated_tag,omitempty"`
 	// List of policy evaluations. Always has at least one result, may contain multiple when the evaluation history is requested.
-	Evaluations *[]PolicyEvaluationEvaluations `json:"evaluations,omitempty"`
+	Evaluations []PolicyEvaluationEvaluationsInner `json:"evaluations,omitempty"`
 }
 
 // NewPolicyEvaluation instantiates a new PolicyEvaluation object
@@ -141,17 +141,17 @@ func (o *PolicyEvaluation) SetEvaluatedTag(v string) {
 }
 
 // GetEvaluations returns the Evaluations field value if set, zero value otherwise.
-func (o *PolicyEvaluation) GetEvaluations() []PolicyEvaluationEvaluations {
+func (o *PolicyEvaluation) GetEvaluations() []PolicyEvaluationEvaluationsInner {
 	if o == nil || o.Evaluations == nil {
-		var ret []PolicyEvaluationEvaluations
+		var ret []PolicyEvaluationEvaluationsInner
 		return ret
 	}
-	return *o.Evaluations
+	return o.Evaluations
 }
 
 // GetEvaluationsOk returns a tuple with the Evaluations field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *PolicyEvaluation) GetEvaluationsOk() (*[]PolicyEvaluationEvaluations, bool) {
+func (o *PolicyEvaluation) GetEvaluationsOk() ([]PolicyEvaluationEvaluationsInner, bool) {
 	if o == nil || o.Evaluations == nil {
 		return nil, false
 	}
@@ -167,9 +167,9 @@ func (o *PolicyEvaluation) HasEvaluations() bool {
 	return false
 }
 
-// SetEvaluations gets a reference to the given []PolicyEvaluationEvaluations and assigns it to the Evaluations field.
-func (o *PolicyEvaluation) SetEvaluations(v []PolicyEvaluationEvaluations) {
-	o.Evaluations = &v
+// SetEvaluations gets a reference to the given []PolicyEvaluationEvaluationsInner and assigns it to the Evaluations field.
+func (o *PolicyEvaluation) SetEvaluations(v []PolicyEvaluationEvaluationsInner) {
+	o.Evaluations = v
 }
 
 func (o PolicyEvaluation) MarshalJSON() ([]byte, error) {

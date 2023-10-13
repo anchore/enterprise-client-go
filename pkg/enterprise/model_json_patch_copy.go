@@ -91,7 +91,7 @@ func (o *JsonPatchCopy) GetOp() string {
 // GetOpOk returns a tuple with the Op field value
 // and a boolean to check if the value has been set.
 func (o *JsonPatchCopy) GetOpOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Op, true
@@ -115,7 +115,7 @@ func (o *JsonPatchCopy) GetPath() string {
 // GetPathOk returns a tuple with the Path field value
 // and a boolean to check if the value has been set.
 func (o *JsonPatchCopy) GetPathOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Path, true
@@ -139,7 +139,7 @@ func (o *JsonPatchCopy) GetFrom() string {
 // GetFromOk returns a tuple with the From field value
 // and a boolean to check if the value has been set.
 func (o *JsonPatchCopy) GetFromOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.From, true

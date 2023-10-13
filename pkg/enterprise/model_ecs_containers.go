@@ -17,7 +17,7 @@ import (
 
 // ECSContainers Containers defined in ECS
 type ECSContainers struct {
-	Containers *[]ECSContainersContainers `json:"containers,omitempty"`
+	Containers []ECSContainersContainersInner `json:"containers,omitempty"`
 }
 
 // NewECSContainers instantiates a new ECSContainers object
@@ -38,17 +38,17 @@ func NewECSContainersWithDefaults() *ECSContainers {
 }
 
 // GetContainers returns the Containers field value if set, zero value otherwise.
-func (o *ECSContainers) GetContainers() []ECSContainersContainers {
+func (o *ECSContainers) GetContainers() []ECSContainersContainersInner {
 	if o == nil || o.Containers == nil {
-		var ret []ECSContainersContainers
+		var ret []ECSContainersContainersInner
 		return ret
 	}
-	return *o.Containers
+	return o.Containers
 }
 
 // GetContainersOk returns a tuple with the Containers field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ECSContainers) GetContainersOk() (*[]ECSContainersContainers, bool) {
+func (o *ECSContainers) GetContainersOk() ([]ECSContainersContainersInner, bool) {
 	if o == nil || o.Containers == nil {
 		return nil, false
 	}
@@ -64,9 +64,9 @@ func (o *ECSContainers) HasContainers() bool {
 	return false
 }
 
-// SetContainers gets a reference to the given []ECSContainersContainers and assigns it to the Containers field.
-func (o *ECSContainers) SetContainers(v []ECSContainersContainers) {
-	o.Containers = &v
+// SetContainers gets a reference to the given []ECSContainersContainersInner and assigns it to the Containers field.
+func (o *ECSContainers) SetContainers(v []ECSContainersContainersInner) {
+	o.Containers = v
 }
 
 func (o ECSContainers) MarshalJSON() ([]byte, error) {

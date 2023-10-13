@@ -24,7 +24,7 @@ type FeedMetadata struct {
 	CreatedAt *time.Time `json:"created_at,omitempty"`
 	// Date the metadata was last updated
 	UpdatedAt *time.Time `json:"updated_at,omitempty"`
-	Groups *[]FeedGroupMetadata `json:"groups,omitempty"`
+	Groups []FeedGroupMetadata `json:"groups,omitempty"`
 	LastFullSync *time.Time `json:"last_full_sync,omitempty"`
 	// If feed is enabled
 	Enabled *bool `json:"enabled,omitempty"`
@@ -149,12 +149,12 @@ func (o *FeedMetadata) GetGroups() []FeedGroupMetadata {
 		var ret []FeedGroupMetadata
 		return ret
 	}
-	return *o.Groups
+	return o.Groups
 }
 
 // GetGroupsOk returns a tuple with the Groups field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *FeedMetadata) GetGroupsOk() (*[]FeedGroupMetadata, bool) {
+func (o *FeedMetadata) GetGroupsOk() ([]FeedGroupMetadata, bool) {
 	if o == nil || o.Groups == nil {
 		return nil, false
 	}
@@ -172,7 +172,7 @@ func (o *FeedMetadata) HasGroups() bool {
 
 // SetGroups gets a reference to the given []FeedGroupMetadata and assigns it to the Groups field.
 func (o *FeedMetadata) SetGroups(v []FeedGroupMetadata) {
-	o.Groups = &v
+	o.Groups = v
 }
 
 // GetLastFullSync returns the LastFullSync field value if set, zero value otherwise.

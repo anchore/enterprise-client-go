@@ -13,140 +13,136 @@ package enterprise
 
 import (
 	"bytes"
-	_context "context"
-	_ioutil "io/ioutil"
-	_nethttp "net/http"
-	_neturl "net/url"
+	"context"
+	"io/ioutil"
+	"net/http"
+	"net/url"
 	"strings"
 )
 
-// Linger please
-var (
-	_ _context.Context
-)
 
 type ArchivesApi interface {
 
 	/*
 	ArchiveImageAnalysis Method for ArchiveImageAnalysis
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @return ApiArchiveImageAnalysisRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiArchiveImageAnalysisRequest
 	*/
-	ArchiveImageAnalysis(ctx _context.Context) ApiArchiveImageAnalysisRequest
+	ArchiveImageAnalysis(ctx context.Context) ApiArchiveImageAnalysisRequest
 
 	// ArchiveImageAnalysisExecute executes the request
 	//  @return []AnalysisArchiveAddResult
-	ArchiveImageAnalysisExecute(r ApiArchiveImageAnalysisRequest) ([]AnalysisArchiveAddResult, *_nethttp.Response, error)
+	ArchiveImageAnalysisExecute(r ApiArchiveImageAnalysisRequest) ([]AnalysisArchiveAddResult, *http.Response, error)
 
 	/*
 	CreateAnalysisArchiveRule Method for CreateAnalysisArchiveRule
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @return ApiCreateAnalysisArchiveRuleRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiCreateAnalysisArchiveRuleRequest
 	*/
-	CreateAnalysisArchiveRule(ctx _context.Context) ApiCreateAnalysisArchiveRuleRequest
+	CreateAnalysisArchiveRule(ctx context.Context) ApiCreateAnalysisArchiveRuleRequest
 
 	// CreateAnalysisArchiveRuleExecute executes the request
 	//  @return AnalysisArchiveTransitionRule
-	CreateAnalysisArchiveRuleExecute(r ApiCreateAnalysisArchiveRuleRequest) (AnalysisArchiveTransitionRule, *_nethttp.Response, error)
+	CreateAnalysisArchiveRuleExecute(r ApiCreateAnalysisArchiveRuleRequest) (*AnalysisArchiveTransitionRule, *http.Response, error)
 
 	/*
 	DeleteAnalysisArchiveRule Method for DeleteAnalysisArchiveRule
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @param ruleId
-	 @return ApiDeleteAnalysisArchiveRuleRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param ruleId
+	@return ApiDeleteAnalysisArchiveRuleRequest
 	*/
-	DeleteAnalysisArchiveRule(ctx _context.Context, ruleId string) ApiDeleteAnalysisArchiveRuleRequest
+	DeleteAnalysisArchiveRule(ctx context.Context, ruleId string) ApiDeleteAnalysisArchiveRuleRequest
 
 	// DeleteAnalysisArchiveRuleExecute executes the request
-	DeleteAnalysisArchiveRuleExecute(r ApiDeleteAnalysisArchiveRuleRequest) (*_nethttp.Response, error)
+	DeleteAnalysisArchiveRuleExecute(r ApiDeleteAnalysisArchiveRuleRequest) (*http.Response, error)
 
 	/*
 	DeleteArchivedAnalysis Method for DeleteArchivedAnalysis
 
 	Performs a synchronous archive deletion
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @param imageDigest
-	 @return ApiDeleteArchivedAnalysisRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param imageDigest
+	@return ApiDeleteArchivedAnalysisRequest
 	*/
-	DeleteArchivedAnalysis(ctx _context.Context, imageDigest string) ApiDeleteArchivedAnalysisRequest
+	DeleteArchivedAnalysis(ctx context.Context, imageDigest string) ApiDeleteArchivedAnalysisRequest
 
 	// DeleteArchivedAnalysisExecute executes the request
-	DeleteArchivedAnalysisExecute(r ApiDeleteArchivedAnalysisRequest) (*_nethttp.Response, error)
+	DeleteArchivedAnalysisExecute(r ApiDeleteArchivedAnalysisRequest) (*http.Response, error)
 
 	/*
 	GetAnalysisArchiveRule Method for GetAnalysisArchiveRule
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @param ruleId
-	 @return ApiGetAnalysisArchiveRuleRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param ruleId
+	@return ApiGetAnalysisArchiveRuleRequest
 	*/
-	GetAnalysisArchiveRule(ctx _context.Context, ruleId string) ApiGetAnalysisArchiveRuleRequest
+	GetAnalysisArchiveRule(ctx context.Context, ruleId string) ApiGetAnalysisArchiveRuleRequest
 
 	// GetAnalysisArchiveRuleExecute executes the request
 	//  @return AnalysisArchiveTransitionRule
-	GetAnalysisArchiveRuleExecute(r ApiGetAnalysisArchiveRuleRequest) (AnalysisArchiveTransitionRule, *_nethttp.Response, error)
+	GetAnalysisArchiveRuleExecute(r ApiGetAnalysisArchiveRuleRequest) (*AnalysisArchiveTransitionRule, *http.Response, error)
 
 	/*
 	GetArchivedAnalysis Method for GetArchivedAnalysis
 
 	Returns the archive metadata record identifying the image and tags for the analysis in the archive.
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @param imageDigest The image digest to identify the image analysis
-	 @return ApiGetArchivedAnalysisRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param imageDigest The image digest to identify the image analysis
+	@return ApiGetArchivedAnalysisRequest
 	*/
-	GetArchivedAnalysis(ctx _context.Context, imageDigest string) ApiGetArchivedAnalysisRequest
+	GetArchivedAnalysis(ctx context.Context, imageDigest string) ApiGetArchivedAnalysisRequest
 
 	// GetArchivedAnalysisExecute executes the request
 	//  @return ArchivedAnalysis
-	GetArchivedAnalysisExecute(r ApiGetArchivedAnalysisRequest) (ArchivedAnalysis, *_nethttp.Response, error)
+	GetArchivedAnalysisExecute(r ApiGetArchivedAnalysisRequest) (*ArchivedAnalysis, *http.Response, error)
 
 	/*
 	ListAnalysisArchive Method for ListAnalysisArchive
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @return ApiListAnalysisArchiveRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiListAnalysisArchiveRequest
 	*/
-	ListAnalysisArchive(ctx _context.Context) ApiListAnalysisArchiveRequest
+	ListAnalysisArchive(ctx context.Context) ApiListAnalysisArchiveRequest
 
 	// ListAnalysisArchiveExecute executes the request
 	//  @return []ArchivedAnalysis
-	ListAnalysisArchiveExecute(r ApiListAnalysisArchiveRequest) ([]ArchivedAnalysis, *_nethttp.Response, error)
+	ListAnalysisArchiveExecute(r ApiListAnalysisArchiveRequest) ([]ArchivedAnalysis, *http.Response, error)
 
 	/*
 	ListAnalysisArchiveRules Method for ListAnalysisArchiveRules
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @return ApiListAnalysisArchiveRulesRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiListAnalysisArchiveRulesRequest
 	*/
-	ListAnalysisArchiveRules(ctx _context.Context) ApiListAnalysisArchiveRulesRequest
+	ListAnalysisArchiveRules(ctx context.Context) ApiListAnalysisArchiveRulesRequest
 
 	// ListAnalysisArchiveRulesExecute executes the request
 	//  @return []AnalysisArchiveTransitionRule
-	ListAnalysisArchiveRulesExecute(r ApiListAnalysisArchiveRulesRequest) ([]AnalysisArchiveTransitionRule, *_nethttp.Response, error)
+	ListAnalysisArchiveRulesExecute(r ApiListAnalysisArchiveRulesRequest) ([]AnalysisArchiveTransitionRule, *http.Response, error)
 
 	/*
 	ListArchives Method for ListArchives
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @return ApiListArchivesRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiListArchivesRequest
 	*/
-	ListArchives(ctx _context.Context) ApiListArchivesRequest
+	ListArchives(ctx context.Context) ApiListArchivesRequest
 
 	// ListArchivesExecute executes the request
 	//  @return ArchiveSummary
-	ListArchivesExecute(r ApiListArchivesRequest) (ArchiveSummary, *_nethttp.Response, error)
+	ListArchivesExecute(r ApiListArchivesRequest) (*ArchiveSummary, *http.Response, error)
 }
 
 // ArchivesApiService ArchivesApi service
 type ArchivesApiService service
 
 type ApiArchiveImageAnalysisRequest struct {
-	ctx _context.Context
+	ctx context.Context
 	ApiService ArchivesApi
 	imageReferences *[]string
 }
@@ -156,17 +152,17 @@ func (r ApiArchiveImageAnalysisRequest) ImageReferences(imageReferences []string
 	return r
 }
 
-func (r ApiArchiveImageAnalysisRequest) Execute() ([]AnalysisArchiveAddResult, *_nethttp.Response, error) {
+func (r ApiArchiveImageAnalysisRequest) Execute() ([]AnalysisArchiveAddResult, *http.Response, error) {
 	return r.ApiService.ArchiveImageAnalysisExecute(r)
 }
 
 /*
 ArchiveImageAnalysis Method for ArchiveImageAnalysis
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiArchiveImageAnalysisRequest
 */
-func (a *ArchivesApiService) ArchiveImageAnalysis(ctx _context.Context) ApiArchiveImageAnalysisRequest {
+func (a *ArchivesApiService) ArchiveImageAnalysis(ctx context.Context) ApiArchiveImageAnalysisRequest {
 	return ApiArchiveImageAnalysisRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -175,26 +171,24 @@ func (a *ArchivesApiService) ArchiveImageAnalysis(ctx _context.Context) ApiArchi
 
 // Execute executes the request
 //  @return []AnalysisArchiveAddResult
-func (a *ArchivesApiService) ArchiveImageAnalysisExecute(r ApiArchiveImageAnalysisRequest) ([]AnalysisArchiveAddResult, *_nethttp.Response, error) {
+func (a *ArchivesApiService) ArchiveImageAnalysisExecute(r ApiArchiveImageAnalysisRequest) ([]AnalysisArchiveAddResult, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPost
+		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
+		formFiles            []formFile
 		localVarReturnValue  []AnalysisArchiveAddResult
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ArchivesApiService.ArchiveImageAnalysis")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/archives/images"
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if r.imageReferences == nil {
 		return localVarReturnValue, nil, reportError("imageReferences is required and must be specified")
 	}
@@ -218,7 +212,7 @@ func (a *ArchivesApiService) ArchiveImageAnalysisExecute(r ApiArchiveImageAnalys
 	}
 	// body params
 	localVarPostBody = r.imageReferences
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -228,15 +222,15 @@ func (a *ArchivesApiService) ArchiveImageAnalysisExecute(r ApiArchiveImageAnalys
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -254,7 +248,7 @@ func (a *ArchivesApiService) ArchiveImageAnalysisExecute(r ApiArchiveImageAnalys
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -265,7 +259,7 @@ func (a *ArchivesApiService) ArchiveImageAnalysisExecute(r ApiArchiveImageAnalys
 }
 
 type ApiCreateAnalysisArchiveRuleRequest struct {
-	ctx _context.Context
+	ctx context.Context
 	ApiService ArchivesApi
 	rule *AnalysisArchiveTransitionRule
 }
@@ -275,17 +269,17 @@ func (r ApiCreateAnalysisArchiveRuleRequest) Rule(rule AnalysisArchiveTransition
 	return r
 }
 
-func (r ApiCreateAnalysisArchiveRuleRequest) Execute() (AnalysisArchiveTransitionRule, *_nethttp.Response, error) {
+func (r ApiCreateAnalysisArchiveRuleRequest) Execute() (*AnalysisArchiveTransitionRule, *http.Response, error) {
 	return r.ApiService.CreateAnalysisArchiveRuleExecute(r)
 }
 
 /*
 CreateAnalysisArchiveRule Method for CreateAnalysisArchiveRule
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiCreateAnalysisArchiveRuleRequest
 */
-func (a *ArchivesApiService) CreateAnalysisArchiveRule(ctx _context.Context) ApiCreateAnalysisArchiveRuleRequest {
+func (a *ArchivesApiService) CreateAnalysisArchiveRule(ctx context.Context) ApiCreateAnalysisArchiveRuleRequest {
 	return ApiCreateAnalysisArchiveRuleRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -294,26 +288,24 @@ func (a *ArchivesApiService) CreateAnalysisArchiveRule(ctx _context.Context) Api
 
 // Execute executes the request
 //  @return AnalysisArchiveTransitionRule
-func (a *ArchivesApiService) CreateAnalysisArchiveRuleExecute(r ApiCreateAnalysisArchiveRuleRequest) (AnalysisArchiveTransitionRule, *_nethttp.Response, error) {
+func (a *ArchivesApiService) CreateAnalysisArchiveRuleExecute(r ApiCreateAnalysisArchiveRuleRequest) (*AnalysisArchiveTransitionRule, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPost
+		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  AnalysisArchiveTransitionRule
+		formFiles            []formFile
+		localVarReturnValue  *AnalysisArchiveTransitionRule
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ArchivesApiService.CreateAnalysisArchiveRule")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/archives/rules"
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if r.rule == nil {
 		return localVarReturnValue, nil, reportError("rule is required and must be specified")
 	}
@@ -337,7 +329,7 @@ func (a *ArchivesApiService) CreateAnalysisArchiveRuleExecute(r ApiCreateAnalysi
 	}
 	// body params
 	localVarPostBody = r.rule
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -347,15 +339,15 @@ func (a *ArchivesApiService) CreateAnalysisArchiveRuleExecute(r ApiCreateAnalysi
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -373,7 +365,7 @@ func (a *ArchivesApiService) CreateAnalysisArchiveRuleExecute(r ApiCreateAnalysi
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -384,24 +376,23 @@ func (a *ArchivesApiService) CreateAnalysisArchiveRuleExecute(r ApiCreateAnalysi
 }
 
 type ApiDeleteAnalysisArchiveRuleRequest struct {
-	ctx _context.Context
+	ctx context.Context
 	ApiService ArchivesApi
 	ruleId string
 }
 
-
-func (r ApiDeleteAnalysisArchiveRuleRequest) Execute() (*_nethttp.Response, error) {
+func (r ApiDeleteAnalysisArchiveRuleRequest) Execute() (*http.Response, error) {
 	return r.ApiService.DeleteAnalysisArchiveRuleExecute(r)
 }
 
 /*
 DeleteAnalysisArchiveRule Method for DeleteAnalysisArchiveRule
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param ruleId
  @return ApiDeleteAnalysisArchiveRuleRequest
 */
-func (a *ArchivesApiService) DeleteAnalysisArchiveRule(ctx _context.Context, ruleId string) ApiDeleteAnalysisArchiveRuleRequest {
+func (a *ArchivesApiService) DeleteAnalysisArchiveRule(ctx context.Context, ruleId string) ApiDeleteAnalysisArchiveRuleRequest {
 	return ApiDeleteAnalysisArchiveRuleRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -410,26 +401,24 @@ func (a *ArchivesApiService) DeleteAnalysisArchiveRule(ctx _context.Context, rul
 }
 
 // Execute executes the request
-func (a *ArchivesApiService) DeleteAnalysisArchiveRuleExecute(r ApiDeleteAnalysisArchiveRuleRequest) (*_nethttp.Response, error) {
+func (a *ArchivesApiService) DeleteAnalysisArchiveRuleExecute(r ApiDeleteAnalysisArchiveRuleRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodDelete
+		localVarHTTPMethod   = http.MethodDelete
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
+		formFiles            []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ArchivesApiService.DeleteAnalysisArchiveRule")
 	if err != nil {
-		return nil, GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/archives/rules/{rule_id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"rule_id"+"}", _neturl.PathEscape(parameterToString(r.ruleId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"rule_id"+"}", url.PathEscape(parameterToString(r.ruleId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -448,7 +437,7 @@ func (a *ArchivesApiService) DeleteAnalysisArchiveRuleExecute(r ApiDeleteAnalysi
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
 	}
@@ -458,15 +447,15 @@ func (a *ArchivesApiService) DeleteAnalysisArchiveRuleExecute(r ApiDeleteAnalysi
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -486,7 +475,7 @@ func (a *ArchivesApiService) DeleteAnalysisArchiveRuleExecute(r ApiDeleteAnalysi
 }
 
 type ApiDeleteArchivedAnalysisRequest struct {
-	ctx _context.Context
+	ctx context.Context
 	ApiService ArchivesApi
 	imageDigest string
 	force *bool
@@ -497,7 +486,7 @@ func (r ApiDeleteArchivedAnalysisRequest) Force(force bool) ApiDeleteArchivedAna
 	return r
 }
 
-func (r ApiDeleteArchivedAnalysisRequest) Execute() (*_nethttp.Response, error) {
+func (r ApiDeleteArchivedAnalysisRequest) Execute() (*http.Response, error) {
 	return r.ApiService.DeleteArchivedAnalysisExecute(r)
 }
 
@@ -506,11 +495,11 @@ DeleteArchivedAnalysis Method for DeleteArchivedAnalysis
 
 Performs a synchronous archive deletion
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param imageDigest
  @return ApiDeleteArchivedAnalysisRequest
 */
-func (a *ArchivesApiService) DeleteArchivedAnalysis(ctx _context.Context, imageDigest string) ApiDeleteArchivedAnalysisRequest {
+func (a *ArchivesApiService) DeleteArchivedAnalysis(ctx context.Context, imageDigest string) ApiDeleteArchivedAnalysisRequest {
 	return ApiDeleteArchivedAnalysisRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -519,26 +508,24 @@ func (a *ArchivesApiService) DeleteArchivedAnalysis(ctx _context.Context, imageD
 }
 
 // Execute executes the request
-func (a *ArchivesApiService) DeleteArchivedAnalysisExecute(r ApiDeleteArchivedAnalysisRequest) (*_nethttp.Response, error) {
+func (a *ArchivesApiService) DeleteArchivedAnalysisExecute(r ApiDeleteArchivedAnalysisRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodDelete
+		localVarHTTPMethod   = http.MethodDelete
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
+		formFiles            []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ArchivesApiService.DeleteArchivedAnalysis")
 	if err != nil {
-		return nil, GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/archives/images/{image_digest}"
-	localVarPath = strings.Replace(localVarPath, "{"+"image_digest"+"}", _neturl.PathEscape(parameterToString(r.imageDigest, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"image_digest"+"}", url.PathEscape(parameterToString(r.imageDigest, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	if r.force != nil {
 		localVarQueryParams.Add("force", parameterToString(*r.force, ""))
@@ -560,7 +547,7 @@ func (a *ArchivesApiService) DeleteArchivedAnalysisExecute(r ApiDeleteArchivedAn
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
 	}
@@ -570,15 +557,15 @@ func (a *ArchivesApiService) DeleteArchivedAnalysisExecute(r ApiDeleteArchivedAn
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -598,24 +585,23 @@ func (a *ArchivesApiService) DeleteArchivedAnalysisExecute(r ApiDeleteArchivedAn
 }
 
 type ApiGetAnalysisArchiveRuleRequest struct {
-	ctx _context.Context
+	ctx context.Context
 	ApiService ArchivesApi
 	ruleId string
 }
 
-
-func (r ApiGetAnalysisArchiveRuleRequest) Execute() (AnalysisArchiveTransitionRule, *_nethttp.Response, error) {
+func (r ApiGetAnalysisArchiveRuleRequest) Execute() (*AnalysisArchiveTransitionRule, *http.Response, error) {
 	return r.ApiService.GetAnalysisArchiveRuleExecute(r)
 }
 
 /*
 GetAnalysisArchiveRule Method for GetAnalysisArchiveRule
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param ruleId
  @return ApiGetAnalysisArchiveRuleRequest
 */
-func (a *ArchivesApiService) GetAnalysisArchiveRule(ctx _context.Context, ruleId string) ApiGetAnalysisArchiveRuleRequest {
+func (a *ArchivesApiService) GetAnalysisArchiveRule(ctx context.Context, ruleId string) ApiGetAnalysisArchiveRuleRequest {
 	return ApiGetAnalysisArchiveRuleRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -625,27 +611,25 @@ func (a *ArchivesApiService) GetAnalysisArchiveRule(ctx _context.Context, ruleId
 
 // Execute executes the request
 //  @return AnalysisArchiveTransitionRule
-func (a *ArchivesApiService) GetAnalysisArchiveRuleExecute(r ApiGetAnalysisArchiveRuleRequest) (AnalysisArchiveTransitionRule, *_nethttp.Response, error) {
+func (a *ArchivesApiService) GetAnalysisArchiveRuleExecute(r ApiGetAnalysisArchiveRuleRequest) (*AnalysisArchiveTransitionRule, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  AnalysisArchiveTransitionRule
+		formFiles            []formFile
+		localVarReturnValue  *AnalysisArchiveTransitionRule
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ArchivesApiService.GetAnalysisArchiveRule")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/archives/rules/{rule_id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"rule_id"+"}", _neturl.PathEscape(parameterToString(r.ruleId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"rule_id"+"}", url.PathEscape(parameterToString(r.ruleId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -664,7 +648,7 @@ func (a *ArchivesApiService) GetAnalysisArchiveRuleExecute(r ApiGetAnalysisArchi
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -674,15 +658,15 @@ func (a *ArchivesApiService) GetAnalysisArchiveRuleExecute(r ApiGetAnalysisArchi
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -700,7 +684,7 @@ func (a *ArchivesApiService) GetAnalysisArchiveRuleExecute(r ApiGetAnalysisArchi
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -711,13 +695,12 @@ func (a *ArchivesApiService) GetAnalysisArchiveRuleExecute(r ApiGetAnalysisArchi
 }
 
 type ApiGetArchivedAnalysisRequest struct {
-	ctx _context.Context
+	ctx context.Context
 	ApiService ArchivesApi
 	imageDigest string
 }
 
-
-func (r ApiGetArchivedAnalysisRequest) Execute() (ArchivedAnalysis, *_nethttp.Response, error) {
+func (r ApiGetArchivedAnalysisRequest) Execute() (*ArchivedAnalysis, *http.Response, error) {
 	return r.ApiService.GetArchivedAnalysisExecute(r)
 }
 
@@ -726,11 +709,11 @@ GetArchivedAnalysis Method for GetArchivedAnalysis
 
 Returns the archive metadata record identifying the image and tags for the analysis in the archive.
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param imageDigest The image digest to identify the image analysis
  @return ApiGetArchivedAnalysisRequest
 */
-func (a *ArchivesApiService) GetArchivedAnalysis(ctx _context.Context, imageDigest string) ApiGetArchivedAnalysisRequest {
+func (a *ArchivesApiService) GetArchivedAnalysis(ctx context.Context, imageDigest string) ApiGetArchivedAnalysisRequest {
 	return ApiGetArchivedAnalysisRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -740,27 +723,25 @@ func (a *ArchivesApiService) GetArchivedAnalysis(ctx _context.Context, imageDige
 
 // Execute executes the request
 //  @return ArchivedAnalysis
-func (a *ArchivesApiService) GetArchivedAnalysisExecute(r ApiGetArchivedAnalysisRequest) (ArchivedAnalysis, *_nethttp.Response, error) {
+func (a *ArchivesApiService) GetArchivedAnalysisExecute(r ApiGetArchivedAnalysisRequest) (*ArchivedAnalysis, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  ArchivedAnalysis
+		formFiles            []formFile
+		localVarReturnValue  *ArchivedAnalysis
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ArchivesApiService.GetArchivedAnalysis")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/archives/images/{image_digest}"
-	localVarPath = strings.Replace(localVarPath, "{"+"image_digest"+"}", _neturl.PathEscape(parameterToString(r.imageDigest, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"image_digest"+"}", url.PathEscape(parameterToString(r.imageDigest, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -779,7 +760,7 @@ func (a *ArchivesApiService) GetArchivedAnalysisExecute(r ApiGetArchivedAnalysis
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -789,15 +770,15 @@ func (a *ArchivesApiService) GetArchivedAnalysisExecute(r ApiGetArchivedAnalysis
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -815,7 +796,7 @@ func (a *ArchivesApiService) GetArchivedAnalysisExecute(r ApiGetArchivedAnalysis
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -826,22 +807,21 @@ func (a *ArchivesApiService) GetArchivedAnalysisExecute(r ApiGetArchivedAnalysis
 }
 
 type ApiListAnalysisArchiveRequest struct {
-	ctx _context.Context
+	ctx context.Context
 	ApiService ArchivesApi
 }
 
-
-func (r ApiListAnalysisArchiveRequest) Execute() ([]ArchivedAnalysis, *_nethttp.Response, error) {
+func (r ApiListAnalysisArchiveRequest) Execute() ([]ArchivedAnalysis, *http.Response, error) {
 	return r.ApiService.ListAnalysisArchiveExecute(r)
 }
 
 /*
 ListAnalysisArchive Method for ListAnalysisArchive
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiListAnalysisArchiveRequest
 */
-func (a *ArchivesApiService) ListAnalysisArchive(ctx _context.Context) ApiListAnalysisArchiveRequest {
+func (a *ArchivesApiService) ListAnalysisArchive(ctx context.Context) ApiListAnalysisArchiveRequest {
 	return ApiListAnalysisArchiveRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -850,26 +830,24 @@ func (a *ArchivesApiService) ListAnalysisArchive(ctx _context.Context) ApiListAn
 
 // Execute executes the request
 //  @return []ArchivedAnalysis
-func (a *ArchivesApiService) ListAnalysisArchiveExecute(r ApiListAnalysisArchiveRequest) ([]ArchivedAnalysis, *_nethttp.Response, error) {
+func (a *ArchivesApiService) ListAnalysisArchiveExecute(r ApiListAnalysisArchiveRequest) ([]ArchivedAnalysis, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
+		formFiles            []formFile
 		localVarReturnValue  []ArchivedAnalysis
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ArchivesApiService.ListAnalysisArchive")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/archives/images"
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -888,7 +866,7 @@ func (a *ArchivesApiService) ListAnalysisArchiveExecute(r ApiListAnalysisArchive
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -898,15 +876,15 @@ func (a *ArchivesApiService) ListAnalysisArchiveExecute(r ApiListAnalysisArchive
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -924,7 +902,7 @@ func (a *ArchivesApiService) ListAnalysisArchiveExecute(r ApiListAnalysisArchive
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -935,7 +913,7 @@ func (a *ArchivesApiService) ListAnalysisArchiveExecute(r ApiListAnalysisArchive
 }
 
 type ApiListAnalysisArchiveRulesRequest struct {
-	ctx _context.Context
+	ctx context.Context
 	ApiService ArchivesApi
 	systemGlobal *bool
 }
@@ -946,17 +924,17 @@ func (r ApiListAnalysisArchiveRulesRequest) SystemGlobal(systemGlobal bool) ApiL
 	return r
 }
 
-func (r ApiListAnalysisArchiveRulesRequest) Execute() ([]AnalysisArchiveTransitionRule, *_nethttp.Response, error) {
+func (r ApiListAnalysisArchiveRulesRequest) Execute() ([]AnalysisArchiveTransitionRule, *http.Response, error) {
 	return r.ApiService.ListAnalysisArchiveRulesExecute(r)
 }
 
 /*
 ListAnalysisArchiveRules Method for ListAnalysisArchiveRules
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiListAnalysisArchiveRulesRequest
 */
-func (a *ArchivesApiService) ListAnalysisArchiveRules(ctx _context.Context) ApiListAnalysisArchiveRulesRequest {
+func (a *ArchivesApiService) ListAnalysisArchiveRules(ctx context.Context) ApiListAnalysisArchiveRulesRequest {
 	return ApiListAnalysisArchiveRulesRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -965,26 +943,24 @@ func (a *ArchivesApiService) ListAnalysisArchiveRules(ctx _context.Context) ApiL
 
 // Execute executes the request
 //  @return []AnalysisArchiveTransitionRule
-func (a *ArchivesApiService) ListAnalysisArchiveRulesExecute(r ApiListAnalysisArchiveRulesRequest) ([]AnalysisArchiveTransitionRule, *_nethttp.Response, error) {
+func (a *ArchivesApiService) ListAnalysisArchiveRulesExecute(r ApiListAnalysisArchiveRulesRequest) ([]AnalysisArchiveTransitionRule, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
+		formFiles            []formFile
 		localVarReturnValue  []AnalysisArchiveTransitionRule
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ArchivesApiService.ListAnalysisArchiveRules")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/archives/rules"
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	if r.systemGlobal != nil {
 		localVarQueryParams.Add("system_global", parameterToString(*r.systemGlobal, ""))
@@ -1006,7 +982,7 @@ func (a *ArchivesApiService) ListAnalysisArchiveRulesExecute(r ApiListAnalysisAr
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -1016,15 +992,15 @@ func (a *ArchivesApiService) ListAnalysisArchiveRulesExecute(r ApiListAnalysisAr
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -1042,7 +1018,7 @@ func (a *ArchivesApiService) ListAnalysisArchiveRulesExecute(r ApiListAnalysisAr
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -1053,22 +1029,21 @@ func (a *ArchivesApiService) ListAnalysisArchiveRulesExecute(r ApiListAnalysisAr
 }
 
 type ApiListArchivesRequest struct {
-	ctx _context.Context
+	ctx context.Context
 	ApiService ArchivesApi
 }
 
-
-func (r ApiListArchivesRequest) Execute() (ArchiveSummary, *_nethttp.Response, error) {
+func (r ApiListArchivesRequest) Execute() (*ArchiveSummary, *http.Response, error) {
 	return r.ApiService.ListArchivesExecute(r)
 }
 
 /*
 ListArchives Method for ListArchives
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiListArchivesRequest
 */
-func (a *ArchivesApiService) ListArchives(ctx _context.Context) ApiListArchivesRequest {
+func (a *ArchivesApiService) ListArchives(ctx context.Context) ApiListArchivesRequest {
 	return ApiListArchivesRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -1077,26 +1052,24 @@ func (a *ArchivesApiService) ListArchives(ctx _context.Context) ApiListArchivesR
 
 // Execute executes the request
 //  @return ArchiveSummary
-func (a *ArchivesApiService) ListArchivesExecute(r ApiListArchivesRequest) (ArchiveSummary, *_nethttp.Response, error) {
+func (a *ArchivesApiService) ListArchivesExecute(r ApiListArchivesRequest) (*ArchiveSummary, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  ArchiveSummary
+		formFiles            []formFile
+		localVarReturnValue  *ArchiveSummary
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ArchivesApiService.ListArchives")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/archives"
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -1115,7 +1088,7 @@ func (a *ArchivesApiService) ListArchivesExecute(r ApiListArchivesRequest) (Arch
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -1125,15 +1098,15 @@ func (a *ArchivesApiService) ListArchivesExecute(r ApiListArchivesRequest) (Arch
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -1151,7 +1124,7 @@ func (a *ArchivesApiService) ListArchivesExecute(r ApiListArchivesRequest) (Arch
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}

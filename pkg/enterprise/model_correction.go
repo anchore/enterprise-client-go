@@ -96,7 +96,7 @@ func (o *Correction) GetType() string {
 // GetTypeOk returns a tuple with the Type field value
 // and a boolean to check if the value has been set.
 func (o *Correction) GetTypeOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Type, true
@@ -152,7 +152,7 @@ func (o *Correction) GetMatch() CorrectionMatch {
 // GetMatchOk returns a tuple with the Match field value
 // and a boolean to check if the value has been set.
 func (o *Correction) GetMatchOk() (*CorrectionMatch, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Match, true
@@ -175,11 +175,11 @@ func (o *Correction) GetReplace() []CorrectionFieldMatch {
 
 // GetReplaceOk returns a tuple with the Replace field value
 // and a boolean to check if the value has been set.
-func (o *Correction) GetReplaceOk() (*[]CorrectionFieldMatch, bool) {
-	if o == nil  {
+func (o *Correction) GetReplaceOk() ([]CorrectionFieldMatch, bool) {
+	if o == nil {
 		return nil, false
 	}
-	return &o.Replace, true
+	return o.Replace, true
 }
 
 // SetReplace sets field value

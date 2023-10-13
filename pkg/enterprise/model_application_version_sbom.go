@@ -22,8 +22,8 @@ type ApplicationVersionSbom struct {
 	ApplicationVersion *ApplicationVersion `json:"application_version,omitempty"`
 	// RFC 3339 formatted UTC timestamp when the application version sbom was created
 	CreatedAt *time.Time `json:"created_at,omitempty"`
-	SourceSboms *[]interface{} `json:"source_sboms,omitempty"`
-	ImageSboms *[]interface{} `json:"image_sboms,omitempty"`
+	SourceSboms []interface{} `json:"source_sboms,omitempty"`
+	ImageSboms []interface{} `json:"image_sboms,omitempty"`
 }
 
 // NewApplicationVersionSbom instantiates a new ApplicationVersionSbom object
@@ -145,12 +145,12 @@ func (o *ApplicationVersionSbom) GetSourceSboms() []interface{} {
 		var ret []interface{}
 		return ret
 	}
-	return *o.SourceSboms
+	return o.SourceSboms
 }
 
 // GetSourceSbomsOk returns a tuple with the SourceSboms field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ApplicationVersionSbom) GetSourceSbomsOk() (*[]interface{}, bool) {
+func (o *ApplicationVersionSbom) GetSourceSbomsOk() ([]interface{}, bool) {
 	if o == nil || o.SourceSboms == nil {
 		return nil, false
 	}
@@ -168,7 +168,7 @@ func (o *ApplicationVersionSbom) HasSourceSboms() bool {
 
 // SetSourceSboms gets a reference to the given []interface{} and assigns it to the SourceSboms field.
 func (o *ApplicationVersionSbom) SetSourceSboms(v []interface{}) {
-	o.SourceSboms = &v
+	o.SourceSboms = v
 }
 
 // GetImageSboms returns the ImageSboms field value if set, zero value otherwise.
@@ -177,12 +177,12 @@ func (o *ApplicationVersionSbom) GetImageSboms() []interface{} {
 		var ret []interface{}
 		return ret
 	}
-	return *o.ImageSboms
+	return o.ImageSboms
 }
 
 // GetImageSbomsOk returns a tuple with the ImageSboms field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ApplicationVersionSbom) GetImageSbomsOk() (*[]interface{}, bool) {
+func (o *ApplicationVersionSbom) GetImageSbomsOk() ([]interface{}, bool) {
 	if o == nil || o.ImageSboms == nil {
 		return nil, false
 	}
@@ -200,7 +200,7 @@ func (o *ApplicationVersionSbom) HasImageSboms() bool {
 
 // SetImageSboms gets a reference to the given []interface{} and assigns it to the ImageSboms field.
 func (o *ApplicationVersionSbom) SetImageSboms(v []interface{}) {
-	o.ImageSboms = &v
+	o.ImageSboms = v
 }
 
 func (o ApplicationVersionSbom) MarshalJSON() ([]byte, error) {

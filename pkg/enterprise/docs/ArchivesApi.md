@@ -1,6 +1,6 @@
 # \ArchivesApi
 
-All URIs are relative to *http://localhost/v2*
+All URIs are relative to */v2*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -38,8 +38,8 @@ func main() {
     imageReferences := []string{"Property_example"} // []string | 
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.ArchivesApi.ArchiveImageAnalysis(context.Background()).ImageReferences(imageReferences).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.ArchivesApi.ArchiveImageAnalysis(context.Background()).ImageReferences(imageReferences).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ArchivesApi.ArchiveImageAnalysis``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -102,8 +102,8 @@ func main() {
     rule := *openapiclient.NewAnalysisArchiveTransitionRule("Transition_example") // AnalysisArchiveTransitionRule | 
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.ArchivesApi.CreateAnalysisArchiveRule(context.Background()).Rule(rule).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.ArchivesApi.CreateAnalysisArchiveRule(context.Background()).Rule(rule).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ArchivesApi.CreateAnalysisArchiveRule``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -166,8 +166,8 @@ func main() {
     ruleId := "ruleId_example" // string | 
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.ArchivesApi.DeleteAnalysisArchiveRule(context.Background(), ruleId).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.ArchivesApi.DeleteAnalysisArchiveRule(context.Background(), ruleId).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ArchivesApi.DeleteAnalysisArchiveRule``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -235,8 +235,8 @@ func main() {
     force := true // bool |  (optional)
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.ArchivesApi.DeleteArchivedAnalysis(context.Background(), imageDigest).Force(force).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.ArchivesApi.DeleteArchivedAnalysis(context.Background(), imageDigest).Force(force).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ArchivesApi.DeleteArchivedAnalysis``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -302,8 +302,8 @@ func main() {
     ruleId := "ruleId_example" // string | 
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.ArchivesApi.GetAnalysisArchiveRule(context.Background(), ruleId).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.ArchivesApi.GetAnalysisArchiveRule(context.Background(), ruleId).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ArchivesApi.GetAnalysisArchiveRule``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -372,8 +372,8 @@ func main() {
     imageDigest := "imageDigest_example" // string | The image digest to identify the image analysis
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.ArchivesApi.GetArchivedAnalysis(context.Background(), imageDigest).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.ArchivesApi.GetArchivedAnalysis(context.Background(), imageDigest).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ArchivesApi.GetArchivedAnalysis``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -439,8 +439,8 @@ import (
 func main() {
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.ArchivesApi.ListAnalysisArchive(context.Background()).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.ArchivesApi.ListAnalysisArchive(context.Background()).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ArchivesApi.ListAnalysisArchive``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -499,8 +499,8 @@ func main() {
     systemGlobal := true // bool | If true include system global rules (owned by admin) even for non-admin users. Defaults to true if not set. Can be set to false to exclude globals (optional)
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.ArchivesApi.ListAnalysisArchiveRules(context.Background()).SystemGlobal(systemGlobal).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.ArchivesApi.ListAnalysisArchiveRules(context.Background()).SystemGlobal(systemGlobal).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ArchivesApi.ListAnalysisArchiveRules``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -562,8 +562,8 @@ import (
 func main() {
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.ArchivesApi.ListArchives(context.Background()).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.ArchivesApi.ListArchives(context.Background()).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ArchivesApi.ListArchives``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)

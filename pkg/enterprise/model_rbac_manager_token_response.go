@@ -52,7 +52,7 @@ func (o *RbacManagerTokenResponse) GetToken() string {
 // GetTokenOk returns a tuple with the Token field value
 // and a boolean to check if the value has been set.
 func (o *RbacManagerTokenResponse) GetTokenOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Token, true

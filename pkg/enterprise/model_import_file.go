@@ -21,8 +21,8 @@ type ImportFile struct {
 	Id string `json:"id"`
 	Location ImageImportFileCoordinate `json:"location"`
 	// File metadata such as mode, size, etc. This is populated by anchorectl analysis but is not available in older syft-generated SBOMs
-	Metadata *interface{} `json:"metadata,omitempty"`
-	Digests *[]ImportFileDigest `json:"digests,omitempty"`
+	Metadata interface{} `json:"metadata,omitempty"`
+	Digests []ImportFileDigest `json:"digests,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -60,7 +60,7 @@ func (o *ImportFile) GetId() string {
 // GetIdOk returns a tuple with the Id field value
 // and a boolean to check if the value has been set.
 func (o *ImportFile) GetIdOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Id, true
@@ -84,7 +84,7 @@ func (o *ImportFile) GetLocation() ImageImportFileCoordinate {
 // GetLocationOk returns a tuple with the Location field value
 // and a boolean to check if the value has been set.
 func (o *ImportFile) GetLocationOk() (*ImageImportFileCoordinate, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Location, true
@@ -101,12 +101,12 @@ func (o *ImportFile) GetMetadata() interface{} {
 		var ret interface{}
 		return ret
 	}
-	return *o.Metadata
+	return o.Metadata
 }
 
 // GetMetadataOk returns a tuple with the Metadata field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ImportFile) GetMetadataOk() (*interface{}, bool) {
+func (o *ImportFile) GetMetadataOk() (interface{}, bool) {
 	if o == nil || o.Metadata == nil {
 		return nil, false
 	}
@@ -124,7 +124,7 @@ func (o *ImportFile) HasMetadata() bool {
 
 // SetMetadata gets a reference to the given interface{} and assigns it to the Metadata field.
 func (o *ImportFile) SetMetadata(v interface{}) {
-	o.Metadata = &v
+	o.Metadata = v
 }
 
 // GetDigests returns the Digests field value if set, zero value otherwise.
@@ -133,12 +133,12 @@ func (o *ImportFile) GetDigests() []ImportFileDigest {
 		var ret []ImportFileDigest
 		return ret
 	}
-	return *o.Digests
+	return o.Digests
 }
 
 // GetDigestsOk returns a tuple with the Digests field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ImportFile) GetDigestsOk() (*[]ImportFileDigest, bool) {
+func (o *ImportFile) GetDigestsOk() ([]ImportFileDigest, bool) {
 	if o == nil || o.Digests == nil {
 		return nil, false
 	}
@@ -156,7 +156,7 @@ func (o *ImportFile) HasDigests() bool {
 
 // SetDigests gets a reference to the given []ImportFileDigest and assigns it to the Digests field.
 func (o *ImportFile) SetDigests(v []ImportFileDigest) {
-	o.Digests = &v
+	o.Digests = v
 }
 
 func (o ImportFile) MarshalJSON() ([]byte, error) {

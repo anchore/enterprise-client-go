@@ -17,7 +17,7 @@ import (
 
 // KubernetesPods Pods defined in Kubernetes
 type KubernetesPods struct {
-	Namespaces *[]KubernetesPod `json:"namespaces,omitempty"`
+	Namespaces []KubernetesPod `json:"namespaces,omitempty"`
 }
 
 // NewKubernetesPods instantiates a new KubernetesPods object
@@ -43,12 +43,12 @@ func (o *KubernetesPods) GetNamespaces() []KubernetesPod {
 		var ret []KubernetesPod
 		return ret
 	}
-	return *o.Namespaces
+	return o.Namespaces
 }
 
 // GetNamespacesOk returns a tuple with the Namespaces field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *KubernetesPods) GetNamespacesOk() (*[]KubernetesPod, bool) {
+func (o *KubernetesPods) GetNamespacesOk() ([]KubernetesPod, bool) {
 	if o == nil || o.Namespaces == nil {
 		return nil, false
 	}
@@ -66,7 +66,7 @@ func (o *KubernetesPods) HasNamespaces() bool {
 
 // SetNamespaces gets a reference to the given []KubernetesPod and assigns it to the Namespaces field.
 func (o *KubernetesPods) SetNamespaces(v []KubernetesPod) {
-	o.Namespaces = &v
+	o.Namespaces = v
 }
 
 func (o KubernetesPods) MarshalJSON() ([]byte, error) {

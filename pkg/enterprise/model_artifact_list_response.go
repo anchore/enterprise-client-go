@@ -17,8 +17,8 @@ import (
 
 // ArtifactListResponse The response provided when querying for the artifacts on an application version
 type ArtifactListResponse struct {
-	AssociatedSourceArtifacts *[]AssociatedSourceArtifact `json:"associated_source_artifacts,omitempty"`
-	AssociatedImageArtifacts *[]AssociatedImageArtifact `json:"associated_image_artifacts,omitempty"`
+	AssociatedSourceArtifacts []AssociatedSourceArtifact `json:"associated_source_artifacts,omitempty"`
+	AssociatedImageArtifacts []AssociatedImageArtifact `json:"associated_image_artifacts,omitempty"`
 }
 
 // NewArtifactListResponse instantiates a new ArtifactListResponse object
@@ -44,12 +44,12 @@ func (o *ArtifactListResponse) GetAssociatedSourceArtifacts() []AssociatedSource
 		var ret []AssociatedSourceArtifact
 		return ret
 	}
-	return *o.AssociatedSourceArtifacts
+	return o.AssociatedSourceArtifacts
 }
 
 // GetAssociatedSourceArtifactsOk returns a tuple with the AssociatedSourceArtifacts field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ArtifactListResponse) GetAssociatedSourceArtifactsOk() (*[]AssociatedSourceArtifact, bool) {
+func (o *ArtifactListResponse) GetAssociatedSourceArtifactsOk() ([]AssociatedSourceArtifact, bool) {
 	if o == nil || o.AssociatedSourceArtifacts == nil {
 		return nil, false
 	}
@@ -67,7 +67,7 @@ func (o *ArtifactListResponse) HasAssociatedSourceArtifacts() bool {
 
 // SetAssociatedSourceArtifacts gets a reference to the given []AssociatedSourceArtifact and assigns it to the AssociatedSourceArtifacts field.
 func (o *ArtifactListResponse) SetAssociatedSourceArtifacts(v []AssociatedSourceArtifact) {
-	o.AssociatedSourceArtifacts = &v
+	o.AssociatedSourceArtifacts = v
 }
 
 // GetAssociatedImageArtifacts returns the AssociatedImageArtifacts field value if set, zero value otherwise.
@@ -76,12 +76,12 @@ func (o *ArtifactListResponse) GetAssociatedImageArtifacts() []AssociatedImageAr
 		var ret []AssociatedImageArtifact
 		return ret
 	}
-	return *o.AssociatedImageArtifacts
+	return o.AssociatedImageArtifacts
 }
 
 // GetAssociatedImageArtifactsOk returns a tuple with the AssociatedImageArtifacts field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ArtifactListResponse) GetAssociatedImageArtifactsOk() (*[]AssociatedImageArtifact, bool) {
+func (o *ArtifactListResponse) GetAssociatedImageArtifactsOk() ([]AssociatedImageArtifact, bool) {
 	if o == nil || o.AssociatedImageArtifacts == nil {
 		return nil, false
 	}
@@ -99,7 +99,7 @@ func (o *ArtifactListResponse) HasAssociatedImageArtifacts() bool {
 
 // SetAssociatedImageArtifacts gets a reference to the given []AssociatedImageArtifact and assigns it to the AssociatedImageArtifacts field.
 func (o *ArtifactListResponse) SetAssociatedImageArtifacts(v []AssociatedImageArtifact) {
-	o.AssociatedImageArtifacts = &v
+	o.AssociatedImageArtifacts = v
 }
 
 func (o ArtifactListResponse) MarshalJSON() ([]byte, error) {

@@ -17,7 +17,7 @@ import (
 
 // AnchoreImageList A list of Anchore Images
 type AnchoreImageList struct {
-	Items *[]AnchoreImage `json:"items,omitempty"`
+	Items []AnchoreImage `json:"items,omitempty"`
 }
 
 // NewAnchoreImageList instantiates a new AnchoreImageList object
@@ -43,12 +43,12 @@ func (o *AnchoreImageList) GetItems() []AnchoreImage {
 		var ret []AnchoreImage
 		return ret
 	}
-	return *o.Items
+	return o.Items
 }
 
 // GetItemsOk returns a tuple with the Items field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AnchoreImageList) GetItemsOk() (*[]AnchoreImage, bool) {
+func (o *AnchoreImageList) GetItemsOk() ([]AnchoreImage, bool) {
 	if o == nil || o.Items == nil {
 		return nil, false
 	}
@@ -66,7 +66,7 @@ func (o *AnchoreImageList) HasItems() bool {
 
 // SetItems gets a reference to the given []AnchoreImage and assigns it to the Items field.
 func (o *AnchoreImageList) SetItems(v []AnchoreImage) {
-	o.Items = &v
+	o.Items = v
 }
 
 func (o AnchoreImageList) MarshalJSON() ([]byte, error) {
