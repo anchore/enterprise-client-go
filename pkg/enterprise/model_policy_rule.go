@@ -23,7 +23,7 @@ type PolicyRule struct {
 	Action string `json:"action"`
 	// Description of the policy rule, human readable
 	Description *string `json:"description,omitempty"`
-	Params []PolicyRuleParams `json:"params"`
+	Params []PolicyRuleParamsInner `json:"params"`
 	Recommendation *string `json:"recommendation,omitempty"`
 }
 
@@ -31,7 +31,7 @@ type PolicyRule struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewPolicyRule(id string, gate string, trigger string, action string, params []PolicyRuleParams) *PolicyRule {
+func NewPolicyRule(id string, gate string, trigger string, action string, params []PolicyRuleParamsInner) *PolicyRule {
 	this := PolicyRule{}
 	this.Id = id
 	this.Gate = gate
@@ -62,7 +62,7 @@ func (o *PolicyRule) GetId() string {
 // GetIdOk returns a tuple with the Id field value
 // and a boolean to check if the value has been set.
 func (o *PolicyRule) GetIdOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Id, true
@@ -86,7 +86,7 @@ func (o *PolicyRule) GetGate() string {
 // GetGateOk returns a tuple with the Gate field value
 // and a boolean to check if the value has been set.
 func (o *PolicyRule) GetGateOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Gate, true
@@ -110,7 +110,7 @@ func (o *PolicyRule) GetTrigger() string {
 // GetTriggerOk returns a tuple with the Trigger field value
 // and a boolean to check if the value has been set.
 func (o *PolicyRule) GetTriggerOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Trigger, true
@@ -134,7 +134,7 @@ func (o *PolicyRule) GetAction() string {
 // GetActionOk returns a tuple with the Action field value
 // and a boolean to check if the value has been set.
 func (o *PolicyRule) GetActionOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Action, true
@@ -178,9 +178,9 @@ func (o *PolicyRule) SetDescription(v string) {
 }
 
 // GetParams returns the Params field value
-func (o *PolicyRule) GetParams() []PolicyRuleParams {
+func (o *PolicyRule) GetParams() []PolicyRuleParamsInner {
 	if o == nil {
-		var ret []PolicyRuleParams
+		var ret []PolicyRuleParamsInner
 		return ret
 	}
 
@@ -189,15 +189,15 @@ func (o *PolicyRule) GetParams() []PolicyRuleParams {
 
 // GetParamsOk returns a tuple with the Params field value
 // and a boolean to check if the value has been set.
-func (o *PolicyRule) GetParamsOk() (*[]PolicyRuleParams, bool) {
-	if o == nil  {
+func (o *PolicyRule) GetParamsOk() ([]PolicyRuleParamsInner, bool) {
+	if o == nil {
 		return nil, false
 	}
-	return &o.Params, true
+	return o.Params, true
 }
 
 // SetParams sets field value
-func (o *PolicyRule) SetParams(v []PolicyRuleParams) {
+func (o *PolicyRule) SetParams(v []PolicyRuleParamsInner) {
 	o.Params = v
 }
 

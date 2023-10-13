@@ -1,6 +1,6 @@
 # \ActionsApi
 
-All URIs are relative to *http://localhost/v2*
+All URIs are relative to */v2*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -33,8 +33,8 @@ func main() {
     actionPlan := *openapiclient.NewActionPlan() // ActionPlan | 
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.ActionsApi.AddActionPlan(context.Background()).ActionPlan(actionPlan).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.ActionsApi.AddActionPlan(context.Background()).ActionPlan(actionPlan).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ActionsApi.AddActionPlan``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -103,8 +103,8 @@ func main() {
     xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.ActionsApi.GetActionPlans(context.Background()).ImageTag(imageTag).ImageDigest(imageDigest).CreatedAfter(createdAfter).XAnchoreAccount(xAnchoreAccount).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.ActionsApi.GetActionPlans(context.Background()).ImageTag(imageTag).ImageDigest(imageDigest).CreatedAfter(createdAfter).XAnchoreAccount(xAnchoreAccount).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ActionsApi.GetActionPlans``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)

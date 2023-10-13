@@ -29,7 +29,7 @@ type SourceManifest struct {
 	AnalysisStatus *string `json:"analysis_status,omitempty"`
 	SourceStatus *string `json:"source_status,omitempty"`
 	// Array of metadata available
-	MetadataRecords *[]SourceManifestMetadataRecords `json:"metadata_records,omitempty"`
+	MetadataRecords []SourceManifestMetadataRecordsInner `json:"metadata_records,omitempty"`
 }
 
 // NewSourceManifest instantiates a new SourceManifest object
@@ -370,17 +370,17 @@ func (o *SourceManifest) SetSourceStatus(v string) {
 }
 
 // GetMetadataRecords returns the MetadataRecords field value if set, zero value otherwise.
-func (o *SourceManifest) GetMetadataRecords() []SourceManifestMetadataRecords {
+func (o *SourceManifest) GetMetadataRecords() []SourceManifestMetadataRecordsInner {
 	if o == nil || o.MetadataRecords == nil {
-		var ret []SourceManifestMetadataRecords
+		var ret []SourceManifestMetadataRecordsInner
 		return ret
 	}
-	return *o.MetadataRecords
+	return o.MetadataRecords
 }
 
 // GetMetadataRecordsOk returns a tuple with the MetadataRecords field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SourceManifest) GetMetadataRecordsOk() (*[]SourceManifestMetadataRecords, bool) {
+func (o *SourceManifest) GetMetadataRecordsOk() ([]SourceManifestMetadataRecordsInner, bool) {
 	if o == nil || o.MetadataRecords == nil {
 		return nil, false
 	}
@@ -396,9 +396,9 @@ func (o *SourceManifest) HasMetadataRecords() bool {
 	return false
 }
 
-// SetMetadataRecords gets a reference to the given []SourceManifestMetadataRecords and assigns it to the MetadataRecords field.
-func (o *SourceManifest) SetMetadataRecords(v []SourceManifestMetadataRecords) {
-	o.MetadataRecords = &v
+// SetMetadataRecords gets a reference to the given []SourceManifestMetadataRecordsInner and assigns it to the MetadataRecords field.
+func (o *SourceManifest) SetMetadataRecords(v []SourceManifestMetadataRecordsInner) {
+	o.MetadataRecords = v
 }
 
 func (o SourceManifest) MarshalJSON() ([]byte, error) {

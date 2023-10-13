@@ -20,7 +20,8 @@ import (
 type RbacManagerRoleMembership struct {
 	// The name of the role the user has permissions for
 	Role *string `json:"role,omitempty"`
-	ForAccount *[]string `json:"for_account,omitempty"`
+	// The account for which the user has the role permission
+	ForAccount *string `json:"for_account,omitempty"`
 	CreatedAt *time.Time `json:"created_at,omitempty"`
 }
 
@@ -74,9 +75,9 @@ func (o *RbacManagerRoleMembership) SetRole(v string) {
 }
 
 // GetForAccount returns the ForAccount field value if set, zero value otherwise.
-func (o *RbacManagerRoleMembership) GetForAccount() []string {
+func (o *RbacManagerRoleMembership) GetForAccount() string {
 	if o == nil || o.ForAccount == nil {
-		var ret []string
+		var ret string
 		return ret
 	}
 	return *o.ForAccount
@@ -84,7 +85,7 @@ func (o *RbacManagerRoleMembership) GetForAccount() []string {
 
 // GetForAccountOk returns a tuple with the ForAccount field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RbacManagerRoleMembership) GetForAccountOk() (*[]string, bool) {
+func (o *RbacManagerRoleMembership) GetForAccountOk() (*string, bool) {
 	if o == nil || o.ForAccount == nil {
 		return nil, false
 	}
@@ -100,8 +101,8 @@ func (o *RbacManagerRoleMembership) HasForAccount() bool {
 	return false
 }
 
-// SetForAccount gets a reference to the given []string and assigns it to the ForAccount field.
-func (o *RbacManagerRoleMembership) SetForAccount(v []string) {
+// SetForAccount gets a reference to the given string and assigns it to the ForAccount field.
+func (o *RbacManagerRoleMembership) SetForAccount(v string) {
 	o.ForAccount = &v
 }
 

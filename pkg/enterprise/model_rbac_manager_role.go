@@ -22,7 +22,7 @@ type RbacManagerRole struct {
 	Name string `json:"name"`
 	// A role description for humans
 	Description *string `json:"description,omitempty"`
-	Permissions *[]RbacManagerPermission `json:"permissions,omitempty"`
+	Permissions []RbacManagerPermission `json:"permissions,omitempty"`
 	// Are the permissions of this role modifiable by users (including admin users)
 	Immutable *bool `json:"immutable,omitempty"`
 	// The timestamp when the role was created
@@ -62,7 +62,7 @@ func (o *RbacManagerRole) GetName() string {
 // GetNameOk returns a tuple with the Name field value
 // and a boolean to check if the value has been set.
 func (o *RbacManagerRole) GetNameOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Name, true
@@ -111,12 +111,12 @@ func (o *RbacManagerRole) GetPermissions() []RbacManagerPermission {
 		var ret []RbacManagerPermission
 		return ret
 	}
-	return *o.Permissions
+	return o.Permissions
 }
 
 // GetPermissionsOk returns a tuple with the Permissions field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RbacManagerRole) GetPermissionsOk() (*[]RbacManagerPermission, bool) {
+func (o *RbacManagerRole) GetPermissionsOk() ([]RbacManagerPermission, bool) {
 	if o == nil || o.Permissions == nil {
 		return nil, false
 	}
@@ -134,7 +134,7 @@ func (o *RbacManagerRole) HasPermissions() bool {
 
 // SetPermissions gets a reference to the given []RbacManagerPermission and assigns it to the Permissions field.
 func (o *RbacManagerRole) SetPermissions(v []RbacManagerPermission) {
-	o.Permissions = &v
+	o.Permissions = v
 }
 
 // GetImmutable returns the Immutable field value if set, zero value otherwise.

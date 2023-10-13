@@ -103,7 +103,7 @@ func (o *NativeSBOMPackage) GetName() string {
 // GetNameOk returns a tuple with the Name field value
 // and a boolean to check if the value has been set.
 func (o *NativeSBOMPackage) GetNameOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Name, true
@@ -127,7 +127,7 @@ func (o *NativeSBOMPackage) GetVersion() string {
 // GetVersionOk returns a tuple with the Version field value
 // and a boolean to check if the value has been set.
 func (o *NativeSBOMPackage) GetVersionOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Version, true
@@ -151,7 +151,7 @@ func (o *NativeSBOMPackage) GetType() string {
 // GetTypeOk returns a tuple with the Type field value
 // and a boolean to check if the value has been set.
 func (o *NativeSBOMPackage) GetTypeOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Type, true
@@ -206,11 +206,11 @@ func (o *NativeSBOMPackage) GetLocations() []NativeSBOMPackageLocation {
 
 // GetLocationsOk returns a tuple with the Locations field value
 // and a boolean to check if the value has been set.
-func (o *NativeSBOMPackage) GetLocationsOk() (*[]NativeSBOMPackageLocation, bool) {
-	if o == nil  {
+func (o *NativeSBOMPackage) GetLocationsOk() ([]NativeSBOMPackageLocation, bool) {
+	if o == nil {
 		return nil, false
 	}
-	return &o.Locations, true
+	return o.Locations, true
 }
 
 // SetLocations sets field value
@@ -230,11 +230,11 @@ func (o *NativeSBOMPackage) GetLicenses() []interface{} {
 
 // GetLicensesOk returns a tuple with the Licenses field value
 // and a boolean to check if the value has been set.
-func (o *NativeSBOMPackage) GetLicensesOk() (*[]interface{}, bool) {
-	if o == nil  {
+func (o *NativeSBOMPackage) GetLicensesOk() ([]interface{}, bool) {
+	if o == nil {
 		return nil, false
 	}
-	return &o.Licenses, true
+	return o.Licenses, true
 }
 
 // SetLicenses sets field value
@@ -255,7 +255,7 @@ func (o *NativeSBOMPackage) GetLanguage() string {
 // GetLanguageOk returns a tuple with the Language field value
 // and a boolean to check if the value has been set.
 func (o *NativeSBOMPackage) GetLanguageOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Language, true
@@ -278,11 +278,11 @@ func (o *NativeSBOMPackage) GetCpes() []string {
 
 // GetCpesOk returns a tuple with the Cpes field value
 // and a boolean to check if the value has been set.
-func (o *NativeSBOMPackage) GetCpesOk() (*[]string, bool) {
-	if o == nil  {
+func (o *NativeSBOMPackage) GetCpesOk() ([]string, bool) {
+	if o == nil {
 		return nil, false
 	}
-	return &o.Cpes, true
+	return o.Cpes, true
 }
 
 // SetCpes sets field value
@@ -335,7 +335,7 @@ func (o *NativeSBOMPackage) GetMetadataType() string {
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *NativeSBOMPackage) GetMetadataTypeOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return o.MetadataType.Get(), o.MetadataType.IsSet()
@@ -366,7 +366,7 @@ func (o *NativeSBOMPackage) UnsetMetadataType() {
 
 // GetMetadata returns the Metadata field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *NativeSBOMPackage) GetMetadata() interface{} {
-	if o == nil  {
+	if o == nil {
 		var ret interface{}
 		return ret
 	}
@@ -376,11 +376,11 @@ func (o *NativeSBOMPackage) GetMetadata() interface{} {
 // GetMetadataOk returns a tuple with the Metadata field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *NativeSBOMPackage) GetMetadataOk() (*interface{}, bool) {
+func (o *NativeSBOMPackage) GetMetadataOk() (interface{}, bool) {
 	if o == nil || o.Metadata == nil {
 		return nil, false
 	}
-	return &o.Metadata, true
+	return o.Metadata, true
 }
 
 // HasMetadata returns a boolean if a field has been set.

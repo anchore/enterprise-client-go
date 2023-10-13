@@ -53,7 +53,7 @@ func (o *ImageSource) GetTag() RegistryTagSource {
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *ImageSource) GetTagOk() (*RegistryTagSource, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return o.Tag.Get(), o.Tag.IsSet()
@@ -95,7 +95,7 @@ func (o *ImageSource) GetDigest() RegistryDigestSource {
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *ImageSource) GetDigestOk() (*RegistryDigestSource, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return o.Digest.Get(), o.Digest.IsSet()
@@ -137,7 +137,7 @@ func (o *ImageSource) GetArchive() AnalysisArchiveSource {
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *ImageSource) GetArchiveOk() (*AnalysisArchiveSource, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return o.Archive.Get(), o.Archive.IsSet()
@@ -179,7 +179,7 @@ func (o *ImageSource) GetImport() ImageImportManifest {
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *ImageSource) GetImportOk() (*ImageImportManifest, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return o.Import.Get(), o.Import.IsSet()

@@ -55,7 +55,7 @@ func (o *DeleteImageResponse) GetImageDigest() string {
 // GetImageDigestOk returns a tuple with the ImageDigest field value
 // and a boolean to check if the value has been set.
 func (o *DeleteImageResponse) GetImageDigestOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.ImageDigest, true
@@ -79,7 +79,7 @@ func (o *DeleteImageResponse) GetStatus() string {
 // GetStatusOk returns a tuple with the Status field value
 // and a boolean to check if the value has been set.
 func (o *DeleteImageResponse) GetStatusOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Status, true

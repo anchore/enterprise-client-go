@@ -53,7 +53,7 @@ func (o *ImportFileDigest) GetAlgorithm() string {
 // GetAlgorithmOk returns a tuple with the Algorithm field value
 // and a boolean to check if the value has been set.
 func (o *ImportFileDigest) GetAlgorithmOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Algorithm, true
@@ -77,7 +77,7 @@ func (o *ImportFileDigest) GetValue() string {
 // GetValueOk returns a tuple with the Value field value
 // and a boolean to check if the value has been set.
 func (o *ImportFileDigest) GetValueOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Value, true

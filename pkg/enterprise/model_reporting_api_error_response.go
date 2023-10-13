@@ -21,7 +21,7 @@ type ReportingApiErrorResponse struct {
 	ErrorType *string `json:"error_type,omitempty"`
 	Message *string `json:"message,omitempty"`
 	// Details structure for additional information about the error if available. Content and structure will be error specific.
-	Detail *interface{} `json:"detail,omitempty"`
+	Detail interface{} `json:"detail,omitempty"`
 }
 
 // NewReportingApiErrorResponse instantiates a new ReportingApiErrorResponse object
@@ -143,12 +143,12 @@ func (o *ReportingApiErrorResponse) GetDetail() interface{} {
 		var ret interface{}
 		return ret
 	}
-	return *o.Detail
+	return o.Detail
 }
 
 // GetDetailOk returns a tuple with the Detail field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ReportingApiErrorResponse) GetDetailOk() (*interface{}, bool) {
+func (o *ReportingApiErrorResponse) GetDetailOk() (interface{}, bool) {
 	if o == nil || o.Detail == nil {
 		return nil, false
 	}
@@ -166,7 +166,7 @@ func (o *ReportingApiErrorResponse) HasDetail() bool {
 
 // SetDetail gets a reference to the given interface{} and assigns it to the Detail field.
 func (o *ReportingApiErrorResponse) SetDetail(v interface{}) {
-	o.Detail = &v
+	o.Detail = v
 }
 
 func (o ReportingApiErrorResponse) MarshalJSON() ([]byte, error) {

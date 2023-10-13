@@ -17,7 +17,7 @@ import (
 
 // SourcesList struct for SourcesList
 type SourcesList struct {
-	Items *[]Source `json:"items,omitempty"`
+	Items []Source `json:"items,omitempty"`
 }
 
 // NewSourcesList instantiates a new SourcesList object
@@ -43,12 +43,12 @@ func (o *SourcesList) GetItems() []Source {
 		var ret []Source
 		return ret
 	}
-	return *o.Items
+	return o.Items
 }
 
 // GetItemsOk returns a tuple with the Items field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SourcesList) GetItemsOk() (*[]Source, bool) {
+func (o *SourcesList) GetItemsOk() ([]Source, bool) {
 	if o == nil || o.Items == nil {
 		return nil, false
 	}
@@ -66,7 +66,7 @@ func (o *SourcesList) HasItems() bool {
 
 // SetItems gets a reference to the given []Source and assigns it to the Items field.
 func (o *SourcesList) SetItems(v []Source) {
-	o.Items = &v
+	o.Items = v
 }
 
 func (o SourcesList) MarshalJSON() ([]byte, error) {

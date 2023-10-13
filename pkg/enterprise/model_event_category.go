@@ -19,7 +19,7 @@ import (
 type EventCategory struct {
 	Category *string `json:"category,omitempty"`
 	Description *string `json:"description,omitempty"`
-	Subcategories *[]EventSubcategory `json:"subcategories,omitempty"`
+	Subcategories []EventSubcategory `json:"subcategories,omitempty"`
 }
 
 // NewEventCategory instantiates a new EventCategory object
@@ -109,12 +109,12 @@ func (o *EventCategory) GetSubcategories() []EventSubcategory {
 		var ret []EventSubcategory
 		return ret
 	}
-	return *o.Subcategories
+	return o.Subcategories
 }
 
 // GetSubcategoriesOk returns a tuple with the Subcategories field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *EventCategory) GetSubcategoriesOk() (*[]EventSubcategory, bool) {
+func (o *EventCategory) GetSubcategoriesOk() ([]EventSubcategory, bool) {
 	if o == nil || o.Subcategories == nil {
 		return nil, false
 	}
@@ -132,7 +132,7 @@ func (o *EventCategory) HasSubcategories() bool {
 
 // SetSubcategories gets a reference to the given []EventSubcategory and assigns it to the Subcategories field.
 func (o *EventCategory) SetSubcategories(v []EventSubcategory) {
-	o.Subcategories = &v
+	o.Subcategories = v
 }
 
 func (o EventCategory) MarshalJSON() ([]byte, error) {

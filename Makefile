@@ -6,11 +6,11 @@ PROJECT_ROOT = pkg
 CLONE_DIR = local
 
 # OpenAPI generator version to use
-OPENAPI_GENERATOR_VERSION = v5.2.1
+OPENAPI_GENERATOR_VERSION = v6.0.0
 
 # --- anchore enterprise references
 # a git tag/branch/commit within anchore/enterprise repo
-ENTERPRISE_REF = 36d1c8aa416759a99527188c2f175b1286efe34e
+ENTERPRISE_REF = 581f7e996121a4aa7fb5be983205dfb1375a26ad
 ENTERPRISE_ROOT = $(PROJECT_ROOT)/enterprise
 ENTERPRISE_OPENAPI_DOC = $(PROJECT_ROOT)/anchore-api-swagger-$(ENTERPRISE_REF).yaml
 

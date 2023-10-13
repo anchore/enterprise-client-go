@@ -43,7 +43,7 @@ type NotificationJiraEndpointConfigurationPost struct {
 	// Jira user to associate with the issue
 	Assignee *string `json:"assignee,omitempty"`
 	// List of labels to associate with the issue
-	Labels *[]string `json:"labels,omitempty"`
+	Labels []string `json:"labels,omitempty"`
 }
 
 // NewNotificationJiraEndpointConfigurationPost instantiates a new NotificationJiraEndpointConfigurationPost object
@@ -241,7 +241,7 @@ func (o *NotificationJiraEndpointConfigurationPost) GetUrl() string {
 // GetUrlOk returns a tuple with the Url field value
 // and a boolean to check if the value has been set.
 func (o *NotificationJiraEndpointConfigurationPost) GetUrlOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Url, true
@@ -265,7 +265,7 @@ func (o *NotificationJiraEndpointConfigurationPost) GetUsername() string {
 // GetUsernameOk returns a tuple with the Username field value
 // and a boolean to check if the value has been set.
 func (o *NotificationJiraEndpointConfigurationPost) GetUsernameOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Username, true
@@ -289,7 +289,7 @@ func (o *NotificationJiraEndpointConfigurationPost) GetPassword() string {
 // GetPasswordOk returns a tuple with the Password field value
 // and a boolean to check if the value has been set.
 func (o *NotificationJiraEndpointConfigurationPost) GetPasswordOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Password, true
@@ -313,7 +313,7 @@ func (o *NotificationJiraEndpointConfigurationPost) GetProjectKey() string {
 // GetProjectKeyOk returns a tuple with the ProjectKey field value
 // and a boolean to check if the value has been set.
 func (o *NotificationJiraEndpointConfigurationPost) GetProjectKeyOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.ProjectKey, true
@@ -337,7 +337,7 @@ func (o *NotificationJiraEndpointConfigurationPost) GetIssueType() string {
 // GetIssueTypeOk returns a tuple with the IssueType field value
 // and a boolean to check if the value has been set.
 func (o *NotificationJiraEndpointConfigurationPost) GetIssueTypeOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.IssueType, true
@@ -418,12 +418,12 @@ func (o *NotificationJiraEndpointConfigurationPost) GetLabels() []string {
 		var ret []string
 		return ret
 	}
-	return *o.Labels
+	return o.Labels
 }
 
 // GetLabelsOk returns a tuple with the Labels field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *NotificationJiraEndpointConfigurationPost) GetLabelsOk() (*[]string, bool) {
+func (o *NotificationJiraEndpointConfigurationPost) GetLabelsOk() ([]string, bool) {
 	if o == nil || o.Labels == nil {
 		return nil, false
 	}
@@ -441,7 +441,7 @@ func (o *NotificationJiraEndpointConfigurationPost) HasLabels() bool {
 
 // SetLabels gets a reference to the given []string and assigns it to the Labels field.
 func (o *NotificationJiraEndpointConfigurationPost) SetLabels(v []string) {
-	o.Labels = &v
+	o.Labels = v
 }
 
 func (o NotificationJiraEndpointConfigurationPost) MarshalJSON() ([]byte, error) {

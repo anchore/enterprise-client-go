@@ -106,7 +106,7 @@ func (o *VulnUpdateNotificationPayloadAllOf) SetImageDigest(v string) {
 
 // GetAnnotations returns the Annotations field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *VulnUpdateNotificationPayloadAllOf) GetAnnotations() interface{} {
-	if o == nil  {
+	if o == nil {
 		var ret interface{}
 		return ret
 	}
@@ -116,11 +116,11 @@ func (o *VulnUpdateNotificationPayloadAllOf) GetAnnotations() interface{} {
 // GetAnnotationsOk returns a tuple with the Annotations field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *VulnUpdateNotificationPayloadAllOf) GetAnnotationsOk() (*interface{}, bool) {
+func (o *VulnUpdateNotificationPayloadAllOf) GetAnnotationsOk() (interface{}, bool) {
 	if o == nil || o.Annotations == nil {
 		return nil, false
 	}
-	return &o.Annotations, true
+	return o.Annotations, true
 }
 
 // HasAnnotations returns a boolean if a field has been set.

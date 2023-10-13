@@ -23,7 +23,7 @@ type StatusResponse struct {
 	Message *string `json:"message,omitempty"`
 	Version *string `json:"version,omitempty"`
 	DbVersion *string `json:"db_version,omitempty"`
-	Detail *interface{} `json:"detail,omitempty"`
+	Detail interface{} `json:"detail,omitempty"`
 }
 
 // NewStatusResponse instantiates a new StatusResponse object
@@ -241,12 +241,12 @@ func (o *StatusResponse) GetDetail() interface{} {
 		var ret interface{}
 		return ret
 	}
-	return *o.Detail
+	return o.Detail
 }
 
 // GetDetailOk returns a tuple with the Detail field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *StatusResponse) GetDetailOk() (*interface{}, bool) {
+func (o *StatusResponse) GetDetailOk() (interface{}, bool) {
 	if o == nil || o.Detail == nil {
 		return nil, false
 	}
@@ -264,7 +264,7 @@ func (o *StatusResponse) HasDetail() bool {
 
 // SetDetail gets a reference to the given interface{} and assigns it to the Detail field.
 func (o *StatusResponse) SetDetail(v interface{}) {
-	o.Detail = &v
+	o.Detail = v
 }
 
 func (o StatusResponse) MarshalJSON() ([]byte, error) {

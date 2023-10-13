@@ -22,8 +22,8 @@ type ImagePackageManifest struct {
 	Distro ImportDistribution `json:"distro"`
 	Descriptor *ImportDescriptor `json:"descriptor,omitempty"`
 	Schema *ImportSchema `json:"schema,omitempty"`
-	ArtifactRelationships *[]ImportPackageRelationship `json:"artifactRelationships,omitempty"`
-	Files *[]ImportFile `json:"files,omitempty"`
+	ArtifactRelationships []ImportPackageRelationship `json:"artifactRelationships,omitempty"`
+	Files []ImportFile `json:"files,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -61,11 +61,11 @@ func (o *ImagePackageManifest) GetArtifacts() []ImportPackage {
 
 // GetArtifactsOk returns a tuple with the Artifacts field value
 // and a boolean to check if the value has been set.
-func (o *ImagePackageManifest) GetArtifactsOk() (*[]ImportPackage, bool) {
-	if o == nil  {
+func (o *ImagePackageManifest) GetArtifactsOk() ([]ImportPackage, bool) {
+	if o == nil {
 		return nil, false
 	}
-	return &o.Artifacts, true
+	return o.Artifacts, true
 }
 
 // SetArtifacts sets field value
@@ -86,7 +86,7 @@ func (o *ImagePackageManifest) GetSource() ImportSource {
 // GetSourceOk returns a tuple with the Source field value
 // and a boolean to check if the value has been set.
 func (o *ImagePackageManifest) GetSourceOk() (*ImportSource, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Source, true
@@ -110,7 +110,7 @@ func (o *ImagePackageManifest) GetDistro() ImportDistribution {
 // GetDistroOk returns a tuple with the Distro field value
 // and a boolean to check if the value has been set.
 func (o *ImagePackageManifest) GetDistroOk() (*ImportDistribution, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Distro, true
@@ -191,12 +191,12 @@ func (o *ImagePackageManifest) GetArtifactRelationships() []ImportPackageRelatio
 		var ret []ImportPackageRelationship
 		return ret
 	}
-	return *o.ArtifactRelationships
+	return o.ArtifactRelationships
 }
 
 // GetArtifactRelationshipsOk returns a tuple with the ArtifactRelationships field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ImagePackageManifest) GetArtifactRelationshipsOk() (*[]ImportPackageRelationship, bool) {
+func (o *ImagePackageManifest) GetArtifactRelationshipsOk() ([]ImportPackageRelationship, bool) {
 	if o == nil || o.ArtifactRelationships == nil {
 		return nil, false
 	}
@@ -214,7 +214,7 @@ func (o *ImagePackageManifest) HasArtifactRelationships() bool {
 
 // SetArtifactRelationships gets a reference to the given []ImportPackageRelationship and assigns it to the ArtifactRelationships field.
 func (o *ImagePackageManifest) SetArtifactRelationships(v []ImportPackageRelationship) {
-	o.ArtifactRelationships = &v
+	o.ArtifactRelationships = v
 }
 
 // GetFiles returns the Files field value if set, zero value otherwise.
@@ -223,12 +223,12 @@ func (o *ImagePackageManifest) GetFiles() []ImportFile {
 		var ret []ImportFile
 		return ret
 	}
-	return *o.Files
+	return o.Files
 }
 
 // GetFilesOk returns a tuple with the Files field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ImagePackageManifest) GetFilesOk() (*[]ImportFile, bool) {
+func (o *ImagePackageManifest) GetFilesOk() ([]ImportFile, bool) {
 	if o == nil || o.Files == nil {
 		return nil, false
 	}
@@ -246,7 +246,7 @@ func (o *ImagePackageManifest) HasFiles() bool {
 
 // SetFiles gets a reference to the given []ImportFile and assigns it to the Files field.
 func (o *ImagePackageManifest) SetFiles(v []ImportFile) {
-	o.Files = &v
+	o.Files = v
 }
 
 func (o ImagePackageManifest) MarshalJSON() ([]byte, error) {

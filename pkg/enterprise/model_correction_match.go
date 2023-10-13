@@ -20,7 +20,7 @@ type CorrectionMatch struct {
 	// type of match [supports os, npm, gem, python, java, go]
 	Type string `json:"type"`
 	// list of field matches that are required in order for this correction to match
-	FieldMatches *[]CorrectionFieldMatch `json:"field_matches,omitempty"`
+	FieldMatches []CorrectionFieldMatch `json:"field_matches,omitempty"`
 }
 
 // NewCorrectionMatch instantiates a new CorrectionMatch object
@@ -54,7 +54,7 @@ func (o *CorrectionMatch) GetType() string {
 // GetTypeOk returns a tuple with the Type field value
 // and a boolean to check if the value has been set.
 func (o *CorrectionMatch) GetTypeOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Type, true
@@ -71,12 +71,12 @@ func (o *CorrectionMatch) GetFieldMatches() []CorrectionFieldMatch {
 		var ret []CorrectionFieldMatch
 		return ret
 	}
-	return *o.FieldMatches
+	return o.FieldMatches
 }
 
 // GetFieldMatchesOk returns a tuple with the FieldMatches field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CorrectionMatch) GetFieldMatchesOk() (*[]CorrectionFieldMatch, bool) {
+func (o *CorrectionMatch) GetFieldMatchesOk() ([]CorrectionFieldMatch, bool) {
 	if o == nil || o.FieldMatches == nil {
 		return nil, false
 	}
@@ -94,7 +94,7 @@ func (o *CorrectionMatch) HasFieldMatches() bool {
 
 // SetFieldMatches gets a reference to the given []CorrectionFieldMatch and assigns it to the FieldMatches field.
 func (o *CorrectionMatch) SetFieldMatches(v []CorrectionFieldMatch) {
-	o.FieldMatches = &v
+	o.FieldMatches = v
 }
 
 func (o CorrectionMatch) MarshalJSON() ([]byte, error) {

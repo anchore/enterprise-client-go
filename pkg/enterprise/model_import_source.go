@@ -18,8 +18,8 @@ import (
 // ImportSource struct for ImportSource
 type ImportSource struct {
 	Type string `json:"type"`
-	Target *map[string]interface{} `json:"target,omitempty"`
-	Metadata *map[string]interface{} `json:"metadata,omitempty"`
+	Target map[string]interface{} `json:"target,omitempty"`
+	Metadata map[string]interface{} `json:"metadata,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -56,7 +56,7 @@ func (o *ImportSource) GetType() string {
 // GetTypeOk returns a tuple with the Type field value
 // and a boolean to check if the value has been set.
 func (o *ImportSource) GetTypeOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Type, true
@@ -73,12 +73,12 @@ func (o *ImportSource) GetTarget() map[string]interface{} {
 		var ret map[string]interface{}
 		return ret
 	}
-	return *o.Target
+	return o.Target
 }
 
 // GetTargetOk returns a tuple with the Target field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ImportSource) GetTargetOk() (*map[string]interface{}, bool) {
+func (o *ImportSource) GetTargetOk() (map[string]interface{}, bool) {
 	if o == nil || o.Target == nil {
 		return nil, false
 	}
@@ -96,7 +96,7 @@ func (o *ImportSource) HasTarget() bool {
 
 // SetTarget gets a reference to the given map[string]interface{} and assigns it to the Target field.
 func (o *ImportSource) SetTarget(v map[string]interface{}) {
-	o.Target = &v
+	o.Target = v
 }
 
 // GetMetadata returns the Metadata field value if set, zero value otherwise.
@@ -105,12 +105,12 @@ func (o *ImportSource) GetMetadata() map[string]interface{} {
 		var ret map[string]interface{}
 		return ret
 	}
-	return *o.Metadata
+	return o.Metadata
 }
 
 // GetMetadataOk returns a tuple with the Metadata field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ImportSource) GetMetadataOk() (*map[string]interface{}, bool) {
+func (o *ImportSource) GetMetadataOk() (map[string]interface{}, bool) {
 	if o == nil || o.Metadata == nil {
 		return nil, false
 	}
@@ -128,7 +128,7 @@ func (o *ImportSource) HasMetadata() bool {
 
 // SetMetadata gets a reference to the given map[string]interface{} and assigns it to the Metadata field.
 func (o *ImportSource) SetMetadata(v map[string]interface{}) {
-	o.Metadata = &v
+	o.Metadata = v
 }
 
 func (o ImportSource) MarshalJSON() ([]byte, error) {

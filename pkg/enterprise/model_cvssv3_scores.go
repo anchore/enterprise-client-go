@@ -52,7 +52,7 @@ func (o *CVSSV3Scores) GetBaseScore() float32 {
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *CVSSV3Scores) GetBaseScoreOk() (*float32, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return o.BaseScore.Get(), o.BaseScore.IsSet()
@@ -94,7 +94,7 @@ func (o *CVSSV3Scores) GetExploitabilityScore() float32 {
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *CVSSV3Scores) GetExploitabilityScoreOk() (*float32, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return o.ExploitabilityScore.Get(), o.ExploitabilityScore.IsSet()
@@ -136,7 +136,7 @@ func (o *CVSSV3Scores) GetImpactScore() float32 {
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *CVSSV3Scores) GetImpactScoreOk() (*float32, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return o.ImpactScore.Get(), o.ImpactScore.IsSet()

@@ -13,16 +13,12 @@ package enterprise
 
 import (
 	"bytes"
-	_context "context"
-	_ioutil "io/ioutil"
-	_nethttp "net/http"
-	_neturl "net/url"
+	"context"
+	"io/ioutil"
+	"net/http"
+	"net/url"
 )
 
-// Linger please
-var (
-	_ _context.Context
-)
 
 type SummariesApi interface {
 
@@ -31,21 +27,21 @@ type SummariesApi interface {
 
 	List all image tags visible to the user
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @return ApiListImageTagsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiListImageTagsRequest
 	*/
-	ListImageTags(ctx _context.Context) ApiListImageTagsRequest
+	ListImageTags(ctx context.Context) ApiListImageTagsRequest
 
 	// ListImageTagsExecute executes the request
 	//  @return AnchoreImageTagSummaryList
-	ListImageTagsExecute(r ApiListImageTagsRequest) (AnchoreImageTagSummaryList, *_nethttp.Response, error)
+	ListImageTagsExecute(r ApiListImageTagsRequest) (*AnchoreImageTagSummaryList, *http.Response, error)
 }
 
 // SummariesApiService SummariesApi service
 type SummariesApiService service
 
 type ApiListImageTagsRequest struct {
-	ctx _context.Context
+	ctx context.Context
 	ApiService SummariesApi
 	imageStatus *[]string
 	xAnchoreAccount *string
@@ -56,13 +52,14 @@ func (r ApiListImageTagsRequest) ImageStatus(imageStatus []string) ApiListImageT
 	r.imageStatus = &imageStatus
 	return r
 }
+
 // An account name to change the resource scope of the request to that account, if permissions allow (admin only)
 func (r ApiListImageTagsRequest) XAnchoreAccount(xAnchoreAccount string) ApiListImageTagsRequest {
 	r.xAnchoreAccount = &xAnchoreAccount
 	return r
 }
 
-func (r ApiListImageTagsRequest) Execute() (AnchoreImageTagSummaryList, *_nethttp.Response, error) {
+func (r ApiListImageTagsRequest) Execute() (*AnchoreImageTagSummaryList, *http.Response, error) {
 	return r.ApiService.ListImageTagsExecute(r)
 }
 
@@ -71,10 +68,10 @@ ListImageTags List all visible image digests and tags
 
 List all image tags visible to the user
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiListImageTagsRequest
 */
-func (a *SummariesApiService) ListImageTags(ctx _context.Context) ApiListImageTagsRequest {
+func (a *SummariesApiService) ListImageTags(ctx context.Context) ApiListImageTagsRequest {
 	return ApiListImageTagsRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -83,26 +80,24 @@ func (a *SummariesApiService) ListImageTags(ctx _context.Context) ApiListImageTa
 
 // Execute executes the request
 //  @return AnchoreImageTagSummaryList
-func (a *SummariesApiService) ListImageTagsExecute(r ApiListImageTagsRequest) (AnchoreImageTagSummaryList, *_nethttp.Response, error) {
+func (a *SummariesApiService) ListImageTagsExecute(r ApiListImageTagsRequest) (*AnchoreImageTagSummaryList, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  AnchoreImageTagSummaryList
+		formFiles            []formFile
+		localVarReturnValue  *AnchoreImageTagSummaryList
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SummariesApiService.ListImageTags")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/summaries/image-tags"
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	if r.imageStatus != nil {
 		localVarQueryParams.Add("image_status", parameterToString(*r.imageStatus, "csv"))
@@ -127,7 +122,7 @@ func (a *SummariesApiService) ListImageTagsExecute(r ApiListImageTagsRequest) (A
 	if r.xAnchoreAccount != nil {
 		localVarHeaderParams["x-anchore-account"] = parameterToString(*r.xAnchoreAccount, "")
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -137,15 +132,15 @@ func (a *SummariesApiService) ListImageTagsExecute(r ApiListImageTagsRequest) (A
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -163,7 +158,7 @@ func (a *SummariesApiService) ListImageTagsExecute(r ApiListImageTagsRequest) (A
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}

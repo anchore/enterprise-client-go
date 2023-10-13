@@ -24,7 +24,7 @@ type ArtifactRelationship struct {
 	RelationshipType *RelationshipType `json:"relationship_type,omitempty"`
 	Comment *string `json:"comment,omitempty"`
 	// User-provided metadata about the relationship
-	UserMetadata *interface{} `json:"user_metadata,omitempty"`
+	UserMetadata interface{} `json:"user_metadata,omitempty"`
 }
 
 // NewArtifactRelationship instantiates a new ArtifactRelationship object
@@ -210,12 +210,12 @@ func (o *ArtifactRelationship) GetUserMetadata() interface{} {
 		var ret interface{}
 		return ret
 	}
-	return *o.UserMetadata
+	return o.UserMetadata
 }
 
 // GetUserMetadataOk returns a tuple with the UserMetadata field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ArtifactRelationship) GetUserMetadataOk() (*interface{}, bool) {
+func (o *ArtifactRelationship) GetUserMetadataOk() (interface{}, bool) {
 	if o == nil || o.UserMetadata == nil {
 		return nil, false
 	}
@@ -233,7 +233,7 @@ func (o *ArtifactRelationship) HasUserMetadata() bool {
 
 // SetUserMetadata gets a reference to the given interface{} and assigns it to the UserMetadata field.
 func (o *ArtifactRelationship) SetUserMetadata(v interface{}) {
-	o.UserMetadata = &v
+	o.UserMetadata = v
 }
 
 func (o ArtifactRelationship) MarshalJSON() ([]byte, error) {

@@ -19,9 +19,9 @@ import (
 type ImageAncestor struct {
 	// The digest of the image
 	ImageDigest *string `json:"image_digest,omitempty"`
-	Tags *[]string `json:"tags,omitempty"`
+	Tags []string `json:"tags,omitempty"`
 	// The full set of layers for this image
-	Layers *[]string `json:"layers,omitempty"`
+	Layers []string `json:"layers,omitempty"`
 }
 
 // NewImageAncestor instantiates a new ImageAncestor object
@@ -79,12 +79,12 @@ func (o *ImageAncestor) GetTags() []string {
 		var ret []string
 		return ret
 	}
-	return *o.Tags
+	return o.Tags
 }
 
 // GetTagsOk returns a tuple with the Tags field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ImageAncestor) GetTagsOk() (*[]string, bool) {
+func (o *ImageAncestor) GetTagsOk() ([]string, bool) {
 	if o == nil || o.Tags == nil {
 		return nil, false
 	}
@@ -102,7 +102,7 @@ func (o *ImageAncestor) HasTags() bool {
 
 // SetTags gets a reference to the given []string and assigns it to the Tags field.
 func (o *ImageAncestor) SetTags(v []string) {
-	o.Tags = &v
+	o.Tags = v
 }
 
 // GetLayers returns the Layers field value if set, zero value otherwise.
@@ -111,12 +111,12 @@ func (o *ImageAncestor) GetLayers() []string {
 		var ret []string
 		return ret
 	}
-	return *o.Layers
+	return o.Layers
 }
 
 // GetLayersOk returns a tuple with the Layers field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ImageAncestor) GetLayersOk() (*[]string, bool) {
+func (o *ImageAncestor) GetLayersOk() ([]string, bool) {
 	if o == nil || o.Layers == nil {
 		return nil, false
 	}
@@ -134,7 +134,7 @@ func (o *ImageAncestor) HasLayers() bool {
 
 // SetLayers gets a reference to the given []string and assigns it to the Layers field.
 func (o *ImageAncestor) SetLayers(v []string) {
-	o.Layers = &v
+	o.Layers = v
 }
 
 func (o ImageAncestor) MarshalJSON() ([]byte, error) {

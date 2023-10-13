@@ -57,7 +57,7 @@ func (o *NativeSBOMDistribution) GetName() string {
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *NativeSBOMDistribution) GetNameOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return o.Name.Get(), o.Name.IsSet()
@@ -99,7 +99,7 @@ func (o *NativeSBOMDistribution) GetId() string {
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *NativeSBOMDistribution) GetIdOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return o.Id.Get(), o.Id.IsSet()
@@ -141,7 +141,7 @@ func (o *NativeSBOMDistribution) GetVersion() string {
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *NativeSBOMDistribution) GetVersionOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return o.Version.Get(), o.Version.IsSet()
@@ -183,7 +183,7 @@ func (o *NativeSBOMDistribution) GetVersionID() string {
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *NativeSBOMDistribution) GetVersionIDOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return o.VersionID.Get(), o.VersionID.IsSet()
@@ -214,7 +214,7 @@ func (o *NativeSBOMDistribution) UnsetVersionID() {
 
 // GetIdLike returns the IdLike field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *NativeSBOMDistribution) GetIdLike() interface{} {
-	if o == nil  {
+	if o == nil {
 		var ret interface{}
 		return ret
 	}
