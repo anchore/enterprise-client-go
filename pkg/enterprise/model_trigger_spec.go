@@ -26,7 +26,7 @@ type TriggerSpec struct {
 	// The name of another trigger that supersedes this on functionally if this is deprecated
 	SupersededBy NullableString `json:"superseded_by,omitempty"`
 	// The list of parameters that are valid for this trigger
-	Parameters *[]TriggerParamSpec `json:"parameters,omitempty"`
+	Parameters []TriggerParamSpec `json:"parameters,omitempty"`
 }
 
 // NewTriggerSpec instantiates a new TriggerSpec object
@@ -155,7 +155,7 @@ func (o *TriggerSpec) GetSupersededBy() string {
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *TriggerSpec) GetSupersededByOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return o.SupersededBy.Get(), o.SupersededBy.IsSet()
@@ -190,12 +190,12 @@ func (o *TriggerSpec) GetParameters() []TriggerParamSpec {
 		var ret []TriggerParamSpec
 		return ret
 	}
-	return *o.Parameters
+	return o.Parameters
 }
 
 // GetParametersOk returns a tuple with the Parameters field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *TriggerSpec) GetParametersOk() (*[]TriggerParamSpec, bool) {
+func (o *TriggerSpec) GetParametersOk() ([]TriggerParamSpec, bool) {
 	if o == nil || o.Parameters == nil {
 		return nil, false
 	}
@@ -213,7 +213,7 @@ func (o *TriggerSpec) HasParameters() bool {
 
 // SetParameters gets a reference to the given []TriggerParamSpec and assigns it to the Parameters field.
 func (o *TriggerSpec) SetParameters(v []TriggerParamSpec) {
-	o.Parameters = &v
+	o.Parameters = v
 }
 
 func (o TriggerSpec) MarshalJSON() ([]byte, error) {

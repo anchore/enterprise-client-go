@@ -55,7 +55,7 @@ func (o *RbacManagerRoleMember) GetUsername() string {
 // GetUsernameOk returns a tuple with the Username field value
 // and a boolean to check if the value has been set.
 func (o *RbacManagerRoleMember) GetUsernameOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Username, true
@@ -79,7 +79,7 @@ func (o *RbacManagerRoleMember) GetForAccount() string {
 // GetForAccountOk returns a tuple with the ForAccount field value
 // and a boolean to check if the value has been set.
 func (o *RbacManagerRoleMember) GetForAccountOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.ForAccount, true

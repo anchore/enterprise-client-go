@@ -22,9 +22,9 @@ type TagUpdateNotificationPayload struct {
 	SubscriptionType *string `json:"subscription_type,omitempty"`
 	NotificationId *string `json:"notification_id,omitempty"`
 	// A list containing the current image digest
-	CurrEval *[]interface{} `json:"curr_eval,omitempty"`
+	CurrEval []interface{} `json:"curr_eval,omitempty"`
 	// A list containing the previous image digests
-	LastEval *[]interface{} `json:"last_eval,omitempty"`
+	LastEval []interface{} `json:"last_eval,omitempty"`
 	// List of Corresponding Image Annotations
 	Annotations interface{} `json:"annotations,omitempty"`
 }
@@ -180,12 +180,12 @@ func (o *TagUpdateNotificationPayload) GetCurrEval() []interface{} {
 		var ret []interface{}
 		return ret
 	}
-	return *o.CurrEval
+	return o.CurrEval
 }
 
 // GetCurrEvalOk returns a tuple with the CurrEval field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *TagUpdateNotificationPayload) GetCurrEvalOk() (*[]interface{}, bool) {
+func (o *TagUpdateNotificationPayload) GetCurrEvalOk() ([]interface{}, bool) {
 	if o == nil || o.CurrEval == nil {
 		return nil, false
 	}
@@ -203,7 +203,7 @@ func (o *TagUpdateNotificationPayload) HasCurrEval() bool {
 
 // SetCurrEval gets a reference to the given []interface{} and assigns it to the CurrEval field.
 func (o *TagUpdateNotificationPayload) SetCurrEval(v []interface{}) {
-	o.CurrEval = &v
+	o.CurrEval = v
 }
 
 // GetLastEval returns the LastEval field value if set, zero value otherwise.
@@ -212,12 +212,12 @@ func (o *TagUpdateNotificationPayload) GetLastEval() []interface{} {
 		var ret []interface{}
 		return ret
 	}
-	return *o.LastEval
+	return o.LastEval
 }
 
 // GetLastEvalOk returns a tuple with the LastEval field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *TagUpdateNotificationPayload) GetLastEvalOk() (*[]interface{}, bool) {
+func (o *TagUpdateNotificationPayload) GetLastEvalOk() ([]interface{}, bool) {
 	if o == nil || o.LastEval == nil {
 		return nil, false
 	}
@@ -235,12 +235,12 @@ func (o *TagUpdateNotificationPayload) HasLastEval() bool {
 
 // SetLastEval gets a reference to the given []interface{} and assigns it to the LastEval field.
 func (o *TagUpdateNotificationPayload) SetLastEval(v []interface{}) {
-	o.LastEval = &v
+	o.LastEval = v
 }
 
 // GetAnnotations returns the Annotations field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *TagUpdateNotificationPayload) GetAnnotations() interface{} {
-	if o == nil  {
+	if o == nil {
 		var ret interface{}
 		return ret
 	}
@@ -250,11 +250,11 @@ func (o *TagUpdateNotificationPayload) GetAnnotations() interface{} {
 // GetAnnotationsOk returns a tuple with the Annotations field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *TagUpdateNotificationPayload) GetAnnotationsOk() (*interface{}, bool) {
+func (o *TagUpdateNotificationPayload) GetAnnotationsOk() (interface{}, bool) {
 	if o == nil || o.Annotations == nil {
 		return nil, false
 	}
-	return &o.Annotations, true
+	return o.Annotations, true
 }
 
 // HasAnnotations returns a boolean if a field has been set.

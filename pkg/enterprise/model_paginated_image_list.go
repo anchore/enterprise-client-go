@@ -15,39 +15,15 @@ import (
 	"encoding/json"
 )
 
-<<<<<<< HEAD
-// PaginatedVulnerableImageList Pagination wrapped list of images with vulnerabilities that match some filter
-type PaginatedVulnerableImageList struct {
-=======
 // PaginatedImageList Pagination wrapped list of images that match some filter
 type PaginatedImageList struct {
->>>>>>> 48fc108 (feat: updated the enterprise ref)
 	// The page number returned (should match the requested page query string param)
 	Page *string `json:"page,omitempty"`
 	// True if additional pages exist (page + 1) or False if this is the last page
 	NextPage *string `json:"next_page,omitempty"`
 	// The number of items sent in this response
 	ReturnedCount *int32 `json:"returned_count,omitempty"`
-<<<<<<< HEAD
-	Images *[]VulnerableImage `json:"images,omitempty"`
-}
-
-// NewPaginatedVulnerableImageList instantiates a new PaginatedVulnerableImageList object
-// This constructor will assign default values to properties that have it defined,
-// and makes sure properties required by API are set, but the set of arguments
-// will change when the set of required properties is changed
-func NewPaginatedVulnerableImageList() *PaginatedVulnerableImageList {
-	this := PaginatedVulnerableImageList{}
-	return &this
-}
-
-// NewPaginatedVulnerableImageListWithDefaults instantiates a new PaginatedVulnerableImageList object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set
-func NewPaginatedVulnerableImageListWithDefaults() *PaginatedVulnerableImageList {
-	this := PaginatedVulnerableImageList{}
-=======
-	Images *[]ImageWithPackages `json:"images,omitempty"`
+	Images []ImageWithPackages `json:"images,omitempty"`
 }
 
 // NewPaginatedImageList instantiates a new PaginatedImageList object
@@ -64,16 +40,11 @@ func NewPaginatedImageList() *PaginatedImageList {
 // but it doesn't guarantee that properties required by API are set
 func NewPaginatedImageListWithDefaults() *PaginatedImageList {
 	this := PaginatedImageList{}
->>>>>>> 48fc108 (feat: updated the enterprise ref)
 	return &this
 }
 
 // GetPage returns the Page field value if set, zero value otherwise.
-<<<<<<< HEAD
-func (o *PaginatedVulnerableImageList) GetPage() string {
-=======
 func (o *PaginatedImageList) GetPage() string {
->>>>>>> 48fc108 (feat: updated the enterprise ref)
 	if o == nil || o.Page == nil {
 		var ret string
 		return ret
@@ -83,11 +54,7 @@ func (o *PaginatedImageList) GetPage() string {
 
 // GetPageOk returns a tuple with the Page field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-<<<<<<< HEAD
-func (o *PaginatedVulnerableImageList) GetPageOk() (*string, bool) {
-=======
 func (o *PaginatedImageList) GetPageOk() (*string, bool) {
->>>>>>> 48fc108 (feat: updated the enterprise ref)
 	if o == nil || o.Page == nil {
 		return nil, false
 	}
@@ -95,11 +62,7 @@ func (o *PaginatedImageList) GetPageOk() (*string, bool) {
 }
 
 // HasPage returns a boolean if a field has been set.
-<<<<<<< HEAD
-func (o *PaginatedVulnerableImageList) HasPage() bool {
-=======
 func (o *PaginatedImageList) HasPage() bool {
->>>>>>> 48fc108 (feat: updated the enterprise ref)
 	if o != nil && o.Page != nil {
 		return true
 	}
@@ -108,20 +71,12 @@ func (o *PaginatedImageList) HasPage() bool {
 }
 
 // SetPage gets a reference to the given string and assigns it to the Page field.
-<<<<<<< HEAD
-func (o *PaginatedVulnerableImageList) SetPage(v string) {
-=======
 func (o *PaginatedImageList) SetPage(v string) {
->>>>>>> 48fc108 (feat: updated the enterprise ref)
 	o.Page = &v
 }
 
 // GetNextPage returns the NextPage field value if set, zero value otherwise.
-<<<<<<< HEAD
-func (o *PaginatedVulnerableImageList) GetNextPage() string {
-=======
 func (o *PaginatedImageList) GetNextPage() string {
->>>>>>> 48fc108 (feat: updated the enterprise ref)
 	if o == nil || o.NextPage == nil {
 		var ret string
 		return ret
@@ -131,11 +86,7 @@ func (o *PaginatedImageList) GetNextPage() string {
 
 // GetNextPageOk returns a tuple with the NextPage field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-<<<<<<< HEAD
-func (o *PaginatedVulnerableImageList) GetNextPageOk() (*string, bool) {
-=======
 func (o *PaginatedImageList) GetNextPageOk() (*string, bool) {
->>>>>>> 48fc108 (feat: updated the enterprise ref)
 	if o == nil || o.NextPage == nil {
 		return nil, false
 	}
@@ -143,11 +94,7 @@ func (o *PaginatedImageList) GetNextPageOk() (*string, bool) {
 }
 
 // HasNextPage returns a boolean if a field has been set.
-<<<<<<< HEAD
-func (o *PaginatedVulnerableImageList) HasNextPage() bool {
-=======
 func (o *PaginatedImageList) HasNextPage() bool {
->>>>>>> 48fc108 (feat: updated the enterprise ref)
 	if o != nil && o.NextPage != nil {
 		return true
 	}
@@ -156,20 +103,12 @@ func (o *PaginatedImageList) HasNextPage() bool {
 }
 
 // SetNextPage gets a reference to the given string and assigns it to the NextPage field.
-<<<<<<< HEAD
-func (o *PaginatedVulnerableImageList) SetNextPage(v string) {
-=======
 func (o *PaginatedImageList) SetNextPage(v string) {
->>>>>>> 48fc108 (feat: updated the enterprise ref)
 	o.NextPage = &v
 }
 
 // GetReturnedCount returns the ReturnedCount field value if set, zero value otherwise.
-<<<<<<< HEAD
-func (o *PaginatedVulnerableImageList) GetReturnedCount() int32 {
-=======
 func (o *PaginatedImageList) GetReturnedCount() int32 {
->>>>>>> 48fc108 (feat: updated the enterprise ref)
 	if o == nil || o.ReturnedCount == nil {
 		var ret int32
 		return ret
@@ -179,11 +118,7 @@ func (o *PaginatedImageList) GetReturnedCount() int32 {
 
 // GetReturnedCountOk returns a tuple with the ReturnedCount field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-<<<<<<< HEAD
-func (o *PaginatedVulnerableImageList) GetReturnedCountOk() (*int32, bool) {
-=======
 func (o *PaginatedImageList) GetReturnedCountOk() (*int32, bool) {
->>>>>>> 48fc108 (feat: updated the enterprise ref)
 	if o == nil || o.ReturnedCount == nil {
 		return nil, false
 	}
@@ -191,11 +126,7 @@ func (o *PaginatedImageList) GetReturnedCountOk() (*int32, bool) {
 }
 
 // HasReturnedCount returns a boolean if a field has been set.
-<<<<<<< HEAD
-func (o *PaginatedVulnerableImageList) HasReturnedCount() bool {
-=======
 func (o *PaginatedImageList) HasReturnedCount() bool {
->>>>>>> 48fc108 (feat: updated the enterprise ref)
 	if o != nil && o.ReturnedCount != nil {
 		return true
 	}
@@ -204,36 +135,22 @@ func (o *PaginatedImageList) HasReturnedCount() bool {
 }
 
 // SetReturnedCount gets a reference to the given int32 and assigns it to the ReturnedCount field.
-<<<<<<< HEAD
-func (o *PaginatedVulnerableImageList) SetReturnedCount(v int32) {
-=======
 func (o *PaginatedImageList) SetReturnedCount(v int32) {
->>>>>>> 48fc108 (feat: updated the enterprise ref)
 	o.ReturnedCount = &v
 }
 
 // GetImages returns the Images field value if set, zero value otherwise.
-<<<<<<< HEAD
-func (o *PaginatedVulnerableImageList) GetImages() []VulnerableImage {
-	if o == nil || o.Images == nil {
-		var ret []VulnerableImage
-=======
 func (o *PaginatedImageList) GetImages() []ImageWithPackages {
 	if o == nil || o.Images == nil {
 		var ret []ImageWithPackages
->>>>>>> 48fc108 (feat: updated the enterprise ref)
 		return ret
 	}
-	return *o.Images
+	return o.Images
 }
 
 // GetImagesOk returns a tuple with the Images field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-<<<<<<< HEAD
-func (o *PaginatedVulnerableImageList) GetImagesOk() (*[]VulnerableImage, bool) {
-=======
-func (o *PaginatedImageList) GetImagesOk() (*[]ImageWithPackages, bool) {
->>>>>>> 48fc108 (feat: updated the enterprise ref)
+func (o *PaginatedImageList) GetImagesOk() ([]ImageWithPackages, bool) {
 	if o == nil || o.Images == nil {
 		return nil, false
 	}
@@ -241,11 +158,7 @@ func (o *PaginatedImageList) GetImagesOk() (*[]ImageWithPackages, bool) {
 }
 
 // HasImages returns a boolean if a field has been set.
-<<<<<<< HEAD
-func (o *PaginatedVulnerableImageList) HasImages() bool {
-=======
 func (o *PaginatedImageList) HasImages() bool {
->>>>>>> 48fc108 (feat: updated the enterprise ref)
 	if o != nil && o.Images != nil {
 		return true
 	}
@@ -253,21 +166,12 @@ func (o *PaginatedImageList) HasImages() bool {
 	return false
 }
 
-<<<<<<< HEAD
-// SetImages gets a reference to the given []VulnerableImage and assigns it to the Images field.
-func (o *PaginatedVulnerableImageList) SetImages(v []VulnerableImage) {
-	o.Images = &v
-}
-
-func (o PaginatedVulnerableImageList) MarshalJSON() ([]byte, error) {
-=======
 // SetImages gets a reference to the given []ImageWithPackages and assigns it to the Images field.
 func (o *PaginatedImageList) SetImages(v []ImageWithPackages) {
-	o.Images = &v
+	o.Images = v
 }
 
 func (o PaginatedImageList) MarshalJSON() ([]byte, error) {
->>>>>>> 48fc108 (feat: updated the enterprise ref)
 	toSerialize := map[string]interface{}{}
 	if o.Page != nil {
 		toSerialize["page"] = o.Page
@@ -284,18 +188,6 @@ func (o PaginatedImageList) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
-<<<<<<< HEAD
-type NullablePaginatedVulnerableImageList struct {
-	value *PaginatedVulnerableImageList
-	isSet bool
-}
-
-func (v NullablePaginatedVulnerableImageList) Get() *PaginatedVulnerableImageList {
-	return v.value
-}
-
-func (v *NullablePaginatedVulnerableImageList) Set(val *PaginatedVulnerableImageList) {
-=======
 type NullablePaginatedImageList struct {
 	value *PaginatedImageList
 	isSet bool
@@ -306,39 +198,19 @@ func (v NullablePaginatedImageList) Get() *PaginatedImageList {
 }
 
 func (v *NullablePaginatedImageList) Set(val *PaginatedImageList) {
->>>>>>> 48fc108 (feat: updated the enterprise ref)
 	v.value = val
 	v.isSet = true
 }
 
-<<<<<<< HEAD
-func (v NullablePaginatedVulnerableImageList) IsSet() bool {
-	return v.isSet
-}
-
-func (v *NullablePaginatedVulnerableImageList) Unset() {
-=======
 func (v NullablePaginatedImageList) IsSet() bool {
 	return v.isSet
 }
 
 func (v *NullablePaginatedImageList) Unset() {
->>>>>>> 48fc108 (feat: updated the enterprise ref)
 	v.value = nil
 	v.isSet = false
 }
 
-<<<<<<< HEAD
-func NewNullablePaginatedVulnerableImageList(val *PaginatedVulnerableImageList) *NullablePaginatedVulnerableImageList {
-	return &NullablePaginatedVulnerableImageList{value: val, isSet: true}
-}
-
-func (v NullablePaginatedVulnerableImageList) MarshalJSON() ([]byte, error) {
-	return json.Marshal(v.value)
-}
-
-func (v *NullablePaginatedVulnerableImageList) UnmarshalJSON(src []byte) error {
-=======
 func NewNullablePaginatedImageList(val *PaginatedImageList) *NullablePaginatedImageList {
 	return &NullablePaginatedImageList{value: val, isSet: true}
 }
@@ -348,7 +220,6 @@ func (v NullablePaginatedImageList) MarshalJSON() ([]byte, error) {
 }
 
 func (v *NullablePaginatedImageList) UnmarshalJSON(src []byte) error {
->>>>>>> 48fc108 (feat: updated the enterprise ref)
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }

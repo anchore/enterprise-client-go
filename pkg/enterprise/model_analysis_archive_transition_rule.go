@@ -195,7 +195,7 @@ func (o *AnalysisArchiveTransitionRule) GetTransition() string {
 // GetTransitionOk returns a tuple with the Transition field value
 // and a boolean to check if the value has been set.
 func (o *AnalysisArchiveTransitionRule) GetTransitionOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Transition, true

@@ -20,9 +20,9 @@ import (
 type ECSInventory struct {
 	ClusterArn string `json:"cluster_arn"`
 	Timestamp time.Time `json:"timestamp"`
-	Tasks []ECSInventoryTasks `json:"tasks,omitempty"`
-	Containers *[]ECSInventoryContainers `json:"containers,omitempty"`
-	Services []ECSInventoryServices `json:"services,omitempty"`
+	Tasks []ECSInventoryTasksInner `json:"tasks,omitempty"`
+	Containers []ECSInventoryContainersInner `json:"containers,omitempty"`
+	Services []ECSInventoryServicesInner `json:"services,omitempty"`
 }
 
 // NewECSInventory instantiates a new ECSInventory object
@@ -57,7 +57,7 @@ func (o *ECSInventory) GetClusterArn() string {
 // GetClusterArnOk returns a tuple with the ClusterArn field value
 // and a boolean to check if the value has been set.
 func (o *ECSInventory) GetClusterArnOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.ClusterArn, true
@@ -81,7 +81,7 @@ func (o *ECSInventory) GetTimestamp() time.Time {
 // GetTimestampOk returns a tuple with the Timestamp field value
 // and a boolean to check if the value has been set.
 func (o *ECSInventory) GetTimestampOk() (*time.Time, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Timestamp, true
@@ -93,9 +93,9 @@ func (o *ECSInventory) SetTimestamp(v time.Time) {
 }
 
 // GetTasks returns the Tasks field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *ECSInventory) GetTasks() []ECSInventoryTasks {
-	if o == nil  {
-		var ret []ECSInventoryTasks
+func (o *ECSInventory) GetTasks() []ECSInventoryTasksInner {
+	if o == nil {
+		var ret []ECSInventoryTasksInner
 		return ret
 	}
 	return o.Tasks
@@ -104,11 +104,11 @@ func (o *ECSInventory) GetTasks() []ECSInventoryTasks {
 // GetTasksOk returns a tuple with the Tasks field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *ECSInventory) GetTasksOk() (*[]ECSInventoryTasks, bool) {
+func (o *ECSInventory) GetTasksOk() ([]ECSInventoryTasksInner, bool) {
 	if o == nil || o.Tasks == nil {
 		return nil, false
 	}
-	return &o.Tasks, true
+	return o.Tasks, true
 }
 
 // HasTasks returns a boolean if a field has been set.
@@ -120,23 +120,23 @@ func (o *ECSInventory) HasTasks() bool {
 	return false
 }
 
-// SetTasks gets a reference to the given []ECSInventoryTasks and assigns it to the Tasks field.
-func (o *ECSInventory) SetTasks(v []ECSInventoryTasks) {
+// SetTasks gets a reference to the given []ECSInventoryTasksInner and assigns it to the Tasks field.
+func (o *ECSInventory) SetTasks(v []ECSInventoryTasksInner) {
 	o.Tasks = v
 }
 
 // GetContainers returns the Containers field value if set, zero value otherwise.
-func (o *ECSInventory) GetContainers() []ECSInventoryContainers {
+func (o *ECSInventory) GetContainers() []ECSInventoryContainersInner {
 	if o == nil || o.Containers == nil {
-		var ret []ECSInventoryContainers
+		var ret []ECSInventoryContainersInner
 		return ret
 	}
-	return *o.Containers
+	return o.Containers
 }
 
 // GetContainersOk returns a tuple with the Containers field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ECSInventory) GetContainersOk() (*[]ECSInventoryContainers, bool) {
+func (o *ECSInventory) GetContainersOk() ([]ECSInventoryContainersInner, bool) {
 	if o == nil || o.Containers == nil {
 		return nil, false
 	}
@@ -152,15 +152,15 @@ func (o *ECSInventory) HasContainers() bool {
 	return false
 }
 
-// SetContainers gets a reference to the given []ECSInventoryContainers and assigns it to the Containers field.
-func (o *ECSInventory) SetContainers(v []ECSInventoryContainers) {
-	o.Containers = &v
+// SetContainers gets a reference to the given []ECSInventoryContainersInner and assigns it to the Containers field.
+func (o *ECSInventory) SetContainers(v []ECSInventoryContainersInner) {
+	o.Containers = v
 }
 
 // GetServices returns the Services field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *ECSInventory) GetServices() []ECSInventoryServices {
-	if o == nil  {
-		var ret []ECSInventoryServices
+func (o *ECSInventory) GetServices() []ECSInventoryServicesInner {
+	if o == nil {
+		var ret []ECSInventoryServicesInner
 		return ret
 	}
 	return o.Services
@@ -169,11 +169,11 @@ func (o *ECSInventory) GetServices() []ECSInventoryServices {
 // GetServicesOk returns a tuple with the Services field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *ECSInventory) GetServicesOk() (*[]ECSInventoryServices, bool) {
+func (o *ECSInventory) GetServicesOk() ([]ECSInventoryServicesInner, bool) {
 	if o == nil || o.Services == nil {
 		return nil, false
 	}
-	return &o.Services, true
+	return o.Services, true
 }
 
 // HasServices returns a boolean if a field has been set.
@@ -185,8 +185,8 @@ func (o *ECSInventory) HasServices() bool {
 	return false
 }
 
-// SetServices gets a reference to the given []ECSInventoryServices and assigns it to the Services field.
-func (o *ECSInventory) SetServices(v []ECSInventoryServices) {
+// SetServices gets a reference to the given []ECSInventoryServicesInner and assigns it to the Services field.
+func (o *ECSInventory) SetServices(v []ECSInventoryServicesInner) {
 	o.Services = v
 }
 

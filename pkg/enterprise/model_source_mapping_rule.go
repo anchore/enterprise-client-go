@@ -64,7 +64,7 @@ func (o *SourceMappingRule) GetId() string {
 // GetIdOk returns a tuple with the Id field value
 // and a boolean to check if the value has been set.
 func (o *SourceMappingRule) GetIdOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Id, true
@@ -88,7 +88,7 @@ func (o *SourceMappingRule) GetName() string {
 // GetNameOk returns a tuple with the Name field value
 // and a boolean to check if the value has been set.
 func (o *SourceMappingRule) GetNameOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Name, true
@@ -111,11 +111,11 @@ func (o *SourceMappingRule) GetAllowlistIds() []string {
 
 // GetAllowlistIdsOk returns a tuple with the AllowlistIds field value
 // and a boolean to check if the value has been set.
-func (o *SourceMappingRule) GetAllowlistIdsOk() (*[]string, bool) {
-	if o == nil  {
+func (o *SourceMappingRule) GetAllowlistIdsOk() ([]string, bool) {
+	if o == nil {
 		return nil, false
 	}
-	return &o.AllowlistIds, true
+	return o.AllowlistIds, true
 }
 
 // SetAllowlistIds sets field value
@@ -135,11 +135,11 @@ func (o *SourceMappingRule) GetRuleSetIds() []string {
 
 // GetRuleSetIdsOk returns a tuple with the RuleSetIds field value
 // and a boolean to check if the value has been set.
-func (o *SourceMappingRule) GetRuleSetIdsOk() (*[]string, bool) {
-	if o == nil  {
+func (o *SourceMappingRule) GetRuleSetIdsOk() ([]string, bool) {
+	if o == nil {
 		return nil, false
 	}
-	return &o.RuleSetIds, true
+	return o.RuleSetIds, true
 }
 
 // SetRuleSetIds sets field value
@@ -160,7 +160,7 @@ func (o *SourceMappingRule) GetHost() string {
 // GetHostOk returns a tuple with the Host field value
 // and a boolean to check if the value has been set.
 func (o *SourceMappingRule) GetHostOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Host, true
@@ -184,7 +184,7 @@ func (o *SourceMappingRule) GetRepository() string {
 // GetRepositoryOk returns a tuple with the Repository field value
 // and a boolean to check if the value has been set.
 func (o *SourceMappingRule) GetRepositoryOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Repository, true

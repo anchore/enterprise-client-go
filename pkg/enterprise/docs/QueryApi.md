@@ -1,6 +1,6 @@
 # \QueryApi
 
-All URIs are relative to *http://localhost/v2*
+All URIs are relative to */v2*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -38,8 +38,8 @@ func main() {
     xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.QueryApi.QueryImagesByPackage(context.Background()).Name(name).PackageType(packageType).Version(version).Page(page).Limit(limit).XAnchoreAccount(xAnchoreAccount).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.QueryApi.QueryImagesByPackage(context.Background()).Name(name).PackageType(packageType).Version(version).Page(page).Limit(limit).XAnchoreAccount(xAnchoreAccount).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `QueryApi.QueryImagesByPackage``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -114,8 +114,8 @@ func main() {
     namespace := []string{"Inner_example"} // []string | Namespace(s) to filter vulnerability records by (optional)
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.QueryApi.QueryVulnerabilities(context.Background()).Id(id).AffectedPackage(affectedPackage).AffectedPackageVersion(affectedPackageVersion).Page(page).Limit(limit).Namespace(namespace).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.QueryApi.QueryVulnerabilities(context.Background()).Id(id).AffectedPackage(affectedPackage).AffectedPackageVersion(affectedPackageVersion).Page(page).Limit(limit).Namespace(namespace).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `QueryApi.QueryVulnerabilities``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)

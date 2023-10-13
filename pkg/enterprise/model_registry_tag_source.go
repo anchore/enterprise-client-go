@@ -54,7 +54,7 @@ func (o *RegistryTagSource) GetPullString() string {
 // GetPullStringOk returns a tuple with the PullString field value
 // and a boolean to check if the value has been set.
 func (o *RegistryTagSource) GetPullStringOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.PullString, true

@@ -18,9 +18,9 @@ import (
 // PolicyEvalNotificationPayloadAllOf struct for PolicyEvalNotificationPayloadAllOf
 type PolicyEvalNotificationPayloadAllOf struct {
 	// The Current Policy Evaluation result
-	CurrEval *interface{} `json:"curr_eval,omitempty"`
+	CurrEval interface{} `json:"curr_eval,omitempty"`
 	// The Previous Policy Evaluation result
-	LastEval *interface{} `json:"last_eval,omitempty"`
+	LastEval interface{} `json:"last_eval,omitempty"`
 	// List of Corresponding Image Annotations
 	Annotations interface{} `json:"annotations,omitempty"`
 }
@@ -48,12 +48,12 @@ func (o *PolicyEvalNotificationPayloadAllOf) GetCurrEval() interface{} {
 		var ret interface{}
 		return ret
 	}
-	return *o.CurrEval
+	return o.CurrEval
 }
 
 // GetCurrEvalOk returns a tuple with the CurrEval field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *PolicyEvalNotificationPayloadAllOf) GetCurrEvalOk() (*interface{}, bool) {
+func (o *PolicyEvalNotificationPayloadAllOf) GetCurrEvalOk() (interface{}, bool) {
 	if o == nil || o.CurrEval == nil {
 		return nil, false
 	}
@@ -71,7 +71,7 @@ func (o *PolicyEvalNotificationPayloadAllOf) HasCurrEval() bool {
 
 // SetCurrEval gets a reference to the given interface{} and assigns it to the CurrEval field.
 func (o *PolicyEvalNotificationPayloadAllOf) SetCurrEval(v interface{}) {
-	o.CurrEval = &v
+	o.CurrEval = v
 }
 
 // GetLastEval returns the LastEval field value if set, zero value otherwise.
@@ -80,12 +80,12 @@ func (o *PolicyEvalNotificationPayloadAllOf) GetLastEval() interface{} {
 		var ret interface{}
 		return ret
 	}
-	return *o.LastEval
+	return o.LastEval
 }
 
 // GetLastEvalOk returns a tuple with the LastEval field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *PolicyEvalNotificationPayloadAllOf) GetLastEvalOk() (*interface{}, bool) {
+func (o *PolicyEvalNotificationPayloadAllOf) GetLastEvalOk() (interface{}, bool) {
 	if o == nil || o.LastEval == nil {
 		return nil, false
 	}
@@ -103,12 +103,12 @@ func (o *PolicyEvalNotificationPayloadAllOf) HasLastEval() bool {
 
 // SetLastEval gets a reference to the given interface{} and assigns it to the LastEval field.
 func (o *PolicyEvalNotificationPayloadAllOf) SetLastEval(v interface{}) {
-	o.LastEval = &v
+	o.LastEval = v
 }
 
 // GetAnnotations returns the Annotations field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *PolicyEvalNotificationPayloadAllOf) GetAnnotations() interface{} {
-	if o == nil  {
+	if o == nil {
 		var ret interface{}
 		return ret
 	}
@@ -118,11 +118,11 @@ func (o *PolicyEvalNotificationPayloadAllOf) GetAnnotations() interface{} {
 // GetAnnotationsOk returns a tuple with the Annotations field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *PolicyEvalNotificationPayloadAllOf) GetAnnotationsOk() (*interface{}, bool) {
+func (o *PolicyEvalNotificationPayloadAllOf) GetAnnotationsOk() (interface{}, bool) {
 	if o == nil || o.Annotations == nil {
 		return nil, false
 	}
-	return &o.Annotations, true
+	return o.Annotations, true
 }
 
 // HasAnnotations returns a boolean if a field has been set.

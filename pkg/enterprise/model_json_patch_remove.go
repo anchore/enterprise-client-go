@@ -88,7 +88,7 @@ func (o *JsonPatchRemove) GetOp() string {
 // GetOpOk returns a tuple with the Op field value
 // and a boolean to check if the value has been set.
 func (o *JsonPatchRemove) GetOpOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Op, true
@@ -112,7 +112,7 @@ func (o *JsonPatchRemove) GetPath() string {
 // GetPathOk returns a tuple with the Path field value
 // and a boolean to check if the value has been set.
 func (o *JsonPatchRemove) GetPathOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Path, true

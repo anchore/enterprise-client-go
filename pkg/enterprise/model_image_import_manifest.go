@@ -61,7 +61,7 @@ func (o *ImageImportManifest) GetContents() ImportContentDigests {
 // GetContentsOk returns a tuple with the Contents field value
 // and a boolean to check if the value has been set.
 func (o *ImageImportManifest) GetContentsOk() (*ImportContentDigests, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Contents, true
@@ -84,11 +84,11 @@ func (o *ImageImportManifest) GetTags() []string {
 
 // GetTagsOk returns a tuple with the Tags field value
 // and a boolean to check if the value has been set.
-func (o *ImageImportManifest) GetTagsOk() (*[]string, bool) {
-	if o == nil  {
+func (o *ImageImportManifest) GetTagsOk() ([]string, bool) {
+	if o == nil {
 		return nil, false
 	}
-	return &o.Tags, true
+	return o.Tags, true
 }
 
 // SetTags sets field value
@@ -109,7 +109,7 @@ func (o *ImageImportManifest) GetDigest() string {
 // GetDigestOk returns a tuple with the Digest field value
 // and a boolean to check if the value has been set.
 func (o *ImageImportManifest) GetDigestOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Digest, true
@@ -197,7 +197,7 @@ func (o *ImageImportManifest) GetOperationUuid() string {
 // GetOperationUuidOk returns a tuple with the OperationUuid field value
 // and a boolean to check if the value has been set.
 func (o *ImageImportManifest) GetOperationUuidOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.OperationUuid, true
