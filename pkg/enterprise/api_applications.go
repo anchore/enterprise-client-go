@@ -13,17 +13,13 @@ package enterprise
 
 import (
 	"bytes"
-	_context "context"
-	_ioutil "io/ioutil"
-	_nethttp "net/http"
-	_neturl "net/url"
+	"context"
+	"io/ioutil"
+	"net/http"
+	"net/url"
 	"strings"
 )
 
-// Linger please
-var (
-	_ _context.Context
-)
 
 type ApplicationsApi interface {
 
@@ -32,236 +28,236 @@ type ApplicationsApi interface {
 
 	Create an application
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @return ApiAddApplicationRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiAddApplicationRequest
 	*/
-	AddApplication(ctx _context.Context) ApiAddApplicationRequest
+	AddApplication(ctx context.Context) ApiAddApplicationRequest
 
 	// AddApplicationExecute executes the request
 	//  @return Application
-	AddApplicationExecute(r ApiAddApplicationRequest) (Application, *_nethttp.Response, error)
+	AddApplicationExecute(r ApiAddApplicationRequest) (*Application, *http.Response, error)
 
 	/*
 	AddApplicationVersion Create an application version
 
 	Create an application version
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @param applicationId
-	 @return ApiAddApplicationVersionRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param applicationId
+	@return ApiAddApplicationVersionRequest
 	*/
-	AddApplicationVersion(ctx _context.Context, applicationId string) ApiAddApplicationVersionRequest
+	AddApplicationVersion(ctx context.Context, applicationId string) ApiAddApplicationVersionRequest
 
 	// AddApplicationVersionExecute executes the request
 	//  @return ApplicationVersion
-	AddApplicationVersionExecute(r ApiAddApplicationVersionRequest) (ApplicationVersion, *_nethttp.Response, error)
+	AddApplicationVersionExecute(r ApiAddApplicationVersionRequest) (*ApplicationVersion, *http.Response, error)
 
 	/*
 	AddArtifactToApplicationVersion Add an artifact to an application version
 
 	Add artifact to given application_id and application_version_id
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @param applicationId
-	 @param applicationVersionId
-	 @return ApiAddArtifactToApplicationVersionRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param applicationId
+	@param applicationVersionId
+	@return ApiAddArtifactToApplicationVersionRequest
 	*/
-	AddArtifactToApplicationVersion(ctx _context.Context, applicationId string, applicationVersionId string) ApiAddArtifactToApplicationVersionRequest
+	AddArtifactToApplicationVersion(ctx context.Context, applicationId string, applicationVersionId string) ApiAddArtifactToApplicationVersionRequest
 
 	// AddArtifactToApplicationVersionExecute executes the request
 	//  @return ArtifactAssociationResponse
-	AddArtifactToApplicationVersionExecute(r ApiAddArtifactToApplicationVersionRequest) (ArtifactAssociationResponse, *_nethttp.Response, error)
+	AddArtifactToApplicationVersionExecute(r ApiAddArtifactToApplicationVersionRequest) (*ArtifactAssociationResponse, *http.Response, error)
 
 	/*
 	DeleteApplication Delete an application by application_id
 
 	Delete an application by application_id
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @param applicationId
-	 @return ApiDeleteApplicationRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param applicationId
+	@return ApiDeleteApplicationRequest
 	*/
-	DeleteApplication(ctx _context.Context, applicationId string) ApiDeleteApplicationRequest
+	DeleteApplication(ctx context.Context, applicationId string) ApiDeleteApplicationRequest
 
 	// DeleteApplicationExecute executes the request
-	DeleteApplicationExecute(r ApiDeleteApplicationRequest) (*_nethttp.Response, error)
+	DeleteApplicationExecute(r ApiDeleteApplicationRequest) (*http.Response, error)
 
 	/*
 	DeleteApplicationVersion Delete an application version by application_id and application_version_id
 
 	Delete an application version by application_id and application_version_id
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @param applicationId
-	 @param applicationVersionId
-	 @return ApiDeleteApplicationVersionRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param applicationId
+	@param applicationVersionId
+	@return ApiDeleteApplicationVersionRequest
 	*/
-	DeleteApplicationVersion(ctx _context.Context, applicationId string, applicationVersionId string) ApiDeleteApplicationVersionRequest
+	DeleteApplicationVersion(ctx context.Context, applicationId string, applicationVersionId string) ApiDeleteApplicationVersionRequest
 
 	// DeleteApplicationVersionExecute executes the request
-	DeleteApplicationVersionExecute(r ApiDeleteApplicationVersionRequest) (*_nethttp.Response, error)
+	DeleteApplicationVersionExecute(r ApiDeleteApplicationVersionRequest) (*http.Response, error)
 
 	/*
 	GetApplication Get an application by application_id
 
 	Get an application by application_id
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @param applicationId
-	 @return ApiGetApplicationRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param applicationId
+	@return ApiGetApplicationRequest
 	*/
-	GetApplication(ctx _context.Context, applicationId string) ApiGetApplicationRequest
+	GetApplication(ctx context.Context, applicationId string) ApiGetApplicationRequest
 
 	// GetApplicationExecute executes the request
 	//  @return Application
-	GetApplicationExecute(r ApiGetApplicationRequest) (Application, *_nethttp.Response, error)
+	GetApplicationExecute(r ApiGetApplicationRequest) (*Application, *http.Response, error)
 
 	/*
 	GetApplicationVersion Get an application version
 
 	Get an application version by application_id and application_version_id
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @param applicationId
-	 @param applicationVersionId
-	 @return ApiGetApplicationVersionRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param applicationId
+	@param applicationVersionId
+	@return ApiGetApplicationVersionRequest
 	*/
-	GetApplicationVersion(ctx _context.Context, applicationId string, applicationVersionId string) ApiGetApplicationVersionRequest
+	GetApplicationVersion(ctx context.Context, applicationId string, applicationVersionId string) ApiGetApplicationVersionRequest
 
 	// GetApplicationVersionExecute executes the request
 	//  @return ApplicationVersion
-	GetApplicationVersionExecute(r ApiGetApplicationVersionRequest) (ApplicationVersion, *_nethttp.Response, error)
+	GetApplicationVersionExecute(r ApiGetApplicationVersionRequest) (*ApplicationVersion, *http.Response, error)
 
 	/*
 	GetApplicationVersionSbom Get the combined sbom for the given application version, optionally filtered by artifact type
 
 	Get the combined sbom for the given application version, optionally filtered by artifact type
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @param applicationId
-	 @param applicationVersionId
-	 @return ApiGetApplicationVersionSbomRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param applicationId
+	@param applicationVersionId
+	@return ApiGetApplicationVersionSbomRequest
 	*/
-	GetApplicationVersionSbom(ctx _context.Context, applicationId string, applicationVersionId string) ApiGetApplicationVersionSbomRequest
+	GetApplicationVersionSbom(ctx context.Context, applicationId string, applicationVersionId string) ApiGetApplicationVersionSbomRequest
 
 	// GetApplicationVersionSbomExecute executes the request
 	//  @return ApplicationVersionSbom
-	GetApplicationVersionSbomExecute(r ApiGetApplicationVersionSbomRequest) (ApplicationVersionSbom, *_nethttp.Response, error)
+	GetApplicationVersionSbomExecute(r ApiGetApplicationVersionSbomRequest) (*ApplicationVersionSbom, *http.Response, error)
 
 	/*
 	GetApplicationVersionVulnerabilities Get the vulnerabilities for a given application version
 
 	Get the vulnerabilities for a given application version
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @param applicationId
-	 @param applicationVersionId
-	 @return ApiGetApplicationVersionVulnerabilitiesRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param applicationId
+	@param applicationVersionId
+	@return ApiGetApplicationVersionVulnerabilitiesRequest
 	*/
-	GetApplicationVersionVulnerabilities(ctx _context.Context, applicationId string, applicationVersionId string) ApiGetApplicationVersionVulnerabilitiesRequest
+	GetApplicationVersionVulnerabilities(ctx context.Context, applicationId string, applicationVersionId string) ApiGetApplicationVersionVulnerabilitiesRequest
 
 	// GetApplicationVersionVulnerabilitiesExecute executes the request
 	//  @return ApplicationVersionVulnerabilityReport
-	GetApplicationVersionVulnerabilitiesExecute(r ApiGetApplicationVersionVulnerabilitiesRequest) (ApplicationVersionVulnerabilityReport, *_nethttp.Response, error)
+	GetApplicationVersionVulnerabilitiesExecute(r ApiGetApplicationVersionVulnerabilitiesRequest) (*ApplicationVersionVulnerabilityReport, *http.Response, error)
 
 	/*
 	GetApplicationVersions List all application verions
 
 	List all application verions
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @param applicationId
-	 @return ApiGetApplicationVersionsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param applicationId
+	@return ApiGetApplicationVersionsRequest
 	*/
-	GetApplicationVersions(ctx _context.Context, applicationId string) ApiGetApplicationVersionsRequest
+	GetApplicationVersions(ctx context.Context, applicationId string) ApiGetApplicationVersionsRequest
 
 	// GetApplicationVersionsExecute executes the request
 	//  @return []ApplicationVersion
-	GetApplicationVersionsExecute(r ApiGetApplicationVersionsRequest) ([]ApplicationVersion, *_nethttp.Response, error)
+	GetApplicationVersionsExecute(r ApiGetApplicationVersionsRequest) ([]ApplicationVersion, *http.Response, error)
 
 	/*
 	GetApplications List all applications
 
 	List all applications
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @return ApiGetApplicationsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiGetApplicationsRequest
 	*/
-	GetApplications(ctx _context.Context) ApiGetApplicationsRequest
+	GetApplications(ctx context.Context) ApiGetApplicationsRequest
 
 	// GetApplicationsExecute executes the request
 	//  @return []Application
-	GetApplicationsExecute(r ApiGetApplicationsRequest) ([]Application, *_nethttp.Response, error)
+	GetApplicationsExecute(r ApiGetApplicationsRequest) ([]Application, *http.Response, error)
 
 	/*
 	ListArtifacts List artifacts present on a given application version
 
 	List artifacts present on a given application version
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @param applicationId
-	 @param applicationVersionId
-	 @return ApiListArtifactsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param applicationId
+	@param applicationVersionId
+	@return ApiListArtifactsRequest
 	*/
-	ListArtifacts(ctx _context.Context, applicationId string, applicationVersionId string) ApiListArtifactsRequest
+	ListArtifacts(ctx context.Context, applicationId string, applicationVersionId string) ApiListArtifactsRequest
 
 	// ListArtifactsExecute executes the request
 	//  @return ArtifactListResponse
-	ListArtifactsExecute(r ApiListArtifactsRequest) (ArtifactListResponse, *_nethttp.Response, error)
+	ListArtifactsExecute(r ApiListArtifactsRequest) (*ArtifactListResponse, *http.Response, error)
 
 	/*
 	RemoveArtifactFromApplicationVersion Delete an artifact from specified application version
 
 	Delete an artifact from specified application version
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @param applicationId
-	 @param applicationVersionId
-	 @param associationId
-	 @return ApiRemoveArtifactFromApplicationVersionRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param applicationId
+	@param applicationVersionId
+	@param associationId
+	@return ApiRemoveArtifactFromApplicationVersionRequest
 	*/
-	RemoveArtifactFromApplicationVersion(ctx _context.Context, applicationId string, applicationVersionId string, associationId string) ApiRemoveArtifactFromApplicationVersionRequest
+	RemoveArtifactFromApplicationVersion(ctx context.Context, applicationId string, applicationVersionId string, associationId string) ApiRemoveArtifactFromApplicationVersionRequest
 
 	// RemoveArtifactFromApplicationVersionExecute executes the request
-	RemoveArtifactFromApplicationVersionExecute(r ApiRemoveArtifactFromApplicationVersionRequest) (*_nethttp.Response, error)
+	RemoveArtifactFromApplicationVersionExecute(r ApiRemoveArtifactFromApplicationVersionRequest) (*http.Response, error)
 
 	/*
 	UpdateApplication Update application details
 
 	Updates application details for given application_id
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @param applicationId
-	 @return ApiUpdateApplicationRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param applicationId
+	@return ApiUpdateApplicationRequest
 	*/
-	UpdateApplication(ctx _context.Context, applicationId string) ApiUpdateApplicationRequest
+	UpdateApplication(ctx context.Context, applicationId string) ApiUpdateApplicationRequest
 
 	// UpdateApplicationExecute executes the request
 	//  @return Application
-	UpdateApplicationExecute(r ApiUpdateApplicationRequest) (Application, *_nethttp.Response, error)
+	UpdateApplicationExecute(r ApiUpdateApplicationRequest) (*Application, *http.Response, error)
 
 	/*
 	UpdateApplicationVersion Update application version details
 
 	Updates application version details for given application_id and application_version_id
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @param applicationId
-	 @param applicationVersionId
-	 @return ApiUpdateApplicationVersionRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param applicationId
+	@param applicationVersionId
+	@return ApiUpdateApplicationVersionRequest
 	*/
-	UpdateApplicationVersion(ctx _context.Context, applicationId string, applicationVersionId string) ApiUpdateApplicationVersionRequest
+	UpdateApplicationVersion(ctx context.Context, applicationId string, applicationVersionId string) ApiUpdateApplicationVersionRequest
 
 	// UpdateApplicationVersionExecute executes the request
 	//  @return ApplicationVersion
-	UpdateApplicationVersionExecute(r ApiUpdateApplicationVersionRequest) (ApplicationVersion, *_nethttp.Response, error)
+	UpdateApplicationVersionExecute(r ApiUpdateApplicationVersionRequest) (*ApplicationVersion, *http.Response, error)
 }
 
 // ApplicationsApiService ApplicationsApi service
 type ApplicationsApiService service
 
 type ApiAddApplicationRequest struct {
-	ctx _context.Context
+	ctx context.Context
 	ApiService ApplicationsApi
 	application *Application
 	xAnchoreAccount *string
@@ -271,13 +267,14 @@ func (r ApiAddApplicationRequest) Application(application Application) ApiAddApp
 	r.application = &application
 	return r
 }
+
 // An account name to change the resource scope of the request to that account, if permissions allow (admin only)
 func (r ApiAddApplicationRequest) XAnchoreAccount(xAnchoreAccount string) ApiAddApplicationRequest {
 	r.xAnchoreAccount = &xAnchoreAccount
 	return r
 }
 
-func (r ApiAddApplicationRequest) Execute() (Application, *_nethttp.Response, error) {
+func (r ApiAddApplicationRequest) Execute() (*Application, *http.Response, error) {
 	return r.ApiService.AddApplicationExecute(r)
 }
 
@@ -286,10 +283,10 @@ AddApplication Create an application
 
 Create an application
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiAddApplicationRequest
 */
-func (a *ApplicationsApiService) AddApplication(ctx _context.Context) ApiAddApplicationRequest {
+func (a *ApplicationsApiService) AddApplication(ctx context.Context) ApiAddApplicationRequest {
 	return ApiAddApplicationRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -298,26 +295,24 @@ func (a *ApplicationsApiService) AddApplication(ctx _context.Context) ApiAddAppl
 
 // Execute executes the request
 //  @return Application
-func (a *ApplicationsApiService) AddApplicationExecute(r ApiAddApplicationRequest) (Application, *_nethttp.Response, error) {
+func (a *ApplicationsApiService) AddApplicationExecute(r ApiAddApplicationRequest) (*Application, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPost
+		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  Application
+		formFiles            []formFile
+		localVarReturnValue  *Application
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ApplicationsApiService.AddApplication")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/applications"
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if r.application == nil {
 		return localVarReturnValue, nil, reportError("application is required and must be specified")
 	}
@@ -344,7 +339,7 @@ func (a *ApplicationsApiService) AddApplicationExecute(r ApiAddApplicationReques
 	}
 	// body params
 	localVarPostBody = r.application
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -354,15 +349,15 @@ func (a *ApplicationsApiService) AddApplicationExecute(r ApiAddApplicationReques
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -380,7 +375,7 @@ func (a *ApplicationsApiService) AddApplicationExecute(r ApiAddApplicationReques
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -391,7 +386,7 @@ func (a *ApplicationsApiService) AddApplicationExecute(r ApiAddApplicationReques
 }
 
 type ApiAddApplicationVersionRequest struct {
-	ctx _context.Context
+	ctx context.Context
 	ApiService ApplicationsApi
 	applicationId string
 	applicationVersion *ApplicationVersion
@@ -402,13 +397,14 @@ func (r ApiAddApplicationVersionRequest) ApplicationVersion(applicationVersion A
 	r.applicationVersion = &applicationVersion
 	return r
 }
+
 // An account name to change the resource scope of the request to that account, if permissions allow (admin only)
 func (r ApiAddApplicationVersionRequest) XAnchoreAccount(xAnchoreAccount string) ApiAddApplicationVersionRequest {
 	r.xAnchoreAccount = &xAnchoreAccount
 	return r
 }
 
-func (r ApiAddApplicationVersionRequest) Execute() (ApplicationVersion, *_nethttp.Response, error) {
+func (r ApiAddApplicationVersionRequest) Execute() (*ApplicationVersion, *http.Response, error) {
 	return r.ApiService.AddApplicationVersionExecute(r)
 }
 
@@ -417,11 +413,11 @@ AddApplicationVersion Create an application version
 
 Create an application version
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param applicationId
  @return ApiAddApplicationVersionRequest
 */
-func (a *ApplicationsApiService) AddApplicationVersion(ctx _context.Context, applicationId string) ApiAddApplicationVersionRequest {
+func (a *ApplicationsApiService) AddApplicationVersion(ctx context.Context, applicationId string) ApiAddApplicationVersionRequest {
 	return ApiAddApplicationVersionRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -431,27 +427,25 @@ func (a *ApplicationsApiService) AddApplicationVersion(ctx _context.Context, app
 
 // Execute executes the request
 //  @return ApplicationVersion
-func (a *ApplicationsApiService) AddApplicationVersionExecute(r ApiAddApplicationVersionRequest) (ApplicationVersion, *_nethttp.Response, error) {
+func (a *ApplicationsApiService) AddApplicationVersionExecute(r ApiAddApplicationVersionRequest) (*ApplicationVersion, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPost
+		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  ApplicationVersion
+		formFiles            []formFile
+		localVarReturnValue  *ApplicationVersion
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ApplicationsApiService.AddApplicationVersion")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/applications/{application_id}/versions"
-	localVarPath = strings.Replace(localVarPath, "{"+"application_id"+"}", _neturl.PathEscape(parameterToString(r.applicationId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"application_id"+"}", url.PathEscape(parameterToString(r.applicationId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if r.applicationVersion == nil {
 		return localVarReturnValue, nil, reportError("applicationVersion is required and must be specified")
 	}
@@ -478,7 +472,7 @@ func (a *ApplicationsApiService) AddApplicationVersionExecute(r ApiAddApplicatio
 	}
 	// body params
 	localVarPostBody = r.applicationVersion
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -488,15 +482,15 @@ func (a *ApplicationsApiService) AddApplicationVersionExecute(r ApiAddApplicatio
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -514,7 +508,7 @@ func (a *ApplicationsApiService) AddApplicationVersionExecute(r ApiAddApplicatio
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -525,7 +519,7 @@ func (a *ApplicationsApiService) AddApplicationVersionExecute(r ApiAddApplicatio
 }
 
 type ApiAddArtifactToApplicationVersionRequest struct {
-	ctx _context.Context
+	ctx context.Context
 	ApiService ApplicationsApi
 	applicationId string
 	applicationVersionId string
@@ -537,13 +531,14 @@ func (r ApiAddArtifactToApplicationVersionRequest) ArtifactRequest(artifactReque
 	r.artifactRequest = &artifactRequest
 	return r
 }
+
 // An account name to change the resource scope of the request to that account, if permissions allow (admin only)
 func (r ApiAddArtifactToApplicationVersionRequest) XAnchoreAccount(xAnchoreAccount string) ApiAddArtifactToApplicationVersionRequest {
 	r.xAnchoreAccount = &xAnchoreAccount
 	return r
 }
 
-func (r ApiAddArtifactToApplicationVersionRequest) Execute() (ArtifactAssociationResponse, *_nethttp.Response, error) {
+func (r ApiAddArtifactToApplicationVersionRequest) Execute() (*ArtifactAssociationResponse, *http.Response, error) {
 	return r.ApiService.AddArtifactToApplicationVersionExecute(r)
 }
 
@@ -552,12 +547,12 @@ AddArtifactToApplicationVersion Add an artifact to an application version
 
 Add artifact to given application_id and application_version_id
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param applicationId
  @param applicationVersionId
  @return ApiAddArtifactToApplicationVersionRequest
 */
-func (a *ApplicationsApiService) AddArtifactToApplicationVersion(ctx _context.Context, applicationId string, applicationVersionId string) ApiAddArtifactToApplicationVersionRequest {
+func (a *ApplicationsApiService) AddArtifactToApplicationVersion(ctx context.Context, applicationId string, applicationVersionId string) ApiAddArtifactToApplicationVersionRequest {
 	return ApiAddArtifactToApplicationVersionRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -568,28 +563,26 @@ func (a *ApplicationsApiService) AddArtifactToApplicationVersion(ctx _context.Co
 
 // Execute executes the request
 //  @return ArtifactAssociationResponse
-func (a *ApplicationsApiService) AddArtifactToApplicationVersionExecute(r ApiAddArtifactToApplicationVersionRequest) (ArtifactAssociationResponse, *_nethttp.Response, error) {
+func (a *ApplicationsApiService) AddArtifactToApplicationVersionExecute(r ApiAddArtifactToApplicationVersionRequest) (*ArtifactAssociationResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPost
+		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  ArtifactAssociationResponse
+		formFiles            []formFile
+		localVarReturnValue  *ArtifactAssociationResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ApplicationsApiService.AddArtifactToApplicationVersion")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/applications/{application_id}/versions/{application_version_id}/artifacts"
-	localVarPath = strings.Replace(localVarPath, "{"+"application_id"+"}", _neturl.PathEscape(parameterToString(r.applicationId, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"application_version_id"+"}", _neturl.PathEscape(parameterToString(r.applicationVersionId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"application_id"+"}", url.PathEscape(parameterToString(r.applicationId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"application_version_id"+"}", url.PathEscape(parameterToString(r.applicationVersionId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if r.artifactRequest == nil {
 		return localVarReturnValue, nil, reportError("artifactRequest is required and must be specified")
 	}
@@ -616,7 +609,7 @@ func (a *ApplicationsApiService) AddArtifactToApplicationVersionExecute(r ApiAdd
 	}
 	// body params
 	localVarPostBody = r.artifactRequest
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -626,15 +619,15 @@ func (a *ApplicationsApiService) AddArtifactToApplicationVersionExecute(r ApiAdd
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -652,7 +645,7 @@ func (a *ApplicationsApiService) AddArtifactToApplicationVersionExecute(r ApiAdd
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -663,7 +656,7 @@ func (a *ApplicationsApiService) AddArtifactToApplicationVersionExecute(r ApiAdd
 }
 
 type ApiDeleteApplicationRequest struct {
-	ctx _context.Context
+	ctx context.Context
 	ApiService ApplicationsApi
 	applicationId string
 	xAnchoreAccount *string
@@ -675,7 +668,7 @@ func (r ApiDeleteApplicationRequest) XAnchoreAccount(xAnchoreAccount string) Api
 	return r
 }
 
-func (r ApiDeleteApplicationRequest) Execute() (*_nethttp.Response, error) {
+func (r ApiDeleteApplicationRequest) Execute() (*http.Response, error) {
 	return r.ApiService.DeleteApplicationExecute(r)
 }
 
@@ -684,11 +677,11 @@ DeleteApplication Delete an application by application_id
 
 Delete an application by application_id
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param applicationId
  @return ApiDeleteApplicationRequest
 */
-func (a *ApplicationsApiService) DeleteApplication(ctx _context.Context, applicationId string) ApiDeleteApplicationRequest {
+func (a *ApplicationsApiService) DeleteApplication(ctx context.Context, applicationId string) ApiDeleteApplicationRequest {
 	return ApiDeleteApplicationRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -697,26 +690,24 @@ func (a *ApplicationsApiService) DeleteApplication(ctx _context.Context, applica
 }
 
 // Execute executes the request
-func (a *ApplicationsApiService) DeleteApplicationExecute(r ApiDeleteApplicationRequest) (*_nethttp.Response, error) {
+func (a *ApplicationsApiService) DeleteApplicationExecute(r ApiDeleteApplicationRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodDelete
+		localVarHTTPMethod   = http.MethodDelete
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
+		formFiles            []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ApplicationsApiService.DeleteApplication")
 	if err != nil {
-		return nil, GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/applications/{application_id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"application_id"+"}", _neturl.PathEscape(parameterToString(r.applicationId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"application_id"+"}", url.PathEscape(parameterToString(r.applicationId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -738,7 +729,7 @@ func (a *ApplicationsApiService) DeleteApplicationExecute(r ApiDeleteApplication
 	if r.xAnchoreAccount != nil {
 		localVarHeaderParams["x-anchore-account"] = parameterToString(*r.xAnchoreAccount, "")
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
 	}
@@ -748,15 +739,15 @@ func (a *ApplicationsApiService) DeleteApplicationExecute(r ApiDeleteApplication
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -767,7 +758,7 @@ func (a *ApplicationsApiService) DeleteApplicationExecute(r ApiDeleteApplication
 }
 
 type ApiDeleteApplicationVersionRequest struct {
-	ctx _context.Context
+	ctx context.Context
 	ApiService ApplicationsApi
 	applicationId string
 	applicationVersionId string
@@ -780,7 +771,7 @@ func (r ApiDeleteApplicationVersionRequest) XAnchoreAccount(xAnchoreAccount stri
 	return r
 }
 
-func (r ApiDeleteApplicationVersionRequest) Execute() (*_nethttp.Response, error) {
+func (r ApiDeleteApplicationVersionRequest) Execute() (*http.Response, error) {
 	return r.ApiService.DeleteApplicationVersionExecute(r)
 }
 
@@ -789,12 +780,12 @@ DeleteApplicationVersion Delete an application version by application_id and app
 
 Delete an application version by application_id and application_version_id
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param applicationId
  @param applicationVersionId
  @return ApiDeleteApplicationVersionRequest
 */
-func (a *ApplicationsApiService) DeleteApplicationVersion(ctx _context.Context, applicationId string, applicationVersionId string) ApiDeleteApplicationVersionRequest {
+func (a *ApplicationsApiService) DeleteApplicationVersion(ctx context.Context, applicationId string, applicationVersionId string) ApiDeleteApplicationVersionRequest {
 	return ApiDeleteApplicationVersionRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -804,27 +795,25 @@ func (a *ApplicationsApiService) DeleteApplicationVersion(ctx _context.Context, 
 }
 
 // Execute executes the request
-func (a *ApplicationsApiService) DeleteApplicationVersionExecute(r ApiDeleteApplicationVersionRequest) (*_nethttp.Response, error) {
+func (a *ApplicationsApiService) DeleteApplicationVersionExecute(r ApiDeleteApplicationVersionRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodDelete
+		localVarHTTPMethod   = http.MethodDelete
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
+		formFiles            []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ApplicationsApiService.DeleteApplicationVersion")
 	if err != nil {
-		return nil, GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/applications/{application_id}/versions/{application_version_id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"application_id"+"}", _neturl.PathEscape(parameterToString(r.applicationId, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"application_version_id"+"}", _neturl.PathEscape(parameterToString(r.applicationVersionId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"application_id"+"}", url.PathEscape(parameterToString(r.applicationId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"application_version_id"+"}", url.PathEscape(parameterToString(r.applicationVersionId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -846,7 +835,7 @@ func (a *ApplicationsApiService) DeleteApplicationVersionExecute(r ApiDeleteAppl
 	if r.xAnchoreAccount != nil {
 		localVarHeaderParams["x-anchore-account"] = parameterToString(*r.xAnchoreAccount, "")
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
 	}
@@ -856,15 +845,15 @@ func (a *ApplicationsApiService) DeleteApplicationVersionExecute(r ApiDeleteAppl
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -875,7 +864,7 @@ func (a *ApplicationsApiService) DeleteApplicationVersionExecute(r ApiDeleteAppl
 }
 
 type ApiGetApplicationRequest struct {
-	ctx _context.Context
+	ctx context.Context
 	ApiService ApplicationsApi
 	applicationId string
 	includeVersions *bool
@@ -886,13 +875,14 @@ func (r ApiGetApplicationRequest) IncludeVersions(includeVersions bool) ApiGetAp
 	r.includeVersions = &includeVersions
 	return r
 }
+
 // An account name to change the resource scope of the request to that account, if permissions allow (admin only)
 func (r ApiGetApplicationRequest) XAnchoreAccount(xAnchoreAccount string) ApiGetApplicationRequest {
 	r.xAnchoreAccount = &xAnchoreAccount
 	return r
 }
 
-func (r ApiGetApplicationRequest) Execute() (Application, *_nethttp.Response, error) {
+func (r ApiGetApplicationRequest) Execute() (*Application, *http.Response, error) {
 	return r.ApiService.GetApplicationExecute(r)
 }
 
@@ -901,11 +891,11 @@ GetApplication Get an application by application_id
 
 Get an application by application_id
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param applicationId
  @return ApiGetApplicationRequest
 */
-func (a *ApplicationsApiService) GetApplication(ctx _context.Context, applicationId string) ApiGetApplicationRequest {
+func (a *ApplicationsApiService) GetApplication(ctx context.Context, applicationId string) ApiGetApplicationRequest {
 	return ApiGetApplicationRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -915,27 +905,25 @@ func (a *ApplicationsApiService) GetApplication(ctx _context.Context, applicatio
 
 // Execute executes the request
 //  @return Application
-func (a *ApplicationsApiService) GetApplicationExecute(r ApiGetApplicationRequest) (Application, *_nethttp.Response, error) {
+func (a *ApplicationsApiService) GetApplicationExecute(r ApiGetApplicationRequest) (*Application, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  Application
+		formFiles            []formFile
+		localVarReturnValue  *Application
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ApplicationsApiService.GetApplication")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/applications/{application_id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"application_id"+"}", _neturl.PathEscape(parameterToString(r.applicationId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"application_id"+"}", url.PathEscape(parameterToString(r.applicationId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	if r.includeVersions != nil {
 		localVarQueryParams.Add("include_versions", parameterToString(*r.includeVersions, ""))
@@ -960,7 +948,7 @@ func (a *ApplicationsApiService) GetApplicationExecute(r ApiGetApplicationReques
 	if r.xAnchoreAccount != nil {
 		localVarHeaderParams["x-anchore-account"] = parameterToString(*r.xAnchoreAccount, "")
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -970,15 +958,15 @@ func (a *ApplicationsApiService) GetApplicationExecute(r ApiGetApplicationReques
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -996,7 +984,7 @@ func (a *ApplicationsApiService) GetApplicationExecute(r ApiGetApplicationReques
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -1007,7 +995,7 @@ func (a *ApplicationsApiService) GetApplicationExecute(r ApiGetApplicationReques
 }
 
 type ApiGetApplicationVersionRequest struct {
-	ctx _context.Context
+	ctx context.Context
 	ApiService ApplicationsApi
 	applicationId string
 	applicationVersionId string
@@ -1020,7 +1008,7 @@ func (r ApiGetApplicationVersionRequest) XAnchoreAccount(xAnchoreAccount string)
 	return r
 }
 
-func (r ApiGetApplicationVersionRequest) Execute() (ApplicationVersion, *_nethttp.Response, error) {
+func (r ApiGetApplicationVersionRequest) Execute() (*ApplicationVersion, *http.Response, error) {
 	return r.ApiService.GetApplicationVersionExecute(r)
 }
 
@@ -1029,12 +1017,12 @@ GetApplicationVersion Get an application version
 
 Get an application version by application_id and application_version_id
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param applicationId
  @param applicationVersionId
  @return ApiGetApplicationVersionRequest
 */
-func (a *ApplicationsApiService) GetApplicationVersion(ctx _context.Context, applicationId string, applicationVersionId string) ApiGetApplicationVersionRequest {
+func (a *ApplicationsApiService) GetApplicationVersion(ctx context.Context, applicationId string, applicationVersionId string) ApiGetApplicationVersionRequest {
 	return ApiGetApplicationVersionRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -1045,28 +1033,26 @@ func (a *ApplicationsApiService) GetApplicationVersion(ctx _context.Context, app
 
 // Execute executes the request
 //  @return ApplicationVersion
-func (a *ApplicationsApiService) GetApplicationVersionExecute(r ApiGetApplicationVersionRequest) (ApplicationVersion, *_nethttp.Response, error) {
+func (a *ApplicationsApiService) GetApplicationVersionExecute(r ApiGetApplicationVersionRequest) (*ApplicationVersion, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  ApplicationVersion
+		formFiles            []formFile
+		localVarReturnValue  *ApplicationVersion
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ApplicationsApiService.GetApplicationVersion")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/applications/{application_id}/versions/{application_version_id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"application_id"+"}", _neturl.PathEscape(parameterToString(r.applicationId, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"application_version_id"+"}", _neturl.PathEscape(parameterToString(r.applicationVersionId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"application_id"+"}", url.PathEscape(parameterToString(r.applicationId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"application_version_id"+"}", url.PathEscape(parameterToString(r.applicationVersionId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -1088,7 +1074,7 @@ func (a *ApplicationsApiService) GetApplicationVersionExecute(r ApiGetApplicatio
 	if r.xAnchoreAccount != nil {
 		localVarHeaderParams["x-anchore-account"] = parameterToString(*r.xAnchoreAccount, "")
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -1098,15 +1084,15 @@ func (a *ApplicationsApiService) GetApplicationVersionExecute(r ApiGetApplicatio
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -1124,7 +1110,7 @@ func (a *ApplicationsApiService) GetApplicationVersionExecute(r ApiGetApplicatio
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -1135,7 +1121,7 @@ func (a *ApplicationsApiService) GetApplicationVersionExecute(r ApiGetApplicatio
 }
 
 type ApiGetApplicationVersionSbomRequest struct {
-	ctx _context.Context
+	ctx context.Context
 	ApiService ApplicationsApi
 	applicationId string
 	applicationVersionId string
@@ -1147,13 +1133,14 @@ func (r ApiGetApplicationVersionSbomRequest) ArtifactTypes(artifactTypes []strin
 	r.artifactTypes = &artifactTypes
 	return r
 }
+
 // An account name to change the resource scope of the request to that account, if permissions allow (admin only)
 func (r ApiGetApplicationVersionSbomRequest) XAnchoreAccount(xAnchoreAccount string) ApiGetApplicationVersionSbomRequest {
 	r.xAnchoreAccount = &xAnchoreAccount
 	return r
 }
 
-func (r ApiGetApplicationVersionSbomRequest) Execute() (ApplicationVersionSbom, *_nethttp.Response, error) {
+func (r ApiGetApplicationVersionSbomRequest) Execute() (*ApplicationVersionSbom, *http.Response, error) {
 	return r.ApiService.GetApplicationVersionSbomExecute(r)
 }
 
@@ -1162,12 +1149,12 @@ GetApplicationVersionSbom Get the combined sbom for the given application versio
 
 Get the combined sbom for the given application version, optionally filtered by artifact type
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param applicationId
  @param applicationVersionId
  @return ApiGetApplicationVersionSbomRequest
 */
-func (a *ApplicationsApiService) GetApplicationVersionSbom(ctx _context.Context, applicationId string, applicationVersionId string) ApiGetApplicationVersionSbomRequest {
+func (a *ApplicationsApiService) GetApplicationVersionSbom(ctx context.Context, applicationId string, applicationVersionId string) ApiGetApplicationVersionSbomRequest {
 	return ApiGetApplicationVersionSbomRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -1178,28 +1165,26 @@ func (a *ApplicationsApiService) GetApplicationVersionSbom(ctx _context.Context,
 
 // Execute executes the request
 //  @return ApplicationVersionSbom
-func (a *ApplicationsApiService) GetApplicationVersionSbomExecute(r ApiGetApplicationVersionSbomRequest) (ApplicationVersionSbom, *_nethttp.Response, error) {
+func (a *ApplicationsApiService) GetApplicationVersionSbomExecute(r ApiGetApplicationVersionSbomRequest) (*ApplicationVersionSbom, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  ApplicationVersionSbom
+		formFiles            []formFile
+		localVarReturnValue  *ApplicationVersionSbom
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ApplicationsApiService.GetApplicationVersionSbom")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/applications/{application_id}/versions/{application_version_id}/sboms/native-json"
-	localVarPath = strings.Replace(localVarPath, "{"+"application_id"+"}", _neturl.PathEscape(parameterToString(r.applicationId, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"application_version_id"+"}", _neturl.PathEscape(parameterToString(r.applicationVersionId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"application_id"+"}", url.PathEscape(parameterToString(r.applicationId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"application_version_id"+"}", url.PathEscape(parameterToString(r.applicationVersionId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	if r.artifactTypes != nil {
 		localVarQueryParams.Add("artifact_types", parameterToString(*r.artifactTypes, "csv"))
@@ -1224,7 +1209,7 @@ func (a *ApplicationsApiService) GetApplicationVersionSbomExecute(r ApiGetApplic
 	if r.xAnchoreAccount != nil {
 		localVarHeaderParams["x-anchore-account"] = parameterToString(*r.xAnchoreAccount, "")
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -1234,15 +1219,15 @@ func (a *ApplicationsApiService) GetApplicationVersionSbomExecute(r ApiGetApplic
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -1260,7 +1245,7 @@ func (a *ApplicationsApiService) GetApplicationVersionSbomExecute(r ApiGetApplic
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -1271,7 +1256,7 @@ func (a *ApplicationsApiService) GetApplicationVersionSbomExecute(r ApiGetApplic
 }
 
 type ApiGetApplicationVersionVulnerabilitiesRequest struct {
-	ctx _context.Context
+	ctx context.Context
 	ApiService ApplicationsApi
 	applicationId string
 	applicationVersionId string
@@ -1284,13 +1269,14 @@ func (r ApiGetApplicationVersionVulnerabilitiesRequest) WillNotFix(willNotFix bo
 	r.willNotFix = &willNotFix
 	return r
 }
+
 // An account name to change the resource scope of the request to that account, if permissions allow (admin only)
 func (r ApiGetApplicationVersionVulnerabilitiesRequest) XAnchoreAccount(xAnchoreAccount string) ApiGetApplicationVersionVulnerabilitiesRequest {
 	r.xAnchoreAccount = &xAnchoreAccount
 	return r
 }
 
-func (r ApiGetApplicationVersionVulnerabilitiesRequest) Execute() (ApplicationVersionVulnerabilityReport, *_nethttp.Response, error) {
+func (r ApiGetApplicationVersionVulnerabilitiesRequest) Execute() (*ApplicationVersionVulnerabilityReport, *http.Response, error) {
 	return r.ApiService.GetApplicationVersionVulnerabilitiesExecute(r)
 }
 
@@ -1299,12 +1285,12 @@ GetApplicationVersionVulnerabilities Get the vulnerabilities for a given applica
 
 Get the vulnerabilities for a given application version
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param applicationId
  @param applicationVersionId
  @return ApiGetApplicationVersionVulnerabilitiesRequest
 */
-func (a *ApplicationsApiService) GetApplicationVersionVulnerabilities(ctx _context.Context, applicationId string, applicationVersionId string) ApiGetApplicationVersionVulnerabilitiesRequest {
+func (a *ApplicationsApiService) GetApplicationVersionVulnerabilities(ctx context.Context, applicationId string, applicationVersionId string) ApiGetApplicationVersionVulnerabilitiesRequest {
 	return ApiGetApplicationVersionVulnerabilitiesRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -1315,28 +1301,26 @@ func (a *ApplicationsApiService) GetApplicationVersionVulnerabilities(ctx _conte
 
 // Execute executes the request
 //  @return ApplicationVersionVulnerabilityReport
-func (a *ApplicationsApiService) GetApplicationVersionVulnerabilitiesExecute(r ApiGetApplicationVersionVulnerabilitiesRequest) (ApplicationVersionVulnerabilityReport, *_nethttp.Response, error) {
+func (a *ApplicationsApiService) GetApplicationVersionVulnerabilitiesExecute(r ApiGetApplicationVersionVulnerabilitiesRequest) (*ApplicationVersionVulnerabilityReport, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  ApplicationVersionVulnerabilityReport
+		formFiles            []formFile
+		localVarReturnValue  *ApplicationVersionVulnerabilityReport
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ApplicationsApiService.GetApplicationVersionVulnerabilities")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/applications/{application_id}/versions/{application_version_id}/vulnerabilities"
-	localVarPath = strings.Replace(localVarPath, "{"+"application_id"+"}", _neturl.PathEscape(parameterToString(r.applicationId, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"application_version_id"+"}", _neturl.PathEscape(parameterToString(r.applicationVersionId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"application_id"+"}", url.PathEscape(parameterToString(r.applicationId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"application_version_id"+"}", url.PathEscape(parameterToString(r.applicationVersionId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	if r.willNotFix != nil {
 		localVarQueryParams.Add("will_not_fix", parameterToString(*r.willNotFix, ""))
@@ -1361,7 +1345,7 @@ func (a *ApplicationsApiService) GetApplicationVersionVulnerabilitiesExecute(r A
 	if r.xAnchoreAccount != nil {
 		localVarHeaderParams["x-anchore-account"] = parameterToString(*r.xAnchoreAccount, "")
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -1371,15 +1355,15 @@ func (a *ApplicationsApiService) GetApplicationVersionVulnerabilitiesExecute(r A
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -1397,7 +1381,7 @@ func (a *ApplicationsApiService) GetApplicationVersionVulnerabilitiesExecute(r A
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -1408,7 +1392,7 @@ func (a *ApplicationsApiService) GetApplicationVersionVulnerabilitiesExecute(r A
 }
 
 type ApiGetApplicationVersionsRequest struct {
-	ctx _context.Context
+	ctx context.Context
 	ApiService ApplicationsApi
 	applicationId string
 	xAnchoreAccount *string
@@ -1420,7 +1404,7 @@ func (r ApiGetApplicationVersionsRequest) XAnchoreAccount(xAnchoreAccount string
 	return r
 }
 
-func (r ApiGetApplicationVersionsRequest) Execute() ([]ApplicationVersion, *_nethttp.Response, error) {
+func (r ApiGetApplicationVersionsRequest) Execute() ([]ApplicationVersion, *http.Response, error) {
 	return r.ApiService.GetApplicationVersionsExecute(r)
 }
 
@@ -1429,11 +1413,11 @@ GetApplicationVersions List all application verions
 
 List all application verions
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param applicationId
  @return ApiGetApplicationVersionsRequest
 */
-func (a *ApplicationsApiService) GetApplicationVersions(ctx _context.Context, applicationId string) ApiGetApplicationVersionsRequest {
+func (a *ApplicationsApiService) GetApplicationVersions(ctx context.Context, applicationId string) ApiGetApplicationVersionsRequest {
 	return ApiGetApplicationVersionsRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -1443,27 +1427,25 @@ func (a *ApplicationsApiService) GetApplicationVersions(ctx _context.Context, ap
 
 // Execute executes the request
 //  @return []ApplicationVersion
-func (a *ApplicationsApiService) GetApplicationVersionsExecute(r ApiGetApplicationVersionsRequest) ([]ApplicationVersion, *_nethttp.Response, error) {
+func (a *ApplicationsApiService) GetApplicationVersionsExecute(r ApiGetApplicationVersionsRequest) ([]ApplicationVersion, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
+		formFiles            []formFile
 		localVarReturnValue  []ApplicationVersion
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ApplicationsApiService.GetApplicationVersions")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/applications/{application_id}/versions"
-	localVarPath = strings.Replace(localVarPath, "{"+"application_id"+"}", _neturl.PathEscape(parameterToString(r.applicationId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"application_id"+"}", url.PathEscape(parameterToString(r.applicationId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -1485,7 +1467,7 @@ func (a *ApplicationsApiService) GetApplicationVersionsExecute(r ApiGetApplicati
 	if r.xAnchoreAccount != nil {
 		localVarHeaderParams["x-anchore-account"] = parameterToString(*r.xAnchoreAccount, "")
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -1495,15 +1477,15 @@ func (a *ApplicationsApiService) GetApplicationVersionsExecute(r ApiGetApplicati
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -1521,7 +1503,7 @@ func (a *ApplicationsApiService) GetApplicationVersionsExecute(r ApiGetApplicati
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -1532,7 +1514,7 @@ func (a *ApplicationsApiService) GetApplicationVersionsExecute(r ApiGetApplicati
 }
 
 type ApiGetApplicationsRequest struct {
-	ctx _context.Context
+	ctx context.Context
 	ApiService ApplicationsApi
 	includeVersions *bool
 	xAnchoreAccount *string
@@ -1542,13 +1524,14 @@ func (r ApiGetApplicationsRequest) IncludeVersions(includeVersions bool) ApiGetA
 	r.includeVersions = &includeVersions
 	return r
 }
+
 // An account name to change the resource scope of the request to that account, if permissions allow (admin only)
 func (r ApiGetApplicationsRequest) XAnchoreAccount(xAnchoreAccount string) ApiGetApplicationsRequest {
 	r.xAnchoreAccount = &xAnchoreAccount
 	return r
 }
 
-func (r ApiGetApplicationsRequest) Execute() ([]Application, *_nethttp.Response, error) {
+func (r ApiGetApplicationsRequest) Execute() ([]Application, *http.Response, error) {
 	return r.ApiService.GetApplicationsExecute(r)
 }
 
@@ -1557,10 +1540,10 @@ GetApplications List all applications
 
 List all applications
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiGetApplicationsRequest
 */
-func (a *ApplicationsApiService) GetApplications(ctx _context.Context) ApiGetApplicationsRequest {
+func (a *ApplicationsApiService) GetApplications(ctx context.Context) ApiGetApplicationsRequest {
 	return ApiGetApplicationsRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -1569,26 +1552,24 @@ func (a *ApplicationsApiService) GetApplications(ctx _context.Context) ApiGetApp
 
 // Execute executes the request
 //  @return []Application
-func (a *ApplicationsApiService) GetApplicationsExecute(r ApiGetApplicationsRequest) ([]Application, *_nethttp.Response, error) {
+func (a *ApplicationsApiService) GetApplicationsExecute(r ApiGetApplicationsRequest) ([]Application, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
+		formFiles            []formFile
 		localVarReturnValue  []Application
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ApplicationsApiService.GetApplications")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/applications"
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	if r.includeVersions != nil {
 		localVarQueryParams.Add("include_versions", parameterToString(*r.includeVersions, ""))
@@ -1613,7 +1594,7 @@ func (a *ApplicationsApiService) GetApplicationsExecute(r ApiGetApplicationsRequ
 	if r.xAnchoreAccount != nil {
 		localVarHeaderParams["x-anchore-account"] = parameterToString(*r.xAnchoreAccount, "")
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -1623,15 +1604,15 @@ func (a *ApplicationsApiService) GetApplicationsExecute(r ApiGetApplicationsRequ
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -1649,7 +1630,7 @@ func (a *ApplicationsApiService) GetApplicationsExecute(r ApiGetApplicationsRequ
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -1660,7 +1641,7 @@ func (a *ApplicationsApiService) GetApplicationsExecute(r ApiGetApplicationsRequ
 }
 
 type ApiListArtifactsRequest struct {
-	ctx _context.Context
+	ctx context.Context
 	ApiService ApplicationsApi
 	applicationId string
 	applicationVersionId string
@@ -1672,13 +1653,14 @@ func (r ApiListArtifactsRequest) ArtifactTypes(artifactTypes []string) ApiListAr
 	r.artifactTypes = &artifactTypes
 	return r
 }
+
 // An account name to change the resource scope of the request to that account, if permissions allow (admin only)
 func (r ApiListArtifactsRequest) XAnchoreAccount(xAnchoreAccount string) ApiListArtifactsRequest {
 	r.xAnchoreAccount = &xAnchoreAccount
 	return r
 }
 
-func (r ApiListArtifactsRequest) Execute() (ArtifactListResponse, *_nethttp.Response, error) {
+func (r ApiListArtifactsRequest) Execute() (*ArtifactListResponse, *http.Response, error) {
 	return r.ApiService.ListArtifactsExecute(r)
 }
 
@@ -1687,12 +1669,12 @@ ListArtifacts List artifacts present on a given application version
 
 List artifacts present on a given application version
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param applicationId
  @param applicationVersionId
  @return ApiListArtifactsRequest
 */
-func (a *ApplicationsApiService) ListArtifacts(ctx _context.Context, applicationId string, applicationVersionId string) ApiListArtifactsRequest {
+func (a *ApplicationsApiService) ListArtifacts(ctx context.Context, applicationId string, applicationVersionId string) ApiListArtifactsRequest {
 	return ApiListArtifactsRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -1703,28 +1685,26 @@ func (a *ApplicationsApiService) ListArtifacts(ctx _context.Context, application
 
 // Execute executes the request
 //  @return ArtifactListResponse
-func (a *ApplicationsApiService) ListArtifactsExecute(r ApiListArtifactsRequest) (ArtifactListResponse, *_nethttp.Response, error) {
+func (a *ApplicationsApiService) ListArtifactsExecute(r ApiListArtifactsRequest) (*ArtifactListResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  ArtifactListResponse
+		formFiles            []formFile
+		localVarReturnValue  *ArtifactListResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ApplicationsApiService.ListArtifacts")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/applications/{application_id}/versions/{application_version_id}/artifacts"
-	localVarPath = strings.Replace(localVarPath, "{"+"application_id"+"}", _neturl.PathEscape(parameterToString(r.applicationId, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"application_version_id"+"}", _neturl.PathEscape(parameterToString(r.applicationVersionId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"application_id"+"}", url.PathEscape(parameterToString(r.applicationId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"application_version_id"+"}", url.PathEscape(parameterToString(r.applicationVersionId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	if r.artifactTypes != nil {
 		localVarQueryParams.Add("artifact_types", parameterToString(*r.artifactTypes, "csv"))
@@ -1749,7 +1729,7 @@ func (a *ApplicationsApiService) ListArtifactsExecute(r ApiListArtifactsRequest)
 	if r.xAnchoreAccount != nil {
 		localVarHeaderParams["x-anchore-account"] = parameterToString(*r.xAnchoreAccount, "")
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -1759,15 +1739,15 @@ func (a *ApplicationsApiService) ListArtifactsExecute(r ApiListArtifactsRequest)
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -1785,7 +1765,7 @@ func (a *ApplicationsApiService) ListArtifactsExecute(r ApiListArtifactsRequest)
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -1796,7 +1776,7 @@ func (a *ApplicationsApiService) ListArtifactsExecute(r ApiListArtifactsRequest)
 }
 
 type ApiRemoveArtifactFromApplicationVersionRequest struct {
-	ctx _context.Context
+	ctx context.Context
 	ApiService ApplicationsApi
 	applicationId string
 	applicationVersionId string
@@ -1810,7 +1790,7 @@ func (r ApiRemoveArtifactFromApplicationVersionRequest) XAnchoreAccount(xAnchore
 	return r
 }
 
-func (r ApiRemoveArtifactFromApplicationVersionRequest) Execute() (*_nethttp.Response, error) {
+func (r ApiRemoveArtifactFromApplicationVersionRequest) Execute() (*http.Response, error) {
 	return r.ApiService.RemoveArtifactFromApplicationVersionExecute(r)
 }
 
@@ -1819,13 +1799,13 @@ RemoveArtifactFromApplicationVersion Delete an artifact from specified applicati
 
 Delete an artifact from specified application version
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param applicationId
  @param applicationVersionId
  @param associationId
  @return ApiRemoveArtifactFromApplicationVersionRequest
 */
-func (a *ApplicationsApiService) RemoveArtifactFromApplicationVersion(ctx _context.Context, applicationId string, applicationVersionId string, associationId string) ApiRemoveArtifactFromApplicationVersionRequest {
+func (a *ApplicationsApiService) RemoveArtifactFromApplicationVersion(ctx context.Context, applicationId string, applicationVersionId string, associationId string) ApiRemoveArtifactFromApplicationVersionRequest {
 	return ApiRemoveArtifactFromApplicationVersionRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -1836,28 +1816,26 @@ func (a *ApplicationsApiService) RemoveArtifactFromApplicationVersion(ctx _conte
 }
 
 // Execute executes the request
-func (a *ApplicationsApiService) RemoveArtifactFromApplicationVersionExecute(r ApiRemoveArtifactFromApplicationVersionRequest) (*_nethttp.Response, error) {
+func (a *ApplicationsApiService) RemoveArtifactFromApplicationVersionExecute(r ApiRemoveArtifactFromApplicationVersionRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodDelete
+		localVarHTTPMethod   = http.MethodDelete
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
+		formFiles            []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ApplicationsApiService.RemoveArtifactFromApplicationVersion")
 	if err != nil {
-		return nil, GenericOpenAPIError{error: err.Error()}
+		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/applications/{application_id}/versions/{application_version_id}/artifacts/{association_id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"application_id"+"}", _neturl.PathEscape(parameterToString(r.applicationId, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"application_version_id"+"}", _neturl.PathEscape(parameterToString(r.applicationVersionId, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"association_id"+"}", _neturl.PathEscape(parameterToString(r.associationId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"application_id"+"}", url.PathEscape(parameterToString(r.applicationId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"application_version_id"+"}", url.PathEscape(parameterToString(r.applicationVersionId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"association_id"+"}", url.PathEscape(parameterToString(r.associationId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -1879,7 +1857,7 @@ func (a *ApplicationsApiService) RemoveArtifactFromApplicationVersionExecute(r A
 	if r.xAnchoreAccount != nil {
 		localVarHeaderParams["x-anchore-account"] = parameterToString(*r.xAnchoreAccount, "")
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
 	}
@@ -1889,15 +1867,15 @@ func (a *ApplicationsApiService) RemoveArtifactFromApplicationVersionExecute(r A
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -1908,7 +1886,7 @@ func (a *ApplicationsApiService) RemoveArtifactFromApplicationVersionExecute(r A
 }
 
 type ApiUpdateApplicationRequest struct {
-	ctx _context.Context
+	ctx context.Context
 	ApiService ApplicationsApi
 	applicationId string
 	application *Application
@@ -1919,13 +1897,14 @@ func (r ApiUpdateApplicationRequest) Application(application Application) ApiUpd
 	r.application = &application
 	return r
 }
+
 // An account name to change the resource scope of the request to that account, if permissions allow (admin only)
 func (r ApiUpdateApplicationRequest) XAnchoreAccount(xAnchoreAccount string) ApiUpdateApplicationRequest {
 	r.xAnchoreAccount = &xAnchoreAccount
 	return r
 }
 
-func (r ApiUpdateApplicationRequest) Execute() (Application, *_nethttp.Response, error) {
+func (r ApiUpdateApplicationRequest) Execute() (*Application, *http.Response, error) {
 	return r.ApiService.UpdateApplicationExecute(r)
 }
 
@@ -1934,11 +1913,11 @@ UpdateApplication Update application details
 
 Updates application details for given application_id
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param applicationId
  @return ApiUpdateApplicationRequest
 */
-func (a *ApplicationsApiService) UpdateApplication(ctx _context.Context, applicationId string) ApiUpdateApplicationRequest {
+func (a *ApplicationsApiService) UpdateApplication(ctx context.Context, applicationId string) ApiUpdateApplicationRequest {
 	return ApiUpdateApplicationRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -1948,27 +1927,25 @@ func (a *ApplicationsApiService) UpdateApplication(ctx _context.Context, applica
 
 // Execute executes the request
 //  @return Application
-func (a *ApplicationsApiService) UpdateApplicationExecute(r ApiUpdateApplicationRequest) (Application, *_nethttp.Response, error) {
+func (a *ApplicationsApiService) UpdateApplicationExecute(r ApiUpdateApplicationRequest) (*Application, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPut
+		localVarHTTPMethod   = http.MethodPut
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  Application
+		formFiles            []formFile
+		localVarReturnValue  *Application
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ApplicationsApiService.UpdateApplication")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/applications/{application_id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"application_id"+"}", _neturl.PathEscape(parameterToString(r.applicationId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"application_id"+"}", url.PathEscape(parameterToString(r.applicationId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if r.application == nil {
 		return localVarReturnValue, nil, reportError("application is required and must be specified")
 	}
@@ -1995,7 +1972,7 @@ func (a *ApplicationsApiService) UpdateApplicationExecute(r ApiUpdateApplication
 	}
 	// body params
 	localVarPostBody = r.application
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -2005,15 +1982,15 @@ func (a *ApplicationsApiService) UpdateApplicationExecute(r ApiUpdateApplication
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -2031,7 +2008,7 @@ func (a *ApplicationsApiService) UpdateApplicationExecute(r ApiUpdateApplication
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -2042,7 +2019,7 @@ func (a *ApplicationsApiService) UpdateApplicationExecute(r ApiUpdateApplication
 }
 
 type ApiUpdateApplicationVersionRequest struct {
-	ctx _context.Context
+	ctx context.Context
 	ApiService ApplicationsApi
 	applicationId string
 	applicationVersionId string
@@ -2054,13 +2031,14 @@ func (r ApiUpdateApplicationVersionRequest) ApplicationVersion(applicationVersio
 	r.applicationVersion = &applicationVersion
 	return r
 }
+
 // An account name to change the resource scope of the request to that account, if permissions allow (admin only)
 func (r ApiUpdateApplicationVersionRequest) XAnchoreAccount(xAnchoreAccount string) ApiUpdateApplicationVersionRequest {
 	r.xAnchoreAccount = &xAnchoreAccount
 	return r
 }
 
-func (r ApiUpdateApplicationVersionRequest) Execute() (ApplicationVersion, *_nethttp.Response, error) {
+func (r ApiUpdateApplicationVersionRequest) Execute() (*ApplicationVersion, *http.Response, error) {
 	return r.ApiService.UpdateApplicationVersionExecute(r)
 }
 
@@ -2069,12 +2047,12 @@ UpdateApplicationVersion Update application version details
 
 Updates application version details for given application_id and application_version_id
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param applicationId
  @param applicationVersionId
  @return ApiUpdateApplicationVersionRequest
 */
-func (a *ApplicationsApiService) UpdateApplicationVersion(ctx _context.Context, applicationId string, applicationVersionId string) ApiUpdateApplicationVersionRequest {
+func (a *ApplicationsApiService) UpdateApplicationVersion(ctx context.Context, applicationId string, applicationVersionId string) ApiUpdateApplicationVersionRequest {
 	return ApiUpdateApplicationVersionRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -2085,28 +2063,26 @@ func (a *ApplicationsApiService) UpdateApplicationVersion(ctx _context.Context, 
 
 // Execute executes the request
 //  @return ApplicationVersion
-func (a *ApplicationsApiService) UpdateApplicationVersionExecute(r ApiUpdateApplicationVersionRequest) (ApplicationVersion, *_nethttp.Response, error) {
+func (a *ApplicationsApiService) UpdateApplicationVersionExecute(r ApiUpdateApplicationVersionRequest) (*ApplicationVersion, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPut
+		localVarHTTPMethod   = http.MethodPut
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  ApplicationVersion
+		formFiles            []formFile
+		localVarReturnValue  *ApplicationVersion
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ApplicationsApiService.UpdateApplicationVersion")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/applications/{application_id}/versions/{application_version_id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"application_id"+"}", _neturl.PathEscape(parameterToString(r.applicationId, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"application_version_id"+"}", _neturl.PathEscape(parameterToString(r.applicationVersionId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"application_id"+"}", url.PathEscape(parameterToString(r.applicationId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"application_version_id"+"}", url.PathEscape(parameterToString(r.applicationVersionId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if r.applicationVersion == nil {
 		return localVarReturnValue, nil, reportError("applicationVersion is required and must be specified")
 	}
@@ -2133,7 +2109,7 @@ func (a *ApplicationsApiService) UpdateApplicationVersionExecute(r ApiUpdateAppl
 	}
 	// body params
 	localVarPostBody = r.applicationVersion
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -2143,15 +2119,15 @@ func (a *ApplicationsApiService) UpdateApplicationVersionExecute(r ApiUpdateAppl
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -2169,7 +2145,7 @@ func (a *ApplicationsApiService) UpdateApplicationVersionExecute(r ApiUpdateAppl
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}

@@ -55,7 +55,7 @@ func (o *ArtifactAssociationRequest) GetArtifactType() string {
 // GetArtifactTypeOk returns a tuple with the ArtifactType field value
 // and a boolean to check if the value has been set.
 func (o *ArtifactAssociationRequest) GetArtifactTypeOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.ArtifactType, true
@@ -78,11 +78,11 @@ func (o *ArtifactAssociationRequest) GetArtifactKeys() interface{} {
 
 // GetArtifactKeysOk returns a tuple with the ArtifactKeys field value
 // and a boolean to check if the value has been set.
-func (o *ArtifactAssociationRequest) GetArtifactKeysOk() (*interface{}, bool) {
-	if o == nil  {
+func (o *ArtifactAssociationRequest) GetArtifactKeysOk() (interface{}, bool) {
+	if o == nil {
 		return nil, false
 	}
-	return &o.ArtifactKeys, true
+	return o.ArtifactKeys, true
 }
 
 // SetArtifactKeys sets field value

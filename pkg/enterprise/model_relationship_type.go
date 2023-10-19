@@ -25,7 +25,8 @@ const (
 	CONTAINED_BY RelationshipType = "contained_by"
 )
 
-var allowedRelationshipTypeEnumValues = []RelationshipType{
+// All allowed values of RelationshipType enum
+var AllowedRelationshipTypeEnumValues = []RelationshipType{
 	"contains",
 	"contained_by",
 }
@@ -37,7 +38,7 @@ func (v *RelationshipType) UnmarshalJSON(src []byte) error {
 		return err
 	}
 	enumTypeValue := RelationshipType(value)
-	for _, existing := range allowedRelationshipTypeEnumValues {
+	for _, existing := range AllowedRelationshipTypeEnumValues {
 		if existing == enumTypeValue {
 			*v = enumTypeValue
 			return nil
@@ -54,13 +55,13 @@ func NewRelationshipTypeFromValue(v string) (*RelationshipType, error) {
 	if ev.IsValid() {
 		return &ev, nil
 	} else {
-		return nil, fmt.Errorf("invalid value '%v' for RelationshipType: valid values are %v", v, allowedRelationshipTypeEnumValues)
+		return nil, fmt.Errorf("invalid value '%v' for RelationshipType: valid values are %v", v, AllowedRelationshipTypeEnumValues)
 	}
 }
 
 // IsValid return true if the value is valid for the enum, false otherwise
 func (v RelationshipType) IsValid() bool {
-	for _, existing := range allowedRelationshipTypeEnumValues {
+	for _, existing := range AllowedRelationshipTypeEnumValues {
 		if existing == v {
 			return true
 		}

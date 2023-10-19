@@ -61,7 +61,7 @@ func (o *ImageSelectionRule) GetId() string {
 // GetIdOk returns a tuple with the Id field value
 // and a boolean to check if the value has been set.
 func (o *ImageSelectionRule) GetIdOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Id, true
@@ -85,7 +85,7 @@ func (o *ImageSelectionRule) GetName() string {
 // GetNameOk returns a tuple with the Name field value
 // and a boolean to check if the value has been set.
 func (o *ImageSelectionRule) GetNameOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Name, true
@@ -109,7 +109,7 @@ func (o *ImageSelectionRule) GetRegistry() string {
 // GetRegistryOk returns a tuple with the Registry field value
 // and a boolean to check if the value has been set.
 func (o *ImageSelectionRule) GetRegistryOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Registry, true
@@ -133,7 +133,7 @@ func (o *ImageSelectionRule) GetRepository() string {
 // GetRepositoryOk returns a tuple with the Repository field value
 // and a boolean to check if the value has been set.
 func (o *ImageSelectionRule) GetRepositoryOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Repository, true
@@ -157,7 +157,7 @@ func (o *ImageSelectionRule) GetImage() ImageRef {
 // GetImageOk returns a tuple with the Image field value
 // and a boolean to check if the value has been set.
 func (o *ImageSelectionRule) GetImageOk() (*ImageRef, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Image, true

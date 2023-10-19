@@ -57,7 +57,7 @@ func (o *AnalysisStatusDetail) GetFromStatus() string {
 // GetFromStatusOk returns a tuple with the FromStatus field value
 // and a boolean to check if the value has been set.
 func (o *AnalysisStatusDetail) GetFromStatusOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.FromStatus, true
@@ -81,7 +81,7 @@ func (o *AnalysisStatusDetail) GetToStatus() string {
 // GetToStatusOk returns a tuple with the ToStatus field value
 // and a boolean to check if the value has been set.
 func (o *AnalysisStatusDetail) GetToStatusOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.ToStatus, true
@@ -105,7 +105,7 @@ func (o *AnalysisStatusDetail) GetTimestamp() string {
 // GetTimestampOk returns a tuple with the Timestamp field value
 // and a boolean to check if the value has been set.
 func (o *AnalysisStatusDetail) GetTimestampOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Timestamp, true
@@ -129,7 +129,7 @@ func (o *AnalysisStatusDetail) GetSource() ServiceReference {
 // GetSourceOk returns a tuple with the Source field value
 // and a boolean to check if the value has been set.
 func (o *AnalysisStatusDetail) GetSourceOk() (*ServiceReference, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Source, true

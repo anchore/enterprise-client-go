@@ -24,7 +24,7 @@ type EventResponseEvent struct {
 	Category *string `json:"category,omitempty"`
 	Level *string `json:"level,omitempty"`
 	Message *string `json:"message,omitempty"`
-	Details *interface{} `json:"details,omitempty"`
+	Details interface{} `json:"details,omitempty"`
 	Timestamp *time.Time `json:"timestamp,omitempty"`
 }
 
@@ -243,12 +243,12 @@ func (o *EventResponseEvent) GetDetails() interface{} {
 		var ret interface{}
 		return ret
 	}
-	return *o.Details
+	return o.Details
 }
 
 // GetDetailsOk returns a tuple with the Details field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *EventResponseEvent) GetDetailsOk() (*interface{}, bool) {
+func (o *EventResponseEvent) GetDetailsOk() (interface{}, bool) {
 	if o == nil || o.Details == nil {
 		return nil, false
 	}
@@ -266,7 +266,7 @@ func (o *EventResponseEvent) HasDetails() bool {
 
 // SetDetails gets a reference to the given interface{} and assigns it to the Details field.
 func (o *EventResponseEvent) SetDetails(v interface{}) {
-	o.Details = &v
+	o.Details = v
 }
 
 // GetTimestamp returns the Timestamp field value if set, zero value otherwise.

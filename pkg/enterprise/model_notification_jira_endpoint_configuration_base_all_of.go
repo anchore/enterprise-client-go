@@ -32,7 +32,7 @@ type NotificationJiraEndpointConfigurationBaseAllOf struct {
 	// Jira user to associate with the issue
 	Assignee *string `json:"assignee,omitempty"`
 	// List of labels to associate with the issue
-	Labels *[]string `json:"labels,omitempty"`
+	Labels []string `json:"labels,omitempty"`
 }
 
 // NewNotificationJiraEndpointConfigurationBaseAllOf instantiates a new NotificationJiraEndpointConfigurationBaseAllOf object
@@ -282,12 +282,12 @@ func (o *NotificationJiraEndpointConfigurationBaseAllOf) GetLabels() []string {
 		var ret []string
 		return ret
 	}
-	return *o.Labels
+	return o.Labels
 }
 
 // GetLabelsOk returns a tuple with the Labels field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *NotificationJiraEndpointConfigurationBaseAllOf) GetLabelsOk() (*[]string, bool) {
+func (o *NotificationJiraEndpointConfigurationBaseAllOf) GetLabelsOk() ([]string, bool) {
 	if o == nil || o.Labels == nil {
 		return nil, false
 	}
@@ -305,7 +305,7 @@ func (o *NotificationJiraEndpointConfigurationBaseAllOf) HasLabels() bool {
 
 // SetLabels gets a reference to the given []string and assigns it to the Labels field.
 func (o *NotificationJiraEndpointConfigurationBaseAllOf) SetLabels(v []string) {
-	o.Labels = &v
+	o.Labels = v
 }
 
 func (o NotificationJiraEndpointConfigurationBaseAllOf) MarshalJSON() ([]byte, error) {

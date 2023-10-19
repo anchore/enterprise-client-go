@@ -22,7 +22,7 @@ type NativeSBOM struct {
 	Distro NativeSBOMDistribution `json:"distro"`
 	Descriptor *NativeSBOMDescriptor `json:"descriptor,omitempty"`
 	Schema *NativeSBOMSchema `json:"schema,omitempty"`
-	ArtifactRelationships *[]NativeSBOMPackageRelationship `json:"artifactRelationships,omitempty"`
+	ArtifactRelationships []NativeSBOMPackageRelationship `json:"artifactRelationships,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -60,11 +60,11 @@ func (o *NativeSBOM) GetArtifacts() []NativeSBOMPackage {
 
 // GetArtifactsOk returns a tuple with the Artifacts field value
 // and a boolean to check if the value has been set.
-func (o *NativeSBOM) GetArtifactsOk() (*[]NativeSBOMPackage, bool) {
-	if o == nil  {
+func (o *NativeSBOM) GetArtifactsOk() ([]NativeSBOMPackage, bool) {
+	if o == nil {
 		return nil, false
 	}
-	return &o.Artifacts, true
+	return o.Artifacts, true
 }
 
 // SetArtifacts sets field value
@@ -85,7 +85,7 @@ func (o *NativeSBOM) GetSource() NativeSBOMSource {
 // GetSourceOk returns a tuple with the Source field value
 // and a boolean to check if the value has been set.
 func (o *NativeSBOM) GetSourceOk() (*NativeSBOMSource, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Source, true
@@ -109,7 +109,7 @@ func (o *NativeSBOM) GetDistro() NativeSBOMDistribution {
 // GetDistroOk returns a tuple with the Distro field value
 // and a boolean to check if the value has been set.
 func (o *NativeSBOM) GetDistroOk() (*NativeSBOMDistribution, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Distro, true
@@ -190,12 +190,12 @@ func (o *NativeSBOM) GetArtifactRelationships() []NativeSBOMPackageRelationship 
 		var ret []NativeSBOMPackageRelationship
 		return ret
 	}
-	return *o.ArtifactRelationships
+	return o.ArtifactRelationships
 }
 
 // GetArtifactRelationshipsOk returns a tuple with the ArtifactRelationships field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *NativeSBOM) GetArtifactRelationshipsOk() (*[]NativeSBOMPackageRelationship, bool) {
+func (o *NativeSBOM) GetArtifactRelationshipsOk() ([]NativeSBOMPackageRelationship, bool) {
 	if o == nil || o.ArtifactRelationships == nil {
 		return nil, false
 	}
@@ -213,7 +213,7 @@ func (o *NativeSBOM) HasArtifactRelationships() bool {
 
 // SetArtifactRelationships gets a reference to the given []NativeSBOMPackageRelationship and assigns it to the ArtifactRelationships field.
 func (o *NativeSBOM) SetArtifactRelationships(v []NativeSBOMPackageRelationship) {
-	o.ArtifactRelationships = &v
+	o.ArtifactRelationships = v
 }
 
 func (o NativeSBOM) MarshalJSON() ([]byte, error) {

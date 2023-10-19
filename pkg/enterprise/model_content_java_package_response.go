@@ -19,7 +19,7 @@ import (
 type ContentJAVAPackageResponse struct {
 	ImageDigest *string `json:"image_digest,omitempty"`
 	ContentType *string `json:"content_type,omitempty"`
-	Content *[]ContentJAVAPackageResponseContent `json:"content,omitempty"`
+	Content []ContentJAVAPackageResponseContentInner `json:"content,omitempty"`
 }
 
 // NewContentJAVAPackageResponse instantiates a new ContentJAVAPackageResponse object
@@ -104,17 +104,17 @@ func (o *ContentJAVAPackageResponse) SetContentType(v string) {
 }
 
 // GetContent returns the Content field value if set, zero value otherwise.
-func (o *ContentJAVAPackageResponse) GetContent() []ContentJAVAPackageResponseContent {
+func (o *ContentJAVAPackageResponse) GetContent() []ContentJAVAPackageResponseContentInner {
 	if o == nil || o.Content == nil {
-		var ret []ContentJAVAPackageResponseContent
+		var ret []ContentJAVAPackageResponseContentInner
 		return ret
 	}
-	return *o.Content
+	return o.Content
 }
 
 // GetContentOk returns a tuple with the Content field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ContentJAVAPackageResponse) GetContentOk() (*[]ContentJAVAPackageResponseContent, bool) {
+func (o *ContentJAVAPackageResponse) GetContentOk() ([]ContentJAVAPackageResponseContentInner, bool) {
 	if o == nil || o.Content == nil {
 		return nil, false
 	}
@@ -130,9 +130,9 @@ func (o *ContentJAVAPackageResponse) HasContent() bool {
 	return false
 }
 
-// SetContent gets a reference to the given []ContentJAVAPackageResponseContent and assigns it to the Content field.
-func (o *ContentJAVAPackageResponse) SetContent(v []ContentJAVAPackageResponseContent) {
-	o.Content = &v
+// SetContent gets a reference to the given []ContentJAVAPackageResponseContentInner and assigns it to the Content field.
+func (o *ContentJAVAPackageResponse) SetContent(v []ContentJAVAPackageResponseContentInner) {
+	o.Content = v
 }
 
 func (o ContentJAVAPackageResponse) MarshalJSON() ([]byte, error) {

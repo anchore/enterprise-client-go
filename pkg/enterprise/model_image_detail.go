@@ -31,6 +31,8 @@ type ImageDetail struct {
 	Dockerfile NullableString `json:"dockerfile,omitempty"`
 	// The parent Anchore Image record to which this detail maps
 	ImageDigest *string `json:"image_digest,omitempty"`
+	Tag *string `json:"tag,omitempty"`
+	TagDetectedAt *time.Time `json:"tag_detected_at,omitempty"`
 }
 
 // NewImageDetail instantiates a new ImageDetail object
@@ -319,7 +321,7 @@ func (o *ImageDetail) GetDockerfile() string {
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *ImageDetail) GetDockerfileOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return o.Dockerfile.Get(), o.Dockerfile.IsSet()
@@ -380,6 +382,70 @@ func (o *ImageDetail) SetImageDigest(v string) {
 	o.ImageDigest = &v
 }
 
+// GetTag returns the Tag field value if set, zero value otherwise.
+func (o *ImageDetail) GetTag() string {
+	if o == nil || o.Tag == nil {
+		var ret string
+		return ret
+	}
+	return *o.Tag
+}
+
+// GetTagOk returns a tuple with the Tag field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ImageDetail) GetTagOk() (*string, bool) {
+	if o == nil || o.Tag == nil {
+		return nil, false
+	}
+	return o.Tag, true
+}
+
+// HasTag returns a boolean if a field has been set.
+func (o *ImageDetail) HasTag() bool {
+	if o != nil && o.Tag != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetTag gets a reference to the given string and assigns it to the Tag field.
+func (o *ImageDetail) SetTag(v string) {
+	o.Tag = &v
+}
+
+// GetTagDetectedAt returns the TagDetectedAt field value if set, zero value otherwise.
+func (o *ImageDetail) GetTagDetectedAt() time.Time {
+	if o == nil || o.TagDetectedAt == nil {
+		var ret time.Time
+		return ret
+	}
+	return *o.TagDetectedAt
+}
+
+// GetTagDetectedAtOk returns a tuple with the TagDetectedAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ImageDetail) GetTagDetectedAtOk() (*time.Time, bool) {
+	if o == nil || o.TagDetectedAt == nil {
+		return nil, false
+	}
+	return o.TagDetectedAt, true
+}
+
+// HasTagDetectedAt returns a boolean if a field has been set.
+func (o *ImageDetail) HasTagDetectedAt() bool {
+	if o != nil && o.TagDetectedAt != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetTagDetectedAt gets a reference to the given time.Time and assigns it to the TagDetectedAt field.
+func (o *ImageDetail) SetTagDetectedAt(v time.Time) {
+	o.TagDetectedAt = &v
+}
+
 func (o ImageDetail) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.CreatedAt != nil {
@@ -411,6 +477,12 @@ func (o ImageDetail) MarshalJSON() ([]byte, error) {
 	}
 	if o.ImageDigest != nil {
 		toSerialize["image_digest"] = o.ImageDigest
+	}
+	if o.Tag != nil {
+		toSerialize["tag"] = o.Tag
+	}
+	if o.TagDetectedAt != nil {
+		toSerialize["tag_detected_at"] = o.TagDetectedAt
 	}
 	return json.Marshal(toSerialize)
 }

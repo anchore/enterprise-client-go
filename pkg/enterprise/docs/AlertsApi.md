@@ -1,6 +1,6 @@
 # \AlertsApi
 
-All URIs are relative to *http://localhost/v2*
+All URIs are relative to */v2*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -43,8 +43,8 @@ func main() {
     xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.AlertsApi.GetAlertSummaries(context.Background()).Page(page).Limit(limit).Type_(type_).State(state).CreatedAfter(createdAfter).CreatedBefore(createdBefore).ResourceLabel(resourceLabel).XAnchoreAccount(xAnchoreAccount).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.AlertsApi.GetAlertSummaries(context.Background()).Page(page).Limit(limit).Type_(type_).State(state).CreatedAfter(createdAfter).CreatedBefore(createdBefore).ResourceLabel(resourceLabel).XAnchoreAccount(xAnchoreAccount).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `AlertsApi.GetAlertSummaries``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -117,8 +117,8 @@ func main() {
     xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.AlertsApi.GetComplianceViolationAlert(context.Background(), uuid).XAnchoreAccount(xAnchoreAccount).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.AlertsApi.GetComplianceViolationAlert(context.Background(), uuid).XAnchoreAccount(xAnchoreAccount).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `AlertsApi.GetComplianceViolationAlert``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -198,8 +198,8 @@ func main() {
     xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.AlertsApi.GetComplianceViolationAlerts(context.Background()).Page(page).Limit(limit).State(state).CreatedAfter(createdAfter).CreatedBefore(createdBefore).ResourceImageDigest(resourceImageDigest).ResourceImageTag(resourceImageTag).ResourceRegistry(resourceRegistry).ResourceRepository(resourceRepository).XAnchoreAccount(xAnchoreAccount).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.AlertsApi.GetComplianceViolationAlerts(context.Background()).Page(page).Limit(limit).State(state).CreatedAfter(createdAfter).CreatedBefore(createdBefore).ResourceImageDigest(resourceImageDigest).ResourceImageTag(resourceImageTag).ResourceRegistry(resourceRegistry).ResourceRepository(resourceRepository).XAnchoreAccount(xAnchoreAccount).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `AlertsApi.GetComplianceViolationAlerts``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -275,8 +275,8 @@ func main() {
     xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
 
     configuration := openapiclient.NewConfiguration()
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.AlertsApi.UpdateComplianceViolationAlertState(context.Background(), uuid).Body(body).XAnchoreAccount(xAnchoreAccount).Execute()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.AlertsApi.UpdateComplianceViolationAlertState(context.Background(), uuid).Body(body).XAnchoreAccount(xAnchoreAccount).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `AlertsApi.UpdateComplianceViolationAlertState``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)

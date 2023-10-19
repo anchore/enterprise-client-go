@@ -105,7 +105,7 @@ func (o *MetadataResponse) SetMetadataType(v string) {
 
 // GetMetadata returns the Metadata field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *MetadataResponse) GetMetadata() interface{} {
-	if o == nil  {
+	if o == nil {
 		var ret interface{}
 		return ret
 	}

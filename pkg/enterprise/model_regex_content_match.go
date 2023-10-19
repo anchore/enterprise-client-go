@@ -22,7 +22,7 @@ type RegexContentMatch struct {
 	// The regular expression used for the match
 	Regex *string `json:"regex,omitempty"`
 	// A list of line numbers in the file that matched the regex
-	Lines *[]int32 `json:"lines,omitempty"`
+	Lines []int32 `json:"lines,omitempty"`
 }
 
 // NewRegexContentMatch instantiates a new RegexContentMatch object
@@ -112,12 +112,12 @@ func (o *RegexContentMatch) GetLines() []int32 {
 		var ret []int32
 		return ret
 	}
-	return *o.Lines
+	return o.Lines
 }
 
 // GetLinesOk returns a tuple with the Lines field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RegexContentMatch) GetLinesOk() (*[]int32, bool) {
+func (o *RegexContentMatch) GetLinesOk() ([]int32, bool) {
 	if o == nil || o.Lines == nil {
 		return nil, false
 	}
@@ -135,7 +135,7 @@ func (o *RegexContentMatch) HasLines() bool {
 
 // SetLines gets a reference to the given []int32 and assigns it to the Lines field.
 func (o *RegexContentMatch) SetLines(v []int32) {
-	o.Lines = &v
+	o.Lines = v
 }
 
 func (o RegexContentMatch) MarshalJSON() ([]byte, error) {

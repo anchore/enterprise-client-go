@@ -18,7 +18,7 @@ import (
 // SystemStatusResponse System status response
 type SystemStatusResponse struct {
 	// A list of service objects
-	ServiceStates *[]Service `json:"service_states,omitempty"`
+	ServiceStates []Service `json:"service_states,omitempty"`
 }
 
 // NewSystemStatusResponse instantiates a new SystemStatusResponse object
@@ -44,12 +44,12 @@ func (o *SystemStatusResponse) GetServiceStates() []Service {
 		var ret []Service
 		return ret
 	}
-	return *o.ServiceStates
+	return o.ServiceStates
 }
 
 // GetServiceStatesOk returns a tuple with the ServiceStates field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SystemStatusResponse) GetServiceStatesOk() (*[]Service, bool) {
+func (o *SystemStatusResponse) GetServiceStatesOk() ([]Service, bool) {
 	if o == nil || o.ServiceStates == nil {
 		return nil, false
 	}
@@ -67,7 +67,7 @@ func (o *SystemStatusResponse) HasServiceStates() bool {
 
 // SetServiceStates gets a reference to the given []Service and assigns it to the ServiceStates field.
 func (o *SystemStatusResponse) SetServiceStates(v []Service) {
-	o.ServiceStates = &v
+	o.ServiceStates = v
 }
 
 func (o SystemStatusResponse) MarshalJSON() ([]byte, error) {

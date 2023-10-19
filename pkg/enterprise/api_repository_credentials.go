@@ -13,37 +13,33 @@ package enterprise
 
 import (
 	"bytes"
-	_context "context"
-	_ioutil "io/ioutil"
-	_nethttp "net/http"
-	_neturl "net/url"
+	"context"
+	"io/ioutil"
+	"net/http"
+	"net/url"
 )
 
-// Linger please
-var (
-	_ _context.Context
-)
 
 type RepositoryCredentialsApi interface {
 
 	/*
 	AddRepository Add repository to watch
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @return ApiAddRepositoryRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiAddRepositoryRequest
 	*/
-	AddRepository(ctx _context.Context) ApiAddRepositoryRequest
+	AddRepository(ctx context.Context) ApiAddRepositoryRequest
 
 	// AddRepositoryExecute executes the request
 	//  @return []Subscription
-	AddRepositoryExecute(r ApiAddRepositoryRequest) ([]Subscription, *_nethttp.Response, error)
+	AddRepositoryExecute(r ApiAddRepositoryRequest) ([]Subscription, *http.Response, error)
 }
 
 // RepositoryCredentialsApiService RepositoryCredentialsApi service
 type RepositoryCredentialsApiService service
 
 type ApiAddRepositoryRequest struct {
-	ctx _context.Context
+	ctx context.Context
 	ApiService RepositoryCredentialsApi
 	repository *string
 	autoSubscribe *bool
@@ -56,33 +52,36 @@ func (r ApiAddRepositoryRequest) Repository(repository string) ApiAddRepositoryR
 	r.repository = &repository
 	return r
 }
+
 // flag to enable/disable auto tag_update activation when new images from a repo are added
 func (r ApiAddRepositoryRequest) AutoSubscribe(autoSubscribe bool) ApiAddRepositoryRequest {
 	r.autoSubscribe = &autoSubscribe
 	return r
 }
+
 // flag to return tags in the repository without actually watching the repository, default is false
 func (r ApiAddRepositoryRequest) DryRun(dryRun bool) ApiAddRepositoryRequest {
 	r.dryRun = &dryRun
 	return r
 }
+
 // An account name to change the resource scope of the request to that account, if permissions allow (admin only)
 func (r ApiAddRepositoryRequest) XAnchoreAccount(xAnchoreAccount string) ApiAddRepositoryRequest {
 	r.xAnchoreAccount = &xAnchoreAccount
 	return r
 }
 
-func (r ApiAddRepositoryRequest) Execute() ([]Subscription, *_nethttp.Response, error) {
+func (r ApiAddRepositoryRequest) Execute() ([]Subscription, *http.Response, error) {
 	return r.ApiService.AddRepositoryExecute(r)
 }
 
 /*
 AddRepository Add repository to watch
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiAddRepositoryRequest
 */
-func (a *RepositoryCredentialsApiService) AddRepository(ctx _context.Context) ApiAddRepositoryRequest {
+func (a *RepositoryCredentialsApiService) AddRepository(ctx context.Context) ApiAddRepositoryRequest {
 	return ApiAddRepositoryRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -91,26 +90,24 @@ func (a *RepositoryCredentialsApiService) AddRepository(ctx _context.Context) Ap
 
 // Execute executes the request
 //  @return []Subscription
-func (a *RepositoryCredentialsApiService) AddRepositoryExecute(r ApiAddRepositoryRequest) ([]Subscription, *_nethttp.Response, error) {
+func (a *RepositoryCredentialsApiService) AddRepositoryExecute(r ApiAddRepositoryRequest) ([]Subscription, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPost
+		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
+		formFiles            []formFile
 		localVarReturnValue  []Subscription
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RepositoryCredentialsApiService.AddRepository")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/repositories"
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if r.repository == nil {
 		return localVarReturnValue, nil, reportError("repository is required and must be specified")
 	}
@@ -142,7 +139,7 @@ func (a *RepositoryCredentialsApiService) AddRepositoryExecute(r ApiAddRepositor
 	if r.xAnchoreAccount != nil {
 		localVarHeaderParams["x-anchore-account"] = parameterToString(*r.xAnchoreAccount, "")
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -152,15 +149,15 @@ func (a *RepositoryCredentialsApiService) AddRepositoryExecute(r ApiAddRepositor
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -169,7 +166,7 @@ func (a *RepositoryCredentialsApiService) AddRepositoryExecute(r ApiAddRepositor
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}

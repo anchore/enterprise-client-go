@@ -60,7 +60,7 @@ func (o *RegistryDigestSource) GetPullString() string {
 // GetPullStringOk returns a tuple with the PullString field value
 // and a boolean to check if the value has been set.
 func (o *RegistryDigestSource) GetPullStringOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.PullString, true
@@ -84,7 +84,7 @@ func (o *RegistryDigestSource) GetTag() string {
 // GetTagOk returns a tuple with the Tag field value
 // and a boolean to check if the value has been set.
 func (o *RegistryDigestSource) GetTagOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Tag, true

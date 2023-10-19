@@ -18,11 +18,11 @@ import (
 // RelationshipSbomDiff The diff of two sboms with context applied in each difference. The \"added\" and \"removed\" directions depend on the relationship to which this diff applies. A relationship defines a source, a target, and a type. For example, a relationship of type \"contains\" with a source of an image and a target of a source revision will indicate that the diff is between the source repo sbom and the image sbom. Added packages are present in the image but not in the source, removed are present in the source revision but not in the image, etc. 
 type RelationshipSbomDiff struct {
 	// Packages added based on the type of relationship. A \"contains\" relationship means packages present in the source artifact (image) not present in the target (source repo) of the relationship.
-	SourceOnly *[]Package `json:"source_only,omitempty"`
+	SourceOnly []Package `json:"source_only,omitempty"`
 	// Packages removed based on the type of relationship. A \"contains\" relationship means packages not present in the source artifact (image) present in the target (source repo) of the relationship.
-	TargetOnly *[]Package `json:"target_only,omitempty"`
-	SourceModified *[]ModifiedPackage `json:"source_modified,omitempty"`
-	BothUnmodified *[]Package `json:"both_unmodified,omitempty"`
+	TargetOnly []Package `json:"target_only,omitempty"`
+	SourceModified []ModifiedPackage `json:"source_modified,omitempty"`
+	BothUnmodified []Package `json:"both_unmodified,omitempty"`
 }
 
 // NewRelationshipSbomDiff instantiates a new RelationshipSbomDiff object
@@ -48,12 +48,12 @@ func (o *RelationshipSbomDiff) GetSourceOnly() []Package {
 		var ret []Package
 		return ret
 	}
-	return *o.SourceOnly
+	return o.SourceOnly
 }
 
 // GetSourceOnlyOk returns a tuple with the SourceOnly field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RelationshipSbomDiff) GetSourceOnlyOk() (*[]Package, bool) {
+func (o *RelationshipSbomDiff) GetSourceOnlyOk() ([]Package, bool) {
 	if o == nil || o.SourceOnly == nil {
 		return nil, false
 	}
@@ -71,7 +71,7 @@ func (o *RelationshipSbomDiff) HasSourceOnly() bool {
 
 // SetSourceOnly gets a reference to the given []Package and assigns it to the SourceOnly field.
 func (o *RelationshipSbomDiff) SetSourceOnly(v []Package) {
-	o.SourceOnly = &v
+	o.SourceOnly = v
 }
 
 // GetTargetOnly returns the TargetOnly field value if set, zero value otherwise.
@@ -80,12 +80,12 @@ func (o *RelationshipSbomDiff) GetTargetOnly() []Package {
 		var ret []Package
 		return ret
 	}
-	return *o.TargetOnly
+	return o.TargetOnly
 }
 
 // GetTargetOnlyOk returns a tuple with the TargetOnly field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RelationshipSbomDiff) GetTargetOnlyOk() (*[]Package, bool) {
+func (o *RelationshipSbomDiff) GetTargetOnlyOk() ([]Package, bool) {
 	if o == nil || o.TargetOnly == nil {
 		return nil, false
 	}
@@ -103,7 +103,7 @@ func (o *RelationshipSbomDiff) HasTargetOnly() bool {
 
 // SetTargetOnly gets a reference to the given []Package and assigns it to the TargetOnly field.
 func (o *RelationshipSbomDiff) SetTargetOnly(v []Package) {
-	o.TargetOnly = &v
+	o.TargetOnly = v
 }
 
 // GetSourceModified returns the SourceModified field value if set, zero value otherwise.
@@ -112,12 +112,12 @@ func (o *RelationshipSbomDiff) GetSourceModified() []ModifiedPackage {
 		var ret []ModifiedPackage
 		return ret
 	}
-	return *o.SourceModified
+	return o.SourceModified
 }
 
 // GetSourceModifiedOk returns a tuple with the SourceModified field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RelationshipSbomDiff) GetSourceModifiedOk() (*[]ModifiedPackage, bool) {
+func (o *RelationshipSbomDiff) GetSourceModifiedOk() ([]ModifiedPackage, bool) {
 	if o == nil || o.SourceModified == nil {
 		return nil, false
 	}
@@ -135,7 +135,7 @@ func (o *RelationshipSbomDiff) HasSourceModified() bool {
 
 // SetSourceModified gets a reference to the given []ModifiedPackage and assigns it to the SourceModified field.
 func (o *RelationshipSbomDiff) SetSourceModified(v []ModifiedPackage) {
-	o.SourceModified = &v
+	o.SourceModified = v
 }
 
 // GetBothUnmodified returns the BothUnmodified field value if set, zero value otherwise.
@@ -144,12 +144,12 @@ func (o *RelationshipSbomDiff) GetBothUnmodified() []Package {
 		var ret []Package
 		return ret
 	}
-	return *o.BothUnmodified
+	return o.BothUnmodified
 }
 
 // GetBothUnmodifiedOk returns a tuple with the BothUnmodified field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RelationshipSbomDiff) GetBothUnmodifiedOk() (*[]Package, bool) {
+func (o *RelationshipSbomDiff) GetBothUnmodifiedOk() ([]Package, bool) {
 	if o == nil || o.BothUnmodified == nil {
 		return nil, false
 	}
@@ -167,7 +167,7 @@ func (o *RelationshipSbomDiff) HasBothUnmodified() bool {
 
 // SetBothUnmodified gets a reference to the given []Package and assigns it to the BothUnmodified field.
 func (o *RelationshipSbomDiff) SetBothUnmodified(v []Package) {
-	o.BothUnmodified = &v
+	o.BothUnmodified = v
 }
 
 func (o RelationshipSbomDiff) MarshalJSON() ([]byte, error) {

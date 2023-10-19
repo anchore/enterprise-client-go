@@ -23,11 +23,11 @@ type ArchivedAnalysis struct {
 	// The digest of a parent manifest (for manifest-list images)
 	ParentDigest *string `json:"parent_digest,omitempty"`
 	// User provided annotations as key-value pairs
-	Annotations *interface{} `json:"annotations,omitempty"`
+	Annotations interface{} `json:"annotations,omitempty"`
 	// The archival status
 	Status *string `json:"status,omitempty"`
 	// List of tags associated with the image digest
-	ImageDetail *[]ArchiveTagEntry `json:"image_detail,omitempty"`
+	ImageDetail []ArchiveTagEntry `json:"image_detail,omitempty"`
 	CreatedAt *time.Time `json:"created_at,omitempty"`
 	LastUpdated *time.Time `json:"last_updated,omitempty"`
 	AnalyzedAt *time.Time `json:"analyzed_at,omitempty"`
@@ -122,12 +122,12 @@ func (o *ArchivedAnalysis) GetAnnotations() interface{} {
 		var ret interface{}
 		return ret
 	}
-	return *o.Annotations
+	return o.Annotations
 }
 
 // GetAnnotationsOk returns a tuple with the Annotations field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ArchivedAnalysis) GetAnnotationsOk() (*interface{}, bool) {
+func (o *ArchivedAnalysis) GetAnnotationsOk() (interface{}, bool) {
 	if o == nil || o.Annotations == nil {
 		return nil, false
 	}
@@ -145,7 +145,7 @@ func (o *ArchivedAnalysis) HasAnnotations() bool {
 
 // SetAnnotations gets a reference to the given interface{} and assigns it to the Annotations field.
 func (o *ArchivedAnalysis) SetAnnotations(v interface{}) {
-	o.Annotations = &v
+	o.Annotations = v
 }
 
 // GetStatus returns the Status field value if set, zero value otherwise.
@@ -186,12 +186,12 @@ func (o *ArchivedAnalysis) GetImageDetail() []ArchiveTagEntry {
 		var ret []ArchiveTagEntry
 		return ret
 	}
-	return *o.ImageDetail
+	return o.ImageDetail
 }
 
 // GetImageDetailOk returns a tuple with the ImageDetail field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ArchivedAnalysis) GetImageDetailOk() (*[]ArchiveTagEntry, bool) {
+func (o *ArchivedAnalysis) GetImageDetailOk() ([]ArchiveTagEntry, bool) {
 	if o == nil || o.ImageDetail == nil {
 		return nil, false
 	}
@@ -209,7 +209,7 @@ func (o *ArchivedAnalysis) HasImageDetail() bool {
 
 // SetImageDetail gets a reference to the given []ArchiveTagEntry and assigns it to the ImageDetail field.
 func (o *ArchivedAnalysis) SetImageDetail(v []ArchiveTagEntry) {
-	o.ImageDetail = &v
+	o.ImageDetail = v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.

@@ -18,7 +18,7 @@ import (
 // ImageWithPackages An image record that contains packages
 type ImageWithPackages struct {
 	Image *ImageReference `json:"image,omitempty"`
-	Packages *[]PackageReference `json:"packages,omitempty"`
+	Packages []PackageReference `json:"packages,omitempty"`
 }
 
 // NewImageWithPackages instantiates a new ImageWithPackages object
@@ -76,12 +76,12 @@ func (o *ImageWithPackages) GetPackages() []PackageReference {
 		var ret []PackageReference
 		return ret
 	}
-	return *o.Packages
+	return o.Packages
 }
 
 // GetPackagesOk returns a tuple with the Packages field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ImageWithPackages) GetPackagesOk() (*[]PackageReference, bool) {
+func (o *ImageWithPackages) GetPackagesOk() ([]PackageReference, bool) {
 	if o == nil || o.Packages == nil {
 		return nil, false
 	}
@@ -99,7 +99,7 @@ func (o *ImageWithPackages) HasPackages() bool {
 
 // SetPackages gets a reference to the given []PackageReference and assigns it to the Packages field.
 func (o *ImageWithPackages) SetPackages(v []PackageReference) {
-	o.Packages = &v
+	o.Packages = v
 }
 
 func (o ImageWithPackages) MarshalJSON() ([]byte, error) {

@@ -17,7 +17,7 @@ import (
 
 // PaginatedImageListAllOf struct for PaginatedImageListAllOf
 type PaginatedImageListAllOf struct {
-	Images *[]ImageWithPackages `json:"images,omitempty"`
+	Images []ImageWithPackages `json:"images,omitempty"`
 }
 
 // NewPaginatedImageListAllOf instantiates a new PaginatedImageListAllOf object
@@ -43,12 +43,12 @@ func (o *PaginatedImageListAllOf) GetImages() []ImageWithPackages {
 		var ret []ImageWithPackages
 		return ret
 	}
-	return *o.Images
+	return o.Images
 }
 
 // GetImagesOk returns a tuple with the Images field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *PaginatedImageListAllOf) GetImagesOk() (*[]ImageWithPackages, bool) {
+func (o *PaginatedImageListAllOf) GetImagesOk() ([]ImageWithPackages, bool) {
 	if o == nil || o.Images == nil {
 		return nil, false
 	}
@@ -66,7 +66,7 @@ func (o *PaginatedImageListAllOf) HasImages() bool {
 
 // SetImages gets a reference to the given []ImageWithPackages and assigns it to the Images field.
 func (o *PaginatedImageListAllOf) SetImages(v []ImageWithPackages) {
-	o.Images = &v
+	o.Images = v
 }
 
 func (o PaginatedImageListAllOf) MarshalJSON() ([]byte, error) {

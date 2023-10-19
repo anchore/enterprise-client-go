@@ -22,7 +22,7 @@ type ActionPlan struct {
 	ImageTag *string `json:"image_tag,omitempty"`
 	ImageDigest *string `json:"image_digest,omitempty"`
 	PolicyId *string `json:"policy_id,omitempty"`
-	Resolutions *[]ActionPlanResolution `json:"resolutions,omitempty"`
+	Resolutions []ActionPlanResolution `json:"resolutions,omitempty"`
 	Endpoint *string `json:"endpoint,omitempty"`
 	ConfigurationId *string `json:"configuration_id,omitempty"`
 	Subject *string `json:"subject,omitempty"`
@@ -183,12 +183,12 @@ func (o *ActionPlan) GetResolutions() []ActionPlanResolution {
 		var ret []ActionPlanResolution
 		return ret
 	}
-	return *o.Resolutions
+	return o.Resolutions
 }
 
 // GetResolutionsOk returns a tuple with the Resolutions field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ActionPlan) GetResolutionsOk() (*[]ActionPlanResolution, bool) {
+func (o *ActionPlan) GetResolutionsOk() ([]ActionPlanResolution, bool) {
 	if o == nil || o.Resolutions == nil {
 		return nil, false
 	}
@@ -206,7 +206,7 @@ func (o *ActionPlan) HasResolutions() bool {
 
 // SetResolutions gets a reference to the given []ActionPlanResolution and assigns it to the Resolutions field.
 func (o *ActionPlan) SetResolutions(v []ActionPlanResolution) {
-	o.Resolutions = &v
+	o.Resolutions = v
 }
 
 // GetEndpoint returns the Endpoint field value if set, zero value otherwise.

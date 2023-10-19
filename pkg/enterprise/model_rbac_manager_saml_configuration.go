@@ -98,7 +98,7 @@ func (o *RbacManagerSamlConfiguration) GetName() string {
 // GetNameOk returns a tuple with the Name field value
 // and a boolean to check if the value has been set.
 func (o *RbacManagerSamlConfiguration) GetNameOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Name, true
@@ -122,7 +122,7 @@ func (o *RbacManagerSamlConfiguration) GetEnabled() bool {
 // GetEnabledOk returns a tuple with the Enabled field value
 // and a boolean to check if the value has been set.
 func (o *RbacManagerSamlConfiguration) GetEnabledOk() (*bool, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Enabled, true
@@ -146,7 +146,7 @@ func (o *RbacManagerSamlConfiguration) GetSpEntityId() string {
 // GetSpEntityIdOk returns a tuple with the SpEntityId field value
 // and a boolean to check if the value has been set.
 func (o *RbacManagerSamlConfiguration) GetSpEntityIdOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.SpEntityId, true
@@ -170,7 +170,7 @@ func (o *RbacManagerSamlConfiguration) GetAcsUrl() string {
 // GetAcsUrlOk returns a tuple with the AcsUrl field value
 // and a boolean to check if the value has been set.
 func (o *RbacManagerSamlConfiguration) GetAcsUrlOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.AcsUrl, true

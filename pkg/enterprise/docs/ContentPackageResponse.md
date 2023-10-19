@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **ImageDigest** | Pointer to **string** |  | [optional] 
 **ContentType** | Pointer to **string** |  | [optional] 
-**Content** | Pointer to [**[]ContentPackageResponseContent**](ContentPackageResponseContent.md) |  | [optional] 
+**Content** | Pointer to [**[]ContentPackageResponseContentInner**](ContentPackageResponseContentInner.md) |  | [optional] 
 
 ## Methods
 
@@ -79,20 +79,20 @@ HasContentType returns a boolean if a field has been set.
 
 ### GetContent
 
-`func (o *ContentPackageResponse) GetContent() []ContentPackageResponseContent`
+`func (o *ContentPackageResponse) GetContent() []ContentPackageResponseContentInner`
 
 GetContent returns the Content field if non-nil, zero value otherwise.
 
 ### GetContentOk
 
-`func (o *ContentPackageResponse) GetContentOk() (*[]ContentPackageResponseContent, bool)`
+`func (o *ContentPackageResponse) GetContentOk() (*[]ContentPackageResponseContentInner, bool)`
 
 GetContentOk returns a tuple with the Content field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetContent
 
-`func (o *ContentPackageResponse) SetContent(v []ContentPackageResponseContent)`
+`func (o *ContentPackageResponse) SetContent(v []ContentPackageResponseContentInner)`
 
 SetContent sets Content field to given value.
 

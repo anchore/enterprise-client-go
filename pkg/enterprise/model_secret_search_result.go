@@ -18,7 +18,7 @@ import (
 // SecretSearchResult The retrieved file entry including content (b64 encoded)
 type SecretSearchResult struct {
 	Path *string `json:"path,omitempty"`
-	Matches *[]RegexContentMatch `json:"matches,omitempty"`
+	Matches []RegexContentMatch `json:"matches,omitempty"`
 }
 
 // NewSecretSearchResult instantiates a new SecretSearchResult object
@@ -76,12 +76,12 @@ func (o *SecretSearchResult) GetMatches() []RegexContentMatch {
 		var ret []RegexContentMatch
 		return ret
 	}
-	return *o.Matches
+	return o.Matches
 }
 
 // GetMatchesOk returns a tuple with the Matches field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SecretSearchResult) GetMatchesOk() (*[]RegexContentMatch, bool) {
+func (o *SecretSearchResult) GetMatchesOk() ([]RegexContentMatch, bool) {
 	if o == nil || o.Matches == nil {
 		return nil, false
 	}
@@ -99,7 +99,7 @@ func (o *SecretSearchResult) HasMatches() bool {
 
 // SetMatches gets a reference to the given []RegexContentMatch and assigns it to the Matches field.
 func (o *SecretSearchResult) SetMatches(v []RegexContentMatch) {
-	o.Matches = &v
+	o.Matches = v
 }
 
 func (o SecretSearchResult) MarshalJSON() ([]byte, error) {

@@ -24,7 +24,7 @@ type AlertSummary struct {
 	Type *string `json:"type,omitempty"`
 	// Current state of the alert
 	State *string `json:"state,omitempty"`
-	ResourceLabels *[]ResourceLabel `json:"resource_labels,omitempty"`
+	ResourceLabels []ResourceLabel `json:"resource_labels,omitempty"`
 	// Account that closed the alert
 	ClosedBy *string `json:"closed_by,omitempty"`
 	// Reason for closing the alert
@@ -154,12 +154,12 @@ func (o *AlertSummary) GetResourceLabels() []ResourceLabel {
 		var ret []ResourceLabel
 		return ret
 	}
-	return *o.ResourceLabels
+	return o.ResourceLabels
 }
 
 // GetResourceLabelsOk returns a tuple with the ResourceLabels field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AlertSummary) GetResourceLabelsOk() (*[]ResourceLabel, bool) {
+func (o *AlertSummary) GetResourceLabelsOk() ([]ResourceLabel, bool) {
 	if o == nil || o.ResourceLabels == nil {
 		return nil, false
 	}
@@ -177,7 +177,7 @@ func (o *AlertSummary) HasResourceLabels() bool {
 
 // SetResourceLabels gets a reference to the given []ResourceLabel and assigns it to the ResourceLabels field.
 func (o *AlertSummary) SetResourceLabels(v []ResourceLabel) {
-	o.ResourceLabels = &v
+	o.ResourceLabels = v
 }
 
 // GetClosedBy returns the ClosedBy field value if set, zero value otherwise.

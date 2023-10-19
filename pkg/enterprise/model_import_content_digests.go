@@ -68,7 +68,7 @@ func (o *ImportContentDigests) GetPackages() string {
 // GetPackagesOk returns a tuple with the Packages field value
 // and a boolean to check if the value has been set.
 func (o *ImportContentDigests) GetPackagesOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Packages, true
@@ -92,7 +92,7 @@ func (o *ImportContentDigests) GetImageConfig() string {
 // GetImageConfigOk returns a tuple with the ImageConfig field value
 // and a boolean to check if the value has been set.
 func (o *ImportContentDigests) GetImageConfigOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.ImageConfig, true
@@ -116,7 +116,7 @@ func (o *ImportContentDigests) GetManifest() string {
 // GetManifestOk returns a tuple with the Manifest field value
 // and a boolean to check if the value has been set.
 func (o *ImportContentDigests) GetManifestOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Manifest, true

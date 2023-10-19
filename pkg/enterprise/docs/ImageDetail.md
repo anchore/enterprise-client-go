@@ -14,6 +14,8 @@ Name | Type | Description | Notes
 **Repo** | Pointer to **string** |  | [optional] 
 **Dockerfile** | Pointer to **NullableString** |  | [optional] 
 **ImageDigest** | Pointer to **string** | The parent Anchore Image record to which this detail maps | [optional] 
+**Tag** | Pointer to **string** |  | [optional] 
+**TagDetectedAt** | Pointer to **time.Time** |  | [optional] 
 
 ## Methods
 
@@ -293,6 +295,56 @@ SetImageDigest sets ImageDigest field to given value.
 `func (o *ImageDetail) HasImageDigest() bool`
 
 HasImageDigest returns a boolean if a field has been set.
+
+### GetTag
+
+`func (o *ImageDetail) GetTag() string`
+
+GetTag returns the Tag field if non-nil, zero value otherwise.
+
+### GetTagOk
+
+`func (o *ImageDetail) GetTagOk() (*string, bool)`
+
+GetTagOk returns a tuple with the Tag field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetTag
+
+`func (o *ImageDetail) SetTag(v string)`
+
+SetTag sets Tag field to given value.
+
+### HasTag
+
+`func (o *ImageDetail) HasTag() bool`
+
+HasTag returns a boolean if a field has been set.
+
+### GetTagDetectedAt
+
+`func (o *ImageDetail) GetTagDetectedAt() time.Time`
+
+GetTagDetectedAt returns the TagDetectedAt field if non-nil, zero value otherwise.
+
+### GetTagDetectedAtOk
+
+`func (o *ImageDetail) GetTagDetectedAtOk() (*time.Time, bool)`
+
+GetTagDetectedAtOk returns a tuple with the TagDetectedAt field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetTagDetectedAt
+
+`func (o *ImageDetail) SetTagDetectedAt(v time.Time)`
+
+SetTagDetectedAt sets TagDetectedAt field to given value.
+
+### HasTagDetectedAt
+
+`func (o *ImageDetail) HasTagDetectedAt() bool`
+
+HasTagDetectedAt returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

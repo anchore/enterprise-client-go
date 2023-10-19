@@ -18,7 +18,7 @@ import (
 // EventsList Response envelope for paginated listing of events
 type EventsList struct {
 	// List of events
-	Results *[]EventResponse `json:"results,omitempty"`
+	Results []EventResponse `json:"results,omitempty"`
 	// Boolean flag, True indicates there are more events and False otherwise
 	NextPage *bool `json:"next_page,omitempty"`
 	// Number of events in this page
@@ -50,12 +50,12 @@ func (o *EventsList) GetResults() []EventResponse {
 		var ret []EventResponse
 		return ret
 	}
-	return *o.Results
+	return o.Results
 }
 
 // GetResultsOk returns a tuple with the Results field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *EventsList) GetResultsOk() (*[]EventResponse, bool) {
+func (o *EventsList) GetResultsOk() ([]EventResponse, bool) {
 	if o == nil || o.Results == nil {
 		return nil, false
 	}
@@ -73,7 +73,7 @@ func (o *EventsList) HasResults() bool {
 
 // SetResults gets a reference to the given []EventResponse and assigns it to the Results field.
 func (o *EventsList) SetResults(v []EventResponse) {
-	o.Results = &v
+	o.Results = v
 }
 
 // GetNextPage returns the NextPage field value if set, zero value otherwise.
