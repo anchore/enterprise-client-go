@@ -15,32 +15,32 @@ import (
 	"encoding/json"
 )
 
-// ContentJAVAPackageResponse Java package content listings from images
-type ContentJAVAPackageResponse struct {
+// ContentJavaPackageResponse Java package content listings from images
+type ContentJavaPackageResponse struct {
 	ImageDigest *string `json:"image_digest,omitempty"`
 	ContentType *string `json:"content_type,omitempty"`
-	Content *[]ContentJAVAPackageResponseContent `json:"content,omitempty"`
+	Content *[]JavaPackageContent `json:"content,omitempty"`
 }
 
-// NewContentJAVAPackageResponse instantiates a new ContentJAVAPackageResponse object
+// NewContentJavaPackageResponse instantiates a new ContentJavaPackageResponse object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewContentJAVAPackageResponse() *ContentJAVAPackageResponse {
-	this := ContentJAVAPackageResponse{}
+func NewContentJavaPackageResponse() *ContentJavaPackageResponse {
+	this := ContentJavaPackageResponse{}
 	return &this
 }
 
-// NewContentJAVAPackageResponseWithDefaults instantiates a new ContentJAVAPackageResponse object
+// NewContentJavaPackageResponseWithDefaults instantiates a new ContentJavaPackageResponse object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewContentJAVAPackageResponseWithDefaults() *ContentJAVAPackageResponse {
-	this := ContentJAVAPackageResponse{}
+func NewContentJavaPackageResponseWithDefaults() *ContentJavaPackageResponse {
+	this := ContentJavaPackageResponse{}
 	return &this
 }
 
 // GetImageDigest returns the ImageDigest field value if set, zero value otherwise.
-func (o *ContentJAVAPackageResponse) GetImageDigest() string {
+func (o *ContentJavaPackageResponse) GetImageDigest() string {
 	if o == nil || o.ImageDigest == nil {
 		var ret string
 		return ret
@@ -50,7 +50,7 @@ func (o *ContentJAVAPackageResponse) GetImageDigest() string {
 
 // GetImageDigestOk returns a tuple with the ImageDigest field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ContentJAVAPackageResponse) GetImageDigestOk() (*string, bool) {
+func (o *ContentJavaPackageResponse) GetImageDigestOk() (*string, bool) {
 	if o == nil || o.ImageDigest == nil {
 		return nil, false
 	}
@@ -58,7 +58,7 @@ func (o *ContentJAVAPackageResponse) GetImageDigestOk() (*string, bool) {
 }
 
 // HasImageDigest returns a boolean if a field has been set.
-func (o *ContentJAVAPackageResponse) HasImageDigest() bool {
+func (o *ContentJavaPackageResponse) HasImageDigest() bool {
 	if o != nil && o.ImageDigest != nil {
 		return true
 	}
@@ -67,12 +67,12 @@ func (o *ContentJAVAPackageResponse) HasImageDigest() bool {
 }
 
 // SetImageDigest gets a reference to the given string and assigns it to the ImageDigest field.
-func (o *ContentJAVAPackageResponse) SetImageDigest(v string) {
+func (o *ContentJavaPackageResponse) SetImageDigest(v string) {
 	o.ImageDigest = &v
 }
 
 // GetContentType returns the ContentType field value if set, zero value otherwise.
-func (o *ContentJAVAPackageResponse) GetContentType() string {
+func (o *ContentJavaPackageResponse) GetContentType() string {
 	if o == nil || o.ContentType == nil {
 		var ret string
 		return ret
@@ -82,7 +82,7 @@ func (o *ContentJAVAPackageResponse) GetContentType() string {
 
 // GetContentTypeOk returns a tuple with the ContentType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ContentJAVAPackageResponse) GetContentTypeOk() (*string, bool) {
+func (o *ContentJavaPackageResponse) GetContentTypeOk() (*string, bool) {
 	if o == nil || o.ContentType == nil {
 		return nil, false
 	}
@@ -90,7 +90,7 @@ func (o *ContentJAVAPackageResponse) GetContentTypeOk() (*string, bool) {
 }
 
 // HasContentType returns a boolean if a field has been set.
-func (o *ContentJAVAPackageResponse) HasContentType() bool {
+func (o *ContentJavaPackageResponse) HasContentType() bool {
 	if o != nil && o.ContentType != nil {
 		return true
 	}
@@ -99,14 +99,14 @@ func (o *ContentJAVAPackageResponse) HasContentType() bool {
 }
 
 // SetContentType gets a reference to the given string and assigns it to the ContentType field.
-func (o *ContentJAVAPackageResponse) SetContentType(v string) {
+func (o *ContentJavaPackageResponse) SetContentType(v string) {
 	o.ContentType = &v
 }
 
 // GetContent returns the Content field value if set, zero value otherwise.
-func (o *ContentJAVAPackageResponse) GetContent() []ContentJAVAPackageResponseContent {
+func (o *ContentJavaPackageResponse) GetContent() []JavaPackageContent {
 	if o == nil || o.Content == nil {
-		var ret []ContentJAVAPackageResponseContent
+		var ret []JavaPackageContent
 		return ret
 	}
 	return *o.Content
@@ -114,7 +114,7 @@ func (o *ContentJAVAPackageResponse) GetContent() []ContentJAVAPackageResponseCo
 
 // GetContentOk returns a tuple with the Content field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ContentJAVAPackageResponse) GetContentOk() (*[]ContentJAVAPackageResponseContent, bool) {
+func (o *ContentJavaPackageResponse) GetContentOk() (*[]JavaPackageContent, bool) {
 	if o == nil || o.Content == nil {
 		return nil, false
 	}
@@ -122,7 +122,7 @@ func (o *ContentJAVAPackageResponse) GetContentOk() (*[]ContentJAVAPackageRespon
 }
 
 // HasContent returns a boolean if a field has been set.
-func (o *ContentJAVAPackageResponse) HasContent() bool {
+func (o *ContentJavaPackageResponse) HasContent() bool {
 	if o != nil && o.Content != nil {
 		return true
 	}
@@ -130,12 +130,12 @@ func (o *ContentJAVAPackageResponse) HasContent() bool {
 	return false
 }
 
-// SetContent gets a reference to the given []ContentJAVAPackageResponseContent and assigns it to the Content field.
-func (o *ContentJAVAPackageResponse) SetContent(v []ContentJAVAPackageResponseContent) {
+// SetContent gets a reference to the given []JavaPackageContent and assigns it to the Content field.
+func (o *ContentJavaPackageResponse) SetContent(v []JavaPackageContent) {
 	o.Content = &v
 }
 
-func (o ContentJAVAPackageResponse) MarshalJSON() ([]byte, error) {
+func (o ContentJavaPackageResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.ImageDigest != nil {
 		toSerialize["image_digest"] = o.ImageDigest
@@ -149,38 +149,38 @@ func (o ContentJAVAPackageResponse) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
-type NullableContentJAVAPackageResponse struct {
-	value *ContentJAVAPackageResponse
+type NullableContentJavaPackageResponse struct {
+	value *ContentJavaPackageResponse
 	isSet bool
 }
 
-func (v NullableContentJAVAPackageResponse) Get() *ContentJAVAPackageResponse {
+func (v NullableContentJavaPackageResponse) Get() *ContentJavaPackageResponse {
 	return v.value
 }
 
-func (v *NullableContentJAVAPackageResponse) Set(val *ContentJAVAPackageResponse) {
+func (v *NullableContentJavaPackageResponse) Set(val *ContentJavaPackageResponse) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableContentJAVAPackageResponse) IsSet() bool {
+func (v NullableContentJavaPackageResponse) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableContentJAVAPackageResponse) Unset() {
+func (v *NullableContentJavaPackageResponse) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableContentJAVAPackageResponse(val *ContentJAVAPackageResponse) *NullableContentJAVAPackageResponse {
-	return &NullableContentJAVAPackageResponse{value: val, isSet: true}
+func NewNullableContentJavaPackageResponse(val *ContentJavaPackageResponse) *NullableContentJavaPackageResponse {
+	return &NullableContentJavaPackageResponse{value: val, isSet: true}
 }
 
-func (v NullableContentJAVAPackageResponse) MarshalJSON() ([]byte, error) {
+func (v NullableContentJavaPackageResponse) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableContentJAVAPackageResponse) UnmarshalJSON(src []byte) error {
+func (v *NullableContentJavaPackageResponse) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }

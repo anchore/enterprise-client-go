@@ -3236,7 +3236,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ContentJAVAPackageResponse'
+                $ref: '#/components/schemas/ContentJavaPackageResponse'
           description: Content of specified type from the image
         "500":
           content:
@@ -8631,6 +8631,151 @@ paths:
       - System
       x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.system
       x-anchore-authz-action: None
+  /system/artifact-lifecycle-policies:
+    get:
+      operationId: list_artifact_lifecycle_policies
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArtifactLifeCyclePolicyList'
+          description: A list of artifact lifecycle policies in the system
+      summary: List all artifact lifecycle policies
+      tags:
+      - Artifact Lifecycle Policies
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.artifact_lifecycle_policies
+      x-anchore-authz-action: getArtifactLifeCyclePolicy
+    post:
+      operationId: create_artifact_lifecycle_policy
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ArtifactLifeCyclePolicy'
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArtifactLifeCyclePolicy'
+          description: The newly created artifact lifecycle policy
+      summary: Create new artifact lifecycle policy
+      tags:
+      - Artifact Lifecycle Policies
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.artifact_lifecycle_policies
+      x-anchore-authz-action: createArtifactLifeCyclePolicy
+  /system/artifact-lifecycle-policies/{policy_uuid}:
+    delete:
+      operationId: delete_artifact_lifecycle_policy
+      parameters:
+      - explode: false
+        in: path
+        name: policy_uuid
+        required: true
+        schema:
+          format: path
+          type: string
+        style: simple
+      responses:
+        "204":
+          description: Returns an empty response
+      summary: Delete lifecycle policy
+      tags:
+      - Artifact Lifecycle Policies
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.artifact_lifecycle_policies
+      x-anchore-authz-action: deleteArtifactLifeCyclePolicy
+    get:
+      operationId: get_artifact_lifecycle_policy
+      parameters:
+      - explode: false
+        in: path
+        name: policy_uuid
+        required: true
+        schema:
+          format: path
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArtifactLifeCyclePolicy'
+          description: A single artifact lifecycle policy
+      summary: Get single artifact lifecycle policy
+      tags:
+      - Artifact Lifecycle Policies
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.artifact_lifecycle_policies
+      x-anchore-authz-action: getArtifactLifeCyclePolicy
+    put:
+      operationId: update_artifact_lifecycle_policy
+      parameters:
+      - explode: false
+        in: path
+        name: policy_uuid
+        required: true
+        schema:
+          format: path
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ArtifactLifeCyclePolicy'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArtifactLifeCyclePolicy'
+          description: The updated artifact lifecycle policy
+      summary: Update a single artifact lifecycle policy
+      tags:
+      - Artifact Lifecycle Policies
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.artifact_lifecycle_policies
+      x-anchore-authz-action: updateArtifactLifeCyclePolicy
+  /system/artifact-lifecycle-policies/{policy_uuid}/versions:
+    get:
+      operationId: get_artifact_lifecycle_policy_by_version
+      parameters:
+      - explode: false
+        in: path
+        name: policy_uuid
+        required: true
+        schema:
+          format: path
+          type: string
+        style: simple
+      - description: Request a specific version number
+        explode: true
+        in: query
+        name: version
+        required: false
+        schema:
+          type: integer
+        style: form
+      - description: Request the latest version
+        explode: true
+        in: query
+        name: latest
+        required: false
+        schema:
+          type: boolean
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArtifactLifeCyclePolicy'
+          description: The requested version(s) of the artifact lifecycle policy
+      summary: Get single artifact lifecycle policy by its version
+      tags:
+      - Artifact Lifecycle Policies
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.artifact_lifecycle_policies
+      x-anchore-authz-action: getArtifactLifeCyclePolicy
   /system/error-codes:
     get:
       description: Describe anchore engine error codes.
@@ -10057,11 +10202,11 @@ components:
           application_id: application_id
         created_at: 2000-01-23T04:56:07.000+00:00
         source_sboms:
-        - '{}'
-        - '{}'
+        - null
+        - null
         image_sboms:
-        - '{}'
-        - '{}'
+        - null
+        - null
         application_version:
           application_version_id: application_version_id
           last_updated: 2000-01-23T04:56:07.000+00:00
@@ -10080,13 +10225,11 @@ components:
           type: string
         source_sboms:
           items:
-            properties: {}
-            type: object
+            $ref: '#/components/schemas/SourceSBOM'
           type: array
         image_sboms:
           items:
-            properties: {}
-            type: object
+            $ref: '#/components/schemas/ImageSBOM'
           type: array
       type: object
     ApplicationVersionVulnerabilityReport:
@@ -10375,6 +10518,103 @@ components:
           $ref: '#/components/schemas/ImageArtifact'
         artifact_association_metadata:
           $ref: '#/components/schemas/ArtifactAssociationMetadata'
+      type: object
+    ArtifactLifeCyclePolicy:
+      description: A policy which exists in the system to manage the lifecycle of
+        artifacts
+      example:
+        updated_at: 2000-01-23T04:56:07.000+00:00
+        name: name
+        action: delete
+        description: description
+        created_at: 2000-01-23T04:56:07.000+00:00
+        policy_conditions:
+          days_since_analyzed: 1
+          artifact_type: image
+          days_since_last_seen_in_runtime: 6
+          version: 0
+        uuid: uuid
+        enabled: true
+      properties:
+        uuid:
+          type: string
+        action:
+          enum:
+          - delete
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        policy_conditions:
+          $ref: '#/components/schemas/ArtifactLifeCyclePolicyConditions'
+        enabled:
+          type: boolean
+        updated_at:
+          format: date-time
+          type: string
+        created_at:
+          format: date-time
+          type: string
+      required:
+      - action
+      - name
+      - policy_conditions
+      type: object
+    ArtifactLifeCyclePolicyConditions:
+      example:
+        days_since_analyzed: 1
+        artifact_type: image
+        days_since_last_seen_in_runtime: 6
+        version: 0
+      properties:
+        version:
+          type: integer
+        days_since_last_seen_in_runtime:
+          type: integer
+        days_since_analyzed:
+          type: integer
+        artifact_type:
+          enum:
+          - image
+          type: string
+      required:
+      - artifact_type
+      - days_since_analyzed
+      - days_since_last_seen_in_runtime
+      type: object
+    ArtifactLifeCyclePolicyList:
+      example:
+        items:
+        - updated_at: 2000-01-23T04:56:07.000+00:00
+          name: name
+          action: delete
+          description: description
+          created_at: 2000-01-23T04:56:07.000+00:00
+          policy_conditions:
+            days_since_analyzed: 1
+            artifact_type: image
+            days_since_last_seen_in_runtime: 6
+            version: 0
+          uuid: uuid
+          enabled: true
+        - updated_at: 2000-01-23T04:56:07.000+00:00
+          name: name
+          action: delete
+          description: description
+          created_at: 2000-01-23T04:56:07.000+00:00
+          policy_conditions:
+            days_since_analyzed: 1
+            artifact_type: image
+            days_since_last_seen_in_runtime: 6
+            version: 0
+          uuid: uuid
+          enabled: true
+      properties:
+        items:
+          items:
+            $ref: '#/components/schemas/ArtifactLifeCyclePolicy'
+          type: array
       type: object
     ArtifactListResponse:
       description: The response provided when querying for the artifacts on an application
@@ -10728,10 +10968,10 @@ components:
           type: string
         content:
           items:
-            $ref: '#/components/schemas/ContentFilesResponse_content'
+            $ref: '#/components/schemas/FilesContent'
           type: array
       type: object
-    ContentJAVAPackageResponse:
+    ContentJavaPackageResponse:
       description: Java package content listings from images
       example:
         image_digest: image_digest
@@ -10747,6 +10987,7 @@ components:
           location: location
           purl: purl
           type: type
+          version: version
           specification-version: specification-version
         - package: package
           implementation-version: implementation-version
@@ -10758,6 +10999,7 @@ components:
           location: location
           purl: purl
           type: type
+          version: version
           specification-version: specification-version
       properties:
         image_digest:
@@ -10766,7 +11008,7 @@ components:
           type: string
         content:
           items:
-            $ref: '#/components/schemas/ContentJAVAPackageResponse_content'
+            $ref: '#/components/schemas/JavaPackageContent'
           type: array
       type: object
     ContentMalwareResponse:
@@ -10846,7 +11088,7 @@ components:
           type: string
         content:
           items:
-            $ref: '#/components/schemas/ContentPackageResponse_content'
+            $ref: '#/components/schemas/PackageContent'
           type: array
       type: object
     Correction:
@@ -11074,6 +11316,35 @@ components:
       items:
         $ref: '#/components/schemas/DeleteImageResponse'
       type: array
+    ECSContainer:
+      example:
+        task_arn: task_arn
+        image_digest: image_digest
+        account_name: account_name
+        context: context
+        image_tag: image_tag
+        arn: arn
+      properties:
+        arn:
+          type: string
+        task_arn:
+          type: string
+        account_name:
+          type: string
+        context:
+          type: string
+        image_tag:
+          type: string
+        image_digest:
+          type: string
+      required:
+      - account_name
+      - arn
+      - context
+      - image_digest
+      - image_tag
+      - task_arn
+      type: object
     ECSContainers:
       description: Containers defined in ECS
       example:
@@ -11093,7 +11364,7 @@ components:
       properties:
         containers:
           items:
-            $ref: '#/components/schemas/ECSContainers_containers'
+            $ref: '#/components/schemas/ECSContainer'
           type: array
       type: object
     ECSInventory:
@@ -11135,21 +11406,100 @@ components:
           type: string
         tasks:
           items:
-            $ref: '#/components/schemas/ECSInventory_tasks'
+            $ref: '#/components/schemas/ECSInventoryTask'
           nullable: true
           type: array
         containers:
           items:
-            $ref: '#/components/schemas/ECSInventory_containers'
+            $ref: '#/components/schemas/ECSInventoryContainer'
           type: array
         services:
           items:
-            $ref: '#/components/schemas/ECSInventory_services'
+            $ref: '#/components/schemas/ECSInventoryService'
           nullable: true
           type: array
       required:
       - cluster_arn
       - timestamp
+      type: object
+    ECSInventoryContainer:
+      example:
+        task_arn: task_arn
+        image_digest: image_digest
+        image_tag: image_tag
+        arn: arn
+      properties:
+        arn:
+          type: string
+        task_arn:
+          type: string
+        image_tag:
+          type: string
+        image_digest:
+          type: string
+      required:
+      - arn
+      - image_tag
+      type: object
+    ECSInventoryService:
+      example:
+        arn: arn
+        tags:
+          key: tags
+      properties:
+        arn:
+          type: string
+        tags:
+          additionalProperties:
+            type: string
+          type: object
+      required:
+      - arn
+      type: object
+    ECSInventoryTask:
+      example:
+        service_arn: service_arn
+        task_definition_arn: task_definition_arn
+        arn: arn
+        tags:
+          key: tags
+      properties:
+        arn:
+          type: string
+        service_arn:
+          type: string
+        task_definition_arn:
+          type: string
+        tags:
+          additionalProperties:
+            type: string
+          type: object
+      required:
+      - arn
+      type: object
+    ECSService:
+      example:
+        cluster_arn: cluster_arn
+        account_name: account_name
+        arn: arn
+        tags:
+          key: tags
+      properties:
+        arn:
+          type: string
+        cluster_arn:
+          type: string
+        tags:
+          additionalProperties:
+            type: string
+          type: object
+        account_name:
+          type: string
+      required:
+      - account_name
+      - arn
+      - cluster_arn
+      - tags
       type: object
     ECSServices:
       description: Services defined in ECS
@@ -11168,8 +11518,40 @@ components:
       properties:
         services:
           items:
-            $ref: '#/components/schemas/ECSServices_services'
+            $ref: '#/components/schemas/ECSService'
           type: array
+      type: object
+    ECSTask:
+      example:
+        cluster_arn: cluster_arn
+        service_arn: service_arn
+        account_name: account_name
+        task_definition_arn: task_definition_arn
+        arn: arn
+        tags:
+          key: tags
+      properties:
+        arn:
+          type: string
+        cluster_arn:
+          type: string
+        service_arn:
+          type: string
+        task_definition_arn:
+          type: string
+        tags:
+          additionalProperties:
+            type: string
+          type: object
+        account_name:
+          type: string
+      required:
+      - account_name
+      - arn
+      - cluster_arn
+      - service_arn
+      - tags
+      - task_definition_arn
       type: object
     ECSTasks:
       description: Tasks defined in ECS
@@ -11192,7 +11574,7 @@ components:
       properties:
         tasks:
           items:
-            $ref: '#/components/schemas/ECSTasks_tasks'
+            $ref: '#/components/schemas/ECSTask'
           type: array
       type: object
     EventCategory:
@@ -11500,6 +11882,36 @@ components:
           items:
             $ref: '#/components/schemas/RegexContentMatch'
           type: array
+      type: object
+    FilesContent:
+      example:
+        mode: mode
+        uid: 1
+        filename: filename
+        gid: 0
+        sha256: sha256
+        size: 6
+        linkdest: linkdest
+        type: type
+      properties:
+        filename:
+          type: string
+        gid:
+          type: integer
+        linkdest:
+          nullable: true
+          type: string
+        mode:
+          type: string
+        sha256:
+          nullable: true
+          type: string
+        size:
+          type: integer
+        type:
+          type: string
+        uid:
+          type: integer
       type: object
     GateSpec:
       description: A description of the set of gates available in this engine and
@@ -12053,6 +12465,9 @@ components:
             $ref: '#/components/schemas/TagEntry'
           type: array
       type: object
+    ImageSBOM:
+      description: An image SBOM Document
+      type: object
     ImageSelectionRule:
       additionalProperties: false
       example:
@@ -12064,7 +12479,6 @@ components:
         description: description
         id: id
         repository: repository
-      nullable: true
       properties:
         id:
           type: string
@@ -12441,6 +12855,46 @@ components:
             $ref: '#/components/schemas/InventoryItem'
           type: array
       type: object
+    JavaPackageContent:
+      example:
+        package: package
+        implementation-version: implementation-version
+        cpes:
+        - cpes
+        - cpes
+        origin: origin
+        maven-version: maven-version
+        location: location
+        purl: purl
+        type: type
+        version: version
+        specification-version: specification-version
+      properties:
+        package:
+          type: string
+        implementation-version:
+          type: string
+        specification-version:
+          type: string
+        maven-version:
+          type: string
+        location:
+          type: string
+        type:
+          type: string
+        origin:
+          type: string
+        cpes:
+          description: A list of Common Platform Enumerations that may uniquely identify
+            the package
+          items:
+            type: string
+          type: array
+        purl:
+          type: string
+        version:
+          type: string
+      type: object
     JsonPatchAdd:
       description: The 'add' operation per RFC6902
       example:
@@ -12637,6 +13091,39 @@ components:
       description: A JSONPointer per RFC6901
       pattern: ^(/[^/~]*(~[01][^/~]*)*)*$
       type: string
+    KubernetesContainer:
+      example:
+        image_digest: image_digest
+        account_name: account_name
+        name: name
+        context: context
+        id: id
+        image_tag: image_tag
+        pod_id: pod_id
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        pod_id:
+          type: string
+        account_name:
+          type: string
+        context:
+          type: string
+        image_tag:
+          type: string
+        image_digest:
+          type: string
+      required:
+      - account_name
+      - context
+      - id
+      - image_digest
+      - image_tag
+      - name
+      - pod_id
+      type: object
     KubernetesContainers:
       description: Containers defined in Kubernetes
       example:
@@ -12658,7 +13145,7 @@ components:
       properties:
         containers:
           items:
-            $ref: '#/components/schemas/KubernetesContainers_containers'
+            $ref: '#/components/schemas/KubernetesContainer'
           type: array
       type: object
     KubernetesInventory:
@@ -12741,23 +13228,166 @@ components:
           type: string
         namespaces:
           items:
-            $ref: '#/components/schemas/KubernetesInventory_namespaces'
+            $ref: '#/components/schemas/KubernetesInventoryNamespace'
           type: array
         nodes:
           items:
-            $ref: '#/components/schemas/KubernetesInventory_nodes'
+            $ref: '#/components/schemas/KubernetesInventoryNode'
           type: array
         pods:
           items:
-            $ref: '#/components/schemas/KubernetesInventory_pods'
+            $ref: '#/components/schemas/KubernetesInventoryPod'
           type: array
         containers:
           items:
-            $ref: '#/components/schemas/KubernetesInventory_containers'
+            $ref: '#/components/schemas/KubernetesInventoryContainer'
           type: array
       required:
       - cluster_name
       - timestamp
+      type: object
+    KubernetesInventoryContainer:
+      example:
+        image_digest: image_digest
+        pod_uid: pod_uid
+        name: name
+        id: id
+        image_tag: image_tag
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        image_tag:
+          pattern: ^(?!\s*$).+
+          type: string
+        image_digest:
+          type: string
+        pod_uid:
+          maxLength: 36
+          minLength: 36
+          pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
+          type: string
+      required:
+      - id
+      - image_tag
+      - name
+      - pod_uid
+      type: object
+    KubernetesInventoryNamespace:
+      example:
+        uid: uid
+        name: name
+        annotations:
+          key: annotations
+        labels:
+          key: labels
+      properties:
+        uid:
+          maxLength: 36
+          minLength: 36
+          pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
+          type: string
+        name:
+          type: string
+        labels:
+          additionalProperties:
+            type: string
+          type: object
+        annotations:
+          additionalProperties:
+            type: string
+          type: object
+      required:
+      - name
+      - uid
+      type: object
+    KubernetesInventoryNode:
+      example:
+        uid: uid
+        kernel_version: kernel_version
+        kube_proxy_version: kube_proxy_version
+        name: name
+        kubernetes_version: kubernetes_version
+        annotations:
+          key: annotations
+        operating_system: operating_system
+        kubelet_version: kubelet_version
+        arch: arch
+        container_runtime_version: container_runtime_version
+        labels:
+          key: labels
+      properties:
+        uid:
+          maxLength: 36
+          minLength: 36
+          pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
+          type: string
+        name:
+          type: string
+        labels:
+          additionalProperties:
+            type: string
+          type: object
+        annotations:
+          additionalProperties:
+            type: string
+          type: object
+        kernel_version:
+          type: string
+        kubernetes_version:
+          type: string
+        arch:
+          type: string
+        container_runtime_version:
+          type: string
+        kube_proxy_version:
+          type: string
+        kubelet_version:
+          type: string
+        operating_system:
+          type: string
+      required:
+      - name
+      - uid
+      type: object
+    KubernetesInventoryPod:
+      example:
+        uid: uid
+        node_uid: node_uid
+        name: name
+        annotations:
+          key: annotations
+        namespace_uid: namespace_uid
+        labels:
+          key: labels
+      properties:
+        uid:
+          type: string
+        name:
+          type: string
+        namespace_uid:
+          maxLength: 36
+          minLength: 36
+          pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
+          type: string
+        node_uid:
+          maxLength: 36
+          minLength: 36
+          pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
+          type: string
+        labels:
+          additionalProperties:
+            type: string
+          type: object
+        annotations:
+          additionalProperties:
+            type: string
+          type: object
+      required:
+      - name
+      - namespace_uid
+      - uid
       type: object
     KubernetesNamespace:
       example:
@@ -12942,6 +13572,18 @@ components:
         digest:
           type: string
       type: object
+    MalwareFinding:
+      example:
+        path: path
+        signature: signature
+      properties:
+        path:
+          description: A path for a file in the image's rootfs
+          type: string
+        signature:
+          description: The malware signature found at the path
+          type: string
+      type: object
     MalwareScan:
       description: A single scan from a scanner
       example:
@@ -12967,7 +13609,7 @@ components:
           type: object
         findings:
           items:
-            $ref: '#/components/schemas/MalwareScan_findings'
+            $ref: '#/components/schemas/MalwareFinding'
           type: array
       type: object
     MappingRule:
@@ -12987,7 +13629,6 @@ components:
         - rule_set_ids
         id: id
         repository: repository
-      nullable: true
       properties:
         id:
           type: string
@@ -13021,7 +13662,6 @@ components:
       - repository
       - rule_set_ids
       type: object
-      x-nullable: true
     MetadataResponse:
       description: Generic wrapper for metadata listings from images
       example:
@@ -13660,6 +14300,12 @@ components:
         response:
           type: string
       type: object
+    NullType:
+      description: for adding nullability to a ref
+      enum:
+      - null
+      title: OpenAPI 3.0.` null-type ref
+      type: string
     NvdDataList:
       description: List of Nvd Data objects
       items:
@@ -13748,6 +14394,56 @@ components:
           items:
             type: string
           type: array
+        purl:
+          type: string
+      type: object
+    PackageContent:
+      example:
+        licenses:
+        - licenses
+        - licenses
+        metadata: '{}'
+        package: package
+        size: size
+        cpes:
+        - cpes
+        - cpes
+        metadata_type: metadata_type
+        origin: origin
+        location: location
+        purl: purl
+        type: type
+        version: version
+      properties:
+        package:
+          type: string
+        version:
+          type: string
+        size:
+          type: string
+        type:
+          type: string
+        origin:
+          type: string
+        licenses:
+          items:
+            type: string
+          type: array
+        location:
+          type: string
+        cpes:
+          description: A list of Common Platform Enumerations that may uniquely identify
+            the package
+          items:
+            type: string
+          type: array
+        metadata_type:
+          description: The type of the metadata entry
+          type: string
+        metadata:
+          description: Package type specific metadata
+          properties: {}
+          type: object
         purl:
           type: string
       type: object
@@ -14096,7 +14792,6 @@ components:
           description: description
           id: id
           repository: repository
-      nullable: true
       properties:
         id:
           description: Id of the policy
@@ -14186,35 +14881,13 @@ components:
           - severity: error
             problem_type: problem_type
             details: details
-          matched_denylisted_images_rule:
-            registry: registry
-            image:
-              type: tag
-              value: value
-            name: name
-            description: description
-            id: id
-            repository: repository
+          matched_denylisted_images_rule: ""
           image_mapped_to_rule: true
           number_of_findings: 6
           final_action: stop
           image_denylisted: true
           final_action_reason: policy_evaluation
-          matched_mapping_rule:
-            registry: registry
-            image:
-              type: tag
-              value: value
-            allowlist_ids:
-            - allowlist_ids
-            - allowlist_ids
-            name: name
-            description: description
-            rule_set_ids:
-            - rule_set_ids
-            - rule_set_ids
-            id: id
-            repository: repository
+          matched_mapping_rule: ""
           details:
             findings:
             - rule_id: rule_id
@@ -14227,10 +14900,7 @@ components:
               trigger: trigger
               message: message
               inherited_from_base: true
-              allowlist_match:
-                matched_rule_id: matched_rule_id
-                name: name
-                id: id
+              allowlist_match: ""
             - rule_id: rule_id
               policy_id: policy_id
               allowlisted: true
@@ -14241,10 +14911,7 @@ components:
               trigger: trigger
               message: message
               inherited_from_base: true
-              allowlist_match:
-                matched_rule_id: matched_rule_id
-                name: name
-                id: id
+              allowlist_match: ""
             remediations:
             - suggestions:
               - message: message
@@ -14262,6 +14929,7 @@ components:
               trigger_ids:
               - trigger_ids
               - trigger_ids
+            policy_action: stop
             policy:
               mappings:
               - registry: registry
@@ -14443,15 +15111,7 @@ components:
                 id: id
                 repository: repository
           image_allowlisted: true
-          matched_allowlisted_images_rule:
-            registry: registry
-            image:
-              type: tag
-              value: value
-            name: name
-            description: description
-            id: id
-            repository: repository
+          matched_allowlisted_images_rule: ""
           status: fail
         - comparison_image_digest: comparison_image_digest
           evaluation_time: 2000-01-23T04:56:07.000+00:00
@@ -14462,35 +15122,13 @@ components:
           - severity: error
             problem_type: problem_type
             details: details
-          matched_denylisted_images_rule:
-            registry: registry
-            image:
-              type: tag
-              value: value
-            name: name
-            description: description
-            id: id
-            repository: repository
+          matched_denylisted_images_rule: ""
           image_mapped_to_rule: true
           number_of_findings: 6
           final_action: stop
           image_denylisted: true
           final_action_reason: policy_evaluation
-          matched_mapping_rule:
-            registry: registry
-            image:
-              type: tag
-              value: value
-            allowlist_ids:
-            - allowlist_ids
-            - allowlist_ids
-            name: name
-            description: description
-            rule_set_ids:
-            - rule_set_ids
-            - rule_set_ids
-            id: id
-            repository: repository
+          matched_mapping_rule: ""
           details:
             findings:
             - rule_id: rule_id
@@ -14503,10 +15141,7 @@ components:
               trigger: trigger
               message: message
               inherited_from_base: true
-              allowlist_match:
-                matched_rule_id: matched_rule_id
-                name: name
-                id: id
+              allowlist_match: ""
             - rule_id: rule_id
               policy_id: policy_id
               allowlisted: true
@@ -14517,10 +15152,7 @@ components:
               trigger: trigger
               message: message
               inherited_from_base: true
-              allowlist_match:
-                matched_rule_id: matched_rule_id
-                name: name
-                id: id
+              allowlist_match: ""
             remediations:
             - suggestions:
               - message: message
@@ -14538,6 +15170,7 @@ components:
               trigger_ids:
               - trigger_ids
               - trigger_ids
+            policy_action: stop
             policy:
               mappings:
               - registry: registry
@@ -14719,15 +15352,7 @@ components:
                 id: id
                 repository: repository
           image_allowlisted: true
-          matched_allowlisted_images_rule:
-            registry: registry
-            image:
-              type: tag
-              value: value
-            name: name
-            description: description
-            id: id
-            repository: repository
+          matched_allowlisted_images_rule: ""
           status: fail
         policy_id: policy_id
         image_digest: image_digest
@@ -14746,7 +15371,7 @@ components:
           description: List of policy evaluations. Always has at least one result,
             may contain multiple when the evaluation history is requested.
           items:
-            $ref: '#/components/schemas/PolicyEvaluation_evaluations'
+            $ref: '#/components/schemas/PolicyEvaluationResult'
           type: array
       type: object
     PolicyEvaluationFinding:
@@ -14761,10 +15386,7 @@ components:
         trigger: trigger
         message: message
         inherited_from_base: true
-        allowlist_match:
-          matched_rule_id: matched_rule_id
-          name: name
-          id: id
+        allowlist_match: ""
       properties:
         trigger_id:
           description: ID of this policy trigger finding (can be used to allowlist
@@ -14799,7 +15421,9 @@ components:
           description: Indicates if this finding was allowlisted or not
           type: boolean
         allowlist_match:
-          $ref: '#/components/schemas/PolicyEvaluationFindingAllowlistMatch'
+          anyOf:
+          - $ref: '#/components/schemas/NullType'
+          - $ref: '#/components/schemas/PolicyEvaluationFindingAllowlistMatch'
         inherited_from_base:
           description: Indicates if this finding was found in the base image
           nullable: true
@@ -14817,11 +15441,6 @@ components:
       type: object
     PolicyEvaluationFindingAllowlistMatch:
       description: Details about (possible) allowlist match
-      example:
-        matched_rule_id: matched_rule_id
-        name: name
-        id: id
-      nullable: true
       properties:
         id:
           description: ID of the allowlist that matched this finding
@@ -14833,7 +15452,6 @@ components:
           description: ID of the rule within the allowlist that matched this finding
           type: string
       type: object
-      x-nullable: true
     PolicyEvaluationProblem:
       description: Details for an error or warning indicating a problem during policy
         evaluation
@@ -14877,7 +15495,7 @@ components:
         suggestions:
           description: Anchore generated options for resolving a finding
           items:
-            $ref: '#/components/schemas/PolicyEvaluationRemediation_suggestions'
+            $ref: '#/components/schemas/PolicyEvaluationRemediationSuggestion'
           type: array
         trigger_ids:
           description: List of trigger IDs that these remediation suggestions apply
@@ -14888,6 +15506,336 @@ components:
       required:
       - suggestions
       - trigger_ids
+      type: object
+    PolicyEvaluationRemediationSuggestion:
+      example:
+        message: message
+        preferred: true
+      properties:
+        message:
+          description: The suggestion for resolving a finding
+          type: string
+        preferred:
+          description: Indicates whether this suggestion is recommended
+          type: boolean
+      required:
+      - message
+      - preferred
+      type: object
+    PolicyEvaluationResult:
+      example:
+        comparison_image_digest: comparison_image_digest
+        evaluation_time: 2000-01-23T04:56:07.000+00:00
+        evaluation_problems:
+        - severity: error
+          problem_type: problem_type
+          details: details
+        - severity: error
+          problem_type: problem_type
+          details: details
+        matched_denylisted_images_rule: ""
+        image_mapped_to_rule: true
+        number_of_findings: 6
+        final_action: stop
+        image_denylisted: true
+        final_action_reason: policy_evaluation
+        matched_mapping_rule: ""
+        details:
+          findings:
+          - rule_id: rule_id
+            policy_id: policy_id
+            allowlisted: true
+            trigger_id: trigger_id
+            action: go
+            recommendation: recommendation
+            gate: gate
+            trigger: trigger
+            message: message
+            inherited_from_base: true
+            allowlist_match: ""
+          - rule_id: rule_id
+            policy_id: policy_id
+            allowlisted: true
+            trigger_id: trigger_id
+            action: go
+            recommendation: recommendation
+            gate: gate
+            trigger: trigger
+            message: message
+            inherited_from_base: true
+            allowlist_match: ""
+          remediations:
+          - suggestions:
+            - message: message
+              preferred: true
+            - message: message
+              preferred: true
+            trigger_ids:
+            - trigger_ids
+            - trigger_ids
+          - suggestions:
+            - message: message
+              preferred: true
+            - message: message
+              preferred: true
+            trigger_ids:
+            - trigger_ids
+            - trigger_ids
+          policy_action: stop
+          policy:
+            mappings:
+            - registry: registry
+              image:
+                type: tag
+                value: value
+              allowlist_ids:
+              - allowlist_ids
+              - allowlist_ids
+              name: name
+              description: description
+              rule_set_ids:
+              - rule_set_ids
+              - rule_set_ids
+              id: id
+              repository: repository
+            - registry: registry
+              image:
+                type: tag
+                value: value
+              allowlist_ids:
+              - allowlist_ids
+              - allowlist_ids
+              name: name
+              description: description
+              rule_set_ids:
+              - rule_set_ids
+              - rule_set_ids
+              id: id
+              repository: repository
+            last_updated: 0.8008281904610115
+            denylisted_images:
+            - registry: registry
+              image:
+                type: tag
+                value: value
+              name: name
+              description: description
+              id: id
+              repository: repository
+            - registry: registry
+              image:
+                type: tag
+                value: value
+              name: name
+              description: description
+              id: id
+              repository: repository
+            allowlists:
+            - name: name
+              description: description
+              id: id
+              version: version
+              items:
+              - trigger_id: trigger_id
+                expires_on: 2000-01-23T04:56:07.000+00:00
+                description: description
+                id: id
+                gate: gate
+              - trigger_id: trigger_id
+                expires_on: 2000-01-23T04:56:07.000+00:00
+                description: description
+                id: id
+                gate: gate
+            - name: name
+              description: description
+              id: id
+              version: version
+              items:
+              - trigger_id: trigger_id
+                expires_on: 2000-01-23T04:56:07.000+00:00
+                description: description
+                id: id
+                gate: gate
+              - trigger_id: trigger_id
+                expires_on: 2000-01-23T04:56:07.000+00:00
+                description: description
+                id: id
+                gate: gate
+            source_mappings:
+            - allowlist_ids:
+              - allowlist_ids
+              - allowlist_ids
+              name: name
+              host: host
+              description: description
+              rule_set_ids:
+              - rule_set_ids
+              - rule_set_ids
+              id: id
+              repository: repository
+            - allowlist_ids:
+              - allowlist_ids
+              - allowlist_ids
+              name: name
+              host: host
+              description: description
+              rule_set_ids:
+              - rule_set_ids
+              - rule_set_ids
+              id: id
+              repository: repository
+            name: name
+            description: description
+            rule_sets:
+            - artifact_type: image
+              name: name
+              description: description
+              rules:
+              - action: GO
+                description: description
+                recommendation: recommendation
+                id: id
+                gate: gate
+                trigger: trigger
+                params:
+                - name: name
+                  value: value
+                - name: name
+                  value: value
+              - action: GO
+                description: description
+                recommendation: recommendation
+                id: id
+                gate: gate
+                trigger: trigger
+                params:
+                - name: name
+                  value: value
+                - name: name
+                  value: value
+              id: id
+              version: version
+            - artifact_type: image
+              name: name
+              description: description
+              rules:
+              - action: GO
+                description: description
+                recommendation: recommendation
+                id: id
+                gate: gate
+                trigger: trigger
+                params:
+                - name: name
+                  value: value
+                - name: name
+                  value: value
+              - action: GO
+                description: description
+                recommendation: recommendation
+                id: id
+                gate: gate
+                trigger: trigger
+                params:
+                - name: name
+                  value: value
+                - name: name
+                  value: value
+              id: id
+              version: version
+            id: id
+            version: version
+            allowlisted_images:
+            - registry: registry
+              image:
+                type: tag
+                value: value
+              name: name
+              description: description
+              id: id
+              repository: repository
+            - registry: registry
+              image:
+                type: tag
+                value: value
+              name: name
+              description: description
+              id: id
+              repository: repository
+        image_allowlisted: true
+        matched_allowlisted_images_rule: ""
+        status: fail
+      properties:
+        details:
+          $ref: '#/components/schemas/PolicyEvaluationResult_details'
+        comparison_image_digest:
+          description: Image digest of the base image used during policy evaluation
+          nullable: true
+          type: string
+        evaluation_time:
+          description: The date and time this policy evaluation was performed at
+          format: date-time
+          type: string
+        evaluation_problems:
+          description: list of error objects indicating errors encountered during
+            evaluation execution
+          items:
+            $ref: '#/components/schemas/PolicyEvaluationProblem'
+          type: array
+        status:
+          description: The overall status of the policy evaluation
+          enum:
+          - fail
+          - pass
+          type: string
+        final_action:
+          description: The overall outcome of the evaluation.
+          enum:
+          - stop
+          - go
+          - warn
+          type: string
+        final_action_reason:
+          description: The reason for the final result
+          enum:
+          - policy_evaluation
+          - allowlisted
+          - denylisted
+          type: string
+        image_allowlisted:
+          description: Whether the evaluated image matched an allowlist rule
+          type: boolean
+        matched_allowlisted_images_rule:
+          anyOf:
+          - $ref: '#/components/schemas/NullType'
+          - $ref: '#/components/schemas/ImageSelectionRule'
+        image_denylisted:
+          description: Whether the evaluated image matched a denylist rule
+          type: boolean
+        matched_denylisted_images_rule:
+          anyOf:
+          - $ref: '#/components/schemas/NullType'
+          - $ref: '#/components/schemas/ImageSelectionRule'
+        image_mapped_to_rule:
+          description: Whether the evaluated image matched a policy rule
+          type: boolean
+        matched_mapping_rule:
+          anyOf:
+          - $ref: '#/components/schemas/NullType'
+          - $ref: '#/components/schemas/MappingRule'
+        number_of_findings:
+          description: Number of policy findings in the response
+          type: integer
+      required:
+      - evaluation_problems
+      - evaluation_time
+      - final_action
+      - final_action_reason
+      - image_allowlisted
+      - image_denylisted
+      - image_mapped_to_rule
+      - number_of_findings
+      - status
       type: object
     PolicyList:
       description: List of PolicyRecord objects
@@ -14905,186 +15853,7 @@ components:
         created_at: 2000-01-23T04:56:07.000+00:00
         active: true
         description: description
-        policy:
-          mappings:
-          - registry: registry
-            image:
-              type: tag
-              value: value
-            allowlist_ids:
-            - allowlist_ids
-            - allowlist_ids
-            name: name
-            description: description
-            rule_set_ids:
-            - rule_set_ids
-            - rule_set_ids
-            id: id
-            repository: repository
-          - registry: registry
-            image:
-              type: tag
-              value: value
-            allowlist_ids:
-            - allowlist_ids
-            - allowlist_ids
-            name: name
-            description: description
-            rule_set_ids:
-            - rule_set_ids
-            - rule_set_ids
-            id: id
-            repository: repository
-          last_updated: 0.8008281904610115
-          denylisted_images:
-          - registry: registry
-            image:
-              type: tag
-              value: value
-            name: name
-            description: description
-            id: id
-            repository: repository
-          - registry: registry
-            image:
-              type: tag
-              value: value
-            name: name
-            description: description
-            id: id
-            repository: repository
-          allowlists:
-          - name: name
-            description: description
-            id: id
-            version: version
-            items:
-            - trigger_id: trigger_id
-              expires_on: 2000-01-23T04:56:07.000+00:00
-              description: description
-              id: id
-              gate: gate
-            - trigger_id: trigger_id
-              expires_on: 2000-01-23T04:56:07.000+00:00
-              description: description
-              id: id
-              gate: gate
-          - name: name
-            description: description
-            id: id
-            version: version
-            items:
-            - trigger_id: trigger_id
-              expires_on: 2000-01-23T04:56:07.000+00:00
-              description: description
-              id: id
-              gate: gate
-            - trigger_id: trigger_id
-              expires_on: 2000-01-23T04:56:07.000+00:00
-              description: description
-              id: id
-              gate: gate
-          source_mappings:
-          - allowlist_ids:
-            - allowlist_ids
-            - allowlist_ids
-            name: name
-            host: host
-            description: description
-            rule_set_ids:
-            - rule_set_ids
-            - rule_set_ids
-            id: id
-            repository: repository
-          - allowlist_ids:
-            - allowlist_ids
-            - allowlist_ids
-            name: name
-            host: host
-            description: description
-            rule_set_ids:
-            - rule_set_ids
-            - rule_set_ids
-            id: id
-            repository: repository
-          name: name
-          description: description
-          rule_sets:
-          - artifact_type: image
-            name: name
-            description: description
-            rules:
-            - action: GO
-              description: description
-              recommendation: recommendation
-              id: id
-              gate: gate
-              trigger: trigger
-              params:
-              - name: name
-                value: value
-              - name: name
-                value: value
-            - action: GO
-              description: description
-              recommendation: recommendation
-              id: id
-              gate: gate
-              trigger: trigger
-              params:
-              - name: name
-                value: value
-              - name: name
-                value: value
-            id: id
-            version: version
-          - artifact_type: image
-            name: name
-            description: description
-            rules:
-            - action: GO
-              description: description
-              recommendation: recommendation
-              id: id
-              gate: gate
-              trigger: trigger
-              params:
-              - name: name
-                value: value
-              - name: name
-                value: value
-            - action: GO
-              description: description
-              recommendation: recommendation
-              id: id
-              gate: gate
-              trigger: trigger
-              params:
-              - name: name
-                value: value
-              - name: name
-                value: value
-            id: id
-            version: version
-          id: id
-          version: version
-          allowlisted_images:
-          - registry: registry
-            image:
-              type: tag
-              value: value
-            name: name
-            description: description
-            id: id
-            repository: repository
-          - registry: registry
-            image:
-              type: tag
-              value: value
-            name: name
-            description: description
-            id: id
-            repository: repository
+        policy: ""
       properties:
         created_at:
           format: date-time
@@ -15105,7 +15874,9 @@ components:
           description: Source location of where the policy originated
           type: string
         policy:
-          $ref: '#/components/schemas/Policy'
+          anyOf:
+          - $ref: '#/components/schemas/NullType'
+          - $ref: '#/components/schemas/Policy'
         name:
           description: Name of the policy
           type: string
@@ -15153,7 +15924,7 @@ components:
           type: string
         params:
           items:
-            $ref: '#/components/schemas/PolicyRule_params'
+            $ref: '#/components/schemas/PolicyRuleParam'
           type: array
         recommendation:
           type: string
@@ -15163,6 +15934,20 @@ components:
       - id
       - params
       - trigger
+      type: object
+    PolicyRuleParam:
+      additionalProperties: false
+      example:
+        name: name
+        value: value
+      properties:
+        name:
+          type: string
+        value:
+          type: string
+      required:
+      - name
+      - value
       type: object
     RbacManagerAccountRole:
       description: An account identifier and roles a user has within that account
@@ -15288,19 +16073,15 @@ components:
       description: Membership for a role in an account
       example:
         role: role
-        for_account:
-        - for_account
-        - for_account
+        for_account: for_account
         created_at: 2000-01-23T04:56:07.000+00:00
       properties:
         role:
           description: The name of the role the user has permissions for
           type: string
         for_account:
-          items:
-            description: The accounts for which the user has the role permission
-            type: string
-          type: array
+          description: The account for which the user has the role permission
+          type: string
         created_at:
           format: date-time
           type: string
@@ -16601,8 +17382,33 @@ components:
         metadata_records:
           description: Array of metadata available
           items:
-            $ref: '#/components/schemas/SourceManifest_metadata_records'
+            $ref: '#/components/schemas/SourceManifestMetadataRecord'
           type: array
+      type: object
+    SourceManifestMetadataRecord:
+      description: Metadata associated with a source upload
+      example:
+        ci_workflow_name: ci_workflow_name
+        change_author: change_author
+        branch_name: branch_name
+        uuid: uuid
+        ci_workflow_execution_time: 2000-01-23T04:56:07.000+00:00
+      properties:
+        uuid:
+          type: string
+        ci_workflow_name:
+          nullable: true
+          type: string
+        ci_workflow_execution_time:
+          format: date-time
+          nullable: true
+          type: string
+        branch_name:
+          nullable: true
+          type: string
+        change_author:
+          nullable: true
+          type: string
       type: object
     SourceMappingRule:
       additionalProperties: false
@@ -16793,10 +17599,7 @@ components:
           gate: gate
           trigger: trigger
           message: message
-          allowlist_match:
-            matched_rule_id: matched_rule_id
-            name: name
-            id: id
+          allowlist_match: ""
         - rule_id: rule_id
           policy_id: policy_id
           allowlisted: true
@@ -16806,10 +17609,7 @@ components:
           gate: gate
           trigger: trigger
           message: message
-          allowlist_match:
-            matched_rule_id: matched_rule_id
-            name: name
-            id: id
+          allowlist_match: ""
         number_of_findings: 0
         revision: revision
         final_action: stop
@@ -17096,10 +17896,7 @@ components:
         gate: gate
         trigger: trigger
         message: message
-        allowlist_match:
-          matched_rule_id: matched_rule_id
-          name: name
-          id: id
+        allowlist_match: ""
       properties:
         trigger_id:
           description: ID of this policy trigger finding (can be used to allowlist
@@ -17134,7 +17931,12 @@ components:
           description: Indicates if this finding was allowlisted or not
           type: boolean
         allowlist_match:
-          $ref: '#/components/schemas/PolicyEvaluationFindingAllowlistMatch'
+          anyOf:
+          - $ref: '#/components/schemas/NullType'
+          - $ref: '#/components/schemas/PolicyEvaluationFindingAllowlistMatch'
+      type: object
+    SourceSBOM:
+      description: A Source SBOM Document
       type: object
     SourcesList:
       example:
@@ -17868,263 +18670,6 @@ components:
         artifacts:
           $ref: '#/components/schemas/ApplicationVersionVulnerabilityReport_application_artifacts'
       type: object
-    ContentFilesResponse_content:
-      example:
-        mode: mode
-        uid: 1
-        filename: filename
-        gid: 0
-        sha256: sha256
-        size: 6
-        linkdest: linkdest
-        type: type
-      properties:
-        filename:
-          type: string
-        gid:
-          type: integer
-        linkdest:
-          nullable: true
-          type: string
-        mode:
-          type: string
-        sha256:
-          nullable: true
-          type: string
-        size:
-          type: integer
-        type:
-          type: string
-        uid:
-          type: integer
-      type: object
-    ContentJAVAPackageResponse_content:
-      example:
-        package: package
-        implementation-version: implementation-version
-        cpes:
-        - cpes
-        - cpes
-        origin: origin
-        maven-version: maven-version
-        location: location
-        purl: purl
-        type: type
-        specification-version: specification-version
-      properties:
-        package:
-          type: string
-        implementation-version:
-          type: string
-        specification-version:
-          type: string
-        maven-version:
-          type: string
-        location:
-          type: string
-        type:
-          type: string
-        origin:
-          type: string
-        cpes:
-          description: A list of Common Platform Enumerations that may uniquely identify
-            the package
-          items:
-            type: string
-          type: array
-        purl:
-          type: string
-      type: object
-    ContentPackageResponse_content:
-      example:
-        licenses:
-        - licenses
-        - licenses
-        metadata: '{}'
-        package: package
-        size: size
-        cpes:
-        - cpes
-        - cpes
-        metadata_type: metadata_type
-        origin: origin
-        location: location
-        purl: purl
-        type: type
-        version: version
-      properties:
-        package:
-          type: string
-        version:
-          type: string
-        size:
-          type: string
-        type:
-          type: string
-        origin:
-          type: string
-        licenses:
-          items:
-            type: string
-          type: array
-        location:
-          type: string
-        cpes:
-          description: A list of Common Platform Enumerations that may uniquely identify
-            the package
-          items:
-            type: string
-          type: array
-        metadata_type:
-          description: The type of the metadata entry
-          type: string
-        metadata:
-          description: Package type specific metadata
-          properties: {}
-          type: object
-        purl:
-          type: string
-      type: object
-    ECSContainers_containers:
-      example:
-        task_arn: task_arn
-        image_digest: image_digest
-        account_name: account_name
-        context: context
-        image_tag: image_tag
-        arn: arn
-      properties:
-        arn:
-          type: string
-        task_arn:
-          type: string
-        account_name:
-          type: string
-        context:
-          type: string
-        image_tag:
-          type: string
-        image_digest:
-          type: string
-      required:
-      - account_name
-      - arn
-      - context
-      - image_digest
-      - image_tag
-      - task_arn
-      type: object
-    ECSInventory_tasks:
-      example:
-        service_arn: service_arn
-        task_definition_arn: task_definition_arn
-        arn: arn
-        tags:
-          key: tags
-      properties:
-        arn:
-          type: string
-        service_arn:
-          type: string
-        task_definition_arn:
-          type: string
-        tags:
-          additionalProperties:
-            type: string
-          type: object
-      required:
-      - arn
-      type: object
-    ECSInventory_containers:
-      example:
-        task_arn: task_arn
-        image_digest: image_digest
-        image_tag: image_tag
-        arn: arn
-      properties:
-        arn:
-          type: string
-        task_arn:
-          type: string
-        image_tag:
-          type: string
-        image_digest:
-          type: string
-      required:
-      - arn
-      - image_tag
-      type: object
-    ECSInventory_services:
-      example:
-        arn: arn
-        tags:
-          key: tags
-      properties:
-        arn:
-          type: string
-        tags:
-          additionalProperties:
-            type: string
-          type: object
-      required:
-      - arn
-      type: object
-    ECSServices_services:
-      example:
-        cluster_arn: cluster_arn
-        account_name: account_name
-        arn: arn
-        tags:
-          key: tags
-      properties:
-        arn:
-          type: string
-        cluster_arn:
-          type: string
-        tags:
-          additionalProperties:
-            type: string
-          type: object
-        account_name:
-          type: string
-      required:
-      - account_name
-      - arn
-      - cluster_arn
-      - tags
-      type: object
-    ECSTasks_tasks:
-      example:
-        cluster_arn: cluster_arn
-        service_arn: service_arn
-        account_name: account_name
-        task_definition_arn: task_definition_arn
-        arn: arn
-        tags:
-          key: tags
-      properties:
-        arn:
-          type: string
-        cluster_arn:
-          type: string
-        service_arn:
-          type: string
-        task_definition_arn:
-          type: string
-        tags:
-          additionalProperties:
-            type: string
-          type: object
-        account_name:
-          type: string
-      required:
-      - account_name
-      - arn
-      - cluster_arn
-      - service_arn
-      - tags
-      - task_definition_arn
-      type: object
     EventResponse_event_source:
       properties:
         service_name:
@@ -18172,194 +18717,6 @@ components:
           description: True if the vulnerable artifact is found in the base image.
             False otherwise
           type: boolean
-      type: object
-    KubernetesContainers_containers:
-      example:
-        image_digest: image_digest
-        account_name: account_name
-        name: name
-        context: context
-        id: id
-        image_tag: image_tag
-        pod_id: pod_id
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        pod_id:
-          type: string
-        account_name:
-          type: string
-        context:
-          type: string
-        image_tag:
-          type: string
-        image_digest:
-          type: string
-      required:
-      - account_name
-      - context
-      - id
-      - image_digest
-      - image_tag
-      - name
-      - pod_id
-      type: object
-    KubernetesInventory_namespaces:
-      example:
-        uid: uid
-        name: name
-        annotations:
-          key: annotations
-        labels:
-          key: labels
-      properties:
-        uid:
-          maxLength: 36
-          minLength: 36
-          pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
-          type: string
-        name:
-          type: string
-        labels:
-          additionalProperties:
-            type: string
-          type: object
-        annotations:
-          additionalProperties:
-            type: string
-          type: object
-      required:
-      - name
-      - uid
-      type: object
-    KubernetesInventory_nodes:
-      example:
-        uid: uid
-        kernel_version: kernel_version
-        kube_proxy_version: kube_proxy_version
-        name: name
-        kubernetes_version: kubernetes_version
-        annotations:
-          key: annotations
-        operating_system: operating_system
-        kubelet_version: kubelet_version
-        arch: arch
-        container_runtime_version: container_runtime_version
-        labels:
-          key: labels
-      properties:
-        uid:
-          maxLength: 36
-          minLength: 36
-          pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
-          type: string
-        name:
-          type: string
-        labels:
-          additionalProperties:
-            type: string
-          type: object
-        annotations:
-          additionalProperties:
-            type: string
-          type: object
-        kernel_version:
-          type: string
-        kubernetes_version:
-          type: string
-        arch:
-          type: string
-        container_runtime_version:
-          type: string
-        kube_proxy_version:
-          type: string
-        kubelet_version:
-          type: string
-        operating_system:
-          type: string
-      required:
-      - name
-      - uid
-      type: object
-    KubernetesInventory_pods:
-      example:
-        uid: uid
-        node_uid: node_uid
-        name: name
-        annotations:
-          key: annotations
-        namespace_uid: namespace_uid
-        labels:
-          key: labels
-      properties:
-        uid:
-          type: string
-        name:
-          type: string
-        namespace_uid:
-          maxLength: 36
-          minLength: 36
-          pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
-          type: string
-        node_uid:
-          maxLength: 36
-          minLength: 36
-          pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
-          type: string
-        labels:
-          additionalProperties:
-            type: string
-          type: object
-        annotations:
-          additionalProperties:
-            type: string
-          type: object
-      required:
-      - name
-      - namespace_uid
-      - uid
-      type: object
-    KubernetesInventory_containers:
-      example:
-        image_digest: image_digest
-        pod_uid: pod_uid
-        name: name
-        id: id
-        image_tag: image_tag
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        image_tag:
-          pattern: ^(?!\s*$).+
-          type: string
-        image_digest:
-          type: string
-        pod_uid:
-          maxLength: 36
-          minLength: 36
-          pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
-          type: string
-      required:
-      - id
-      - image_tag
-      - name
-      - pod_uid
-      type: object
-    MalwareScan_findings:
-      example:
-        path: path
-        signature: signature
-      properties:
-        path:
-          description: A path for a file in the image's rootfs
-          type: string
-        signature:
-          description: The malware signature found at the path
-          type: string
       type: object
     NotificationActionPlanNotificationPayload_allOf:
       description: defines an action plan payload that can be sent synchronously
@@ -18570,7 +18927,7 @@ components:
           properties: {}
           type: object
       type: object
-    PolicyEvaluation_details:
+    PolicyEvaluationResult_details:
       description: Contains additional details about the policy evaluation
       example:
         findings:
@@ -18584,10 +18941,7 @@ components:
           trigger: trigger
           message: message
           inherited_from_base: true
-          allowlist_match:
-            matched_rule_id: matched_rule_id
-            name: name
-            id: id
+          allowlist_match: ""
         - rule_id: rule_id
           policy_id: policy_id
           allowlisted: true
@@ -18598,10 +18952,7 @@ components:
           trigger: trigger
           message: message
           inherited_from_base: true
-          allowlist_match:
-            matched_rule_id: matched_rule_id
-            name: name
-            id: id
+          allowlist_match: ""
         remediations:
         - suggestions:
           - message: message
@@ -18619,6 +18970,7 @@ components:
           trigger_ids:
           - trigger_ids
           - trigger_ids
+        policy_action: stop
         policy:
           mappings:
           - registry: registry
@@ -18808,6 +19160,14 @@ components:
           items:
             $ref: '#/components/schemas/PolicyEvaluationFinding'
           type: array
+        policy_action:
+          description: The outcome of the policy evaluation, before allowlist/denylist
+            evaluation.
+          enum:
+          - stop
+          - go
+          - warn
+          type: string
         remediations:
           description: List of remediations for the findings
           items:
@@ -18817,378 +19177,7 @@ components:
       required:
       - findings
       - policy
-      type: object
-    PolicyEvaluation_evaluations:
-      example:
-        comparison_image_digest: comparison_image_digest
-        evaluation_time: 2000-01-23T04:56:07.000+00:00
-        evaluation_problems:
-        - severity: error
-          problem_type: problem_type
-          details: details
-        - severity: error
-          problem_type: problem_type
-          details: details
-        matched_denylisted_images_rule:
-          registry: registry
-          image:
-            type: tag
-            value: value
-          name: name
-          description: description
-          id: id
-          repository: repository
-        image_mapped_to_rule: true
-        number_of_findings: 6
-        final_action: stop
-        image_denylisted: true
-        final_action_reason: policy_evaluation
-        matched_mapping_rule:
-          registry: registry
-          image:
-            type: tag
-            value: value
-          allowlist_ids:
-          - allowlist_ids
-          - allowlist_ids
-          name: name
-          description: description
-          rule_set_ids:
-          - rule_set_ids
-          - rule_set_ids
-          id: id
-          repository: repository
-        details:
-          findings:
-          - rule_id: rule_id
-            policy_id: policy_id
-            allowlisted: true
-            trigger_id: trigger_id
-            action: go
-            recommendation: recommendation
-            gate: gate
-            trigger: trigger
-            message: message
-            inherited_from_base: true
-            allowlist_match:
-              matched_rule_id: matched_rule_id
-              name: name
-              id: id
-          - rule_id: rule_id
-            policy_id: policy_id
-            allowlisted: true
-            trigger_id: trigger_id
-            action: go
-            recommendation: recommendation
-            gate: gate
-            trigger: trigger
-            message: message
-            inherited_from_base: true
-            allowlist_match:
-              matched_rule_id: matched_rule_id
-              name: name
-              id: id
-          remediations:
-          - suggestions:
-            - message: message
-              preferred: true
-            - message: message
-              preferred: true
-            trigger_ids:
-            - trigger_ids
-            - trigger_ids
-          - suggestions:
-            - message: message
-              preferred: true
-            - message: message
-              preferred: true
-            trigger_ids:
-            - trigger_ids
-            - trigger_ids
-          policy:
-            mappings:
-            - registry: registry
-              image:
-                type: tag
-                value: value
-              allowlist_ids:
-              - allowlist_ids
-              - allowlist_ids
-              name: name
-              description: description
-              rule_set_ids:
-              - rule_set_ids
-              - rule_set_ids
-              id: id
-              repository: repository
-            - registry: registry
-              image:
-                type: tag
-                value: value
-              allowlist_ids:
-              - allowlist_ids
-              - allowlist_ids
-              name: name
-              description: description
-              rule_set_ids:
-              - rule_set_ids
-              - rule_set_ids
-              id: id
-              repository: repository
-            last_updated: 0.8008281904610115
-            denylisted_images:
-            - registry: registry
-              image:
-                type: tag
-                value: value
-              name: name
-              description: description
-              id: id
-              repository: repository
-            - registry: registry
-              image:
-                type: tag
-                value: value
-              name: name
-              description: description
-              id: id
-              repository: repository
-            allowlists:
-            - name: name
-              description: description
-              id: id
-              version: version
-              items:
-              - trigger_id: trigger_id
-                expires_on: 2000-01-23T04:56:07.000+00:00
-                description: description
-                id: id
-                gate: gate
-              - trigger_id: trigger_id
-                expires_on: 2000-01-23T04:56:07.000+00:00
-                description: description
-                id: id
-                gate: gate
-            - name: name
-              description: description
-              id: id
-              version: version
-              items:
-              - trigger_id: trigger_id
-                expires_on: 2000-01-23T04:56:07.000+00:00
-                description: description
-                id: id
-                gate: gate
-              - trigger_id: trigger_id
-                expires_on: 2000-01-23T04:56:07.000+00:00
-                description: description
-                id: id
-                gate: gate
-            source_mappings:
-            - allowlist_ids:
-              - allowlist_ids
-              - allowlist_ids
-              name: name
-              host: host
-              description: description
-              rule_set_ids:
-              - rule_set_ids
-              - rule_set_ids
-              id: id
-              repository: repository
-            - allowlist_ids:
-              - allowlist_ids
-              - allowlist_ids
-              name: name
-              host: host
-              description: description
-              rule_set_ids:
-              - rule_set_ids
-              - rule_set_ids
-              id: id
-              repository: repository
-            name: name
-            description: description
-            rule_sets:
-            - artifact_type: image
-              name: name
-              description: description
-              rules:
-              - action: GO
-                description: description
-                recommendation: recommendation
-                id: id
-                gate: gate
-                trigger: trigger
-                params:
-                - name: name
-                  value: value
-                - name: name
-                  value: value
-              - action: GO
-                description: description
-                recommendation: recommendation
-                id: id
-                gate: gate
-                trigger: trigger
-                params:
-                - name: name
-                  value: value
-                - name: name
-                  value: value
-              id: id
-              version: version
-            - artifact_type: image
-              name: name
-              description: description
-              rules:
-              - action: GO
-                description: description
-                recommendation: recommendation
-                id: id
-                gate: gate
-                trigger: trigger
-                params:
-                - name: name
-                  value: value
-                - name: name
-                  value: value
-              - action: GO
-                description: description
-                recommendation: recommendation
-                id: id
-                gate: gate
-                trigger: trigger
-                params:
-                - name: name
-                  value: value
-                - name: name
-                  value: value
-              id: id
-              version: version
-            id: id
-            version: version
-            allowlisted_images:
-            - registry: registry
-              image:
-                type: tag
-                value: value
-              name: name
-              description: description
-              id: id
-              repository: repository
-            - registry: registry
-              image:
-                type: tag
-                value: value
-              name: name
-              description: description
-              id: id
-              repository: repository
-        image_allowlisted: true
-        matched_allowlisted_images_rule:
-          registry: registry
-          image:
-            type: tag
-            value: value
-          name: name
-          description: description
-          id: id
-          repository: repository
-        status: fail
-      properties:
-        details:
-          $ref: '#/components/schemas/PolicyEvaluation_details'
-        comparison_image_digest:
-          description: Image digest of the base image used during policy evaluation
-          nullable: true
-          type: string
-        evaluation_time:
-          description: The date and time this policy evaluation was performed at
-          format: date-time
-          type: string
-        evaluation_problems:
-          description: list of error objects indicating errors encountered during
-            evaluation execution
-          items:
-            $ref: '#/components/schemas/PolicyEvaluationProblem'
-          type: array
-        status:
-          description: The overall status of the policy evaluation
-          enum:
-          - fail
-          - pass
-          type: string
-        final_action:
-          description: The overall outcome of the evaluation.
-          enum:
-          - stop
-          - go
-          - warn
-          type: string
-        final_action_reason:
-          description: The reason for the final result
-          enum:
-          - policy_evaluation
-          - allowlisted
-          - denylisted
-          type: string
-        image_allowlisted:
-          description: Whether the evaluated image matched an allowlist rule
-          type: boolean
-        matched_allowlisted_images_rule:
-          $ref: '#/components/schemas/ImageSelectionRule'
-        image_denylisted:
-          description: Whether the evaluated image matched a denylist rule
-          type: boolean
-        matched_denylisted_images_rule:
-          $ref: '#/components/schemas/ImageSelectionRule'
-        image_mapped_to_rule:
-          description: Whether the evaluated image matched a policy rule
-          type: boolean
-        matched_mapping_rule:
-          $ref: '#/components/schemas/MappingRule'
-        number_of_findings:
-          description: Number of policy findings in the response
-          type: integer
-      required:
-      - evaluation_problems
-      - evaluation_time
-      - final_action
-      - final_action_reason
-      - image_allowlisted
-      - image_denylisted
-      - image_mapped_to_rule
-      - number_of_findings
-      - status
-      type: object
-    PolicyEvaluationRemediation_suggestions:
-      example:
-        message: message
-        preferred: true
-      properties:
-        message:
-          description: The suggestion for resolving a finding
-          type: string
-        preferred:
-          description: Indicates whether this suggestion is recommended
-          type: boolean
-      required:
-      - message
-      - preferred
-      type: object
-    PolicyRule_params:
-      example:
-        name: name
-        value: value
-      properties:
-        name:
-          type: string
-        value:
-          type: string
-      required:
-      - name
-      - value
+      - policy_action
       type: object
     SourceImportMetadata_contents:
       description: Digest of content to use in the final import
@@ -19200,31 +19189,6 @@ components:
           type: string
       required:
       - sbom
-      type: object
-    SourceManifest_metadata_records:
-      description: Metadata associated with a source upload
-      example:
-        ci_workflow_name: ci_workflow_name
-        change_author: change_author
-        branch_name: branch_name
-        uuid: uuid
-        ci_workflow_execution_time: 2000-01-23T04:56:07.000+00:00
-      properties:
-        uuid:
-          type: string
-        ci_workflow_name:
-          nullable: true
-          type: string
-        ci_workflow_execution_time:
-          format: date-time
-          nullable: true
-          type: string
-        branch_name:
-          nullable: true
-          type: string
-        change_author:
-          nullable: true
-          type: string
       type: object
     TagUpdateNotification_allOf:
       description: The Notification Object definition for Tag Update Notifications

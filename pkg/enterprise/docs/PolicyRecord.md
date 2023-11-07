@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **Active** | **bool** | True if the policy is currently defined to be used automatically | 
 **AccountName** | **string** | UserId of the user that owns the policy | 
 **PolicySource** | **string** | Source location of where the policy originated | 
-**Policy** | Pointer to [**NullablePolicy**](Policy.md) |  | [optional] 
+**Policy** | Pointer to [**AnyOfNullTypePolicy**](anyOf&lt;NullType,Policy&gt;.md) |  | [optional] 
 **Name** | **string** | Name of the policy | 
 **Description** | Pointer to **string** | Description of the policy, human readable | [optional] 
 
@@ -165,20 +165,20 @@ SetPolicySource sets PolicySource field to given value.
 
 ### GetPolicy
 
-`func (o *PolicyRecord) GetPolicy() Policy`
+`func (o *PolicyRecord) GetPolicy() AnyOfNullTypePolicy`
 
 GetPolicy returns the Policy field if non-nil, zero value otherwise.
 
 ### GetPolicyOk
 
-`func (o *PolicyRecord) GetPolicyOk() (*Policy, bool)`
+`func (o *PolicyRecord) GetPolicyOk() (*AnyOfNullTypePolicy, bool)`
 
 GetPolicyOk returns a tuple with the Policy field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetPolicy
 
-`func (o *PolicyRecord) SetPolicy(v Policy)`
+`func (o *PolicyRecord) SetPolicy(v AnyOfNullTypePolicy)`
 
 SetPolicy sets Policy field to given value.
 
@@ -188,16 +188,6 @@ SetPolicy sets Policy field to given value.
 
 HasPolicy returns a boolean if a field has been set.
 
-### SetPolicyNil
-
-`func (o *PolicyRecord) SetPolicyNil(b bool)`
-
- SetPolicyNil sets the value for Policy to be an explicit nil
-
-### UnsetPolicy
-`func (o *PolicyRecord) UnsetPolicy()`
-
-UnsetPolicy ensures that no value is present for Policy, not even an explicit nil
 ### GetName
 
 `func (o *PolicyRecord) GetName() string`

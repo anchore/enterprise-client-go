@@ -6,10 +6,10 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **ClusterName** | **string** |  | 
 **Timestamp** | **time.Time** |  | 
-**Namespaces** | Pointer to [**[]KubernetesInventoryNamespaces**](KubernetesInventoryNamespaces.md) |  | [optional] 
-**Nodes** | Pointer to [**[]KubernetesInventoryNodes**](KubernetesInventoryNodes.md) |  | [optional] 
-**Pods** | Pointer to [**[]KubernetesInventoryPods**](KubernetesInventoryPods.md) |  | [optional] 
-**Containers** | Pointer to [**[]KubernetesInventoryContainers**](KubernetesInventoryContainers.md) |  | [optional] 
+**Namespaces** | Pointer to [**[]KubernetesInventoryNamespace**](KubernetesInventoryNamespace.md) |  | [optional] 
+**Nodes** | Pointer to [**[]KubernetesInventoryNode**](KubernetesInventoryNode.md) |  | [optional] 
+**Pods** | Pointer to [**[]KubernetesInventoryPod**](KubernetesInventoryPod.md) |  | [optional] 
+**Containers** | Pointer to [**[]KubernetesInventoryContainer**](KubernetesInventoryContainer.md) |  | [optional] 
 
 ## Methods
 
@@ -72,20 +72,20 @@ SetTimestamp sets Timestamp field to given value.
 
 ### GetNamespaces
 
-`func (o *KubernetesInventory) GetNamespaces() []KubernetesInventoryNamespaces`
+`func (o *KubernetesInventory) GetNamespaces() []KubernetesInventoryNamespace`
 
 GetNamespaces returns the Namespaces field if non-nil, zero value otherwise.
 
 ### GetNamespacesOk
 
-`func (o *KubernetesInventory) GetNamespacesOk() (*[]KubernetesInventoryNamespaces, bool)`
+`func (o *KubernetesInventory) GetNamespacesOk() (*[]KubernetesInventoryNamespace, bool)`
 
 GetNamespacesOk returns a tuple with the Namespaces field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetNamespaces
 
-`func (o *KubernetesInventory) SetNamespaces(v []KubernetesInventoryNamespaces)`
+`func (o *KubernetesInventory) SetNamespaces(v []KubernetesInventoryNamespace)`
 
 SetNamespaces sets Namespaces field to given value.
 
@@ -97,20 +97,20 @@ HasNamespaces returns a boolean if a field has been set.
 
 ### GetNodes
 
-`func (o *KubernetesInventory) GetNodes() []KubernetesInventoryNodes`
+`func (o *KubernetesInventory) GetNodes() []KubernetesInventoryNode`
 
 GetNodes returns the Nodes field if non-nil, zero value otherwise.
 
 ### GetNodesOk
 
-`func (o *KubernetesInventory) GetNodesOk() (*[]KubernetesInventoryNodes, bool)`
+`func (o *KubernetesInventory) GetNodesOk() (*[]KubernetesInventoryNode, bool)`
 
 GetNodesOk returns a tuple with the Nodes field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetNodes
 
-`func (o *KubernetesInventory) SetNodes(v []KubernetesInventoryNodes)`
+`func (o *KubernetesInventory) SetNodes(v []KubernetesInventoryNode)`
 
 SetNodes sets Nodes field to given value.
 
@@ -122,20 +122,20 @@ HasNodes returns a boolean if a field has been set.
 
 ### GetPods
 
-`func (o *KubernetesInventory) GetPods() []KubernetesInventoryPods`
+`func (o *KubernetesInventory) GetPods() []KubernetesInventoryPod`
 
 GetPods returns the Pods field if non-nil, zero value otherwise.
 
 ### GetPodsOk
 
-`func (o *KubernetesInventory) GetPodsOk() (*[]KubernetesInventoryPods, bool)`
+`func (o *KubernetesInventory) GetPodsOk() (*[]KubernetesInventoryPod, bool)`
 
 GetPodsOk returns a tuple with the Pods field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetPods
 
-`func (o *KubernetesInventory) SetPods(v []KubernetesInventoryPods)`
+`func (o *KubernetesInventory) SetPods(v []KubernetesInventoryPod)`
 
 SetPods sets Pods field to given value.
 
@@ -147,20 +147,20 @@ HasPods returns a boolean if a field has been set.
 
 ### GetContainers
 
-`func (o *KubernetesInventory) GetContainers() []KubernetesInventoryContainers`
+`func (o *KubernetesInventory) GetContainers() []KubernetesInventoryContainer`
 
 GetContainers returns the Containers field if non-nil, zero value otherwise.
 
 ### GetContainersOk
 
-`func (o *KubernetesInventory) GetContainersOk() (*[]KubernetesInventoryContainers, bool)`
+`func (o *KubernetesInventory) GetContainersOk() (*[]KubernetesInventoryContainer, bool)`
 
 GetContainersOk returns a tuple with the Containers field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetContainers
 
-`func (o *KubernetesInventory) SetContainers(v []KubernetesInventoryContainers)`
+`func (o *KubernetesInventory) SetContainers(v []KubernetesInventoryContainer)`
 
 SetContainers sets Containers field to given value.
 

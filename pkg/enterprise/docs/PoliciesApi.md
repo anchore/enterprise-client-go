@@ -33,7 +33,7 @@ import (
 )
 
 func main() {
-    policy := *openapiclient.NewPolicy("Id_example", "Name_example", "Version_example", []openapiclient.RuleSet{*openapiclient.NewRuleSet("Id_example", "Name_example", "Version_example", []openapiclient.PolicyRule{*openapiclient.NewPolicyRule("Id_example", "Gate_example", "Trigger_example", "Action_example", []openapiclient.PolicyRuleParams{*openapiclient.NewPolicyRuleParams("Name_example", "Value_example")})})}, []openapiclient.MappingRule{*openapiclient.NewMappingRule("Id_example", "Name_example", []string{"AllowlistIds_example"}, []string{"RuleSetIds_example"}, "Registry_example", "Repository_example", *openapiclient.NewImageRef("Type_example", "Value_example"))}) // Policy | 
+    policy := *openapiclient.NewPolicy("Id_example", "Name_example", "Version_example", []openapiclient.RuleSet{*openapiclient.NewRuleSet("Id_example", "Name_example", "Version_example", []openapiclient.PolicyRule{*openapiclient.NewPolicyRule("Id_example", "Gate_example", "Trigger_example", "Action_example", []openapiclient.PolicyRuleParam{*openapiclient.NewPolicyRuleParam("Name_example", "Value_example")})})}, []openapiclient.MappingRule{*openapiclient.NewMappingRule("Id_example", "Name_example", []string{"AllowlistIds_example"}, []string{"RuleSetIds_example"}, "Registry_example", "Repository_example", *openapiclient.NewImageRef("Type_example", "Value_example"))}) // Policy | 
     xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
 
     configuration := openapiclient.NewConfiguration()

@@ -133,8 +133,8 @@ type ImagesApi interface {
 	GetImageContentByTypeJavaPackage(ctx _context.Context, imageDigest string) ApiGetImageContentByTypeJavaPackageRequest
 
 	// GetImageContentByTypeJavaPackageExecute executes the request
-	//  @return ContentJAVAPackageResponse
-	GetImageContentByTypeJavaPackageExecute(r ApiGetImageContentByTypeJavaPackageRequest) (ContentJAVAPackageResponse, *_nethttp.Response, error)
+	//  @return ContentJavaPackageResponse
+	GetImageContentByTypeJavaPackageExecute(r ApiGetImageContentByTypeJavaPackageRequest) (ContentJavaPackageResponse, *_nethttp.Response, error)
 
 	/*
 	GetImageContentByTypeMalware Get the content of an image by type malware
@@ -1192,7 +1192,7 @@ func (r ApiGetImageContentByTypeJavaPackageRequest) XAnchoreAccount(xAnchoreAcco
 	return r
 }
 
-func (r ApiGetImageContentByTypeJavaPackageRequest) Execute() (ContentJAVAPackageResponse, *_nethttp.Response, error) {
+func (r ApiGetImageContentByTypeJavaPackageRequest) Execute() (ContentJavaPackageResponse, *_nethttp.Response, error) {
 	return r.ApiService.GetImageContentByTypeJavaPackageExecute(r)
 }
 
@@ -1212,15 +1212,15 @@ func (a *ImagesApiService) GetImageContentByTypeJavaPackage(ctx _context.Context
 }
 
 // Execute executes the request
-//  @return ContentJAVAPackageResponse
-func (a *ImagesApiService) GetImageContentByTypeJavaPackageExecute(r ApiGetImageContentByTypeJavaPackageRequest) (ContentJAVAPackageResponse, *_nethttp.Response, error) {
+//  @return ContentJavaPackageResponse
+func (a *ImagesApiService) GetImageContentByTypeJavaPackageExecute(r ApiGetImageContentByTypeJavaPackageRequest) (ContentJavaPackageResponse, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		localVarReturnValue  ContentJAVAPackageResponse
+		localVarReturnValue  ContentJavaPackageResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ImagesApiService.GetImageContentByTypeJavaPackage")

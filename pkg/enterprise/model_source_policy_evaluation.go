@@ -30,7 +30,7 @@ type SourcePolicyEvaluation struct {
 	RepositoryName string `json:"repository_name"`
 	// The commit ID for a git repository
 	Revision string `json:"revision"`
-	Policy NullablePolicy `json:"policy"`
+	Policy Policy `json:"policy"`
 	// Whether the evaluated source repository matched a policy rule
 	SourceMappedToRule bool `json:"source_mapped_to_rule"`
 	// The policy mapping rule that the source repository being evaluated matched against.
@@ -55,7 +55,7 @@ type SourcePolicyEvaluation struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewSourcePolicyEvaluation(accountName string, evaluationId string, sourceId string, host string, repositoryName string, revision string, policy NullablePolicy, sourceMappedToRule bool, findings []SourcePolicyEvaluationFinding, numberOfFindings int32, evaluationTime time.Time, finalAction string, finalActionReason string, evaluationProblems []PolicyEvaluationProblem, status string) *SourcePolicyEvaluation {
+func NewSourcePolicyEvaluation(accountName string, evaluationId string, sourceId string, host string, repositoryName string, revision string, policy Policy, sourceMappedToRule bool, findings []SourcePolicyEvaluationFinding, numberOfFindings int32, evaluationTime time.Time, finalAction string, finalActionReason string, evaluationProblems []PolicyEvaluationProblem, status string) *SourcePolicyEvaluation {
 	this := SourcePolicyEvaluation{}
 	this.AccountName = accountName
 	this.EvaluationId = evaluationId
@@ -228,29 +228,27 @@ func (o *SourcePolicyEvaluation) SetRevision(v string) {
 }
 
 // GetPolicy returns the Policy field value
-// If the value is explicit nil, the zero value for Policy will be returned
 func (o *SourcePolicyEvaluation) GetPolicy() Policy {
-	if o == nil || o.Policy.Get() == nil {
+	if o == nil {
 		var ret Policy
 		return ret
 	}
 
-	return *o.Policy.Get()
+	return o.Policy
 }
 
 // GetPolicyOk returns a tuple with the Policy field value
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *SourcePolicyEvaluation) GetPolicyOk() (*Policy, bool) {
 	if o == nil  {
 		return nil, false
 	}
-	return o.Policy.Get(), o.Policy.IsSet()
+	return &o.Policy, true
 }
 
 // SetPolicy sets field value
 func (o *SourcePolicyEvaluation) SetPolicy(v Policy) {
-	o.Policy.Set(&v)
+	o.Policy = v
 }
 
 // GetSourceMappedToRule returns the SourceMappedToRule field value
@@ -498,7 +496,7 @@ func (o SourcePolicyEvaluation) MarshalJSON() ([]byte, error) {
 		toSerialize["revision"] = o.Revision
 	}
 	if true {
-		toSerialize["policy"] = o.Policy.Get()
+		toSerialize["policy"] = o.Policy
 	}
 	if true {
 		toSerialize["source_mapped_to_rule"] = o.SourceMappedToRule

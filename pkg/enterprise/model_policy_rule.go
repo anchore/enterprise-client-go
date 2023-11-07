@@ -23,7 +23,7 @@ type PolicyRule struct {
 	Action string `json:"action"`
 	// Description of the policy rule, human readable
 	Description *string `json:"description,omitempty"`
-	Params []PolicyRuleParams `json:"params"`
+	Params []PolicyRuleParam `json:"params"`
 	Recommendation *string `json:"recommendation,omitempty"`
 }
 
@@ -31,7 +31,7 @@ type PolicyRule struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewPolicyRule(id string, gate string, trigger string, action string, params []PolicyRuleParams) *PolicyRule {
+func NewPolicyRule(id string, gate string, trigger string, action string, params []PolicyRuleParam) *PolicyRule {
 	this := PolicyRule{}
 	this.Id = id
 	this.Gate = gate
@@ -178,9 +178,9 @@ func (o *PolicyRule) SetDescription(v string) {
 }
 
 // GetParams returns the Params field value
-func (o *PolicyRule) GetParams() []PolicyRuleParams {
+func (o *PolicyRule) GetParams() []PolicyRuleParam {
 	if o == nil {
-		var ret []PolicyRuleParams
+		var ret []PolicyRuleParam
 		return ret
 	}
 
@@ -189,7 +189,7 @@ func (o *PolicyRule) GetParams() []PolicyRuleParams {
 
 // GetParamsOk returns a tuple with the Params field value
 // and a boolean to check if the value has been set.
-func (o *PolicyRule) GetParamsOk() (*[]PolicyRuleParams, bool) {
+func (o *PolicyRule) GetParamsOk() (*[]PolicyRuleParam, bool) {
 	if o == nil  {
 		return nil, false
 	}
@@ -197,7 +197,7 @@ func (o *PolicyRule) GetParamsOk() (*[]PolicyRuleParams, bool) {
 }
 
 // SetParams sets field value
-func (o *PolicyRule) SetParams(v []PolicyRuleParams) {
+func (o *PolicyRule) SetParams(v []PolicyRuleParam) {
 	o.Params = v
 }
 

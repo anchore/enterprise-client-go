@@ -13,7 +13,7 @@ Name | Type | Description | Notes
 **Recommendation** | **string** | User provided details for resolving this finding | 
 **RuleId** | **string** | ID of the policy rule that that generated this finding | 
 **Allowlisted** | **bool** | Indicates if this finding was allowlisted or not | 
-**AllowlistMatch** | Pointer to [**NullablePolicyEvaluationFindingAllowlistMatch**](PolicyEvaluationFindingAllowlistMatch.md) |  | [optional] 
+**AllowlistMatch** | Pointer to [**AnyOfNullTypePolicyEvaluationFindingAllowlistMatch**](anyOf&lt;NullType,PolicyEvaluationFindingAllowlistMatch&gt;.md) |  | [optional] 
 **InheritedFromBase** | Pointer to **NullableBool** | Indicates if this finding was found in the base image | [optional] 
 
 ## Methods
@@ -217,20 +217,20 @@ SetAllowlisted sets Allowlisted field to given value.
 
 ### GetAllowlistMatch
 
-`func (o *PolicyEvaluationFinding) GetAllowlistMatch() PolicyEvaluationFindingAllowlistMatch`
+`func (o *PolicyEvaluationFinding) GetAllowlistMatch() AnyOfNullTypePolicyEvaluationFindingAllowlistMatch`
 
 GetAllowlistMatch returns the AllowlistMatch field if non-nil, zero value otherwise.
 
 ### GetAllowlistMatchOk
 
-`func (o *PolicyEvaluationFinding) GetAllowlistMatchOk() (*PolicyEvaluationFindingAllowlistMatch, bool)`
+`func (o *PolicyEvaluationFinding) GetAllowlistMatchOk() (*AnyOfNullTypePolicyEvaluationFindingAllowlistMatch, bool)`
 
 GetAllowlistMatchOk returns a tuple with the AllowlistMatch field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetAllowlistMatch
 
-`func (o *PolicyEvaluationFinding) SetAllowlistMatch(v PolicyEvaluationFindingAllowlistMatch)`
+`func (o *PolicyEvaluationFinding) SetAllowlistMatch(v AnyOfNullTypePolicyEvaluationFindingAllowlistMatch)`
 
 SetAllowlistMatch sets AllowlistMatch field to given value.
 
@@ -240,16 +240,6 @@ SetAllowlistMatch sets AllowlistMatch field to given value.
 
 HasAllowlistMatch returns a boolean if a field has been set.
 
-### SetAllowlistMatchNil
-
-`func (o *PolicyEvaluationFinding) SetAllowlistMatchNil(b bool)`
-
- SetAllowlistMatchNil sets the value for AllowlistMatch to be an explicit nil
-
-### UnsetAllowlistMatch
-`func (o *PolicyEvaluationFinding) UnsetAllowlistMatch()`
-
-UnsetAllowlistMatch ensures that no value is present for AllowlistMatch, not even an explicit nil
 ### GetInheritedFromBase
 
 `func (o *PolicyEvaluationFinding) GetInheritedFromBase() bool`

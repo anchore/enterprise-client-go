@@ -9,14 +9,14 @@ Name | Type | Description | Notes
 **Trigger** | **string** |  | 
 **Action** | **string** |  | 
 **Description** | Pointer to **string** | Description of the policy rule, human readable | [optional] 
-**Params** | [**[]PolicyRuleParams**](PolicyRuleParams.md) |  | 
+**Params** | [**[]PolicyRuleParam**](PolicyRuleParam.md) |  | 
 **Recommendation** | Pointer to **string** |  | [optional] 
 
 ## Methods
 
 ### NewPolicyRule
 
-`func NewPolicyRule(id string, gate string, trigger string, action string, params []PolicyRuleParams, ) *PolicyRule`
+`func NewPolicyRule(id string, gate string, trigger string, action string, params []PolicyRuleParam, ) *PolicyRule`
 
 NewPolicyRule instantiates a new PolicyRule object
 This constructor will assign default values to properties that have it defined,
@@ -138,20 +138,20 @@ HasDescription returns a boolean if a field has been set.
 
 ### GetParams
 
-`func (o *PolicyRule) GetParams() []PolicyRuleParams`
+`func (o *PolicyRule) GetParams() []PolicyRuleParam`
 
 GetParams returns the Params field if non-nil, zero value otherwise.
 
 ### GetParamsOk
 
-`func (o *PolicyRule) GetParamsOk() (*[]PolicyRuleParams, bool)`
+`func (o *PolicyRule) GetParamsOk() (*[]PolicyRuleParam, bool)`
 
 GetParamsOk returns a tuple with the Params field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetParams
 
-`func (o *PolicyRule) SetParams(v []PolicyRuleParams)`
+`func (o *PolicyRule) SetParams(v []PolicyRuleParam)`
 
 SetParams sets Params field to given value.
 
