@@ -29,7 +29,7 @@ type TriggerParamSpec struct {
 	// Is this a required parameter or optional
 	Required *bool `json:"required,omitempty"`
 	// If present, a definition for validation of input. Typically a jsonschema object that can be used to validate an input against.
-	Validator *interface{} `json:"validator,omitempty"`
+	Validator interface{} `json:"validator,omitempty"`
 }
 
 // NewTriggerParamSpec instantiates a new TriggerParamSpec object
@@ -126,7 +126,7 @@ func (o *TriggerParamSpec) GetExample() string {
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *TriggerParamSpec) GetExampleOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return o.Example.Get(), o.Example.IsSet()
@@ -200,7 +200,7 @@ func (o *TriggerParamSpec) GetSupersededBy() string {
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *TriggerParamSpec) GetSupersededByOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return o.SupersededBy.Get(), o.SupersededBy.IsSet()
@@ -267,12 +267,12 @@ func (o *TriggerParamSpec) GetValidator() interface{} {
 		var ret interface{}
 		return ret
 	}
-	return *o.Validator
+	return o.Validator
 }
 
 // GetValidatorOk returns a tuple with the Validator field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *TriggerParamSpec) GetValidatorOk() (*interface{}, bool) {
+func (o *TriggerParamSpec) GetValidatorOk() (interface{}, bool) {
 	if o == nil || o.Validator == nil {
 		return nil, false
 	}
@@ -290,7 +290,7 @@ func (o *TriggerParamSpec) HasValidator() bool {
 
 // SetValidator gets a reference to the given interface{} and assigns it to the Validator field.
 func (o *TriggerParamSpec) SetValidator(v interface{}) {
-	o.Validator = &v
+	o.Validator = v
 }
 
 func (o TriggerParamSpec) MarshalJSON() ([]byte, error) {

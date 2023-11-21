@@ -25,7 +25,8 @@ const (
 	IMAGE ArtifactType = "image"
 )
 
-var allowedArtifactTypeEnumValues = []ArtifactType{
+// All allowed values of ArtifactType enum
+var AllowedArtifactTypeEnumValues = []ArtifactType{
 	"source",
 	"image",
 }
@@ -37,7 +38,7 @@ func (v *ArtifactType) UnmarshalJSON(src []byte) error {
 		return err
 	}
 	enumTypeValue := ArtifactType(value)
-	for _, existing := range allowedArtifactTypeEnumValues {
+	for _, existing := range AllowedArtifactTypeEnumValues {
 		if existing == enumTypeValue {
 			*v = enumTypeValue
 			return nil
@@ -54,13 +55,13 @@ func NewArtifactTypeFromValue(v string) (*ArtifactType, error) {
 	if ev.IsValid() {
 		return &ev, nil
 	} else {
-		return nil, fmt.Errorf("invalid value '%v' for ArtifactType: valid values are %v", v, allowedArtifactTypeEnumValues)
+		return nil, fmt.Errorf("invalid value '%v' for ArtifactType: valid values are %v", v, AllowedArtifactTypeEnumValues)
 	}
 }
 
 // IsValid return true if the value is valid for the enum, false otherwise
 func (v ArtifactType) IsValid() bool {
-	for _, existing := range allowedArtifactTypeEnumValues {
+	for _, existing := range AllowedArtifactTypeEnumValues {
 		if existing == v {
 			return true
 		}

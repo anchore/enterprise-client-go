@@ -20,7 +20,7 @@ type ImportPackageRelationship struct {
 	Parent string `json:"parent"`
 	Child string `json:"child"`
 	Type string `json:"type"`
-	Metadata *map[string]interface{} `json:"metadata,omitempty"`
+	Metadata map[string]interface{} `json:"metadata,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -59,7 +59,7 @@ func (o *ImportPackageRelationship) GetParent() string {
 // GetParentOk returns a tuple with the Parent field value
 // and a boolean to check if the value has been set.
 func (o *ImportPackageRelationship) GetParentOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Parent, true
@@ -83,7 +83,7 @@ func (o *ImportPackageRelationship) GetChild() string {
 // GetChildOk returns a tuple with the Child field value
 // and a boolean to check if the value has been set.
 func (o *ImportPackageRelationship) GetChildOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Child, true
@@ -107,7 +107,7 @@ func (o *ImportPackageRelationship) GetType() string {
 // GetTypeOk returns a tuple with the Type field value
 // and a boolean to check if the value has been set.
 func (o *ImportPackageRelationship) GetTypeOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Type, true
@@ -124,12 +124,12 @@ func (o *ImportPackageRelationship) GetMetadata() map[string]interface{} {
 		var ret map[string]interface{}
 		return ret
 	}
-	return *o.Metadata
+	return o.Metadata
 }
 
 // GetMetadataOk returns a tuple with the Metadata field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ImportPackageRelationship) GetMetadataOk() (*map[string]interface{}, bool) {
+func (o *ImportPackageRelationship) GetMetadataOk() (map[string]interface{}, bool) {
 	if o == nil || o.Metadata == nil {
 		return nil, false
 	}
@@ -147,7 +147,7 @@ func (o *ImportPackageRelationship) HasMetadata() bool {
 
 // SetMetadata gets a reference to the given map[string]interface{} and assigns it to the Metadata field.
 func (o *ImportPackageRelationship) SetMetadata(v map[string]interface{}) {
-	o.Metadata = &v
+	o.Metadata = v
 }
 
 func (o ImportPackageRelationship) MarshalJSON() ([]byte, error) {

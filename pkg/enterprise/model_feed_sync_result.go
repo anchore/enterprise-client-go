@@ -24,7 +24,7 @@ type FeedSyncResult struct {
 	// The duration, in seconds, of the sync of the feed, the sum of all the group syncs
 	TotalTimeSeconds *float32 `json:"total_time_seconds,omitempty"`
 	// Array of group sync results
-	Groups *[]GroupSyncResult `json:"groups,omitempty"`
+	Groups []GroupSyncResult `json:"groups,omitempty"`
 }
 
 // NewFeedSyncResult instantiates a new FeedSyncResult object
@@ -146,12 +146,12 @@ func (o *FeedSyncResult) GetGroups() []GroupSyncResult {
 		var ret []GroupSyncResult
 		return ret
 	}
-	return *o.Groups
+	return o.Groups
 }
 
 // GetGroupsOk returns a tuple with the Groups field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *FeedSyncResult) GetGroupsOk() (*[]GroupSyncResult, bool) {
+func (o *FeedSyncResult) GetGroupsOk() ([]GroupSyncResult, bool) {
 	if o == nil || o.Groups == nil {
 		return nil, false
 	}
@@ -169,7 +169,7 @@ func (o *FeedSyncResult) HasGroups() bool {
 
 // SetGroups gets a reference to the given []GroupSyncResult and assigns it to the Groups field.
 func (o *FeedSyncResult) SetGroups(v []GroupSyncResult) {
-	o.Groups = &v
+	o.Groups = v
 }
 
 func (o FeedSyncResult) MarshalJSON() ([]byte, error) {

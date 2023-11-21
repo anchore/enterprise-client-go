@@ -22,7 +22,7 @@ go get golang.org/x/net/context
 Put the package under your project folder and add the following in import:
 
 ```golang
-import sw "./enterprise"
+import enterprise "github.com/anchore/enterprise-client-go"
 ```
 
 To use a proxy, set the environment variable `HTTP_PROXY`:
@@ -40,7 +40,7 @@ Default configuration comes with `Servers` field that contains server objects as
 For using other server than the one defined on index 0 set context value `sw.ContextServerIndex` of type `int`.
 
 ```golang
-ctx := context.WithValue(context.Background(), sw.ContextServerIndex, 1)
+ctx := context.WithValue(context.Background(), enterprise.ContextServerIndex, 1)
 ```
 
 ### Templated Server URL
@@ -48,7 +48,7 @@ ctx := context.WithValue(context.Background(), sw.ContextServerIndex, 1)
 Templated server URL is formatted using default variables from configuration or from context value `sw.ContextServerVariables` of type `map[string]string`.
 
 ```golang
-ctx := context.WithValue(context.Background(), sw.ContextServerVariables, map[string]string{
+ctx := context.WithValue(context.Background(), enterprise.ContextServerVariables, map[string]string{
 	"basePath": "v2",
 })
 ```
@@ -58,14 +58,14 @@ Note, enum values are always validated and all unused variables are silently ign
 ### URLs Configuration per Operation
 
 Each operation can use different server URL defined using `OperationServers` map in the `Configuration`.
-An operation is uniquely identifield by `"{classname}Service.{nickname}"` string.
+An operation is uniquely identified by `"{classname}Service.{nickname}"` string.
 Similar rules for overriding default operation server index and variables applies by using `sw.ContextOperationServerIndices` and `sw.ContextOperationServerVariables` context maps.
 
 ```
-ctx := context.WithValue(context.Background(), sw.ContextOperationServerIndices, map[string]int{
+ctx := context.WithValue(context.Background(), enterprise.ContextOperationServerIndices, map[string]int{
 	"{classname}Service.{nickname}": 2,
 })
-ctx = context.WithValue(context.Background(), sw.ContextOperationServerVariables, map[string]map[string]string{
+ctx = context.WithValue(context.Background(), enterprise.ContextOperationServerVariables, map[string]map[string]string{
 	"{classname}Service.{nickname}": {
 		"port": "8443",
 	},
@@ -74,7 +74,7 @@ ctx = context.WithValue(context.Background(), sw.ContextOperationServerVariables
 
 ## Documentation for API Endpoints
 
-All URIs are relative to *http://localhost/v2*
+All URIs are relative to */v2*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
@@ -409,27 +409,27 @@ Class | Method | HTTP request | Description
  - [ComplianceViolationAlert](docs/ComplianceViolationAlert.md)
  - [ComplianceViolationAlertState](docs/ComplianceViolationAlertState.md)
  - [ContentFilesResponse](docs/ContentFilesResponse.md)
- - [ContentFilesResponseContent](docs/ContentFilesResponseContent.md)
+ - [ContentFilesResponseContentInner](docs/ContentFilesResponseContentInner.md)
  - [ContentJAVAPackageResponse](docs/ContentJAVAPackageResponse.md)
- - [ContentJAVAPackageResponseContent](docs/ContentJAVAPackageResponseContent.md)
+ - [ContentJAVAPackageResponseContentInner](docs/ContentJAVAPackageResponseContentInner.md)
  - [ContentMalwareResponse](docs/ContentMalwareResponse.md)
  - [ContentPackageResponse](docs/ContentPackageResponse.md)
- - [ContentPackageResponseContent](docs/ContentPackageResponseContent.md)
+ - [ContentPackageResponseContentInner](docs/ContentPackageResponseContentInner.md)
  - [Correction](docs/Correction.md)
  - [CorrectionFieldMatch](docs/CorrectionFieldMatch.md)
  - [CorrectionMatch](docs/CorrectionMatch.md)
  - [CustomJsonPatch](docs/CustomJsonPatch.md)
  - [DeleteImageResponse](docs/DeleteImageResponse.md)
  - [ECSContainers](docs/ECSContainers.md)
- - [ECSContainersContainers](docs/ECSContainersContainers.md)
+ - [ECSContainersContainersInner](docs/ECSContainersContainersInner.md)
  - [ECSInventory](docs/ECSInventory.md)
- - [ECSInventoryContainers](docs/ECSInventoryContainers.md)
- - [ECSInventoryServices](docs/ECSInventoryServices.md)
- - [ECSInventoryTasks](docs/ECSInventoryTasks.md)
+ - [ECSInventoryContainersInner](docs/ECSInventoryContainersInner.md)
+ - [ECSInventoryServicesInner](docs/ECSInventoryServicesInner.md)
+ - [ECSInventoryTasksInner](docs/ECSInventoryTasksInner.md)
  - [ECSServices](docs/ECSServices.md)
- - [ECSServicesServices](docs/ECSServicesServices.md)
+ - [ECSServicesServicesInner](docs/ECSServicesServicesInner.md)
  - [ECSTasks](docs/ECSTasks.md)
- - [ECSTasksTasks](docs/ECSTasksTasks.md)
+ - [ECSTasksTasksInner](docs/ECSTasksTasksInner.md)
  - [EventCategory](docs/EventCategory.md)
  - [EventDescription](docs/EventDescription.md)
  - [EventResponse](docs/EventResponse.md)
@@ -476,7 +476,6 @@ Class | Method | HTTP request | Description
  - [ImportPackageRelationship](docs/ImportPackageRelationship.md)
  - [ImportSchema](docs/ImportSchema.md)
  - [ImportSource](docs/ImportSource.md)
- - [InlineResponse400](docs/InlineResponse400.md)
  - [InventoryItem](docs/InventoryItem.md)
  - [InventoryItems](docs/InventoryItems.md)
  - [JsonPatchAdd](docs/JsonPatchAdd.md)
@@ -486,12 +485,12 @@ Class | Method | HTTP request | Description
  - [JsonPatchReplace](docs/JsonPatchReplace.md)
  - [JsonPatchTest](docs/JsonPatchTest.md)
  - [KubernetesContainers](docs/KubernetesContainers.md)
- - [KubernetesContainersContainers](docs/KubernetesContainersContainers.md)
+ - [KubernetesContainersContainersInner](docs/KubernetesContainersContainersInner.md)
  - [KubernetesInventory](docs/KubernetesInventory.md)
- - [KubernetesInventoryContainers](docs/KubernetesInventoryContainers.md)
- - [KubernetesInventoryNamespaces](docs/KubernetesInventoryNamespaces.md)
- - [KubernetesInventoryNodes](docs/KubernetesInventoryNodes.md)
- - [KubernetesInventoryPods](docs/KubernetesInventoryPods.md)
+ - [KubernetesInventoryContainersInner](docs/KubernetesInventoryContainersInner.md)
+ - [KubernetesInventoryNamespacesInner](docs/KubernetesInventoryNamespacesInner.md)
+ - [KubernetesInventoryNodesInner](docs/KubernetesInventoryNodesInner.md)
+ - [KubernetesInventoryPodsInner](docs/KubernetesInventoryPodsInner.md)
  - [KubernetesNamespace](docs/KubernetesNamespace.md)
  - [KubernetesNamespaces](docs/KubernetesNamespaces.md)
  - [KubernetesNode](docs/KubernetesNode.md)
@@ -500,7 +499,7 @@ Class | Method | HTTP request | Description
  - [KubernetesPods](docs/KubernetesPods.md)
  - [LocalAnalysisSource](docs/LocalAnalysisSource.md)
  - [MalwareScan](docs/MalwareScan.md)
- - [MalwareScanFindings](docs/MalwareScanFindings.md)
+ - [MalwareScanFindingsInner](docs/MalwareScanFindingsInner.md)
  - [MappingRule](docs/MappingRule.md)
  - [MetadataResponse](docs/MetadataResponse.md)
  - [ModifiedPackage](docs/ModifiedPackage.md)
@@ -550,6 +549,7 @@ Class | Method | HTTP request | Description
  - [NotificationWebhookEndpointConfiguration](docs/NotificationWebhookEndpointConfiguration.md)
  - [NotificationWebhookEndpointConfigurationAllOf](docs/NotificationWebhookEndpointConfigurationAllOf.md)
  - [NotificationWebhookTestResult](docs/NotificationWebhookTestResult.md)
+ - [NullType](docs/NullType.md)
  - [NvdDataObject](docs/NvdDataObject.md)
  - [Package](docs/Package.md)
  - [PackageReference](docs/PackageReference.md)
@@ -567,16 +567,19 @@ Class | Method | HTTP request | Description
  - [PolicyEvalNotificationPayload](docs/PolicyEvalNotificationPayload.md)
  - [PolicyEvalNotificationPayloadAllOf](docs/PolicyEvalNotificationPayloadAllOf.md)
  - [PolicyEvaluation](docs/PolicyEvaluation.md)
- - [PolicyEvaluationDetails](docs/PolicyEvaluationDetails.md)
- - [PolicyEvaluationEvaluations](docs/PolicyEvaluationEvaluations.md)
+ - [PolicyEvaluationEvaluationsInner](docs/PolicyEvaluationEvaluationsInner.md)
+ - [PolicyEvaluationEvaluationsInnerDetails](docs/PolicyEvaluationEvaluationsInnerDetails.md)
+ - [PolicyEvaluationEvaluationsInnerMatchedAllowlistedImagesRule](docs/PolicyEvaluationEvaluationsInnerMatchedAllowlistedImagesRule.md)
+ - [PolicyEvaluationEvaluationsInnerMatchedMappingRule](docs/PolicyEvaluationEvaluationsInnerMatchedMappingRule.md)
  - [PolicyEvaluationFinding](docs/PolicyEvaluationFinding.md)
  - [PolicyEvaluationFindingAllowlistMatch](docs/PolicyEvaluationFindingAllowlistMatch.md)
  - [PolicyEvaluationProblem](docs/PolicyEvaluationProblem.md)
  - [PolicyEvaluationRemediation](docs/PolicyEvaluationRemediation.md)
- - [PolicyEvaluationRemediationSuggestions](docs/PolicyEvaluationRemediationSuggestions.md)
+ - [PolicyEvaluationRemediationSuggestionsInner](docs/PolicyEvaluationRemediationSuggestionsInner.md)
  - [PolicyRecord](docs/PolicyRecord.md)
+ - [PolicyRecordPolicy](docs/PolicyRecordPolicy.md)
  - [PolicyRule](docs/PolicyRule.md)
- - [PolicyRuleParams](docs/PolicyRuleParams.md)
+ - [PolicyRuleParamsInner](docs/PolicyRuleParamsInner.md)
  - [RbacManagerAccountRole](docs/RbacManagerAccountRole.md)
  - [RbacManagerApiErrorResponse](docs/RbacManagerApiErrorResponse.md)
  - [RbacManagerPermission](docs/RbacManagerPermission.md)
@@ -600,6 +603,7 @@ Class | Method | HTTP request | Description
  - [ReportingStatusResponse](docs/ReportingStatusResponse.md)
  - [ResourceLabel](docs/ResourceLabel.md)
  - [RetrievedFile](docs/RetrievedFile.md)
+ - [RevokeOauthToken400Response](docs/RevokeOauthToken400Response.md)
  - [RuleSet](docs/RuleSet.md)
  - [SBOMVulnerabilitiesResponse](docs/SBOMVulnerabilitiesResponse.md)
  - [SecretSearchResult](docs/SecretSearchResult.md)
@@ -614,7 +618,7 @@ Class | Method | HTTP request | Description
  - [SourceImportMetadataContents](docs/SourceImportMetadataContents.md)
  - [SourceImportOperation](docs/SourceImportOperation.md)
  - [SourceManifest](docs/SourceManifest.md)
- - [SourceManifestMetadataRecords](docs/SourceManifestMetadataRecords.md)
+ - [SourceManifestMetadataRecordsInner](docs/SourceManifestMetadataRecordsInner.md)
  - [SourceMappingRule](docs/SourceMappingRule.md)
  - [SourcePackageVulnerabilityResponse](docs/SourcePackageVulnerabilityResponse.md)
  - [SourcePolicyEvaluation](docs/SourcePolicyEvaluation.md)

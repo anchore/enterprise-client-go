@@ -66,7 +66,7 @@ func (o *MappingRule) GetId() string {
 // GetIdOk returns a tuple with the Id field value
 // and a boolean to check if the value has been set.
 func (o *MappingRule) GetIdOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Id, true
@@ -90,7 +90,7 @@ func (o *MappingRule) GetName() string {
 // GetNameOk returns a tuple with the Name field value
 // and a boolean to check if the value has been set.
 func (o *MappingRule) GetNameOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Name, true
@@ -113,11 +113,11 @@ func (o *MappingRule) GetAllowlistIds() []string {
 
 // GetAllowlistIdsOk returns a tuple with the AllowlistIds field value
 // and a boolean to check if the value has been set.
-func (o *MappingRule) GetAllowlistIdsOk() (*[]string, bool) {
-	if o == nil  {
+func (o *MappingRule) GetAllowlistIdsOk() ([]string, bool) {
+	if o == nil {
 		return nil, false
 	}
-	return &o.AllowlistIds, true
+	return o.AllowlistIds, true
 }
 
 // SetAllowlistIds sets field value
@@ -137,11 +137,11 @@ func (o *MappingRule) GetRuleSetIds() []string {
 
 // GetRuleSetIdsOk returns a tuple with the RuleSetIds field value
 // and a boolean to check if the value has been set.
-func (o *MappingRule) GetRuleSetIdsOk() (*[]string, bool) {
-	if o == nil  {
+func (o *MappingRule) GetRuleSetIdsOk() ([]string, bool) {
+	if o == nil {
 		return nil, false
 	}
-	return &o.RuleSetIds, true
+	return o.RuleSetIds, true
 }
 
 // SetRuleSetIds sets field value
@@ -162,7 +162,7 @@ func (o *MappingRule) GetRegistry() string {
 // GetRegistryOk returns a tuple with the Registry field value
 // and a boolean to check if the value has been set.
 func (o *MappingRule) GetRegistryOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Registry, true
@@ -186,7 +186,7 @@ func (o *MappingRule) GetRepository() string {
 // GetRepositoryOk returns a tuple with the Repository field value
 // and a boolean to check if the value has been set.
 func (o *MappingRule) GetRepositoryOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Repository, true
@@ -210,7 +210,7 @@ func (o *MappingRule) GetImage() ImageRef {
 // GetImageOk returns a tuple with the Image field value
 // and a boolean to check if the value has been set.
 func (o *MappingRule) GetImageOk() (*ImageRef, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Image, true

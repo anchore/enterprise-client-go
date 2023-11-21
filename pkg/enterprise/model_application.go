@@ -25,7 +25,7 @@ type Application struct {
 	// The description of the application
 	Description *string `json:"description,omitempty"`
 	// List of application versions
-	ApplicationVersions *[]ApplicationVersion `json:"application_versions,omitempty"`
+	ApplicationVersions []ApplicationVersion `json:"application_versions,omitempty"`
 	// RFC 3339 formatted UTC timestamp when the application was created
 	CreatedAt *time.Time `json:"created_at,omitempty"`
 	// RFC 3339 formatted UTC timestamp when the application was last updated
@@ -151,12 +151,12 @@ func (o *Application) GetApplicationVersions() []ApplicationVersion {
 		var ret []ApplicationVersion
 		return ret
 	}
-	return *o.ApplicationVersions
+	return o.ApplicationVersions
 }
 
 // GetApplicationVersionsOk returns a tuple with the ApplicationVersions field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Application) GetApplicationVersionsOk() (*[]ApplicationVersion, bool) {
+func (o *Application) GetApplicationVersionsOk() ([]ApplicationVersion, bool) {
 	if o == nil || o.ApplicationVersions == nil {
 		return nil, false
 	}
@@ -174,7 +174,7 @@ func (o *Application) HasApplicationVersions() bool {
 
 // SetApplicationVersions gets a reference to the given []ApplicationVersion and assigns it to the ApplicationVersions field.
 func (o *Application) SetApplicationVersions(v []ApplicationVersion) {
-	o.ApplicationVersions = &v
+	o.ApplicationVersions = v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.

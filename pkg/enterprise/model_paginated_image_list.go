@@ -23,7 +23,7 @@ type PaginatedImageList struct {
 	NextPage *string `json:"next_page,omitempty"`
 	// The number of items sent in this response
 	ReturnedCount *int32 `json:"returned_count,omitempty"`
-	Images *[]ImageWithPackages `json:"images,omitempty"`
+	Images []ImageWithPackages `json:"images,omitempty"`
 }
 
 // NewPaginatedImageList instantiates a new PaginatedImageList object
@@ -145,12 +145,12 @@ func (o *PaginatedImageList) GetImages() []ImageWithPackages {
 		var ret []ImageWithPackages
 		return ret
 	}
-	return *o.Images
+	return o.Images
 }
 
 // GetImagesOk returns a tuple with the Images field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *PaginatedImageList) GetImagesOk() (*[]ImageWithPackages, bool) {
+func (o *PaginatedImageList) GetImagesOk() ([]ImageWithPackages, bool) {
 	if o == nil || o.Images == nil {
 		return nil, false
 	}
@@ -168,7 +168,7 @@ func (o *PaginatedImageList) HasImages() bool {
 
 // SetImages gets a reference to the given []ImageWithPackages and assigns it to the Images field.
 func (o *PaginatedImageList) SetImages(v []ImageWithPackages) {
-	o.Images = &v
+	o.Images = v
 }
 
 func (o PaginatedImageList) MarshalJSON() ([]byte, error) {

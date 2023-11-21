@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Containers** | Pointer to [**[]KubernetesContainersContainers**](KubernetesContainersContainers.md) |  | [optional] 
+**Containers** | Pointer to [**[]KubernetesContainersContainersInner**](KubernetesContainersContainersInner.md) |  | [optional] 
 
 ## Methods
 
@@ -27,20 +27,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetContainers
 
-`func (o *KubernetesContainers) GetContainers() []KubernetesContainersContainers`
+`func (o *KubernetesContainers) GetContainers() []KubernetesContainersContainersInner`
 
 GetContainers returns the Containers field if non-nil, zero value otherwise.
 
 ### GetContainersOk
 
-`func (o *KubernetesContainers) GetContainersOk() (*[]KubernetesContainersContainers, bool)`
+`func (o *KubernetesContainers) GetContainersOk() (*[]KubernetesContainersContainersInner, bool)`
 
 GetContainersOk returns a tuple with the Containers field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetContainers
 
-`func (o *KubernetesContainers) SetContainers(v []KubernetesContainersContainers)`
+`func (o *KubernetesContainers) SetContainers(v []KubernetesContainersContainersInner)`
 
 SetContainers sets Containers field to given value.
 

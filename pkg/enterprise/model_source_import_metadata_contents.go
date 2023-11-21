@@ -52,7 +52,7 @@ func (o *SourceImportMetadataContents) GetSbom() string {
 // GetSbomOk returns a tuple with the Sbom field value
 // and a boolean to check if the value has been set.
 func (o *SourceImportMetadataContents) GetSbomOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Sbom, true

@@ -13,19 +13,15 @@ package enterprise
 
 import (
 	"bytes"
-	_context "context"
-	_ioutil "io/ioutil"
-	_nethttp "net/http"
-	_neturl "net/url"
+	"context"
+	"io/ioutil"
+	"net/http"
+	"net/url"
 	"strings"
 	"time"
 	"reflect"
 )
 
-// Linger please
-var (
-	_ _context.Context
-)
 
 type AlertsApi interface {
 
@@ -34,65 +30,65 @@ type AlertsApi interface {
 
 	Returns a paginated list of alert summaries in chronological order from the most to least recently generated alerts. Return alerts in the open state by default. Use query parameters for filtering
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @return ApiGetAlertSummariesRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiGetAlertSummariesRequest
 	*/
-	GetAlertSummaries(ctx _context.Context) ApiGetAlertSummariesRequest
+	GetAlertSummaries(ctx context.Context) ApiGetAlertSummariesRequest
 
 	// GetAlertSummariesExecute executes the request
 	//  @return []AlertSummary
-	GetAlertSummariesExecute(r ApiGetAlertSummariesRequest) ([]AlertSummary, *_nethttp.Response, error)
+	GetAlertSummariesExecute(r ApiGetAlertSummariesRequest) ([]AlertSummary, *http.Response, error)
 
 	/*
 	GetComplianceViolationAlert Get compliance violation alert by id
 
 	Returns a single compliance violation alert object
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @param uuid Identifier for the alert
-	 @return ApiGetComplianceViolationAlertRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param uuid Identifier for the alert
+	@return ApiGetComplianceViolationAlertRequest
 	*/
-	GetComplianceViolationAlert(ctx _context.Context, uuid string) ApiGetComplianceViolationAlertRequest
+	GetComplianceViolationAlert(ctx context.Context, uuid string) ApiGetComplianceViolationAlertRequest
 
 	// GetComplianceViolationAlertExecute executes the request
 	//  @return ComplianceViolationAlert
-	GetComplianceViolationAlertExecute(r ApiGetComplianceViolationAlertRequest) (ComplianceViolationAlert, *_nethttp.Response, error)
+	GetComplianceViolationAlertExecute(r ApiGetComplianceViolationAlertRequest) (*ComplianceViolationAlert, *http.Response, error)
 
 	/*
 	GetComplianceViolationAlerts List all compliance violation alerts scoped to the account
 
 	Returns a paginated list of compliance violation alerts in chronological order from the most to least recently generated alerts. Return alerts in the open state by default. Use query parameters for filtering
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @return ApiGetComplianceViolationAlertsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiGetComplianceViolationAlertsRequest
 	*/
-	GetComplianceViolationAlerts(ctx _context.Context) ApiGetComplianceViolationAlertsRequest
+	GetComplianceViolationAlerts(ctx context.Context) ApiGetComplianceViolationAlertsRequest
 
 	// GetComplianceViolationAlertsExecute executes the request
 	//  @return []ComplianceViolationAlert
-	GetComplianceViolationAlertsExecute(r ApiGetComplianceViolationAlertsRequest) ([]ComplianceViolationAlert, *_nethttp.Response, error)
+	GetComplianceViolationAlertsExecute(r ApiGetComplianceViolationAlertsRequest) ([]ComplianceViolationAlert, *http.Response, error)
 
 	/*
 	UpdateComplianceViolationAlertState Open or close a compliance violation alert
 
 	Idempotent op for changing the alert state to open or closed
 
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @param uuid Identifier for the alert
-	 @return ApiUpdateComplianceViolationAlertStateRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param uuid Identifier for the alert
+	@return ApiUpdateComplianceViolationAlertStateRequest
 	*/
-	UpdateComplianceViolationAlertState(ctx _context.Context, uuid string) ApiUpdateComplianceViolationAlertStateRequest
+	UpdateComplianceViolationAlertState(ctx context.Context, uuid string) ApiUpdateComplianceViolationAlertStateRequest
 
 	// UpdateComplianceViolationAlertStateExecute executes the request
 	//  @return ComplianceViolationAlert
-	UpdateComplianceViolationAlertStateExecute(r ApiUpdateComplianceViolationAlertStateRequest) (ComplianceViolationAlert, *_nethttp.Response, error)
+	UpdateComplianceViolationAlertStateExecute(r ApiUpdateComplianceViolationAlertStateRequest) (*ComplianceViolationAlert, *http.Response, error)
 }
 
 // AlertsApiService AlertsApi service
 type AlertsApiService service
 
 type ApiGetAlertSummariesRequest struct {
-	ctx _context.Context
+	ctx context.Context
 	ApiService AlertsApi
 	page *int32
 	limit *int32
@@ -108,42 +104,49 @@ func (r ApiGetAlertSummariesRequest) Page(page int32) ApiGetAlertSummariesReques
 	r.page = &page
 	return r
 }
+
 func (r ApiGetAlertSummariesRequest) Limit(limit int32) ApiGetAlertSummariesRequest {
 	r.limit = &limit
 	return r
 }
+
 // Filter for alerts based on the type such as compliance violation
 func (r ApiGetAlertSummariesRequest) Type_(type_ string) ApiGetAlertSummariesRequest {
 	r.type_ = &type_
 	return r
 }
+
 // Filter for alerts by current state, defaults to open alerts unless specified
 func (r ApiGetAlertSummariesRequest) State(state string) ApiGetAlertSummariesRequest {
 	r.state = &state
 	return r
 }
+
 // Filter for alerts generated after the timestamp
 func (r ApiGetAlertSummariesRequest) CreatedAfter(createdAfter time.Time) ApiGetAlertSummariesRequest {
 	r.createdAfter = &createdAfter
 	return r
 }
+
 // Filter for alerts generated before the timestamp
 func (r ApiGetAlertSummariesRequest) CreatedBefore(createdBefore time.Time) ApiGetAlertSummariesRequest {
 	r.createdBefore = &createdBefore
 	return r
 }
+
 // Filter for alerts associated with a resource where the label in key&#x3D;value format such as tag&#x3D;docker.io/library/alpine:latest or repository&#x3D;library/alpine
 func (r ApiGetAlertSummariesRequest) ResourceLabel(resourceLabel []string) ApiGetAlertSummariesRequest {
 	r.resourceLabel = &resourceLabel
 	return r
 }
+
 // An account name to change the resource scope of the request to that account, if permissions allow (admin only)
 func (r ApiGetAlertSummariesRequest) XAnchoreAccount(xAnchoreAccount string) ApiGetAlertSummariesRequest {
 	r.xAnchoreAccount = &xAnchoreAccount
 	return r
 }
 
-func (r ApiGetAlertSummariesRequest) Execute() ([]AlertSummary, *_nethttp.Response, error) {
+func (r ApiGetAlertSummariesRequest) Execute() ([]AlertSummary, *http.Response, error) {
 	return r.ApiService.GetAlertSummariesExecute(r)
 }
 
@@ -152,10 +155,10 @@ GetAlertSummaries List all alert summaries scoped to the account
 
 Returns a paginated list of alert summaries in chronological order from the most to least recently generated alerts. Return alerts in the open state by default. Use query parameters for filtering
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiGetAlertSummariesRequest
 */
-func (a *AlertsApiService) GetAlertSummaries(ctx _context.Context) ApiGetAlertSummariesRequest {
+func (a *AlertsApiService) GetAlertSummaries(ctx context.Context) ApiGetAlertSummariesRequest {
 	return ApiGetAlertSummariesRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -164,26 +167,24 @@ func (a *AlertsApiService) GetAlertSummaries(ctx _context.Context) ApiGetAlertSu
 
 // Execute executes the request
 //  @return []AlertSummary
-func (a *AlertsApiService) GetAlertSummariesExecute(r ApiGetAlertSummariesRequest) ([]AlertSummary, *_nethttp.Response, error) {
+func (a *AlertsApiService) GetAlertSummariesExecute(r ApiGetAlertSummariesRequest) ([]AlertSummary, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
+		formFiles            []formFile
 		localVarReturnValue  []AlertSummary
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AlertsApiService.GetAlertSummaries")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/alerts/summaries"
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	if r.page != nil {
 		localVarQueryParams.Add("page", parameterToString(*r.page, ""))
@@ -234,7 +235,7 @@ func (a *AlertsApiService) GetAlertSummariesExecute(r ApiGetAlertSummariesReques
 	if r.xAnchoreAccount != nil {
 		localVarHeaderParams["x-anchore-account"] = parameterToString(*r.xAnchoreAccount, "")
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -244,15 +245,15 @@ func (a *AlertsApiService) GetAlertSummariesExecute(r ApiGetAlertSummariesReques
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -261,7 +262,7 @@ func (a *AlertsApiService) GetAlertSummariesExecute(r ApiGetAlertSummariesReques
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -272,7 +273,7 @@ func (a *AlertsApiService) GetAlertSummariesExecute(r ApiGetAlertSummariesReques
 }
 
 type ApiGetComplianceViolationAlertRequest struct {
-	ctx _context.Context
+	ctx context.Context
 	ApiService AlertsApi
 	uuid string
 	xAnchoreAccount *string
@@ -284,7 +285,7 @@ func (r ApiGetComplianceViolationAlertRequest) XAnchoreAccount(xAnchoreAccount s
 	return r
 }
 
-func (r ApiGetComplianceViolationAlertRequest) Execute() (ComplianceViolationAlert, *_nethttp.Response, error) {
+func (r ApiGetComplianceViolationAlertRequest) Execute() (*ComplianceViolationAlert, *http.Response, error) {
 	return r.ApiService.GetComplianceViolationAlertExecute(r)
 }
 
@@ -293,11 +294,11 @@ GetComplianceViolationAlert Get compliance violation alert by id
 
 Returns a single compliance violation alert object
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param uuid Identifier for the alert
  @return ApiGetComplianceViolationAlertRequest
 */
-func (a *AlertsApiService) GetComplianceViolationAlert(ctx _context.Context, uuid string) ApiGetComplianceViolationAlertRequest {
+func (a *AlertsApiService) GetComplianceViolationAlert(ctx context.Context, uuid string) ApiGetComplianceViolationAlertRequest {
 	return ApiGetComplianceViolationAlertRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -307,27 +308,25 @@ func (a *AlertsApiService) GetComplianceViolationAlert(ctx _context.Context, uui
 
 // Execute executes the request
 //  @return ComplianceViolationAlert
-func (a *AlertsApiService) GetComplianceViolationAlertExecute(r ApiGetComplianceViolationAlertRequest) (ComplianceViolationAlert, *_nethttp.Response, error) {
+func (a *AlertsApiService) GetComplianceViolationAlertExecute(r ApiGetComplianceViolationAlertRequest) (*ComplianceViolationAlert, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  ComplianceViolationAlert
+		formFiles            []formFile
+		localVarReturnValue  *ComplianceViolationAlert
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AlertsApiService.GetComplianceViolationAlert")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/alerts/compliance-violations/{uuid}"
-	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", _neturl.PathEscape(parameterToString(r.uuid, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", url.PathEscape(parameterToString(r.uuid, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -349,7 +348,7 @@ func (a *AlertsApiService) GetComplianceViolationAlertExecute(r ApiGetCompliance
 	if r.xAnchoreAccount != nil {
 		localVarHeaderParams["x-anchore-account"] = parameterToString(*r.xAnchoreAccount, "")
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -359,15 +358,15 @@ func (a *AlertsApiService) GetComplianceViolationAlertExecute(r ApiGetCompliance
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -376,7 +375,7 @@ func (a *AlertsApiService) GetComplianceViolationAlertExecute(r ApiGetCompliance
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -387,7 +386,7 @@ func (a *AlertsApiService) GetComplianceViolationAlertExecute(r ApiGetCompliance
 }
 
 type ApiGetComplianceViolationAlertsRequest struct {
-	ctx _context.Context
+	ctx context.Context
 	ApiService AlertsApi
 	page *int32
 	limit *int32
@@ -405,52 +404,61 @@ func (r ApiGetComplianceViolationAlertsRequest) Page(page int32) ApiGetComplianc
 	r.page = &page
 	return r
 }
+
 func (r ApiGetComplianceViolationAlertsRequest) Limit(limit int32) ApiGetComplianceViolationAlertsRequest {
 	r.limit = &limit
 	return r
 }
+
 // Filter for alerts by current state, defaults to open alerts unless specified
 func (r ApiGetComplianceViolationAlertsRequest) State(state string) ApiGetComplianceViolationAlertsRequest {
 	r.state = &state
 	return r
 }
+
 // Filter for alerts generated after the timestamp
 func (r ApiGetComplianceViolationAlertsRequest) CreatedAfter(createdAfter time.Time) ApiGetComplianceViolationAlertsRequest {
 	r.createdAfter = &createdAfter
 	return r
 }
+
 // Filter for alerts generated before the timestamp
 func (r ApiGetComplianceViolationAlertsRequest) CreatedBefore(createdBefore time.Time) ApiGetComplianceViolationAlertsRequest {
 	r.createdBefore = &createdBefore
 	return r
 }
+
 // Filter for alerts associated with image digest
 func (r ApiGetComplianceViolationAlertsRequest) ResourceImageDigest(resourceImageDigest string) ApiGetComplianceViolationAlertsRequest {
 	r.resourceImageDigest = &resourceImageDigest
 	return r
 }
+
 // Filter for alerts generated for the tag
 func (r ApiGetComplianceViolationAlertsRequest) ResourceImageTag(resourceImageTag string) ApiGetComplianceViolationAlertsRequest {
 	r.resourceImageTag = &resourceImageTag
 	return r
 }
+
 // Filter for alerts associated with registry
 func (r ApiGetComplianceViolationAlertsRequest) ResourceRegistry(resourceRegistry string) ApiGetComplianceViolationAlertsRequest {
 	r.resourceRegistry = &resourceRegistry
 	return r
 }
+
 // Filter for alerts associated with repository
 func (r ApiGetComplianceViolationAlertsRequest) ResourceRepository(resourceRepository string) ApiGetComplianceViolationAlertsRequest {
 	r.resourceRepository = &resourceRepository
 	return r
 }
+
 // An account name to change the resource scope of the request to that account, if permissions allow (admin only)
 func (r ApiGetComplianceViolationAlertsRequest) XAnchoreAccount(xAnchoreAccount string) ApiGetComplianceViolationAlertsRequest {
 	r.xAnchoreAccount = &xAnchoreAccount
 	return r
 }
 
-func (r ApiGetComplianceViolationAlertsRequest) Execute() ([]ComplianceViolationAlert, *_nethttp.Response, error) {
+func (r ApiGetComplianceViolationAlertsRequest) Execute() ([]ComplianceViolationAlert, *http.Response, error) {
 	return r.ApiService.GetComplianceViolationAlertsExecute(r)
 }
 
@@ -459,10 +467,10 @@ GetComplianceViolationAlerts List all compliance violation alerts scoped to the 
 
 Returns a paginated list of compliance violation alerts in chronological order from the most to least recently generated alerts. Return alerts in the open state by default. Use query parameters for filtering
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiGetComplianceViolationAlertsRequest
 */
-func (a *AlertsApiService) GetComplianceViolationAlerts(ctx _context.Context) ApiGetComplianceViolationAlertsRequest {
+func (a *AlertsApiService) GetComplianceViolationAlerts(ctx context.Context) ApiGetComplianceViolationAlertsRequest {
 	return ApiGetComplianceViolationAlertsRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -471,26 +479,24 @@ func (a *AlertsApiService) GetComplianceViolationAlerts(ctx _context.Context) Ap
 
 // Execute executes the request
 //  @return []ComplianceViolationAlert
-func (a *AlertsApiService) GetComplianceViolationAlertsExecute(r ApiGetComplianceViolationAlertsRequest) ([]ComplianceViolationAlert, *_nethttp.Response, error) {
+func (a *AlertsApiService) GetComplianceViolationAlertsExecute(r ApiGetComplianceViolationAlertsRequest) ([]ComplianceViolationAlert, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
+		formFiles            []formFile
 		localVarReturnValue  []ComplianceViolationAlert
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AlertsApiService.GetComplianceViolationAlerts")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/alerts/compliance-violations"
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 
 	if r.page != nil {
 		localVarQueryParams.Add("page", parameterToString(*r.page, ""))
@@ -539,7 +545,7 @@ func (a *AlertsApiService) GetComplianceViolationAlertsExecute(r ApiGetComplianc
 	if r.xAnchoreAccount != nil {
 		localVarHeaderParams["x-anchore-account"] = parameterToString(*r.xAnchoreAccount, "")
 	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -549,15 +555,15 @@ func (a *AlertsApiService) GetComplianceViolationAlertsExecute(r ApiGetComplianc
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -566,7 +572,7 @@ func (a *AlertsApiService) GetComplianceViolationAlertsExecute(r ApiGetComplianc
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}
@@ -577,7 +583,7 @@ func (a *AlertsApiService) GetComplianceViolationAlertsExecute(r ApiGetComplianc
 }
 
 type ApiUpdateComplianceViolationAlertStateRequest struct {
-	ctx _context.Context
+	ctx context.Context
 	ApiService AlertsApi
 	uuid string
 	body *ComplianceViolationAlertState
@@ -588,13 +594,14 @@ func (r ApiUpdateComplianceViolationAlertStateRequest) Body(body ComplianceViola
 	r.body = &body
 	return r
 }
+
 // An account name to change the resource scope of the request to that account, if permissions allow (admin only)
 func (r ApiUpdateComplianceViolationAlertStateRequest) XAnchoreAccount(xAnchoreAccount string) ApiUpdateComplianceViolationAlertStateRequest {
 	r.xAnchoreAccount = &xAnchoreAccount
 	return r
 }
 
-func (r ApiUpdateComplianceViolationAlertStateRequest) Execute() (ComplianceViolationAlert, *_nethttp.Response, error) {
+func (r ApiUpdateComplianceViolationAlertStateRequest) Execute() (*ComplianceViolationAlert, *http.Response, error) {
 	return r.ApiService.UpdateComplianceViolationAlertStateExecute(r)
 }
 
@@ -603,11 +610,11 @@ UpdateComplianceViolationAlertState Open or close a compliance violation alert
 
 Idempotent op for changing the alert state to open or closed
 
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param uuid Identifier for the alert
  @return ApiUpdateComplianceViolationAlertStateRequest
 */
-func (a *AlertsApiService) UpdateComplianceViolationAlertState(ctx _context.Context, uuid string) ApiUpdateComplianceViolationAlertStateRequest {
+func (a *AlertsApiService) UpdateComplianceViolationAlertState(ctx context.Context, uuid string) ApiUpdateComplianceViolationAlertStateRequest {
 	return ApiUpdateComplianceViolationAlertStateRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -617,27 +624,25 @@ func (a *AlertsApiService) UpdateComplianceViolationAlertState(ctx _context.Cont
 
 // Execute executes the request
 //  @return ComplianceViolationAlert
-func (a *AlertsApiService) UpdateComplianceViolationAlertStateExecute(r ApiUpdateComplianceViolationAlertStateRequest) (ComplianceViolationAlert, *_nethttp.Response, error) {
+func (a *AlertsApiService) UpdateComplianceViolationAlertStateExecute(r ApiUpdateComplianceViolationAlertStateRequest) (*ComplianceViolationAlert, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = _nethttp.MethodPatch
+		localVarHTTPMethod   = http.MethodPatch
 		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  ComplianceViolationAlert
+		formFiles            []formFile
+		localVarReturnValue  *ComplianceViolationAlert
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AlertsApiService.UpdateComplianceViolationAlertState")
 	if err != nil {
-		return localVarReturnValue, nil, GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/alerts/compliance-violations/{uuid}"
-	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", _neturl.PathEscape(parameterToString(r.uuid, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", url.PathEscape(parameterToString(r.uuid, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
 	if r.body == nil {
 		return localVarReturnValue, nil, reportError("body is required and must be specified")
 	}
@@ -664,7 +669,7 @@ func (a *AlertsApiService) UpdateComplianceViolationAlertStateExecute(r ApiUpdat
 	}
 	// body params
 	localVarPostBody = r.body
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -674,15 +679,15 @@ func (a *AlertsApiService) UpdateComplianceViolationAlertStateExecute(r ApiUpdat
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = _ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -691,7 +696,7 @@ func (a *AlertsApiService) UpdateComplianceViolationAlertStateExecute(r ApiUpdat
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-		newErr := GenericOpenAPIError{
+		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: err.Error(),
 		}

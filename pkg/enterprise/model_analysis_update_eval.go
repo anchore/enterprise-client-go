@@ -18,7 +18,7 @@ import (
 // AnalysisUpdateEval Evaluation Results for an entity (current or last)
 type AnalysisUpdateEval struct {
 	AnalysisStatus *string `json:"analysis_status,omitempty"`
-	Annotations *interface{} `json:"annotations,omitempty"`
+	Annotations interface{} `json:"annotations,omitempty"`
 	ImageDigest *string `json:"image_digest,omitempty"`
 }
 
@@ -77,12 +77,12 @@ func (o *AnalysisUpdateEval) GetAnnotations() interface{} {
 		var ret interface{}
 		return ret
 	}
-	return *o.Annotations
+	return o.Annotations
 }
 
 // GetAnnotationsOk returns a tuple with the Annotations field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AnalysisUpdateEval) GetAnnotationsOk() (*interface{}, bool) {
+func (o *AnalysisUpdateEval) GetAnnotationsOk() (interface{}, bool) {
 	if o == nil || o.Annotations == nil {
 		return nil, false
 	}
@@ -100,7 +100,7 @@ func (o *AnalysisUpdateEval) HasAnnotations() bool {
 
 // SetAnnotations gets a reference to the given interface{} and assigns it to the Annotations field.
 func (o *AnalysisUpdateEval) SetAnnotations(v interface{}) {
-	o.Annotations = &v
+	o.Annotations = v
 }
 
 // GetImageDigest returns the ImageDigest field value if set, zero value otherwise.

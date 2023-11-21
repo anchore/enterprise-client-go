@@ -19,15 +19,15 @@ import (
 // AnchoreImage A unique image in the engine. May have multiple tags or references. Unique to an image content across registries or repositories.
 type AnchoreImage struct {
 	// A metadata content record for a specific image, containing different content type entries
-	ImageContent *interface{} `json:"image_content,omitempty"`
+	ImageContent interface{} `json:"image_content,omitempty"`
 	// Details specific to an image reference and type such as tag and image source
-	ImageDetail *[]ImageDetail `json:"image_detail,omitempty"`
+	ImageDetail []ImageDetail `json:"image_detail,omitempty"`
 	LastUpdated *time.Time `json:"last_updated,omitempty"`
 	CreatedAt *time.Time `json:"created_at,omitempty"`
 	ImageDigest *string `json:"image_digest,omitempty"`
 	ParentDigest *string `json:"parent_digest,omitempty"`
 	AccountName *string `json:"account_name,omitempty"`
-	Annotations *interface{} `json:"annotations,omitempty"`
+	Annotations interface{} `json:"annotations,omitempty"`
 	// State of the image
 	ImageStatus *string `json:"image_status,omitempty"`
 	// A state value for the current status of the analysis progress of the image
@@ -60,12 +60,12 @@ func (o *AnchoreImage) GetImageContent() interface{} {
 		var ret interface{}
 		return ret
 	}
-	return *o.ImageContent
+	return o.ImageContent
 }
 
 // GetImageContentOk returns a tuple with the ImageContent field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AnchoreImage) GetImageContentOk() (*interface{}, bool) {
+func (o *AnchoreImage) GetImageContentOk() (interface{}, bool) {
 	if o == nil || o.ImageContent == nil {
 		return nil, false
 	}
@@ -83,7 +83,7 @@ func (o *AnchoreImage) HasImageContent() bool {
 
 // SetImageContent gets a reference to the given interface{} and assigns it to the ImageContent field.
 func (o *AnchoreImage) SetImageContent(v interface{}) {
-	o.ImageContent = &v
+	o.ImageContent = v
 }
 
 // GetImageDetail returns the ImageDetail field value if set, zero value otherwise.
@@ -92,12 +92,12 @@ func (o *AnchoreImage) GetImageDetail() []ImageDetail {
 		var ret []ImageDetail
 		return ret
 	}
-	return *o.ImageDetail
+	return o.ImageDetail
 }
 
 // GetImageDetailOk returns a tuple with the ImageDetail field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AnchoreImage) GetImageDetailOk() (*[]ImageDetail, bool) {
+func (o *AnchoreImage) GetImageDetailOk() ([]ImageDetail, bool) {
 	if o == nil || o.ImageDetail == nil {
 		return nil, false
 	}
@@ -115,7 +115,7 @@ func (o *AnchoreImage) HasImageDetail() bool {
 
 // SetImageDetail gets a reference to the given []ImageDetail and assigns it to the ImageDetail field.
 func (o *AnchoreImage) SetImageDetail(v []ImageDetail) {
-	o.ImageDetail = &v
+	o.ImageDetail = v
 }
 
 // GetLastUpdated returns the LastUpdated field value if set, zero value otherwise.
@@ -284,12 +284,12 @@ func (o *AnchoreImage) GetAnnotations() interface{} {
 		var ret interface{}
 		return ret
 	}
-	return *o.Annotations
+	return o.Annotations
 }
 
 // GetAnnotationsOk returns a tuple with the Annotations field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AnchoreImage) GetAnnotationsOk() (*interface{}, bool) {
+func (o *AnchoreImage) GetAnnotationsOk() (interface{}, bool) {
 	if o == nil || o.Annotations == nil {
 		return nil, false
 	}
@@ -307,7 +307,7 @@ func (o *AnchoreImage) HasAnnotations() bool {
 
 // SetAnnotations gets a reference to the given interface{} and assigns it to the Annotations field.
 func (o *AnchoreImage) SetAnnotations(v interface{}) {
-	o.Annotations = &v
+	o.Annotations = v
 }
 
 // GetImageStatus returns the ImageStatus field value if set, zero value otherwise.
@@ -408,7 +408,7 @@ func (o *AnchoreImage) SetRecordVersion(v string) {
 
 // GetAnalysisStatusDetail returns the AnalysisStatusDetail field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *AnchoreImage) GetAnalysisStatusDetail() []AnalysisStatusDetail {
-	if o == nil  {
+	if o == nil {
 		var ret []AnalysisStatusDetail
 		return ret
 	}
@@ -418,11 +418,11 @@ func (o *AnchoreImage) GetAnalysisStatusDetail() []AnalysisStatusDetail {
 // GetAnalysisStatusDetailOk returns a tuple with the AnalysisStatusDetail field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *AnchoreImage) GetAnalysisStatusDetailOk() (*[]AnalysisStatusDetail, bool) {
+func (o *AnchoreImage) GetAnalysisStatusDetailOk() ([]AnalysisStatusDetail, bool) {
 	if o == nil || o.AnalysisStatusDetail == nil {
 		return nil, false
 	}
-	return &o.AnalysisStatusDetail, true
+	return o.AnalysisStatusDetail, true
 }
 
 // HasAnalysisStatusDetail returns a boolean if a field has been set.

@@ -24,11 +24,11 @@ type Package struct {
 	Location *string `json:"location,omitempty"`
 	Origin *string `json:"origin,omitempty"`
 	Size *int32 `json:"size,omitempty"`
-	Licenses *[]string `json:"licenses,omitempty"`
+	Licenses []string `json:"licenses,omitempty"`
 	// The type of the metadata entry
 	MetadataType *string `json:"metadata_type,omitempty"`
 	// Package type specific metadata
-	Metadata *interface{} `json:"metadata,omitempty"`
+	Metadata interface{} `json:"metadata,omitempty"`
 	// Spec version for java packages
 	SpecificationVersion *string `json:"specification_version,omitempty"`
 	// Implementation version for java packages
@@ -36,7 +36,7 @@ type Package struct {
 	// Maven version for java packages
 	MavenVersion *string `json:"maven_version,omitempty"`
 	// List of CPE strings for this package
-	Cpes *[]string `json:"cpes,omitempty"`
+	Cpes []string `json:"cpes,omitempty"`
 	Purl *string `json:"purl,omitempty"`
 }
 
@@ -287,12 +287,12 @@ func (o *Package) GetLicenses() []string {
 		var ret []string
 		return ret
 	}
-	return *o.Licenses
+	return o.Licenses
 }
 
 // GetLicensesOk returns a tuple with the Licenses field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Package) GetLicensesOk() (*[]string, bool) {
+func (o *Package) GetLicensesOk() ([]string, bool) {
 	if o == nil || o.Licenses == nil {
 		return nil, false
 	}
@@ -310,7 +310,7 @@ func (o *Package) HasLicenses() bool {
 
 // SetLicenses gets a reference to the given []string and assigns it to the Licenses field.
 func (o *Package) SetLicenses(v []string) {
-	o.Licenses = &v
+	o.Licenses = v
 }
 
 // GetMetadataType returns the MetadataType field value if set, zero value otherwise.
@@ -351,12 +351,12 @@ func (o *Package) GetMetadata() interface{} {
 		var ret interface{}
 		return ret
 	}
-	return *o.Metadata
+	return o.Metadata
 }
 
 // GetMetadataOk returns a tuple with the Metadata field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Package) GetMetadataOk() (*interface{}, bool) {
+func (o *Package) GetMetadataOk() (interface{}, bool) {
 	if o == nil || o.Metadata == nil {
 		return nil, false
 	}
@@ -374,7 +374,7 @@ func (o *Package) HasMetadata() bool {
 
 // SetMetadata gets a reference to the given interface{} and assigns it to the Metadata field.
 func (o *Package) SetMetadata(v interface{}) {
-	o.Metadata = &v
+	o.Metadata = v
 }
 
 // GetSpecificationVersion returns the SpecificationVersion field value if set, zero value otherwise.
@@ -479,12 +479,12 @@ func (o *Package) GetCpes() []string {
 		var ret []string
 		return ret
 	}
-	return *o.Cpes
+	return o.Cpes
 }
 
 // GetCpesOk returns a tuple with the Cpes field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Package) GetCpesOk() (*[]string, bool) {
+func (o *Package) GetCpesOk() ([]string, bool) {
 	if o == nil || o.Cpes == nil {
 		return nil, false
 	}
@@ -502,7 +502,7 @@ func (o *Package) HasCpes() bool {
 
 // SetCpes gets a reference to the given []string and assigns it to the Cpes field.
 func (o *Package) SetCpes(v []string) {
-	o.Cpes = &v
+	o.Cpes = v
 }
 
 // GetPurl returns the Purl field value if set, zero value otherwise.

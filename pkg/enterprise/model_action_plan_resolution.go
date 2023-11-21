@@ -17,7 +17,7 @@ import (
 
 // ActionPlanResolution defines the trigger IDs and content of a resolution for an action plan
 type ActionPlanResolution struct {
-	TriggerIds *[]string `json:"trigger_ids,omitempty"`
+	TriggerIds []string `json:"trigger_ids,omitempty"`
 	Content *string `json:"content,omitempty"`
 }
 
@@ -44,12 +44,12 @@ func (o *ActionPlanResolution) GetTriggerIds() []string {
 		var ret []string
 		return ret
 	}
-	return *o.TriggerIds
+	return o.TriggerIds
 }
 
 // GetTriggerIdsOk returns a tuple with the TriggerIds field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ActionPlanResolution) GetTriggerIdsOk() (*[]string, bool) {
+func (o *ActionPlanResolution) GetTriggerIdsOk() ([]string, bool) {
 	if o == nil || o.TriggerIds == nil {
 		return nil, false
 	}
@@ -67,7 +67,7 @@ func (o *ActionPlanResolution) HasTriggerIds() bool {
 
 // SetTriggerIds gets a reference to the given []string and assigns it to the TriggerIds field.
 func (o *ActionPlanResolution) SetTriggerIds(v []string) {
-	o.TriggerIds = &v
+	o.TriggerIds = v
 }
 
 // GetContent returns the Content field value if set, zero value otherwise.

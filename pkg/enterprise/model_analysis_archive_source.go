@@ -52,7 +52,7 @@ func (o *AnalysisArchiveSource) GetDigest() string {
 // GetDigestOk returns a tuple with the Digest field value
 // and a boolean to check if the value has been set.
 func (o *AnalysisArchiveSource) GetDigestOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Digest, true

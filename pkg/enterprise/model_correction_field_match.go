@@ -55,7 +55,7 @@ func (o *CorrectionFieldMatch) GetFieldName() string {
 // GetFieldNameOk returns a tuple with the FieldName field value
 // and a boolean to check if the value has been set.
 func (o *CorrectionFieldMatch) GetFieldNameOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.FieldName, true
@@ -79,7 +79,7 @@ func (o *CorrectionFieldMatch) GetFieldValue() string {
 // GetFieldValueOk returns a tuple with the FieldValue field value
 // and a boolean to check if the value has been set.
 func (o *CorrectionFieldMatch) GetFieldValueOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.FieldValue, true

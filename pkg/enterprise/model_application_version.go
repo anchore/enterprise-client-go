@@ -125,7 +125,7 @@ func (o *ApplicationVersion) GetVersionName() string {
 // GetVersionNameOk returns a tuple with the VersionName field value
 // and a boolean to check if the value has been set.
 func (o *ApplicationVersion) GetVersionNameOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.VersionName, true

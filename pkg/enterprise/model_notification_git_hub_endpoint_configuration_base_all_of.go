@@ -30,9 +30,9 @@ type NotificationGitHubEndpointConfigurationBaseAllOf struct {
 	// Number of the milestone to associate with the issue
 	Milestone *int32 `json:"milestone,omitempty"`
 	// List of labels to associate with the issue
-	Labels *[]string `json:"labels,omitempty"`
+	Labels []string `json:"labels,omitempty"`
 	// List of user logins to assign to the issue.
-	Assignees *[]string `json:"assignees,omitempty"`
+	Assignees []string `json:"assignees,omitempty"`
 }
 
 // NewNotificationGitHubEndpointConfigurationBaseAllOf instantiates a new NotificationGitHubEndpointConfigurationBaseAllOf object
@@ -250,12 +250,12 @@ func (o *NotificationGitHubEndpointConfigurationBaseAllOf) GetLabels() []string 
 		var ret []string
 		return ret
 	}
-	return *o.Labels
+	return o.Labels
 }
 
 // GetLabelsOk returns a tuple with the Labels field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *NotificationGitHubEndpointConfigurationBaseAllOf) GetLabelsOk() (*[]string, bool) {
+func (o *NotificationGitHubEndpointConfigurationBaseAllOf) GetLabelsOk() ([]string, bool) {
 	if o == nil || o.Labels == nil {
 		return nil, false
 	}
@@ -273,7 +273,7 @@ func (o *NotificationGitHubEndpointConfigurationBaseAllOf) HasLabels() bool {
 
 // SetLabels gets a reference to the given []string and assigns it to the Labels field.
 func (o *NotificationGitHubEndpointConfigurationBaseAllOf) SetLabels(v []string) {
-	o.Labels = &v
+	o.Labels = v
 }
 
 // GetAssignees returns the Assignees field value if set, zero value otherwise.
@@ -282,12 +282,12 @@ func (o *NotificationGitHubEndpointConfigurationBaseAllOf) GetAssignees() []stri
 		var ret []string
 		return ret
 	}
-	return *o.Assignees
+	return o.Assignees
 }
 
 // GetAssigneesOk returns a tuple with the Assignees field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *NotificationGitHubEndpointConfigurationBaseAllOf) GetAssigneesOk() (*[]string, bool) {
+func (o *NotificationGitHubEndpointConfigurationBaseAllOf) GetAssigneesOk() ([]string, bool) {
 	if o == nil || o.Assignees == nil {
 		return nil, false
 	}
@@ -305,7 +305,7 @@ func (o *NotificationGitHubEndpointConfigurationBaseAllOf) HasAssignees() bool {
 
 // SetAssignees gets a reference to the given []string and assigns it to the Assignees field.
 func (o *NotificationGitHubEndpointConfigurationBaseAllOf) SetAssignees(v []string) {
-	o.Assignees = &v
+	o.Assignees = v
 }
 
 func (o NotificationGitHubEndpointConfigurationBaseAllOf) MarshalJSON() ([]byte, error) {

@@ -27,7 +27,7 @@ type GateSpec struct {
 	// The name of another trigger that supersedes this on functionally if this is deprecated
 	SupersededBy NullableString `json:"superseded_by,omitempty"`
 	// List of the triggers that can fire for this Gate
-	Triggers *[]TriggerSpec `json:"triggers,omitempty"`
+	Triggers []TriggerSpec `json:"triggers,omitempty"`
 }
 
 // NewGateSpec instantiates a new GateSpec object
@@ -188,7 +188,7 @@ func (o *GateSpec) GetSupersededBy() string {
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *GateSpec) GetSupersededByOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return o.SupersededBy.Get(), o.SupersededBy.IsSet()
@@ -223,12 +223,12 @@ func (o *GateSpec) GetTriggers() []TriggerSpec {
 		var ret []TriggerSpec
 		return ret
 	}
-	return *o.Triggers
+	return o.Triggers
 }
 
 // GetTriggersOk returns a tuple with the Triggers field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *GateSpec) GetTriggersOk() (*[]TriggerSpec, bool) {
+func (o *GateSpec) GetTriggersOk() ([]TriggerSpec, bool) {
 	if o == nil || o.Triggers == nil {
 		return nil, false
 	}
@@ -246,7 +246,7 @@ func (o *GateSpec) HasTriggers() bool {
 
 // SetTriggers gets a reference to the given []TriggerSpec and assigns it to the Triggers field.
 func (o *GateSpec) SetTriggers(v []TriggerSpec) {
-	o.Triggers = &v
+	o.Triggers = v
 }
 
 func (o GateSpec) MarshalJSON() ([]byte, error) {

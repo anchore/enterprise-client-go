@@ -17,9 +17,9 @@ import (
 
 // VulnDiffResult The results of the comparing two vulnerability records during an update
 type VulnDiffResult struct {
-	Added *[]interface{} `json:"added,omitempty"`
-	Updated *[]interface{} `json:"updated,omitempty"`
-	Removed *[]interface{} `json:"removed,omitempty"`
+	Added []interface{} `json:"added,omitempty"`
+	Updated []interface{} `json:"updated,omitempty"`
+	Removed []interface{} `json:"removed,omitempty"`
 }
 
 // NewVulnDiffResult instantiates a new VulnDiffResult object
@@ -45,12 +45,12 @@ func (o *VulnDiffResult) GetAdded() []interface{} {
 		var ret []interface{}
 		return ret
 	}
-	return *o.Added
+	return o.Added
 }
 
 // GetAddedOk returns a tuple with the Added field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *VulnDiffResult) GetAddedOk() (*[]interface{}, bool) {
+func (o *VulnDiffResult) GetAddedOk() ([]interface{}, bool) {
 	if o == nil || o.Added == nil {
 		return nil, false
 	}
@@ -68,7 +68,7 @@ func (o *VulnDiffResult) HasAdded() bool {
 
 // SetAdded gets a reference to the given []interface{} and assigns it to the Added field.
 func (o *VulnDiffResult) SetAdded(v []interface{}) {
-	o.Added = &v
+	o.Added = v
 }
 
 // GetUpdated returns the Updated field value if set, zero value otherwise.
@@ -77,12 +77,12 @@ func (o *VulnDiffResult) GetUpdated() []interface{} {
 		var ret []interface{}
 		return ret
 	}
-	return *o.Updated
+	return o.Updated
 }
 
 // GetUpdatedOk returns a tuple with the Updated field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *VulnDiffResult) GetUpdatedOk() (*[]interface{}, bool) {
+func (o *VulnDiffResult) GetUpdatedOk() ([]interface{}, bool) {
 	if o == nil || o.Updated == nil {
 		return nil, false
 	}
@@ -100,7 +100,7 @@ func (o *VulnDiffResult) HasUpdated() bool {
 
 // SetUpdated gets a reference to the given []interface{} and assigns it to the Updated field.
 func (o *VulnDiffResult) SetUpdated(v []interface{}) {
-	o.Updated = &v
+	o.Updated = v
 }
 
 // GetRemoved returns the Removed field value if set, zero value otherwise.
@@ -109,12 +109,12 @@ func (o *VulnDiffResult) GetRemoved() []interface{} {
 		var ret []interface{}
 		return ret
 	}
-	return *o.Removed
+	return o.Removed
 }
 
 // GetRemovedOk returns a tuple with the Removed field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *VulnDiffResult) GetRemovedOk() (*[]interface{}, bool) {
+func (o *VulnDiffResult) GetRemovedOk() ([]interface{}, bool) {
 	if o == nil || o.Removed == nil {
 		return nil, false
 	}
@@ -132,7 +132,7 @@ func (o *VulnDiffResult) HasRemoved() bool {
 
 // SetRemoved gets a reference to the given []interface{} and assigns it to the Removed field.
 func (o *VulnDiffResult) SetRemoved(v []interface{}) {
-	o.Removed = &v
+	o.Removed = v
 }
 
 func (o VulnDiffResult) MarshalJSON() ([]byte, error) {

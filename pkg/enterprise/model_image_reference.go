@@ -23,7 +23,7 @@ type ImageReference struct {
 	ImageId *string `json:"image_id,omitempty"`
 	// Timestamp, in rfc3339 format, indicating when the image state became 'analyzed' in Anchore Engine.
 	AnalyzedAt *string `json:"analyzed_at,omitempty"`
-	TagHistory *[]TagEntry `json:"tag_history,omitempty"`
+	TagHistory []TagEntry `json:"tag_history,omitempty"`
 }
 
 // NewImageReference instantiates a new ImageReference object
@@ -145,12 +145,12 @@ func (o *ImageReference) GetTagHistory() []TagEntry {
 		var ret []TagEntry
 		return ret
 	}
-	return *o.TagHistory
+	return o.TagHistory
 }
 
 // GetTagHistoryOk returns a tuple with the TagHistory field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ImageReference) GetTagHistoryOk() (*[]TagEntry, bool) {
+func (o *ImageReference) GetTagHistoryOk() ([]TagEntry, bool) {
 	if o == nil || o.TagHistory == nil {
 		return nil, false
 	}
@@ -168,7 +168,7 @@ func (o *ImageReference) HasTagHistory() bool {
 
 // SetTagHistory gets a reference to the given []TagEntry and assigns it to the TagHistory field.
 func (o *ImageReference) SetTagHistory(v []TagEntry) {
-	o.TagHistory = &v
+	o.TagHistory = v
 }
 
 func (o ImageReference) MarshalJSON() ([]byte, error) {

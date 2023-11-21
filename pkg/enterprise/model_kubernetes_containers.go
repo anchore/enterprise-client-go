@@ -17,7 +17,7 @@ import (
 
 // KubernetesContainers Containers defined in Kubernetes
 type KubernetesContainers struct {
-	Containers *[]KubernetesContainersContainers `json:"containers,omitempty"`
+	Containers []KubernetesContainersContainersInner `json:"containers,omitempty"`
 }
 
 // NewKubernetesContainers instantiates a new KubernetesContainers object
@@ -38,17 +38,17 @@ func NewKubernetesContainersWithDefaults() *KubernetesContainers {
 }
 
 // GetContainers returns the Containers field value if set, zero value otherwise.
-func (o *KubernetesContainers) GetContainers() []KubernetesContainersContainers {
+func (o *KubernetesContainers) GetContainers() []KubernetesContainersContainersInner {
 	if o == nil || o.Containers == nil {
-		var ret []KubernetesContainersContainers
+		var ret []KubernetesContainersContainersInner
 		return ret
 	}
-	return *o.Containers
+	return o.Containers
 }
 
 // GetContainersOk returns a tuple with the Containers field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *KubernetesContainers) GetContainersOk() (*[]KubernetesContainersContainers, bool) {
+func (o *KubernetesContainers) GetContainersOk() ([]KubernetesContainersContainersInner, bool) {
 	if o == nil || o.Containers == nil {
 		return nil, false
 	}
@@ -64,9 +64,9 @@ func (o *KubernetesContainers) HasContainers() bool {
 	return false
 }
 
-// SetContainers gets a reference to the given []KubernetesContainersContainers and assigns it to the Containers field.
-func (o *KubernetesContainers) SetContainers(v []KubernetesContainersContainers) {
-	o.Containers = &v
+// SetContainers gets a reference to the given []KubernetesContainersContainersInner and assigns it to the Containers field.
+func (o *KubernetesContainers) SetContainers(v []KubernetesContainersContainersInner) {
+	o.Containers = v
 }
 
 func (o KubernetesContainers) MarshalJSON() ([]byte, error) {

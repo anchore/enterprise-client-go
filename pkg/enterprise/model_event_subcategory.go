@@ -19,7 +19,7 @@ import (
 type EventSubcategory struct {
 	Name *string `json:"name,omitempty"`
 	Description *string `json:"description,omitempty"`
-	Events *[]EventDescription `json:"events,omitempty"`
+	Events []EventDescription `json:"events,omitempty"`
 }
 
 // NewEventSubcategory instantiates a new EventSubcategory object
@@ -109,12 +109,12 @@ func (o *EventSubcategory) GetEvents() []EventDescription {
 		var ret []EventDescription
 		return ret
 	}
-	return *o.Events
+	return o.Events
 }
 
 // GetEventsOk returns a tuple with the Events field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *EventSubcategory) GetEventsOk() (*[]EventDescription, bool) {
+func (o *EventSubcategory) GetEventsOk() ([]EventDescription, bool) {
 	if o == nil || o.Events == nil {
 		return nil, false
 	}
@@ -132,7 +132,7 @@ func (o *EventSubcategory) HasEvents() bool {
 
 // SetEvents gets a reference to the given []EventDescription and assigns it to the Events field.
 func (o *EventSubcategory) SetEvents(v []EventDescription) {
-	o.Events = &v
+	o.Events = v
 }
 
 func (o EventSubcategory) MarshalJSON() ([]byte, error) {

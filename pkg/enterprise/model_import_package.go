@@ -103,7 +103,7 @@ func (o *ImportPackage) GetName() string {
 // GetNameOk returns a tuple with the Name field value
 // and a boolean to check if the value has been set.
 func (o *ImportPackage) GetNameOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Name, true
@@ -127,7 +127,7 @@ func (o *ImportPackage) GetVersion() string {
 // GetVersionOk returns a tuple with the Version field value
 // and a boolean to check if the value has been set.
 func (o *ImportPackage) GetVersionOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Version, true
@@ -151,7 +151,7 @@ func (o *ImportPackage) GetType() string {
 // GetTypeOk returns a tuple with the Type field value
 // and a boolean to check if the value has been set.
 func (o *ImportPackage) GetTypeOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Type, true
@@ -206,11 +206,11 @@ func (o *ImportPackage) GetLocations() []ImportPackageLocation {
 
 // GetLocationsOk returns a tuple with the Locations field value
 // and a boolean to check if the value has been set.
-func (o *ImportPackage) GetLocationsOk() (*[]ImportPackageLocation, bool) {
-	if o == nil  {
+func (o *ImportPackage) GetLocationsOk() ([]ImportPackageLocation, bool) {
+	if o == nil {
 		return nil, false
 	}
-	return &o.Locations, true
+	return o.Locations, true
 }
 
 // SetLocations sets field value
@@ -230,11 +230,11 @@ func (o *ImportPackage) GetLicenses() []interface{} {
 
 // GetLicensesOk returns a tuple with the Licenses field value
 // and a boolean to check if the value has been set.
-func (o *ImportPackage) GetLicensesOk() (*[]interface{}, bool) {
-	if o == nil  {
+func (o *ImportPackage) GetLicensesOk() ([]interface{}, bool) {
+	if o == nil {
 		return nil, false
 	}
-	return &o.Licenses, true
+	return o.Licenses, true
 }
 
 // SetLicenses sets field value
@@ -255,7 +255,7 @@ func (o *ImportPackage) GetLanguage() string {
 // GetLanguageOk returns a tuple with the Language field value
 // and a boolean to check if the value has been set.
 func (o *ImportPackage) GetLanguageOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Language, true
@@ -278,11 +278,11 @@ func (o *ImportPackage) GetCpes() []string {
 
 // GetCpesOk returns a tuple with the Cpes field value
 // and a boolean to check if the value has been set.
-func (o *ImportPackage) GetCpesOk() (*[]string, bool) {
-	if o == nil  {
+func (o *ImportPackage) GetCpesOk() ([]string, bool) {
+	if o == nil {
 		return nil, false
 	}
-	return &o.Cpes, true
+	return o.Cpes, true
 }
 
 // SetCpes sets field value
@@ -335,7 +335,7 @@ func (o *ImportPackage) GetMetadataType() string {
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *ImportPackage) GetMetadataTypeOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return o.MetadataType.Get(), o.MetadataType.IsSet()
@@ -366,7 +366,7 @@ func (o *ImportPackage) UnsetMetadataType() {
 
 // GetMetadata returns the Metadata field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *ImportPackage) GetMetadata() interface{} {
-	if o == nil  {
+	if o == nil {
 		var ret interface{}
 		return ret
 	}
@@ -376,11 +376,11 @@ func (o *ImportPackage) GetMetadata() interface{} {
 // GetMetadataOk returns a tuple with the Metadata field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *ImportPackage) GetMetadataOk() (*interface{}, bool) {
+func (o *ImportPackage) GetMetadataOk() (interface{}, bool) {
 	if o == nil || o.Metadata == nil {
 		return nil, false
 	}
-	return &o.Metadata, true
+	return o.Metadata, true
 }
 
 // HasMetadata returns a boolean if a field has been set.

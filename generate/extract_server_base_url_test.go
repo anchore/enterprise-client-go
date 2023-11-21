@@ -1,11 +1,10 @@
 package main
 
 import (
-	"testing"
-
 	"github.com/anchore/enterprise-client-go/pkg/enterprise"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
+	"testing"
 )
 
 func TestExtractServerBaseURL(t *testing.T) {

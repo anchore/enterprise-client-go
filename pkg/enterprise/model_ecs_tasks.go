@@ -17,7 +17,7 @@ import (
 
 // ECSTasks Tasks defined in ECS
 type ECSTasks struct {
-	Tasks *[]ECSTasksTasks `json:"tasks,omitempty"`
+	Tasks []ECSTasksTasksInner `json:"tasks,omitempty"`
 }
 
 // NewECSTasks instantiates a new ECSTasks object
@@ -38,17 +38,17 @@ func NewECSTasksWithDefaults() *ECSTasks {
 }
 
 // GetTasks returns the Tasks field value if set, zero value otherwise.
-func (o *ECSTasks) GetTasks() []ECSTasksTasks {
+func (o *ECSTasks) GetTasks() []ECSTasksTasksInner {
 	if o == nil || o.Tasks == nil {
-		var ret []ECSTasksTasks
+		var ret []ECSTasksTasksInner
 		return ret
 	}
-	return *o.Tasks
+	return o.Tasks
 }
 
 // GetTasksOk returns a tuple with the Tasks field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ECSTasks) GetTasksOk() (*[]ECSTasksTasks, bool) {
+func (o *ECSTasks) GetTasksOk() ([]ECSTasksTasksInner, bool) {
 	if o == nil || o.Tasks == nil {
 		return nil, false
 	}
@@ -64,9 +64,9 @@ func (o *ECSTasks) HasTasks() bool {
 	return false
 }
 
-// SetTasks gets a reference to the given []ECSTasksTasks and assigns it to the Tasks field.
-func (o *ECSTasks) SetTasks(v []ECSTasksTasks) {
-	o.Tasks = &v
+// SetTasks gets a reference to the given []ECSTasksTasksInner and assigns it to the Tasks field.
+func (o *ECSTasks) SetTasks(v []ECSTasksTasksInner) {
+	o.Tasks = v
 }
 
 func (o ECSTasks) MarshalJSON() ([]byte, error) {
