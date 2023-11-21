@@ -58,11 +58,7 @@ func (o *KubernetesNode) GetUid() string {
 // GetUidOk returns a tuple with the Uid field value
 // and a boolean to check if the value has been set.
 func (o *KubernetesNode) GetUidOk() (*string, bool) {
-<<<<<<< HEAD
 	if o == nil {
-=======
-	if o == nil  {
->>>>>>> main
 		return nil, false
 	}
 	return &o.Uid, true
@@ -86,11 +82,7 @@ func (o *KubernetesNode) GetName() string {
 // GetNameOk returns a tuple with the Name field value
 // and a boolean to check if the value has been set.
 func (o *KubernetesNode) GetNameOk() (*string, bool) {
-<<<<<<< HEAD
 	if o == nil {
-=======
-	if o == nil  {
->>>>>>> main
 		return nil, false
 	}
 	return &o.Name, true
@@ -114,11 +106,7 @@ func (o *KubernetesNode) GetLabels() map[string]string {
 // GetLabelsOk returns a tuple with the Labels field value
 // and a boolean to check if the value has been set.
 func (o *KubernetesNode) GetLabelsOk() (*map[string]string, bool) {
-<<<<<<< HEAD
 	if o == nil {
-=======
-	if o == nil  {
->>>>>>> main
 		return nil, false
 	}
 	return &o.Labels, true
@@ -142,11 +130,7 @@ func (o *KubernetesNode) GetAnnotations() map[string]string {
 // GetAnnotationsOk returns a tuple with the Annotations field value
 // and a boolean to check if the value has been set.
 func (o *KubernetesNode) GetAnnotationsOk() (*map[string]string, bool) {
-<<<<<<< HEAD
 	if o == nil {
-=======
-	if o == nil  {
->>>>>>> main
 		return nil, false
 	}
 	return &o.Annotations, true

@@ -59,11 +59,7 @@ func (o *AllowlistItem) GetId() string {
 // GetIdOk returns a tuple with the Id field value
 // and a boolean to check if the value has been set.
 func (o *AllowlistItem) GetIdOk() (*string, bool) {
-<<<<<<< HEAD
 	if o == nil {
-=======
-	if o == nil  {
->>>>>>> main
 		return nil, false
 	}
 	return &o.Id, true
@@ -87,11 +83,7 @@ func (o *AllowlistItem) GetGate() string {
 // GetGateOk returns a tuple with the Gate field value
 // and a boolean to check if the value has been set.
 func (o *AllowlistItem) GetGateOk() (*string, bool) {
-<<<<<<< HEAD
 	if o == nil {
-=======
-	if o == nil  {
->>>>>>> main
 		return nil, false
 	}
 	return &o.Gate, true
@@ -115,11 +107,7 @@ func (o *AllowlistItem) GetTriggerId() string {
 // GetTriggerIdOk returns a tuple with the TriggerId field value
 // and a boolean to check if the value has been set.
 func (o *AllowlistItem) GetTriggerIdOk() (*string, bool) {
-<<<<<<< HEAD
 	if o == nil {
-=======
-	if o == nil  {
->>>>>>> main
 		return nil, false
 	}
 	return &o.TriggerId, true
@@ -143,11 +131,7 @@ func (o *AllowlistItem) GetExpiresOn() time.Time {
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *AllowlistItem) GetExpiresOnOk() (*time.Time, bool) {
-<<<<<<< HEAD
 	if o == nil {
-=======
-	if o == nil  {
->>>>>>> main
 		return nil, false
 	}
 	return o.ExpiresOn.Get(), o.ExpiresOn.IsSet()

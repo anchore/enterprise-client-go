@@ -9,22 +9,14 @@ Name | Type | Description | Notes
 **Trigger** | **string** |  | 
 **Action** | **string** |  | 
 **Description** | Pointer to **string** | Description of the policy rule, human readable | [optional] 
-<<<<<<< HEAD
 **Params** | [**[]PolicyRuleParamsInner**](PolicyRuleParamsInner.md) |  | 
-=======
-**Params** | [**[]PolicyRuleParams**](PolicyRuleParams.md) |  | 
->>>>>>> main
 **Recommendation** | Pointer to **string** |  | [optional] 
 
 ## Methods
 
 ### NewPolicyRule
 
-<<<<<<< HEAD
 `func NewPolicyRule(id string, gate string, trigger string, action string, params []PolicyRuleParamsInner, ) *PolicyRule`
-=======
-`func NewPolicyRule(id string, gate string, trigger string, action string, params []PolicyRuleParams, ) *PolicyRule`
->>>>>>> main
 
 NewPolicyRule instantiates a new PolicyRule object
 This constructor will assign default values to properties that have it defined,

@@ -214,11 +214,7 @@ func (o *NativeSBOMDistribution) UnsetVersionID() {
 
 // GetIdLike returns the IdLike field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *NativeSBOMDistribution) GetIdLike() interface{} {
-<<<<<<< HEAD
 	if o == nil {
-=======
-	if o == nil  {
->>>>>>> main
 		var ret interface{}
 		return ret
 	}

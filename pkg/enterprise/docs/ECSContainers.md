@@ -4,11 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-<<<<<<< HEAD
 **Containers** | Pointer to [**[]ECSContainersContainersInner**](ECSContainersContainersInner.md) |  | [optional] 
-=======
-**Containers** | Pointer to [**[]ECSContainersContainers**](ECSContainersContainers.md) |  | [optional] 
->>>>>>> main
 
 ## Methods
 
@@ -31,32 +27,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetContainers
 
-<<<<<<< HEAD
 `func (o *ECSContainers) GetContainers() []ECSContainersContainersInner`
-=======
-`func (o *ECSContainers) GetContainers() []ECSContainersContainers`
->>>>>>> main
 
 GetContainers returns the Containers field if non-nil, zero value otherwise.
 
 ### GetContainersOk
 
-<<<<<<< HEAD
 `func (o *ECSContainers) GetContainersOk() (*[]ECSContainersContainersInner, bool)`
-=======
-`func (o *ECSContainers) GetContainersOk() (*[]ECSContainersContainers, bool)`
->>>>>>> main
 
 GetContainersOk returns a tuple with the Containers field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetContainers
 
-<<<<<<< HEAD
 `func (o *ECSContainers) SetContainers(v []ECSContainersContainersInner)`
-=======
-`func (o *ECSContainers) SetContainers(v []ECSContainersContainers)`
->>>>>>> main
 
 SetContainers sets Containers field to given value.
 

@@ -36,11 +36,7 @@ type Package struct {
 	// Maven version for java packages
 	MavenVersion *string `json:"maven_version,omitempty"`
 	// List of CPE strings for this package
-<<<<<<< HEAD
 	Cpes []string `json:"cpes,omitempty"`
-=======
-	Cpes *[]string `json:"cpes,omitempty"`
->>>>>>> main
 	Purl *string `json:"purl,omitempty"`
 }
 
@@ -507,38 +503,6 @@ func (o *Package) HasCpes() bool {
 // SetCpes gets a reference to the given []string and assigns it to the Cpes field.
 func (o *Package) SetCpes(v []string) {
 	o.Cpes = v
-}
-
-// GetPurl returns the Purl field value if set, zero value otherwise.
-func (o *Package) GetPurl() string {
-	if o == nil || o.Purl == nil {
-		var ret string
-		return ret
-	}
-	return *o.Purl
-}
-
-// GetPurlOk returns a tuple with the Purl field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *Package) GetPurlOk() (*string, bool) {
-	if o == nil || o.Purl == nil {
-		return nil, false
-	}
-	return o.Purl, true
-}
-
-// HasPurl returns a boolean if a field has been set.
-func (o *Package) HasPurl() bool {
-	if o != nil && o.Purl != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetPurl gets a reference to the given string and assigns it to the Purl field.
-func (o *Package) SetPurl(v string) {
-	o.Purl = &v
 }
 
 // GetPurl returns the Purl field value if set, zero value otherwise.

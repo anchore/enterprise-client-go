@@ -18,11 +18,7 @@ import (
 // SBOMVulnerabilitiesResponse Envelope containing list of vulnerabilities for a source repo
 type SBOMVulnerabilitiesResponse struct {
 	SbomId *string `json:"sbom_id,omitempty"`
-<<<<<<< HEAD
 	Vulnerabilities []PackageVulnerability `json:"vulnerabilities,omitempty"`
-=======
-	Vulnerabilities *[]PackageVulnerability `json:"vulnerabilities,omitempty"`
->>>>>>> main
 }
 
 // NewSBOMVulnerabilitiesResponse instantiates a new SBOMVulnerabilitiesResponse object
@@ -85,11 +81,7 @@ func (o *SBOMVulnerabilitiesResponse) GetVulnerabilities() []PackageVulnerabilit
 
 // GetVulnerabilitiesOk returns a tuple with the Vulnerabilities field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-<<<<<<< HEAD
 func (o *SBOMVulnerabilitiesResponse) GetVulnerabilitiesOk() ([]PackageVulnerability, bool) {
-=======
-func (o *SBOMVulnerabilitiesResponse) GetVulnerabilitiesOk() (*[]PackageVulnerability, bool) {
->>>>>>> main
 	if o == nil || o.Vulnerabilities == nil {
 		return nil, false
 	}
@@ -107,11 +99,7 @@ func (o *SBOMVulnerabilitiesResponse) HasVulnerabilities() bool {
 
 // SetVulnerabilities gets a reference to the given []PackageVulnerability and assigns it to the Vulnerabilities field.
 func (o *SBOMVulnerabilitiesResponse) SetVulnerabilities(v []PackageVulnerability) {
-<<<<<<< HEAD
 	o.Vulnerabilities = v
-=======
-	o.Vulnerabilities = &v
->>>>>>> main
 }
 
 func (o SBOMVulnerabilitiesResponse) MarshalJSON() ([]byte, error) {

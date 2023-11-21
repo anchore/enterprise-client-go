@@ -88,17 +88,10 @@ docs/ComplianceViolationAlertState.md
 docs/ContentFilesResponse.md
 docs/ContentFilesResponseContentInner.md
 docs/ContentJAVAPackageResponse.md
-<<<<<<< HEAD
 docs/ContentJAVAPackageResponseContentInner.md
 docs/ContentMalwareResponse.md
 docs/ContentPackageResponse.md
 docs/ContentPackageResponseContentInner.md
-=======
-docs/ContentJAVAPackageResponseContent.md
-docs/ContentMalwareResponse.md
-docs/ContentPackageResponse.md
-docs/ContentPackageResponseContent.md
->>>>>>> main
 docs/Correction.md
 docs/CorrectionFieldMatch.md
 docs/CorrectionMatch.md
@@ -107,7 +100,6 @@ docs/CustomJsonPatch.md
 docs/DefaultApi.md
 docs/DeleteImageResponse.md
 docs/ECSContainers.md
-<<<<<<< HEAD
 docs/ECSContainersContainersInner.md
 docs/ECSInventory.md
 docs/ECSInventoryContainersInner.md
@@ -117,17 +109,6 @@ docs/ECSServices.md
 docs/ECSServicesServicesInner.md
 docs/ECSTasks.md
 docs/ECSTasksTasksInner.md
-=======
-docs/ECSContainersContainers.md
-docs/ECSInventory.md
-docs/ECSInventoryContainers.md
-docs/ECSInventoryServices.md
-docs/ECSInventoryTasks.md
-docs/ECSServices.md
-docs/ECSServicesServices.md
-docs/ECSTasks.md
-docs/ECSTasksTasks.md
->>>>>>> main
 docs/EventCategory.md
 docs/EventDescription.md
 docs/EventResponse.md
@@ -178,7 +159,6 @@ docs/ImportPackageRelationship.md
 docs/ImportSchema.md
 docs/ImportSource.md
 docs/ImportsApi.md
-docs/InlineResponse400.md
 docs/InventoriesApi.md
 docs/InventoryItem.md
 docs/InventoryItems.md
@@ -189,21 +169,12 @@ docs/JsonPatchRemove.md
 docs/JsonPatchReplace.md
 docs/JsonPatchTest.md
 docs/KubernetesContainers.md
-<<<<<<< HEAD
 docs/KubernetesContainersContainersInner.md
 docs/KubernetesInventory.md
 docs/KubernetesInventoryContainersInner.md
 docs/KubernetesInventoryNamespacesInner.md
 docs/KubernetesInventoryNodesInner.md
 docs/KubernetesInventoryPodsInner.md
-=======
-docs/KubernetesContainersContainers.md
-docs/KubernetesInventory.md
-docs/KubernetesInventoryContainers.md
-docs/KubernetesInventoryNamespaces.md
-docs/KubernetesInventoryNodes.md
-docs/KubernetesInventoryPods.md
->>>>>>> main
 docs/KubernetesNamespace.md
 docs/KubernetesNamespaces.md
 docs/KubernetesNode.md
@@ -212,11 +183,7 @@ docs/KubernetesPod.md
 docs/KubernetesPods.md
 docs/LocalAnalysisSource.md
 docs/MalwareScan.md
-<<<<<<< HEAD
 docs/MalwareScanFindingsInner.md
-=======
-docs/MalwareScanFindings.md
->>>>>>> main
 docs/MappingRule.md
 docs/MetadataResponse.md
 docs/ModifiedPackage.md
@@ -266,10 +233,7 @@ docs/NotificationTeamsTestResult.md
 docs/NotificationWebhookEndpointConfiguration.md
 docs/NotificationWebhookEndpointConfigurationAllOf.md
 docs/NotificationWebhookTestResult.md
-<<<<<<< HEAD
 docs/NullType.md
-=======
->>>>>>> main
 docs/NvdDataObject.md
 docs/Package.md
 docs/PackageReference.md
@@ -288,31 +252,19 @@ docs/PolicyEvalNotificationDataAllOf.md
 docs/PolicyEvalNotificationPayload.md
 docs/PolicyEvalNotificationPayloadAllOf.md
 docs/PolicyEvaluation.md
-<<<<<<< HEAD
 docs/PolicyEvaluationEvaluationsInner.md
 docs/PolicyEvaluationEvaluationsInnerDetails.md
 docs/PolicyEvaluationEvaluationsInnerMatchedAllowlistedImagesRule.md
 docs/PolicyEvaluationEvaluationsInnerMatchedMappingRule.md
-=======
-docs/PolicyEvaluationDetails.md
-docs/PolicyEvaluationEvaluations.md
->>>>>>> main
 docs/PolicyEvaluationFinding.md
 docs/PolicyEvaluationFindingAllowlistMatch.md
 docs/PolicyEvaluationProblem.md
 docs/PolicyEvaluationRemediation.md
-<<<<<<< HEAD
 docs/PolicyEvaluationRemediationSuggestionsInner.md
 docs/PolicyRecord.md
 docs/PolicyRecordPolicy.md
 docs/PolicyRule.md
 docs/PolicyRuleParamsInner.md
-=======
-docs/PolicyEvaluationRemediationSuggestions.md
-docs/PolicyRecord.md
-docs/PolicyRule.md
-docs/PolicyRuleParams.md
->>>>>>> main
 docs/QueryApi.md
 docs/RbacManagerAccountRole.md
 docs/RbacManagerApiErrorResponse.md
@@ -340,10 +292,7 @@ docs/ReportingStatusResponse.md
 docs/RepositoryCredentialsApi.md
 docs/ResourceLabel.md
 docs/RetrievedFile.md
-<<<<<<< HEAD
 docs/RevokeOauthToken400Response.md
-=======
->>>>>>> main
 docs/RuleSet.md
 docs/SBOMVulnerabilitiesResponse.md
 docs/SecretSearchResult.md
@@ -358,11 +307,7 @@ docs/SourceImportMetadata.md
 docs/SourceImportMetadataContents.md
 docs/SourceImportOperation.md
 docs/SourceManifest.md
-<<<<<<< HEAD
 docs/SourceManifestMetadataRecordsInner.md
-=======
-docs/SourceManifestMetadataRecords.md
->>>>>>> main
 docs/SourceMappingRule.md
 docs/SourcePackageVulnerabilityResponse.md
 docs/SourcePolicyEvaluation.md
@@ -472,17 +417,10 @@ model_compliance_violation_alert_state.go
 model_content_files_response.go
 model_content_files_response_content_inner.go
 model_content_java_package_response.go
-<<<<<<< HEAD
 model_content_java_package_response_content_inner.go
 model_content_malware_response.go
 model_content_package_response.go
 model_content_package_response_content_inner.go
-=======
-model_content_java_package_response_content.go
-model_content_malware_response.go
-model_content_package_response.go
-model_content_package_response_content.go
->>>>>>> main
 model_correction.go
 model_correction_field_match.go
 model_correction_match.go
@@ -491,7 +429,6 @@ model_cvssv2_scores.go
 model_cvssv3_scores.go
 model_delete_image_response.go
 model_ecs_containers.go
-<<<<<<< HEAD
 model_ecs_containers_containers_inner.go
 model_ecs_inventory.go
 model_ecs_inventory_containers_inner.go
@@ -501,17 +438,6 @@ model_ecs_services.go
 model_ecs_services_services_inner.go
 model_ecs_tasks.go
 model_ecs_tasks_tasks_inner.go
-=======
-model_ecs_containers_containers.go
-model_ecs_inventory.go
-model_ecs_inventory_containers.go
-model_ecs_inventory_services.go
-model_ecs_inventory_tasks.go
-model_ecs_services.go
-model_ecs_services_services.go
-model_ecs_tasks.go
-model_ecs_tasks_tasks.go
->>>>>>> main
 model_event_category.go
 model_event_description.go
 model_event_response.go
@@ -558,10 +484,6 @@ model_import_package_location.go
 model_import_package_relationship.go
 model_import_schema.go
 model_import_source.go
-<<<<<<< HEAD
-=======
-model_inline_response_400.go
->>>>>>> main
 model_inventory_item.go
 model_inventory_items.go
 model_json_patch_add.go
@@ -571,21 +493,12 @@ model_json_patch_remove.go
 model_json_patch_replace.go
 model_json_patch_test_.go
 model_kubernetes_containers.go
-<<<<<<< HEAD
 model_kubernetes_containers_containers_inner.go
 model_kubernetes_inventory.go
 model_kubernetes_inventory_containers_inner.go
 model_kubernetes_inventory_namespaces_inner.go
 model_kubernetes_inventory_nodes_inner.go
 model_kubernetes_inventory_pods_inner.go
-=======
-model_kubernetes_containers_containers.go
-model_kubernetes_inventory.go
-model_kubernetes_inventory_containers.go
-model_kubernetes_inventory_namespaces.go
-model_kubernetes_inventory_nodes.go
-model_kubernetes_inventory_pods.go
->>>>>>> main
 model_kubernetes_namespace.go
 model_kubernetes_namespaces.go
 model_kubernetes_node.go
@@ -594,11 +507,7 @@ model_kubernetes_pod.go
 model_kubernetes_pods.go
 model_local_analysis_source.go
 model_malware_scan.go
-<<<<<<< HEAD
 model_malware_scan_findings_inner.go
-=======
-model_malware_scan_findings.go
->>>>>>> main
 model_mapping_rule.go
 model_metadata_response.go
 model_modified_package.go
@@ -648,10 +557,7 @@ model_notification_teams_test_result.go
 model_notification_webhook_endpoint_configuration.go
 model_notification_webhook_endpoint_configuration_all_of.go
 model_notification_webhook_test_result.go
-<<<<<<< HEAD
 model_null_type.go
-=======
->>>>>>> main
 model_nvd_data_object.go
 model_package.go
 model_package_reference.go
@@ -669,31 +575,19 @@ model_policy_eval_notification_data_all_of.go
 model_policy_eval_notification_payload.go
 model_policy_eval_notification_payload_all_of.go
 model_policy_evaluation.go
-<<<<<<< HEAD
 model_policy_evaluation_evaluations_inner.go
 model_policy_evaluation_evaluations_inner_details.go
 model_policy_evaluation_evaluations_inner_matched_allowlisted_images_rule.go
 model_policy_evaluation_evaluations_inner_matched_mapping_rule.go
-=======
-model_policy_evaluation_details.go
-model_policy_evaluation_evaluations.go
->>>>>>> main
 model_policy_evaluation_finding.go
 model_policy_evaluation_finding_allowlist_match.go
 model_policy_evaluation_problem.go
 model_policy_evaluation_remediation.go
-<<<<<<< HEAD
 model_policy_evaluation_remediation_suggestions_inner.go
 model_policy_record.go
 model_policy_record_policy.go
 model_policy_rule.go
 model_policy_rule_params_inner.go
-=======
-model_policy_evaluation_remediation_suggestions.go
-model_policy_record.go
-model_policy_rule.go
-model_policy_rule_params.go
->>>>>>> main
 model_rbac_manager_account_role.go
 model_rbac_manager_api_error_response.go
 model_rbac_manager_permission.go
@@ -717,10 +611,7 @@ model_reporting_service_version.go
 model_reporting_status_response.go
 model_resource_label.go
 model_retrieved_file.go
-<<<<<<< HEAD
 model_revoke_oauth_token_400_response.go
-=======
->>>>>>> main
 model_rule_set.go
 model_sbom_vulnerabilities_response.go
 model_secret_search_result.go
@@ -735,11 +626,7 @@ model_source_import_metadata.go
 model_source_import_metadata_contents.go
 model_source_import_operation.go
 model_source_manifest.go
-<<<<<<< HEAD
 model_source_manifest_metadata_records_inner.go
-=======
-model_source_manifest_metadata_records.go
->>>>>>> main
 model_source_mapping_rule.go
 model_source_package_vulnerability_response.go
 model_source_policy_evaluation.go

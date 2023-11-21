@@ -28,11 +28,7 @@ type PolicyRecord struct {
 	AccountName string `json:"account_name"`
 	// Source location of where the policy originated
 	PolicySource string `json:"policy_source"`
-<<<<<<< HEAD
 	Policy *PolicyRecordPolicy `json:"policy,omitempty"`
-=======
-	Policy NullablePolicy `json:"policy,omitempty"`
->>>>>>> main
 	// Name of the policy
 	Name string `json:"name"`
 	// Description of the policy, human readable
@@ -138,11 +134,7 @@ func (o *PolicyRecord) GetPolicyId() string {
 // GetPolicyIdOk returns a tuple with the PolicyId field value
 // and a boolean to check if the value has been set.
 func (o *PolicyRecord) GetPolicyIdOk() (*string, bool) {
-<<<<<<< HEAD
 	if o == nil {
-=======
-	if o == nil  {
->>>>>>> main
 		return nil, false
 	}
 	return &o.PolicyId, true
@@ -166,11 +158,7 @@ func (o *PolicyRecord) GetActive() bool {
 // GetActiveOk returns a tuple with the Active field value
 // and a boolean to check if the value has been set.
 func (o *PolicyRecord) GetActiveOk() (*bool, bool) {
-<<<<<<< HEAD
 	if o == nil {
-=======
-	if o == nil  {
->>>>>>> main
 		return nil, false
 	}
 	return &o.Active, true
@@ -194,11 +182,7 @@ func (o *PolicyRecord) GetAccountName() string {
 // GetAccountNameOk returns a tuple with the AccountName field value
 // and a boolean to check if the value has been set.
 func (o *PolicyRecord) GetAccountNameOk() (*string, bool) {
-<<<<<<< HEAD
 	if o == nil {
-=======
-	if o == nil  {
->>>>>>> main
 		return nil, false
 	}
 	return &o.AccountName, true
@@ -222,11 +206,7 @@ func (o *PolicyRecord) GetPolicySource() string {
 // GetPolicySourceOk returns a tuple with the PolicySource field value
 // and a boolean to check if the value has been set.
 func (o *PolicyRecord) GetPolicySourceOk() (*string, bool) {
-<<<<<<< HEAD
 	if o == nil {
-=======
-	if o == nil  {
->>>>>>> main
 		return nil, false
 	}
 	return &o.PolicySource, true
@@ -237,7 +217,6 @@ func (o *PolicyRecord) SetPolicySource(v string) {
 	o.PolicySource = v
 }
 
-<<<<<<< HEAD
 // GetPolicy returns the Policy field value if set, zero value otherwise.
 func (o *PolicyRecord) GetPolicy() PolicyRecordPolicy {
 	if o == nil || o.Policy == nil {
@@ -245,66 +224,29 @@ func (o *PolicyRecord) GetPolicy() PolicyRecordPolicy {
 		return ret
 	}
 	return *o.Policy
-=======
-// GetPolicy returns the Policy field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *PolicyRecord) GetPolicy() Policy {
-	if o == nil || o.Policy.Get() == nil {
-		var ret Policy
-		return ret
-	}
-	return *o.Policy.Get()
->>>>>>> main
 }
 
 // GetPolicyOk returns a tuple with the Policy field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-<<<<<<< HEAD
 func (o *PolicyRecord) GetPolicyOk() (*PolicyRecordPolicy, bool) {
 	if o == nil || o.Policy == nil {
 		return nil, false
 	}
 	return o.Policy, true
-=======
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *PolicyRecord) GetPolicyOk() (*Policy, bool) {
-	if o == nil  {
-		return nil, false
-	}
-	return o.Policy.Get(), o.Policy.IsSet()
->>>>>>> main
 }
 
 // HasPolicy returns a boolean if a field has been set.
 func (o *PolicyRecord) HasPolicy() bool {
-<<<<<<< HEAD
 	if o != nil && o.Policy != nil {
-=======
-	if o != nil && o.Policy.IsSet() {
->>>>>>> main
 		return true
 	}
 
 	return false
 }
 
-<<<<<<< HEAD
 // SetPolicy gets a reference to the given PolicyRecordPolicy and assigns it to the Policy field.
 func (o *PolicyRecord) SetPolicy(v PolicyRecordPolicy) {
 	o.Policy = &v
-=======
-// SetPolicy gets a reference to the given NullablePolicy and assigns it to the Policy field.
-func (o *PolicyRecord) SetPolicy(v Policy) {
-	o.Policy.Set(&v)
-}
-// SetPolicyNil sets the value for Policy to be an explicit nil
-func (o *PolicyRecord) SetPolicyNil() {
-	o.Policy.Set(nil)
-}
-
-// UnsetPolicy ensures that no value is present for Policy, not even an explicit nil
-func (o *PolicyRecord) UnsetPolicy() {
-	o.Policy.Unset()
->>>>>>> main
 }
 
 // GetName returns the Name field value
@@ -320,11 +262,7 @@ func (o *PolicyRecord) GetName() string {
 // GetNameOk returns a tuple with the Name field value
 // and a boolean to check if the value has been set.
 func (o *PolicyRecord) GetNameOk() (*string, bool) {
-<<<<<<< HEAD
 	if o == nil {
-=======
-	if o == nil  {
->>>>>>> main
 		return nil, false
 	}
 	return &o.Name, true
@@ -387,13 +325,8 @@ func (o PolicyRecord) MarshalJSON() ([]byte, error) {
 	if true {
 		toSerialize["policy_source"] = o.PolicySource
 	}
-<<<<<<< HEAD
 	if o.Policy != nil {
 		toSerialize["policy"] = o.Policy
-=======
-	if o.Policy.IsSet() {
-		toSerialize["policy"] = o.Policy.Get()
->>>>>>> main
 	}
 	if true {
 		toSerialize["name"] = o.Name

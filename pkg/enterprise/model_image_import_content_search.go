@@ -53,11 +53,7 @@ func (o *ImageImportContentSearch) GetLocation() ImportPackageLocation {
 // GetLocationOk returns a tuple with the Location field value
 // and a boolean to check if the value has been set.
 func (o *ImageImportContentSearch) GetLocationOk() (*ImportPackageLocation, bool) {
-<<<<<<< HEAD
 	if o == nil {
-=======
-	if o == nil  {
->>>>>>> main
 		return nil, false
 	}
 	return &o.Location, true
@@ -80,19 +76,11 @@ func (o *ImageImportContentSearch) GetContentSearches() []ImportContentSearchEle
 
 // GetContentSearchesOk returns a tuple with the ContentSearches field value
 // and a boolean to check if the value has been set.
-<<<<<<< HEAD
 func (o *ImageImportContentSearch) GetContentSearchesOk() ([]ImportContentSearchElement, bool) {
 	if o == nil {
 		return nil, false
 	}
 	return o.ContentSearches, true
-=======
-func (o *ImageImportContentSearch) GetContentSearchesOk() (*[]ImportContentSearchElement, bool) {
-	if o == nil  {
-		return nil, false
-	}
-	return &o.ContentSearches, true
->>>>>>> main
 }
 
 // SetContentSearches sets field value

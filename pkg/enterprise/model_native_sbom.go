@@ -22,11 +22,7 @@ type NativeSBOM struct {
 	Distro NativeSBOMDistribution `json:"distro"`
 	Descriptor *NativeSBOMDescriptor `json:"descriptor,omitempty"`
 	Schema *NativeSBOMSchema `json:"schema,omitempty"`
-<<<<<<< HEAD
 	ArtifactRelationships []NativeSBOMPackageRelationship `json:"artifactRelationships,omitempty"`
-=======
-	ArtifactRelationships *[]NativeSBOMPackageRelationship `json:"artifactRelationships,omitempty"`
->>>>>>> main
 	AdditionalProperties map[string]interface{}
 }
 

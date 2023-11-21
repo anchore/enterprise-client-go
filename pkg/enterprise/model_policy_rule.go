@@ -23,11 +23,7 @@ type PolicyRule struct {
 	Action string `json:"action"`
 	// Description of the policy rule, human readable
 	Description *string `json:"description,omitempty"`
-<<<<<<< HEAD
 	Params []PolicyRuleParamsInner `json:"params"`
-=======
-	Params []PolicyRuleParams `json:"params"`
->>>>>>> main
 	Recommendation *string `json:"recommendation,omitempty"`
 }
 
@@ -35,11 +31,7 @@ type PolicyRule struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-<<<<<<< HEAD
 func NewPolicyRule(id string, gate string, trigger string, action string, params []PolicyRuleParamsInner) *PolicyRule {
-=======
-func NewPolicyRule(id string, gate string, trigger string, action string, params []PolicyRuleParams) *PolicyRule {
->>>>>>> main
 	this := PolicyRule{}
 	this.Id = id
 	this.Gate = gate
@@ -70,11 +62,7 @@ func (o *PolicyRule) GetId() string {
 // GetIdOk returns a tuple with the Id field value
 // and a boolean to check if the value has been set.
 func (o *PolicyRule) GetIdOk() (*string, bool) {
-<<<<<<< HEAD
 	if o == nil {
-=======
-	if o == nil  {
->>>>>>> main
 		return nil, false
 	}
 	return &o.Id, true
@@ -190,15 +178,9 @@ func (o *PolicyRule) SetDescription(v string) {
 }
 
 // GetParams returns the Params field value
-<<<<<<< HEAD
 func (o *PolicyRule) GetParams() []PolicyRuleParamsInner {
 	if o == nil {
 		var ret []PolicyRuleParamsInner
-=======
-func (o *PolicyRule) GetParams() []PolicyRuleParams {
-	if o == nil {
-		var ret []PolicyRuleParams
->>>>>>> main
 		return ret
 	}
 
@@ -207,7 +189,6 @@ func (o *PolicyRule) GetParams() []PolicyRuleParams {
 
 // GetParamsOk returns a tuple with the Params field value
 // and a boolean to check if the value has been set.
-<<<<<<< HEAD
 func (o *PolicyRule) GetParamsOk() ([]PolicyRuleParamsInner, bool) {
 	if o == nil {
 		return nil, false
@@ -217,17 +198,6 @@ func (o *PolicyRule) GetParamsOk() ([]PolicyRuleParamsInner, bool) {
 
 // SetParams sets field value
 func (o *PolicyRule) SetParams(v []PolicyRuleParamsInner) {
-=======
-func (o *PolicyRule) GetParamsOk() (*[]PolicyRuleParams, bool) {
-	if o == nil  {
-		return nil, false
-	}
-	return &o.Params, true
-}
-
-// SetParams sets field value
-func (o *PolicyRule) SetParams(v []PolicyRuleParams) {
->>>>>>> main
 	o.Params = v
 }
 

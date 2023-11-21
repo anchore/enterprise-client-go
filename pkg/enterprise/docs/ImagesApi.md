@@ -1,10 +1,6 @@
 # \ImagesApi
 
-<<<<<<< HEAD
 All URIs are relative to */v2*
-=======
-All URIs are relative to *http://localhost/v2*
->>>>>>> main
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -57,13 +53,8 @@ func main() {
     xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
 
     configuration := openapiclient.NewConfiguration()
-<<<<<<< HEAD
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.ImagesApi.AddImage(context.Background()).Image(image).Force(force).AutoSubscribe(autoSubscribe).XAnchoreAccount(xAnchoreAccount).Execute()
-=======
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.ImagesApi.AddImage(context.Background()).Image(image).Force(force).AutoSubscribe(autoSubscribe).XAnchoreAccount(xAnchoreAccount).Execute()
->>>>>>> main
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ImagesApi.AddImage``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -131,13 +122,8 @@ func main() {
     xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
 
     configuration := openapiclient.NewConfiguration()
-<<<<<<< HEAD
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.ImagesApi.DeleteImage(context.Background(), imageDigest).Force(force).XAnchoreAccount(xAnchoreAccount).Execute()
-=======
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.ImagesApi.DeleteImage(context.Background(), imageDigest).Force(force).XAnchoreAccount(xAnchoreAccount).Execute()
->>>>>>> main
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ImagesApi.DeleteImage``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -210,13 +196,8 @@ func main() {
     xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
 
     configuration := openapiclient.NewConfiguration()
-<<<<<<< HEAD
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.ImagesApi.DeleteImagesAsync(context.Background()).ImageDigests(imageDigests).Force(force).XAnchoreAccount(xAnchoreAccount).Execute()
-=======
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.ImagesApi.DeleteImagesAsync(context.Background()).ImageDigests(imageDigests).Force(force).XAnchoreAccount(xAnchoreAccount).Execute()
->>>>>>> main
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ImagesApi.DeleteImagesAsync``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -282,13 +263,8 @@ func main() {
     xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
 
     configuration := openapiclient.NewConfiguration()
-<<<<<<< HEAD
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.ImagesApi.GetImage(context.Background(), imageDigest).XAnchoreAccount(xAnchoreAccount).Execute()
-=======
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.ImagesApi.GetImage(context.Background(), imageDigest).XAnchoreAccount(xAnchoreAccount).Execute()
->>>>>>> main
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ImagesApi.GetImage``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -430,13 +406,8 @@ func main() {
     xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
 
     configuration := openapiclient.NewConfiguration()
-<<<<<<< HEAD
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.ImagesApi.GetImageContentByType(context.Background(), imageDigest, contentType).XAnchoreAccount(xAnchoreAccount).Execute()
-=======
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.ImagesApi.GetImageContentByType(context.Background(), imageDigest, contentType).XAnchoreAccount(xAnchoreAccount).Execute()
->>>>>>> main
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ImagesApi.GetImageContentByType``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -507,13 +478,8 @@ func main() {
     xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
 
     configuration := openapiclient.NewConfiguration()
-<<<<<<< HEAD
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.ImagesApi.GetImageContentByTypeFiles(context.Background(), imageDigest).XAnchoreAccount(xAnchoreAccount).Execute()
-=======
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.ImagesApi.GetImageContentByTypeFiles(context.Background(), imageDigest).XAnchoreAccount(xAnchoreAccount).Execute()
->>>>>>> main
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ImagesApi.GetImageContentByTypeFiles``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -582,13 +548,8 @@ func main() {
     xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
 
     configuration := openapiclient.NewConfiguration()
-<<<<<<< HEAD
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.ImagesApi.GetImageContentByTypeJavaPackage(context.Background(), imageDigest).XAnchoreAccount(xAnchoreAccount).Execute()
-=======
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.ImagesApi.GetImageContentByTypeJavaPackage(context.Background(), imageDigest).XAnchoreAccount(xAnchoreAccount).Execute()
->>>>>>> main
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ImagesApi.GetImageContentByTypeJavaPackage``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -657,13 +618,8 @@ func main() {
     xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
 
     configuration := openapiclient.NewConfiguration()
-<<<<<<< HEAD
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.ImagesApi.GetImageContentByTypeMalware(context.Background(), imageDigest).XAnchoreAccount(xAnchoreAccount).Execute()
-=======
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.ImagesApi.GetImageContentByTypeMalware(context.Background(), imageDigest).XAnchoreAccount(xAnchoreAccount).Execute()
->>>>>>> main
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ImagesApi.GetImageContentByTypeMalware``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -733,13 +689,8 @@ func main() {
     xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
 
     configuration := openapiclient.NewConfiguration()
-<<<<<<< HEAD
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.ImagesApi.GetImageMetadataByType(context.Background(), imageDigest, metadataType).XAnchoreAccount(xAnchoreAccount).Execute()
-=======
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.ImagesApi.GetImageMetadataByType(context.Background(), imageDigest, metadataType).XAnchoreAccount(xAnchoreAccount).Execute()
->>>>>>> main
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ImagesApi.GetImageMetadataByType``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -894,13 +845,8 @@ func main() {
     xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
 
     configuration := openapiclient.NewConfiguration()
-<<<<<<< HEAD
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.ImagesApi.GetImageSbomCyclonedxJson(context.Background(), imageDigest).XAnchoreAccount(xAnchoreAccount).Execute()
-=======
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.ImagesApi.GetImageSbomCyclonedxJson(context.Background(), imageDigest).XAnchoreAccount(xAnchoreAccount).Execute()
->>>>>>> main
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ImagesApi.GetImageSbomCyclonedxJson``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -969,13 +915,8 @@ func main() {
     xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
 
     configuration := openapiclient.NewConfiguration()
-<<<<<<< HEAD
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.ImagesApi.GetImageSbomNativeJson(context.Background(), imageDigest).XAnchoreAccount(xAnchoreAccount).Execute()
-=======
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.ImagesApi.GetImageSbomNativeJson(context.Background(), imageDigest).XAnchoreAccount(xAnchoreAccount).Execute()
->>>>>>> main
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ImagesApi.GetImageSbomNativeJson``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -1044,13 +985,8 @@ func main() {
     xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
 
     configuration := openapiclient.NewConfiguration()
-<<<<<<< HEAD
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.ImagesApi.GetImageSbomSpdxJson(context.Background(), imageDigest).XAnchoreAccount(xAnchoreAccount).Execute()
-=======
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.ImagesApi.GetImageSbomSpdxJson(context.Background(), imageDigest).XAnchoreAccount(xAnchoreAccount).Execute()
->>>>>>> main
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ImagesApi.GetImageSbomSpdxJson``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -1123,13 +1059,8 @@ func main() {
     xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
 
     configuration := openapiclient.NewConfiguration()
-<<<<<<< HEAD
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.ImagesApi.GetImageVulnerabilitiesByDigest(context.Background(), imageDigest, vulnType).ForceRefresh(forceRefresh).VendorOnly(vendorOnly).BaseDigest(baseDigest).XAnchoreAccount(xAnchoreAccount).Execute()
-=======
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.ImagesApi.GetImageVulnerabilitiesByDigest(context.Background(), imageDigest, vulnType).ForceRefresh(forceRefresh).VendorOnly(vendorOnly).BaseDigest(baseDigest).XAnchoreAccount(xAnchoreAccount).Execute()
->>>>>>> main
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ImagesApi.GetImageVulnerabilitiesByDigest``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -1203,13 +1134,8 @@ func main() {
     xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
 
     configuration := openapiclient.NewConfiguration()
-<<<<<<< HEAD
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.ImagesApi.GetImageVulnerabilityTypes(context.Background(), imageDigest).XAnchoreAccount(xAnchoreAccount).Execute()
-=======
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.ImagesApi.GetImageVulnerabilityTypes(context.Background(), imageDigest).XAnchoreAccount(xAnchoreAccount).Execute()
->>>>>>> main
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ImagesApi.GetImageVulnerabilityTypes``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -1278,13 +1204,8 @@ func main() {
     xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
 
     configuration := openapiclient.NewConfiguration()
-<<<<<<< HEAD
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.ImagesApi.ListImageContent(context.Background(), imageDigest).XAnchoreAccount(xAnchoreAccount).Execute()
-=======
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.ImagesApi.ListImageContent(context.Background(), imageDigest).XAnchoreAccount(xAnchoreAccount).Execute()
->>>>>>> main
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ImagesApi.ListImageContent``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -1353,13 +1274,8 @@ func main() {
     xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
 
     configuration := openapiclient.NewConfiguration()
-<<<<<<< HEAD
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.ImagesApi.ListImageMetadata(context.Background(), imageDigest).XAnchoreAccount(xAnchoreAccount).Execute()
-=======
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.ImagesApi.ListImageMetadata(context.Background(), imageDigest).XAnchoreAccount(xAnchoreAccount).Execute()
->>>>>>> main
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ImagesApi.ListImageMetadata``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -1434,13 +1350,8 @@ func main() {
     xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
 
     configuration := openapiclient.NewConfiguration()
-<<<<<<< HEAD
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.ImagesApi.ListImages(context.Background()).ImageId(imageId).History(history).FullTag(fullTag).ImageStatus(imageStatus).AnalysisStatus(analysisStatus).XAnchoreAccount(xAnchoreAccount).Execute()
-=======
-    api_client := openapiclient.NewAPIClient(configuration)
-    resp, r, err := api_client.ImagesApi.ListImages(context.Background()).ImageId(imageId).History(history).FullTag(fullTag).ImageStatus(imageStatus).AnalysisStatus(analysisStatus).XAnchoreAccount(xAnchoreAccount).Execute()
->>>>>>> main
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ImagesApi.ListImages``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)

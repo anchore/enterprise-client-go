@@ -20,11 +20,7 @@ type NativeSBOMPackageRelationship struct {
 	Parent string `json:"parent"`
 	Child string `json:"child"`
 	Type string `json:"type"`
-<<<<<<< HEAD
 	Metadata map[string]interface{} `json:"metadata,omitempty"`
-=======
-	Metadata *map[string]interface{} `json:"metadata,omitempty"`
->>>>>>> main
 	AdditionalProperties map[string]interface{}
 }
 
@@ -133,11 +129,7 @@ func (o *NativeSBOMPackageRelationship) GetMetadata() map[string]interface{} {
 
 // GetMetadataOk returns a tuple with the Metadata field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-<<<<<<< HEAD
 func (o *NativeSBOMPackageRelationship) GetMetadataOk() (map[string]interface{}, bool) {
-=======
-func (o *NativeSBOMPackageRelationship) GetMetadataOk() (*map[string]interface{}, bool) {
->>>>>>> main
 	if o == nil || o.Metadata == nil {
 		return nil, false
 	}
@@ -155,11 +147,7 @@ func (o *NativeSBOMPackageRelationship) HasMetadata() bool {
 
 // SetMetadata gets a reference to the given map[string]interface{} and assigns it to the Metadata field.
 func (o *NativeSBOMPackageRelationship) SetMetadata(v map[string]interface{}) {
-<<<<<<< HEAD
 	o.Metadata = v
-=======
-	o.Metadata = &v
->>>>>>> main
 }
 
 func (o NativeSBOMPackageRelationship) MarshalJSON() ([]byte, error) {

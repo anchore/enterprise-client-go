@@ -4,11 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-<<<<<<< HEAD
 **Tasks** | Pointer to [**[]ECSTasksTasksInner**](ECSTasksTasksInner.md) |  | [optional] 
-=======
-**Tasks** | Pointer to [**[]ECSTasksTasks**](ECSTasksTasks.md) |  | [optional] 
->>>>>>> main
 
 ## Methods
 
@@ -31,32 +27,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetTasks
 
-<<<<<<< HEAD
 `func (o *ECSTasks) GetTasks() []ECSTasksTasksInner`
-=======
-`func (o *ECSTasks) GetTasks() []ECSTasksTasks`
->>>>>>> main
 
 GetTasks returns the Tasks field if non-nil, zero value otherwise.
 
 ### GetTasksOk
 
-<<<<<<< HEAD
 `func (o *ECSTasks) GetTasksOk() (*[]ECSTasksTasksInner, bool)`
-=======
-`func (o *ECSTasks) GetTasksOk() (*[]ECSTasksTasks, bool)`
->>>>>>> main
 
 GetTasksOk returns a tuple with the Tasks field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTasks
 
-<<<<<<< HEAD
 `func (o *ECSTasks) SetTasks(v []ECSTasksTasksInner)`
-=======
-`func (o *ECSTasks) SetTasks(v []ECSTasksTasks)`
->>>>>>> main
 
 SetTasks sets Tasks field to given value.
 

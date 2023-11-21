@@ -63,11 +63,7 @@ func (o *NotificationSMTPEndpointConfigurationAllOf) GetHost() string {
 // GetHostOk returns a tuple with the Host field value
 // and a boolean to check if the value has been set.
 func (o *NotificationSMTPEndpointConfigurationAllOf) GetHostOk() (*string, bool) {
-<<<<<<< HEAD
 	if o == nil {
-=======
-	if o == nil  {
->>>>>>> main
 		return nil, false
 	}
 	return &o.Host, true
@@ -91,11 +87,7 @@ func (o *NotificationSMTPEndpointConfigurationAllOf) GetPort() int32 {
 // GetPortOk returns a tuple with the Port field value
 // and a boolean to check if the value has been set.
 func (o *NotificationSMTPEndpointConfigurationAllOf) GetPortOk() (*int32, bool) {
-<<<<<<< HEAD
 	if o == nil {
-=======
-	if o == nil  {
->>>>>>> main
 		return nil, false
 	}
 	return &o.Port, true
@@ -215,11 +207,7 @@ func (o *NotificationSMTPEndpointConfigurationAllOf) GetFrom() string {
 // GetFromOk returns a tuple with the From field value
 // and a boolean to check if the value has been set.
 func (o *NotificationSMTPEndpointConfigurationAllOf) GetFromOk() (*string, bool) {
-<<<<<<< HEAD
 	if o == nil {
-=======
-	if o == nil  {
->>>>>>> main
 		return nil, false
 	}
 	return &o.From, true
@@ -243,11 +231,7 @@ func (o *NotificationSMTPEndpointConfigurationAllOf) GetTo() string {
 // GetToOk returns a tuple with the To field value
 // and a boolean to check if the value has been set.
 func (o *NotificationSMTPEndpointConfigurationAllOf) GetToOk() (*string, bool) {
-<<<<<<< HEAD
 	if o == nil {
-=======
-	if o == nil  {
->>>>>>> main
 		return nil, false
 	}
 	return &o.To, true

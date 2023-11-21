@@ -1,10 +1,6 @@
 # \CorrectionsApi
 
-<<<<<<< HEAD
 All URIs are relative to */v2*
-=======
-All URIs are relative to *http://localhost/v2*
->>>>>>> main
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------

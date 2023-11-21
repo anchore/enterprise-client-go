@@ -18,11 +18,7 @@ import (
 // PolicyEvaluationRemediation struct for PolicyEvaluationRemediation
 type PolicyEvaluationRemediation struct {
 	// Anchore generated options for resolving a finding
-<<<<<<< HEAD
 	Suggestions []PolicyEvaluationRemediationSuggestionsInner `json:"suggestions"`
-=======
-	Suggestions []PolicyEvaluationRemediationSuggestions `json:"suggestions"`
->>>>>>> main
 	// List of trigger IDs that these remediation suggestions apply to
 	TriggerIds []string `json:"trigger_ids"`
 }
@@ -31,11 +27,7 @@ type PolicyEvaluationRemediation struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-<<<<<<< HEAD
 func NewPolicyEvaluationRemediation(suggestions []PolicyEvaluationRemediationSuggestionsInner, triggerIds []string) *PolicyEvaluationRemediation {
-=======
-func NewPolicyEvaluationRemediation(suggestions []PolicyEvaluationRemediationSuggestions, triggerIds []string) *PolicyEvaluationRemediation {
->>>>>>> main
 	this := PolicyEvaluationRemediation{}
 	this.Suggestions = suggestions
 	this.TriggerIds = triggerIds
@@ -51,15 +43,9 @@ func NewPolicyEvaluationRemediationWithDefaults() *PolicyEvaluationRemediation {
 }
 
 // GetSuggestions returns the Suggestions field value
-<<<<<<< HEAD
 func (o *PolicyEvaluationRemediation) GetSuggestions() []PolicyEvaluationRemediationSuggestionsInner {
 	if o == nil {
 		var ret []PolicyEvaluationRemediationSuggestionsInner
-=======
-func (o *PolicyEvaluationRemediation) GetSuggestions() []PolicyEvaluationRemediationSuggestions {
-	if o == nil {
-		var ret []PolicyEvaluationRemediationSuggestions
->>>>>>> main
 		return ret
 	}
 
@@ -68,7 +54,6 @@ func (o *PolicyEvaluationRemediation) GetSuggestions() []PolicyEvaluationRemedia
 
 // GetSuggestionsOk returns a tuple with the Suggestions field value
 // and a boolean to check if the value has been set.
-<<<<<<< HEAD
 func (o *PolicyEvaluationRemediation) GetSuggestionsOk() ([]PolicyEvaluationRemediationSuggestionsInner, bool) {
 	if o == nil {
 		return nil, false
@@ -78,17 +63,6 @@ func (o *PolicyEvaluationRemediation) GetSuggestionsOk() ([]PolicyEvaluationReme
 
 // SetSuggestions sets field value
 func (o *PolicyEvaluationRemediation) SetSuggestions(v []PolicyEvaluationRemediationSuggestionsInner) {
-=======
-func (o *PolicyEvaluationRemediation) GetSuggestionsOk() (*[]PolicyEvaluationRemediationSuggestions, bool) {
-	if o == nil  {
-		return nil, false
-	}
-	return &o.Suggestions, true
-}
-
-// SetSuggestions sets field value
-func (o *PolicyEvaluationRemediation) SetSuggestions(v []PolicyEvaluationRemediationSuggestions) {
->>>>>>> main
 	o.Suggestions = v
 }
 
@@ -104,19 +78,11 @@ func (o *PolicyEvaluationRemediation) GetTriggerIds() []string {
 
 // GetTriggerIdsOk returns a tuple with the TriggerIds field value
 // and a boolean to check if the value has been set.
-<<<<<<< HEAD
 func (o *PolicyEvaluationRemediation) GetTriggerIdsOk() ([]string, bool) {
 	if o == nil {
 		return nil, false
 	}
 	return o.TriggerIds, true
-=======
-func (o *PolicyEvaluationRemediation) GetTriggerIdsOk() (*[]string, bool) {
-	if o == nil  {
-		return nil, false
-	}
-	return &o.TriggerIds, true
->>>>>>> main
 }
 
 // SetTriggerIds sets field value

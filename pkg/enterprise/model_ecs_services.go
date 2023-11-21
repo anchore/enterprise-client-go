@@ -17,11 +17,7 @@ import (
 
 // ECSServices Services defined in ECS
 type ECSServices struct {
-<<<<<<< HEAD
 	Services []ECSServicesServicesInner `json:"services,omitempty"`
-=======
-	Services *[]ECSServicesServices `json:"services,omitempty"`
->>>>>>> main
 }
 
 // NewECSServices instantiates a new ECSServices object
@@ -42,30 +38,17 @@ func NewECSServicesWithDefaults() *ECSServices {
 }
 
 // GetServices returns the Services field value if set, zero value otherwise.
-<<<<<<< HEAD
 func (o *ECSServices) GetServices() []ECSServicesServicesInner {
 	if o == nil || o.Services == nil {
 		var ret []ECSServicesServicesInner
 		return ret
 	}
 	return o.Services
-=======
-func (o *ECSServices) GetServices() []ECSServicesServices {
-	if o == nil || o.Services == nil {
-		var ret []ECSServicesServices
-		return ret
-	}
-	return *o.Services
->>>>>>> main
 }
 
 // GetServicesOk returns a tuple with the Services field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-<<<<<<< HEAD
 func (o *ECSServices) GetServicesOk() ([]ECSServicesServicesInner, bool) {
-=======
-func (o *ECSServices) GetServicesOk() (*[]ECSServicesServices, bool) {
->>>>>>> main
 	if o == nil || o.Services == nil {
 		return nil, false
 	}
@@ -81,15 +64,9 @@ func (o *ECSServices) HasServices() bool {
 	return false
 }
 
-<<<<<<< HEAD
 // SetServices gets a reference to the given []ECSServicesServicesInner and assigns it to the Services field.
 func (o *ECSServices) SetServices(v []ECSServicesServicesInner) {
 	o.Services = v
-=======
-// SetServices gets a reference to the given []ECSServicesServices and assigns it to the Services field.
-func (o *ECSServices) SetServices(v []ECSServicesServices) {
-	o.Services = &v
->>>>>>> main
 }
 
 func (o ECSServices) MarshalJSON() ([]byte, error) {

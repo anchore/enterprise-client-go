@@ -148,11 +148,7 @@ func (o *RbacManagerApiErrorResponse) GetDetail() interface{} {
 
 // GetDetailOk returns a tuple with the Detail field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-<<<<<<< HEAD
 func (o *RbacManagerApiErrorResponse) GetDetailOk() (interface{}, bool) {
-=======
-func (o *RbacManagerApiErrorResponse) GetDetailOk() (*interface{}, bool) {
->>>>>>> main
 	if o == nil || o.Detail == nil {
 		return nil, false
 	}
@@ -170,11 +166,7 @@ func (o *RbacManagerApiErrorResponse) HasDetail() bool {
 
 // SetDetail gets a reference to the given interface{} and assigns it to the Detail field.
 func (o *RbacManagerApiErrorResponse) SetDetail(v interface{}) {
-<<<<<<< HEAD
 	o.Detail = v
-=======
-	o.Detail = &v
->>>>>>> main
 }
 
 func (o RbacManagerApiErrorResponse) MarshalJSON() ([]byte, error) {

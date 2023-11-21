@@ -58,11 +58,7 @@ func (o *NotificationEventSelector) GetLevel() string {
 // GetLevelOk returns a tuple with the Level field value
 // and a boolean to check if the value has been set.
 func (o *NotificationEventSelector) GetLevelOk() (*string, bool) {
-<<<<<<< HEAD
 	if o == nil {
-=======
-	if o == nil  {
->>>>>>> main
 		return nil, false
 	}
 	return &o.Level, true
@@ -86,11 +82,7 @@ func (o *NotificationEventSelector) GetResourceType() string {
 // GetResourceTypeOk returns a tuple with the ResourceType field value
 // and a boolean to check if the value has been set.
 func (o *NotificationEventSelector) GetResourceTypeOk() (*string, bool) {
-<<<<<<< HEAD
 	if o == nil {
-=======
-	if o == nil  {
->>>>>>> main
 		return nil, false
 	}
 	return &o.ResourceType, true
@@ -114,11 +106,7 @@ func (o *NotificationEventSelector) GetType() string {
 // GetTypeOk returns a tuple with the Type field value
 // and a boolean to check if the value has been set.
 func (o *NotificationEventSelector) GetTypeOk() (*string, bool) {
-<<<<<<< HEAD
 	if o == nil {
-=======
-	if o == nil  {
->>>>>>> main
 		return nil, false
 	}
 	return &o.Type, true

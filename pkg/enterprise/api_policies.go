@@ -35,11 +35,7 @@ type PoliciesApi interface {
 
 	// AddPolicyExecute executes the request
 	//  @return PolicyRecord
-<<<<<<< HEAD
 	AddPolicyExecute(r ApiAddPolicyRequest) (*PolicyRecord, *http.Response, error)
-=======
-	AddPolicyExecute(r ApiAddPolicyRequest) (PolicyRecord, *_nethttp.Response, error)
->>>>>>> main
 
 	/*
 	DeletePolicy Delete policy
@@ -68,11 +64,7 @@ type PoliciesApi interface {
 
 	// GetPolicyExecute executes the request
 	//  @return PolicyRecord
-<<<<<<< HEAD
 	GetPolicyExecute(r ApiGetPolicyRequest) (*PolicyRecord, *http.Response, error)
-=======
-	GetPolicyExecute(r ApiGetPolicyRequest) (PolicyRecord, *_nethttp.Response, error)
->>>>>>> main
 
 	/*
 	ListPolicies List policies
@@ -86,11 +78,7 @@ type PoliciesApi interface {
 
 	// ListPoliciesExecute executes the request
 	//  @return []PolicyRecord
-<<<<<<< HEAD
 	ListPoliciesExecute(r ApiListPoliciesRequest) ([]PolicyRecord, *http.Response, error)
-=======
-	ListPoliciesExecute(r ApiListPoliciesRequest) ([]PolicyRecord, *_nethttp.Response, error)
->>>>>>> main
 
 	/*
 	UpdatePolicy Update policy
@@ -105,11 +93,7 @@ type PoliciesApi interface {
 
 	// UpdatePolicyExecute executes the request
 	//  @return PolicyRecord
-<<<<<<< HEAD
 	UpdatePolicyExecute(r ApiUpdatePolicyRequest) (*PolicyRecord, *http.Response, error)
-=======
-	UpdatePolicyExecute(r ApiUpdatePolicyRequest) (PolicyRecord, *_nethttp.Response, error)
->>>>>>> main
 }
 
 // PoliciesApiService PoliciesApi service
@@ -133,11 +117,7 @@ func (r ApiAddPolicyRequest) XAnchoreAccount(xAnchoreAccount string) ApiAddPolic
 	return r
 }
 
-<<<<<<< HEAD
 func (r ApiAddPolicyRequest) Execute() (*PolicyRecord, *http.Response, error) {
-=======
-func (r ApiAddPolicyRequest) Execute() (PolicyRecord, *_nethttp.Response, error) {
->>>>>>> main
 	return r.ApiService.AddPolicyExecute(r)
 }
 
@@ -158,23 +138,12 @@ func (a *PoliciesApiService) AddPolicy(ctx context.Context) ApiAddPolicyRequest 
 
 // Execute executes the request
 //  @return PolicyRecord
-<<<<<<< HEAD
 func (a *PoliciesApiService) AddPolicyExecute(r ApiAddPolicyRequest) (*PolicyRecord, *http.Response, error) {
-=======
-func (a *PoliciesApiService) AddPolicyExecute(r ApiAddPolicyRequest) (PolicyRecord, *_nethttp.Response, error) {
->>>>>>> main
 	var (
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
-<<<<<<< HEAD
 		formFiles            []formFile
 		localVarReturnValue  *PolicyRecord
-=======
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  PolicyRecord
->>>>>>> main
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PoliciesApiService.AddPolicy")
@@ -185,13 +154,8 @@ func (a *PoliciesApiService) AddPolicyExecute(r ApiAddPolicyRequest) (PolicyReco
 	localVarPath := localBasePath + "/policies"
 
 	localVarHeaderParams := make(map[string]string)
-<<<<<<< HEAD
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-=======
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
->>>>>>> main
 	if r.policy == nil {
 		return localVarReturnValue, nil, reportError("policy is required and must be specified")
 	}
@@ -218,11 +182,7 @@ func (a *PoliciesApiService) AddPolicyExecute(r ApiAddPolicyRequest) (PolicyReco
 	}
 	// body params
 	localVarPostBody = r.policy
-<<<<<<< HEAD
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-=======
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
->>>>>>> main
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -316,11 +276,7 @@ func (a *PoliciesApiService) DeletePolicyExecute(r ApiDeletePolicyRequest) (*htt
 	}
 
 	localVarPath := localBasePath + "/policies/{policy_id}"
-<<<<<<< HEAD
 	localVarPath = strings.Replace(localVarPath, "{"+"policy_id"+"}", url.PathEscape(parameterToString(r.policyId, "")), -1)
-=======
-	localVarPath = strings.Replace(localVarPath, "{"+"policy_id"+"}", _neturl.PathEscape(parameterToString(r.policyId, "")), -1)
->>>>>>> main
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -413,11 +369,7 @@ func (r ApiGetPolicyRequest) XAnchoreAccount(xAnchoreAccount string) ApiGetPolic
 	return r
 }
 
-<<<<<<< HEAD
 func (r ApiGetPolicyRequest) Execute() (*PolicyRecord, *http.Response, error) {
-=======
-func (r ApiGetPolicyRequest) Execute() (PolicyRecord, *_nethttp.Response, error) {
->>>>>>> main
 	return r.ApiService.GetPolicyExecute(r)
 }
 
@@ -440,23 +392,12 @@ func (a *PoliciesApiService) GetPolicy(ctx context.Context, policyId string) Api
 
 // Execute executes the request
 //  @return PolicyRecord
-<<<<<<< HEAD
 func (a *PoliciesApiService) GetPolicyExecute(r ApiGetPolicyRequest) (*PolicyRecord, *http.Response, error) {
-=======
-func (a *PoliciesApiService) GetPolicyExecute(r ApiGetPolicyRequest) (PolicyRecord, *_nethttp.Response, error) {
->>>>>>> main
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
-<<<<<<< HEAD
 		formFiles            []formFile
 		localVarReturnValue  *PolicyRecord
-=======
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  PolicyRecord
->>>>>>> main
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PoliciesApiService.GetPolicy")
@@ -465,11 +406,7 @@ func (a *PoliciesApiService) GetPolicyExecute(r ApiGetPolicyRequest) (PolicyReco
 	}
 
 	localVarPath := localBasePath + "/policies/{policy_id}"
-<<<<<<< HEAD
 	localVarPath = strings.Replace(localVarPath, "{"+"policy_id"+"}", url.PathEscape(parameterToString(r.policyId, "")), -1)
-=======
-	localVarPath = strings.Replace(localVarPath, "{"+"policy_id"+"}", _neturl.PathEscape(parameterToString(r.policyId, "")), -1)
->>>>>>> main
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -563,11 +500,7 @@ func (r ApiListPoliciesRequest) XAnchoreAccount(xAnchoreAccount string) ApiListP
 	return r
 }
 
-<<<<<<< HEAD
 func (r ApiListPoliciesRequest) Execute() ([]PolicyRecord, *http.Response, error) {
-=======
-func (r ApiListPoliciesRequest) Execute() ([]PolicyRecord, *_nethttp.Response, error) {
->>>>>>> main
 	return r.ApiService.ListPoliciesExecute(r)
 }
 
@@ -588,21 +521,11 @@ func (a *PoliciesApiService) ListPolicies(ctx context.Context) ApiListPoliciesRe
 
 // Execute executes the request
 //  @return []PolicyRecord
-<<<<<<< HEAD
 func (a *PoliciesApiService) ListPoliciesExecute(r ApiListPoliciesRequest) ([]PolicyRecord, *http.Response, error) {
-=======
-func (a *PoliciesApiService) ListPoliciesExecute(r ApiListPoliciesRequest) ([]PolicyRecord, *_nethttp.Response, error) {
->>>>>>> main
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
-<<<<<<< HEAD
 		formFiles            []formFile
-=======
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
->>>>>>> main
 		localVarReturnValue  []PolicyRecord
 	)
 
@@ -703,11 +626,7 @@ func (r ApiUpdatePolicyRequest) XAnchoreAccount(xAnchoreAccount string) ApiUpdat
 	return r
 }
 
-<<<<<<< HEAD
 func (r ApiUpdatePolicyRequest) Execute() (*PolicyRecord, *http.Response, error) {
-=======
-func (r ApiUpdatePolicyRequest) Execute() (PolicyRecord, *_nethttp.Response, error) {
->>>>>>> main
 	return r.ApiService.UpdatePolicyExecute(r)
 }
 
@@ -730,23 +649,12 @@ func (a *PoliciesApiService) UpdatePolicy(ctx context.Context, policyId string) 
 
 // Execute executes the request
 //  @return PolicyRecord
-<<<<<<< HEAD
 func (a *PoliciesApiService) UpdatePolicyExecute(r ApiUpdatePolicyRequest) (*PolicyRecord, *http.Response, error) {
-=======
-func (a *PoliciesApiService) UpdatePolicyExecute(r ApiUpdatePolicyRequest) (PolicyRecord, *_nethttp.Response, error) {
->>>>>>> main
 	var (
 		localVarHTTPMethod   = http.MethodPut
 		localVarPostBody     interface{}
-<<<<<<< HEAD
 		formFiles            []formFile
 		localVarReturnValue  *PolicyRecord
-=======
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  PolicyRecord
->>>>>>> main
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PoliciesApiService.UpdatePolicy")
@@ -755,19 +663,11 @@ func (a *PoliciesApiService) UpdatePolicyExecute(r ApiUpdatePolicyRequest) (Poli
 	}
 
 	localVarPath := localBasePath + "/policies/{policy_id}"
-<<<<<<< HEAD
 	localVarPath = strings.Replace(localVarPath, "{"+"policy_id"+"}", url.PathEscape(parameterToString(r.policyId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-=======
-	localVarPath = strings.Replace(localVarPath, "{"+"policy_id"+"}", _neturl.PathEscape(parameterToString(r.policyId, "")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
->>>>>>> main
 	if r.policy == nil {
 		return localVarReturnValue, nil, reportError("policy is required and must be specified")
 	}
@@ -797,11 +697,7 @@ func (a *PoliciesApiService) UpdatePolicyExecute(r ApiUpdatePolicyRequest) (Poli
 	}
 	// body params
 	localVarPostBody = r.policy
-<<<<<<< HEAD
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-=======
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
->>>>>>> main
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}

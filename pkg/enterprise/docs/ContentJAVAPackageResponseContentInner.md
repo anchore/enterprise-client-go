@@ -13,10 +13,7 @@ Name | Type | Description | Notes
 **Origin** | Pointer to **string** |  | [optional] 
 **Cpes** | Pointer to **[]string** | A list of Common Platform Enumerations that may uniquely identify the package | [optional] 
 **Purl** | Pointer to **string** |  | [optional] 
-<<<<<<< HEAD:pkg/enterprise/docs/ContentJAVAPackageResponseContentInner.md
 **Version** | Pointer to **string** |  | [optional] 
-=======
->>>>>>> main:pkg/enterprise/docs/ContentJAVAPackageResponseContent.md
 
 ## Methods
 
@@ -239,38 +236,25 @@ HasCpes returns a boolean if a field has been set.
 
 ### GetPurl
 
-<<<<<<< HEAD:pkg/enterprise/docs/ContentJAVAPackageResponseContentInner.md
 `func (o *ContentJAVAPackageResponseContentInner) GetPurl() string`
-=======
-`func (o *ContentJAVAPackageResponseContent) GetPurl() string`
->>>>>>> main:pkg/enterprise/docs/ContentJAVAPackageResponseContent.md
 
 GetPurl returns the Purl field if non-nil, zero value otherwise.
 
 ### GetPurlOk
 
-<<<<<<< HEAD:pkg/enterprise/docs/ContentJAVAPackageResponseContentInner.md
 `func (o *ContentJAVAPackageResponseContentInner) GetPurlOk() (*string, bool)`
-=======
-`func (o *ContentJAVAPackageResponseContent) GetPurlOk() (*string, bool)`
->>>>>>> main:pkg/enterprise/docs/ContentJAVAPackageResponseContent.md
 
 GetPurlOk returns a tuple with the Purl field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetPurl
 
-<<<<<<< HEAD:pkg/enterprise/docs/ContentJAVAPackageResponseContentInner.md
 `func (o *ContentJAVAPackageResponseContentInner) SetPurl(v string)`
-=======
-`func (o *ContentJAVAPackageResponseContent) SetPurl(v string)`
->>>>>>> main:pkg/enterprise/docs/ContentJAVAPackageResponseContent.md
 
 SetPurl sets Purl field to given value.
 
 ### HasPurl
 
-<<<<<<< HEAD:pkg/enterprise/docs/ContentJAVAPackageResponseContentInner.md
 `func (o *ContentJAVAPackageResponseContentInner) HasPurl() bool`
 
 HasPurl returns a boolean if a field has been set.
@@ -300,12 +284,6 @@ SetVersion sets Version field to given value.
 
 HasVersion returns a boolean if a field has been set.
 
-=======
-`func (o *ContentJAVAPackageResponseContent) HasPurl() bool`
-
-HasPurl returns a boolean if a field has been set.
-
->>>>>>> main:pkg/enterprise/docs/ContentJAVAPackageResponseContent.md
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

@@ -35,11 +35,7 @@ type SourcePolicyEvaluationFinding struct {
 	RuleId *string `json:"rule_id,omitempty"`
 	// Indicates if this finding was allowlisted or not
 	Allowlisted *bool `json:"allowlisted,omitempty"`
-<<<<<<< HEAD
 	AllowlistMatch *PolicyEvaluationFindingAllowlistMatch `json:"allowlist_match,omitempty"`
-=======
-	AllowlistMatch NullablePolicyEvaluationFindingAllowlistMatch `json:"allowlist_match,omitempty"`
->>>>>>> main
 }
 
 // NewSourcePolicyEvaluationFinding instantiates a new SourcePolicyEvaluationFinding object
@@ -347,7 +343,6 @@ func (o *SourcePolicyEvaluationFinding) SetAllowlisted(v bool) {
 	o.Allowlisted = &v
 }
 
-<<<<<<< HEAD
 // GetAllowlistMatch returns the AllowlistMatch field value if set, zero value otherwise.
 func (o *SourcePolicyEvaluationFinding) GetAllowlistMatch() PolicyEvaluationFindingAllowlistMatch {
 	if o == nil || o.AllowlistMatch == nil {
@@ -355,66 +350,29 @@ func (o *SourcePolicyEvaluationFinding) GetAllowlistMatch() PolicyEvaluationFind
 		return ret
 	}
 	return *o.AllowlistMatch
-=======
-// GetAllowlistMatch returns the AllowlistMatch field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *SourcePolicyEvaluationFinding) GetAllowlistMatch() PolicyEvaluationFindingAllowlistMatch {
-	if o == nil || o.AllowlistMatch.Get() == nil {
-		var ret PolicyEvaluationFindingAllowlistMatch
-		return ret
-	}
-	return *o.AllowlistMatch.Get()
->>>>>>> main
 }
 
 // GetAllowlistMatchOk returns a tuple with the AllowlistMatch field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-<<<<<<< HEAD
 func (o *SourcePolicyEvaluationFinding) GetAllowlistMatchOk() (*PolicyEvaluationFindingAllowlistMatch, bool) {
 	if o == nil || o.AllowlistMatch == nil {
 		return nil, false
 	}
 	return o.AllowlistMatch, true
-=======
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *SourcePolicyEvaluationFinding) GetAllowlistMatchOk() (*PolicyEvaluationFindingAllowlistMatch, bool) {
-	if o == nil  {
-		return nil, false
-	}
-	return o.AllowlistMatch.Get(), o.AllowlistMatch.IsSet()
->>>>>>> main
 }
 
 // HasAllowlistMatch returns a boolean if a field has been set.
 func (o *SourcePolicyEvaluationFinding) HasAllowlistMatch() bool {
-<<<<<<< HEAD
 	if o != nil && o.AllowlistMatch != nil {
-=======
-	if o != nil && o.AllowlistMatch.IsSet() {
->>>>>>> main
 		return true
 	}
 
 	return false
 }
 
-<<<<<<< HEAD
 // SetAllowlistMatch gets a reference to the given PolicyEvaluationFindingAllowlistMatch and assigns it to the AllowlistMatch field.
 func (o *SourcePolicyEvaluationFinding) SetAllowlistMatch(v PolicyEvaluationFindingAllowlistMatch) {
 	o.AllowlistMatch = &v
-=======
-// SetAllowlistMatch gets a reference to the given NullablePolicyEvaluationFindingAllowlistMatch and assigns it to the AllowlistMatch field.
-func (o *SourcePolicyEvaluationFinding) SetAllowlistMatch(v PolicyEvaluationFindingAllowlistMatch) {
-	o.AllowlistMatch.Set(&v)
-}
-// SetAllowlistMatchNil sets the value for AllowlistMatch to be an explicit nil
-func (o *SourcePolicyEvaluationFinding) SetAllowlistMatchNil() {
-	o.AllowlistMatch.Set(nil)
-}
-
-// UnsetAllowlistMatch ensures that no value is present for AllowlistMatch, not even an explicit nil
-func (o *SourcePolicyEvaluationFinding) UnsetAllowlistMatch() {
-	o.AllowlistMatch.Unset()
->>>>>>> main
 }
 
 func (o SourcePolicyEvaluationFinding) MarshalJSON() ([]byte, error) {
@@ -446,13 +404,8 @@ func (o SourcePolicyEvaluationFinding) MarshalJSON() ([]byte, error) {
 	if o.Allowlisted != nil {
 		toSerialize["allowlisted"] = o.Allowlisted
 	}
-<<<<<<< HEAD
 	if o.AllowlistMatch != nil {
 		toSerialize["allowlist_match"] = o.AllowlistMatch
-=======
-	if o.AllowlistMatch.IsSet() {
-		toSerialize["allowlist_match"] = o.AllowlistMatch.Get()
->>>>>>> main
 	}
 	return json.Marshal(toSerialize)
 }

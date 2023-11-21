@@ -287,42 +287,26 @@ HasMetadata returns a boolean if a field has been set.
 
 ### GetPurl
 
-<<<<<<<< HEAD:pkg/enterprise/docs/ContentPackageResponseContentInner.md
 `func (o *ContentPackageResponseContentInner) GetPurl() string`
-========
-`func (o *ContentPackageResponseContent) GetPurl() string`
->>>>>>>> main:pkg/enterprise/docs/ContentPackageResponseContent.md
 
 GetPurl returns the Purl field if non-nil, zero value otherwise.
 
 ### GetPurlOk
 
-<<<<<<<< HEAD:pkg/enterprise/docs/ContentPackageResponseContentInner.md
 `func (o *ContentPackageResponseContentInner) GetPurlOk() (*string, bool)`
-========
-`func (o *ContentPackageResponseContent) GetPurlOk() (*string, bool)`
->>>>>>>> main:pkg/enterprise/docs/ContentPackageResponseContent.md
 
 GetPurlOk returns a tuple with the Purl field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetPurl
 
-<<<<<<<< HEAD:pkg/enterprise/docs/ContentPackageResponseContentInner.md
 `func (o *ContentPackageResponseContentInner) SetPurl(v string)`
-========
-`func (o *ContentPackageResponseContent) SetPurl(v string)`
->>>>>>>> main:pkg/enterprise/docs/ContentPackageResponseContent.md
 
 SetPurl sets Purl field to given value.
 
 ### HasPurl
 
-<<<<<<<< HEAD:pkg/enterprise/docs/ContentPackageResponseContentInner.md
 `func (o *ContentPackageResponseContentInner) HasPurl() bool`
-========
-`func (o *ContentPackageResponseContent) HasPurl() bool`
->>>>>>>> main:pkg/enterprise/docs/ContentPackageResponseContent.md
 
 HasPurl returns a boolean if a field has been set.
 

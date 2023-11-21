@@ -18,13 +18,8 @@ import (
 // NativeSBOMSource struct for NativeSBOMSource
 type NativeSBOMSource struct {
 	Type string `json:"type"`
-<<<<<<< HEAD
 	Target map[string]interface{} `json:"target,omitempty"`
 	Metadata map[string]interface{} `json:"metadata,omitempty"`
-=======
-	Target *map[string]interface{} `json:"target,omitempty"`
-	Metadata *map[string]interface{} `json:"metadata,omitempty"`
->>>>>>> main
 	AdditionalProperties map[string]interface{}
 }
 
@@ -78,20 +73,12 @@ func (o *NativeSBOMSource) GetTarget() map[string]interface{} {
 		var ret map[string]interface{}
 		return ret
 	}
-<<<<<<< HEAD
 	return o.Target
-=======
-	return *o.Target
->>>>>>> main
 }
 
 // GetTargetOk returns a tuple with the Target field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-<<<<<<< HEAD
 func (o *NativeSBOMSource) GetTargetOk() (map[string]interface{}, bool) {
-=======
-func (o *NativeSBOMSource) GetTargetOk() (*map[string]interface{}, bool) {
->>>>>>> main
 	if o == nil || o.Target == nil {
 		return nil, false
 	}
@@ -109,43 +96,7 @@ func (o *NativeSBOMSource) HasTarget() bool {
 
 // SetTarget gets a reference to the given map[string]interface{} and assigns it to the Target field.
 func (o *NativeSBOMSource) SetTarget(v map[string]interface{}) {
-<<<<<<< HEAD
 	o.Target = v
-=======
-	o.Target = &v
-}
-
-// GetMetadata returns the Metadata field value if set, zero value otherwise.
-func (o *NativeSBOMSource) GetMetadata() map[string]interface{} {
-	if o == nil || o.Metadata == nil {
-		var ret map[string]interface{}
-		return ret
-	}
-	return *o.Metadata
-}
-
-// GetMetadataOk returns a tuple with the Metadata field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *NativeSBOMSource) GetMetadataOk() (*map[string]interface{}, bool) {
-	if o == nil || o.Metadata == nil {
-		return nil, false
-	}
-	return o.Metadata, true
-}
-
-// HasMetadata returns a boolean if a field has been set.
-func (o *NativeSBOMSource) HasMetadata() bool {
-	if o != nil && o.Metadata != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetMetadata gets a reference to the given map[string]interface{} and assigns it to the Metadata field.
-func (o *NativeSBOMSource) SetMetadata(v map[string]interface{}) {
-	o.Metadata = &v
->>>>>>> main
 }
 
 // GetMetadata returns the Metadata field value if set, zero value otherwise.

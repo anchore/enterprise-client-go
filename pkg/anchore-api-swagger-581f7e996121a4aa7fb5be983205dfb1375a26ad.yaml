@@ -11872,22 +11872,22 @@ components:
                 description: Whether the evaluated image matched an allowlist rule
               matched_allowlisted_images_rule:
                 anyOf:
-                - $ref: '#/components/schemas/ImageSelectionRule'
                 - $ref: '#/components/schemas/NullType'
+                - $ref: '#/components/schemas/ImageSelectionRule'
               image_denylisted:
                 type: boolean
                 description: Whether the evaluated image matched a denylist rule
               matched_denylisted_images_rule:
                 anyOf:
-                - $ref: '#/components/schemas/ImageSelectionRule'
                 - $ref: '#/components/schemas/NullType'
+                - $ref: '#/components/schemas/ImageSelectionRule'
               image_mapped_to_rule:
                 type: boolean
                 description: Whether the evaluated image matched a policy rule
               matched_mapping_rule:
                 anyOf:
-                - $ref: '#/components/schemas/MappingRule'
                 - $ref: '#/components/schemas/NullType'
+                - $ref: '#/components/schemas/MappingRule'
               number_of_findings:
                 type: integer
                 description: Number of policy findings in the response
@@ -11939,8 +11939,8 @@ components:
           description: Indicates if this finding was allowlisted or not
         allowlist_match:
           anyOf:
-          - $ref: '#/components/schemas/PolicyEvaluationFindingAllowlistMatch'
           - $ref: '#/components/schemas/NullType'
+          - $ref: '#/components/schemas/PolicyEvaluationFindingAllowlistMatch'
         inherited_from_base:
           type: boolean
           description: Indicates if this finding was found in the base image
@@ -12044,8 +12044,8 @@ components:
           description: Source location of where the policy originated
         policy:
           anyOf:
-          - $ref: '#/components/schemas/Policy'
           - $ref: '#/components/schemas/NullType'
+          - $ref: '#/components/schemas/Policy'
         name:
           type: string
           description: Name of the policy
@@ -12053,195 +12053,6 @@ components:
           type: string
           description: Description of the policy, human readable
       description: A policy plus some metadata
-      example:
-        account_name: account_name
-        active: true
-        created_at: '2000-01-23T04:56:07.000+00:00'
-        description: description
-        last_updated: '2000-01-23T04:56:07.000+00:00'
-        name: name
-        policy:
-          allowlisted_images:
-          - description: description
-            id: id
-            image:
-              type: tag
-              value: value
-            name: name
-            registry: registry
-            repository: repository
-          - description: description
-            id: id
-            image:
-              type: tag
-              value: value
-            name: name
-            registry: registry
-            repository: repository
-          allowlists:
-          - description: description
-            id: id
-            items:
-            - description: description
-              expires_on: '2000-01-23T04:56:07.000+00:00'
-              gate: gate
-              id: id
-              trigger_id: trigger_id
-            - description: description
-              expires_on: '2000-01-23T04:56:07.000+00:00'
-              gate: gate
-              id: id
-              trigger_id: trigger_id
-            name: name
-            version: version
-          - description: description
-            id: id
-            items:
-            - description: description
-              expires_on: '2000-01-23T04:56:07.000+00:00'
-              gate: gate
-              id: id
-              trigger_id: trigger_id
-            - description: description
-              expires_on: '2000-01-23T04:56:07.000+00:00'
-              gate: gate
-              id: id
-              trigger_id: trigger_id
-            name: name
-            version: version
-          denylisted_images:
-          - description: description
-            id: id
-            image:
-              type: tag
-              value: value
-            name: name
-            registry: registry
-            repository: repository
-          - description: description
-            id: id
-            image:
-              type: tag
-              value: value
-            name: name
-            registry: registry
-            repository: repository
-          description: description
-          id: id
-          last_updated: 0.8008282
-          mappings:
-          - allowlist_ids:
-            - allowlist_ids
-            - allowlist_ids
-            description: description
-            id: id
-            image:
-              type: tag
-              value: value
-            name: name
-            registry: registry
-            repository: repository
-            rule_set_ids:
-            - rule_set_ids
-            - rule_set_ids
-          - allowlist_ids:
-            - allowlist_ids
-            - allowlist_ids
-            description: description
-            id: id
-            image:
-              type: tag
-              value: value
-            name: name
-            registry: registry
-            repository: repository
-            rule_set_ids:
-            - rule_set_ids
-            - rule_set_ids
-          name: name
-          rule_sets:
-          - artifact_type: image
-            description: description
-            id: id
-            name: name
-            rules:
-            - action: GO
-              description: description
-              gate: gate
-              id: id
-              params:
-              - name: name
-                value: value
-              - name: name
-                value: value
-              recommendation: recommendation
-              trigger: trigger
-            - action: GO
-              description: description
-              gate: gate
-              id: id
-              params:
-              - name: name
-                value: value
-              - name: name
-                value: value
-              recommendation: recommendation
-              trigger: trigger
-            version: version
-          - artifact_type: image
-            description: description
-            id: id
-            name: name
-            rules:
-            - action: GO
-              description: description
-              gate: gate
-              id: id
-              params:
-              - name: name
-                value: value
-              - name: name
-                value: value
-              recommendation: recommendation
-              trigger: trigger
-            - action: GO
-              description: description
-              gate: gate
-              id: id
-              params:
-              - name: name
-                value: value
-              - name: name
-                value: value
-              recommendation: recommendation
-              trigger: trigger
-            version: version
-          source_mappings:
-          - allowlist_ids:
-            - allowlist_ids
-            - allowlist_ids
-            description: description
-            host: host
-            id: id
-            name: name
-            repository: repository
-            rule_set_ids:
-            - rule_set_ids
-            - rule_set_ids
-          - allowlist_ids:
-            - allowlist_ids
-            - allowlist_ids
-            description: description
-            host: host
-            id: id
-            name: name
-            repository: repository
-            rule_set_ids:
-            - rule_set_ids
-            - rule_set_ids
-          version: version
-        policy_id: policy_id
-        policy_source: policy_source
     PolicyRule:
       required:
       - action
@@ -13290,8 +13101,8 @@ components:
           description: Indicates if this finding was allowlisted or not
         allowlist_match:
           anyOf:
-          - $ref: '#/components/schemas/PolicyEvaluationFindingAllowlistMatch'
           - $ref: '#/components/schemas/NullType'
+          - $ref: '#/components/schemas/PolicyEvaluationFindingAllowlistMatch'
     SourcesList:
       type: object
       properties:

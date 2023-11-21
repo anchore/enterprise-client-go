@@ -17,11 +17,7 @@ import (
 
 // KubernetesNamespaces Namespaces defined in Kubernetes
 type KubernetesNamespaces struct {
-<<<<<<< HEAD
 	Namespaces []KubernetesNamespace `json:"namespaces,omitempty"`
-=======
-	Namespaces *[]KubernetesNamespace `json:"namespaces,omitempty"`
->>>>>>> main
 }
 
 // NewKubernetesNamespaces instantiates a new KubernetesNamespaces object
@@ -47,20 +43,12 @@ func (o *KubernetesNamespaces) GetNamespaces() []KubernetesNamespace {
 		var ret []KubernetesNamespace
 		return ret
 	}
-<<<<<<< HEAD
 	return o.Namespaces
-=======
-	return *o.Namespaces
->>>>>>> main
 }
 
 // GetNamespacesOk returns a tuple with the Namespaces field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-<<<<<<< HEAD
 func (o *KubernetesNamespaces) GetNamespacesOk() ([]KubernetesNamespace, bool) {
-=======
-func (o *KubernetesNamespaces) GetNamespacesOk() (*[]KubernetesNamespace, bool) {
->>>>>>> main
 	if o == nil || o.Namespaces == nil {
 		return nil, false
 	}
@@ -78,11 +66,7 @@ func (o *KubernetesNamespaces) HasNamespaces() bool {
 
 // SetNamespaces gets a reference to the given []KubernetesNamespace and assigns it to the Namespaces field.
 func (o *KubernetesNamespaces) SetNamespaces(v []KubernetesNamespace) {
-<<<<<<< HEAD
 	o.Namespaces = v
-=======
-	o.Namespaces = &v
->>>>>>> main
 }
 
 func (o KubernetesNamespaces) MarshalJSON() ([]byte, error) {

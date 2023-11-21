@@ -20,15 +20,9 @@ import (
 type ECSInventory struct {
 	ClusterArn string `json:"cluster_arn"`
 	Timestamp time.Time `json:"timestamp"`
-<<<<<<< HEAD
 	Tasks []ECSInventoryTasksInner `json:"tasks,omitempty"`
 	Containers []ECSInventoryContainersInner `json:"containers,omitempty"`
 	Services []ECSInventoryServicesInner `json:"services,omitempty"`
-=======
-	Tasks []ECSInventoryTasks `json:"tasks,omitempty"`
-	Containers *[]ECSInventoryContainers `json:"containers,omitempty"`
-	Services []ECSInventoryServices `json:"services,omitempty"`
->>>>>>> main
 }
 
 // NewECSInventory instantiates a new ECSInventory object
@@ -63,11 +57,7 @@ func (o *ECSInventory) GetClusterArn() string {
 // GetClusterArnOk returns a tuple with the ClusterArn field value
 // and a boolean to check if the value has been set.
 func (o *ECSInventory) GetClusterArnOk() (*string, bool) {
-<<<<<<< HEAD
 	if o == nil {
-=======
-	if o == nil  {
->>>>>>> main
 		return nil, false
 	}
 	return &o.ClusterArn, true
@@ -91,11 +81,7 @@ func (o *ECSInventory) GetTimestamp() time.Time {
 // GetTimestampOk returns a tuple with the Timestamp field value
 // and a boolean to check if the value has been set.
 func (o *ECSInventory) GetTimestampOk() (*time.Time, bool) {
-<<<<<<< HEAD
 	if o == nil {
-=======
-	if o == nil  {
->>>>>>> main
 		return nil, false
 	}
 	return &o.Timestamp, true
@@ -107,15 +93,9 @@ func (o *ECSInventory) SetTimestamp(v time.Time) {
 }
 
 // GetTasks returns the Tasks field value if set, zero value otherwise (both if not set or set to explicit null).
-<<<<<<< HEAD
 func (o *ECSInventory) GetTasks() []ECSInventoryTasksInner {
 	if o == nil {
 		var ret []ECSInventoryTasksInner
-=======
-func (o *ECSInventory) GetTasks() []ECSInventoryTasks {
-	if o == nil  {
-		var ret []ECSInventoryTasks
->>>>>>> main
 		return ret
 	}
 	return o.Tasks
@@ -124,19 +104,11 @@ func (o *ECSInventory) GetTasks() []ECSInventoryTasks {
 // GetTasksOk returns a tuple with the Tasks field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-<<<<<<< HEAD
 func (o *ECSInventory) GetTasksOk() ([]ECSInventoryTasksInner, bool) {
 	if o == nil || o.Tasks == nil {
 		return nil, false
 	}
 	return o.Tasks, true
-=======
-func (o *ECSInventory) GetTasksOk() (*[]ECSInventoryTasks, bool) {
-	if o == nil || o.Tasks == nil {
-		return nil, false
-	}
-	return &o.Tasks, true
->>>>>>> main
 }
 
 // HasTasks returns a boolean if a field has been set.
@@ -148,41 +120,23 @@ func (o *ECSInventory) HasTasks() bool {
 	return false
 }
 
-<<<<<<< HEAD
 // SetTasks gets a reference to the given []ECSInventoryTasksInner and assigns it to the Tasks field.
 func (o *ECSInventory) SetTasks(v []ECSInventoryTasksInner) {
-=======
-// SetTasks gets a reference to the given []ECSInventoryTasks and assigns it to the Tasks field.
-func (o *ECSInventory) SetTasks(v []ECSInventoryTasks) {
->>>>>>> main
 	o.Tasks = v
 }
 
 // GetContainers returns the Containers field value if set, zero value otherwise.
-<<<<<<< HEAD
 func (o *ECSInventory) GetContainers() []ECSInventoryContainersInner {
 	if o == nil || o.Containers == nil {
 		var ret []ECSInventoryContainersInner
 		return ret
 	}
 	return o.Containers
-=======
-func (o *ECSInventory) GetContainers() []ECSInventoryContainers {
-	if o == nil || o.Containers == nil {
-		var ret []ECSInventoryContainers
-		return ret
-	}
-	return *o.Containers
->>>>>>> main
 }
 
 // GetContainersOk returns a tuple with the Containers field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-<<<<<<< HEAD
 func (o *ECSInventory) GetContainersOk() ([]ECSInventoryContainersInner, bool) {
-=======
-func (o *ECSInventory) GetContainersOk() (*[]ECSInventoryContainers, bool) {
->>>>>>> main
 	if o == nil || o.Containers == nil {
 		return nil, false
 	}
@@ -198,7 +152,6 @@ func (o *ECSInventory) HasContainers() bool {
 	return false
 }
 
-<<<<<<< HEAD
 // SetContainers gets a reference to the given []ECSInventoryContainersInner and assigns it to the Containers field.
 func (o *ECSInventory) SetContainers(v []ECSInventoryContainersInner) {
 	o.Containers = v
@@ -208,17 +161,6 @@ func (o *ECSInventory) SetContainers(v []ECSInventoryContainersInner) {
 func (o *ECSInventory) GetServices() []ECSInventoryServicesInner {
 	if o == nil {
 		var ret []ECSInventoryServicesInner
-=======
-// SetContainers gets a reference to the given []ECSInventoryContainers and assigns it to the Containers field.
-func (o *ECSInventory) SetContainers(v []ECSInventoryContainers) {
-	o.Containers = &v
-}
-
-// GetServices returns the Services field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *ECSInventory) GetServices() []ECSInventoryServices {
-	if o == nil  {
-		var ret []ECSInventoryServices
->>>>>>> main
 		return ret
 	}
 	return o.Services
@@ -227,19 +169,11 @@ func (o *ECSInventory) GetServices() []ECSInventoryServices {
 // GetServicesOk returns a tuple with the Services field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-<<<<<<< HEAD
 func (o *ECSInventory) GetServicesOk() ([]ECSInventoryServicesInner, bool) {
 	if o == nil || o.Services == nil {
 		return nil, false
 	}
 	return o.Services, true
-=======
-func (o *ECSInventory) GetServicesOk() (*[]ECSInventoryServices, bool) {
-	if o == nil || o.Services == nil {
-		return nil, false
-	}
-	return &o.Services, true
->>>>>>> main
 }
 
 // HasServices returns a boolean if a field has been set.
@@ -251,13 +185,8 @@ func (o *ECSInventory) HasServices() bool {
 	return false
 }
 
-<<<<<<< HEAD
 // SetServices gets a reference to the given []ECSInventoryServicesInner and assigns it to the Services field.
 func (o *ECSInventory) SetServices(v []ECSInventoryServicesInner) {
-=======
-// SetServices gets a reference to the given []ECSInventoryServices and assigns it to the Services field.
-func (o *ECSInventory) SetServices(v []ECSInventoryServices) {
->>>>>>> main
 	o.Services = v
 }
 

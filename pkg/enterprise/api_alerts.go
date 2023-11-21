@@ -73,19 +73,11 @@ type AlertsApi interface {
 
 	Idempotent op for changing the alert state to open or closed
 
-<<<<<<< HEAD
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param uuid Identifier for the alert
 	@return ApiUpdateComplianceViolationAlertStateRequest
 	*/
 	UpdateComplianceViolationAlertState(ctx context.Context, uuid string) ApiUpdateComplianceViolationAlertStateRequest
-=======
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @param uuid Identifier for the alert
-	 @return ApiUpdateComplianceViolationAlertStateRequest
-	*/
-	UpdateComplianceViolationAlertState(ctx _context.Context, uuid string) ApiUpdateComplianceViolationAlertStateRequest
->>>>>>> main
 
 	// UpdateComplianceViolationAlertStateExecute executes the request
 	//  @return ComplianceViolationAlert
@@ -330,11 +322,7 @@ func (a *AlertsApiService) GetComplianceViolationAlertExecute(r ApiGetCompliance
 	}
 
 	localVarPath := localBasePath + "/alerts/compliance-violations/{uuid}"
-<<<<<<< HEAD
 	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", url.PathEscape(parameterToString(r.uuid, "")), -1)
-=======
-	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", _neturl.PathEscape(parameterToString(r.uuid, "")), -1)
->>>>>>> main
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -606,10 +594,7 @@ func (r ApiUpdateComplianceViolationAlertStateRequest) Body(body ComplianceViola
 	r.body = &body
 	return r
 }
-<<<<<<< HEAD
 
-=======
->>>>>>> main
 // An account name to change the resource scope of the request to that account, if permissions allow (admin only)
 func (r ApiUpdateComplianceViolationAlertStateRequest) XAnchoreAccount(xAnchoreAccount string) ApiUpdateComplianceViolationAlertStateRequest {
 	r.xAnchoreAccount = &xAnchoreAccount
@@ -629,11 +614,7 @@ Idempotent op for changing the alert state to open or closed
  @param uuid Identifier for the alert
  @return ApiUpdateComplianceViolationAlertStateRequest
 */
-<<<<<<< HEAD
 func (a *AlertsApiService) UpdateComplianceViolationAlertState(ctx context.Context, uuid string) ApiUpdateComplianceViolationAlertStateRequest {
-=======
-func (a *AlertsApiService) UpdateComplianceViolationAlertState(ctx _context.Context, uuid string) ApiUpdateComplianceViolationAlertStateRequest {
->>>>>>> main
 	return ApiUpdateComplianceViolationAlertStateRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -645,11 +626,7 @@ func (a *AlertsApiService) UpdateComplianceViolationAlertState(ctx _context.Cont
 //  @return ComplianceViolationAlert
 func (a *AlertsApiService) UpdateComplianceViolationAlertStateExecute(r ApiUpdateComplianceViolationAlertStateRequest) (*ComplianceViolationAlert, *http.Response, error) {
 	var (
-<<<<<<< HEAD
 		localVarHTTPMethod   = http.MethodPatch
-=======
-		localVarHTTPMethod   = _nethttp.MethodPatch
->>>>>>> main
 		localVarPostBody     interface{}
 		formFiles            []formFile
 		localVarReturnValue  *ComplianceViolationAlert
@@ -661,19 +638,11 @@ func (a *AlertsApiService) UpdateComplianceViolationAlertStateExecute(r ApiUpdat
 	}
 
 	localVarPath := localBasePath + "/alerts/compliance-violations/{uuid}"
-<<<<<<< HEAD
 	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", url.PathEscape(parameterToString(r.uuid, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-=======
-	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", _neturl.PathEscape(parameterToString(r.uuid, "")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
->>>>>>> main
 	if r.body == nil {
 		return localVarReturnValue, nil, reportError("body is required and must be specified")
 	}
@@ -700,11 +669,7 @@ func (a *AlertsApiService) UpdateComplianceViolationAlertStateExecute(r ApiUpdat
 	}
 	// body params
 	localVarPostBody = r.body
-<<<<<<< HEAD
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-=======
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
->>>>>>> main
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}

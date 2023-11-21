@@ -20,11 +20,7 @@ type ImageAnalysisRequest struct {
 	// Optional. The type of image this is adding, defaults to \"docker\".
 	ImageType *string `json:"image_type,omitempty"`
 	// Annotations to be associated with the added image in key/value form
-<<<<<<< HEAD
 	Annotations interface{} `json:"annotations,omitempty"`
-=======
-	Annotations *interface{} `json:"annotations,omitempty"`
->>>>>>> main
 	Source *ImageSource `json:"source,omitempty"`
 }
 
@@ -83,20 +79,12 @@ func (o *ImageAnalysisRequest) GetAnnotations() interface{} {
 		var ret interface{}
 		return ret
 	}
-<<<<<<< HEAD
 	return o.Annotations
-=======
-	return *o.Annotations
->>>>>>> main
 }
 
 // GetAnnotationsOk returns a tuple with the Annotations field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-<<<<<<< HEAD
 func (o *ImageAnalysisRequest) GetAnnotationsOk() (interface{}, bool) {
-=======
-func (o *ImageAnalysisRequest) GetAnnotationsOk() (*interface{}, bool) {
->>>>>>> main
 	if o == nil || o.Annotations == nil {
 		return nil, false
 	}
@@ -114,11 +102,7 @@ func (o *ImageAnalysisRequest) HasAnnotations() bool {
 
 // SetAnnotations gets a reference to the given interface{} and assigns it to the Annotations field.
 func (o *ImageAnalysisRequest) SetAnnotations(v interface{}) {
-<<<<<<< HEAD
 	o.Annotations = v
-=======
-	o.Annotations = &v
->>>>>>> main
 }
 
 // GetSource returns the Source field value if set, zero value otherwise.

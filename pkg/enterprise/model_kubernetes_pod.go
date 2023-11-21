@@ -62,11 +62,7 @@ func (o *KubernetesPod) GetId() string {
 // GetIdOk returns a tuple with the Id field value
 // and a boolean to check if the value has been set.
 func (o *KubernetesPod) GetIdOk() (*string, bool) {
-<<<<<<< HEAD
 	if o == nil {
-=======
-	if o == nil  {
->>>>>>> main
 		return nil, false
 	}
 	return &o.Id, true
@@ -90,11 +86,7 @@ func (o *KubernetesPod) GetName() string {
 // GetNameOk returns a tuple with the Name field value
 // and a boolean to check if the value has been set.
 func (o *KubernetesPod) GetNameOk() (*string, bool) {
-<<<<<<< HEAD
 	if o == nil {
-=======
-	if o == nil  {
->>>>>>> main
 		return nil, false
 	}
 	return &o.Name, true
@@ -118,11 +110,7 @@ func (o *KubernetesPod) GetAccountName() string {
 // GetAccountNameOk returns a tuple with the AccountName field value
 // and a boolean to check if the value has been set.
 func (o *KubernetesPod) GetAccountNameOk() (*string, bool) {
-<<<<<<< HEAD
 	if o == nil {
-=======
-	if o == nil  {
->>>>>>> main
 		return nil, false
 	}
 	return &o.AccountName, true
@@ -146,11 +134,7 @@ func (o *KubernetesPod) GetLabels() map[string]string {
 // GetLabelsOk returns a tuple with the Labels field value
 // and a boolean to check if the value has been set.
 func (o *KubernetesPod) GetLabelsOk() (*map[string]string, bool) {
-<<<<<<< HEAD
 	if o == nil {
-=======
-	if o == nil  {
->>>>>>> main
 		return nil, false
 	}
 	return &o.Labels, true
@@ -174,11 +158,7 @@ func (o *KubernetesPod) GetAnnotations() map[string]string {
 // GetAnnotationsOk returns a tuple with the Annotations field value
 // and a boolean to check if the value has been set.
 func (o *KubernetesPod) GetAnnotationsOk() (*map[string]string, bool) {
-<<<<<<< HEAD
 	if o == nil {
-=======
-	if o == nil  {
->>>>>>> main
 		return nil, false
 	}
 	return &o.Annotations, true

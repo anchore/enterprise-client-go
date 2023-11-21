@@ -26,7 +26,6 @@ type Policy struct {
 	// Version id for this policy format
 	Version string `json:"version"`
 	// Allowlists which define which policy matches to disregard explicitly in the final policy decision
-<<<<<<< HEAD
 	Allowlists []Allowlist `json:"allowlists,omitempty"`
 	// Collections of policy rules which define the go/stop/warn status of an image using rule matches on image properties
 	RuleSets []RuleSet `json:"rule_sets"`
@@ -38,19 +37,6 @@ type Policy struct {
 	AllowlistedImages []ImageSelectionRule `json:"allowlisted_images,omitempty"`
 	// List of mapping rules that define which images should always result in a STOP/FAIL policy result regardless of policy content or presence in allowlisted_images
 	DenylistedImages []ImageSelectionRule `json:"denylisted_images,omitempty"`
-=======
-	Allowlists *[]Allowlist `json:"allowlists,omitempty"`
-	// Collections of policy rules which define the go/stop/warn status of an image using rule matches on image properties
-	RuleSets []RuleSet `json:"rule_sets"`
-	// Mapping rules for defining which policy and allowlist(s) to apply to a source based on a match of the host and repo name. Evaluated in order.
-	SourceMappings *[]SourceMappingRule `json:"source_mappings,omitempty"`
-	// Mapping rules for defining which policy and allowlist(s) to apply to an image based on a match of the image tag or id. Evaluated in order.
-	Mappings []MappingRule `json:"mappings"`
-	// List of mapping rules that define which images should always be passed (unless also on the denylist), regardless of policy result.
-	AllowlistedImages *[]ImageSelectionRule `json:"allowlisted_images,omitempty"`
-	// List of mapping rules that define which images should always result in a STOP/FAIL policy result regardless of policy content or presence in allowlisted_images
-	DenylistedImages *[]ImageSelectionRule `json:"denylisted_images,omitempty"`
->>>>>>> main
 	// The time at which the policy was last updated, informational only
 	LastUpdated *float32 `json:"last_updated,omitempty"`
 }
@@ -90,11 +76,7 @@ func (o *Policy) GetId() string {
 // GetIdOk returns a tuple with the Id field value
 // and a boolean to check if the value has been set.
 func (o *Policy) GetIdOk() (*string, bool) {
-<<<<<<< HEAD
 	if o == nil {
-=======
-	if o == nil  {
->>>>>>> main
 		return nil, false
 	}
 	return &o.Id, true
@@ -118,11 +100,7 @@ func (o *Policy) GetName() string {
 // GetNameOk returns a tuple with the Name field value
 // and a boolean to check if the value has been set.
 func (o *Policy) GetNameOk() (*string, bool) {
-<<<<<<< HEAD
 	if o == nil {
-=======
-	if o == nil  {
->>>>>>> main
 		return nil, false
 	}
 	return &o.Name, true
@@ -178,11 +156,7 @@ func (o *Policy) GetVersion() string {
 // GetVersionOk returns a tuple with the Version field value
 // and a boolean to check if the value has been set.
 func (o *Policy) GetVersionOk() (*string, bool) {
-<<<<<<< HEAD
 	if o == nil {
-=======
-	if o == nil  {
->>>>>>> main
 		return nil, false
 	}
 	return &o.Version, true
@@ -199,20 +173,12 @@ func (o *Policy) GetAllowlists() []Allowlist {
 		var ret []Allowlist
 		return ret
 	}
-<<<<<<< HEAD
 	return o.Allowlists
-=======
-	return *o.Allowlists
->>>>>>> main
 }
 
 // GetAllowlistsOk returns a tuple with the Allowlists field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-<<<<<<< HEAD
 func (o *Policy) GetAllowlistsOk() ([]Allowlist, bool) {
-=======
-func (o *Policy) GetAllowlistsOk() (*[]Allowlist, bool) {
->>>>>>> main
 	if o == nil || o.Allowlists == nil {
 		return nil, false
 	}
@@ -230,11 +196,7 @@ func (o *Policy) HasAllowlists() bool {
 
 // SetAllowlists gets a reference to the given []Allowlist and assigns it to the Allowlists field.
 func (o *Policy) SetAllowlists(v []Allowlist) {
-<<<<<<< HEAD
 	o.Allowlists = v
-=======
-	o.Allowlists = &v
->>>>>>> main
 }
 
 // GetRuleSets returns the RuleSets field value
@@ -249,19 +211,11 @@ func (o *Policy) GetRuleSets() []RuleSet {
 
 // GetRuleSetsOk returns a tuple with the RuleSets field value
 // and a boolean to check if the value has been set.
-<<<<<<< HEAD
 func (o *Policy) GetRuleSetsOk() ([]RuleSet, bool) {
 	if o == nil {
 		return nil, false
 	}
 	return o.RuleSets, true
-=======
-func (o *Policy) GetRuleSetsOk() (*[]RuleSet, bool) {
-	if o == nil  {
-		return nil, false
-	}
-	return &o.RuleSets, true
->>>>>>> main
 }
 
 // SetRuleSets sets field value
@@ -275,20 +229,12 @@ func (o *Policy) GetSourceMappings() []SourceMappingRule {
 		var ret []SourceMappingRule
 		return ret
 	}
-<<<<<<< HEAD
 	return o.SourceMappings
-=======
-	return *o.SourceMappings
->>>>>>> main
 }
 
 // GetSourceMappingsOk returns a tuple with the SourceMappings field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-<<<<<<< HEAD
 func (o *Policy) GetSourceMappingsOk() ([]SourceMappingRule, bool) {
-=======
-func (o *Policy) GetSourceMappingsOk() (*[]SourceMappingRule, bool) {
->>>>>>> main
 	if o == nil || o.SourceMappings == nil {
 		return nil, false
 	}
@@ -306,11 +252,7 @@ func (o *Policy) HasSourceMappings() bool {
 
 // SetSourceMappings gets a reference to the given []SourceMappingRule and assigns it to the SourceMappings field.
 func (o *Policy) SetSourceMappings(v []SourceMappingRule) {
-<<<<<<< HEAD
 	o.SourceMappings = v
-=======
-	o.SourceMappings = &v
->>>>>>> main
 }
 
 // GetMappings returns the Mappings field value
@@ -325,19 +267,11 @@ func (o *Policy) GetMappings() []MappingRule {
 
 // GetMappingsOk returns a tuple with the Mappings field value
 // and a boolean to check if the value has been set.
-<<<<<<< HEAD
 func (o *Policy) GetMappingsOk() ([]MappingRule, bool) {
 	if o == nil {
 		return nil, false
 	}
 	return o.Mappings, true
-=======
-func (o *Policy) GetMappingsOk() (*[]MappingRule, bool) {
-	if o == nil  {
-		return nil, false
-	}
-	return &o.Mappings, true
->>>>>>> main
 }
 
 // SetMappings sets field value
@@ -351,20 +285,12 @@ func (o *Policy) GetAllowlistedImages() []ImageSelectionRule {
 		var ret []ImageSelectionRule
 		return ret
 	}
-<<<<<<< HEAD
 	return o.AllowlistedImages
-=======
-	return *o.AllowlistedImages
->>>>>>> main
 }
 
 // GetAllowlistedImagesOk returns a tuple with the AllowlistedImages field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-<<<<<<< HEAD
 func (o *Policy) GetAllowlistedImagesOk() ([]ImageSelectionRule, bool) {
-=======
-func (o *Policy) GetAllowlistedImagesOk() (*[]ImageSelectionRule, bool) {
->>>>>>> main
 	if o == nil || o.AllowlistedImages == nil {
 		return nil, false
 	}
@@ -382,11 +308,7 @@ func (o *Policy) HasAllowlistedImages() bool {
 
 // SetAllowlistedImages gets a reference to the given []ImageSelectionRule and assigns it to the AllowlistedImages field.
 func (o *Policy) SetAllowlistedImages(v []ImageSelectionRule) {
-<<<<<<< HEAD
 	o.AllowlistedImages = v
-=======
-	o.AllowlistedImages = &v
->>>>>>> main
 }
 
 // GetDenylistedImages returns the DenylistedImages field value if set, zero value otherwise.
@@ -395,20 +317,12 @@ func (o *Policy) GetDenylistedImages() []ImageSelectionRule {
 		var ret []ImageSelectionRule
 		return ret
 	}
-<<<<<<< HEAD
 	return o.DenylistedImages
-=======
-	return *o.DenylistedImages
->>>>>>> main
 }
 
 // GetDenylistedImagesOk returns a tuple with the DenylistedImages field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-<<<<<<< HEAD
 func (o *Policy) GetDenylistedImagesOk() ([]ImageSelectionRule, bool) {
-=======
-func (o *Policy) GetDenylistedImagesOk() (*[]ImageSelectionRule, bool) {
->>>>>>> main
 	if o == nil || o.DenylistedImages == nil {
 		return nil, false
 	}
@@ -426,11 +340,7 @@ func (o *Policy) HasDenylistedImages() bool {
 
 // SetDenylistedImages gets a reference to the given []ImageSelectionRule and assigns it to the DenylistedImages field.
 func (o *Policy) SetDenylistedImages(v []ImageSelectionRule) {
-<<<<<<< HEAD
 	o.DenylistedImages = v
-=======
-	o.DenylistedImages = &v
->>>>>>> main
 }
 
 // GetLastUpdated returns the LastUpdated field value if set, zero value otherwise.

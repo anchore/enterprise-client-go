@@ -35,30 +35,17 @@ type SystemApi interface {
 	DeleteFeed(ctx context.Context, feed string) ApiDeleteFeedRequest
 
 	// DeleteFeedExecute executes the request
-<<<<<<< HEAD
 	DeleteFeedExecute(r ApiDeleteFeedRequest) (*http.Response, error)
-=======
-	DeleteFeedExecute(r ApiDeleteFeedRequest) (*_nethttp.Response, error)
->>>>>>> main
 
 	/*
 	DeleteService Delete the service config
 
-<<<<<<< HEAD
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param serviceName
 	@param hostId
 	@return ApiDeleteServiceRequest
 	*/
 	DeleteService(ctx context.Context, serviceName string, hostId string) ApiDeleteServiceRequest
-=======
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @param serviceName
-	 @param hostId
-	 @return ApiDeleteServiceRequest
-	*/
-	DeleteService(ctx _context.Context, serviceName string, hostId string) ApiDeleteServiceRequest
->>>>>>> main
 
 	// DeleteServiceExecute executes the request
 	DeleteServiceExecute(r ApiDeleteServiceRequest) (*http.Response, error)
@@ -108,19 +95,11 @@ type SystemApi interface {
 	/*
 	GetServicesByName Get a service configuration and state
 
-<<<<<<< HEAD
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param serviceName
 	@return ApiGetServicesByNameRequest
 	*/
 	GetServicesByName(ctx context.Context, serviceName string) ApiGetServicesByNameRequest
-=======
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @param serviceName
-	 @return ApiGetServicesByNameRequest
-	*/
-	GetServicesByName(ctx _context.Context, serviceName string) ApiGetServicesByNameRequest
->>>>>>> main
 
 	// GetServicesByNameExecute executes the request
 	//  @return []Service
@@ -129,21 +108,12 @@ type SystemApi interface {
 	/*
 	GetServicesByNameAndHost Get service config for a specific host
 
-<<<<<<< HEAD
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param serviceName
 	@param hostId
 	@return ApiGetServicesByNameAndHostRequest
 	*/
 	GetServicesByNameAndHost(ctx context.Context, serviceName string, hostId string) ApiGetServicesByNameAndHostRequest
-=======
-	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @param serviceName
-	 @param hostId
-	 @return ApiGetServicesByNameAndHostRequest
-	*/
-	GetServicesByNameAndHost(ctx _context.Context, serviceName string, hostId string) ApiGetServicesByNameAndHostRequest
->>>>>>> main
 
 	// GetServicesByNameAndHostExecute executes the request
 	//  @return []Service
@@ -230,11 +200,7 @@ type SystemApi interface {
 
 	// ToggleFeedEnabledExecute executes the request
 	//  @return FeedMetadata
-<<<<<<< HEAD
 	ToggleFeedEnabledExecute(r ApiToggleFeedEnabledRequest) (*FeedMetadata, *http.Response, error)
-=======
-	ToggleFeedEnabledExecute(r ApiToggleFeedEnabledRequest) (FeedMetadata, *_nethttp.Response, error)
->>>>>>> main
 }
 
 // SystemApiService SystemApi service
@@ -322,11 +288,7 @@ func (a *SystemApiService) DeleteFeedExecute(r ApiDeleteFeedRequest) (*http.Resp
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
-<<<<<<< HEAD
 		newErr := &GenericOpenAPIError{
-=======
-		newErr := GenericOpenAPIError{
->>>>>>> main
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
@@ -350,20 +312,12 @@ func (r ApiDeleteServiceRequest) Execute() (*http.Response, error) {
 /*
 DeleteService Delete the service config
 
-<<<<<<< HEAD
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-=======
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
->>>>>>> main
  @param serviceName
  @param hostId
  @return ApiDeleteServiceRequest
 */
-<<<<<<< HEAD
 func (a *SystemApiService) DeleteService(ctx context.Context, serviceName string, hostId string) ApiDeleteServiceRequest {
-=======
-func (a *SystemApiService) DeleteService(ctx _context.Context, serviceName string, hostId string) ApiDeleteServiceRequest {
->>>>>>> main
 	return ApiDeleteServiceRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -386,13 +340,8 @@ func (a *SystemApiService) DeleteServiceExecute(r ApiDeleteServiceRequest) (*htt
 	}
 
 	localVarPath := localBasePath + "/system/services/{service_name}/{host_id}"
-<<<<<<< HEAD
 	localVarPath = strings.Replace(localVarPath, "{"+"service_name"+"}", url.PathEscape(parameterToString(r.serviceName, "")), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"host_id"+"}", url.PathEscape(parameterToString(r.hostId, "")), -1)
-=======
-	localVarPath = strings.Replace(localVarPath, "{"+"service_name"+"}", _neturl.PathEscape(parameterToString(r.serviceName, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"host_id"+"}", _neturl.PathEscape(parameterToString(r.hostId, "")), -1)
->>>>>>> main
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -771,19 +720,11 @@ func (r ApiGetServicesByNameRequest) Execute() ([]Service, *http.Response, error
 /*
 GetServicesByName Get a service configuration and state
 
-<<<<<<< HEAD
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param serviceName
  @return ApiGetServicesByNameRequest
 */
 func (a *SystemApiService) GetServicesByName(ctx context.Context, serviceName string) ApiGetServicesByNameRequest {
-=======
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param serviceName
- @return ApiGetServicesByNameRequest
-*/
-func (a *SystemApiService) GetServicesByName(ctx _context.Context, serviceName string) ApiGetServicesByNameRequest {
->>>>>>> main
 	return ApiGetServicesByNameRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -807,11 +748,7 @@ func (a *SystemApiService) GetServicesByNameExecute(r ApiGetServicesByNameReques
 	}
 
 	localVarPath := localBasePath + "/system/services/{service_name}"
-<<<<<<< HEAD
 	localVarPath = strings.Replace(localVarPath, "{"+"service_name"+"}", url.PathEscape(parameterToString(r.serviceName, "")), -1)
-=======
-	localVarPath = strings.Replace(localVarPath, "{"+"service_name"+"}", _neturl.PathEscape(parameterToString(r.serviceName, "")), -1)
->>>>>>> main
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -894,20 +831,12 @@ func (r ApiGetServicesByNameAndHostRequest) Execute() ([]Service, *http.Response
 /*
 GetServicesByNameAndHost Get service config for a specific host
 
-<<<<<<< HEAD
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-=======
- @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
->>>>>>> main
  @param serviceName
  @param hostId
  @return ApiGetServicesByNameAndHostRequest
 */
-<<<<<<< HEAD
 func (a *SystemApiService) GetServicesByNameAndHost(ctx context.Context, serviceName string, hostId string) ApiGetServicesByNameAndHostRequest {
-=======
-func (a *SystemApiService) GetServicesByNameAndHost(ctx _context.Context, serviceName string, hostId string) ApiGetServicesByNameAndHostRequest {
->>>>>>> main
 	return ApiGetServicesByNameAndHostRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -932,13 +861,8 @@ func (a *SystemApiService) GetServicesByNameAndHostExecute(r ApiGetServicesByNam
 	}
 
 	localVarPath := localBasePath + "/system/services/{service_name}/{host_id}"
-<<<<<<< HEAD
 	localVarPath = strings.Replace(localVarPath, "{"+"service_name"+"}", url.PathEscape(parameterToString(r.serviceName, "")), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"host_id"+"}", url.PathEscape(parameterToString(r.hostId, "")), -1)
-=======
-	localVarPath = strings.Replace(localVarPath, "{"+"service_name"+"}", _neturl.PathEscape(parameterToString(r.serviceName, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"host_id"+"}", _neturl.PathEscape(parameterToString(r.hostId, "")), -1)
->>>>>>> main
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1334,12 +1258,7 @@ type ApiPostSystemFeedsRequest struct {
 	ApiService SystemApi
 }
 
-<<<<<<< HEAD
 func (r ApiPostSystemFeedsRequest) Execute() ([]FeedSyncResult, *http.Response, error) {
-=======
-
-func (r ApiPostSystemFeedsRequest) Execute() ([]FeedSyncResult, *_nethttp.Response, error) {
->>>>>>> main
 	return r.ApiService.PostSystemFeedsExecute(r)
 }
 
@@ -1666,11 +1585,7 @@ func (a *SystemApiService) ToggleFeedEnabledExecute(r ApiToggleFeedEnabledReques
 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 	if err != nil {
-<<<<<<< HEAD
 		newErr := &GenericOpenAPIError{
-=======
-		newErr := GenericOpenAPIError{
->>>>>>> main
 			body:  localVarBody,
 			error: err.Error(),
 		}

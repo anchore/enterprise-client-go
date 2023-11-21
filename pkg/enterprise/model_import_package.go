@@ -230,13 +230,8 @@ func (o *ImportPackage) GetLicenses() []interface{} {
 
 // GetLicensesOk returns a tuple with the Licenses field value
 // and a boolean to check if the value has been set.
-<<<<<<< HEAD
 func (o *ImportPackage) GetLicensesOk() ([]interface{}, bool) {
 	if o == nil {
-=======
-func (o *ImportPackage) GetLicensesOk() (*[]interface{}, bool) {
-	if o == nil  {
->>>>>>> main
 		return nil, false
 	}
 	return o.Licenses, true
@@ -371,11 +366,7 @@ func (o *ImportPackage) UnsetMetadataType() {
 
 // GetMetadata returns the Metadata field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *ImportPackage) GetMetadata() interface{} {
-<<<<<<< HEAD
 	if o == nil {
-=======
-	if o == nil  {
->>>>>>> main
 		var ret interface{}
 		return ret
 	}
@@ -385,15 +376,11 @@ func (o *ImportPackage) GetMetadata() interface{} {
 // GetMetadataOk returns a tuple with the Metadata field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-<<<<<<< HEAD
 func (o *ImportPackage) GetMetadataOk() (interface{}, bool) {
-=======
-func (o *ImportPackage) GetMetadataOk() (*interface{}, bool) {
->>>>>>> main
 	if o == nil || o.Metadata == nil {
 		return nil, false
 	}
-	return &o.Metadata, true
+	return o.Metadata, true
 }
 
 // HasMetadata returns a boolean if a field has been set.

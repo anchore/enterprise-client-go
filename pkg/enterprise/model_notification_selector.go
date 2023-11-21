@@ -121,11 +121,7 @@ func (o *NotificationSelector) GetScope() string {
 // GetScopeOk returns a tuple with the Scope field value
 // and a boolean to check if the value has been set.
 func (o *NotificationSelector) GetScopeOk() (*string, bool) {
-<<<<<<< HEAD
 	if o == nil {
-=======
-	if o == nil  {
->>>>>>> main
 		return nil, false
 	}
 	return &o.Scope, true
@@ -149,11 +145,7 @@ func (o *NotificationSelector) GetEvent() NotificationEventSelector {
 // GetEventOk returns a tuple with the Event field value
 // and a boolean to check if the value has been set.
 func (o *NotificationSelector) GetEventOk() (*NotificationEventSelector, bool) {
-<<<<<<< HEAD
 	if o == nil {
-=======
-	if o == nil  {
->>>>>>> main
 		return nil, false
 	}
 	return &o.Event, true

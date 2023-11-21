@@ -22,22 +22,14 @@ type ContentPackageResponseContentInner struct {
 	Size *string `json:"size,omitempty"`
 	Type *string `json:"type,omitempty"`
 	Origin *string `json:"origin,omitempty"`
-<<<<<<<< HEAD:pkg/enterprise/model_content_package_response_content_inner.go
 	Licenses []string `json:"licenses,omitempty"`
-========
-	Licenses *[]string `json:"licenses,omitempty"`
->>>>>>>> main:pkg/enterprise/model_content_package_response_content.go
 	Location *string `json:"location,omitempty"`
 	// A list of Common Platform Enumerations that may uniquely identify the package
 	Cpes []string `json:"cpes,omitempty"`
 	// The type of the metadata entry
 	MetadataType *string `json:"metadata_type,omitempty"`
 	// Package type specific metadata
-<<<<<<<< HEAD:pkg/enterprise/model_content_package_response_content_inner.go
 	Metadata interface{} `json:"metadata,omitempty"`
-========
-	Metadata *interface{} `json:"metadata,omitempty"`
->>>>>>>> main:pkg/enterprise/model_content_package_response_content.go
 	Purl *string `json:"purl,omitempty"`
 }
 
@@ -379,11 +371,7 @@ func (o *ContentPackageResponseContentInner) SetMetadata(v interface{}) {
 }
 
 // GetPurl returns the Purl field value if set, zero value otherwise.
-<<<<<<<< HEAD:pkg/enterprise/model_content_package_response_content_inner.go
 func (o *ContentPackageResponseContentInner) GetPurl() string {
-========
-func (o *ContentPackageResponseContent) GetPurl() string {
->>>>>>>> main:pkg/enterprise/model_content_package_response_content.go
 	if o == nil || o.Purl == nil {
 		var ret string
 		return ret
@@ -393,11 +381,7 @@ func (o *ContentPackageResponseContent) GetPurl() string {
 
 // GetPurlOk returns a tuple with the Purl field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-<<<<<<<< HEAD:pkg/enterprise/model_content_package_response_content_inner.go
 func (o *ContentPackageResponseContentInner) GetPurlOk() (*string, bool) {
-========
-func (o *ContentPackageResponseContent) GetPurlOk() (*string, bool) {
->>>>>>>> main:pkg/enterprise/model_content_package_response_content.go
 	if o == nil || o.Purl == nil {
 		return nil, false
 	}
@@ -405,11 +389,7 @@ func (o *ContentPackageResponseContent) GetPurlOk() (*string, bool) {
 }
 
 // HasPurl returns a boolean if a field has been set.
-<<<<<<<< HEAD:pkg/enterprise/model_content_package_response_content_inner.go
 func (o *ContentPackageResponseContentInner) HasPurl() bool {
-========
-func (o *ContentPackageResponseContent) HasPurl() bool {
->>>>>>>> main:pkg/enterprise/model_content_package_response_content.go
 	if o != nil && o.Purl != nil {
 		return true
 	}
@@ -418,19 +398,11 @@ func (o *ContentPackageResponseContent) HasPurl() bool {
 }
 
 // SetPurl gets a reference to the given string and assigns it to the Purl field.
-<<<<<<<< HEAD:pkg/enterprise/model_content_package_response_content_inner.go
 func (o *ContentPackageResponseContentInner) SetPurl(v string) {
 	o.Purl = &v
 }
 
 func (o ContentPackageResponseContentInner) MarshalJSON() ([]byte, error) {
-========
-func (o *ContentPackageResponseContent) SetPurl(v string) {
-	o.Purl = &v
-}
-
-func (o ContentPackageResponseContent) MarshalJSON() ([]byte, error) {
->>>>>>>> main:pkg/enterprise/model_content_package_response_content.go
 	toSerialize := map[string]interface{}{}
 	if o.Package != nil {
 		toSerialize["package"] = o.Package

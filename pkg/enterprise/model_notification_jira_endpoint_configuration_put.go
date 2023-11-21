@@ -43,11 +43,7 @@ type NotificationJiraEndpointConfigurationPut struct {
 	// Jira user to associate with the issue
 	Assignee *string `json:"assignee,omitempty"`
 	// List of labels to associate with the issue
-<<<<<<< HEAD
 	Labels []string `json:"labels,omitempty"`
-=======
-	Labels *[]string `json:"labels,omitempty"`
->>>>>>> main
 }
 
 // NewNotificationJiraEndpointConfigurationPut instantiates a new NotificationJiraEndpointConfigurationPut object
@@ -244,11 +240,7 @@ func (o *NotificationJiraEndpointConfigurationPut) GetUrl() string {
 // GetUrlOk returns a tuple with the Url field value
 // and a boolean to check if the value has been set.
 func (o *NotificationJiraEndpointConfigurationPut) GetUrlOk() (*string, bool) {
-<<<<<<< HEAD
 	if o == nil {
-=======
-	if o == nil  {
->>>>>>> main
 		return nil, false
 	}
 	return &o.Url, true
@@ -272,11 +264,7 @@ func (o *NotificationJiraEndpointConfigurationPut) GetUsername() string {
 // GetUsernameOk returns a tuple with the Username field value
 // and a boolean to check if the value has been set.
 func (o *NotificationJiraEndpointConfigurationPut) GetUsernameOk() (*string, bool) {
-<<<<<<< HEAD
 	if o == nil {
-=======
-	if o == nil  {
->>>>>>> main
 		return nil, false
 	}
 	return &o.Username, true
@@ -332,11 +320,7 @@ func (o *NotificationJiraEndpointConfigurationPut) GetProjectKey() string {
 // GetProjectKeyOk returns a tuple with the ProjectKey field value
 // and a boolean to check if the value has been set.
 func (o *NotificationJiraEndpointConfigurationPut) GetProjectKeyOk() (*string, bool) {
-<<<<<<< HEAD
 	if o == nil {
-=======
-	if o == nil  {
->>>>>>> main
 		return nil, false
 	}
 	return &o.ProjectKey, true
@@ -360,11 +344,7 @@ func (o *NotificationJiraEndpointConfigurationPut) GetIssueType() string {
 // GetIssueTypeOk returns a tuple with the IssueType field value
 // and a boolean to check if the value has been set.
 func (o *NotificationJiraEndpointConfigurationPut) GetIssueTypeOk() (*string, bool) {
-<<<<<<< HEAD
 	if o == nil {
-=======
-	if o == nil  {
->>>>>>> main
 		return nil, false
 	}
 	return &o.IssueType, true
@@ -445,20 +425,12 @@ func (o *NotificationJiraEndpointConfigurationPut) GetLabels() []string {
 		var ret []string
 		return ret
 	}
-<<<<<<< HEAD
 	return o.Labels
-=======
-	return *o.Labels
->>>>>>> main
 }
 
 // GetLabelsOk returns a tuple with the Labels field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-<<<<<<< HEAD
 func (o *NotificationJiraEndpointConfigurationPut) GetLabelsOk() ([]string, bool) {
-=======
-func (o *NotificationJiraEndpointConfigurationPut) GetLabelsOk() (*[]string, bool) {
->>>>>>> main
 	if o == nil || o.Labels == nil {
 		return nil, false
 	}
@@ -476,11 +448,7 @@ func (o *NotificationJiraEndpointConfigurationPut) HasLabels() bool {
 
 // SetLabels gets a reference to the given []string and assigns it to the Labels field.
 func (o *NotificationJiraEndpointConfigurationPut) SetLabels(v []string) {
-<<<<<<< HEAD
 	o.Labels = v
-=======
-	o.Labels = &v
->>>>>>> main
 }
 
 func (o NotificationJiraEndpointConfigurationPut) MarshalJSON() ([]byte, error) {

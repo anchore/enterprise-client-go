@@ -52,11 +52,7 @@ func (o *ComplianceViolationAlertState) GetState() string {
 // GetStateOk returns a tuple with the State field value
 // and a boolean to check if the value has been set.
 func (o *ComplianceViolationAlertState) GetStateOk() (*string, bool) {
-<<<<<<< HEAD
 	if o == nil {
-=======
-	if o == nil  {
->>>>>>> main
 		return nil, false
 	}
 	return &o.State, true
