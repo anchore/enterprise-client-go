@@ -66,7 +66,11 @@ func (o *MappingRule) GetId() string {
 // GetIdOk returns a tuple with the Id field value
 // and a boolean to check if the value has been set.
 func (o *MappingRule) GetIdOk() (*string, bool) {
+<<<<<<< HEAD
 	if o == nil {
+=======
+	if o == nil  {
+>>>>>>> main
 		return nil, false
 	}
 	return &o.Id, true
@@ -113,11 +117,19 @@ func (o *MappingRule) GetAllowlistIds() []string {
 
 // GetAllowlistIdsOk returns a tuple with the AllowlistIds field value
 // and a boolean to check if the value has been set.
+<<<<<<< HEAD
 func (o *MappingRule) GetAllowlistIdsOk() ([]string, bool) {
 	if o == nil {
 		return nil, false
 	}
 	return o.AllowlistIds, true
+=======
+func (o *MappingRule) GetAllowlistIdsOk() (*[]string, bool) {
+	if o == nil  {
+		return nil, false
+	}
+	return &o.AllowlistIds, true
+>>>>>>> main
 }
 
 // SetAllowlistIds sets field value
@@ -137,11 +149,19 @@ func (o *MappingRule) GetRuleSetIds() []string {
 
 // GetRuleSetIdsOk returns a tuple with the RuleSetIds field value
 // and a boolean to check if the value has been set.
+<<<<<<< HEAD
 func (o *MappingRule) GetRuleSetIdsOk() ([]string, bool) {
 	if o == nil {
 		return nil, false
 	}
 	return o.RuleSetIds, true
+=======
+func (o *MappingRule) GetRuleSetIdsOk() (*[]string, bool) {
+	if o == nil  {
+		return nil, false
+	}
+	return &o.RuleSetIds, true
+>>>>>>> main
 }
 
 // SetRuleSetIds sets field value

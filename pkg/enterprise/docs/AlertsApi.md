@@ -1,6 +1,10 @@
 # \AlertsApi
 
+<<<<<<< HEAD
 All URIs are relative to */v2*
+=======
+All URIs are relative to *http://localhost/v2*
+>>>>>>> main
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -275,8 +279,13 @@ func main() {
     xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
 
     configuration := openapiclient.NewConfiguration()
+<<<<<<< HEAD
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.AlertsApi.UpdateComplianceViolationAlertState(context.Background(), uuid).Body(body).XAnchoreAccount(xAnchoreAccount).Execute()
+=======
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.AlertsApi.UpdateComplianceViolationAlertState(context.Background(), uuid).Body(body).XAnchoreAccount(xAnchoreAccount).Execute()
+>>>>>>> main
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `AlertsApi.UpdateComplianceViolationAlertState``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)

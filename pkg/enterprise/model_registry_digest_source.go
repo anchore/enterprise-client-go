@@ -60,7 +60,11 @@ func (o *RegistryDigestSource) GetPullString() string {
 // GetPullStringOk returns a tuple with the PullString field value
 // and a boolean to check if the value has been set.
 func (o *RegistryDigestSource) GetPullStringOk() (*string, bool) {
+<<<<<<< HEAD
 	if o == nil {
+=======
+	if o == nil  {
+>>>>>>> main
 		return nil, false
 	}
 	return &o.PullString, true

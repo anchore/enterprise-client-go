@@ -155,7 +155,11 @@ func (o *TriggerSpec) GetSupersededBy() string {
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *TriggerSpec) GetSupersededByOk() (*string, bool) {
+<<<<<<< HEAD
 	if o == nil {
+=======
+	if o == nil  {
+>>>>>>> main
 		return nil, false
 	}
 	return o.SupersededBy.Get(), o.SupersededBy.IsSet()

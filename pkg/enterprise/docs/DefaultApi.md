@@ -1,6 +1,10 @@
 # \DefaultApi
 
+<<<<<<< HEAD
 All URIs are relative to */v2*
+=======
+All URIs are relative to *http://localhost/v2*
+>>>>>>> main
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -136,8 +140,13 @@ func main() {
     configuration := *openapiclient.NewNotificationGitHubEndpointConfigurationPost("Username_example", "AccessToken_example", "Owner_example", "Repository_example") // NotificationGitHubEndpointConfigurationPost | 
 
     configuration := openapiclient.NewConfiguration()
+<<<<<<< HEAD
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.DefaultApi.AddGithubConfiguration(context.Background()).Configuration(configuration).Execute()
+=======
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.AddGithubConfiguration(context.Background()).Configuration(configuration).Execute()
+>>>>>>> main
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.AddGithubConfiguration``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -203,8 +212,13 @@ func main() {
     selector := *openapiclient.NewNotificationSelector("Scope_example", *openapiclient.NewNotificationEventSelector("Level_example", "ResourceType_example", "Type_example")) // NotificationSelector | 
 
     configuration := openapiclient.NewConfiguration()
+<<<<<<< HEAD
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.DefaultApi.AddGithubSelector(context.Background(), uuid).Selector(selector).Execute()
+=======
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.AddGithubSelector(context.Background(), uuid).Selector(selector).Execute()
+>>>>>>> main
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.AddGithubSelector``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -274,8 +288,13 @@ func main() {
     configuration := *openapiclient.NewRbacManagerSamlConfiguration("Name_example", false, "SpEntityId_example", "AcsUrl_example") // RbacManagerSamlConfiguration | 
 
     configuration := openapiclient.NewConfiguration()
+<<<<<<< HEAD
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.DefaultApi.AddIdp(context.Background()).Configuration(configuration).Execute()
+=======
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.AddIdp(context.Background()).Configuration(configuration).Execute()
+>>>>>>> main
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.AddIdp``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -340,8 +359,13 @@ func main() {
     configuration := *openapiclient.NewNotificationJiraEndpointConfigurationPost("Url_example", "Username_example", "Password_example", "ProjectKey_example", "IssueType_example") // NotificationJiraEndpointConfigurationPost | 
 
     configuration := openapiclient.NewConfiguration()
+<<<<<<< HEAD
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.DefaultApi.AddJiraConfiguration(context.Background()).Configuration(configuration).Execute()
+=======
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.AddJiraConfiguration(context.Background()).Configuration(configuration).Execute()
+>>>>>>> main
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.AddJiraConfiguration``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -407,8 +431,13 @@ func main() {
     selector := *openapiclient.NewNotificationSelector("Scope_example", *openapiclient.NewNotificationEventSelector("Level_example", "ResourceType_example", "Type_example")) // NotificationSelector | 
 
     configuration := openapiclient.NewConfiguration()
+<<<<<<< HEAD
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.DefaultApi.AddJiraSelector(context.Background(), uuid).Selector(selector).Execute()
+=======
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.AddJiraSelector(context.Background(), uuid).Selector(selector).Execute()
+>>>>>>> main
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.AddJiraSelector``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -477,8 +506,13 @@ func main() {
     member := *openapiclient.NewRbacManagerRoleMember("Username_example", "ForAccount_example") // RbacManagerRoleMember | 
 
     configuration := openapiclient.NewConfiguration()
+<<<<<<< HEAD
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.DefaultApi.AddRoleUser(context.Background(), roleName).Member(member).Execute()
+=======
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.AddRoleUser(context.Background(), roleName).Member(member).Execute()
+>>>>>>> main
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.AddRoleUser``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -548,8 +582,13 @@ func main() {
     configuration := *openapiclient.NewNotificationSlackEndpointConfiguration("Url_example") // NotificationSlackEndpointConfiguration | 
 
     configuration := openapiclient.NewConfiguration()
+<<<<<<< HEAD
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.DefaultApi.AddSlackConfiguration(context.Background()).Configuration(configuration).Execute()
+=======
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.AddSlackConfiguration(context.Background()).Configuration(configuration).Execute()
+>>>>>>> main
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.AddSlackConfiguration``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -615,8 +654,13 @@ func main() {
     selector := *openapiclient.NewNotificationSelector("Scope_example", *openapiclient.NewNotificationEventSelector("Level_example", "ResourceType_example", "Type_example")) // NotificationSelector | 
 
     configuration := openapiclient.NewConfiguration()
+<<<<<<< HEAD
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.DefaultApi.AddSlackSelector(context.Background(), uuid).Selector(selector).Execute()
+=======
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.AddSlackSelector(context.Background(), uuid).Selector(selector).Execute()
+>>>>>>> main
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.AddSlackSelector``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -686,8 +730,13 @@ func main() {
     configuration := *openapiclient.NewNotificationSMTPEndpointConfiguration("Host_example", int32(123), "From_example", "To_example") // NotificationSMTPEndpointConfiguration | 
 
     configuration := openapiclient.NewConfiguration()
+<<<<<<< HEAD
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.DefaultApi.AddSmtpConfiguration(context.Background()).Configuration(configuration).Execute()
+=======
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.AddSmtpConfiguration(context.Background()).Configuration(configuration).Execute()
+>>>>>>> main
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.AddSmtpConfiguration``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -753,8 +802,13 @@ func main() {
     selector := *openapiclient.NewNotificationSelector("Scope_example", *openapiclient.NewNotificationEventSelector("Level_example", "ResourceType_example", "Type_example")) // NotificationSelector | 
 
     configuration := openapiclient.NewConfiguration()
+<<<<<<< HEAD
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.DefaultApi.AddSmtpSelector(context.Background(), uuid).Selector(selector).Execute()
+=======
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.AddSmtpSelector(context.Background(), uuid).Selector(selector).Execute()
+>>>>>>> main
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.AddSmtpSelector``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -824,8 +878,13 @@ func main() {
     configuration := *openapiclient.NewNotificationTeamsEndpointConfiguration("Url_example") // NotificationTeamsEndpointConfiguration | 
 
     configuration := openapiclient.NewConfiguration()
+<<<<<<< HEAD
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.DefaultApi.AddTeamsConfiguration(context.Background()).Configuration(configuration).Execute()
+=======
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.AddTeamsConfiguration(context.Background()).Configuration(configuration).Execute()
+>>>>>>> main
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.AddTeamsConfiguration``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -891,8 +950,13 @@ func main() {
     selector := *openapiclient.NewNotificationSelector("Scope_example", *openapiclient.NewNotificationEventSelector("Level_example", "ResourceType_example", "Type_example")) // NotificationSelector | 
 
     configuration := openapiclient.NewConfiguration()
+<<<<<<< HEAD
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.DefaultApi.AddTeamsSelector(context.Background(), uuid).Selector(selector).Execute()
+=======
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.AddTeamsSelector(context.Background(), uuid).Selector(selector).Execute()
+>>>>>>> main
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.AddTeamsSelector``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -962,8 +1026,13 @@ func main() {
     configuration := *openapiclient.NewNotificationWebhookEndpointConfiguration("Url_example") // NotificationWebhookEndpointConfiguration | 
 
     configuration := openapiclient.NewConfiguration()
+<<<<<<< HEAD
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.DefaultApi.AddWebhookConfiguration(context.Background()).Configuration(configuration).Execute()
+=======
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.AddWebhookConfiguration(context.Background()).Configuration(configuration).Execute()
+>>>>>>> main
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.AddWebhookConfiguration``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -1029,8 +1098,13 @@ func main() {
     selector := *openapiclient.NewNotificationSelector("Scope_example", *openapiclient.NewNotificationEventSelector("Level_example", "ResourceType_example", "Type_example")) // NotificationSelector | 
 
     configuration := openapiclient.NewConfiguration()
+<<<<<<< HEAD
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.DefaultApi.AddWebhookSelector(context.Background(), uuid).Selector(selector).Execute()
+=======
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.AddWebhookSelector(context.Background(), uuid).Selector(selector).Execute()
+>>>>>>> main
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.AddWebhookSelector``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -1100,8 +1174,13 @@ func main() {
     uuid := "uuid_example" // string | 
 
     configuration := openapiclient.NewConfiguration()
+<<<<<<< HEAD
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.DefaultApi.DeleteGithubConfiguration(context.Background(), uuid).Execute()
+=======
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.DeleteGithubConfiguration(context.Background(), uuid).Execute()
+>>>>>>> main
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.DeleteGithubConfiguration``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -1169,8 +1248,13 @@ func main() {
     selectorUuid := "selectorUuid_example" // string | 
 
     configuration := openapiclient.NewConfiguration()
+<<<<<<< HEAD
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.DefaultApi.DeleteGithubSelector(context.Background(), configurationUuid, selectorUuid).Execute()
+=======
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.DeleteGithubSelector(context.Background(), configurationUuid, selectorUuid).Execute()
+>>>>>>> main
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.DeleteGithubSelector``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -1239,8 +1323,13 @@ func main() {
     name := "name_example" // string | 
 
     configuration := openapiclient.NewConfiguration()
+<<<<<<< HEAD
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.DefaultApi.DeleteIdp(context.Background(), name).Execute()
+=======
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.DeleteIdp(context.Background(), name).Execute()
+>>>>>>> main
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.DeleteIdp``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -1307,8 +1396,13 @@ func main() {
     uuid := "uuid_example" // string | 
 
     configuration := openapiclient.NewConfiguration()
+<<<<<<< HEAD
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.DefaultApi.DeleteJiraConfiguration(context.Background(), uuid).Execute()
+=======
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.DeleteJiraConfiguration(context.Background(), uuid).Execute()
+>>>>>>> main
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.DeleteJiraConfiguration``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -1376,8 +1470,13 @@ func main() {
     selectorUuid := "selectorUuid_example" // string | 
 
     configuration := openapiclient.NewConfiguration()
+<<<<<<< HEAD
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.DefaultApi.DeleteJiraSelector(context.Background(), configurationUuid, selectorUuid).Execute()
+=======
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.DeleteJiraSelector(context.Background(), configurationUuid, selectorUuid).Execute()
+>>>>>>> main
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.DeleteJiraSelector``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -1446,8 +1545,13 @@ func main() {
     forAccount := "forAccount_example" // string | The account that the user has the role to be removed
 
     configuration := openapiclient.NewConfiguration()
+<<<<<<< HEAD
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.DefaultApi.DeleteRoleUser(context.Background(), roleName).Username(username).ForAccount(forAccount).Execute()
+=======
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.DeleteRoleUser(context.Background(), roleName).Username(username).ForAccount(forAccount).Execute()
+>>>>>>> main
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.DeleteRoleUser``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -1516,8 +1620,13 @@ func main() {
     uuid := "uuid_example" // string | 
 
     configuration := openapiclient.NewConfiguration()
+<<<<<<< HEAD
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.DefaultApi.DeleteSlackConfiguration(context.Background(), uuid).Execute()
+=======
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.DeleteSlackConfiguration(context.Background(), uuid).Execute()
+>>>>>>> main
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.DeleteSlackConfiguration``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -1585,8 +1694,13 @@ func main() {
     selectorUuid := "selectorUuid_example" // string | 
 
     configuration := openapiclient.NewConfiguration()
+<<<<<<< HEAD
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.DefaultApi.DeleteSlackSelector(context.Background(), configurationUuid, selectorUuid).Execute()
+=======
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.DeleteSlackSelector(context.Background(), configurationUuid, selectorUuid).Execute()
+>>>>>>> main
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.DeleteSlackSelector``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -1655,8 +1769,13 @@ func main() {
     uuid := "uuid_example" // string | 
 
     configuration := openapiclient.NewConfiguration()
+<<<<<<< HEAD
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.DefaultApi.DeleteSmtpConfiguration(context.Background(), uuid).Execute()
+=======
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.DeleteSmtpConfiguration(context.Background(), uuid).Execute()
+>>>>>>> main
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.DeleteSmtpConfiguration``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -1724,8 +1843,13 @@ func main() {
     selectorUuid := "selectorUuid_example" // string | 
 
     configuration := openapiclient.NewConfiguration()
+<<<<<<< HEAD
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.DefaultApi.DeleteSmtpSelector(context.Background(), configurationUuid, selectorUuid).Execute()
+=======
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.DeleteSmtpSelector(context.Background(), configurationUuid, selectorUuid).Execute()
+>>>>>>> main
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.DeleteSmtpSelector``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -1794,8 +1918,13 @@ func main() {
     uuid := "uuid_example" // string | 
 
     configuration := openapiclient.NewConfiguration()
+<<<<<<< HEAD
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.DefaultApi.DeleteTeamsConfiguration(context.Background(), uuid).Execute()
+=======
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.DeleteTeamsConfiguration(context.Background(), uuid).Execute()
+>>>>>>> main
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.DeleteTeamsConfiguration``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -1863,8 +1992,13 @@ func main() {
     selectorUuid := "selectorUuid_example" // string | 
 
     configuration := openapiclient.NewConfiguration()
+<<<<<<< HEAD
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.DefaultApi.DeleteTeamsSelector(context.Background(), configurationUuid, selectorUuid).Execute()
+=======
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.DeleteTeamsSelector(context.Background(), configurationUuid, selectorUuid).Execute()
+>>>>>>> main
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.DeleteTeamsSelector``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -1933,8 +2067,13 @@ func main() {
     uuid := "uuid_example" // string | 
 
     configuration := openapiclient.NewConfiguration()
+<<<<<<< HEAD
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.DefaultApi.DeleteWebhookConfiguration(context.Background(), uuid).Execute()
+=======
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.DeleteWebhookConfiguration(context.Background(), uuid).Execute()
+>>>>>>> main
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.DeleteWebhookConfiguration``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -2002,8 +2141,13 @@ func main() {
     selectorUuid := "selectorUuid_example" // string | 
 
     configuration := openapiclient.NewConfiguration()
+<<<<<<< HEAD
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.DefaultApi.DeleteWebhookSelector(context.Background(), configurationUuid, selectorUuid).Execute()
+=======
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.DeleteWebhookSelector(context.Background(), configurationUuid, selectorUuid).Execute()
+>>>>>>> main
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.DeleteWebhookSelector``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -2072,8 +2216,13 @@ func main() {
     uuid := "uuid_example" // string | 
 
     configuration := openapiclient.NewConfiguration()
+<<<<<<< HEAD
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.DefaultApi.GetGithubConfiguration(context.Background(), uuid).Execute()
+=======
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.GetGithubConfiguration(context.Background(), uuid).Execute()
+>>>>>>> main
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.GetGithubConfiguration``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -2142,8 +2291,13 @@ func main() {
     uuid := "uuid_example" // string | 
 
     configuration := openapiclient.NewConfiguration()
+<<<<<<< HEAD
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.DefaultApi.GetGithubConfigurationStatus(context.Background(), uuid).Execute()
+=======
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.GetGithubConfigurationStatus(context.Background(), uuid).Execute()
+>>>>>>> main
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.GetGithubConfigurationStatus``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -2213,8 +2367,13 @@ func main() {
     selectorUuid := "selectorUuid_example" // string | 
 
     configuration := openapiclient.NewConfiguration()
+<<<<<<< HEAD
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.DefaultApi.GetGithubSelector(context.Background(), configurationUuid, selectorUuid).Execute()
+=======
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.GetGithubSelector(context.Background(), configurationUuid, selectorUuid).Execute()
+>>>>>>> main
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.GetGithubSelector``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -2286,8 +2445,13 @@ func main() {
     page := int32(56) // int32 | Page number to fetch. If omitted, '1' is default. Page numbers start at 1 (optional)
 
     configuration := openapiclient.NewConfiguration()
+<<<<<<< HEAD
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.DefaultApi.GetGlobalQueryResult(context.Background(), resultUuid).Page(page).Execute()
+=======
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.GetGlobalQueryResult(context.Background(), resultUuid).Page(page).Execute()
+>>>>>>> main
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.GetGlobalQueryResult``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -2355,8 +2519,13 @@ func main() {
     name := "name_example" // string | 
 
     configuration := openapiclient.NewConfiguration()
+<<<<<<< HEAD
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.DefaultApi.GetIdp(context.Background(), name).Execute()
+=======
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.GetIdp(context.Background(), name).Execute()
+>>>>>>> main
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.GetIdp``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -2425,8 +2594,13 @@ func main() {
     uuid := "uuid_example" // string | 
 
     configuration := openapiclient.NewConfiguration()
+<<<<<<< HEAD
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.DefaultApi.GetJiraConfiguration(context.Background(), uuid).Execute()
+=======
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.GetJiraConfiguration(context.Background(), uuid).Execute()
+>>>>>>> main
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.GetJiraConfiguration``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -2495,8 +2669,13 @@ func main() {
     uuid := "uuid_example" // string | 
 
     configuration := openapiclient.NewConfiguration()
+<<<<<<< HEAD
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.DefaultApi.GetJiraConfigurationStatus(context.Background(), uuid).Execute()
+=======
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.GetJiraConfigurationStatus(context.Background(), uuid).Execute()
+>>>>>>> main
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.GetJiraConfigurationStatus``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -2566,8 +2745,13 @@ func main() {
     selectorUuid := "selectorUuid_example" // string | 
 
     configuration := openapiclient.NewConfiguration()
+<<<<<<< HEAD
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.DefaultApi.GetJiraSelector(context.Background(), configurationUuid, selectorUuid).Execute()
+=======
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.GetJiraSelector(context.Background(), configurationUuid, selectorUuid).Execute()
+>>>>>>> main
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.GetJiraSelector``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -2642,8 +2826,13 @@ func main() {
     refreshToken := "refreshToken_example" // string | The refresh token from a previous password grant request, used to get a new access_token (optional)
 
     configuration := openapiclient.NewConfiguration()
+<<<<<<< HEAD
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.DefaultApi.GetOauthToken(context.Background()).GrantType(grantType).Username(username).Password(password).ClientId(clientId).RefreshToken(refreshToken).Execute()
+=======
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.GetOauthToken(context.Background()).GrantType(grantType).Username(username).Password(password).ClientId(clientId).RefreshToken(refreshToken).Execute()
+>>>>>>> main
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.GetOauthToken``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -2713,8 +2902,13 @@ func main() {
     page := int32(56) // int32 | Page number to fetch. If omitted, '1' is default. Page numbers start at 1 (optional)
 
     configuration := openapiclient.NewConfiguration()
+<<<<<<< HEAD
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.DefaultApi.GetQueryResult(context.Background(), resultUuid).Page(page).Execute()
+=======
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.GetQueryResult(context.Background(), resultUuid).Page(page).Execute()
+>>>>>>> main
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.GetQueryResult``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -2780,8 +2974,13 @@ func main() {
     roleName := "roleName_example" // string | 
 
     configuration := openapiclient.NewConfiguration()
+<<<<<<< HEAD
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.DefaultApi.GetRole(context.Background(), roleName).Execute()
+=======
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.GetRole(context.Background(), roleName).Execute()
+>>>>>>> main
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.GetRole``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -2850,8 +3049,13 @@ func main() {
     uuid := "uuid_example" // string | 
 
     configuration := openapiclient.NewConfiguration()
+<<<<<<< HEAD
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.DefaultApi.GetSlackConfiguration(context.Background(), uuid).Execute()
+=======
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.GetSlackConfiguration(context.Background(), uuid).Execute()
+>>>>>>> main
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.GetSlackConfiguration``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -2920,8 +3124,13 @@ func main() {
     uuid := "uuid_example" // string | 
 
     configuration := openapiclient.NewConfiguration()
+<<<<<<< HEAD
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.DefaultApi.GetSlackConfigurationStatus(context.Background(), uuid).Execute()
+=======
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.GetSlackConfigurationStatus(context.Background(), uuid).Execute()
+>>>>>>> main
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.GetSlackConfigurationStatus``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -2991,8 +3200,13 @@ func main() {
     selectorUuid := "selectorUuid_example" // string | 
 
     configuration := openapiclient.NewConfiguration()
+<<<<<<< HEAD
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.DefaultApi.GetSlackSelector(context.Background(), configurationUuid, selectorUuid).Execute()
+=======
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.GetSlackSelector(context.Background(), configurationUuid, selectorUuid).Execute()
+>>>>>>> main
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.GetSlackSelector``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -3063,8 +3277,13 @@ func main() {
     uuid := "uuid_example" // string | 
 
     configuration := openapiclient.NewConfiguration()
+<<<<<<< HEAD
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.DefaultApi.GetSmtpConfiguration(context.Background(), uuid).Execute()
+=======
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.GetSmtpConfiguration(context.Background(), uuid).Execute()
+>>>>>>> main
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.GetSmtpConfiguration``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -3133,8 +3352,13 @@ func main() {
     uuid := "uuid_example" // string | 
 
     configuration := openapiclient.NewConfiguration()
+<<<<<<< HEAD
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.DefaultApi.GetSmtpConfigurationStatus(context.Background(), uuid).Execute()
+=======
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.GetSmtpConfigurationStatus(context.Background(), uuid).Execute()
+>>>>>>> main
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.GetSmtpConfigurationStatus``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -3204,8 +3428,13 @@ func main() {
     selectorUuid := "selectorUuid_example" // string | 
 
     configuration := openapiclient.NewConfiguration()
+<<<<<<< HEAD
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.DefaultApi.GetSmtpSelector(context.Background(), configurationUuid, selectorUuid).Execute()
+=======
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.GetSmtpSelector(context.Background(), configurationUuid, selectorUuid).Execute()
+>>>>>>> main
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.GetSmtpSelector``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -3276,8 +3505,13 @@ func main() {
     uuid := "uuid_example" // string | 
 
     configuration := openapiclient.NewConfiguration()
+<<<<<<< HEAD
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.DefaultApi.GetTeamsConfiguration(context.Background(), uuid).Execute()
+=======
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.GetTeamsConfiguration(context.Background(), uuid).Execute()
+>>>>>>> main
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.GetTeamsConfiguration``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -3346,8 +3580,13 @@ func main() {
     uuid := "uuid_example" // string | 
 
     configuration := openapiclient.NewConfiguration()
+<<<<<<< HEAD
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.DefaultApi.GetTeamsConfigurationStatus(context.Background(), uuid).Execute()
+=======
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.GetTeamsConfigurationStatus(context.Background(), uuid).Execute()
+>>>>>>> main
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.GetTeamsConfigurationStatus``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -3417,8 +3656,13 @@ func main() {
     selectorUuid := "selectorUuid_example" // string | 
 
     configuration := openapiclient.NewConfiguration()
+<<<<<<< HEAD
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.DefaultApi.GetTeamsSelector(context.Background(), configurationUuid, selectorUuid).Execute()
+=======
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.GetTeamsSelector(context.Background(), configurationUuid, selectorUuid).Execute()
+>>>>>>> main
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.GetTeamsSelector``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -3489,8 +3733,13 @@ func main() {
     uuid := "uuid_example" // string | 
 
     configuration := openapiclient.NewConfiguration()
+<<<<<<< HEAD
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.DefaultApi.GetWebhookConfiguration(context.Background(), uuid).Execute()
+=======
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.GetWebhookConfiguration(context.Background(), uuid).Execute()
+>>>>>>> main
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.GetWebhookConfiguration``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -3559,8 +3808,13 @@ func main() {
     uuid := "uuid_example" // string | 
 
     configuration := openapiclient.NewConfiguration()
+<<<<<<< HEAD
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.DefaultApi.GetWebhookConfigurationStatus(context.Background(), uuid).Execute()
+=======
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.GetWebhookConfigurationStatus(context.Background(), uuid).Execute()
+>>>>>>> main
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.GetWebhookConfigurationStatus``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -3630,8 +3884,13 @@ func main() {
     selectorUuid := "selectorUuid_example" // string | 
 
     configuration := openapiclient.NewConfiguration()
+<<<<<<< HEAD
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.DefaultApi.GetWebhookSelector(context.Background(), configurationUuid, selectorUuid).Execute()
+=======
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.GetWebhookSelector(context.Background(), configurationUuid, selectorUuid).Execute()
+>>>>>>> main
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.GetWebhookSelector``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -3701,8 +3960,13 @@ import (
 func main() {
 
     configuration := openapiclient.NewConfiguration()
+<<<<<<< HEAD
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.DefaultApi.HealthCheck(context.Background()).Execute()
+=======
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.HealthCheck(context.Background()).Execute()
+>>>>>>> main
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.HealthCheck``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -3760,8 +4024,13 @@ import (
 func main() {
 
     configuration := openapiclient.NewConfiguration()
+<<<<<<< HEAD
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.DefaultApi.ListEndpoints(context.Background()).Execute()
+=======
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.ListEndpoints(context.Background()).Execute()
+>>>>>>> main
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.ListEndpoints``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -3820,8 +4089,13 @@ func main() {
     imageDigest := "imageDigest_example" // string | 
 
     configuration := openapiclient.NewConfiguration()
+<<<<<<< HEAD
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.DefaultApi.ListFileContentSearchResults(context.Background(), imageDigest).Execute()
+=======
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.ListFileContentSearchResults(context.Background(), imageDigest).Execute()
+>>>>>>> main
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.ListFileContentSearchResults``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -3889,8 +4163,13 @@ import (
 func main() {
 
     configuration := openapiclient.NewConfiguration()
+<<<<<<< HEAD
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.DefaultApi.ListGithubConfigurations(context.Background()).Execute()
+=======
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.ListGithubConfigurations(context.Background()).Execute()
+>>>>>>> main
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.ListGithubConfigurations``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -3951,8 +4230,13 @@ func main() {
     uuid := "uuid_example" // string | 
 
     configuration := openapiclient.NewConfiguration()
+<<<<<<< HEAD
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.DefaultApi.ListGithubSelectors(context.Background(), uuid).Execute()
+=======
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.ListGithubSelectors(context.Background(), uuid).Execute()
+>>>>>>> main
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.ListGithubSelectors``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -4020,8 +4304,13 @@ import (
 func main() {
 
     configuration := openapiclient.NewConfiguration()
+<<<<<<< HEAD
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.DefaultApi.ListIdps(context.Background()).Execute()
+=======
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.ListIdps(context.Background()).Execute()
+>>>>>>> main
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.ListIdps``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -4081,8 +4370,13 @@ import (
 func main() {
 
     configuration := openapiclient.NewConfiguration()
+<<<<<<< HEAD
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.DefaultApi.ListJiraConfigurations(context.Background()).Execute()
+=======
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.ListJiraConfigurations(context.Background()).Execute()
+>>>>>>> main
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.ListJiraConfigurations``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -4143,8 +4437,13 @@ func main() {
     uuid := "uuid_example" // string | 
 
     configuration := openapiclient.NewConfiguration()
+<<<<<<< HEAD
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.DefaultApi.ListJiraSelectors(context.Background(), uuid).Execute()
+=======
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.ListJiraSelectors(context.Background(), uuid).Execute()
+>>>>>>> main
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.ListJiraSelectors``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -4211,8 +4510,13 @@ func main() {
     imageDigest := "imageDigest_example" // string | 
 
     configuration := openapiclient.NewConfiguration()
+<<<<<<< HEAD
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.DefaultApi.ListRetrievedFiles(context.Background(), imageDigest).Execute()
+=======
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.ListRetrievedFiles(context.Background(), imageDigest).Execute()
+>>>>>>> main
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.ListRetrievedFiles``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -4280,8 +4584,13 @@ func main() {
     forAccount := "forAccount_example" // string | Optional filter parameter to limit the set fo returned items to only those with matching account. Will return Access Denied if caller does not have permission to listRoleMembers for that account. (optional)
 
     configuration := openapiclient.NewConfiguration()
+<<<<<<< HEAD
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.DefaultApi.ListRoleMembers(context.Background(), roleName).ForAccount(forAccount).Execute()
+=======
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.ListRoleMembers(context.Background(), roleName).ForAccount(forAccount).Execute()
+>>>>>>> main
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.ListRoleMembers``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -4348,8 +4657,13 @@ import (
 func main() {
 
     configuration := openapiclient.NewConfiguration()
+<<<<<<< HEAD
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.DefaultApi.ListRoles(context.Background()).Execute()
+=======
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.ListRoles(context.Background()).Execute()
+>>>>>>> main
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.ListRoles``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -4408,8 +4722,13 @@ func main() {
     imageDigest := "imageDigest_example" // string | 
 
     configuration := openapiclient.NewConfiguration()
+<<<<<<< HEAD
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.DefaultApi.ListSecretSearchResults(context.Background(), imageDigest).Execute()
+=======
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.ListSecretSearchResults(context.Background(), imageDigest).Execute()
+>>>>>>> main
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.ListSecretSearchResults``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -4477,8 +4796,13 @@ import (
 func main() {
 
     configuration := openapiclient.NewConfiguration()
+<<<<<<< HEAD
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.DefaultApi.ListSelectors(context.Background()).Execute()
+=======
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.ListSelectors(context.Background()).Execute()
+>>>>>>> main
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.ListSelectors``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -4538,8 +4862,13 @@ import (
 func main() {
 
     configuration := openapiclient.NewConfiguration()
+<<<<<<< HEAD
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.DefaultApi.ListSlackConfigurations(context.Background()).Execute()
+=======
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.ListSlackConfigurations(context.Background()).Execute()
+>>>>>>> main
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.ListSlackConfigurations``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -4600,8 +4929,13 @@ func main() {
     uuid := "uuid_example" // string | 
 
     configuration := openapiclient.NewConfiguration()
+<<<<<<< HEAD
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.DefaultApi.ListSlackSelectors(context.Background(), uuid).Execute()
+=======
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.ListSlackSelectors(context.Background(), uuid).Execute()
+>>>>>>> main
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.ListSlackSelectors``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -4669,8 +5003,13 @@ import (
 func main() {
 
     configuration := openapiclient.NewConfiguration()
+<<<<<<< HEAD
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.DefaultApi.ListSmtpConfigurations(context.Background()).Execute()
+=======
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.ListSmtpConfigurations(context.Background()).Execute()
+>>>>>>> main
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.ListSmtpConfigurations``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -4731,8 +5070,13 @@ func main() {
     uuid := "uuid_example" // string | 
 
     configuration := openapiclient.NewConfiguration()
+<<<<<<< HEAD
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.DefaultApi.ListSmtpSelectors(context.Background(), uuid).Execute()
+=======
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.ListSmtpSelectors(context.Background(), uuid).Execute()
+>>>>>>> main
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.ListSmtpSelectors``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -4800,8 +5144,13 @@ import (
 func main() {
 
     configuration := openapiclient.NewConfiguration()
+<<<<<<< HEAD
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.DefaultApi.ListTeamsConfigurations(context.Background()).Execute()
+=======
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.ListTeamsConfigurations(context.Background()).Execute()
+>>>>>>> main
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.ListTeamsConfigurations``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -4862,8 +5211,13 @@ func main() {
     uuid := "uuid_example" // string | 
 
     configuration := openapiclient.NewConfiguration()
+<<<<<<< HEAD
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.DefaultApi.ListTeamsSelectors(context.Background(), uuid).Execute()
+=======
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.ListTeamsSelectors(context.Background(), uuid).Execute()
+>>>>>>> main
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.ListTeamsSelectors``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -4932,8 +5286,13 @@ func main() {
     role := "role_example" // string |  (optional)
 
     configuration := openapiclient.NewConfiguration()
+<<<<<<< HEAD
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.DefaultApi.ListUserRoles(context.Background(), username).ForAccount(forAccount).Role(role).Execute()
+=======
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.ListUserRoles(context.Background(), username).ForAccount(forAccount).Role(role).Execute()
+>>>>>>> main
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.ListUserRoles``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -5003,8 +5362,13 @@ import (
 func main() {
 
     configuration := openapiclient.NewConfiguration()
+<<<<<<< HEAD
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.DefaultApi.ListWebhookConfigurations(context.Background()).Execute()
+=======
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.ListWebhookConfigurations(context.Background()).Execute()
+>>>>>>> main
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.ListWebhookConfigurations``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -5065,8 +5429,13 @@ func main() {
     uuid := "uuid_example" // string | 
 
     configuration := openapiclient.NewConfiguration()
+<<<<<<< HEAD
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.DefaultApi.ListWebhookSelectors(context.Background(), uuid).Execute()
+=======
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.ListWebhookSelectors(context.Background(), uuid).Execute()
+>>>>>>> main
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.ListWebhookSelectors``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -5132,8 +5501,13 @@ import (
 func main() {
 
     configuration := openapiclient.NewConfiguration()
+<<<<<<< HEAD
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.DefaultApi.MyRoles(context.Background()).Execute()
+=======
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.MyRoles(context.Background()).Execute()
+>>>>>>> main
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.MyRoles``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -5193,8 +5567,13 @@ import (
 func main() {
 
     configuration := openapiclient.NewConfiguration()
+<<<<<<< HEAD
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.DefaultApi.Ping(context.Background()).Execute()
+=======
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.Ping(context.Background()).Execute()
+>>>>>>> main
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.Ping``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -5256,8 +5635,13 @@ func main() {
     tokenTypeHint := "tokenTypeHint_example" // string | A hint about the type of token to be revoked (optional)
 
     configuration := openapiclient.NewConfiguration()
+<<<<<<< HEAD
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.DefaultApi.RevokeOauthToken(context.Background()).Token(token).TokenTypeHint(tokenTypeHint).Execute()
+=======
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.RevokeOauthToken(context.Background()).Token(token).TokenTypeHint(tokenTypeHint).Execute()
+>>>>>>> main
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.RevokeOauthToken``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -5321,8 +5705,13 @@ func main() {
     idpName := "idpName_example" // string | 
 
     configuration := openapiclient.NewConfiguration()
+<<<<<<< HEAD
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.DefaultApi.SamlLogin(context.Background(), idpName).Execute()
+=======
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.SamlLogin(context.Background(), idpName).Execute()
+>>>>>>> main
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.SamlLogin``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -5391,8 +5780,13 @@ func main() {
     idpName := "idpName_example" // string | 
 
     configuration := openapiclient.NewConfiguration()
+<<<<<<< HEAD
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.DefaultApi.SamlSso(context.Background(), idpName).Execute()
+=======
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.SamlSso(context.Background(), idpName).Execute()
+>>>>>>> main
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.SamlSso``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -5461,8 +5855,13 @@ func main() {
     configuration := *openapiclient.NewNotificationGitHubEndpointConfigurationPost("Username_example", "AccessToken_example", "Owner_example", "Repository_example") // NotificationGitHubEndpointConfigurationPost | 
 
     configuration := openapiclient.NewConfiguration()
+<<<<<<< HEAD
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.DefaultApi.TestGithubConfiguration(context.Background()).Configuration(configuration).Execute()
+=======
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.TestGithubConfiguration(context.Background()).Configuration(configuration).Execute()
+>>>>>>> main
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.TestGithubConfiguration``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -5527,8 +5926,13 @@ func main() {
     configuration := *openapiclient.NewNotificationJiraEndpointConfigurationPost("Url_example", "Username_example", "Password_example", "ProjectKey_example", "IssueType_example") // NotificationJiraEndpointConfigurationPost | 
 
     configuration := openapiclient.NewConfiguration()
+<<<<<<< HEAD
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.DefaultApi.TestJiraConfiguration(context.Background()).Configuration(configuration).Execute()
+=======
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.TestJiraConfiguration(context.Background()).Configuration(configuration).Execute()
+>>>>>>> main
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.TestJiraConfiguration``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -5593,8 +5997,13 @@ func main() {
     configuration := *openapiclient.NewNotificationSlackEndpointConfiguration("Url_example") // NotificationSlackEndpointConfiguration | 
 
     configuration := openapiclient.NewConfiguration()
+<<<<<<< HEAD
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.DefaultApi.TestSlackConfiguration(context.Background()).Configuration(configuration).Execute()
+=======
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.TestSlackConfiguration(context.Background()).Configuration(configuration).Execute()
+>>>>>>> main
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.TestSlackConfiguration``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -5659,8 +6068,13 @@ func main() {
     configuration := *openapiclient.NewNotificationSMTPEndpointConfiguration("Host_example", int32(123), "From_example", "To_example") // NotificationSMTPEndpointConfiguration | 
 
     configuration := openapiclient.NewConfiguration()
+<<<<<<< HEAD
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.DefaultApi.TestSmtpConfiguration(context.Background()).Configuration(configuration).Execute()
+=======
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.TestSmtpConfiguration(context.Background()).Configuration(configuration).Execute()
+>>>>>>> main
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.TestSmtpConfiguration``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -5725,8 +6139,13 @@ func main() {
     uuid := "uuid_example" // string | 
 
     configuration := openapiclient.NewConfiguration()
+<<<<<<< HEAD
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.DefaultApi.TestStoredGithubConfiguration(context.Background(), uuid).Execute()
+=======
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.TestStoredGithubConfiguration(context.Background(), uuid).Execute()
+>>>>>>> main
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.TestStoredGithubConfiguration``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -5795,8 +6214,13 @@ func main() {
     uuid := "uuid_example" // string | 
 
     configuration := openapiclient.NewConfiguration()
+<<<<<<< HEAD
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.DefaultApi.TestStoredJiraConfiguration(context.Background(), uuid).Execute()
+=======
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.TestStoredJiraConfiguration(context.Background(), uuid).Execute()
+>>>>>>> main
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.TestStoredJiraConfiguration``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -5865,8 +6289,13 @@ func main() {
     uuid := "uuid_example" // string | 
 
     configuration := openapiclient.NewConfiguration()
+<<<<<<< HEAD
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.DefaultApi.TestStoredSlackConfiguration(context.Background(), uuid).Execute()
+=======
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.TestStoredSlackConfiguration(context.Background(), uuid).Execute()
+>>>>>>> main
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.TestStoredSlackConfiguration``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -5935,8 +6364,13 @@ func main() {
     uuid := "uuid_example" // string | 
 
     configuration := openapiclient.NewConfiguration()
+<<<<<<< HEAD
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.DefaultApi.TestStoredSmtpConfiguration(context.Background(), uuid).Execute()
+=======
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.TestStoredSmtpConfiguration(context.Background(), uuid).Execute()
+>>>>>>> main
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.TestStoredSmtpConfiguration``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -6005,8 +6439,13 @@ func main() {
     uuid := "uuid_example" // string | 
 
     configuration := openapiclient.NewConfiguration()
+<<<<<<< HEAD
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.DefaultApi.TestStoredTeamsConfiguration(context.Background(), uuid).Execute()
+=======
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.TestStoredTeamsConfiguration(context.Background(), uuid).Execute()
+>>>>>>> main
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.TestStoredTeamsConfiguration``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -6075,8 +6514,13 @@ func main() {
     uuid := "uuid_example" // string | 
 
     configuration := openapiclient.NewConfiguration()
+<<<<<<< HEAD
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.DefaultApi.TestStoredWebhookConfiguration(context.Background(), uuid).Execute()
+=======
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.TestStoredWebhookConfiguration(context.Background(), uuid).Execute()
+>>>>>>> main
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.TestStoredWebhookConfiguration``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -6145,8 +6589,13 @@ func main() {
     configuration := *openapiclient.NewNotificationTeamsEndpointConfiguration("Url_example") // NotificationTeamsEndpointConfiguration | 
 
     configuration := openapiclient.NewConfiguration()
+<<<<<<< HEAD
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.DefaultApi.TestTeamsConfiguration(context.Background()).Configuration(configuration).Execute()
+=======
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.TestTeamsConfiguration(context.Background()).Configuration(configuration).Execute()
+>>>>>>> main
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.TestTeamsConfiguration``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -6211,8 +6660,13 @@ func main() {
     configuration := *openapiclient.NewNotificationWebhookEndpointConfiguration("Url_example") // NotificationWebhookEndpointConfiguration | 
 
     configuration := openapiclient.NewConfiguration()
+<<<<<<< HEAD
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.DefaultApi.TestWebhookConfiguration(context.Background()).Configuration(configuration).Execute()
+=======
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.TestWebhookConfiguration(context.Background()).Configuration(configuration).Execute()
+>>>>>>> main
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.TestWebhookConfiguration``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -6278,8 +6732,13 @@ func main() {
     status := *openapiclient.NewNotificationEndpointEnabledStatus() // NotificationEndpointEnabledStatus | 
 
     configuration := openapiclient.NewConfiguration()
+<<<<<<< HEAD
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.DefaultApi.UpdateEndpointStatus(context.Background(), name).Status(status).Execute()
+=======
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.UpdateEndpointStatus(context.Background(), name).Status(status).Execute()
+>>>>>>> main
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.UpdateEndpointStatus``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -6350,8 +6809,13 @@ func main() {
     configuration := *openapiclient.NewNotificationGitHubEndpointConfigurationPut("Username_example", "Owner_example", "Repository_example") // NotificationGitHubEndpointConfigurationPut | 
 
     configuration := openapiclient.NewConfiguration()
+<<<<<<< HEAD
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.DefaultApi.UpdateGithubConfiguration(context.Background(), uuid).Configuration(configuration).Execute()
+=======
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.UpdateGithubConfiguration(context.Background(), uuid).Configuration(configuration).Execute()
+>>>>>>> main
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.UpdateGithubConfiguration``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -6423,8 +6887,13 @@ func main() {
     selector := *openapiclient.NewNotificationSelector("Scope_example", *openapiclient.NewNotificationEventSelector("Level_example", "ResourceType_example", "Type_example")) // NotificationSelector | 
 
     configuration := openapiclient.NewConfiguration()
+<<<<<<< HEAD
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.DefaultApi.UpdateGithubSelector(context.Background(), configurationUuid, selectorUuid).Selector(selector).Execute()
+=======
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.UpdateGithubSelector(context.Background(), configurationUuid, selectorUuid).Selector(selector).Execute()
+>>>>>>> main
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.UpdateGithubSelector``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -6497,8 +6966,13 @@ func main() {
     configuration := *openapiclient.NewRbacManagerSamlConfiguration("Name_example", false, "SpEntityId_example", "AcsUrl_example") // RbacManagerSamlConfiguration | 
 
     configuration := openapiclient.NewConfiguration()
+<<<<<<< HEAD
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.DefaultApi.UpdateIdp(context.Background(), name).Configuration(configuration).Execute()
+=======
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.UpdateIdp(context.Background(), name).Configuration(configuration).Execute()
+>>>>>>> main
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.UpdateIdp``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -6569,8 +7043,13 @@ func main() {
     configuration := *openapiclient.NewNotificationJiraEndpointConfigurationPut("Url_example", "Username_example", "ProjectKey_example", "IssueType_example") // NotificationJiraEndpointConfigurationPut | 
 
     configuration := openapiclient.NewConfiguration()
+<<<<<<< HEAD
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.DefaultApi.UpdateJiraConfiguration(context.Background(), uuid).Configuration(configuration).Execute()
+=======
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.UpdateJiraConfiguration(context.Background(), uuid).Configuration(configuration).Execute()
+>>>>>>> main
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.UpdateJiraConfiguration``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -6642,8 +7121,13 @@ func main() {
     selector := *openapiclient.NewNotificationSelector("Scope_example", *openapiclient.NewNotificationEventSelector("Level_example", "ResourceType_example", "Type_example")) // NotificationSelector | 
 
     configuration := openapiclient.NewConfiguration()
+<<<<<<< HEAD
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.DefaultApi.UpdateJiraSelector(context.Background(), configurationUuid, selectorUuid).Selector(selector).Execute()
+=======
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.UpdateJiraSelector(context.Background(), configurationUuid, selectorUuid).Selector(selector).Execute()
+>>>>>>> main
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.UpdateJiraSelector``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -6716,8 +7200,13 @@ func main() {
     configuration := *openapiclient.NewNotificationSlackEndpointConfiguration("Url_example") // NotificationSlackEndpointConfiguration | 
 
     configuration := openapiclient.NewConfiguration()
+<<<<<<< HEAD
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.DefaultApi.UpdateSlackConfiguration(context.Background(), uuid).Configuration(configuration).Execute()
+=======
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.UpdateSlackConfiguration(context.Background(), uuid).Configuration(configuration).Execute()
+>>>>>>> main
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.UpdateSlackConfiguration``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -6789,8 +7278,13 @@ func main() {
     selector := *openapiclient.NewNotificationSelector("Scope_example", *openapiclient.NewNotificationEventSelector("Level_example", "ResourceType_example", "Type_example")) // NotificationSelector | 
 
     configuration := openapiclient.NewConfiguration()
+<<<<<<< HEAD
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.DefaultApi.UpdateSlackSelector(context.Background(), configurationUuid, selectorUuid).Selector(selector).Execute()
+=======
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.UpdateSlackSelector(context.Background(), configurationUuid, selectorUuid).Selector(selector).Execute()
+>>>>>>> main
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.UpdateSlackSelector``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -6863,8 +7357,13 @@ func main() {
     configuration := *openapiclient.NewNotificationSMTPEndpointConfiguration("Host_example", int32(123), "From_example", "To_example") // NotificationSMTPEndpointConfiguration | 
 
     configuration := openapiclient.NewConfiguration()
+<<<<<<< HEAD
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.DefaultApi.UpdateSmtpConfiguration(context.Background(), uuid).Configuration(configuration).Execute()
+=======
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.UpdateSmtpConfiguration(context.Background(), uuid).Configuration(configuration).Execute()
+>>>>>>> main
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.UpdateSmtpConfiguration``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -6936,8 +7435,13 @@ func main() {
     selector := *openapiclient.NewNotificationSelector("Scope_example", *openapiclient.NewNotificationEventSelector("Level_example", "ResourceType_example", "Type_example")) // NotificationSelector | 
 
     configuration := openapiclient.NewConfiguration()
+<<<<<<< HEAD
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.DefaultApi.UpdateSmtpSelector(context.Background(), configurationUuid, selectorUuid).Selector(selector).Execute()
+=======
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.UpdateSmtpSelector(context.Background(), configurationUuid, selectorUuid).Selector(selector).Execute()
+>>>>>>> main
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.UpdateSmtpSelector``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -7010,8 +7514,13 @@ func main() {
     configuration := *openapiclient.NewNotificationTeamsEndpointConfiguration("Url_example") // NotificationTeamsEndpointConfiguration | 
 
     configuration := openapiclient.NewConfiguration()
+<<<<<<< HEAD
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.DefaultApi.UpdateTeamsConfiguration(context.Background(), uuid).Configuration(configuration).Execute()
+=======
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.UpdateTeamsConfiguration(context.Background(), uuid).Configuration(configuration).Execute()
+>>>>>>> main
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.UpdateTeamsConfiguration``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -7083,8 +7592,13 @@ func main() {
     selector := *openapiclient.NewNotificationSelector("Scope_example", *openapiclient.NewNotificationEventSelector("Level_example", "ResourceType_example", "Type_example")) // NotificationSelector | 
 
     configuration := openapiclient.NewConfiguration()
+<<<<<<< HEAD
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.DefaultApi.UpdateTeamsSelector(context.Background(), configurationUuid, selectorUuid).Selector(selector).Execute()
+=======
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.UpdateTeamsSelector(context.Background(), configurationUuid, selectorUuid).Selector(selector).Execute()
+>>>>>>> main
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.UpdateTeamsSelector``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -7157,8 +7671,13 @@ func main() {
     configuration := *openapiclient.NewNotificationWebhookEndpointConfiguration("Url_example") // NotificationWebhookEndpointConfiguration | 
 
     configuration := openapiclient.NewConfiguration()
+<<<<<<< HEAD
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.DefaultApi.UpdateWebhookConfiguration(context.Background(), uuid).Configuration(configuration).Execute()
+=======
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.UpdateWebhookConfiguration(context.Background(), uuid).Configuration(configuration).Execute()
+>>>>>>> main
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.UpdateWebhookConfiguration``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -7230,8 +7749,13 @@ func main() {
     selector := *openapiclient.NewNotificationSelector("Scope_example", *openapiclient.NewNotificationEventSelector("Level_example", "ResourceType_example", "Type_example")) // NotificationSelector | 
 
     configuration := openapiclient.NewConfiguration()
+<<<<<<< HEAD
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.DefaultApi.UpdateWebhookSelector(context.Background(), configurationUuid, selectorUuid).Selector(selector).Execute()
+=======
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.UpdateWebhookSelector(context.Background(), configurationUuid, selectorUuid).Selector(selector).Execute()
+>>>>>>> main
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.UpdateWebhookSelector``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -7302,8 +7826,13 @@ import (
 func main() {
 
     configuration := openapiclient.NewConfiguration()
+<<<<<<< HEAD
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.DefaultApi.VersionCheck(context.Background()).Execute()
+=======
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.DefaultApi.VersionCheck(context.Background()).Execute()
+>>>>>>> main
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.VersionCheck``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)

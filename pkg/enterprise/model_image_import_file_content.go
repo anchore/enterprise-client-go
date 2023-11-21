@@ -53,7 +53,11 @@ func (o *ImageImportFileContent) GetLocation() ImportPackageLocation {
 // GetLocationOk returns a tuple with the Location field value
 // and a boolean to check if the value has been set.
 func (o *ImageImportFileContent) GetLocationOk() (*ImportPackageLocation, bool) {
+<<<<<<< HEAD
 	if o == nil {
+=======
+	if o == nil  {
+>>>>>>> main
 		return nil, false
 	}
 	return &o.Location, true
@@ -77,7 +81,11 @@ func (o *ImageImportFileContent) GetContents() string {
 // GetContentsOk returns a tuple with the Contents field value
 // and a boolean to check if the value has been set.
 func (o *ImageImportFileContent) GetContentsOk() (*string, bool) {
+<<<<<<< HEAD
 	if o == nil {
+=======
+	if o == nil  {
+>>>>>>> main
 		return nil, false
 	}
 	return &o.Contents, true

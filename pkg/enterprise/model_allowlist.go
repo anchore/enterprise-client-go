@@ -59,7 +59,11 @@ func (o *Allowlist) GetId() string {
 // GetIdOk returns a tuple with the Id field value
 // and a boolean to check if the value has been set.
 func (o *Allowlist) GetIdOk() (*string, bool) {
+<<<<<<< HEAD
 	if o == nil {
+=======
+	if o == nil  {
+>>>>>>> main
 		return nil, false
 	}
 	return &o.Id, true
@@ -83,7 +87,11 @@ func (o *Allowlist) GetName() string {
 // GetNameOk returns a tuple with the Name field value
 // and a boolean to check if the value has been set.
 func (o *Allowlist) GetNameOk() (*string, bool) {
+<<<<<<< HEAD
 	if o == nil {
+=======
+	if o == nil  {
+>>>>>>> main
 		return nil, false
 	}
 	return &o.Name, true
@@ -107,7 +115,11 @@ func (o *Allowlist) GetVersion() string {
 // GetVersionOk returns a tuple with the Version field value
 // and a boolean to check if the value has been set.
 func (o *Allowlist) GetVersionOk() (*string, bool) {
+<<<<<<< HEAD
 	if o == nil {
+=======
+	if o == nil  {
+>>>>>>> main
 		return nil, false
 	}
 	return &o.Version, true
@@ -162,11 +174,19 @@ func (o *Allowlist) GetItems() []AllowlistItem {
 
 // GetItemsOk returns a tuple with the Items field value
 // and a boolean to check if the value has been set.
+<<<<<<< HEAD
 func (o *Allowlist) GetItemsOk() ([]AllowlistItem, bool) {
 	if o == nil {
 		return nil, false
 	}
 	return o.Items, true
+=======
+func (o *Allowlist) GetItemsOk() (*[]AllowlistItem, bool) {
+	if o == nil  {
+		return nil, false
+	}
+	return &o.Items, true
+>>>>>>> main
 }
 
 // SetItems sets field value

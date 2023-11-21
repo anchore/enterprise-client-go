@@ -1,6 +1,10 @@
 # \StatelessApi
 
+<<<<<<< HEAD
 All URIs are relative to */v2*
+=======
+All URIs are relative to *http://localhost/v2*
+>>>>>>> main
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -29,12 +33,21 @@ import (
 )
 
 func main() {
+<<<<<<< HEAD
     sbom := interface{}{ ... } // interface{} | 
     xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.StatelessApi.VulnerabilityScanSbom(context.Background()).Sbom(sbom).XAnchoreAccount(xAnchoreAccount).Execute()
+=======
+    sbom := interface{}(Object) // interface{} | 
+    xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.StatelessApi.VulnerabilityScanSbom(context.Background()).Sbom(sbom).XAnchoreAccount(xAnchoreAccount).Execute()
+>>>>>>> main
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `StatelessApi.VulnerabilityScanSbom``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)

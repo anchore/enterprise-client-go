@@ -30,11 +30,19 @@ type SourcePolicyEvaluation struct {
 	RepositoryName string `json:"repository_name"`
 	// The commit ID for a git repository
 	Revision string `json:"revision"`
+<<<<<<< HEAD
 	Policy Policy `json:"policy"`
 	// Whether the evaluated source repository matched a policy rule
 	SourceMappedToRule bool `json:"source_mapped_to_rule"`
 	// The policy mapping rule that the source repository being evaluated matched against.
 	MatchedMappingRule interface{} `json:"matched_mapping_rule,omitempty"`
+=======
+	Policy NullablePolicy `json:"policy"`
+	// Whether the evaluated source repository matched a policy rule
+	SourceMappedToRule bool `json:"source_mapped_to_rule"`
+	// The policy mapping rule that the source repository being evaluated matched against.
+	MatchedMappingRule *interface{} `json:"matched_mapping_rule,omitempty"`
+>>>>>>> main
 	// The detailed policy findings
 	Findings []SourcePolicyEvaluationFinding `json:"findings"`
 	// Number of policy findings in the response
@@ -55,7 +63,11 @@ type SourcePolicyEvaluation struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
+<<<<<<< HEAD
 func NewSourcePolicyEvaluation(accountName string, evaluationId string, sourceId string, host string, repositoryName string, revision string, policy Policy, sourceMappedToRule bool, findings []SourcePolicyEvaluationFinding, numberOfFindings int32, evaluationTime time.Time, finalAction string, finalActionReason string, evaluationProblems []PolicyEvaluationProblem, status string) *SourcePolicyEvaluation {
+=======
+func NewSourcePolicyEvaluation(accountName string, evaluationId string, sourceId string, host string, repositoryName string, revision string, policy NullablePolicy, sourceMappedToRule bool, findings []SourcePolicyEvaluationFinding, numberOfFindings int32, evaluationTime time.Time, finalAction string, finalActionReason string, evaluationProblems []PolicyEvaluationProblem, status string) *SourcePolicyEvaluation {
+>>>>>>> main
 	this := SourcePolicyEvaluation{}
 	this.AccountName = accountName
 	this.EvaluationId = evaluationId
@@ -96,7 +108,11 @@ func (o *SourcePolicyEvaluation) GetAccountName() string {
 // GetAccountNameOk returns a tuple with the AccountName field value
 // and a boolean to check if the value has been set.
 func (o *SourcePolicyEvaluation) GetAccountNameOk() (*string, bool) {
+<<<<<<< HEAD
 	if o == nil {
+=======
+	if o == nil  {
+>>>>>>> main
 		return nil, false
 	}
 	return &o.AccountName, true
@@ -120,7 +136,11 @@ func (o *SourcePolicyEvaluation) GetEvaluationId() string {
 // GetEvaluationIdOk returns a tuple with the EvaluationId field value
 // and a boolean to check if the value has been set.
 func (o *SourcePolicyEvaluation) GetEvaluationIdOk() (*string, bool) {
+<<<<<<< HEAD
 	if o == nil {
+=======
+	if o == nil  {
+>>>>>>> main
 		return nil, false
 	}
 	return &o.EvaluationId, true
@@ -144,7 +164,11 @@ func (o *SourcePolicyEvaluation) GetSourceId() string {
 // GetSourceIdOk returns a tuple with the SourceId field value
 // and a boolean to check if the value has been set.
 func (o *SourcePolicyEvaluation) GetSourceIdOk() (*string, bool) {
+<<<<<<< HEAD
 	if o == nil {
+=======
+	if o == nil  {
+>>>>>>> main
 		return nil, false
 	}
 	return &o.SourceId, true
@@ -168,7 +192,11 @@ func (o *SourcePolicyEvaluation) GetHost() string {
 // GetHostOk returns a tuple with the Host field value
 // and a boolean to check if the value has been set.
 func (o *SourcePolicyEvaluation) GetHostOk() (*string, bool) {
+<<<<<<< HEAD
 	if o == nil {
+=======
+	if o == nil  {
+>>>>>>> main
 		return nil, false
 	}
 	return &o.Host, true
@@ -192,7 +220,11 @@ func (o *SourcePolicyEvaluation) GetRepositoryName() string {
 // GetRepositoryNameOk returns a tuple with the RepositoryName field value
 // and a boolean to check if the value has been set.
 func (o *SourcePolicyEvaluation) GetRepositoryNameOk() (*string, bool) {
+<<<<<<< HEAD
 	if o == nil {
+=======
+	if o == nil  {
+>>>>>>> main
 		return nil, false
 	}
 	return &o.RepositoryName, true
@@ -216,7 +248,11 @@ func (o *SourcePolicyEvaluation) GetRevision() string {
 // GetRevisionOk returns a tuple with the Revision field value
 // and a boolean to check if the value has been set.
 func (o *SourcePolicyEvaluation) GetRevisionOk() (*string, bool) {
+<<<<<<< HEAD
 	if o == nil {
+=======
+	if o == nil  {
+>>>>>>> main
 		return nil, false
 	}
 	return &o.Revision, true
@@ -228,27 +264,50 @@ func (o *SourcePolicyEvaluation) SetRevision(v string) {
 }
 
 // GetPolicy returns the Policy field value
+<<<<<<< HEAD
 func (o *SourcePolicyEvaluation) GetPolicy() Policy {
 	if o == nil {
+=======
+// If the value is explicit nil, the zero value for Policy will be returned
+func (o *SourcePolicyEvaluation) GetPolicy() Policy {
+	if o == nil || o.Policy.Get() == nil {
+>>>>>>> main
 		var ret Policy
 		return ret
 	}
 
+<<<<<<< HEAD
 	return o.Policy
+=======
+	return *o.Policy.Get()
+>>>>>>> main
 }
 
 // GetPolicyOk returns a tuple with the Policy field value
 // and a boolean to check if the value has been set.
+<<<<<<< HEAD
 func (o *SourcePolicyEvaluation) GetPolicyOk() (*Policy, bool) {
 	if o == nil {
 		return nil, false
 	}
 	return &o.Policy, true
+=======
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *SourcePolicyEvaluation) GetPolicyOk() (*Policy, bool) {
+	if o == nil  {
+		return nil, false
+	}
+	return o.Policy.Get(), o.Policy.IsSet()
+>>>>>>> main
 }
 
 // SetPolicy sets field value
 func (o *SourcePolicyEvaluation) SetPolicy(v Policy) {
+<<<<<<< HEAD
 	o.Policy = v
+=======
+	o.Policy.Set(&v)
+>>>>>>> main
 }
 
 // GetSourceMappedToRule returns the SourceMappedToRule field value
@@ -264,7 +323,11 @@ func (o *SourcePolicyEvaluation) GetSourceMappedToRule() bool {
 // GetSourceMappedToRuleOk returns a tuple with the SourceMappedToRule field value
 // and a boolean to check if the value has been set.
 func (o *SourcePolicyEvaluation) GetSourceMappedToRuleOk() (*bool, bool) {
+<<<<<<< HEAD
 	if o == nil {
+=======
+	if o == nil  {
+>>>>>>> main
 		return nil, false
 	}
 	return &o.SourceMappedToRule, true
@@ -281,12 +344,20 @@ func (o *SourcePolicyEvaluation) GetMatchedMappingRule() interface{} {
 		var ret interface{}
 		return ret
 	}
+<<<<<<< HEAD
 	return o.MatchedMappingRule
+=======
+	return *o.MatchedMappingRule
+>>>>>>> main
 }
 
 // GetMatchedMappingRuleOk returns a tuple with the MatchedMappingRule field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+<<<<<<< HEAD
 func (o *SourcePolicyEvaluation) GetMatchedMappingRuleOk() (interface{}, bool) {
+=======
+func (o *SourcePolicyEvaluation) GetMatchedMappingRuleOk() (*interface{}, bool) {
+>>>>>>> main
 	if o == nil || o.MatchedMappingRule == nil {
 		return nil, false
 	}
@@ -304,7 +375,11 @@ func (o *SourcePolicyEvaluation) HasMatchedMappingRule() bool {
 
 // SetMatchedMappingRule gets a reference to the given interface{} and assigns it to the MatchedMappingRule field.
 func (o *SourcePolicyEvaluation) SetMatchedMappingRule(v interface{}) {
+<<<<<<< HEAD
 	o.MatchedMappingRule = v
+=======
+	o.MatchedMappingRule = &v
+>>>>>>> main
 }
 
 // GetFindings returns the Findings field value
@@ -319,11 +394,19 @@ func (o *SourcePolicyEvaluation) GetFindings() []SourcePolicyEvaluationFinding {
 
 // GetFindingsOk returns a tuple with the Findings field value
 // and a boolean to check if the value has been set.
+<<<<<<< HEAD
 func (o *SourcePolicyEvaluation) GetFindingsOk() ([]SourcePolicyEvaluationFinding, bool) {
 	if o == nil {
 		return nil, false
 	}
 	return o.Findings, true
+=======
+func (o *SourcePolicyEvaluation) GetFindingsOk() (*[]SourcePolicyEvaluationFinding, bool) {
+	if o == nil  {
+		return nil, false
+	}
+	return &o.Findings, true
+>>>>>>> main
 }
 
 // SetFindings sets field value
@@ -344,7 +427,11 @@ func (o *SourcePolicyEvaluation) GetNumberOfFindings() int32 {
 // GetNumberOfFindingsOk returns a tuple with the NumberOfFindings field value
 // and a boolean to check if the value has been set.
 func (o *SourcePolicyEvaluation) GetNumberOfFindingsOk() (*int32, bool) {
+<<<<<<< HEAD
 	if o == nil {
+=======
+	if o == nil  {
+>>>>>>> main
 		return nil, false
 	}
 	return &o.NumberOfFindings, true
@@ -368,7 +455,11 @@ func (o *SourcePolicyEvaluation) GetEvaluationTime() time.Time {
 // GetEvaluationTimeOk returns a tuple with the EvaluationTime field value
 // and a boolean to check if the value has been set.
 func (o *SourcePolicyEvaluation) GetEvaluationTimeOk() (*time.Time, bool) {
+<<<<<<< HEAD
 	if o == nil {
+=======
+	if o == nil  {
+>>>>>>> main
 		return nil, false
 	}
 	return &o.EvaluationTime, true
@@ -392,7 +483,11 @@ func (o *SourcePolicyEvaluation) GetFinalAction() string {
 // GetFinalActionOk returns a tuple with the FinalAction field value
 // and a boolean to check if the value has been set.
 func (o *SourcePolicyEvaluation) GetFinalActionOk() (*string, bool) {
+<<<<<<< HEAD
 	if o == nil {
+=======
+	if o == nil  {
+>>>>>>> main
 		return nil, false
 	}
 	return &o.FinalAction, true
@@ -416,7 +511,11 @@ func (o *SourcePolicyEvaluation) GetFinalActionReason() string {
 // GetFinalActionReasonOk returns a tuple with the FinalActionReason field value
 // and a boolean to check if the value has been set.
 func (o *SourcePolicyEvaluation) GetFinalActionReasonOk() (*string, bool) {
+<<<<<<< HEAD
 	if o == nil {
+=======
+	if o == nil  {
+>>>>>>> main
 		return nil, false
 	}
 	return &o.FinalActionReason, true
@@ -439,11 +538,19 @@ func (o *SourcePolicyEvaluation) GetEvaluationProblems() []PolicyEvaluationProbl
 
 // GetEvaluationProblemsOk returns a tuple with the EvaluationProblems field value
 // and a boolean to check if the value has been set.
+<<<<<<< HEAD
 func (o *SourcePolicyEvaluation) GetEvaluationProblemsOk() ([]PolicyEvaluationProblem, bool) {
 	if o == nil {
 		return nil, false
 	}
 	return o.EvaluationProblems, true
+=======
+func (o *SourcePolicyEvaluation) GetEvaluationProblemsOk() (*[]PolicyEvaluationProblem, bool) {
+	if o == nil  {
+		return nil, false
+	}
+	return &o.EvaluationProblems, true
+>>>>>>> main
 }
 
 // SetEvaluationProblems sets field value
@@ -464,7 +571,11 @@ func (o *SourcePolicyEvaluation) GetStatus() string {
 // GetStatusOk returns a tuple with the Status field value
 // and a boolean to check if the value has been set.
 func (o *SourcePolicyEvaluation) GetStatusOk() (*string, bool) {
+<<<<<<< HEAD
 	if o == nil {
+=======
+	if o == nil  {
+>>>>>>> main
 		return nil, false
 	}
 	return &o.Status, true
@@ -496,7 +607,11 @@ func (o SourcePolicyEvaluation) MarshalJSON() ([]byte, error) {
 		toSerialize["revision"] = o.Revision
 	}
 	if true {
+<<<<<<< HEAD
 		toSerialize["policy"] = o.Policy
+=======
+		toSerialize["policy"] = o.Policy.Get()
+>>>>>>> main
 	}
 	if true {
 		toSerialize["source_mapped_to_rule"] = o.SourceMappedToRule

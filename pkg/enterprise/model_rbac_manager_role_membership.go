@@ -75,7 +75,11 @@ func (o *RbacManagerRoleMembership) SetRole(v string) {
 }
 
 // GetForAccount returns the ForAccount field value if set, zero value otherwise.
+<<<<<<< HEAD
 func (o *RbacManagerRoleMembership) GetForAccount() string {
+=======
+func (o *RbacManagerRoleMembership) GetForAccount() []string {
+>>>>>>> main
 	if o == nil || o.ForAccount == nil {
 		var ret string
 		return ret
@@ -85,7 +89,11 @@ func (o *RbacManagerRoleMembership) GetForAccount() string {
 
 // GetForAccountOk returns a tuple with the ForAccount field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+<<<<<<< HEAD
 func (o *RbacManagerRoleMembership) GetForAccountOk() (*string, bool) {
+=======
+func (o *RbacManagerRoleMembership) GetForAccountOk() (*[]string, bool) {
+>>>>>>> main
 	if o == nil || o.ForAccount == nil {
 		return nil, false
 	}
@@ -101,8 +109,13 @@ func (o *RbacManagerRoleMembership) HasForAccount() bool {
 	return false
 }
 
+<<<<<<< HEAD
 // SetForAccount gets a reference to the given string and assigns it to the ForAccount field.
 func (o *RbacManagerRoleMembership) SetForAccount(v string) {
+=======
+// SetForAccount gets a reference to the given []string and assigns it to the ForAccount field.
+func (o *RbacManagerRoleMembership) SetForAccount(v []string) {
+>>>>>>> main
 	o.ForAccount = &v
 }
 

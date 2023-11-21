@@ -17,7 +17,11 @@ import (
 
 // KubernetesContainers Containers defined in Kubernetes
 type KubernetesContainers struct {
+<<<<<<< HEAD
 	Containers []KubernetesContainersContainersInner `json:"containers,omitempty"`
+=======
+	Containers *[]KubernetesContainersContainers `json:"containers,omitempty"`
+>>>>>>> main
 }
 
 // NewKubernetesContainers instantiates a new KubernetesContainers object
@@ -38,17 +42,30 @@ func NewKubernetesContainersWithDefaults() *KubernetesContainers {
 }
 
 // GetContainers returns the Containers field value if set, zero value otherwise.
+<<<<<<< HEAD
 func (o *KubernetesContainers) GetContainers() []KubernetesContainersContainersInner {
 	if o == nil || o.Containers == nil {
 		var ret []KubernetesContainersContainersInner
 		return ret
 	}
 	return o.Containers
+=======
+func (o *KubernetesContainers) GetContainers() []KubernetesContainersContainers {
+	if o == nil || o.Containers == nil {
+		var ret []KubernetesContainersContainers
+		return ret
+	}
+	return *o.Containers
+>>>>>>> main
 }
 
 // GetContainersOk returns a tuple with the Containers field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+<<<<<<< HEAD
 func (o *KubernetesContainers) GetContainersOk() ([]KubernetesContainersContainersInner, bool) {
+=======
+func (o *KubernetesContainers) GetContainersOk() (*[]KubernetesContainersContainers, bool) {
+>>>>>>> main
 	if o == nil || o.Containers == nil {
 		return nil, false
 	}
@@ -64,9 +81,15 @@ func (o *KubernetesContainers) HasContainers() bool {
 	return false
 }
 
+<<<<<<< HEAD
 // SetContainers gets a reference to the given []KubernetesContainersContainersInner and assigns it to the Containers field.
 func (o *KubernetesContainers) SetContainers(v []KubernetesContainersContainersInner) {
 	o.Containers = v
+=======
+// SetContainers gets a reference to the given []KubernetesContainersContainers and assigns it to the Containers field.
+func (o *KubernetesContainers) SetContainers(v []KubernetesContainersContainers) {
+	o.Containers = &v
+>>>>>>> main
 }
 
 func (o KubernetesContainers) MarshalJSON() ([]byte, error) {

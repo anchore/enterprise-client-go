@@ -60,7 +60,11 @@ func (o *RuleSet) GetId() string {
 // GetIdOk returns a tuple with the Id field value
 // and a boolean to check if the value has been set.
 func (o *RuleSet) GetIdOk() (*string, bool) {
+<<<<<<< HEAD
 	if o == nil {
+=======
+	if o == nil  {
+>>>>>>> main
 		return nil, false
 	}
 	return &o.Id, true
@@ -84,7 +88,11 @@ func (o *RuleSet) GetName() string {
 // GetNameOk returns a tuple with the Name field value
 // and a boolean to check if the value has been set.
 func (o *RuleSet) GetNameOk() (*string, bool) {
+<<<<<<< HEAD
 	if o == nil {
+=======
+	if o == nil  {
+>>>>>>> main
 		return nil, false
 	}
 	return &o.Name, true
@@ -140,7 +148,11 @@ func (o *RuleSet) GetVersion() string {
 // GetVersionOk returns a tuple with the Version field value
 // and a boolean to check if the value has been set.
 func (o *RuleSet) GetVersionOk() (*string, bool) {
+<<<<<<< HEAD
 	if o == nil {
+=======
+	if o == nil  {
+>>>>>>> main
 		return nil, false
 	}
 	return &o.Version, true
@@ -195,11 +207,19 @@ func (o *RuleSet) GetRules() []PolicyRule {
 
 // GetRulesOk returns a tuple with the Rules field value
 // and a boolean to check if the value has been set.
+<<<<<<< HEAD
 func (o *RuleSet) GetRulesOk() ([]PolicyRule, bool) {
 	if o == nil {
 		return nil, false
 	}
 	return o.Rules, true
+=======
+func (o *RuleSet) GetRulesOk() (*[]PolicyRule, bool) {
+	if o == nil  {
+		return nil, false
+	}
+	return &o.Rules, true
+>>>>>>> main
 }
 
 // SetRules sets field value

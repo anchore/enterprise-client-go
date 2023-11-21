@@ -17,7 +17,11 @@ import (
 
 // InventoryItems Inventory report for Images in Use
 type InventoryItems struct {
+<<<<<<< HEAD
 	Items []InventoryItem `json:"items,omitempty"`
+=======
+	Items *[]InventoryItem `json:"items,omitempty"`
+>>>>>>> main
 }
 
 // NewInventoryItems instantiates a new InventoryItems object
@@ -43,12 +47,20 @@ func (o *InventoryItems) GetItems() []InventoryItem {
 		var ret []InventoryItem
 		return ret
 	}
+<<<<<<< HEAD
 	return o.Items
+=======
+	return *o.Items
+>>>>>>> main
 }
 
 // GetItemsOk returns a tuple with the Items field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+<<<<<<< HEAD
 func (o *InventoryItems) GetItemsOk() ([]InventoryItem, bool) {
+=======
+func (o *InventoryItems) GetItemsOk() (*[]InventoryItem, bool) {
+>>>>>>> main
 	if o == nil || o.Items == nil {
 		return nil, false
 	}
@@ -66,7 +78,11 @@ func (o *InventoryItems) HasItems() bool {
 
 // SetItems gets a reference to the given []InventoryItem and assigns it to the Items field.
 func (o *InventoryItems) SetItems(v []InventoryItem) {
+<<<<<<< HEAD
 	o.Items = v
+=======
+	o.Items = &v
+>>>>>>> main
 }
 
 func (o InventoryItems) MarshalJSON() ([]byte, error) {

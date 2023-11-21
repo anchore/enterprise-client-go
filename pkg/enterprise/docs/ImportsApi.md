@@ -1,6 +1,10 @@
 # \ImportsApi
 
+<<<<<<< HEAD
 All URIs are relative to */v2*
+=======
+All URIs are relative to *http://localhost/v2*
+>>>>>>> main
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -37,6 +41,7 @@ Method | HTTP request | Description
 ## CreateOperation
 
 > ImageImportOperation CreateOperation(ctx).Execute()
+<<<<<<< HEAD
 
 Begin the import of an image SBOM into the system
 
@@ -96,8 +101,10 @@ No authorization required
 ## CreateSourcesOperation
 
 > SourceImportOperation CreateSourcesOperation(ctx).Execute()
+=======
+>>>>>>> main
 
-Begin the import of a source code repository analyzed by Syft into the system
+Begin the import of an image SBOM into the system
 
 ### Example
 
@@ -116,6 +123,70 @@ func main() {
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.ImportsApi.CreateSourcesOperation(context.Background()).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `ImportsApi.CreateSourcesOperation``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+<<<<<<< HEAD
+    // response from `CreateSourcesOperation`: SourceImportOperation
+    fmt.Fprintf(os.Stdout, "Response from `ImportsApi.CreateSourcesOperation`: %v\n", resp)
+=======
+    // response from `CreateOperation`: ImageImportOperation
+    fmt.Fprintf(os.Stdout, "Response from `ImportsApi.CreateOperation`: %v\n", resp)
+>>>>>>> main
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiCreateSourcesOperationRequest struct via the builder pattern
+
+
+### Return type
+
+[**ImageImportOperation**](ImageImportOperation.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## CreateSourcesOperation
+
+> SourceImportOperation CreateSourcesOperation(ctx).Execute()
+
+Begin the import of a source code repository analyzed by Syft into the system
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.ImportsApi.CreateSourcesOperation(context.Background()).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ImportsApi.CreateSourcesOperation``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -343,6 +414,8 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**ImageImportOperation**](ImageImportOperation.md)
+<<<<<<< HEAD
+=======
 
 ### Authorization
 
@@ -380,8 +453,8 @@ func main() {
     operationId := "operationId_example" // string | 
 
     configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ImportsApi.GetSourcesOperation(context.Background(), operationId).Execute()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.ImportsApi.GetSourcesOperation(context.Background(), operationId).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ImportsApi.GetSourcesOperation``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -411,6 +484,7 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**SourceImportOperation**](SourceImportOperation.md)
+>>>>>>> main
 
 ### Authorization
 
@@ -426,6 +500,714 @@ No authorization required
 [[Back to README]](../README.md)
 
 
+<<<<<<< HEAD
+## GetSourcesOperation
+
+> SourceImportOperation GetSourcesOperation(ctx, operationId).Execute()
+=======
+## ImportContentSearches
+
+> ImageImportContentResponse ImportContentSearches(ctx, operationId).Contents(contents).Execute()
+
+Import a content search analysis catalog
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    operationId := "operationId_example" // string | 
+    contents := []openapiclient.ImageImportContentSearch{*openapiclient.NewImageImportContentSearch(*openapiclient.NewImportPackageLocation("Path_example"), []openapiclient.ImportContentSearchElement{*openapiclient.NewImportContentSearchElement("Classification_example", int32(123), int32(123), int32(123), int32(123))})} // []ImageImportContentSearch | 
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.ImportsApi.ImportContentSearches(context.Background(), operationId).Contents(contents).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `ImportsApi.ImportContentSearches``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ImportContentSearches`: ImageImportContentResponse
+    fmt.Fprintf(os.Stdout, "Response from `ImportsApi.ImportContentSearches`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**operationId** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiImportContentSearchesRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **contents** | [**[]ImageImportContentSearch**](ImageImportContentSearch.md) |  | 
+
+### Return type
+
+[**ImageImportContentResponse**](ImageImportContentResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## ImportFileContents
+
+> ImageImportContentResponse ImportFileContents(ctx, operationId).Contents(contents).Execute()
+
+Import a file contents analysis catalog
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    operationId := "operationId_example" // string | 
+    contents := []openapiclient.ImageImportFileContent{*openapiclient.NewImageImportFileContent(*openapiclient.NewImportPackageLocation("Path_example"), "Contents_example")} // []ImageImportFileContent | 
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.ImportsApi.ImportFileContents(context.Background(), operationId).Contents(contents).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `ImportsApi.ImportFileContents``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ImportFileContents`: ImageImportContentResponse
+    fmt.Fprintf(os.Stdout, "Response from `ImportsApi.ImportFileContents`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**operationId** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiImportFileContentsRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **contents** | [**[]ImageImportFileContent**](ImageImportFileContent.md) |  | 
+
+### Return type
+
+[**ImageImportContentResponse**](ImageImportContentResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## ImportImageConfig
+
+> ImageImportContentResponse ImportImageConfig(ctx, operationId).Contents(contents).Execute()
+
+Import a docker or OCI image config to associate with the image
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    operationId := "operationId_example" // string | 
+    contents := interface{}(Object) // interface{} | 
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.ImportsApi.ImportImageConfig(context.Background(), operationId).Contents(contents).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `ImportsApi.ImportImageConfig``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ImportImageConfig`: ImageImportContentResponse
+    fmt.Fprintf(os.Stdout, "Response from `ImportsApi.ImportImageConfig`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**operationId** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiImportImageConfigRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **contents** | **interface{}** |  | 
+
+### Return type
+
+[**ImageImportContentResponse**](ImageImportContentResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## ImportImageDockerfile
+
+> ImageImportContentResponse ImportImageDockerfile(ctx, operationId).Contents(contents).Execute()
+
+Begin the import of an image analyzed by Syft into the system
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    operationId := "operationId_example" // string | 
+    contents := "contents_example" // string | 
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.ImportsApi.ImportImageDockerfile(context.Background(), operationId).Contents(contents).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `ImportsApi.ImportImageDockerfile``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ImportImageDockerfile`: ImageImportContentResponse
+    fmt.Fprintf(os.Stdout, "Response from `ImportsApi.ImportImageDockerfile`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**operationId** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiImportImageDockerfileRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **contents** | **string** |  | 
+
+### Return type
+
+[**ImageImportContentResponse**](ImageImportContentResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: text/plain; utf-8
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## ImportImageManifest
+
+> ImageImportContentResponse ImportImageManifest(ctx, operationId).Contents(contents).Execute()
+
+Import a docker or OCI distribution manifest to associate with the image
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    operationId := "operationId_example" // string | 
+    contents := interface{}(Object) // interface{} | 
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.ImportsApi.ImportImageManifest(context.Background(), operationId).Contents(contents).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `ImportsApi.ImportImageManifest``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ImportImageManifest`: ImageImportContentResponse
+    fmt.Fprintf(os.Stdout, "Response from `ImportsApi.ImportImageManifest`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**operationId** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiImportImageManifestRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **contents** | **interface{}** |  | 
+
+### Return type
+
+[**ImageImportContentResponse**](ImageImportContentResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/vnd.oci.image.manifest.v1+json, application/vnd.docker.distribution.manifest.v2+json, application/vnd.docker.distribution.manifest.v1+json, application/vnd.docker.distribution.manifest.v1+prettyjws
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## ImportImagePackages
+
+> ImageImportContentResponse ImportImagePackages(ctx, operationId).Sbom(sbom).Execute()
+
+Begin the import of an image analyzed by Syft into the system
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    operationId := "operationId_example" // string | 
+    sbom := map[string]interface{}{"key": interface{}(123)} // map[string]interface{} | 
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.ImportsApi.ImportImagePackages(context.Background(), operationId).Sbom(sbom).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `ImportsApi.ImportImagePackages``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ImportImagePackages`: ImageImportContentResponse
+    fmt.Fprintf(os.Stdout, "Response from `ImportsApi.ImportImagePackages`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**operationId** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiImportImagePackagesRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **sbom** | **map[string]interface{}** |  | 
+
+### Return type
+
+[**ImageImportContentResponse**](ImageImportContentResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## ImportImageParentManifest
+
+> ImageImportContentResponse ImportImageParentManifest(ctx, operationId).Contents(contents).Execute()
+
+Import a docker or OCI distribution manifest list to associate with the image
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    operationId := "operationId_example" // string | 
+    contents := interface{}(Object) // interface{} | 
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.ImportsApi.ImportImageParentManifest(context.Background(), operationId).Contents(contents).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `ImportsApi.ImportImageParentManifest``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ImportImageParentManifest`: ImageImportContentResponse
+    fmt.Fprintf(os.Stdout, "Response from `ImportsApi.ImportImageParentManifest`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**operationId** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiImportImageParentManifestRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **contents** | **interface{}** |  | 
+
+### Return type
+
+[**ImageImportContentResponse**](ImageImportContentResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/vnd.docker.distribution.manifest.list.v2+json, application/vnd.oci.image.index.v1+json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## ImportSecretSearches
+
+> ImageImportContentResponse ImportSecretSearches(ctx, operationId).Contents(contents).Execute()
+
+Import a secret search analysis catalog
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    operationId := "operationId_example" // string | 
+    contents := []openapiclient.ImageImportContentSearch{*openapiclient.NewImageImportContentSearch(*openapiclient.NewImportPackageLocation("Path_example"), []openapiclient.ImportContentSearchElement{*openapiclient.NewImportContentSearchElement("Classification_example", int32(123), int32(123), int32(123), int32(123))})} // []ImageImportContentSearch | 
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.ImportsApi.ImportSecretSearches(context.Background(), operationId).Contents(contents).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `ImportsApi.ImportSecretSearches``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ImportSecretSearches`: ImageImportContentResponse
+    fmt.Fprintf(os.Stdout, "Response from `ImportsApi.ImportSecretSearches`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**operationId** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiImportSecretSearchesRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **contents** | [**[]ImageImportContentSearch**](ImageImportContentSearch.md) |  | 
+
+### Return type
+
+[**ImageImportContentResponse**](ImageImportContentResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## InvalidateOperation
+
+> ImageImportOperation InvalidateOperation(ctx, operationId).Execute()
+>>>>>>> main
+
+Get detail on a single import
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    operationId := "operationId_example" // string | 
+
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.ImportsApi.GetSourcesOperation(context.Background(), operationId).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `ImportsApi.GetSourcesOperation``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+<<<<<<< HEAD
+    // response from `GetSourcesOperation`: SourceImportOperation
+    fmt.Fprintf(os.Stdout, "Response from `ImportsApi.GetSourcesOperation`: %v\n", resp)
+=======
+    // response from `InvalidateOperation`: ImageImportOperation
+    fmt.Fprintf(os.Stdout, "Response from `ImportsApi.InvalidateOperation`: %v\n", resp)
+>>>>>>> main
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**operationId** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetSourcesOperationRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+[**ImageImportOperation**](ImageImportOperation.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## InvalidateSourcesOperation
+
+> SourceImportOperation InvalidateSourcesOperation(ctx, operationId).Execute()
+
+Invalidate operation ID so it can be garbage collected
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    operationId := "operationId_example" // string | 
+
+    configuration := openapiclient.NewConfiguration()
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.ImportsApi.InvalidateSourcesOperation(context.Background(), operationId).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `ImportsApi.InvalidateSourcesOperation``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `InvalidateSourcesOperation`: SourceImportOperation
+    fmt.Fprintf(os.Stdout, "Response from `ImportsApi.InvalidateSourcesOperation`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**operationId** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiInvalidateSourcesOperationRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+[**SourceImportOperation**](SourceImportOperation.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+<<<<<<< HEAD
 ## ImportContentSearches
 
 > ImageImportContentResponse ImportContentSearches(ctx, operationId).Contents(contents).Execute()
@@ -1122,6 +1904,8 @@ No authorization required
 [[Back to README]](../README.md)
 
 
+=======
+>>>>>>> main
 ## ListImportContentSearches
 
 > []string ListImportContentSearches(ctx, operationId).Execute()
@@ -1144,8 +1928,13 @@ func main() {
     operationId := "operationId_example" // string | 
 
     configuration := openapiclient.NewConfiguration()
+<<<<<<< HEAD
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.ImportsApi.ListImportContentSearches(context.Background(), operationId).Execute()
+=======
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.ImportsApi.ListImportContentSearches(context.Background(), operationId).Execute()
+>>>>>>> main
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ImportsApi.ListImportContentSearches``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -1212,8 +2001,13 @@ func main() {
     operationId := "operationId_example" // string | 
 
     configuration := openapiclient.NewConfiguration()
+<<<<<<< HEAD
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.ImportsApi.ListImportDockerfiles(context.Background(), operationId).Execute()
+=======
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.ImportsApi.ListImportDockerfiles(context.Background(), operationId).Execute()
+>>>>>>> main
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ImportsApi.ListImportDockerfiles``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -1280,8 +2074,13 @@ func main() {
     operationId := "operationId_example" // string | 
 
     configuration := openapiclient.NewConfiguration()
+<<<<<<< HEAD
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.ImportsApi.ListImportFileContents(context.Background(), operationId).Execute()
+=======
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.ImportsApi.ListImportFileContents(context.Background(), operationId).Execute()
+>>>>>>> main
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ImportsApi.ListImportFileContents``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -1348,8 +2147,13 @@ func main() {
     operationId := "operationId_example" // string | 
 
     configuration := openapiclient.NewConfiguration()
+<<<<<<< HEAD
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.ImportsApi.ListImportImageConfigs(context.Background(), operationId).Execute()
+=======
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.ImportsApi.ListImportImageConfigs(context.Background(), operationId).Execute()
+>>>>>>> main
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ImportsApi.ListImportImageConfigs``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -1416,8 +2220,13 @@ func main() {
     operationId := "operationId_example" // string | 
 
     configuration := openapiclient.NewConfiguration()
+<<<<<<< HEAD
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.ImportsApi.ListImportImageManifests(context.Background(), operationId).Execute()
+=======
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.ImportsApi.ListImportImageManifests(context.Background(), operationId).Execute()
+>>>>>>> main
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ImportsApi.ListImportImageManifests``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -1484,8 +2293,13 @@ func main() {
     operationId := "operationId_example" // string | 
 
     configuration := openapiclient.NewConfiguration()
+<<<<<<< HEAD
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.ImportsApi.ListImportPackages(context.Background(), operationId).Execute()
+=======
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.ImportsApi.ListImportPackages(context.Background(), operationId).Execute()
+>>>>>>> main
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ImportsApi.ListImportPackages``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -1552,8 +2366,13 @@ func main() {
     operationId := "operationId_example" // string | 
 
     configuration := openapiclient.NewConfiguration()
+<<<<<<< HEAD
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.ImportsApi.ListImportParentManifests(context.Background(), operationId).Execute()
+=======
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.ImportsApi.ListImportParentManifests(context.Background(), operationId).Execute()
+>>>>>>> main
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ImportsApi.ListImportParentManifests``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -1620,8 +2439,13 @@ func main() {
     operationId := "operationId_example" // string | 
 
     configuration := openapiclient.NewConfiguration()
+<<<<<<< HEAD
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.ImportsApi.ListImportSecretSearches(context.Background(), operationId).Execute()
+=======
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.ImportsApi.ListImportSecretSearches(context.Background(), operationId).Execute()
+>>>>>>> main
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ImportsApi.ListImportSecretSearches``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -1746,8 +2570,13 @@ import (
 func main() {
 
     configuration := openapiclient.NewConfiguration()
+<<<<<<< HEAD
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.ImportsApi.ListSourcesOperations(context.Background()).Execute()
+=======
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.ImportsApi.ListSourcesOperations(context.Background()).Execute()
+>>>>>>> main
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ImportsApi.ListSourcesOperations``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)

@@ -52,7 +52,11 @@ func (o *NotificationSlackEndpointConfigurationAllOf) GetUrl() string {
 // GetUrlOk returns a tuple with the Url field value
 // and a boolean to check if the value has been set.
 func (o *NotificationSlackEndpointConfigurationAllOf) GetUrlOk() (*string, bool) {
+<<<<<<< HEAD
 	if o == nil {
+=======
+	if o == nil  {
+>>>>>>> main
 		return nil, false
 	}
 	return &o.Url, true

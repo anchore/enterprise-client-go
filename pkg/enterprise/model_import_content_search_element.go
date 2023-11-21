@@ -59,7 +59,11 @@ func (o *ImportContentSearchElement) GetClassification() string {
 // GetClassificationOk returns a tuple with the Classification field value
 // and a boolean to check if the value has been set.
 func (o *ImportContentSearchElement) GetClassificationOk() (*string, bool) {
+<<<<<<< HEAD
 	if o == nil {
+=======
+	if o == nil  {
+>>>>>>> main
 		return nil, false
 	}
 	return &o.Classification, true
@@ -83,7 +87,11 @@ func (o *ImportContentSearchElement) GetLineNumber() int32 {
 // GetLineNumberOk returns a tuple with the LineNumber field value
 // and a boolean to check if the value has been set.
 func (o *ImportContentSearchElement) GetLineNumberOk() (*int32, bool) {
+<<<<<<< HEAD
 	if o == nil {
+=======
+	if o == nil  {
+>>>>>>> main
 		return nil, false
 	}
 	return &o.LineNumber, true
@@ -107,7 +115,11 @@ func (o *ImportContentSearchElement) GetLineOffset() int32 {
 // GetLineOffsetOk returns a tuple with the LineOffset field value
 // and a boolean to check if the value has been set.
 func (o *ImportContentSearchElement) GetLineOffsetOk() (*int32, bool) {
+<<<<<<< HEAD
 	if o == nil {
+=======
+	if o == nil  {
+>>>>>>> main
 		return nil, false
 	}
 	return &o.LineOffset, true
@@ -131,7 +143,11 @@ func (o *ImportContentSearchElement) GetSeekPosition() int32 {
 // GetSeekPositionOk returns a tuple with the SeekPosition field value
 // and a boolean to check if the value has been set.
 func (o *ImportContentSearchElement) GetSeekPositionOk() (*int32, bool) {
+<<<<<<< HEAD
 	if o == nil {
+=======
+	if o == nil  {
+>>>>>>> main
 		return nil, false
 	}
 	return &o.SeekPosition, true
@@ -155,7 +171,11 @@ func (o *ImportContentSearchElement) GetLength() int32 {
 // GetLengthOk returns a tuple with the Length field value
 // and a boolean to check if the value has been set.
 func (o *ImportContentSearchElement) GetLengthOk() (*int32, bool) {
+<<<<<<< HEAD
 	if o == nil {
+=======
+	if o == nil  {
+>>>>>>> main
 		return nil, false
 	}
 	return &o.Length, true

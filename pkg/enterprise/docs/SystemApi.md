@@ -1,6 +1,10 @@
 # \SystemApi
 
+<<<<<<< HEAD
 All URIs are relative to */v2*
+=======
+All URIs are relative to *http://localhost/v2*
+>>>>>>> main
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -111,8 +115,13 @@ func main() {
     hostId := "hostId_example" // string | 
 
     configuration := openapiclient.NewConfiguration()
+<<<<<<< HEAD
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.SystemApi.DeleteService(context.Background(), serviceName, hostId).Execute()
+=======
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.SystemApi.DeleteService(context.Background(), serviceName, hostId).Execute()
+>>>>>>> main
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `SystemApi.DeleteService``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -362,8 +371,13 @@ func main() {
     serviceName := "serviceName_example" // string | 
 
     configuration := openapiclient.NewConfiguration()
+<<<<<<< HEAD
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.SystemApi.GetServicesByName(context.Background(), serviceName).Execute()
+=======
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.SystemApi.GetServicesByName(context.Background(), serviceName).Execute()
+>>>>>>> main
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `SystemApi.GetServicesByName``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -431,8 +445,13 @@ func main() {
     hostId := "hostId_example" // string | 
 
     configuration := openapiclient.NewConfiguration()
+<<<<<<< HEAD
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.SystemApi.GetServicesByNameAndHost(context.Background(), serviceName, hostId).Execute()
+=======
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.SystemApi.GetServicesByNameAndHost(context.Background(), serviceName, hostId).Execute()
+>>>>>>> main
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `SystemApi.GetServicesByNameAndHost``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -683,8 +702,13 @@ import (
 func main() {
 
     configuration := openapiclient.NewConfiguration()
+<<<<<<< HEAD
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.SystemApi.PostSystemFeeds(context.Background()).Execute()
+=======
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.SystemApi.PostSystemFeeds(context.Background()).Execute()
+>>>>>>> main
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `SystemApi.PostSystemFeeds``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)

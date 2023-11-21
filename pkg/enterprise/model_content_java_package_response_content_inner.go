@@ -25,9 +25,14 @@ type ContentJAVAPackageResponseContentInner struct {
 	Type *string `json:"type,omitempty"`
 	Origin *string `json:"origin,omitempty"`
 	// A list of Common Platform Enumerations that may uniquely identify the package
+<<<<<<< HEAD:pkg/enterprise/model_content_java_package_response_content_inner.go
 	Cpes []string `json:"cpes,omitempty"`
 	Purl *string `json:"purl,omitempty"`
 	Version *string `json:"version,omitempty"`
+=======
+	Cpes *[]string `json:"cpes,omitempty"`
+	Purl *string `json:"purl,omitempty"`
+>>>>>>> main:pkg/enterprise/model_content_java_package_response_content.go
 }
 
 // NewContentJAVAPackageResponseContentInner instantiates a new ContentJAVAPackageResponseContentInner object
@@ -304,7 +309,11 @@ func (o *ContentJAVAPackageResponseContentInner) SetCpes(v []string) {
 }
 
 // GetPurl returns the Purl field value if set, zero value otherwise.
+<<<<<<< HEAD:pkg/enterprise/model_content_java_package_response_content_inner.go
 func (o *ContentJAVAPackageResponseContentInner) GetPurl() string {
+=======
+func (o *ContentJAVAPackageResponseContent) GetPurl() string {
+>>>>>>> main:pkg/enterprise/model_content_java_package_response_content.go
 	if o == nil || o.Purl == nil {
 		var ret string
 		return ret
@@ -314,7 +323,11 @@ func (o *ContentJAVAPackageResponseContentInner) GetPurl() string {
 
 // GetPurlOk returns a tuple with the Purl field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+<<<<<<< HEAD:pkg/enterprise/model_content_java_package_response_content_inner.go
 func (o *ContentJAVAPackageResponseContentInner) GetPurlOk() (*string, bool) {
+=======
+func (o *ContentJAVAPackageResponseContent) GetPurlOk() (*string, bool) {
+>>>>>>> main:pkg/enterprise/model_content_java_package_response_content.go
 	if o == nil || o.Purl == nil {
 		return nil, false
 	}
@@ -322,7 +335,11 @@ func (o *ContentJAVAPackageResponseContentInner) GetPurlOk() (*string, bool) {
 }
 
 // HasPurl returns a boolean if a field has been set.
+<<<<<<< HEAD:pkg/enterprise/model_content_java_package_response_content_inner.go
 func (o *ContentJAVAPackageResponseContentInner) HasPurl() bool {
+=======
+func (o *ContentJAVAPackageResponseContent) HasPurl() bool {
+>>>>>>> main:pkg/enterprise/model_content_java_package_response_content.go
 	if o != nil && o.Purl != nil {
 		return true
 	}
@@ -331,6 +348,7 @@ func (o *ContentJAVAPackageResponseContentInner) HasPurl() bool {
 }
 
 // SetPurl gets a reference to the given string and assigns it to the Purl field.
+<<<<<<< HEAD:pkg/enterprise/model_content_java_package_response_content_inner.go
 func (o *ContentJAVAPackageResponseContentInner) SetPurl(v string) {
 	o.Purl = &v
 }
@@ -368,6 +386,13 @@ func (o *ContentJAVAPackageResponseContentInner) SetVersion(v string) {
 }
 
 func (o ContentJAVAPackageResponseContentInner) MarshalJSON() ([]byte, error) {
+=======
+func (o *ContentJAVAPackageResponseContent) SetPurl(v string) {
+	o.Purl = &v
+}
+
+func (o ContentJAVAPackageResponseContent) MarshalJSON() ([]byte, error) {
+>>>>>>> main:pkg/enterprise/model_content_java_package_response_content.go
 	toSerialize := map[string]interface{}{}
 	if o.Package != nil {
 		toSerialize["package"] = o.Package
@@ -396,9 +421,12 @@ func (o ContentJAVAPackageResponseContentInner) MarshalJSON() ([]byte, error) {
 	if o.Purl != nil {
 		toSerialize["purl"] = o.Purl
 	}
+<<<<<<< HEAD:pkg/enterprise/model_content_java_package_response_content_inner.go
 	if o.Version != nil {
 		toSerialize["version"] = o.Version
 	}
+=======
+>>>>>>> main:pkg/enterprise/model_content_java_package_response_content.go
 	return json.Marshal(toSerialize)
 }
 

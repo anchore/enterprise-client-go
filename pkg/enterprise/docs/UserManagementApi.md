@@ -1,6 +1,10 @@
 # \UserManagementApi
 
+<<<<<<< HEAD
 All URIs are relative to */v2*
+=======
+All URIs are relative to *http://localhost/v2*
+>>>>>>> main
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -107,8 +111,13 @@ func main() {
     user := *openapiclient.NewUserCreationRequest("Username_example") // UserCreationRequest | 
 
     configuration := openapiclient.NewConfiguration()
+<<<<<<< HEAD
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.UserManagementApi.CreateUser(context.Background(), accountName).User(user).Execute()
+=======
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.UserManagementApi.CreateUser(context.Background(), accountName).User(user).Execute()
+>>>>>>> main
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `UserManagementApi.CreateUser``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -178,8 +187,13 @@ func main() {
     credential := *openapiclient.NewAccessCredential("Type_example", "Value_example") // AccessCredential | 
 
     configuration := openapiclient.NewConfiguration()
+<<<<<<< HEAD
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.UserManagementApi.CreateUserCredential(context.Background(), accountName, username).Credential(credential).Execute()
+=======
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.UserManagementApi.CreateUserCredential(context.Background(), accountName, username).Credential(credential).Execute()
+>>>>>>> main
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `UserManagementApi.CreateUserCredential``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -249,8 +263,13 @@ func main() {
     accountName := "accountName_example" // string | 
 
     configuration := openapiclient.NewConfiguration()
+<<<<<<< HEAD
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.UserManagementApi.DeleteAccount(context.Background(), accountName).Execute()
+=======
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.UserManagementApi.DeleteAccount(context.Background(), accountName).Execute()
+>>>>>>> main
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `UserManagementApi.DeleteAccount``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -316,8 +335,13 @@ func main() {
     username := "username_example" // string | 
 
     configuration := openapiclient.NewConfiguration()
+<<<<<<< HEAD
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.UserManagementApi.DeleteUser(context.Background(), accountName, username).Execute()
+=======
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.UserManagementApi.DeleteUser(context.Background(), accountName, username).Execute()
+>>>>>>> main
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `UserManagementApi.DeleteUser``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -386,8 +410,13 @@ func main() {
     credentialType := "credentialType_example" // string | 
 
     configuration := openapiclient.NewConfiguration()
+<<<<<<< HEAD
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.UserManagementApi.DeleteUserCredential(context.Background(), accountName, username).CredentialType(credentialType).Execute()
+=======
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.UserManagementApi.DeleteUserCredential(context.Background(), accountName, username).CredentialType(credentialType).Execute()
+>>>>>>> main
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `UserManagementApi.DeleteUserCredential``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -455,8 +484,13 @@ func main() {
     accountName := "accountName_example" // string | 
 
     configuration := openapiclient.NewConfiguration()
+<<<<<<< HEAD
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.UserManagementApi.GetAccount(context.Background(), accountName).Execute()
+=======
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.UserManagementApi.GetAccount(context.Background(), accountName).Execute()
+>>>>>>> main
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `UserManagementApi.GetAccount``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -524,8 +558,13 @@ func main() {
     username := "username_example" // string | 
 
     configuration := openapiclient.NewConfiguration()
+<<<<<<< HEAD
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.UserManagementApi.GetAccountUser(context.Background(), accountName, username).Execute()
+=======
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.UserManagementApi.GetAccountUser(context.Background(), accountName, username).Execute()
+>>>>>>> main
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `UserManagementApi.GetAccountUser``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -659,8 +698,13 @@ func main() {
     username := "username_example" // string | 
 
     configuration := openapiclient.NewConfiguration()
+<<<<<<< HEAD
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.UserManagementApi.ListUserCredentials(context.Background(), accountName, username).Execute()
+=======
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.UserManagementApi.ListUserCredentials(context.Background(), accountName, username).Execute()
+>>>>>>> main
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `UserManagementApi.ListUserCredentials``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -729,8 +773,13 @@ func main() {
     accountName := "accountName_example" // string | 
 
     configuration := openapiclient.NewConfiguration()
+<<<<<<< HEAD
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.UserManagementApi.ListUsers(context.Background(), accountName).Execute()
+=======
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.UserManagementApi.ListUsers(context.Background(), accountName).Execute()
+>>>>>>> main
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `UserManagementApi.ListUsers``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -799,8 +848,13 @@ func main() {
     xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
 
     configuration := openapiclient.NewConfiguration()
+<<<<<<< HEAD
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.UserManagementApi.UpdateAccount(context.Background(), accountName).Info(info).XAnchoreAccount(xAnchoreAccount).Execute()
+=======
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.UserManagementApi.UpdateAccount(context.Background(), accountName).Info(info).XAnchoreAccount(xAnchoreAccount).Execute()
+>>>>>>> main
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `UserManagementApi.UpdateAccount``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -870,8 +924,13 @@ func main() {
     desiredState := *openapiclient.NewAccountStatus() // AccountStatus | 
 
     configuration := openapiclient.NewConfiguration()
+<<<<<<< HEAD
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.UserManagementApi.UpdateAccountState(context.Background(), accountName).DesiredState(desiredState).Execute()
+=======
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.UserManagementApi.UpdateAccountState(context.Background(), accountName).DesiredState(desiredState).Execute()
+>>>>>>> main
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `UserManagementApi.UpdateAccountState``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)

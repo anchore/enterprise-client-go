@@ -27,7 +27,11 @@ type AnchoreImage struct {
 	ImageDigest *string `json:"image_digest,omitempty"`
 	ParentDigest *string `json:"parent_digest,omitempty"`
 	AccountName *string `json:"account_name,omitempty"`
+<<<<<<< HEAD
 	Annotations interface{} `json:"annotations,omitempty"`
+=======
+	Annotations *interface{} `json:"annotations,omitempty"`
+>>>>>>> main
 	// State of the image
 	ImageStatus *string `json:"image_status,omitempty"`
 	// A state value for the current status of the analysis progress of the image

@@ -13,7 +13,11 @@ Name | Type | Description | Notes
 **Recommendation** | **string** | User provided details for resolving this finding | 
 **RuleId** | **string** | ID of the policy rule that that generated this finding | 
 **Allowlisted** | **bool** | Indicates if this finding was allowlisted or not | 
+<<<<<<< HEAD
 **AllowlistMatch** | Pointer to [**PolicyEvaluationFindingAllowlistMatch**](PolicyEvaluationFindingAllowlistMatch.md) |  | [optional] 
+=======
+**AllowlistMatch** | Pointer to [**NullablePolicyEvaluationFindingAllowlistMatch**](PolicyEvaluationFindingAllowlistMatch.md) |  | [optional] 
+>>>>>>> main
 **InheritedFromBase** | Pointer to **NullableBool** | Indicates if this finding was found in the base image | [optional] 
 
 ## Methods
@@ -240,6 +244,19 @@ SetAllowlistMatch sets AllowlistMatch field to given value.
 
 HasAllowlistMatch returns a boolean if a field has been set.
 
+<<<<<<< HEAD
+=======
+### SetAllowlistMatchNil
+
+`func (o *PolicyEvaluationFinding) SetAllowlistMatchNil(b bool)`
+
+ SetAllowlistMatchNil sets the value for AllowlistMatch to be an explicit nil
+
+### UnsetAllowlistMatch
+`func (o *PolicyEvaluationFinding) UnsetAllowlistMatch()`
+
+UnsetAllowlistMatch ensures that no value is present for AllowlistMatch, not even an explicit nil
+>>>>>>> main
 ### GetInheritedFromBase
 
 `func (o *PolicyEvaluationFinding) GetInheritedFromBase() bool`

@@ -7,7 +7,11 @@ Name | Type | Description | Notes
 **PolicyId** | Pointer to **string** | The ID of the policy used to evaluate the image | [optional] 
 **ImageDigest** | Pointer to **string** | Image digest of the image being evaluated | [optional] 
 **EvaluatedTag** | Pointer to **string** | Image tag used to evaluate policy for the given image | [optional] 
+<<<<<<< HEAD
 **Evaluations** | Pointer to [**[]PolicyEvaluationEvaluationsInner**](PolicyEvaluationEvaluationsInner.md) | List of policy evaluations. Always has at least one result, may contain multiple when the evaluation history is requested. | [optional] 
+=======
+**Evaluations** | Pointer to [**[]PolicyEvaluationEvaluations**](PolicyEvaluationEvaluations.md) | List of policy evaluations. Always has at least one result, may contain multiple when the evaluation history is requested. | [optional] 
+>>>>>>> main
 
 ## Methods
 
@@ -105,20 +109,32 @@ HasEvaluatedTag returns a boolean if a field has been set.
 
 ### GetEvaluations
 
+<<<<<<< HEAD
 `func (o *PolicyEvaluation) GetEvaluations() []PolicyEvaluationEvaluationsInner`
+=======
+`func (o *PolicyEvaluation) GetEvaluations() []PolicyEvaluationEvaluations`
+>>>>>>> main
 
 GetEvaluations returns the Evaluations field if non-nil, zero value otherwise.
 
 ### GetEvaluationsOk
 
+<<<<<<< HEAD
 `func (o *PolicyEvaluation) GetEvaluationsOk() (*[]PolicyEvaluationEvaluationsInner, bool)`
+=======
+`func (o *PolicyEvaluation) GetEvaluationsOk() (*[]PolicyEvaluationEvaluations, bool)`
+>>>>>>> main
 
 GetEvaluationsOk returns a tuple with the Evaluations field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetEvaluations
 
+<<<<<<< HEAD
 `func (o *PolicyEvaluation) SetEvaluations(v []PolicyEvaluationEvaluationsInner)`
+=======
+`func (o *PolicyEvaluation) SetEvaluations(v []PolicyEvaluationEvaluations)`
+>>>>>>> main
 
 SetEvaluations sets Evaluations field to given value.
 

@@ -22,8 +22,13 @@ type ImagePackageManifest struct {
 	Distro ImportDistribution `json:"distro"`
 	Descriptor *ImportDescriptor `json:"descriptor,omitempty"`
 	Schema *ImportSchema `json:"schema,omitempty"`
+<<<<<<< HEAD
 	ArtifactRelationships []ImportPackageRelationship `json:"artifactRelationships,omitempty"`
 	Files []ImportFile `json:"files,omitempty"`
+=======
+	ArtifactRelationships *[]ImportPackageRelationship `json:"artifactRelationships,omitempty"`
+	Files *[]ImportFile `json:"files,omitempty"`
+>>>>>>> main
 	AdditionalProperties map[string]interface{}
 }
 
@@ -247,6 +252,38 @@ func (o *ImagePackageManifest) HasFiles() bool {
 // SetFiles gets a reference to the given []ImportFile and assigns it to the Files field.
 func (o *ImagePackageManifest) SetFiles(v []ImportFile) {
 	o.Files = v
+}
+
+// GetFiles returns the Files field value if set, zero value otherwise.
+func (o *ImagePackageManifest) GetFiles() []ImportFile {
+	if o == nil || o.Files == nil {
+		var ret []ImportFile
+		return ret
+	}
+	return *o.Files
+}
+
+// GetFilesOk returns a tuple with the Files field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ImagePackageManifest) GetFilesOk() (*[]ImportFile, bool) {
+	if o == nil || o.Files == nil {
+		return nil, false
+	}
+	return o.Files, true
+}
+
+// HasFiles returns a boolean if a field has been set.
+func (o *ImagePackageManifest) HasFiles() bool {
+	if o != nil && o.Files != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetFiles gets a reference to the given []ImportFile and assigns it to the Files field.
+func (o *ImagePackageManifest) SetFiles(v []ImportFile) {
+	o.Files = &v
 }
 
 func (o ImagePackageManifest) MarshalJSON() ([]byte, error) {

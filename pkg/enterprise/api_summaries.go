@@ -27,6 +27,7 @@ type SummariesApi interface {
 
 	List all image tags visible to the user
 
+<<<<<<< HEAD
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return ApiListImageTagsRequest
 	*/
@@ -35,13 +36,27 @@ type SummariesApi interface {
 	// ListImageTagsExecute executes the request
 	//  @return AnchoreImageTagSummaryList
 	ListImageTagsExecute(r ApiListImageTagsRequest) (*AnchoreImageTagSummaryList, *http.Response, error)
+=======
+	 @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	 @return ApiListImageTagsRequest
+	*/
+	ListImageTags(ctx _context.Context) ApiListImageTagsRequest
+
+	// ListImageTagsExecute executes the request
+	//  @return AnchoreImageTagSummaryList
+	ListImageTagsExecute(r ApiListImageTagsRequest) (AnchoreImageTagSummaryList, *_nethttp.Response, error)
+>>>>>>> main
 }
 
 // SummariesApiService SummariesApi service
 type SummariesApiService service
 
 type ApiListImageTagsRequest struct {
+<<<<<<< HEAD
 	ctx context.Context
+=======
+	ctx _context.Context
+>>>>>>> main
 	ApiService SummariesApi
 	imageStatus *[]string
 	xAnchoreAccount *string
@@ -59,7 +74,11 @@ func (r ApiListImageTagsRequest) XAnchoreAccount(xAnchoreAccount string) ApiList
 	return r
 }
 
+<<<<<<< HEAD
 func (r ApiListImageTagsRequest) Execute() (*AnchoreImageTagSummaryList, *http.Response, error) {
+=======
+func (r ApiListImageTagsRequest) Execute() (AnchoreImageTagSummaryList, *_nethttp.Response, error) {
+>>>>>>> main
 	return r.ApiService.ListImageTagsExecute(r)
 }
 
@@ -68,10 +87,17 @@ ListImageTags List all visible image digests and tags
 
 List all image tags visible to the user
 
+<<<<<<< HEAD
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiListImageTagsRequest
 */
 func (a *SummariesApiService) ListImageTags(ctx context.Context) ApiListImageTagsRequest {
+=======
+ @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return ApiListImageTagsRequest
+*/
+func (a *SummariesApiService) ListImageTags(ctx _context.Context) ApiListImageTagsRequest {
+>>>>>>> main
 	return ApiListImageTagsRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -80,12 +106,23 @@ func (a *SummariesApiService) ListImageTags(ctx context.Context) ApiListImageTag
 
 // Execute executes the request
 //  @return AnchoreImageTagSummaryList
+<<<<<<< HEAD
 func (a *SummariesApiService) ListImageTagsExecute(r ApiListImageTagsRequest) (*AnchoreImageTagSummaryList, *http.Response, error) {
+=======
+func (a *SummariesApiService) ListImageTagsExecute(r ApiListImageTagsRequest) (AnchoreImageTagSummaryList, *_nethttp.Response, error) {
+>>>>>>> main
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
+<<<<<<< HEAD
 		formFiles            []formFile
 		localVarReturnValue  *AnchoreImageTagSummaryList
+=======
+		localVarFormFileName string
+		localVarFileName     string
+		localVarFileBytes    []byte
+		localVarReturnValue  AnchoreImageTagSummaryList
+>>>>>>> main
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SummariesApiService.ListImageTags")

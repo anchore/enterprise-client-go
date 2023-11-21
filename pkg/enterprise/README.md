@@ -74,7 +74,11 @@ ctx = context.WithValue(context.Background(), enterprise.ContextOperationServerV
 
 ## Documentation for API Endpoints
 
+<<<<<<< HEAD
 All URIs are relative to */v2*
+=======
+All URIs are relative to *http://localhost/v2*
+>>>>>>> main
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
@@ -411,16 +415,24 @@ Class | Method | HTTP request | Description
  - [ContentFilesResponse](docs/ContentFilesResponse.md)
  - [ContentFilesResponseContentInner](docs/ContentFilesResponseContentInner.md)
  - [ContentJAVAPackageResponse](docs/ContentJAVAPackageResponse.md)
+<<<<<<< HEAD
  - [ContentJAVAPackageResponseContentInner](docs/ContentJAVAPackageResponseContentInner.md)
  - [ContentMalwareResponse](docs/ContentMalwareResponse.md)
  - [ContentPackageResponse](docs/ContentPackageResponse.md)
  - [ContentPackageResponseContentInner](docs/ContentPackageResponseContentInner.md)
+=======
+ - [ContentJAVAPackageResponseContent](docs/ContentJAVAPackageResponseContent.md)
+ - [ContentMalwareResponse](docs/ContentMalwareResponse.md)
+ - [ContentPackageResponse](docs/ContentPackageResponse.md)
+ - [ContentPackageResponseContent](docs/ContentPackageResponseContent.md)
+>>>>>>> main
  - [Correction](docs/Correction.md)
  - [CorrectionFieldMatch](docs/CorrectionFieldMatch.md)
  - [CorrectionMatch](docs/CorrectionMatch.md)
  - [CustomJsonPatch](docs/CustomJsonPatch.md)
  - [DeleteImageResponse](docs/DeleteImageResponse.md)
  - [ECSContainers](docs/ECSContainers.md)
+<<<<<<< HEAD
  - [ECSContainersContainersInner](docs/ECSContainersContainersInner.md)
  - [ECSInventory](docs/ECSInventory.md)
  - [ECSInventoryContainersInner](docs/ECSInventoryContainersInner.md)
@@ -430,6 +442,17 @@ Class | Method | HTTP request | Description
  - [ECSServicesServicesInner](docs/ECSServicesServicesInner.md)
  - [ECSTasks](docs/ECSTasks.md)
  - [ECSTasksTasksInner](docs/ECSTasksTasksInner.md)
+=======
+ - [ECSContainersContainers](docs/ECSContainersContainers.md)
+ - [ECSInventory](docs/ECSInventory.md)
+ - [ECSInventoryContainers](docs/ECSInventoryContainers.md)
+ - [ECSInventoryServices](docs/ECSInventoryServices.md)
+ - [ECSInventoryTasks](docs/ECSInventoryTasks.md)
+ - [ECSServices](docs/ECSServices.md)
+ - [ECSServicesServices](docs/ECSServicesServices.md)
+ - [ECSTasks](docs/ECSTasks.md)
+ - [ECSTasksTasks](docs/ECSTasksTasks.md)
+>>>>>>> main
  - [EventCategory](docs/EventCategory.md)
  - [EventDescription](docs/EventDescription.md)
  - [EventResponse](docs/EventResponse.md)
@@ -476,6 +499,10 @@ Class | Method | HTTP request | Description
  - [ImportPackageRelationship](docs/ImportPackageRelationship.md)
  - [ImportSchema](docs/ImportSchema.md)
  - [ImportSource](docs/ImportSource.md)
+<<<<<<< HEAD
+=======
+ - [InlineResponse400](docs/InlineResponse400.md)
+>>>>>>> main
  - [InventoryItem](docs/InventoryItem.md)
  - [InventoryItems](docs/InventoryItems.md)
  - [JsonPatchAdd](docs/JsonPatchAdd.md)
@@ -485,12 +512,21 @@ Class | Method | HTTP request | Description
  - [JsonPatchReplace](docs/JsonPatchReplace.md)
  - [JsonPatchTest](docs/JsonPatchTest.md)
  - [KubernetesContainers](docs/KubernetesContainers.md)
+<<<<<<< HEAD
  - [KubernetesContainersContainersInner](docs/KubernetesContainersContainersInner.md)
  - [KubernetesInventory](docs/KubernetesInventory.md)
  - [KubernetesInventoryContainersInner](docs/KubernetesInventoryContainersInner.md)
  - [KubernetesInventoryNamespacesInner](docs/KubernetesInventoryNamespacesInner.md)
  - [KubernetesInventoryNodesInner](docs/KubernetesInventoryNodesInner.md)
  - [KubernetesInventoryPodsInner](docs/KubernetesInventoryPodsInner.md)
+=======
+ - [KubernetesContainersContainers](docs/KubernetesContainersContainers.md)
+ - [KubernetesInventory](docs/KubernetesInventory.md)
+ - [KubernetesInventoryContainers](docs/KubernetesInventoryContainers.md)
+ - [KubernetesInventoryNamespaces](docs/KubernetesInventoryNamespaces.md)
+ - [KubernetesInventoryNodes](docs/KubernetesInventoryNodes.md)
+ - [KubernetesInventoryPods](docs/KubernetesInventoryPods.md)
+>>>>>>> main
  - [KubernetesNamespace](docs/KubernetesNamespace.md)
  - [KubernetesNamespaces](docs/KubernetesNamespaces.md)
  - [KubernetesNode](docs/KubernetesNode.md)
@@ -499,7 +535,11 @@ Class | Method | HTTP request | Description
  - [KubernetesPods](docs/KubernetesPods.md)
  - [LocalAnalysisSource](docs/LocalAnalysisSource.md)
  - [MalwareScan](docs/MalwareScan.md)
+<<<<<<< HEAD
  - [MalwareScanFindingsInner](docs/MalwareScanFindingsInner.md)
+=======
+ - [MalwareScanFindings](docs/MalwareScanFindings.md)
+>>>>>>> main
  - [MappingRule](docs/MappingRule.md)
  - [MetadataResponse](docs/MetadataResponse.md)
  - [ModifiedPackage](docs/ModifiedPackage.md)
@@ -549,7 +589,10 @@ Class | Method | HTTP request | Description
  - [NotificationWebhookEndpointConfiguration](docs/NotificationWebhookEndpointConfiguration.md)
  - [NotificationWebhookEndpointConfigurationAllOf](docs/NotificationWebhookEndpointConfigurationAllOf.md)
  - [NotificationWebhookTestResult](docs/NotificationWebhookTestResult.md)
+<<<<<<< HEAD
  - [NullType](docs/NullType.md)
+=======
+>>>>>>> main
  - [NvdDataObject](docs/NvdDataObject.md)
  - [Package](docs/Package.md)
  - [PackageReference](docs/PackageReference.md)
@@ -567,19 +610,31 @@ Class | Method | HTTP request | Description
  - [PolicyEvalNotificationPayload](docs/PolicyEvalNotificationPayload.md)
  - [PolicyEvalNotificationPayloadAllOf](docs/PolicyEvalNotificationPayloadAllOf.md)
  - [PolicyEvaluation](docs/PolicyEvaluation.md)
+<<<<<<< HEAD
  - [PolicyEvaluationEvaluationsInner](docs/PolicyEvaluationEvaluationsInner.md)
  - [PolicyEvaluationEvaluationsInnerDetails](docs/PolicyEvaluationEvaluationsInnerDetails.md)
  - [PolicyEvaluationEvaluationsInnerMatchedAllowlistedImagesRule](docs/PolicyEvaluationEvaluationsInnerMatchedAllowlistedImagesRule.md)
  - [PolicyEvaluationEvaluationsInnerMatchedMappingRule](docs/PolicyEvaluationEvaluationsInnerMatchedMappingRule.md)
+=======
+ - [PolicyEvaluationDetails](docs/PolicyEvaluationDetails.md)
+ - [PolicyEvaluationEvaluations](docs/PolicyEvaluationEvaluations.md)
+>>>>>>> main
  - [PolicyEvaluationFinding](docs/PolicyEvaluationFinding.md)
  - [PolicyEvaluationFindingAllowlistMatch](docs/PolicyEvaluationFindingAllowlistMatch.md)
  - [PolicyEvaluationProblem](docs/PolicyEvaluationProblem.md)
  - [PolicyEvaluationRemediation](docs/PolicyEvaluationRemediation.md)
+<<<<<<< HEAD
  - [PolicyEvaluationRemediationSuggestionsInner](docs/PolicyEvaluationRemediationSuggestionsInner.md)
  - [PolicyRecord](docs/PolicyRecord.md)
  - [PolicyRecordPolicy](docs/PolicyRecordPolicy.md)
  - [PolicyRule](docs/PolicyRule.md)
  - [PolicyRuleParamsInner](docs/PolicyRuleParamsInner.md)
+=======
+ - [PolicyEvaluationRemediationSuggestions](docs/PolicyEvaluationRemediationSuggestions.md)
+ - [PolicyRecord](docs/PolicyRecord.md)
+ - [PolicyRule](docs/PolicyRule.md)
+ - [PolicyRuleParams](docs/PolicyRuleParams.md)
+>>>>>>> main
  - [RbacManagerAccountRole](docs/RbacManagerAccountRole.md)
  - [RbacManagerApiErrorResponse](docs/RbacManagerApiErrorResponse.md)
  - [RbacManagerPermission](docs/RbacManagerPermission.md)
@@ -603,7 +658,10 @@ Class | Method | HTTP request | Description
  - [ReportingStatusResponse](docs/ReportingStatusResponse.md)
  - [ResourceLabel](docs/ResourceLabel.md)
  - [RetrievedFile](docs/RetrievedFile.md)
+<<<<<<< HEAD
  - [RevokeOauthToken400Response](docs/RevokeOauthToken400Response.md)
+=======
+>>>>>>> main
  - [RuleSet](docs/RuleSet.md)
  - [SBOMVulnerabilitiesResponse](docs/SBOMVulnerabilitiesResponse.md)
  - [SecretSearchResult](docs/SecretSearchResult.md)
@@ -618,7 +676,11 @@ Class | Method | HTTP request | Description
  - [SourceImportMetadataContents](docs/SourceImportMetadataContents.md)
  - [SourceImportOperation](docs/SourceImportOperation.md)
  - [SourceManifest](docs/SourceManifest.md)
+<<<<<<< HEAD
  - [SourceManifestMetadataRecordsInner](docs/SourceManifestMetadataRecordsInner.md)
+=======
+ - [SourceManifestMetadataRecords](docs/SourceManifestMetadataRecords.md)
+>>>>>>> main
  - [SourceMappingRule](docs/SourceMappingRule.md)
  - [SourcePackageVulnerabilityResponse](docs/SourcePackageVulnerabilityResponse.md)
  - [SourcePolicyEvaluation](docs/SourcePolicyEvaluation.md)

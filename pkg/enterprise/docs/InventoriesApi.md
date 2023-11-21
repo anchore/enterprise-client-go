@@ -1,6 +1,10 @@
 # \InventoriesApi
 
+<<<<<<< HEAD
 All URIs are relative to */v2*
+=======
+All URIs are relative to *http://localhost/v2*
+>>>>>>> main
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -116,8 +120,13 @@ func main() {
     clusterName := "clusterName_example" // string |  (optional)
 
     configuration := openapiclient.NewConfiguration()
+<<<<<<< HEAD
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.InventoriesApi.DeleteKubernetesNamespaces(context.Background()).ClusterName(clusterName).Execute()
+=======
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.InventoriesApi.DeleteKubernetesNamespaces(context.Background()).ClusterName(clusterName).Execute()
+>>>>>>> main
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `InventoriesApi.DeleteKubernetesNamespaces``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -181,8 +190,13 @@ func main() {
     pageSize := int32(56) // int32 |  (optional) (default to 1000)
 
     configuration := openapiclient.NewConfiguration()
+<<<<<<< HEAD
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.InventoriesApi.GetEcsContainers(context.Background()).Page(page).PageSize(pageSize).Execute()
+=======
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.InventoriesApi.GetEcsContainers(context.Background()).Page(page).PageSize(pageSize).Execute()
+>>>>>>> main
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `InventoriesApi.GetEcsContainers``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -249,8 +263,13 @@ func main() {
     pageSize := int32(56) // int32 |  (optional) (default to 1000)
 
     configuration := openapiclient.NewConfiguration()
+<<<<<<< HEAD
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.InventoriesApi.GetEcsServices(context.Background()).Page(page).PageSize(pageSize).Execute()
+=======
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.InventoriesApi.GetEcsServices(context.Background()).Page(page).PageSize(pageSize).Execute()
+>>>>>>> main
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `InventoriesApi.GetEcsServices``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -317,8 +336,13 @@ func main() {
     pageSize := int32(56) // int32 |  (optional) (default to 1000)
 
     configuration := openapiclient.NewConfiguration()
+<<<<<<< HEAD
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.InventoriesApi.GetEcsTasks(context.Background()).Page(page).PageSize(pageSize).Execute()
+=======
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.InventoriesApi.GetEcsTasks(context.Background()).Page(page).PageSize(pageSize).Execute()
+>>>>>>> main
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `InventoriesApi.GetEcsTasks``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -457,8 +481,13 @@ func main() {
     pageSize := int32(56) // int32 |  (optional) (default to 1000)
 
     configuration := openapiclient.NewConfiguration()
+<<<<<<< HEAD
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.InventoriesApi.GetKubernetesContainers(context.Background()).Page(page).PageSize(pageSize).Execute()
+=======
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.InventoriesApi.GetKubernetesContainers(context.Background()).Page(page).PageSize(pageSize).Execute()
+>>>>>>> main
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `InventoriesApi.GetKubernetesContainers``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -524,8 +553,13 @@ func main() {
     namespaceId := "namespaceId_example" // string | 
 
     configuration := openapiclient.NewConfiguration()
+<<<<<<< HEAD
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.InventoriesApi.GetKubernetesNamespace(context.Background(), namespaceId).Execute()
+=======
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.InventoriesApi.GetKubernetesNamespace(context.Background(), namespaceId).Execute()
+>>>>>>> main
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `InventoriesApi.GetKubernetesNamespace``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -595,8 +629,13 @@ func main() {
     pageSize := int32(56) // int32 |  (optional) (default to 1000)
 
     configuration := openapiclient.NewConfiguration()
+<<<<<<< HEAD
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.InventoriesApi.GetKubernetesNamespaces(context.Background()).Page(page).PageSize(pageSize).Execute()
+=======
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.InventoriesApi.GetKubernetesNamespaces(context.Background()).Page(page).PageSize(pageSize).Execute()
+>>>>>>> main
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `InventoriesApi.GetKubernetesNamespaces``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -662,8 +701,13 @@ func main() {
     nodeId := "nodeId_example" // string | 
 
     configuration := openapiclient.NewConfiguration()
+<<<<<<< HEAD
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.InventoriesApi.GetKubernetesNode(context.Background(), nodeId).Execute()
+=======
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.InventoriesApi.GetKubernetesNode(context.Background(), nodeId).Execute()
+>>>>>>> main
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `InventoriesApi.GetKubernetesNode``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -733,8 +777,13 @@ func main() {
     pageSize := int32(56) // int32 |  (optional) (default to 1000)
 
     configuration := openapiclient.NewConfiguration()
+<<<<<<< HEAD
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.InventoriesApi.GetKubernetesNodes(context.Background()).Page(page).PageSize(pageSize).Execute()
+=======
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.InventoriesApi.GetKubernetesNodes(context.Background()).Page(page).PageSize(pageSize).Execute()
+>>>>>>> main
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `InventoriesApi.GetKubernetesNodes``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -800,8 +849,13 @@ func main() {
     podId := "podId_example" // string | 
 
     configuration := openapiclient.NewConfiguration()
+<<<<<<< HEAD
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.InventoriesApi.GetKubernetesPod(context.Background(), podId).Execute()
+=======
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.InventoriesApi.GetKubernetesPod(context.Background(), podId).Execute()
+>>>>>>> main
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `InventoriesApi.GetKubernetesPod``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -871,8 +925,13 @@ func main() {
     pageSize := int32(56) // int32 |  (optional) (default to 1000)
 
     configuration := openapiclient.NewConfiguration()
+<<<<<<< HEAD
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.InventoriesApi.GetKubernetesPods(context.Background()).Page(page).PageSize(pageSize).Execute()
+=======
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.InventoriesApi.GetKubernetesPods(context.Background()).Page(page).PageSize(pageSize).Execute()
+>>>>>>> main
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `InventoriesApi.GetKubernetesPods``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -939,8 +998,13 @@ func main() {
     inventory := *openapiclient.NewECSInventory("ClusterArn_example", time.Now()) // ECSInventory | 
 
     configuration := openapiclient.NewConfiguration()
+<<<<<<< HEAD
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.InventoriesApi.PostEcsInventory(context.Background()).Inventory(inventory).Execute()
+=======
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.InventoriesApi.PostEcsInventory(context.Background()).Inventory(inventory).Execute()
+>>>>>>> main
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `InventoriesApi.PostEcsInventory``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -1004,8 +1068,13 @@ func main() {
     inventory := *openapiclient.NewKubernetesInventory("ClusterName_example", time.Now()) // KubernetesInventory | 
 
     configuration := openapiclient.NewConfiguration()
+<<<<<<< HEAD
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.InventoriesApi.PostKubernetesInventory(context.Background()).Inventory(inventory).Execute()
+=======
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.InventoriesApi.PostKubernetesInventory(context.Background()).Inventory(inventory).Execute()
+>>>>>>> main
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `InventoriesApi.PostKubernetesInventory``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)

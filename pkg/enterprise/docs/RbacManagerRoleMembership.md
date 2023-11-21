@@ -54,20 +54,32 @@ HasRole returns a boolean if a field has been set.
 
 ### GetForAccount
 
+<<<<<<< HEAD
 `func (o *RbacManagerRoleMembership) GetForAccount() string`
+=======
+`func (o *RbacManagerRoleMembership) GetForAccount() []string`
+>>>>>>> main
 
 GetForAccount returns the ForAccount field if non-nil, zero value otherwise.
 
 ### GetForAccountOk
 
+<<<<<<< HEAD
 `func (o *RbacManagerRoleMembership) GetForAccountOk() (*string, bool)`
+=======
+`func (o *RbacManagerRoleMembership) GetForAccountOk() (*[]string, bool)`
+>>>>>>> main
 
 GetForAccountOk returns a tuple with the ForAccount field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetForAccount
 
+<<<<<<< HEAD
 `func (o *RbacManagerRoleMembership) SetForAccount(v string)`
+=======
+`func (o *RbacManagerRoleMembership) SetForAccount(v []string)`
+>>>>>>> main
 
 SetForAccount sets ForAccount field to given value.
 

@@ -1,6 +1,10 @@
 # \EventsApi
 
+<<<<<<< HEAD
 All URIs are relative to */v2*
+=======
+All URIs are relative to *http://localhost/v2*
+>>>>>>> main
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -321,8 +325,13 @@ func main() {
     xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
 
     configuration := openapiclient.NewConfiguration()
+<<<<<<< HEAD
     apiClient := openapiclient.NewAPIClient(configuration)
     resp, r, err := apiClient.EventsApi.ListEvents(context.Background()).SourceServiceName(sourceServiceName).SourceHostId(sourceHostId).EventType(eventType).ResourceType(resourceType).ResourceId(resourceId).Level(level).Since(since).Before(before).Page(page).Limit(limit).XAnchoreAccount(xAnchoreAccount).Execute()
+=======
+    api_client := openapiclient.NewAPIClient(configuration)
+    resp, r, err := api_client.EventsApi.ListEvents(context.Background()).SourceServiceName(sourceServiceName).SourceHostId(sourceHostId).EventType(eventType).ResourceType(resourceType).ResourceId(resourceId).Level(level).Since(since).Before(before).Page(page).Limit(limit).XAnchoreAccount(xAnchoreAccount).Execute()
+>>>>>>> main
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `EventsApi.ListEvents``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)

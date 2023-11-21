@@ -161,8 +161,13 @@ func (a *RegistriesApiService) CreateRegistryExecute(r ApiCreateRegistryRequest)
 	localVarPath := localBasePath + "/registries"
 
 	localVarHeaderParams := make(map[string]string)
+<<<<<<< HEAD
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+=======
+	localVarQueryParams := _neturl.Values{}
+	localVarFormParams := _neturl.Values{}
+>>>>>>> main
 	if r.registryData == nil {
 		return localVarReturnValue, nil, reportError("registryData is required and must be specified")
 	}
@@ -192,7 +197,11 @@ func (a *RegistriesApiService) CreateRegistryExecute(r ApiCreateRegistryRequest)
 	}
 	// body params
 	localVarPostBody = r.registryData
+<<<<<<< HEAD
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+=======
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+>>>>>>> main
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}
@@ -637,8 +646,13 @@ func (a *RegistriesApiService) UpdateRegistryExecute(r ApiUpdateRegistryRequest)
 	localVarPath = strings.Replace(localVarPath, "{"+"registry"+"}", url.PathEscape(parameterToString(r.registry, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
+<<<<<<< HEAD
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+=======
+	localVarQueryParams := _neturl.Values{}
+	localVarFormParams := _neturl.Values{}
+>>>>>>> main
 	if r.registryData == nil {
 		return localVarReturnValue, nil, reportError("registryData is required and must be specified")
 	}
@@ -668,7 +682,11 @@ func (a *RegistriesApiService) UpdateRegistryExecute(r ApiUpdateRegistryRequest)
 	}
 	// body params
 	localVarPostBody = r.registryData
+<<<<<<< HEAD
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+=======
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+>>>>>>> main
 	if err != nil {
 		return localVarReturnValue, nil, err
 	}

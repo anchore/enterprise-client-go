@@ -22,14 +22,22 @@ type SourceContentPackageResponseContent struct {
 	Size *string `json:"size,omitempty"`
 	Type *string `json:"type,omitempty"`
 	Origin *string `json:"origin,omitempty"`
+<<<<<<< HEAD
 	Licenses []string `json:"licenses,omitempty"`
+=======
+	Licenses *[]string `json:"licenses,omitempty"`
+>>>>>>> main
 	Location *string `json:"location,omitempty"`
 	// A list of Common Platform Enumerations that may uniquely identify the package
 	Cpes []string `json:"cpes,omitempty"`
 	// The type of the metadata entry
 	MetadataType *string `json:"metadata_type,omitempty"`
 	// Package type specific metadata
+<<<<<<< HEAD
 	Metadata interface{} `json:"metadata,omitempty"`
+=======
+	Metadata *interface{} `json:"metadata,omitempty"`
+>>>>>>> main
 	Purl *string `json:"purl,omitempty"`
 }
 
@@ -368,6 +376,38 @@ func (o *SourceContentPackageResponseContent) HasMetadata() bool {
 // SetMetadata gets a reference to the given interface{} and assigns it to the Metadata field.
 func (o *SourceContentPackageResponseContent) SetMetadata(v interface{}) {
 	o.Metadata = v
+}
+
+// GetPurl returns the Purl field value if set, zero value otherwise.
+func (o *SourceContentPackageResponseContent) GetPurl() string {
+	if o == nil || o.Purl == nil {
+		var ret string
+		return ret
+	}
+	return *o.Purl
+}
+
+// GetPurlOk returns a tuple with the Purl field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SourceContentPackageResponseContent) GetPurlOk() (*string, bool) {
+	if o == nil || o.Purl == nil {
+		return nil, false
+	}
+	return o.Purl, true
+}
+
+// HasPurl returns a boolean if a field has been set.
+func (o *SourceContentPackageResponseContent) HasPurl() bool {
+	if o != nil && o.Purl != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetPurl gets a reference to the given string and assigns it to the Purl field.
+func (o *SourceContentPackageResponseContent) SetPurl(v string) {
+	o.Purl = &v
 }
 
 // GetPurl returns the Purl field value if set, zero value otherwise.

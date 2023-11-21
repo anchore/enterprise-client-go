@@ -362,7 +362,11 @@ func (a *RelationshipsApiService) GetArtifactRelationshipExecute(r ApiGetArtifac
 	}
 
 	localVarPath := localBasePath + "/artifact-relationships/{relationship_id}"
+<<<<<<< HEAD
 	localVarPath = strings.Replace(localVarPath, "{"+"relationship_id"+"}", url.PathEscape(parameterToString(r.relationshipId, "")), -1)
+=======
+	localVarPath = strings.Replace(localVarPath, "{"+"relationship_id"+"}", _neturl.PathEscape(parameterToString(r.relationshipId, "")), -1)
+>>>>>>> main
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -465,7 +469,11 @@ func (a *RelationshipsApiService) GetRelationshipSbomDiffExecute(r ApiGetRelatio
 	}
 
 	localVarPath := localBasePath + "/artifact-relationships/{relationship_id}/diffs/sbom"
+<<<<<<< HEAD
 	localVarPath = strings.Replace(localVarPath, "{"+"relationship_id"+"}", url.PathEscape(parameterToString(r.relationshipId, "")), -1)
+=======
+	localVarPath = strings.Replace(localVarPath, "{"+"relationship_id"+"}", _neturl.PathEscape(parameterToString(r.relationshipId, "")), -1)
+>>>>>>> main
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}

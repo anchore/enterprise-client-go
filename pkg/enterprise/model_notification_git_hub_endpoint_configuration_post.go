@@ -41,9 +41,15 @@ type NotificationGitHubEndpointConfigurationPost struct {
 	// Number of the milestone to associate with the issue
 	Milestone *int32 `json:"milestone,omitempty"`
 	// List of labels to associate with the issue
+<<<<<<< HEAD
 	Labels []string `json:"labels,omitempty"`
 	// List of user logins to assign to the issue.
 	Assignees []string `json:"assignees,omitempty"`
+=======
+	Labels *[]string `json:"labels,omitempty"`
+	// List of user logins to assign to the issue.
+	Assignees *[]string `json:"assignees,omitempty"`
+>>>>>>> main
 }
 
 // NewNotificationGitHubEndpointConfigurationPost instantiates a new NotificationGitHubEndpointConfigurationPost object
@@ -272,7 +278,11 @@ func (o *NotificationGitHubEndpointConfigurationPost) GetUsername() string {
 // GetUsernameOk returns a tuple with the Username field value
 // and a boolean to check if the value has been set.
 func (o *NotificationGitHubEndpointConfigurationPost) GetUsernameOk() (*string, bool) {
+<<<<<<< HEAD
 	if o == nil {
+=======
+	if o == nil  {
+>>>>>>> main
 		return nil, false
 	}
 	return &o.Username, true
@@ -296,7 +306,11 @@ func (o *NotificationGitHubEndpointConfigurationPost) GetAccessToken() string {
 // GetAccessTokenOk returns a tuple with the AccessToken field value
 // and a boolean to check if the value has been set.
 func (o *NotificationGitHubEndpointConfigurationPost) GetAccessTokenOk() (*string, bool) {
+<<<<<<< HEAD
 	if o == nil {
+=======
+	if o == nil  {
+>>>>>>> main
 		return nil, false
 	}
 	return &o.AccessToken, true
@@ -320,7 +334,11 @@ func (o *NotificationGitHubEndpointConfigurationPost) GetOwner() string {
 // GetOwnerOk returns a tuple with the Owner field value
 // and a boolean to check if the value has been set.
 func (o *NotificationGitHubEndpointConfigurationPost) GetOwnerOk() (*string, bool) {
+<<<<<<< HEAD
 	if o == nil {
+=======
+	if o == nil  {
+>>>>>>> main
 		return nil, false
 	}
 	return &o.Owner, true
@@ -344,7 +362,11 @@ func (o *NotificationGitHubEndpointConfigurationPost) GetRepository() string {
 // GetRepositoryOk returns a tuple with the Repository field value
 // and a boolean to check if the value has been set.
 func (o *NotificationGitHubEndpointConfigurationPost) GetRepositoryOk() (*string, bool) {
+<<<<<<< HEAD
 	if o == nil {
+=======
+	if o == nil  {
+>>>>>>> main
 		return nil, false
 	}
 	return &o.Repository, true
@@ -393,12 +415,20 @@ func (o *NotificationGitHubEndpointConfigurationPost) GetLabels() []string {
 		var ret []string
 		return ret
 	}
+<<<<<<< HEAD
 	return o.Labels
+=======
+	return *o.Labels
+>>>>>>> main
 }
 
 // GetLabelsOk returns a tuple with the Labels field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+<<<<<<< HEAD
 func (o *NotificationGitHubEndpointConfigurationPost) GetLabelsOk() ([]string, bool) {
+=======
+func (o *NotificationGitHubEndpointConfigurationPost) GetLabelsOk() (*[]string, bool) {
+>>>>>>> main
 	if o == nil || o.Labels == nil {
 		return nil, false
 	}
@@ -416,7 +446,11 @@ func (o *NotificationGitHubEndpointConfigurationPost) HasLabels() bool {
 
 // SetLabels gets a reference to the given []string and assigns it to the Labels field.
 func (o *NotificationGitHubEndpointConfigurationPost) SetLabels(v []string) {
+<<<<<<< HEAD
 	o.Labels = v
+=======
+	o.Labels = &v
+>>>>>>> main
 }
 
 // GetAssignees returns the Assignees field value if set, zero value otherwise.
@@ -425,12 +459,20 @@ func (o *NotificationGitHubEndpointConfigurationPost) GetAssignees() []string {
 		var ret []string
 		return ret
 	}
+<<<<<<< HEAD
 	return o.Assignees
+=======
+	return *o.Assignees
+>>>>>>> main
 }
 
 // GetAssigneesOk returns a tuple with the Assignees field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+<<<<<<< HEAD
 func (o *NotificationGitHubEndpointConfigurationPost) GetAssigneesOk() ([]string, bool) {
+=======
+func (o *NotificationGitHubEndpointConfigurationPost) GetAssigneesOk() (*[]string, bool) {
+>>>>>>> main
 	if o == nil || o.Assignees == nil {
 		return nil, false
 	}
@@ -448,7 +490,11 @@ func (o *NotificationGitHubEndpointConfigurationPost) HasAssignees() bool {
 
 // SetAssignees gets a reference to the given []string and assigns it to the Assignees field.
 func (o *NotificationGitHubEndpointConfigurationPost) SetAssignees(v []string) {
+<<<<<<< HEAD
 	o.Assignees = v
+=======
+	o.Assignees = &v
+>>>>>>> main
 }
 
 func (o NotificationGitHubEndpointConfigurationPost) MarshalJSON() ([]byte, error) {

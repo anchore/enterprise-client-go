@@ -19,7 +19,11 @@ import (
 type ImageAncestor struct {
 	// The digest of the image
 	ImageDigest *string `json:"image_digest,omitempty"`
+<<<<<<< HEAD
 	Tags []string `json:"tags,omitempty"`
+=======
+	Tags *[]string `json:"tags,omitempty"`
+>>>>>>> main
 	// The full set of layers for this image
 	Layers []string `json:"layers,omitempty"`
 }

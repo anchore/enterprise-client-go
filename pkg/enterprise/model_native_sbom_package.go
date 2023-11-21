@@ -230,8 +230,13 @@ func (o *NativeSBOMPackage) GetLicenses() []interface{} {
 
 // GetLicensesOk returns a tuple with the Licenses field value
 // and a boolean to check if the value has been set.
+<<<<<<< HEAD
 func (o *NativeSBOMPackage) GetLicensesOk() ([]interface{}, bool) {
 	if o == nil {
+=======
+func (o *NativeSBOMPackage) GetLicensesOk() (*[]interface{}, bool) {
+	if o == nil  {
+>>>>>>> main
 		return nil, false
 	}
 	return o.Licenses, true

@@ -266,7 +266,11 @@ func (a *SubscriptionsApiService) DeleteSubscriptionExecute(r ApiDeleteSubscript
 	}
 
 	localVarPath := localBasePath + "/subscriptions/{subscription_id}"
+<<<<<<< HEAD
 	localVarPath = strings.Replace(localVarPath, "{"+"subscription_id"+"}", url.PathEscape(parameterToString(r.subscriptionId, "")), -1)
+=======
+	localVarPath = strings.Replace(localVarPath, "{"+"subscription_id"+"}", _neturl.PathEscape(parameterToString(r.subscriptionId, "")), -1)
+>>>>>>> main
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -377,7 +381,11 @@ func (a *SubscriptionsApiService) GetSubscriptionExecute(r ApiGetSubscriptionReq
 	}
 
 	localVarPath := localBasePath + "/subscriptions/{subscription_id}"
+<<<<<<< HEAD
 	localVarPath = strings.Replace(localVarPath, "{"+"subscription_id"+"}", url.PathEscape(parameterToString(r.subscriptionId, "")), -1)
+=======
+	localVarPath = strings.Replace(localVarPath, "{"+"subscription_id"+"}", _neturl.PathEscape(parameterToString(r.subscriptionId, "")), -1)
+>>>>>>> main
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -639,7 +647,11 @@ func (a *SubscriptionsApiService) UpdateSubscriptionExecute(r ApiUpdateSubscript
 	}
 
 	localVarPath := localBasePath + "/subscriptions/{subscription_id}"
+<<<<<<< HEAD
 	localVarPath = strings.Replace(localVarPath, "{"+"subscription_id"+"}", url.PathEscape(parameterToString(r.subscriptionId, "")), -1)
+=======
+	localVarPath = strings.Replace(localVarPath, "{"+"subscription_id"+"}", _neturl.PathEscape(parameterToString(r.subscriptionId, "")), -1)
+>>>>>>> main
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}

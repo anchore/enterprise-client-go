@@ -17,7 +17,11 @@ import (
 
 // AnchoreImageTagSummaryList a list of AnchoreImageTagSummary objects
 type AnchoreImageTagSummaryList struct {
+<<<<<<< HEAD
 	Items []AnchoreImageTagSummary `json:"items,omitempty"`
+=======
+	Items *[]AnchoreImageTagSummary `json:"items,omitempty"`
+>>>>>>> main
 }
 
 // NewAnchoreImageTagSummaryList instantiates a new AnchoreImageTagSummaryList object
@@ -43,12 +47,20 @@ func (o *AnchoreImageTagSummaryList) GetItems() []AnchoreImageTagSummary {
 		var ret []AnchoreImageTagSummary
 		return ret
 	}
+<<<<<<< HEAD
 	return o.Items
+=======
+	return *o.Items
+>>>>>>> main
 }
 
 // GetItemsOk returns a tuple with the Items field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+<<<<<<< HEAD
 func (o *AnchoreImageTagSummaryList) GetItemsOk() ([]AnchoreImageTagSummary, bool) {
+=======
+func (o *AnchoreImageTagSummaryList) GetItemsOk() (*[]AnchoreImageTagSummary, bool) {
+>>>>>>> main
 	if o == nil || o.Items == nil {
 		return nil, false
 	}
@@ -66,7 +78,11 @@ func (o *AnchoreImageTagSummaryList) HasItems() bool {
 
 // SetItems gets a reference to the given []AnchoreImageTagSummary and assigns it to the Items field.
 func (o *AnchoreImageTagSummaryList) SetItems(v []AnchoreImageTagSummary) {
+<<<<<<< HEAD
 	o.Items = v
+=======
+	o.Items = &v
+>>>>>>> main
 }
 
 func (o AnchoreImageTagSummaryList) MarshalJSON() ([]byte, error) {

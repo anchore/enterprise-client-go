@@ -13,7 +13,11 @@ Name | Type | Description | Notes
 **Recommendation** | Pointer to **string** | User provided details for resolving this finding | [optional] 
 **RuleId** | Pointer to **string** | ID of the policy rule that that generated this finding | [optional] 
 **Allowlisted** | Pointer to **bool** | Indicates if this finding was allowlisted or not | [optional] 
+<<<<<<< HEAD
 **AllowlistMatch** | Pointer to [**PolicyEvaluationFindingAllowlistMatch**](PolicyEvaluationFindingAllowlistMatch.md) |  | [optional] 
+=======
+**AllowlistMatch** | Pointer to [**NullablePolicyEvaluationFindingAllowlistMatch**](PolicyEvaluationFindingAllowlistMatch.md) |  | [optional] 
+>>>>>>> main
 
 ## Methods
 
@@ -284,6 +288,19 @@ SetAllowlistMatch sets AllowlistMatch field to given value.
 
 HasAllowlistMatch returns a boolean if a field has been set.
 
+<<<<<<< HEAD
+=======
+### SetAllowlistMatchNil
+
+`func (o *SourcePolicyEvaluationFinding) SetAllowlistMatchNil(b bool)`
+
+ SetAllowlistMatchNil sets the value for AllowlistMatch to be an explicit nil
+
+### UnsetAllowlistMatch
+`func (o *SourcePolicyEvaluationFinding) UnsetAllowlistMatch()`
+
+UnsetAllowlistMatch ensures that no value is present for AllowlistMatch, not even an explicit nil
+>>>>>>> main
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

@@ -58,7 +58,11 @@ func (o *PolicyEvaluationProblem) GetSeverity() string {
 // GetSeverityOk returns a tuple with the Severity field value
 // and a boolean to check if the value has been set.
 func (o *PolicyEvaluationProblem) GetSeverityOk() (*string, bool) {
+<<<<<<< HEAD
 	if o == nil {
+=======
+	if o == nil  {
+>>>>>>> main
 		return nil, false
 	}
 	return &o.Severity, true
@@ -82,7 +86,11 @@ func (o *PolicyEvaluationProblem) GetProblemType() string {
 // GetProblemTypeOk returns a tuple with the ProblemType field value
 // and a boolean to check if the value has been set.
 func (o *PolicyEvaluationProblem) GetProblemTypeOk() (*string, bool) {
+<<<<<<< HEAD
 	if o == nil {
+=======
+	if o == nil  {
+>>>>>>> main
 		return nil, false
 	}
 	return &o.ProblemType, true
@@ -106,7 +114,11 @@ func (o *PolicyEvaluationProblem) GetDetails() string {
 // GetDetailsOk returns a tuple with the Details field value
 // and a boolean to check if the value has been set.
 func (o *PolicyEvaluationProblem) GetDetailsOk() (*string, bool) {
+<<<<<<< HEAD
 	if o == nil {
+=======
+	if o == nil  {
+>>>>>>> main
 		return nil, false
 	}
 	return &o.Details, true

@@ -146,7 +146,11 @@ func (a *EventsApiService) DeleteEventExecute(r ApiDeleteEventRequest) (*http.Re
 	}
 
 	localVarPath := localBasePath + "/events/{event_id}"
+<<<<<<< HEAD
 	localVarPath = strings.Replace(localVarPath, "{"+"event_id"+"}", url.PathEscape(parameterToString(r.eventId, "")), -1)
+=======
+	localVarPath = strings.Replace(localVarPath, "{"+"event_id"+"}", _neturl.PathEscape(parameterToString(r.eventId, "")), -1)
+>>>>>>> main
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -398,7 +402,11 @@ func (a *EventsApiService) GetEventExecute(r ApiGetEventRequest) (*EventResponse
 	}
 
 	localVarPath := localBasePath + "/events/{event_id}"
+<<<<<<< HEAD
 	localVarPath = strings.Replace(localVarPath, "{"+"event_id"+"}", url.PathEscape(parameterToString(r.eventId, "")), -1)
+=======
+	localVarPath = strings.Replace(localVarPath, "{"+"event_id"+"}", _neturl.PathEscape(parameterToString(r.eventId, "")), -1)
+>>>>>>> main
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -593,7 +601,10 @@ func (r ApiListEventsRequest) EventType(eventType string) ApiListEventsRequest {
 	r.eventType = &eventType
 	return r
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> main
 // Filter events by the type of resource - tag, image_digest, repository etc
 func (r ApiListEventsRequest) ResourceType(resourceType string) ApiListEventsRequest {
 	r.resourceType = &resourceType

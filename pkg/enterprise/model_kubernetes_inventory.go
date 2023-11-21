@@ -20,10 +20,17 @@ import (
 type KubernetesInventory struct {
 	ClusterName string `json:"cluster_name"`
 	Timestamp time.Time `json:"timestamp"`
+<<<<<<< HEAD
 	Namespaces []KubernetesInventoryNamespacesInner `json:"namespaces,omitempty"`
 	Nodes []KubernetesInventoryNodesInner `json:"nodes,omitempty"`
 	Pods []KubernetesInventoryPodsInner `json:"pods,omitempty"`
 	Containers []KubernetesInventoryContainersInner `json:"containers,omitempty"`
+=======
+	Namespaces *[]KubernetesInventoryNamespaces `json:"namespaces,omitempty"`
+	Nodes *[]KubernetesInventoryNodes `json:"nodes,omitempty"`
+	Pods *[]KubernetesInventoryPods `json:"pods,omitempty"`
+	Containers *[]KubernetesInventoryContainers `json:"containers,omitempty"`
+>>>>>>> main
 }
 
 // NewKubernetesInventory instantiates a new KubernetesInventory object
@@ -58,7 +65,11 @@ func (o *KubernetesInventory) GetClusterName() string {
 // GetClusterNameOk returns a tuple with the ClusterName field value
 // and a boolean to check if the value has been set.
 func (o *KubernetesInventory) GetClusterNameOk() (*string, bool) {
+<<<<<<< HEAD
 	if o == nil {
+=======
+	if o == nil  {
+>>>>>>> main
 		return nil, false
 	}
 	return &o.ClusterName, true
@@ -82,7 +93,11 @@ func (o *KubernetesInventory) GetTimestamp() time.Time {
 // GetTimestampOk returns a tuple with the Timestamp field value
 // and a boolean to check if the value has been set.
 func (o *KubernetesInventory) GetTimestampOk() (*time.Time, bool) {
+<<<<<<< HEAD
 	if o == nil {
+=======
+	if o == nil  {
+>>>>>>> main
 		return nil, false
 	}
 	return &o.Timestamp, true
@@ -94,17 +109,30 @@ func (o *KubernetesInventory) SetTimestamp(v time.Time) {
 }
 
 // GetNamespaces returns the Namespaces field value if set, zero value otherwise.
+<<<<<<< HEAD
 func (o *KubernetesInventory) GetNamespaces() []KubernetesInventoryNamespacesInner {
 	if o == nil || o.Namespaces == nil {
 		var ret []KubernetesInventoryNamespacesInner
 		return ret
 	}
 	return o.Namespaces
+=======
+func (o *KubernetesInventory) GetNamespaces() []KubernetesInventoryNamespaces {
+	if o == nil || o.Namespaces == nil {
+		var ret []KubernetesInventoryNamespaces
+		return ret
+	}
+	return *o.Namespaces
+>>>>>>> main
 }
 
 // GetNamespacesOk returns a tuple with the Namespaces field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+<<<<<<< HEAD
 func (o *KubernetesInventory) GetNamespacesOk() ([]KubernetesInventoryNamespacesInner, bool) {
+=======
+func (o *KubernetesInventory) GetNamespacesOk() (*[]KubernetesInventoryNamespaces, bool) {
+>>>>>>> main
 	if o == nil || o.Namespaces == nil {
 		return nil, false
 	}
@@ -120,6 +148,7 @@ func (o *KubernetesInventory) HasNamespaces() bool {
 	return false
 }
 
+<<<<<<< HEAD
 // SetNamespaces gets a reference to the given []KubernetesInventoryNamespacesInner and assigns it to the Namespaces field.
 func (o *KubernetesInventory) SetNamespaces(v []KubernetesInventoryNamespacesInner) {
 	o.Namespaces = v
@@ -132,11 +161,29 @@ func (o *KubernetesInventory) GetNodes() []KubernetesInventoryNodesInner {
 		return ret
 	}
 	return o.Nodes
+=======
+// SetNamespaces gets a reference to the given []KubernetesInventoryNamespaces and assigns it to the Namespaces field.
+func (o *KubernetesInventory) SetNamespaces(v []KubernetesInventoryNamespaces) {
+	o.Namespaces = &v
+}
+
+// GetNodes returns the Nodes field value if set, zero value otherwise.
+func (o *KubernetesInventory) GetNodes() []KubernetesInventoryNodes {
+	if o == nil || o.Nodes == nil {
+		var ret []KubernetesInventoryNodes
+		return ret
+	}
+	return *o.Nodes
+>>>>>>> main
 }
 
 // GetNodesOk returns a tuple with the Nodes field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+<<<<<<< HEAD
 func (o *KubernetesInventory) GetNodesOk() ([]KubernetesInventoryNodesInner, bool) {
+=======
+func (o *KubernetesInventory) GetNodesOk() (*[]KubernetesInventoryNodes, bool) {
+>>>>>>> main
 	if o == nil || o.Nodes == nil {
 		return nil, false
 	}
@@ -152,6 +199,7 @@ func (o *KubernetesInventory) HasNodes() bool {
 	return false
 }
 
+<<<<<<< HEAD
 // SetNodes gets a reference to the given []KubernetesInventoryNodesInner and assigns it to the Nodes field.
 func (o *KubernetesInventory) SetNodes(v []KubernetesInventoryNodesInner) {
 	o.Nodes = v
@@ -164,11 +212,29 @@ func (o *KubernetesInventory) GetPods() []KubernetesInventoryPodsInner {
 		return ret
 	}
 	return o.Pods
+=======
+// SetNodes gets a reference to the given []KubernetesInventoryNodes and assigns it to the Nodes field.
+func (o *KubernetesInventory) SetNodes(v []KubernetesInventoryNodes) {
+	o.Nodes = &v
+}
+
+// GetPods returns the Pods field value if set, zero value otherwise.
+func (o *KubernetesInventory) GetPods() []KubernetesInventoryPods {
+	if o == nil || o.Pods == nil {
+		var ret []KubernetesInventoryPods
+		return ret
+	}
+	return *o.Pods
+>>>>>>> main
 }
 
 // GetPodsOk returns a tuple with the Pods field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+<<<<<<< HEAD
 func (o *KubernetesInventory) GetPodsOk() ([]KubernetesInventoryPodsInner, bool) {
+=======
+func (o *KubernetesInventory) GetPodsOk() (*[]KubernetesInventoryPods, bool) {
+>>>>>>> main
 	if o == nil || o.Pods == nil {
 		return nil, false
 	}
@@ -184,6 +250,7 @@ func (o *KubernetesInventory) HasPods() bool {
 	return false
 }
 
+<<<<<<< HEAD
 // SetPods gets a reference to the given []KubernetesInventoryPodsInner and assigns it to the Pods field.
 func (o *KubernetesInventory) SetPods(v []KubernetesInventoryPodsInner) {
 	o.Pods = v
@@ -196,11 +263,29 @@ func (o *KubernetesInventory) GetContainers() []KubernetesInventoryContainersInn
 		return ret
 	}
 	return o.Containers
+=======
+// SetPods gets a reference to the given []KubernetesInventoryPods and assigns it to the Pods field.
+func (o *KubernetesInventory) SetPods(v []KubernetesInventoryPods) {
+	o.Pods = &v
+}
+
+// GetContainers returns the Containers field value if set, zero value otherwise.
+func (o *KubernetesInventory) GetContainers() []KubernetesInventoryContainers {
+	if o == nil || o.Containers == nil {
+		var ret []KubernetesInventoryContainers
+		return ret
+	}
+	return *o.Containers
+>>>>>>> main
 }
 
 // GetContainersOk returns a tuple with the Containers field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+<<<<<<< HEAD
 func (o *KubernetesInventory) GetContainersOk() ([]KubernetesInventoryContainersInner, bool) {
+=======
+func (o *KubernetesInventory) GetContainersOk() (*[]KubernetesInventoryContainers, bool) {
+>>>>>>> main
 	if o == nil || o.Containers == nil {
 		return nil, false
 	}
@@ -216,9 +301,15 @@ func (o *KubernetesInventory) HasContainers() bool {
 	return false
 }
 
+<<<<<<< HEAD
 // SetContainers gets a reference to the given []KubernetesInventoryContainersInner and assigns it to the Containers field.
 func (o *KubernetesInventory) SetContainers(v []KubernetesInventoryContainersInner) {
 	o.Containers = v
+=======
+// SetContainers gets a reference to the given []KubernetesInventoryContainers and assigns it to the Containers field.
+func (o *KubernetesInventory) SetContainers(v []KubernetesInventoryContainers) {
+	o.Containers = &v
+>>>>>>> main
 }
 
 func (o KubernetesInventory) MarshalJSON() ([]byte, error) {
