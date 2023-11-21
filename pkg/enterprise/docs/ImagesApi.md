@@ -527,7 +527,7 @@ No authorization required
 
 ## GetImageContentByTypeJavaPackage
 
-> ContentJAVAPackageResponse GetImageContentByTypeJavaPackage(ctx, imageDigest).XAnchoreAccount(xAnchoreAccount).Execute()
+> ContentJavaPackageResponse GetImageContentByTypeJavaPackage(ctx, imageDigest).XAnchoreAccount(xAnchoreAccount).Execute()
 
 Get the content of an image by type java
 
@@ -554,7 +554,7 @@ func main() {
         fmt.Fprintf(os.Stderr, "Error when calling `ImagesApi.GetImageContentByTypeJavaPackage``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `GetImageContentByTypeJavaPackage`: ContentJAVAPackageResponse
+    // response from `GetImageContentByTypeJavaPackage`: ContentJavaPackageResponse
     fmt.Fprintf(os.Stdout, "Response from `ImagesApi.GetImageContentByTypeJavaPackage`: %v\n", resp)
 }
 ```
@@ -579,7 +579,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ContentJAVAPackageResponse**](ContentJAVAPackageResponse.md)
+[**ContentJavaPackageResponse**](ContentJavaPackageResponse.md)
 
 ### Authorization
 

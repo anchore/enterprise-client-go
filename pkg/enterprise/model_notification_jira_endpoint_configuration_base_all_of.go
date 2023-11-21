@@ -21,7 +21,7 @@ type NotificationJiraEndpointConfigurationBaseAllOf struct {
 	Url *string `json:"url,omitempty"`
 	// Jira username for creating issues
 	Username *string `json:"username,omitempty"`
-	// Jira password for creating issues
+	// Jira access token for creating issues
 	Password *string `json:"password,omitempty"`
 	// Key of the Jira project for creating issues
 	ProjectKey *string `json:"project_key,omitempty"`

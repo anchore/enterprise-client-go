@@ -129,8 +129,8 @@ type ImagesApi interface {
 	GetImageContentByTypeJavaPackage(ctx context.Context, imageDigest string) ApiGetImageContentByTypeJavaPackageRequest
 
 	// GetImageContentByTypeJavaPackageExecute executes the request
-	//  @return ContentJAVAPackageResponse
-	GetImageContentByTypeJavaPackageExecute(r ApiGetImageContentByTypeJavaPackageRequest) (*ContentJAVAPackageResponse, *http.Response, error)
+	//  @return ContentJavaPackageResponse
+	GetImageContentByTypeJavaPackageExecute(r ApiGetImageContentByTypeJavaPackageRequest) (*ContentJavaPackageResponse, *http.Response, error)
 
 	/*
 	GetImageContentByTypeMalware Get the content of an image by type malware
@@ -1180,7 +1180,7 @@ func (r ApiGetImageContentByTypeJavaPackageRequest) XAnchoreAccount(xAnchoreAcco
 	return r
 }
 
-func (r ApiGetImageContentByTypeJavaPackageRequest) Execute() (*ContentJAVAPackageResponse, *http.Response, error) {
+func (r ApiGetImageContentByTypeJavaPackageRequest) Execute() (*ContentJavaPackageResponse, *http.Response, error) {
 	return r.ApiService.GetImageContentByTypeJavaPackageExecute(r)
 }
 
@@ -1200,13 +1200,13 @@ func (a *ImagesApiService) GetImageContentByTypeJavaPackage(ctx context.Context,
 }
 
 // Execute executes the request
-//  @return ContentJAVAPackageResponse
-func (a *ImagesApiService) GetImageContentByTypeJavaPackageExecute(r ApiGetImageContentByTypeJavaPackageRequest) (*ContentJAVAPackageResponse, *http.Response, error) {
+//  @return ContentJavaPackageResponse
+func (a *ImagesApiService) GetImageContentByTypeJavaPackageExecute(r ApiGetImageContentByTypeJavaPackageRequest) (*ContentJavaPackageResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *ContentJAVAPackageResponse
+		localVarReturnValue  *ContentJavaPackageResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ImagesApiService.GetImageContentByTypeJavaPackage")
