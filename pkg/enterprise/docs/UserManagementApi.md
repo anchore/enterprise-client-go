@@ -6,15 +6,22 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**CreateAccount**](UserManagementApi.md#CreateAccount) | **Post** /accounts | Create a new account. Only available to admin user.
 [**CreateUser**](UserManagementApi.md#CreateUser) | **Post** /accounts/{account_name}/users | Create a new user within the specified account.
+[**CreateUserApiKey**](UserManagementApi.md#CreateUserApiKey) | **Post** /accounts/{account_name}/users/{username}/api-keys | Add a new API key
 [**CreateUserCredential**](UserManagementApi.md#CreateUserCredential) | **Post** /accounts/{account_name}/users/{username}/credentials | add/replace credential
 [**DeleteAccount**](UserManagementApi.md#DeleteAccount) | **Delete** /accounts/{account_name} | Delete the specified account, only allowed if the account is in the disabled state. All users will be deleted along with the account and all resources will be garbage collected
 [**DeleteUser**](UserManagementApi.md#DeleteUser) | **Delete** /accounts/{account_name}/users/{username} | Delete a specific user credential by username of the credential. Cannot be the credential used to authenticate the request.
+[**DeleteUserApiKey**](UserManagementApi.md#DeleteUserApiKey) | **Delete** /accounts/{account_name}/users/{username}/api-keys/{key_name} | Delete a user API key
 [**DeleteUserCredential**](UserManagementApi.md#DeleteUserCredential) | **Delete** /accounts/{account_name}/users/{username}/credentials | Delete a credential by type
 [**GetAccount**](UserManagementApi.md#GetAccount) | **Get** /accounts/{account_name} | Get account info about this specific account.
 [**GetAccountUser**](UserManagementApi.md#GetAccountUser) | **Get** /accounts/{account_name}/users/{username} | Get a specific user in the specified account
+[**GetOauthToken**](UserManagementApi.md#GetOauthToken) | **Post** /oauth/token | 
+[**GetUserApiKey**](UserManagementApi.md#GetUserApiKey) | **Get** /accounts/{account_name}/users/{username}/api-keys/{key_name} | Get a user API key
 [**ListAccounts**](UserManagementApi.md#ListAccounts) | **Get** /accounts | List account summaries. Only available to the system admin user.
+[**ListUserApiKeys**](UserManagementApi.md#ListUserApiKeys) | **Get** /accounts/{account_name}/users/{username}/api-keys | Get a list of API keys
 [**ListUserCredentials**](UserManagementApi.md#ListUserCredentials) | **Get** /accounts/{account_name}/users/{username}/credentials | Get current credential summary
 [**ListUsers**](UserManagementApi.md#ListUsers) | **Get** /accounts/{account_name}/users | List of users found in this account.
+[**PatchUserApiKey**](UserManagementApi.md#PatchUserApiKey) | **Patch** /accounts/{account_name}/users/{username}/api-keys/{key_name} | Patch a user API key
+[**RevokeOauthToken**](UserManagementApi.md#RevokeOauthToken) | **Post** /oauth/revoke | 
 [**UpdateAccount**](UserManagementApi.md#UpdateAccount) | **Put** /accounts/{account_name} | Update the info for this specific account.
 [**UpdateAccountState**](UserManagementApi.md#UpdateAccountState) | **Put** /accounts/{account_name}/state | Update the state of an account to either enabled or disabled. For deletion use the DELETE route
 
@@ -139,6 +146,80 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**User**](User.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## CreateUserApiKey
+
+> UserApiKey CreateUserApiKey(ctx, accountName, username).Apikey(apikey).Execute()
+
+Add a new API key
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    "time"
+    openapiclient "./openapi"
+)
+
+func main() {
+    accountName := "accountName_example" // string | 
+    username := "username_example" // string | 
+    apikey := *openapiclient.NewUserApiKey("Name_example", time.Now()) // UserApiKey | 
+
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.UserManagementApi.CreateUserApiKey(context.Background(), accountName, username).Apikey(apikey).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `UserManagementApi.CreateUserApiKey``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `CreateUserApiKey`: UserApiKey
+    fmt.Fprintf(os.Stdout, "Response from `UserManagementApi.CreateUserApiKey`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**accountName** | **string** |  | 
+**username** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiCreateUserApiKeyRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+ **apikey** | [**UserApiKey**](UserApiKey.md) |  | 
+
+### Return type
+
+[**UserApiKey**](UserApiKey.md)
 
 ### Authorization
 
@@ -341,6 +422,78 @@ Other parameters are passed through a pointer to a apiDeleteUserRequest struct v
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+
+
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## DeleteUserApiKey
+
+> DeleteUserApiKey(ctx, accountName, username, keyName).Execute()
+
+Delete a user API key
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    accountName := "accountName_example" // string | 
+    username := "username_example" // string | 
+    keyName := "keyName_example" // string | 
+
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.UserManagementApi.DeleteUserApiKey(context.Background(), accountName, username, keyName).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `UserManagementApi.DeleteUserApiKey``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**accountName** | **string** |  | 
+**username** | **string** |  | 
+**keyName** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiDeleteUserApiKeyRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
 
 
 
@@ -572,6 +725,154 @@ No authorization required
 [[Back to README]](../README.md)
 
 
+## GetOauthToken
+
+> TokenResponse GetOauthToken(ctx).GrantType(grantType).Username(username).Password(password).ClientId(clientId).RefreshToken(refreshToken).Execute()
+
+
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    grantType := "grantType_example" // string | OAuth Grant type for token (optional) (default to "password")
+    username := "username_example" // string | User to assign OAuth token to (optional)
+    password := "password_example" // string | Password for corresponding user (optional)
+    clientId := "clientId_example" // string | The type of client used for the OAuth token (optional) (default to "anonymous")
+    refreshToken := "refreshToken_example" // string | The refresh token from a previous password grant request, used to get a new access_token (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.UserManagementApi.GetOauthToken(context.Background()).GrantType(grantType).Username(username).Password(password).ClientId(clientId).RefreshToken(refreshToken).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `UserManagementApi.GetOauthToken``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `GetOauthToken`: TokenResponse
+    fmt.Fprintf(os.Stdout, "Response from `UserManagementApi.GetOauthToken`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetOauthTokenRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **grantType** | **string** | OAuth Grant type for token | [default to &quot;password&quot;]
+ **username** | **string** | User to assign OAuth token to | 
+ **password** | **string** | Password for corresponding user | 
+ **clientId** | **string** | The type of client used for the OAuth token | [default to &quot;anonymous&quot;]
+ **refreshToken** | **string** | The refresh token from a previous password grant request, used to get a new access_token | 
+
+### Return type
+
+[**TokenResponse**](TokenResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/x-www-form-urlencoded
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetUserApiKey
+
+> UserApiKey GetUserApiKey(ctx, accountName, username, keyName).Execute()
+
+Get a user API key
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    accountName := "accountName_example" // string | 
+    username := "username_example" // string | 
+    keyName := "keyName_example" // string | 
+
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.UserManagementApi.GetUserApiKey(context.Background(), accountName, username, keyName).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `UserManagementApi.GetUserApiKey``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `GetUserApiKey`: UserApiKey
+    fmt.Fprintf(os.Stdout, "Response from `UserManagementApi.GetUserApiKey`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**accountName** | **string** |  | 
+**username** | **string** |  | 
+**keyName** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetUserApiKeyRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+
+
+### Return type
+
+[**UserApiKey**](UserApiKey.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
 ## ListAccounts
 
 > []Account ListAccounts(ctx).State(state).Execute()
@@ -621,6 +922,77 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**[]Account**](Account.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## ListUserApiKeys
+
+> ApiKeyList ListUserApiKeys(ctx, accountName, username).Execute()
+
+Get a list of API keys
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    accountName := "accountName_example" // string | 
+    username := "username_example" // string | 
+
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.UserManagementApi.ListUserApiKeys(context.Background(), accountName, username).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `UserManagementApi.ListUserApiKeys``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ListUserApiKeys`: ApiKeyList
+    fmt.Fprintf(os.Stdout, "Response from `UserManagementApi.ListUserApiKeys`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**accountName** | **string** |  | 
+**username** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiListUserApiKeysRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+
+### Return type
+
+[**ApiKeyList**](ApiKeyList.md)
 
 ### Authorization
 
@@ -768,6 +1140,148 @@ No authorization required
 ### HTTP request headers
 
 - **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PatchUserApiKey
+
+> UserApiKey PatchUserApiKey(ctx, accountName, username, keyName).PatchUserApiKeyRequest(patchUserApiKeyRequest).Execute()
+
+Patch a user API key
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    accountName := "accountName_example" // string | 
+    username := "username_example" // string | 
+    keyName := "keyName_example" // string | 
+    patchUserApiKeyRequest := *openapiclient.NewPatchUserApiKeyRequest() // PatchUserApiKeyRequest |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.UserManagementApi.PatchUserApiKey(context.Background(), accountName, username, keyName).PatchUserApiKeyRequest(patchUserApiKeyRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `UserManagementApi.PatchUserApiKey``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `PatchUserApiKey`: UserApiKey
+    fmt.Fprintf(os.Stdout, "Response from `UserManagementApi.PatchUserApiKey`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**accountName** | **string** |  | 
+**username** | **string** |  | 
+**keyName** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPatchUserApiKeyRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+
+ **patchUserApiKeyRequest** | [**PatchUserApiKeyRequest**](PatchUserApiKeyRequest.md) |  | 
+
+### Return type
+
+[**UserApiKey**](UserApiKey.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## RevokeOauthToken
+
+> RevokeOauthToken(ctx).Token(token).TokenTypeHint(tokenTypeHint).Execute()
+
+
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    token := "token_example" // string | The token to be revoked (optional)
+    tokenTypeHint := "tokenTypeHint_example" // string | A hint about the type of token to be revoked (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.UserManagementApi.RevokeOauthToken(context.Background()).Token(token).TokenTypeHint(tokenTypeHint).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `UserManagementApi.RevokeOauthToken``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiRevokeOauthTokenRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **token** | **string** | The token to be revoked | 
+ **tokenTypeHint** | **string** | A hint about the type of token to be revoked | 
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/x-www-form-urlencoded
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)

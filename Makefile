@@ -10,7 +10,7 @@ OPENAPI_GENERATOR_VERSION = v6.0.0
 
 # --- anchore enterprise references
 # a git tag/branch/commit within anchore/enterprise repo
-ENTERPRISE_REF = 581f7e996121a4aa7fb5be983205dfb1375a26ad
+ENTERPRISE_REF = 48d4108edf76701e2ed79b5d70cbc0b7fc02108f
 ENTERPRISE_ROOT = $(PROJECT_ROOT)/enterprise
 ENTERPRISE_OPENAPI_DOC = $(PROJECT_ROOT)/anchore-api-swagger-$(ENTERPRISE_REF).yaml
 
@@ -42,7 +42,7 @@ endef
 
 .PHONY :=
 .DEFAULT_GOAL :=
-update: clean generate ## pull all swagger definitions and generate client code
+update: clean generate patch ## pull all swagger definitions and generate client code
 
 .PHONY :=
 generate: generate-clients ## generate all client code from all swagger documents
@@ -75,3 +75,7 @@ clean: ## remove all swagger documents and generated client code
 .PHONY :=
 help:
 	@grep -h -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
+
+.PHONY :=
+patch:
+	git apply -q patches/*

@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Url** | Pointer to **string** | Jira endpoint URL including host and port, should begin with &#39;http://&#39; or &#39;https://&#39; | [optional] 
 **Username** | Pointer to **string** | Jira username for creating issues | [optional] 
-**Password** | Pointer to **string** | Jira password for creating issues | [optional] 
+**Password** | Pointer to **string** | Jira access token for creating issues | [optional] 
 **ProjectKey** | Pointer to **string** | Key of the Jira project for creating issues | [optional] 
 **IssueType** | Pointer to **string** | Type associated with the issue | [optional] 
 **Priority** | Pointer to **string** | Priority assigned to the issue | [optional] 

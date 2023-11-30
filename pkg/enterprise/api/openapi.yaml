@@ -8,7 +8,7 @@ info:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
   title: Anchore API
-  version: 2.0.0
+  version: 2.1.0
 servers:
 - url: /v2
 tags:
@@ -18,26 +18,18 @@ tags:
   name: Policies
 - description: Image Management
   name: Images
-- description: View Image Content
-  name: Image Content
 - description: Vulnerability checks and reports
   name: Vulnerabilities
 - description: Evaluate images against policies
   name: Policy Evaluation
 - description: Registry Management
   name: Registries
-- description: Repository Credential Management
-  name: Repository Credentials
+- description: Repository Management
+  name: Repository
 - description: System Management
   name: System
-- description: Service Management
-  name: Services
-- description: Resource Summaries
-  name: Summaries
 - description: View and delete events
   name: Events
-- description: Resource Queries
-  name: Queries
 - description: "Manage Accounts, Users, and Credentials"
   name: User Management
 - description: Get and operate on the authenticated user's identity
@@ -62,8 +54,12 @@ tags:
   name: Relationships
 - description: Reports and metrics interface
   name: Reports
-- description: User management
-  name: Users
+- description: Notification Endpoint Management
+  name: Notifications
+- description: RBAC Management
+  name: RBAC
+- description: Artifact Lifecycle Policies and Management
+  name: Artifact Lifecycle
 paths:
   /:
     get:
@@ -77,6 +73,8 @@ paths:
                 type: string
           description: "Version check response, returns the api version prefix (e.g.\
             \ 'v2')"
+      tags:
+      - System
       x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.system
       x-anchore-authz-action: None
   /account:
@@ -450,6 +448,226 @@ paths:
       - User Management
       x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.accounts
       x-anchore-authz-action: getUser
+  /accounts/{account_name}/users/{username}/api-keys:
+    get:
+      operationId: list_user_api_keys
+      parameters:
+      - explode: false
+        in: path
+        name: account_name
+        required: true
+        schema:
+          format: path
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: username
+        required: true
+        schema:
+          format: path
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiKeyList'
+          description: User API key listing
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+          description: Internal error
+      summary: Get a list of API keys
+      tags:
+      - User Management
+      x-anchore-authz-action: listApiKeys
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.accounts
+    post:
+      operationId: create_user_api_key
+      parameters:
+      - explode: false
+        in: path
+        name: account_name
+        required: true
+        schema:
+          format: path
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: username
+        required: true
+        schema:
+          format: path
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserApiKey'
+        required: true
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserApiKey'
+          description: Add a new API key
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+          description: Internal error
+      summary: Add a new API key
+      tags:
+      - User Management
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.accounts
+      x-anchore-authz-action: createApiKey
+      x-codegen-request-body-name: apikey
+  /accounts/{account_name}/users/{username}/api-keys/{key_name}:
+    delete:
+      operationId: delete_user_api_key
+      parameters:
+      - explode: false
+        in: path
+        name: account_name
+        required: true
+        schema:
+          format: path
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: username
+        required: true
+        schema:
+          format: path
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: key_name
+        required: true
+        schema:
+          format: path
+          type: string
+        style: simple
+      responses:
+        "204":
+          content: {}
+          description: Successful deletion of a user API key
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+          description: Internal error
+      summary: Delete a user API key
+      tags:
+      - User Management
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.accounts
+      x-anchore-authz-action: deleteApiKey
+    get:
+      operationId: get_user_api_key
+      parameters:
+      - explode: false
+        in: path
+        name: account_name
+        required: true
+        schema:
+          format: path
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: username
+        required: true
+        schema:
+          format: path
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: key_name
+        required: true
+        schema:
+          format: path
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserApiKey'
+          description: User API key listing
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+          description: Internal error
+      summary: Get a user API key
+      tags:
+      - User Management
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.accounts
+      x-anchore-authz-action: getApiKey
+    patch:
+      operationId: patch_user_api_key
+      parameters:
+      - explode: false
+        in: path
+        name: account_name
+        required: true
+        schema:
+          format: path
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: username
+        required: true
+        schema:
+          format: path
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: key_name
+        required: true
+        schema:
+          format: path
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/patch_user_api_key_request'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserApiKey'
+          description: Patched information in a user API key
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+          description: Internal error
+      summary: Patch a user API key
+      tags:
+      - User Management
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.accounts
+      x-anchore-authz-action: updateApiKey
   /accounts/{account_name}/users/{username}/credentials:
     delete:
       operationId: delete_user_credential
@@ -2651,6 +2869,8 @@ paths:
         "200":
           content: {}
           description: Empty body on success
+      tags:
+      - System
       x-openapi-router-controller: anchore_enterprise.common.common
       x-anchore-authz-action: None
   /images:
@@ -2985,6 +3205,8 @@ paths:
           content: {}
           description: Image not found in this service
       summary: Return a list of analyzer artifacts of the specified type
+      tags:
+      - Images
       x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.images
       x-anchore-authz-action: getImage
   /images/{image_digest}/artifacts/retrieved-files:
@@ -3011,6 +3233,8 @@ paths:
           content: {}
           description: Image not found in this service
       summary: Return a list of analyzer artifacts of the specified type
+      tags:
+      - Images
       x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.images
       x-anchore-authz-action: getImage
   /images/{image_digest}/artifacts/secret-search:
@@ -3037,6 +3261,8 @@ paths:
           content: {}
           description: Image not found in this service
       summary: Return a list of analyzer artifacts of the specified type
+      tags:
+      - Images
       x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.images
       x-anchore-authz-action: getImage
   /images/{image_digest}/check:
@@ -3236,7 +3462,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ContentJAVAPackageResponse'
+                $ref: '#/components/schemas/ContentJavaPackageResponse'
           description: Content of specified type from the image
         "500":
           content:
@@ -4840,6 +5066,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/NotificationEndpointList'
           description: Listing of endpoint status objects
+      tags:
+      - Notifications
       x-openapi-router-controller: anchore_enterprise.services.notifications.api.controllers.endpoints
       x-anchore-authz-action: listNotificationEndpoints
   /notifications/endpoints/github/configurations:
@@ -4853,6 +5081,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/NotificationGitHubEndpointConfigurationList'
           description: List of GitHub endpoint configuration objects
+      tags:
+      - Notifications
       x-openapi-router-controller: anchore_enterprise.services.notifications.api.controllers.github
       x-anchore-authz-action: listNotificationEndpointConfigurations
     post:
@@ -4871,6 +5101,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/NotificationGitHubEndpointConfigurationBase'
           description: Newly created GitHub endpoint configuration object
+      tags:
+      - Notifications
       x-openapi-router-controller: anchore_enterprise.services.notifications.api.controllers.github
       x-anchore-authz-action: createNotificationEndpointConfiguration
       x-codegen-request-body-name: configuration
@@ -4899,6 +5131,8 @@ paths:
         "200":
           content: {}
           description: Successful delete
+      tags:
+      - Notifications
       x-openapi-router-controller: anchore_enterprise.services.notifications.api.controllers.github
       x-anchore-authz-action: deleteNotificationEndpointConfiguration
     get:
@@ -4928,6 +5162,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/NotificationSelector'
           description: Selector object
+      tags:
+      - Notifications
       x-openapi-router-controller: anchore_enterprise.services.notifications.api.controllers.github
       x-anchore-authz-action: getNotificationEndpointConfiguration
     put:
@@ -4963,6 +5199,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/NotificationSelector'
           description: Updated selector object
+      tags:
+      - Notifications
       x-openapi-router-controller: anchore_enterprise.services.notifications.api.controllers.github
       x-anchore-authz-action: updateNotificationEndpointConfiguration
       x-codegen-request-body-name: selector
@@ -4986,6 +5224,8 @@ paths:
         "404":
           content: {}
           description: The provided notification configuration UUID was not found
+      tags:
+      - Notifications
       x-openapi-router-controller: anchore_enterprise.services.notifications.api.controllers.github
       x-anchore-authz-action: deleteNotificationEndpointConfiguration
     get:
@@ -5007,6 +5247,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/NotificationGitHubEndpointConfigurationBase'
           description: GitHub endpoint configuration object
+      tags:
+      - Notifications
       x-openapi-router-controller: anchore_enterprise.services.notifications.api.controllers.github
       x-anchore-authz-action: getNotificationEndpointConfiguration
     put:
@@ -5034,6 +5276,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/NotificationGitHubEndpointConfigurationBase'
           description: Updated GitHub endpoint configuration object
+      tags:
+      - Notifications
       x-openapi-router-controller: anchore_enterprise.services.notifications.api.controllers.github
       x-anchore-authz-action: updateNotificationEndpointConfiguration
       x-codegen-request-body-name: configuration
@@ -5058,6 +5302,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/NotificationSelectorList'
           description: List of selectors
+      tags:
+      - Notifications
       x-openapi-router-controller: anchore_enterprise.services.notifications.api.controllers.github
       x-anchore-authz-action: listNotificationEndpointConfigurations
     post:
@@ -5086,6 +5332,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/NotificationSelector'
           description: Newly created selector object
+      tags:
+      - Notifications
       x-openapi-router-controller: anchore_enterprise.services.notifications.api.controllers.github
       x-anchore-authz-action: createNotificationEndpointConfiguration
       x-codegen-request-body-name: selector
@@ -5109,6 +5357,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/NotificationOperationalStatus'
           description: Status object
+      tags:
+      - Notifications
       x-openapi-router-controller: anchore_enterprise.services.notifications.api.controllers.github
       x-anchore-authz-action: getNotificationEndpointConfiguration
   /notifications/endpoints/github/configurations/{uuid}/test:
@@ -5131,6 +5381,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/NotificationGitHubTestResult'
           description: Test result
+      tags:
+      - Notifications
       x-openapi-router-controller: anchore_enterprise.services.notifications.api.controllers.github
       x-anchore-authz-action: createNotificationEndpointConfiguration
   /notifications/endpoints/github/test:
@@ -5150,6 +5402,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/NotificationGitHubTestResult'
           description: Test result
+      tags:
+      - Notifications
       x-openapi-router-controller: anchore_enterprise.services.notifications.api.controllers.github
       x-anchore-authz-action: createNotificationEndpointConfiguration
       x-codegen-request-body-name: configuration
@@ -5164,6 +5418,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/NotificationJiraEndpointConfigurationList'
           description: List of Jira endpoint configuration objects
+      tags:
+      - Notifications
       x-openapi-router-controller: anchore_enterprise.services.notifications.api.controllers.jira
       x-anchore-authz-action: listNotificationEndpointConfigurations
     post:
@@ -5182,6 +5438,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/NotificationJiraEndpointConfigurationBase'
           description: Newly created Jira endpoint configuration object
+      tags:
+      - Notifications
       x-openapi-router-controller: anchore_enterprise.services.notifications.api.controllers.jira
       x-anchore-authz-action: createNotificationEndpointConfiguration
       x-codegen-request-body-name: configuration
@@ -5210,6 +5468,8 @@ paths:
         "200":
           content: {}
           description: Successful delete
+      tags:
+      - Notifications
       x-openapi-router-controller: anchore_enterprise.services.notifications.api.controllers.jira
       x-anchore-authz-action: deleteNotificationEndpointConfiguration
     get:
@@ -5239,6 +5499,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/NotificationSelector'
           description: Selector object
+      tags:
+      - Notifications
       x-openapi-router-controller: anchore_enterprise.services.notifications.api.controllers.jira
       x-anchore-authz-action: getNotificationEndpointConfiguration
     put:
@@ -5274,6 +5536,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/NotificationSelector'
           description: Updated selector object
+      tags:
+      - Notifications
       x-openapi-router-controller: anchore_enterprise.services.notifications.api.controllers.jira
       x-anchore-authz-action: updateNotificationEndpointConfiguration
       x-codegen-request-body-name: selector
@@ -5297,6 +5561,8 @@ paths:
         "404":
           content: {}
           description: The provided notification configuration UUID was not found
+      tags:
+      - Notifications
       x-openapi-router-controller: anchore_enterprise.services.notifications.api.controllers.jira
       x-anchore-authz-action: deleteNotificationEndpointConfiguration
     get:
@@ -5318,6 +5584,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/NotificationJiraEndpointConfigurationBase'
           description: Jira endpoint configuration object
+      tags:
+      - Notifications
       x-openapi-router-controller: anchore_enterprise.services.notifications.api.controllers.jira
       x-anchore-authz-action: getNotificationEndpointConfiguration
     put:
@@ -5345,6 +5613,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/NotificationJiraEndpointConfigurationBase'
           description: Updated Jira endpoint configuration object
+      tags:
+      - Notifications
       x-openapi-router-controller: anchore_enterprise.services.notifications.api.controllers.jira
       x-anchore-authz-action: updateNotificationEndpointConfiguration
       x-codegen-request-body-name: configuration
@@ -5368,6 +5638,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/NotificationSelectorList'
           description: List of selectors
+      tags:
+      - Notifications
       x-openapi-router-controller: anchore_enterprise.services.notifications.api.controllers.jira
       x-anchore-authz-action: listNotificationEndpointConfigurations
     post:
@@ -5396,6 +5668,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/NotificationSelector'
           description: Newly created selector object
+      tags:
+      - Notifications
       x-openapi-router-controller: anchore_enterprise.services.notifications.api.controllers.jira
       x-anchore-authz-action: createNotificationEndpointConfiguration
       x-codegen-request-body-name: selector
@@ -5419,6 +5693,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/NotificationOperationalStatus'
           description: Status object
+      tags:
+      - Notifications
       x-openapi-router-controller: anchore_enterprise.services.notifications.api.controllers.jira
       x-anchore-authz-action: getNotificationEndpointConfiguration
   /notifications/endpoints/jira/configurations/{uuid}/test:
@@ -5441,6 +5717,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/NotificationJiraTestResult'
           description: Test result
+      tags:
+      - Notifications
       x-openapi-router-controller: anchore_enterprise.services.notifications.api.controllers.jira
       x-anchore-authz-action: createNotificationEndpointConfiguration
   /notifications/endpoints/jira/test:
@@ -5460,6 +5738,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/NotificationJiraTestResult'
           description: Test result
+      tags:
+      - Notifications
       x-openapi-router-controller: anchore_enterprise.services.notifications.api.controllers.jira
       x-anchore-authz-action: createNotificationEndpointConfiguration
       x-codegen-request-body-name: configuration
@@ -5474,6 +5754,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/NotificationSlackEndpointConfigurationList'
           description: List of Slack endpoint configuration objects
+      tags:
+      - Notifications
       x-openapi-router-controller: anchore_enterprise.services.notifications.api.controllers.slack
       x-anchore-authz-action: listNotificationEndpointConfigurations
     post:
@@ -5492,6 +5774,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/NotificationSlackEndpointConfiguration'
           description: Newly created Slack endpoint configuration object
+      tags:
+      - Notifications
       x-openapi-router-controller: anchore_enterprise.services.notifications.api.controllers.slack
       x-anchore-authz-action: createNotificationEndpointConfiguration
       x-codegen-request-body-name: configuration
@@ -5520,6 +5804,8 @@ paths:
         "200":
           content: {}
           description: Successful delete
+      tags:
+      - Notifications
       x-openapi-router-controller: anchore_enterprise.services.notifications.api.controllers.slack
       x-anchore-authz-action: deleteNotificationEndpointConfiguration
     get:
@@ -5549,6 +5835,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/NotificationSelector'
           description: Selector object
+      tags:
+      - Notifications
       x-openapi-router-controller: anchore_enterprise.services.notifications.api.controllers.slack
       x-anchore-authz-action: getNotificationEndpointConfiguration
     put:
@@ -5584,6 +5872,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/NotificationSelector'
           description: Updated selector object
+      tags:
+      - Notifications
       x-openapi-router-controller: anchore_enterprise.services.notifications.api.controllers.slack
       x-anchore-authz-action: updateNotificationEndpointConfiguration
       x-codegen-request-body-name: selector
@@ -5607,6 +5897,8 @@ paths:
         "404":
           content: {}
           description: The provided notification configuration UUID was not found
+      tags:
+      - Notifications
       x-openapi-router-controller: anchore_enterprise.services.notifications.api.controllers.slack
       x-anchore-authz-action: deleteNotificationEndpointConfiguration
     get:
@@ -5628,6 +5920,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/NotificationSlackEndpointConfiguration'
           description: Slack endpoint configuration object
+      tags:
+      - Notifications
       x-openapi-router-controller: anchore_enterprise.services.notifications.api.controllers.slack
       x-anchore-authz-action: getNotificationEndpointConfiguration
     put:
@@ -5655,6 +5949,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/NotificationSlackEndpointConfiguration'
           description: Updated Slack endpoint configuration object
+      tags:
+      - Notifications
       x-openapi-router-controller: anchore_enterprise.services.notifications.api.controllers.slack
       x-anchore-authz-action: updateNotificationEndpointConfiguration
       x-codegen-request-body-name: configuration
@@ -5679,6 +5975,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/NotificationSelectorList'
           description: List of selectors
+      tags:
+      - Notifications
       x-openapi-router-controller: anchore_enterprise.services.notifications.api.controllers.slack
       x-anchore-authz-action: listNotificationEndpointConfigurations
     post:
@@ -5707,6 +6005,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/NotificationSelector'
           description: Newly created selector object
+      tags:
+      - Notifications
       x-openapi-router-controller: anchore_enterprise.services.notifications.api.controllers.slack
       x-anchore-authz-action: createNotificationEndpointConfiguration
       x-codegen-request-body-name: selector
@@ -5730,6 +6030,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/NotificationOperationalStatus'
           description: Status object
+      tags:
+      - Notifications
       x-openapi-router-controller: anchore_enterprise.services.notifications.api.controllers.slack
       x-anchore-authz-action: getNotificationEndpointConfiguration
   /notifications/endpoints/slack/configurations/{uuid}/test:
@@ -5752,6 +6054,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/NotificationSlackTestResult'
           description: Test result
+      tags:
+      - Notifications
       x-openapi-router-controller: anchore_enterprise.services.notifications.api.controllers.slack
       x-anchore-authz-action: createNotificationEndpointConfiguration
   /notifications/endpoints/slack/test:
@@ -5771,6 +6075,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/NotificationSlackTestResult'
           description: Test result
+      tags:
+      - Notifications
       x-openapi-router-controller: anchore_enterprise.services.notifications.api.controllers.slack
       x-anchore-authz-action: createNotificationEndpointConfiguration
       x-codegen-request-body-name: configuration
@@ -5785,6 +6091,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/NotificationSMTPEndpointConfigurationList'
           description: List of SMTP endpoint configuration objects
+      tags:
+      - Notifications
       x-openapi-router-controller: anchore_enterprise.services.notifications.api.controllers.smtp
       x-anchore-authz-action: listNotificationEndpointConfigurations
     post:
@@ -5803,6 +6111,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/NotificationSMTPEndpointConfiguration'
           description: Newly created SMTP endpoint configuration object
+      tags:
+      - Notifications
       x-openapi-router-controller: anchore_enterprise.services.notifications.api.controllers.smtp
       x-anchore-authz-action: createNotificationEndpointConfiguration
       x-codegen-request-body-name: configuration
@@ -5831,6 +6141,8 @@ paths:
         "200":
           content: {}
           description: Successful delete
+      tags:
+      - Notifications
       x-openapi-router-controller: anchore_enterprise.services.notifications.api.controllers.smtp
       x-anchore-authz-action: deleteNotificationEndpointConfiguration
     get:
@@ -5860,6 +6172,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/NotificationSelector'
           description: Selector object
+      tags:
+      - Notifications
       x-openapi-router-controller: anchore_enterprise.services.notifications.api.controllers.smtp
       x-anchore-authz-action: getNotificationEndpointConfiguration
     put:
@@ -5895,6 +6209,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/NotificationSelector'
           description: Updated selector object
+      tags:
+      - Notifications
       x-openapi-router-controller: anchore_enterprise.services.notifications.api.controllers.smtp
       x-anchore-authz-action: updateNotificationEndpointConfiguration
       x-codegen-request-body-name: selector
@@ -5918,6 +6234,8 @@ paths:
         "404":
           content: {}
           description: The provided notification configuration UUID was not found
+      tags:
+      - Notifications
       x-openapi-router-controller: anchore_enterprise.services.notifications.api.controllers.smtp
       x-anchore-authz-action: deleteNotificationEndpointConfiguration
     get:
@@ -5939,6 +6257,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/NotificationSMTPEndpointConfiguration'
           description: SMTP endpoint configuration object
+      tags:
+      - Notifications
       x-openapi-router-controller: anchore_enterprise.services.notifications.api.controllers.smtp
       x-anchore-authz-action: getNotificationEndpointConfiguration
     put:
@@ -5966,6 +6286,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/NotificationSMTPEndpointConfiguration'
           description: Updated SMTP endpoint configuration object
+      tags:
+      - Notifications
       x-openapi-router-controller: anchore_enterprise.services.notifications.api.controllers.smtp
       x-anchore-authz-action: updateNotificationEndpointConfiguration
       x-codegen-request-body-name: configuration
@@ -5989,6 +6311,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/NotificationSelectorList'
           description: List of selectors
+      tags:
+      - Notifications
       x-openapi-router-controller: anchore_enterprise.services.notifications.api.controllers.smtp
       x-anchore-authz-action: listNotificationEndpointConfigurations
     post:
@@ -6017,6 +6341,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/NotificationSelector'
           description: Newly created selector object
+      tags:
+      - Notifications
       x-openapi-router-controller: anchore_enterprise.services.notifications.api.controllers.smtp
       x-anchore-authz-action: createNotificationEndpointConfiguration
       x-codegen-request-body-name: selector
@@ -6040,6 +6366,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/NotificationOperationalStatus'
           description: Status object
+      tags:
+      - Notifications
       x-openapi-router-controller: anchore_enterprise.services.notifications.api.controllers.smtp
       x-anchore-authz-action: getNotificationEndpointConfiguration
   /notifications/endpoints/smtp/configurations/{uuid}/test:
@@ -6062,6 +6390,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/NotificationSMTPTestResult'
           description: Test result
+      tags:
+      - Notifications
       x-openapi-router-controller: anchore_enterprise.services.notifications.api.controllers.smtp
       x-anchore-authz-action: createNotificationEndpointConfiguration
   /notifications/endpoints/smtp/test:
@@ -6081,6 +6411,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/NotificationSMTPTestResult'
           description: Test result
+      tags:
+      - Notifications
       x-openapi-router-controller: anchore_enterprise.services.notifications.api.controllers.smtp
       x-anchore-authz-action: createNotificationEndpointConfiguration
       x-codegen-request-body-name: configuration
@@ -6095,6 +6427,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/NotificationTeamsEndpointConfigurationList'
           description: List of Teams endpoint configuration objects
+      tags:
+      - Notifications
       x-openapi-router-controller: anchore_enterprise.services.notifications.api.controllers.teams
       x-anchore-authz-action: listNotificationEndpointConfigurations
     post:
@@ -6113,6 +6447,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/NotificationTeamsEndpointConfiguration'
           description: Newly created Teams endpoint configuration object
+      tags:
+      - Notifications
       x-openapi-router-controller: anchore_enterprise.services.notifications.api.controllers.teams
       x-anchore-authz-action: createNotificationEndpointConfiguration
       x-codegen-request-body-name: configuration
@@ -6141,6 +6477,8 @@ paths:
         "200":
           content: {}
           description: Successful delete
+      tags:
+      - Notifications
       x-openapi-router-controller: anchore_enterprise.services.notifications.api.controllers.teams
       x-anchore-authz-action: deleteNotificationEndpointConfiguration
     get:
@@ -6170,6 +6508,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/NotificationSelector'
           description: Selector object
+      tags:
+      - Notifications
       x-openapi-router-controller: anchore_enterprise.services.notifications.api.controllers.teams
       x-anchore-authz-action: getNotificationEndpointConfiguration
     put:
@@ -6205,6 +6545,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/NotificationSelector'
           description: Updated selector object
+      tags:
+      - Notifications
       x-openapi-router-controller: anchore_enterprise.services.notifications.api.controllers.teams
       x-anchore-authz-action: updateNotificationEndpointConfiguration
       x-codegen-request-body-name: selector
@@ -6228,6 +6570,8 @@ paths:
         "404":
           content: {}
           description: The provided notification configuration UUID was not found
+      tags:
+      - Notifications
       x-openapi-router-controller: anchore_enterprise.services.notifications.api.controllers.teams
       x-anchore-authz-action: deleteNotificationEndpointConfiguration
     get:
@@ -6249,6 +6593,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/NotificationTeamsEndpointConfiguration'
           description: Teams endpoint configuration object
+      tags:
+      - Notifications
       x-openapi-router-controller: anchore_enterprise.services.notifications.api.controllers.teams
       x-anchore-authz-action: getNotificationEndpointConfiguration
     put:
@@ -6276,6 +6622,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/NotificationTeamsEndpointConfiguration'
           description: Updated Teams endpoint configuration object
+      tags:
+      - Notifications
       x-openapi-router-controller: anchore_enterprise.services.notifications.api.controllers.teams
       x-anchore-authz-action: updateNotificationEndpointConfiguration
       x-codegen-request-body-name: configuration
@@ -6300,6 +6648,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/NotificationSelectorList'
           description: List of selectors
+      tags:
+      - Notifications
       x-openapi-router-controller: anchore_enterprise.services.notifications.api.controllers.teams
       x-anchore-authz-action: listNotificationEndpointConfigurations
     post:
@@ -6328,6 +6678,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/NotificationSelector'
           description: Newly created selector object
+      tags:
+      - Notifications
       x-openapi-router-controller: anchore_enterprise.services.notifications.api.controllers.teams
       x-anchore-authz-action: createNotificationEndpointConfiguration
       x-codegen-request-body-name: selector
@@ -6351,6 +6703,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/NotificationOperationalStatus'
           description: Status object
+      tags:
+      - Notifications
       x-openapi-router-controller: anchore_enterprise.services.notifications.api.controllers.teams
       x-anchore-authz-action: getNotificationEndpointConfiguration
   /notifications/endpoints/teams/configurations/{uuid}/test:
@@ -6373,6 +6727,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/NotificationTeamsTestResult'
           description: Test result
+      tags:
+      - Notifications
       x-openapi-router-controller: anchore_enterprise.services.notifications.api.controllers.teams
       x-anchore-authz-action: createNotificationEndpointConfiguration
   /notifications/endpoints/teams/test:
@@ -6392,6 +6748,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/NotificationTeamsTestResult'
           description: Test result
+      tags:
+      - Notifications
       x-openapi-router-controller: anchore_enterprise.services.notifications.api.controllers.teams
       x-anchore-authz-action: createNotificationEndpointConfiguration
       x-codegen-request-body-name: configuration
@@ -6406,6 +6764,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/NotificationWebhookEndpointConfigurationList'
           description: List of Webhook endpoint configuration objects
+      tags:
+      - Notifications
       x-openapi-router-controller: anchore_enterprise.services.notifications.api.controllers.webhook
       x-anchore-authz-action: listNotificationEndpointConfigurations
     post:
@@ -6424,6 +6784,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/NotificationWebhookEndpointConfiguration'
           description: Newly created Webhook endpoint configuration object
+      tags:
+      - Notifications
       x-openapi-router-controller: anchore_enterprise.services.notifications.api.controllers.webhook
       x-anchore-authz-action: createNotificationEndpointConfiguration
       x-codegen-request-body-name: configuration
@@ -6452,6 +6814,8 @@ paths:
         "200":
           content: {}
           description: Successful delete
+      tags:
+      - Notifications
       x-openapi-router-controller: anchore_enterprise.services.notifications.api.controllers.webhook
       x-anchore-authz-action: deleteNotificationEndpointConfiguration
     get:
@@ -6481,6 +6845,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/NotificationSelector'
           description: Selector object
+      tags:
+      - Notifications
       x-openapi-router-controller: anchore_enterprise.services.notifications.api.controllers.webhook
       x-anchore-authz-action: getNotificationEndpointConfiguration
     put:
@@ -6516,6 +6882,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/NotificationSelector'
           description: Updated selector object
+      tags:
+      - Notifications
       x-openapi-router-controller: anchore_enterprise.services.notifications.api.controllers.webhook
       x-anchore-authz-action: updateNotificationEndpointConfiguration
       x-codegen-request-body-name: selector
@@ -6539,6 +6907,8 @@ paths:
         "404":
           content: {}
           description: The provided notification configuration UUID was not found
+      tags:
+      - Notifications
       x-openapi-router-controller: anchore_enterprise.services.notifications.api.controllers.webhook
       x-anchore-authz-action: deleteNotificationEndpointConfiguration
     get:
@@ -6560,6 +6930,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/NotificationWebhookEndpointConfiguration'
           description: Webhook endpoint configuration object
+      tags:
+      - Notifications
       x-openapi-router-controller: anchore_enterprise.services.notifications.api.controllers.webhook
       x-anchore-authz-action: getNotificationEndpointConfiguration
     put:
@@ -6587,6 +6959,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/NotificationWebhookEndpointConfiguration'
           description: Updated Webhook endpoint configuration object
+      tags:
+      - Notifications
       x-openapi-router-controller: anchore_enterprise.services.notifications.api.controllers.webhook
       x-anchore-authz-action: updateNotificationEndpointConfiguration
       x-codegen-request-body-name: configuration
@@ -6611,6 +6985,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/NotificationSelectorList'
           description: List of selectors
+      tags:
+      - Notifications
       x-openapi-router-controller: anchore_enterprise.services.notifications.api.controllers.webhook
       x-anchore-authz-action: listNotificationEndpointConfigurations
     post:
@@ -6639,6 +7015,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/NotificationSelector'
           description: Newly created selector object
+      tags:
+      - Notifications
       x-openapi-router-controller: anchore_enterprise.services.notifications.api.controllers.webhook
       x-anchore-authz-action: createNotificationEndpointConfiguration
       x-codegen-request-body-name: selector
@@ -6662,6 +7040,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/NotificationOperationalStatus'
           description: Status object
+      tags:
+      - Notifications
       x-openapi-router-controller: anchore_enterprise.services.notifications.api.controllers.webhook
       x-anchore-authz-action: getNotificationEndpointConfiguration
   /notifications/endpoints/webhook/configurations/{uuid}/test:
@@ -6684,6 +7064,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/NotificationWebhookTestResult'
           description: Test result
+      tags:
+      - Notifications
       x-openapi-router-controller: anchore_enterprise.services.notifications.api.controllers.webhook
       x-anchore-authz-action: createNotificationEndpointConfiguration
   /notifications/endpoints/webhook/test:
@@ -6703,6 +7085,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/NotificationWebhookTestResult'
           description: Test result
+      tags:
+      - Notifications
       x-openapi-router-controller: anchore_enterprise.services.notifications.api.controllers.webhook
       x-anchore-authz-action: createNotificationEndpointConfiguration
       x-codegen-request-body-name: configuration
@@ -6739,6 +7123,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/NotificationEndpointEnabledStatus'
           description: Updated status record for an endpoint
+      tags:
+      - Notifications
       x-openapi-router-controller: anchore_enterprise.services.notifications.api.controllers.endpoints
       x-anchore-authz-action: updateNotificationEndpoint
       x-codegen-request-body-name: status
@@ -6753,6 +7139,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/NotificationSelectorList'
           description: List of selectors
+      tags:
+      - Notifications
       x-openapi-router-controller: anchore_enterprise.services.notifications.api.controllers.selectors
       x-anchore-authz-action: listNotificationEndpointConfigurations
   /oauth/revoke:
@@ -6777,6 +7165,8 @@ paths:
         "401":
           content: {}
           description: Revocation of the provided token type is not supported
+      tags:
+      - User Management
       x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.oauth
       x-anchore-authz-action: None
   /oauth/token:
@@ -6802,6 +7192,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/ApiErrorResponse'
           description: Internal error
+      tags:
+      - User Management
       x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.oauth
       x-anchore-authz-action: None
   /policies:
@@ -7191,6 +7583,8 @@ paths:
                 $ref: '#/components/schemas/RbacManagerApiErrorResponse'
           description: Internal error
       summary: List the roles for which the authenticated user is a member
+      tags:
+      - RBAC
       x-openapi-router-controller: anchore_enterprise.services.rbac_manager.api.controllers.roles
       x-anchore-authz-action: None
   /rbac-manager/roles:
@@ -7210,6 +7604,8 @@ paths:
                 $ref: '#/components/schemas/RbacManagerApiErrorResponse'
           description: Internal error
       summary: List roles available in the system
+      tags:
+      - RBAC
       x-openapi-router-controller: anchore_enterprise.services.rbac_manager.api.controllers.roles
       x-anchore-authz-action: listRoles
   /rbac-manager/roles/{role_name}:
@@ -7238,6 +7634,8 @@ paths:
                 $ref: '#/components/schemas/RbacManagerApiErrorResponse'
           description: Internal error
       summary: Get detailed information about a specific role
+      tags:
+      - RBAC
       x-openapi-router-controller: anchore_enterprise.services.rbac_manager.api.controllers.roles
       x-anchore-authz-action: getRole
   /rbac-manager/roles/{role_name}/members:
@@ -7279,6 +7677,8 @@ paths:
                 $ref: '#/components/schemas/RbacManagerApiErrorResponse'
           description: Internal error
       summary: Remove a user from the role
+      tags:
+      - RBAC
       x-openapi-router-controller: anchore_enterprise.services.rbac_manager.api.controllers.roles
       x-anchore-authz-action: deleteRoleMember
     get:
@@ -7317,6 +7717,8 @@ paths:
           description: Internal error
       summary: Returns a list of objects that have members in the role. The list is
         filtered by 'listRoleMembers' access for the 'account' element of each entry.
+      tags:
+      - RBAC
       x-openapi-router-controller: anchore_enterprise.services.rbac_manager.api.controllers.roles
       x-anchore-authz-action: listRoleMembers
     post:
@@ -7350,6 +7752,8 @@ paths:
                 $ref: '#/components/schemas/RbacManagerApiErrorResponse'
           description: Internal error
       summary: Add a user to the role
+      tags:
+      - RBAC
       x-openapi-router-controller: anchore_enterprise.services.rbac_manager.api.controllers.roles
       x-anchore-authz-action: createRoleMember
       x-codegen-request-body-name: member
@@ -7374,6 +7778,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/RbacManagerApiErrorResponse'
           description: Internal error
+      tags:
+      - RBAC
       x-openapi-router-controller: anchore_enterprise.services.rbac_manager.api.controllers.auth
       x-anchore-authz-action: None
     post:
@@ -7404,6 +7810,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/RbacManagerApiErrorResponse'
           description: Internal error
+      tags:
+      - RBAC
       x-openapi-router-controller: anchore_enterprise.services.rbac_manager.api.controllers.auth
       x-anchore-authz-action: None
       x-codegen-request-body-name: configuration
@@ -7435,6 +7843,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/RbacManagerApiErrorResponse'
           description: Internal error
+      tags:
+      - RBAC
       x-openapi-router-controller: anchore_enterprise.services.rbac_manager.api.controllers.auth
       x-anchore-authz-action: None
     get:
@@ -7468,6 +7878,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/RbacManagerApiErrorResponse'
           description: Internal error
+      tags:
+      - RBAC
       x-openapi-router-controller: anchore_enterprise.services.rbac_manager.api.controllers.auth
       x-anchore-authz-action: None
     put:
@@ -7513,6 +7925,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/RbacManagerApiErrorResponse'
           description: Internal error
+      tags:
+      - RBAC
       x-openapi-router-controller: anchore_enterprise.services.rbac_manager.api.controllers.auth
       x-anchore-authz-action: None
       x-codegen-request-body-name: configuration
@@ -7543,6 +7957,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/RbacManagerApiErrorResponse'
           description: Internal error
+      tags:
+      - RBAC
       x-openapi-router-controller: anchore_enterprise.services.rbac_manager.api.controllers.auth
       x-anchore-authz-action: None
   /rbac-manager/saml/sso/{idp_name}:
@@ -7572,6 +7988,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/RbacManagerApiErrorResponse'
           description: Internal error
+      tags:
+      - RBAC
       x-openapi-router-controller: anchore_enterprise.services.rbac_manager.api.controllers.auth
       x-anchore-authz-action: None
   /rbac-manager/users/{username}/roles:
@@ -7614,6 +8032,8 @@ paths:
                 $ref: '#/components/schemas/RbacManagerApiErrorResponse'
           description: Internal error
       summary: List the roles for which the requested user is a member
+      tags:
+      - RBAC
       x-openapi-router-controller: anchore_enterprise.services.rbac_manager.api.controllers.roles
       x-anchore-authz-action: None
   /registries:
@@ -7845,6 +8265,8 @@ paths:
         "500":
           content: {}
           description: Internal Error
+      tags:
+      - Reports
       x-openapi-router-controller: anchore_enterprise.services.reports.api.controllers.scheduled_queries
       x-anchore-authz-action: viewReports
   /reporting/scheduled-query-results/{result_uuid}:
@@ -7877,6 +8299,8 @@ paths:
         "500":
           content: {}
           description: Internal Error
+      tags:
+      - Reports
       x-openapi-router-controller: anchore_enterprise.services.reports.api.controllers.scheduled_queries
       x-anchore-authz-action: viewReports
   /repositories:
@@ -7927,7 +8351,7 @@ paths:
           description: Repository Subscription
       summary: Add repository to watch
       tags:
-      - Repository Credentials
+      - Repository
       x-anchore-authz-action: createRepository
       x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.repositories
   /sources:
@@ -8576,7 +9000,7 @@ paths:
           description: Internal Error
       summary: List all visible image digests and tags
       tags:
-      - Summaries
+      - Images
       x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.images
       x-anchore-authz-action: listImages
   /system:
@@ -8601,6 +9025,151 @@ paths:
       - System
       x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.system
       x-anchore-authz-action: None
+  /system/artifact-lifecycle-policies:
+    get:
+      operationId: list_artifact_lifecycle_policies
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArtifactLifecyclePolicyList'
+          description: A list of artifact lifecycle policies in the system
+      summary: List all artifact lifecycle policies
+      tags:
+      - Artifact Lifecycle
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.artifact_lifecycle_policies
+      x-anchore-authz-action: getArtifactLifecyclePolicy
+    post:
+      operationId: create_artifact_lifecycle_policy
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ArtifactLifecyclePolicy'
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArtifactLifecyclePolicyResponse'
+          description: The newly created artifact lifecycle policy
+      summary: Create new artifact lifecycle policy
+      tags:
+      - Artifact Lifecycle
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.artifact_lifecycle_policies
+      x-anchore-authz-action: createArtifactLifecyclePolicy
+  /system/artifact-lifecycle-policies/{policy_uuid}:
+    delete:
+      operationId: delete_artifact_lifecycle_policy
+      parameters:
+      - explode: false
+        in: path
+        name: policy_uuid
+        required: true
+        schema:
+          format: path
+          type: string
+        style: simple
+      responses:
+        "204":
+          description: Returns an empty response
+      summary: Delete lifecycle policy
+      tags:
+      - Artifact Lifecycle
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.artifact_lifecycle_policies
+      x-anchore-authz-action: deleteArtifactLifecyclePolicy
+    get:
+      operationId: get_artifact_lifecycle_policy
+      parameters:
+      - explode: false
+        in: path
+        name: policy_uuid
+        required: true
+        schema:
+          format: path
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArtifactLifecyclePolicyResponse'
+          description: A single artifact lifecycle policy
+      summary: Get single artifact lifecycle policy
+      tags:
+      - Artifact Lifecycle
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.artifact_lifecycle_policies
+      x-anchore-authz-action: getArtifactLifecyclePolicy
+    put:
+      operationId: update_artifact_lifecycle_policy
+      parameters:
+      - explode: false
+        in: path
+        name: policy_uuid
+        required: true
+        schema:
+          format: path
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ArtifactLifecyclePolicy'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArtifactLifecyclePolicyResponse'
+          description: The updated artifact lifecycle policy
+      summary: Update a single artifact lifecycle policy
+      tags:
+      - Artifact Lifecycle
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.artifact_lifecycle_policies
+      x-anchore-authz-action: updateArtifactLifecyclePolicy
+  /system/artifact-lifecycle-policies/{policy_uuid}/versions:
+    get:
+      operationId: get_artifact_lifecycle_policy_by_version
+      parameters:
+      - explode: false
+        in: path
+        name: policy_uuid
+        required: true
+        schema:
+          format: path
+          type: string
+        style: simple
+      - description: Request a specific version number
+        explode: true
+        in: query
+        name: version
+        required: false
+        schema:
+          type: integer
+        style: form
+      - description: Request the latest version
+        explode: true
+        in: query
+        name: latest
+        required: false
+        schema:
+          type: boolean
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArtifactLifecyclePolicyResponse'
+          description: The requested version(s) of the artifact lifecycle policy
+      summary: Get single artifact lifecycle policy by its version
+      tags:
+      - Artifact Lifecycle
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.artifact_lifecycle_policies
+      x-anchore-authz-action: getArtifactLifecyclePolicy
   /system/error-codes:
     get:
       description: Describe anchore engine error codes.
@@ -8947,6 +9516,143 @@ paths:
       - Identity
       x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.user
       x-anchore-authz-action: None
+  /user/api-keys:
+    get:
+      operationId: list_api_keys
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiKeyList'
+          description: User API key listing
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+          description: Internal error
+      summary: Get a list of API keys
+      tags:
+      - Identity
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.user
+      x-anchore-authz-action: selfListApiKeys
+    post:
+      operationId: create_api_key
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserApiKey'
+        required: true
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserApiKey'
+          description: Add a new API key
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+          description: Internal error
+      summary: Add a new API key
+      tags:
+      - Identity
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.user
+      x-anchore-authz-action: selfCreateApiKey
+  /user/api-keys/{key_name}:
+    delete:
+      operationId: delete_api_key
+      parameters:
+      - explode: false
+        in: path
+        name: key_name
+        required: true
+        schema:
+          format: path
+          type: string
+        style: simple
+      responses:
+        "204":
+          content: {}
+          description: Successful deletion
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+          description: Internal error
+      summary: Delete a user API key
+      tags:
+      - Identity
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.user
+      x-anchore-authz-action: selfDeleteApiKey
+    get:
+      operationId: get_api_key
+      parameters:
+      - explode: false
+        in: path
+        name: key_name
+        required: true
+        schema:
+          format: path
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserApiKey'
+          description: User API key listing
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+          description: Internal error
+      summary: Get a user API key
+      tags:
+      - Identity
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.user
+      x-anchore-authz-action: selfGetApiKey
+    patch:
+      operationId: patch_api_key
+      parameters:
+      - explode: false
+        in: path
+        name: key_name
+        required: true
+        schema:
+          format: path
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/patch_user_api_key_request'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserApiKey'
+          description: Patches information in a user API key
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+          description: Internal error
+      summary: Patch a user API key
+      tags:
+      - Identity
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.user
+      x-anchore-authz-action: selfUpdateApiKey
   /user/credentials:
     get:
       operationId: get_credentials
@@ -9007,6 +9713,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/ServiceVersion'
           description: Version object describing version state
+      tags:
+      - System
       x-openapi-router-controller: anchore_enterprise.common.common
       x-anchore-authz-action: None
   /vulnerability-scan:
@@ -9048,7 +9756,7 @@ paths:
       summary: Return a vulnerability scan for the uploaded SBOM without storing the
         SBOM and without any side-effects in the system.
       tags:
-      - Stateless
+      - Vulnerabilities
       x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.stateless
       x-anchore-authz-action: getImage
       x-codegen-request-body-name: sbom
@@ -9911,6 +10619,31 @@ components:
           properties: {}
           type: object
       type: object
+    ApiKeyList:
+      example:
+        items:
+        - expires_at: 2000-01-23T04:56:07.000+00:00
+          updated_at: 2000-01-23T04:56:07.000+00:00
+          name: name
+          description: description
+          created_at: 2000-01-23T04:56:07.000+00:00
+          version: version
+          value: value
+          status: active
+        - expires_at: 2000-01-23T04:56:07.000+00:00
+          updated_at: 2000-01-23T04:56:07.000+00:00
+          name: name
+          description: description
+          created_at: 2000-01-23T04:56:07.000+00:00
+          version: version
+          value: value
+          status: active
+      properties:
+        items:
+          items:
+            $ref: '#/components/schemas/UserApiKey'
+          type: array
+      type: object
     Application:
       description: A representation of an SLDC application
       example:
@@ -10019,11 +10752,11 @@ components:
           application_id: application_id
         created_at: 2000-01-23T04:56:07.000+00:00
         source_sboms:
-        - "{}"
-        - "{}"
+        - null
+        - null
         image_sboms:
-        - "{}"
-        - "{}"
+        - null
+        - null
         application_version:
           application_version_id: application_version_id
           last_updated: 2000-01-23T04:56:07.000+00:00
@@ -10042,13 +10775,11 @@ components:
           type: string
         source_sboms:
           items:
-            properties: {}
-            type: object
+            $ref: '#/components/schemas/SourceSBOM'
           type: array
         image_sboms:
           items:
-            properties: {}
-            type: object
+            $ref: '#/components/schemas/ImageSBOM'
           type: array
       type: object
     ApplicationVersionVulnerabilityReport:
@@ -10340,6 +11071,111 @@ components:
         artifact_association_metadata:
           $ref: '#/components/schemas/ArtifactAssociationMetadata'
       type: object
+    ArtifactLifecyclePolicy:
+      description: A policy which exists in the system to manage the lifecycle of
+        artifacts
+      example:
+        updated_at: 2000-01-23T04:56:07.000+00:00
+        name: name
+        action: delete
+        description: description
+        created_at: 2000-01-23T04:56:07.000+00:00
+        policy_conditions:
+          days_since_analyzed: 1
+          artifact_type: image
+          days_since_last_seen_in_runtime: 6
+          version: 0
+        uuid: uuid
+        deleted_at: 2000-01-23T04:56:07.000+00:00
+        enabled: true
+      properties:
+        uuid:
+          description: A system defined unique identifier.
+          readOnly: true
+          type: string
+        action:
+          description: The action that should be taken when the rule parameters are
+            met.
+          enum:
+          - delete
+          type: string
+        name:
+          description: A user provided name for the policy. This name must be unique
+            for an Artifact Lifecycle Policy.
+          type: string
+        description:
+          description: A user provided description for the policy.
+          type: string
+        policy_conditions:
+          $ref: '#/components/schemas/ArtifactLifecyclePolicyConditions'
+        enabled:
+          description: Indicates if the policy should be active or not.  Defaulted
+            to false.
+          type: boolean
+        updated_at:
+          format: date-time
+          readOnly: true
+          type: string
+        created_at:
+          format: date-time
+          readOnly: true
+          type: string
+        deleted_at:
+          format: date-time
+          readOnly: true
+          type: string
+      required:
+      - action
+      - name
+      - policy_conditions
+      type: object
+    ArtifactLifecyclePolicyConditions:
+      example:
+        days_since_analyzed: 1
+        artifact_type: image
+        days_since_last_seen_in_runtime: 6
+        version: 0
+      properties:
+        version:
+          description: The version of these policy conditions.
+          readOnly: true
+          type: integer
+        days_since_last_seen_in_runtime:
+          description: "If the image was reported via runtime inventory, it must be\
+            \ this many days old before it will be considered for processing. An integer\
+            \ value less than or equal to zero will prevent the deletion of the image\
+            \ if runtime inventory still has record of it."
+          type: integer
+        days_since_analyzed:
+          description: An image analysis must be this many days old before it will
+            be considered for processing. An integer value less than or equal to zero
+            will cause this field to be ignored.
+          type: integer
+        artifact_type:
+          description: The type of artifact that will be processed.
+          enum:
+          - image
+          type: string
+      required:
+      - artifact_type
+      - days_since_analyzed
+      - days_since_last_seen_in_runtime
+      type: object
+    ArtifactLifecyclePolicyList:
+      example:
+        items:
+        - null
+        - null
+      properties:
+        items:
+          items:
+            $ref: '#/components/schemas/ArtifactLifecyclePolicyResponse'
+          type: array
+      type: object
+    ArtifactLifecyclePolicyResponse:
+      allOf:
+      - $ref: '#/components/schemas/ArtifactLifecyclePolicy'
+      - $ref: '#/components/schemas/ArtifactLifecyclePolicyResponse_allOf'
     ArtifactListResponse:
       description: The response provided when querying for the artifacts on an application
         version
@@ -10697,10 +11533,10 @@ components:
           type: string
         content:
           items:
-            $ref: '#/components/schemas/ContentFilesResponse_content_inner'
+            $ref: '#/components/schemas/FilesContent'
           type: array
       type: object
-    ContentJAVAPackageResponse:
+    ContentJavaPackageResponse:
       description: Java package content listings from images
       example:
         image_digest: image_digest
@@ -10737,7 +11573,7 @@ components:
           type: string
         content:
           items:
-            $ref: '#/components/schemas/ContentJAVAPackageResponse_content_inner'
+            $ref: '#/components/schemas/JavaPackageContent'
           type: array
       type: object
     ContentMalwareResponse:
@@ -10817,7 +11653,7 @@ components:
           type: string
         content:
           items:
-            $ref: '#/components/schemas/ContentPackageResponse_content_inner'
+            $ref: '#/components/schemas/PackageContent'
           type: array
       type: object
     Correction:
@@ -11045,6 +11881,35 @@ components:
       items:
         $ref: '#/components/schemas/DeleteImageResponse'
       type: array
+    ECSContainer:
+      example:
+        task_arn: task_arn
+        image_digest: image_digest
+        account_name: account_name
+        context: context
+        image_tag: image_tag
+        arn: arn
+      properties:
+        arn:
+          type: string
+        task_arn:
+          type: string
+        account_name:
+          type: string
+        context:
+          type: string
+        image_tag:
+          type: string
+        image_digest:
+          type: string
+      required:
+      - account_name
+      - arn
+      - context
+      - image_digest
+      - image_tag
+      - task_arn
+      type: object
     ECSContainers:
       description: Containers defined in ECS
       example:
@@ -11064,7 +11929,7 @@ components:
       properties:
         containers:
           items:
-            $ref: '#/components/schemas/ECSContainers_containers_inner'
+            $ref: '#/components/schemas/ECSContainer'
           type: array
       type: object
     ECSInventory:
@@ -11106,21 +11971,100 @@ components:
           type: string
         tasks:
           items:
-            $ref: '#/components/schemas/ECSInventory_tasks_inner'
+            $ref: '#/components/schemas/ECSInventoryTask'
           nullable: true
           type: array
         containers:
           items:
-            $ref: '#/components/schemas/ECSInventory_containers_inner'
+            $ref: '#/components/schemas/ECSInventoryContainer'
           type: array
         services:
           items:
-            $ref: '#/components/schemas/ECSInventory_services_inner'
+            $ref: '#/components/schemas/ECSInventoryService'
           nullable: true
           type: array
       required:
       - cluster_arn
       - timestamp
+      type: object
+    ECSInventoryContainer:
+      example:
+        task_arn: task_arn
+        image_digest: image_digest
+        image_tag: image_tag
+        arn: arn
+      properties:
+        arn:
+          type: string
+        task_arn:
+          type: string
+        image_tag:
+          type: string
+        image_digest:
+          type: string
+      required:
+      - arn
+      - image_tag
+      type: object
+    ECSInventoryService:
+      example:
+        arn: arn
+        tags:
+          key: tags
+      properties:
+        arn:
+          type: string
+        tags:
+          additionalProperties:
+            type: string
+          type: object
+      required:
+      - arn
+      type: object
+    ECSInventoryTask:
+      example:
+        service_arn: service_arn
+        task_definition_arn: task_definition_arn
+        arn: arn
+        tags:
+          key: tags
+      properties:
+        arn:
+          type: string
+        service_arn:
+          type: string
+        task_definition_arn:
+          type: string
+        tags:
+          additionalProperties:
+            type: string
+          type: object
+      required:
+      - arn
+      type: object
+    ECSService:
+      example:
+        cluster_arn: cluster_arn
+        account_name: account_name
+        arn: arn
+        tags:
+          key: tags
+      properties:
+        arn:
+          type: string
+        cluster_arn:
+          type: string
+        tags:
+          additionalProperties:
+            type: string
+          type: object
+        account_name:
+          type: string
+      required:
+      - account_name
+      - arn
+      - cluster_arn
+      - tags
       type: object
     ECSServices:
       description: Services defined in ECS
@@ -11139,8 +12083,40 @@ components:
       properties:
         services:
           items:
-            $ref: '#/components/schemas/ECSServices_services_inner'
+            $ref: '#/components/schemas/ECSService'
           type: array
+      type: object
+    ECSTask:
+      example:
+        cluster_arn: cluster_arn
+        service_arn: service_arn
+        account_name: account_name
+        task_definition_arn: task_definition_arn
+        arn: arn
+        tags:
+          key: tags
+      properties:
+        arn:
+          type: string
+        cluster_arn:
+          type: string
+        service_arn:
+          type: string
+        task_definition_arn:
+          type: string
+        tags:
+          additionalProperties:
+            type: string
+          type: object
+        account_name:
+          type: string
+      required:
+      - account_name
+      - arn
+      - cluster_arn
+      - service_arn
+      - tags
+      - task_definition_arn
       type: object
     ECSTasks:
       description: Tasks defined in ECS
@@ -11163,7 +12139,7 @@ components:
       properties:
         tasks:
           items:
-            $ref: '#/components/schemas/ECSTasks_tasks_inner'
+            $ref: '#/components/schemas/ECSTask'
           type: array
       type: object
     EventCategory:
@@ -11471,6 +12447,36 @@ components:
           items:
             $ref: '#/components/schemas/RegexContentMatch'
           type: array
+      type: object
+    FilesContent:
+      example:
+        mode: mode
+        uid: 1
+        filename: filename
+        gid: 0
+        sha256: sha256
+        size: 6
+        linkdest: linkdest
+        type: type
+      properties:
+        filename:
+          type: string
+        gid:
+          type: integer
+        linkdest:
+          nullable: true
+          type: string
+        mode:
+          type: string
+        sha256:
+          nullable: true
+          type: string
+        size:
+          type: integer
+        type:
+          type: string
+        uid:
+          type: integer
       type: object
     GateSpec:
       description: A description of the set of gates available in this engine and
@@ -12025,6 +13031,9 @@ components:
             $ref: '#/components/schemas/TagEntry'
           type: array
       type: object
+    ImageSBOM:
+      description: An image SBOM Document
+      type: object
     ImageSelectionRule:
       additionalProperties: false
       example:
@@ -12412,6 +13421,46 @@ components:
             $ref: '#/components/schemas/InventoryItem'
           type: array
       type: object
+    JavaPackageContent:
+      example:
+        package: package
+        implementation-version: implementation-version
+        cpes:
+        - cpes
+        - cpes
+        origin: origin
+        maven-version: maven-version
+        location: location
+        purl: purl
+        type: type
+        version: version
+        specification-version: specification-version
+      properties:
+        package:
+          type: string
+        implementation-version:
+          type: string
+        specification-version:
+          type: string
+        maven-version:
+          type: string
+        location:
+          type: string
+        type:
+          type: string
+        origin:
+          type: string
+        cpes:
+          description: A list of Common Platform Enumerations that may uniquely identify
+            the package
+          items:
+            type: string
+          type: array
+        purl:
+          type: string
+        version:
+          type: string
+      type: object
     JsonPatchAdd:
       description: The 'add' operation per RFC6902
       example:
@@ -12608,6 +13657,39 @@ components:
       description: A JSONPointer per RFC6901
       pattern: "^(/[^/~]*(~[01][^/~]*)*)*$"
       type: string
+    KubernetesContainer:
+      example:
+        image_digest: image_digest
+        account_name: account_name
+        name: name
+        context: context
+        id: id
+        image_tag: image_tag
+        pod_id: pod_id
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        pod_id:
+          type: string
+        account_name:
+          type: string
+        context:
+          type: string
+        image_tag:
+          type: string
+        image_digest:
+          type: string
+      required:
+      - account_name
+      - context
+      - id
+      - image_digest
+      - image_tag
+      - name
+      - pod_id
+      type: object
     KubernetesContainers:
       description: Containers defined in Kubernetes
       example:
@@ -12629,7 +13711,7 @@ components:
       properties:
         containers:
           items:
-            $ref: '#/components/schemas/KubernetesContainers_containers_inner'
+            $ref: '#/components/schemas/KubernetesContainer'
           type: array
       type: object
     KubernetesInventory:
@@ -12712,23 +13794,166 @@ components:
           type: string
         namespaces:
           items:
-            $ref: '#/components/schemas/KubernetesInventory_namespaces_inner'
+            $ref: '#/components/schemas/KubernetesInventoryNamespace'
           type: array
         nodes:
           items:
-            $ref: '#/components/schemas/KubernetesInventory_nodes_inner'
+            $ref: '#/components/schemas/KubernetesInventoryNode'
           type: array
         pods:
           items:
-            $ref: '#/components/schemas/KubernetesInventory_pods_inner'
+            $ref: '#/components/schemas/KubernetesInventoryPod'
           type: array
         containers:
           items:
-            $ref: '#/components/schemas/KubernetesInventory_containers_inner'
+            $ref: '#/components/schemas/KubernetesInventoryContainer'
           type: array
       required:
       - cluster_name
       - timestamp
+      type: object
+    KubernetesInventoryContainer:
+      example:
+        image_digest: image_digest
+        pod_uid: pod_uid
+        name: name
+        id: id
+        image_tag: image_tag
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        image_tag:
+          pattern: ^(?!\s*$).+
+          type: string
+        image_digest:
+          type: string
+        pod_uid:
+          maxLength: 36
+          minLength: 36
+          pattern: "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"
+          type: string
+      required:
+      - id
+      - image_tag
+      - name
+      - pod_uid
+      type: object
+    KubernetesInventoryNamespace:
+      example:
+        uid: uid
+        name: name
+        annotations:
+          key: annotations
+        labels:
+          key: labels
+      properties:
+        uid:
+          maxLength: 36
+          minLength: 36
+          pattern: "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"
+          type: string
+        name:
+          type: string
+        labels:
+          additionalProperties:
+            type: string
+          type: object
+        annotations:
+          additionalProperties:
+            type: string
+          type: object
+      required:
+      - name
+      - uid
+      type: object
+    KubernetesInventoryNode:
+      example:
+        uid: uid
+        kernel_version: kernel_version
+        kube_proxy_version: kube_proxy_version
+        name: name
+        kubernetes_version: kubernetes_version
+        annotations:
+          key: annotations
+        operating_system: operating_system
+        kubelet_version: kubelet_version
+        arch: arch
+        container_runtime_version: container_runtime_version
+        labels:
+          key: labels
+      properties:
+        uid:
+          maxLength: 36
+          minLength: 36
+          pattern: "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"
+          type: string
+        name:
+          type: string
+        labels:
+          additionalProperties:
+            type: string
+          type: object
+        annotations:
+          additionalProperties:
+            type: string
+          type: object
+        kernel_version:
+          type: string
+        kubernetes_version:
+          type: string
+        arch:
+          type: string
+        container_runtime_version:
+          type: string
+        kube_proxy_version:
+          type: string
+        kubelet_version:
+          type: string
+        operating_system:
+          type: string
+      required:
+      - name
+      - uid
+      type: object
+    KubernetesInventoryPod:
+      example:
+        uid: uid
+        node_uid: node_uid
+        name: name
+        annotations:
+          key: annotations
+        namespace_uid: namespace_uid
+        labels:
+          key: labels
+      properties:
+        uid:
+          type: string
+        name:
+          type: string
+        namespace_uid:
+          maxLength: 36
+          minLength: 36
+          pattern: "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"
+          type: string
+        node_uid:
+          maxLength: 36
+          minLength: 36
+          pattern: "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"
+          type: string
+        labels:
+          additionalProperties:
+            type: string
+          type: object
+        annotations:
+          additionalProperties:
+            type: string
+          type: object
+      required:
+      - name
+      - namespace_uid
+      - uid
       type: object
     KubernetesNamespace:
       example:
@@ -12913,6 +14138,18 @@ components:
         digest:
           type: string
       type: object
+    MalwareFinding:
+      example:
+        path: path
+        signature: signature
+      properties:
+        path:
+          description: A path for a file in the image's rootfs
+          type: string
+        signature:
+          description: The malware signature found at the path
+          type: string
+      type: object
     MalwareScan:
       description: A single scan from a scanner
       example:
@@ -12938,7 +14175,7 @@ components:
           type: object
         findings:
           items:
-            $ref: '#/components/schemas/MalwareScan_findings_inner'
+            $ref: '#/components/schemas/MalwareFinding'
           type: array
       type: object
     MappingRule:
@@ -13728,6 +14965,56 @@ components:
           items:
             type: string
           type: array
+        purl:
+          type: string
+      type: object
+    PackageContent:
+      example:
+        licenses:
+        - licenses
+        - licenses
+        metadata: "{}"
+        package: package
+        size: size
+        cpes:
+        - cpes
+        - cpes
+        metadata_type: metadata_type
+        origin: origin
+        location: location
+        purl: purl
+        type: type
+        version: version
+      properties:
+        package:
+          type: string
+        version:
+          type: string
+        size:
+          type: string
+        type:
+          type: string
+        origin:
+          type: string
+        licenses:
+          items:
+            type: string
+          type: array
+        location:
+          type: string
+        cpes:
+          description: A list of Common Platform Enumerations that may uniquely identify
+            the package
+          items:
+            type: string
+          type: array
+        metadata_type:
+          description: The type of the metadata entry
+          type: string
+        metadata:
+          description: Package type specific metadata
+          properties: {}
+          type: object
         purl:
           type: string
       type: object
@@ -14656,7 +15943,7 @@ components:
           description: "List of policy evaluations. Always has at least one result,\
             \ may contain multiple when the evaluation history is requested."
           items:
-            $ref: '#/components/schemas/PolicyEvaluation_evaluations_inner'
+            $ref: '#/components/schemas/PolicyEvaluationResult'
           type: array
       type: object
     PolicyEvaluationFinding:
@@ -14722,19 +16009,6 @@ components:
       - trigger
       - trigger_id
       type: object
-    PolicyEvaluationFindingAllowlistMatch:
-      description: Details about (possible) allowlist match
-      properties:
-        id:
-          description: ID of the allowlist that matched this finding
-          type: string
-        name:
-          description: Name of the allowlist that matched this finding
-          type: string
-        matched_rule_id:
-          description: ID of the rule within the allowlist that matched this finding
-          type: string
-      type: object
     PolicyEvaluationProblem:
       description: Details for an error or warning indicating a problem during policy
         evaluation
@@ -14778,7 +16052,7 @@ components:
         suggestions:
           description: Anchore generated options for resolving a finding
           items:
-            $ref: '#/components/schemas/PolicyEvaluationRemediation_suggestions_inner'
+            $ref: '#/components/schemas/PolicyEvaluationRemediationSuggestion'
           type: array
         trigger_ids:
           description: List of trigger IDs that these remediation suggestions apply
@@ -14789,6 +16063,343 @@ components:
       required:
       - suggestions
       - trigger_ids
+      type: object
+    PolicyEvaluationRemediationSuggestion:
+      example:
+        message: message
+        preferred: true
+      properties:
+        message:
+          description: The suggestion for resolving a finding
+          type: string
+        preferred:
+          description: Indicates whether this suggestion is recommended
+          type: boolean
+      required:
+      - message
+      - preferred
+      type: object
+    PolicyEvaluationResult:
+      example:
+        comparison_image_digest: comparison_image_digest
+        evaluation_time: 2000-01-23T04:56:07.000+00:00
+        evaluation_problems:
+        - severity: error
+          problem_type: problem_type
+          details: details
+        - severity: error
+          problem_type: problem_type
+          details: details
+        matched_denylisted_images_rule: null
+        image_mapped_to_rule: true
+        number_of_findings: 6
+        final_action: stop
+        image_denylisted: true
+        final_action_reason: policy_evaluation
+        matched_mapping_rule: null
+        details:
+          findings:
+          - rule_id: rule_id
+            policy_id: policy_id
+            allowlisted: true
+            trigger_id: trigger_id
+            action: go
+            recommendation: recommendation
+            gate: gate
+            trigger: trigger
+            message: message
+            inherited_from_base: true
+            allowlist_match: null
+          - rule_id: rule_id
+            policy_id: policy_id
+            allowlisted: true
+            trigger_id: trigger_id
+            action: go
+            recommendation: recommendation
+            gate: gate
+            trigger: trigger
+            message: message
+            inherited_from_base: true
+            allowlist_match: null
+          remediations:
+          - suggestions:
+            - message: message
+              preferred: true
+            - message: message
+              preferred: true
+            trigger_ids:
+            - trigger_ids
+            - trigger_ids
+          - suggestions:
+            - message: message
+              preferred: true
+            - message: message
+              preferred: true
+            trigger_ids:
+            - trigger_ids
+            - trigger_ids
+          policy_action: stop
+          policy:
+            mappings:
+            - registry: registry
+              image:
+                type: tag
+                value: value
+              allowlist_ids:
+              - allowlist_ids
+              - allowlist_ids
+              name: name
+              description: description
+              rule_set_ids:
+              - rule_set_ids
+              - rule_set_ids
+              id: id
+              repository: repository
+            - registry: registry
+              image:
+                type: tag
+                value: value
+              allowlist_ids:
+              - allowlist_ids
+              - allowlist_ids
+              name: name
+              description: description
+              rule_set_ids:
+              - rule_set_ids
+              - rule_set_ids
+              id: id
+              repository: repository
+            last_updated: 0.8008281904610115
+            denylisted_images:
+            - registry: registry
+              image:
+                type: tag
+                value: value
+              name: name
+              description: description
+              id: id
+              repository: repository
+            - registry: registry
+              image:
+                type: tag
+                value: value
+              name: name
+              description: description
+              id: id
+              repository: repository
+            allowlists:
+            - name: name
+              description: description
+              id: id
+              version: version
+              items:
+              - trigger_id: trigger_id
+                expires_on: 2000-01-23T04:56:07.000+00:00
+                description: description
+                id: id
+                gate: gate
+              - trigger_id: trigger_id
+                expires_on: 2000-01-23T04:56:07.000+00:00
+                description: description
+                id: id
+                gate: gate
+            - name: name
+              description: description
+              id: id
+              version: version
+              items:
+              - trigger_id: trigger_id
+                expires_on: 2000-01-23T04:56:07.000+00:00
+                description: description
+                id: id
+                gate: gate
+              - trigger_id: trigger_id
+                expires_on: 2000-01-23T04:56:07.000+00:00
+                description: description
+                id: id
+                gate: gate
+            source_mappings:
+            - allowlist_ids:
+              - allowlist_ids
+              - allowlist_ids
+              name: name
+              host: host
+              description: description
+              rule_set_ids:
+              - rule_set_ids
+              - rule_set_ids
+              id: id
+              repository: repository
+            - allowlist_ids:
+              - allowlist_ids
+              - allowlist_ids
+              name: name
+              host: host
+              description: description
+              rule_set_ids:
+              - rule_set_ids
+              - rule_set_ids
+              id: id
+              repository: repository
+            name: name
+            description: description
+            rule_sets:
+            - artifact_type: image
+              name: name
+              description: description
+              rules:
+              - action: GO
+                description: description
+                recommendation: recommendation
+                id: id
+                gate: gate
+                trigger: trigger
+                params:
+                - name: name
+                  value: value
+                - name: name
+                  value: value
+              - action: GO
+                description: description
+                recommendation: recommendation
+                id: id
+                gate: gate
+                trigger: trigger
+                params:
+                - name: name
+                  value: value
+                - name: name
+                  value: value
+              id: id
+              version: version
+            - artifact_type: image
+              name: name
+              description: description
+              rules:
+              - action: GO
+                description: description
+                recommendation: recommendation
+                id: id
+                gate: gate
+                trigger: trigger
+                params:
+                - name: name
+                  value: value
+                - name: name
+                  value: value
+              - action: GO
+                description: description
+                recommendation: recommendation
+                id: id
+                gate: gate
+                trigger: trigger
+                params:
+                - name: name
+                  value: value
+                - name: name
+                  value: value
+              id: id
+              version: version
+            id: id
+            version: version
+            allowlisted_images:
+            - registry: registry
+              image:
+                type: tag
+                value: value
+              name: name
+              description: description
+              id: id
+              repository: repository
+            - registry: registry
+              image:
+                type: tag
+                value: value
+              name: name
+              description: description
+              id: id
+              repository: repository
+        image_allowlisted: true
+        matched_allowlisted_images_rule: null
+        status: fail
+      properties:
+        details:
+          $ref: '#/components/schemas/PolicyEvaluationResult_details'
+        comparison_image_digest:
+          description: Image digest of the base image used during policy evaluation
+          nullable: true
+          type: string
+        evaluation_time:
+          description: The date and time this policy evaluation was performed at
+          format: date-time
+          type: string
+        evaluation_problems:
+          description: list of error objects indicating errors encountered during
+            evaluation execution
+          items:
+            $ref: '#/components/schemas/PolicyEvaluationProblem'
+          type: array
+        status:
+          description: The overall status of the policy evaluation
+          enum:
+          - fail
+          - pass
+          type: string
+        final_action:
+          description: The overall outcome of the evaluation.
+          enum:
+          - stop
+          - go
+          - warn
+          type: string
+        final_action_reason:
+          description: The reason for the final result
+          enum:
+          - policy_evaluation
+          - allowlisted
+          - denylisted
+          type: string
+        image_allowlisted:
+          description: Whether the evaluated image matched an allowlist rule
+          type: boolean
+        matched_allowlisted_images_rule:
+          $ref: '#/components/schemas/PolicyEvaluationResult_matched_allowlisted_images_rule'
+        image_denylisted:
+          description: Whether the evaluated image matched a denylist rule
+          type: boolean
+        matched_denylisted_images_rule:
+          $ref: '#/components/schemas/PolicyEvaluationResult_matched_allowlisted_images_rule'
+        image_mapped_to_rule:
+          description: Whether the evaluated image matched a policy rule
+          type: boolean
+        matched_mapping_rule:
+          $ref: '#/components/schemas/PolicyEvaluationResult_matched_mapping_rule'
+        number_of_findings:
+          description: Number of policy findings in the response
+          type: integer
+      required:
+      - evaluation_problems
+      - evaluation_time
+      - final_action
+      - final_action_reason
+      - image_allowlisted
+      - image_denylisted
+      - image_mapped_to_rule
+      - number_of_findings
+      - status
+      type: object
+    PolicyFindingAllowlistMatch:
+      description: Details about (possible) allowlist match
+      properties:
+        id:
+          description: ID of the allowlist that matched this finding
+          type: string
+        name:
+          description: Name of the allowlist that matched this finding
+          type: string
+        matched_rule_id:
+          description: ID of the rule within the allowlist that matched this finding
+          type: string
       type: object
     PolicyList:
       description: List of PolicyRecord objects
@@ -14875,7 +16486,7 @@ components:
           type: string
         params:
           items:
-            $ref: '#/components/schemas/PolicyRule_params_inner'
+            $ref: '#/components/schemas/PolicyRuleParam'
           type: array
         recommendation:
           type: string
@@ -14885,6 +16496,20 @@ components:
       - id
       - params
       - trigger
+      type: object
+    PolicyRuleParam:
+      additionalProperties: false
+      example:
+        name: name
+        value: value
+      properties:
+        name:
+          type: string
+        value:
+          type: string
+      required:
+      - name
+      - value
       type: object
     RbacManagerAccountRole:
       description: An account identifier and roles a user has within that account
@@ -16322,8 +17947,33 @@ components:
         metadata_records:
           description: Array of metadata available
           items:
-            $ref: '#/components/schemas/SourceManifest_metadata_records_inner'
+            $ref: '#/components/schemas/SourceManifestMetadataRecord'
           type: array
+      type: object
+    SourceManifestMetadataRecord:
+      description: Metadata associated with a source upload
+      example:
+        ci_workflow_name: ci_workflow_name
+        change_author: change_author
+        branch_name: branch_name
+        uuid: uuid
+        ci_workflow_execution_time: 2000-01-23T04:56:07.000+00:00
+      properties:
+        uuid:
+          type: string
+        ci_workflow_name:
+          nullable: true
+          type: string
+        ci_workflow_execution_time:
+          format: date-time
+          nullable: true
+          type: string
+        branch_name:
+          nullable: true
+          type: string
+        change_author:
+          nullable: true
+          type: string
       type: object
     SourceMappingRule:
       additionalProperties: false
@@ -16848,6 +18498,9 @@ components:
         allowlist_match:
           $ref: '#/components/schemas/PolicyEvaluationFinding_allowlist_match'
       type: object
+    SourceSBOM:
+      description: A Source SBOM Document
+      type: object
     SourcesList:
       example:
         items:
@@ -17253,6 +18906,50 @@ components:
       required:
       - username
       type: object
+    UserApiKey:
+      example:
+        expires_at: 2000-01-23T04:56:07.000+00:00
+        updated_at: 2000-01-23T04:56:07.000+00:00
+        name: name
+        description: description
+        created_at: 2000-01-23T04:56:07.000+00:00
+        version: version
+        value: value
+        status: active
+      properties:
+        name:
+          description: API key name
+          type: string
+        description:
+          description: API key description
+          type: string
+        expires_at:
+          description: API key expiration date in the RFC3339 format
+          format: date-time
+          pattern: "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z$"
+          type: string
+        created_at:
+          format: date-time
+          type: string
+        updated_at:
+          format: date-time
+          type: string
+        version:
+          description: API key format version
+          type: string
+        value:
+          description: API key value
+          type: string
+        status:
+          enum:
+          - active
+          - expired
+          - revoked
+          type: string
+      required:
+      - expires_at
+      - name
+      type: object
     UserCreationRequest:
       description: "A payload for creating a new user, includes the username and password\
         \ in a single request"
@@ -17465,6 +19162,25 @@ components:
           description: The reference url
           type: string
       type: object
+    patch_user_api_key_request:
+      additionalProperties: false
+      anyOf:
+      - required:
+        - name
+      - required:
+        - description
+      - required:
+        - status
+      properties:
+        description:
+          type: string
+        name:
+          type: string
+        status:
+          enum:
+          - revoked
+          type: string
+      type: object
     revoke_oauth_token_request:
       properties:
         token:
@@ -17581,265 +19297,12 @@ components:
         artifacts:
           $ref: '#/components/schemas/ApplicationVersionVulnerabilityReport_application_artifacts'
       type: object
-    ContentFilesResponse_content_inner:
-      example:
-        mode: mode
-        uid: 1
-        filename: filename
-        gid: 0
-        sha256: sha256
-        size: 6
-        linkdest: linkdest
-        type: type
+    ArtifactLifecyclePolicyResponse_allOf:
       properties:
-        filename:
-          type: string
-        gid:
-          type: integer
-        linkdest:
-          nullable: true
-          type: string
-        mode:
-          type: string
-        sha256:
-          nullable: true
-          type: string
-        size:
-          type: integer
-        type:
-          type: string
-        uid:
-          type: integer
-      type: object
-    ContentJAVAPackageResponse_content_inner:
-      example:
-        package: package
-        implementation-version: implementation-version
-        cpes:
-        - cpes
-        - cpes
-        origin: origin
-        maven-version: maven-version
-        location: location
-        purl: purl
-        type: type
-        version: version
-        specification-version: specification-version
-      properties:
-        package:
-          type: string
-        implementation-version:
-          type: string
-        specification-version:
-          type: string
-        maven-version:
-          type: string
-        location:
-          type: string
-        type:
-          type: string
-        origin:
-          type: string
-        cpes:
-          description: A list of Common Platform Enumerations that may uniquely identify
-            the package
+        policy_conditions:
           items:
-            type: string
+            $ref: '#/components/schemas/ArtifactLifecyclePolicyConditions'
           type: array
-        purl:
-          type: string
-        version:
-          type: string
-      type: object
-    ContentPackageResponse_content_inner:
-      example:
-        licenses:
-        - licenses
-        - licenses
-        metadata: "{}"
-        package: package
-        size: size
-        cpes:
-        - cpes
-        - cpes
-        metadata_type: metadata_type
-        origin: origin
-        location: location
-        purl: purl
-        type: type
-        version: version
-      properties:
-        package:
-          type: string
-        version:
-          type: string
-        size:
-          type: string
-        type:
-          type: string
-        origin:
-          type: string
-        licenses:
-          items:
-            type: string
-          type: array
-        location:
-          type: string
-        cpes:
-          description: A list of Common Platform Enumerations that may uniquely identify
-            the package
-          items:
-            type: string
-          type: array
-        metadata_type:
-          description: The type of the metadata entry
-          type: string
-        metadata:
-          description: Package type specific metadata
-          properties: {}
-          type: object
-        purl:
-          type: string
-      type: object
-    ECSContainers_containers_inner:
-      example:
-        task_arn: task_arn
-        image_digest: image_digest
-        account_name: account_name
-        context: context
-        image_tag: image_tag
-        arn: arn
-      properties:
-        arn:
-          type: string
-        task_arn:
-          type: string
-        account_name:
-          type: string
-        context:
-          type: string
-        image_tag:
-          type: string
-        image_digest:
-          type: string
-      required:
-      - account_name
-      - arn
-      - context
-      - image_digest
-      - image_tag
-      - task_arn
-      type: object
-    ECSInventory_tasks_inner:
-      example:
-        service_arn: service_arn
-        task_definition_arn: task_definition_arn
-        arn: arn
-        tags:
-          key: tags
-      properties:
-        arn:
-          type: string
-        service_arn:
-          type: string
-        task_definition_arn:
-          type: string
-        tags:
-          additionalProperties:
-            type: string
-          type: object
-      required:
-      - arn
-      type: object
-    ECSInventory_containers_inner:
-      example:
-        task_arn: task_arn
-        image_digest: image_digest
-        image_tag: image_tag
-        arn: arn
-      properties:
-        arn:
-          type: string
-        task_arn:
-          type: string
-        image_tag:
-          type: string
-        image_digest:
-          type: string
-      required:
-      - arn
-      - image_tag
-      type: object
-    ECSInventory_services_inner:
-      example:
-        arn: arn
-        tags:
-          key: tags
-      properties:
-        arn:
-          type: string
-        tags:
-          additionalProperties:
-            type: string
-          type: object
-      required:
-      - arn
-      type: object
-    ECSServices_services_inner:
-      example:
-        cluster_arn: cluster_arn
-        account_name: account_name
-        arn: arn
-        tags:
-          key: tags
-      properties:
-        arn:
-          type: string
-        cluster_arn:
-          type: string
-        tags:
-          additionalProperties:
-            type: string
-          type: object
-        account_name:
-          type: string
-      required:
-      - account_name
-      - arn
-      - cluster_arn
-      - tags
-      type: object
-    ECSTasks_tasks_inner:
-      example:
-        cluster_arn: cluster_arn
-        service_arn: service_arn
-        account_name: account_name
-        task_definition_arn: task_definition_arn
-        arn: arn
-        tags:
-          key: tags
-      properties:
-        arn:
-          type: string
-        cluster_arn:
-          type: string
-        service_arn:
-          type: string
-        task_definition_arn:
-          type: string
-        tags:
-          additionalProperties:
-            type: string
-          type: object
-        account_name:
-          type: string
-      required:
-      - account_name
-      - arn
-      - cluster_arn
-      - service_arn
-      - tags
-      - task_definition_arn
       type: object
     EventResponse_event_source:
       properties:
@@ -17888,194 +19351,6 @@ components:
           description: True if the vulnerable artifact is found in the base image.
             False otherwise
           type: boolean
-      type: object
-    KubernetesContainers_containers_inner:
-      example:
-        image_digest: image_digest
-        account_name: account_name
-        name: name
-        context: context
-        id: id
-        image_tag: image_tag
-        pod_id: pod_id
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        pod_id:
-          type: string
-        account_name:
-          type: string
-        context:
-          type: string
-        image_tag:
-          type: string
-        image_digest:
-          type: string
-      required:
-      - account_name
-      - context
-      - id
-      - image_digest
-      - image_tag
-      - name
-      - pod_id
-      type: object
-    KubernetesInventory_namespaces_inner:
-      example:
-        uid: uid
-        name: name
-        annotations:
-          key: annotations
-        labels:
-          key: labels
-      properties:
-        uid:
-          maxLength: 36
-          minLength: 36
-          pattern: "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"
-          type: string
-        name:
-          type: string
-        labels:
-          additionalProperties:
-            type: string
-          type: object
-        annotations:
-          additionalProperties:
-            type: string
-          type: object
-      required:
-      - name
-      - uid
-      type: object
-    KubernetesInventory_nodes_inner:
-      example:
-        uid: uid
-        kernel_version: kernel_version
-        kube_proxy_version: kube_proxy_version
-        name: name
-        kubernetes_version: kubernetes_version
-        annotations:
-          key: annotations
-        operating_system: operating_system
-        kubelet_version: kubelet_version
-        arch: arch
-        container_runtime_version: container_runtime_version
-        labels:
-          key: labels
-      properties:
-        uid:
-          maxLength: 36
-          minLength: 36
-          pattern: "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"
-          type: string
-        name:
-          type: string
-        labels:
-          additionalProperties:
-            type: string
-          type: object
-        annotations:
-          additionalProperties:
-            type: string
-          type: object
-        kernel_version:
-          type: string
-        kubernetes_version:
-          type: string
-        arch:
-          type: string
-        container_runtime_version:
-          type: string
-        kube_proxy_version:
-          type: string
-        kubelet_version:
-          type: string
-        operating_system:
-          type: string
-      required:
-      - name
-      - uid
-      type: object
-    KubernetesInventory_pods_inner:
-      example:
-        uid: uid
-        node_uid: node_uid
-        name: name
-        annotations:
-          key: annotations
-        namespace_uid: namespace_uid
-        labels:
-          key: labels
-      properties:
-        uid:
-          type: string
-        name:
-          type: string
-        namespace_uid:
-          maxLength: 36
-          minLength: 36
-          pattern: "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"
-          type: string
-        node_uid:
-          maxLength: 36
-          minLength: 36
-          pattern: "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"
-          type: string
-        labels:
-          additionalProperties:
-            type: string
-          type: object
-        annotations:
-          additionalProperties:
-            type: string
-          type: object
-      required:
-      - name
-      - namespace_uid
-      - uid
-      type: object
-    KubernetesInventory_containers_inner:
-      example:
-        image_digest: image_digest
-        pod_uid: pod_uid
-        name: name
-        id: id
-        image_tag: image_tag
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        image_tag:
-          pattern: ^(?!\s*$).+
-          type: string
-        image_digest:
-          type: string
-        pod_uid:
-          maxLength: 36
-          minLength: 36
-          pattern: "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"
-          type: string
-      required:
-      - id
-      - image_tag
-      - name
-      - pod_uid
-      type: object
-    MalwareScan_findings_inner:
-      example:
-        path: path
-        signature: signature
-      properties:
-        path:
-          description: A path for a file in the image's rootfs
-          type: string
-        signature:
-          description: The malware signature found at the path
-          type: string
       type: object
     NotificationActionPlanNotificationPayload_allOf:
       description: defines an action plan payload that can be sent synchronously
@@ -18137,7 +19412,7 @@ components:
           description: Jira username for creating issues
           type: string
         password:
-          description: Jira password for creating issues
+          description: Jira access token for creating issues
           type: string
         project_key:
           description: Key of the Jira project for creating issues
@@ -18286,7 +19561,11 @@ components:
           properties: {}
           type: object
       type: object
-    PolicyEvaluation_evaluations_inner_details:
+    PolicyEvaluationFinding_allowlist_match:
+      anyOf:
+      - $ref: '#/components/schemas/NullType'
+      - $ref: '#/components/schemas/PolicyFindingAllowlistMatch'
+    PolicyEvaluationResult_details:
       description: Contains additional details about the policy evaluation
       example:
         findings:
@@ -18538,360 +19817,18 @@ components:
       - policy
       - policy_action
       type: object
-    PolicyEvaluation_evaluations_inner_matched_allowlisted_images_rule:
+    PolicyEvaluationResult_matched_allowlisted_images_rule:
       anyOf:
       - $ref: '#/components/schemas/NullType'
       - $ref: '#/components/schemas/ImageSelectionRule'
-    PolicyEvaluation_evaluations_inner_matched_mapping_rule:
+    PolicyEvaluationResult_matched_mapping_rule:
       anyOf:
       - $ref: '#/components/schemas/NullType'
       - $ref: '#/components/schemas/MappingRule'
-    PolicyEvaluation_evaluations_inner:
-      example:
-        comparison_image_digest: comparison_image_digest
-        evaluation_time: 2000-01-23T04:56:07.000+00:00
-        evaluation_problems:
-        - severity: error
-          problem_type: problem_type
-          details: details
-        - severity: error
-          problem_type: problem_type
-          details: details
-        matched_denylisted_images_rule: null
-        image_mapped_to_rule: true
-        number_of_findings: 6
-        final_action: stop
-        image_denylisted: true
-        final_action_reason: policy_evaluation
-        matched_mapping_rule: null
-        details:
-          findings:
-          - rule_id: rule_id
-            policy_id: policy_id
-            allowlisted: true
-            trigger_id: trigger_id
-            action: go
-            recommendation: recommendation
-            gate: gate
-            trigger: trigger
-            message: message
-            inherited_from_base: true
-            allowlist_match: null
-          - rule_id: rule_id
-            policy_id: policy_id
-            allowlisted: true
-            trigger_id: trigger_id
-            action: go
-            recommendation: recommendation
-            gate: gate
-            trigger: trigger
-            message: message
-            inherited_from_base: true
-            allowlist_match: null
-          remediations:
-          - suggestions:
-            - message: message
-              preferred: true
-            - message: message
-              preferred: true
-            trigger_ids:
-            - trigger_ids
-            - trigger_ids
-          - suggestions:
-            - message: message
-              preferred: true
-            - message: message
-              preferred: true
-            trigger_ids:
-            - trigger_ids
-            - trigger_ids
-          policy_action: stop
-          policy:
-            mappings:
-            - registry: registry
-              image:
-                type: tag
-                value: value
-              allowlist_ids:
-              - allowlist_ids
-              - allowlist_ids
-              name: name
-              description: description
-              rule_set_ids:
-              - rule_set_ids
-              - rule_set_ids
-              id: id
-              repository: repository
-            - registry: registry
-              image:
-                type: tag
-                value: value
-              allowlist_ids:
-              - allowlist_ids
-              - allowlist_ids
-              name: name
-              description: description
-              rule_set_ids:
-              - rule_set_ids
-              - rule_set_ids
-              id: id
-              repository: repository
-            last_updated: 0.8008281904610115
-            denylisted_images:
-            - registry: registry
-              image:
-                type: tag
-                value: value
-              name: name
-              description: description
-              id: id
-              repository: repository
-            - registry: registry
-              image:
-                type: tag
-                value: value
-              name: name
-              description: description
-              id: id
-              repository: repository
-            allowlists:
-            - name: name
-              description: description
-              id: id
-              version: version
-              items:
-              - trigger_id: trigger_id
-                expires_on: 2000-01-23T04:56:07.000+00:00
-                description: description
-                id: id
-                gate: gate
-              - trigger_id: trigger_id
-                expires_on: 2000-01-23T04:56:07.000+00:00
-                description: description
-                id: id
-                gate: gate
-            - name: name
-              description: description
-              id: id
-              version: version
-              items:
-              - trigger_id: trigger_id
-                expires_on: 2000-01-23T04:56:07.000+00:00
-                description: description
-                id: id
-                gate: gate
-              - trigger_id: trigger_id
-                expires_on: 2000-01-23T04:56:07.000+00:00
-                description: description
-                id: id
-                gate: gate
-            source_mappings:
-            - allowlist_ids:
-              - allowlist_ids
-              - allowlist_ids
-              name: name
-              host: host
-              description: description
-              rule_set_ids:
-              - rule_set_ids
-              - rule_set_ids
-              id: id
-              repository: repository
-            - allowlist_ids:
-              - allowlist_ids
-              - allowlist_ids
-              name: name
-              host: host
-              description: description
-              rule_set_ids:
-              - rule_set_ids
-              - rule_set_ids
-              id: id
-              repository: repository
-            name: name
-            description: description
-            rule_sets:
-            - artifact_type: image
-              name: name
-              description: description
-              rules:
-              - action: GO
-                description: description
-                recommendation: recommendation
-                id: id
-                gate: gate
-                trigger: trigger
-                params:
-                - name: name
-                  value: value
-                - name: name
-                  value: value
-              - action: GO
-                description: description
-                recommendation: recommendation
-                id: id
-                gate: gate
-                trigger: trigger
-                params:
-                - name: name
-                  value: value
-                - name: name
-                  value: value
-              id: id
-              version: version
-            - artifact_type: image
-              name: name
-              description: description
-              rules:
-              - action: GO
-                description: description
-                recommendation: recommendation
-                id: id
-                gate: gate
-                trigger: trigger
-                params:
-                - name: name
-                  value: value
-                - name: name
-                  value: value
-              - action: GO
-                description: description
-                recommendation: recommendation
-                id: id
-                gate: gate
-                trigger: trigger
-                params:
-                - name: name
-                  value: value
-                - name: name
-                  value: value
-              id: id
-              version: version
-            id: id
-            version: version
-            allowlisted_images:
-            - registry: registry
-              image:
-                type: tag
-                value: value
-              name: name
-              description: description
-              id: id
-              repository: repository
-            - registry: registry
-              image:
-                type: tag
-                value: value
-              name: name
-              description: description
-              id: id
-              repository: repository
-        image_allowlisted: true
-        matched_allowlisted_images_rule: null
-        status: fail
-      properties:
-        details:
-          $ref: '#/components/schemas/PolicyEvaluation_evaluations_inner_details'
-        comparison_image_digest:
-          description: Image digest of the base image used during policy evaluation
-          nullable: true
-          type: string
-        evaluation_time:
-          description: The date and time this policy evaluation was performed at
-          format: date-time
-          type: string
-        evaluation_problems:
-          description: list of error objects indicating errors encountered during
-            evaluation execution
-          items:
-            $ref: '#/components/schemas/PolicyEvaluationProblem'
-          type: array
-        status:
-          description: The overall status of the policy evaluation
-          enum:
-          - fail
-          - pass
-          type: string
-        final_action:
-          description: The overall outcome of the evaluation.
-          enum:
-          - stop
-          - go
-          - warn
-          type: string
-        final_action_reason:
-          description: The reason for the final result
-          enum:
-          - policy_evaluation
-          - allowlisted
-          - denylisted
-          type: string
-        image_allowlisted:
-          description: Whether the evaluated image matched an allowlist rule
-          type: boolean
-        matched_allowlisted_images_rule:
-          $ref: '#/components/schemas/PolicyEvaluation_evaluations_inner_matched_allowlisted_images_rule'
-        image_denylisted:
-          description: Whether the evaluated image matched a denylist rule
-          type: boolean
-        matched_denylisted_images_rule:
-          $ref: '#/components/schemas/PolicyEvaluation_evaluations_inner_matched_allowlisted_images_rule'
-        image_mapped_to_rule:
-          description: Whether the evaluated image matched a policy rule
-          type: boolean
-        matched_mapping_rule:
-          $ref: '#/components/schemas/PolicyEvaluation_evaluations_inner_matched_mapping_rule'
-        number_of_findings:
-          description: Number of policy findings in the response
-          type: integer
-      required:
-      - evaluation_problems
-      - evaluation_time
-      - final_action
-      - final_action_reason
-      - image_allowlisted
-      - image_denylisted
-      - image_mapped_to_rule
-      - number_of_findings
-      - status
-      type: object
-    PolicyEvaluationFinding_allowlist_match:
-      anyOf:
-      - $ref: '#/components/schemas/NullType'
-      - $ref: '#/components/schemas/PolicyEvaluationFindingAllowlistMatch'
-    PolicyEvaluationRemediation_suggestions_inner:
-      example:
-        message: message
-        preferred: true
-      properties:
-        message:
-          description: The suggestion for resolving a finding
-          type: string
-        preferred:
-          description: Indicates whether this suggestion is recommended
-          type: boolean
-      required:
-      - message
-      - preferred
-      type: object
     PolicyRecord_policy:
       anyOf:
       - $ref: '#/components/schemas/NullType'
       - $ref: '#/components/schemas/Policy'
-    PolicyRule_params_inner:
-      additionalProperties: false
-      example:
-        name: name
-        value: value
-      properties:
-        name:
-          type: string
-        value:
-          type: string
-      required:
-      - name
-      - value
-      type: object
     SourceImportMetadata_contents:
       description: Digest of content to use in the final import
       example:
@@ -18902,31 +19839,6 @@ components:
           type: string
       required:
       - sbom
-      type: object
-    SourceManifest_metadata_records_inner:
-      description: Metadata associated with a source upload
-      example:
-        ci_workflow_name: ci_workflow_name
-        change_author: change_author
-        branch_name: branch_name
-        uuid: uuid
-        ci_workflow_execution_time: 2000-01-23T04:56:07.000+00:00
-      properties:
-        uuid:
-          type: string
-        ci_workflow_name:
-          nullable: true
-          type: string
-        ci_workflow_execution_time:
-          format: date-time
-          nullable: true
-          type: string
-        branch_name:
-          nullable: true
-          type: string
-        change_author:
-          nullable: true
-          type: string
       type: object
     TagUpdateNotification_allOf:
       description: The Notification Object definition for Tag Update Notifications

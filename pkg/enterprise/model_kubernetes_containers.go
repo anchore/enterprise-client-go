@@ -3,7 +3,7 @@ Anchore API
 
 This is the Anchore API. Provides the external API for users of Anchore Enterprise.
 
-API version: 2.0.0
+API version: 2.1.0
 Contact: dev@anchore.com
 */
 
@@ -17,7 +17,7 @@ import (
 
 // KubernetesContainers Containers defined in Kubernetes
 type KubernetesContainers struct {
-	Containers []KubernetesContainersContainersInner `json:"containers,omitempty"`
+	Containers []KubernetesContainer `json:"containers,omitempty"`
 }
 
 // NewKubernetesContainers instantiates a new KubernetesContainers object
@@ -38,9 +38,9 @@ func NewKubernetesContainersWithDefaults() *KubernetesContainers {
 }
 
 // GetContainers returns the Containers field value if set, zero value otherwise.
-func (o *KubernetesContainers) GetContainers() []KubernetesContainersContainersInner {
+func (o *KubernetesContainers) GetContainers() []KubernetesContainer {
 	if o == nil || o.Containers == nil {
-		var ret []KubernetesContainersContainersInner
+		var ret []KubernetesContainer
 		return ret
 	}
 	return o.Containers
@@ -48,7 +48,7 @@ func (o *KubernetesContainers) GetContainers() []KubernetesContainersContainersI
 
 // GetContainersOk returns a tuple with the Containers field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *KubernetesContainers) GetContainersOk() ([]KubernetesContainersContainersInner, bool) {
+func (o *KubernetesContainers) GetContainersOk() ([]KubernetesContainer, bool) {
 	if o == nil || o.Containers == nil {
 		return nil, false
 	}
@@ -64,8 +64,8 @@ func (o *KubernetesContainers) HasContainers() bool {
 	return false
 }
 
-// SetContainers gets a reference to the given []KubernetesContainersContainersInner and assigns it to the Containers field.
-func (o *KubernetesContainers) SetContainers(v []KubernetesContainersContainersInner) {
+// SetContainers gets a reference to the given []KubernetesContainer and assigns it to the Containers field.
+func (o *KubernetesContainers) SetContainers(v []KubernetesContainer) {
 	o.Containers = v
 }
 

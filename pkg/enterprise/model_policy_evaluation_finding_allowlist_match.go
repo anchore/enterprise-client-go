@@ -3,7 +3,7 @@ Anchore API
 
 This is the Anchore API. Provides the external API for users of Anchore Enterprise.
 
-API version: 2.0.0
+API version: 2.1.0
 Contact: dev@anchore.com
 */
 
@@ -19,7 +19,7 @@ import (
 // PolicyEvaluationFindingAllowlistMatch struct for PolicyEvaluationFindingAllowlistMatch
 type PolicyEvaluationFindingAllowlistMatch struct {
 	NullType *NullType
-	PolicyEvaluationFindingAllowlistMatch *PolicyEvaluationFindingAllowlistMatch
+	PolicyFindingAllowlistMatch *PolicyFindingAllowlistMatch
 }
 
 // Unmarshal JSON data into any of the pointers in the struct
@@ -38,17 +38,17 @@ func (dst *PolicyEvaluationFindingAllowlistMatch) UnmarshalJSON(data []byte) err
 		dst.NullType = nil
 	}
 
-	// try to unmarshal JSON data into PolicyEvaluationFindingAllowlistMatch
-	err = json.Unmarshal(data, &dst.PolicyEvaluationFindingAllowlistMatch);
+	// try to unmarshal JSON data into PolicyFindingAllowlistMatch
+	err = json.Unmarshal(data, &dst.PolicyFindingAllowlistMatch);
 	if err == nil {
-		jsonPolicyEvaluationFindingAllowlistMatch, _ := json.Marshal(dst.PolicyEvaluationFindingAllowlistMatch)
-		if string(jsonPolicyEvaluationFindingAllowlistMatch) == "{}" { // empty struct
-			dst.PolicyEvaluationFindingAllowlistMatch = nil
+		jsonPolicyFindingAllowlistMatch, _ := json.Marshal(dst.PolicyFindingAllowlistMatch)
+		if string(jsonPolicyFindingAllowlistMatch) == "{}" { // empty struct
+			dst.PolicyFindingAllowlistMatch = nil
 		} else {
-			return nil // data stored in dst.PolicyEvaluationFindingAllowlistMatch, return on the first match
+			return nil // data stored in dst.PolicyFindingAllowlistMatch, return on the first match
 		}
 	} else {
-		dst.PolicyEvaluationFindingAllowlistMatch = nil
+		dst.PolicyFindingAllowlistMatch = nil
 	}
 
 	return fmt.Errorf("Data failed to match schemas in anyOf(PolicyEvaluationFindingAllowlistMatch)")
@@ -60,8 +60,8 @@ func (src *PolicyEvaluationFindingAllowlistMatch) MarshalJSON() ([]byte, error) 
 		return json.Marshal(&src.NullType)
 	}
 
-	if src.PolicyEvaluationFindingAllowlistMatch != nil {
-		return json.Marshal(&src.PolicyEvaluationFindingAllowlistMatch)
+	if src.PolicyFindingAllowlistMatch != nil {
+		return json.Marshal(&src.PolicyFindingAllowlistMatch)
 	}
 
 	return nil, nil // no data in anyOf schemas

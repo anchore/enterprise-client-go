@@ -6,9 +6,9 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **ClusterArn** | **string** |  | 
 **Timestamp** | **time.Time** |  | 
-**Tasks** | Pointer to [**[]ECSInventoryTasksInner**](ECSInventoryTasksInner.md) |  | [optional] 
-**Containers** | Pointer to [**[]ECSInventoryContainersInner**](ECSInventoryContainersInner.md) |  | [optional] 
-**Services** | Pointer to [**[]ECSInventoryServicesInner**](ECSInventoryServicesInner.md) |  | [optional] 
+**Tasks** | Pointer to [**[]ECSInventoryTask**](ECSInventoryTask.md) |  | [optional] 
+**Containers** | Pointer to [**[]ECSInventoryContainer**](ECSInventoryContainer.md) |  | [optional] 
+**Services** | Pointer to [**[]ECSInventoryService**](ECSInventoryService.md) |  | [optional] 
 
 ## Methods
 
@@ -71,20 +71,20 @@ SetTimestamp sets Timestamp field to given value.
 
 ### GetTasks
 
-`func (o *ECSInventory) GetTasks() []ECSInventoryTasksInner`
+`func (o *ECSInventory) GetTasks() []ECSInventoryTask`
 
 GetTasks returns the Tasks field if non-nil, zero value otherwise.
 
 ### GetTasksOk
 
-`func (o *ECSInventory) GetTasksOk() (*[]ECSInventoryTasksInner, bool)`
+`func (o *ECSInventory) GetTasksOk() (*[]ECSInventoryTask, bool)`
 
 GetTasksOk returns a tuple with the Tasks field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTasks
 
-`func (o *ECSInventory) SetTasks(v []ECSInventoryTasksInner)`
+`func (o *ECSInventory) SetTasks(v []ECSInventoryTask)`
 
 SetTasks sets Tasks field to given value.
 
@@ -106,20 +106,20 @@ HasTasks returns a boolean if a field has been set.
 UnsetTasks ensures that no value is present for Tasks, not even an explicit nil
 ### GetContainers
 
-`func (o *ECSInventory) GetContainers() []ECSInventoryContainersInner`
+`func (o *ECSInventory) GetContainers() []ECSInventoryContainer`
 
 GetContainers returns the Containers field if non-nil, zero value otherwise.
 
 ### GetContainersOk
 
-`func (o *ECSInventory) GetContainersOk() (*[]ECSInventoryContainersInner, bool)`
+`func (o *ECSInventory) GetContainersOk() (*[]ECSInventoryContainer, bool)`
 
 GetContainersOk returns a tuple with the Containers field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetContainers
 
-`func (o *ECSInventory) SetContainers(v []ECSInventoryContainersInner)`
+`func (o *ECSInventory) SetContainers(v []ECSInventoryContainer)`
 
 SetContainers sets Containers field to given value.
 
@@ -131,20 +131,20 @@ HasContainers returns a boolean if a field has been set.
 
 ### GetServices
 
-`func (o *ECSInventory) GetServices() []ECSInventoryServicesInner`
+`func (o *ECSInventory) GetServices() []ECSInventoryService`
 
 GetServices returns the Services field if non-nil, zero value otherwise.
 
 ### GetServicesOk
 
-`func (o *ECSInventory) GetServicesOk() (*[]ECSInventoryServicesInner, bool)`
+`func (o *ECSInventory) GetServicesOk() (*[]ECSInventoryService, bool)`
 
 GetServicesOk returns a tuple with the Services field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetServices
 
-`func (o *ECSInventory) SetServices(v []ECSInventoryServicesInner)`
+`func (o *ECSInventory) SetServices(v []ECSInventoryService)`
 
 SetServices sets Services field to given value.
 

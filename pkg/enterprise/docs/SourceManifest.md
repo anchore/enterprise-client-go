@@ -14,7 +14,7 @@ Name | Type | Description | Notes
 **LastUpdated** | Pointer to **time.Time** |  | [optional] 
 **AnalysisStatus** | Pointer to **string** |  | [optional] 
 **SourceStatus** | Pointer to **string** |  | [optional] 
-**MetadataRecords** | Pointer to [**[]SourceManifestMetadataRecordsInner**](SourceManifestMetadataRecordsInner.md) | Array of metadata available | [optional] 
+**MetadataRecords** | Pointer to [**[]SourceManifestMetadataRecord**](SourceManifestMetadataRecord.md) | Array of metadata available | [optional] 
 
 ## Methods
 
@@ -287,20 +287,20 @@ HasSourceStatus returns a boolean if a field has been set.
 
 ### GetMetadataRecords
 
-`func (o *SourceManifest) GetMetadataRecords() []SourceManifestMetadataRecordsInner`
+`func (o *SourceManifest) GetMetadataRecords() []SourceManifestMetadataRecord`
 
 GetMetadataRecords returns the MetadataRecords field if non-nil, zero value otherwise.
 
 ### GetMetadataRecordsOk
 
-`func (o *SourceManifest) GetMetadataRecordsOk() (*[]SourceManifestMetadataRecordsInner, bool)`
+`func (o *SourceManifest) GetMetadataRecordsOk() (*[]SourceManifestMetadataRecord, bool)`
 
 GetMetadataRecordsOk returns a tuple with the MetadataRecords field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetMetadataRecords
 
-`func (o *SourceManifest) SetMetadataRecords(v []SourceManifestMetadataRecordsInner)`
+`func (o *SourceManifest) SetMetadataRecords(v []SourceManifestMetadataRecord)`
 
 SetMetadataRecords sets MetadataRecords field to given value.
 

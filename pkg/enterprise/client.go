@@ -3,7 +3,7 @@ Anchore API
 
 This is the Anchore API. Provides the external API for users of Anchore Enterprise.
 
-API version: 2.0.0
+API version: 2.1.0
 Contact: dev@anchore.com
 */
 
@@ -42,7 +42,7 @@ var (
 	xmlCheck  = regexp.MustCompile(`(?i:(?:application|text)/xml)`)
 )
 
-// APIClient manages communication with the Anchore API API v2.0.0
+// APIClient manages communication with the Anchore API API v2.1.0
 // In most cases there should be only one, shared, APIClient.
 type APIClient struct {
 	cfg    *Configuration
@@ -58,9 +58,9 @@ type APIClient struct {
 
 	ArchivesApi ArchivesApi
 
-	CorrectionsApi CorrectionsApi
+	ArtifactLifecycleApi ArtifactLifecycleApi
 
-	DefaultApi DefaultApi
+	CorrectionsApi CorrectionsApi
 
 	EventsApi EventsApi
 
@@ -72,27 +72,31 @@ type APIClient struct {
 
 	InventoriesApi InventoriesApi
 
+	NotificationsApi NotificationsApi
+
 	PoliciesApi PoliciesApi
 
 	QueryApi QueryApi
+
+	RBACApi RBACApi
 
 	RegistriesApi RegistriesApi
 
 	RelationshipsApi RelationshipsApi
 
-	RepositoryCredentialsApi RepositoryCredentialsApi
+	ReportsApi ReportsApi
+
+	RepositoryApi RepositoryApi
 
 	SourcesApi SourcesApi
 
-	StatelessApi StatelessApi
-
 	SubscriptionsApi SubscriptionsApi
-
-	SummariesApi SummariesApi
 
 	SystemApi SystemApi
 
 	UserManagementApi UserManagementApi
+
+	VulnerabilitiesApi VulnerabilitiesApi
 }
 
 type service struct {
@@ -115,24 +119,26 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.AlertsApi = (*AlertsApiService)(&c.common)
 	c.ApplicationsApi = (*ApplicationsApiService)(&c.common)
 	c.ArchivesApi = (*ArchivesApiService)(&c.common)
+	c.ArtifactLifecycleApi = (*ArtifactLifecycleApiService)(&c.common)
 	c.CorrectionsApi = (*CorrectionsApiService)(&c.common)
-	c.DefaultApi = (*DefaultApiService)(&c.common)
 	c.EventsApi = (*EventsApiService)(&c.common)
 	c.IdentityApi = (*IdentityApiService)(&c.common)
 	c.ImagesApi = (*ImagesApiService)(&c.common)
 	c.ImportsApi = (*ImportsApiService)(&c.common)
 	c.InventoriesApi = (*InventoriesApiService)(&c.common)
+	c.NotificationsApi = (*NotificationsApiService)(&c.common)
 	c.PoliciesApi = (*PoliciesApiService)(&c.common)
 	c.QueryApi = (*QueryApiService)(&c.common)
+	c.RBACApi = (*RBACApiService)(&c.common)
 	c.RegistriesApi = (*RegistriesApiService)(&c.common)
 	c.RelationshipsApi = (*RelationshipsApiService)(&c.common)
-	c.RepositoryCredentialsApi = (*RepositoryCredentialsApiService)(&c.common)
+	c.ReportsApi = (*ReportsApiService)(&c.common)
+	c.RepositoryApi = (*RepositoryApiService)(&c.common)
 	c.SourcesApi = (*SourcesApiService)(&c.common)
-	c.StatelessApi = (*StatelessApiService)(&c.common)
 	c.SubscriptionsApi = (*SubscriptionsApiService)(&c.common)
-	c.SummariesApi = (*SummariesApiService)(&c.common)
 	c.SystemApi = (*SystemApiService)(&c.common)
 	c.UserManagementApi = (*UserManagementApiService)(&c.common)
+	c.VulnerabilitiesApi = (*VulnerabilitiesApiService)(&c.common)
 
 	return c
 }

@@ -3,7 +3,7 @@ Anchore API
 
 This is the Anchore API. Provides the external API for users of Anchore Enterprise.
 
-API version: 2.0.0
+API version: 2.1.0
 Contact: dev@anchore.com
 */
 
@@ -20,10 +20,10 @@ import (
 type KubernetesInventory struct {
 	ClusterName string `json:"cluster_name"`
 	Timestamp time.Time `json:"timestamp"`
-	Namespaces []KubernetesInventoryNamespacesInner `json:"namespaces,omitempty"`
-	Nodes []KubernetesInventoryNodesInner `json:"nodes,omitempty"`
-	Pods []KubernetesInventoryPodsInner `json:"pods,omitempty"`
-	Containers []KubernetesInventoryContainersInner `json:"containers,omitempty"`
+	Namespaces []KubernetesInventoryNamespace `json:"namespaces,omitempty"`
+	Nodes []KubernetesInventoryNode `json:"nodes,omitempty"`
+	Pods []KubernetesInventoryPod `json:"pods,omitempty"`
+	Containers []KubernetesInventoryContainer `json:"containers,omitempty"`
 }
 
 // NewKubernetesInventory instantiates a new KubernetesInventory object
@@ -94,9 +94,9 @@ func (o *KubernetesInventory) SetTimestamp(v time.Time) {
 }
 
 // GetNamespaces returns the Namespaces field value if set, zero value otherwise.
-func (o *KubernetesInventory) GetNamespaces() []KubernetesInventoryNamespacesInner {
+func (o *KubernetesInventory) GetNamespaces() []KubernetesInventoryNamespace {
 	if o == nil || o.Namespaces == nil {
-		var ret []KubernetesInventoryNamespacesInner
+		var ret []KubernetesInventoryNamespace
 		return ret
 	}
 	return o.Namespaces
@@ -104,7 +104,7 @@ func (o *KubernetesInventory) GetNamespaces() []KubernetesInventoryNamespacesInn
 
 // GetNamespacesOk returns a tuple with the Namespaces field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *KubernetesInventory) GetNamespacesOk() ([]KubernetesInventoryNamespacesInner, bool) {
+func (o *KubernetesInventory) GetNamespacesOk() ([]KubernetesInventoryNamespace, bool) {
 	if o == nil || o.Namespaces == nil {
 		return nil, false
 	}
@@ -120,15 +120,15 @@ func (o *KubernetesInventory) HasNamespaces() bool {
 	return false
 }
 
-// SetNamespaces gets a reference to the given []KubernetesInventoryNamespacesInner and assigns it to the Namespaces field.
-func (o *KubernetesInventory) SetNamespaces(v []KubernetesInventoryNamespacesInner) {
+// SetNamespaces gets a reference to the given []KubernetesInventoryNamespace and assigns it to the Namespaces field.
+func (o *KubernetesInventory) SetNamespaces(v []KubernetesInventoryNamespace) {
 	o.Namespaces = v
 }
 
 // GetNodes returns the Nodes field value if set, zero value otherwise.
-func (o *KubernetesInventory) GetNodes() []KubernetesInventoryNodesInner {
+func (o *KubernetesInventory) GetNodes() []KubernetesInventoryNode {
 	if o == nil || o.Nodes == nil {
-		var ret []KubernetesInventoryNodesInner
+		var ret []KubernetesInventoryNode
 		return ret
 	}
 	return o.Nodes
@@ -136,7 +136,7 @@ func (o *KubernetesInventory) GetNodes() []KubernetesInventoryNodesInner {
 
 // GetNodesOk returns a tuple with the Nodes field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *KubernetesInventory) GetNodesOk() ([]KubernetesInventoryNodesInner, bool) {
+func (o *KubernetesInventory) GetNodesOk() ([]KubernetesInventoryNode, bool) {
 	if o == nil || o.Nodes == nil {
 		return nil, false
 	}
@@ -152,15 +152,15 @@ func (o *KubernetesInventory) HasNodes() bool {
 	return false
 }
 
-// SetNodes gets a reference to the given []KubernetesInventoryNodesInner and assigns it to the Nodes field.
-func (o *KubernetesInventory) SetNodes(v []KubernetesInventoryNodesInner) {
+// SetNodes gets a reference to the given []KubernetesInventoryNode and assigns it to the Nodes field.
+func (o *KubernetesInventory) SetNodes(v []KubernetesInventoryNode) {
 	o.Nodes = v
 }
 
 // GetPods returns the Pods field value if set, zero value otherwise.
-func (o *KubernetesInventory) GetPods() []KubernetesInventoryPodsInner {
+func (o *KubernetesInventory) GetPods() []KubernetesInventoryPod {
 	if o == nil || o.Pods == nil {
-		var ret []KubernetesInventoryPodsInner
+		var ret []KubernetesInventoryPod
 		return ret
 	}
 	return o.Pods
@@ -168,7 +168,7 @@ func (o *KubernetesInventory) GetPods() []KubernetesInventoryPodsInner {
 
 // GetPodsOk returns a tuple with the Pods field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *KubernetesInventory) GetPodsOk() ([]KubernetesInventoryPodsInner, bool) {
+func (o *KubernetesInventory) GetPodsOk() ([]KubernetesInventoryPod, bool) {
 	if o == nil || o.Pods == nil {
 		return nil, false
 	}
@@ -184,15 +184,15 @@ func (o *KubernetesInventory) HasPods() bool {
 	return false
 }
 
-// SetPods gets a reference to the given []KubernetesInventoryPodsInner and assigns it to the Pods field.
-func (o *KubernetesInventory) SetPods(v []KubernetesInventoryPodsInner) {
+// SetPods gets a reference to the given []KubernetesInventoryPod and assigns it to the Pods field.
+func (o *KubernetesInventory) SetPods(v []KubernetesInventoryPod) {
 	o.Pods = v
 }
 
 // GetContainers returns the Containers field value if set, zero value otherwise.
-func (o *KubernetesInventory) GetContainers() []KubernetesInventoryContainersInner {
+func (o *KubernetesInventory) GetContainers() []KubernetesInventoryContainer {
 	if o == nil || o.Containers == nil {
-		var ret []KubernetesInventoryContainersInner
+		var ret []KubernetesInventoryContainer
 		return ret
 	}
 	return o.Containers
@@ -200,7 +200,7 @@ func (o *KubernetesInventory) GetContainers() []KubernetesInventoryContainersInn
 
 // GetContainersOk returns a tuple with the Containers field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *KubernetesInventory) GetContainersOk() ([]KubernetesInventoryContainersInner, bool) {
+func (o *KubernetesInventory) GetContainersOk() ([]KubernetesInventoryContainer, bool) {
 	if o == nil || o.Containers == nil {
 		return nil, false
 	}
@@ -216,8 +216,8 @@ func (o *KubernetesInventory) HasContainers() bool {
 	return false
 }
 
-// SetContainers gets a reference to the given []KubernetesInventoryContainersInner and assigns it to the Containers field.
-func (o *KubernetesInventory) SetContainers(v []KubernetesInventoryContainersInner) {
+// SetContainers gets a reference to the given []KubernetesInventoryContainer and assigns it to the Containers field.
+func (o *KubernetesInventory) SetContainers(v []KubernetesInventoryContainer) {
 	o.Containers = v
 }
 
