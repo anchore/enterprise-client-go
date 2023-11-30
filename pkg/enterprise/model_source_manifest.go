@@ -3,7 +3,7 @@ Anchore API
 
 This is the Anchore API. Provides the external API for users of Anchore Enterprise.
 
-API version: 2.0.0
+API version: 2.1.0
 Contact: dev@anchore.com
 */
 
@@ -29,7 +29,7 @@ type SourceManifest struct {
 	AnalysisStatus *string `json:"analysis_status,omitempty"`
 	SourceStatus *string `json:"source_status,omitempty"`
 	// Array of metadata available
-	MetadataRecords []SourceManifestMetadataRecordsInner `json:"metadata_records,omitempty"`
+	MetadataRecords []SourceManifestMetadataRecord `json:"metadata_records,omitempty"`
 }
 
 // NewSourceManifest instantiates a new SourceManifest object
@@ -370,9 +370,9 @@ func (o *SourceManifest) SetSourceStatus(v string) {
 }
 
 // GetMetadataRecords returns the MetadataRecords field value if set, zero value otherwise.
-func (o *SourceManifest) GetMetadataRecords() []SourceManifestMetadataRecordsInner {
+func (o *SourceManifest) GetMetadataRecords() []SourceManifestMetadataRecord {
 	if o == nil || o.MetadataRecords == nil {
-		var ret []SourceManifestMetadataRecordsInner
+		var ret []SourceManifestMetadataRecord
 		return ret
 	}
 	return o.MetadataRecords
@@ -380,7 +380,7 @@ func (o *SourceManifest) GetMetadataRecords() []SourceManifestMetadataRecordsInn
 
 // GetMetadataRecordsOk returns a tuple with the MetadataRecords field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SourceManifest) GetMetadataRecordsOk() ([]SourceManifestMetadataRecordsInner, bool) {
+func (o *SourceManifest) GetMetadataRecordsOk() ([]SourceManifestMetadataRecord, bool) {
 	if o == nil || o.MetadataRecords == nil {
 		return nil, false
 	}
@@ -396,8 +396,8 @@ func (o *SourceManifest) HasMetadataRecords() bool {
 	return false
 }
 
-// SetMetadataRecords gets a reference to the given []SourceManifestMetadataRecordsInner and assigns it to the MetadataRecords field.
-func (o *SourceManifest) SetMetadataRecords(v []SourceManifestMetadataRecordsInner) {
+// SetMetadataRecords gets a reference to the given []SourceManifestMetadataRecord and assigns it to the MetadataRecords field.
+func (o *SourceManifest) SetMetadataRecords(v []SourceManifestMetadataRecord) {
 	o.MetadataRecords = v
 }
 

@@ -1,0 +1,46 @@
+diff --git a/pkg/enterprise/model_patch_user_api_key_request.go b/pkg/enterprise/model_patch_user_api_key_request.go
+index cd81fbf..e5dcf5a 100644
+--- a/pkg/enterprise/model_patch_user_api_key_request.go
++++ b/pkg/enterprise/model_patch_user_api_key_request.go
+@@ -18,32 +18,32 @@ import (
+ 
+ // PatchUserApiKeyRequest struct for PatchUserApiKeyRequest
+ type PatchUserApiKeyRequest struct {
+-	interface{} *interface{}
++	inter interface{}
+ }
+ 
+ // Unmarshal JSON data into any of the pointers in the struct
+ func (dst *PatchUserApiKeyRequest) UnmarshalJSON(data []byte) error {
+ 	var err error
+ 	// try to unmarshal JSON data into interface{}
+-	err = json.Unmarshal(data, &dst.interface{});
++	err = json.Unmarshal(data, &dst.inter);
+ 	if err == nil {
+-		jsoninterface{}, _ := json.Marshal(dst.interface{})
+-		if string(jsoninterface{}) == "{}" { // empty struct
+-			dst.interface{} = nil
++		jsoninterface, _ := json.Marshal(dst.inter)
++		if string(jsoninterface) == "{}" { // empty struct
++			dst.inter = nil
+ 		} else {
+ 			return nil // data stored in dst.interface{}, return on the first match
+ 		}
+ 	} else {
+-		dst.interface{} = nil
++		dst.inter = nil
+ 	}
+ 
+-	return fmt.Errorf("Data failed to match schemas in anyOf(PatchUserApiKeyRequest)")
++	return fmt.Errorf("data failed to match schemas in anyOf(PatchUserApiKeyRequest)")
+ }
+ 
+ // Marshal data from the first non-nil pointers in the struct to JSON
+ func (src *PatchUserApiKeyRequest) MarshalJSON() ([]byte, error) {
+-	if src.interface{} != nil {
+-		return json.Marshal(&src.interface{})
++	if src.inter != nil {
++		return json.Marshal(&src.inter)
+ 	}
+ 
+ 	return nil, nil // no data in anyOf schemas

@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Services** | Pointer to [**[]ECSServicesServicesInner**](ECSServicesServicesInner.md) |  | [optional] 
+**Services** | Pointer to [**[]ECSService**](ECSService.md) |  | [optional] 
 
 ## Methods
 
@@ -27,20 +27,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetServices
 
-`func (o *ECSServices) GetServices() []ECSServicesServicesInner`
+`func (o *ECSServices) GetServices() []ECSService`
 
 GetServices returns the Services field if non-nil, zero value otherwise.
 
 ### GetServicesOk
 
-`func (o *ECSServices) GetServicesOk() (*[]ECSServicesServicesInner, bool)`
+`func (o *ECSServices) GetServicesOk() (*[]ECSService, bool)`
 
 GetServicesOk returns a tuple with the Services field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetServices
 
-`func (o *ECSServices) SetServices(v []ECSServicesServicesInner)`
+`func (o *ECSServices) SetServices(v []ECSService)`
 
 SetServices sets Services field to given value.
 

@@ -3,7 +3,7 @@ Anchore API
 
 This is the Anchore API. Provides the external API for users of Anchore Enterprise.
 
-API version: 2.0.0
+API version: 2.1.0
 Contact: dev@anchore.com
 */
 
@@ -129,8 +129,8 @@ type ImagesApi interface {
 	GetImageContentByTypeJavaPackage(ctx context.Context, imageDigest string) ApiGetImageContentByTypeJavaPackageRequest
 
 	// GetImageContentByTypeJavaPackageExecute executes the request
-	//  @return ContentJAVAPackageResponse
-	GetImageContentByTypeJavaPackageExecute(r ApiGetImageContentByTypeJavaPackageRequest) (*ContentJAVAPackageResponse, *http.Response, error)
+	//  @return ContentJavaPackageResponse
+	GetImageContentByTypeJavaPackageExecute(r ApiGetImageContentByTypeJavaPackageRequest) (*ContentJavaPackageResponse, *http.Response, error)
 
 	/*
 	GetImageContentByTypeMalware Get the content of an image by type malware
@@ -241,6 +241,19 @@ type ImagesApi interface {
 	GetImageVulnerabilityTypesExecute(r ApiGetImageVulnerabilityTypesRequest) ([]string, *http.Response, error)
 
 	/*
+	ListFileContentSearchResults Return a list of analyzer artifacts of the specified type
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param imageDigest
+	@return ApiListFileContentSearchResultsRequest
+	*/
+	ListFileContentSearchResults(ctx context.Context, imageDigest string) ApiListFileContentSearchResultsRequest
+
+	// ListFileContentSearchResultsExecute executes the request
+	//  @return []FileContentSearchResult
+	ListFileContentSearchResultsExecute(r ApiListFileContentSearchResultsRequest) ([]FileContentSearchResult, *http.Response, error)
+
+	/*
 	ListImageContent List image content types
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
@@ -267,6 +280,20 @@ type ImagesApi interface {
 	ListImageMetadataExecute(r ApiListImageMetadataRequest) ([]string, *http.Response, error)
 
 	/*
+	ListImageTags List all visible image digests and tags
+
+	List all image tags visible to the user
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiListImageTagsRequest
+	*/
+	ListImageTags(ctx context.Context) ApiListImageTagsRequest
+
+	// ListImageTagsExecute executes the request
+	//  @return AnchoreImageTagSummaryList
+	ListImageTagsExecute(r ApiListImageTagsRequest) (*AnchoreImageTagSummaryList, *http.Response, error)
+
+	/*
 	ListImages List all visible images
 
 	List all images visible to the user
@@ -279,6 +306,32 @@ type ImagesApi interface {
 	// ListImagesExecute executes the request
 	//  @return AnchoreImageList
 	ListImagesExecute(r ApiListImagesRequest) (*AnchoreImageList, *http.Response, error)
+
+	/*
+	ListRetrievedFiles Return a list of analyzer artifacts of the specified type
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param imageDigest
+	@return ApiListRetrievedFilesRequest
+	*/
+	ListRetrievedFiles(ctx context.Context, imageDigest string) ApiListRetrievedFilesRequest
+
+	// ListRetrievedFilesExecute executes the request
+	//  @return []RetrievedFile
+	ListRetrievedFilesExecute(r ApiListRetrievedFilesRequest) ([]RetrievedFile, *http.Response, error)
+
+	/*
+	ListSecretSearchResults Return a list of analyzer artifacts of the specified type
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param imageDigest
+	@return ApiListSecretSearchResultsRequest
+	*/
+	ListSecretSearchResults(ctx context.Context, imageDigest string) ApiListSecretSearchResultsRequest
+
+	// ListSecretSearchResultsExecute executes the request
+	//  @return []SecretSearchResult
+	ListSecretSearchResultsExecute(r ApiListSecretSearchResultsRequest) ([]SecretSearchResult, *http.Response, error)
 }
 
 // ImagesApiService ImagesApi service
@@ -1180,7 +1233,7 @@ func (r ApiGetImageContentByTypeJavaPackageRequest) XAnchoreAccount(xAnchoreAcco
 	return r
 }
 
-func (r ApiGetImageContentByTypeJavaPackageRequest) Execute() (*ContentJAVAPackageResponse, *http.Response, error) {
+func (r ApiGetImageContentByTypeJavaPackageRequest) Execute() (*ContentJavaPackageResponse, *http.Response, error) {
 	return r.ApiService.GetImageContentByTypeJavaPackageExecute(r)
 }
 
@@ -1200,13 +1253,13 @@ func (a *ImagesApiService) GetImageContentByTypeJavaPackage(ctx context.Context,
 }
 
 // Execute executes the request
-//  @return ContentJAVAPackageResponse
-func (a *ImagesApiService) GetImageContentByTypeJavaPackageExecute(r ApiGetImageContentByTypeJavaPackageRequest) (*ContentJAVAPackageResponse, *http.Response, error) {
+//  @return ContentJavaPackageResponse
+func (a *ImagesApiService) GetImageContentByTypeJavaPackageExecute(r ApiGetImageContentByTypeJavaPackageRequest) (*ContentJavaPackageResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *ContentJAVAPackageResponse
+		localVarReturnValue  *ContentJavaPackageResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ImagesApiService.GetImageContentByTypeJavaPackage")
@@ -2342,6 +2395,107 @@ func (a *ImagesApiService) GetImageVulnerabilityTypesExecute(r ApiGetImageVulner
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+type ApiListFileContentSearchResultsRequest struct {
+	ctx context.Context
+	ApiService ImagesApi
+	imageDigest string
+}
+
+func (r ApiListFileContentSearchResultsRequest) Execute() ([]FileContentSearchResult, *http.Response, error) {
+	return r.ApiService.ListFileContentSearchResultsExecute(r)
+}
+
+/*
+ListFileContentSearchResults Return a list of analyzer artifacts of the specified type
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param imageDigest
+ @return ApiListFileContentSearchResultsRequest
+*/
+func (a *ImagesApiService) ListFileContentSearchResults(ctx context.Context, imageDigest string) ApiListFileContentSearchResultsRequest {
+	return ApiListFileContentSearchResultsRequest{
+		ApiService: a,
+		ctx: ctx,
+		imageDigest: imageDigest,
+	}
+}
+
+// Execute executes the request
+//  @return []FileContentSearchResult
+func (a *ImagesApiService) ListFileContentSearchResultsExecute(r ApiListFileContentSearchResultsRequest) ([]FileContentSearchResult, *http.Response, error) {
+	var (
+		localVarHTTPMethod   = http.MethodGet
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  []FileContentSearchResult
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ImagesApiService.ListFileContentSearchResults")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/images/{image_digest}/artifacts/file-content-search"
+	localVarPath = strings.Replace(localVarPath, "{"+"image_digest"+"}", url.PathEscape(parameterToString(r.imageDigest, "")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
 type ApiListImageContentRequest struct {
 	ctx context.Context
 	ApiService ImagesApi
@@ -2582,6 +2736,134 @@ func (a *ImagesApiService) ListImageMetadataExecute(r ApiListImageMetadataReques
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+type ApiListImageTagsRequest struct {
+	ctx context.Context
+	ApiService ImagesApi
+	imageStatus *[]string
+	xAnchoreAccount *string
+}
+
+// Filter images in one or more states such as active, deleting. Defaults to active images only if unspecified
+func (r ApiListImageTagsRequest) ImageStatus(imageStatus []string) ApiListImageTagsRequest {
+	r.imageStatus = &imageStatus
+	return r
+}
+
+// An account name to change the resource scope of the request to that account, if permissions allow (admin only)
+func (r ApiListImageTagsRequest) XAnchoreAccount(xAnchoreAccount string) ApiListImageTagsRequest {
+	r.xAnchoreAccount = &xAnchoreAccount
+	return r
+}
+
+func (r ApiListImageTagsRequest) Execute() (*AnchoreImageTagSummaryList, *http.Response, error) {
+	return r.ApiService.ListImageTagsExecute(r)
+}
+
+/*
+ListImageTags List all visible image digests and tags
+
+List all image tags visible to the user
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return ApiListImageTagsRequest
+*/
+func (a *ImagesApiService) ListImageTags(ctx context.Context) ApiListImageTagsRequest {
+	return ApiListImageTagsRequest{
+		ApiService: a,
+		ctx: ctx,
+	}
+}
+
+// Execute executes the request
+//  @return AnchoreImageTagSummaryList
+func (a *ImagesApiService) ListImageTagsExecute(r ApiListImageTagsRequest) (*AnchoreImageTagSummaryList, *http.Response, error) {
+	var (
+		localVarHTTPMethod   = http.MethodGet
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *AnchoreImageTagSummaryList
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ImagesApiService.ListImageTags")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/summaries/image-tags"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	if r.imageStatus != nil {
+		localVarQueryParams.Add("image_status", parameterToString(*r.imageStatus, "csv"))
+	}
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	if r.xAnchoreAccount != nil {
+		localVarHeaderParams["x-anchore-account"] = parameterToString(*r.xAnchoreAccount, "")
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 500 {
+			var v ApiErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
 type ApiListImagesRequest struct {
 	ctx context.Context
 	ApiService ImagesApi
@@ -2734,6 +3016,208 @@ func (a *ImagesApiService) ListImagesExecute(r ApiListImagesRequest) (*AnchoreIm
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
 			newErr.model = v
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiListRetrievedFilesRequest struct {
+	ctx context.Context
+	ApiService ImagesApi
+	imageDigest string
+}
+
+func (r ApiListRetrievedFilesRequest) Execute() ([]RetrievedFile, *http.Response, error) {
+	return r.ApiService.ListRetrievedFilesExecute(r)
+}
+
+/*
+ListRetrievedFiles Return a list of analyzer artifacts of the specified type
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param imageDigest
+ @return ApiListRetrievedFilesRequest
+*/
+func (a *ImagesApiService) ListRetrievedFiles(ctx context.Context, imageDigest string) ApiListRetrievedFilesRequest {
+	return ApiListRetrievedFilesRequest{
+		ApiService: a,
+		ctx: ctx,
+		imageDigest: imageDigest,
+	}
+}
+
+// Execute executes the request
+//  @return []RetrievedFile
+func (a *ImagesApiService) ListRetrievedFilesExecute(r ApiListRetrievedFilesRequest) ([]RetrievedFile, *http.Response, error) {
+	var (
+		localVarHTTPMethod   = http.MethodGet
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  []RetrievedFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ImagesApiService.ListRetrievedFiles")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/images/{image_digest}/artifacts/retrieved-files"
+	localVarPath = strings.Replace(localVarPath, "{"+"image_digest"+"}", url.PathEscape(parameterToString(r.imageDigest, "")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiListSecretSearchResultsRequest struct {
+	ctx context.Context
+	ApiService ImagesApi
+	imageDigest string
+}
+
+func (r ApiListSecretSearchResultsRequest) Execute() ([]SecretSearchResult, *http.Response, error) {
+	return r.ApiService.ListSecretSearchResultsExecute(r)
+}
+
+/*
+ListSecretSearchResults Return a list of analyzer artifacts of the specified type
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param imageDigest
+ @return ApiListSecretSearchResultsRequest
+*/
+func (a *ImagesApiService) ListSecretSearchResults(ctx context.Context, imageDigest string) ApiListSecretSearchResultsRequest {
+	return ApiListSecretSearchResultsRequest{
+		ApiService: a,
+		ctx: ctx,
+		imageDigest: imageDigest,
+	}
+}
+
+// Execute executes the request
+//  @return []SecretSearchResult
+func (a *ImagesApiService) ListSecretSearchResultsExecute(r ApiListSecretSearchResultsRequest) ([]SecretSearchResult, *http.Response, error) {
+	var (
+		localVarHTTPMethod   = http.MethodGet
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  []SecretSearchResult
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ImagesApiService.ListSecretSearchResults")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/images/{image_digest}/artifacts/secret-search"
+	localVarPath = strings.Replace(localVarPath, "{"+"image_digest"+"}", url.PathEscape(parameterToString(r.imageDigest, "")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}

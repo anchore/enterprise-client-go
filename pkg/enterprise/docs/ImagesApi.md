@@ -20,9 +20,13 @@ Method | HTTP request | Description
 [**GetImageSbomSpdxJson**](ImagesApi.md#GetImageSbomSpdxJson) | **Get** /images/{image_digest}/sboms/spdx-json | Get image sbom in the SPDX format
 [**GetImageVulnerabilitiesByDigest**](ImagesApi.md#GetImageVulnerabilitiesByDigest) | **Get** /images/{image_digest}/vuln/{vuln_type} | Get vulnerabilities by type
 [**GetImageVulnerabilityTypes**](ImagesApi.md#GetImageVulnerabilityTypes) | **Get** /images/{image_digest}/vuln | Get vulnerability types
+[**ListFileContentSearchResults**](ImagesApi.md#ListFileContentSearchResults) | **Get** /images/{image_digest}/artifacts/file-content-search | Return a list of analyzer artifacts of the specified type
 [**ListImageContent**](ImagesApi.md#ListImageContent) | **Get** /images/{image_digest}/content | List image content types
 [**ListImageMetadata**](ImagesApi.md#ListImageMetadata) | **Get** /images/{image_digest}/metadata | List image metadata types
+[**ListImageTags**](ImagesApi.md#ListImageTags) | **Get** /summaries/image-tags | List all visible image digests and tags
 [**ListImages**](ImagesApi.md#ListImages) | **Get** /images | List all visible images
+[**ListRetrievedFiles**](ImagesApi.md#ListRetrievedFiles) | **Get** /images/{image_digest}/artifacts/retrieved-files | Return a list of analyzer artifacts of the specified type
+[**ListSecretSearchResults**](ImagesApi.md#ListSecretSearchResults) | **Get** /images/{image_digest}/artifacts/secret-search | Return a list of analyzer artifacts of the specified type
 
 
 
@@ -527,7 +531,7 @@ No authorization required
 
 ## GetImageContentByTypeJavaPackage
 
-> ContentJAVAPackageResponse GetImageContentByTypeJavaPackage(ctx, imageDigest).XAnchoreAccount(xAnchoreAccount).Execute()
+> ContentJavaPackageResponse GetImageContentByTypeJavaPackage(ctx, imageDigest).XAnchoreAccount(xAnchoreAccount).Execute()
 
 Get the content of an image by type java
 
@@ -554,7 +558,7 @@ func main() {
         fmt.Fprintf(os.Stderr, "Error when calling `ImagesApi.GetImageContentByTypeJavaPackage``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `GetImageContentByTypeJavaPackage`: ContentJAVAPackageResponse
+    // response from `GetImageContentByTypeJavaPackage`: ContentJavaPackageResponse
     fmt.Fprintf(os.Stdout, "Response from `ImagesApi.GetImageContentByTypeJavaPackage`: %v\n", resp)
 }
 ```
@@ -579,7 +583,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ContentJAVAPackageResponse**](ContentJAVAPackageResponse.md)
+[**ContentJavaPackageResponse**](ContentJavaPackageResponse.md)
 
 ### Authorization
 
@@ -1181,6 +1185,74 @@ No authorization required
 [[Back to README]](../README.md)
 
 
+## ListFileContentSearchResults
+
+> []FileContentSearchResult ListFileContentSearchResults(ctx, imageDigest).Execute()
+
+Return a list of analyzer artifacts of the specified type
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    imageDigest := "imageDigest_example" // string | 
+
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.ImagesApi.ListFileContentSearchResults(context.Background(), imageDigest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `ImagesApi.ListFileContentSearchResults``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ListFileContentSearchResults`: []FileContentSearchResult
+    fmt.Fprintf(os.Stdout, "Response from `ImagesApi.ListFileContentSearchResults`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**imageDigest** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiListFileContentSearchResultsRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+[**[]FileContentSearchResult**](FileContentSearchResult.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
 ## ListImageContent
 
 > []string ListImageContent(ctx, imageDigest).XAnchoreAccount(xAnchoreAccount).Execute()
@@ -1321,6 +1393,74 @@ No authorization required
 [[Back to README]](../README.md)
 
 
+## ListImageTags
+
+> AnchoreImageTagSummaryList ListImageTags(ctx).ImageStatus(imageStatus).XAnchoreAccount(xAnchoreAccount).Execute()
+
+List all visible image digests and tags
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    imageStatus := []string{"ImageStatus_example"} // []string | Filter images in one or more states such as active, deleting. Defaults to active images only if unspecified (optional) (default to ["active"])
+    xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.ImagesApi.ListImageTags(context.Background()).ImageStatus(imageStatus).XAnchoreAccount(xAnchoreAccount).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `ImagesApi.ListImageTags``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ListImageTags`: AnchoreImageTagSummaryList
+    fmt.Fprintf(os.Stdout, "Response from `ImagesApi.ListImageTags`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiListImageTagsRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **imageStatus** | **[]string** | Filter images in one or more states such as active, deleting. Defaults to active images only if unspecified | [default to [&quot;active&quot;]]
+ **xAnchoreAccount** | **string** | An account name to change the resource scope of the request to that account, if permissions allow (admin only) | 
+
+### Return type
+
+[**AnchoreImageTagSummaryList**](AnchoreImageTagSummaryList.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
 ## ListImages
 
 > AnchoreImageList ListImages(ctx).ImageId(imageId).History(history).FullTag(fullTag).ImageStatus(imageStatus).AnalysisStatus(analysisStatus).XAnchoreAccount(xAnchoreAccount).Execute()
@@ -1382,6 +1522,142 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**AnchoreImageList**](AnchoreImageList.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## ListRetrievedFiles
+
+> []RetrievedFile ListRetrievedFiles(ctx, imageDigest).Execute()
+
+Return a list of analyzer artifacts of the specified type
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    imageDigest := "imageDigest_example" // string | 
+
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.ImagesApi.ListRetrievedFiles(context.Background(), imageDigest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `ImagesApi.ListRetrievedFiles``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ListRetrievedFiles`: []RetrievedFile
+    fmt.Fprintf(os.Stdout, "Response from `ImagesApi.ListRetrievedFiles`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**imageDigest** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiListRetrievedFilesRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+[**[]RetrievedFile**](RetrievedFile.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## ListSecretSearchResults
+
+> []SecretSearchResult ListSecretSearchResults(ctx, imageDigest).Execute()
+
+Return a list of analyzer artifacts of the specified type
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    imageDigest := "imageDigest_example" // string | 
+
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.ImagesApi.ListSecretSearchResults(context.Background(), imageDigest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `ImagesApi.ListSecretSearchResults``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ListSecretSearchResults`: []SecretSearchResult
+    fmt.Fprintf(os.Stdout, "Response from `ImagesApi.ListSecretSearchResults`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**imageDigest** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiListSecretSearchResultsRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+[**[]SecretSearchResult**](SecretSearchResult.md)
 
 ### Authorization
 

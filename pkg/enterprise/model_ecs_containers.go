@@ -3,7 +3,7 @@ Anchore API
 
 This is the Anchore API. Provides the external API for users of Anchore Enterprise.
 
-API version: 2.0.0
+API version: 2.1.0
 Contact: dev@anchore.com
 */
 
@@ -17,7 +17,7 @@ import (
 
 // ECSContainers Containers defined in ECS
 type ECSContainers struct {
-	Containers []ECSContainersContainersInner `json:"containers,omitempty"`
+	Containers []ECSContainer `json:"containers,omitempty"`
 }
 
 // NewECSContainers instantiates a new ECSContainers object
@@ -38,9 +38,9 @@ func NewECSContainersWithDefaults() *ECSContainers {
 }
 
 // GetContainers returns the Containers field value if set, zero value otherwise.
-func (o *ECSContainers) GetContainers() []ECSContainersContainersInner {
+func (o *ECSContainers) GetContainers() []ECSContainer {
 	if o == nil || o.Containers == nil {
-		var ret []ECSContainersContainersInner
+		var ret []ECSContainer
 		return ret
 	}
 	return o.Containers
@@ -48,7 +48,7 @@ func (o *ECSContainers) GetContainers() []ECSContainersContainersInner {
 
 // GetContainersOk returns a tuple with the Containers field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ECSContainers) GetContainersOk() ([]ECSContainersContainersInner, bool) {
+func (o *ECSContainers) GetContainersOk() ([]ECSContainer, bool) {
 	if o == nil || o.Containers == nil {
 		return nil, false
 	}
@@ -64,8 +64,8 @@ func (o *ECSContainers) HasContainers() bool {
 	return false
 }
 
-// SetContainers gets a reference to the given []ECSContainersContainersInner and assigns it to the Containers field.
-func (o *ECSContainers) SetContainers(v []ECSContainersContainersInner) {
+// SetContainers gets a reference to the given []ECSContainer and assigns it to the Containers field.
+func (o *ECSContainers) SetContainers(v []ECSContainer) {
 	o.Containers = v
 }
 
