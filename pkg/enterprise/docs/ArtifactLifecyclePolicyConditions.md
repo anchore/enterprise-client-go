@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Version** | Pointer to **int32** | The version of these policy conditions. | [optional] [readonly] 
-**DaysSinceLastSeenInRuntime** | **int32** | If the image was reported via runtime inventory, it must be this many days old before it will be considered for processing. An integer value less than or equal to zero will prevent the deletion of the image if runtime inventory still has record of it. | 
+**EvenIfExistsInRuntimeInventory** | **bool** | Select an image even if it exists in the runtime inventory, otherwise if false do not action anything that exists in runtime inventory | 
 **DaysSinceAnalyzed** | **int32** | An image analysis must be this many days old before it will be considered for processing. An integer value less than or equal to zero will cause this field to be ignored. | 
 **ArtifactType** | **string** | The type of artifact that will be processed. | 
 
@@ -13,7 +13,7 @@ Name | Type | Description | Notes
 
 ### NewArtifactLifecyclePolicyConditions
 
-`func NewArtifactLifecyclePolicyConditions(daysSinceLastSeenInRuntime int32, daysSinceAnalyzed int32, artifactType string, ) *ArtifactLifecyclePolicyConditions`
+`func NewArtifactLifecyclePolicyConditions(evenIfExistsInRuntimeInventory bool, daysSinceAnalyzed int32, artifactType string, ) *ArtifactLifecyclePolicyConditions`
 
 NewArtifactLifecyclePolicyConditions instantiates a new ArtifactLifecyclePolicyConditions object
 This constructor will assign default values to properties that have it defined,
@@ -53,24 +53,24 @@ SetVersion sets Version field to given value.
 
 HasVersion returns a boolean if a field has been set.
 
-### GetDaysSinceLastSeenInRuntime
+### GetEvenIfExistsInRuntimeInventory
 
-`func (o *ArtifactLifecyclePolicyConditions) GetDaysSinceLastSeenInRuntime() int32`
+`func (o *ArtifactLifecyclePolicyConditions) GetEvenIfExistsInRuntimeInventory() bool`
 
-GetDaysSinceLastSeenInRuntime returns the DaysSinceLastSeenInRuntime field if non-nil, zero value otherwise.
+GetEvenIfExistsInRuntimeInventory returns the EvenIfExistsInRuntimeInventory field if non-nil, zero value otherwise.
 
-### GetDaysSinceLastSeenInRuntimeOk
+### GetEvenIfExistsInRuntimeInventoryOk
 
-`func (o *ArtifactLifecyclePolicyConditions) GetDaysSinceLastSeenInRuntimeOk() (*int32, bool)`
+`func (o *ArtifactLifecyclePolicyConditions) GetEvenIfExistsInRuntimeInventoryOk() (*bool, bool)`
 
-GetDaysSinceLastSeenInRuntimeOk returns a tuple with the DaysSinceLastSeenInRuntime field if it's non-nil, zero value otherwise
+GetEvenIfExistsInRuntimeInventoryOk returns a tuple with the EvenIfExistsInRuntimeInventory field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetDaysSinceLastSeenInRuntime
+### SetEvenIfExistsInRuntimeInventory
 
-`func (o *ArtifactLifecyclePolicyConditions) SetDaysSinceLastSeenInRuntime(v int32)`
+`func (o *ArtifactLifecyclePolicyConditions) SetEvenIfExistsInRuntimeInventory(v bool)`
 
-SetDaysSinceLastSeenInRuntime sets DaysSinceLastSeenInRuntime field to given value.
+SetEvenIfExistsInRuntimeInventory sets EvenIfExistsInRuntimeInventory field to given value.
 
 
 ### GetDaysSinceAnalyzed

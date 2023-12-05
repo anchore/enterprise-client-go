@@ -19,8 +19,8 @@ import (
 type ArtifactLifecyclePolicyConditions struct {
 	// The version of these policy conditions.
 	Version *int32 `json:"version,omitempty"`
-	// If the image was reported via runtime inventory, it must be this many days old before it will be considered for processing. An integer value less than or equal to zero will prevent the deletion of the image if runtime inventory still has record of it.
-	DaysSinceLastSeenInRuntime int32 `json:"days_since_last_seen_in_runtime"`
+	// Select an image even if it exists in the runtime inventory, otherwise if false do not action anything that exists in runtime inventory
+	EvenIfExistsInRuntimeInventory bool `json:"even_if_exists_in_runtime_inventory"`
 	// An image analysis must be this many days old before it will be considered for processing. An integer value less than or equal to zero will cause this field to be ignored.
 	DaysSinceAnalyzed int32 `json:"days_since_analyzed"`
 	// The type of artifact that will be processed.
@@ -31,9 +31,9 @@ type ArtifactLifecyclePolicyConditions struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewArtifactLifecyclePolicyConditions(daysSinceLastSeenInRuntime int32, daysSinceAnalyzed int32, artifactType string) *ArtifactLifecyclePolicyConditions {
+func NewArtifactLifecyclePolicyConditions(evenIfExistsInRuntimeInventory bool, daysSinceAnalyzed int32, artifactType string) *ArtifactLifecyclePolicyConditions {
 	this := ArtifactLifecyclePolicyConditions{}
-	this.DaysSinceLastSeenInRuntime = daysSinceLastSeenInRuntime
+	this.EvenIfExistsInRuntimeInventory = evenIfExistsInRuntimeInventory
 	this.DaysSinceAnalyzed = daysSinceAnalyzed
 	this.ArtifactType = artifactType
 	return &this
@@ -79,28 +79,28 @@ func (o *ArtifactLifecyclePolicyConditions) SetVersion(v int32) {
 	o.Version = &v
 }
 
-// GetDaysSinceLastSeenInRuntime returns the DaysSinceLastSeenInRuntime field value
-func (o *ArtifactLifecyclePolicyConditions) GetDaysSinceLastSeenInRuntime() int32 {
+// GetEvenIfExistsInRuntimeInventory returns the EvenIfExistsInRuntimeInventory field value
+func (o *ArtifactLifecyclePolicyConditions) GetEvenIfExistsInRuntimeInventory() bool {
 	if o == nil {
-		var ret int32
+		var ret bool
 		return ret
 	}
 
-	return o.DaysSinceLastSeenInRuntime
+	return o.EvenIfExistsInRuntimeInventory
 }
 
-// GetDaysSinceLastSeenInRuntimeOk returns a tuple with the DaysSinceLastSeenInRuntime field value
+// GetEvenIfExistsInRuntimeInventoryOk returns a tuple with the EvenIfExistsInRuntimeInventory field value
 // and a boolean to check if the value has been set.
-func (o *ArtifactLifecyclePolicyConditions) GetDaysSinceLastSeenInRuntimeOk() (*int32, bool) {
+func (o *ArtifactLifecyclePolicyConditions) GetEvenIfExistsInRuntimeInventoryOk() (*bool, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.DaysSinceLastSeenInRuntime, true
+	return &o.EvenIfExistsInRuntimeInventory, true
 }
 
-// SetDaysSinceLastSeenInRuntime sets field value
-func (o *ArtifactLifecyclePolicyConditions) SetDaysSinceLastSeenInRuntime(v int32) {
-	o.DaysSinceLastSeenInRuntime = v
+// SetEvenIfExistsInRuntimeInventory sets field value
+func (o *ArtifactLifecyclePolicyConditions) SetEvenIfExistsInRuntimeInventory(v bool) {
+	o.EvenIfExistsInRuntimeInventory = v
 }
 
 // GetDaysSinceAnalyzed returns the DaysSinceAnalyzed field value
@@ -157,7 +157,7 @@ func (o ArtifactLifecyclePolicyConditions) MarshalJSON() ([]byte, error) {
 		toSerialize["version"] = o.Version
 	}
 	if true {
-		toSerialize["days_since_last_seen_in_runtime"] = o.DaysSinceLastSeenInRuntime
+		toSerialize["even_if_exists_in_runtime_inventory"] = o.EvenIfExistsInRuntimeInventory
 	}
 	if true {
 		toSerialize["days_since_analyzed"] = o.DaysSinceAnalyzed

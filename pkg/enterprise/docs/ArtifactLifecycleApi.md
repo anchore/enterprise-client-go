@@ -32,7 +32,7 @@ import (
 )
 
 func main() {
-    artifactLifecyclePolicy := *openapiclient.NewArtifactLifecyclePolicy("Action_example", "Name_example", *openapiclient.NewArtifactLifecyclePolicyConditions(int32(123), int32(123), "ArtifactType_example")) // ArtifactLifecyclePolicy |  (optional)
+    artifactLifecyclePolicy := *openapiclient.NewArtifactLifecyclePolicy("Action_example", "Name_example", *openapiclient.NewArtifactLifecyclePolicyConditions(false, int32(123), "ArtifactType_example")) // ArtifactLifecyclePolicy |  (optional)
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
@@ -362,7 +362,7 @@ import (
 
 func main() {
     policyUuid := "policyUuid_example" // string | 
-    artifactLifecyclePolicy := *openapiclient.NewArtifactLifecyclePolicy("Action_example", "Name_example", *openapiclient.NewArtifactLifecyclePolicyConditions(int32(123), int32(123), "ArtifactType_example")) // ArtifactLifecyclePolicy |  (optional)
+    artifactLifecyclePolicy := *openapiclient.NewArtifactLifecyclePolicy("Action_example", "Name_example", *openapiclient.NewArtifactLifecyclePolicyConditions(false, int32(123), "ArtifactType_example")) // ArtifactLifecyclePolicy |  (optional)
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)

@@ -9655,7 +9655,7 @@ components:
     ArtifactLifecyclePolicyConditions:
       type: object
       required:
-      - days_since_last_seen_in_runtime
+      - even_if_exists_in_runtime_inventory
       - days_since_analyzed
       - artifact_type
       properties:
@@ -9663,12 +9663,10 @@ components:
           description: The version of these policy conditions.
           type: integer
           readOnly: true
-        days_since_last_seen_in_runtime:
-          description: If the image was reported via runtime inventory, it must be
-            this many days old before it will be considered for processing. An integer
-            value less than or equal to zero will prevent the deletion of the image
-            if runtime inventory still has record of it.
-          type: integer
+        even_if_exists_in_runtime_inventory:
+          description: Select an image even if it exists in the runtime inventory,
+            otherwise if false do not action anything that exists in runtime inventory
+          type: boolean
         days_since_analyzed:
           description: An image analysis must be this many days old before it will
             be considered for processing. An integer value less than or equal to zero
