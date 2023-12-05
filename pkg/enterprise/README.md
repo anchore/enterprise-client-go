@@ -576,6 +576,7 @@ Class | Method | HTTP request | Description
  - [PolicyEvaluationProblem](docs/PolicyEvaluationProblem.md)
  - [PolicyEvaluationRemediation](docs/PolicyEvaluationRemediation.md)
  - [PolicyEvaluationRemediationSuggestionsInner](docs/PolicyEvaluationRemediationSuggestionsInner.md)
+ - [PolicyFindingAllowlistMatch](docs/PolicyFindingAllowlistMatch.md)
  - [PolicyRecord](docs/PolicyRecord.md)
  - [PolicyRecordPolicy](docs/PolicyRecordPolicy.md)
  - [PolicyRule](docs/PolicyRule.md)

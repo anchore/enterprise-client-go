@@ -14722,19 +14722,6 @@ components:
       - trigger
       - trigger_id
       type: object
-    PolicyEvaluationFindingAllowlistMatch:
-      description: Details about (possible) allowlist match
-      properties:
-        id:
-          description: ID of the allowlist that matched this finding
-          type: string
-        name:
-          description: Name of the allowlist that matched this finding
-          type: string
-        matched_rule_id:
-          description: ID of the rule within the allowlist that matched this finding
-          type: string
-      type: object
     PolicyEvaluationProblem:
       description: Details for an error or warning indicating a problem during policy
         evaluation
@@ -14790,6 +14777,19 @@ components:
       - suggestions
       - trigger_ids
       type: object
+    PolicyFindingAllowlistMatch:
+      description: Details about (possible) allowlist match
+      properties:
+        id:
+          description: ID of the allowlist that matched this finding
+          type: string
+        name:
+          description: Name of the allowlist that matched this finding
+          type: string
+        matched_rule_id:
+          description: ID of the rule within the allowlist that matched this finding
+          type: string
+      type: object
     PolicyList:
       description: List of PolicyRecord objects
       items:
@@ -14798,12 +14798,14 @@ components:
     PolicyRecord:
       description: A policy plus some metadata
       example:
-        account_name: account_name
-        active: true
-        created_at: 2000-01-23T04:56:07.000+00:00
-        description: description
+        policy_source: policy_source
         last_updated: 2000-01-23T04:56:07.000+00:00
+        policy_id: policy_id
+        account_name: account_name
         name: name
+        created_at: 2000-01-23T04:56:07.000+00:00
+        active: true
+        description: description
         policy:
           allowlisted_images:
           - description: description
@@ -14984,8 +14986,6 @@ components:
             - rule_set_ids
             - rule_set_ids
           version: version
-        policy_id: policy_id
-        policy_source: policy_source
       properties:
         created_at:
           format: date-time
@@ -18719,12 +18719,12 @@ components:
       type: object
     PolicyEvaluation_evaluations_inner_matched_allowlisted_images_rule:
       anyOf:
-      - $ref: '#/components/schemas/ImageSelectionRule'
       - $ref: '#/components/schemas/NullType'
+      - $ref: '#/components/schemas/ImageSelectionRule'
     PolicyEvaluation_evaluations_inner_matched_mapping_rule:
       anyOf:
-      - $ref: '#/components/schemas/MappingRule'
       - $ref: '#/components/schemas/NullType'
+      - $ref: '#/components/schemas/MappingRule'
     PolicyEvaluation_evaluations_inner:
       example:
         comparison_image_digest: comparison_image_digest
@@ -19036,8 +19036,8 @@ components:
       type: object
     PolicyEvaluationFinding_allowlist_match:
       anyOf:
-      - $ref: '#/components/schemas/PolicyEvaluationFindingAllowlistMatch'
       - $ref: '#/components/schemas/NullType'
+      - $ref: '#/components/schemas/PolicyFindingAllowlistMatch'
     PolicyEvaluationRemediation_suggestions_inner:
       example:
         message: message
@@ -19055,8 +19055,8 @@ components:
       type: object
     PolicyRecord_policy:
       anyOf:
-      - $ref: '#/components/schemas/Policy'
       - $ref: '#/components/schemas/NullType'
+      - $ref: '#/components/schemas/Policy'
     PolicyRule_params_inner:
       additionalProperties: false
       example:

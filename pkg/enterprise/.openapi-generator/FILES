@@ -261,6 +261,7 @@ docs/PolicyEvaluationFindingAllowlistMatch.md
 docs/PolicyEvaluationProblem.md
 docs/PolicyEvaluationRemediation.md
 docs/PolicyEvaluationRemediationSuggestionsInner.md
+docs/PolicyFindingAllowlistMatch.md
 docs/PolicyRecord.md
 docs/PolicyRecordPolicy.md
 docs/PolicyRule.md
@@ -584,6 +585,7 @@ model_policy_evaluation_finding_allowlist_match.go
 model_policy_evaluation_problem.go
 model_policy_evaluation_remediation.go
 model_policy_evaluation_remediation_suggestions_inner.go
+model_policy_finding_allowlist_match.go
 model_policy_record.go
 model_policy_record_policy.go
 model_policy_rule.go
