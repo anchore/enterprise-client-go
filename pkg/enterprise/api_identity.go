@@ -32,8 +32,8 @@ type IdentityApi interface {
 	AddCredential(ctx context.Context) ApiAddCredentialRequest
 
 	// AddCredentialExecute executes the request
-	//  @return User
-	AddCredentialExecute(r ApiAddCredentialRequest) (*User, *http.Response, error)
+	//  @return AccessCredential
+	AddCredentialExecute(r ApiAddCredentialRequest) (*AccessCredential, *http.Response, error)
 
 	/*
 	CreateApiKey Add a new API key
@@ -148,7 +148,7 @@ func (r ApiAddCredentialRequest) Credential(credential AccessCredential) ApiAddC
 	return r
 }
 
-func (r ApiAddCredentialRequest) Execute() (*User, *http.Response, error) {
+func (r ApiAddCredentialRequest) Execute() (*AccessCredential, *http.Response, error) {
 	return r.ApiService.AddCredentialExecute(r)
 }
 
@@ -166,13 +166,13 @@ func (a *IdentityApiService) AddCredential(ctx context.Context) ApiAddCredential
 }
 
 // Execute executes the request
-//  @return User
-func (a *IdentityApiService) AddCredentialExecute(r ApiAddCredentialRequest) (*User, *http.Response, error) {
+//  @return AccessCredential
+func (a *IdentityApiService) AddCredentialExecute(r ApiAddCredentialRequest) (*AccessCredential, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *User
+		localVarReturnValue  *AccessCredential
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IdentityApiService.AddCredential")

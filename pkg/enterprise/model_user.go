@@ -23,13 +23,15 @@ type User struct {
 	// The user's type
 	Type *string `json:"type,omitempty"`
 	// When the user 'type' is 'saml', this will be the EntityId of the IDP that they are authenticating from. Otherwise, this will be set to null.
-	Source *string `json:"source,omitempty"`
+	Source NullableString `json:"source,omitempty"`
 	// The timestamp of when the user record was created
 	CreatedAt *time.Time `json:"created_at,omitempty"`
 	// The timestamp of the last update to this record
 	LastUpdated *time.Time `json:"last_updated,omitempty"`
 	// When the user 'type' is 'saml', this will be the configured name of the IDP that they are authenticating from.  Otherwise, this will be set to null.
-	IdpName *string `json:"idp_name,omitempty"`
+	IdpName NullableString `json:"idp_name,omitempty"`
+	// When the user 'type' is 'native', this will be the timestamp of the last time this user's credentials were updated.
+	PasswordLastUpdated NullableTime `json:"password_last_updated,omitempty"`
 }
 
 // NewUser instantiates a new User object
@@ -106,36 +108,46 @@ func (o *User) SetType(v string) {
 	o.Type = &v
 }
 
-// GetSource returns the Source field value if set, zero value otherwise.
+// GetSource returns the Source field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *User) GetSource() string {
-	if o == nil || o.Source == nil {
+	if o == nil || o.Source.Get() == nil {
 		var ret string
 		return ret
 	}
-	return *o.Source
+	return *o.Source.Get()
 }
 
 // GetSourceOk returns a tuple with the Source field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *User) GetSourceOk() (*string, bool) {
-	if o == nil || o.Source == nil {
+	if o == nil {
 		return nil, false
 	}
-	return o.Source, true
+	return o.Source.Get(), o.Source.IsSet()
 }
 
 // HasSource returns a boolean if a field has been set.
 func (o *User) HasSource() bool {
-	if o != nil && o.Source != nil {
+	if o != nil && o.Source.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetSource gets a reference to the given string and assigns it to the Source field.
+// SetSource gets a reference to the given NullableString and assigns it to the Source field.
 func (o *User) SetSource(v string) {
-	o.Source = &v
+	o.Source.Set(&v)
+}
+// SetSourceNil sets the value for Source to be an explicit nil
+func (o *User) SetSourceNil() {
+	o.Source.Set(nil)
+}
+
+// UnsetSource ensures that no value is present for Source, not even an explicit nil
+func (o *User) UnsetSource() {
+	o.Source.Unset()
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
@@ -202,36 +214,88 @@ func (o *User) SetLastUpdated(v time.Time) {
 	o.LastUpdated = &v
 }
 
-// GetIdpName returns the IdpName field value if set, zero value otherwise.
+// GetIdpName returns the IdpName field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *User) GetIdpName() string {
-	if o == nil || o.IdpName == nil {
+	if o == nil || o.IdpName.Get() == nil {
 		var ret string
 		return ret
 	}
-	return *o.IdpName
+	return *o.IdpName.Get()
 }
 
 // GetIdpNameOk returns a tuple with the IdpName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *User) GetIdpNameOk() (*string, bool) {
-	if o == nil || o.IdpName == nil {
+	if o == nil {
 		return nil, false
 	}
-	return o.IdpName, true
+	return o.IdpName.Get(), o.IdpName.IsSet()
 }
 
 // HasIdpName returns a boolean if a field has been set.
 func (o *User) HasIdpName() bool {
-	if o != nil && o.IdpName != nil {
+	if o != nil && o.IdpName.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetIdpName gets a reference to the given string and assigns it to the IdpName field.
+// SetIdpName gets a reference to the given NullableString and assigns it to the IdpName field.
 func (o *User) SetIdpName(v string) {
-	o.IdpName = &v
+	o.IdpName.Set(&v)
+}
+// SetIdpNameNil sets the value for IdpName to be an explicit nil
+func (o *User) SetIdpNameNil() {
+	o.IdpName.Set(nil)
+}
+
+// UnsetIdpName ensures that no value is present for IdpName, not even an explicit nil
+func (o *User) UnsetIdpName() {
+	o.IdpName.Unset()
+}
+
+// GetPasswordLastUpdated returns the PasswordLastUpdated field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *User) GetPasswordLastUpdated() time.Time {
+	if o == nil || o.PasswordLastUpdated.Get() == nil {
+		var ret time.Time
+		return ret
+	}
+	return *o.PasswordLastUpdated.Get()
+}
+
+// GetPasswordLastUpdatedOk returns a tuple with the PasswordLastUpdated field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *User) GetPasswordLastUpdatedOk() (*time.Time, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.PasswordLastUpdated.Get(), o.PasswordLastUpdated.IsSet()
+}
+
+// HasPasswordLastUpdated returns a boolean if a field has been set.
+func (o *User) HasPasswordLastUpdated() bool {
+	if o != nil && o.PasswordLastUpdated.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetPasswordLastUpdated gets a reference to the given NullableTime and assigns it to the PasswordLastUpdated field.
+func (o *User) SetPasswordLastUpdated(v time.Time) {
+	o.PasswordLastUpdated.Set(&v)
+}
+// SetPasswordLastUpdatedNil sets the value for PasswordLastUpdated to be an explicit nil
+func (o *User) SetPasswordLastUpdatedNil() {
+	o.PasswordLastUpdated.Set(nil)
+}
+
+// UnsetPasswordLastUpdated ensures that no value is present for PasswordLastUpdated, not even an explicit nil
+func (o *User) UnsetPasswordLastUpdated() {
+	o.PasswordLastUpdated.Unset()
 }
 
 func (o User) MarshalJSON() ([]byte, error) {
@@ -242,8 +306,8 @@ func (o User) MarshalJSON() ([]byte, error) {
 	if o.Type != nil {
 		toSerialize["type"] = o.Type
 	}
-	if o.Source != nil {
-		toSerialize["source"] = o.Source
+	if o.Source.IsSet() {
+		toSerialize["source"] = o.Source.Get()
 	}
 	if o.CreatedAt != nil {
 		toSerialize["created_at"] = o.CreatedAt
@@ -251,8 +315,11 @@ func (o User) MarshalJSON() ([]byte, error) {
 	if o.LastUpdated != nil {
 		toSerialize["last_updated"] = o.LastUpdated
 	}
-	if o.IdpName != nil {
-		toSerialize["idp_name"] = o.IdpName
+	if o.IdpName.IsSet() {
+		toSerialize["idp_name"] = o.IdpName.Get()
+	}
+	if o.PasswordLastUpdated.IsSet() {
+		toSerialize["password_last_updated"] = o.PasswordLastUpdated.Get()
 	}
 	return json.Marshal(toSerialize)
 }

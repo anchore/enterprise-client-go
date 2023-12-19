@@ -9687,7 +9687,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/User'
+                $ref: '#/components/schemas/AccessCredential'
           description: Add a credential, over-writing if already exists
         '500':
           content:
@@ -19057,6 +19057,7 @@ components:
         idp_name: idp_name
         created_at: 2000-01-23 04:56:07+00:00
         source: source
+        password_last_updated: 2000-01-23 04:56:07+00:00
         type: native
         username: username
       properties:
@@ -19073,6 +19074,7 @@ components:
           description: When the user 'type' is 'saml', this will be the EntityId of
             the IDP that they are authenticating from. Otherwise, this will be set
             to null.
+          nullable: true
           type: string
         created_at:
           description: The timestamp of when the user record was created
@@ -19086,6 +19088,13 @@ components:
           description: When the user 'type' is 'saml', this will be the configured
             name of the IDP that they are authenticating from.  Otherwise, this will
             be set to null.
+          nullable: true
+          type: string
+        password_last_updated:
+          description: When the user 'type' is 'native', this will be the timestamp
+            of the last time this user's credentials were updated.
+          format: date-time
+          nullable: true
           type: string
       required:
       - username

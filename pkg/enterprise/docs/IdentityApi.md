@@ -18,7 +18,7 @@ Method | HTTP request | Description
 
 ## AddCredential
 
-> User AddCredential(ctx).Credential(credential).Execute()
+> AccessCredential AddCredential(ctx).Credential(credential).Execute()
 
 add/replace credential
 
@@ -44,7 +44,7 @@ func main() {
         fmt.Fprintf(os.Stderr, "Error when calling `IdentityApi.AddCredential``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `AddCredential`: User
+    // response from `AddCredential`: AccessCredential
     fmt.Fprintf(os.Stdout, "Response from `IdentityApi.AddCredential`: %v\n", resp)
 }
 ```
@@ -64,7 +64,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**User**](User.md)
+[**AccessCredential**](AccessCredential.md)
 
 ### Authorization
 

@@ -8737,7 +8737,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/User'
+                $ref: '#/components/schemas/AccessCredential'
         500:
           description: Internal error
           content:
@@ -14222,6 +14222,7 @@ components:
           description: When the user 'type' is 'saml', this will be the EntityId of
             the IDP that they are authenticating from. Otherwise, this will be set
             to null.
+          nullable: true
         created_at:
           type: string
           description: The timestamp of when the user record was created
@@ -14235,6 +14236,13 @@ components:
           description: When the user 'type' is 'saml', this will be the configured
             name of the IDP that they are authenticating from.  Otherwise, this will
             be set to null.
+          nullable: true
+        password_last_updated:
+          type: string
+          description: When the user 'type' is 'native', this will be the timestamp
+            of the last time this user's credentials were updated.
+          format: date-time
+          nullable: true
       description: A username for authenticating with one or more types of credentials.
         User type defines the expected credentials allowed for the user. Native users
         have passwords, other users have no credential internally. Internal users

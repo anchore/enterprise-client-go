@@ -6,10 +6,11 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Username** | **string** | The username to authenticate with | 
 **Type** | Pointer to **string** | The user&#39;s type | [optional] 
-**Source** | Pointer to **string** | When the user &#39;type&#39; is &#39;saml&#39;, this will be the EntityId of the IDP that they are authenticating from. Otherwise, this will be set to null. | [optional] 
+**Source** | Pointer to **NullableString** | When the user &#39;type&#39; is &#39;saml&#39;, this will be the EntityId of the IDP that they are authenticating from. Otherwise, this will be set to null. | [optional] 
 **CreatedAt** | Pointer to **time.Time** | The timestamp of when the user record was created | [optional] 
 **LastUpdated** | Pointer to **time.Time** | The timestamp of the last update to this record | [optional] 
-**IdpName** | Pointer to **string** | When the user &#39;type&#39; is &#39;saml&#39;, this will be the configured name of the IDP that they are authenticating from.  Otherwise, this will be set to null. | [optional] 
+**IdpName** | Pointer to **NullableString** | When the user &#39;type&#39; is &#39;saml&#39;, this will be the configured name of the IDP that they are authenticating from.  Otherwise, this will be set to null. | [optional] 
+**PasswordLastUpdated** | Pointer to **NullableTime** | When the user &#39;type&#39; is &#39;native&#39;, this will be the timestamp of the last time this user&#39;s credentials were updated. | [optional] 
 
 ## Methods
 
@@ -100,6 +101,16 @@ SetSource sets Source field to given value.
 
 HasSource returns a boolean if a field has been set.
 
+### SetSourceNil
+
+`func (o *User) SetSourceNil(b bool)`
+
+ SetSourceNil sets the value for Source to be an explicit nil
+
+### UnsetSource
+`func (o *User) UnsetSource()`
+
+UnsetSource ensures that no value is present for Source, not even an explicit nil
 ### GetCreatedAt
 
 `func (o *User) GetCreatedAt() time.Time`
@@ -175,6 +186,51 @@ SetIdpName sets IdpName field to given value.
 
 HasIdpName returns a boolean if a field has been set.
 
+### SetIdpNameNil
+
+`func (o *User) SetIdpNameNil(b bool)`
+
+ SetIdpNameNil sets the value for IdpName to be an explicit nil
+
+### UnsetIdpName
+`func (o *User) UnsetIdpName()`
+
+UnsetIdpName ensures that no value is present for IdpName, not even an explicit nil
+### GetPasswordLastUpdated
+
+`func (o *User) GetPasswordLastUpdated() time.Time`
+
+GetPasswordLastUpdated returns the PasswordLastUpdated field if non-nil, zero value otherwise.
+
+### GetPasswordLastUpdatedOk
+
+`func (o *User) GetPasswordLastUpdatedOk() (*time.Time, bool)`
+
+GetPasswordLastUpdatedOk returns a tuple with the PasswordLastUpdated field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetPasswordLastUpdated
+
+`func (o *User) SetPasswordLastUpdated(v time.Time)`
+
+SetPasswordLastUpdated sets PasswordLastUpdated field to given value.
+
+### HasPasswordLastUpdated
+
+`func (o *User) HasPasswordLastUpdated() bool`
+
+HasPasswordLastUpdated returns a boolean if a field has been set.
+
+### SetPasswordLastUpdatedNil
+
+`func (o *User) SetPasswordLastUpdatedNil(b bool)`
+
+ SetPasswordLastUpdatedNil sets the value for PasswordLastUpdated to be an explicit nil
+
+### UnsetPasswordLastUpdated
+`func (o *User) UnsetPasswordLastUpdated()`
+
+UnsetPasswordLastUpdated ensures that no value is present for PasswordLastUpdated, not even an explicit nil
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
