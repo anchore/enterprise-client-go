@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 
+import datetime
 import yaml
 
 policy_example = '''
@@ -187,10 +188,14 @@ policy_example = '''
 if __name__ == '__main__':
     replacement = yaml.safe_load(policy_example)
     spec = None
+    def timestamp_constructor(loader, node):
+        return datetime.datetime.strptime(node.value, "%Y-%m-%dT%H:%M:%S.%f")
+    yaml.add_constructor(u'tag:yaml.org,2002:timestamp', timestamp_constructor)
+
     with open("pkg/enterprise/api/openapi.yaml", "r") as f:
-        spec = yaml.safe_load(f)
+        spec = yaml.load(f, Loader=yaml.BaseLoader)
     
     spec["components"]["schemas"]["PolicyRecord"]["example"]["policy"] = replacement
 
     with open("pkg/enterprise/api/openapi.yaml", "w") as f:
-        yaml.safe_dump(spec, f, sort_keys=False)
+        yaml.safe_dump(spec, f, sort_keys=False, default_flow_style=False, default_style="")

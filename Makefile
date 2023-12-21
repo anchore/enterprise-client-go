@@ -79,4 +79,3 @@ help:
 .PHONY :=
 patch:
 	git apply -q patches/*.diff
-	patches/patch_policy_example.py
