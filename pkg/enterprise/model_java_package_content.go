@@ -24,6 +24,7 @@ type JavaPackageContent struct {
 	Location *string `json:"location,omitempty"`
 	Type *string `json:"type,omitempty"`
 	Origin *string `json:"origin,omitempty"`
+	Licenses []string `json:"licenses,omitempty"`
 	// A list of Common Platform Enumerations that may uniquely identify the package
 	Cpes []string `json:"cpes,omitempty"`
 	Purl *string `json:"purl,omitempty"`
@@ -271,6 +272,38 @@ func (o *JavaPackageContent) SetOrigin(v string) {
 	o.Origin = &v
 }
 
+// GetLicenses returns the Licenses field value if set, zero value otherwise.
+func (o *JavaPackageContent) GetLicenses() []string {
+	if o == nil || o.Licenses == nil {
+		var ret []string
+		return ret
+	}
+	return o.Licenses
+}
+
+// GetLicensesOk returns a tuple with the Licenses field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *JavaPackageContent) GetLicensesOk() ([]string, bool) {
+	if o == nil || o.Licenses == nil {
+		return nil, false
+	}
+	return o.Licenses, true
+}
+
+// HasLicenses returns a boolean if a field has been set.
+func (o *JavaPackageContent) HasLicenses() bool {
+	if o != nil && o.Licenses != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetLicenses gets a reference to the given []string and assigns it to the Licenses field.
+func (o *JavaPackageContent) SetLicenses(v []string) {
+	o.Licenses = v
+}
+
 // GetCpes returns the Cpes field value if set, zero value otherwise.
 func (o *JavaPackageContent) GetCpes() []string {
 	if o == nil || o.Cpes == nil {
@@ -389,6 +422,9 @@ func (o JavaPackageContent) MarshalJSON() ([]byte, error) {
 	}
 	if o.Origin != nil {
 		toSerialize["origin"] = o.Origin
+	}
+	if o.Licenses != nil {
+		toSerialize["licenses"] = o.Licenses
 	}
 	if o.Cpes != nil {
 		toSerialize["cpes"] = o.Cpes
