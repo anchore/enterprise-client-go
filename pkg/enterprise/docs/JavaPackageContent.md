@@ -11,6 +11,7 @@ Name | Type | Description | Notes
 **Location** | Pointer to **string** |  | [optional] 
 **Type** | Pointer to **string** |  | [optional] 
 **Origin** | Pointer to **string** |  | [optional] 
+**Licenses** | Pointer to **[]string** |  | [optional] 
 **Cpes** | Pointer to **[]string** | A list of Common Platform Enumerations that may uniquely identify the package | [optional] 
 **Purl** | Pointer to **string** |  | [optional] 
 **Version** | Pointer to **string** |  | [optional] 
@@ -208,6 +209,31 @@ SetOrigin sets Origin field to given value.
 `func (o *JavaPackageContent) HasOrigin() bool`
 
 HasOrigin returns a boolean if a field has been set.
+
+### GetLicenses
+
+`func (o *JavaPackageContent) GetLicenses() []string`
+
+GetLicenses returns the Licenses field if non-nil, zero value otherwise.
+
+### GetLicensesOk
+
+`func (o *JavaPackageContent) GetLicensesOk() (*[]string, bool)`
+
+GetLicensesOk returns a tuple with the Licenses field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetLicenses
+
+`func (o *JavaPackageContent) SetLicenses(v []string)`
+
+SetLicenses sets Licenses field to given value.
+
+### HasLicenses
+
+`func (o *JavaPackageContent) HasLicenses() bool`
+
+HasLicenses returns a boolean if a field has been set.
 
 ### GetCpes
 

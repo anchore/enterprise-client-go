@@ -2128,6 +2128,7 @@ type ApiGetImageVulnerabilitiesByDigestRequest struct {
 	imageDigest string
 	vulnType string
 	forceRefresh *bool
+	includeVulnDescription *bool
 	vendorOnly *bool
 	baseDigest *string
 	xAnchoreAccount *string
@@ -2135,6 +2136,11 @@ type ApiGetImageVulnerabilitiesByDigestRequest struct {
 
 func (r ApiGetImageVulnerabilitiesByDigestRequest) ForceRefresh(forceRefresh bool) ApiGetImageVulnerabilitiesByDigestRequest {
 	r.forceRefresh = &forceRefresh
+	return r
+}
+
+func (r ApiGetImageVulnerabilitiesByDigestRequest) IncludeVulnDescription(includeVulnDescription bool) ApiGetImageVulnerabilitiesByDigestRequest {
+	r.includeVulnDescription = &includeVulnDescription
 	return r
 }
 
@@ -2202,6 +2208,9 @@ func (a *ImagesApiService) GetImageVulnerabilitiesByDigestExecute(r ApiGetImageV
 
 	if r.forceRefresh != nil {
 		localVarQueryParams.Add("force_refresh", parameterToString(*r.forceRefresh, ""))
+	}
+	if r.includeVulnDescription != nil {
+		localVarQueryParams.Add("include_vuln_description", parameterToString(*r.includeVulnDescription, ""))
 	}
 	if r.vendorOnly != nil {
 		localVarQueryParams.Add("vendor_only", parameterToString(*r.vendorOnly, ""))

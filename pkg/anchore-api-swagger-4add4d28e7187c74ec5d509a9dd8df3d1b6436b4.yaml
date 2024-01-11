@@ -3368,6 +3368,11 @@ paths:
         schema:
           type: boolean
           default: false
+      - name: include_vuln_description
+        in: query
+        schema:
+          type: boolean
+          default: false
       - name: vendor_only
         in: query
         description: Filter results to include only vulnerabilities that are not marked
@@ -11152,6 +11157,10 @@ components:
           type: string
         origin:
           type: string
+        licenses:
+          type: array
+          items:
+            type: string
         cpes:
           type: array
           description: A list of Common Platform Enumerations that may uniquely identify
@@ -14495,3 +14504,13 @@ components:
         that account, if permissions allow (admin only)
       schema:
         type: string
+    AnchoreRequestIdParameter:
+      name: Anchore-Request-Id
+      in: header
+      description: A request ID which will appear in all logs related to the request.
+        It will appear on all logs in the call chain. This is auto generated if not
+        provided. Limited to lowercase alphanumeric and hyphens with a max length
+        of 64.
+      schema:
+        type: string
+        pattern: ^[a-z0-9-]{1,64}$
