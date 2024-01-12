@@ -5,6 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Id** | Pointer to **string** | NVD Vulnerability ID | [optional] 
+**Description** | Pointer to **string** | The full NVD description text for the vulnerability | [optional] 
 **CvssV2** | Pointer to [**CVSSV2Scores**](CVSSV2Scores.md) |  | [optional] 
 **CvssV3** | Pointer to [**CVSSV3Scores**](CVSSV3Scores.md) |  | [optional] 
 
@@ -51,6 +52,31 @@ SetId sets Id field to given value.
 `func (o *NvdDataObject) HasId() bool`
 
 HasId returns a boolean if a field has been set.
+
+### GetDescription
+
+`func (o *NvdDataObject) GetDescription() string`
+
+GetDescription returns the Description field if non-nil, zero value otherwise.
+
+### GetDescriptionOk
+
+`func (o *NvdDataObject) GetDescriptionOk() (*string, bool)`
+
+GetDescriptionOk returns a tuple with the Description field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDescription
+
+`func (o *NvdDataObject) SetDescription(v string)`
+
+SetDescription sets Description field to given value.
+
+### HasDescription
+
+`func (o *NvdDataObject) HasDescription() bool`
+
+HasDescription returns a boolean if a field has been set.
 
 ### GetCvssV2
 
