@@ -19,6 +19,8 @@ import (
 type NvdDataObject struct {
 	// NVD Vulnerability ID
 	Id *string `json:"id,omitempty"`
+	// The full NVD description text for the vulnerability
+	Description *string `json:"description,omitempty"`
 	CvssV2 *CVSSV2Scores `json:"cvss_v2,omitempty"`
 	CvssV3 *CVSSV3Scores `json:"cvss_v3,omitempty"`
 }
@@ -70,6 +72,38 @@ func (o *NvdDataObject) HasId() bool {
 // SetId gets a reference to the given string and assigns it to the Id field.
 func (o *NvdDataObject) SetId(v string) {
 	o.Id = &v
+}
+
+// GetDescription returns the Description field value if set, zero value otherwise.
+func (o *NvdDataObject) GetDescription() string {
+	if o == nil || o.Description == nil {
+		var ret string
+		return ret
+	}
+	return *o.Description
+}
+
+// GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *NvdDataObject) GetDescriptionOk() (*string, bool) {
+	if o == nil || o.Description == nil {
+		return nil, false
+	}
+	return o.Description, true
+}
+
+// HasDescription returns a boolean if a field has been set.
+func (o *NvdDataObject) HasDescription() bool {
+	if o != nil && o.Description != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetDescription gets a reference to the given string and assigns it to the Description field.
+func (o *NvdDataObject) SetDescription(v string) {
+	o.Description = &v
 }
 
 // GetCvssV2 returns the CvssV2 field value if set, zero value otherwise.
@@ -140,6 +174,9 @@ func (o NvdDataObject) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.Id != nil {
 		toSerialize["id"] = o.Id
+	}
+	if o.Description != nil {
+		toSerialize["description"] = o.Description
 	}
 	if o.CvssV2 != nil {
 		toSerialize["cvss_v2"] = o.CvssV2

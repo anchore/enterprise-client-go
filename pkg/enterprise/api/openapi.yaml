@@ -14924,10 +14924,14 @@ components:
           base_score: 0.8008281904610115
           impact_score: 1.4658129805029452
           exploitability_score: 6.027456183070403
+        description: description
         id: id
       properties:
         id:
           description: NVD Vulnerability ID
+          type: string
+        description:
+          description: The full NVD description text for the vulnerability
           type: string
         cvss_v2:
           $ref: '#/components/schemas/CVSSV2Scores'
@@ -15083,6 +15087,7 @@ components:
             base_score: 0.8008281904610115
             impact_score: 1.4658129805029452
             exploitability_score: 6.027456183070403
+          description: description
           id: id
         - cvss_v3:
             base_score: 5.962133916683182
@@ -15092,6 +15097,7 @@ components:
             base_score: 0.8008281904610115
             impact_score: 1.4658129805029452
             exploitability_score: 6.027456183070403
+          description: description
           id: id
         vendor_data:
         - cvss_v3:
@@ -15112,6 +15118,7 @@ components:
             impact_score: 1.4658129805029452
             exploitability_score: 6.027456183070403
           id: id
+        description: description
         package_type: package_type
         package_cpe: package_cpe
         url: url
@@ -15127,6 +15134,9 @@ components:
       properties:
         vuln:
           description: "The vulnerability identifier, such as CVE-2017-100, or RHSA-2017123"
+          type: string
+        description:
+          description: The full description text for the vulnerability
           type: string
         fix:
           description: "The package containing a fix, if available"
@@ -17663,6 +17673,7 @@ components:
               base_score: 0.8008281904610115
               impact_score: 1.4658129805029452
               exploitability_score: 6.027456183070403
+            description: description
             id: id
           - cvss_v3:
               base_score: 5.962133916683182
@@ -17672,6 +17683,7 @@ components:
               base_score: 0.8008281904610115
               impact_score: 1.4658129805029452
               exploitability_score: 6.027456183070403
+            description: description
             id: id
           vendor_data:
           - cvss_v3:
@@ -17692,6 +17704,7 @@ components:
               impact_score: 1.4658129805029452
               exploitability_score: 6.027456183070403
             id: id
+          description: description
           package_type: package_type
           package_cpe: package_cpe
           url: url
@@ -17716,6 +17729,7 @@ components:
               base_score: 0.8008281904610115
               impact_score: 1.4658129805029452
               exploitability_score: 6.027456183070403
+            description: description
             id: id
           - cvss_v3:
               base_score: 5.962133916683182
@@ -17725,6 +17739,7 @@ components:
               base_score: 0.8008281904610115
               impact_score: 1.4658129805029452
               exploitability_score: 6.027456183070403
+            description: description
             id: id
           vendor_data:
           - cvss_v3:
@@ -17745,6 +17760,7 @@ components:
               impact_score: 1.4658129805029452
               exploitability_score: 6.027456183070403
             id: id
+          description: description
           package_type: package_type
           package_cpe: package_cpe
           url: url
@@ -18247,6 +18263,7 @@ components:
               base_score: 0.8008281904610115
               impact_score: 1.4658129805029452
               exploitability_score: 6.027456183070403
+            description: description
             id: id
           - cvss_v3:
               base_score: 5.962133916683182
@@ -18256,6 +18273,7 @@ components:
               base_score: 0.8008281904610115
               impact_score: 1.4658129805029452
               exploitability_score: 6.027456183070403
+            description: description
             id: id
           vendor_data:
           - cvss_v3:
@@ -18276,6 +18294,7 @@ components:
               impact_score: 1.4658129805029452
               exploitability_score: 6.027456183070403
             id: id
+          description: description
           package_type: package_type
           package_cpe: package_cpe
           url: url
@@ -18300,6 +18319,7 @@ components:
               base_score: 0.8008281904610115
               impact_score: 1.4658129805029452
               exploitability_score: 6.027456183070403
+            description: description
             id: id
           - cvss_v3:
               base_score: 5.962133916683182
@@ -18309,6 +18329,7 @@ components:
               base_score: 0.8008281904610115
               impact_score: 1.4658129805029452
               exploitability_score: 6.027456183070403
+            description: description
             id: id
           vendor_data:
           - cvss_v3:
@@ -18329,6 +18350,7 @@ components:
               impact_score: 1.4658129805029452
               exploitability_score: 6.027456183070403
             id: id
+          description: description
           package_type: package_type
           package_cpe: package_cpe
           url: url

@@ -12305,6 +12305,9 @@ components:
         id:
           type: string
           description: NVD Vulnerability ID
+        description:
+          description: The full NVD description text for the vulnerability
+          type: string
         cvss_v2:
           $ref: '#/components/schemas/CVSSV2Scores'
         cvss_v3:
@@ -12413,6 +12416,9 @@ components:
         vuln:
           type: string
           description: The vulnerability identifier, such as CVE-2017-100, or RHSA-2017123
+        description:
+          description: The full description text for the vulnerability
+          type: string
         fix:
           type: string
           description: The package containing a fix, if available
