@@ -569,7 +569,7 @@ No authorization required
 
 ## GetSourceVulnerabilities
 
-> SourcePackageVulnerabilityResponse GetSourceVulnerabilities(ctx, sourceId, vulnType).ForceRefresh(forceRefresh).WillNotFix(willNotFix).XAnchoreAccount(xAnchoreAccount).Execute()
+> SourcePackageVulnerabilityResponse GetSourceVulnerabilities(ctx, sourceId, vulnType).ForceRefresh(forceRefresh).IncludeVulnDescription(includeVulnDescription).WillNotFix(willNotFix).XAnchoreAccount(xAnchoreAccount).Execute()
 
 Get vulnerabilities for the source by type
 
@@ -589,12 +589,13 @@ func main() {
     sourceId := "sourceId_example" // string | 
     vulnType := "vulnType_example" // string | 
     forceRefresh := true // bool |  (optional)
+    includeVulnDescription := true // bool |  (optional) (default to false)
     willNotFix := true // bool | Vulnerability data publishers explicitly won't fix some vulnerabilities. This is captured by will_not_fix attribute of each result. If the query parameter is set, results matching it's value will be filtered. Results are not filtered if the query parameter is unset (optional)
     xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.SourcesApi.GetSourceVulnerabilities(context.Background(), sourceId, vulnType).ForceRefresh(forceRefresh).WillNotFix(willNotFix).XAnchoreAccount(xAnchoreAccount).Execute()
+    resp, r, err := apiClient.SourcesApi.GetSourceVulnerabilities(context.Background(), sourceId, vulnType).ForceRefresh(forceRefresh).IncludeVulnDescription(includeVulnDescription).WillNotFix(willNotFix).XAnchoreAccount(xAnchoreAccount).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `SourcesApi.GetSourceVulnerabilities``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -623,6 +624,7 @@ Name | Type | Description  | Notes
 
 
  **forceRefresh** | **bool** |  | 
+ **includeVulnDescription** | **bool** |  | [default to false]
  **willNotFix** | **bool** | Vulnerability data publishers explicitly won&#39;t fix some vulnerabilities. This is captured by will_not_fix attribute of each result. If the query parameter is set, results matching it&#39;s value will be filtered. Results are not filtered if the query parameter is unset | 
  **xAnchoreAccount** | **string** | An account name to change the resource scope of the request to that account, if permissions allow (admin only) | 
 

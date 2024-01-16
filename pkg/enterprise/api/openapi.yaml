@@ -8692,6 +8692,14 @@ paths:
         schema:
           type: boolean
         style: form
+      - explode: true
+        in: query
+        name: include_vuln_description
+        required: false
+        schema:
+          default: false
+          type: boolean
+        style: form
       - description: "Vulnerability data publishers explicitly won't fix some vulnerabilities.\
           \ This is captured by will_not_fix attribute of each result. If the query\
           \ parameter is set, results matching it's value will be filtered. Results\
@@ -9742,6 +9750,14 @@ paths:
         schema:
           type: string
         style: simple
+      - explode: true
+        in: query
+        name: include_vuln_description
+        required: false
+        schema:
+          default: false
+          type: boolean
+        style: form
       requestBody:
         content:
           application/json:

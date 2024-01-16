@@ -45,6 +45,7 @@ type ApiVulnerabilityScanSbomRequest struct {
 	ApiService VulnerabilitiesApi
 	sbom *interface{}
 	xAnchoreAccount *string
+	includeVulnDescription *bool
 }
 
 func (r ApiVulnerabilityScanSbomRequest) Sbom(sbom interface{}) ApiVulnerabilityScanSbomRequest {
@@ -55,6 +56,11 @@ func (r ApiVulnerabilityScanSbomRequest) Sbom(sbom interface{}) ApiVulnerability
 // An account name to change the resource scope of the request to that account, if permissions allow (admin only)
 func (r ApiVulnerabilityScanSbomRequest) XAnchoreAccount(xAnchoreAccount string) ApiVulnerabilityScanSbomRequest {
 	r.xAnchoreAccount = &xAnchoreAccount
+	return r
+}
+
+func (r ApiVulnerabilityScanSbomRequest) IncludeVulnDescription(includeVulnDescription bool) ApiVulnerabilityScanSbomRequest {
+	r.includeVulnDescription = &includeVulnDescription
 	return r
 }
 
@@ -101,6 +107,9 @@ func (a *VulnerabilitiesApiService) VulnerabilityScanSbomExecute(r ApiVulnerabil
 		return localVarReturnValue, nil, reportError("sbom is required and must be specified")
 	}
 
+	if r.includeVulnDescription != nil {
+		localVarQueryParams.Add("include_vuln_description", parameterToString(*r.includeVulnDescription, ""))
+	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
 

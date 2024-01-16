@@ -7797,6 +7797,11 @@ paths:
         in: query
         schema:
           type: boolean
+      - name: include_vuln_description
+        in: query
+        schema:
+          type: boolean
+          default: false
       - name: will_not_fix
         in: query
         description: Vulnerability data publishers explicitly won't fix some vulnerabilities.
@@ -8786,6 +8791,11 @@ paths:
           that account, if permissions allow (admin only)
         schema:
           type: string
+      - name: include_vuln_description
+        in: query
+        schema:
+          type: boolean
+          default: false
       requestBody:
         content:
           application/json:

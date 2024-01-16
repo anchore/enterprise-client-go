@@ -10,7 +10,7 @@ Method | HTTP request | Description
 
 ## VulnerabilityScanSbom
 
-> SBOMVulnerabilitiesResponse VulnerabilityScanSbom(ctx).Sbom(sbom).XAnchoreAccount(xAnchoreAccount).Execute()
+> SBOMVulnerabilitiesResponse VulnerabilityScanSbom(ctx).Sbom(sbom).XAnchoreAccount(xAnchoreAccount).IncludeVulnDescription(includeVulnDescription).Execute()
 
 Return a vulnerability scan for the uploaded SBOM without storing the SBOM and without any side-effects in the system.
 
@@ -31,10 +31,11 @@ import (
 func main() {
     sbom := interface{}{ ... } // interface{} | 
     xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
+    includeVulnDescription := true // bool |  (optional) (default to false)
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.VulnerabilitiesApi.VulnerabilityScanSbom(context.Background()).Sbom(sbom).XAnchoreAccount(xAnchoreAccount).Execute()
+    resp, r, err := apiClient.VulnerabilitiesApi.VulnerabilityScanSbom(context.Background()).Sbom(sbom).XAnchoreAccount(xAnchoreAccount).IncludeVulnDescription(includeVulnDescription).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `VulnerabilitiesApi.VulnerabilityScanSbom``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -57,6 +58,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **sbom** | **interface{}** |  | 
  **xAnchoreAccount** | **string** | An account name to change the resource scope of the request to that account, if permissions allow (admin only) | 
+ **includeVulnDescription** | **bool** |  | [default to false]
 
 ### Return type
 

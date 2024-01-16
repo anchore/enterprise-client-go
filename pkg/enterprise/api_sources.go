@@ -1005,12 +1005,18 @@ type ApiGetSourceVulnerabilitiesRequest struct {
 	sourceId string
 	vulnType string
 	forceRefresh *bool
+	includeVulnDescription *bool
 	willNotFix *bool
 	xAnchoreAccount *string
 }
 
 func (r ApiGetSourceVulnerabilitiesRequest) ForceRefresh(forceRefresh bool) ApiGetSourceVulnerabilitiesRequest {
 	r.forceRefresh = &forceRefresh
+	return r
+}
+
+func (r ApiGetSourceVulnerabilitiesRequest) IncludeVulnDescription(includeVulnDescription bool) ApiGetSourceVulnerabilitiesRequest {
+	r.includeVulnDescription = &includeVulnDescription
 	return r
 }
 
@@ -1072,6 +1078,9 @@ func (a *SourcesApiService) GetSourceVulnerabilitiesExecute(r ApiGetSourceVulner
 
 	if r.forceRefresh != nil {
 		localVarQueryParams.Add("force_refresh", parameterToString(*r.forceRefresh, ""))
+	}
+	if r.includeVulnDescription != nil {
+		localVarQueryParams.Add("include_vuln_description", parameterToString(*r.includeVulnDescription, ""))
 	}
 	if r.willNotFix != nil {
 		localVarQueryParams.Add("will_not_fix", parameterToString(*r.willNotFix, ""))
