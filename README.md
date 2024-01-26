@@ -13,11 +13,8 @@ Note: the version of the enterprise where the swagger spec is pulled from is pin
 
 ## Release Strategy:
 
-Currently releases are manual. This table shows the released versions of the client and it's associated enterprise version:
-
-| client version | enterprise version |
-|----------------|--------------------|
-| v1.0.0         | v4.3.0             |
+Currently releases are manual, since the release of Anchore Enterprise 5.0 this repo has been
+tagged to match the the Enterprise version. 
 
 If breaking changes are introduced past this point, please follow this guide regarding how to release new
 major versions of a Golang library:
