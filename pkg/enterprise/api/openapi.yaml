@@ -9458,6 +9458,22 @@ paths:
       - System
       x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.system
       x-anchore-authz-action: getService
+  /system/statistics:
+    get:
+      description: Returns list of system statistics
+      operationId: get_system_statistics
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SystemStatisticsList'
+          description: List of system statistics
+      summary: List System Statistics
+      tags:
+      - Statistics
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.system
+      x-anchore-authz-action: None
   /system/webhooks/{webhook_type}/test:
     post:
       description: "Loads the Webhook configuration for webhook_type, and sends the\
@@ -18922,6 +18938,39 @@ components:
         active:
           description: Toggle the subscription processing on or off
           type: boolean
+      type: object
+    SystemStatistics:
+      example:
+        value_type: value_type
+        name: name
+        description: description
+        value: 0
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        value_type:
+          type: string
+        value:
+          type: integer
+      type: object
+    SystemStatisticsList:
+      example:
+        items:
+        - value_type: value_type
+          name: name
+          description: description
+          value: 0
+        - value_type: value_type
+          name: name
+          description: description
+          value: 0
+      properties:
+        items:
+          items:
+            $ref: '#/components/schemas/SystemStatistics'
+          type: array
       type: object
     SystemStatusResponse:
       description: System status response

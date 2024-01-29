@@ -23,6 +23,7 @@ api_relationships.go
 api_reports.go
 api_repository.go
 api_sources.go
+api_statistics.go
 api_subscriptions.go
 api_system.go
 api_user_management.go
@@ -328,12 +329,15 @@ docs/SourcePolicyEvaluationFinding.md
 docs/SourcesApi.md
 docs/SourcesList.md
 docs/StandaloneVulnerability.md
+docs/StatisticsApi.md
 docs/StatusResponse.md
 docs/Subscription.md
 docs/SubscriptionRequest.md
 docs/SubscriptionUpdate.md
 docs/SubscriptionsApi.md
 docs/SystemApi.md
+docs/SystemStatistics.md
+docs/SystemStatisticsList.md
 docs/SystemStatusResponse.md
 docs/TagEntry.md
 docs/TagUpdateNotification.md
@@ -658,6 +662,8 @@ model_status_response.go
 model_subscription.go
 model_subscription_request.go
 model_subscription_update.go
+model_system_statistics.go
+model_system_statistics_list.go
 model_system_status_response.go
 model_tag_entry.go
 model_tag_update_notification.go

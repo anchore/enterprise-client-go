@@ -324,6 +324,7 @@ Class | Method | HTTP request | Description
 *SourcesApi* | [**GetSourceVulnerabilities**](docs/SourcesApi.md#getsourcevulnerabilities) | **Get** /sources/{source_id}/vuln/{vuln_type} | Get vulnerabilities for the source by type
 *SourcesApi* | [**GetSourceVulnerabilityTypes**](docs/SourcesApi.md#getsourcevulnerabilitytypes) | **Get** /sources/{source_id}/vuln | Get the available vulnerability types for source
 *SourcesApi* | [**ListSources**](docs/SourcesApi.md#listsources) | **Get** /sources | List the source repository analysis records
+*StatisticsApi* | [**GetSystemStatistics**](docs/StatisticsApi.md#getsystemstatistics) | **Get** /system/statistics | List System Statistics
 *SubscriptionsApi* | [**AddSubscription**](docs/SubscriptionsApi.md#addsubscription) | **Post** /subscriptions | Add a subscription of a specific type
 *SubscriptionsApi* | [**DeleteSubscription**](docs/SubscriptionsApi.md#deletesubscription) | **Delete** /subscriptions/{subscription_id} | Delete specific subscription
 *SubscriptionsApi* | [**GetSubscription**](docs/SubscriptionsApi.md#getsubscription) | **Get** /subscriptions/{subscription_id} | Get a specific subscription set
@@ -653,6 +654,8 @@ Class | Method | HTTP request | Description
  - [Subscription](docs/Subscription.md)
  - [SubscriptionRequest](docs/SubscriptionRequest.md)
  - [SubscriptionUpdate](docs/SubscriptionUpdate.md)
+ - [SystemStatistics](docs/SystemStatistics.md)
+ - [SystemStatisticsList](docs/SystemStatisticsList.md)
  - [SystemStatusResponse](docs/SystemStatusResponse.md)
  - [TagEntry](docs/TagEntry.md)
  - [TagUpdateNotification](docs/TagUpdateNotification.md)

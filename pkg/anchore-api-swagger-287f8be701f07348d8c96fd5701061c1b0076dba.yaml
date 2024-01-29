@@ -8492,6 +8492,22 @@ paths:
                 $ref: '#/components/schemas/ApiErrorResponse'
       x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.system
       x-anchore-authz-action: deleteService
+  /system/statistics:
+    get:
+      tags:
+      - Statistics
+      summary: List System Statistics
+      description: Returns list of system statistics
+      operationId: get_system_statistics
+      responses:
+        200:
+          description: List of system statistics
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SystemStatisticsList'
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.system
+      x-anchore-authz-action: None
   /system/webhooks/{webhook_type}/test:
     post:
       tags:
@@ -14084,6 +14100,24 @@ components:
           description: Toggle the subscription processing on or off
       description: A modification to a subscription entry to change its status or
         value
+    SystemStatistics:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        value_type:
+          type: string
+        value:
+          type: integer
+    SystemStatisticsList:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/SystemStatistics'
     SystemStatusResponse:
       type: object
       properties:
