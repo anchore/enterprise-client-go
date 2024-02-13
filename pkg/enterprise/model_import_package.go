@@ -3,7 +3,7 @@ Anchore API
 
 This is the Anchore API. Provides the external API for users of Anchore Enterprise.
 
-API version: 2.1.0
+API version: 2.2.0
 Contact: dev@anchore.com
 */
 
@@ -25,7 +25,7 @@ type ImportPackage struct {
 	Locations []ImportPackageLocation `json:"locations"`
 	Licenses []interface{} `json:"licenses"`
 	Language string `json:"language"`
-	Cpes []string `json:"cpes"`
+	Cpes []ImportPackageCpesInner `json:"cpes"`
 	Purl *string `json:"purl,omitempty"`
 	MetadataType NullableString `json:"metadataType,omitempty"`
 	Metadata interface{} `json:"metadata,omitempty"`
@@ -38,7 +38,7 @@ type _ImportPackage ImportPackage
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewImportPackage(name string, version string, type_ string, locations []ImportPackageLocation, licenses []interface{}, language string, cpes []string) *ImportPackage {
+func NewImportPackage(name string, version string, type_ string, locations []ImportPackageLocation, licenses []interface{}, language string, cpes []ImportPackageCpesInner) *ImportPackage {
 	this := ImportPackage{}
 	this.Name = name
 	this.Version = version
@@ -267,9 +267,9 @@ func (o *ImportPackage) SetLanguage(v string) {
 }
 
 // GetCpes returns the Cpes field value
-func (o *ImportPackage) GetCpes() []string {
+func (o *ImportPackage) GetCpes() []ImportPackageCpesInner {
 	if o == nil {
-		var ret []string
+		var ret []ImportPackageCpesInner
 		return ret
 	}
 
@@ -278,7 +278,7 @@ func (o *ImportPackage) GetCpes() []string {
 
 // GetCpesOk returns a tuple with the Cpes field value
 // and a boolean to check if the value has been set.
-func (o *ImportPackage) GetCpesOk() ([]string, bool) {
+func (o *ImportPackage) GetCpesOk() ([]ImportPackageCpesInner, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -286,7 +286,7 @@ func (o *ImportPackage) GetCpesOk() ([]string, bool) {
 }
 
 // SetCpes sets field value
-func (o *ImportPackage) SetCpes(v []string) {
+func (o *ImportPackage) SetCpes(v []ImportPackageCpesInner) {
 	o.Cpes = v
 }
 

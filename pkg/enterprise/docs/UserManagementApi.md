@@ -4,27 +4,178 @@ All URIs are relative to */v2*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**AddUserGroupRoles**](UserManagementApi.md#AddUserGroupRoles) | **Post** /system/user-groups/{name}/roles | Add an account role to this user group
+[**AddUserGroupUsers**](UserManagementApi.md#AddUserGroupUsers) | **Post** /system/user-groups/{name}/users | Add user(s) to a user group
 [**CreateAccount**](UserManagementApi.md#CreateAccount) | **Post** /accounts | Create a new account. Only available to admin user.
 [**CreateUser**](UserManagementApi.md#CreateUser) | **Post** /accounts/{account_name}/users | Create a new user within the specified account.
 [**CreateUserApiKey**](UserManagementApi.md#CreateUserApiKey) | **Post** /accounts/{account_name}/users/{username}/api-keys | Add a new API key
 [**CreateUserCredential**](UserManagementApi.md#CreateUserCredential) | **Post** /accounts/{account_name}/users/{username}/credentials | add/replace credential
+[**CreateUserGroup**](UserManagementApi.md#CreateUserGroup) | **Post** /system/user-groups | Create a new user group
 [**DeleteAccount**](UserManagementApi.md#DeleteAccount) | **Delete** /accounts/{account_name} | Delete the specified account, only allowed if the account is in the disabled state. All users will be deleted along with the account and all resources will be garbage collected
 [**DeleteUser**](UserManagementApi.md#DeleteUser) | **Delete** /accounts/{account_name}/users/{username} | Delete a specific user credential by username of the credential. Cannot be the credential used to authenticate the request.
 [**DeleteUserApiKey**](UserManagementApi.md#DeleteUserApiKey) | **Delete** /accounts/{account_name}/users/{username}/api-keys/{key_name} | Delete a user API key
 [**DeleteUserCredential**](UserManagementApi.md#DeleteUserCredential) | **Delete** /accounts/{account_name}/users/{username}/credentials | Delete a credential by type
+[**DeleteUserGroup**](UserManagementApi.md#DeleteUserGroup) | **Delete** /system/user-groups/{name} | Delete a user group
+[**DeleteUserGroupRole**](UserManagementApi.md#DeleteUserGroupRole) | **Delete** /system/user-groups/{name}/roles | Remove an account role from this user group
+[**DeleteUserGroupUser**](UserManagementApi.md#DeleteUserGroupUser) | **Delete** /system/user-groups/{name}/users/{username} | Remove a user from a user group
 [**GetAccount**](UserManagementApi.md#GetAccount) | **Get** /accounts/{account_name} | Get account info about this specific account.
 [**GetAccountUser**](UserManagementApi.md#GetAccountUser) | **Get** /accounts/{account_name}/users/{username} | Get a specific user in the specified account
 [**GetOauthToken**](UserManagementApi.md#GetOauthToken) | **Post** /oauth/token | 
 [**GetUserApiKey**](UserManagementApi.md#GetUserApiKey) | **Get** /accounts/{account_name}/users/{username}/api-keys/{key_name} | Get a user API key
+[**GetUserGroup**](UserManagementApi.md#GetUserGroup) | **Get** /system/user-groups/{name} | Get a user group
 [**ListAccounts**](UserManagementApi.md#ListAccounts) | **Get** /accounts | List account summaries. Only available to the system admin user.
 [**ListUserApiKeys**](UserManagementApi.md#ListUserApiKeys) | **Get** /accounts/{account_name}/users/{username}/api-keys | Get a list of API keys
 [**ListUserCredentials**](UserManagementApi.md#ListUserCredentials) | **Get** /accounts/{account_name}/users/{username}/credentials | Get current credential summary
+[**ListUserGroupRoles**](UserManagementApi.md#ListUserGroupRoles) | **Get** /system/user-groups/{name}/roles | Get a list of user group roles
+[**ListUserGroupUsers**](UserManagementApi.md#ListUserGroupUsers) | **Get** /system/user-groups/{name}/users | Get a list of user group users
+[**ListUserGroups**](UserManagementApi.md#ListUserGroups) | **Get** /system/user-groups | List user groups
 [**ListUsers**](UserManagementApi.md#ListUsers) | **Get** /accounts/{account_name}/users | List of users found in this account.
 [**PatchUserApiKey**](UserManagementApi.md#PatchUserApiKey) | **Patch** /accounts/{account_name}/users/{username}/api-keys/{key_name} | Patch a user API key
 [**RevokeOauthToken**](UserManagementApi.md#RevokeOauthToken) | **Post** /oauth/revoke | 
 [**UpdateAccount**](UserManagementApi.md#UpdateAccount) | **Put** /accounts/{account_name} | Update the info for this specific account.
 [**UpdateAccountState**](UserManagementApi.md#UpdateAccountState) | **Put** /accounts/{account_name}/state | Update the state of an account to either enabled or disabled. For deletion use the DELETE route
+[**UpdateUserGroup**](UserManagementApi.md#UpdateUserGroup) | **Put** /system/user-groups/{name} | Update a user group
 
+
+
+## AddUserGroupRoles
+
+> UserGroupRole AddUserGroupRoles(ctx, name).UserGroupRole(userGroupRole).Execute()
+
+Add an account role to this user group
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    name := "name_example" // string | 
+    userGroupRole := *openapiclient.NewUserGroupRole("Account_example", []string{"Roles_example"}) // UserGroupRole | 
+
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.UserManagementApi.AddUserGroupRoles(context.Background(), name).UserGroupRole(userGroupRole).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `UserManagementApi.AddUserGroupRoles``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `AddUserGroupRoles`: UserGroupRole
+    fmt.Fprintf(os.Stdout, "Response from `UserManagementApi.AddUserGroupRoles`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**name** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiAddUserGroupRolesRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **userGroupRole** | [**UserGroupRole**](UserGroupRole.md) |  | 
+
+### Return type
+
+[**UserGroupRole**](UserGroupRole.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## AddUserGroupUsers
+
+> UserGroupUsers AddUserGroupUsers(ctx, name).UserGroupUsers(userGroupUsers).Execute()
+
+Add user(s) to a user group
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    name := "name_example" // string | 
+    userGroupUsers := *openapiclient.NewUserGroupUsers() // UserGroupUsers | 
+
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.UserManagementApi.AddUserGroupUsers(context.Background(), name).UserGroupUsers(userGroupUsers).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `UserManagementApi.AddUserGroupUsers``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `AddUserGroupUsers`: UserGroupUsers
+    fmt.Fprintf(os.Stdout, "Response from `UserManagementApi.AddUserGroupUsers`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**name** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiAddUserGroupUsersRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **userGroupUsers** | [**UserGroupUsers**](UserGroupUsers.md) |  | 
+
+### Return type
+
+[**UserGroupUsers**](UserGroupUsers.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
 
 ## CreateAccount
@@ -308,6 +459,70 @@ No authorization required
 [[Back to README]](../README.md)
 
 
+## CreateUserGroup
+
+> UserGroup CreateUserGroup(ctx).UserGroup(userGroup).Execute()
+
+Create a new user group
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    userGroup := *openapiclient.NewUserGroup("Name_example") // UserGroup | 
+
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.UserManagementApi.CreateUserGroup(context.Background()).UserGroup(userGroup).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `UserManagementApi.CreateUserGroup``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `CreateUserGroup`: UserGroup
+    fmt.Fprintf(os.Stdout, "Response from `UserManagementApi.CreateUserGroup`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiCreateUserGroupRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **userGroup** | [**UserGroup**](UserGroup.md) |  | 
+
+### Return type
+
+[**UserGroup**](UserGroup.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
 ## DeleteAccount
 
 > DeleteAccount(ctx, accountName).Execute()
@@ -567,6 +782,211 @@ Name | Type | Description  | Notes
 
 
  **credentialType** | **string** |  | 
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## DeleteUserGroup
+
+> DeleteUserGroup(ctx, name).Execute()
+
+Delete a user group
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    name := "name_example" // string | 
+
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.UserManagementApi.DeleteUserGroup(context.Background(), name).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `UserManagementApi.DeleteUserGroup``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**name** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiDeleteUserGroupRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## DeleteUserGroupRole
+
+> DeleteUserGroupRole(ctx, name).Account(account).Role(role).Execute()
+
+Remove an account role from this user group
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    name := "name_example" // string | 
+    account := "account_example" // string | 
+    role := "role_example" // string | 
+
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.UserManagementApi.DeleteUserGroupRole(context.Background(), name).Account(account).Role(role).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `UserManagementApi.DeleteUserGroupRole``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**name** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiDeleteUserGroupRoleRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **account** | **string** |  | 
+ **role** | **string** |  | 
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## DeleteUserGroupUser
+
+> DeleteUserGroupUser(ctx, name, username).Execute()
+
+Remove a user from a user group
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    name := "name_example" // string | 
+    username := "username_example" // string | 
+
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.UserManagementApi.DeleteUserGroupUser(context.Background(), name, username).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `UserManagementApi.DeleteUserGroupUser``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**name** | **string** |  | 
+**username** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiDeleteUserGroupUserRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
 
 ### Return type
 
@@ -873,6 +1293,74 @@ No authorization required
 [[Back to README]](../README.md)
 
 
+## GetUserGroup
+
+> UserGroup GetUserGroup(ctx, name).Execute()
+
+Get a user group
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    name := "name_example" // string | 
+
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.UserManagementApi.GetUserGroup(context.Background(), name).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `UserManagementApi.GetUserGroup``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `GetUserGroup`: UserGroup
+    fmt.Fprintf(os.Stdout, "Response from `UserManagementApi.GetUserGroup`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**name** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetUserGroupRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+[**UserGroup**](UserGroup.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
 ## ListAccounts
 
 > []Account ListAccounts(ctx).State(state).Execute()
@@ -1064,6 +1552,206 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**[]AccessCredential**](AccessCredential.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## ListUserGroupRoles
+
+> UserGroupRoles ListUserGroupRoles(ctx, name).Execute()
+
+Get a list of user group roles
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    name := "name_example" // string | 
+
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.UserManagementApi.ListUserGroupRoles(context.Background(), name).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `UserManagementApi.ListUserGroupRoles``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ListUserGroupRoles`: UserGroupRoles
+    fmt.Fprintf(os.Stdout, "Response from `UserManagementApi.ListUserGroupRoles`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**name** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiListUserGroupRolesRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+[**UserGroupRoles**](UserGroupRoles.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## ListUserGroupUsers
+
+> UserGroupUsers ListUserGroupUsers(ctx, name).Execute()
+
+Get a list of user group users
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    name := "name_example" // string | 
+
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.UserManagementApi.ListUserGroupUsers(context.Background(), name).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `UserManagementApi.ListUserGroupUsers``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ListUserGroupUsers`: UserGroupUsers
+    fmt.Fprintf(os.Stdout, "Response from `UserManagementApi.ListUserGroupUsers`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**name** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiListUserGroupUsersRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+[**UserGroupUsers**](UserGroupUsers.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## ListUserGroups
+
+> []UserGroup ListUserGroups(ctx).ContainsUser(containsUser).Execute()
+
+List user groups
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    containsUser := "containsUser_example" // string | Filter the user groups to only those that contain the specified user (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.UserManagementApi.ListUserGroups(context.Background()).ContainsUser(containsUser).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `UserManagementApi.ListUserGroups``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ListUserGroups`: []UserGroup
+    fmt.Fprintf(os.Stdout, "Response from `UserManagementApi.ListUserGroups`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiListUserGroupsRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **containsUser** | **string** | Filter the user groups to only those that contain the specified user | 
+
+### Return type
+
+[**[]UserGroup**](UserGroup.md)
 
 ### Authorization
 
@@ -1416,6 +2104,76 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**AccountStatus**](AccountStatus.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## UpdateUserGroup
+
+> UserGroup UpdateUserGroup(ctx, name).UpdateUserGroupRequest(updateUserGroupRequest).Execute()
+
+Update a user group
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    name := "name_example" // string | 
+    updateUserGroupRequest := *openapiclient.NewUpdateUserGroupRequest() // UpdateUserGroupRequest | 
+
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.UserManagementApi.UpdateUserGroup(context.Background(), name).UpdateUserGroupRequest(updateUserGroupRequest).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `UserManagementApi.UpdateUserGroup``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `UpdateUserGroup`: UserGroup
+    fmt.Fprintf(os.Stdout, "Response from `UserManagementApi.UpdateUserGroup`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**name** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiUpdateUserGroupRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **updateUserGroupRequest** | [**UpdateUserGroupRequest**](UpdateUserGroupRequest.md) |  | 
+
+### Return type
+
+[**UserGroup**](UserGroup.md)
 
 ### Authorization
 
