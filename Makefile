@@ -10,7 +10,7 @@ OPENAPI_GENERATOR_VERSION = v6.0.0
 
 # --- anchore enterprise references
 # a git tag/branch/commit within anchore/enterprise repo
-ENTERPRISE_REF = v5.3.0-rc0
+ENTERPRISE_REF = e6a5cf5c1408125904170f4dec126202f87bc67e
 ENTERPRISE_ROOT = $(PROJECT_ROOT)/enterprise
 ENTERPRISE_OPENAPI_DOC = $(PROJECT_ROOT)/anchore-api-swagger-$(ENTERPRISE_REF).yaml
 
@@ -27,7 +27,6 @@ define generate_openapi_client
 				-c /local/generator.yaml \
 				--additional-properties packageName=${2} \
 				--additional-properties packageVersion=$(CLIENT_VERSION) \
-                                --additional-properties useOneOfDiscriminatorLookup=true \
 				--http-user-agent "anchore-client/$(CLIENT_VERSION)/go" \
 				-i /local/${1} \
 				-o /local/${3} \

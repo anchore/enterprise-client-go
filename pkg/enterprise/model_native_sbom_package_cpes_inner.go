@@ -16,98 +16,55 @@ import (
 	"fmt"
 )
 
-// NativeSBOMPackageCpesInner - struct for NativeSBOMPackageCpesInner
+// NativeSBOMPackageCpesInner struct for NativeSBOMPackageCpesInner
 type NativeSBOMPackageCpesInner struct {
 	NativeSBOMPackageCPE *NativeSBOMPackageCPE
-	String *string
+	string *string
 }
 
-// NativeSBOMPackageCPEAsNativeSBOMPackageCpesInner is a convenience function that returns NativeSBOMPackageCPE wrapped in NativeSBOMPackageCpesInner
-func NativeSBOMPackageCPEAsNativeSBOMPackageCpesInner(v *NativeSBOMPackageCPE) NativeSBOMPackageCpesInner {
-	return NativeSBOMPackageCpesInner{
-		NativeSBOMPackageCPE: v,
-	}
-}
-
-// stringAsNativeSBOMPackageCpesInner is a convenience function that returns string wrapped in NativeSBOMPackageCpesInner
-func StringAsNativeSBOMPackageCpesInner(v *string) NativeSBOMPackageCpesInner {
-	return NativeSBOMPackageCpesInner{
-		String: v,
-	}
-}
-
-
-// Unmarshal JSON data into one of the pointers in the struct
+// Unmarshal JSON data into any of the pointers in the struct
 func (dst *NativeSBOMPackageCpesInner) UnmarshalJSON(data []byte) error {
 	var err error
-        match := 0
-        // try to unmarshal data into NativeSBOMPackageCPE
-        err = json.Unmarshal(data, &dst.NativeSBOMPackageCPE)
-        if err == nil {
-                jsonNativeSBOMPackageCPE, _ := json.Marshal(dst.NativeSBOMPackageCPE)
-                if string(jsonNativeSBOMPackageCPE) == "{}" { // empty struct
-                        dst.NativeSBOMPackageCPE = nil
-                } else {
-                        match++
-                }
-        } else {
-                dst.NativeSBOMPackageCPE = nil
-        }
+	// try to unmarshal JSON data into NativeSBOMPackageCPE
+	err = json.Unmarshal(data, &dst.NativeSBOMPackageCPE);
+	if err == nil {
+		jsonNativeSBOMPackageCPE, _ := json.Marshal(dst.NativeSBOMPackageCPE)
+		if string(jsonNativeSBOMPackageCPE) == "{}" { // empty struct
+			dst.NativeSBOMPackageCPE = nil
+		} else {
+			return nil // data stored in dst.NativeSBOMPackageCPE, return on the first match
+		}
+	} else {
+		dst.NativeSBOMPackageCPE = nil
+	}
 
-        // try to unmarshal data into String
-        err = json.Unmarshal(data, &dst.String)
-        if err == nil {
-                jsonstring, _ := json.Marshal(dst.String)
-                if string(jsonstring) == "{}" { // empty struct
-                        dst.String = nil
-                } else {
-                        match++
-                }
-        } else {
-                dst.String = nil
-        }
+	// try to unmarshal JSON data into string
+	err = json.Unmarshal(data, &dst.string);
+	if err == nil {
+		jsonstring, _ := json.Marshal(dst.string)
+		if string(jsonstring) == "{}" { // empty struct
+			dst.string = nil
+		} else {
+			return nil // data stored in dst.string, return on the first match
+		}
+	} else {
+		dst.string = nil
+	}
 
-        if match > 1 { // more than 1 match
-                // reset to nil
-                dst.NativeSBOMPackageCPE = nil
-                dst.String = nil
-
-                return fmt.Errorf("Data matches more than one schema in oneOf(NativeSBOMPackageCpesInner)")
-        } else if match == 1 {
-                return nil // exactly one match
-        } else { // no match
-                return fmt.Errorf("Data failed to match schemas in oneOf(NativeSBOMPackageCpesInner)")
-        }
+	return fmt.Errorf("Data failed to match schemas in anyOf(NativeSBOMPackageCpesInner)")
 }
 
 // Marshal data from the first non-nil pointers in the struct to JSON
-func (src NativeSBOMPackageCpesInner) MarshalJSON() ([]byte, error) {
+func (src *NativeSBOMPackageCpesInner) MarshalJSON() ([]byte, error) {
 	if src.NativeSBOMPackageCPE != nil {
 		return json.Marshal(&src.NativeSBOMPackageCPE)
 	}
 
-	if src.String != nil {
-		return json.Marshal(&src.String)
+	if src.string != nil {
+		return json.Marshal(&src.string)
 	}
 
-	return nil, nil // no data in oneOf schemas
-}
-
-// Get the actual instance
-func (obj *NativeSBOMPackageCpesInner) GetActualInstance() (interface{}) {
-	if obj == nil {
-		return nil
-	}
-	if obj.NativeSBOMPackageCPE != nil {
-		return obj.NativeSBOMPackageCPE
-	}
-
-	if obj.String != nil {
-		return obj.String
-	}
-
-	// all schemas are nil
-	return nil
+	return nil, nil // no data in anyOf schemas
 }
 
 type NullableNativeSBOMPackageCpesInner struct {

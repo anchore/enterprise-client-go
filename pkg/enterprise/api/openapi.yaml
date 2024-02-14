@@ -20323,11 +20323,11 @@ components:
           type: boolean
       type: object
     ImportPackage_cpes_inner:
-      oneOf:
+      anyOf:
       - type: string
       - $ref: '#/components/schemas/ImportPackageCPE'
     NativeSBOMPackage_cpes_inner:
-      oneOf:
+      anyOf:
       - type: string
       - $ref: '#/components/schemas/NativeSBOMPackageCPE'
     NotificationActionPlanNotificationPayload_allOf:

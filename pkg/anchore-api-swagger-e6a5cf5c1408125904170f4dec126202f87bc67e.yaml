@@ -11598,7 +11598,7 @@ components:
         cpes:
           type: array
           items:
-            oneOf:
+            anyOf:
               - type: string
               - $ref: '#/components/schemas/ImportPackageCPE'
         purl:
@@ -12306,7 +12306,7 @@ components:
         cpes:
           type: array
           items:
-            oneOf:
+            anyOf:
               - type: string
               - $ref: '#/components/schemas/NativeSBOMPackageCPE'
         purl:
