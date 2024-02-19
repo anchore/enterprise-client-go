@@ -18,7 +18,7 @@ import (
 // UserGroupRole struct for UserGroupRole
 type UserGroupRole struct {
 	// The account for this role
-	Account string `json:"account"`
+	AccountName string `json:"account_name"`
 	Roles []string `json:"roles"`
 }
 
@@ -26,9 +26,9 @@ type UserGroupRole struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewUserGroupRole(account string, roles []string) *UserGroupRole {
+func NewUserGroupRole(accountName string, roles []string) *UserGroupRole {
 	this := UserGroupRole{}
-	this.Account = account
+	this.AccountName = accountName
 	this.Roles = roles
 	return &this
 }
@@ -41,28 +41,28 @@ func NewUserGroupRoleWithDefaults() *UserGroupRole {
 	return &this
 }
 
-// GetAccount returns the Account field value
-func (o *UserGroupRole) GetAccount() string {
+// GetAccountName returns the AccountName field value
+func (o *UserGroupRole) GetAccountName() string {
 	if o == nil {
 		var ret string
 		return ret
 	}
 
-	return o.Account
+	return o.AccountName
 }
 
-// GetAccountOk returns a tuple with the Account field value
+// GetAccountNameOk returns a tuple with the AccountName field value
 // and a boolean to check if the value has been set.
-func (o *UserGroupRole) GetAccountOk() (*string, bool) {
+func (o *UserGroupRole) GetAccountNameOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Account, true
+	return &o.AccountName, true
 }
 
-// SetAccount sets field value
-func (o *UserGroupRole) SetAccount(v string) {
-	o.Account = v
+// SetAccountName sets field value
+func (o *UserGroupRole) SetAccountName(v string) {
+	o.AccountName = v
 }
 
 // GetRoles returns the Roles field value
@@ -92,7 +92,7 @@ func (o *UserGroupRole) SetRoles(v []string) {
 func (o UserGroupRole) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
-		toSerialize["account"] = o.Account
+		toSerialize["account_name"] = o.AccountName
 	}
 	if true {
 		toSerialize["roles"] = o.Roles

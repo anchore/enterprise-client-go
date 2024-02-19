@@ -58,7 +58,7 @@ import (
 
 func main() {
     name := "name_example" // string | 
-    userGroupRole := *openapiclient.NewUserGroupRole("Account_example", []string{"Roles_example"}) // UserGroupRole | 
+    userGroupRole := *openapiclient.NewUserGroupRole("AccountName_example", []string{"Roles_example"}) // UserGroupRole | 
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
@@ -110,7 +110,7 @@ No authorization required
 
 ## AddUserGroupUsers
 
-> UserGroupUsers AddUserGroupUsers(ctx, name).UserGroupUsers(userGroupUsers).Execute()
+> UserGroupUsers AddUserGroupUsers(ctx, name).UserGroupUsersPost(userGroupUsersPost).Execute()
 
 Add user(s) to a user group
 
@@ -128,11 +128,11 @@ import (
 
 func main() {
     name := "name_example" // string | 
-    userGroupUsers := *openapiclient.NewUserGroupUsers() // UserGroupUsers | 
+    userGroupUsersPost := *openapiclient.NewUserGroupUsersPost() // UserGroupUsersPost | 
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.UserManagementApi.AddUserGroupUsers(context.Background(), name).UserGroupUsers(userGroupUsers).Execute()
+    resp, r, err := apiClient.UserManagementApi.AddUserGroupUsers(context.Background(), name).UserGroupUsersPost(userGroupUsersPost).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `UserManagementApi.AddUserGroupUsers``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -158,7 +158,7 @@ Other parameters are passed through a pointer to a apiAddUserGroupUsersRequest s
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **userGroupUsers** | [**UserGroupUsers**](UserGroupUsers.md) |  | 
+ **userGroupUsersPost** | [**UserGroupUsersPost**](UserGroupUsersPost.md) |  | 
 
 ### Return type
 
@@ -869,7 +869,7 @@ No authorization required
 
 ## DeleteUserGroupRole
 
-> DeleteUserGroupRole(ctx, name).Account(account).Role(role).Execute()
+> DeleteUserGroupRole(ctx, name).AccountRole(accountRole).Execute()
 
 Remove an account role from this user group
 
@@ -887,12 +887,11 @@ import (
 
 func main() {
     name := "name_example" // string | 
-    account := "account_example" // string | 
-    role := "role_example" // string | 
+    accountRole := []string{"Inner_example"} // []string | A list of account roles to remove in the format of account_role=account_name:role_name&account_role=account_name:role_name
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.UserManagementApi.DeleteUserGroupRole(context.Background(), name).Account(account).Role(role).Execute()
+    resp, r, err := apiClient.UserManagementApi.DeleteUserGroupRole(context.Background(), name).AccountRole(accountRole).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `UserManagementApi.DeleteUserGroupRole``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -916,8 +915,7 @@ Other parameters are passed through a pointer to a apiDeleteUserGroupRoleRequest
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **account** | **string** |  | 
- **role** | **string** |  | 
+ **accountRole** | **[]string** | A list of account roles to remove in the format of account_role&#x3D;account_name:role_name&amp;account_role&#x3D;account_name:role_name | 
 
 ### Return type
 

@@ -699,6 +699,7 @@ Class | Method | HTTP request | Description
  - [UserGroupRole](docs/UserGroupRole.md)
  - [UserGroupRoles](docs/UserGroupRoles.md)
  - [UserGroupUsers](docs/UserGroupUsers.md)
+ - [UserGroupUsersPost](docs/UserGroupUsersPost.md)
  - [VendorDataObject](docs/VendorDataObject.md)
  - [VersionVulnerability](docs/VersionVulnerability.md)
  - [VersionVulnerabilityMatch](docs/VersionVulnerabilityMatch.md)

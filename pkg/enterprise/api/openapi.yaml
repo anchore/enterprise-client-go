@@ -9910,19 +9910,15 @@ paths:
           format: path
           type: string
         style: simple
-      - explode: true
+      - description: A list of account roles to remove in the format of account_role=account_name:role_name&account_role=account_name:role_name
+        explode: true
         in: query
-        name: account
+        name: account_role
         required: true
         schema:
-          type: string
-        style: form
-      - explode: true
-        in: query
-        name: role
-        required: true
-        schema:
-          type: string
+          items:
+            type: string
+          type: array
         style: form
       responses:
         "204":
@@ -10048,7 +10044,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/UserGroupUsers'
+              $ref: '#/components/schemas/UserGroupUsersPost'
         required: true
       responses:
         "200":
@@ -19904,12 +19900,12 @@ components:
       type: array
     UserGroupRole:
       example:
+        account_name: account_name
         roles:
         - roles
         - roles
-        account: account
       properties:
-        account:
+        account_name:
           description: The account for this role
           type: string
         roles:
@@ -19917,24 +19913,35 @@ components:
             type: string
           type: array
       required:
-      - account
+      - account_name
       - roles
       type: object
     UserGroupRoles:
       example:
         items:
-        - roles:
+        - account_name: account_name
+          roles:
           - roles
           - roles
-          account: account
-        - roles:
+        - account_name: account_name
+          roles:
           - roles
           - roles
-          account: account
       properties:
         items:
           items:
             $ref: '#/components/schemas/UserGroupRole'
+          type: array
+    UserGroupUsersPost:
+      example:
+        usernames:
+        - usernames
+        - usernames
+      properties:
+        usernames:
+          items:
+            description: The username of the user
+            type: string
           type: array
     UserGroupUsers:
       example:
@@ -19944,6 +19951,7 @@ components:
       properties:
         items:
           items:
+            description: The username of the user
             type: string
           type: array
     VendorDataList:

@@ -18,6 +18,7 @@ import (
 	"net/http"
 	"net/url"
 	"strings"
+	"reflect"
 )
 
 
@@ -559,11 +560,11 @@ type ApiAddUserGroupUsersRequest struct {
 	ctx context.Context
 	ApiService UserManagementApi
 	name string
-	userGroupUsers *UserGroupUsers
+	userGroupUsersPost *UserGroupUsersPost
 }
 
-func (r ApiAddUserGroupUsersRequest) UserGroupUsers(userGroupUsers UserGroupUsers) ApiAddUserGroupUsersRequest {
-	r.userGroupUsers = &userGroupUsers
+func (r ApiAddUserGroupUsersRequest) UserGroupUsersPost(userGroupUsersPost UserGroupUsersPost) ApiAddUserGroupUsersRequest {
+	r.userGroupUsersPost = &userGroupUsersPost
 	return r
 }
 
@@ -607,8 +608,8 @@ func (a *UserManagementApiService) AddUserGroupUsersExecute(r ApiAddUserGroupUse
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.userGroupUsers == nil {
-		return localVarReturnValue, nil, reportError("userGroupUsers is required and must be specified")
+	if r.userGroupUsersPost == nil {
+		return localVarReturnValue, nil, reportError("userGroupUsersPost is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -629,7 +630,7 @@ func (a *UserManagementApiService) AddUserGroupUsersExecute(r ApiAddUserGroupUse
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.userGroupUsers
+	localVarPostBody = r.userGroupUsersPost
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -1817,17 +1818,12 @@ type ApiDeleteUserGroupRoleRequest struct {
 	ctx context.Context
 	ApiService UserManagementApi
 	name string
-	account *string
-	role *string
+	accountRole *[]string
 }
 
-func (r ApiDeleteUserGroupRoleRequest) Account(account string) ApiDeleteUserGroupRoleRequest {
-	r.account = &account
-	return r
-}
-
-func (r ApiDeleteUserGroupRoleRequest) Role(role string) ApiDeleteUserGroupRoleRequest {
-	r.role = &role
+// A list of account roles to remove in the format of account_role&#x3D;account_name:role_name&amp;account_role&#x3D;account_name:role_name
+func (r ApiDeleteUserGroupRoleRequest) AccountRole(accountRole []string) ApiDeleteUserGroupRoleRequest {
+	r.accountRole = &accountRole
 	return r
 }
 
@@ -1869,15 +1865,21 @@ func (a *UserManagementApiService) DeleteUserGroupRoleExecute(r ApiDeleteUserGro
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.account == nil {
-		return nil, reportError("account is required and must be specified")
-	}
-	if r.role == nil {
-		return nil, reportError("role is required and must be specified")
+	if r.accountRole == nil {
+		return nil, reportError("accountRole is required and must be specified")
 	}
 
-	localVarQueryParams.Add("account", parameterToString(*r.account, ""))
-	localVarQueryParams.Add("role", parameterToString(*r.role, ""))
+	{
+		t := *r.accountRole
+		if reflect.TypeOf(t).Kind() == reflect.Slice {
+			s := reflect.ValueOf(t)
+			for i := 0; i < s.Len(); i++ {
+				localVarQueryParams.Add("account_role", parameterToString(s.Index(i), "multi"))
+			}
+		} else {
+			localVarQueryParams.Add("account_role", parameterToString(t, "multi"))
+		}
+	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 

@@ -4,14 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Account** | **string** | The account for this role | 
+**AccountName** | **string** | The account for this role | 
 **Roles** | **[]string** |  | 
 
 ## Methods
 
 ### NewUserGroupRole
 
-`func NewUserGroupRole(account string, roles []string, ) *UserGroupRole`
+`func NewUserGroupRole(accountName string, roles []string, ) *UserGroupRole`
 
 NewUserGroupRole instantiates a new UserGroupRole object
 This constructor will assign default values to properties that have it defined,
@@ -26,24 +26,24 @@ NewUserGroupRoleWithDefaults instantiates a new UserGroupRole object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
-### GetAccount
+### GetAccountName
 
-`func (o *UserGroupRole) GetAccount() string`
+`func (o *UserGroupRole) GetAccountName() string`
 
-GetAccount returns the Account field if non-nil, zero value otherwise.
+GetAccountName returns the AccountName field if non-nil, zero value otherwise.
 
-### GetAccountOk
+### GetAccountNameOk
 
-`func (o *UserGroupRole) GetAccountOk() (*string, bool)`
+`func (o *UserGroupRole) GetAccountNameOk() (*string, bool)`
 
-GetAccountOk returns a tuple with the Account field if it's non-nil, zero value otherwise
+GetAccountNameOk returns a tuple with the AccountName field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetAccount
+### SetAccountName
 
-`func (o *UserGroupRole) SetAccount(v string)`
+`func (o *UserGroupRole) SetAccountName(v string)`
 
-SetAccount sets Account field to given value.
+SetAccountName sets AccountName field to given value.
 
 
 ### GetRoles
