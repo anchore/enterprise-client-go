@@ -40,7 +40,7 @@ Method | HTTP request | Description
 
 ## AddUserGroupRoles
 
-> UserGroupRole AddUserGroupRoles(ctx, name).UserGroupRole(userGroupRole).Execute()
+> UserGroupRoles AddUserGroupRoles(ctx, name).UserGroupRole(userGroupRole).Execute()
 
 Add an account role to this user group
 
@@ -67,7 +67,7 @@ func main() {
         fmt.Fprintf(os.Stderr, "Error when calling `UserManagementApi.AddUserGroupRoles``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `AddUserGroupRoles`: UserGroupRole
+    // response from `AddUserGroupRoles`: UserGroupRoles
     fmt.Fprintf(os.Stdout, "Response from `UserManagementApi.AddUserGroupRoles`: %v\n", resp)
 }
 ```
@@ -92,7 +92,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**UserGroupRole**](UserGroupRole.md)
+[**UserGroupRoles**](UserGroupRoles.md)
 
 ### Authorization
 

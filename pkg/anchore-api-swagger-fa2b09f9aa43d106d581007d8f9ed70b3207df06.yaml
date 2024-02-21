@@ -8963,7 +8963,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/UserGroupRole'
+                $ref: '#/components/schemas/UserGroupRoles'
         404:
           description: Not found
           content:
@@ -9421,7 +9421,7 @@ components:
       type: object
       properties:
         name:
-          pattern: ^[a-zA-Z0-9][ a-zA-Z0-9@.!#$+-=^_`~;]{1,126}[a-zA-Z0-9_]$
+          pattern: ^[a-zA-Z0-9][ a-zA-Z0-9@.!#$+=^_`~;-]{1,126}[a-zA-Z0-9_]$
           type: string
           description: The account name to use. This will identify the account and
             must be globally unique in the system.
@@ -14922,7 +14922,7 @@ components:
       type: object
       properties:
         username:
-          pattern: ^[a-zA-Z0-9][ a-zA-Z0-9@.!#$+-=^_`~;]{1,126}[a-zA-Z0-9_]$
+          pattern: ^[a-zA-Z0-9][ a-zA-Z0-9@.!#$+=^_`~;-]{1,126}[a-zA-Z0-9_]$
           type: string
           description: The username to create
         password:
@@ -14949,6 +14949,7 @@ components:
       type: object
       properties:
         name:
+          pattern: ^[a-zA-Z0-9][ a-zA-Z0-9@.!#$+=^_`~;-]{1,126}[a-zA-Z0-9_]$
           type: string
           description: The name of the user group
         description:
@@ -15023,7 +15024,7 @@ components:
           items:
             $ref: '#/components/schemas/VersionVulnerabilityMatch'
       description: A vulnerability in an application version vulnerability report
-        with vulenrability data, affected artifacts, and packages
+        with vulnerability data, affected artifacts, and packages
     VersionVulnerabilityMatch:
       type: object
       properties:

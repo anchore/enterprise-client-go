@@ -34,8 +34,8 @@ type UserManagementApi interface {
 	AddUserGroupRoles(ctx context.Context, name string) ApiAddUserGroupRolesRequest
 
 	// AddUserGroupRolesExecute executes the request
-	//  @return UserGroupRole
-	AddUserGroupRolesExecute(r ApiAddUserGroupRolesRequest) (*UserGroupRole, *http.Response, error)
+	//  @return UserGroupRoles
+	AddUserGroupRolesExecute(r ApiAddUserGroupRolesRequest) (*UserGroupRoles, *http.Response, error)
 
 	/*
 	AddUserGroupUsers Add user(s) to a user group
@@ -447,7 +447,7 @@ func (r ApiAddUserGroupRolesRequest) UserGroupRole(userGroupRole UserGroupRole) 
 	return r
 }
 
-func (r ApiAddUserGroupRolesRequest) Execute() (*UserGroupRole, *http.Response, error) {
+func (r ApiAddUserGroupRolesRequest) Execute() (*UserGroupRoles, *http.Response, error) {
 	return r.ApiService.AddUserGroupRolesExecute(r)
 }
 
@@ -467,13 +467,13 @@ func (a *UserManagementApiService) AddUserGroupRoles(ctx context.Context, name s
 }
 
 // Execute executes the request
-//  @return UserGroupRole
-func (a *UserManagementApiService) AddUserGroupRolesExecute(r ApiAddUserGroupRolesRequest) (*UserGroupRole, *http.Response, error) {
+//  @return UserGroupRoles
+func (a *UserManagementApiService) AddUserGroupRolesExecute(r ApiAddUserGroupRolesRequest) (*UserGroupRoles, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *UserGroupRole
+		localVarReturnValue  *UserGroupRoles
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UserManagementApiService.AddUserGroupRoles")

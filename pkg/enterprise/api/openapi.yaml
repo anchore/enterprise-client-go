@@ -9986,7 +9986,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/UserGroupRole'
+                $ref: '#/components/schemas/UserGroupRoles'
           description: User group role
         "404":
           content:
@@ -10457,7 +10457,7 @@ components:
         name:
           description: The account name to use. This will identify the account and
             must be globally unique in the system.
-          pattern: "^[a-zA-Z0-9][ a-zA-Z0-9@.!#$+-=^_`~;]{1,126}[a-zA-Z0-9_]$"
+          pattern: "^[a-zA-Z0-9][ a-zA-Z0-9@.!#$+=^_`~;-]{1,126}[a-zA-Z0-9_]$"
           type: string
         email:
           description: An optional email to associate with the account for contact
@@ -19859,7 +19859,7 @@ components:
       properties:
         username:
           description: The username to create
-          pattern: "^[a-zA-Z0-9][ a-zA-Z0-9@.!#$+-=^_`~;]{1,126}[a-zA-Z0-9_]$"
+          pattern: "^[a-zA-Z0-9][ a-zA-Z0-9@.!#$+=^_`~;-]{1,126}[a-zA-Z0-9_]$"
           type: string
         password:
           description: "The initial password for the user, must be at least 6 characters,\
@@ -19887,6 +19887,7 @@ components:
       properties:
         name:
           description: The name of the user group
+          pattern: "^[a-zA-Z0-9][ a-zA-Z0-9@.!#$+=^_`~;-]{1,126}[a-zA-Z0-9_]$"
           type: string
         description:
           description: The description of the user group
@@ -19981,7 +19982,7 @@ components:
       type: object
     VersionVulnerability:
       description: "A vulnerability in an application version vulnerability report\
-        \ with vulenrability data, affected artifacts, and packages"
+        \ with vulnerability data, affected artifacts, and packages"
       example:
         vendor_data: null
         id: id
