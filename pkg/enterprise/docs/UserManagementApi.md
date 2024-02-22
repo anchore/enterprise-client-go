@@ -4,7 +4,7 @@ All URIs are relative to */v2*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**AddUserGroupRoles**](UserManagementApi.md#AddUserGroupRoles) | **Post** /system/user-groups/{group_uuid}/roles | Add an account role to this user group
+[**AddUserGroupRoles**](UserManagementApi.md#AddUserGroupRoles) | **Post** /system/user-groups/{group_uuid}/roles | Add account role(s) to this user group
 [**AddUserGroupUsers**](UserManagementApi.md#AddUserGroupUsers) | **Post** /system/user-groups/{group_uuid}/users | Add user(s) to a user group
 [**CreateAccount**](UserManagementApi.md#CreateAccount) | **Post** /accounts | Create a new account. Only available to admin user.
 [**CreateUser**](UserManagementApi.md#CreateUser) | **Post** /accounts/{account_name}/users | Create a new user within the specified account.
@@ -16,7 +16,7 @@ Method | HTTP request | Description
 [**DeleteUserApiKey**](UserManagementApi.md#DeleteUserApiKey) | **Delete** /accounts/{account_name}/users/{username}/api-keys/{key_name} | Delete a user API key
 [**DeleteUserCredential**](UserManagementApi.md#DeleteUserCredential) | **Delete** /accounts/{account_name}/users/{username}/credentials | Delete a credential by type
 [**DeleteUserGroup**](UserManagementApi.md#DeleteUserGroup) | **Delete** /system/user-groups/{group_uuid} | Delete a user group
-[**DeleteUserGroupRole**](UserManagementApi.md#DeleteUserGroupRole) | **Delete** /system/user-groups/{group_uuid}/roles | Remove an account role from this user group
+[**DeleteUserGroupRole**](UserManagementApi.md#DeleteUserGroupRole) | **Delete** /system/user-groups/{group_uuid}/roles | Remove account role(s) from this user group
 [**DeleteUserGroupUsers**](UserManagementApi.md#DeleteUserGroupUsers) | **Delete** /system/user-groups/{group_uuid}/users | Remove a user from a user group
 [**GetAccount**](UserManagementApi.md#GetAccount) | **Get** /accounts/{account_name} | Get account info about this specific account.
 [**GetAccountUser**](UserManagementApi.md#GetAccountUser) | **Get** /accounts/{account_name}/users/{username} | Get a specific user in the specified account
@@ -26,7 +26,7 @@ Method | HTTP request | Description
 [**ListAccounts**](UserManagementApi.md#ListAccounts) | **Get** /accounts | List account summaries. Only available to the system admin user.
 [**ListUserApiKeys**](UserManagementApi.md#ListUserApiKeys) | **Get** /accounts/{account_name}/users/{username}/api-keys | Get a list of API keys
 [**ListUserCredentials**](UserManagementApi.md#ListUserCredentials) | **Get** /accounts/{account_name}/users/{username}/credentials | Get current credential summary
-[**ListUserGroupRoles**](UserManagementApi.md#ListUserGroupRoles) | **Get** /system/user-groups/{group_uuid}/roles | Get a list of user group roles
+[**ListUserGroupRoles**](UserManagementApi.md#ListUserGroupRoles) | **Get** /system/user-groups/{group_uuid}/roles | Get a list of all user group roles
 [**ListUserGroupUsers**](UserManagementApi.md#ListUserGroupUsers) | **Get** /system/user-groups/{group_uuid}/users | Get a list of user group users
 [**ListUserGroups**](UserManagementApi.md#ListUserGroups) | **Get** /system/user-groups | List user groups
 [**ListUsers**](UserManagementApi.md#ListUsers) | **Get** /accounts/{account_name}/users | List of users found in this account.
@@ -42,7 +42,7 @@ Method | HTTP request | Description
 
 > UserGroupRoles AddUserGroupRoles(ctx, groupUuid).UserGroupRole(userGroupRole).Execute()
 
-Add an account role to this user group
+Add account role(s) to this user group
 
 ### Example
 
@@ -871,7 +871,7 @@ No authorization required
 
 > DeleteUserGroupRole(ctx, groupUuid).MembershipId(membershipId).Execute()
 
-Remove an account role from this user group
+Remove account role(s) from this user group
 
 ### Example
 
@@ -1568,7 +1568,7 @@ No authorization required
 
 > UserGroupRoles ListUserGroupRoles(ctx, groupUuid).Execute()
 
-Get a list of user group roles
+Get a list of all user group roles
 
 ### Example
 
@@ -2120,7 +2120,7 @@ No authorization required
 
 ## UpdateUserGroup
 
-> UserGroup UpdateUserGroup(ctx, groupUuid).UpdateUserGroupRequest(updateUserGroupRequest).Execute()
+> UserGroup UpdateUserGroup(ctx, groupUuid).UserGroupPatch(userGroupPatch).Execute()
 
 Update a user group
 
@@ -2138,11 +2138,11 @@ import (
 
 func main() {
     groupUuid := "groupUuid_example" // string | 
-    updateUserGroupRequest := *openapiclient.NewUpdateUserGroupRequest() // UpdateUserGroupRequest | 
+    userGroupPatch := *openapiclient.NewUserGroupPatch("Description_example") // UserGroupPatch | 
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.UserManagementApi.UpdateUserGroup(context.Background(), groupUuid).UpdateUserGroupRequest(updateUserGroupRequest).Execute()
+    resp, r, err := apiClient.UserManagementApi.UpdateUserGroup(context.Background(), groupUuid).UserGroupPatch(userGroupPatch).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `UserManagementApi.UpdateUserGroup``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -2168,7 +2168,7 @@ Other parameters are passed through a pointer to a apiUpdateUserGroupRequest str
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **updateUserGroupRequest** | [**UpdateUserGroupRequest**](UpdateUserGroupRequest.md) |  | 
+ **userGroupPatch** | [**UserGroupPatch**](UserGroupPatch.md) |  | 
 
 ### Return type
 

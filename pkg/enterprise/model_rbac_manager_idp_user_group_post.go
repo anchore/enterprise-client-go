@@ -17,7 +17,7 @@ import (
 
 // RbacManagerIdpUserGroupPost struct for RbacManagerIdpUserGroupPost
 type RbacManagerIdpUserGroupPost struct {
-	UserGroups []string `json:"user_groups,omitempty"`
+	UserGroupUuids []string `json:"user_group_uuids,omitempty"`
 }
 
 // NewRbacManagerIdpUserGroupPost instantiates a new RbacManagerIdpUserGroupPost object
@@ -37,42 +37,42 @@ func NewRbacManagerIdpUserGroupPostWithDefaults() *RbacManagerIdpUserGroupPost {
 	return &this
 }
 
-// GetUserGroups returns the UserGroups field value if set, zero value otherwise.
-func (o *RbacManagerIdpUserGroupPost) GetUserGroups() []string {
-	if o == nil || o.UserGroups == nil {
+// GetUserGroupUuids returns the UserGroupUuids field value if set, zero value otherwise.
+func (o *RbacManagerIdpUserGroupPost) GetUserGroupUuids() []string {
+	if o == nil || o.UserGroupUuids == nil {
 		var ret []string
 		return ret
 	}
-	return o.UserGroups
+	return o.UserGroupUuids
 }
 
-// GetUserGroupsOk returns a tuple with the UserGroups field value if set, nil otherwise
+// GetUserGroupUuidsOk returns a tuple with the UserGroupUuids field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RbacManagerIdpUserGroupPost) GetUserGroupsOk() ([]string, bool) {
-	if o == nil || o.UserGroups == nil {
+func (o *RbacManagerIdpUserGroupPost) GetUserGroupUuidsOk() ([]string, bool) {
+	if o == nil || o.UserGroupUuids == nil {
 		return nil, false
 	}
-	return o.UserGroups, true
+	return o.UserGroupUuids, true
 }
 
-// HasUserGroups returns a boolean if a field has been set.
-func (o *RbacManagerIdpUserGroupPost) HasUserGroups() bool {
-	if o != nil && o.UserGroups != nil {
+// HasUserGroupUuids returns a boolean if a field has been set.
+func (o *RbacManagerIdpUserGroupPost) HasUserGroupUuids() bool {
+	if o != nil && o.UserGroupUuids != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetUserGroups gets a reference to the given []string and assigns it to the UserGroups field.
-func (o *RbacManagerIdpUserGroupPost) SetUserGroups(v []string) {
-	o.UserGroups = v
+// SetUserGroupUuids gets a reference to the given []string and assigns it to the UserGroupUuids field.
+func (o *RbacManagerIdpUserGroupPost) SetUserGroupUuids(v []string) {
+	o.UserGroupUuids = v
 }
 
 func (o RbacManagerIdpUserGroupPost) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
-	if o.UserGroups != nil {
-		toSerialize["user_groups"] = o.UserGroups
+	if o.UserGroupUuids != nil {
+		toSerialize["user_group_uuids"] = o.UserGroupUuids
 	}
 	return json.Marshal(toSerialize)
 }

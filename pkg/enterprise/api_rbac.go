@@ -83,10 +83,10 @@ type RBACApi interface {
 	/*
 	DeleteIdpUserGroup Method for DeleteIdpUserGroup
 
-	Remove a user group association from an IdP
+	Remove user group association(s) from an IdP
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param name
+	@param name The name of the IdP to remove the user group from
 	@return ApiDeleteIdpUserGroupRequest
 	*/
 	DeleteIdpUserGroup(ctx context.Context, name string) ApiDeleteIdpUserGroupRequest
@@ -773,6 +773,7 @@ type ApiDeleteIdpUserGroupRequest struct {
 	userGroup *[]string
 }
 
+// The user group uuid to remove from the IdP in the format user_group&#x3D;uuid1&amp;user_group&#x3D;uuid2
 func (r ApiDeleteIdpUserGroupRequest) UserGroup(userGroup []string) ApiDeleteIdpUserGroupRequest {
 	r.userGroup = &userGroup
 	return r
@@ -785,10 +786,10 @@ func (r ApiDeleteIdpUserGroupRequest) Execute() (*http.Response, error) {
 /*
 DeleteIdpUserGroup Method for DeleteIdpUserGroup
 
-Remove a user group association from an IdP
+Remove user group association(s) from an IdP
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param name
+ @param name The name of the IdP to remove the user group from
  @return ApiDeleteIdpUserGroupRequest
 */
 func (a *RBACApiService) DeleteIdpUserGroup(ctx context.Context, name string) ApiDeleteIdpUserGroupRequest {

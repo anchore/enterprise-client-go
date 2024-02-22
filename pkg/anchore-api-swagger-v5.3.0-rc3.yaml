@@ -4468,6 +4468,27 @@ paths:
           content: {}
       x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.runtime_inventory
       x-anchore-authz-action: getKubernetesPods
+  /my-user-groups:
+    get:
+      tags:
+        - Identity
+      summary: List user groups for the authenticated user
+      operationId: list_my_user_groups
+      responses:
+        200:
+          description: User group list
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserGroupList'
+        500:
+          description: Internal error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.user_groups
+      x-anchore-authz-action: None
   /notifications/endpoints:
     get:
       tags:
@@ -7223,18 +7244,20 @@ paths:
     delete:
       tags:
       - RBAC
-      description: Remove a user group association from an IdP
+      description: Remove user group association(s) from an IdP
       operationId: delete_idp_user_group
       x-openapi-router-controller: anchore_enterprise.services.rbac_manager.api.controllers.user_groups
       x-anchore-authz-action: None
       parameters:
       - name: name
+        description: The name of the IdP to remove the user group from
         in: path
         required: true
         schema:
           type: string
           format: path
       - name: user_group
+        description: The user group uuid to remove from the IdP in the format user_group=uuid1&user_group=uuid2
         in: query
         required: true
         schema:
@@ -8635,6 +8658,337 @@ paths:
                 $ref: '#/components/schemas/SystemStatisticsList'
       x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.system
       x-anchore-authz-action: None
+  /system/user-groups:
+    get:
+      tags:
+        - User Management
+      summary: List user groups
+      operationId: list_user_groups
+      parameters:
+        - in: query
+          name: contains_user
+          schema:
+            type: string
+          description: Filter the user groups to only those that contain the specified user
+        - in: query
+          name: name
+          schema:
+            type: string
+            description: Filter the user groups to only those that match the specified name
+      responses:
+        200:
+          description: User group list
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserGroupList'
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.user_groups
+      x-anchore-authz-action: listUserGroups
+    post:
+      tags:
+        - User Management
+      summary: Create a new user group
+      operationId: create_user_group
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserGroup'
+        required: true
+      responses:
+        200:
+          description: User group record
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserGroup'
+        404:
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        409:
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.user_groups
+      x-anchore-authz-action: createUserGroup
+  /system/user-groups/{group_uuid}:
+    get:
+      tags:
+        - User Management
+      summary: Get a user group
+      operationId: get_user_group
+      parameters:
+        - name: group_uuid
+          in: path
+          required: true
+          schema:
+            type: string
+            format: path
+      responses:
+        200:
+          description: User group record
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserGroup'
+        404:
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.user_groups
+      x-anchore-authz-action: getUserGroup
+    patch:
+      tags:
+        - User Management
+      summary: Update a user group
+      operationId: update_user_group
+      parameters:
+        - name: group_uuid
+          in: path
+          required: true
+          schema:
+            type: string
+            format: path
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserGroupPatch'
+        required: true
+      responses:
+        200:
+          description: User group record
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserGroup'
+        404:
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.user_groups
+      x-anchore-authz-action: updateUserGroup
+    delete:
+      tags:
+        - User Management
+      summary: Delete a user group
+      operationId: delete_user_group
+      parameters:
+        - name: group_uuid
+          in: path
+          required: true
+          schema:
+            type: string
+            format: path
+      responses:
+        204:
+          description: Success
+          content: { }
+        404:
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.user_groups
+      x-anchore-authz-action: deleteUserGroup
+  /system/user-groups/{group_uuid}/roles:
+    get:
+      tags:
+        - User Management
+      summary: Get a list of all user group roles
+      operationId: list_user_group_roles
+      parameters:
+        - name: group_uuid
+          in: path
+          required: true
+          schema:
+            type: string
+            format: path
+      responses:
+        200:
+          description: User group roles
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserGroupRoles'
+        404:
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.user_groups
+      x-anchore-authz-action: getUserGroupRoles
+    post:
+      tags:
+        - User Management
+      summary: Add account role(s) to this user group
+      operationId: add_user_group_roles
+      parameters:
+        - name: group_uuid
+          in: path
+          required: true
+          schema:
+            type: string
+            format: path
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserGroupRole'
+        required: true
+      responses:
+        200:
+          description: User group role
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserGroupRoles'
+        404:
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.user_groups
+      x-anchore-authz-action: addUserGroupRole
+    delete:
+      tags:
+        - User Management
+      summary: Remove account role(s) from this user group
+      operationId: delete_user_group_role
+      parameters:
+        - name: group_uuid
+          in: path
+          required: true
+          schema:
+            type: string
+            format: path
+        - name: membership_id
+          in: query
+          required: true
+          style: form
+          description: A list of membership ids to remove from the user group in the format of membership_id=1&membership_id=2
+          schema:
+            type: array
+            items:
+              type: string
+      responses:
+        204:
+          description: Success
+          content: { }
+        404:
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.user_groups
+      x-anchore-authz-action: deleteUserGroupRole
+  /system/user-groups/{group_uuid}/users:
+    get:
+      tags:
+        - User Management
+      summary: Get a list of user group users
+      operationId: list_user_group_users
+      parameters:
+        - name: group_uuid
+          in: path
+          required: true
+          schema:
+            type: string
+            format: path
+      responses:
+        200:
+          description: User group users
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserGroupUsers'
+        404:
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.user_groups
+      x-anchore-authz-action: getUserGroupUsers
+    post:
+      tags:
+        - User Management
+      summary: Add user(s) to a user group
+      operationId: add_user_group_users
+      parameters:
+        - name: group_uuid
+          in: path
+          required: true
+          schema:
+            type: string
+            format: path
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserGroupUsersPost'
+        required: true
+      responses:
+        200:
+          description: User group user
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserGroupUsers'
+        404:
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.user_groups
+      x-anchore-authz-action: addUserGroupUser
+    delete:
+      tags:
+        - User Management
+      summary: Remove a user from a user group
+      operationId: delete_user_group_users
+      parameters:
+        - name: group_uuid
+          in: path
+          required: true
+          schema:
+            type: string
+            format: path
+        - name: username
+          in: query
+          required: true
+          style: form
+          description: A list of usernames to remove from the user group in the format of username=user1&username=user2
+          schema:
+            type: array
+            items:
+              type: string
+      responses:
+        204:
+          description: Success
+          content: { }
+        404:
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.user_groups
+      x-anchore-authz-action: deleteUserGroupUser
   /system/webhooks/{webhook_type}/test:
     post:
       tags:
@@ -8704,362 +9058,6 @@ paths:
                 $ref: '#/components/schemas/ApiErrorResponse'
       x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.user
       x-anchore-authz-action: None
-  /my-user-groups:
-    get:
-      tags:
-      - Identity
-      summary: List user groups for the authenticated user
-      operationId: list_my_user_groups
-      responses:
-        200:
-          description: User group list
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/UserGroupList'
-        500:
-          description: Internal error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ApiErrorResponse'
-      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.user_groups
-      x-anchore-authz-action: None
-  /system/user-groups:
-    get:
-      tags:
-      - User Management
-      summary: List user groups
-      operationId: list_user_groups
-      parameters:
-        - in: query
-          name: contains_user
-          schema:
-            type: string
-          description: Filter the user groups to only those that contain the specified user
-        - in: query
-          name: name
-          schema:
-            type: string
-            description: Filter the user groups to only those that match the specified name
-      responses:
-        200:
-          description: User group list
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/UserGroupList'
-      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.user_groups
-      x-anchore-authz-action: listUserGroups
-    post:
-      tags:
-      - User Management
-      summary: Create a new user group
-      operationId: create_user_group
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/UserGroup'
-        required: true
-      responses:
-        200:
-          description: User group record
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/UserGroup'
-        404:
-          description: Not found
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ApiErrorResponse'
-        409:
-          description: Conflict
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ApiErrorResponse'
-      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.user_groups
-      x-anchore-authz-action: createUserGroup
-  /system/user-groups/{group_uuid}:
-    get:
-      tags:
-      - User Management
-      summary: Get a user group
-      operationId: get_user_group
-      parameters:
-      - name: group_uuid
-        in: path
-        required: true
-        schema:
-          type: string
-          format: path
-      responses:
-        200:
-          description: User group record
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/UserGroup'
-        404:
-          description: Not found
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ApiErrorResponse'
-      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.user_groups
-      x-anchore-authz-action: getUserGroup
-    patch:
-      tags:
-        - User Management
-      summary: Update a user group
-      operationId: update_user_group
-      parameters:
-        - name: group_uuid
-          in: path
-          required: true
-          schema:
-            type: string
-            format: path
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                description:
-                  type: string
-                  description: An updated description of the user group
-        required: true
-      responses:
-        200:
-          description: User group record
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/UserGroup'
-        404:
-          description: Not found
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ApiErrorResponse'
-      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.user_groups
-      x-anchore-authz-action: updateUserGroup
-    delete:
-      tags:
-      - User Management
-      summary: Delete a user group
-      operationId: delete_user_group
-      parameters:
-      - name: group_uuid
-        in: path
-        required: true
-        schema:
-          type: string
-          format: path
-      responses:
-        204:
-          description: Success
-          content: {}
-        404:
-          description: Not found
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ApiErrorResponse'
-      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.user_groups
-      x-anchore-authz-action: deleteUserGroup
-  /system/user-groups/{group_uuid}/roles:
-    get:
-      tags:
-      - User Management
-      summary: Get a list of user group roles
-      operationId: list_user_group_roles
-      parameters:
-      - name: group_uuid
-        in: path
-        required: true
-        schema:
-          type: string
-          format: path
-      responses:
-        200:
-          description: User group roles
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/UserGroupRoles'
-        404:
-          description: Not found
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ApiErrorResponse'
-      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.user_groups
-      x-anchore-authz-action: getUserGroupRoles
-    post:
-      tags:
-      - User Management
-      summary: Add an account role to this user group
-      operationId: add_user_group_roles
-      parameters:
-      - name: group_uuid
-        in: path
-        required: true
-        schema:
-          type: string
-          format: path
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/UserGroupRole'
-        required: true
-      responses:
-        200:
-          description: User group role
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/UserGroupRoles'
-        404:
-          description: Not found
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ApiErrorResponse'
-      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.user_groups
-      x-anchore-authz-action: addUserGroupRole
-    delete:
-      tags:
-        - User Management
-      summary: Remove an account role from this user group
-      operationId: delete_user_group_role
-      parameters:
-        - name: group_uuid
-          in: path
-          required: true
-          schema:
-            type: string
-            format: path
-        - name: membership_id
-          in: query
-          required: true
-          style: form
-          description: A list of membership ids to remove from the user group in the format of membership_id=1&membership_id=2
-          schema:
-            type: array
-            items:
-              type: string
-      responses:
-        204:
-          description: Success
-          content: {}
-        404:
-          description: Not found
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ApiErrorResponse'
-      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.user_groups
-      x-anchore-authz-action: deleteUserGroupRole
-  /system/user-groups/{group_uuid}/users:
-    get:
-      tags:
-      - User Management
-      summary: Get a list of user group users
-      operationId: list_user_group_users
-      parameters:
-      - name: group_uuid
-        in: path
-        required: true
-        schema:
-          type: string
-          format: path
-      responses:
-        200:
-          description: User group users
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/UserGroupUsers'
-        404:
-          description: Not found
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ApiErrorResponse'
-      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.user_groups
-      x-anchore-authz-action: getUserGroupUsers
-    post:
-      tags:
-      - User Management
-      summary: Add user(s) to a user group
-      operationId: add_user_group_users
-      parameters:
-      - name: group_uuid
-        in: path
-        required: true
-        schema:
-          type: string
-          format: path
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/UserGroupUsersPost'
-        required: true
-      responses:
-        200:
-          description: User group user
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/UserGroupUsers'
-        404:
-          description: Not found
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ApiErrorResponse'
-      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.user_groups
-      x-anchore-authz-action: addUserGroupUser
-    delete:
-      tags:
-      - User Management
-      summary: Remove a user from a user group
-      operationId: delete_user_group_users
-      parameters:
-      - name: group_uuid
-        in: path
-        required: true
-        schema:
-          type: string
-          format: path
-      - name: username
-        in: query
-        required: true
-        style: form
-        description: A list of usernames to remove from the user group in the format of username=user1&username=user2
-        schema:
-          type: array
-          items:
-            type: string
-      responses:
-        204:
-          description: Success
-          content: {}
-        404:
-          description: Not found
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ApiErrorResponse'
-      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.user_groups
-      x-anchore-authz-action: deleteUserGroupUser
   /user/api-keys:
     get:
       tags:
@@ -13498,8 +13496,11 @@ components:
     RbacManagerIdpUserGroup:
         type: object
         required:
-        - user_group_name
+        - user_group_uuid
         properties:
+          user_group_uuid:
+            type: string
+            description: The UUID of the user group
           user_group_name:
             type: string
             description: The name of the user group
@@ -13511,11 +13512,11 @@ components:
     RbacManagerIdpUserGroupPost:
       type: object
       properties:
-        user_groups:
+        user_group_uuids:
           type: array
           items:
             type: string
-            description: List of user group names to be associated with the IdP
+            description: List of user group uuids to be associated with the IdP
     RbacManagerIdpUserGroups:
       type: array
       items:
@@ -14939,6 +14940,14 @@ components:
         group_uuid:
           type: string
           description: The unique identifier for the user group
+    UserGroupPatch:
+      required:
+      - description
+      type: object
+      properties:
+        description:
+          type: string
+          description: The description of the user group
     UserGroupList:
       type: array
       items:

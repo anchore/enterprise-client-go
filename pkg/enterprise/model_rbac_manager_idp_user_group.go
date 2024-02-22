@@ -18,8 +18,10 @@ import (
 
 // RbacManagerIdpUserGroup A user group associated with an IdP
 type RbacManagerIdpUserGroup struct {
+	// The UUID of the user group
+	UserGroupUuid string `json:"user_group_uuid"`
 	// The name of the user group
-	UserGroupName string `json:"user_group_name"`
+	UserGroupName *string `json:"user_group_name,omitempty"`
 	// The timestamp when the user group was mapped to the IdP
 	MappedOn *time.Time `json:"mapped_on,omitempty"`
 }
@@ -28,9 +30,9 @@ type RbacManagerIdpUserGroup struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewRbacManagerIdpUserGroup(userGroupName string) *RbacManagerIdpUserGroup {
+func NewRbacManagerIdpUserGroup(userGroupUuid string) *RbacManagerIdpUserGroup {
 	this := RbacManagerIdpUserGroup{}
-	this.UserGroupName = userGroupName
+	this.UserGroupUuid = userGroupUuid
 	return &this
 }
 
@@ -42,28 +44,60 @@ func NewRbacManagerIdpUserGroupWithDefaults() *RbacManagerIdpUserGroup {
 	return &this
 }
 
-// GetUserGroupName returns the UserGroupName field value
-func (o *RbacManagerIdpUserGroup) GetUserGroupName() string {
+// GetUserGroupUuid returns the UserGroupUuid field value
+func (o *RbacManagerIdpUserGroup) GetUserGroupUuid() string {
 	if o == nil {
 		var ret string
 		return ret
 	}
 
-	return o.UserGroupName
+	return o.UserGroupUuid
 }
 
-// GetUserGroupNameOk returns a tuple with the UserGroupName field value
+// GetUserGroupUuidOk returns a tuple with the UserGroupUuid field value
 // and a boolean to check if the value has been set.
-func (o *RbacManagerIdpUserGroup) GetUserGroupNameOk() (*string, bool) {
+func (o *RbacManagerIdpUserGroup) GetUserGroupUuidOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.UserGroupName, true
+	return &o.UserGroupUuid, true
 }
 
-// SetUserGroupName sets field value
+// SetUserGroupUuid sets field value
+func (o *RbacManagerIdpUserGroup) SetUserGroupUuid(v string) {
+	o.UserGroupUuid = v
+}
+
+// GetUserGroupName returns the UserGroupName field value if set, zero value otherwise.
+func (o *RbacManagerIdpUserGroup) GetUserGroupName() string {
+	if o == nil || o.UserGroupName == nil {
+		var ret string
+		return ret
+	}
+	return *o.UserGroupName
+}
+
+// GetUserGroupNameOk returns a tuple with the UserGroupName field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *RbacManagerIdpUserGroup) GetUserGroupNameOk() (*string, bool) {
+	if o == nil || o.UserGroupName == nil {
+		return nil, false
+	}
+	return o.UserGroupName, true
+}
+
+// HasUserGroupName returns a boolean if a field has been set.
+func (o *RbacManagerIdpUserGroup) HasUserGroupName() bool {
+	if o != nil && o.UserGroupName != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetUserGroupName gets a reference to the given string and assigns it to the UserGroupName field.
 func (o *RbacManagerIdpUserGroup) SetUserGroupName(v string) {
-	o.UserGroupName = v
+	o.UserGroupName = &v
 }
 
 // GetMappedOn returns the MappedOn field value if set, zero value otherwise.
@@ -101,6 +135,9 @@ func (o *RbacManagerIdpUserGroup) SetMappedOn(v time.Time) {
 func (o RbacManagerIdpUserGroup) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
+		toSerialize["user_group_uuid"] = o.UserGroupUuid
+	}
+	if o.UserGroupName != nil {
 		toSerialize["user_group_name"] = o.UserGroupName
 	}
 	if o.MappedOn != nil {

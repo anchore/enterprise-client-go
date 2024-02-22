@@ -5063,6 +5063,27 @@ paths:
       - Inventories
       x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.runtime_inventory
       x-anchore-authz-action: getKubernetesPods
+  /my-user-groups:
+    get:
+      operationId: list_my_user_groups
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserGroupList'
+          description: User group list
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+          description: Internal error
+      summary: List user groups for the authenticated user
+      tags:
+      - Identity
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.user_groups
+      x-anchore-authz-action: None
   /notifications/endpoints:
     get:
       description: List the system installed notification endpoints
@@ -7939,10 +7960,11 @@ paths:
       x-anchore-authz-action: None
   /rbac-manager/saml/idps/{name}/user-group-mappings:
     delete:
-      description: Remove a user group association from an IdP
+      description: Remove user group association(s) from an IdP
       operationId: delete_idp_user_group
       parameters:
-      - explode: false
+      - description: The name of the IdP to remove the user group from
+        explode: false
         in: path
         name: name
         required: true
@@ -7950,7 +7972,8 @@ paths:
           format: path
           type: string
         style: simple
-      - explode: true
+      - description: The user group uuid to remove from the IdP in the format user_group=uuid1&user_group=uuid2
+        explode: true
         in: query
         name: user_group
         required: true
@@ -9609,101 +9632,6 @@ paths:
       - Statistics
       x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.system
       x-anchore-authz-action: None
-  /system/webhooks/{webhook_type}/test:
-    post:
-      description: "Loads the Webhook configuration for webhook_type, and sends the\
-        \ notification out as a test"
-      operationId: test_webhook
-      parameters:
-      - description: The Webhook Type that we should test
-        explode: false
-        in: path
-        name: webhook_type
-        required: true
-        schema:
-          format: path
-          type: string
-        style: simple
-      - description: What kind of Notification to send
-        explode: true
-        in: query
-        name: notification_type
-        required: false
-        schema:
-          default: tag_update
-          enum:
-          - tag_update
-          - analysis_update
-          - vuln_update
-          - policy_eval
-          type: string
-        style: form
-      responses:
-        "200":
-          content: {}
-          description: "The Webhook was sent successfully. Schemas may be found under\
-            \ Models (PolicyEvalNotification, TagUpdateNotification, VulnUpdateNotification,\
-            \ AnalysisUpdateNotification)"
-        "400":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ApiErrorResponse'
-          description: The Webhook failed to send due to misconfiguration
-        "500":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ApiErrorResponse'
-          description: The Webhook failed to send due to an Internal Error
-      summary: Adds the capabilities to test a webhook delivery for the given notification
-        type
-      tags:
-      - System
-      x-anchore-authz-action: None
-      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.system
-  /user:
-    get:
-      operationId: get_user
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/User'
-          description: User details for caller's user
-        "500":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ApiErrorResponse'
-          description: Internal error
-      summary: List authenticated user info
-      tags:
-      - Identity
-      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.user
-      x-anchore-authz-action: None
-  /my-user-groups:
-    get:
-      operationId: list_my_user_groups
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/UserGroupList'
-          description: User group list
-        "500":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ApiErrorResponse'
-          description: Internal error
-      summary: List user groups for the authenticated user
-      tags:
-      - Identity
-      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.user_groups
-      x-anchore-authz-action: None
   /system/user-groups:
     get:
       operationId: list_user_groups
@@ -9841,7 +9769,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/update_user_group_request'
+              $ref: '#/components/schemas/UserGroupPatch'
         required: true
       responses:
         "200":
@@ -9894,7 +9822,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/ApiErrorResponse'
           description: Not found
-      summary: Remove an account role from this user group
+      summary: Remove account role(s) from this user group
       tags:
       - User Management
       x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.user_groups
@@ -9923,7 +9851,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/ApiErrorResponse'
           description: Not found
-      summary: Get a list of user group roles
+      summary: Get a list of all user group roles
       tags:
       - User Management
       x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.user_groups
@@ -9958,7 +9886,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/ApiErrorResponse'
           description: Not found
-      summary: Add an account role to this user group
+      summary: Add account role(s) to this user group
       tags:
       - User Management
       x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.user_groups
@@ -10065,6 +9993,80 @@ paths:
       - User Management
       x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.user_groups
       x-anchore-authz-action: addUserGroupUser
+  /system/webhooks/{webhook_type}/test:
+    post:
+      description: "Loads the Webhook configuration for webhook_type, and sends the\
+        \ notification out as a test"
+      operationId: test_webhook
+      parameters:
+      - description: The Webhook Type that we should test
+        explode: false
+        in: path
+        name: webhook_type
+        required: true
+        schema:
+          format: path
+          type: string
+        style: simple
+      - description: What kind of Notification to send
+        explode: true
+        in: query
+        name: notification_type
+        required: false
+        schema:
+          default: tag_update
+          enum:
+          - tag_update
+          - analysis_update
+          - vuln_update
+          - policy_eval
+          type: string
+        style: form
+      responses:
+        "200":
+          content: {}
+          description: "The Webhook was sent successfully. Schemas may be found under\
+            \ Models (PolicyEvalNotification, TagUpdateNotification, VulnUpdateNotification,\
+            \ AnalysisUpdateNotification)"
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+          description: The Webhook failed to send due to misconfiguration
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+          description: The Webhook failed to send due to an Internal Error
+      summary: Adds the capabilities to test a webhook delivery for the given notification
+        type
+      tags:
+      - System
+      x-anchore-authz-action: None
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.system
+  /user:
+    get:
+      operationId: get_user
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+          description: User details for caller's user
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+          description: Internal error
+      summary: List authenticated user info
+      tags:
+      - Identity
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.user
+      x-anchore-authz-action: None
   /user/api-keys:
     get:
       operationId: list_api_keys
@@ -17344,8 +17346,12 @@ components:
       description: A user group associated with an IdP
       example:
         mapped_on: 2000-01-23T04:56:07.000+00:00
+        user_group_uuid: user_group_uuid
         user_group_name: user_group_name
       properties:
+        user_group_uuid:
+          description: The UUID of the user group
+          type: string
         user_group_name:
           description: The name of the user group
           type: string
@@ -17354,17 +17360,17 @@ components:
           format: date-time
           type: string
       required:
-      - user_group_name
+      - user_group_uuid
       type: object
     RbacManagerIdpUserGroupPost:
       example:
-        user_groups:
-        - user_groups
-        - user_groups
+        user_group_uuids:
+        - user_group_uuids
+        - user_group_uuids
       properties:
-        user_groups:
+        user_group_uuids:
           items:
-            description: List of user group names to be associated with the IdP
+            description: List of user group uuids to be associated with the IdP
             type: string
           type: array
       type: object
@@ -19888,6 +19894,16 @@ components:
       required:
       - name
       type: object
+    UserGroupPatch:
+      example:
+        description: description
+      properties:
+        description:
+          description: The description of the user group
+          type: string
+      required:
+      - description
+      type: object
     UserGroupList:
       items:
         $ref: '#/components/schemas/UserGroup'
@@ -20211,12 +20227,6 @@ components:
         refresh_token:
           description: "The refresh token from a previous password grant request,\
             \ used to get a new access_token"
-          type: string
-      type: object
-    update_user_group_request:
-      properties:
-        description:
-          description: An updated description of the user group
           type: string
       type: object
     AnalysisUpdateNotification_allOf:

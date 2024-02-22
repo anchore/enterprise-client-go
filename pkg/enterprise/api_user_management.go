@@ -25,7 +25,7 @@ import (
 type UserManagementApi interface {
 
 	/*
-	AddUserGroupRoles Add an account role to this user group
+	AddUserGroupRoles Add account role(s) to this user group
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param groupUuid
@@ -180,7 +180,7 @@ type UserManagementApi interface {
 	DeleteUserGroupExecute(r ApiDeleteUserGroupRequest) (*http.Response, error)
 
 	/*
-	DeleteUserGroupRole Remove an account role from this user group
+	DeleteUserGroupRole Remove account role(s) from this user group
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param groupUuid
@@ -313,7 +313,7 @@ type UserManagementApi interface {
 	ListUserCredentialsExecute(r ApiListUserCredentialsRequest) ([]AccessCredential, *http.Response, error)
 
 	/*
-	ListUserGroupRoles Get a list of user group roles
+	ListUserGroupRoles Get a list of all user group roles
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param groupUuid
@@ -451,7 +451,7 @@ func (r ApiAddUserGroupRolesRequest) Execute() (*UserGroupRoles, *http.Response,
 }
 
 /*
-AddUserGroupRoles Add an account role to this user group
+AddUserGroupRoles Add account role(s) to this user group
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param groupUuid
@@ -1831,7 +1831,7 @@ func (r ApiDeleteUserGroupRoleRequest) Execute() (*http.Response, error) {
 }
 
 /*
-DeleteUserGroupRole Remove an account role from this user group
+DeleteUserGroupRole Remove account role(s) from this user group
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param groupUuid
@@ -3018,7 +3018,7 @@ func (r ApiListUserGroupRolesRequest) Execute() (*UserGroupRoles, *http.Response
 }
 
 /*
-ListUserGroupRoles Get a list of user group roles
+ListUserGroupRoles Get a list of all user group roles
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param groupUuid
@@ -3963,11 +3963,11 @@ type ApiUpdateUserGroupRequest struct {
 	ctx context.Context
 	ApiService UserManagementApi
 	groupUuid string
-	updateUserGroupRequest *UpdateUserGroupRequest
+	userGroupPatch *UserGroupPatch
 }
 
-func (r ApiUpdateUserGroupRequest) UpdateUserGroupRequest(updateUserGroupRequest UpdateUserGroupRequest) ApiUpdateUserGroupRequest {
-	r.updateUserGroupRequest = &updateUserGroupRequest
+func (r ApiUpdateUserGroupRequest) UserGroupPatch(userGroupPatch UserGroupPatch) ApiUpdateUserGroupRequest {
+	r.userGroupPatch = &userGroupPatch
 	return r
 }
 
@@ -4011,8 +4011,8 @@ func (a *UserManagementApiService) UpdateUserGroupExecute(r ApiUpdateUserGroupRe
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.updateUserGroupRequest == nil {
-		return localVarReturnValue, nil, reportError("updateUserGroupRequest is required and must be specified")
+	if r.userGroupPatch == nil {
+		return localVarReturnValue, nil, reportError("userGroupPatch is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -4033,7 +4033,7 @@ func (a *UserManagementApiService) UpdateUserGroupExecute(r ApiUpdateUserGroupRe
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.updateUserGroupRequest
+	localVarPostBody = r.userGroupPatch
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err

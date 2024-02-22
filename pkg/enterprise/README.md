@@ -350,7 +350,7 @@ Class | Method | HTTP request | Description
 *SystemApi* | [**TestWebhook**](docs/SystemApi.md#testwebhook) | **Post** /system/webhooks/{webhook_type}/test | Adds the capabilities to test a webhook delivery for the given notification type
 *SystemApi* | [**ToggleFeedEnabled**](docs/SystemApi.md#togglefeedenabled) | **Put** /system/feeds/{feed} | 
 *SystemApi* | [**VersionCheck**](docs/SystemApi.md#versioncheck) | **Get** /version | 
-*UserManagementApi* | [**AddUserGroupRoles**](docs/UserManagementApi.md#addusergrouproles) | **Post** /system/user-groups/{group_uuid}/roles | Add an account role to this user group
+*UserManagementApi* | [**AddUserGroupRoles**](docs/UserManagementApi.md#addusergrouproles) | **Post** /system/user-groups/{group_uuid}/roles | Add account role(s) to this user group
 *UserManagementApi* | [**AddUserGroupUsers**](docs/UserManagementApi.md#addusergroupusers) | **Post** /system/user-groups/{group_uuid}/users | Add user(s) to a user group
 *UserManagementApi* | [**CreateAccount**](docs/UserManagementApi.md#createaccount) | **Post** /accounts | Create a new account. Only available to admin user.
 *UserManagementApi* | [**CreateUser**](docs/UserManagementApi.md#createuser) | **Post** /accounts/{account_name}/users | Create a new user within the specified account.
@@ -362,7 +362,7 @@ Class | Method | HTTP request | Description
 *UserManagementApi* | [**DeleteUserApiKey**](docs/UserManagementApi.md#deleteuserapikey) | **Delete** /accounts/{account_name}/users/{username}/api-keys/{key_name} | Delete a user API key
 *UserManagementApi* | [**DeleteUserCredential**](docs/UserManagementApi.md#deleteusercredential) | **Delete** /accounts/{account_name}/users/{username}/credentials | Delete a credential by type
 *UserManagementApi* | [**DeleteUserGroup**](docs/UserManagementApi.md#deleteusergroup) | **Delete** /system/user-groups/{group_uuid} | Delete a user group
-*UserManagementApi* | [**DeleteUserGroupRole**](docs/UserManagementApi.md#deleteusergrouprole) | **Delete** /system/user-groups/{group_uuid}/roles | Remove an account role from this user group
+*UserManagementApi* | [**DeleteUserGroupRole**](docs/UserManagementApi.md#deleteusergrouprole) | **Delete** /system/user-groups/{group_uuid}/roles | Remove account role(s) from this user group
 *UserManagementApi* | [**DeleteUserGroupUsers**](docs/UserManagementApi.md#deleteusergroupusers) | **Delete** /system/user-groups/{group_uuid}/users | Remove a user from a user group
 *UserManagementApi* | [**GetAccount**](docs/UserManagementApi.md#getaccount) | **Get** /accounts/{account_name} | Get account info about this specific account.
 *UserManagementApi* | [**GetAccountUser**](docs/UserManagementApi.md#getaccountuser) | **Get** /accounts/{account_name}/users/{username} | Get a specific user in the specified account
@@ -372,7 +372,7 @@ Class | Method | HTTP request | Description
 *UserManagementApi* | [**ListAccounts**](docs/UserManagementApi.md#listaccounts) | **Get** /accounts | List account summaries. Only available to the system admin user.
 *UserManagementApi* | [**ListUserApiKeys**](docs/UserManagementApi.md#listuserapikeys) | **Get** /accounts/{account_name}/users/{username}/api-keys | Get a list of API keys
 *UserManagementApi* | [**ListUserCredentials**](docs/UserManagementApi.md#listusercredentials) | **Get** /accounts/{account_name}/users/{username}/credentials | Get current credential summary
-*UserManagementApi* | [**ListUserGroupRoles**](docs/UserManagementApi.md#listusergrouproles) | **Get** /system/user-groups/{group_uuid}/roles | Get a list of user group roles
+*UserManagementApi* | [**ListUserGroupRoles**](docs/UserManagementApi.md#listusergrouproles) | **Get** /system/user-groups/{group_uuid}/roles | Get a list of all user group roles
 *UserManagementApi* | [**ListUserGroupUsers**](docs/UserManagementApi.md#listusergroupusers) | **Get** /system/user-groups/{group_uuid}/users | Get a list of user group users
 *UserManagementApi* | [**ListUserGroups**](docs/UserManagementApi.md#listusergroups) | **Get** /system/user-groups | List user groups
 *UserManagementApi* | [**ListUsers**](docs/UserManagementApi.md#listusers) | **Get** /accounts/{account_name}/users | List of users found in this account.
@@ -691,11 +691,11 @@ Class | Method | HTTP request | Description
  - [TokenResponse](docs/TokenResponse.md)
  - [TriggerParamSpec](docs/TriggerParamSpec.md)
  - [TriggerSpec](docs/TriggerSpec.md)
- - [UpdateUserGroupRequest](docs/UpdateUserGroupRequest.md)
  - [User](docs/User.md)
  - [UserApiKey](docs/UserApiKey.md)
  - [UserCreationRequest](docs/UserCreationRequest.md)
  - [UserGroup](docs/UserGroup.md)
+ - [UserGroupPatch](docs/UserGroupPatch.md)
  - [UserGroupRole](docs/UserGroupRole.md)
  - [UserGroupRoleRolesInner](docs/UserGroupRoleRolesInner.md)
  - [UserGroupRoles](docs/UserGroupRoles.md)

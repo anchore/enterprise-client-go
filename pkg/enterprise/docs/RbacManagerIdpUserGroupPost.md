@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**UserGroups** | Pointer to **[]string** |  | [optional] 
+**UserGroupUuids** | Pointer to **[]string** |  | [optional] 
 
 ## Methods
 
@@ -25,30 +25,30 @@ NewRbacManagerIdpUserGroupPostWithDefaults instantiates a new RbacManagerIdpUser
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
-### GetUserGroups
+### GetUserGroupUuids
 
-`func (o *RbacManagerIdpUserGroupPost) GetUserGroups() []string`
+`func (o *RbacManagerIdpUserGroupPost) GetUserGroupUuids() []string`
 
-GetUserGroups returns the UserGroups field if non-nil, zero value otherwise.
+GetUserGroupUuids returns the UserGroupUuids field if non-nil, zero value otherwise.
 
-### GetUserGroupsOk
+### GetUserGroupUuidsOk
 
-`func (o *RbacManagerIdpUserGroupPost) GetUserGroupsOk() (*[]string, bool)`
+`func (o *RbacManagerIdpUserGroupPost) GetUserGroupUuidsOk() (*[]string, bool)`
 
-GetUserGroupsOk returns a tuple with the UserGroups field if it's non-nil, zero value otherwise
+GetUserGroupUuidsOk returns a tuple with the UserGroupUuids field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetUserGroups
+### SetUserGroupUuids
 
-`func (o *RbacManagerIdpUserGroupPost) SetUserGroups(v []string)`
+`func (o *RbacManagerIdpUserGroupPost) SetUserGroupUuids(v []string)`
 
-SetUserGroups sets UserGroups field to given value.
+SetUserGroupUuids sets UserGroupUuids field to given value.
 
-### HasUserGroups
+### HasUserGroupUuids
 
-`func (o *RbacManagerIdpUserGroupPost) HasUserGroups() bool`
+`func (o *RbacManagerIdpUserGroupPost) HasUserGroupUuids() bool`
 
-HasUserGroups returns a boolean if a field has been set.
+HasUserGroupUuids returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

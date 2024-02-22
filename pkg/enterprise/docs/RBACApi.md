@@ -321,8 +321,8 @@ import (
 )
 
 func main() {
-    name := "name_example" // string | 
-    userGroup := []string{"Inner_example"} // []string | 
+    name := "name_example" // string | The name of the IdP to remove the user group from
+    userGroup := []string{"Inner_example"} // []string | The user group uuid to remove from the IdP in the format user_group=uuid1&user_group=uuid2
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
@@ -340,7 +340,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**name** | **string** |  | 
+**name** | **string** | The name of the IdP to remove the user group from | 
 
 ### Other Parameters
 
@@ -350,7 +350,7 @@ Other parameters are passed through a pointer to a apiDeleteIdpUserGroupRequest 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **userGroup** | **[]string** |  | 
+ **userGroup** | **[]string** | The user group uuid to remove from the IdP in the format user_group&#x3D;uuid1&amp;user_group&#x3D;uuid2 | 
 
 ### Return type
 

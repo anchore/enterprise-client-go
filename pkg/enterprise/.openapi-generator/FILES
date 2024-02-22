@@ -358,11 +358,11 @@ docs/TagUpdateNotificationPayloadAllOf.md
 docs/TokenResponse.md
 docs/TriggerParamSpec.md
 docs/TriggerSpec.md
-docs/UpdateUserGroupRequest.md
 docs/User.md
 docs/UserApiKey.md
 docs/UserCreationRequest.md
 docs/UserGroup.md
+docs/UserGroupPatch.md
 docs/UserGroupRole.md
 docs/UserGroupRoleRolesInner.md
 docs/UserGroupRoles.md
@@ -701,11 +701,11 @@ model_tag_update_notification_payload_all_of.go
 model_token_response.go
 model_trigger_param_spec.go
 model_trigger_spec.go
-model_update_user_group_request.go
 model_user.go
 model_user_api_key.go
 model_user_creation_request.go
 model_user_group.go
+model_user_group_patch.go
 model_user_group_role.go
 model_user_group_role_roles_inner.go
 model_user_group_roles.go
