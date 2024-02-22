@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Items** | Pointer to **[]string** |  | [optional] 
+**Items** | Pointer to [**[]UserGroupUser**](UserGroupUser.md) |  | [optional] 
 
 ## Methods
 
@@ -27,20 +27,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetItems
 
-`func (o *UserGroupUsers) GetItems() []string`
+`func (o *UserGroupUsers) GetItems() []UserGroupUser`
 
 GetItems returns the Items field if non-nil, zero value otherwise.
 
 ### GetItemsOk
 
-`func (o *UserGroupUsers) GetItemsOk() (*[]string, bool)`
+`func (o *UserGroupUsers) GetItemsOk() (*[]UserGroupUser, bool)`
 
 GetItemsOk returns a tuple with the Items field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetItems
 
-`func (o *UserGroupUsers) SetItems(v []string)`
+`func (o *UserGroupUsers) SetItems(v []UserGroupUser)`
 
 SetItems sets Items field to given value.
 

@@ -28,10 +28,10 @@ type UserManagementApi interface {
 	AddUserGroupRoles Add an account role to this user group
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param name
+	@param groupUuid
 	@return ApiAddUserGroupRolesRequest
 	*/
-	AddUserGroupRoles(ctx context.Context, name string) ApiAddUserGroupRolesRequest
+	AddUserGroupRoles(ctx context.Context, groupUuid string) ApiAddUserGroupRolesRequest
 
 	// AddUserGroupRolesExecute executes the request
 	//  @return UserGroupRoles
@@ -41,10 +41,10 @@ type UserManagementApi interface {
 	AddUserGroupUsers Add user(s) to a user group
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param name
+	@param groupUuid
 	@return ApiAddUserGroupUsersRequest
 	*/
-	AddUserGroupUsers(ctx context.Context, name string) ApiAddUserGroupUsersRequest
+	AddUserGroupUsers(ctx context.Context, groupUuid string) ApiAddUserGroupUsersRequest
 
 	// AddUserGroupUsersExecute executes the request
 	//  @return UserGroupUsers
@@ -171,10 +171,10 @@ type UserManagementApi interface {
 	DeleteUserGroup Delete a user group
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param name
+	@param groupUuid
 	@return ApiDeleteUserGroupRequest
 	*/
-	DeleteUserGroup(ctx context.Context, name string) ApiDeleteUserGroupRequest
+	DeleteUserGroup(ctx context.Context, groupUuid string) ApiDeleteUserGroupRequest
 
 	// DeleteUserGroupExecute executes the request
 	DeleteUserGroupExecute(r ApiDeleteUserGroupRequest) (*http.Response, error)
@@ -183,26 +183,25 @@ type UserManagementApi interface {
 	DeleteUserGroupRole Remove an account role from this user group
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param name
+	@param groupUuid
 	@return ApiDeleteUserGroupRoleRequest
 	*/
-	DeleteUserGroupRole(ctx context.Context, name string) ApiDeleteUserGroupRoleRequest
+	DeleteUserGroupRole(ctx context.Context, groupUuid string) ApiDeleteUserGroupRoleRequest
 
 	// DeleteUserGroupRoleExecute executes the request
 	DeleteUserGroupRoleExecute(r ApiDeleteUserGroupRoleRequest) (*http.Response, error)
 
 	/*
-	DeleteUserGroupUser Remove a user from a user group
+	DeleteUserGroupUsers Remove a user from a user group
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param name
-	@param username
-	@return ApiDeleteUserGroupUserRequest
+	@param groupUuid
+	@return ApiDeleteUserGroupUsersRequest
 	*/
-	DeleteUserGroupUser(ctx context.Context, name string, username string) ApiDeleteUserGroupUserRequest
+	DeleteUserGroupUsers(ctx context.Context, groupUuid string) ApiDeleteUserGroupUsersRequest
 
-	// DeleteUserGroupUserExecute executes the request
-	DeleteUserGroupUserExecute(r ApiDeleteUserGroupUserRequest) (*http.Response, error)
+	// DeleteUserGroupUsersExecute executes the request
+	DeleteUserGroupUsersExecute(r ApiDeleteUserGroupUsersRequest) (*http.Response, error)
 
 	/*
 	GetAccount Get account info about this specific account.
@@ -264,10 +263,10 @@ type UserManagementApi interface {
 	GetUserGroup Get a user group
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param name
+	@param groupUuid
 	@return ApiGetUserGroupRequest
 	*/
-	GetUserGroup(ctx context.Context, name string) ApiGetUserGroupRequest
+	GetUserGroup(ctx context.Context, groupUuid string) ApiGetUserGroupRequest
 
 	// GetUserGroupExecute executes the request
 	//  @return UserGroup
@@ -317,10 +316,10 @@ type UserManagementApi interface {
 	ListUserGroupRoles Get a list of user group roles
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param name
+	@param groupUuid
 	@return ApiListUserGroupRolesRequest
 	*/
-	ListUserGroupRoles(ctx context.Context, name string) ApiListUserGroupRolesRequest
+	ListUserGroupRoles(ctx context.Context, groupUuid string) ApiListUserGroupRolesRequest
 
 	// ListUserGroupRolesExecute executes the request
 	//  @return UserGroupRoles
@@ -330,10 +329,10 @@ type UserManagementApi interface {
 	ListUserGroupUsers Get a list of user group users
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param name
+	@param groupUuid
 	@return ApiListUserGroupUsersRequest
 	*/
-	ListUserGroupUsers(ctx context.Context, name string) ApiListUserGroupUsersRequest
+	ListUserGroupUsers(ctx context.Context, groupUuid string) ApiListUserGroupUsersRequest
 
 	// ListUserGroupUsersExecute executes the request
 	//  @return UserGroupUsers
@@ -422,10 +421,10 @@ type UserManagementApi interface {
 	UpdateUserGroup Update a user group
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param name
+	@param groupUuid
 	@return ApiUpdateUserGroupRequest
 	*/
-	UpdateUserGroup(ctx context.Context, name string) ApiUpdateUserGroupRequest
+	UpdateUserGroup(ctx context.Context, groupUuid string) ApiUpdateUserGroupRequest
 
 	// UpdateUserGroupExecute executes the request
 	//  @return UserGroup
@@ -438,7 +437,7 @@ type UserManagementApiService service
 type ApiAddUserGroupRolesRequest struct {
 	ctx context.Context
 	ApiService UserManagementApi
-	name string
+	groupUuid string
 	userGroupRole *UserGroupRole
 }
 
@@ -455,14 +454,14 @@ func (r ApiAddUserGroupRolesRequest) Execute() (*UserGroupRoles, *http.Response,
 AddUserGroupRoles Add an account role to this user group
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param name
+ @param groupUuid
  @return ApiAddUserGroupRolesRequest
 */
-func (a *UserManagementApiService) AddUserGroupRoles(ctx context.Context, name string) ApiAddUserGroupRolesRequest {
+func (a *UserManagementApiService) AddUserGroupRoles(ctx context.Context, groupUuid string) ApiAddUserGroupRolesRequest {
 	return ApiAddUserGroupRolesRequest{
 		ApiService: a,
 		ctx: ctx,
-		name: name,
+		groupUuid: groupUuid,
 	}
 }
 
@@ -481,8 +480,8 @@ func (a *UserManagementApiService) AddUserGroupRolesExecute(r ApiAddUserGroupRol
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/system/user-groups/{name}/roles"
-	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(parameterToString(r.name, "")), -1)
+	localVarPath := localBasePath + "/system/user-groups/{group_uuid}/roles"
+	localVarPath = strings.Replace(localVarPath, "{"+"group_uuid"+"}", url.PathEscape(parameterToString(r.groupUuid, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -559,7 +558,7 @@ func (a *UserManagementApiService) AddUserGroupRolesExecute(r ApiAddUserGroupRol
 type ApiAddUserGroupUsersRequest struct {
 	ctx context.Context
 	ApiService UserManagementApi
-	name string
+	groupUuid string
 	userGroupUsersPost *UserGroupUsersPost
 }
 
@@ -576,14 +575,14 @@ func (r ApiAddUserGroupUsersRequest) Execute() (*UserGroupUsers, *http.Response,
 AddUserGroupUsers Add user(s) to a user group
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param name
+ @param groupUuid
  @return ApiAddUserGroupUsersRequest
 */
-func (a *UserManagementApiService) AddUserGroupUsers(ctx context.Context, name string) ApiAddUserGroupUsersRequest {
+func (a *UserManagementApiService) AddUserGroupUsers(ctx context.Context, groupUuid string) ApiAddUserGroupUsersRequest {
 	return ApiAddUserGroupUsersRequest{
 		ApiService: a,
 		ctx: ctx,
-		name: name,
+		groupUuid: groupUuid,
 	}
 }
 
@@ -602,8 +601,8 @@ func (a *UserManagementApiService) AddUserGroupUsersExecute(r ApiAddUserGroupUse
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/system/user-groups/{name}/users"
-	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(parameterToString(r.name, "")), -1)
+	localVarPath := localBasePath + "/system/user-groups/{group_uuid}/users"
+	localVarPath = strings.Replace(localVarPath, "{"+"group_uuid"+"}", url.PathEscape(parameterToString(r.groupUuid, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1718,7 +1717,7 @@ func (a *UserManagementApiService) DeleteUserCredentialExecute(r ApiDeleteUserCr
 type ApiDeleteUserGroupRequest struct {
 	ctx context.Context
 	ApiService UserManagementApi
-	name string
+	groupUuid string
 }
 
 func (r ApiDeleteUserGroupRequest) Execute() (*http.Response, error) {
@@ -1729,14 +1728,14 @@ func (r ApiDeleteUserGroupRequest) Execute() (*http.Response, error) {
 DeleteUserGroup Delete a user group
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param name
+ @param groupUuid
  @return ApiDeleteUserGroupRequest
 */
-func (a *UserManagementApiService) DeleteUserGroup(ctx context.Context, name string) ApiDeleteUserGroupRequest {
+func (a *UserManagementApiService) DeleteUserGroup(ctx context.Context, groupUuid string) ApiDeleteUserGroupRequest {
 	return ApiDeleteUserGroupRequest{
 		ApiService: a,
 		ctx: ctx,
-		name: name,
+		groupUuid: groupUuid,
 	}
 }
 
@@ -1753,8 +1752,8 @@ func (a *UserManagementApiService) DeleteUserGroupExecute(r ApiDeleteUserGroupRe
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/system/user-groups/{name}"
-	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(parameterToString(r.name, "")), -1)
+	localVarPath := localBasePath + "/system/user-groups/{group_uuid}"
+	localVarPath = strings.Replace(localVarPath, "{"+"group_uuid"+"}", url.PathEscape(parameterToString(r.groupUuid, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1817,13 +1816,13 @@ func (a *UserManagementApiService) DeleteUserGroupExecute(r ApiDeleteUserGroupRe
 type ApiDeleteUserGroupRoleRequest struct {
 	ctx context.Context
 	ApiService UserManagementApi
-	name string
-	accountRole *[]string
+	groupUuid string
+	membershipId *[]string
 }
 
-// A list of account roles to remove in the format of account_role&#x3D;account_name:role_name&amp;account_role&#x3D;account_name:role_name
-func (r ApiDeleteUserGroupRoleRequest) AccountRole(accountRole []string) ApiDeleteUserGroupRoleRequest {
-	r.accountRole = &accountRole
+// A list of membership ids to remove from the user group in the format of membership_id&#x3D;1&amp;membership_id&#x3D;2
+func (r ApiDeleteUserGroupRoleRequest) MembershipId(membershipId []string) ApiDeleteUserGroupRoleRequest {
+	r.membershipId = &membershipId
 	return r
 }
 
@@ -1835,14 +1834,14 @@ func (r ApiDeleteUserGroupRoleRequest) Execute() (*http.Response, error) {
 DeleteUserGroupRole Remove an account role from this user group
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param name
+ @param groupUuid
  @return ApiDeleteUserGroupRoleRequest
 */
-func (a *UserManagementApiService) DeleteUserGroupRole(ctx context.Context, name string) ApiDeleteUserGroupRoleRequest {
+func (a *UserManagementApiService) DeleteUserGroupRole(ctx context.Context, groupUuid string) ApiDeleteUserGroupRoleRequest {
 	return ApiDeleteUserGroupRoleRequest{
 		ApiService: a,
 		ctx: ctx,
-		name: name,
+		groupUuid: groupUuid,
 	}
 }
 
@@ -1859,25 +1858,25 @@ func (a *UserManagementApiService) DeleteUserGroupRoleExecute(r ApiDeleteUserGro
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/system/user-groups/{name}/roles"
-	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(parameterToString(r.name, "")), -1)
+	localVarPath := localBasePath + "/system/user-groups/{group_uuid}/roles"
+	localVarPath = strings.Replace(localVarPath, "{"+"group_uuid"+"}", url.PathEscape(parameterToString(r.groupUuid, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.accountRole == nil {
-		return nil, reportError("accountRole is required and must be specified")
+	if r.membershipId == nil {
+		return nil, reportError("membershipId is required and must be specified")
 	}
 
 	{
-		t := *r.accountRole
+		t := *r.membershipId
 		if reflect.TypeOf(t).Kind() == reflect.Slice {
 			s := reflect.ValueOf(t)
 			for i := 0; i < s.Len(); i++ {
-				localVarQueryParams.Add("account_role", parameterToString(s.Index(i), "multi"))
+				localVarQueryParams.Add("membership_id", parameterToString(s.Index(i), "multi"))
 			}
 		} else {
-			localVarQueryParams.Add("account_role", parameterToString(t, "multi"))
+			localVarQueryParams.Add("membership_id", parameterToString(t, "multi"))
 		}
 	}
 	// to determine the Content-Type header
@@ -1934,55 +1933,72 @@ func (a *UserManagementApiService) DeleteUserGroupRoleExecute(r ApiDeleteUserGro
 	return localVarHTTPResponse, nil
 }
 
-type ApiDeleteUserGroupUserRequest struct {
+type ApiDeleteUserGroupUsersRequest struct {
 	ctx context.Context
 	ApiService UserManagementApi
-	name string
-	username string
+	groupUuid string
+	username *[]string
 }
 
-func (r ApiDeleteUserGroupUserRequest) Execute() (*http.Response, error) {
-	return r.ApiService.DeleteUserGroupUserExecute(r)
+// A list of usernames to remove from the user group in the format of username&#x3D;user1&amp;username&#x3D;user2
+func (r ApiDeleteUserGroupUsersRequest) Username(username []string) ApiDeleteUserGroupUsersRequest {
+	r.username = &username
+	return r
+}
+
+func (r ApiDeleteUserGroupUsersRequest) Execute() (*http.Response, error) {
+	return r.ApiService.DeleteUserGroupUsersExecute(r)
 }
 
 /*
-DeleteUserGroupUser Remove a user from a user group
+DeleteUserGroupUsers Remove a user from a user group
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param name
- @param username
- @return ApiDeleteUserGroupUserRequest
+ @param groupUuid
+ @return ApiDeleteUserGroupUsersRequest
 */
-func (a *UserManagementApiService) DeleteUserGroupUser(ctx context.Context, name string, username string) ApiDeleteUserGroupUserRequest {
-	return ApiDeleteUserGroupUserRequest{
+func (a *UserManagementApiService) DeleteUserGroupUsers(ctx context.Context, groupUuid string) ApiDeleteUserGroupUsersRequest {
+	return ApiDeleteUserGroupUsersRequest{
 		ApiService: a,
 		ctx: ctx,
-		name: name,
-		username: username,
+		groupUuid: groupUuid,
 	}
 }
 
 // Execute executes the request
-func (a *UserManagementApiService) DeleteUserGroupUserExecute(r ApiDeleteUserGroupUserRequest) (*http.Response, error) {
+func (a *UserManagementApiService) DeleteUserGroupUsersExecute(r ApiDeleteUserGroupUsersRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodDelete
 		localVarPostBody     interface{}
 		formFiles            []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UserManagementApiService.DeleteUserGroupUser")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UserManagementApiService.DeleteUserGroupUsers")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/system/user-groups/{name}/users/{username}"
-	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(parameterToString(r.name, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"username"+"}", url.PathEscape(parameterToString(r.username, "")), -1)
+	localVarPath := localBasePath + "/system/user-groups/{group_uuid}/users"
+	localVarPath = strings.Replace(localVarPath, "{"+"group_uuid"+"}", url.PathEscape(parameterToString(r.groupUuid, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.username == nil {
+		return nil, reportError("username is required and must be specified")
+	}
 
+	{
+		t := *r.username
+		if reflect.TypeOf(t).Kind() == reflect.Slice {
+			s := reflect.ValueOf(t)
+			for i := 0; i < s.Len(); i++ {
+				localVarQueryParams.Add("username", parameterToString(s.Index(i), "multi"))
+			}
+		} else {
+			localVarQueryParams.Add("username", parameterToString(t, "multi"))
+		}
+	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -2540,7 +2556,7 @@ func (a *UserManagementApiService) GetUserApiKeyExecute(r ApiGetUserApiKeyReques
 type ApiGetUserGroupRequest struct {
 	ctx context.Context
 	ApiService UserManagementApi
-	name string
+	groupUuid string
 }
 
 func (r ApiGetUserGroupRequest) Execute() (*UserGroup, *http.Response, error) {
@@ -2551,14 +2567,14 @@ func (r ApiGetUserGroupRequest) Execute() (*UserGroup, *http.Response, error) {
 GetUserGroup Get a user group
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param name
+ @param groupUuid
  @return ApiGetUserGroupRequest
 */
-func (a *UserManagementApiService) GetUserGroup(ctx context.Context, name string) ApiGetUserGroupRequest {
+func (a *UserManagementApiService) GetUserGroup(ctx context.Context, groupUuid string) ApiGetUserGroupRequest {
 	return ApiGetUserGroupRequest{
 		ApiService: a,
 		ctx: ctx,
-		name: name,
+		groupUuid: groupUuid,
 	}
 }
 
@@ -2577,8 +2593,8 @@ func (a *UserManagementApiService) GetUserGroupExecute(r ApiGetUserGroupRequest)
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/system/user-groups/{name}"
-	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(parameterToString(r.name, "")), -1)
+	localVarPath := localBasePath + "/system/user-groups/{group_uuid}"
+	localVarPath = strings.Replace(localVarPath, "{"+"group_uuid"+"}", url.PathEscape(parameterToString(r.groupUuid, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -2994,7 +3010,7 @@ func (a *UserManagementApiService) ListUserCredentialsExecute(r ApiListUserCrede
 type ApiListUserGroupRolesRequest struct {
 	ctx context.Context
 	ApiService UserManagementApi
-	name string
+	groupUuid string
 }
 
 func (r ApiListUserGroupRolesRequest) Execute() (*UserGroupRoles, *http.Response, error) {
@@ -3005,14 +3021,14 @@ func (r ApiListUserGroupRolesRequest) Execute() (*UserGroupRoles, *http.Response
 ListUserGroupRoles Get a list of user group roles
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param name
+ @param groupUuid
  @return ApiListUserGroupRolesRequest
 */
-func (a *UserManagementApiService) ListUserGroupRoles(ctx context.Context, name string) ApiListUserGroupRolesRequest {
+func (a *UserManagementApiService) ListUserGroupRoles(ctx context.Context, groupUuid string) ApiListUserGroupRolesRequest {
 	return ApiListUserGroupRolesRequest{
 		ApiService: a,
 		ctx: ctx,
-		name: name,
+		groupUuid: groupUuid,
 	}
 }
 
@@ -3031,8 +3047,8 @@ func (a *UserManagementApiService) ListUserGroupRolesExecute(r ApiListUserGroupR
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/system/user-groups/{name}/roles"
-	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(parameterToString(r.name, "")), -1)
+	localVarPath := localBasePath + "/system/user-groups/{group_uuid}/roles"
+	localVarPath = strings.Replace(localVarPath, "{"+"group_uuid"+"}", url.PathEscape(parameterToString(r.groupUuid, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -3104,7 +3120,7 @@ func (a *UserManagementApiService) ListUserGroupRolesExecute(r ApiListUserGroupR
 type ApiListUserGroupUsersRequest struct {
 	ctx context.Context
 	ApiService UserManagementApi
-	name string
+	groupUuid string
 }
 
 func (r ApiListUserGroupUsersRequest) Execute() (*UserGroupUsers, *http.Response, error) {
@@ -3115,14 +3131,14 @@ func (r ApiListUserGroupUsersRequest) Execute() (*UserGroupUsers, *http.Response
 ListUserGroupUsers Get a list of user group users
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param name
+ @param groupUuid
  @return ApiListUserGroupUsersRequest
 */
-func (a *UserManagementApiService) ListUserGroupUsers(ctx context.Context, name string) ApiListUserGroupUsersRequest {
+func (a *UserManagementApiService) ListUserGroupUsers(ctx context.Context, groupUuid string) ApiListUserGroupUsersRequest {
 	return ApiListUserGroupUsersRequest{
 		ApiService: a,
 		ctx: ctx,
-		name: name,
+		groupUuid: groupUuid,
 	}
 }
 
@@ -3141,8 +3157,8 @@ func (a *UserManagementApiService) ListUserGroupUsersExecute(r ApiListUserGroupU
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/system/user-groups/{name}/users"
-	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(parameterToString(r.name, "")), -1)
+	localVarPath := localBasePath + "/system/user-groups/{group_uuid}/users"
+	localVarPath = strings.Replace(localVarPath, "{"+"group_uuid"+"}", url.PathEscape(parameterToString(r.groupUuid, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -3215,11 +3231,17 @@ type ApiListUserGroupsRequest struct {
 	ctx context.Context
 	ApiService UserManagementApi
 	containsUser *string
+	name *string
 }
 
 // Filter the user groups to only those that contain the specified user
 func (r ApiListUserGroupsRequest) ContainsUser(containsUser string) ApiListUserGroupsRequest {
 	r.containsUser = &containsUser
+	return r
+}
+
+func (r ApiListUserGroupsRequest) Name(name string) ApiListUserGroupsRequest {
+	r.name = &name
 	return r
 }
 
@@ -3263,6 +3285,9 @@ func (a *UserManagementApiService) ListUserGroupsExecute(r ApiListUserGroupsRequ
 
 	if r.containsUser != nil {
 		localVarQueryParams.Add("contains_user", parameterToString(*r.containsUser, ""))
+	}
+	if r.name != nil {
+		localVarQueryParams.Add("name", parameterToString(*r.name, ""))
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -3937,7 +3962,7 @@ func (a *UserManagementApiService) UpdateAccountStateExecute(r ApiUpdateAccountS
 type ApiUpdateUserGroupRequest struct {
 	ctx context.Context
 	ApiService UserManagementApi
-	name string
+	groupUuid string
 	updateUserGroupRequest *UpdateUserGroupRequest
 }
 
@@ -3954,14 +3979,14 @@ func (r ApiUpdateUserGroupRequest) Execute() (*UserGroup, *http.Response, error)
 UpdateUserGroup Update a user group
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param name
+ @param groupUuid
  @return ApiUpdateUserGroupRequest
 */
-func (a *UserManagementApiService) UpdateUserGroup(ctx context.Context, name string) ApiUpdateUserGroupRequest {
+func (a *UserManagementApiService) UpdateUserGroup(ctx context.Context, groupUuid string) ApiUpdateUserGroupRequest {
 	return ApiUpdateUserGroupRequest{
 		ApiService: a,
 		ctx: ctx,
-		name: name,
+		groupUuid: groupUuid,
 	}
 }
 
@@ -3969,7 +3994,7 @@ func (a *UserManagementApiService) UpdateUserGroup(ctx context.Context, name str
 //  @return UserGroup
 func (a *UserManagementApiService) UpdateUserGroupExecute(r ApiUpdateUserGroupRequest) (*UserGroup, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPut
+		localVarHTTPMethod   = http.MethodPatch
 		localVarPostBody     interface{}
 		formFiles            []formFile
 		localVarReturnValue  *UserGroup
@@ -3980,8 +4005,8 @@ func (a *UserManagementApiService) UpdateUserGroupExecute(r ApiUpdateUserGroupRe
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/system/user-groups/{name}"
-	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(parameterToString(r.name, "")), -1)
+	localVarPath := localBasePath + "/system/user-groups/{group_uuid}"
+	localVarPath = strings.Replace(localVarPath, "{"+"group_uuid"+"}", url.PathEscape(parameterToString(r.groupUuid, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}

@@ -18,17 +18,17 @@ import (
 // UserGroupRole struct for UserGroupRole
 type UserGroupRole struct {
 	// The account for this role
-	AccountName string `json:"account_name"`
-	Roles []string `json:"roles"`
+	ForAccount string `json:"for_account"`
+	Roles []UserGroupRoleRolesInner `json:"roles"`
 }
 
 // NewUserGroupRole instantiates a new UserGroupRole object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewUserGroupRole(accountName string, roles []string) *UserGroupRole {
+func NewUserGroupRole(forAccount string, roles []UserGroupRoleRolesInner) *UserGroupRole {
 	this := UserGroupRole{}
-	this.AccountName = accountName
+	this.ForAccount = forAccount
 	this.Roles = roles
 	return &this
 }
@@ -41,34 +41,34 @@ func NewUserGroupRoleWithDefaults() *UserGroupRole {
 	return &this
 }
 
-// GetAccountName returns the AccountName field value
-func (o *UserGroupRole) GetAccountName() string {
+// GetForAccount returns the ForAccount field value
+func (o *UserGroupRole) GetForAccount() string {
 	if o == nil {
 		var ret string
 		return ret
 	}
 
-	return o.AccountName
+	return o.ForAccount
 }
 
-// GetAccountNameOk returns a tuple with the AccountName field value
+// GetForAccountOk returns a tuple with the ForAccount field value
 // and a boolean to check if the value has been set.
-func (o *UserGroupRole) GetAccountNameOk() (*string, bool) {
+func (o *UserGroupRole) GetForAccountOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.AccountName, true
+	return &o.ForAccount, true
 }
 
-// SetAccountName sets field value
-func (o *UserGroupRole) SetAccountName(v string) {
-	o.AccountName = v
+// SetForAccount sets field value
+func (o *UserGroupRole) SetForAccount(v string) {
+	o.ForAccount = v
 }
 
 // GetRoles returns the Roles field value
-func (o *UserGroupRole) GetRoles() []string {
+func (o *UserGroupRole) GetRoles() []UserGroupRoleRolesInner {
 	if o == nil {
-		var ret []string
+		var ret []UserGroupRoleRolesInner
 		return ret
 	}
 
@@ -77,7 +77,7 @@ func (o *UserGroupRole) GetRoles() []string {
 
 // GetRolesOk returns a tuple with the Roles field value
 // and a boolean to check if the value has been set.
-func (o *UserGroupRole) GetRolesOk() ([]string, bool) {
+func (o *UserGroupRole) GetRolesOk() ([]UserGroupRoleRolesInner, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -85,14 +85,14 @@ func (o *UserGroupRole) GetRolesOk() ([]string, bool) {
 }
 
 // SetRoles sets field value
-func (o *UserGroupRole) SetRoles(v []string) {
+func (o *UserGroupRole) SetRoles(v []UserGroupRoleRolesInner) {
 	o.Roles = v
 }
 
 func (o UserGroupRole) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
-		toSerialize["account_name"] = o.AccountName
+		toSerialize["for_account"] = o.ForAccount
 	}
 	if true {
 		toSerialize["roles"] = o.Roles

@@ -285,7 +285,8 @@ docs/QueryApi.md
 docs/RBACApi.md
 docs/RbacManagerAccountRole.md
 docs/RbacManagerApiErrorResponse.md
-docs/RbacManagerIdpUserGroups.md
+docs/RbacManagerIdpUserGroup.md
+docs/RbacManagerIdpUserGroupPost.md
 docs/RbacManagerPermission.md
 docs/RbacManagerRole.md
 docs/RbacManagerRoleMember.md
@@ -363,7 +364,9 @@ docs/UserApiKey.md
 docs/UserCreationRequest.md
 docs/UserGroup.md
 docs/UserGroupRole.md
+docs/UserGroupRoleRolesInner.md
 docs/UserGroupRoles.md
+docs/UserGroupUser.md
 docs/UserGroupUsers.md
 docs/UserGroupUsersPost.md
 docs/UserManagementApi.md
@@ -633,7 +636,8 @@ model_policy_rule.go
 model_policy_rule_param.go
 model_rbac_manager_account_role.go
 model_rbac_manager_api_error_response.go
-model_rbac_manager_idp_user_groups.go
+model_rbac_manager_idp_user_group.go
+model_rbac_manager_idp_user_group_post.go
 model_rbac_manager_permission.go
 model_rbac_manager_role.go
 model_rbac_manager_role_member.go
@@ -703,7 +707,9 @@ model_user_api_key.go
 model_user_creation_request.go
 model_user_group.go
 model_user_group_role.go
+model_user_group_role_roles_inner.go
 model_user_group_roles.go
+model_user_group_user.go
 model_user_group_users.go
 model_user_group_users_post.go
 model_vendor_data_object.go

@@ -21,6 +21,8 @@ type UserGroup struct {
 	Name string `json:"name"`
 	// The description of the user group
 	Description *string `json:"description,omitempty"`
+	// The unique identifier for the user group
+	GroupUuid *string `json:"group_uuid,omitempty"`
 }
 
 // NewUserGroup instantiates a new UserGroup object
@@ -97,6 +99,38 @@ func (o *UserGroup) SetDescription(v string) {
 	o.Description = &v
 }
 
+// GetGroupUuid returns the GroupUuid field value if set, zero value otherwise.
+func (o *UserGroup) GetGroupUuid() string {
+	if o == nil || o.GroupUuid == nil {
+		var ret string
+		return ret
+	}
+	return *o.GroupUuid
+}
+
+// GetGroupUuidOk returns a tuple with the GroupUuid field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *UserGroup) GetGroupUuidOk() (*string, bool) {
+	if o == nil || o.GroupUuid == nil {
+		return nil, false
+	}
+	return o.GroupUuid, true
+}
+
+// HasGroupUuid returns a boolean if a field has been set.
+func (o *UserGroup) HasGroupUuid() bool {
+	if o != nil && o.GroupUuid != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetGroupUuid gets a reference to the given string and assigns it to the GroupUuid field.
+func (o *UserGroup) SetGroupUuid(v string) {
+	o.GroupUuid = &v
+}
+
 func (o UserGroup) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
@@ -104,6 +138,9 @@ func (o UserGroup) MarshalJSON() ([]byte, error) {
 	}
 	if o.Description != nil {
 		toSerialize["description"] = o.Description
+	}
+	if o.GroupUuid != nil {
+		toSerialize["group_uuid"] = o.GroupUuid
 	}
 	return json.Marshal(toSerialize)
 }

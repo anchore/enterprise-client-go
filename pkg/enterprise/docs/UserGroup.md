@@ -6,6 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Name** | **string** | The name of the user group | 
 **Description** | Pointer to **string** | The description of the user group | [optional] 
+**GroupUuid** | Pointer to **string** | The unique identifier for the user group | [optional] 
 
 ## Methods
 
@@ -70,6 +71,31 @@ SetDescription sets Description field to given value.
 `func (o *UserGroup) HasDescription() bool`
 
 HasDescription returns a boolean if a field has been set.
+
+### GetGroupUuid
+
+`func (o *UserGroup) GetGroupUuid() string`
+
+GetGroupUuid returns the GroupUuid field if non-nil, zero value otherwise.
+
+### GetGroupUuidOk
+
+`func (o *UserGroup) GetGroupUuidOk() (*string, bool)`
+
+GetGroupUuidOk returns a tuple with the GroupUuid field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetGroupUuid
+
+`func (o *UserGroup) SetGroupUuid(v string)`
+
+SetGroupUuid sets GroupUuid field to given value.
+
+### HasGroupUuid
+
+`func (o *UserGroup) HasGroupUuid() bool`
+
+HasGroupUuid returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

@@ -4,8 +4,8 @@ All URIs are relative to */v2*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**AddUserGroupRoles**](UserManagementApi.md#AddUserGroupRoles) | **Post** /system/user-groups/{name}/roles | Add an account role to this user group
-[**AddUserGroupUsers**](UserManagementApi.md#AddUserGroupUsers) | **Post** /system/user-groups/{name}/users | Add user(s) to a user group
+[**AddUserGroupRoles**](UserManagementApi.md#AddUserGroupRoles) | **Post** /system/user-groups/{group_uuid}/roles | Add an account role to this user group
+[**AddUserGroupUsers**](UserManagementApi.md#AddUserGroupUsers) | **Post** /system/user-groups/{group_uuid}/users | Add user(s) to a user group
 [**CreateAccount**](UserManagementApi.md#CreateAccount) | **Post** /accounts | Create a new account. Only available to admin user.
 [**CreateUser**](UserManagementApi.md#CreateUser) | **Post** /accounts/{account_name}/users | Create a new user within the specified account.
 [**CreateUserApiKey**](UserManagementApi.md#CreateUserApiKey) | **Post** /accounts/{account_name}/users/{username}/api-keys | Add a new API key
@@ -15,32 +15,32 @@ Method | HTTP request | Description
 [**DeleteUser**](UserManagementApi.md#DeleteUser) | **Delete** /accounts/{account_name}/users/{username} | Delete a specific user credential by username of the credential. Cannot be the credential used to authenticate the request.
 [**DeleteUserApiKey**](UserManagementApi.md#DeleteUserApiKey) | **Delete** /accounts/{account_name}/users/{username}/api-keys/{key_name} | Delete a user API key
 [**DeleteUserCredential**](UserManagementApi.md#DeleteUserCredential) | **Delete** /accounts/{account_name}/users/{username}/credentials | Delete a credential by type
-[**DeleteUserGroup**](UserManagementApi.md#DeleteUserGroup) | **Delete** /system/user-groups/{name} | Delete a user group
-[**DeleteUserGroupRole**](UserManagementApi.md#DeleteUserGroupRole) | **Delete** /system/user-groups/{name}/roles | Remove an account role from this user group
-[**DeleteUserGroupUser**](UserManagementApi.md#DeleteUserGroupUser) | **Delete** /system/user-groups/{name}/users/{username} | Remove a user from a user group
+[**DeleteUserGroup**](UserManagementApi.md#DeleteUserGroup) | **Delete** /system/user-groups/{group_uuid} | Delete a user group
+[**DeleteUserGroupRole**](UserManagementApi.md#DeleteUserGroupRole) | **Delete** /system/user-groups/{group_uuid}/roles | Remove an account role from this user group
+[**DeleteUserGroupUsers**](UserManagementApi.md#DeleteUserGroupUsers) | **Delete** /system/user-groups/{group_uuid}/users | Remove a user from a user group
 [**GetAccount**](UserManagementApi.md#GetAccount) | **Get** /accounts/{account_name} | Get account info about this specific account.
 [**GetAccountUser**](UserManagementApi.md#GetAccountUser) | **Get** /accounts/{account_name}/users/{username} | Get a specific user in the specified account
 [**GetOauthToken**](UserManagementApi.md#GetOauthToken) | **Post** /oauth/token | 
 [**GetUserApiKey**](UserManagementApi.md#GetUserApiKey) | **Get** /accounts/{account_name}/users/{username}/api-keys/{key_name} | Get a user API key
-[**GetUserGroup**](UserManagementApi.md#GetUserGroup) | **Get** /system/user-groups/{name} | Get a user group
+[**GetUserGroup**](UserManagementApi.md#GetUserGroup) | **Get** /system/user-groups/{group_uuid} | Get a user group
 [**ListAccounts**](UserManagementApi.md#ListAccounts) | **Get** /accounts | List account summaries. Only available to the system admin user.
 [**ListUserApiKeys**](UserManagementApi.md#ListUserApiKeys) | **Get** /accounts/{account_name}/users/{username}/api-keys | Get a list of API keys
 [**ListUserCredentials**](UserManagementApi.md#ListUserCredentials) | **Get** /accounts/{account_name}/users/{username}/credentials | Get current credential summary
-[**ListUserGroupRoles**](UserManagementApi.md#ListUserGroupRoles) | **Get** /system/user-groups/{name}/roles | Get a list of user group roles
-[**ListUserGroupUsers**](UserManagementApi.md#ListUserGroupUsers) | **Get** /system/user-groups/{name}/users | Get a list of user group users
+[**ListUserGroupRoles**](UserManagementApi.md#ListUserGroupRoles) | **Get** /system/user-groups/{group_uuid}/roles | Get a list of user group roles
+[**ListUserGroupUsers**](UserManagementApi.md#ListUserGroupUsers) | **Get** /system/user-groups/{group_uuid}/users | Get a list of user group users
 [**ListUserGroups**](UserManagementApi.md#ListUserGroups) | **Get** /system/user-groups | List user groups
 [**ListUsers**](UserManagementApi.md#ListUsers) | **Get** /accounts/{account_name}/users | List of users found in this account.
 [**PatchUserApiKey**](UserManagementApi.md#PatchUserApiKey) | **Patch** /accounts/{account_name}/users/{username}/api-keys/{key_name} | Patch a user API key
 [**RevokeOauthToken**](UserManagementApi.md#RevokeOauthToken) | **Post** /oauth/revoke | 
 [**UpdateAccount**](UserManagementApi.md#UpdateAccount) | **Put** /accounts/{account_name} | Update the info for this specific account.
 [**UpdateAccountState**](UserManagementApi.md#UpdateAccountState) | **Put** /accounts/{account_name}/state | Update the state of an account to either enabled or disabled. For deletion use the DELETE route
-[**UpdateUserGroup**](UserManagementApi.md#UpdateUserGroup) | **Put** /system/user-groups/{name} | Update a user group
+[**UpdateUserGroup**](UserManagementApi.md#UpdateUserGroup) | **Patch** /system/user-groups/{group_uuid} | Update a user group
 
 
 
 ## AddUserGroupRoles
 
-> UserGroupRoles AddUserGroupRoles(ctx, name).UserGroupRole(userGroupRole).Execute()
+> UserGroupRoles AddUserGroupRoles(ctx, groupUuid).UserGroupRole(userGroupRole).Execute()
 
 Add an account role to this user group
 
@@ -57,12 +57,12 @@ import (
 )
 
 func main() {
-    name := "name_example" // string | 
-    userGroupRole := *openapiclient.NewUserGroupRole("AccountName_example", []string{"Roles_example"}) // UserGroupRole | 
+    groupUuid := "groupUuid_example" // string | 
+    userGroupRole := *openapiclient.NewUserGroupRole("ForAccount_example", []openapiclient.UserGroupRoleRolesInner{*openapiclient.NewUserGroupRoleRolesInner()}) // UserGroupRole | 
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.UserManagementApi.AddUserGroupRoles(context.Background(), name).UserGroupRole(userGroupRole).Execute()
+    resp, r, err := apiClient.UserManagementApi.AddUserGroupRoles(context.Background(), groupUuid).UserGroupRole(userGroupRole).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `UserManagementApi.AddUserGroupRoles``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -78,7 +78,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**name** | **string** |  | 
+**groupUuid** | **string** |  | 
 
 ### Other Parameters
 
@@ -110,7 +110,7 @@ No authorization required
 
 ## AddUserGroupUsers
 
-> UserGroupUsers AddUserGroupUsers(ctx, name).UserGroupUsersPost(userGroupUsersPost).Execute()
+> UserGroupUsers AddUserGroupUsers(ctx, groupUuid).UserGroupUsersPost(userGroupUsersPost).Execute()
 
 Add user(s) to a user group
 
@@ -127,12 +127,12 @@ import (
 )
 
 func main() {
-    name := "name_example" // string | 
+    groupUuid := "groupUuid_example" // string | 
     userGroupUsersPost := *openapiclient.NewUserGroupUsersPost() // UserGroupUsersPost | 
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.UserManagementApi.AddUserGroupUsers(context.Background(), name).UserGroupUsersPost(userGroupUsersPost).Execute()
+    resp, r, err := apiClient.UserManagementApi.AddUserGroupUsers(context.Background(), groupUuid).UserGroupUsersPost(userGroupUsersPost).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `UserManagementApi.AddUserGroupUsers``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -148,7 +148,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**name** | **string** |  | 
+**groupUuid** | **string** |  | 
 
 ### Other Parameters
 
@@ -803,7 +803,7 @@ No authorization required
 
 ## DeleteUserGroup
 
-> DeleteUserGroup(ctx, name).Execute()
+> DeleteUserGroup(ctx, groupUuid).Execute()
 
 Delete a user group
 
@@ -820,11 +820,11 @@ import (
 )
 
 func main() {
-    name := "name_example" // string | 
+    groupUuid := "groupUuid_example" // string | 
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.UserManagementApi.DeleteUserGroup(context.Background(), name).Execute()
+    resp, r, err := apiClient.UserManagementApi.DeleteUserGroup(context.Background(), groupUuid).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `UserManagementApi.DeleteUserGroup``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -838,7 +838,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**name** | **string** |  | 
+**groupUuid** | **string** |  | 
 
 ### Other Parameters
 
@@ -869,7 +869,7 @@ No authorization required
 
 ## DeleteUserGroupRole
 
-> DeleteUserGroupRole(ctx, name).AccountRole(accountRole).Execute()
+> DeleteUserGroupRole(ctx, groupUuid).MembershipId(membershipId).Execute()
 
 Remove an account role from this user group
 
@@ -886,12 +886,12 @@ import (
 )
 
 func main() {
-    name := "name_example" // string | 
-    accountRole := []string{"Inner_example"} // []string | A list of account roles to remove in the format of account_role=account_name:role_name&account_role=account_name:role_name
+    groupUuid := "groupUuid_example" // string | 
+    membershipId := []string{"Inner_example"} // []string | A list of membership ids to remove from the user group in the format of membership_id=1&membership_id=2
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.UserManagementApi.DeleteUserGroupRole(context.Background(), name).AccountRole(accountRole).Execute()
+    resp, r, err := apiClient.UserManagementApi.DeleteUserGroupRole(context.Background(), groupUuid).MembershipId(membershipId).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `UserManagementApi.DeleteUserGroupRole``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -905,7 +905,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**name** | **string** |  | 
+**groupUuid** | **string** |  | 
 
 ### Other Parameters
 
@@ -915,7 +915,7 @@ Other parameters are passed through a pointer to a apiDeleteUserGroupRoleRequest
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **accountRole** | **[]string** | A list of account roles to remove in the format of account_role&#x3D;account_name:role_name&amp;account_role&#x3D;account_name:role_name | 
+ **membershipId** | **[]string** | A list of membership ids to remove from the user group in the format of membership_id&#x3D;1&amp;membership_id&#x3D;2 | 
 
 ### Return type
 
@@ -935,9 +935,9 @@ No authorization required
 [[Back to README]](../README.md)
 
 
-## DeleteUserGroupUser
+## DeleteUserGroupUsers
 
-> DeleteUserGroupUser(ctx, name, username).Execute()
+> DeleteUserGroupUsers(ctx, groupUuid).Username(username).Execute()
 
 Remove a user from a user group
 
@@ -954,14 +954,14 @@ import (
 )
 
 func main() {
-    name := "name_example" // string | 
-    username := "username_example" // string | 
+    groupUuid := "groupUuid_example" // string | 
+    username := []string{"Inner_example"} // []string | A list of usernames to remove from the user group in the format of username=user1&username=user2
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.UserManagementApi.DeleteUserGroupUser(context.Background(), name, username).Execute()
+    resp, r, err := apiClient.UserManagementApi.DeleteUserGroupUsers(context.Background(), groupUuid).Username(username).Execute()
     if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `UserManagementApi.DeleteUserGroupUser``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Error when calling `UserManagementApi.DeleteUserGroupUsers``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
 }
@@ -973,18 +973,17 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**name** | **string** |  | 
-**username** | **string** |  | 
+**groupUuid** | **string** |  | 
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiDeleteUserGroupUserRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiDeleteUserGroupUsersRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
-
+ **username** | **[]string** | A list of usernames to remove from the user group in the format of username&#x3D;user1&amp;username&#x3D;user2 | 
 
 ### Return type
 
@@ -1293,7 +1292,7 @@ No authorization required
 
 ## GetUserGroup
 
-> UserGroup GetUserGroup(ctx, name).Execute()
+> UserGroup GetUserGroup(ctx, groupUuid).Execute()
 
 Get a user group
 
@@ -1310,11 +1309,11 @@ import (
 )
 
 func main() {
-    name := "name_example" // string | 
+    groupUuid := "groupUuid_example" // string | 
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.UserManagementApi.GetUserGroup(context.Background(), name).Execute()
+    resp, r, err := apiClient.UserManagementApi.GetUserGroup(context.Background(), groupUuid).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `UserManagementApi.GetUserGroup``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -1330,7 +1329,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**name** | **string** |  | 
+**groupUuid** | **string** |  | 
 
 ### Other Parameters
 
@@ -1567,7 +1566,7 @@ No authorization required
 
 ## ListUserGroupRoles
 
-> UserGroupRoles ListUserGroupRoles(ctx, name).Execute()
+> UserGroupRoles ListUserGroupRoles(ctx, groupUuid).Execute()
 
 Get a list of user group roles
 
@@ -1584,11 +1583,11 @@ import (
 )
 
 func main() {
-    name := "name_example" // string | 
+    groupUuid := "groupUuid_example" // string | 
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.UserManagementApi.ListUserGroupRoles(context.Background(), name).Execute()
+    resp, r, err := apiClient.UserManagementApi.ListUserGroupRoles(context.Background(), groupUuid).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `UserManagementApi.ListUserGroupRoles``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -1604,7 +1603,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**name** | **string** |  | 
+**groupUuid** | **string** |  | 
 
 ### Other Parameters
 
@@ -1635,7 +1634,7 @@ No authorization required
 
 ## ListUserGroupUsers
 
-> UserGroupUsers ListUserGroupUsers(ctx, name).Execute()
+> UserGroupUsers ListUserGroupUsers(ctx, groupUuid).Execute()
 
 Get a list of user group users
 
@@ -1652,11 +1651,11 @@ import (
 )
 
 func main() {
-    name := "name_example" // string | 
+    groupUuid := "groupUuid_example" // string | 
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.UserManagementApi.ListUserGroupUsers(context.Background(), name).Execute()
+    resp, r, err := apiClient.UserManagementApi.ListUserGroupUsers(context.Background(), groupUuid).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `UserManagementApi.ListUserGroupUsers``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -1672,7 +1671,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**name** | **string** |  | 
+**groupUuid** | **string** |  | 
 
 ### Other Parameters
 
@@ -1703,7 +1702,7 @@ No authorization required
 
 ## ListUserGroups
 
-> []UserGroup ListUserGroups(ctx).ContainsUser(containsUser).Execute()
+> []UserGroup ListUserGroups(ctx).ContainsUser(containsUser).Name(name).Execute()
 
 List user groups
 
@@ -1721,10 +1720,11 @@ import (
 
 func main() {
     containsUser := "containsUser_example" // string | Filter the user groups to only those that contain the specified user (optional)
+    name := "name_example" // string |  (optional)
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.UserManagementApi.ListUserGroups(context.Background()).ContainsUser(containsUser).Execute()
+    resp, r, err := apiClient.UserManagementApi.ListUserGroups(context.Background()).ContainsUser(containsUser).Name(name).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `UserManagementApi.ListUserGroups``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -1746,6 +1746,7 @@ Other parameters are passed through a pointer to a apiListUserGroupsRequest stru
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **containsUser** | **string** | Filter the user groups to only those that contain the specified user | 
+ **name** | **string** |  | 
 
 ### Return type
 
@@ -2119,7 +2120,7 @@ No authorization required
 
 ## UpdateUserGroup
 
-> UserGroup UpdateUserGroup(ctx, name).UpdateUserGroupRequest(updateUserGroupRequest).Execute()
+> UserGroup UpdateUserGroup(ctx, groupUuid).UpdateUserGroupRequest(updateUserGroupRequest).Execute()
 
 Update a user group
 
@@ -2136,12 +2137,12 @@ import (
 )
 
 func main() {
-    name := "name_example" // string | 
+    groupUuid := "groupUuid_example" // string | 
     updateUserGroupRequest := *openapiclient.NewUpdateUserGroupRequest() // UpdateUserGroupRequest | 
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.UserManagementApi.UpdateUserGroup(context.Background(), name).UpdateUserGroupRequest(updateUserGroupRequest).Execute()
+    resp, r, err := apiClient.UserManagementApi.UpdateUserGroup(context.Background(), groupUuid).UpdateUserGroupRequest(updateUserGroupRequest).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `UserManagementApi.UpdateUserGroup``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -2157,7 +2158,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**name** | **string** |  | 
+**groupUuid** | **string** |  | 
 
 ### Other Parameters
 

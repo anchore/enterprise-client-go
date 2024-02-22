@@ -38,6 +38,8 @@ type RbacManagerSamlConfigurationGet struct {
 	IdpAccountAttribute *string `json:"idp_account_attribute,omitempty"`
 	// The SAML attribute to use from the response assertions to determine the anchore role(s) to assign a new user in the specified account. If unset, the default is used.
 	IdpRoleAttribute *string `json:"idp_role_attribute,omitempty"`
+	// The SAML attribute to use from the response assertions to determine the SSO groups the user is a member of. If unset, the default is used (memberOf).
+	IdpGroupsAttribute *string `json:"idp_groups_attribute,omitempty"`
 	// The anchore account to assign all users to from this IDP if no account attribute is mapped or present.
 	DefaultAccount *string `json:"default_account,omitempty"`
 	// The default role to apply to new users from this IDP if no attribute is mapped or found in the SAML assertions.
@@ -375,6 +377,38 @@ func (o *RbacManagerSamlConfigurationGet) SetIdpRoleAttribute(v string) {
 	o.IdpRoleAttribute = &v
 }
 
+// GetIdpGroupsAttribute returns the IdpGroupsAttribute field value if set, zero value otherwise.
+func (o *RbacManagerSamlConfigurationGet) GetIdpGroupsAttribute() string {
+	if o == nil || o.IdpGroupsAttribute == nil {
+		var ret string
+		return ret
+	}
+	return *o.IdpGroupsAttribute
+}
+
+// GetIdpGroupsAttributeOk returns a tuple with the IdpGroupsAttribute field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *RbacManagerSamlConfigurationGet) GetIdpGroupsAttributeOk() (*string, bool) {
+	if o == nil || o.IdpGroupsAttribute == nil {
+		return nil, false
+	}
+	return o.IdpGroupsAttribute, true
+}
+
+// HasIdpGroupsAttribute returns a boolean if a field has been set.
+func (o *RbacManagerSamlConfigurationGet) HasIdpGroupsAttribute() bool {
+	if o != nil && o.IdpGroupsAttribute != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetIdpGroupsAttribute gets a reference to the given string and assigns it to the IdpGroupsAttribute field.
+func (o *RbacManagerSamlConfigurationGet) SetIdpGroupsAttribute(v string) {
+	o.IdpGroupsAttribute = &v
+}
+
 // GetDefaultAccount returns the DefaultAccount field value if set, zero value otherwise.
 func (o *RbacManagerSamlConfigurationGet) GetDefaultAccount() string {
 	if o == nil || o.DefaultAccount == nil {
@@ -662,6 +696,9 @@ func (o RbacManagerSamlConfigurationGet) MarshalJSON() ([]byte, error) {
 	}
 	if o.IdpRoleAttribute != nil {
 		toSerialize["idp_role_attribute"] = o.IdpRoleAttribute
+	}
+	if o.IdpGroupsAttribute != nil {
+		toSerialize["idp_groups_attribute"] = o.IdpGroupsAttribute
 	}
 	if o.DefaultAccount != nil {
 		toSerialize["default_account"] = o.DefaultAccount

@@ -17,7 +17,7 @@ import (
 
 // UserGroupUsers struct for UserGroupUsers
 type UserGroupUsers struct {
-	Items []string `json:"items,omitempty"`
+	Items []UserGroupUser `json:"items,omitempty"`
 }
 
 // NewUserGroupUsers instantiates a new UserGroupUsers object
@@ -38,9 +38,9 @@ func NewUserGroupUsersWithDefaults() *UserGroupUsers {
 }
 
 // GetItems returns the Items field value if set, zero value otherwise.
-func (o *UserGroupUsers) GetItems() []string {
+func (o *UserGroupUsers) GetItems() []UserGroupUser {
 	if o == nil || o.Items == nil {
-		var ret []string
+		var ret []UserGroupUser
 		return ret
 	}
 	return o.Items
@@ -48,7 +48,7 @@ func (o *UserGroupUsers) GetItems() []string {
 
 // GetItemsOk returns a tuple with the Items field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *UserGroupUsers) GetItemsOk() ([]string, bool) {
+func (o *UserGroupUsers) GetItemsOk() ([]UserGroupUser, bool) {
 	if o == nil || o.Items == nil {
 		return nil, false
 	}
@@ -64,8 +64,8 @@ func (o *UserGroupUsers) HasItems() bool {
 	return false
 }
 
-// SetItems gets a reference to the given []string and assigns it to the Items field.
-func (o *UserGroupUsers) SetItems(v []string) {
+// SetItems gets a reference to the given []UserGroupUser and assigns it to the Items field.
+func (o *UserGroupUsers) SetItems(v []UserGroupUser) {
 	o.Items = v
 }
 

@@ -291,7 +291,7 @@ Class | Method | HTTP request | Description
 *RBACApi* | [**AddIdpUserGroups**](docs/RBACApi.md#addidpusergroups) | **Post** /rbac-manager/saml/idps/{name}/user-group-mappings | 
 *RBACApi* | [**AddRoleUser**](docs/RBACApi.md#addroleuser) | **Post** /rbac-manager/roles/{role_name}/members | Add a user to the role
 *RBACApi* | [**DeleteIdp**](docs/RBACApi.md#deleteidp) | **Delete** /rbac-manager/saml/idps/{name} | 
-*RBACApi* | [**DeleteIdpUserGroup**](docs/RBACApi.md#deleteidpusergroup) | **Delete** /rbac-manager/saml/idps/{name}/user-group-mappings/{user_group_name} | 
+*RBACApi* | [**DeleteIdpUserGroup**](docs/RBACApi.md#deleteidpusergroup) | **Delete** /rbac-manager/saml/idps/{name}/user-group-mappings | 
 *RBACApi* | [**DeleteRoleUser**](docs/RBACApi.md#deleteroleuser) | **Delete** /rbac-manager/roles/{role_name}/members | Remove a user from the role
 *RBACApi* | [**GetIdp**](docs/RBACApi.md#getidp) | **Get** /rbac-manager/saml/idps/{name} | 
 *RBACApi* | [**GetIdpUserGroups**](docs/RBACApi.md#getidpusergroups) | **Get** /rbac-manager/saml/idps/{name}/user-group-mappings | 
@@ -304,7 +304,6 @@ Class | Method | HTTP request | Description
 *RBACApi* | [**SamlLogin**](docs/RBACApi.md#samllogin) | **Get** /rbac-manager/saml/login/{idp_name} | 
 *RBACApi* | [**SamlSso**](docs/RBACApi.md#samlsso) | **Post** /rbac-manager/saml/sso/{idp_name} | 
 *RBACApi* | [**UpdateIdp**](docs/RBACApi.md#updateidp) | **Put** /rbac-manager/saml/idps/{name} | 
-*RBACApi* | [**UpdateIdpUserGroups**](docs/RBACApi.md#updateidpusergroups) | **Put** /rbac-manager/saml/idps/{name}/user-group-mappings | 
 *RegistriesApi* | [**CreateRegistry**](docs/RegistriesApi.md#createregistry) | **Post** /registries | Add a new registry
 *RegistriesApi* | [**DeleteRegistry**](docs/RegistriesApi.md#deleteregistry) | **Delete** /registries/{registry} | Delete a registry configuration
 *RegistriesApi* | [**GetRegistry**](docs/RegistriesApi.md#getregistry) | **Get** /registries/{registry} | Get a specific registry configuration
@@ -351,8 +350,8 @@ Class | Method | HTTP request | Description
 *SystemApi* | [**TestWebhook**](docs/SystemApi.md#testwebhook) | **Post** /system/webhooks/{webhook_type}/test | Adds the capabilities to test a webhook delivery for the given notification type
 *SystemApi* | [**ToggleFeedEnabled**](docs/SystemApi.md#togglefeedenabled) | **Put** /system/feeds/{feed} | 
 *SystemApi* | [**VersionCheck**](docs/SystemApi.md#versioncheck) | **Get** /version | 
-*UserManagementApi* | [**AddUserGroupRoles**](docs/UserManagementApi.md#addusergrouproles) | **Post** /system/user-groups/{name}/roles | Add an account role to this user group
-*UserManagementApi* | [**AddUserGroupUsers**](docs/UserManagementApi.md#addusergroupusers) | **Post** /system/user-groups/{name}/users | Add user(s) to a user group
+*UserManagementApi* | [**AddUserGroupRoles**](docs/UserManagementApi.md#addusergrouproles) | **Post** /system/user-groups/{group_uuid}/roles | Add an account role to this user group
+*UserManagementApi* | [**AddUserGroupUsers**](docs/UserManagementApi.md#addusergroupusers) | **Post** /system/user-groups/{group_uuid}/users | Add user(s) to a user group
 *UserManagementApi* | [**CreateAccount**](docs/UserManagementApi.md#createaccount) | **Post** /accounts | Create a new account. Only available to admin user.
 *UserManagementApi* | [**CreateUser**](docs/UserManagementApi.md#createuser) | **Post** /accounts/{account_name}/users | Create a new user within the specified account.
 *UserManagementApi* | [**CreateUserApiKey**](docs/UserManagementApi.md#createuserapikey) | **Post** /accounts/{account_name}/users/{username}/api-keys | Add a new API key
@@ -362,26 +361,26 @@ Class | Method | HTTP request | Description
 *UserManagementApi* | [**DeleteUser**](docs/UserManagementApi.md#deleteuser) | **Delete** /accounts/{account_name}/users/{username} | Delete a specific user credential by username of the credential. Cannot be the credential used to authenticate the request.
 *UserManagementApi* | [**DeleteUserApiKey**](docs/UserManagementApi.md#deleteuserapikey) | **Delete** /accounts/{account_name}/users/{username}/api-keys/{key_name} | Delete a user API key
 *UserManagementApi* | [**DeleteUserCredential**](docs/UserManagementApi.md#deleteusercredential) | **Delete** /accounts/{account_name}/users/{username}/credentials | Delete a credential by type
-*UserManagementApi* | [**DeleteUserGroup**](docs/UserManagementApi.md#deleteusergroup) | **Delete** /system/user-groups/{name} | Delete a user group
-*UserManagementApi* | [**DeleteUserGroupRole**](docs/UserManagementApi.md#deleteusergrouprole) | **Delete** /system/user-groups/{name}/roles | Remove an account role from this user group
-*UserManagementApi* | [**DeleteUserGroupUser**](docs/UserManagementApi.md#deleteusergroupuser) | **Delete** /system/user-groups/{name}/users/{username} | Remove a user from a user group
+*UserManagementApi* | [**DeleteUserGroup**](docs/UserManagementApi.md#deleteusergroup) | **Delete** /system/user-groups/{group_uuid} | Delete a user group
+*UserManagementApi* | [**DeleteUserGroupRole**](docs/UserManagementApi.md#deleteusergrouprole) | **Delete** /system/user-groups/{group_uuid}/roles | Remove an account role from this user group
+*UserManagementApi* | [**DeleteUserGroupUsers**](docs/UserManagementApi.md#deleteusergroupusers) | **Delete** /system/user-groups/{group_uuid}/users | Remove a user from a user group
 *UserManagementApi* | [**GetAccount**](docs/UserManagementApi.md#getaccount) | **Get** /accounts/{account_name} | Get account info about this specific account.
 *UserManagementApi* | [**GetAccountUser**](docs/UserManagementApi.md#getaccountuser) | **Get** /accounts/{account_name}/users/{username} | Get a specific user in the specified account
 *UserManagementApi* | [**GetOauthToken**](docs/UserManagementApi.md#getoauthtoken) | **Post** /oauth/token | 
 *UserManagementApi* | [**GetUserApiKey**](docs/UserManagementApi.md#getuserapikey) | **Get** /accounts/{account_name}/users/{username}/api-keys/{key_name} | Get a user API key
-*UserManagementApi* | [**GetUserGroup**](docs/UserManagementApi.md#getusergroup) | **Get** /system/user-groups/{name} | Get a user group
+*UserManagementApi* | [**GetUserGroup**](docs/UserManagementApi.md#getusergroup) | **Get** /system/user-groups/{group_uuid} | Get a user group
 *UserManagementApi* | [**ListAccounts**](docs/UserManagementApi.md#listaccounts) | **Get** /accounts | List account summaries. Only available to the system admin user.
 *UserManagementApi* | [**ListUserApiKeys**](docs/UserManagementApi.md#listuserapikeys) | **Get** /accounts/{account_name}/users/{username}/api-keys | Get a list of API keys
 *UserManagementApi* | [**ListUserCredentials**](docs/UserManagementApi.md#listusercredentials) | **Get** /accounts/{account_name}/users/{username}/credentials | Get current credential summary
-*UserManagementApi* | [**ListUserGroupRoles**](docs/UserManagementApi.md#listusergrouproles) | **Get** /system/user-groups/{name}/roles | Get a list of user group roles
-*UserManagementApi* | [**ListUserGroupUsers**](docs/UserManagementApi.md#listusergroupusers) | **Get** /system/user-groups/{name}/users | Get a list of user group users
+*UserManagementApi* | [**ListUserGroupRoles**](docs/UserManagementApi.md#listusergrouproles) | **Get** /system/user-groups/{group_uuid}/roles | Get a list of user group roles
+*UserManagementApi* | [**ListUserGroupUsers**](docs/UserManagementApi.md#listusergroupusers) | **Get** /system/user-groups/{group_uuid}/users | Get a list of user group users
 *UserManagementApi* | [**ListUserGroups**](docs/UserManagementApi.md#listusergroups) | **Get** /system/user-groups | List user groups
 *UserManagementApi* | [**ListUsers**](docs/UserManagementApi.md#listusers) | **Get** /accounts/{account_name}/users | List of users found in this account.
 *UserManagementApi* | [**PatchUserApiKey**](docs/UserManagementApi.md#patchuserapikey) | **Patch** /accounts/{account_name}/users/{username}/api-keys/{key_name} | Patch a user API key
 *UserManagementApi* | [**RevokeOauthToken**](docs/UserManagementApi.md#revokeoauthtoken) | **Post** /oauth/revoke | 
 *UserManagementApi* | [**UpdateAccount**](docs/UserManagementApi.md#updateaccount) | **Put** /accounts/{account_name} | Update the info for this specific account.
 *UserManagementApi* | [**UpdateAccountState**](docs/UserManagementApi.md#updateaccountstate) | **Put** /accounts/{account_name}/state | Update the state of an account to either enabled or disabled. For deletion use the DELETE route
-*UserManagementApi* | [**UpdateUserGroup**](docs/UserManagementApi.md#updateusergroup) | **Put** /system/user-groups/{name} | Update a user group
+*UserManagementApi* | [**UpdateUserGroup**](docs/UserManagementApi.md#updateusergroup) | **Patch** /system/user-groups/{group_uuid} | Update a user group
 *VulnerabilitiesApi* | [**VulnerabilityScanSbom**](docs/VulnerabilitiesApi.md#vulnerabilityscansbom) | **Post** /vulnerability-scan | Return a vulnerability scan for the uploaded SBOM without storing the SBOM and without any side-effects in the system.
 
 
@@ -627,7 +626,8 @@ Class | Method | HTTP request | Description
  - [PolicyRuleParam](docs/PolicyRuleParam.md)
  - [RbacManagerAccountRole](docs/RbacManagerAccountRole.md)
  - [RbacManagerApiErrorResponse](docs/RbacManagerApiErrorResponse.md)
- - [RbacManagerIdpUserGroups](docs/RbacManagerIdpUserGroups.md)
+ - [RbacManagerIdpUserGroup](docs/RbacManagerIdpUserGroup.md)
+ - [RbacManagerIdpUserGroupPost](docs/RbacManagerIdpUserGroupPost.md)
  - [RbacManagerPermission](docs/RbacManagerPermission.md)
  - [RbacManagerRole](docs/RbacManagerRole.md)
  - [RbacManagerRoleMember](docs/RbacManagerRoleMember.md)
@@ -697,7 +697,9 @@ Class | Method | HTTP request | Description
  - [UserCreationRequest](docs/UserCreationRequest.md)
  - [UserGroup](docs/UserGroup.md)
  - [UserGroupRole](docs/UserGroupRole.md)
+ - [UserGroupRoleRolesInner](docs/UserGroupRoleRolesInner.md)
  - [UserGroupRoles](docs/UserGroupRoles.md)
+ - [UserGroupUser](docs/UserGroupUser.md)
  - [UserGroupUsers](docs/UserGroupUsers.md)
  - [UserGroupUsersPost](docs/UserGroupUsersPost.md)
  - [VendorDataObject](docs/VendorDataObject.md)
