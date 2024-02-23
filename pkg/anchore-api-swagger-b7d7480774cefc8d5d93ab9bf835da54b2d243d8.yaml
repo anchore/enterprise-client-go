@@ -8696,7 +8696,7 @@ paths:
               $ref: '#/components/schemas/UserGroupPost'
         required: true
       responses:
-        200:
+        201:
           description: User group record
           content:
             application/json:
@@ -8848,7 +8848,7 @@ paths:
               $ref: '#/components/schemas/UserGroupRole'
         required: true
       responses:
-        200:
+        201:
           description: User group role
           content:
             application/json:
@@ -8942,7 +8942,7 @@ paths:
               $ref: '#/components/schemas/UserGroupUsersPost'
         required: true
       responses:
-        200:
+        201:
           description: User group user
           content:
             application/json:

@@ -9674,7 +9674,7 @@ paths:
               $ref: '#/components/schemas/UserGroupPost'
         required: true
       responses:
-        "200":
+        "201":
           content:
             application/json:
               schema:
@@ -9873,7 +9873,7 @@ paths:
               $ref: '#/components/schemas/UserGroupRole'
         required: true
       responses:
-        "200":
+        "201":
           content:
             application/json:
               schema:
@@ -9975,7 +9975,7 @@ paths:
               $ref: '#/components/schemas/UserGroupUsersPost'
         required: true
       responses:
-        "200":
+        "201":
           content:
             application/json:
               schema:
