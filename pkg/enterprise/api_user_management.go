@@ -1168,11 +1168,11 @@ func (a *UserManagementApiService) CreateUserCredentialExecute(r ApiCreateUserCr
 type ApiCreateUserGroupRequest struct {
 	ctx context.Context
 	ApiService UserManagementApi
-	userGroup *UserGroup
+	userGroupPost *UserGroupPost
 }
 
-func (r ApiCreateUserGroupRequest) UserGroup(userGroup UserGroup) ApiCreateUserGroupRequest {
-	r.userGroup = &userGroup
+func (r ApiCreateUserGroupRequest) UserGroupPost(userGroupPost UserGroupPost) ApiCreateUserGroupRequest {
+	r.userGroupPost = &userGroupPost
 	return r
 }
 
@@ -1213,8 +1213,8 @@ func (a *UserManagementApiService) CreateUserGroupExecute(r ApiCreateUserGroupRe
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.userGroup == nil {
-		return localVarReturnValue, nil, reportError("userGroup is required and must be specified")
+	if r.userGroupPost == nil {
+		return localVarReturnValue, nil, reportError("userGroupPost is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -1235,7 +1235,7 @@ func (a *UserManagementApiService) CreateUserGroupExecute(r ApiCreateUserGroupRe
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.userGroup
+	localVarPostBody = r.userGroupPost
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err

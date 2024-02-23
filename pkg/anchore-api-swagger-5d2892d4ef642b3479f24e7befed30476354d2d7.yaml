@@ -8693,7 +8693,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/UserGroup'
+              $ref: '#/components/schemas/UserGroupPost'
         required: true
       responses:
         200:
@@ -14928,6 +14928,7 @@ components:
     UserGroup:
       required:
       - name
+      - group_uuid
       type: object
       properties:
         name:
@@ -14940,6 +14941,26 @@ components:
         group_uuid:
           type: string
           description: The unique identifier for the user group
+        created_at:
+          type: string
+          format: date-time
+          description: The timestamp of when the user group was created
+        last_updated:
+          type: string
+          description: The timestamp of the last update to this user group
+          format: date-time
+    UserGroupPost:
+      required:
+        - name
+      type: object
+      properties:
+        name:
+          pattern: ^[a-zA-Z0-9][ a-zA-Z0-9@.!#$+=^_`~;-]{1,126}[a-zA-Z0-9_]$
+          type: string
+          description: The name of the user group
+        description:
+          type: string
+          description: The description of the user group
     UserGroupPatch:
       required:
       - description

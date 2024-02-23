@@ -696,6 +696,7 @@ Class | Method | HTTP request | Description
  - [UserCreationRequest](docs/UserCreationRequest.md)
  - [UserGroup](docs/UserGroup.md)
  - [UserGroupPatch](docs/UserGroupPatch.md)
+ - [UserGroupPost](docs/UserGroupPost.md)
  - [UserGroupRole](docs/UserGroupRole.md)
  - [UserGroupRoleRolesInner](docs/UserGroupRoleRolesInner.md)
  - [UserGroupRoles](docs/UserGroupRoles.md)

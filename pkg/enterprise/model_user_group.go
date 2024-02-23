@@ -13,6 +13,7 @@ package enterprise
 
 import (
 	"encoding/json"
+	"time"
 )
 
 // UserGroup struct for UserGroup
@@ -22,16 +23,21 @@ type UserGroup struct {
 	// The description of the user group
 	Description *string `json:"description,omitempty"`
 	// The unique identifier for the user group
-	GroupUuid *string `json:"group_uuid,omitempty"`
+	GroupUuid string `json:"group_uuid"`
+	// The timestamp of when the user group was created
+	CreatedAt *time.Time `json:"created_at,omitempty"`
+	// The timestamp of the last update to this user group
+	LastUpdated *time.Time `json:"last_updated,omitempty"`
 }
 
 // NewUserGroup instantiates a new UserGroup object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewUserGroup(name string) *UserGroup {
+func NewUserGroup(name string, groupUuid string) *UserGroup {
 	this := UserGroup{}
 	this.Name = name
+	this.GroupUuid = groupUuid
 	return &this
 }
 
@@ -99,36 +105,92 @@ func (o *UserGroup) SetDescription(v string) {
 	o.Description = &v
 }
 
-// GetGroupUuid returns the GroupUuid field value if set, zero value otherwise.
+// GetGroupUuid returns the GroupUuid field value
 func (o *UserGroup) GetGroupUuid() string {
-	if o == nil || o.GroupUuid == nil {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.GroupUuid
+
+	return o.GroupUuid
 }
 
-// GetGroupUuidOk returns a tuple with the GroupUuid field value if set, nil otherwise
+// GetGroupUuidOk returns a tuple with the GroupUuid field value
 // and a boolean to check if the value has been set.
 func (o *UserGroup) GetGroupUuidOk() (*string, bool) {
-	if o == nil || o.GroupUuid == nil {
+	if o == nil {
 		return nil, false
 	}
-	return o.GroupUuid, true
+	return &o.GroupUuid, true
 }
 
-// HasGroupUuid returns a boolean if a field has been set.
-func (o *UserGroup) HasGroupUuid() bool {
-	if o != nil && o.GroupUuid != nil {
+// SetGroupUuid sets field value
+func (o *UserGroup) SetGroupUuid(v string) {
+	o.GroupUuid = v
+}
+
+// GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
+func (o *UserGroup) GetCreatedAt() time.Time {
+	if o == nil || o.CreatedAt == nil {
+		var ret time.Time
+		return ret
+	}
+	return *o.CreatedAt
+}
+
+// GetCreatedAtOk returns a tuple with the CreatedAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *UserGroup) GetCreatedAtOk() (*time.Time, bool) {
+	if o == nil || o.CreatedAt == nil {
+		return nil, false
+	}
+	return o.CreatedAt, true
+}
+
+// HasCreatedAt returns a boolean if a field has been set.
+func (o *UserGroup) HasCreatedAt() bool {
+	if o != nil && o.CreatedAt != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetGroupUuid gets a reference to the given string and assigns it to the GroupUuid field.
-func (o *UserGroup) SetGroupUuid(v string) {
-	o.GroupUuid = &v
+// SetCreatedAt gets a reference to the given time.Time and assigns it to the CreatedAt field.
+func (o *UserGroup) SetCreatedAt(v time.Time) {
+	o.CreatedAt = &v
+}
+
+// GetLastUpdated returns the LastUpdated field value if set, zero value otherwise.
+func (o *UserGroup) GetLastUpdated() time.Time {
+	if o == nil || o.LastUpdated == nil {
+		var ret time.Time
+		return ret
+	}
+	return *o.LastUpdated
+}
+
+// GetLastUpdatedOk returns a tuple with the LastUpdated field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *UserGroup) GetLastUpdatedOk() (*time.Time, bool) {
+	if o == nil || o.LastUpdated == nil {
+		return nil, false
+	}
+	return o.LastUpdated, true
+}
+
+// HasLastUpdated returns a boolean if a field has been set.
+func (o *UserGroup) HasLastUpdated() bool {
+	if o != nil && o.LastUpdated != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetLastUpdated gets a reference to the given time.Time and assigns it to the LastUpdated field.
+func (o *UserGroup) SetLastUpdated(v time.Time) {
+	o.LastUpdated = &v
 }
 
 func (o UserGroup) MarshalJSON() ([]byte, error) {
@@ -139,8 +201,14 @@ func (o UserGroup) MarshalJSON() ([]byte, error) {
 	if o.Description != nil {
 		toSerialize["description"] = o.Description
 	}
-	if o.GroupUuid != nil {
+	if true {
 		toSerialize["group_uuid"] = o.GroupUuid
+	}
+	if o.CreatedAt != nil {
+		toSerialize["created_at"] = o.CreatedAt
+	}
+	if o.LastUpdated != nil {
+		toSerialize["last_updated"] = o.LastUpdated
 	}
 	return json.Marshal(toSerialize)
 }

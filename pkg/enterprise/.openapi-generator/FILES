@@ -363,6 +363,7 @@ docs/UserApiKey.md
 docs/UserCreationRequest.md
 docs/UserGroup.md
 docs/UserGroupPatch.md
+docs/UserGroupPost.md
 docs/UserGroupRole.md
 docs/UserGroupRoleRolesInner.md
 docs/UserGroupRoles.md
@@ -706,6 +707,7 @@ model_user_api_key.go
 model_user_creation_request.go
 model_user_group.go
 model_user_group_patch.go
+model_user_group_post.go
 model_user_group_role.go
 model_user_group_role_roles_inner.go
 model_user_group_roles.go

@@ -461,7 +461,7 @@ No authorization required
 
 ## CreateUserGroup
 
-> UserGroup CreateUserGroup(ctx).UserGroup(userGroup).Execute()
+> UserGroup CreateUserGroup(ctx).UserGroupPost(userGroupPost).Execute()
 
 Create a new user group
 
@@ -478,11 +478,11 @@ import (
 )
 
 func main() {
-    userGroup := *openapiclient.NewUserGroup("Name_example") // UserGroup | 
+    userGroupPost := *openapiclient.NewUserGroupPost("Name_example") // UserGroupPost | 
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.UserManagementApi.CreateUserGroup(context.Background()).UserGroup(userGroup).Execute()
+    resp, r, err := apiClient.UserManagementApi.CreateUserGroup(context.Background()).UserGroupPost(userGroupPost).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `UserManagementApi.CreateUserGroup``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -503,7 +503,7 @@ Other parameters are passed through a pointer to a apiCreateUserGroupRequest str
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **userGroup** | [**UserGroup**](UserGroup.md) |  | 
+ **userGroupPost** | [**UserGroupPost**](UserGroupPost.md) |  | 
 
 ### Return type
 

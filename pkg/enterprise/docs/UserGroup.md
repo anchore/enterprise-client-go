@@ -6,13 +6,15 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Name** | **string** | The name of the user group | 
 **Description** | Pointer to **string** | The description of the user group | [optional] 
-**GroupUuid** | Pointer to **string** | The unique identifier for the user group | [optional] 
+**GroupUuid** | **string** | The unique identifier for the user group | 
+**CreatedAt** | Pointer to **time.Time** | The timestamp of when the user group was created | [optional] 
+**LastUpdated** | Pointer to **time.Time** | The timestamp of the last update to this user group | [optional] 
 
 ## Methods
 
 ### NewUserGroup
 
-`func NewUserGroup(name string, ) *UserGroup`
+`func NewUserGroup(name string, groupUuid string, ) *UserGroup`
 
 NewUserGroup instantiates a new UserGroup object
 This constructor will assign default values to properties that have it defined,
@@ -91,11 +93,56 @@ and a boolean to check if the value has been set.
 
 SetGroupUuid sets GroupUuid field to given value.
 
-### HasGroupUuid
 
-`func (o *UserGroup) HasGroupUuid() bool`
+### GetCreatedAt
 
-HasGroupUuid returns a boolean if a field has been set.
+`func (o *UserGroup) GetCreatedAt() time.Time`
+
+GetCreatedAt returns the CreatedAt field if non-nil, zero value otherwise.
+
+### GetCreatedAtOk
+
+`func (o *UserGroup) GetCreatedAtOk() (*time.Time, bool)`
+
+GetCreatedAtOk returns a tuple with the CreatedAt field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCreatedAt
+
+`func (o *UserGroup) SetCreatedAt(v time.Time)`
+
+SetCreatedAt sets CreatedAt field to given value.
+
+### HasCreatedAt
+
+`func (o *UserGroup) HasCreatedAt() bool`
+
+HasCreatedAt returns a boolean if a field has been set.
+
+### GetLastUpdated
+
+`func (o *UserGroup) GetLastUpdated() time.Time`
+
+GetLastUpdated returns the LastUpdated field if non-nil, zero value otherwise.
+
+### GetLastUpdatedOk
+
+`func (o *UserGroup) GetLastUpdatedOk() (*time.Time, bool)`
+
+GetLastUpdatedOk returns a tuple with the LastUpdated field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetLastUpdated
+
+`func (o *UserGroup) SetLastUpdated(v time.Time)`
+
+SetLastUpdated sets LastUpdated field to given value.
+
+### HasLastUpdated
+
+`func (o *UserGroup) HasLastUpdated() bool`
+
+HasLastUpdated returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
