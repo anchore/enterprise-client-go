@@ -9645,13 +9645,12 @@ paths:
         schema:
           type: string
         style: form
-      - explode: true
+      - description: Filter results to match the specified user group name
+        explode: true
         in: query
-        name: name
+        name: user_group_name
         required: false
         schema:
-          description: Filter the user groups to only those that match the specified
-            name
           type: string
         style: form
       responses:
@@ -19879,6 +19878,24 @@ components:
       example:
         last_updated: 2000-01-23T04:56:07.000+00:00
         name: name
+        account_roles:
+          items:
+          - for_account: for_account
+            roles:
+            - role: role
+              membership_id: membership_id
+              created_at: 2000-01-23T04:56:07.000+00:00
+            - role: role
+              membership_id: membership_id
+              created_at: 2000-01-23T04:56:07.000+00:00
+          - for_account: for_account
+            roles:
+            - role: role
+              membership_id: membership_id
+              created_at: 2000-01-23T04:56:07.000+00:00
+            - role: role
+              membership_id: membership_id
+              created_at: 2000-01-23T04:56:07.000+00:00
         description: description
         created_at: 2000-01-23T04:56:07.000+00:00
         group_uuid: group_uuid
@@ -19901,6 +19918,8 @@ components:
           description: The timestamp of the last update to this user group
           format: date-time
           type: string
+        account_roles:
+          $ref: '#/components/schemas/UserGroupRoles'
       required:
       - group_uuid
       - name

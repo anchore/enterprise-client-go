@@ -3231,7 +3231,7 @@ type ApiListUserGroupsRequest struct {
 	ctx context.Context
 	ApiService UserManagementApi
 	containsUser *string
-	name *string
+	userGroupName *string
 }
 
 // Filter the user groups to only those that contain the specified user
@@ -3240,8 +3240,9 @@ func (r ApiListUserGroupsRequest) ContainsUser(containsUser string) ApiListUserG
 	return r
 }
 
-func (r ApiListUserGroupsRequest) Name(name string) ApiListUserGroupsRequest {
-	r.name = &name
+// Filter results to match the specified user group name
+func (r ApiListUserGroupsRequest) UserGroupName(userGroupName string) ApiListUserGroupsRequest {
+	r.userGroupName = &userGroupName
 	return r
 }
 
@@ -3286,8 +3287,8 @@ func (a *UserManagementApiService) ListUserGroupsExecute(r ApiListUserGroupsRequ
 	if r.containsUser != nil {
 		localVarQueryParams.Add("contains_user", parameterToString(*r.containsUser, ""))
 	}
-	if r.name != nil {
-		localVarQueryParams.Add("name", parameterToString(*r.name, ""))
+	if r.userGroupName != nil {
+		localVarQueryParams.Add("user_group_name", parameterToString(*r.userGroupName, ""))
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}

@@ -1702,7 +1702,7 @@ No authorization required
 
 ## ListUserGroups
 
-> []UserGroup ListUserGroups(ctx).ContainsUser(containsUser).Name(name).Execute()
+> []UserGroup ListUserGroups(ctx).ContainsUser(containsUser).UserGroupName(userGroupName).Execute()
 
 List user groups
 
@@ -1720,11 +1720,11 @@ import (
 
 func main() {
     containsUser := "containsUser_example" // string | Filter the user groups to only those that contain the specified user (optional)
-    name := "name_example" // string |  (optional)
+    userGroupName := "userGroupName_example" // string | Filter results to match the specified user group name (optional)
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.UserManagementApi.ListUserGroups(context.Background()).ContainsUser(containsUser).Name(name).Execute()
+    resp, r, err := apiClient.UserManagementApi.ListUserGroups(context.Background()).ContainsUser(containsUser).UserGroupName(userGroupName).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `UserManagementApi.ListUserGroups``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -1746,7 +1746,7 @@ Other parameters are passed through a pointer to a apiListUserGroupsRequest stru
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **containsUser** | **string** | Filter the user groups to only those that contain the specified user | 
- **name** | **string** |  | 
+ **userGroupName** | **string** | Filter results to match the specified user group name | 
 
 ### Return type
 

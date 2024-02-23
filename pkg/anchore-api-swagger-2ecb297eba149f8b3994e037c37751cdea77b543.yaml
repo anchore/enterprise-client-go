@@ -8671,10 +8671,10 @@ paths:
             type: string
           description: Filter the user groups to only those that contain the specified user
         - in: query
-          name: name
+          name: user_group_name
           schema:
             type: string
-            description: Filter the user groups to only those that match the specified name
+          description: Filter results to match the specified user group name
       responses:
         200:
           description: User group list
@@ -14949,6 +14949,9 @@ components:
           type: string
           description: The timestamp of the last update to this user group
           format: date-time
+        account_roles:
+          $ref: '#/components/schemas/UserGroupRoles'
+
     UserGroupPost:
       required:
         - name

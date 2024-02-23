@@ -28,6 +28,7 @@ type UserGroup struct {
 	CreatedAt *time.Time `json:"created_at,omitempty"`
 	// The timestamp of the last update to this user group
 	LastUpdated *time.Time `json:"last_updated,omitempty"`
+	AccountRoles *UserGroupRoles `json:"account_roles,omitempty"`
 }
 
 // NewUserGroup instantiates a new UserGroup object
@@ -193,6 +194,38 @@ func (o *UserGroup) SetLastUpdated(v time.Time) {
 	o.LastUpdated = &v
 }
 
+// GetAccountRoles returns the AccountRoles field value if set, zero value otherwise.
+func (o *UserGroup) GetAccountRoles() UserGroupRoles {
+	if o == nil || o.AccountRoles == nil {
+		var ret UserGroupRoles
+		return ret
+	}
+	return *o.AccountRoles
+}
+
+// GetAccountRolesOk returns a tuple with the AccountRoles field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *UserGroup) GetAccountRolesOk() (*UserGroupRoles, bool) {
+	if o == nil || o.AccountRoles == nil {
+		return nil, false
+	}
+	return o.AccountRoles, true
+}
+
+// HasAccountRoles returns a boolean if a field has been set.
+func (o *UserGroup) HasAccountRoles() bool {
+	if o != nil && o.AccountRoles != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetAccountRoles gets a reference to the given UserGroupRoles and assigns it to the AccountRoles field.
+func (o *UserGroup) SetAccountRoles(v UserGroupRoles) {
+	o.AccountRoles = &v
+}
+
 func (o UserGroup) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
@@ -209,6 +242,9 @@ func (o UserGroup) MarshalJSON() ([]byte, error) {
 	}
 	if o.LastUpdated != nil {
 		toSerialize["last_updated"] = o.LastUpdated
+	}
+	if o.AccountRoles != nil {
+		toSerialize["account_roles"] = o.AccountRoles
 	}
 	return json.Marshal(toSerialize)
 }
