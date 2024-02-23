@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Role** | Pointer to **string** | The role name | [optional] 
-**CreatedAt** | Pointer to **time.Time** | The timestamp of when the role was created | [optional] 
+**CreatedAt** | Pointer to **time.Time** | The timestamp of when the role membership was created | [optional] 
 **MembershipId** | Pointer to **string** | The unique identifier for the role membership | [optional] 
 
 ## Methods

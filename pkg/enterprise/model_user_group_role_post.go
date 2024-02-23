@@ -17,15 +17,19 @@ import (
 
 // UserGroupRolePost struct for UserGroupRolePost
 type UserGroupRolePost struct {
-	Roles []UserGroupRolePostRolesInner `json:"roles,omitempty"`
+	// The account
+	ForAccount string `json:"for_account"`
+	Roles []UserGroupRolePostRolesInner `json:"roles"`
 }
 
 // NewUserGroupRolePost instantiates a new UserGroupRolePost object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewUserGroupRolePost() *UserGroupRolePost {
+func NewUserGroupRolePost(forAccount string, roles []UserGroupRolePostRolesInner) *UserGroupRolePost {
 	this := UserGroupRolePost{}
+	this.ForAccount = forAccount
+	this.Roles = roles
 	return &this
 }
 
@@ -37,41 +41,60 @@ func NewUserGroupRolePostWithDefaults() *UserGroupRolePost {
 	return &this
 }
 
-// GetRoles returns the Roles field value if set, zero value otherwise.
+// GetForAccount returns the ForAccount field value
+func (o *UserGroupRolePost) GetForAccount() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.ForAccount
+}
+
+// GetForAccountOk returns a tuple with the ForAccount field value
+// and a boolean to check if the value has been set.
+func (o *UserGroupRolePost) GetForAccountOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.ForAccount, true
+}
+
+// SetForAccount sets field value
+func (o *UserGroupRolePost) SetForAccount(v string) {
+	o.ForAccount = v
+}
+
+// GetRoles returns the Roles field value
 func (o *UserGroupRolePost) GetRoles() []UserGroupRolePostRolesInner {
-	if o == nil || o.Roles == nil {
+	if o == nil {
 		var ret []UserGroupRolePostRolesInner
 		return ret
 	}
+
 	return o.Roles
 }
 
-// GetRolesOk returns a tuple with the Roles field value if set, nil otherwise
+// GetRolesOk returns a tuple with the Roles field value
 // and a boolean to check if the value has been set.
 func (o *UserGroupRolePost) GetRolesOk() ([]UserGroupRolePostRolesInner, bool) {
-	if o == nil || o.Roles == nil {
+	if o == nil {
 		return nil, false
 	}
 	return o.Roles, true
 }
 
-// HasRoles returns a boolean if a field has been set.
-func (o *UserGroupRolePost) HasRoles() bool {
-	if o != nil && o.Roles != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetRoles gets a reference to the given []UserGroupRolePostRolesInner and assigns it to the Roles field.
+// SetRoles sets field value
 func (o *UserGroupRolePost) SetRoles(v []UserGroupRolePostRolesInner) {
 	o.Roles = v
 }
 
 func (o UserGroupRolePost) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Roles != nil {
+	if true {
+		toSerialize["for_account"] = o.ForAccount
+	}
+	if true {
 		toSerialize["roles"] = o.Roles
 	}
 	return json.Marshal(toSerialize)

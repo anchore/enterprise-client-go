@@ -4,13 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Roles** | Pointer to [**[]UserGroupRolePostRolesInner**](UserGroupRolePostRolesInner.md) |  | [optional] 
+**ForAccount** | **string** | The account | 
+**Roles** | [**[]UserGroupRolePostRolesInner**](UserGroupRolePostRolesInner.md) |  | 
 
 ## Methods
 
 ### NewUserGroupRolePost
 
-`func NewUserGroupRolePost() *UserGroupRolePost`
+`func NewUserGroupRolePost(forAccount string, roles []UserGroupRolePostRolesInner, ) *UserGroupRolePost`
 
 NewUserGroupRolePost instantiates a new UserGroupRolePost object
 This constructor will assign default values to properties that have it defined,
@@ -24,6 +25,26 @@ will change when the set of required properties is changed
 NewUserGroupRolePostWithDefaults instantiates a new UserGroupRolePost object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
+
+### GetForAccount
+
+`func (o *UserGroupRolePost) GetForAccount() string`
+
+GetForAccount returns the ForAccount field if non-nil, zero value otherwise.
+
+### GetForAccountOk
+
+`func (o *UserGroupRolePost) GetForAccountOk() (*string, bool)`
+
+GetForAccountOk returns a tuple with the ForAccount field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetForAccount
+
+`func (o *UserGroupRolePost) SetForAccount(v string)`
+
+SetForAccount sets ForAccount field to given value.
+
 
 ### GetRoles
 
@@ -44,11 +65,6 @@ and a boolean to check if the value has been set.
 
 SetRoles sets Roles field to given value.
 
-### HasRoles
-
-`func (o *UserGroupRolePost) HasRoles() bool`
-
-HasRoles returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

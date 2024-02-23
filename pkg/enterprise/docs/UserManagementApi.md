@@ -58,7 +58,7 @@ import (
 
 func main() {
     groupUuid := "groupUuid_example" // string | 
-    userGroupRolePost := *openapiclient.NewUserGroupRolePost() // UserGroupRolePost | 
+    userGroupRolePost := *openapiclient.NewUserGroupRolePost("ForAccount_example", []openapiclient.UserGroupRolePostRolesInner{*openapiclient.NewUserGroupRolePostRolesInner()}) // UserGroupRolePost | 
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)

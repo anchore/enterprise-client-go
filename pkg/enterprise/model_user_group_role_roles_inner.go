@@ -20,7 +20,7 @@ import (
 type UserGroupRoleRolesInner struct {
 	// The role name
 	Role *string `json:"role,omitempty"`
-	// The timestamp of when the role was created
+	// The timestamp of when the role membership was created
 	CreatedAt *time.Time `json:"created_at,omitempty"`
 	// The unique identifier for the role membership
 	MembershipId *string `json:"membership_id,omitempty"`

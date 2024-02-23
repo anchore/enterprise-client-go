@@ -14978,8 +14978,14 @@ components:
       items:
         $ref: '#/components/schemas/UserGroup'
     UserGroupRolePost:
+      required:
+        - for_account
+        - roles
       type: object
       properties:
+        for_account:
+          type: string
+          description: The account
         roles:
           type: array
           items:
@@ -15007,7 +15013,7 @@ components:
               created_at:
                 type: string
                 format: date-time
-                description: The timestamp of when the role was created
+                description: The timestamp of when the role membership was created
               membership_id:
                 type: string
                 description: The unique identifier for the role membership

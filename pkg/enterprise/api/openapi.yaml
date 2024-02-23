@@ -19956,14 +19956,21 @@ components:
       type: array
     UserGroupRolePost:
       example:
+        for_account: for_account
         roles:
         - role: role
         - role: role
       properties:
+        for_account:
+          description: The account
+          type: string
         roles:
           items:
             $ref: '#/components/schemas/UserGroupRolePost_roles_inner'
           type: array
+      required:
+      - for_account
+      - roles
       type: object
     UserGroupRole:
       example:
@@ -20978,7 +20985,7 @@ components:
           description: The role name
           type: string
         created_at:
-          description: The timestamp of when the role was created
+          description: The timestamp of when the role membership was created
           format: date-time
           type: string
         membership_id:
