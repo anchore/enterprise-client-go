@@ -8846,7 +8846,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/UserGroupRole'
+              $ref: '#/components/schemas/UserGroupRolePost'
         required: true
       responses:
         201:
@@ -14977,6 +14977,16 @@ components:
       type: array
       items:
         $ref: '#/components/schemas/UserGroup'
+    UserGroupRolePost:
+      type: object
+      properties:
+        roles:
+          type: array
+          items:
+            properties:
+              role:
+                type: string
+                description: The name of the rbac role
     UserGroupRole:
       required:
       - for_account

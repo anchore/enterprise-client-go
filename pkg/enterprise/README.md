@@ -698,6 +698,8 @@ Class | Method | HTTP request | Description
  - [UserGroupPatch](docs/UserGroupPatch.md)
  - [UserGroupPost](docs/UserGroupPost.md)
  - [UserGroupRole](docs/UserGroupRole.md)
+ - [UserGroupRolePost](docs/UserGroupRolePost.md)
+ - [UserGroupRolePostRolesInner](docs/UserGroupRolePostRolesInner.md)
  - [UserGroupRoleRolesInner](docs/UserGroupRoleRolesInner.md)
  - [UserGroupRoles](docs/UserGroupRoles.md)
  - [UserGroupUser](docs/UserGroupUser.md)

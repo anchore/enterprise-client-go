@@ -40,7 +40,7 @@ Method | HTTP request | Description
 
 ## AddUserGroupRoles
 
-> UserGroupRoles AddUserGroupRoles(ctx, groupUuid).UserGroupRole(userGroupRole).Execute()
+> UserGroupRoles AddUserGroupRoles(ctx, groupUuid).UserGroupRolePost(userGroupRolePost).Execute()
 
 Add account role(s) to this user group
 
@@ -58,11 +58,11 @@ import (
 
 func main() {
     groupUuid := "groupUuid_example" // string | 
-    userGroupRole := *openapiclient.NewUserGroupRole("ForAccount_example", []openapiclient.UserGroupRoleRolesInner{*openapiclient.NewUserGroupRoleRolesInner()}) // UserGroupRole | 
+    userGroupRolePost := *openapiclient.NewUserGroupRolePost() // UserGroupRolePost | 
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.UserManagementApi.AddUserGroupRoles(context.Background(), groupUuid).UserGroupRole(userGroupRole).Execute()
+    resp, r, err := apiClient.UserManagementApi.AddUserGroupRoles(context.Background(), groupUuid).UserGroupRolePost(userGroupRolePost).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `UserManagementApi.AddUserGroupRoles``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -88,7 +88,7 @@ Other parameters are passed through a pointer to a apiAddUserGroupRolesRequest s
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **userGroupRole** | [**UserGroupRole**](UserGroupRole.md) |  | 
+ **userGroupRolePost** | [**UserGroupRolePost**](UserGroupRolePost.md) |  | 
 
 ### Return type
 

@@ -438,11 +438,11 @@ type ApiAddUserGroupRolesRequest struct {
 	ctx context.Context
 	ApiService UserManagementApi
 	groupUuid string
-	userGroupRole *UserGroupRole
+	userGroupRolePost *UserGroupRolePost
 }
 
-func (r ApiAddUserGroupRolesRequest) UserGroupRole(userGroupRole UserGroupRole) ApiAddUserGroupRolesRequest {
-	r.userGroupRole = &userGroupRole
+func (r ApiAddUserGroupRolesRequest) UserGroupRolePost(userGroupRolePost UserGroupRolePost) ApiAddUserGroupRolesRequest {
+	r.userGroupRolePost = &userGroupRolePost
 	return r
 }
 
@@ -486,8 +486,8 @@ func (a *UserManagementApiService) AddUserGroupRolesExecute(r ApiAddUserGroupRol
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.userGroupRole == nil {
-		return localVarReturnValue, nil, reportError("userGroupRole is required and must be specified")
+	if r.userGroupRolePost == nil {
+		return localVarReturnValue, nil, reportError("userGroupRolePost is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -508,7 +508,7 @@ func (a *UserManagementApiService) AddUserGroupRolesExecute(r ApiAddUserGroupRol
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.userGroupRole
+	localVarPostBody = r.userGroupRolePost
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err

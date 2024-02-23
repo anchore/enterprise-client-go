@@ -365,6 +365,8 @@ docs/UserGroup.md
 docs/UserGroupPatch.md
 docs/UserGroupPost.md
 docs/UserGroupRole.md
+docs/UserGroupRolePost.md
+docs/UserGroupRolePostRolesInner.md
 docs/UserGroupRoleRolesInner.md
 docs/UserGroupRoles.md
 docs/UserGroupUser.md
@@ -709,6 +711,8 @@ model_user_group.go
 model_user_group_patch.go
 model_user_group_post.go
 model_user_group_role.go
+model_user_group_role_post.go
+model_user_group_role_post_roles_inner.go
 model_user_group_role_roles_inner.go
 model_user_group_roles.go
 model_user_group_user.go

@@ -9871,7 +9871,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/UserGroupRole'
+              $ref: '#/components/schemas/UserGroupRolePost'
         required: true
       responses:
         "201":
@@ -19954,6 +19954,17 @@ components:
       items:
         $ref: '#/components/schemas/UserGroup'
       type: array
+    UserGroupRolePost:
+      example:
+        roles:
+        - role: role
+        - role: role
+      properties:
+        roles:
+          items:
+            $ref: '#/components/schemas/UserGroupRolePost_roles_inner'
+          type: array
+      type: object
     UserGroupRole:
       example:
         for_account: for_account
@@ -20950,6 +20961,13 @@ components:
           properties: {}
           type: object
       type: object
+    UserGroupRolePost_roles_inner:
+      example:
+        role: role
+      properties:
+        role:
+          description: The name of the rbac role
+          type: string
     UserGroupRole_roles_inner:
       example:
         role: role
