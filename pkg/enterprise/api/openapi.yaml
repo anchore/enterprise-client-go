@@ -9788,6 +9788,7 @@ paths:
       - User Management
       x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.user_groups
       x-anchore-authz-action: updateUserGroup
+      x-codegen-request-body-name: user_group_patch
   /system/user-groups/{group_uuid}/roles:
     delete:
       operationId: delete_user_group_role
