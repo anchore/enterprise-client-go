@@ -15031,17 +15031,17 @@ components:
             type: string
             description: The list of usernames to add to the group
     UserGroupUser:
-        required:
-        - username
-        type: object
-        properties:
-          username:
-            type: string
-            description: The username of the user
-          added_on:
-            type: string
-            format: date-time
-            description: The timestamp of when the user was added to the group
+      required:
+      - username
+      type: object
+      properties:
+        username:
+          type: string
+          description: The username of the user
+        added_on:
+          type: string
+          format: date-time
+          description: The timestamp of when the user was added to the group
     UserGroupUsers:
       properties:
         items:
