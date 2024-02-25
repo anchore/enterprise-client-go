@@ -18,15 +18,16 @@ import (
 // UserGroupUsersPost struct for UserGroupUsersPost
 type UserGroupUsersPost struct {
 	// The list of usernames to add to the user group
-	Usernames []UserGroupUsersPostUsernamesInner `json:"usernames,omitempty"`
+	Usernames []UserGroupUsersPostUsernamesInner `json:"usernames"`
 }
 
 // NewUserGroupUsersPost instantiates a new UserGroupUsersPost object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewUserGroupUsersPost() *UserGroupUsersPost {
+func NewUserGroupUsersPost(usernames []UserGroupUsersPostUsernamesInner) *UserGroupUsersPost {
 	this := UserGroupUsersPost{}
+	this.Usernames = usernames
 	return &this
 }
 
@@ -38,41 +39,33 @@ func NewUserGroupUsersPostWithDefaults() *UserGroupUsersPost {
 	return &this
 }
 
-// GetUsernames returns the Usernames field value if set, zero value otherwise.
+// GetUsernames returns the Usernames field value
 func (o *UserGroupUsersPost) GetUsernames() []UserGroupUsersPostUsernamesInner {
-	if o == nil || o.Usernames == nil {
+	if o == nil {
 		var ret []UserGroupUsersPostUsernamesInner
 		return ret
 	}
+
 	return o.Usernames
 }
 
-// GetUsernamesOk returns a tuple with the Usernames field value if set, nil otherwise
+// GetUsernamesOk returns a tuple with the Usernames field value
 // and a boolean to check if the value has been set.
 func (o *UserGroupUsersPost) GetUsernamesOk() ([]UserGroupUsersPostUsernamesInner, bool) {
-	if o == nil || o.Usernames == nil {
+	if o == nil {
 		return nil, false
 	}
 	return o.Usernames, true
 }
 
-// HasUsernames returns a boolean if a field has been set.
-func (o *UserGroupUsersPost) HasUsernames() bool {
-	if o != nil && o.Usernames != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetUsernames gets a reference to the given []UserGroupUsersPostUsernamesInner and assigns it to the Usernames field.
+// SetUsernames sets field value
 func (o *UserGroupUsersPost) SetUsernames(v []UserGroupUsersPostUsernamesInner) {
 	o.Usernames = v
 }
 
 func (o UserGroupUsersPost) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Usernames != nil {
+	if true {
 		toSerialize["usernames"] = o.Usernames
 	}
 	return json.Marshal(toSerialize)

@@ -128,7 +128,7 @@ import (
 
 func main() {
     groupUuid := "groupUuid_example" // string | 
-    userGroupUsersPost := *openapiclient.NewUserGroupUsersPost() // UserGroupUsersPost | 
+    userGroupUsersPost := *openapiclient.NewUserGroupUsersPost([]openapiclient.UserGroupUsersPostUsernamesInner{*openapiclient.NewUserGroupUsersPostUsernamesInner()}) // UserGroupUsersPost | 
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)

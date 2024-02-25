@@ -20031,6 +20031,8 @@ components:
           items:
             $ref: '#/components/schemas/UserGroupUsersPost_usernames_inner'
           type: array
+      required:
+      - usernames
     UserGroupUser:
       example:
         added_on: 2000-01-23T04:56:07.000+00:00

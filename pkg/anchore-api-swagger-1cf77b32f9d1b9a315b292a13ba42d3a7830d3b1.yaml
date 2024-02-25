@@ -15025,6 +15025,8 @@ components:
           items:
             $ref: '#/components/schemas/UserGroupRole'
     UserGroupUsersPost:
+      required:
+        - usernames
       properties:
         usernames:
           type: array
