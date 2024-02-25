@@ -17,7 +17,8 @@ import (
 
 // UserGroupUsersPost struct for UserGroupUsersPost
 type UserGroupUsersPost struct {
-	Usernames []string `json:"usernames,omitempty"`
+	// The list of usernames to add to the user group
+	Usernames []UserGroupUsersPostUsernamesInner `json:"usernames,omitempty"`
 }
 
 // NewUserGroupUsersPost instantiates a new UserGroupUsersPost object
@@ -38,9 +39,9 @@ func NewUserGroupUsersPostWithDefaults() *UserGroupUsersPost {
 }
 
 // GetUsernames returns the Usernames field value if set, zero value otherwise.
-func (o *UserGroupUsersPost) GetUsernames() []string {
+func (o *UserGroupUsersPost) GetUsernames() []UserGroupUsersPostUsernamesInner {
 	if o == nil || o.Usernames == nil {
-		var ret []string
+		var ret []UserGroupUsersPostUsernamesInner
 		return ret
 	}
 	return o.Usernames
@@ -48,7 +49,7 @@ func (o *UserGroupUsersPost) GetUsernames() []string {
 
 // GetUsernamesOk returns a tuple with the Usernames field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *UserGroupUsersPost) GetUsernamesOk() ([]string, bool) {
+func (o *UserGroupUsersPost) GetUsernamesOk() ([]UserGroupUsersPostUsernamesInner, bool) {
 	if o == nil || o.Usernames == nil {
 		return nil, false
 	}
@@ -64,8 +65,8 @@ func (o *UserGroupUsersPost) HasUsernames() bool {
 	return false
 }
 
-// SetUsernames gets a reference to the given []string and assigns it to the Usernames field.
-func (o *UserGroupUsersPost) SetUsernames(v []string) {
+// SetUsernames gets a reference to the given []UserGroupUsersPostUsernamesInner and assigns it to the Usernames field.
+func (o *UserGroupUsersPost) SetUsernames(v []UserGroupUsersPostUsernamesInner) {
 	o.Usernames = v
 }
 

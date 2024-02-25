@@ -17,6 +17,7 @@ import (
 
 // UserGroupRoles struct for UserGroupRoles
 type UserGroupRoles struct {
+	// The list of accounts and all its roles which are configured in the user group
 	Items []UserGroupRole `json:"items,omitempty"`
 }
 

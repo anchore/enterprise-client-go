@@ -705,6 +705,7 @@ Class | Method | HTTP request | Description
  - [UserGroupUser](docs/UserGroupUser.md)
  - [UserGroupUsers](docs/UserGroupUsers.md)
  - [UserGroupUsersPost](docs/UserGroupUsersPost.md)
+ - [UserGroupUsersPostUsernamesInner](docs/UserGroupUsersPostUsernamesInner.md)
  - [VendorDataObject](docs/VendorDataObject.md)
  - [VersionVulnerability](docs/VersionVulnerability.md)
  - [VersionVulnerabilityMatch](docs/VersionVulnerabilityMatch.md)

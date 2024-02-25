@@ -20015,19 +20015,21 @@ components:
             created_at: 2000-01-23T04:56:07.000+00:00
       properties:
         items:
+          description: The list of accounts and all its roles which are configured
+            in the user group
           items:
             $ref: '#/components/schemas/UserGroupRole'
           type: array
     UserGroupUsersPost:
       example:
         usernames:
-        - usernames
-        - usernames
+        - username: username
+        - username: username
       properties:
         usernames:
+          description: The list of usernames to add to the user group
           items:
-            description: The list of usernames to add to the group
-            type: string
+            $ref: '#/components/schemas/UserGroupUsersPost_usernames_inner'
           type: array
     UserGroupUser:
       example:
@@ -20992,6 +20994,13 @@ components:
           description: The unique identifier for the role membership
           type: string
       type: object
+    UserGroupUsersPost_usernames_inner:
+      example:
+        username: username
+      properties:
+        username:
+          description: A username
+          type: string
     VersionVulnerabilityMatch_location_artifact:
       example:
         id: id

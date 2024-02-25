@@ -372,6 +372,7 @@ docs/UserGroupRoles.md
 docs/UserGroupUser.md
 docs/UserGroupUsers.md
 docs/UserGroupUsersPost.md
+docs/UserGroupUsersPostUsernamesInner.md
 docs/UserManagementApi.md
 docs/VendorDataObject.md
 docs/VersionVulnerability.md
@@ -718,6 +719,7 @@ model_user_group_roles.go
 model_user_group_user.go
 model_user_group_users.go
 model_user_group_users_post.go
+model_user_group_users_post_usernames_inner.go
 model_vendor_data_object.go
 model_version_vulnerability.go
 model_version_vulnerability_match.go

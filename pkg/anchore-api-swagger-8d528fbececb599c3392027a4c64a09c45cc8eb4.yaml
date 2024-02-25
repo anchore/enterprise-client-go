@@ -15021,15 +15021,19 @@ components:
       properties:
         items:
           type: array
+          description: The list of accounts and all its roles which are configured in the user group
           items:
             $ref: '#/components/schemas/UserGroupRole'
     UserGroupUsersPost:
       properties:
         usernames:
           type: array
+          description: The list of usernames to add to the user group
           items:
-            type: string
-            description: The list of usernames to add to the group
+            properties:
+              username:
+                type: string
+                description: A username
     UserGroupUser:
       required:
       - username

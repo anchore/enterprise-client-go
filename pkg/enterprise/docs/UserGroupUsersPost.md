@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Usernames** | Pointer to **[]string** |  | [optional] 
+**Usernames** | Pointer to [**[]UserGroupUsersPostUsernamesInner**](UserGroupUsersPostUsernamesInner.md) | The list of usernames to add to the user group | [optional] 
 
 ## Methods
 
@@ -27,20 +27,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetUsernames
 
-`func (o *UserGroupUsersPost) GetUsernames() []string`
+`func (o *UserGroupUsersPost) GetUsernames() []UserGroupUsersPostUsernamesInner`
 
 GetUsernames returns the Usernames field if non-nil, zero value otherwise.
 
 ### GetUsernamesOk
 
-`func (o *UserGroupUsersPost) GetUsernamesOk() (*[]string, bool)`
+`func (o *UserGroupUsersPost) GetUsernamesOk() (*[]UserGroupUsersPostUsernamesInner, bool)`
 
 GetUsernamesOk returns a tuple with the Usernames field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetUsernames
 
-`func (o *UserGroupUsersPost) SetUsernames(v []string)`
+`func (o *UserGroupUsersPost) SetUsernames(v []UserGroupUsersPostUsernamesInner)`
 
 SetUsernames sets Usernames field to given value.
 

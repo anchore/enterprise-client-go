@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Items** | Pointer to [**[]UserGroupRole**](UserGroupRole.md) |  | [optional] 
+**Items** | Pointer to [**[]UserGroupRole**](UserGroupRole.md) | The list of accounts and all its roles which are configured in the user group | [optional] 
 
 ## Methods
 
