@@ -12,6 +12,7 @@ Method | HTTP request | Description
 [**GetUser**](IdentityApi.md#GetUser) | **Get** /user | List authenticated user info
 [**GetUsersAccount**](IdentityApi.md#GetUsersAccount) | **Get** /account | List the account for the authenticated user
 [**ListApiKeys**](IdentityApi.md#ListApiKeys) | **Get** /user/api-keys | Get a list of API keys
+[**ListMyUserGroups**](IdentityApi.md#ListMyUserGroups) | **Get** /my-user-groups | List user groups for the authenticated user
 [**PatchApiKey**](IdentityApi.md#PatchApiKey) | **Patch** /user/api-keys/{key_name} | Patch a user API key
 
 
@@ -500,6 +501,65 @@ Other parameters are passed through a pointer to a apiListApiKeysRequest struct 
 ### Return type
 
 [**ApiKeyList**](ApiKeyList.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## ListMyUserGroups
+
+> []UserGroup ListMyUserGroups(ctx).Execute()
+
+List user groups for the authenticated user
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.IdentityApi.ListMyUserGroups(context.Background()).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `IdentityApi.ListMyUserGroups``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `ListMyUserGroups`: []UserGroup
+    fmt.Fprintf(os.Stdout, "Response from `IdentityApi.ListMyUserGroups`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiListMyUserGroupsRequest struct via the builder pattern
+
+
+### Return type
+
+[**[]UserGroup**](UserGroup.md)
 
 ### Authorization
 

@@ -3,7 +3,7 @@ Anchore API
 
 This is the Anchore API. Provides the external API for users of Anchore Enterprise.
 
-API version: 2.1.0
+API version: 2.3.0
 Contact: dev@anchore.com
 */
 
@@ -25,7 +25,7 @@ type NativeSBOMPackage struct {
 	Locations []NativeSBOMPackageLocation `json:"locations"`
 	Licenses []interface{} `json:"licenses"`
 	Language string `json:"language"`
-	Cpes []string `json:"cpes"`
+	Cpes []NativeSBOMPackageCpesInner `json:"cpes"`
 	Purl *string `json:"purl,omitempty"`
 	MetadataType NullableString `json:"metadataType,omitempty"`
 	Metadata interface{} `json:"metadata,omitempty"`
@@ -38,7 +38,7 @@ type _NativeSBOMPackage NativeSBOMPackage
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewNativeSBOMPackage(name string, version string, type_ string, locations []NativeSBOMPackageLocation, licenses []interface{}, language string, cpes []string) *NativeSBOMPackage {
+func NewNativeSBOMPackage(name string, version string, type_ string, locations []NativeSBOMPackageLocation, licenses []interface{}, language string, cpes []NativeSBOMPackageCpesInner) *NativeSBOMPackage {
 	this := NativeSBOMPackage{}
 	this.Name = name
 	this.Version = version
@@ -267,9 +267,9 @@ func (o *NativeSBOMPackage) SetLanguage(v string) {
 }
 
 // GetCpes returns the Cpes field value
-func (o *NativeSBOMPackage) GetCpes() []string {
+func (o *NativeSBOMPackage) GetCpes() []NativeSBOMPackageCpesInner {
 	if o == nil {
-		var ret []string
+		var ret []NativeSBOMPackageCpesInner
 		return ret
 	}
 
@@ -278,7 +278,7 @@ func (o *NativeSBOMPackage) GetCpes() []string {
 
 // GetCpesOk returns a tuple with the Cpes field value
 // and a boolean to check if the value has been set.
-func (o *NativeSBOMPackage) GetCpesOk() ([]string, bool) {
+func (o *NativeSBOMPackage) GetCpesOk() ([]NativeSBOMPackageCpesInner, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -286,7 +286,7 @@ func (o *NativeSBOMPackage) GetCpesOk() ([]string, bool) {
 }
 
 // SetCpes sets field value
-func (o *NativeSBOMPackage) SetCpes(v []string) {
+func (o *NativeSBOMPackage) SetCpes(v []NativeSBOMPackageCpesInner) {
 	o.Cpes = v
 }
 

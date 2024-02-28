@@ -3,7 +3,7 @@ Anchore API
 
 This is the Anchore API. Provides the external API for users of Anchore Enterprise.
 
-API version: 2.1.0
+API version: 2.3.0
 Contact: dev@anchore.com
 */
 
@@ -18,6 +18,7 @@ import (
 	"net/http"
 	"net/url"
 	"strings"
+	"reflect"
 )
 
 
@@ -36,6 +37,21 @@ type RBACApi interface {
 	// AddIdpExecute executes the request
 	//  @return RbacManagerSamlConfiguration
 	AddIdpExecute(r ApiAddIdpRequest) (*RbacManagerSamlConfiguration, *http.Response, error)
+
+	/*
+	AddIdpUserGroups Method for AddIdpUserGroups
+
+	Associate a user group with an IdP.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param name
+	@return ApiAddIdpUserGroupsRequest
+	*/
+	AddIdpUserGroups(ctx context.Context, name string) ApiAddIdpUserGroupsRequest
+
+	// AddIdpUserGroupsExecute executes the request
+	//  @return []RbacManagerIdpUserGroup
+	AddIdpUserGroupsExecute(r ApiAddIdpUserGroupsRequest) ([]RbacManagerIdpUserGroup, *http.Response, error)
 
 	/*
 	AddRoleUser Add a user to the role
@@ -65,6 +81,20 @@ type RBACApi interface {
 	DeleteIdpExecute(r ApiDeleteIdpRequest) (*http.Response, error)
 
 	/*
+	DeleteIdpUserGroup Method for DeleteIdpUserGroup
+
+	Remove user group association(s) from an IdP
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param name The name of the IdP to remove the user group from
+	@return ApiDeleteIdpUserGroupRequest
+	*/
+	DeleteIdpUserGroup(ctx context.Context, name string) ApiDeleteIdpUserGroupRequest
+
+	// DeleteIdpUserGroupExecute executes the request
+	DeleteIdpUserGroupExecute(r ApiDeleteIdpUserGroupRequest) (*http.Response, error)
+
+	/*
 	DeleteRoleUser Remove a user from the role
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
@@ -88,8 +118,23 @@ type RBACApi interface {
 	GetIdp(ctx context.Context, name string) ApiGetIdpRequest
 
 	// GetIdpExecute executes the request
-	//  @return RbacManagerSamlConfiguration
-	GetIdpExecute(r ApiGetIdpRequest) (*RbacManagerSamlConfiguration, *http.Response, error)
+	//  @return RbacManagerSamlConfigurationGet
+	GetIdpExecute(r ApiGetIdpRequest) (*RbacManagerSamlConfigurationGet, *http.Response, error)
+
+	/*
+	GetIdpUserGroups Method for GetIdpUserGroups
+
+	Return the list of user groups associated with an IdP
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param name
+	@return ApiGetIdpUserGroupsRequest
+	*/
+	GetIdpUserGroups(ctx context.Context, name string) ApiGetIdpUserGroupsRequest
+
+	// GetIdpUserGroupsExecute executes the request
+	//  @return []RbacManagerIdpUserGroup
+	GetIdpUserGroupsExecute(r ApiGetIdpUserGroupsRequest) ([]RbacManagerIdpUserGroup, *http.Response, error)
 
 	/*
 	GetRole Get detailed information about a specific role
@@ -311,6 +356,159 @@ func (a *RBACApiService) AddIdpExecute(r ApiAddIdpRequest) (*RbacManagerSamlConf
 		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 409 {
+			var v RbacManagerApiErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 500 {
+			var v RbacManagerApiErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiAddIdpUserGroupsRequest struct {
+	ctx context.Context
+	ApiService RBACApi
+	name string
+	rbacManagerIdpUserGroupPost *RbacManagerIdpUserGroupPost
+}
+
+func (r ApiAddIdpUserGroupsRequest) RbacManagerIdpUserGroupPost(rbacManagerIdpUserGroupPost RbacManagerIdpUserGroupPost) ApiAddIdpUserGroupsRequest {
+	r.rbacManagerIdpUserGroupPost = &rbacManagerIdpUserGroupPost
+	return r
+}
+
+func (r ApiAddIdpUserGroupsRequest) Execute() ([]RbacManagerIdpUserGroup, *http.Response, error) {
+	return r.ApiService.AddIdpUserGroupsExecute(r)
+}
+
+/*
+AddIdpUserGroups Method for AddIdpUserGroups
+
+Associate a user group with an IdP.
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param name
+ @return ApiAddIdpUserGroupsRequest
+*/
+func (a *RBACApiService) AddIdpUserGroups(ctx context.Context, name string) ApiAddIdpUserGroupsRequest {
+	return ApiAddIdpUserGroupsRequest{
+		ApiService: a,
+		ctx: ctx,
+		name: name,
+	}
+}
+
+// Execute executes the request
+//  @return []RbacManagerIdpUserGroup
+func (a *RBACApiService) AddIdpUserGroupsExecute(r ApiAddIdpUserGroupsRequest) ([]RbacManagerIdpUserGroup, *http.Response, error) {
+	var (
+		localVarHTTPMethod   = http.MethodPost
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  []RbacManagerIdpUserGroup
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RBACApiService.AddIdpUserGroups")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/rbac-manager/saml/idps/{name}/user-group-mappings"
+	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(parameterToString(r.name, "")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.rbacManagerIdpUserGroupPost == nil {
+		return localVarReturnValue, nil, reportError("rbacManagerIdpUserGroupPost is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.rbacManagerIdpUserGroupPost
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 400 {
+			var v RbacManagerApiErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 404 {
+			var v RbacManagerApiErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 409 {
 			var v RbacManagerApiErrorResponse
@@ -568,6 +766,148 @@ func (a *RBACApiService) DeleteIdpExecute(r ApiDeleteIdpRequest) (*http.Response
 	return localVarHTTPResponse, nil
 }
 
+type ApiDeleteIdpUserGroupRequest struct {
+	ctx context.Context
+	ApiService RBACApi
+	name string
+	userGroup *[]string
+}
+
+// The user group uuid to remove from the IdP in the format user_group&#x3D;uuid1&amp;user_group&#x3D;uuid2
+func (r ApiDeleteIdpUserGroupRequest) UserGroup(userGroup []string) ApiDeleteIdpUserGroupRequest {
+	r.userGroup = &userGroup
+	return r
+}
+
+func (r ApiDeleteIdpUserGroupRequest) Execute() (*http.Response, error) {
+	return r.ApiService.DeleteIdpUserGroupExecute(r)
+}
+
+/*
+DeleteIdpUserGroup Method for DeleteIdpUserGroup
+
+Remove user group association(s) from an IdP
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param name The name of the IdP to remove the user group from
+ @return ApiDeleteIdpUserGroupRequest
+*/
+func (a *RBACApiService) DeleteIdpUserGroup(ctx context.Context, name string) ApiDeleteIdpUserGroupRequest {
+	return ApiDeleteIdpUserGroupRequest{
+		ApiService: a,
+		ctx: ctx,
+		name: name,
+	}
+}
+
+// Execute executes the request
+func (a *RBACApiService) DeleteIdpUserGroupExecute(r ApiDeleteIdpUserGroupRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod   = http.MethodDelete
+		localVarPostBody     interface{}
+		formFiles            []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RBACApiService.DeleteIdpUserGroup")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/rbac-manager/saml/idps/{name}/user-group-mappings"
+	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(parameterToString(r.name, "")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.userGroup == nil {
+		return nil, reportError("userGroup is required and must be specified")
+	}
+
+	{
+		t := *r.userGroup
+		if reflect.TypeOf(t).Kind() == reflect.Slice {
+			s := reflect.ValueOf(t)
+			for i := 0; i < s.Len(); i++ {
+				localVarQueryParams.Add("user_group", parameterToString(s.Index(i), "multi"))
+			}
+		} else {
+			localVarQueryParams.Add("user_group", parameterToString(t, "multi"))
+		}
+	}
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 400 {
+			var v RbacManagerApiErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+			return localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 404 {
+			var v RbacManagerApiErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+			return localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 500 {
+			var v RbacManagerApiErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
 type ApiDeleteRoleUserRequest struct {
 	ctx context.Context
 	ApiService RBACApi
@@ -695,7 +1035,7 @@ type ApiGetIdpRequest struct {
 	name string
 }
 
-func (r ApiGetIdpRequest) Execute() (*RbacManagerSamlConfiguration, *http.Response, error) {
+func (r ApiGetIdpRequest) Execute() (*RbacManagerSamlConfigurationGet, *http.Response, error) {
 	return r.ApiService.GetIdpExecute(r)
 }
 
@@ -717,13 +1057,13 @@ func (a *RBACApiService) GetIdp(ctx context.Context, name string) ApiGetIdpReque
 }
 
 // Execute executes the request
-//  @return RbacManagerSamlConfiguration
-func (a *RBACApiService) GetIdpExecute(r ApiGetIdpRequest) (*RbacManagerSamlConfiguration, *http.Response, error) {
+//  @return RbacManagerSamlConfigurationGet
+func (a *RBACApiService) GetIdpExecute(r ApiGetIdpRequest) (*RbacManagerSamlConfigurationGet, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *RbacManagerSamlConfiguration
+		localVarReturnValue  *RbacManagerSamlConfigurationGet
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RBACApiService.GetIdp")
@@ -732,6 +1072,128 @@ func (a *RBACApiService) GetIdpExecute(r ApiGetIdpRequest) (*RbacManagerSamlConf
 	}
 
 	localVarPath := localBasePath + "/rbac-manager/saml/idps/{name}"
+	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(parameterToString(r.name, "")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 404 {
+			var v RbacManagerApiErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 500 {
+			var v RbacManagerApiErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiGetIdpUserGroupsRequest struct {
+	ctx context.Context
+	ApiService RBACApi
+	name string
+}
+
+func (r ApiGetIdpUserGroupsRequest) Execute() ([]RbacManagerIdpUserGroup, *http.Response, error) {
+	return r.ApiService.GetIdpUserGroupsExecute(r)
+}
+
+/*
+GetIdpUserGroups Method for GetIdpUserGroups
+
+Return the list of user groups associated with an IdP
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param name
+ @return ApiGetIdpUserGroupsRequest
+*/
+func (a *RBACApiService) GetIdpUserGroups(ctx context.Context, name string) ApiGetIdpUserGroupsRequest {
+	return ApiGetIdpUserGroupsRequest{
+		ApiService: a,
+		ctx: ctx,
+		name: name,
+	}
+}
+
+// Execute executes the request
+//  @return []RbacManagerIdpUserGroup
+func (a *RBACApiService) GetIdpUserGroupsExecute(r ApiGetIdpUserGroupsRequest) ([]RbacManagerIdpUserGroup, *http.Response, error) {
+	var (
+		localVarHTTPMethod   = http.MethodGet
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  []RbacManagerIdpUserGroup
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RBACApiService.GetIdpUserGroups")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/rbac-manager/saml/idps/{name}/user-group-mappings"
 	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(parameterToString(r.name, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -1717,11 +2179,11 @@ type ApiUpdateIdpRequest struct {
 	ctx context.Context
 	ApiService RBACApi
 	name string
-	configuration *RbacManagerSamlConfiguration
+	rbacManagerSamlConfiguration *RbacManagerSamlConfiguration
 }
 
-func (r ApiUpdateIdpRequest) Configuration(configuration RbacManagerSamlConfiguration) ApiUpdateIdpRequest {
-	r.configuration = &configuration
+func (r ApiUpdateIdpRequest) RbacManagerSamlConfiguration(rbacManagerSamlConfiguration RbacManagerSamlConfiguration) ApiUpdateIdpRequest {
+	r.rbacManagerSamlConfiguration = &rbacManagerSamlConfiguration
 	return r
 }
 
@@ -1767,8 +2229,8 @@ func (a *RBACApiService) UpdateIdpExecute(r ApiUpdateIdpRequest) (*RbacManagerSa
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.configuration == nil {
-		return localVarReturnValue, nil, reportError("configuration is required and must be specified")
+	if r.rbacManagerSamlConfiguration == nil {
+		return localVarReturnValue, nil, reportError("rbacManagerSamlConfiguration is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -1789,7 +2251,7 @@ func (a *RBACApiService) UpdateIdpExecute(r ApiUpdateIdpRequest) (*RbacManagerSa
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.configuration
+	localVarPostBody = r.rbacManagerSamlConfiguration
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err

@@ -12,7 +12,7 @@ Name | Type | Description | Notes
 **Locations** | [**[]NativeSBOMPackageLocation**](NativeSBOMPackageLocation.md) |  | 
 **Licenses** | **[]interface{}** |  | 
 **Language** | **string** |  | 
-**Cpes** | **[]string** |  | 
+**Cpes** | [**[]NativeSBOMPackageCpesInner**](NativeSBOMPackageCpesInner.md) |  | 
 **Purl** | Pointer to **string** |  | [optional] 
 **MetadataType** | Pointer to **NullableString** |  | [optional] 
 **Metadata** | Pointer to **interface{}** |  | [optional] 
@@ -21,7 +21,7 @@ Name | Type | Description | Notes
 
 ### NewNativeSBOMPackage
 
-`func NewNativeSBOMPackage(name string, version string, type_ string, locations []NativeSBOMPackageLocation, licenses []interface{}, language string, cpes []string, ) *NativeSBOMPackage`
+`func NewNativeSBOMPackage(name string, version string, type_ string, locations []NativeSBOMPackageLocation, licenses []interface{}, language string, cpes []NativeSBOMPackageCpesInner, ) *NativeSBOMPackage`
 
 NewNativeSBOMPackage instantiates a new NativeSBOMPackage object
 This constructor will assign default values to properties that have it defined,
@@ -208,20 +208,20 @@ SetLanguage sets Language field to given value.
 
 ### GetCpes
 
-`func (o *NativeSBOMPackage) GetCpes() []string`
+`func (o *NativeSBOMPackage) GetCpes() []NativeSBOMPackageCpesInner`
 
 GetCpes returns the Cpes field if non-nil, zero value otherwise.
 
 ### GetCpesOk
 
-`func (o *NativeSBOMPackage) GetCpesOk() (*[]string, bool)`
+`func (o *NativeSBOMPackage) GetCpesOk() (*[]NativeSBOMPackageCpesInner, bool)`
 
 GetCpesOk returns a tuple with the Cpes field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCpes
 
-`func (o *NativeSBOMPackage) SetCpes(v []string)`
+`func (o *NativeSBOMPackage) SetCpes(v []NativeSBOMPackageCpesInner)`
 
 SetCpes sets Cpes field to given value.
 

@@ -14,6 +14,7 @@ Name | Type | Description | Notes
 **IdpUsernameAttribute** | Pointer to **string** | The SAML attribute to use from the response assertions to determine the anchore username. If unset, the subject is used. | [optional] 
 **IdpAccountAttribute** | Pointer to **string** | The SAML attribute to use from the response assertions to determine the anchore account to use. If unset, the default is used. | [optional] 
 **IdpRoleAttribute** | Pointer to **string** | The SAML attribute to use from the response assertions to determine the anchore role(s) to assign a new user in the specified account. If unset, the default is used. | [optional] 
+**IdpGroupsAttribute** | Pointer to **string** | The SAML attribute to use from the response assertions to determine the SSO groups the user is a member of. If unset, the default is used (memberOf). | [optional] 
 **DefaultAccount** | Pointer to **string** | The anchore account to assign all users to from this IDP if no account attribute is mapped or present. | [optional] 
 **DefaultRole** | Pointer to **string** | The default role to apply to new users from this IDP if no attribute is mapped or found in the SAML assertions. | [optional] 
 **RequireSignedAssertions** | Pointer to **bool** | Require assertions in to be signed from the IDP | [optional] [default to true]
@@ -270,6 +271,31 @@ SetIdpRoleAttribute sets IdpRoleAttribute field to given value.
 `func (o *RbacManagerSamlConfiguration) HasIdpRoleAttribute() bool`
 
 HasIdpRoleAttribute returns a boolean if a field has been set.
+
+### GetIdpGroupsAttribute
+
+`func (o *RbacManagerSamlConfiguration) GetIdpGroupsAttribute() string`
+
+GetIdpGroupsAttribute returns the IdpGroupsAttribute field if non-nil, zero value otherwise.
+
+### GetIdpGroupsAttributeOk
+
+`func (o *RbacManagerSamlConfiguration) GetIdpGroupsAttributeOk() (*string, bool)`
+
+GetIdpGroupsAttributeOk returns a tuple with the IdpGroupsAttribute field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetIdpGroupsAttribute
+
+`func (o *RbacManagerSamlConfiguration) SetIdpGroupsAttribute(v string)`
+
+SetIdpGroupsAttribute sets IdpGroupsAttribute field to given value.
+
+### HasIdpGroupsAttribute
+
+`func (o *RbacManagerSamlConfiguration) HasIdpGroupsAttribute() bool`
+
+HasIdpGroupsAttribute returns a boolean if a field has been set.
 
 ### GetDefaultAccount
 

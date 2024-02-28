@@ -8,7 +8,7 @@ info:
   license:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
-  version: 2.1.0
+  version: 2.3.0
 servers:
 - url: /v2
 tags:
@@ -4468,6 +4468,27 @@ paths:
           content: {}
       x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.runtime_inventory
       x-anchore-authz-action: getKubernetesPods
+  /my-user-groups:
+    get:
+      tags:
+        - Identity
+      summary: List user groups for the authenticated user
+      operationId: list_my_user_groups
+      responses:
+        200:
+          description: User group list
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserGroupList'
+        500:
+          description: Internal error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.user_groups
+      x-anchore-authz-action: None
   /notifications/endpoints:
     get:
       tags:
@@ -7046,7 +7067,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/RbacManagerSamlConfiguration'
+                $ref: '#/components/schemas/RbacManagerSamlConfigurationGet'
         404:
           description: Not found
           content:
@@ -7106,7 +7127,6 @@ paths:
                 $ref: '#/components/schemas/RbacManagerApiErrorResponse'
       x-openapi-router-controller: anchore_enterprise.services.rbac_manager.api.controllers.auth
       x-anchore-authz-action: None
-      x-codegen-request-body-name: configuration
     delete:
       tags:
       - RBAC
@@ -7136,6 +7156,136 @@ paths:
                 $ref: '#/components/schemas/RbacManagerApiErrorResponse'
       x-openapi-router-controller: anchore_enterprise.services.rbac_manager.api.controllers.auth
       x-anchore-authz-action: None
+  /rbac-manager/saml/idps/{name}/user-group-mappings:
+    get:
+      tags:
+      - RBAC
+      description: Return the list of user groups associated with an IdP
+      operationId: get_idp_user_groups
+      parameters:
+      - name: name
+        in: path
+        required: true
+        schema:
+          type: string
+          format: path
+      responses:
+        200:
+          description: Successfully retrieved configuration
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RbacManagerIdpUserGroups'
+        404:
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RbacManagerApiErrorResponse'
+        500:
+          description: Internal error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RbacManagerApiErrorResponse'
+      x-openapi-router-controller: anchore_enterprise.services.rbac_manager.api.controllers.user_groups
+      x-anchore-authz-action: None
+    post:
+      tags:
+      - RBAC
+      description: Associate a user group with an IdP.
+      operationId: add_idp_user_groups
+      x-openapi-router-controller: anchore_enterprise.services.rbac_manager.api.controllers.user_groups
+      x-anchore-authz-action: None
+      parameters:
+      - name: name
+        in: path
+        required: true
+        schema:
+          type: string
+          format: path
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RbacManagerIdpUserGroupPost'
+        required: true
+      responses:
+        200:
+          description: Successfully associated user group with IdP
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RbacManagerIdpUserGroups'
+        400:
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RbacManagerApiErrorResponse'
+        404:
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RbacManagerApiErrorResponse'
+        409:
+          description: Conflict, entry already exists
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RbacManagerApiErrorResponse'
+        500:
+          description: Internal error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RbacManagerApiErrorResponse'
+    delete:
+      tags:
+      - RBAC
+      description: Remove user group association(s) from an IdP
+      operationId: delete_idp_user_group
+      x-openapi-router-controller: anchore_enterprise.services.rbac_manager.api.controllers.user_groups
+      x-anchore-authz-action: None
+      parameters:
+      - name: name
+        description: The name of the IdP to remove the user group from
+        in: path
+        required: true
+        schema:
+          type: string
+          format: path
+      - name: user_group
+        description: The user group uuid to remove from the IdP in the format user_group=uuid1&user_group=uuid2
+        in: query
+        required: true
+        schema:
+          type: array
+          items:
+            type: string
+      responses:
+        204:
+          description: Successfully removed user group association from IdP
+          content: {}
+        400:
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RbacManagerApiErrorResponse'
+        404:
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RbacManagerApiErrorResponse'
+        500:
+          description: Internal error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RbacManagerApiErrorResponse'
   /rbac-manager/saml/login/{idp_name}:
     get:
       tags:
@@ -8508,6 +8658,338 @@ paths:
                 $ref: '#/components/schemas/SystemStatisticsList'
       x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.system
       x-anchore-authz-action: None
+  /system/user-groups:
+    get:
+      tags:
+        - User Management
+      summary: List user groups
+      operationId: list_user_groups
+      parameters:
+        - in: query
+          name: contains_user
+          schema:
+            type: string
+          description: Filter the user groups to only those that contain the specified user
+        - in: query
+          name: user_group_name
+          schema:
+            type: string
+          description: Filter results to match the specified user group name
+      responses:
+        200:
+          description: User group list
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserGroupList'
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.user_groups
+      x-anchore-authz-action: listUserGroups
+    post:
+      tags:
+        - User Management
+      summary: Create a new user group
+      operationId: create_user_group
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserGroupPost'
+        required: true
+      responses:
+        201:
+          description: User group record
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserGroup'
+        404:
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        409:
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.user_groups
+      x-anchore-authz-action: createUserGroup
+  /system/user-groups/{group_uuid}:
+    get:
+      tags:
+        - User Management
+      summary: Get a user group
+      operationId: get_user_group
+      parameters:
+        - name: group_uuid
+          in: path
+          required: true
+          schema:
+            type: string
+            format: path
+      responses:
+        200:
+          description: User group record
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserGroup'
+        404:
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.user_groups
+      x-anchore-authz-action: getUserGroup
+    patch:
+      tags:
+        - User Management
+      summary: Update a user group
+      operationId: update_user_group
+      parameters:
+        - name: group_uuid
+          in: path
+          required: true
+          schema:
+            type: string
+            format: path
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserGroupPatch'
+        required: true
+      responses:
+        200:
+          description: User group record
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserGroup'
+        404:
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.user_groups
+      x-anchore-authz-action: updateUserGroup
+      x-codegen-request-body-name: user_group_patch
+    delete:
+      tags:
+        - User Management
+      summary: Delete a user group
+      operationId: delete_user_group
+      parameters:
+        - name: group_uuid
+          in: path
+          required: true
+          schema:
+            type: string
+            format: path
+      responses:
+        204:
+          description: Success
+          content: { }
+        404:
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.user_groups
+      x-anchore-authz-action: deleteUserGroup
+  /system/user-groups/{group_uuid}/roles:
+    get:
+      tags:
+        - User Management
+      summary: Get a list of all user group roles
+      operationId: list_user_group_roles
+      parameters:
+        - name: group_uuid
+          in: path
+          required: true
+          schema:
+            type: string
+            format: path
+      responses:
+        200:
+          description: User group roles
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserGroupRoles'
+        404:
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.user_groups
+      x-anchore-authz-action: getUserGroupRoles
+    post:
+      tags:
+        - User Management
+      summary: Add account role(s) to this user group
+      operationId: add_user_group_roles
+      parameters:
+        - name: group_uuid
+          in: path
+          required: true
+          schema:
+            type: string
+            format: path
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserGroupRolePost'
+        required: true
+      responses:
+        201:
+          description: User group role
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserGroupRoles'
+        404:
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.user_groups
+      x-anchore-authz-action: addUserGroupRole
+    delete:
+      tags:
+        - User Management
+      summary: Remove account role(s) from this user group
+      operationId: delete_user_group_role
+      parameters:
+        - name: group_uuid
+          in: path
+          required: true
+          schema:
+            type: string
+            format: path
+        - name: membership_id
+          in: query
+          required: true
+          style: form
+          description: A list of membership ids to remove from the user group in the format of membership_id=1&membership_id=2
+          schema:
+            type: array
+            items:
+              type: string
+      responses:
+        204:
+          description: Success
+          content: { }
+        404:
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.user_groups
+      x-anchore-authz-action: deleteUserGroupRole
+  /system/user-groups/{group_uuid}/users:
+    get:
+      tags:
+        - User Management
+      summary: Get a list of user group users
+      operationId: list_user_group_users
+      parameters:
+        - name: group_uuid
+          in: path
+          required: true
+          schema:
+            type: string
+            format: path
+      responses:
+        200:
+          description: User group users
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserGroupUsers'
+        404:
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.user_groups
+      x-anchore-authz-action: getUserGroupUsers
+    post:
+      tags:
+        - User Management
+      summary: Add user(s) to a user group
+      operationId: add_user_group_users
+      parameters:
+        - name: group_uuid
+          in: path
+          required: true
+          schema:
+            type: string
+            format: path
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserGroupUsersPost'
+        required: true
+      responses:
+        201:
+          description: User group user
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserGroupUsers'
+        404:
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.user_groups
+      x-anchore-authz-action: addUserGroupUser
+    delete:
+      tags:
+        - User Management
+      summary: Remove a user from a user group
+      operationId: delete_user_group_users
+      parameters:
+        - name: group_uuid
+          in: path
+          required: true
+          schema:
+            type: string
+            format: path
+        - name: username
+          in: query
+          required: true
+          style: form
+          description: A list of usernames to remove from the user group in the format of username=user1&username=user2
+          schema:
+            type: array
+            items:
+              type: string
+      responses:
+        204:
+          description: Success
+          content: { }
+        404:
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.user_groups
+      x-anchore-authz-action: deleteUserGroupUser
   /system/webhooks/{webhook_type}/test:
     post:
       tags:
@@ -8901,7 +9383,7 @@ components:
       type: object
       properties:
         name:
-          pattern: ^[a-zA-Z0-9][ a-zA-Z0-9@.!#$+-=^_`~;]{1,126}[a-zA-Z0-9_]$
+          pattern: ^[a-zA-Z0-9][ a-zA-Z0-9@.!#$+=^_`~;-]{1,126}[a-zA-Z0-9_]$
           type: string
           description: The account name to use. This will identify the account and
             must be globally unique in the system.
@@ -11077,7 +11559,9 @@ components:
         cpes:
           type: array
           items:
-            type: string
+            anyOf:
+              - type: string
+              - $ref: '#/components/schemas/ImportPackageCPE'
         purl:
           type: string
         metadataType:
@@ -11087,6 +11571,16 @@ components:
           type: object
           properties: {}
           nullable: true
+    ImportPackageCPE:
+      required:
+      - cpe
+      - source
+      type: object
+      properties:
+        cpe:
+          type: string
+        source:
+          type: string
     ImportPackageLocation:
       required:
       - path
@@ -11773,7 +12267,9 @@ components:
         cpes:
           type: array
           items:
-            type: string
+            anyOf:
+              - type: string
+              - $ref: '#/components/schemas/NativeSBOMPackageCPE'
         purl:
           type: string
         metadataType:
@@ -11783,6 +12279,17 @@ components:
           type: object
           properties: {}
           nullable: true
+    NativeSBOMPackageCPE:
+      required:
+      - cpe
+      - source
+      type: object
+      properties:
+        cpe:
+          type: string
+        source:
+          type: string
+      additionalProperties: true
     NativeSBOMPackageLocation:
       required:
       - path
@@ -12987,6 +13494,34 @@ components:
           description: Details structure for additional information about the error
             if available. Content and structure will be error specific.
       description: Generic HTTP API error response
+    RbacManagerIdpUserGroup:
+        type: object
+        required:
+        - user_group_uuid
+        properties:
+          user_group_uuid:
+            type: string
+            description: The UUID of the user group
+          user_group_name:
+            type: string
+            description: The name of the user group
+          mapped_on:
+            type: string
+            description: The timestamp when the user group was mapped to the IdP
+            format: date-time
+        description: A user group associated with an IdP
+    RbacManagerIdpUserGroupPost:
+      type: object
+      properties:
+        user_group_uuids:
+          type: array
+          items:
+            type: string
+            description: List of user group uuids to be associated with the IdP
+    RbacManagerIdpUserGroups:
+      type: array
+      items:
+        $ref: '#/components/schemas/RbacManagerIdpUserGroup'
     RbacManagerPermission:
       type: object
       properties:
@@ -13130,6 +13665,10 @@ components:
           description: The SAML attribute to use from the response assertions to determine
             the anchore role(s) to assign a new user in the specified account. If
             unset, the default is used.
+        idp_groups_attribute:
+          type: string
+          description: The SAML attribute to use from the response assertions to determine
+            the SSO groups the user is a member of. If unset, the default is used (memberOf).
         default_account:
           type: string
           description: The anchore account to assign all users to from this IDP if
@@ -13159,6 +13698,25 @@ components:
           default: false
       description: A named configuration for interaction with an Identity Provider
         that supports SAML 2.0
+    RbacManagerSamlConfigurationGet:
+      allOf:
+        - $ref: '#/components/schemas/RbacManagerSamlConfiguration'
+        - type: object
+          properties:
+            user_groups:
+              type: array
+              description: List of user groups associated with this IDP (Only for GET
+                operations)
+              items:
+                type: object
+                properties:
+                  user_group:
+                    type: string
+                    description: The name of the user group
+                  added_on:
+                    type: string
+                    format: date-time
+                    description: The date and time the user group was associated with the IDP
     RbacManagerServiceVersion:
       type: object
       properties:
@@ -14347,7 +14905,7 @@ components:
       type: object
       properties:
         username:
-          pattern: ^[a-zA-Z0-9][ a-zA-Z0-9@.!#$+-=^_`~;]{1,126}[a-zA-Z0-9_]$
+          pattern: ^[a-zA-Z0-9][ a-zA-Z0-9@.!#$+=^_`~;-]{1,126}[a-zA-Z0-9_]$
           type: string
           description: The username to create
         password:
@@ -14368,6 +14926,134 @@ components:
             of the IDP. A 'native' user should have this set to null.
       description: A payload for creating a new user, includes the username and password
         in a single request
+    UserGroup:
+      required:
+      - name
+      - group_uuid
+      type: object
+      properties:
+        name:
+          pattern: ^[a-zA-Z0-9][ a-zA-Z0-9@.!#$+=^_`~;-]{1,126}[a-zA-Z0-9_]$
+          type: string
+          description: The name of the user group
+        description:
+          type: string
+          description: The description of the user group
+        group_uuid:
+          type: string
+          description: The unique identifier for the user group
+        created_at:
+          type: string
+          format: date-time
+          description: The timestamp of when the user group was created
+        last_updated:
+          type: string
+          description: The timestamp of the last update to this user group
+          format: date-time
+        account_roles:
+          $ref: '#/components/schemas/UserGroupRoles'
+
+    UserGroupPost:
+      required:
+        - name
+      type: object
+      properties:
+        name:
+          pattern: ^[a-zA-Z0-9][ a-zA-Z0-9@.!#$+=^_`~;-]{1,126}[a-zA-Z0-9_]$
+          type: string
+          description: The name of the user group
+        description:
+          type: string
+          description: The description of the user group
+    UserGroupPatch:
+      required:
+      - description
+      type: object
+      properties:
+        description:
+          type: string
+          description: The description of the user group
+    UserGroupList:
+      type: array
+      items:
+        $ref: '#/components/schemas/UserGroup'
+    UserGroupRolePost:
+      required:
+        - for_account
+        - roles
+      type: object
+      properties:
+        for_account:
+          type: string
+          description: The account
+        roles:
+          type: array
+          items:
+            properties:
+              role:
+                type: string
+                description: The name of the rbac role
+    UserGroupRole:
+      required:
+      - for_account
+      - roles
+      type: object
+      properties:
+        for_account:
+          type: string
+          description: The account for this role
+        roles:
+          type: array
+          items:
+            type: object
+            properties:
+              role:
+                type: string
+                description: The role name
+              created_at:
+                type: string
+                format: date-time
+                description: The timestamp of when the role membership was created
+              membership_id:
+                type: string
+                description: The unique identifier for the role membership
+    UserGroupRoles:
+      properties:
+        items:
+          type: array
+          description: The list of accounts and all its roles which are configured in the user group
+          items:
+            $ref: '#/components/schemas/UserGroupRole'
+    UserGroupUsersPost:
+      required:
+        - usernames
+      properties:
+        usernames:
+          type: array
+          description: The list of usernames to add to the user group
+          items:
+            properties:
+              username:
+                type: string
+                description: A username
+    UserGroupUser:
+      required:
+      - username
+      type: object
+      properties:
+        username:
+          type: string
+          description: The username of the user
+        added_on:
+          type: string
+          format: date-time
+          description: The timestamp of when the user was added to the group
+    UserGroupUsers:
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/UserGroupUser'
     VendorDataList:
       type: array
       description: List of Vendor Data objects
@@ -14400,7 +15086,7 @@ components:
           items:
             $ref: '#/components/schemas/VersionVulnerabilityMatch'
       description: A vulnerability in an application version vulnerability report
-        with vulenrability data, affected artifacts, and packages
+        with vulnerability data, affected artifacts, and packages
     VersionVulnerabilityMatch:
       type: object
       properties:

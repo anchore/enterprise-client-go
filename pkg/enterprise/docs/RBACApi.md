@@ -5,10 +5,13 @@ All URIs are relative to */v2*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**AddIdp**](RBACApi.md#AddIdp) | **Post** /rbac-manager/saml/idps | 
+[**AddIdpUserGroups**](RBACApi.md#AddIdpUserGroups) | **Post** /rbac-manager/saml/idps/{name}/user-group-mappings | 
 [**AddRoleUser**](RBACApi.md#AddRoleUser) | **Post** /rbac-manager/roles/{role_name}/members | Add a user to the role
 [**DeleteIdp**](RBACApi.md#DeleteIdp) | **Delete** /rbac-manager/saml/idps/{name} | 
+[**DeleteIdpUserGroup**](RBACApi.md#DeleteIdpUserGroup) | **Delete** /rbac-manager/saml/idps/{name}/user-group-mappings | 
 [**DeleteRoleUser**](RBACApi.md#DeleteRoleUser) | **Delete** /rbac-manager/roles/{role_name}/members | Remove a user from the role
 [**GetIdp**](RBACApi.md#GetIdp) | **Get** /rbac-manager/saml/idps/{name} | 
+[**GetIdpUserGroups**](RBACApi.md#GetIdpUserGroups) | **Get** /rbac-manager/saml/idps/{name}/user-group-mappings | 
 [**GetRole**](RBACApi.md#GetRole) | **Get** /rbac-manager/roles/{role_name} | Get detailed information about a specific role
 [**ListIdps**](RBACApi.md#ListIdps) | **Get** /rbac-manager/saml/idps | 
 [**ListRoleMembers**](RBACApi.md#ListRoleMembers) | **Get** /rbac-manager/roles/{role_name}/members | Returns a list of objects that have members in the role. The list is filtered by &#39;listRoleMembers&#39; access for the &#39;account&#39; element of each entry.
@@ -72,6 +75,78 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**RbacManagerSamlConfiguration**](RbacManagerSamlConfiguration.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## AddIdpUserGroups
+
+> []RbacManagerIdpUserGroup AddIdpUserGroups(ctx, name).RbacManagerIdpUserGroupPost(rbacManagerIdpUserGroupPost).Execute()
+
+
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    name := "name_example" // string | 
+    rbacManagerIdpUserGroupPost := *openapiclient.NewRbacManagerIdpUserGroupPost() // RbacManagerIdpUserGroupPost | 
+
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.RBACApi.AddIdpUserGroups(context.Background(), name).RbacManagerIdpUserGroupPost(rbacManagerIdpUserGroupPost).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `RBACApi.AddIdpUserGroups``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `AddIdpUserGroups`: []RbacManagerIdpUserGroup
+    fmt.Fprintf(os.Stdout, "Response from `RBACApi.AddIdpUserGroups`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**name** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiAddIdpUserGroupsRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **rbacManagerIdpUserGroupPost** | [**RbacManagerIdpUserGroupPost**](RbacManagerIdpUserGroupPost.md) |  | 
+
+### Return type
+
+[**[]RbacManagerIdpUserGroup**](RbacManagerIdpUserGroup.md)
 
 ### Authorization
 
@@ -225,6 +300,76 @@ No authorization required
 [[Back to README]](../README.md)
 
 
+## DeleteIdpUserGroup
+
+> DeleteIdpUserGroup(ctx, name).UserGroup(userGroup).Execute()
+
+
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    name := "name_example" // string | The name of the IdP to remove the user group from
+    userGroup := []string{"Inner_example"} // []string | The user group uuid to remove from the IdP in the format user_group=uuid1&user_group=uuid2
+
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.RBACApi.DeleteIdpUserGroup(context.Background(), name).UserGroup(userGroup).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `RBACApi.DeleteIdpUserGroup``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**name** | **string** | The name of the IdP to remove the user group from | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiDeleteIdpUserGroupRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **userGroup** | **[]string** | The user group uuid to remove from the IdP in the format user_group&#x3D;uuid1&amp;user_group&#x3D;uuid2 | 
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
 ## DeleteRoleUser
 
 > DeleteRoleUser(ctx, roleName).Username(username).ForAccount(forAccount).Execute()
@@ -297,7 +442,7 @@ No authorization required
 
 ## GetIdp
 
-> RbacManagerSamlConfiguration GetIdp(ctx, name).Execute()
+> RbacManagerSamlConfigurationGet GetIdp(ctx, name).Execute()
 
 
 
@@ -325,7 +470,7 @@ func main() {
         fmt.Fprintf(os.Stderr, "Error when calling `RBACApi.GetIdp``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `GetIdp`: RbacManagerSamlConfiguration
+    // response from `GetIdp`: RbacManagerSamlConfigurationGet
     fmt.Fprintf(os.Stdout, "Response from `RBACApi.GetIdp`: %v\n", resp)
 }
 ```
@@ -349,7 +494,77 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**RbacManagerSamlConfiguration**](RbacManagerSamlConfiguration.md)
+[**RbacManagerSamlConfigurationGet**](RbacManagerSamlConfigurationGet.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetIdpUserGroups
+
+> []RbacManagerIdpUserGroup GetIdpUserGroups(ctx, name).Execute()
+
+
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    name := "name_example" // string | 
+
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.RBACApi.GetIdpUserGroups(context.Background(), name).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `RBACApi.GetIdpUserGroups``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `GetIdpUserGroups`: []RbacManagerIdpUserGroup
+    fmt.Fprintf(os.Stdout, "Response from `RBACApi.GetIdpUserGroups`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**name** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetIdpUserGroupsRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+[**[]RbacManagerIdpUserGroup**](RbacManagerIdpUserGroup.md)
 
 ### Authorization
 
@@ -896,7 +1111,7 @@ No authorization required
 
 ## UpdateIdp
 
-> RbacManagerSamlConfiguration UpdateIdp(ctx, name).Configuration(configuration).Execute()
+> RbacManagerSamlConfiguration UpdateIdp(ctx, name).RbacManagerSamlConfiguration(rbacManagerSamlConfiguration).Execute()
 
 
 
@@ -916,11 +1131,11 @@ import (
 
 func main() {
     name := "name_example" // string | 
-    configuration := *openapiclient.NewRbacManagerSamlConfiguration("Name_example", false, "SpEntityId_example", "AcsUrl_example") // RbacManagerSamlConfiguration | 
+    rbacManagerSamlConfiguration := *openapiclient.NewRbacManagerSamlConfiguration("Name_example", false, "SpEntityId_example", "AcsUrl_example") // RbacManagerSamlConfiguration | 
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.RBACApi.UpdateIdp(context.Background(), name).Configuration(configuration).Execute()
+    resp, r, err := apiClient.RBACApi.UpdateIdp(context.Background(), name).RbacManagerSamlConfiguration(rbacManagerSamlConfiguration).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `RBACApi.UpdateIdp``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -946,7 +1161,7 @@ Other parameters are passed through a pointer to a apiUpdateIdpRequest struct vi
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **configuration** | [**RbacManagerSamlConfiguration**](RbacManagerSamlConfiguration.md) |  | 
+ **rbacManagerSamlConfiguration** | [**RbacManagerSamlConfiguration**](RbacManagerSamlConfiguration.md) |  | 
 
 ### Return type
 
