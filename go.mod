@@ -1,4 +1,4 @@
-module github.com/anchore/enterprise-client-go
+module github.com/anchore/enterprise-client-go.v5
 
 go 1.16
 
