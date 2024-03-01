@@ -1,0 +1,25 @@
+diff --git a/pkg/enterprise/api/openapi.yaml b/pkg/enterprise/api/openapi.yaml
+index 2b581f2..d4106c8 100644
+--- a/pkg/enterprise/api/openapi.yaml
++++ b/pkg/enterprise/api/openapi.yaml
+@@ -11734,8 +11734,18 @@ components:
+     ArtifactLifecyclePolicyList:
+       example:
+         items:
+-        - null
+-        - null
++          - uuid: af2afecb-815a-47b6-8c22-20450896dcd0
++            policy_conditions:
++              - version: 1
++                even_if_exists_in_runtime_inventory: false
++                days_since_analyzed: 1
++                artifact_type: image
++            name: test policy
++            description: test description
++            enabled: false
++            action: delete
++            created_at: 2024-03-01T19:45:10Z
++            updated_at: 2024-03-01T19:45:10Z
+       properties:
+         items:
+           items:
