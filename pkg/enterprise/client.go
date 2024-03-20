@@ -3,7 +3,7 @@ Anchore API
 
 This is the Anchore API. Provides the external API for users of Anchore Enterprise.
 
-API version: 2.3.0
+API version: 2.4.0
 Contact: dev@anchore.com
 */
 
@@ -42,7 +42,7 @@ var (
 	xmlCheck  = regexp.MustCompile(`(?i:(?:application|text)/xml)`)
 )
 
-// APIClient manages communication with the Anchore API API v2.3.0
+// APIClient manages communication with the Anchore API API v2.4.0
 // In most cases there should be only one, shared, APIClient.
 type APIClient struct {
 	cfg    *Configuration
@@ -59,6 +59,8 @@ type APIClient struct {
 	ArchivesApi ArchivesApi
 
 	ArtifactLifecycleApi ArtifactLifecycleApi
+
+	CatalogApi CatalogApi
 
 	CorrectionsApi CorrectionsApi
 
@@ -122,6 +124,7 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.ApplicationsApi = (*ApplicationsApiService)(&c.common)
 	c.ArchivesApi = (*ArchivesApiService)(&c.common)
 	c.ArtifactLifecycleApi = (*ArtifactLifecycleApiService)(&c.common)
+	c.CatalogApi = (*CatalogApiService)(&c.common)
 	c.CorrectionsApi = (*CorrectionsApiService)(&c.common)
 	c.EventsApi = (*EventsApiService)(&c.common)
 	c.IdentityApi = (*IdentityApiService)(&c.common)

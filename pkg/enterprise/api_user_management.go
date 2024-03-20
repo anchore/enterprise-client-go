@@ -3,7 +3,7 @@ Anchore API
 
 This is the Anchore API. Provides the external API for users of Anchore Enterprise.
 
-API version: 2.3.0
+API version: 2.4.0
 Contact: dev@anchore.com
 */
 
@@ -1818,11 +1818,18 @@ type ApiDeleteUserGroupRoleRequest struct {
 	ApiService UserManagementApi
 	groupUuid string
 	membershipId *[]string
+	allRolesForAccount *[]string
 }
 
 // A list of membership ids to remove from the user group in the format of membership_id&#x3D;1&amp;membership_id&#x3D;2
 func (r ApiDeleteUserGroupRoleRequest) MembershipId(membershipId []string) ApiDeleteUserGroupRoleRequest {
 	r.membershipId = &membershipId
+	return r
+}
+
+// A list of accounts to remove all roles from the user group in the format of all_roles_for_account&#x3D;account1&amp;all_roles_for_account&#x3D;account2
+func (r ApiDeleteUserGroupRoleRequest) AllRolesForAccount(allRolesForAccount []string) ApiDeleteUserGroupRoleRequest {
+	r.allRolesForAccount = &allRolesForAccount
 	return r
 }
 
@@ -1864,11 +1871,8 @@ func (a *UserManagementApiService) DeleteUserGroupRoleExecute(r ApiDeleteUserGro
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.membershipId == nil {
-		return nil, reportError("membershipId is required and must be specified")
-	}
 
-	{
+	if r.membershipId != nil {
 		t := *r.membershipId
 		if reflect.TypeOf(t).Kind() == reflect.Slice {
 			s := reflect.ValueOf(t)
@@ -1878,6 +1882,9 @@ func (a *UserManagementApiService) DeleteUserGroupRoleExecute(r ApiDeleteUserGro
 		} else {
 			localVarQueryParams.Add("membership_id", parameterToString(t, "multi"))
 		}
+	}
+	if r.allRolesForAccount != nil {
+		localVarQueryParams.Add("all_roles_for_account", parameterToString(*r.allRolesForAccount, "csv"))
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -3232,6 +3239,7 @@ type ApiListUserGroupsRequest struct {
 	ApiService UserManagementApi
 	containsUser *string
 	userGroupName *string
+	containsAccount *string
 }
 
 // Filter the user groups to only those that contain the specified user
@@ -3243,6 +3251,12 @@ func (r ApiListUserGroupsRequest) ContainsUser(containsUser string) ApiListUserG
 // Filter results to match the specified user group name
 func (r ApiListUserGroupsRequest) UserGroupName(userGroupName string) ApiListUserGroupsRequest {
 	r.userGroupName = &userGroupName
+	return r
+}
+
+// Filter the results to only those that have roles in the specified account
+func (r ApiListUserGroupsRequest) ContainsAccount(containsAccount string) ApiListUserGroupsRequest {
+	r.containsAccount = &containsAccount
 	return r
 }
 
@@ -3289,6 +3303,9 @@ func (a *UserManagementApiService) ListUserGroupsExecute(r ApiListUserGroupsRequ
 	}
 	if r.userGroupName != nil {
 		localVarQueryParams.Add("user_group_name", parameterToString(*r.userGroupName, ""))
+	}
+	if r.containsAccount != nil {
+		localVarQueryParams.Add("contains_account", parameterToString(*r.containsAccount, ""))
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
