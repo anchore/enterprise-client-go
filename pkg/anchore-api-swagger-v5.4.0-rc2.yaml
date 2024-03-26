@@ -8,7 +8,7 @@ info:
   license:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
-  version: 2.3.0
+  version: 2.4.0
 servers:
 - url: /v2
 tags:
@@ -8386,6 +8386,22 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ArtifactLifecyclePolicyResponse'
+  /system/deployment-history:
+    get:
+      tags:
+        - catalog
+      summary: List Deployment History
+      description: Returns list of deployment history entries
+      operationId: get_deployment_history
+      responses:
+        "200":
+          description: List of deployment history entries
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeploymentHistoryList'
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.system
+      x-anchore-authz-action: None
   /system/error-codes:
     get:
       tags:
@@ -8675,6 +8691,11 @@ paths:
           schema:
             type: string
           description: Filter results to match the specified user group name
+        - in: query
+          name: contains_account
+          schema:
+            type: string
+          description: Filter the results to only those that have roles in the specified account
       responses:
         200:
           description: User group list
@@ -8877,13 +8898,22 @@ paths:
             format: path
         - name: membership_id
           in: query
-          required: true
           style: form
           description: A list of membership ids to remove from the user group in the format of membership_id=1&membership_id=2
           schema:
             type: array
             items:
               type: string
+        - name: all_roles_for_account
+          in: query
+          required: false
+          style: form
+          explode: false
+          schema:
+            type: array
+            items:
+              type: string
+          description: A list of accounts to remove all roles from the user group in the format of all_roles_for_account=account1&all_roles_for_account=account2
       responses:
         204:
           description: Success
@@ -10566,6 +10596,36 @@ components:
       description: A list of delete image responses
       items:
         $ref: '#/components/schemas/DeleteImageResponse'
+    DeploymentHistory:
+      type: object
+      properties:
+        deployment_id:
+          type: string
+        upgrade_id:
+          type: string
+        to_system_version:
+          type: string
+        from_system_version:
+          type: string
+        to_database_version:
+          type: string
+        from_database_version:
+          type: string
+        outcome:
+          type: string
+        db_upgrade_duration:
+          type: number
+          format: float
+        created_at:
+          type: string
+          format: date-time
+    DeploymentHistoryList:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/DeploymentHistory'
     ECSContainer:
       required:
       - account_name

@@ -8,7 +8,7 @@ info:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
   title: Anchore API
-  version: 2.3.0
+  version: 2.4.0
 servers:
 - url: /v2
 tags:
@@ -9344,6 +9344,22 @@ paths:
       - Artifact Lifecycle
       x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.artifact_lifecycle_policies
       x-anchore-authz-action: getArtifactLifecyclePolicy
+  /system/deployment-history:
+    get:
+      description: Returns list of deployment history entries
+      operationId: get_deployment_history
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeploymentHistoryList'
+          description: List of deployment history entries
+      summary: List Deployment History
+      tags:
+      - catalog
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.system
+      x-anchore-authz-action: None
   /system/error-codes:
     get:
       description: Describe anchore engine error codes.
@@ -9653,6 +9669,15 @@ paths:
         schema:
           type: string
         style: form
+      - description: Filter the results to only those that have roles in the specified
+          account
+        explode: true
+        in: query
+        name: contains_account
+        required: false
+        schema:
+          type: string
+        style: form
       responses:
         "200":
           content:
@@ -9806,7 +9831,18 @@ paths:
         explode: true
         in: query
         name: membership_id
-        required: true
+        required: false
+        schema:
+          items:
+            type: string
+          type: array
+        style: form
+      - description: A list of accounts to remove all roles from the user group in
+          the format of all_roles_for_account=account1&all_roles_for_account=account2
+        explode: false
+        in: query
+        name: all_roles_for_account
+        required: false
         schema:
           items:
             type: string
@@ -12467,6 +12503,66 @@ components:
       items:
         $ref: '#/components/schemas/DeleteImageResponse'
       type: array
+    DeploymentHistory:
+      example:
+        from_database_version: from_database_version
+        to_database_version: to_database_version
+        from_system_version: from_system_version
+        upgrade_id: upgrade_id
+        created_at: 2000-01-23T04:56:07.000+00:00
+        deployment_id: deployment_id
+        outcome: outcome
+        db_upgrade_duration: 0.8008282
+        to_system_version: to_system_version
+      properties:
+        deployment_id:
+          type: string
+        upgrade_id:
+          type: string
+        to_system_version:
+          type: string
+        from_system_version:
+          type: string
+        to_database_version:
+          type: string
+        from_database_version:
+          type: string
+        outcome:
+          type: string
+        db_upgrade_duration:
+          format: float
+          type: number
+        created_at:
+          format: date-time
+          type: string
+      type: object
+    DeploymentHistoryList:
+      example:
+        items:
+        - from_database_version: from_database_version
+          to_database_version: to_database_version
+          from_system_version: from_system_version
+          upgrade_id: upgrade_id
+          created_at: 2000-01-23T04:56:07.000+00:00
+          deployment_id: deployment_id
+          outcome: outcome
+          db_upgrade_duration: 0.8008282
+          to_system_version: to_system_version
+        - from_database_version: from_database_version
+          to_database_version: to_database_version
+          from_system_version: from_system_version
+          upgrade_id: upgrade_id
+          created_at: 2000-01-23T04:56:07.000+00:00
+          deployment_id: deployment_id
+          outcome: outcome
+          db_upgrade_duration: 0.8008282
+          to_system_version: to_system_version
+      properties:
+        items:
+          items:
+            $ref: '#/components/schemas/DeploymentHistory'
+          type: array
+      type: object
     ECSContainer:
       example:
         task_arn: task_arn

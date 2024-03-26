@@ -869,7 +869,7 @@ No authorization required
 
 ## DeleteUserGroupRole
 
-> DeleteUserGroupRole(ctx, groupUuid).MembershipId(membershipId).Execute()
+> DeleteUserGroupRole(ctx, groupUuid).MembershipId(membershipId).AllRolesForAccount(allRolesForAccount).Execute()
 
 Remove account role(s) from this user group
 
@@ -887,11 +887,12 @@ import (
 
 func main() {
     groupUuid := "groupUuid_example" // string | 
-    membershipId := []string{"Inner_example"} // []string | A list of membership ids to remove from the user group in the format of membership_id=1&membership_id=2
+    membershipId := []string{"Inner_example"} // []string | A list of membership ids to remove from the user group in the format of membership_id=1&membership_id=2 (optional)
+    allRolesForAccount := []string{"Inner_example"} // []string | A list of accounts to remove all roles from the user group in the format of all_roles_for_account=account1&all_roles_for_account=account2 (optional)
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.UserManagementApi.DeleteUserGroupRole(context.Background(), groupUuid).MembershipId(membershipId).Execute()
+    resp, r, err := apiClient.UserManagementApi.DeleteUserGroupRole(context.Background(), groupUuid).MembershipId(membershipId).AllRolesForAccount(allRolesForAccount).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `UserManagementApi.DeleteUserGroupRole``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -916,6 +917,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
  **membershipId** | **[]string** | A list of membership ids to remove from the user group in the format of membership_id&#x3D;1&amp;membership_id&#x3D;2 | 
+ **allRolesForAccount** | **[]string** | A list of accounts to remove all roles from the user group in the format of all_roles_for_account&#x3D;account1&amp;all_roles_for_account&#x3D;account2 | 
 
 ### Return type
 
@@ -1702,7 +1704,7 @@ No authorization required
 
 ## ListUserGroups
 
-> []UserGroup ListUserGroups(ctx).ContainsUser(containsUser).UserGroupName(userGroupName).Execute()
+> []UserGroup ListUserGroups(ctx).ContainsUser(containsUser).UserGroupName(userGroupName).ContainsAccount(containsAccount).Execute()
 
 List user groups
 
@@ -1721,10 +1723,11 @@ import (
 func main() {
     containsUser := "containsUser_example" // string | Filter the user groups to only those that contain the specified user (optional)
     userGroupName := "userGroupName_example" // string | Filter results to match the specified user group name (optional)
+    containsAccount := "containsAccount_example" // string | Filter the results to only those that have roles in the specified account (optional)
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.UserManagementApi.ListUserGroups(context.Background()).ContainsUser(containsUser).UserGroupName(userGroupName).Execute()
+    resp, r, err := apiClient.UserManagementApi.ListUserGroups(context.Background()).ContainsUser(containsUser).UserGroupName(userGroupName).ContainsAccount(containsAccount).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `UserManagementApi.ListUserGroups``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -1747,6 +1750,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **containsUser** | **string** | Filter the user groups to only those that contain the specified user | 
  **userGroupName** | **string** | Filter results to match the specified user group name | 
+ **containsAccount** | **string** | Filter the results to only those that have roles in the specified account | 
 
 ### Return type
 

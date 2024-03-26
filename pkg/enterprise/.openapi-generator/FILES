@@ -8,6 +8,7 @@ api_alerts.go
 api_applications.go
 api_archives.go
 api_artifact_lifecycle.go
+api_catalog.go
 api_corrections.go
 api_events.go
 api_identity.go
@@ -92,6 +93,7 @@ docs/AssociatedSourceArtifact.md
 docs/BaseNotificationData.md
 docs/CVSSV2Scores.md
 docs/CVSSV3Scores.md
+docs/CatalogApi.md
 docs/ComplianceResource.md
 docs/ComplianceViolationAlert.md
 docs/ComplianceViolationAlertState.md
@@ -105,6 +107,8 @@ docs/CorrectionMatch.md
 docs/CorrectionsApi.md
 docs/CustomJsonPatch.md
 docs/DeleteImageResponse.md
+docs/DeploymentHistory.md
+docs/DeploymentHistoryList.md
 docs/ECSContainer.md
 docs/ECSContainers.md
 docs/ECSInventory.md
@@ -469,6 +473,8 @@ model_custom_json_patch.go
 model_cvssv2_scores.go
 model_cvssv3_scores.go
 model_delete_image_response.go
+model_deployment_history.go
+model_deployment_history_list.go
 model_ecs_container.go
 model_ecs_containers.go
 model_ecs_inventory.go
