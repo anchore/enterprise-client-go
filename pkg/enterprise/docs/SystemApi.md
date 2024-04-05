@@ -17,6 +17,7 @@ Method | HTTP request | Description
 [**ListServices**](SystemApi.md#ListServices) | **Get** /system/services | List system services
 [**Ping**](SystemApi.md#Ping) | **Get** / | 
 [**PostSystemFeeds**](SystemApi.md#PostSystemFeeds) | **Post** /system/feeds | trigger feeds operations
+[**SetNewLogLevel**](SystemApi.md#SetNewLogLevel) | **Post** /system/logging | Change logging level for a running service
 [**TestWebhook**](SystemApi.md#TestWebhook) | **Post** /system/webhooks/{webhook_type}/test | Adds the capabilities to test a webhook delivery for the given notification type
 [**ToggleFeedEnabled**](SystemApi.md#ToggleFeedEnabled) | **Put** /system/feeds/{feed} | 
 [**VersionCheck**](SystemApi.md#VersionCheck) | **Get** /version | 
@@ -837,6 +838,72 @@ No authorization required
 ### HTTP request headers
 
 - **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## SetNewLogLevel
+
+> LoggingLevelResponse SetNewLogLevel(ctx).LoggingLevel(loggingLevel).Execute()
+
+Change logging level for a running service
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    loggingLevel := *openapiclient.NewLoggingLevel("ServiceName_example", "LoggingLevel_example") // LoggingLevel | 
+
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.SystemApi.SetNewLogLevel(context.Background()).LoggingLevel(loggingLevel).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `SystemApi.SetNewLogLevel``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `SetNewLogLevel`: LoggingLevelResponse
+    fmt.Fprintf(os.Stdout, "Response from `SystemApi.SetNewLogLevel`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiSetNewLogLevelRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **loggingLevel** | [**LoggingLevel**](LoggingLevel.md) |  | 
+
+### Return type
+
+[**LoggingLevelResponse**](LoggingLevelResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)

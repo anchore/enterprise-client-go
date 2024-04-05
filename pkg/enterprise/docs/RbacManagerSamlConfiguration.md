@@ -14,7 +14,7 @@ Name | Type | Description | Notes
 **IdpUsernameAttribute** | Pointer to **string** | The SAML attribute to use from the response assertions to determine the anchore username. If unset, the subject is used. | [optional] 
 **IdpAccountAttribute** | Pointer to **string** | The SAML attribute to use from the response assertions to determine the anchore account to use. If unset, the default is used. | [optional] 
 **IdpRoleAttribute** | Pointer to **string** | The SAML attribute to use from the response assertions to determine the anchore role(s) to assign a new user in the specified account. If unset, the default is used. | [optional] 
-**IdpGroupsAttribute** | Pointer to **string** | The SAML attribute to use from the response assertions to determine the SSO groups the user is a member of. If unset, the default is used (memberOf). | [optional] 
+**IdpGroupsAttribute** | Pointer to **string** | The default value is &#x60;memberOf&#x60;. This field is available to overwrite the SAML attribute if your IDP is using a different SSO group value during the response assertions. | [optional] 
 **DefaultAccount** | Pointer to **string** | The anchore account to assign all users to from this IDP if no account attribute is mapped or present. | [optional] 
 **DefaultRole** | Pointer to **string** | The default role to apply to new users from this IDP if no attribute is mapped or found in the SAML assertions. | [optional] 
 **RequireSignedAssertions** | Pointer to **bool** | Require assertions in to be signed from the IDP | [optional] [default to true]

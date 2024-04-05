@@ -10,7 +10,7 @@ OPENAPI_GENERATOR_VERSION = v6.0.0
 
 # --- anchore enterprise references
 # a git tag/branch/commit within anchore/enterprise repo
-ENTERPRISE_REF = v5.4.0-rc2
+ENTERPRISE_REF = c677bb75746a3e285cd2c1954b5e602041f8bb5e
 ENTERPRISE_ROOT = $(PROJECT_ROOT)/enterprise
 ENTERPRISE_OPENAPI_DOC = $(PROJECT_ROOT)/anchore-api-swagger-$(ENTERPRISE_REF).yaml
 

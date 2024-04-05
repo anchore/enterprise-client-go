@@ -196,6 +196,9 @@ docs/KubernetesNodes.md
 docs/KubernetesPod.md
 docs/KubernetesPods.md
 docs/LocalAnalysisSource.md
+docs/LoggingLevel.md
+docs/LoggingLevelResponse.md
+docs/LoggingLevelResponseServiceName.md
 docs/MalwareFinding.md
 docs/MalwareScan.md
 docs/MappingRule.md
@@ -362,6 +365,7 @@ docs/TagUpdateNotificationPayloadAllOf.md
 docs/TokenResponse.md
 docs/TriggerParamSpec.md
 docs/TriggerSpec.md
+docs/UnifiedRoles.md
 docs/User.md
 docs/UserApiKey.md
 docs/UserCreationRequest.md
@@ -557,6 +561,9 @@ model_kubernetes_nodes.go
 model_kubernetes_pod.go
 model_kubernetes_pods.go
 model_local_analysis_source.go
+model_logging_level.go
+model_logging_level_response.go
+model_logging_level_response_service_name.go
 model_malware_finding.go
 model_malware_scan.go
 model_mapping_rule.go
@@ -711,6 +718,7 @@ model_tag_update_notification_payload_all_of.go
 model_token_response.go
 model_trigger_param_spec.go
 model_trigger_spec.go
+model_unified_roles.go
 model_user.go
 model_user_api_key.go
 model_user_creation_request.go

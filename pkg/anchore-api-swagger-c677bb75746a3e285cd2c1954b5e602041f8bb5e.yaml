@@ -162,100 +162,6 @@ paths:
       x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.accounts
       x-anchore-authz-action: createAccount
       x-codegen-request-body-name: account
-  /accounts/{account_name}:
-    get:
-      tags:
-      - User Management
-      summary: Get account info about this specific account.
-      operationId: get_account
-      parameters:
-      - name: account_name
-        in: path
-        required: true
-        schema:
-          type: string
-          format: path
-      responses:
-        200:
-          description: Get user information
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Account'
-        500:
-          description: Internal error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ApiErrorResponse'
-      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.accounts
-      x-anchore-authz-action: getAccount
-    put:
-      tags:
-      - User Management
-      summary: Update the info for this specific account.
-      operationId: update_account
-      parameters:
-      - name: account_name
-        in: path
-        required: true
-        schema:
-          type: string
-          format: path
-      - name: x-anchore-account
-        in: header
-        description: An account name to change the resource scope of the request to
-          that account, if permissions allow (admin only)
-        schema:
-          type: string
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/AccountInfo'
-        required: true
-      responses:
-        200:
-          description: Returns the account information
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Account'
-        500:
-          description: Internal error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ApiErrorResponse'
-      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.accounts
-      x-anchore-authz-action: updateAccount
-      x-codegen-request-body-name: info
-    delete:
-      tags:
-      - User Management
-      summary: Delete the specified account, only allowed if the account is in the
-        disabled state. All users will be deleted along with the account and all resources
-        will be garbage collected
-      operationId: delete_account
-      parameters:
-      - name: account_name
-        in: path
-        required: true
-        schema:
-          type: string
-          format: path
-      responses:
-        204:
-          description: Successful deletion
-          content: {}
-        500:
-          description: Internal error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ApiErrorResponse'
-      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.accounts
-      x-anchore-authz-action: deleteAccount
   /accounts/{account_name}/state:
     put:
       tags:
@@ -357,71 +263,6 @@ paths:
       x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.accounts
       x-anchore-authz-action: createUser
       x-codegen-request-body-name: user
-  /accounts/{account_name}/users/{username}:
-    get:
-      tags:
-      - User Management
-      summary: Get a specific user in the specified account
-      operationId: get_account_user
-      parameters:
-      - name: account_name
-        in: path
-        required: true
-        schema:
-          type: string
-          format: path
-      - name: username
-        in: path
-        required: true
-        schema:
-          type: string
-          format: path
-      responses:
-        200:
-          description: User record
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/User'
-        500:
-          description: Internal error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ApiErrorResponse'
-      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.accounts
-      x-anchore-authz-action: getUser
-    delete:
-      tags:
-      - User Management
-      summary: Delete a specific user credential by username of the credential. Cannot
-        be the credential used to authenticate the request.
-      operationId: delete_user
-      parameters:
-      - name: account_name
-        in: path
-        required: true
-        schema:
-          type: string
-          format: path
-      - name: username
-        in: path
-        required: true
-        schema:
-          type: string
-          format: path
-      responses:
-        204:
-          description: Deleted credential
-          content: {}
-        500:
-          description: Internal error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ApiErrorResponse'
-      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.accounts
-      x-anchore-authz-action: deleteUser
   /accounts/{account_name}/users/{username}/api-keys:
     get:
       tags:
@@ -748,6 +589,165 @@ paths:
                 $ref: '#/components/schemas/ApiErrorResponse'
       x-anchore-authz-action: updateUser
       x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.accounts
+  /accounts/{account_name}/users/{username}:
+    get:
+      tags:
+      - User Management
+      summary: Get a specific user in the specified account
+      operationId: get_account_user
+      parameters:
+      - name: account_name
+        in: path
+        required: true
+        schema:
+          type: string
+          format: path
+      - name: username
+        in: path
+        required: true
+        schema:
+          type: string
+          format: path
+      responses:
+        200:
+          description: User record
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        500:
+          description: Internal error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.accounts
+      x-anchore-authz-action: getUser
+    delete:
+      tags:
+      - User Management
+      summary: Delete a specific user credential by username of the credential. Cannot
+        be the credential used to authenticate the request.
+      operationId: delete_user
+      parameters:
+      - name: account_name
+        in: path
+        required: true
+        schema:
+          type: string
+          format: path
+      - name: username
+        in: path
+        required: true
+        schema:
+          type: string
+          format: path
+      responses:
+        204:
+          description: Deleted credential
+          content: {}
+        500:
+          description: Internal error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.accounts
+      x-anchore-authz-action: deleteUser
+  /accounts/{account_name}:
+    get:
+      tags:
+      - User Management
+      summary: Get account info about this specific account.
+      operationId: get_account
+      parameters:
+      - name: account_name
+        in: path
+        required: true
+        schema:
+          type: string
+          format: path
+      responses:
+        200:
+          description: Get user information
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Account'
+        500:
+          description: Internal error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.accounts
+      x-anchore-authz-action: getAccount
+    put:
+      tags:
+      - User Management
+      summary: Update the info for this specific account.
+      operationId: update_account
+      parameters:
+      - name: account_name
+        in: path
+        required: true
+        schema:
+          type: string
+          format: path
+      - name: x-anchore-account
+        in: header
+        description: An account name to change the resource scope of the request to
+          that account, if permissions allow (admin only)
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AccountInfo'
+        required: true
+      responses:
+        200:
+          description: Returns the account information
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Account'
+        500:
+          description: Internal error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.accounts
+      x-anchore-authz-action: updateAccount
+      x-codegen-request-body-name: info
+    delete:
+      tags:
+      - User Management
+      summary: Delete the specified account, only allowed if the account is in the
+        disabled state. All users will be deleted along with the account and all resources
+        will be garbage collected
+      operationId: delete_account
+      parameters:
+      - name: account_name
+        in: path
+        required: true
+        schema:
+          type: string
+          format: path
+      responses:
+        204:
+          description: Successful deletion
+          content: {}
+        500:
+          description: Internal error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.accounts
+      x-anchore-authz-action: deleteAccount
   /actions:
     get:
       tags:
@@ -1115,121 +1115,6 @@ paths:
       x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.applications
       x-anchore-authz-action: createApplication
       x-codegen-request-body-name: application
-  /applications/{application_id}:
-    get:
-      tags:
-      - Applications
-      summary: Get an application by application_id
-      description: Get an application by application_id
-      operationId: get_application
-      parameters:
-      - name: application_id
-        in: path
-        required: true
-        schema:
-          type: string
-          format: path
-      - name: include_versions
-        in: query
-        schema:
-          type: boolean
-          default: false
-      - name: x-anchore-account
-        in: header
-        description: An account name to change the resource scope of the request to
-          that account, if permissions allow (admin only)
-        schema:
-          type: string
-      responses:
-        200:
-          description: Successfully retrieved application
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Application'
-        404:
-          description: Application not found
-          content: {}
-        500:
-          description: Internal Error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ApiErrorResponse'
-      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.applications
-      x-anchore-authz-action: getApplication
-    put:
-      tags:
-      - Applications
-      summary: Update application details
-      description: Updates application details for given application_id
-      operationId: update_application
-      parameters:
-      - name: application_id
-        in: path
-        required: true
-        schema:
-          type: string
-          format: path
-      - name: x-anchore-account
-        in: header
-        description: An account name to change the resource scope of the request to
-          that account, if permissions allow (admin only)
-        schema:
-          type: string
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Application'
-        required: true
-      responses:
-        200:
-          description: Application updated successfully
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Application'
-        404:
-          description: Application not found
-          content: {}
-        409:
-          description: Application with name already exists
-          content: {}
-        500:
-          description: Internal Error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ApiErrorResponse'
-      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.applications
-      x-anchore-authz-action: updateApplication
-      x-codegen-request-body-name: application
-    delete:
-      tags:
-      - Applications
-      summary: Delete an application by application_id
-      description: Delete an application by application_id
-      operationId: delete_application
-      parameters:
-      - name: application_id
-        in: path
-        required: true
-        schema:
-          type: string
-          format: path
-      - name: x-anchore-account
-        in: header
-        description: An account name to change the resource scope of the request to
-          that account, if permissions allow (admin only)
-        schema:
-          type: string
-      responses:
-        204:
-          description: Application deleted successfully
-          content: {}
-      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.applications
-      x-anchore-authz-action: deleteApplication
   /applications/{application_id}/versions:
     get:
       tags:
@@ -1316,139 +1201,6 @@ paths:
       x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.applications
       x-anchore-authz-action: createApplication
       x-codegen-request-body-name: application_version
-  /applications/{application_id}/versions/{application_version_id}:
-    get:
-      tags:
-      - Applications
-      summary: Get an application version
-      description: Get an application version by application_id and application_version_id
-      operationId: get_application_version
-      parameters:
-      - name: application_id
-        in: path
-        required: true
-        schema:
-          type: string
-          format: path
-      - name: application_version_id
-        in: path
-        required: true
-        schema:
-          type: string
-          format: path
-      - name: x-anchore-account
-        in: header
-        description: An account name to change the resource scope of the request to
-          that account, if permissions allow (admin only)
-        schema:
-          type: string
-      responses:
-        200:
-          description: Successfully retrieved application version
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ApplicationVersion'
-        404:
-          description: Application version not found
-          content: {}
-        500:
-          description: Internal Error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ApiErrorResponse'
-      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.applications
-      x-anchore-authz-action: getApplication
-    put:
-      tags:
-      - Applications
-      summary: Update application version details
-      description: Updates application version details for given application_id and
-        application_version_id
-      operationId: update_application_version
-      parameters:
-      - name: application_id
-        in: path
-        required: true
-        schema:
-          type: string
-          format: path
-      - name: application_version_id
-        in: path
-        required: true
-        schema:
-          type: string
-          format: path
-      - name: x-anchore-account
-        in: header
-        description: An account name to change the resource scope of the request to
-          that account, if permissions allow (admin only)
-        schema:
-          type: string
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/ApplicationVersion'
-        required: true
-      responses:
-        200:
-          description: Application updated successfully
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ApplicationVersion'
-        404:
-          description: Application version not found
-          content: {}
-        409:
-          description: Application version with version_name already exists on the
-            specified application
-          content: {}
-        500:
-          description: Internal Error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ApiErrorResponse'
-      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.applications
-      x-anchore-authz-action: updateApplication
-      x-codegen-request-body-name: application_version
-    delete:
-      tags:
-      - Applications
-      summary: Delete an application version by application_id and application_version_id
-      description: Delete an application version by application_id and application_version_id
-      operationId: delete_application_version
-      parameters:
-      - name: application_id
-        in: path
-        required: true
-        schema:
-          type: string
-          format: path
-      - name: application_version_id
-        in: path
-        required: true
-        schema:
-          type: string
-          format: path
-      - name: x-anchore-account
-        in: header
-        description: An account name to change the resource scope of the request to
-          that account, if permissions allow (admin only)
-        schema:
-          type: string
-      responses:
-        204:
-          description: Application version deleted successfully
-          content: {}
-        404:
-          description: Application version not found
-          content: {}
-      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.applications
-      x-anchore-authz-action: deleteApplication
   /applications/{application_id}/versions/{application_version_id}/artifacts:
     get:
       tags:
@@ -1703,6 +1455,254 @@ paths:
                 $ref: '#/components/schemas/ApiErrorResponse'
       x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.applications
       x-anchore-authz-action: getApplication
+  /applications/{application_id}/versions/{application_version_id}:
+    get:
+      tags:
+      - Applications
+      summary: Get an application version
+      description: Get an application version by application_id and application_version_id
+      operationId: get_application_version
+      parameters:
+      - name: application_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: path
+      - name: application_version_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: path
+      - name: x-anchore-account
+        in: header
+        description: An account name to change the resource scope of the request to
+          that account, if permissions allow (admin only)
+        schema:
+          type: string
+      responses:
+        200:
+          description: Successfully retrieved application version
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApplicationVersion'
+        404:
+          description: Application version not found
+          content: {}
+        500:
+          description: Internal Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.applications
+      x-anchore-authz-action: getApplication
+    put:
+      tags:
+      - Applications
+      summary: Update application version details
+      description: Updates application version details for given application_id and
+        application_version_id
+      operationId: update_application_version
+      parameters:
+      - name: application_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: path
+      - name: application_version_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: path
+      - name: x-anchore-account
+        in: header
+        description: An account name to change the resource scope of the request to
+          that account, if permissions allow (admin only)
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ApplicationVersion'
+        required: true
+      responses:
+        200:
+          description: Application updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApplicationVersion'
+        404:
+          description: Application version not found
+          content: {}
+        409:
+          description: Application version with version_name already exists on the
+            specified application
+          content: {}
+        500:
+          description: Internal Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.applications
+      x-anchore-authz-action: updateApplication
+      x-codegen-request-body-name: application_version
+    delete:
+      tags:
+      - Applications
+      summary: Delete an application version by application_id and application_version_id
+      description: Delete an application version by application_id and application_version_id
+      operationId: delete_application_version
+      parameters:
+      - name: application_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: path
+      - name: application_version_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: path
+      - name: x-anchore-account
+        in: header
+        description: An account name to change the resource scope of the request to
+          that account, if permissions allow (admin only)
+        schema:
+          type: string
+      responses:
+        204:
+          description: Application version deleted successfully
+          content: {}
+        404:
+          description: Application version not found
+          content: {}
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.applications
+      x-anchore-authz-action: deleteApplication
+  /applications/{application_id}:
+    get:
+      tags:
+      - Applications
+      summary: Get an application by application_id
+      description: Get an application by application_id
+      operationId: get_application
+      parameters:
+      - name: application_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: path
+      - name: include_versions
+        in: query
+        schema:
+          type: boolean
+          default: false
+      - name: x-anchore-account
+        in: header
+        description: An account name to change the resource scope of the request to
+          that account, if permissions allow (admin only)
+        schema:
+          type: string
+      responses:
+        200:
+          description: Successfully retrieved application
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Application'
+        404:
+          description: Application not found
+          content: {}
+        500:
+          description: Internal Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.applications
+      x-anchore-authz-action: getApplication
+    put:
+      tags:
+      - Applications
+      summary: Update application details
+      description: Updates application details for given application_id
+      operationId: update_application
+      parameters:
+      - name: application_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: path
+      - name: x-anchore-account
+        in: header
+        description: An account name to change the resource scope of the request to
+          that account, if permissions allow (admin only)
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Application'
+        required: true
+      responses:
+        200:
+          description: Application updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Application'
+        404:
+          description: Application not found
+          content: {}
+        409:
+          description: Application with name already exists
+          content: {}
+        500:
+          description: Internal Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.applications
+      x-anchore-authz-action: updateApplication
+      x-codegen-request-body-name: application
+    delete:
+      tags:
+      - Applications
+      summary: Delete an application by application_id
+      description: Delete an application by application_id
+      operationId: delete_application
+      parameters:
+      - name: application_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: path
+      - name: x-anchore-account
+        in: header
+        description: An account name to change the resource scope of the request to
+          that account, if permissions allow (admin only)
+        schema:
+          type: string
+      responses:
+        204:
+          description: Application deleted successfully
+          content: {}
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.applications
+      x-anchore-authz-action: deleteApplication
   /archives:
     get:
       tags:
@@ -2008,29 +2008,6 @@ paths:
                 type: object
       x-anchore-authz-action: deleteArtifactRelationships
       x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.relationships
-  /artifact-relationships/{relationship_id}:
-    get:
-      tags:
-      - Relationships
-      description: Get the relationship between software supply chain artifacts (images,
-        source revisions, etc)
-      operationId: get_artifact_relationship
-      parameters:
-      - name: relationship_id
-        in: path
-        description: Id of record to retrieve
-        required: true
-        schema:
-          type: string
-      responses:
-        200:
-          description: success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ArtifactRelationship'
-      x-anchore-authz-action: getArtifactRelationship
-      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.relationships
   /artifact-relationships/{relationship_id}/diffs/sbom:
     get:
       tags:
@@ -2111,6 +2088,29 @@ paths:
       x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.corrections
       x-anchore-authz-action: addCorrection
       x-codegen-request-body-name: correction
+  /artifact-relationships/{relationship_id}:
+    get:
+      tags:
+      - Relationships
+      description: Get the relationship between software supply chain artifacts (images,
+        source revisions, etc)
+      operationId: get_artifact_relationship
+      parameters:
+      - name: relationship_id
+        in: path
+        description: Id of record to retrieve
+        required: true
+        schema:
+          type: string
+      responses:
+        200:
+          description: success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArtifactRelationship'
+      x-anchore-authz-action: getArtifactRelationship
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.relationships
   /corrections/{uuid}:
     get:
       tags:
@@ -2683,73 +2683,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ApiErrorResponse'
-      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.images
-      x-anchore-authz-action: deleteImage
-  /images/{image_digest}:
-    get:
-      tags:
-      - Images
-      summary: Get image metadata
-      operationId: get_image
-      parameters:
-      - name: image_digest
-        in: path
-        required: true
-        schema:
-          pattern: ^sha256:[a-fA-F0-9]{64}$
-          type: string
-          format: path
-      - name: x-anchore-account
-        in: header
-        description: An account name to change the resource scope of the request to
-          that account, if permissions allow (admin only)
-        schema:
-          type: string
-      responses:
-        200:
-          description: Image lookup success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/AnchoreImage'
-        500:
-          description: Internal error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ApiErrorResponse'
-      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.images
-      x-anchore-authz-action: getImage
-    delete:
-      tags:
-      - Images
-      summary: Delete an image analysis
-      operationId: delete_image
-      parameters:
-      - name: image_digest
-        in: path
-        required: true
-        schema:
-          pattern: ^sha256:[a-fA-F0-9]{64}$
-          type: string
-          format: path
-      - name: force
-        in: query
-        schema:
-          type: boolean
-      - name: x-anchore-account
-        in: header
-        description: An account name to change the resource scope of the request to
-          that account, if permissions allow (admin only)
-        schema:
-          type: string
-      responses:
-        200:
-          description: Image deletion success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/DeleteImageResponse'
       x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.images
       x-anchore-authz-action: deleteImage
   /images/{image_digest}/ancestors:
@@ -3409,6 +3342,73 @@ paths:
                 $ref: '#/components/schemas/ApiErrorResponse'
       x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.images
       x-anchore-authz-action: getImage
+  /images/{image_digest}:
+    get:
+      tags:
+      - Images
+      summary: Get image metadata
+      operationId: get_image
+      parameters:
+      - name: image_digest
+        in: path
+        required: true
+        schema:
+          pattern: ^sha256:[a-fA-F0-9]{64}$
+          type: string
+          format: path
+      - name: x-anchore-account
+        in: header
+        description: An account name to change the resource scope of the request to
+          that account, if permissions allow (admin only)
+        schema:
+          type: string
+      responses:
+        200:
+          description: Image lookup success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AnchoreImage'
+        500:
+          description: Internal error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.images
+      x-anchore-authz-action: getImage
+    delete:
+      tags:
+      - Images
+      summary: Delete an image analysis
+      operationId: delete_image
+      parameters:
+      - name: image_digest
+        in: path
+        required: true
+        schema:
+          pattern: ^sha256:[a-fA-F0-9]{64}$
+          type: string
+          format: path
+      - name: force
+        in: query
+        schema:
+          type: boolean
+      - name: x-anchore-account
+        in: header
+        description: An account name to change the resource scope of the request to
+          that account, if permissions allow (admin only)
+        schema:
+          type: string
+      responses:
+        200:
+          description: Image deletion success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeleteImageResponse'
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.images
+      x-anchore-authz-action: deleteImage
   /imports/images:
     get:
       tags:
@@ -3432,55 +3432,6 @@ paths:
       - Imports
       summary: Begin the import of an image SBOM into the system
       operationId: create_operation
-      responses:
-        200:
-          description: success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ImageImportOperation'
-        500:
-          description: Internal Error
-          content: {}
-      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.image_imports
-      x-anchore-authz-action: importImage
-  /imports/images/{operation_id}:
-    get:
-      tags:
-      - Imports
-      summary: Get detail on a single import
-      operationId: get_operation
-      parameters:
-      - name: operation_id
-        in: path
-        required: true
-        schema:
-          type: string
-          format: path
-      responses:
-        200:
-          description: success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ImageImportOperation'
-        500:
-          description: Internal Error
-          content: {}
-      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.image_imports
-      x-anchore-authz-action: importImage
-    delete:
-      tags:
-      - Imports
-      summary: Invalidate operation ID so it can be garbage collected
-      operationId: invalidate_operation
-      parameters:
-      - name: operation_id
-        in: path
-        required: true
-        schema:
-          type: string
-          format: path
       responses:
         200:
           description: success
@@ -3588,7 +3539,7 @@ paths:
           format: path
       requestBody:
         content:
-          text/plain; utf-8:
+          text/plain:
             schema:
               type: string
         required: true
@@ -3955,6 +3906,55 @@ paths:
       x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.image_imports
       x-anchore-authz-action: importImage
       x-codegen-request-body-name: contents
+  /imports/images/{operation_id}:
+    get:
+      tags:
+      - Imports
+      summary: Get detail on a single import
+      operationId: get_operation
+      parameters:
+      - name: operation_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: path
+      responses:
+        200:
+          description: success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ImageImportOperation'
+        500:
+          description: Internal Error
+          content: {}
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.image_imports
+      x-anchore-authz-action: importImage
+    delete:
+      tags:
+      - Imports
+      summary: Invalidate operation ID so it can be garbage collected
+      operationId: invalidate_operation
+      parameters:
+      - name: operation_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: path
+      responses:
+        200:
+          description: success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ImageImportOperation'
+        500:
+          description: Internal Error
+          content: {}
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.image_imports
+      x-anchore-authz-action: importImage
   /imports/sources:
     get:
       tags:
@@ -3979,55 +3979,6 @@ paths:
       summary: Begin the import of a source code repository analyzed by Syft into
         the system
       operationId: create_sources_operation
-      responses:
-        200:
-          description: success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/SourceImportOperation'
-        500:
-          description: Internal Error
-          content: {}
-      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.source_imports
-      x-anchore-authz-action: importSource
-  /imports/sources/{operation_id}:
-    get:
-      tags:
-      - Imports
-      summary: Get detail on a single import
-      operationId: get_sources_operation
-      parameters:
-      - name: operation_id
-        in: path
-        required: true
-        schema:
-          type: string
-          format: path
-      responses:
-        200:
-          description: success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/SourceImportOperation'
-        500:
-          description: Internal Error
-          content: {}
-      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.source_imports
-      x-anchore-authz-action: importSource
-    delete:
-      tags:
-      - Imports
-      summary: Invalidate operation ID so it can be garbage collected
-      operationId: invalidate_sources_operation
-      parameters:
-      - name: operation_id
-        in: path
-        required: true
-        schema:
-          type: string
-          format: path
       responses:
         200:
           description: success
@@ -4129,6 +4080,55 @@ paths:
       x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.source_imports
       x-anchore-authz-action: importSource
       x-codegen-request-body-name: sbom
+  /imports/sources/{operation_id}:
+    get:
+      tags:
+      - Imports
+      summary: Get detail on a single import
+      operationId: get_sources_operation
+      parameters:
+      - name: operation_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: path
+      responses:
+        200:
+          description: success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SourceImportOperation'
+        500:
+          description: Internal Error
+          content: {}
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.source_imports
+      x-anchore-authz-action: importSource
+    delete:
+      tags:
+      - Imports
+      summary: Invalidate operation ID so it can be garbage collected
+      operationId: invalidate_sources_operation
+      parameters:
+      - name: operation_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: path
+      responses:
+        200:
+          description: success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SourceImportOperation'
+        500:
+          description: Internal Error
+          content: {}
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.source_imports
+      x-anchore-authz-action: importSource
   /inventories:
     get:
       tags:
@@ -4626,77 +4626,6 @@ paths:
           content: {}
       x-openapi-router-controller: anchore_enterprise.services.notifications.api.controllers.github
       x-anchore-authz-action: deleteNotificationEndpointConfiguration
-  /notifications/endpoints/github/configurations/{uuid}:
-    get:
-      tags:
-      - Notifications
-      description: Get a GitHub endpoint configuration by it's UUID
-      operationId: get_github_configuration
-      parameters:
-      - name: uuid
-        in: path
-        required: true
-        schema:
-          type: string
-          format: path
-      responses:
-        200:
-          description: GitHub endpoint configuration object
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/NotificationGitHubEndpointConfigurationBase'
-      x-openapi-router-controller: anchore_enterprise.services.notifications.api.controllers.github
-      x-anchore-authz-action: getNotificationEndpointConfiguration
-    put:
-      tags:
-      - Notifications
-      description: Update a GitHub endpoint configuration by it's UUID
-      operationId: update_github_configuration
-      parameters:
-      - name: uuid
-        in: path
-        required: true
-        schema:
-          type: string
-          format: path
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/NotificationGitHubEndpointConfigurationPut'
-        required: true
-      responses:
-        200:
-          description: Updated GitHub endpoint configuration object
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/NotificationGitHubEndpointConfigurationBase'
-      x-openapi-router-controller: anchore_enterprise.services.notifications.api.controllers.github
-      x-anchore-authz-action: updateNotificationEndpointConfiguration
-      x-codegen-request-body-name: configuration
-    delete:
-      tags:
-      - Notifications
-      description: Delete a GitHub endpoint configuration by it's UUID
-      operationId: delete_github_configuration
-      parameters:
-      - name: uuid
-        in: path
-        required: true
-        schema:
-          type: string
-          format: path
-      responses:
-        200:
-          description: Successful delete
-          content: {}
-        404:
-          description: The provided notification configuration UUID was not found
-          content: {}
-      x-openapi-router-controller: anchore_enterprise.services.notifications.api.controllers.github
-      x-anchore-authz-action: deleteNotificationEndpointConfiguration
   /notifications/endpoints/github/configurations/{uuid}/selectors:
     get:
       tags:
@@ -4793,6 +4722,77 @@ paths:
                 $ref: '#/components/schemas/NotificationGitHubTestResult'
       x-openapi-router-controller: anchore_enterprise.services.notifications.api.controllers.github
       x-anchore-authz-action: createNotificationEndpointConfiguration
+  /notifications/endpoints/github/configurations/{uuid}:
+    get:
+      tags:
+      - Notifications
+      description: Get a GitHub endpoint configuration by it's UUID
+      operationId: get_github_configuration
+      parameters:
+      - name: uuid
+        in: path
+        required: true
+        schema:
+          type: string
+          format: path
+      responses:
+        200:
+          description: GitHub endpoint configuration object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotificationGitHubEndpointConfigurationBase'
+      x-openapi-router-controller: anchore_enterprise.services.notifications.api.controllers.github
+      x-anchore-authz-action: getNotificationEndpointConfiguration
+    put:
+      tags:
+      - Notifications
+      description: Update a GitHub endpoint configuration by it's UUID
+      operationId: update_github_configuration
+      parameters:
+      - name: uuid
+        in: path
+        required: true
+        schema:
+          type: string
+          format: path
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NotificationGitHubEndpointConfigurationPut'
+        required: true
+      responses:
+        200:
+          description: Updated GitHub endpoint configuration object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotificationGitHubEndpointConfigurationBase'
+      x-openapi-router-controller: anchore_enterprise.services.notifications.api.controllers.github
+      x-anchore-authz-action: updateNotificationEndpointConfiguration
+      x-codegen-request-body-name: configuration
+    delete:
+      tags:
+      - Notifications
+      description: Delete a GitHub endpoint configuration by it's UUID
+      operationId: delete_github_configuration
+      parameters:
+      - name: uuid
+        in: path
+        required: true
+        schema:
+          type: string
+          format: path
+      responses:
+        200:
+          description: Successful delete
+          content: {}
+        404:
+          description: The provided notification configuration UUID was not found
+          content: {}
+      x-openapi-router-controller: anchore_enterprise.services.notifications.api.controllers.github
+      x-anchore-authz-action: deleteNotificationEndpointConfiguration
   /notifications/endpoints/github/test:
     post:
       tags:
@@ -4937,77 +4937,6 @@ paths:
           content: {}
       x-openapi-router-controller: anchore_enterprise.services.notifications.api.controllers.jira
       x-anchore-authz-action: deleteNotificationEndpointConfiguration
-  /notifications/endpoints/jira/configurations/{uuid}:
-    get:
-      tags:
-      - Notifications
-      description: Get a Jira endpoint configuration by it's UUID
-      operationId: get_jira_configuration
-      parameters:
-      - name: uuid
-        in: path
-        required: true
-        schema:
-          type: string
-          format: path
-      responses:
-        200:
-          description: Jira endpoint configuration object
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/NotificationJiraEndpointConfigurationBase'
-      x-openapi-router-controller: anchore_enterprise.services.notifications.api.controllers.jira
-      x-anchore-authz-action: getNotificationEndpointConfiguration
-    put:
-      tags:
-      - Notifications
-      description: Update a Jira endpoint configuration by it's UUID
-      operationId: update_jira_configuration
-      parameters:
-      - name: uuid
-        in: path
-        required: true
-        schema:
-          type: string
-          format: path
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/NotificationJiraEndpointConfigurationPut'
-        required: true
-      responses:
-        200:
-          description: Updated Jira endpoint configuration object
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/NotificationJiraEndpointConfigurationBase'
-      x-openapi-router-controller: anchore_enterprise.services.notifications.api.controllers.jira
-      x-anchore-authz-action: updateNotificationEndpointConfiguration
-      x-codegen-request-body-name: configuration
-    delete:
-      tags:
-      - Notifications
-      description: Delete a Jira endpoint configuration by it's UUID
-      operationId: delete_jira_configuration
-      parameters:
-      - name: uuid
-        in: path
-        required: true
-        schema:
-          type: string
-          format: path
-      responses:
-        200:
-          description: Successful delete
-          content: {}
-        404:
-          description: The provided notification configuration UUID was not found
-          content: {}
-      x-openapi-router-controller: anchore_enterprise.services.notifications.api.controllers.jira
-      x-anchore-authz-action: deleteNotificationEndpointConfiguration
   /notifications/endpoints/jira/configurations/{uuid}/selectors:
     get:
       tags:
@@ -5103,6 +5032,77 @@ paths:
                 $ref: '#/components/schemas/NotificationJiraTestResult'
       x-openapi-router-controller: anchore_enterprise.services.notifications.api.controllers.jira
       x-anchore-authz-action: createNotificationEndpointConfiguration
+  /notifications/endpoints/jira/configurations/{uuid}:
+    get:
+      tags:
+      - Notifications
+      description: Get a Jira endpoint configuration by it's UUID
+      operationId: get_jira_configuration
+      parameters:
+      - name: uuid
+        in: path
+        required: true
+        schema:
+          type: string
+          format: path
+      responses:
+        200:
+          description: Jira endpoint configuration object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotificationJiraEndpointConfigurationBase'
+      x-openapi-router-controller: anchore_enterprise.services.notifications.api.controllers.jira
+      x-anchore-authz-action: getNotificationEndpointConfiguration
+    put:
+      tags:
+      - Notifications
+      description: Update a Jira endpoint configuration by it's UUID
+      operationId: update_jira_configuration
+      parameters:
+      - name: uuid
+        in: path
+        required: true
+        schema:
+          type: string
+          format: path
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NotificationJiraEndpointConfigurationPut'
+        required: true
+      responses:
+        200:
+          description: Updated Jira endpoint configuration object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotificationJiraEndpointConfigurationBase'
+      x-openapi-router-controller: anchore_enterprise.services.notifications.api.controllers.jira
+      x-anchore-authz-action: updateNotificationEndpointConfiguration
+      x-codegen-request-body-name: configuration
+    delete:
+      tags:
+      - Notifications
+      description: Delete a Jira endpoint configuration by it's UUID
+      operationId: delete_jira_configuration
+      parameters:
+      - name: uuid
+        in: path
+        required: true
+        schema:
+          type: string
+          format: path
+      responses:
+        200:
+          description: Successful delete
+          content: {}
+        404:
+          description: The provided notification configuration UUID was not found
+          content: {}
+      x-openapi-router-controller: anchore_enterprise.services.notifications.api.controllers.jira
+      x-anchore-authz-action: deleteNotificationEndpointConfiguration
   /notifications/endpoints/jira/test:
     post:
       tags:
@@ -5247,77 +5247,6 @@ paths:
           content: {}
       x-openapi-router-controller: anchore_enterprise.services.notifications.api.controllers.slack
       x-anchore-authz-action: deleteNotificationEndpointConfiguration
-  /notifications/endpoints/slack/configurations/{uuid}:
-    get:
-      tags:
-      - Notifications
-      description: Get a Slack endpoint configuration by it's UUID
-      operationId: get_slack_configuration
-      parameters:
-      - name: uuid
-        in: path
-        required: true
-        schema:
-          type: string
-          format: path
-      responses:
-        200:
-          description: Slack endpoint configuration object
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/NotificationSlackEndpointConfiguration'
-      x-openapi-router-controller: anchore_enterprise.services.notifications.api.controllers.slack
-      x-anchore-authz-action: getNotificationEndpointConfiguration
-    put:
-      tags:
-      - Notifications
-      description: Update a Slack endpoint configuration by it's UUID
-      operationId: update_slack_configuration
-      parameters:
-      - name: uuid
-        in: path
-        required: true
-        schema:
-          type: string
-          format: path
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/NotificationSlackEndpointConfiguration'
-        required: true
-      responses:
-        200:
-          description: Updated Slack endpoint configuration object
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/NotificationSlackEndpointConfiguration'
-      x-openapi-router-controller: anchore_enterprise.services.notifications.api.controllers.slack
-      x-anchore-authz-action: updateNotificationEndpointConfiguration
-      x-codegen-request-body-name: configuration
-    delete:
-      tags:
-      - Notifications
-      description: Delete a Slack endpoint configuration by it's UUID
-      operationId: delete_slack_configuration
-      parameters:
-      - name: uuid
-        in: path
-        required: true
-        schema:
-          type: string
-          format: path
-      responses:
-        200:
-          description: Successful delete
-          content: {}
-        404:
-          description: The provided notification configuration UUID was not found
-          content: {}
-      x-openapi-router-controller: anchore_enterprise.services.notifications.api.controllers.slack
-      x-anchore-authz-action: deleteNotificationEndpointConfiguration
   /notifications/endpoints/slack/configurations/{uuid}/selectors:
     get:
       tags:
@@ -5414,6 +5343,77 @@ paths:
                 $ref: '#/components/schemas/NotificationSlackTestResult'
       x-openapi-router-controller: anchore_enterprise.services.notifications.api.controllers.slack
       x-anchore-authz-action: createNotificationEndpointConfiguration
+  /notifications/endpoints/slack/configurations/{uuid}:
+    get:
+      tags:
+      - Notifications
+      description: Get a Slack endpoint configuration by it's UUID
+      operationId: get_slack_configuration
+      parameters:
+      - name: uuid
+        in: path
+        required: true
+        schema:
+          type: string
+          format: path
+      responses:
+        200:
+          description: Slack endpoint configuration object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotificationSlackEndpointConfiguration'
+      x-openapi-router-controller: anchore_enterprise.services.notifications.api.controllers.slack
+      x-anchore-authz-action: getNotificationEndpointConfiguration
+    put:
+      tags:
+      - Notifications
+      description: Update a Slack endpoint configuration by it's UUID
+      operationId: update_slack_configuration
+      parameters:
+      - name: uuid
+        in: path
+        required: true
+        schema:
+          type: string
+          format: path
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NotificationSlackEndpointConfiguration'
+        required: true
+      responses:
+        200:
+          description: Updated Slack endpoint configuration object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotificationSlackEndpointConfiguration'
+      x-openapi-router-controller: anchore_enterprise.services.notifications.api.controllers.slack
+      x-anchore-authz-action: updateNotificationEndpointConfiguration
+      x-codegen-request-body-name: configuration
+    delete:
+      tags:
+      - Notifications
+      description: Delete a Slack endpoint configuration by it's UUID
+      operationId: delete_slack_configuration
+      parameters:
+      - name: uuid
+        in: path
+        required: true
+        schema:
+          type: string
+          format: path
+      responses:
+        200:
+          description: Successful delete
+          content: {}
+        404:
+          description: The provided notification configuration UUID was not found
+          content: {}
+      x-openapi-router-controller: anchore_enterprise.services.notifications.api.controllers.slack
+      x-anchore-authz-action: deleteNotificationEndpointConfiguration
   /notifications/endpoints/slack/test:
     post:
       tags:
@@ -5558,77 +5558,6 @@ paths:
           content: {}
       x-openapi-router-controller: anchore_enterprise.services.notifications.api.controllers.smtp
       x-anchore-authz-action: deleteNotificationEndpointConfiguration
-  /notifications/endpoints/smtp/configurations/{uuid}:
-    get:
-      tags:
-      - Notifications
-      description: Get a SMTP endpoint configuration by it's UUID
-      operationId: get_smtp_configuration
-      parameters:
-      - name: uuid
-        in: path
-        required: true
-        schema:
-          type: string
-          format: path
-      responses:
-        200:
-          description: SMTP endpoint configuration object
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/NotificationSMTPEndpointConfiguration'
-      x-openapi-router-controller: anchore_enterprise.services.notifications.api.controllers.smtp
-      x-anchore-authz-action: getNotificationEndpointConfiguration
-    put:
-      tags:
-      - Notifications
-      description: Update a SMTP endpoint configuration by it's UUID
-      operationId: update_smtp_configuration
-      parameters:
-      - name: uuid
-        in: path
-        required: true
-        schema:
-          type: string
-          format: path
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/NotificationSMTPEndpointConfiguration'
-        required: true
-      responses:
-        200:
-          description: Updated SMTP endpoint configuration object
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/NotificationSMTPEndpointConfiguration'
-      x-openapi-router-controller: anchore_enterprise.services.notifications.api.controllers.smtp
-      x-anchore-authz-action: updateNotificationEndpointConfiguration
-      x-codegen-request-body-name: configuration
-    delete:
-      tags:
-      - Notifications
-      description: Delete a SMTP endpoint configuration by it's UUID
-      operationId: delete_smtp_configuration
-      parameters:
-      - name: uuid
-        in: path
-        required: true
-        schema:
-          type: string
-          format: path
-      responses:
-        200:
-          description: Successful delete
-          content: {}
-        404:
-          description: The provided notification configuration UUID was not found
-          content: {}
-      x-openapi-router-controller: anchore_enterprise.services.notifications.api.controllers.smtp
-      x-anchore-authz-action: deleteNotificationEndpointConfiguration
   /notifications/endpoints/smtp/configurations/{uuid}/selectors:
     get:
       tags:
@@ -5724,6 +5653,77 @@ paths:
                 $ref: '#/components/schemas/NotificationSMTPTestResult'
       x-openapi-router-controller: anchore_enterprise.services.notifications.api.controllers.smtp
       x-anchore-authz-action: createNotificationEndpointConfiguration
+  /notifications/endpoints/smtp/configurations/{uuid}:
+    get:
+      tags:
+      - Notifications
+      description: Get a SMTP endpoint configuration by it's UUID
+      operationId: get_smtp_configuration
+      parameters:
+      - name: uuid
+        in: path
+        required: true
+        schema:
+          type: string
+          format: path
+      responses:
+        200:
+          description: SMTP endpoint configuration object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotificationSMTPEndpointConfiguration'
+      x-openapi-router-controller: anchore_enterprise.services.notifications.api.controllers.smtp
+      x-anchore-authz-action: getNotificationEndpointConfiguration
+    put:
+      tags:
+      - Notifications
+      description: Update a SMTP endpoint configuration by it's UUID
+      operationId: update_smtp_configuration
+      parameters:
+      - name: uuid
+        in: path
+        required: true
+        schema:
+          type: string
+          format: path
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NotificationSMTPEndpointConfiguration'
+        required: true
+      responses:
+        200:
+          description: Updated SMTP endpoint configuration object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotificationSMTPEndpointConfiguration'
+      x-openapi-router-controller: anchore_enterprise.services.notifications.api.controllers.smtp
+      x-anchore-authz-action: updateNotificationEndpointConfiguration
+      x-codegen-request-body-name: configuration
+    delete:
+      tags:
+      - Notifications
+      description: Delete a SMTP endpoint configuration by it's UUID
+      operationId: delete_smtp_configuration
+      parameters:
+      - name: uuid
+        in: path
+        required: true
+        schema:
+          type: string
+          format: path
+      responses:
+        200:
+          description: Successful delete
+          content: {}
+        404:
+          description: The provided notification configuration UUID was not found
+          content: {}
+      x-openapi-router-controller: anchore_enterprise.services.notifications.api.controllers.smtp
+      x-anchore-authz-action: deleteNotificationEndpointConfiguration
   /notifications/endpoints/smtp/test:
     post:
       tags:
@@ -5868,77 +5868,6 @@ paths:
           content: {}
       x-openapi-router-controller: anchore_enterprise.services.notifications.api.controllers.teams
       x-anchore-authz-action: deleteNotificationEndpointConfiguration
-  /notifications/endpoints/teams/configurations/{uuid}:
-    get:
-      tags:
-      - Notifications
-      description: Get a Teams endpoint configuration by it's UUID
-      operationId: get_teams_configuration
-      parameters:
-      - name: uuid
-        in: path
-        required: true
-        schema:
-          type: string
-          format: path
-      responses:
-        200:
-          description: Teams endpoint configuration object
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/NotificationTeamsEndpointConfiguration'
-      x-openapi-router-controller: anchore_enterprise.services.notifications.api.controllers.teams
-      x-anchore-authz-action: getNotificationEndpointConfiguration
-    put:
-      tags:
-      - Notifications
-      description: Update a Teams endpoint configuration by it's UUID
-      operationId: update_teams_configuration
-      parameters:
-      - name: uuid
-        in: path
-        required: true
-        schema:
-          type: string
-          format: path
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/NotificationTeamsEndpointConfiguration'
-        required: true
-      responses:
-        200:
-          description: Updated Teams endpoint configuration object
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/NotificationTeamsEndpointConfiguration'
-      x-openapi-router-controller: anchore_enterprise.services.notifications.api.controllers.teams
-      x-anchore-authz-action: updateNotificationEndpointConfiguration
-      x-codegen-request-body-name: configuration
-    delete:
-      tags:
-      - Notifications
-      description: Delete a Teams endpoint configuration by it's UUID
-      operationId: delete_teams_configuration
-      parameters:
-      - name: uuid
-        in: path
-        required: true
-        schema:
-          type: string
-          format: path
-      responses:
-        200:
-          description: Successful delete
-          content: {}
-        404:
-          description: The provided notification configuration UUID was not found
-          content: {}
-      x-openapi-router-controller: anchore_enterprise.services.notifications.api.controllers.teams
-      x-anchore-authz-action: deleteNotificationEndpointConfiguration
   /notifications/endpoints/teams/configurations/{uuid}/selectors:
     get:
       tags:
@@ -6057,6 +5986,77 @@ paths:
       x-openapi-router-controller: anchore_enterprise.services.notifications.api.controllers.teams
       x-anchore-authz-action: createNotificationEndpointConfiguration
       x-codegen-request-body-name: configuration
+  /notifications/endpoints/teams/configurations/{uuid}:
+    get:
+      tags:
+      - Notifications
+      description: Get a Teams endpoint configuration by it's UUID
+      operationId: get_teams_configuration
+      parameters:
+      - name: uuid
+        in: path
+        required: true
+        schema:
+          type: string
+          format: path
+      responses:
+        200:
+          description: Teams endpoint configuration object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotificationTeamsEndpointConfiguration'
+      x-openapi-router-controller: anchore_enterprise.services.notifications.api.controllers.teams
+      x-anchore-authz-action: getNotificationEndpointConfiguration
+    put:
+      tags:
+      - Notifications
+      description: Update a Teams endpoint configuration by it's UUID
+      operationId: update_teams_configuration
+      parameters:
+      - name: uuid
+        in: path
+        required: true
+        schema:
+          type: string
+          format: path
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NotificationTeamsEndpointConfiguration'
+        required: true
+      responses:
+        200:
+          description: Updated Teams endpoint configuration object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotificationTeamsEndpointConfiguration'
+      x-openapi-router-controller: anchore_enterprise.services.notifications.api.controllers.teams
+      x-anchore-authz-action: updateNotificationEndpointConfiguration
+      x-codegen-request-body-name: configuration
+    delete:
+      tags:
+      - Notifications
+      description: Delete a Teams endpoint configuration by it's UUID
+      operationId: delete_teams_configuration
+      parameters:
+      - name: uuid
+        in: path
+        required: true
+        schema:
+          type: string
+          format: path
+      responses:
+        200:
+          description: Successful delete
+          content: {}
+        404:
+          description: The provided notification configuration UUID was not found
+          content: {}
+      x-openapi-router-controller: anchore_enterprise.services.notifications.api.controllers.teams
+      x-anchore-authz-action: deleteNotificationEndpointConfiguration
   /notifications/endpoints/webhook/configurations:
     get:
       tags:
@@ -6179,77 +6179,6 @@ paths:
           content: {}
       x-openapi-router-controller: anchore_enterprise.services.notifications.api.controllers.webhook
       x-anchore-authz-action: deleteNotificationEndpointConfiguration
-  /notifications/endpoints/webhook/configurations/{uuid}:
-    get:
-      tags:
-      - Notifications
-      description: Get a Webhook endpoint configuration by it's UUID
-      operationId: get_webhook_configuration
-      parameters:
-      - name: uuid
-        in: path
-        required: true
-        schema:
-          type: string
-          format: path
-      responses:
-        200:
-          description: Webhook endpoint configuration object
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/NotificationWebhookEndpointConfiguration'
-      x-openapi-router-controller: anchore_enterprise.services.notifications.api.controllers.webhook
-      x-anchore-authz-action: getNotificationEndpointConfiguration
-    put:
-      tags:
-      - Notifications
-      description: Update a Webhook endpoint configuration by it's UUID
-      operationId: update_webhook_configuration
-      parameters:
-      - name: uuid
-        in: path
-        required: true
-        schema:
-          type: string
-          format: path
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/NotificationWebhookEndpointConfiguration'
-        required: true
-      responses:
-        200:
-          description: Updated Webhook endpoint configuration object
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/NotificationWebhookEndpointConfiguration'
-      x-openapi-router-controller: anchore_enterprise.services.notifications.api.controllers.webhook
-      x-anchore-authz-action: updateNotificationEndpointConfiguration
-      x-codegen-request-body-name: configuration
-    delete:
-      tags:
-      - Notifications
-      description: Delete a Webhook endpoint configuration by it's UUID
-      operationId: delete_webhook_configuration
-      parameters:
-      - name: uuid
-        in: path
-        required: true
-        schema:
-          type: string
-          format: path
-      responses:
-        200:
-          description: Successful delete
-          content: {}
-        404:
-          description: The provided notification configuration UUID was not found
-          content: {}
-      x-openapi-router-controller: anchore_enterprise.services.notifications.api.controllers.webhook
-      x-anchore-authz-action: deleteNotificationEndpointConfiguration
   /notifications/endpoints/webhook/configurations/{uuid}/selectors:
     get:
       tags:
@@ -6346,6 +6275,77 @@ paths:
                 $ref: '#/components/schemas/NotificationWebhookTestResult'
       x-openapi-router-controller: anchore_enterprise.services.notifications.api.controllers.webhook
       x-anchore-authz-action: createNotificationEndpointConfiguration
+  /notifications/endpoints/webhook/configurations/{uuid}:
+    get:
+      tags:
+      - Notifications
+      description: Get a Webhook endpoint configuration by it's UUID
+      operationId: get_webhook_configuration
+      parameters:
+      - name: uuid
+        in: path
+        required: true
+        schema:
+          type: string
+          format: path
+      responses:
+        200:
+          description: Webhook endpoint configuration object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotificationWebhookEndpointConfiguration'
+      x-openapi-router-controller: anchore_enterprise.services.notifications.api.controllers.webhook
+      x-anchore-authz-action: getNotificationEndpointConfiguration
+    put:
+      tags:
+      - Notifications
+      description: Update a Webhook endpoint configuration by it's UUID
+      operationId: update_webhook_configuration
+      parameters:
+      - name: uuid
+        in: path
+        required: true
+        schema:
+          type: string
+          format: path
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NotificationWebhookEndpointConfiguration'
+        required: true
+      responses:
+        200:
+          description: Updated Webhook endpoint configuration object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotificationWebhookEndpointConfiguration'
+      x-openapi-router-controller: anchore_enterprise.services.notifications.api.controllers.webhook
+      x-anchore-authz-action: updateNotificationEndpointConfiguration
+      x-codegen-request-body-name: configuration
+    delete:
+      tags:
+      - Notifications
+      description: Delete a Webhook endpoint configuration by it's UUID
+      operationId: delete_webhook_configuration
+      parameters:
+      - name: uuid
+        in: path
+        required: true
+        schema:
+          type: string
+          format: path
+      responses:
+        200:
+          description: Successful delete
+          content: {}
+        404:
+          description: The provided notification configuration UUID was not found
+          content: {}
+      x-openapi-router-controller: anchore_enterprise.services.notifications.api.controllers.webhook
+      x-anchore-authz-action: deleteNotificationEndpointConfiguration
   /notifications/endpoints/webhook/test:
     post:
       tags:
@@ -6856,34 +6856,6 @@ paths:
                 $ref: '#/components/schemas/RbacManagerApiErrorResponse'
       x-openapi-router-controller: anchore_enterprise.services.rbac_manager.api.controllers.roles
       x-anchore-authz-action: listRoles
-  /rbac-manager/roles/{role_name}:
-    get:
-      tags:
-      - RBAC
-      summary: Get detailed information about a specific role
-      operationId: get_role
-      parameters:
-      - name: role_name
-        in: path
-        required: true
-        schema:
-          type: string
-          format: path
-      responses:
-        200:
-          description: Role details
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/RbacManagerRole'
-        500:
-          description: Internal error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/RbacManagerApiErrorResponse'
-      x-openapi-router-controller: anchore_enterprise.services.rbac_manager.api.controllers.roles
-      x-anchore-authz-action: getRole
   /rbac-manager/roles/{role_name}/members:
     get:
       tags:
@@ -6990,6 +6962,34 @@ paths:
                 $ref: '#/components/schemas/RbacManagerApiErrorResponse'
       x-openapi-router-controller: anchore_enterprise.services.rbac_manager.api.controllers.roles
       x-anchore-authz-action: deleteRoleMember
+  /rbac-manager/roles/{role_name}:
+    get:
+      tags:
+      - RBAC
+      summary: Get detailed information about a specific role
+      operationId: get_role
+      parameters:
+      - name: role_name
+        in: path
+        required: true
+        schema:
+          type: string
+          format: path
+      responses:
+        200:
+          description: Role details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RbacManagerRole'
+        500:
+          description: Internal error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RbacManagerApiErrorResponse'
+      x-openapi-router-controller: anchore_enterprise.services.rbac_manager.api.controllers.roles
+      x-anchore-authz-action: getRole
   /rbac-manager/saml/idps:
     get:
       tags:
@@ -7048,114 +7048,6 @@ paths:
       x-openapi-router-controller: anchore_enterprise.services.rbac_manager.api.controllers.auth
       x-anchore-authz-action: None
       x-codegen-request-body-name: configuration
-  /rbac-manager/saml/idps/{name}:
-    get:
-      tags:
-      - RBAC
-      description: Return the configuration for a named Identity Provider
-      operationId: get_idp
-      parameters:
-      - name: name
-        in: path
-        required: true
-        schema:
-          type: string
-          format: path
-      responses:
-        200:
-          description: Successfully retrieved configuration
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/RbacManagerSamlConfigurationGet'
-        404:
-          description: Not found
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/RbacManagerApiErrorResponse'
-        500:
-          description: Internal error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/RbacManagerApiErrorResponse'
-      x-openapi-router-controller: anchore_enterprise.services.rbac_manager.api.controllers.auth
-      x-anchore-authz-action: None
-    put:
-      tags:
-      - RBAC
-      description: Update an existing Identity Provider configuration
-      operationId: update_idp
-      parameters:
-      - name: name
-        in: path
-        required: true
-        schema:
-          type: string
-          format: path
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/RbacManagerSamlConfiguration'
-        required: true
-      responses:
-        200:
-          description: Successfully updated configuration
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/RbacManagerSamlConfiguration'
-        400:
-          description: Not found
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/RbacManagerApiErrorResponse'
-        404:
-          description: Not found
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/RbacManagerApiErrorResponse'
-        500:
-          description: Internal error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/RbacManagerApiErrorResponse'
-      x-openapi-router-controller: anchore_enterprise.services.rbac_manager.api.controllers.auth
-      x-anchore-authz-action: None
-    delete:
-      tags:
-      - RBAC
-      description: Delete an idp configuration. Users will not longer be able to login
-        from this idp. In addition, any users that have been configured explicitly
-        or JIT Provisioned on this IDP will be deleted.
-      operationId: delete_idp
-      parameters:
-      - name: name
-        in: path
-        required: true
-        schema:
-          type: string
-          format: path
-      responses:
-        204:
-          description: Successfully deleted
-          content: {}
-        404:
-          description: Not found
-          content: {}
-        500:
-          description: Internal error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/RbacManagerApiErrorResponse'
-      x-openapi-router-controller: anchore_enterprise.services.rbac_manager.api.controllers.auth
-      x-anchore-authz-action: None
   /rbac-manager/saml/idps/{name}/user-group-mappings:
     get:
       tags:
@@ -7286,6 +7178,114 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/RbacManagerApiErrorResponse'
+  /rbac-manager/saml/idps/{name}:
+    get:
+      tags:
+      - RBAC
+      description: Return the configuration for a named Identity Provider
+      operationId: get_idp
+      parameters:
+      - name: name
+        in: path
+        required: true
+        schema:
+          type: string
+          format: path
+      responses:
+        200:
+          description: Successfully retrieved configuration
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RbacManagerSamlConfigurationGet'
+        404:
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RbacManagerApiErrorResponse'
+        500:
+          description: Internal error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RbacManagerApiErrorResponse'
+      x-openapi-router-controller: anchore_enterprise.services.rbac_manager.api.controllers.auth
+      x-anchore-authz-action: None
+    put:
+      tags:
+      - RBAC
+      description: Update an existing Identity Provider configuration
+      operationId: update_idp
+      parameters:
+      - name: name
+        in: path
+        required: true
+        schema:
+          type: string
+          format: path
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RbacManagerSamlConfiguration'
+        required: true
+      responses:
+        200:
+          description: Successfully updated configuration
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RbacManagerSamlConfiguration'
+        400:
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RbacManagerApiErrorResponse'
+        404:
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RbacManagerApiErrorResponse'
+        500:
+          description: Internal error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RbacManagerApiErrorResponse'
+      x-openapi-router-controller: anchore_enterprise.services.rbac_manager.api.controllers.auth
+      x-anchore-authz-action: None
+    delete:
+      tags:
+      - RBAC
+      description: Delete an idp configuration. Users will not longer be able to login
+        from this idp. In addition, any users that have been configured explicitly
+        or JIT Provisioned on this IDP will be deleted.
+      operationId: delete_idp
+      parameters:
+      - name: name
+        in: path
+        required: true
+        schema:
+          type: string
+          format: path
+      responses:
+        204:
+          description: Successfully deleted
+          content: {}
+        404:
+          description: Not found
+          content: {}
+        500:
+          description: Internal error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RbacManagerApiErrorResponse'
+      x-openapi-router-controller: anchore_enterprise.services.rbac_manager.api.controllers.auth
+      x-anchore-authz-action: None
   /rbac-manager/saml/login/{idp_name}:
     get:
       tags:
@@ -7668,58 +7668,6 @@ paths:
           content: {}
       x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.sources
       x-anchore-authz-action: listSources
-  /sources/{source_id}:
-    get:
-      tags:
-      - Sources
-      summary: Get a detailed source repository analysis metadata record
-      operationId: get_source
-      parameters:
-      - name: source_id
-        in: path
-        required: true
-        schema:
-          type: string
-          format: path
-      responses:
-        200:
-          description: success
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/SourceManifest'
-        500:
-          description: Internal Error
-          content: {}
-      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.sources
-      x-anchore-authz-action: getSource
-    delete:
-      tags:
-      - Sources
-      summary: Delete source record from DB
-      operationId: delete_source
-      parameters:
-      - name: source_id
-        in: path
-        description: UUID of source to delete
-        required: true
-        schema:
-          type: string
-          format: path
-      - name: force
-        in: query
-        description: force delete
-        schema:
-          type: boolean
-      responses:
-        204:
-          description: Delete success
-          content: {}
-        500:
-          description: Internal Error
-          content: {}
-      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.sources
-      x-anchore-authz-action: getSource
   /sources/{source_id}/check:
     get:
       tags:
@@ -7973,6 +7921,58 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/SourcePackageVulnerabilityResponse'
+        500:
+          description: Internal Error
+          content: {}
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.sources
+      x-anchore-authz-action: getSource
+  /sources/{source_id}:
+    get:
+      tags:
+      - Sources
+      summary: Get a detailed source repository analysis metadata record
+      operationId: get_source
+      parameters:
+      - name: source_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: path
+      responses:
+        200:
+          description: success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SourceManifest'
+        500:
+          description: Internal Error
+          content: {}
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.sources
+      x-anchore-authz-action: getSource
+    delete:
+      tags:
+      - Sources
+      summary: Delete source record from DB
+      operationId: delete_source
+      parameters:
+      - name: source_id
+        in: path
+        description: UUID of source to delete
+        required: true
+        schema:
+          type: string
+          format: path
+      - name: force
+        in: query
+        description: force delete
+        schema:
+          type: boolean
+      responses:
+        204:
+          description: Delete success
+          content: {}
         500:
           description: Internal Error
           content: {}
@@ -8287,6 +8287,40 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ArtifactLifecyclePolicyResponse'
+  /system/artifact-lifecycle-policies/{policy_uuid}/versions:
+    get:
+      tags:
+      - Artifact Lifecycle
+      summary: Get single artifact lifecycle policy by its version
+      operationId: get_artifact_lifecycle_policy_by_version
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.artifact_lifecycle_policies
+      x-anchore-authz-action: getArtifactLifecyclePolicy
+      parameters:
+      - name: policy_uuid
+        in: path
+        schema:
+          type: string
+          format: path
+        required: true
+      - name: version
+        in: query
+        required: false
+        description: Request a specific version number
+        schema:
+          type: integer
+      - name: latest
+        in: query
+        required: false
+        description: Request the latest version
+        schema:
+          type: boolean
+      responses:
+        200:
+          description: The requested version(s) of the artifact lifecycle policy
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArtifactLifecyclePolicyResponse'
   /system/artifact-lifecycle-policies/{policy_uuid}:
     get:
       tags:
@@ -8352,40 +8386,6 @@ paths:
       responses:
         204:
           description: Returns an empty response
-  /system/artifact-lifecycle-policies/{policy_uuid}/versions:
-    get:
-      tags:
-      - Artifact Lifecycle
-      summary: Get single artifact lifecycle policy by its version
-      operationId: get_artifact_lifecycle_policy_by_version
-      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.artifact_lifecycle_policies
-      x-anchore-authz-action: getArtifactLifecyclePolicy
-      parameters:
-      - name: policy_uuid
-        in: path
-        schema:
-          type: string
-          format: path
-        required: true
-      - name: version
-        in: query
-        required: false
-        description: Request a specific version number
-        schema:
-          type: integer
-      - name: latest
-        in: query
-        required: false
-        description: Request the latest version
-        schema:
-          type: boolean
-      responses:
-        200:
-          description: The requested version(s) of the artifact lifecycle policy
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ArtifactLifecyclePolicyResponse'
   /system/deployment-history:
     get:
       tags:
@@ -8529,6 +8529,36 @@ paths:
           content: {}
       x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.system
       x-anchore-authz-action: updateFeeds
+  /system/logging:
+    post:
+      tags:
+        - System
+      summary: Change logging level for a running service
+      description: Enables override of localconfig logging level for one or all services until they are next
+        rebooted. If multiple instances of a service exist this call may need to be repeated depending on the
+        container orchestration system in use. This API is in preview and may change in the future.
+      operationId: set_new_log_level
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoggingLevel'
+        required: true
+      responses:
+        200:
+          description: Logging level successfully changed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoggingLevelResponse'
+        500:
+          description: Internal Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+      x-anchore-authz-action: updateLoggingLevel
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.system
   /system/policy-spec:
     get:
       tags:
@@ -8566,34 +8596,6 @@ paths:
                 $ref: '#/components/schemas/ApiErrorResponse'
       x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.system
       x-anchore-authz-action: listServices
-  /system/services/{service_name}:
-    get:
-      tags:
-      - System
-      summary: Get a service configuration and state
-      operationId: get_services_by_name
-      parameters:
-      - name: service_name
-        in: path
-        required: true
-        schema:
-          type: string
-          format: path
-      responses:
-        200:
-          description: Service Info
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ServiceList'
-        500:
-          description: Internal Error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ApiErrorResponse'
-      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.system
-      x-anchore-authz-action: getService
   /system/services/{service_name}/{host_id}:
     get:
       tags:
@@ -8658,6 +8660,34 @@ paths:
                 $ref: '#/components/schemas/ApiErrorResponse'
       x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.system
       x-anchore-authz-action: deleteService
+  /system/services/{service_name}:
+    get:
+      tags:
+      - System
+      summary: Get a service configuration and state
+      operationId: get_services_by_name
+      parameters:
+      - name: service_name
+        in: path
+        required: true
+        schema:
+          type: string
+          format: path
+      responses:
+        200:
+          description: Service Info
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ServiceList'
+        500:
+          description: Internal Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.system
+      x-anchore-authz-action: getService
   /system/statistics:
     get:
       tags:
@@ -8737,92 +8767,6 @@ paths:
                 $ref: '#/components/schemas/ApiErrorResponse'
       x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.user_groups
       x-anchore-authz-action: createUserGroup
-  /system/user-groups/{group_uuid}:
-    get:
-      tags:
-        - User Management
-      summary: Get a user group
-      operationId: get_user_group
-      parameters:
-        - name: group_uuid
-          in: path
-          required: true
-          schema:
-            type: string
-            format: path
-      responses:
-        200:
-          description: User group record
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/UserGroup'
-        404:
-          description: Not found
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ApiErrorResponse'
-      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.user_groups
-      x-anchore-authz-action: getUserGroup
-    patch:
-      tags:
-        - User Management
-      summary: Update a user group
-      operationId: update_user_group
-      parameters:
-        - name: group_uuid
-          in: path
-          required: true
-          schema:
-            type: string
-            format: path
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/UserGroupPatch'
-        required: true
-      responses:
-        200:
-          description: User group record
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/UserGroup'
-        404:
-          description: Not found
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ApiErrorResponse'
-      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.user_groups
-      x-anchore-authz-action: updateUserGroup
-      x-codegen-request-body-name: user_group_patch
-    delete:
-      tags:
-        - User Management
-      summary: Delete a user group
-      operationId: delete_user_group
-      parameters:
-        - name: group_uuid
-          in: path
-          required: true
-          schema:
-            type: string
-            format: path
-      responses:
-        204:
-          description: Success
-          content: { }
-        404:
-          description: Not found
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ApiErrorResponse'
-      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.user_groups
-      x-anchore-authz-action: deleteUserGroup
   /system/user-groups/{group_uuid}/roles:
     get:
       tags:
@@ -9020,6 +8964,92 @@ paths:
                 $ref: '#/components/schemas/ApiErrorResponse'
       x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.user_groups
       x-anchore-authz-action: deleteUserGroupUser
+  /system/user-groups/{group_uuid}:
+    get:
+      tags:
+        - User Management
+      summary: Get a user group
+      operationId: get_user_group
+      parameters:
+        - name: group_uuid
+          in: path
+          required: true
+          schema:
+            type: string
+            format: path
+      responses:
+        200:
+          description: User group record
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserGroup'
+        404:
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.user_groups
+      x-anchore-authz-action: getUserGroup
+    patch:
+      tags:
+        - User Management
+      summary: Update a user group
+      operationId: update_user_group
+      parameters:
+        - name: group_uuid
+          in: path
+          required: true
+          schema:
+            type: string
+            format: path
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserGroupPatch'
+        required: true
+      responses:
+        200:
+          description: User group record
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserGroup'
+        404:
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.user_groups
+      x-anchore-authz-action: updateUserGroup
+      x-codegen-request-body-name: user_group_patch
+    delete:
+      tags:
+        - User Management
+      summary: Delete a user group
+      operationId: delete_user_group
+      parameters:
+        - name: group_uuid
+          in: path
+          required: true
+          schema:
+            type: string
+            format: path
+      responses:
+        204:
+          description: Success
+          content: { }
+        404:
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.user_groups
+      x-anchore-authz-action: deleteUserGroup
   /system/webhooks/{webhook_type}/test:
     post:
       tags:
@@ -11720,6 +11750,49 @@ components:
           items:
             $ref: '#/components/schemas/InventoryItem'
       description: Inventory report for Images in Use
+    LoggingLevel:
+      type: object
+      required:
+        - service_name
+        - logging_level
+      properties:
+        service_name:
+          type: string
+          enum:
+            - all
+            - analyzer
+            - api
+            - catalog
+            - notifications
+            - reports
+            - reports_worker
+            - simplequeue
+            - policy_engine
+        logging_level:
+          type: string
+          enum:
+            - default
+            - trace
+            - debug
+            - info
+            - warning
+            - error
+            - critical
+    LoggingLevelResponse:
+      type: object
+      properties:
+        service_name:
+          type: object
+          properties:
+            logging_level:
+              type: string
+              enum:
+                - trace
+                - debug
+                - info
+                - warning
+                - error
+                - critical
     JavaPackageContent:
       type: object
       properties:
@@ -13727,8 +13800,8 @@ components:
             unset, the default is used.
         idp_groups_attribute:
           type: string
-          description: The SAML attribute to use from the response assertions to determine
-            the SSO groups the user is a member of. If unset, the default is used (memberOf).
+          description: The default value is `memberOf`. This field is available to overwrite the 
+            SAML attribute if your IDP is using a different SSO group value during the response assertions.
         default_account:
           type: string
           description: The anchore account to assign all users to from this IDP if
@@ -14880,6 +14953,15 @@ components:
       minLength: 36
       pattern: ^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$
       type: string
+    UnifiedRoles:
+      type: object
+      properties:
+        role_name:
+          type: string
+          description: The name of the RBAC Role
+        domain_name:
+          type: string
+          description: The domain (or account) name that provides the scope of the role
     User:
       required:
       - username
@@ -14920,6 +15002,10 @@ components:
             of the last time this user's credentials were updated.
           format: date-time
           nullable: true
+        unified_roles:
+          type: array
+          description: The unified list of RBAC roles this user currently has in this account.
+          $ref: '#/components/schemas/UserGroupRoles'
       description: A username for authenticating with one or more types of credentials.
         User type defines the expected credentials allowed for the user. Native users
         have passwords, other users have no credential internally. Internal users

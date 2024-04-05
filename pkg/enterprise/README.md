@@ -348,6 +348,7 @@ Class | Method | HTTP request | Description
 *SystemApi* | [**ListServices**](docs/SystemApi.md#listservices) | **Get** /system/services | List system services
 *SystemApi* | [**Ping**](docs/SystemApi.md#ping) | **Get** / | 
 *SystemApi* | [**PostSystemFeeds**](docs/SystemApi.md#postsystemfeeds) | **Post** /system/feeds | trigger feeds operations
+*SystemApi* | [**SetNewLogLevel**](docs/SystemApi.md#setnewloglevel) | **Post** /system/logging | Change logging level for a running service
 *SystemApi* | [**TestWebhook**](docs/SystemApi.md#testwebhook) | **Post** /system/webhooks/{webhook_type}/test | Adds the capabilities to test a webhook delivery for the given notification type
 *SystemApi* | [**ToggleFeedEnabled**](docs/SystemApi.md#togglefeedenabled) | **Put** /system/feeds/{feed} | 
 *SystemApi* | [**VersionCheck**](docs/SystemApi.md#versioncheck) | **Get** /version | 
@@ -540,6 +541,9 @@ Class | Method | HTTP request | Description
  - [KubernetesPod](docs/KubernetesPod.md)
  - [KubernetesPods](docs/KubernetesPods.md)
  - [LocalAnalysisSource](docs/LocalAnalysisSource.md)
+ - [LoggingLevel](docs/LoggingLevel.md)
+ - [LoggingLevelResponse](docs/LoggingLevelResponse.md)
+ - [LoggingLevelResponseServiceName](docs/LoggingLevelResponseServiceName.md)
  - [MalwareFinding](docs/MalwareFinding.md)
  - [MalwareScan](docs/MalwareScan.md)
  - [MappingRule](docs/MappingRule.md)
@@ -694,6 +698,7 @@ Class | Method | HTTP request | Description
  - [TokenResponse](docs/TokenResponse.md)
  - [TriggerParamSpec](docs/TriggerParamSpec.md)
  - [TriggerSpec](docs/TriggerSpec.md)
+ - [UnifiedRoles](docs/UnifiedRoles.md)
  - [User](docs/User.md)
  - [UserApiKey](docs/UserApiKey.md)
  - [UserCreationRequest](docs/UserCreationRequest.md)
