@@ -14177,13 +14177,9 @@ components:
       - service_name
       type: object
     LoggingLevelResponse:
-      example:
-        service_name:
-          logging_level: trace
-      properties:
-        service_name:
-          $ref: '#/components/schemas/LoggingLevelResponse_service_name'
-      type: object
+      items:
+        $ref: '#/components/schemas/LoggingLevel'
+      type: array
     JavaPackageContent:
       example:
         licenses:
@@ -20641,20 +20637,6 @@ components:
       anyOf:
       - type: string
       - $ref: '#/components/schemas/ImportPackageCPE'
-    LoggingLevelResponse_service_name:
-      example:
-        logging_level: trace
-      properties:
-        logging_level:
-          enum:
-          - trace
-          - debug
-          - info
-          - warning
-          - error
-          - critical
-          type: string
-      type: object
     NativeSBOMPackage_cpes_inner:
       anyOf:
       - type: string

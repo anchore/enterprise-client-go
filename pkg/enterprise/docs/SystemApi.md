@@ -847,7 +847,7 @@ No authorization required
 
 ## SetNewLogLevel
 
-> LoggingLevelResponse SetNewLogLevel(ctx).Logging(logging).Execute()
+> []LoggingLevel SetNewLogLevel(ctx).Logging(logging).Execute()
 
 Change logging level for a running service
 
@@ -875,7 +875,7 @@ func main() {
         fmt.Fprintf(os.Stderr, "Error when calling `SystemApi.SetNewLogLevel``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `SetNewLogLevel`: LoggingLevelResponse
+    // response from `SetNewLogLevel`: []LoggingLevel
     fmt.Fprintf(os.Stdout, "Response from `SystemApi.SetNewLogLevel`: %v\n", resp)
 }
 ```
@@ -895,7 +895,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**LoggingLevelResponse**](LoggingLevelResponse.md)
+[**[]LoggingLevel**](LoggingLevel.md)
 
 ### Authorization
 

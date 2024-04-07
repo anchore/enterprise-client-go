@@ -211,8 +211,8 @@ type SystemApi interface {
 	SetNewLogLevel(ctx context.Context) ApiSetNewLogLevelRequest
 
 	// SetNewLogLevelExecute executes the request
-	//  @return LoggingLevelResponse
-	SetNewLogLevelExecute(r ApiSetNewLogLevelRequest) (*LoggingLevelResponse, *http.Response, error)
+	//  @return []LoggingLevel
+	SetNewLogLevelExecute(r ApiSetNewLogLevelRequest) ([]LoggingLevel, *http.Response, error)
 
 	/*
 	TestWebhook Adds the capabilities to test a webhook delivery for the given notification type
@@ -1614,7 +1614,7 @@ func (r ApiSetNewLogLevelRequest) Logging(logging LoggingLevel) ApiSetNewLogLeve
 	return r
 }
 
-func (r ApiSetNewLogLevelRequest) Execute() (*LoggingLevelResponse, *http.Response, error) {
+func (r ApiSetNewLogLevelRequest) Execute() ([]LoggingLevel, *http.Response, error) {
 	return r.ApiService.SetNewLogLevelExecute(r)
 }
 
@@ -1634,13 +1634,13 @@ func (a *SystemApiService) SetNewLogLevel(ctx context.Context) ApiSetNewLogLevel
 }
 
 // Execute executes the request
-//  @return LoggingLevelResponse
-func (a *SystemApiService) SetNewLogLevelExecute(r ApiSetNewLogLevelRequest) (*LoggingLevelResponse, *http.Response, error) {
+//  @return []LoggingLevel
+func (a *SystemApiService) SetNewLogLevelExecute(r ApiSetNewLogLevelRequest) ([]LoggingLevel, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *LoggingLevelResponse
+		localVarReturnValue  []LoggingLevel
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SystemApiService.SetNewLogLevel")

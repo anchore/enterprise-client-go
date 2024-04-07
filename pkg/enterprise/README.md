@@ -542,8 +542,6 @@ Class | Method | HTTP request | Description
  - [KubernetesPods](docs/KubernetesPods.md)
  - [LocalAnalysisSource](docs/LocalAnalysisSource.md)
  - [LoggingLevel](docs/LoggingLevel.md)
- - [LoggingLevelResponse](docs/LoggingLevelResponse.md)
- - [LoggingLevelResponseServiceName](docs/LoggingLevelResponseServiceName.md)
  - [MalwareFinding](docs/MalwareFinding.md)
  - [MalwareScan](docs/MalwareScan.md)
  - [MappingRule](docs/MappingRule.md)

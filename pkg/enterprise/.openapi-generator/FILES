@@ -197,8 +197,6 @@ docs/KubernetesPod.md
 docs/KubernetesPods.md
 docs/LocalAnalysisSource.md
 docs/LoggingLevel.md
-docs/LoggingLevelResponse.md
-docs/LoggingLevelResponseServiceName.md
 docs/MalwareFinding.md
 docs/MalwareScan.md
 docs/MappingRule.md
@@ -562,8 +560,6 @@ model_kubernetes_pod.go
 model_kubernetes_pods.go
 model_local_analysis_source.go
 model_logging_level.go
-model_logging_level_response.go
-model_logging_level_response_service_name.go
 model_malware_finding.go
 model_malware_scan.go
 model_mapping_rule.go
