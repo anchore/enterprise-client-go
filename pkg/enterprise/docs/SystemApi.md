@@ -847,7 +847,7 @@ No authorization required
 
 ## SetNewLogLevel
 
-> LoggingLevelResponse SetNewLogLevel(ctx).LoggingLevel(loggingLevel).Execute()
+> LoggingLevelResponse SetNewLogLevel(ctx).Logging(logging).Execute()
 
 Change logging level for a running service
 
@@ -866,11 +866,11 @@ import (
 )
 
 func main() {
-    loggingLevel := *openapiclient.NewLoggingLevel("ServiceName_example", "LoggingLevel_example") // LoggingLevel | 
+    logging := *openapiclient.NewLoggingLevel("ServiceName_example", "LoggingLevel_example") // LoggingLevel | 
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.SystemApi.SetNewLogLevel(context.Background()).LoggingLevel(loggingLevel).Execute()
+    resp, r, err := apiClient.SystemApi.SetNewLogLevel(context.Background()).Logging(logging).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `SystemApi.SetNewLogLevel``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -891,7 +891,7 @@ Other parameters are passed through a pointer to a apiSetNewLogLevelRequest stru
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **loggingLevel** | [**LoggingLevel**](LoggingLevel.md) |  | 
+ **logging** | [**LoggingLevel**](LoggingLevel.md) |  | 
 
 ### Return type
 

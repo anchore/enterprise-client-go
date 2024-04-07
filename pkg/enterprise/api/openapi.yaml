@@ -9524,6 +9524,7 @@ paths:
       - System
       x-anchore-authz-action: updateLoggingLevel
       x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.system
+      x-codegen-request-body-name: logging
   /system/policy-spec:
     get:
       description: Get the policy language spec for this service

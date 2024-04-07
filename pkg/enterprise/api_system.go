@@ -1606,11 +1606,11 @@ func (a *SystemApiService) PostSystemFeedsExecute(r ApiPostSystemFeedsRequest) (
 type ApiSetNewLogLevelRequest struct {
 	ctx context.Context
 	ApiService SystemApi
-	loggingLevel *LoggingLevel
+	logging *LoggingLevel
 }
 
-func (r ApiSetNewLogLevelRequest) LoggingLevel(loggingLevel LoggingLevel) ApiSetNewLogLevelRequest {
-	r.loggingLevel = &loggingLevel
+func (r ApiSetNewLogLevelRequest) Logging(logging LoggingLevel) ApiSetNewLogLevelRequest {
+	r.logging = &logging
 	return r
 }
 
@@ -1653,8 +1653,8 @@ func (a *SystemApiService) SetNewLogLevelExecute(r ApiSetNewLogLevelRequest) (*L
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.loggingLevel == nil {
-		return localVarReturnValue, nil, reportError("loggingLevel is required and must be specified")
+	if r.logging == nil {
+		return localVarReturnValue, nil, reportError("logging is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -1675,7 +1675,7 @@ func (a *SystemApiService) SetNewLogLevelExecute(r ApiSetNewLogLevelRequest) (*L
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.loggingLevel
+	localVarPostBody = r.logging
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err

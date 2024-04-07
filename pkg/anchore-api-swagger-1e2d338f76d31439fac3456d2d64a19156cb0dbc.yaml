@@ -8559,6 +8559,7 @@ paths:
                 $ref: '#/components/schemas/ApiErrorResponse'
       x-anchore-authz-action: updateLoggingLevel
       x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.system
+      x-codegen-request-body-name: logging
   /system/policy-spec:
     get:
       tags:
@@ -11779,20 +11780,9 @@ components:
             - error
             - critical
     LoggingLevelResponse:
-      type: object
-      properties:
-        service_name:
-          type: object
-          properties:
-            logging_level:
-              type: string
-              enum:
-                - trace
-                - debug
-                - info
-                - warning
-                - error
-                - critical
+      type: array
+      items:
+        $ref: '#/components/schemas/LoggingLevel'
     JavaPackageContent:
       type: object
       properties:
