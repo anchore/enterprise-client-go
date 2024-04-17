@@ -8253,6 +8253,41 @@ paths:
                 $ref: '#/components/schemas/ApiErrorResponse'
       x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.system
       x-anchore-authz-action: None
+  /system/anchorectl:
+    get:
+      tags:
+        - System
+      summary: Get an anchorectl binary compatible with this version of Anchore Enterprise
+      operationId: get_anchorectl
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.anchore_ctl
+      x-anchore-authz-action: None
+      parameters:
+        - name: operating_system
+          in: query
+          required: true
+          description: The operating system (platform) of the binary to retrieve
+          schema:
+            type: string
+            enum:
+              - linux
+              - darwin
+              - windows
+        - name: architecture
+          in: query
+          required: true
+          description: The architecture of the binary to retrieve
+          schema:
+            type: string
+            enum:
+              - amd64
+              - arm64
+      responses:
+        200:
+          description: The binary requested
+        400:
+          description: The request was malformed
+        404:
+          description: The binary was not found
   /system/artifact-lifecycle-policies:
     get:
       tags:
@@ -8559,7 +8594,6 @@ paths:
                 $ref: '#/components/schemas/ApiErrorResponse'
       x-anchore-authz-action: updateLoggingLevel
       x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.system
-      x-codegen-request-body-name: logging
   /system/policy-spec:
     get:
       tags:
@@ -11780,9 +11814,20 @@ components:
             - error
             - critical
     LoggingLevelResponse:
-      type: array
-      items:
-        $ref: '#/components/schemas/LoggingLevel'
+      type: object
+      properties:
+        service_name:
+          type: object
+          properties:
+            logging_level:
+              type: string
+              enum:
+                - trace
+                - debug
+                - info
+                - warning
+                - error
+                - critical
     JavaPackageContent:
       type: object
       properties:
@@ -12034,7 +12079,7 @@ components:
       type: object
       properties:
         id:
-          type: string
+          $ref: '#/components/schemas/UUID'
         name:
           type: string
         image_tag:
@@ -12102,7 +12147,7 @@ components:
       type: object
       properties:
         uid:
-          type: string
+          $ref: '#/components/schemas/UUID'
         name:
           type: string
         namespace_uid:

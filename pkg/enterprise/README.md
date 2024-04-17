@@ -339,6 +339,7 @@ Class | Method | HTTP request | Description
 *SystemApi* | [**DeleteService**](docs/SystemApi.md#deleteservice) | **Delete** /system/services/{service_name}/{host_id} | Delete the service config
 *SystemApi* | [**DescribeErrorCodes**](docs/SystemApi.md#describeerrorcodes) | **Get** /system/error-codes | Describe anchore engine error codes.
 *SystemApi* | [**DescribePolicy**](docs/SystemApi.md#describepolicy) | **Get** /system/policy-spec | Describe the policy language spec implemented by this service.
+*SystemApi* | [**GetAnchorectl**](docs/SystemApi.md#getanchorectl) | **Get** /system/anchorectl | Get an anchorectl binary compatible with this version of Anchore Enterprise
 *SystemApi* | [**GetServiceDetail**](docs/SystemApi.md#getservicedetail) | **Get** /system | System status
 *SystemApi* | [**GetServicesByName**](docs/SystemApi.md#getservicesbyname) | **Get** /system/services/{service_name} | Get a service configuration and state
 *SystemApi* | [**GetServicesByNameAndHost**](docs/SystemApi.md#getservicesbynameandhost) | **Get** /system/services/{service_name}/{host_id} | Get service config for a specific host
@@ -542,6 +543,8 @@ Class | Method | HTTP request | Description
  - [KubernetesPods](docs/KubernetesPods.md)
  - [LocalAnalysisSource](docs/LocalAnalysisSource.md)
  - [LoggingLevel](docs/LoggingLevel.md)
+ - [LoggingLevelResponse](docs/LoggingLevelResponse.md)
+ - [LoggingLevelResponseServiceName](docs/LoggingLevelResponseServiceName.md)
  - [MalwareFinding](docs/MalwareFinding.md)
  - [MalwareScan](docs/MalwareScan.md)
  - [MappingRule](docs/MappingRule.md)

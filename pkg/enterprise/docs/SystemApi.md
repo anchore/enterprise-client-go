@@ -8,6 +8,7 @@ Method | HTTP request | Description
 [**DeleteService**](SystemApi.md#DeleteService) | **Delete** /system/services/{service_name}/{host_id} | Delete the service config
 [**DescribeErrorCodes**](SystemApi.md#DescribeErrorCodes) | **Get** /system/error-codes | Describe anchore engine error codes.
 [**DescribePolicy**](SystemApi.md#DescribePolicy) | **Get** /system/policy-spec | Describe the policy language spec implemented by this service.
+[**GetAnchorectl**](SystemApi.md#GetAnchorectl) | **Get** /system/anchorectl | Get an anchorectl binary compatible with this version of Anchore Enterprise
 [**GetServiceDetail**](SystemApi.md#GetServiceDetail) | **Get** /system | System status
 [**GetServicesByName**](SystemApi.md#GetServicesByName) | **Get** /system/services/{service_name} | Get a service configuration and state
 [**GetServicesByNameAndHost**](SystemApi.md#GetServicesByNameAndHost) | **Get** /system/services/{service_name}/{host_id} | Get service config for a specific host
@@ -277,6 +278,70 @@ No authorization required
 
 - **Content-Type**: Not defined
 - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetAnchorectl
+
+> GetAnchorectl(ctx).OperatingSystem(operatingSystem).Architecture(architecture).Execute()
+
+Get an anchorectl binary compatible with this version of Anchore Enterprise
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    operatingSystem := "operatingSystem_example" // string | The operating system (platform) of the binary to retrieve
+    architecture := "architecture_example" // string | The architecture of the binary to retrieve
+
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.SystemApi.GetAnchorectl(context.Background()).OperatingSystem(operatingSystem).Architecture(architecture).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `SystemApi.GetAnchorectl``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetAnchorectlRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **operatingSystem** | **string** | The operating system (platform) of the binary to retrieve | 
+ **architecture** | **string** | The architecture of the binary to retrieve | 
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: Not defined
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
@@ -847,7 +912,7 @@ No authorization required
 
 ## SetNewLogLevel
 
-> []LoggingLevel SetNewLogLevel(ctx).Logging(logging).Execute()
+> LoggingLevelResponse SetNewLogLevel(ctx).LoggingLevel(loggingLevel).Execute()
 
 Change logging level for a running service
 
@@ -866,16 +931,16 @@ import (
 )
 
 func main() {
-    logging := *openapiclient.NewLoggingLevel("ServiceName_example", "LoggingLevel_example") // LoggingLevel | 
+    loggingLevel := *openapiclient.NewLoggingLevel("ServiceName_example", "LoggingLevel_example") // LoggingLevel | 
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.SystemApi.SetNewLogLevel(context.Background()).Logging(logging).Execute()
+    resp, r, err := apiClient.SystemApi.SetNewLogLevel(context.Background()).LoggingLevel(loggingLevel).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `SystemApi.SetNewLogLevel``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `SetNewLogLevel`: []LoggingLevel
+    // response from `SetNewLogLevel`: LoggingLevelResponse
     fmt.Fprintf(os.Stdout, "Response from `SystemApi.SetNewLogLevel`: %v\n", resp)
 }
 ```
@@ -891,11 +956,11 @@ Other parameters are passed through a pointer to a apiSetNewLogLevelRequest stru
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **logging** | [**LoggingLevel**](LoggingLevel.md) |  | 
+ **loggingLevel** | [**LoggingLevel**](LoggingLevel.md) |  | 
 
 ### Return type
 
-[**[]LoggingLevel**](LoggingLevel.md)
+[**LoggingLevelResponse**](LoggingLevelResponse.md)
 
 ### Authorization
 

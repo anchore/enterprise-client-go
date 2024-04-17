@@ -79,6 +79,17 @@ type SystemApi interface {
 	DescribePolicyExecute(r ApiDescribePolicyRequest) ([]GateSpec, *http.Response, error)
 
 	/*
+	GetAnchorectl Get an anchorectl binary compatible with this version of Anchore Enterprise
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiGetAnchorectlRequest
+	*/
+	GetAnchorectl(ctx context.Context) ApiGetAnchorectlRequest
+
+	// GetAnchorectlExecute executes the request
+	GetAnchorectlExecute(r ApiGetAnchorectlRequest) (*http.Response, error)
+
+	/*
 	GetServiceDetail System status
 
 	Get the system status including queue lengths
@@ -211,8 +222,8 @@ type SystemApi interface {
 	SetNewLogLevel(ctx context.Context) ApiSetNewLogLevelRequest
 
 	// SetNewLogLevelExecute executes the request
-	//  @return []LoggingLevel
-	SetNewLogLevelExecute(r ApiSetNewLogLevelRequest) ([]LoggingLevel, *http.Response, error)
+	//  @return LoggingLevelResponse
+	SetNewLogLevelExecute(r ApiSetNewLogLevelRequest) (*LoggingLevelResponse, *http.Response, error)
 
 	/*
 	TestWebhook Adds the capabilities to test a webhook delivery for the given notification type
@@ -652,6 +663,114 @@ func (a *SystemApiService) DescribePolicyExecute(r ApiDescribePolicyRequest) ([]
 	}
 
 	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiGetAnchorectlRequest struct {
+	ctx context.Context
+	ApiService SystemApi
+	operatingSystem *string
+	architecture *string
+}
+
+// The operating system (platform) of the binary to retrieve
+func (r ApiGetAnchorectlRequest) OperatingSystem(operatingSystem string) ApiGetAnchorectlRequest {
+	r.operatingSystem = &operatingSystem
+	return r
+}
+
+// The architecture of the binary to retrieve
+func (r ApiGetAnchorectlRequest) Architecture(architecture string) ApiGetAnchorectlRequest {
+	r.architecture = &architecture
+	return r
+}
+
+func (r ApiGetAnchorectlRequest) Execute() (*http.Response, error) {
+	return r.ApiService.GetAnchorectlExecute(r)
+}
+
+/*
+GetAnchorectl Get an anchorectl binary compatible with this version of Anchore Enterprise
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return ApiGetAnchorectlRequest
+*/
+func (a *SystemApiService) GetAnchorectl(ctx context.Context) ApiGetAnchorectlRequest {
+	return ApiGetAnchorectlRequest{
+		ApiService: a,
+		ctx: ctx,
+	}
+}
+
+// Execute executes the request
+func (a *SystemApiService) GetAnchorectlExecute(r ApiGetAnchorectlRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod   = http.MethodGet
+		localVarPostBody     interface{}
+		formFiles            []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SystemApiService.GetAnchorectl")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/system/anchorectl"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.operatingSystem == nil {
+		return nil, reportError("operatingSystem is required and must be specified")
+	}
+	if r.architecture == nil {
+		return nil, reportError("architecture is required and must be specified")
+	}
+
+	localVarQueryParams.Add("operating_system", parameterToString(*r.operatingSystem, ""))
+	localVarQueryParams.Add("architecture", parameterToString(*r.architecture, ""))
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
 }
 
 type ApiGetServiceDetailRequest struct {
@@ -1606,15 +1725,15 @@ func (a *SystemApiService) PostSystemFeedsExecute(r ApiPostSystemFeedsRequest) (
 type ApiSetNewLogLevelRequest struct {
 	ctx context.Context
 	ApiService SystemApi
-	logging *LoggingLevel
+	loggingLevel *LoggingLevel
 }
 
-func (r ApiSetNewLogLevelRequest) Logging(logging LoggingLevel) ApiSetNewLogLevelRequest {
-	r.logging = &logging
+func (r ApiSetNewLogLevelRequest) LoggingLevel(loggingLevel LoggingLevel) ApiSetNewLogLevelRequest {
+	r.loggingLevel = &loggingLevel
 	return r
 }
 
-func (r ApiSetNewLogLevelRequest) Execute() ([]LoggingLevel, *http.Response, error) {
+func (r ApiSetNewLogLevelRequest) Execute() (*LoggingLevelResponse, *http.Response, error) {
 	return r.ApiService.SetNewLogLevelExecute(r)
 }
 
@@ -1634,13 +1753,13 @@ func (a *SystemApiService) SetNewLogLevel(ctx context.Context) ApiSetNewLogLevel
 }
 
 // Execute executes the request
-//  @return []LoggingLevel
-func (a *SystemApiService) SetNewLogLevelExecute(r ApiSetNewLogLevelRequest) ([]LoggingLevel, *http.Response, error) {
+//  @return LoggingLevelResponse
+func (a *SystemApiService) SetNewLogLevelExecute(r ApiSetNewLogLevelRequest) (*LoggingLevelResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  []LoggingLevel
+		localVarReturnValue  *LoggingLevelResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SystemApiService.SetNewLogLevel")
@@ -1653,8 +1772,8 @@ func (a *SystemApiService) SetNewLogLevelExecute(r ApiSetNewLogLevelRequest) ([]
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.logging == nil {
-		return localVarReturnValue, nil, reportError("logging is required and must be specified")
+	if r.loggingLevel == nil {
+		return localVarReturnValue, nil, reportError("loggingLevel is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -1675,7 +1794,7 @@ func (a *SystemApiService) SetNewLogLevelExecute(r ApiSetNewLogLevelRequest) ([]
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.logging
+	localVarPostBody = r.loggingLevel
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err

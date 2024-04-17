@@ -9199,6 +9199,45 @@ paths:
       - System
       x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.system
       x-anchore-authz-action: None
+  /system/anchorectl:
+    get:
+      operationId: get_anchorectl
+      parameters:
+      - description: The operating system (platform) of the binary to retrieve
+        explode: true
+        in: query
+        name: operating_system
+        required: true
+        schema:
+          enum:
+          - linux
+          - darwin
+          - windows
+          type: string
+        style: form
+      - description: The architecture of the binary to retrieve
+        explode: true
+        in: query
+        name: architecture
+        required: true
+        schema:
+          enum:
+          - amd64
+          - arm64
+          type: string
+        style: form
+      responses:
+        "200":
+          description: The binary requested
+        "400":
+          description: The request was malformed
+        "404":
+          description: The binary was not found
+      summary: Get an anchorectl binary compatible with this version of Anchore Enterprise
+      tags:
+      - System
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.anchore_ctl
+      x-anchore-authz-action: None
   /system/artifact-lifecycle-policies:
     get:
       operationId: list_artifact_lifecycle_policies
@@ -9524,7 +9563,6 @@ paths:
       - System
       x-anchore-authz-action: updateLoggingLevel
       x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.system
-      x-codegen-request-body-name: logging
   /system/policy-spec:
     get:
       description: Get the policy language spec for this service
@@ -14177,9 +14215,13 @@ components:
       - service_name
       type: object
     LoggingLevelResponse:
-      items:
-        $ref: '#/components/schemas/LoggingLevel'
-      type: array
+      example:
+        service_name:
+          logging_level: trace
+      properties:
+        service_name:
+          $ref: '#/components/schemas/LoggingLevelResponse_service_name'
+      type: object
     JavaPackageContent:
       example:
         licenses:
@@ -14587,6 +14629,9 @@ components:
         image_tag: image_tag
       properties:
         id:
+          maxLength: 36
+          minLength: 36
+          pattern: "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"
           type: string
         name:
           type: string
@@ -14695,6 +14740,9 @@ components:
           key: labels
       properties:
         uid:
+          maxLength: 36
+          minLength: 36
+          pattern: "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"
           type: string
         name:
           type: string
@@ -20637,6 +20685,20 @@ components:
       anyOf:
       - type: string
       - $ref: '#/components/schemas/ImportPackageCPE'
+    LoggingLevelResponse_service_name:
+      example:
+        logging_level: trace
+      properties:
+        logging_level:
+          enum:
+          - trace
+          - debug
+          - info
+          - warning
+          - error
+          - critical
+          type: string
+      type: object
     NativeSBOMPackage_cpes_inner:
       anyOf:
       - type: string
