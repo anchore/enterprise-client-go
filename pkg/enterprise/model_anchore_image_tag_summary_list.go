@@ -18,6 +18,7 @@ import (
 // AnchoreImageTagSummaryList a list of AnchoreImageTagSummary objects
 type AnchoreImageTagSummaryList struct {
 	Items []AnchoreImageTagSummary `json:"items,omitempty"`
+	TotalRows *int32 `json:"total_rows,omitempty"`
 }
 
 // NewAnchoreImageTagSummaryList instantiates a new AnchoreImageTagSummaryList object
@@ -69,10 +70,45 @@ func (o *AnchoreImageTagSummaryList) SetItems(v []AnchoreImageTagSummary) {
 	o.Items = v
 }
 
+// GetTotalRows returns the TotalRows field value if set, zero value otherwise.
+func (o *AnchoreImageTagSummaryList) GetTotalRows() int32 {
+	if o == nil || o.TotalRows == nil {
+		var ret int32
+		return ret
+	}
+	return *o.TotalRows
+}
+
+// GetTotalRowsOk returns a tuple with the TotalRows field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AnchoreImageTagSummaryList) GetTotalRowsOk() (*int32, bool) {
+	if o == nil || o.TotalRows == nil {
+		return nil, false
+	}
+	return o.TotalRows, true
+}
+
+// HasTotalRows returns a boolean if a field has been set.
+func (o *AnchoreImageTagSummaryList) HasTotalRows() bool {
+	if o != nil && o.TotalRows != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetTotalRows gets a reference to the given int32 and assigns it to the TotalRows field.
+func (o *AnchoreImageTagSummaryList) SetTotalRows(v int32) {
+	o.TotalRows = &v
+}
+
 func (o AnchoreImageTagSummaryList) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.Items != nil {
 		toSerialize["items"] = o.Items
+	}
+	if o.TotalRows != nil {
+		toSerialize["total_rows"] = o.TotalRows
 	}
 	return json.Marshal(toSerialize)
 }

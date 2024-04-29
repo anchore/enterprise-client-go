@@ -1376,7 +1376,7 @@ func (a *ImportsApiService) ImportImageDockerfileExecute(r ApiImportImageDockerf
 	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"text/plain; utf-8"}
+	localVarHTTPContentTypes := []string{"text/plain"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)

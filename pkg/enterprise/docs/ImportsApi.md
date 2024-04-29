@@ -698,7 +698,7 @@ No authorization required
 
 ### HTTP request headers
 
-- **Content-Type**: text/plain; utf-8
+- **Content-Type**: text/plain
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)

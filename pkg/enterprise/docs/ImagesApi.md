@@ -23,10 +23,11 @@ Method | HTTP request | Description
 [**ListFileContentSearchResults**](ImagesApi.md#ListFileContentSearchResults) | **Get** /images/{image_digest}/artifacts/file-content-search | Return a list of analyzer artifacts of the specified type
 [**ListImageContent**](ImagesApi.md#ListImageContent) | **Get** /images/{image_digest}/content | List image content types
 [**ListImageMetadata**](ImagesApi.md#ListImageMetadata) | **Get** /images/{image_digest}/metadata | List image metadata types
-[**ListImageTags**](ImagesApi.md#ListImageTags) | **Get** /summaries/image-tags | List all visible image digests and tags
 [**ListImages**](ImagesApi.md#ListImages) | **Get** /images | List all visible images
 [**ListRetrievedFiles**](ImagesApi.md#ListRetrievedFiles) | **Get** /images/{image_digest}/artifacts/retrieved-files | Return a list of analyzer artifacts of the specified type
 [**ListSecretSearchResults**](ImagesApi.md#ListSecretSearchResults) | **Get** /images/{image_digest}/artifacts/secret-search | Return a list of analyzer artifacts of the specified type
+[**SummaryImageCounts**](ImagesApi.md#SummaryImageCounts) | **Get** /summaries/image-counts | Image summary counts
+[**SummaryImageTags**](ImagesApi.md#SummaryImageTags) | **Get** /summaries/image-tags | Summarize image tags
 
 
 
@@ -1395,74 +1396,6 @@ No authorization required
 [[Back to README]](../README.md)
 
 
-## ListImageTags
-
-> AnchoreImageTagSummaryList ListImageTags(ctx).ImageStatus(imageStatus).XAnchoreAccount(xAnchoreAccount).Execute()
-
-List all visible image digests and tags
-
-
-
-### Example
-
-```go
-package main
-
-import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
-)
-
-func main() {
-    imageStatus := []string{"ImageStatus_example"} // []string | Filter images in one or more states such as active, deleting. Defaults to active images only if unspecified (optional) (default to ["active"])
-    xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
-
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ImagesApi.ListImageTags(context.Background()).ImageStatus(imageStatus).XAnchoreAccount(xAnchoreAccount).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ImagesApi.ListImageTags``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ListImageTags`: AnchoreImageTagSummaryList
-    fmt.Fprintf(os.Stdout, "Response from `ImagesApi.ListImageTags`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiListImageTagsRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **imageStatus** | **[]string** | Filter images in one or more states such as active, deleting. Defaults to active images only if unspecified | [default to [&quot;active&quot;]]
- **xAnchoreAccount** | **string** | An account name to change the resource scope of the request to that account, if permissions allow (admin only) | 
-
-### Return type
-
-[**AnchoreImageTagSummaryList**](AnchoreImageTagSummaryList.md)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
 ## ListImages
 
 > AnchoreImageList ListImages(ctx).ImageId(imageId).History(history).FullTag(fullTag).ImageStatus(imageStatus).AnalysisStatus(analysisStatus).XAnchoreAccount(xAnchoreAccount).Execute()
@@ -1660,6 +1593,164 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**[]SecretSearchResult**](SecretSearchResult.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## SummaryImageCounts
+
+> AnchoreImageSummaryCounts SummaryImageCounts(ctx).ImageStatus(imageStatus).Registry(registry).Repo(repo).XAnchoreAccount(xAnchoreAccount).Execute()
+
+Image summary counts
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    imageStatus := []string{"ImageStatus_example"} // []string | Filter images in one or more states such as active, deleting. Defaults to active images only if unspecified (optional) (default to ["active"])
+    registry := "registry_example" // string | Filter by registry (optional)
+    repo := "repo_example" // string | Filter by repo (optional)
+    xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.ImagesApi.SummaryImageCounts(context.Background()).ImageStatus(imageStatus).Registry(registry).Repo(repo).XAnchoreAccount(xAnchoreAccount).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `ImagesApi.SummaryImageCounts``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `SummaryImageCounts`: AnchoreImageSummaryCounts
+    fmt.Fprintf(os.Stdout, "Response from `ImagesApi.SummaryImageCounts`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiSummaryImageCountsRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **imageStatus** | **[]string** | Filter images in one or more states such as active, deleting. Defaults to active images only if unspecified | [default to [&quot;active&quot;]]
+ **registry** | **string** | Filter by registry | 
+ **repo** | **string** | Filter by repo | 
+ **xAnchoreAccount** | **string** | An account name to change the resource scope of the request to that account, if permissions allow (admin only) | 
+
+### Return type
+
+[**AnchoreImageSummaryCounts**](AnchoreImageSummaryCounts.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## SummaryImageTags
+
+> AnchoreImageTagSummaryList SummaryImageTags(ctx).ImageStatus(imageStatus).AnalysisStatus(analysisStatus).Registry(registry).Repository(repository).Tag(tag).OrderBy(orderBy).OrderByDescending(orderByDescending).Filter(filter).Limit(limit).Page(page).XAnchoreAccount(xAnchoreAccount).Execute()
+
+Summarize image tags
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    imageStatus := []string{"ImageStatus_example"} // []string | Filter images in one or more states such as active, deleting. Defaults to active images only if unspecified (optional) (default to ["active"])
+    analysisStatus := []string{"AnalysisStatus_example"} // []string | Filter images in one or more analysis_status such as analyzed, not_analyzed, analysis_failed. Defaults to unfiltered if unspecified (optional) (default to ["all"])
+    registry := "registry_example" // string | A registry name to filter result by (e.g. \"docker.io\") (optional)
+    repository := "repository_example" // string | A repository name to filter results by (e.g. \"jboss/keycloak\") (optional)
+    tag := "tag_example" // string | A tag value to filter results by (e.g. \"latest\", or \"v1.2.0\") (optional)
+    orderBy := "orderBy_example" // string | Field name to order by, ascending by default (optional)
+    orderByDescending := true // bool | Configures the sort to be descending instead of ascending (optional)
+    filter := "filter_example" // string | Filter by 'image_digest' or 'full_tag' fields, using partial or full string match (optional)
+    limit := int32(56) // int32 | Maximum number of rows to return (optional)
+    page := int32(56) // int32 | Page number to return, one's based (optional) (default to 1)
+    xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.ImagesApi.SummaryImageTags(context.Background()).ImageStatus(imageStatus).AnalysisStatus(analysisStatus).Registry(registry).Repository(repository).Tag(tag).OrderBy(orderBy).OrderByDescending(orderByDescending).Filter(filter).Limit(limit).Page(page).XAnchoreAccount(xAnchoreAccount).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `ImagesApi.SummaryImageTags``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `SummaryImageTags`: AnchoreImageTagSummaryList
+    fmt.Fprintf(os.Stdout, "Response from `ImagesApi.SummaryImageTags`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiSummaryImageTagsRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **imageStatus** | **[]string** | Filter images in one or more states such as active, deleting. Defaults to active images only if unspecified | [default to [&quot;active&quot;]]
+ **analysisStatus** | **[]string** | Filter images in one or more analysis_status such as analyzed, not_analyzed, analysis_failed. Defaults to unfiltered if unspecified | [default to [&quot;all&quot;]]
+ **registry** | **string** | A registry name to filter result by (e.g. \&quot;docker.io\&quot;) | 
+ **repository** | **string** | A repository name to filter results by (e.g. \&quot;jboss/keycloak\&quot;) | 
+ **tag** | **string** | A tag value to filter results by (e.g. \&quot;latest\&quot;, or \&quot;v1.2.0\&quot;) | 
+ **orderBy** | **string** | Field name to order by, ascending by default | 
+ **orderByDescending** | **bool** | Configures the sort to be descending instead of ascending | 
+ **filter** | **string** | Filter by &#39;image_digest&#39; or &#39;full_tag&#39; fields, using partial or full string match | 
+ **limit** | **int32** | Maximum number of rows to return | 
+ **page** | **int32** | Page number to return, one&#39;s based | [default to 1]
+ **xAnchoreAccount** | **string** | An account name to change the resource scope of the request to that account, if permissions allow (admin only) | 
+
+### Return type
+
+[**AnchoreImageTagSummaryList**](AnchoreImageTagSummaryList.md)
 
 ### Authorization
 

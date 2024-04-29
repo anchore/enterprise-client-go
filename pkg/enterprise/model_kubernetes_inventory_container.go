@@ -17,6 +17,7 @@ import (
 
 // KubernetesInventoryContainer struct for KubernetesInventoryContainer
 type KubernetesInventoryContainer struct {
+	// Corresponds to ContainerStatus.containerID in the Kubernetes Spec
 	Id string `json:"id"`
 	Name string `json:"name"`
 	ImageTag string `json:"image_tag"`

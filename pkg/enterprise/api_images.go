@@ -280,20 +280,6 @@ type ImagesApi interface {
 	ListImageMetadataExecute(r ApiListImageMetadataRequest) ([]string, *http.Response, error)
 
 	/*
-	ListImageTags List all visible image digests and tags
-
-	List all image tags visible to the user
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiListImageTagsRequest
-	*/
-	ListImageTags(ctx context.Context) ApiListImageTagsRequest
-
-	// ListImageTagsExecute executes the request
-	//  @return AnchoreImageTagSummaryList
-	ListImageTagsExecute(r ApiListImageTagsRequest) (*AnchoreImageTagSummaryList, *http.Response, error)
-
-	/*
 	ListImages List all visible images
 
 	List all images visible to the user
@@ -332,6 +318,34 @@ type ImagesApi interface {
 	// ListSecretSearchResultsExecute executes the request
 	//  @return []SecretSearchResult
 	ListSecretSearchResultsExecute(r ApiListSecretSearchResultsRequest) ([]SecretSearchResult, *http.Response, error)
+
+	/*
+	SummaryImageCounts Image summary counts
+
+	Count tags and images by analysis status
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiSummaryImageCountsRequest
+	*/
+	SummaryImageCounts(ctx context.Context) ApiSummaryImageCountsRequest
+
+	// SummaryImageCountsExecute executes the request
+	//  @return AnchoreImageSummaryCounts
+	SummaryImageCountsExecute(r ApiSummaryImageCountsRequest) (*AnchoreImageSummaryCounts, *http.Response, error)
+
+	/*
+	SummaryImageTags Summarize image tags
+
+	List all image tags visible to the user
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiSummaryImageTagsRequest
+	*/
+	SummaryImageTags(ctx context.Context) ApiSummaryImageTagsRequest
+
+	// SummaryImageTagsExecute executes the request
+	//  @return AnchoreImageTagSummaryList
+	SummaryImageTagsExecute(r ApiSummaryImageTagsRequest) (*AnchoreImageTagSummaryList, *http.Response, error)
 }
 
 // ImagesApiService ImagesApi service
@@ -2745,134 +2759,6 @@ func (a *ImagesApiService) ListImageMetadataExecute(r ApiListImageMetadataReques
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiListImageTagsRequest struct {
-	ctx context.Context
-	ApiService ImagesApi
-	imageStatus *[]string
-	xAnchoreAccount *string
-}
-
-// Filter images in one or more states such as active, deleting. Defaults to active images only if unspecified
-func (r ApiListImageTagsRequest) ImageStatus(imageStatus []string) ApiListImageTagsRequest {
-	r.imageStatus = &imageStatus
-	return r
-}
-
-// An account name to change the resource scope of the request to that account, if permissions allow (admin only)
-func (r ApiListImageTagsRequest) XAnchoreAccount(xAnchoreAccount string) ApiListImageTagsRequest {
-	r.xAnchoreAccount = &xAnchoreAccount
-	return r
-}
-
-func (r ApiListImageTagsRequest) Execute() (*AnchoreImageTagSummaryList, *http.Response, error) {
-	return r.ApiService.ListImageTagsExecute(r)
-}
-
-/*
-ListImageTags List all visible image digests and tags
-
-List all image tags visible to the user
-
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiListImageTagsRequest
-*/
-func (a *ImagesApiService) ListImageTags(ctx context.Context) ApiListImageTagsRequest {
-	return ApiListImageTagsRequest{
-		ApiService: a,
-		ctx: ctx,
-	}
-}
-
-// Execute executes the request
-//  @return AnchoreImageTagSummaryList
-func (a *ImagesApiService) ListImageTagsExecute(r ApiListImageTagsRequest) (*AnchoreImageTagSummaryList, *http.Response, error) {
-	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *AnchoreImageTagSummaryList
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ImagesApiService.ListImageTags")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/summaries/image-tags"
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	if r.imageStatus != nil {
-		localVarQueryParams.Add("image_status", parameterToString(*r.imageStatus, "csv"))
-	}
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	if r.xAnchoreAccount != nil {
-		localVarHeaderParams["x-anchore-account"] = parameterToString(*r.xAnchoreAccount, "")
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		if localVarHTTPResponse.StatusCode == 500 {
-			var v ApiErrorResponse
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-			newErr.model = v
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
 type ApiListImagesRequest struct {
 	ctx context.Context
 	ApiService ImagesApi
@@ -3227,6 +3113,372 @@ func (a *ImagesApiService) ListSecretSearchResultsExecute(r ApiListSecretSearchR
 		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiSummaryImageCountsRequest struct {
+	ctx context.Context
+	ApiService ImagesApi
+	imageStatus *[]string
+	registry *string
+	repo *string
+	xAnchoreAccount *string
+}
+
+// Filter images in one or more states such as active, deleting. Defaults to active images only if unspecified
+func (r ApiSummaryImageCountsRequest) ImageStatus(imageStatus []string) ApiSummaryImageCountsRequest {
+	r.imageStatus = &imageStatus
+	return r
+}
+
+// Filter by registry
+func (r ApiSummaryImageCountsRequest) Registry(registry string) ApiSummaryImageCountsRequest {
+	r.registry = &registry
+	return r
+}
+
+// Filter by repo
+func (r ApiSummaryImageCountsRequest) Repo(repo string) ApiSummaryImageCountsRequest {
+	r.repo = &repo
+	return r
+}
+
+// An account name to change the resource scope of the request to that account, if permissions allow (admin only)
+func (r ApiSummaryImageCountsRequest) XAnchoreAccount(xAnchoreAccount string) ApiSummaryImageCountsRequest {
+	r.xAnchoreAccount = &xAnchoreAccount
+	return r
+}
+
+func (r ApiSummaryImageCountsRequest) Execute() (*AnchoreImageSummaryCounts, *http.Response, error) {
+	return r.ApiService.SummaryImageCountsExecute(r)
+}
+
+/*
+SummaryImageCounts Image summary counts
+
+Count tags and images by analysis status
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return ApiSummaryImageCountsRequest
+*/
+func (a *ImagesApiService) SummaryImageCounts(ctx context.Context) ApiSummaryImageCountsRequest {
+	return ApiSummaryImageCountsRequest{
+		ApiService: a,
+		ctx: ctx,
+	}
+}
+
+// Execute executes the request
+//  @return AnchoreImageSummaryCounts
+func (a *ImagesApiService) SummaryImageCountsExecute(r ApiSummaryImageCountsRequest) (*AnchoreImageSummaryCounts, *http.Response, error) {
+	var (
+		localVarHTTPMethod   = http.MethodGet
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *AnchoreImageSummaryCounts
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ImagesApiService.SummaryImageCounts")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/summaries/image-counts"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	if r.imageStatus != nil {
+		localVarQueryParams.Add("image_status", parameterToString(*r.imageStatus, "csv"))
+	}
+	if r.registry != nil {
+		localVarQueryParams.Add("registry", parameterToString(*r.registry, ""))
+	}
+	if r.repo != nil {
+		localVarQueryParams.Add("repo", parameterToString(*r.repo, ""))
+	}
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	if r.xAnchoreAccount != nil {
+		localVarHeaderParams["x-anchore-account"] = parameterToString(*r.xAnchoreAccount, "")
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 500 {
+			var v ApiErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiSummaryImageTagsRequest struct {
+	ctx context.Context
+	ApiService ImagesApi
+	imageStatus *[]string
+	analysisStatus *[]string
+	registry *string
+	repository *string
+	tag *string
+	orderBy *string
+	orderByDescending *bool
+	filter *string
+	limit *int32
+	page *int32
+	xAnchoreAccount *string
+}
+
+// Filter images in one or more states such as active, deleting. Defaults to active images only if unspecified
+func (r ApiSummaryImageTagsRequest) ImageStatus(imageStatus []string) ApiSummaryImageTagsRequest {
+	r.imageStatus = &imageStatus
+	return r
+}
+
+// Filter images in one or more analysis_status such as analyzed, not_analyzed, analysis_failed. Defaults to unfiltered if unspecified
+func (r ApiSummaryImageTagsRequest) AnalysisStatus(analysisStatus []string) ApiSummaryImageTagsRequest {
+	r.analysisStatus = &analysisStatus
+	return r
+}
+
+// A registry name to filter result by (e.g. \&quot;docker.io\&quot;)
+func (r ApiSummaryImageTagsRequest) Registry(registry string) ApiSummaryImageTagsRequest {
+	r.registry = &registry
+	return r
+}
+
+// A repository name to filter results by (e.g. \&quot;jboss/keycloak\&quot;)
+func (r ApiSummaryImageTagsRequest) Repository(repository string) ApiSummaryImageTagsRequest {
+	r.repository = &repository
+	return r
+}
+
+// A tag value to filter results by (e.g. \&quot;latest\&quot;, or \&quot;v1.2.0\&quot;)
+func (r ApiSummaryImageTagsRequest) Tag(tag string) ApiSummaryImageTagsRequest {
+	r.tag = &tag
+	return r
+}
+
+// Field name to order by, ascending by default
+func (r ApiSummaryImageTagsRequest) OrderBy(orderBy string) ApiSummaryImageTagsRequest {
+	r.orderBy = &orderBy
+	return r
+}
+
+// Configures the sort to be descending instead of ascending
+func (r ApiSummaryImageTagsRequest) OrderByDescending(orderByDescending bool) ApiSummaryImageTagsRequest {
+	r.orderByDescending = &orderByDescending
+	return r
+}
+
+// Filter by &#39;image_digest&#39; or &#39;full_tag&#39; fields, using partial or full string match
+func (r ApiSummaryImageTagsRequest) Filter(filter string) ApiSummaryImageTagsRequest {
+	r.filter = &filter
+	return r
+}
+
+// Maximum number of rows to return
+func (r ApiSummaryImageTagsRequest) Limit(limit int32) ApiSummaryImageTagsRequest {
+	r.limit = &limit
+	return r
+}
+
+// Page number to return, one&#39;s based
+func (r ApiSummaryImageTagsRequest) Page(page int32) ApiSummaryImageTagsRequest {
+	r.page = &page
+	return r
+}
+
+// An account name to change the resource scope of the request to that account, if permissions allow (admin only)
+func (r ApiSummaryImageTagsRequest) XAnchoreAccount(xAnchoreAccount string) ApiSummaryImageTagsRequest {
+	r.xAnchoreAccount = &xAnchoreAccount
+	return r
+}
+
+func (r ApiSummaryImageTagsRequest) Execute() (*AnchoreImageTagSummaryList, *http.Response, error) {
+	return r.ApiService.SummaryImageTagsExecute(r)
+}
+
+/*
+SummaryImageTags Summarize image tags
+
+List all image tags visible to the user
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return ApiSummaryImageTagsRequest
+*/
+func (a *ImagesApiService) SummaryImageTags(ctx context.Context) ApiSummaryImageTagsRequest {
+	return ApiSummaryImageTagsRequest{
+		ApiService: a,
+		ctx: ctx,
+	}
+}
+
+// Execute executes the request
+//  @return AnchoreImageTagSummaryList
+func (a *ImagesApiService) SummaryImageTagsExecute(r ApiSummaryImageTagsRequest) (*AnchoreImageTagSummaryList, *http.Response, error) {
+	var (
+		localVarHTTPMethod   = http.MethodGet
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *AnchoreImageTagSummaryList
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ImagesApiService.SummaryImageTags")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/summaries/image-tags"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	if r.imageStatus != nil {
+		localVarQueryParams.Add("image_status", parameterToString(*r.imageStatus, "csv"))
+	}
+	if r.analysisStatus != nil {
+		localVarQueryParams.Add("analysis_status", parameterToString(*r.analysisStatus, "csv"))
+	}
+	if r.registry != nil {
+		localVarQueryParams.Add("registry", parameterToString(*r.registry, ""))
+	}
+	if r.repository != nil {
+		localVarQueryParams.Add("repository", parameterToString(*r.repository, ""))
+	}
+	if r.tag != nil {
+		localVarQueryParams.Add("tag", parameterToString(*r.tag, ""))
+	}
+	if r.orderBy != nil {
+		localVarQueryParams.Add("order_by", parameterToString(*r.orderBy, ""))
+	}
+	if r.orderByDescending != nil {
+		localVarQueryParams.Add("order_by_descending", parameterToString(*r.orderByDescending, ""))
+	}
+	if r.filter != nil {
+		localVarQueryParams.Add("filter", parameterToString(*r.filter, ""))
+	}
+	if r.limit != nil {
+		localVarQueryParams.Add("limit", parameterToString(*r.limit, ""))
+	}
+	if r.page != nil {
+		localVarQueryParams.Add("page", parameterToString(*r.page, ""))
+	}
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	if r.xAnchoreAccount != nil {
+		localVarHeaderParams["x-anchore-account"] = parameterToString(*r.xAnchoreAccount, "")
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 500 {
+			var v ApiErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
