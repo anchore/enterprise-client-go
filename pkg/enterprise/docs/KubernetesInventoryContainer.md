@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Id** | **string** |  | 
+**Id** | **string** | Corresponds to ContainerStatus.containerID in the Kubernetes Spec | 
 **Name** | **string** |  | 
 **ImageTag** | **string** |  | 
 **ImageDigest** | Pointer to **string** |  | [optional] 

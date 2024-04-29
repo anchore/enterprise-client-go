@@ -3,7 +3,7 @@ Anchore API
 
 This is the Anchore API. Provides the external API for users of Anchore Enterprise.
 
-API version: 2.4.0
+API version: 2.5.0
 Contact: dev@anchore.com
 */
 
@@ -38,7 +38,7 @@ type RbacManagerSamlConfigurationGet struct {
 	IdpAccountAttribute *string `json:"idp_account_attribute,omitempty"`
 	// The SAML attribute to use from the response assertions to determine the anchore role(s) to assign a new user in the specified account. If unset, the default is used.
 	IdpRoleAttribute *string `json:"idp_role_attribute,omitempty"`
-	// The SAML attribute to use from the response assertions to determine the SSO groups the user is a member of. If unset, the default is used (memberOf).
+	// The default value is `memberOf`. This field is available to overwrite the SAML attribute if your IDP is using a different SSO group value during the response assertions.
 	IdpGroupsAttribute *string `json:"idp_groups_attribute,omitempty"`
 	// The anchore account to assign all users to from this IDP if no account attribute is mapped or present.
 	DefaultAccount *string `json:"default_account,omitempty"`

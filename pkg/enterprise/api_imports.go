@@ -3,7 +3,7 @@ Anchore API
 
 This is the Anchore API. Provides the external API for users of Anchore Enterprise.
 
-API version: 2.4.0
+API version: 2.5.0
 Contact: dev@anchore.com
 */
 
@@ -1376,7 +1376,7 @@ func (a *ImportsApiService) ImportImageDockerfileExecute(r ApiImportImageDockerf
 	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"text/plain; utf-8"}
+	localVarHTTPContentTypes := []string{"text/plain"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
