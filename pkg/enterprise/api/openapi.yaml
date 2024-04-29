@@ -20173,7 +20173,9 @@ components:
         last_updated: 2000-01-23T04:56:07.000+00:00
         idp_name: idp_name
         unified_roles:
-          role_name: role_name
+        - role_name: role_name
+          domain_name: domain_name
+        - role_name: role_name
           domain_name: domain_name
         created_at: 2000-01-23T04:56:07.000+00:00
         source: source
@@ -20217,7 +20219,11 @@ components:
           nullable: true
           type: string
         unified_roles:
-          $ref: '#/components/schemas/UnifiedRoles'
+          description: The unified list of RBAC roles this user currently has in this
+            account.
+          items:
+            $ref: '#/components/schemas/UnifiedRoles'
+          type: array
       required:
       - username
       type: object

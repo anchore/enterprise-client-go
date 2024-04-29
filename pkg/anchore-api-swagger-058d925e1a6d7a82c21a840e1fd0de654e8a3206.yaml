@@ -15176,7 +15176,8 @@ components:
         unified_roles:
           type: array
           description: The unified list of RBAC roles this user currently has in this account.
-          $ref: '#/components/schemas/UnifiedRoles'
+          items:
+            $ref: '#/components/schemas/UnifiedRoles'
       description: A username for authenticating with one or more types of credentials.
         User type defines the expected credentials allowed for the user. Native users
         have passwords, other users have no credential internally. Internal users
