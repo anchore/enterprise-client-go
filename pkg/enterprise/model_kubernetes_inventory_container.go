@@ -3,7 +3,7 @@ Anchore API
 
 This is the Anchore API. Provides the external API for users of Anchore Enterprise.
 
-API version: 2.4.0
+API version: 2.5.0
 Contact: dev@anchore.com
 */
 
@@ -17,6 +17,7 @@ import (
 
 // KubernetesInventoryContainer struct for KubernetesInventoryContainer
 type KubernetesInventoryContainer struct {
+	// Corresponds to ContainerStatus.containerID in the Kubernetes Spec
 	Id string `json:"id"`
 	Name string `json:"name"`
 	ImageTag string `json:"image_tag"`

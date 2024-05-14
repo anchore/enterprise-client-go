@@ -3,7 +3,7 @@ Anchore API
 
 This is the Anchore API. Provides the external API for users of Anchore Enterprise.
 
-API version: 2.4.0
+API version: 2.5.0
 Contact: dev@anchore.com
 */
 
@@ -23,6 +23,8 @@ type ArtifactLifecyclePolicyConditions struct {
 	EvenIfExistsInRuntimeInventory bool `json:"even_if_exists_in_runtime_inventory"`
 	// An image analysis must be this many days old before it will be considered for processing. An integer value less than or equal to zero will cause this field to be ignored.
 	DaysSinceAnalyzed int32 `json:"days_since_analyzed"`
+	// Include base images in the policy selection criteria.
+	IncludeBaseImages *bool `json:"include_base_images,omitempty"`
 	// The type of artifact that will be processed.
 	ArtifactType string `json:"artifact_type"`
 }
@@ -127,6 +129,38 @@ func (o *ArtifactLifecyclePolicyConditions) SetDaysSinceAnalyzed(v int32) {
 	o.DaysSinceAnalyzed = v
 }
 
+// GetIncludeBaseImages returns the IncludeBaseImages field value if set, zero value otherwise.
+func (o *ArtifactLifecyclePolicyConditions) GetIncludeBaseImages() bool {
+	if o == nil || o.IncludeBaseImages == nil {
+		var ret bool
+		return ret
+	}
+	return *o.IncludeBaseImages
+}
+
+// GetIncludeBaseImagesOk returns a tuple with the IncludeBaseImages field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ArtifactLifecyclePolicyConditions) GetIncludeBaseImagesOk() (*bool, bool) {
+	if o == nil || o.IncludeBaseImages == nil {
+		return nil, false
+	}
+	return o.IncludeBaseImages, true
+}
+
+// HasIncludeBaseImages returns a boolean if a field has been set.
+func (o *ArtifactLifecyclePolicyConditions) HasIncludeBaseImages() bool {
+	if o != nil && o.IncludeBaseImages != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetIncludeBaseImages gets a reference to the given bool and assigns it to the IncludeBaseImages field.
+func (o *ArtifactLifecyclePolicyConditions) SetIncludeBaseImages(v bool) {
+	o.IncludeBaseImages = &v
+}
+
 // GetArtifactType returns the ArtifactType field value
 func (o *ArtifactLifecyclePolicyConditions) GetArtifactType() string {
 	if o == nil {
@@ -161,6 +195,9 @@ func (o ArtifactLifecyclePolicyConditions) MarshalJSON() ([]byte, error) {
 	}
 	if true {
 		toSerialize["days_since_analyzed"] = o.DaysSinceAnalyzed
+	}
+	if o.IncludeBaseImages != nil {
+		toSerialize["include_base_images"] = o.IncludeBaseImages
 	}
 	if true {
 		toSerialize["artifact_type"] = o.ArtifactType

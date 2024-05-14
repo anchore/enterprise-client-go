@@ -3,7 +3,7 @@ Anchore API
 
 This is the Anchore API. Provides the external API for users of Anchore Enterprise.
 
-API version: 2.4.0
+API version: 2.5.0
 Contact: dev@anchore.com
 */
 
@@ -18,32 +18,32 @@ import (
 
 // PatchUserApiKeyRequest struct for PatchUserApiKeyRequest
 type PatchUserApiKeyRequest struct {
-	inter interface{}
+	interface{} *interface{}
 }
 
 // Unmarshal JSON data into any of the pointers in the struct
 func (dst *PatchUserApiKeyRequest) UnmarshalJSON(data []byte) error {
 	var err error
 	// try to unmarshal JSON data into interface{}
-	err = json.Unmarshal(data, &dst.inter);
+	err = json.Unmarshal(data, &dst.interface{});
 	if err == nil {
-		jsoninterface, _ := json.Marshal(dst.inter)
-		if string(jsoninterface) == "{}" { // empty struct
-			dst.inter = nil
+		jsoninterface{}, _ := json.Marshal(dst.interface{})
+		if string(jsoninterface{}) == "{}" { // empty struct
+			dst.interface{} = nil
 		} else {
 			return nil // data stored in dst.interface{}, return on the first match
 		}
 	} else {
-		dst.inter = nil
+		dst.interface{} = nil
 	}
 
-	return fmt.Errorf("data failed to match schemas in anyOf(PatchUserApiKeyRequest)")
+	return fmt.Errorf("Data failed to match schemas in anyOf(PatchUserApiKeyRequest)")
 }
 
 // Marshal data from the first non-nil pointers in the struct to JSON
 func (src *PatchUserApiKeyRequest) MarshalJSON() ([]byte, error) {
-	if src.inter != nil {
-		return json.Marshal(&src.inter)
+	if src.interface{} != nil {
+		return json.Marshal(&src.interface{})
 	}
 
 	return nil, nil // no data in anyOf schemas

@@ -8,7 +8,7 @@ info:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
   title: Anchore API
-  version: 2.4.0
+  version: 2.5.0
 servers:
 - url: /v2
 tags:
@@ -9131,7 +9131,7 @@ paths:
   /summaries/image-tags:
     get:
       description: List all image tags visible to the user
-      operationId: list_image_tags
+      operationId: summary_image_tags
       parameters:
       - description: "Filter images in one or more states such as active, deleting.\
           \ Defaults to active images only if unspecified"
@@ -9149,6 +9149,103 @@ paths:
             - deleting
             type: string
           type: array
+        style: form
+      - description: "Filter images in one or more analysis_status such as analyzed,\
+          \ not_analyzed, analysis_failed. Defaults to unfiltered if unspecified"
+        explode: false
+        in: query
+        name: analysis_status
+        required: false
+        schema:
+          default:
+          - all
+          items:
+            enum:
+            - all
+            - analyzed
+            - not_analyzed
+            - analysis_failed
+            - analyzing
+            type: string
+          type: array
+        style: form
+      - description: A registry name to filter result by (e.g. "docker.io")
+        explode: true
+        in: query
+        name: registry
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: A repository name to filter results by (e.g. "jboss/keycloak")
+        explode: true
+        in: query
+        name: repository
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: "A tag value to filter results by (e.g. \"latest\", or \"v1.2.0\"\
+          )"
+        explode: true
+        in: query
+        name: tag
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: "Field name to order by, ascending by default"
+        explode: true
+        in: query
+        name: order_by
+        required: false
+        schema:
+          enum:
+          - image_digest
+          - parent_digest
+          - analysis_status
+          - created_at
+          - image_id
+          - analyzed_at
+          - tag_detected_at
+          - image_status
+          - analysis_status
+          - full_tag
+          type: string
+        style: form
+      - description: Configures the sort to be descending instead of ascending
+        explode: true
+        in: query
+        name: order_by_descending
+        required: false
+        schema:
+          type: boolean
+        style: form
+      - description: "Filter by 'image_digest' or 'full_tag' fields, using partial\
+          \ or full string match"
+        explode: true
+        in: query
+        name: filter
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: Maximum number of rows to return
+        explode: true
+        in: query
+        name: limit
+        required: false
+        schema:
+          type: integer
+        style: form
+      - description: "Page number to return, one's based"
+        explode: true
+        in: query
+        name: page
+        required: false
+        schema:
+          default: 1
+          type: integer
         style: form
       - description: "An account name to change the resource scope of the request\
           \ to that account, if permissions allow (admin only)"
@@ -9172,7 +9269,72 @@ paths:
               schema:
                 $ref: '#/components/schemas/ApiErrorResponse'
           description: Internal Error
-      summary: List all visible image digests and tags
+      summary: Summarize image tags
+      tags:
+      - Images
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.images
+      x-anchore-authz-action: listImages
+  /summaries/image-counts:
+    get:
+      description: Count tags and images by analysis status
+      operationId: summary_image_counts
+      parameters:
+      - description: "Filter images in one or more states such as active, deleting.\
+          \ Defaults to active images only if unspecified"
+        explode: false
+        in: query
+        name: image_status
+        required: false
+        schema:
+          default:
+          - active
+          items:
+            enum:
+            - all
+            - active
+            - deleting
+            type: string
+          type: array
+        style: form
+      - description: Filter by registry
+        explode: true
+        in: query
+        name: registry
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: Filter by repo
+        explode: true
+        in: query
+        name: repo
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: "An account name to change the resource scope of the request\
+          \ to that account, if permissions allow (admin only)"
+        explode: false
+        in: header
+        name: x-anchore-account
+        required: false
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AnchoreImageSummaryCounts'
+          description: successful operation
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+          description: Internal Error
+      summary: Image summary counts
       tags:
       - Images
       x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.images
@@ -9563,6 +9725,7 @@ paths:
       - System
       x-anchore-authz-action: updateLoggingLevel
       x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.system
+      x-codegen-request-body-name: logging
   /system/policy-spec:
     get:
       description: Get the policy language spec for this service
@@ -11255,6 +11418,7 @@ components:
     AnchoreImageTagSummaryList:
       description: a list of AnchoreImageTagSummary objects
       example:
+        total_rows: 5
         items:
         - tag_detected_at: 1
           full_tag: full_tag
@@ -11279,8 +11443,32 @@ components:
           items:
             $ref: '#/components/schemas/AnchoreImageTagSummary'
           type: array
+        total_rows:
+          type: integer
       type: object
-    AnyValue: {}
+    AnchoreImageSummaryCounts:
+      description: Analysis stats for a repo
+      example:
+        analyzing: 5
+        images: 6
+        pending: 5
+        analyzed: 1
+        failed: 2
+        tags: 0
+      properties:
+        tags:
+          type: integer
+        images:
+          type: integer
+        analyzed:
+          type: integer
+        analyzing:
+          type: integer
+        pending:
+          type: integer
+        failed:
+          type: integer
+      type: object
     ApiErrorResponse:
       description: Generic HTTP API error response
       properties:
@@ -11762,6 +11950,7 @@ components:
           days_since_analyzed: 6
           artifact_type: image
           even_if_exists_in_runtime_inventory: true
+          include_base_images: true
           version: 0
         uuid: uuid
         deleted_at: 2000-01-23T04:56:07.000+00:00
@@ -11812,6 +12001,7 @@ components:
         days_since_analyzed: 6
         artifact_type: image
         even_if_exists_in_runtime_inventory: true
+        include_base_images: true
         version: 0
       properties:
         version:
@@ -11827,6 +12017,9 @@ components:
             be considered for processing. An integer value less than or equal to zero
             will cause this field to be ignored.
           type: integer
+        include_base_images:
+          description: Include base images in the policy selection criteria.
+          type: boolean
         artifact_type:
           description: The type of artifact that will be processed.
           enum:
@@ -14215,13 +14408,9 @@ components:
       - service_name
       type: object
     LoggingLevelResponse:
-      example:
-        service_name:
-          logging_level: trace
-      properties:
-        service_name:
-          $ref: '#/components/schemas/LoggingLevelResponse_service_name'
-      type: object
+      items:
+        $ref: '#/components/schemas/LoggingLevel'
+      type: array
     JavaPackageContent:
       example:
         licenses:
@@ -14629,9 +14818,8 @@ components:
         image_tag: image_tag
       properties:
         id:
-          maxLength: 36
-          minLength: 36
-          pattern: "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"
+          description: Corresponds to ContainerStatus.containerID in the Kubernetes
+            Spec
           type: string
         name:
           type: string
@@ -19969,6 +20157,9 @@ components:
       pattern: "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"
       type: string
     UnifiedRoles:
+      example:
+        role_name: role_name
+        domain_name: domain_name
       properties:
         role_name:
           description: The name of the RBAC Role
@@ -19987,23 +20178,10 @@ components:
         last_updated: 2000-01-23T04:56:07.000+00:00
         idp_name: idp_name
         unified_roles:
-          items:
-          - for_account: for_account
-            roles:
-            - role: role
-              membership_id: membership_id
-              created_at: 2000-01-23T04:56:07.000+00:00
-            - role: role
-              membership_id: membership_id
-              created_at: 2000-01-23T04:56:07.000+00:00
-          - for_account: for_account
-            roles:
-            - role: role
-              membership_id: membership_id
-              created_at: 2000-01-23T04:56:07.000+00:00
-            - role: role
-              membership_id: membership_id
-              created_at: 2000-01-23T04:56:07.000+00:00
+        - role_name: role_name
+          domain_name: domain_name
+        - role_name: role_name
+          domain_name: domain_name
         created_at: 2000-01-23T04:56:07.000+00:00
         source: source
         password_last_updated: 2000-01-23T04:56:07.000+00:00
@@ -20046,7 +20224,11 @@ components:
           nullable: true
           type: string
         unified_roles:
-          $ref: '#/components/schemas/UserGroupRoles'
+          description: The unified list of RBAC roles this user currently has in this
+            account.
+          items:
+            $ref: '#/components/schemas/UnifiedRoles'
+          type: array
       required:
       - username
       type: object
@@ -20685,20 +20867,6 @@ components:
       anyOf:
       - type: string
       - $ref: '#/components/schemas/ImportPackageCPE'
-    LoggingLevelResponse_service_name:
-      example:
-        logging_level: trace
-      properties:
-        logging_level:
-          enum:
-          - trace
-          - debug
-          - info
-          - warning
-          - error
-          - critical
-          type: string
-      type: object
     NativeSBOMPackage_cpes_inner:
       anyOf:
       - type: string

@@ -8,7 +8,7 @@ info:
   license:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
-  version: 2.4.0
+  version: 2.5.0
 servers:
 - url: /v2
 tags:
@@ -8190,13 +8190,14 @@ paths:
     get:
       tags:
       - Images
-      summary: List all visible image digests and tags
+      summary: Summarize image tags
       description: List all image tags visible to the user
-      operationId: list_image_tags
+      operationId: summary_image_tags
       parameters:
       - name: image_status
         in: query
-        description: Filter images in one or more states such as active, deleting.
+        description: >-
+          Filter images in one or more states such as active, deleting.
           Defaults to active images only if unspecified
         style: form
         explode: false
@@ -8210,6 +8211,77 @@ paths:
             - deleting
           default:
           - active
+      - name: analysis_status
+        in: query
+        description: >-
+          Filter images in one or more analysis_status such as analyzed, not_analyzed, analysis_failed.
+          Defaults to unfiltered if unspecified
+        style: form
+        explode: false
+        schema:
+          type: array
+          items:
+            type: string
+            enum:
+            - all
+            - analyzed
+            - not_analyzed
+            - analysis_failed
+            - analyzing
+          default:
+          - all
+      - name: registry
+        in: query
+        description: A registry name to filter result by (e.g. "docker.io")
+        schema:
+          type: string
+      - name: repository
+        in: query
+        description: A repository name to filter results by (e.g. "jboss/keycloak")
+        schema:
+          type: string
+      - name: tag
+        in: query
+        description: A tag value to filter results by (e.g. "latest", or "v1.2.0")
+        schema:
+          type: string
+      - name: order_by
+        in: query
+        description: Field name to order by, ascending by default
+        schema:
+          type: string
+          enum:
+            - image_digest
+            - parent_digest
+            - analysis_status
+            - created_at
+            - image_id
+            - analyzed_at
+            - tag_detected_at
+            - image_status
+            - analysis_status
+            - full_tag
+      - name: order_by_descending
+        in: query
+        description: Configures the sort to be descending instead of ascending
+        schema:
+          type: boolean
+      - name: filter
+        in: query
+        description: Filter by 'image_digest' or 'full_tag' fields, using partial or full string match
+        schema:
+          type: string
+      - name: limit
+        in: query
+        description: Maximum number of rows to return
+        schema:
+          type: integer
+      - name: page
+        in: query
+        description: Page number to return, one's based
+        schema:
+          type: integer
+          default: 1
       - name: x-anchore-account
         in: header
         description: An account name to change the resource scope of the request to
@@ -8223,6 +8295,62 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/AnchoreImageTagSummaryList'
+        500:
+          description: Internal Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.images
+      x-anchore-authz-action: listImages
+  /summaries/image-counts:
+    get:
+      tags:
+      - Images
+      summary: Image summary counts
+      description: Count tags and images by analysis status
+      operationId: summary_image_counts
+      parameters:
+      - name: image_status
+        in: query
+        description: >-
+          Filter images in one or more states such as active, deleting.
+          Defaults to active images only if unspecified
+        style: form
+        explode: false
+        schema:
+          type: array
+          items:
+            type: string
+            enum:
+            - all
+            - active
+            - deleting
+          default:
+          - active      
+      - name: registry
+        in: query
+        description: Filter by registry
+        schema:
+          type: string
+      - name: repo
+        in: query
+        description: Filter by repo
+        schema:
+          type: string
+      - name: x-anchore-account
+        in: header
+        description: An account name to change the resource scope of the request to
+          that account, if permissions allow (admin only)
+        schema:
+          type: string
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AnchoreImageSummaryCounts'
         500:
           description: Internal Error
           content:
@@ -8594,6 +8722,7 @@ paths:
                 $ref: '#/components/schemas/ApiErrorResponse'
       x-anchore-authz-action: updateLoggingLevel
       x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.system
+      x-codegen-request-body-name: logging
   /system/policy-spec:
     get:
       tags:
@@ -9946,8 +10075,25 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/AnchoreImageTagSummary'
+        total_rows:
+          type: integer
       description: a list of AnchoreImageTagSummary objects
-    AnyValue: {}
+    AnchoreImageSummaryCounts:
+      type: object
+      properties:
+        tags:
+          type: integer
+        images:
+          type: integer
+        analyzed:
+          type: integer
+        analyzing:
+          type: integer
+        pending:
+          type: integer
+        failed:
+          type: integer
+      description: Analysis stats for a repo
     ApiErrorResponse:
       type: object
       properties:
@@ -10280,6 +10426,9 @@ components:
             be considered for processing. An integer value less than or equal to zero
             will cause this field to be ignored.
           type: integer
+        include_base_images:
+          description: Include base images in the policy selection criteria.
+          type: boolean
         artifact_type:
           description: The type of artifact that will be processed.
           type: string
@@ -11814,20 +11963,9 @@ components:
             - error
             - critical
     LoggingLevelResponse:
-      type: object
-      properties:
-        service_name:
-          type: object
-          properties:
-            logging_level:
-              type: string
-              enum:
-                - trace
-                - debug
-                - info
-                - warning
-                - error
-                - critical
+      type: array
+      items:
+        $ref: '#/components/schemas/LoggingLevel'
     JavaPackageContent:
       type: object
       properties:
@@ -12079,7 +12217,8 @@ components:
       type: object
       properties:
         id:
-          $ref: '#/components/schemas/UUID'
+          type: string
+          description: Corresponds to ContainerStatus.containerID in the Kubernetes Spec
         name:
           type: string
         image_tag:
@@ -13835,7 +13974,7 @@ components:
             unset, the default is used.
         idp_groups_attribute:
           type: string
-          description: The default value is `memberOf`. This field is available to overwrite the 
+          description: The default value is `memberOf`. This field is available to overwrite the
             SAML attribute if your IDP is using a different SSO group value during the response assertions.
         default_account:
           type: string
@@ -15040,7 +15179,8 @@ components:
         unified_roles:
           type: array
           description: The unified list of RBAC roles this user currently has in this account.
-          $ref: '#/components/schemas/UserGroupRoles'
+          items:
+            $ref: '#/components/schemas/UnifiedRoles'
       description: A username for authenticating with one or more types of credentials.
         User type defines the expected credentials allowed for the user. Native users
         have passwords, other users have no credential internally. Internal users
