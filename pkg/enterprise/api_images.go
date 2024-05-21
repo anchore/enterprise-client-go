@@ -3,7 +3,7 @@ Anchore API
 
 This is the Anchore API. Provides the external API for users of Anchore Enterprise.
 
-API version: 2.5.0
+API version: 2.6.0
 Contact: dev@anchore.com
 */
 
@@ -2767,6 +2767,7 @@ type ApiListImagesRequest struct {
 	fullTag *string
 	imageStatus *string
 	analysisStatus *string
+	analyzedSince *string
 	xAnchoreAccount *string
 }
 
@@ -2797,6 +2798,12 @@ func (r ApiListImagesRequest) ImageStatus(imageStatus string) ApiListImagesReque
 // Filter by analysis_status value on the record.
 func (r ApiListImagesRequest) AnalysisStatus(analysisStatus string) ApiListImagesRequest {
 	r.analysisStatus = &analysisStatus
+	return r
+}
+
+// Filter by images analyzed on or after the specified datetime
+func (r ApiListImagesRequest) AnalyzedSince(analyzedSince string) ApiListImagesRequest {
+	r.analyzedSince = &analyzedSince
 	return r
 }
 
@@ -2860,6 +2867,9 @@ func (a *ImagesApiService) ListImagesExecute(r ApiListImagesRequest) (*AnchoreIm
 	}
 	if r.analysisStatus != nil {
 		localVarQueryParams.Add("analysis_status", parameterToString(*r.analysisStatus, ""))
+	}
+	if r.analyzedSince != nil {
+		localVarQueryParams.Add("analyzed_since", parameterToString(*r.analyzedSince, ""))
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -3282,11 +3292,12 @@ type ApiSummaryImageTagsRequest struct {
 	ApiService ImagesApi
 	imageStatus *[]string
 	analysisStatus *[]string
+	analyzedSince *string
 	registry *string
 	repository *string
 	tag *string
-	orderBy *string
-	orderByDescending *bool
+	orderBy *[]string
+	orderByDescending *[]bool
 	filter *string
 	limit *int32
 	page *int32
@@ -3302,6 +3313,12 @@ func (r ApiSummaryImageTagsRequest) ImageStatus(imageStatus []string) ApiSummary
 // Filter images in one or more analysis_status such as analyzed, not_analyzed, analysis_failed. Defaults to unfiltered if unspecified
 func (r ApiSummaryImageTagsRequest) AnalysisStatus(analysisStatus []string) ApiSummaryImageTagsRequest {
 	r.analysisStatus = &analysisStatus
+	return r
+}
+
+// Filter images analyzed on or after the specified datetime
+func (r ApiSummaryImageTagsRequest) AnalyzedSince(analyzedSince string) ApiSummaryImageTagsRequest {
+	r.analyzedSince = &analyzedSince
 	return r
 }
 
@@ -3323,14 +3340,14 @@ func (r ApiSummaryImageTagsRequest) Tag(tag string) ApiSummaryImageTagsRequest {
 	return r
 }
 
-// Field name to order by, ascending by default
-func (r ApiSummaryImageTagsRequest) OrderBy(orderBy string) ApiSummaryImageTagsRequest {
+// List of field name(s) to order by, ascending by default
+func (r ApiSummaryImageTagsRequest) OrderBy(orderBy []string) ApiSummaryImageTagsRequest {
 	r.orderBy = &orderBy
 	return r
 }
 
-// Configures the sort to be descending instead of ascending
-func (r ApiSummaryImageTagsRequest) OrderByDescending(orderByDescending bool) ApiSummaryImageTagsRequest {
+// Configures the sort order of each specified order_by column to be descending (true) instead of ascending (false)
+func (r ApiSummaryImageTagsRequest) OrderByDescending(orderByDescending []bool) ApiSummaryImageTagsRequest {
 	r.orderByDescending = &orderByDescending
 	return r
 }
@@ -3405,6 +3422,9 @@ func (a *ImagesApiService) SummaryImageTagsExecute(r ApiSummaryImageTagsRequest)
 	if r.analysisStatus != nil {
 		localVarQueryParams.Add("analysis_status", parameterToString(*r.analysisStatus, "csv"))
 	}
+	if r.analyzedSince != nil {
+		localVarQueryParams.Add("analyzed_since", parameterToString(*r.analyzedSince, ""))
+	}
 	if r.registry != nil {
 		localVarQueryParams.Add("registry", parameterToString(*r.registry, ""))
 	}
@@ -3415,10 +3435,10 @@ func (a *ImagesApiService) SummaryImageTagsExecute(r ApiSummaryImageTagsRequest)
 		localVarQueryParams.Add("tag", parameterToString(*r.tag, ""))
 	}
 	if r.orderBy != nil {
-		localVarQueryParams.Add("order_by", parameterToString(*r.orderBy, ""))
+		localVarQueryParams.Add("order_by", parameterToString(*r.orderBy, "csv"))
 	}
 	if r.orderByDescending != nil {
-		localVarQueryParams.Add("order_by_descending", parameterToString(*r.orderByDescending, ""))
+		localVarQueryParams.Add("order_by_descending", parameterToString(*r.orderByDescending, "csv"))
 	}
 	if r.filter != nil {
 		localVarQueryParams.Add("filter", parameterToString(*r.filter, ""))

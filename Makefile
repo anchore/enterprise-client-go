@@ -10,7 +10,7 @@ OPENAPI_GENERATOR_VERSION = v6.0.0
 
 # --- anchore enterprise references
 # a git tag/branch/commit within anchore/enterprise repo
-ENTERPRISE_REF = v5.5.0-rc7
+ENTERPRISE_REF = v5.6.0-rc1
 ENTERPRISE_ROOT = $(PROJECT_ROOT)/enterprise
 ENTERPRISE_OPENAPI_DOC = $(PROJECT_ROOT)/anchore-api-swagger-$(ENTERPRISE_REF).yaml
 
@@ -60,7 +60,7 @@ $(ENTERPRISE_OPENAPI_DOC): $(PROJECT_ROOT) ## pull the enterprise external API s
 	$(call clone)
 	# note: the existing upstream swagger document needs to be corrected, otherwise invalid code will be generated.
 	# the tr/sed cmds are a workaround for now.
-	cp $(CLONE_DIR)/anchore_enterprise/services/api/swagger/anchore_api_swagger.yaml $(ENTERPRISE_OPENAPI_DOC)
+	cp $(CLONE_DIR)/anchore_enterprise/swagger/anchore_api_swagger.yaml $(ENTERPRISE_OPENAPI_DOC)
 
 .PHONY :=
 generate-clients: $(ENTERPRISE_OPENAPI_DOC) ## generate client code for anchore external API

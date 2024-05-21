@@ -8,7 +8,7 @@ info:
   license:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
-  version: 2.5.0
+  version: 2.6.0
 servers:
 - url: /v2
 tags:
@@ -2577,6 +2577,12 @@ paths:
           - analyzed
           - analyzing
           - analysis_failed
+      - name: analyzed_since
+        in: query
+        description: Filter by images analyzed on or after the specified datetime
+        schema:
+          type: string
+          format: datetime
       - name: x-anchore-account
         in: header
         description: An account name to change the resource scope of the request to
@@ -8230,6 +8236,12 @@ paths:
             - analyzing
           default:
           - all
+      - name: analyzed_since
+        in: query
+        description: Filter images analyzed on or after the specified datetime
+        schema:
+          type: string
+          format: datetime
       - name: registry
         in: query
         description: A registry name to filter result by (e.g. "docker.io")
@@ -8247,25 +8259,35 @@ paths:
           type: string
       - name: order_by
         in: query
-        description: Field name to order by, ascending by default
+        description: List of field name(s) to order by, ascending by default
+        style: form
+        explode: false
         schema:
-          type: string
-          enum:
-            - image_digest
-            - parent_digest
-            - analysis_status
-            - created_at
-            - image_id
-            - analyzed_at
-            - tag_detected_at
-            - image_status
-            - analysis_status
-            - full_tag
+          type: array
+          items:
+            type: string
+            enum:
+              - image_digest
+              - parent_digest
+              - analysis_status
+              - created_at
+              - image_id
+              - analyzed_at
+              - tag_detected_at
+              - image_status
+              - analysis_status
+              - full_tag
       - name: order_by_descending
         in: query
-        description: Configures the sort to be descending instead of ascending
+        description: >-
+          Configures the sort order of each specified order_by
+          column to be descending (true) instead of ascending (false)
+        style: form
+        explode: false
         schema:
-          type: boolean
+          type: array
+          items:
+            type: boolean
       - name: filter
         in: query
         description: Filter by 'image_digest' or 'full_tag' fields, using partial or full string match
@@ -10426,6 +10448,9 @@ components:
             be considered for processing. An integer value less than or equal to zero
             will cause this field to be ignored.
           type: integer
+        include_base_images:
+          description: Include base images in the policy selection criteria.
+          type: boolean
         artifact_type:
           description: The type of artifact that will be processed.
           type: string
@@ -11123,13 +11148,16 @@ components:
       properties:
         name:
           type: string
+          description: The name of the feed group
         created_at:
           type: string
           format: date-time
         last_sync:
+          description: The last successful update for this feed group.
           type: string
           format: date-time
         record_count:
+          description: The number of records in the group
           type: integer
         enabled:
           type: boolean
@@ -11142,25 +11170,23 @@ components:
           description: name of the feed
         created_at:
           type: string
-          description: Date the metadata record was created in engine (first seen
-            on source)
           format: date-time
         updated_at:
           type: string
-          description: Date the metadata was last updated
+          description: The last time the policy-engine service pinged the feed service to see if there was a new grypedb available.
           format: date-time
         groups:
           type: array
           items:
             $ref: '#/components/schemas/FeedGroupMetadata'
         last_full_sync:
+          description: The last time that policy-engine service downloaded a new grypedb.
           type: string
           format: date-time
         enabled:
           type: boolean
           description: If feed is enabled
-      description: Metadata on a single feed based on what the engine finds from querying
-        the endpoints
+      description: Metadata on the feeds based on findings from querying the endpoints.
     FeedSyncResult:
       type: object
       properties:

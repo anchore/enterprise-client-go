@@ -8,7 +8,7 @@ info:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
   title: Anchore API
-  version: 2.5.0
+  version: 2.6.0
 servers:
 - url: /v2
 tags:
@@ -2976,6 +2976,15 @@ paths:
           - analyzed
           - analyzing
           - analysis_failed
+          type: string
+        style: form
+      - description: Filter by images analyzed on or after the specified datetime
+        explode: true
+        in: query
+        name: analyzed_since
+        required: false
+        schema:
+          format: datetime
           type: string
         style: form
       - description: "An account name to change the resource scope of the request\
@@ -9169,6 +9178,15 @@ paths:
             type: string
           type: array
         style: form
+      - description: Filter images analyzed on or after the specified datetime
+        explode: true
+        in: query
+        name: analyzed_since
+        required: false
+        schema:
+          format: datetime
+          type: string
+        style: form
       - description: A registry name to filter result by (e.g. "docker.io")
         explode: true
         in: query
@@ -9194,32 +9212,37 @@ paths:
         schema:
           type: string
         style: form
-      - description: "Field name to order by, ascending by default"
-        explode: true
+      - description: "List of field name(s) to order by, ascending by default"
+        explode: false
         in: query
         name: order_by
         required: false
         schema:
-          enum:
-          - image_digest
-          - parent_digest
-          - analysis_status
-          - created_at
-          - image_id
-          - analyzed_at
-          - tag_detected_at
-          - image_status
-          - analysis_status
-          - full_tag
-          type: string
+          items:
+            enum:
+            - image_digest
+            - parent_digest
+            - analysis_status
+            - created_at
+            - image_id
+            - analyzed_at
+            - tag_detected_at
+            - image_status
+            - analysis_status
+            - full_tag
+            type: string
+          type: array
         style: form
-      - description: Configures the sort to be descending instead of ascending
-        explode: true
+      - description: Configures the sort order of each specified order_by column to
+          be descending (true) instead of ascending (false)
+        explode: false
         in: query
         name: order_by_descending
         required: false
         schema:
-          type: boolean
+          items:
+            type: boolean
+          type: array
         style: form
       - description: "Filter by 'image_digest' or 'full_tag' fields, using partial\
           \ or full string match"
@@ -11950,6 +11973,7 @@ components:
           days_since_analyzed: 6
           artifact_type: image
           even_if_exists_in_runtime_inventory: true
+          include_base_images: true
           version: 0
         uuid: uuid
         deleted_at: 2000-01-23T04:56:07.000+00:00
@@ -12000,6 +12024,7 @@ components:
         days_since_analyzed: 6
         artifact_type: image
         even_if_exists_in_runtime_inventory: true
+        include_base_images: true
         version: 0
       properties:
         version:
@@ -12015,6 +12040,9 @@ components:
             be considered for processing. An integer value less than or equal to zero
             will cause this field to be ignored.
           type: integer
+        include_base_images:
+          description: Include base images in the policy selection criteria.
+          type: boolean
         artifact_type:
           description: The type of artifact that will be processed.
           enum:
@@ -13260,22 +13288,24 @@ components:
         enabled: true
       properties:
         name:
+          description: The name of the feed group
           type: string
         created_at:
           format: date-time
           type: string
         last_sync:
+          description: The last successful update for this feed group.
           format: date-time
           type: string
         record_count:
+          description: The number of records in the group
           type: integer
         enabled:
           description: If group is enabled
           type: boolean
       type: object
     FeedMetadata:
-      description: Metadata on a single feed based on what the engine finds from querying
-        the endpoints
+      description: Metadata on the feeds based on findings from querying the endpoints.
       example:
         last_full_sync: 2000-01-23T04:56:07.000+00:00
         updated_at: 2000-01-23T04:56:07.000+00:00
@@ -13298,12 +13328,11 @@ components:
           description: name of the feed
           type: string
         created_at:
-          description: Date the metadata record was created in engine (first seen
-            on source)
           format: date-time
           type: string
         updated_at:
-          description: Date the metadata was last updated
+          description: The last time the policy-engine service pinged the feed service
+            to see if there was a new grypedb available.
           format: date-time
           type: string
         groups:
@@ -13311,6 +13340,7 @@ components:
             $ref: '#/components/schemas/FeedGroupMetadata'
           type: array
         last_full_sync:
+          description: The last time that policy-engine service downloaded a new grypedb.
           format: date-time
           type: string
         enabled:
