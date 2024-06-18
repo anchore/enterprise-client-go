@@ -3,7 +3,7 @@ Anchore API
 
 This is the Anchore API. Provides the external API for users of Anchore Enterprise.
 
-API version: 2.5.0
+API version: 2.6.0
 Contact: dev@anchore.com
 */
 
@@ -16,15 +16,15 @@ import (
 	"time"
 )
 
-// FeedMetadata Metadata on a single feed based on what the engine finds from querying the endpoints
+// FeedMetadata Metadata on the feeds based on findings from querying the endpoints.
 type FeedMetadata struct {
 	// name of the feed
 	Name *string `json:"name,omitempty"`
-	// Date the metadata record was created in engine (first seen on source)
 	CreatedAt *time.Time `json:"created_at,omitempty"`
-	// Date the metadata was last updated
+	// The last time the policy-engine service pinged the feed service to see if there was a new grypedb available.
 	UpdatedAt *time.Time `json:"updated_at,omitempty"`
 	Groups []FeedGroupMetadata `json:"groups,omitempty"`
+	// The last time that policy-engine service downloaded a new grypedb.
 	LastFullSync *time.Time `json:"last_full_sync,omitempty"`
 	// If feed is enabled
 	Enabled *bool `json:"enabled,omitempty"`

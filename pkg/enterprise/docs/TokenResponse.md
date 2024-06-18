@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **AccessToken** | **string** | The token content | 
-**ExpiresIn** | Pointer to **float32** | The lifetime of the token in seconds | [optional] 
+**ExpiresIn** | Pointer to **float32** | The lifetime of the access token in seconds | [optional] 
 **TokenType** | Pointer to **string** | The type of the token returned | [optional] 
 **RefreshToken** | Pointer to **string** | The refresh token content | [optional] 
 

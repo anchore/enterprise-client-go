@@ -3,7 +3,7 @@ Anchore API
 
 This is the Anchore API. Provides the external API for users of Anchore Enterprise.
 
-API version: 2.5.0
+API version: 2.6.0
 Contact: dev@anchore.com
 */
 
@@ -19,7 +19,7 @@ import (
 type TokenResponse struct {
 	// The token content
 	AccessToken string `json:"access_token"`
-	// The lifetime of the token in seconds
+	// The lifetime of the access token in seconds
 	ExpiresIn *float32 `json:"expires_in,omitempty"`
 	// The type of the token returned
 	TokenType *string `json:"token_type,omitempty"`
