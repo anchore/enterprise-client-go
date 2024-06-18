@@ -718,7 +718,9 @@ paths:
           description: Internal error
       summary: "Delete the specified account, only allowed if the account is in the\
         \ disabled state. All users will be deleted along with the account and all\
-        \ resources will be garbage collected"
+        \ resources will be garbage collected. The deleted account name will not be\
+        \ available for reuse immediately until all resources are garbage collected\
+        \ async."
       tags:
       - User Management
       x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.accounts
@@ -3247,7 +3249,8 @@ paths:
           type: boolean
         style: form
       - description: Digest of a base image. If specified the evaluation will indicate
-          results inherited from the base image
+          results inherited from the base image. Can specify "auto" to have the base
+          image automatically calculated.
         explode: true
         in: query
         name: base_digest
@@ -3801,7 +3804,8 @@ paths:
           type: boolean
         style: form
       - description: Digest of a base image. If specified the vulnerabilities will
-          indicate inheritance from the base image
+          indicate inheritance from the base image. Can specify "auto" to have the
+          base image automatically calculated.
         explode: true
         in: query
         name: base_digest
@@ -13627,10 +13631,12 @@ components:
     ImageAncestor:
       description: An summary of an image and it's layers.
       example:
+        chosen_base_image: true
         image_digest: sha256:55cffbd26dbe2e79252dd3283b1adef4459441e7b4fc2fe5ccd2bd5b52670474
         layers:
         - sha256:03810167880e863d81dc60fc7771c975b93dfdf982d5677fb2c23d11b02c644b
         - sha256:03810167880e863d81dc60fc7771c975b93dfdf982d5677fb2c23d11b02c644b
+        user_marked_base: true
         tags:
         - docker.io/library/node:latest
         - docker.io/library/node:latest
@@ -13653,6 +13659,14 @@ components:
             example: sha256:03810167880e863d81dc60fc7771c975b93dfdf982d5677fb2c23d11b02c644b
             type: string
           type: array
+        user_marked_base:
+          description: True if a specific ancestor has been marked by the user as
+            the chosen base image
+          type: boolean
+        chosen_base_image:
+          description: True for the specific ancestor that has been identified as
+            the base image by the system. This image will be used internally for comparisons.
+          type: boolean
       type: object
     ImageAncestry:
       description: "Array of ancestor objects. Sorted by the length of the layers\
@@ -17753,12 +17767,21 @@ components:
           name: name
           description: description
           created_at: 2000-01-23T04:56:07.000+00:00
+        account:
+          last_updated: 2000-01-23T04:56:07.000+00:00
+          name: name
+          created_at: 2000-01-23T04:56:07.000+00:00
+          state: enabled
+          type: user
+          email: email
       properties:
         for_account:
           description: The account scope that applies to the set of roles
           type: string
         roles:
           $ref: '#/components/schemas/RbacManagerRole'
+        account:
+          $ref: '#/components/schemas/Account'
       type: object
     RbacManagerApiErrorResponse:
       description: Generic HTTP API error response

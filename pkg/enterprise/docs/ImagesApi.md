@@ -770,7 +770,7 @@ func main() {
     detail := true // bool |  (optional) (default to true)
     history := true // bool |  (optional) (default to false)
     interactive := true // bool |  (optional) (default to false)
-    baseDigest := "baseDigest_example" // string | Digest of a base image. If specified the evaluation will indicate results inherited from the base image (optional)
+    baseDigest := "baseDigest_example" // string | Digest of a base image. If specified the evaluation will indicate results inherited from the base image. Can specify \"auto\" to have the base image automatically calculated. (optional)
     xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
 
     configuration := openapiclient.NewConfiguration()
@@ -806,7 +806,7 @@ Name | Type | Description  | Notes
  **detail** | **bool** |  | [default to true]
  **history** | **bool** |  | [default to false]
  **interactive** | **bool** |  | [default to false]
- **baseDigest** | **string** | Digest of a base image. If specified the evaluation will indicate results inherited from the base image | 
+ **baseDigest** | **string** | Digest of a base image. If specified the evaluation will indicate results inherited from the base image. Can specify \&quot;auto\&quot; to have the base image automatically calculated. | 
  **xAnchoreAccount** | **string** | An account name to change the resource scope of the request to that account, if permissions allow (admin only) | 
 
 ### Return type
@@ -1061,7 +1061,7 @@ func main() {
     forceRefresh := true // bool |  (optional) (default to false)
     includeVulnDescription := true // bool |  (optional) (default to false)
     vendorOnly := true // bool | Filter results to include only vulnerabilities that are not marked as invalid by upstream OS vendor data. When set to true, it will filter out all vulnerabilities where `will_not_fix` is False. If false all vulnerabilities are returned regardless of `will_not_fix` (optional) (default to true)
-    baseDigest := "baseDigest_example" // string | Digest of a base image. If specified the vulnerabilities will indicate inheritance from the base image (optional)
+    baseDigest := "baseDigest_example" // string | Digest of a base image. If specified the vulnerabilities will indicate inheritance from the base image. Can specify \"auto\" to have the base image automatically calculated. (optional)
     xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
 
     configuration := openapiclient.NewConfiguration()
@@ -1097,7 +1097,7 @@ Name | Type | Description  | Notes
  **forceRefresh** | **bool** |  | [default to false]
  **includeVulnDescription** | **bool** |  | [default to false]
  **vendorOnly** | **bool** | Filter results to include only vulnerabilities that are not marked as invalid by upstream OS vendor data. When set to true, it will filter out all vulnerabilities where &#x60;will_not_fix&#x60; is False. If false all vulnerabilities are returned regardless of &#x60;will_not_fix&#x60; | [default to true]
- **baseDigest** | **string** | Digest of a base image. If specified the vulnerabilities will indicate inheritance from the base image | 
+ **baseDigest** | **string** | Digest of a base image. If specified the vulnerabilities will indicate inheritance from the base image. Can specify \&quot;auto\&quot; to have the base image automatically calculated. | 
  **xAnchoreAccount** | **string** | An account name to change the resource scope of the request to that account, if permissions allow (admin only) | 
 
 ### Return type

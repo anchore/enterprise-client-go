@@ -727,7 +727,8 @@ paths:
       - User Management
       summary: Delete the specified account, only allowed if the account is in the
         disabled state. All users will be deleted along with the account and all resources
-        will be garbage collected
+        will be garbage collected. The deleted account name will not be available for reuse
+        immediately until all resources are garbage collected async.
       operationId: delete_account
       parameters:
       - name: account_name
@@ -2848,7 +2849,7 @@ paths:
       - name: base_digest
         in: query
         description: Digest of a base image. If specified the evaluation will indicate
-          results inherited from the base image
+          results inherited from the base image. Can specify "auto" to have the base image automatically calculated.
         schema:
           type: string
       - name: x-anchore-account
@@ -3324,7 +3325,7 @@ paths:
       - name: base_digest
         in: query
         description: Digest of a base image. If specified the vulnerabilities will
-          indicate inheritance from the base image
+          indicate inheritance from the base image. Can specify "auto" to have the base image automatically calculated.
         schema:
           type: string
       - name: x-anchore-account
@@ -11365,6 +11366,12 @@ components:
             type: string
             description: The layer ID
             example: sha256:03810167880e863d81dc60fc7771c975b93dfdf982d5677fb2c23d11b02c644b
+        user_marked_base:
+          type: boolean
+          description: True if a specific ancestor has been marked by the user as the chosen base image
+        chosen_base_image:
+          type: boolean
+          description: True for the specific ancestor that has been identified as the base image by the system. This image will be used internally for comparisons.
       description: An summary of an image and it's layers.
     ImageAncestry:
       type: array
@@ -13807,6 +13814,8 @@ components:
           description: The account scope that applies to the set of roles
         roles:
           $ref: '#/components/schemas/RbacManagerRole'
+        account:
+          $ref: '#/components/schemas/Account'
       description: An account identifier and roles a user has within that account
     RbacManagerApiErrorResponse:
       type: object
