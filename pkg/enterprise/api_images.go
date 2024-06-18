@@ -1636,7 +1636,7 @@ func (r ApiGetImagePolicyCheckByDigestRequest) Interactive(interactive bool) Api
 	return r
 }
 
-// Digest of a base image. If specified the evaluation will indicate results inherited from the base image
+// Digest of a base image. If specified the evaluation will indicate results inherited from the base image. Can specify \&quot;auto\&quot; to have the base image automatically calculated.
 func (r ApiGetImagePolicyCheckByDigestRequest) BaseDigest(baseDigest string) ApiGetImagePolicyCheckByDigestRequest {
 	r.baseDigest = &baseDigest
 	return r
@@ -2164,7 +2164,7 @@ func (r ApiGetImageVulnerabilitiesByDigestRequest) VendorOnly(vendorOnly bool) A
 	return r
 }
 
-// Digest of a base image. If specified the vulnerabilities will indicate inheritance from the base image
+// Digest of a base image. If specified the vulnerabilities will indicate inheritance from the base image. Can specify \&quot;auto\&quot; to have the base image automatically calculated.
 func (r ApiGetImageVulnerabilitiesByDigestRequest) BaseDigest(baseDigest string) ApiGetImageVulnerabilitiesByDigestRequest {
 	r.baseDigest = &baseDigest
 	return r
