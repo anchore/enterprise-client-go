@@ -8,7 +8,7 @@ info:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
   title: Anchore API
-  version: 2.6.0
+  version: 2.6.1
 servers:
 - url: /v2
 tags:
@@ -3876,6 +3876,24 @@ paths:
               schema:
                 $ref: '#/components/schemas/DeleteImageResponse'
           description: Image deletion success
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+          description: Bad Delete request given image's current state
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+          description: Image not found
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+          description: Internal error
       summary: Delete an image analysis
       tags:
       - Images
@@ -3909,6 +3927,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/AnchoreImage'
           description: Image lookup success
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+          description: Image not found
         "500":
           content:
             application/json:
@@ -8486,7 +8510,7 @@ paths:
     post:
       operationId: add_repository
       parameters:
-      - description: full repository to add e.g. docker.io/library/alpine
+      - description: Full repository to add e.g. docker.io/library/alpine
         explode: true
         in: query
         name: repository
@@ -8494,8 +8518,8 @@ paths:
         schema:
           type: string
         style: form
-      - description: flag to enable/disable auto tag_update activation when new images
-          from a repo are added
+      - description: Flag to enable/disable auto tag_update activation when new images
+          from a repo are added. Default is false.
         explode: true
         in: query
         name: auto_subscribe
@@ -8503,11 +8527,22 @@ paths:
         schema:
           type: boolean
         style: form
-      - description: "flag to return tags in the repository without actually watching\
-          \ the repository, default is false"
+      - description: Flag to return tags in the repository without actually watching
+          the repository. Default is false.
         explode: true
         in: query
         name: dry_run
+        required: false
+        schema:
+          type: boolean
+        style: form
+      - description: "Flag that indicates if the watcher will exclude existing tags\
+          \ from the repository during the first run.  When set to 'true', the watcher\
+          \ will only add newly detected tags to the system from this time forward.\
+          \ Default is false."
+        explode: true
+        in: query
+        name: exclude_existing_tags
         required: false
         schema:
           type: boolean
@@ -9894,7 +9929,7 @@ paths:
       x-anchore-authz-action: getService
   /system/statistics:
     get:
-      description: Returns list of system statistics
+      description: Returns list of system statistics with total all-time counts.
       operationId: get_system_statistics
       responses:
         "200":
@@ -10721,7 +10756,7 @@ components:
         name:
           description: The account name to use. This will identify the account and
             must be globally unique in the system.
-          pattern: "^[a-zA-Z0-9][ a-zA-Z0-9@.!#$+=^_`~;-]{1,126}[a-zA-Z0-9_]$"
+          pattern: "^[a-zA-Z0-9][ a-zA-Z0-9@.!$+=^_`~;-]{1,126}[a-zA-Z0-9_]$"
           type: string
         email:
           description: An optional email to associate with the account for contact
@@ -20334,8 +20369,12 @@ components:
         username: username
       properties:
         username:
-          description: The username to create
-          pattern: "^[a-zA-Z0-9][ a-zA-Z0-9@.!#$+=^_`~;-]{1,126}[a-zA-Z0-9_]$"
+          description: "The username for authentication. If the user_type is 'native',\
+            \ this name must not contain a colon character as per RFC 2617 (HTTP Basic\
+            \ and Digest Authentication). If the user_type is 'saml', then colons\
+            \ are allowed in the name since HTTP Basic auth is not used for that user\
+            \ type."
+          pattern: "^[a-zA-Z0-9][ a-zA-Z0-9@.!#$+=^_`~;:-]{1,126}[a-zA-Z0-9_]$"
           type: string
         password:
           description: "The initial password for the user, must be at least 6 characters,\
