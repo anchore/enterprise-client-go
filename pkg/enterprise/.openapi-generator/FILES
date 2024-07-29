@@ -129,6 +129,8 @@ docs/EventResponseEventSource.md
 docs/EventSubcategory.md
 docs/EventsApi.md
 docs/EventsList.md
+docs/FeedDataRecord.md
+docs/FeedDataRecords.md
 docs/FeedGroupMetadata.md
 docs/FeedMetadata.md
 docs/FeedSyncResult.md
@@ -497,6 +499,8 @@ model_event_response_event_resource.go
 model_event_response_event_source.go
 model_event_subcategory.go
 model_events_list.go
+model_feed_data_record.go
+model_feed_data_records.go
 model_feed_group_metadata.go
 model_feed_metadata.go
 model_feed_sync_result.go

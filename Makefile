@@ -10,13 +10,15 @@ OPENAPI_GENERATOR_VERSION = v6.0.0
 
 # --- anchore enterprise references
 # a git tag/branch/commit within anchore/enterprise repo
-ENTERPRISE_REF = v5.7.0-rc0
+ENTERPRISE_REF = dd411c06decd7140e831c316fcfa467a1514de98
 ENTERPRISE_ROOT = $(PROJECT_ROOT)/enterprise
 ENTERPRISE_OPENAPI_DOC = $(PROJECT_ROOT)/anchore-api-swagger-$(ENTERPRISE_REF).yaml
 
+OS := $(shell uname)
+
 define generate_openapi_client
 	# remove previous API clients
-	@ if [[ "$$OSTYPE" == "linux-gnu" ]]; then sudo rm -rf ${3}; else rm -rf ${3}; fi
+	if [ "$(OS)" = "Linux" ]; then sudo rm -rf ${3}; else rm -rf ${3}; fi
 
 	# generate the API client
 	docker run \
@@ -34,10 +36,10 @@ define generate_openapi_client
 				-g go
 
 	# keep permissions the same as the user
-	@ if [[ "$$OSTYPE" == "linux-gnu" ]]; then sudo chown -R $(shell id -u):$(shell id -g) ${3}; fi
+	if [ "$(OS)" = "Linux" ]; then sudo chown -R $(shell id -u):$(shell id -g) ${3}; fi
 
 	# remove unused files (go.mod is curated manually)
-	rm ${3}/{.travis.yml,git_push.sh,go.*}
+	rm -f ${3}/{.travis.yml,git_push.sh,go.*}
 endef
 
 .PHONY :=
@@ -78,4 +80,4 @@ help:
 
 .PHONY :=
 patch:
-	git apply -q patches/*.diff
+	git apply patches/*.diff

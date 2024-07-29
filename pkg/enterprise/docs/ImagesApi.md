@@ -1684,7 +1684,7 @@ No authorization required
 
 ## SummaryImageTags
 
-> AnchoreImageTagSummaryList SummaryImageTags(ctx).ImageStatus(imageStatus).AnalysisStatus(analysisStatus).AnalyzedSince(analyzedSince).Registry(registry).Repository(repository).Tag(tag).OrderBy(orderBy).OrderByDescending(orderByDescending).Filter(filter).Limit(limit).Page(page).XAnchoreAccount(xAnchoreAccount).Execute()
+> AnchoreImageTagSummaryList SummaryImageTags(ctx).ImageStatus(imageStatus).AnalysisStatus(analysisStatus).AnalyzedSince(analyzedSince).Registry(registry).Repository(repository).Tag(tag).Runtime(runtime).OrderBy(orderBy).OrderByDescending(orderByDescending).Filter(filter).Limit(limit).Page(page).XAnchoreAccount(xAnchoreAccount).Execute()
 
 Summarize image tags
 
@@ -1709,6 +1709,7 @@ func main() {
     registry := "registry_example" // string | A registry name to filter result by (e.g. \"docker.io\") (optional)
     repository := "repository_example" // string | A repository name to filter results by (e.g. \"jboss/keycloak\") (optional)
     tag := "tag_example" // string | A tag value to filter results by (e.g. \"latest\", or \"v1.2.0\") (optional)
+    runtime := true // bool | Filter by images with runtime inventory (optional)
     orderBy := []string{"OrderBy_example"} // []string | List of field name(s) to order by, ascending by default (optional)
     orderByDescending := []bool{false} // []bool | Configures the sort order of each specified order_by column to be descending (true) instead of ascending (false) (optional)
     filter := "filter_example" // string | Filter by 'image_digest' or 'full_tag' fields, using partial or full string match (optional)
@@ -1718,7 +1719,7 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ImagesApi.SummaryImageTags(context.Background()).ImageStatus(imageStatus).AnalysisStatus(analysisStatus).AnalyzedSince(analyzedSince).Registry(registry).Repository(repository).Tag(tag).OrderBy(orderBy).OrderByDescending(orderByDescending).Filter(filter).Limit(limit).Page(page).XAnchoreAccount(xAnchoreAccount).Execute()
+    resp, r, err := apiClient.ImagesApi.SummaryImageTags(context.Background()).ImageStatus(imageStatus).AnalysisStatus(analysisStatus).AnalyzedSince(analyzedSince).Registry(registry).Repository(repository).Tag(tag).Runtime(runtime).OrderBy(orderBy).OrderByDescending(orderByDescending).Filter(filter).Limit(limit).Page(page).XAnchoreAccount(xAnchoreAccount).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ImagesApi.SummaryImageTags``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -1745,6 +1746,7 @@ Name | Type | Description  | Notes
  **registry** | **string** | A registry name to filter result by (e.g. \&quot;docker.io\&quot;) | 
  **repository** | **string** | A repository name to filter results by (e.g. \&quot;jboss/keycloak\&quot;) | 
  **tag** | **string** | A tag value to filter results by (e.g. \&quot;latest\&quot;, or \&quot;v1.2.0\&quot;) | 
+ **runtime** | **bool** | Filter by images with runtime inventory | 
  **orderBy** | **[]string** | List of field name(s) to order by, ascending by default | 
  **orderByDescending** | **[]bool** | Configures the sort order of each specified order_by column to be descending (true) instead of ascending (false) | 
  **filter** | **string** | Filter by &#39;image_digest&#39; or &#39;full_tag&#39; fields, using partial or full string match | 

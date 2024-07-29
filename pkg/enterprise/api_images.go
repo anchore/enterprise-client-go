@@ -3,7 +3,7 @@ Anchore API
 
 This is the Anchore API. Provides the external API for users of Anchore Enterprise.
 
-API version: 2.6.0
+API version: 2.6.2
 Contact: dev@anchore.com
 */
 
@@ -605,6 +605,35 @@ func (a *ImagesApiService) DeleteImageExecute(r ApiDeleteImageRequest) (*DeleteI
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		if localVarHTTPResponse.StatusCode == 400 {
+			var v ApiErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 404 {
+			var v ApiErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 500 {
+			var v ApiErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -852,6 +881,16 @@ func (a *ImagesApiService) GetImageExecute(r ApiGetImageRequest) (*AnchoreImage,
 		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 404 {
+			var v ApiErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 500 {
 			var v ApiErrorResponse
@@ -3296,6 +3335,7 @@ type ApiSummaryImageTagsRequest struct {
 	registry *string
 	repository *string
 	tag *string
+	runtime *bool
 	orderBy *[]string
 	orderByDescending *[]bool
 	filter *string
@@ -3337,6 +3377,12 @@ func (r ApiSummaryImageTagsRequest) Repository(repository string) ApiSummaryImag
 // A tag value to filter results by (e.g. \&quot;latest\&quot;, or \&quot;v1.2.0\&quot;)
 func (r ApiSummaryImageTagsRequest) Tag(tag string) ApiSummaryImageTagsRequest {
 	r.tag = &tag
+	return r
+}
+
+// Filter by images with runtime inventory
+func (r ApiSummaryImageTagsRequest) Runtime(runtime bool) ApiSummaryImageTagsRequest {
+	r.runtime = &runtime
 	return r
 }
 
@@ -3433,6 +3479,9 @@ func (a *ImagesApiService) SummaryImageTagsExecute(r ApiSummaryImageTagsRequest)
 	}
 	if r.tag != nil {
 		localVarQueryParams.Add("tag", parameterToString(*r.tag, ""))
+	}
+	if r.runtime != nil {
+		localVarQueryParams.Add("runtime", parameterToString(*r.runtime, ""))
 	}
 	if r.orderBy != nil {
 		localVarQueryParams.Add("order_by", parameterToString(*r.orderBy, "csv"))

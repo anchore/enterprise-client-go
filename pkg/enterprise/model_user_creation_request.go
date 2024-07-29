@@ -3,7 +3,7 @@ Anchore API
 
 This is the Anchore API. Provides the external API for users of Anchore Enterprise.
 
-API version: 2.6.0
+API version: 2.6.2
 Contact: dev@anchore.com
 */
 
@@ -17,7 +17,7 @@ import (
 
 // UserCreationRequest A payload for creating a new user, includes the username and password in a single request
 type UserCreationRequest struct {
-	// The username to create
+	// The username for authentication. If the user_type is 'native', this name must not contain a colon character as per RFC 2617 (HTTP Basic and Digest Authentication). If the user_type is 'saml', then colons are allowed in the name since HTTP Basic auth is not used for that user type.
 	Username string `json:"username"`
 	// The initial password for the user, must be at least 6 characters, up to 128. This must be null when the user_type is not 'native'.
 	Password *string `json:"password,omitempty"`

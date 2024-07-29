@@ -13,6 +13,7 @@ Method | HTTP request | Description
 [**GetServicesByName**](SystemApi.md#GetServicesByName) | **Get** /system/services/{service_name} | Get a service configuration and state
 [**GetServicesByNameAndHost**](SystemApi.md#GetServicesByNameAndHost) | **Get** /system/services/{service_name}/{host_id} | Get service config for a specific host
 [**GetStatus**](SystemApi.md#GetStatus) | **Get** /status | Service status
+[**GetSystemFeed**](SystemApi.md#GetSystemFeed) | **Get** /system/feeds/{feed} | 
 [**GetSystemFeeds**](SystemApi.md#GetSystemFeeds) | **Get** /system/feeds | list feeds operations and information
 [**HealthCheck**](SystemApi.md#HealthCheck) | **Get** /health | 
 [**ListServices**](SystemApi.md#ListServices) | **Get** /system/services | List system services
@@ -21,6 +22,7 @@ Method | HTTP request | Description
 [**SetNewLogLevel**](SystemApi.md#SetNewLogLevel) | **Post** /system/logging | Change logging level for a running service
 [**TestWebhook**](SystemApi.md#TestWebhook) | **Post** /system/webhooks/{webhook_type}/test | Adds the capabilities to test a webhook delivery for the given notification type
 [**ToggleFeedEnabled**](SystemApi.md#ToggleFeedEnabled) | **Put** /system/feeds/{feed} | 
+[**UploadSystemFeed**](SystemApi.md#UploadSystemFeed) | **Post** /system/feeds/{feed} | 
 [**VersionCheck**](SystemApi.md#VersionCheck) | **Get** /version | 
 
 
@@ -609,6 +611,78 @@ No authorization required
 [[Back to README]](../README.md)
 
 
+## GetSystemFeed
+
+> FeedDataRecord GetSystemFeed(ctx, feed).Version(version).Execute()
+
+
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    feed := "feed_example" // string | The data feed to query
+    version := "version_example" // string | The version of the feed to query
+
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.SystemApi.GetSystemFeed(context.Background(), feed).Version(version).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `SystemApi.GetSystemFeed``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `GetSystemFeed`: FeedDataRecord
+    fmt.Fprintf(os.Stdout, "Response from `SystemApi.GetSystemFeed`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**feed** | **string** | The data feed to query | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetSystemFeedRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **version** | **string** | The version of the feed to query | 
+
+### Return type
+
+[**FeedDataRecord**](FeedDataRecord.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
 ## GetSystemFeeds
 
 > []FeedMetadata GetSystemFeeds(ctx).Execute()
@@ -1111,6 +1185,82 @@ No authorization required
 ### HTTP request headers
 
 - **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## UploadSystemFeed
+
+> UploadSystemFeed(ctx, feed).Version(version).Built(built).Checksum(checksum).File(file).Execute()
+
+
+
+
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    feed := "feed_example" // string | The data feed to upload
+    version := "version_example" // string | The version of the data set to upload
+    built := "built_example" // string | Build timestsamp
+    checksum := "checksum_example" // string | Digest of the data record
+    file := os.NewFile(1234, "some_file") // *os.File |  (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.SystemApi.UploadSystemFeed(context.Background(), feed).Version(version).Built(built).Checksum(checksum).File(file).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `SystemApi.UploadSystemFeed``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**feed** | **string** | The data feed to upload | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiUploadSystemFeedRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **version** | **string** | The version of the data set to upload | 
+ **built** | **string** | Build timestsamp | 
+ **checksum** | **string** | Digest of the data record | 
+ **file** | ***os.File** |  | 
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: multipart/form-data
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)

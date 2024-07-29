@@ -8,7 +8,7 @@ info:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
   title: Anchore API
-  version: 2.6.0
+  version: 2.6.2
 servers:
 - url: /v2
 tags:
@@ -3876,6 +3876,24 @@ paths:
               schema:
                 $ref: '#/components/schemas/DeleteImageResponse'
           description: Image deletion success
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+          description: Bad Delete request given image's current state
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+          description: Image not found
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+          description: Internal error
       summary: Delete an image analysis
       tags:
       - Images
@@ -3909,6 +3927,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/AnchoreImage'
           description: Image lookup success
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+          description: Image not found
         "500":
           content:
             application/json:
@@ -8486,7 +8510,7 @@ paths:
     post:
       operationId: add_repository
       parameters:
-      - description: full repository to add e.g. docker.io/library/alpine
+      - description: Full repository to add e.g. docker.io/library/alpine
         explode: true
         in: query
         name: repository
@@ -8494,8 +8518,8 @@ paths:
         schema:
           type: string
         style: form
-      - description: flag to enable/disable auto tag_update activation when new images
-          from a repo are added
+      - description: Flag to enable/disable auto tag_update activation when new images
+          from a repo are added. Default is false.
         explode: true
         in: query
         name: auto_subscribe
@@ -8503,11 +8527,22 @@ paths:
         schema:
           type: boolean
         style: form
-      - description: "flag to return tags in the repository without actually watching\
-          \ the repository, default is false"
+      - description: Flag to return tags in the repository without actually watching
+          the repository. Default is false.
         explode: true
         in: query
         name: dry_run
+        required: false
+        schema:
+          type: boolean
+        style: form
+      - description: "Flag that indicates if the watcher will exclude existing tags\
+          \ from the repository during the first run.  When set to 'true', the watcher\
+          \ will only add newly detected tags to the system from this time forward.\
+          \ Default is false."
+        explode: true
+        in: query
+        name: exclude_existing_tags
         required: false
         schema:
           type: boolean
@@ -9216,6 +9251,14 @@ paths:
         schema:
           type: string
         style: form
+      - description: Filter by images with runtime inventory
+        explode: true
+        in: query
+        name: runtime
+        required: false
+        schema:
+          type: boolean
+        style: form
       - description: "List of field name(s) to order by, ascending by default"
         explode: false
         in: query
@@ -9682,6 +9725,100 @@ paths:
       - System
       x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.system
       x-anchore-authz-action: updateFeeds
+    get:
+      description: Get feed metadata
+      operationId: get_system_feed
+      parameters:
+      - description: The data feed to query
+        explode: false
+        in: path
+        name: feed
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: The version of the feed to query
+        explode: true
+        in: query
+        name: version
+        required: true
+        schema:
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FeedDataRecord'
+          description: Feed data record
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+          description: Internal Error
+      tags:
+      - System
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.system
+      x-anchore-authz-action: listFeeds
+    post:
+      description: Upload a new feed
+      operationId: upload_system_feed
+      parameters:
+      - description: The data feed to upload
+        explode: false
+        in: path
+        name: feed
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: The version of the data set to upload
+        explode: true
+        in: query
+        name: version
+        required: true
+        schema:
+          type: string
+        style: form
+      - description: Build timestsamp
+        explode: true
+        in: query
+        name: built
+        required: true
+        schema:
+          format: datetime
+          type: string
+        style: form
+      - description: Digest of the data record
+        explode: true
+        in: query
+        name: checksum
+        required: true
+        schema:
+          type: string
+        style: form
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/upload_system_feed_request'
+        required: true
+      responses:
+        "204":
+          content: {}
+          description: Feed uploaded successfully
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+          description: Internal Error
+      tags:
+      - System
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.system
+      x-anchore-authz-action: updateFeeds
     put:
       description: Disable the feed so that it does not sync on subsequent sync operations
       operationId: toggle_feed_enabled
@@ -9894,7 +10031,7 @@ paths:
       x-anchore-authz-action: getService
   /system/statistics:
     get:
-      description: Returns list of system statistics
+      description: Returns list of system statistics with total all-time counts.
       operationId: get_system_statistics
       responses:
         "200":
@@ -10721,7 +10858,7 @@ components:
         name:
           description: The account name to use. This will identify the account and
             must be globally unique in the system.
-          pattern: "^[a-zA-Z0-9][ a-zA-Z0-9@.!#$+=^_`~;-]{1,126}[a-zA-Z0-9_]$"
+          pattern: "^[a-zA-Z0-9][ a-zA-Z0-9@.!$+=^_`~;-]{1,126}[a-zA-Z0-9_]$"
           type: string
         email:
           description: An optional email to associate with the account for contact
@@ -13282,6 +13419,54 @@ components:
         page:
           description: Page number of this result set
           type: integer
+      type: object
+    FeedDataRecords:
+      description: A list of data records
+      properties:
+        records:
+          items:
+            $ref: '#/components/schemas/FeedDataRecord'
+          type: array
+      type: object
+    FeedDataRecord:
+      description: A data record
+      example:
+        data_format: data_format
+        updated_at: 2000-01-23T04:56:07.000+00:00
+        built_at: 2000-01-23T04:56:07.000+00:00
+        name: name
+        checksum: checksum
+        created_at: 2000-01-23T04:56:07.000+00:00
+        id: id
+        dataset: dataset
+      properties:
+        id:
+          description: The unique identifier for the data record
+          type: string
+        name:
+          description: The name of the data record
+          type: string
+        dataset:
+          description: The data set type of the record
+          type: string
+        data_format:
+          description: The format of the data record
+          type: string
+        checksum:
+          description: The checksum of the data record
+          type: string
+        built_at:
+          description: The build timestamp of the data record
+          format: date-time
+          type: string
+        created_at:
+          description: The creation timestamp of the data record
+          format: date-time
+          type: string
+        updated_at:
+          description: The last update timestamp of the data record
+          format: date-time
+          type: string
       type: object
     FeedGroupMetadata:
       example:
@@ -20334,8 +20519,12 @@ components:
         username: username
       properties:
         username:
-          description: The username to create
-          pattern: "^[a-zA-Z0-9][ a-zA-Z0-9@.!#$+=^_`~;-]{1,126}[a-zA-Z0-9_]$"
+          description: "The username for authentication. If the user_type is 'native',\
+            \ this name must not contain a colon character as per RFC 2617 (HTTP Basic\
+            \ and Digest Authentication). If the user_type is 'saml', then colons\
+            \ are allowed in the name since HTTP Basic auth is not used for that user\
+            \ type."
+          pattern: "^[a-zA-Z0-9][ a-zA-Z0-9@.!#$+=^_`~;:-]{1,126}[a-zA-Z0-9_]$"
           type: string
         password:
           description: "The initial password for the user, must be at least 6 characters,\
@@ -20776,6 +20965,12 @@ components:
         refresh_token:
           description: "The refresh token from a previous password grant request,\
             \ used to get a new access_token"
+          type: string
+      type: object
+    upload_system_feed_request:
+      properties:
+        file:
+          format: binary
           type: string
       type: object
     AnalysisUpdateNotification_allOf:
