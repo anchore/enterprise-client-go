@@ -8,7 +8,7 @@ info:
   license:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
-  version: 2.6.0
+  version: 2.6.1
 servers:
 - url: /v2
 tags:
@@ -3376,6 +3376,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/AnchoreImage'
+        404:
+          description: Image not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
         500:
           description: Internal error
           content:
@@ -3414,6 +3420,24 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/DeleteImageResponse'
+        400:
+          description: Bad Delete request given image's current state
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        404:
+          description: Image not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        500:
+          description: Internal error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
       x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.images
       x-anchore-authz-action: deleteImage
   /imports/images:
@@ -7626,20 +7650,27 @@ paths:
       parameters:
       - name: repository
         in: query
-        description: full repository to add e.g. docker.io/library/alpine
+        description: Full repository to add e.g. docker.io/library/alpine
         required: true
         schema:
           type: string
       - name: auto_subscribe
         in: query
-        description: flag to enable/disable auto tag_update activation when new images
-          from a repo are added
+        description: Flag to enable/disable auto tag_update activation when new images
+          from a repo are added. Default is false.
         schema:
           type: boolean
       - name: dry_run
         in: query
-        description: flag to return tags in the repository without actually watching
-          the repository, default is false
+        description: Flag to return tags in the repository without actually watching
+          the repository. Default is false.
+        schema:
+          type: boolean
+      - name: exclude_existing_tags
+        in: query
+        description: Flag that indicates if the watcher will exclude existing tags
+          from the repository during the first run.  When set to 'true', the watcher will only add
+          newly detected tags to the system from this time forward. Default is false.
         schema:
           type: boolean
       - name: x-anchore-account
@@ -8350,7 +8381,7 @@ paths:
             - active
             - deleting
           default:
-          - active      
+          - active
       - name: registry
         in: query
         description: Filter by registry
@@ -8880,7 +8911,7 @@ paths:
       tags:
       - Statistics
       summary: List System Statistics
-      description: Returns list of system statistics
+      description: Returns list of system statistics with total all-time counts.
       operationId: get_system_statistics
       responses:
         200:
@@ -9630,7 +9661,7 @@ components:
       type: object
       properties:
         name:
-          pattern: ^[a-zA-Z0-9][ a-zA-Z0-9@.!#$+=^_`~;-]{1,126}[a-zA-Z0-9_]$
+          pattern: ^[a-zA-Z0-9][ a-zA-Z0-9@.!$+=^_`~;-]{1,126}[a-zA-Z0-9_]$
           type: string
           description: The account name to use. This will identify the account and
             must be globally unique in the system.
@@ -15258,9 +15289,11 @@ components:
       type: object
       properties:
         username:
-          pattern: ^[a-zA-Z0-9][ a-zA-Z0-9@.!#$+=^_`~;-]{1,126}[a-zA-Z0-9_]$
+          pattern: ^[a-zA-Z0-9][ a-zA-Z0-9@.!#$+=^_`~;:-]{1,126}[a-zA-Z0-9_]$
           type: string
-          description: The username to create
+          description: The username for authentication. If the user_type is 'native',
+            this name must not contain a colon character as per RFC 2617 (HTTP Basic and Digest Authentication). If the user_type is 'saml', then colons are allowed
+            in the name since HTTP Basic auth is not used for that user type.
         password:
           pattern: .{6,128}$
           type: string
