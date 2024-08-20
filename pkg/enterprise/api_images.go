@@ -3,7 +3,7 @@ Anchore API
 
 This is the Anchore API. Provides the external API for users of Anchore Enterprise.
 
-API version: 2.6.1
+API version: 2.6.2
 Contact: dev@anchore.com
 */
 
@@ -120,19 +120,6 @@ type ImagesApi interface {
 	GetImageContentByTypeFilesExecute(r ApiGetImageContentByTypeFilesRequest) (*ContentFilesResponse, *http.Response, error)
 
 	/*
-	GetImageContentByTypeJavaPackage Get the content of an image by type java
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param imageDigest
-	@return ApiGetImageContentByTypeJavaPackageRequest
-	*/
-	GetImageContentByTypeJavaPackage(ctx context.Context, imageDigest string) ApiGetImageContentByTypeJavaPackageRequest
-
-	// GetImageContentByTypeJavaPackageExecute executes the request
-	//  @return ContentJavaPackageResponse
-	GetImageContentByTypeJavaPackageExecute(r ApiGetImageContentByTypeJavaPackageRequest) (*ContentJavaPackageResponse, *http.Response, error)
-
-	/*
 	GetImageContentByTypeMalware Get the content of an image by type malware
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
@@ -144,6 +131,19 @@ type ImagesApi interface {
 	// GetImageContentByTypeMalwareExecute executes the request
 	//  @return ContentMalwareResponse
 	GetImageContentByTypeMalwareExecute(r ApiGetImageContentByTypeMalwareRequest) (*ContentMalwareResponse, *http.Response, error)
+
+	/*
+	GetImageContentSummary Get image content summary
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param imageDigest
+	@return ApiGetImageContentSummaryRequest
+	*/
+	GetImageContentSummary(ctx context.Context, imageDigest string) ApiGetImageContentSummaryRequest
+
+	// GetImageContentSummaryExecute executes the request
+	//  @return [][]GetImageContentSummary200ResponseInnerInner
+	GetImageContentSummaryExecute(r ApiGetImageContentSummaryRequest) ([][]GetImageContentSummary200ResponseInnerInner, *http.Response, error)
 
 	/*
 	GetImageMetadataByType Get the metadata of an image by type
@@ -1273,7 +1273,7 @@ func (a *ImagesApiService) GetImageContentByTypeFilesExecute(r ApiGetImageConten
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiGetImageContentByTypeJavaPackageRequest struct {
+type ApiGetImageContentByTypeMalwareRequest struct {
 	ctx context.Context
 	ApiService ImagesApi
 	imageDigest string
@@ -1281,24 +1281,24 @@ type ApiGetImageContentByTypeJavaPackageRequest struct {
 }
 
 // An account name to change the resource scope of the request to that account, if permissions allow (admin only)
-func (r ApiGetImageContentByTypeJavaPackageRequest) XAnchoreAccount(xAnchoreAccount string) ApiGetImageContentByTypeJavaPackageRequest {
+func (r ApiGetImageContentByTypeMalwareRequest) XAnchoreAccount(xAnchoreAccount string) ApiGetImageContentByTypeMalwareRequest {
 	r.xAnchoreAccount = &xAnchoreAccount
 	return r
 }
 
-func (r ApiGetImageContentByTypeJavaPackageRequest) Execute() (*ContentJavaPackageResponse, *http.Response, error) {
-	return r.ApiService.GetImageContentByTypeJavaPackageExecute(r)
+func (r ApiGetImageContentByTypeMalwareRequest) Execute() (*ContentMalwareResponse, *http.Response, error) {
+	return r.ApiService.GetImageContentByTypeMalwareExecute(r)
 }
 
 /*
-GetImageContentByTypeJavaPackage Get the content of an image by type java
+GetImageContentByTypeMalware Get the content of an image by type malware
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param imageDigest
- @return ApiGetImageContentByTypeJavaPackageRequest
+ @return ApiGetImageContentByTypeMalwareRequest
 */
-func (a *ImagesApiService) GetImageContentByTypeJavaPackage(ctx context.Context, imageDigest string) ApiGetImageContentByTypeJavaPackageRequest {
-	return ApiGetImageContentByTypeJavaPackageRequest{
+func (a *ImagesApiService) GetImageContentByTypeMalware(ctx context.Context, imageDigest string) ApiGetImageContentByTypeMalwareRequest {
+	return ApiGetImageContentByTypeMalwareRequest{
 		ApiService: a,
 		ctx: ctx,
 		imageDigest: imageDigest,
@@ -1306,21 +1306,21 @@ func (a *ImagesApiService) GetImageContentByTypeJavaPackage(ctx context.Context,
 }
 
 // Execute executes the request
-//  @return ContentJavaPackageResponse
-func (a *ImagesApiService) GetImageContentByTypeJavaPackageExecute(r ApiGetImageContentByTypeJavaPackageRequest) (*ContentJavaPackageResponse, *http.Response, error) {
+//  @return ContentMalwareResponse
+func (a *ImagesApiService) GetImageContentByTypeMalwareExecute(r ApiGetImageContentByTypeMalwareRequest) (*ContentMalwareResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *ContentJavaPackageResponse
+		localVarReturnValue  *ContentMalwareResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ImagesApiService.GetImageContentByTypeJavaPackage")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ImagesApiService.GetImageContentByTypeMalware")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/images/{image_digest}/content/java"
+	localVarPath := localBasePath + "/images/{image_digest}/content/malware"
 	localVarPath = strings.Replace(localVarPath, "{"+"image_digest"+"}", url.PathEscape(parameterToString(r.imageDigest, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -1393,7 +1393,7 @@ func (a *ImagesApiService) GetImageContentByTypeJavaPackageExecute(r ApiGetImage
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiGetImageContentByTypeMalwareRequest struct {
+type ApiGetImageContentSummaryRequest struct {
 	ctx context.Context
 	ApiService ImagesApi
 	imageDigest string
@@ -1401,24 +1401,24 @@ type ApiGetImageContentByTypeMalwareRequest struct {
 }
 
 // An account name to change the resource scope of the request to that account, if permissions allow (admin only)
-func (r ApiGetImageContentByTypeMalwareRequest) XAnchoreAccount(xAnchoreAccount string) ApiGetImageContentByTypeMalwareRequest {
+func (r ApiGetImageContentSummaryRequest) XAnchoreAccount(xAnchoreAccount string) ApiGetImageContentSummaryRequest {
 	r.xAnchoreAccount = &xAnchoreAccount
 	return r
 }
 
-func (r ApiGetImageContentByTypeMalwareRequest) Execute() (*ContentMalwareResponse, *http.Response, error) {
-	return r.ApiService.GetImageContentByTypeMalwareExecute(r)
+func (r ApiGetImageContentSummaryRequest) Execute() ([][]GetImageContentSummary200ResponseInnerInner, *http.Response, error) {
+	return r.ApiService.GetImageContentSummaryExecute(r)
 }
 
 /*
-GetImageContentByTypeMalware Get the content of an image by type malware
+GetImageContentSummary Get image content summary
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param imageDigest
- @return ApiGetImageContentByTypeMalwareRequest
+ @return ApiGetImageContentSummaryRequest
 */
-func (a *ImagesApiService) GetImageContentByTypeMalware(ctx context.Context, imageDigest string) ApiGetImageContentByTypeMalwareRequest {
-	return ApiGetImageContentByTypeMalwareRequest{
+func (a *ImagesApiService) GetImageContentSummary(ctx context.Context, imageDigest string) ApiGetImageContentSummaryRequest {
+	return ApiGetImageContentSummaryRequest{
 		ApiService: a,
 		ctx: ctx,
 		imageDigest: imageDigest,
@@ -1426,21 +1426,21 @@ func (a *ImagesApiService) GetImageContentByTypeMalware(ctx context.Context, ima
 }
 
 // Execute executes the request
-//  @return ContentMalwareResponse
-func (a *ImagesApiService) GetImageContentByTypeMalwareExecute(r ApiGetImageContentByTypeMalwareRequest) (*ContentMalwareResponse, *http.Response, error) {
+//  @return [][]GetImageContentSummary200ResponseInnerInner
+func (a *ImagesApiService) GetImageContentSummaryExecute(r ApiGetImageContentSummaryRequest) ([][]GetImageContentSummary200ResponseInnerInner, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *ContentMalwareResponse
+		localVarReturnValue  [][]GetImageContentSummary200ResponseInnerInner
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ImagesApiService.GetImageContentByTypeMalware")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ImagesApiService.GetImageContentSummary")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/images/{image_digest}/content/malware"
+	localVarPath := localBasePath + "/images/{image_digest}/content-summary"
 	localVarPath = strings.Replace(localVarPath, "{"+"image_digest"+"}", url.PathEscape(parameterToString(r.imageDigest, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -3335,6 +3335,7 @@ type ApiSummaryImageTagsRequest struct {
 	registry *string
 	repository *string
 	tag *string
+	runtime *bool
 	orderBy *[]string
 	orderByDescending *[]bool
 	filter *string
@@ -3376,6 +3377,12 @@ func (r ApiSummaryImageTagsRequest) Repository(repository string) ApiSummaryImag
 // A tag value to filter results by (e.g. \&quot;latest\&quot;, or \&quot;v1.2.0\&quot;)
 func (r ApiSummaryImageTagsRequest) Tag(tag string) ApiSummaryImageTagsRequest {
 	r.tag = &tag
+	return r
+}
+
+// Filter by images with runtime inventory
+func (r ApiSummaryImageTagsRequest) Runtime(runtime bool) ApiSummaryImageTagsRequest {
+	r.runtime = &runtime
 	return r
 }
 
@@ -3472,6 +3479,9 @@ func (a *ImagesApiService) SummaryImageTagsExecute(r ApiSummaryImageTagsRequest)
 	}
 	if r.tag != nil {
 		localVarQueryParams.Add("tag", parameterToString(*r.tag, ""))
+	}
+	if r.runtime != nil {
+		localVarQueryParams.Add("runtime", parameterToString(*r.runtime, ""))
 	}
 	if r.orderBy != nil {
 		localVarQueryParams.Add("order_by", parameterToString(*r.orderBy, "csv"))

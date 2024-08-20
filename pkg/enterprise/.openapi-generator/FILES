@@ -99,9 +99,9 @@ docs/ComplianceResource.md
 docs/ComplianceViolationAlert.md
 docs/ComplianceViolationAlertState.md
 docs/ContentFilesResponse.md
-docs/ContentJavaPackageResponse.md
 docs/ContentMalwareResponse.md
 docs/ContentPackageResponse.md
+docs/ContentPackageResponseContentInner.md
 docs/Correction.md
 docs/CorrectionFieldMatch.md
 docs/CorrectionMatch.md
@@ -136,6 +136,7 @@ docs/FileContentSearchResult.md
 docs/FilesContent.md
 docs/GateSpec.md
 docs/GenericNotificationPayload.md
+docs/GetImageContentSummary200ResponseInnerInner.md
 docs/GroupSyncResult.md
 docs/IdentityApi.md
 docs/ImageAnalysisRequest.md
@@ -467,9 +468,9 @@ model_compliance_resource.go
 model_compliance_violation_alert.go
 model_compliance_violation_alert_state.go
 model_content_files_response.go
-model_content_java_package_response.go
 model_content_malware_response.go
 model_content_package_response.go
+model_content_package_response_content_inner.go
 model_correction.go
 model_correction_field_match.go
 model_correction_match.go
@@ -504,6 +505,7 @@ model_file_content_search_result.go
 model_files_content.go
 model_gate_spec.go
 model_generic_notification_payload.go
+model_get_image_content_summary_200_response_inner_inner.go
 model_group_sync_result.go
 model_image_analysis_request.go
 model_image_ancestor.go
