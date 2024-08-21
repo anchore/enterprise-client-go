@@ -8,7 +8,7 @@ info:
   license:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
-  version: 2.6.1
+  version: 2.7.2
 servers:
 - url: /v2
 tags:
@@ -2910,6 +2910,52 @@ paths:
                 $ref: '#/components/schemas/ApiErrorResponse'
       x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.images
       x-anchore-authz-action: getImage
+  /images/{image_digest}/content-summary:
+    get:
+      tags:
+      - Images
+      summary: Get image content summary
+      operationId: get_image_content_summary
+      parameters:
+      - name: image_digest
+        in: path
+        required: true
+        schema:
+          pattern: ^sha256:[a-fA-F0-9]{64}$
+          type: string
+          format: path
+      - name: x-anchore-account
+        in: header
+        description: An account name to change the resource scope of the request to
+          that account, if permissions allow (admin only)
+        schema:
+          type: string
+      responses:
+        200:
+          description: Content listing for the image
+          content:
+            application/json:
+              schema:
+                type: object
+                items:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      content_type:
+                        type: string
+                      display_name:
+                        type: string
+                      count:
+                        type: integer
+        500:
+          description: Internal Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.images
+      x-anchore-authz-action: getImage
   /images/{image_digest}/content/files:
     get:
       tags:
@@ -2945,41 +2991,6 @@ paths:
                 $ref: '#/components/schemas/ApiErrorResponse'
       x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.images
       x-anchore-authz-action: getImage
-  /images/{image_digest}/content/java:
-    get:
-      tags:
-      - Images
-      summary: Get the content of an image by type java
-      operationId: get_image_content_by_type_java_package
-      parameters:
-      - name: image_digest
-        in: path
-        required: true
-        schema:
-          pattern: ^sha256:[a-fA-F0-9]{64}$
-          type: string
-          format: path
-      - name: x-anchore-account
-        in: header
-        description: An account name to change the resource scope of the request to
-          that account, if permissions allow (admin only)
-        schema:
-          type: string
-      responses:
-        200:
-          description: Content of specified type from the image
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ContentJavaPackageResponse'
-        500:
-          description: Internal error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ApiErrorResponse'
-      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.images
-      x-anchore-authz-action: getImage
   /images/{image_digest}/content/malware:
     get:
       tags:
@@ -3007,6 +3018,41 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ContentMalwareResponse'
+        500:
+          description: Internal error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.images
+      x-anchore-authz-action: getImage
+  /images/{image_digest}/content/java:
+    get:
+      tags:
+      - Images
+      summary: Get the content of an image by type java
+      operationId: get_image_content_by_type_java_package
+      parameters:
+      - name: image_digest
+        in: path
+        required: true
+        schema:
+          pattern: ^sha256:[a-fA-F0-9]{64}$
+          type: string
+          format: path
+      - name: x-anchore-account
+        in: header
+        description: An account name to change the resource scope of the request to
+          that account, if permissions allow (admin only)
+        schema:
+          type: string
+      responses:
+        200:
+          description: Content of specified type from the image
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContentJavaPackageResponse'
         500:
           description: Internal error
           content:
@@ -8289,6 +8335,11 @@ paths:
         description: A tag value to filter results by (e.g. "latest", or "v1.2.0")
         schema:
           type: string
+      - name: runtime
+        in: query
+        description: Filter by images with runtime inventory
+        schema:
+          type: boolean
       - name: order_by
         in: query
         description: List of field name(s) to order by, ascending by default
@@ -15033,6 +15084,37 @@ components:
       properties:
         name:
           type: string
+          enum:
+            - source_analysis
+            - image_analysis
+            - report_generation
+            - policy_evaluation
+            - policy_creation
+            - stateless_sbom_analysis
+            - kubernetes_namespace_creation
+            - kubernetes_image_creation
+            - kubernetes_node_creation
+            - kubernetes_pod_creation
+            - kubernetes_container_creation
+            - ecs_container_creation
+            - ecs_service_creation
+            - ecs_task_creation
+            - ecs_image_creation
+            - account_creation
+            - user_creation
+            - policy_inventory
+            - kubernetes_namespace_inventory
+            - kubernetes_node_inventory
+            - kubernetes_pod_inventory
+            - kubernetes_container_inventory
+            - kubernetes_image_inventory
+            - ecs_container_inventory
+            - ecs_image_inventory
+            - ecs_service_inventory
+            - ecs_task_inventory
+            - account_inventory
+            - user_inventory
+            - report_execution_inventory
         description:
           type: string
         value_type:

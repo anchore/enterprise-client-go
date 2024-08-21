@@ -136,6 +136,7 @@ docs/FileContentSearchResult.md
 docs/FilesContent.md
 docs/GateSpec.md
 docs/GenericNotificationPayload.md
+docs/GetImageContentSummary200ResponseInnerInner.md
 docs/GroupSyncResult.md
 docs/IdentityApi.md
 docs/ImageAnalysisRequest.md
@@ -504,6 +505,7 @@ model_file_content_search_result.go
 model_files_content.go
 model_gate_spec.go
 model_generic_notification_payload.go
+model_get_image_content_summary_200_response_inner_inner.go
 model_group_sync_result.go
 model_image_analysis_request.go
 model_image_ancestor.go

@@ -8,7 +8,7 @@ info:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
   title: Anchore API
-  version: 2.6.1
+  version: 2.7.2
 servers:
 - url: /v2
 tags:
@@ -3327,6 +3327,50 @@ paths:
       - Images
       x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.images
       x-anchore-authz-action: getImage
+  /images/{image_digest}/content-summary:
+    get:
+      operationId: get_image_content_summary
+      parameters:
+      - explode: false
+        in: path
+        name: image_digest
+        required: true
+        schema:
+          format: path
+          pattern: "^sha256:[a-fA-F0-9]{64}$"
+          type: string
+        style: simple
+      - description: "An account name to change the resource scope of the request\
+          \ to that account, if permissions allow (admin only)"
+        explode: false
+        in: header
+        name: x-anchore-account
+        required: false
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  items:
+                    $ref: '#/components/schemas/get_image_content_summary_200_response_inner_inner'
+                  type: array
+                type: array
+          description: Content listing for the image
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+          description: Internal Error
+      summary: Get image content summary
+      tags:
+      - Images
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.images
+      x-anchore-authz-action: getImage
   /images/{image_digest}/content/files:
     get:
       operationId: get_image_content_by_type_files
@@ -3367,46 +3411,6 @@ paths:
       - Images
       x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.images
       x-anchore-authz-action: getImage
-  /images/{image_digest}/content/java:
-    get:
-      operationId: get_image_content_by_type_java_package
-      parameters:
-      - explode: false
-        in: path
-        name: image_digest
-        required: true
-        schema:
-          format: path
-          pattern: "^sha256:[a-fA-F0-9]{64}$"
-          type: string
-        style: simple
-      - description: "An account name to change the resource scope of the request\
-          \ to that account, if permissions allow (admin only)"
-        explode: false
-        in: header
-        name: x-anchore-account
-        required: false
-        schema:
-          type: string
-        style: simple
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ContentJavaPackageResponse'
-          description: Content of specified type from the image
-        "500":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ApiErrorResponse'
-          description: Internal error
-      summary: Get the content of an image by type java
-      tags:
-      - Images
-      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.images
-      x-anchore-authz-action: getImage
   /images/{image_digest}/content/malware:
     get:
       operationId: get_image_content_by_type_malware
@@ -3443,6 +3447,46 @@ paths:
                 $ref: '#/components/schemas/ApiErrorResponse'
           description: Internal error
       summary: Get the content of an image by type malware
+      tags:
+      - Images
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.images
+      x-anchore-authz-action: getImage
+  /images/{image_digest}/content/java:
+    get:
+      operationId: get_image_content_by_type_java_package
+      parameters:
+      - explode: false
+        in: path
+        name: image_digest
+        required: true
+        schema:
+          format: path
+          pattern: "^sha256:[a-fA-F0-9]{64}$"
+          type: string
+        style: simple
+      - description: "An account name to change the resource scope of the request\
+          \ to that account, if permissions allow (admin only)"
+        explode: false
+        in: header
+        name: x-anchore-account
+        required: false
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContentJavaPackageResponse'
+          description: Content of specified type from the image
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+          description: Internal error
+      summary: Get the content of an image by type java
       tags:
       - Images
       x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.images
@@ -9250,6 +9294,14 @@ paths:
         required: false
         schema:
           type: string
+        style: form
+      - description: Filter by images with runtime inventory
+        explode: true
+        in: query
+        name: runtime
+        required: false
+        schema:
+          type: boolean
         style: form
       - description: "List of field name(s) to order by, ascending by default"
         explode: false
@@ -20020,11 +20072,42 @@ components:
     SystemStatistics:
       example:
         value_type: value_type
-        name: name
+        name: source_analysis
         description: description
         value: 0
       properties:
         name:
+          enum:
+          - source_analysis
+          - image_analysis
+          - report_generation
+          - policy_evaluation
+          - policy_creation
+          - stateless_sbom_analysis
+          - kubernetes_namespace_creation
+          - kubernetes_image_creation
+          - kubernetes_node_creation
+          - kubernetes_pod_creation
+          - kubernetes_container_creation
+          - ecs_container_creation
+          - ecs_service_creation
+          - ecs_task_creation
+          - ecs_image_creation
+          - account_creation
+          - user_creation
+          - policy_inventory
+          - kubernetes_namespace_inventory
+          - kubernetes_node_inventory
+          - kubernetes_pod_inventory
+          - kubernetes_container_inventory
+          - kubernetes_image_inventory
+          - ecs_container_inventory
+          - ecs_image_inventory
+          - ecs_service_inventory
+          - ecs_task_inventory
+          - account_inventory
+          - user_inventory
+          - report_execution_inventory
           type: string
         description:
           type: string
@@ -20037,11 +20120,11 @@ components:
       example:
         items:
         - value_type: value_type
-          name: name
+          name: source_analysis
           description: description
           value: 0
         - value_type: value_type
-          name: name
+          name: source_analysis
           description: description
           value: 0
       properties:
@@ -20778,6 +20861,19 @@ components:
           enum:
           - revoked
           type: string
+      type: object
+    get_image_content_summary_200_response_inner_inner:
+      example:
+        content_type: content_type
+        count: 0
+        display_name: display_name
+      properties:
+        content_type:
+          type: string
+        display_name:
+          type: string
+        count:
+          type: integer
       type: object
     revoke_oauth_token_request:
       properties:
