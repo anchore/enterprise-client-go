@@ -8,7 +8,7 @@ info:
   license:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
-  version: 2.7.2
+  version: 2.4.0
 servers:
 - url: /v2
 tags:
@@ -727,8 +727,7 @@ paths:
       - User Management
       summary: Delete the specified account, only allowed if the account is in the
         disabled state. All users will be deleted along with the account and all resources
-        will be garbage collected. The deleted account name will not be available for reuse
-        immediately until all resources are garbage collected async.
+        will be garbage collected
       operationId: delete_account
       parameters:
       - name: account_name
@@ -2578,12 +2577,6 @@ paths:
           - analyzed
           - analyzing
           - analysis_failed
-      - name: analyzed_since
-        in: query
-        description: Filter by images analyzed on or after the specified datetime
-        schema:
-          type: string
-          format: datetime
       - name: x-anchore-account
         in: header
         description: An account name to change the resource scope of the request to
@@ -2849,7 +2842,7 @@ paths:
       - name: base_digest
         in: query
         description: Digest of a base image. If specified the evaluation will indicate
-          results inherited from the base image. Can specify "auto" to have the base image automatically calculated.
+          results inherited from the base image
         schema:
           type: string
       - name: x-anchore-account
@@ -2910,52 +2903,6 @@ paths:
                 $ref: '#/components/schemas/ApiErrorResponse'
       x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.images
       x-anchore-authz-action: getImage
-  /images/{image_digest}/content-summary:
-    get:
-      tags:
-      - Images
-      summary: Get image content summary
-      operationId: get_image_content_summary
-      parameters:
-      - name: image_digest
-        in: path
-        required: true
-        schema:
-          pattern: ^sha256:[a-fA-F0-9]{64}$
-          type: string
-          format: path
-      - name: x-anchore-account
-        in: header
-        description: An account name to change the resource scope of the request to
-          that account, if permissions allow (admin only)
-        schema:
-          type: string
-      responses:
-        200:
-          description: Content listing for the image
-          content:
-            application/json:
-              schema:
-                type: object
-                items:
-                  type: array
-                  items:
-                    type: object
-                    properties:
-                      content_type:
-                        type: string
-                      display_name:
-                        type: string
-                      count:
-                        type: integer
-        500:
-          description: Internal Error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ApiErrorResponse'
-      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.images
-      x-anchore-authz-action: getImage
   /images/{image_digest}/content/files:
     get:
       tags:
@@ -2991,41 +2938,6 @@ paths:
                 $ref: '#/components/schemas/ApiErrorResponse'
       x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.images
       x-anchore-authz-action: getImage
-  /images/{image_digest}/content/malware:
-    get:
-      tags:
-      - Images
-      summary: Get the content of an image by type malware
-      operationId: get_image_content_by_type_malware
-      parameters:
-      - name: image_digest
-        in: path
-        required: true
-        schema:
-          pattern: ^sha256:[a-fA-F0-9]{64}$
-          type: string
-          format: path
-      - name: x-anchore-account
-        in: header
-        description: An account name to change the resource scope of the request to
-          that account, if permissions allow (admin only)
-        schema:
-          type: string
-      responses:
-        200:
-          description: Content of specified type from the image
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ContentMalwareResponse'
-        500:
-          description: Internal error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ApiErrorResponse'
-      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.images
-      x-anchore-authz-action: getImage
   /images/{image_digest}/content/java:
     get:
       tags:
@@ -3053,6 +2965,41 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ContentJavaPackageResponse'
+        500:
+          description: Internal error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.images
+      x-anchore-authz-action: getImage
+  /images/{image_digest}/content/malware:
+    get:
+      tags:
+      - Images
+      summary: Get the content of an image by type malware
+      operationId: get_image_content_by_type_malware
+      parameters:
+      - name: image_digest
+        in: path
+        required: true
+        schema:
+          pattern: ^sha256:[a-fA-F0-9]{64}$
+          type: string
+          format: path
+      - name: x-anchore-account
+        in: header
+        description: An account name to change the resource scope of the request to
+          that account, if permissions allow (admin only)
+        schema:
+          type: string
+      responses:
+        200:
+          description: Content of specified type from the image
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContentMalwareResponse'
         500:
           description: Internal error
           content:
@@ -3371,7 +3318,7 @@ paths:
       - name: base_digest
         in: query
         description: Digest of a base image. If specified the vulnerabilities will
-          indicate inheritance from the base image. Can specify "auto" to have the base image automatically calculated.
+          indicate inheritance from the base image
         schema:
           type: string
       - name: x-anchore-account
@@ -3422,12 +3369,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/AnchoreImage'
-        404:
-          description: Image not found
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ApiErrorResponse'
         500:
           description: Internal error
           content:
@@ -3466,24 +3407,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/DeleteImageResponse'
-        400:
-          description: Bad Delete request given image's current state
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ApiErrorResponse'
-        404:
-          description: Image not found
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ApiErrorResponse'
-        500:
-          description: Internal error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ApiErrorResponse'
       x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.images
       x-anchore-authz-action: deleteImage
   /imports/images:
@@ -7696,27 +7619,20 @@ paths:
       parameters:
       - name: repository
         in: query
-        description: Full repository to add e.g. docker.io/library/alpine
+        description: full repository to add e.g. docker.io/library/alpine
         required: true
         schema:
           type: string
       - name: auto_subscribe
         in: query
-        description: Flag to enable/disable auto tag_update activation when new images
-          from a repo are added. Default is false.
+        description: flag to enable/disable auto tag_update activation when new images
+          from a repo are added
         schema:
           type: boolean
       - name: dry_run
         in: query
-        description: Flag to return tags in the repository without actually watching
-          the repository. Default is false.
-        schema:
-          type: boolean
-      - name: exclude_existing_tags
-        in: query
-        description: Flag that indicates if the watcher will exclude existing tags
-          from the repository during the first run.  When set to 'true', the watcher will only add
-          newly detected tags to the system from this time forward. Default is false.
+        description: flag to return tags in the repository without actually watching
+          the repository, default is false
         schema:
           type: boolean
       - name: x-anchore-account
@@ -8314,12 +8230,6 @@ paths:
             - analyzing
           default:
           - all
-      - name: analyzed_since
-        in: query
-        description: Filter images analyzed on or after the specified datetime
-        schema:
-          type: string
-          format: datetime
       - name: registry
         in: query
         description: A registry name to filter result by (e.g. "docker.io")
@@ -8335,42 +8245,27 @@ paths:
         description: A tag value to filter results by (e.g. "latest", or "v1.2.0")
         schema:
           type: string
-      - name: runtime
-        in: query
-        description: Filter by images with runtime inventory
-        schema:
-          type: boolean
       - name: order_by
         in: query
-        description: List of field name(s) to order by, ascending by default
-        style: form
-        explode: false
+        description: Field name to order by, ascending by default
         schema:
-          type: array
-          items:
-            type: string
-            enum:
-              - image_digest
-              - parent_digest
-              - analysis_status
-              - created_at
-              - image_id
-              - analyzed_at
-              - tag_detected_at
-              - image_status
-              - analysis_status
-              - full_tag
+          type: string
+          enum:
+            - image_digest
+            - parent_digest
+            - analysis_status
+            - created_at
+            - image_id
+            - analyzed_at
+            - tag_detected_at
+            - image_status
+            - analysis_status
+            - full_tag
       - name: order_by_descending
         in: query
-        description: >-
-          Configures the sort order of each specified order_by
-          column to be descending (true) instead of ascending (false)
-        style: form
-        explode: false
+        description: Configures the sort to be descending instead of ascending
         schema:
-          type: array
-          items:
-            type: boolean
+          type: boolean
       - name: filter
         in: query
         description: Filter by 'image_digest' or 'full_tag' fields, using partial or full string match
@@ -8432,7 +8327,7 @@ paths:
             - active
             - deleting
           default:
-          - active
+          - active      
       - name: registry
         in: query
         description: Filter by registry
@@ -8962,7 +8857,7 @@ paths:
       tags:
       - Statistics
       summary: List System Statistics
-      description: Returns list of system statistics with total all-time counts.
+      description: Returns list of system statistics
       operationId: get_system_statistics
       responses:
         200:
@@ -9712,7 +9607,7 @@ components:
       type: object
       properties:
         name:
-          pattern: ^[a-zA-Z0-9][ a-zA-Z0-9@.!$+=^_`~;-]{1,126}[a-zA-Z0-9_]$
+          pattern: ^[a-zA-Z0-9][ a-zA-Z0-9@.!#$+=^_`~;-]{1,126}[a-zA-Z0-9_]$
           type: string
           description: The account name to use. This will identify the account and
             must be globally unique in the system.
@@ -10517,6 +10412,7 @@ components:
       - even_if_exists_in_runtime_inventory
       - days_since_analyzed
       - artifact_type
+      - include_base_images
       properties:
         version:
           description: The version of these policy conditions.
@@ -11231,16 +11127,13 @@ components:
       properties:
         name:
           type: string
-          description: The name of the feed group
         created_at:
           type: string
           format: date-time
         last_sync:
-          description: The last successful update for this feed group.
           type: string
           format: date-time
         record_count:
-          description: The number of records in the group
           type: integer
         enabled:
           type: boolean
@@ -11253,23 +11146,25 @@ components:
           description: name of the feed
         created_at:
           type: string
+          description: Date the metadata record was created in engine (first seen
+            on source)
           format: date-time
         updated_at:
           type: string
-          description: The last time the policy-engine service pinged the feed service to see if there was a new grypedb available.
+          description: Date the metadata was last updated
           format: date-time
         groups:
           type: array
           items:
             $ref: '#/components/schemas/FeedGroupMetadata'
         last_full_sync:
-          description: The last time that policy-engine service downloaded a new grypedb.
           type: string
           format: date-time
         enabled:
           type: boolean
           description: If feed is enabled
-      description: Metadata on the feeds based on findings from querying the endpoints.
+      description: Metadata on a single feed based on what the engine finds from querying
+        the endpoints
     FeedSyncResult:
       type: object
       properties:
@@ -11448,12 +11343,6 @@ components:
             type: string
             description: The layer ID
             example: sha256:03810167880e863d81dc60fc7771c975b93dfdf982d5677fb2c23d11b02c644b
-        user_marked_base:
-          type: boolean
-          description: True if a specific ancestor has been marked by the user as the chosen base image
-        chosen_base_image:
-          type: boolean
-          description: True for the specific ancestor that has been identified as the base image by the system. This image will be used internally for comparisons.
       description: An summary of an image and it's layers.
     ImageAncestry:
       type: array
@@ -13896,8 +13785,6 @@ components:
           description: The account scope that applies to the set of roles
         roles:
           $ref: '#/components/schemas/RbacManagerRole'
-        account:
-          $ref: '#/components/schemas/Account'
       description: An account identifier and roles a user has within that account
     RbacManagerApiErrorResponse:
       type: object
@@ -15084,37 +14971,6 @@ components:
       properties:
         name:
           type: string
-          enum:
-            - source_analysis
-            - image_analysis
-            - report_generation
-            - policy_evaluation
-            - policy_creation
-            - stateless_sbom_analysis
-            - kubernetes_namespace_creation
-            - kubernetes_image_creation
-            - kubernetes_node_creation
-            - kubernetes_pod_creation
-            - kubernetes_container_creation
-            - ecs_container_creation
-            - ecs_service_creation
-            - ecs_task_creation
-            - ecs_image_creation
-            - account_creation
-            - user_creation
-            - policy_inventory
-            - kubernetes_namespace_inventory
-            - kubernetes_node_inventory
-            - kubernetes_pod_inventory
-            - kubernetes_container_inventory
-            - kubernetes_image_inventory
-            - ecs_container_inventory
-            - ecs_image_inventory
-            - ecs_service_inventory
-            - ecs_task_inventory
-            - account_inventory
-            - user_inventory
-            - report_execution_inventory
         description:
           type: string
         value_type:
@@ -15199,7 +15055,7 @@ components:
           description: The token content
         expires_in:
           type: number
-          description: The lifetime of the access token in seconds
+          description: The lifetime of the token in seconds
         token_type:
           type: string
           description: The type of the token returned
@@ -15324,8 +15180,7 @@ components:
         unified_roles:
           type: array
           description: The unified list of RBAC roles this user currently has in this account.
-          items:
-            $ref: '#/components/schemas/UnifiedRoles'
+          $ref: '#/components/schemas/UserGroupRoles'
       description: A username for authenticating with one or more types of credentials.
         User type defines the expected credentials allowed for the user. Native users
         have passwords, other users have no credential internally. Internal users
@@ -15371,11 +15226,9 @@ components:
       type: object
       properties:
         username:
-          pattern: ^[a-zA-Z0-9][ a-zA-Z0-9@.!#$+=^_`~;:-]{1,126}[a-zA-Z0-9_]$
+          pattern: ^[a-zA-Z0-9][ a-zA-Z0-9@.!#$+=^_`~;-]{1,126}[a-zA-Z0-9_]$
           type: string
-          description: The username for authentication. If the user_type is 'native',
-            this name must not contain a colon character as per RFC 2617 (HTTP Basic and Digest Authentication). If the user_type is 'saml', then colons are allowed
-            in the name since HTTP Basic auth is not used for that user type.
+          description: The username to create
         password:
           pattern: .{6,128}$
           type: string

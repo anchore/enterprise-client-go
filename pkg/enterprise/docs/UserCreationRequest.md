@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Username** | **string** | The username for authentication. If the user_type is &#39;native&#39;, this name must not contain a colon character as per RFC 2617 (HTTP Basic and Digest Authentication). If the user_type is &#39;saml&#39;, then colons are allowed in the name since HTTP Basic auth is not used for that user type. | 
+**Username** | **string** | The username to create | 
 **Password** | Pointer to **string** | The initial password for the user, must be at least 6 characters, up to 128. This must be null when the user_type is not &#39;native&#39;. | [optional] 
 **UserType** | Pointer to **string** | The user&#39;s type. A Native user authenticates using user/password log on. All other users will authenticate with an IDP. | [optional] 
 **IdpName** | Pointer to **string** | If the user is authenticating via an IDP, this is the name of the IDP. A &#39;native&#39; user should have this set to null. | [optional] 

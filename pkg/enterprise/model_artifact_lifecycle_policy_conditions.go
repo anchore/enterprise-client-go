@@ -3,7 +3,7 @@ Anchore API
 
 This is the Anchore API. Provides the external API for users of Anchore Enterprise.
 
-API version: 2.7.2
+API version: 2.4.0
 Contact: dev@anchore.com
 */
 
@@ -24,7 +24,7 @@ type ArtifactLifecyclePolicyConditions struct {
 	// An image analysis must be this many days old before it will be considered for processing. An integer value less than or equal to zero will cause this field to be ignored.
 	DaysSinceAnalyzed int32 `json:"days_since_analyzed"`
 	// Include base images in the policy selection criteria.
-	IncludeBaseImages *bool `json:"include_base_images,omitempty"`
+	IncludeBaseImages bool `json:"include_base_images"`
 	// The type of artifact that will be processed.
 	ArtifactType string `json:"artifact_type"`
 }
@@ -33,10 +33,11 @@ type ArtifactLifecyclePolicyConditions struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewArtifactLifecyclePolicyConditions(evenIfExistsInRuntimeInventory bool, daysSinceAnalyzed int32, artifactType string) *ArtifactLifecyclePolicyConditions {
+func NewArtifactLifecyclePolicyConditions(evenIfExistsInRuntimeInventory bool, daysSinceAnalyzed int32, includeBaseImages bool, artifactType string) *ArtifactLifecyclePolicyConditions {
 	this := ArtifactLifecyclePolicyConditions{}
 	this.EvenIfExistsInRuntimeInventory = evenIfExistsInRuntimeInventory
 	this.DaysSinceAnalyzed = daysSinceAnalyzed
+	this.IncludeBaseImages = includeBaseImages
 	this.ArtifactType = artifactType
 	return &this
 }
@@ -129,36 +130,28 @@ func (o *ArtifactLifecyclePolicyConditions) SetDaysSinceAnalyzed(v int32) {
 	o.DaysSinceAnalyzed = v
 }
 
-// GetIncludeBaseImages returns the IncludeBaseImages field value if set, zero value otherwise.
+// GetIncludeBaseImages returns the IncludeBaseImages field value
 func (o *ArtifactLifecyclePolicyConditions) GetIncludeBaseImages() bool {
-	if o == nil || o.IncludeBaseImages == nil {
+	if o == nil {
 		var ret bool
 		return ret
 	}
-	return *o.IncludeBaseImages
+
+	return o.IncludeBaseImages
 }
 
-// GetIncludeBaseImagesOk returns a tuple with the IncludeBaseImages field value if set, nil otherwise
+// GetIncludeBaseImagesOk returns a tuple with the IncludeBaseImages field value
 // and a boolean to check if the value has been set.
 func (o *ArtifactLifecyclePolicyConditions) GetIncludeBaseImagesOk() (*bool, bool) {
-	if o == nil || o.IncludeBaseImages == nil {
+	if o == nil {
 		return nil, false
 	}
-	return o.IncludeBaseImages, true
+	return &o.IncludeBaseImages, true
 }
 
-// HasIncludeBaseImages returns a boolean if a field has been set.
-func (o *ArtifactLifecyclePolicyConditions) HasIncludeBaseImages() bool {
-	if o != nil && o.IncludeBaseImages != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetIncludeBaseImages gets a reference to the given bool and assigns it to the IncludeBaseImages field.
+// SetIncludeBaseImages sets field value
 func (o *ArtifactLifecyclePolicyConditions) SetIncludeBaseImages(v bool) {
-	o.IncludeBaseImages = &v
+	o.IncludeBaseImages = v
 }
 
 // GetArtifactType returns the ArtifactType field value
@@ -196,7 +189,7 @@ func (o ArtifactLifecyclePolicyConditions) MarshalJSON() ([]byte, error) {
 	if true {
 		toSerialize["days_since_analyzed"] = o.DaysSinceAnalyzed
 	}
-	if o.IncludeBaseImages != nil {
+	if true {
 		toSerialize["include_base_images"] = o.IncludeBaseImages
 	}
 	if true {

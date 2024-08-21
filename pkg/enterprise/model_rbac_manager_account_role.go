@@ -3,7 +3,7 @@ Anchore API
 
 This is the Anchore API. Provides the external API for users of Anchore Enterprise.
 
-API version: 2.7.2
+API version: 2.4.0
 Contact: dev@anchore.com
 */
 
@@ -20,7 +20,6 @@ type RbacManagerAccountRole struct {
 	// The account scope that applies to the set of roles
 	ForAccount *string `json:"for_account,omitempty"`
 	Roles *RbacManagerRole `json:"roles,omitempty"`
-	Account *Account `json:"account,omitempty"`
 }
 
 // NewRbacManagerAccountRole instantiates a new RbacManagerAccountRole object
@@ -104,38 +103,6 @@ func (o *RbacManagerAccountRole) SetRoles(v RbacManagerRole) {
 	o.Roles = &v
 }
 
-// GetAccount returns the Account field value if set, zero value otherwise.
-func (o *RbacManagerAccountRole) GetAccount() Account {
-	if o == nil || o.Account == nil {
-		var ret Account
-		return ret
-	}
-	return *o.Account
-}
-
-// GetAccountOk returns a tuple with the Account field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *RbacManagerAccountRole) GetAccountOk() (*Account, bool) {
-	if o == nil || o.Account == nil {
-		return nil, false
-	}
-	return o.Account, true
-}
-
-// HasAccount returns a boolean if a field has been set.
-func (o *RbacManagerAccountRole) HasAccount() bool {
-	if o != nil && o.Account != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetAccount gets a reference to the given Account and assigns it to the Account field.
-func (o *RbacManagerAccountRole) SetAccount(v Account) {
-	o.Account = &v
-}
-
 func (o RbacManagerAccountRole) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.ForAccount != nil {
@@ -143,9 +110,6 @@ func (o RbacManagerAccountRole) MarshalJSON() ([]byte, error) {
 	}
 	if o.Roles != nil {
 		toSerialize["roles"] = o.Roles
-	}
-	if o.Account != nil {
-		toSerialize["account"] = o.Account
 	}
 	return json.Marshal(toSerialize)
 }

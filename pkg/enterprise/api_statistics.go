@@ -3,7 +3,7 @@ Anchore API
 
 This is the Anchore API. Provides the external API for users of Anchore Enterprise.
 
-API version: 2.7.2
+API version: 2.4.0
 Contact: dev@anchore.com
 */
 
@@ -25,7 +25,7 @@ type StatisticsApi interface {
 	/*
 	GetSystemStatistics List System Statistics
 
-	Returns list of system statistics with total all-time counts.
+	Returns list of system statistics
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return ApiGetSystemStatisticsRequest
@@ -52,7 +52,7 @@ func (r ApiGetSystemStatisticsRequest) Execute() (*SystemStatisticsList, *http.R
 /*
 GetSystemStatistics List System Statistics
 
-Returns list of system statistics with total all-time counts.
+Returns list of system statistics
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiGetSystemStatisticsRequest

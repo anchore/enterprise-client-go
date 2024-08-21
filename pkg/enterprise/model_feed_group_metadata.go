@@ -3,7 +3,7 @@ Anchore API
 
 This is the Anchore API. Provides the external API for users of Anchore Enterprise.
 
-API version: 2.7.2
+API version: 2.4.0
 Contact: dev@anchore.com
 */
 
@@ -18,12 +18,9 @@ import (
 
 // FeedGroupMetadata struct for FeedGroupMetadata
 type FeedGroupMetadata struct {
-	// The name of the feed group
 	Name *string `json:"name,omitempty"`
 	CreatedAt *time.Time `json:"created_at,omitempty"`
-	// The last successful update for this feed group.
 	LastSync *time.Time `json:"last_sync,omitempty"`
-	// The number of records in the group
 	RecordCount *int32 `json:"record_count,omitempty"`
 	// If group is enabled
 	Enabled *bool `json:"enabled,omitempty"`
