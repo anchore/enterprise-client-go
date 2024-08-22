@@ -129,6 +129,8 @@ docs/EventResponseEventSource.md
 docs/EventSubcategory.md
 docs/EventsApi.md
 docs/EventsList.md
+docs/FeedDataRecord.md
+docs/FeedDataRecords.md
 docs/FeedGroupMetadata.md
 docs/FeedMetadata.md
 docs/FeedSyncResult.md
@@ -136,6 +138,7 @@ docs/FileContentSearchResult.md
 docs/FilesContent.md
 docs/GateSpec.md
 docs/GenericNotificationPayload.md
+docs/GetImageContentSummary200ResponseInnerInner.md
 docs/GroupSyncResult.md
 docs/IdentityApi.md
 docs/ImageAnalysisRequest.md
@@ -287,6 +290,7 @@ docs/PolicyRecord.md
 docs/PolicyRecordPolicy.md
 docs/PolicyRule.md
 docs/PolicyRuleParam.md
+docs/PostSystemFeeds200Response.md
 docs/QueryApi.md
 docs/RBACApi.md
 docs/RbacManagerAccountRole.md
@@ -497,6 +501,8 @@ model_event_response_event_resource.go
 model_event_response_event_source.go
 model_event_subcategory.go
 model_events_list.go
+model_feed_data_record.go
+model_feed_data_records.go
 model_feed_group_metadata.go
 model_feed_metadata.go
 model_feed_sync_result.go
@@ -504,6 +510,7 @@ model_file_content_search_result.go
 model_files_content.go
 model_gate_spec.go
 model_generic_notification_payload.go
+model_get_image_content_summary_200_response_inner_inner.go
 model_group_sync_result.go
 model_image_analysis_request.go
 model_image_ancestor.go
@@ -649,6 +656,7 @@ model_policy_record.go
 model_policy_record_policy.go
 model_policy_rule.go
 model_policy_rule_param.go
+model_post_system_feeds_200_response.go
 model_rbac_manager_account_role.go
 model_rbac_manager_api_error_response.go
 model_rbac_manager_idp_user_group.go

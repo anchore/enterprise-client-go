@@ -5,10 +5,10 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Name** | Pointer to **string** | name of the feed | [optional] 
-**CreatedAt** | Pointer to **time.Time** | Date the metadata record was created in engine (first seen on source) | [optional] 
-**UpdatedAt** | Pointer to **time.Time** | Date the metadata was last updated | [optional] 
+**CreatedAt** | Pointer to **time.Time** |  | [optional] 
+**UpdatedAt** | Pointer to **time.Time** | The last time the policy-engine service pinged the feed service to see if there was a new grypedb available. | [optional] 
 **Groups** | Pointer to [**[]FeedGroupMetadata**](FeedGroupMetadata.md) |  | [optional] 
-**LastFullSync** | Pointer to **time.Time** |  | [optional] 
+**LastFullSync** | Pointer to **time.Time** | The last time that policy-engine service downloaded a new grypedb. | [optional] 
 **Enabled** | Pointer to **bool** | If feed is enabled | [optional] 
 
 ## Methods

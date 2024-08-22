@@ -13,6 +13,7 @@ Method | HTTP request | Description
 [**GetImageContentByTypeFiles**](ImagesApi.md#GetImageContentByTypeFiles) | **Get** /images/{image_digest}/content/files | Get the content of an image by type files
 [**GetImageContentByTypeJavaPackage**](ImagesApi.md#GetImageContentByTypeJavaPackage) | **Get** /images/{image_digest}/content/java | Get the content of an image by type java
 [**GetImageContentByTypeMalware**](ImagesApi.md#GetImageContentByTypeMalware) | **Get** /images/{image_digest}/content/malware | Get the content of an image by type malware
+[**GetImageContentSummary**](ImagesApi.md#GetImageContentSummary) | **Get** /images/{image_digest}/content-summary | Get image content summary
 [**GetImageMetadataByType**](ImagesApi.md#GetImageMetadataByType) | **Get** /images/{image_digest}/metadata/{metadata_type} | Get the metadata of an image by type
 [**GetImagePolicyCheckByDigest**](ImagesApi.md#GetImagePolicyCheckByDigest) | **Get** /images/{image_digest}/check | Check policy evaluation status for image
 [**GetImageSbomCyclonedxJson**](ImagesApi.md#GetImageSbomCyclonedxJson) | **Get** /images/{image_digest}/sboms/cyclonedx-json | Get image sbom in the CycloneDX format
@@ -670,6 +671,76 @@ No authorization required
 [[Back to README]](../README.md)
 
 
+## GetImageContentSummary
+
+> [][]GetImageContentSummary200ResponseInnerInner GetImageContentSummary(ctx, imageDigest).XAnchoreAccount(xAnchoreAccount).Execute()
+
+Get image content summary
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    imageDigest := "imageDigest_example" // string | 
+    xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
+
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.ImagesApi.GetImageContentSummary(context.Background(), imageDigest).XAnchoreAccount(xAnchoreAccount).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `ImagesApi.GetImageContentSummary``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `GetImageContentSummary`: [][]GetImageContentSummary200ResponseInnerInner
+    fmt.Fprintf(os.Stdout, "Response from `ImagesApi.GetImageContentSummary`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**imageDigest** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetImageContentSummaryRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **xAnchoreAccount** | **string** | An account name to change the resource scope of the request to that account, if permissions allow (admin only) | 
+
+### Return type
+
+[**[][]GetImageContentSummary200ResponseInnerInner**](array.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
 ## GetImageMetadataByType
 
 > MetadataResponse GetImageMetadataByType(ctx, imageDigest, metadataType).XAnchoreAccount(xAnchoreAccount).Execute()
@@ -770,7 +841,7 @@ func main() {
     detail := true // bool |  (optional) (default to true)
     history := true // bool |  (optional) (default to false)
     interactive := true // bool |  (optional) (default to false)
-    baseDigest := "baseDigest_example" // string | Digest of a base image. If specified the evaluation will indicate results inherited from the base image (optional)
+    baseDigest := "baseDigest_example" // string | Digest of a base image. If specified the evaluation will indicate results inherited from the base image. Can specify \"auto\" to have the base image automatically calculated. (optional)
     xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
 
     configuration := openapiclient.NewConfiguration()
@@ -806,7 +877,7 @@ Name | Type | Description  | Notes
  **detail** | **bool** |  | [default to true]
  **history** | **bool** |  | [default to false]
  **interactive** | **bool** |  | [default to false]
- **baseDigest** | **string** | Digest of a base image. If specified the evaluation will indicate results inherited from the base image | 
+ **baseDigest** | **string** | Digest of a base image. If specified the evaluation will indicate results inherited from the base image. Can specify \&quot;auto\&quot; to have the base image automatically calculated. | 
  **xAnchoreAccount** | **string** | An account name to change the resource scope of the request to that account, if permissions allow (admin only) | 
 
 ### Return type
@@ -1061,7 +1132,7 @@ func main() {
     forceRefresh := true // bool |  (optional) (default to false)
     includeVulnDescription := true // bool |  (optional) (default to false)
     vendorOnly := true // bool | Filter results to include only vulnerabilities that are not marked as invalid by upstream OS vendor data. When set to true, it will filter out all vulnerabilities where `will_not_fix` is False. If false all vulnerabilities are returned regardless of `will_not_fix` (optional) (default to true)
-    baseDigest := "baseDigest_example" // string | Digest of a base image. If specified the vulnerabilities will indicate inheritance from the base image (optional)
+    baseDigest := "baseDigest_example" // string | Digest of a base image. If specified the vulnerabilities will indicate inheritance from the base image. Can specify \"auto\" to have the base image automatically calculated. (optional)
     xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
 
     configuration := openapiclient.NewConfiguration()
@@ -1097,7 +1168,7 @@ Name | Type | Description  | Notes
  **forceRefresh** | **bool** |  | [default to false]
  **includeVulnDescription** | **bool** |  | [default to false]
  **vendorOnly** | **bool** | Filter results to include only vulnerabilities that are not marked as invalid by upstream OS vendor data. When set to true, it will filter out all vulnerabilities where &#x60;will_not_fix&#x60; is False. If false all vulnerabilities are returned regardless of &#x60;will_not_fix&#x60; | [default to true]
- **baseDigest** | **string** | Digest of a base image. If specified the vulnerabilities will indicate inheritance from the base image | 
+ **baseDigest** | **string** | Digest of a base image. If specified the vulnerabilities will indicate inheritance from the base image. Can specify \&quot;auto\&quot; to have the base image automatically calculated. | 
  **xAnchoreAccount** | **string** | An account name to change the resource scope of the request to that account, if permissions allow (admin only) | 
 
 ### Return type
@@ -1398,7 +1469,7 @@ No authorization required
 
 ## ListImages
 
-> AnchoreImageList ListImages(ctx).ImageId(imageId).History(history).FullTag(fullTag).ImageStatus(imageStatus).AnalysisStatus(analysisStatus).XAnchoreAccount(xAnchoreAccount).Execute()
+> AnchoreImageList ListImages(ctx).ImageId(imageId).History(history).FullTag(fullTag).ImageStatus(imageStatus).AnalysisStatus(analysisStatus).AnalyzedSince(analyzedSince).XAnchoreAccount(xAnchoreAccount).Execute()
 
 List all visible images
 
@@ -1422,11 +1493,12 @@ func main() {
     fullTag := "fullTag_example" // string | Full docker-pull string to filter results by (e.g. docker.io/library/nginx:latest, or myhost.com:5000/testimages:v1.1.1) (optional)
     imageStatus := "imageStatus_example" // string | Filter by image_status value on the record. Default if omitted is 'active'. (optional) (default to "active")
     analysisStatus := "analysisStatus_example" // string | Filter by analysis_status value on the record. (optional)
+    analyzedSince := "analyzedSince_example" // string | Filter by images analyzed on or after the specified datetime (optional)
     xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ImagesApi.ListImages(context.Background()).ImageId(imageId).History(history).FullTag(fullTag).ImageStatus(imageStatus).AnalysisStatus(analysisStatus).XAnchoreAccount(xAnchoreAccount).Execute()
+    resp, r, err := apiClient.ImagesApi.ListImages(context.Background()).ImageId(imageId).History(history).FullTag(fullTag).ImageStatus(imageStatus).AnalysisStatus(analysisStatus).AnalyzedSince(analyzedSince).XAnchoreAccount(xAnchoreAccount).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ImagesApi.ListImages``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -1452,6 +1524,7 @@ Name | Type | Description  | Notes
  **fullTag** | **string** | Full docker-pull string to filter results by (e.g. docker.io/library/nginx:latest, or myhost.com:5000/testimages:v1.1.1) | 
  **imageStatus** | **string** | Filter by image_status value on the record. Default if omitted is &#39;active&#39;. | [default to &quot;active&quot;]
  **analysisStatus** | **string** | Filter by analysis_status value on the record. | 
+ **analyzedSince** | **string** | Filter by images analyzed on or after the specified datetime | 
  **xAnchoreAccount** | **string** | An account name to change the resource scope of the request to that account, if permissions allow (admin only) | 
 
 ### Return type
@@ -1682,7 +1755,7 @@ No authorization required
 
 ## SummaryImageTags
 
-> AnchoreImageTagSummaryList SummaryImageTags(ctx).ImageStatus(imageStatus).AnalysisStatus(analysisStatus).Registry(registry).Repository(repository).Tag(tag).OrderBy(orderBy).OrderByDescending(orderByDescending).Filter(filter).Limit(limit).Page(page).XAnchoreAccount(xAnchoreAccount).Execute()
+> AnchoreImageTagSummaryList SummaryImageTags(ctx).ImageStatus(imageStatus).AnalysisStatus(analysisStatus).AnalyzedSince(analyzedSince).Registry(registry).Repository(repository).Tag(tag).Runtime(runtime).OrderBy(orderBy).OrderByDescending(orderByDescending).Filter(filter).Limit(limit).Page(page).XAnchoreAccount(xAnchoreAccount).Execute()
 
 Summarize image tags
 
@@ -1703,11 +1776,13 @@ import (
 func main() {
     imageStatus := []string{"ImageStatus_example"} // []string | Filter images in one or more states such as active, deleting. Defaults to active images only if unspecified (optional) (default to ["active"])
     analysisStatus := []string{"AnalysisStatus_example"} // []string | Filter images in one or more analysis_status such as analyzed, not_analyzed, analysis_failed. Defaults to unfiltered if unspecified (optional) (default to ["all"])
+    analyzedSince := "analyzedSince_example" // string | Filter images analyzed on or after the specified datetime (optional)
     registry := "registry_example" // string | A registry name to filter result by (e.g. \"docker.io\") (optional)
     repository := "repository_example" // string | A repository name to filter results by (e.g. \"jboss/keycloak\") (optional)
     tag := "tag_example" // string | A tag value to filter results by (e.g. \"latest\", or \"v1.2.0\") (optional)
-    orderBy := "orderBy_example" // string | Field name to order by, ascending by default (optional)
-    orderByDescending := true // bool | Configures the sort to be descending instead of ascending (optional)
+    runtime := true // bool | Filter by images with runtime inventory (optional)
+    orderBy := []string{"OrderBy_example"} // []string | List of field name(s) to order by, ascending by default (optional)
+    orderByDescending := []bool{false} // []bool | Configures the sort order of each specified order_by column to be descending (true) instead of ascending (false) (optional)
     filter := "filter_example" // string | Filter by 'image_digest' or 'full_tag' fields, using partial or full string match (optional)
     limit := int32(56) // int32 | Maximum number of rows to return (optional)
     page := int32(56) // int32 | Page number to return, one's based (optional) (default to 1)
@@ -1715,7 +1790,7 @@ func main() {
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ImagesApi.SummaryImageTags(context.Background()).ImageStatus(imageStatus).AnalysisStatus(analysisStatus).Registry(registry).Repository(repository).Tag(tag).OrderBy(orderBy).OrderByDescending(orderByDescending).Filter(filter).Limit(limit).Page(page).XAnchoreAccount(xAnchoreAccount).Execute()
+    resp, r, err := apiClient.ImagesApi.SummaryImageTags(context.Background()).ImageStatus(imageStatus).AnalysisStatus(analysisStatus).AnalyzedSince(analyzedSince).Registry(registry).Repository(repository).Tag(tag).Runtime(runtime).OrderBy(orderBy).OrderByDescending(orderByDescending).Filter(filter).Limit(limit).Page(page).XAnchoreAccount(xAnchoreAccount).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `ImagesApi.SummaryImageTags``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -1738,11 +1813,13 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **imageStatus** | **[]string** | Filter images in one or more states such as active, deleting. Defaults to active images only if unspecified | [default to [&quot;active&quot;]]
  **analysisStatus** | **[]string** | Filter images in one or more analysis_status such as analyzed, not_analyzed, analysis_failed. Defaults to unfiltered if unspecified | [default to [&quot;all&quot;]]
+ **analyzedSince** | **string** | Filter images analyzed on or after the specified datetime | 
  **registry** | **string** | A registry name to filter result by (e.g. \&quot;docker.io\&quot;) | 
  **repository** | **string** | A repository name to filter results by (e.g. \&quot;jboss/keycloak\&quot;) | 
  **tag** | **string** | A tag value to filter results by (e.g. \&quot;latest\&quot;, or \&quot;v1.2.0\&quot;) | 
- **orderBy** | **string** | Field name to order by, ascending by default | 
- **orderByDescending** | **bool** | Configures the sort to be descending instead of ascending | 
+ **runtime** | **bool** | Filter by images with runtime inventory | 
+ **orderBy** | **[]string** | List of field name(s) to order by, ascending by default | 
+ **orderByDescending** | **[]bool** | Configures the sort order of each specified order_by column to be descending (true) instead of ascending (false) | 
  **filter** | **string** | Filter by &#39;image_digest&#39; or &#39;full_tag&#39; fields, using partial or full string match | 
  **limit** | **int32** | Maximum number of rows to return | 
  **page** | **int32** | Page number to return, one&#39;s based | [default to 1]

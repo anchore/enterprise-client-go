@@ -3,7 +3,7 @@ Anchore API
 
 This is the Anchore API. Provides the external API for users of Anchore Enterprise.
 
-API version: 2.4.0
+API version: 2.7.2
 Contact: dev@anchore.com
 */
 
@@ -18,6 +18,7 @@ import (
 	"net/http"
 	"net/url"
 	"strings"
+	"os"
 )
 
 
@@ -145,6 +146,21 @@ type SystemApi interface {
 	GetStatusExecute(r ApiGetStatusRequest) (*StatusResponse, *http.Response, error)
 
 	/*
+	GetSystemFeed Method for GetSystemFeed
+
+	Get feed metadata
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param feed The data feed to query
+	@return ApiGetSystemFeedRequest
+	*/
+	GetSystemFeed(ctx context.Context, feed string) ApiGetSystemFeedRequest
+
+	// GetSystemFeedExecute executes the request
+	//  @return FeedDataRecord
+	GetSystemFeedExecute(r ApiGetSystemFeedRequest) (*FeedDataRecord, *http.Response, error)
+
+	/*
 	GetSystemFeeds list feeds operations and information
 
 	Return a list of feed and their groups along with update and record count information. This data reflects the state of the policy engine, not the upstream feed service itself.
@@ -200,7 +216,7 @@ type SystemApi interface {
 	/*
 	PostSystemFeeds trigger feeds operations
 
-	Execute a synchronous update of the latest GrypeDB with the policy-engine. The response will block until complete, then return the result summary.
+	Execute a synchronous fetch and sync of all datasets by the data_syncer, this is a synchronous operation and may take some time to complete.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return ApiPostSystemFeedsRequest
@@ -208,8 +224,8 @@ type SystemApi interface {
 	PostSystemFeeds(ctx context.Context) ApiPostSystemFeedsRequest
 
 	// PostSystemFeedsExecute executes the request
-	//  @return []FeedSyncResult
-	PostSystemFeedsExecute(r ApiPostSystemFeedsRequest) ([]FeedSyncResult, *http.Response, error)
+	//  @return PostSystemFeeds200Response
+	PostSystemFeedsExecute(r ApiPostSystemFeedsRequest) (*PostSystemFeeds200Response, *http.Response, error)
 
 	/*
 	SetNewLogLevel Change logging level for a running service
@@ -253,6 +269,20 @@ type SystemApi interface {
 	// ToggleFeedEnabledExecute executes the request
 	//  @return FeedMetadata
 	ToggleFeedEnabledExecute(r ApiToggleFeedEnabledRequest) (*FeedMetadata, *http.Response, error)
+
+	/*
+	UploadSystemFeed Method for UploadSystemFeed
+
+	Upload a new feed
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param feed The data feed to upload
+	@return ApiUploadSystemFeedRequest
+	*/
+	UploadSystemFeed(ctx context.Context, feed string) ApiUploadSystemFeedRequest
+
+	// UploadSystemFeedExecute executes the request
+	UploadSystemFeedExecute(r ApiUploadSystemFeedRequest) (*http.Response, error)
 
 	/*
 	VersionCheck Method for VersionCheck
@@ -1213,6 +1243,129 @@ func (a *SystemApiService) GetStatusExecute(r ApiGetStatusRequest) (*StatusRespo
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+type ApiGetSystemFeedRequest struct {
+	ctx context.Context
+	ApiService SystemApi
+	feed string
+	version *string
+}
+
+// The version of the feed to query
+func (r ApiGetSystemFeedRequest) Version(version string) ApiGetSystemFeedRequest {
+	r.version = &version
+	return r
+}
+
+func (r ApiGetSystemFeedRequest) Execute() (*FeedDataRecord, *http.Response, error) {
+	return r.ApiService.GetSystemFeedExecute(r)
+}
+
+/*
+GetSystemFeed Method for GetSystemFeed
+
+Get feed metadata
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param feed The data feed to query
+ @return ApiGetSystemFeedRequest
+*/
+func (a *SystemApiService) GetSystemFeed(ctx context.Context, feed string) ApiGetSystemFeedRequest {
+	return ApiGetSystemFeedRequest{
+		ApiService: a,
+		ctx: ctx,
+		feed: feed,
+	}
+}
+
+// Execute executes the request
+//  @return FeedDataRecord
+func (a *SystemApiService) GetSystemFeedExecute(r ApiGetSystemFeedRequest) (*FeedDataRecord, *http.Response, error) {
+	var (
+		localVarHTTPMethod   = http.MethodGet
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *FeedDataRecord
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SystemApiService.GetSystemFeed")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/system/feeds/{feed}"
+	localVarPath = strings.Replace(localVarPath, "{"+"feed"+"}", url.PathEscape(parameterToString(r.feed, "")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.version == nil {
+		return localVarReturnValue, nil, reportError("version is required and must be specified")
+	}
+
+	localVarQueryParams.Add("version", parameterToString(*r.version, ""))
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 500 {
+			var v ApiErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
 type ApiGetSystemFeedsRequest struct {
 	ctx context.Context
 	ApiService SystemApi
@@ -1617,16 +1770,23 @@ func (a *SystemApiService) PingExecute(r ApiPingRequest) (string, *http.Response
 type ApiPostSystemFeedsRequest struct {
 	ctx context.Context
 	ApiService SystemApi
+	forceSync *bool
 }
 
-func (r ApiPostSystemFeedsRequest) Execute() ([]FeedSyncResult, *http.Response, error) {
+// If set this will cause the data-syncer to ignore checksum matches and force a resync
+func (r ApiPostSystemFeedsRequest) ForceSync(forceSync bool) ApiPostSystemFeedsRequest {
+	r.forceSync = &forceSync
+	return r
+}
+
+func (r ApiPostSystemFeedsRequest) Execute() (*PostSystemFeeds200Response, *http.Response, error) {
 	return r.ApiService.PostSystemFeedsExecute(r)
 }
 
 /*
 PostSystemFeeds trigger feeds operations
 
-Execute a synchronous update of the latest GrypeDB with the policy-engine. The response will block until complete, then return the result summary.
+Execute a synchronous fetch and sync of all datasets by the data_syncer, this is a synchronous operation and may take some time to complete.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiPostSystemFeedsRequest
@@ -1639,13 +1799,13 @@ func (a *SystemApiService) PostSystemFeeds(ctx context.Context) ApiPostSystemFee
 }
 
 // Execute executes the request
-//  @return []FeedSyncResult
-func (a *SystemApiService) PostSystemFeedsExecute(r ApiPostSystemFeedsRequest) ([]FeedSyncResult, *http.Response, error) {
+//  @return PostSystemFeeds200Response
+func (a *SystemApiService) PostSystemFeedsExecute(r ApiPostSystemFeedsRequest) (*PostSystemFeeds200Response, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  []FeedSyncResult
+		localVarReturnValue  *PostSystemFeeds200Response
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SystemApiService.PostSystemFeeds")
@@ -1659,6 +1819,9 @@ func (a *SystemApiService) PostSystemFeedsExecute(r ApiPostSystemFeedsRequest) (
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
+	if r.forceSync != nil {
+		localVarQueryParams.Add("force_sync", parameterToString(*r.forceSync, ""))
+	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -2073,6 +2236,163 @@ func (a *SystemApiService) ToggleFeedEnabledExecute(r ApiToggleFeedEnabledReques
 	}
 
 	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiUploadSystemFeedRequest struct {
+	ctx context.Context
+	ApiService SystemApi
+	feed string
+	version *string
+	built *string
+	checksum *string
+	file **os.File
+}
+
+// The version of the data set to upload
+func (r ApiUploadSystemFeedRequest) Version(version string) ApiUploadSystemFeedRequest {
+	r.version = &version
+	return r
+}
+
+// Build timestsamp
+func (r ApiUploadSystemFeedRequest) Built(built string) ApiUploadSystemFeedRequest {
+	r.built = &built
+	return r
+}
+
+// Digest of the data record
+func (r ApiUploadSystemFeedRequest) Checksum(checksum string) ApiUploadSystemFeedRequest {
+	r.checksum = &checksum
+	return r
+}
+
+func (r ApiUploadSystemFeedRequest) File(file *os.File) ApiUploadSystemFeedRequest {
+	r.file = &file
+	return r
+}
+
+func (r ApiUploadSystemFeedRequest) Execute() (*http.Response, error) {
+	return r.ApiService.UploadSystemFeedExecute(r)
+}
+
+/*
+UploadSystemFeed Method for UploadSystemFeed
+
+Upload a new feed
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param feed The data feed to upload
+ @return ApiUploadSystemFeedRequest
+*/
+func (a *SystemApiService) UploadSystemFeed(ctx context.Context, feed string) ApiUploadSystemFeedRequest {
+	return ApiUploadSystemFeedRequest{
+		ApiService: a,
+		ctx: ctx,
+		feed: feed,
+	}
+}
+
+// Execute executes the request
+func (a *SystemApiService) UploadSystemFeedExecute(r ApiUploadSystemFeedRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod   = http.MethodPost
+		localVarPostBody     interface{}
+		formFiles            []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SystemApiService.UploadSystemFeed")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/system/feeds/{feed}"
+	localVarPath = strings.Replace(localVarPath, "{"+"feed"+"}", url.PathEscape(parameterToString(r.feed, "")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.version == nil {
+		return nil, reportError("version is required and must be specified")
+	}
+	if r.built == nil {
+		return nil, reportError("built is required and must be specified")
+	}
+	if r.checksum == nil {
+		return nil, reportError("checksum is required and must be specified")
+	}
+
+	localVarQueryParams.Add("version", parameterToString(*r.version, ""))
+	localVarQueryParams.Add("built", parameterToString(*r.built, ""))
+	localVarQueryParams.Add("checksum", parameterToString(*r.checksum, ""))
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"multipart/form-data"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	var fileLocalVarFormFileName string
+	var fileLocalVarFileName     string
+	var fileLocalVarFileBytes    []byte
+
+	fileLocalVarFormFileName = "file"
+
+	var fileLocalVarFile *os.File
+	if r.file != nil {
+		fileLocalVarFile = *r.file
+	}
+	if fileLocalVarFile != nil {
+		fbs, _ := ioutil.ReadAll(fileLocalVarFile)
+		fileLocalVarFileBytes = fbs
+		fileLocalVarFileName = fileLocalVarFile.Name()
+		fileLocalVarFile.Close()
+	}
+	formFiles = append(formFiles, formFile{fileBytes: fileLocalVarFileBytes, fileName: fileLocalVarFileName, formFileName: fileLocalVarFormFileName})
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 500 {
+			var v ApiErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
 }
 
 type ApiVersionCheckRequest struct {

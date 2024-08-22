@@ -7,6 +7,8 @@ Name | Type | Description | Notes
 **ImageDigest** | Pointer to **string** | The digest of the image | [optional] 
 **Tags** | Pointer to **[]string** |  | [optional] 
 **Layers** | Pointer to **[]string** | The full set of layers for this image | [optional] 
+**UserMarkedBase** | Pointer to **bool** | True if a specific ancestor has been marked by the user as the chosen base image | [optional] 
+**ChosenBaseImage** | Pointer to **bool** | True for the specific ancestor that has been identified as the base image by the system. This image will be used internally for comparisons. | [optional] 
 
 ## Methods
 
@@ -101,6 +103,56 @@ SetLayers sets Layers field to given value.
 `func (o *ImageAncestor) HasLayers() bool`
 
 HasLayers returns a boolean if a field has been set.
+
+### GetUserMarkedBase
+
+`func (o *ImageAncestor) GetUserMarkedBase() bool`
+
+GetUserMarkedBase returns the UserMarkedBase field if non-nil, zero value otherwise.
+
+### GetUserMarkedBaseOk
+
+`func (o *ImageAncestor) GetUserMarkedBaseOk() (*bool, bool)`
+
+GetUserMarkedBaseOk returns a tuple with the UserMarkedBase field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetUserMarkedBase
+
+`func (o *ImageAncestor) SetUserMarkedBase(v bool)`
+
+SetUserMarkedBase sets UserMarkedBase field to given value.
+
+### HasUserMarkedBase
+
+`func (o *ImageAncestor) HasUserMarkedBase() bool`
+
+HasUserMarkedBase returns a boolean if a field has been set.
+
+### GetChosenBaseImage
+
+`func (o *ImageAncestor) GetChosenBaseImage() bool`
+
+GetChosenBaseImage returns the ChosenBaseImage field if non-nil, zero value otherwise.
+
+### GetChosenBaseImageOk
+
+`func (o *ImageAncestor) GetChosenBaseImageOk() (*bool, bool)`
+
+GetChosenBaseImageOk returns a tuple with the ChosenBaseImage field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetChosenBaseImage
+
+`func (o *ImageAncestor) SetChosenBaseImage(v bool)`
+
+SetChosenBaseImage sets ChosenBaseImage field to given value.
+
+### HasChosenBaseImage
+
+`func (o *ImageAncestor) HasChosenBaseImage() bool`
+
+HasChosenBaseImage returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

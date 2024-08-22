@@ -3,7 +3,7 @@ Anchore API
 
 This is the Anchore API. Provides the external API for users of Anchore Enterprise.
 
-API version: 2.4.0
+API version: 2.7.2
 Contact: dev@anchore.com
 */
 
@@ -144,6 +144,19 @@ type ImagesApi interface {
 	// GetImageContentByTypeMalwareExecute executes the request
 	//  @return ContentMalwareResponse
 	GetImageContentByTypeMalwareExecute(r ApiGetImageContentByTypeMalwareRequest) (*ContentMalwareResponse, *http.Response, error)
+
+	/*
+	GetImageContentSummary Get image content summary
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param imageDigest
+	@return ApiGetImageContentSummaryRequest
+	*/
+	GetImageContentSummary(ctx context.Context, imageDigest string) ApiGetImageContentSummaryRequest
+
+	// GetImageContentSummaryExecute executes the request
+	//  @return [][]GetImageContentSummary200ResponseInnerInner
+	GetImageContentSummaryExecute(r ApiGetImageContentSummaryRequest) ([][]GetImageContentSummary200ResponseInnerInner, *http.Response, error)
 
 	/*
 	GetImageMetadataByType Get the metadata of an image by type
@@ -605,6 +618,35 @@ func (a *ImagesApiService) DeleteImageExecute(r ApiDeleteImageRequest) (*DeleteI
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		if localVarHTTPResponse.StatusCode == 400 {
+			var v ApiErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 404 {
+			var v ApiErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 500 {
+			var v ApiErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -852,6 +894,16 @@ func (a *ImagesApiService) GetImageExecute(r ApiGetImageRequest) (*AnchoreImage,
 		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 404 {
+			var v ApiErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 500 {
 			var v ApiErrorResponse
@@ -1474,6 +1526,126 @@ func (a *ImagesApiService) GetImageContentByTypeMalwareExecute(r ApiGetImageCont
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+type ApiGetImageContentSummaryRequest struct {
+	ctx context.Context
+	ApiService ImagesApi
+	imageDigest string
+	xAnchoreAccount *string
+}
+
+// An account name to change the resource scope of the request to that account, if permissions allow (admin only)
+func (r ApiGetImageContentSummaryRequest) XAnchoreAccount(xAnchoreAccount string) ApiGetImageContentSummaryRequest {
+	r.xAnchoreAccount = &xAnchoreAccount
+	return r
+}
+
+func (r ApiGetImageContentSummaryRequest) Execute() ([][]GetImageContentSummary200ResponseInnerInner, *http.Response, error) {
+	return r.ApiService.GetImageContentSummaryExecute(r)
+}
+
+/*
+GetImageContentSummary Get image content summary
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param imageDigest
+ @return ApiGetImageContentSummaryRequest
+*/
+func (a *ImagesApiService) GetImageContentSummary(ctx context.Context, imageDigest string) ApiGetImageContentSummaryRequest {
+	return ApiGetImageContentSummaryRequest{
+		ApiService: a,
+		ctx: ctx,
+		imageDigest: imageDigest,
+	}
+}
+
+// Execute executes the request
+//  @return [][]GetImageContentSummary200ResponseInnerInner
+func (a *ImagesApiService) GetImageContentSummaryExecute(r ApiGetImageContentSummaryRequest) ([][]GetImageContentSummary200ResponseInnerInner, *http.Response, error) {
+	var (
+		localVarHTTPMethod   = http.MethodGet
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  [][]GetImageContentSummary200ResponseInnerInner
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ImagesApiService.GetImageContentSummary")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/images/{image_digest}/content-summary"
+	localVarPath = strings.Replace(localVarPath, "{"+"image_digest"+"}", url.PathEscape(parameterToString(r.imageDigest, "")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	if r.xAnchoreAccount != nil {
+		localVarHeaderParams["x-anchore-account"] = parameterToString(*r.xAnchoreAccount, "")
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 500 {
+			var v ApiErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
 type ApiGetImageMetadataByTypeRequest struct {
 	ctx context.Context
 	ApiService ImagesApi
@@ -1636,7 +1808,7 @@ func (r ApiGetImagePolicyCheckByDigestRequest) Interactive(interactive bool) Api
 	return r
 }
 
-// Digest of a base image. If specified the evaluation will indicate results inherited from the base image
+// Digest of a base image. If specified the evaluation will indicate results inherited from the base image. Can specify \&quot;auto\&quot; to have the base image automatically calculated.
 func (r ApiGetImagePolicyCheckByDigestRequest) BaseDigest(baseDigest string) ApiGetImagePolicyCheckByDigestRequest {
 	r.baseDigest = &baseDigest
 	return r
@@ -2164,7 +2336,7 @@ func (r ApiGetImageVulnerabilitiesByDigestRequest) VendorOnly(vendorOnly bool) A
 	return r
 }
 
-// Digest of a base image. If specified the vulnerabilities will indicate inheritance from the base image
+// Digest of a base image. If specified the vulnerabilities will indicate inheritance from the base image. Can specify \&quot;auto\&quot; to have the base image automatically calculated.
 func (r ApiGetImageVulnerabilitiesByDigestRequest) BaseDigest(baseDigest string) ApiGetImageVulnerabilitiesByDigestRequest {
 	r.baseDigest = &baseDigest
 	return r
@@ -2767,6 +2939,7 @@ type ApiListImagesRequest struct {
 	fullTag *string
 	imageStatus *string
 	analysisStatus *string
+	analyzedSince *string
 	xAnchoreAccount *string
 }
 
@@ -2797,6 +2970,12 @@ func (r ApiListImagesRequest) ImageStatus(imageStatus string) ApiListImagesReque
 // Filter by analysis_status value on the record.
 func (r ApiListImagesRequest) AnalysisStatus(analysisStatus string) ApiListImagesRequest {
 	r.analysisStatus = &analysisStatus
+	return r
+}
+
+// Filter by images analyzed on or after the specified datetime
+func (r ApiListImagesRequest) AnalyzedSince(analyzedSince string) ApiListImagesRequest {
+	r.analyzedSince = &analyzedSince
 	return r
 }
 
@@ -2860,6 +3039,9 @@ func (a *ImagesApiService) ListImagesExecute(r ApiListImagesRequest) (*AnchoreIm
 	}
 	if r.analysisStatus != nil {
 		localVarQueryParams.Add("analysis_status", parameterToString(*r.analysisStatus, ""))
+	}
+	if r.analyzedSince != nil {
+		localVarQueryParams.Add("analyzed_since", parameterToString(*r.analyzedSince, ""))
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -3282,11 +3464,13 @@ type ApiSummaryImageTagsRequest struct {
 	ApiService ImagesApi
 	imageStatus *[]string
 	analysisStatus *[]string
+	analyzedSince *string
 	registry *string
 	repository *string
 	tag *string
-	orderBy *string
-	orderByDescending *bool
+	runtime *bool
+	orderBy *[]string
+	orderByDescending *[]bool
 	filter *string
 	limit *int32
 	page *int32
@@ -3302,6 +3486,12 @@ func (r ApiSummaryImageTagsRequest) ImageStatus(imageStatus []string) ApiSummary
 // Filter images in one or more analysis_status such as analyzed, not_analyzed, analysis_failed. Defaults to unfiltered if unspecified
 func (r ApiSummaryImageTagsRequest) AnalysisStatus(analysisStatus []string) ApiSummaryImageTagsRequest {
 	r.analysisStatus = &analysisStatus
+	return r
+}
+
+// Filter images analyzed on or after the specified datetime
+func (r ApiSummaryImageTagsRequest) AnalyzedSince(analyzedSince string) ApiSummaryImageTagsRequest {
+	r.analyzedSince = &analyzedSince
 	return r
 }
 
@@ -3323,14 +3513,20 @@ func (r ApiSummaryImageTagsRequest) Tag(tag string) ApiSummaryImageTagsRequest {
 	return r
 }
 
-// Field name to order by, ascending by default
-func (r ApiSummaryImageTagsRequest) OrderBy(orderBy string) ApiSummaryImageTagsRequest {
+// Filter by images with runtime inventory
+func (r ApiSummaryImageTagsRequest) Runtime(runtime bool) ApiSummaryImageTagsRequest {
+	r.runtime = &runtime
+	return r
+}
+
+// List of field name(s) to order by, ascending by default
+func (r ApiSummaryImageTagsRequest) OrderBy(orderBy []string) ApiSummaryImageTagsRequest {
 	r.orderBy = &orderBy
 	return r
 }
 
-// Configures the sort to be descending instead of ascending
-func (r ApiSummaryImageTagsRequest) OrderByDescending(orderByDescending bool) ApiSummaryImageTagsRequest {
+// Configures the sort order of each specified order_by column to be descending (true) instead of ascending (false)
+func (r ApiSummaryImageTagsRequest) OrderByDescending(orderByDescending []bool) ApiSummaryImageTagsRequest {
 	r.orderByDescending = &orderByDescending
 	return r
 }
@@ -3405,6 +3601,9 @@ func (a *ImagesApiService) SummaryImageTagsExecute(r ApiSummaryImageTagsRequest)
 	if r.analysisStatus != nil {
 		localVarQueryParams.Add("analysis_status", parameterToString(*r.analysisStatus, "csv"))
 	}
+	if r.analyzedSince != nil {
+		localVarQueryParams.Add("analyzed_since", parameterToString(*r.analyzedSince, ""))
+	}
 	if r.registry != nil {
 		localVarQueryParams.Add("registry", parameterToString(*r.registry, ""))
 	}
@@ -3414,11 +3613,14 @@ func (a *ImagesApiService) SummaryImageTagsExecute(r ApiSummaryImageTagsRequest)
 	if r.tag != nil {
 		localVarQueryParams.Add("tag", parameterToString(*r.tag, ""))
 	}
+	if r.runtime != nil {
+		localVarQueryParams.Add("runtime", parameterToString(*r.runtime, ""))
+	}
 	if r.orderBy != nil {
-		localVarQueryParams.Add("order_by", parameterToString(*r.orderBy, ""))
+		localVarQueryParams.Add("order_by", parameterToString(*r.orderBy, "csv"))
 	}
 	if r.orderByDescending != nil {
-		localVarQueryParams.Add("order_by_descending", parameterToString(*r.orderByDescending, ""))
+		localVarQueryParams.Add("order_by_descending", parameterToString(*r.orderByDescending, "csv"))
 	}
 	if r.filter != nil {
 		localVarQueryParams.Add("filter", parameterToString(*r.filter, ""))

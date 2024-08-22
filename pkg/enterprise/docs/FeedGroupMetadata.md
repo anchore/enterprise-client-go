@@ -4,10 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Name** | Pointer to **string** |  | [optional] 
+**Name** | Pointer to **string** | The name of the feed group | [optional] 
 **CreatedAt** | Pointer to **time.Time** |  | [optional] 
-**LastSync** | Pointer to **time.Time** |  | [optional] 
-**RecordCount** | Pointer to **int32** |  | [optional] 
+**LastSync** | Pointer to **time.Time** | The last successful update for this feed group. | [optional] 
+**RecordCount** | Pointer to **int32** | The number of records in the group | [optional] 
 **Enabled** | Pointer to **bool** | If group is enabled | [optional] 
 
 ## Methods

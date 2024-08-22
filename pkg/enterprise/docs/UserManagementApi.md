@@ -11,7 +11,7 @@ Method | HTTP request | Description
 [**CreateUserApiKey**](UserManagementApi.md#CreateUserApiKey) | **Post** /accounts/{account_name}/users/{username}/api-keys | Add a new API key
 [**CreateUserCredential**](UserManagementApi.md#CreateUserCredential) | **Post** /accounts/{account_name}/users/{username}/credentials | add/replace credential
 [**CreateUserGroup**](UserManagementApi.md#CreateUserGroup) | **Post** /system/user-groups | Create a new user group
-[**DeleteAccount**](UserManagementApi.md#DeleteAccount) | **Delete** /accounts/{account_name} | Delete the specified account, only allowed if the account is in the disabled state. All users will be deleted along with the account and all resources will be garbage collected
+[**DeleteAccount**](UserManagementApi.md#DeleteAccount) | **Delete** /accounts/{account_name} | Delete the specified account, only allowed if the account is in the disabled state. All users will be deleted along with the account and all resources will be garbage collected. The deleted account name will not be available for reuse immediately until all resources are garbage collected async.
 [**DeleteUser**](UserManagementApi.md#DeleteUser) | **Delete** /accounts/{account_name}/users/{username} | Delete a specific user credential by username of the credential. Cannot be the credential used to authenticate the request.
 [**DeleteUserApiKey**](UserManagementApi.md#DeleteUserApiKey) | **Delete** /accounts/{account_name}/users/{username}/api-keys/{key_name} | Delete a user API key
 [**DeleteUserCredential**](UserManagementApi.md#DeleteUserCredential) | **Delete** /accounts/{account_name}/users/{username}/credentials | Delete a credential by type
@@ -527,7 +527,7 @@ No authorization required
 
 > DeleteAccount(ctx, accountName).Execute()
 
-Delete the specified account, only allowed if the account is in the disabled state. All users will be deleted along with the account and all resources will be garbage collected
+Delete the specified account, only allowed if the account is in the disabled state. All users will be deleted along with the account and all resources will be garbage collected. The deleted account name will not be available for reuse immediately until all resources are garbage collected async.
 
 ### Example
 
