@@ -7,6 +7,7 @@ Method | HTTP request | Description
 [**DeleteSource**](SourcesApi.md#DeleteSource) | **Delete** /sources/{source_id} | Delete source record from DB
 [**GetSource**](SourcesApi.md#GetSource) | **Get** /sources/{source_id} | Get a detailed source repository analysis metadata record
 [**GetSourceContentByType**](SourcesApi.md#GetSourceContentByType) | **Get** /sources/{source_id}/content/{content_type} | Get the content of an analyzed source repository
+[**GetSourceContentSummary**](SourcesApi.md#GetSourceContentSummary) | **Get** /sources/{source_id}/content-summary | Get sources content summary
 [**GetSourceContentTypes**](SourcesApi.md#GetSourceContentTypes) | **Get** /sources/{source_id}/content | Get a detailed source repository analysis metadata record
 [**GetSourcePolicyCheck**](SourcesApi.md#GetSourcePolicyCheck) | **Get** /sources/{source_id}/check | Fetch or calculate policy evaluation for a source
 [**GetSourceSbomCyclonedxJson**](SourcesApi.md#GetSourceSbomCyclonedxJson) | **Get** /sources/{source_id}/sbom/cyclonedx-json | Return the source SBOM in the CycloneDX format
@@ -210,6 +211,74 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**SourceContentPackageResponse**](SourceContentPackageResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetSourceContentSummary
+
+> SourceContentSummary GetSourceContentSummary(ctx, sourceId).Execute()
+
+Get sources content summary
+
+### Example
+
+```go
+package main
+
+import (
+    "context"
+    "fmt"
+    "os"
+    openapiclient "./openapi"
+)
+
+func main() {
+    sourceId := "sourceId_example" // string | 
+
+    configuration := openapiclient.NewConfiguration()
+    apiClient := openapiclient.NewAPIClient(configuration)
+    resp, r, err := apiClient.SourcesApi.GetSourceContentSummary(context.Background(), sourceId).Execute()
+    if err != nil {
+        fmt.Fprintf(os.Stderr, "Error when calling `SourcesApi.GetSourceContentSummary``: %v\n", err)
+        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+    }
+    // response from `GetSourceContentSummary`: SourceContentSummary
+    fmt.Fprintf(os.Stdout, "Response from `SourcesApi.GetSourceContentSummary`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**sourceId** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetSourceContentSummaryRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+[**SourceContentSummary**](SourceContentSummary.md)
 
 ### Authorization
 
