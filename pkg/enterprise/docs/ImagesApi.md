@@ -673,7 +673,7 @@ No authorization required
 
 ## GetImageContentSummary
 
-> [][]GetImageContentSummary200ResponseInnerInner GetImageContentSummary(ctx, imageDigest).XAnchoreAccount(xAnchoreAccount).Execute()
+> ImageContentSummary GetImageContentSummary(ctx, imageDigest).XAnchoreAccount(xAnchoreAccount).Execute()
 
 Get image content summary
 
@@ -700,7 +700,7 @@ func main() {
         fmt.Fprintf(os.Stderr, "Error when calling `ImagesApi.GetImageContentSummary``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `GetImageContentSummary`: [][]GetImageContentSummary200ResponseInnerInner
+    // response from `GetImageContentSummary`: ImageContentSummary
     fmt.Fprintf(os.Stdout, "Response from `ImagesApi.GetImageContentSummary`: %v\n", resp)
 }
 ```
@@ -725,7 +725,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[][]GetImageContentSummary200ResponseInnerInner**](array.md)
+[**ImageContentSummary**](ImageContentSummary.md)
 
 ### Authorization
 

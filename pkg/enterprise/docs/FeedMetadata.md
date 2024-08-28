@@ -10,6 +10,8 @@ Name | Type | Description | Notes
 **Groups** | Pointer to [**[]FeedGroupMetadata**](FeedGroupMetadata.md) |  | [optional] 
 **LastFullSync** | Pointer to **time.Time** | The last time that policy-engine service downloaded a new grypedb. | [optional] 
 **Enabled** | Pointer to **bool** | If feed is enabled | [optional] 
+**DatasetName** | Pointer to **string** | The name of the dataset that provides this feed | [optional] 
+**DatasetChecksum** | Pointer to **string** | The checksum of the dataset that provides this feed | [optional] 
 
 ## Methods
 
@@ -179,6 +181,56 @@ SetEnabled sets Enabled field to given value.
 `func (o *FeedMetadata) HasEnabled() bool`
 
 HasEnabled returns a boolean if a field has been set.
+
+### GetDatasetName
+
+`func (o *FeedMetadata) GetDatasetName() string`
+
+GetDatasetName returns the DatasetName field if non-nil, zero value otherwise.
+
+### GetDatasetNameOk
+
+`func (o *FeedMetadata) GetDatasetNameOk() (*string, bool)`
+
+GetDatasetNameOk returns a tuple with the DatasetName field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDatasetName
+
+`func (o *FeedMetadata) SetDatasetName(v string)`
+
+SetDatasetName sets DatasetName field to given value.
+
+### HasDatasetName
+
+`func (o *FeedMetadata) HasDatasetName() bool`
+
+HasDatasetName returns a boolean if a field has been set.
+
+### GetDatasetChecksum
+
+`func (o *FeedMetadata) GetDatasetChecksum() string`
+
+GetDatasetChecksum returns the DatasetChecksum field if non-nil, zero value otherwise.
+
+### GetDatasetChecksumOk
+
+`func (o *FeedMetadata) GetDatasetChecksumOk() (*string, bool)`
+
+GetDatasetChecksumOk returns a tuple with the DatasetChecksum field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDatasetChecksum
+
+`func (o *FeedMetadata) SetDatasetChecksum(v string)`
+
+SetDatasetChecksum sets DatasetChecksum field to given value.
+
+### HasDatasetChecksum
+
+`func (o *FeedMetadata) HasDatasetChecksum() bool`
+
+HasDatasetChecksum returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

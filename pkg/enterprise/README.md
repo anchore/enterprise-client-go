@@ -323,6 +323,7 @@ Class | Method | HTTP request | Description
 *SourcesApi* | [**DeleteSource**](docs/SourcesApi.md#deletesource) | **Delete** /sources/{source_id} | Delete source record from DB
 *SourcesApi* | [**GetSource**](docs/SourcesApi.md#getsource) | **Get** /sources/{source_id} | Get a detailed source repository analysis metadata record
 *SourcesApi* | [**GetSourceContentByType**](docs/SourcesApi.md#getsourcecontentbytype) | **Get** /sources/{source_id}/content/{content_type} | Get the content of an analyzed source repository
+*SourcesApi* | [**GetSourceContentSummary**](docs/SourcesApi.md#getsourcecontentsummary) | **Get** /sources/{source_id}/content-summary | Get sources content summary
 *SourcesApi* | [**GetSourceContentTypes**](docs/SourcesApi.md#getsourcecontenttypes) | **Get** /sources/{source_id}/content | Get a detailed source repository analysis metadata record
 *SourcesApi* | [**GetSourcePolicyCheck**](docs/SourcesApi.md#getsourcepolicycheck) | **Get** /sources/{source_id}/check | Fetch or calculate policy evaluation for a source
 *SourcesApi* | [**GetSourceSbomCyclonedxJson**](docs/SourcesApi.md#getsourcesbomcyclonedxjson) | **Get** /sources/{source_id}/sbom/cyclonedx-json | Return the source SBOM in the CycloneDX format
@@ -492,11 +493,12 @@ Class | Method | HTTP request | Description
  - [FilesContent](docs/FilesContent.md)
  - [GateSpec](docs/GateSpec.md)
  - [GenericNotificationPayload](docs/GenericNotificationPayload.md)
- - [GetImageContentSummary200ResponseInnerInner](docs/GetImageContentSummary200ResponseInnerInner.md)
  - [GroupSyncResult](docs/GroupSyncResult.md)
  - [ImageAnalysisRequest](docs/ImageAnalysisRequest.md)
  - [ImageAncestor](docs/ImageAncestor.md)
  - [ImageArtifact](docs/ImageArtifact.md)
+ - [ImageContentSummary](docs/ImageContentSummary.md)
+ - [ImageContentSummaryItemsInner](docs/ImageContentSummaryItemsInner.md)
  - [ImageDetail](docs/ImageDetail.md)
  - [ImageImportContentResponse](docs/ImageImportContentResponse.md)
  - [ImageImportContentSearch](docs/ImageImportContentSearch.md)
@@ -677,6 +679,7 @@ Class | Method | HTTP request | Description
  - [Source](docs/Source.md)
  - [SourceContentPackageResponse](docs/SourceContentPackageResponse.md)
  - [SourceContentPackageResponseContent](docs/SourceContentPackageResponseContent.md)
+ - [SourceContentSummary](docs/SourceContentSummary.md)
  - [SourceImportContentResponse](docs/SourceImportContentResponse.md)
  - [SourceImportMetadata](docs/SourceImportMetadata.md)
  - [SourceImportMetadataContents](docs/SourceImportMetadataContents.md)

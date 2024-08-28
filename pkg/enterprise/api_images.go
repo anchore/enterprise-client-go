@@ -155,8 +155,8 @@ type ImagesApi interface {
 	GetImageContentSummary(ctx context.Context, imageDigest string) ApiGetImageContentSummaryRequest
 
 	// GetImageContentSummaryExecute executes the request
-	//  @return [][]GetImageContentSummary200ResponseInnerInner
-	GetImageContentSummaryExecute(r ApiGetImageContentSummaryRequest) ([][]GetImageContentSummary200ResponseInnerInner, *http.Response, error)
+	//  @return ImageContentSummary
+	GetImageContentSummaryExecute(r ApiGetImageContentSummaryRequest) (*ImageContentSummary, *http.Response, error)
 
 	/*
 	GetImageMetadataByType Get the metadata of an image by type
@@ -1539,7 +1539,7 @@ func (r ApiGetImageContentSummaryRequest) XAnchoreAccount(xAnchoreAccount string
 	return r
 }
 
-func (r ApiGetImageContentSummaryRequest) Execute() ([][]GetImageContentSummary200ResponseInnerInner, *http.Response, error) {
+func (r ApiGetImageContentSummaryRequest) Execute() (*ImageContentSummary, *http.Response, error) {
 	return r.ApiService.GetImageContentSummaryExecute(r)
 }
 
@@ -1559,13 +1559,13 @@ func (a *ImagesApiService) GetImageContentSummary(ctx context.Context, imageDige
 }
 
 // Execute executes the request
-//  @return [][]GetImageContentSummary200ResponseInnerInner
-func (a *ImagesApiService) GetImageContentSummaryExecute(r ApiGetImageContentSummaryRequest) ([][]GetImageContentSummary200ResponseInnerInner, *http.Response, error) {
+//  @return ImageContentSummary
+func (a *ImagesApiService) GetImageContentSummaryExecute(r ApiGetImageContentSummaryRequest) (*ImageContentSummary, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  [][]GetImageContentSummary200ResponseInnerInner
+		localVarReturnValue  *ImageContentSummary
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ImagesApiService.GetImageContentSummary")

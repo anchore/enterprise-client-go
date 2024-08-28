@@ -3354,11 +3354,7 @@ paths:
           content:
             application/json:
               schema:
-                items:
-                  items:
-                    $ref: '#/components/schemas/get_image_content_summary_200_response_inner_inner'
-                  type: array
-                type: array
+                $ref: '#/components/schemas/ImageContentSummary'
           description: Content listing for the image
         "500":
           content:
@@ -8692,6 +8688,36 @@ paths:
       - Sources
       x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.sources
       x-anchore-authz-action: getSource
+  /sources/{source_id}/content-summary:
+    get:
+      operationId: get_source_content_summary
+      parameters:
+      - explode: false
+        in: path
+        name: source_id
+        required: true
+        schema:
+          format: path
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SourceContentSummary'
+          description: Content summary listing for the source
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+          description: Internal Error
+      summary: Get sources content summary
+      tags:
+      - Sources
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.sources
+      x-anchore-authz-action: getSource
   /sources/{source_id}/content/{content_type}:
     get:
       operationId: get_source_content_by_type
@@ -9775,6 +9801,9 @@ paths:
         "500":
           content: {}
           description: Internal server error processing the request. Retry expected
+        "501":
+          content: {}
+          description: Not implemented
       tags:
       - System
       x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.system
@@ -9863,6 +9892,12 @@ paths:
         "202":
           content: {}
           description: Feed uploaded successfully
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+          description: Forbidden
         "500":
           content:
             application/json:
@@ -9908,6 +9943,9 @@ paths:
         "500":
           content: {}
           description: Internal server error processing the request. Retry expected
+        "501":
+          content: {}
+          description: Not implemented
       tags:
       - System
       x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.system
@@ -13553,6 +13591,7 @@ components:
         last_full_sync: 2000-01-23T04:56:07.000+00:00
         updated_at: 2000-01-23T04:56:07.000+00:00
         name: name
+        dataset_checksum: dataset_checksum
         created_at: 2000-01-23T04:56:07.000+00:00
         groups:
         - record_count: 0
@@ -13565,6 +13604,7 @@ components:
           name: name
           created_at: 2000-01-23T04:56:07.000+00:00
           enabled: true
+        dataset_name: dataset_name
         enabled: true
       properties:
         name:
@@ -13589,6 +13629,12 @@ components:
         enabled:
           description: If feed is enabled
           type: boolean
+        dataset_name:
+          description: The name of the dataset that provides this feed
+          type: string
+        dataset_checksum:
+          description: The checksum of the dataset that provides this feed
+          type: string
       type: object
     FeedSyncResult:
       description: The result of a sync of a single feed
@@ -13990,6 +14036,22 @@ components:
         tag_detected_at:
           format: date-time
           type: string
+      type: object
+    ImageContentSummary:
+      description: A summary of the content types found in an image with counts
+      example:
+        items:
+        - content_type: content_type
+          count: 0
+          display_name: display_name
+        - content_type: content_type
+          count: 0
+          display_name: display_name
+      properties:
+        items:
+          items:
+            $ref: '#/components/schemas/ImageContentSummary_items_inner'
+          type: array
       type: object
     ImageImportContentResponse:
       example:
@@ -19227,6 +19289,22 @@ components:
           format: date-time
           type: string
       type: object
+    SourceContentSummary:
+      description: A summary of the content types found in a source with counts
+      example:
+        items:
+        - content_type: content_type
+          count: 0
+          display_name: display_name
+        - content_type: content_type
+          count: 0
+          display_name: display_name
+      properties:
+        items:
+          items:
+            $ref: '#/components/schemas/ImageContentSummary_items_inner'
+          type: array
+      type: object
     SourceContentPackageResponse:
       description: Package content listings from analysis sbom
       example:
@@ -20210,7 +20288,9 @@ components:
         name:
           enum:
           - source_analysis
+          - source_inventory
           - image_analysis
+          - image_inventory
           - report_generation
           - policy_evaluation
           - policy_creation
@@ -20993,19 +21073,6 @@ components:
           - revoked
           type: string
       type: object
-    get_image_content_summary_200_response_inner_inner:
-      example:
-        content_type: content_type
-        count: 0
-        display_name: display_name
-      properties:
-        content_type:
-          type: string
-        display_name:
-          type: string
-        count:
-          type: integer
-      type: object
     revoke_oauth_token_request:
       properties:
         token:
@@ -21184,6 +21251,19 @@ components:
         timestamp:
           format: date-time
           type: string
+      type: object
+    ImageContentSummary_items_inner:
+      example:
+        content_type: content_type
+        count: 0
+        display_name: display_name
+      properties:
+        content_type:
+          type: string
+        display_name:
+          type: string
+        count:
+          type: integer
       type: object
     ImagePackageVulnerability_allOf:
       properties:

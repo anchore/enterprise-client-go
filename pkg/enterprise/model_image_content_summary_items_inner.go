@@ -15,32 +15,32 @@ import (
 	"encoding/json"
 )
 
-// GetImageContentSummary200ResponseInnerInner struct for GetImageContentSummary200ResponseInnerInner
-type GetImageContentSummary200ResponseInnerInner struct {
+// ImageContentSummaryItemsInner struct for ImageContentSummaryItemsInner
+type ImageContentSummaryItemsInner struct {
 	ContentType *string `json:"content_type,omitempty"`
 	DisplayName *string `json:"display_name,omitempty"`
 	Count *int32 `json:"count,omitempty"`
 }
 
-// NewGetImageContentSummary200ResponseInnerInner instantiates a new GetImageContentSummary200ResponseInnerInner object
+// NewImageContentSummaryItemsInner instantiates a new ImageContentSummaryItemsInner object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewGetImageContentSummary200ResponseInnerInner() *GetImageContentSummary200ResponseInnerInner {
-	this := GetImageContentSummary200ResponseInnerInner{}
+func NewImageContentSummaryItemsInner() *ImageContentSummaryItemsInner {
+	this := ImageContentSummaryItemsInner{}
 	return &this
 }
 
-// NewGetImageContentSummary200ResponseInnerInnerWithDefaults instantiates a new GetImageContentSummary200ResponseInnerInner object
+// NewImageContentSummaryItemsInnerWithDefaults instantiates a new ImageContentSummaryItemsInner object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewGetImageContentSummary200ResponseInnerInnerWithDefaults() *GetImageContentSummary200ResponseInnerInner {
-	this := GetImageContentSummary200ResponseInnerInner{}
+func NewImageContentSummaryItemsInnerWithDefaults() *ImageContentSummaryItemsInner {
+	this := ImageContentSummaryItemsInner{}
 	return &this
 }
 
 // GetContentType returns the ContentType field value if set, zero value otherwise.
-func (o *GetImageContentSummary200ResponseInnerInner) GetContentType() string {
+func (o *ImageContentSummaryItemsInner) GetContentType() string {
 	if o == nil || o.ContentType == nil {
 		var ret string
 		return ret
@@ -50,7 +50,7 @@ func (o *GetImageContentSummary200ResponseInnerInner) GetContentType() string {
 
 // GetContentTypeOk returns a tuple with the ContentType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *GetImageContentSummary200ResponseInnerInner) GetContentTypeOk() (*string, bool) {
+func (o *ImageContentSummaryItemsInner) GetContentTypeOk() (*string, bool) {
 	if o == nil || o.ContentType == nil {
 		return nil, false
 	}
@@ -58,7 +58,7 @@ func (o *GetImageContentSummary200ResponseInnerInner) GetContentTypeOk() (*strin
 }
 
 // HasContentType returns a boolean if a field has been set.
-func (o *GetImageContentSummary200ResponseInnerInner) HasContentType() bool {
+func (o *ImageContentSummaryItemsInner) HasContentType() bool {
 	if o != nil && o.ContentType != nil {
 		return true
 	}
@@ -67,12 +67,12 @@ func (o *GetImageContentSummary200ResponseInnerInner) HasContentType() bool {
 }
 
 // SetContentType gets a reference to the given string and assigns it to the ContentType field.
-func (o *GetImageContentSummary200ResponseInnerInner) SetContentType(v string) {
+func (o *ImageContentSummaryItemsInner) SetContentType(v string) {
 	o.ContentType = &v
 }
 
 // GetDisplayName returns the DisplayName field value if set, zero value otherwise.
-func (o *GetImageContentSummary200ResponseInnerInner) GetDisplayName() string {
+func (o *ImageContentSummaryItemsInner) GetDisplayName() string {
 	if o == nil || o.DisplayName == nil {
 		var ret string
 		return ret
@@ -82,7 +82,7 @@ func (o *GetImageContentSummary200ResponseInnerInner) GetDisplayName() string {
 
 // GetDisplayNameOk returns a tuple with the DisplayName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *GetImageContentSummary200ResponseInnerInner) GetDisplayNameOk() (*string, bool) {
+func (o *ImageContentSummaryItemsInner) GetDisplayNameOk() (*string, bool) {
 	if o == nil || o.DisplayName == nil {
 		return nil, false
 	}
@@ -90,7 +90,7 @@ func (o *GetImageContentSummary200ResponseInnerInner) GetDisplayNameOk() (*strin
 }
 
 // HasDisplayName returns a boolean if a field has been set.
-func (o *GetImageContentSummary200ResponseInnerInner) HasDisplayName() bool {
+func (o *ImageContentSummaryItemsInner) HasDisplayName() bool {
 	if o != nil && o.DisplayName != nil {
 		return true
 	}
@@ -99,12 +99,12 @@ func (o *GetImageContentSummary200ResponseInnerInner) HasDisplayName() bool {
 }
 
 // SetDisplayName gets a reference to the given string and assigns it to the DisplayName field.
-func (o *GetImageContentSummary200ResponseInnerInner) SetDisplayName(v string) {
+func (o *ImageContentSummaryItemsInner) SetDisplayName(v string) {
 	o.DisplayName = &v
 }
 
 // GetCount returns the Count field value if set, zero value otherwise.
-func (o *GetImageContentSummary200ResponseInnerInner) GetCount() int32 {
+func (o *ImageContentSummaryItemsInner) GetCount() int32 {
 	if o == nil || o.Count == nil {
 		var ret int32
 		return ret
@@ -114,7 +114,7 @@ func (o *GetImageContentSummary200ResponseInnerInner) GetCount() int32 {
 
 // GetCountOk returns a tuple with the Count field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *GetImageContentSummary200ResponseInnerInner) GetCountOk() (*int32, bool) {
+func (o *ImageContentSummaryItemsInner) GetCountOk() (*int32, bool) {
 	if o == nil || o.Count == nil {
 		return nil, false
 	}
@@ -122,7 +122,7 @@ func (o *GetImageContentSummary200ResponseInnerInner) GetCountOk() (*int32, bool
 }
 
 // HasCount returns a boolean if a field has been set.
-func (o *GetImageContentSummary200ResponseInnerInner) HasCount() bool {
+func (o *ImageContentSummaryItemsInner) HasCount() bool {
 	if o != nil && o.Count != nil {
 		return true
 	}
@@ -131,11 +131,11 @@ func (o *GetImageContentSummary200ResponseInnerInner) HasCount() bool {
 }
 
 // SetCount gets a reference to the given int32 and assigns it to the Count field.
-func (o *GetImageContentSummary200ResponseInnerInner) SetCount(v int32) {
+func (o *ImageContentSummaryItemsInner) SetCount(v int32) {
 	o.Count = &v
 }
 
-func (o GetImageContentSummary200ResponseInnerInner) MarshalJSON() ([]byte, error) {
+func (o ImageContentSummaryItemsInner) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.ContentType != nil {
 		toSerialize["content_type"] = o.ContentType
@@ -149,38 +149,38 @@ func (o GetImageContentSummary200ResponseInnerInner) MarshalJSON() ([]byte, erro
 	return json.Marshal(toSerialize)
 }
 
-type NullableGetImageContentSummary200ResponseInnerInner struct {
-	value *GetImageContentSummary200ResponseInnerInner
+type NullableImageContentSummaryItemsInner struct {
+	value *ImageContentSummaryItemsInner
 	isSet bool
 }
 
-func (v NullableGetImageContentSummary200ResponseInnerInner) Get() *GetImageContentSummary200ResponseInnerInner {
+func (v NullableImageContentSummaryItemsInner) Get() *ImageContentSummaryItemsInner {
 	return v.value
 }
 
-func (v *NullableGetImageContentSummary200ResponseInnerInner) Set(val *GetImageContentSummary200ResponseInnerInner) {
+func (v *NullableImageContentSummaryItemsInner) Set(val *ImageContentSummaryItemsInner) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableGetImageContentSummary200ResponseInnerInner) IsSet() bool {
+func (v NullableImageContentSummaryItemsInner) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableGetImageContentSummary200ResponseInnerInner) Unset() {
+func (v *NullableImageContentSummaryItemsInner) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableGetImageContentSummary200ResponseInnerInner(val *GetImageContentSummary200ResponseInnerInner) *NullableGetImageContentSummary200ResponseInnerInner {
-	return &NullableGetImageContentSummary200ResponseInnerInner{value: val, isSet: true}
+func NewNullableImageContentSummaryItemsInner(val *ImageContentSummaryItemsInner) *NullableImageContentSummaryItemsInner {
+	return &NullableImageContentSummaryItemsInner{value: val, isSet: true}
 }
 
-func (v NullableGetImageContentSummary200ResponseInnerInner) MarshalJSON() ([]byte, error) {
+func (v NullableImageContentSummaryItemsInner) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableGetImageContentSummary200ResponseInnerInner) UnmarshalJSON(src []byte) error {
+func (v *NullableImageContentSummaryItemsInner) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }

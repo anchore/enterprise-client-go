@@ -138,12 +138,13 @@ docs/FileContentSearchResult.md
 docs/FilesContent.md
 docs/GateSpec.md
 docs/GenericNotificationPayload.md
-docs/GetImageContentSummary200ResponseInnerInner.md
 docs/GroupSyncResult.md
 docs/IdentityApi.md
 docs/ImageAnalysisRequest.md
 docs/ImageAncestor.md
 docs/ImageArtifact.md
+docs/ImageContentSummary.md
+docs/ImageContentSummaryItemsInner.md
 docs/ImageDetail.md
 docs/ImageImportContentResponse.md
 docs/ImageImportContentSearch.md
@@ -335,6 +336,7 @@ docs/ServiceVersion.md
 docs/Source.md
 docs/SourceContentPackageResponse.md
 docs/SourceContentPackageResponseContent.md
+docs/SourceContentSummary.md
 docs/SourceImportContentResponse.md
 docs/SourceImportMetadata.md
 docs/SourceImportMetadataContents.md
@@ -510,11 +512,12 @@ model_file_content_search_result.go
 model_files_content.go
 model_gate_spec.go
 model_generic_notification_payload.go
-model_get_image_content_summary_200_response_inner_inner.go
 model_group_sync_result.go
 model_image_analysis_request.go
 model_image_ancestor.go
 model_image_artifact.go
+model_image_content_summary.go
+model_image_content_summary_items_inner.go
 model_image_detail.go
 model_image_import_content_response.go
 model_image_import_content_search.go
@@ -695,6 +698,7 @@ model_service_version.go
 model_source.go
 model_source_content_package_response.go
 model_source_content_package_response_content.go
+model_source_content_summary.go
 model_source_import_content_response.go
 model_source_import_metadata.go
 model_source_import_metadata_contents.go

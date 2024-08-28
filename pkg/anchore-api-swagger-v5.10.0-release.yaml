@@ -2936,18 +2936,7 @@ paths:
           content:
             application/json:
               schema:
-                type: object
-                items:
-                  type: array
-                  items:
-                    type: object
-                    properties:
-                      content_type:
-                        type: string
-                      display_name:
-                        type: string
-                      count:
-                        type: integer
+                $ref: '#/components/schemas/ImageContentSummary'
         500:
           description: Internal Error
           content:
@@ -7807,6 +7796,34 @@ paths:
           content: {}
       x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.sources
       x-anchore-authz-action: getSource
+  /sources/{source_id}/content-summary:
+    get:
+      tags:
+      - Sources
+      summary: Get sources content summary
+      operationId: get_source_content_summary
+      parameters:
+      - name: source_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: path
+      responses:
+        200:
+          description: Content summary listing for the source
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SourceContentSummary'
+        500:
+          description: Internal Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.sources
+      x-anchore-authz-action: getSource
   /sources/{source_id}/content/{content_type}:
     get:
       tags:
@@ -8782,6 +8799,9 @@ paths:
         500:
           description: Internal server error processing the request. Retry expected
           content: { }
+        501:
+          description: Not implemented
+          content: { }
       x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.system
       x-anchore-authz-action: updateFeeds
     get:
@@ -8862,6 +8882,12 @@ paths:
         202:
           description: Feed uploaded successfully
           content: {}
+        403:
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
         500:
           description: Internal Error
           content:
@@ -8891,6 +8917,9 @@ paths:
           content: {}
         500:
           description: Internal server error processing the request. Retry expected
+          content: {}
+        501:
+          description: Not implemented
           content: {}
       x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.system
       x-anchore-authz-action: updateFeeds
@@ -11405,6 +11434,12 @@ components:
         enabled:
           type: boolean
           description: If feed is enabled
+        dataset_name:
+          type: string
+          description: The name of the dataset that provides this feed
+        dataset_checksum:
+          type: string
+          description: The checksum of the dataset that provides this feed
       description: Metadata on the feeds based on findings from querying the endpoints.   
     FeedSyncResult:
       type: object
@@ -11673,6 +11708,21 @@ components:
           format: date-time
       description: A metadata detail record for a specific image. Multiple detail
         records may map a single catalog image.
+    ImageContentSummary:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            type: object
+            properties:
+              content_type:
+                type: string
+              display_name:
+                type: string
+              count:
+                type: integer
+      description: A summary of the content types found in an image with counts
     ImageImportContentResponse:
       type: object
       properties:
@@ -14739,6 +14789,21 @@ components:
         last_updated:
           type: string
           format: date-time
+    SourceContentSummary:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            type: object
+            properties:
+              content_type:
+                type: string
+              display_name:
+                type: string
+              count:
+                type: integer
+      description: A summary of the content types found in a source with counts
     SourceContentPackageResponse:
       type: object
       properties:
@@ -15222,7 +15287,9 @@ components:
           type: string
           enum:
             - source_analysis
+            - source_inventory
             - image_analysis
+            - image_inventory
             - report_generation
             - policy_evaluation
             - policy_creation

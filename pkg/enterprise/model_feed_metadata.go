@@ -28,6 +28,10 @@ type FeedMetadata struct {
 	LastFullSync *time.Time `json:"last_full_sync,omitempty"`
 	// If feed is enabled
 	Enabled *bool `json:"enabled,omitempty"`
+	// The name of the dataset that provides this feed
+	DatasetName *string `json:"dataset_name,omitempty"`
+	// The checksum of the dataset that provides this feed
+	DatasetChecksum *string `json:"dataset_checksum,omitempty"`
 }
 
 // NewFeedMetadata instantiates a new FeedMetadata object
@@ -239,6 +243,70 @@ func (o *FeedMetadata) SetEnabled(v bool) {
 	o.Enabled = &v
 }
 
+// GetDatasetName returns the DatasetName field value if set, zero value otherwise.
+func (o *FeedMetadata) GetDatasetName() string {
+	if o == nil || o.DatasetName == nil {
+		var ret string
+		return ret
+	}
+	return *o.DatasetName
+}
+
+// GetDatasetNameOk returns a tuple with the DatasetName field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FeedMetadata) GetDatasetNameOk() (*string, bool) {
+	if o == nil || o.DatasetName == nil {
+		return nil, false
+	}
+	return o.DatasetName, true
+}
+
+// HasDatasetName returns a boolean if a field has been set.
+func (o *FeedMetadata) HasDatasetName() bool {
+	if o != nil && o.DatasetName != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetDatasetName gets a reference to the given string and assigns it to the DatasetName field.
+func (o *FeedMetadata) SetDatasetName(v string) {
+	o.DatasetName = &v
+}
+
+// GetDatasetChecksum returns the DatasetChecksum field value if set, zero value otherwise.
+func (o *FeedMetadata) GetDatasetChecksum() string {
+	if o == nil || o.DatasetChecksum == nil {
+		var ret string
+		return ret
+	}
+	return *o.DatasetChecksum
+}
+
+// GetDatasetChecksumOk returns a tuple with the DatasetChecksum field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FeedMetadata) GetDatasetChecksumOk() (*string, bool) {
+	if o == nil || o.DatasetChecksum == nil {
+		return nil, false
+	}
+	return o.DatasetChecksum, true
+}
+
+// HasDatasetChecksum returns a boolean if a field has been set.
+func (o *FeedMetadata) HasDatasetChecksum() bool {
+	if o != nil && o.DatasetChecksum != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetDatasetChecksum gets a reference to the given string and assigns it to the DatasetChecksum field.
+func (o *FeedMetadata) SetDatasetChecksum(v string) {
+	o.DatasetChecksum = &v
+}
+
 func (o FeedMetadata) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.Name != nil {
@@ -258,6 +326,12 @@ func (o FeedMetadata) MarshalJSON() ([]byte, error) {
 	}
 	if o.Enabled != nil {
 		toSerialize["enabled"] = o.Enabled
+	}
+	if o.DatasetName != nil {
+		toSerialize["dataset_name"] = o.DatasetName
+	}
+	if o.DatasetChecksum != nil {
+		toSerialize["dataset_checksum"] = o.DatasetChecksum
 	}
 	return json.Marshal(toSerialize)
 }
