@@ -7,14 +7,14 @@ Name | Type | Description | Notes
 **Version** | Pointer to **int32** | The version of these policy conditions. | [optional] [readonly] 
 **EvenIfExistsInRuntimeInventory** | **bool** | Select an image even if it exists in the runtime inventory, otherwise if false do not action anything that exists in runtime inventory | 
 **DaysSinceAnalyzed** | **int32** | An image analysis must be this many days old before it will be considered for processing. An integer value less than or equal to zero will cause this field to be ignored. | 
-**IncludeBaseImages** | **bool** | Include base images in the policy selection criteria. | 
+**IncludeBaseImages** | Pointer to **bool** | Include base images in the policy selection criteria. | [optional] 
 **ArtifactType** | **string** | The type of artifact that will be processed. | 
 
 ## Methods
 
 ### NewArtifactLifecyclePolicyConditions
 
-`func NewArtifactLifecyclePolicyConditions(evenIfExistsInRuntimeInventory bool, daysSinceAnalyzed int32, includeBaseImages bool, artifactType string, ) *ArtifactLifecyclePolicyConditions`
+`func NewArtifactLifecyclePolicyConditions(evenIfExistsInRuntimeInventory bool, daysSinceAnalyzed int32, artifactType string, ) *ArtifactLifecyclePolicyConditions`
 
 NewArtifactLifecyclePolicyConditions instantiates a new ArtifactLifecyclePolicyConditions object
 This constructor will assign default values to properties that have it defined,
@@ -113,6 +113,11 @@ and a boolean to check if the value has been set.
 
 SetIncludeBaseImages sets IncludeBaseImages field to given value.
 
+### HasIncludeBaseImages
+
+`func (o *ArtifactLifecyclePolicyConditions) HasIncludeBaseImages() bool`
+
+HasIncludeBaseImages returns a boolean if a field has been set.
 
 ### GetArtifactType
 

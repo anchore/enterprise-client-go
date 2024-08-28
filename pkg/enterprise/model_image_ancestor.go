@@ -3,7 +3,7 @@ Anchore API
 
 This is the Anchore API. Provides the external API for users of Anchore Enterprise.
 
-API version: 2.4.0
+API version: 2.7.2
 Contact: dev@anchore.com
 */
 
@@ -22,6 +22,10 @@ type ImageAncestor struct {
 	Tags []string `json:"tags,omitempty"`
 	// The full set of layers for this image
 	Layers []string `json:"layers,omitempty"`
+	// True if a specific ancestor has been marked by the user as the chosen base image
+	UserMarkedBase *bool `json:"user_marked_base,omitempty"`
+	// True for the specific ancestor that has been identified as the base image by the system. This image will be used internally for comparisons.
+	ChosenBaseImage *bool `json:"chosen_base_image,omitempty"`
 }
 
 // NewImageAncestor instantiates a new ImageAncestor object
@@ -137,6 +141,70 @@ func (o *ImageAncestor) SetLayers(v []string) {
 	o.Layers = v
 }
 
+// GetUserMarkedBase returns the UserMarkedBase field value if set, zero value otherwise.
+func (o *ImageAncestor) GetUserMarkedBase() bool {
+	if o == nil || o.UserMarkedBase == nil {
+		var ret bool
+		return ret
+	}
+	return *o.UserMarkedBase
+}
+
+// GetUserMarkedBaseOk returns a tuple with the UserMarkedBase field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ImageAncestor) GetUserMarkedBaseOk() (*bool, bool) {
+	if o == nil || o.UserMarkedBase == nil {
+		return nil, false
+	}
+	return o.UserMarkedBase, true
+}
+
+// HasUserMarkedBase returns a boolean if a field has been set.
+func (o *ImageAncestor) HasUserMarkedBase() bool {
+	if o != nil && o.UserMarkedBase != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetUserMarkedBase gets a reference to the given bool and assigns it to the UserMarkedBase field.
+func (o *ImageAncestor) SetUserMarkedBase(v bool) {
+	o.UserMarkedBase = &v
+}
+
+// GetChosenBaseImage returns the ChosenBaseImage field value if set, zero value otherwise.
+func (o *ImageAncestor) GetChosenBaseImage() bool {
+	if o == nil || o.ChosenBaseImage == nil {
+		var ret bool
+		return ret
+	}
+	return *o.ChosenBaseImage
+}
+
+// GetChosenBaseImageOk returns a tuple with the ChosenBaseImage field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ImageAncestor) GetChosenBaseImageOk() (*bool, bool) {
+	if o == nil || o.ChosenBaseImage == nil {
+		return nil, false
+	}
+	return o.ChosenBaseImage, true
+}
+
+// HasChosenBaseImage returns a boolean if a field has been set.
+func (o *ImageAncestor) HasChosenBaseImage() bool {
+	if o != nil && o.ChosenBaseImage != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetChosenBaseImage gets a reference to the given bool and assigns it to the ChosenBaseImage field.
+func (o *ImageAncestor) SetChosenBaseImage(v bool) {
+	o.ChosenBaseImage = &v
+}
+
 func (o ImageAncestor) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.ImageDigest != nil {
@@ -147,6 +215,12 @@ func (o ImageAncestor) MarshalJSON() ([]byte, error) {
 	}
 	if o.Layers != nil {
 		toSerialize["layers"] = o.Layers
+	}
+	if o.UserMarkedBase != nil {
+		toSerialize["user_marked_base"] = o.UserMarkedBase
+	}
+	if o.ChosenBaseImage != nil {
+		toSerialize["chosen_base_image"] = o.ChosenBaseImage
 	}
 	return json.Marshal(toSerialize)
 }
