@@ -3,7 +3,7 @@ Anchore API
 
 This is the Anchore API. Provides the external API for users of Anchore Enterprise.
 
-API version: 2.7.2
+API version: 2.4.0
 Contact: dev@anchore.com
 */
 
@@ -32,8 +32,7 @@ type User struct {
 	IdpName NullableString `json:"idp_name,omitempty"`
 	// When the user 'type' is 'native', this will be the timestamp of the last time this user's credentials were updated.
 	PasswordLastUpdated NullableTime `json:"password_last_updated,omitempty"`
-	// The unified list of RBAC roles this user currently has in this account.
-	UnifiedRoles []UnifiedRoles `json:"unified_roles,omitempty"`
+	UnifiedRoles *UserGroupRoles `json:"unified_roles,omitempty"`
 }
 
 // NewUser instantiates a new User object
@@ -301,17 +300,17 @@ func (o *User) UnsetPasswordLastUpdated() {
 }
 
 // GetUnifiedRoles returns the UnifiedRoles field value if set, zero value otherwise.
-func (o *User) GetUnifiedRoles() []UnifiedRoles {
+func (o *User) GetUnifiedRoles() UserGroupRoles {
 	if o == nil || o.UnifiedRoles == nil {
-		var ret []UnifiedRoles
+		var ret UserGroupRoles
 		return ret
 	}
-	return o.UnifiedRoles
+	return *o.UnifiedRoles
 }
 
 // GetUnifiedRolesOk returns a tuple with the UnifiedRoles field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *User) GetUnifiedRolesOk() ([]UnifiedRoles, bool) {
+func (o *User) GetUnifiedRolesOk() (*UserGroupRoles, bool) {
 	if o == nil || o.UnifiedRoles == nil {
 		return nil, false
 	}
@@ -327,9 +326,9 @@ func (o *User) HasUnifiedRoles() bool {
 	return false
 }
 
-// SetUnifiedRoles gets a reference to the given []UnifiedRoles and assigns it to the UnifiedRoles field.
-func (o *User) SetUnifiedRoles(v []UnifiedRoles) {
-	o.UnifiedRoles = v
+// SetUnifiedRoles gets a reference to the given UserGroupRoles and assigns it to the UnifiedRoles field.
+func (o *User) SetUnifiedRoles(v UserGroupRoles) {
+	o.UnifiedRoles = &v
 }
 
 func (o User) MarshalJSON() ([]byte, error) {

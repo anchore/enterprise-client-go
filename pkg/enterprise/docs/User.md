@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 **LastUpdated** | Pointer to **time.Time** | The timestamp of the last update to this record | [optional] 
 **IdpName** | Pointer to **NullableString** | When the user &#39;type&#39; is &#39;saml&#39;, this will be the configured name of the IDP that they are authenticating from.  Otherwise, this will be set to null. | [optional] 
 **PasswordLastUpdated** | Pointer to **NullableTime** | When the user &#39;type&#39; is &#39;native&#39;, this will be the timestamp of the last time this user&#39;s credentials were updated. | [optional] 
-**UnifiedRoles** | Pointer to [**[]UnifiedRoles**](UnifiedRoles.md) | The unified list of RBAC roles this user currently has in this account. | [optional] 
+**UnifiedRoles** | Pointer to [**UserGroupRoles**](UserGroupRoles.md) |  | [optional] 
 
 ## Methods
 
@@ -234,20 +234,20 @@ HasPasswordLastUpdated returns a boolean if a field has been set.
 UnsetPasswordLastUpdated ensures that no value is present for PasswordLastUpdated, not even an explicit nil
 ### GetUnifiedRoles
 
-`func (o *User) GetUnifiedRoles() []UnifiedRoles`
+`func (o *User) GetUnifiedRoles() UserGroupRoles`
 
 GetUnifiedRoles returns the UnifiedRoles field if non-nil, zero value otherwise.
 
 ### GetUnifiedRolesOk
 
-`func (o *User) GetUnifiedRolesOk() (*[]UnifiedRoles, bool)`
+`func (o *User) GetUnifiedRolesOk() (*UserGroupRoles, bool)`
 
 GetUnifiedRolesOk returns a tuple with the UnifiedRoles field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetUnifiedRoles
 
-`func (o *User) SetUnifiedRoles(v []UnifiedRoles)`
+`func (o *User) SetUnifiedRoles(v UserGroupRoles)`
 
 SetUnifiedRoles sets UnifiedRoles field to given value.
 

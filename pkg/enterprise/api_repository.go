@@ -3,7 +3,7 @@ Anchore API
 
 This is the Anchore API. Provides the external API for users of Anchore Enterprise.
 
-API version: 2.7.2
+API version: 2.4.0
 Contact: dev@anchore.com
 */
 
@@ -44,31 +44,24 @@ type ApiAddRepositoryRequest struct {
 	repository *string
 	autoSubscribe *bool
 	dryRun *bool
-	excludeExistingTags *bool
 	xAnchoreAccount *string
 }
 
-// Full repository to add e.g. docker.io/library/alpine
+// full repository to add e.g. docker.io/library/alpine
 func (r ApiAddRepositoryRequest) Repository(repository string) ApiAddRepositoryRequest {
 	r.repository = &repository
 	return r
 }
 
-// Flag to enable/disable auto tag_update activation when new images from a repo are added. Default is false.
+// flag to enable/disable auto tag_update activation when new images from a repo are added
 func (r ApiAddRepositoryRequest) AutoSubscribe(autoSubscribe bool) ApiAddRepositoryRequest {
 	r.autoSubscribe = &autoSubscribe
 	return r
 }
 
-// Flag to return tags in the repository without actually watching the repository. Default is false.
+// flag to return tags in the repository without actually watching the repository, default is false
 func (r ApiAddRepositoryRequest) DryRun(dryRun bool) ApiAddRepositoryRequest {
 	r.dryRun = &dryRun
-	return r
-}
-
-// Flag that indicates if the watcher will exclude existing tags from the repository during the first run.  When set to &#39;true&#39;, the watcher will only add newly detected tags to the system from this time forward. Default is false.
-func (r ApiAddRepositoryRequest) ExcludeExistingTags(excludeExistingTags bool) ApiAddRepositoryRequest {
-	r.excludeExistingTags = &excludeExistingTags
 	return r
 }
 
@@ -125,9 +118,6 @@ func (a *RepositoryApiService) AddRepositoryExecute(r ApiAddRepositoryRequest) (
 	}
 	if r.dryRun != nil {
 		localVarQueryParams.Add("dry_run", parameterToString(*r.dryRun, ""))
-	}
-	if r.excludeExistingTags != nil {
-		localVarQueryParams.Add("exclude_existing_tags", parameterToString(*r.excludeExistingTags, ""))
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
