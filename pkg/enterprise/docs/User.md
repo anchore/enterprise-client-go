@@ -5,13 +5,14 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Username** | **string** | The username to authenticate with | 
+**AccountName** | Pointer to **string** | The account name that this user is primary in | [optional] 
 **Type** | Pointer to **string** | The user&#39;s type | [optional] 
 **Source** | Pointer to **NullableString** | When the user &#39;type&#39; is &#39;saml&#39;, this will be the EntityId of the IDP that they are authenticating from. Otherwise, this will be set to null. | [optional] 
 **CreatedAt** | Pointer to **time.Time** | The timestamp of when the user record was created | [optional] 
 **LastUpdated** | Pointer to **time.Time** | The timestamp of the last update to this record | [optional] 
 **IdpName** | Pointer to **NullableString** | When the user &#39;type&#39; is &#39;saml&#39;, this will be the configured name of the IDP that they are authenticating from.  Otherwise, this will be set to null. | [optional] 
 **PasswordLastUpdated** | Pointer to **NullableTime** | When the user &#39;type&#39; is &#39;native&#39;, this will be the timestamp of the last time this user&#39;s credentials were updated. | [optional] 
-**UnifiedRoles** | Pointer to [**UserGroupRoles**](UserGroupRoles.md) |  | [optional] 
+**UnifiedRoles** | Pointer to [**[]UnifiedRoles**](UnifiedRoles.md) | The unified list of RBAC roles this user currently has. | [optional] 
 
 ## Methods
 
@@ -51,6 +52,31 @@ and a boolean to check if the value has been set.
 
 SetUsername sets Username field to given value.
 
+
+### GetAccountName
+
+`func (o *User) GetAccountName() string`
+
+GetAccountName returns the AccountName field if non-nil, zero value otherwise.
+
+### GetAccountNameOk
+
+`func (o *User) GetAccountNameOk() (*string, bool)`
+
+GetAccountNameOk returns a tuple with the AccountName field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetAccountName
+
+`func (o *User) SetAccountName(v string)`
+
+SetAccountName sets AccountName field to given value.
+
+### HasAccountName
+
+`func (o *User) HasAccountName() bool`
+
+HasAccountName returns a boolean if a field has been set.
 
 ### GetType
 
@@ -234,20 +260,20 @@ HasPasswordLastUpdated returns a boolean if a field has been set.
 UnsetPasswordLastUpdated ensures that no value is present for PasswordLastUpdated, not even an explicit nil
 ### GetUnifiedRoles
 
-`func (o *User) GetUnifiedRoles() UserGroupRoles`
+`func (o *User) GetUnifiedRoles() []UnifiedRoles`
 
 GetUnifiedRoles returns the UnifiedRoles field if non-nil, zero value otherwise.
 
 ### GetUnifiedRolesOk
 
-`func (o *User) GetUnifiedRolesOk() (*UserGroupRoles, bool)`
+`func (o *User) GetUnifiedRolesOk() (*[]UnifiedRoles, bool)`
 
 GetUnifiedRolesOk returns a tuple with the UnifiedRoles field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetUnifiedRoles
 
-`func (o *User) SetUnifiedRoles(v UserGroupRoles)`
+`func (o *User) SetUnifiedRoles(v []UnifiedRoles)`
 
 SetUnifiedRoles sets UnifiedRoles field to given value.
 

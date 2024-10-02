@@ -3,7 +3,7 @@ Anchore API
 
 This is the Anchore API. Provides the external API for users of Anchore Enterprise.
 
-API version: 2.4.0
+API version: 2.7.2
 Contact: dev@anchore.com
 */
 
@@ -16,7 +16,7 @@ import (
 	"time"
 )
 
-// ImageDetail A metadata detail record for a specific image. Multiple detail records may map a single catalog image.
+// ImageDetail A metadata detail record for a specific image. Multiple detail records may map to a single catalog image. For example, an image having multiple tags associated with a single image digest will generate multiple image detail records.
 type ImageDetail struct {
 	CreatedAt *time.Time `json:"created_at,omitempty"`
 	LastUpdated *time.Time `json:"last_updated,omitempty"`

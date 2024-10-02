@@ -3,7 +3,7 @@ Anchore API
 
 This is the Anchore API. Provides the external API for users of Anchore Enterprise.
 
-API version: 2.4.0
+API version: 2.7.2
 Contact: dev@anchore.com
 */
 
@@ -13,6 +13,7 @@ package enterprise
 
 import (
 	"encoding/json"
+	"time"
 )
 
 // UnifiedRoles struct for UnifiedRoles
@@ -21,6 +22,12 @@ type UnifiedRoles struct {
 	RoleName *string `json:"role_name,omitempty"`
 	// The domain (or account) name that provides the scope of the role
 	DomainName *string `json:"domain_name,omitempty"`
+	// The name of the user group that granted the role.  Will be null if the role was granted directly to the user.
+	Granter *string `json:"granter,omitempty"`
+	// The type of grant that was made
+	GrantType *string `json:"grant_type,omitempty"`
+	// The timestamp of when the role was granted
+	GrantedAt *time.Time `json:"granted_at,omitempty"`
 }
 
 // NewUnifiedRoles instantiates a new UnifiedRoles object
@@ -104,6 +111,102 @@ func (o *UnifiedRoles) SetDomainName(v string) {
 	o.DomainName = &v
 }
 
+// GetGranter returns the Granter field value if set, zero value otherwise.
+func (o *UnifiedRoles) GetGranter() string {
+	if o == nil || o.Granter == nil {
+		var ret string
+		return ret
+	}
+	return *o.Granter
+}
+
+// GetGranterOk returns a tuple with the Granter field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *UnifiedRoles) GetGranterOk() (*string, bool) {
+	if o == nil || o.Granter == nil {
+		return nil, false
+	}
+	return o.Granter, true
+}
+
+// HasGranter returns a boolean if a field has been set.
+func (o *UnifiedRoles) HasGranter() bool {
+	if o != nil && o.Granter != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetGranter gets a reference to the given string and assigns it to the Granter field.
+func (o *UnifiedRoles) SetGranter(v string) {
+	o.Granter = &v
+}
+
+// GetGrantType returns the GrantType field value if set, zero value otherwise.
+func (o *UnifiedRoles) GetGrantType() string {
+	if o == nil || o.GrantType == nil {
+		var ret string
+		return ret
+	}
+	return *o.GrantType
+}
+
+// GetGrantTypeOk returns a tuple with the GrantType field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *UnifiedRoles) GetGrantTypeOk() (*string, bool) {
+	if o == nil || o.GrantType == nil {
+		return nil, false
+	}
+	return o.GrantType, true
+}
+
+// HasGrantType returns a boolean if a field has been set.
+func (o *UnifiedRoles) HasGrantType() bool {
+	if o != nil && o.GrantType != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetGrantType gets a reference to the given string and assigns it to the GrantType field.
+func (o *UnifiedRoles) SetGrantType(v string) {
+	o.GrantType = &v
+}
+
+// GetGrantedAt returns the GrantedAt field value if set, zero value otherwise.
+func (o *UnifiedRoles) GetGrantedAt() time.Time {
+	if o == nil || o.GrantedAt == nil {
+		var ret time.Time
+		return ret
+	}
+	return *o.GrantedAt
+}
+
+// GetGrantedAtOk returns a tuple with the GrantedAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *UnifiedRoles) GetGrantedAtOk() (*time.Time, bool) {
+	if o == nil || o.GrantedAt == nil {
+		return nil, false
+	}
+	return o.GrantedAt, true
+}
+
+// HasGrantedAt returns a boolean if a field has been set.
+func (o *UnifiedRoles) HasGrantedAt() bool {
+	if o != nil && o.GrantedAt != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetGrantedAt gets a reference to the given time.Time and assigns it to the GrantedAt field.
+func (o *UnifiedRoles) SetGrantedAt(v time.Time) {
+	o.GrantedAt = &v
+}
+
 func (o UnifiedRoles) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.RoleName != nil {
@@ -111,6 +214,15 @@ func (o UnifiedRoles) MarshalJSON() ([]byte, error) {
 	}
 	if o.DomainName != nil {
 		toSerialize["domain_name"] = o.DomainName
+	}
+	if o.Granter != nil {
+		toSerialize["granter"] = o.Granter
+	}
+	if o.GrantType != nil {
+		toSerialize["grant_type"] = o.GrantType
+	}
+	if o.GrantedAt != nil {
+		toSerialize["granted_at"] = o.GrantedAt
 	}
 	return json.Marshal(toSerialize)
 }

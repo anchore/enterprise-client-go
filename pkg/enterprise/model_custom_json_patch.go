@@ -3,7 +3,7 @@ Anchore API
 
 This is the Anchore API. Provides the external API for users of Anchore Enterprise.
 
-API version: 2.4.0
+API version: 2.7.2
 Contact: dev@anchore.com
 */
 
@@ -17,7 +17,7 @@ import (
 
 // CustomJsonPatch Anchore-specific adaptation of RFC6902 to be describeable in swagger/open-api 2.0. Each item is given an ID and the ids are ordered in the array.
 type CustomJsonPatch struct {
-	// Ordered list of the operations in the type-specific lists. This imparts the total ordering of patches to apply such that they can be moved into a single array. This is a workaround for 'oneOf' support in OpenAPI 2.0
+	// Ordered list of the operations in the type-specific lists. This imparts the total ordering of patches to apply such that they can be moved into a single array.
 	Operations []string `json:"operations,omitempty"`
 	Add []JsonPatchAdd `json:"add,omitempty"`
 	Remove []JsonPatchRemove `json:"remove,omitempty"`

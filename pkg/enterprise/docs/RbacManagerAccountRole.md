@@ -4,8 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**ForAccount** | Pointer to **string** | The account scope that applies to the set of roles | [optional] 
+**ForAccount** | Pointer to **string** | Deprecated. Please use &#x60;domain_name&#39; instead.  The account scope that applies to the set of roles | [optional] 
+**DomainName** | Pointer to **string** | The domain scope that applies to the set of roles | [optional] 
 **Roles** | Pointer to [**RbacManagerRole**](RbacManagerRole.md) |  | [optional] 
+**Account** | Pointer to [**Account**](Account.md) |  | [optional] 
 
 ## Methods
 
@@ -51,6 +53,31 @@ SetForAccount sets ForAccount field to given value.
 
 HasForAccount returns a boolean if a field has been set.
 
+### GetDomainName
+
+`func (o *RbacManagerAccountRole) GetDomainName() string`
+
+GetDomainName returns the DomainName field if non-nil, zero value otherwise.
+
+### GetDomainNameOk
+
+`func (o *RbacManagerAccountRole) GetDomainNameOk() (*string, bool)`
+
+GetDomainNameOk returns a tuple with the DomainName field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDomainName
+
+`func (o *RbacManagerAccountRole) SetDomainName(v string)`
+
+SetDomainName sets DomainName field to given value.
+
+### HasDomainName
+
+`func (o *RbacManagerAccountRole) HasDomainName() bool`
+
+HasDomainName returns a boolean if a field has been set.
+
 ### GetRoles
 
 `func (o *RbacManagerAccountRole) GetRoles() RbacManagerRole`
@@ -75,6 +102,31 @@ SetRoles sets Roles field to given value.
 `func (o *RbacManagerAccountRole) HasRoles() bool`
 
 HasRoles returns a boolean if a field has been set.
+
+### GetAccount
+
+`func (o *RbacManagerAccountRole) GetAccount() Account`
+
+GetAccount returns the Account field if non-nil, zero value otherwise.
+
+### GetAccountOk
+
+`func (o *RbacManagerAccountRole) GetAccountOk() (*Account, bool)`
+
+GetAccountOk returns a tuple with the Account field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetAccount
+
+`func (o *RbacManagerAccountRole) SetAccount(v Account)`
+
+SetAccount sets Account field to given value.
+
+### HasAccount
+
+`func (o *RbacManagerAccountRole) HasAccount() bool`
+
+HasAccount returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

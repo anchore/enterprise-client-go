@@ -3,7 +3,7 @@ Anchore API
 
 This is the Anchore API. Provides the external API for users of Anchore Enterprise.
 
-API version: 2.4.0
+API version: 2.7.2
 Contact: dev@anchore.com
 */
 
@@ -914,6 +914,7 @@ type ApiDeleteRoleUserRequest struct {
 	roleName string
 	username *string
 	forAccount *string
+	domainName *string
 }
 
 // The username to remove the role for
@@ -922,9 +923,16 @@ func (r ApiDeleteRoleUserRequest) Username(username string) ApiDeleteRoleUserReq
 	return r
 }
 
-// The account that the user has the role to be removed
+// Deprecated.  Please use domain_name instead.  The account that the user has the role to be removed
+// Deprecated
 func (r ApiDeleteRoleUserRequest) ForAccount(forAccount string) ApiDeleteRoleUserRequest {
 	r.forAccount = &forAccount
+	return r
+}
+
+// The domain that the user should have the role removed from.  This may be an account name when the domain is an account.
+func (r ApiDeleteRoleUserRequest) DomainName(domainName string) ApiDeleteRoleUserRequest {
+	r.domainName = &domainName
 	return r
 }
 
@@ -969,12 +977,14 @@ func (a *RBACApiService) DeleteRoleUserExecute(r ApiDeleteRoleUserRequest) (*htt
 	if r.username == nil {
 		return nil, reportError("username is required and must be specified")
 	}
-	if r.forAccount == nil {
-		return nil, reportError("forAccount is required and must be specified")
-	}
 
 	localVarQueryParams.Add("username", parameterToString(*r.username, ""))
-	localVarQueryParams.Add("for_account", parameterToString(*r.forAccount, ""))
+	if r.forAccount != nil {
+		localVarQueryParams.Add("for_account", parameterToString(*r.forAccount, ""))
+	}
+	if r.domainName != nil {
+		localVarQueryParams.Add("domain_name", parameterToString(*r.domainName, ""))
+	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -1496,11 +1506,19 @@ type ApiListRoleMembersRequest struct {
 	ApiService RBACApi
 	roleName string
 	forAccount *string
+	domainName *string
 }
 
-// Optional filter parameter to limit the set fo returned items to only those with matching account. Will return Access Denied if caller does not have permission to listRoleMembers for that account.
+// Deprecated.  Please use domain_name instead. Optional filter parameter to limit the set fo returned items to only those with matching account. Will return Access Denied if caller does not have permission to listRoleMembers for that account.
+// Deprecated
 func (r ApiListRoleMembersRequest) ForAccount(forAccount string) ApiListRoleMembersRequest {
 	r.forAccount = &forAccount
+	return r
+}
+
+// Optional filter parameter to limit the set of returned items to only those that match the specified domain. Will return Access Denied if caller does not have permission to listRoleMembers for that domain.
+func (r ApiListRoleMembersRequest) DomainName(domainName string) ApiListRoleMembersRequest {
+	r.domainName = &domainName
 	return r
 }
 
@@ -1547,6 +1565,9 @@ func (a *RBACApiService) ListRoleMembersExecute(r ApiListRoleMembersRequest) ([]
 
 	if r.forAccount != nil {
 		localVarQueryParams.Add("for_account", parameterToString(*r.forAccount, ""))
+	}
+	if r.domainName != nil {
+		localVarQueryParams.Add("domain_name", parameterToString(*r.domainName, ""))
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -1722,11 +1743,20 @@ type ApiListUserRolesRequest struct {
 	ApiService RBACApi
 	username string
 	forAccount *string
+	domainName *string
 	role *string
 }
 
+// Deprecated.  Please use domain_name instead. Optional filter parameter to limit the set of returned items to only those with matching account.
+// Deprecated
 func (r ApiListUserRolesRequest) ForAccount(forAccount string) ApiListUserRolesRequest {
 	r.forAccount = &forAccount
+	return r
+}
+
+// Optional filter parameter to limit the set of returned items to only those that match the specified domain.  This may be an account name when the domain is an account.
+func (r ApiListUserRolesRequest) DomainName(domainName string) ApiListUserRolesRequest {
+	r.domainName = &domainName
 	return r
 }
 
@@ -1778,6 +1808,9 @@ func (a *RBACApiService) ListUserRolesExecute(r ApiListUserRolesRequest) ([]Rbac
 
 	if r.forAccount != nil {
 		localVarQueryParams.Add("for_account", parameterToString(*r.forAccount, ""))
+	}
+	if r.domainName != nil {
+		localVarQueryParams.Add("domain_name", parameterToString(*r.domainName, ""))
 	}
 	if r.role != nil {
 		localVarQueryParams.Add("role", parameterToString(*r.role, ""))

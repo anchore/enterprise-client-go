@@ -8,7 +8,7 @@ info:
   license:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
-  version: 2.4.0
+  version: 2.7.2
 servers:
 - url: /v2
 tags:
@@ -162,6 +162,27 @@ paths:
       x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.accounts
       x-anchore-authz-action: createAccount
       x-codegen-request-body-name: account
+  /accounts/users:
+    get:
+      tags:
+        - User Management
+      summary: List all system account users. Only available to `admin` users.
+      operationId: list_all_system_users
+      responses:
+        200:
+          description: List of all Users
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Users'
+        500:
+          description: Internal error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.accounts
+      x-anchore-authz-action: listAllUsers
   /accounts/{account_name}/state:
     put:
       tags:
@@ -208,7 +229,7 @@ paths:
     get:
       tags:
       - User Management
-      summary: List of users found in this account.
+      summary: List of users that are primary within this account. The response object will only contain roles for this account as well as any system roles.
       operationId: list_users
       parameters:
       - name: account_name
@@ -224,7 +245,7 @@ paths:
             application/json:
               schema:
                 type: array
-                description: List of user credential records
+                description: List of users in this account and their roles for this account and system roles.
                 items:
                   $ref: '#/components/schemas/User'
         500:
@@ -263,6 +284,34 @@ paths:
       x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.accounts
       x-anchore-authz-action: createUser
       x-codegen-request-body-name: user
+  /accounts/{account_name}/users-with-roles:
+    get:
+      tags:
+        - User Management
+      summary: List of users who have rbac roles in this account.
+      operationId: list_users_with_roles
+      parameters:
+        - name: account_name
+          in: path
+          required: true
+          schema:
+            type: string
+            format: path
+      responses:
+        200:
+          description: List of all Users with roles in this account.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Users'
+        500:
+          description: Internal error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.accounts
+      x-anchore-authz-action: listAccountUsersWithRoles
   /accounts/{account_name}/users/{username}/api-keys:
     get:
       tags:
@@ -727,7 +776,8 @@ paths:
       - User Management
       summary: Delete the specified account, only allowed if the account is in the
         disabled state. All users will be deleted along with the account and all resources
-        will be garbage collected
+        will be garbage collected. The deleted account name will not be available for reuse
+        immediately until all resources are garbage collected async.
       operationId: delete_account
       parameters:
       - name: account_name
@@ -2577,6 +2627,12 @@ paths:
           - analyzed
           - analyzing
           - analysis_failed
+      - name: analyzed_since
+        in: query
+        description: Filter by images analyzed on or after the specified datetime
+        schema:
+          type: string
+          format: datetime
       - name: x-anchore-account
         in: header
         description: An account name to change the resource scope of the request to
@@ -2842,7 +2898,7 @@ paths:
       - name: base_digest
         in: query
         description: Digest of a base image. If specified the evaluation will indicate
-          results inherited from the base image
+          results inherited from the base image. Can specify "auto" to have the base image automatically calculated.
         schema:
           type: string
       - name: x-anchore-account
@@ -2903,6 +2959,41 @@ paths:
                 $ref: '#/components/schemas/ApiErrorResponse'
       x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.images
       x-anchore-authz-action: getImage
+  /images/{image_digest}/content-summary:
+    get:
+      tags:
+      - Images
+      summary: Get image content summary
+      operationId: get_image_content_summary
+      parameters:
+      - name: image_digest
+        in: path
+        required: true
+        schema:
+          pattern: ^sha256:[a-fA-F0-9]{64}$
+          type: string
+          format: path
+      - name: x-anchore-account
+        in: header
+        description: An account name to change the resource scope of the request to
+          that account, if permissions allow (admin only)
+        schema:
+          type: string
+      responses:
+        200:
+          description: Content listing for the image
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ImageContentSummary'
+        500:
+          description: Internal Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.images
+      x-anchore-authz-action: getImage
   /images/{image_digest}/content/files:
     get:
       tags:
@@ -2938,41 +3029,6 @@ paths:
                 $ref: '#/components/schemas/ApiErrorResponse'
       x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.images
       x-anchore-authz-action: getImage
-  /images/{image_digest}/content/java:
-    get:
-      tags:
-      - Images
-      summary: Get the content of an image by type java
-      operationId: get_image_content_by_type_java_package
-      parameters:
-      - name: image_digest
-        in: path
-        required: true
-        schema:
-          pattern: ^sha256:[a-fA-F0-9]{64}$
-          type: string
-          format: path
-      - name: x-anchore-account
-        in: header
-        description: An account name to change the resource scope of the request to
-          that account, if permissions allow (admin only)
-        schema:
-          type: string
-      responses:
-        200:
-          description: Content of specified type from the image
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ContentJavaPackageResponse'
-        500:
-          description: Internal error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ApiErrorResponse'
-      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.images
-      x-anchore-authz-action: getImage
   /images/{image_digest}/content/malware:
     get:
       tags:
@@ -3000,6 +3056,41 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ContentMalwareResponse'
+        500:
+          description: Internal error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.images
+      x-anchore-authz-action: getImage
+  /images/{image_digest}/content/java:
+    get:
+      tags:
+      - Images
+      summary: Get the content of an image by type java
+      operationId: get_image_content_by_type_java_package
+      parameters:
+      - name: image_digest
+        in: path
+        required: true
+        schema:
+          pattern: ^sha256:[a-fA-F0-9]{64}$
+          type: string
+          format: path
+      - name: x-anchore-account
+        in: header
+        description: An account name to change the resource scope of the request to
+          that account, if permissions allow (admin only)
+        schema:
+          type: string
+      responses:
+        200:
+          description: Content of specified type from the image
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContentJavaPackageResponse'
         500:
           description: Internal error
           content:
@@ -3318,7 +3409,7 @@ paths:
       - name: base_digest
         in: query
         description: Digest of a base image. If specified the vulnerabilities will
-          indicate inheritance from the base image
+          indicate inheritance from the base image. Can specify "auto" to have the base image automatically calculated.
         schema:
           type: string
       - name: x-anchore-account
@@ -3369,6 +3460,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/AnchoreImage'
+        404:
+          description: Image not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
         500:
           description: Internal error
           content:
@@ -3407,6 +3504,24 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/DeleteImageResponse'
+        400:
+          description: Bad Delete request given image's current state
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        404:
+          description: Image not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        500:
+          description: Internal error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
       x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.images
       x-anchore-authz-action: deleteImage
   /imports/images:
@@ -6559,6 +6674,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/PolicyRecord'
+        409:
+          description: Policy already exists
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
         500:
           description: Internal Error
           content:
@@ -6872,9 +6993,18 @@ paths:
           format: path
       - name: for_account
         in: query
-        description: Optional filter parameter to limit the set fo returned items
+        description: Deprecated.  Please use domain_name instead.
+          Optional filter parameter to limit the set fo returned items
           to only those with matching account. Will return Access Denied if caller
           does not have permission to listRoleMembers for that account.
+        schema:
+          type: string
+        deprecated: true
+      - name: domain_name
+        in: query
+        description: Optional filter parameter to limit the set of returned items
+          to only those that match the specified domain. Will return Access Denied if caller
+          does not have permission to listRoleMembers for that domain.
         schema:
           type: string
       responses:
@@ -6946,8 +7076,15 @@ paths:
           type: string
       - name: for_account
         in: query
-        description: The account that the user has the role to be removed
-        required: true
+        description: Deprecated.  Please use domain_name instead.  The account that the user has the role to be removed
+        required: false
+        schema:
+          type: string
+        deprecated: true
+      - name: domain_name
+        in: query
+        description: The domain that the user should have the role removed from.  This may be an account name when the domain is an account.
+        required: false
         schema:
           type: string
       responses:
@@ -7361,6 +7498,15 @@ paths:
         in: query
         schema:
           type: string
+        description: Deprecated.  Please use domain_name instead.
+          Optional filter parameter to limit the set of returned items to only those
+          with matching account.
+        deprecated: true
+      - name: domain_name
+        in: query
+        schema:
+          type: string
+        description: Optional filter parameter to limit the set of returned items to only those that match the specified domain.  This may be an account name when the domain is an account.
       - name: role
         in: query
         schema:
@@ -7619,20 +7765,27 @@ paths:
       parameters:
       - name: repository
         in: query
-        description: full repository to add e.g. docker.io/library/alpine
+        description: Full repository to add e.g. docker.io/library/alpine
         required: true
         schema:
           type: string
       - name: auto_subscribe
         in: query
-        description: flag to enable/disable auto tag_update activation when new images
-          from a repo are added
+        description: Flag to enable/disable auto tag_update activation when new images
+          from a repo are added. Default is false.
         schema:
           type: boolean
       - name: dry_run
         in: query
-        description: flag to return tags in the repository without actually watching
-          the repository, default is false
+        description: Flag to return tags in the repository without actually watching
+          the repository. Default is false.
+        schema:
+          type: boolean
+      - name: exclude_existing_tags
+        in: query
+        description: Flag that indicates if the watcher will exclude existing tags
+          from the repository during the first run.  When set to 'true', the watcher will only add
+          newly detected tags to the system from this time forward. Default is false.
         schema:
           type: boolean
       - name: x-anchore-account
@@ -7721,6 +7874,34 @@ paths:
         500:
           description: Internal Error
           content: {}
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.sources
+      x-anchore-authz-action: getSource
+  /sources/{source_id}/content-summary:
+    get:
+      tags:
+      - Sources
+      summary: Get sources content summary
+      operationId: get_source_content_summary
+      parameters:
+      - name: source_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: path
+      responses:
+        200:
+          description: Content summary listing for the source
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SourceContentSummary'
+        500:
+          description: Internal Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
       x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.sources
       x-anchore-authz-action: getSource
   /sources/{source_id}/content/{content_type}:
@@ -8230,6 +8411,12 @@ paths:
             - analyzing
           default:
           - all
+      - name: analyzed_since
+        in: query
+        description: Filter images analyzed on or after the specified datetime
+        schema:
+          type: string
+          format: datetime
       - name: registry
         in: query
         description: A registry name to filter result by (e.g. "docker.io")
@@ -8245,27 +8432,42 @@ paths:
         description: A tag value to filter results by (e.g. "latest", or "v1.2.0")
         schema:
           type: string
-      - name: order_by
+      - name: runtime
         in: query
-        description: Field name to order by, ascending by default
-        schema:
-          type: string
-          enum:
-            - image_digest
-            - parent_digest
-            - analysis_status
-            - created_at
-            - image_id
-            - analyzed_at
-            - tag_detected_at
-            - image_status
-            - analysis_status
-            - full_tag
-      - name: order_by_descending
-        in: query
-        description: Configures the sort to be descending instead of ascending
+        description: Filter by images with runtime inventory
         schema:
           type: boolean
+      - name: order_by
+        in: query
+        description: List of field name(s) to order by, ascending by default
+        style: form
+        explode: false
+        schema:
+          type: array
+          items:
+            type: string
+            enum:
+              - image_digest
+              - parent_digest
+              - analysis_status
+              - created_at
+              - image_id
+              - analyzed_at
+              - tag_detected_at
+              - image_status
+              - analysis_status
+              - full_tag
+      - name: order_by_descending
+        in: query
+        description: >-
+          Configures the sort order of each specified order_by
+          column to be descending (true) instead of ascending (false)
+        style: form
+        explode: false
+        schema:
+          type: array
+          items:
+            type: boolean
       - name: filter
         in: query
         description: Filter by 'image_digest' or 'full_tag' fields, using partial or full string match
@@ -8327,7 +8529,7 @@ paths:
             - active
             - deleting
           default:
-          - active      
+          - active
       - name: registry
         in: query
         description: Filter by registry
@@ -8614,16 +8816,27 @@ paths:
       tags:
       - System
       summary: trigger feeds operations
-      description: Execute a synchronous update of the latest GrypeDB with the policy-engine.
-        The response will block until complete, then return the result summary.
+      description: Execute a synchronous fetch and sync of all datasets by the data_syncer,
+        this is a synchronous operation and may take some time to complete.
       operationId: post_system_feeds
+      parameters:
+      - name: force_sync
+        in: query
+        description: If set this will cause the data-syncer to ignore checksum matches and force a resync
+        schema:
+          type: boolean
       responses:
         200:
-          description: Feeds operation success
+          description: Datasets sync successful
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/FeedSyncResults'
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: Message from the operation
+                    example: Datasets sync successful
         500:
           description: Internal Error
           content:
@@ -8635,24 +8848,24 @@ paths:
   /system/feeds/{feed}:
     put:
       tags:
-      - System
+        - System
       description: Disable the feed so that it does not sync on subsequent sync operations
       operationId: toggle_feed_enabled
       parameters:
-      - name: feed
-        in: path
-        required: true
-        schema:
-          type: string
-          format: path
-          enum:
-          - packages
-          - vulnerabilities
-      - name: enabled
-        in: query
-        required: true
-        schema:
-          type: boolean
+        - name: feed
+          in: path
+          required: true
+          schema:
+            type: string
+            format: path
+            enum:
+              - packages
+              - vulnerabilities
+        - name: enabled
+          in: query
+          required: true
+          schema:
+            type: boolean
       responses:
         200:
           description: FeedInfo
@@ -8662,10 +8875,108 @@ paths:
                 $ref: '#/components/schemas/FeedMetadata'
         400:
           description: Bad request, fix and resend
-          content: {}
+          content: { }
         500:
           description: Internal server error processing the request. Retry expected
+          content: { }
+        501:
+          description: Not implemented
+          content: { }
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.system
+      x-anchore-authz-action: updateFeeds
+    get:
+      tags:
+      - System
+      description: Get feed metadata
+      operationId: get_system_feed
+      parameters:
+        - name: feed
+          in: path
+          description: The data feed to query
+          required: true
+          schema:
+            type: string
+        - name: version
+          in: query
+          description: The version of the feed to query
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: Feed data record
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FeedDataRecord'
+        500:
+          description: Internal Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.system
+      x-anchore-authz-action: listFeeds
+    post:
+      tags:
+      - System
+      description: Upload a new feed
+      operationId: upload_system_feed
+      parameters:
+        - name: feed
+          in: path
+          description: The data feed to upload
+          required: true
+          schema:
+            type: string
+        - name: version
+          in: query
+          description: The version of the data set to upload
+          required: true
+          schema:
+            type: string
+        - name: built
+          in: query
+          description: Build timestsamp
+          required: True
+          schema:
+            type: string
+            format: datetime
+        - name: checksum
+          in: query
+          description: Digest of the data record
+          required: True
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+      responses:
+        202:
+          description: Feed uploaded successfully
           content: {}
+        400:
+          description: Bad request, fix and resend
+          content: {}
+        403:
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        500:
+          description: Internal Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
       x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.system
       x-anchore-authz-action: updateFeeds
     delete:
@@ -8690,8 +9001,186 @@ paths:
         500:
           description: Internal server error processing the request. Retry expected
           content: {}
+        501:
+          description: Not implemented
+          content: {}
       x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.system
       x-anchore-authz-action: updateFeeds
+  /system/integrations/{integration_uuid}/health-report:
+    post:
+      tags:
+        - Integrations
+      summary: Report health status for an integration
+      description: An integration, such as an agent, will use this API to report its current 
+                   health status. Such calls will typically be done on an interval, e.g., 
+                   every 60 seconds.
+      operationId: handle_health_report
+      x-anchore-authz-action: reportHealth
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.system
+      parameters:
+        - name: integration_uuid
+          description: The integration's universally unique identifier
+          example: 84993c1f-863f-41f3-9bd8-dfcc821b1c8a
+          in: path
+          schema:
+            type: string
+            format: uuid
+          required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/HealthReport'
+        required: true
+      responses:
+        201:
+          description: Health report accepted. Empty response.
+          content: { }
+        404:
+          description: Not found
+          content: { }
+        409:
+          description: Conflict
+          content: { }
+        500:
+          description: Internal Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+  /system/integrations/{integration_uuid}:
+    get:
+      tags:
+        - Integrations
+      summary: Get information about an integration instance
+      operationId: get_integration_by_id
+      x-anchore-authz-action: getIntegration
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.system
+      parameters:
+        - name: integration_uuid
+          description: The integration instance's universally unique identifier
+          example: 84993c1f-863f-41f3-9bd8-dfcc821b1c8a
+          in: path
+          schema:
+            type: string
+            format: uuid
+          required: true
+      responses:
+        200:
+          description: Get integration response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Integration'
+        404:
+          description: Not found
+          content: { }
+        500:
+          description: Internal Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+    delete:
+      tags:
+        - Integrations
+      summary: Delete an integration instance
+      operationId: delete_integration
+      x-anchore-authz-action: deleteIntegration
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.system
+      parameters:
+        - name: integration_uuid
+          description: The integration instance's universally unique identifier
+          example: 84993c1f-863f-41f3-9bd8-dfcc821b1c8a
+          in: path
+          schema:
+            type: string
+            format: uuid
+          required: true
+        - name: force
+          description: Force deletion of the integration instance regardless of its state
+          in: query
+          schema:
+            type: boolean
+            default: false
+      responses:
+        204:
+          description: Successfully deleted
+          content: { }
+        404:
+          description: Not found
+          content: { }
+        500:
+          description: Internal server error processing the request. Retry expected
+          content: { }
+  /system/integrations/registration:
+    post:
+      tags:
+        - Integrations
+      summary: Register an integration instance
+      description: An integration instance, such as an agent, will use this API to register 
+                   itself with Anchore. The integration registers using registration_id and 
+                   registration_instance_id as temporary identifiers and is assigned its 
+                   integration uuid upon successful registration. This method is idempotent
+                   in the sense that if an integration instance call it multiple time and 
+                   uses the same registration_id and registration_instance_id, it will be 
+                   assigned the same integration uuid.
+      operationId: register_integration
+      x-anchore-authz-action: registerIntegration
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.system
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IntegrationRegister'
+        required: true
+      responses:
+        200:
+          description: Integration successfully (re-)registered response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Integration'
+        201:
+          description: Integration successfully registered and created response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Integration'
+        409:
+          description: Integration registration failure
+          content:
+            application/json:
+              schema:
+                type: object
+        500:
+          description: Internal Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+  /system/integrations:
+    get:
+      tags:
+        - Integrations
+      summary: List known integration instances
+      description: Lists all integrations that have been created (explicitly or indirectly via registration).
+      operationId: list_integrations
+      x-anchore-authz-action: listIntegrations
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.system
+      responses:
+        200:
+          description: Summary list of integrations response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IntegrationListResponse'
+        500:
+          description: Internal Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
   /system/logging:
     post:
       tags:
@@ -8857,7 +9346,7 @@ paths:
       tags:
       - Statistics
       summary: List System Statistics
-      description: Returns list of system statistics
+      description: Returns list of system statistics with total all-time counts.
       operationId: get_system_statistics
       responses:
         200:
@@ -9607,7 +10096,7 @@ components:
       type: object
       properties:
         name:
-          pattern: ^[a-zA-Z0-9][ a-zA-Z0-9@.!#$+=^_`~;-]{1,126}[a-zA-Z0-9_]$
+          pattern: ^[a-zA-Z0-9][ a-zA-Z0-9@.!$+=^_`~;-]{1,126}[a-zA-Z0-9_]$
           type: string
           description: The account name to use. This will identify the account and
             must be globally unique in the system.
@@ -9627,6 +10116,68 @@ components:
           description: An optional email to associate with the account for contact
             purposes
       description: Account Information.
+    AccountK8sInventoryReportInfo:
+      type: object
+      description: Information about sent K8s inventory report for an account
+      required:
+        - report_timestamp
+        - account_name
+        - sent_as_user
+        - batch_size
+        - last_successful_index
+        - has_errors
+        - batches
+      properties:
+        report_timestamp:
+          type: string
+          format: data-time
+          description: Timestamp for the inventory report
+          example: 2024-06-26T14:02:33Z
+        account_name:
+          type: string
+          description: Account to which the inventory reports belong
+          example: development
+        sent_as_user:
+          type: string
+          description: User that the integration instance sent the inventory report as
+          example: admin
+        batch_size:
+          type: integer
+          minimum: 1
+          description: Number of batches that the inventory report was sent in
+          example: 3
+        last_successful_index:
+          type: integer
+          minimum: -1
+          description: Index of last successfully sent batch, -1 if none were successful
+          example: -1
+        has_errors:
+          type: boolean
+          description: true if one or more of the batches coult not be sent, false otherwise
+          example: true
+        batches:
+          type: array
+          description: List of information about inventory report batches
+          items:
+            type: object
+            required:
+              - batch_index
+              - send_timestamp
+            properties:
+              batch_index:
+                type: integer
+                minimum: 1
+                description: Index of the batch
+                example: 1
+              send_timestamp:
+                type: string
+                format: date-time
+                description: Timestamp when the batch was sent
+                example: 2024-06-26T14:02:45Z
+              error:
+                type: string
+                description: Error message if the sending was unsuccessful
+                example: "Connection refused"
     AccountList:
       type: array
       items:
@@ -10412,7 +10963,6 @@ components:
       - even_if_exists_in_runtime_inventory
       - days_since_analyzed
       - artifact_type
-      - include_base_images
       properties:
         version:
           description: The version of these policy conditions.
@@ -11122,18 +11672,60 @@ components:
           type: integer
           description: Page number of this result set
       description: Response envelope for paginated listing of events
+    FeedDataRecords:
+      type: object
+      properties:
+        records:
+          type: array
+          items:
+            $ref: '#/components/schemas/FeedDataRecord'
+      description: A list of data records
+    FeedDataRecord:
+      type: object
+      properties:
+        id:
+          type: string
+          description: The unique identifier for the data record
+        name:
+          type: string
+          description: The name of the data record
+        dataset:
+          type: string
+          description: The data set type of the record
+        data_format:
+          type: string
+          description: The format of the data record
+        checksum:
+          type: string
+          description: The checksum of the data record
+        built_at:
+          type: string
+          format: date-time
+          description: The build timestamp of the data record
+        created_at:
+          type: string
+          format: date-time
+          description: The creation timestamp of the data record
+        updated_at:
+          type: string
+          format: date-time
+          description: The last update timestamp of the data record
+      description: A data record   
     FeedGroupMetadata:
       type: object
       properties:
         name:
           type: string
+          description: The name of the feed group
         created_at:
           type: string
           format: date-time
         last_sync:
+          description: The last successful update for this feed group.
           type: string
           format: date-time
         record_count:
+          description: The number of records in the group
           type: integer
         enabled:
           type: boolean
@@ -11146,25 +11738,29 @@ components:
           description: name of the feed
         created_at:
           type: string
-          description: Date the metadata record was created in engine (first seen
-            on source)
           format: date-time
         updated_at:
           type: string
-          description: Date the metadata was last updated
+          description: The last time the policy-engine service pinged the feed service to see if there was a new grypedb available.
           format: date-time
         groups:
           type: array
           items:
             $ref: '#/components/schemas/FeedGroupMetadata'
         last_full_sync:
+          description: The last time that policy-engine service downloaded a new grypedb.
           type: string
           format: date-time
         enabled:
           type: boolean
           description: If feed is enabled
-      description: Metadata on a single feed based on what the engine finds from querying
-        the endpoints
+        dataset_name:
+          type: string
+          description: The name of the dataset that provides this feed
+        dataset_checksum:
+          type: string
+          description: The checksum of the dataset that provides this feed
+      description: Metadata on the feeds based on findings from querying the endpoints.   
     FeedSyncResult:
       type: object
       properties:
@@ -11302,6 +11898,76 @@ components:
         total_time_seconds:
           type: number
           description: The duration of the group sync in seconds
+    IntegrationType:
+      type: string
+      enum:
+        - anchore_k8s_inventory_agent
+      description: The type of integration
+      example: anchore_k8s_inventory_agent
+    HealthData:
+      type: object
+      description: Integration instance specific health data
+      required:
+        - type
+        - version
+      properties:
+        type:
+          $ref: '#/components/schemas/IntegrationType'
+        version:
+          type: integer
+          description: Version of the health data schema
+          example: 1
+        errors:
+          type: array
+          description: List of errors
+          items:
+            type: string
+            description: error message
+            example: "Unable to find resource"
+        account_k8s_inventory_reports:
+          type: object
+          description: Information about sent inventory report for accounts
+          additionalProperties:
+            $ref: '#/components/schemas/AccountK8sInventoryReportInfo'
+    HealthReportInterval:
+        type: integer
+        minimum: 30
+        maximum: 600
+        description: Interval (in seconds) between health reports
+        example: 60
+    HealthReport:
+      type: object
+      description: Health report for an integration instance
+      required:
+        - uuid
+        - protocol_version
+        - timestamp
+        - uptime
+        - health_report_interval
+        - health_data
+      properties:
+        uuid:
+          type: string
+          format: uuid
+          description: Universally unique identifier for this health report
+          example: 740c06a3-4c69-4b91-8e85-154cd53e9764
+        protocol_version:
+          type: integer
+          description: The version of the health report exchange protocol
+          example: 1
+        timestamp:
+          type: string
+          format: date-time
+          description: timestamp for this health report
+          example: 2024-06-26T14:02:43Z
+        uptime:
+          type: number
+          description: Running time of integration instance in seconds
+          example: 200.02312
+        health_report_interval:
+          $ref: '#/components/schemas/HealthReportInterval'
+        health_data:
+          $ref: '#/components/schemas/HealthData'
     ImageAnalysisReferences:
       type: array
       description: List of image digests to archive
@@ -11343,6 +12009,12 @@ components:
             type: string
             description: The layer ID
             example: sha256:03810167880e863d81dc60fc7771c975b93dfdf982d5677fb2c23d11b02c644b
+        user_marked_base:
+          type: boolean
+          description: True if a specific ancestor has been marked by the user as the chosen base image
+        chosen_base_image:
+          type: boolean
+          description: True for the specific ancestor that has been identified as the base image by the system. This image will be used internally for comparisons.
       description: An summary of an image and it's layers.
     ImageAncestry:
       type: array
@@ -11425,7 +12097,24 @@ components:
           type: string
           format: date-time
       description: A metadata detail record for a specific image. Multiple detail
-        records may map a single catalog image.
+        records may map to a single catalog image. For example, an image having multiple 
+        tags associated with a single image digest will generate multiple image detail 
+        records.
+    ImageContentSummary:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            type: object
+            properties:
+              content_type:
+                type: string
+              display_name:
+                type: string
+              count:
+                type: integer
+      description: A summary of the content types found in an image with counts
     ImageImportContentResponse:
       type: object
       properties:
@@ -11575,6 +12264,10 @@ components:
           type: string
         base_digest:
           type: string
+        base_image_problems:
+          type: array
+          items:
+            type: object
         vulnerability_type:
           type: string
         vulnerabilities:
@@ -11906,6 +12599,259 @@ components:
           additionalProperties: true
       additionalProperties: true
       type: object
+    IntegrationHealthState:
+      type: string
+      enum:
+        - HEALTHY
+        - UNHEALTHY
+      description: >
+         Health state of the integration instance
+        
+         * HEALTHY: All good. No errors.
+        
+         * UNHEALTHY: Not well. Probably errors.
+      example: HEALTHY
+    IntegrationLifecycleState:
+      type: string
+      enum:
+        - ACTIVE
+        - REGISTERED
+        - DEACTIVATED
+      description: >
+        Life cycle state of the integration instance
+        
+        * ACTIVE - Integration operational. Sending health reports.
+        
+        * REGISTERED - Integration has registered. Not yet sending health reports.
+        
+        * DEACTIVATED - Integration does not seem to be alive.
+      example: ACTIVE
+    IntegrationStatus:
+      type: object
+      readOnly: true
+      description: Status of integration instance as perceived by Enterprise
+      properties:
+        state:
+          $ref: '#/components/schemas/IntegrationLifecycleState'
+        reason:
+          type: string
+        details:
+          type: object
+        updated_at:
+          type: string
+          format: date-time
+          description: Timestamp when status was updated
+    IntegrationReportedStatus:
+      type: object
+      readOnly: true
+      description: Status of the integration as perceived by the integration instance itself
+      properties:
+        state:
+          $ref: '#/components/schemas/IntegrationHealthState'
+        reason:
+          type: string
+        details:
+          type: object
+    Integration:
+      type: object
+      description: Information about an integration instance, e.g., an agent
+      required:
+        - uuid
+        - type
+        - account_name
+        - username
+      allOf:
+        - $ref: '#/components/schemas/IntegrationSummary'
+        - $ref: '#/components/schemas/IntegrationAdditionalProperties'
+    IntegrationAdditionalProperties:
+      type: object
+      properties:
+        description:
+          type: string
+          description: Short description of the integration instance
+          example: This agent has no namespace filtering
+        started_at:
+          type: string
+          format: date-time
+          description: Timestamp when integration instance was started
+          example: 2024-06-25T10:12:53Z
+        namespaces:
+          type: array
+          description: List of namespaces handled by the integration instance
+          example: [ production, finance ]
+          items:
+            type: string
+            description: namespace name
+            example: production
+        configuration:
+          type: object
+          description: Configuration of the integration instance
+    IntegrationListResponse:
+      type: object
+      description: Response to list integration
+      properties:
+        "items":
+          $ref: '#/components/schemas/IntegrationSummaryList'
+    IntegrationRegister:
+      type: object
+      description: Properties of an integration instance, e.g., an agent, to register
+      required:
+        - registration_id
+        - registration_instance_id
+        - type
+        - username
+        - health_report_interval
+      properties:
+        registration_id:
+          type: string
+          description: identifier for the integration during registration until it has 
+                       received its integration_id
+          example: 84993c1f-863f-41f3-9bd8-dfcc821b1c8a
+        registration_instance_id:
+          type: string
+          description: Unique identifier for the integration instance (among its 
+                       replicas) during registration
+          example: 67479449b7-zdzlr
+        type:
+          $ref: '#/components/schemas/IntegrationType'
+        name:
+          type: string
+          description: Name of the integration instance
+          example: k8s-agent-admin
+        description:
+          type: string
+          description: Short description of the integration instance
+          example: This agent has no namespace filtering
+        version:
+          type: string
+          description: Version of the integration instance
+          example: 1.6.0
+        started_at:
+          type: string
+          format: date-time
+          description: Timestamp when integration instance was started
+          example: 2024-06-25T10:12:53Z
+        uptime:
+          type: number
+          description: Running time of integration instance in seconds
+          example: 200.02312
+        username:
+          type: string
+          description: User that the integration instance authenticates as by default
+          example: admin
+        explicitly_account_bound:
+          type: array
+          description: List of accounts that the integration instance is statically 
+                       configured to handle
+          example: [ frontend, ci ]
+          items:
+            type: string
+            description: account name
+            example: frontend
+        namespaces:
+          type: array
+          description: List of namespaces that the integration instance is statically 
+                       configured to handle
+          example: [production, finance]
+          items:
+            type: string
+            description: namespace name
+            example: production
+        configuration:
+          type: object
+          description: Configuration of the integration instance
+        cluster_name:
+          type: string
+          description: Name of cluster where the integration instance runs
+          example: production-east1
+        namespace:
+          type: string
+          description: Namespace in which the integration instance runs
+          example: anchore
+        health_report_interval:
+          $ref: '#/components/schemas/HealthReportInterval'
+    IntegrationSummary:
+      type: object
+      description: Select information about existing integrations
+      properties:
+        uuid:
+          type: string
+          format: uuid
+          description: Globally unique identifier for the integration instance
+          example: 84993c1f-863f-41f3-9bd8-dfcc821b1c8a
+        type:
+          $ref: '#/components/schemas/IntegrationType'
+        name:
+          type: string
+          description: Name of the integration instance
+          example: k8s-agent-admin
+        version:
+          type: string
+          description: Version of the integration instance
+          example: 1.6.0
+        reported_status:
+           $ref: '#/components/schemas/IntegrationReportedStatus'
+        integration_status:
+          $ref: '#/components/schemas/IntegrationStatus'
+        last_seen:
+          type: string
+          format: date-time
+          description: Timestamp of last received health report from integration instance
+          example: 2024-06-25T10:14:20Z
+          readOnly: true
+        uptime:
+          type: number
+          description: Running time of integration instance in seconds
+          example: 200.02312
+        account_name:
+          type: string
+          description: Account that the integration instance reports to by default
+          example: admin
+        username:
+          type: string
+          description: User that the integration instance authenticates as by default
+          example: admin
+        explicitly_account_bound:
+          type: array
+          description: List of accounts that the integration instance is statically 
+                       configured to handle
+          example: [ frontend, ci ]
+          items:
+            type: string
+            description: account name
+            example: frontend
+        accounts:
+          type: array
+          description: List of accounts that the integration instance handles
+          example: [ platform, test-team1, customers ]
+          items:
+            type: string
+            description: account name
+            example: platform
+        cluster_name:
+          type: string
+          description: Name of cluster where the integration instance runs
+          example: production-east1
+        namespace:
+          type: string
+          description: Namespace in which the integration instance runs
+          example: anchore
+        health_report_interval:
+          $ref: '#/components/schemas/HealthReportInterval'
+        registration_id:
+          type: string
+          description: identifier for the integration during registration until it has 
+                       received its integration_id
+          example: 84993c1f-863f-41f3-9bd8-dfcc821b1c8a
+        registration_instance_id:
+          type: string
+          description: Unique identifier for the integration instance (among its 
+                       replicas) during registration
+          example: 67479449b7-zdzlr
+    IntegrationSummaryList:
+      type: array
+      items:
+        $ref: '#/components/schemas/IntegrationSummary'
     InventoryItem:
       type: object
       properties:
@@ -12072,7 +13018,7 @@ components:
       type: array
       description: Ordered list of the operations in the type-specific lists. This
         imparts the total ordering of patches to apply such that they can be moved
-        into a single array. This is a workaround for 'oneOf' support in OpenAPI 2.0
+        into a single array.
       items:
         type: string
         description: Operation ID, must be found in the add, remove, replace, move,
@@ -13782,9 +14728,16 @@ components:
       properties:
         for_account:
           type: string
-          description: The account scope that applies to the set of roles
+          description: Deprecated. Please use `domain_name' instead.  The account scope that applies to the set of roles
+          deprecated: true
+        domain_name:
+          type: string
+          description: The domain scope that applies to the set of roles
         roles:
           $ref: '#/components/schemas/RbacManagerRole'
+        account:
+          $ref: '#/components/schemas/Account'
+          description: When the domain is an account, this will be the account object.
       description: An account identifier and roles a user has within that account
     RbacManagerApiErrorResponse:
       type: object
@@ -13873,18 +14826,28 @@ components:
       description: Role definition
     RbacManagerRoleMember:
       required:
-      - for_account
       - username
+      oneOf:
+        - required:
+          - for_account
+        - required:
+          - domain_name
       type: object
       properties:
         username:
           type: string
         for_account:
           type: string
+          description: Deprecated. Please use domain_name instead.
+          deprecated: true
+        domain_name:
+          type: string
+          description: The domain scope that applies to the set of roles. This will be
+            the account name if the domain scope is an account.
         created_at:
           type: string
           format: date-time
-      description: A mapping between a username and a role with an account context
+      description: A mapping between a username and a role within a domain
     RbacManagerRoleMemberList:
       type: array
       description: List of members of the role, may be filtered by the calling user's
@@ -13900,7 +14863,12 @@ components:
           description: The name of the role the user has permissions for
         for_account:
           type: string
-          description: The account for which the user has the role permission
+          description: Deprecated. Please use domain_name instead. The account for which the user has the role permission
+          deprecated: true
+        domain_name:
+            type: string
+            description: The domain scope that applies for this roles. This will be
+                the account name if the domain scope is an account.
         created_at:
           type: string
           format: date-time
@@ -14490,6 +15458,21 @@ components:
         last_updated:
           type: string
           format: date-time
+    SourceContentSummary:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            type: object
+            properties:
+              content_type:
+                type: string
+              display_name:
+                type: string
+              count:
+                type: integer
+      description: A summary of the content types found in a source with counts
     SourceContentPackageResponse:
       type: object
       properties:
@@ -14971,6 +15954,39 @@ components:
       properties:
         name:
           type: string
+          enum:
+            - source_analysis
+            - source_inventory
+            - image_analysis
+            - image_inventory
+            - report_generation
+            - policy_evaluation
+            - policy_creation
+            - stateless_sbom_analysis
+            - kubernetes_namespace_creation
+            - kubernetes_image_creation
+            - kubernetes_node_creation
+            - kubernetes_pod_creation
+            - kubernetes_container_creation
+            - ecs_container_creation
+            - ecs_service_creation
+            - ecs_task_creation
+            - ecs_image_creation
+            - account_creation
+            - user_creation
+            - policy_inventory
+            - kubernetes_namespace_inventory
+            - kubernetes_node_inventory
+            - kubernetes_pod_inventory
+            - kubernetes_container_inventory
+            - kubernetes_image_inventory
+            - ecs_container_inventory
+            - ecs_image_inventory
+            - ecs_service_inventory
+            - ecs_task_inventory
+            - account_inventory
+            - user_inventory
+            - report_execution_inventory
         description:
           type: string
         value_type:
@@ -15055,7 +16071,7 @@ components:
           description: The token content
         expires_in:
           type: number
-          description: The lifetime of the token in seconds
+          description: The lifetime of the access token in seconds
         token_type:
           type: string
           description: The type of the token returned
@@ -15137,6 +16153,29 @@ components:
         domain_name:
           type: string
           description: The domain (or account) name that provides the scope of the role
+        granter:
+          type: string
+          description: The name of the user group that granted the role.  Will be null if the role was granted directly to the user.
+        grant_type:
+          enum:
+            - direct
+            - group_membership
+            - sso_group_membership
+          description: The type of grant that was made
+        granted_at:
+          type: string
+          format: date-time
+          description: The timestamp of when the role was granted
+    Users:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: "#/components/schemas/User"
+        total_rows:
+          type: integer
+      description: a list of User objects
     User:
       required:
       - username
@@ -15145,6 +16184,9 @@ components:
         username:
           type: string
           description: The username to authenticate with
+        account_name:
+          type: string
+          description: The account name that this user is primary in
         type:
           type: string
           description: The user's type
@@ -15179,8 +16221,9 @@ components:
           nullable: true
         unified_roles:
           type: array
-          description: The unified list of RBAC roles this user currently has in this account.
-          $ref: '#/components/schemas/UserGroupRoles'
+          description: The unified list of RBAC roles this user currently has.
+          items:
+            $ref: '#/components/schemas/UnifiedRoles'
       description: A username for authenticating with one or more types of credentials.
         User type defines the expected credentials allowed for the user. Native users
         have passwords, other users have no credential internally. Internal users
@@ -15226,9 +16269,11 @@ components:
       type: object
       properties:
         username:
-          pattern: ^[a-zA-Z0-9][ a-zA-Z0-9@.!#$+=^_`~;-]{1,126}[a-zA-Z0-9_]$
+          pattern: ^[a-zA-Z0-9][ a-zA-Z0-9@.!#$+=^_`~;:-]{1,126}[a-zA-Z0-9_]$
           type: string
-          description: The username to create
+          description: The username for authentication. If the user_type is 'native',
+            this name must not contain a colon character as per RFC 2617 (HTTP Basic and Digest Authentication). If the user_type is 'saml', then colons are allowed
+            in the name since HTTP Basic auth is not used for that user type.
         password:
           pattern: .{6,128}$
           type: string
@@ -15300,13 +16345,16 @@ components:
         $ref: '#/components/schemas/UserGroup'
     UserGroupRolePost:
       required:
-        - for_account
         - roles
       type: object
       properties:
         for_account:
           type: string
-          description: The account
+          description: Deprecated. Please use domain_name instead. The account
+          deprecated: true
+        domain_name:
+          type: string
+          description: The domain scope for this role. This may be an account name when the domain is an account.
         roles:
           type: array
           items:
@@ -15322,7 +16370,11 @@ components:
       properties:
         for_account:
           type: string
-          description: The account for this role
+          description: Deprecated. Please use domain_name instead. The account for this role
+          deprecated: true
+        domain_name:
+          type: string
+          description: The domain scope for this role. This may be an account name when the domain is an account.
         roles:
           type: array
           items:
