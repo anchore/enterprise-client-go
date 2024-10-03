@@ -14,7 +14,7 @@ package enterprise
 import (
 	"bytes"
 	"context"
-	"io"
+	"io/ioutil"
 	"net/http"
 	"net/url"
 	"strings"
@@ -140,17 +140,14 @@ func (a *IntegrationsApiService) DeleteIntegrationExecute(r ApiDeleteIntegration
 	}
 
 	localVarPath := localBasePath + "/system/integrations/{integration_uuid}"
-	localVarPath = strings.Replace(localVarPath, "{"+"integration_uuid"+"}", url.PathEscape(parameterValueToString(r.integrationUuid, "integrationUuid")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"integration_uuid"+"}", url.PathEscape(parameterToString(r.integrationUuid, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
 	if r.force != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "force", r.force, "form", "")
-	} else {
-		var defaultValue bool = false
-		r.force = &defaultValue
+		localVarQueryParams.Add("force", parameterToString(*r.force, ""))
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -179,9 +176,9 @@ func (a *IntegrationsApiService) DeleteIntegrationExecute(r ApiDeleteIntegration
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -238,7 +235,7 @@ func (a *IntegrationsApiService) GetIntegrationByIdExecute(r ApiGetIntegrationBy
 	}
 
 	localVarPath := localBasePath + "/system/integrations/{integration_uuid}"
-	localVarPath = strings.Replace(localVarPath, "{"+"integration_uuid"+"}", url.PathEscape(parameterValueToString(r.integrationUuid, "integrationUuid")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"integration_uuid"+"}", url.PathEscape(parameterToString(r.integrationUuid, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -271,9 +268,9 @@ func (a *IntegrationsApiService) GetIntegrationByIdExecute(r ApiGetIntegrationBy
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -290,8 +287,7 @@ func (a *IntegrationsApiService) GetIntegrationByIdExecute(r ApiGetIntegrationBy
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -355,7 +351,7 @@ func (a *IntegrationsApiService) HandleHealthReportExecute(r ApiHandleHealthRepo
 	}
 
 	localVarPath := localBasePath + "/system/integrations/{integration_uuid}/health-report"
-	localVarPath = strings.Replace(localVarPath, "{"+"integration_uuid"+"}", url.PathEscape(parameterValueToString(r.integrationUuid, "integrationUuid")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"integration_uuid"+"}", url.PathEscape(parameterToString(r.integrationUuid, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -393,9 +389,9 @@ func (a *IntegrationsApiService) HandleHealthReportExecute(r ApiHandleHealthRepo
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -412,8 +408,7 @@ func (a *IntegrationsApiService) HandleHealthReportExecute(r ApiHandleHealthRepo
 				newErr.error = err.Error()
 				return localVarHTTPResponse, newErr
 			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+			newErr.model = v
 		}
 		return localVarHTTPResponse, newErr
 	}
@@ -493,9 +488,9 @@ func (a *IntegrationsApiService) ListIntegrationsExecute(r ApiListIntegrationsRe
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -512,8 +507,7 @@ func (a *IntegrationsApiService) ListIntegrationsExecute(r ApiListIntegrationsRe
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -613,9 +607,9 @@ func (a *IntegrationsApiService) RegisterIntegrationExecute(r ApiRegisterIntegra
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -632,8 +626,7 @@ func (a *IntegrationsApiService) RegisterIntegrationExecute(r ApiRegisterIntegra
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 500 {
@@ -643,8 +636,7 @@ func (a *IntegrationsApiService) RegisterIntegrationExecute(r ApiRegisterIntegra
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}

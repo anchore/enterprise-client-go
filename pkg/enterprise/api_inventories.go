@@ -14,7 +14,7 @@ package enterprise
 import (
 	"bytes"
 	"context"
-	"io"
+	"io/ioutil"
 	"net/http"
 	"net/url"
 	"strings"
@@ -310,10 +310,10 @@ func (a *InventoriesApiService) DeleteInventoryExecute(r ApiDeleteInventoryReque
 		return nil, reportError("context is required and must be specified")
 	}
 
-	parameterAddToHeaderOrQuery(localVarQueryParams, "inventory_type", r.inventoryType, "form", "")
-	parameterAddToHeaderOrQuery(localVarQueryParams, "context", r.context, "form", "")
+	localVarQueryParams.Add("inventory_type", parameterToString(*r.inventoryType, ""))
+	localVarQueryParams.Add("context", parameterToString(*r.context, ""))
 	if r.imageDigest != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "image_digest", r.imageDigest, "form", "")
+		localVarQueryParams.Add("image_digest", parameterToString(*r.imageDigest, ""))
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -333,7 +333,7 @@ func (a *InventoriesApiService) DeleteInventoryExecute(r ApiDeleteInventoryReque
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.xAnchoreAccount != nil {
-		parameterAddToHeaderOrQuery(localVarHeaderParams, "x-anchore-account", r.xAnchoreAccount, "simple", "")
+		localVarHeaderParams["x-anchore-account"] = parameterToString(*r.xAnchoreAccount, "")
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
@@ -345,9 +345,9 @@ func (a *InventoriesApiService) DeleteInventoryExecute(r ApiDeleteInventoryReque
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -413,7 +413,7 @@ func (a *InventoriesApiService) DeleteKubernetesNamespacesExecute(r ApiDeleteKub
 	localVarFormParams := url.Values{}
 
 	if r.clusterName != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "cluster_name", r.clusterName, "form", "")
+		localVarQueryParams.Add("cluster_name", parameterToString(*r.clusterName, ""))
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -442,9 +442,9 @@ func (a *InventoriesApiService) DeleteKubernetesNamespacesExecute(r ApiDeleteKub
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -523,12 +523,9 @@ func (a *InventoriesApiService) GetEcsContainersExecute(r ApiGetEcsContainersReq
 		return localVarReturnValue, nil, reportError("page must be greater than 1")
 	}
 
-	parameterAddToHeaderOrQuery(localVarQueryParams, "page", r.page, "form", "")
+	localVarQueryParams.Add("page", parameterToString(*r.page, ""))
 	if r.pageSize != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "page_size", r.pageSize, "form", "")
-	} else {
-		var defaultValue int32 = 1000
-		r.pageSize = &defaultValue
+		localVarQueryParams.Add("page_size", parameterToString(*r.pageSize, ""))
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -557,9 +554,9 @@ func (a *InventoriesApiService) GetEcsContainersExecute(r ApiGetEcsContainersReq
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -647,12 +644,9 @@ func (a *InventoriesApiService) GetEcsServicesExecute(r ApiGetEcsServicesRequest
 		return localVarReturnValue, nil, reportError("page must be greater than 1")
 	}
 
-	parameterAddToHeaderOrQuery(localVarQueryParams, "page", r.page, "form", "")
+	localVarQueryParams.Add("page", parameterToString(*r.page, ""))
 	if r.pageSize != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "page_size", r.pageSize, "form", "")
-	} else {
-		var defaultValue int32 = 1000
-		r.pageSize = &defaultValue
+		localVarQueryParams.Add("page_size", parameterToString(*r.pageSize, ""))
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -681,9 +675,9 @@ func (a *InventoriesApiService) GetEcsServicesExecute(r ApiGetEcsServicesRequest
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -771,12 +765,9 @@ func (a *InventoriesApiService) GetEcsTasksExecute(r ApiGetEcsTasksRequest) (*EC
 		return localVarReturnValue, nil, reportError("page must be greater than 1")
 	}
 
-	parameterAddToHeaderOrQuery(localVarQueryParams, "page", r.page, "form", "")
+	localVarQueryParams.Add("page", parameterToString(*r.page, ""))
 	if r.pageSize != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "page_size", r.pageSize, "form", "")
-	} else {
-		var defaultValue int32 = 1000
-		r.pageSize = &defaultValue
+		localVarQueryParams.Add("page_size", parameterToString(*r.pageSize, ""))
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -805,9 +796,9 @@ func (a *InventoriesApiService) GetEcsTasksExecute(r ApiGetEcsTasksRequest) (*EC
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -903,13 +894,13 @@ func (a *InventoriesApiService) GetImageInventoryExecute(r ApiGetImageInventoryR
 	localVarFormParams := url.Values{}
 
 	if r.inventoryType != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "inventory_type", r.inventoryType, "form", "")
+		localVarQueryParams.Add("inventory_type", parameterToString(*r.inventoryType, ""))
 	}
 	if r.imageDigest != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "image_digest", r.imageDigest, "form", "")
+		localVarQueryParams.Add("image_digest", parameterToString(*r.imageDigest, ""))
 	}
 	if r.context != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "context", r.context, "form", "")
+		localVarQueryParams.Add("context", parameterToString(*r.context, ""))
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -929,7 +920,7 @@ func (a *InventoriesApiService) GetImageInventoryExecute(r ApiGetImageInventoryR
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.xAnchoreAccount != nil {
-		parameterAddToHeaderOrQuery(localVarHeaderParams, "x-anchore-account", r.xAnchoreAccount, "simple", "")
+		localVarHeaderParams["x-anchore-account"] = parameterToString(*r.xAnchoreAccount, "")
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
@@ -941,9 +932,9 @@ func (a *InventoriesApiService) GetImageInventoryExecute(r ApiGetImageInventoryR
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1031,12 +1022,9 @@ func (a *InventoriesApiService) GetKubernetesContainersExecute(r ApiGetKubernete
 		return localVarReturnValue, nil, reportError("page must be greater than 1")
 	}
 
-	parameterAddToHeaderOrQuery(localVarQueryParams, "page", r.page, "form", "")
+	localVarQueryParams.Add("page", parameterToString(*r.page, ""))
 	if r.pageSize != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "page_size", r.pageSize, "form", "")
-	} else {
-		var defaultValue int32 = 1000
-		r.pageSize = &defaultValue
+		localVarQueryParams.Add("page_size", parameterToString(*r.pageSize, ""))
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -1065,9 +1053,9 @@ func (a *InventoriesApiService) GetKubernetesContainersExecute(r ApiGetKubernete
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1135,7 +1123,7 @@ func (a *InventoriesApiService) GetKubernetesNamespaceExecute(r ApiGetKubernetes
 	}
 
 	localVarPath := localBasePath + "/kubernetes-namespaces/{namespace_id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"namespace_id"+"}", url.PathEscape(parameterValueToString(r.namespaceId, "namespaceId")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"namespace_id"+"}", url.PathEscape(parameterToString(r.namespaceId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1168,9 +1156,9 @@ func (a *InventoriesApiService) GetKubernetesNamespaceExecute(r ApiGetKubernetes
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1258,12 +1246,9 @@ func (a *InventoriesApiService) GetKubernetesNamespacesExecute(r ApiGetKubernete
 		return localVarReturnValue, nil, reportError("page must be greater than 1")
 	}
 
-	parameterAddToHeaderOrQuery(localVarQueryParams, "page", r.page, "form", "")
+	localVarQueryParams.Add("page", parameterToString(*r.page, ""))
 	if r.pageSize != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "page_size", r.pageSize, "form", "")
-	} else {
-		var defaultValue int32 = 1000
-		r.pageSize = &defaultValue
+		localVarQueryParams.Add("page_size", parameterToString(*r.pageSize, ""))
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -1292,9 +1277,9 @@ func (a *InventoriesApiService) GetKubernetesNamespacesExecute(r ApiGetKubernete
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1362,7 +1347,7 @@ func (a *InventoriesApiService) GetKubernetesNodeExecute(r ApiGetKubernetesNodeR
 	}
 
 	localVarPath := localBasePath + "/kubernetes-nodes/{node_id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"node_id"+"}", url.PathEscape(parameterValueToString(r.nodeId, "nodeId")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"node_id"+"}", url.PathEscape(parameterToString(r.nodeId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1395,9 +1380,9 @@ func (a *InventoriesApiService) GetKubernetesNodeExecute(r ApiGetKubernetesNodeR
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1485,12 +1470,9 @@ func (a *InventoriesApiService) GetKubernetesNodesExecute(r ApiGetKubernetesNode
 		return localVarReturnValue, nil, reportError("page must be greater than 1")
 	}
 
-	parameterAddToHeaderOrQuery(localVarQueryParams, "page", r.page, "form", "")
+	localVarQueryParams.Add("page", parameterToString(*r.page, ""))
 	if r.pageSize != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "page_size", r.pageSize, "form", "")
-	} else {
-		var defaultValue int32 = 1000
-		r.pageSize = &defaultValue
+		localVarQueryParams.Add("page_size", parameterToString(*r.pageSize, ""))
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -1519,9 +1501,9 @@ func (a *InventoriesApiService) GetKubernetesNodesExecute(r ApiGetKubernetesNode
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1589,7 +1571,7 @@ func (a *InventoriesApiService) GetKubernetesPodExecute(r ApiGetKubernetesPodReq
 	}
 
 	localVarPath := localBasePath + "/kubernetes-pods/{pod_id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"pod_id"+"}", url.PathEscape(parameterValueToString(r.podId, "podId")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"pod_id"+"}", url.PathEscape(parameterToString(r.podId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1622,9 +1604,9 @@ func (a *InventoriesApiService) GetKubernetesPodExecute(r ApiGetKubernetesPodReq
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1712,12 +1694,9 @@ func (a *InventoriesApiService) GetKubernetesPodsExecute(r ApiGetKubernetesPodsR
 		return localVarReturnValue, nil, reportError("page must be greater than 1")
 	}
 
-	parameterAddToHeaderOrQuery(localVarQueryParams, "page", r.page, "form", "")
+	localVarQueryParams.Add("page", parameterToString(*r.page, ""))
 	if r.pageSize != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "page_size", r.pageSize, "form", "")
-	} else {
-		var defaultValue int32 = 1000
-		r.pageSize = &defaultValue
+		localVarQueryParams.Add("page_size", parameterToString(*r.pageSize, ""))
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -1746,9 +1725,9 @@ func (a *InventoriesApiService) GetKubernetesPodsExecute(r ApiGetKubernetesPodsR
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1854,9 +1833,9 @@ func (a *InventoriesApiService) PostEcsInventoryExecute(r ApiPostEcsInventoryReq
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -1953,9 +1932,9 @@ func (a *InventoriesApiService) PostKubernetesInventoryExecute(r ApiPostKubernet
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}

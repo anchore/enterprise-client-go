@@ -14,7 +14,7 @@ package enterprise
 import (
 	"bytes"
 	"context"
-	"io"
+	"io/ioutil"
 	"net/http"
 	"net/url"
 	"strings"
@@ -146,7 +146,7 @@ func (a *EventsApiService) DeleteEventExecute(r ApiDeleteEventRequest) (*http.Re
 	}
 
 	localVarPath := localBasePath + "/events/{event_id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"event_id"+"}", url.PathEscape(parameterValueToString(r.eventId, "eventId")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"event_id"+"}", url.PathEscape(parameterToString(r.eventId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -170,7 +170,7 @@ func (a *EventsApiService) DeleteEventExecute(r ApiDeleteEventRequest) (*http.Re
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.xAnchoreAccount != nil {
-		parameterAddToHeaderOrQuery(localVarHeaderParams, "x-anchore-account", r.xAnchoreAccount, "simple", "")
+		localVarHeaderParams["x-anchore-account"] = parameterToString(*r.xAnchoreAccount, "")
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
@@ -182,9 +182,9 @@ func (a *EventsApiService) DeleteEventExecute(r ApiDeleteEventRequest) (*http.Re
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -274,13 +274,13 @@ func (a *EventsApiService) DeleteEventsExecute(r ApiDeleteEventsRequest) ([]stri
 	localVarFormParams := url.Values{}
 
 	if r.before != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "before", r.before, "form", "")
+		localVarQueryParams.Add("before", parameterToString(*r.before, ""))
 	}
 	if r.since != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "since", r.since, "form", "")
+		localVarQueryParams.Add("since", parameterToString(*r.since, ""))
 	}
 	if r.level != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "level", r.level, "form", "")
+		localVarQueryParams.Add("level", parameterToString(*r.level, ""))
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -300,7 +300,7 @@ func (a *EventsApiService) DeleteEventsExecute(r ApiDeleteEventsRequest) ([]stri
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.xAnchoreAccount != nil {
-		parameterAddToHeaderOrQuery(localVarHeaderParams, "x-anchore-account", r.xAnchoreAccount, "simple", "")
+		localVarHeaderParams["x-anchore-account"] = parameterToString(*r.xAnchoreAccount, "")
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
@@ -312,9 +312,9 @@ func (a *EventsApiService) DeleteEventsExecute(r ApiDeleteEventsRequest) ([]stri
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -331,8 +331,7 @@ func (a *EventsApiService) DeleteEventsExecute(r ApiDeleteEventsRequest) ([]stri
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -399,7 +398,7 @@ func (a *EventsApiService) GetEventExecute(r ApiGetEventRequest) (*EventResponse
 	}
 
 	localVarPath := localBasePath + "/events/{event_id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"event_id"+"}", url.PathEscape(parameterValueToString(r.eventId, "eventId")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"event_id"+"}", url.PathEscape(parameterToString(r.eventId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -423,7 +422,7 @@ func (a *EventsApiService) GetEventExecute(r ApiGetEventRequest) (*EventResponse
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.xAnchoreAccount != nil {
-		parameterAddToHeaderOrQuery(localVarHeaderParams, "x-anchore-account", r.xAnchoreAccount, "simple", "")
+		localVarHeaderParams["x-anchore-account"] = parameterToString(*r.xAnchoreAccount, "")
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
@@ -435,9 +434,9 @@ func (a *EventsApiService) GetEventExecute(r ApiGetEventRequest) (*EventResponse
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -534,9 +533,9 @@ func (a *EventsApiService) ListEventTypesExecute(r ApiListEventTypesRequest) ([]
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -684,40 +683,34 @@ func (a *EventsApiService) ListEventsExecute(r ApiListEventsRequest) (*EventsLis
 	localVarFormParams := url.Values{}
 
 	if r.sourceServiceName != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "source_service_name", r.sourceServiceName, "form", "")
+		localVarQueryParams.Add("source_service_name", parameterToString(*r.sourceServiceName, ""))
 	}
 	if r.sourceHostId != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "source_host_id", r.sourceHostId, "form", "")
+		localVarQueryParams.Add("source_host_id", parameterToString(*r.sourceHostId, ""))
 	}
 	if r.eventType != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "event_type", r.eventType, "form", "")
+		localVarQueryParams.Add("event_type", parameterToString(*r.eventType, ""))
 	}
 	if r.resourceType != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "resource_type", r.resourceType, "form", "")
+		localVarQueryParams.Add("resource_type", parameterToString(*r.resourceType, ""))
 	}
 	if r.resourceId != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "resource_id", r.resourceId, "form", "")
+		localVarQueryParams.Add("resource_id", parameterToString(*r.resourceId, ""))
 	}
 	if r.level != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "level", r.level, "form", "")
+		localVarQueryParams.Add("level", parameterToString(*r.level, ""))
 	}
 	if r.since != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "since", r.since, "form", "")
+		localVarQueryParams.Add("since", parameterToString(*r.since, ""))
 	}
 	if r.before != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "before", r.before, "form", "")
+		localVarQueryParams.Add("before", parameterToString(*r.before, ""))
 	}
 	if r.page != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "page", r.page, "form", "")
-	} else {
-		var defaultValue int32 = 1
-		r.page = &defaultValue
+		localVarQueryParams.Add("page", parameterToString(*r.page, ""))
 	}
 	if r.limit != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "form", "")
-	} else {
-		var defaultValue int32 = 100
-		r.limit = &defaultValue
+		localVarQueryParams.Add("limit", parameterToString(*r.limit, ""))
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -737,7 +730,7 @@ func (a *EventsApiService) ListEventsExecute(r ApiListEventsRequest) (*EventsLis
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.xAnchoreAccount != nil {
-		parameterAddToHeaderOrQuery(localVarHeaderParams, "x-anchore-account", r.xAnchoreAccount, "simple", "")
+		localVarHeaderParams["x-anchore-account"] = parameterToString(*r.xAnchoreAccount, "")
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
@@ -749,9 +742,9 @@ func (a *EventsApiService) ListEventsExecute(r ApiListEventsRequest) (*EventsLis
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}

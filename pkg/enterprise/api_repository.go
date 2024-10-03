@@ -14,7 +14,7 @@ package enterprise
 import (
 	"bytes"
 	"context"
-	"io"
+	"io/ioutil"
 	"net/http"
 	"net/url"
 )
@@ -119,15 +119,15 @@ func (a *RepositoryApiService) AddRepositoryExecute(r ApiAddRepositoryRequest) (
 		return localVarReturnValue, nil, reportError("repository is required and must be specified")
 	}
 
-	parameterAddToHeaderOrQuery(localVarQueryParams, "repository", r.repository, "form", "")
+	localVarQueryParams.Add("repository", parameterToString(*r.repository, ""))
 	if r.autoSubscribe != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "auto_subscribe", r.autoSubscribe, "form", "")
+		localVarQueryParams.Add("auto_subscribe", parameterToString(*r.autoSubscribe, ""))
 	}
 	if r.dryRun != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "dry_run", r.dryRun, "form", "")
+		localVarQueryParams.Add("dry_run", parameterToString(*r.dryRun, ""))
 	}
 	if r.excludeExistingTags != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "exclude_existing_tags", r.excludeExistingTags, "form", "")
+		localVarQueryParams.Add("exclude_existing_tags", parameterToString(*r.excludeExistingTags, ""))
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -147,7 +147,7 @@ func (a *RepositoryApiService) AddRepositoryExecute(r ApiAddRepositoryRequest) (
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.xAnchoreAccount != nil {
-		parameterAddToHeaderOrQuery(localVarHeaderParams, "x-anchore-account", r.xAnchoreAccount, "simple", "")
+		localVarHeaderParams["x-anchore-account"] = parameterToString(*r.xAnchoreAccount, "")
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
@@ -159,9 +159,9 @@ func (a *RepositoryApiService) AddRepositoryExecute(r ApiAddRepositoryRequest) (
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}

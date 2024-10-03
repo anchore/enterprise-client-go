@@ -14,7 +14,7 @@ package enterprise
 import (
 	"bytes"
 	"context"
-	"io"
+	"io/ioutil"
 	"net/http"
 	"net/url"
 )
@@ -144,18 +144,18 @@ func (a *QueryApiService) QueryImagesByPackageExecute(r ApiQueryImagesByPackageR
 		return localVarReturnValue, nil, reportError("name is required and must be specified")
 	}
 
-	parameterAddToHeaderOrQuery(localVarQueryParams, "name", r.name, "form", "")
+	localVarQueryParams.Add("name", parameterToString(*r.name, ""))
 	if r.packageType != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "package_type", r.packageType, "form", "")
+		localVarQueryParams.Add("package_type", parameterToString(*r.packageType, ""))
 	}
 	if r.version != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "version", r.version, "form", "")
+		localVarQueryParams.Add("version", parameterToString(*r.version, ""))
 	}
 	if r.page != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "page", r.page, "form", "")
+		localVarQueryParams.Add("page", parameterToString(*r.page, ""))
 	}
 	if r.limit != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "form", "")
+		localVarQueryParams.Add("limit", parameterToString(*r.limit, ""))
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -175,7 +175,7 @@ func (a *QueryApiService) QueryImagesByPackageExecute(r ApiQueryImagesByPackageR
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.xAnchoreAccount != nil {
-		parameterAddToHeaderOrQuery(localVarHeaderParams, "x-anchore-account", r.xAnchoreAccount, "simple", "")
+		localVarHeaderParams["x-anchore-account"] = parameterToString(*r.xAnchoreAccount, "")
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
@@ -187,9 +187,9 @@ func (a *QueryApiService) QueryImagesByPackageExecute(r ApiQueryImagesByPackageR
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -206,8 +206,7 @@ func (a *QueryApiService) QueryImagesByPackageExecute(r ApiQueryImagesByPackageR
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -314,24 +313,21 @@ func (a *QueryApiService) QueryVulnerabilitiesExecute(r ApiQueryVulnerabilitiesR
 		return localVarReturnValue, nil, reportError("id is required and must be specified")
 	}
 
-	parameterAddToHeaderOrQuery(localVarQueryParams, "id", r.id, "form", "csv")
+	localVarQueryParams.Add("id", parameterToString(*r.id, "csv"))
 	if r.affectedPackage != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "affected_package", r.affectedPackage, "form", "")
+		localVarQueryParams.Add("affected_package", parameterToString(*r.affectedPackage, ""))
 	}
 	if r.affectedPackageVersion != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "affected_package_version", r.affectedPackageVersion, "form", "")
+		localVarQueryParams.Add("affected_package_version", parameterToString(*r.affectedPackageVersion, ""))
 	}
 	if r.page != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "page", r.page, "form", "")
-	} else {
-		var defaultValue string = "1"
-		r.page = &defaultValue
+		localVarQueryParams.Add("page", parameterToString(*r.page, ""))
 	}
 	if r.limit != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "form", "")
+		localVarQueryParams.Add("limit", parameterToString(*r.limit, ""))
 	}
 	if r.namespace != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "namespace", r.namespace, "form", "csv")
+		localVarQueryParams.Add("namespace", parameterToString(*r.namespace, "csv"))
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -360,9 +356,9 @@ func (a *QueryApiService) QueryVulnerabilitiesExecute(r ApiQueryVulnerabilitiesR
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -379,8 +375,7 @@ func (a *QueryApiService) QueryVulnerabilitiesExecute(r ApiQueryVulnerabilitiesR
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}

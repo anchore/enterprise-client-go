@@ -14,7 +14,7 @@ package enterprise
 import (
 	"bytes"
 	"context"
-	"io"
+	"io/ioutil"
 	"net/http"
 	"net/url"
 )
@@ -108,10 +108,7 @@ func (a *VulnerabilitiesApiService) VulnerabilityScanSbomExecute(r ApiVulnerabil
 	}
 
 	if r.includeVulnDescription != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "include_vuln_description", r.includeVulnDescription, "form", "")
-	} else {
-		var defaultValue bool = false
-		r.includeVulnDescription = &defaultValue
+		localVarQueryParams.Add("include_vuln_description", parameterToString(*r.includeVulnDescription, ""))
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
@@ -131,7 +128,7 @@ func (a *VulnerabilitiesApiService) VulnerabilityScanSbomExecute(r ApiVulnerabil
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.xAnchoreAccount != nil {
-		parameterAddToHeaderOrQuery(localVarHeaderParams, "x-anchore-account", r.xAnchoreAccount, "simple", "")
+		localVarHeaderParams["x-anchore-account"] = parameterToString(*r.xAnchoreAccount, "")
 	}
 	// body params
 	localVarPostBody = r.sbom
@@ -145,9 +142,9 @@ func (a *VulnerabilitiesApiService) VulnerabilityScanSbomExecute(r ApiVulnerabil
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -164,8 +161,7 @@ func (a *VulnerabilitiesApiService) VulnerabilityScanSbomExecute(r ApiVulnerabil
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}

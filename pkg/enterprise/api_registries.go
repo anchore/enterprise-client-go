@@ -14,7 +14,7 @@ package enterprise
 import (
 	"bytes"
 	"context"
-	"io"
+	"io/ioutil"
 	"net/http"
 	"net/url"
 	"strings"
@@ -168,7 +168,7 @@ func (a *RegistriesApiService) CreateRegistryExecute(r ApiCreateRegistryRequest)
 	}
 
 	if r.validate != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "validate", r.validate, "form", "")
+		localVarQueryParams.Add("validate", parameterToString(*r.validate, ""))
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
@@ -188,7 +188,7 @@ func (a *RegistriesApiService) CreateRegistryExecute(r ApiCreateRegistryRequest)
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.xAnchoreAccount != nil {
-		parameterAddToHeaderOrQuery(localVarHeaderParams, "x-anchore-account", r.xAnchoreAccount, "simple", "")
+		localVarHeaderParams["x-anchore-account"] = parameterToString(*r.xAnchoreAccount, "")
 	}
 	// body params
 	localVarPostBody = r.registryData
@@ -202,9 +202,9 @@ func (a *RegistriesApiService) CreateRegistryExecute(r ApiCreateRegistryRequest)
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -221,8 +221,7 @@ func (a *RegistriesApiService) CreateRegistryExecute(r ApiCreateRegistryRequest)
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -287,7 +286,7 @@ func (a *RegistriesApiService) DeleteRegistryExecute(r ApiDeleteRegistryRequest)
 	}
 
 	localVarPath := localBasePath + "/registries/{registry}"
-	localVarPath = strings.Replace(localVarPath, "{"+"registry"+"}", url.PathEscape(parameterValueToString(r.registry, "registry")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"registry"+"}", url.PathEscape(parameterToString(r.registry, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -311,7 +310,7 @@ func (a *RegistriesApiService) DeleteRegistryExecute(r ApiDeleteRegistryRequest)
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.xAnchoreAccount != nil {
-		parameterAddToHeaderOrQuery(localVarHeaderParams, "x-anchore-account", r.xAnchoreAccount, "simple", "")
+		localVarHeaderParams["x-anchore-account"] = parameterToString(*r.xAnchoreAccount, "")
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
@@ -323,9 +322,9 @@ func (a *RegistriesApiService) DeleteRegistryExecute(r ApiDeleteRegistryRequest)
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -342,8 +341,7 @@ func (a *RegistriesApiService) DeleteRegistryExecute(r ApiDeleteRegistryRequest)
 				newErr.error = err.Error()
 				return localVarHTTPResponse, newErr
 			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+			newErr.model = v
 		}
 		return localVarHTTPResponse, newErr
 	}
@@ -401,7 +399,7 @@ func (a *RegistriesApiService) GetRegistryExecute(r ApiGetRegistryRequest) ([]Re
 	}
 
 	localVarPath := localBasePath + "/registries/{registry}"
-	localVarPath = strings.Replace(localVarPath, "{"+"registry"+"}", url.PathEscape(parameterValueToString(r.registry, "registry")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"registry"+"}", url.PathEscape(parameterToString(r.registry, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -425,7 +423,7 @@ func (a *RegistriesApiService) GetRegistryExecute(r ApiGetRegistryRequest) ([]Re
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.xAnchoreAccount != nil {
-		parameterAddToHeaderOrQuery(localVarHeaderParams, "x-anchore-account", r.xAnchoreAccount, "simple", "")
+		localVarHeaderParams["x-anchore-account"] = parameterToString(*r.xAnchoreAccount, "")
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
@@ -437,9 +435,9 @@ func (a *RegistriesApiService) GetRegistryExecute(r ApiGetRegistryRequest) ([]Re
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -534,7 +532,7 @@ func (a *RegistriesApiService) ListRegistriesExecute(r ApiListRegistriesRequest)
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.xAnchoreAccount != nil {
-		parameterAddToHeaderOrQuery(localVarHeaderParams, "x-anchore-account", r.xAnchoreAccount, "simple", "")
+		localVarHeaderParams["x-anchore-account"] = parameterToString(*r.xAnchoreAccount, "")
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
@@ -546,9 +544,9 @@ func (a *RegistriesApiService) ListRegistriesExecute(r ApiListRegistriesRequest)
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -636,7 +634,7 @@ func (a *RegistriesApiService) UpdateRegistryExecute(r ApiUpdateRegistryRequest)
 	}
 
 	localVarPath := localBasePath + "/registries/{registry}"
-	localVarPath = strings.Replace(localVarPath, "{"+"registry"+"}", url.PathEscape(parameterValueToString(r.registry, "registry")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"registry"+"}", url.PathEscape(parameterToString(r.registry, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -646,7 +644,7 @@ func (a *RegistriesApiService) UpdateRegistryExecute(r ApiUpdateRegistryRequest)
 	}
 
 	if r.validate != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "validate", r.validate, "form", "")
+		localVarQueryParams.Add("validate", parameterToString(*r.validate, ""))
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
@@ -666,7 +664,7 @@ func (a *RegistriesApiService) UpdateRegistryExecute(r ApiUpdateRegistryRequest)
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.xAnchoreAccount != nil {
-		parameterAddToHeaderOrQuery(localVarHeaderParams, "x-anchore-account", r.xAnchoreAccount, "simple", "")
+		localVarHeaderParams["x-anchore-account"] = parameterToString(*r.xAnchoreAccount, "")
 	}
 	// body params
 	localVarPostBody = r.registryData
@@ -680,9 +678,9 @@ func (a *RegistriesApiService) UpdateRegistryExecute(r ApiUpdateRegistryRequest)
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -699,8 +697,7 @@ func (a *RegistriesApiService) UpdateRegistryExecute(r ApiUpdateRegistryRequest)
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}

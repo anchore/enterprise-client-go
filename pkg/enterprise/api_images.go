@@ -14,7 +14,7 @@ package enterprise
 import (
 	"bytes"
 	"context"
-	"io"
+	"io/ioutil"
 	"net/http"
 	"net/url"
 	"strings"
@@ -440,10 +440,10 @@ func (a *ImagesApiService) AddImageExecute(r ApiAddImageRequest) (*AnchoreImage,
 	}
 
 	if r.force != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "force", r.force, "form", "")
+		localVarQueryParams.Add("force", parameterToString(*r.force, ""))
 	}
 	if r.autoSubscribe != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "auto_subscribe", r.autoSubscribe, "form", "")
+		localVarQueryParams.Add("auto_subscribe", parameterToString(*r.autoSubscribe, ""))
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
@@ -463,7 +463,7 @@ func (a *ImagesApiService) AddImageExecute(r ApiAddImageRequest) (*AnchoreImage,
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.xAnchoreAccount != nil {
-		parameterAddToHeaderOrQuery(localVarHeaderParams, "x-anchore-account", r.xAnchoreAccount, "simple", "")
+		localVarHeaderParams["x-anchore-account"] = parameterToString(*r.xAnchoreAccount, "")
 	}
 	// body params
 	localVarPostBody = r.image
@@ -477,9 +477,9 @@ func (a *ImagesApiService) AddImageExecute(r ApiAddImageRequest) (*AnchoreImage,
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -496,8 +496,7 @@ func (a *ImagesApiService) AddImageExecute(r ApiAddImageRequest) (*AnchoreImage,
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -568,14 +567,14 @@ func (a *ImagesApiService) DeleteImageExecute(r ApiDeleteImageRequest) (*DeleteI
 	}
 
 	localVarPath := localBasePath + "/images/{image_digest}"
-	localVarPath = strings.Replace(localVarPath, "{"+"image_digest"+"}", url.PathEscape(parameterValueToString(r.imageDigest, "imageDigest")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"image_digest"+"}", url.PathEscape(parameterToString(r.imageDigest, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
 	if r.force != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "force", r.force, "form", "")
+		localVarQueryParams.Add("force", parameterToString(*r.force, ""))
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -595,7 +594,7 @@ func (a *ImagesApiService) DeleteImageExecute(r ApiDeleteImageRequest) (*DeleteI
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.xAnchoreAccount != nil {
-		parameterAddToHeaderOrQuery(localVarHeaderParams, "x-anchore-account", r.xAnchoreAccount, "simple", "")
+		localVarHeaderParams["x-anchore-account"] = parameterToString(*r.xAnchoreAccount, "")
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
@@ -607,9 +606,9 @@ func (a *ImagesApiService) DeleteImageExecute(r ApiDeleteImageRequest) (*DeleteI
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -626,8 +625,7 @@ func (a *ImagesApiService) DeleteImageExecute(r ApiDeleteImageRequest) (*DeleteI
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -637,8 +635,7 @@ func (a *ImagesApiService) DeleteImageExecute(r ApiDeleteImageRequest) (*DeleteI
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 500 {
@@ -648,8 +645,7 @@ func (a *ImagesApiService) DeleteImageExecute(r ApiDeleteImageRequest) (*DeleteI
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -733,9 +729,9 @@ func (a *ImagesApiService) DeleteImagesAsyncExecute(r ApiDeleteImagesAsyncReques
 		return localVarReturnValue, nil, reportError("imageDigests is required and must be specified")
 	}
 
-	parameterAddToHeaderOrQuery(localVarQueryParams, "image_digests", r.imageDigests, "form", "csv")
+	localVarQueryParams.Add("image_digests", parameterToString(*r.imageDigests, "csv"))
 	if r.force != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "force", r.force, "form", "")
+		localVarQueryParams.Add("force", parameterToString(*r.force, ""))
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -755,7 +751,7 @@ func (a *ImagesApiService) DeleteImagesAsyncExecute(r ApiDeleteImagesAsyncReques
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.xAnchoreAccount != nil {
-		parameterAddToHeaderOrQuery(localVarHeaderParams, "x-anchore-account", r.xAnchoreAccount, "simple", "")
+		localVarHeaderParams["x-anchore-account"] = parameterToString(*r.xAnchoreAccount, "")
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
@@ -767,9 +763,9 @@ func (a *ImagesApiService) DeleteImagesAsyncExecute(r ApiDeleteImagesAsyncReques
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -786,8 +782,7 @@ func (a *ImagesApiService) DeleteImagesAsyncExecute(r ApiDeleteImagesAsyncReques
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -852,7 +847,7 @@ func (a *ImagesApiService) GetImageExecute(r ApiGetImageRequest) (*AnchoreImage,
 	}
 
 	localVarPath := localBasePath + "/images/{image_digest}"
-	localVarPath = strings.Replace(localVarPath, "{"+"image_digest"+"}", url.PathEscape(parameterValueToString(r.imageDigest, "imageDigest")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"image_digest"+"}", url.PathEscape(parameterToString(r.imageDigest, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -876,7 +871,7 @@ func (a *ImagesApiService) GetImageExecute(r ApiGetImageRequest) (*AnchoreImage,
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.xAnchoreAccount != nil {
-		parameterAddToHeaderOrQuery(localVarHeaderParams, "x-anchore-account", r.xAnchoreAccount, "simple", "")
+		localVarHeaderParams["x-anchore-account"] = parameterToString(*r.xAnchoreAccount, "")
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
@@ -888,9 +883,9 @@ func (a *ImagesApiService) GetImageExecute(r ApiGetImageRequest) (*AnchoreImage,
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -907,8 +902,7 @@ func (a *ImagesApiService) GetImageExecute(r ApiGetImageRequest) (*AnchoreImage,
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 500 {
@@ -918,8 +912,7 @@ func (a *ImagesApiService) GetImageExecute(r ApiGetImageRequest) (*AnchoreImage,
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -986,7 +979,7 @@ func (a *ImagesApiService) GetImageAncestorsExecute(r ApiGetImageAncestorsReques
 	}
 
 	localVarPath := localBasePath + "/images/{image_digest}/ancestors"
-	localVarPath = strings.Replace(localVarPath, "{"+"image_digest"+"}", url.PathEscape(parameterValueToString(r.imageDigest, "imageDigest")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"image_digest"+"}", url.PathEscape(parameterToString(r.imageDigest, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1010,7 +1003,7 @@ func (a *ImagesApiService) GetImageAncestorsExecute(r ApiGetImageAncestorsReques
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.xAnchoreAccount != nil {
-		parameterAddToHeaderOrQuery(localVarHeaderParams, "x-anchore-account", r.xAnchoreAccount, "simple", "")
+		localVarHeaderParams["x-anchore-account"] = parameterToString(*r.xAnchoreAccount, "")
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
@@ -1022,9 +1015,9 @@ func (a *ImagesApiService) GetImageAncestorsExecute(r ApiGetImageAncestorsReques
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1100,8 +1093,8 @@ func (a *ImagesApiService) GetImageContentByTypeExecute(r ApiGetImageContentByTy
 	}
 
 	localVarPath := localBasePath + "/images/{image_digest}/content/{content_type}"
-	localVarPath = strings.Replace(localVarPath, "{"+"image_digest"+"}", url.PathEscape(parameterValueToString(r.imageDigest, "imageDigest")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"content_type"+"}", url.PathEscape(parameterValueToString(r.contentType, "contentType")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"image_digest"+"}", url.PathEscape(parameterToString(r.imageDigest, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"content_type"+"}", url.PathEscape(parameterToString(r.contentType, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1125,7 +1118,7 @@ func (a *ImagesApiService) GetImageContentByTypeExecute(r ApiGetImageContentByTy
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.xAnchoreAccount != nil {
-		parameterAddToHeaderOrQuery(localVarHeaderParams, "x-anchore-account", r.xAnchoreAccount, "simple", "")
+		localVarHeaderParams["x-anchore-account"] = parameterToString(*r.xAnchoreAccount, "")
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
@@ -1137,9 +1130,9 @@ func (a *ImagesApiService) GetImageContentByTypeExecute(r ApiGetImageContentByTy
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1156,8 +1149,7 @@ func (a *ImagesApiService) GetImageContentByTypeExecute(r ApiGetImageContentByTy
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -1222,7 +1214,7 @@ func (a *ImagesApiService) GetImageContentByTypeFilesExecute(r ApiGetImageConten
 	}
 
 	localVarPath := localBasePath + "/images/{image_digest}/content/files"
-	localVarPath = strings.Replace(localVarPath, "{"+"image_digest"+"}", url.PathEscape(parameterValueToString(r.imageDigest, "imageDigest")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"image_digest"+"}", url.PathEscape(parameterToString(r.imageDigest, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1246,7 +1238,7 @@ func (a *ImagesApiService) GetImageContentByTypeFilesExecute(r ApiGetImageConten
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.xAnchoreAccount != nil {
-		parameterAddToHeaderOrQuery(localVarHeaderParams, "x-anchore-account", r.xAnchoreAccount, "simple", "")
+		localVarHeaderParams["x-anchore-account"] = parameterToString(*r.xAnchoreAccount, "")
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
@@ -1258,9 +1250,9 @@ func (a *ImagesApiService) GetImageContentByTypeFilesExecute(r ApiGetImageConten
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1277,8 +1269,7 @@ func (a *ImagesApiService) GetImageContentByTypeFilesExecute(r ApiGetImageConten
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -1343,7 +1334,7 @@ func (a *ImagesApiService) GetImageContentByTypeJavaPackageExecute(r ApiGetImage
 	}
 
 	localVarPath := localBasePath + "/images/{image_digest}/content/java"
-	localVarPath = strings.Replace(localVarPath, "{"+"image_digest"+"}", url.PathEscape(parameterValueToString(r.imageDigest, "imageDigest")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"image_digest"+"}", url.PathEscape(parameterToString(r.imageDigest, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1367,7 +1358,7 @@ func (a *ImagesApiService) GetImageContentByTypeJavaPackageExecute(r ApiGetImage
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.xAnchoreAccount != nil {
-		parameterAddToHeaderOrQuery(localVarHeaderParams, "x-anchore-account", r.xAnchoreAccount, "simple", "")
+		localVarHeaderParams["x-anchore-account"] = parameterToString(*r.xAnchoreAccount, "")
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
@@ -1379,9 +1370,9 @@ func (a *ImagesApiService) GetImageContentByTypeJavaPackageExecute(r ApiGetImage
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1398,8 +1389,7 @@ func (a *ImagesApiService) GetImageContentByTypeJavaPackageExecute(r ApiGetImage
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -1464,7 +1454,7 @@ func (a *ImagesApiService) GetImageContentByTypeMalwareExecute(r ApiGetImageCont
 	}
 
 	localVarPath := localBasePath + "/images/{image_digest}/content/malware"
-	localVarPath = strings.Replace(localVarPath, "{"+"image_digest"+"}", url.PathEscape(parameterValueToString(r.imageDigest, "imageDigest")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"image_digest"+"}", url.PathEscape(parameterToString(r.imageDigest, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1488,7 +1478,7 @@ func (a *ImagesApiService) GetImageContentByTypeMalwareExecute(r ApiGetImageCont
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.xAnchoreAccount != nil {
-		parameterAddToHeaderOrQuery(localVarHeaderParams, "x-anchore-account", r.xAnchoreAccount, "simple", "")
+		localVarHeaderParams["x-anchore-account"] = parameterToString(*r.xAnchoreAccount, "")
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
@@ -1500,9 +1490,9 @@ func (a *ImagesApiService) GetImageContentByTypeMalwareExecute(r ApiGetImageCont
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1519,8 +1509,7 @@ func (a *ImagesApiService) GetImageContentByTypeMalwareExecute(r ApiGetImageCont
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -1585,7 +1574,7 @@ func (a *ImagesApiService) GetImageContentSummaryExecute(r ApiGetImageContentSum
 	}
 
 	localVarPath := localBasePath + "/images/{image_digest}/content-summary"
-	localVarPath = strings.Replace(localVarPath, "{"+"image_digest"+"}", url.PathEscape(parameterValueToString(r.imageDigest, "imageDigest")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"image_digest"+"}", url.PathEscape(parameterToString(r.imageDigest, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1609,7 +1598,7 @@ func (a *ImagesApiService) GetImageContentSummaryExecute(r ApiGetImageContentSum
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.xAnchoreAccount != nil {
-		parameterAddToHeaderOrQuery(localVarHeaderParams, "x-anchore-account", r.xAnchoreAccount, "simple", "")
+		localVarHeaderParams["x-anchore-account"] = parameterToString(*r.xAnchoreAccount, "")
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
@@ -1621,9 +1610,9 @@ func (a *ImagesApiService) GetImageContentSummaryExecute(r ApiGetImageContentSum
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1640,8 +1629,7 @@ func (a *ImagesApiService) GetImageContentSummaryExecute(r ApiGetImageContentSum
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -1709,8 +1697,8 @@ func (a *ImagesApiService) GetImageMetadataByTypeExecute(r ApiGetImageMetadataBy
 	}
 
 	localVarPath := localBasePath + "/images/{image_digest}/metadata/{metadata_type}"
-	localVarPath = strings.Replace(localVarPath, "{"+"image_digest"+"}", url.PathEscape(parameterValueToString(r.imageDigest, "imageDigest")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"metadata_type"+"}", url.PathEscape(parameterValueToString(r.metadataType, "metadataType")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"image_digest"+"}", url.PathEscape(parameterToString(r.imageDigest, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"metadata_type"+"}", url.PathEscape(parameterToString(r.metadataType, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1734,7 +1722,7 @@ func (a *ImagesApiService) GetImageMetadataByTypeExecute(r ApiGetImageMetadataBy
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.xAnchoreAccount != nil {
-		parameterAddToHeaderOrQuery(localVarHeaderParams, "x-anchore-account", r.xAnchoreAccount, "simple", "")
+		localVarHeaderParams["x-anchore-account"] = parameterToString(*r.xAnchoreAccount, "")
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
@@ -1746,9 +1734,9 @@ func (a *ImagesApiService) GetImageMetadataByTypeExecute(r ApiGetImageMetadataBy
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1765,8 +1753,7 @@ func (a *ImagesApiService) GetImageMetadataByTypeExecute(r ApiGetImageMetadataBy
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -1870,7 +1857,7 @@ func (a *ImagesApiService) GetImagePolicyCheckByDigestExecute(r ApiGetImagePolic
 	}
 
 	localVarPath := localBasePath + "/images/{image_digest}/check"
-	localVarPath = strings.Replace(localVarPath, "{"+"image_digest"+"}", url.PathEscape(parameterValueToString(r.imageDigest, "imageDigest")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"image_digest"+"}", url.PathEscape(parameterToString(r.imageDigest, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1880,29 +1867,20 @@ func (a *ImagesApiService) GetImagePolicyCheckByDigestExecute(r ApiGetImagePolic
 	}
 
 	if r.policyId != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "policy_id", r.policyId, "form", "")
+		localVarQueryParams.Add("policy_id", parameterToString(*r.policyId, ""))
 	}
-	parameterAddToHeaderOrQuery(localVarQueryParams, "tag", r.tag, "form", "")
+	localVarQueryParams.Add("tag", parameterToString(*r.tag, ""))
 	if r.detail != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "detail", r.detail, "form", "")
-	} else {
-		var defaultValue bool = true
-		r.detail = &defaultValue
+		localVarQueryParams.Add("detail", parameterToString(*r.detail, ""))
 	}
 	if r.history != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "history", r.history, "form", "")
-	} else {
-		var defaultValue bool = false
-		r.history = &defaultValue
+		localVarQueryParams.Add("history", parameterToString(*r.history, ""))
 	}
 	if r.interactive != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "interactive", r.interactive, "form", "")
-	} else {
-		var defaultValue bool = false
-		r.interactive = &defaultValue
+		localVarQueryParams.Add("interactive", parameterToString(*r.interactive, ""))
 	}
 	if r.baseDigest != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "base_digest", r.baseDigest, "form", "")
+		localVarQueryParams.Add("base_digest", parameterToString(*r.baseDigest, ""))
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -1922,7 +1900,7 @@ func (a *ImagesApiService) GetImagePolicyCheckByDigestExecute(r ApiGetImagePolic
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.xAnchoreAccount != nil {
-		parameterAddToHeaderOrQuery(localVarHeaderParams, "x-anchore-account", r.xAnchoreAccount, "simple", "")
+		localVarHeaderParams["x-anchore-account"] = parameterToString(*r.xAnchoreAccount, "")
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
@@ -1934,9 +1912,9 @@ func (a *ImagesApiService) GetImagePolicyCheckByDigestExecute(r ApiGetImagePolic
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1953,8 +1931,7 @@ func (a *ImagesApiService) GetImagePolicyCheckByDigestExecute(r ApiGetImagePolic
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -2019,7 +1996,7 @@ func (a *ImagesApiService) GetImageSbomCyclonedxJsonExecute(r ApiGetImageSbomCyc
 	}
 
 	localVarPath := localBasePath + "/images/{image_digest}/sboms/cyclonedx-json"
-	localVarPath = strings.Replace(localVarPath, "{"+"image_digest"+"}", url.PathEscape(parameterValueToString(r.imageDigest, "imageDigest")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"image_digest"+"}", url.PathEscape(parameterToString(r.imageDigest, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -2043,7 +2020,7 @@ func (a *ImagesApiService) GetImageSbomCyclonedxJsonExecute(r ApiGetImageSbomCyc
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.xAnchoreAccount != nil {
-		parameterAddToHeaderOrQuery(localVarHeaderParams, "x-anchore-account", r.xAnchoreAccount, "simple", "")
+		localVarHeaderParams["x-anchore-account"] = parameterToString(*r.xAnchoreAccount, "")
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
@@ -2055,9 +2032,9 @@ func (a *ImagesApiService) GetImageSbomCyclonedxJsonExecute(r ApiGetImageSbomCyc
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -2074,8 +2051,7 @@ func (a *ImagesApiService) GetImageSbomCyclonedxJsonExecute(r ApiGetImageSbomCyc
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -2140,7 +2116,7 @@ func (a *ImagesApiService) GetImageSbomNativeJsonExecute(r ApiGetImageSbomNative
 	}
 
 	localVarPath := localBasePath + "/images/{image_digest}/sboms/native-json"
-	localVarPath = strings.Replace(localVarPath, "{"+"image_digest"+"}", url.PathEscape(parameterValueToString(r.imageDigest, "imageDigest")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"image_digest"+"}", url.PathEscape(parameterToString(r.imageDigest, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -2164,7 +2140,7 @@ func (a *ImagesApiService) GetImageSbomNativeJsonExecute(r ApiGetImageSbomNative
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.xAnchoreAccount != nil {
-		parameterAddToHeaderOrQuery(localVarHeaderParams, "x-anchore-account", r.xAnchoreAccount, "simple", "")
+		localVarHeaderParams["x-anchore-account"] = parameterToString(*r.xAnchoreAccount, "")
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
@@ -2176,9 +2152,9 @@ func (a *ImagesApiService) GetImageSbomNativeJsonExecute(r ApiGetImageSbomNative
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -2195,8 +2171,7 @@ func (a *ImagesApiService) GetImageSbomNativeJsonExecute(r ApiGetImageSbomNative
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -2261,7 +2236,7 @@ func (a *ImagesApiService) GetImageSbomSpdxJsonExecute(r ApiGetImageSbomSpdxJson
 	}
 
 	localVarPath := localBasePath + "/images/{image_digest}/sboms/spdx-json"
-	localVarPath = strings.Replace(localVarPath, "{"+"image_digest"+"}", url.PathEscape(parameterValueToString(r.imageDigest, "imageDigest")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"image_digest"+"}", url.PathEscape(parameterToString(r.imageDigest, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -2285,7 +2260,7 @@ func (a *ImagesApiService) GetImageSbomSpdxJsonExecute(r ApiGetImageSbomSpdxJson
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.xAnchoreAccount != nil {
-		parameterAddToHeaderOrQuery(localVarHeaderParams, "x-anchore-account", r.xAnchoreAccount, "simple", "")
+		localVarHeaderParams["x-anchore-account"] = parameterToString(*r.xAnchoreAccount, "")
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
@@ -2297,9 +2272,9 @@ func (a *ImagesApiService) GetImageSbomSpdxJsonExecute(r ApiGetImageSbomSpdxJson
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -2316,8 +2291,7 @@ func (a *ImagesApiService) GetImageSbomSpdxJsonExecute(r ApiGetImageSbomSpdxJson
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -2411,33 +2385,24 @@ func (a *ImagesApiService) GetImageVulnerabilitiesByDigestExecute(r ApiGetImageV
 	}
 
 	localVarPath := localBasePath + "/images/{image_digest}/vuln/{vuln_type}"
-	localVarPath = strings.Replace(localVarPath, "{"+"image_digest"+"}", url.PathEscape(parameterValueToString(r.imageDigest, "imageDigest")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"vuln_type"+"}", url.PathEscape(parameterValueToString(r.vulnType, "vulnType")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"image_digest"+"}", url.PathEscape(parameterToString(r.imageDigest, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"vuln_type"+"}", url.PathEscape(parameterToString(r.vulnType, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
 	if r.forceRefresh != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "force_refresh", r.forceRefresh, "form", "")
-	} else {
-		var defaultValue bool = false
-		r.forceRefresh = &defaultValue
+		localVarQueryParams.Add("force_refresh", parameterToString(*r.forceRefresh, ""))
 	}
 	if r.includeVulnDescription != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "include_vuln_description", r.includeVulnDescription, "form", "")
-	} else {
-		var defaultValue bool = false
-		r.includeVulnDescription = &defaultValue
+		localVarQueryParams.Add("include_vuln_description", parameterToString(*r.includeVulnDescription, ""))
 	}
 	if r.vendorOnly != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "vendor_only", r.vendorOnly, "form", "")
-	} else {
-		var defaultValue bool = true
-		r.vendorOnly = &defaultValue
+		localVarQueryParams.Add("vendor_only", parameterToString(*r.vendorOnly, ""))
 	}
 	if r.baseDigest != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "base_digest", r.baseDigest, "form", "")
+		localVarQueryParams.Add("base_digest", parameterToString(*r.baseDigest, ""))
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -2457,7 +2422,7 @@ func (a *ImagesApiService) GetImageVulnerabilitiesByDigestExecute(r ApiGetImageV
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.xAnchoreAccount != nil {
-		parameterAddToHeaderOrQuery(localVarHeaderParams, "x-anchore-account", r.xAnchoreAccount, "simple", "")
+		localVarHeaderParams["x-anchore-account"] = parameterToString(*r.xAnchoreAccount, "")
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
@@ -2469,9 +2434,9 @@ func (a *ImagesApiService) GetImageVulnerabilitiesByDigestExecute(r ApiGetImageV
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -2488,8 +2453,7 @@ func (a *ImagesApiService) GetImageVulnerabilitiesByDigestExecute(r ApiGetImageV
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -2554,7 +2518,7 @@ func (a *ImagesApiService) GetImageVulnerabilityTypesExecute(r ApiGetImageVulner
 	}
 
 	localVarPath := localBasePath + "/images/{image_digest}/vuln"
-	localVarPath = strings.Replace(localVarPath, "{"+"image_digest"+"}", url.PathEscape(parameterValueToString(r.imageDigest, "imageDigest")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"image_digest"+"}", url.PathEscape(parameterToString(r.imageDigest, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -2578,7 +2542,7 @@ func (a *ImagesApiService) GetImageVulnerabilityTypesExecute(r ApiGetImageVulner
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.xAnchoreAccount != nil {
-		parameterAddToHeaderOrQuery(localVarHeaderParams, "x-anchore-account", r.xAnchoreAccount, "simple", "")
+		localVarHeaderParams["x-anchore-account"] = parameterToString(*r.xAnchoreAccount, "")
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
@@ -2590,9 +2554,9 @@ func (a *ImagesApiService) GetImageVulnerabilityTypesExecute(r ApiGetImageVulner
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -2609,8 +2573,7 @@ func (a *ImagesApiService) GetImageVulnerabilityTypesExecute(r ApiGetImageVulner
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -2668,7 +2631,7 @@ func (a *ImagesApiService) ListFileContentSearchResultsExecute(r ApiListFileCont
 	}
 
 	localVarPath := localBasePath + "/images/{image_digest}/artifacts/file-content-search"
-	localVarPath = strings.Replace(localVarPath, "{"+"image_digest"+"}", url.PathEscape(parameterValueToString(r.imageDigest, "imageDigest")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"image_digest"+"}", url.PathEscape(parameterToString(r.imageDigest, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -2701,9 +2664,9 @@ func (a *ImagesApiService) ListFileContentSearchResultsExecute(r ApiListFileCont
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -2776,7 +2739,7 @@ func (a *ImagesApiService) ListImageContentExecute(r ApiListImageContentRequest)
 	}
 
 	localVarPath := localBasePath + "/images/{image_digest}/content"
-	localVarPath = strings.Replace(localVarPath, "{"+"image_digest"+"}", url.PathEscape(parameterValueToString(r.imageDigest, "imageDigest")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"image_digest"+"}", url.PathEscape(parameterToString(r.imageDigest, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -2800,7 +2763,7 @@ func (a *ImagesApiService) ListImageContentExecute(r ApiListImageContentRequest)
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.xAnchoreAccount != nil {
-		parameterAddToHeaderOrQuery(localVarHeaderParams, "x-anchore-account", r.xAnchoreAccount, "simple", "")
+		localVarHeaderParams["x-anchore-account"] = parameterToString(*r.xAnchoreAccount, "")
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
@@ -2812,9 +2775,9 @@ func (a *ImagesApiService) ListImageContentExecute(r ApiListImageContentRequest)
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -2831,8 +2794,7 @@ func (a *ImagesApiService) ListImageContentExecute(r ApiListImageContentRequest)
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -2897,7 +2859,7 @@ func (a *ImagesApiService) ListImageMetadataExecute(r ApiListImageMetadataReques
 	}
 
 	localVarPath := localBasePath + "/images/{image_digest}/metadata"
-	localVarPath = strings.Replace(localVarPath, "{"+"image_digest"+"}", url.PathEscape(parameterValueToString(r.imageDigest, "imageDigest")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"image_digest"+"}", url.PathEscape(parameterToString(r.imageDigest, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -2921,7 +2883,7 @@ func (a *ImagesApiService) ListImageMetadataExecute(r ApiListImageMetadataReques
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.xAnchoreAccount != nil {
-		parameterAddToHeaderOrQuery(localVarHeaderParams, "x-anchore-account", r.xAnchoreAccount, "simple", "")
+		localVarHeaderParams["x-anchore-account"] = parameterToString(*r.xAnchoreAccount, "")
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
@@ -2933,9 +2895,9 @@ func (a *ImagesApiService) ListImageMetadataExecute(r ApiListImageMetadataReques
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -2952,8 +2914,7 @@ func (a *ImagesApiService) ListImageMetadataExecute(r ApiListImageMetadataReques
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -3065,25 +3026,22 @@ func (a *ImagesApiService) ListImagesExecute(r ApiListImagesRequest) (*AnchoreIm
 	localVarFormParams := url.Values{}
 
 	if r.imageId != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "image_id", r.imageId, "form", "")
+		localVarQueryParams.Add("image_id", parameterToString(*r.imageId, ""))
 	}
 	if r.history != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "history", r.history, "form", "")
+		localVarQueryParams.Add("history", parameterToString(*r.history, ""))
 	}
 	if r.fullTag != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "full_tag", r.fullTag, "form", "")
+		localVarQueryParams.Add("full_tag", parameterToString(*r.fullTag, ""))
 	}
 	if r.imageStatus != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "image_status", r.imageStatus, "form", "")
-	} else {
-		var defaultValue string = "active"
-		r.imageStatus = &defaultValue
+		localVarQueryParams.Add("image_status", parameterToString(*r.imageStatus, ""))
 	}
 	if r.analysisStatus != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "analysis_status", r.analysisStatus, "form", "")
+		localVarQueryParams.Add("analysis_status", parameterToString(*r.analysisStatus, ""))
 	}
 	if r.analyzedSince != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "analyzed_since", r.analyzedSince, "form", "")
+		localVarQueryParams.Add("analyzed_since", parameterToString(*r.analyzedSince, ""))
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -3103,7 +3061,7 @@ func (a *ImagesApiService) ListImagesExecute(r ApiListImagesRequest) (*AnchoreIm
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.xAnchoreAccount != nil {
-		parameterAddToHeaderOrQuery(localVarHeaderParams, "x-anchore-account", r.xAnchoreAccount, "simple", "")
+		localVarHeaderParams["x-anchore-account"] = parameterToString(*r.xAnchoreAccount, "")
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
@@ -3115,9 +3073,9 @@ func (a *ImagesApiService) ListImagesExecute(r ApiListImagesRequest) (*AnchoreIm
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -3134,8 +3092,7 @@ func (a *ImagesApiService) ListImagesExecute(r ApiListImagesRequest) (*AnchoreIm
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -3193,7 +3150,7 @@ func (a *ImagesApiService) ListRetrievedFilesExecute(r ApiListRetrievedFilesRequ
 	}
 
 	localVarPath := localBasePath + "/images/{image_digest}/artifacts/retrieved-files"
-	localVarPath = strings.Replace(localVarPath, "{"+"image_digest"+"}", url.PathEscape(parameterValueToString(r.imageDigest, "imageDigest")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"image_digest"+"}", url.PathEscape(parameterToString(r.imageDigest, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -3226,9 +3183,9 @@ func (a *ImagesApiService) ListRetrievedFilesExecute(r ApiListRetrievedFilesRequ
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -3294,7 +3251,7 @@ func (a *ImagesApiService) ListSecretSearchResultsExecute(r ApiListSecretSearchR
 	}
 
 	localVarPath := localBasePath + "/images/{image_digest}/artifacts/secret-search"
-	localVarPath = strings.Replace(localVarPath, "{"+"image_digest"+"}", url.PathEscape(parameterValueToString(r.imageDigest, "imageDigest")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"image_digest"+"}", url.PathEscape(parameterToString(r.imageDigest, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -3327,9 +3284,9 @@ func (a *ImagesApiService) ListSecretSearchResultsExecute(r ApiListSecretSearchR
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -3428,16 +3385,13 @@ func (a *ImagesApiService) SummaryImageCountsExecute(r ApiSummaryImageCountsRequ
 	localVarFormParams := url.Values{}
 
 	if r.imageStatus != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "image_status", r.imageStatus, "form", "csv")
-	} else {
-		defaultValue := []string{"active"}
-		r.imageStatus = &defaultValue
+		localVarQueryParams.Add("image_status", parameterToString(*r.imageStatus, "csv"))
 	}
 	if r.registry != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "registry", r.registry, "form", "")
+		localVarQueryParams.Add("registry", parameterToString(*r.registry, ""))
 	}
 	if r.repo != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "repo", r.repo, "form", "")
+		localVarQueryParams.Add("repo", parameterToString(*r.repo, ""))
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -3457,7 +3411,7 @@ func (a *ImagesApiService) SummaryImageCountsExecute(r ApiSummaryImageCountsRequ
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.xAnchoreAccount != nil {
-		parameterAddToHeaderOrQuery(localVarHeaderParams, "x-anchore-account", r.xAnchoreAccount, "simple", "")
+		localVarHeaderParams["x-anchore-account"] = parameterToString(*r.xAnchoreAccount, "")
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
@@ -3469,9 +3423,9 @@ func (a *ImagesApiService) SummaryImageCountsExecute(r ApiSummaryImageCountsRequ
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -3488,8 +3442,7 @@ func (a *ImagesApiService) SummaryImageCountsExecute(r ApiSummaryImageCountsRequ
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -3643,49 +3596,40 @@ func (a *ImagesApiService) SummaryImageTagsExecute(r ApiSummaryImageTagsRequest)
 	localVarFormParams := url.Values{}
 
 	if r.imageStatus != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "image_status", r.imageStatus, "form", "csv")
-	} else {
-		defaultValue := []string{"active"}
-		r.imageStatus = &defaultValue
+		localVarQueryParams.Add("image_status", parameterToString(*r.imageStatus, "csv"))
 	}
 	if r.analysisStatus != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "analysis_status", r.analysisStatus, "form", "csv")
-	} else {
-		defaultValue := []string{"all"}
-		r.analysisStatus = &defaultValue
+		localVarQueryParams.Add("analysis_status", parameterToString(*r.analysisStatus, "csv"))
 	}
 	if r.analyzedSince != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "analyzed_since", r.analyzedSince, "form", "")
+		localVarQueryParams.Add("analyzed_since", parameterToString(*r.analyzedSince, ""))
 	}
 	if r.registry != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "registry", r.registry, "form", "")
+		localVarQueryParams.Add("registry", parameterToString(*r.registry, ""))
 	}
 	if r.repository != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "repository", r.repository, "form", "")
+		localVarQueryParams.Add("repository", parameterToString(*r.repository, ""))
 	}
 	if r.tag != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "tag", r.tag, "form", "")
+		localVarQueryParams.Add("tag", parameterToString(*r.tag, ""))
 	}
 	if r.runtime != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "runtime", r.runtime, "form", "")
+		localVarQueryParams.Add("runtime", parameterToString(*r.runtime, ""))
 	}
 	if r.orderBy != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "order_by", r.orderBy, "form", "csv")
+		localVarQueryParams.Add("order_by", parameterToString(*r.orderBy, "csv"))
 	}
 	if r.orderByDescending != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "order_by_descending", r.orderByDescending, "form", "csv")
+		localVarQueryParams.Add("order_by_descending", parameterToString(*r.orderByDescending, "csv"))
 	}
 	if r.filter != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "filter", r.filter, "form", "")
+		localVarQueryParams.Add("filter", parameterToString(*r.filter, ""))
 	}
 	if r.limit != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "form", "")
+		localVarQueryParams.Add("limit", parameterToString(*r.limit, ""))
 	}
 	if r.page != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "page", r.page, "form", "")
-	} else {
-		var defaultValue int32 = 1
-		r.page = &defaultValue
+		localVarQueryParams.Add("page", parameterToString(*r.page, ""))
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -3705,7 +3649,7 @@ func (a *ImagesApiService) SummaryImageTagsExecute(r ApiSummaryImageTagsRequest)
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.xAnchoreAccount != nil {
-		parameterAddToHeaderOrQuery(localVarHeaderParams, "x-anchore-account", r.xAnchoreAccount, "simple", "")
+		localVarHeaderParams["x-anchore-account"] = parameterToString(*r.xAnchoreAccount, "")
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
@@ -3717,9 +3661,9 @@ func (a *ImagesApiService) SummaryImageTagsExecute(r ApiSummaryImageTagsRequest)
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -3736,8 +3680,7 @@ func (a *ImagesApiService) SummaryImageTagsExecute(r ApiSummaryImageTagsRequest)
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}

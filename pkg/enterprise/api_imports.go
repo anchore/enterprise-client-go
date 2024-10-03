@@ -14,7 +14,7 @@ package enterprise
 import (
 	"bytes"
 	"context"
-	"io"
+	"io/ioutil"
 	"net/http"
 	"net/url"
 	"strings"
@@ -444,9 +444,9 @@ func (a *ImportsApiService) CreateOperationExecute(r ApiCreateOperationRequest) 
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -541,9 +541,9 @@ func (a *ImportsApiService) CreateSourcesOperationExecute(r ApiCreateSourcesOper
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -615,7 +615,7 @@ func (a *ImportsApiService) FinalizeOperationExecute(r ApiFinalizeOperationReque
 	}
 
 	localVarPath := localBasePath + "/imports/sources/{operation_id}/finalize"
-	localVarPath = strings.Replace(localVarPath, "{"+"operation_id"+"}", url.PathEscape(parameterValueToString(r.operationId, "operationId")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"operation_id"+"}", url.PathEscape(parameterToString(r.operationId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -653,9 +653,9 @@ func (a *ImportsApiService) FinalizeOperationExecute(r ApiFinalizeOperationReque
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -721,7 +721,7 @@ func (a *ImportsApiService) GetImportSourcesSbomExecute(r ApiGetImportSourcesSbo
 	}
 
 	localVarPath := localBasePath + "/imports/sources/{operation_id}/sbom"
-	localVarPath = strings.Replace(localVarPath, "{"+"operation_id"+"}", url.PathEscape(parameterValueToString(r.operationId, "operationId")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"operation_id"+"}", url.PathEscape(parameterToString(r.operationId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -754,9 +754,9 @@ func (a *ImportsApiService) GetImportSourcesSbomExecute(r ApiGetImportSourcesSbo
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -822,7 +822,7 @@ func (a *ImportsApiService) GetOperationExecute(r ApiGetOperationRequest) (*Imag
 	}
 
 	localVarPath := localBasePath + "/imports/images/{operation_id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"operation_id"+"}", url.PathEscape(parameterValueToString(r.operationId, "operationId")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"operation_id"+"}", url.PathEscape(parameterToString(r.operationId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -855,9 +855,9 @@ func (a *ImportsApiService) GetOperationExecute(r ApiGetOperationRequest) (*Imag
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -923,7 +923,7 @@ func (a *ImportsApiService) GetSourcesOperationExecute(r ApiGetSourcesOperationR
 	}
 
 	localVarPath := localBasePath + "/imports/sources/{operation_id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"operation_id"+"}", url.PathEscape(parameterValueToString(r.operationId, "operationId")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"operation_id"+"}", url.PathEscape(parameterToString(r.operationId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -956,9 +956,9 @@ func (a *ImportsApiService) GetSourcesOperationExecute(r ApiGetSourcesOperationR
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1030,7 +1030,7 @@ func (a *ImportsApiService) ImportContentSearchesExecute(r ApiImportContentSearc
 	}
 
 	localVarPath := localBasePath + "/imports/images/{operation_id}/content-searches"
-	localVarPath = strings.Replace(localVarPath, "{"+"operation_id"+"}", url.PathEscape(parameterValueToString(r.operationId, "operationId")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"operation_id"+"}", url.PathEscape(parameterToString(r.operationId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1068,9 +1068,9 @@ func (a *ImportsApiService) ImportContentSearchesExecute(r ApiImportContentSearc
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1142,7 +1142,7 @@ func (a *ImportsApiService) ImportFileContentsExecute(r ApiImportFileContentsReq
 	}
 
 	localVarPath := localBasePath + "/imports/images/{operation_id}/file-contents"
-	localVarPath = strings.Replace(localVarPath, "{"+"operation_id"+"}", url.PathEscape(parameterValueToString(r.operationId, "operationId")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"operation_id"+"}", url.PathEscape(parameterToString(r.operationId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1180,9 +1180,9 @@ func (a *ImportsApiService) ImportFileContentsExecute(r ApiImportFileContentsReq
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1254,7 +1254,7 @@ func (a *ImportsApiService) ImportImageConfigExecute(r ApiImportImageConfigReque
 	}
 
 	localVarPath := localBasePath + "/imports/images/{operation_id}/image-config"
-	localVarPath = strings.Replace(localVarPath, "{"+"operation_id"+"}", url.PathEscape(parameterValueToString(r.operationId, "operationId")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"operation_id"+"}", url.PathEscape(parameterToString(r.operationId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1292,9 +1292,9 @@ func (a *ImportsApiService) ImportImageConfigExecute(r ApiImportImageConfigReque
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1366,7 +1366,7 @@ func (a *ImportsApiService) ImportImageDockerfileExecute(r ApiImportImageDockerf
 	}
 
 	localVarPath := localBasePath + "/imports/images/{operation_id}/dockerfile"
-	localVarPath = strings.Replace(localVarPath, "{"+"operation_id"+"}", url.PathEscape(parameterValueToString(r.operationId, "operationId")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"operation_id"+"}", url.PathEscape(parameterToString(r.operationId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1404,9 +1404,9 @@ func (a *ImportsApiService) ImportImageDockerfileExecute(r ApiImportImageDockerf
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1478,7 +1478,7 @@ func (a *ImportsApiService) ImportImageManifestExecute(r ApiImportImageManifestR
 	}
 
 	localVarPath := localBasePath + "/imports/images/{operation_id}/manifest"
-	localVarPath = strings.Replace(localVarPath, "{"+"operation_id"+"}", url.PathEscape(parameterValueToString(r.operationId, "operationId")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"operation_id"+"}", url.PathEscape(parameterToString(r.operationId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1516,9 +1516,9 @@ func (a *ImportsApiService) ImportImageManifestExecute(r ApiImportImageManifestR
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1590,7 +1590,7 @@ func (a *ImportsApiService) ImportImagePackagesExecute(r ApiImportImagePackagesR
 	}
 
 	localVarPath := localBasePath + "/imports/images/{operation_id}/packages"
-	localVarPath = strings.Replace(localVarPath, "{"+"operation_id"+"}", url.PathEscape(parameterValueToString(r.operationId, "operationId")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"operation_id"+"}", url.PathEscape(parameterToString(r.operationId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1628,9 +1628,9 @@ func (a *ImportsApiService) ImportImagePackagesExecute(r ApiImportImagePackagesR
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1702,7 +1702,7 @@ func (a *ImportsApiService) ImportImageParentManifestExecute(r ApiImportImagePar
 	}
 
 	localVarPath := localBasePath + "/imports/images/{operation_id}/parent-manifest"
-	localVarPath = strings.Replace(localVarPath, "{"+"operation_id"+"}", url.PathEscape(parameterValueToString(r.operationId, "operationId")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"operation_id"+"}", url.PathEscape(parameterToString(r.operationId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1740,9 +1740,9 @@ func (a *ImportsApiService) ImportImageParentManifestExecute(r ApiImportImagePar
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1814,7 +1814,7 @@ func (a *ImportsApiService) ImportSecretSearchesExecute(r ApiImportSecretSearche
 	}
 
 	localVarPath := localBasePath + "/imports/images/{operation_id}/secret-searches"
-	localVarPath = strings.Replace(localVarPath, "{"+"operation_id"+"}", url.PathEscape(parameterValueToString(r.operationId, "operationId")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"operation_id"+"}", url.PathEscape(parameterToString(r.operationId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1852,9 +1852,9 @@ func (a *ImportsApiService) ImportSecretSearchesExecute(r ApiImportSecretSearche
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1920,7 +1920,7 @@ func (a *ImportsApiService) InvalidateOperationExecute(r ApiInvalidateOperationR
 	}
 
 	localVarPath := localBasePath + "/imports/images/{operation_id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"operation_id"+"}", url.PathEscape(parameterValueToString(r.operationId, "operationId")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"operation_id"+"}", url.PathEscape(parameterToString(r.operationId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1953,9 +1953,9 @@ func (a *ImportsApiService) InvalidateOperationExecute(r ApiInvalidateOperationR
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -2021,7 +2021,7 @@ func (a *ImportsApiService) InvalidateSourcesOperationExecute(r ApiInvalidateSou
 	}
 
 	localVarPath := localBasePath + "/imports/sources/{operation_id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"operation_id"+"}", url.PathEscape(parameterValueToString(r.operationId, "operationId")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"operation_id"+"}", url.PathEscape(parameterToString(r.operationId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -2054,9 +2054,9 @@ func (a *ImportsApiService) InvalidateSourcesOperationExecute(r ApiInvalidateSou
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -2122,7 +2122,7 @@ func (a *ImportsApiService) ListImportContentSearchesExecute(r ApiListImportCont
 	}
 
 	localVarPath := localBasePath + "/imports/images/{operation_id}/content-searches"
-	localVarPath = strings.Replace(localVarPath, "{"+"operation_id"+"}", url.PathEscape(parameterValueToString(r.operationId, "operationId")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"operation_id"+"}", url.PathEscape(parameterToString(r.operationId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -2155,9 +2155,9 @@ func (a *ImportsApiService) ListImportContentSearchesExecute(r ApiListImportCont
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -2223,7 +2223,7 @@ func (a *ImportsApiService) ListImportDockerfilesExecute(r ApiListImportDockerfi
 	}
 
 	localVarPath := localBasePath + "/imports/images/{operation_id}/dockerfile"
-	localVarPath = strings.Replace(localVarPath, "{"+"operation_id"+"}", url.PathEscape(parameterValueToString(r.operationId, "operationId")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"operation_id"+"}", url.PathEscape(parameterToString(r.operationId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -2256,9 +2256,9 @@ func (a *ImportsApiService) ListImportDockerfilesExecute(r ApiListImportDockerfi
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -2324,7 +2324,7 @@ func (a *ImportsApiService) ListImportFileContentsExecute(r ApiListImportFileCon
 	}
 
 	localVarPath := localBasePath + "/imports/images/{operation_id}/file-contents"
-	localVarPath = strings.Replace(localVarPath, "{"+"operation_id"+"}", url.PathEscape(parameterValueToString(r.operationId, "operationId")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"operation_id"+"}", url.PathEscape(parameterToString(r.operationId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -2357,9 +2357,9 @@ func (a *ImportsApiService) ListImportFileContentsExecute(r ApiListImportFileCon
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -2425,7 +2425,7 @@ func (a *ImportsApiService) ListImportImageConfigsExecute(r ApiListImportImageCo
 	}
 
 	localVarPath := localBasePath + "/imports/images/{operation_id}/image-config"
-	localVarPath = strings.Replace(localVarPath, "{"+"operation_id"+"}", url.PathEscape(parameterValueToString(r.operationId, "operationId")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"operation_id"+"}", url.PathEscape(parameterToString(r.operationId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -2458,9 +2458,9 @@ func (a *ImportsApiService) ListImportImageConfigsExecute(r ApiListImportImageCo
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -2526,7 +2526,7 @@ func (a *ImportsApiService) ListImportImageManifestsExecute(r ApiListImportImage
 	}
 
 	localVarPath := localBasePath + "/imports/images/{operation_id}/manifest"
-	localVarPath = strings.Replace(localVarPath, "{"+"operation_id"+"}", url.PathEscape(parameterValueToString(r.operationId, "operationId")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"operation_id"+"}", url.PathEscape(parameterToString(r.operationId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -2559,9 +2559,9 @@ func (a *ImportsApiService) ListImportImageManifestsExecute(r ApiListImportImage
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -2627,7 +2627,7 @@ func (a *ImportsApiService) ListImportPackagesExecute(r ApiListImportPackagesReq
 	}
 
 	localVarPath := localBasePath + "/imports/images/{operation_id}/packages"
-	localVarPath = strings.Replace(localVarPath, "{"+"operation_id"+"}", url.PathEscape(parameterValueToString(r.operationId, "operationId")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"operation_id"+"}", url.PathEscape(parameterToString(r.operationId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -2660,9 +2660,9 @@ func (a *ImportsApiService) ListImportPackagesExecute(r ApiListImportPackagesReq
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -2728,7 +2728,7 @@ func (a *ImportsApiService) ListImportParentManifestsExecute(r ApiListImportPare
 	}
 
 	localVarPath := localBasePath + "/imports/images/{operation_id}/parent-manifest"
-	localVarPath = strings.Replace(localVarPath, "{"+"operation_id"+"}", url.PathEscape(parameterValueToString(r.operationId, "operationId")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"operation_id"+"}", url.PathEscape(parameterToString(r.operationId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -2761,9 +2761,9 @@ func (a *ImportsApiService) ListImportParentManifestsExecute(r ApiListImportPare
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -2829,7 +2829,7 @@ func (a *ImportsApiService) ListImportSecretSearchesExecute(r ApiListImportSecre
 	}
 
 	localVarPath := localBasePath + "/imports/images/{operation_id}/secret-searches"
-	localVarPath = strings.Replace(localVarPath, "{"+"operation_id"+"}", url.PathEscape(parameterValueToString(r.operationId, "operationId")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"operation_id"+"}", url.PathEscape(parameterToString(r.operationId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -2862,9 +2862,9 @@ func (a *ImportsApiService) ListImportSecretSearchesExecute(r ApiListImportSecre
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -2959,9 +2959,9 @@ func (a *ImportsApiService) ListOperationsExecute(r ApiListOperationsRequest) ([
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -3056,9 +3056,9 @@ func (a *ImportsApiService) ListSourcesOperationsExecute(r ApiListSourcesOperati
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -3130,7 +3130,7 @@ func (a *ImportsApiService) UploadImportSourcesSbomExecute(r ApiUploadImportSour
 	}
 
 	localVarPath := localBasePath + "/imports/sources/{operation_id}/sbom"
-	localVarPath = strings.Replace(localVarPath, "{"+"operation_id"+"}", url.PathEscape(parameterValueToString(r.operationId, "operationId")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"operation_id"+"}", url.PathEscape(parameterToString(r.operationId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -3168,9 +3168,9 @@ func (a *ImportsApiService) UploadImportSourcesSbomExecute(r ApiUploadImportSour
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}

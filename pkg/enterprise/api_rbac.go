@@ -14,7 +14,7 @@ package enterprise
 import (
 	"bytes"
 	"context"
-	"io"
+	"io/ioutil"
 	"net/http"
 	"net/url"
 	"strings"
@@ -345,9 +345,9 @@ func (a *RBACApiService) AddIdpExecute(r ApiAddIdpRequest) (*RbacManagerSamlConf
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -364,8 +364,7 @@ func (a *RBACApiService) AddIdpExecute(r ApiAddIdpRequest) (*RbacManagerSamlConf
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 500 {
@@ -375,8 +374,7 @@ func (a *RBACApiService) AddIdpExecute(r ApiAddIdpRequest) (*RbacManagerSamlConf
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -442,7 +440,7 @@ func (a *RBACApiService) AddIdpUserGroupsExecute(r ApiAddIdpUserGroupsRequest) (
 	}
 
 	localVarPath := localBasePath + "/rbac-manager/saml/idps/{name}/user-group-mappings"
-	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(parameterValueToString(r.name, "name")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(parameterToString(r.name, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -480,9 +478,9 @@ func (a *RBACApiService) AddIdpUserGroupsExecute(r ApiAddIdpUserGroupsRequest) (
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -499,8 +497,7 @@ func (a *RBACApiService) AddIdpUserGroupsExecute(r ApiAddIdpUserGroupsRequest) (
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -510,8 +507,7 @@ func (a *RBACApiService) AddIdpUserGroupsExecute(r ApiAddIdpUserGroupsRequest) (
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 409 {
@@ -521,8 +517,7 @@ func (a *RBACApiService) AddIdpUserGroupsExecute(r ApiAddIdpUserGroupsRequest) (
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 500 {
@@ -532,8 +527,7 @@ func (a *RBACApiService) AddIdpUserGroupsExecute(r ApiAddIdpUserGroupsRequest) (
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -597,7 +591,7 @@ func (a *RBACApiService) AddRoleUserExecute(r ApiAddRoleUserRequest) (*RbacManag
 	}
 
 	localVarPath := localBasePath + "/rbac-manager/roles/{role_name}/members"
-	localVarPath = strings.Replace(localVarPath, "{"+"role_name"+"}", url.PathEscape(parameterValueToString(r.roleName, "roleName")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"role_name"+"}", url.PathEscape(parameterToString(r.roleName, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -635,9 +629,9 @@ func (a *RBACApiService) AddRoleUserExecute(r ApiAddRoleUserRequest) (*RbacManag
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -654,8 +648,7 @@ func (a *RBACApiService) AddRoleUserExecute(r ApiAddRoleUserRequest) (*RbacManag
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -713,7 +706,7 @@ func (a *RBACApiService) DeleteIdpExecute(r ApiDeleteIdpRequest) (*http.Response
 	}
 
 	localVarPath := localBasePath + "/rbac-manager/saml/idps/{name}"
-	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(parameterValueToString(r.name, "name")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(parameterToString(r.name, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -746,9 +739,9 @@ func (a *RBACApiService) DeleteIdpExecute(r ApiDeleteIdpRequest) (*http.Response
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -765,8 +758,7 @@ func (a *RBACApiService) DeleteIdpExecute(r ApiDeleteIdpRequest) (*http.Response
 				newErr.error = err.Error()
 				return localVarHTTPResponse, newErr
 			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+			newErr.model = v
 		}
 		return localVarHTTPResponse, newErr
 	}
@@ -822,7 +814,7 @@ func (a *RBACApiService) DeleteIdpUserGroupExecute(r ApiDeleteIdpUserGroupReques
 	}
 
 	localVarPath := localBasePath + "/rbac-manager/saml/idps/{name}/user-group-mappings"
-	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(parameterValueToString(r.name, "name")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(parameterToString(r.name, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -836,10 +828,10 @@ func (a *RBACApiService) DeleteIdpUserGroupExecute(r ApiDeleteIdpUserGroupReques
 		if reflect.TypeOf(t).Kind() == reflect.Slice {
 			s := reflect.ValueOf(t)
 			for i := 0; i < s.Len(); i++ {
-				parameterAddToHeaderOrQuery(localVarQueryParams, "user_group", s.Index(i).Interface(), "form", "multi")
+				localVarQueryParams.Add("user_group", parameterToString(s.Index(i), "multi"))
 			}
 		} else {
-			parameterAddToHeaderOrQuery(localVarQueryParams, "user_group", t, "form", "multi")
+			localVarQueryParams.Add("user_group", parameterToString(t, "multi"))
 		}
 	}
 	// to determine the Content-Type header
@@ -869,9 +861,9 @@ func (a *RBACApiService) DeleteIdpUserGroupExecute(r ApiDeleteIdpUserGroupReques
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -888,8 +880,7 @@ func (a *RBACApiService) DeleteIdpUserGroupExecute(r ApiDeleteIdpUserGroupReques
 				newErr.error = err.Error()
 				return localVarHTTPResponse, newErr
 			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+			newErr.model = v
 			return localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -899,8 +890,7 @@ func (a *RBACApiService) DeleteIdpUserGroupExecute(r ApiDeleteIdpUserGroupReques
 				newErr.error = err.Error()
 				return localVarHTTPResponse, newErr
 			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+			newErr.model = v
 			return localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 500 {
@@ -910,8 +900,7 @@ func (a *RBACApiService) DeleteIdpUserGroupExecute(r ApiDeleteIdpUserGroupReques
 				newErr.error = err.Error()
 				return localVarHTTPResponse, newErr
 			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+			newErr.model = v
 		}
 		return localVarHTTPResponse, newErr
 	}
@@ -980,7 +969,7 @@ func (a *RBACApiService) DeleteRoleUserExecute(r ApiDeleteRoleUserRequest) (*htt
 	}
 
 	localVarPath := localBasePath + "/rbac-manager/roles/{role_name}/members"
-	localVarPath = strings.Replace(localVarPath, "{"+"role_name"+"}", url.PathEscape(parameterValueToString(r.roleName, "roleName")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"role_name"+"}", url.PathEscape(parameterToString(r.roleName, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -989,12 +978,12 @@ func (a *RBACApiService) DeleteRoleUserExecute(r ApiDeleteRoleUserRequest) (*htt
 		return nil, reportError("username is required and must be specified")
 	}
 
-	parameterAddToHeaderOrQuery(localVarQueryParams, "username", r.username, "form", "")
+	localVarQueryParams.Add("username", parameterToString(*r.username, ""))
 	if r.forAccount != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "for_account", r.forAccount, "form", "")
+		localVarQueryParams.Add("for_account", parameterToString(*r.forAccount, ""))
 	}
 	if r.domainName != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "domain_name", r.domainName, "form", "")
+		localVarQueryParams.Add("domain_name", parameterToString(*r.domainName, ""))
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -1023,9 +1012,9 @@ func (a *RBACApiService) DeleteRoleUserExecute(r ApiDeleteRoleUserRequest) (*htt
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -1042,8 +1031,7 @@ func (a *RBACApiService) DeleteRoleUserExecute(r ApiDeleteRoleUserRequest) (*htt
 				newErr.error = err.Error()
 				return localVarHTTPResponse, newErr
 			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+			newErr.model = v
 		}
 		return localVarHTTPResponse, newErr
 	}
@@ -1094,7 +1082,7 @@ func (a *RBACApiService) GetIdpExecute(r ApiGetIdpRequest) (*RbacManagerSamlConf
 	}
 
 	localVarPath := localBasePath + "/rbac-manager/saml/idps/{name}"
-	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(parameterValueToString(r.name, "name")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(parameterToString(r.name, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1127,9 +1115,9 @@ func (a *RBACApiService) GetIdpExecute(r ApiGetIdpRequest) (*RbacManagerSamlConf
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1146,8 +1134,7 @@ func (a *RBACApiService) GetIdpExecute(r ApiGetIdpRequest) (*RbacManagerSamlConf
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 500 {
@@ -1157,8 +1144,7 @@ func (a *RBACApiService) GetIdpExecute(r ApiGetIdpRequest) (*RbacManagerSamlConf
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -1218,7 +1204,7 @@ func (a *RBACApiService) GetIdpUserGroupsExecute(r ApiGetIdpUserGroupsRequest) (
 	}
 
 	localVarPath := localBasePath + "/rbac-manager/saml/idps/{name}/user-group-mappings"
-	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(parameterValueToString(r.name, "name")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(parameterToString(r.name, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1251,9 +1237,9 @@ func (a *RBACApiService) GetIdpUserGroupsExecute(r ApiGetIdpUserGroupsRequest) (
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1270,8 +1256,7 @@ func (a *RBACApiService) GetIdpUserGroupsExecute(r ApiGetIdpUserGroupsRequest) (
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 500 {
@@ -1281,8 +1266,7 @@ func (a *RBACApiService) GetIdpUserGroupsExecute(r ApiGetIdpUserGroupsRequest) (
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -1340,7 +1324,7 @@ func (a *RBACApiService) GetRoleExecute(r ApiGetRoleRequest) (*RbacManagerRole, 
 	}
 
 	localVarPath := localBasePath + "/rbac-manager/roles/{role_name}"
-	localVarPath = strings.Replace(localVarPath, "{"+"role_name"+"}", url.PathEscape(parameterValueToString(r.roleName, "roleName")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"role_name"+"}", url.PathEscape(parameterToString(r.roleName, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1373,9 +1357,9 @@ func (a *RBACApiService) GetRoleExecute(r ApiGetRoleRequest) (*RbacManagerRole, 
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1392,8 +1376,7 @@ func (a *RBACApiService) GetRoleExecute(r ApiGetRoleRequest) (*RbacManagerRole, 
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -1482,9 +1465,9 @@ func (a *RBACApiService) ListIdpsExecute(r ApiListIdpsRequest) ([]string, *http.
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1501,8 +1484,7 @@ func (a *RBACApiService) ListIdpsExecute(r ApiListIdpsRequest) ([]string, *http.
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -1575,17 +1557,17 @@ func (a *RBACApiService) ListRoleMembersExecute(r ApiListRoleMembersRequest) ([]
 	}
 
 	localVarPath := localBasePath + "/rbac-manager/roles/{role_name}/members"
-	localVarPath = strings.Replace(localVarPath, "{"+"role_name"+"}", url.PathEscape(parameterValueToString(r.roleName, "roleName")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"role_name"+"}", url.PathEscape(parameterToString(r.roleName, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
 	if r.forAccount != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "for_account", r.forAccount, "form", "")
+		localVarQueryParams.Add("for_account", parameterToString(*r.forAccount, ""))
 	}
 	if r.domainName != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "domain_name", r.domainName, "form", "")
+		localVarQueryParams.Add("domain_name", parameterToString(*r.domainName, ""))
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -1614,9 +1596,9 @@ func (a *RBACApiService) ListRoleMembersExecute(r ApiListRoleMembersRequest) ([]
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1633,8 +1615,7 @@ func (a *RBACApiService) ListRoleMembersExecute(r ApiListRoleMembersRequest) ([]
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -1721,9 +1702,9 @@ func (a *RBACApiService) ListRolesExecute(r ApiListRolesRequest) ([]RbacManagerR
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1740,8 +1721,7 @@ func (a *RBACApiService) ListRolesExecute(r ApiListRolesRequest) ([]RbacManagerR
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -1820,20 +1800,20 @@ func (a *RBACApiService) ListUserRolesExecute(r ApiListUserRolesRequest) ([]Rbac
 	}
 
 	localVarPath := localBasePath + "/rbac-manager/users/{username}/roles"
-	localVarPath = strings.Replace(localVarPath, "{"+"username"+"}", url.PathEscape(parameterValueToString(r.username, "username")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"username"+"}", url.PathEscape(parameterToString(r.username, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
 	if r.forAccount != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "for_account", r.forAccount, "form", "")
+		localVarQueryParams.Add("for_account", parameterToString(*r.forAccount, ""))
 	}
 	if r.domainName != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "domain_name", r.domainName, "form", "")
+		localVarQueryParams.Add("domain_name", parameterToString(*r.domainName, ""))
 	}
 	if r.role != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "role", r.role, "form", "")
+		localVarQueryParams.Add("role", parameterToString(*r.role, ""))
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -1862,9 +1842,9 @@ func (a *RBACApiService) ListUserRolesExecute(r ApiListUserRolesRequest) ([]Rbac
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1881,8 +1861,7 @@ func (a *RBACApiService) ListUserRolesExecute(r ApiListUserRolesRequest) ([]Rbac
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -1969,9 +1948,9 @@ func (a *RBACApiService) MyRolesExecute(r ApiMyRolesRequest) ([]RbacManagerAccou
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1988,8 +1967,7 @@ func (a *RBACApiService) MyRolesExecute(r ApiMyRolesRequest) ([]RbacManagerAccou
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -2049,7 +2027,7 @@ func (a *RBACApiService) SamlLoginExecute(r ApiSamlLoginRequest) (*RbacManagerTo
 	}
 
 	localVarPath := localBasePath + "/rbac-manager/saml/login/{idp_name}"
-	localVarPath = strings.Replace(localVarPath, "{"+"idp_name"+"}", url.PathEscape(parameterValueToString(r.idpName, "idpName")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"idp_name"+"}", url.PathEscape(parameterToString(r.idpName, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -2082,9 +2060,9 @@ func (a *RBACApiService) SamlLoginExecute(r ApiSamlLoginRequest) (*RbacManagerTo
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -2101,8 +2079,7 @@ func (a *RBACApiService) SamlLoginExecute(r ApiSamlLoginRequest) (*RbacManagerTo
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -2162,7 +2139,7 @@ func (a *RBACApiService) SamlSsoExecute(r ApiSamlSsoRequest) (*RbacManagerTokenR
 	}
 
 	localVarPath := localBasePath + "/rbac-manager/saml/sso/{idp_name}"
-	localVarPath = strings.Replace(localVarPath, "{"+"idp_name"+"}", url.PathEscape(parameterValueToString(r.idpName, "idpName")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"idp_name"+"}", url.PathEscape(parameterToString(r.idpName, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -2195,9 +2172,9 @@ func (a *RBACApiService) SamlSsoExecute(r ApiSamlSsoRequest) (*RbacManagerTokenR
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -2214,8 +2191,7 @@ func (a *RBACApiService) SamlSsoExecute(r ApiSamlSsoRequest) (*RbacManagerTokenR
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -2281,7 +2257,7 @@ func (a *RBACApiService) UpdateIdpExecute(r ApiUpdateIdpRequest) (*RbacManagerSa
 	}
 
 	localVarPath := localBasePath + "/rbac-manager/saml/idps/{name}"
-	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(parameterValueToString(r.name, "name")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(parameterToString(r.name, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -2319,9 +2295,9 @@ func (a *RBACApiService) UpdateIdpExecute(r ApiUpdateIdpRequest) (*RbacManagerSa
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -2338,8 +2314,7 @@ func (a *RBACApiService) UpdateIdpExecute(r ApiUpdateIdpRequest) (*RbacManagerSa
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -2349,8 +2324,7 @@ func (a *RBACApiService) UpdateIdpExecute(r ApiUpdateIdpRequest) (*RbacManagerSa
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 500 {
@@ -2360,8 +2334,7 @@ func (a *RBACApiService) UpdateIdpExecute(r ApiUpdateIdpRequest) (*RbacManagerSa
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}

@@ -14,7 +14,7 @@ package enterprise
 import (
 	"bytes"
 	"context"
-	"io"
+	"io/ioutil"
 	"net/http"
 	"net/url"
 	"strings"
@@ -1311,9 +1311,9 @@ func (a *NotificationsApiService) AddGithubConfigurationExecute(r ApiAddGithubCo
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1387,7 +1387,7 @@ func (a *NotificationsApiService) AddGithubSelectorExecute(r ApiAddGithubSelecto
 	}
 
 	localVarPath := localBasePath + "/notifications/endpoints/github/configurations/{uuid}/selectors"
-	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", url.PathEscape(parameterValueToString(r.uuid, "uuid")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", url.PathEscape(parameterToString(r.uuid, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1425,9 +1425,9 @@ func (a *NotificationsApiService) AddGithubSelectorExecute(r ApiAddGithubSelecto
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1535,9 +1535,9 @@ func (a *NotificationsApiService) AddJiraConfigurationExecute(r ApiAddJiraConfig
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1611,7 +1611,7 @@ func (a *NotificationsApiService) AddJiraSelectorExecute(r ApiAddJiraSelectorReq
 	}
 
 	localVarPath := localBasePath + "/notifications/endpoints/jira/configurations/{uuid}/selectors"
-	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", url.PathEscape(parameterValueToString(r.uuid, "uuid")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", url.PathEscape(parameterToString(r.uuid, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1649,9 +1649,9 @@ func (a *NotificationsApiService) AddJiraSelectorExecute(r ApiAddJiraSelectorReq
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1759,9 +1759,9 @@ func (a *NotificationsApiService) AddSlackConfigurationExecute(r ApiAddSlackConf
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1835,7 +1835,7 @@ func (a *NotificationsApiService) AddSlackSelectorExecute(r ApiAddSlackSelectorR
 	}
 
 	localVarPath := localBasePath + "/notifications/endpoints/slack/configurations/{uuid}/selectors"
-	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", url.PathEscape(parameterValueToString(r.uuid, "uuid")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", url.PathEscape(parameterToString(r.uuid, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1873,9 +1873,9 @@ func (a *NotificationsApiService) AddSlackSelectorExecute(r ApiAddSlackSelectorR
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1983,9 +1983,9 @@ func (a *NotificationsApiService) AddSmtpConfigurationExecute(r ApiAddSmtpConfig
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -2059,7 +2059,7 @@ func (a *NotificationsApiService) AddSmtpSelectorExecute(r ApiAddSmtpSelectorReq
 	}
 
 	localVarPath := localBasePath + "/notifications/endpoints/smtp/configurations/{uuid}/selectors"
-	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", url.PathEscape(parameterValueToString(r.uuid, "uuid")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", url.PathEscape(parameterToString(r.uuid, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -2097,9 +2097,9 @@ func (a *NotificationsApiService) AddSmtpSelectorExecute(r ApiAddSmtpSelectorReq
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -2207,9 +2207,9 @@ func (a *NotificationsApiService) AddTeamsConfigurationExecute(r ApiAddTeamsConf
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -2283,7 +2283,7 @@ func (a *NotificationsApiService) AddTeamsSelectorExecute(r ApiAddTeamsSelectorR
 	}
 
 	localVarPath := localBasePath + "/notifications/endpoints/teams/configurations/{uuid}/selectors"
-	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", url.PathEscape(parameterValueToString(r.uuid, "uuid")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", url.PathEscape(parameterToString(r.uuid, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -2321,9 +2321,9 @@ func (a *NotificationsApiService) AddTeamsSelectorExecute(r ApiAddTeamsSelectorR
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -2431,9 +2431,9 @@ func (a *NotificationsApiService) AddWebhookConfigurationExecute(r ApiAddWebhook
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -2507,7 +2507,7 @@ func (a *NotificationsApiService) AddWebhookSelectorExecute(r ApiAddWebhookSelec
 	}
 
 	localVarPath := localBasePath + "/notifications/endpoints/webhook/configurations/{uuid}/selectors"
-	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", url.PathEscape(parameterValueToString(r.uuid, "uuid")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", url.PathEscape(parameterToString(r.uuid, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -2545,9 +2545,9 @@ func (a *NotificationsApiService) AddWebhookSelectorExecute(r ApiAddWebhookSelec
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -2613,7 +2613,7 @@ func (a *NotificationsApiService) DeleteGithubConfigurationExecute(r ApiDeleteGi
 	}
 
 	localVarPath := localBasePath + "/notifications/endpoints/github/configurations/{uuid}"
-	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", url.PathEscape(parameterValueToString(r.uuid, "uuid")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", url.PathEscape(parameterToString(r.uuid, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -2646,9 +2646,9 @@ func (a *NotificationsApiService) DeleteGithubConfigurationExecute(r ApiDeleteGi
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -2708,8 +2708,8 @@ func (a *NotificationsApiService) DeleteGithubSelectorExecute(r ApiDeleteGithubS
 	}
 
 	localVarPath := localBasePath + "/notifications/endpoints/github/configurations/{configuration_uuid}/selectors/{selector_uuid}"
-	localVarPath = strings.Replace(localVarPath, "{"+"configuration_uuid"+"}", url.PathEscape(parameterValueToString(r.configurationUuid, "configurationUuid")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"selector_uuid"+"}", url.PathEscape(parameterValueToString(r.selectorUuid, "selectorUuid")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"configuration_uuid"+"}", url.PathEscape(parameterToString(r.configurationUuid, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"selector_uuid"+"}", url.PathEscape(parameterToString(r.selectorUuid, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -2742,9 +2742,9 @@ func (a *NotificationsApiService) DeleteGithubSelectorExecute(r ApiDeleteGithubS
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -2801,7 +2801,7 @@ func (a *NotificationsApiService) DeleteJiraConfigurationExecute(r ApiDeleteJira
 	}
 
 	localVarPath := localBasePath + "/notifications/endpoints/jira/configurations/{uuid}"
-	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", url.PathEscape(parameterValueToString(r.uuid, "uuid")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", url.PathEscape(parameterToString(r.uuid, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -2834,9 +2834,9 @@ func (a *NotificationsApiService) DeleteJiraConfigurationExecute(r ApiDeleteJira
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -2896,8 +2896,8 @@ func (a *NotificationsApiService) DeleteJiraSelectorExecute(r ApiDeleteJiraSelec
 	}
 
 	localVarPath := localBasePath + "/notifications/endpoints/jira/configurations/{configuration_uuid}/selectors/{selector_uuid}"
-	localVarPath = strings.Replace(localVarPath, "{"+"configuration_uuid"+"}", url.PathEscape(parameterValueToString(r.configurationUuid, "configurationUuid")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"selector_uuid"+"}", url.PathEscape(parameterValueToString(r.selectorUuid, "selectorUuid")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"configuration_uuid"+"}", url.PathEscape(parameterToString(r.configurationUuid, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"selector_uuid"+"}", url.PathEscape(parameterToString(r.selectorUuid, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -2930,9 +2930,9 @@ func (a *NotificationsApiService) DeleteJiraSelectorExecute(r ApiDeleteJiraSelec
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -2989,7 +2989,7 @@ func (a *NotificationsApiService) DeleteSlackConfigurationExecute(r ApiDeleteSla
 	}
 
 	localVarPath := localBasePath + "/notifications/endpoints/slack/configurations/{uuid}"
-	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", url.PathEscape(parameterValueToString(r.uuid, "uuid")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", url.PathEscape(parameterToString(r.uuid, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -3022,9 +3022,9 @@ func (a *NotificationsApiService) DeleteSlackConfigurationExecute(r ApiDeleteSla
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -3084,8 +3084,8 @@ func (a *NotificationsApiService) DeleteSlackSelectorExecute(r ApiDeleteSlackSel
 	}
 
 	localVarPath := localBasePath + "/notifications/endpoints/slack/configurations/{configuration_uuid}/selectors/{selector_uuid}"
-	localVarPath = strings.Replace(localVarPath, "{"+"configuration_uuid"+"}", url.PathEscape(parameterValueToString(r.configurationUuid, "configurationUuid")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"selector_uuid"+"}", url.PathEscape(parameterValueToString(r.selectorUuid, "selectorUuid")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"configuration_uuid"+"}", url.PathEscape(parameterToString(r.configurationUuid, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"selector_uuid"+"}", url.PathEscape(parameterToString(r.selectorUuid, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -3118,9 +3118,9 @@ func (a *NotificationsApiService) DeleteSlackSelectorExecute(r ApiDeleteSlackSel
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -3177,7 +3177,7 @@ func (a *NotificationsApiService) DeleteSmtpConfigurationExecute(r ApiDeleteSmtp
 	}
 
 	localVarPath := localBasePath + "/notifications/endpoints/smtp/configurations/{uuid}"
-	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", url.PathEscape(parameterValueToString(r.uuid, "uuid")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", url.PathEscape(parameterToString(r.uuid, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -3210,9 +3210,9 @@ func (a *NotificationsApiService) DeleteSmtpConfigurationExecute(r ApiDeleteSmtp
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -3272,8 +3272,8 @@ func (a *NotificationsApiService) DeleteSmtpSelectorExecute(r ApiDeleteSmtpSelec
 	}
 
 	localVarPath := localBasePath + "/notifications/endpoints/smtp/configurations/{configuration_uuid}/selectors/{selector_uuid}"
-	localVarPath = strings.Replace(localVarPath, "{"+"configuration_uuid"+"}", url.PathEscape(parameterValueToString(r.configurationUuid, "configurationUuid")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"selector_uuid"+"}", url.PathEscape(parameterValueToString(r.selectorUuid, "selectorUuid")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"configuration_uuid"+"}", url.PathEscape(parameterToString(r.configurationUuid, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"selector_uuid"+"}", url.PathEscape(parameterToString(r.selectorUuid, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -3306,9 +3306,9 @@ func (a *NotificationsApiService) DeleteSmtpSelectorExecute(r ApiDeleteSmtpSelec
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -3365,7 +3365,7 @@ func (a *NotificationsApiService) DeleteTeamsConfigurationExecute(r ApiDeleteTea
 	}
 
 	localVarPath := localBasePath + "/notifications/endpoints/teams/configurations/{uuid}"
-	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", url.PathEscape(parameterValueToString(r.uuid, "uuid")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", url.PathEscape(parameterToString(r.uuid, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -3398,9 +3398,9 @@ func (a *NotificationsApiService) DeleteTeamsConfigurationExecute(r ApiDeleteTea
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -3460,8 +3460,8 @@ func (a *NotificationsApiService) DeleteTeamsSelectorExecute(r ApiDeleteTeamsSel
 	}
 
 	localVarPath := localBasePath + "/notifications/endpoints/teams/configurations/{configuration_uuid}/selectors/{selector_uuid}"
-	localVarPath = strings.Replace(localVarPath, "{"+"configuration_uuid"+"}", url.PathEscape(parameterValueToString(r.configurationUuid, "configurationUuid")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"selector_uuid"+"}", url.PathEscape(parameterValueToString(r.selectorUuid, "selectorUuid")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"configuration_uuid"+"}", url.PathEscape(parameterToString(r.configurationUuid, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"selector_uuid"+"}", url.PathEscape(parameterToString(r.selectorUuid, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -3494,9 +3494,9 @@ func (a *NotificationsApiService) DeleteTeamsSelectorExecute(r ApiDeleteTeamsSel
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -3553,7 +3553,7 @@ func (a *NotificationsApiService) DeleteWebhookConfigurationExecute(r ApiDeleteW
 	}
 
 	localVarPath := localBasePath + "/notifications/endpoints/webhook/configurations/{uuid}"
-	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", url.PathEscape(parameterValueToString(r.uuid, "uuid")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", url.PathEscape(parameterToString(r.uuid, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -3586,9 +3586,9 @@ func (a *NotificationsApiService) DeleteWebhookConfigurationExecute(r ApiDeleteW
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -3648,8 +3648,8 @@ func (a *NotificationsApiService) DeleteWebhookSelectorExecute(r ApiDeleteWebhoo
 	}
 
 	localVarPath := localBasePath + "/notifications/endpoints/webhook/configurations/{configuration_uuid}/selectors/{selector_uuid}"
-	localVarPath = strings.Replace(localVarPath, "{"+"configuration_uuid"+"}", url.PathEscape(parameterValueToString(r.configurationUuid, "configurationUuid")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"selector_uuid"+"}", url.PathEscape(parameterValueToString(r.selectorUuid, "selectorUuid")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"configuration_uuid"+"}", url.PathEscape(parameterToString(r.configurationUuid, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"selector_uuid"+"}", url.PathEscape(parameterToString(r.selectorUuid, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -3682,9 +3682,9 @@ func (a *NotificationsApiService) DeleteWebhookSelectorExecute(r ApiDeleteWebhoo
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -3743,7 +3743,7 @@ func (a *NotificationsApiService) GetGithubConfigurationExecute(r ApiGetGithubCo
 	}
 
 	localVarPath := localBasePath + "/notifications/endpoints/github/configurations/{uuid}"
-	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", url.PathEscape(parameterValueToString(r.uuid, "uuid")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", url.PathEscape(parameterToString(r.uuid, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -3776,9 +3776,9 @@ func (a *NotificationsApiService) GetGithubConfigurationExecute(r ApiGetGithubCo
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -3846,7 +3846,7 @@ func (a *NotificationsApiService) GetGithubConfigurationStatusExecute(r ApiGetGi
 	}
 
 	localVarPath := localBasePath + "/notifications/endpoints/github/configurations/{uuid}/status"
-	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", url.PathEscape(parameterValueToString(r.uuid, "uuid")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", url.PathEscape(parameterToString(r.uuid, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -3879,9 +3879,9 @@ func (a *NotificationsApiService) GetGithubConfigurationStatusExecute(r ApiGetGi
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -3952,8 +3952,8 @@ func (a *NotificationsApiService) GetGithubSelectorExecute(r ApiGetGithubSelecto
 	}
 
 	localVarPath := localBasePath + "/notifications/endpoints/github/configurations/{configuration_uuid}/selectors/{selector_uuid}"
-	localVarPath = strings.Replace(localVarPath, "{"+"configuration_uuid"+"}", url.PathEscape(parameterValueToString(r.configurationUuid, "configurationUuid")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"selector_uuid"+"}", url.PathEscape(parameterValueToString(r.selectorUuid, "selectorUuid")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"configuration_uuid"+"}", url.PathEscape(parameterToString(r.configurationUuid, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"selector_uuid"+"}", url.PathEscape(parameterToString(r.selectorUuid, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -3986,9 +3986,9 @@ func (a *NotificationsApiService) GetGithubSelectorExecute(r ApiGetGithubSelecto
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -4056,7 +4056,7 @@ func (a *NotificationsApiService) GetJiraConfigurationExecute(r ApiGetJiraConfig
 	}
 
 	localVarPath := localBasePath + "/notifications/endpoints/jira/configurations/{uuid}"
-	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", url.PathEscape(parameterValueToString(r.uuid, "uuid")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", url.PathEscape(parameterToString(r.uuid, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -4089,9 +4089,9 @@ func (a *NotificationsApiService) GetJiraConfigurationExecute(r ApiGetJiraConfig
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -4159,7 +4159,7 @@ func (a *NotificationsApiService) GetJiraConfigurationStatusExecute(r ApiGetJira
 	}
 
 	localVarPath := localBasePath + "/notifications/endpoints/jira/configurations/{uuid}/status"
-	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", url.PathEscape(parameterValueToString(r.uuid, "uuid")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", url.PathEscape(parameterToString(r.uuid, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -4192,9 +4192,9 @@ func (a *NotificationsApiService) GetJiraConfigurationStatusExecute(r ApiGetJira
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -4265,8 +4265,8 @@ func (a *NotificationsApiService) GetJiraSelectorExecute(r ApiGetJiraSelectorReq
 	}
 
 	localVarPath := localBasePath + "/notifications/endpoints/jira/configurations/{configuration_uuid}/selectors/{selector_uuid}"
-	localVarPath = strings.Replace(localVarPath, "{"+"configuration_uuid"+"}", url.PathEscape(parameterValueToString(r.configurationUuid, "configurationUuid")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"selector_uuid"+"}", url.PathEscape(parameterValueToString(r.selectorUuid, "selectorUuid")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"configuration_uuid"+"}", url.PathEscape(parameterToString(r.configurationUuid, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"selector_uuid"+"}", url.PathEscape(parameterToString(r.selectorUuid, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -4299,9 +4299,9 @@ func (a *NotificationsApiService) GetJiraSelectorExecute(r ApiGetJiraSelectorReq
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -4369,7 +4369,7 @@ func (a *NotificationsApiService) GetSlackConfigurationExecute(r ApiGetSlackConf
 	}
 
 	localVarPath := localBasePath + "/notifications/endpoints/slack/configurations/{uuid}"
-	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", url.PathEscape(parameterValueToString(r.uuid, "uuid")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", url.PathEscape(parameterToString(r.uuid, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -4402,9 +4402,9 @@ func (a *NotificationsApiService) GetSlackConfigurationExecute(r ApiGetSlackConf
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -4472,7 +4472,7 @@ func (a *NotificationsApiService) GetSlackConfigurationStatusExecute(r ApiGetSla
 	}
 
 	localVarPath := localBasePath + "/notifications/endpoints/slack/configurations/{uuid}/status"
-	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", url.PathEscape(parameterValueToString(r.uuid, "uuid")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", url.PathEscape(parameterToString(r.uuid, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -4505,9 +4505,9 @@ func (a *NotificationsApiService) GetSlackConfigurationStatusExecute(r ApiGetSla
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -4578,8 +4578,8 @@ func (a *NotificationsApiService) GetSlackSelectorExecute(r ApiGetSlackSelectorR
 	}
 
 	localVarPath := localBasePath + "/notifications/endpoints/slack/configurations/{configuration_uuid}/selectors/{selector_uuid}"
-	localVarPath = strings.Replace(localVarPath, "{"+"configuration_uuid"+"}", url.PathEscape(parameterValueToString(r.configurationUuid, "configurationUuid")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"selector_uuid"+"}", url.PathEscape(parameterValueToString(r.selectorUuid, "selectorUuid")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"configuration_uuid"+"}", url.PathEscape(parameterToString(r.configurationUuid, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"selector_uuid"+"}", url.PathEscape(parameterToString(r.selectorUuid, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -4612,9 +4612,9 @@ func (a *NotificationsApiService) GetSlackSelectorExecute(r ApiGetSlackSelectorR
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -4682,7 +4682,7 @@ func (a *NotificationsApiService) GetSmtpConfigurationExecute(r ApiGetSmtpConfig
 	}
 
 	localVarPath := localBasePath + "/notifications/endpoints/smtp/configurations/{uuid}"
-	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", url.PathEscape(parameterValueToString(r.uuid, "uuid")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", url.PathEscape(parameterToString(r.uuid, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -4715,9 +4715,9 @@ func (a *NotificationsApiService) GetSmtpConfigurationExecute(r ApiGetSmtpConfig
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -4785,7 +4785,7 @@ func (a *NotificationsApiService) GetSmtpConfigurationStatusExecute(r ApiGetSmtp
 	}
 
 	localVarPath := localBasePath + "/notifications/endpoints/smtp/configurations/{uuid}/status"
-	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", url.PathEscape(parameterValueToString(r.uuid, "uuid")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", url.PathEscape(parameterToString(r.uuid, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -4818,9 +4818,9 @@ func (a *NotificationsApiService) GetSmtpConfigurationStatusExecute(r ApiGetSmtp
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -4891,8 +4891,8 @@ func (a *NotificationsApiService) GetSmtpSelectorExecute(r ApiGetSmtpSelectorReq
 	}
 
 	localVarPath := localBasePath + "/notifications/endpoints/smtp/configurations/{configuration_uuid}/selectors/{selector_uuid}"
-	localVarPath = strings.Replace(localVarPath, "{"+"configuration_uuid"+"}", url.PathEscape(parameterValueToString(r.configurationUuid, "configurationUuid")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"selector_uuid"+"}", url.PathEscape(parameterValueToString(r.selectorUuid, "selectorUuid")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"configuration_uuid"+"}", url.PathEscape(parameterToString(r.configurationUuid, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"selector_uuid"+"}", url.PathEscape(parameterToString(r.selectorUuid, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -4925,9 +4925,9 @@ func (a *NotificationsApiService) GetSmtpSelectorExecute(r ApiGetSmtpSelectorReq
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -4995,7 +4995,7 @@ func (a *NotificationsApiService) GetTeamsConfigurationExecute(r ApiGetTeamsConf
 	}
 
 	localVarPath := localBasePath + "/notifications/endpoints/teams/configurations/{uuid}"
-	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", url.PathEscape(parameterValueToString(r.uuid, "uuid")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", url.PathEscape(parameterToString(r.uuid, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -5028,9 +5028,9 @@ func (a *NotificationsApiService) GetTeamsConfigurationExecute(r ApiGetTeamsConf
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -5098,7 +5098,7 @@ func (a *NotificationsApiService) GetTeamsConfigurationStatusExecute(r ApiGetTea
 	}
 
 	localVarPath := localBasePath + "/notifications/endpoints/teams/configurations/{uuid}/status"
-	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", url.PathEscape(parameterValueToString(r.uuid, "uuid")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", url.PathEscape(parameterToString(r.uuid, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -5131,9 +5131,9 @@ func (a *NotificationsApiService) GetTeamsConfigurationStatusExecute(r ApiGetTea
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -5204,8 +5204,8 @@ func (a *NotificationsApiService) GetTeamsSelectorExecute(r ApiGetTeamsSelectorR
 	}
 
 	localVarPath := localBasePath + "/notifications/endpoints/teams/configurations/{configuration_uuid}/selectors/{selector_uuid}"
-	localVarPath = strings.Replace(localVarPath, "{"+"configuration_uuid"+"}", url.PathEscape(parameterValueToString(r.configurationUuid, "configurationUuid")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"selector_uuid"+"}", url.PathEscape(parameterValueToString(r.selectorUuid, "selectorUuid")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"configuration_uuid"+"}", url.PathEscape(parameterToString(r.configurationUuid, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"selector_uuid"+"}", url.PathEscape(parameterToString(r.selectorUuid, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -5238,9 +5238,9 @@ func (a *NotificationsApiService) GetTeamsSelectorExecute(r ApiGetTeamsSelectorR
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -5308,7 +5308,7 @@ func (a *NotificationsApiService) GetWebhookConfigurationExecute(r ApiGetWebhook
 	}
 
 	localVarPath := localBasePath + "/notifications/endpoints/webhook/configurations/{uuid}"
-	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", url.PathEscape(parameterValueToString(r.uuid, "uuid")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", url.PathEscape(parameterToString(r.uuid, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -5341,9 +5341,9 @@ func (a *NotificationsApiService) GetWebhookConfigurationExecute(r ApiGetWebhook
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -5411,7 +5411,7 @@ func (a *NotificationsApiService) GetWebhookConfigurationStatusExecute(r ApiGetW
 	}
 
 	localVarPath := localBasePath + "/notifications/endpoints/webhook/configurations/{uuid}/status"
-	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", url.PathEscape(parameterValueToString(r.uuid, "uuid")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", url.PathEscape(parameterToString(r.uuid, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -5444,9 +5444,9 @@ func (a *NotificationsApiService) GetWebhookConfigurationStatusExecute(r ApiGetW
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -5517,8 +5517,8 @@ func (a *NotificationsApiService) GetWebhookSelectorExecute(r ApiGetWebhookSelec
 	}
 
 	localVarPath := localBasePath + "/notifications/endpoints/webhook/configurations/{configuration_uuid}/selectors/{selector_uuid}"
-	localVarPath = strings.Replace(localVarPath, "{"+"configuration_uuid"+"}", url.PathEscape(parameterValueToString(r.configurationUuid, "configurationUuid")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"selector_uuid"+"}", url.PathEscape(parameterValueToString(r.selectorUuid, "selectorUuid")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"configuration_uuid"+"}", url.PathEscape(parameterToString(r.configurationUuid, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"selector_uuid"+"}", url.PathEscape(parameterToString(r.selectorUuid, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -5551,9 +5551,9 @@ func (a *NotificationsApiService) GetWebhookSelectorExecute(r ApiGetWebhookSelec
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -5650,9 +5650,9 @@ func (a *NotificationsApiService) ListEndpointsExecute(r ApiListEndpointsRequest
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -5749,9 +5749,9 @@ func (a *NotificationsApiService) ListGithubConfigurationsExecute(r ApiListGithu
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -5819,7 +5819,7 @@ func (a *NotificationsApiService) ListGithubSelectorsExecute(r ApiListGithubSele
 	}
 
 	localVarPath := localBasePath + "/notifications/endpoints/github/configurations/{uuid}/selectors"
-	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", url.PathEscape(parameterValueToString(r.uuid, "uuid")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", url.PathEscape(parameterToString(r.uuid, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -5852,9 +5852,9 @@ func (a *NotificationsApiService) ListGithubSelectorsExecute(r ApiListGithubSele
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -5951,9 +5951,9 @@ func (a *NotificationsApiService) ListJiraConfigurationsExecute(r ApiListJiraCon
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -6021,7 +6021,7 @@ func (a *NotificationsApiService) ListJiraSelectorsExecute(r ApiListJiraSelector
 	}
 
 	localVarPath := localBasePath + "/notifications/endpoints/jira/configurations/{uuid}/selectors"
-	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", url.PathEscape(parameterValueToString(r.uuid, "uuid")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", url.PathEscape(parameterToString(r.uuid, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -6054,9 +6054,9 @@ func (a *NotificationsApiService) ListJiraSelectorsExecute(r ApiListJiraSelector
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -6153,9 +6153,9 @@ func (a *NotificationsApiService) ListSelectorsExecute(r ApiListSelectorsRequest
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -6252,9 +6252,9 @@ func (a *NotificationsApiService) ListSlackConfigurationsExecute(r ApiListSlackC
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -6322,7 +6322,7 @@ func (a *NotificationsApiService) ListSlackSelectorsExecute(r ApiListSlackSelect
 	}
 
 	localVarPath := localBasePath + "/notifications/endpoints/slack/configurations/{uuid}/selectors"
-	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", url.PathEscape(parameterValueToString(r.uuid, "uuid")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", url.PathEscape(parameterToString(r.uuid, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -6355,9 +6355,9 @@ func (a *NotificationsApiService) ListSlackSelectorsExecute(r ApiListSlackSelect
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -6454,9 +6454,9 @@ func (a *NotificationsApiService) ListSmtpConfigurationsExecute(r ApiListSmtpCon
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -6524,7 +6524,7 @@ func (a *NotificationsApiService) ListSmtpSelectorsExecute(r ApiListSmtpSelector
 	}
 
 	localVarPath := localBasePath + "/notifications/endpoints/smtp/configurations/{uuid}/selectors"
-	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", url.PathEscape(parameterValueToString(r.uuid, "uuid")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", url.PathEscape(parameterToString(r.uuid, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -6557,9 +6557,9 @@ func (a *NotificationsApiService) ListSmtpSelectorsExecute(r ApiListSmtpSelector
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -6656,9 +6656,9 @@ func (a *NotificationsApiService) ListTeamsConfigurationsExecute(r ApiListTeamsC
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -6726,7 +6726,7 @@ func (a *NotificationsApiService) ListTeamsSelectorsExecute(r ApiListTeamsSelect
 	}
 
 	localVarPath := localBasePath + "/notifications/endpoints/teams/configurations/{uuid}/selectors"
-	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", url.PathEscape(parameterValueToString(r.uuid, "uuid")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", url.PathEscape(parameterToString(r.uuid, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -6759,9 +6759,9 @@ func (a *NotificationsApiService) ListTeamsSelectorsExecute(r ApiListTeamsSelect
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -6858,9 +6858,9 @@ func (a *NotificationsApiService) ListWebhookConfigurationsExecute(r ApiListWebh
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -6928,7 +6928,7 @@ func (a *NotificationsApiService) ListWebhookSelectorsExecute(r ApiListWebhookSe
 	}
 
 	localVarPath := localBasePath + "/notifications/endpoints/webhook/configurations/{uuid}/selectors"
-	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", url.PathEscape(parameterValueToString(r.uuid, "uuid")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", url.PathEscape(parameterToString(r.uuid, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -6961,9 +6961,9 @@ func (a *NotificationsApiService) ListWebhookSelectorsExecute(r ApiListWebhookSe
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -7071,9 +7071,9 @@ func (a *NotificationsApiService) TestGithubConfigurationExecute(r ApiTestGithub
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -7181,9 +7181,9 @@ func (a *NotificationsApiService) TestJiraConfigurationExecute(r ApiTestJiraConf
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -7291,9 +7291,9 @@ func (a *NotificationsApiService) TestSlackConfigurationExecute(r ApiTestSlackCo
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -7401,9 +7401,9 @@ func (a *NotificationsApiService) TestSmtpConfigurationExecute(r ApiTestSmtpConf
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -7471,7 +7471,7 @@ func (a *NotificationsApiService) TestStoredGithubConfigurationExecute(r ApiTest
 	}
 
 	localVarPath := localBasePath + "/notifications/endpoints/github/configurations/{uuid}/test"
-	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", url.PathEscape(parameterValueToString(r.uuid, "uuid")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", url.PathEscape(parameterToString(r.uuid, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -7504,9 +7504,9 @@ func (a *NotificationsApiService) TestStoredGithubConfigurationExecute(r ApiTest
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -7574,7 +7574,7 @@ func (a *NotificationsApiService) TestStoredJiraConfigurationExecute(r ApiTestSt
 	}
 
 	localVarPath := localBasePath + "/notifications/endpoints/jira/configurations/{uuid}/test"
-	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", url.PathEscape(parameterValueToString(r.uuid, "uuid")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", url.PathEscape(parameterToString(r.uuid, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -7607,9 +7607,9 @@ func (a *NotificationsApiService) TestStoredJiraConfigurationExecute(r ApiTestSt
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -7677,7 +7677,7 @@ func (a *NotificationsApiService) TestStoredSlackConfigurationExecute(r ApiTestS
 	}
 
 	localVarPath := localBasePath + "/notifications/endpoints/slack/configurations/{uuid}/test"
-	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", url.PathEscape(parameterValueToString(r.uuid, "uuid")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", url.PathEscape(parameterToString(r.uuid, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -7710,9 +7710,9 @@ func (a *NotificationsApiService) TestStoredSlackConfigurationExecute(r ApiTestS
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -7780,7 +7780,7 @@ func (a *NotificationsApiService) TestStoredSmtpConfigurationExecute(r ApiTestSt
 	}
 
 	localVarPath := localBasePath + "/notifications/endpoints/smtp/configurations/{uuid}/test"
-	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", url.PathEscape(parameterValueToString(r.uuid, "uuid")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", url.PathEscape(parameterToString(r.uuid, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -7813,9 +7813,9 @@ func (a *NotificationsApiService) TestStoredSmtpConfigurationExecute(r ApiTestSt
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -7883,7 +7883,7 @@ func (a *NotificationsApiService) TestStoredTeamsConfigurationExecute(r ApiTestS
 	}
 
 	localVarPath := localBasePath + "/notifications/endpoints/teams/configurations/{uuid}/test"
-	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", url.PathEscape(parameterValueToString(r.uuid, "uuid")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", url.PathEscape(parameterToString(r.uuid, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -7916,9 +7916,9 @@ func (a *NotificationsApiService) TestStoredTeamsConfigurationExecute(r ApiTestS
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -7986,7 +7986,7 @@ func (a *NotificationsApiService) TestStoredWebhookConfigurationExecute(r ApiTes
 	}
 
 	localVarPath := localBasePath + "/notifications/endpoints/webhook/configurations/{uuid}/test"
-	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", url.PathEscape(parameterValueToString(r.uuid, "uuid")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", url.PathEscape(parameterToString(r.uuid, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -8019,9 +8019,9 @@ func (a *NotificationsApiService) TestStoredWebhookConfigurationExecute(r ApiTes
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -8129,9 +8129,9 @@ func (a *NotificationsApiService) TestTeamsConfigurationExecute(r ApiTestTeamsCo
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -8239,9 +8239,9 @@ func (a *NotificationsApiService) TestWebhookConfigurationExecute(r ApiTestWebho
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -8315,7 +8315,7 @@ func (a *NotificationsApiService) UpdateEndpointStatusExecute(r ApiUpdateEndpoin
 	}
 
 	localVarPath := localBasePath + "/notifications/endpoints/{name}"
-	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(parameterValueToString(r.name, "name")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(parameterToString(r.name, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -8353,9 +8353,9 @@ func (a *NotificationsApiService) UpdateEndpointStatusExecute(r ApiUpdateEndpoin
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -8429,7 +8429,7 @@ func (a *NotificationsApiService) UpdateGithubConfigurationExecute(r ApiUpdateGi
 	}
 
 	localVarPath := localBasePath + "/notifications/endpoints/github/configurations/{uuid}"
-	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", url.PathEscape(parameterValueToString(r.uuid, "uuid")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", url.PathEscape(parameterToString(r.uuid, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -8467,9 +8467,9 @@ func (a *NotificationsApiService) UpdateGithubConfigurationExecute(r ApiUpdateGi
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -8546,8 +8546,8 @@ func (a *NotificationsApiService) UpdateGithubSelectorExecute(r ApiUpdateGithubS
 	}
 
 	localVarPath := localBasePath + "/notifications/endpoints/github/configurations/{configuration_uuid}/selectors/{selector_uuid}"
-	localVarPath = strings.Replace(localVarPath, "{"+"configuration_uuid"+"}", url.PathEscape(parameterValueToString(r.configurationUuid, "configurationUuid")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"selector_uuid"+"}", url.PathEscape(parameterValueToString(r.selectorUuid, "selectorUuid")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"configuration_uuid"+"}", url.PathEscape(parameterToString(r.configurationUuid, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"selector_uuid"+"}", url.PathEscape(parameterToString(r.selectorUuid, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -8585,9 +8585,9 @@ func (a *NotificationsApiService) UpdateGithubSelectorExecute(r ApiUpdateGithubS
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -8661,7 +8661,7 @@ func (a *NotificationsApiService) UpdateJiraConfigurationExecute(r ApiUpdateJira
 	}
 
 	localVarPath := localBasePath + "/notifications/endpoints/jira/configurations/{uuid}"
-	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", url.PathEscape(parameterValueToString(r.uuid, "uuid")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", url.PathEscape(parameterToString(r.uuid, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -8699,9 +8699,9 @@ func (a *NotificationsApiService) UpdateJiraConfigurationExecute(r ApiUpdateJira
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -8778,8 +8778,8 @@ func (a *NotificationsApiService) UpdateJiraSelectorExecute(r ApiUpdateJiraSelec
 	}
 
 	localVarPath := localBasePath + "/notifications/endpoints/jira/configurations/{configuration_uuid}/selectors/{selector_uuid}"
-	localVarPath = strings.Replace(localVarPath, "{"+"configuration_uuid"+"}", url.PathEscape(parameterValueToString(r.configurationUuid, "configurationUuid")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"selector_uuid"+"}", url.PathEscape(parameterValueToString(r.selectorUuid, "selectorUuid")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"configuration_uuid"+"}", url.PathEscape(parameterToString(r.configurationUuid, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"selector_uuid"+"}", url.PathEscape(parameterToString(r.selectorUuid, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -8817,9 +8817,9 @@ func (a *NotificationsApiService) UpdateJiraSelectorExecute(r ApiUpdateJiraSelec
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -8893,7 +8893,7 @@ func (a *NotificationsApiService) UpdateSlackConfigurationExecute(r ApiUpdateSla
 	}
 
 	localVarPath := localBasePath + "/notifications/endpoints/slack/configurations/{uuid}"
-	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", url.PathEscape(parameterValueToString(r.uuid, "uuid")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", url.PathEscape(parameterToString(r.uuid, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -8931,9 +8931,9 @@ func (a *NotificationsApiService) UpdateSlackConfigurationExecute(r ApiUpdateSla
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -9010,8 +9010,8 @@ func (a *NotificationsApiService) UpdateSlackSelectorExecute(r ApiUpdateSlackSel
 	}
 
 	localVarPath := localBasePath + "/notifications/endpoints/slack/configurations/{configuration_uuid}/selectors/{selector_uuid}"
-	localVarPath = strings.Replace(localVarPath, "{"+"configuration_uuid"+"}", url.PathEscape(parameterValueToString(r.configurationUuid, "configurationUuid")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"selector_uuid"+"}", url.PathEscape(parameterValueToString(r.selectorUuid, "selectorUuid")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"configuration_uuid"+"}", url.PathEscape(parameterToString(r.configurationUuid, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"selector_uuid"+"}", url.PathEscape(parameterToString(r.selectorUuid, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -9049,9 +9049,9 @@ func (a *NotificationsApiService) UpdateSlackSelectorExecute(r ApiUpdateSlackSel
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -9125,7 +9125,7 @@ func (a *NotificationsApiService) UpdateSmtpConfigurationExecute(r ApiUpdateSmtp
 	}
 
 	localVarPath := localBasePath + "/notifications/endpoints/smtp/configurations/{uuid}"
-	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", url.PathEscape(parameterValueToString(r.uuid, "uuid")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", url.PathEscape(parameterToString(r.uuid, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -9163,9 +9163,9 @@ func (a *NotificationsApiService) UpdateSmtpConfigurationExecute(r ApiUpdateSmtp
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -9242,8 +9242,8 @@ func (a *NotificationsApiService) UpdateSmtpSelectorExecute(r ApiUpdateSmtpSelec
 	}
 
 	localVarPath := localBasePath + "/notifications/endpoints/smtp/configurations/{configuration_uuid}/selectors/{selector_uuid}"
-	localVarPath = strings.Replace(localVarPath, "{"+"configuration_uuid"+"}", url.PathEscape(parameterValueToString(r.configurationUuid, "configurationUuid")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"selector_uuid"+"}", url.PathEscape(parameterValueToString(r.selectorUuid, "selectorUuid")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"configuration_uuid"+"}", url.PathEscape(parameterToString(r.configurationUuid, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"selector_uuid"+"}", url.PathEscape(parameterToString(r.selectorUuid, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -9281,9 +9281,9 @@ func (a *NotificationsApiService) UpdateSmtpSelectorExecute(r ApiUpdateSmtpSelec
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -9357,7 +9357,7 @@ func (a *NotificationsApiService) UpdateTeamsConfigurationExecute(r ApiUpdateTea
 	}
 
 	localVarPath := localBasePath + "/notifications/endpoints/teams/configurations/{uuid}"
-	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", url.PathEscape(parameterValueToString(r.uuid, "uuid")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", url.PathEscape(parameterToString(r.uuid, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -9395,9 +9395,9 @@ func (a *NotificationsApiService) UpdateTeamsConfigurationExecute(r ApiUpdateTea
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -9474,8 +9474,8 @@ func (a *NotificationsApiService) UpdateTeamsSelectorExecute(r ApiUpdateTeamsSel
 	}
 
 	localVarPath := localBasePath + "/notifications/endpoints/teams/configurations/{configuration_uuid}/selectors/{selector_uuid}"
-	localVarPath = strings.Replace(localVarPath, "{"+"configuration_uuid"+"}", url.PathEscape(parameterValueToString(r.configurationUuid, "configurationUuid")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"selector_uuid"+"}", url.PathEscape(parameterValueToString(r.selectorUuid, "selectorUuid")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"configuration_uuid"+"}", url.PathEscape(parameterToString(r.configurationUuid, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"selector_uuid"+"}", url.PathEscape(parameterToString(r.selectorUuid, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -9513,9 +9513,9 @@ func (a *NotificationsApiService) UpdateTeamsSelectorExecute(r ApiUpdateTeamsSel
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -9589,7 +9589,7 @@ func (a *NotificationsApiService) UpdateWebhookConfigurationExecute(r ApiUpdateW
 	}
 
 	localVarPath := localBasePath + "/notifications/endpoints/webhook/configurations/{uuid}"
-	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", url.PathEscape(parameterValueToString(r.uuid, "uuid")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", url.PathEscape(parameterToString(r.uuid, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -9627,9 +9627,9 @@ func (a *NotificationsApiService) UpdateWebhookConfigurationExecute(r ApiUpdateW
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -9706,8 +9706,8 @@ func (a *NotificationsApiService) UpdateWebhookSelectorExecute(r ApiUpdateWebhoo
 	}
 
 	localVarPath := localBasePath + "/notifications/endpoints/webhook/configurations/{configuration_uuid}/selectors/{selector_uuid}"
-	localVarPath = strings.Replace(localVarPath, "{"+"configuration_uuid"+"}", url.PathEscape(parameterValueToString(r.configurationUuid, "configurationUuid")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"selector_uuid"+"}", url.PathEscape(parameterValueToString(r.selectorUuid, "selectorUuid")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"configuration_uuid"+"}", url.PathEscape(parameterToString(r.configurationUuid, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"selector_uuid"+"}", url.PathEscape(parameterToString(r.selectorUuid, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -9745,9 +9745,9 @@ func (a *NotificationsApiService) UpdateWebhookSelectorExecute(r ApiUpdateWebhoo
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}

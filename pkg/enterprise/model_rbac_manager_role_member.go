@@ -13,18 +13,19 @@ package enterprise
 
 import (
 	"encoding/json"
+	"time"
 	"fmt"
 )
 
 // RbacManagerRoleMember - A mapping between a username and a role within a domain
 type RbacManagerRoleMember struct {
-	inter *interface{}
+	Interface{} *interface{}
 }
 
 // interface{}AsRbacManagerRoleMember is a convenience function that returns interface{} wrapped in RbacManagerRoleMember
-func InterfaceAsRbacManagerRoleMember(v *interface{}) RbacManagerRoleMember {
+func Interface{}AsRbacManagerRoleMember(v *interface{}) RbacManagerRoleMember {
 	return RbacManagerRoleMember{
-		inter: v,
+		Interface{}: v,
 	}
 }
 
@@ -34,21 +35,21 @@ func (dst *RbacManagerRoleMember) UnmarshalJSON(data []byte) error {
 	var err error
 	match := 0
 	// try to unmarshal data into Interface{}
-	err = newStrictDecoder(data).Decode(&dst.inter)
+	err = newStrictDecoder(data).Decode(&dst.Interface{})
 	if err == nil {
-		jsonInterface, _ := json.Marshal(dst.inter)
-		if string(jsonInterface) == "{}" { // empty struct
-			dst.inter = nil
+		jsonInterface{}, _ := json.Marshal(dst.Interface{})
+		if string(jsonInterface{}) == "{}" { // empty struct
+			dst.Interface{} = nil
 		} else {
 			match++
 		}
 	} else {
-		dst.inter = nil
+		dst.Interface{} = nil
 	}
 
 	if match > 1 { // more than 1 match
 		// reset to nil
-		dst.inter = nil
+		dst.Interface{} = nil
 
 		return fmt.Errorf("Data matches more than one schema in oneOf(RbacManagerRoleMember)")
 	} else if match == 1 {
@@ -60,8 +61,8 @@ func (dst *RbacManagerRoleMember) UnmarshalJSON(data []byte) error {
 
 // Marshal data from the first non-nil pointers in the struct to JSON
 func (src RbacManagerRoleMember) MarshalJSON() ([]byte, error) {
-	if src.inter != nil {
-		return json.Marshal(&src.inter)
+	if src.Interface{} != nil {
+		return json.Marshal(&src.Interface{})
 	}
 
 	return nil, nil // no data in oneOf schemas
@@ -72,8 +73,8 @@ func (obj *RbacManagerRoleMember) GetActualInstance() (interface{}) {
 	if obj == nil {
 		return nil
 	}
-	if obj.inter != nil {
-		return obj.inter
+	if obj.Interface{} != nil {
+		return obj.Interface{}
 	}
 
 	// all schemas are nil
