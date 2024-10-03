@@ -21,79 +21,12 @@ import (
 )
 
 
-type SubscriptionsApi interface {
-
-	/*
-	AddSubscription Add a subscription of a specific type
-
-	Create a new subscription
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiAddSubscriptionRequest
-	*/
-	AddSubscription(ctx context.Context) ApiAddSubscriptionRequest
-
-	// AddSubscriptionExecute executes the request
-	//  @return []Subscription
-	AddSubscriptionExecute(r ApiAddSubscriptionRequest) ([]Subscription, *http.Response, error)
-
-	/*
-	DeleteSubscription Delete specific subscription
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param subscriptionId
-	@return ApiDeleteSubscriptionRequest
-	*/
-	DeleteSubscription(ctx context.Context, subscriptionId string) ApiDeleteSubscriptionRequest
-
-	// DeleteSubscriptionExecute executes the request
-	DeleteSubscriptionExecute(r ApiDeleteSubscriptionRequest) (*http.Response, error)
-
-	/*
-	GetSubscription Get a specific subscription set
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param subscriptionId
-	@return ApiGetSubscriptionRequest
-	*/
-	GetSubscription(ctx context.Context, subscriptionId string) ApiGetSubscriptionRequest
-
-	// GetSubscriptionExecute executes the request
-	//  @return []Subscription
-	GetSubscriptionExecute(r ApiGetSubscriptionRequest) ([]Subscription, *http.Response, error)
-
-	/*
-	ListSubscriptions List all subscriptions
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiListSubscriptionsRequest
-	*/
-	ListSubscriptions(ctx context.Context) ApiListSubscriptionsRequest
-
-	// ListSubscriptionsExecute executes the request
-	//  @return []Subscription
-	ListSubscriptionsExecute(r ApiListSubscriptionsRequest) ([]Subscription, *http.Response, error)
-
-	/*
-	UpdateSubscription Update an existing and specific subscription
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param subscriptionId
-	@return ApiUpdateSubscriptionRequest
-	*/
-	UpdateSubscription(ctx context.Context, subscriptionId string) ApiUpdateSubscriptionRequest
-
-	// UpdateSubscriptionExecute executes the request
-	//  @return []Subscription
-	UpdateSubscriptionExecute(r ApiUpdateSubscriptionRequest) ([]Subscription, *http.Response, error)
-}
-
 // SubscriptionsApiService SubscriptionsApi service
 type SubscriptionsApiService service
 
 type ApiAddSubscriptionRequest struct {
 	ctx context.Context
-	ApiService SubscriptionsApi
+	ApiService *SubscriptionsApiService
 	subscription *SubscriptionRequest
 	xAnchoreAccount *string
 }
@@ -222,7 +155,7 @@ func (a *SubscriptionsApiService) AddSubscriptionExecute(r ApiAddSubscriptionReq
 
 type ApiDeleteSubscriptionRequest struct {
 	ctx context.Context
-	ApiService SubscriptionsApi
+	ApiService *SubscriptionsApiService
 	subscriptionId string
 	xAnchoreAccount *string
 }
@@ -331,7 +264,7 @@ func (a *SubscriptionsApiService) DeleteSubscriptionExecute(r ApiDeleteSubscript
 
 type ApiGetSubscriptionRequest struct {
 	ctx context.Context
-	ApiService SubscriptionsApi
+	ApiService *SubscriptionsApiService
 	subscriptionId string
 	xAnchoreAccount *string
 }
@@ -451,7 +384,7 @@ func (a *SubscriptionsApiService) GetSubscriptionExecute(r ApiGetSubscriptionReq
 
 type ApiListSubscriptionsRequest struct {
 	ctx context.Context
-	ApiService SubscriptionsApi
+	ApiService *SubscriptionsApiService
 	subscriptionKey *string
 	subscriptionType *string
 	xAnchoreAccount *string
@@ -587,7 +520,7 @@ func (a *SubscriptionsApiService) ListSubscriptionsExecute(r ApiListSubscription
 
 type ApiUpdateSubscriptionRequest struct {
 	ctx context.Context
-	ApiService SubscriptionsApi
+	ApiService *SubscriptionsApiService
 	subscriptionId string
 	subscription *SubscriptionUpdate
 	xAnchoreAccount *string

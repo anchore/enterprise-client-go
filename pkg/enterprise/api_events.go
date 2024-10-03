@@ -21,86 +21,12 @@ import (
 )
 
 
-type EventsApi interface {
-
-	/*
-	DeleteEvent Delete Event
-
-	Delete an event by its event ID
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param eventId Event ID of the event to be deleted
-	@return ApiDeleteEventRequest
-	*/
-	DeleteEvent(ctx context.Context, eventId string) ApiDeleteEventRequest
-
-	// DeleteEventExecute executes the request
-	DeleteEventExecute(r ApiDeleteEventRequest) (*http.Response, error)
-
-	/*
-	DeleteEvents Delete Events
-
-	Delete all or a subset of events filtered using the optional query parameters
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiDeleteEventsRequest
-	*/
-	DeleteEvents(ctx context.Context) ApiDeleteEventsRequest
-
-	// DeleteEventsExecute executes the request
-	//  @return []string
-	DeleteEventsExecute(r ApiDeleteEventsRequest) ([]string, *http.Response, error)
-
-	/*
-	GetEvent Get Event
-
-	Lookup an event by its event ID
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param eventId Event ID of the event for lookup
-	@return ApiGetEventRequest
-	*/
-	GetEvent(ctx context.Context, eventId string) ApiGetEventRequest
-
-	// GetEventExecute executes the request
-	//  @return EventResponse
-	GetEventExecute(r ApiGetEventRequest) (*EventResponse, *http.Response, error)
-
-	/*
-	ListEventTypes List Event Types
-
-	Returns list of event types in the category hierarchy
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiListEventTypesRequest
-	*/
-	ListEventTypes(ctx context.Context) ApiListEventTypesRequest
-
-	// ListEventTypesExecute executes the request
-	//  @return []EventCategory
-	ListEventTypesExecute(r ApiListEventTypesRequest) ([]EventCategory, *http.Response, error)
-
-	/*
-	ListEvents List Events
-
-	Returns a paginated list of events in the descending order of their occurrence. Optional query parameters may be used for filtering results
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiListEventsRequest
-	*/
-	ListEvents(ctx context.Context) ApiListEventsRequest
-
-	// ListEventsExecute executes the request
-	//  @return EventsList
-	ListEventsExecute(r ApiListEventsRequest) (*EventsList, *http.Response, error)
-}
-
 // EventsApiService EventsApi service
 type EventsApiService service
 
 type ApiDeleteEventRequest struct {
 	ctx context.Context
-	ApiService EventsApi
+	ApiService *EventsApiService
 	eventId string
 	xAnchoreAccount *string
 }
@@ -202,7 +128,7 @@ func (a *EventsApiService) DeleteEventExecute(r ApiDeleteEventRequest) (*http.Re
 
 type ApiDeleteEventsRequest struct {
 	ctx context.Context
-	ApiService EventsApi
+	ApiService *EventsApiService
 	before *string
 	since *string
 	level *string
@@ -350,7 +276,7 @@ func (a *EventsApiService) DeleteEventsExecute(r ApiDeleteEventsRequest) ([]stri
 
 type ApiGetEventRequest struct {
 	ctx context.Context
-	ApiService EventsApi
+	ApiService *EventsApiService
 	eventId string
 	xAnchoreAccount *string
 }
@@ -463,7 +389,7 @@ func (a *EventsApiService) GetEventExecute(r ApiGetEventRequest) (*EventResponse
 
 type ApiListEventTypesRequest struct {
 	ctx context.Context
-	ApiService EventsApi
+	ApiService *EventsApiService
 }
 
 func (r ApiListEventTypesRequest) Execute() ([]EventCategory, *http.Response, error) {
@@ -562,7 +488,7 @@ func (a *EventsApiService) ListEventTypesExecute(r ApiListEventTypesRequest) ([]
 
 type ApiListEventsRequest struct {
 	ctx context.Context
-	ApiService EventsApi
+	ApiService *EventsApiService
 	sourceServiceName *string
 	sourceHostId *string
 	eventType *string

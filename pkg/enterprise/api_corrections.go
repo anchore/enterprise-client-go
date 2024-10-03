@@ -21,87 +21,12 @@ import (
 )
 
 
-type CorrectionsApi interface {
-
-	/*
-	AddCorrection Create a correction record
-
-	Add a correction record that will be used to fix false positive matches
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiAddCorrectionRequest
-	*/
-	AddCorrection(ctx context.Context) ApiAddCorrectionRequest
-
-	// AddCorrectionExecute executes the request
-	//  @return Correction
-	AddCorrectionExecute(r ApiAddCorrectionRequest) (*Correction, *http.Response, error)
-
-	/*
-	DeleteCorrectionByUuid Delete a correction by UUID
-
-	Delete a single correction, looked up via it's uuid
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param uuid
-	@return ApiDeleteCorrectionByUuidRequest
-	*/
-	DeleteCorrectionByUuid(ctx context.Context, uuid string) ApiDeleteCorrectionByUuidRequest
-
-	// DeleteCorrectionByUuidExecute executes the request
-	DeleteCorrectionByUuidExecute(r ApiDeleteCorrectionByUuidRequest) (*http.Response, error)
-
-	/*
-	GetCorrectionByUuid Retrieve a correction by UUID
-
-	Returns a single correction, looked up via it's uuid
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param uuid
-	@return ApiGetCorrectionByUuidRequest
-	*/
-	GetCorrectionByUuid(ctx context.Context, uuid string) ApiGetCorrectionByUuidRequest
-
-	// GetCorrectionByUuidExecute executes the request
-	//  @return Correction
-	GetCorrectionByUuidExecute(r ApiGetCorrectionByUuidRequest) (*Correction, *http.Response, error)
-
-	/*
-	GetCorrections Retrieve a list of corrections
-
-	Returns a list of corrections
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiGetCorrectionsRequest
-	*/
-	GetCorrections(ctx context.Context) ApiGetCorrectionsRequest
-
-	// GetCorrectionsExecute executes the request
-	//  @return []Correction
-	GetCorrectionsExecute(r ApiGetCorrectionsRequest) ([]Correction, *http.Response, error)
-
-	/*
-	UpdateCorrectionByUuid Update a correction by UUID
-
-	Updates a single correction, looked up via it's uuid
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param uuid
-	@return ApiUpdateCorrectionByUuidRequest
-	*/
-	UpdateCorrectionByUuid(ctx context.Context, uuid string) ApiUpdateCorrectionByUuidRequest
-
-	// UpdateCorrectionByUuidExecute executes the request
-	//  @return Correction
-	UpdateCorrectionByUuidExecute(r ApiUpdateCorrectionByUuidRequest) (*Correction, *http.Response, error)
-}
-
 // CorrectionsApiService CorrectionsApi service
 type CorrectionsApiService service
 
 type ApiAddCorrectionRequest struct {
 	ctx context.Context
-	ApiService CorrectionsApi
+	ApiService *CorrectionsApiService
 	correction *Correction
 	xAnchoreAccount *string
 }
@@ -221,7 +146,7 @@ func (a *CorrectionsApiService) AddCorrectionExecute(r ApiAddCorrectionRequest) 
 
 type ApiDeleteCorrectionByUuidRequest struct {
 	ctx context.Context
-	ApiService CorrectionsApi
+	ApiService *CorrectionsApiService
 	uuid string
 	xAnchoreAccount *string
 }
@@ -323,7 +248,7 @@ func (a *CorrectionsApiService) DeleteCorrectionByUuidExecute(r ApiDeleteCorrect
 
 type ApiGetCorrectionByUuidRequest struct {
 	ctx context.Context
-	ApiService CorrectionsApi
+	ApiService *CorrectionsApiService
 	uuid string
 	xAnchoreAccount *string
 }
@@ -436,7 +361,7 @@ func (a *CorrectionsApiService) GetCorrectionByUuidExecute(r ApiGetCorrectionByU
 
 type ApiGetCorrectionsRequest struct {
 	ctx context.Context
-	ApiService CorrectionsApi
+	ApiService *CorrectionsApiService
 	correctionType *string
 	xAnchoreAccount *string
 }
@@ -554,7 +479,7 @@ func (a *CorrectionsApiService) GetCorrectionsExecute(r ApiGetCorrectionsRequest
 
 type ApiUpdateCorrectionByUuidRequest struct {
 	ctx context.Context
-	ApiService CorrectionsApi
+	ApiService *CorrectionsApiService
 	uuid string
 	correction *Correction
 	xAnchoreAccount *string

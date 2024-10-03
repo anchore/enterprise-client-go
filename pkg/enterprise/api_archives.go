@@ -21,129 +21,12 @@ import (
 )
 
 
-type ArchivesApi interface {
-
-	/*
-	ArchiveImageAnalysis Method for ArchiveImageAnalysis
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiArchiveImageAnalysisRequest
-	*/
-	ArchiveImageAnalysis(ctx context.Context) ApiArchiveImageAnalysisRequest
-
-	// ArchiveImageAnalysisExecute executes the request
-	//  @return []AnalysisArchiveAddResult
-	ArchiveImageAnalysisExecute(r ApiArchiveImageAnalysisRequest) ([]AnalysisArchiveAddResult, *http.Response, error)
-
-	/*
-	CreateAnalysisArchiveRule Method for CreateAnalysisArchiveRule
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiCreateAnalysisArchiveRuleRequest
-	*/
-	CreateAnalysisArchiveRule(ctx context.Context) ApiCreateAnalysisArchiveRuleRequest
-
-	// CreateAnalysisArchiveRuleExecute executes the request
-	//  @return AnalysisArchiveTransitionRule
-	CreateAnalysisArchiveRuleExecute(r ApiCreateAnalysisArchiveRuleRequest) (*AnalysisArchiveTransitionRule, *http.Response, error)
-
-	/*
-	DeleteAnalysisArchiveRule Method for DeleteAnalysisArchiveRule
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param ruleId
-	@return ApiDeleteAnalysisArchiveRuleRequest
-	*/
-	DeleteAnalysisArchiveRule(ctx context.Context, ruleId string) ApiDeleteAnalysisArchiveRuleRequest
-
-	// DeleteAnalysisArchiveRuleExecute executes the request
-	DeleteAnalysisArchiveRuleExecute(r ApiDeleteAnalysisArchiveRuleRequest) (*http.Response, error)
-
-	/*
-	DeleteArchivedAnalysis Method for DeleteArchivedAnalysis
-
-	Performs a synchronous archive deletion
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param imageDigest
-	@return ApiDeleteArchivedAnalysisRequest
-	*/
-	DeleteArchivedAnalysis(ctx context.Context, imageDigest string) ApiDeleteArchivedAnalysisRequest
-
-	// DeleteArchivedAnalysisExecute executes the request
-	DeleteArchivedAnalysisExecute(r ApiDeleteArchivedAnalysisRequest) (*http.Response, error)
-
-	/*
-	GetAnalysisArchiveRule Method for GetAnalysisArchiveRule
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param ruleId
-	@return ApiGetAnalysisArchiveRuleRequest
-	*/
-	GetAnalysisArchiveRule(ctx context.Context, ruleId string) ApiGetAnalysisArchiveRuleRequest
-
-	// GetAnalysisArchiveRuleExecute executes the request
-	//  @return AnalysisArchiveTransitionRule
-	GetAnalysisArchiveRuleExecute(r ApiGetAnalysisArchiveRuleRequest) (*AnalysisArchiveTransitionRule, *http.Response, error)
-
-	/*
-	GetArchivedAnalysis Method for GetArchivedAnalysis
-
-	Returns the archive metadata record identifying the image and tags for the analysis in the archive.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param imageDigest The image digest to identify the image analysis
-	@return ApiGetArchivedAnalysisRequest
-	*/
-	GetArchivedAnalysis(ctx context.Context, imageDigest string) ApiGetArchivedAnalysisRequest
-
-	// GetArchivedAnalysisExecute executes the request
-	//  @return ArchivedAnalysis
-	GetArchivedAnalysisExecute(r ApiGetArchivedAnalysisRequest) (*ArchivedAnalysis, *http.Response, error)
-
-	/*
-	ListAnalysisArchive Method for ListAnalysisArchive
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiListAnalysisArchiveRequest
-	*/
-	ListAnalysisArchive(ctx context.Context) ApiListAnalysisArchiveRequest
-
-	// ListAnalysisArchiveExecute executes the request
-	//  @return []ArchivedAnalysis
-	ListAnalysisArchiveExecute(r ApiListAnalysisArchiveRequest) ([]ArchivedAnalysis, *http.Response, error)
-
-	/*
-	ListAnalysisArchiveRules Method for ListAnalysisArchiveRules
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiListAnalysisArchiveRulesRequest
-	*/
-	ListAnalysisArchiveRules(ctx context.Context) ApiListAnalysisArchiveRulesRequest
-
-	// ListAnalysisArchiveRulesExecute executes the request
-	//  @return []AnalysisArchiveTransitionRule
-	ListAnalysisArchiveRulesExecute(r ApiListAnalysisArchiveRulesRequest) ([]AnalysisArchiveTransitionRule, *http.Response, error)
-
-	/*
-	ListArchives Method for ListArchives
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiListArchivesRequest
-	*/
-	ListArchives(ctx context.Context) ApiListArchivesRequest
-
-	// ListArchivesExecute executes the request
-	//  @return ArchiveSummary
-	ListArchivesExecute(r ApiListArchivesRequest) (*ArchiveSummary, *http.Response, error)
-}
-
 // ArchivesApiService ArchivesApi service
 type ArchivesApiService service
 
 type ApiArchiveImageAnalysisRequest struct {
 	ctx context.Context
-	ApiService ArchivesApi
+	ApiService *ArchivesApiService
 	imageReferences *[]string
 }
 
@@ -260,7 +143,7 @@ func (a *ArchivesApiService) ArchiveImageAnalysisExecute(r ApiArchiveImageAnalys
 
 type ApiCreateAnalysisArchiveRuleRequest struct {
 	ctx context.Context
-	ApiService ArchivesApi
+	ApiService *ArchivesApiService
 	rule *AnalysisArchiveTransitionRule
 }
 
@@ -377,7 +260,7 @@ func (a *ArchivesApiService) CreateAnalysisArchiveRuleExecute(r ApiCreateAnalysi
 
 type ApiDeleteAnalysisArchiveRuleRequest struct {
 	ctx context.Context
-	ApiService ArchivesApi
+	ApiService *ArchivesApiService
 	ruleId string
 }
 
@@ -476,7 +359,7 @@ func (a *ArchivesApiService) DeleteAnalysisArchiveRuleExecute(r ApiDeleteAnalysi
 
 type ApiDeleteArchivedAnalysisRequest struct {
 	ctx context.Context
-	ApiService ArchivesApi
+	ApiService *ArchivesApiService
 	imageDigest string
 	force *bool
 }
@@ -586,7 +469,7 @@ func (a *ArchivesApiService) DeleteArchivedAnalysisExecute(r ApiDeleteArchivedAn
 
 type ApiGetAnalysisArchiveRuleRequest struct {
 	ctx context.Context
-	ApiService ArchivesApi
+	ApiService *ArchivesApiService
 	ruleId string
 }
 
@@ -696,7 +579,7 @@ func (a *ArchivesApiService) GetAnalysisArchiveRuleExecute(r ApiGetAnalysisArchi
 
 type ApiGetArchivedAnalysisRequest struct {
 	ctx context.Context
-	ApiService ArchivesApi
+	ApiService *ArchivesApiService
 	imageDigest string
 }
 
@@ -808,7 +691,7 @@ func (a *ArchivesApiService) GetArchivedAnalysisExecute(r ApiGetArchivedAnalysis
 
 type ApiListAnalysisArchiveRequest struct {
 	ctx context.Context
-	ApiService ArchivesApi
+	ApiService *ArchivesApiService
 }
 
 func (r ApiListAnalysisArchiveRequest) Execute() ([]ArchivedAnalysis, *http.Response, error) {
@@ -914,7 +797,7 @@ func (a *ArchivesApiService) ListAnalysisArchiveExecute(r ApiListAnalysisArchive
 
 type ApiListAnalysisArchiveRulesRequest struct {
 	ctx context.Context
-	ApiService ArchivesApi
+	ApiService *ArchivesApiService
 	systemGlobal *bool
 }
 
@@ -1030,7 +913,7 @@ func (a *ArchivesApiService) ListAnalysisArchiveRulesExecute(r ApiListAnalysisAr
 
 type ApiListArchivesRequest struct {
 	ctx context.Context
-	ApiService ArchivesApi
+	ApiService *ArchivesApiService
 }
 
 func (r ApiListArchivesRequest) Execute() (*ArchiveSummary, *http.Response, error) {

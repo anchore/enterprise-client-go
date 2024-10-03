@@ -21,362 +21,12 @@ import (
 )
 
 
-type ImportsApi interface {
-
-	/*
-	CreateOperation Begin the import of an image SBOM into the system
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiCreateOperationRequest
-	*/
-	CreateOperation(ctx context.Context) ApiCreateOperationRequest
-
-	// CreateOperationExecute executes the request
-	//  @return ImageImportOperation
-	CreateOperationExecute(r ApiCreateOperationRequest) (*ImageImportOperation, *http.Response, error)
-
-	/*
-	CreateSourcesOperation Begin the import of a source code repository analyzed by Syft into the system
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiCreateSourcesOperationRequest
-	*/
-	CreateSourcesOperation(ctx context.Context) ApiCreateSourcesOperationRequest
-
-	// CreateSourcesOperationExecute executes the request
-	//  @return SourceImportOperation
-	CreateSourcesOperationExecute(r ApiCreateSourcesOperationRequest) (*SourceImportOperation, *http.Response, error)
-
-	/*
-	FinalizeOperation Add source records to catalog db
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param operationId
-	@return ApiFinalizeOperationRequest
-	*/
-	FinalizeOperation(ctx context.Context, operationId string) ApiFinalizeOperationRequest
-
-	// FinalizeOperationExecute executes the request
-	//  @return SourceManifest
-	FinalizeOperationExecute(r ApiFinalizeOperationRequest) (*SourceManifest, *http.Response, error)
-
-	/*
-	GetImportSourcesSbom list the packages of an imported source code repository
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param operationId
-	@return ApiGetImportSourcesSbomRequest
-	*/
-	GetImportSourcesSbom(ctx context.Context, operationId string) ApiGetImportSourcesSbomRequest
-
-	// GetImportSourcesSbomExecute executes the request
-	//  @return SourceImportContentResponse
-	GetImportSourcesSbomExecute(r ApiGetImportSourcesSbomRequest) (*SourceImportContentResponse, *http.Response, error)
-
-	/*
-	GetOperation Get detail on a single import
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param operationId
-	@return ApiGetOperationRequest
-	*/
-	GetOperation(ctx context.Context, operationId string) ApiGetOperationRequest
-
-	// GetOperationExecute executes the request
-	//  @return ImageImportOperation
-	GetOperationExecute(r ApiGetOperationRequest) (*ImageImportOperation, *http.Response, error)
-
-	/*
-	GetSourcesOperation Get detail on a single import
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param operationId
-	@return ApiGetSourcesOperationRequest
-	*/
-	GetSourcesOperation(ctx context.Context, operationId string) ApiGetSourcesOperationRequest
-
-	// GetSourcesOperationExecute executes the request
-	//  @return SourceImportOperation
-	GetSourcesOperationExecute(r ApiGetSourcesOperationRequest) (*SourceImportOperation, *http.Response, error)
-
-	/*
-	ImportContentSearches Import a content search analysis catalog
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param operationId
-	@return ApiImportContentSearchesRequest
-	*/
-	ImportContentSearches(ctx context.Context, operationId string) ApiImportContentSearchesRequest
-
-	// ImportContentSearchesExecute executes the request
-	//  @return ImageImportContentResponse
-	ImportContentSearchesExecute(r ApiImportContentSearchesRequest) (*ImageImportContentResponse, *http.Response, error)
-
-	/*
-	ImportFileContents Import a file contents analysis catalog
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param operationId
-	@return ApiImportFileContentsRequest
-	*/
-	ImportFileContents(ctx context.Context, operationId string) ApiImportFileContentsRequest
-
-	// ImportFileContentsExecute executes the request
-	//  @return ImageImportContentResponse
-	ImportFileContentsExecute(r ApiImportFileContentsRequest) (*ImageImportContentResponse, *http.Response, error)
-
-	/*
-	ImportImageConfig Import a docker or OCI image config to associate with the image
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param operationId
-	@return ApiImportImageConfigRequest
-	*/
-	ImportImageConfig(ctx context.Context, operationId string) ApiImportImageConfigRequest
-
-	// ImportImageConfigExecute executes the request
-	//  @return ImageImportContentResponse
-	ImportImageConfigExecute(r ApiImportImageConfigRequest) (*ImageImportContentResponse, *http.Response, error)
-
-	/*
-	ImportImageDockerfile Begin the import of an image analyzed by Syft into the system
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param operationId
-	@return ApiImportImageDockerfileRequest
-	*/
-	ImportImageDockerfile(ctx context.Context, operationId string) ApiImportImageDockerfileRequest
-
-	// ImportImageDockerfileExecute executes the request
-	//  @return ImageImportContentResponse
-	ImportImageDockerfileExecute(r ApiImportImageDockerfileRequest) (*ImageImportContentResponse, *http.Response, error)
-
-	/*
-	ImportImageManifest Import a docker or OCI distribution manifest to associate with the image
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param operationId
-	@return ApiImportImageManifestRequest
-	*/
-	ImportImageManifest(ctx context.Context, operationId string) ApiImportImageManifestRequest
-
-	// ImportImageManifestExecute executes the request
-	//  @return ImageImportContentResponse
-	ImportImageManifestExecute(r ApiImportImageManifestRequest) (*ImageImportContentResponse, *http.Response, error)
-
-	/*
-	ImportImagePackages Begin the import of an image analyzed by Syft into the system
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param operationId
-	@return ApiImportImagePackagesRequest
-	*/
-	ImportImagePackages(ctx context.Context, operationId string) ApiImportImagePackagesRequest
-
-	// ImportImagePackagesExecute executes the request
-	//  @return ImageImportContentResponse
-	ImportImagePackagesExecute(r ApiImportImagePackagesRequest) (*ImageImportContentResponse, *http.Response, error)
-
-	/*
-	ImportImageParentManifest Import a docker or OCI distribution manifest list to associate with the image
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param operationId
-	@return ApiImportImageParentManifestRequest
-	*/
-	ImportImageParentManifest(ctx context.Context, operationId string) ApiImportImageParentManifestRequest
-
-	// ImportImageParentManifestExecute executes the request
-	//  @return ImageImportContentResponse
-	ImportImageParentManifestExecute(r ApiImportImageParentManifestRequest) (*ImageImportContentResponse, *http.Response, error)
-
-	/*
-	ImportSecretSearches Import a secret search analysis catalog
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param operationId
-	@return ApiImportSecretSearchesRequest
-	*/
-	ImportSecretSearches(ctx context.Context, operationId string) ApiImportSecretSearchesRequest
-
-	// ImportSecretSearchesExecute executes the request
-	//  @return ImageImportContentResponse
-	ImportSecretSearchesExecute(r ApiImportSecretSearchesRequest) (*ImageImportContentResponse, *http.Response, error)
-
-	/*
-	InvalidateOperation Invalidate operation ID so it can be garbage collected
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param operationId
-	@return ApiInvalidateOperationRequest
-	*/
-	InvalidateOperation(ctx context.Context, operationId string) ApiInvalidateOperationRequest
-
-	// InvalidateOperationExecute executes the request
-	//  @return ImageImportOperation
-	InvalidateOperationExecute(r ApiInvalidateOperationRequest) (*ImageImportOperation, *http.Response, error)
-
-	/*
-	InvalidateSourcesOperation Invalidate operation ID so it can be garbage collected
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param operationId
-	@return ApiInvalidateSourcesOperationRequest
-	*/
-	InvalidateSourcesOperation(ctx context.Context, operationId string) ApiInvalidateSourcesOperationRequest
-
-	// InvalidateSourcesOperationExecute executes the request
-	//  @return SourceImportOperation
-	InvalidateSourcesOperationExecute(r ApiInvalidateSourcesOperationRequest) (*SourceImportOperation, *http.Response, error)
-
-	/*
-	ListImportContentSearches List uploaded content search results
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param operationId
-	@return ApiListImportContentSearchesRequest
-	*/
-	ListImportContentSearches(ctx context.Context, operationId string) ApiListImportContentSearchesRequest
-
-	// ListImportContentSearchesExecute executes the request
-	//  @return []string
-	ListImportContentSearchesExecute(r ApiListImportContentSearchesRequest) ([]string, *http.Response, error)
-
-	/*
-	ListImportDockerfiles List uploaded dockerfiles
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param operationId
-	@return ApiListImportDockerfilesRequest
-	*/
-	ListImportDockerfiles(ctx context.Context, operationId string) ApiListImportDockerfilesRequest
-
-	// ListImportDockerfilesExecute executes the request
-	//  @return []string
-	ListImportDockerfilesExecute(r ApiListImportDockerfilesRequest) ([]string, *http.Response, error)
-
-	/*
-	ListImportFileContents List uploaded file contents
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param operationId
-	@return ApiListImportFileContentsRequest
-	*/
-	ListImportFileContents(ctx context.Context, operationId string) ApiListImportFileContentsRequest
-
-	// ListImportFileContentsExecute executes the request
-	//  @return []string
-	ListImportFileContentsExecute(r ApiListImportFileContentsRequest) ([]string, *http.Response, error)
-
-	/*
-	ListImportImageConfigs List uploaded image configs
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param operationId
-	@return ApiListImportImageConfigsRequest
-	*/
-	ListImportImageConfigs(ctx context.Context, operationId string) ApiListImportImageConfigsRequest
-
-	// ListImportImageConfigsExecute executes the request
-	//  @return []string
-	ListImportImageConfigsExecute(r ApiListImportImageConfigsRequest) ([]string, *http.Response, error)
-
-	/*
-	ListImportImageManifests List uploaded image manifests
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param operationId
-	@return ApiListImportImageManifestsRequest
-	*/
-	ListImportImageManifests(ctx context.Context, operationId string) ApiListImportImageManifestsRequest
-
-	// ListImportImageManifestsExecute executes the request
-	//  @return []string
-	ListImportImageManifestsExecute(r ApiListImportImageManifestsRequest) ([]string, *http.Response, error)
-
-	/*
-	ListImportPackages List uploaded package manifests
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param operationId
-	@return ApiListImportPackagesRequest
-	*/
-	ListImportPackages(ctx context.Context, operationId string) ApiListImportPackagesRequest
-
-	// ListImportPackagesExecute executes the request
-	//  @return []string
-	ListImportPackagesExecute(r ApiListImportPackagesRequest) ([]string, *http.Response, error)
-
-	/*
-	ListImportParentManifests List uploaded parent manifests (manifest lists for a tag)
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param operationId
-	@return ApiListImportParentManifestsRequest
-	*/
-	ListImportParentManifests(ctx context.Context, operationId string) ApiListImportParentManifestsRequest
-
-	// ListImportParentManifestsExecute executes the request
-	//  @return []string
-	ListImportParentManifestsExecute(r ApiListImportParentManifestsRequest) ([]string, *http.Response, error)
-
-	/*
-	ListImportSecretSearches List uploaded secret search results
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param operationId
-	@return ApiListImportSecretSearchesRequest
-	*/
-	ListImportSecretSearches(ctx context.Context, operationId string) ApiListImportSecretSearchesRequest
-
-	// ListImportSecretSearchesExecute executes the request
-	//  @return []string
-	ListImportSecretSearchesExecute(r ApiListImportSecretSearchesRequest) ([]string, *http.Response, error)
-
-	/*
-	ListOperations Lists in-progress imports
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiListOperationsRequest
-	*/
-	ListOperations(ctx context.Context) ApiListOperationsRequest
-
-	// ListOperationsExecute executes the request
-	//  @return []ImageImportOperation
-	ListOperationsExecute(r ApiListOperationsRequest) ([]ImageImportOperation, *http.Response, error)
-
-	/*
-	ListSourcesOperations Lists in-progress imports
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiListSourcesOperationsRequest
-	*/
-	ListSourcesOperations(ctx context.Context) ApiListSourcesOperationsRequest
-
-	// ListSourcesOperationsExecute executes the request
-	//  @return []SourceImportOperation
-	ListSourcesOperationsExecute(r ApiListSourcesOperationsRequest) ([]SourceImportOperation, *http.Response, error)
-
-	/*
-	UploadImportSourcesSbom Begin the import of a source code repository analyzed by Syft into the system
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param operationId
-	@return ApiUploadImportSourcesSbomRequest
-	*/
-	UploadImportSourcesSbom(ctx context.Context, operationId string) ApiUploadImportSourcesSbomRequest
-
-	// UploadImportSourcesSbomExecute executes the request
-	//  @return SourceImportContentResponse
-	UploadImportSourcesSbomExecute(r ApiUploadImportSourcesSbomRequest) (*SourceImportContentResponse, *http.Response, error)
-}
-
 // ImportsApiService ImportsApi service
 type ImportsApiService service
 
 type ApiCreateOperationRequest struct {
 	ctx context.Context
-	ApiService ImportsApi
+	ApiService *ImportsApiService
 }
 
 func (r ApiCreateOperationRequest) Execute() (*ImageImportOperation, *http.Response, error) {
@@ -473,7 +123,7 @@ func (a *ImportsApiService) CreateOperationExecute(r ApiCreateOperationRequest) 
 
 type ApiCreateSourcesOperationRequest struct {
 	ctx context.Context
-	ApiService ImportsApi
+	ApiService *ImportsApiService
 }
 
 func (r ApiCreateSourcesOperationRequest) Execute() (*SourceImportOperation, *http.Response, error) {
@@ -570,7 +220,7 @@ func (a *ImportsApiService) CreateSourcesOperationExecute(r ApiCreateSourcesOper
 
 type ApiFinalizeOperationRequest struct {
 	ctx context.Context
-	ApiService ImportsApi
+	ApiService *ImportsApiService
 	operationId string
 	metadata *SourceImportMetadata
 }
@@ -682,7 +332,7 @@ func (a *ImportsApiService) FinalizeOperationExecute(r ApiFinalizeOperationReque
 
 type ApiGetImportSourcesSbomRequest struct {
 	ctx context.Context
-	ApiService ImportsApi
+	ApiService *ImportsApiService
 	operationId string
 }
 
@@ -783,7 +433,7 @@ func (a *ImportsApiService) GetImportSourcesSbomExecute(r ApiGetImportSourcesSbo
 
 type ApiGetOperationRequest struct {
 	ctx context.Context
-	ApiService ImportsApi
+	ApiService *ImportsApiService
 	operationId string
 }
 
@@ -884,7 +534,7 @@ func (a *ImportsApiService) GetOperationExecute(r ApiGetOperationRequest) (*Imag
 
 type ApiGetSourcesOperationRequest struct {
 	ctx context.Context
-	ApiService ImportsApi
+	ApiService *ImportsApiService
 	operationId string
 }
 
@@ -985,7 +635,7 @@ func (a *ImportsApiService) GetSourcesOperationExecute(r ApiGetSourcesOperationR
 
 type ApiImportContentSearchesRequest struct {
 	ctx context.Context
-	ApiService ImportsApi
+	ApiService *ImportsApiService
 	operationId string
 	contents *[]ImageImportContentSearch
 }
@@ -1097,7 +747,7 @@ func (a *ImportsApiService) ImportContentSearchesExecute(r ApiImportContentSearc
 
 type ApiImportFileContentsRequest struct {
 	ctx context.Context
-	ApiService ImportsApi
+	ApiService *ImportsApiService
 	operationId string
 	contents *[]ImageImportFileContent
 }
@@ -1209,7 +859,7 @@ func (a *ImportsApiService) ImportFileContentsExecute(r ApiImportFileContentsReq
 
 type ApiImportImageConfigRequest struct {
 	ctx context.Context
-	ApiService ImportsApi
+	ApiService *ImportsApiService
 	operationId string
 	contents *interface{}
 }
@@ -1321,7 +971,7 @@ func (a *ImportsApiService) ImportImageConfigExecute(r ApiImportImageConfigReque
 
 type ApiImportImageDockerfileRequest struct {
 	ctx context.Context
-	ApiService ImportsApi
+	ApiService *ImportsApiService
 	operationId string
 	contents *string
 }
@@ -1433,7 +1083,7 @@ func (a *ImportsApiService) ImportImageDockerfileExecute(r ApiImportImageDockerf
 
 type ApiImportImageManifestRequest struct {
 	ctx context.Context
-	ApiService ImportsApi
+	ApiService *ImportsApiService
 	operationId string
 	contents *interface{}
 }
@@ -1545,7 +1195,7 @@ func (a *ImportsApiService) ImportImageManifestExecute(r ApiImportImageManifestR
 
 type ApiImportImagePackagesRequest struct {
 	ctx context.Context
-	ApiService ImportsApi
+	ApiService *ImportsApiService
 	operationId string
 	sbom *map[string]interface{}
 }
@@ -1657,7 +1307,7 @@ func (a *ImportsApiService) ImportImagePackagesExecute(r ApiImportImagePackagesR
 
 type ApiImportImageParentManifestRequest struct {
 	ctx context.Context
-	ApiService ImportsApi
+	ApiService *ImportsApiService
 	operationId string
 	contents *interface{}
 }
@@ -1769,7 +1419,7 @@ func (a *ImportsApiService) ImportImageParentManifestExecute(r ApiImportImagePar
 
 type ApiImportSecretSearchesRequest struct {
 	ctx context.Context
-	ApiService ImportsApi
+	ApiService *ImportsApiService
 	operationId string
 	contents *[]ImageImportContentSearch
 }
@@ -1881,7 +1531,7 @@ func (a *ImportsApiService) ImportSecretSearchesExecute(r ApiImportSecretSearche
 
 type ApiInvalidateOperationRequest struct {
 	ctx context.Context
-	ApiService ImportsApi
+	ApiService *ImportsApiService
 	operationId string
 }
 
@@ -1982,7 +1632,7 @@ func (a *ImportsApiService) InvalidateOperationExecute(r ApiInvalidateOperationR
 
 type ApiInvalidateSourcesOperationRequest struct {
 	ctx context.Context
-	ApiService ImportsApi
+	ApiService *ImportsApiService
 	operationId string
 }
 
@@ -2083,7 +1733,7 @@ func (a *ImportsApiService) InvalidateSourcesOperationExecute(r ApiInvalidateSou
 
 type ApiListImportContentSearchesRequest struct {
 	ctx context.Context
-	ApiService ImportsApi
+	ApiService *ImportsApiService
 	operationId string
 }
 
@@ -2184,7 +1834,7 @@ func (a *ImportsApiService) ListImportContentSearchesExecute(r ApiListImportCont
 
 type ApiListImportDockerfilesRequest struct {
 	ctx context.Context
-	ApiService ImportsApi
+	ApiService *ImportsApiService
 	operationId string
 }
 
@@ -2285,7 +1935,7 @@ func (a *ImportsApiService) ListImportDockerfilesExecute(r ApiListImportDockerfi
 
 type ApiListImportFileContentsRequest struct {
 	ctx context.Context
-	ApiService ImportsApi
+	ApiService *ImportsApiService
 	operationId string
 }
 
@@ -2386,7 +2036,7 @@ func (a *ImportsApiService) ListImportFileContentsExecute(r ApiListImportFileCon
 
 type ApiListImportImageConfigsRequest struct {
 	ctx context.Context
-	ApiService ImportsApi
+	ApiService *ImportsApiService
 	operationId string
 }
 
@@ -2487,7 +2137,7 @@ func (a *ImportsApiService) ListImportImageConfigsExecute(r ApiListImportImageCo
 
 type ApiListImportImageManifestsRequest struct {
 	ctx context.Context
-	ApiService ImportsApi
+	ApiService *ImportsApiService
 	operationId string
 }
 
@@ -2588,7 +2238,7 @@ func (a *ImportsApiService) ListImportImageManifestsExecute(r ApiListImportImage
 
 type ApiListImportPackagesRequest struct {
 	ctx context.Context
-	ApiService ImportsApi
+	ApiService *ImportsApiService
 	operationId string
 }
 
@@ -2689,7 +2339,7 @@ func (a *ImportsApiService) ListImportPackagesExecute(r ApiListImportPackagesReq
 
 type ApiListImportParentManifestsRequest struct {
 	ctx context.Context
-	ApiService ImportsApi
+	ApiService *ImportsApiService
 	operationId string
 }
 
@@ -2790,7 +2440,7 @@ func (a *ImportsApiService) ListImportParentManifestsExecute(r ApiListImportPare
 
 type ApiListImportSecretSearchesRequest struct {
 	ctx context.Context
-	ApiService ImportsApi
+	ApiService *ImportsApiService
 	operationId string
 }
 
@@ -2891,7 +2541,7 @@ func (a *ImportsApiService) ListImportSecretSearchesExecute(r ApiListImportSecre
 
 type ApiListOperationsRequest struct {
 	ctx context.Context
-	ApiService ImportsApi
+	ApiService *ImportsApiService
 }
 
 func (r ApiListOperationsRequest) Execute() ([]ImageImportOperation, *http.Response, error) {
@@ -2988,7 +2638,7 @@ func (a *ImportsApiService) ListOperationsExecute(r ApiListOperationsRequest) ([
 
 type ApiListSourcesOperationsRequest struct {
 	ctx context.Context
-	ApiService ImportsApi
+	ApiService *ImportsApiService
 }
 
 func (r ApiListSourcesOperationsRequest) Execute() ([]SourceImportOperation, *http.Response, error) {
@@ -3085,7 +2735,7 @@ func (a *ImportsApiService) ListSourcesOperationsExecute(r ApiListSourcesOperati
 
 type ApiUploadImportSourcesSbomRequest struct {
 	ctx context.Context
-	ApiService ImportsApi
+	ApiService *ImportsApiService
 	operationId string
 	sbom *map[string]interface{}
 }

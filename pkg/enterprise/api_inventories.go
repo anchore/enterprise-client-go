@@ -21,224 +21,12 @@ import (
 )
 
 
-type InventoriesApi interface {
-
-	/*
-	DeleteInventory Delete runtime inventory by type and context
-
-	Delete runtime inventory by type and context
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiDeleteInventoryRequest
-	*/
-	DeleteInventory(ctx context.Context) ApiDeleteInventoryRequest
-
-	// DeleteInventoryExecute executes the request
-	DeleteInventoryExecute(r ApiDeleteInventoryRequest) (*http.Response, error)
-
-	/*
-	DeleteKubernetesNamespaces Delete Kubernetes namespaces for a given criteria
-
-	Delete Kubernetes namespaces for a given criteria
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiDeleteKubernetesNamespacesRequest
-	*/
-	DeleteKubernetesNamespaces(ctx context.Context) ApiDeleteKubernetesNamespacesRequest
-
-	// DeleteKubernetesNamespacesExecute executes the request
-	DeleteKubernetesNamespacesExecute(r ApiDeleteKubernetesNamespacesRequest) (*http.Response, error)
-
-	/*
-	GetEcsContainers Return a list of ECS containers that have been inventoried for this account
-
-	Return a list of ECS containers that have been inventoried for this account
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiGetEcsContainersRequest
-	*/
-	GetEcsContainers(ctx context.Context) ApiGetEcsContainersRequest
-
-	// GetEcsContainersExecute executes the request
-	//  @return ECSContainers
-	GetEcsContainersExecute(r ApiGetEcsContainersRequest) (*ECSContainers, *http.Response, error)
-
-	/*
-	GetEcsServices Return a list of ECS services that have been inventoried for this account
-
-	Return a list of ECS services that have been inventoried for this account
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiGetEcsServicesRequest
-	*/
-	GetEcsServices(ctx context.Context) ApiGetEcsServicesRequest
-
-	// GetEcsServicesExecute executes the request
-	//  @return ECSServices
-	GetEcsServicesExecute(r ApiGetEcsServicesRequest) (*ECSServices, *http.Response, error)
-
-	/*
-	GetEcsTasks Return a list of ECS tasks that have been inventoried for this account
-
-	Return a list of ECS tasks that have been inventoried for this account
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiGetEcsTasksRequest
-	*/
-	GetEcsTasks(ctx context.Context) ApiGetEcsTasksRequest
-
-	// GetEcsTasksExecute executes the request
-	//  @return ECSTasks
-	GetEcsTasksExecute(r ApiGetEcsTasksRequest) (*ECSTasks, *http.Response, error)
-
-	/*
-	GetImageInventory Return a list of the images in inventories for this account
-
-	Returns a list of the images that are in use
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiGetImageInventoryRequest
-	*/
-	GetImageInventory(ctx context.Context) ApiGetImageInventoryRequest
-
-	// GetImageInventoryExecute executes the request
-	//  @return InventoryItems
-	GetImageInventoryExecute(r ApiGetImageInventoryRequest) (*InventoryItems, *http.Response, error)
-
-	/*
-	GetKubernetesContainers Return a list of Kubernetes containers that have been inventoried for this account
-
-	Return a list of Kubernetes containers that have been inventoried for this account
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiGetKubernetesContainersRequest
-	*/
-	GetKubernetesContainers(ctx context.Context) ApiGetKubernetesContainersRequest
-
-	// GetKubernetesContainersExecute executes the request
-	//  @return KubernetesContainers
-	GetKubernetesContainersExecute(r ApiGetKubernetesContainersRequest) (*KubernetesContainers, *http.Response, error)
-
-	/*
-	GetKubernetesNamespace Return a Kubernetes namespace that has been inventoried for this account
-
-	Return Kubernetes namespace that has been inventoried for this account
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param namespaceId
-	@return ApiGetKubernetesNamespaceRequest
-	*/
-	GetKubernetesNamespace(ctx context.Context, namespaceId string) ApiGetKubernetesNamespaceRequest
-
-	// GetKubernetesNamespaceExecute executes the request
-	//  @return KubernetesNamespace
-	GetKubernetesNamespaceExecute(r ApiGetKubernetesNamespaceRequest) (*KubernetesNamespace, *http.Response, error)
-
-	/*
-	GetKubernetesNamespaces Return a list of Kubernetes namespaces that have been inventoried for this account
-
-	Return a list of Kubernetes namespaces that have been inventoried for this account
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiGetKubernetesNamespacesRequest
-	*/
-	GetKubernetesNamespaces(ctx context.Context) ApiGetKubernetesNamespacesRequest
-
-	// GetKubernetesNamespacesExecute executes the request
-	//  @return KubernetesNamespaces
-	GetKubernetesNamespacesExecute(r ApiGetKubernetesNamespacesRequest) (*KubernetesNamespaces, *http.Response, error)
-
-	/*
-	GetKubernetesNode Return a Kubernetes node that has been inventoried for this account
-
-	Return Kubernetes node that has been inventoried for this account
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param nodeId
-	@return ApiGetKubernetesNodeRequest
-	*/
-	GetKubernetesNode(ctx context.Context, nodeId string) ApiGetKubernetesNodeRequest
-
-	// GetKubernetesNodeExecute executes the request
-	//  @return KubernetesNode
-	GetKubernetesNodeExecute(r ApiGetKubernetesNodeRequest) (*KubernetesNode, *http.Response, error)
-
-	/*
-	GetKubernetesNodes Return a list of Kubernetes nodes that have been inventoried for this account
-
-	Return a list of Kubernetes nodes that have been inventoried for this account
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiGetKubernetesNodesRequest
-	*/
-	GetKubernetesNodes(ctx context.Context) ApiGetKubernetesNodesRequest
-
-	// GetKubernetesNodesExecute executes the request
-	//  @return KubernetesNodes
-	GetKubernetesNodesExecute(r ApiGetKubernetesNodesRequest) (*KubernetesNodes, *http.Response, error)
-
-	/*
-	GetKubernetesPod Return a Kubernetes pod that has been inventoried for this account
-
-	Return a Kubernetes pod that has been inventoried for this account
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param podId
-	@return ApiGetKubernetesPodRequest
-	*/
-	GetKubernetesPod(ctx context.Context, podId string) ApiGetKubernetesPodRequest
-
-	// GetKubernetesPodExecute executes the request
-	//  @return KubernetesPod
-	GetKubernetesPodExecute(r ApiGetKubernetesPodRequest) (*KubernetesPod, *http.Response, error)
-
-	/*
-	GetKubernetesPods Return a list of Kubernetes pods that have been inventoried for this account
-
-	Return a list of Kubernetes pods that have been inventoried for this account
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiGetKubernetesPodsRequest
-	*/
-	GetKubernetesPods(ctx context.Context) ApiGetKubernetesPodsRequest
-
-	// GetKubernetesPodsExecute executes the request
-	//  @return KubernetesPods
-	GetKubernetesPodsExecute(r ApiGetKubernetesPodsRequest) (*KubernetesPods, *http.Response, error)
-
-	/*
-	PostEcsInventory Add container metadata from Amazon ECS
-
-	Add container metadata from Amazon ECS
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiPostEcsInventoryRequest
-	*/
-	PostEcsInventory(ctx context.Context) ApiPostEcsInventoryRequest
-
-	// PostEcsInventoryExecute executes the request
-	PostEcsInventoryExecute(r ApiPostEcsInventoryRequest) (*http.Response, error)
-
-	/*
-	PostKubernetesInventory Add container metadata from a Kubernetes deployment
-
-	Add container metadata from a Kubernetes deployment
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiPostKubernetesInventoryRequest
-	*/
-	PostKubernetesInventory(ctx context.Context) ApiPostKubernetesInventoryRequest
-
-	// PostKubernetesInventoryExecute executes the request
-	PostKubernetesInventoryExecute(r ApiPostKubernetesInventoryRequest) (*http.Response, error)
-}
-
 // InventoriesApiService InventoriesApi service
 type InventoriesApiService service
 
 type ApiDeleteInventoryRequest struct {
 	ctx context.Context
-	ApiService InventoriesApi
+	ApiService *InventoriesApiService
 	inventoryType *string
 	context *string
 	imageDigest *string
@@ -365,7 +153,7 @@ func (a *InventoriesApiService) DeleteInventoryExecute(r ApiDeleteInventoryReque
 
 type ApiDeleteKubernetesNamespacesRequest struct {
 	ctx context.Context
-	ApiService InventoriesApi
+	ApiService *InventoriesApiService
 	clusterName *string
 }
 
@@ -462,7 +250,7 @@ func (a *InventoriesApiService) DeleteKubernetesNamespacesExecute(r ApiDeleteKub
 
 type ApiGetEcsContainersRequest struct {
 	ctx context.Context
-	ApiService InventoriesApi
+	ApiService *InventoriesApiService
 	page *int32
 	pageSize *int32
 }
@@ -583,7 +371,7 @@ func (a *InventoriesApiService) GetEcsContainersExecute(r ApiGetEcsContainersReq
 
 type ApiGetEcsServicesRequest struct {
 	ctx context.Context
-	ApiService InventoriesApi
+	ApiService *InventoriesApiService
 	page *int32
 	pageSize *int32
 }
@@ -704,7 +492,7 @@ func (a *InventoriesApiService) GetEcsServicesExecute(r ApiGetEcsServicesRequest
 
 type ApiGetEcsTasksRequest struct {
 	ctx context.Context
-	ApiService InventoriesApi
+	ApiService *InventoriesApiService
 	page *int32
 	pageSize *int32
 }
@@ -825,7 +613,7 @@ func (a *InventoriesApiService) GetEcsTasksExecute(r ApiGetEcsTasksRequest) (*EC
 
 type ApiGetImageInventoryRequest struct {
 	ctx context.Context
-	ApiService InventoriesApi
+	ApiService *InventoriesApiService
 	inventoryType *string
 	imageDigest *string
 	context *string
@@ -961,7 +749,7 @@ func (a *InventoriesApiService) GetImageInventoryExecute(r ApiGetImageInventoryR
 
 type ApiGetKubernetesContainersRequest struct {
 	ctx context.Context
-	ApiService InventoriesApi
+	ApiService *InventoriesApiService
 	page *int32
 	pageSize *int32
 }
@@ -1082,7 +870,7 @@ func (a *InventoriesApiService) GetKubernetesContainersExecute(r ApiGetKubernete
 
 type ApiGetKubernetesNamespaceRequest struct {
 	ctx context.Context
-	ApiService InventoriesApi
+	ApiService *InventoriesApiService
 	namespaceId string
 }
 
@@ -1185,7 +973,7 @@ func (a *InventoriesApiService) GetKubernetesNamespaceExecute(r ApiGetKubernetes
 
 type ApiGetKubernetesNamespacesRequest struct {
 	ctx context.Context
-	ApiService InventoriesApi
+	ApiService *InventoriesApiService
 	page *int32
 	pageSize *int32
 }
@@ -1306,7 +1094,7 @@ func (a *InventoriesApiService) GetKubernetesNamespacesExecute(r ApiGetKubernete
 
 type ApiGetKubernetesNodeRequest struct {
 	ctx context.Context
-	ApiService InventoriesApi
+	ApiService *InventoriesApiService
 	nodeId string
 }
 
@@ -1409,7 +1197,7 @@ func (a *InventoriesApiService) GetKubernetesNodeExecute(r ApiGetKubernetesNodeR
 
 type ApiGetKubernetesNodesRequest struct {
 	ctx context.Context
-	ApiService InventoriesApi
+	ApiService *InventoriesApiService
 	page *int32
 	pageSize *int32
 }
@@ -1530,7 +1318,7 @@ func (a *InventoriesApiService) GetKubernetesNodesExecute(r ApiGetKubernetesNode
 
 type ApiGetKubernetesPodRequest struct {
 	ctx context.Context
-	ApiService InventoriesApi
+	ApiService *InventoriesApiService
 	podId string
 }
 
@@ -1633,7 +1421,7 @@ func (a *InventoriesApiService) GetKubernetesPodExecute(r ApiGetKubernetesPodReq
 
 type ApiGetKubernetesPodsRequest struct {
 	ctx context.Context
-	ApiService InventoriesApi
+	ApiService *InventoriesApiService
 	page *int32
 	pageSize *int32
 }
@@ -1754,7 +1542,7 @@ func (a *InventoriesApiService) GetKubernetesPodsExecute(r ApiGetKubernetesPodsR
 
 type ApiPostEcsInventoryRequest struct {
 	ctx context.Context
-	ApiService InventoriesApi
+	ApiService *InventoriesApiService
 	inventory *ECSInventory
 }
 
@@ -1853,7 +1641,7 @@ func (a *InventoriesApiService) PostEcsInventoryExecute(r ApiPostEcsInventoryReq
 
 type ApiPostKubernetesInventoryRequest struct {
 	ctx context.Context
-	ApiService InventoriesApi
+	ApiService *InventoriesApiService
 	inventory *KubernetesInventory
 }
 

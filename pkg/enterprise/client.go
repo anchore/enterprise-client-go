@@ -50,59 +50,59 @@ type APIClient struct {
 
 	// API Services
 
-	ActionsApi ActionsApi
+	ActionsApi *ActionsApiService
 
-	AlertsApi AlertsApi
+	AlertsApi *AlertsApiService
 
-	ApplicationsApi ApplicationsApi
+	ApplicationsApi *ApplicationsApiService
 
-	ArchivesApi ArchivesApi
+	ArchivesApi *ArchivesApiService
 
-	ArtifactLifecycleApi ArtifactLifecycleApi
+	ArtifactLifecycleApi *ArtifactLifecycleApiService
 
-	CatalogApi CatalogApi
+	CatalogApi *CatalogApiService
 
-	CorrectionsApi CorrectionsApi
+	CorrectionsApi *CorrectionsApiService
 
-	EventsApi EventsApi
+	EventsApi *EventsApiService
 
-	IdentityApi IdentityApi
+	IdentityApi *IdentityApiService
 
-	ImagesApi ImagesApi
+	ImagesApi *ImagesApiService
 
-	ImportsApi ImportsApi
+	ImportsApi *ImportsApiService
 
-	IntegrationsApi IntegrationsApi
+	IntegrationsApi *IntegrationsApiService
 
-	InventoriesApi InventoriesApi
+	InventoriesApi *InventoriesApiService
 
-	NotificationsApi NotificationsApi
+	NotificationsApi *NotificationsApiService
 
-	PoliciesApi PoliciesApi
+	PoliciesApi *PoliciesApiService
 
-	QueryApi QueryApi
+	QueryApi *QueryApiService
 
-	RBACApi RBACApi
+	RBACApi *RBACApiService
 
-	RegistriesApi RegistriesApi
+	RegistriesApi *RegistriesApiService
 
-	RelationshipsApi RelationshipsApi
+	RelationshipsApi *RelationshipsApiService
 
-	ReportsApi ReportsApi
+	ReportsApi *ReportsApiService
 
-	RepositoryApi RepositoryApi
+	RepositoryApi *RepositoryApiService
 
-	SourcesApi SourcesApi
+	SourcesApi *SourcesApiService
 
-	StatisticsApi StatisticsApi
+	StatisticsApi *StatisticsApiService
 
-	SubscriptionsApi SubscriptionsApi
+	SubscriptionsApi *SubscriptionsApiService
 
-	SystemApi SystemApi
+	SystemApi *SystemApiService
 
-	UserManagementApi UserManagementApi
+	UserManagementApi *UserManagementApiService
 
-	VulnerabilitiesApi VulnerabilitiesApi
+	VulnerabilitiesApi *VulnerabilitiesApiService
 }
 
 type service struct {

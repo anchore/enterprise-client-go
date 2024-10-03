@@ -21,87 +21,12 @@ import (
 )
 
 
-type RegistriesApi interface {
-
-	/*
-	CreateRegistry Add a new registry
-
-	Adds a new registry to the system
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiCreateRegistryRequest
-	*/
-	CreateRegistry(ctx context.Context) ApiCreateRegistryRequest
-
-	// CreateRegistryExecute executes the request
-	//  @return []RegistryConfiguration
-	CreateRegistryExecute(r ApiCreateRegistryRequest) ([]RegistryConfiguration, *http.Response, error)
-
-	/*
-	DeleteRegistry Delete a registry configuration
-
-	Delete a registry configuration record from the system. Does not remove any images.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param registry
-	@return ApiDeleteRegistryRequest
-	*/
-	DeleteRegistry(ctx context.Context, registry string) ApiDeleteRegistryRequest
-
-	// DeleteRegistryExecute executes the request
-	DeleteRegistryExecute(r ApiDeleteRegistryRequest) (*http.Response, error)
-
-	/*
-	GetRegistry Get a specific registry configuration
-
-	Get information on a specific registry
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param registry
-	@return ApiGetRegistryRequest
-	*/
-	GetRegistry(ctx context.Context, registry string) ApiGetRegistryRequest
-
-	// GetRegistryExecute executes the request
-	//  @return []RegistryConfiguration
-	GetRegistryExecute(r ApiGetRegistryRequest) ([]RegistryConfiguration, *http.Response, error)
-
-	/*
-	ListRegistries List configured registries
-
-	List all configured registries the system can/will watch
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiListRegistriesRequest
-	*/
-	ListRegistries(ctx context.Context) ApiListRegistriesRequest
-
-	// ListRegistriesExecute executes the request
-	//  @return []RegistryConfiguration
-	ListRegistriesExecute(r ApiListRegistriesRequest) ([]RegistryConfiguration, *http.Response, error)
-
-	/*
-	UpdateRegistry Update/replace a registry configuration
-
-	Replaces an existing registry record with the given record
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param registry
-	@return ApiUpdateRegistryRequest
-	*/
-	UpdateRegistry(ctx context.Context, registry string) ApiUpdateRegistryRequest
-
-	// UpdateRegistryExecute executes the request
-	//  @return []RegistryConfiguration
-	UpdateRegistryExecute(r ApiUpdateRegistryRequest) ([]RegistryConfiguration, *http.Response, error)
-}
-
 // RegistriesApiService RegistriesApi service
 type RegistriesApiService service
 
 type ApiCreateRegistryRequest struct {
 	ctx context.Context
-	ApiService RegistriesApi
+	ApiService *RegistriesApiService
 	registryData *RegistryConfigurationRequest
 	validate *bool
 	xAnchoreAccount *string
@@ -240,7 +165,7 @@ func (a *RegistriesApiService) CreateRegistryExecute(r ApiCreateRegistryRequest)
 
 type ApiDeleteRegistryRequest struct {
 	ctx context.Context
-	ApiService RegistriesApi
+	ApiService *RegistriesApiService
 	registry string
 	xAnchoreAccount *string
 }
@@ -351,7 +276,7 @@ func (a *RegistriesApiService) DeleteRegistryExecute(r ApiDeleteRegistryRequest)
 
 type ApiGetRegistryRequest struct {
 	ctx context.Context
-	ApiService RegistriesApi
+	ApiService *RegistriesApiService
 	registry string
 	xAnchoreAccount *string
 }
@@ -464,7 +389,7 @@ func (a *RegistriesApiService) GetRegistryExecute(r ApiGetRegistryRequest) ([]Re
 
 type ApiListRegistriesRequest struct {
 	ctx context.Context
-	ApiService RegistriesApi
+	ApiService *RegistriesApiService
 	xAnchoreAccount *string
 }
 
@@ -573,7 +498,7 @@ func (a *RegistriesApiService) ListRegistriesExecute(r ApiListRegistriesRequest)
 
 type ApiUpdateRegistryRequest struct {
 	ctx context.Context
-	ApiService RegistriesApi
+	ApiService *RegistriesApiService
 	registry string
 	registryData *RegistryConfigurationRequest
 	validate *bool

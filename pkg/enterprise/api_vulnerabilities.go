@@ -20,29 +20,12 @@ import (
 )
 
 
-type VulnerabilitiesApi interface {
-
-	/*
-	VulnerabilityScanSbom Return a vulnerability scan for the uploaded SBOM without storing the SBOM and without any side-effects in the system.
-
-	Use this operation for checking sboms for vulnerabilities in cases where the sbom does not need to be stored for later re-scans or added to the managed set of SBOMs in Anchore. If you need to upload and save an SBOM use the "/import/*" API set instead.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiVulnerabilityScanSbomRequest
-	*/
-	VulnerabilityScanSbom(ctx context.Context) ApiVulnerabilityScanSbomRequest
-
-	// VulnerabilityScanSbomExecute executes the request
-	//  @return SBOMVulnerabilitiesResponse
-	VulnerabilityScanSbomExecute(r ApiVulnerabilityScanSbomRequest) (*SBOMVulnerabilitiesResponse, *http.Response, error)
-}
-
 // VulnerabilitiesApiService VulnerabilitiesApi service
 type VulnerabilitiesApiService service
 
 type ApiVulnerabilityScanSbomRequest struct {
 	ctx context.Context
-	ApiService VulnerabilitiesApi
+	ApiService *VulnerabilitiesApiService
 	sbom *interface{}
 	xAnchoreAccount *string
 	includeVulnDescription *bool

@@ -16,4 +16,4 @@ additionalProperties:
 #  isGoSubmodule: true
 
   # v5 only: generate interfaces for api classes
-  generateInterfaces: true
+  #generateInterfaces: true

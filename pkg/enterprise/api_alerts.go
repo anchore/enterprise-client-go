@@ -23,73 +23,12 @@ import (
 )
 
 
-type AlertsApi interface {
-
-	/*
-	GetAlertSummaries List all alert summaries scoped to the account
-
-	Returns a paginated list of alert summaries in chronological order from the most to least recently generated alerts. Return alerts in the open state by default. Use query parameters for filtering
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiGetAlertSummariesRequest
-	*/
-	GetAlertSummaries(ctx context.Context) ApiGetAlertSummariesRequest
-
-	// GetAlertSummariesExecute executes the request
-	//  @return []AlertSummary
-	GetAlertSummariesExecute(r ApiGetAlertSummariesRequest) ([]AlertSummary, *http.Response, error)
-
-	/*
-	GetComplianceViolationAlert Get compliance violation alert by id
-
-	Returns a single compliance violation alert object
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param uuid Identifier for the alert
-	@return ApiGetComplianceViolationAlertRequest
-	*/
-	GetComplianceViolationAlert(ctx context.Context, uuid string) ApiGetComplianceViolationAlertRequest
-
-	// GetComplianceViolationAlertExecute executes the request
-	//  @return ComplianceViolationAlert
-	GetComplianceViolationAlertExecute(r ApiGetComplianceViolationAlertRequest) (*ComplianceViolationAlert, *http.Response, error)
-
-	/*
-	GetComplianceViolationAlerts List all compliance violation alerts scoped to the account
-
-	Returns a paginated list of compliance violation alerts in chronological order from the most to least recently generated alerts. Return alerts in the open state by default. Use query parameters for filtering
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiGetComplianceViolationAlertsRequest
-	*/
-	GetComplianceViolationAlerts(ctx context.Context) ApiGetComplianceViolationAlertsRequest
-
-	// GetComplianceViolationAlertsExecute executes the request
-	//  @return []ComplianceViolationAlert
-	GetComplianceViolationAlertsExecute(r ApiGetComplianceViolationAlertsRequest) ([]ComplianceViolationAlert, *http.Response, error)
-
-	/*
-	UpdateComplianceViolationAlertState Open or close a compliance violation alert
-
-	Idempotent op for changing the alert state to open or closed
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param uuid Identifier for the alert
-	@return ApiUpdateComplianceViolationAlertStateRequest
-	*/
-	UpdateComplianceViolationAlertState(ctx context.Context, uuid string) ApiUpdateComplianceViolationAlertStateRequest
-
-	// UpdateComplianceViolationAlertStateExecute executes the request
-	//  @return ComplianceViolationAlert
-	UpdateComplianceViolationAlertStateExecute(r ApiUpdateComplianceViolationAlertStateRequest) (*ComplianceViolationAlert, *http.Response, error)
-}
-
 // AlertsApiService AlertsApi service
 type AlertsApiService service
 
 type ApiGetAlertSummariesRequest struct {
 	ctx context.Context
-	ApiService AlertsApi
+	ApiService *AlertsApiService
 	page *int32
 	limit *int32
 	type_ *string
@@ -274,7 +213,7 @@ func (a *AlertsApiService) GetAlertSummariesExecute(r ApiGetAlertSummariesReques
 
 type ApiGetComplianceViolationAlertRequest struct {
 	ctx context.Context
-	ApiService AlertsApi
+	ApiService *AlertsApiService
 	uuid string
 	xAnchoreAccount *string
 }
@@ -387,7 +326,7 @@ func (a *AlertsApiService) GetComplianceViolationAlertExecute(r ApiGetCompliance
 
 type ApiGetComplianceViolationAlertsRequest struct {
 	ctx context.Context
-	ApiService AlertsApi
+	ApiService *AlertsApiService
 	page *int32
 	limit *int32
 	state *string
@@ -584,7 +523,7 @@ func (a *AlertsApiService) GetComplianceViolationAlertsExecute(r ApiGetComplianc
 
 type ApiUpdateComplianceViolationAlertStateRequest struct {
 	ctx context.Context
-	ApiService AlertsApi
+	ApiService *AlertsApiService
 	uuid string
 	body *ComplianceViolationAlertState
 	xAnchoreAccount *string

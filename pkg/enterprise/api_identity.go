@@ -21,137 +21,12 @@ import (
 )
 
 
-type IdentityApi interface {
-
-	/*
-	AddCredential add/replace credential
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiAddCredentialRequest
-	*/
-	AddCredential(ctx context.Context) ApiAddCredentialRequest
-
-	// AddCredentialExecute executes the request
-	//  @return AccessCredential
-	AddCredentialExecute(r ApiAddCredentialRequest) (*AccessCredential, *http.Response, error)
-
-	/*
-	CreateApiKey Add a new API key
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiCreateApiKeyRequest
-	*/
-	CreateApiKey(ctx context.Context) ApiCreateApiKeyRequest
-
-	// CreateApiKeyExecute executes the request
-	//  @return UserApiKey
-	CreateApiKeyExecute(r ApiCreateApiKeyRequest) (*UserApiKey, *http.Response, error)
-
-	/*
-	DeleteApiKey Delete a user API key
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param keyName
-	@return ApiDeleteApiKeyRequest
-	*/
-	DeleteApiKey(ctx context.Context, keyName string) ApiDeleteApiKeyRequest
-
-	// DeleteApiKeyExecute executes the request
-	DeleteApiKeyExecute(r ApiDeleteApiKeyRequest) (*http.Response, error)
-
-	/*
-	GetApiKey Get a user API key
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param keyName
-	@return ApiGetApiKeyRequest
-	*/
-	GetApiKey(ctx context.Context, keyName string) ApiGetApiKeyRequest
-
-	// GetApiKeyExecute executes the request
-	//  @return UserApiKey
-	GetApiKeyExecute(r ApiGetApiKeyRequest) (*UserApiKey, *http.Response, error)
-
-	/*
-	GetCredentials Get current credential summary
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiGetCredentialsRequest
-	*/
-	GetCredentials(ctx context.Context) ApiGetCredentialsRequest
-
-	// GetCredentialsExecute executes the request
-	//  @return []AccessCredential
-	GetCredentialsExecute(r ApiGetCredentialsRequest) ([]AccessCredential, *http.Response, error)
-
-	/*
-	GetUser List authenticated user info
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiGetUserRequest
-	*/
-	GetUser(ctx context.Context) ApiGetUserRequest
-
-	// GetUserExecute executes the request
-	//  @return User
-	GetUserExecute(r ApiGetUserRequest) (*User, *http.Response, error)
-
-	/*
-	GetUsersAccount List the account for the authenticated user
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiGetUsersAccountRequest
-	*/
-	GetUsersAccount(ctx context.Context) ApiGetUsersAccountRequest
-
-	// GetUsersAccountExecute executes the request
-	//  @return Account
-	GetUsersAccountExecute(r ApiGetUsersAccountRequest) (*Account, *http.Response, error)
-
-	/*
-	ListApiKeys Get a list of API keys
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiListApiKeysRequest
-	*/
-	ListApiKeys(ctx context.Context) ApiListApiKeysRequest
-
-	// ListApiKeysExecute executes the request
-	//  @return ApiKeyList
-	ListApiKeysExecute(r ApiListApiKeysRequest) (*ApiKeyList, *http.Response, error)
-
-	/*
-	ListMyUserGroups List user groups for the authenticated user
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiListMyUserGroupsRequest
-	*/
-	ListMyUserGroups(ctx context.Context) ApiListMyUserGroupsRequest
-
-	// ListMyUserGroupsExecute executes the request
-	//  @return []UserGroup
-	ListMyUserGroupsExecute(r ApiListMyUserGroupsRequest) ([]UserGroup, *http.Response, error)
-
-	/*
-	PatchApiKey Patch a user API key
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param keyName
-	@return ApiPatchApiKeyRequest
-	*/
-	PatchApiKey(ctx context.Context, keyName string) ApiPatchApiKeyRequest
-
-	// PatchApiKeyExecute executes the request
-	//  @return UserApiKey
-	PatchApiKeyExecute(r ApiPatchApiKeyRequest) (*UserApiKey, *http.Response, error)
-}
-
 // IdentityApiService IdentityApi service
 type IdentityApiService service
 
 type ApiAddCredentialRequest struct {
 	ctx context.Context
-	ApiService IdentityApi
+	ApiService *IdentityApiService
 	credential *AccessCredential
 }
 
@@ -268,7 +143,7 @@ func (a *IdentityApiService) AddCredentialExecute(r ApiAddCredentialRequest) (*A
 
 type ApiCreateApiKeyRequest struct {
 	ctx context.Context
-	ApiService IdentityApi
+	ApiService *IdentityApiService
 	userApiKey *UserApiKey
 }
 
@@ -385,7 +260,7 @@ func (a *IdentityApiService) CreateApiKeyExecute(r ApiCreateApiKeyRequest) (*Use
 
 type ApiDeleteApiKeyRequest struct {
 	ctx context.Context
-	ApiService IdentityApi
+	ApiService *IdentityApiService
 	keyName string
 }
 
@@ -484,7 +359,7 @@ func (a *IdentityApiService) DeleteApiKeyExecute(r ApiDeleteApiKeyRequest) (*htt
 
 type ApiGetApiKeyRequest struct {
 	ctx context.Context
-	ApiService IdentityApi
+	ApiService *IdentityApiService
 	keyName string
 }
 
@@ -594,7 +469,7 @@ func (a *IdentityApiService) GetApiKeyExecute(r ApiGetApiKeyRequest) (*UserApiKe
 
 type ApiGetCredentialsRequest struct {
 	ctx context.Context
-	ApiService IdentityApi
+	ApiService *IdentityApiService
 }
 
 func (r ApiGetCredentialsRequest) Execute() ([]AccessCredential, *http.Response, error) {
@@ -700,7 +575,7 @@ func (a *IdentityApiService) GetCredentialsExecute(r ApiGetCredentialsRequest) (
 
 type ApiGetUserRequest struct {
 	ctx context.Context
-	ApiService IdentityApi
+	ApiService *IdentityApiService
 }
 
 func (r ApiGetUserRequest) Execute() (*User, *http.Response, error) {
@@ -806,7 +681,7 @@ func (a *IdentityApiService) GetUserExecute(r ApiGetUserRequest) (*User, *http.R
 
 type ApiGetUsersAccountRequest struct {
 	ctx context.Context
-	ApiService IdentityApi
+	ApiService *IdentityApiService
 }
 
 func (r ApiGetUsersAccountRequest) Execute() (*Account, *http.Response, error) {
@@ -912,7 +787,7 @@ func (a *IdentityApiService) GetUsersAccountExecute(r ApiGetUsersAccountRequest)
 
 type ApiListApiKeysRequest struct {
 	ctx context.Context
-	ApiService IdentityApi
+	ApiService *IdentityApiService
 }
 
 func (r ApiListApiKeysRequest) Execute() (*ApiKeyList, *http.Response, error) {
@@ -1018,7 +893,7 @@ func (a *IdentityApiService) ListApiKeysExecute(r ApiListApiKeysRequest) (*ApiKe
 
 type ApiListMyUserGroupsRequest struct {
 	ctx context.Context
-	ApiService IdentityApi
+	ApiService *IdentityApiService
 }
 
 func (r ApiListMyUserGroupsRequest) Execute() ([]UserGroup, *http.Response, error) {
@@ -1124,7 +999,7 @@ func (a *IdentityApiService) ListMyUserGroupsExecute(r ApiListMyUserGroupsReques
 
 type ApiPatchApiKeyRequest struct {
 	ctx context.Context
-	ApiService IdentityApi
+	ApiService *IdentityApiService
 	keyName string
 	patchUserApiKeyRequest *PatchUserApiKeyRequest
 }

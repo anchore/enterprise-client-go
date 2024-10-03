@@ -22,289 +22,12 @@ import (
 )
 
 
-type SystemApi interface {
-
-	/*
-	DeleteFeed Method for DeleteFeed
-
-	Delete the groups and data for the feed and disable the feed itself
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param feed
-	@return ApiDeleteFeedRequest
-	*/
-	DeleteFeed(ctx context.Context, feed string) ApiDeleteFeedRequest
-
-	// DeleteFeedExecute executes the request
-	DeleteFeedExecute(r ApiDeleteFeedRequest) (*http.Response, error)
-
-	/*
-	DeleteService Delete the service config
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param serviceName
-	@param hostId
-	@return ApiDeleteServiceRequest
-	*/
-	DeleteService(ctx context.Context, serviceName string, hostId string) ApiDeleteServiceRequest
-
-	// DeleteServiceExecute executes the request
-	DeleteServiceExecute(r ApiDeleteServiceRequest) (*http.Response, error)
-
-	/*
-	DescribeErrorCodes Describe anchore engine error codes.
-
-	Describe anchore engine error codes.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiDescribeErrorCodesRequest
-	*/
-	DescribeErrorCodes(ctx context.Context) ApiDescribeErrorCodesRequest
-
-	// DescribeErrorCodesExecute executes the request
-	//  @return []AnchoreErrorCode
-	DescribeErrorCodesExecute(r ApiDescribeErrorCodesRequest) ([]AnchoreErrorCode, *http.Response, error)
-
-	/*
-	DescribePolicy Describe the policy language spec implemented by this service.
-
-	Get the policy language spec for this service
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiDescribePolicyRequest
-	*/
-	DescribePolicy(ctx context.Context) ApiDescribePolicyRequest
-
-	// DescribePolicyExecute executes the request
-	//  @return []GateSpec
-	DescribePolicyExecute(r ApiDescribePolicyRequest) ([]GateSpec, *http.Response, error)
-
-	/*
-	GetAnchorectl Get an anchorectl binary compatible with this version of Anchore Enterprise
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiGetAnchorectlRequest
-	*/
-	GetAnchorectl(ctx context.Context) ApiGetAnchorectlRequest
-
-	// GetAnchorectlExecute executes the request
-	GetAnchorectlExecute(r ApiGetAnchorectlRequest) (*http.Response, error)
-
-	/*
-	GetServiceDetail System status
-
-	Get the system status including queue lengths
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiGetServiceDetailRequest
-	*/
-	GetServiceDetail(ctx context.Context) ApiGetServiceDetailRequest
-
-	// GetServiceDetailExecute executes the request
-	//  @return SystemStatusResponse
-	GetServiceDetailExecute(r ApiGetServiceDetailRequest) (*SystemStatusResponse, *http.Response, error)
-
-	/*
-	GetServicesByName Get a service configuration and state
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param serviceName
-	@return ApiGetServicesByNameRequest
-	*/
-	GetServicesByName(ctx context.Context, serviceName string) ApiGetServicesByNameRequest
-
-	// GetServicesByNameExecute executes the request
-	//  @return []Service
-	GetServicesByNameExecute(r ApiGetServicesByNameRequest) ([]Service, *http.Response, error)
-
-	/*
-	GetServicesByNameAndHost Get service config for a specific host
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param serviceName
-	@param hostId
-	@return ApiGetServicesByNameAndHostRequest
-	*/
-	GetServicesByNameAndHost(ctx context.Context, serviceName string, hostId string) ApiGetServicesByNameAndHostRequest
-
-	// GetServicesByNameAndHostExecute executes the request
-	//  @return []Service
-	GetServicesByNameAndHostExecute(r ApiGetServicesByNameAndHostRequest) ([]Service, *http.Response, error)
-
-	/*
-	GetStatus Service status
-
-	Get the API service status
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiGetStatusRequest
-	*/
-	GetStatus(ctx context.Context) ApiGetStatusRequest
-
-	// GetStatusExecute executes the request
-	//  @return StatusResponse
-	GetStatusExecute(r ApiGetStatusRequest) (*StatusResponse, *http.Response, error)
-
-	/*
-	GetSystemFeed Method for GetSystemFeed
-
-	Get feed metadata
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param feed The data feed to query
-	@return ApiGetSystemFeedRequest
-	*/
-	GetSystemFeed(ctx context.Context, feed string) ApiGetSystemFeedRequest
-
-	// GetSystemFeedExecute executes the request
-	//  @return FeedDataRecord
-	GetSystemFeedExecute(r ApiGetSystemFeedRequest) (*FeedDataRecord, *http.Response, error)
-
-	/*
-	GetSystemFeeds list feeds operations and information
-
-	Return a list of feed and their groups along with update and record count information. This data reflects the state of the policy engine, not the upstream feed service itself.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiGetSystemFeedsRequest
-	*/
-	GetSystemFeeds(ctx context.Context) ApiGetSystemFeedsRequest
-
-	// GetSystemFeedsExecute executes the request
-	//  @return []FeedMetadata
-	GetSystemFeedsExecute(r ApiGetSystemFeedsRequest) ([]FeedMetadata, *http.Response, error)
-
-	/*
-	HealthCheck Method for HealthCheck
-
-	Health check, returns 200 and no body if service is running
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiHealthCheckRequest
-	*/
-	HealthCheck(ctx context.Context) ApiHealthCheckRequest
-
-	// HealthCheckExecute executes the request
-	HealthCheckExecute(r ApiHealthCheckRequest) (*http.Response, error)
-
-	/*
-	ListServices List system services
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiListServicesRequest
-	*/
-	ListServices(ctx context.Context) ApiListServicesRequest
-
-	// ListServicesExecute executes the request
-	//  @return []Service
-	ListServicesExecute(r ApiListServicesRequest) ([]Service, *http.Response, error)
-
-	/*
-	Ping Method for Ping
-
-	Simple status check
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiPingRequest
-	*/
-	Ping(ctx context.Context) ApiPingRequest
-
-	// PingExecute executes the request
-	//  @return string
-	PingExecute(r ApiPingRequest) (string, *http.Response, error)
-
-	/*
-	PostSystemFeeds trigger feeds operations
-
-	Execute a synchronous fetch and sync of all datasets by the data_syncer, this is a synchronous operation and may take some time to complete.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiPostSystemFeedsRequest
-	*/
-	PostSystemFeeds(ctx context.Context) ApiPostSystemFeedsRequest
-
-	// PostSystemFeedsExecute executes the request
-	//  @return PostSystemFeeds200Response
-	PostSystemFeedsExecute(r ApiPostSystemFeedsRequest) (*PostSystemFeeds200Response, *http.Response, error)
-
-	/*
-	SetNewLogLevel Change logging level for a running service
-
-	Enables override of localconfig logging level for one or all services until they are next rebooted. If multiple instances of a service exist this call may need to be repeated depending on the container orchestration system in use. This API is in preview and may change in the future.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiSetNewLogLevelRequest
-	*/
-	SetNewLogLevel(ctx context.Context) ApiSetNewLogLevelRequest
-
-	// SetNewLogLevelExecute executes the request
-	//  @return []LoggingLevel
-	SetNewLogLevelExecute(r ApiSetNewLogLevelRequest) ([]LoggingLevel, *http.Response, error)
-
-	/*
-	TestWebhook Adds the capabilities to test a webhook delivery for the given notification type
-
-	Loads the Webhook configuration for webhook_type, and sends the notification out as a test
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param webhookType The Webhook Type that we should test
-	@return ApiTestWebhookRequest
-	*/
-	TestWebhook(ctx context.Context, webhookType string) ApiTestWebhookRequest
-
-	// TestWebhookExecute executes the request
-	TestWebhookExecute(r ApiTestWebhookRequest) (*http.Response, error)
-
-	/*
-	ToggleFeedEnabled Method for ToggleFeedEnabled
-
-	Disable the feed so that it does not sync on subsequent sync operations
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param feed
-	@return ApiToggleFeedEnabledRequest
-	*/
-	ToggleFeedEnabled(ctx context.Context, feed string) ApiToggleFeedEnabledRequest
-
-	// ToggleFeedEnabledExecute executes the request
-	//  @return FeedMetadata
-	ToggleFeedEnabledExecute(r ApiToggleFeedEnabledRequest) (*FeedMetadata, *http.Response, error)
-
-	/*
-	UploadSystemFeed Method for UploadSystemFeed
-
-	Upload a new feed
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param feed The data feed to upload
-	@return ApiUploadSystemFeedRequest
-	*/
-	UploadSystemFeed(ctx context.Context, feed string) ApiUploadSystemFeedRequest
-
-	// UploadSystemFeedExecute executes the request
-	UploadSystemFeedExecute(r ApiUploadSystemFeedRequest) (*http.Response, error)
-
-	/*
-	VersionCheck Method for VersionCheck
-
-	Returns the version object for the service, including db schema version info
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiVersionCheckRequest
-	*/
-	VersionCheck(ctx context.Context) ApiVersionCheckRequest
-
-	// VersionCheckExecute executes the request
-	//  @return ServiceVersion
-	VersionCheckExecute(r ApiVersionCheckRequest) (*ServiceVersion, *http.Response, error)
-}
-
 // SystemApiService SystemApi service
 type SystemApiService service
 
 type ApiDeleteFeedRequest struct {
 	ctx context.Context
-	ApiService SystemApi
+	ApiService *SystemApiService
 	feed string
 }
 
@@ -396,7 +119,7 @@ func (a *SystemApiService) DeleteFeedExecute(r ApiDeleteFeedRequest) (*http.Resp
 
 type ApiDeleteServiceRequest struct {
 	ctx context.Context
-	ApiService SystemApi
+	ApiService *SystemApiService
 	serviceName string
 	hostId string
 }
@@ -499,7 +222,7 @@ func (a *SystemApiService) DeleteServiceExecute(r ApiDeleteServiceRequest) (*htt
 
 type ApiDescribeErrorCodesRequest struct {
 	ctx context.Context
-	ApiService SystemApi
+	ApiService *SystemApiService
 }
 
 func (r ApiDescribeErrorCodesRequest) Execute() ([]AnchoreErrorCode, *http.Response, error) {
@@ -598,7 +321,7 @@ func (a *SystemApiService) DescribeErrorCodesExecute(r ApiDescribeErrorCodesRequ
 
 type ApiDescribePolicyRequest struct {
 	ctx context.Context
-	ApiService SystemApi
+	ApiService *SystemApiService
 }
 
 func (r ApiDescribePolicyRequest) Execute() ([]GateSpec, *http.Response, error) {
@@ -697,7 +420,7 @@ func (a *SystemApiService) DescribePolicyExecute(r ApiDescribePolicyRequest) ([]
 
 type ApiGetAnchorectlRequest struct {
 	ctx context.Context
-	ApiService SystemApi
+	ApiService *SystemApiService
 	operatingSystem *string
 	architecture *string
 }
@@ -805,7 +528,7 @@ func (a *SystemApiService) GetAnchorectlExecute(r ApiGetAnchorectlRequest) (*htt
 
 type ApiGetServiceDetailRequest struct {
 	ctx context.Context
-	ApiService SystemApi
+	ApiService *SystemApiService
 }
 
 func (r ApiGetServiceDetailRequest) Execute() (*SystemStatusResponse, *http.Response, error) {
@@ -913,7 +636,7 @@ func (a *SystemApiService) GetServiceDetailExecute(r ApiGetServiceDetailRequest)
 
 type ApiGetServicesByNameRequest struct {
 	ctx context.Context
-	ApiService SystemApi
+	ApiService *SystemApiService
 	serviceName string
 }
 
@@ -1023,7 +746,7 @@ func (a *SystemApiService) GetServicesByNameExecute(r ApiGetServicesByNameReques
 
 type ApiGetServicesByNameAndHostRequest struct {
 	ctx context.Context
-	ApiService SystemApi
+	ApiService *SystemApiService
 	serviceName string
 	hostId string
 }
@@ -1137,7 +860,7 @@ func (a *SystemApiService) GetServicesByNameAndHostExecute(r ApiGetServicesByNam
 
 type ApiGetStatusRequest struct {
 	ctx context.Context
-	ApiService SystemApi
+	ApiService *SystemApiService
 }
 
 func (r ApiGetStatusRequest) Execute() (*StatusResponse, *http.Response, error) {
@@ -1245,7 +968,7 @@ func (a *SystemApiService) GetStatusExecute(r ApiGetStatusRequest) (*StatusRespo
 
 type ApiGetSystemFeedRequest struct {
 	ctx context.Context
-	ApiService SystemApi
+	ApiService *SystemApiService
 	feed string
 	version *string
 }
@@ -1368,7 +1091,7 @@ func (a *SystemApiService) GetSystemFeedExecute(r ApiGetSystemFeedRequest) (*Fee
 
 type ApiGetSystemFeedsRequest struct {
 	ctx context.Context
-	ApiService SystemApi
+	ApiService *SystemApiService
 }
 
 func (r ApiGetSystemFeedsRequest) Execute() ([]FeedMetadata, *http.Response, error) {
@@ -1476,7 +1199,7 @@ func (a *SystemApiService) GetSystemFeedsExecute(r ApiGetSystemFeedsRequest) ([]
 
 type ApiHealthCheckRequest struct {
 	ctx context.Context
-	ApiService SystemApi
+	ApiService *SystemApiService
 }
 
 func (r ApiHealthCheckRequest) Execute() (*http.Response, error) {
@@ -1564,7 +1287,7 @@ func (a *SystemApiService) HealthCheckExecute(r ApiHealthCheckRequest) (*http.Re
 
 type ApiListServicesRequest struct {
 	ctx context.Context
-	ApiService SystemApi
+	ApiService *SystemApiService
 }
 
 func (r ApiListServicesRequest) Execute() ([]Service, *http.Response, error) {
@@ -1670,7 +1393,7 @@ func (a *SystemApiService) ListServicesExecute(r ApiListServicesRequest) ([]Serv
 
 type ApiPingRequest struct {
 	ctx context.Context
-	ApiService SystemApi
+	ApiService *SystemApiService
 }
 
 func (r ApiPingRequest) Execute() (string, *http.Response, error) {
@@ -1769,7 +1492,7 @@ func (a *SystemApiService) PingExecute(r ApiPingRequest) (string, *http.Response
 
 type ApiPostSystemFeedsRequest struct {
 	ctx context.Context
-	ApiService SystemApi
+	ApiService *SystemApiService
 	forceSync *bool
 }
 
@@ -1887,7 +1610,7 @@ func (a *SystemApiService) PostSystemFeedsExecute(r ApiPostSystemFeedsRequest) (
 
 type ApiSetNewLogLevelRequest struct {
 	ctx context.Context
-	ApiService SystemApi
+	ApiService *SystemApiService
 	logging *LoggingLevel
 }
 
@@ -2006,7 +1729,7 @@ func (a *SystemApiService) SetNewLogLevelExecute(r ApiSetNewLogLevelRequest) ([]
 
 type ApiTestWebhookRequest struct {
 	ctx context.Context
-	ApiService SystemApi
+	ApiService *SystemApiService
 	webhookType string
 	notificationType *string
 }
@@ -2127,7 +1850,7 @@ func (a *SystemApiService) TestWebhookExecute(r ApiTestWebhookRequest) (*http.Re
 
 type ApiToggleFeedEnabledRequest struct {
 	ctx context.Context
-	ApiService SystemApi
+	ApiService *SystemApiService
 	feed string
 	enabled *bool
 }
@@ -2240,7 +1963,7 @@ func (a *SystemApiService) ToggleFeedEnabledExecute(r ApiToggleFeedEnabledReques
 
 type ApiUploadSystemFeedRequest struct {
 	ctx context.Context
-	ApiService SystemApi
+	ApiService *SystemApiService
 	feed string
 	version *string
 	built *string
@@ -2407,7 +2130,7 @@ func (a *SystemApiService) UploadSystemFeedExecute(r ApiUploadSystemFeedRequest)
 
 type ApiVersionCheckRequest struct {
 	ctx context.Context
-	ApiService SystemApi
+	ApiService *SystemApiService
 }
 
 func (r ApiVersionCheckRequest) Execute() (*ServiceVersion, *http.Response, error) {

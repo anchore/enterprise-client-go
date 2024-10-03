@@ -21,352 +21,12 @@ import (
 )
 
 
-type ImagesApi interface {
-
-	/*
-	AddImage Submit a new image for analysis by the engine
-
-	Creates a new analysis task that is executed asynchronously
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiAddImageRequest
-	*/
-	AddImage(ctx context.Context) ApiAddImageRequest
-
-	// AddImageExecute executes the request
-	//  @return AnchoreImage
-	AddImageExecute(r ApiAddImageRequest) (*AnchoreImage, *http.Response, error)
-
-	/*
-	DeleteImage Delete an image analysis
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param imageDigest
-	@return ApiDeleteImageRequest
-	*/
-	DeleteImage(ctx context.Context, imageDigest string) ApiDeleteImageRequest
-
-	// DeleteImageExecute executes the request
-	//  @return DeleteImageResponse
-	DeleteImageExecute(r ApiDeleteImageRequest) (*DeleteImageResponse, *http.Response, error)
-
-	/*
-	DeleteImagesAsync Bulk mark images for deletion
-
-	Delete analysis for image digests in the list asynchronously
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiDeleteImagesAsyncRequest
-	*/
-	DeleteImagesAsync(ctx context.Context) ApiDeleteImagesAsyncRequest
-
-	// DeleteImagesAsyncExecute executes the request
-	//  @return []DeleteImageResponse
-	DeleteImagesAsyncExecute(r ApiDeleteImagesAsyncRequest) ([]DeleteImageResponse, *http.Response, error)
-
-	/*
-	GetImage Get image metadata
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param imageDigest
-	@return ApiGetImageRequest
-	*/
-	GetImage(ctx context.Context, imageDigest string) ApiGetImageRequest
-
-	// GetImageExecute executes the request
-	//  @return AnchoreImage
-	GetImageExecute(r ApiGetImageRequest) (*AnchoreImage, *http.Response, error)
-
-	/*
-	GetImageAncestors Return the list of ancestor images for the given image
-
-	Returns list of ancestor images, which are the images that form the base layers of the image
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param imageDigest
-	@return ApiGetImageAncestorsRequest
-	*/
-	GetImageAncestors(ctx context.Context, imageDigest string) ApiGetImageAncestorsRequest
-
-	// GetImageAncestorsExecute executes the request
-	//  @return []ImageAncestor
-	GetImageAncestorsExecute(r ApiGetImageAncestorsRequest) ([]ImageAncestor, *http.Response, error)
-
-	/*
-	GetImageContentByType Get the content of an image by type
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param imageDigest
-	@param contentType
-	@return ApiGetImageContentByTypeRequest
-	*/
-	GetImageContentByType(ctx context.Context, imageDigest string, contentType string) ApiGetImageContentByTypeRequest
-
-	// GetImageContentByTypeExecute executes the request
-	//  @return ContentPackageResponse
-	GetImageContentByTypeExecute(r ApiGetImageContentByTypeRequest) (*ContentPackageResponse, *http.Response, error)
-
-	/*
-	GetImageContentByTypeFiles Get the content of an image by type files
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param imageDigest
-	@return ApiGetImageContentByTypeFilesRequest
-	*/
-	GetImageContentByTypeFiles(ctx context.Context, imageDigest string) ApiGetImageContentByTypeFilesRequest
-
-	// GetImageContentByTypeFilesExecute executes the request
-	//  @return ContentFilesResponse
-	GetImageContentByTypeFilesExecute(r ApiGetImageContentByTypeFilesRequest) (*ContentFilesResponse, *http.Response, error)
-
-	/*
-	GetImageContentByTypeJavaPackage Get the content of an image by type java
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param imageDigest
-	@return ApiGetImageContentByTypeJavaPackageRequest
-	*/
-	GetImageContentByTypeJavaPackage(ctx context.Context, imageDigest string) ApiGetImageContentByTypeJavaPackageRequest
-
-	// GetImageContentByTypeJavaPackageExecute executes the request
-	//  @return ContentJavaPackageResponse
-	GetImageContentByTypeJavaPackageExecute(r ApiGetImageContentByTypeJavaPackageRequest) (*ContentJavaPackageResponse, *http.Response, error)
-
-	/*
-	GetImageContentByTypeMalware Get the content of an image by type malware
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param imageDigest
-	@return ApiGetImageContentByTypeMalwareRequest
-	*/
-	GetImageContentByTypeMalware(ctx context.Context, imageDigest string) ApiGetImageContentByTypeMalwareRequest
-
-	// GetImageContentByTypeMalwareExecute executes the request
-	//  @return ContentMalwareResponse
-	GetImageContentByTypeMalwareExecute(r ApiGetImageContentByTypeMalwareRequest) (*ContentMalwareResponse, *http.Response, error)
-
-	/*
-	GetImageContentSummary Get image content summary
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param imageDigest
-	@return ApiGetImageContentSummaryRequest
-	*/
-	GetImageContentSummary(ctx context.Context, imageDigest string) ApiGetImageContentSummaryRequest
-
-	// GetImageContentSummaryExecute executes the request
-	//  @return ImageContentSummary
-	GetImageContentSummaryExecute(r ApiGetImageContentSummaryRequest) (*ImageContentSummary, *http.Response, error)
-
-	/*
-	GetImageMetadataByType Get the metadata of an image by type
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param imageDigest
-	@param metadataType
-	@return ApiGetImageMetadataByTypeRequest
-	*/
-	GetImageMetadataByType(ctx context.Context, imageDigest string, metadataType string) ApiGetImageMetadataByTypeRequest
-
-	// GetImageMetadataByTypeExecute executes the request
-	//  @return MetadataResponse
-	GetImageMetadataByTypeExecute(r ApiGetImageMetadataByTypeRequest) (*MetadataResponse, *http.Response, error)
-
-	/*
-	GetImagePolicyCheckByDigest Check policy evaluation status for image
-
-	Get the policy evaluation for the given image
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param imageDigest
-	@return ApiGetImagePolicyCheckByDigestRequest
-	*/
-	GetImagePolicyCheckByDigest(ctx context.Context, imageDigest string) ApiGetImagePolicyCheckByDigestRequest
-
-	// GetImagePolicyCheckByDigestExecute executes the request
-	//  @return PolicyEvaluation
-	GetImagePolicyCheckByDigestExecute(r ApiGetImagePolicyCheckByDigestRequest) (*PolicyEvaluation, *http.Response, error)
-
-	/*
-	GetImageSbomCyclonedxJson Get image sbom in the CycloneDX format
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param imageDigest
-	@return ApiGetImageSbomCyclonedxJsonRequest
-	*/
-	GetImageSbomCyclonedxJson(ctx context.Context, imageDigest string) ApiGetImageSbomCyclonedxJsonRequest
-
-	// GetImageSbomCyclonedxJsonExecute executes the request
-	//  @return string
-	GetImageSbomCyclonedxJsonExecute(r ApiGetImageSbomCyclonedxJsonRequest) (string, *http.Response, error)
-
-	/*
-	GetImageSbomNativeJson Get image sbom in the native Anchore format
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param imageDigest
-	@return ApiGetImageSbomNativeJsonRequest
-	*/
-	GetImageSbomNativeJson(ctx context.Context, imageDigest string) ApiGetImageSbomNativeJsonRequest
-
-	// GetImageSbomNativeJsonExecute executes the request
-	//  @return string
-	GetImageSbomNativeJsonExecute(r ApiGetImageSbomNativeJsonRequest) (string, *http.Response, error)
-
-	/*
-	GetImageSbomSpdxJson Get image sbom in the SPDX format
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param imageDigest
-	@return ApiGetImageSbomSpdxJsonRequest
-	*/
-	GetImageSbomSpdxJson(ctx context.Context, imageDigest string) ApiGetImageSbomSpdxJsonRequest
-
-	// GetImageSbomSpdxJsonExecute executes the request
-	//  @return string
-	GetImageSbomSpdxJsonExecute(r ApiGetImageSbomSpdxJsonRequest) (string, *http.Response, error)
-
-	/*
-	GetImageVulnerabilitiesByDigest Get vulnerabilities by type
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param imageDigest
-	@param vulnType
-	@return ApiGetImageVulnerabilitiesByDigestRequest
-	*/
-	GetImageVulnerabilitiesByDigest(ctx context.Context, imageDigest string, vulnType string) ApiGetImageVulnerabilitiesByDigestRequest
-
-	// GetImageVulnerabilitiesByDigestExecute executes the request
-	//  @return ImagePackageVulnerabilityResponse
-	GetImageVulnerabilitiesByDigestExecute(r ApiGetImageVulnerabilitiesByDigestRequest) (*ImagePackageVulnerabilityResponse, *http.Response, error)
-
-	/*
-	GetImageVulnerabilityTypes Get vulnerability types
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param imageDigest
-	@return ApiGetImageVulnerabilityTypesRequest
-	*/
-	GetImageVulnerabilityTypes(ctx context.Context, imageDigest string) ApiGetImageVulnerabilityTypesRequest
-
-	// GetImageVulnerabilityTypesExecute executes the request
-	//  @return []string
-	GetImageVulnerabilityTypesExecute(r ApiGetImageVulnerabilityTypesRequest) ([]string, *http.Response, error)
-
-	/*
-	ListFileContentSearchResults Return a list of analyzer artifacts of the specified type
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param imageDigest
-	@return ApiListFileContentSearchResultsRequest
-	*/
-	ListFileContentSearchResults(ctx context.Context, imageDigest string) ApiListFileContentSearchResultsRequest
-
-	// ListFileContentSearchResultsExecute executes the request
-	//  @return []FileContentSearchResult
-	ListFileContentSearchResultsExecute(r ApiListFileContentSearchResultsRequest) ([]FileContentSearchResult, *http.Response, error)
-
-	/*
-	ListImageContent List image content types
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param imageDigest
-	@return ApiListImageContentRequest
-	*/
-	ListImageContent(ctx context.Context, imageDigest string) ApiListImageContentRequest
-
-	// ListImageContentExecute executes the request
-	//  @return []string
-	ListImageContentExecute(r ApiListImageContentRequest) ([]string, *http.Response, error)
-
-	/*
-	ListImageMetadata List image metadata types
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param imageDigest
-	@return ApiListImageMetadataRequest
-	*/
-	ListImageMetadata(ctx context.Context, imageDigest string) ApiListImageMetadataRequest
-
-	// ListImageMetadataExecute executes the request
-	//  @return []string
-	ListImageMetadataExecute(r ApiListImageMetadataRequest) ([]string, *http.Response, error)
-
-	/*
-	ListImages List all visible images
-
-	List all images visible to the user
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiListImagesRequest
-	*/
-	ListImages(ctx context.Context) ApiListImagesRequest
-
-	// ListImagesExecute executes the request
-	//  @return AnchoreImageList
-	ListImagesExecute(r ApiListImagesRequest) (*AnchoreImageList, *http.Response, error)
-
-	/*
-	ListRetrievedFiles Return a list of analyzer artifacts of the specified type
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param imageDigest
-	@return ApiListRetrievedFilesRequest
-	*/
-	ListRetrievedFiles(ctx context.Context, imageDigest string) ApiListRetrievedFilesRequest
-
-	// ListRetrievedFilesExecute executes the request
-	//  @return []RetrievedFile
-	ListRetrievedFilesExecute(r ApiListRetrievedFilesRequest) ([]RetrievedFile, *http.Response, error)
-
-	/*
-	ListSecretSearchResults Return a list of analyzer artifacts of the specified type
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param imageDigest
-	@return ApiListSecretSearchResultsRequest
-	*/
-	ListSecretSearchResults(ctx context.Context, imageDigest string) ApiListSecretSearchResultsRequest
-
-	// ListSecretSearchResultsExecute executes the request
-	//  @return []SecretSearchResult
-	ListSecretSearchResultsExecute(r ApiListSecretSearchResultsRequest) ([]SecretSearchResult, *http.Response, error)
-
-	/*
-	SummaryImageCounts Image summary counts
-
-	Count tags and images by analysis status
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiSummaryImageCountsRequest
-	*/
-	SummaryImageCounts(ctx context.Context) ApiSummaryImageCountsRequest
-
-	// SummaryImageCountsExecute executes the request
-	//  @return AnchoreImageSummaryCounts
-	SummaryImageCountsExecute(r ApiSummaryImageCountsRequest) (*AnchoreImageSummaryCounts, *http.Response, error)
-
-	/*
-	SummaryImageTags Summarize image tags
-
-	List all image tags visible to the user
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiSummaryImageTagsRequest
-	*/
-	SummaryImageTags(ctx context.Context) ApiSummaryImageTagsRequest
-
-	// SummaryImageTagsExecute executes the request
-	//  @return AnchoreImageTagSummaryList
-	SummaryImageTagsExecute(r ApiSummaryImageTagsRequest) (*AnchoreImageTagSummaryList, *http.Response, error)
-}
-
 // ImagesApiService ImagesApi service
 type ImagesApiService service
 
 type ApiAddImageRequest struct {
 	ctx context.Context
-	ApiService ImagesApi
+	ApiService *ImagesApiService
 	image *ImageAnalysisRequest
 	force *bool
 	autoSubscribe *bool
@@ -515,7 +175,7 @@ func (a *ImagesApiService) AddImageExecute(r ApiAddImageRequest) (*AnchoreImage,
 
 type ApiDeleteImageRequest struct {
 	ctx context.Context
-	ApiService ImagesApi
+	ApiService *ImagesApiService
 	imageDigest string
 	force *bool
 	xAnchoreAccount *string
@@ -664,7 +324,7 @@ func (a *ImagesApiService) DeleteImageExecute(r ApiDeleteImageRequest) (*DeleteI
 
 type ApiDeleteImagesAsyncRequest struct {
 	ctx context.Context
-	ApiService ImagesApi
+	ApiService *ImagesApiService
 	imageDigests *[]string
 	force *bool
 	xAnchoreAccount *string
@@ -801,7 +461,7 @@ func (a *ImagesApiService) DeleteImagesAsyncExecute(r ApiDeleteImagesAsyncReques
 
 type ApiGetImageRequest struct {
 	ctx context.Context
-	ApiService ImagesApi
+	ApiService *ImagesApiService
 	imageDigest string
 	xAnchoreAccount *string
 }
@@ -931,7 +591,7 @@ func (a *ImagesApiService) GetImageExecute(r ApiGetImageRequest) (*AnchoreImage,
 
 type ApiGetImageAncestorsRequest struct {
 	ctx context.Context
-	ApiService ImagesApi
+	ApiService *ImagesApiService
 	imageDigest string
 	xAnchoreAccount *string
 }
@@ -1044,7 +704,7 @@ func (a *ImagesApiService) GetImageAncestorsExecute(r ApiGetImageAncestorsReques
 
 type ApiGetImageContentByTypeRequest struct {
 	ctx context.Context
-	ApiService ImagesApi
+	ApiService *ImagesApiService
 	imageDigest string
 	contentType string
 	xAnchoreAccount *string
@@ -1168,7 +828,7 @@ func (a *ImagesApiService) GetImageContentByTypeExecute(r ApiGetImageContentByTy
 
 type ApiGetImageContentByTypeFilesRequest struct {
 	ctx context.Context
-	ApiService ImagesApi
+	ApiService *ImagesApiService
 	imageDigest string
 	xAnchoreAccount *string
 }
@@ -1288,7 +948,7 @@ func (a *ImagesApiService) GetImageContentByTypeFilesExecute(r ApiGetImageConten
 
 type ApiGetImageContentByTypeJavaPackageRequest struct {
 	ctx context.Context
-	ApiService ImagesApi
+	ApiService *ImagesApiService
 	imageDigest string
 	xAnchoreAccount *string
 }
@@ -1408,7 +1068,7 @@ func (a *ImagesApiService) GetImageContentByTypeJavaPackageExecute(r ApiGetImage
 
 type ApiGetImageContentByTypeMalwareRequest struct {
 	ctx context.Context
-	ApiService ImagesApi
+	ApiService *ImagesApiService
 	imageDigest string
 	xAnchoreAccount *string
 }
@@ -1528,7 +1188,7 @@ func (a *ImagesApiService) GetImageContentByTypeMalwareExecute(r ApiGetImageCont
 
 type ApiGetImageContentSummaryRequest struct {
 	ctx context.Context
-	ApiService ImagesApi
+	ApiService *ImagesApiService
 	imageDigest string
 	xAnchoreAccount *string
 }
@@ -1648,7 +1308,7 @@ func (a *ImagesApiService) GetImageContentSummaryExecute(r ApiGetImageContentSum
 
 type ApiGetImageMetadataByTypeRequest struct {
 	ctx context.Context
-	ApiService ImagesApi
+	ApiService *ImagesApiService
 	imageDigest string
 	metadataType string
 	xAnchoreAccount *string
@@ -1772,7 +1432,7 @@ func (a *ImagesApiService) GetImageMetadataByTypeExecute(r ApiGetImageMetadataBy
 
 type ApiGetImagePolicyCheckByDigestRequest struct {
 	ctx context.Context
-	ApiService ImagesApi
+	ApiService *ImagesApiService
 	imageDigest string
 	tag *string
 	policyId *string
@@ -1950,7 +1610,7 @@ func (a *ImagesApiService) GetImagePolicyCheckByDigestExecute(r ApiGetImagePolic
 
 type ApiGetImageSbomCyclonedxJsonRequest struct {
 	ctx context.Context
-	ApiService ImagesApi
+	ApiService *ImagesApiService
 	imageDigest string
 	xAnchoreAccount *string
 }
@@ -2070,7 +1730,7 @@ func (a *ImagesApiService) GetImageSbomCyclonedxJsonExecute(r ApiGetImageSbomCyc
 
 type ApiGetImageSbomNativeJsonRequest struct {
 	ctx context.Context
-	ApiService ImagesApi
+	ApiService *ImagesApiService
 	imageDigest string
 	xAnchoreAccount *string
 }
@@ -2190,7 +1850,7 @@ func (a *ImagesApiService) GetImageSbomNativeJsonExecute(r ApiGetImageSbomNative
 
 type ApiGetImageSbomSpdxJsonRequest struct {
 	ctx context.Context
-	ApiService ImagesApi
+	ApiService *ImagesApiService
 	imageDigest string
 	xAnchoreAccount *string
 }
@@ -2310,7 +1970,7 @@ func (a *ImagesApiService) GetImageSbomSpdxJsonExecute(r ApiGetImageSbomSpdxJson
 
 type ApiGetImageVulnerabilitiesByDigestRequest struct {
 	ctx context.Context
-	ApiService ImagesApi
+	ApiService *ImagesApiService
 	imageDigest string
 	vulnType string
 	forceRefresh *bool
@@ -2472,7 +2132,7 @@ func (a *ImagesApiService) GetImageVulnerabilitiesByDigestExecute(r ApiGetImageV
 
 type ApiGetImageVulnerabilityTypesRequest struct {
 	ctx context.Context
-	ApiService ImagesApi
+	ApiService *ImagesApiService
 	imageDigest string
 	xAnchoreAccount *string
 }
@@ -2592,7 +2252,7 @@ func (a *ImagesApiService) GetImageVulnerabilityTypesExecute(r ApiGetImageVulner
 
 type ApiListFileContentSearchResultsRequest struct {
 	ctx context.Context
-	ApiService ImagesApi
+	ApiService *ImagesApiService
 	imageDigest string
 }
 
@@ -2693,7 +2353,7 @@ func (a *ImagesApiService) ListFileContentSearchResultsExecute(r ApiListFileCont
 
 type ApiListImageContentRequest struct {
 	ctx context.Context
-	ApiService ImagesApi
+	ApiService *ImagesApiService
 	imageDigest string
 	xAnchoreAccount *string
 }
@@ -2813,7 +2473,7 @@ func (a *ImagesApiService) ListImageContentExecute(r ApiListImageContentRequest)
 
 type ApiListImageMetadataRequest struct {
 	ctx context.Context
-	ApiService ImagesApi
+	ApiService *ImagesApiService
 	imageDigest string
 	xAnchoreAccount *string
 }
@@ -2933,7 +2593,7 @@ func (a *ImagesApiService) ListImageMetadataExecute(r ApiListImageMetadataReques
 
 type ApiListImagesRequest struct {
 	ctx context.Context
-	ApiService ImagesApi
+	ApiService *ImagesApiService
 	imageId *string
 	history *bool
 	fullTag *string
@@ -3111,7 +2771,7 @@ func (a *ImagesApiService) ListImagesExecute(r ApiListImagesRequest) (*AnchoreIm
 
 type ApiListRetrievedFilesRequest struct {
 	ctx context.Context
-	ApiService ImagesApi
+	ApiService *ImagesApiService
 	imageDigest string
 }
 
@@ -3212,7 +2872,7 @@ func (a *ImagesApiService) ListRetrievedFilesExecute(r ApiListRetrievedFilesRequ
 
 type ApiListSecretSearchResultsRequest struct {
 	ctx context.Context
-	ApiService ImagesApi
+	ApiService *ImagesApiService
 	imageDigest string
 }
 
@@ -3313,7 +2973,7 @@ func (a *ImagesApiService) ListSecretSearchResultsExecute(r ApiListSecretSearchR
 
 type ApiSummaryImageCountsRequest struct {
 	ctx context.Context
-	ApiService ImagesApi
+	ApiService *ImagesApiService
 	imageStatus *[]string
 	registry *string
 	repo *string
@@ -3461,7 +3121,7 @@ func (a *ImagesApiService) SummaryImageCountsExecute(r ApiSummaryImageCountsRequ
 
 type ApiSummaryImageTagsRequest struct {
 	ctx context.Context
-	ApiService ImagesApi
+	ApiService *ImagesApiService
 	imageStatus *[]string
 	analysisStatus *[]string
 	analyzedSince *string

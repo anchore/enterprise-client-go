@@ -21,87 +21,12 @@ import (
 )
 
 
-type RelationshipsApi interface {
-
-	/*
-	AddArtifactRelationship Method for AddArtifactRelationship
-
-	Add a new relationship for this image to another artifact (source or image)
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiAddArtifactRelationshipRequest
-	*/
-	AddArtifactRelationship(ctx context.Context) ApiAddArtifactRelationshipRequest
-
-	// AddArtifactRelationshipExecute executes the request
-	//  @return interface{}
-	AddArtifactRelationshipExecute(r ApiAddArtifactRelationshipRequest) (interface{}, *http.Response, error)
-
-	/*
-	DeleteArtifactRelationships Method for DeleteArtifactRelationships
-
-	Delete one or more relationships
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiDeleteArtifactRelationshipsRequest
-	*/
-	DeleteArtifactRelationships(ctx context.Context) ApiDeleteArtifactRelationshipsRequest
-
-	// DeleteArtifactRelationshipsExecute executes the request
-	//  @return interface{}
-	DeleteArtifactRelationshipsExecute(r ApiDeleteArtifactRelationshipsRequest) (interface{}, *http.Response, error)
-
-	/*
-	GetArtifactRelationship Method for GetArtifactRelationship
-
-	Get the relationship between software supply chain artifacts (images, source revisions, etc)
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param relationshipId Id of record to retrieve
-	@return ApiGetArtifactRelationshipRequest
-	*/
-	GetArtifactRelationship(ctx context.Context, relationshipId string) ApiGetArtifactRelationshipRequest
-
-	// GetArtifactRelationshipExecute executes the request
-	//  @return ArtifactRelationship
-	GetArtifactRelationshipExecute(r ApiGetArtifactRelationshipRequest) (*ArtifactRelationship, *http.Response, error)
-
-	/*
-	GetRelationshipSbomDiff Method for GetRelationshipSbomDiff
-
-	Return the context-aware diff of the sboms for the relationship
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param relationshipId
-	@return ApiGetRelationshipSbomDiffRequest
-	*/
-	GetRelationshipSbomDiff(ctx context.Context, relationshipId string) ApiGetRelationshipSbomDiffRequest
-
-	// GetRelationshipSbomDiffExecute executes the request
-	//  @return RelationshipSbomDiff
-	GetRelationshipSbomDiffExecute(r ApiGetRelationshipSbomDiffRequest) (*RelationshipSbomDiff, *http.Response, error)
-
-	/*
-	ListArtifactRelationships Method for ListArtifactRelationships
-
-	List the relationships between software supply chain artifacts (images, source revisions, etc)
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiListArtifactRelationshipsRequest
-	*/
-	ListArtifactRelationships(ctx context.Context) ApiListArtifactRelationshipsRequest
-
-	// ListArtifactRelationshipsExecute executes the request
-	//  @return []ArtifactRelationship
-	ListArtifactRelationshipsExecute(r ApiListArtifactRelationshipsRequest) ([]ArtifactRelationship, *http.Response, error)
-}
-
 // RelationshipsApiService RelationshipsApi service
 type RelationshipsApiService service
 
 type ApiAddArtifactRelationshipRequest struct {
 	ctx context.Context
-	ApiService RelationshipsApi
+	ApiService *RelationshipsApiService
 	relationship *ArtifactRelationship
 }
 
@@ -211,7 +136,7 @@ func (a *RelationshipsApiService) AddArtifactRelationshipExecute(r ApiAddArtifac
 
 type ApiDeleteArtifactRelationshipsRequest struct {
 	ctx context.Context
-	ApiService RelationshipsApi
+	ApiService *RelationshipsApiService
 	relationshipIds *[]string
 }
 
@@ -321,7 +246,7 @@ func (a *RelationshipsApiService) DeleteArtifactRelationshipsExecute(r ApiDelete
 
 type ApiGetArtifactRelationshipRequest struct {
 	ctx context.Context
-	ApiService RelationshipsApi
+	ApiService *RelationshipsApiService
 	relationshipId string
 }
 
@@ -424,7 +349,7 @@ func (a *RelationshipsApiService) GetArtifactRelationshipExecute(r ApiGetArtifac
 
 type ApiGetRelationshipSbomDiffRequest struct {
 	ctx context.Context
-	ApiService RelationshipsApi
+	ApiService *RelationshipsApiService
 	relationshipId string
 }
 
@@ -527,7 +452,7 @@ func (a *RelationshipsApiService) GetRelationshipSbomDiffExecute(r ApiGetRelatio
 
 type ApiListArtifactRelationshipsRequest struct {
 	ctx context.Context
-	ApiService RelationshipsApi
+	ApiService *RelationshipsApiService
 	artifactType *string
 	artifactId *string
 }
