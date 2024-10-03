@@ -14,7 +14,7 @@ package enterprise
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
 )
@@ -119,15 +119,15 @@ func (a *RepositoryApiService) AddRepositoryExecute(r ApiAddRepositoryRequest) (
 		return localVarReturnValue, nil, reportError("repository is required and must be specified")
 	}
 
-	localVarQueryParams.Add("repository", parameterToString(*r.repository, ""))
+	parameterAddToHeaderOrQuery(localVarQueryParams, "repository", r.repository, "form", "")
 	if r.autoSubscribe != nil {
-		localVarQueryParams.Add("auto_subscribe", parameterToString(*r.autoSubscribe, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "auto_subscribe", r.autoSubscribe, "form", "")
 	}
 	if r.dryRun != nil {
-		localVarQueryParams.Add("dry_run", parameterToString(*r.dryRun, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "dry_run", r.dryRun, "form", "")
 	}
 	if r.excludeExistingTags != nil {
-		localVarQueryParams.Add("exclude_existing_tags", parameterToString(*r.excludeExistingTags, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "exclude_existing_tags", r.excludeExistingTags, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -147,7 +147,7 @@ func (a *RepositoryApiService) AddRepositoryExecute(r ApiAddRepositoryRequest) (
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.xAnchoreAccount != nil {
-		localVarHeaderParams["x-anchore-account"] = parameterToString(*r.xAnchoreAccount, "")
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "x-anchore-account", r.xAnchoreAccount, "simple", "")
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
@@ -159,9 +159,9 @@ func (a *RepositoryApiService) AddRepositoryExecute(r ApiAddRepositoryRequest) (
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}

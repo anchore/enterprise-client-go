@@ -14,7 +14,7 @@ package enterprise
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
 	"strings"
@@ -230,9 +230,9 @@ func (a *IdentityApiService) AddCredentialExecute(r ApiAddCredentialRequest) (*A
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -249,7 +249,8 @@ func (a *IdentityApiService) AddCredentialExecute(r ApiAddCredentialRequest) (*A
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -347,9 +348,9 @@ func (a *IdentityApiService) CreateApiKeyExecute(r ApiCreateApiKeyRequest) (*Use
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -366,7 +367,8 @@ func (a *IdentityApiService) CreateApiKeyExecute(r ApiCreateApiKeyRequest) (*Use
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -422,7 +424,7 @@ func (a *IdentityApiService) DeleteApiKeyExecute(r ApiDeleteApiKeyRequest) (*htt
 	}
 
 	localVarPath := localBasePath + "/user/api-keys/{key_name}"
-	localVarPath = strings.Replace(localVarPath, "{"+"key_name"+"}", url.PathEscape(parameterToString(r.keyName, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"key_name"+"}", url.PathEscape(parameterValueToString(r.keyName, "keyName")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -455,9 +457,9 @@ func (a *IdentityApiService) DeleteApiKeyExecute(r ApiDeleteApiKeyRequest) (*htt
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -474,7 +476,8 @@ func (a *IdentityApiService) DeleteApiKeyExecute(r ApiDeleteApiKeyRequest) (*htt
 				newErr.error = err.Error()
 				return localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarHTTPResponse, newErr
 	}
@@ -523,7 +526,7 @@ func (a *IdentityApiService) GetApiKeyExecute(r ApiGetApiKeyRequest) (*UserApiKe
 	}
 
 	localVarPath := localBasePath + "/user/api-keys/{key_name}"
-	localVarPath = strings.Replace(localVarPath, "{"+"key_name"+"}", url.PathEscape(parameterToString(r.keyName, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"key_name"+"}", url.PathEscape(parameterValueToString(r.keyName, "keyName")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -556,9 +559,9 @@ func (a *IdentityApiService) GetApiKeyExecute(r ApiGetApiKeyRequest) (*UserApiKe
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -575,7 +578,8 @@ func (a *IdentityApiService) GetApiKeyExecute(r ApiGetApiKeyRequest) (*UserApiKe
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -662,9 +666,9 @@ func (a *IdentityApiService) GetCredentialsExecute(r ApiGetCredentialsRequest) (
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -681,7 +685,8 @@ func (a *IdentityApiService) GetCredentialsExecute(r ApiGetCredentialsRequest) (
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -768,9 +773,9 @@ func (a *IdentityApiService) GetUserExecute(r ApiGetUserRequest) (*User, *http.R
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -787,7 +792,8 @@ func (a *IdentityApiService) GetUserExecute(r ApiGetUserRequest) (*User, *http.R
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -874,9 +880,9 @@ func (a *IdentityApiService) GetUsersAccountExecute(r ApiGetUsersAccountRequest)
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -893,7 +899,8 @@ func (a *IdentityApiService) GetUsersAccountExecute(r ApiGetUsersAccountRequest)
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -980,9 +987,9 @@ func (a *IdentityApiService) ListApiKeysExecute(r ApiListApiKeysRequest) (*ApiKe
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -999,7 +1006,8 @@ func (a *IdentityApiService) ListApiKeysExecute(r ApiListApiKeysRequest) (*ApiKe
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -1086,9 +1094,9 @@ func (a *IdentityApiService) ListMyUserGroupsExecute(r ApiListMyUserGroupsReques
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1105,7 +1113,8 @@ func (a *IdentityApiService) ListMyUserGroupsExecute(r ApiListMyUserGroupsReques
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -1169,7 +1178,7 @@ func (a *IdentityApiService) PatchApiKeyExecute(r ApiPatchApiKeyRequest) (*UserA
 	}
 
 	localVarPath := localBasePath + "/user/api-keys/{key_name}"
-	localVarPath = strings.Replace(localVarPath, "{"+"key_name"+"}", url.PathEscape(parameterToString(r.keyName, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"key_name"+"}", url.PathEscape(parameterValueToString(r.keyName, "keyName")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1204,9 +1213,9 @@ func (a *IdentityApiService) PatchApiKeyExecute(r ApiPatchApiKeyRequest) (*UserA
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1223,7 +1232,8 @@ func (a *IdentityApiService) PatchApiKeyExecute(r ApiPatchApiKeyRequest) (*UserA
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}

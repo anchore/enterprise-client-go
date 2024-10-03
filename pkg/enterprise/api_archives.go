@@ -14,7 +14,7 @@ package enterprise
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
 	"strings"
@@ -222,9 +222,9 @@ func (a *ArchivesApiService) ArchiveImageAnalysisExecute(r ApiArchiveImageAnalys
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -241,7 +241,8 @@ func (a *ArchivesApiService) ArchiveImageAnalysisExecute(r ApiArchiveImageAnalys
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -339,9 +340,9 @@ func (a *ArchivesApiService) CreateAnalysisArchiveRuleExecute(r ApiCreateAnalysi
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -358,7 +359,8 @@ func (a *ArchivesApiService) CreateAnalysisArchiveRuleExecute(r ApiCreateAnalysi
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -414,7 +416,7 @@ func (a *ArchivesApiService) DeleteAnalysisArchiveRuleExecute(r ApiDeleteAnalysi
 	}
 
 	localVarPath := localBasePath + "/archives/rules/{rule_id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"rule_id"+"}", url.PathEscape(parameterToString(r.ruleId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"rule_id"+"}", url.PathEscape(parameterValueToString(r.ruleId, "ruleId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -447,9 +449,9 @@ func (a *ArchivesApiService) DeleteAnalysisArchiveRuleExecute(r ApiDeleteAnalysi
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -466,7 +468,8 @@ func (a *ArchivesApiService) DeleteAnalysisArchiveRuleExecute(r ApiDeleteAnalysi
 				newErr.error = err.Error()
 				return localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarHTTPResponse, newErr
 	}
@@ -521,14 +524,14 @@ func (a *ArchivesApiService) DeleteArchivedAnalysisExecute(r ApiDeleteArchivedAn
 	}
 
 	localVarPath := localBasePath + "/archives/images/{image_digest}"
-	localVarPath = strings.Replace(localVarPath, "{"+"image_digest"+"}", url.PathEscape(parameterToString(r.imageDigest, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"image_digest"+"}", url.PathEscape(parameterValueToString(r.imageDigest, "imageDigest")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
 	if r.force != nil {
-		localVarQueryParams.Add("force", parameterToString(*r.force, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "force", r.force, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -557,9 +560,9 @@ func (a *ArchivesApiService) DeleteArchivedAnalysisExecute(r ApiDeleteArchivedAn
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -576,7 +579,8 @@ func (a *ArchivesApiService) DeleteArchivedAnalysisExecute(r ApiDeleteArchivedAn
 				newErr.error = err.Error()
 				return localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarHTTPResponse, newErr
 	}
@@ -625,7 +629,7 @@ func (a *ArchivesApiService) GetAnalysisArchiveRuleExecute(r ApiGetAnalysisArchi
 	}
 
 	localVarPath := localBasePath + "/archives/rules/{rule_id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"rule_id"+"}", url.PathEscape(parameterToString(r.ruleId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"rule_id"+"}", url.PathEscape(parameterValueToString(r.ruleId, "ruleId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -658,9 +662,9 @@ func (a *ArchivesApiService) GetAnalysisArchiveRuleExecute(r ApiGetAnalysisArchi
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -677,7 +681,8 @@ func (a *ArchivesApiService) GetAnalysisArchiveRuleExecute(r ApiGetAnalysisArchi
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -737,7 +742,7 @@ func (a *ArchivesApiService) GetArchivedAnalysisExecute(r ApiGetArchivedAnalysis
 	}
 
 	localVarPath := localBasePath + "/archives/images/{image_digest}"
-	localVarPath = strings.Replace(localVarPath, "{"+"image_digest"+"}", url.PathEscape(parameterToString(r.imageDigest, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"image_digest"+"}", url.PathEscape(parameterValueToString(r.imageDigest, "imageDigest")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -770,9 +775,9 @@ func (a *ArchivesApiService) GetArchivedAnalysisExecute(r ApiGetArchivedAnalysis
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -789,7 +794,8 @@ func (a *ArchivesApiService) GetArchivedAnalysisExecute(r ApiGetArchivedAnalysis
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -876,9 +882,9 @@ func (a *ArchivesApiService) ListAnalysisArchiveExecute(r ApiListAnalysisArchive
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -895,7 +901,8 @@ func (a *ArchivesApiService) ListAnalysisArchiveExecute(r ApiListAnalysisArchive
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -963,7 +970,7 @@ func (a *ArchivesApiService) ListAnalysisArchiveRulesExecute(r ApiListAnalysisAr
 	localVarFormParams := url.Values{}
 
 	if r.systemGlobal != nil {
-		localVarQueryParams.Add("system_global", parameterToString(*r.systemGlobal, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "system_global", r.systemGlobal, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -992,9 +999,9 @@ func (a *ArchivesApiService) ListAnalysisArchiveRulesExecute(r ApiListAnalysisAr
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1011,7 +1018,8 @@ func (a *ArchivesApiService) ListAnalysisArchiveRulesExecute(r ApiListAnalysisAr
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -1098,9 +1106,9 @@ func (a *ArchivesApiService) ListArchivesExecute(r ApiListArchivesRequest) (*Arc
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1117,7 +1125,8 @@ func (a *ArchivesApiService) ListArchivesExecute(r ApiListArchivesRequest) (*Arc
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}

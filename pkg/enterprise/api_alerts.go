@@ -14,7 +14,7 @@ package enterprise
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
 	"strings"
@@ -187,32 +187,44 @@ func (a *AlertsApiService) GetAlertSummariesExecute(r ApiGetAlertSummariesReques
 	localVarFormParams := url.Values{}
 
 	if r.page != nil {
-		localVarQueryParams.Add("page", parameterToString(*r.page, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "page", r.page, "form", "")
+	} else {
+		var defaultValue int32 = 1
+		r.page = &defaultValue
 	}
 	if r.limit != nil {
-		localVarQueryParams.Add("limit", parameterToString(*r.limit, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "form", "")
+	} else {
+		var defaultValue int32 = 100
+		r.limit = &defaultValue
 	}
 	if r.type_ != nil {
-		localVarQueryParams.Add("type", parameterToString(*r.type_, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "type", r.type_, "form", "")
+	} else {
+		var defaultValue string = "all"
+		r.type_ = &defaultValue
 	}
 	if r.state != nil {
-		localVarQueryParams.Add("state", parameterToString(*r.state, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "state", r.state, "form", "")
+	} else {
+		var defaultValue string = "open"
+		r.state = &defaultValue
 	}
 	if r.createdAfter != nil {
-		localVarQueryParams.Add("created_after", parameterToString(*r.createdAfter, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "created_after", r.createdAfter, "form", "")
 	}
 	if r.createdBefore != nil {
-		localVarQueryParams.Add("created_before", parameterToString(*r.createdBefore, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "created_before", r.createdBefore, "form", "")
 	}
 	if r.resourceLabel != nil {
 		t := *r.resourceLabel
 		if reflect.TypeOf(t).Kind() == reflect.Slice {
 			s := reflect.ValueOf(t)
 			for i := 0; i < s.Len(); i++ {
-				localVarQueryParams.Add("resource_label", parameterToString(s.Index(i), "multi"))
+				parameterAddToHeaderOrQuery(localVarQueryParams, "resource_label", s.Index(i).Interface(), "form", "multi")
 			}
 		} else {
-			localVarQueryParams.Add("resource_label", parameterToString(t, "multi"))
+			parameterAddToHeaderOrQuery(localVarQueryParams, "resource_label", t, "form", "multi")
 		}
 	}
 	// to determine the Content-Type header
@@ -233,7 +245,7 @@ func (a *AlertsApiService) GetAlertSummariesExecute(r ApiGetAlertSummariesReques
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.xAnchoreAccount != nil {
-		localVarHeaderParams["x-anchore-account"] = parameterToString(*r.xAnchoreAccount, "")
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "x-anchore-account", r.xAnchoreAccount, "simple", "")
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
@@ -245,9 +257,9 @@ func (a *AlertsApiService) GetAlertSummariesExecute(r ApiGetAlertSummariesReques
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -322,7 +334,7 @@ func (a *AlertsApiService) GetComplianceViolationAlertExecute(r ApiGetCompliance
 	}
 
 	localVarPath := localBasePath + "/alerts/compliance-violations/{uuid}"
-	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", url.PathEscape(parameterToString(r.uuid, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", url.PathEscape(parameterValueToString(r.uuid, "uuid")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -346,7 +358,7 @@ func (a *AlertsApiService) GetComplianceViolationAlertExecute(r ApiGetCompliance
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.xAnchoreAccount != nil {
-		localVarHeaderParams["x-anchore-account"] = parameterToString(*r.xAnchoreAccount, "")
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "x-anchore-account", r.xAnchoreAccount, "simple", "")
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
@@ -358,9 +370,9 @@ func (a *AlertsApiService) GetComplianceViolationAlertExecute(r ApiGetCompliance
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -499,31 +511,40 @@ func (a *AlertsApiService) GetComplianceViolationAlertsExecute(r ApiGetComplianc
 	localVarFormParams := url.Values{}
 
 	if r.page != nil {
-		localVarQueryParams.Add("page", parameterToString(*r.page, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "page", r.page, "form", "")
+	} else {
+		var defaultValue int32 = 1
+		r.page = &defaultValue
 	}
 	if r.limit != nil {
-		localVarQueryParams.Add("limit", parameterToString(*r.limit, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "form", "")
+	} else {
+		var defaultValue int32 = 100
+		r.limit = &defaultValue
 	}
 	if r.state != nil {
-		localVarQueryParams.Add("state", parameterToString(*r.state, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "state", r.state, "form", "")
+	} else {
+		var defaultValue string = "open"
+		r.state = &defaultValue
 	}
 	if r.createdAfter != nil {
-		localVarQueryParams.Add("created_after", parameterToString(*r.createdAfter, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "created_after", r.createdAfter, "form", "")
 	}
 	if r.createdBefore != nil {
-		localVarQueryParams.Add("created_before", parameterToString(*r.createdBefore, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "created_before", r.createdBefore, "form", "")
 	}
 	if r.resourceImageDigest != nil {
-		localVarQueryParams.Add("resource_image_digest", parameterToString(*r.resourceImageDigest, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "resource_image_digest", r.resourceImageDigest, "form", "")
 	}
 	if r.resourceImageTag != nil {
-		localVarQueryParams.Add("resource_image_tag", parameterToString(*r.resourceImageTag, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "resource_image_tag", r.resourceImageTag, "form", "")
 	}
 	if r.resourceRegistry != nil {
-		localVarQueryParams.Add("resource_registry", parameterToString(*r.resourceRegistry, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "resource_registry", r.resourceRegistry, "form", "")
 	}
 	if r.resourceRepository != nil {
-		localVarQueryParams.Add("resource_repository", parameterToString(*r.resourceRepository, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "resource_repository", r.resourceRepository, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -543,7 +564,7 @@ func (a *AlertsApiService) GetComplianceViolationAlertsExecute(r ApiGetComplianc
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.xAnchoreAccount != nil {
-		localVarHeaderParams["x-anchore-account"] = parameterToString(*r.xAnchoreAccount, "")
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "x-anchore-account", r.xAnchoreAccount, "simple", "")
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
@@ -555,9 +576,9 @@ func (a *AlertsApiService) GetComplianceViolationAlertsExecute(r ApiGetComplianc
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -638,7 +659,7 @@ func (a *AlertsApiService) UpdateComplianceViolationAlertStateExecute(r ApiUpdat
 	}
 
 	localVarPath := localBasePath + "/alerts/compliance-violations/{uuid}"
-	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", url.PathEscape(parameterToString(r.uuid, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", url.PathEscape(parameterValueToString(r.uuid, "uuid")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -665,7 +686,7 @@ func (a *AlertsApiService) UpdateComplianceViolationAlertStateExecute(r ApiUpdat
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.xAnchoreAccount != nil {
-		localVarHeaderParams["x-anchore-account"] = parameterToString(*r.xAnchoreAccount, "")
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "x-anchore-account", r.xAnchoreAccount, "simple", "")
 	}
 	// body params
 	localVarPostBody = r.body
@@ -679,9 +700,9 @@ func (a *AlertsApiService) UpdateComplianceViolationAlertStateExecute(r ApiUpdat
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}

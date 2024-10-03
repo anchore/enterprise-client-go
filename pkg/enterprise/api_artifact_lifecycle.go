@@ -14,7 +14,7 @@ package enterprise
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
 	"strings"
@@ -180,9 +180,9 @@ func (a *ArtifactLifecycleApiService) CreateArtifactLifecyclePolicyExecute(r Api
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -246,7 +246,7 @@ func (a *ArtifactLifecycleApiService) DeleteArtifactLifecyclePolicyExecute(r Api
 	}
 
 	localVarPath := localBasePath + "/system/artifact-lifecycle-policies/{policy_uuid}"
-	localVarPath = strings.Replace(localVarPath, "{"+"policy_uuid"+"}", url.PathEscape(parameterToString(r.policyUuid, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"policy_uuid"+"}", url.PathEscape(parameterValueToString(r.policyUuid, "policyUuid")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -279,9 +279,9 @@ func (a *ArtifactLifecycleApiService) DeleteArtifactLifecyclePolicyExecute(r Api
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -338,7 +338,7 @@ func (a *ArtifactLifecycleApiService) GetArtifactLifecyclePolicyExecute(r ApiGet
 	}
 
 	localVarPath := localBasePath + "/system/artifact-lifecycle-policies/{policy_uuid}"
-	localVarPath = strings.Replace(localVarPath, "{"+"policy_uuid"+"}", url.PathEscape(parameterToString(r.policyUuid, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"policy_uuid"+"}", url.PathEscape(parameterValueToString(r.policyUuid, "policyUuid")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -371,9 +371,9 @@ func (a *ArtifactLifecycleApiService) GetArtifactLifecyclePolicyExecute(r ApiGet
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -453,17 +453,17 @@ func (a *ArtifactLifecycleApiService) GetArtifactLifecyclePolicyByVersionExecute
 	}
 
 	localVarPath := localBasePath + "/system/artifact-lifecycle-policies/{policy_uuid}/versions"
-	localVarPath = strings.Replace(localVarPath, "{"+"policy_uuid"+"}", url.PathEscape(parameterToString(r.policyUuid, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"policy_uuid"+"}", url.PathEscape(parameterValueToString(r.policyUuid, "policyUuid")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
 	if r.version != nil {
-		localVarQueryParams.Add("version", parameterToString(*r.version, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "version", r.version, "form", "")
 	}
 	if r.latest != nil {
-		localVarQueryParams.Add("latest", parameterToString(*r.latest, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "latest", r.latest, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -492,9 +492,9 @@ func (a *ArtifactLifecycleApiService) GetArtifactLifecyclePolicyByVersionExecute
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -589,9 +589,9 @@ func (a *ArtifactLifecycleApiService) ListArtifactLifecyclePoliciesExecute(r Api
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -663,7 +663,7 @@ func (a *ArtifactLifecycleApiService) UpdateArtifactLifecyclePolicyExecute(r Api
 	}
 
 	localVarPath := localBasePath + "/system/artifact-lifecycle-policies/{policy_uuid}"
-	localVarPath = strings.Replace(localVarPath, "{"+"policy_uuid"+"}", url.PathEscape(parameterToString(r.policyUuid, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"policy_uuid"+"}", url.PathEscape(parameterValueToString(r.policyUuid, "policyUuid")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -698,9 +698,9 @@ func (a *ArtifactLifecycleApiService) UpdateArtifactLifecyclePolicyExecute(r Api
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}

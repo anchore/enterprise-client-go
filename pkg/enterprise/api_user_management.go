@@ -14,7 +14,7 @@ package enterprise
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
 	"strings"
@@ -506,7 +506,7 @@ func (a *UserManagementApiService) AddUserGroupRolesExecute(r ApiAddUserGroupRol
 	}
 
 	localVarPath := localBasePath + "/system/user-groups/{group_uuid}/roles"
-	localVarPath = strings.Replace(localVarPath, "{"+"group_uuid"+"}", url.PathEscape(parameterToString(r.groupUuid, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"group_uuid"+"}", url.PathEscape(parameterValueToString(r.groupUuid, "groupUuid")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -544,9 +544,9 @@ func (a *UserManagementApiService) AddUserGroupRolesExecute(r ApiAddUserGroupRol
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -563,7 +563,8 @@ func (a *UserManagementApiService) AddUserGroupRolesExecute(r ApiAddUserGroupRol
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -627,7 +628,7 @@ func (a *UserManagementApiService) AddUserGroupUsersExecute(r ApiAddUserGroupUse
 	}
 
 	localVarPath := localBasePath + "/system/user-groups/{group_uuid}/users"
-	localVarPath = strings.Replace(localVarPath, "{"+"group_uuid"+"}", url.PathEscape(parameterToString(r.groupUuid, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"group_uuid"+"}", url.PathEscape(parameterValueToString(r.groupUuid, "groupUuid")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -665,9 +666,9 @@ func (a *UserManagementApiService) AddUserGroupUsersExecute(r ApiAddUserGroupUse
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -684,7 +685,8 @@ func (a *UserManagementApiService) AddUserGroupUsersExecute(r ApiAddUserGroupUse
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -782,9 +784,9 @@ func (a *UserManagementApiService) CreateAccountExecute(r ApiCreateAccountReques
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -801,7 +803,8 @@ func (a *UserManagementApiService) CreateAccountExecute(r ApiCreateAccountReques
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 500 {
@@ -811,7 +814,8 @@ func (a *UserManagementApiService) CreateAccountExecute(r ApiCreateAccountReques
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -875,7 +879,7 @@ func (a *UserManagementApiService) CreateUserExecute(r ApiCreateUserRequest) (*U
 	}
 
 	localVarPath := localBasePath + "/accounts/{account_name}/users"
-	localVarPath = strings.Replace(localVarPath, "{"+"account_name"+"}", url.PathEscape(parameterToString(r.accountName, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"account_name"+"}", url.PathEscape(parameterValueToString(r.accountName, "accountName")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -913,9 +917,9 @@ func (a *UserManagementApiService) CreateUserExecute(r ApiCreateUserRequest) (*U
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -990,8 +994,8 @@ func (a *UserManagementApiService) CreateUserApiKeyExecute(r ApiCreateUserApiKey
 	}
 
 	localVarPath := localBasePath + "/accounts/{account_name}/users/{username}/api-keys"
-	localVarPath = strings.Replace(localVarPath, "{"+"account_name"+"}", url.PathEscape(parameterToString(r.accountName, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"username"+"}", url.PathEscape(parameterToString(r.username, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"account_name"+"}", url.PathEscape(parameterValueToString(r.accountName, "accountName")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"username"+"}", url.PathEscape(parameterValueToString(r.username, "username")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1029,9 +1033,9 @@ func (a *UserManagementApiService) CreateUserApiKeyExecute(r ApiCreateUserApiKey
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1048,7 +1052,8 @@ func (a *UserManagementApiService) CreateUserApiKeyExecute(r ApiCreateUserApiKey
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -1115,8 +1120,8 @@ func (a *UserManagementApiService) CreateUserCredentialExecute(r ApiCreateUserCr
 	}
 
 	localVarPath := localBasePath + "/accounts/{account_name}/users/{username}/credentials"
-	localVarPath = strings.Replace(localVarPath, "{"+"account_name"+"}", url.PathEscape(parameterToString(r.accountName, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"username"+"}", url.PathEscape(parameterToString(r.username, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"account_name"+"}", url.PathEscape(parameterValueToString(r.accountName, "accountName")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"username"+"}", url.PathEscape(parameterValueToString(r.username, "username")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1154,9 +1159,9 @@ func (a *UserManagementApiService) CreateUserCredentialExecute(r ApiCreateUserCr
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1173,7 +1178,8 @@ func (a *UserManagementApiService) CreateUserCredentialExecute(r ApiCreateUserCr
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -1271,9 +1277,9 @@ func (a *UserManagementApiService) CreateUserGroupExecute(r ApiCreateUserGroupRe
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1290,7 +1296,8 @@ func (a *UserManagementApiService) CreateUserGroupExecute(r ApiCreateUserGroupRe
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 409 {
@@ -1300,7 +1307,8 @@ func (a *UserManagementApiService) CreateUserGroupExecute(r ApiCreateUserGroupRe
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -1356,7 +1364,7 @@ func (a *UserManagementApiService) DeleteAccountExecute(r ApiDeleteAccountReques
 	}
 
 	localVarPath := localBasePath + "/accounts/{account_name}"
-	localVarPath = strings.Replace(localVarPath, "{"+"account_name"+"}", url.PathEscape(parameterToString(r.accountName, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"account_name"+"}", url.PathEscape(parameterValueToString(r.accountName, "accountName")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1389,9 +1397,9 @@ func (a *UserManagementApiService) DeleteAccountExecute(r ApiDeleteAccountReques
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -1408,7 +1416,8 @@ func (a *UserManagementApiService) DeleteAccountExecute(r ApiDeleteAccountReques
 				newErr.error = err.Error()
 				return localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarHTTPResponse, newErr
 	}
@@ -1458,8 +1467,8 @@ func (a *UserManagementApiService) DeleteUserExecute(r ApiDeleteUserRequest) (*h
 	}
 
 	localVarPath := localBasePath + "/accounts/{account_name}/users/{username}"
-	localVarPath = strings.Replace(localVarPath, "{"+"account_name"+"}", url.PathEscape(parameterToString(r.accountName, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"username"+"}", url.PathEscape(parameterToString(r.username, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"account_name"+"}", url.PathEscape(parameterValueToString(r.accountName, "accountName")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"username"+"}", url.PathEscape(parameterValueToString(r.username, "username")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1492,9 +1501,9 @@ func (a *UserManagementApiService) DeleteUserExecute(r ApiDeleteUserRequest) (*h
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -1511,7 +1520,8 @@ func (a *UserManagementApiService) DeleteUserExecute(r ApiDeleteUserRequest) (*h
 				newErr.error = err.Error()
 				return localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarHTTPResponse, newErr
 	}
@@ -1564,9 +1574,9 @@ func (a *UserManagementApiService) DeleteUserApiKeyExecute(r ApiDeleteUserApiKey
 	}
 
 	localVarPath := localBasePath + "/accounts/{account_name}/users/{username}/api-keys/{key_name}"
-	localVarPath = strings.Replace(localVarPath, "{"+"account_name"+"}", url.PathEscape(parameterToString(r.accountName, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"username"+"}", url.PathEscape(parameterToString(r.username, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"key_name"+"}", url.PathEscape(parameterToString(r.keyName, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"account_name"+"}", url.PathEscape(parameterValueToString(r.accountName, "accountName")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"username"+"}", url.PathEscape(parameterValueToString(r.username, "username")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"key_name"+"}", url.PathEscape(parameterValueToString(r.keyName, "keyName")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1599,9 +1609,9 @@ func (a *UserManagementApiService) DeleteUserApiKeyExecute(r ApiDeleteUserApiKey
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -1618,7 +1628,8 @@ func (a *UserManagementApiService) DeleteUserApiKeyExecute(r ApiDeleteUserApiKey
 				newErr.error = err.Error()
 				return localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarHTTPResponse, newErr
 	}
@@ -1674,8 +1685,8 @@ func (a *UserManagementApiService) DeleteUserCredentialExecute(r ApiDeleteUserCr
 	}
 
 	localVarPath := localBasePath + "/accounts/{account_name}/users/{username}/credentials"
-	localVarPath = strings.Replace(localVarPath, "{"+"account_name"+"}", url.PathEscape(parameterToString(r.accountName, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"username"+"}", url.PathEscape(parameterToString(r.username, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"account_name"+"}", url.PathEscape(parameterValueToString(r.accountName, "accountName")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"username"+"}", url.PathEscape(parameterValueToString(r.username, "username")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1684,7 +1695,7 @@ func (a *UserManagementApiService) DeleteUserCredentialExecute(r ApiDeleteUserCr
 		return nil, reportError("credentialType is required and must be specified")
 	}
 
-	localVarQueryParams.Add("credential_type", parameterToString(*r.credentialType, ""))
+	parameterAddToHeaderOrQuery(localVarQueryParams, "credential_type", r.credentialType, "form", "")
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -1712,9 +1723,9 @@ func (a *UserManagementApiService) DeleteUserCredentialExecute(r ApiDeleteUserCr
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -1731,7 +1742,8 @@ func (a *UserManagementApiService) DeleteUserCredentialExecute(r ApiDeleteUserCr
 				newErr.error = err.Error()
 				return localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarHTTPResponse, newErr
 	}
@@ -1778,7 +1790,7 @@ func (a *UserManagementApiService) DeleteUserGroupExecute(r ApiDeleteUserGroupRe
 	}
 
 	localVarPath := localBasePath + "/system/user-groups/{group_uuid}"
-	localVarPath = strings.Replace(localVarPath, "{"+"group_uuid"+"}", url.PathEscape(parameterToString(r.groupUuid, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"group_uuid"+"}", url.PathEscape(parameterValueToString(r.groupUuid, "groupUuid")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1811,9 +1823,9 @@ func (a *UserManagementApiService) DeleteUserGroupExecute(r ApiDeleteUserGroupRe
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -1830,7 +1842,8 @@ func (a *UserManagementApiService) DeleteUserGroupExecute(r ApiDeleteUserGroupRe
 				newErr.error = err.Error()
 				return localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarHTTPResponse, newErr
 	}
@@ -1891,7 +1904,7 @@ func (a *UserManagementApiService) DeleteUserGroupRoleExecute(r ApiDeleteUserGro
 	}
 
 	localVarPath := localBasePath + "/system/user-groups/{group_uuid}/roles"
-	localVarPath = strings.Replace(localVarPath, "{"+"group_uuid"+"}", url.PathEscape(parameterToString(r.groupUuid, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"group_uuid"+"}", url.PathEscape(parameterValueToString(r.groupUuid, "groupUuid")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1902,14 +1915,14 @@ func (a *UserManagementApiService) DeleteUserGroupRoleExecute(r ApiDeleteUserGro
 		if reflect.TypeOf(t).Kind() == reflect.Slice {
 			s := reflect.ValueOf(t)
 			for i := 0; i < s.Len(); i++ {
-				localVarQueryParams.Add("membership_id", parameterToString(s.Index(i), "multi"))
+				parameterAddToHeaderOrQuery(localVarQueryParams, "membership_id", s.Index(i).Interface(), "form", "multi")
 			}
 		} else {
-			localVarQueryParams.Add("membership_id", parameterToString(t, "multi"))
+			parameterAddToHeaderOrQuery(localVarQueryParams, "membership_id", t, "form", "multi")
 		}
 	}
 	if r.allRolesForAccount != nil {
-		localVarQueryParams.Add("all_roles_for_account", parameterToString(*r.allRolesForAccount, "csv"))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "all_roles_for_account", r.allRolesForAccount, "form", "csv")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -1938,9 +1951,9 @@ func (a *UserManagementApiService) DeleteUserGroupRoleExecute(r ApiDeleteUserGro
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -1957,7 +1970,8 @@ func (a *UserManagementApiService) DeleteUserGroupRoleExecute(r ApiDeleteUserGro
 				newErr.error = err.Error()
 				return localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarHTTPResponse, newErr
 	}
@@ -2011,7 +2025,7 @@ func (a *UserManagementApiService) DeleteUserGroupUsersExecute(r ApiDeleteUserGr
 	}
 
 	localVarPath := localBasePath + "/system/user-groups/{group_uuid}/users"
-	localVarPath = strings.Replace(localVarPath, "{"+"group_uuid"+"}", url.PathEscape(parameterToString(r.groupUuid, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"group_uuid"+"}", url.PathEscape(parameterValueToString(r.groupUuid, "groupUuid")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -2025,10 +2039,10 @@ func (a *UserManagementApiService) DeleteUserGroupUsersExecute(r ApiDeleteUserGr
 		if reflect.TypeOf(t).Kind() == reflect.Slice {
 			s := reflect.ValueOf(t)
 			for i := 0; i < s.Len(); i++ {
-				localVarQueryParams.Add("username", parameterToString(s.Index(i), "multi"))
+				parameterAddToHeaderOrQuery(localVarQueryParams, "username", s.Index(i).Interface(), "form", "multi")
 			}
 		} else {
-			localVarQueryParams.Add("username", parameterToString(t, "multi"))
+			parameterAddToHeaderOrQuery(localVarQueryParams, "username", t, "form", "multi")
 		}
 	}
 	// to determine the Content-Type header
@@ -2058,9 +2072,9 @@ func (a *UserManagementApiService) DeleteUserGroupUsersExecute(r ApiDeleteUserGr
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -2077,7 +2091,8 @@ func (a *UserManagementApiService) DeleteUserGroupUsersExecute(r ApiDeleteUserGr
 				newErr.error = err.Error()
 				return localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarHTTPResponse, newErr
 	}
@@ -2126,7 +2141,7 @@ func (a *UserManagementApiService) GetAccountExecute(r ApiGetAccountRequest) (*A
 	}
 
 	localVarPath := localBasePath + "/accounts/{account_name}"
-	localVarPath = strings.Replace(localVarPath, "{"+"account_name"+"}", url.PathEscape(parameterToString(r.accountName, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"account_name"+"}", url.PathEscape(parameterValueToString(r.accountName, "accountName")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -2159,9 +2174,9 @@ func (a *UserManagementApiService) GetAccountExecute(r ApiGetAccountRequest) (*A
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -2178,7 +2193,8 @@ func (a *UserManagementApiService) GetAccountExecute(r ApiGetAccountRequest) (*A
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -2239,8 +2255,8 @@ func (a *UserManagementApiService) GetAccountUserExecute(r ApiGetAccountUserRequ
 	}
 
 	localVarPath := localBasePath + "/accounts/{account_name}/users/{username}"
-	localVarPath = strings.Replace(localVarPath, "{"+"account_name"+"}", url.PathEscape(parameterToString(r.accountName, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"username"+"}", url.PathEscape(parameterToString(r.username, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"account_name"+"}", url.PathEscape(parameterValueToString(r.accountName, "accountName")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"username"+"}", url.PathEscape(parameterValueToString(r.username, "username")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -2273,9 +2289,9 @@ func (a *UserManagementApiService) GetAccountUserExecute(r ApiGetAccountUserRequ
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -2292,7 +2308,8 @@ func (a *UserManagementApiService) GetAccountUserExecute(r ApiGetAccountUserRequ
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -2407,19 +2424,19 @@ func (a *UserManagementApiService) GetOauthTokenExecute(r ApiGetOauthTokenReques
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.grantType != nil {
-		localVarFormParams.Add("grant_type", parameterToString(*r.grantType, ""))
+		parameterAddToHeaderOrQuery(localVarFormParams, "grant_type", r.grantType, "", "")
 	}
 	if r.username != nil {
-		localVarFormParams.Add("username", parameterToString(*r.username, ""))
+		parameterAddToHeaderOrQuery(localVarFormParams, "username", r.username, "", "")
 	}
 	if r.password != nil {
-		localVarFormParams.Add("password", parameterToString(*r.password, ""))
+		parameterAddToHeaderOrQuery(localVarFormParams, "password", r.password, "", "")
 	}
 	if r.clientId != nil {
-		localVarFormParams.Add("client_id", parameterToString(*r.clientId, ""))
+		parameterAddToHeaderOrQuery(localVarFormParams, "client_id", r.clientId, "", "")
 	}
 	if r.refreshToken != nil {
-		localVarFormParams.Add("refresh_token", parameterToString(*r.refreshToken, ""))
+		parameterAddToHeaderOrQuery(localVarFormParams, "refresh_token", r.refreshToken, "", "")
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
@@ -2431,9 +2448,9 @@ func (a *UserManagementApiService) GetOauthTokenExecute(r ApiGetOauthTokenReques
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -2450,7 +2467,8 @@ func (a *UserManagementApiService) GetOauthTokenExecute(r ApiGetOauthTokenReques
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -2514,9 +2532,9 @@ func (a *UserManagementApiService) GetUserApiKeyExecute(r ApiGetUserApiKeyReques
 	}
 
 	localVarPath := localBasePath + "/accounts/{account_name}/users/{username}/api-keys/{key_name}"
-	localVarPath = strings.Replace(localVarPath, "{"+"account_name"+"}", url.PathEscape(parameterToString(r.accountName, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"username"+"}", url.PathEscape(parameterToString(r.username, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"key_name"+"}", url.PathEscape(parameterToString(r.keyName, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"account_name"+"}", url.PathEscape(parameterValueToString(r.accountName, "accountName")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"username"+"}", url.PathEscape(parameterValueToString(r.username, "username")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"key_name"+"}", url.PathEscape(parameterValueToString(r.keyName, "keyName")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -2549,9 +2567,9 @@ func (a *UserManagementApiService) GetUserApiKeyExecute(r ApiGetUserApiKeyReques
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -2568,7 +2586,8 @@ func (a *UserManagementApiService) GetUserApiKeyExecute(r ApiGetUserApiKeyReques
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -2626,7 +2645,7 @@ func (a *UserManagementApiService) GetUserGroupExecute(r ApiGetUserGroupRequest)
 	}
 
 	localVarPath := localBasePath + "/system/user-groups/{group_uuid}"
-	localVarPath = strings.Replace(localVarPath, "{"+"group_uuid"+"}", url.PathEscape(parameterToString(r.groupUuid, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"group_uuid"+"}", url.PathEscape(parameterValueToString(r.groupUuid, "groupUuid")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -2659,9 +2678,9 @@ func (a *UserManagementApiService) GetUserGroupExecute(r ApiGetUserGroupRequest)
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -2678,7 +2697,8 @@ func (a *UserManagementApiService) GetUserGroupExecute(r ApiGetUserGroupRequest)
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -2746,7 +2766,7 @@ func (a *UserManagementApiService) ListAccountsExecute(r ApiListAccountsRequest)
 	localVarFormParams := url.Values{}
 
 	if r.state != nil {
-		localVarQueryParams.Add("state", parameterToString(*r.state, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "state", r.state, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -2775,9 +2795,9 @@ func (a *UserManagementApiService) ListAccountsExecute(r ApiListAccountsRequest)
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -2794,7 +2814,8 @@ func (a *UserManagementApiService) ListAccountsExecute(r ApiListAccountsRequest)
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -2881,9 +2902,9 @@ func (a *UserManagementApiService) ListAllSystemUsersExecute(r ApiListAllSystemU
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -2900,7 +2921,8 @@ func (a *UserManagementApiService) ListAllSystemUsersExecute(r ApiListAllSystemU
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -2961,8 +2983,8 @@ func (a *UserManagementApiService) ListUserApiKeysExecute(r ApiListUserApiKeysRe
 	}
 
 	localVarPath := localBasePath + "/accounts/{account_name}/users/{username}/api-keys"
-	localVarPath = strings.Replace(localVarPath, "{"+"account_name"+"}", url.PathEscape(parameterToString(r.accountName, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"username"+"}", url.PathEscape(parameterToString(r.username, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"account_name"+"}", url.PathEscape(parameterValueToString(r.accountName, "accountName")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"username"+"}", url.PathEscape(parameterValueToString(r.username, "username")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -2995,9 +3017,9 @@ func (a *UserManagementApiService) ListUserApiKeysExecute(r ApiListUserApiKeysRe
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -3014,7 +3036,8 @@ func (a *UserManagementApiService) ListUserApiKeysExecute(r ApiListUserApiKeysRe
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -3075,8 +3098,8 @@ func (a *UserManagementApiService) ListUserCredentialsExecute(r ApiListUserCrede
 	}
 
 	localVarPath := localBasePath + "/accounts/{account_name}/users/{username}/credentials"
-	localVarPath = strings.Replace(localVarPath, "{"+"account_name"+"}", url.PathEscape(parameterToString(r.accountName, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"username"+"}", url.PathEscape(parameterToString(r.username, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"account_name"+"}", url.PathEscape(parameterValueToString(r.accountName, "accountName")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"username"+"}", url.PathEscape(parameterValueToString(r.username, "username")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -3109,9 +3132,9 @@ func (a *UserManagementApiService) ListUserCredentialsExecute(r ApiListUserCrede
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -3128,7 +3151,8 @@ func (a *UserManagementApiService) ListUserCredentialsExecute(r ApiListUserCrede
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -3186,7 +3210,7 @@ func (a *UserManagementApiService) ListUserGroupRolesExecute(r ApiListUserGroupR
 	}
 
 	localVarPath := localBasePath + "/system/user-groups/{group_uuid}/roles"
-	localVarPath = strings.Replace(localVarPath, "{"+"group_uuid"+"}", url.PathEscape(parameterToString(r.groupUuid, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"group_uuid"+"}", url.PathEscape(parameterValueToString(r.groupUuid, "groupUuid")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -3219,9 +3243,9 @@ func (a *UserManagementApiService) ListUserGroupRolesExecute(r ApiListUserGroupR
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -3238,7 +3262,8 @@ func (a *UserManagementApiService) ListUserGroupRolesExecute(r ApiListUserGroupR
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -3296,7 +3321,7 @@ func (a *UserManagementApiService) ListUserGroupUsersExecute(r ApiListUserGroupU
 	}
 
 	localVarPath := localBasePath + "/system/user-groups/{group_uuid}/users"
-	localVarPath = strings.Replace(localVarPath, "{"+"group_uuid"+"}", url.PathEscape(parameterToString(r.groupUuid, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"group_uuid"+"}", url.PathEscape(parameterValueToString(r.groupUuid, "groupUuid")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -3329,9 +3354,9 @@ func (a *UserManagementApiService) ListUserGroupUsersExecute(r ApiListUserGroupU
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -3348,7 +3373,8 @@ func (a *UserManagementApiService) ListUserGroupUsersExecute(r ApiListUserGroupU
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -3430,13 +3456,13 @@ func (a *UserManagementApiService) ListUserGroupsExecute(r ApiListUserGroupsRequ
 	localVarFormParams := url.Values{}
 
 	if r.containsUser != nil {
-		localVarQueryParams.Add("contains_user", parameterToString(*r.containsUser, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "contains_user", r.containsUser, "form", "")
 	}
 	if r.userGroupName != nil {
-		localVarQueryParams.Add("user_group_name", parameterToString(*r.userGroupName, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "user_group_name", r.userGroupName, "form", "")
 	}
 	if r.containsAccount != nil {
-		localVarQueryParams.Add("contains_account", parameterToString(*r.containsAccount, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "contains_account", r.containsAccount, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -3465,9 +3491,9 @@ func (a *UserManagementApiService) ListUserGroupsExecute(r ApiListUserGroupsRequ
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -3533,7 +3559,7 @@ func (a *UserManagementApiService) ListUsersExecute(r ApiListUsersRequest) ([]Us
 	}
 
 	localVarPath := localBasePath + "/accounts/{account_name}/users"
-	localVarPath = strings.Replace(localVarPath, "{"+"account_name"+"}", url.PathEscape(parameterToString(r.accountName, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"account_name"+"}", url.PathEscape(parameterValueToString(r.accountName, "accountName")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -3566,9 +3592,9 @@ func (a *UserManagementApiService) ListUsersExecute(r ApiListUsersRequest) ([]Us
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -3585,7 +3611,8 @@ func (a *UserManagementApiService) ListUsersExecute(r ApiListUsersRequest) ([]Us
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -3643,7 +3670,7 @@ func (a *UserManagementApiService) ListUsersWithRolesExecute(r ApiListUsersWithR
 	}
 
 	localVarPath := localBasePath + "/accounts/{account_name}/users-with-roles"
-	localVarPath = strings.Replace(localVarPath, "{"+"account_name"+"}", url.PathEscape(parameterToString(r.accountName, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"account_name"+"}", url.PathEscape(parameterValueToString(r.accountName, "accountName")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -3676,9 +3703,9 @@ func (a *UserManagementApiService) ListUsersWithRolesExecute(r ApiListUsersWithR
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -3695,7 +3722,8 @@ func (a *UserManagementApiService) ListUsersWithRolesExecute(r ApiListUsersWithR
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -3765,9 +3793,9 @@ func (a *UserManagementApiService) PatchUserApiKeyExecute(r ApiPatchUserApiKeyRe
 	}
 
 	localVarPath := localBasePath + "/accounts/{account_name}/users/{username}/api-keys/{key_name}"
-	localVarPath = strings.Replace(localVarPath, "{"+"account_name"+"}", url.PathEscape(parameterToString(r.accountName, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"username"+"}", url.PathEscape(parameterToString(r.username, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"key_name"+"}", url.PathEscape(parameterToString(r.keyName, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"account_name"+"}", url.PathEscape(parameterValueToString(r.accountName, "accountName")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"username"+"}", url.PathEscape(parameterValueToString(r.username, "username")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"key_name"+"}", url.PathEscape(parameterValueToString(r.keyName, "keyName")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -3802,9 +3830,9 @@ func (a *UserManagementApiService) PatchUserApiKeyExecute(r ApiPatchUserApiKeyRe
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -3821,7 +3849,8 @@ func (a *UserManagementApiService) PatchUserApiKeyExecute(r ApiPatchUserApiKeyRe
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -3913,10 +3942,10 @@ func (a *UserManagementApiService) RevokeOauthTokenExecute(r ApiRevokeOauthToken
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.token != nil {
-		localVarFormParams.Add("token", parameterToString(*r.token, ""))
+		parameterAddToHeaderOrQuery(localVarFormParams, "token", r.token, "", "")
 	}
 	if r.tokenTypeHint != nil {
-		localVarFormParams.Add("token_type_hint", parameterToString(*r.tokenTypeHint, ""))
+		parameterAddToHeaderOrQuery(localVarFormParams, "token_type_hint", r.tokenTypeHint, "", "")
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
@@ -3928,9 +3957,9 @@ func (a *UserManagementApiService) RevokeOauthTokenExecute(r ApiRevokeOauthToken
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -3947,7 +3976,8 @@ func (a *UserManagementApiService) RevokeOauthTokenExecute(r ApiRevokeOauthToken
 				newErr.error = err.Error()
 				return localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarHTTPResponse, newErr
 		}
 		return localVarHTTPResponse, newErr
@@ -4010,7 +4040,7 @@ func (a *UserManagementApiService) UpdateAccountExecute(r ApiUpdateAccountReques
 	}
 
 	localVarPath := localBasePath + "/accounts/{account_name}"
-	localVarPath = strings.Replace(localVarPath, "{"+"account_name"+"}", url.PathEscape(parameterToString(r.accountName, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"account_name"+"}", url.PathEscape(parameterValueToString(r.accountName, "accountName")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -4037,7 +4067,7 @@ func (a *UserManagementApiService) UpdateAccountExecute(r ApiUpdateAccountReques
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.xAnchoreAccount != nil {
-		localVarHeaderParams["x-anchore-account"] = parameterToString(*r.xAnchoreAccount, "")
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "x-anchore-account", r.xAnchoreAccount, "simple", "")
 	}
 	// body params
 	localVarPostBody = r.info
@@ -4051,9 +4081,9 @@ func (a *UserManagementApiService) UpdateAccountExecute(r ApiUpdateAccountReques
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -4070,7 +4100,8 @@ func (a *UserManagementApiService) UpdateAccountExecute(r ApiUpdateAccountReques
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -4134,7 +4165,7 @@ func (a *UserManagementApiService) UpdateAccountStateExecute(r ApiUpdateAccountS
 	}
 
 	localVarPath := localBasePath + "/accounts/{account_name}/state"
-	localVarPath = strings.Replace(localVarPath, "{"+"account_name"+"}", url.PathEscape(parameterToString(r.accountName, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"account_name"+"}", url.PathEscape(parameterValueToString(r.accountName, "accountName")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -4172,9 +4203,9 @@ func (a *UserManagementApiService) UpdateAccountStateExecute(r ApiUpdateAccountS
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -4191,7 +4222,8 @@ func (a *UserManagementApiService) UpdateAccountStateExecute(r ApiUpdateAccountS
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 500 {
@@ -4201,7 +4233,8 @@ func (a *UserManagementApiService) UpdateAccountStateExecute(r ApiUpdateAccountS
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -4265,7 +4298,7 @@ func (a *UserManagementApiService) UpdateUserGroupExecute(r ApiUpdateUserGroupRe
 	}
 
 	localVarPath := localBasePath + "/system/user-groups/{group_uuid}"
-	localVarPath = strings.Replace(localVarPath, "{"+"group_uuid"+"}", url.PathEscape(parameterToString(r.groupUuid, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"group_uuid"+"}", url.PathEscape(parameterValueToString(r.groupUuid, "groupUuid")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -4303,9 +4336,9 @@ func (a *UserManagementApiService) UpdateUserGroupExecute(r ApiUpdateUserGroupRe
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -4322,7 +4355,8 @@ func (a *UserManagementApiService) UpdateUserGroupExecute(r ApiUpdateUserGroupRe
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}

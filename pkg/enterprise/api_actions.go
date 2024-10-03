@@ -14,7 +14,7 @@ package enterprise
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
 	"time"
@@ -138,9 +138,9 @@ func (a *ActionsApiService) AddActionPlanExecute(r ApiAddActionPlanRequest) (*Ac
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -237,13 +237,13 @@ func (a *ActionsApiService) GetActionPlansExecute(r ApiGetActionPlansRequest) ([
 	localVarFormParams := url.Values{}
 
 	if r.imageTag != nil {
-		localVarQueryParams.Add("image_tag", parameterToString(*r.imageTag, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "image_tag", r.imageTag, "form", "")
 	}
 	if r.imageDigest != nil {
-		localVarQueryParams.Add("image_digest", parameterToString(*r.imageDigest, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "image_digest", r.imageDigest, "form", "")
 	}
 	if r.createdAfter != nil {
-		localVarQueryParams.Add("created_after", parameterToString(*r.createdAfter, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "created_after", r.createdAfter, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -263,7 +263,7 @@ func (a *ActionsApiService) GetActionPlansExecute(r ApiGetActionPlansRequest) ([
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.xAnchoreAccount != nil {
-		localVarHeaderParams["x-anchore-account"] = parameterToString(*r.xAnchoreAccount, "")
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "x-anchore-account", r.xAnchoreAccount, "simple", "")
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
@@ -275,9 +275,9 @@ func (a *ActionsApiService) GetActionPlansExecute(r ApiGetActionPlansRequest) ([
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}

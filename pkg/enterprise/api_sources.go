@@ -14,7 +14,7 @@ package enterprise
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
 	"strings"
@@ -229,14 +229,14 @@ func (a *SourcesApiService) DeleteSourceExecute(r ApiDeleteSourceRequest) (*http
 	}
 
 	localVarPath := localBasePath + "/sources/{source_id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"source_id"+"}", url.PathEscape(parameterToString(r.sourceId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"source_id"+"}", url.PathEscape(parameterValueToString(r.sourceId, "sourceId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
 	if r.force != nil {
-		localVarQueryParams.Add("force", parameterToString(*r.force, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "force", r.force, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -265,9 +265,9 @@ func (a *SourcesApiService) DeleteSourceExecute(r ApiDeleteSourceRequest) (*http
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -324,7 +324,7 @@ func (a *SourcesApiService) GetSourceExecute(r ApiGetSourceRequest) (*SourceMani
 	}
 
 	localVarPath := localBasePath + "/sources/{source_id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"source_id"+"}", url.PathEscape(parameterToString(r.sourceId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"source_id"+"}", url.PathEscape(parameterValueToString(r.sourceId, "sourceId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -357,9 +357,9 @@ func (a *SourcesApiService) GetSourceExecute(r ApiGetSourceRequest) (*SourceMani
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -428,8 +428,8 @@ func (a *SourcesApiService) GetSourceContentByTypeExecute(r ApiGetSourceContentB
 	}
 
 	localVarPath := localBasePath + "/sources/{source_id}/content/{content_type}"
-	localVarPath = strings.Replace(localVarPath, "{"+"source_id"+"}", url.PathEscape(parameterToString(r.sourceId, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"content_type"+"}", url.PathEscape(parameterToString(r.contentType, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"source_id"+"}", url.PathEscape(parameterValueToString(r.sourceId, "sourceId")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"content_type"+"}", url.PathEscape(parameterValueToString(r.contentType, "contentType")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -462,9 +462,9 @@ func (a *SourcesApiService) GetSourceContentByTypeExecute(r ApiGetSourceContentB
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -481,7 +481,8 @@ func (a *SourcesApiService) GetSourceContentByTypeExecute(r ApiGetSourceContentB
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -539,7 +540,7 @@ func (a *SourcesApiService) GetSourceContentSummaryExecute(r ApiGetSourceContent
 	}
 
 	localVarPath := localBasePath + "/sources/{source_id}/content-summary"
-	localVarPath = strings.Replace(localVarPath, "{"+"source_id"+"}", url.PathEscape(parameterToString(r.sourceId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"source_id"+"}", url.PathEscape(parameterValueToString(r.sourceId, "sourceId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -572,9 +573,9 @@ func (a *SourcesApiService) GetSourceContentSummaryExecute(r ApiGetSourceContent
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -591,7 +592,8 @@ func (a *SourcesApiService) GetSourceContentSummaryExecute(r ApiGetSourceContent
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -649,7 +651,7 @@ func (a *SourcesApiService) GetSourceContentTypesExecute(r ApiGetSourceContentTy
 	}
 
 	localVarPath := localBasePath + "/sources/{source_id}/content"
-	localVarPath = strings.Replace(localVarPath, "{"+"source_id"+"}", url.PathEscape(parameterToString(r.sourceId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"source_id"+"}", url.PathEscape(parameterValueToString(r.sourceId, "sourceId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -682,9 +684,9 @@ func (a *SourcesApiService) GetSourceContentTypesExecute(r ApiGetSourceContentTy
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -756,14 +758,14 @@ func (a *SourcesApiService) GetSourcePolicyCheckExecute(r ApiGetSourcePolicyChec
 	}
 
 	localVarPath := localBasePath + "/sources/{source_id}/check"
-	localVarPath = strings.Replace(localVarPath, "{"+"source_id"+"}", url.PathEscape(parameterToString(r.sourceId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"source_id"+"}", url.PathEscape(parameterValueToString(r.sourceId, "sourceId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
 	if r.policyId != nil {
-		localVarQueryParams.Add("policy_id", parameterToString(*r.policyId, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "policy_id", r.policyId, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -792,9 +794,9 @@ func (a *SourcesApiService) GetSourcePolicyCheckExecute(r ApiGetSourcePolicyChec
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -860,7 +862,7 @@ func (a *SourcesApiService) GetSourceSbomCyclonedxJsonExecute(r ApiGetSourceSbom
 	}
 
 	localVarPath := localBasePath + "/sources/{source_id}/sbom/cyclonedx-json"
-	localVarPath = strings.Replace(localVarPath, "{"+"source_id"+"}", url.PathEscape(parameterToString(r.sourceId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"source_id"+"}", url.PathEscape(parameterValueToString(r.sourceId, "sourceId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -893,9 +895,9 @@ func (a *SourcesApiService) GetSourceSbomCyclonedxJsonExecute(r ApiGetSourceSbom
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -961,7 +963,7 @@ func (a *SourcesApiService) GetSourceSbomNativeJsonExecute(r ApiGetSourceSbomNat
 	}
 
 	localVarPath := localBasePath + "/sources/{source_id}/sbom/native-json"
-	localVarPath = strings.Replace(localVarPath, "{"+"source_id"+"}", url.PathEscape(parameterToString(r.sourceId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"source_id"+"}", url.PathEscape(parameterValueToString(r.sourceId, "sourceId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -994,9 +996,9 @@ func (a *SourcesApiService) GetSourceSbomNativeJsonExecute(r ApiGetSourceSbomNat
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1062,7 +1064,7 @@ func (a *SourcesApiService) GetSourceSbomSpdxJsonExecute(r ApiGetSourceSbomSpdxJ
 	}
 
 	localVarPath := localBasePath + "/sources/{source_id}/sbom/spdx-json"
-	localVarPath = strings.Replace(localVarPath, "{"+"source_id"+"}", url.PathEscape(parameterToString(r.sourceId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"source_id"+"}", url.PathEscape(parameterValueToString(r.sourceId, "sourceId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1095,9 +1097,9 @@ func (a *SourcesApiService) GetSourceSbomSpdxJsonExecute(r ApiGetSourceSbomSpdxJ
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1192,21 +1194,24 @@ func (a *SourcesApiService) GetSourceVulnerabilitiesExecute(r ApiGetSourceVulner
 	}
 
 	localVarPath := localBasePath + "/sources/{source_id}/vuln/{vuln_type}"
-	localVarPath = strings.Replace(localVarPath, "{"+"source_id"+"}", url.PathEscape(parameterToString(r.sourceId, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"vuln_type"+"}", url.PathEscape(parameterToString(r.vulnType, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"source_id"+"}", url.PathEscape(parameterValueToString(r.sourceId, "sourceId")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"vuln_type"+"}", url.PathEscape(parameterValueToString(r.vulnType, "vulnType")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
 	if r.forceRefresh != nil {
-		localVarQueryParams.Add("force_refresh", parameterToString(*r.forceRefresh, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "force_refresh", r.forceRefresh, "form", "")
 	}
 	if r.includeVulnDescription != nil {
-		localVarQueryParams.Add("include_vuln_description", parameterToString(*r.includeVulnDescription, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "include_vuln_description", r.includeVulnDescription, "form", "")
+	} else {
+		var defaultValue bool = false
+		r.includeVulnDescription = &defaultValue
 	}
 	if r.willNotFix != nil {
-		localVarQueryParams.Add("will_not_fix", parameterToString(*r.willNotFix, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "will_not_fix", r.willNotFix, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -1226,7 +1231,7 @@ func (a *SourcesApiService) GetSourceVulnerabilitiesExecute(r ApiGetSourceVulner
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.xAnchoreAccount != nil {
-		localVarHeaderParams["x-anchore-account"] = parameterToString(*r.xAnchoreAccount, "")
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "x-anchore-account", r.xAnchoreAccount, "simple", "")
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
@@ -1238,9 +1243,9 @@ func (a *SourcesApiService) GetSourceVulnerabilitiesExecute(r ApiGetSourceVulner
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1313,7 +1318,7 @@ func (a *SourcesApiService) GetSourceVulnerabilityTypesExecute(r ApiGetSourceVul
 	}
 
 	localVarPath := localBasePath + "/sources/{source_id}/vuln"
-	localVarPath = strings.Replace(localVarPath, "{"+"source_id"+"}", url.PathEscape(parameterToString(r.sourceId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"source_id"+"}", url.PathEscape(parameterValueToString(r.sourceId, "sourceId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1337,7 +1342,7 @@ func (a *SourcesApiService) GetSourceVulnerabilityTypesExecute(r ApiGetSourceVul
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.xAnchoreAccount != nil {
-		localVarHeaderParams["x-anchore-account"] = parameterToString(*r.xAnchoreAccount, "")
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "x-anchore-account", r.xAnchoreAccount, "simple", "")
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
@@ -1349,9 +1354,9 @@ func (a *SourcesApiService) GetSourceVulnerabilityTypesExecute(r ApiGetSourceVul
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1446,9 +1451,9 @@ func (a *SourcesApiService) ListSourcesExecute(r ApiListSourcesRequest) (*Source
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}

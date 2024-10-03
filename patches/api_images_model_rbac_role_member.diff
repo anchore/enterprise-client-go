@@ -1,0 +1,106 @@
+diff --git a/pkg/enterprise/api_images.go b/pkg/enterprise/api_images.go
+index 4df1f41..7d581ad 100644
+--- a/pkg/enterprise/api_images.go
++++ b/pkg/enterprise/api_images.go
+@@ -3430,7 +3430,7 @@ func (a *ImagesApiService) SummaryImageCountsExecute(r ApiSummaryImageCountsRequ
+ 	if r.imageStatus != nil {
+ 		parameterAddToHeaderOrQuery(localVarQueryParams, "image_status", r.imageStatus, "form", "csv")
+ 	} else {
+-		var defaultValue []string = ["active"]
++		defaultValue := []string{"active"}
+ 		r.imageStatus = &defaultValue
+ 	}
+ 	if r.registry != nil {
+@@ -3645,13 +3645,13 @@ func (a *ImagesApiService) SummaryImageTagsExecute(r ApiSummaryImageTagsRequest)
+ 	if r.imageStatus != nil {
+ 		parameterAddToHeaderOrQuery(localVarQueryParams, "image_status", r.imageStatus, "form", "csv")
+ 	} else {
+-		var defaultValue []string = ["active"]
++		defaultValue := []string{"active"}
+ 		r.imageStatus = &defaultValue
+ 	}
+ 	if r.analysisStatus != nil {
+ 		parameterAddToHeaderOrQuery(localVarQueryParams, "analysis_status", r.analysisStatus, "form", "csv")
+ 	} else {
+-		var defaultValue []string = ["all"]
++		defaultValue := []string{"all"}
+ 		r.analysisStatus = &defaultValue
+ 	}
+ 	if r.analyzedSince != nil {
+diff --git a/pkg/enterprise/model_rbac_manager_role_member.go b/pkg/enterprise/model_rbac_manager_role_member.go
+index aeb32cf..1478cde 100644
+--- a/pkg/enterprise/model_rbac_manager_role_member.go
++++ b/pkg/enterprise/model_rbac_manager_role_member.go
+@@ -13,19 +13,18 @@ package enterprise
+ 
+ import (
+ 	"encoding/json"
+-	"time"
+ 	"fmt"
+ )
+ 
+ // RbacManagerRoleMember - A mapping between a username and a role within a domain
+ type RbacManagerRoleMember struct {
+-	Interface{} *interface{}
++	inter *interface{}
+ }
+ 
+ // interface{}AsRbacManagerRoleMember is a convenience function that returns interface{} wrapped in RbacManagerRoleMember
+-func Interface{}AsRbacManagerRoleMember(v *interface{}) RbacManagerRoleMember {
++func InterfaceAsRbacManagerRoleMember(v *interface{}) RbacManagerRoleMember {
+ 	return RbacManagerRoleMember{
+-		Interface{}: v,
++		inter: v,
+ 	}
+ }
+ 
+@@ -35,21 +34,21 @@ func (dst *RbacManagerRoleMember) UnmarshalJSON(data []byte) error {
+ 	var err error
+ 	match := 0
+ 	// try to unmarshal data into Interface{}
+-	err = newStrictDecoder(data).Decode(&dst.Interface{})
++	err = newStrictDecoder(data).Decode(&dst.inter)
+ 	if err == nil {
+-		jsonInterface{}, _ := json.Marshal(dst.Interface{})
+-		if string(jsonInterface{}) == "{}" { // empty struct
+-			dst.Interface{} = nil
++		jsonInterface, _ := json.Marshal(dst.inter)
++		if string(jsonInterface) == "{}" { // empty struct
++			dst.inter = nil
+ 		} else {
+ 			match++
+ 		}
+ 	} else {
+-		dst.Interface{} = nil
++		dst.inter = nil
+ 	}
+ 
+ 	if match > 1 { // more than 1 match
+ 		// reset to nil
+-		dst.Interface{} = nil
++		dst.inter = nil
+ 
+ 		return fmt.Errorf("Data matches more than one schema in oneOf(RbacManagerRoleMember)")
+ 	} else if match == 1 {
+@@ -61,8 +60,8 @@ func (dst *RbacManagerRoleMember) UnmarshalJSON(data []byte) error {
+ 
+ // Marshal data from the first non-nil pointers in the struct to JSON
+ func (src RbacManagerRoleMember) MarshalJSON() ([]byte, error) {
+-	if src.Interface{} != nil {
+-		return json.Marshal(&src.Interface{})
++	if src.inter != nil {
++		return json.Marshal(&src.inter)
+ 	}
+ 
+ 	return nil, nil // no data in oneOf schemas
+@@ -73,8 +72,8 @@ func (obj *RbacManagerRoleMember) GetActualInstance() (interface{}) {
+ 	if obj == nil {
+ 		return nil
+ 	}
+-	if obj.Interface{} != nil {
+-		return obj.Interface{}
++	if obj.inter != nil {
++		return obj.inter
+ 	}
+ 
+ 	// all schemas are nil

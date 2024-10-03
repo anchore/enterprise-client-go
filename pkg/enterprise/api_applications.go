@@ -14,7 +14,7 @@ package enterprise
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
 	"strings"
@@ -335,7 +335,7 @@ func (a *ApplicationsApiService) AddApplicationExecute(r ApiAddApplicationReques
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.xAnchoreAccount != nil {
-		localVarHeaderParams["x-anchore-account"] = parameterToString(*r.xAnchoreAccount, "")
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "x-anchore-account", r.xAnchoreAccount, "simple", "")
 	}
 	// body params
 	localVarPostBody = r.application
@@ -349,9 +349,9 @@ func (a *ApplicationsApiService) AddApplicationExecute(r ApiAddApplicationReques
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -368,7 +368,8 @@ func (a *ApplicationsApiService) AddApplicationExecute(r ApiAddApplicationReques
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -441,7 +442,7 @@ func (a *ApplicationsApiService) AddApplicationVersionExecute(r ApiAddApplicatio
 	}
 
 	localVarPath := localBasePath + "/applications/{application_id}/versions"
-	localVarPath = strings.Replace(localVarPath, "{"+"application_id"+"}", url.PathEscape(parameterToString(r.applicationId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"application_id"+"}", url.PathEscape(parameterValueToString(r.applicationId, "applicationId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -468,7 +469,7 @@ func (a *ApplicationsApiService) AddApplicationVersionExecute(r ApiAddApplicatio
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.xAnchoreAccount != nil {
-		localVarHeaderParams["x-anchore-account"] = parameterToString(*r.xAnchoreAccount, "")
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "x-anchore-account", r.xAnchoreAccount, "simple", "")
 	}
 	// body params
 	localVarPostBody = r.applicationVersion
@@ -482,9 +483,9 @@ func (a *ApplicationsApiService) AddApplicationVersionExecute(r ApiAddApplicatio
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -501,7 +502,8 @@ func (a *ApplicationsApiService) AddApplicationVersionExecute(r ApiAddApplicatio
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -577,8 +579,8 @@ func (a *ApplicationsApiService) AddArtifactToApplicationVersionExecute(r ApiAdd
 	}
 
 	localVarPath := localBasePath + "/applications/{application_id}/versions/{application_version_id}/artifacts"
-	localVarPath = strings.Replace(localVarPath, "{"+"application_id"+"}", url.PathEscape(parameterToString(r.applicationId, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"application_version_id"+"}", url.PathEscape(parameterToString(r.applicationVersionId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"application_id"+"}", url.PathEscape(parameterValueToString(r.applicationId, "applicationId")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"application_version_id"+"}", url.PathEscape(parameterValueToString(r.applicationVersionId, "applicationVersionId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -605,7 +607,7 @@ func (a *ApplicationsApiService) AddArtifactToApplicationVersionExecute(r ApiAdd
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.xAnchoreAccount != nil {
-		localVarHeaderParams["x-anchore-account"] = parameterToString(*r.xAnchoreAccount, "")
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "x-anchore-account", r.xAnchoreAccount, "simple", "")
 	}
 	// body params
 	localVarPostBody = r.artifactRequest
@@ -619,9 +621,9 @@ func (a *ApplicationsApiService) AddArtifactToApplicationVersionExecute(r ApiAdd
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -638,7 +640,8 @@ func (a *ApplicationsApiService) AddArtifactToApplicationVersionExecute(r ApiAdd
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -703,7 +706,7 @@ func (a *ApplicationsApiService) DeleteApplicationExecute(r ApiDeleteApplication
 	}
 
 	localVarPath := localBasePath + "/applications/{application_id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"application_id"+"}", url.PathEscape(parameterToString(r.applicationId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"application_id"+"}", url.PathEscape(parameterValueToString(r.applicationId, "applicationId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -727,7 +730,7 @@ func (a *ApplicationsApiService) DeleteApplicationExecute(r ApiDeleteApplication
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.xAnchoreAccount != nil {
-		localVarHeaderParams["x-anchore-account"] = parameterToString(*r.xAnchoreAccount, "")
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "x-anchore-account", r.xAnchoreAccount, "simple", "")
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
@@ -739,9 +742,9 @@ func (a *ApplicationsApiService) DeleteApplicationExecute(r ApiDeleteApplication
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -808,8 +811,8 @@ func (a *ApplicationsApiService) DeleteApplicationVersionExecute(r ApiDeleteAppl
 	}
 
 	localVarPath := localBasePath + "/applications/{application_id}/versions/{application_version_id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"application_id"+"}", url.PathEscape(parameterToString(r.applicationId, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"application_version_id"+"}", url.PathEscape(parameterToString(r.applicationVersionId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"application_id"+"}", url.PathEscape(parameterValueToString(r.applicationId, "applicationId")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"application_version_id"+"}", url.PathEscape(parameterValueToString(r.applicationVersionId, "applicationVersionId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -833,7 +836,7 @@ func (a *ApplicationsApiService) DeleteApplicationVersionExecute(r ApiDeleteAppl
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.xAnchoreAccount != nil {
-		localVarHeaderParams["x-anchore-account"] = parameterToString(*r.xAnchoreAccount, "")
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "x-anchore-account", r.xAnchoreAccount, "simple", "")
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
@@ -845,9 +848,9 @@ func (a *ApplicationsApiService) DeleteApplicationVersionExecute(r ApiDeleteAppl
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -919,14 +922,17 @@ func (a *ApplicationsApiService) GetApplicationExecute(r ApiGetApplicationReques
 	}
 
 	localVarPath := localBasePath + "/applications/{application_id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"application_id"+"}", url.PathEscape(parameterToString(r.applicationId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"application_id"+"}", url.PathEscape(parameterValueToString(r.applicationId, "applicationId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
 	if r.includeVersions != nil {
-		localVarQueryParams.Add("include_versions", parameterToString(*r.includeVersions, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "include_versions", r.includeVersions, "form", "")
+	} else {
+		var defaultValue bool = false
+		r.includeVersions = &defaultValue
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -946,7 +952,7 @@ func (a *ApplicationsApiService) GetApplicationExecute(r ApiGetApplicationReques
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.xAnchoreAccount != nil {
-		localVarHeaderParams["x-anchore-account"] = parameterToString(*r.xAnchoreAccount, "")
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "x-anchore-account", r.xAnchoreAccount, "simple", "")
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
@@ -958,9 +964,9 @@ func (a *ApplicationsApiService) GetApplicationExecute(r ApiGetApplicationReques
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -977,7 +983,8 @@ func (a *ApplicationsApiService) GetApplicationExecute(r ApiGetApplicationReques
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -1047,8 +1054,8 @@ func (a *ApplicationsApiService) GetApplicationVersionExecute(r ApiGetApplicatio
 	}
 
 	localVarPath := localBasePath + "/applications/{application_id}/versions/{application_version_id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"application_id"+"}", url.PathEscape(parameterToString(r.applicationId, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"application_version_id"+"}", url.PathEscape(parameterToString(r.applicationVersionId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"application_id"+"}", url.PathEscape(parameterValueToString(r.applicationId, "applicationId")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"application_version_id"+"}", url.PathEscape(parameterValueToString(r.applicationVersionId, "applicationVersionId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1072,7 +1079,7 @@ func (a *ApplicationsApiService) GetApplicationVersionExecute(r ApiGetApplicatio
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.xAnchoreAccount != nil {
-		localVarHeaderParams["x-anchore-account"] = parameterToString(*r.xAnchoreAccount, "")
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "x-anchore-account", r.xAnchoreAccount, "simple", "")
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
@@ -1084,9 +1091,9 @@ func (a *ApplicationsApiService) GetApplicationVersionExecute(r ApiGetApplicatio
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1103,7 +1110,8 @@ func (a *ApplicationsApiService) GetApplicationVersionExecute(r ApiGetApplicatio
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -1179,15 +1187,15 @@ func (a *ApplicationsApiService) GetApplicationVersionSbomExecute(r ApiGetApplic
 	}
 
 	localVarPath := localBasePath + "/applications/{application_id}/versions/{application_version_id}/sboms/native-json"
-	localVarPath = strings.Replace(localVarPath, "{"+"application_id"+"}", url.PathEscape(parameterToString(r.applicationId, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"application_version_id"+"}", url.PathEscape(parameterToString(r.applicationVersionId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"application_id"+"}", url.PathEscape(parameterValueToString(r.applicationId, "applicationId")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"application_version_id"+"}", url.PathEscape(parameterValueToString(r.applicationVersionId, "applicationVersionId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
 	if r.artifactTypes != nil {
-		localVarQueryParams.Add("artifact_types", parameterToString(*r.artifactTypes, "csv"))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "artifact_types", r.artifactTypes, "form", "csv")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -1207,7 +1215,7 @@ func (a *ApplicationsApiService) GetApplicationVersionSbomExecute(r ApiGetApplic
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.xAnchoreAccount != nil {
-		localVarHeaderParams["x-anchore-account"] = parameterToString(*r.xAnchoreAccount, "")
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "x-anchore-account", r.xAnchoreAccount, "simple", "")
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
@@ -1219,9 +1227,9 @@ func (a *ApplicationsApiService) GetApplicationVersionSbomExecute(r ApiGetApplic
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1238,7 +1246,8 @@ func (a *ApplicationsApiService) GetApplicationVersionSbomExecute(r ApiGetApplic
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -1315,15 +1324,15 @@ func (a *ApplicationsApiService) GetApplicationVersionVulnerabilitiesExecute(r A
 	}
 
 	localVarPath := localBasePath + "/applications/{application_id}/versions/{application_version_id}/vulnerabilities"
-	localVarPath = strings.Replace(localVarPath, "{"+"application_id"+"}", url.PathEscape(parameterToString(r.applicationId, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"application_version_id"+"}", url.PathEscape(parameterToString(r.applicationVersionId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"application_id"+"}", url.PathEscape(parameterValueToString(r.applicationId, "applicationId")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"application_version_id"+"}", url.PathEscape(parameterValueToString(r.applicationVersionId, "applicationVersionId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
 	if r.willNotFix != nil {
-		localVarQueryParams.Add("will_not_fix", parameterToString(*r.willNotFix, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "will_not_fix", r.willNotFix, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -1343,7 +1352,7 @@ func (a *ApplicationsApiService) GetApplicationVersionVulnerabilitiesExecute(r A
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.xAnchoreAccount != nil {
-		localVarHeaderParams["x-anchore-account"] = parameterToString(*r.xAnchoreAccount, "")
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "x-anchore-account", r.xAnchoreAccount, "simple", "")
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
@@ -1355,9 +1364,9 @@ func (a *ApplicationsApiService) GetApplicationVersionVulnerabilitiesExecute(r A
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1374,7 +1383,8 @@ func (a *ApplicationsApiService) GetApplicationVersionVulnerabilitiesExecute(r A
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -1441,7 +1451,7 @@ func (a *ApplicationsApiService) GetApplicationVersionsExecute(r ApiGetApplicati
 	}
 
 	localVarPath := localBasePath + "/applications/{application_id}/versions"
-	localVarPath = strings.Replace(localVarPath, "{"+"application_id"+"}", url.PathEscape(parameterToString(r.applicationId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"application_id"+"}", url.PathEscape(parameterValueToString(r.applicationId, "applicationId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1465,7 +1475,7 @@ func (a *ApplicationsApiService) GetApplicationVersionsExecute(r ApiGetApplicati
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.xAnchoreAccount != nil {
-		localVarHeaderParams["x-anchore-account"] = parameterToString(*r.xAnchoreAccount, "")
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "x-anchore-account", r.xAnchoreAccount, "simple", "")
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
@@ -1477,9 +1487,9 @@ func (a *ApplicationsApiService) GetApplicationVersionsExecute(r ApiGetApplicati
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1496,7 +1506,8 @@ func (a *ApplicationsApiService) GetApplicationVersionsExecute(r ApiGetApplicati
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -1572,7 +1583,10 @@ func (a *ApplicationsApiService) GetApplicationsExecute(r ApiGetApplicationsRequ
 	localVarFormParams := url.Values{}
 
 	if r.includeVersions != nil {
-		localVarQueryParams.Add("include_versions", parameterToString(*r.includeVersions, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "include_versions", r.includeVersions, "form", "")
+	} else {
+		var defaultValue bool = false
+		r.includeVersions = &defaultValue
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -1592,7 +1606,7 @@ func (a *ApplicationsApiService) GetApplicationsExecute(r ApiGetApplicationsRequ
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.xAnchoreAccount != nil {
-		localVarHeaderParams["x-anchore-account"] = parameterToString(*r.xAnchoreAccount, "")
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "x-anchore-account", r.xAnchoreAccount, "simple", "")
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
@@ -1604,9 +1618,9 @@ func (a *ApplicationsApiService) GetApplicationsExecute(r ApiGetApplicationsRequ
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1623,7 +1637,8 @@ func (a *ApplicationsApiService) GetApplicationsExecute(r ApiGetApplicationsRequ
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -1699,15 +1714,15 @@ func (a *ApplicationsApiService) ListArtifactsExecute(r ApiListArtifactsRequest)
 	}
 
 	localVarPath := localBasePath + "/applications/{application_id}/versions/{application_version_id}/artifacts"
-	localVarPath = strings.Replace(localVarPath, "{"+"application_id"+"}", url.PathEscape(parameterToString(r.applicationId, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"application_version_id"+"}", url.PathEscape(parameterToString(r.applicationVersionId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"application_id"+"}", url.PathEscape(parameterValueToString(r.applicationId, "applicationId")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"application_version_id"+"}", url.PathEscape(parameterValueToString(r.applicationVersionId, "applicationVersionId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
 	if r.artifactTypes != nil {
-		localVarQueryParams.Add("artifact_types", parameterToString(*r.artifactTypes, "csv"))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "artifact_types", r.artifactTypes, "form", "csv")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -1727,7 +1742,7 @@ func (a *ApplicationsApiService) ListArtifactsExecute(r ApiListArtifactsRequest)
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.xAnchoreAccount != nil {
-		localVarHeaderParams["x-anchore-account"] = parameterToString(*r.xAnchoreAccount, "")
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "x-anchore-account", r.xAnchoreAccount, "simple", "")
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
@@ -1739,9 +1754,9 @@ func (a *ApplicationsApiService) ListArtifactsExecute(r ApiListArtifactsRequest)
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1758,7 +1773,8 @@ func (a *ApplicationsApiService) ListArtifactsExecute(r ApiListArtifactsRequest)
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -1829,9 +1845,9 @@ func (a *ApplicationsApiService) RemoveArtifactFromApplicationVersionExecute(r A
 	}
 
 	localVarPath := localBasePath + "/applications/{application_id}/versions/{application_version_id}/artifacts/{association_id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"application_id"+"}", url.PathEscape(parameterToString(r.applicationId, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"application_version_id"+"}", url.PathEscape(parameterToString(r.applicationVersionId, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"association_id"+"}", url.PathEscape(parameterToString(r.associationId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"application_id"+"}", url.PathEscape(parameterValueToString(r.applicationId, "applicationId")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"application_version_id"+"}", url.PathEscape(parameterValueToString(r.applicationVersionId, "applicationVersionId")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"association_id"+"}", url.PathEscape(parameterValueToString(r.associationId, "associationId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1855,7 +1871,7 @@ func (a *ApplicationsApiService) RemoveArtifactFromApplicationVersionExecute(r A
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.xAnchoreAccount != nil {
-		localVarHeaderParams["x-anchore-account"] = parameterToString(*r.xAnchoreAccount, "")
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "x-anchore-account", r.xAnchoreAccount, "simple", "")
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
@@ -1867,9 +1883,9 @@ func (a *ApplicationsApiService) RemoveArtifactFromApplicationVersionExecute(r A
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -1941,7 +1957,7 @@ func (a *ApplicationsApiService) UpdateApplicationExecute(r ApiUpdateApplication
 	}
 
 	localVarPath := localBasePath + "/applications/{application_id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"application_id"+"}", url.PathEscape(parameterToString(r.applicationId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"application_id"+"}", url.PathEscape(parameterValueToString(r.applicationId, "applicationId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1968,7 +1984,7 @@ func (a *ApplicationsApiService) UpdateApplicationExecute(r ApiUpdateApplication
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.xAnchoreAccount != nil {
-		localVarHeaderParams["x-anchore-account"] = parameterToString(*r.xAnchoreAccount, "")
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "x-anchore-account", r.xAnchoreAccount, "simple", "")
 	}
 	// body params
 	localVarPostBody = r.application
@@ -1982,9 +1998,9 @@ func (a *ApplicationsApiService) UpdateApplicationExecute(r ApiUpdateApplication
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -2001,7 +2017,8 @@ func (a *ApplicationsApiService) UpdateApplicationExecute(r ApiUpdateApplication
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -2077,8 +2094,8 @@ func (a *ApplicationsApiService) UpdateApplicationVersionExecute(r ApiUpdateAppl
 	}
 
 	localVarPath := localBasePath + "/applications/{application_id}/versions/{application_version_id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"application_id"+"}", url.PathEscape(parameterToString(r.applicationId, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"application_version_id"+"}", url.PathEscape(parameterToString(r.applicationVersionId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"application_id"+"}", url.PathEscape(parameterValueToString(r.applicationId, "applicationId")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"application_version_id"+"}", url.PathEscape(parameterValueToString(r.applicationVersionId, "applicationVersionId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -2105,7 +2122,7 @@ func (a *ApplicationsApiService) UpdateApplicationVersionExecute(r ApiUpdateAppl
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.xAnchoreAccount != nil {
-		localVarHeaderParams["x-anchore-account"] = parameterToString(*r.xAnchoreAccount, "")
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "x-anchore-account", r.xAnchoreAccount, "simple", "")
 	}
 	// body params
 	localVarPostBody = r.applicationVersion
@@ -2119,9 +2136,9 @@ func (a *ApplicationsApiService) UpdateApplicationVersionExecute(r ApiUpdateAppl
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -2138,7 +2155,8 @@ func (a *ApplicationsApiService) UpdateApplicationVersionExecute(r ApiUpdateAppl
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}

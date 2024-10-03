@@ -14,7 +14,7 @@ package enterprise
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
 	"strings"
@@ -343,7 +343,7 @@ func (a *SystemApiService) DeleteFeedExecute(r ApiDeleteFeedRequest) (*http.Resp
 	}
 
 	localVarPath := localBasePath + "/system/feeds/{feed}"
-	localVarPath = strings.Replace(localVarPath, "{"+"feed"+"}", url.PathEscape(parameterToString(r.feed, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"feed"+"}", url.PathEscape(parameterValueToString(r.feed, "feed")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -376,9 +376,9 @@ func (a *SystemApiService) DeleteFeedExecute(r ApiDeleteFeedRequest) (*http.Resp
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -436,8 +436,8 @@ func (a *SystemApiService) DeleteServiceExecute(r ApiDeleteServiceRequest) (*htt
 	}
 
 	localVarPath := localBasePath + "/system/services/{service_name}/{host_id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"service_name"+"}", url.PathEscape(parameterToString(r.serviceName, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"host_id"+"}", url.PathEscape(parameterToString(r.hostId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"service_name"+"}", url.PathEscape(parameterValueToString(r.serviceName, "serviceName")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"host_id"+"}", url.PathEscape(parameterValueToString(r.hostId, "hostId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -470,9 +470,9 @@ func (a *SystemApiService) DeleteServiceExecute(r ApiDeleteServiceRequest) (*htt
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -489,7 +489,8 @@ func (a *SystemApiService) DeleteServiceExecute(r ApiDeleteServiceRequest) (*htt
 				newErr.error = err.Error()
 				return localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarHTTPResponse, newErr
 	}
@@ -569,9 +570,9 @@ func (a *SystemApiService) DescribeErrorCodesExecute(r ApiDescribeErrorCodesRequ
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -668,9 +669,9 @@ func (a *SystemApiService) DescribePolicyExecute(r ApiDescribePolicyRequest) ([]
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -756,8 +757,8 @@ func (a *SystemApiService) GetAnchorectlExecute(r ApiGetAnchorectlRequest) (*htt
 		return nil, reportError("architecture is required and must be specified")
 	}
 
-	localVarQueryParams.Add("operating_system", parameterToString(*r.operatingSystem, ""))
-	localVarQueryParams.Add("architecture", parameterToString(*r.architecture, ""))
+	parameterAddToHeaderOrQuery(localVarQueryParams, "operating_system", r.operatingSystem, "form", "")
+	parameterAddToHeaderOrQuery(localVarQueryParams, "architecture", r.architecture, "form", "")
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -785,9 +786,9 @@ func (a *SystemApiService) GetAnchorectlExecute(r ApiGetAnchorectlRequest) (*htt
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -875,9 +876,9 @@ func (a *SystemApiService) GetServiceDetailExecute(r ApiGetServiceDetailRequest)
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -894,7 +895,8 @@ func (a *SystemApiService) GetServiceDetailExecute(r ApiGetServiceDetailRequest)
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -952,7 +954,7 @@ func (a *SystemApiService) GetServicesByNameExecute(r ApiGetServicesByNameReques
 	}
 
 	localVarPath := localBasePath + "/system/services/{service_name}"
-	localVarPath = strings.Replace(localVarPath, "{"+"service_name"+"}", url.PathEscape(parameterToString(r.serviceName, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"service_name"+"}", url.PathEscape(parameterValueToString(r.serviceName, "serviceName")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -985,9 +987,9 @@ func (a *SystemApiService) GetServicesByNameExecute(r ApiGetServicesByNameReques
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1004,7 +1006,8 @@ func (a *SystemApiService) GetServicesByNameExecute(r ApiGetServicesByNameReques
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -1065,8 +1068,8 @@ func (a *SystemApiService) GetServicesByNameAndHostExecute(r ApiGetServicesByNam
 	}
 
 	localVarPath := localBasePath + "/system/services/{service_name}/{host_id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"service_name"+"}", url.PathEscape(parameterToString(r.serviceName, "")), -1)
-	localVarPath = strings.Replace(localVarPath, "{"+"host_id"+"}", url.PathEscape(parameterToString(r.hostId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"service_name"+"}", url.PathEscape(parameterValueToString(r.serviceName, "serviceName")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"host_id"+"}", url.PathEscape(parameterValueToString(r.hostId, "hostId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1099,9 +1102,9 @@ func (a *SystemApiService) GetServicesByNameAndHostExecute(r ApiGetServicesByNam
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1118,7 +1121,8 @@ func (a *SystemApiService) GetServicesByNameAndHostExecute(r ApiGetServicesByNam
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -1207,9 +1211,9 @@ func (a *SystemApiService) GetStatusExecute(r ApiGetStatusRequest) (*StatusRespo
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1226,7 +1230,8 @@ func (a *SystemApiService) GetStatusExecute(r ApiGetStatusRequest) (*StatusRespo
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -1293,7 +1298,7 @@ func (a *SystemApiService) GetSystemFeedExecute(r ApiGetSystemFeedRequest) (*Fee
 	}
 
 	localVarPath := localBasePath + "/system/feeds/{feed}"
-	localVarPath = strings.Replace(localVarPath, "{"+"feed"+"}", url.PathEscape(parameterToString(r.feed, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"feed"+"}", url.PathEscape(parameterValueToString(r.feed, "feed")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1302,7 +1307,7 @@ func (a *SystemApiService) GetSystemFeedExecute(r ApiGetSystemFeedRequest) (*Fee
 		return localVarReturnValue, nil, reportError("version is required and must be specified")
 	}
 
-	localVarQueryParams.Add("version", parameterToString(*r.version, ""))
+	parameterAddToHeaderOrQuery(localVarQueryParams, "version", r.version, "form", "")
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -1330,9 +1335,9 @@ func (a *SystemApiService) GetSystemFeedExecute(r ApiGetSystemFeedRequest) (*Fee
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1349,7 +1354,8 @@ func (a *SystemApiService) GetSystemFeedExecute(r ApiGetSystemFeedRequest) (*Fee
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -1438,9 +1444,9 @@ func (a *SystemApiService) GetSystemFeedsExecute(r ApiGetSystemFeedsRequest) ([]
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1457,7 +1463,8 @@ func (a *SystemApiService) GetSystemFeedsExecute(r ApiGetSystemFeedsRequest) ([]
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -1544,9 +1551,9 @@ func (a *SystemApiService) HealthCheckExecute(r ApiHealthCheckRequest) (*http.Re
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -1632,9 +1639,9 @@ func (a *SystemApiService) ListServicesExecute(r ApiListServicesRequest) ([]Serv
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1651,7 +1658,8 @@ func (a *SystemApiService) ListServicesExecute(r ApiListServicesRequest) ([]Serv
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -1740,9 +1748,9 @@ func (a *SystemApiService) PingExecute(r ApiPingRequest) (string, *http.Response
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1820,7 +1828,7 @@ func (a *SystemApiService) PostSystemFeedsExecute(r ApiPostSystemFeedsRequest) (
 	localVarFormParams := url.Values{}
 
 	if r.forceSync != nil {
-		localVarQueryParams.Add("force_sync", parameterToString(*r.forceSync, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "force_sync", r.forceSync, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -1849,9 +1857,9 @@ func (a *SystemApiService) PostSystemFeedsExecute(r ApiPostSystemFeedsRequest) (
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1868,7 +1876,8 @@ func (a *SystemApiService) PostSystemFeedsExecute(r ApiPostSystemFeedsRequest) (
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -1968,9 +1977,9 @@ func (a *SystemApiService) SetNewLogLevelExecute(r ApiSetNewLogLevelRequest) ([]
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1987,7 +1996,8 @@ func (a *SystemApiService) SetNewLogLevelExecute(r ApiSetNewLogLevelRequest) ([]
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -2052,14 +2062,17 @@ func (a *SystemApiService) TestWebhookExecute(r ApiTestWebhookRequest) (*http.Re
 	}
 
 	localVarPath := localBasePath + "/system/webhooks/{webhook_type}/test"
-	localVarPath = strings.Replace(localVarPath, "{"+"webhook_type"+"}", url.PathEscape(parameterToString(r.webhookType, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"webhook_type"+"}", url.PathEscape(parameterValueToString(r.webhookType, "webhookType")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
 	if r.notificationType != nil {
-		localVarQueryParams.Add("notification_type", parameterToString(*r.notificationType, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "notification_type", r.notificationType, "form", "")
+	} else {
+		var defaultValue string = "tag_update"
+		r.notificationType = &defaultValue
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -2088,9 +2101,9 @@ func (a *SystemApiService) TestWebhookExecute(r ApiTestWebhookRequest) (*http.Re
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -2107,7 +2120,8 @@ func (a *SystemApiService) TestWebhookExecute(r ApiTestWebhookRequest) (*http.Re
 				newErr.error = err.Error()
 				return localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 500 {
@@ -2117,7 +2131,8 @@ func (a *SystemApiService) TestWebhookExecute(r ApiTestWebhookRequest) (*http.Re
 				newErr.error = err.Error()
 				return localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarHTTPResponse, newErr
 	}
@@ -2174,7 +2189,7 @@ func (a *SystemApiService) ToggleFeedEnabledExecute(r ApiToggleFeedEnabledReques
 	}
 
 	localVarPath := localBasePath + "/system/feeds/{feed}"
-	localVarPath = strings.Replace(localVarPath, "{"+"feed"+"}", url.PathEscape(parameterToString(r.feed, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"feed"+"}", url.PathEscape(parameterValueToString(r.feed, "feed")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -2183,7 +2198,7 @@ func (a *SystemApiService) ToggleFeedEnabledExecute(r ApiToggleFeedEnabledReques
 		return localVarReturnValue, nil, reportError("enabled is required and must be specified")
 	}
 
-	localVarQueryParams.Add("enabled", parameterToString(*r.enabled, ""))
+	parameterAddToHeaderOrQuery(localVarQueryParams, "enabled", r.enabled, "form", "")
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -2211,9 +2226,9 @@ func (a *SystemApiService) ToggleFeedEnabledExecute(r ApiToggleFeedEnabledReques
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -2245,7 +2260,7 @@ type ApiUploadSystemFeedRequest struct {
 	version *string
 	built *string
 	checksum *string
-	file **os.File
+	file *os.File
 }
 
 // The version of the data set to upload
@@ -2267,7 +2282,7 @@ func (r ApiUploadSystemFeedRequest) Checksum(checksum string) ApiUploadSystemFee
 }
 
 func (r ApiUploadSystemFeedRequest) File(file *os.File) ApiUploadSystemFeedRequest {
-	r.file = &file
+	r.file = file
 	return r
 }
 
@@ -2306,7 +2321,7 @@ func (a *SystemApiService) UploadSystemFeedExecute(r ApiUploadSystemFeedRequest)
 	}
 
 	localVarPath := localBasePath + "/system/feeds/{feed}"
-	localVarPath = strings.Replace(localVarPath, "{"+"feed"+"}", url.PathEscape(parameterToString(r.feed, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"feed"+"}", url.PathEscape(parameterValueToString(r.feed, "feed")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -2321,9 +2336,9 @@ func (a *SystemApiService) UploadSystemFeedExecute(r ApiUploadSystemFeedRequest)
 		return nil, reportError("checksum is required and must be specified")
 	}
 
-	localVarQueryParams.Add("version", parameterToString(*r.version, ""))
-	localVarQueryParams.Add("built", parameterToString(*r.built, ""))
-	localVarQueryParams.Add("checksum", parameterToString(*r.checksum, ""))
+	parameterAddToHeaderOrQuery(localVarQueryParams, "version", r.version, "form", "")
+	parameterAddToHeaderOrQuery(localVarQueryParams, "built", r.built, "form", "")
+	parameterAddToHeaderOrQuery(localVarQueryParams, "checksum", r.checksum, "form", "")
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"multipart/form-data"}
 
@@ -2346,18 +2361,16 @@ func (a *SystemApiService) UploadSystemFeedExecute(r ApiUploadSystemFeedRequest)
 	var fileLocalVarFileBytes    []byte
 
 	fileLocalVarFormFileName = "file"
+	fileLocalVarFile := r.file
 
-	var fileLocalVarFile *os.File
-	if r.file != nil {
-		fileLocalVarFile = *r.file
-	}
 	if fileLocalVarFile != nil {
-		fbs, _ := ioutil.ReadAll(fileLocalVarFile)
+		fbs, _ := io.ReadAll(fileLocalVarFile)
+
 		fileLocalVarFileBytes = fbs
 		fileLocalVarFileName = fileLocalVarFile.Name()
 		fileLocalVarFile.Close()
+		formFiles = append(formFiles, formFile{fileBytes: fileLocalVarFileBytes, fileName: fileLocalVarFileName, formFileName: fileLocalVarFormFileName})
 	}
-	formFiles = append(formFiles, formFile{fileBytes: fileLocalVarFileBytes, fileName: fileLocalVarFileName, formFileName: fileLocalVarFormFileName})
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return nil, err
@@ -2368,9 +2381,9 @@ func (a *SystemApiService) UploadSystemFeedExecute(r ApiUploadSystemFeedRequest)
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -2387,7 +2400,8 @@ func (a *SystemApiService) UploadSystemFeedExecute(r ApiUploadSystemFeedRequest)
 				newErr.error = err.Error()
 				return localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 500 {
@@ -2397,7 +2411,8 @@ func (a *SystemApiService) UploadSystemFeedExecute(r ApiUploadSystemFeedRequest)
 				newErr.error = err.Error()
 				return localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarHTTPResponse, newErr
 	}
@@ -2477,9 +2492,9 @@ func (a *SystemApiService) VersionCheckExecute(r ApiVersionCheckRequest) (*Servi
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}

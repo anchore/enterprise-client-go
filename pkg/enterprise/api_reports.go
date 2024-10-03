@@ -14,7 +14,7 @@ package enterprise
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
 	"strings"
@@ -103,14 +103,14 @@ func (a *ReportsApiService) GetGlobalQueryResultExecute(r ApiGetGlobalQueryResul
 	}
 
 	localVarPath := localBasePath + "/reporting/reports/global/scheduled-query-results/{result_uuid}"
-	localVarPath = strings.Replace(localVarPath, "{"+"result_uuid"+"}", url.PathEscape(parameterToString(r.resultUuid, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"result_uuid"+"}", url.PathEscape(parameterValueToString(r.resultUuid, "resultUuid")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
 	if r.page != nil {
-		localVarQueryParams.Add("page", parameterToString(*r.page, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "page", r.page, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -139,9 +139,9 @@ func (a *ReportsApiService) GetGlobalQueryResultExecute(r ApiGetGlobalQueryResul
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -205,14 +205,14 @@ func (a *ReportsApiService) GetQueryResultExecute(r ApiGetQueryResultRequest) (*
 	}
 
 	localVarPath := localBasePath + "/reporting/scheduled-query-results/{result_uuid}"
-	localVarPath = strings.Replace(localVarPath, "{"+"result_uuid"+"}", url.PathEscape(parameterToString(r.resultUuid, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"result_uuid"+"}", url.PathEscape(parameterValueToString(r.resultUuid, "resultUuid")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
 	if r.page != nil {
-		localVarQueryParams.Add("page", parameterToString(*r.page, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "page", r.page, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -241,9 +241,9 @@ func (a *ReportsApiService) GetQueryResultExecute(r ApiGetQueryResultRequest) (*
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}

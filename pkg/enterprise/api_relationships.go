@@ -14,7 +14,7 @@ package enterprise
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
 	"strings"
@@ -182,9 +182,9 @@ func (a *RelationshipsApiService) AddArtifactRelationshipExecute(r ApiAddArtifac
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -264,7 +264,7 @@ func (a *RelationshipsApiService) DeleteArtifactRelationshipsExecute(r ApiDelete
 		return localVarReturnValue, nil, reportError("relationshipIds is required and must be specified")
 	}
 
-	localVarQueryParams.Add("relationship_ids", parameterToString(*r.relationshipIds, "csv"))
+	parameterAddToHeaderOrQuery(localVarQueryParams, "relationship_ids", r.relationshipIds, "form", "csv")
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -292,9 +292,9 @@ func (a *RelationshipsApiService) DeleteArtifactRelationshipsExecute(r ApiDelete
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -362,7 +362,7 @@ func (a *RelationshipsApiService) GetArtifactRelationshipExecute(r ApiGetArtifac
 	}
 
 	localVarPath := localBasePath + "/artifact-relationships/{relationship_id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"relationship_id"+"}", url.PathEscape(parameterToString(r.relationshipId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"relationship_id"+"}", url.PathEscape(parameterValueToString(r.relationshipId, "relationshipId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -395,9 +395,9 @@ func (a *RelationshipsApiService) GetArtifactRelationshipExecute(r ApiGetArtifac
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -465,7 +465,7 @@ func (a *RelationshipsApiService) GetRelationshipSbomDiffExecute(r ApiGetRelatio
 	}
 
 	localVarPath := localBasePath + "/artifact-relationships/{relationship_id}/diffs/sbom"
-	localVarPath = strings.Replace(localVarPath, "{"+"relationship_id"+"}", url.PathEscape(parameterToString(r.relationshipId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"relationship_id"+"}", url.PathEscape(parameterValueToString(r.relationshipId, "relationshipId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -498,9 +498,9 @@ func (a *RelationshipsApiService) GetRelationshipSbomDiffExecute(r ApiGetRelatio
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -585,10 +585,10 @@ func (a *RelationshipsApiService) ListArtifactRelationshipsExecute(r ApiListArti
 	localVarFormParams := url.Values{}
 
 	if r.artifactType != nil {
-		localVarQueryParams.Add("artifact_type", parameterToString(*r.artifactType, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "artifact_type", r.artifactType, "form", "")
 	}
 	if r.artifactId != nil {
-		localVarQueryParams.Add("artifact_id", parameterToString(*r.artifactId, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "artifact_id", r.artifactId, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -617,9 +617,9 @@ func (a *RelationshipsApiService) ListArtifactRelationshipsExecute(r ApiListArti
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
