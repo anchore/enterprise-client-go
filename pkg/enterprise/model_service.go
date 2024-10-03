@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the Service type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &Service{}
+
 // Service A service status record
 type Service struct {
 	// The unique id of the host on which the service is executing
@@ -50,7 +53,7 @@ func NewServiceWithDefaults() *Service {
 
 // GetHostId returns the HostId field value if set, zero value otherwise.
 func (o *Service) GetHostId() string {
-	if o == nil || o.HostId == nil {
+	if o == nil || IsNil(o.HostId) {
 		var ret string
 		return ret
 	}
@@ -60,7 +63,7 @@ func (o *Service) GetHostId() string {
 // GetHostIdOk returns a tuple with the HostId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Service) GetHostIdOk() (*string, bool) {
-	if o == nil || o.HostId == nil {
+	if o == nil || IsNil(o.HostId) {
 		return nil, false
 	}
 	return o.HostId, true
@@ -68,7 +71,7 @@ func (o *Service) GetHostIdOk() (*string, bool) {
 
 // HasHostId returns a boolean if a field has been set.
 func (o *Service) HasHostId() bool {
-	if o != nil && o.HostId != nil {
+	if o != nil && !IsNil(o.HostId) {
 		return true
 	}
 
@@ -82,7 +85,7 @@ func (o *Service) SetHostId(v string) {
 
 // GetServiceName returns the ServiceName field value if set, zero value otherwise.
 func (o *Service) GetServiceName() string {
-	if o == nil || o.ServiceName == nil {
+	if o == nil || IsNil(o.ServiceName) {
 		var ret string
 		return ret
 	}
@@ -92,7 +95,7 @@ func (o *Service) GetServiceName() string {
 // GetServiceNameOk returns a tuple with the ServiceName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Service) GetServiceNameOk() (*string, bool) {
-	if o == nil || o.ServiceName == nil {
+	if o == nil || IsNil(o.ServiceName) {
 		return nil, false
 	}
 	return o.ServiceName, true
@@ -100,7 +103,7 @@ func (o *Service) GetServiceNameOk() (*string, bool) {
 
 // HasServiceName returns a boolean if a field has been set.
 func (o *Service) HasServiceName() bool {
-	if o != nil && o.ServiceName != nil {
+	if o != nil && !IsNil(o.ServiceName) {
 		return true
 	}
 
@@ -114,7 +117,7 @@ func (o *Service) SetServiceName(v string) {
 
 // GetBaseUrl returns the BaseUrl field value if set, zero value otherwise.
 func (o *Service) GetBaseUrl() string {
-	if o == nil || o.BaseUrl == nil {
+	if o == nil || IsNil(o.BaseUrl) {
 		var ret string
 		return ret
 	}
@@ -124,7 +127,7 @@ func (o *Service) GetBaseUrl() string {
 // GetBaseUrlOk returns a tuple with the BaseUrl field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Service) GetBaseUrlOk() (*string, bool) {
-	if o == nil || o.BaseUrl == nil {
+	if o == nil || IsNil(o.BaseUrl) {
 		return nil, false
 	}
 	return o.BaseUrl, true
@@ -132,7 +135,7 @@ func (o *Service) GetBaseUrlOk() (*string, bool) {
 
 // HasBaseUrl returns a boolean if a field has been set.
 func (o *Service) HasBaseUrl() bool {
-	if o != nil && o.BaseUrl != nil {
+	if o != nil && !IsNil(o.BaseUrl) {
 		return true
 	}
 
@@ -146,7 +149,7 @@ func (o *Service) SetBaseUrl(v string) {
 
 // GetStatusMessage returns the StatusMessage field value if set, zero value otherwise.
 func (o *Service) GetStatusMessage() string {
-	if o == nil || o.StatusMessage == nil {
+	if o == nil || IsNil(o.StatusMessage) {
 		var ret string
 		return ret
 	}
@@ -156,7 +159,7 @@ func (o *Service) GetStatusMessage() string {
 // GetStatusMessageOk returns a tuple with the StatusMessage field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Service) GetStatusMessageOk() (*string, bool) {
-	if o == nil || o.StatusMessage == nil {
+	if o == nil || IsNil(o.StatusMessage) {
 		return nil, false
 	}
 	return o.StatusMessage, true
@@ -164,7 +167,7 @@ func (o *Service) GetStatusMessageOk() (*string, bool) {
 
 // HasStatusMessage returns a boolean if a field has been set.
 func (o *Service) HasStatusMessage() bool {
-	if o != nil && o.StatusMessage != nil {
+	if o != nil && !IsNil(o.StatusMessage) {
 		return true
 	}
 
@@ -178,7 +181,7 @@ func (o *Service) SetStatusMessage(v string) {
 
 // GetServiceDetail returns the ServiceDetail field value if set, zero value otherwise.
 func (o *Service) GetServiceDetail() StatusResponse {
-	if o == nil || o.ServiceDetail == nil {
+	if o == nil || IsNil(o.ServiceDetail) {
 		var ret StatusResponse
 		return ret
 	}
@@ -188,7 +191,7 @@ func (o *Service) GetServiceDetail() StatusResponse {
 // GetServiceDetailOk returns a tuple with the ServiceDetail field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Service) GetServiceDetailOk() (*StatusResponse, bool) {
-	if o == nil || o.ServiceDetail == nil {
+	if o == nil || IsNil(o.ServiceDetail) {
 		return nil, false
 	}
 	return o.ServiceDetail, true
@@ -196,7 +199,7 @@ func (o *Service) GetServiceDetailOk() (*StatusResponse, bool) {
 
 // HasServiceDetail returns a boolean if a field has been set.
 func (o *Service) HasServiceDetail() bool {
-	if o != nil && o.ServiceDetail != nil {
+	if o != nil && !IsNil(o.ServiceDetail) {
 		return true
 	}
 
@@ -210,7 +213,7 @@ func (o *Service) SetServiceDetail(v StatusResponse) {
 
 // GetStatus returns the Status field value if set, zero value otherwise.
 func (o *Service) GetStatus() bool {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		var ret bool
 		return ret
 	}
@@ -220,7 +223,7 @@ func (o *Service) GetStatus() bool {
 // GetStatusOk returns a tuple with the Status field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Service) GetStatusOk() (*bool, bool) {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		return nil, false
 	}
 	return o.Status, true
@@ -228,7 +231,7 @@ func (o *Service) GetStatusOk() (*bool, bool) {
 
 // HasStatus returns a boolean if a field has been set.
 func (o *Service) HasStatus() bool {
-	if o != nil && o.Status != nil {
+	if o != nil && !IsNil(o.Status) {
 		return true
 	}
 
@@ -242,7 +245,7 @@ func (o *Service) SetStatus(v bool) {
 
 // GetVersion returns the Version field value if set, zero value otherwise.
 func (o *Service) GetVersion() string {
-	if o == nil || o.Version == nil {
+	if o == nil || IsNil(o.Version) {
 		var ret string
 		return ret
 	}
@@ -252,7 +255,7 @@ func (o *Service) GetVersion() string {
 // GetVersionOk returns a tuple with the Version field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Service) GetVersionOk() (*string, bool) {
-	if o == nil || o.Version == nil {
+	if o == nil || IsNil(o.Version) {
 		return nil, false
 	}
 	return o.Version, true
@@ -260,7 +263,7 @@ func (o *Service) GetVersionOk() (*string, bool) {
 
 // HasVersion returns a boolean if a field has been set.
 func (o *Service) HasVersion() bool {
-	if o != nil && o.Version != nil {
+	if o != nil && !IsNil(o.Version) {
 		return true
 	}
 
@@ -273,29 +276,37 @@ func (o *Service) SetVersion(v string) {
 }
 
 func (o Service) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.HostId != nil {
-		toSerialize["host_id"] = o.HostId
-	}
-	if o.ServiceName != nil {
-		toSerialize["service_name"] = o.ServiceName
-	}
-	if o.BaseUrl != nil {
-		toSerialize["base_url"] = o.BaseUrl
-	}
-	if o.StatusMessage != nil {
-		toSerialize["status_message"] = o.StatusMessage
-	}
-	if o.ServiceDetail != nil {
-		toSerialize["service_detail"] = o.ServiceDetail
-	}
-	if o.Status != nil {
-		toSerialize["status"] = o.Status
-	}
-	if o.Version != nil {
-		toSerialize["version"] = o.Version
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o Service) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.HostId) {
+		toSerialize["host_id"] = o.HostId
+	}
+	if !IsNil(o.ServiceName) {
+		toSerialize["service_name"] = o.ServiceName
+	}
+	if !IsNil(o.BaseUrl) {
+		toSerialize["base_url"] = o.BaseUrl
+	}
+	if !IsNil(o.StatusMessage) {
+		toSerialize["status_message"] = o.StatusMessage
+	}
+	if !IsNil(o.ServiceDetail) {
+		toSerialize["service_detail"] = o.ServiceDetail
+	}
+	if !IsNil(o.Status) {
+		toSerialize["status"] = o.Status
+	}
+	if !IsNil(o.Version) {
+		toSerialize["version"] = o.Version
+	}
+	return toSerialize, nil
 }
 
 type NullableService struct {

@@ -14,7 +14,12 @@ package enterprise
 import (
 	"encoding/json"
 	"time"
+	"bytes"
+	"fmt"
 )
+
+// checks if the UserApiKey type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &UserApiKey{}
 
 // UserApiKey struct for UserApiKey
 type UserApiKey struct {
@@ -23,7 +28,7 @@ type UserApiKey struct {
 	// API key description
 	Description *string `json:"description,omitempty"`
 	// API key expiration date in the RFC3339 format
-	ExpiresAt time.Time `json:"expires_at"`
+	ExpiresAt time.Time `json:"expires_at" validate:"regexp=^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z$"`
 	CreatedAt *time.Time `json:"created_at,omitempty"`
 	UpdatedAt *time.Time `json:"updated_at,omitempty"`
 	// API key format version
@@ -32,6 +37,8 @@ type UserApiKey struct {
 	Value *string `json:"value,omitempty"`
 	Status *string `json:"status,omitempty"`
 }
+
+type _UserApiKey UserApiKey
 
 // NewUserApiKey instantiates a new UserApiKey object
 // This constructor will assign default values to properties that have it defined,
@@ -78,7 +85,7 @@ func (o *UserApiKey) SetName(v string) {
 
 // GetDescription returns the Description field value if set, zero value otherwise.
 func (o *UserApiKey) GetDescription() string {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		var ret string
 		return ret
 	}
@@ -88,7 +95,7 @@ func (o *UserApiKey) GetDescription() string {
 // GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserApiKey) GetDescriptionOk() (*string, bool) {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		return nil, false
 	}
 	return o.Description, true
@@ -96,7 +103,7 @@ func (o *UserApiKey) GetDescriptionOk() (*string, bool) {
 
 // HasDescription returns a boolean if a field has been set.
 func (o *UserApiKey) HasDescription() bool {
-	if o != nil && o.Description != nil {
+	if o != nil && !IsNil(o.Description) {
 		return true
 	}
 
@@ -134,7 +141,7 @@ func (o *UserApiKey) SetExpiresAt(v time.Time) {
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
 func (o *UserApiKey) GetCreatedAt() time.Time {
-	if o == nil || o.CreatedAt == nil {
+	if o == nil || IsNil(o.CreatedAt) {
 		var ret time.Time
 		return ret
 	}
@@ -144,7 +151,7 @@ func (o *UserApiKey) GetCreatedAt() time.Time {
 // GetCreatedAtOk returns a tuple with the CreatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserApiKey) GetCreatedAtOk() (*time.Time, bool) {
-	if o == nil || o.CreatedAt == nil {
+	if o == nil || IsNil(o.CreatedAt) {
 		return nil, false
 	}
 	return o.CreatedAt, true
@@ -152,7 +159,7 @@ func (o *UserApiKey) GetCreatedAtOk() (*time.Time, bool) {
 
 // HasCreatedAt returns a boolean if a field has been set.
 func (o *UserApiKey) HasCreatedAt() bool {
-	if o != nil && o.CreatedAt != nil {
+	if o != nil && !IsNil(o.CreatedAt) {
 		return true
 	}
 
@@ -166,7 +173,7 @@ func (o *UserApiKey) SetCreatedAt(v time.Time) {
 
 // GetUpdatedAt returns the UpdatedAt field value if set, zero value otherwise.
 func (o *UserApiKey) GetUpdatedAt() time.Time {
-	if o == nil || o.UpdatedAt == nil {
+	if o == nil || IsNil(o.UpdatedAt) {
 		var ret time.Time
 		return ret
 	}
@@ -176,7 +183,7 @@ func (o *UserApiKey) GetUpdatedAt() time.Time {
 // GetUpdatedAtOk returns a tuple with the UpdatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserApiKey) GetUpdatedAtOk() (*time.Time, bool) {
-	if o == nil || o.UpdatedAt == nil {
+	if o == nil || IsNil(o.UpdatedAt) {
 		return nil, false
 	}
 	return o.UpdatedAt, true
@@ -184,7 +191,7 @@ func (o *UserApiKey) GetUpdatedAtOk() (*time.Time, bool) {
 
 // HasUpdatedAt returns a boolean if a field has been set.
 func (o *UserApiKey) HasUpdatedAt() bool {
-	if o != nil && o.UpdatedAt != nil {
+	if o != nil && !IsNil(o.UpdatedAt) {
 		return true
 	}
 
@@ -198,7 +205,7 @@ func (o *UserApiKey) SetUpdatedAt(v time.Time) {
 
 // GetVersion returns the Version field value if set, zero value otherwise.
 func (o *UserApiKey) GetVersion() string {
-	if o == nil || o.Version == nil {
+	if o == nil || IsNil(o.Version) {
 		var ret string
 		return ret
 	}
@@ -208,7 +215,7 @@ func (o *UserApiKey) GetVersion() string {
 // GetVersionOk returns a tuple with the Version field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserApiKey) GetVersionOk() (*string, bool) {
-	if o == nil || o.Version == nil {
+	if o == nil || IsNil(o.Version) {
 		return nil, false
 	}
 	return o.Version, true
@@ -216,7 +223,7 @@ func (o *UserApiKey) GetVersionOk() (*string, bool) {
 
 // HasVersion returns a boolean if a field has been set.
 func (o *UserApiKey) HasVersion() bool {
-	if o != nil && o.Version != nil {
+	if o != nil && !IsNil(o.Version) {
 		return true
 	}
 
@@ -230,7 +237,7 @@ func (o *UserApiKey) SetVersion(v string) {
 
 // GetValue returns the Value field value if set, zero value otherwise.
 func (o *UserApiKey) GetValue() string {
-	if o == nil || o.Value == nil {
+	if o == nil || IsNil(o.Value) {
 		var ret string
 		return ret
 	}
@@ -240,7 +247,7 @@ func (o *UserApiKey) GetValue() string {
 // GetValueOk returns a tuple with the Value field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserApiKey) GetValueOk() (*string, bool) {
-	if o == nil || o.Value == nil {
+	if o == nil || IsNil(o.Value) {
 		return nil, false
 	}
 	return o.Value, true
@@ -248,7 +255,7 @@ func (o *UserApiKey) GetValueOk() (*string, bool) {
 
 // HasValue returns a boolean if a field has been set.
 func (o *UserApiKey) HasValue() bool {
-	if o != nil && o.Value != nil {
+	if o != nil && !IsNil(o.Value) {
 		return true
 	}
 
@@ -262,7 +269,7 @@ func (o *UserApiKey) SetValue(v string) {
 
 // GetStatus returns the Status field value if set, zero value otherwise.
 func (o *UserApiKey) GetStatus() string {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		var ret string
 		return ret
 	}
@@ -272,7 +279,7 @@ func (o *UserApiKey) GetStatus() string {
 // GetStatusOk returns a tuple with the Status field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserApiKey) GetStatusOk() (*string, bool) {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		return nil, false
 	}
 	return o.Status, true
@@ -280,7 +287,7 @@ func (o *UserApiKey) GetStatusOk() (*string, bool) {
 
 // HasStatus returns a boolean if a field has been set.
 func (o *UserApiKey) HasStatus() bool {
-	if o != nil && o.Status != nil {
+	if o != nil && !IsNil(o.Status) {
 		return true
 	}
 
@@ -293,32 +300,74 @@ func (o *UserApiKey) SetStatus(v string) {
 }
 
 func (o UserApiKey) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["name"] = o.Name
-	}
-	if o.Description != nil {
-		toSerialize["description"] = o.Description
-	}
-	if true {
-		toSerialize["expires_at"] = o.ExpiresAt
-	}
-	if o.CreatedAt != nil {
-		toSerialize["created_at"] = o.CreatedAt
-	}
-	if o.UpdatedAt != nil {
-		toSerialize["updated_at"] = o.UpdatedAt
-	}
-	if o.Version != nil {
-		toSerialize["version"] = o.Version
-	}
-	if o.Value != nil {
-		toSerialize["value"] = o.Value
-	}
-	if o.Status != nil {
-		toSerialize["status"] = o.Status
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o UserApiKey) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["name"] = o.Name
+	if !IsNil(o.Description) {
+		toSerialize["description"] = o.Description
+	}
+	toSerialize["expires_at"] = o.ExpiresAt
+	if !IsNil(o.CreatedAt) {
+		toSerialize["created_at"] = o.CreatedAt
+	}
+	if !IsNil(o.UpdatedAt) {
+		toSerialize["updated_at"] = o.UpdatedAt
+	}
+	if !IsNil(o.Version) {
+		toSerialize["version"] = o.Version
+	}
+	if !IsNil(o.Value) {
+		toSerialize["value"] = o.Value
+	}
+	if !IsNil(o.Status) {
+		toSerialize["status"] = o.Status
+	}
+	return toSerialize, nil
+}
+
+func (o *UserApiKey) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"name",
+		"expires_at",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varUserApiKey := _UserApiKey{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varUserApiKey)
+
+	if err != nil {
+		return err
+	}
+
+	*o = UserApiKey(varUserApiKey)
+
+	return err
 }
 
 type NullableUserApiKey struct {

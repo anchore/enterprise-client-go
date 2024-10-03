@@ -13,7 +13,12 @@ package enterprise
 
 import (
 	"encoding/json"
+	"bytes"
+	"fmt"
 )
+
+// checks if the KubernetesPod type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &KubernetesPod{}
 
 // KubernetesPod struct for KubernetesPod
 type KubernetesPod struct {
@@ -26,6 +31,8 @@ type KubernetesPod struct {
 	NamespaceId *string `json:"namespace_id,omitempty"`
 	LastSeen *string `json:"last_seen,omitempty"`
 }
+
+type _KubernetesPod KubernetesPod
 
 // NewKubernetesPod instantiates a new KubernetesPod object
 // This constructor will assign default values to properties that have it defined,
@@ -171,7 +178,7 @@ func (o *KubernetesPod) SetAnnotations(v map[string]string) {
 
 // GetNodeId returns the NodeId field value if set, zero value otherwise.
 func (o *KubernetesPod) GetNodeId() string {
-	if o == nil || o.NodeId == nil {
+	if o == nil || IsNil(o.NodeId) {
 		var ret string
 		return ret
 	}
@@ -181,7 +188,7 @@ func (o *KubernetesPod) GetNodeId() string {
 // GetNodeIdOk returns a tuple with the NodeId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *KubernetesPod) GetNodeIdOk() (*string, bool) {
-	if o == nil || o.NodeId == nil {
+	if o == nil || IsNil(o.NodeId) {
 		return nil, false
 	}
 	return o.NodeId, true
@@ -189,7 +196,7 @@ func (o *KubernetesPod) GetNodeIdOk() (*string, bool) {
 
 // HasNodeId returns a boolean if a field has been set.
 func (o *KubernetesPod) HasNodeId() bool {
-	if o != nil && o.NodeId != nil {
+	if o != nil && !IsNil(o.NodeId) {
 		return true
 	}
 
@@ -203,7 +210,7 @@ func (o *KubernetesPod) SetNodeId(v string) {
 
 // GetNamespaceId returns the NamespaceId field value if set, zero value otherwise.
 func (o *KubernetesPod) GetNamespaceId() string {
-	if o == nil || o.NamespaceId == nil {
+	if o == nil || IsNil(o.NamespaceId) {
 		var ret string
 		return ret
 	}
@@ -213,7 +220,7 @@ func (o *KubernetesPod) GetNamespaceId() string {
 // GetNamespaceIdOk returns a tuple with the NamespaceId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *KubernetesPod) GetNamespaceIdOk() (*string, bool) {
-	if o == nil || o.NamespaceId == nil {
+	if o == nil || IsNil(o.NamespaceId) {
 		return nil, false
 	}
 	return o.NamespaceId, true
@@ -221,7 +228,7 @@ func (o *KubernetesPod) GetNamespaceIdOk() (*string, bool) {
 
 // HasNamespaceId returns a boolean if a field has been set.
 func (o *KubernetesPod) HasNamespaceId() bool {
-	if o != nil && o.NamespaceId != nil {
+	if o != nil && !IsNil(o.NamespaceId) {
 		return true
 	}
 
@@ -235,7 +242,7 @@ func (o *KubernetesPod) SetNamespaceId(v string) {
 
 // GetLastSeen returns the LastSeen field value if set, zero value otherwise.
 func (o *KubernetesPod) GetLastSeen() string {
-	if o == nil || o.LastSeen == nil {
+	if o == nil || IsNil(o.LastSeen) {
 		var ret string
 		return ret
 	}
@@ -245,7 +252,7 @@ func (o *KubernetesPod) GetLastSeen() string {
 // GetLastSeenOk returns a tuple with the LastSeen field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *KubernetesPod) GetLastSeenOk() (*string, bool) {
-	if o == nil || o.LastSeen == nil {
+	if o == nil || IsNil(o.LastSeen) {
 		return nil, false
 	}
 	return o.LastSeen, true
@@ -253,7 +260,7 @@ func (o *KubernetesPod) GetLastSeenOk() (*string, bool) {
 
 // HasLastSeen returns a boolean if a field has been set.
 func (o *KubernetesPod) HasLastSeen() bool {
-	if o != nil && o.LastSeen != nil {
+	if o != nil && !IsNil(o.LastSeen) {
 		return true
 	}
 
@@ -266,32 +273,71 @@ func (o *KubernetesPod) SetLastSeen(v string) {
 }
 
 func (o KubernetesPod) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["id"] = o.Id
-	}
-	if true {
-		toSerialize["name"] = o.Name
-	}
-	if true {
-		toSerialize["account_name"] = o.AccountName
-	}
-	if true {
-		toSerialize["labels"] = o.Labels
-	}
-	if true {
-		toSerialize["annotations"] = o.Annotations
-	}
-	if o.NodeId != nil {
-		toSerialize["node_id"] = o.NodeId
-	}
-	if o.NamespaceId != nil {
-		toSerialize["namespace_id"] = o.NamespaceId
-	}
-	if o.LastSeen != nil {
-		toSerialize["last_seen"] = o.LastSeen
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o KubernetesPod) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["id"] = o.Id
+	toSerialize["name"] = o.Name
+	toSerialize["account_name"] = o.AccountName
+	toSerialize["labels"] = o.Labels
+	toSerialize["annotations"] = o.Annotations
+	if !IsNil(o.NodeId) {
+		toSerialize["node_id"] = o.NodeId
+	}
+	if !IsNil(o.NamespaceId) {
+		toSerialize["namespace_id"] = o.NamespaceId
+	}
+	if !IsNil(o.LastSeen) {
+		toSerialize["last_seen"] = o.LastSeen
+	}
+	return toSerialize, nil
+}
+
+func (o *KubernetesPod) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"id",
+		"name",
+		"account_name",
+		"labels",
+		"annotations",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varKubernetesPod := _KubernetesPod{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varKubernetesPod)
+
+	if err != nil {
+		return err
+	}
+
+	*o = KubernetesPod(varKubernetesPod)
+
+	return err
 }
 
 type NullableKubernetesPod struct {

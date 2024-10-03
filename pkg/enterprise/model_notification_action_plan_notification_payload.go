@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the NotificationActionPlanNotificationPayload type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &NotificationActionPlanNotificationPayload{}
+
 // NotificationActionPlanNotificationPayload struct for NotificationActionPlanNotificationPayload
 type NotificationActionPlanNotificationPayload struct {
 	Type *string `json:"type,omitempty"`
@@ -45,7 +48,7 @@ func NewNotificationActionPlanNotificationPayloadWithDefaults() *NotificationAct
 
 // GetType returns the Type field value if set, zero value otherwise.
 func (o *NotificationActionPlanNotificationPayload) GetType() string {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		var ret string
 		return ret
 	}
@@ -55,7 +58,7 @@ func (o *NotificationActionPlanNotificationPayload) GetType() string {
 // GetTypeOk returns a tuple with the Type field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *NotificationActionPlanNotificationPayload) GetTypeOk() (*string, bool) {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		return nil, false
 	}
 	return o.Type, true
@@ -63,7 +66,7 @@ func (o *NotificationActionPlanNotificationPayload) GetTypeOk() (*string, bool) 
 
 // HasType returns a boolean if a field has been set.
 func (o *NotificationActionPlanNotificationPayload) HasType() bool {
-	if o != nil && o.Type != nil {
+	if o != nil && !IsNil(o.Type) {
 		return true
 	}
 
@@ -77,7 +80,7 @@ func (o *NotificationActionPlanNotificationPayload) SetType(v string) {
 
 // GetUuid returns the Uuid field value if set, zero value otherwise.
 func (o *NotificationActionPlanNotificationPayload) GetUuid() string {
-	if o == nil || o.Uuid == nil {
+	if o == nil || IsNil(o.Uuid) {
 		var ret string
 		return ret
 	}
@@ -87,7 +90,7 @@ func (o *NotificationActionPlanNotificationPayload) GetUuid() string {
 // GetUuidOk returns a tuple with the Uuid field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *NotificationActionPlanNotificationPayload) GetUuidOk() (*string, bool) {
-	if o == nil || o.Uuid == nil {
+	if o == nil || IsNil(o.Uuid) {
 		return nil, false
 	}
 	return o.Uuid, true
@@ -95,7 +98,7 @@ func (o *NotificationActionPlanNotificationPayload) GetUuidOk() (*string, bool) 
 
 // HasUuid returns a boolean if a field has been set.
 func (o *NotificationActionPlanNotificationPayload) HasUuid() bool {
-	if o != nil && o.Uuid != nil {
+	if o != nil && !IsNil(o.Uuid) {
 		return true
 	}
 
@@ -109,7 +112,7 @@ func (o *NotificationActionPlanNotificationPayload) SetUuid(v string) {
 
 // GetImageTag returns the ImageTag field value if set, zero value otherwise.
 func (o *NotificationActionPlanNotificationPayload) GetImageTag() string {
-	if o == nil || o.ImageTag == nil {
+	if o == nil || IsNil(o.ImageTag) {
 		var ret string
 		return ret
 	}
@@ -119,7 +122,7 @@ func (o *NotificationActionPlanNotificationPayload) GetImageTag() string {
 // GetImageTagOk returns a tuple with the ImageTag field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *NotificationActionPlanNotificationPayload) GetImageTagOk() (*string, bool) {
-	if o == nil || o.ImageTag == nil {
+	if o == nil || IsNil(o.ImageTag) {
 		return nil, false
 	}
 	return o.ImageTag, true
@@ -127,7 +130,7 @@ func (o *NotificationActionPlanNotificationPayload) GetImageTagOk() (*string, bo
 
 // HasImageTag returns a boolean if a field has been set.
 func (o *NotificationActionPlanNotificationPayload) HasImageTag() bool {
-	if o != nil && o.ImageTag != nil {
+	if o != nil && !IsNil(o.ImageTag) {
 		return true
 	}
 
@@ -141,7 +144,7 @@ func (o *NotificationActionPlanNotificationPayload) SetImageTag(v string) {
 
 // GetImageDigest returns the ImageDigest field value if set, zero value otherwise.
 func (o *NotificationActionPlanNotificationPayload) GetImageDigest() string {
-	if o == nil || o.ImageDigest == nil {
+	if o == nil || IsNil(o.ImageDigest) {
 		var ret string
 		return ret
 	}
@@ -151,7 +154,7 @@ func (o *NotificationActionPlanNotificationPayload) GetImageDigest() string {
 // GetImageDigestOk returns a tuple with the ImageDigest field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *NotificationActionPlanNotificationPayload) GetImageDigestOk() (*string, bool) {
-	if o == nil || o.ImageDigest == nil {
+	if o == nil || IsNil(o.ImageDigest) {
 		return nil, false
 	}
 	return o.ImageDigest, true
@@ -159,7 +162,7 @@ func (o *NotificationActionPlanNotificationPayload) GetImageDigestOk() (*string,
 
 // HasImageDigest returns a boolean if a field has been set.
 func (o *NotificationActionPlanNotificationPayload) HasImageDigest() bool {
-	if o != nil && o.ImageDigest != nil {
+	if o != nil && !IsNil(o.ImageDigest) {
 		return true
 	}
 
@@ -173,7 +176,7 @@ func (o *NotificationActionPlanNotificationPayload) SetImageDigest(v string) {
 
 // GetBundleId returns the BundleId field value if set, zero value otherwise.
 func (o *NotificationActionPlanNotificationPayload) GetBundleId() string {
-	if o == nil || o.BundleId == nil {
+	if o == nil || IsNil(o.BundleId) {
 		var ret string
 		return ret
 	}
@@ -183,7 +186,7 @@ func (o *NotificationActionPlanNotificationPayload) GetBundleId() string {
 // GetBundleIdOk returns a tuple with the BundleId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *NotificationActionPlanNotificationPayload) GetBundleIdOk() (*string, bool) {
-	if o == nil || o.BundleId == nil {
+	if o == nil || IsNil(o.BundleId) {
 		return nil, false
 	}
 	return o.BundleId, true
@@ -191,7 +194,7 @@ func (o *NotificationActionPlanNotificationPayload) GetBundleIdOk() (*string, bo
 
 // HasBundleId returns a boolean if a field has been set.
 func (o *NotificationActionPlanNotificationPayload) HasBundleId() bool {
-	if o != nil && o.BundleId != nil {
+	if o != nil && !IsNil(o.BundleId) {
 		return true
 	}
 
@@ -205,7 +208,7 @@ func (o *NotificationActionPlanNotificationPayload) SetBundleId(v string) {
 
 // GetSubject returns the Subject field value if set, zero value otherwise.
 func (o *NotificationActionPlanNotificationPayload) GetSubject() string {
-	if o == nil || o.Subject == nil {
+	if o == nil || IsNil(o.Subject) {
 		var ret string
 		return ret
 	}
@@ -215,7 +218,7 @@ func (o *NotificationActionPlanNotificationPayload) GetSubject() string {
 // GetSubjectOk returns a tuple with the Subject field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *NotificationActionPlanNotificationPayload) GetSubjectOk() (*string, bool) {
-	if o == nil || o.Subject == nil {
+	if o == nil || IsNil(o.Subject) {
 		return nil, false
 	}
 	return o.Subject, true
@@ -223,7 +226,7 @@ func (o *NotificationActionPlanNotificationPayload) GetSubjectOk() (*string, boo
 
 // HasSubject returns a boolean if a field has been set.
 func (o *NotificationActionPlanNotificationPayload) HasSubject() bool {
-	if o != nil && o.Subject != nil {
+	if o != nil && !IsNil(o.Subject) {
 		return true
 	}
 
@@ -237,7 +240,7 @@ func (o *NotificationActionPlanNotificationPayload) SetSubject(v string) {
 
 // GetMessage returns the Message field value if set, zero value otherwise.
 func (o *NotificationActionPlanNotificationPayload) GetMessage() string {
-	if o == nil || o.Message == nil {
+	if o == nil || IsNil(o.Message) {
 		var ret string
 		return ret
 	}
@@ -247,7 +250,7 @@ func (o *NotificationActionPlanNotificationPayload) GetMessage() string {
 // GetMessageOk returns a tuple with the Message field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *NotificationActionPlanNotificationPayload) GetMessageOk() (*string, bool) {
-	if o == nil || o.Message == nil {
+	if o == nil || IsNil(o.Message) {
 		return nil, false
 	}
 	return o.Message, true
@@ -255,7 +258,7 @@ func (o *NotificationActionPlanNotificationPayload) GetMessageOk() (*string, boo
 
 // HasMessage returns a boolean if a field has been set.
 func (o *NotificationActionPlanNotificationPayload) HasMessage() bool {
-	if o != nil && o.Message != nil {
+	if o != nil && !IsNil(o.Message) {
 		return true
 	}
 
@@ -268,29 +271,37 @@ func (o *NotificationActionPlanNotificationPayload) SetMessage(v string) {
 }
 
 func (o NotificationActionPlanNotificationPayload) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Type != nil {
-		toSerialize["type"] = o.Type
-	}
-	if o.Uuid != nil {
-		toSerialize["uuid"] = o.Uuid
-	}
-	if o.ImageTag != nil {
-		toSerialize["image_tag"] = o.ImageTag
-	}
-	if o.ImageDigest != nil {
-		toSerialize["image_digest"] = o.ImageDigest
-	}
-	if o.BundleId != nil {
-		toSerialize["bundle_id"] = o.BundleId
-	}
-	if o.Subject != nil {
-		toSerialize["subject"] = o.Subject
-	}
-	if o.Message != nil {
-		toSerialize["message"] = o.Message
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o NotificationActionPlanNotificationPayload) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Type) {
+		toSerialize["type"] = o.Type
+	}
+	if !IsNil(o.Uuid) {
+		toSerialize["uuid"] = o.Uuid
+	}
+	if !IsNil(o.ImageTag) {
+		toSerialize["image_tag"] = o.ImageTag
+	}
+	if !IsNil(o.ImageDigest) {
+		toSerialize["image_digest"] = o.ImageDigest
+	}
+	if !IsNil(o.BundleId) {
+		toSerialize["bundle_id"] = o.BundleId
+	}
+	if !IsNil(o.Subject) {
+		toSerialize["subject"] = o.Subject
+	}
+	if !IsNil(o.Message) {
+		toSerialize["message"] = o.Message
+	}
+	return toSerialize, nil
 }
 
 type NullableNotificationActionPlanNotificationPayload struct {

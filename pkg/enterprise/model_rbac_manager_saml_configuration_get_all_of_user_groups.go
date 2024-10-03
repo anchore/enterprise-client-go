@@ -16,6 +16,9 @@ import (
 	"time"
 )
 
+// checks if the RbacManagerSamlConfigurationGetAllOfUserGroups type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &RbacManagerSamlConfigurationGetAllOfUserGroups{}
+
 // RbacManagerSamlConfigurationGetAllOfUserGroups struct for RbacManagerSamlConfigurationGetAllOfUserGroups
 type RbacManagerSamlConfigurationGetAllOfUserGroups struct {
 	// The name of the user group
@@ -43,7 +46,7 @@ func NewRbacManagerSamlConfigurationGetAllOfUserGroupsWithDefaults() *RbacManage
 
 // GetUserGroup returns the UserGroup field value if set, zero value otherwise.
 func (o *RbacManagerSamlConfigurationGetAllOfUserGroups) GetUserGroup() string {
-	if o == nil || o.UserGroup == nil {
+	if o == nil || IsNil(o.UserGroup) {
 		var ret string
 		return ret
 	}
@@ -53,7 +56,7 @@ func (o *RbacManagerSamlConfigurationGetAllOfUserGroups) GetUserGroup() string {
 // GetUserGroupOk returns a tuple with the UserGroup field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RbacManagerSamlConfigurationGetAllOfUserGroups) GetUserGroupOk() (*string, bool) {
-	if o == nil || o.UserGroup == nil {
+	if o == nil || IsNil(o.UserGroup) {
 		return nil, false
 	}
 	return o.UserGroup, true
@@ -61,7 +64,7 @@ func (o *RbacManagerSamlConfigurationGetAllOfUserGroups) GetUserGroupOk() (*stri
 
 // HasUserGroup returns a boolean if a field has been set.
 func (o *RbacManagerSamlConfigurationGetAllOfUserGroups) HasUserGroup() bool {
-	if o != nil && o.UserGroup != nil {
+	if o != nil && !IsNil(o.UserGroup) {
 		return true
 	}
 
@@ -75,7 +78,7 @@ func (o *RbacManagerSamlConfigurationGetAllOfUserGroups) SetUserGroup(v string) 
 
 // GetAddedOn returns the AddedOn field value if set, zero value otherwise.
 func (o *RbacManagerSamlConfigurationGetAllOfUserGroups) GetAddedOn() time.Time {
-	if o == nil || o.AddedOn == nil {
+	if o == nil || IsNil(o.AddedOn) {
 		var ret time.Time
 		return ret
 	}
@@ -85,7 +88,7 @@ func (o *RbacManagerSamlConfigurationGetAllOfUserGroups) GetAddedOn() time.Time 
 // GetAddedOnOk returns a tuple with the AddedOn field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RbacManagerSamlConfigurationGetAllOfUserGroups) GetAddedOnOk() (*time.Time, bool) {
-	if o == nil || o.AddedOn == nil {
+	if o == nil || IsNil(o.AddedOn) {
 		return nil, false
 	}
 	return o.AddedOn, true
@@ -93,7 +96,7 @@ func (o *RbacManagerSamlConfigurationGetAllOfUserGroups) GetAddedOnOk() (*time.T
 
 // HasAddedOn returns a boolean if a field has been set.
 func (o *RbacManagerSamlConfigurationGetAllOfUserGroups) HasAddedOn() bool {
-	if o != nil && o.AddedOn != nil {
+	if o != nil && !IsNil(o.AddedOn) {
 		return true
 	}
 
@@ -106,14 +109,22 @@ func (o *RbacManagerSamlConfigurationGetAllOfUserGroups) SetAddedOn(v time.Time)
 }
 
 func (o RbacManagerSamlConfigurationGetAllOfUserGroups) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.UserGroup != nil {
-		toSerialize["user_group"] = o.UserGroup
-	}
-	if o.AddedOn != nil {
-		toSerialize["added_on"] = o.AddedOn
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o RbacManagerSamlConfigurationGetAllOfUserGroups) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.UserGroup) {
+		toSerialize["user_group"] = o.UserGroup
+	}
+	if !IsNil(o.AddedOn) {
+		toSerialize["added_on"] = o.AddedOn
+	}
+	return toSerialize, nil
 }
 
 type NullableRbacManagerSamlConfigurationGetAllOfUserGroups struct {

@@ -14,35 +14,18 @@ package enterprise
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
 )
 
 
-type CatalogApi interface {
-
-	/*
-	GetDeploymentHistory List Deployment History
-
-	Returns list of deployment history entries
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiGetDeploymentHistoryRequest
-	*/
-	GetDeploymentHistory(ctx context.Context) ApiGetDeploymentHistoryRequest
-
-	// GetDeploymentHistoryExecute executes the request
-	//  @return DeploymentHistoryList
-	GetDeploymentHistoryExecute(r ApiGetDeploymentHistoryRequest) (*DeploymentHistoryList, *http.Response, error)
-}
-
-// CatalogApiService CatalogApi service
-type CatalogApiService service
+// CatalogAPIService CatalogAPI service
+type CatalogAPIService service
 
 type ApiGetDeploymentHistoryRequest struct {
 	ctx context.Context
-	ApiService CatalogApi
+	ApiService *CatalogAPIService
 }
 
 func (r ApiGetDeploymentHistoryRequest) Execute() (*DeploymentHistoryList, *http.Response, error) {
@@ -57,7 +40,7 @@ Returns list of deployment history entries
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiGetDeploymentHistoryRequest
 */
-func (a *CatalogApiService) GetDeploymentHistory(ctx context.Context) ApiGetDeploymentHistoryRequest {
+func (a *CatalogAPIService) GetDeploymentHistory(ctx context.Context) ApiGetDeploymentHistoryRequest {
 	return ApiGetDeploymentHistoryRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -66,7 +49,7 @@ func (a *CatalogApiService) GetDeploymentHistory(ctx context.Context) ApiGetDepl
 
 // Execute executes the request
 //  @return DeploymentHistoryList
-func (a *CatalogApiService) GetDeploymentHistoryExecute(r ApiGetDeploymentHistoryRequest) (*DeploymentHistoryList, *http.Response, error) {
+func (a *CatalogAPIService) GetDeploymentHistoryExecute(r ApiGetDeploymentHistoryRequest) (*DeploymentHistoryList, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
@@ -74,7 +57,7 @@ func (a *CatalogApiService) GetDeploymentHistoryExecute(r ApiGetDeploymentHistor
 		localVarReturnValue  *DeploymentHistoryList
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CatalogApiService.GetDeploymentHistory")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CatalogAPIService.GetDeploymentHistory")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -112,9 +95,9 @@ func (a *CatalogApiService) GetDeploymentHistoryExecute(r ApiGetDeploymentHistor
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}

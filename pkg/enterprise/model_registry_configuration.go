@@ -16,6 +16,9 @@ import (
 	"time"
 )
 
+// checks if the RegistryConfiguration type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &RegistryConfiguration{}
+
 // RegistryConfiguration A registry entry describing the endpoint and credentials for a registry to pull images from
 type RegistryConfiguration struct {
 	CreatedAt *time.Time `json:"created_at,omitempty"`
@@ -53,7 +56,7 @@ func NewRegistryConfigurationWithDefaults() *RegistryConfiguration {
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
 func (o *RegistryConfiguration) GetCreatedAt() time.Time {
-	if o == nil || o.CreatedAt == nil {
+	if o == nil || IsNil(o.CreatedAt) {
 		var ret time.Time
 		return ret
 	}
@@ -63,7 +66,7 @@ func (o *RegistryConfiguration) GetCreatedAt() time.Time {
 // GetCreatedAtOk returns a tuple with the CreatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RegistryConfiguration) GetCreatedAtOk() (*time.Time, bool) {
-	if o == nil || o.CreatedAt == nil {
+	if o == nil || IsNil(o.CreatedAt) {
 		return nil, false
 	}
 	return o.CreatedAt, true
@@ -71,7 +74,7 @@ func (o *RegistryConfiguration) GetCreatedAtOk() (*time.Time, bool) {
 
 // HasCreatedAt returns a boolean if a field has been set.
 func (o *RegistryConfiguration) HasCreatedAt() bool {
-	if o != nil && o.CreatedAt != nil {
+	if o != nil && !IsNil(o.CreatedAt) {
 		return true
 	}
 
@@ -85,7 +88,7 @@ func (o *RegistryConfiguration) SetCreatedAt(v time.Time) {
 
 // GetLastUpdated returns the LastUpdated field value if set, zero value otherwise.
 func (o *RegistryConfiguration) GetLastUpdated() time.Time {
-	if o == nil || o.LastUpdated == nil {
+	if o == nil || IsNil(o.LastUpdated) {
 		var ret time.Time
 		return ret
 	}
@@ -95,7 +98,7 @@ func (o *RegistryConfiguration) GetLastUpdated() time.Time {
 // GetLastUpdatedOk returns a tuple with the LastUpdated field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RegistryConfiguration) GetLastUpdatedOk() (*time.Time, bool) {
-	if o == nil || o.LastUpdated == nil {
+	if o == nil || IsNil(o.LastUpdated) {
 		return nil, false
 	}
 	return o.LastUpdated, true
@@ -103,7 +106,7 @@ func (o *RegistryConfiguration) GetLastUpdatedOk() (*time.Time, bool) {
 
 // HasLastUpdated returns a boolean if a field has been set.
 func (o *RegistryConfiguration) HasLastUpdated() bool {
-	if o != nil && o.LastUpdated != nil {
+	if o != nil && !IsNil(o.LastUpdated) {
 		return true
 	}
 
@@ -117,7 +120,7 @@ func (o *RegistryConfiguration) SetLastUpdated(v time.Time) {
 
 // GetRegistryUser returns the RegistryUser field value if set, zero value otherwise.
 func (o *RegistryConfiguration) GetRegistryUser() string {
-	if o == nil || o.RegistryUser == nil {
+	if o == nil || IsNil(o.RegistryUser) {
 		var ret string
 		return ret
 	}
@@ -127,7 +130,7 @@ func (o *RegistryConfiguration) GetRegistryUser() string {
 // GetRegistryUserOk returns a tuple with the RegistryUser field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RegistryConfiguration) GetRegistryUserOk() (*string, bool) {
-	if o == nil || o.RegistryUser == nil {
+	if o == nil || IsNil(o.RegistryUser) {
 		return nil, false
 	}
 	return o.RegistryUser, true
@@ -135,7 +138,7 @@ func (o *RegistryConfiguration) GetRegistryUserOk() (*string, bool) {
 
 // HasRegistryUser returns a boolean if a field has been set.
 func (o *RegistryConfiguration) HasRegistryUser() bool {
-	if o != nil && o.RegistryUser != nil {
+	if o != nil && !IsNil(o.RegistryUser) {
 		return true
 	}
 
@@ -149,7 +152,7 @@ func (o *RegistryConfiguration) SetRegistryUser(v string) {
 
 // GetRegistryType returns the RegistryType field value if set, zero value otherwise.
 func (o *RegistryConfiguration) GetRegistryType() string {
-	if o == nil || o.RegistryType == nil {
+	if o == nil || IsNil(o.RegistryType) {
 		var ret string
 		return ret
 	}
@@ -159,7 +162,7 @@ func (o *RegistryConfiguration) GetRegistryType() string {
 // GetRegistryTypeOk returns a tuple with the RegistryType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RegistryConfiguration) GetRegistryTypeOk() (*string, bool) {
-	if o == nil || o.RegistryType == nil {
+	if o == nil || IsNil(o.RegistryType) {
 		return nil, false
 	}
 	return o.RegistryType, true
@@ -167,7 +170,7 @@ func (o *RegistryConfiguration) GetRegistryTypeOk() (*string, bool) {
 
 // HasRegistryType returns a boolean if a field has been set.
 func (o *RegistryConfiguration) HasRegistryType() bool {
-	if o != nil && o.RegistryType != nil {
+	if o != nil && !IsNil(o.RegistryType) {
 		return true
 	}
 
@@ -181,7 +184,7 @@ func (o *RegistryConfiguration) SetRegistryType(v string) {
 
 // GetAccountName returns the AccountName field value if set, zero value otherwise.
 func (o *RegistryConfiguration) GetAccountName() string {
-	if o == nil || o.AccountName == nil {
+	if o == nil || IsNil(o.AccountName) {
 		var ret string
 		return ret
 	}
@@ -191,7 +194,7 @@ func (o *RegistryConfiguration) GetAccountName() string {
 // GetAccountNameOk returns a tuple with the AccountName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RegistryConfiguration) GetAccountNameOk() (*string, bool) {
-	if o == nil || o.AccountName == nil {
+	if o == nil || IsNil(o.AccountName) {
 		return nil, false
 	}
 	return o.AccountName, true
@@ -199,7 +202,7 @@ func (o *RegistryConfiguration) GetAccountNameOk() (*string, bool) {
 
 // HasAccountName returns a boolean if a field has been set.
 func (o *RegistryConfiguration) HasAccountName() bool {
-	if o != nil && o.AccountName != nil {
+	if o != nil && !IsNil(o.AccountName) {
 		return true
 	}
 
@@ -213,7 +216,7 @@ func (o *RegistryConfiguration) SetAccountName(v string) {
 
 // GetRegistry returns the Registry field value if set, zero value otherwise.
 func (o *RegistryConfiguration) GetRegistry() string {
-	if o == nil || o.Registry == nil {
+	if o == nil || IsNil(o.Registry) {
 		var ret string
 		return ret
 	}
@@ -223,7 +226,7 @@ func (o *RegistryConfiguration) GetRegistry() string {
 // GetRegistryOk returns a tuple with the Registry field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RegistryConfiguration) GetRegistryOk() (*string, bool) {
-	if o == nil || o.Registry == nil {
+	if o == nil || IsNil(o.Registry) {
 		return nil, false
 	}
 	return o.Registry, true
@@ -231,7 +234,7 @@ func (o *RegistryConfiguration) GetRegistryOk() (*string, bool) {
 
 // HasRegistry returns a boolean if a field has been set.
 func (o *RegistryConfiguration) HasRegistry() bool {
-	if o != nil && o.Registry != nil {
+	if o != nil && !IsNil(o.Registry) {
 		return true
 	}
 
@@ -245,7 +248,7 @@ func (o *RegistryConfiguration) SetRegistry(v string) {
 
 // GetRegistryName returns the RegistryName field value if set, zero value otherwise.
 func (o *RegistryConfiguration) GetRegistryName() string {
-	if o == nil || o.RegistryName == nil {
+	if o == nil || IsNil(o.RegistryName) {
 		var ret string
 		return ret
 	}
@@ -255,7 +258,7 @@ func (o *RegistryConfiguration) GetRegistryName() string {
 // GetRegistryNameOk returns a tuple with the RegistryName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RegistryConfiguration) GetRegistryNameOk() (*string, bool) {
-	if o == nil || o.RegistryName == nil {
+	if o == nil || IsNil(o.RegistryName) {
 		return nil, false
 	}
 	return o.RegistryName, true
@@ -263,7 +266,7 @@ func (o *RegistryConfiguration) GetRegistryNameOk() (*string, bool) {
 
 // HasRegistryName returns a boolean if a field has been set.
 func (o *RegistryConfiguration) HasRegistryName() bool {
-	if o != nil && o.RegistryName != nil {
+	if o != nil && !IsNil(o.RegistryName) {
 		return true
 	}
 
@@ -277,7 +280,7 @@ func (o *RegistryConfiguration) SetRegistryName(v string) {
 
 // GetRegistryVerify returns the RegistryVerify field value if set, zero value otherwise.
 func (o *RegistryConfiguration) GetRegistryVerify() bool {
-	if o == nil || o.RegistryVerify == nil {
+	if o == nil || IsNil(o.RegistryVerify) {
 		var ret bool
 		return ret
 	}
@@ -287,7 +290,7 @@ func (o *RegistryConfiguration) GetRegistryVerify() bool {
 // GetRegistryVerifyOk returns a tuple with the RegistryVerify field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RegistryConfiguration) GetRegistryVerifyOk() (*bool, bool) {
-	if o == nil || o.RegistryVerify == nil {
+	if o == nil || IsNil(o.RegistryVerify) {
 		return nil, false
 	}
 	return o.RegistryVerify, true
@@ -295,7 +298,7 @@ func (o *RegistryConfiguration) GetRegistryVerifyOk() (*bool, bool) {
 
 // HasRegistryVerify returns a boolean if a field has been set.
 func (o *RegistryConfiguration) HasRegistryVerify() bool {
-	if o != nil && o.RegistryVerify != nil {
+	if o != nil && !IsNil(o.RegistryVerify) {
 		return true
 	}
 
@@ -308,32 +311,40 @@ func (o *RegistryConfiguration) SetRegistryVerify(v bool) {
 }
 
 func (o RegistryConfiguration) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.CreatedAt != nil {
-		toSerialize["created_at"] = o.CreatedAt
-	}
-	if o.LastUpdated != nil {
-		toSerialize["last_updated"] = o.LastUpdated
-	}
-	if o.RegistryUser != nil {
-		toSerialize["registry_user"] = o.RegistryUser
-	}
-	if o.RegistryType != nil {
-		toSerialize["registry_type"] = o.RegistryType
-	}
-	if o.AccountName != nil {
-		toSerialize["account_name"] = o.AccountName
-	}
-	if o.Registry != nil {
-		toSerialize["registry"] = o.Registry
-	}
-	if o.RegistryName != nil {
-		toSerialize["registry_name"] = o.RegistryName
-	}
-	if o.RegistryVerify != nil {
-		toSerialize["registry_verify"] = o.RegistryVerify
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o RegistryConfiguration) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.CreatedAt) {
+		toSerialize["created_at"] = o.CreatedAt
+	}
+	if !IsNil(o.LastUpdated) {
+		toSerialize["last_updated"] = o.LastUpdated
+	}
+	if !IsNil(o.RegistryUser) {
+		toSerialize["registry_user"] = o.RegistryUser
+	}
+	if !IsNil(o.RegistryType) {
+		toSerialize["registry_type"] = o.RegistryType
+	}
+	if !IsNil(o.AccountName) {
+		toSerialize["account_name"] = o.AccountName
+	}
+	if !IsNil(o.Registry) {
+		toSerialize["registry"] = o.Registry
+	}
+	if !IsNil(o.RegistryName) {
+		toSerialize["registry_name"] = o.RegistryName
+	}
+	if !IsNil(o.RegistryVerify) {
+		toSerialize["registry_verify"] = o.RegistryVerify
+	}
+	return toSerialize, nil
 }
 
 type NullableRegistryConfiguration struct {

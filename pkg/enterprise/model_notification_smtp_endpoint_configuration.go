@@ -14,7 +14,12 @@ package enterprise
 import (
 	"encoding/json"
 	"time"
+	"bytes"
+	"fmt"
 )
+
+// checks if the NotificationSMTPEndpointConfiguration type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &NotificationSMTPEndpointConfiguration{}
 
 // NotificationSMTPEndpointConfiguration Configuration for email via smtp endpoint
 type NotificationSMTPEndpointConfiguration struct {
@@ -40,6 +45,8 @@ type NotificationSMTPEndpointConfiguration struct {
 	To string `json:"to"`
 }
 
+type _NotificationSMTPEndpointConfiguration NotificationSMTPEndpointConfiguration
+
 // NewNotificationSMTPEndpointConfiguration instantiates a new NotificationSMTPEndpointConfiguration object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
@@ -63,7 +70,7 @@ func NewNotificationSMTPEndpointConfigurationWithDefaults() *NotificationSMTPEnd
 
 // GetUuid returns the Uuid field value if set, zero value otherwise.
 func (o *NotificationSMTPEndpointConfiguration) GetUuid() string {
-	if o == nil || o.Uuid == nil {
+	if o == nil || IsNil(o.Uuid) {
 		var ret string
 		return ret
 	}
@@ -73,7 +80,7 @@ func (o *NotificationSMTPEndpointConfiguration) GetUuid() string {
 // GetUuidOk returns a tuple with the Uuid field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *NotificationSMTPEndpointConfiguration) GetUuidOk() (*string, bool) {
-	if o == nil || o.Uuid == nil {
+	if o == nil || IsNil(o.Uuid) {
 		return nil, false
 	}
 	return o.Uuid, true
@@ -81,7 +88,7 @@ func (o *NotificationSMTPEndpointConfiguration) GetUuidOk() (*string, bool) {
 
 // HasUuid returns a boolean if a field has been set.
 func (o *NotificationSMTPEndpointConfiguration) HasUuid() bool {
-	if o != nil && o.Uuid != nil {
+	if o != nil && !IsNil(o.Uuid) {
 		return true
 	}
 
@@ -95,7 +102,7 @@ func (o *NotificationSMTPEndpointConfiguration) SetUuid(v string) {
 
 // GetDescription returns the Description field value if set, zero value otherwise.
 func (o *NotificationSMTPEndpointConfiguration) GetDescription() string {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		var ret string
 		return ret
 	}
@@ -105,7 +112,7 @@ func (o *NotificationSMTPEndpointConfiguration) GetDescription() string {
 // GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *NotificationSMTPEndpointConfiguration) GetDescriptionOk() (*string, bool) {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		return nil, false
 	}
 	return o.Description, true
@@ -113,7 +120,7 @@ func (o *NotificationSMTPEndpointConfiguration) GetDescriptionOk() (*string, boo
 
 // HasDescription returns a boolean if a field has been set.
 func (o *NotificationSMTPEndpointConfiguration) HasDescription() bool {
-	if o != nil && o.Description != nil {
+	if o != nil && !IsNil(o.Description) {
 		return true
 	}
 
@@ -127,7 +134,7 @@ func (o *NotificationSMTPEndpointConfiguration) SetDescription(v string) {
 
 // GetVerifyTls returns the VerifyTls field value if set, zero value otherwise.
 func (o *NotificationSMTPEndpointConfiguration) GetVerifyTls() bool {
-	if o == nil || o.VerifyTls == nil {
+	if o == nil || IsNil(o.VerifyTls) {
 		var ret bool
 		return ret
 	}
@@ -137,7 +144,7 @@ func (o *NotificationSMTPEndpointConfiguration) GetVerifyTls() bool {
 // GetVerifyTlsOk returns a tuple with the VerifyTls field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *NotificationSMTPEndpointConfiguration) GetVerifyTlsOk() (*bool, bool) {
-	if o == nil || o.VerifyTls == nil {
+	if o == nil || IsNil(o.VerifyTls) {
 		return nil, false
 	}
 	return o.VerifyTls, true
@@ -145,7 +152,7 @@ func (o *NotificationSMTPEndpointConfiguration) GetVerifyTlsOk() (*bool, bool) {
 
 // HasVerifyTls returns a boolean if a field has been set.
 func (o *NotificationSMTPEndpointConfiguration) HasVerifyTls() bool {
-	if o != nil && o.VerifyTls != nil {
+	if o != nil && !IsNil(o.VerifyTls) {
 		return true
 	}
 
@@ -159,7 +166,7 @@ func (o *NotificationSMTPEndpointConfiguration) SetVerifyTls(v bool) {
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
 func (o *NotificationSMTPEndpointConfiguration) GetCreatedAt() time.Time {
-	if o == nil || o.CreatedAt == nil {
+	if o == nil || IsNil(o.CreatedAt) {
 		var ret time.Time
 		return ret
 	}
@@ -169,7 +176,7 @@ func (o *NotificationSMTPEndpointConfiguration) GetCreatedAt() time.Time {
 // GetCreatedAtOk returns a tuple with the CreatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *NotificationSMTPEndpointConfiguration) GetCreatedAtOk() (*time.Time, bool) {
-	if o == nil || o.CreatedAt == nil {
+	if o == nil || IsNil(o.CreatedAt) {
 		return nil, false
 	}
 	return o.CreatedAt, true
@@ -177,7 +184,7 @@ func (o *NotificationSMTPEndpointConfiguration) GetCreatedAtOk() (*time.Time, bo
 
 // HasCreatedAt returns a boolean if a field has been set.
 func (o *NotificationSMTPEndpointConfiguration) HasCreatedAt() bool {
-	if o != nil && o.CreatedAt != nil {
+	if o != nil && !IsNil(o.CreatedAt) {
 		return true
 	}
 
@@ -191,7 +198,7 @@ func (o *NotificationSMTPEndpointConfiguration) SetCreatedAt(v time.Time) {
 
 // GetLastUpdated returns the LastUpdated field value if set, zero value otherwise.
 func (o *NotificationSMTPEndpointConfiguration) GetLastUpdated() time.Time {
-	if o == nil || o.LastUpdated == nil {
+	if o == nil || IsNil(o.LastUpdated) {
 		var ret time.Time
 		return ret
 	}
@@ -201,7 +208,7 @@ func (o *NotificationSMTPEndpointConfiguration) GetLastUpdated() time.Time {
 // GetLastUpdatedOk returns a tuple with the LastUpdated field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *NotificationSMTPEndpointConfiguration) GetLastUpdatedOk() (*time.Time, bool) {
-	if o == nil || o.LastUpdated == nil {
+	if o == nil || IsNil(o.LastUpdated) {
 		return nil, false
 	}
 	return o.LastUpdated, true
@@ -209,7 +216,7 @@ func (o *NotificationSMTPEndpointConfiguration) GetLastUpdatedOk() (*time.Time, 
 
 // HasLastUpdated returns a boolean if a field has been set.
 func (o *NotificationSMTPEndpointConfiguration) HasLastUpdated() bool {
-	if o != nil && o.LastUpdated != nil {
+	if o != nil && !IsNil(o.LastUpdated) {
 		return true
 	}
 
@@ -271,7 +278,7 @@ func (o *NotificationSMTPEndpointConfiguration) SetPort(v int32) {
 
 // GetUsername returns the Username field value if set, zero value otherwise.
 func (o *NotificationSMTPEndpointConfiguration) GetUsername() string {
-	if o == nil || o.Username == nil {
+	if o == nil || IsNil(o.Username) {
 		var ret string
 		return ret
 	}
@@ -281,7 +288,7 @@ func (o *NotificationSMTPEndpointConfiguration) GetUsername() string {
 // GetUsernameOk returns a tuple with the Username field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *NotificationSMTPEndpointConfiguration) GetUsernameOk() (*string, bool) {
-	if o == nil || o.Username == nil {
+	if o == nil || IsNil(o.Username) {
 		return nil, false
 	}
 	return o.Username, true
@@ -289,7 +296,7 @@ func (o *NotificationSMTPEndpointConfiguration) GetUsernameOk() (*string, bool) 
 
 // HasUsername returns a boolean if a field has been set.
 func (o *NotificationSMTPEndpointConfiguration) HasUsername() bool {
-	if o != nil && o.Username != nil {
+	if o != nil && !IsNil(o.Username) {
 		return true
 	}
 
@@ -303,7 +310,7 @@ func (o *NotificationSMTPEndpointConfiguration) SetUsername(v string) {
 
 // GetPassword returns the Password field value if set, zero value otherwise.
 func (o *NotificationSMTPEndpointConfiguration) GetPassword() string {
-	if o == nil || o.Password == nil {
+	if o == nil || IsNil(o.Password) {
 		var ret string
 		return ret
 	}
@@ -313,7 +320,7 @@ func (o *NotificationSMTPEndpointConfiguration) GetPassword() string {
 // GetPasswordOk returns a tuple with the Password field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *NotificationSMTPEndpointConfiguration) GetPasswordOk() (*string, bool) {
-	if o == nil || o.Password == nil {
+	if o == nil || IsNil(o.Password) {
 		return nil, false
 	}
 	return o.Password, true
@@ -321,7 +328,7 @@ func (o *NotificationSMTPEndpointConfiguration) GetPasswordOk() (*string, bool) 
 
 // HasPassword returns a boolean if a field has been set.
 func (o *NotificationSMTPEndpointConfiguration) HasPassword() bool {
-	if o != nil && o.Password != nil {
+	if o != nil && !IsNil(o.Password) {
 		return true
 	}
 
@@ -335,7 +342,7 @@ func (o *NotificationSMTPEndpointConfiguration) SetPassword(v string) {
 
 // GetUseTls returns the UseTls field value if set, zero value otherwise.
 func (o *NotificationSMTPEndpointConfiguration) GetUseTls() bool {
-	if o == nil || o.UseTls == nil {
+	if o == nil || IsNil(o.UseTls) {
 		var ret bool
 		return ret
 	}
@@ -345,7 +352,7 @@ func (o *NotificationSMTPEndpointConfiguration) GetUseTls() bool {
 // GetUseTlsOk returns a tuple with the UseTls field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *NotificationSMTPEndpointConfiguration) GetUseTlsOk() (*bool, bool) {
-	if o == nil || o.UseTls == nil {
+	if o == nil || IsNil(o.UseTls) {
 		return nil, false
 	}
 	return o.UseTls, true
@@ -353,7 +360,7 @@ func (o *NotificationSMTPEndpointConfiguration) GetUseTlsOk() (*bool, bool) {
 
 // HasUseTls returns a boolean if a field has been set.
 func (o *NotificationSMTPEndpointConfiguration) HasUseTls() bool {
-	if o != nil && o.UseTls != nil {
+	if o != nil && !IsNil(o.UseTls) {
 		return true
 	}
 
@@ -414,44 +421,84 @@ func (o *NotificationSMTPEndpointConfiguration) SetTo(v string) {
 }
 
 func (o NotificationSMTPEndpointConfiguration) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Uuid != nil {
-		toSerialize["uuid"] = o.Uuid
-	}
-	if o.Description != nil {
-		toSerialize["description"] = o.Description
-	}
-	if o.VerifyTls != nil {
-		toSerialize["verify_tls"] = o.VerifyTls
-	}
-	if o.CreatedAt != nil {
-		toSerialize["created_at"] = o.CreatedAt
-	}
-	if o.LastUpdated != nil {
-		toSerialize["last_updated"] = o.LastUpdated
-	}
-	if true {
-		toSerialize["host"] = o.Host
-	}
-	if true {
-		toSerialize["port"] = o.Port
-	}
-	if o.Username != nil {
-		toSerialize["username"] = o.Username
-	}
-	if o.Password != nil {
-		toSerialize["password"] = o.Password
-	}
-	if o.UseTls != nil {
-		toSerialize["use_tls"] = o.UseTls
-	}
-	if true {
-		toSerialize["from"] = o.From
-	}
-	if true {
-		toSerialize["to"] = o.To
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o NotificationSMTPEndpointConfiguration) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Uuid) {
+		toSerialize["uuid"] = o.Uuid
+	}
+	if !IsNil(o.Description) {
+		toSerialize["description"] = o.Description
+	}
+	if !IsNil(o.VerifyTls) {
+		toSerialize["verify_tls"] = o.VerifyTls
+	}
+	if !IsNil(o.CreatedAt) {
+		toSerialize["created_at"] = o.CreatedAt
+	}
+	if !IsNil(o.LastUpdated) {
+		toSerialize["last_updated"] = o.LastUpdated
+	}
+	toSerialize["host"] = o.Host
+	toSerialize["port"] = o.Port
+	if !IsNil(o.Username) {
+		toSerialize["username"] = o.Username
+	}
+	if !IsNil(o.Password) {
+		toSerialize["password"] = o.Password
+	}
+	if !IsNil(o.UseTls) {
+		toSerialize["use_tls"] = o.UseTls
+	}
+	toSerialize["from"] = o.From
+	toSerialize["to"] = o.To
+	return toSerialize, nil
+}
+
+func (o *NotificationSMTPEndpointConfiguration) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"host",
+		"port",
+		"from",
+		"to",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varNotificationSMTPEndpointConfiguration := _NotificationSMTPEndpointConfiguration{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varNotificationSMTPEndpointConfiguration)
+
+	if err != nil {
+		return err
+	}
+
+	*o = NotificationSMTPEndpointConfiguration(varNotificationSMTPEndpointConfiguration)
+
+	return err
 }
 
 type NullableNotificationSMTPEndpointConfiguration struct {

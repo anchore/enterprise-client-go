@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the PolicyEvalNotificationData type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PolicyEvalNotificationData{}
+
 // PolicyEvalNotificationData struct for PolicyEvalNotificationData
 type PolicyEvalNotificationData struct {
 	NotificationUser *string `json:"notification_user,omitempty"`
@@ -42,7 +45,7 @@ func NewPolicyEvalNotificationDataWithDefaults() *PolicyEvalNotificationData {
 
 // GetNotificationUser returns the NotificationUser field value if set, zero value otherwise.
 func (o *PolicyEvalNotificationData) GetNotificationUser() string {
-	if o == nil || o.NotificationUser == nil {
+	if o == nil || IsNil(o.NotificationUser) {
 		var ret string
 		return ret
 	}
@@ -52,7 +55,7 @@ func (o *PolicyEvalNotificationData) GetNotificationUser() string {
 // GetNotificationUserOk returns a tuple with the NotificationUser field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PolicyEvalNotificationData) GetNotificationUserOk() (*string, bool) {
-	if o == nil || o.NotificationUser == nil {
+	if o == nil || IsNil(o.NotificationUser) {
 		return nil, false
 	}
 	return o.NotificationUser, true
@@ -60,7 +63,7 @@ func (o *PolicyEvalNotificationData) GetNotificationUserOk() (*string, bool) {
 
 // HasNotificationUser returns a boolean if a field has been set.
 func (o *PolicyEvalNotificationData) HasNotificationUser() bool {
-	if o != nil && o.NotificationUser != nil {
+	if o != nil && !IsNil(o.NotificationUser) {
 		return true
 	}
 
@@ -74,7 +77,7 @@ func (o *PolicyEvalNotificationData) SetNotificationUser(v string) {
 
 // GetNotificationUserEmail returns the NotificationUserEmail field value if set, zero value otherwise.
 func (o *PolicyEvalNotificationData) GetNotificationUserEmail() string {
-	if o == nil || o.NotificationUserEmail == nil {
+	if o == nil || IsNil(o.NotificationUserEmail) {
 		var ret string
 		return ret
 	}
@@ -84,7 +87,7 @@ func (o *PolicyEvalNotificationData) GetNotificationUserEmail() string {
 // GetNotificationUserEmailOk returns a tuple with the NotificationUserEmail field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PolicyEvalNotificationData) GetNotificationUserEmailOk() (*string, bool) {
-	if o == nil || o.NotificationUserEmail == nil {
+	if o == nil || IsNil(o.NotificationUserEmail) {
 		return nil, false
 	}
 	return o.NotificationUserEmail, true
@@ -92,7 +95,7 @@ func (o *PolicyEvalNotificationData) GetNotificationUserEmailOk() (*string, bool
 
 // HasNotificationUserEmail returns a boolean if a field has been set.
 func (o *PolicyEvalNotificationData) HasNotificationUserEmail() bool {
-	if o != nil && o.NotificationUserEmail != nil {
+	if o != nil && !IsNil(o.NotificationUserEmail) {
 		return true
 	}
 
@@ -106,7 +109,7 @@ func (o *PolicyEvalNotificationData) SetNotificationUserEmail(v string) {
 
 // GetNotificationType returns the NotificationType field value if set, zero value otherwise.
 func (o *PolicyEvalNotificationData) GetNotificationType() string {
-	if o == nil || o.NotificationType == nil {
+	if o == nil || IsNil(o.NotificationType) {
 		var ret string
 		return ret
 	}
@@ -116,7 +119,7 @@ func (o *PolicyEvalNotificationData) GetNotificationType() string {
 // GetNotificationTypeOk returns a tuple with the NotificationType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PolicyEvalNotificationData) GetNotificationTypeOk() (*string, bool) {
-	if o == nil || o.NotificationType == nil {
+	if o == nil || IsNil(o.NotificationType) {
 		return nil, false
 	}
 	return o.NotificationType, true
@@ -124,7 +127,7 @@ func (o *PolicyEvalNotificationData) GetNotificationTypeOk() (*string, bool) {
 
 // HasNotificationType returns a boolean if a field has been set.
 func (o *PolicyEvalNotificationData) HasNotificationType() bool {
-	if o != nil && o.NotificationType != nil {
+	if o != nil && !IsNil(o.NotificationType) {
 		return true
 	}
 
@@ -138,7 +141,7 @@ func (o *PolicyEvalNotificationData) SetNotificationType(v string) {
 
 // GetNotificationPayload returns the NotificationPayload field value if set, zero value otherwise.
 func (o *PolicyEvalNotificationData) GetNotificationPayload() PolicyEvalNotificationPayload {
-	if o == nil || o.NotificationPayload == nil {
+	if o == nil || IsNil(o.NotificationPayload) {
 		var ret PolicyEvalNotificationPayload
 		return ret
 	}
@@ -148,7 +151,7 @@ func (o *PolicyEvalNotificationData) GetNotificationPayload() PolicyEvalNotifica
 // GetNotificationPayloadOk returns a tuple with the NotificationPayload field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PolicyEvalNotificationData) GetNotificationPayloadOk() (*PolicyEvalNotificationPayload, bool) {
-	if o == nil || o.NotificationPayload == nil {
+	if o == nil || IsNil(o.NotificationPayload) {
 		return nil, false
 	}
 	return o.NotificationPayload, true
@@ -156,7 +159,7 @@ func (o *PolicyEvalNotificationData) GetNotificationPayloadOk() (*PolicyEvalNoti
 
 // HasNotificationPayload returns a boolean if a field has been set.
 func (o *PolicyEvalNotificationData) HasNotificationPayload() bool {
-	if o != nil && o.NotificationPayload != nil {
+	if o != nil && !IsNil(o.NotificationPayload) {
 		return true
 	}
 
@@ -169,20 +172,28 @@ func (o *PolicyEvalNotificationData) SetNotificationPayload(v PolicyEvalNotifica
 }
 
 func (o PolicyEvalNotificationData) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.NotificationUser != nil {
-		toSerialize["notification_user"] = o.NotificationUser
-	}
-	if o.NotificationUserEmail != nil {
-		toSerialize["notification_user_email"] = o.NotificationUserEmail
-	}
-	if o.NotificationType != nil {
-		toSerialize["notification_type"] = o.NotificationType
-	}
-	if o.NotificationPayload != nil {
-		toSerialize["notification_payload"] = o.NotificationPayload
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o PolicyEvalNotificationData) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.NotificationUser) {
+		toSerialize["notification_user"] = o.NotificationUser
+	}
+	if !IsNil(o.NotificationUserEmail) {
+		toSerialize["notification_user_email"] = o.NotificationUserEmail
+	}
+	if !IsNil(o.NotificationType) {
+		toSerialize["notification_type"] = o.NotificationType
+	}
+	if !IsNil(o.NotificationPayload) {
+		toSerialize["notification_payload"] = o.NotificationPayload
+	}
+	return toSerialize, nil
 }
 
 type NullablePolicyEvalNotificationData struct {

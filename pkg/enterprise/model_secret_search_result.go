@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the SecretSearchResult type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &SecretSearchResult{}
+
 // SecretSearchResult The retrieved file entry including content (b64 encoded)
 type SecretSearchResult struct {
 	Path *string `json:"path,omitempty"`
@@ -40,7 +43,7 @@ func NewSecretSearchResultWithDefaults() *SecretSearchResult {
 
 // GetPath returns the Path field value if set, zero value otherwise.
 func (o *SecretSearchResult) GetPath() string {
-	if o == nil || o.Path == nil {
+	if o == nil || IsNil(o.Path) {
 		var ret string
 		return ret
 	}
@@ -50,7 +53,7 @@ func (o *SecretSearchResult) GetPath() string {
 // GetPathOk returns a tuple with the Path field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SecretSearchResult) GetPathOk() (*string, bool) {
-	if o == nil || o.Path == nil {
+	if o == nil || IsNil(o.Path) {
 		return nil, false
 	}
 	return o.Path, true
@@ -58,7 +61,7 @@ func (o *SecretSearchResult) GetPathOk() (*string, bool) {
 
 // HasPath returns a boolean if a field has been set.
 func (o *SecretSearchResult) HasPath() bool {
-	if o != nil && o.Path != nil {
+	if o != nil && !IsNil(o.Path) {
 		return true
 	}
 
@@ -72,7 +75,7 @@ func (o *SecretSearchResult) SetPath(v string) {
 
 // GetMatches returns the Matches field value if set, zero value otherwise.
 func (o *SecretSearchResult) GetMatches() []RegexContentMatch {
-	if o == nil || o.Matches == nil {
+	if o == nil || IsNil(o.Matches) {
 		var ret []RegexContentMatch
 		return ret
 	}
@@ -82,7 +85,7 @@ func (o *SecretSearchResult) GetMatches() []RegexContentMatch {
 // GetMatchesOk returns a tuple with the Matches field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SecretSearchResult) GetMatchesOk() ([]RegexContentMatch, bool) {
-	if o == nil || o.Matches == nil {
+	if o == nil || IsNil(o.Matches) {
 		return nil, false
 	}
 	return o.Matches, true
@@ -90,7 +93,7 @@ func (o *SecretSearchResult) GetMatchesOk() ([]RegexContentMatch, bool) {
 
 // HasMatches returns a boolean if a field has been set.
 func (o *SecretSearchResult) HasMatches() bool {
-	if o != nil && o.Matches != nil {
+	if o != nil && !IsNil(o.Matches) {
 		return true
 	}
 
@@ -103,14 +106,22 @@ func (o *SecretSearchResult) SetMatches(v []RegexContentMatch) {
 }
 
 func (o SecretSearchResult) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Path != nil {
-		toSerialize["path"] = o.Path
-	}
-	if o.Matches != nil {
-		toSerialize["matches"] = o.Matches
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o SecretSearchResult) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Path) {
+		toSerialize["path"] = o.Path
+	}
+	if !IsNil(o.Matches) {
+		toSerialize["matches"] = o.Matches
+	}
+	return toSerialize, nil
 }
 
 type NullableSecretSearchResult struct {

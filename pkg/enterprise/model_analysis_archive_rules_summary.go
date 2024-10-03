@@ -16,6 +16,9 @@ import (
 	"time"
 )
 
+// checks if the AnalysisArchiveRulesSummary type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &AnalysisArchiveRulesSummary{}
+
 // AnalysisArchiveRulesSummary Summary of the transition rule set
 type AnalysisArchiveRulesSummary struct {
 	// The number of rules for this account
@@ -43,7 +46,7 @@ func NewAnalysisArchiveRulesSummaryWithDefaults() *AnalysisArchiveRulesSummary {
 
 // GetCount returns the Count field value if set, zero value otherwise.
 func (o *AnalysisArchiveRulesSummary) GetCount() int32 {
-	if o == nil || o.Count == nil {
+	if o == nil || IsNil(o.Count) {
 		var ret int32
 		return ret
 	}
@@ -53,7 +56,7 @@ func (o *AnalysisArchiveRulesSummary) GetCount() int32 {
 // GetCountOk returns a tuple with the Count field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AnalysisArchiveRulesSummary) GetCountOk() (*int32, bool) {
-	if o == nil || o.Count == nil {
+	if o == nil || IsNil(o.Count) {
 		return nil, false
 	}
 	return o.Count, true
@@ -61,7 +64,7 @@ func (o *AnalysisArchiveRulesSummary) GetCountOk() (*int32, bool) {
 
 // HasCount returns a boolean if a field has been set.
 func (o *AnalysisArchiveRulesSummary) HasCount() bool {
-	if o != nil && o.Count != nil {
+	if o != nil && !IsNil(o.Count) {
 		return true
 	}
 
@@ -75,7 +78,7 @@ func (o *AnalysisArchiveRulesSummary) SetCount(v int32) {
 
 // GetLastUpdated returns the LastUpdated field value if set, zero value otherwise.
 func (o *AnalysisArchiveRulesSummary) GetLastUpdated() time.Time {
-	if o == nil || o.LastUpdated == nil {
+	if o == nil || IsNil(o.LastUpdated) {
 		var ret time.Time
 		return ret
 	}
@@ -85,7 +88,7 @@ func (o *AnalysisArchiveRulesSummary) GetLastUpdated() time.Time {
 // GetLastUpdatedOk returns a tuple with the LastUpdated field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AnalysisArchiveRulesSummary) GetLastUpdatedOk() (*time.Time, bool) {
-	if o == nil || o.LastUpdated == nil {
+	if o == nil || IsNil(o.LastUpdated) {
 		return nil, false
 	}
 	return o.LastUpdated, true
@@ -93,7 +96,7 @@ func (o *AnalysisArchiveRulesSummary) GetLastUpdatedOk() (*time.Time, bool) {
 
 // HasLastUpdated returns a boolean if a field has been set.
 func (o *AnalysisArchiveRulesSummary) HasLastUpdated() bool {
-	if o != nil && o.LastUpdated != nil {
+	if o != nil && !IsNil(o.LastUpdated) {
 		return true
 	}
 
@@ -106,14 +109,22 @@ func (o *AnalysisArchiveRulesSummary) SetLastUpdated(v time.Time) {
 }
 
 func (o AnalysisArchiveRulesSummary) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Count != nil {
-		toSerialize["count"] = o.Count
-	}
-	if o.LastUpdated != nil {
-		toSerialize["last_updated"] = o.LastUpdated
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o AnalysisArchiveRulesSummary) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Count) {
+		toSerialize["count"] = o.Count
+	}
+	if !IsNil(o.LastUpdated) {
+		toSerialize["last_updated"] = o.LastUpdated
+	}
+	return toSerialize, nil
 }
 
 type NullableAnalysisArchiveRulesSummary struct {

@@ -14,144 +14,19 @@ package enterprise
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
 	"strings"
 )
 
 
-type IdentityApi interface {
-
-	/*
-	AddCredential add/replace credential
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiAddCredentialRequest
-	*/
-	AddCredential(ctx context.Context) ApiAddCredentialRequest
-
-	// AddCredentialExecute executes the request
-	//  @return AccessCredential
-	AddCredentialExecute(r ApiAddCredentialRequest) (*AccessCredential, *http.Response, error)
-
-	/*
-	CreateApiKey Add a new API key
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiCreateApiKeyRequest
-	*/
-	CreateApiKey(ctx context.Context) ApiCreateApiKeyRequest
-
-	// CreateApiKeyExecute executes the request
-	//  @return UserApiKey
-	CreateApiKeyExecute(r ApiCreateApiKeyRequest) (*UserApiKey, *http.Response, error)
-
-	/*
-	DeleteApiKey Delete a user API key
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param keyName
-	@return ApiDeleteApiKeyRequest
-	*/
-	DeleteApiKey(ctx context.Context, keyName string) ApiDeleteApiKeyRequest
-
-	// DeleteApiKeyExecute executes the request
-	DeleteApiKeyExecute(r ApiDeleteApiKeyRequest) (*http.Response, error)
-
-	/*
-	GetApiKey Get a user API key
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param keyName
-	@return ApiGetApiKeyRequest
-	*/
-	GetApiKey(ctx context.Context, keyName string) ApiGetApiKeyRequest
-
-	// GetApiKeyExecute executes the request
-	//  @return UserApiKey
-	GetApiKeyExecute(r ApiGetApiKeyRequest) (*UserApiKey, *http.Response, error)
-
-	/*
-	GetCredentials Get current credential summary
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiGetCredentialsRequest
-	*/
-	GetCredentials(ctx context.Context) ApiGetCredentialsRequest
-
-	// GetCredentialsExecute executes the request
-	//  @return []AccessCredential
-	GetCredentialsExecute(r ApiGetCredentialsRequest) ([]AccessCredential, *http.Response, error)
-
-	/*
-	GetUser List authenticated user info
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiGetUserRequest
-	*/
-	GetUser(ctx context.Context) ApiGetUserRequest
-
-	// GetUserExecute executes the request
-	//  @return User
-	GetUserExecute(r ApiGetUserRequest) (*User, *http.Response, error)
-
-	/*
-	GetUsersAccount List the account for the authenticated user
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiGetUsersAccountRequest
-	*/
-	GetUsersAccount(ctx context.Context) ApiGetUsersAccountRequest
-
-	// GetUsersAccountExecute executes the request
-	//  @return Account
-	GetUsersAccountExecute(r ApiGetUsersAccountRequest) (*Account, *http.Response, error)
-
-	/*
-	ListApiKeys Get a list of API keys
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiListApiKeysRequest
-	*/
-	ListApiKeys(ctx context.Context) ApiListApiKeysRequest
-
-	// ListApiKeysExecute executes the request
-	//  @return ApiKeyList
-	ListApiKeysExecute(r ApiListApiKeysRequest) (*ApiKeyList, *http.Response, error)
-
-	/*
-	ListMyUserGroups List user groups for the authenticated user
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiListMyUserGroupsRequest
-	*/
-	ListMyUserGroups(ctx context.Context) ApiListMyUserGroupsRequest
-
-	// ListMyUserGroupsExecute executes the request
-	//  @return []UserGroup
-	ListMyUserGroupsExecute(r ApiListMyUserGroupsRequest) ([]UserGroup, *http.Response, error)
-
-	/*
-	PatchApiKey Patch a user API key
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param keyName
-	@return ApiPatchApiKeyRequest
-	*/
-	PatchApiKey(ctx context.Context, keyName string) ApiPatchApiKeyRequest
-
-	// PatchApiKeyExecute executes the request
-	//  @return UserApiKey
-	PatchApiKeyExecute(r ApiPatchApiKeyRequest) (*UserApiKey, *http.Response, error)
-}
-
-// IdentityApiService IdentityApi service
-type IdentityApiService service
+// IdentityAPIService IdentityAPI service
+type IdentityAPIService service
 
 type ApiAddCredentialRequest struct {
 	ctx context.Context
-	ApiService IdentityApi
+	ApiService *IdentityAPIService
 	credential *AccessCredential
 }
 
@@ -170,7 +45,7 @@ AddCredential add/replace credential
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiAddCredentialRequest
 */
-func (a *IdentityApiService) AddCredential(ctx context.Context) ApiAddCredentialRequest {
+func (a *IdentityAPIService) AddCredential(ctx context.Context) ApiAddCredentialRequest {
 	return ApiAddCredentialRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -179,7 +54,7 @@ func (a *IdentityApiService) AddCredential(ctx context.Context) ApiAddCredential
 
 // Execute executes the request
 //  @return AccessCredential
-func (a *IdentityApiService) AddCredentialExecute(r ApiAddCredentialRequest) (*AccessCredential, *http.Response, error) {
+func (a *IdentityAPIService) AddCredentialExecute(r ApiAddCredentialRequest) (*AccessCredential, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
@@ -187,7 +62,7 @@ func (a *IdentityApiService) AddCredentialExecute(r ApiAddCredentialRequest) (*A
 		localVarReturnValue  *AccessCredential
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IdentityApiService.AddCredential")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IdentityAPIService.AddCredential")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -230,9 +105,9 @@ func (a *IdentityApiService) AddCredentialExecute(r ApiAddCredentialRequest) (*A
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -249,7 +124,8 @@ func (a *IdentityApiService) AddCredentialExecute(r ApiAddCredentialRequest) (*A
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -268,7 +144,7 @@ func (a *IdentityApiService) AddCredentialExecute(r ApiAddCredentialRequest) (*A
 
 type ApiCreateApiKeyRequest struct {
 	ctx context.Context
-	ApiService IdentityApi
+	ApiService *IdentityAPIService
 	userApiKey *UserApiKey
 }
 
@@ -287,7 +163,7 @@ CreateApiKey Add a new API key
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiCreateApiKeyRequest
 */
-func (a *IdentityApiService) CreateApiKey(ctx context.Context) ApiCreateApiKeyRequest {
+func (a *IdentityAPIService) CreateApiKey(ctx context.Context) ApiCreateApiKeyRequest {
 	return ApiCreateApiKeyRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -296,7 +172,7 @@ func (a *IdentityApiService) CreateApiKey(ctx context.Context) ApiCreateApiKeyRe
 
 // Execute executes the request
 //  @return UserApiKey
-func (a *IdentityApiService) CreateApiKeyExecute(r ApiCreateApiKeyRequest) (*UserApiKey, *http.Response, error) {
+func (a *IdentityAPIService) CreateApiKeyExecute(r ApiCreateApiKeyRequest) (*UserApiKey, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
@@ -304,7 +180,7 @@ func (a *IdentityApiService) CreateApiKeyExecute(r ApiCreateApiKeyRequest) (*Use
 		localVarReturnValue  *UserApiKey
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IdentityApiService.CreateApiKey")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IdentityAPIService.CreateApiKey")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -347,9 +223,9 @@ func (a *IdentityApiService) CreateApiKeyExecute(r ApiCreateApiKeyRequest) (*Use
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -366,7 +242,8 @@ func (a *IdentityApiService) CreateApiKeyExecute(r ApiCreateApiKeyRequest) (*Use
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -385,7 +262,7 @@ func (a *IdentityApiService) CreateApiKeyExecute(r ApiCreateApiKeyRequest) (*Use
 
 type ApiDeleteApiKeyRequest struct {
 	ctx context.Context
-	ApiService IdentityApi
+	ApiService *IdentityAPIService
 	keyName string
 }
 
@@ -400,7 +277,7 @@ DeleteApiKey Delete a user API key
  @param keyName
  @return ApiDeleteApiKeyRequest
 */
-func (a *IdentityApiService) DeleteApiKey(ctx context.Context, keyName string) ApiDeleteApiKeyRequest {
+func (a *IdentityAPIService) DeleteApiKey(ctx context.Context, keyName string) ApiDeleteApiKeyRequest {
 	return ApiDeleteApiKeyRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -409,20 +286,20 @@ func (a *IdentityApiService) DeleteApiKey(ctx context.Context, keyName string) A
 }
 
 // Execute executes the request
-func (a *IdentityApiService) DeleteApiKeyExecute(r ApiDeleteApiKeyRequest) (*http.Response, error) {
+func (a *IdentityAPIService) DeleteApiKeyExecute(r ApiDeleteApiKeyRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodDelete
 		localVarPostBody     interface{}
 		formFiles            []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IdentityApiService.DeleteApiKey")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IdentityAPIService.DeleteApiKey")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/user/api-keys/{key_name}"
-	localVarPath = strings.Replace(localVarPath, "{"+"key_name"+"}", url.PathEscape(parameterToString(r.keyName, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"key_name"+"}", url.PathEscape(parameterValueToString(r.keyName, "keyName")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -455,9 +332,9 @@ func (a *IdentityApiService) DeleteApiKeyExecute(r ApiDeleteApiKeyRequest) (*htt
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -474,7 +351,8 @@ func (a *IdentityApiService) DeleteApiKeyExecute(r ApiDeleteApiKeyRequest) (*htt
 				newErr.error = err.Error()
 				return localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarHTTPResponse, newErr
 	}
@@ -484,7 +362,7 @@ func (a *IdentityApiService) DeleteApiKeyExecute(r ApiDeleteApiKeyRequest) (*htt
 
 type ApiGetApiKeyRequest struct {
 	ctx context.Context
-	ApiService IdentityApi
+	ApiService *IdentityAPIService
 	keyName string
 }
 
@@ -499,7 +377,7 @@ GetApiKey Get a user API key
  @param keyName
  @return ApiGetApiKeyRequest
 */
-func (a *IdentityApiService) GetApiKey(ctx context.Context, keyName string) ApiGetApiKeyRequest {
+func (a *IdentityAPIService) GetApiKey(ctx context.Context, keyName string) ApiGetApiKeyRequest {
 	return ApiGetApiKeyRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -509,7 +387,7 @@ func (a *IdentityApiService) GetApiKey(ctx context.Context, keyName string) ApiG
 
 // Execute executes the request
 //  @return UserApiKey
-func (a *IdentityApiService) GetApiKeyExecute(r ApiGetApiKeyRequest) (*UserApiKey, *http.Response, error) {
+func (a *IdentityAPIService) GetApiKeyExecute(r ApiGetApiKeyRequest) (*UserApiKey, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
@@ -517,13 +395,13 @@ func (a *IdentityApiService) GetApiKeyExecute(r ApiGetApiKeyRequest) (*UserApiKe
 		localVarReturnValue  *UserApiKey
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IdentityApiService.GetApiKey")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IdentityAPIService.GetApiKey")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/user/api-keys/{key_name}"
-	localVarPath = strings.Replace(localVarPath, "{"+"key_name"+"}", url.PathEscape(parameterToString(r.keyName, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"key_name"+"}", url.PathEscape(parameterValueToString(r.keyName, "keyName")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -556,9 +434,9 @@ func (a *IdentityApiService) GetApiKeyExecute(r ApiGetApiKeyRequest) (*UserApiKe
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -575,7 +453,8 @@ func (a *IdentityApiService) GetApiKeyExecute(r ApiGetApiKeyRequest) (*UserApiKe
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -594,7 +473,7 @@ func (a *IdentityApiService) GetApiKeyExecute(r ApiGetApiKeyRequest) (*UserApiKe
 
 type ApiGetCredentialsRequest struct {
 	ctx context.Context
-	ApiService IdentityApi
+	ApiService *IdentityAPIService
 }
 
 func (r ApiGetCredentialsRequest) Execute() ([]AccessCredential, *http.Response, error) {
@@ -607,7 +486,7 @@ GetCredentials Get current credential summary
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiGetCredentialsRequest
 */
-func (a *IdentityApiService) GetCredentials(ctx context.Context) ApiGetCredentialsRequest {
+func (a *IdentityAPIService) GetCredentials(ctx context.Context) ApiGetCredentialsRequest {
 	return ApiGetCredentialsRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -616,7 +495,7 @@ func (a *IdentityApiService) GetCredentials(ctx context.Context) ApiGetCredentia
 
 // Execute executes the request
 //  @return []AccessCredential
-func (a *IdentityApiService) GetCredentialsExecute(r ApiGetCredentialsRequest) ([]AccessCredential, *http.Response, error) {
+func (a *IdentityAPIService) GetCredentialsExecute(r ApiGetCredentialsRequest) ([]AccessCredential, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
@@ -624,7 +503,7 @@ func (a *IdentityApiService) GetCredentialsExecute(r ApiGetCredentialsRequest) (
 		localVarReturnValue  []AccessCredential
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IdentityApiService.GetCredentials")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IdentityAPIService.GetCredentials")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -662,9 +541,9 @@ func (a *IdentityApiService) GetCredentialsExecute(r ApiGetCredentialsRequest) (
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -681,7 +560,8 @@ func (a *IdentityApiService) GetCredentialsExecute(r ApiGetCredentialsRequest) (
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -700,7 +580,7 @@ func (a *IdentityApiService) GetCredentialsExecute(r ApiGetCredentialsRequest) (
 
 type ApiGetUserRequest struct {
 	ctx context.Context
-	ApiService IdentityApi
+	ApiService *IdentityAPIService
 }
 
 func (r ApiGetUserRequest) Execute() (*User, *http.Response, error) {
@@ -713,7 +593,7 @@ GetUser List authenticated user info
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiGetUserRequest
 */
-func (a *IdentityApiService) GetUser(ctx context.Context) ApiGetUserRequest {
+func (a *IdentityAPIService) GetUser(ctx context.Context) ApiGetUserRequest {
 	return ApiGetUserRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -722,7 +602,7 @@ func (a *IdentityApiService) GetUser(ctx context.Context) ApiGetUserRequest {
 
 // Execute executes the request
 //  @return User
-func (a *IdentityApiService) GetUserExecute(r ApiGetUserRequest) (*User, *http.Response, error) {
+func (a *IdentityAPIService) GetUserExecute(r ApiGetUserRequest) (*User, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
@@ -730,7 +610,7 @@ func (a *IdentityApiService) GetUserExecute(r ApiGetUserRequest) (*User, *http.R
 		localVarReturnValue  *User
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IdentityApiService.GetUser")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IdentityAPIService.GetUser")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -768,9 +648,9 @@ func (a *IdentityApiService) GetUserExecute(r ApiGetUserRequest) (*User, *http.R
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -787,7 +667,8 @@ func (a *IdentityApiService) GetUserExecute(r ApiGetUserRequest) (*User, *http.R
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -806,7 +687,7 @@ func (a *IdentityApiService) GetUserExecute(r ApiGetUserRequest) (*User, *http.R
 
 type ApiGetUsersAccountRequest struct {
 	ctx context.Context
-	ApiService IdentityApi
+	ApiService *IdentityAPIService
 }
 
 func (r ApiGetUsersAccountRequest) Execute() (*Account, *http.Response, error) {
@@ -819,7 +700,7 @@ GetUsersAccount List the account for the authenticated user
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiGetUsersAccountRequest
 */
-func (a *IdentityApiService) GetUsersAccount(ctx context.Context) ApiGetUsersAccountRequest {
+func (a *IdentityAPIService) GetUsersAccount(ctx context.Context) ApiGetUsersAccountRequest {
 	return ApiGetUsersAccountRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -828,7 +709,7 @@ func (a *IdentityApiService) GetUsersAccount(ctx context.Context) ApiGetUsersAcc
 
 // Execute executes the request
 //  @return Account
-func (a *IdentityApiService) GetUsersAccountExecute(r ApiGetUsersAccountRequest) (*Account, *http.Response, error) {
+func (a *IdentityAPIService) GetUsersAccountExecute(r ApiGetUsersAccountRequest) (*Account, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
@@ -836,7 +717,7 @@ func (a *IdentityApiService) GetUsersAccountExecute(r ApiGetUsersAccountRequest)
 		localVarReturnValue  *Account
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IdentityApiService.GetUsersAccount")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IdentityAPIService.GetUsersAccount")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -874,9 +755,9 @@ func (a *IdentityApiService) GetUsersAccountExecute(r ApiGetUsersAccountRequest)
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -893,7 +774,8 @@ func (a *IdentityApiService) GetUsersAccountExecute(r ApiGetUsersAccountRequest)
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -912,7 +794,7 @@ func (a *IdentityApiService) GetUsersAccountExecute(r ApiGetUsersAccountRequest)
 
 type ApiListApiKeysRequest struct {
 	ctx context.Context
-	ApiService IdentityApi
+	ApiService *IdentityAPIService
 }
 
 func (r ApiListApiKeysRequest) Execute() (*ApiKeyList, *http.Response, error) {
@@ -925,7 +807,7 @@ ListApiKeys Get a list of API keys
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiListApiKeysRequest
 */
-func (a *IdentityApiService) ListApiKeys(ctx context.Context) ApiListApiKeysRequest {
+func (a *IdentityAPIService) ListApiKeys(ctx context.Context) ApiListApiKeysRequest {
 	return ApiListApiKeysRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -934,7 +816,7 @@ func (a *IdentityApiService) ListApiKeys(ctx context.Context) ApiListApiKeysRequ
 
 // Execute executes the request
 //  @return ApiKeyList
-func (a *IdentityApiService) ListApiKeysExecute(r ApiListApiKeysRequest) (*ApiKeyList, *http.Response, error) {
+func (a *IdentityAPIService) ListApiKeysExecute(r ApiListApiKeysRequest) (*ApiKeyList, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
@@ -942,7 +824,7 @@ func (a *IdentityApiService) ListApiKeysExecute(r ApiListApiKeysRequest) (*ApiKe
 		localVarReturnValue  *ApiKeyList
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IdentityApiService.ListApiKeys")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IdentityAPIService.ListApiKeys")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -980,9 +862,9 @@ func (a *IdentityApiService) ListApiKeysExecute(r ApiListApiKeysRequest) (*ApiKe
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -999,7 +881,8 @@ func (a *IdentityApiService) ListApiKeysExecute(r ApiListApiKeysRequest) (*ApiKe
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -1018,7 +901,7 @@ func (a *IdentityApiService) ListApiKeysExecute(r ApiListApiKeysRequest) (*ApiKe
 
 type ApiListMyUserGroupsRequest struct {
 	ctx context.Context
-	ApiService IdentityApi
+	ApiService *IdentityAPIService
 }
 
 func (r ApiListMyUserGroupsRequest) Execute() ([]UserGroup, *http.Response, error) {
@@ -1031,7 +914,7 @@ ListMyUserGroups List user groups for the authenticated user
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiListMyUserGroupsRequest
 */
-func (a *IdentityApiService) ListMyUserGroups(ctx context.Context) ApiListMyUserGroupsRequest {
+func (a *IdentityAPIService) ListMyUserGroups(ctx context.Context) ApiListMyUserGroupsRequest {
 	return ApiListMyUserGroupsRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -1040,7 +923,7 @@ func (a *IdentityApiService) ListMyUserGroups(ctx context.Context) ApiListMyUser
 
 // Execute executes the request
 //  @return []UserGroup
-func (a *IdentityApiService) ListMyUserGroupsExecute(r ApiListMyUserGroupsRequest) ([]UserGroup, *http.Response, error) {
+func (a *IdentityAPIService) ListMyUserGroupsExecute(r ApiListMyUserGroupsRequest) ([]UserGroup, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
@@ -1048,7 +931,7 @@ func (a *IdentityApiService) ListMyUserGroupsExecute(r ApiListMyUserGroupsReques
 		localVarReturnValue  []UserGroup
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IdentityApiService.ListMyUserGroups")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IdentityAPIService.ListMyUserGroups")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -1086,9 +969,9 @@ func (a *IdentityApiService) ListMyUserGroupsExecute(r ApiListMyUserGroupsReques
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1105,7 +988,8 @@ func (a *IdentityApiService) ListMyUserGroupsExecute(r ApiListMyUserGroupsReques
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -1124,7 +1008,7 @@ func (a *IdentityApiService) ListMyUserGroupsExecute(r ApiListMyUserGroupsReques
 
 type ApiPatchApiKeyRequest struct {
 	ctx context.Context
-	ApiService IdentityApi
+	ApiService *IdentityAPIService
 	keyName string
 	patchUserApiKeyRequest *PatchUserApiKeyRequest
 }
@@ -1145,7 +1029,7 @@ PatchApiKey Patch a user API key
  @param keyName
  @return ApiPatchApiKeyRequest
 */
-func (a *IdentityApiService) PatchApiKey(ctx context.Context, keyName string) ApiPatchApiKeyRequest {
+func (a *IdentityAPIService) PatchApiKey(ctx context.Context, keyName string) ApiPatchApiKeyRequest {
 	return ApiPatchApiKeyRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -1155,7 +1039,7 @@ func (a *IdentityApiService) PatchApiKey(ctx context.Context, keyName string) Ap
 
 // Execute executes the request
 //  @return UserApiKey
-func (a *IdentityApiService) PatchApiKeyExecute(r ApiPatchApiKeyRequest) (*UserApiKey, *http.Response, error) {
+func (a *IdentityAPIService) PatchApiKeyExecute(r ApiPatchApiKeyRequest) (*UserApiKey, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPatch
 		localVarPostBody     interface{}
@@ -1163,13 +1047,13 @@ func (a *IdentityApiService) PatchApiKeyExecute(r ApiPatchApiKeyRequest) (*UserA
 		localVarReturnValue  *UserApiKey
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IdentityApiService.PatchApiKey")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IdentityAPIService.PatchApiKey")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/user/api-keys/{key_name}"
-	localVarPath = strings.Replace(localVarPath, "{"+"key_name"+"}", url.PathEscape(parameterToString(r.keyName, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"key_name"+"}", url.PathEscape(parameterValueToString(r.keyName, "keyName")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1204,9 +1088,9 @@ func (a *IdentityApiService) PatchApiKeyExecute(r ApiPatchApiKeyRequest) (*UserA
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1223,7 +1107,8 @@ func (a *IdentityApiService) PatchApiKeyExecute(r ApiPatchApiKeyRequest) (*UserA
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}

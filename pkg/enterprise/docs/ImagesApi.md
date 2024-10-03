@@ -1,34 +1,34 @@
-# \ImagesApi
+# \ImagesAPI
 
 All URIs are relative to */v2*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**AddImage**](ImagesApi.md#AddImage) | **Post** /images | Submit a new image for analysis by the engine
-[**DeleteImage**](ImagesApi.md#DeleteImage) | **Delete** /images/{image_digest} | Delete an image analysis
-[**DeleteImagesAsync**](ImagesApi.md#DeleteImagesAsync) | **Delete** /images | Bulk mark images for deletion
-[**GetImage**](ImagesApi.md#GetImage) | **Get** /images/{image_digest} | Get image metadata
-[**GetImageAncestors**](ImagesApi.md#GetImageAncestors) | **Get** /images/{image_digest}/ancestors | Return the list of ancestor images for the given image
-[**GetImageContentByType**](ImagesApi.md#GetImageContentByType) | **Get** /images/{image_digest}/content/{content_type} | Get the content of an image by type
-[**GetImageContentByTypeFiles**](ImagesApi.md#GetImageContentByTypeFiles) | **Get** /images/{image_digest}/content/files | Get the content of an image by type files
-[**GetImageContentByTypeJavaPackage**](ImagesApi.md#GetImageContentByTypeJavaPackage) | **Get** /images/{image_digest}/content/java | Get the content of an image by type java
-[**GetImageContentByTypeMalware**](ImagesApi.md#GetImageContentByTypeMalware) | **Get** /images/{image_digest}/content/malware | Get the content of an image by type malware
-[**GetImageContentSummary**](ImagesApi.md#GetImageContentSummary) | **Get** /images/{image_digest}/content-summary | Get image content summary
-[**GetImageMetadataByType**](ImagesApi.md#GetImageMetadataByType) | **Get** /images/{image_digest}/metadata/{metadata_type} | Get the metadata of an image by type
-[**GetImagePolicyCheckByDigest**](ImagesApi.md#GetImagePolicyCheckByDigest) | **Get** /images/{image_digest}/check | Check policy evaluation status for image
-[**GetImageSbomCyclonedxJson**](ImagesApi.md#GetImageSbomCyclonedxJson) | **Get** /images/{image_digest}/sboms/cyclonedx-json | Get image sbom in the CycloneDX format
-[**GetImageSbomNativeJson**](ImagesApi.md#GetImageSbomNativeJson) | **Get** /images/{image_digest}/sboms/native-json | Get image sbom in the native Anchore format
-[**GetImageSbomSpdxJson**](ImagesApi.md#GetImageSbomSpdxJson) | **Get** /images/{image_digest}/sboms/spdx-json | Get image sbom in the SPDX format
-[**GetImageVulnerabilitiesByDigest**](ImagesApi.md#GetImageVulnerabilitiesByDigest) | **Get** /images/{image_digest}/vuln/{vuln_type} | Get vulnerabilities by type
-[**GetImageVulnerabilityTypes**](ImagesApi.md#GetImageVulnerabilityTypes) | **Get** /images/{image_digest}/vuln | Get vulnerability types
-[**ListFileContentSearchResults**](ImagesApi.md#ListFileContentSearchResults) | **Get** /images/{image_digest}/artifacts/file-content-search | Return a list of analyzer artifacts of the specified type
-[**ListImageContent**](ImagesApi.md#ListImageContent) | **Get** /images/{image_digest}/content | List image content types
-[**ListImageMetadata**](ImagesApi.md#ListImageMetadata) | **Get** /images/{image_digest}/metadata | List image metadata types
-[**ListImages**](ImagesApi.md#ListImages) | **Get** /images | List all visible images
-[**ListRetrievedFiles**](ImagesApi.md#ListRetrievedFiles) | **Get** /images/{image_digest}/artifacts/retrieved-files | Return a list of analyzer artifacts of the specified type
-[**ListSecretSearchResults**](ImagesApi.md#ListSecretSearchResults) | **Get** /images/{image_digest}/artifacts/secret-search | Return a list of analyzer artifacts of the specified type
-[**SummaryImageCounts**](ImagesApi.md#SummaryImageCounts) | **Get** /summaries/image-counts | Image summary counts
-[**SummaryImageTags**](ImagesApi.md#SummaryImageTags) | **Get** /summaries/image-tags | Summarize image tags
+[**AddImage**](ImagesAPI.md#AddImage) | **Post** /images | Submit a new image for analysis by the engine
+[**DeleteImage**](ImagesAPI.md#DeleteImage) | **Delete** /images/{image_digest} | Delete an image analysis
+[**DeleteImagesAsync**](ImagesAPI.md#DeleteImagesAsync) | **Delete** /images | Bulk mark images for deletion
+[**GetImage**](ImagesAPI.md#GetImage) | **Get** /images/{image_digest} | Get image metadata
+[**GetImageAncestors**](ImagesAPI.md#GetImageAncestors) | **Get** /images/{image_digest}/ancestors | Return the list of ancestor images for the given image
+[**GetImageContentByType**](ImagesAPI.md#GetImageContentByType) | **Get** /images/{image_digest}/content/{content_type} | Get the content of an image by type
+[**GetImageContentByTypeFiles**](ImagesAPI.md#GetImageContentByTypeFiles) | **Get** /images/{image_digest}/content/files | Get the content of an image by type files
+[**GetImageContentByTypeJavaPackage**](ImagesAPI.md#GetImageContentByTypeJavaPackage) | **Get** /images/{image_digest}/content/java | Get the content of an image by type java
+[**GetImageContentByTypeMalware**](ImagesAPI.md#GetImageContentByTypeMalware) | **Get** /images/{image_digest}/content/malware | Get the content of an image by type malware
+[**GetImageContentSummary**](ImagesAPI.md#GetImageContentSummary) | **Get** /images/{image_digest}/content-summary | Get image content summary
+[**GetImageMetadataByType**](ImagesAPI.md#GetImageMetadataByType) | **Get** /images/{image_digest}/metadata/{metadata_type} | Get the metadata of an image by type
+[**GetImagePolicyCheckByDigest**](ImagesAPI.md#GetImagePolicyCheckByDigest) | **Get** /images/{image_digest}/check | Check policy evaluation status for image
+[**GetImageSbomCyclonedxJson**](ImagesAPI.md#GetImageSbomCyclonedxJson) | **Get** /images/{image_digest}/sboms/cyclonedx-json | Get image sbom in the CycloneDX format
+[**GetImageSbomNativeJson**](ImagesAPI.md#GetImageSbomNativeJson) | **Get** /images/{image_digest}/sboms/native-json | Get image sbom in the native Anchore format
+[**GetImageSbomSpdxJson**](ImagesAPI.md#GetImageSbomSpdxJson) | **Get** /images/{image_digest}/sboms/spdx-json | Get image sbom in the SPDX format
+[**GetImageVulnerabilitiesByDigest**](ImagesAPI.md#GetImageVulnerabilitiesByDigest) | **Get** /images/{image_digest}/vuln/{vuln_type} | Get vulnerabilities by type
+[**GetImageVulnerabilityTypes**](ImagesAPI.md#GetImageVulnerabilityTypes) | **Get** /images/{image_digest}/vuln | Get vulnerability types
+[**ListFileContentSearchResults**](ImagesAPI.md#ListFileContentSearchResults) | **Get** /images/{image_digest}/artifacts/file-content-search | Return a list of analyzer artifacts of the specified type
+[**ListImageContent**](ImagesAPI.md#ListImageContent) | **Get** /images/{image_digest}/content | List image content types
+[**ListImageMetadata**](ImagesAPI.md#ListImageMetadata) | **Get** /images/{image_digest}/metadata | List image metadata types
+[**ListImages**](ImagesAPI.md#ListImages) | **Get** /images | List all visible images
+[**ListRetrievedFiles**](ImagesAPI.md#ListRetrievedFiles) | **Get** /images/{image_digest}/artifacts/retrieved-files | Return a list of analyzer artifacts of the specified type
+[**ListSecretSearchResults**](ImagesAPI.md#ListSecretSearchResults) | **Get** /images/{image_digest}/artifacts/secret-search | Return a list of analyzer artifacts of the specified type
+[**SummaryImageCounts**](ImagesAPI.md#SummaryImageCounts) | **Get** /summaries/image-counts | Image summary counts
+[**SummaryImageTags**](ImagesAPI.md#SummaryImageTags) | **Get** /summaries/image-tags | Summarize image tags
 
 
 
@@ -46,27 +46,27 @@ Submit a new image for analysis by the engine
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
-    image := *openapiclient.NewImageAnalysisRequest() // ImageAnalysisRequest | 
-    force := true // bool | Override any existing entry in the system (optional)
-    autoSubscribe := true // bool | Indicates if tag will be subscribed for registry updates monitoring (optional)
-    xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
+	image := *openapiclient.NewImageAnalysisRequest() // ImageAnalysisRequest | 
+	force := true // bool | Override any existing entry in the system (optional)
+	autoSubscribe := true // bool | Indicates if tag will be subscribed for registry updates monitoring (optional)
+	xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ImagesApi.AddImage(context.Background()).Image(image).Force(force).AutoSubscribe(autoSubscribe).XAnchoreAccount(xAnchoreAccount).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ImagesApi.AddImage``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `AddImage`: AnchoreImage
-    fmt.Fprintf(os.Stdout, "Response from `ImagesApi.AddImage`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ImagesAPI.AddImage(context.Background()).Image(image).Force(force).AutoSubscribe(autoSubscribe).XAnchoreAccount(xAnchoreAccount).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ImagesAPI.AddImage``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `AddImage`: AnchoreImage
+	fmt.Fprintf(os.Stdout, "Response from `ImagesAPI.AddImage`: %v\n", resp)
 }
 ```
 
@@ -116,26 +116,26 @@ Delete an image analysis
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
-    imageDigest := "imageDigest_example" // string | 
-    force := true // bool |  (optional)
-    xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
+	imageDigest := "imageDigest_example" // string | 
+	force := true // bool |  (optional)
+	xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ImagesApi.DeleteImage(context.Background(), imageDigest).Force(force).XAnchoreAccount(xAnchoreAccount).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ImagesApi.DeleteImage``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `DeleteImage`: DeleteImageResponse
-    fmt.Fprintf(os.Stdout, "Response from `ImagesApi.DeleteImage`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ImagesAPI.DeleteImage(context.Background(), imageDigest).Force(force).XAnchoreAccount(xAnchoreAccount).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ImagesAPI.DeleteImage``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `DeleteImage`: DeleteImageResponse
+	fmt.Fprintf(os.Stdout, "Response from `ImagesAPI.DeleteImage`: %v\n", resp)
 }
 ```
 
@@ -190,26 +190,26 @@ Bulk mark images for deletion
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
-    imageDigests := []string{"Inner_example"} // []string | 
-    force := true // bool |  (optional)
-    xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
+	imageDigests := []string{"Inner_example"} // []string | 
+	force := true // bool |  (optional)
+	xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ImagesApi.DeleteImagesAsync(context.Background()).ImageDigests(imageDigests).Force(force).XAnchoreAccount(xAnchoreAccount).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ImagesApi.DeleteImagesAsync``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `DeleteImagesAsync`: []DeleteImageResponse
-    fmt.Fprintf(os.Stdout, "Response from `ImagesApi.DeleteImagesAsync`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ImagesAPI.DeleteImagesAsync(context.Background()).ImageDigests(imageDigests).Force(force).XAnchoreAccount(xAnchoreAccount).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ImagesAPI.DeleteImagesAsync``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `DeleteImagesAsync`: []DeleteImageResponse
+	fmt.Fprintf(os.Stdout, "Response from `ImagesAPI.DeleteImagesAsync`: %v\n", resp)
 }
 ```
 
@@ -258,25 +258,25 @@ Get image metadata
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
-    imageDigest := "imageDigest_example" // string | 
-    xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
+	imageDigest := "imageDigest_example" // string | 
+	xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ImagesApi.GetImage(context.Background(), imageDigest).XAnchoreAccount(xAnchoreAccount).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ImagesApi.GetImage``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetImage`: AnchoreImage
-    fmt.Fprintf(os.Stdout, "Response from `ImagesApi.GetImage`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ImagesAPI.GetImage(context.Background(), imageDigest).XAnchoreAccount(xAnchoreAccount).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ImagesAPI.GetImage``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetImage`: AnchoreImage
+	fmt.Fprintf(os.Stdout, "Response from `ImagesAPI.GetImage`: %v\n", resp)
 }
 ```
 
@@ -330,25 +330,25 @@ Return the list of ancestor images for the given image
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
-    imageDigest := "imageDigest_example" // string | 
-    xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
+	imageDigest := "imageDigest_example" // string | 
+	xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ImagesApi.GetImageAncestors(context.Background(), imageDigest).XAnchoreAccount(xAnchoreAccount).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ImagesApi.GetImageAncestors``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetImageAncestors`: []ImageAncestor
-    fmt.Fprintf(os.Stdout, "Response from `ImagesApi.GetImageAncestors`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ImagesAPI.GetImageAncestors(context.Background(), imageDigest).XAnchoreAccount(xAnchoreAccount).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ImagesAPI.GetImageAncestors``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetImageAncestors`: []ImageAncestor
+	fmt.Fprintf(os.Stdout, "Response from `ImagesAPI.GetImageAncestors`: %v\n", resp)
 }
 ```
 
@@ -400,26 +400,26 @@ Get the content of an image by type
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
-    imageDigest := "imageDigest_example" // string | 
-    contentType := "contentType_example" // string | 
-    xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
+	imageDigest := "imageDigest_example" // string | 
+	contentType := "contentType_example" // string | 
+	xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ImagesApi.GetImageContentByType(context.Background(), imageDigest, contentType).XAnchoreAccount(xAnchoreAccount).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ImagesApi.GetImageContentByType``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetImageContentByType`: ContentPackageResponse
-    fmt.Fprintf(os.Stdout, "Response from `ImagesApi.GetImageContentByType`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ImagesAPI.GetImageContentByType(context.Background(), imageDigest, contentType).XAnchoreAccount(xAnchoreAccount).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ImagesAPI.GetImageContentByType``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetImageContentByType`: ContentPackageResponse
+	fmt.Fprintf(os.Stdout, "Response from `ImagesAPI.GetImageContentByType`: %v\n", resp)
 }
 ```
 
@@ -473,25 +473,25 @@ Get the content of an image by type files
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
-    imageDigest := "imageDigest_example" // string | 
-    xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
+	imageDigest := "imageDigest_example" // string | 
+	xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ImagesApi.GetImageContentByTypeFiles(context.Background(), imageDigest).XAnchoreAccount(xAnchoreAccount).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ImagesApi.GetImageContentByTypeFiles``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetImageContentByTypeFiles`: ContentFilesResponse
-    fmt.Fprintf(os.Stdout, "Response from `ImagesApi.GetImageContentByTypeFiles`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ImagesAPI.GetImageContentByTypeFiles(context.Background(), imageDigest).XAnchoreAccount(xAnchoreAccount).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ImagesAPI.GetImageContentByTypeFiles``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetImageContentByTypeFiles`: ContentFilesResponse
+	fmt.Fprintf(os.Stdout, "Response from `ImagesAPI.GetImageContentByTypeFiles`: %v\n", resp)
 }
 ```
 
@@ -543,25 +543,25 @@ Get the content of an image by type java
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
-    imageDigest := "imageDigest_example" // string | 
-    xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
+	imageDigest := "imageDigest_example" // string | 
+	xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ImagesApi.GetImageContentByTypeJavaPackage(context.Background(), imageDigest).XAnchoreAccount(xAnchoreAccount).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ImagesApi.GetImageContentByTypeJavaPackage``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetImageContentByTypeJavaPackage`: ContentJavaPackageResponse
-    fmt.Fprintf(os.Stdout, "Response from `ImagesApi.GetImageContentByTypeJavaPackage`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ImagesAPI.GetImageContentByTypeJavaPackage(context.Background(), imageDigest).XAnchoreAccount(xAnchoreAccount).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ImagesAPI.GetImageContentByTypeJavaPackage``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetImageContentByTypeJavaPackage`: ContentJavaPackageResponse
+	fmt.Fprintf(os.Stdout, "Response from `ImagesAPI.GetImageContentByTypeJavaPackage`: %v\n", resp)
 }
 ```
 
@@ -613,25 +613,25 @@ Get the content of an image by type malware
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
-    imageDigest := "imageDigest_example" // string | 
-    xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
+	imageDigest := "imageDigest_example" // string | 
+	xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ImagesApi.GetImageContentByTypeMalware(context.Background(), imageDigest).XAnchoreAccount(xAnchoreAccount).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ImagesApi.GetImageContentByTypeMalware``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetImageContentByTypeMalware`: ContentMalwareResponse
-    fmt.Fprintf(os.Stdout, "Response from `ImagesApi.GetImageContentByTypeMalware`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ImagesAPI.GetImageContentByTypeMalware(context.Background(), imageDigest).XAnchoreAccount(xAnchoreAccount).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ImagesAPI.GetImageContentByTypeMalware``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetImageContentByTypeMalware`: ContentMalwareResponse
+	fmt.Fprintf(os.Stdout, "Response from `ImagesAPI.GetImageContentByTypeMalware`: %v\n", resp)
 }
 ```
 
@@ -683,25 +683,25 @@ Get image content summary
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
-    imageDigest := "imageDigest_example" // string | 
-    xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
+	imageDigest := "imageDigest_example" // string | 
+	xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ImagesApi.GetImageContentSummary(context.Background(), imageDigest).XAnchoreAccount(xAnchoreAccount).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ImagesApi.GetImageContentSummary``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetImageContentSummary`: ImageContentSummary
-    fmt.Fprintf(os.Stdout, "Response from `ImagesApi.GetImageContentSummary`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ImagesAPI.GetImageContentSummary(context.Background(), imageDigest).XAnchoreAccount(xAnchoreAccount).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ImagesAPI.GetImageContentSummary``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetImageContentSummary`: ImageContentSummary
+	fmt.Fprintf(os.Stdout, "Response from `ImagesAPI.GetImageContentSummary`: %v\n", resp)
 }
 ```
 
@@ -753,26 +753,26 @@ Get the metadata of an image by type
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
-    imageDigest := "imageDigest_example" // string | 
-    metadataType := "metadataType_example" // string | 
-    xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
+	imageDigest := "imageDigest_example" // string | 
+	metadataType := "metadataType_example" // string | 
+	xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ImagesApi.GetImageMetadataByType(context.Background(), imageDigest, metadataType).XAnchoreAccount(xAnchoreAccount).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ImagesApi.GetImageMetadataByType``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetImageMetadataByType`: MetadataResponse
-    fmt.Fprintf(os.Stdout, "Response from `ImagesApi.GetImageMetadataByType`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ImagesAPI.GetImageMetadataByType(context.Background(), imageDigest, metadataType).XAnchoreAccount(xAnchoreAccount).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ImagesAPI.GetImageMetadataByType``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetImageMetadataByType`: MetadataResponse
+	fmt.Fprintf(os.Stdout, "Response from `ImagesAPI.GetImageMetadataByType`: %v\n", resp)
 }
 ```
 
@@ -828,31 +828,31 @@ Check policy evaluation status for image
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
-    imageDigest := "imageDigest_example" // string | 
-    tag := "tag_example" // string | 
-    policyId := "policyId_example" // string |  (optional)
-    detail := true // bool |  (optional) (default to true)
-    history := true // bool |  (optional) (default to false)
-    interactive := true // bool |  (optional) (default to false)
-    baseDigest := "baseDigest_example" // string | Digest of a base image. If specified the evaluation will indicate results inherited from the base image. Can specify \"auto\" to have the base image automatically calculated. (optional)
-    xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
+	imageDigest := "imageDigest_example" // string | 
+	tag := "tag_example" // string | 
+	policyId := "policyId_example" // string |  (optional)
+	detail := true // bool |  (optional) (default to true)
+	history := true // bool |  (optional) (default to false)
+	interactive := true // bool |  (optional) (default to false)
+	baseDigest := "baseDigest_example" // string | Digest of a base image. If specified the evaluation will indicate results inherited from the base image. Can specify \"auto\" to have the base image automatically calculated. (optional)
+	xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ImagesApi.GetImagePolicyCheckByDigest(context.Background(), imageDigest).Tag(tag).PolicyId(policyId).Detail(detail).History(history).Interactive(interactive).BaseDigest(baseDigest).XAnchoreAccount(xAnchoreAccount).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ImagesApi.GetImagePolicyCheckByDigest``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetImagePolicyCheckByDigest`: PolicyEvaluation
-    fmt.Fprintf(os.Stdout, "Response from `ImagesApi.GetImagePolicyCheckByDigest`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ImagesAPI.GetImagePolicyCheckByDigest(context.Background(), imageDigest).Tag(tag).PolicyId(policyId).Detail(detail).History(history).Interactive(interactive).BaseDigest(baseDigest).XAnchoreAccount(xAnchoreAccount).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ImagesAPI.GetImagePolicyCheckByDigest``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetImagePolicyCheckByDigest`: PolicyEvaluation
+	fmt.Fprintf(os.Stdout, "Response from `ImagesAPI.GetImagePolicyCheckByDigest`: %v\n", resp)
 }
 ```
 
@@ -910,25 +910,25 @@ Get image sbom in the CycloneDX format
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
-    imageDigest := "imageDigest_example" // string | 
-    xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
+	imageDigest := "imageDigest_example" // string | 
+	xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ImagesApi.GetImageSbomCyclonedxJson(context.Background(), imageDigest).XAnchoreAccount(xAnchoreAccount).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ImagesApi.GetImageSbomCyclonedxJson``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetImageSbomCyclonedxJson`: string
-    fmt.Fprintf(os.Stdout, "Response from `ImagesApi.GetImageSbomCyclonedxJson`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ImagesAPI.GetImageSbomCyclonedxJson(context.Background(), imageDigest).XAnchoreAccount(xAnchoreAccount).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ImagesAPI.GetImageSbomCyclonedxJson``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetImageSbomCyclonedxJson`: string
+	fmt.Fprintf(os.Stdout, "Response from `ImagesAPI.GetImageSbomCyclonedxJson`: %v\n", resp)
 }
 ```
 
@@ -980,25 +980,25 @@ Get image sbom in the native Anchore format
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
-    imageDigest := "imageDigest_example" // string | 
-    xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
+	imageDigest := "imageDigest_example" // string | 
+	xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ImagesApi.GetImageSbomNativeJson(context.Background(), imageDigest).XAnchoreAccount(xAnchoreAccount).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ImagesApi.GetImageSbomNativeJson``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetImageSbomNativeJson`: string
-    fmt.Fprintf(os.Stdout, "Response from `ImagesApi.GetImageSbomNativeJson`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ImagesAPI.GetImageSbomNativeJson(context.Background(), imageDigest).XAnchoreAccount(xAnchoreAccount).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ImagesAPI.GetImageSbomNativeJson``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetImageSbomNativeJson`: string
+	fmt.Fprintf(os.Stdout, "Response from `ImagesAPI.GetImageSbomNativeJson`: %v\n", resp)
 }
 ```
 
@@ -1050,25 +1050,25 @@ Get image sbom in the SPDX format
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
-    imageDigest := "imageDigest_example" // string | 
-    xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
+	imageDigest := "imageDigest_example" // string | 
+	xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ImagesApi.GetImageSbomSpdxJson(context.Background(), imageDigest).XAnchoreAccount(xAnchoreAccount).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ImagesApi.GetImageSbomSpdxJson``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetImageSbomSpdxJson`: string
-    fmt.Fprintf(os.Stdout, "Response from `ImagesApi.GetImageSbomSpdxJson`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ImagesAPI.GetImageSbomSpdxJson(context.Background(), imageDigest).XAnchoreAccount(xAnchoreAccount).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ImagesAPI.GetImageSbomSpdxJson``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetImageSbomSpdxJson`: string
+	fmt.Fprintf(os.Stdout, "Response from `ImagesAPI.GetImageSbomSpdxJson`: %v\n", resp)
 }
 ```
 
@@ -1120,30 +1120,30 @@ Get vulnerabilities by type
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
-    imageDigest := "imageDigest_example" // string | 
-    vulnType := "vulnType_example" // string | 
-    forceRefresh := true // bool |  (optional) (default to false)
-    includeVulnDescription := true // bool |  (optional) (default to false)
-    vendorOnly := true // bool | Filter results to include only vulnerabilities that are not marked as invalid by upstream OS vendor data. When set to true, it will filter out all vulnerabilities where `will_not_fix` is False. If false all vulnerabilities are returned regardless of `will_not_fix` (optional) (default to true)
-    baseDigest := "baseDigest_example" // string | Digest of a base image. If specified the vulnerabilities will indicate inheritance from the base image. Can specify \"auto\" to have the base image automatically calculated. (optional)
-    xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
+	imageDigest := "imageDigest_example" // string | 
+	vulnType := "vulnType_example" // string | 
+	forceRefresh := true // bool |  (optional) (default to false)
+	includeVulnDescription := true // bool |  (optional) (default to false)
+	vendorOnly := true // bool | Filter results to include only vulnerabilities that are not marked as invalid by upstream OS vendor data. When set to true, it will filter out all vulnerabilities where `will_not_fix` is False. If false all vulnerabilities are returned regardless of `will_not_fix` (optional) (default to true)
+	baseDigest := "baseDigest_example" // string | Digest of a base image. If specified the vulnerabilities will indicate inheritance from the base image. Can specify \"auto\" to have the base image automatically calculated. (optional)
+	xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ImagesApi.GetImageVulnerabilitiesByDigest(context.Background(), imageDigest, vulnType).ForceRefresh(forceRefresh).IncludeVulnDescription(includeVulnDescription).VendorOnly(vendorOnly).BaseDigest(baseDigest).XAnchoreAccount(xAnchoreAccount).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ImagesApi.GetImageVulnerabilitiesByDigest``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetImageVulnerabilitiesByDigest`: ImagePackageVulnerabilityResponse
-    fmt.Fprintf(os.Stdout, "Response from `ImagesApi.GetImageVulnerabilitiesByDigest`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ImagesAPI.GetImageVulnerabilitiesByDigest(context.Background(), imageDigest, vulnType).ForceRefresh(forceRefresh).IncludeVulnDescription(includeVulnDescription).VendorOnly(vendorOnly).BaseDigest(baseDigest).XAnchoreAccount(xAnchoreAccount).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ImagesAPI.GetImageVulnerabilitiesByDigest``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetImageVulnerabilitiesByDigest`: ImagePackageVulnerabilityResponse
+	fmt.Fprintf(os.Stdout, "Response from `ImagesAPI.GetImageVulnerabilitiesByDigest`: %v\n", resp)
 }
 ```
 
@@ -1201,25 +1201,25 @@ Get vulnerability types
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
-    imageDigest := "imageDigest_example" // string | 
-    xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
+	imageDigest := "imageDigest_example" // string | 
+	xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ImagesApi.GetImageVulnerabilityTypes(context.Background(), imageDigest).XAnchoreAccount(xAnchoreAccount).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ImagesApi.GetImageVulnerabilityTypes``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetImageVulnerabilityTypes`: []string
-    fmt.Fprintf(os.Stdout, "Response from `ImagesApi.GetImageVulnerabilityTypes`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ImagesAPI.GetImageVulnerabilityTypes(context.Background(), imageDigest).XAnchoreAccount(xAnchoreAccount).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ImagesAPI.GetImageVulnerabilityTypes``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetImageVulnerabilityTypes`: []string
+	fmt.Fprintf(os.Stdout, "Response from `ImagesAPI.GetImageVulnerabilityTypes`: %v\n", resp)
 }
 ```
 
@@ -1271,24 +1271,24 @@ Return a list of analyzer artifacts of the specified type
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
-    imageDigest := "imageDigest_example" // string | 
+	imageDigest := "imageDigest_example" // string | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ImagesApi.ListFileContentSearchResults(context.Background(), imageDigest).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ImagesApi.ListFileContentSearchResults``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ListFileContentSearchResults`: []FileContentSearchResult
-    fmt.Fprintf(os.Stdout, "Response from `ImagesApi.ListFileContentSearchResults`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ImagesAPI.ListFileContentSearchResults(context.Background(), imageDigest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ImagesAPI.ListFileContentSearchResults``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ListFileContentSearchResults`: []FileContentSearchResult
+	fmt.Fprintf(os.Stdout, "Response from `ImagesAPI.ListFileContentSearchResults`: %v\n", resp)
 }
 ```
 
@@ -1339,25 +1339,25 @@ List image content types
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
-    imageDigest := "imageDigest_example" // string | 
-    xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
+	imageDigest := "imageDigest_example" // string | 
+	xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ImagesApi.ListImageContent(context.Background(), imageDigest).XAnchoreAccount(xAnchoreAccount).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ImagesApi.ListImageContent``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ListImageContent`: []string
-    fmt.Fprintf(os.Stdout, "Response from `ImagesApi.ListImageContent`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ImagesAPI.ListImageContent(context.Background(), imageDigest).XAnchoreAccount(xAnchoreAccount).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ImagesAPI.ListImageContent``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ListImageContent`: []string
+	fmt.Fprintf(os.Stdout, "Response from `ImagesAPI.ListImageContent`: %v\n", resp)
 }
 ```
 
@@ -1409,25 +1409,25 @@ List image metadata types
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
-    imageDigest := "imageDigest_example" // string | 
-    xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
+	imageDigest := "imageDigest_example" // string | 
+	xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ImagesApi.ListImageMetadata(context.Background(), imageDigest).XAnchoreAccount(xAnchoreAccount).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ImagesApi.ListImageMetadata``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ListImageMetadata`: []string
-    fmt.Fprintf(os.Stdout, "Response from `ImagesApi.ListImageMetadata`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ImagesAPI.ListImageMetadata(context.Background(), imageDigest).XAnchoreAccount(xAnchoreAccount).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ImagesAPI.ListImageMetadata``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ListImageMetadata`: []string
+	fmt.Fprintf(os.Stdout, "Response from `ImagesAPI.ListImageMetadata`: %v\n", resp)
 }
 ```
 
@@ -1481,30 +1481,30 @@ List all visible images
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
-    imageId := "imageId_example" // string | Filter results matching image ID (optional)
-    history := true // bool | Include image history in the response (optional)
-    fullTag := "fullTag_example" // string | Full docker-pull string to filter results by (e.g. docker.io/library/nginx:latest, or myhost.com:5000/testimages:v1.1.1) (optional)
-    imageStatus := "imageStatus_example" // string | Filter by image_status value on the record. Default if omitted is 'active'. (optional) (default to "active")
-    analysisStatus := "analysisStatus_example" // string | Filter by analysis_status value on the record. (optional)
-    analyzedSince := "analyzedSince_example" // string | Filter by images analyzed on or after the specified datetime (optional)
-    xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
+	imageId := "imageId_example" // string | Filter results matching image ID (optional)
+	history := true // bool | Include image history in the response (optional)
+	fullTag := "fullTag_example" // string | Full docker-pull string to filter results by (e.g. docker.io/library/nginx:latest, or myhost.com:5000/testimages:v1.1.1) (optional)
+	imageStatus := "imageStatus_example" // string | Filter by image_status value on the record. Default if omitted is 'active'. (optional) (default to "active")
+	analysisStatus := "analysisStatus_example" // string | Filter by analysis_status value on the record. (optional)
+	analyzedSince := "analyzedSince_example" // string | Filter by images analyzed on or after the specified datetime (optional)
+	xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ImagesApi.ListImages(context.Background()).ImageId(imageId).History(history).FullTag(fullTag).ImageStatus(imageStatus).AnalysisStatus(analysisStatus).AnalyzedSince(analyzedSince).XAnchoreAccount(xAnchoreAccount).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ImagesApi.ListImages``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ListImages`: AnchoreImageList
-    fmt.Fprintf(os.Stdout, "Response from `ImagesApi.ListImages`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ImagesAPI.ListImages(context.Background()).ImageId(imageId).History(history).FullTag(fullTag).ImageStatus(imageStatus).AnalysisStatus(analysisStatus).AnalyzedSince(analyzedSince).XAnchoreAccount(xAnchoreAccount).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ImagesAPI.ListImages``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ListImages`: AnchoreImageList
+	fmt.Fprintf(os.Stdout, "Response from `ImagesAPI.ListImages`: %v\n", resp)
 }
 ```
 
@@ -1557,24 +1557,24 @@ Return a list of analyzer artifacts of the specified type
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
-    imageDigest := "imageDigest_example" // string | 
+	imageDigest := "imageDigest_example" // string | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ImagesApi.ListRetrievedFiles(context.Background(), imageDigest).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ImagesApi.ListRetrievedFiles``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ListRetrievedFiles`: []RetrievedFile
-    fmt.Fprintf(os.Stdout, "Response from `ImagesApi.ListRetrievedFiles`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ImagesAPI.ListRetrievedFiles(context.Background(), imageDigest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ImagesAPI.ListRetrievedFiles``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ListRetrievedFiles`: []RetrievedFile
+	fmt.Fprintf(os.Stdout, "Response from `ImagesAPI.ListRetrievedFiles`: %v\n", resp)
 }
 ```
 
@@ -1625,24 +1625,24 @@ Return a list of analyzer artifacts of the specified type
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
-    imageDigest := "imageDigest_example" // string | 
+	imageDigest := "imageDigest_example" // string | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ImagesApi.ListSecretSearchResults(context.Background(), imageDigest).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ImagesApi.ListSecretSearchResults``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ListSecretSearchResults`: []SecretSearchResult
-    fmt.Fprintf(os.Stdout, "Response from `ImagesApi.ListSecretSearchResults`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ImagesAPI.ListSecretSearchResults(context.Background(), imageDigest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ImagesAPI.ListSecretSearchResults``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ListSecretSearchResults`: []SecretSearchResult
+	fmt.Fprintf(os.Stdout, "Response from `ImagesAPI.ListSecretSearchResults`: %v\n", resp)
 }
 ```
 
@@ -1695,27 +1695,27 @@ Image summary counts
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
-    imageStatus := []string{"ImageStatus_example"} // []string | Filter images in one or more states such as active, deleting. Defaults to active images only if unspecified (optional) (default to ["active"])
-    registry := "registry_example" // string | Filter by registry (optional)
-    repo := "repo_example" // string | Filter by repo (optional)
-    xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
+	imageStatus := []string{"ImageStatus_example"} // []string | Filter images in one or more states such as active, deleting. Defaults to active images only if unspecified (optional) (default to ["active"])
+	registry := "registry_example" // string | Filter by registry (optional)
+	repo := "repo_example" // string | Filter by repo (optional)
+	xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ImagesApi.SummaryImageCounts(context.Background()).ImageStatus(imageStatus).Registry(registry).Repo(repo).XAnchoreAccount(xAnchoreAccount).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ImagesApi.SummaryImageCounts``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `SummaryImageCounts`: AnchoreImageSummaryCounts
-    fmt.Fprintf(os.Stdout, "Response from `ImagesApi.SummaryImageCounts`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ImagesAPI.SummaryImageCounts(context.Background()).ImageStatus(imageStatus).Registry(registry).Repo(repo).XAnchoreAccount(xAnchoreAccount).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ImagesAPI.SummaryImageCounts``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `SummaryImageCounts`: AnchoreImageSummaryCounts
+	fmt.Fprintf(os.Stdout, "Response from `ImagesAPI.SummaryImageCounts`: %v\n", resp)
 }
 ```
 
@@ -1767,36 +1767,36 @@ Summarize image tags
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
-    imageStatus := []string{"ImageStatus_example"} // []string | Filter images in one or more states such as active, deleting. Defaults to active images only if unspecified (optional) (default to ["active"])
-    analysisStatus := []string{"AnalysisStatus_example"} // []string | Filter images in one or more analysis_status such as analyzed, not_analyzed, analysis_failed. Defaults to unfiltered if unspecified (optional) (default to ["all"])
-    analyzedSince := "analyzedSince_example" // string | Filter images analyzed on or after the specified datetime (optional)
-    registry := "registry_example" // string | A registry name to filter result by (e.g. \"docker.io\") (optional)
-    repository := "repository_example" // string | A repository name to filter results by (e.g. \"jboss/keycloak\") (optional)
-    tag := "tag_example" // string | A tag value to filter results by (e.g. \"latest\", or \"v1.2.0\") (optional)
-    runtime := true // bool | Filter by images with runtime inventory (optional)
-    orderBy := []string{"OrderBy_example"} // []string | List of field name(s) to order by, ascending by default (optional)
-    orderByDescending := []bool{false} // []bool | Configures the sort order of each specified order_by column to be descending (true) instead of ascending (false) (optional)
-    filter := "filter_example" // string | Filter by 'image_digest' or 'full_tag' fields, using partial or full string match (optional)
-    limit := int32(56) // int32 | Maximum number of rows to return (optional)
-    page := int32(56) // int32 | Page number to return, one's based (optional) (default to 1)
-    xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
+	imageStatus := []string{"ImageStatus_example"} // []string | Filter images in one or more states such as active, deleting. Defaults to active images only if unspecified (optional) (default to ["active"])
+	analysisStatus := []string{"AnalysisStatus_example"} // []string | Filter images in one or more analysis_status such as analyzed, not_analyzed, analysis_failed. Defaults to unfiltered if unspecified (optional) (default to ["all"])
+	analyzedSince := "analyzedSince_example" // string | Filter images analyzed on or after the specified datetime (optional)
+	registry := "registry_example" // string | A registry name to filter result by (e.g. \"docker.io\") (optional)
+	repository := "repository_example" // string | A repository name to filter results by (e.g. \"jboss/keycloak\") (optional)
+	tag := "tag_example" // string | A tag value to filter results by (e.g. \"latest\", or \"v1.2.0\") (optional)
+	runtime := true // bool | Filter by images with runtime inventory (optional)
+	orderBy := []string{"OrderBy_example"} // []string | List of field name(s) to order by, ascending by default (optional)
+	orderByDescending := []bool{false} // []bool | Configures the sort order of each specified order_by column to be descending (true) instead of ascending (false) (optional)
+	filter := "filter_example" // string | Filter by 'image_digest' or 'full_tag' fields, using partial or full string match (optional)
+	limit := int32(56) // int32 | Maximum number of rows to return (optional)
+	page := int32(56) // int32 | Page number to return, one's based (optional) (default to 1)
+	xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ImagesApi.SummaryImageTags(context.Background()).ImageStatus(imageStatus).AnalysisStatus(analysisStatus).AnalyzedSince(analyzedSince).Registry(registry).Repository(repository).Tag(tag).Runtime(runtime).OrderBy(orderBy).OrderByDescending(orderByDescending).Filter(filter).Limit(limit).Page(page).XAnchoreAccount(xAnchoreAccount).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ImagesApi.SummaryImageTags``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `SummaryImageTags`: AnchoreImageTagSummaryList
-    fmt.Fprintf(os.Stdout, "Response from `ImagesApi.SummaryImageTags`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ImagesAPI.SummaryImageTags(context.Background()).ImageStatus(imageStatus).AnalysisStatus(analysisStatus).AnalyzedSince(analyzedSince).Registry(registry).Repository(repository).Tag(tag).Runtime(runtime).OrderBy(orderBy).OrderByDescending(orderByDescending).Filter(filter).Limit(limit).Page(page).XAnchoreAccount(xAnchoreAccount).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ImagesAPI.SummaryImageTags``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `SummaryImageTags`: AnchoreImageTagSummaryList
+	fmt.Fprintf(os.Stdout, "Response from `ImagesAPI.SummaryImageTags`: %v\n", resp)
 }
 ```
 

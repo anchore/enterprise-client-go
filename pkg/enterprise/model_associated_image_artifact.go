@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the AssociatedImageArtifact type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &AssociatedImageArtifact{}
+
 // AssociatedImageArtifact Model for an associated image artifact. Composites the artifact with the association metadata
 type AssociatedImageArtifact struct {
 	ArtifactAssociationMetadata *ArtifactAssociationMetadata `json:"artifact_association_metadata,omitempty"`
@@ -40,7 +43,7 @@ func NewAssociatedImageArtifactWithDefaults() *AssociatedImageArtifact {
 
 // GetArtifactAssociationMetadata returns the ArtifactAssociationMetadata field value if set, zero value otherwise.
 func (o *AssociatedImageArtifact) GetArtifactAssociationMetadata() ArtifactAssociationMetadata {
-	if o == nil || o.ArtifactAssociationMetadata == nil {
+	if o == nil || IsNil(o.ArtifactAssociationMetadata) {
 		var ret ArtifactAssociationMetadata
 		return ret
 	}
@@ -50,7 +53,7 @@ func (o *AssociatedImageArtifact) GetArtifactAssociationMetadata() ArtifactAssoc
 // GetArtifactAssociationMetadataOk returns a tuple with the ArtifactAssociationMetadata field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AssociatedImageArtifact) GetArtifactAssociationMetadataOk() (*ArtifactAssociationMetadata, bool) {
-	if o == nil || o.ArtifactAssociationMetadata == nil {
+	if o == nil || IsNil(o.ArtifactAssociationMetadata) {
 		return nil, false
 	}
 	return o.ArtifactAssociationMetadata, true
@@ -58,7 +61,7 @@ func (o *AssociatedImageArtifact) GetArtifactAssociationMetadataOk() (*ArtifactA
 
 // HasArtifactAssociationMetadata returns a boolean if a field has been set.
 func (o *AssociatedImageArtifact) HasArtifactAssociationMetadata() bool {
-	if o != nil && o.ArtifactAssociationMetadata != nil {
+	if o != nil && !IsNil(o.ArtifactAssociationMetadata) {
 		return true
 	}
 
@@ -72,7 +75,7 @@ func (o *AssociatedImageArtifact) SetArtifactAssociationMetadata(v ArtifactAssoc
 
 // GetImage returns the Image field value if set, zero value otherwise.
 func (o *AssociatedImageArtifact) GetImage() ImageArtifact {
-	if o == nil || o.Image == nil {
+	if o == nil || IsNil(o.Image) {
 		var ret ImageArtifact
 		return ret
 	}
@@ -82,7 +85,7 @@ func (o *AssociatedImageArtifact) GetImage() ImageArtifact {
 // GetImageOk returns a tuple with the Image field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AssociatedImageArtifact) GetImageOk() (*ImageArtifact, bool) {
-	if o == nil || o.Image == nil {
+	if o == nil || IsNil(o.Image) {
 		return nil, false
 	}
 	return o.Image, true
@@ -90,7 +93,7 @@ func (o *AssociatedImageArtifact) GetImageOk() (*ImageArtifact, bool) {
 
 // HasImage returns a boolean if a field has been set.
 func (o *AssociatedImageArtifact) HasImage() bool {
-	if o != nil && o.Image != nil {
+	if o != nil && !IsNil(o.Image) {
 		return true
 	}
 
@@ -103,14 +106,22 @@ func (o *AssociatedImageArtifact) SetImage(v ImageArtifact) {
 }
 
 func (o AssociatedImageArtifact) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.ArtifactAssociationMetadata != nil {
-		toSerialize["artifact_association_metadata"] = o.ArtifactAssociationMetadata
-	}
-	if o.Image != nil {
-		toSerialize["image"] = o.Image
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o AssociatedImageArtifact) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.ArtifactAssociationMetadata) {
+		toSerialize["artifact_association_metadata"] = o.ArtifactAssociationMetadata
+	}
+	if !IsNil(o.Image) {
+		toSerialize["image"] = o.Image
+	}
+	return toSerialize, nil
 }
 
 type NullableAssociatedImageArtifact struct {

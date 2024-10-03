@@ -1,14 +1,14 @@
-# \EventsApi
+# \EventsAPI
 
 All URIs are relative to */v2*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**DeleteEvent**](EventsApi.md#DeleteEvent) | **Delete** /events/{event_id} | Delete Event
-[**DeleteEvents**](EventsApi.md#DeleteEvents) | **Delete** /events | Delete Events
-[**GetEvent**](EventsApi.md#GetEvent) | **Get** /events/{event_id} | Get Event
-[**ListEventTypes**](EventsApi.md#ListEventTypes) | **Get** /event-types | List Event Types
-[**ListEvents**](EventsApi.md#ListEvents) | **Get** /events | List Events
+[**DeleteEvent**](EventsAPI.md#DeleteEvent) | **Delete** /events/{event_id} | Delete Event
+[**DeleteEvents**](EventsAPI.md#DeleteEvents) | **Delete** /events | Delete Events
+[**GetEvent**](EventsAPI.md#GetEvent) | **Get** /events/{event_id} | Get Event
+[**ListEventTypes**](EventsAPI.md#ListEventTypes) | **Get** /event-types | List Event Types
+[**ListEvents**](EventsAPI.md#ListEvents) | **Get** /events | List Events
 
 
 
@@ -26,23 +26,23 @@ Delete Event
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
-    eventId := "eventId_example" // string | Event ID of the event to be deleted
-    xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
+	eventId := "eventId_example" // string | Event ID of the event to be deleted
+	xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.EventsApi.DeleteEvent(context.Background(), eventId).XAnchoreAccount(xAnchoreAccount).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `EventsApi.DeleteEvent``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.EventsAPI.DeleteEvent(context.Background(), eventId).XAnchoreAccount(xAnchoreAccount).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `EventsAPI.DeleteEvent``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -96,27 +96,27 @@ Delete Events
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
-    before := "before_example" // string | Delete events that occurred before the timestamp (optional)
-    since := "since_example" // string | Delete events that occurred after the timestamp (optional)
-    level := "level_example" // string | Delete events that match the level - INFO or ERROR (optional)
-    xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
+	before := "before_example" // string | Delete events that occurred before the timestamp (optional)
+	since := "since_example" // string | Delete events that occurred after the timestamp (optional)
+	level := "level_example" // string | Delete events that match the level - INFO or ERROR (optional)
+	xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.EventsApi.DeleteEvents(context.Background()).Before(before).Since(since).Level(level).XAnchoreAccount(xAnchoreAccount).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `EventsApi.DeleteEvents``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `DeleteEvents`: []string
-    fmt.Fprintf(os.Stdout, "Response from `EventsApi.DeleteEvents`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.EventsAPI.DeleteEvents(context.Background()).Before(before).Since(since).Level(level).XAnchoreAccount(xAnchoreAccount).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `EventsAPI.DeleteEvents``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `DeleteEvents`: []string
+	fmt.Fprintf(os.Stdout, "Response from `EventsAPI.DeleteEvents`: %v\n", resp)
 }
 ```
 
@@ -168,25 +168,25 @@ Get Event
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
-    eventId := "eventId_example" // string | Event ID of the event for lookup
-    xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
+	eventId := "eventId_example" // string | Event ID of the event for lookup
+	xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.EventsApi.GetEvent(context.Background(), eventId).XAnchoreAccount(xAnchoreAccount).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `EventsApi.GetEvent``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetEvent`: EventResponse
-    fmt.Fprintf(os.Stdout, "Response from `EventsApi.GetEvent`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.EventsAPI.GetEvent(context.Background(), eventId).XAnchoreAccount(xAnchoreAccount).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `EventsAPI.GetEvent``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetEvent`: EventResponse
+	fmt.Fprintf(os.Stdout, "Response from `EventsAPI.GetEvent`: %v\n", resp)
 }
 ```
 
@@ -240,23 +240,23 @@ List Event Types
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.EventsApi.ListEventTypes(context.Background()).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `EventsApi.ListEventTypes``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ListEventTypes`: []EventCategory
-    fmt.Fprintf(os.Stdout, "Response from `EventsApi.ListEventTypes`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.EventsAPI.ListEventTypes(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `EventsAPI.ListEventTypes``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ListEventTypes`: []EventCategory
+	fmt.Fprintf(os.Stdout, "Response from `EventsAPI.ListEventTypes`: %v\n", resp)
 }
 ```
 
@@ -301,34 +301,34 @@ List Events
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
-    sourceServiceName := "sourceServiceName_example" // string | Filter events by the originating service (optional)
-    sourceHostId := "sourceHostId_example" // string | Filter events by the originating host ID (optional)
-    eventType := "eventType_example" // string | Filter events by a prefix match on the event type (e.g. \"user.image.\") (optional)
-    resourceType := "resourceType_example" // string | Filter events by the type of resource - tag, image_digest, repository etc (optional)
-    resourceId := "resourceId_example" // string | Filter events by the id of the resource (optional)
-    level := "level_example" // string | Filter events by the level - INFO or ERROR (optional)
-    since := "since_example" // string | Return events that occurred after the timestamp (optional)
-    before := "before_example" // string | Return events that occurred before the timestamp (optional)
-    page := int32(56) // int32 | Pagination controls - return the nth page of results. Defaults to first page if left empty (optional) (default to 1)
-    limit := int32(56) // int32 | Number of events in the result set. Defaults to 100 if left empty (optional) (default to 100)
-    xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
+	sourceServiceName := "sourceServiceName_example" // string | Filter events by the originating service (optional)
+	sourceHostId := "sourceHostId_example" // string | Filter events by the originating host ID (optional)
+	eventType := "eventType_example" // string | Filter events by a prefix match on the event type (e.g. \"user.image.\") (optional)
+	resourceType := "resourceType_example" // string | Filter events by the type of resource - tag, image_digest, repository etc (optional)
+	resourceId := "resourceId_example" // string | Filter events by the id of the resource (optional)
+	level := "level_example" // string | Filter events by the level - INFO or ERROR (optional)
+	since := "since_example" // string | Return events that occurred after the timestamp (optional)
+	before := "before_example" // string | Return events that occurred before the timestamp (optional)
+	page := int32(56) // int32 | Pagination controls - return the nth page of results. Defaults to first page if left empty (optional) (default to 1)
+	limit := int32(56) // int32 | Number of events in the result set. Defaults to 100 if left empty (optional) (default to 100)
+	xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.EventsApi.ListEvents(context.Background()).SourceServiceName(sourceServiceName).SourceHostId(sourceHostId).EventType(eventType).ResourceType(resourceType).ResourceId(resourceId).Level(level).Since(since).Before(before).Page(page).Limit(limit).XAnchoreAccount(xAnchoreAccount).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `EventsApi.ListEvents``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ListEvents`: EventsList
-    fmt.Fprintf(os.Stdout, "Response from `EventsApi.ListEvents`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.EventsAPI.ListEvents(context.Background()).SourceServiceName(sourceServiceName).SourceHostId(sourceHostId).EventType(eventType).ResourceType(resourceType).ResourceId(resourceId).Level(level).Since(since).Before(before).Page(page).Limit(limit).XAnchoreAccount(xAnchoreAccount).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `EventsAPI.ListEvents``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ListEvents`: EventsList
+	fmt.Fprintf(os.Stdout, "Response from `EventsAPI.ListEvents`: %v\n", resp)
 }
 ```
 

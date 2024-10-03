@@ -13,7 +13,12 @@ package enterprise
 
 import (
 	"encoding/json"
+	"bytes"
+	"fmt"
 )
+
+// checks if the PolicyEvaluationFinding type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PolicyEvaluationFinding{}
 
 // PolicyEvaluationFinding struct for PolicyEvaluationFinding
 type PolicyEvaluationFinding struct {
@@ -35,10 +40,12 @@ type PolicyEvaluationFinding struct {
 	RuleId string `json:"rule_id"`
 	// Indicates if this finding was allowlisted or not
 	Allowlisted bool `json:"allowlisted"`
-	AllowlistMatch *PolicyEvaluationFindingAllowlistMatch `json:"allowlist_match,omitempty"`
+	AllowlistMatch NullablePolicyFindingAllowlistMatch `json:"allowlist_match,omitempty"`
 	// Indicates if this finding was found in the base image
 	InheritedFromBase NullableBool `json:"inherited_from_base,omitempty"`
 }
+
+type _PolicyEvaluationFinding PolicyEvaluationFinding
 
 // NewPolicyEvaluationFinding instantiates a new PolicyEvaluationFinding object
 // This constructor will assign default values to properties that have it defined,
@@ -282,41 +289,51 @@ func (o *PolicyEvaluationFinding) SetAllowlisted(v bool) {
 	o.Allowlisted = v
 }
 
-// GetAllowlistMatch returns the AllowlistMatch field value if set, zero value otherwise.
-func (o *PolicyEvaluationFinding) GetAllowlistMatch() PolicyEvaluationFindingAllowlistMatch {
-	if o == nil || o.AllowlistMatch == nil {
-		var ret PolicyEvaluationFindingAllowlistMatch
+// GetAllowlistMatch returns the AllowlistMatch field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *PolicyEvaluationFinding) GetAllowlistMatch() PolicyFindingAllowlistMatch {
+	if o == nil || IsNil(o.AllowlistMatch.Get()) {
+		var ret PolicyFindingAllowlistMatch
 		return ret
 	}
-	return *o.AllowlistMatch
+	return *o.AllowlistMatch.Get()
 }
 
 // GetAllowlistMatchOk returns a tuple with the AllowlistMatch field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *PolicyEvaluationFinding) GetAllowlistMatchOk() (*PolicyEvaluationFindingAllowlistMatch, bool) {
-	if o == nil || o.AllowlistMatch == nil {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *PolicyEvaluationFinding) GetAllowlistMatchOk() (*PolicyFindingAllowlistMatch, bool) {
+	if o == nil {
 		return nil, false
 	}
-	return o.AllowlistMatch, true
+	return o.AllowlistMatch.Get(), o.AllowlistMatch.IsSet()
 }
 
 // HasAllowlistMatch returns a boolean if a field has been set.
 func (o *PolicyEvaluationFinding) HasAllowlistMatch() bool {
-	if o != nil && o.AllowlistMatch != nil {
+	if o != nil && o.AllowlistMatch.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetAllowlistMatch gets a reference to the given PolicyEvaluationFindingAllowlistMatch and assigns it to the AllowlistMatch field.
-func (o *PolicyEvaluationFinding) SetAllowlistMatch(v PolicyEvaluationFindingAllowlistMatch) {
-	o.AllowlistMatch = &v
+// SetAllowlistMatch gets a reference to the given NullablePolicyFindingAllowlistMatch and assigns it to the AllowlistMatch field.
+func (o *PolicyEvaluationFinding) SetAllowlistMatch(v PolicyFindingAllowlistMatch) {
+	o.AllowlistMatch.Set(&v)
+}
+// SetAllowlistMatchNil sets the value for AllowlistMatch to be an explicit nil
+func (o *PolicyEvaluationFinding) SetAllowlistMatchNil() {
+	o.AllowlistMatch.Set(nil)
+}
+
+// UnsetAllowlistMatch ensures that no value is present for AllowlistMatch, not even an explicit nil
+func (o *PolicyEvaluationFinding) UnsetAllowlistMatch() {
+	o.AllowlistMatch.Unset()
 }
 
 // GetInheritedFromBase returns the InheritedFromBase field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *PolicyEvaluationFinding) GetInheritedFromBase() bool {
-	if o == nil || o.InheritedFromBase.Get() == nil {
+	if o == nil || IsNil(o.InheritedFromBase.Get()) {
 		var ret bool
 		return ret
 	}
@@ -357,41 +374,76 @@ func (o *PolicyEvaluationFinding) UnsetInheritedFromBase() {
 }
 
 func (o PolicyEvaluationFinding) MarshalJSON() ([]byte, error) {
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o PolicyEvaluationFinding) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["trigger_id"] = o.TriggerId
-	}
-	if true {
-		toSerialize["gate"] = o.Gate
-	}
-	if true {
-		toSerialize["trigger"] = o.Trigger
-	}
-	if true {
-		toSerialize["message"] = o.Message
-	}
-	if true {
-		toSerialize["action"] = o.Action
-	}
-	if true {
-		toSerialize["policy_id"] = o.PolicyId
-	}
-	if true {
-		toSerialize["recommendation"] = o.Recommendation
-	}
-	if true {
-		toSerialize["rule_id"] = o.RuleId
-	}
-	if true {
-		toSerialize["allowlisted"] = o.Allowlisted
-	}
-	if o.AllowlistMatch != nil {
-		toSerialize["allowlist_match"] = o.AllowlistMatch
+	toSerialize["trigger_id"] = o.TriggerId
+	toSerialize["gate"] = o.Gate
+	toSerialize["trigger"] = o.Trigger
+	toSerialize["message"] = o.Message
+	toSerialize["action"] = o.Action
+	toSerialize["policy_id"] = o.PolicyId
+	toSerialize["recommendation"] = o.Recommendation
+	toSerialize["rule_id"] = o.RuleId
+	toSerialize["allowlisted"] = o.Allowlisted
+	if o.AllowlistMatch.IsSet() {
+		toSerialize["allowlist_match"] = o.AllowlistMatch.Get()
 	}
 	if o.InheritedFromBase.IsSet() {
 		toSerialize["inherited_from_base"] = o.InheritedFromBase.Get()
 	}
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
+}
+
+func (o *PolicyEvaluationFinding) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"trigger_id",
+		"gate",
+		"trigger",
+		"message",
+		"action",
+		"policy_id",
+		"recommendation",
+		"rule_id",
+		"allowlisted",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varPolicyEvaluationFinding := _PolicyEvaluationFinding{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varPolicyEvaluationFinding)
+
+	if err != nil {
+		return err
+	}
+
+	*o = PolicyEvaluationFinding(varPolicyEvaluationFinding)
+
+	return err
 }
 
 type NullablePolicyEvaluationFinding struct {

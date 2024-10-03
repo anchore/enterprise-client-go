@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the ActionPlanResolution type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ActionPlanResolution{}
+
 // ActionPlanResolution defines the trigger IDs and content of a resolution for an action plan
 type ActionPlanResolution struct {
 	TriggerIds []string `json:"trigger_ids,omitempty"`
@@ -40,7 +43,7 @@ func NewActionPlanResolutionWithDefaults() *ActionPlanResolution {
 
 // GetTriggerIds returns the TriggerIds field value if set, zero value otherwise.
 func (o *ActionPlanResolution) GetTriggerIds() []string {
-	if o == nil || o.TriggerIds == nil {
+	if o == nil || IsNil(o.TriggerIds) {
 		var ret []string
 		return ret
 	}
@@ -50,7 +53,7 @@ func (o *ActionPlanResolution) GetTriggerIds() []string {
 // GetTriggerIdsOk returns a tuple with the TriggerIds field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ActionPlanResolution) GetTriggerIdsOk() ([]string, bool) {
-	if o == nil || o.TriggerIds == nil {
+	if o == nil || IsNil(o.TriggerIds) {
 		return nil, false
 	}
 	return o.TriggerIds, true
@@ -58,7 +61,7 @@ func (o *ActionPlanResolution) GetTriggerIdsOk() ([]string, bool) {
 
 // HasTriggerIds returns a boolean if a field has been set.
 func (o *ActionPlanResolution) HasTriggerIds() bool {
-	if o != nil && o.TriggerIds != nil {
+	if o != nil && !IsNil(o.TriggerIds) {
 		return true
 	}
 
@@ -72,7 +75,7 @@ func (o *ActionPlanResolution) SetTriggerIds(v []string) {
 
 // GetContent returns the Content field value if set, zero value otherwise.
 func (o *ActionPlanResolution) GetContent() string {
-	if o == nil || o.Content == nil {
+	if o == nil || IsNil(o.Content) {
 		var ret string
 		return ret
 	}
@@ -82,7 +85,7 @@ func (o *ActionPlanResolution) GetContent() string {
 // GetContentOk returns a tuple with the Content field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ActionPlanResolution) GetContentOk() (*string, bool) {
-	if o == nil || o.Content == nil {
+	if o == nil || IsNil(o.Content) {
 		return nil, false
 	}
 	return o.Content, true
@@ -90,7 +93,7 @@ func (o *ActionPlanResolution) GetContentOk() (*string, bool) {
 
 // HasContent returns a boolean if a field has been set.
 func (o *ActionPlanResolution) HasContent() bool {
-	if o != nil && o.Content != nil {
+	if o != nil && !IsNil(o.Content) {
 		return true
 	}
 
@@ -103,14 +106,22 @@ func (o *ActionPlanResolution) SetContent(v string) {
 }
 
 func (o ActionPlanResolution) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.TriggerIds != nil {
-		toSerialize["trigger_ids"] = o.TriggerIds
-	}
-	if o.Content != nil {
-		toSerialize["content"] = o.Content
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o ActionPlanResolution) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.TriggerIds) {
+		toSerialize["trigger_ids"] = o.TriggerIds
+	}
+	if !IsNil(o.Content) {
+		toSerialize["content"] = o.Content
+	}
+	return toSerialize, nil
 }
 
 type NullableActionPlanResolution struct {

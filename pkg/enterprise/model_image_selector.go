@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the ImageSelector type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ImageSelector{}
+
 // ImageSelector A set of selection criteria to match an image by a tagged pull string based on its components, with regex support in each field
 type ImageSelector struct {
 	// The registry section of a pull string. e.g. with \"docker.io/anchore/anchore-engine:latest\", this is \"docker.io\"
@@ -44,7 +47,7 @@ func NewImageSelectorWithDefaults() *ImageSelector {
 
 // GetRegistry returns the Registry field value if set, zero value otherwise.
 func (o *ImageSelector) GetRegistry() string {
-	if o == nil || o.Registry == nil {
+	if o == nil || IsNil(o.Registry) {
 		var ret string
 		return ret
 	}
@@ -54,7 +57,7 @@ func (o *ImageSelector) GetRegistry() string {
 // GetRegistryOk returns a tuple with the Registry field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ImageSelector) GetRegistryOk() (*string, bool) {
-	if o == nil || o.Registry == nil {
+	if o == nil || IsNil(o.Registry) {
 		return nil, false
 	}
 	return o.Registry, true
@@ -62,7 +65,7 @@ func (o *ImageSelector) GetRegistryOk() (*string, bool) {
 
 // HasRegistry returns a boolean if a field has been set.
 func (o *ImageSelector) HasRegistry() bool {
-	if o != nil && o.Registry != nil {
+	if o != nil && !IsNil(o.Registry) {
 		return true
 	}
 
@@ -76,7 +79,7 @@ func (o *ImageSelector) SetRegistry(v string) {
 
 // GetRepository returns the Repository field value if set, zero value otherwise.
 func (o *ImageSelector) GetRepository() string {
-	if o == nil || o.Repository == nil {
+	if o == nil || IsNil(o.Repository) {
 		var ret string
 		return ret
 	}
@@ -86,7 +89,7 @@ func (o *ImageSelector) GetRepository() string {
 // GetRepositoryOk returns a tuple with the Repository field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ImageSelector) GetRepositoryOk() (*string, bool) {
-	if o == nil || o.Repository == nil {
+	if o == nil || IsNil(o.Repository) {
 		return nil, false
 	}
 	return o.Repository, true
@@ -94,7 +97,7 @@ func (o *ImageSelector) GetRepositoryOk() (*string, bool) {
 
 // HasRepository returns a boolean if a field has been set.
 func (o *ImageSelector) HasRepository() bool {
-	if o != nil && o.Repository != nil {
+	if o != nil && !IsNil(o.Repository) {
 		return true
 	}
 
@@ -108,7 +111,7 @@ func (o *ImageSelector) SetRepository(v string) {
 
 // GetTag returns the Tag field value if set, zero value otherwise.
 func (o *ImageSelector) GetTag() string {
-	if o == nil || o.Tag == nil {
+	if o == nil || IsNil(o.Tag) {
 		var ret string
 		return ret
 	}
@@ -118,7 +121,7 @@ func (o *ImageSelector) GetTag() string {
 // GetTagOk returns a tuple with the Tag field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ImageSelector) GetTagOk() (*string, bool) {
-	if o == nil || o.Tag == nil {
+	if o == nil || IsNil(o.Tag) {
 		return nil, false
 	}
 	return o.Tag, true
@@ -126,7 +129,7 @@ func (o *ImageSelector) GetTagOk() (*string, bool) {
 
 // HasTag returns a boolean if a field has been set.
 func (o *ImageSelector) HasTag() bool {
-	if o != nil && o.Tag != nil {
+	if o != nil && !IsNil(o.Tag) {
 		return true
 	}
 
@@ -139,17 +142,25 @@ func (o *ImageSelector) SetTag(v string) {
 }
 
 func (o ImageSelector) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Registry != nil {
-		toSerialize["registry"] = o.Registry
-	}
-	if o.Repository != nil {
-		toSerialize["repository"] = o.Repository
-	}
-	if o.Tag != nil {
-		toSerialize["tag"] = o.Tag
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o ImageSelector) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Registry) {
+		toSerialize["registry"] = o.Registry
+	}
+	if !IsNil(o.Repository) {
+		toSerialize["repository"] = o.Repository
+	}
+	if !IsNil(o.Tag) {
+		toSerialize["tag"] = o.Tag
+	}
+	return toSerialize, nil
 }
 
 type NullableImageSelector struct {

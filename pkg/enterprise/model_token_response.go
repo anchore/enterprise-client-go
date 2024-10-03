@@ -13,7 +13,12 @@ package enterprise
 
 import (
 	"encoding/json"
+	"bytes"
+	"fmt"
 )
+
+// checks if the TokenResponse type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &TokenResponse{}
 
 // TokenResponse struct for TokenResponse
 type TokenResponse struct {
@@ -26,6 +31,8 @@ type TokenResponse struct {
 	// The refresh token content
 	RefreshToken *string `json:"refresh_token,omitempty"`
 }
+
+type _TokenResponse TokenResponse
 
 // NewTokenResponse instantiates a new TokenResponse object
 // This constructor will assign default values to properties that have it defined,
@@ -71,7 +78,7 @@ func (o *TokenResponse) SetAccessToken(v string) {
 
 // GetExpiresIn returns the ExpiresIn field value if set, zero value otherwise.
 func (o *TokenResponse) GetExpiresIn() float32 {
-	if o == nil || o.ExpiresIn == nil {
+	if o == nil || IsNil(o.ExpiresIn) {
 		var ret float32
 		return ret
 	}
@@ -81,7 +88,7 @@ func (o *TokenResponse) GetExpiresIn() float32 {
 // GetExpiresInOk returns a tuple with the ExpiresIn field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TokenResponse) GetExpiresInOk() (*float32, bool) {
-	if o == nil || o.ExpiresIn == nil {
+	if o == nil || IsNil(o.ExpiresIn) {
 		return nil, false
 	}
 	return o.ExpiresIn, true
@@ -89,7 +96,7 @@ func (o *TokenResponse) GetExpiresInOk() (*float32, bool) {
 
 // HasExpiresIn returns a boolean if a field has been set.
 func (o *TokenResponse) HasExpiresIn() bool {
-	if o != nil && o.ExpiresIn != nil {
+	if o != nil && !IsNil(o.ExpiresIn) {
 		return true
 	}
 
@@ -103,7 +110,7 @@ func (o *TokenResponse) SetExpiresIn(v float32) {
 
 // GetTokenType returns the TokenType field value if set, zero value otherwise.
 func (o *TokenResponse) GetTokenType() string {
-	if o == nil || o.TokenType == nil {
+	if o == nil || IsNil(o.TokenType) {
 		var ret string
 		return ret
 	}
@@ -113,7 +120,7 @@ func (o *TokenResponse) GetTokenType() string {
 // GetTokenTypeOk returns a tuple with the TokenType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TokenResponse) GetTokenTypeOk() (*string, bool) {
-	if o == nil || o.TokenType == nil {
+	if o == nil || IsNil(o.TokenType) {
 		return nil, false
 	}
 	return o.TokenType, true
@@ -121,7 +128,7 @@ func (o *TokenResponse) GetTokenTypeOk() (*string, bool) {
 
 // HasTokenType returns a boolean if a field has been set.
 func (o *TokenResponse) HasTokenType() bool {
-	if o != nil && o.TokenType != nil {
+	if o != nil && !IsNil(o.TokenType) {
 		return true
 	}
 
@@ -135,7 +142,7 @@ func (o *TokenResponse) SetTokenType(v string) {
 
 // GetRefreshToken returns the RefreshToken field value if set, zero value otherwise.
 func (o *TokenResponse) GetRefreshToken() string {
-	if o == nil || o.RefreshToken == nil {
+	if o == nil || IsNil(o.RefreshToken) {
 		var ret string
 		return ret
 	}
@@ -145,7 +152,7 @@ func (o *TokenResponse) GetRefreshToken() string {
 // GetRefreshTokenOk returns a tuple with the RefreshToken field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TokenResponse) GetRefreshTokenOk() (*string, bool) {
-	if o == nil || o.RefreshToken == nil {
+	if o == nil || IsNil(o.RefreshToken) {
 		return nil, false
 	}
 	return o.RefreshToken, true
@@ -153,7 +160,7 @@ func (o *TokenResponse) GetRefreshTokenOk() (*string, bool) {
 
 // HasRefreshToken returns a boolean if a field has been set.
 func (o *TokenResponse) HasRefreshToken() bool {
-	if o != nil && o.RefreshToken != nil {
+	if o != nil && !IsNil(o.RefreshToken) {
 		return true
 	}
 
@@ -166,20 +173,63 @@ func (o *TokenResponse) SetRefreshToken(v string) {
 }
 
 func (o TokenResponse) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["access_token"] = o.AccessToken
-	}
-	if o.ExpiresIn != nil {
-		toSerialize["expires_in"] = o.ExpiresIn
-	}
-	if o.TokenType != nil {
-		toSerialize["token_type"] = o.TokenType
-	}
-	if o.RefreshToken != nil {
-		toSerialize["refresh_token"] = o.RefreshToken
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o TokenResponse) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["access_token"] = o.AccessToken
+	if !IsNil(o.ExpiresIn) {
+		toSerialize["expires_in"] = o.ExpiresIn
+	}
+	if !IsNil(o.TokenType) {
+		toSerialize["token_type"] = o.TokenType
+	}
+	if !IsNil(o.RefreshToken) {
+		toSerialize["refresh_token"] = o.RefreshToken
+	}
+	return toSerialize, nil
+}
+
+func (o *TokenResponse) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"access_token",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varTokenResponse := _TokenResponse{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varTokenResponse)
+
+	if err != nil {
+		return err
+	}
+
+	*o = TokenResponse(varTokenResponse)
+
+	return err
 }
 
 type NullableTokenResponse struct {

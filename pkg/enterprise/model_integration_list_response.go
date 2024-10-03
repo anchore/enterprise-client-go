@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the IntegrationListResponse type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &IntegrationListResponse{}
+
 // IntegrationListResponse Response to list integration
 type IntegrationListResponse struct {
 	Items []IntegrationSummary `json:"items,omitempty"`
@@ -39,7 +42,7 @@ func NewIntegrationListResponseWithDefaults() *IntegrationListResponse {
 
 // GetItems returns the Items field value if set, zero value otherwise.
 func (o *IntegrationListResponse) GetItems() []IntegrationSummary {
-	if o == nil || o.Items == nil {
+	if o == nil || IsNil(o.Items) {
 		var ret []IntegrationSummary
 		return ret
 	}
@@ -49,7 +52,7 @@ func (o *IntegrationListResponse) GetItems() []IntegrationSummary {
 // GetItemsOk returns a tuple with the Items field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *IntegrationListResponse) GetItemsOk() ([]IntegrationSummary, bool) {
-	if o == nil || o.Items == nil {
+	if o == nil || IsNil(o.Items) {
 		return nil, false
 	}
 	return o.Items, true
@@ -57,7 +60,7 @@ func (o *IntegrationListResponse) GetItemsOk() ([]IntegrationSummary, bool) {
 
 // HasItems returns a boolean if a field has been set.
 func (o *IntegrationListResponse) HasItems() bool {
-	if o != nil && o.Items != nil {
+	if o != nil && !IsNil(o.Items) {
 		return true
 	}
 
@@ -70,11 +73,19 @@ func (o *IntegrationListResponse) SetItems(v []IntegrationSummary) {
 }
 
 func (o IntegrationListResponse) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Items != nil {
-		toSerialize["items"] = o.Items
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o IntegrationListResponse) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Items) {
+		toSerialize["items"] = o.Items
+	}
+	return toSerialize, nil
 }
 
 type NullableIntegrationListResponse struct {

@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the ResourceLabel type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ResourceLabel{}
+
 // ResourceLabel Label on the resource in the key value format
 type ResourceLabel struct {
 	Key *string `json:"key,omitempty"`
@@ -40,7 +43,7 @@ func NewResourceLabelWithDefaults() *ResourceLabel {
 
 // GetKey returns the Key field value if set, zero value otherwise.
 func (o *ResourceLabel) GetKey() string {
-	if o == nil || o.Key == nil {
+	if o == nil || IsNil(o.Key) {
 		var ret string
 		return ret
 	}
@@ -50,7 +53,7 @@ func (o *ResourceLabel) GetKey() string {
 // GetKeyOk returns a tuple with the Key field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ResourceLabel) GetKeyOk() (*string, bool) {
-	if o == nil || o.Key == nil {
+	if o == nil || IsNil(o.Key) {
 		return nil, false
 	}
 	return o.Key, true
@@ -58,7 +61,7 @@ func (o *ResourceLabel) GetKeyOk() (*string, bool) {
 
 // HasKey returns a boolean if a field has been set.
 func (o *ResourceLabel) HasKey() bool {
-	if o != nil && o.Key != nil {
+	if o != nil && !IsNil(o.Key) {
 		return true
 	}
 
@@ -72,7 +75,7 @@ func (o *ResourceLabel) SetKey(v string) {
 
 // GetValue returns the Value field value if set, zero value otherwise.
 func (o *ResourceLabel) GetValue() string {
-	if o == nil || o.Value == nil {
+	if o == nil || IsNil(o.Value) {
 		var ret string
 		return ret
 	}
@@ -82,7 +85,7 @@ func (o *ResourceLabel) GetValue() string {
 // GetValueOk returns a tuple with the Value field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ResourceLabel) GetValueOk() (*string, bool) {
-	if o == nil || o.Value == nil {
+	if o == nil || IsNil(o.Value) {
 		return nil, false
 	}
 	return o.Value, true
@@ -90,7 +93,7 @@ func (o *ResourceLabel) GetValueOk() (*string, bool) {
 
 // HasValue returns a boolean if a field has been set.
 func (o *ResourceLabel) HasValue() bool {
-	if o != nil && o.Value != nil {
+	if o != nil && !IsNil(o.Value) {
 		return true
 	}
 
@@ -103,14 +106,22 @@ func (o *ResourceLabel) SetValue(v string) {
 }
 
 func (o ResourceLabel) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Key != nil {
-		toSerialize["key"] = o.Key
-	}
-	if o.Value != nil {
-		toSerialize["value"] = o.Value
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o ResourceLabel) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Key) {
+		toSerialize["key"] = o.Key
+	}
+	if !IsNil(o.Value) {
+		toSerialize["value"] = o.Value
+	}
+	return toSerialize, nil
 }
 
 type NullableResourceLabel struct {

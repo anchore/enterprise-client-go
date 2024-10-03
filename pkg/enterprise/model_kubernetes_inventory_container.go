@@ -13,17 +13,24 @@ package enterprise
 
 import (
 	"encoding/json"
+	"bytes"
+	"fmt"
 )
+
+// checks if the KubernetesInventoryContainer type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &KubernetesInventoryContainer{}
 
 // KubernetesInventoryContainer struct for KubernetesInventoryContainer
 type KubernetesInventoryContainer struct {
 	// Corresponds to ContainerStatus.containerID in the Kubernetes Spec
 	Id string `json:"id"`
 	Name string `json:"name"`
-	ImageTag string `json:"image_tag"`
+	ImageTag string `json:"image_tag" validate:"regexp=^(?!\\\\s*$).+"`
 	ImageDigest *string `json:"image_digest,omitempty"`
-	PodUid string `json:"pod_uid"`
+	PodUid string `json:"pod_uid" validate:"regexp=^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"`
 }
+
+type _KubernetesInventoryContainer KubernetesInventoryContainer
 
 // NewKubernetesInventoryContainer instantiates a new KubernetesInventoryContainer object
 // This constructor will assign default values to properties that have it defined,
@@ -120,7 +127,7 @@ func (o *KubernetesInventoryContainer) SetImageTag(v string) {
 
 // GetImageDigest returns the ImageDigest field value if set, zero value otherwise.
 func (o *KubernetesInventoryContainer) GetImageDigest() string {
-	if o == nil || o.ImageDigest == nil {
+	if o == nil || IsNil(o.ImageDigest) {
 		var ret string
 		return ret
 	}
@@ -130,7 +137,7 @@ func (o *KubernetesInventoryContainer) GetImageDigest() string {
 // GetImageDigestOk returns a tuple with the ImageDigest field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *KubernetesInventoryContainer) GetImageDigestOk() (*string, bool) {
-	if o == nil || o.ImageDigest == nil {
+	if o == nil || IsNil(o.ImageDigest) {
 		return nil, false
 	}
 	return o.ImageDigest, true
@@ -138,7 +145,7 @@ func (o *KubernetesInventoryContainer) GetImageDigestOk() (*string, bool) {
 
 // HasImageDigest returns a boolean if a field has been set.
 func (o *KubernetesInventoryContainer) HasImageDigest() bool {
-	if o != nil && o.ImageDigest != nil {
+	if o != nil && !IsNil(o.ImageDigest) {
 		return true
 	}
 
@@ -175,23 +182,63 @@ func (o *KubernetesInventoryContainer) SetPodUid(v string) {
 }
 
 func (o KubernetesInventoryContainer) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["id"] = o.Id
-	}
-	if true {
-		toSerialize["name"] = o.Name
-	}
-	if true {
-		toSerialize["image_tag"] = o.ImageTag
-	}
-	if o.ImageDigest != nil {
-		toSerialize["image_digest"] = o.ImageDigest
-	}
-	if true {
-		toSerialize["pod_uid"] = o.PodUid
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o KubernetesInventoryContainer) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["id"] = o.Id
+	toSerialize["name"] = o.Name
+	toSerialize["image_tag"] = o.ImageTag
+	if !IsNil(o.ImageDigest) {
+		toSerialize["image_digest"] = o.ImageDigest
+	}
+	toSerialize["pod_uid"] = o.PodUid
+	return toSerialize, nil
+}
+
+func (o *KubernetesInventoryContainer) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"id",
+		"name",
+		"image_tag",
+		"pod_uid",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varKubernetesInventoryContainer := _KubernetesInventoryContainer{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varKubernetesInventoryContainer)
+
+	if err != nil {
+		return err
+	}
+
+	*o = KubernetesInventoryContainer(varKubernetesInventoryContainer)
+
+	return err
 }
 
 type NullableKubernetesInventoryContainer struct {

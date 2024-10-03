@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the GroupSyncResult type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &GroupSyncResult{}
+
 // GroupSyncResult struct for GroupSyncResult
 type GroupSyncResult struct {
 	// The name of the group
@@ -47,7 +50,7 @@ func NewGroupSyncResultWithDefaults() *GroupSyncResult {
 
 // GetGroup returns the Group field value if set, zero value otherwise.
 func (o *GroupSyncResult) GetGroup() string {
-	if o == nil || o.Group == nil {
+	if o == nil || IsNil(o.Group) {
 		var ret string
 		return ret
 	}
@@ -57,7 +60,7 @@ func (o *GroupSyncResult) GetGroup() string {
 // GetGroupOk returns a tuple with the Group field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *GroupSyncResult) GetGroupOk() (*string, bool) {
-	if o == nil || o.Group == nil {
+	if o == nil || IsNil(o.Group) {
 		return nil, false
 	}
 	return o.Group, true
@@ -65,7 +68,7 @@ func (o *GroupSyncResult) GetGroupOk() (*string, bool) {
 
 // HasGroup returns a boolean if a field has been set.
 func (o *GroupSyncResult) HasGroup() bool {
-	if o != nil && o.Group != nil {
+	if o != nil && !IsNil(o.Group) {
 		return true
 	}
 
@@ -79,7 +82,7 @@ func (o *GroupSyncResult) SetGroup(v string) {
 
 // GetStatus returns the Status field value if set, zero value otherwise.
 func (o *GroupSyncResult) GetStatus() string {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		var ret string
 		return ret
 	}
@@ -89,7 +92,7 @@ func (o *GroupSyncResult) GetStatus() string {
 // GetStatusOk returns a tuple with the Status field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *GroupSyncResult) GetStatusOk() (*string, bool) {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		return nil, false
 	}
 	return o.Status, true
@@ -97,7 +100,7 @@ func (o *GroupSyncResult) GetStatusOk() (*string, bool) {
 
 // HasStatus returns a boolean if a field has been set.
 func (o *GroupSyncResult) HasStatus() bool {
-	if o != nil && o.Status != nil {
+	if o != nil && !IsNil(o.Status) {
 		return true
 	}
 
@@ -111,7 +114,7 @@ func (o *GroupSyncResult) SetStatus(v string) {
 
 // GetUpdatedImageCount returns the UpdatedImageCount field value if set, zero value otherwise.
 func (o *GroupSyncResult) GetUpdatedImageCount() int32 {
-	if o == nil || o.UpdatedImageCount == nil {
+	if o == nil || IsNil(o.UpdatedImageCount) {
 		var ret int32
 		return ret
 	}
@@ -121,7 +124,7 @@ func (o *GroupSyncResult) GetUpdatedImageCount() int32 {
 // GetUpdatedImageCountOk returns a tuple with the UpdatedImageCount field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *GroupSyncResult) GetUpdatedImageCountOk() (*int32, bool) {
-	if o == nil || o.UpdatedImageCount == nil {
+	if o == nil || IsNil(o.UpdatedImageCount) {
 		return nil, false
 	}
 	return o.UpdatedImageCount, true
@@ -129,7 +132,7 @@ func (o *GroupSyncResult) GetUpdatedImageCountOk() (*int32, bool) {
 
 // HasUpdatedImageCount returns a boolean if a field has been set.
 func (o *GroupSyncResult) HasUpdatedImageCount() bool {
-	if o != nil && o.UpdatedImageCount != nil {
+	if o != nil && !IsNil(o.UpdatedImageCount) {
 		return true
 	}
 
@@ -143,7 +146,7 @@ func (o *GroupSyncResult) SetUpdatedImageCount(v int32) {
 
 // GetUpdatedRecordCount returns the UpdatedRecordCount field value if set, zero value otherwise.
 func (o *GroupSyncResult) GetUpdatedRecordCount() int32 {
-	if o == nil || o.UpdatedRecordCount == nil {
+	if o == nil || IsNil(o.UpdatedRecordCount) {
 		var ret int32
 		return ret
 	}
@@ -153,7 +156,7 @@ func (o *GroupSyncResult) GetUpdatedRecordCount() int32 {
 // GetUpdatedRecordCountOk returns a tuple with the UpdatedRecordCount field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *GroupSyncResult) GetUpdatedRecordCountOk() (*int32, bool) {
-	if o == nil || o.UpdatedRecordCount == nil {
+	if o == nil || IsNil(o.UpdatedRecordCount) {
 		return nil, false
 	}
 	return o.UpdatedRecordCount, true
@@ -161,7 +164,7 @@ func (o *GroupSyncResult) GetUpdatedRecordCountOk() (*int32, bool) {
 
 // HasUpdatedRecordCount returns a boolean if a field has been set.
 func (o *GroupSyncResult) HasUpdatedRecordCount() bool {
-	if o != nil && o.UpdatedRecordCount != nil {
+	if o != nil && !IsNil(o.UpdatedRecordCount) {
 		return true
 	}
 
@@ -175,7 +178,7 @@ func (o *GroupSyncResult) SetUpdatedRecordCount(v int32) {
 
 // GetTotalTimeSeconds returns the TotalTimeSeconds field value if set, zero value otherwise.
 func (o *GroupSyncResult) GetTotalTimeSeconds() float32 {
-	if o == nil || o.TotalTimeSeconds == nil {
+	if o == nil || IsNil(o.TotalTimeSeconds) {
 		var ret float32
 		return ret
 	}
@@ -185,7 +188,7 @@ func (o *GroupSyncResult) GetTotalTimeSeconds() float32 {
 // GetTotalTimeSecondsOk returns a tuple with the TotalTimeSeconds field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *GroupSyncResult) GetTotalTimeSecondsOk() (*float32, bool) {
-	if o == nil || o.TotalTimeSeconds == nil {
+	if o == nil || IsNil(o.TotalTimeSeconds) {
 		return nil, false
 	}
 	return o.TotalTimeSeconds, true
@@ -193,7 +196,7 @@ func (o *GroupSyncResult) GetTotalTimeSecondsOk() (*float32, bool) {
 
 // HasTotalTimeSeconds returns a boolean if a field has been set.
 func (o *GroupSyncResult) HasTotalTimeSeconds() bool {
-	if o != nil && o.TotalTimeSeconds != nil {
+	if o != nil && !IsNil(o.TotalTimeSeconds) {
 		return true
 	}
 
@@ -206,23 +209,31 @@ func (o *GroupSyncResult) SetTotalTimeSeconds(v float32) {
 }
 
 func (o GroupSyncResult) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Group != nil {
-		toSerialize["group"] = o.Group
-	}
-	if o.Status != nil {
-		toSerialize["status"] = o.Status
-	}
-	if o.UpdatedImageCount != nil {
-		toSerialize["updated_image_count"] = o.UpdatedImageCount
-	}
-	if o.UpdatedRecordCount != nil {
-		toSerialize["updated_record_count"] = o.UpdatedRecordCount
-	}
-	if o.TotalTimeSeconds != nil {
-		toSerialize["total_time_seconds"] = o.TotalTimeSeconds
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o GroupSyncResult) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Group) {
+		toSerialize["group"] = o.Group
+	}
+	if !IsNil(o.Status) {
+		toSerialize["status"] = o.Status
+	}
+	if !IsNil(o.UpdatedImageCount) {
+		toSerialize["updated_image_count"] = o.UpdatedImageCount
+	}
+	if !IsNil(o.UpdatedRecordCount) {
+		toSerialize["updated_record_count"] = o.UpdatedRecordCount
+	}
+	if !IsNil(o.TotalTimeSeconds) {
+		toSerialize["total_time_seconds"] = o.TotalTimeSeconds
+	}
+	return toSerialize, nil
 }
 
 type NullableGroupSyncResult struct {

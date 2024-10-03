@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the SystemStatisticsList type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &SystemStatisticsList{}
+
 // SystemStatisticsList struct for SystemStatisticsList
 type SystemStatisticsList struct {
 	Items []SystemStatistics `json:"items,omitempty"`
@@ -39,7 +42,7 @@ func NewSystemStatisticsListWithDefaults() *SystemStatisticsList {
 
 // GetItems returns the Items field value if set, zero value otherwise.
 func (o *SystemStatisticsList) GetItems() []SystemStatistics {
-	if o == nil || o.Items == nil {
+	if o == nil || IsNil(o.Items) {
 		var ret []SystemStatistics
 		return ret
 	}
@@ -49,7 +52,7 @@ func (o *SystemStatisticsList) GetItems() []SystemStatistics {
 // GetItemsOk returns a tuple with the Items field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SystemStatisticsList) GetItemsOk() ([]SystemStatistics, bool) {
-	if o == nil || o.Items == nil {
+	if o == nil || IsNil(o.Items) {
 		return nil, false
 	}
 	return o.Items, true
@@ -57,7 +60,7 @@ func (o *SystemStatisticsList) GetItemsOk() ([]SystemStatistics, bool) {
 
 // HasItems returns a boolean if a field has been set.
 func (o *SystemStatisticsList) HasItems() bool {
-	if o != nil && o.Items != nil {
+	if o != nil && !IsNil(o.Items) {
 		return true
 	}
 
@@ -70,11 +73,19 @@ func (o *SystemStatisticsList) SetItems(v []SystemStatistics) {
 }
 
 func (o SystemStatisticsList) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Items != nil {
-		toSerialize["items"] = o.Items
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o SystemStatisticsList) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Items) {
+		toSerialize["items"] = o.Items
+	}
+	return toSerialize, nil
 }
 
 type NullableSystemStatisticsList struct {

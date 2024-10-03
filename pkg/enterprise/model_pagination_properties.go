@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the PaginationProperties type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PaginationProperties{}
+
 // PaginationProperties Properties for common pagination handling to be included in any wrapping object that needs pagination elements
 type PaginationProperties struct {
 	// The page number returned (should match the requested page query string param)
@@ -44,7 +47,7 @@ func NewPaginationPropertiesWithDefaults() *PaginationProperties {
 
 // GetPage returns the Page field value if set, zero value otherwise.
 func (o *PaginationProperties) GetPage() string {
-	if o == nil || o.Page == nil {
+	if o == nil || IsNil(o.Page) {
 		var ret string
 		return ret
 	}
@@ -54,7 +57,7 @@ func (o *PaginationProperties) GetPage() string {
 // GetPageOk returns a tuple with the Page field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PaginationProperties) GetPageOk() (*string, bool) {
-	if o == nil || o.Page == nil {
+	if o == nil || IsNil(o.Page) {
 		return nil, false
 	}
 	return o.Page, true
@@ -62,7 +65,7 @@ func (o *PaginationProperties) GetPageOk() (*string, bool) {
 
 // HasPage returns a boolean if a field has been set.
 func (o *PaginationProperties) HasPage() bool {
-	if o != nil && o.Page != nil {
+	if o != nil && !IsNil(o.Page) {
 		return true
 	}
 
@@ -76,7 +79,7 @@ func (o *PaginationProperties) SetPage(v string) {
 
 // GetNextPage returns the NextPage field value if set, zero value otherwise.
 func (o *PaginationProperties) GetNextPage() string {
-	if o == nil || o.NextPage == nil {
+	if o == nil || IsNil(o.NextPage) {
 		var ret string
 		return ret
 	}
@@ -86,7 +89,7 @@ func (o *PaginationProperties) GetNextPage() string {
 // GetNextPageOk returns a tuple with the NextPage field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PaginationProperties) GetNextPageOk() (*string, bool) {
-	if o == nil || o.NextPage == nil {
+	if o == nil || IsNil(o.NextPage) {
 		return nil, false
 	}
 	return o.NextPage, true
@@ -94,7 +97,7 @@ func (o *PaginationProperties) GetNextPageOk() (*string, bool) {
 
 // HasNextPage returns a boolean if a field has been set.
 func (o *PaginationProperties) HasNextPage() bool {
-	if o != nil && o.NextPage != nil {
+	if o != nil && !IsNil(o.NextPage) {
 		return true
 	}
 
@@ -108,7 +111,7 @@ func (o *PaginationProperties) SetNextPage(v string) {
 
 // GetReturnedCount returns the ReturnedCount field value if set, zero value otherwise.
 func (o *PaginationProperties) GetReturnedCount() int32 {
-	if o == nil || o.ReturnedCount == nil {
+	if o == nil || IsNil(o.ReturnedCount) {
 		var ret int32
 		return ret
 	}
@@ -118,7 +121,7 @@ func (o *PaginationProperties) GetReturnedCount() int32 {
 // GetReturnedCountOk returns a tuple with the ReturnedCount field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PaginationProperties) GetReturnedCountOk() (*int32, bool) {
-	if o == nil || o.ReturnedCount == nil {
+	if o == nil || IsNil(o.ReturnedCount) {
 		return nil, false
 	}
 	return o.ReturnedCount, true
@@ -126,7 +129,7 @@ func (o *PaginationProperties) GetReturnedCountOk() (*int32, bool) {
 
 // HasReturnedCount returns a boolean if a field has been set.
 func (o *PaginationProperties) HasReturnedCount() bool {
-	if o != nil && o.ReturnedCount != nil {
+	if o != nil && !IsNil(o.ReturnedCount) {
 		return true
 	}
 
@@ -139,17 +142,25 @@ func (o *PaginationProperties) SetReturnedCount(v int32) {
 }
 
 func (o PaginationProperties) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Page != nil {
-		toSerialize["page"] = o.Page
-	}
-	if o.NextPage != nil {
-		toSerialize["next_page"] = o.NextPage
-	}
-	if o.ReturnedCount != nil {
-		toSerialize["returned_count"] = o.ReturnedCount
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o PaginationProperties) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Page) {
+		toSerialize["page"] = o.Page
+	}
+	if !IsNil(o.NextPage) {
+		toSerialize["next_page"] = o.NextPage
+	}
+	if !IsNil(o.ReturnedCount) {
+		toSerialize["returned_count"] = o.ReturnedCount
+	}
+	return toSerialize, nil
 }
 
 type NullablePaginationProperties struct {

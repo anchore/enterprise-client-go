@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the SystemStatistics type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &SystemStatistics{}
+
 // SystemStatistics struct for SystemStatistics
 type SystemStatistics struct {
 	Name *string `json:"name,omitempty"`
@@ -42,7 +45,7 @@ func NewSystemStatisticsWithDefaults() *SystemStatistics {
 
 // GetName returns the Name field value if set, zero value otherwise.
 func (o *SystemStatistics) GetName() string {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		var ret string
 		return ret
 	}
@@ -52,7 +55,7 @@ func (o *SystemStatistics) GetName() string {
 // GetNameOk returns a tuple with the Name field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SystemStatistics) GetNameOk() (*string, bool) {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		return nil, false
 	}
 	return o.Name, true
@@ -60,7 +63,7 @@ func (o *SystemStatistics) GetNameOk() (*string, bool) {
 
 // HasName returns a boolean if a field has been set.
 func (o *SystemStatistics) HasName() bool {
-	if o != nil && o.Name != nil {
+	if o != nil && !IsNil(o.Name) {
 		return true
 	}
 
@@ -74,7 +77,7 @@ func (o *SystemStatistics) SetName(v string) {
 
 // GetDescription returns the Description field value if set, zero value otherwise.
 func (o *SystemStatistics) GetDescription() string {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		var ret string
 		return ret
 	}
@@ -84,7 +87,7 @@ func (o *SystemStatistics) GetDescription() string {
 // GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SystemStatistics) GetDescriptionOk() (*string, bool) {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		return nil, false
 	}
 	return o.Description, true
@@ -92,7 +95,7 @@ func (o *SystemStatistics) GetDescriptionOk() (*string, bool) {
 
 // HasDescription returns a boolean if a field has been set.
 func (o *SystemStatistics) HasDescription() bool {
-	if o != nil && o.Description != nil {
+	if o != nil && !IsNil(o.Description) {
 		return true
 	}
 
@@ -106,7 +109,7 @@ func (o *SystemStatistics) SetDescription(v string) {
 
 // GetValueType returns the ValueType field value if set, zero value otherwise.
 func (o *SystemStatistics) GetValueType() string {
-	if o == nil || o.ValueType == nil {
+	if o == nil || IsNil(o.ValueType) {
 		var ret string
 		return ret
 	}
@@ -116,7 +119,7 @@ func (o *SystemStatistics) GetValueType() string {
 // GetValueTypeOk returns a tuple with the ValueType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SystemStatistics) GetValueTypeOk() (*string, bool) {
-	if o == nil || o.ValueType == nil {
+	if o == nil || IsNil(o.ValueType) {
 		return nil, false
 	}
 	return o.ValueType, true
@@ -124,7 +127,7 @@ func (o *SystemStatistics) GetValueTypeOk() (*string, bool) {
 
 // HasValueType returns a boolean if a field has been set.
 func (o *SystemStatistics) HasValueType() bool {
-	if o != nil && o.ValueType != nil {
+	if o != nil && !IsNil(o.ValueType) {
 		return true
 	}
 
@@ -138,7 +141,7 @@ func (o *SystemStatistics) SetValueType(v string) {
 
 // GetValue returns the Value field value if set, zero value otherwise.
 func (o *SystemStatistics) GetValue() int32 {
-	if o == nil || o.Value == nil {
+	if o == nil || IsNil(o.Value) {
 		var ret int32
 		return ret
 	}
@@ -148,7 +151,7 @@ func (o *SystemStatistics) GetValue() int32 {
 // GetValueOk returns a tuple with the Value field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SystemStatistics) GetValueOk() (*int32, bool) {
-	if o == nil || o.Value == nil {
+	if o == nil || IsNil(o.Value) {
 		return nil, false
 	}
 	return o.Value, true
@@ -156,7 +159,7 @@ func (o *SystemStatistics) GetValueOk() (*int32, bool) {
 
 // HasValue returns a boolean if a field has been set.
 func (o *SystemStatistics) HasValue() bool {
-	if o != nil && o.Value != nil {
+	if o != nil && !IsNil(o.Value) {
 		return true
 	}
 
@@ -169,20 +172,28 @@ func (o *SystemStatistics) SetValue(v int32) {
 }
 
 func (o SystemStatistics) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Name != nil {
-		toSerialize["name"] = o.Name
-	}
-	if o.Description != nil {
-		toSerialize["description"] = o.Description
-	}
-	if o.ValueType != nil {
-		toSerialize["value_type"] = o.ValueType
-	}
-	if o.Value != nil {
-		toSerialize["value"] = o.Value
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o SystemStatistics) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Name) {
+		toSerialize["name"] = o.Name
+	}
+	if !IsNil(o.Description) {
+		toSerialize["description"] = o.Description
+	}
+	if !IsNil(o.ValueType) {
+		toSerialize["value_type"] = o.ValueType
+	}
+	if !IsNil(o.Value) {
+		toSerialize["value"] = o.Value
+	}
+	return toSerialize, nil
 }
 
 type NullableSystemStatistics struct {

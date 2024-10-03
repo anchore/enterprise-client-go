@@ -16,6 +16,9 @@ import (
 	"time"
 )
 
+// checks if the SourceManifestMetadataRecord type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &SourceManifestMetadataRecord{}
+
 // SourceManifestMetadataRecord Metadata associated with a source upload
 type SourceManifestMetadataRecord struct {
 	Uuid *string `json:"uuid,omitempty"`
@@ -44,7 +47,7 @@ func NewSourceManifestMetadataRecordWithDefaults() *SourceManifestMetadataRecord
 
 // GetUuid returns the Uuid field value if set, zero value otherwise.
 func (o *SourceManifestMetadataRecord) GetUuid() string {
-	if o == nil || o.Uuid == nil {
+	if o == nil || IsNil(o.Uuid) {
 		var ret string
 		return ret
 	}
@@ -54,7 +57,7 @@ func (o *SourceManifestMetadataRecord) GetUuid() string {
 // GetUuidOk returns a tuple with the Uuid field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SourceManifestMetadataRecord) GetUuidOk() (*string, bool) {
-	if o == nil || o.Uuid == nil {
+	if o == nil || IsNil(o.Uuid) {
 		return nil, false
 	}
 	return o.Uuid, true
@@ -62,7 +65,7 @@ func (o *SourceManifestMetadataRecord) GetUuidOk() (*string, bool) {
 
 // HasUuid returns a boolean if a field has been set.
 func (o *SourceManifestMetadataRecord) HasUuid() bool {
-	if o != nil && o.Uuid != nil {
+	if o != nil && !IsNil(o.Uuid) {
 		return true
 	}
 
@@ -76,7 +79,7 @@ func (o *SourceManifestMetadataRecord) SetUuid(v string) {
 
 // GetCiWorkflowName returns the CiWorkflowName field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *SourceManifestMetadataRecord) GetCiWorkflowName() string {
-	if o == nil || o.CiWorkflowName.Get() == nil {
+	if o == nil || IsNil(o.CiWorkflowName.Get()) {
 		var ret string
 		return ret
 	}
@@ -118,7 +121,7 @@ func (o *SourceManifestMetadataRecord) UnsetCiWorkflowName() {
 
 // GetCiWorkflowExecutionTime returns the CiWorkflowExecutionTime field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *SourceManifestMetadataRecord) GetCiWorkflowExecutionTime() time.Time {
-	if o == nil || o.CiWorkflowExecutionTime.Get() == nil {
+	if o == nil || IsNil(o.CiWorkflowExecutionTime.Get()) {
 		var ret time.Time
 		return ret
 	}
@@ -160,7 +163,7 @@ func (o *SourceManifestMetadataRecord) UnsetCiWorkflowExecutionTime() {
 
 // GetBranchName returns the BranchName field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *SourceManifestMetadataRecord) GetBranchName() string {
-	if o == nil || o.BranchName.Get() == nil {
+	if o == nil || IsNil(o.BranchName.Get()) {
 		var ret string
 		return ret
 	}
@@ -202,7 +205,7 @@ func (o *SourceManifestMetadataRecord) UnsetBranchName() {
 
 // GetChangeAuthor returns the ChangeAuthor field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *SourceManifestMetadataRecord) GetChangeAuthor() string {
-	if o == nil || o.ChangeAuthor.Get() == nil {
+	if o == nil || IsNil(o.ChangeAuthor.Get()) {
 		var ret string
 		return ret
 	}
@@ -243,8 +246,16 @@ func (o *SourceManifestMetadataRecord) UnsetChangeAuthor() {
 }
 
 func (o SourceManifestMetadataRecord) MarshalJSON() ([]byte, error) {
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o SourceManifestMetadataRecord) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Uuid != nil {
+	if !IsNil(o.Uuid) {
 		toSerialize["uuid"] = o.Uuid
 	}
 	if o.CiWorkflowName.IsSet() {
@@ -259,7 +270,7 @@ func (o SourceManifestMetadataRecord) MarshalJSON() ([]byte, error) {
 	if o.ChangeAuthor.IsSet() {
 		toSerialize["change_author"] = o.ChangeAuthor.Get()
 	}
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
 type NullableSourceManifestMetadataRecord struct {

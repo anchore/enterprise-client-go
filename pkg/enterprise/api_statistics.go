@@ -14,35 +14,18 @@ package enterprise
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
 )
 
 
-type StatisticsApi interface {
-
-	/*
-	GetSystemStatistics List System Statistics
-
-	Returns list of system statistics with total all-time counts.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiGetSystemStatisticsRequest
-	*/
-	GetSystemStatistics(ctx context.Context) ApiGetSystemStatisticsRequest
-
-	// GetSystemStatisticsExecute executes the request
-	//  @return SystemStatisticsList
-	GetSystemStatisticsExecute(r ApiGetSystemStatisticsRequest) (*SystemStatisticsList, *http.Response, error)
-}
-
-// StatisticsApiService StatisticsApi service
-type StatisticsApiService service
+// StatisticsAPIService StatisticsAPI service
+type StatisticsAPIService service
 
 type ApiGetSystemStatisticsRequest struct {
 	ctx context.Context
-	ApiService StatisticsApi
+	ApiService *StatisticsAPIService
 }
 
 func (r ApiGetSystemStatisticsRequest) Execute() (*SystemStatisticsList, *http.Response, error) {
@@ -57,7 +40,7 @@ Returns list of system statistics with total all-time counts.
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiGetSystemStatisticsRequest
 */
-func (a *StatisticsApiService) GetSystemStatistics(ctx context.Context) ApiGetSystemStatisticsRequest {
+func (a *StatisticsAPIService) GetSystemStatistics(ctx context.Context) ApiGetSystemStatisticsRequest {
 	return ApiGetSystemStatisticsRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -66,7 +49,7 @@ func (a *StatisticsApiService) GetSystemStatistics(ctx context.Context) ApiGetSy
 
 // Execute executes the request
 //  @return SystemStatisticsList
-func (a *StatisticsApiService) GetSystemStatisticsExecute(r ApiGetSystemStatisticsRequest) (*SystemStatisticsList, *http.Response, error) {
+func (a *StatisticsAPIService) GetSystemStatisticsExecute(r ApiGetSystemStatisticsRequest) (*SystemStatisticsList, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
@@ -74,7 +57,7 @@ func (a *StatisticsApiService) GetSystemStatisticsExecute(r ApiGetSystemStatisti
 		localVarReturnValue  *SystemStatisticsList
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "StatisticsApiService.GetSystemStatistics")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "StatisticsAPIService.GetSystemStatistics")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -112,9 +95,9 @@ func (a *StatisticsApiService) GetSystemStatisticsExecute(r ApiGetSystemStatisti
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}

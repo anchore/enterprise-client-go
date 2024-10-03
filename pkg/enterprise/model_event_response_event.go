@@ -16,6 +16,9 @@ import (
 	"time"
 )
 
+// checks if the EventResponseEvent type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &EventResponseEvent{}
+
 // EventResponseEvent struct for EventResponseEvent
 type EventResponseEvent struct {
 	Source *EventResponseEventSource `json:"source,omitempty"`
@@ -47,7 +50,7 @@ func NewEventResponseEventWithDefaults() *EventResponseEvent {
 
 // GetSource returns the Source field value if set, zero value otherwise.
 func (o *EventResponseEvent) GetSource() EventResponseEventSource {
-	if o == nil || o.Source == nil {
+	if o == nil || IsNil(o.Source) {
 		var ret EventResponseEventSource
 		return ret
 	}
@@ -57,7 +60,7 @@ func (o *EventResponseEvent) GetSource() EventResponseEventSource {
 // GetSourceOk returns a tuple with the Source field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *EventResponseEvent) GetSourceOk() (*EventResponseEventSource, bool) {
-	if o == nil || o.Source == nil {
+	if o == nil || IsNil(o.Source) {
 		return nil, false
 	}
 	return o.Source, true
@@ -65,7 +68,7 @@ func (o *EventResponseEvent) GetSourceOk() (*EventResponseEventSource, bool) {
 
 // HasSource returns a boolean if a field has been set.
 func (o *EventResponseEvent) HasSource() bool {
-	if o != nil && o.Source != nil {
+	if o != nil && !IsNil(o.Source) {
 		return true
 	}
 
@@ -79,7 +82,7 @@ func (o *EventResponseEvent) SetSource(v EventResponseEventSource) {
 
 // GetResource returns the Resource field value if set, zero value otherwise.
 func (o *EventResponseEvent) GetResource() EventResponseEventResource {
-	if o == nil || o.Resource == nil {
+	if o == nil || IsNil(o.Resource) {
 		var ret EventResponseEventResource
 		return ret
 	}
@@ -89,7 +92,7 @@ func (o *EventResponseEvent) GetResource() EventResponseEventResource {
 // GetResourceOk returns a tuple with the Resource field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *EventResponseEvent) GetResourceOk() (*EventResponseEventResource, bool) {
-	if o == nil || o.Resource == nil {
+	if o == nil || IsNil(o.Resource) {
 		return nil, false
 	}
 	return o.Resource, true
@@ -97,7 +100,7 @@ func (o *EventResponseEvent) GetResourceOk() (*EventResponseEventResource, bool)
 
 // HasResource returns a boolean if a field has been set.
 func (o *EventResponseEvent) HasResource() bool {
-	if o != nil && o.Resource != nil {
+	if o != nil && !IsNil(o.Resource) {
 		return true
 	}
 
@@ -111,7 +114,7 @@ func (o *EventResponseEvent) SetResource(v EventResponseEventResource) {
 
 // GetType returns the Type field value if set, zero value otherwise.
 func (o *EventResponseEvent) GetType() string {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		var ret string
 		return ret
 	}
@@ -121,7 +124,7 @@ func (o *EventResponseEvent) GetType() string {
 // GetTypeOk returns a tuple with the Type field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *EventResponseEvent) GetTypeOk() (*string, bool) {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		return nil, false
 	}
 	return o.Type, true
@@ -129,7 +132,7 @@ func (o *EventResponseEvent) GetTypeOk() (*string, bool) {
 
 // HasType returns a boolean if a field has been set.
 func (o *EventResponseEvent) HasType() bool {
-	if o != nil && o.Type != nil {
+	if o != nil && !IsNil(o.Type) {
 		return true
 	}
 
@@ -143,7 +146,7 @@ func (o *EventResponseEvent) SetType(v string) {
 
 // GetCategory returns the Category field value if set, zero value otherwise.
 func (o *EventResponseEvent) GetCategory() string {
-	if o == nil || o.Category == nil {
+	if o == nil || IsNil(o.Category) {
 		var ret string
 		return ret
 	}
@@ -153,7 +156,7 @@ func (o *EventResponseEvent) GetCategory() string {
 // GetCategoryOk returns a tuple with the Category field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *EventResponseEvent) GetCategoryOk() (*string, bool) {
-	if o == nil || o.Category == nil {
+	if o == nil || IsNil(o.Category) {
 		return nil, false
 	}
 	return o.Category, true
@@ -161,7 +164,7 @@ func (o *EventResponseEvent) GetCategoryOk() (*string, bool) {
 
 // HasCategory returns a boolean if a field has been set.
 func (o *EventResponseEvent) HasCategory() bool {
-	if o != nil && o.Category != nil {
+	if o != nil && !IsNil(o.Category) {
 		return true
 	}
 
@@ -175,7 +178,7 @@ func (o *EventResponseEvent) SetCategory(v string) {
 
 // GetLevel returns the Level field value if set, zero value otherwise.
 func (o *EventResponseEvent) GetLevel() string {
-	if o == nil || o.Level == nil {
+	if o == nil || IsNil(o.Level) {
 		var ret string
 		return ret
 	}
@@ -185,7 +188,7 @@ func (o *EventResponseEvent) GetLevel() string {
 // GetLevelOk returns a tuple with the Level field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *EventResponseEvent) GetLevelOk() (*string, bool) {
-	if o == nil || o.Level == nil {
+	if o == nil || IsNil(o.Level) {
 		return nil, false
 	}
 	return o.Level, true
@@ -193,7 +196,7 @@ func (o *EventResponseEvent) GetLevelOk() (*string, bool) {
 
 // HasLevel returns a boolean if a field has been set.
 func (o *EventResponseEvent) HasLevel() bool {
-	if o != nil && o.Level != nil {
+	if o != nil && !IsNil(o.Level) {
 		return true
 	}
 
@@ -207,7 +210,7 @@ func (o *EventResponseEvent) SetLevel(v string) {
 
 // GetMessage returns the Message field value if set, zero value otherwise.
 func (o *EventResponseEvent) GetMessage() string {
-	if o == nil || o.Message == nil {
+	if o == nil || IsNil(o.Message) {
 		var ret string
 		return ret
 	}
@@ -217,7 +220,7 @@ func (o *EventResponseEvent) GetMessage() string {
 // GetMessageOk returns a tuple with the Message field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *EventResponseEvent) GetMessageOk() (*string, bool) {
-	if o == nil || o.Message == nil {
+	if o == nil || IsNil(o.Message) {
 		return nil, false
 	}
 	return o.Message, true
@@ -225,7 +228,7 @@ func (o *EventResponseEvent) GetMessageOk() (*string, bool) {
 
 // HasMessage returns a boolean if a field has been set.
 func (o *EventResponseEvent) HasMessage() bool {
-	if o != nil && o.Message != nil {
+	if o != nil && !IsNil(o.Message) {
 		return true
 	}
 
@@ -239,7 +242,7 @@ func (o *EventResponseEvent) SetMessage(v string) {
 
 // GetDetails returns the Details field value if set, zero value otherwise.
 func (o *EventResponseEvent) GetDetails() interface{} {
-	if o == nil || o.Details == nil {
+	if o == nil || IsNil(o.Details) {
 		var ret interface{}
 		return ret
 	}
@@ -249,7 +252,7 @@ func (o *EventResponseEvent) GetDetails() interface{} {
 // GetDetailsOk returns a tuple with the Details field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *EventResponseEvent) GetDetailsOk() (interface{}, bool) {
-	if o == nil || o.Details == nil {
+	if o == nil || IsNil(o.Details) {
 		return nil, false
 	}
 	return o.Details, true
@@ -257,7 +260,7 @@ func (o *EventResponseEvent) GetDetailsOk() (interface{}, bool) {
 
 // HasDetails returns a boolean if a field has been set.
 func (o *EventResponseEvent) HasDetails() bool {
-	if o != nil && o.Details != nil {
+	if o != nil && !IsNil(o.Details) {
 		return true
 	}
 
@@ -271,7 +274,7 @@ func (o *EventResponseEvent) SetDetails(v interface{}) {
 
 // GetTimestamp returns the Timestamp field value if set, zero value otherwise.
 func (o *EventResponseEvent) GetTimestamp() time.Time {
-	if o == nil || o.Timestamp == nil {
+	if o == nil || IsNil(o.Timestamp) {
 		var ret time.Time
 		return ret
 	}
@@ -281,7 +284,7 @@ func (o *EventResponseEvent) GetTimestamp() time.Time {
 // GetTimestampOk returns a tuple with the Timestamp field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *EventResponseEvent) GetTimestampOk() (*time.Time, bool) {
-	if o == nil || o.Timestamp == nil {
+	if o == nil || IsNil(o.Timestamp) {
 		return nil, false
 	}
 	return o.Timestamp, true
@@ -289,7 +292,7 @@ func (o *EventResponseEvent) GetTimestampOk() (*time.Time, bool) {
 
 // HasTimestamp returns a boolean if a field has been set.
 func (o *EventResponseEvent) HasTimestamp() bool {
-	if o != nil && o.Timestamp != nil {
+	if o != nil && !IsNil(o.Timestamp) {
 		return true
 	}
 
@@ -302,32 +305,40 @@ func (o *EventResponseEvent) SetTimestamp(v time.Time) {
 }
 
 func (o EventResponseEvent) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Source != nil {
-		toSerialize["source"] = o.Source
-	}
-	if o.Resource != nil {
-		toSerialize["resource"] = o.Resource
-	}
-	if o.Type != nil {
-		toSerialize["type"] = o.Type
-	}
-	if o.Category != nil {
-		toSerialize["category"] = o.Category
-	}
-	if o.Level != nil {
-		toSerialize["level"] = o.Level
-	}
-	if o.Message != nil {
-		toSerialize["message"] = o.Message
-	}
-	if o.Details != nil {
-		toSerialize["details"] = o.Details
-	}
-	if o.Timestamp != nil {
-		toSerialize["timestamp"] = o.Timestamp
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o EventResponseEvent) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Source) {
+		toSerialize["source"] = o.Source
+	}
+	if !IsNil(o.Resource) {
+		toSerialize["resource"] = o.Resource
+	}
+	if !IsNil(o.Type) {
+		toSerialize["type"] = o.Type
+	}
+	if !IsNil(o.Category) {
+		toSerialize["category"] = o.Category
+	}
+	if !IsNil(o.Level) {
+		toSerialize["level"] = o.Level
+	}
+	if !IsNil(o.Message) {
+		toSerialize["message"] = o.Message
+	}
+	if !IsNil(o.Details) {
+		toSerialize["details"] = o.Details
+	}
+	if !IsNil(o.Timestamp) {
+		toSerialize["timestamp"] = o.Timestamp
+	}
+	return toSerialize, nil
 }
 
 type NullableEventResponseEvent struct {

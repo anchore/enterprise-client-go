@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the ArchiveSummary type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ArchiveSummary{}
+
 // ArchiveSummary A summarization of the available archives, a place to for long-term storage of audit, analysis, or other data to remove it from the system's working set but keep it available.
 type ArchiveSummary struct {
 	Images *AnalysisArchiveSummary `json:"images,omitempty"`
@@ -40,7 +43,7 @@ func NewArchiveSummaryWithDefaults() *ArchiveSummary {
 
 // GetImages returns the Images field value if set, zero value otherwise.
 func (o *ArchiveSummary) GetImages() AnalysisArchiveSummary {
-	if o == nil || o.Images == nil {
+	if o == nil || IsNil(o.Images) {
 		var ret AnalysisArchiveSummary
 		return ret
 	}
@@ -50,7 +53,7 @@ func (o *ArchiveSummary) GetImages() AnalysisArchiveSummary {
 // GetImagesOk returns a tuple with the Images field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ArchiveSummary) GetImagesOk() (*AnalysisArchiveSummary, bool) {
-	if o == nil || o.Images == nil {
+	if o == nil || IsNil(o.Images) {
 		return nil, false
 	}
 	return o.Images, true
@@ -58,7 +61,7 @@ func (o *ArchiveSummary) GetImagesOk() (*AnalysisArchiveSummary, bool) {
 
 // HasImages returns a boolean if a field has been set.
 func (o *ArchiveSummary) HasImages() bool {
-	if o != nil && o.Images != nil {
+	if o != nil && !IsNil(o.Images) {
 		return true
 	}
 
@@ -72,7 +75,7 @@ func (o *ArchiveSummary) SetImages(v AnalysisArchiveSummary) {
 
 // GetRules returns the Rules field value if set, zero value otherwise.
 func (o *ArchiveSummary) GetRules() AnalysisArchiveRulesSummary {
-	if o == nil || o.Rules == nil {
+	if o == nil || IsNil(o.Rules) {
 		var ret AnalysisArchiveRulesSummary
 		return ret
 	}
@@ -82,7 +85,7 @@ func (o *ArchiveSummary) GetRules() AnalysisArchiveRulesSummary {
 // GetRulesOk returns a tuple with the Rules field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ArchiveSummary) GetRulesOk() (*AnalysisArchiveRulesSummary, bool) {
-	if o == nil || o.Rules == nil {
+	if o == nil || IsNil(o.Rules) {
 		return nil, false
 	}
 	return o.Rules, true
@@ -90,7 +93,7 @@ func (o *ArchiveSummary) GetRulesOk() (*AnalysisArchiveRulesSummary, bool) {
 
 // HasRules returns a boolean if a field has been set.
 func (o *ArchiveSummary) HasRules() bool {
-	if o != nil && o.Rules != nil {
+	if o != nil && !IsNil(o.Rules) {
 		return true
 	}
 
@@ -103,14 +106,22 @@ func (o *ArchiveSummary) SetRules(v AnalysisArchiveRulesSummary) {
 }
 
 func (o ArchiveSummary) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Images != nil {
-		toSerialize["images"] = o.Images
-	}
-	if o.Rules != nil {
-		toSerialize["rules"] = o.Rules
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o ArchiveSummary) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Images) {
+		toSerialize["images"] = o.Images
+	}
+	if !IsNil(o.Rules) {
+		toSerialize["rules"] = o.Rules
+	}
+	return toSerialize, nil
 }
 
 type NullableArchiveSummary struct {

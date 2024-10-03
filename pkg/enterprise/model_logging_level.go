@@ -13,13 +13,20 @@ package enterprise
 
 import (
 	"encoding/json"
+	"bytes"
+	"fmt"
 )
+
+// checks if the LoggingLevel type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &LoggingLevel{}
 
 // LoggingLevel struct for LoggingLevel
 type LoggingLevel struct {
 	ServiceName string `json:"service_name"`
 	LoggingLevel string `json:"logging_level"`
 }
+
+type _LoggingLevel LoggingLevel
 
 // NewLoggingLevel instantiates a new LoggingLevel object
 // This constructor will assign default values to properties that have it defined,
@@ -89,14 +96,56 @@ func (o *LoggingLevel) SetLoggingLevel(v string) {
 }
 
 func (o LoggingLevel) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["service_name"] = o.ServiceName
-	}
-	if true {
-		toSerialize["logging_level"] = o.LoggingLevel
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o LoggingLevel) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["service_name"] = o.ServiceName
+	toSerialize["logging_level"] = o.LoggingLevel
+	return toSerialize, nil
+}
+
+func (o *LoggingLevel) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"service_name",
+		"logging_level",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varLoggingLevel := _LoggingLevel{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varLoggingLevel)
+
+	if err != nil {
+		return err
+	}
+
+	*o = LoggingLevel(varLoggingLevel)
+
+	return err
 }
 
 type NullableLoggingLevel struct {

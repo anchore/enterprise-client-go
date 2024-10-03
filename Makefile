@@ -6,7 +6,7 @@ PROJECT_ROOT = pkg
 CLONE_DIR = local
 
 # OpenAPI generator version to use
-OPENAPI_GENERATOR_VERSION = v6.0.0
+OPENAPI_GENERATOR_VERSION = v7.8.0
 
 # --- anchore enterprise references
 # a git tag/branch/commit within anchore/enterprise repo
@@ -79,4 +79,5 @@ help:
 
 .PHONY :=
 patch:
+	python3 patches/replace_interface_literals.py
 	git apply -q patches/*.diff

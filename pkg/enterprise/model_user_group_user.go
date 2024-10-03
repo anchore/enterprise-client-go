@@ -14,7 +14,12 @@ package enterprise
 import (
 	"encoding/json"
 	"time"
+	"bytes"
+	"fmt"
 )
+
+// checks if the UserGroupUser type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &UserGroupUser{}
 
 // UserGroupUser struct for UserGroupUser
 type UserGroupUser struct {
@@ -23,6 +28,8 @@ type UserGroupUser struct {
 	// The timestamp of when the user was added to the group
 	AddedOn *time.Time `json:"added_on,omitempty"`
 }
+
+type _UserGroupUser UserGroupUser
 
 // NewUserGroupUser instantiates a new UserGroupUser object
 // This constructor will assign default values to properties that have it defined,
@@ -68,7 +75,7 @@ func (o *UserGroupUser) SetUsername(v string) {
 
 // GetAddedOn returns the AddedOn field value if set, zero value otherwise.
 func (o *UserGroupUser) GetAddedOn() time.Time {
-	if o == nil || o.AddedOn == nil {
+	if o == nil || IsNil(o.AddedOn) {
 		var ret time.Time
 		return ret
 	}
@@ -78,7 +85,7 @@ func (o *UserGroupUser) GetAddedOn() time.Time {
 // GetAddedOnOk returns a tuple with the AddedOn field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserGroupUser) GetAddedOnOk() (*time.Time, bool) {
-	if o == nil || o.AddedOn == nil {
+	if o == nil || IsNil(o.AddedOn) {
 		return nil, false
 	}
 	return o.AddedOn, true
@@ -86,7 +93,7 @@ func (o *UserGroupUser) GetAddedOnOk() (*time.Time, bool) {
 
 // HasAddedOn returns a boolean if a field has been set.
 func (o *UserGroupUser) HasAddedOn() bool {
-	if o != nil && o.AddedOn != nil {
+	if o != nil && !IsNil(o.AddedOn) {
 		return true
 	}
 
@@ -99,14 +106,57 @@ func (o *UserGroupUser) SetAddedOn(v time.Time) {
 }
 
 func (o UserGroupUser) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["username"] = o.Username
-	}
-	if o.AddedOn != nil {
-		toSerialize["added_on"] = o.AddedOn
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o UserGroupUser) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["username"] = o.Username
+	if !IsNil(o.AddedOn) {
+		toSerialize["added_on"] = o.AddedOn
+	}
+	return toSerialize, nil
+}
+
+func (o *UserGroupUser) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"username",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varUserGroupUser := _UserGroupUser{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varUserGroupUser)
+
+	if err != nil {
+		return err
+	}
+
+	*o = UserGroupUser(varUserGroupUser)
+
+	return err
 }
 
 type NullableUserGroupUser struct {

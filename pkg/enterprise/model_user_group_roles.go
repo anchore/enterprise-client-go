@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the UserGroupRoles type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &UserGroupRoles{}
+
 // UserGroupRoles struct for UserGroupRoles
 type UserGroupRoles struct {
 	// The list of accounts and all its roles which are configured in the user group
@@ -40,7 +43,7 @@ func NewUserGroupRolesWithDefaults() *UserGroupRoles {
 
 // GetItems returns the Items field value if set, zero value otherwise.
 func (o *UserGroupRoles) GetItems() []UserGroupRole {
-	if o == nil || o.Items == nil {
+	if o == nil || IsNil(o.Items) {
 		var ret []UserGroupRole
 		return ret
 	}
@@ -50,7 +53,7 @@ func (o *UserGroupRoles) GetItems() []UserGroupRole {
 // GetItemsOk returns a tuple with the Items field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserGroupRoles) GetItemsOk() ([]UserGroupRole, bool) {
-	if o == nil || o.Items == nil {
+	if o == nil || IsNil(o.Items) {
 		return nil, false
 	}
 	return o.Items, true
@@ -58,7 +61,7 @@ func (o *UserGroupRoles) GetItemsOk() ([]UserGroupRole, bool) {
 
 // HasItems returns a boolean if a field has been set.
 func (o *UserGroupRoles) HasItems() bool {
-	if o != nil && o.Items != nil {
+	if o != nil && !IsNil(o.Items) {
 		return true
 	}
 
@@ -71,11 +74,19 @@ func (o *UserGroupRoles) SetItems(v []UserGroupRole) {
 }
 
 func (o UserGroupRoles) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Items != nil {
-		toSerialize["items"] = o.Items
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o UserGroupRoles) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Items) {
+		toSerialize["items"] = o.Items
+	}
+	return toSerialize, nil
 }
 
 type NullableUserGroupRoles struct {

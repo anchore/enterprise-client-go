@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the AssociatedSourceArtifact type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &AssociatedSourceArtifact{}
+
 // AssociatedSourceArtifact Model for an associated source artifact. Composite of the source artifact and its asssociation metadata
 type AssociatedSourceArtifact struct {
 	ArtifactAssociationMetadata *ArtifactAssociationMetadata `json:"artifact_association_metadata,omitempty"`
@@ -40,7 +43,7 @@ func NewAssociatedSourceArtifactWithDefaults() *AssociatedSourceArtifact {
 
 // GetArtifactAssociationMetadata returns the ArtifactAssociationMetadata field value if set, zero value otherwise.
 func (o *AssociatedSourceArtifact) GetArtifactAssociationMetadata() ArtifactAssociationMetadata {
-	if o == nil || o.ArtifactAssociationMetadata == nil {
+	if o == nil || IsNil(o.ArtifactAssociationMetadata) {
 		var ret ArtifactAssociationMetadata
 		return ret
 	}
@@ -50,7 +53,7 @@ func (o *AssociatedSourceArtifact) GetArtifactAssociationMetadata() ArtifactAsso
 // GetArtifactAssociationMetadataOk returns a tuple with the ArtifactAssociationMetadata field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AssociatedSourceArtifact) GetArtifactAssociationMetadataOk() (*ArtifactAssociationMetadata, bool) {
-	if o == nil || o.ArtifactAssociationMetadata == nil {
+	if o == nil || IsNil(o.ArtifactAssociationMetadata) {
 		return nil, false
 	}
 	return o.ArtifactAssociationMetadata, true
@@ -58,7 +61,7 @@ func (o *AssociatedSourceArtifact) GetArtifactAssociationMetadataOk() (*Artifact
 
 // HasArtifactAssociationMetadata returns a boolean if a field has been set.
 func (o *AssociatedSourceArtifact) HasArtifactAssociationMetadata() bool {
-	if o != nil && o.ArtifactAssociationMetadata != nil {
+	if o != nil && !IsNil(o.ArtifactAssociationMetadata) {
 		return true
 	}
 
@@ -72,7 +75,7 @@ func (o *AssociatedSourceArtifact) SetArtifactAssociationMetadata(v ArtifactAsso
 
 // GetSource returns the Source field value if set, zero value otherwise.
 func (o *AssociatedSourceArtifact) GetSource() Source {
-	if o == nil || o.Source == nil {
+	if o == nil || IsNil(o.Source) {
 		var ret Source
 		return ret
 	}
@@ -82,7 +85,7 @@ func (o *AssociatedSourceArtifact) GetSource() Source {
 // GetSourceOk returns a tuple with the Source field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AssociatedSourceArtifact) GetSourceOk() (*Source, bool) {
-	if o == nil || o.Source == nil {
+	if o == nil || IsNil(o.Source) {
 		return nil, false
 	}
 	return o.Source, true
@@ -90,7 +93,7 @@ func (o *AssociatedSourceArtifact) GetSourceOk() (*Source, bool) {
 
 // HasSource returns a boolean if a field has been set.
 func (o *AssociatedSourceArtifact) HasSource() bool {
-	if o != nil && o.Source != nil {
+	if o != nil && !IsNil(o.Source) {
 		return true
 	}
 
@@ -103,14 +106,22 @@ func (o *AssociatedSourceArtifact) SetSource(v Source) {
 }
 
 func (o AssociatedSourceArtifact) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.ArtifactAssociationMetadata != nil {
-		toSerialize["artifact_association_metadata"] = o.ArtifactAssociationMetadata
-	}
-	if o.Source != nil {
-		toSerialize["source"] = o.Source
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o AssociatedSourceArtifact) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.ArtifactAssociationMetadata) {
+		toSerialize["artifact_association_metadata"] = o.ArtifactAssociationMetadata
+	}
+	if !IsNil(o.Source) {
+		toSerialize["source"] = o.Source
+	}
+	return toSerialize, nil
 }
 
 type NullableAssociatedSourceArtifact struct {

@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the ImageImportFileCoordinate type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ImageImportFileCoordinate{}
+
 // ImageImportFileCoordinate struct for ImageImportFileCoordinate
 type ImageImportFileCoordinate struct {
 	// The path on the filesystem of the file within the given layer
@@ -42,7 +45,7 @@ func NewImageImportFileCoordinateWithDefaults() *ImageImportFileCoordinate {
 
 // GetPath returns the Path field value if set, zero value otherwise.
 func (o *ImageImportFileCoordinate) GetPath() string {
-	if o == nil || o.Path == nil {
+	if o == nil || IsNil(o.Path) {
 		var ret string
 		return ret
 	}
@@ -52,7 +55,7 @@ func (o *ImageImportFileCoordinate) GetPath() string {
 // GetPathOk returns a tuple with the Path field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ImageImportFileCoordinate) GetPathOk() (*string, bool) {
-	if o == nil || o.Path == nil {
+	if o == nil || IsNil(o.Path) {
 		return nil, false
 	}
 	return o.Path, true
@@ -60,7 +63,7 @@ func (o *ImageImportFileCoordinate) GetPathOk() (*string, bool) {
 
 // HasPath returns a boolean if a field has been set.
 func (o *ImageImportFileCoordinate) HasPath() bool {
-	if o != nil && o.Path != nil {
+	if o != nil && !IsNil(o.Path) {
 		return true
 	}
 
@@ -74,7 +77,7 @@ func (o *ImageImportFileCoordinate) SetPath(v string) {
 
 // GetLayerID returns the LayerID field value if set, zero value otherwise.
 func (o *ImageImportFileCoordinate) GetLayerID() string {
-	if o == nil || o.LayerID == nil {
+	if o == nil || IsNil(o.LayerID) {
 		var ret string
 		return ret
 	}
@@ -84,7 +87,7 @@ func (o *ImageImportFileCoordinate) GetLayerID() string {
 // GetLayerIDOk returns a tuple with the LayerID field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ImageImportFileCoordinate) GetLayerIDOk() (*string, bool) {
-	if o == nil || o.LayerID == nil {
+	if o == nil || IsNil(o.LayerID) {
 		return nil, false
 	}
 	return o.LayerID, true
@@ -92,7 +95,7 @@ func (o *ImageImportFileCoordinate) GetLayerIDOk() (*string, bool) {
 
 // HasLayerID returns a boolean if a field has been set.
 func (o *ImageImportFileCoordinate) HasLayerID() bool {
-	if o != nil && o.LayerID != nil {
+	if o != nil && !IsNil(o.LayerID) {
 		return true
 	}
 
@@ -105,14 +108,22 @@ func (o *ImageImportFileCoordinate) SetLayerID(v string) {
 }
 
 func (o ImageImportFileCoordinate) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Path != nil {
-		toSerialize["path"] = o.Path
-	}
-	if o.LayerID != nil {
-		toSerialize["layerID"] = o.LayerID
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o ImageImportFileCoordinate) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Path) {
+		toSerialize["path"] = o.Path
+	}
+	if !IsNil(o.LayerID) {
+		toSerialize["layerID"] = o.LayerID
+	}
+	return toSerialize, nil
 }
 
 type NullableImageImportFileCoordinate struct {

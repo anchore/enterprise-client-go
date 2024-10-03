@@ -13,7 +13,12 @@ package enterprise
 
 import (
 	"encoding/json"
+	"bytes"
+	"fmt"
 )
+
+// checks if the ImageImportManifest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ImageImportManifest{}
 
 // ImageImportManifest struct for ImageImportManifest
 type ImageImportManifest struct {
@@ -26,6 +31,8 @@ type ImageImportManifest struct {
 	LocalImageId *string `json:"local_image_id,omitempty"`
 	OperationUuid string `json:"operation_uuid"`
 }
+
+type _ImageImportManifest ImageImportManifest
 
 // NewImageImportManifest instantiates a new ImageImportManifest object
 // This constructor will assign default values to properties that have it defined,
@@ -122,7 +129,7 @@ func (o *ImageImportManifest) SetDigest(v string) {
 
 // GetParentDigest returns the ParentDigest field value if set, zero value otherwise.
 func (o *ImageImportManifest) GetParentDigest() string {
-	if o == nil || o.ParentDigest == nil {
+	if o == nil || IsNil(o.ParentDigest) {
 		var ret string
 		return ret
 	}
@@ -132,7 +139,7 @@ func (o *ImageImportManifest) GetParentDigest() string {
 // GetParentDigestOk returns a tuple with the ParentDigest field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ImageImportManifest) GetParentDigestOk() (*string, bool) {
-	if o == nil || o.ParentDigest == nil {
+	if o == nil || IsNil(o.ParentDigest) {
 		return nil, false
 	}
 	return o.ParentDigest, true
@@ -140,7 +147,7 @@ func (o *ImageImportManifest) GetParentDigestOk() (*string, bool) {
 
 // HasParentDigest returns a boolean if a field has been set.
 func (o *ImageImportManifest) HasParentDigest() bool {
-	if o != nil && o.ParentDigest != nil {
+	if o != nil && !IsNil(o.ParentDigest) {
 		return true
 	}
 
@@ -154,7 +161,7 @@ func (o *ImageImportManifest) SetParentDigest(v string) {
 
 // GetLocalImageId returns the LocalImageId field value if set, zero value otherwise.
 func (o *ImageImportManifest) GetLocalImageId() string {
-	if o == nil || o.LocalImageId == nil {
+	if o == nil || IsNil(o.LocalImageId) {
 		var ret string
 		return ret
 	}
@@ -164,7 +171,7 @@ func (o *ImageImportManifest) GetLocalImageId() string {
 // GetLocalImageIdOk returns a tuple with the LocalImageId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ImageImportManifest) GetLocalImageIdOk() (*string, bool) {
-	if o == nil || o.LocalImageId == nil {
+	if o == nil || IsNil(o.LocalImageId) {
 		return nil, false
 	}
 	return o.LocalImageId, true
@@ -172,7 +179,7 @@ func (o *ImageImportManifest) GetLocalImageIdOk() (*string, bool) {
 
 // HasLocalImageId returns a boolean if a field has been set.
 func (o *ImageImportManifest) HasLocalImageId() bool {
-	if o != nil && o.LocalImageId != nil {
+	if o != nil && !IsNil(o.LocalImageId) {
 		return true
 	}
 
@@ -209,26 +216,66 @@ func (o *ImageImportManifest) SetOperationUuid(v string) {
 }
 
 func (o ImageImportManifest) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["contents"] = o.Contents
-	}
-	if true {
-		toSerialize["tags"] = o.Tags
-	}
-	if true {
-		toSerialize["digest"] = o.Digest
-	}
-	if o.ParentDigest != nil {
-		toSerialize["parent_digest"] = o.ParentDigest
-	}
-	if o.LocalImageId != nil {
-		toSerialize["local_image_id"] = o.LocalImageId
-	}
-	if true {
-		toSerialize["operation_uuid"] = o.OperationUuid
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o ImageImportManifest) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["contents"] = o.Contents
+	toSerialize["tags"] = o.Tags
+	toSerialize["digest"] = o.Digest
+	if !IsNil(o.ParentDigest) {
+		toSerialize["parent_digest"] = o.ParentDigest
+	}
+	if !IsNil(o.LocalImageId) {
+		toSerialize["local_image_id"] = o.LocalImageId
+	}
+	toSerialize["operation_uuid"] = o.OperationUuid
+	return toSerialize, nil
+}
+
+func (o *ImageImportManifest) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"contents",
+		"tags",
+		"digest",
+		"operation_uuid",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varImageImportManifest := _ImageImportManifest{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varImageImportManifest)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ImageImportManifest(varImageImportManifest)
+
+	return err
 }
 
 type NullableImageImportManifest struct {

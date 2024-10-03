@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the AnchoreImageTagSummaryList type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &AnchoreImageTagSummaryList{}
+
 // AnchoreImageTagSummaryList a list of AnchoreImageTagSummary objects
 type AnchoreImageTagSummaryList struct {
 	Items []AnchoreImageTagSummary `json:"items,omitempty"`
@@ -40,7 +43,7 @@ func NewAnchoreImageTagSummaryListWithDefaults() *AnchoreImageTagSummaryList {
 
 // GetItems returns the Items field value if set, zero value otherwise.
 func (o *AnchoreImageTagSummaryList) GetItems() []AnchoreImageTagSummary {
-	if o == nil || o.Items == nil {
+	if o == nil || IsNil(o.Items) {
 		var ret []AnchoreImageTagSummary
 		return ret
 	}
@@ -50,7 +53,7 @@ func (o *AnchoreImageTagSummaryList) GetItems() []AnchoreImageTagSummary {
 // GetItemsOk returns a tuple with the Items field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AnchoreImageTagSummaryList) GetItemsOk() ([]AnchoreImageTagSummary, bool) {
-	if o == nil || o.Items == nil {
+	if o == nil || IsNil(o.Items) {
 		return nil, false
 	}
 	return o.Items, true
@@ -58,7 +61,7 @@ func (o *AnchoreImageTagSummaryList) GetItemsOk() ([]AnchoreImageTagSummary, boo
 
 // HasItems returns a boolean if a field has been set.
 func (o *AnchoreImageTagSummaryList) HasItems() bool {
-	if o != nil && o.Items != nil {
+	if o != nil && !IsNil(o.Items) {
 		return true
 	}
 
@@ -72,7 +75,7 @@ func (o *AnchoreImageTagSummaryList) SetItems(v []AnchoreImageTagSummary) {
 
 // GetTotalRows returns the TotalRows field value if set, zero value otherwise.
 func (o *AnchoreImageTagSummaryList) GetTotalRows() int32 {
-	if o == nil || o.TotalRows == nil {
+	if o == nil || IsNil(o.TotalRows) {
 		var ret int32
 		return ret
 	}
@@ -82,7 +85,7 @@ func (o *AnchoreImageTagSummaryList) GetTotalRows() int32 {
 // GetTotalRowsOk returns a tuple with the TotalRows field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AnchoreImageTagSummaryList) GetTotalRowsOk() (*int32, bool) {
-	if o == nil || o.TotalRows == nil {
+	if o == nil || IsNil(o.TotalRows) {
 		return nil, false
 	}
 	return o.TotalRows, true
@@ -90,7 +93,7 @@ func (o *AnchoreImageTagSummaryList) GetTotalRowsOk() (*int32, bool) {
 
 // HasTotalRows returns a boolean if a field has been set.
 func (o *AnchoreImageTagSummaryList) HasTotalRows() bool {
-	if o != nil && o.TotalRows != nil {
+	if o != nil && !IsNil(o.TotalRows) {
 		return true
 	}
 
@@ -103,14 +106,22 @@ func (o *AnchoreImageTagSummaryList) SetTotalRows(v int32) {
 }
 
 func (o AnchoreImageTagSummaryList) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Items != nil {
-		toSerialize["items"] = o.Items
-	}
-	if o.TotalRows != nil {
-		toSerialize["total_rows"] = o.TotalRows
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o AnchoreImageTagSummaryList) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Items) {
+		toSerialize["items"] = o.Items
+	}
+	if !IsNil(o.TotalRows) {
+		toSerialize["total_rows"] = o.TotalRows
+	}
+	return toSerialize, nil
 }
 
 type NullableAnchoreImageTagSummaryList struct {

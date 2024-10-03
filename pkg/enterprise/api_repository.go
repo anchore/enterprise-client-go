@@ -14,33 +14,18 @@ package enterprise
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
 )
 
 
-type RepositoryApi interface {
-
-	/*
-	AddRepository Add repository to watch
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiAddRepositoryRequest
-	*/
-	AddRepository(ctx context.Context) ApiAddRepositoryRequest
-
-	// AddRepositoryExecute executes the request
-	//  @return []Subscription
-	AddRepositoryExecute(r ApiAddRepositoryRequest) ([]Subscription, *http.Response, error)
-}
-
-// RepositoryApiService RepositoryApi service
-type RepositoryApiService service
+// RepositoryAPIService RepositoryAPI service
+type RepositoryAPIService service
 
 type ApiAddRepositoryRequest struct {
 	ctx context.Context
-	ApiService RepositoryApi
+	ApiService *RepositoryAPIService
 	repository *string
 	autoSubscribe *bool
 	dryRun *bool
@@ -88,7 +73,7 @@ AddRepository Add repository to watch
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiAddRepositoryRequest
 */
-func (a *RepositoryApiService) AddRepository(ctx context.Context) ApiAddRepositoryRequest {
+func (a *RepositoryAPIService) AddRepository(ctx context.Context) ApiAddRepositoryRequest {
 	return ApiAddRepositoryRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -97,7 +82,7 @@ func (a *RepositoryApiService) AddRepository(ctx context.Context) ApiAddReposito
 
 // Execute executes the request
 //  @return []Subscription
-func (a *RepositoryApiService) AddRepositoryExecute(r ApiAddRepositoryRequest) ([]Subscription, *http.Response, error) {
+func (a *RepositoryAPIService) AddRepositoryExecute(r ApiAddRepositoryRequest) ([]Subscription, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
@@ -105,7 +90,7 @@ func (a *RepositoryApiService) AddRepositoryExecute(r ApiAddRepositoryRequest) (
 		localVarReturnValue  []Subscription
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RepositoryApiService.AddRepository")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RepositoryAPIService.AddRepository")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -119,15 +104,15 @@ func (a *RepositoryApiService) AddRepositoryExecute(r ApiAddRepositoryRequest) (
 		return localVarReturnValue, nil, reportError("repository is required and must be specified")
 	}
 
-	localVarQueryParams.Add("repository", parameterToString(*r.repository, ""))
+	parameterAddToHeaderOrQuery(localVarQueryParams, "repository", r.repository, "form", "")
 	if r.autoSubscribe != nil {
-		localVarQueryParams.Add("auto_subscribe", parameterToString(*r.autoSubscribe, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "auto_subscribe", r.autoSubscribe, "form", "")
 	}
 	if r.dryRun != nil {
-		localVarQueryParams.Add("dry_run", parameterToString(*r.dryRun, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "dry_run", r.dryRun, "form", "")
 	}
 	if r.excludeExistingTags != nil {
-		localVarQueryParams.Add("exclude_existing_tags", parameterToString(*r.excludeExistingTags, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "exclude_existing_tags", r.excludeExistingTags, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -147,7 +132,7 @@ func (a *RepositoryApiService) AddRepositoryExecute(r ApiAddRepositoryRequest) (
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.xAnchoreAccount != nil {
-		localVarHeaderParams["x-anchore-account"] = parameterToString(*r.xAnchoreAccount, "")
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "x-anchore-account", r.xAnchoreAccount, "simple", "")
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
@@ -159,9 +144,9 @@ func (a *RepositoryApiService) AddRepositoryExecute(r ApiAddRepositoryRequest) (
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}

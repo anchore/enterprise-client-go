@@ -13,7 +13,12 @@ package enterprise
 
 import (
 	"encoding/json"
+	"bytes"
+	"fmt"
 )
+
+// checks if the SourceMappingRule type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &SourceMappingRule{}
 
 // SourceMappingRule struct for SourceMappingRule
 type SourceMappingRule struct {
@@ -27,6 +32,8 @@ type SourceMappingRule struct {
 	// Description of the source to policy rule, human readable
 	Description *string `json:"description,omitempty"`
 }
+
+type _SourceMappingRule SourceMappingRule
 
 // NewSourceMappingRule instantiates a new SourceMappingRule object
 // This constructor will assign default values to properties that have it defined,
@@ -197,7 +204,7 @@ func (o *SourceMappingRule) SetRepository(v string) {
 
 // GetDescription returns the Description field value if set, zero value otherwise.
 func (o *SourceMappingRule) GetDescription() string {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		var ret string
 		return ret
 	}
@@ -207,7 +214,7 @@ func (o *SourceMappingRule) GetDescription() string {
 // GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SourceMappingRule) GetDescriptionOk() (*string, bool) {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		return nil, false
 	}
 	return o.Description, true
@@ -215,7 +222,7 @@ func (o *SourceMappingRule) GetDescriptionOk() (*string, bool) {
 
 // HasDescription returns a boolean if a field has been set.
 func (o *SourceMappingRule) HasDescription() bool {
-	if o != nil && o.Description != nil {
+	if o != nil && !IsNil(o.Description) {
 		return true
 	}
 
@@ -228,29 +235,67 @@ func (o *SourceMappingRule) SetDescription(v string) {
 }
 
 func (o SourceMappingRule) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["id"] = o.Id
-	}
-	if true {
-		toSerialize["name"] = o.Name
-	}
-	if true {
-		toSerialize["allowlist_ids"] = o.AllowlistIds
-	}
-	if true {
-		toSerialize["rule_set_ids"] = o.RuleSetIds
-	}
-	if true {
-		toSerialize["host"] = o.Host
-	}
-	if true {
-		toSerialize["repository"] = o.Repository
-	}
-	if o.Description != nil {
-		toSerialize["description"] = o.Description
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o SourceMappingRule) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["id"] = o.Id
+	toSerialize["name"] = o.Name
+	toSerialize["allowlist_ids"] = o.AllowlistIds
+	toSerialize["rule_set_ids"] = o.RuleSetIds
+	toSerialize["host"] = o.Host
+	toSerialize["repository"] = o.Repository
+	if !IsNil(o.Description) {
+		toSerialize["description"] = o.Description
+	}
+	return toSerialize, nil
+}
+
+func (o *SourceMappingRule) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"id",
+		"name",
+		"allowlist_ids",
+		"rule_set_ids",
+		"host",
+		"repository",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varSourceMappingRule := _SourceMappingRule{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varSourceMappingRule)
+
+	if err != nil {
+		return err
+	}
+
+	*o = SourceMappingRule(varSourceMappingRule)
+
+	return err
 }
 
 type NullableSourceMappingRule struct {

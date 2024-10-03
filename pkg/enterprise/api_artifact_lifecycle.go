@@ -14,97 +14,19 @@ package enterprise
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
 	"strings"
 )
 
 
-type ArtifactLifecycleApi interface {
-
-	/*
-	CreateArtifactLifecyclePolicy Create new artifact lifecycle policy
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiCreateArtifactLifecyclePolicyRequest
-	*/
-	CreateArtifactLifecyclePolicy(ctx context.Context) ApiCreateArtifactLifecyclePolicyRequest
-
-	// CreateArtifactLifecyclePolicyExecute executes the request
-	//  @return ArtifactLifecyclePolicyResponse
-	CreateArtifactLifecyclePolicyExecute(r ApiCreateArtifactLifecyclePolicyRequest) (*ArtifactLifecyclePolicyResponse, *http.Response, error)
-
-	/*
-	DeleteArtifactLifecyclePolicy Delete lifecycle policy
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param policyUuid
-	@return ApiDeleteArtifactLifecyclePolicyRequest
-	*/
-	DeleteArtifactLifecyclePolicy(ctx context.Context, policyUuid string) ApiDeleteArtifactLifecyclePolicyRequest
-
-	// DeleteArtifactLifecyclePolicyExecute executes the request
-	DeleteArtifactLifecyclePolicyExecute(r ApiDeleteArtifactLifecyclePolicyRequest) (*http.Response, error)
-
-	/*
-	GetArtifactLifecyclePolicy Get single artifact lifecycle policy
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param policyUuid
-	@return ApiGetArtifactLifecyclePolicyRequest
-	*/
-	GetArtifactLifecyclePolicy(ctx context.Context, policyUuid string) ApiGetArtifactLifecyclePolicyRequest
-
-	// GetArtifactLifecyclePolicyExecute executes the request
-	//  @return ArtifactLifecyclePolicyResponse
-	GetArtifactLifecyclePolicyExecute(r ApiGetArtifactLifecyclePolicyRequest) (*ArtifactLifecyclePolicyResponse, *http.Response, error)
-
-	/*
-	GetArtifactLifecyclePolicyByVersion Get single artifact lifecycle policy by its version
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param policyUuid
-	@return ApiGetArtifactLifecyclePolicyByVersionRequest
-	*/
-	GetArtifactLifecyclePolicyByVersion(ctx context.Context, policyUuid string) ApiGetArtifactLifecyclePolicyByVersionRequest
-
-	// GetArtifactLifecyclePolicyByVersionExecute executes the request
-	//  @return ArtifactLifecyclePolicyResponse
-	GetArtifactLifecyclePolicyByVersionExecute(r ApiGetArtifactLifecyclePolicyByVersionRequest) (*ArtifactLifecyclePolicyResponse, *http.Response, error)
-
-	/*
-	ListArtifactLifecyclePolicies List all artifact lifecycle policies
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiListArtifactLifecyclePoliciesRequest
-	*/
-	ListArtifactLifecyclePolicies(ctx context.Context) ApiListArtifactLifecyclePoliciesRequest
-
-	// ListArtifactLifecyclePoliciesExecute executes the request
-	//  @return ArtifactLifecyclePolicyList
-	ListArtifactLifecyclePoliciesExecute(r ApiListArtifactLifecyclePoliciesRequest) (*ArtifactLifecyclePolicyList, *http.Response, error)
-
-	/*
-	UpdateArtifactLifecyclePolicy Update a single artifact lifecycle policy
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param policyUuid
-	@return ApiUpdateArtifactLifecyclePolicyRequest
-	*/
-	UpdateArtifactLifecyclePolicy(ctx context.Context, policyUuid string) ApiUpdateArtifactLifecyclePolicyRequest
-
-	// UpdateArtifactLifecyclePolicyExecute executes the request
-	//  @return ArtifactLifecyclePolicyResponse
-	UpdateArtifactLifecyclePolicyExecute(r ApiUpdateArtifactLifecyclePolicyRequest) (*ArtifactLifecyclePolicyResponse, *http.Response, error)
-}
-
-// ArtifactLifecycleApiService ArtifactLifecycleApi service
-type ArtifactLifecycleApiService service
+// ArtifactLifecycleAPIService ArtifactLifecycleAPI service
+type ArtifactLifecycleAPIService service
 
 type ApiCreateArtifactLifecyclePolicyRequest struct {
 	ctx context.Context
-	ApiService ArtifactLifecycleApi
+	ApiService *ArtifactLifecycleAPIService
 	artifactLifecyclePolicy *ArtifactLifecyclePolicy
 }
 
@@ -123,7 +45,7 @@ CreateArtifactLifecyclePolicy Create new artifact lifecycle policy
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiCreateArtifactLifecyclePolicyRequest
 */
-func (a *ArtifactLifecycleApiService) CreateArtifactLifecyclePolicy(ctx context.Context) ApiCreateArtifactLifecyclePolicyRequest {
+func (a *ArtifactLifecycleAPIService) CreateArtifactLifecyclePolicy(ctx context.Context) ApiCreateArtifactLifecyclePolicyRequest {
 	return ApiCreateArtifactLifecyclePolicyRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -132,7 +54,7 @@ func (a *ArtifactLifecycleApiService) CreateArtifactLifecyclePolicy(ctx context.
 
 // Execute executes the request
 //  @return ArtifactLifecyclePolicyResponse
-func (a *ArtifactLifecycleApiService) CreateArtifactLifecyclePolicyExecute(r ApiCreateArtifactLifecyclePolicyRequest) (*ArtifactLifecyclePolicyResponse, *http.Response, error) {
+func (a *ArtifactLifecycleAPIService) CreateArtifactLifecyclePolicyExecute(r ApiCreateArtifactLifecyclePolicyRequest) (*ArtifactLifecyclePolicyResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
@@ -140,7 +62,7 @@ func (a *ArtifactLifecycleApiService) CreateArtifactLifecyclePolicyExecute(r Api
 		localVarReturnValue  *ArtifactLifecyclePolicyResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ArtifactLifecycleApiService.CreateArtifactLifecyclePolicy")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ArtifactLifecycleAPIService.CreateArtifactLifecyclePolicy")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -180,9 +102,9 @@ func (a *ArtifactLifecycleApiService) CreateArtifactLifecyclePolicyExecute(r Api
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -209,7 +131,7 @@ func (a *ArtifactLifecycleApiService) CreateArtifactLifecyclePolicyExecute(r Api
 
 type ApiDeleteArtifactLifecyclePolicyRequest struct {
 	ctx context.Context
-	ApiService ArtifactLifecycleApi
+	ApiService *ArtifactLifecycleAPIService
 	policyUuid string
 }
 
@@ -224,7 +146,7 @@ DeleteArtifactLifecyclePolicy Delete lifecycle policy
  @param policyUuid
  @return ApiDeleteArtifactLifecyclePolicyRequest
 */
-func (a *ArtifactLifecycleApiService) DeleteArtifactLifecyclePolicy(ctx context.Context, policyUuid string) ApiDeleteArtifactLifecyclePolicyRequest {
+func (a *ArtifactLifecycleAPIService) DeleteArtifactLifecyclePolicy(ctx context.Context, policyUuid string) ApiDeleteArtifactLifecyclePolicyRequest {
 	return ApiDeleteArtifactLifecyclePolicyRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -233,20 +155,20 @@ func (a *ArtifactLifecycleApiService) DeleteArtifactLifecyclePolicy(ctx context.
 }
 
 // Execute executes the request
-func (a *ArtifactLifecycleApiService) DeleteArtifactLifecyclePolicyExecute(r ApiDeleteArtifactLifecyclePolicyRequest) (*http.Response, error) {
+func (a *ArtifactLifecycleAPIService) DeleteArtifactLifecyclePolicyExecute(r ApiDeleteArtifactLifecyclePolicyRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodDelete
 		localVarPostBody     interface{}
 		formFiles            []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ArtifactLifecycleApiService.DeleteArtifactLifecyclePolicy")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ArtifactLifecycleAPIService.DeleteArtifactLifecyclePolicy")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/system/artifact-lifecycle-policies/{policy_uuid}"
-	localVarPath = strings.Replace(localVarPath, "{"+"policy_uuid"+"}", url.PathEscape(parameterToString(r.policyUuid, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"policy_uuid"+"}", url.PathEscape(parameterValueToString(r.policyUuid, "policyUuid")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -279,9 +201,9 @@ func (a *ArtifactLifecycleApiService) DeleteArtifactLifecyclePolicyExecute(r Api
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -299,7 +221,7 @@ func (a *ArtifactLifecycleApiService) DeleteArtifactLifecyclePolicyExecute(r Api
 
 type ApiGetArtifactLifecyclePolicyRequest struct {
 	ctx context.Context
-	ApiService ArtifactLifecycleApi
+	ApiService *ArtifactLifecycleAPIService
 	policyUuid string
 }
 
@@ -314,7 +236,7 @@ GetArtifactLifecyclePolicy Get single artifact lifecycle policy
  @param policyUuid
  @return ApiGetArtifactLifecyclePolicyRequest
 */
-func (a *ArtifactLifecycleApiService) GetArtifactLifecyclePolicy(ctx context.Context, policyUuid string) ApiGetArtifactLifecyclePolicyRequest {
+func (a *ArtifactLifecycleAPIService) GetArtifactLifecyclePolicy(ctx context.Context, policyUuid string) ApiGetArtifactLifecyclePolicyRequest {
 	return ApiGetArtifactLifecyclePolicyRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -324,7 +246,7 @@ func (a *ArtifactLifecycleApiService) GetArtifactLifecyclePolicy(ctx context.Con
 
 // Execute executes the request
 //  @return ArtifactLifecyclePolicyResponse
-func (a *ArtifactLifecycleApiService) GetArtifactLifecyclePolicyExecute(r ApiGetArtifactLifecyclePolicyRequest) (*ArtifactLifecyclePolicyResponse, *http.Response, error) {
+func (a *ArtifactLifecycleAPIService) GetArtifactLifecyclePolicyExecute(r ApiGetArtifactLifecyclePolicyRequest) (*ArtifactLifecyclePolicyResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
@@ -332,13 +254,13 @@ func (a *ArtifactLifecycleApiService) GetArtifactLifecyclePolicyExecute(r ApiGet
 		localVarReturnValue  *ArtifactLifecyclePolicyResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ArtifactLifecycleApiService.GetArtifactLifecyclePolicy")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ArtifactLifecycleAPIService.GetArtifactLifecyclePolicy")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/system/artifact-lifecycle-policies/{policy_uuid}"
-	localVarPath = strings.Replace(localVarPath, "{"+"policy_uuid"+"}", url.PathEscape(parameterToString(r.policyUuid, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"policy_uuid"+"}", url.PathEscape(parameterValueToString(r.policyUuid, "policyUuid")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -371,9 +293,9 @@ func (a *ArtifactLifecycleApiService) GetArtifactLifecyclePolicyExecute(r ApiGet
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -400,7 +322,7 @@ func (a *ArtifactLifecycleApiService) GetArtifactLifecyclePolicyExecute(r ApiGet
 
 type ApiGetArtifactLifecyclePolicyByVersionRequest struct {
 	ctx context.Context
-	ApiService ArtifactLifecycleApi
+	ApiService *ArtifactLifecycleAPIService
 	policyUuid string
 	version *int32
 	latest *bool
@@ -429,7 +351,7 @@ GetArtifactLifecyclePolicyByVersion Get single artifact lifecycle policy by its 
  @param policyUuid
  @return ApiGetArtifactLifecyclePolicyByVersionRequest
 */
-func (a *ArtifactLifecycleApiService) GetArtifactLifecyclePolicyByVersion(ctx context.Context, policyUuid string) ApiGetArtifactLifecyclePolicyByVersionRequest {
+func (a *ArtifactLifecycleAPIService) GetArtifactLifecyclePolicyByVersion(ctx context.Context, policyUuid string) ApiGetArtifactLifecyclePolicyByVersionRequest {
 	return ApiGetArtifactLifecyclePolicyByVersionRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -439,7 +361,7 @@ func (a *ArtifactLifecycleApiService) GetArtifactLifecyclePolicyByVersion(ctx co
 
 // Execute executes the request
 //  @return ArtifactLifecyclePolicyResponse
-func (a *ArtifactLifecycleApiService) GetArtifactLifecyclePolicyByVersionExecute(r ApiGetArtifactLifecyclePolicyByVersionRequest) (*ArtifactLifecyclePolicyResponse, *http.Response, error) {
+func (a *ArtifactLifecycleAPIService) GetArtifactLifecyclePolicyByVersionExecute(r ApiGetArtifactLifecyclePolicyByVersionRequest) (*ArtifactLifecyclePolicyResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
@@ -447,23 +369,23 @@ func (a *ArtifactLifecycleApiService) GetArtifactLifecyclePolicyByVersionExecute
 		localVarReturnValue  *ArtifactLifecyclePolicyResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ArtifactLifecycleApiService.GetArtifactLifecyclePolicyByVersion")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ArtifactLifecycleAPIService.GetArtifactLifecyclePolicyByVersion")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/system/artifact-lifecycle-policies/{policy_uuid}/versions"
-	localVarPath = strings.Replace(localVarPath, "{"+"policy_uuid"+"}", url.PathEscape(parameterToString(r.policyUuid, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"policy_uuid"+"}", url.PathEscape(parameterValueToString(r.policyUuid, "policyUuid")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
 	if r.version != nil {
-		localVarQueryParams.Add("version", parameterToString(*r.version, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "version", r.version, "form", "")
 	}
 	if r.latest != nil {
-		localVarQueryParams.Add("latest", parameterToString(*r.latest, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "latest", r.latest, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -492,9 +414,9 @@ func (a *ArtifactLifecycleApiService) GetArtifactLifecyclePolicyByVersionExecute
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -521,7 +443,7 @@ func (a *ArtifactLifecycleApiService) GetArtifactLifecyclePolicyByVersionExecute
 
 type ApiListArtifactLifecyclePoliciesRequest struct {
 	ctx context.Context
-	ApiService ArtifactLifecycleApi
+	ApiService *ArtifactLifecycleAPIService
 }
 
 func (r ApiListArtifactLifecyclePoliciesRequest) Execute() (*ArtifactLifecyclePolicyList, *http.Response, error) {
@@ -534,7 +456,7 @@ ListArtifactLifecyclePolicies List all artifact lifecycle policies
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiListArtifactLifecyclePoliciesRequest
 */
-func (a *ArtifactLifecycleApiService) ListArtifactLifecyclePolicies(ctx context.Context) ApiListArtifactLifecyclePoliciesRequest {
+func (a *ArtifactLifecycleAPIService) ListArtifactLifecyclePolicies(ctx context.Context) ApiListArtifactLifecyclePoliciesRequest {
 	return ApiListArtifactLifecyclePoliciesRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -543,7 +465,7 @@ func (a *ArtifactLifecycleApiService) ListArtifactLifecyclePolicies(ctx context.
 
 // Execute executes the request
 //  @return ArtifactLifecyclePolicyList
-func (a *ArtifactLifecycleApiService) ListArtifactLifecyclePoliciesExecute(r ApiListArtifactLifecyclePoliciesRequest) (*ArtifactLifecyclePolicyList, *http.Response, error) {
+func (a *ArtifactLifecycleAPIService) ListArtifactLifecyclePoliciesExecute(r ApiListArtifactLifecyclePoliciesRequest) (*ArtifactLifecyclePolicyList, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
@@ -551,7 +473,7 @@ func (a *ArtifactLifecycleApiService) ListArtifactLifecyclePoliciesExecute(r Api
 		localVarReturnValue  *ArtifactLifecyclePolicyList
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ArtifactLifecycleApiService.ListArtifactLifecyclePolicies")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ArtifactLifecycleAPIService.ListArtifactLifecyclePolicies")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -589,9 +511,9 @@ func (a *ArtifactLifecycleApiService) ListArtifactLifecyclePoliciesExecute(r Api
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -618,7 +540,7 @@ func (a *ArtifactLifecycleApiService) ListArtifactLifecyclePoliciesExecute(r Api
 
 type ApiUpdateArtifactLifecyclePolicyRequest struct {
 	ctx context.Context
-	ApiService ArtifactLifecycleApi
+	ApiService *ArtifactLifecycleAPIService
 	policyUuid string
 	artifactLifecyclePolicy *ArtifactLifecyclePolicy
 }
@@ -639,7 +561,7 @@ UpdateArtifactLifecyclePolicy Update a single artifact lifecycle policy
  @param policyUuid
  @return ApiUpdateArtifactLifecyclePolicyRequest
 */
-func (a *ArtifactLifecycleApiService) UpdateArtifactLifecyclePolicy(ctx context.Context, policyUuid string) ApiUpdateArtifactLifecyclePolicyRequest {
+func (a *ArtifactLifecycleAPIService) UpdateArtifactLifecyclePolicy(ctx context.Context, policyUuid string) ApiUpdateArtifactLifecyclePolicyRequest {
 	return ApiUpdateArtifactLifecyclePolicyRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -649,7 +571,7 @@ func (a *ArtifactLifecycleApiService) UpdateArtifactLifecyclePolicy(ctx context.
 
 // Execute executes the request
 //  @return ArtifactLifecyclePolicyResponse
-func (a *ArtifactLifecycleApiService) UpdateArtifactLifecyclePolicyExecute(r ApiUpdateArtifactLifecyclePolicyRequest) (*ArtifactLifecyclePolicyResponse, *http.Response, error) {
+func (a *ArtifactLifecycleAPIService) UpdateArtifactLifecyclePolicyExecute(r ApiUpdateArtifactLifecyclePolicyRequest) (*ArtifactLifecyclePolicyResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPut
 		localVarPostBody     interface{}
@@ -657,13 +579,13 @@ func (a *ArtifactLifecycleApiService) UpdateArtifactLifecyclePolicyExecute(r Api
 		localVarReturnValue  *ArtifactLifecyclePolicyResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ArtifactLifecycleApiService.UpdateArtifactLifecyclePolicy")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ArtifactLifecycleAPIService.UpdateArtifactLifecyclePolicy")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/system/artifact-lifecycle-policies/{policy_uuid}"
-	localVarPath = strings.Replace(localVarPath, "{"+"policy_uuid"+"}", url.PathEscape(parameterToString(r.policyUuid, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"policy_uuid"+"}", url.PathEscape(parameterValueToString(r.policyUuid, "policyUuid")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -698,9 +620,9 @@ func (a *ArtifactLifecycleApiService) UpdateArtifactLifecyclePolicyExecute(r Api
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}

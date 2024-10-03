@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the CVSSV2Scores type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &CVSSV2Scores{}
+
 // CVSSV2Scores struct for CVSSV2Scores
 type CVSSV2Scores struct {
 	BaseScore NullableFloat32 `json:"base_score,omitempty"`
@@ -41,7 +44,7 @@ func NewCVSSV2ScoresWithDefaults() *CVSSV2Scores {
 
 // GetBaseScore returns the BaseScore field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *CVSSV2Scores) GetBaseScore() float32 {
-	if o == nil || o.BaseScore.Get() == nil {
+	if o == nil || IsNil(o.BaseScore.Get()) {
 		var ret float32
 		return ret
 	}
@@ -83,7 +86,7 @@ func (o *CVSSV2Scores) UnsetBaseScore() {
 
 // GetExploitabilityScore returns the ExploitabilityScore field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *CVSSV2Scores) GetExploitabilityScore() float32 {
-	if o == nil || o.ExploitabilityScore.Get() == nil {
+	if o == nil || IsNil(o.ExploitabilityScore.Get()) {
 		var ret float32
 		return ret
 	}
@@ -125,7 +128,7 @@ func (o *CVSSV2Scores) UnsetExploitabilityScore() {
 
 // GetImpactScore returns the ImpactScore field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *CVSSV2Scores) GetImpactScore() float32 {
-	if o == nil || o.ImpactScore.Get() == nil {
+	if o == nil || IsNil(o.ImpactScore.Get()) {
 		var ret float32
 		return ret
 	}
@@ -166,6 +169,14 @@ func (o *CVSSV2Scores) UnsetImpactScore() {
 }
 
 func (o CVSSV2Scores) MarshalJSON() ([]byte, error) {
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o CVSSV2Scores) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	if o.BaseScore.IsSet() {
 		toSerialize["base_score"] = o.BaseScore.Get()
@@ -176,7 +187,7 @@ func (o CVSSV2Scores) MarshalJSON() ([]byte, error) {
 	if o.ImpactScore.IsSet() {
 		toSerialize["impact_score"] = o.ImpactScore.Get()
 	}
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
 type NullableCVSSV2Scores struct {

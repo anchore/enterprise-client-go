@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the ECSContainers type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ECSContainers{}
+
 // ECSContainers Containers defined in ECS
 type ECSContainers struct {
 	Containers []ECSContainer `json:"containers,omitempty"`
@@ -39,7 +42,7 @@ func NewECSContainersWithDefaults() *ECSContainers {
 
 // GetContainers returns the Containers field value if set, zero value otherwise.
 func (o *ECSContainers) GetContainers() []ECSContainer {
-	if o == nil || o.Containers == nil {
+	if o == nil || IsNil(o.Containers) {
 		var ret []ECSContainer
 		return ret
 	}
@@ -49,7 +52,7 @@ func (o *ECSContainers) GetContainers() []ECSContainer {
 // GetContainersOk returns a tuple with the Containers field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ECSContainers) GetContainersOk() ([]ECSContainer, bool) {
-	if o == nil || o.Containers == nil {
+	if o == nil || IsNil(o.Containers) {
 		return nil, false
 	}
 	return o.Containers, true
@@ -57,7 +60,7 @@ func (o *ECSContainers) GetContainersOk() ([]ECSContainer, bool) {
 
 // HasContainers returns a boolean if a field has been set.
 func (o *ECSContainers) HasContainers() bool {
-	if o != nil && o.Containers != nil {
+	if o != nil && !IsNil(o.Containers) {
 		return true
 	}
 
@@ -70,11 +73,19 @@ func (o *ECSContainers) SetContainers(v []ECSContainer) {
 }
 
 func (o ECSContainers) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Containers != nil {
-		toSerialize["containers"] = o.Containers
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o ECSContainers) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Containers) {
+		toSerialize["containers"] = o.Containers
+	}
+	return toSerialize, nil
 }
 
 type NullableECSContainers struct {

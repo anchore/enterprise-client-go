@@ -14,49 +14,18 @@ package enterprise
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
 )
 
 
-type QueryApi interface {
-
-	/*
-	QueryImagesByPackage List of images containing given package
-
-	Filterable query interface to search for images containing specified package
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiQueryImagesByPackageRequest
-	*/
-	QueryImagesByPackage(ctx context.Context) ApiQueryImagesByPackageRequest
-
-	// QueryImagesByPackageExecute executes the request
-	//  @return PaginatedImageList
-	QueryImagesByPackageExecute(r ApiQueryImagesByPackageRequest) (*PaginatedImageList, *http.Response, error)
-
-	/*
-	QueryVulnerabilities Listing information about given vulnerability
-
-	List (w/filters) vulnerability records known by the system, with affected packages information if present
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiQueryVulnerabilitiesRequest
-	*/
-	QueryVulnerabilities(ctx context.Context) ApiQueryVulnerabilitiesRequest
-
-	// QueryVulnerabilitiesExecute executes the request
-	//  @return PaginatedVulnerabilityList
-	QueryVulnerabilitiesExecute(r ApiQueryVulnerabilitiesRequest) (*PaginatedVulnerabilityList, *http.Response, error)
-}
-
-// QueryApiService QueryApi service
-type QueryApiService service
+// QueryAPIService QueryAPI service
+type QueryAPIService service
 
 type ApiQueryImagesByPackageRequest struct {
 	ctx context.Context
-	ApiService QueryApi
+	ApiService *QueryAPIService
 	name *string
 	packageType *string
 	version *string
@@ -113,7 +82,7 @@ Filterable query interface to search for images containing specified package
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiQueryImagesByPackageRequest
 */
-func (a *QueryApiService) QueryImagesByPackage(ctx context.Context) ApiQueryImagesByPackageRequest {
+func (a *QueryAPIService) QueryImagesByPackage(ctx context.Context) ApiQueryImagesByPackageRequest {
 	return ApiQueryImagesByPackageRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -122,7 +91,7 @@ func (a *QueryApiService) QueryImagesByPackage(ctx context.Context) ApiQueryImag
 
 // Execute executes the request
 //  @return PaginatedImageList
-func (a *QueryApiService) QueryImagesByPackageExecute(r ApiQueryImagesByPackageRequest) (*PaginatedImageList, *http.Response, error) {
+func (a *QueryAPIService) QueryImagesByPackageExecute(r ApiQueryImagesByPackageRequest) (*PaginatedImageList, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
@@ -130,7 +99,7 @@ func (a *QueryApiService) QueryImagesByPackageExecute(r ApiQueryImagesByPackageR
 		localVarReturnValue  *PaginatedImageList
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "QueryApiService.QueryImagesByPackage")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "QueryAPIService.QueryImagesByPackage")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -144,18 +113,18 @@ func (a *QueryApiService) QueryImagesByPackageExecute(r ApiQueryImagesByPackageR
 		return localVarReturnValue, nil, reportError("name is required and must be specified")
 	}
 
-	localVarQueryParams.Add("name", parameterToString(*r.name, ""))
+	parameterAddToHeaderOrQuery(localVarQueryParams, "name", r.name, "form", "")
 	if r.packageType != nil {
-		localVarQueryParams.Add("package_type", parameterToString(*r.packageType, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "package_type", r.packageType, "form", "")
 	}
 	if r.version != nil {
-		localVarQueryParams.Add("version", parameterToString(*r.version, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "version", r.version, "form", "")
 	}
 	if r.page != nil {
-		localVarQueryParams.Add("page", parameterToString(*r.page, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "page", r.page, "form", "")
 	}
 	if r.limit != nil {
-		localVarQueryParams.Add("limit", parameterToString(*r.limit, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -175,7 +144,7 @@ func (a *QueryApiService) QueryImagesByPackageExecute(r ApiQueryImagesByPackageR
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.xAnchoreAccount != nil {
-		localVarHeaderParams["x-anchore-account"] = parameterToString(*r.xAnchoreAccount, "")
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "x-anchore-account", r.xAnchoreAccount, "simple", "")
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
@@ -187,9 +156,9 @@ func (a *QueryApiService) QueryImagesByPackageExecute(r ApiQueryImagesByPackageR
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -206,7 +175,8 @@ func (a *QueryApiService) QueryImagesByPackageExecute(r ApiQueryImagesByPackageR
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -225,7 +195,7 @@ func (a *QueryApiService) QueryImagesByPackageExecute(r ApiQueryImagesByPackageR
 
 type ApiQueryVulnerabilitiesRequest struct {
 	ctx context.Context
-	ApiService QueryApi
+	ApiService *QueryAPIService
 	id *[]string
 	affectedPackage *string
 	affectedPackageVersion *string
@@ -282,7 +252,7 @@ List (w/filters) vulnerability records known by the system, with affected packag
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiQueryVulnerabilitiesRequest
 */
-func (a *QueryApiService) QueryVulnerabilities(ctx context.Context) ApiQueryVulnerabilitiesRequest {
+func (a *QueryAPIService) QueryVulnerabilities(ctx context.Context) ApiQueryVulnerabilitiesRequest {
 	return ApiQueryVulnerabilitiesRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -291,7 +261,7 @@ func (a *QueryApiService) QueryVulnerabilities(ctx context.Context) ApiQueryVuln
 
 // Execute executes the request
 //  @return PaginatedVulnerabilityList
-func (a *QueryApiService) QueryVulnerabilitiesExecute(r ApiQueryVulnerabilitiesRequest) (*PaginatedVulnerabilityList, *http.Response, error) {
+func (a *QueryAPIService) QueryVulnerabilitiesExecute(r ApiQueryVulnerabilitiesRequest) (*PaginatedVulnerabilityList, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
@@ -299,7 +269,7 @@ func (a *QueryApiService) QueryVulnerabilitiesExecute(r ApiQueryVulnerabilitiesR
 		localVarReturnValue  *PaginatedVulnerabilityList
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "QueryApiService.QueryVulnerabilities")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "QueryAPIService.QueryVulnerabilities")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -313,21 +283,24 @@ func (a *QueryApiService) QueryVulnerabilitiesExecute(r ApiQueryVulnerabilitiesR
 		return localVarReturnValue, nil, reportError("id is required and must be specified")
 	}
 
-	localVarQueryParams.Add("id", parameterToString(*r.id, "csv"))
+	parameterAddToHeaderOrQuery(localVarQueryParams, "id", r.id, "form", "csv")
 	if r.affectedPackage != nil {
-		localVarQueryParams.Add("affected_package", parameterToString(*r.affectedPackage, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "affected_package", r.affectedPackage, "form", "")
 	}
 	if r.affectedPackageVersion != nil {
-		localVarQueryParams.Add("affected_package_version", parameterToString(*r.affectedPackageVersion, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "affected_package_version", r.affectedPackageVersion, "form", "")
 	}
 	if r.page != nil {
-		localVarQueryParams.Add("page", parameterToString(*r.page, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "page", r.page, "form", "")
+	} else {
+		var defaultValue string = "1"
+		r.page = &defaultValue
 	}
 	if r.limit != nil {
-		localVarQueryParams.Add("limit", parameterToString(*r.limit, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "form", "")
 	}
 	if r.namespace != nil {
-		localVarQueryParams.Add("namespace", parameterToString(*r.namespace, "csv"))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "namespace", r.namespace, "form", "csv")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -356,9 +329,9 @@ func (a *QueryApiService) QueryVulnerabilitiesExecute(r ApiQueryVulnerabilitiesR
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -375,7 +348,8 @@ func (a *QueryApiService) QueryVulnerabilitiesExecute(r ApiQueryVulnerabilitiesR
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}

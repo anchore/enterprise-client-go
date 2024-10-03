@@ -16,6 +16,9 @@ import (
 	"time"
 )
 
+// checks if the ArchivedAnalysis type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ArchivedAnalysis{}
+
 // ArchivedAnalysis struct for ArchivedAnalysis
 type ArchivedAnalysis struct {
 	// The image digest (digest of the manifest describing the image, per docker spec)
@@ -54,7 +57,7 @@ func NewArchivedAnalysisWithDefaults() *ArchivedAnalysis {
 
 // GetImageDigest returns the ImageDigest field value if set, zero value otherwise.
 func (o *ArchivedAnalysis) GetImageDigest() string {
-	if o == nil || o.ImageDigest == nil {
+	if o == nil || IsNil(o.ImageDigest) {
 		var ret string
 		return ret
 	}
@@ -64,7 +67,7 @@ func (o *ArchivedAnalysis) GetImageDigest() string {
 // GetImageDigestOk returns a tuple with the ImageDigest field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ArchivedAnalysis) GetImageDigestOk() (*string, bool) {
-	if o == nil || o.ImageDigest == nil {
+	if o == nil || IsNil(o.ImageDigest) {
 		return nil, false
 	}
 	return o.ImageDigest, true
@@ -72,7 +75,7 @@ func (o *ArchivedAnalysis) GetImageDigestOk() (*string, bool) {
 
 // HasImageDigest returns a boolean if a field has been set.
 func (o *ArchivedAnalysis) HasImageDigest() bool {
-	if o != nil && o.ImageDigest != nil {
+	if o != nil && !IsNil(o.ImageDigest) {
 		return true
 	}
 
@@ -86,7 +89,7 @@ func (o *ArchivedAnalysis) SetImageDigest(v string) {
 
 // GetParentDigest returns the ParentDigest field value if set, zero value otherwise.
 func (o *ArchivedAnalysis) GetParentDigest() string {
-	if o == nil || o.ParentDigest == nil {
+	if o == nil || IsNil(o.ParentDigest) {
 		var ret string
 		return ret
 	}
@@ -96,7 +99,7 @@ func (o *ArchivedAnalysis) GetParentDigest() string {
 // GetParentDigestOk returns a tuple with the ParentDigest field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ArchivedAnalysis) GetParentDigestOk() (*string, bool) {
-	if o == nil || o.ParentDigest == nil {
+	if o == nil || IsNil(o.ParentDigest) {
 		return nil, false
 	}
 	return o.ParentDigest, true
@@ -104,7 +107,7 @@ func (o *ArchivedAnalysis) GetParentDigestOk() (*string, bool) {
 
 // HasParentDigest returns a boolean if a field has been set.
 func (o *ArchivedAnalysis) HasParentDigest() bool {
-	if o != nil && o.ParentDigest != nil {
+	if o != nil && !IsNil(o.ParentDigest) {
 		return true
 	}
 
@@ -118,7 +121,7 @@ func (o *ArchivedAnalysis) SetParentDigest(v string) {
 
 // GetAnnotations returns the Annotations field value if set, zero value otherwise.
 func (o *ArchivedAnalysis) GetAnnotations() interface{} {
-	if o == nil || o.Annotations == nil {
+	if o == nil || IsNil(o.Annotations) {
 		var ret interface{}
 		return ret
 	}
@@ -128,7 +131,7 @@ func (o *ArchivedAnalysis) GetAnnotations() interface{} {
 // GetAnnotationsOk returns a tuple with the Annotations field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ArchivedAnalysis) GetAnnotationsOk() (interface{}, bool) {
-	if o == nil || o.Annotations == nil {
+	if o == nil || IsNil(o.Annotations) {
 		return nil, false
 	}
 	return o.Annotations, true
@@ -136,7 +139,7 @@ func (o *ArchivedAnalysis) GetAnnotationsOk() (interface{}, bool) {
 
 // HasAnnotations returns a boolean if a field has been set.
 func (o *ArchivedAnalysis) HasAnnotations() bool {
-	if o != nil && o.Annotations != nil {
+	if o != nil && !IsNil(o.Annotations) {
 		return true
 	}
 
@@ -150,7 +153,7 @@ func (o *ArchivedAnalysis) SetAnnotations(v interface{}) {
 
 // GetStatus returns the Status field value if set, zero value otherwise.
 func (o *ArchivedAnalysis) GetStatus() string {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		var ret string
 		return ret
 	}
@@ -160,7 +163,7 @@ func (o *ArchivedAnalysis) GetStatus() string {
 // GetStatusOk returns a tuple with the Status field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ArchivedAnalysis) GetStatusOk() (*string, bool) {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		return nil, false
 	}
 	return o.Status, true
@@ -168,7 +171,7 @@ func (o *ArchivedAnalysis) GetStatusOk() (*string, bool) {
 
 // HasStatus returns a boolean if a field has been set.
 func (o *ArchivedAnalysis) HasStatus() bool {
-	if o != nil && o.Status != nil {
+	if o != nil && !IsNil(o.Status) {
 		return true
 	}
 
@@ -182,7 +185,7 @@ func (o *ArchivedAnalysis) SetStatus(v string) {
 
 // GetImageDetail returns the ImageDetail field value if set, zero value otherwise.
 func (o *ArchivedAnalysis) GetImageDetail() []ArchiveTagEntry {
-	if o == nil || o.ImageDetail == nil {
+	if o == nil || IsNil(o.ImageDetail) {
 		var ret []ArchiveTagEntry
 		return ret
 	}
@@ -192,7 +195,7 @@ func (o *ArchivedAnalysis) GetImageDetail() []ArchiveTagEntry {
 // GetImageDetailOk returns a tuple with the ImageDetail field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ArchivedAnalysis) GetImageDetailOk() ([]ArchiveTagEntry, bool) {
-	if o == nil || o.ImageDetail == nil {
+	if o == nil || IsNil(o.ImageDetail) {
 		return nil, false
 	}
 	return o.ImageDetail, true
@@ -200,7 +203,7 @@ func (o *ArchivedAnalysis) GetImageDetailOk() ([]ArchiveTagEntry, bool) {
 
 // HasImageDetail returns a boolean if a field has been set.
 func (o *ArchivedAnalysis) HasImageDetail() bool {
-	if o != nil && o.ImageDetail != nil {
+	if o != nil && !IsNil(o.ImageDetail) {
 		return true
 	}
 
@@ -214,7 +217,7 @@ func (o *ArchivedAnalysis) SetImageDetail(v []ArchiveTagEntry) {
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
 func (o *ArchivedAnalysis) GetCreatedAt() time.Time {
-	if o == nil || o.CreatedAt == nil {
+	if o == nil || IsNil(o.CreatedAt) {
 		var ret time.Time
 		return ret
 	}
@@ -224,7 +227,7 @@ func (o *ArchivedAnalysis) GetCreatedAt() time.Time {
 // GetCreatedAtOk returns a tuple with the CreatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ArchivedAnalysis) GetCreatedAtOk() (*time.Time, bool) {
-	if o == nil || o.CreatedAt == nil {
+	if o == nil || IsNil(o.CreatedAt) {
 		return nil, false
 	}
 	return o.CreatedAt, true
@@ -232,7 +235,7 @@ func (o *ArchivedAnalysis) GetCreatedAtOk() (*time.Time, bool) {
 
 // HasCreatedAt returns a boolean if a field has been set.
 func (o *ArchivedAnalysis) HasCreatedAt() bool {
-	if o != nil && o.CreatedAt != nil {
+	if o != nil && !IsNil(o.CreatedAt) {
 		return true
 	}
 
@@ -246,7 +249,7 @@ func (o *ArchivedAnalysis) SetCreatedAt(v time.Time) {
 
 // GetLastUpdated returns the LastUpdated field value if set, zero value otherwise.
 func (o *ArchivedAnalysis) GetLastUpdated() time.Time {
-	if o == nil || o.LastUpdated == nil {
+	if o == nil || IsNil(o.LastUpdated) {
 		var ret time.Time
 		return ret
 	}
@@ -256,7 +259,7 @@ func (o *ArchivedAnalysis) GetLastUpdated() time.Time {
 // GetLastUpdatedOk returns a tuple with the LastUpdated field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ArchivedAnalysis) GetLastUpdatedOk() (*time.Time, bool) {
-	if o == nil || o.LastUpdated == nil {
+	if o == nil || IsNil(o.LastUpdated) {
 		return nil, false
 	}
 	return o.LastUpdated, true
@@ -264,7 +267,7 @@ func (o *ArchivedAnalysis) GetLastUpdatedOk() (*time.Time, bool) {
 
 // HasLastUpdated returns a boolean if a field has been set.
 func (o *ArchivedAnalysis) HasLastUpdated() bool {
-	if o != nil && o.LastUpdated != nil {
+	if o != nil && !IsNil(o.LastUpdated) {
 		return true
 	}
 
@@ -278,7 +281,7 @@ func (o *ArchivedAnalysis) SetLastUpdated(v time.Time) {
 
 // GetAnalyzedAt returns the AnalyzedAt field value if set, zero value otherwise.
 func (o *ArchivedAnalysis) GetAnalyzedAt() time.Time {
-	if o == nil || o.AnalyzedAt == nil {
+	if o == nil || IsNil(o.AnalyzedAt) {
 		var ret time.Time
 		return ret
 	}
@@ -288,7 +291,7 @@ func (o *ArchivedAnalysis) GetAnalyzedAt() time.Time {
 // GetAnalyzedAtOk returns a tuple with the AnalyzedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ArchivedAnalysis) GetAnalyzedAtOk() (*time.Time, bool) {
-	if o == nil || o.AnalyzedAt == nil {
+	if o == nil || IsNil(o.AnalyzedAt) {
 		return nil, false
 	}
 	return o.AnalyzedAt, true
@@ -296,7 +299,7 @@ func (o *ArchivedAnalysis) GetAnalyzedAtOk() (*time.Time, bool) {
 
 // HasAnalyzedAt returns a boolean if a field has been set.
 func (o *ArchivedAnalysis) HasAnalyzedAt() bool {
-	if o != nil && o.AnalyzedAt != nil {
+	if o != nil && !IsNil(o.AnalyzedAt) {
 		return true
 	}
 
@@ -310,7 +313,7 @@ func (o *ArchivedAnalysis) SetAnalyzedAt(v time.Time) {
 
 // GetArchiveSizeBytes returns the ArchiveSizeBytes field value if set, zero value otherwise.
 func (o *ArchivedAnalysis) GetArchiveSizeBytes() int32 {
-	if o == nil || o.ArchiveSizeBytes == nil {
+	if o == nil || IsNil(o.ArchiveSizeBytes) {
 		var ret int32
 		return ret
 	}
@@ -320,7 +323,7 @@ func (o *ArchivedAnalysis) GetArchiveSizeBytes() int32 {
 // GetArchiveSizeBytesOk returns a tuple with the ArchiveSizeBytes field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ArchivedAnalysis) GetArchiveSizeBytesOk() (*int32, bool) {
-	if o == nil || o.ArchiveSizeBytes == nil {
+	if o == nil || IsNil(o.ArchiveSizeBytes) {
 		return nil, false
 	}
 	return o.ArchiveSizeBytes, true
@@ -328,7 +331,7 @@ func (o *ArchivedAnalysis) GetArchiveSizeBytesOk() (*int32, bool) {
 
 // HasArchiveSizeBytes returns a boolean if a field has been set.
 func (o *ArchivedAnalysis) HasArchiveSizeBytes() bool {
-	if o != nil && o.ArchiveSizeBytes != nil {
+	if o != nil && !IsNil(o.ArchiveSizeBytes) {
 		return true
 	}
 
@@ -341,35 +344,43 @@ func (o *ArchivedAnalysis) SetArchiveSizeBytes(v int32) {
 }
 
 func (o ArchivedAnalysis) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.ImageDigest != nil {
-		toSerialize["image_digest"] = o.ImageDigest
-	}
-	if o.ParentDigest != nil {
-		toSerialize["parent_digest"] = o.ParentDigest
-	}
-	if o.Annotations != nil {
-		toSerialize["annotations"] = o.Annotations
-	}
-	if o.Status != nil {
-		toSerialize["status"] = o.Status
-	}
-	if o.ImageDetail != nil {
-		toSerialize["image_detail"] = o.ImageDetail
-	}
-	if o.CreatedAt != nil {
-		toSerialize["created_at"] = o.CreatedAt
-	}
-	if o.LastUpdated != nil {
-		toSerialize["last_updated"] = o.LastUpdated
-	}
-	if o.AnalyzedAt != nil {
-		toSerialize["analyzed_at"] = o.AnalyzedAt
-	}
-	if o.ArchiveSizeBytes != nil {
-		toSerialize["archive_size_bytes"] = o.ArchiveSizeBytes
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o ArchivedAnalysis) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.ImageDigest) {
+		toSerialize["image_digest"] = o.ImageDigest
+	}
+	if !IsNil(o.ParentDigest) {
+		toSerialize["parent_digest"] = o.ParentDigest
+	}
+	if !IsNil(o.Annotations) {
+		toSerialize["annotations"] = o.Annotations
+	}
+	if !IsNil(o.Status) {
+		toSerialize["status"] = o.Status
+	}
+	if !IsNil(o.ImageDetail) {
+		toSerialize["image_detail"] = o.ImageDetail
+	}
+	if !IsNil(o.CreatedAt) {
+		toSerialize["created_at"] = o.CreatedAt
+	}
+	if !IsNil(o.LastUpdated) {
+		toSerialize["last_updated"] = o.LastUpdated
+	}
+	if !IsNil(o.AnalyzedAt) {
+		toSerialize["analyzed_at"] = o.AnalyzedAt
+	}
+	if !IsNil(o.ArchiveSizeBytes) {
+		toSerialize["archive_size_bytes"] = o.ArchiveSizeBytes
+	}
+	return toSerialize, nil
 }
 
 type NullableArchivedAnalysis struct {

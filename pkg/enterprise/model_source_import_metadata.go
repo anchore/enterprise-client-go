@@ -14,7 +14,12 @@ package enterprise
 import (
 	"encoding/json"
 	"time"
+	"bytes"
+	"fmt"
 )
+
+// checks if the SourceImportMetadata type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &SourceImportMetadata{}
 
 // SourceImportMetadata struct for SourceImportMetadata
 type SourceImportMetadata struct {
@@ -27,6 +32,8 @@ type SourceImportMetadata struct {
 	ChangeAuthor NullableString `json:"change_author,omitempty"`
 	Contents SourceImportMetadataContents `json:"contents"`
 }
+
+type _SourceImportMetadata SourceImportMetadata
 
 // NewSourceImportMetadata instantiates a new SourceImportMetadata object
 // This constructor will assign default values to properties that have it defined,
@@ -51,7 +58,7 @@ func NewSourceImportMetadataWithDefaults() *SourceImportMetadata {
 
 // GetCiWorkflowName returns the CiWorkflowName field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *SourceImportMetadata) GetCiWorkflowName() string {
-	if o == nil || o.CiWorkflowName.Get() == nil {
+	if o == nil || IsNil(o.CiWorkflowName.Get()) {
 		var ret string
 		return ret
 	}
@@ -93,7 +100,7 @@ func (o *SourceImportMetadata) UnsetCiWorkflowName() {
 
 // GetCiWorkflowExecutionTime returns the CiWorkflowExecutionTime field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *SourceImportMetadata) GetCiWorkflowExecutionTime() time.Time {
-	if o == nil || o.CiWorkflowExecutionTime.Get() == nil {
+	if o == nil || IsNil(o.CiWorkflowExecutionTime.Get()) {
 		var ret time.Time
 		return ret
 	}
@@ -183,7 +190,7 @@ func (o *SourceImportMetadata) SetRepositoryName(v string) {
 
 // GetBranchName returns the BranchName field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *SourceImportMetadata) GetBranchName() string {
-	if o == nil || o.BranchName.Get() == nil {
+	if o == nil || IsNil(o.BranchName.Get()) {
 		var ret string
 		return ret
 	}
@@ -249,7 +256,7 @@ func (o *SourceImportMetadata) SetRevision(v string) {
 
 // GetChangeAuthor returns the ChangeAuthor field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *SourceImportMetadata) GetChangeAuthor() string {
-	if o == nil || o.ChangeAuthor.Get() == nil {
+	if o == nil || IsNil(o.ChangeAuthor.Get()) {
 		var ret string
 		return ret
 	}
@@ -314,6 +321,14 @@ func (o *SourceImportMetadata) SetContents(v SourceImportMetadataContents) {
 }
 
 func (o SourceImportMetadata) MarshalJSON() ([]byte, error) {
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o SourceImportMetadata) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	if o.CiWorkflowName.IsSet() {
 		toSerialize["ci_workflow_name"] = o.CiWorkflowName.Get()
@@ -321,25 +336,57 @@ func (o SourceImportMetadata) MarshalJSON() ([]byte, error) {
 	if o.CiWorkflowExecutionTime.IsSet() {
 		toSerialize["ci_workflow_execution_time"] = o.CiWorkflowExecutionTime.Get()
 	}
-	if true {
-		toSerialize["host"] = o.Host
-	}
-	if true {
-		toSerialize["repository_name"] = o.RepositoryName
-	}
+	toSerialize["host"] = o.Host
+	toSerialize["repository_name"] = o.RepositoryName
 	if o.BranchName.IsSet() {
 		toSerialize["branch_name"] = o.BranchName.Get()
 	}
-	if true {
-		toSerialize["revision"] = o.Revision
-	}
+	toSerialize["revision"] = o.Revision
 	if o.ChangeAuthor.IsSet() {
 		toSerialize["change_author"] = o.ChangeAuthor.Get()
 	}
-	if true {
-		toSerialize["contents"] = o.Contents
+	toSerialize["contents"] = o.Contents
+	return toSerialize, nil
+}
+
+func (o *SourceImportMetadata) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"host",
+		"repository_name",
+		"revision",
+		"contents",
 	}
-	return json.Marshal(toSerialize)
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varSourceImportMetadata := _SourceImportMetadata{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varSourceImportMetadata)
+
+	if err != nil {
+		return err
+	}
+
+	*o = SourceImportMetadata(varSourceImportMetadata)
+
+	return err
 }
 
 type NullableSourceImportMetadata struct {

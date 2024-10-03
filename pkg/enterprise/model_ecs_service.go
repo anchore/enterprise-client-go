@@ -13,7 +13,12 @@ package enterprise
 
 import (
 	"encoding/json"
+	"bytes"
+	"fmt"
 )
+
+// checks if the ECSService type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ECSService{}
 
 // ECSService struct for ECSService
 type ECSService struct {
@@ -22,6 +27,8 @@ type ECSService struct {
 	Tags map[string]string `json:"tags"`
 	AccountName string `json:"account_name"`
 }
+
+type _ECSService ECSService
 
 // NewECSService instantiates a new ECSService object
 // This constructor will assign default values to properties that have it defined,
@@ -141,20 +148,60 @@ func (o *ECSService) SetAccountName(v string) {
 }
 
 func (o ECSService) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["arn"] = o.Arn
-	}
-	if true {
-		toSerialize["cluster_arn"] = o.ClusterArn
-	}
-	if true {
-		toSerialize["tags"] = o.Tags
-	}
-	if true {
-		toSerialize["account_name"] = o.AccountName
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o ECSService) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["arn"] = o.Arn
+	toSerialize["cluster_arn"] = o.ClusterArn
+	toSerialize["tags"] = o.Tags
+	toSerialize["account_name"] = o.AccountName
+	return toSerialize, nil
+}
+
+func (o *ECSService) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"arn",
+		"cluster_arn",
+		"tags",
+		"account_name",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varECSService := _ECSService{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varECSService)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ECSService(varECSService)
+
+	return err
 }
 
 type NullableECSService struct {

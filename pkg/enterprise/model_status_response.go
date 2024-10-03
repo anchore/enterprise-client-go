@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the StatusResponse type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &StatusResponse{}
+
 // StatusResponse System status response
 type StatusResponse struct {
 	Available *bool `json:"available,omitempty"`
@@ -45,7 +48,7 @@ func NewStatusResponseWithDefaults() *StatusResponse {
 
 // GetAvailable returns the Available field value if set, zero value otherwise.
 func (o *StatusResponse) GetAvailable() bool {
-	if o == nil || o.Available == nil {
+	if o == nil || IsNil(o.Available) {
 		var ret bool
 		return ret
 	}
@@ -55,7 +58,7 @@ func (o *StatusResponse) GetAvailable() bool {
 // GetAvailableOk returns a tuple with the Available field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *StatusResponse) GetAvailableOk() (*bool, bool) {
-	if o == nil || o.Available == nil {
+	if o == nil || IsNil(o.Available) {
 		return nil, false
 	}
 	return o.Available, true
@@ -63,7 +66,7 @@ func (o *StatusResponse) GetAvailableOk() (*bool, bool) {
 
 // HasAvailable returns a boolean if a field has been set.
 func (o *StatusResponse) HasAvailable() bool {
-	if o != nil && o.Available != nil {
+	if o != nil && !IsNil(o.Available) {
 		return true
 	}
 
@@ -77,7 +80,7 @@ func (o *StatusResponse) SetAvailable(v bool) {
 
 // GetBusy returns the Busy field value if set, zero value otherwise.
 func (o *StatusResponse) GetBusy() bool {
-	if o == nil || o.Busy == nil {
+	if o == nil || IsNil(o.Busy) {
 		var ret bool
 		return ret
 	}
@@ -87,7 +90,7 @@ func (o *StatusResponse) GetBusy() bool {
 // GetBusyOk returns a tuple with the Busy field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *StatusResponse) GetBusyOk() (*bool, bool) {
-	if o == nil || o.Busy == nil {
+	if o == nil || IsNil(o.Busy) {
 		return nil, false
 	}
 	return o.Busy, true
@@ -95,7 +98,7 @@ func (o *StatusResponse) GetBusyOk() (*bool, bool) {
 
 // HasBusy returns a boolean if a field has been set.
 func (o *StatusResponse) HasBusy() bool {
-	if o != nil && o.Busy != nil {
+	if o != nil && !IsNil(o.Busy) {
 		return true
 	}
 
@@ -109,7 +112,7 @@ func (o *StatusResponse) SetBusy(v bool) {
 
 // GetUp returns the Up field value if set, zero value otherwise.
 func (o *StatusResponse) GetUp() bool {
-	if o == nil || o.Up == nil {
+	if o == nil || IsNil(o.Up) {
 		var ret bool
 		return ret
 	}
@@ -119,7 +122,7 @@ func (o *StatusResponse) GetUp() bool {
 // GetUpOk returns a tuple with the Up field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *StatusResponse) GetUpOk() (*bool, bool) {
-	if o == nil || o.Up == nil {
+	if o == nil || IsNil(o.Up) {
 		return nil, false
 	}
 	return o.Up, true
@@ -127,7 +130,7 @@ func (o *StatusResponse) GetUpOk() (*bool, bool) {
 
 // HasUp returns a boolean if a field has been set.
 func (o *StatusResponse) HasUp() bool {
-	if o != nil && o.Up != nil {
+	if o != nil && !IsNil(o.Up) {
 		return true
 	}
 
@@ -141,7 +144,7 @@ func (o *StatusResponse) SetUp(v bool) {
 
 // GetMessage returns the Message field value if set, zero value otherwise.
 func (o *StatusResponse) GetMessage() string {
-	if o == nil || o.Message == nil {
+	if o == nil || IsNil(o.Message) {
 		var ret string
 		return ret
 	}
@@ -151,7 +154,7 @@ func (o *StatusResponse) GetMessage() string {
 // GetMessageOk returns a tuple with the Message field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *StatusResponse) GetMessageOk() (*string, bool) {
-	if o == nil || o.Message == nil {
+	if o == nil || IsNil(o.Message) {
 		return nil, false
 	}
 	return o.Message, true
@@ -159,7 +162,7 @@ func (o *StatusResponse) GetMessageOk() (*string, bool) {
 
 // HasMessage returns a boolean if a field has been set.
 func (o *StatusResponse) HasMessage() bool {
-	if o != nil && o.Message != nil {
+	if o != nil && !IsNil(o.Message) {
 		return true
 	}
 
@@ -173,7 +176,7 @@ func (o *StatusResponse) SetMessage(v string) {
 
 // GetVersion returns the Version field value if set, zero value otherwise.
 func (o *StatusResponse) GetVersion() string {
-	if o == nil || o.Version == nil {
+	if o == nil || IsNil(o.Version) {
 		var ret string
 		return ret
 	}
@@ -183,7 +186,7 @@ func (o *StatusResponse) GetVersion() string {
 // GetVersionOk returns a tuple with the Version field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *StatusResponse) GetVersionOk() (*string, bool) {
-	if o == nil || o.Version == nil {
+	if o == nil || IsNil(o.Version) {
 		return nil, false
 	}
 	return o.Version, true
@@ -191,7 +194,7 @@ func (o *StatusResponse) GetVersionOk() (*string, bool) {
 
 // HasVersion returns a boolean if a field has been set.
 func (o *StatusResponse) HasVersion() bool {
-	if o != nil && o.Version != nil {
+	if o != nil && !IsNil(o.Version) {
 		return true
 	}
 
@@ -205,7 +208,7 @@ func (o *StatusResponse) SetVersion(v string) {
 
 // GetDbVersion returns the DbVersion field value if set, zero value otherwise.
 func (o *StatusResponse) GetDbVersion() string {
-	if o == nil || o.DbVersion == nil {
+	if o == nil || IsNil(o.DbVersion) {
 		var ret string
 		return ret
 	}
@@ -215,7 +218,7 @@ func (o *StatusResponse) GetDbVersion() string {
 // GetDbVersionOk returns a tuple with the DbVersion field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *StatusResponse) GetDbVersionOk() (*string, bool) {
-	if o == nil || o.DbVersion == nil {
+	if o == nil || IsNil(o.DbVersion) {
 		return nil, false
 	}
 	return o.DbVersion, true
@@ -223,7 +226,7 @@ func (o *StatusResponse) GetDbVersionOk() (*string, bool) {
 
 // HasDbVersion returns a boolean if a field has been set.
 func (o *StatusResponse) HasDbVersion() bool {
-	if o != nil && o.DbVersion != nil {
+	if o != nil && !IsNil(o.DbVersion) {
 		return true
 	}
 
@@ -237,7 +240,7 @@ func (o *StatusResponse) SetDbVersion(v string) {
 
 // GetDetail returns the Detail field value if set, zero value otherwise.
 func (o *StatusResponse) GetDetail() interface{} {
-	if o == nil || o.Detail == nil {
+	if o == nil || IsNil(o.Detail) {
 		var ret interface{}
 		return ret
 	}
@@ -247,7 +250,7 @@ func (o *StatusResponse) GetDetail() interface{} {
 // GetDetailOk returns a tuple with the Detail field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *StatusResponse) GetDetailOk() (interface{}, bool) {
-	if o == nil || o.Detail == nil {
+	if o == nil || IsNil(o.Detail) {
 		return nil, false
 	}
 	return o.Detail, true
@@ -255,7 +258,7 @@ func (o *StatusResponse) GetDetailOk() (interface{}, bool) {
 
 // HasDetail returns a boolean if a field has been set.
 func (o *StatusResponse) HasDetail() bool {
-	if o != nil && o.Detail != nil {
+	if o != nil && !IsNil(o.Detail) {
 		return true
 	}
 
@@ -268,29 +271,37 @@ func (o *StatusResponse) SetDetail(v interface{}) {
 }
 
 func (o StatusResponse) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Available != nil {
-		toSerialize["available"] = o.Available
-	}
-	if o.Busy != nil {
-		toSerialize["busy"] = o.Busy
-	}
-	if o.Up != nil {
-		toSerialize["up"] = o.Up
-	}
-	if o.Message != nil {
-		toSerialize["message"] = o.Message
-	}
-	if o.Version != nil {
-		toSerialize["version"] = o.Version
-	}
-	if o.DbVersion != nil {
-		toSerialize["db_version"] = o.DbVersion
-	}
-	if o.Detail != nil {
-		toSerialize["detail"] = o.Detail
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o StatusResponse) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Available) {
+		toSerialize["available"] = o.Available
+	}
+	if !IsNil(o.Busy) {
+		toSerialize["busy"] = o.Busy
+	}
+	if !IsNil(o.Up) {
+		toSerialize["up"] = o.Up
+	}
+	if !IsNil(o.Message) {
+		toSerialize["message"] = o.Message
+	}
+	if !IsNil(o.Version) {
+		toSerialize["version"] = o.Version
+	}
+	if !IsNil(o.DbVersion) {
+		toSerialize["db_version"] = o.DbVersion
+	}
+	if !IsNil(o.Detail) {
+		toSerialize["detail"] = o.Detail
+	}
+	return toSerialize, nil
 }
 
 type NullableStatusResponse struct {

@@ -1,29 +1,29 @@
-# \SystemApi
+# \SystemAPI
 
 All URIs are relative to */v2*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**DeleteFeed**](SystemApi.md#DeleteFeed) | **Delete** /system/feeds/{feed} | 
-[**DeleteService**](SystemApi.md#DeleteService) | **Delete** /system/services/{service_name}/{host_id} | Delete the service config
-[**DescribeErrorCodes**](SystemApi.md#DescribeErrorCodes) | **Get** /system/error-codes | Describe anchore engine error codes.
-[**DescribePolicy**](SystemApi.md#DescribePolicy) | **Get** /system/policy-spec | Describe the policy language spec implemented by this service.
-[**GetAnchorectl**](SystemApi.md#GetAnchorectl) | **Get** /system/anchorectl | Get an anchorectl binary compatible with this version of Anchore Enterprise
-[**GetServiceDetail**](SystemApi.md#GetServiceDetail) | **Get** /system | System status
-[**GetServicesByName**](SystemApi.md#GetServicesByName) | **Get** /system/services/{service_name} | Get a service configuration and state
-[**GetServicesByNameAndHost**](SystemApi.md#GetServicesByNameAndHost) | **Get** /system/services/{service_name}/{host_id} | Get service config for a specific host
-[**GetStatus**](SystemApi.md#GetStatus) | **Get** /status | Service status
-[**GetSystemFeed**](SystemApi.md#GetSystemFeed) | **Get** /system/feeds/{feed} | 
-[**GetSystemFeeds**](SystemApi.md#GetSystemFeeds) | **Get** /system/feeds | list feeds operations and information
-[**HealthCheck**](SystemApi.md#HealthCheck) | **Get** /health | 
-[**ListServices**](SystemApi.md#ListServices) | **Get** /system/services | List system services
-[**Ping**](SystemApi.md#Ping) | **Get** / | 
-[**PostSystemFeeds**](SystemApi.md#PostSystemFeeds) | **Post** /system/feeds | trigger feeds operations
-[**SetNewLogLevel**](SystemApi.md#SetNewLogLevel) | **Post** /system/logging | Change logging level for a running service
-[**TestWebhook**](SystemApi.md#TestWebhook) | **Post** /system/webhooks/{webhook_type}/test | Adds the capabilities to test a webhook delivery for the given notification type
-[**ToggleFeedEnabled**](SystemApi.md#ToggleFeedEnabled) | **Put** /system/feeds/{feed} | 
-[**UploadSystemFeed**](SystemApi.md#UploadSystemFeed) | **Post** /system/feeds/{feed} | 
-[**VersionCheck**](SystemApi.md#VersionCheck) | **Get** /version | 
+[**DeleteFeed**](SystemAPI.md#DeleteFeed) | **Delete** /system/feeds/{feed} | 
+[**DeleteService**](SystemAPI.md#DeleteService) | **Delete** /system/services/{service_name}/{host_id} | Delete the service config
+[**DescribeErrorCodes**](SystemAPI.md#DescribeErrorCodes) | **Get** /system/error-codes | Describe anchore engine error codes.
+[**DescribePolicy**](SystemAPI.md#DescribePolicy) | **Get** /system/policy-spec | Describe the policy language spec implemented by this service.
+[**GetAnchorectl**](SystemAPI.md#GetAnchorectl) | **Get** /system/anchorectl | Get an anchorectl binary compatible with this version of Anchore Enterprise
+[**GetServiceDetail**](SystemAPI.md#GetServiceDetail) | **Get** /system | System status
+[**GetServicesByName**](SystemAPI.md#GetServicesByName) | **Get** /system/services/{service_name} | Get a service configuration and state
+[**GetServicesByNameAndHost**](SystemAPI.md#GetServicesByNameAndHost) | **Get** /system/services/{service_name}/{host_id} | Get service config for a specific host
+[**GetStatus**](SystemAPI.md#GetStatus) | **Get** /status | Service status
+[**GetSystemFeed**](SystemAPI.md#GetSystemFeed) | **Get** /system/feeds/{feed} | 
+[**GetSystemFeeds**](SystemAPI.md#GetSystemFeeds) | **Get** /system/feeds | list feeds operations and information
+[**HealthCheck**](SystemAPI.md#HealthCheck) | **Get** /health | 
+[**ListServices**](SystemAPI.md#ListServices) | **Get** /system/services | List system services
+[**Ping**](SystemAPI.md#Ping) | **Get** / | 
+[**PostSystemFeeds**](SystemAPI.md#PostSystemFeeds) | **Post** /system/feeds | trigger feeds operations
+[**SetNewLogLevel**](SystemAPI.md#SetNewLogLevel) | **Post** /system/logging | Change logging level for a running service
+[**TestWebhook**](SystemAPI.md#TestWebhook) | **Post** /system/webhooks/{webhook_type}/test | Adds the capabilities to test a webhook delivery for the given notification type
+[**ToggleFeedEnabled**](SystemAPI.md#ToggleFeedEnabled) | **Put** /system/feeds/{feed} | 
+[**UploadSystemFeed**](SystemAPI.md#UploadSystemFeed) | **Post** /system/feeds/{feed} | 
+[**VersionCheck**](SystemAPI.md#VersionCheck) | **Get** /version | 
 
 
 
@@ -41,22 +41,22 @@ Method | HTTP request | Description
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
-    feed := "feed_example" // string | 
+	feed := "feed_example" // string | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.SystemApi.DeleteFeed(context.Background(), feed).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `SystemApi.DeleteFeed``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.SystemAPI.DeleteFeed(context.Background(), feed).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `SystemAPI.DeleteFeed``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -107,23 +107,23 @@ Delete the service config
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
-    serviceName := "serviceName_example" // string | 
-    hostId := "hostId_example" // string | 
+	serviceName := "serviceName_example" // string | 
+	hostId := "hostId_example" // string | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.SystemApi.DeleteService(context.Background(), serviceName, hostId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `SystemApi.DeleteService``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.SystemAPI.DeleteService(context.Background(), serviceName, hostId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `SystemAPI.DeleteService``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -178,23 +178,23 @@ Describe anchore engine error codes.
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.SystemApi.DescribeErrorCodes(context.Background()).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `SystemApi.DescribeErrorCodes``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `DescribeErrorCodes`: []AnchoreErrorCode
-    fmt.Fprintf(os.Stdout, "Response from `SystemApi.DescribeErrorCodes`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.SystemAPI.DescribeErrorCodes(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `SystemAPI.DescribeErrorCodes``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `DescribeErrorCodes`: []AnchoreErrorCode
+	fmt.Fprintf(os.Stdout, "Response from `SystemAPI.DescribeErrorCodes`: %v\n", resp)
 }
 ```
 
@@ -239,23 +239,23 @@ Describe the policy language spec implemented by this service.
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.SystemApi.DescribePolicy(context.Background()).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `SystemApi.DescribePolicy``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `DescribePolicy`: []GateSpec
-    fmt.Fprintf(os.Stdout, "Response from `SystemApi.DescribePolicy`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.SystemAPI.DescribePolicy(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `SystemAPI.DescribePolicy``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `DescribePolicy`: []GateSpec
+	fmt.Fprintf(os.Stdout, "Response from `SystemAPI.DescribePolicy`: %v\n", resp)
 }
 ```
 
@@ -298,23 +298,23 @@ Get an anchorectl binary compatible with this version of Anchore Enterprise
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
-    operatingSystem := "operatingSystem_example" // string | The operating system (platform) of the binary to retrieve
-    architecture := "architecture_example" // string | The architecture of the binary to retrieve
+	operatingSystem := "operatingSystem_example" // string | The operating system (platform) of the binary to retrieve
+	architecture := "architecture_example" // string | The architecture of the binary to retrieve
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.SystemApi.GetAnchorectl(context.Background()).OperatingSystem(operatingSystem).Architecture(architecture).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `SystemApi.GetAnchorectl``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.SystemAPI.GetAnchorectl(context.Background()).OperatingSystem(operatingSystem).Architecture(architecture).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `SystemAPI.GetAnchorectl``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -364,23 +364,23 @@ System status
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.SystemApi.GetServiceDetail(context.Background()).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `SystemApi.GetServiceDetail``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetServiceDetail`: SystemStatusResponse
-    fmt.Fprintf(os.Stdout, "Response from `SystemApi.GetServiceDetail`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.SystemAPI.GetServiceDetail(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `SystemAPI.GetServiceDetail``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetServiceDetail`: SystemStatusResponse
+	fmt.Fprintf(os.Stdout, "Response from `SystemAPI.GetServiceDetail`: %v\n", resp)
 }
 ```
 
@@ -423,24 +423,24 @@ Get a service configuration and state
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
-    serviceName := "serviceName_example" // string | 
+	serviceName := "serviceName_example" // string | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.SystemApi.GetServicesByName(context.Background(), serviceName).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `SystemApi.GetServicesByName``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetServicesByName`: []Service
-    fmt.Fprintf(os.Stdout, "Response from `SystemApi.GetServicesByName`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.SystemAPI.GetServicesByName(context.Background(), serviceName).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `SystemAPI.GetServicesByName``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetServicesByName`: []Service
+	fmt.Fprintf(os.Stdout, "Response from `SystemAPI.GetServicesByName`: %v\n", resp)
 }
 ```
 
@@ -491,25 +491,25 @@ Get service config for a specific host
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
-    serviceName := "serviceName_example" // string | 
-    hostId := "hostId_example" // string | 
+	serviceName := "serviceName_example" // string | 
+	hostId := "hostId_example" // string | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.SystemApi.GetServicesByNameAndHost(context.Background(), serviceName, hostId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `SystemApi.GetServicesByNameAndHost``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetServicesByNameAndHost`: []Service
-    fmt.Fprintf(os.Stdout, "Response from `SystemApi.GetServicesByNameAndHost`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.SystemAPI.GetServicesByNameAndHost(context.Background(), serviceName, hostId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `SystemAPI.GetServicesByNameAndHost``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetServicesByNameAndHost`: []Service
+	fmt.Fprintf(os.Stdout, "Response from `SystemAPI.GetServicesByNameAndHost`: %v\n", resp)
 }
 ```
 
@@ -564,23 +564,23 @@ Service status
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.SystemApi.GetStatus(context.Background()).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `SystemApi.GetStatus``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetStatus`: StatusResponse
-    fmt.Fprintf(os.Stdout, "Response from `SystemApi.GetStatus`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.SystemAPI.GetStatus(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `SystemAPI.GetStatus``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetStatus`: StatusResponse
+	fmt.Fprintf(os.Stdout, "Response from `SystemAPI.GetStatus`: %v\n", resp)
 }
 ```
 
@@ -625,25 +625,25 @@ No authorization required
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
-    feed := "feed_example" // string | The data feed to query
-    version := "version_example" // string | The version of the feed to query
+	feed := "feed_example" // string | The data feed to query
+	version := "version_example" // string | The version of the feed to query
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.SystemApi.GetSystemFeed(context.Background(), feed).Version(version).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `SystemApi.GetSystemFeed``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetSystemFeed`: FeedDataRecord
-    fmt.Fprintf(os.Stdout, "Response from `SystemApi.GetSystemFeed`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.SystemAPI.GetSystemFeed(context.Background(), feed).Version(version).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `SystemAPI.GetSystemFeed``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetSystemFeed`: FeedDataRecord
+	fmt.Fprintf(os.Stdout, "Response from `SystemAPI.GetSystemFeed`: %v\n", resp)
 }
 ```
 
@@ -697,23 +697,23 @@ list feeds operations and information
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.SystemApi.GetSystemFeeds(context.Background()).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `SystemApi.GetSystemFeeds``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetSystemFeeds`: []FeedMetadata
-    fmt.Fprintf(os.Stdout, "Response from `SystemApi.GetSystemFeeds`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.SystemAPI.GetSystemFeeds(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `SystemAPI.GetSystemFeeds``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetSystemFeeds`: []FeedMetadata
+	fmt.Fprintf(os.Stdout, "Response from `SystemAPI.GetSystemFeeds`: %v\n", resp)
 }
 ```
 
@@ -758,21 +758,21 @@ No authorization required
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.SystemApi.HealthCheck(context.Background()).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `SystemApi.HealthCheck``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.SystemAPI.HealthCheck(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `SystemAPI.HealthCheck``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -815,23 +815,23 @@ List system services
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.SystemApi.ListServices(context.Background()).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `SystemApi.ListServices``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ListServices`: []Service
-    fmt.Fprintf(os.Stdout, "Response from `SystemApi.ListServices`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.SystemAPI.ListServices(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `SystemAPI.ListServices``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ListServices`: []Service
+	fmt.Fprintf(os.Stdout, "Response from `SystemAPI.ListServices`: %v\n", resp)
 }
 ```
 
@@ -876,23 +876,23 @@ No authorization required
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.SystemApi.Ping(context.Background()).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `SystemApi.Ping``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `Ping`: string
-    fmt.Fprintf(os.Stdout, "Response from `SystemApi.Ping`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.SystemAPI.Ping(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `SystemAPI.Ping``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `Ping`: string
+	fmt.Fprintf(os.Stdout, "Response from `SystemAPI.Ping`: %v\n", resp)
 }
 ```
 
@@ -937,24 +937,24 @@ trigger feeds operations
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
-    forceSync := true // bool | If set this will cause the data-syncer to ignore checksum matches and force a resync (optional)
+	forceSync := true // bool | If set this will cause the data-syncer to ignore checksum matches and force a resync (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.SystemApi.PostSystemFeeds(context.Background()).ForceSync(forceSync).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `SystemApi.PostSystemFeeds``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `PostSystemFeeds`: PostSystemFeeds200Response
-    fmt.Fprintf(os.Stdout, "Response from `SystemApi.PostSystemFeeds`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.SystemAPI.PostSystemFeeds(context.Background()).ForceSync(forceSync).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `SystemAPI.PostSystemFeeds``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PostSystemFeeds`: PostSystemFeeds200Response
+	fmt.Fprintf(os.Stdout, "Response from `SystemAPI.PostSystemFeeds`: %v\n", resp)
 }
 ```
 
@@ -1003,24 +1003,24 @@ Change logging level for a running service
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
-    logging := *openapiclient.NewLoggingLevel("ServiceName_example", "LoggingLevel_example") // LoggingLevel | 
+	logging := *openapiclient.NewLoggingLevel("ServiceName_example", "LoggingLevel_example") // LoggingLevel | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.SystemApi.SetNewLogLevel(context.Background()).Logging(logging).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `SystemApi.SetNewLogLevel``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `SetNewLogLevel`: []LoggingLevel
-    fmt.Fprintf(os.Stdout, "Response from `SystemApi.SetNewLogLevel`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.SystemAPI.SetNewLogLevel(context.Background()).Logging(logging).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `SystemAPI.SetNewLogLevel``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `SetNewLogLevel`: []LoggingLevel
+	fmt.Fprintf(os.Stdout, "Response from `SystemAPI.SetNewLogLevel`: %v\n", resp)
 }
 ```
 
@@ -1069,23 +1069,23 @@ Adds the capabilities to test a webhook delivery for the given notification type
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
-    webhookType := "webhookType_example" // string | The Webhook Type that we should test
-    notificationType := "notificationType_example" // string | What kind of Notification to send (optional) (default to "tag_update")
+	webhookType := "webhookType_example" // string | The Webhook Type that we should test
+	notificationType := "notificationType_example" // string | What kind of Notification to send (optional) (default to "tag_update")
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.SystemApi.TestWebhook(context.Background(), webhookType).NotificationType(notificationType).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `SystemApi.TestWebhook``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.SystemAPI.TestWebhook(context.Background(), webhookType).NotificationType(notificationType).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `SystemAPI.TestWebhook``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -1139,25 +1139,25 @@ No authorization required
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
-    feed := "feed_example" // string | 
-    enabled := true // bool | 
+	feed := "feed_example" // string | 
+	enabled := true // bool | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.SystemApi.ToggleFeedEnabled(context.Background(), feed).Enabled(enabled).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `SystemApi.ToggleFeedEnabled``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ToggleFeedEnabled`: FeedMetadata
-    fmt.Fprintf(os.Stdout, "Response from `SystemApi.ToggleFeedEnabled`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.SystemAPI.ToggleFeedEnabled(context.Background(), feed).Enabled(enabled).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `SystemAPI.ToggleFeedEnabled``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ToggleFeedEnabled`: FeedMetadata
+	fmt.Fprintf(os.Stdout, "Response from `SystemAPI.ToggleFeedEnabled`: %v\n", resp)
 }
 ```
 
@@ -1211,26 +1211,26 @@ No authorization required
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
-    feed := "feed_example" // string | The data feed to upload
-    version := "version_example" // string | The version of the data set to upload
-    built := "built_example" // string | Build timestsamp
-    checksum := "checksum_example" // string | Digest of the data record
-    file := os.NewFile(1234, "some_file") // *os.File |  (optional)
+	feed := "feed_example" // string | The data feed to upload
+	version := "version_example" // string | The version of the data set to upload
+	built := "built_example" // string | Build timestsamp
+	checksum := "checksum_example" // string | Digest of the data record
+	file := os.NewFile(1234, "some_file") // *os.File |  (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.SystemApi.UploadSystemFeed(context.Background(), feed).Version(version).Built(built).Checksum(checksum).File(file).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `SystemApi.UploadSystemFeed``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.SystemAPI.UploadSystemFeed(context.Background(), feed).Version(version).Built(built).Checksum(checksum).File(file).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `SystemAPI.UploadSystemFeed``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -1287,23 +1287,23 @@ No authorization required
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.SystemApi.VersionCheck(context.Background()).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `SystemApi.VersionCheck``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `VersionCheck`: ServiceVersion
-    fmt.Fprintf(os.Stdout, "Response from `SystemApi.VersionCheck`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.SystemAPI.VersionCheck(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `SystemAPI.VersionCheck``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `VersionCheck`: ServiceVersion
+	fmt.Fprintf(os.Stdout, "Response from `SystemAPI.VersionCheck`: %v\n", resp)
 }
 ```
 

@@ -14,94 +14,19 @@ package enterprise
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
 	"strings"
 )
 
 
-type CorrectionsApi interface {
-
-	/*
-	AddCorrection Create a correction record
-
-	Add a correction record that will be used to fix false positive matches
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiAddCorrectionRequest
-	*/
-	AddCorrection(ctx context.Context) ApiAddCorrectionRequest
-
-	// AddCorrectionExecute executes the request
-	//  @return Correction
-	AddCorrectionExecute(r ApiAddCorrectionRequest) (*Correction, *http.Response, error)
-
-	/*
-	DeleteCorrectionByUuid Delete a correction by UUID
-
-	Delete a single correction, looked up via it's uuid
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param uuid
-	@return ApiDeleteCorrectionByUuidRequest
-	*/
-	DeleteCorrectionByUuid(ctx context.Context, uuid string) ApiDeleteCorrectionByUuidRequest
-
-	// DeleteCorrectionByUuidExecute executes the request
-	DeleteCorrectionByUuidExecute(r ApiDeleteCorrectionByUuidRequest) (*http.Response, error)
-
-	/*
-	GetCorrectionByUuid Retrieve a correction by UUID
-
-	Returns a single correction, looked up via it's uuid
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param uuid
-	@return ApiGetCorrectionByUuidRequest
-	*/
-	GetCorrectionByUuid(ctx context.Context, uuid string) ApiGetCorrectionByUuidRequest
-
-	// GetCorrectionByUuidExecute executes the request
-	//  @return Correction
-	GetCorrectionByUuidExecute(r ApiGetCorrectionByUuidRequest) (*Correction, *http.Response, error)
-
-	/*
-	GetCorrections Retrieve a list of corrections
-
-	Returns a list of corrections
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiGetCorrectionsRequest
-	*/
-	GetCorrections(ctx context.Context) ApiGetCorrectionsRequest
-
-	// GetCorrectionsExecute executes the request
-	//  @return []Correction
-	GetCorrectionsExecute(r ApiGetCorrectionsRequest) ([]Correction, *http.Response, error)
-
-	/*
-	UpdateCorrectionByUuid Update a correction by UUID
-
-	Updates a single correction, looked up via it's uuid
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param uuid
-	@return ApiUpdateCorrectionByUuidRequest
-	*/
-	UpdateCorrectionByUuid(ctx context.Context, uuid string) ApiUpdateCorrectionByUuidRequest
-
-	// UpdateCorrectionByUuidExecute executes the request
-	//  @return Correction
-	UpdateCorrectionByUuidExecute(r ApiUpdateCorrectionByUuidRequest) (*Correction, *http.Response, error)
-}
-
-// CorrectionsApiService CorrectionsApi service
-type CorrectionsApiService service
+// CorrectionsAPIService CorrectionsAPI service
+type CorrectionsAPIService service
 
 type ApiAddCorrectionRequest struct {
 	ctx context.Context
-	ApiService CorrectionsApi
+	ApiService *CorrectionsAPIService
 	correction *Correction
 	xAnchoreAccount *string
 }
@@ -129,7 +54,7 @@ Add a correction record that will be used to fix false positive matches
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiAddCorrectionRequest
 */
-func (a *CorrectionsApiService) AddCorrection(ctx context.Context) ApiAddCorrectionRequest {
+func (a *CorrectionsAPIService) AddCorrection(ctx context.Context) ApiAddCorrectionRequest {
 	return ApiAddCorrectionRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -138,7 +63,7 @@ func (a *CorrectionsApiService) AddCorrection(ctx context.Context) ApiAddCorrect
 
 // Execute executes the request
 //  @return Correction
-func (a *CorrectionsApiService) AddCorrectionExecute(r ApiAddCorrectionRequest) (*Correction, *http.Response, error) {
+func (a *CorrectionsAPIService) AddCorrectionExecute(r ApiAddCorrectionRequest) (*Correction, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
@@ -146,7 +71,7 @@ func (a *CorrectionsApiService) AddCorrectionExecute(r ApiAddCorrectionRequest) 
 		localVarReturnValue  *Correction
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CorrectionsApiService.AddCorrection")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CorrectionsAPIService.AddCorrection")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -178,7 +103,7 @@ func (a *CorrectionsApiService) AddCorrectionExecute(r ApiAddCorrectionRequest) 
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.xAnchoreAccount != nil {
-		localVarHeaderParams["x-anchore-account"] = parameterToString(*r.xAnchoreAccount, "")
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "x-anchore-account", r.xAnchoreAccount, "simple", "")
 	}
 	// body params
 	localVarPostBody = r.correction
@@ -192,9 +117,9 @@ func (a *CorrectionsApiService) AddCorrectionExecute(r ApiAddCorrectionRequest) 
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -221,7 +146,7 @@ func (a *CorrectionsApiService) AddCorrectionExecute(r ApiAddCorrectionRequest) 
 
 type ApiDeleteCorrectionByUuidRequest struct {
 	ctx context.Context
-	ApiService CorrectionsApi
+	ApiService *CorrectionsAPIService
 	uuid string
 	xAnchoreAccount *string
 }
@@ -245,7 +170,7 @@ Delete a single correction, looked up via it's uuid
  @param uuid
  @return ApiDeleteCorrectionByUuidRequest
 */
-func (a *CorrectionsApiService) DeleteCorrectionByUuid(ctx context.Context, uuid string) ApiDeleteCorrectionByUuidRequest {
+func (a *CorrectionsAPIService) DeleteCorrectionByUuid(ctx context.Context, uuid string) ApiDeleteCorrectionByUuidRequest {
 	return ApiDeleteCorrectionByUuidRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -254,20 +179,20 @@ func (a *CorrectionsApiService) DeleteCorrectionByUuid(ctx context.Context, uuid
 }
 
 // Execute executes the request
-func (a *CorrectionsApiService) DeleteCorrectionByUuidExecute(r ApiDeleteCorrectionByUuidRequest) (*http.Response, error) {
+func (a *CorrectionsAPIService) DeleteCorrectionByUuidExecute(r ApiDeleteCorrectionByUuidRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodDelete
 		localVarPostBody     interface{}
 		formFiles            []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CorrectionsApiService.DeleteCorrectionByUuid")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CorrectionsAPIService.DeleteCorrectionByUuid")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/corrections/{uuid}"
-	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", url.PathEscape(parameterToString(r.uuid, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", url.PathEscape(parameterValueToString(r.uuid, "uuid")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -291,7 +216,7 @@ func (a *CorrectionsApiService) DeleteCorrectionByUuidExecute(r ApiDeleteCorrect
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.xAnchoreAccount != nil {
-		localVarHeaderParams["x-anchore-account"] = parameterToString(*r.xAnchoreAccount, "")
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "x-anchore-account", r.xAnchoreAccount, "simple", "")
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
@@ -303,9 +228,9 @@ func (a *CorrectionsApiService) DeleteCorrectionByUuidExecute(r ApiDeleteCorrect
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -323,7 +248,7 @@ func (a *CorrectionsApiService) DeleteCorrectionByUuidExecute(r ApiDeleteCorrect
 
 type ApiGetCorrectionByUuidRequest struct {
 	ctx context.Context
-	ApiService CorrectionsApi
+	ApiService *CorrectionsAPIService
 	uuid string
 	xAnchoreAccount *string
 }
@@ -347,7 +272,7 @@ Returns a single correction, looked up via it's uuid
  @param uuid
  @return ApiGetCorrectionByUuidRequest
 */
-func (a *CorrectionsApiService) GetCorrectionByUuid(ctx context.Context, uuid string) ApiGetCorrectionByUuidRequest {
+func (a *CorrectionsAPIService) GetCorrectionByUuid(ctx context.Context, uuid string) ApiGetCorrectionByUuidRequest {
 	return ApiGetCorrectionByUuidRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -357,7 +282,7 @@ func (a *CorrectionsApiService) GetCorrectionByUuid(ctx context.Context, uuid st
 
 // Execute executes the request
 //  @return Correction
-func (a *CorrectionsApiService) GetCorrectionByUuidExecute(r ApiGetCorrectionByUuidRequest) (*Correction, *http.Response, error) {
+func (a *CorrectionsAPIService) GetCorrectionByUuidExecute(r ApiGetCorrectionByUuidRequest) (*Correction, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
@@ -365,13 +290,13 @@ func (a *CorrectionsApiService) GetCorrectionByUuidExecute(r ApiGetCorrectionByU
 		localVarReturnValue  *Correction
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CorrectionsApiService.GetCorrectionByUuid")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CorrectionsAPIService.GetCorrectionByUuid")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/corrections/{uuid}"
-	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", url.PathEscape(parameterToString(r.uuid, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", url.PathEscape(parameterValueToString(r.uuid, "uuid")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -395,7 +320,7 @@ func (a *CorrectionsApiService) GetCorrectionByUuidExecute(r ApiGetCorrectionByU
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.xAnchoreAccount != nil {
-		localVarHeaderParams["x-anchore-account"] = parameterToString(*r.xAnchoreAccount, "")
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "x-anchore-account", r.xAnchoreAccount, "simple", "")
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
@@ -407,9 +332,9 @@ func (a *CorrectionsApiService) GetCorrectionByUuidExecute(r ApiGetCorrectionByU
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -436,7 +361,7 @@ func (a *CorrectionsApiService) GetCorrectionByUuidExecute(r ApiGetCorrectionByU
 
 type ApiGetCorrectionsRequest struct {
 	ctx context.Context
-	ApiService CorrectionsApi
+	ApiService *CorrectionsAPIService
 	correctionType *string
 	xAnchoreAccount *string
 }
@@ -464,7 +389,7 @@ Returns a list of corrections
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiGetCorrectionsRequest
 */
-func (a *CorrectionsApiService) GetCorrections(ctx context.Context) ApiGetCorrectionsRequest {
+func (a *CorrectionsAPIService) GetCorrections(ctx context.Context) ApiGetCorrectionsRequest {
 	return ApiGetCorrectionsRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -473,7 +398,7 @@ func (a *CorrectionsApiService) GetCorrections(ctx context.Context) ApiGetCorrec
 
 // Execute executes the request
 //  @return []Correction
-func (a *CorrectionsApiService) GetCorrectionsExecute(r ApiGetCorrectionsRequest) ([]Correction, *http.Response, error) {
+func (a *CorrectionsAPIService) GetCorrectionsExecute(r ApiGetCorrectionsRequest) ([]Correction, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
@@ -481,7 +406,7 @@ func (a *CorrectionsApiService) GetCorrectionsExecute(r ApiGetCorrectionsRequest
 		localVarReturnValue  []Correction
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CorrectionsApiService.GetCorrections")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CorrectionsAPIService.GetCorrections")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -493,7 +418,7 @@ func (a *CorrectionsApiService) GetCorrectionsExecute(r ApiGetCorrectionsRequest
 	localVarFormParams := url.Values{}
 
 	if r.correctionType != nil {
-		localVarQueryParams.Add("correction_type", parameterToString(*r.correctionType, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "correction_type", r.correctionType, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -513,7 +438,7 @@ func (a *CorrectionsApiService) GetCorrectionsExecute(r ApiGetCorrectionsRequest
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.xAnchoreAccount != nil {
-		localVarHeaderParams["x-anchore-account"] = parameterToString(*r.xAnchoreAccount, "")
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "x-anchore-account", r.xAnchoreAccount, "simple", "")
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
@@ -525,9 +450,9 @@ func (a *CorrectionsApiService) GetCorrectionsExecute(r ApiGetCorrectionsRequest
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -554,7 +479,7 @@ func (a *CorrectionsApiService) GetCorrectionsExecute(r ApiGetCorrectionsRequest
 
 type ApiUpdateCorrectionByUuidRequest struct {
 	ctx context.Context
-	ApiService CorrectionsApi
+	ApiService *CorrectionsAPIService
 	uuid string
 	correction *Correction
 	xAnchoreAccount *string
@@ -584,7 +509,7 @@ Updates a single correction, looked up via it's uuid
  @param uuid
  @return ApiUpdateCorrectionByUuidRequest
 */
-func (a *CorrectionsApiService) UpdateCorrectionByUuid(ctx context.Context, uuid string) ApiUpdateCorrectionByUuidRequest {
+func (a *CorrectionsAPIService) UpdateCorrectionByUuid(ctx context.Context, uuid string) ApiUpdateCorrectionByUuidRequest {
 	return ApiUpdateCorrectionByUuidRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -594,7 +519,7 @@ func (a *CorrectionsApiService) UpdateCorrectionByUuid(ctx context.Context, uuid
 
 // Execute executes the request
 //  @return Correction
-func (a *CorrectionsApiService) UpdateCorrectionByUuidExecute(r ApiUpdateCorrectionByUuidRequest) (*Correction, *http.Response, error) {
+func (a *CorrectionsAPIService) UpdateCorrectionByUuidExecute(r ApiUpdateCorrectionByUuidRequest) (*Correction, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPut
 		localVarPostBody     interface{}
@@ -602,13 +527,13 @@ func (a *CorrectionsApiService) UpdateCorrectionByUuidExecute(r ApiUpdateCorrect
 		localVarReturnValue  *Correction
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CorrectionsApiService.UpdateCorrectionByUuid")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CorrectionsAPIService.UpdateCorrectionByUuid")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/corrections/{uuid}"
-	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", url.PathEscape(parameterToString(r.uuid, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"uuid"+"}", url.PathEscape(parameterValueToString(r.uuid, "uuid")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -635,7 +560,7 @@ func (a *CorrectionsApiService) UpdateCorrectionByUuidExecute(r ApiUpdateCorrect
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.xAnchoreAccount != nil {
-		localVarHeaderParams["x-anchore-account"] = parameterToString(*r.xAnchoreAccount, "")
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "x-anchore-account", r.xAnchoreAccount, "simple", "")
 	}
 	// body params
 	localVarPostBody = r.correction
@@ -649,9 +574,9 @@ func (a *CorrectionsApiService) UpdateCorrectionByUuidExecute(r ApiUpdateCorrect
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}

@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the AnalysisArchiveTransitionRuleExclude type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &AnalysisArchiveTransitionRuleExclude{}
+
 // AnalysisArchiveTransitionRuleExclude Which Images to exclude from auto-archiving logic
 type AnalysisArchiveTransitionRuleExclude struct {
 	Selector *ImageSelector `json:"selector,omitempty"`
@@ -43,7 +46,7 @@ func NewAnalysisArchiveTransitionRuleExcludeWithDefaults() *AnalysisArchiveTrans
 
 // GetSelector returns the Selector field value if set, zero value otherwise.
 func (o *AnalysisArchiveTransitionRuleExclude) GetSelector() ImageSelector {
-	if o == nil || o.Selector == nil {
+	if o == nil || IsNil(o.Selector) {
 		var ret ImageSelector
 		return ret
 	}
@@ -53,7 +56,7 @@ func (o *AnalysisArchiveTransitionRuleExclude) GetSelector() ImageSelector {
 // GetSelectorOk returns a tuple with the Selector field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AnalysisArchiveTransitionRuleExclude) GetSelectorOk() (*ImageSelector, bool) {
-	if o == nil || o.Selector == nil {
+	if o == nil || IsNil(o.Selector) {
 		return nil, false
 	}
 	return o.Selector, true
@@ -61,7 +64,7 @@ func (o *AnalysisArchiveTransitionRuleExclude) GetSelectorOk() (*ImageSelector, 
 
 // HasSelector returns a boolean if a field has been set.
 func (o *AnalysisArchiveTransitionRuleExclude) HasSelector() bool {
-	if o != nil && o.Selector != nil {
+	if o != nil && !IsNil(o.Selector) {
 		return true
 	}
 
@@ -75,7 +78,7 @@ func (o *AnalysisArchiveTransitionRuleExclude) SetSelector(v ImageSelector) {
 
 // GetExpirationDays returns the ExpirationDays field value if set, zero value otherwise.
 func (o *AnalysisArchiveTransitionRuleExclude) GetExpirationDays() int32 {
-	if o == nil || o.ExpirationDays == nil {
+	if o == nil || IsNil(o.ExpirationDays) {
 		var ret int32
 		return ret
 	}
@@ -85,7 +88,7 @@ func (o *AnalysisArchiveTransitionRuleExclude) GetExpirationDays() int32 {
 // GetExpirationDaysOk returns a tuple with the ExpirationDays field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AnalysisArchiveTransitionRuleExclude) GetExpirationDaysOk() (*int32, bool) {
-	if o == nil || o.ExpirationDays == nil {
+	if o == nil || IsNil(o.ExpirationDays) {
 		return nil, false
 	}
 	return o.ExpirationDays, true
@@ -93,7 +96,7 @@ func (o *AnalysisArchiveTransitionRuleExclude) GetExpirationDaysOk() (*int32, bo
 
 // HasExpirationDays returns a boolean if a field has been set.
 func (o *AnalysisArchiveTransitionRuleExclude) HasExpirationDays() bool {
-	if o != nil && o.ExpirationDays != nil {
+	if o != nil && !IsNil(o.ExpirationDays) {
 		return true
 	}
 
@@ -107,7 +110,7 @@ func (o *AnalysisArchiveTransitionRuleExclude) SetExpirationDays(v int32) {
 
 // GetLastSeenInDays returns the LastSeenInDays field value if set, zero value otherwise.
 func (o *AnalysisArchiveTransitionRuleExclude) GetLastSeenInDays() int32 {
-	if o == nil || o.LastSeenInDays == nil {
+	if o == nil || IsNil(o.LastSeenInDays) {
 		var ret int32
 		return ret
 	}
@@ -117,7 +120,7 @@ func (o *AnalysisArchiveTransitionRuleExclude) GetLastSeenInDays() int32 {
 // GetLastSeenInDaysOk returns a tuple with the LastSeenInDays field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AnalysisArchiveTransitionRuleExclude) GetLastSeenInDaysOk() (*int32, bool) {
-	if o == nil || o.LastSeenInDays == nil {
+	if o == nil || IsNil(o.LastSeenInDays) {
 		return nil, false
 	}
 	return o.LastSeenInDays, true
@@ -125,7 +128,7 @@ func (o *AnalysisArchiveTransitionRuleExclude) GetLastSeenInDaysOk() (*int32, bo
 
 // HasLastSeenInDays returns a boolean if a field has been set.
 func (o *AnalysisArchiveTransitionRuleExclude) HasLastSeenInDays() bool {
-	if o != nil && o.LastSeenInDays != nil {
+	if o != nil && !IsNil(o.LastSeenInDays) {
 		return true
 	}
 
@@ -138,17 +141,25 @@ func (o *AnalysisArchiveTransitionRuleExclude) SetLastSeenInDays(v int32) {
 }
 
 func (o AnalysisArchiveTransitionRuleExclude) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Selector != nil {
-		toSerialize["selector"] = o.Selector
-	}
-	if o.ExpirationDays != nil {
-		toSerialize["expiration_days"] = o.ExpirationDays
-	}
-	if o.LastSeenInDays != nil {
-		toSerialize["last_seen_in_days"] = o.LastSeenInDays
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o AnalysisArchiveTransitionRuleExclude) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Selector) {
+		toSerialize["selector"] = o.Selector
+	}
+	if !IsNil(o.ExpirationDays) {
+		toSerialize["expiration_days"] = o.ExpirationDays
+	}
+	if !IsNil(o.LastSeenInDays) {
+		toSerialize["last_seen_in_days"] = o.LastSeenInDays
+	}
+	return toSerialize, nil
 }
 
 type NullableAnalysisArchiveTransitionRuleExclude struct {

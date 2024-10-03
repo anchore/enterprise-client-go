@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the VulnDiffResult type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &VulnDiffResult{}
+
 // VulnDiffResult The results of the comparing two vulnerability records during an update
 type VulnDiffResult struct {
 	Added []interface{} `json:"added,omitempty"`
@@ -41,7 +44,7 @@ func NewVulnDiffResultWithDefaults() *VulnDiffResult {
 
 // GetAdded returns the Added field value if set, zero value otherwise.
 func (o *VulnDiffResult) GetAdded() []interface{} {
-	if o == nil || o.Added == nil {
+	if o == nil || IsNil(o.Added) {
 		var ret []interface{}
 		return ret
 	}
@@ -51,7 +54,7 @@ func (o *VulnDiffResult) GetAdded() []interface{} {
 // GetAddedOk returns a tuple with the Added field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *VulnDiffResult) GetAddedOk() ([]interface{}, bool) {
-	if o == nil || o.Added == nil {
+	if o == nil || IsNil(o.Added) {
 		return nil, false
 	}
 	return o.Added, true
@@ -59,7 +62,7 @@ func (o *VulnDiffResult) GetAddedOk() ([]interface{}, bool) {
 
 // HasAdded returns a boolean if a field has been set.
 func (o *VulnDiffResult) HasAdded() bool {
-	if o != nil && o.Added != nil {
+	if o != nil && !IsNil(o.Added) {
 		return true
 	}
 
@@ -73,7 +76,7 @@ func (o *VulnDiffResult) SetAdded(v []interface{}) {
 
 // GetUpdated returns the Updated field value if set, zero value otherwise.
 func (o *VulnDiffResult) GetUpdated() []interface{} {
-	if o == nil || o.Updated == nil {
+	if o == nil || IsNil(o.Updated) {
 		var ret []interface{}
 		return ret
 	}
@@ -83,7 +86,7 @@ func (o *VulnDiffResult) GetUpdated() []interface{} {
 // GetUpdatedOk returns a tuple with the Updated field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *VulnDiffResult) GetUpdatedOk() ([]interface{}, bool) {
-	if o == nil || o.Updated == nil {
+	if o == nil || IsNil(o.Updated) {
 		return nil, false
 	}
 	return o.Updated, true
@@ -91,7 +94,7 @@ func (o *VulnDiffResult) GetUpdatedOk() ([]interface{}, bool) {
 
 // HasUpdated returns a boolean if a field has been set.
 func (o *VulnDiffResult) HasUpdated() bool {
-	if o != nil && o.Updated != nil {
+	if o != nil && !IsNil(o.Updated) {
 		return true
 	}
 
@@ -105,7 +108,7 @@ func (o *VulnDiffResult) SetUpdated(v []interface{}) {
 
 // GetRemoved returns the Removed field value if set, zero value otherwise.
 func (o *VulnDiffResult) GetRemoved() []interface{} {
-	if o == nil || o.Removed == nil {
+	if o == nil || IsNil(o.Removed) {
 		var ret []interface{}
 		return ret
 	}
@@ -115,7 +118,7 @@ func (o *VulnDiffResult) GetRemoved() []interface{} {
 // GetRemovedOk returns a tuple with the Removed field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *VulnDiffResult) GetRemovedOk() ([]interface{}, bool) {
-	if o == nil || o.Removed == nil {
+	if o == nil || IsNil(o.Removed) {
 		return nil, false
 	}
 	return o.Removed, true
@@ -123,7 +126,7 @@ func (o *VulnDiffResult) GetRemovedOk() ([]interface{}, bool) {
 
 // HasRemoved returns a boolean if a field has been set.
 func (o *VulnDiffResult) HasRemoved() bool {
-	if o != nil && o.Removed != nil {
+	if o != nil && !IsNil(o.Removed) {
 		return true
 	}
 
@@ -136,17 +139,25 @@ func (o *VulnDiffResult) SetRemoved(v []interface{}) {
 }
 
 func (o VulnDiffResult) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Added != nil {
-		toSerialize["added"] = o.Added
-	}
-	if o.Updated != nil {
-		toSerialize["updated"] = o.Updated
-	}
-	if o.Removed != nil {
-		toSerialize["removed"] = o.Removed
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o VulnDiffResult) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Added) {
+		toSerialize["added"] = o.Added
+	}
+	if !IsNil(o.Updated) {
+		toSerialize["updated"] = o.Updated
+	}
+	if !IsNil(o.Removed) {
+		toSerialize["removed"] = o.Removed
+	}
+	return toSerialize, nil
 }
 
 type NullableVulnDiffResult struct {

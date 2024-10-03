@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the ImageAncestor type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ImageAncestor{}
+
 // ImageAncestor An summary of an image and it's layers.
 type ImageAncestor struct {
 	// The digest of the image
@@ -47,7 +50,7 @@ func NewImageAncestorWithDefaults() *ImageAncestor {
 
 // GetImageDigest returns the ImageDigest field value if set, zero value otherwise.
 func (o *ImageAncestor) GetImageDigest() string {
-	if o == nil || o.ImageDigest == nil {
+	if o == nil || IsNil(o.ImageDigest) {
 		var ret string
 		return ret
 	}
@@ -57,7 +60,7 @@ func (o *ImageAncestor) GetImageDigest() string {
 // GetImageDigestOk returns a tuple with the ImageDigest field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ImageAncestor) GetImageDigestOk() (*string, bool) {
-	if o == nil || o.ImageDigest == nil {
+	if o == nil || IsNil(o.ImageDigest) {
 		return nil, false
 	}
 	return o.ImageDigest, true
@@ -65,7 +68,7 @@ func (o *ImageAncestor) GetImageDigestOk() (*string, bool) {
 
 // HasImageDigest returns a boolean if a field has been set.
 func (o *ImageAncestor) HasImageDigest() bool {
-	if o != nil && o.ImageDigest != nil {
+	if o != nil && !IsNil(o.ImageDigest) {
 		return true
 	}
 
@@ -79,7 +82,7 @@ func (o *ImageAncestor) SetImageDigest(v string) {
 
 // GetTags returns the Tags field value if set, zero value otherwise.
 func (o *ImageAncestor) GetTags() []string {
-	if o == nil || o.Tags == nil {
+	if o == nil || IsNil(o.Tags) {
 		var ret []string
 		return ret
 	}
@@ -89,7 +92,7 @@ func (o *ImageAncestor) GetTags() []string {
 // GetTagsOk returns a tuple with the Tags field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ImageAncestor) GetTagsOk() ([]string, bool) {
-	if o == nil || o.Tags == nil {
+	if o == nil || IsNil(o.Tags) {
 		return nil, false
 	}
 	return o.Tags, true
@@ -97,7 +100,7 @@ func (o *ImageAncestor) GetTagsOk() ([]string, bool) {
 
 // HasTags returns a boolean if a field has been set.
 func (o *ImageAncestor) HasTags() bool {
-	if o != nil && o.Tags != nil {
+	if o != nil && !IsNil(o.Tags) {
 		return true
 	}
 
@@ -111,7 +114,7 @@ func (o *ImageAncestor) SetTags(v []string) {
 
 // GetLayers returns the Layers field value if set, zero value otherwise.
 func (o *ImageAncestor) GetLayers() []string {
-	if o == nil || o.Layers == nil {
+	if o == nil || IsNil(o.Layers) {
 		var ret []string
 		return ret
 	}
@@ -121,7 +124,7 @@ func (o *ImageAncestor) GetLayers() []string {
 // GetLayersOk returns a tuple with the Layers field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ImageAncestor) GetLayersOk() ([]string, bool) {
-	if o == nil || o.Layers == nil {
+	if o == nil || IsNil(o.Layers) {
 		return nil, false
 	}
 	return o.Layers, true
@@ -129,7 +132,7 @@ func (o *ImageAncestor) GetLayersOk() ([]string, bool) {
 
 // HasLayers returns a boolean if a field has been set.
 func (o *ImageAncestor) HasLayers() bool {
-	if o != nil && o.Layers != nil {
+	if o != nil && !IsNil(o.Layers) {
 		return true
 	}
 
@@ -143,7 +146,7 @@ func (o *ImageAncestor) SetLayers(v []string) {
 
 // GetUserMarkedBase returns the UserMarkedBase field value if set, zero value otherwise.
 func (o *ImageAncestor) GetUserMarkedBase() bool {
-	if o == nil || o.UserMarkedBase == nil {
+	if o == nil || IsNil(o.UserMarkedBase) {
 		var ret bool
 		return ret
 	}
@@ -153,7 +156,7 @@ func (o *ImageAncestor) GetUserMarkedBase() bool {
 // GetUserMarkedBaseOk returns a tuple with the UserMarkedBase field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ImageAncestor) GetUserMarkedBaseOk() (*bool, bool) {
-	if o == nil || o.UserMarkedBase == nil {
+	if o == nil || IsNil(o.UserMarkedBase) {
 		return nil, false
 	}
 	return o.UserMarkedBase, true
@@ -161,7 +164,7 @@ func (o *ImageAncestor) GetUserMarkedBaseOk() (*bool, bool) {
 
 // HasUserMarkedBase returns a boolean if a field has been set.
 func (o *ImageAncestor) HasUserMarkedBase() bool {
-	if o != nil && o.UserMarkedBase != nil {
+	if o != nil && !IsNil(o.UserMarkedBase) {
 		return true
 	}
 
@@ -175,7 +178,7 @@ func (o *ImageAncestor) SetUserMarkedBase(v bool) {
 
 // GetChosenBaseImage returns the ChosenBaseImage field value if set, zero value otherwise.
 func (o *ImageAncestor) GetChosenBaseImage() bool {
-	if o == nil || o.ChosenBaseImage == nil {
+	if o == nil || IsNil(o.ChosenBaseImage) {
 		var ret bool
 		return ret
 	}
@@ -185,7 +188,7 @@ func (o *ImageAncestor) GetChosenBaseImage() bool {
 // GetChosenBaseImageOk returns a tuple with the ChosenBaseImage field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ImageAncestor) GetChosenBaseImageOk() (*bool, bool) {
-	if o == nil || o.ChosenBaseImage == nil {
+	if o == nil || IsNil(o.ChosenBaseImage) {
 		return nil, false
 	}
 	return o.ChosenBaseImage, true
@@ -193,7 +196,7 @@ func (o *ImageAncestor) GetChosenBaseImageOk() (*bool, bool) {
 
 // HasChosenBaseImage returns a boolean if a field has been set.
 func (o *ImageAncestor) HasChosenBaseImage() bool {
-	if o != nil && o.ChosenBaseImage != nil {
+	if o != nil && !IsNil(o.ChosenBaseImage) {
 		return true
 	}
 
@@ -206,23 +209,31 @@ func (o *ImageAncestor) SetChosenBaseImage(v bool) {
 }
 
 func (o ImageAncestor) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.ImageDigest != nil {
-		toSerialize["image_digest"] = o.ImageDigest
-	}
-	if o.Tags != nil {
-		toSerialize["tags"] = o.Tags
-	}
-	if o.Layers != nil {
-		toSerialize["layers"] = o.Layers
-	}
-	if o.UserMarkedBase != nil {
-		toSerialize["user_marked_base"] = o.UserMarkedBase
-	}
-	if o.ChosenBaseImage != nil {
-		toSerialize["chosen_base_image"] = o.ChosenBaseImage
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o ImageAncestor) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.ImageDigest) {
+		toSerialize["image_digest"] = o.ImageDigest
+	}
+	if !IsNil(o.Tags) {
+		toSerialize["tags"] = o.Tags
+	}
+	if !IsNil(o.Layers) {
+		toSerialize["layers"] = o.Layers
+	}
+	if !IsNil(o.UserMarkedBase) {
+		toSerialize["user_marked_base"] = o.UserMarkedBase
+	}
+	if !IsNil(o.ChosenBaseImage) {
+		toSerialize["chosen_base_image"] = o.ChosenBaseImage
+	}
+	return toSerialize, nil
 }
 
 type NullableImageAncestor struct {

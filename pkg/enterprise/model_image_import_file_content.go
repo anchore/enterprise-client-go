@@ -13,13 +13,20 @@ package enterprise
 
 import (
 	"encoding/json"
+	"bytes"
+	"fmt"
 )
+
+// checks if the ImageImportFileContent type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ImageImportFileContent{}
 
 // ImageImportFileContent struct for ImageImportFileContent
 type ImageImportFileContent struct {
 	Location ImportPackageLocation `json:"location"`
 	Contents string `json:"contents"`
 }
+
+type _ImageImportFileContent ImageImportFileContent
 
 // NewImageImportFileContent instantiates a new ImageImportFileContent object
 // This constructor will assign default values to properties that have it defined,
@@ -89,14 +96,56 @@ func (o *ImageImportFileContent) SetContents(v string) {
 }
 
 func (o ImageImportFileContent) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["location"] = o.Location
-	}
-	if true {
-		toSerialize["contents"] = o.Contents
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o ImageImportFileContent) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["location"] = o.Location
+	toSerialize["contents"] = o.Contents
+	return toSerialize, nil
+}
+
+func (o *ImageImportFileContent) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"location",
+		"contents",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varImageImportFileContent := _ImageImportFileContent{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varImageImportFileContent)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ImageImportFileContent(varImageImportFileContent)
+
+	return err
 }
 
 type NullableImageImportFileContent struct {

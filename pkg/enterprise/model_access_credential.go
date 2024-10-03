@@ -13,7 +13,12 @@ package enterprise
 
 import (
 	"encoding/json"
+	"bytes"
+	"fmt"
 )
+
+// checks if the AccessCredential type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &AccessCredential{}
 
 // AccessCredential A login credential mapped to a user identity. For password credentials, the username to present for Basic auth is the user's username from the user record
 type AccessCredential struct {
@@ -24,6 +29,8 @@ type AccessCredential struct {
 	// The timestamp of creation of the credential
 	CreatedAt *string `json:"created_at,omitempty"`
 }
+
+type _AccessCredential AccessCredential
 
 // NewAccessCredential instantiates a new AccessCredential object
 // This constructor will assign default values to properties that have it defined,
@@ -94,7 +101,7 @@ func (o *AccessCredential) SetValue(v string) {
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
 func (o *AccessCredential) GetCreatedAt() string {
-	if o == nil || o.CreatedAt == nil {
+	if o == nil || IsNil(o.CreatedAt) {
 		var ret string
 		return ret
 	}
@@ -104,7 +111,7 @@ func (o *AccessCredential) GetCreatedAt() string {
 // GetCreatedAtOk returns a tuple with the CreatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AccessCredential) GetCreatedAtOk() (*string, bool) {
-	if o == nil || o.CreatedAt == nil {
+	if o == nil || IsNil(o.CreatedAt) {
 		return nil, false
 	}
 	return o.CreatedAt, true
@@ -112,7 +119,7 @@ func (o *AccessCredential) GetCreatedAtOk() (*string, bool) {
 
 // HasCreatedAt returns a boolean if a field has been set.
 func (o *AccessCredential) HasCreatedAt() bool {
-	if o != nil && o.CreatedAt != nil {
+	if o != nil && !IsNil(o.CreatedAt) {
 		return true
 	}
 
@@ -125,17 +132,59 @@ func (o *AccessCredential) SetCreatedAt(v string) {
 }
 
 func (o AccessCredential) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["type"] = o.Type
-	}
-	if true {
-		toSerialize["value"] = o.Value
-	}
-	if o.CreatedAt != nil {
-		toSerialize["created_at"] = o.CreatedAt
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o AccessCredential) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["type"] = o.Type
+	toSerialize["value"] = o.Value
+	if !IsNil(o.CreatedAt) {
+		toSerialize["created_at"] = o.CreatedAt
+	}
+	return toSerialize, nil
+}
+
+func (o *AccessCredential) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"type",
+		"value",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varAccessCredential := _AccessCredential{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varAccessCredential)
+
+	if err != nil {
+		return err
+	}
+
+	*o = AccessCredential(varAccessCredential)
+
+	return err
 }
 
 type NullableAccessCredential struct {

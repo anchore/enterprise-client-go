@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the TriggerParamSpec type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &TriggerParamSpec{}
+
 // TriggerParamSpec struct for TriggerParamSpec
 type TriggerParamSpec struct {
 	// Parameter name as it appears in policy document
@@ -51,7 +54,7 @@ func NewTriggerParamSpecWithDefaults() *TriggerParamSpec {
 
 // GetName returns the Name field value if set, zero value otherwise.
 func (o *TriggerParamSpec) GetName() string {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		var ret string
 		return ret
 	}
@@ -61,7 +64,7 @@ func (o *TriggerParamSpec) GetName() string {
 // GetNameOk returns a tuple with the Name field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TriggerParamSpec) GetNameOk() (*string, bool) {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		return nil, false
 	}
 	return o.Name, true
@@ -69,7 +72,7 @@ func (o *TriggerParamSpec) GetNameOk() (*string, bool) {
 
 // HasName returns a boolean if a field has been set.
 func (o *TriggerParamSpec) HasName() bool {
-	if o != nil && o.Name != nil {
+	if o != nil && !IsNil(o.Name) {
 		return true
 	}
 
@@ -83,7 +86,7 @@ func (o *TriggerParamSpec) SetName(v string) {
 
 // GetDescription returns the Description field value if set, zero value otherwise.
 func (o *TriggerParamSpec) GetDescription() string {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		var ret string
 		return ret
 	}
@@ -93,7 +96,7 @@ func (o *TriggerParamSpec) GetDescription() string {
 // GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TriggerParamSpec) GetDescriptionOk() (*string, bool) {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		return nil, false
 	}
 	return o.Description, true
@@ -101,7 +104,7 @@ func (o *TriggerParamSpec) GetDescriptionOk() (*string, bool) {
 
 // HasDescription returns a boolean if a field has been set.
 func (o *TriggerParamSpec) HasDescription() bool {
-	if o != nil && o.Description != nil {
+	if o != nil && !IsNil(o.Description) {
 		return true
 	}
 
@@ -115,7 +118,7 @@ func (o *TriggerParamSpec) SetDescription(v string) {
 
 // GetExample returns the Example field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *TriggerParamSpec) GetExample() string {
-	if o == nil || o.Example.Get() == nil {
+	if o == nil || IsNil(o.Example.Get()) {
 		var ret string
 		return ret
 	}
@@ -157,7 +160,7 @@ func (o *TriggerParamSpec) UnsetExample() {
 
 // GetState returns the State field value if set, zero value otherwise.
 func (o *TriggerParamSpec) GetState() string {
-	if o == nil || o.State == nil {
+	if o == nil || IsNil(o.State) {
 		var ret string
 		return ret
 	}
@@ -167,7 +170,7 @@ func (o *TriggerParamSpec) GetState() string {
 // GetStateOk returns a tuple with the State field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TriggerParamSpec) GetStateOk() (*string, bool) {
-	if o == nil || o.State == nil {
+	if o == nil || IsNil(o.State) {
 		return nil, false
 	}
 	return o.State, true
@@ -175,7 +178,7 @@ func (o *TriggerParamSpec) GetStateOk() (*string, bool) {
 
 // HasState returns a boolean if a field has been set.
 func (o *TriggerParamSpec) HasState() bool {
-	if o != nil && o.State != nil {
+	if o != nil && !IsNil(o.State) {
 		return true
 	}
 
@@ -189,7 +192,7 @@ func (o *TriggerParamSpec) SetState(v string) {
 
 // GetSupersededBy returns the SupersededBy field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *TriggerParamSpec) GetSupersededBy() string {
-	if o == nil || o.SupersededBy.Get() == nil {
+	if o == nil || IsNil(o.SupersededBy.Get()) {
 		var ret string
 		return ret
 	}
@@ -231,7 +234,7 @@ func (o *TriggerParamSpec) UnsetSupersededBy() {
 
 // GetRequired returns the Required field value if set, zero value otherwise.
 func (o *TriggerParamSpec) GetRequired() bool {
-	if o == nil || o.Required == nil {
+	if o == nil || IsNil(o.Required) {
 		var ret bool
 		return ret
 	}
@@ -241,7 +244,7 @@ func (o *TriggerParamSpec) GetRequired() bool {
 // GetRequiredOk returns a tuple with the Required field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TriggerParamSpec) GetRequiredOk() (*bool, bool) {
-	if o == nil || o.Required == nil {
+	if o == nil || IsNil(o.Required) {
 		return nil, false
 	}
 	return o.Required, true
@@ -249,7 +252,7 @@ func (o *TriggerParamSpec) GetRequiredOk() (*bool, bool) {
 
 // HasRequired returns a boolean if a field has been set.
 func (o *TriggerParamSpec) HasRequired() bool {
-	if o != nil && o.Required != nil {
+	if o != nil && !IsNil(o.Required) {
 		return true
 	}
 
@@ -263,7 +266,7 @@ func (o *TriggerParamSpec) SetRequired(v bool) {
 
 // GetValidator returns the Validator field value if set, zero value otherwise.
 func (o *TriggerParamSpec) GetValidator() interface{} {
-	if o == nil || o.Validator == nil {
+	if o == nil || IsNil(o.Validator) {
 		var ret interface{}
 		return ret
 	}
@@ -273,7 +276,7 @@ func (o *TriggerParamSpec) GetValidator() interface{} {
 // GetValidatorOk returns a tuple with the Validator field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TriggerParamSpec) GetValidatorOk() (interface{}, bool) {
-	if o == nil || o.Validator == nil {
+	if o == nil || IsNil(o.Validator) {
 		return nil, false
 	}
 	return o.Validator, true
@@ -281,7 +284,7 @@ func (o *TriggerParamSpec) GetValidatorOk() (interface{}, bool) {
 
 // HasValidator returns a boolean if a field has been set.
 func (o *TriggerParamSpec) HasValidator() bool {
-	if o != nil && o.Validator != nil {
+	if o != nil && !IsNil(o.Validator) {
 		return true
 	}
 
@@ -294,29 +297,37 @@ func (o *TriggerParamSpec) SetValidator(v interface{}) {
 }
 
 func (o TriggerParamSpec) MarshalJSON() ([]byte, error) {
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o TriggerParamSpec) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Name != nil {
+	if !IsNil(o.Name) {
 		toSerialize["name"] = o.Name
 	}
-	if o.Description != nil {
+	if !IsNil(o.Description) {
 		toSerialize["description"] = o.Description
 	}
 	if o.Example.IsSet() {
 		toSerialize["example"] = o.Example.Get()
 	}
-	if o.State != nil {
+	if !IsNil(o.State) {
 		toSerialize["state"] = o.State
 	}
 	if o.SupersededBy.IsSet() {
 		toSerialize["superseded_by"] = o.SupersededBy.Get()
 	}
-	if o.Required != nil {
+	if !IsNil(o.Required) {
 		toSerialize["required"] = o.Required
 	}
-	if o.Validator != nil {
+	if !IsNil(o.Validator) {
 		toSerialize["validator"] = o.Validator
 	}
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
 type NullableTriggerParamSpec struct {

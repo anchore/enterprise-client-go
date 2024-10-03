@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the UserGroupRolePostRolesInner type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &UserGroupRolePostRolesInner{}
+
 // UserGroupRolePostRolesInner struct for UserGroupRolePostRolesInner
 type UserGroupRolePostRolesInner struct {
 	// The name of the rbac role
@@ -40,7 +43,7 @@ func NewUserGroupRolePostRolesInnerWithDefaults() *UserGroupRolePostRolesInner {
 
 // GetRole returns the Role field value if set, zero value otherwise.
 func (o *UserGroupRolePostRolesInner) GetRole() string {
-	if o == nil || o.Role == nil {
+	if o == nil || IsNil(o.Role) {
 		var ret string
 		return ret
 	}
@@ -50,7 +53,7 @@ func (o *UserGroupRolePostRolesInner) GetRole() string {
 // GetRoleOk returns a tuple with the Role field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserGroupRolePostRolesInner) GetRoleOk() (*string, bool) {
-	if o == nil || o.Role == nil {
+	if o == nil || IsNil(o.Role) {
 		return nil, false
 	}
 	return o.Role, true
@@ -58,7 +61,7 @@ func (o *UserGroupRolePostRolesInner) GetRoleOk() (*string, bool) {
 
 // HasRole returns a boolean if a field has been set.
 func (o *UserGroupRolePostRolesInner) HasRole() bool {
-	if o != nil && o.Role != nil {
+	if o != nil && !IsNil(o.Role) {
 		return true
 	}
 
@@ -71,11 +74,19 @@ func (o *UserGroupRolePostRolesInner) SetRole(v string) {
 }
 
 func (o UserGroupRolePostRolesInner) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Role != nil {
-		toSerialize["role"] = o.Role
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o UserGroupRolePostRolesInner) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Role) {
+		toSerialize["role"] = o.Role
+	}
+	return toSerialize, nil
 }
 
 type NullableUserGroupRolePostRolesInner struct {

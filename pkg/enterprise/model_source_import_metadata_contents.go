@@ -13,13 +13,20 @@ package enterprise
 
 import (
 	"encoding/json"
+	"bytes"
+	"fmt"
 )
+
+// checks if the SourceImportMetadataContents type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &SourceImportMetadataContents{}
 
 // SourceImportMetadataContents Digest of content to use in the final import
 type SourceImportMetadataContents struct {
 	// Digest to use for the sbom
 	Sbom string `json:"sbom"`
 }
+
+type _SourceImportMetadataContents SourceImportMetadataContents
 
 // NewSourceImportMetadataContents instantiates a new SourceImportMetadataContents object
 // This constructor will assign default values to properties that have it defined,
@@ -64,11 +71,54 @@ func (o *SourceImportMetadataContents) SetSbom(v string) {
 }
 
 func (o SourceImportMetadataContents) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["sbom"] = o.Sbom
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o SourceImportMetadataContents) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["sbom"] = o.Sbom
+	return toSerialize, nil
+}
+
+func (o *SourceImportMetadataContents) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"sbom",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varSourceImportMetadataContents := _SourceImportMetadataContents{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varSourceImportMetadataContents)
+
+	if err != nil {
+		return err
+	}
+
+	*o = SourceImportMetadataContents(varSourceImportMetadataContents)
+
+	return err
 }
 
 type NullableSourceImportMetadataContents struct {

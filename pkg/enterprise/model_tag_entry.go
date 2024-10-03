@@ -16,6 +16,9 @@ import (
 	"time"
 )
 
+// checks if the TagEntry type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &TagEntry{}
+
 // TagEntry A docker-pullable tag value as well as deconstructed components
 type TagEntry struct {
 	// The pullable string for the tag. E.g. \"docker.io/library/node:latest\"
@@ -49,7 +52,7 @@ func NewTagEntryWithDefaults() *TagEntry {
 
 // GetFullTag returns the FullTag field value if set, zero value otherwise.
 func (o *TagEntry) GetFullTag() string {
-	if o == nil || o.FullTag == nil {
+	if o == nil || IsNil(o.FullTag) {
 		var ret string
 		return ret
 	}
@@ -59,7 +62,7 @@ func (o *TagEntry) GetFullTag() string {
 // GetFullTagOk returns a tuple with the FullTag field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TagEntry) GetFullTagOk() (*string, bool) {
-	if o == nil || o.FullTag == nil {
+	if o == nil || IsNil(o.FullTag) {
 		return nil, false
 	}
 	return o.FullTag, true
@@ -67,7 +70,7 @@ func (o *TagEntry) GetFullTagOk() (*string, bool) {
 
 // HasFullTag returns a boolean if a field has been set.
 func (o *TagEntry) HasFullTag() bool {
-	if o != nil && o.FullTag != nil {
+	if o != nil && !IsNil(o.FullTag) {
 		return true
 	}
 
@@ -81,7 +84,7 @@ func (o *TagEntry) SetFullTag(v string) {
 
 // GetRegistry returns the Registry field value if set, zero value otherwise.
 func (o *TagEntry) GetRegistry() string {
-	if o == nil || o.Registry == nil {
+	if o == nil || IsNil(o.Registry) {
 		var ret string
 		return ret
 	}
@@ -91,7 +94,7 @@ func (o *TagEntry) GetRegistry() string {
 // GetRegistryOk returns a tuple with the Registry field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TagEntry) GetRegistryOk() (*string, bool) {
-	if o == nil || o.Registry == nil {
+	if o == nil || IsNil(o.Registry) {
 		return nil, false
 	}
 	return o.Registry, true
@@ -99,7 +102,7 @@ func (o *TagEntry) GetRegistryOk() (*string, bool) {
 
 // HasRegistry returns a boolean if a field has been set.
 func (o *TagEntry) HasRegistry() bool {
-	if o != nil && o.Registry != nil {
+	if o != nil && !IsNil(o.Registry) {
 		return true
 	}
 
@@ -113,7 +116,7 @@ func (o *TagEntry) SetRegistry(v string) {
 
 // GetRepo returns the Repo field value if set, zero value otherwise.
 func (o *TagEntry) GetRepo() string {
-	if o == nil || o.Repo == nil {
+	if o == nil || IsNil(o.Repo) {
 		var ret string
 		return ret
 	}
@@ -123,7 +126,7 @@ func (o *TagEntry) GetRepo() string {
 // GetRepoOk returns a tuple with the Repo field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TagEntry) GetRepoOk() (*string, bool) {
-	if o == nil || o.Repo == nil {
+	if o == nil || IsNil(o.Repo) {
 		return nil, false
 	}
 	return o.Repo, true
@@ -131,7 +134,7 @@ func (o *TagEntry) GetRepoOk() (*string, bool) {
 
 // HasRepo returns a boolean if a field has been set.
 func (o *TagEntry) HasRepo() bool {
-	if o != nil && o.Repo != nil {
+	if o != nil && !IsNil(o.Repo) {
 		return true
 	}
 
@@ -145,7 +148,7 @@ func (o *TagEntry) SetRepo(v string) {
 
 // GetTag returns the Tag field value if set, zero value otherwise.
 func (o *TagEntry) GetTag() string {
-	if o == nil || o.Tag == nil {
+	if o == nil || IsNil(o.Tag) {
 		var ret string
 		return ret
 	}
@@ -155,7 +158,7 @@ func (o *TagEntry) GetTag() string {
 // GetTagOk returns a tuple with the Tag field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TagEntry) GetTagOk() (*string, bool) {
-	if o == nil || o.Tag == nil {
+	if o == nil || IsNil(o.Tag) {
 		return nil, false
 	}
 	return o.Tag, true
@@ -163,7 +166,7 @@ func (o *TagEntry) GetTagOk() (*string, bool) {
 
 // HasTag returns a boolean if a field has been set.
 func (o *TagEntry) HasTag() bool {
-	if o != nil && o.Tag != nil {
+	if o != nil && !IsNil(o.Tag) {
 		return true
 	}
 
@@ -177,7 +180,7 @@ func (o *TagEntry) SetTag(v string) {
 
 // GetTagDetectedAt returns the TagDetectedAt field value if set, zero value otherwise.
 func (o *TagEntry) GetTagDetectedAt() time.Time {
-	if o == nil || o.TagDetectedAt == nil {
+	if o == nil || IsNil(o.TagDetectedAt) {
 		var ret time.Time
 		return ret
 	}
@@ -187,7 +190,7 @@ func (o *TagEntry) GetTagDetectedAt() time.Time {
 // GetTagDetectedAtOk returns a tuple with the TagDetectedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TagEntry) GetTagDetectedAtOk() (*time.Time, bool) {
-	if o == nil || o.TagDetectedAt == nil {
+	if o == nil || IsNil(o.TagDetectedAt) {
 		return nil, false
 	}
 	return o.TagDetectedAt, true
@@ -195,7 +198,7 @@ func (o *TagEntry) GetTagDetectedAtOk() (*time.Time, bool) {
 
 // HasTagDetectedAt returns a boolean if a field has been set.
 func (o *TagEntry) HasTagDetectedAt() bool {
-	if o != nil && o.TagDetectedAt != nil {
+	if o != nil && !IsNil(o.TagDetectedAt) {
 		return true
 	}
 
@@ -208,23 +211,31 @@ func (o *TagEntry) SetTagDetectedAt(v time.Time) {
 }
 
 func (o TagEntry) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.FullTag != nil {
-		toSerialize["full_tag"] = o.FullTag
-	}
-	if o.Registry != nil {
-		toSerialize["registry"] = o.Registry
-	}
-	if o.Repo != nil {
-		toSerialize["repo"] = o.Repo
-	}
-	if o.Tag != nil {
-		toSerialize["tag"] = o.Tag
-	}
-	if o.TagDetectedAt != nil {
-		toSerialize["tag_detected_at"] = o.TagDetectedAt
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o TagEntry) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.FullTag) {
+		toSerialize["full_tag"] = o.FullTag
+	}
+	if !IsNil(o.Registry) {
+		toSerialize["registry"] = o.Registry
+	}
+	if !IsNil(o.Repo) {
+		toSerialize["repo"] = o.Repo
+	}
+	if !IsNil(o.Tag) {
+		toSerialize["tag"] = o.Tag
+	}
+	if !IsNil(o.TagDetectedAt) {
+		toSerialize["tag_detected_at"] = o.TagDetectedAt
+	}
+	return toSerialize, nil
 }
 
 type NullableTagEntry struct {

@@ -13,7 +13,11 @@ package enterprise
 
 import (
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the NativeSBOMPackageRelationship type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &NativeSBOMPackageRelationship{}
 
 // NativeSBOMPackageRelationship struct for NativeSBOMPackageRelationship
 type NativeSBOMPackageRelationship struct {
@@ -120,7 +124,7 @@ func (o *NativeSBOMPackageRelationship) SetType(v string) {
 
 // GetMetadata returns the Metadata field value if set, zero value otherwise.
 func (o *NativeSBOMPackageRelationship) GetMetadata() map[string]interface{} {
-	if o == nil || o.Metadata == nil {
+	if o == nil || IsNil(o.Metadata) {
 		var ret map[string]interface{}
 		return ret
 	}
@@ -130,15 +134,15 @@ func (o *NativeSBOMPackageRelationship) GetMetadata() map[string]interface{} {
 // GetMetadataOk returns a tuple with the Metadata field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *NativeSBOMPackageRelationship) GetMetadataOk() (map[string]interface{}, bool) {
-	if o == nil || o.Metadata == nil {
-		return nil, false
+	if o == nil || IsNil(o.Metadata) {
+		return map[string]interface{}{}, false
 	}
 	return o.Metadata, true
 }
 
 // HasMetadata returns a boolean if a field has been set.
 func (o *NativeSBOMPackageRelationship) HasMetadata() bool {
-	if o != nil && o.Metadata != nil {
+	if o != nil && !IsNil(o.Metadata) {
 		return true
 	}
 
@@ -151,17 +155,19 @@ func (o *NativeSBOMPackageRelationship) SetMetadata(v map[string]interface{}) {
 }
 
 func (o NativeSBOMPackageRelationship) MarshalJSON() ([]byte, error) {
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o NativeSBOMPackageRelationship) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["parent"] = o.Parent
-	}
-	if true {
-		toSerialize["child"] = o.Child
-	}
-	if true {
-		toSerialize["type"] = o.Type
-	}
-	if o.Metadata != nil {
+	toSerialize["parent"] = o.Parent
+	toSerialize["child"] = o.Child
+	toSerialize["type"] = o.Type
+	if !IsNil(o.Metadata) {
 		toSerialize["metadata"] = o.Metadata
 	}
 
@@ -169,19 +175,46 @@ func (o NativeSBOMPackageRelationship) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *NativeSBOMPackageRelationship) UnmarshalJSON(bytes []byte) (err error) {
+func (o *NativeSBOMPackageRelationship) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"parent",
+		"child",
+		"type",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
 	varNativeSBOMPackageRelationship := _NativeSBOMPackageRelationship{}
 
-	if err = json.Unmarshal(bytes, &varNativeSBOMPackageRelationship); err == nil {
-		*o = NativeSBOMPackageRelationship(varNativeSBOMPackageRelationship)
+	err = json.Unmarshal(data, &varNativeSBOMPackageRelationship)
+
+	if err != nil {
+		return err
 	}
+
+	*o = NativeSBOMPackageRelationship(varNativeSBOMPackageRelationship)
 
 	additionalProperties := make(map[string]interface{})
 
-	if err = json.Unmarshal(bytes, &additionalProperties); err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "parent")
 		delete(additionalProperties, "child")
 		delete(additionalProperties, "type")

@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the ECSTasks type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ECSTasks{}
+
 // ECSTasks Tasks defined in ECS
 type ECSTasks struct {
 	Tasks []ECSTask `json:"tasks,omitempty"`
@@ -39,7 +42,7 @@ func NewECSTasksWithDefaults() *ECSTasks {
 
 // GetTasks returns the Tasks field value if set, zero value otherwise.
 func (o *ECSTasks) GetTasks() []ECSTask {
-	if o == nil || o.Tasks == nil {
+	if o == nil || IsNil(o.Tasks) {
 		var ret []ECSTask
 		return ret
 	}
@@ -49,7 +52,7 @@ func (o *ECSTasks) GetTasks() []ECSTask {
 // GetTasksOk returns a tuple with the Tasks field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ECSTasks) GetTasksOk() ([]ECSTask, bool) {
-	if o == nil || o.Tasks == nil {
+	if o == nil || IsNil(o.Tasks) {
 		return nil, false
 	}
 	return o.Tasks, true
@@ -57,7 +60,7 @@ func (o *ECSTasks) GetTasksOk() ([]ECSTask, bool) {
 
 // HasTasks returns a boolean if a field has been set.
 func (o *ECSTasks) HasTasks() bool {
-	if o != nil && o.Tasks != nil {
+	if o != nil && !IsNil(o.Tasks) {
 		return true
 	}
 
@@ -70,11 +73,19 @@ func (o *ECSTasks) SetTasks(v []ECSTask) {
 }
 
 func (o ECSTasks) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Tasks != nil {
-		toSerialize["tasks"] = o.Tasks
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o ECSTasks) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Tasks) {
+		toSerialize["tasks"] = o.Tasks
+	}
+	return toSerialize, nil
 }
 
 type NullableECSTasks struct {

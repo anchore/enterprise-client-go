@@ -14,12 +14,17 @@ package enterprise
 import (
 	"encoding/json"
 	"time"
+	"bytes"
+	"fmt"
 )
+
+// checks if the RbacManagerSamlConfigurationGet type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &RbacManagerSamlConfigurationGet{}
 
 // RbacManagerSamlConfigurationGet struct for RbacManagerSamlConfigurationGet
 type RbacManagerSamlConfigurationGet struct {
 	// The name to use for referencing this IDP configuration. This will configured as part of the url string the Idp must have the client POST the saml assertion to.
-	Name string `json:"name"`
+	Name string `json:"name" validate:"regexp=^[a-zA-Z0-9_-]+$"`
 	// If this IDP configuration should be enabled for user logins
 	Enabled bool `json:"enabled"`
 	// The entity ID for this SP. Can be the same for all IDP configurations in this installation or unique to each. This is typically a URL, but you can use any value as long as you also configure the IDP to expect this value.
@@ -55,6 +60,8 @@ type RbacManagerSamlConfigurationGet struct {
 	// List of user groups associated with this IDP (Only for GET operations)
 	UserGroups []RbacManagerSamlConfigurationGetAllOfUserGroups `json:"user_groups,omitempty"`
 }
+
+type _RbacManagerSamlConfigurationGet RbacManagerSamlConfigurationGet
 
 // NewRbacManagerSamlConfigurationGet instantiates a new RbacManagerSamlConfigurationGet object
 // This constructor will assign default values to properties that have it defined,
@@ -187,7 +194,7 @@ func (o *RbacManagerSamlConfigurationGet) SetAcsUrl(v string) {
 
 // GetAcsHttpsPort returns the AcsHttpsPort field value if set, zero value otherwise.
 func (o *RbacManagerSamlConfigurationGet) GetAcsHttpsPort() int32 {
-	if o == nil || o.AcsHttpsPort == nil {
+	if o == nil || IsNil(o.AcsHttpsPort) {
 		var ret int32
 		return ret
 	}
@@ -197,7 +204,7 @@ func (o *RbacManagerSamlConfigurationGet) GetAcsHttpsPort() int32 {
 // GetAcsHttpsPortOk returns a tuple with the AcsHttpsPort field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RbacManagerSamlConfigurationGet) GetAcsHttpsPortOk() (*int32, bool) {
-	if o == nil || o.AcsHttpsPort == nil {
+	if o == nil || IsNil(o.AcsHttpsPort) {
 		return nil, false
 	}
 	return o.AcsHttpsPort, true
@@ -205,7 +212,7 @@ func (o *RbacManagerSamlConfigurationGet) GetAcsHttpsPortOk() (*int32, bool) {
 
 // HasAcsHttpsPort returns a boolean if a field has been set.
 func (o *RbacManagerSamlConfigurationGet) HasAcsHttpsPort() bool {
-	if o != nil && o.AcsHttpsPort != nil {
+	if o != nil && !IsNil(o.AcsHttpsPort) {
 		return true
 	}
 
@@ -219,7 +226,7 @@ func (o *RbacManagerSamlConfigurationGet) SetAcsHttpsPort(v int32) {
 
 // GetIdpMetadataUrl returns the IdpMetadataUrl field value if set, zero value otherwise.
 func (o *RbacManagerSamlConfigurationGet) GetIdpMetadataUrl() string {
-	if o == nil || o.IdpMetadataUrl == nil {
+	if o == nil || IsNil(o.IdpMetadataUrl) {
 		var ret string
 		return ret
 	}
@@ -229,7 +236,7 @@ func (o *RbacManagerSamlConfigurationGet) GetIdpMetadataUrl() string {
 // GetIdpMetadataUrlOk returns a tuple with the IdpMetadataUrl field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RbacManagerSamlConfigurationGet) GetIdpMetadataUrlOk() (*string, bool) {
-	if o == nil || o.IdpMetadataUrl == nil {
+	if o == nil || IsNil(o.IdpMetadataUrl) {
 		return nil, false
 	}
 	return o.IdpMetadataUrl, true
@@ -237,7 +244,7 @@ func (o *RbacManagerSamlConfigurationGet) GetIdpMetadataUrlOk() (*string, bool) 
 
 // HasIdpMetadataUrl returns a boolean if a field has been set.
 func (o *RbacManagerSamlConfigurationGet) HasIdpMetadataUrl() bool {
-	if o != nil && o.IdpMetadataUrl != nil {
+	if o != nil && !IsNil(o.IdpMetadataUrl) {
 		return true
 	}
 
@@ -251,7 +258,7 @@ func (o *RbacManagerSamlConfigurationGet) SetIdpMetadataUrl(v string) {
 
 // GetIdpMetadataXml returns the IdpMetadataXml field value if set, zero value otherwise.
 func (o *RbacManagerSamlConfigurationGet) GetIdpMetadataXml() string {
-	if o == nil || o.IdpMetadataXml == nil {
+	if o == nil || IsNil(o.IdpMetadataXml) {
 		var ret string
 		return ret
 	}
@@ -261,7 +268,7 @@ func (o *RbacManagerSamlConfigurationGet) GetIdpMetadataXml() string {
 // GetIdpMetadataXmlOk returns a tuple with the IdpMetadataXml field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RbacManagerSamlConfigurationGet) GetIdpMetadataXmlOk() (*string, bool) {
-	if o == nil || o.IdpMetadataXml == nil {
+	if o == nil || IsNil(o.IdpMetadataXml) {
 		return nil, false
 	}
 	return o.IdpMetadataXml, true
@@ -269,7 +276,7 @@ func (o *RbacManagerSamlConfigurationGet) GetIdpMetadataXmlOk() (*string, bool) 
 
 // HasIdpMetadataXml returns a boolean if a field has been set.
 func (o *RbacManagerSamlConfigurationGet) HasIdpMetadataXml() bool {
-	if o != nil && o.IdpMetadataXml != nil {
+	if o != nil && !IsNil(o.IdpMetadataXml) {
 		return true
 	}
 
@@ -283,7 +290,7 @@ func (o *RbacManagerSamlConfigurationGet) SetIdpMetadataXml(v string) {
 
 // GetIdpUsernameAttribute returns the IdpUsernameAttribute field value if set, zero value otherwise.
 func (o *RbacManagerSamlConfigurationGet) GetIdpUsernameAttribute() string {
-	if o == nil || o.IdpUsernameAttribute == nil {
+	if o == nil || IsNil(o.IdpUsernameAttribute) {
 		var ret string
 		return ret
 	}
@@ -293,7 +300,7 @@ func (o *RbacManagerSamlConfigurationGet) GetIdpUsernameAttribute() string {
 // GetIdpUsernameAttributeOk returns a tuple with the IdpUsernameAttribute field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RbacManagerSamlConfigurationGet) GetIdpUsernameAttributeOk() (*string, bool) {
-	if o == nil || o.IdpUsernameAttribute == nil {
+	if o == nil || IsNil(o.IdpUsernameAttribute) {
 		return nil, false
 	}
 	return o.IdpUsernameAttribute, true
@@ -301,7 +308,7 @@ func (o *RbacManagerSamlConfigurationGet) GetIdpUsernameAttributeOk() (*string, 
 
 // HasIdpUsernameAttribute returns a boolean if a field has been set.
 func (o *RbacManagerSamlConfigurationGet) HasIdpUsernameAttribute() bool {
-	if o != nil && o.IdpUsernameAttribute != nil {
+	if o != nil && !IsNil(o.IdpUsernameAttribute) {
 		return true
 	}
 
@@ -315,7 +322,7 @@ func (o *RbacManagerSamlConfigurationGet) SetIdpUsernameAttribute(v string) {
 
 // GetIdpAccountAttribute returns the IdpAccountAttribute field value if set, zero value otherwise.
 func (o *RbacManagerSamlConfigurationGet) GetIdpAccountAttribute() string {
-	if o == nil || o.IdpAccountAttribute == nil {
+	if o == nil || IsNil(o.IdpAccountAttribute) {
 		var ret string
 		return ret
 	}
@@ -325,7 +332,7 @@ func (o *RbacManagerSamlConfigurationGet) GetIdpAccountAttribute() string {
 // GetIdpAccountAttributeOk returns a tuple with the IdpAccountAttribute field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RbacManagerSamlConfigurationGet) GetIdpAccountAttributeOk() (*string, bool) {
-	if o == nil || o.IdpAccountAttribute == nil {
+	if o == nil || IsNil(o.IdpAccountAttribute) {
 		return nil, false
 	}
 	return o.IdpAccountAttribute, true
@@ -333,7 +340,7 @@ func (o *RbacManagerSamlConfigurationGet) GetIdpAccountAttributeOk() (*string, b
 
 // HasIdpAccountAttribute returns a boolean if a field has been set.
 func (o *RbacManagerSamlConfigurationGet) HasIdpAccountAttribute() bool {
-	if o != nil && o.IdpAccountAttribute != nil {
+	if o != nil && !IsNil(o.IdpAccountAttribute) {
 		return true
 	}
 
@@ -347,7 +354,7 @@ func (o *RbacManagerSamlConfigurationGet) SetIdpAccountAttribute(v string) {
 
 // GetIdpRoleAttribute returns the IdpRoleAttribute field value if set, zero value otherwise.
 func (o *RbacManagerSamlConfigurationGet) GetIdpRoleAttribute() string {
-	if o == nil || o.IdpRoleAttribute == nil {
+	if o == nil || IsNil(o.IdpRoleAttribute) {
 		var ret string
 		return ret
 	}
@@ -357,7 +364,7 @@ func (o *RbacManagerSamlConfigurationGet) GetIdpRoleAttribute() string {
 // GetIdpRoleAttributeOk returns a tuple with the IdpRoleAttribute field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RbacManagerSamlConfigurationGet) GetIdpRoleAttributeOk() (*string, bool) {
-	if o == nil || o.IdpRoleAttribute == nil {
+	if o == nil || IsNil(o.IdpRoleAttribute) {
 		return nil, false
 	}
 	return o.IdpRoleAttribute, true
@@ -365,7 +372,7 @@ func (o *RbacManagerSamlConfigurationGet) GetIdpRoleAttributeOk() (*string, bool
 
 // HasIdpRoleAttribute returns a boolean if a field has been set.
 func (o *RbacManagerSamlConfigurationGet) HasIdpRoleAttribute() bool {
-	if o != nil && o.IdpRoleAttribute != nil {
+	if o != nil && !IsNil(o.IdpRoleAttribute) {
 		return true
 	}
 
@@ -379,7 +386,7 @@ func (o *RbacManagerSamlConfigurationGet) SetIdpRoleAttribute(v string) {
 
 // GetIdpGroupsAttribute returns the IdpGroupsAttribute field value if set, zero value otherwise.
 func (o *RbacManagerSamlConfigurationGet) GetIdpGroupsAttribute() string {
-	if o == nil || o.IdpGroupsAttribute == nil {
+	if o == nil || IsNil(o.IdpGroupsAttribute) {
 		var ret string
 		return ret
 	}
@@ -389,7 +396,7 @@ func (o *RbacManagerSamlConfigurationGet) GetIdpGroupsAttribute() string {
 // GetIdpGroupsAttributeOk returns a tuple with the IdpGroupsAttribute field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RbacManagerSamlConfigurationGet) GetIdpGroupsAttributeOk() (*string, bool) {
-	if o == nil || o.IdpGroupsAttribute == nil {
+	if o == nil || IsNil(o.IdpGroupsAttribute) {
 		return nil, false
 	}
 	return o.IdpGroupsAttribute, true
@@ -397,7 +404,7 @@ func (o *RbacManagerSamlConfigurationGet) GetIdpGroupsAttributeOk() (*string, bo
 
 // HasIdpGroupsAttribute returns a boolean if a field has been set.
 func (o *RbacManagerSamlConfigurationGet) HasIdpGroupsAttribute() bool {
-	if o != nil && o.IdpGroupsAttribute != nil {
+	if o != nil && !IsNil(o.IdpGroupsAttribute) {
 		return true
 	}
 
@@ -411,7 +418,7 @@ func (o *RbacManagerSamlConfigurationGet) SetIdpGroupsAttribute(v string) {
 
 // GetDefaultAccount returns the DefaultAccount field value if set, zero value otherwise.
 func (o *RbacManagerSamlConfigurationGet) GetDefaultAccount() string {
-	if o == nil || o.DefaultAccount == nil {
+	if o == nil || IsNil(o.DefaultAccount) {
 		var ret string
 		return ret
 	}
@@ -421,7 +428,7 @@ func (o *RbacManagerSamlConfigurationGet) GetDefaultAccount() string {
 // GetDefaultAccountOk returns a tuple with the DefaultAccount field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RbacManagerSamlConfigurationGet) GetDefaultAccountOk() (*string, bool) {
-	if o == nil || o.DefaultAccount == nil {
+	if o == nil || IsNil(o.DefaultAccount) {
 		return nil, false
 	}
 	return o.DefaultAccount, true
@@ -429,7 +436,7 @@ func (o *RbacManagerSamlConfigurationGet) GetDefaultAccountOk() (*string, bool) 
 
 // HasDefaultAccount returns a boolean if a field has been set.
 func (o *RbacManagerSamlConfigurationGet) HasDefaultAccount() bool {
-	if o != nil && o.DefaultAccount != nil {
+	if o != nil && !IsNil(o.DefaultAccount) {
 		return true
 	}
 
@@ -443,7 +450,7 @@ func (o *RbacManagerSamlConfigurationGet) SetDefaultAccount(v string) {
 
 // GetDefaultRole returns the DefaultRole field value if set, zero value otherwise.
 func (o *RbacManagerSamlConfigurationGet) GetDefaultRole() string {
-	if o == nil || o.DefaultRole == nil {
+	if o == nil || IsNil(o.DefaultRole) {
 		var ret string
 		return ret
 	}
@@ -453,7 +460,7 @@ func (o *RbacManagerSamlConfigurationGet) GetDefaultRole() string {
 // GetDefaultRoleOk returns a tuple with the DefaultRole field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RbacManagerSamlConfigurationGet) GetDefaultRoleOk() (*string, bool) {
-	if o == nil || o.DefaultRole == nil {
+	if o == nil || IsNil(o.DefaultRole) {
 		return nil, false
 	}
 	return o.DefaultRole, true
@@ -461,7 +468,7 @@ func (o *RbacManagerSamlConfigurationGet) GetDefaultRoleOk() (*string, bool) {
 
 // HasDefaultRole returns a boolean if a field has been set.
 func (o *RbacManagerSamlConfigurationGet) HasDefaultRole() bool {
-	if o != nil && o.DefaultRole != nil {
+	if o != nil && !IsNil(o.DefaultRole) {
 		return true
 	}
 
@@ -475,7 +482,7 @@ func (o *RbacManagerSamlConfigurationGet) SetDefaultRole(v string) {
 
 // GetRequireSignedAssertions returns the RequireSignedAssertions field value if set, zero value otherwise.
 func (o *RbacManagerSamlConfigurationGet) GetRequireSignedAssertions() bool {
-	if o == nil || o.RequireSignedAssertions == nil {
+	if o == nil || IsNil(o.RequireSignedAssertions) {
 		var ret bool
 		return ret
 	}
@@ -485,7 +492,7 @@ func (o *RbacManagerSamlConfigurationGet) GetRequireSignedAssertions() bool {
 // GetRequireSignedAssertionsOk returns a tuple with the RequireSignedAssertions field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RbacManagerSamlConfigurationGet) GetRequireSignedAssertionsOk() (*bool, bool) {
-	if o == nil || o.RequireSignedAssertions == nil {
+	if o == nil || IsNil(o.RequireSignedAssertions) {
 		return nil, false
 	}
 	return o.RequireSignedAssertions, true
@@ -493,7 +500,7 @@ func (o *RbacManagerSamlConfigurationGet) GetRequireSignedAssertionsOk() (*bool,
 
 // HasRequireSignedAssertions returns a boolean if a field has been set.
 func (o *RbacManagerSamlConfigurationGet) HasRequireSignedAssertions() bool {
-	if o != nil && o.RequireSignedAssertions != nil {
+	if o != nil && !IsNil(o.RequireSignedAssertions) {
 		return true
 	}
 
@@ -507,7 +514,7 @@ func (o *RbacManagerSamlConfigurationGet) SetRequireSignedAssertions(v bool) {
 
 // GetRequireSignedResponse returns the RequireSignedResponse field value if set, zero value otherwise.
 func (o *RbacManagerSamlConfigurationGet) GetRequireSignedResponse() bool {
-	if o == nil || o.RequireSignedResponse == nil {
+	if o == nil || IsNil(o.RequireSignedResponse) {
 		var ret bool
 		return ret
 	}
@@ -517,7 +524,7 @@ func (o *RbacManagerSamlConfigurationGet) GetRequireSignedResponse() bool {
 // GetRequireSignedResponseOk returns a tuple with the RequireSignedResponse field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RbacManagerSamlConfigurationGet) GetRequireSignedResponseOk() (*bool, bool) {
-	if o == nil || o.RequireSignedResponse == nil {
+	if o == nil || IsNil(o.RequireSignedResponse) {
 		return nil, false
 	}
 	return o.RequireSignedResponse, true
@@ -525,7 +532,7 @@ func (o *RbacManagerSamlConfigurationGet) GetRequireSignedResponseOk() (*bool, b
 
 // HasRequireSignedResponse returns a boolean if a field has been set.
 func (o *RbacManagerSamlConfigurationGet) HasRequireSignedResponse() bool {
-	if o != nil && o.RequireSignedResponse != nil {
+	if o != nil && !IsNil(o.RequireSignedResponse) {
 		return true
 	}
 
@@ -539,7 +546,7 @@ func (o *RbacManagerSamlConfigurationGet) SetRequireSignedResponse(v bool) {
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
 func (o *RbacManagerSamlConfigurationGet) GetCreatedAt() time.Time {
-	if o == nil || o.CreatedAt == nil {
+	if o == nil || IsNil(o.CreatedAt) {
 		var ret time.Time
 		return ret
 	}
@@ -549,7 +556,7 @@ func (o *RbacManagerSamlConfigurationGet) GetCreatedAt() time.Time {
 // GetCreatedAtOk returns a tuple with the CreatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RbacManagerSamlConfigurationGet) GetCreatedAtOk() (*time.Time, bool) {
-	if o == nil || o.CreatedAt == nil {
+	if o == nil || IsNil(o.CreatedAt) {
 		return nil, false
 	}
 	return o.CreatedAt, true
@@ -557,7 +564,7 @@ func (o *RbacManagerSamlConfigurationGet) GetCreatedAtOk() (*time.Time, bool) {
 
 // HasCreatedAt returns a boolean if a field has been set.
 func (o *RbacManagerSamlConfigurationGet) HasCreatedAt() bool {
-	if o != nil && o.CreatedAt != nil {
+	if o != nil && !IsNil(o.CreatedAt) {
 		return true
 	}
 
@@ -571,7 +578,7 @@ func (o *RbacManagerSamlConfigurationGet) SetCreatedAt(v time.Time) {
 
 // GetLastUpdated returns the LastUpdated field value if set, zero value otherwise.
 func (o *RbacManagerSamlConfigurationGet) GetLastUpdated() time.Time {
-	if o == nil || o.LastUpdated == nil {
+	if o == nil || IsNil(o.LastUpdated) {
 		var ret time.Time
 		return ret
 	}
@@ -581,7 +588,7 @@ func (o *RbacManagerSamlConfigurationGet) GetLastUpdated() time.Time {
 // GetLastUpdatedOk returns a tuple with the LastUpdated field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RbacManagerSamlConfigurationGet) GetLastUpdatedOk() (*time.Time, bool) {
-	if o == nil || o.LastUpdated == nil {
+	if o == nil || IsNil(o.LastUpdated) {
 		return nil, false
 	}
 	return o.LastUpdated, true
@@ -589,7 +596,7 @@ func (o *RbacManagerSamlConfigurationGet) GetLastUpdatedOk() (*time.Time, bool) 
 
 // HasLastUpdated returns a boolean if a field has been set.
 func (o *RbacManagerSamlConfigurationGet) HasLastUpdated() bool {
-	if o != nil && o.LastUpdated != nil {
+	if o != nil && !IsNil(o.LastUpdated) {
 		return true
 	}
 
@@ -603,7 +610,7 @@ func (o *RbacManagerSamlConfigurationGet) SetLastUpdated(v time.Time) {
 
 // GetRequireExistingUsers returns the RequireExistingUsers field value if set, zero value otherwise.
 func (o *RbacManagerSamlConfigurationGet) GetRequireExistingUsers() bool {
-	if o == nil || o.RequireExistingUsers == nil {
+	if o == nil || IsNil(o.RequireExistingUsers) {
 		var ret bool
 		return ret
 	}
@@ -613,7 +620,7 @@ func (o *RbacManagerSamlConfigurationGet) GetRequireExistingUsers() bool {
 // GetRequireExistingUsersOk returns a tuple with the RequireExistingUsers field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RbacManagerSamlConfigurationGet) GetRequireExistingUsersOk() (*bool, bool) {
-	if o == nil || o.RequireExistingUsers == nil {
+	if o == nil || IsNil(o.RequireExistingUsers) {
 		return nil, false
 	}
 	return o.RequireExistingUsers, true
@@ -621,7 +628,7 @@ func (o *RbacManagerSamlConfigurationGet) GetRequireExistingUsersOk() (*bool, bo
 
 // HasRequireExistingUsers returns a boolean if a field has been set.
 func (o *RbacManagerSamlConfigurationGet) HasRequireExistingUsers() bool {
-	if o != nil && o.RequireExistingUsers != nil {
+	if o != nil && !IsNil(o.RequireExistingUsers) {
 		return true
 	}
 
@@ -635,7 +642,7 @@ func (o *RbacManagerSamlConfigurationGet) SetRequireExistingUsers(v bool) {
 
 // GetUserGroups returns the UserGroups field value if set, zero value otherwise.
 func (o *RbacManagerSamlConfigurationGet) GetUserGroups() []RbacManagerSamlConfigurationGetAllOfUserGroups {
-	if o == nil || o.UserGroups == nil {
+	if o == nil || IsNil(o.UserGroups) {
 		var ret []RbacManagerSamlConfigurationGetAllOfUserGroups
 		return ret
 	}
@@ -645,7 +652,7 @@ func (o *RbacManagerSamlConfigurationGet) GetUserGroups() []RbacManagerSamlConfi
 // GetUserGroupsOk returns a tuple with the UserGroups field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RbacManagerSamlConfigurationGet) GetUserGroupsOk() ([]RbacManagerSamlConfigurationGetAllOfUserGroups, bool) {
-	if o == nil || o.UserGroups == nil {
+	if o == nil || IsNil(o.UserGroups) {
 		return nil, false
 	}
 	return o.UserGroups, true
@@ -653,7 +660,7 @@ func (o *RbacManagerSamlConfigurationGet) GetUserGroupsOk() ([]RbacManagerSamlCo
 
 // HasUserGroups returns a boolean if a field has been set.
 func (o *RbacManagerSamlConfigurationGet) HasUserGroups() bool {
-	if o != nil && o.UserGroups != nil {
+	if o != nil && !IsNil(o.UserGroups) {
 		return true
 	}
 
@@ -666,65 +673,105 @@ func (o *RbacManagerSamlConfigurationGet) SetUserGroups(v []RbacManagerSamlConfi
 }
 
 func (o RbacManagerSamlConfigurationGet) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["name"] = o.Name
-	}
-	if true {
-		toSerialize["enabled"] = o.Enabled
-	}
-	if true {
-		toSerialize["sp_entity_id"] = o.SpEntityId
-	}
-	if true {
-		toSerialize["acs_url"] = o.AcsUrl
-	}
-	if o.AcsHttpsPort != nil {
-		toSerialize["acs_https_port"] = o.AcsHttpsPort
-	}
-	if o.IdpMetadataUrl != nil {
-		toSerialize["idp_metadata_url"] = o.IdpMetadataUrl
-	}
-	if o.IdpMetadataXml != nil {
-		toSerialize["idp_metadata_xml"] = o.IdpMetadataXml
-	}
-	if o.IdpUsernameAttribute != nil {
-		toSerialize["idp_username_attribute"] = o.IdpUsernameAttribute
-	}
-	if o.IdpAccountAttribute != nil {
-		toSerialize["idp_account_attribute"] = o.IdpAccountAttribute
-	}
-	if o.IdpRoleAttribute != nil {
-		toSerialize["idp_role_attribute"] = o.IdpRoleAttribute
-	}
-	if o.IdpGroupsAttribute != nil {
-		toSerialize["idp_groups_attribute"] = o.IdpGroupsAttribute
-	}
-	if o.DefaultAccount != nil {
-		toSerialize["default_account"] = o.DefaultAccount
-	}
-	if o.DefaultRole != nil {
-		toSerialize["default_role"] = o.DefaultRole
-	}
-	if o.RequireSignedAssertions != nil {
-		toSerialize["require_signed_assertions"] = o.RequireSignedAssertions
-	}
-	if o.RequireSignedResponse != nil {
-		toSerialize["require_signed_response"] = o.RequireSignedResponse
-	}
-	if o.CreatedAt != nil {
-		toSerialize["created_at"] = o.CreatedAt
-	}
-	if o.LastUpdated != nil {
-		toSerialize["last_updated"] = o.LastUpdated
-	}
-	if o.RequireExistingUsers != nil {
-		toSerialize["require_existing_users"] = o.RequireExistingUsers
-	}
-	if o.UserGroups != nil {
-		toSerialize["user_groups"] = o.UserGroups
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o RbacManagerSamlConfigurationGet) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["name"] = o.Name
+	toSerialize["enabled"] = o.Enabled
+	toSerialize["sp_entity_id"] = o.SpEntityId
+	toSerialize["acs_url"] = o.AcsUrl
+	if !IsNil(o.AcsHttpsPort) {
+		toSerialize["acs_https_port"] = o.AcsHttpsPort
+	}
+	if !IsNil(o.IdpMetadataUrl) {
+		toSerialize["idp_metadata_url"] = o.IdpMetadataUrl
+	}
+	if !IsNil(o.IdpMetadataXml) {
+		toSerialize["idp_metadata_xml"] = o.IdpMetadataXml
+	}
+	if !IsNil(o.IdpUsernameAttribute) {
+		toSerialize["idp_username_attribute"] = o.IdpUsernameAttribute
+	}
+	if !IsNil(o.IdpAccountAttribute) {
+		toSerialize["idp_account_attribute"] = o.IdpAccountAttribute
+	}
+	if !IsNil(o.IdpRoleAttribute) {
+		toSerialize["idp_role_attribute"] = o.IdpRoleAttribute
+	}
+	if !IsNil(o.IdpGroupsAttribute) {
+		toSerialize["idp_groups_attribute"] = o.IdpGroupsAttribute
+	}
+	if !IsNil(o.DefaultAccount) {
+		toSerialize["default_account"] = o.DefaultAccount
+	}
+	if !IsNil(o.DefaultRole) {
+		toSerialize["default_role"] = o.DefaultRole
+	}
+	if !IsNil(o.RequireSignedAssertions) {
+		toSerialize["require_signed_assertions"] = o.RequireSignedAssertions
+	}
+	if !IsNil(o.RequireSignedResponse) {
+		toSerialize["require_signed_response"] = o.RequireSignedResponse
+	}
+	if !IsNil(o.CreatedAt) {
+		toSerialize["created_at"] = o.CreatedAt
+	}
+	if !IsNil(o.LastUpdated) {
+		toSerialize["last_updated"] = o.LastUpdated
+	}
+	if !IsNil(o.RequireExistingUsers) {
+		toSerialize["require_existing_users"] = o.RequireExistingUsers
+	}
+	if !IsNil(o.UserGroups) {
+		toSerialize["user_groups"] = o.UserGroups
+	}
+	return toSerialize, nil
+}
+
+func (o *RbacManagerSamlConfigurationGet) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"name",
+		"enabled",
+		"sp_entity_id",
+		"acs_url",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varRbacManagerSamlConfigurationGet := _RbacManagerSamlConfigurationGet{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varRbacManagerSamlConfigurationGet)
+
+	if err != nil {
+		return err
+	}
+
+	*o = RbacManagerSamlConfigurationGet(varRbacManagerSamlConfigurationGet)
+
+	return err
 }
 
 type NullableRbacManagerSamlConfigurationGet struct {

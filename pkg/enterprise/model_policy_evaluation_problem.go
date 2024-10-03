@@ -13,7 +13,12 @@ package enterprise
 
 import (
 	"encoding/json"
+	"bytes"
+	"fmt"
 )
+
+// checks if the PolicyEvaluationProblem type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PolicyEvaluationProblem{}
 
 // PolicyEvaluationProblem Details for an error or warning indicating a problem during policy evaluation
 type PolicyEvaluationProblem struct {
@@ -24,6 +29,8 @@ type PolicyEvaluationProblem struct {
 	// Details about the problem itself and how to fix it
 	Details string `json:"details"`
 }
+
+type _PolicyEvaluationProblem PolicyEvaluationProblem
 
 // NewPolicyEvaluationProblem instantiates a new PolicyEvaluationProblem object
 // This constructor will assign default values to properties that have it defined,
@@ -118,17 +125,58 @@ func (o *PolicyEvaluationProblem) SetDetails(v string) {
 }
 
 func (o PolicyEvaluationProblem) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["severity"] = o.Severity
-	}
-	if true {
-		toSerialize["problem_type"] = o.ProblemType
-	}
-	if true {
-		toSerialize["details"] = o.Details
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o PolicyEvaluationProblem) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["severity"] = o.Severity
+	toSerialize["problem_type"] = o.ProblemType
+	toSerialize["details"] = o.Details
+	return toSerialize, nil
+}
+
+func (o *PolicyEvaluationProblem) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"severity",
+		"problem_type",
+		"details",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varPolicyEvaluationProblem := _PolicyEvaluationProblem{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varPolicyEvaluationProblem)
+
+	if err != nil {
+		return err
+	}
+
+	*o = PolicyEvaluationProblem(varPolicyEvaluationProblem)
+
+	return err
 }
 
 type NullablePolicyEvaluationProblem struct {

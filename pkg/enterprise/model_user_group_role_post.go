@@ -13,7 +13,12 @@ package enterprise
 
 import (
 	"encoding/json"
+	"bytes"
+	"fmt"
 )
+
+// checks if the UserGroupRolePost type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &UserGroupRolePost{}
 
 // UserGroupRolePost struct for UserGroupRolePost
 type UserGroupRolePost struct {
@@ -24,6 +29,8 @@ type UserGroupRolePost struct {
 	DomainName *string `json:"domain_name,omitempty"`
 	Roles []UserGroupRolePostRolesInner `json:"roles"`
 }
+
+type _UserGroupRolePost UserGroupRolePost
 
 // NewUserGroupRolePost instantiates a new UserGroupRolePost object
 // This constructor will assign default values to properties that have it defined,
@@ -46,7 +53,7 @@ func NewUserGroupRolePostWithDefaults() *UserGroupRolePost {
 // GetForAccount returns the ForAccount field value if set, zero value otherwise.
 // Deprecated
 func (o *UserGroupRolePost) GetForAccount() string {
-	if o == nil || o.ForAccount == nil {
+	if o == nil || IsNil(o.ForAccount) {
 		var ret string
 		return ret
 	}
@@ -57,7 +64,7 @@ func (o *UserGroupRolePost) GetForAccount() string {
 // and a boolean to check if the value has been set.
 // Deprecated
 func (o *UserGroupRolePost) GetForAccountOk() (*string, bool) {
-	if o == nil || o.ForAccount == nil {
+	if o == nil || IsNil(o.ForAccount) {
 		return nil, false
 	}
 	return o.ForAccount, true
@@ -65,7 +72,7 @@ func (o *UserGroupRolePost) GetForAccountOk() (*string, bool) {
 
 // HasForAccount returns a boolean if a field has been set.
 func (o *UserGroupRolePost) HasForAccount() bool {
-	if o != nil && o.ForAccount != nil {
+	if o != nil && !IsNil(o.ForAccount) {
 		return true
 	}
 
@@ -80,7 +87,7 @@ func (o *UserGroupRolePost) SetForAccount(v string) {
 
 // GetDomainName returns the DomainName field value if set, zero value otherwise.
 func (o *UserGroupRolePost) GetDomainName() string {
-	if o == nil || o.DomainName == nil {
+	if o == nil || IsNil(o.DomainName) {
 		var ret string
 		return ret
 	}
@@ -90,7 +97,7 @@ func (o *UserGroupRolePost) GetDomainName() string {
 // GetDomainNameOk returns a tuple with the DomainName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserGroupRolePost) GetDomainNameOk() (*string, bool) {
-	if o == nil || o.DomainName == nil {
+	if o == nil || IsNil(o.DomainName) {
 		return nil, false
 	}
 	return o.DomainName, true
@@ -98,7 +105,7 @@ func (o *UserGroupRolePost) GetDomainNameOk() (*string, bool) {
 
 // HasDomainName returns a boolean if a field has been set.
 func (o *UserGroupRolePost) HasDomainName() bool {
-	if o != nil && o.DomainName != nil {
+	if o != nil && !IsNil(o.DomainName) {
 		return true
 	}
 
@@ -135,17 +142,60 @@ func (o *UserGroupRolePost) SetRoles(v []UserGroupRolePostRolesInner) {
 }
 
 func (o UserGroupRolePost) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.ForAccount != nil {
-		toSerialize["for_account"] = o.ForAccount
-	}
-	if o.DomainName != nil {
-		toSerialize["domain_name"] = o.DomainName
-	}
-	if true {
-		toSerialize["roles"] = o.Roles
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o UserGroupRolePost) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.ForAccount) {
+		toSerialize["for_account"] = o.ForAccount
+	}
+	if !IsNil(o.DomainName) {
+		toSerialize["domain_name"] = o.DomainName
+	}
+	toSerialize["roles"] = o.Roles
+	return toSerialize, nil
+}
+
+func (o *UserGroupRolePost) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"roles",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varUserGroupRolePost := _UserGroupRolePost{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varUserGroupRolePost)
+
+	if err != nil {
+		return err
+	}
+
+	*o = UserGroupRolePost(varUserGroupRolePost)
+
+	return err
 }
 
 type NullableUserGroupRolePost struct {

@@ -14,7 +14,12 @@ package enterprise
 import (
 	"encoding/json"
 	"time"
+	"bytes"
+	"fmt"
 )
+
+// checks if the RbacManagerRole type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &RbacManagerRole{}
 
 // RbacManagerRole Role definition
 type RbacManagerRole struct {
@@ -30,6 +35,8 @@ type RbacManagerRole struct {
 	// The timestamp of the last update to the role metadata itself
 	LastUpdated *time.Time `json:"last_updated,omitempty"`
 }
+
+type _RbacManagerRole RbacManagerRole
 
 // NewRbacManagerRole instantiates a new RbacManagerRole object
 // This constructor will assign default values to properties that have it defined,
@@ -75,7 +82,7 @@ func (o *RbacManagerRole) SetName(v string) {
 
 // GetDescription returns the Description field value if set, zero value otherwise.
 func (o *RbacManagerRole) GetDescription() string {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		var ret string
 		return ret
 	}
@@ -85,7 +92,7 @@ func (o *RbacManagerRole) GetDescription() string {
 // GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RbacManagerRole) GetDescriptionOk() (*string, bool) {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		return nil, false
 	}
 	return o.Description, true
@@ -93,7 +100,7 @@ func (o *RbacManagerRole) GetDescriptionOk() (*string, bool) {
 
 // HasDescription returns a boolean if a field has been set.
 func (o *RbacManagerRole) HasDescription() bool {
-	if o != nil && o.Description != nil {
+	if o != nil && !IsNil(o.Description) {
 		return true
 	}
 
@@ -107,7 +114,7 @@ func (o *RbacManagerRole) SetDescription(v string) {
 
 // GetPermissions returns the Permissions field value if set, zero value otherwise.
 func (o *RbacManagerRole) GetPermissions() []RbacManagerPermission {
-	if o == nil || o.Permissions == nil {
+	if o == nil || IsNil(o.Permissions) {
 		var ret []RbacManagerPermission
 		return ret
 	}
@@ -117,7 +124,7 @@ func (o *RbacManagerRole) GetPermissions() []RbacManagerPermission {
 // GetPermissionsOk returns a tuple with the Permissions field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RbacManagerRole) GetPermissionsOk() ([]RbacManagerPermission, bool) {
-	if o == nil || o.Permissions == nil {
+	if o == nil || IsNil(o.Permissions) {
 		return nil, false
 	}
 	return o.Permissions, true
@@ -125,7 +132,7 @@ func (o *RbacManagerRole) GetPermissionsOk() ([]RbacManagerPermission, bool) {
 
 // HasPermissions returns a boolean if a field has been set.
 func (o *RbacManagerRole) HasPermissions() bool {
-	if o != nil && o.Permissions != nil {
+	if o != nil && !IsNil(o.Permissions) {
 		return true
 	}
 
@@ -139,7 +146,7 @@ func (o *RbacManagerRole) SetPermissions(v []RbacManagerPermission) {
 
 // GetImmutable returns the Immutable field value if set, zero value otherwise.
 func (o *RbacManagerRole) GetImmutable() bool {
-	if o == nil || o.Immutable == nil {
+	if o == nil || IsNil(o.Immutable) {
 		var ret bool
 		return ret
 	}
@@ -149,7 +156,7 @@ func (o *RbacManagerRole) GetImmutable() bool {
 // GetImmutableOk returns a tuple with the Immutable field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RbacManagerRole) GetImmutableOk() (*bool, bool) {
-	if o == nil || o.Immutable == nil {
+	if o == nil || IsNil(o.Immutable) {
 		return nil, false
 	}
 	return o.Immutable, true
@@ -157,7 +164,7 @@ func (o *RbacManagerRole) GetImmutableOk() (*bool, bool) {
 
 // HasImmutable returns a boolean if a field has been set.
 func (o *RbacManagerRole) HasImmutable() bool {
-	if o != nil && o.Immutable != nil {
+	if o != nil && !IsNil(o.Immutable) {
 		return true
 	}
 
@@ -171,7 +178,7 @@ func (o *RbacManagerRole) SetImmutable(v bool) {
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
 func (o *RbacManagerRole) GetCreatedAt() time.Time {
-	if o == nil || o.CreatedAt == nil {
+	if o == nil || IsNil(o.CreatedAt) {
 		var ret time.Time
 		return ret
 	}
@@ -181,7 +188,7 @@ func (o *RbacManagerRole) GetCreatedAt() time.Time {
 // GetCreatedAtOk returns a tuple with the CreatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RbacManagerRole) GetCreatedAtOk() (*time.Time, bool) {
-	if o == nil || o.CreatedAt == nil {
+	if o == nil || IsNil(o.CreatedAt) {
 		return nil, false
 	}
 	return o.CreatedAt, true
@@ -189,7 +196,7 @@ func (o *RbacManagerRole) GetCreatedAtOk() (*time.Time, bool) {
 
 // HasCreatedAt returns a boolean if a field has been set.
 func (o *RbacManagerRole) HasCreatedAt() bool {
-	if o != nil && o.CreatedAt != nil {
+	if o != nil && !IsNil(o.CreatedAt) {
 		return true
 	}
 
@@ -203,7 +210,7 @@ func (o *RbacManagerRole) SetCreatedAt(v time.Time) {
 
 // GetLastUpdated returns the LastUpdated field value if set, zero value otherwise.
 func (o *RbacManagerRole) GetLastUpdated() time.Time {
-	if o == nil || o.LastUpdated == nil {
+	if o == nil || IsNil(o.LastUpdated) {
 		var ret time.Time
 		return ret
 	}
@@ -213,7 +220,7 @@ func (o *RbacManagerRole) GetLastUpdated() time.Time {
 // GetLastUpdatedOk returns a tuple with the LastUpdated field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RbacManagerRole) GetLastUpdatedOk() (*time.Time, bool) {
-	if o == nil || o.LastUpdated == nil {
+	if o == nil || IsNil(o.LastUpdated) {
 		return nil, false
 	}
 	return o.LastUpdated, true
@@ -221,7 +228,7 @@ func (o *RbacManagerRole) GetLastUpdatedOk() (*time.Time, bool) {
 
 // HasLastUpdated returns a boolean if a field has been set.
 func (o *RbacManagerRole) HasLastUpdated() bool {
-	if o != nil && o.LastUpdated != nil {
+	if o != nil && !IsNil(o.LastUpdated) {
 		return true
 	}
 
@@ -234,26 +241,69 @@ func (o *RbacManagerRole) SetLastUpdated(v time.Time) {
 }
 
 func (o RbacManagerRole) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["name"] = o.Name
-	}
-	if o.Description != nil {
-		toSerialize["description"] = o.Description
-	}
-	if o.Permissions != nil {
-		toSerialize["permissions"] = o.Permissions
-	}
-	if o.Immutable != nil {
-		toSerialize["immutable"] = o.Immutable
-	}
-	if o.CreatedAt != nil {
-		toSerialize["created_at"] = o.CreatedAt
-	}
-	if o.LastUpdated != nil {
-		toSerialize["last_updated"] = o.LastUpdated
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o RbacManagerRole) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["name"] = o.Name
+	if !IsNil(o.Description) {
+		toSerialize["description"] = o.Description
+	}
+	if !IsNil(o.Permissions) {
+		toSerialize["permissions"] = o.Permissions
+	}
+	if !IsNil(o.Immutable) {
+		toSerialize["immutable"] = o.Immutable
+	}
+	if !IsNil(o.CreatedAt) {
+		toSerialize["created_at"] = o.CreatedAt
+	}
+	if !IsNil(o.LastUpdated) {
+		toSerialize["last_updated"] = o.LastUpdated
+	}
+	return toSerialize, nil
+}
+
+func (o *RbacManagerRole) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"name",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varRbacManagerRole := _RbacManagerRole{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varRbacManagerRole)
+
+	if err != nil {
+		return err
+	}
+
+	*o = RbacManagerRole(varRbacManagerRole)
+
+	return err
 }
 
 type NullableRbacManagerRole struct {

@@ -16,6 +16,9 @@ import (
 	"time"
 )
 
+// checks if the ImageImportOperation type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ImageImportOperation{}
+
 // ImageImportOperation An import record, creating a unique identifier for referencing the operation as well as its state
 type ImageImportOperation struct {
 	Uuid *string `json:"uuid,omitempty"`
@@ -43,7 +46,7 @@ func NewImageImportOperationWithDefaults() *ImageImportOperation {
 
 // GetUuid returns the Uuid field value if set, zero value otherwise.
 func (o *ImageImportOperation) GetUuid() string {
-	if o == nil || o.Uuid == nil {
+	if o == nil || IsNil(o.Uuid) {
 		var ret string
 		return ret
 	}
@@ -53,7 +56,7 @@ func (o *ImageImportOperation) GetUuid() string {
 // GetUuidOk returns a tuple with the Uuid field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ImageImportOperation) GetUuidOk() (*string, bool) {
-	if o == nil || o.Uuid == nil {
+	if o == nil || IsNil(o.Uuid) {
 		return nil, false
 	}
 	return o.Uuid, true
@@ -61,7 +64,7 @@ func (o *ImageImportOperation) GetUuidOk() (*string, bool) {
 
 // HasUuid returns a boolean if a field has been set.
 func (o *ImageImportOperation) HasUuid() bool {
-	if o != nil && o.Uuid != nil {
+	if o != nil && !IsNil(o.Uuid) {
 		return true
 	}
 
@@ -75,7 +78,7 @@ func (o *ImageImportOperation) SetUuid(v string) {
 
 // GetStatus returns the Status field value if set, zero value otherwise.
 func (o *ImageImportOperation) GetStatus() string {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		var ret string
 		return ret
 	}
@@ -85,7 +88,7 @@ func (o *ImageImportOperation) GetStatus() string {
 // GetStatusOk returns a tuple with the Status field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ImageImportOperation) GetStatusOk() (*string, bool) {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		return nil, false
 	}
 	return o.Status, true
@@ -93,7 +96,7 @@ func (o *ImageImportOperation) GetStatusOk() (*string, bool) {
 
 // HasStatus returns a boolean if a field has been set.
 func (o *ImageImportOperation) HasStatus() bool {
-	if o != nil && o.Status != nil {
+	if o != nil && !IsNil(o.Status) {
 		return true
 	}
 
@@ -107,7 +110,7 @@ func (o *ImageImportOperation) SetStatus(v string) {
 
 // GetExpiresAt returns the ExpiresAt field value if set, zero value otherwise.
 func (o *ImageImportOperation) GetExpiresAt() time.Time {
-	if o == nil || o.ExpiresAt == nil {
+	if o == nil || IsNil(o.ExpiresAt) {
 		var ret time.Time
 		return ret
 	}
@@ -117,7 +120,7 @@ func (o *ImageImportOperation) GetExpiresAt() time.Time {
 // GetExpiresAtOk returns a tuple with the ExpiresAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ImageImportOperation) GetExpiresAtOk() (*time.Time, bool) {
-	if o == nil || o.ExpiresAt == nil {
+	if o == nil || IsNil(o.ExpiresAt) {
 		return nil, false
 	}
 	return o.ExpiresAt, true
@@ -125,7 +128,7 @@ func (o *ImageImportOperation) GetExpiresAtOk() (*time.Time, bool) {
 
 // HasExpiresAt returns a boolean if a field has been set.
 func (o *ImageImportOperation) HasExpiresAt() bool {
-	if o != nil && o.ExpiresAt != nil {
+	if o != nil && !IsNil(o.ExpiresAt) {
 		return true
 	}
 
@@ -139,7 +142,7 @@ func (o *ImageImportOperation) SetExpiresAt(v time.Time) {
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
 func (o *ImageImportOperation) GetCreatedAt() time.Time {
-	if o == nil || o.CreatedAt == nil {
+	if o == nil || IsNil(o.CreatedAt) {
 		var ret time.Time
 		return ret
 	}
@@ -149,7 +152,7 @@ func (o *ImageImportOperation) GetCreatedAt() time.Time {
 // GetCreatedAtOk returns a tuple with the CreatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ImageImportOperation) GetCreatedAtOk() (*time.Time, bool) {
-	if o == nil || o.CreatedAt == nil {
+	if o == nil || IsNil(o.CreatedAt) {
 		return nil, false
 	}
 	return o.CreatedAt, true
@@ -157,7 +160,7 @@ func (o *ImageImportOperation) GetCreatedAtOk() (*time.Time, bool) {
 
 // HasCreatedAt returns a boolean if a field has been set.
 func (o *ImageImportOperation) HasCreatedAt() bool {
-	if o != nil && o.CreatedAt != nil {
+	if o != nil && !IsNil(o.CreatedAt) {
 		return true
 	}
 
@@ -170,20 +173,28 @@ func (o *ImageImportOperation) SetCreatedAt(v time.Time) {
 }
 
 func (o ImageImportOperation) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Uuid != nil {
-		toSerialize["uuid"] = o.Uuid
-	}
-	if o.Status != nil {
-		toSerialize["status"] = o.Status
-	}
-	if o.ExpiresAt != nil {
-		toSerialize["expires_at"] = o.ExpiresAt
-	}
-	if o.CreatedAt != nil {
-		toSerialize["created_at"] = o.CreatedAt
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o ImageImportOperation) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Uuid) {
+		toSerialize["uuid"] = o.Uuid
+	}
+	if !IsNil(o.Status) {
+		toSerialize["status"] = o.Status
+	}
+	if !IsNil(o.ExpiresAt) {
+		toSerialize["expires_at"] = o.ExpiresAt
+	}
+	if !IsNil(o.CreatedAt) {
+		toSerialize["created_at"] = o.CreatedAt
+	}
+	return toSerialize, nil
 }
 
 type NullableImageImportOperation struct {

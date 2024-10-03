@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the Users type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &Users{}
+
 // Users a list of User objects
 type Users struct {
 	Items []User `json:"items,omitempty"`
@@ -40,7 +43,7 @@ func NewUsersWithDefaults() *Users {
 
 // GetItems returns the Items field value if set, zero value otherwise.
 func (o *Users) GetItems() []User {
-	if o == nil || o.Items == nil {
+	if o == nil || IsNil(o.Items) {
 		var ret []User
 		return ret
 	}
@@ -50,7 +53,7 @@ func (o *Users) GetItems() []User {
 // GetItemsOk returns a tuple with the Items field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Users) GetItemsOk() ([]User, bool) {
-	if o == nil || o.Items == nil {
+	if o == nil || IsNil(o.Items) {
 		return nil, false
 	}
 	return o.Items, true
@@ -58,7 +61,7 @@ func (o *Users) GetItemsOk() ([]User, bool) {
 
 // HasItems returns a boolean if a field has been set.
 func (o *Users) HasItems() bool {
-	if o != nil && o.Items != nil {
+	if o != nil && !IsNil(o.Items) {
 		return true
 	}
 
@@ -72,7 +75,7 @@ func (o *Users) SetItems(v []User) {
 
 // GetTotalRows returns the TotalRows field value if set, zero value otherwise.
 func (o *Users) GetTotalRows() int32 {
-	if o == nil || o.TotalRows == nil {
+	if o == nil || IsNil(o.TotalRows) {
 		var ret int32
 		return ret
 	}
@@ -82,7 +85,7 @@ func (o *Users) GetTotalRows() int32 {
 // GetTotalRowsOk returns a tuple with the TotalRows field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Users) GetTotalRowsOk() (*int32, bool) {
-	if o == nil || o.TotalRows == nil {
+	if o == nil || IsNil(o.TotalRows) {
 		return nil, false
 	}
 	return o.TotalRows, true
@@ -90,7 +93,7 @@ func (o *Users) GetTotalRowsOk() (*int32, bool) {
 
 // HasTotalRows returns a boolean if a field has been set.
 func (o *Users) HasTotalRows() bool {
-	if o != nil && o.TotalRows != nil {
+	if o != nil && !IsNil(o.TotalRows) {
 		return true
 	}
 
@@ -103,14 +106,22 @@ func (o *Users) SetTotalRows(v int32) {
 }
 
 func (o Users) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Items != nil {
-		toSerialize["items"] = o.Items
-	}
-	if o.TotalRows != nil {
-		toSerialize["total_rows"] = o.TotalRows
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o Users) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Items) {
+		toSerialize["items"] = o.Items
+	}
+	if !IsNil(o.TotalRows) {
+		toSerialize["total_rows"] = o.TotalRows
+	}
+	return toSerialize, nil
 }
 
 type NullableUsers struct {

@@ -13,7 +13,12 @@ package enterprise
 
 import (
 	"encoding/json"
+	"bytes"
+	"fmt"
 )
+
+// checks if the HealthData type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &HealthData{}
 
 // HealthData Integration instance specific health data
 type HealthData struct {
@@ -25,6 +30,8 @@ type HealthData struct {
 	// Information about sent inventory report for accounts
 	AccountK8sInventoryReports *map[string]AccountK8sInventoryReportInfo `json:"account_k8s_inventory_reports,omitempty"`
 }
+
+type _HealthData HealthData
 
 // NewHealthData instantiates a new HealthData object
 // This constructor will assign default values to properties that have it defined,
@@ -95,7 +102,7 @@ func (o *HealthData) SetVersion(v int32) {
 
 // GetErrors returns the Errors field value if set, zero value otherwise.
 func (o *HealthData) GetErrors() []string {
-	if o == nil || o.Errors == nil {
+	if o == nil || IsNil(o.Errors) {
 		var ret []string
 		return ret
 	}
@@ -105,7 +112,7 @@ func (o *HealthData) GetErrors() []string {
 // GetErrorsOk returns a tuple with the Errors field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *HealthData) GetErrorsOk() ([]string, bool) {
-	if o == nil || o.Errors == nil {
+	if o == nil || IsNil(o.Errors) {
 		return nil, false
 	}
 	return o.Errors, true
@@ -113,7 +120,7 @@ func (o *HealthData) GetErrorsOk() ([]string, bool) {
 
 // HasErrors returns a boolean if a field has been set.
 func (o *HealthData) HasErrors() bool {
-	if o != nil && o.Errors != nil {
+	if o != nil && !IsNil(o.Errors) {
 		return true
 	}
 
@@ -127,7 +134,7 @@ func (o *HealthData) SetErrors(v []string) {
 
 // GetAccountK8sInventoryReports returns the AccountK8sInventoryReports field value if set, zero value otherwise.
 func (o *HealthData) GetAccountK8sInventoryReports() map[string]AccountK8sInventoryReportInfo {
-	if o == nil || o.AccountK8sInventoryReports == nil {
+	if o == nil || IsNil(o.AccountK8sInventoryReports) {
 		var ret map[string]AccountK8sInventoryReportInfo
 		return ret
 	}
@@ -137,7 +144,7 @@ func (o *HealthData) GetAccountK8sInventoryReports() map[string]AccountK8sInvent
 // GetAccountK8sInventoryReportsOk returns a tuple with the AccountK8sInventoryReports field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *HealthData) GetAccountK8sInventoryReportsOk() (*map[string]AccountK8sInventoryReportInfo, bool) {
-	if o == nil || o.AccountK8sInventoryReports == nil {
+	if o == nil || IsNil(o.AccountK8sInventoryReports) {
 		return nil, false
 	}
 	return o.AccountK8sInventoryReports, true
@@ -145,7 +152,7 @@ func (o *HealthData) GetAccountK8sInventoryReportsOk() (*map[string]AccountK8sIn
 
 // HasAccountK8sInventoryReports returns a boolean if a field has been set.
 func (o *HealthData) HasAccountK8sInventoryReports() bool {
-	if o != nil && o.AccountK8sInventoryReports != nil {
+	if o != nil && !IsNil(o.AccountK8sInventoryReports) {
 		return true
 	}
 
@@ -158,20 +165,62 @@ func (o *HealthData) SetAccountK8sInventoryReports(v map[string]AccountK8sInvent
 }
 
 func (o HealthData) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["type"] = o.Type
-	}
-	if true {
-		toSerialize["version"] = o.Version
-	}
-	if o.Errors != nil {
-		toSerialize["errors"] = o.Errors
-	}
-	if o.AccountK8sInventoryReports != nil {
-		toSerialize["account_k8s_inventory_reports"] = o.AccountK8sInventoryReports
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o HealthData) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["type"] = o.Type
+	toSerialize["version"] = o.Version
+	if !IsNil(o.Errors) {
+		toSerialize["errors"] = o.Errors
+	}
+	if !IsNil(o.AccountK8sInventoryReports) {
+		toSerialize["account_k8s_inventory_reports"] = o.AccountK8sInventoryReports
+	}
+	return toSerialize, nil
+}
+
+func (o *HealthData) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"type",
+		"version",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varHealthData := _HealthData{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varHealthData)
+
+	if err != nil {
+		return err
+	}
+
+	*o = HealthData(varHealthData)
+
+	return err
 }
 
 type NullableHealthData struct {

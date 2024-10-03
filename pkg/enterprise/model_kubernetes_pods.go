@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the KubernetesPods type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &KubernetesPods{}
+
 // KubernetesPods Pods defined in Kubernetes
 type KubernetesPods struct {
 	Namespaces []KubernetesPod `json:"namespaces,omitempty"`
@@ -39,7 +42,7 @@ func NewKubernetesPodsWithDefaults() *KubernetesPods {
 
 // GetNamespaces returns the Namespaces field value if set, zero value otherwise.
 func (o *KubernetesPods) GetNamespaces() []KubernetesPod {
-	if o == nil || o.Namespaces == nil {
+	if o == nil || IsNil(o.Namespaces) {
 		var ret []KubernetesPod
 		return ret
 	}
@@ -49,7 +52,7 @@ func (o *KubernetesPods) GetNamespaces() []KubernetesPod {
 // GetNamespacesOk returns a tuple with the Namespaces field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *KubernetesPods) GetNamespacesOk() ([]KubernetesPod, bool) {
-	if o == nil || o.Namespaces == nil {
+	if o == nil || IsNil(o.Namespaces) {
 		return nil, false
 	}
 	return o.Namespaces, true
@@ -57,7 +60,7 @@ func (o *KubernetesPods) GetNamespacesOk() ([]KubernetesPod, bool) {
 
 // HasNamespaces returns a boolean if a field has been set.
 func (o *KubernetesPods) HasNamespaces() bool {
-	if o != nil && o.Namespaces != nil {
+	if o != nil && !IsNil(o.Namespaces) {
 		return true
 	}
 
@@ -70,11 +73,19 @@ func (o *KubernetesPods) SetNamespaces(v []KubernetesPod) {
 }
 
 func (o KubernetesPods) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Namespaces != nil {
-		toSerialize["namespaces"] = o.Namespaces
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o KubernetesPods) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Namespaces) {
+		toSerialize["namespaces"] = o.Namespaces
+	}
+	return toSerialize, nil
 }
 
 type NullableKubernetesPods struct {

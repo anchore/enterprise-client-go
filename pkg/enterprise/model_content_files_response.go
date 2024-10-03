@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the ContentFilesResponse type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ContentFilesResponse{}
+
 // ContentFilesResponse File content listings from images
 type ContentFilesResponse struct {
 	ImageDigest *string `json:"image_digest,omitempty"`
@@ -41,7 +44,7 @@ func NewContentFilesResponseWithDefaults() *ContentFilesResponse {
 
 // GetImageDigest returns the ImageDigest field value if set, zero value otherwise.
 func (o *ContentFilesResponse) GetImageDigest() string {
-	if o == nil || o.ImageDigest == nil {
+	if o == nil || IsNil(o.ImageDigest) {
 		var ret string
 		return ret
 	}
@@ -51,7 +54,7 @@ func (o *ContentFilesResponse) GetImageDigest() string {
 // GetImageDigestOk returns a tuple with the ImageDigest field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ContentFilesResponse) GetImageDigestOk() (*string, bool) {
-	if o == nil || o.ImageDigest == nil {
+	if o == nil || IsNil(o.ImageDigest) {
 		return nil, false
 	}
 	return o.ImageDigest, true
@@ -59,7 +62,7 @@ func (o *ContentFilesResponse) GetImageDigestOk() (*string, bool) {
 
 // HasImageDigest returns a boolean if a field has been set.
 func (o *ContentFilesResponse) HasImageDigest() bool {
-	if o != nil && o.ImageDigest != nil {
+	if o != nil && !IsNil(o.ImageDigest) {
 		return true
 	}
 
@@ -73,7 +76,7 @@ func (o *ContentFilesResponse) SetImageDigest(v string) {
 
 // GetContentType returns the ContentType field value if set, zero value otherwise.
 func (o *ContentFilesResponse) GetContentType() string {
-	if o == nil || o.ContentType == nil {
+	if o == nil || IsNil(o.ContentType) {
 		var ret string
 		return ret
 	}
@@ -83,7 +86,7 @@ func (o *ContentFilesResponse) GetContentType() string {
 // GetContentTypeOk returns a tuple with the ContentType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ContentFilesResponse) GetContentTypeOk() (*string, bool) {
-	if o == nil || o.ContentType == nil {
+	if o == nil || IsNil(o.ContentType) {
 		return nil, false
 	}
 	return o.ContentType, true
@@ -91,7 +94,7 @@ func (o *ContentFilesResponse) GetContentTypeOk() (*string, bool) {
 
 // HasContentType returns a boolean if a field has been set.
 func (o *ContentFilesResponse) HasContentType() bool {
-	if o != nil && o.ContentType != nil {
+	if o != nil && !IsNil(o.ContentType) {
 		return true
 	}
 
@@ -105,7 +108,7 @@ func (o *ContentFilesResponse) SetContentType(v string) {
 
 // GetContent returns the Content field value if set, zero value otherwise.
 func (o *ContentFilesResponse) GetContent() []FilesContent {
-	if o == nil || o.Content == nil {
+	if o == nil || IsNil(o.Content) {
 		var ret []FilesContent
 		return ret
 	}
@@ -115,7 +118,7 @@ func (o *ContentFilesResponse) GetContent() []FilesContent {
 // GetContentOk returns a tuple with the Content field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ContentFilesResponse) GetContentOk() ([]FilesContent, bool) {
-	if o == nil || o.Content == nil {
+	if o == nil || IsNil(o.Content) {
 		return nil, false
 	}
 	return o.Content, true
@@ -123,7 +126,7 @@ func (o *ContentFilesResponse) GetContentOk() ([]FilesContent, bool) {
 
 // HasContent returns a boolean if a field has been set.
 func (o *ContentFilesResponse) HasContent() bool {
-	if o != nil && o.Content != nil {
+	if o != nil && !IsNil(o.Content) {
 		return true
 	}
 
@@ -136,17 +139,25 @@ func (o *ContentFilesResponse) SetContent(v []FilesContent) {
 }
 
 func (o ContentFilesResponse) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.ImageDigest != nil {
-		toSerialize["image_digest"] = o.ImageDigest
-	}
-	if o.ContentType != nil {
-		toSerialize["content_type"] = o.ContentType
-	}
-	if o.Content != nil {
-		toSerialize["content"] = o.Content
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o ContentFilesResponse) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.ImageDigest) {
+		toSerialize["image_digest"] = o.ImageDigest
+	}
+	if !IsNil(o.ContentType) {
+		toSerialize["content_type"] = o.ContentType
+	}
+	if !IsNil(o.Content) {
+		toSerialize["content"] = o.Content
+	}
+	return toSerialize, nil
 }
 
 type NullableContentFilesResponse struct {

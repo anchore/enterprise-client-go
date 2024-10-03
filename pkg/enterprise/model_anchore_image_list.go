@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the AnchoreImageList type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &AnchoreImageList{}
+
 // AnchoreImageList A list of Anchore Images
 type AnchoreImageList struct {
 	Items []AnchoreImage `json:"items,omitempty"`
@@ -39,7 +42,7 @@ func NewAnchoreImageListWithDefaults() *AnchoreImageList {
 
 // GetItems returns the Items field value if set, zero value otherwise.
 func (o *AnchoreImageList) GetItems() []AnchoreImage {
-	if o == nil || o.Items == nil {
+	if o == nil || IsNil(o.Items) {
 		var ret []AnchoreImage
 		return ret
 	}
@@ -49,7 +52,7 @@ func (o *AnchoreImageList) GetItems() []AnchoreImage {
 // GetItemsOk returns a tuple with the Items field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AnchoreImageList) GetItemsOk() ([]AnchoreImage, bool) {
-	if o == nil || o.Items == nil {
+	if o == nil || IsNil(o.Items) {
 		return nil, false
 	}
 	return o.Items, true
@@ -57,7 +60,7 @@ func (o *AnchoreImageList) GetItemsOk() ([]AnchoreImage, bool) {
 
 // HasItems returns a boolean if a field has been set.
 func (o *AnchoreImageList) HasItems() bool {
-	if o != nil && o.Items != nil {
+	if o != nil && !IsNil(o.Items) {
 		return true
 	}
 
@@ -70,11 +73,19 @@ func (o *AnchoreImageList) SetItems(v []AnchoreImage) {
 }
 
 func (o AnchoreImageList) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Items != nil {
-		toSerialize["items"] = o.Items
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o AnchoreImageList) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Items) {
+		toSerialize["items"] = o.Items
+	}
+	return toSerialize, nil
 }
 
 type NullableAnchoreImageList struct {

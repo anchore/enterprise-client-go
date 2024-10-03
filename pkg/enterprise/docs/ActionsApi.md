@@ -1,11 +1,11 @@
-# \ActionsApi
+# \ActionsAPI
 
 All URIs are relative to */v2*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**AddActionPlan**](ActionsApi.md#AddActionPlan) | **Post** /actions | Submits an Action Plan
-[**GetActionPlans**](ActionsApi.md#GetActionPlans) | **Get** /actions | Gets a list of submitted action (remediation) plans
+[**AddActionPlan**](ActionsAPI.md#AddActionPlan) | **Post** /actions | Submits an Action Plan
+[**GetActionPlans**](ActionsAPI.md#GetActionPlans) | **Get** /actions | Gets a list of submitted action (remediation) plans
 
 
 
@@ -23,24 +23,24 @@ Submits an Action Plan
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
-    actionPlan := *openapiclient.NewActionPlan() // ActionPlan | 
+	actionPlan := *openapiclient.NewActionPlan() // ActionPlan | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ActionsApi.AddActionPlan(context.Background()).ActionPlan(actionPlan).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ActionsApi.AddActionPlan``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `AddActionPlan`: ActionPlan
-    fmt.Fprintf(os.Stdout, "Response from `ActionsApi.AddActionPlan`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ActionsAPI.AddActionPlan(context.Background()).ActionPlan(actionPlan).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ActionsAPI.AddActionPlan``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `AddActionPlan`: ActionPlan
+	fmt.Fprintf(os.Stdout, "Response from `ActionsAPI.AddActionPlan`: %v\n", resp)
 }
 ```
 
@@ -89,28 +89,28 @@ Gets a list of submitted action (remediation) plans
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
+	"context"
+	"fmt"
+	"os"
     "time"
-    openapiclient "./openapi"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
-    imageTag := "imageTag_example" // string |  (optional)
-    imageDigest := "imageDigest_example" // string |  (optional)
-    createdAfter := time.Now() // time.Time | RFC 3339 formatted UTC timestamp to filter out action plans that were only created after this date (optional)
-    xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
+	imageTag := "imageTag_example" // string |  (optional)
+	imageDigest := "imageDigest_example" // string |  (optional)
+	createdAfter := time.Now() // time.Time | RFC 3339 formatted UTC timestamp to filter out action plans that were only created after this date (optional)
+	xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ActionsApi.GetActionPlans(context.Background()).ImageTag(imageTag).ImageDigest(imageDigest).CreatedAfter(createdAfter).XAnchoreAccount(xAnchoreAccount).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ActionsApi.GetActionPlans``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetActionPlans`: []ActionPlan
-    fmt.Fprintf(os.Stdout, "Response from `ActionsApi.GetActionPlans`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ActionsAPI.GetActionPlans(context.Background()).ImageTag(imageTag).ImageDigest(imageDigest).CreatedAfter(createdAfter).XAnchoreAccount(xAnchoreAccount).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ActionsAPI.GetActionPlans``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetActionPlans`: []ActionPlan
+	fmt.Fprintf(os.Stdout, "Response from `ActionsAPI.GetActionPlans`: %v\n", resp)
 }
 ```
 

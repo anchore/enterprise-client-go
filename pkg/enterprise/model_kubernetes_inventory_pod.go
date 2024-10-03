@@ -13,17 +13,24 @@ package enterprise
 
 import (
 	"encoding/json"
+	"bytes"
+	"fmt"
 )
+
+// checks if the KubernetesInventoryPod type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &KubernetesInventoryPod{}
 
 // KubernetesInventoryPod struct for KubernetesInventoryPod
 type KubernetesInventoryPod struct {
-	Uid string `json:"uid"`
+	Uid string `json:"uid" validate:"regexp=^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"`
 	Name string `json:"name"`
-	NamespaceUid string `json:"namespace_uid"`
-	NodeUid *string `json:"node_uid,omitempty"`
+	NamespaceUid string `json:"namespace_uid" validate:"regexp=^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"`
+	NodeUid *string `json:"node_uid,omitempty" validate:"regexp=^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"`
 	Labels *map[string]string `json:"labels,omitempty"`
 	Annotations *map[string]string `json:"annotations,omitempty"`
 }
+
+type _KubernetesInventoryPod KubernetesInventoryPod
 
 // NewKubernetesInventoryPod instantiates a new KubernetesInventoryPod object
 // This constructor will assign default values to properties that have it defined,
@@ -119,7 +126,7 @@ func (o *KubernetesInventoryPod) SetNamespaceUid(v string) {
 
 // GetNodeUid returns the NodeUid field value if set, zero value otherwise.
 func (o *KubernetesInventoryPod) GetNodeUid() string {
-	if o == nil || o.NodeUid == nil {
+	if o == nil || IsNil(o.NodeUid) {
 		var ret string
 		return ret
 	}
@@ -129,7 +136,7 @@ func (o *KubernetesInventoryPod) GetNodeUid() string {
 // GetNodeUidOk returns a tuple with the NodeUid field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *KubernetesInventoryPod) GetNodeUidOk() (*string, bool) {
-	if o == nil || o.NodeUid == nil {
+	if o == nil || IsNil(o.NodeUid) {
 		return nil, false
 	}
 	return o.NodeUid, true
@@ -137,7 +144,7 @@ func (o *KubernetesInventoryPod) GetNodeUidOk() (*string, bool) {
 
 // HasNodeUid returns a boolean if a field has been set.
 func (o *KubernetesInventoryPod) HasNodeUid() bool {
-	if o != nil && o.NodeUid != nil {
+	if o != nil && !IsNil(o.NodeUid) {
 		return true
 	}
 
@@ -151,7 +158,7 @@ func (o *KubernetesInventoryPod) SetNodeUid(v string) {
 
 // GetLabels returns the Labels field value if set, zero value otherwise.
 func (o *KubernetesInventoryPod) GetLabels() map[string]string {
-	if o == nil || o.Labels == nil {
+	if o == nil || IsNil(o.Labels) {
 		var ret map[string]string
 		return ret
 	}
@@ -161,7 +168,7 @@ func (o *KubernetesInventoryPod) GetLabels() map[string]string {
 // GetLabelsOk returns a tuple with the Labels field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *KubernetesInventoryPod) GetLabelsOk() (*map[string]string, bool) {
-	if o == nil || o.Labels == nil {
+	if o == nil || IsNil(o.Labels) {
 		return nil, false
 	}
 	return o.Labels, true
@@ -169,7 +176,7 @@ func (o *KubernetesInventoryPod) GetLabelsOk() (*map[string]string, bool) {
 
 // HasLabels returns a boolean if a field has been set.
 func (o *KubernetesInventoryPod) HasLabels() bool {
-	if o != nil && o.Labels != nil {
+	if o != nil && !IsNil(o.Labels) {
 		return true
 	}
 
@@ -183,7 +190,7 @@ func (o *KubernetesInventoryPod) SetLabels(v map[string]string) {
 
 // GetAnnotations returns the Annotations field value if set, zero value otherwise.
 func (o *KubernetesInventoryPod) GetAnnotations() map[string]string {
-	if o == nil || o.Annotations == nil {
+	if o == nil || IsNil(o.Annotations) {
 		var ret map[string]string
 		return ret
 	}
@@ -193,7 +200,7 @@ func (o *KubernetesInventoryPod) GetAnnotations() map[string]string {
 // GetAnnotationsOk returns a tuple with the Annotations field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *KubernetesInventoryPod) GetAnnotationsOk() (*map[string]string, bool) {
-	if o == nil || o.Annotations == nil {
+	if o == nil || IsNil(o.Annotations) {
 		return nil, false
 	}
 	return o.Annotations, true
@@ -201,7 +208,7 @@ func (o *KubernetesInventoryPod) GetAnnotationsOk() (*map[string]string, bool) {
 
 // HasAnnotations returns a boolean if a field has been set.
 func (o *KubernetesInventoryPod) HasAnnotations() bool {
-	if o != nil && o.Annotations != nil {
+	if o != nil && !IsNil(o.Annotations) {
 		return true
 	}
 
@@ -214,26 +221,67 @@ func (o *KubernetesInventoryPod) SetAnnotations(v map[string]string) {
 }
 
 func (o KubernetesInventoryPod) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["uid"] = o.Uid
-	}
-	if true {
-		toSerialize["name"] = o.Name
-	}
-	if true {
-		toSerialize["namespace_uid"] = o.NamespaceUid
-	}
-	if o.NodeUid != nil {
-		toSerialize["node_uid"] = o.NodeUid
-	}
-	if o.Labels != nil {
-		toSerialize["labels"] = o.Labels
-	}
-	if o.Annotations != nil {
-		toSerialize["annotations"] = o.Annotations
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o KubernetesInventoryPod) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["uid"] = o.Uid
+	toSerialize["name"] = o.Name
+	toSerialize["namespace_uid"] = o.NamespaceUid
+	if !IsNil(o.NodeUid) {
+		toSerialize["node_uid"] = o.NodeUid
+	}
+	if !IsNil(o.Labels) {
+		toSerialize["labels"] = o.Labels
+	}
+	if !IsNil(o.Annotations) {
+		toSerialize["annotations"] = o.Annotations
+	}
+	return toSerialize, nil
+}
+
+func (o *KubernetesInventoryPod) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"uid",
+		"name",
+		"namespace_uid",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varKubernetesInventoryPod := _KubernetesInventoryPod{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varKubernetesInventoryPod)
+
+	if err != nil {
+		return err
+	}
+
+	*o = KubernetesInventoryPod(varKubernetesInventoryPod)
+
+	return err
 }
 
 type NullableKubernetesInventoryPod struct {

@@ -14,12 +14,17 @@ package enterprise
 import (
 	"encoding/json"
 	"time"
+	"bytes"
+	"fmt"
 )
+
+// checks if the UserGroup type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &UserGroup{}
 
 // UserGroup struct for UserGroup
 type UserGroup struct {
 	// The name of the user group
-	Name string `json:"name"`
+	Name string "json:\"name\" validate:\"regexp=^[a-zA-Z0-9][ a-zA-Z0-9@.!#$+=^_`~;-]{1,126}[a-zA-Z0-9_]$\""
 	// The description of the user group
 	Description *string `json:"description,omitempty"`
 	// The unique identifier for the user group
@@ -30,6 +35,8 @@ type UserGroup struct {
 	LastUpdated *time.Time `json:"last_updated,omitempty"`
 	AccountRoles *UserGroupRoles `json:"account_roles,omitempty"`
 }
+
+type _UserGroup UserGroup
 
 // NewUserGroup instantiates a new UserGroup object
 // This constructor will assign default values to properties that have it defined,
@@ -76,7 +83,7 @@ func (o *UserGroup) SetName(v string) {
 
 // GetDescription returns the Description field value if set, zero value otherwise.
 func (o *UserGroup) GetDescription() string {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		var ret string
 		return ret
 	}
@@ -86,7 +93,7 @@ func (o *UserGroup) GetDescription() string {
 // GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserGroup) GetDescriptionOk() (*string, bool) {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		return nil, false
 	}
 	return o.Description, true
@@ -94,7 +101,7 @@ func (o *UserGroup) GetDescriptionOk() (*string, bool) {
 
 // HasDescription returns a boolean if a field has been set.
 func (o *UserGroup) HasDescription() bool {
-	if o != nil && o.Description != nil {
+	if o != nil && !IsNil(o.Description) {
 		return true
 	}
 
@@ -132,7 +139,7 @@ func (o *UserGroup) SetGroupUuid(v string) {
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
 func (o *UserGroup) GetCreatedAt() time.Time {
-	if o == nil || o.CreatedAt == nil {
+	if o == nil || IsNil(o.CreatedAt) {
 		var ret time.Time
 		return ret
 	}
@@ -142,7 +149,7 @@ func (o *UserGroup) GetCreatedAt() time.Time {
 // GetCreatedAtOk returns a tuple with the CreatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserGroup) GetCreatedAtOk() (*time.Time, bool) {
-	if o == nil || o.CreatedAt == nil {
+	if o == nil || IsNil(o.CreatedAt) {
 		return nil, false
 	}
 	return o.CreatedAt, true
@@ -150,7 +157,7 @@ func (o *UserGroup) GetCreatedAtOk() (*time.Time, bool) {
 
 // HasCreatedAt returns a boolean if a field has been set.
 func (o *UserGroup) HasCreatedAt() bool {
-	if o != nil && o.CreatedAt != nil {
+	if o != nil && !IsNil(o.CreatedAt) {
 		return true
 	}
 
@@ -164,7 +171,7 @@ func (o *UserGroup) SetCreatedAt(v time.Time) {
 
 // GetLastUpdated returns the LastUpdated field value if set, zero value otherwise.
 func (o *UserGroup) GetLastUpdated() time.Time {
-	if o == nil || o.LastUpdated == nil {
+	if o == nil || IsNil(o.LastUpdated) {
 		var ret time.Time
 		return ret
 	}
@@ -174,7 +181,7 @@ func (o *UserGroup) GetLastUpdated() time.Time {
 // GetLastUpdatedOk returns a tuple with the LastUpdated field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserGroup) GetLastUpdatedOk() (*time.Time, bool) {
-	if o == nil || o.LastUpdated == nil {
+	if o == nil || IsNil(o.LastUpdated) {
 		return nil, false
 	}
 	return o.LastUpdated, true
@@ -182,7 +189,7 @@ func (o *UserGroup) GetLastUpdatedOk() (*time.Time, bool) {
 
 // HasLastUpdated returns a boolean if a field has been set.
 func (o *UserGroup) HasLastUpdated() bool {
-	if o != nil && o.LastUpdated != nil {
+	if o != nil && !IsNil(o.LastUpdated) {
 		return true
 	}
 
@@ -196,7 +203,7 @@ func (o *UserGroup) SetLastUpdated(v time.Time) {
 
 // GetAccountRoles returns the AccountRoles field value if set, zero value otherwise.
 func (o *UserGroup) GetAccountRoles() UserGroupRoles {
-	if o == nil || o.AccountRoles == nil {
+	if o == nil || IsNil(o.AccountRoles) {
 		var ret UserGroupRoles
 		return ret
 	}
@@ -206,7 +213,7 @@ func (o *UserGroup) GetAccountRoles() UserGroupRoles {
 // GetAccountRolesOk returns a tuple with the AccountRoles field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserGroup) GetAccountRolesOk() (*UserGroupRoles, bool) {
-	if o == nil || o.AccountRoles == nil {
+	if o == nil || IsNil(o.AccountRoles) {
 		return nil, false
 	}
 	return o.AccountRoles, true
@@ -214,7 +221,7 @@ func (o *UserGroup) GetAccountRolesOk() (*UserGroupRoles, bool) {
 
 // HasAccountRoles returns a boolean if a field has been set.
 func (o *UserGroup) HasAccountRoles() bool {
-	if o != nil && o.AccountRoles != nil {
+	if o != nil && !IsNil(o.AccountRoles) {
 		return true
 	}
 
@@ -227,26 +234,68 @@ func (o *UserGroup) SetAccountRoles(v UserGroupRoles) {
 }
 
 func (o UserGroup) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["name"] = o.Name
-	}
-	if o.Description != nil {
-		toSerialize["description"] = o.Description
-	}
-	if true {
-		toSerialize["group_uuid"] = o.GroupUuid
-	}
-	if o.CreatedAt != nil {
-		toSerialize["created_at"] = o.CreatedAt
-	}
-	if o.LastUpdated != nil {
-		toSerialize["last_updated"] = o.LastUpdated
-	}
-	if o.AccountRoles != nil {
-		toSerialize["account_roles"] = o.AccountRoles
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o UserGroup) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["name"] = o.Name
+	if !IsNil(o.Description) {
+		toSerialize["description"] = o.Description
+	}
+	toSerialize["group_uuid"] = o.GroupUuid
+	if !IsNil(o.CreatedAt) {
+		toSerialize["created_at"] = o.CreatedAt
+	}
+	if !IsNil(o.LastUpdated) {
+		toSerialize["last_updated"] = o.LastUpdated
+	}
+	if !IsNil(o.AccountRoles) {
+		toSerialize["account_roles"] = o.AccountRoles
+	}
+	return toSerialize, nil
+}
+
+func (o *UserGroup) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"name",
+		"group_uuid",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varUserGroup := _UserGroup{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varUserGroup)
+
+	if err != nil {
+		return err
+	}
+
+	*o = UserGroup(varUserGroup)
+
+	return err
 }
 
 type NullableUserGroup struct {

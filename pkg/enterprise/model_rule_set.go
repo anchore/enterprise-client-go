@@ -13,7 +13,12 @@ package enterprise
 
 import (
 	"encoding/json"
+	"bytes"
+	"fmt"
 )
+
+// checks if the RuleSet type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &RuleSet{}
 
 // RuleSet struct for RuleSet
 type RuleSet struct {
@@ -25,6 +30,8 @@ type RuleSet struct {
 	ArtifactType *string `json:"artifact_type,omitempty"`
 	Rules []PolicyRule `json:"rules"`
 }
+
+type _RuleSet RuleSet
 
 // NewRuleSet instantiates a new RuleSet object
 // This constructor will assign default values to properties that have it defined,
@@ -97,7 +104,7 @@ func (o *RuleSet) SetName(v string) {
 
 // GetDescription returns the Description field value if set, zero value otherwise.
 func (o *RuleSet) GetDescription() string {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		var ret string
 		return ret
 	}
@@ -107,7 +114,7 @@ func (o *RuleSet) GetDescription() string {
 // GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RuleSet) GetDescriptionOk() (*string, bool) {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		return nil, false
 	}
 	return o.Description, true
@@ -115,7 +122,7 @@ func (o *RuleSet) GetDescriptionOk() (*string, bool) {
 
 // HasDescription returns a boolean if a field has been set.
 func (o *RuleSet) HasDescription() bool {
-	if o != nil && o.Description != nil {
+	if o != nil && !IsNil(o.Description) {
 		return true
 	}
 
@@ -153,7 +160,7 @@ func (o *RuleSet) SetVersion(v string) {
 
 // GetArtifactType returns the ArtifactType field value if set, zero value otherwise.
 func (o *RuleSet) GetArtifactType() string {
-	if o == nil || o.ArtifactType == nil {
+	if o == nil || IsNil(o.ArtifactType) {
 		var ret string
 		return ret
 	}
@@ -163,7 +170,7 @@ func (o *RuleSet) GetArtifactType() string {
 // GetArtifactTypeOk returns a tuple with the ArtifactType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RuleSet) GetArtifactTypeOk() (*string, bool) {
-	if o == nil || o.ArtifactType == nil {
+	if o == nil || IsNil(o.ArtifactType) {
 		return nil, false
 	}
 	return o.ArtifactType, true
@@ -171,7 +178,7 @@ func (o *RuleSet) GetArtifactTypeOk() (*string, bool) {
 
 // HasArtifactType returns a boolean if a field has been set.
 func (o *RuleSet) HasArtifactType() bool {
-	if o != nil && o.ArtifactType != nil {
+	if o != nil && !IsNil(o.ArtifactType) {
 		return true
 	}
 
@@ -208,26 +215,66 @@ func (o *RuleSet) SetRules(v []PolicyRule) {
 }
 
 func (o RuleSet) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["id"] = o.Id
-	}
-	if true {
-		toSerialize["name"] = o.Name
-	}
-	if o.Description != nil {
-		toSerialize["description"] = o.Description
-	}
-	if true {
-		toSerialize["version"] = o.Version
-	}
-	if o.ArtifactType != nil {
-		toSerialize["artifact_type"] = o.ArtifactType
-	}
-	if true {
-		toSerialize["rules"] = o.Rules
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o RuleSet) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["id"] = o.Id
+	toSerialize["name"] = o.Name
+	if !IsNil(o.Description) {
+		toSerialize["description"] = o.Description
+	}
+	toSerialize["version"] = o.Version
+	if !IsNil(o.ArtifactType) {
+		toSerialize["artifact_type"] = o.ArtifactType
+	}
+	toSerialize["rules"] = o.Rules
+	return toSerialize, nil
+}
+
+func (o *RuleSet) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"id",
+		"name",
+		"version",
+		"rules",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varRuleSet := _RuleSet{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varRuleSet)
+
+	if err != nil {
+		return err
+	}
+
+	*o = RuleSet(varRuleSet)
+
+	return err
 }
 
 type NullableRuleSet struct {

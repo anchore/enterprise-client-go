@@ -12,11 +12,11 @@ Name | Type | Description | Notes
 **FinalAction** | **string** | The overall outcome of the evaluation. | 
 **FinalActionReason** | **string** | The reason for the final result | 
 **ImageAllowlisted** | **bool** | Whether the evaluated image matched an allowlist rule | 
-**MatchedAllowlistedImagesRule** | Pointer to [**PolicyEvaluationResultMatchedAllowlistedImagesRule**](PolicyEvaluationResultMatchedAllowlistedImagesRule.md) |  | [optional] 
+**MatchedAllowlistedImagesRule** | Pointer to [**NullableImageSelectionRule**](ImageSelectionRule.md) |  | [optional] 
 **ImageDenylisted** | **bool** | Whether the evaluated image matched a denylist rule | 
-**MatchedDenylistedImagesRule** | Pointer to [**PolicyEvaluationResultMatchedAllowlistedImagesRule**](PolicyEvaluationResultMatchedAllowlistedImagesRule.md) |  | [optional] 
+**MatchedDenylistedImagesRule** | Pointer to [**NullableImageSelectionRule**](ImageSelectionRule.md) |  | [optional] 
 **ImageMappedToRule** | **bool** | Whether the evaluated image matched a policy rule | 
-**MatchedMappingRule** | Pointer to [**PolicyEvaluationResultMatchedMappingRule**](PolicyEvaluationResultMatchedMappingRule.md) |  | [optional] 
+**MatchedMappingRule** | Pointer to [**NullableMappingRule**](MappingRule.md) |  | [optional] 
 **NumberOfFindings** | **int32** | Number of policy findings in the response | 
 
 ## Methods
@@ -230,20 +230,20 @@ SetImageAllowlisted sets ImageAllowlisted field to given value.
 
 ### GetMatchedAllowlistedImagesRule
 
-`func (o *PolicyEvaluationResult) GetMatchedAllowlistedImagesRule() PolicyEvaluationResultMatchedAllowlistedImagesRule`
+`func (o *PolicyEvaluationResult) GetMatchedAllowlistedImagesRule() ImageSelectionRule`
 
 GetMatchedAllowlistedImagesRule returns the MatchedAllowlistedImagesRule field if non-nil, zero value otherwise.
 
 ### GetMatchedAllowlistedImagesRuleOk
 
-`func (o *PolicyEvaluationResult) GetMatchedAllowlistedImagesRuleOk() (*PolicyEvaluationResultMatchedAllowlistedImagesRule, bool)`
+`func (o *PolicyEvaluationResult) GetMatchedAllowlistedImagesRuleOk() (*ImageSelectionRule, bool)`
 
 GetMatchedAllowlistedImagesRuleOk returns a tuple with the MatchedAllowlistedImagesRule field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetMatchedAllowlistedImagesRule
 
-`func (o *PolicyEvaluationResult) SetMatchedAllowlistedImagesRule(v PolicyEvaluationResultMatchedAllowlistedImagesRule)`
+`func (o *PolicyEvaluationResult) SetMatchedAllowlistedImagesRule(v ImageSelectionRule)`
 
 SetMatchedAllowlistedImagesRule sets MatchedAllowlistedImagesRule field to given value.
 
@@ -253,6 +253,16 @@ SetMatchedAllowlistedImagesRule sets MatchedAllowlistedImagesRule field to given
 
 HasMatchedAllowlistedImagesRule returns a boolean if a field has been set.
 
+### SetMatchedAllowlistedImagesRuleNil
+
+`func (o *PolicyEvaluationResult) SetMatchedAllowlistedImagesRuleNil(b bool)`
+
+ SetMatchedAllowlistedImagesRuleNil sets the value for MatchedAllowlistedImagesRule to be an explicit nil
+
+### UnsetMatchedAllowlistedImagesRule
+`func (o *PolicyEvaluationResult) UnsetMatchedAllowlistedImagesRule()`
+
+UnsetMatchedAllowlistedImagesRule ensures that no value is present for MatchedAllowlistedImagesRule, not even an explicit nil
 ### GetImageDenylisted
 
 `func (o *PolicyEvaluationResult) GetImageDenylisted() bool`
@@ -275,20 +285,20 @@ SetImageDenylisted sets ImageDenylisted field to given value.
 
 ### GetMatchedDenylistedImagesRule
 
-`func (o *PolicyEvaluationResult) GetMatchedDenylistedImagesRule() PolicyEvaluationResultMatchedAllowlistedImagesRule`
+`func (o *PolicyEvaluationResult) GetMatchedDenylistedImagesRule() ImageSelectionRule`
 
 GetMatchedDenylistedImagesRule returns the MatchedDenylistedImagesRule field if non-nil, zero value otherwise.
 
 ### GetMatchedDenylistedImagesRuleOk
 
-`func (o *PolicyEvaluationResult) GetMatchedDenylistedImagesRuleOk() (*PolicyEvaluationResultMatchedAllowlistedImagesRule, bool)`
+`func (o *PolicyEvaluationResult) GetMatchedDenylistedImagesRuleOk() (*ImageSelectionRule, bool)`
 
 GetMatchedDenylistedImagesRuleOk returns a tuple with the MatchedDenylistedImagesRule field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetMatchedDenylistedImagesRule
 
-`func (o *PolicyEvaluationResult) SetMatchedDenylistedImagesRule(v PolicyEvaluationResultMatchedAllowlistedImagesRule)`
+`func (o *PolicyEvaluationResult) SetMatchedDenylistedImagesRule(v ImageSelectionRule)`
 
 SetMatchedDenylistedImagesRule sets MatchedDenylistedImagesRule field to given value.
 
@@ -298,6 +308,16 @@ SetMatchedDenylistedImagesRule sets MatchedDenylistedImagesRule field to given v
 
 HasMatchedDenylistedImagesRule returns a boolean if a field has been set.
 
+### SetMatchedDenylistedImagesRuleNil
+
+`func (o *PolicyEvaluationResult) SetMatchedDenylistedImagesRuleNil(b bool)`
+
+ SetMatchedDenylistedImagesRuleNil sets the value for MatchedDenylistedImagesRule to be an explicit nil
+
+### UnsetMatchedDenylistedImagesRule
+`func (o *PolicyEvaluationResult) UnsetMatchedDenylistedImagesRule()`
+
+UnsetMatchedDenylistedImagesRule ensures that no value is present for MatchedDenylistedImagesRule, not even an explicit nil
 ### GetImageMappedToRule
 
 `func (o *PolicyEvaluationResult) GetImageMappedToRule() bool`
@@ -320,20 +340,20 @@ SetImageMappedToRule sets ImageMappedToRule field to given value.
 
 ### GetMatchedMappingRule
 
-`func (o *PolicyEvaluationResult) GetMatchedMappingRule() PolicyEvaluationResultMatchedMappingRule`
+`func (o *PolicyEvaluationResult) GetMatchedMappingRule() MappingRule`
 
 GetMatchedMappingRule returns the MatchedMappingRule field if non-nil, zero value otherwise.
 
 ### GetMatchedMappingRuleOk
 
-`func (o *PolicyEvaluationResult) GetMatchedMappingRuleOk() (*PolicyEvaluationResultMatchedMappingRule, bool)`
+`func (o *PolicyEvaluationResult) GetMatchedMappingRuleOk() (*MappingRule, bool)`
 
 GetMatchedMappingRuleOk returns a tuple with the MatchedMappingRule field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetMatchedMappingRule
 
-`func (o *PolicyEvaluationResult) SetMatchedMappingRule(v PolicyEvaluationResultMatchedMappingRule)`
+`func (o *PolicyEvaluationResult) SetMatchedMappingRule(v MappingRule)`
 
 SetMatchedMappingRule sets MatchedMappingRule field to given value.
 
@@ -343,6 +363,16 @@ SetMatchedMappingRule sets MatchedMappingRule field to given value.
 
 HasMatchedMappingRule returns a boolean if a field has been set.
 
+### SetMatchedMappingRuleNil
+
+`func (o *PolicyEvaluationResult) SetMatchedMappingRuleNil(b bool)`
+
+ SetMatchedMappingRuleNil sets the value for MatchedMappingRule to be an explicit nil
+
+### UnsetMatchedMappingRule
+`func (o *PolicyEvaluationResult) UnsetMatchedMappingRule()`
+
+UnsetMatchedMappingRule ensures that no value is present for MatchedMappingRule, not even an explicit nil
 ### GetNumberOfFindings
 
 `func (o *PolicyEvaluationResult) GetNumberOfFindings() int32`

@@ -14,94 +14,19 @@ package enterprise
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
 	"strings"
 )
 
 
-type PoliciesApi interface {
-
-	/*
-	AddPolicy Add a new policy
-
-	Adds a new policy to the system
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiAddPolicyRequest
-	*/
-	AddPolicy(ctx context.Context) ApiAddPolicyRequest
-
-	// AddPolicyExecute executes the request
-	//  @return PolicyRecord
-	AddPolicyExecute(r ApiAddPolicyRequest) (*PolicyRecord, *http.Response, error)
-
-	/*
-	DeletePolicy Delete policy
-
-	Delete the specified policy
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param policyId
-	@return ApiDeletePolicyRequest
-	*/
-	DeletePolicy(ctx context.Context, policyId string) ApiDeletePolicyRequest
-
-	// DeletePolicyExecute executes the request
-	DeletePolicyExecute(r ApiDeletePolicyRequest) (*http.Response, error)
-
-	/*
-	GetPolicy Get specific policy
-
-	Get the policy content
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param policyId
-	@return ApiGetPolicyRequest
-	*/
-	GetPolicy(ctx context.Context, policyId string) ApiGetPolicyRequest
-
-	// GetPolicyExecute executes the request
-	//  @return PolicyRecord
-	GetPolicyExecute(r ApiGetPolicyRequest) (*PolicyRecord, *http.Response, error)
-
-	/*
-	ListPolicies List policies
-
-	List all saved policies
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiListPoliciesRequest
-	*/
-	ListPolicies(ctx context.Context) ApiListPoliciesRequest
-
-	// ListPoliciesExecute executes the request
-	//  @return []PolicyRecord
-	ListPoliciesExecute(r ApiListPoliciesRequest) ([]PolicyRecord, *http.Response, error)
-
-	/*
-	UpdatePolicy Update policy
-
-	Update/replace and existing policy
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param policyId
-	@return ApiUpdatePolicyRequest
-	*/
-	UpdatePolicy(ctx context.Context, policyId string) ApiUpdatePolicyRequest
-
-	// UpdatePolicyExecute executes the request
-	//  @return PolicyRecord
-	UpdatePolicyExecute(r ApiUpdatePolicyRequest) (*PolicyRecord, *http.Response, error)
-}
-
-// PoliciesApiService PoliciesApi service
-type PoliciesApiService service
+// PoliciesAPIService PoliciesAPI service
+type PoliciesAPIService service
 
 type ApiAddPolicyRequest struct {
 	ctx context.Context
-	ApiService PoliciesApi
+	ApiService *PoliciesAPIService
 	policy *Policy
 	xAnchoreAccount *string
 }
@@ -129,7 +54,7 @@ Adds a new policy to the system
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiAddPolicyRequest
 */
-func (a *PoliciesApiService) AddPolicy(ctx context.Context) ApiAddPolicyRequest {
+func (a *PoliciesAPIService) AddPolicy(ctx context.Context) ApiAddPolicyRequest {
 	return ApiAddPolicyRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -138,7 +63,7 @@ func (a *PoliciesApiService) AddPolicy(ctx context.Context) ApiAddPolicyRequest 
 
 // Execute executes the request
 //  @return PolicyRecord
-func (a *PoliciesApiService) AddPolicyExecute(r ApiAddPolicyRequest) (*PolicyRecord, *http.Response, error) {
+func (a *PoliciesAPIService) AddPolicyExecute(r ApiAddPolicyRequest) (*PolicyRecord, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
@@ -146,7 +71,7 @@ func (a *PoliciesApiService) AddPolicyExecute(r ApiAddPolicyRequest) (*PolicyRec
 		localVarReturnValue  *PolicyRecord
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PoliciesApiService.AddPolicy")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PoliciesAPIService.AddPolicy")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -178,7 +103,7 @@ func (a *PoliciesApiService) AddPolicyExecute(r ApiAddPolicyRequest) (*PolicyRec
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.xAnchoreAccount != nil {
-		localVarHeaderParams["x-anchore-account"] = parameterToString(*r.xAnchoreAccount, "")
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "x-anchore-account", r.xAnchoreAccount, "simple", "")
 	}
 	// body params
 	localVarPostBody = r.policy
@@ -192,9 +117,9 @@ func (a *PoliciesApiService) AddPolicyExecute(r ApiAddPolicyRequest) (*PolicyRec
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -211,7 +136,8 @@ func (a *PoliciesApiService) AddPolicyExecute(r ApiAddPolicyRequest) (*PolicyRec
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 500 {
@@ -221,7 +147,8 @@ func (a *PoliciesApiService) AddPolicyExecute(r ApiAddPolicyRequest) (*PolicyRec
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -240,7 +167,7 @@ func (a *PoliciesApiService) AddPolicyExecute(r ApiAddPolicyRequest) (*PolicyRec
 
 type ApiDeletePolicyRequest struct {
 	ctx context.Context
-	ApiService PoliciesApi
+	ApiService *PoliciesAPIService
 	policyId string
 	xAnchoreAccount *string
 }
@@ -264,7 +191,7 @@ Delete the specified policy
  @param policyId
  @return ApiDeletePolicyRequest
 */
-func (a *PoliciesApiService) DeletePolicy(ctx context.Context, policyId string) ApiDeletePolicyRequest {
+func (a *PoliciesAPIService) DeletePolicy(ctx context.Context, policyId string) ApiDeletePolicyRequest {
 	return ApiDeletePolicyRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -273,20 +200,20 @@ func (a *PoliciesApiService) DeletePolicy(ctx context.Context, policyId string) 
 }
 
 // Execute executes the request
-func (a *PoliciesApiService) DeletePolicyExecute(r ApiDeletePolicyRequest) (*http.Response, error) {
+func (a *PoliciesAPIService) DeletePolicyExecute(r ApiDeletePolicyRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodDelete
 		localVarPostBody     interface{}
 		formFiles            []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PoliciesApiService.DeletePolicy")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PoliciesAPIService.DeletePolicy")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/policies/{policy_id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"policy_id"+"}", url.PathEscape(parameterToString(r.policyId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"policy_id"+"}", url.PathEscape(parameterValueToString(r.policyId, "policyId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -310,7 +237,7 @@ func (a *PoliciesApiService) DeletePolicyExecute(r ApiDeletePolicyRequest) (*htt
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.xAnchoreAccount != nil {
-		localVarHeaderParams["x-anchore-account"] = parameterToString(*r.xAnchoreAccount, "")
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "x-anchore-account", r.xAnchoreAccount, "simple", "")
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
@@ -322,9 +249,9 @@ func (a *PoliciesApiService) DeletePolicyExecute(r ApiDeletePolicyRequest) (*htt
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -341,7 +268,8 @@ func (a *PoliciesApiService) DeletePolicyExecute(r ApiDeletePolicyRequest) (*htt
 				newErr.error = err.Error()
 				return localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 500 {
@@ -351,7 +279,8 @@ func (a *PoliciesApiService) DeletePolicyExecute(r ApiDeletePolicyRequest) (*htt
 				newErr.error = err.Error()
 				return localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarHTTPResponse, newErr
 	}
@@ -361,7 +290,7 @@ func (a *PoliciesApiService) DeletePolicyExecute(r ApiDeletePolicyRequest) (*htt
 
 type ApiGetPolicyRequest struct {
 	ctx context.Context
-	ApiService PoliciesApi
+	ApiService *PoliciesAPIService
 	policyId string
 	detail *bool
 	xAnchoreAccount *string
@@ -392,7 +321,7 @@ Get the policy content
  @param policyId
  @return ApiGetPolicyRequest
 */
-func (a *PoliciesApiService) GetPolicy(ctx context.Context, policyId string) ApiGetPolicyRequest {
+func (a *PoliciesAPIService) GetPolicy(ctx context.Context, policyId string) ApiGetPolicyRequest {
 	return ApiGetPolicyRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -402,7 +331,7 @@ func (a *PoliciesApiService) GetPolicy(ctx context.Context, policyId string) Api
 
 // Execute executes the request
 //  @return PolicyRecord
-func (a *PoliciesApiService) GetPolicyExecute(r ApiGetPolicyRequest) (*PolicyRecord, *http.Response, error) {
+func (a *PoliciesAPIService) GetPolicyExecute(r ApiGetPolicyRequest) (*PolicyRecord, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
@@ -410,20 +339,20 @@ func (a *PoliciesApiService) GetPolicyExecute(r ApiGetPolicyRequest) (*PolicyRec
 		localVarReturnValue  *PolicyRecord
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PoliciesApiService.GetPolicy")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PoliciesAPIService.GetPolicy")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/policies/{policy_id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"policy_id"+"}", url.PathEscape(parameterToString(r.policyId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"policy_id"+"}", url.PathEscape(parameterValueToString(r.policyId, "policyId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
 	if r.detail != nil {
-		localVarQueryParams.Add("detail", parameterToString(*r.detail, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "detail", r.detail, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -443,7 +372,7 @@ func (a *PoliciesApiService) GetPolicyExecute(r ApiGetPolicyRequest) (*PolicyRec
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.xAnchoreAccount != nil {
-		localVarHeaderParams["x-anchore-account"] = parameterToString(*r.xAnchoreAccount, "")
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "x-anchore-account", r.xAnchoreAccount, "simple", "")
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
@@ -455,9 +384,9 @@ func (a *PoliciesApiService) GetPolicyExecute(r ApiGetPolicyRequest) (*PolicyRec
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -474,7 +403,8 @@ func (a *PoliciesApiService) GetPolicyExecute(r ApiGetPolicyRequest) (*PolicyRec
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -493,7 +423,7 @@ func (a *PoliciesApiService) GetPolicyExecute(r ApiGetPolicyRequest) (*PolicyRec
 
 type ApiListPoliciesRequest struct {
 	ctx context.Context
-	ApiService PoliciesApi
+	ApiService *PoliciesAPIService
 	detail *bool
 	xAnchoreAccount *string
 }
@@ -522,7 +452,7 @@ List all saved policies
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiListPoliciesRequest
 */
-func (a *PoliciesApiService) ListPolicies(ctx context.Context) ApiListPoliciesRequest {
+func (a *PoliciesAPIService) ListPolicies(ctx context.Context) ApiListPoliciesRequest {
 	return ApiListPoliciesRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -531,7 +461,7 @@ func (a *PoliciesApiService) ListPolicies(ctx context.Context) ApiListPoliciesRe
 
 // Execute executes the request
 //  @return []PolicyRecord
-func (a *PoliciesApiService) ListPoliciesExecute(r ApiListPoliciesRequest) ([]PolicyRecord, *http.Response, error) {
+func (a *PoliciesAPIService) ListPoliciesExecute(r ApiListPoliciesRequest) ([]PolicyRecord, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
@@ -539,7 +469,7 @@ func (a *PoliciesApiService) ListPoliciesExecute(r ApiListPoliciesRequest) ([]Po
 		localVarReturnValue  []PolicyRecord
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PoliciesApiService.ListPolicies")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PoliciesAPIService.ListPolicies")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -551,7 +481,7 @@ func (a *PoliciesApiService) ListPoliciesExecute(r ApiListPoliciesRequest) ([]Po
 	localVarFormParams := url.Values{}
 
 	if r.detail != nil {
-		localVarQueryParams.Add("detail", parameterToString(*r.detail, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "detail", r.detail, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -571,7 +501,7 @@ func (a *PoliciesApiService) ListPoliciesExecute(r ApiListPoliciesRequest) ([]Po
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.xAnchoreAccount != nil {
-		localVarHeaderParams["x-anchore-account"] = parameterToString(*r.xAnchoreAccount, "")
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "x-anchore-account", r.xAnchoreAccount, "simple", "")
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
@@ -583,9 +513,9 @@ func (a *PoliciesApiService) ListPoliciesExecute(r ApiListPoliciesRequest) ([]Po
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -612,7 +542,7 @@ func (a *PoliciesApiService) ListPoliciesExecute(r ApiListPoliciesRequest) ([]Po
 
 type ApiUpdatePolicyRequest struct {
 	ctx context.Context
-	ApiService PoliciesApi
+	ApiService *PoliciesAPIService
 	policyId string
 	policy *PolicyRecord
 	active *bool
@@ -649,7 +579,7 @@ Update/replace and existing policy
  @param policyId
  @return ApiUpdatePolicyRequest
 */
-func (a *PoliciesApiService) UpdatePolicy(ctx context.Context, policyId string) ApiUpdatePolicyRequest {
+func (a *PoliciesAPIService) UpdatePolicy(ctx context.Context, policyId string) ApiUpdatePolicyRequest {
 	return ApiUpdatePolicyRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -659,7 +589,7 @@ func (a *PoliciesApiService) UpdatePolicy(ctx context.Context, policyId string) 
 
 // Execute executes the request
 //  @return PolicyRecord
-func (a *PoliciesApiService) UpdatePolicyExecute(r ApiUpdatePolicyRequest) (*PolicyRecord, *http.Response, error) {
+func (a *PoliciesAPIService) UpdatePolicyExecute(r ApiUpdatePolicyRequest) (*PolicyRecord, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPut
 		localVarPostBody     interface{}
@@ -667,13 +597,13 @@ func (a *PoliciesApiService) UpdatePolicyExecute(r ApiUpdatePolicyRequest) (*Pol
 		localVarReturnValue  *PolicyRecord
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PoliciesApiService.UpdatePolicy")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PoliciesAPIService.UpdatePolicy")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/policies/{policy_id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"policy_id"+"}", url.PathEscape(parameterToString(r.policyId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"policy_id"+"}", url.PathEscape(parameterValueToString(r.policyId, "policyId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -683,7 +613,7 @@ func (a *PoliciesApiService) UpdatePolicyExecute(r ApiUpdatePolicyRequest) (*Pol
 	}
 
 	if r.active != nil {
-		localVarQueryParams.Add("active", parameterToString(*r.active, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "active", r.active, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
@@ -703,7 +633,7 @@ func (a *PoliciesApiService) UpdatePolicyExecute(r ApiUpdatePolicyRequest) (*Pol
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.xAnchoreAccount != nil {
-		localVarHeaderParams["x-anchore-account"] = parameterToString(*r.xAnchoreAccount, "")
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "x-anchore-account", r.xAnchoreAccount, "simple", "")
 	}
 	// body params
 	localVarPostBody = r.policy
@@ -717,9 +647,9 @@ func (a *PoliciesApiService) UpdatePolicyExecute(r ApiUpdatePolicyRequest) (*Pol
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -736,7 +666,8 @@ func (a *PoliciesApiService) UpdatePolicyExecute(r ApiUpdatePolicyRequest) (*Pol
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}

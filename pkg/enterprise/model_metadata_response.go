@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the MetadataResponse type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &MetadataResponse{}
+
 // MetadataResponse Generic wrapper for metadata listings from images
 type MetadataResponse struct {
 	ImageDigest *string `json:"image_digest,omitempty"`
@@ -41,7 +44,7 @@ func NewMetadataResponseWithDefaults() *MetadataResponse {
 
 // GetImageDigest returns the ImageDigest field value if set, zero value otherwise.
 func (o *MetadataResponse) GetImageDigest() string {
-	if o == nil || o.ImageDigest == nil {
+	if o == nil || IsNil(o.ImageDigest) {
 		var ret string
 		return ret
 	}
@@ -51,7 +54,7 @@ func (o *MetadataResponse) GetImageDigest() string {
 // GetImageDigestOk returns a tuple with the ImageDigest field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *MetadataResponse) GetImageDigestOk() (*string, bool) {
-	if o == nil || o.ImageDigest == nil {
+	if o == nil || IsNil(o.ImageDigest) {
 		return nil, false
 	}
 	return o.ImageDigest, true
@@ -59,7 +62,7 @@ func (o *MetadataResponse) GetImageDigestOk() (*string, bool) {
 
 // HasImageDigest returns a boolean if a field has been set.
 func (o *MetadataResponse) HasImageDigest() bool {
-	if o != nil && o.ImageDigest != nil {
+	if o != nil && !IsNil(o.ImageDigest) {
 		return true
 	}
 
@@ -73,7 +76,7 @@ func (o *MetadataResponse) SetImageDigest(v string) {
 
 // GetMetadataType returns the MetadataType field value if set, zero value otherwise.
 func (o *MetadataResponse) GetMetadataType() string {
-	if o == nil || o.MetadataType == nil {
+	if o == nil || IsNil(o.MetadataType) {
 		var ret string
 		return ret
 	}
@@ -83,7 +86,7 @@ func (o *MetadataResponse) GetMetadataType() string {
 // GetMetadataTypeOk returns a tuple with the MetadataType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *MetadataResponse) GetMetadataTypeOk() (*string, bool) {
-	if o == nil || o.MetadataType == nil {
+	if o == nil || IsNil(o.MetadataType) {
 		return nil, false
 	}
 	return o.MetadataType, true
@@ -91,7 +94,7 @@ func (o *MetadataResponse) GetMetadataTypeOk() (*string, bool) {
 
 // HasMetadataType returns a boolean if a field has been set.
 func (o *MetadataResponse) HasMetadataType() bool {
-	if o != nil && o.MetadataType != nil {
+	if o != nil && !IsNil(o.MetadataType) {
 		return true
 	}
 
@@ -116,7 +119,7 @@ func (o *MetadataResponse) GetMetadata() interface{} {
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *MetadataResponse) GetMetadataOk() (*interface{}, bool) {
-	if o == nil || o.Metadata == nil {
+	if o == nil || IsNil(o.Metadata) {
 		return nil, false
 	}
 	return &o.Metadata, true
@@ -124,7 +127,7 @@ func (o *MetadataResponse) GetMetadataOk() (*interface{}, bool) {
 
 // HasMetadata returns a boolean if a field has been set.
 func (o *MetadataResponse) HasMetadata() bool {
-	if o != nil && o.Metadata != nil {
+	if o != nil && !IsNil(o.Metadata) {
 		return true
 	}
 
@@ -137,17 +140,25 @@ func (o *MetadataResponse) SetMetadata(v interface{}) {
 }
 
 func (o MetadataResponse) MarshalJSON() ([]byte, error) {
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o MetadataResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.ImageDigest != nil {
+	if !IsNil(o.ImageDigest) {
 		toSerialize["image_digest"] = o.ImageDigest
 	}
-	if o.MetadataType != nil {
+	if !IsNil(o.MetadataType) {
 		toSerialize["metadata_type"] = o.MetadataType
 	}
 	if o.Metadata != nil {
 		toSerialize["metadata"] = o.Metadata
 	}
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
 type NullableMetadataResponse struct {

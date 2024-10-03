@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the BaseNotificationData type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &BaseNotificationData{}
+
 // BaseNotificationData Every notification has a payload, which follows this basic structure
 type BaseNotificationData struct {
 	NotificationUser *string `json:"notification_user,omitempty"`
@@ -41,7 +44,7 @@ func NewBaseNotificationDataWithDefaults() *BaseNotificationData {
 
 // GetNotificationUser returns the NotificationUser field value if set, zero value otherwise.
 func (o *BaseNotificationData) GetNotificationUser() string {
-	if o == nil || o.NotificationUser == nil {
+	if o == nil || IsNil(o.NotificationUser) {
 		var ret string
 		return ret
 	}
@@ -51,7 +54,7 @@ func (o *BaseNotificationData) GetNotificationUser() string {
 // GetNotificationUserOk returns a tuple with the NotificationUser field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *BaseNotificationData) GetNotificationUserOk() (*string, bool) {
-	if o == nil || o.NotificationUser == nil {
+	if o == nil || IsNil(o.NotificationUser) {
 		return nil, false
 	}
 	return o.NotificationUser, true
@@ -59,7 +62,7 @@ func (o *BaseNotificationData) GetNotificationUserOk() (*string, bool) {
 
 // HasNotificationUser returns a boolean if a field has been set.
 func (o *BaseNotificationData) HasNotificationUser() bool {
-	if o != nil && o.NotificationUser != nil {
+	if o != nil && !IsNil(o.NotificationUser) {
 		return true
 	}
 
@@ -73,7 +76,7 @@ func (o *BaseNotificationData) SetNotificationUser(v string) {
 
 // GetNotificationUserEmail returns the NotificationUserEmail field value if set, zero value otherwise.
 func (o *BaseNotificationData) GetNotificationUserEmail() string {
-	if o == nil || o.NotificationUserEmail == nil {
+	if o == nil || IsNil(o.NotificationUserEmail) {
 		var ret string
 		return ret
 	}
@@ -83,7 +86,7 @@ func (o *BaseNotificationData) GetNotificationUserEmail() string {
 // GetNotificationUserEmailOk returns a tuple with the NotificationUserEmail field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *BaseNotificationData) GetNotificationUserEmailOk() (*string, bool) {
-	if o == nil || o.NotificationUserEmail == nil {
+	if o == nil || IsNil(o.NotificationUserEmail) {
 		return nil, false
 	}
 	return o.NotificationUserEmail, true
@@ -91,7 +94,7 @@ func (o *BaseNotificationData) GetNotificationUserEmailOk() (*string, bool) {
 
 // HasNotificationUserEmail returns a boolean if a field has been set.
 func (o *BaseNotificationData) HasNotificationUserEmail() bool {
-	if o != nil && o.NotificationUserEmail != nil {
+	if o != nil && !IsNil(o.NotificationUserEmail) {
 		return true
 	}
 
@@ -105,7 +108,7 @@ func (o *BaseNotificationData) SetNotificationUserEmail(v string) {
 
 // GetNotificationType returns the NotificationType field value if set, zero value otherwise.
 func (o *BaseNotificationData) GetNotificationType() string {
-	if o == nil || o.NotificationType == nil {
+	if o == nil || IsNil(o.NotificationType) {
 		var ret string
 		return ret
 	}
@@ -115,7 +118,7 @@ func (o *BaseNotificationData) GetNotificationType() string {
 // GetNotificationTypeOk returns a tuple with the NotificationType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *BaseNotificationData) GetNotificationTypeOk() (*string, bool) {
-	if o == nil || o.NotificationType == nil {
+	if o == nil || IsNil(o.NotificationType) {
 		return nil, false
 	}
 	return o.NotificationType, true
@@ -123,7 +126,7 @@ func (o *BaseNotificationData) GetNotificationTypeOk() (*string, bool) {
 
 // HasNotificationType returns a boolean if a field has been set.
 func (o *BaseNotificationData) HasNotificationType() bool {
-	if o != nil && o.NotificationType != nil {
+	if o != nil && !IsNil(o.NotificationType) {
 		return true
 	}
 
@@ -136,17 +139,25 @@ func (o *BaseNotificationData) SetNotificationType(v string) {
 }
 
 func (o BaseNotificationData) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.NotificationUser != nil {
-		toSerialize["notification_user"] = o.NotificationUser
-	}
-	if o.NotificationUserEmail != nil {
-		toSerialize["notification_user_email"] = o.NotificationUserEmail
-	}
-	if o.NotificationType != nil {
-		toSerialize["notification_type"] = o.NotificationType
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o BaseNotificationData) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.NotificationUser) {
+		toSerialize["notification_user"] = o.NotificationUser
+	}
+	if !IsNil(o.NotificationUserEmail) {
+		toSerialize["notification_user_email"] = o.NotificationUserEmail
+	}
+	if !IsNil(o.NotificationType) {
+		toSerialize["notification_type"] = o.NotificationType
+	}
+	return toSerialize, nil
 }
 
 type NullableBaseNotificationData struct {

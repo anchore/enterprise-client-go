@@ -16,6 +16,9 @@ import (
 	"time"
 )
 
+// checks if the AnalysisArchiveSummary type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &AnalysisArchiveSummary{}
+
 // AnalysisArchiveSummary A summarization of the analysis archive, including size, counts, etc. This archive stores image analysis only, never the actual image content or layers.
 type AnalysisArchiveSummary struct {
 	// The number of unique images (digests) in the archive
@@ -47,7 +50,7 @@ func NewAnalysisArchiveSummaryWithDefaults() *AnalysisArchiveSummary {
 
 // GetTotalImageCount returns the TotalImageCount field value if set, zero value otherwise.
 func (o *AnalysisArchiveSummary) GetTotalImageCount() int32 {
-	if o == nil || o.TotalImageCount == nil {
+	if o == nil || IsNil(o.TotalImageCount) {
 		var ret int32
 		return ret
 	}
@@ -57,7 +60,7 @@ func (o *AnalysisArchiveSummary) GetTotalImageCount() int32 {
 // GetTotalImageCountOk returns a tuple with the TotalImageCount field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AnalysisArchiveSummary) GetTotalImageCountOk() (*int32, bool) {
-	if o == nil || o.TotalImageCount == nil {
+	if o == nil || IsNil(o.TotalImageCount) {
 		return nil, false
 	}
 	return o.TotalImageCount, true
@@ -65,7 +68,7 @@ func (o *AnalysisArchiveSummary) GetTotalImageCountOk() (*int32, bool) {
 
 // HasTotalImageCount returns a boolean if a field has been set.
 func (o *AnalysisArchiveSummary) HasTotalImageCount() bool {
-	if o != nil && o.TotalImageCount != nil {
+	if o != nil && !IsNil(o.TotalImageCount) {
 		return true
 	}
 
@@ -79,7 +82,7 @@ func (o *AnalysisArchiveSummary) SetTotalImageCount(v int32) {
 
 // GetTotalTagCount returns the TotalTagCount field value if set, zero value otherwise.
 func (o *AnalysisArchiveSummary) GetTotalTagCount() int32 {
-	if o == nil || o.TotalTagCount == nil {
+	if o == nil || IsNil(o.TotalTagCount) {
 		var ret int32
 		return ret
 	}
@@ -89,7 +92,7 @@ func (o *AnalysisArchiveSummary) GetTotalTagCount() int32 {
 // GetTotalTagCountOk returns a tuple with the TotalTagCount field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AnalysisArchiveSummary) GetTotalTagCountOk() (*int32, bool) {
-	if o == nil || o.TotalTagCount == nil {
+	if o == nil || IsNil(o.TotalTagCount) {
 		return nil, false
 	}
 	return o.TotalTagCount, true
@@ -97,7 +100,7 @@ func (o *AnalysisArchiveSummary) GetTotalTagCountOk() (*int32, bool) {
 
 // HasTotalTagCount returns a boolean if a field has been set.
 func (o *AnalysisArchiveSummary) HasTotalTagCount() bool {
-	if o != nil && o.TotalTagCount != nil {
+	if o != nil && !IsNil(o.TotalTagCount) {
 		return true
 	}
 
@@ -111,7 +114,7 @@ func (o *AnalysisArchiveSummary) SetTotalTagCount(v int32) {
 
 // GetTotalDataBytes returns the TotalDataBytes field value if set, zero value otherwise.
 func (o *AnalysisArchiveSummary) GetTotalDataBytes() int32 {
-	if o == nil || o.TotalDataBytes == nil {
+	if o == nil || IsNil(o.TotalDataBytes) {
 		var ret int32
 		return ret
 	}
@@ -121,7 +124,7 @@ func (o *AnalysisArchiveSummary) GetTotalDataBytes() int32 {
 // GetTotalDataBytesOk returns a tuple with the TotalDataBytes field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AnalysisArchiveSummary) GetTotalDataBytesOk() (*int32, bool) {
-	if o == nil || o.TotalDataBytes == nil {
+	if o == nil || IsNil(o.TotalDataBytes) {
 		return nil, false
 	}
 	return o.TotalDataBytes, true
@@ -129,7 +132,7 @@ func (o *AnalysisArchiveSummary) GetTotalDataBytesOk() (*int32, bool) {
 
 // HasTotalDataBytes returns a boolean if a field has been set.
 func (o *AnalysisArchiveSummary) HasTotalDataBytes() bool {
-	if o != nil && o.TotalDataBytes != nil {
+	if o != nil && !IsNil(o.TotalDataBytes) {
 		return true
 	}
 
@@ -143,7 +146,7 @@ func (o *AnalysisArchiveSummary) SetTotalDataBytes(v int32) {
 
 // GetLastUpdated returns the LastUpdated field value if set, zero value otherwise.
 func (o *AnalysisArchiveSummary) GetLastUpdated() time.Time {
-	if o == nil || o.LastUpdated == nil {
+	if o == nil || IsNil(o.LastUpdated) {
 		var ret time.Time
 		return ret
 	}
@@ -153,7 +156,7 @@ func (o *AnalysisArchiveSummary) GetLastUpdated() time.Time {
 // GetLastUpdatedOk returns a tuple with the LastUpdated field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AnalysisArchiveSummary) GetLastUpdatedOk() (*time.Time, bool) {
-	if o == nil || o.LastUpdated == nil {
+	if o == nil || IsNil(o.LastUpdated) {
 		return nil, false
 	}
 	return o.LastUpdated, true
@@ -161,7 +164,7 @@ func (o *AnalysisArchiveSummary) GetLastUpdatedOk() (*time.Time, bool) {
 
 // HasLastUpdated returns a boolean if a field has been set.
 func (o *AnalysisArchiveSummary) HasLastUpdated() bool {
-	if o != nil && o.LastUpdated != nil {
+	if o != nil && !IsNil(o.LastUpdated) {
 		return true
 	}
 
@@ -174,20 +177,28 @@ func (o *AnalysisArchiveSummary) SetLastUpdated(v time.Time) {
 }
 
 func (o AnalysisArchiveSummary) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.TotalImageCount != nil {
-		toSerialize["total_image_count"] = o.TotalImageCount
-	}
-	if o.TotalTagCount != nil {
-		toSerialize["total_tag_count"] = o.TotalTagCount
-	}
-	if o.TotalDataBytes != nil {
-		toSerialize["total_data_bytes"] = o.TotalDataBytes
-	}
-	if o.LastUpdated != nil {
-		toSerialize["last_updated"] = o.LastUpdated
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o AnalysisArchiveSummary) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.TotalImageCount) {
+		toSerialize["total_image_count"] = o.TotalImageCount
+	}
+	if !IsNil(o.TotalTagCount) {
+		toSerialize["total_tag_count"] = o.TotalTagCount
+	}
+	if !IsNil(o.TotalDataBytes) {
+		toSerialize["total_data_bytes"] = o.TotalDataBytes
+	}
+	if !IsNil(o.LastUpdated) {
+		toSerialize["last_updated"] = o.LastUpdated
+	}
+	return toSerialize, nil
 }
 
 type NullableAnalysisArchiveSummary struct {

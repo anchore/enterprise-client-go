@@ -16,6 +16,9 @@ import (
 	"time"
 )
 
+// checks if the IntegrationAdditionalProperties type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &IntegrationAdditionalProperties{}
+
 // IntegrationAdditionalProperties struct for IntegrationAdditionalProperties
 type IntegrationAdditionalProperties struct {
 	// Short description of the integration instance
@@ -47,7 +50,7 @@ func NewIntegrationAdditionalPropertiesWithDefaults() *IntegrationAdditionalProp
 
 // GetDescription returns the Description field value if set, zero value otherwise.
 func (o *IntegrationAdditionalProperties) GetDescription() string {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		var ret string
 		return ret
 	}
@@ -57,7 +60,7 @@ func (o *IntegrationAdditionalProperties) GetDescription() string {
 // GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *IntegrationAdditionalProperties) GetDescriptionOk() (*string, bool) {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		return nil, false
 	}
 	return o.Description, true
@@ -65,7 +68,7 @@ func (o *IntegrationAdditionalProperties) GetDescriptionOk() (*string, bool) {
 
 // HasDescription returns a boolean if a field has been set.
 func (o *IntegrationAdditionalProperties) HasDescription() bool {
-	if o != nil && o.Description != nil {
+	if o != nil && !IsNil(o.Description) {
 		return true
 	}
 
@@ -79,7 +82,7 @@ func (o *IntegrationAdditionalProperties) SetDescription(v string) {
 
 // GetStartedAt returns the StartedAt field value if set, zero value otherwise.
 func (o *IntegrationAdditionalProperties) GetStartedAt() time.Time {
-	if o == nil || o.StartedAt == nil {
+	if o == nil || IsNil(o.StartedAt) {
 		var ret time.Time
 		return ret
 	}
@@ -89,7 +92,7 @@ func (o *IntegrationAdditionalProperties) GetStartedAt() time.Time {
 // GetStartedAtOk returns a tuple with the StartedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *IntegrationAdditionalProperties) GetStartedAtOk() (*time.Time, bool) {
-	if o == nil || o.StartedAt == nil {
+	if o == nil || IsNil(o.StartedAt) {
 		return nil, false
 	}
 	return o.StartedAt, true
@@ -97,7 +100,7 @@ func (o *IntegrationAdditionalProperties) GetStartedAtOk() (*time.Time, bool) {
 
 // HasStartedAt returns a boolean if a field has been set.
 func (o *IntegrationAdditionalProperties) HasStartedAt() bool {
-	if o != nil && o.StartedAt != nil {
+	if o != nil && !IsNil(o.StartedAt) {
 		return true
 	}
 
@@ -111,7 +114,7 @@ func (o *IntegrationAdditionalProperties) SetStartedAt(v time.Time) {
 
 // GetNamespaces returns the Namespaces field value if set, zero value otherwise.
 func (o *IntegrationAdditionalProperties) GetNamespaces() []string {
-	if o == nil || o.Namespaces == nil {
+	if o == nil || IsNil(o.Namespaces) {
 		var ret []string
 		return ret
 	}
@@ -121,7 +124,7 @@ func (o *IntegrationAdditionalProperties) GetNamespaces() []string {
 // GetNamespacesOk returns a tuple with the Namespaces field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *IntegrationAdditionalProperties) GetNamespacesOk() ([]string, bool) {
-	if o == nil || o.Namespaces == nil {
+	if o == nil || IsNil(o.Namespaces) {
 		return nil, false
 	}
 	return o.Namespaces, true
@@ -129,7 +132,7 @@ func (o *IntegrationAdditionalProperties) GetNamespacesOk() ([]string, bool) {
 
 // HasNamespaces returns a boolean if a field has been set.
 func (o *IntegrationAdditionalProperties) HasNamespaces() bool {
-	if o != nil && o.Namespaces != nil {
+	if o != nil && !IsNil(o.Namespaces) {
 		return true
 	}
 
@@ -143,7 +146,7 @@ func (o *IntegrationAdditionalProperties) SetNamespaces(v []string) {
 
 // GetConfiguration returns the Configuration field value if set, zero value otherwise.
 func (o *IntegrationAdditionalProperties) GetConfiguration() interface{} {
-	if o == nil || o.Configuration == nil {
+	if o == nil || IsNil(o.Configuration) {
 		var ret interface{}
 		return ret
 	}
@@ -153,7 +156,7 @@ func (o *IntegrationAdditionalProperties) GetConfiguration() interface{} {
 // GetConfigurationOk returns a tuple with the Configuration field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *IntegrationAdditionalProperties) GetConfigurationOk() (interface{}, bool) {
-	if o == nil || o.Configuration == nil {
+	if o == nil || IsNil(o.Configuration) {
 		return nil, false
 	}
 	return o.Configuration, true
@@ -161,7 +164,7 @@ func (o *IntegrationAdditionalProperties) GetConfigurationOk() (interface{}, boo
 
 // HasConfiguration returns a boolean if a field has been set.
 func (o *IntegrationAdditionalProperties) HasConfiguration() bool {
-	if o != nil && o.Configuration != nil {
+	if o != nil && !IsNil(o.Configuration) {
 		return true
 	}
 
@@ -174,20 +177,28 @@ func (o *IntegrationAdditionalProperties) SetConfiguration(v interface{}) {
 }
 
 func (o IntegrationAdditionalProperties) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Description != nil {
-		toSerialize["description"] = o.Description
-	}
-	if o.StartedAt != nil {
-		toSerialize["started_at"] = o.StartedAt
-	}
-	if o.Namespaces != nil {
-		toSerialize["namespaces"] = o.Namespaces
-	}
-	if o.Configuration != nil {
-		toSerialize["configuration"] = o.Configuration
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o IntegrationAdditionalProperties) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Description) {
+		toSerialize["description"] = o.Description
+	}
+	if !IsNil(o.StartedAt) {
+		toSerialize["started_at"] = o.StartedAt
+	}
+	if !IsNil(o.Namespaces) {
+		toSerialize["namespaces"] = o.Namespaces
+	}
+	if !IsNil(o.Configuration) {
+		toSerialize["configuration"] = o.Configuration
+	}
+	return toSerialize, nil
 }
 
 type NullableIntegrationAdditionalProperties struct {

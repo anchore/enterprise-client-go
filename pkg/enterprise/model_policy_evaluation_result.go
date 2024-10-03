@@ -14,7 +14,12 @@ package enterprise
 import (
 	"encoding/json"
 	"time"
+	"bytes"
+	"fmt"
 )
+
+// checks if the PolicyEvaluationResult type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PolicyEvaluationResult{}
 
 // PolicyEvaluationResult struct for PolicyEvaluationResult
 type PolicyEvaluationResult struct {
@@ -33,16 +38,18 @@ type PolicyEvaluationResult struct {
 	FinalActionReason string `json:"final_action_reason"`
 	// Whether the evaluated image matched an allowlist rule
 	ImageAllowlisted bool `json:"image_allowlisted"`
-	MatchedAllowlistedImagesRule *PolicyEvaluationResultMatchedAllowlistedImagesRule `json:"matched_allowlisted_images_rule,omitempty"`
+	MatchedAllowlistedImagesRule NullableImageSelectionRule `json:"matched_allowlisted_images_rule,omitempty"`
 	// Whether the evaluated image matched a denylist rule
 	ImageDenylisted bool `json:"image_denylisted"`
-	MatchedDenylistedImagesRule *PolicyEvaluationResultMatchedAllowlistedImagesRule `json:"matched_denylisted_images_rule,omitempty"`
+	MatchedDenylistedImagesRule NullableImageSelectionRule `json:"matched_denylisted_images_rule,omitempty"`
 	// Whether the evaluated image matched a policy rule
 	ImageMappedToRule bool `json:"image_mapped_to_rule"`
-	MatchedMappingRule *PolicyEvaluationResultMatchedMappingRule `json:"matched_mapping_rule,omitempty"`
+	MatchedMappingRule NullableMappingRule `json:"matched_mapping_rule,omitempty"`
 	// Number of policy findings in the response
 	NumberOfFindings int32 `json:"number_of_findings"`
 }
+
+type _PolicyEvaluationResult PolicyEvaluationResult
 
 // NewPolicyEvaluationResult instantiates a new PolicyEvaluationResult object
 // This constructor will assign default values to properties that have it defined,
@@ -72,7 +79,7 @@ func NewPolicyEvaluationResultWithDefaults() *PolicyEvaluationResult {
 
 // GetDetails returns the Details field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *PolicyEvaluationResult) GetDetails() PolicyEvaluationResultDetails {
-	if o == nil || o.Details.Get() == nil {
+	if o == nil || IsNil(o.Details.Get()) {
 		var ret PolicyEvaluationResultDetails
 		return ret
 	}
@@ -114,7 +121,7 @@ func (o *PolicyEvaluationResult) UnsetDetails() {
 
 // GetComparisonImageDigest returns the ComparisonImageDigest field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *PolicyEvaluationResult) GetComparisonImageDigest() string {
-	if o == nil || o.ComparisonImageDigest.Get() == nil {
+	if o == nil || IsNil(o.ComparisonImageDigest.Get()) {
 		var ret string
 		return ret
 	}
@@ -298,36 +305,46 @@ func (o *PolicyEvaluationResult) SetImageAllowlisted(v bool) {
 	o.ImageAllowlisted = v
 }
 
-// GetMatchedAllowlistedImagesRule returns the MatchedAllowlistedImagesRule field value if set, zero value otherwise.
-func (o *PolicyEvaluationResult) GetMatchedAllowlistedImagesRule() PolicyEvaluationResultMatchedAllowlistedImagesRule {
-	if o == nil || o.MatchedAllowlistedImagesRule == nil {
-		var ret PolicyEvaluationResultMatchedAllowlistedImagesRule
+// GetMatchedAllowlistedImagesRule returns the MatchedAllowlistedImagesRule field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *PolicyEvaluationResult) GetMatchedAllowlistedImagesRule() ImageSelectionRule {
+	if o == nil || IsNil(o.MatchedAllowlistedImagesRule.Get()) {
+		var ret ImageSelectionRule
 		return ret
 	}
-	return *o.MatchedAllowlistedImagesRule
+	return *o.MatchedAllowlistedImagesRule.Get()
 }
 
 // GetMatchedAllowlistedImagesRuleOk returns a tuple with the MatchedAllowlistedImagesRule field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *PolicyEvaluationResult) GetMatchedAllowlistedImagesRuleOk() (*PolicyEvaluationResultMatchedAllowlistedImagesRule, bool) {
-	if o == nil || o.MatchedAllowlistedImagesRule == nil {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *PolicyEvaluationResult) GetMatchedAllowlistedImagesRuleOk() (*ImageSelectionRule, bool) {
+	if o == nil {
 		return nil, false
 	}
-	return o.MatchedAllowlistedImagesRule, true
+	return o.MatchedAllowlistedImagesRule.Get(), o.MatchedAllowlistedImagesRule.IsSet()
 }
 
 // HasMatchedAllowlistedImagesRule returns a boolean if a field has been set.
 func (o *PolicyEvaluationResult) HasMatchedAllowlistedImagesRule() bool {
-	if o != nil && o.MatchedAllowlistedImagesRule != nil {
+	if o != nil && o.MatchedAllowlistedImagesRule.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetMatchedAllowlistedImagesRule gets a reference to the given PolicyEvaluationResultMatchedAllowlistedImagesRule and assigns it to the MatchedAllowlistedImagesRule field.
-func (o *PolicyEvaluationResult) SetMatchedAllowlistedImagesRule(v PolicyEvaluationResultMatchedAllowlistedImagesRule) {
-	o.MatchedAllowlistedImagesRule = &v
+// SetMatchedAllowlistedImagesRule gets a reference to the given NullableImageSelectionRule and assigns it to the MatchedAllowlistedImagesRule field.
+func (o *PolicyEvaluationResult) SetMatchedAllowlistedImagesRule(v ImageSelectionRule) {
+	o.MatchedAllowlistedImagesRule.Set(&v)
+}
+// SetMatchedAllowlistedImagesRuleNil sets the value for MatchedAllowlistedImagesRule to be an explicit nil
+func (o *PolicyEvaluationResult) SetMatchedAllowlistedImagesRuleNil() {
+	o.MatchedAllowlistedImagesRule.Set(nil)
+}
+
+// UnsetMatchedAllowlistedImagesRule ensures that no value is present for MatchedAllowlistedImagesRule, not even an explicit nil
+func (o *PolicyEvaluationResult) UnsetMatchedAllowlistedImagesRule() {
+	o.MatchedAllowlistedImagesRule.Unset()
 }
 
 // GetImageDenylisted returns the ImageDenylisted field value
@@ -354,36 +371,46 @@ func (o *PolicyEvaluationResult) SetImageDenylisted(v bool) {
 	o.ImageDenylisted = v
 }
 
-// GetMatchedDenylistedImagesRule returns the MatchedDenylistedImagesRule field value if set, zero value otherwise.
-func (o *PolicyEvaluationResult) GetMatchedDenylistedImagesRule() PolicyEvaluationResultMatchedAllowlistedImagesRule {
-	if o == nil || o.MatchedDenylistedImagesRule == nil {
-		var ret PolicyEvaluationResultMatchedAllowlistedImagesRule
+// GetMatchedDenylistedImagesRule returns the MatchedDenylistedImagesRule field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *PolicyEvaluationResult) GetMatchedDenylistedImagesRule() ImageSelectionRule {
+	if o == nil || IsNil(o.MatchedDenylistedImagesRule.Get()) {
+		var ret ImageSelectionRule
 		return ret
 	}
-	return *o.MatchedDenylistedImagesRule
+	return *o.MatchedDenylistedImagesRule.Get()
 }
 
 // GetMatchedDenylistedImagesRuleOk returns a tuple with the MatchedDenylistedImagesRule field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *PolicyEvaluationResult) GetMatchedDenylistedImagesRuleOk() (*PolicyEvaluationResultMatchedAllowlistedImagesRule, bool) {
-	if o == nil || o.MatchedDenylistedImagesRule == nil {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *PolicyEvaluationResult) GetMatchedDenylistedImagesRuleOk() (*ImageSelectionRule, bool) {
+	if o == nil {
 		return nil, false
 	}
-	return o.MatchedDenylistedImagesRule, true
+	return o.MatchedDenylistedImagesRule.Get(), o.MatchedDenylistedImagesRule.IsSet()
 }
 
 // HasMatchedDenylistedImagesRule returns a boolean if a field has been set.
 func (o *PolicyEvaluationResult) HasMatchedDenylistedImagesRule() bool {
-	if o != nil && o.MatchedDenylistedImagesRule != nil {
+	if o != nil && o.MatchedDenylistedImagesRule.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetMatchedDenylistedImagesRule gets a reference to the given PolicyEvaluationResultMatchedAllowlistedImagesRule and assigns it to the MatchedDenylistedImagesRule field.
-func (o *PolicyEvaluationResult) SetMatchedDenylistedImagesRule(v PolicyEvaluationResultMatchedAllowlistedImagesRule) {
-	o.MatchedDenylistedImagesRule = &v
+// SetMatchedDenylistedImagesRule gets a reference to the given NullableImageSelectionRule and assigns it to the MatchedDenylistedImagesRule field.
+func (o *PolicyEvaluationResult) SetMatchedDenylistedImagesRule(v ImageSelectionRule) {
+	o.MatchedDenylistedImagesRule.Set(&v)
+}
+// SetMatchedDenylistedImagesRuleNil sets the value for MatchedDenylistedImagesRule to be an explicit nil
+func (o *PolicyEvaluationResult) SetMatchedDenylistedImagesRuleNil() {
+	o.MatchedDenylistedImagesRule.Set(nil)
+}
+
+// UnsetMatchedDenylistedImagesRule ensures that no value is present for MatchedDenylistedImagesRule, not even an explicit nil
+func (o *PolicyEvaluationResult) UnsetMatchedDenylistedImagesRule() {
+	o.MatchedDenylistedImagesRule.Unset()
 }
 
 // GetImageMappedToRule returns the ImageMappedToRule field value
@@ -410,36 +437,46 @@ func (o *PolicyEvaluationResult) SetImageMappedToRule(v bool) {
 	o.ImageMappedToRule = v
 }
 
-// GetMatchedMappingRule returns the MatchedMappingRule field value if set, zero value otherwise.
-func (o *PolicyEvaluationResult) GetMatchedMappingRule() PolicyEvaluationResultMatchedMappingRule {
-	if o == nil || o.MatchedMappingRule == nil {
-		var ret PolicyEvaluationResultMatchedMappingRule
+// GetMatchedMappingRule returns the MatchedMappingRule field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *PolicyEvaluationResult) GetMatchedMappingRule() MappingRule {
+	if o == nil || IsNil(o.MatchedMappingRule.Get()) {
+		var ret MappingRule
 		return ret
 	}
-	return *o.MatchedMappingRule
+	return *o.MatchedMappingRule.Get()
 }
 
 // GetMatchedMappingRuleOk returns a tuple with the MatchedMappingRule field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *PolicyEvaluationResult) GetMatchedMappingRuleOk() (*PolicyEvaluationResultMatchedMappingRule, bool) {
-	if o == nil || o.MatchedMappingRule == nil {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *PolicyEvaluationResult) GetMatchedMappingRuleOk() (*MappingRule, bool) {
+	if o == nil {
 		return nil, false
 	}
-	return o.MatchedMappingRule, true
+	return o.MatchedMappingRule.Get(), o.MatchedMappingRule.IsSet()
 }
 
 // HasMatchedMappingRule returns a boolean if a field has been set.
 func (o *PolicyEvaluationResult) HasMatchedMappingRule() bool {
-	if o != nil && o.MatchedMappingRule != nil {
+	if o != nil && o.MatchedMappingRule.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetMatchedMappingRule gets a reference to the given PolicyEvaluationResultMatchedMappingRule and assigns it to the MatchedMappingRule field.
-func (o *PolicyEvaluationResult) SetMatchedMappingRule(v PolicyEvaluationResultMatchedMappingRule) {
-	o.MatchedMappingRule = &v
+// SetMatchedMappingRule gets a reference to the given NullableMappingRule and assigns it to the MatchedMappingRule field.
+func (o *PolicyEvaluationResult) SetMatchedMappingRule(v MappingRule) {
+	o.MatchedMappingRule.Set(&v)
+}
+// SetMatchedMappingRuleNil sets the value for MatchedMappingRule to be an explicit nil
+func (o *PolicyEvaluationResult) SetMatchedMappingRuleNil() {
+	o.MatchedMappingRule.Set(nil)
+}
+
+// UnsetMatchedMappingRule ensures that no value is present for MatchedMappingRule, not even an explicit nil
+func (o *PolicyEvaluationResult) UnsetMatchedMappingRule() {
+	o.MatchedMappingRule.Unset()
 }
 
 // GetNumberOfFindings returns the NumberOfFindings field value
@@ -467,6 +504,14 @@ func (o *PolicyEvaluationResult) SetNumberOfFindings(v int32) {
 }
 
 func (o PolicyEvaluationResult) MarshalJSON() ([]byte, error) {
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o PolicyEvaluationResult) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	if o.Details.IsSet() {
 		toSerialize["details"] = o.Details.Get()
@@ -474,43 +519,70 @@ func (o PolicyEvaluationResult) MarshalJSON() ([]byte, error) {
 	if o.ComparisonImageDigest.IsSet() {
 		toSerialize["comparison_image_digest"] = o.ComparisonImageDigest.Get()
 	}
-	if true {
-		toSerialize["evaluation_time"] = o.EvaluationTime
+	toSerialize["evaluation_time"] = o.EvaluationTime
+	toSerialize["evaluation_problems"] = o.EvaluationProblems
+	toSerialize["status"] = o.Status
+	toSerialize["final_action"] = o.FinalAction
+	toSerialize["final_action_reason"] = o.FinalActionReason
+	toSerialize["image_allowlisted"] = o.ImageAllowlisted
+	if o.MatchedAllowlistedImagesRule.IsSet() {
+		toSerialize["matched_allowlisted_images_rule"] = o.MatchedAllowlistedImagesRule.Get()
 	}
-	if true {
-		toSerialize["evaluation_problems"] = o.EvaluationProblems
+	toSerialize["image_denylisted"] = o.ImageDenylisted
+	if o.MatchedDenylistedImagesRule.IsSet() {
+		toSerialize["matched_denylisted_images_rule"] = o.MatchedDenylistedImagesRule.Get()
 	}
-	if true {
-		toSerialize["status"] = o.Status
+	toSerialize["image_mapped_to_rule"] = o.ImageMappedToRule
+	if o.MatchedMappingRule.IsSet() {
+		toSerialize["matched_mapping_rule"] = o.MatchedMappingRule.Get()
 	}
-	if true {
-		toSerialize["final_action"] = o.FinalAction
+	toSerialize["number_of_findings"] = o.NumberOfFindings
+	return toSerialize, nil
+}
+
+func (o *PolicyEvaluationResult) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"evaluation_time",
+		"evaluation_problems",
+		"status",
+		"final_action",
+		"final_action_reason",
+		"image_allowlisted",
+		"image_denylisted",
+		"image_mapped_to_rule",
+		"number_of_findings",
 	}
-	if true {
-		toSerialize["final_action_reason"] = o.FinalActionReason
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
 	}
-	if true {
-		toSerialize["image_allowlisted"] = o.ImageAllowlisted
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
 	}
-	if o.MatchedAllowlistedImagesRule != nil {
-		toSerialize["matched_allowlisted_images_rule"] = o.MatchedAllowlistedImagesRule
+
+	varPolicyEvaluationResult := _PolicyEvaluationResult{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varPolicyEvaluationResult)
+
+	if err != nil {
+		return err
 	}
-	if true {
-		toSerialize["image_denylisted"] = o.ImageDenylisted
-	}
-	if o.MatchedDenylistedImagesRule != nil {
-		toSerialize["matched_denylisted_images_rule"] = o.MatchedDenylistedImagesRule
-	}
-	if true {
-		toSerialize["image_mapped_to_rule"] = o.ImageMappedToRule
-	}
-	if o.MatchedMappingRule != nil {
-		toSerialize["matched_mapping_rule"] = o.MatchedMappingRule
-	}
-	if true {
-		toSerialize["number_of_findings"] = o.NumberOfFindings
-	}
-	return json.Marshal(toSerialize)
+
+	*o = PolicyEvaluationResult(varPolicyEvaluationResult)
+
+	return err
 }
 
 type NullablePolicyEvaluationResult struct {

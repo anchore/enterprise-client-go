@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the ImageWithPackages type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ImageWithPackages{}
+
 // ImageWithPackages An image record that contains packages
 type ImageWithPackages struct {
 	Image *ImageReference `json:"image,omitempty"`
@@ -40,7 +43,7 @@ func NewImageWithPackagesWithDefaults() *ImageWithPackages {
 
 // GetImage returns the Image field value if set, zero value otherwise.
 func (o *ImageWithPackages) GetImage() ImageReference {
-	if o == nil || o.Image == nil {
+	if o == nil || IsNil(o.Image) {
 		var ret ImageReference
 		return ret
 	}
@@ -50,7 +53,7 @@ func (o *ImageWithPackages) GetImage() ImageReference {
 // GetImageOk returns a tuple with the Image field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ImageWithPackages) GetImageOk() (*ImageReference, bool) {
-	if o == nil || o.Image == nil {
+	if o == nil || IsNil(o.Image) {
 		return nil, false
 	}
 	return o.Image, true
@@ -58,7 +61,7 @@ func (o *ImageWithPackages) GetImageOk() (*ImageReference, bool) {
 
 // HasImage returns a boolean if a field has been set.
 func (o *ImageWithPackages) HasImage() bool {
-	if o != nil && o.Image != nil {
+	if o != nil && !IsNil(o.Image) {
 		return true
 	}
 
@@ -72,7 +75,7 @@ func (o *ImageWithPackages) SetImage(v ImageReference) {
 
 // GetPackages returns the Packages field value if set, zero value otherwise.
 func (o *ImageWithPackages) GetPackages() []PackageReference {
-	if o == nil || o.Packages == nil {
+	if o == nil || IsNil(o.Packages) {
 		var ret []PackageReference
 		return ret
 	}
@@ -82,7 +85,7 @@ func (o *ImageWithPackages) GetPackages() []PackageReference {
 // GetPackagesOk returns a tuple with the Packages field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ImageWithPackages) GetPackagesOk() ([]PackageReference, bool) {
-	if o == nil || o.Packages == nil {
+	if o == nil || IsNil(o.Packages) {
 		return nil, false
 	}
 	return o.Packages, true
@@ -90,7 +93,7 @@ func (o *ImageWithPackages) GetPackagesOk() ([]PackageReference, bool) {
 
 // HasPackages returns a boolean if a field has been set.
 func (o *ImageWithPackages) HasPackages() bool {
-	if o != nil && o.Packages != nil {
+	if o != nil && !IsNil(o.Packages) {
 		return true
 	}
 
@@ -103,14 +106,22 @@ func (o *ImageWithPackages) SetPackages(v []PackageReference) {
 }
 
 func (o ImageWithPackages) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Image != nil {
-		toSerialize["image"] = o.Image
-	}
-	if o.Packages != nil {
-		toSerialize["packages"] = o.Packages
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o ImageWithPackages) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Image) {
+		toSerialize["image"] = o.Image
+	}
+	if !IsNil(o.Packages) {
+		toSerialize["packages"] = o.Packages
+	}
+	return toSerialize, nil
 }
 
 type NullableImageWithPackages struct {

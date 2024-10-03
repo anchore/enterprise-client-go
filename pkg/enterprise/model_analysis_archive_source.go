@@ -13,13 +13,20 @@ package enterprise
 
 import (
 	"encoding/json"
+	"bytes"
+	"fmt"
 )
+
+// checks if the AnalysisArchiveSource type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &AnalysisArchiveSource{}
 
 // AnalysisArchiveSource An image reference in the analysis archive for the purposes of loading analysis from the archive into th working set
 type AnalysisArchiveSource struct {
 	// The image digest identify the analysis. Archived analyses are based on digest, tag records are restored as analysis is restored.
-	Digest string `json:"digest"`
+	Digest string `json:"digest" validate:"regexp=^sha256:[a-fA-F0-9]{64}$"`
 }
+
+type _AnalysisArchiveSource AnalysisArchiveSource
 
 // NewAnalysisArchiveSource instantiates a new AnalysisArchiveSource object
 // This constructor will assign default values to properties that have it defined,
@@ -64,11 +71,54 @@ func (o *AnalysisArchiveSource) SetDigest(v string) {
 }
 
 func (o AnalysisArchiveSource) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["digest"] = o.Digest
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o AnalysisArchiveSource) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["digest"] = o.Digest
+	return toSerialize, nil
+}
+
+func (o *AnalysisArchiveSource) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"digest",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varAnalysisArchiveSource := _AnalysisArchiveSource{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varAnalysisArchiveSource)
+
+	if err != nil {
+		return err
+	}
+
+	*o = AnalysisArchiveSource(varAnalysisArchiveSource)
+
+	return err
 }
 
 type NullableAnalysisArchiveSource struct {

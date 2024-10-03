@@ -13,11 +13,16 @@ package enterprise
 
 import (
 	"encoding/json"
+	"bytes"
+	"fmt"
 )
+
+// checks if the KubernetesInventoryNode type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &KubernetesInventoryNode{}
 
 // KubernetesInventoryNode struct for KubernetesInventoryNode
 type KubernetesInventoryNode struct {
-	Uid string `json:"uid"`
+	Uid string `json:"uid" validate:"regexp=^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"`
 	Name string `json:"name"`
 	Labels *map[string]string `json:"labels,omitempty"`
 	Annotations *map[string]string `json:"annotations,omitempty"`
@@ -29,6 +34,8 @@ type KubernetesInventoryNode struct {
 	KubeletVersion *string `json:"kubelet_version,omitempty"`
 	OperatingSystem *string `json:"operating_system,omitempty"`
 }
+
+type _KubernetesInventoryNode KubernetesInventoryNode
 
 // NewKubernetesInventoryNode instantiates a new KubernetesInventoryNode object
 // This constructor will assign default values to properties that have it defined,
@@ -99,7 +106,7 @@ func (o *KubernetesInventoryNode) SetName(v string) {
 
 // GetLabels returns the Labels field value if set, zero value otherwise.
 func (o *KubernetesInventoryNode) GetLabels() map[string]string {
-	if o == nil || o.Labels == nil {
+	if o == nil || IsNil(o.Labels) {
 		var ret map[string]string
 		return ret
 	}
@@ -109,7 +116,7 @@ func (o *KubernetesInventoryNode) GetLabels() map[string]string {
 // GetLabelsOk returns a tuple with the Labels field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *KubernetesInventoryNode) GetLabelsOk() (*map[string]string, bool) {
-	if o == nil || o.Labels == nil {
+	if o == nil || IsNil(o.Labels) {
 		return nil, false
 	}
 	return o.Labels, true
@@ -117,7 +124,7 @@ func (o *KubernetesInventoryNode) GetLabelsOk() (*map[string]string, bool) {
 
 // HasLabels returns a boolean if a field has been set.
 func (o *KubernetesInventoryNode) HasLabels() bool {
-	if o != nil && o.Labels != nil {
+	if o != nil && !IsNil(o.Labels) {
 		return true
 	}
 
@@ -131,7 +138,7 @@ func (o *KubernetesInventoryNode) SetLabels(v map[string]string) {
 
 // GetAnnotations returns the Annotations field value if set, zero value otherwise.
 func (o *KubernetesInventoryNode) GetAnnotations() map[string]string {
-	if o == nil || o.Annotations == nil {
+	if o == nil || IsNil(o.Annotations) {
 		var ret map[string]string
 		return ret
 	}
@@ -141,7 +148,7 @@ func (o *KubernetesInventoryNode) GetAnnotations() map[string]string {
 // GetAnnotationsOk returns a tuple with the Annotations field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *KubernetesInventoryNode) GetAnnotationsOk() (*map[string]string, bool) {
-	if o == nil || o.Annotations == nil {
+	if o == nil || IsNil(o.Annotations) {
 		return nil, false
 	}
 	return o.Annotations, true
@@ -149,7 +156,7 @@ func (o *KubernetesInventoryNode) GetAnnotationsOk() (*map[string]string, bool) 
 
 // HasAnnotations returns a boolean if a field has been set.
 func (o *KubernetesInventoryNode) HasAnnotations() bool {
-	if o != nil && o.Annotations != nil {
+	if o != nil && !IsNil(o.Annotations) {
 		return true
 	}
 
@@ -163,7 +170,7 @@ func (o *KubernetesInventoryNode) SetAnnotations(v map[string]string) {
 
 // GetKernelVersion returns the KernelVersion field value if set, zero value otherwise.
 func (o *KubernetesInventoryNode) GetKernelVersion() string {
-	if o == nil || o.KernelVersion == nil {
+	if o == nil || IsNil(o.KernelVersion) {
 		var ret string
 		return ret
 	}
@@ -173,7 +180,7 @@ func (o *KubernetesInventoryNode) GetKernelVersion() string {
 // GetKernelVersionOk returns a tuple with the KernelVersion field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *KubernetesInventoryNode) GetKernelVersionOk() (*string, bool) {
-	if o == nil || o.KernelVersion == nil {
+	if o == nil || IsNil(o.KernelVersion) {
 		return nil, false
 	}
 	return o.KernelVersion, true
@@ -181,7 +188,7 @@ func (o *KubernetesInventoryNode) GetKernelVersionOk() (*string, bool) {
 
 // HasKernelVersion returns a boolean if a field has been set.
 func (o *KubernetesInventoryNode) HasKernelVersion() bool {
-	if o != nil && o.KernelVersion != nil {
+	if o != nil && !IsNil(o.KernelVersion) {
 		return true
 	}
 
@@ -195,7 +202,7 @@ func (o *KubernetesInventoryNode) SetKernelVersion(v string) {
 
 // GetKubernetesVersion returns the KubernetesVersion field value if set, zero value otherwise.
 func (o *KubernetesInventoryNode) GetKubernetesVersion() string {
-	if o == nil || o.KubernetesVersion == nil {
+	if o == nil || IsNil(o.KubernetesVersion) {
 		var ret string
 		return ret
 	}
@@ -205,7 +212,7 @@ func (o *KubernetesInventoryNode) GetKubernetesVersion() string {
 // GetKubernetesVersionOk returns a tuple with the KubernetesVersion field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *KubernetesInventoryNode) GetKubernetesVersionOk() (*string, bool) {
-	if o == nil || o.KubernetesVersion == nil {
+	if o == nil || IsNil(o.KubernetesVersion) {
 		return nil, false
 	}
 	return o.KubernetesVersion, true
@@ -213,7 +220,7 @@ func (o *KubernetesInventoryNode) GetKubernetesVersionOk() (*string, bool) {
 
 // HasKubernetesVersion returns a boolean if a field has been set.
 func (o *KubernetesInventoryNode) HasKubernetesVersion() bool {
-	if o != nil && o.KubernetesVersion != nil {
+	if o != nil && !IsNil(o.KubernetesVersion) {
 		return true
 	}
 
@@ -227,7 +234,7 @@ func (o *KubernetesInventoryNode) SetKubernetesVersion(v string) {
 
 // GetArch returns the Arch field value if set, zero value otherwise.
 func (o *KubernetesInventoryNode) GetArch() string {
-	if o == nil || o.Arch == nil {
+	if o == nil || IsNil(o.Arch) {
 		var ret string
 		return ret
 	}
@@ -237,7 +244,7 @@ func (o *KubernetesInventoryNode) GetArch() string {
 // GetArchOk returns a tuple with the Arch field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *KubernetesInventoryNode) GetArchOk() (*string, bool) {
-	if o == nil || o.Arch == nil {
+	if o == nil || IsNil(o.Arch) {
 		return nil, false
 	}
 	return o.Arch, true
@@ -245,7 +252,7 @@ func (o *KubernetesInventoryNode) GetArchOk() (*string, bool) {
 
 // HasArch returns a boolean if a field has been set.
 func (o *KubernetesInventoryNode) HasArch() bool {
-	if o != nil && o.Arch != nil {
+	if o != nil && !IsNil(o.Arch) {
 		return true
 	}
 
@@ -259,7 +266,7 @@ func (o *KubernetesInventoryNode) SetArch(v string) {
 
 // GetContainerRuntimeVersion returns the ContainerRuntimeVersion field value if set, zero value otherwise.
 func (o *KubernetesInventoryNode) GetContainerRuntimeVersion() string {
-	if o == nil || o.ContainerRuntimeVersion == nil {
+	if o == nil || IsNil(o.ContainerRuntimeVersion) {
 		var ret string
 		return ret
 	}
@@ -269,7 +276,7 @@ func (o *KubernetesInventoryNode) GetContainerRuntimeVersion() string {
 // GetContainerRuntimeVersionOk returns a tuple with the ContainerRuntimeVersion field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *KubernetesInventoryNode) GetContainerRuntimeVersionOk() (*string, bool) {
-	if o == nil || o.ContainerRuntimeVersion == nil {
+	if o == nil || IsNil(o.ContainerRuntimeVersion) {
 		return nil, false
 	}
 	return o.ContainerRuntimeVersion, true
@@ -277,7 +284,7 @@ func (o *KubernetesInventoryNode) GetContainerRuntimeVersionOk() (*string, bool)
 
 // HasContainerRuntimeVersion returns a boolean if a field has been set.
 func (o *KubernetesInventoryNode) HasContainerRuntimeVersion() bool {
-	if o != nil && o.ContainerRuntimeVersion != nil {
+	if o != nil && !IsNil(o.ContainerRuntimeVersion) {
 		return true
 	}
 
@@ -291,7 +298,7 @@ func (o *KubernetesInventoryNode) SetContainerRuntimeVersion(v string) {
 
 // GetKubeProxyVersion returns the KubeProxyVersion field value if set, zero value otherwise.
 func (o *KubernetesInventoryNode) GetKubeProxyVersion() string {
-	if o == nil || o.KubeProxyVersion == nil {
+	if o == nil || IsNil(o.KubeProxyVersion) {
 		var ret string
 		return ret
 	}
@@ -301,7 +308,7 @@ func (o *KubernetesInventoryNode) GetKubeProxyVersion() string {
 // GetKubeProxyVersionOk returns a tuple with the KubeProxyVersion field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *KubernetesInventoryNode) GetKubeProxyVersionOk() (*string, bool) {
-	if o == nil || o.KubeProxyVersion == nil {
+	if o == nil || IsNil(o.KubeProxyVersion) {
 		return nil, false
 	}
 	return o.KubeProxyVersion, true
@@ -309,7 +316,7 @@ func (o *KubernetesInventoryNode) GetKubeProxyVersionOk() (*string, bool) {
 
 // HasKubeProxyVersion returns a boolean if a field has been set.
 func (o *KubernetesInventoryNode) HasKubeProxyVersion() bool {
-	if o != nil && o.KubeProxyVersion != nil {
+	if o != nil && !IsNil(o.KubeProxyVersion) {
 		return true
 	}
 
@@ -323,7 +330,7 @@ func (o *KubernetesInventoryNode) SetKubeProxyVersion(v string) {
 
 // GetKubeletVersion returns the KubeletVersion field value if set, zero value otherwise.
 func (o *KubernetesInventoryNode) GetKubeletVersion() string {
-	if o == nil || o.KubeletVersion == nil {
+	if o == nil || IsNil(o.KubeletVersion) {
 		var ret string
 		return ret
 	}
@@ -333,7 +340,7 @@ func (o *KubernetesInventoryNode) GetKubeletVersion() string {
 // GetKubeletVersionOk returns a tuple with the KubeletVersion field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *KubernetesInventoryNode) GetKubeletVersionOk() (*string, bool) {
-	if o == nil || o.KubeletVersion == nil {
+	if o == nil || IsNil(o.KubeletVersion) {
 		return nil, false
 	}
 	return o.KubeletVersion, true
@@ -341,7 +348,7 @@ func (o *KubernetesInventoryNode) GetKubeletVersionOk() (*string, bool) {
 
 // HasKubeletVersion returns a boolean if a field has been set.
 func (o *KubernetesInventoryNode) HasKubeletVersion() bool {
-	if o != nil && o.KubeletVersion != nil {
+	if o != nil && !IsNil(o.KubeletVersion) {
 		return true
 	}
 
@@ -355,7 +362,7 @@ func (o *KubernetesInventoryNode) SetKubeletVersion(v string) {
 
 // GetOperatingSystem returns the OperatingSystem field value if set, zero value otherwise.
 func (o *KubernetesInventoryNode) GetOperatingSystem() string {
-	if o == nil || o.OperatingSystem == nil {
+	if o == nil || IsNil(o.OperatingSystem) {
 		var ret string
 		return ret
 	}
@@ -365,7 +372,7 @@ func (o *KubernetesInventoryNode) GetOperatingSystem() string {
 // GetOperatingSystemOk returns a tuple with the OperatingSystem field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *KubernetesInventoryNode) GetOperatingSystemOk() (*string, bool) {
-	if o == nil || o.OperatingSystem == nil {
+	if o == nil || IsNil(o.OperatingSystem) {
 		return nil, false
 	}
 	return o.OperatingSystem, true
@@ -373,7 +380,7 @@ func (o *KubernetesInventoryNode) GetOperatingSystemOk() (*string, bool) {
 
 // HasOperatingSystem returns a boolean if a field has been set.
 func (o *KubernetesInventoryNode) HasOperatingSystem() bool {
-	if o != nil && o.OperatingSystem != nil {
+	if o != nil && !IsNil(o.OperatingSystem) {
 		return true
 	}
 
@@ -386,41 +393,83 @@ func (o *KubernetesInventoryNode) SetOperatingSystem(v string) {
 }
 
 func (o KubernetesInventoryNode) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["uid"] = o.Uid
-	}
-	if true {
-		toSerialize["name"] = o.Name
-	}
-	if o.Labels != nil {
-		toSerialize["labels"] = o.Labels
-	}
-	if o.Annotations != nil {
-		toSerialize["annotations"] = o.Annotations
-	}
-	if o.KernelVersion != nil {
-		toSerialize["kernel_version"] = o.KernelVersion
-	}
-	if o.KubernetesVersion != nil {
-		toSerialize["kubernetes_version"] = o.KubernetesVersion
-	}
-	if o.Arch != nil {
-		toSerialize["arch"] = o.Arch
-	}
-	if o.ContainerRuntimeVersion != nil {
-		toSerialize["container_runtime_version"] = o.ContainerRuntimeVersion
-	}
-	if o.KubeProxyVersion != nil {
-		toSerialize["kube_proxy_version"] = o.KubeProxyVersion
-	}
-	if o.KubeletVersion != nil {
-		toSerialize["kubelet_version"] = o.KubeletVersion
-	}
-	if o.OperatingSystem != nil {
-		toSerialize["operating_system"] = o.OperatingSystem
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o KubernetesInventoryNode) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["uid"] = o.Uid
+	toSerialize["name"] = o.Name
+	if !IsNil(o.Labels) {
+		toSerialize["labels"] = o.Labels
+	}
+	if !IsNil(o.Annotations) {
+		toSerialize["annotations"] = o.Annotations
+	}
+	if !IsNil(o.KernelVersion) {
+		toSerialize["kernel_version"] = o.KernelVersion
+	}
+	if !IsNil(o.KubernetesVersion) {
+		toSerialize["kubernetes_version"] = o.KubernetesVersion
+	}
+	if !IsNil(o.Arch) {
+		toSerialize["arch"] = o.Arch
+	}
+	if !IsNil(o.ContainerRuntimeVersion) {
+		toSerialize["container_runtime_version"] = o.ContainerRuntimeVersion
+	}
+	if !IsNil(o.KubeProxyVersion) {
+		toSerialize["kube_proxy_version"] = o.KubeProxyVersion
+	}
+	if !IsNil(o.KubeletVersion) {
+		toSerialize["kubelet_version"] = o.KubeletVersion
+	}
+	if !IsNil(o.OperatingSystem) {
+		toSerialize["operating_system"] = o.OperatingSystem
+	}
+	return toSerialize, nil
+}
+
+func (o *KubernetesInventoryNode) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"uid",
+		"name",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varKubernetesInventoryNode := _KubernetesInventoryNode{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varKubernetesInventoryNode)
+
+	if err != nil {
+		return err
+	}
+
+	*o = KubernetesInventoryNode(varKubernetesInventoryNode)
+
+	return err
 }
 
 type NullableKubernetesInventoryNode struct {

@@ -1,19 +1,19 @@
-# \IdentityApi
+# \IdentityAPI
 
 All URIs are relative to */v2*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**AddCredential**](IdentityApi.md#AddCredential) | **Post** /user/credentials | add/replace credential
-[**CreateApiKey**](IdentityApi.md#CreateApiKey) | **Post** /user/api-keys | Add a new API key
-[**DeleteApiKey**](IdentityApi.md#DeleteApiKey) | **Delete** /user/api-keys/{key_name} | Delete a user API key
-[**GetApiKey**](IdentityApi.md#GetApiKey) | **Get** /user/api-keys/{key_name} | Get a user API key
-[**GetCredentials**](IdentityApi.md#GetCredentials) | **Get** /user/credentials | Get current credential summary
-[**GetUser**](IdentityApi.md#GetUser) | **Get** /user | List authenticated user info
-[**GetUsersAccount**](IdentityApi.md#GetUsersAccount) | **Get** /account | List the account for the authenticated user
-[**ListApiKeys**](IdentityApi.md#ListApiKeys) | **Get** /user/api-keys | Get a list of API keys
-[**ListMyUserGroups**](IdentityApi.md#ListMyUserGroups) | **Get** /my-user-groups | List user groups for the authenticated user
-[**PatchApiKey**](IdentityApi.md#PatchApiKey) | **Patch** /user/api-keys/{key_name} | Patch a user API key
+[**AddCredential**](IdentityAPI.md#AddCredential) | **Post** /user/credentials | add/replace credential
+[**CreateApiKey**](IdentityAPI.md#CreateApiKey) | **Post** /user/api-keys | Add a new API key
+[**DeleteApiKey**](IdentityAPI.md#DeleteApiKey) | **Delete** /user/api-keys/{key_name} | Delete a user API key
+[**GetApiKey**](IdentityAPI.md#GetApiKey) | **Get** /user/api-keys/{key_name} | Get a user API key
+[**GetCredentials**](IdentityAPI.md#GetCredentials) | **Get** /user/credentials | Get current credential summary
+[**GetUser**](IdentityAPI.md#GetUser) | **Get** /user | List authenticated user info
+[**GetUsersAccount**](IdentityAPI.md#GetUsersAccount) | **Get** /account | List the account for the authenticated user
+[**ListApiKeys**](IdentityAPI.md#ListApiKeys) | **Get** /user/api-keys | Get a list of API keys
+[**ListMyUserGroups**](IdentityAPI.md#ListMyUserGroups) | **Get** /my-user-groups | List user groups for the authenticated user
+[**PatchApiKey**](IdentityAPI.md#PatchApiKey) | **Patch** /user/api-keys/{key_name} | Patch a user API key
 
 
 
@@ -29,24 +29,24 @@ add/replace credential
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
-    credential := *openapiclient.NewAccessCredential("Type_example", "Value_example") // AccessCredential | 
+	credential := *openapiclient.NewAccessCredential("Type_example", "Value_example") // AccessCredential | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.IdentityApi.AddCredential(context.Background()).Credential(credential).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `IdentityApi.AddCredential``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `AddCredential`: AccessCredential
-    fmt.Fprintf(os.Stdout, "Response from `IdentityApi.AddCredential`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.IdentityAPI.AddCredential(context.Background()).Credential(credential).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `IdentityAPI.AddCredential``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `AddCredential`: AccessCredential
+	fmt.Fprintf(os.Stdout, "Response from `IdentityAPI.AddCredential`: %v\n", resp)
 }
 ```
 
@@ -93,25 +93,25 @@ Add a new API key
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
+	"context"
+	"fmt"
+	"os"
     "time"
-    openapiclient "./openapi"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
-    userApiKey := *openapiclient.NewUserApiKey("Name_example", time.Now()) // UserApiKey | 
+	userApiKey := *openapiclient.NewUserApiKey("Name_example", time.Now()) // UserApiKey | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.IdentityApi.CreateApiKey(context.Background()).UserApiKey(userApiKey).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `IdentityApi.CreateApiKey``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `CreateApiKey`: UserApiKey
-    fmt.Fprintf(os.Stdout, "Response from `IdentityApi.CreateApiKey`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.IdentityAPI.CreateApiKey(context.Background()).UserApiKey(userApiKey).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `IdentityAPI.CreateApiKey``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `CreateApiKey`: UserApiKey
+	fmt.Fprintf(os.Stdout, "Response from `IdentityAPI.CreateApiKey`: %v\n", resp)
 }
 ```
 
@@ -158,22 +158,22 @@ Delete a user API key
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
-    keyName := "keyName_example" // string | 
+	keyName := "keyName_example" // string | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.IdentityApi.DeleteApiKey(context.Background(), keyName).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `IdentityApi.DeleteApiKey``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.IdentityAPI.DeleteApiKey(context.Background(), keyName).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `IdentityAPI.DeleteApiKey``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -224,24 +224,24 @@ Get a user API key
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
-    keyName := "keyName_example" // string | 
+	keyName := "keyName_example" // string | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.IdentityApi.GetApiKey(context.Background(), keyName).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `IdentityApi.GetApiKey``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetApiKey`: UserApiKey
-    fmt.Fprintf(os.Stdout, "Response from `IdentityApi.GetApiKey`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.IdentityAPI.GetApiKey(context.Background(), keyName).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `IdentityAPI.GetApiKey``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetApiKey`: UserApiKey
+	fmt.Fprintf(os.Stdout, "Response from `IdentityAPI.GetApiKey`: %v\n", resp)
 }
 ```
 
@@ -292,23 +292,23 @@ Get current credential summary
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.IdentityApi.GetCredentials(context.Background()).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `IdentityApi.GetCredentials``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetCredentials`: []AccessCredential
-    fmt.Fprintf(os.Stdout, "Response from `IdentityApi.GetCredentials`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.IdentityAPI.GetCredentials(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `IdentityAPI.GetCredentials``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetCredentials`: []AccessCredential
+	fmt.Fprintf(os.Stdout, "Response from `IdentityAPI.GetCredentials`: %v\n", resp)
 }
 ```
 
@@ -351,23 +351,23 @@ List authenticated user info
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.IdentityApi.GetUser(context.Background()).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `IdentityApi.GetUser``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetUser`: User
-    fmt.Fprintf(os.Stdout, "Response from `IdentityApi.GetUser`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.IdentityAPI.GetUser(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `IdentityAPI.GetUser``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetUser`: User
+	fmt.Fprintf(os.Stdout, "Response from `IdentityAPI.GetUser`: %v\n", resp)
 }
 ```
 
@@ -410,23 +410,23 @@ List the account for the authenticated user
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.IdentityApi.GetUsersAccount(context.Background()).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `IdentityApi.GetUsersAccount``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetUsersAccount`: Account
-    fmt.Fprintf(os.Stdout, "Response from `IdentityApi.GetUsersAccount`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.IdentityAPI.GetUsersAccount(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `IdentityAPI.GetUsersAccount``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetUsersAccount`: Account
+	fmt.Fprintf(os.Stdout, "Response from `IdentityAPI.GetUsersAccount`: %v\n", resp)
 }
 ```
 
@@ -469,23 +469,23 @@ Get a list of API keys
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.IdentityApi.ListApiKeys(context.Background()).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `IdentityApi.ListApiKeys``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ListApiKeys`: ApiKeyList
-    fmt.Fprintf(os.Stdout, "Response from `IdentityApi.ListApiKeys`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.IdentityAPI.ListApiKeys(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `IdentityAPI.ListApiKeys``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ListApiKeys`: ApiKeyList
+	fmt.Fprintf(os.Stdout, "Response from `IdentityAPI.ListApiKeys`: %v\n", resp)
 }
 ```
 
@@ -528,23 +528,23 @@ List user groups for the authenticated user
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.IdentityApi.ListMyUserGroups(context.Background()).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `IdentityApi.ListMyUserGroups``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ListMyUserGroups`: []UserGroup
-    fmt.Fprintf(os.Stdout, "Response from `IdentityApi.ListMyUserGroups`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.IdentityAPI.ListMyUserGroups(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `IdentityAPI.ListMyUserGroups``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ListMyUserGroups`: []UserGroup
+	fmt.Fprintf(os.Stdout, "Response from `IdentityAPI.ListMyUserGroups`: %v\n", resp)
 }
 ```
 
@@ -587,25 +587,25 @@ Patch a user API key
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
-    keyName := "keyName_example" // string | 
-    patchUserApiKeyRequest := *openapiclient.NewPatchUserApiKeyRequest() // PatchUserApiKeyRequest |  (optional)
+	keyName := "keyName_example" // string | 
+	patchUserApiKeyRequest := *openapiclient.NewPatchUserApiKeyRequest() // PatchUserApiKeyRequest |  (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.IdentityApi.PatchApiKey(context.Background(), keyName).PatchUserApiKeyRequest(patchUserApiKeyRequest).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `IdentityApi.PatchApiKey``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `PatchApiKey`: UserApiKey
-    fmt.Fprintf(os.Stdout, "Response from `IdentityApi.PatchApiKey`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.IdentityAPI.PatchApiKey(context.Background(), keyName).PatchUserApiKeyRequest(patchUserApiKeyRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `IdentityAPI.PatchApiKey``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PatchApiKey`: UserApiKey
+	fmt.Fprintf(os.Stdout, "Response from `IdentityAPI.PatchApiKey`: %v\n", resp)
 }
 ```
 

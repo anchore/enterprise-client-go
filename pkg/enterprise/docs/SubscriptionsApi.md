@@ -1,14 +1,14 @@
-# \SubscriptionsApi
+# \SubscriptionsAPI
 
 All URIs are relative to */v2*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**AddSubscription**](SubscriptionsApi.md#AddSubscription) | **Post** /subscriptions | Add a subscription of a specific type
-[**DeleteSubscription**](SubscriptionsApi.md#DeleteSubscription) | **Delete** /subscriptions/{subscription_id} | Delete specific subscription
-[**GetSubscription**](SubscriptionsApi.md#GetSubscription) | **Get** /subscriptions/{subscription_id} | Get a specific subscription set
-[**ListSubscriptions**](SubscriptionsApi.md#ListSubscriptions) | **Get** /subscriptions | List all subscriptions
-[**UpdateSubscription**](SubscriptionsApi.md#UpdateSubscription) | **Put** /subscriptions/{subscription_id} | Update an existing and specific subscription
+[**AddSubscription**](SubscriptionsAPI.md#AddSubscription) | **Post** /subscriptions | Add a subscription of a specific type
+[**DeleteSubscription**](SubscriptionsAPI.md#DeleteSubscription) | **Delete** /subscriptions/{subscription_id} | Delete specific subscription
+[**GetSubscription**](SubscriptionsAPI.md#GetSubscription) | **Get** /subscriptions/{subscription_id} | Get a specific subscription set
+[**ListSubscriptions**](SubscriptionsAPI.md#ListSubscriptions) | **Get** /subscriptions | List all subscriptions
+[**UpdateSubscription**](SubscriptionsAPI.md#UpdateSubscription) | **Put** /subscriptions/{subscription_id} | Update an existing and specific subscription
 
 
 
@@ -26,25 +26,25 @@ Add a subscription of a specific type
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
-    subscription := *openapiclient.NewSubscriptionRequest() // SubscriptionRequest | 
-    xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
+	subscription := *openapiclient.NewSubscriptionRequest() // SubscriptionRequest | 
+	xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.SubscriptionsApi.AddSubscription(context.Background()).Subscription(subscription).XAnchoreAccount(xAnchoreAccount).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `SubscriptionsApi.AddSubscription``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `AddSubscription`: []Subscription
-    fmt.Fprintf(os.Stdout, "Response from `SubscriptionsApi.AddSubscription`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.SubscriptionsAPI.AddSubscription(context.Background()).Subscription(subscription).XAnchoreAccount(xAnchoreAccount).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `SubscriptionsAPI.AddSubscription``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `AddSubscription`: []Subscription
+	fmt.Fprintf(os.Stdout, "Response from `SubscriptionsAPI.AddSubscription`: %v\n", resp)
 }
 ```
 
@@ -92,23 +92,23 @@ Delete specific subscription
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
-    subscriptionId := "subscriptionId_example" // string | 
-    xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
+	subscriptionId := "subscriptionId_example" // string | 
+	xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.SubscriptionsApi.DeleteSubscription(context.Background(), subscriptionId).XAnchoreAccount(xAnchoreAccount).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `SubscriptionsApi.DeleteSubscription``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.SubscriptionsAPI.DeleteSubscription(context.Background(), subscriptionId).XAnchoreAccount(xAnchoreAccount).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `SubscriptionsAPI.DeleteSubscription``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -160,25 +160,25 @@ Get a specific subscription set
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
-    subscriptionId := "subscriptionId_example" // string | 
-    xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
+	subscriptionId := "subscriptionId_example" // string | 
+	xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.SubscriptionsApi.GetSubscription(context.Background(), subscriptionId).XAnchoreAccount(xAnchoreAccount).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `SubscriptionsApi.GetSubscription``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetSubscription`: []Subscription
-    fmt.Fprintf(os.Stdout, "Response from `SubscriptionsApi.GetSubscription`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.SubscriptionsAPI.GetSubscription(context.Background(), subscriptionId).XAnchoreAccount(xAnchoreAccount).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `SubscriptionsAPI.GetSubscription``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetSubscription`: []Subscription
+	fmt.Fprintf(os.Stdout, "Response from `SubscriptionsAPI.GetSubscription`: %v\n", resp)
 }
 ```
 
@@ -230,26 +230,26 @@ List all subscriptions
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
-    subscriptionKey := "subscriptionKey_example" // string | filter only subscriptions matching key (optional)
-    subscriptionType := "subscriptionType_example" // string | filter only subscriptions matching type (optional)
-    xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
+	subscriptionKey := "subscriptionKey_example" // string | filter only subscriptions matching key (optional)
+	subscriptionType := "subscriptionType_example" // string | filter only subscriptions matching type (optional)
+	xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.SubscriptionsApi.ListSubscriptions(context.Background()).SubscriptionKey(subscriptionKey).SubscriptionType(subscriptionType).XAnchoreAccount(xAnchoreAccount).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `SubscriptionsApi.ListSubscriptions``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ListSubscriptions`: []Subscription
-    fmt.Fprintf(os.Stdout, "Response from `SubscriptionsApi.ListSubscriptions`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.SubscriptionsAPI.ListSubscriptions(context.Background()).SubscriptionKey(subscriptionKey).SubscriptionType(subscriptionType).XAnchoreAccount(xAnchoreAccount).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `SubscriptionsAPI.ListSubscriptions``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ListSubscriptions`: []Subscription
+	fmt.Fprintf(os.Stdout, "Response from `SubscriptionsAPI.ListSubscriptions`: %v\n", resp)
 }
 ```
 
@@ -298,26 +298,26 @@ Update an existing and specific subscription
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
-    subscriptionId := "subscriptionId_example" // string | 
-    subscription := *openapiclient.NewSubscriptionUpdate() // SubscriptionUpdate | 
-    xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
+	subscriptionId := "subscriptionId_example" // string | 
+	subscription := *openapiclient.NewSubscriptionUpdate() // SubscriptionUpdate | 
+	xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.SubscriptionsApi.UpdateSubscription(context.Background(), subscriptionId).Subscription(subscription).XAnchoreAccount(xAnchoreAccount).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `SubscriptionsApi.UpdateSubscription``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `UpdateSubscription`: []Subscription
-    fmt.Fprintf(os.Stdout, "Response from `SubscriptionsApi.UpdateSubscription`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.SubscriptionsAPI.UpdateSubscription(context.Background(), subscriptionId).Subscription(subscription).XAnchoreAccount(xAnchoreAccount).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `SubscriptionsAPI.UpdateSubscription``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `UpdateSubscription`: []Subscription
+	fmt.Fprintf(os.Stdout, "Response from `SubscriptionsAPI.UpdateSubscription`: %v\n", resp)
 }
 ```
 

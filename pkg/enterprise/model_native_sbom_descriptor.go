@@ -13,7 +13,11 @@ package enterprise
 
 import (
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the NativeSBOMDescriptor type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &NativeSBOMDescriptor{}
 
 // NativeSBOMDescriptor struct for NativeSBOMDescriptor
 type NativeSBOMDescriptor struct {
@@ -92,31 +96,61 @@ func (o *NativeSBOMDescriptor) SetVersion(v string) {
 }
 
 func (o NativeSBOMDescriptor) MarshalJSON() ([]byte, error) {
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o NativeSBOMDescriptor) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["name"] = o.Name
-	}
-	if true {
-		toSerialize["version"] = o.Version
-	}
+	toSerialize["name"] = o.Name
+	toSerialize["version"] = o.Version
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *NativeSBOMDescriptor) UnmarshalJSON(bytes []byte) (err error) {
+func (o *NativeSBOMDescriptor) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"name",
+		"version",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
 	varNativeSBOMDescriptor := _NativeSBOMDescriptor{}
 
-	if err = json.Unmarshal(bytes, &varNativeSBOMDescriptor); err == nil {
-		*o = NativeSBOMDescriptor(varNativeSBOMDescriptor)
+	err = json.Unmarshal(data, &varNativeSBOMDescriptor)
+
+	if err != nil {
+		return err
 	}
+
+	*o = NativeSBOMDescriptor(varNativeSBOMDescriptor)
 
 	additionalProperties := make(map[string]interface{})
 
-	if err = json.Unmarshal(bytes, &additionalProperties); err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "name")
 		delete(additionalProperties, "version")
 		o.AdditionalProperties = additionalProperties

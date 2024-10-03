@@ -13,7 +13,12 @@ package enterprise
 
 import (
 	"encoding/json"
+	"bytes"
+	"fmt"
 )
+
+// checks if the CorrectionMatch type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &CorrectionMatch{}
 
 // CorrectionMatch Defines how a particular correction can match depending on type
 type CorrectionMatch struct {
@@ -22,6 +27,8 @@ type CorrectionMatch struct {
 	// list of field matches that are required in order for this correction to match
 	FieldMatches []CorrectionFieldMatch `json:"field_matches,omitempty"`
 }
+
+type _CorrectionMatch CorrectionMatch
 
 // NewCorrectionMatch instantiates a new CorrectionMatch object
 // This constructor will assign default values to properties that have it defined,
@@ -67,7 +74,7 @@ func (o *CorrectionMatch) SetType(v string) {
 
 // GetFieldMatches returns the FieldMatches field value if set, zero value otherwise.
 func (o *CorrectionMatch) GetFieldMatches() []CorrectionFieldMatch {
-	if o == nil || o.FieldMatches == nil {
+	if o == nil || IsNil(o.FieldMatches) {
 		var ret []CorrectionFieldMatch
 		return ret
 	}
@@ -77,7 +84,7 @@ func (o *CorrectionMatch) GetFieldMatches() []CorrectionFieldMatch {
 // GetFieldMatchesOk returns a tuple with the FieldMatches field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CorrectionMatch) GetFieldMatchesOk() ([]CorrectionFieldMatch, bool) {
-	if o == nil || o.FieldMatches == nil {
+	if o == nil || IsNil(o.FieldMatches) {
 		return nil, false
 	}
 	return o.FieldMatches, true
@@ -85,7 +92,7 @@ func (o *CorrectionMatch) GetFieldMatchesOk() ([]CorrectionFieldMatch, bool) {
 
 // HasFieldMatches returns a boolean if a field has been set.
 func (o *CorrectionMatch) HasFieldMatches() bool {
-	if o != nil && o.FieldMatches != nil {
+	if o != nil && !IsNil(o.FieldMatches) {
 		return true
 	}
 
@@ -98,14 +105,57 @@ func (o *CorrectionMatch) SetFieldMatches(v []CorrectionFieldMatch) {
 }
 
 func (o CorrectionMatch) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["type"] = o.Type
-	}
-	if o.FieldMatches != nil {
-		toSerialize["field_matches"] = o.FieldMatches
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o CorrectionMatch) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["type"] = o.Type
+	if !IsNil(o.FieldMatches) {
+		toSerialize["field_matches"] = o.FieldMatches
+	}
+	return toSerialize, nil
+}
+
+func (o *CorrectionMatch) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"type",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varCorrectionMatch := _CorrectionMatch{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varCorrectionMatch)
+
+	if err != nil {
+		return err
+	}
+
+	*o = CorrectionMatch(varCorrectionMatch)
+
+	return err
 }
 
 type NullableCorrectionMatch struct {

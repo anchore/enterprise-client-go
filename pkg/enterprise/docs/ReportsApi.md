@@ -1,11 +1,11 @@
-# \ReportsApi
+# \ReportsAPI
 
 All URIs are relative to */v2*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**GetGlobalQueryResult**](ReportsApi.md#GetGlobalQueryResult) | **Get** /reporting/reports/global/scheduled-query-results/{result_uuid} | 
-[**GetQueryResult**](ReportsApi.md#GetQueryResult) | **Get** /reporting/scheduled-query-results/{result_uuid} | 
+[**GetGlobalQueryResult**](ReportsAPI.md#GetGlobalQueryResult) | **Get** /reporting/reports/global/scheduled-query-results/{result_uuid} | 
+[**GetQueryResult**](ReportsAPI.md#GetQueryResult) | **Get** /reporting/scheduled-query-results/{result_uuid} | 
 
 
 
@@ -23,23 +23,23 @@ Method | HTTP request | Description
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
-    resultUuid := "resultUuid_example" // string | 
-    page := int32(56) // int32 | Page number to fetch. If omitted, '1' is default. Page numbers start at 1 (optional)
+	resultUuid := "resultUuid_example" // string | 
+	page := int32(56) // int32 | Page number to fetch. If omitted, '1' is default. Page numbers start at 1 (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ReportsApi.GetGlobalQueryResult(context.Background(), resultUuid).Page(page).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ReportsApi.GetGlobalQueryResult``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.ReportsAPI.GetGlobalQueryResult(context.Background(), resultUuid).Page(page).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ReportsAPI.GetGlobalQueryResult``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -93,23 +93,23 @@ No authorization required
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
-    resultUuid := "resultUuid_example" // string | 
-    page := int32(56) // int32 | Page number to fetch. If omitted, '1' is default. Page numbers start at 1 (optional)
+	resultUuid := "resultUuid_example" // string | 
+	page := int32(56) // int32 | Page number to fetch. If omitted, '1' is default. Page numbers start at 1 (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ReportsApi.GetQueryResult(context.Background(), resultUuid).Page(page).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ReportsApi.GetQueryResult``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.ReportsAPI.GetQueryResult(context.Background(), resultUuid).Page(page).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ReportsAPI.GetQueryResult``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 

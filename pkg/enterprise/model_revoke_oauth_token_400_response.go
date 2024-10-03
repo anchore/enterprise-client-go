@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the RevokeOauthToken400Response type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &RevokeOauthToken400Response{}
+
 // RevokeOauthToken400Response struct for RevokeOauthToken400Response
 type RevokeOauthToken400Response struct {
 	// ASCII error code from RFC6749
@@ -40,7 +43,7 @@ func NewRevokeOauthToken400ResponseWithDefaults() *RevokeOauthToken400Response {
 
 // GetError returns the Error field value if set, zero value otherwise.
 func (o *RevokeOauthToken400Response) GetError() string {
-	if o == nil || o.Error == nil {
+	if o == nil || IsNil(o.Error) {
 		var ret string
 		return ret
 	}
@@ -50,7 +53,7 @@ func (o *RevokeOauthToken400Response) GetError() string {
 // GetErrorOk returns a tuple with the Error field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RevokeOauthToken400Response) GetErrorOk() (*string, bool) {
-	if o == nil || o.Error == nil {
+	if o == nil || IsNil(o.Error) {
 		return nil, false
 	}
 	return o.Error, true
@@ -58,7 +61,7 @@ func (o *RevokeOauthToken400Response) GetErrorOk() (*string, bool) {
 
 // HasError returns a boolean if a field has been set.
 func (o *RevokeOauthToken400Response) HasError() bool {
-	if o != nil && o.Error != nil {
+	if o != nil && !IsNil(o.Error) {
 		return true
 	}
 
@@ -71,11 +74,19 @@ func (o *RevokeOauthToken400Response) SetError(v string) {
 }
 
 func (o RevokeOauthToken400Response) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Error != nil {
-		toSerialize["error"] = o.Error
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o RevokeOauthToken400Response) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Error) {
+		toSerialize["error"] = o.Error
+	}
+	return toSerialize, nil
 }
 
 type NullableRevokeOauthToken400Response struct {

@@ -1,10 +1,10 @@
-# \CatalogApi
+# \CatalogAPI
 
 All URIs are relative to */v2*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**GetDeploymentHistory**](CatalogApi.md#GetDeploymentHistory) | **Get** /system/deployment-history | List Deployment History
+[**GetDeploymentHistory**](CatalogAPI.md#GetDeploymentHistory) | **Get** /system/deployment-history | List Deployment History
 
 
 
@@ -22,23 +22,23 @@ List Deployment History
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.CatalogApi.GetDeploymentHistory(context.Background()).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `CatalogApi.GetDeploymentHistory``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetDeploymentHistory`: DeploymentHistoryList
-    fmt.Fprintf(os.Stdout, "Response from `CatalogApi.GetDeploymentHistory`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.CatalogAPI.GetDeploymentHistory(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `CatalogAPI.GetDeploymentHistory``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetDeploymentHistory`: DeploymentHistoryList
+	fmt.Fprintf(os.Stdout, "Response from `CatalogAPI.GetDeploymentHistory`: %v\n", resp)
 }
 ```
 

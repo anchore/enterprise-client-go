@@ -16,6 +16,9 @@ import (
 	"time"
 )
 
+// checks if the ActionPlan type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ActionPlan{}
+
 // ActionPlan describes a remediation action plan object
 type ActionPlan struct {
 	Type *string `json:"type,omitempty"`
@@ -51,7 +54,7 @@ func NewActionPlanWithDefaults() *ActionPlan {
 
 // GetType returns the Type field value if set, zero value otherwise.
 func (o *ActionPlan) GetType() string {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		var ret string
 		return ret
 	}
@@ -61,7 +64,7 @@ func (o *ActionPlan) GetType() string {
 // GetTypeOk returns a tuple with the Type field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ActionPlan) GetTypeOk() (*string, bool) {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		return nil, false
 	}
 	return o.Type, true
@@ -69,7 +72,7 @@ func (o *ActionPlan) GetTypeOk() (*string, bool) {
 
 // HasType returns a boolean if a field has been set.
 func (o *ActionPlan) HasType() bool {
-	if o != nil && o.Type != nil {
+	if o != nil && !IsNil(o.Type) {
 		return true
 	}
 
@@ -83,7 +86,7 @@ func (o *ActionPlan) SetType(v string) {
 
 // GetImageTag returns the ImageTag field value if set, zero value otherwise.
 func (o *ActionPlan) GetImageTag() string {
-	if o == nil || o.ImageTag == nil {
+	if o == nil || IsNil(o.ImageTag) {
 		var ret string
 		return ret
 	}
@@ -93,7 +96,7 @@ func (o *ActionPlan) GetImageTag() string {
 // GetImageTagOk returns a tuple with the ImageTag field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ActionPlan) GetImageTagOk() (*string, bool) {
-	if o == nil || o.ImageTag == nil {
+	if o == nil || IsNil(o.ImageTag) {
 		return nil, false
 	}
 	return o.ImageTag, true
@@ -101,7 +104,7 @@ func (o *ActionPlan) GetImageTagOk() (*string, bool) {
 
 // HasImageTag returns a boolean if a field has been set.
 func (o *ActionPlan) HasImageTag() bool {
-	if o != nil && o.ImageTag != nil {
+	if o != nil && !IsNil(o.ImageTag) {
 		return true
 	}
 
@@ -115,7 +118,7 @@ func (o *ActionPlan) SetImageTag(v string) {
 
 // GetImageDigest returns the ImageDigest field value if set, zero value otherwise.
 func (o *ActionPlan) GetImageDigest() string {
-	if o == nil || o.ImageDigest == nil {
+	if o == nil || IsNil(o.ImageDigest) {
 		var ret string
 		return ret
 	}
@@ -125,7 +128,7 @@ func (o *ActionPlan) GetImageDigest() string {
 // GetImageDigestOk returns a tuple with the ImageDigest field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ActionPlan) GetImageDigestOk() (*string, bool) {
-	if o == nil || o.ImageDigest == nil {
+	if o == nil || IsNil(o.ImageDigest) {
 		return nil, false
 	}
 	return o.ImageDigest, true
@@ -133,7 +136,7 @@ func (o *ActionPlan) GetImageDigestOk() (*string, bool) {
 
 // HasImageDigest returns a boolean if a field has been set.
 func (o *ActionPlan) HasImageDigest() bool {
-	if o != nil && o.ImageDigest != nil {
+	if o != nil && !IsNil(o.ImageDigest) {
 		return true
 	}
 
@@ -147,7 +150,7 @@ func (o *ActionPlan) SetImageDigest(v string) {
 
 // GetPolicyId returns the PolicyId field value if set, zero value otherwise.
 func (o *ActionPlan) GetPolicyId() string {
-	if o == nil || o.PolicyId == nil {
+	if o == nil || IsNil(o.PolicyId) {
 		var ret string
 		return ret
 	}
@@ -157,7 +160,7 @@ func (o *ActionPlan) GetPolicyId() string {
 // GetPolicyIdOk returns a tuple with the PolicyId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ActionPlan) GetPolicyIdOk() (*string, bool) {
-	if o == nil || o.PolicyId == nil {
+	if o == nil || IsNil(o.PolicyId) {
 		return nil, false
 	}
 	return o.PolicyId, true
@@ -165,7 +168,7 @@ func (o *ActionPlan) GetPolicyIdOk() (*string, bool) {
 
 // HasPolicyId returns a boolean if a field has been set.
 func (o *ActionPlan) HasPolicyId() bool {
-	if o != nil && o.PolicyId != nil {
+	if o != nil && !IsNil(o.PolicyId) {
 		return true
 	}
 
@@ -179,7 +182,7 @@ func (o *ActionPlan) SetPolicyId(v string) {
 
 // GetResolutions returns the Resolutions field value if set, zero value otherwise.
 func (o *ActionPlan) GetResolutions() []ActionPlanResolution {
-	if o == nil || o.Resolutions == nil {
+	if o == nil || IsNil(o.Resolutions) {
 		var ret []ActionPlanResolution
 		return ret
 	}
@@ -189,7 +192,7 @@ func (o *ActionPlan) GetResolutions() []ActionPlanResolution {
 // GetResolutionsOk returns a tuple with the Resolutions field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ActionPlan) GetResolutionsOk() ([]ActionPlanResolution, bool) {
-	if o == nil || o.Resolutions == nil {
+	if o == nil || IsNil(o.Resolutions) {
 		return nil, false
 	}
 	return o.Resolutions, true
@@ -197,7 +200,7 @@ func (o *ActionPlan) GetResolutionsOk() ([]ActionPlanResolution, bool) {
 
 // HasResolutions returns a boolean if a field has been set.
 func (o *ActionPlan) HasResolutions() bool {
-	if o != nil && o.Resolutions != nil {
+	if o != nil && !IsNil(o.Resolutions) {
 		return true
 	}
 
@@ -211,7 +214,7 @@ func (o *ActionPlan) SetResolutions(v []ActionPlanResolution) {
 
 // GetEndpoint returns the Endpoint field value if set, zero value otherwise.
 func (o *ActionPlan) GetEndpoint() string {
-	if o == nil || o.Endpoint == nil {
+	if o == nil || IsNil(o.Endpoint) {
 		var ret string
 		return ret
 	}
@@ -221,7 +224,7 @@ func (o *ActionPlan) GetEndpoint() string {
 // GetEndpointOk returns a tuple with the Endpoint field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ActionPlan) GetEndpointOk() (*string, bool) {
-	if o == nil || o.Endpoint == nil {
+	if o == nil || IsNil(o.Endpoint) {
 		return nil, false
 	}
 	return o.Endpoint, true
@@ -229,7 +232,7 @@ func (o *ActionPlan) GetEndpointOk() (*string, bool) {
 
 // HasEndpoint returns a boolean if a field has been set.
 func (o *ActionPlan) HasEndpoint() bool {
-	if o != nil && o.Endpoint != nil {
+	if o != nil && !IsNil(o.Endpoint) {
 		return true
 	}
 
@@ -243,7 +246,7 @@ func (o *ActionPlan) SetEndpoint(v string) {
 
 // GetConfigurationId returns the ConfigurationId field value if set, zero value otherwise.
 func (o *ActionPlan) GetConfigurationId() string {
-	if o == nil || o.ConfigurationId == nil {
+	if o == nil || IsNil(o.ConfigurationId) {
 		var ret string
 		return ret
 	}
@@ -253,7 +256,7 @@ func (o *ActionPlan) GetConfigurationId() string {
 // GetConfigurationIdOk returns a tuple with the ConfigurationId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ActionPlan) GetConfigurationIdOk() (*string, bool) {
-	if o == nil || o.ConfigurationId == nil {
+	if o == nil || IsNil(o.ConfigurationId) {
 		return nil, false
 	}
 	return o.ConfigurationId, true
@@ -261,7 +264,7 @@ func (o *ActionPlan) GetConfigurationIdOk() (*string, bool) {
 
 // HasConfigurationId returns a boolean if a field has been set.
 func (o *ActionPlan) HasConfigurationId() bool {
-	if o != nil && o.ConfigurationId != nil {
+	if o != nil && !IsNil(o.ConfigurationId) {
 		return true
 	}
 
@@ -275,7 +278,7 @@ func (o *ActionPlan) SetConfigurationId(v string) {
 
 // GetSubject returns the Subject field value if set, zero value otherwise.
 func (o *ActionPlan) GetSubject() string {
-	if o == nil || o.Subject == nil {
+	if o == nil || IsNil(o.Subject) {
 		var ret string
 		return ret
 	}
@@ -285,7 +288,7 @@ func (o *ActionPlan) GetSubject() string {
 // GetSubjectOk returns a tuple with the Subject field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ActionPlan) GetSubjectOk() (*string, bool) {
-	if o == nil || o.Subject == nil {
+	if o == nil || IsNil(o.Subject) {
 		return nil, false
 	}
 	return o.Subject, true
@@ -293,7 +296,7 @@ func (o *ActionPlan) GetSubjectOk() (*string, bool) {
 
 // HasSubject returns a boolean if a field has been set.
 func (o *ActionPlan) HasSubject() bool {
-	if o != nil && o.Subject != nil {
+	if o != nil && !IsNil(o.Subject) {
 		return true
 	}
 
@@ -307,7 +310,7 @@ func (o *ActionPlan) SetSubject(v string) {
 
 // GetMessage returns the Message field value if set, zero value otherwise.
 func (o *ActionPlan) GetMessage() string {
-	if o == nil || o.Message == nil {
+	if o == nil || IsNil(o.Message) {
 		var ret string
 		return ret
 	}
@@ -317,7 +320,7 @@ func (o *ActionPlan) GetMessage() string {
 // GetMessageOk returns a tuple with the Message field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ActionPlan) GetMessageOk() (*string, bool) {
-	if o == nil || o.Message == nil {
+	if o == nil || IsNil(o.Message) {
 		return nil, false
 	}
 	return o.Message, true
@@ -325,7 +328,7 @@ func (o *ActionPlan) GetMessageOk() (*string, bool) {
 
 // HasMessage returns a boolean if a field has been set.
 func (o *ActionPlan) HasMessage() bool {
-	if o != nil && o.Message != nil {
+	if o != nil && !IsNil(o.Message) {
 		return true
 	}
 
@@ -339,7 +342,7 @@ func (o *ActionPlan) SetMessage(v string) {
 
 // GetUuid returns the Uuid field value if set, zero value otherwise.
 func (o *ActionPlan) GetUuid() string {
-	if o == nil || o.Uuid == nil {
+	if o == nil || IsNil(o.Uuid) {
 		var ret string
 		return ret
 	}
@@ -349,7 +352,7 @@ func (o *ActionPlan) GetUuid() string {
 // GetUuidOk returns a tuple with the Uuid field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ActionPlan) GetUuidOk() (*string, bool) {
-	if o == nil || o.Uuid == nil {
+	if o == nil || IsNil(o.Uuid) {
 		return nil, false
 	}
 	return o.Uuid, true
@@ -357,7 +360,7 @@ func (o *ActionPlan) GetUuidOk() (*string, bool) {
 
 // HasUuid returns a boolean if a field has been set.
 func (o *ActionPlan) HasUuid() bool {
-	if o != nil && o.Uuid != nil {
+	if o != nil && !IsNil(o.Uuid) {
 		return true
 	}
 
@@ -371,7 +374,7 @@ func (o *ActionPlan) SetUuid(v string) {
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
 func (o *ActionPlan) GetCreatedAt() time.Time {
-	if o == nil || o.CreatedAt == nil {
+	if o == nil || IsNil(o.CreatedAt) {
 		var ret time.Time
 		return ret
 	}
@@ -381,7 +384,7 @@ func (o *ActionPlan) GetCreatedAt() time.Time {
 // GetCreatedAtOk returns a tuple with the CreatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ActionPlan) GetCreatedAtOk() (*time.Time, bool) {
-	if o == nil || o.CreatedAt == nil {
+	if o == nil || IsNil(o.CreatedAt) {
 		return nil, false
 	}
 	return o.CreatedAt, true
@@ -389,7 +392,7 @@ func (o *ActionPlan) GetCreatedAtOk() (*time.Time, bool) {
 
 // HasCreatedAt returns a boolean if a field has been set.
 func (o *ActionPlan) HasCreatedAt() bool {
-	if o != nil && o.CreatedAt != nil {
+	if o != nil && !IsNil(o.CreatedAt) {
 		return true
 	}
 
@@ -403,7 +406,7 @@ func (o *ActionPlan) SetCreatedAt(v time.Time) {
 
 // GetLastUpdated returns the LastUpdated field value if set, zero value otherwise.
 func (o *ActionPlan) GetLastUpdated() time.Time {
-	if o == nil || o.LastUpdated == nil {
+	if o == nil || IsNil(o.LastUpdated) {
 		var ret time.Time
 		return ret
 	}
@@ -413,7 +416,7 @@ func (o *ActionPlan) GetLastUpdated() time.Time {
 // GetLastUpdatedOk returns a tuple with the LastUpdated field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ActionPlan) GetLastUpdatedOk() (*time.Time, bool) {
-	if o == nil || o.LastUpdated == nil {
+	if o == nil || IsNil(o.LastUpdated) {
 		return nil, false
 	}
 	return o.LastUpdated, true
@@ -421,7 +424,7 @@ func (o *ActionPlan) GetLastUpdatedOk() (*time.Time, bool) {
 
 // HasLastUpdated returns a boolean if a field has been set.
 func (o *ActionPlan) HasLastUpdated() bool {
-	if o != nil && o.LastUpdated != nil {
+	if o != nil && !IsNil(o.LastUpdated) {
 		return true
 	}
 
@@ -434,44 +437,52 @@ func (o *ActionPlan) SetLastUpdated(v time.Time) {
 }
 
 func (o ActionPlan) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Type != nil {
-		toSerialize["type"] = o.Type
-	}
-	if o.ImageTag != nil {
-		toSerialize["image_tag"] = o.ImageTag
-	}
-	if o.ImageDigest != nil {
-		toSerialize["image_digest"] = o.ImageDigest
-	}
-	if o.PolicyId != nil {
-		toSerialize["policy_id"] = o.PolicyId
-	}
-	if o.Resolutions != nil {
-		toSerialize["resolutions"] = o.Resolutions
-	}
-	if o.Endpoint != nil {
-		toSerialize["endpoint"] = o.Endpoint
-	}
-	if o.ConfigurationId != nil {
-		toSerialize["configuration_id"] = o.ConfigurationId
-	}
-	if o.Subject != nil {
-		toSerialize["subject"] = o.Subject
-	}
-	if o.Message != nil {
-		toSerialize["message"] = o.Message
-	}
-	if o.Uuid != nil {
-		toSerialize["uuid"] = o.Uuid
-	}
-	if o.CreatedAt != nil {
-		toSerialize["created_at"] = o.CreatedAt
-	}
-	if o.LastUpdated != nil {
-		toSerialize["last_updated"] = o.LastUpdated
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o ActionPlan) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Type) {
+		toSerialize["type"] = o.Type
+	}
+	if !IsNil(o.ImageTag) {
+		toSerialize["image_tag"] = o.ImageTag
+	}
+	if !IsNil(o.ImageDigest) {
+		toSerialize["image_digest"] = o.ImageDigest
+	}
+	if !IsNil(o.PolicyId) {
+		toSerialize["policy_id"] = o.PolicyId
+	}
+	if !IsNil(o.Resolutions) {
+		toSerialize["resolutions"] = o.Resolutions
+	}
+	if !IsNil(o.Endpoint) {
+		toSerialize["endpoint"] = o.Endpoint
+	}
+	if !IsNil(o.ConfigurationId) {
+		toSerialize["configuration_id"] = o.ConfigurationId
+	}
+	if !IsNil(o.Subject) {
+		toSerialize["subject"] = o.Subject
+	}
+	if !IsNil(o.Message) {
+		toSerialize["message"] = o.Message
+	}
+	if !IsNil(o.Uuid) {
+		toSerialize["uuid"] = o.Uuid
+	}
+	if !IsNil(o.CreatedAt) {
+		toSerialize["created_at"] = o.CreatedAt
+	}
+	if !IsNil(o.LastUpdated) {
+		toSerialize["last_updated"] = o.LastUpdated
+	}
+	return toSerialize, nil
 }
 
 type NullableActionPlan struct {

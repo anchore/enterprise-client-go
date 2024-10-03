@@ -13,7 +13,12 @@ package enterprise
 
 import (
 	"encoding/json"
+	"bytes"
+	"fmt"
 )
+
+// checks if the JsonPatchCopy type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &JsonPatchCopy{}
 
 // JsonPatchCopy The 'copy' operation per RFC6902
 type JsonPatchCopy struct {
@@ -21,10 +26,12 @@ type JsonPatchCopy struct {
 	Id *string `json:"id,omitempty"`
 	Op string `json:"op"`
 	// A JSONPointer per RFC6901
-	Path string `json:"path"`
+	Path string `json:"path" validate:"regexp=^(\\/[^\\/~]*(~[01][^\\/~]*)*)*$"`
 	// A JSONPointer per RFC6901
-	From string `json:"from"`
+	From string `json:"from" validate:"regexp=^(\\/[^\\/~]*(~[01][^\\/~]*)*)*$"`
 }
+
+type _JsonPatchCopy JsonPatchCopy
 
 // NewJsonPatchCopy instantiates a new JsonPatchCopy object
 // This constructor will assign default values to properties that have it defined,
@@ -48,7 +55,7 @@ func NewJsonPatchCopyWithDefaults() *JsonPatchCopy {
 
 // GetId returns the Id field value if set, zero value otherwise.
 func (o *JsonPatchCopy) GetId() string {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		var ret string
 		return ret
 	}
@@ -58,7 +65,7 @@ func (o *JsonPatchCopy) GetId() string {
 // GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *JsonPatchCopy) GetIdOk() (*string, bool) {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
 	return o.Id, true
@@ -66,7 +73,7 @@ func (o *JsonPatchCopy) GetIdOk() (*string, bool) {
 
 // HasId returns a boolean if a field has been set.
 func (o *JsonPatchCopy) HasId() bool {
-	if o != nil && o.Id != nil {
+	if o != nil && !IsNil(o.Id) {
 		return true
 	}
 
@@ -151,20 +158,61 @@ func (o *JsonPatchCopy) SetFrom(v string) {
 }
 
 func (o JsonPatchCopy) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Id != nil {
-		toSerialize["id"] = o.Id
-	}
-	if true {
-		toSerialize["op"] = o.Op
-	}
-	if true {
-		toSerialize["path"] = o.Path
-	}
-	if true {
-		toSerialize["from"] = o.From
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o JsonPatchCopy) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Id) {
+		toSerialize["id"] = o.Id
+	}
+	toSerialize["op"] = o.Op
+	toSerialize["path"] = o.Path
+	toSerialize["from"] = o.From
+	return toSerialize, nil
+}
+
+func (o *JsonPatchCopy) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"op",
+		"path",
+		"from",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varJsonPatchCopy := _JsonPatchCopy{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varJsonPatchCopy)
+
+	if err != nil {
+		return err
+	}
+
+	*o = JsonPatchCopy(varJsonPatchCopy)
+
+	return err
 }
 
 type NullableJsonPatchCopy struct {

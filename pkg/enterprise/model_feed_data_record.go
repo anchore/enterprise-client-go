@@ -16,6 +16,9 @@ import (
 	"time"
 )
 
+// checks if the FeedDataRecord type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &FeedDataRecord{}
+
 // FeedDataRecord A data record
 type FeedDataRecord struct {
 	// The unique identifier for the data record
@@ -55,7 +58,7 @@ func NewFeedDataRecordWithDefaults() *FeedDataRecord {
 
 // GetId returns the Id field value if set, zero value otherwise.
 func (o *FeedDataRecord) GetId() string {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		var ret string
 		return ret
 	}
@@ -65,7 +68,7 @@ func (o *FeedDataRecord) GetId() string {
 // GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *FeedDataRecord) GetIdOk() (*string, bool) {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
 	return o.Id, true
@@ -73,7 +76,7 @@ func (o *FeedDataRecord) GetIdOk() (*string, bool) {
 
 // HasId returns a boolean if a field has been set.
 func (o *FeedDataRecord) HasId() bool {
-	if o != nil && o.Id != nil {
+	if o != nil && !IsNil(o.Id) {
 		return true
 	}
 
@@ -87,7 +90,7 @@ func (o *FeedDataRecord) SetId(v string) {
 
 // GetName returns the Name field value if set, zero value otherwise.
 func (o *FeedDataRecord) GetName() string {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		var ret string
 		return ret
 	}
@@ -97,7 +100,7 @@ func (o *FeedDataRecord) GetName() string {
 // GetNameOk returns a tuple with the Name field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *FeedDataRecord) GetNameOk() (*string, bool) {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		return nil, false
 	}
 	return o.Name, true
@@ -105,7 +108,7 @@ func (o *FeedDataRecord) GetNameOk() (*string, bool) {
 
 // HasName returns a boolean if a field has been set.
 func (o *FeedDataRecord) HasName() bool {
-	if o != nil && o.Name != nil {
+	if o != nil && !IsNil(o.Name) {
 		return true
 	}
 
@@ -119,7 +122,7 @@ func (o *FeedDataRecord) SetName(v string) {
 
 // GetDataset returns the Dataset field value if set, zero value otherwise.
 func (o *FeedDataRecord) GetDataset() string {
-	if o == nil || o.Dataset == nil {
+	if o == nil || IsNil(o.Dataset) {
 		var ret string
 		return ret
 	}
@@ -129,7 +132,7 @@ func (o *FeedDataRecord) GetDataset() string {
 // GetDatasetOk returns a tuple with the Dataset field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *FeedDataRecord) GetDatasetOk() (*string, bool) {
-	if o == nil || o.Dataset == nil {
+	if o == nil || IsNil(o.Dataset) {
 		return nil, false
 	}
 	return o.Dataset, true
@@ -137,7 +140,7 @@ func (o *FeedDataRecord) GetDatasetOk() (*string, bool) {
 
 // HasDataset returns a boolean if a field has been set.
 func (o *FeedDataRecord) HasDataset() bool {
-	if o != nil && o.Dataset != nil {
+	if o != nil && !IsNil(o.Dataset) {
 		return true
 	}
 
@@ -151,7 +154,7 @@ func (o *FeedDataRecord) SetDataset(v string) {
 
 // GetDataFormat returns the DataFormat field value if set, zero value otherwise.
 func (o *FeedDataRecord) GetDataFormat() string {
-	if o == nil || o.DataFormat == nil {
+	if o == nil || IsNil(o.DataFormat) {
 		var ret string
 		return ret
 	}
@@ -161,7 +164,7 @@ func (o *FeedDataRecord) GetDataFormat() string {
 // GetDataFormatOk returns a tuple with the DataFormat field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *FeedDataRecord) GetDataFormatOk() (*string, bool) {
-	if o == nil || o.DataFormat == nil {
+	if o == nil || IsNil(o.DataFormat) {
 		return nil, false
 	}
 	return o.DataFormat, true
@@ -169,7 +172,7 @@ func (o *FeedDataRecord) GetDataFormatOk() (*string, bool) {
 
 // HasDataFormat returns a boolean if a field has been set.
 func (o *FeedDataRecord) HasDataFormat() bool {
-	if o != nil && o.DataFormat != nil {
+	if o != nil && !IsNil(o.DataFormat) {
 		return true
 	}
 
@@ -183,7 +186,7 @@ func (o *FeedDataRecord) SetDataFormat(v string) {
 
 // GetChecksum returns the Checksum field value if set, zero value otherwise.
 func (o *FeedDataRecord) GetChecksum() string {
-	if o == nil || o.Checksum == nil {
+	if o == nil || IsNil(o.Checksum) {
 		var ret string
 		return ret
 	}
@@ -193,7 +196,7 @@ func (o *FeedDataRecord) GetChecksum() string {
 // GetChecksumOk returns a tuple with the Checksum field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *FeedDataRecord) GetChecksumOk() (*string, bool) {
-	if o == nil || o.Checksum == nil {
+	if o == nil || IsNil(o.Checksum) {
 		return nil, false
 	}
 	return o.Checksum, true
@@ -201,7 +204,7 @@ func (o *FeedDataRecord) GetChecksumOk() (*string, bool) {
 
 // HasChecksum returns a boolean if a field has been set.
 func (o *FeedDataRecord) HasChecksum() bool {
-	if o != nil && o.Checksum != nil {
+	if o != nil && !IsNil(o.Checksum) {
 		return true
 	}
 
@@ -215,7 +218,7 @@ func (o *FeedDataRecord) SetChecksum(v string) {
 
 // GetBuiltAt returns the BuiltAt field value if set, zero value otherwise.
 func (o *FeedDataRecord) GetBuiltAt() time.Time {
-	if o == nil || o.BuiltAt == nil {
+	if o == nil || IsNil(o.BuiltAt) {
 		var ret time.Time
 		return ret
 	}
@@ -225,7 +228,7 @@ func (o *FeedDataRecord) GetBuiltAt() time.Time {
 // GetBuiltAtOk returns a tuple with the BuiltAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *FeedDataRecord) GetBuiltAtOk() (*time.Time, bool) {
-	if o == nil || o.BuiltAt == nil {
+	if o == nil || IsNil(o.BuiltAt) {
 		return nil, false
 	}
 	return o.BuiltAt, true
@@ -233,7 +236,7 @@ func (o *FeedDataRecord) GetBuiltAtOk() (*time.Time, bool) {
 
 // HasBuiltAt returns a boolean if a field has been set.
 func (o *FeedDataRecord) HasBuiltAt() bool {
-	if o != nil && o.BuiltAt != nil {
+	if o != nil && !IsNil(o.BuiltAt) {
 		return true
 	}
 
@@ -247,7 +250,7 @@ func (o *FeedDataRecord) SetBuiltAt(v time.Time) {
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
 func (o *FeedDataRecord) GetCreatedAt() time.Time {
-	if o == nil || o.CreatedAt == nil {
+	if o == nil || IsNil(o.CreatedAt) {
 		var ret time.Time
 		return ret
 	}
@@ -257,7 +260,7 @@ func (o *FeedDataRecord) GetCreatedAt() time.Time {
 // GetCreatedAtOk returns a tuple with the CreatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *FeedDataRecord) GetCreatedAtOk() (*time.Time, bool) {
-	if o == nil || o.CreatedAt == nil {
+	if o == nil || IsNil(o.CreatedAt) {
 		return nil, false
 	}
 	return o.CreatedAt, true
@@ -265,7 +268,7 @@ func (o *FeedDataRecord) GetCreatedAtOk() (*time.Time, bool) {
 
 // HasCreatedAt returns a boolean if a field has been set.
 func (o *FeedDataRecord) HasCreatedAt() bool {
-	if o != nil && o.CreatedAt != nil {
+	if o != nil && !IsNil(o.CreatedAt) {
 		return true
 	}
 
@@ -279,7 +282,7 @@ func (o *FeedDataRecord) SetCreatedAt(v time.Time) {
 
 // GetUpdatedAt returns the UpdatedAt field value if set, zero value otherwise.
 func (o *FeedDataRecord) GetUpdatedAt() time.Time {
-	if o == nil || o.UpdatedAt == nil {
+	if o == nil || IsNil(o.UpdatedAt) {
 		var ret time.Time
 		return ret
 	}
@@ -289,7 +292,7 @@ func (o *FeedDataRecord) GetUpdatedAt() time.Time {
 // GetUpdatedAtOk returns a tuple with the UpdatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *FeedDataRecord) GetUpdatedAtOk() (*time.Time, bool) {
-	if o == nil || o.UpdatedAt == nil {
+	if o == nil || IsNil(o.UpdatedAt) {
 		return nil, false
 	}
 	return o.UpdatedAt, true
@@ -297,7 +300,7 @@ func (o *FeedDataRecord) GetUpdatedAtOk() (*time.Time, bool) {
 
 // HasUpdatedAt returns a boolean if a field has been set.
 func (o *FeedDataRecord) HasUpdatedAt() bool {
-	if o != nil && o.UpdatedAt != nil {
+	if o != nil && !IsNil(o.UpdatedAt) {
 		return true
 	}
 
@@ -310,32 +313,40 @@ func (o *FeedDataRecord) SetUpdatedAt(v time.Time) {
 }
 
 func (o FeedDataRecord) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Id != nil {
-		toSerialize["id"] = o.Id
-	}
-	if o.Name != nil {
-		toSerialize["name"] = o.Name
-	}
-	if o.Dataset != nil {
-		toSerialize["dataset"] = o.Dataset
-	}
-	if o.DataFormat != nil {
-		toSerialize["data_format"] = o.DataFormat
-	}
-	if o.Checksum != nil {
-		toSerialize["checksum"] = o.Checksum
-	}
-	if o.BuiltAt != nil {
-		toSerialize["built_at"] = o.BuiltAt
-	}
-	if o.CreatedAt != nil {
-		toSerialize["created_at"] = o.CreatedAt
-	}
-	if o.UpdatedAt != nil {
-		toSerialize["updated_at"] = o.UpdatedAt
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o FeedDataRecord) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Id) {
+		toSerialize["id"] = o.Id
+	}
+	if !IsNil(o.Name) {
+		toSerialize["name"] = o.Name
+	}
+	if !IsNil(o.Dataset) {
+		toSerialize["dataset"] = o.Dataset
+	}
+	if !IsNil(o.DataFormat) {
+		toSerialize["data_format"] = o.DataFormat
+	}
+	if !IsNil(o.Checksum) {
+		toSerialize["checksum"] = o.Checksum
+	}
+	if !IsNil(o.BuiltAt) {
+		toSerialize["built_at"] = o.BuiltAt
+	}
+	if !IsNil(o.CreatedAt) {
+		toSerialize["created_at"] = o.CreatedAt
+	}
+	if !IsNil(o.UpdatedAt) {
+		toSerialize["updated_at"] = o.UpdatedAt
+	}
+	return toSerialize, nil
 }
 
 type NullableFeedDataRecord struct {

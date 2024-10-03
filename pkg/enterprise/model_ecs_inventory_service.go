@@ -13,13 +13,20 @@ package enterprise
 
 import (
 	"encoding/json"
+	"bytes"
+	"fmt"
 )
+
+// checks if the ECSInventoryService type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ECSInventoryService{}
 
 // ECSInventoryService struct for ECSInventoryService
 type ECSInventoryService struct {
 	Arn string `json:"arn"`
 	Tags *map[string]string `json:"tags,omitempty"`
 }
+
+type _ECSInventoryService ECSInventoryService
 
 // NewECSInventoryService instantiates a new ECSInventoryService object
 // This constructor will assign default values to properties that have it defined,
@@ -65,7 +72,7 @@ func (o *ECSInventoryService) SetArn(v string) {
 
 // GetTags returns the Tags field value if set, zero value otherwise.
 func (o *ECSInventoryService) GetTags() map[string]string {
-	if o == nil || o.Tags == nil {
+	if o == nil || IsNil(o.Tags) {
 		var ret map[string]string
 		return ret
 	}
@@ -75,7 +82,7 @@ func (o *ECSInventoryService) GetTags() map[string]string {
 // GetTagsOk returns a tuple with the Tags field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ECSInventoryService) GetTagsOk() (*map[string]string, bool) {
-	if o == nil || o.Tags == nil {
+	if o == nil || IsNil(o.Tags) {
 		return nil, false
 	}
 	return o.Tags, true
@@ -83,7 +90,7 @@ func (o *ECSInventoryService) GetTagsOk() (*map[string]string, bool) {
 
 // HasTags returns a boolean if a field has been set.
 func (o *ECSInventoryService) HasTags() bool {
-	if o != nil && o.Tags != nil {
+	if o != nil && !IsNil(o.Tags) {
 		return true
 	}
 
@@ -96,14 +103,57 @@ func (o *ECSInventoryService) SetTags(v map[string]string) {
 }
 
 func (o ECSInventoryService) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["arn"] = o.Arn
-	}
-	if o.Tags != nil {
-		toSerialize["tags"] = o.Tags
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o ECSInventoryService) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["arn"] = o.Arn
+	if !IsNil(o.Tags) {
+		toSerialize["tags"] = o.Tags
+	}
+	return toSerialize, nil
+}
+
+func (o *ECSInventoryService) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"arn",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varECSInventoryService := _ECSInventoryService{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varECSInventoryService)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ECSInventoryService(varECSInventoryService)
+
+	return err
 }
 
 type NullableECSInventoryService struct {

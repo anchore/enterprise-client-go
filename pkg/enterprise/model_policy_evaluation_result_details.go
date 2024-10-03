@@ -13,7 +13,12 @@ package enterprise
 
 import (
 	"encoding/json"
+	"bytes"
+	"fmt"
 )
+
+// checks if the PolicyEvaluationResultDetails type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PolicyEvaluationResultDetails{}
 
 // PolicyEvaluationResultDetails Contains additional details about the policy evaluation
 type PolicyEvaluationResultDetails struct {
@@ -25,6 +30,8 @@ type PolicyEvaluationResultDetails struct {
 	// List of remediations for the findings
 	Remediations []PolicyEvaluationRemediation `json:"remediations,omitempty"`
 }
+
+type _PolicyEvaluationResultDetails PolicyEvaluationResultDetails
 
 // NewPolicyEvaluationResultDetails instantiates a new PolicyEvaluationResultDetails object
 // This constructor will assign default values to properties that have it defined,
@@ -131,7 +138,7 @@ func (o *PolicyEvaluationResultDetails) GetRemediations() []PolicyEvaluationReme
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *PolicyEvaluationResultDetails) GetRemediationsOk() ([]PolicyEvaluationRemediation, bool) {
-	if o == nil || o.Remediations == nil {
+	if o == nil || IsNil(o.Remediations) {
 		return nil, false
 	}
 	return o.Remediations, true
@@ -139,7 +146,7 @@ func (o *PolicyEvaluationResultDetails) GetRemediationsOk() ([]PolicyEvaluationR
 
 // HasRemediations returns a boolean if a field has been set.
 func (o *PolicyEvaluationResultDetails) HasRemediations() bool {
-	if o != nil && o.Remediations != nil {
+	if o != nil && !IsNil(o.Remediations) {
 		return true
 	}
 
@@ -152,20 +159,61 @@ func (o *PolicyEvaluationResultDetails) SetRemediations(v []PolicyEvaluationReme
 }
 
 func (o PolicyEvaluationResultDetails) MarshalJSON() ([]byte, error) {
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o PolicyEvaluationResultDetails) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["policy"] = o.Policy
-	}
-	if true {
-		toSerialize["findings"] = o.Findings
-	}
-	if true {
-		toSerialize["policy_action"] = o.PolicyAction
-	}
+	toSerialize["policy"] = o.Policy
+	toSerialize["findings"] = o.Findings
+	toSerialize["policy_action"] = o.PolicyAction
 	if o.Remediations != nil {
 		toSerialize["remediations"] = o.Remediations
 	}
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
+}
+
+func (o *PolicyEvaluationResultDetails) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"policy",
+		"findings",
+		"policy_action",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varPolicyEvaluationResultDetails := _PolicyEvaluationResultDetails{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varPolicyEvaluationResultDetails)
+
+	if err != nil {
+		return err
+	}
+
+	*o = PolicyEvaluationResultDetails(varPolicyEvaluationResultDetails)
+
+	return err
 }
 
 type NullablePolicyEvaluationResultDetails struct {

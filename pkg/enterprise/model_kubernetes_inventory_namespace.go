@@ -13,15 +13,22 @@ package enterprise
 
 import (
 	"encoding/json"
+	"bytes"
+	"fmt"
 )
+
+// checks if the KubernetesInventoryNamespace type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &KubernetesInventoryNamespace{}
 
 // KubernetesInventoryNamespace struct for KubernetesInventoryNamespace
 type KubernetesInventoryNamespace struct {
-	Uid string `json:"uid"`
+	Uid string `json:"uid" validate:"regexp=^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"`
 	Name string `json:"name"`
 	Labels *map[string]string `json:"labels,omitempty"`
 	Annotations *map[string]string `json:"annotations,omitempty"`
 }
+
+type _KubernetesInventoryNamespace KubernetesInventoryNamespace
 
 // NewKubernetesInventoryNamespace instantiates a new KubernetesInventoryNamespace object
 // This constructor will assign default values to properties that have it defined,
@@ -92,7 +99,7 @@ func (o *KubernetesInventoryNamespace) SetName(v string) {
 
 // GetLabels returns the Labels field value if set, zero value otherwise.
 func (o *KubernetesInventoryNamespace) GetLabels() map[string]string {
-	if o == nil || o.Labels == nil {
+	if o == nil || IsNil(o.Labels) {
 		var ret map[string]string
 		return ret
 	}
@@ -102,7 +109,7 @@ func (o *KubernetesInventoryNamespace) GetLabels() map[string]string {
 // GetLabelsOk returns a tuple with the Labels field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *KubernetesInventoryNamespace) GetLabelsOk() (*map[string]string, bool) {
-	if o == nil || o.Labels == nil {
+	if o == nil || IsNil(o.Labels) {
 		return nil, false
 	}
 	return o.Labels, true
@@ -110,7 +117,7 @@ func (o *KubernetesInventoryNamespace) GetLabelsOk() (*map[string]string, bool) 
 
 // HasLabels returns a boolean if a field has been set.
 func (o *KubernetesInventoryNamespace) HasLabels() bool {
-	if o != nil && o.Labels != nil {
+	if o != nil && !IsNil(o.Labels) {
 		return true
 	}
 
@@ -124,7 +131,7 @@ func (o *KubernetesInventoryNamespace) SetLabels(v map[string]string) {
 
 // GetAnnotations returns the Annotations field value if set, zero value otherwise.
 func (o *KubernetesInventoryNamespace) GetAnnotations() map[string]string {
-	if o == nil || o.Annotations == nil {
+	if o == nil || IsNil(o.Annotations) {
 		var ret map[string]string
 		return ret
 	}
@@ -134,7 +141,7 @@ func (o *KubernetesInventoryNamespace) GetAnnotations() map[string]string {
 // GetAnnotationsOk returns a tuple with the Annotations field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *KubernetesInventoryNamespace) GetAnnotationsOk() (*map[string]string, bool) {
-	if o == nil || o.Annotations == nil {
+	if o == nil || IsNil(o.Annotations) {
 		return nil, false
 	}
 	return o.Annotations, true
@@ -142,7 +149,7 @@ func (o *KubernetesInventoryNamespace) GetAnnotationsOk() (*map[string]string, b
 
 // HasAnnotations returns a boolean if a field has been set.
 func (o *KubernetesInventoryNamespace) HasAnnotations() bool {
-	if o != nil && o.Annotations != nil {
+	if o != nil && !IsNil(o.Annotations) {
 		return true
 	}
 
@@ -155,20 +162,62 @@ func (o *KubernetesInventoryNamespace) SetAnnotations(v map[string]string) {
 }
 
 func (o KubernetesInventoryNamespace) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["uid"] = o.Uid
-	}
-	if true {
-		toSerialize["name"] = o.Name
-	}
-	if o.Labels != nil {
-		toSerialize["labels"] = o.Labels
-	}
-	if o.Annotations != nil {
-		toSerialize["annotations"] = o.Annotations
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o KubernetesInventoryNamespace) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["uid"] = o.Uid
+	toSerialize["name"] = o.Name
+	if !IsNil(o.Labels) {
+		toSerialize["labels"] = o.Labels
+	}
+	if !IsNil(o.Annotations) {
+		toSerialize["annotations"] = o.Annotations
+	}
+	return toSerialize, nil
+}
+
+func (o *KubernetesInventoryNamespace) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"uid",
+		"name",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varKubernetesInventoryNamespace := _KubernetesInventoryNamespace{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varKubernetesInventoryNamespace)
+
+	if err != nil {
+		return err
+	}
+
+	*o = KubernetesInventoryNamespace(varKubernetesInventoryNamespace)
+
+	return err
 }
 
 type NullableKubernetesInventoryNamespace struct {

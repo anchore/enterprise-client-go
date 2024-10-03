@@ -1,14 +1,14 @@
-# \IntegrationsApi
+# \IntegrationsAPI
 
 All URIs are relative to */v2*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**DeleteIntegration**](IntegrationsApi.md#DeleteIntegration) | **Delete** /system/integrations/{integration_uuid} | Delete an integration instance
-[**GetIntegrationById**](IntegrationsApi.md#GetIntegrationById) | **Get** /system/integrations/{integration_uuid} | Get information about an integration instance
-[**HandleHealthReport**](IntegrationsApi.md#HandleHealthReport) | **Post** /system/integrations/{integration_uuid}/health-report | Report health status for an integration
-[**ListIntegrations**](IntegrationsApi.md#ListIntegrations) | **Get** /system/integrations | List known integration instances
-[**RegisterIntegration**](IntegrationsApi.md#RegisterIntegration) | **Post** /system/integrations/registration | Register an integration instance
+[**DeleteIntegration**](IntegrationsAPI.md#DeleteIntegration) | **Delete** /system/integrations/{integration_uuid} | Delete an integration instance
+[**GetIntegrationById**](IntegrationsAPI.md#GetIntegrationById) | **Get** /system/integrations/{integration_uuid} | Get information about an integration instance
+[**HandleHealthReport**](IntegrationsAPI.md#HandleHealthReport) | **Post** /system/integrations/{integration_uuid}/health-report | Report health status for an integration
+[**ListIntegrations**](IntegrationsAPI.md#ListIntegrations) | **Get** /system/integrations | List known integration instances
+[**RegisterIntegration**](IntegrationsAPI.md#RegisterIntegration) | **Post** /system/integrations/registration | Register an integration instance
 
 
 
@@ -24,23 +24,23 @@ Delete an integration instance
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
-    integrationUuid := "84993c1f-863f-41f3-9bd8-dfcc821b1c8a" // string | The integration instance's universally unique identifier
-    force := true // bool | Force deletion of the integration instance regardless of its state (optional) (default to false)
+	integrationUuid := "84993c1f-863f-41f3-9bd8-dfcc821b1c8a" // string | The integration instance's universally unique identifier
+	force := true // bool | Force deletion of the integration instance regardless of its state (optional) (default to false)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.IntegrationsApi.DeleteIntegration(context.Background(), integrationUuid).Force(force).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `IntegrationsApi.DeleteIntegration``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.IntegrationsAPI.DeleteIntegration(context.Background(), integrationUuid).Force(force).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `IntegrationsAPI.DeleteIntegration``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -92,24 +92,24 @@ Get information about an integration instance
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
-    integrationUuid := "84993c1f-863f-41f3-9bd8-dfcc821b1c8a" // string | The integration instance's universally unique identifier
+	integrationUuid := "84993c1f-863f-41f3-9bd8-dfcc821b1c8a" // string | The integration instance's universally unique identifier
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.IntegrationsApi.GetIntegrationById(context.Background(), integrationUuid).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `IntegrationsApi.GetIntegrationById``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetIntegrationById`: Integration
-    fmt.Fprintf(os.Stdout, "Response from `IntegrationsApi.GetIntegrationById`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.IntegrationsAPI.GetIntegrationById(context.Background(), integrationUuid).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `IntegrationsAPI.GetIntegrationById``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetIntegrationById`: Integration
+	fmt.Fprintf(os.Stdout, "Response from `IntegrationsAPI.GetIntegrationById`: %v\n", resp)
 }
 ```
 
@@ -162,24 +162,24 @@ Report health status for an integration
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
+	"context"
+	"fmt"
+	"os"
     "time"
-    openapiclient "./openapi"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
-    integrationUuid := "84993c1f-863f-41f3-9bd8-dfcc821b1c8a" // string | The integration's universally unique identifier
-    healthReport := *openapiclient.NewHealthReport("740c06a3-4c69-4b91-8e85-154cd53e9764", int32(1), time.Now(), float32(200.02312), int32(60), *openapiclient.NewHealthData(openapiclient.IntegrationType("anchore_k8s_inventory_agent"), int32(1))) // HealthReport | 
+	integrationUuid := "84993c1f-863f-41f3-9bd8-dfcc821b1c8a" // string | The integration's universally unique identifier
+	healthReport := *openapiclient.NewHealthReport("740c06a3-4c69-4b91-8e85-154cd53e9764", int32(1), time.Now(), float32(200.02312), int32(60), *openapiclient.NewHealthData(openapiclient.IntegrationType("anchore_k8s_inventory_agent"), int32(1))) // HealthReport | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.IntegrationsApi.HandleHealthReport(context.Background(), integrationUuid).HealthReport(healthReport).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `IntegrationsApi.HandleHealthReport``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.IntegrationsAPI.HandleHealthReport(context.Background(), integrationUuid).HealthReport(healthReport).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `IntegrationsAPI.HandleHealthReport``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -233,23 +233,23 @@ List known integration instances
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.IntegrationsApi.ListIntegrations(context.Background()).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `IntegrationsApi.ListIntegrations``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ListIntegrations`: IntegrationListResponse
-    fmt.Fprintf(os.Stdout, "Response from `IntegrationsApi.ListIntegrations`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.IntegrationsAPI.ListIntegrations(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `IntegrationsAPI.ListIntegrations``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ListIntegrations`: IntegrationListResponse
+	fmt.Fprintf(os.Stdout, "Response from `IntegrationsAPI.ListIntegrations`: %v\n", resp)
 }
 ```
 
@@ -294,24 +294,24 @@ Register an integration instance
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
-    integrationRegister := *openapiclient.NewIntegrationRegister("84993c1f-863f-41f3-9bd8-dfcc821b1c8a", "67479449b7-zdzlr", openapiclient.IntegrationType("anchore_k8s_inventory_agent"), "admin", int32(60)) // IntegrationRegister | 
+	integrationRegister := *openapiclient.NewIntegrationRegister("84993c1f-863f-41f3-9bd8-dfcc821b1c8a", "67479449b7-zdzlr", openapiclient.IntegrationType("anchore_k8s_inventory_agent"), "admin", int32(60)) // IntegrationRegister | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.IntegrationsApi.RegisterIntegration(context.Background()).IntegrationRegister(integrationRegister).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `IntegrationsApi.RegisterIntegration``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `RegisterIntegration`: Integration
-    fmt.Fprintf(os.Stdout, "Response from `IntegrationsApi.RegisterIntegration`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.IntegrationsAPI.RegisterIntegration(context.Background()).IntegrationRegister(integrationRegister).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `IntegrationsAPI.RegisterIntegration``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `RegisterIntegration`: Integration
+	fmt.Fprintf(os.Stdout, "Response from `IntegrationsAPI.RegisterIntegration`: %v\n", resp)
 }
 ```
 

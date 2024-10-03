@@ -16,6 +16,9 @@ import (
 	"time"
 )
 
+// checks if the EventResponse type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &EventResponse{}
+
 // EventResponse A record of occurrence of an asynchronous event triggered either by system or by user activity
 type EventResponse struct {
 	EventId *string `json:"event_id,omitempty"`
@@ -42,7 +45,7 @@ func NewEventResponseWithDefaults() *EventResponse {
 
 // GetEventId returns the EventId field value if set, zero value otherwise.
 func (o *EventResponse) GetEventId() string {
-	if o == nil || o.EventId == nil {
+	if o == nil || IsNil(o.EventId) {
 		var ret string
 		return ret
 	}
@@ -52,7 +55,7 @@ func (o *EventResponse) GetEventId() string {
 // GetEventIdOk returns a tuple with the EventId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *EventResponse) GetEventIdOk() (*string, bool) {
-	if o == nil || o.EventId == nil {
+	if o == nil || IsNil(o.EventId) {
 		return nil, false
 	}
 	return o.EventId, true
@@ -60,7 +63,7 @@ func (o *EventResponse) GetEventIdOk() (*string, bool) {
 
 // HasEventId returns a boolean if a field has been set.
 func (o *EventResponse) HasEventId() bool {
-	if o != nil && o.EventId != nil {
+	if o != nil && !IsNil(o.EventId) {
 		return true
 	}
 
@@ -74,7 +77,7 @@ func (o *EventResponse) SetEventId(v string) {
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
 func (o *EventResponse) GetCreatedAt() time.Time {
-	if o == nil || o.CreatedAt == nil {
+	if o == nil || IsNil(o.CreatedAt) {
 		var ret time.Time
 		return ret
 	}
@@ -84,7 +87,7 @@ func (o *EventResponse) GetCreatedAt() time.Time {
 // GetCreatedAtOk returns a tuple with the CreatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *EventResponse) GetCreatedAtOk() (*time.Time, bool) {
-	if o == nil || o.CreatedAt == nil {
+	if o == nil || IsNil(o.CreatedAt) {
 		return nil, false
 	}
 	return o.CreatedAt, true
@@ -92,7 +95,7 @@ func (o *EventResponse) GetCreatedAtOk() (*time.Time, bool) {
 
 // HasCreatedAt returns a boolean if a field has been set.
 func (o *EventResponse) HasCreatedAt() bool {
-	if o != nil && o.CreatedAt != nil {
+	if o != nil && !IsNil(o.CreatedAt) {
 		return true
 	}
 
@@ -106,7 +109,7 @@ func (o *EventResponse) SetCreatedAt(v time.Time) {
 
 // GetEvent returns the Event field value if set, zero value otherwise.
 func (o *EventResponse) GetEvent() EventResponseEvent {
-	if o == nil || o.Event == nil {
+	if o == nil || IsNil(o.Event) {
 		var ret EventResponseEvent
 		return ret
 	}
@@ -116,7 +119,7 @@ func (o *EventResponse) GetEvent() EventResponseEvent {
 // GetEventOk returns a tuple with the Event field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *EventResponse) GetEventOk() (*EventResponseEvent, bool) {
-	if o == nil || o.Event == nil {
+	if o == nil || IsNil(o.Event) {
 		return nil, false
 	}
 	return o.Event, true
@@ -124,7 +127,7 @@ func (o *EventResponse) GetEventOk() (*EventResponseEvent, bool) {
 
 // HasEvent returns a boolean if a field has been set.
 func (o *EventResponse) HasEvent() bool {
-	if o != nil && o.Event != nil {
+	if o != nil && !IsNil(o.Event) {
 		return true
 	}
 
@@ -137,17 +140,25 @@ func (o *EventResponse) SetEvent(v EventResponseEvent) {
 }
 
 func (o EventResponse) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.EventId != nil {
-		toSerialize["event_id"] = o.EventId
-	}
-	if o.CreatedAt != nil {
-		toSerialize["created_at"] = o.CreatedAt
-	}
-	if o.Event != nil {
-		toSerialize["event"] = o.Event
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o EventResponse) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.EventId) {
+		toSerialize["event_id"] = o.EventId
+	}
+	if !IsNil(o.CreatedAt) {
+		toSerialize["created_at"] = o.CreatedAt
+	}
+	if !IsNil(o.Event) {
+		toSerialize["event"] = o.Event
+	}
+	return toSerialize, nil
 }
 
 type NullableEventResponse struct {

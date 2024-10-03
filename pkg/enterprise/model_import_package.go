@@ -13,7 +13,11 @@ package enterprise
 
 import (
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the ImportPackage type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ImportPackage{}
 
 // ImportPackage struct for ImportPackage
 type ImportPackage struct {
@@ -60,7 +64,7 @@ func NewImportPackageWithDefaults() *ImportPackage {
 
 // GetId returns the Id field value if set, zero value otherwise.
 func (o *ImportPackage) GetId() string {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		var ret string
 		return ret
 	}
@@ -70,7 +74,7 @@ func (o *ImportPackage) GetId() string {
 // GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ImportPackage) GetIdOk() (*string, bool) {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
 	return o.Id, true
@@ -78,7 +82,7 @@ func (o *ImportPackage) GetIdOk() (*string, bool) {
 
 // HasId returns a boolean if a field has been set.
 func (o *ImportPackage) HasId() bool {
-	if o != nil && o.Id != nil {
+	if o != nil && !IsNil(o.Id) {
 		return true
 	}
 
@@ -164,7 +168,7 @@ func (o *ImportPackage) SetType(v string) {
 
 // GetFoundBy returns the FoundBy field value if set, zero value otherwise.
 func (o *ImportPackage) GetFoundBy() string {
-	if o == nil || o.FoundBy == nil {
+	if o == nil || IsNil(o.FoundBy) {
 		var ret string
 		return ret
 	}
@@ -174,7 +178,7 @@ func (o *ImportPackage) GetFoundBy() string {
 // GetFoundByOk returns a tuple with the FoundBy field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ImportPackage) GetFoundByOk() (*string, bool) {
-	if o == nil || o.FoundBy == nil {
+	if o == nil || IsNil(o.FoundBy) {
 		return nil, false
 	}
 	return o.FoundBy, true
@@ -182,7 +186,7 @@ func (o *ImportPackage) GetFoundByOk() (*string, bool) {
 
 // HasFoundBy returns a boolean if a field has been set.
 func (o *ImportPackage) HasFoundBy() bool {
-	if o != nil && o.FoundBy != nil {
+	if o != nil && !IsNil(o.FoundBy) {
 		return true
 	}
 
@@ -292,7 +296,7 @@ func (o *ImportPackage) SetCpes(v []ImportPackageCpesInner) {
 
 // GetPurl returns the Purl field value if set, zero value otherwise.
 func (o *ImportPackage) GetPurl() string {
-	if o == nil || o.Purl == nil {
+	if o == nil || IsNil(o.Purl) {
 		var ret string
 		return ret
 	}
@@ -302,7 +306,7 @@ func (o *ImportPackage) GetPurl() string {
 // GetPurlOk returns a tuple with the Purl field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ImportPackage) GetPurlOk() (*string, bool) {
-	if o == nil || o.Purl == nil {
+	if o == nil || IsNil(o.Purl) {
 		return nil, false
 	}
 	return o.Purl, true
@@ -310,7 +314,7 @@ func (o *ImportPackage) GetPurlOk() (*string, bool) {
 
 // HasPurl returns a boolean if a field has been set.
 func (o *ImportPackage) HasPurl() bool {
-	if o != nil && o.Purl != nil {
+	if o != nil && !IsNil(o.Purl) {
 		return true
 	}
 
@@ -324,7 +328,7 @@ func (o *ImportPackage) SetPurl(v string) {
 
 // GetMetadataType returns the MetadataType field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *ImportPackage) GetMetadataType() string {
-	if o == nil || o.MetadataType.Get() == nil {
+	if o == nil || IsNil(o.MetadataType.Get()) {
 		var ret string
 		return ret
 	}
@@ -377,7 +381,7 @@ func (o *ImportPackage) GetMetadata() interface{} {
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *ImportPackage) GetMetadataOk() (interface{}, bool) {
-	if o == nil || o.Metadata == nil {
+	if o == nil || IsNil(o.Metadata) {
 		return nil, false
 	}
 	return o.Metadata, true
@@ -385,7 +389,7 @@ func (o *ImportPackage) GetMetadataOk() (interface{}, bool) {
 
 // HasMetadata returns a boolean if a field has been set.
 func (o *ImportPackage) HasMetadata() bool {
-	if o != nil && o.Metadata != nil {
+	if o != nil && !IsNil(o.Metadata) {
 		return true
 	}
 
@@ -398,35 +402,29 @@ func (o *ImportPackage) SetMetadata(v interface{}) {
 }
 
 func (o ImportPackage) MarshalJSON() ([]byte, error) {
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o ImportPackage) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Id != nil {
+	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
 	}
-	if true {
-		toSerialize["name"] = o.Name
-	}
-	if true {
-		toSerialize["version"] = o.Version
-	}
-	if true {
-		toSerialize["type"] = o.Type
-	}
-	if o.FoundBy != nil {
+	toSerialize["name"] = o.Name
+	toSerialize["version"] = o.Version
+	toSerialize["type"] = o.Type
+	if !IsNil(o.FoundBy) {
 		toSerialize["foundBy"] = o.FoundBy
 	}
-	if true {
-		toSerialize["locations"] = o.Locations
-	}
-	if true {
-		toSerialize["licenses"] = o.Licenses
-	}
-	if true {
-		toSerialize["language"] = o.Language
-	}
-	if true {
-		toSerialize["cpes"] = o.Cpes
-	}
-	if o.Purl != nil {
+	toSerialize["locations"] = o.Locations
+	toSerialize["licenses"] = o.Licenses
+	toSerialize["language"] = o.Language
+	toSerialize["cpes"] = o.Cpes
+	if !IsNil(o.Purl) {
 		toSerialize["purl"] = o.Purl
 	}
 	if o.MetadataType.IsSet() {
@@ -440,19 +438,50 @@ func (o ImportPackage) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *ImportPackage) UnmarshalJSON(bytes []byte) (err error) {
+func (o *ImportPackage) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"name",
+		"version",
+		"type",
+		"locations",
+		"licenses",
+		"language",
+		"cpes",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
 	varImportPackage := _ImportPackage{}
 
-	if err = json.Unmarshal(bytes, &varImportPackage); err == nil {
-		*o = ImportPackage(varImportPackage)
+	err = json.Unmarshal(data, &varImportPackage)
+
+	if err != nil {
+		return err
 	}
+
+	*o = ImportPackage(varImportPackage)
 
 	additionalProperties := make(map[string]interface{})
 
-	if err = json.Unmarshal(bytes, &additionalProperties); err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "id")
 		delete(additionalProperties, "name")
 		delete(additionalProperties, "version")

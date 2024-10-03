@@ -14,93 +14,19 @@ package enterprise
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
 	"strings"
 )
 
 
-type EventsApi interface {
-
-	/*
-	DeleteEvent Delete Event
-
-	Delete an event by its event ID
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param eventId Event ID of the event to be deleted
-	@return ApiDeleteEventRequest
-	*/
-	DeleteEvent(ctx context.Context, eventId string) ApiDeleteEventRequest
-
-	// DeleteEventExecute executes the request
-	DeleteEventExecute(r ApiDeleteEventRequest) (*http.Response, error)
-
-	/*
-	DeleteEvents Delete Events
-
-	Delete all or a subset of events filtered using the optional query parameters
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiDeleteEventsRequest
-	*/
-	DeleteEvents(ctx context.Context) ApiDeleteEventsRequest
-
-	// DeleteEventsExecute executes the request
-	//  @return []string
-	DeleteEventsExecute(r ApiDeleteEventsRequest) ([]string, *http.Response, error)
-
-	/*
-	GetEvent Get Event
-
-	Lookup an event by its event ID
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param eventId Event ID of the event for lookup
-	@return ApiGetEventRequest
-	*/
-	GetEvent(ctx context.Context, eventId string) ApiGetEventRequest
-
-	// GetEventExecute executes the request
-	//  @return EventResponse
-	GetEventExecute(r ApiGetEventRequest) (*EventResponse, *http.Response, error)
-
-	/*
-	ListEventTypes List Event Types
-
-	Returns list of event types in the category hierarchy
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiListEventTypesRequest
-	*/
-	ListEventTypes(ctx context.Context) ApiListEventTypesRequest
-
-	// ListEventTypesExecute executes the request
-	//  @return []EventCategory
-	ListEventTypesExecute(r ApiListEventTypesRequest) ([]EventCategory, *http.Response, error)
-
-	/*
-	ListEvents List Events
-
-	Returns a paginated list of events in the descending order of their occurrence. Optional query parameters may be used for filtering results
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiListEventsRequest
-	*/
-	ListEvents(ctx context.Context) ApiListEventsRequest
-
-	// ListEventsExecute executes the request
-	//  @return EventsList
-	ListEventsExecute(r ApiListEventsRequest) (*EventsList, *http.Response, error)
-}
-
-// EventsApiService EventsApi service
-type EventsApiService service
+// EventsAPIService EventsAPI service
+type EventsAPIService service
 
 type ApiDeleteEventRequest struct {
 	ctx context.Context
-	ApiService EventsApi
+	ApiService *EventsAPIService
 	eventId string
 	xAnchoreAccount *string
 }
@@ -124,7 +50,7 @@ Delete an event by its event ID
  @param eventId Event ID of the event to be deleted
  @return ApiDeleteEventRequest
 */
-func (a *EventsApiService) DeleteEvent(ctx context.Context, eventId string) ApiDeleteEventRequest {
+func (a *EventsAPIService) DeleteEvent(ctx context.Context, eventId string) ApiDeleteEventRequest {
 	return ApiDeleteEventRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -133,20 +59,20 @@ func (a *EventsApiService) DeleteEvent(ctx context.Context, eventId string) ApiD
 }
 
 // Execute executes the request
-func (a *EventsApiService) DeleteEventExecute(r ApiDeleteEventRequest) (*http.Response, error) {
+func (a *EventsAPIService) DeleteEventExecute(r ApiDeleteEventRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodDelete
 		localVarPostBody     interface{}
 		formFiles            []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "EventsApiService.DeleteEvent")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "EventsAPIService.DeleteEvent")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/events/{event_id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"event_id"+"}", url.PathEscape(parameterToString(r.eventId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"event_id"+"}", url.PathEscape(parameterValueToString(r.eventId, "eventId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -170,7 +96,7 @@ func (a *EventsApiService) DeleteEventExecute(r ApiDeleteEventRequest) (*http.Re
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.xAnchoreAccount != nil {
-		localVarHeaderParams["x-anchore-account"] = parameterToString(*r.xAnchoreAccount, "")
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "x-anchore-account", r.xAnchoreAccount, "simple", "")
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
@@ -182,9 +108,9 @@ func (a *EventsApiService) DeleteEventExecute(r ApiDeleteEventRequest) (*http.Re
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -202,7 +128,7 @@ func (a *EventsApiService) DeleteEventExecute(r ApiDeleteEventRequest) (*http.Re
 
 type ApiDeleteEventsRequest struct {
 	ctx context.Context
-	ApiService EventsApi
+	ApiService *EventsAPIService
 	before *string
 	since *string
 	level *string
@@ -245,7 +171,7 @@ Delete all or a subset of events filtered using the optional query parameters
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiDeleteEventsRequest
 */
-func (a *EventsApiService) DeleteEvents(ctx context.Context) ApiDeleteEventsRequest {
+func (a *EventsAPIService) DeleteEvents(ctx context.Context) ApiDeleteEventsRequest {
 	return ApiDeleteEventsRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -254,7 +180,7 @@ func (a *EventsApiService) DeleteEvents(ctx context.Context) ApiDeleteEventsRequ
 
 // Execute executes the request
 //  @return []string
-func (a *EventsApiService) DeleteEventsExecute(r ApiDeleteEventsRequest) ([]string, *http.Response, error) {
+func (a *EventsAPIService) DeleteEventsExecute(r ApiDeleteEventsRequest) ([]string, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodDelete
 		localVarPostBody     interface{}
@@ -262,7 +188,7 @@ func (a *EventsApiService) DeleteEventsExecute(r ApiDeleteEventsRequest) ([]stri
 		localVarReturnValue  []string
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "EventsApiService.DeleteEvents")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "EventsAPIService.DeleteEvents")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -274,13 +200,13 @@ func (a *EventsApiService) DeleteEventsExecute(r ApiDeleteEventsRequest) ([]stri
 	localVarFormParams := url.Values{}
 
 	if r.before != nil {
-		localVarQueryParams.Add("before", parameterToString(*r.before, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "before", r.before, "form", "")
 	}
 	if r.since != nil {
-		localVarQueryParams.Add("since", parameterToString(*r.since, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "since", r.since, "form", "")
 	}
 	if r.level != nil {
-		localVarQueryParams.Add("level", parameterToString(*r.level, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "level", r.level, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -300,7 +226,7 @@ func (a *EventsApiService) DeleteEventsExecute(r ApiDeleteEventsRequest) ([]stri
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.xAnchoreAccount != nil {
-		localVarHeaderParams["x-anchore-account"] = parameterToString(*r.xAnchoreAccount, "")
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "x-anchore-account", r.xAnchoreAccount, "simple", "")
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
@@ -312,9 +238,9 @@ func (a *EventsApiService) DeleteEventsExecute(r ApiDeleteEventsRequest) ([]stri
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -331,7 +257,8 @@ func (a *EventsApiService) DeleteEventsExecute(r ApiDeleteEventsRequest) ([]stri
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -350,7 +277,7 @@ func (a *EventsApiService) DeleteEventsExecute(r ApiDeleteEventsRequest) ([]stri
 
 type ApiGetEventRequest struct {
 	ctx context.Context
-	ApiService EventsApi
+	ApiService *EventsAPIService
 	eventId string
 	xAnchoreAccount *string
 }
@@ -374,7 +301,7 @@ Lookup an event by its event ID
  @param eventId Event ID of the event for lookup
  @return ApiGetEventRequest
 */
-func (a *EventsApiService) GetEvent(ctx context.Context, eventId string) ApiGetEventRequest {
+func (a *EventsAPIService) GetEvent(ctx context.Context, eventId string) ApiGetEventRequest {
 	return ApiGetEventRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -384,7 +311,7 @@ func (a *EventsApiService) GetEvent(ctx context.Context, eventId string) ApiGetE
 
 // Execute executes the request
 //  @return EventResponse
-func (a *EventsApiService) GetEventExecute(r ApiGetEventRequest) (*EventResponse, *http.Response, error) {
+func (a *EventsAPIService) GetEventExecute(r ApiGetEventRequest) (*EventResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
@@ -392,13 +319,13 @@ func (a *EventsApiService) GetEventExecute(r ApiGetEventRequest) (*EventResponse
 		localVarReturnValue  *EventResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "EventsApiService.GetEvent")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "EventsAPIService.GetEvent")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/events/{event_id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"event_id"+"}", url.PathEscape(parameterToString(r.eventId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"event_id"+"}", url.PathEscape(parameterValueToString(r.eventId, "eventId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -422,7 +349,7 @@ func (a *EventsApiService) GetEventExecute(r ApiGetEventRequest) (*EventResponse
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.xAnchoreAccount != nil {
-		localVarHeaderParams["x-anchore-account"] = parameterToString(*r.xAnchoreAccount, "")
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "x-anchore-account", r.xAnchoreAccount, "simple", "")
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
@@ -434,9 +361,9 @@ func (a *EventsApiService) GetEventExecute(r ApiGetEventRequest) (*EventResponse
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -463,7 +390,7 @@ func (a *EventsApiService) GetEventExecute(r ApiGetEventRequest) (*EventResponse
 
 type ApiListEventTypesRequest struct {
 	ctx context.Context
-	ApiService EventsApi
+	ApiService *EventsAPIService
 }
 
 func (r ApiListEventTypesRequest) Execute() ([]EventCategory, *http.Response, error) {
@@ -478,7 +405,7 @@ Returns list of event types in the category hierarchy
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiListEventTypesRequest
 */
-func (a *EventsApiService) ListEventTypes(ctx context.Context) ApiListEventTypesRequest {
+func (a *EventsAPIService) ListEventTypes(ctx context.Context) ApiListEventTypesRequest {
 	return ApiListEventTypesRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -487,7 +414,7 @@ func (a *EventsApiService) ListEventTypes(ctx context.Context) ApiListEventTypes
 
 // Execute executes the request
 //  @return []EventCategory
-func (a *EventsApiService) ListEventTypesExecute(r ApiListEventTypesRequest) ([]EventCategory, *http.Response, error) {
+func (a *EventsAPIService) ListEventTypesExecute(r ApiListEventTypesRequest) ([]EventCategory, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
@@ -495,7 +422,7 @@ func (a *EventsApiService) ListEventTypesExecute(r ApiListEventTypesRequest) ([]
 		localVarReturnValue  []EventCategory
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "EventsApiService.ListEventTypes")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "EventsAPIService.ListEventTypes")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -533,9 +460,9 @@ func (a *EventsApiService) ListEventTypesExecute(r ApiListEventTypesRequest) ([]
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -562,7 +489,7 @@ func (a *EventsApiService) ListEventTypesExecute(r ApiListEventTypesRequest) ([]
 
 type ApiListEventsRequest struct {
 	ctx context.Context
-	ApiService EventsApi
+	ApiService *EventsAPIService
 	sourceServiceName *string
 	sourceHostId *string
 	eventType *string
@@ -654,7 +581,7 @@ Returns a paginated list of events in the descending order of their occurrence. 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiListEventsRequest
 */
-func (a *EventsApiService) ListEvents(ctx context.Context) ApiListEventsRequest {
+func (a *EventsAPIService) ListEvents(ctx context.Context) ApiListEventsRequest {
 	return ApiListEventsRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -663,7 +590,7 @@ func (a *EventsApiService) ListEvents(ctx context.Context) ApiListEventsRequest 
 
 // Execute executes the request
 //  @return EventsList
-func (a *EventsApiService) ListEventsExecute(r ApiListEventsRequest) (*EventsList, *http.Response, error) {
+func (a *EventsAPIService) ListEventsExecute(r ApiListEventsRequest) (*EventsList, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
@@ -671,7 +598,7 @@ func (a *EventsApiService) ListEventsExecute(r ApiListEventsRequest) (*EventsLis
 		localVarReturnValue  *EventsList
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "EventsApiService.ListEvents")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "EventsAPIService.ListEvents")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -683,34 +610,40 @@ func (a *EventsApiService) ListEventsExecute(r ApiListEventsRequest) (*EventsLis
 	localVarFormParams := url.Values{}
 
 	if r.sourceServiceName != nil {
-		localVarQueryParams.Add("source_service_name", parameterToString(*r.sourceServiceName, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "source_service_name", r.sourceServiceName, "form", "")
 	}
 	if r.sourceHostId != nil {
-		localVarQueryParams.Add("source_host_id", parameterToString(*r.sourceHostId, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "source_host_id", r.sourceHostId, "form", "")
 	}
 	if r.eventType != nil {
-		localVarQueryParams.Add("event_type", parameterToString(*r.eventType, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "event_type", r.eventType, "form", "")
 	}
 	if r.resourceType != nil {
-		localVarQueryParams.Add("resource_type", parameterToString(*r.resourceType, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "resource_type", r.resourceType, "form", "")
 	}
 	if r.resourceId != nil {
-		localVarQueryParams.Add("resource_id", parameterToString(*r.resourceId, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "resource_id", r.resourceId, "form", "")
 	}
 	if r.level != nil {
-		localVarQueryParams.Add("level", parameterToString(*r.level, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "level", r.level, "form", "")
 	}
 	if r.since != nil {
-		localVarQueryParams.Add("since", parameterToString(*r.since, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "since", r.since, "form", "")
 	}
 	if r.before != nil {
-		localVarQueryParams.Add("before", parameterToString(*r.before, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "before", r.before, "form", "")
 	}
 	if r.page != nil {
-		localVarQueryParams.Add("page", parameterToString(*r.page, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "page", r.page, "form", "")
+	} else {
+		var defaultValue int32 = 1
+		r.page = &defaultValue
 	}
 	if r.limit != nil {
-		localVarQueryParams.Add("limit", parameterToString(*r.limit, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "form", "")
+	} else {
+		var defaultValue int32 = 100
+		r.limit = &defaultValue
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -730,7 +663,7 @@ func (a *EventsApiService) ListEventsExecute(r ApiListEventsRequest) (*EventsLis
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.xAnchoreAccount != nil {
-		localVarHeaderParams["x-anchore-account"] = parameterToString(*r.xAnchoreAccount, "")
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "x-anchore-account", r.xAnchoreAccount, "simple", "")
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
@@ -742,9 +675,9 @@ func (a *EventsApiService) ListEventsExecute(r ApiListEventsRequest) (*EventsLis
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
