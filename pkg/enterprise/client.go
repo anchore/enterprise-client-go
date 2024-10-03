@@ -12,6 +12,7 @@ Contact: dev@anchore.com
 package enterprise
 
 import (
+    _ "embed"
 	"bytes"
 	"context"
 	"encoding/json"
@@ -20,10 +21,8 @@ import (
 	"fmt"
 	"io"
 	"io/ioutil"
-	"log"
 	"mime/multipart"
 	"net/http"
-	"net/http/httputil"
 	"net/url"
 	"os"
 	"path/filepath"
@@ -35,6 +34,7 @@ import (
 	"unicode/utf8"
 
 	"golang.org/x/oauth2"
+	"github.com/anchore/go-logger"
 )
 
 var (
@@ -239,12 +239,25 @@ func parameterToJson(obj interface{}) (string, error) {
 
 // callAPI do the request.
 func (c *APIClient) callAPI(request *http.Request) (*http.Response, error) {
-	if c.cfg.Debug {
-		dump, err := httputil.DumpRequestOut(request, true)
-		if err != nil {
-			return nil, err
-		}
-		log.Printf("\n%s\n", string(dump))
+	if c.cfg.Logger != nil && c.cfg.Debug {
+		c.cfg.Logger.Debugf("request %s %s %s", request.Proto, request.Method, request.URL.Redacted())
+		c.cfg.Logger.WithFields(getHeaderLogFields(request.Header)).Tracef("  ├── headers")
+		if request.Body != nil {
+			body, err := ioutil.ReadAll(request.Body)
+            request.Body.Close()
+			if err != nil {
+				return nil, err
+			}
+			pretty := &bytes.Buffer{}
+			json.Indent(pretty, body, "", "  ")
+			c.cfg.Logger.WithFields("length", pretty.Len()).Tracef("  └── body\n%s", pretty.String())
+
+			// reset read closer for body
+			reader := ioutil.NopCloser(bytes.NewReader(body))
+			request.Body = reader
+		} else {
+            c.cfg.Logger.WithFields("length", 0).Trace("  └── body")
+        }
 	}
 
 	resp, err := c.cfg.HTTPClient.Do(request)
@@ -252,14 +265,38 @@ func (c *APIClient) callAPI(request *http.Request) (*http.Response, error) {
 		return resp, err
 	}
 
-	if c.cfg.Debug {
-		dump, err := httputil.DumpResponse(resp, true)
-		if err != nil {
-			return resp, err
-		}
-		log.Printf("\n%s\n", string(dump))
+	if c.cfg.Logger != nil && c.cfg.Debug {
+		c.cfg.Logger.Debugf("response %s %s", resp.Proto, resp.Status)
+		c.cfg.Logger.WithFields(getHeaderLogFields(resp.Header)).Tracef("  ├── headers")
+		if resp.Body != nil {
+			body, err := ioutil.ReadAll(resp.Body)
+            resp.Body.Close()
+			if err != nil {
+				return resp, err
+			}
+			pretty := &bytes.Buffer{}
+			json.Indent(pretty, body, "", "  ")
+			c.cfg.Logger.WithFields("length", pretty.Len()).Tracef("  └── body\n%s", pretty.String())
+
+            // reset read closer for body
+			reader := ioutil.NopCloser(bytes.NewReader(body))
+			resp.Body = reader
+		} else {
+             c.cfg.Logger.WithFields("length", 0).Trace("  └── body")
+        }
 	}
 	return resp, err
+}
+
+func getHeaderLogFields(header http.Header) logger.Fields {
+	f := make(logger.Fields)
+	for k, vs := range header {
+		if strings.ToLower(k) == "authorization" {
+			continue
+		}
+		f[k] = "["+strings.Join(vs, ", ")+"]"
+	}
+	return f
 }
 
 // Allow modification of underlying config for alternate implementations and testing
@@ -393,7 +430,7 @@ func (c *APIClient) prepareRequest(
 	if len(headerParams) > 0 {
 		headers := http.Header{}
 		for h, v := range headerParams {
-			headers[h] = []string{v}
+			headers.Set(h, v)
 		}
 		localVarRequest.Header = headers
 	}
@@ -450,9 +487,6 @@ func (c *APIClient) decode(v interface{}, b []byte, contentType string) (err err
 			return
 		}
 		_, err = (*f).Write(b)
-		if err != nil {
-			return
-		}
 		_, err = (*f).Seek(0, io.SeekStart)
 		return
 	}
@@ -499,13 +533,6 @@ func addFile(w *multipart.Writer, fieldName, path string) error {
 // Prevent trying to import "fmt"
 func reportError(format string, a ...interface{}) error {
 	return fmt.Errorf(format, a...)
-}
-
-// A wrapper for strict JSON decoding
-func newStrictDecoder(data []byte) *json.Decoder {
-	dec := json.NewDecoder(bytes.NewBuffer(data))
-	dec.DisallowUnknownFields()
-	return dec
 }
 
 // Set request body from an interface{}
@@ -636,4 +663,18 @@ func (e GenericOpenAPIError) Body() []byte {
 // Model returns the unpacked model of the error
 func (e GenericOpenAPIError) Model() interface{} {
 	return e.model
+}
+
+//go:embed api/openapi.yaml
+var doc string
+
+func Document() string {
+	return doc
+}
+
+// A wrapper for strict JSON decoding
+func newStrictDecoder(data []byte) *json.Decoder {
+dec := json.NewDecoder(bytes.NewBuffer(data))
+dec.DisallowUnknownFields()
+return dec
 }

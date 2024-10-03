@@ -16,6 +16,7 @@ import (
 	"fmt"
 	"net/http"
 	"strings"
+    "github.com/anchore/go-logger"
 )
 
 // contextKeys are used to identify the type of value in the context.
@@ -96,6 +97,7 @@ type Configuration struct {
 	Servers          ServerConfigurations
 	OperationServers map[string]ServerConfigurations
 	HTTPClient       *http.Client
+    Logger           logger.Logger
 }
 
 // NewConfiguration returns a new Configuration object
