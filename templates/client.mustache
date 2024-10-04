@@ -24,9 +24,9 @@ import (
 	"time"
 	"unicode/utf8"
 
-	{{#hasOAuthMethods}}
+
 	"golang.org/x/oauth2"
-	{{/hasOAuthMethods}}
+
 	{{#withAWSV4Signature}}
 	awsv4 "github.com/aws/aws-sdk-go/aws/signer/v4"
 	awscredentials "github.com/aws/aws-sdk-go/aws/credentials"
