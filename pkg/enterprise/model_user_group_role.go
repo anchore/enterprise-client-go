@@ -23,7 +23,6 @@ var _ MappedNullable = &UserGroupRole{}
 // UserGroupRole struct for UserGroupRole
 type UserGroupRole struct {
 	// Deprecated. Please use domain_name instead. The account for this role
-	// Deprecated
 	ForAccount string `json:"for_account"`
 	// The domain scope for this role. This may be an account name when the domain is an account.
 	DomainName *string `json:"domain_name,omitempty"`
@@ -52,7 +51,6 @@ func NewUserGroupRoleWithDefaults() *UserGroupRole {
 }
 
 // GetForAccount returns the ForAccount field value
-// Deprecated
 func (o *UserGroupRole) GetForAccount() string {
 	if o == nil {
 		var ret string
@@ -64,7 +62,6 @@ func (o *UserGroupRole) GetForAccount() string {
 
 // GetForAccountOk returns a tuple with the ForAccount field value
 // and a boolean to check if the value has been set.
-// Deprecated
 func (o *UserGroupRole) GetForAccountOk() (*string, bool) {
 	if o == nil {
 		return nil, false
@@ -73,7 +70,6 @@ func (o *UserGroupRole) GetForAccountOk() (*string, bool) {
 }
 
 // SetForAccount sets field value
-// Deprecated
 func (o *UserGroupRole) SetForAccount(v string) {
 	o.ForAccount = v
 }

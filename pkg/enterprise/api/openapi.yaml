@@ -7838,8 +7838,7 @@ paths:
           format: path
           type: string
         style: simple
-      - deprecated: true
-        description: Deprecated.  Please use domain_name instead. Optional filter
+      - description: Deprecated.  Please use domain_name instead. Optional filter
           parameter to limit the set fo returned items to only those with matching
           account. Will return Access Denied if caller does not have permission to
           listRoleMembers for that account.
@@ -20369,7 +20368,6 @@ components:
           description: The name of the role the user has permissions for
           type: string
         for_account:
-          deprecated: true
           description: Deprecated. Please use domain_name instead. The account for
             which the user has the role permission
           type: string
@@ -23151,7 +23149,6 @@ components:
         - role: role
       properties:
         for_account:
-          deprecated: true
           description: Deprecated. Please use domain_name instead. The account
           type: string
         domain_name:
@@ -23178,7 +23175,6 @@ components:
           created_at: 2000-01-23T04:56:07.000+00:00
       properties:
         for_account:
-          deprecated: true
           description: Deprecated. Please use domain_name instead. The account for
             this role
           type: string

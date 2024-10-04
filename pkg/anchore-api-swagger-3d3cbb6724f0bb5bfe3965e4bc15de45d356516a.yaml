@@ -6999,7 +6999,7 @@ paths:
           does not have permission to listRoleMembers for that account.
         schema:
           type: string
-        deprecated: true
+
       - name: domain_name
         in: query
         description: Optional filter parameter to limit the set of returned items
@@ -14871,7 +14871,7 @@ components:
         for_account:
           type: string
           description: Deprecated. Please use domain_name instead. The account for which the user has the role permission
-          deprecated: true
+
         domain_name:
             type: string
             description: The domain scope that applies for this roles. This will be
@@ -16358,7 +16358,7 @@ components:
         for_account:
           type: string
           description: Deprecated. Please use domain_name instead. The account
-          deprecated: true
+
         domain_name:
           type: string
           description: The domain scope for this role. This may be an account name when the domain is an account.
@@ -16378,7 +16378,7 @@ components:
         for_account:
           type: string
           description: Deprecated. Please use domain_name instead. The account for this role
-          deprecated: true
+
         domain_name:
           type: string
           description: The domain scope for this role. This may be an account name when the domain is an account.

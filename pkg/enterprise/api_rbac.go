@@ -1528,7 +1528,6 @@ type ApiListRoleMembersRequest struct {
 }
 
 // Deprecated.  Please use domain_name instead. Optional filter parameter to limit the set fo returned items to only those with matching account. Will return Access Denied if caller does not have permission to listRoleMembers for that account.
-// Deprecated
 func (r ApiListRoleMembersRequest) ForAccount(forAccount string) ApiListRoleMembersRequest {
 	r.forAccount = &forAccount
 	return r

@@ -24,7 +24,6 @@ type RbacManagerRoleMembership struct {
 	// The name of the role the user has permissions for
 	Role *string `json:"role,omitempty"`
 	// Deprecated. Please use domain_name instead. The account for which the user has the role permission
-	// Deprecated
 	ForAccount *string `json:"for_account,omitempty"`
 	// The domain scope that applies for this roles. This will be the account name if the domain scope is an account.
 	DomainName *string `json:"domain_name,omitempty"`
@@ -81,7 +80,6 @@ func (o *RbacManagerRoleMembership) SetRole(v string) {
 }
 
 // GetForAccount returns the ForAccount field value if set, zero value otherwise.
-// Deprecated
 func (o *RbacManagerRoleMembership) GetForAccount() string {
 	if o == nil || IsNil(o.ForAccount) {
 		var ret string
@@ -92,7 +90,6 @@ func (o *RbacManagerRoleMembership) GetForAccount() string {
 
 // GetForAccountOk returns a tuple with the ForAccount field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// Deprecated
 func (o *RbacManagerRoleMembership) GetForAccountOk() (*string, bool) {
 	if o == nil || IsNil(o.ForAccount) {
 		return nil, false
@@ -110,7 +107,6 @@ func (o *RbacManagerRoleMembership) HasForAccount() bool {
 }
 
 // SetForAccount gets a reference to the given string and assigns it to the ForAccount field.
-// Deprecated
 func (o *RbacManagerRoleMembership) SetForAccount(v string) {
 	o.ForAccount = &v
 }
