@@ -21,7 +21,6 @@ var _ MappedNullable = &RbacManagerAccountRole{}
 // RbacManagerAccountRole An account identifier and roles a user has within that account
 type RbacManagerAccountRole struct {
 	// Deprecated. Please use `domain_name' instead.  The account scope that applies to the set of roles
-	// Deprecated
 	ForAccount *string `json:"for_account,omitempty"`
 	// The domain scope that applies to the set of roles
 	DomainName *string `json:"domain_name,omitempty"`
@@ -47,7 +46,6 @@ func NewRbacManagerAccountRoleWithDefaults() *RbacManagerAccountRole {
 }
 
 // GetForAccount returns the ForAccount field value if set, zero value otherwise.
-// Deprecated
 func (o *RbacManagerAccountRole) GetForAccount() string {
 	if o == nil || IsNil(o.ForAccount) {
 		var ret string
@@ -58,7 +56,6 @@ func (o *RbacManagerAccountRole) GetForAccount() string {
 
 // GetForAccountOk returns a tuple with the ForAccount field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// Deprecated
 func (o *RbacManagerAccountRole) GetForAccountOk() (*string, bool) {
 	if o == nil || IsNil(o.ForAccount) {
 		return nil, false
@@ -76,7 +73,6 @@ func (o *RbacManagerAccountRole) HasForAccount() bool {
 }
 
 // SetForAccount gets a reference to the given string and assigns it to the ForAccount field.
-// Deprecated
 func (o *RbacManagerAccountRole) SetForAccount(v string) {
 	o.ForAccount = &v
 }

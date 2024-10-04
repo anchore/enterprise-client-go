@@ -10217,6 +10217,17 @@ paths:
       description: Lists all integrations that have been created (explicitly or indirectly
         via registration).
       operationId: list_integrations
+      parameters:
+      - description: "If true, limit listing to UNHEALTHY or DEACTIVATED integrations"
+        example: true
+        explode: true
+        in: query
+        name: only_degraded
+        required: false
+        schema:
+          default: false
+          type: boolean
+        style: form
       responses:
         "200":
           content:
@@ -20189,7 +20200,6 @@ components:
           email: email
       properties:
         for_account:
-          deprecated: true
           description: Deprecated. Please use `domain_name' instead.  The account
             scope that applies to the set of roles
           type: string
@@ -20328,7 +20338,6 @@ components:
         username:
           type: string
         for_account:
-          deprecated: true
           description: Deprecated. Please use domain_name instead.
           type: string
         domain_name:

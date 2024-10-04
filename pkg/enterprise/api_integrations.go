@@ -424,6 +424,13 @@ func (a *IntegrationsAPIService) HandleHealthReportExecute(r ApiHandleHealthRepo
 type ApiListIntegrationsRequest struct {
 	ctx context.Context
 	ApiService IntegrationsAPI
+	onlyDegraded *bool
+}
+
+// If true, limit listing to UNHEALTHY or DEACTIVATED integrations
+func (r ApiListIntegrationsRequest) OnlyDegraded(onlyDegraded bool) ApiListIntegrationsRequest {
+	r.onlyDegraded = &onlyDegraded
+	return r
 }
 
 func (r ApiListIntegrationsRequest) Execute() (*IntegrationListResponse, *http.Response, error) {
@@ -466,6 +473,12 @@ func (a *IntegrationsAPIService) ListIntegrationsExecute(r ApiListIntegrationsRe
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
+	if r.onlyDegraded != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "only_degraded", r.onlyDegraded, "form", "")
+	} else {
+		var defaultValue bool = false
+		r.onlyDegraded = &defaultValue
+	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 

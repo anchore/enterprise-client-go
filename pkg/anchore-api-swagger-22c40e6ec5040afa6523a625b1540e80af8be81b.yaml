@@ -9168,6 +9168,14 @@ paths:
       operationId: list_integrations
       x-anchore-authz-action: listIntegrations
       x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.system
+      parameters:
+        - name: only_degraded
+          description: If true, limit listing to UNHEALTHY or DEACTIVATED integrations
+          example: true
+          in: query
+          schema:
+            type: boolean
+            default: false
       responses:
         200:
           description: Summary list of integrations response
@@ -14729,7 +14737,7 @@ components:
         for_account:
           type: string
           description: Deprecated. Please use `domain_name' instead.  The account scope that applies to the set of roles
-          deprecated: true
+
         domain_name:
           type: string
           description: The domain scope that applies to the set of roles
@@ -14839,7 +14847,6 @@ components:
         for_account:
           type: string
           description: Deprecated. Please use domain_name instead.
-          deprecated: true
         domain_name:
           type: string
           description: The domain scope that applies to the set of roles. This will be

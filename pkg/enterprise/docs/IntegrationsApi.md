@@ -221,7 +221,7 @@ No authorization required
 
 ## ListIntegrations
 
-> IntegrationListResponse ListIntegrations(ctx).Execute()
+> IntegrationListResponse ListIntegrations(ctx).OnlyDegraded(onlyDegraded).Execute()
 
 List known integration instances
 
@@ -240,10 +240,11 @@ import (
 )
 
 func main() {
+	onlyDegraded := true // bool | If true, limit listing to UNHEALTHY or DEACTIVATED integrations (optional) (default to false)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.IntegrationsAPI.ListIntegrations(context.Background()).Execute()
+	resp, r, err := apiClient.IntegrationsAPI.ListIntegrations(context.Background()).OnlyDegraded(onlyDegraded).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `IntegrationsAPI.ListIntegrations``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -255,12 +256,16 @@ func main() {
 
 ### Path Parameters
 
-This endpoint does not need any parameter.
+
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiListIntegrationsRequest struct via the builder pattern
 
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **onlyDegraded** | **bool** | If true, limit listing to UNHEALTHY or DEACTIVATED integrations | [default to false]
 
 ### Return type
 
