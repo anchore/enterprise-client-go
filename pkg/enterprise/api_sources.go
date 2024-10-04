@@ -21,12 +21,171 @@ import (
 )
 
 
+type SourcesAPI interface {
+
+	/*
+	DeleteSource Delete source record from DB
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param sourceId UUID of source to delete
+	@return ApiDeleteSourceRequest
+	*/
+	DeleteSource(ctx context.Context, sourceId string) ApiDeleteSourceRequest
+
+	// DeleteSourceExecute executes the request
+	DeleteSourceExecute(r ApiDeleteSourceRequest) (*http.Response, error)
+
+	/*
+	GetSource Get a detailed source repository analysis metadata record
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param sourceId
+	@return ApiGetSourceRequest
+	*/
+	GetSource(ctx context.Context, sourceId string) ApiGetSourceRequest
+
+	// GetSourceExecute executes the request
+	//  @return SourceManifest
+	GetSourceExecute(r ApiGetSourceRequest) (*SourceManifest, *http.Response, error)
+
+	/*
+	GetSourceContentByType Get the content of an analyzed source repository
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param sourceId
+	@param contentType
+	@return ApiGetSourceContentByTypeRequest
+	*/
+	GetSourceContentByType(ctx context.Context, sourceId string, contentType string) ApiGetSourceContentByTypeRequest
+
+	// GetSourceContentByTypeExecute executes the request
+	//  @return SourceContentPackageResponse
+	GetSourceContentByTypeExecute(r ApiGetSourceContentByTypeRequest) (*SourceContentPackageResponse, *http.Response, error)
+
+	/*
+	GetSourceContentSummary Get sources content summary
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param sourceId
+	@return ApiGetSourceContentSummaryRequest
+	*/
+	GetSourceContentSummary(ctx context.Context, sourceId string) ApiGetSourceContentSummaryRequest
+
+	// GetSourceContentSummaryExecute executes the request
+	//  @return SourceContentSummary
+	GetSourceContentSummaryExecute(r ApiGetSourceContentSummaryRequest) (*SourceContentSummary, *http.Response, error)
+
+	/*
+	GetSourceContentTypes Get a detailed source repository analysis metadata record
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param sourceId
+	@return ApiGetSourceContentTypesRequest
+	*/
+	GetSourceContentTypes(ctx context.Context, sourceId string) ApiGetSourceContentTypesRequest
+
+	// GetSourceContentTypesExecute executes the request
+	//  @return []string
+	GetSourceContentTypesExecute(r ApiGetSourceContentTypesRequest) ([]string, *http.Response, error)
+
+	/*
+	GetSourcePolicyCheck Fetch or calculate policy evaluation for a source
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param sourceId UUID of source to get
+	@return ApiGetSourcePolicyCheckRequest
+	*/
+	GetSourcePolicyCheck(ctx context.Context, sourceId string) ApiGetSourcePolicyCheckRequest
+
+	// GetSourcePolicyCheckExecute executes the request
+	//  @return SourcePolicyEvaluation
+	GetSourcePolicyCheckExecute(r ApiGetSourcePolicyCheckRequest) (*SourcePolicyEvaluation, *http.Response, error)
+
+	/*
+	GetSourceSbomCyclonedxJson Return the source SBOM in the CycloneDX format
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param sourceId
+	@return ApiGetSourceSbomCyclonedxJsonRequest
+	*/
+	GetSourceSbomCyclonedxJson(ctx context.Context, sourceId string) ApiGetSourceSbomCyclonedxJsonRequest
+
+	// GetSourceSbomCyclonedxJsonExecute executes the request
+	//  @return string
+	GetSourceSbomCyclonedxJsonExecute(r ApiGetSourceSbomCyclonedxJsonRequest) (string, *http.Response, error)
+
+	/*
+	GetSourceSbomNativeJson Return the source SBOM in the native Anchore format
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param sourceId
+	@return ApiGetSourceSbomNativeJsonRequest
+	*/
+	GetSourceSbomNativeJson(ctx context.Context, sourceId string) ApiGetSourceSbomNativeJsonRequest
+
+	// GetSourceSbomNativeJsonExecute executes the request
+	//  @return string
+	GetSourceSbomNativeJsonExecute(r ApiGetSourceSbomNativeJsonRequest) (string, *http.Response, error)
+
+	/*
+	GetSourceSbomSpdxJson Return the source SBOM in the SPDX format
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param sourceId
+	@return ApiGetSourceSbomSpdxJsonRequest
+	*/
+	GetSourceSbomSpdxJson(ctx context.Context, sourceId string) ApiGetSourceSbomSpdxJsonRequest
+
+	// GetSourceSbomSpdxJsonExecute executes the request
+	//  @return string
+	GetSourceSbomSpdxJsonExecute(r ApiGetSourceSbomSpdxJsonRequest) (string, *http.Response, error)
+
+	/*
+	GetSourceVulnerabilities Get vulnerabilities for the source by type
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param sourceId
+	@param vulnType
+	@return ApiGetSourceVulnerabilitiesRequest
+	*/
+	GetSourceVulnerabilities(ctx context.Context, sourceId string, vulnType string) ApiGetSourceVulnerabilitiesRequest
+
+	// GetSourceVulnerabilitiesExecute executes the request
+	//  @return SourcePackageVulnerabilityResponse
+	GetSourceVulnerabilitiesExecute(r ApiGetSourceVulnerabilitiesRequest) (*SourcePackageVulnerabilityResponse, *http.Response, error)
+
+	/*
+	GetSourceVulnerabilityTypes Get the available vulnerability types for source
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param sourceId
+	@return ApiGetSourceVulnerabilityTypesRequest
+	*/
+	GetSourceVulnerabilityTypes(ctx context.Context, sourceId string) ApiGetSourceVulnerabilityTypesRequest
+
+	// GetSourceVulnerabilityTypesExecute executes the request
+	//  @return []string
+	GetSourceVulnerabilityTypesExecute(r ApiGetSourceVulnerabilityTypesRequest) ([]string, *http.Response, error)
+
+	/*
+	ListSources List the source repository analysis records
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiListSourcesRequest
+	*/
+	ListSources(ctx context.Context) ApiListSourcesRequest
+
+	// ListSourcesExecute executes the request
+	//  @return SourcesList
+	ListSourcesExecute(r ApiListSourcesRequest) (*SourcesList, *http.Response, error)
+}
+
 // SourcesAPIService SourcesAPI service
 type SourcesAPIService service
 
 type ApiDeleteSourceRequest struct {
 	ctx context.Context
-	ApiService *SourcesAPIService
+	ApiService SourcesAPI
 	sourceId string
 	force *bool
 }
@@ -126,7 +285,7 @@ func (a *SourcesAPIService) DeleteSourceExecute(r ApiDeleteSourceRequest) (*http
 
 type ApiGetSourceRequest struct {
 	ctx context.Context
-	ApiService *SourcesAPIService
+	ApiService SourcesAPI
 	sourceId string
 }
 
@@ -227,7 +386,7 @@ func (a *SourcesAPIService) GetSourceExecute(r ApiGetSourceRequest) (*SourceMani
 
 type ApiGetSourceContentByTypeRequest struct {
 	ctx context.Context
-	ApiService *SourcesAPIService
+	ApiService SourcesAPI
 	sourceId string
 	contentType string
 }
@@ -342,7 +501,7 @@ func (a *SourcesAPIService) GetSourceContentByTypeExecute(r ApiGetSourceContentB
 
 type ApiGetSourceContentSummaryRequest struct {
 	ctx context.Context
-	ApiService *SourcesAPIService
+	ApiService SourcesAPI
 	sourceId string
 }
 
@@ -453,7 +612,7 @@ func (a *SourcesAPIService) GetSourceContentSummaryExecute(r ApiGetSourceContent
 
 type ApiGetSourceContentTypesRequest struct {
 	ctx context.Context
-	ApiService *SourcesAPIService
+	ApiService SourcesAPI
 	sourceId string
 }
 
@@ -554,7 +713,7 @@ func (a *SourcesAPIService) GetSourceContentTypesExecute(r ApiGetSourceContentTy
 
 type ApiGetSourcePolicyCheckRequest struct {
 	ctx context.Context
-	ApiService *SourcesAPIService
+	ApiService SourcesAPI
 	sourceId string
 	policyId *string
 }
@@ -664,7 +823,7 @@ func (a *SourcesAPIService) GetSourcePolicyCheckExecute(r ApiGetSourcePolicyChec
 
 type ApiGetSourceSbomCyclonedxJsonRequest struct {
 	ctx context.Context
-	ApiService *SourcesAPIService
+	ApiService SourcesAPI
 	sourceId string
 }
 
@@ -765,7 +924,7 @@ func (a *SourcesAPIService) GetSourceSbomCyclonedxJsonExecute(r ApiGetSourceSbom
 
 type ApiGetSourceSbomNativeJsonRequest struct {
 	ctx context.Context
-	ApiService *SourcesAPIService
+	ApiService SourcesAPI
 	sourceId string
 }
 
@@ -866,7 +1025,7 @@ func (a *SourcesAPIService) GetSourceSbomNativeJsonExecute(r ApiGetSourceSbomNat
 
 type ApiGetSourceSbomSpdxJsonRequest struct {
 	ctx context.Context
-	ApiService *SourcesAPIService
+	ApiService SourcesAPI
 	sourceId string
 }
 
@@ -967,7 +1126,7 @@ func (a *SourcesAPIService) GetSourceSbomSpdxJsonExecute(r ApiGetSourceSbomSpdxJ
 
 type ApiGetSourceVulnerabilitiesRequest struct {
 	ctx context.Context
-	ApiService *SourcesAPIService
+	ApiService SourcesAPI
 	sourceId string
 	vulnType string
 	forceRefresh *bool
@@ -1113,7 +1272,7 @@ func (a *SourcesAPIService) GetSourceVulnerabilitiesExecute(r ApiGetSourceVulner
 
 type ApiGetSourceVulnerabilityTypesRequest struct {
 	ctx context.Context
-	ApiService *SourcesAPIService
+	ApiService SourcesAPI
 	sourceId string
 	xAnchoreAccount *string
 }
@@ -1224,7 +1383,7 @@ func (a *SourcesAPIService) GetSourceVulnerabilityTypesExecute(r ApiGetSourceVul
 
 type ApiListSourcesRequest struct {
 	ctx context.Context
-	ApiService *SourcesAPIService
+	ApiService SourcesAPI
 }
 
 func (r ApiListSourcesRequest) Execute() (*SourcesList, *http.Response, error) {

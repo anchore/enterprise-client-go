@@ -21,12 +21,244 @@ import (
 )
 
 
+type ApplicationsAPI interface {
+
+	/*
+	AddApplication Create an application
+
+	Create an application
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiAddApplicationRequest
+	*/
+	AddApplication(ctx context.Context) ApiAddApplicationRequest
+
+	// AddApplicationExecute executes the request
+	//  @return Application
+	AddApplicationExecute(r ApiAddApplicationRequest) (*Application, *http.Response, error)
+
+	/*
+	AddApplicationVersion Create an application version
+
+	Create an application version
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param applicationId
+	@return ApiAddApplicationVersionRequest
+	*/
+	AddApplicationVersion(ctx context.Context, applicationId string) ApiAddApplicationVersionRequest
+
+	// AddApplicationVersionExecute executes the request
+	//  @return ApplicationVersion
+	AddApplicationVersionExecute(r ApiAddApplicationVersionRequest) (*ApplicationVersion, *http.Response, error)
+
+	/*
+	AddArtifactToApplicationVersion Add an artifact to an application version
+
+	Add artifact to given application_id and application_version_id
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param applicationId
+	@param applicationVersionId
+	@return ApiAddArtifactToApplicationVersionRequest
+	*/
+	AddArtifactToApplicationVersion(ctx context.Context, applicationId string, applicationVersionId string) ApiAddArtifactToApplicationVersionRequest
+
+	// AddArtifactToApplicationVersionExecute executes the request
+	//  @return ArtifactAssociationResponse
+	AddArtifactToApplicationVersionExecute(r ApiAddArtifactToApplicationVersionRequest) (*ArtifactAssociationResponse, *http.Response, error)
+
+	/*
+	DeleteApplication Delete an application by application_id
+
+	Delete an application by application_id
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param applicationId
+	@return ApiDeleteApplicationRequest
+	*/
+	DeleteApplication(ctx context.Context, applicationId string) ApiDeleteApplicationRequest
+
+	// DeleteApplicationExecute executes the request
+	DeleteApplicationExecute(r ApiDeleteApplicationRequest) (*http.Response, error)
+
+	/*
+	DeleteApplicationVersion Delete an application version by application_id and application_version_id
+
+	Delete an application version by application_id and application_version_id
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param applicationId
+	@param applicationVersionId
+	@return ApiDeleteApplicationVersionRequest
+	*/
+	DeleteApplicationVersion(ctx context.Context, applicationId string, applicationVersionId string) ApiDeleteApplicationVersionRequest
+
+	// DeleteApplicationVersionExecute executes the request
+	DeleteApplicationVersionExecute(r ApiDeleteApplicationVersionRequest) (*http.Response, error)
+
+	/*
+	GetApplication Get an application by application_id
+
+	Get an application by application_id
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param applicationId
+	@return ApiGetApplicationRequest
+	*/
+	GetApplication(ctx context.Context, applicationId string) ApiGetApplicationRequest
+
+	// GetApplicationExecute executes the request
+	//  @return Application
+	GetApplicationExecute(r ApiGetApplicationRequest) (*Application, *http.Response, error)
+
+	/*
+	GetApplicationVersion Get an application version
+
+	Get an application version by application_id and application_version_id
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param applicationId
+	@param applicationVersionId
+	@return ApiGetApplicationVersionRequest
+	*/
+	GetApplicationVersion(ctx context.Context, applicationId string, applicationVersionId string) ApiGetApplicationVersionRequest
+
+	// GetApplicationVersionExecute executes the request
+	//  @return ApplicationVersion
+	GetApplicationVersionExecute(r ApiGetApplicationVersionRequest) (*ApplicationVersion, *http.Response, error)
+
+	/*
+	GetApplicationVersionSbom Get the combined sbom for the given application version, optionally filtered by artifact type
+
+	Get the combined sbom for the given application version, optionally filtered by artifact type
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param applicationId
+	@param applicationVersionId
+	@return ApiGetApplicationVersionSbomRequest
+	*/
+	GetApplicationVersionSbom(ctx context.Context, applicationId string, applicationVersionId string) ApiGetApplicationVersionSbomRequest
+
+	// GetApplicationVersionSbomExecute executes the request
+	//  @return ApplicationVersionSbom
+	GetApplicationVersionSbomExecute(r ApiGetApplicationVersionSbomRequest) (*ApplicationVersionSbom, *http.Response, error)
+
+	/*
+	GetApplicationVersionVulnerabilities Get the vulnerabilities for a given application version
+
+	Get the vulnerabilities for a given application version
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param applicationId
+	@param applicationVersionId
+	@return ApiGetApplicationVersionVulnerabilitiesRequest
+	*/
+	GetApplicationVersionVulnerabilities(ctx context.Context, applicationId string, applicationVersionId string) ApiGetApplicationVersionVulnerabilitiesRequest
+
+	// GetApplicationVersionVulnerabilitiesExecute executes the request
+	//  @return ApplicationVersionVulnerabilityReport
+	GetApplicationVersionVulnerabilitiesExecute(r ApiGetApplicationVersionVulnerabilitiesRequest) (*ApplicationVersionVulnerabilityReport, *http.Response, error)
+
+	/*
+	GetApplicationVersions List all application verions
+
+	List all application verions
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param applicationId
+	@return ApiGetApplicationVersionsRequest
+	*/
+	GetApplicationVersions(ctx context.Context, applicationId string) ApiGetApplicationVersionsRequest
+
+	// GetApplicationVersionsExecute executes the request
+	//  @return []ApplicationVersion
+	GetApplicationVersionsExecute(r ApiGetApplicationVersionsRequest) ([]ApplicationVersion, *http.Response, error)
+
+	/*
+	GetApplications List all applications
+
+	List all applications
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiGetApplicationsRequest
+	*/
+	GetApplications(ctx context.Context) ApiGetApplicationsRequest
+
+	// GetApplicationsExecute executes the request
+	//  @return []Application
+	GetApplicationsExecute(r ApiGetApplicationsRequest) ([]Application, *http.Response, error)
+
+	/*
+	ListArtifacts List artifacts present on a given application version
+
+	List artifacts present on a given application version
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param applicationId
+	@param applicationVersionId
+	@return ApiListArtifactsRequest
+	*/
+	ListArtifacts(ctx context.Context, applicationId string, applicationVersionId string) ApiListArtifactsRequest
+
+	// ListArtifactsExecute executes the request
+	//  @return ArtifactListResponse
+	ListArtifactsExecute(r ApiListArtifactsRequest) (*ArtifactListResponse, *http.Response, error)
+
+	/*
+	RemoveArtifactFromApplicationVersion Delete an artifact from specified application version
+
+	Delete an artifact from specified application version
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param applicationId
+	@param applicationVersionId
+	@param associationId
+	@return ApiRemoveArtifactFromApplicationVersionRequest
+	*/
+	RemoveArtifactFromApplicationVersion(ctx context.Context, applicationId string, applicationVersionId string, associationId string) ApiRemoveArtifactFromApplicationVersionRequest
+
+	// RemoveArtifactFromApplicationVersionExecute executes the request
+	RemoveArtifactFromApplicationVersionExecute(r ApiRemoveArtifactFromApplicationVersionRequest) (*http.Response, error)
+
+	/*
+	UpdateApplication Update application details
+
+	Updates application details for given application_id
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param applicationId
+	@return ApiUpdateApplicationRequest
+	*/
+	UpdateApplication(ctx context.Context, applicationId string) ApiUpdateApplicationRequest
+
+	// UpdateApplicationExecute executes the request
+	//  @return Application
+	UpdateApplicationExecute(r ApiUpdateApplicationRequest) (*Application, *http.Response, error)
+
+	/*
+	UpdateApplicationVersion Update application version details
+
+	Updates application version details for given application_id and application_version_id
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param applicationId
+	@param applicationVersionId
+	@return ApiUpdateApplicationVersionRequest
+	*/
+	UpdateApplicationVersion(ctx context.Context, applicationId string, applicationVersionId string) ApiUpdateApplicationVersionRequest
+
+	// UpdateApplicationVersionExecute executes the request
+	//  @return ApplicationVersion
+	UpdateApplicationVersionExecute(r ApiUpdateApplicationVersionRequest) (*ApplicationVersion, *http.Response, error)
+}
+
 // ApplicationsAPIService ApplicationsAPI service
 type ApplicationsAPIService service
 
 type ApiAddApplicationRequest struct {
 	ctx context.Context
-	ApiService *ApplicationsAPIService
+	ApiService ApplicationsAPI
 	application *Application
 	xAnchoreAccount *string
 }
@@ -156,7 +388,7 @@ func (a *ApplicationsAPIService) AddApplicationExecute(r ApiAddApplicationReques
 
 type ApiAddApplicationVersionRequest struct {
 	ctx context.Context
-	ApiService *ApplicationsAPIService
+	ApiService ApplicationsAPI
 	applicationId string
 	applicationVersion *ApplicationVersion
 	xAnchoreAccount *string
@@ -290,7 +522,7 @@ func (a *ApplicationsAPIService) AddApplicationVersionExecute(r ApiAddApplicatio
 
 type ApiAddArtifactToApplicationVersionRequest struct {
 	ctx context.Context
-	ApiService *ApplicationsAPIService
+	ApiService ApplicationsAPI
 	applicationId string
 	applicationVersionId string
 	artifactRequest *ArtifactAssociationRequest
@@ -428,7 +660,7 @@ func (a *ApplicationsAPIService) AddArtifactToApplicationVersionExecute(r ApiAdd
 
 type ApiDeleteApplicationRequest struct {
 	ctx context.Context
-	ApiService *ApplicationsAPIService
+	ApiService ApplicationsAPI
 	applicationId string
 	xAnchoreAccount *string
 }
@@ -530,7 +762,7 @@ func (a *ApplicationsAPIService) DeleteApplicationExecute(r ApiDeleteApplication
 
 type ApiDeleteApplicationVersionRequest struct {
 	ctx context.Context
-	ApiService *ApplicationsAPIService
+	ApiService ApplicationsAPI
 	applicationId string
 	applicationVersionId string
 	xAnchoreAccount *string
@@ -636,7 +868,7 @@ func (a *ApplicationsAPIService) DeleteApplicationVersionExecute(r ApiDeleteAppl
 
 type ApiGetApplicationRequest struct {
 	ctx context.Context
-	ApiService *ApplicationsAPIService
+	ApiService ApplicationsAPI
 	applicationId string
 	includeVersions *bool
 	xAnchoreAccount *string
@@ -771,7 +1003,7 @@ func (a *ApplicationsAPIService) GetApplicationExecute(r ApiGetApplicationReques
 
 type ApiGetApplicationVersionRequest struct {
 	ctx context.Context
-	ApiService *ApplicationsAPIService
+	ApiService ApplicationsAPI
 	applicationId string
 	applicationVersionId string
 	xAnchoreAccount *string
@@ -898,7 +1130,7 @@ func (a *ApplicationsAPIService) GetApplicationVersionExecute(r ApiGetApplicatio
 
 type ApiGetApplicationVersionSbomRequest struct {
 	ctx context.Context
-	ApiService *ApplicationsAPIService
+	ApiService ApplicationsAPI
 	applicationId string
 	applicationVersionId string
 	artifactTypes *[]string
@@ -1034,7 +1266,7 @@ func (a *ApplicationsAPIService) GetApplicationVersionSbomExecute(r ApiGetApplic
 
 type ApiGetApplicationVersionVulnerabilitiesRequest struct {
 	ctx context.Context
-	ApiService *ApplicationsAPIService
+	ApiService ApplicationsAPI
 	applicationId string
 	applicationVersionId string
 	willNotFix *bool
@@ -1171,7 +1403,7 @@ func (a *ApplicationsAPIService) GetApplicationVersionVulnerabilitiesExecute(r A
 
 type ApiGetApplicationVersionsRequest struct {
 	ctx context.Context
-	ApiService *ApplicationsAPIService
+	ApiService ApplicationsAPI
 	applicationId string
 	xAnchoreAccount *string
 }
@@ -1294,7 +1526,7 @@ func (a *ApplicationsAPIService) GetApplicationVersionsExecute(r ApiGetApplicati
 
 type ApiGetApplicationsRequest struct {
 	ctx context.Context
-	ApiService *ApplicationsAPIService
+	ApiService ApplicationsAPI
 	includeVersions *bool
 	xAnchoreAccount *string
 }
@@ -1425,7 +1657,7 @@ func (a *ApplicationsAPIService) GetApplicationsExecute(r ApiGetApplicationsRequ
 
 type ApiListArtifactsRequest struct {
 	ctx context.Context
-	ApiService *ApplicationsAPIService
+	ApiService ApplicationsAPI
 	applicationId string
 	applicationVersionId string
 	artifactTypes *[]string
@@ -1561,7 +1793,7 @@ func (a *ApplicationsAPIService) ListArtifactsExecute(r ApiListArtifactsRequest)
 
 type ApiRemoveArtifactFromApplicationVersionRequest struct {
 	ctx context.Context
-	ApiService *ApplicationsAPIService
+	ApiService ApplicationsAPI
 	applicationId string
 	applicationVersionId string
 	associationId string
@@ -1671,7 +1903,7 @@ func (a *ApplicationsAPIService) RemoveArtifactFromApplicationVersionExecute(r A
 
 type ApiUpdateApplicationRequest struct {
 	ctx context.Context
-	ApiService *ApplicationsAPIService
+	ApiService ApplicationsAPI
 	applicationId string
 	application *Application
 	xAnchoreAccount *string
@@ -1805,7 +2037,7 @@ func (a *ApplicationsAPIService) UpdateApplicationExecute(r ApiUpdateApplication
 
 type ApiUpdateApplicationVersionRequest struct {
 	ctx context.Context
-	ApiService *ApplicationsAPIService
+	ApiService ApplicationsAPI
 	applicationId string
 	applicationVersionId string
 	applicationVersion *ApplicationVersion

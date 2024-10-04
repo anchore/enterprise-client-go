@@ -20,12 +20,29 @@ import (
 )
 
 
+type CatalogAPI interface {
+
+	/*
+	GetDeploymentHistory List Deployment History
+
+	Returns list of deployment history entries
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiGetDeploymentHistoryRequest
+	*/
+	GetDeploymentHistory(ctx context.Context) ApiGetDeploymentHistoryRequest
+
+	// GetDeploymentHistoryExecute executes the request
+	//  @return DeploymentHistoryList
+	GetDeploymentHistoryExecute(r ApiGetDeploymentHistoryRequest) (*DeploymentHistoryList, *http.Response, error)
+}
+
 // CatalogAPIService CatalogAPI service
 type CatalogAPIService service
 
 type ApiGetDeploymentHistoryRequest struct {
 	ctx context.Context
-	ApiService *CatalogAPIService
+	ApiService CatalogAPI
 }
 
 func (r ApiGetDeploymentHistoryRequest) Execute() (*DeploymentHistoryList, *http.Response, error) {

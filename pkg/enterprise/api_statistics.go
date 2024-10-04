@@ -20,12 +20,29 @@ import (
 )
 
 
+type StatisticsAPI interface {
+
+	/*
+	GetSystemStatistics List System Statistics
+
+	Returns list of system statistics with total all-time counts.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiGetSystemStatisticsRequest
+	*/
+	GetSystemStatistics(ctx context.Context) ApiGetSystemStatisticsRequest
+
+	// GetSystemStatisticsExecute executes the request
+	//  @return SystemStatisticsList
+	GetSystemStatisticsExecute(r ApiGetSystemStatisticsRequest) (*SystemStatisticsList, *http.Response, error)
+}
+
 // StatisticsAPIService StatisticsAPI service
 type StatisticsAPIService service
 
 type ApiGetSystemStatisticsRequest struct {
 	ctx context.Context
-	ApiService *StatisticsAPIService
+	ApiService StatisticsAPI
 }
 
 func (r ApiGetSystemStatisticsRequest) Execute() (*SystemStatisticsList, *http.Response, error) {

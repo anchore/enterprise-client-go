@@ -21,12 +21,82 @@ import (
 )
 
 
+type IntegrationsAPI interface {
+
+	/*
+	DeleteIntegration Delete an integration instance
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param integrationUuid The integration instance's universally unique identifier
+	@return ApiDeleteIntegrationRequest
+	*/
+	DeleteIntegration(ctx context.Context, integrationUuid string) ApiDeleteIntegrationRequest
+
+	// DeleteIntegrationExecute executes the request
+	DeleteIntegrationExecute(r ApiDeleteIntegrationRequest) (*http.Response, error)
+
+	/*
+	GetIntegrationById Get information about an integration instance
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param integrationUuid The integration instance's universally unique identifier
+	@return ApiGetIntegrationByIdRequest
+	*/
+	GetIntegrationById(ctx context.Context, integrationUuid string) ApiGetIntegrationByIdRequest
+
+	// GetIntegrationByIdExecute executes the request
+	//  @return Integration
+	GetIntegrationByIdExecute(r ApiGetIntegrationByIdRequest) (*Integration, *http.Response, error)
+
+	/*
+	HandleHealthReport Report health status for an integration
+
+	An integration, such as an agent, will use this API to report its current health status. Such calls will typically be done on an interval, e.g., every 60 seconds.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param integrationUuid The integration's universally unique identifier
+	@return ApiHandleHealthReportRequest
+	*/
+	HandleHealthReport(ctx context.Context, integrationUuid string) ApiHandleHealthReportRequest
+
+	// HandleHealthReportExecute executes the request
+	HandleHealthReportExecute(r ApiHandleHealthReportRequest) (*http.Response, error)
+
+	/*
+	ListIntegrations List known integration instances
+
+	Lists all integrations that have been created (explicitly or indirectly via registration).
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiListIntegrationsRequest
+	*/
+	ListIntegrations(ctx context.Context) ApiListIntegrationsRequest
+
+	// ListIntegrationsExecute executes the request
+	//  @return IntegrationListResponse
+	ListIntegrationsExecute(r ApiListIntegrationsRequest) (*IntegrationListResponse, *http.Response, error)
+
+	/*
+	RegisterIntegration Register an integration instance
+
+	An integration instance, such as an agent, will use this API to register itself with Anchore. The integration registers using registration_id and registration_instance_id as temporary identifiers and is assigned its integration uuid upon successful registration. This method is idempotent in the sense that if an integration instance call it multiple time and uses the same registration_id and registration_instance_id, it will be assigned the same integration uuid.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiRegisterIntegrationRequest
+	*/
+	RegisterIntegration(ctx context.Context) ApiRegisterIntegrationRequest
+
+	// RegisterIntegrationExecute executes the request
+	//  @return Integration
+	RegisterIntegrationExecute(r ApiRegisterIntegrationRequest) (*Integration, *http.Response, error)
+}
+
 // IntegrationsAPIService IntegrationsAPI service
 type IntegrationsAPIService service
 
 type ApiDeleteIntegrationRequest struct {
 	ctx context.Context
-	ApiService *IntegrationsAPIService
+	ApiService IntegrationsAPI
 	integrationUuid string
 	force *bool
 }
@@ -129,7 +199,7 @@ func (a *IntegrationsAPIService) DeleteIntegrationExecute(r ApiDeleteIntegration
 
 type ApiGetIntegrationByIdRequest struct {
 	ctx context.Context
-	ApiService *IntegrationsAPIService
+	ApiService IntegrationsAPI
 	integrationUuid string
 }
 
@@ -240,7 +310,7 @@ func (a *IntegrationsAPIService) GetIntegrationByIdExecute(r ApiGetIntegrationBy
 
 type ApiHandleHealthReportRequest struct {
 	ctx context.Context
-	ApiService *IntegrationsAPIService
+	ApiService IntegrationsAPI
 	integrationUuid string
 	healthReport *HealthReport
 }
@@ -353,7 +423,7 @@ func (a *IntegrationsAPIService) HandleHealthReportExecute(r ApiHandleHealthRepo
 
 type ApiListIntegrationsRequest struct {
 	ctx context.Context
-	ApiService *IntegrationsAPIService
+	ApiService IntegrationsAPI
 }
 
 func (r ApiListIntegrationsRequest) Execute() (*IntegrationListResponse, *http.Response, error) {
@@ -462,7 +532,7 @@ func (a *IntegrationsAPIService) ListIntegrationsExecute(r ApiListIntegrationsRe
 
 type ApiRegisterIntegrationRequest struct {
 	ctx context.Context
-	ApiService *IntegrationsAPIService
+	ApiService IntegrationsAPI
 	integrationRegister *IntegrationRegister
 }
 

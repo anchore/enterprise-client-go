@@ -20,12 +20,27 @@ import (
 )
 
 
+type RepositoryAPI interface {
+
+	/*
+	AddRepository Add repository to watch
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiAddRepositoryRequest
+	*/
+	AddRepository(ctx context.Context) ApiAddRepositoryRequest
+
+	// AddRepositoryExecute executes the request
+	//  @return []Subscription
+	AddRepositoryExecute(r ApiAddRepositoryRequest) ([]Subscription, *http.Response, error)
+}
+
 // RepositoryAPIService RepositoryAPI service
 type RepositoryAPIService service
 
 type ApiAddRepositoryRequest struct {
 	ctx context.Context
-	ApiService *RepositoryAPIService
+	ApiService RepositoryAPI
 	repository *string
 	autoSubscribe *bool
 	dryRun *bool

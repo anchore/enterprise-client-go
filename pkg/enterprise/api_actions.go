@@ -21,12 +21,43 @@ import (
 )
 
 
+type ActionsAPI interface {
+
+	/*
+	AddActionPlan Submits an Action Plan
+
+	Submits an Action Plan and saves upon completion
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiAddActionPlanRequest
+	*/
+	AddActionPlan(ctx context.Context) ApiAddActionPlanRequest
+
+	// AddActionPlanExecute executes the request
+	//  @return ActionPlan
+	AddActionPlanExecute(r ApiAddActionPlanRequest) (*ActionPlan, *http.Response, error)
+
+	/*
+	GetActionPlans Gets a list of submitted action (remediation) plans
+
+	Retrieves a list of action plans that have been completed
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiGetActionPlansRequest
+	*/
+	GetActionPlans(ctx context.Context) ApiGetActionPlansRequest
+
+	// GetActionPlansExecute executes the request
+	//  @return []ActionPlan
+	GetActionPlansExecute(r ApiGetActionPlansRequest) ([]ActionPlan, *http.Response, error)
+}
+
 // ActionsAPIService ActionsAPI service
 type ActionsAPIService service
 
 type ApiAddActionPlanRequest struct {
 	ctx context.Context
-	ApiService *ActionsAPIService
+	ApiService ActionsAPI
 	actionPlan *ActionPlan
 }
 
@@ -136,7 +167,7 @@ func (a *ActionsAPIService) AddActionPlanExecute(r ApiAddActionPlanRequest) (*Ac
 
 type ApiGetActionPlansRequest struct {
 	ctx context.Context
-	ApiService *ActionsAPIService
+	ApiService ActionsAPI
 	imageTag *string
 	imageDigest *string
 	createdAfter *time.Time

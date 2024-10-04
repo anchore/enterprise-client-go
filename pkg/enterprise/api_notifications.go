@@ -21,12 +21,1216 @@ import (
 )
 
 
+type NotificationsAPI interface {
+
+	/*
+	AddGithubConfiguration Method for AddGithubConfiguration
+
+	Create a new GitHub endpoint configuration
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiAddGithubConfigurationRequest
+	*/
+	AddGithubConfiguration(ctx context.Context) ApiAddGithubConfigurationRequest
+
+	// AddGithubConfigurationExecute executes the request
+	//  @return NotificationGitHubEndpointConfigurationBase
+	AddGithubConfigurationExecute(r ApiAddGithubConfigurationRequest) (*NotificationGitHubEndpointConfigurationBase, *http.Response, error)
+
+	/*
+	AddGithubSelector Method for AddGithubSelector
+
+	Add selector for mapping events for delivery to a GitHub endpoint configuration
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param uuid
+	@return ApiAddGithubSelectorRequest
+	*/
+	AddGithubSelector(ctx context.Context, uuid string) ApiAddGithubSelectorRequest
+
+	// AddGithubSelectorExecute executes the request
+	//  @return NotificationSelector
+	AddGithubSelectorExecute(r ApiAddGithubSelectorRequest) (*NotificationSelector, *http.Response, error)
+
+	/*
+	AddJiraConfiguration Method for AddJiraConfiguration
+
+	Create a new Jira endpoint configuration
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiAddJiraConfigurationRequest
+	*/
+	AddJiraConfiguration(ctx context.Context) ApiAddJiraConfigurationRequest
+
+	// AddJiraConfigurationExecute executes the request
+	//  @return NotificationJiraEndpointConfigurationBase
+	AddJiraConfigurationExecute(r ApiAddJiraConfigurationRequest) (*NotificationJiraEndpointConfigurationBase, *http.Response, error)
+
+	/*
+	AddJiraSelector Method for AddJiraSelector
+
+	Add selector for mapping events for delivery to a Jira endpoint configuration
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param uuid
+	@return ApiAddJiraSelectorRequest
+	*/
+	AddJiraSelector(ctx context.Context, uuid string) ApiAddJiraSelectorRequest
+
+	// AddJiraSelectorExecute executes the request
+	//  @return NotificationSelector
+	AddJiraSelectorExecute(r ApiAddJiraSelectorRequest) (*NotificationSelector, *http.Response, error)
+
+	/*
+	AddSlackConfiguration Method for AddSlackConfiguration
+
+	Create a new Slack endpoint configuration
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiAddSlackConfigurationRequest
+	*/
+	AddSlackConfiguration(ctx context.Context) ApiAddSlackConfigurationRequest
+
+	// AddSlackConfigurationExecute executes the request
+	//  @return NotificationSlackEndpointConfiguration
+	AddSlackConfigurationExecute(r ApiAddSlackConfigurationRequest) (*NotificationSlackEndpointConfiguration, *http.Response, error)
+
+	/*
+	AddSlackSelector Method for AddSlackSelector
+
+	Add selector for mapping events for delivery to a Slack endpoint configuration
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param uuid
+	@return ApiAddSlackSelectorRequest
+	*/
+	AddSlackSelector(ctx context.Context, uuid string) ApiAddSlackSelectorRequest
+
+	// AddSlackSelectorExecute executes the request
+	//  @return NotificationSelector
+	AddSlackSelectorExecute(r ApiAddSlackSelectorRequest) (*NotificationSelector, *http.Response, error)
+
+	/*
+	AddSmtpConfiguration Method for AddSmtpConfiguration
+
+	Create a new SMTP endpoint configuration
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiAddSmtpConfigurationRequest
+	*/
+	AddSmtpConfiguration(ctx context.Context) ApiAddSmtpConfigurationRequest
+
+	// AddSmtpConfigurationExecute executes the request
+	//  @return NotificationSMTPEndpointConfiguration
+	AddSmtpConfigurationExecute(r ApiAddSmtpConfigurationRequest) (*NotificationSMTPEndpointConfiguration, *http.Response, error)
+
+	/*
+	AddSmtpSelector Method for AddSmtpSelector
+
+	Add selector for mapping events for delivery to a SMTP endpoint configuration
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param uuid
+	@return ApiAddSmtpSelectorRequest
+	*/
+	AddSmtpSelector(ctx context.Context, uuid string) ApiAddSmtpSelectorRequest
+
+	// AddSmtpSelectorExecute executes the request
+	//  @return NotificationSelector
+	AddSmtpSelectorExecute(r ApiAddSmtpSelectorRequest) (*NotificationSelector, *http.Response, error)
+
+	/*
+	AddTeamsConfiguration Method for AddTeamsConfiguration
+
+	Create a new Teams endpoint configuration
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiAddTeamsConfigurationRequest
+	*/
+	AddTeamsConfiguration(ctx context.Context) ApiAddTeamsConfigurationRequest
+
+	// AddTeamsConfigurationExecute executes the request
+	//  @return NotificationTeamsEndpointConfiguration
+	AddTeamsConfigurationExecute(r ApiAddTeamsConfigurationRequest) (*NotificationTeamsEndpointConfiguration, *http.Response, error)
+
+	/*
+	AddTeamsSelector Method for AddTeamsSelector
+
+	Add selector for mapping events for delivery to a Teams endpoint configuration
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param uuid
+	@return ApiAddTeamsSelectorRequest
+	*/
+	AddTeamsSelector(ctx context.Context, uuid string) ApiAddTeamsSelectorRequest
+
+	// AddTeamsSelectorExecute executes the request
+	//  @return NotificationSelector
+	AddTeamsSelectorExecute(r ApiAddTeamsSelectorRequest) (*NotificationSelector, *http.Response, error)
+
+	/*
+	AddWebhookConfiguration Method for AddWebhookConfiguration
+
+	Create a new Webhook endpoint configuration
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiAddWebhookConfigurationRequest
+	*/
+	AddWebhookConfiguration(ctx context.Context) ApiAddWebhookConfigurationRequest
+
+	// AddWebhookConfigurationExecute executes the request
+	//  @return NotificationWebhookEndpointConfiguration
+	AddWebhookConfigurationExecute(r ApiAddWebhookConfigurationRequest) (*NotificationWebhookEndpointConfiguration, *http.Response, error)
+
+	/*
+	AddWebhookSelector Method for AddWebhookSelector
+
+	Add selector for mapping events for delivery to a Webhook endpoint configuration
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param uuid
+	@return ApiAddWebhookSelectorRequest
+	*/
+	AddWebhookSelector(ctx context.Context, uuid string) ApiAddWebhookSelectorRequest
+
+	// AddWebhookSelectorExecute executes the request
+	//  @return NotificationSelector
+	AddWebhookSelectorExecute(r ApiAddWebhookSelectorRequest) (*NotificationSelector, *http.Response, error)
+
+	/*
+	DeleteGithubConfiguration Method for DeleteGithubConfiguration
+
+	Delete a GitHub endpoint configuration by it's UUID
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param uuid
+	@return ApiDeleteGithubConfigurationRequest
+	*/
+	DeleteGithubConfiguration(ctx context.Context, uuid string) ApiDeleteGithubConfigurationRequest
+
+	// DeleteGithubConfigurationExecute executes the request
+	DeleteGithubConfigurationExecute(r ApiDeleteGithubConfigurationRequest) (*http.Response, error)
+
+	/*
+	DeleteGithubSelector Method for DeleteGithubSelector
+
+	Delete a selector mapped to a GitHub endpoint configuration
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param configurationUuid
+	@param selectorUuid
+	@return ApiDeleteGithubSelectorRequest
+	*/
+	DeleteGithubSelector(ctx context.Context, configurationUuid string, selectorUuid string) ApiDeleteGithubSelectorRequest
+
+	// DeleteGithubSelectorExecute executes the request
+	DeleteGithubSelectorExecute(r ApiDeleteGithubSelectorRequest) (*http.Response, error)
+
+	/*
+	DeleteJiraConfiguration Method for DeleteJiraConfiguration
+
+	Delete a Jira endpoint configuration by it's UUID
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param uuid
+	@return ApiDeleteJiraConfigurationRequest
+	*/
+	DeleteJiraConfiguration(ctx context.Context, uuid string) ApiDeleteJiraConfigurationRequest
+
+	// DeleteJiraConfigurationExecute executes the request
+	DeleteJiraConfigurationExecute(r ApiDeleteJiraConfigurationRequest) (*http.Response, error)
+
+	/*
+	DeleteJiraSelector Method for DeleteJiraSelector
+
+	Delete a selector mapped to a Jira endpoint configuration
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param configurationUuid
+	@param selectorUuid
+	@return ApiDeleteJiraSelectorRequest
+	*/
+	DeleteJiraSelector(ctx context.Context, configurationUuid string, selectorUuid string) ApiDeleteJiraSelectorRequest
+
+	// DeleteJiraSelectorExecute executes the request
+	DeleteJiraSelectorExecute(r ApiDeleteJiraSelectorRequest) (*http.Response, error)
+
+	/*
+	DeleteSlackConfiguration Method for DeleteSlackConfiguration
+
+	Delete a Slack endpoint configuration by it's UUID
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param uuid
+	@return ApiDeleteSlackConfigurationRequest
+	*/
+	DeleteSlackConfiguration(ctx context.Context, uuid string) ApiDeleteSlackConfigurationRequest
+
+	// DeleteSlackConfigurationExecute executes the request
+	DeleteSlackConfigurationExecute(r ApiDeleteSlackConfigurationRequest) (*http.Response, error)
+
+	/*
+	DeleteSlackSelector Method for DeleteSlackSelector
+
+	Delete a selector mapped to a Slack endpoint configuration
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param configurationUuid
+	@param selectorUuid
+	@return ApiDeleteSlackSelectorRequest
+	*/
+	DeleteSlackSelector(ctx context.Context, configurationUuid string, selectorUuid string) ApiDeleteSlackSelectorRequest
+
+	// DeleteSlackSelectorExecute executes the request
+	DeleteSlackSelectorExecute(r ApiDeleteSlackSelectorRequest) (*http.Response, error)
+
+	/*
+	DeleteSmtpConfiguration Method for DeleteSmtpConfiguration
+
+	Delete a SMTP endpoint configuration by it's UUID
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param uuid
+	@return ApiDeleteSmtpConfigurationRequest
+	*/
+	DeleteSmtpConfiguration(ctx context.Context, uuid string) ApiDeleteSmtpConfigurationRequest
+
+	// DeleteSmtpConfigurationExecute executes the request
+	DeleteSmtpConfigurationExecute(r ApiDeleteSmtpConfigurationRequest) (*http.Response, error)
+
+	/*
+	DeleteSmtpSelector Method for DeleteSmtpSelector
+
+	Delete a selector mapped to a SMTP endpoint configuration
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param configurationUuid
+	@param selectorUuid
+	@return ApiDeleteSmtpSelectorRequest
+	*/
+	DeleteSmtpSelector(ctx context.Context, configurationUuid string, selectorUuid string) ApiDeleteSmtpSelectorRequest
+
+	// DeleteSmtpSelectorExecute executes the request
+	DeleteSmtpSelectorExecute(r ApiDeleteSmtpSelectorRequest) (*http.Response, error)
+
+	/*
+	DeleteTeamsConfiguration Method for DeleteTeamsConfiguration
+
+	Delete a Teams endpoint configuration by it's UUID
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param uuid
+	@return ApiDeleteTeamsConfigurationRequest
+	*/
+	DeleteTeamsConfiguration(ctx context.Context, uuid string) ApiDeleteTeamsConfigurationRequest
+
+	// DeleteTeamsConfigurationExecute executes the request
+	DeleteTeamsConfigurationExecute(r ApiDeleteTeamsConfigurationRequest) (*http.Response, error)
+
+	/*
+	DeleteTeamsSelector Method for DeleteTeamsSelector
+
+	Delete a selector mapped to a Teams endpoint configuration
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param configurationUuid
+	@param selectorUuid
+	@return ApiDeleteTeamsSelectorRequest
+	*/
+	DeleteTeamsSelector(ctx context.Context, configurationUuid string, selectorUuid string) ApiDeleteTeamsSelectorRequest
+
+	// DeleteTeamsSelectorExecute executes the request
+	DeleteTeamsSelectorExecute(r ApiDeleteTeamsSelectorRequest) (*http.Response, error)
+
+	/*
+	DeleteWebhookConfiguration Method for DeleteWebhookConfiguration
+
+	Delete a Webhook endpoint configuration by it's UUID
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param uuid
+	@return ApiDeleteWebhookConfigurationRequest
+	*/
+	DeleteWebhookConfiguration(ctx context.Context, uuid string) ApiDeleteWebhookConfigurationRequest
+
+	// DeleteWebhookConfigurationExecute executes the request
+	DeleteWebhookConfigurationExecute(r ApiDeleteWebhookConfigurationRequest) (*http.Response, error)
+
+	/*
+	DeleteWebhookSelector Method for DeleteWebhookSelector
+
+	Delete a selector mapped to a Webhook endpoint configuration
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param configurationUuid
+	@param selectorUuid
+	@return ApiDeleteWebhookSelectorRequest
+	*/
+	DeleteWebhookSelector(ctx context.Context, configurationUuid string, selectorUuid string) ApiDeleteWebhookSelectorRequest
+
+	// DeleteWebhookSelectorExecute executes the request
+	DeleteWebhookSelectorExecute(r ApiDeleteWebhookSelectorRequest) (*http.Response, error)
+
+	/*
+	GetGithubConfiguration Method for GetGithubConfiguration
+
+	Get a GitHub endpoint configuration by it's UUID
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param uuid
+	@return ApiGetGithubConfigurationRequest
+	*/
+	GetGithubConfiguration(ctx context.Context, uuid string) ApiGetGithubConfigurationRequest
+
+	// GetGithubConfigurationExecute executes the request
+	//  @return NotificationGitHubEndpointConfigurationBase
+	GetGithubConfigurationExecute(r ApiGetGithubConfigurationRequest) (*NotificationGitHubEndpointConfigurationBase, *http.Response, error)
+
+	/*
+	GetGithubConfigurationStatus Method for GetGithubConfigurationStatus
+
+	Get operational status for a GitHub endpoint configuration
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param uuid
+	@return ApiGetGithubConfigurationStatusRequest
+	*/
+	GetGithubConfigurationStatus(ctx context.Context, uuid string) ApiGetGithubConfigurationStatusRequest
+
+	// GetGithubConfigurationStatusExecute executes the request
+	//  @return NotificationOperationalStatus
+	GetGithubConfigurationStatusExecute(r ApiGetGithubConfigurationStatusRequest) (*NotificationOperationalStatus, *http.Response, error)
+
+	/*
+	GetGithubSelector Method for GetGithubSelector
+
+	Get a selector mapped to a GitHub endpoint configuration
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param configurationUuid
+	@param selectorUuid
+	@return ApiGetGithubSelectorRequest
+	*/
+	GetGithubSelector(ctx context.Context, configurationUuid string, selectorUuid string) ApiGetGithubSelectorRequest
+
+	// GetGithubSelectorExecute executes the request
+	//  @return NotificationSelector
+	GetGithubSelectorExecute(r ApiGetGithubSelectorRequest) (*NotificationSelector, *http.Response, error)
+
+	/*
+	GetJiraConfiguration Method for GetJiraConfiguration
+
+	Get a Jira endpoint configuration by it's UUID
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param uuid
+	@return ApiGetJiraConfigurationRequest
+	*/
+	GetJiraConfiguration(ctx context.Context, uuid string) ApiGetJiraConfigurationRequest
+
+	// GetJiraConfigurationExecute executes the request
+	//  @return NotificationJiraEndpointConfigurationBase
+	GetJiraConfigurationExecute(r ApiGetJiraConfigurationRequest) (*NotificationJiraEndpointConfigurationBase, *http.Response, error)
+
+	/*
+	GetJiraConfigurationStatus Method for GetJiraConfigurationStatus
+
+	Get operational status for a Jira endpoint configuration
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param uuid
+	@return ApiGetJiraConfigurationStatusRequest
+	*/
+	GetJiraConfigurationStatus(ctx context.Context, uuid string) ApiGetJiraConfigurationStatusRequest
+
+	// GetJiraConfigurationStatusExecute executes the request
+	//  @return NotificationOperationalStatus
+	GetJiraConfigurationStatusExecute(r ApiGetJiraConfigurationStatusRequest) (*NotificationOperationalStatus, *http.Response, error)
+
+	/*
+	GetJiraSelector Method for GetJiraSelector
+
+	Get a selector mapped to a Jira endpoint configuration
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param configurationUuid
+	@param selectorUuid
+	@return ApiGetJiraSelectorRequest
+	*/
+	GetJiraSelector(ctx context.Context, configurationUuid string, selectorUuid string) ApiGetJiraSelectorRequest
+
+	// GetJiraSelectorExecute executes the request
+	//  @return NotificationSelector
+	GetJiraSelectorExecute(r ApiGetJiraSelectorRequest) (*NotificationSelector, *http.Response, error)
+
+	/*
+	GetSlackConfiguration Method for GetSlackConfiguration
+
+	Get a Slack endpoint configuration by it's UUID
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param uuid
+	@return ApiGetSlackConfigurationRequest
+	*/
+	GetSlackConfiguration(ctx context.Context, uuid string) ApiGetSlackConfigurationRequest
+
+	// GetSlackConfigurationExecute executes the request
+	//  @return NotificationSlackEndpointConfiguration
+	GetSlackConfigurationExecute(r ApiGetSlackConfigurationRequest) (*NotificationSlackEndpointConfiguration, *http.Response, error)
+
+	/*
+	GetSlackConfigurationStatus Method for GetSlackConfigurationStatus
+
+	Get operational status for a Slack endpoint configuration
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param uuid
+	@return ApiGetSlackConfigurationStatusRequest
+	*/
+	GetSlackConfigurationStatus(ctx context.Context, uuid string) ApiGetSlackConfigurationStatusRequest
+
+	// GetSlackConfigurationStatusExecute executes the request
+	//  @return NotificationOperationalStatus
+	GetSlackConfigurationStatusExecute(r ApiGetSlackConfigurationStatusRequest) (*NotificationOperationalStatus, *http.Response, error)
+
+	/*
+	GetSlackSelector Method for GetSlackSelector
+
+	Get a selector mapped to a Slack endpoint configuration
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param configurationUuid
+	@param selectorUuid
+	@return ApiGetSlackSelectorRequest
+	*/
+	GetSlackSelector(ctx context.Context, configurationUuid string, selectorUuid string) ApiGetSlackSelectorRequest
+
+	// GetSlackSelectorExecute executes the request
+	//  @return NotificationSelector
+	GetSlackSelectorExecute(r ApiGetSlackSelectorRequest) (*NotificationSelector, *http.Response, error)
+
+	/*
+	GetSmtpConfiguration Method for GetSmtpConfiguration
+
+	Get a SMTP endpoint configuration by it's UUID
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param uuid
+	@return ApiGetSmtpConfigurationRequest
+	*/
+	GetSmtpConfiguration(ctx context.Context, uuid string) ApiGetSmtpConfigurationRequest
+
+	// GetSmtpConfigurationExecute executes the request
+	//  @return NotificationSMTPEndpointConfiguration
+	GetSmtpConfigurationExecute(r ApiGetSmtpConfigurationRequest) (*NotificationSMTPEndpointConfiguration, *http.Response, error)
+
+	/*
+	GetSmtpConfigurationStatus Method for GetSmtpConfigurationStatus
+
+	Get operational status for a SMTP endpoint configuration
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param uuid
+	@return ApiGetSmtpConfigurationStatusRequest
+	*/
+	GetSmtpConfigurationStatus(ctx context.Context, uuid string) ApiGetSmtpConfigurationStatusRequest
+
+	// GetSmtpConfigurationStatusExecute executes the request
+	//  @return NotificationOperationalStatus
+	GetSmtpConfigurationStatusExecute(r ApiGetSmtpConfigurationStatusRequest) (*NotificationOperationalStatus, *http.Response, error)
+
+	/*
+	GetSmtpSelector Method for GetSmtpSelector
+
+	Get a selector mapped to a SMTP endpoint configuration
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param configurationUuid
+	@param selectorUuid
+	@return ApiGetSmtpSelectorRequest
+	*/
+	GetSmtpSelector(ctx context.Context, configurationUuid string, selectorUuid string) ApiGetSmtpSelectorRequest
+
+	// GetSmtpSelectorExecute executes the request
+	//  @return NotificationSelector
+	GetSmtpSelectorExecute(r ApiGetSmtpSelectorRequest) (*NotificationSelector, *http.Response, error)
+
+	/*
+	GetTeamsConfiguration Method for GetTeamsConfiguration
+
+	Get a Teams endpoint configuration by it's UUID
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param uuid
+	@return ApiGetTeamsConfigurationRequest
+	*/
+	GetTeamsConfiguration(ctx context.Context, uuid string) ApiGetTeamsConfigurationRequest
+
+	// GetTeamsConfigurationExecute executes the request
+	//  @return NotificationTeamsEndpointConfiguration
+	GetTeamsConfigurationExecute(r ApiGetTeamsConfigurationRequest) (*NotificationTeamsEndpointConfiguration, *http.Response, error)
+
+	/*
+	GetTeamsConfigurationStatus Method for GetTeamsConfigurationStatus
+
+	Get operational status for a Teams endpoint configuration
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param uuid
+	@return ApiGetTeamsConfigurationStatusRequest
+	*/
+	GetTeamsConfigurationStatus(ctx context.Context, uuid string) ApiGetTeamsConfigurationStatusRequest
+
+	// GetTeamsConfigurationStatusExecute executes the request
+	//  @return NotificationOperationalStatus
+	GetTeamsConfigurationStatusExecute(r ApiGetTeamsConfigurationStatusRequest) (*NotificationOperationalStatus, *http.Response, error)
+
+	/*
+	GetTeamsSelector Method for GetTeamsSelector
+
+	Get a selector mapped to a Teams endpoint configuration
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param configurationUuid
+	@param selectorUuid
+	@return ApiGetTeamsSelectorRequest
+	*/
+	GetTeamsSelector(ctx context.Context, configurationUuid string, selectorUuid string) ApiGetTeamsSelectorRequest
+
+	// GetTeamsSelectorExecute executes the request
+	//  @return NotificationSelector
+	GetTeamsSelectorExecute(r ApiGetTeamsSelectorRequest) (*NotificationSelector, *http.Response, error)
+
+	/*
+	GetWebhookConfiguration Method for GetWebhookConfiguration
+
+	Get a Webhook endpoint configuration by it's UUID
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param uuid
+	@return ApiGetWebhookConfigurationRequest
+	*/
+	GetWebhookConfiguration(ctx context.Context, uuid string) ApiGetWebhookConfigurationRequest
+
+	// GetWebhookConfigurationExecute executes the request
+	//  @return NotificationWebhookEndpointConfiguration
+	GetWebhookConfigurationExecute(r ApiGetWebhookConfigurationRequest) (*NotificationWebhookEndpointConfiguration, *http.Response, error)
+
+	/*
+	GetWebhookConfigurationStatus Method for GetWebhookConfigurationStatus
+
+	Get operational status for a Webhook endpoint configuration
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param uuid
+	@return ApiGetWebhookConfigurationStatusRequest
+	*/
+	GetWebhookConfigurationStatus(ctx context.Context, uuid string) ApiGetWebhookConfigurationStatusRequest
+
+	// GetWebhookConfigurationStatusExecute executes the request
+	//  @return NotificationOperationalStatus
+	GetWebhookConfigurationStatusExecute(r ApiGetWebhookConfigurationStatusRequest) (*NotificationOperationalStatus, *http.Response, error)
+
+	/*
+	GetWebhookSelector Method for GetWebhookSelector
+
+	Get a selector mapped to a Webhook endpoint configuration
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param configurationUuid
+	@param selectorUuid
+	@return ApiGetWebhookSelectorRequest
+	*/
+	GetWebhookSelector(ctx context.Context, configurationUuid string, selectorUuid string) ApiGetWebhookSelectorRequest
+
+	// GetWebhookSelectorExecute executes the request
+	//  @return NotificationSelector
+	GetWebhookSelectorExecute(r ApiGetWebhookSelectorRequest) (*NotificationSelector, *http.Response, error)
+
+	/*
+	ListEndpoints Method for ListEndpoints
+
+	List the system installed notification endpoints
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiListEndpointsRequest
+	*/
+	ListEndpoints(ctx context.Context) ApiListEndpointsRequest
+
+	// ListEndpointsExecute executes the request
+	//  @return []NotificationEndpoint
+	ListEndpointsExecute(r ApiListEndpointsRequest) ([]NotificationEndpoint, *http.Response, error)
+
+	/*
+	ListGithubConfigurations Method for ListGithubConfigurations
+
+	List GitHub endpoint configurations
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiListGithubConfigurationsRequest
+	*/
+	ListGithubConfigurations(ctx context.Context) ApiListGithubConfigurationsRequest
+
+	// ListGithubConfigurationsExecute executes the request
+	//  @return []NotificationGitHubEndpointConfigurationBase
+	ListGithubConfigurationsExecute(r ApiListGithubConfigurationsRequest) ([]NotificationGitHubEndpointConfigurationBase, *http.Response, error)
+
+	/*
+	ListGithubSelectors Method for ListGithubSelectors
+
+	List selectors mapping events for delivery to a GitHub endpoint configuration
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param uuid
+	@return ApiListGithubSelectorsRequest
+	*/
+	ListGithubSelectors(ctx context.Context, uuid string) ApiListGithubSelectorsRequest
+
+	// ListGithubSelectorsExecute executes the request
+	//  @return []NotificationSelector
+	ListGithubSelectorsExecute(r ApiListGithubSelectorsRequest) ([]NotificationSelector, *http.Response, error)
+
+	/*
+	ListJiraConfigurations Method for ListJiraConfigurations
+
+	List Jira endpoint configurations
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiListJiraConfigurationsRequest
+	*/
+	ListJiraConfigurations(ctx context.Context) ApiListJiraConfigurationsRequest
+
+	// ListJiraConfigurationsExecute executes the request
+	//  @return []NotificationJiraEndpointConfigurationBase
+	ListJiraConfigurationsExecute(r ApiListJiraConfigurationsRequest) ([]NotificationJiraEndpointConfigurationBase, *http.Response, error)
+
+	/*
+	ListJiraSelectors Method for ListJiraSelectors
+
+	List selectors mapping events for delivery to a Jira endpoint configuration
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param uuid
+	@return ApiListJiraSelectorsRequest
+	*/
+	ListJiraSelectors(ctx context.Context, uuid string) ApiListJiraSelectorsRequest
+
+	// ListJiraSelectorsExecute executes the request
+	//  @return []NotificationSelector
+	ListJiraSelectorsExecute(r ApiListJiraSelectorsRequest) ([]NotificationSelector, *http.Response, error)
+
+	/*
+	ListSelectors Method for ListSelectors
+
+	List all selectors mapped to endpoint configurations for the account
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiListSelectorsRequest
+	*/
+	ListSelectors(ctx context.Context) ApiListSelectorsRequest
+
+	// ListSelectorsExecute executes the request
+	//  @return []NotificationSelector
+	ListSelectorsExecute(r ApiListSelectorsRequest) ([]NotificationSelector, *http.Response, error)
+
+	/*
+	ListSlackConfigurations Method for ListSlackConfigurations
+
+	List Slack endpoint configurations
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiListSlackConfigurationsRequest
+	*/
+	ListSlackConfigurations(ctx context.Context) ApiListSlackConfigurationsRequest
+
+	// ListSlackConfigurationsExecute executes the request
+	//  @return []NotificationSlackEndpointConfiguration
+	ListSlackConfigurationsExecute(r ApiListSlackConfigurationsRequest) ([]NotificationSlackEndpointConfiguration, *http.Response, error)
+
+	/*
+	ListSlackSelectors Method for ListSlackSelectors
+
+	List selectors mapping events for delivery to a Slack endpoint configuration
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param uuid
+	@return ApiListSlackSelectorsRequest
+	*/
+	ListSlackSelectors(ctx context.Context, uuid string) ApiListSlackSelectorsRequest
+
+	// ListSlackSelectorsExecute executes the request
+	//  @return []NotificationSelector
+	ListSlackSelectorsExecute(r ApiListSlackSelectorsRequest) ([]NotificationSelector, *http.Response, error)
+
+	/*
+	ListSmtpConfigurations Method for ListSmtpConfigurations
+
+	List SMTP endpoint configurations
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiListSmtpConfigurationsRequest
+	*/
+	ListSmtpConfigurations(ctx context.Context) ApiListSmtpConfigurationsRequest
+
+	// ListSmtpConfigurationsExecute executes the request
+	//  @return []NotificationSMTPEndpointConfiguration
+	ListSmtpConfigurationsExecute(r ApiListSmtpConfigurationsRequest) ([]NotificationSMTPEndpointConfiguration, *http.Response, error)
+
+	/*
+	ListSmtpSelectors Method for ListSmtpSelectors
+
+	List selectors mapping events for delivery to a SMTP endpoint configuration
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param uuid
+	@return ApiListSmtpSelectorsRequest
+	*/
+	ListSmtpSelectors(ctx context.Context, uuid string) ApiListSmtpSelectorsRequest
+
+	// ListSmtpSelectorsExecute executes the request
+	//  @return []NotificationSelector
+	ListSmtpSelectorsExecute(r ApiListSmtpSelectorsRequest) ([]NotificationSelector, *http.Response, error)
+
+	/*
+	ListTeamsConfigurations Method for ListTeamsConfigurations
+
+	List Teams endpoint configurations
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiListTeamsConfigurationsRequest
+	*/
+	ListTeamsConfigurations(ctx context.Context) ApiListTeamsConfigurationsRequest
+
+	// ListTeamsConfigurationsExecute executes the request
+	//  @return []NotificationTeamsEndpointConfiguration
+	ListTeamsConfigurationsExecute(r ApiListTeamsConfigurationsRequest) ([]NotificationTeamsEndpointConfiguration, *http.Response, error)
+
+	/*
+	ListTeamsSelectors Method for ListTeamsSelectors
+
+	List selectors mapping events for delivery to a Teams endpoint configuration
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param uuid
+	@return ApiListTeamsSelectorsRequest
+	*/
+	ListTeamsSelectors(ctx context.Context, uuid string) ApiListTeamsSelectorsRequest
+
+	// ListTeamsSelectorsExecute executes the request
+	//  @return []NotificationSelector
+	ListTeamsSelectorsExecute(r ApiListTeamsSelectorsRequest) ([]NotificationSelector, *http.Response, error)
+
+	/*
+	ListWebhookConfigurations Method for ListWebhookConfigurations
+
+	List Webhook endpoint configurations
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiListWebhookConfigurationsRequest
+	*/
+	ListWebhookConfigurations(ctx context.Context) ApiListWebhookConfigurationsRequest
+
+	// ListWebhookConfigurationsExecute executes the request
+	//  @return []NotificationWebhookEndpointConfiguration
+	ListWebhookConfigurationsExecute(r ApiListWebhookConfigurationsRequest) ([]NotificationWebhookEndpointConfiguration, *http.Response, error)
+
+	/*
+	ListWebhookSelectors Method for ListWebhookSelectors
+
+	List selectors mapping events for delivery to a Webhook endpoint configuration
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param uuid
+	@return ApiListWebhookSelectorsRequest
+	*/
+	ListWebhookSelectors(ctx context.Context, uuid string) ApiListWebhookSelectorsRequest
+
+	// ListWebhookSelectorsExecute executes the request
+	//  @return []NotificationSelector
+	ListWebhookSelectorsExecute(r ApiListWebhookSelectorsRequest) ([]NotificationSelector, *http.Response, error)
+
+	/*
+	TestGithubConfiguration Method for TestGithubConfiguration
+
+	Test GitHub endpoint configuration
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiTestGithubConfigurationRequest
+	*/
+	TestGithubConfiguration(ctx context.Context) ApiTestGithubConfigurationRequest
+
+	// TestGithubConfigurationExecute executes the request
+	//  @return NotificationGitHubTestResult
+	TestGithubConfigurationExecute(r ApiTestGithubConfigurationRequest) (*NotificationGitHubTestResult, *http.Response, error)
+
+	/*
+	TestJiraConfiguration Method for TestJiraConfiguration
+
+	Test Jira endpoint configuration
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiTestJiraConfigurationRequest
+	*/
+	TestJiraConfiguration(ctx context.Context) ApiTestJiraConfigurationRequest
+
+	// TestJiraConfigurationExecute executes the request
+	//  @return NotificationJiraTestResult
+	TestJiraConfigurationExecute(r ApiTestJiraConfigurationRequest) (*NotificationJiraTestResult, *http.Response, error)
+
+	/*
+	TestSlackConfiguration Method for TestSlackConfiguration
+
+	Test Slack endpoint configuration
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiTestSlackConfigurationRequest
+	*/
+	TestSlackConfiguration(ctx context.Context) ApiTestSlackConfigurationRequest
+
+	// TestSlackConfigurationExecute executes the request
+	//  @return NotificationSlackTestResult
+	TestSlackConfigurationExecute(r ApiTestSlackConfigurationRequest) (*NotificationSlackTestResult, *http.Response, error)
+
+	/*
+	TestSmtpConfiguration Method for TestSmtpConfiguration
+
+	Test SMTP endpoint configuration
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiTestSmtpConfigurationRequest
+	*/
+	TestSmtpConfiguration(ctx context.Context) ApiTestSmtpConfigurationRequest
+
+	// TestSmtpConfigurationExecute executes the request
+	//  @return NotificationSMTPTestResult
+	TestSmtpConfigurationExecute(r ApiTestSmtpConfigurationRequest) (*NotificationSMTPTestResult, *http.Response, error)
+
+	/*
+	TestStoredGithubConfiguration Method for TestStoredGithubConfiguration
+
+	Test stored GitHub endpoint configuration
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param uuid
+	@return ApiTestStoredGithubConfigurationRequest
+	*/
+	TestStoredGithubConfiguration(ctx context.Context, uuid string) ApiTestStoredGithubConfigurationRequest
+
+	// TestStoredGithubConfigurationExecute executes the request
+	//  @return NotificationGitHubTestResult
+	TestStoredGithubConfigurationExecute(r ApiTestStoredGithubConfigurationRequest) (*NotificationGitHubTestResult, *http.Response, error)
+
+	/*
+	TestStoredJiraConfiguration Method for TestStoredJiraConfiguration
+
+	Test stored Jira endpoint configuration
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param uuid
+	@return ApiTestStoredJiraConfigurationRequest
+	*/
+	TestStoredJiraConfiguration(ctx context.Context, uuid string) ApiTestStoredJiraConfigurationRequest
+
+	// TestStoredJiraConfigurationExecute executes the request
+	//  @return NotificationJiraTestResult
+	TestStoredJiraConfigurationExecute(r ApiTestStoredJiraConfigurationRequest) (*NotificationJiraTestResult, *http.Response, error)
+
+	/*
+	TestStoredSlackConfiguration Method for TestStoredSlackConfiguration
+
+	Test stored Slack endpoint configuration
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param uuid
+	@return ApiTestStoredSlackConfigurationRequest
+	*/
+	TestStoredSlackConfiguration(ctx context.Context, uuid string) ApiTestStoredSlackConfigurationRequest
+
+	// TestStoredSlackConfigurationExecute executes the request
+	//  @return NotificationSlackTestResult
+	TestStoredSlackConfigurationExecute(r ApiTestStoredSlackConfigurationRequest) (*NotificationSlackTestResult, *http.Response, error)
+
+	/*
+	TestStoredSmtpConfiguration Method for TestStoredSmtpConfiguration
+
+	Test stored SMTP endpoint configuration
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param uuid
+	@return ApiTestStoredSmtpConfigurationRequest
+	*/
+	TestStoredSmtpConfiguration(ctx context.Context, uuid string) ApiTestStoredSmtpConfigurationRequest
+
+	// TestStoredSmtpConfigurationExecute executes the request
+	//  @return NotificationSMTPTestResult
+	TestStoredSmtpConfigurationExecute(r ApiTestStoredSmtpConfigurationRequest) (*NotificationSMTPTestResult, *http.Response, error)
+
+	/*
+	TestStoredTeamsConfiguration Method for TestStoredTeamsConfiguration
+
+	Test stored Teams endpoint configuration
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param uuid
+	@return ApiTestStoredTeamsConfigurationRequest
+	*/
+	TestStoredTeamsConfiguration(ctx context.Context, uuid string) ApiTestStoredTeamsConfigurationRequest
+
+	// TestStoredTeamsConfigurationExecute executes the request
+	//  @return NotificationTeamsTestResult
+	TestStoredTeamsConfigurationExecute(r ApiTestStoredTeamsConfigurationRequest) (*NotificationTeamsTestResult, *http.Response, error)
+
+	/*
+	TestStoredWebhookConfiguration Method for TestStoredWebhookConfiguration
+
+	Test stored Webhook endpoint configuration
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param uuid
+	@return ApiTestStoredWebhookConfigurationRequest
+	*/
+	TestStoredWebhookConfiguration(ctx context.Context, uuid string) ApiTestStoredWebhookConfigurationRequest
+
+	// TestStoredWebhookConfigurationExecute executes the request
+	//  @return NotificationWebhookTestResult
+	TestStoredWebhookConfigurationExecute(r ApiTestStoredWebhookConfigurationRequest) (*NotificationWebhookTestResult, *http.Response, error)
+
+	/*
+	TestTeamsConfiguration Method for TestTeamsConfiguration
+
+	Test Teams endpoint configuration
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiTestTeamsConfigurationRequest
+	*/
+	TestTeamsConfiguration(ctx context.Context) ApiTestTeamsConfigurationRequest
+
+	// TestTeamsConfigurationExecute executes the request
+	//  @return NotificationTeamsTestResult
+	TestTeamsConfigurationExecute(r ApiTestTeamsConfigurationRequest) (*NotificationTeamsTestResult, *http.Response, error)
+
+	/*
+	TestWebhookConfiguration Method for TestWebhookConfiguration
+
+	Test Webhook endpoint configuration
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiTestWebhookConfigurationRequest
+	*/
+	TestWebhookConfiguration(ctx context.Context) ApiTestWebhookConfigurationRequest
+
+	// TestWebhookConfigurationExecute executes the request
+	//  @return NotificationWebhookTestResult
+	TestWebhookConfigurationExecute(r ApiTestWebhookConfigurationRequest) (*NotificationWebhookTestResult, *http.Response, error)
+
+	/*
+	UpdateEndpointStatus Method for UpdateEndpointStatus
+
+	Update enabled status of an endpoint
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param name
+	@return ApiUpdateEndpointStatusRequest
+	*/
+	UpdateEndpointStatus(ctx context.Context, name string) ApiUpdateEndpointStatusRequest
+
+	// UpdateEndpointStatusExecute executes the request
+	//  @return NotificationEndpointEnabledStatus
+	UpdateEndpointStatusExecute(r ApiUpdateEndpointStatusRequest) (*NotificationEndpointEnabledStatus, *http.Response, error)
+
+	/*
+	UpdateGithubConfiguration Method for UpdateGithubConfiguration
+
+	Update a GitHub endpoint configuration by it's UUID
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param uuid
+	@return ApiUpdateGithubConfigurationRequest
+	*/
+	UpdateGithubConfiguration(ctx context.Context, uuid string) ApiUpdateGithubConfigurationRequest
+
+	// UpdateGithubConfigurationExecute executes the request
+	//  @return NotificationGitHubEndpointConfigurationBase
+	UpdateGithubConfigurationExecute(r ApiUpdateGithubConfigurationRequest) (*NotificationGitHubEndpointConfigurationBase, *http.Response, error)
+
+	/*
+	UpdateGithubSelector Method for UpdateGithubSelector
+
+	Update a selector mapped to a GitHub endpoint configuration
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param configurationUuid
+	@param selectorUuid
+	@return ApiUpdateGithubSelectorRequest
+	*/
+	UpdateGithubSelector(ctx context.Context, configurationUuid string, selectorUuid string) ApiUpdateGithubSelectorRequest
+
+	// UpdateGithubSelectorExecute executes the request
+	//  @return NotificationSelector
+	UpdateGithubSelectorExecute(r ApiUpdateGithubSelectorRequest) (*NotificationSelector, *http.Response, error)
+
+	/*
+	UpdateJiraConfiguration Method for UpdateJiraConfiguration
+
+	Update a Jira endpoint configuration by it's UUID
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param uuid
+	@return ApiUpdateJiraConfigurationRequest
+	*/
+	UpdateJiraConfiguration(ctx context.Context, uuid string) ApiUpdateJiraConfigurationRequest
+
+	// UpdateJiraConfigurationExecute executes the request
+	//  @return NotificationJiraEndpointConfigurationBase
+	UpdateJiraConfigurationExecute(r ApiUpdateJiraConfigurationRequest) (*NotificationJiraEndpointConfigurationBase, *http.Response, error)
+
+	/*
+	UpdateJiraSelector Method for UpdateJiraSelector
+
+	Update a selector mapped to a Jira endpoint configuration
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param configurationUuid
+	@param selectorUuid
+	@return ApiUpdateJiraSelectorRequest
+	*/
+	UpdateJiraSelector(ctx context.Context, configurationUuid string, selectorUuid string) ApiUpdateJiraSelectorRequest
+
+	// UpdateJiraSelectorExecute executes the request
+	//  @return NotificationSelector
+	UpdateJiraSelectorExecute(r ApiUpdateJiraSelectorRequest) (*NotificationSelector, *http.Response, error)
+
+	/*
+	UpdateSlackConfiguration Method for UpdateSlackConfiguration
+
+	Update a Slack endpoint configuration by it's UUID
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param uuid
+	@return ApiUpdateSlackConfigurationRequest
+	*/
+	UpdateSlackConfiguration(ctx context.Context, uuid string) ApiUpdateSlackConfigurationRequest
+
+	// UpdateSlackConfigurationExecute executes the request
+	//  @return NotificationSlackEndpointConfiguration
+	UpdateSlackConfigurationExecute(r ApiUpdateSlackConfigurationRequest) (*NotificationSlackEndpointConfiguration, *http.Response, error)
+
+	/*
+	UpdateSlackSelector Method for UpdateSlackSelector
+
+	Update a selector mapped to a Slack endpoint configuration
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param configurationUuid
+	@param selectorUuid
+	@return ApiUpdateSlackSelectorRequest
+	*/
+	UpdateSlackSelector(ctx context.Context, configurationUuid string, selectorUuid string) ApiUpdateSlackSelectorRequest
+
+	// UpdateSlackSelectorExecute executes the request
+	//  @return NotificationSelector
+	UpdateSlackSelectorExecute(r ApiUpdateSlackSelectorRequest) (*NotificationSelector, *http.Response, error)
+
+	/*
+	UpdateSmtpConfiguration Method for UpdateSmtpConfiguration
+
+	Update a SMTP endpoint configuration by it's UUID
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param uuid
+	@return ApiUpdateSmtpConfigurationRequest
+	*/
+	UpdateSmtpConfiguration(ctx context.Context, uuid string) ApiUpdateSmtpConfigurationRequest
+
+	// UpdateSmtpConfigurationExecute executes the request
+	//  @return NotificationSMTPEndpointConfiguration
+	UpdateSmtpConfigurationExecute(r ApiUpdateSmtpConfigurationRequest) (*NotificationSMTPEndpointConfiguration, *http.Response, error)
+
+	/*
+	UpdateSmtpSelector Method for UpdateSmtpSelector
+
+	Update a selector mapped to a SMTP endpoint configuration
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param configurationUuid
+	@param selectorUuid
+	@return ApiUpdateSmtpSelectorRequest
+	*/
+	UpdateSmtpSelector(ctx context.Context, configurationUuid string, selectorUuid string) ApiUpdateSmtpSelectorRequest
+
+	// UpdateSmtpSelectorExecute executes the request
+	//  @return NotificationSelector
+	UpdateSmtpSelectorExecute(r ApiUpdateSmtpSelectorRequest) (*NotificationSelector, *http.Response, error)
+
+	/*
+	UpdateTeamsConfiguration Method for UpdateTeamsConfiguration
+
+	Update a Teams endpoint configuration by it's UUID
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param uuid
+	@return ApiUpdateTeamsConfigurationRequest
+	*/
+	UpdateTeamsConfiguration(ctx context.Context, uuid string) ApiUpdateTeamsConfigurationRequest
+
+	// UpdateTeamsConfigurationExecute executes the request
+	//  @return NotificationTeamsEndpointConfiguration
+	UpdateTeamsConfigurationExecute(r ApiUpdateTeamsConfigurationRequest) (*NotificationTeamsEndpointConfiguration, *http.Response, error)
+
+	/*
+	UpdateTeamsSelector Method for UpdateTeamsSelector
+
+	Update a selector mapped to a Teams endpoint configuration
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param configurationUuid
+	@param selectorUuid
+	@return ApiUpdateTeamsSelectorRequest
+	*/
+	UpdateTeamsSelector(ctx context.Context, configurationUuid string, selectorUuid string) ApiUpdateTeamsSelectorRequest
+
+	// UpdateTeamsSelectorExecute executes the request
+	//  @return NotificationSelector
+	UpdateTeamsSelectorExecute(r ApiUpdateTeamsSelectorRequest) (*NotificationSelector, *http.Response, error)
+
+	/*
+	UpdateWebhookConfiguration Method for UpdateWebhookConfiguration
+
+	Update a Webhook endpoint configuration by it's UUID
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param uuid
+	@return ApiUpdateWebhookConfigurationRequest
+	*/
+	UpdateWebhookConfiguration(ctx context.Context, uuid string) ApiUpdateWebhookConfigurationRequest
+
+	// UpdateWebhookConfigurationExecute executes the request
+	//  @return NotificationWebhookEndpointConfiguration
+	UpdateWebhookConfigurationExecute(r ApiUpdateWebhookConfigurationRequest) (*NotificationWebhookEndpointConfiguration, *http.Response, error)
+
+	/*
+	UpdateWebhookSelector Method for UpdateWebhookSelector
+
+	Update a selector mapped to a Webhook endpoint configuration
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param configurationUuid
+	@param selectorUuid
+	@return ApiUpdateWebhookSelectorRequest
+	*/
+	UpdateWebhookSelector(ctx context.Context, configurationUuid string, selectorUuid string) ApiUpdateWebhookSelectorRequest
+
+	// UpdateWebhookSelectorExecute executes the request
+	//  @return NotificationSelector
+	UpdateWebhookSelectorExecute(r ApiUpdateWebhookSelectorRequest) (*NotificationSelector, *http.Response, error)
+}
+
 // NotificationsAPIService NotificationsAPI service
 type NotificationsAPIService service
 
 type ApiAddGithubConfigurationRequest struct {
 	ctx context.Context
-	ApiService *NotificationsAPIService
+	ApiService NotificationsAPI
 	configuration *NotificationGitHubEndpointConfigurationPost
 }
 
@@ -136,7 +1340,7 @@ func (a *NotificationsAPIService) AddGithubConfigurationExecute(r ApiAddGithubCo
 
 type ApiAddGithubSelectorRequest struct {
 	ctx context.Context
-	ApiService *NotificationsAPIService
+	ApiService NotificationsAPI
 	uuid string
 	selector *NotificationSelector
 }
@@ -250,7 +1454,7 @@ func (a *NotificationsAPIService) AddGithubSelectorExecute(r ApiAddGithubSelecto
 
 type ApiAddJiraConfigurationRequest struct {
 	ctx context.Context
-	ApiService *NotificationsAPIService
+	ApiService NotificationsAPI
 	configuration *NotificationJiraEndpointConfigurationPost
 }
 
@@ -360,7 +1564,7 @@ func (a *NotificationsAPIService) AddJiraConfigurationExecute(r ApiAddJiraConfig
 
 type ApiAddJiraSelectorRequest struct {
 	ctx context.Context
-	ApiService *NotificationsAPIService
+	ApiService NotificationsAPI
 	uuid string
 	selector *NotificationSelector
 }
@@ -474,7 +1678,7 @@ func (a *NotificationsAPIService) AddJiraSelectorExecute(r ApiAddJiraSelectorReq
 
 type ApiAddSlackConfigurationRequest struct {
 	ctx context.Context
-	ApiService *NotificationsAPIService
+	ApiService NotificationsAPI
 	configuration *NotificationSlackEndpointConfiguration
 }
 
@@ -584,7 +1788,7 @@ func (a *NotificationsAPIService) AddSlackConfigurationExecute(r ApiAddSlackConf
 
 type ApiAddSlackSelectorRequest struct {
 	ctx context.Context
-	ApiService *NotificationsAPIService
+	ApiService NotificationsAPI
 	uuid string
 	selector *NotificationSelector
 }
@@ -698,7 +1902,7 @@ func (a *NotificationsAPIService) AddSlackSelectorExecute(r ApiAddSlackSelectorR
 
 type ApiAddSmtpConfigurationRequest struct {
 	ctx context.Context
-	ApiService *NotificationsAPIService
+	ApiService NotificationsAPI
 	configuration *NotificationSMTPEndpointConfiguration
 }
 
@@ -808,7 +2012,7 @@ func (a *NotificationsAPIService) AddSmtpConfigurationExecute(r ApiAddSmtpConfig
 
 type ApiAddSmtpSelectorRequest struct {
 	ctx context.Context
-	ApiService *NotificationsAPIService
+	ApiService NotificationsAPI
 	uuid string
 	selector *NotificationSelector
 }
@@ -922,7 +2126,7 @@ func (a *NotificationsAPIService) AddSmtpSelectorExecute(r ApiAddSmtpSelectorReq
 
 type ApiAddTeamsConfigurationRequest struct {
 	ctx context.Context
-	ApiService *NotificationsAPIService
+	ApiService NotificationsAPI
 	configuration *NotificationTeamsEndpointConfiguration
 }
 
@@ -1032,7 +2236,7 @@ func (a *NotificationsAPIService) AddTeamsConfigurationExecute(r ApiAddTeamsConf
 
 type ApiAddTeamsSelectorRequest struct {
 	ctx context.Context
-	ApiService *NotificationsAPIService
+	ApiService NotificationsAPI
 	uuid string
 	selector *NotificationSelector
 }
@@ -1146,7 +2350,7 @@ func (a *NotificationsAPIService) AddTeamsSelectorExecute(r ApiAddTeamsSelectorR
 
 type ApiAddWebhookConfigurationRequest struct {
 	ctx context.Context
-	ApiService *NotificationsAPIService
+	ApiService NotificationsAPI
 	configuration *NotificationWebhookEndpointConfiguration
 }
 
@@ -1256,7 +2460,7 @@ func (a *NotificationsAPIService) AddWebhookConfigurationExecute(r ApiAddWebhook
 
 type ApiAddWebhookSelectorRequest struct {
 	ctx context.Context
-	ApiService *NotificationsAPIService
+	ApiService NotificationsAPI
 	uuid string
 	selector *NotificationSelector
 }
@@ -1370,7 +2574,7 @@ func (a *NotificationsAPIService) AddWebhookSelectorExecute(r ApiAddWebhookSelec
 
 type ApiDeleteGithubConfigurationRequest struct {
 	ctx context.Context
-	ApiService *NotificationsAPIService
+	ApiService NotificationsAPI
 	uuid string
 }
 
@@ -1462,7 +2666,7 @@ func (a *NotificationsAPIService) DeleteGithubConfigurationExecute(r ApiDeleteGi
 
 type ApiDeleteGithubSelectorRequest struct {
 	ctx context.Context
-	ApiService *NotificationsAPIService
+	ApiService NotificationsAPI
 	configurationUuid string
 	selectorUuid string
 }
@@ -1558,7 +2762,7 @@ func (a *NotificationsAPIService) DeleteGithubSelectorExecute(r ApiDeleteGithubS
 
 type ApiDeleteJiraConfigurationRequest struct {
 	ctx context.Context
-	ApiService *NotificationsAPIService
+	ApiService NotificationsAPI
 	uuid string
 }
 
@@ -1650,7 +2854,7 @@ func (a *NotificationsAPIService) DeleteJiraConfigurationExecute(r ApiDeleteJira
 
 type ApiDeleteJiraSelectorRequest struct {
 	ctx context.Context
-	ApiService *NotificationsAPIService
+	ApiService NotificationsAPI
 	configurationUuid string
 	selectorUuid string
 }
@@ -1746,7 +2950,7 @@ func (a *NotificationsAPIService) DeleteJiraSelectorExecute(r ApiDeleteJiraSelec
 
 type ApiDeleteSlackConfigurationRequest struct {
 	ctx context.Context
-	ApiService *NotificationsAPIService
+	ApiService NotificationsAPI
 	uuid string
 }
 
@@ -1838,7 +3042,7 @@ func (a *NotificationsAPIService) DeleteSlackConfigurationExecute(r ApiDeleteSla
 
 type ApiDeleteSlackSelectorRequest struct {
 	ctx context.Context
-	ApiService *NotificationsAPIService
+	ApiService NotificationsAPI
 	configurationUuid string
 	selectorUuid string
 }
@@ -1934,7 +3138,7 @@ func (a *NotificationsAPIService) DeleteSlackSelectorExecute(r ApiDeleteSlackSel
 
 type ApiDeleteSmtpConfigurationRequest struct {
 	ctx context.Context
-	ApiService *NotificationsAPIService
+	ApiService NotificationsAPI
 	uuid string
 }
 
@@ -2026,7 +3230,7 @@ func (a *NotificationsAPIService) DeleteSmtpConfigurationExecute(r ApiDeleteSmtp
 
 type ApiDeleteSmtpSelectorRequest struct {
 	ctx context.Context
-	ApiService *NotificationsAPIService
+	ApiService NotificationsAPI
 	configurationUuid string
 	selectorUuid string
 }
@@ -2122,7 +3326,7 @@ func (a *NotificationsAPIService) DeleteSmtpSelectorExecute(r ApiDeleteSmtpSelec
 
 type ApiDeleteTeamsConfigurationRequest struct {
 	ctx context.Context
-	ApiService *NotificationsAPIService
+	ApiService NotificationsAPI
 	uuid string
 }
 
@@ -2214,7 +3418,7 @@ func (a *NotificationsAPIService) DeleteTeamsConfigurationExecute(r ApiDeleteTea
 
 type ApiDeleteTeamsSelectorRequest struct {
 	ctx context.Context
-	ApiService *NotificationsAPIService
+	ApiService NotificationsAPI
 	configurationUuid string
 	selectorUuid string
 }
@@ -2310,7 +3514,7 @@ func (a *NotificationsAPIService) DeleteTeamsSelectorExecute(r ApiDeleteTeamsSel
 
 type ApiDeleteWebhookConfigurationRequest struct {
 	ctx context.Context
-	ApiService *NotificationsAPIService
+	ApiService NotificationsAPI
 	uuid string
 }
 
@@ -2402,7 +3606,7 @@ func (a *NotificationsAPIService) DeleteWebhookConfigurationExecute(r ApiDeleteW
 
 type ApiDeleteWebhookSelectorRequest struct {
 	ctx context.Context
-	ApiService *NotificationsAPIService
+	ApiService NotificationsAPI
 	configurationUuid string
 	selectorUuid string
 }
@@ -2498,7 +3702,7 @@ func (a *NotificationsAPIService) DeleteWebhookSelectorExecute(r ApiDeleteWebhoo
 
 type ApiGetGithubConfigurationRequest struct {
 	ctx context.Context
-	ApiService *NotificationsAPIService
+	ApiService NotificationsAPI
 	uuid string
 }
 
@@ -2601,7 +3805,7 @@ func (a *NotificationsAPIService) GetGithubConfigurationExecute(r ApiGetGithubCo
 
 type ApiGetGithubConfigurationStatusRequest struct {
 	ctx context.Context
-	ApiService *NotificationsAPIService
+	ApiService NotificationsAPI
 	uuid string
 }
 
@@ -2704,7 +3908,7 @@ func (a *NotificationsAPIService) GetGithubConfigurationStatusExecute(r ApiGetGi
 
 type ApiGetGithubSelectorRequest struct {
 	ctx context.Context
-	ApiService *NotificationsAPIService
+	ApiService NotificationsAPI
 	configurationUuid string
 	selectorUuid string
 }
@@ -2811,7 +4015,7 @@ func (a *NotificationsAPIService) GetGithubSelectorExecute(r ApiGetGithubSelecto
 
 type ApiGetJiraConfigurationRequest struct {
 	ctx context.Context
-	ApiService *NotificationsAPIService
+	ApiService NotificationsAPI
 	uuid string
 }
 
@@ -2914,7 +4118,7 @@ func (a *NotificationsAPIService) GetJiraConfigurationExecute(r ApiGetJiraConfig
 
 type ApiGetJiraConfigurationStatusRequest struct {
 	ctx context.Context
-	ApiService *NotificationsAPIService
+	ApiService NotificationsAPI
 	uuid string
 }
 
@@ -3017,7 +4221,7 @@ func (a *NotificationsAPIService) GetJiraConfigurationStatusExecute(r ApiGetJira
 
 type ApiGetJiraSelectorRequest struct {
 	ctx context.Context
-	ApiService *NotificationsAPIService
+	ApiService NotificationsAPI
 	configurationUuid string
 	selectorUuid string
 }
@@ -3124,7 +4328,7 @@ func (a *NotificationsAPIService) GetJiraSelectorExecute(r ApiGetJiraSelectorReq
 
 type ApiGetSlackConfigurationRequest struct {
 	ctx context.Context
-	ApiService *NotificationsAPIService
+	ApiService NotificationsAPI
 	uuid string
 }
 
@@ -3227,7 +4431,7 @@ func (a *NotificationsAPIService) GetSlackConfigurationExecute(r ApiGetSlackConf
 
 type ApiGetSlackConfigurationStatusRequest struct {
 	ctx context.Context
-	ApiService *NotificationsAPIService
+	ApiService NotificationsAPI
 	uuid string
 }
 
@@ -3330,7 +4534,7 @@ func (a *NotificationsAPIService) GetSlackConfigurationStatusExecute(r ApiGetSla
 
 type ApiGetSlackSelectorRequest struct {
 	ctx context.Context
-	ApiService *NotificationsAPIService
+	ApiService NotificationsAPI
 	configurationUuid string
 	selectorUuid string
 }
@@ -3437,7 +4641,7 @@ func (a *NotificationsAPIService) GetSlackSelectorExecute(r ApiGetSlackSelectorR
 
 type ApiGetSmtpConfigurationRequest struct {
 	ctx context.Context
-	ApiService *NotificationsAPIService
+	ApiService NotificationsAPI
 	uuid string
 }
 
@@ -3540,7 +4744,7 @@ func (a *NotificationsAPIService) GetSmtpConfigurationExecute(r ApiGetSmtpConfig
 
 type ApiGetSmtpConfigurationStatusRequest struct {
 	ctx context.Context
-	ApiService *NotificationsAPIService
+	ApiService NotificationsAPI
 	uuid string
 }
 
@@ -3643,7 +4847,7 @@ func (a *NotificationsAPIService) GetSmtpConfigurationStatusExecute(r ApiGetSmtp
 
 type ApiGetSmtpSelectorRequest struct {
 	ctx context.Context
-	ApiService *NotificationsAPIService
+	ApiService NotificationsAPI
 	configurationUuid string
 	selectorUuid string
 }
@@ -3750,7 +4954,7 @@ func (a *NotificationsAPIService) GetSmtpSelectorExecute(r ApiGetSmtpSelectorReq
 
 type ApiGetTeamsConfigurationRequest struct {
 	ctx context.Context
-	ApiService *NotificationsAPIService
+	ApiService NotificationsAPI
 	uuid string
 }
 
@@ -3853,7 +5057,7 @@ func (a *NotificationsAPIService) GetTeamsConfigurationExecute(r ApiGetTeamsConf
 
 type ApiGetTeamsConfigurationStatusRequest struct {
 	ctx context.Context
-	ApiService *NotificationsAPIService
+	ApiService NotificationsAPI
 	uuid string
 }
 
@@ -3956,7 +5160,7 @@ func (a *NotificationsAPIService) GetTeamsConfigurationStatusExecute(r ApiGetTea
 
 type ApiGetTeamsSelectorRequest struct {
 	ctx context.Context
-	ApiService *NotificationsAPIService
+	ApiService NotificationsAPI
 	configurationUuid string
 	selectorUuid string
 }
@@ -4063,7 +5267,7 @@ func (a *NotificationsAPIService) GetTeamsSelectorExecute(r ApiGetTeamsSelectorR
 
 type ApiGetWebhookConfigurationRequest struct {
 	ctx context.Context
-	ApiService *NotificationsAPIService
+	ApiService NotificationsAPI
 	uuid string
 }
 
@@ -4166,7 +5370,7 @@ func (a *NotificationsAPIService) GetWebhookConfigurationExecute(r ApiGetWebhook
 
 type ApiGetWebhookConfigurationStatusRequest struct {
 	ctx context.Context
-	ApiService *NotificationsAPIService
+	ApiService NotificationsAPI
 	uuid string
 }
 
@@ -4269,7 +5473,7 @@ func (a *NotificationsAPIService) GetWebhookConfigurationStatusExecute(r ApiGetW
 
 type ApiGetWebhookSelectorRequest struct {
 	ctx context.Context
-	ApiService *NotificationsAPIService
+	ApiService NotificationsAPI
 	configurationUuid string
 	selectorUuid string
 }
@@ -4376,7 +5580,7 @@ func (a *NotificationsAPIService) GetWebhookSelectorExecute(r ApiGetWebhookSelec
 
 type ApiListEndpointsRequest struct {
 	ctx context.Context
-	ApiService *NotificationsAPIService
+	ApiService NotificationsAPI
 }
 
 func (r ApiListEndpointsRequest) Execute() ([]NotificationEndpoint, *http.Response, error) {
@@ -4475,7 +5679,7 @@ func (a *NotificationsAPIService) ListEndpointsExecute(r ApiListEndpointsRequest
 
 type ApiListGithubConfigurationsRequest struct {
 	ctx context.Context
-	ApiService *NotificationsAPIService
+	ApiService NotificationsAPI
 }
 
 func (r ApiListGithubConfigurationsRequest) Execute() ([]NotificationGitHubEndpointConfigurationBase, *http.Response, error) {
@@ -4574,7 +5778,7 @@ func (a *NotificationsAPIService) ListGithubConfigurationsExecute(r ApiListGithu
 
 type ApiListGithubSelectorsRequest struct {
 	ctx context.Context
-	ApiService *NotificationsAPIService
+	ApiService NotificationsAPI
 	uuid string
 }
 
@@ -4677,7 +5881,7 @@ func (a *NotificationsAPIService) ListGithubSelectorsExecute(r ApiListGithubSele
 
 type ApiListJiraConfigurationsRequest struct {
 	ctx context.Context
-	ApiService *NotificationsAPIService
+	ApiService NotificationsAPI
 }
 
 func (r ApiListJiraConfigurationsRequest) Execute() ([]NotificationJiraEndpointConfigurationBase, *http.Response, error) {
@@ -4776,7 +5980,7 @@ func (a *NotificationsAPIService) ListJiraConfigurationsExecute(r ApiListJiraCon
 
 type ApiListJiraSelectorsRequest struct {
 	ctx context.Context
-	ApiService *NotificationsAPIService
+	ApiService NotificationsAPI
 	uuid string
 }
 
@@ -4879,7 +6083,7 @@ func (a *NotificationsAPIService) ListJiraSelectorsExecute(r ApiListJiraSelector
 
 type ApiListSelectorsRequest struct {
 	ctx context.Context
-	ApiService *NotificationsAPIService
+	ApiService NotificationsAPI
 }
 
 func (r ApiListSelectorsRequest) Execute() ([]NotificationSelector, *http.Response, error) {
@@ -4978,7 +6182,7 @@ func (a *NotificationsAPIService) ListSelectorsExecute(r ApiListSelectorsRequest
 
 type ApiListSlackConfigurationsRequest struct {
 	ctx context.Context
-	ApiService *NotificationsAPIService
+	ApiService NotificationsAPI
 }
 
 func (r ApiListSlackConfigurationsRequest) Execute() ([]NotificationSlackEndpointConfiguration, *http.Response, error) {
@@ -5077,7 +6281,7 @@ func (a *NotificationsAPIService) ListSlackConfigurationsExecute(r ApiListSlackC
 
 type ApiListSlackSelectorsRequest struct {
 	ctx context.Context
-	ApiService *NotificationsAPIService
+	ApiService NotificationsAPI
 	uuid string
 }
 
@@ -5180,7 +6384,7 @@ func (a *NotificationsAPIService) ListSlackSelectorsExecute(r ApiListSlackSelect
 
 type ApiListSmtpConfigurationsRequest struct {
 	ctx context.Context
-	ApiService *NotificationsAPIService
+	ApiService NotificationsAPI
 }
 
 func (r ApiListSmtpConfigurationsRequest) Execute() ([]NotificationSMTPEndpointConfiguration, *http.Response, error) {
@@ -5279,7 +6483,7 @@ func (a *NotificationsAPIService) ListSmtpConfigurationsExecute(r ApiListSmtpCon
 
 type ApiListSmtpSelectorsRequest struct {
 	ctx context.Context
-	ApiService *NotificationsAPIService
+	ApiService NotificationsAPI
 	uuid string
 }
 
@@ -5382,7 +6586,7 @@ func (a *NotificationsAPIService) ListSmtpSelectorsExecute(r ApiListSmtpSelector
 
 type ApiListTeamsConfigurationsRequest struct {
 	ctx context.Context
-	ApiService *NotificationsAPIService
+	ApiService NotificationsAPI
 }
 
 func (r ApiListTeamsConfigurationsRequest) Execute() ([]NotificationTeamsEndpointConfiguration, *http.Response, error) {
@@ -5481,7 +6685,7 @@ func (a *NotificationsAPIService) ListTeamsConfigurationsExecute(r ApiListTeamsC
 
 type ApiListTeamsSelectorsRequest struct {
 	ctx context.Context
-	ApiService *NotificationsAPIService
+	ApiService NotificationsAPI
 	uuid string
 }
 
@@ -5584,7 +6788,7 @@ func (a *NotificationsAPIService) ListTeamsSelectorsExecute(r ApiListTeamsSelect
 
 type ApiListWebhookConfigurationsRequest struct {
 	ctx context.Context
-	ApiService *NotificationsAPIService
+	ApiService NotificationsAPI
 }
 
 func (r ApiListWebhookConfigurationsRequest) Execute() ([]NotificationWebhookEndpointConfiguration, *http.Response, error) {
@@ -5683,7 +6887,7 @@ func (a *NotificationsAPIService) ListWebhookConfigurationsExecute(r ApiListWebh
 
 type ApiListWebhookSelectorsRequest struct {
 	ctx context.Context
-	ApiService *NotificationsAPIService
+	ApiService NotificationsAPI
 	uuid string
 }
 
@@ -5786,7 +6990,7 @@ func (a *NotificationsAPIService) ListWebhookSelectorsExecute(r ApiListWebhookSe
 
 type ApiTestGithubConfigurationRequest struct {
 	ctx context.Context
-	ApiService *NotificationsAPIService
+	ApiService NotificationsAPI
 	configuration *NotificationGitHubEndpointConfigurationPost
 }
 
@@ -5896,7 +7100,7 @@ func (a *NotificationsAPIService) TestGithubConfigurationExecute(r ApiTestGithub
 
 type ApiTestJiraConfigurationRequest struct {
 	ctx context.Context
-	ApiService *NotificationsAPIService
+	ApiService NotificationsAPI
 	configuration *NotificationJiraEndpointConfigurationPost
 }
 
@@ -6006,7 +7210,7 @@ func (a *NotificationsAPIService) TestJiraConfigurationExecute(r ApiTestJiraConf
 
 type ApiTestSlackConfigurationRequest struct {
 	ctx context.Context
-	ApiService *NotificationsAPIService
+	ApiService NotificationsAPI
 	configuration *NotificationSlackEndpointConfiguration
 }
 
@@ -6116,7 +7320,7 @@ func (a *NotificationsAPIService) TestSlackConfigurationExecute(r ApiTestSlackCo
 
 type ApiTestSmtpConfigurationRequest struct {
 	ctx context.Context
-	ApiService *NotificationsAPIService
+	ApiService NotificationsAPI
 	configuration *NotificationSMTPEndpointConfiguration
 }
 
@@ -6226,7 +7430,7 @@ func (a *NotificationsAPIService) TestSmtpConfigurationExecute(r ApiTestSmtpConf
 
 type ApiTestStoredGithubConfigurationRequest struct {
 	ctx context.Context
-	ApiService *NotificationsAPIService
+	ApiService NotificationsAPI
 	uuid string
 }
 
@@ -6329,7 +7533,7 @@ func (a *NotificationsAPIService) TestStoredGithubConfigurationExecute(r ApiTest
 
 type ApiTestStoredJiraConfigurationRequest struct {
 	ctx context.Context
-	ApiService *NotificationsAPIService
+	ApiService NotificationsAPI
 	uuid string
 }
 
@@ -6432,7 +7636,7 @@ func (a *NotificationsAPIService) TestStoredJiraConfigurationExecute(r ApiTestSt
 
 type ApiTestStoredSlackConfigurationRequest struct {
 	ctx context.Context
-	ApiService *NotificationsAPIService
+	ApiService NotificationsAPI
 	uuid string
 }
 
@@ -6535,7 +7739,7 @@ func (a *NotificationsAPIService) TestStoredSlackConfigurationExecute(r ApiTestS
 
 type ApiTestStoredSmtpConfigurationRequest struct {
 	ctx context.Context
-	ApiService *NotificationsAPIService
+	ApiService NotificationsAPI
 	uuid string
 }
 
@@ -6638,7 +7842,7 @@ func (a *NotificationsAPIService) TestStoredSmtpConfigurationExecute(r ApiTestSt
 
 type ApiTestStoredTeamsConfigurationRequest struct {
 	ctx context.Context
-	ApiService *NotificationsAPIService
+	ApiService NotificationsAPI
 	uuid string
 }
 
@@ -6741,7 +7945,7 @@ func (a *NotificationsAPIService) TestStoredTeamsConfigurationExecute(r ApiTestS
 
 type ApiTestStoredWebhookConfigurationRequest struct {
 	ctx context.Context
-	ApiService *NotificationsAPIService
+	ApiService NotificationsAPI
 	uuid string
 }
 
@@ -6844,7 +8048,7 @@ func (a *NotificationsAPIService) TestStoredWebhookConfigurationExecute(r ApiTes
 
 type ApiTestTeamsConfigurationRequest struct {
 	ctx context.Context
-	ApiService *NotificationsAPIService
+	ApiService NotificationsAPI
 	configuration *NotificationTeamsEndpointConfiguration
 }
 
@@ -6954,7 +8158,7 @@ func (a *NotificationsAPIService) TestTeamsConfigurationExecute(r ApiTestTeamsCo
 
 type ApiTestWebhookConfigurationRequest struct {
 	ctx context.Context
-	ApiService *NotificationsAPIService
+	ApiService NotificationsAPI
 	configuration *NotificationWebhookEndpointConfiguration
 }
 
@@ -7064,7 +8268,7 @@ func (a *NotificationsAPIService) TestWebhookConfigurationExecute(r ApiTestWebho
 
 type ApiUpdateEndpointStatusRequest struct {
 	ctx context.Context
-	ApiService *NotificationsAPIService
+	ApiService NotificationsAPI
 	name string
 	status *NotificationEndpointEnabledStatus
 }
@@ -7178,7 +8382,7 @@ func (a *NotificationsAPIService) UpdateEndpointStatusExecute(r ApiUpdateEndpoin
 
 type ApiUpdateGithubConfigurationRequest struct {
 	ctx context.Context
-	ApiService *NotificationsAPIService
+	ApiService NotificationsAPI
 	uuid string
 	configuration *NotificationGitHubEndpointConfigurationPut
 }
@@ -7292,7 +8496,7 @@ func (a *NotificationsAPIService) UpdateGithubConfigurationExecute(r ApiUpdateGi
 
 type ApiUpdateGithubSelectorRequest struct {
 	ctx context.Context
-	ApiService *NotificationsAPIService
+	ApiService NotificationsAPI
 	configurationUuid string
 	selectorUuid string
 	selector *NotificationSelector
@@ -7410,7 +8614,7 @@ func (a *NotificationsAPIService) UpdateGithubSelectorExecute(r ApiUpdateGithubS
 
 type ApiUpdateJiraConfigurationRequest struct {
 	ctx context.Context
-	ApiService *NotificationsAPIService
+	ApiService NotificationsAPI
 	uuid string
 	configuration *NotificationJiraEndpointConfigurationPut
 }
@@ -7524,7 +8728,7 @@ func (a *NotificationsAPIService) UpdateJiraConfigurationExecute(r ApiUpdateJira
 
 type ApiUpdateJiraSelectorRequest struct {
 	ctx context.Context
-	ApiService *NotificationsAPIService
+	ApiService NotificationsAPI
 	configurationUuid string
 	selectorUuid string
 	selector *NotificationSelector
@@ -7642,7 +8846,7 @@ func (a *NotificationsAPIService) UpdateJiraSelectorExecute(r ApiUpdateJiraSelec
 
 type ApiUpdateSlackConfigurationRequest struct {
 	ctx context.Context
-	ApiService *NotificationsAPIService
+	ApiService NotificationsAPI
 	uuid string
 	configuration *NotificationSlackEndpointConfiguration
 }
@@ -7756,7 +8960,7 @@ func (a *NotificationsAPIService) UpdateSlackConfigurationExecute(r ApiUpdateSla
 
 type ApiUpdateSlackSelectorRequest struct {
 	ctx context.Context
-	ApiService *NotificationsAPIService
+	ApiService NotificationsAPI
 	configurationUuid string
 	selectorUuid string
 	selector *NotificationSelector
@@ -7874,7 +9078,7 @@ func (a *NotificationsAPIService) UpdateSlackSelectorExecute(r ApiUpdateSlackSel
 
 type ApiUpdateSmtpConfigurationRequest struct {
 	ctx context.Context
-	ApiService *NotificationsAPIService
+	ApiService NotificationsAPI
 	uuid string
 	configuration *NotificationSMTPEndpointConfiguration
 }
@@ -7988,7 +9192,7 @@ func (a *NotificationsAPIService) UpdateSmtpConfigurationExecute(r ApiUpdateSmtp
 
 type ApiUpdateSmtpSelectorRequest struct {
 	ctx context.Context
-	ApiService *NotificationsAPIService
+	ApiService NotificationsAPI
 	configurationUuid string
 	selectorUuid string
 	selector *NotificationSelector
@@ -8106,7 +9310,7 @@ func (a *NotificationsAPIService) UpdateSmtpSelectorExecute(r ApiUpdateSmtpSelec
 
 type ApiUpdateTeamsConfigurationRequest struct {
 	ctx context.Context
-	ApiService *NotificationsAPIService
+	ApiService NotificationsAPI
 	uuid string
 	configuration *NotificationTeamsEndpointConfiguration
 }
@@ -8220,7 +9424,7 @@ func (a *NotificationsAPIService) UpdateTeamsConfigurationExecute(r ApiUpdateTea
 
 type ApiUpdateTeamsSelectorRequest struct {
 	ctx context.Context
-	ApiService *NotificationsAPIService
+	ApiService NotificationsAPI
 	configurationUuid string
 	selectorUuid string
 	selector *NotificationSelector
@@ -8338,7 +9542,7 @@ func (a *NotificationsAPIService) UpdateTeamsSelectorExecute(r ApiUpdateTeamsSel
 
 type ApiUpdateWebhookConfigurationRequest struct {
 	ctx context.Context
-	ApiService *NotificationsAPIService
+	ApiService NotificationsAPI
 	uuid string
 	configuration *NotificationWebhookEndpointConfiguration
 }
@@ -8452,7 +9656,7 @@ func (a *NotificationsAPIService) UpdateWebhookConfigurationExecute(r ApiUpdateW
 
 type ApiUpdateWebhookSelectorRequest struct {
 	ctx context.Context
-	ApiService *NotificationsAPIService
+	ApiService NotificationsAPI
 	configurationUuid string
 	selectorUuid string
 	selector *NotificationSelector
