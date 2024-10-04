@@ -14835,11 +14835,6 @@ components:
     RbacManagerRoleMember:
       required:
       - username
-      oneOf:
-        - required:
-          - for_account
-        - required:
-          - domain_name
       type: object
       properties:
         username:

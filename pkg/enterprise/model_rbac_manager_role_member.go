@@ -13,9 +13,9 @@ package enterprise
 
 import (
 	"encoding/json"
+	"time"
 	"bytes"
 	"fmt"
-	"time"
 )
 
 // checks if the RbacManagerRoleMember type satisfies the MappedNullable interface at compile time
@@ -23,12 +23,12 @@ var _ MappedNullable = &RbacManagerRoleMember{}
 
 // RbacManagerRoleMember A mapping between a username and a role within a domain
 type RbacManagerRoleMember struct {
-	Username string
+	Username string `json:"username"`
 	// Deprecated. Please use domain_name instead.
-	ForAccount *string
+	ForAccount *string `json:"for_account,omitempty"`
 	// The domain scope that applies to the set of roles. This will be the account name if the domain scope is an account.
-	DomainName *string
-	CreatedAt *time.Time
+	DomainName *string `json:"domain_name,omitempty"`
+	CreatedAt *time.Time `json:"created_at,omitempty"`
 }
 
 type _RbacManagerRoleMember RbacManagerRoleMember
@@ -39,6 +39,7 @@ type _RbacManagerRoleMember RbacManagerRoleMember
 // will change when the set of required properties is changed
 func NewRbacManagerRoleMember(username string) *RbacManagerRoleMember {
 	this := RbacManagerRoleMember{}
+	this.Username = username
 	return &this
 }
 
