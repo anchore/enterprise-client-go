@@ -14,7 +14,12 @@ package enterprise
 import (
 	"encoding/json"
 	"time"
+	"bytes"
+	"fmt"
 )
+
+// checks if the SourcePolicyEvaluation type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &SourcePolicyEvaluation{}
 
 // SourcePolicyEvaluation A policy bundle evaluation result for a specific image, tag, policy tuple
 type SourcePolicyEvaluation struct {
@@ -50,6 +55,8 @@ type SourcePolicyEvaluation struct {
 	// The overall status of the policy evaluation
 	Status string `json:"status"`
 }
+
+type _SourcePolicyEvaluation SourcePolicyEvaluation
 
 // NewSourcePolicyEvaluation instantiates a new SourcePolicyEvaluation object
 // This constructor will assign default values to properties that have it defined,
@@ -277,7 +284,7 @@ func (o *SourcePolicyEvaluation) SetSourceMappedToRule(v bool) {
 
 // GetMatchedMappingRule returns the MatchedMappingRule field value if set, zero value otherwise.
 func (o *SourcePolicyEvaluation) GetMatchedMappingRule() interface{} {
-	if o == nil || o.MatchedMappingRule == nil {
+	if o == nil || IsNil(o.MatchedMappingRule) {
 		var ret interface{}
 		return ret
 	}
@@ -287,7 +294,7 @@ func (o *SourcePolicyEvaluation) GetMatchedMappingRule() interface{} {
 // GetMatchedMappingRuleOk returns a tuple with the MatchedMappingRule field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SourcePolicyEvaluation) GetMatchedMappingRuleOk() (interface{}, bool) {
-	if o == nil || o.MatchedMappingRule == nil {
+	if o == nil || IsNil(o.MatchedMappingRule) {
 		return nil, false
 	}
 	return o.MatchedMappingRule, true
@@ -295,7 +302,7 @@ func (o *SourcePolicyEvaluation) GetMatchedMappingRuleOk() (interface{}, bool) {
 
 // HasMatchedMappingRule returns a boolean if a field has been set.
 func (o *SourcePolicyEvaluation) HasMatchedMappingRule() bool {
-	if o != nil && o.MatchedMappingRule != nil {
+	if o != nil && !IsNil(o.MatchedMappingRule) {
 		return true
 	}
 
@@ -476,56 +483,85 @@ func (o *SourcePolicyEvaluation) SetStatus(v string) {
 }
 
 func (o SourcePolicyEvaluation) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["account_name"] = o.AccountName
-	}
-	if true {
-		toSerialize["evaluation_id"] = o.EvaluationId
-	}
-	if true {
-		toSerialize["source_id"] = o.SourceId
-	}
-	if true {
-		toSerialize["host"] = o.Host
-	}
-	if true {
-		toSerialize["repository_name"] = o.RepositoryName
-	}
-	if true {
-		toSerialize["revision"] = o.Revision
-	}
-	if true {
-		toSerialize["policy"] = o.Policy
-	}
-	if true {
-		toSerialize["source_mapped_to_rule"] = o.SourceMappedToRule
-	}
-	if o.MatchedMappingRule != nil {
-		toSerialize["matched_mapping_rule"] = o.MatchedMappingRule
-	}
-	if true {
-		toSerialize["findings"] = o.Findings
-	}
-	if true {
-		toSerialize["number_of_findings"] = o.NumberOfFindings
-	}
-	if true {
-		toSerialize["evaluation_time"] = o.EvaluationTime
-	}
-	if true {
-		toSerialize["final_action"] = o.FinalAction
-	}
-	if true {
-		toSerialize["final_action_reason"] = o.FinalActionReason
-	}
-	if true {
-		toSerialize["evaluation_problems"] = o.EvaluationProblems
-	}
-	if true {
-		toSerialize["status"] = o.Status
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o SourcePolicyEvaluation) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["account_name"] = o.AccountName
+	toSerialize["evaluation_id"] = o.EvaluationId
+	toSerialize["source_id"] = o.SourceId
+	toSerialize["host"] = o.Host
+	toSerialize["repository_name"] = o.RepositoryName
+	toSerialize["revision"] = o.Revision
+	toSerialize["policy"] = o.Policy
+	toSerialize["source_mapped_to_rule"] = o.SourceMappedToRule
+	if !IsNil(o.MatchedMappingRule) {
+		toSerialize["matched_mapping_rule"] = o.MatchedMappingRule
+	}
+	toSerialize["findings"] = o.Findings
+	toSerialize["number_of_findings"] = o.NumberOfFindings
+	toSerialize["evaluation_time"] = o.EvaluationTime
+	toSerialize["final_action"] = o.FinalAction
+	toSerialize["final_action_reason"] = o.FinalActionReason
+	toSerialize["evaluation_problems"] = o.EvaluationProblems
+	toSerialize["status"] = o.Status
+	return toSerialize, nil
+}
+
+func (o *SourcePolicyEvaluation) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"account_name",
+		"evaluation_id",
+		"source_id",
+		"host",
+		"repository_name",
+		"revision",
+		"policy",
+		"source_mapped_to_rule",
+		"findings",
+		"number_of_findings",
+		"evaluation_time",
+		"final_action",
+		"final_action_reason",
+		"evaluation_problems",
+		"status",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varSourcePolicyEvaluation := _SourcePolicyEvaluation{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varSourcePolicyEvaluation)
+
+	if err != nil {
+		return err
+	}
+
+	*o = SourcePolicyEvaluation(varSourcePolicyEvaluation)
+
+	return err
 }
 
 type NullableSourcePolicyEvaluation struct {

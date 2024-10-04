@@ -16,6 +16,9 @@ import (
 	"time"
 )
 
+// checks if the ApplicationVersionSbom type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ApplicationVersionSbom{}
+
 // ApplicationVersionSbom A combined sbom for the artifacts associated with an application version
 type ApplicationVersionSbom struct {
 	Application *Application `json:"application,omitempty"`
@@ -45,7 +48,7 @@ func NewApplicationVersionSbomWithDefaults() *ApplicationVersionSbom {
 
 // GetApplication returns the Application field value if set, zero value otherwise.
 func (o *ApplicationVersionSbom) GetApplication() Application {
-	if o == nil || o.Application == nil {
+	if o == nil || IsNil(o.Application) {
 		var ret Application
 		return ret
 	}
@@ -55,7 +58,7 @@ func (o *ApplicationVersionSbom) GetApplication() Application {
 // GetApplicationOk returns a tuple with the Application field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ApplicationVersionSbom) GetApplicationOk() (*Application, bool) {
-	if o == nil || o.Application == nil {
+	if o == nil || IsNil(o.Application) {
 		return nil, false
 	}
 	return o.Application, true
@@ -63,7 +66,7 @@ func (o *ApplicationVersionSbom) GetApplicationOk() (*Application, bool) {
 
 // HasApplication returns a boolean if a field has been set.
 func (o *ApplicationVersionSbom) HasApplication() bool {
-	if o != nil && o.Application != nil {
+	if o != nil && !IsNil(o.Application) {
 		return true
 	}
 
@@ -77,7 +80,7 @@ func (o *ApplicationVersionSbom) SetApplication(v Application) {
 
 // GetApplicationVersion returns the ApplicationVersion field value if set, zero value otherwise.
 func (o *ApplicationVersionSbom) GetApplicationVersion() ApplicationVersion {
-	if o == nil || o.ApplicationVersion == nil {
+	if o == nil || IsNil(o.ApplicationVersion) {
 		var ret ApplicationVersion
 		return ret
 	}
@@ -87,7 +90,7 @@ func (o *ApplicationVersionSbom) GetApplicationVersion() ApplicationVersion {
 // GetApplicationVersionOk returns a tuple with the ApplicationVersion field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ApplicationVersionSbom) GetApplicationVersionOk() (*ApplicationVersion, bool) {
-	if o == nil || o.ApplicationVersion == nil {
+	if o == nil || IsNil(o.ApplicationVersion) {
 		return nil, false
 	}
 	return o.ApplicationVersion, true
@@ -95,7 +98,7 @@ func (o *ApplicationVersionSbom) GetApplicationVersionOk() (*ApplicationVersion,
 
 // HasApplicationVersion returns a boolean if a field has been set.
 func (o *ApplicationVersionSbom) HasApplicationVersion() bool {
-	if o != nil && o.ApplicationVersion != nil {
+	if o != nil && !IsNil(o.ApplicationVersion) {
 		return true
 	}
 
@@ -109,7 +112,7 @@ func (o *ApplicationVersionSbom) SetApplicationVersion(v ApplicationVersion) {
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
 func (o *ApplicationVersionSbom) GetCreatedAt() time.Time {
-	if o == nil || o.CreatedAt == nil {
+	if o == nil || IsNil(o.CreatedAt) {
 		var ret time.Time
 		return ret
 	}
@@ -119,7 +122,7 @@ func (o *ApplicationVersionSbom) GetCreatedAt() time.Time {
 // GetCreatedAtOk returns a tuple with the CreatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ApplicationVersionSbom) GetCreatedAtOk() (*time.Time, bool) {
-	if o == nil || o.CreatedAt == nil {
+	if o == nil || IsNil(o.CreatedAt) {
 		return nil, false
 	}
 	return o.CreatedAt, true
@@ -127,7 +130,7 @@ func (o *ApplicationVersionSbom) GetCreatedAtOk() (*time.Time, bool) {
 
 // HasCreatedAt returns a boolean if a field has been set.
 func (o *ApplicationVersionSbom) HasCreatedAt() bool {
-	if o != nil && o.CreatedAt != nil {
+	if o != nil && !IsNil(o.CreatedAt) {
 		return true
 	}
 
@@ -141,7 +144,7 @@ func (o *ApplicationVersionSbom) SetCreatedAt(v time.Time) {
 
 // GetSourceSboms returns the SourceSboms field value if set, zero value otherwise.
 func (o *ApplicationVersionSbom) GetSourceSboms() []interface{} {
-	if o == nil || o.SourceSboms == nil {
+	if o == nil || IsNil(o.SourceSboms) {
 		var ret []interface{}
 		return ret
 	}
@@ -151,7 +154,7 @@ func (o *ApplicationVersionSbom) GetSourceSboms() []interface{} {
 // GetSourceSbomsOk returns a tuple with the SourceSboms field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ApplicationVersionSbom) GetSourceSbomsOk() ([]interface{}, bool) {
-	if o == nil || o.SourceSboms == nil {
+	if o == nil || IsNil(o.SourceSboms) {
 		return nil, false
 	}
 	return o.SourceSboms, true
@@ -159,7 +162,7 @@ func (o *ApplicationVersionSbom) GetSourceSbomsOk() ([]interface{}, bool) {
 
 // HasSourceSboms returns a boolean if a field has been set.
 func (o *ApplicationVersionSbom) HasSourceSboms() bool {
-	if o != nil && o.SourceSboms != nil {
+	if o != nil && !IsNil(o.SourceSboms) {
 		return true
 	}
 
@@ -173,7 +176,7 @@ func (o *ApplicationVersionSbom) SetSourceSboms(v []interface{}) {
 
 // GetImageSboms returns the ImageSboms field value if set, zero value otherwise.
 func (o *ApplicationVersionSbom) GetImageSboms() []interface{} {
-	if o == nil || o.ImageSboms == nil {
+	if o == nil || IsNil(o.ImageSboms) {
 		var ret []interface{}
 		return ret
 	}
@@ -183,7 +186,7 @@ func (o *ApplicationVersionSbom) GetImageSboms() []interface{} {
 // GetImageSbomsOk returns a tuple with the ImageSboms field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ApplicationVersionSbom) GetImageSbomsOk() ([]interface{}, bool) {
-	if o == nil || o.ImageSboms == nil {
+	if o == nil || IsNil(o.ImageSboms) {
 		return nil, false
 	}
 	return o.ImageSboms, true
@@ -191,7 +194,7 @@ func (o *ApplicationVersionSbom) GetImageSbomsOk() ([]interface{}, bool) {
 
 // HasImageSboms returns a boolean if a field has been set.
 func (o *ApplicationVersionSbom) HasImageSboms() bool {
-	if o != nil && o.ImageSboms != nil {
+	if o != nil && !IsNil(o.ImageSboms) {
 		return true
 	}
 
@@ -204,23 +207,31 @@ func (o *ApplicationVersionSbom) SetImageSboms(v []interface{}) {
 }
 
 func (o ApplicationVersionSbom) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Application != nil {
-		toSerialize["application"] = o.Application
-	}
-	if o.ApplicationVersion != nil {
-		toSerialize["application_version"] = o.ApplicationVersion
-	}
-	if o.CreatedAt != nil {
-		toSerialize["created_at"] = o.CreatedAt
-	}
-	if o.SourceSboms != nil {
-		toSerialize["source_sboms"] = o.SourceSboms
-	}
-	if o.ImageSboms != nil {
-		toSerialize["image_sboms"] = o.ImageSboms
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o ApplicationVersionSbom) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Application) {
+		toSerialize["application"] = o.Application
+	}
+	if !IsNil(o.ApplicationVersion) {
+		toSerialize["application_version"] = o.ApplicationVersion
+	}
+	if !IsNil(o.CreatedAt) {
+		toSerialize["created_at"] = o.CreatedAt
+	}
+	if !IsNil(o.SourceSboms) {
+		toSerialize["source_sboms"] = o.SourceSboms
+	}
+	if !IsNil(o.ImageSboms) {
+		toSerialize["image_sboms"] = o.ImageSboms
+	}
+	return toSerialize, nil
 }
 
 type NullableApplicationVersionSbom struct {

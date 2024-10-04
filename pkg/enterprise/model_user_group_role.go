@@ -13,7 +13,12 @@ package enterprise
 
 import (
 	"encoding/json"
+	"bytes"
+	"fmt"
 )
+
+// checks if the UserGroupRole type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &UserGroupRole{}
 
 // UserGroupRole struct for UserGroupRole
 type UserGroupRole struct {
@@ -24,6 +29,8 @@ type UserGroupRole struct {
 	DomainName *string `json:"domain_name,omitempty"`
 	Roles []UserGroupRoleRolesInner `json:"roles"`
 }
+
+type _UserGroupRole UserGroupRole
 
 // NewUserGroupRole instantiates a new UserGroupRole object
 // This constructor will assign default values to properties that have it defined,
@@ -73,7 +80,7 @@ func (o *UserGroupRole) SetForAccount(v string) {
 
 // GetDomainName returns the DomainName field value if set, zero value otherwise.
 func (o *UserGroupRole) GetDomainName() string {
-	if o == nil || o.DomainName == nil {
+	if o == nil || IsNil(o.DomainName) {
 		var ret string
 		return ret
 	}
@@ -83,7 +90,7 @@ func (o *UserGroupRole) GetDomainName() string {
 // GetDomainNameOk returns a tuple with the DomainName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserGroupRole) GetDomainNameOk() (*string, bool) {
-	if o == nil || o.DomainName == nil {
+	if o == nil || IsNil(o.DomainName) {
 		return nil, false
 	}
 	return o.DomainName, true
@@ -91,7 +98,7 @@ func (o *UserGroupRole) GetDomainNameOk() (*string, bool) {
 
 // HasDomainName returns a boolean if a field has been set.
 func (o *UserGroupRole) HasDomainName() bool {
-	if o != nil && o.DomainName != nil {
+	if o != nil && !IsNil(o.DomainName) {
 		return true
 	}
 
@@ -128,17 +135,59 @@ func (o *UserGroupRole) SetRoles(v []UserGroupRoleRolesInner) {
 }
 
 func (o UserGroupRole) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["for_account"] = o.ForAccount
-	}
-	if o.DomainName != nil {
-		toSerialize["domain_name"] = o.DomainName
-	}
-	if true {
-		toSerialize["roles"] = o.Roles
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o UserGroupRole) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["for_account"] = o.ForAccount
+	if !IsNil(o.DomainName) {
+		toSerialize["domain_name"] = o.DomainName
+	}
+	toSerialize["roles"] = o.Roles
+	return toSerialize, nil
+}
+
+func (o *UserGroupRole) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"for_account",
+		"roles",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varUserGroupRole := _UserGroupRole{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varUserGroupRole)
+
+	if err != nil {
+		return err
+	}
+
+	*o = UserGroupRole(varUserGroupRole)
+
+	return err
 }
 
 type NullableUserGroupRole struct {

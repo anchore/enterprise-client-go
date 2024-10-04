@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the ArtifactListResponse type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ArtifactListResponse{}
+
 // ArtifactListResponse The response provided when querying for the artifacts on an application version
 type ArtifactListResponse struct {
 	AssociatedSourceArtifacts []AssociatedSourceArtifact `json:"associated_source_artifacts,omitempty"`
@@ -40,7 +43,7 @@ func NewArtifactListResponseWithDefaults() *ArtifactListResponse {
 
 // GetAssociatedSourceArtifacts returns the AssociatedSourceArtifacts field value if set, zero value otherwise.
 func (o *ArtifactListResponse) GetAssociatedSourceArtifacts() []AssociatedSourceArtifact {
-	if o == nil || o.AssociatedSourceArtifacts == nil {
+	if o == nil || IsNil(o.AssociatedSourceArtifacts) {
 		var ret []AssociatedSourceArtifact
 		return ret
 	}
@@ -50,7 +53,7 @@ func (o *ArtifactListResponse) GetAssociatedSourceArtifacts() []AssociatedSource
 // GetAssociatedSourceArtifactsOk returns a tuple with the AssociatedSourceArtifacts field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ArtifactListResponse) GetAssociatedSourceArtifactsOk() ([]AssociatedSourceArtifact, bool) {
-	if o == nil || o.AssociatedSourceArtifacts == nil {
+	if o == nil || IsNil(o.AssociatedSourceArtifacts) {
 		return nil, false
 	}
 	return o.AssociatedSourceArtifacts, true
@@ -58,7 +61,7 @@ func (o *ArtifactListResponse) GetAssociatedSourceArtifactsOk() ([]AssociatedSou
 
 // HasAssociatedSourceArtifacts returns a boolean if a field has been set.
 func (o *ArtifactListResponse) HasAssociatedSourceArtifacts() bool {
-	if o != nil && o.AssociatedSourceArtifacts != nil {
+	if o != nil && !IsNil(o.AssociatedSourceArtifacts) {
 		return true
 	}
 
@@ -72,7 +75,7 @@ func (o *ArtifactListResponse) SetAssociatedSourceArtifacts(v []AssociatedSource
 
 // GetAssociatedImageArtifacts returns the AssociatedImageArtifacts field value if set, zero value otherwise.
 func (o *ArtifactListResponse) GetAssociatedImageArtifacts() []AssociatedImageArtifact {
-	if o == nil || o.AssociatedImageArtifacts == nil {
+	if o == nil || IsNil(o.AssociatedImageArtifacts) {
 		var ret []AssociatedImageArtifact
 		return ret
 	}
@@ -82,7 +85,7 @@ func (o *ArtifactListResponse) GetAssociatedImageArtifacts() []AssociatedImageAr
 // GetAssociatedImageArtifactsOk returns a tuple with the AssociatedImageArtifacts field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ArtifactListResponse) GetAssociatedImageArtifactsOk() ([]AssociatedImageArtifact, bool) {
-	if o == nil || o.AssociatedImageArtifacts == nil {
+	if o == nil || IsNil(o.AssociatedImageArtifacts) {
 		return nil, false
 	}
 	return o.AssociatedImageArtifacts, true
@@ -90,7 +93,7 @@ func (o *ArtifactListResponse) GetAssociatedImageArtifactsOk() ([]AssociatedImag
 
 // HasAssociatedImageArtifacts returns a boolean if a field has been set.
 func (o *ArtifactListResponse) HasAssociatedImageArtifacts() bool {
-	if o != nil && o.AssociatedImageArtifacts != nil {
+	if o != nil && !IsNil(o.AssociatedImageArtifacts) {
 		return true
 	}
 
@@ -103,14 +106,22 @@ func (o *ArtifactListResponse) SetAssociatedImageArtifacts(v []AssociatedImageAr
 }
 
 func (o ArtifactListResponse) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.AssociatedSourceArtifacts != nil {
-		toSerialize["associated_source_artifacts"] = o.AssociatedSourceArtifacts
-	}
-	if o.AssociatedImageArtifacts != nil {
-		toSerialize["associated_image_artifacts"] = o.AssociatedImageArtifacts
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o ArtifactListResponse) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.AssociatedSourceArtifacts) {
+		toSerialize["associated_source_artifacts"] = o.AssociatedSourceArtifacts
+	}
+	if !IsNil(o.AssociatedImageArtifacts) {
+		toSerialize["associated_image_artifacts"] = o.AssociatedImageArtifacts
+	}
+	return toSerialize, nil
 }
 
 type NullableArtifactListResponse struct {

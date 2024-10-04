@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the DeploymentHistoryList type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &DeploymentHistoryList{}
+
 // DeploymentHistoryList struct for DeploymentHistoryList
 type DeploymentHistoryList struct {
 	Items []DeploymentHistory `json:"items,omitempty"`
@@ -39,7 +42,7 @@ func NewDeploymentHistoryListWithDefaults() *DeploymentHistoryList {
 
 // GetItems returns the Items field value if set, zero value otherwise.
 func (o *DeploymentHistoryList) GetItems() []DeploymentHistory {
-	if o == nil || o.Items == nil {
+	if o == nil || IsNil(o.Items) {
 		var ret []DeploymentHistory
 		return ret
 	}
@@ -49,7 +52,7 @@ func (o *DeploymentHistoryList) GetItems() []DeploymentHistory {
 // GetItemsOk returns a tuple with the Items field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DeploymentHistoryList) GetItemsOk() ([]DeploymentHistory, bool) {
-	if o == nil || o.Items == nil {
+	if o == nil || IsNil(o.Items) {
 		return nil, false
 	}
 	return o.Items, true
@@ -57,7 +60,7 @@ func (o *DeploymentHistoryList) GetItemsOk() ([]DeploymentHistory, bool) {
 
 // HasItems returns a boolean if a field has been set.
 func (o *DeploymentHistoryList) HasItems() bool {
-	if o != nil && o.Items != nil {
+	if o != nil && !IsNil(o.Items) {
 		return true
 	}
 
@@ -70,11 +73,19 @@ func (o *DeploymentHistoryList) SetItems(v []DeploymentHistory) {
 }
 
 func (o DeploymentHistoryList) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Items != nil {
-		toSerialize["items"] = o.Items
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o DeploymentHistoryList) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Items) {
+		toSerialize["items"] = o.Items
+	}
+	return toSerialize, nil
 }
 
 type NullableDeploymentHistoryList struct {

@@ -16,6 +16,9 @@ import (
 	"time"
 )
 
+// checks if the DeploymentHistory type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &DeploymentHistory{}
+
 // DeploymentHistory struct for DeploymentHistory
 type DeploymentHistory struct {
 	DeploymentId *string `json:"deployment_id,omitempty"`
@@ -48,7 +51,7 @@ func NewDeploymentHistoryWithDefaults() *DeploymentHistory {
 
 // GetDeploymentId returns the DeploymentId field value if set, zero value otherwise.
 func (o *DeploymentHistory) GetDeploymentId() string {
-	if o == nil || o.DeploymentId == nil {
+	if o == nil || IsNil(o.DeploymentId) {
 		var ret string
 		return ret
 	}
@@ -58,7 +61,7 @@ func (o *DeploymentHistory) GetDeploymentId() string {
 // GetDeploymentIdOk returns a tuple with the DeploymentId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DeploymentHistory) GetDeploymentIdOk() (*string, bool) {
-	if o == nil || o.DeploymentId == nil {
+	if o == nil || IsNil(o.DeploymentId) {
 		return nil, false
 	}
 	return o.DeploymentId, true
@@ -66,7 +69,7 @@ func (o *DeploymentHistory) GetDeploymentIdOk() (*string, bool) {
 
 // HasDeploymentId returns a boolean if a field has been set.
 func (o *DeploymentHistory) HasDeploymentId() bool {
-	if o != nil && o.DeploymentId != nil {
+	if o != nil && !IsNil(o.DeploymentId) {
 		return true
 	}
 
@@ -80,7 +83,7 @@ func (o *DeploymentHistory) SetDeploymentId(v string) {
 
 // GetUpgradeId returns the UpgradeId field value if set, zero value otherwise.
 func (o *DeploymentHistory) GetUpgradeId() string {
-	if o == nil || o.UpgradeId == nil {
+	if o == nil || IsNil(o.UpgradeId) {
 		var ret string
 		return ret
 	}
@@ -90,7 +93,7 @@ func (o *DeploymentHistory) GetUpgradeId() string {
 // GetUpgradeIdOk returns a tuple with the UpgradeId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DeploymentHistory) GetUpgradeIdOk() (*string, bool) {
-	if o == nil || o.UpgradeId == nil {
+	if o == nil || IsNil(o.UpgradeId) {
 		return nil, false
 	}
 	return o.UpgradeId, true
@@ -98,7 +101,7 @@ func (o *DeploymentHistory) GetUpgradeIdOk() (*string, bool) {
 
 // HasUpgradeId returns a boolean if a field has been set.
 func (o *DeploymentHistory) HasUpgradeId() bool {
-	if o != nil && o.UpgradeId != nil {
+	if o != nil && !IsNil(o.UpgradeId) {
 		return true
 	}
 
@@ -112,7 +115,7 @@ func (o *DeploymentHistory) SetUpgradeId(v string) {
 
 // GetToSystemVersion returns the ToSystemVersion field value if set, zero value otherwise.
 func (o *DeploymentHistory) GetToSystemVersion() string {
-	if o == nil || o.ToSystemVersion == nil {
+	if o == nil || IsNil(o.ToSystemVersion) {
 		var ret string
 		return ret
 	}
@@ -122,7 +125,7 @@ func (o *DeploymentHistory) GetToSystemVersion() string {
 // GetToSystemVersionOk returns a tuple with the ToSystemVersion field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DeploymentHistory) GetToSystemVersionOk() (*string, bool) {
-	if o == nil || o.ToSystemVersion == nil {
+	if o == nil || IsNil(o.ToSystemVersion) {
 		return nil, false
 	}
 	return o.ToSystemVersion, true
@@ -130,7 +133,7 @@ func (o *DeploymentHistory) GetToSystemVersionOk() (*string, bool) {
 
 // HasToSystemVersion returns a boolean if a field has been set.
 func (o *DeploymentHistory) HasToSystemVersion() bool {
-	if o != nil && o.ToSystemVersion != nil {
+	if o != nil && !IsNil(o.ToSystemVersion) {
 		return true
 	}
 
@@ -144,7 +147,7 @@ func (o *DeploymentHistory) SetToSystemVersion(v string) {
 
 // GetFromSystemVersion returns the FromSystemVersion field value if set, zero value otherwise.
 func (o *DeploymentHistory) GetFromSystemVersion() string {
-	if o == nil || o.FromSystemVersion == nil {
+	if o == nil || IsNil(o.FromSystemVersion) {
 		var ret string
 		return ret
 	}
@@ -154,7 +157,7 @@ func (o *DeploymentHistory) GetFromSystemVersion() string {
 // GetFromSystemVersionOk returns a tuple with the FromSystemVersion field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DeploymentHistory) GetFromSystemVersionOk() (*string, bool) {
-	if o == nil || o.FromSystemVersion == nil {
+	if o == nil || IsNil(o.FromSystemVersion) {
 		return nil, false
 	}
 	return o.FromSystemVersion, true
@@ -162,7 +165,7 @@ func (o *DeploymentHistory) GetFromSystemVersionOk() (*string, bool) {
 
 // HasFromSystemVersion returns a boolean if a field has been set.
 func (o *DeploymentHistory) HasFromSystemVersion() bool {
-	if o != nil && o.FromSystemVersion != nil {
+	if o != nil && !IsNil(o.FromSystemVersion) {
 		return true
 	}
 
@@ -176,7 +179,7 @@ func (o *DeploymentHistory) SetFromSystemVersion(v string) {
 
 // GetToDatabaseVersion returns the ToDatabaseVersion field value if set, zero value otherwise.
 func (o *DeploymentHistory) GetToDatabaseVersion() string {
-	if o == nil || o.ToDatabaseVersion == nil {
+	if o == nil || IsNil(o.ToDatabaseVersion) {
 		var ret string
 		return ret
 	}
@@ -186,7 +189,7 @@ func (o *DeploymentHistory) GetToDatabaseVersion() string {
 // GetToDatabaseVersionOk returns a tuple with the ToDatabaseVersion field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DeploymentHistory) GetToDatabaseVersionOk() (*string, bool) {
-	if o == nil || o.ToDatabaseVersion == nil {
+	if o == nil || IsNil(o.ToDatabaseVersion) {
 		return nil, false
 	}
 	return o.ToDatabaseVersion, true
@@ -194,7 +197,7 @@ func (o *DeploymentHistory) GetToDatabaseVersionOk() (*string, bool) {
 
 // HasToDatabaseVersion returns a boolean if a field has been set.
 func (o *DeploymentHistory) HasToDatabaseVersion() bool {
-	if o != nil && o.ToDatabaseVersion != nil {
+	if o != nil && !IsNil(o.ToDatabaseVersion) {
 		return true
 	}
 
@@ -208,7 +211,7 @@ func (o *DeploymentHistory) SetToDatabaseVersion(v string) {
 
 // GetFromDatabaseVersion returns the FromDatabaseVersion field value if set, zero value otherwise.
 func (o *DeploymentHistory) GetFromDatabaseVersion() string {
-	if o == nil || o.FromDatabaseVersion == nil {
+	if o == nil || IsNil(o.FromDatabaseVersion) {
 		var ret string
 		return ret
 	}
@@ -218,7 +221,7 @@ func (o *DeploymentHistory) GetFromDatabaseVersion() string {
 // GetFromDatabaseVersionOk returns a tuple with the FromDatabaseVersion field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DeploymentHistory) GetFromDatabaseVersionOk() (*string, bool) {
-	if o == nil || o.FromDatabaseVersion == nil {
+	if o == nil || IsNil(o.FromDatabaseVersion) {
 		return nil, false
 	}
 	return o.FromDatabaseVersion, true
@@ -226,7 +229,7 @@ func (o *DeploymentHistory) GetFromDatabaseVersionOk() (*string, bool) {
 
 // HasFromDatabaseVersion returns a boolean if a field has been set.
 func (o *DeploymentHistory) HasFromDatabaseVersion() bool {
-	if o != nil && o.FromDatabaseVersion != nil {
+	if o != nil && !IsNil(o.FromDatabaseVersion) {
 		return true
 	}
 
@@ -240,7 +243,7 @@ func (o *DeploymentHistory) SetFromDatabaseVersion(v string) {
 
 // GetOutcome returns the Outcome field value if set, zero value otherwise.
 func (o *DeploymentHistory) GetOutcome() string {
-	if o == nil || o.Outcome == nil {
+	if o == nil || IsNil(o.Outcome) {
 		var ret string
 		return ret
 	}
@@ -250,7 +253,7 @@ func (o *DeploymentHistory) GetOutcome() string {
 // GetOutcomeOk returns a tuple with the Outcome field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DeploymentHistory) GetOutcomeOk() (*string, bool) {
-	if o == nil || o.Outcome == nil {
+	if o == nil || IsNil(o.Outcome) {
 		return nil, false
 	}
 	return o.Outcome, true
@@ -258,7 +261,7 @@ func (o *DeploymentHistory) GetOutcomeOk() (*string, bool) {
 
 // HasOutcome returns a boolean if a field has been set.
 func (o *DeploymentHistory) HasOutcome() bool {
-	if o != nil && o.Outcome != nil {
+	if o != nil && !IsNil(o.Outcome) {
 		return true
 	}
 
@@ -272,7 +275,7 @@ func (o *DeploymentHistory) SetOutcome(v string) {
 
 // GetDbUpgradeDuration returns the DbUpgradeDuration field value if set, zero value otherwise.
 func (o *DeploymentHistory) GetDbUpgradeDuration() float32 {
-	if o == nil || o.DbUpgradeDuration == nil {
+	if o == nil || IsNil(o.DbUpgradeDuration) {
 		var ret float32
 		return ret
 	}
@@ -282,7 +285,7 @@ func (o *DeploymentHistory) GetDbUpgradeDuration() float32 {
 // GetDbUpgradeDurationOk returns a tuple with the DbUpgradeDuration field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DeploymentHistory) GetDbUpgradeDurationOk() (*float32, bool) {
-	if o == nil || o.DbUpgradeDuration == nil {
+	if o == nil || IsNil(o.DbUpgradeDuration) {
 		return nil, false
 	}
 	return o.DbUpgradeDuration, true
@@ -290,7 +293,7 @@ func (o *DeploymentHistory) GetDbUpgradeDurationOk() (*float32, bool) {
 
 // HasDbUpgradeDuration returns a boolean if a field has been set.
 func (o *DeploymentHistory) HasDbUpgradeDuration() bool {
-	if o != nil && o.DbUpgradeDuration != nil {
+	if o != nil && !IsNil(o.DbUpgradeDuration) {
 		return true
 	}
 
@@ -304,7 +307,7 @@ func (o *DeploymentHistory) SetDbUpgradeDuration(v float32) {
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
 func (o *DeploymentHistory) GetCreatedAt() time.Time {
-	if o == nil || o.CreatedAt == nil {
+	if o == nil || IsNil(o.CreatedAt) {
 		var ret time.Time
 		return ret
 	}
@@ -314,7 +317,7 @@ func (o *DeploymentHistory) GetCreatedAt() time.Time {
 // GetCreatedAtOk returns a tuple with the CreatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DeploymentHistory) GetCreatedAtOk() (*time.Time, bool) {
-	if o == nil || o.CreatedAt == nil {
+	if o == nil || IsNil(o.CreatedAt) {
 		return nil, false
 	}
 	return o.CreatedAt, true
@@ -322,7 +325,7 @@ func (o *DeploymentHistory) GetCreatedAtOk() (*time.Time, bool) {
 
 // HasCreatedAt returns a boolean if a field has been set.
 func (o *DeploymentHistory) HasCreatedAt() bool {
-	if o != nil && o.CreatedAt != nil {
+	if o != nil && !IsNil(o.CreatedAt) {
 		return true
 	}
 
@@ -335,35 +338,43 @@ func (o *DeploymentHistory) SetCreatedAt(v time.Time) {
 }
 
 func (o DeploymentHistory) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.DeploymentId != nil {
-		toSerialize["deployment_id"] = o.DeploymentId
-	}
-	if o.UpgradeId != nil {
-		toSerialize["upgrade_id"] = o.UpgradeId
-	}
-	if o.ToSystemVersion != nil {
-		toSerialize["to_system_version"] = o.ToSystemVersion
-	}
-	if o.FromSystemVersion != nil {
-		toSerialize["from_system_version"] = o.FromSystemVersion
-	}
-	if o.ToDatabaseVersion != nil {
-		toSerialize["to_database_version"] = o.ToDatabaseVersion
-	}
-	if o.FromDatabaseVersion != nil {
-		toSerialize["from_database_version"] = o.FromDatabaseVersion
-	}
-	if o.Outcome != nil {
-		toSerialize["outcome"] = o.Outcome
-	}
-	if o.DbUpgradeDuration != nil {
-		toSerialize["db_upgrade_duration"] = o.DbUpgradeDuration
-	}
-	if o.CreatedAt != nil {
-		toSerialize["created_at"] = o.CreatedAt
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o DeploymentHistory) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.DeploymentId) {
+		toSerialize["deployment_id"] = o.DeploymentId
+	}
+	if !IsNil(o.UpgradeId) {
+		toSerialize["upgrade_id"] = o.UpgradeId
+	}
+	if !IsNil(o.ToSystemVersion) {
+		toSerialize["to_system_version"] = o.ToSystemVersion
+	}
+	if !IsNil(o.FromSystemVersion) {
+		toSerialize["from_system_version"] = o.FromSystemVersion
+	}
+	if !IsNil(o.ToDatabaseVersion) {
+		toSerialize["to_database_version"] = o.ToDatabaseVersion
+	}
+	if !IsNil(o.FromDatabaseVersion) {
+		toSerialize["from_database_version"] = o.FromDatabaseVersion
+	}
+	if !IsNil(o.Outcome) {
+		toSerialize["outcome"] = o.Outcome
+	}
+	if !IsNil(o.DbUpgradeDuration) {
+		toSerialize["db_upgrade_duration"] = o.DbUpgradeDuration
+	}
+	if !IsNil(o.CreatedAt) {
+		toSerialize["created_at"] = o.CreatedAt
+	}
+	return toSerialize, nil
 }
 
 type NullableDeploymentHistory struct {

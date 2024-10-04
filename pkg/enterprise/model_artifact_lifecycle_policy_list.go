@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the ArtifactLifecyclePolicyList type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ArtifactLifecyclePolicyList{}
+
 // ArtifactLifecyclePolicyList struct for ArtifactLifecyclePolicyList
 type ArtifactLifecyclePolicyList struct {
 	Items []ArtifactLifecyclePolicyResponse `json:"items,omitempty"`
@@ -39,7 +42,7 @@ func NewArtifactLifecyclePolicyListWithDefaults() *ArtifactLifecyclePolicyList {
 
 // GetItems returns the Items field value if set, zero value otherwise.
 func (o *ArtifactLifecyclePolicyList) GetItems() []ArtifactLifecyclePolicyResponse {
-	if o == nil || o.Items == nil {
+	if o == nil || IsNil(o.Items) {
 		var ret []ArtifactLifecyclePolicyResponse
 		return ret
 	}
@@ -49,7 +52,7 @@ func (o *ArtifactLifecyclePolicyList) GetItems() []ArtifactLifecyclePolicyRespon
 // GetItemsOk returns a tuple with the Items field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ArtifactLifecyclePolicyList) GetItemsOk() ([]ArtifactLifecyclePolicyResponse, bool) {
-	if o == nil || o.Items == nil {
+	if o == nil || IsNil(o.Items) {
 		return nil, false
 	}
 	return o.Items, true
@@ -57,7 +60,7 @@ func (o *ArtifactLifecyclePolicyList) GetItemsOk() ([]ArtifactLifecyclePolicyRes
 
 // HasItems returns a boolean if a field has been set.
 func (o *ArtifactLifecyclePolicyList) HasItems() bool {
-	if o != nil && o.Items != nil {
+	if o != nil && !IsNil(o.Items) {
 		return true
 	}
 
@@ -70,11 +73,19 @@ func (o *ArtifactLifecyclePolicyList) SetItems(v []ArtifactLifecyclePolicyRespon
 }
 
 func (o ArtifactLifecyclePolicyList) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Items != nil {
-		toSerialize["items"] = o.Items
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o ArtifactLifecyclePolicyList) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Items) {
+		toSerialize["items"] = o.Items
+	}
+	return toSerialize, nil
 }
 
 type NullableArtifactLifecyclePolicyList struct {

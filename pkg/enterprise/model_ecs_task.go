@@ -13,7 +13,12 @@ package enterprise
 
 import (
 	"encoding/json"
+	"bytes"
+	"fmt"
 )
+
+// checks if the ECSTask type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ECSTask{}
 
 // ECSTask struct for ECSTask
 type ECSTask struct {
@@ -24,6 +29,8 @@ type ECSTask struct {
 	Tags map[string]string `json:"tags"`
 	AccountName string `json:"account_name"`
 }
+
+type _ECSTask ECSTask
 
 // NewECSTask instantiates a new ECSTask object
 // This constructor will assign default values to properties that have it defined,
@@ -193,26 +200,64 @@ func (o *ECSTask) SetAccountName(v string) {
 }
 
 func (o ECSTask) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["arn"] = o.Arn
-	}
-	if true {
-		toSerialize["cluster_arn"] = o.ClusterArn
-	}
-	if true {
-		toSerialize["service_arn"] = o.ServiceArn
-	}
-	if true {
-		toSerialize["task_definition_arn"] = o.TaskDefinitionArn
-	}
-	if true {
-		toSerialize["tags"] = o.Tags
-	}
-	if true {
-		toSerialize["account_name"] = o.AccountName
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o ECSTask) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["arn"] = o.Arn
+	toSerialize["cluster_arn"] = o.ClusterArn
+	toSerialize["service_arn"] = o.ServiceArn
+	toSerialize["task_definition_arn"] = o.TaskDefinitionArn
+	toSerialize["tags"] = o.Tags
+	toSerialize["account_name"] = o.AccountName
+	return toSerialize, nil
+}
+
+func (o *ECSTask) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"arn",
+		"cluster_arn",
+		"service_arn",
+		"task_definition_arn",
+		"tags",
+		"account_name",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varECSTask := _ECSTask{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varECSTask)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ECSTask(varECSTask)
+
+	return err
 }
 
 type NullableECSTask struct {

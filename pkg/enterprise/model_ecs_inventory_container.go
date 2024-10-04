@@ -13,7 +13,12 @@ package enterprise
 
 import (
 	"encoding/json"
+	"bytes"
+	"fmt"
 )
+
+// checks if the ECSInventoryContainer type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ECSInventoryContainer{}
 
 // ECSInventoryContainer struct for ECSInventoryContainer
 type ECSInventoryContainer struct {
@@ -22,6 +27,8 @@ type ECSInventoryContainer struct {
 	ImageTag string `json:"image_tag"`
 	ImageDigest *string `json:"image_digest,omitempty"`
 }
+
+type _ECSInventoryContainer ECSInventoryContainer
 
 // NewECSInventoryContainer instantiates a new ECSInventoryContainer object
 // This constructor will assign default values to properties that have it defined,
@@ -68,7 +75,7 @@ func (o *ECSInventoryContainer) SetArn(v string) {
 
 // GetTaskArn returns the TaskArn field value if set, zero value otherwise.
 func (o *ECSInventoryContainer) GetTaskArn() string {
-	if o == nil || o.TaskArn == nil {
+	if o == nil || IsNil(o.TaskArn) {
 		var ret string
 		return ret
 	}
@@ -78,7 +85,7 @@ func (o *ECSInventoryContainer) GetTaskArn() string {
 // GetTaskArnOk returns a tuple with the TaskArn field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ECSInventoryContainer) GetTaskArnOk() (*string, bool) {
-	if o == nil || o.TaskArn == nil {
+	if o == nil || IsNil(o.TaskArn) {
 		return nil, false
 	}
 	return o.TaskArn, true
@@ -86,7 +93,7 @@ func (o *ECSInventoryContainer) GetTaskArnOk() (*string, bool) {
 
 // HasTaskArn returns a boolean if a field has been set.
 func (o *ECSInventoryContainer) HasTaskArn() bool {
-	if o != nil && o.TaskArn != nil {
+	if o != nil && !IsNil(o.TaskArn) {
 		return true
 	}
 
@@ -124,7 +131,7 @@ func (o *ECSInventoryContainer) SetImageTag(v string) {
 
 // GetImageDigest returns the ImageDigest field value if set, zero value otherwise.
 func (o *ECSInventoryContainer) GetImageDigest() string {
-	if o == nil || o.ImageDigest == nil {
+	if o == nil || IsNil(o.ImageDigest) {
 		var ret string
 		return ret
 	}
@@ -134,7 +141,7 @@ func (o *ECSInventoryContainer) GetImageDigest() string {
 // GetImageDigestOk returns a tuple with the ImageDigest field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ECSInventoryContainer) GetImageDigestOk() (*string, bool) {
-	if o == nil || o.ImageDigest == nil {
+	if o == nil || IsNil(o.ImageDigest) {
 		return nil, false
 	}
 	return o.ImageDigest, true
@@ -142,7 +149,7 @@ func (o *ECSInventoryContainer) GetImageDigestOk() (*string, bool) {
 
 // HasImageDigest returns a boolean if a field has been set.
 func (o *ECSInventoryContainer) HasImageDigest() bool {
-	if o != nil && o.ImageDigest != nil {
+	if o != nil && !IsNil(o.ImageDigest) {
 		return true
 	}
 
@@ -155,20 +162,62 @@ func (o *ECSInventoryContainer) SetImageDigest(v string) {
 }
 
 func (o ECSInventoryContainer) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["arn"] = o.Arn
-	}
-	if o.TaskArn != nil {
-		toSerialize["task_arn"] = o.TaskArn
-	}
-	if true {
-		toSerialize["image_tag"] = o.ImageTag
-	}
-	if o.ImageDigest != nil {
-		toSerialize["image_digest"] = o.ImageDigest
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o ECSInventoryContainer) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["arn"] = o.Arn
+	if !IsNil(o.TaskArn) {
+		toSerialize["task_arn"] = o.TaskArn
+	}
+	toSerialize["image_tag"] = o.ImageTag
+	if !IsNil(o.ImageDigest) {
+		toSerialize["image_digest"] = o.ImageDigest
+	}
+	return toSerialize, nil
+}
+
+func (o *ECSInventoryContainer) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"arn",
+		"image_tag",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varECSInventoryContainer := _ECSInventoryContainer{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varECSInventoryContainer)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ECSInventoryContainer(varECSInventoryContainer)
+
+	return err
 }
 
 type NullableECSInventoryContainer struct {

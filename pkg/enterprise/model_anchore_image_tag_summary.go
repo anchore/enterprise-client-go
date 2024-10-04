@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the AnchoreImageTagSummary type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &AnchoreImageTagSummary{}
+
 // AnchoreImageTagSummary A unique image in the engine.
 type AnchoreImageTagSummary struct {
 	ImageDigest *string `json:"image_digest,omitempty"`
@@ -47,7 +50,7 @@ func NewAnchoreImageTagSummaryWithDefaults() *AnchoreImageTagSummary {
 
 // GetImageDigest returns the ImageDigest field value if set, zero value otherwise.
 func (o *AnchoreImageTagSummary) GetImageDigest() string {
-	if o == nil || o.ImageDigest == nil {
+	if o == nil || IsNil(o.ImageDigest) {
 		var ret string
 		return ret
 	}
@@ -57,7 +60,7 @@ func (o *AnchoreImageTagSummary) GetImageDigest() string {
 // GetImageDigestOk returns a tuple with the ImageDigest field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AnchoreImageTagSummary) GetImageDigestOk() (*string, bool) {
-	if o == nil || o.ImageDigest == nil {
+	if o == nil || IsNil(o.ImageDigest) {
 		return nil, false
 	}
 	return o.ImageDigest, true
@@ -65,7 +68,7 @@ func (o *AnchoreImageTagSummary) GetImageDigestOk() (*string, bool) {
 
 // HasImageDigest returns a boolean if a field has been set.
 func (o *AnchoreImageTagSummary) HasImageDigest() bool {
-	if o != nil && o.ImageDigest != nil {
+	if o != nil && !IsNil(o.ImageDigest) {
 		return true
 	}
 
@@ -79,7 +82,7 @@ func (o *AnchoreImageTagSummary) SetImageDigest(v string) {
 
 // GetParentDigest returns the ParentDigest field value if set, zero value otherwise.
 func (o *AnchoreImageTagSummary) GetParentDigest() string {
-	if o == nil || o.ParentDigest == nil {
+	if o == nil || IsNil(o.ParentDigest) {
 		var ret string
 		return ret
 	}
@@ -89,7 +92,7 @@ func (o *AnchoreImageTagSummary) GetParentDigest() string {
 // GetParentDigestOk returns a tuple with the ParentDigest field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AnchoreImageTagSummary) GetParentDigestOk() (*string, bool) {
-	if o == nil || o.ParentDigest == nil {
+	if o == nil || IsNil(o.ParentDigest) {
 		return nil, false
 	}
 	return o.ParentDigest, true
@@ -97,7 +100,7 @@ func (o *AnchoreImageTagSummary) GetParentDigestOk() (*string, bool) {
 
 // HasParentDigest returns a boolean if a field has been set.
 func (o *AnchoreImageTagSummary) HasParentDigest() bool {
-	if o != nil && o.ParentDigest != nil {
+	if o != nil && !IsNil(o.ParentDigest) {
 		return true
 	}
 
@@ -111,7 +114,7 @@ func (o *AnchoreImageTagSummary) SetParentDigest(v string) {
 
 // GetImageId returns the ImageId field value if set, zero value otherwise.
 func (o *AnchoreImageTagSummary) GetImageId() string {
-	if o == nil || o.ImageId == nil {
+	if o == nil || IsNil(o.ImageId) {
 		var ret string
 		return ret
 	}
@@ -121,7 +124,7 @@ func (o *AnchoreImageTagSummary) GetImageId() string {
 // GetImageIdOk returns a tuple with the ImageId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AnchoreImageTagSummary) GetImageIdOk() (*string, bool) {
-	if o == nil || o.ImageId == nil {
+	if o == nil || IsNil(o.ImageId) {
 		return nil, false
 	}
 	return o.ImageId, true
@@ -129,7 +132,7 @@ func (o *AnchoreImageTagSummary) GetImageIdOk() (*string, bool) {
 
 // HasImageId returns a boolean if a field has been set.
 func (o *AnchoreImageTagSummary) HasImageId() bool {
-	if o != nil && o.ImageId != nil {
+	if o != nil && !IsNil(o.ImageId) {
 		return true
 	}
 
@@ -143,7 +146,7 @@ func (o *AnchoreImageTagSummary) SetImageId(v string) {
 
 // GetAnalysisStatus returns the AnalysisStatus field value if set, zero value otherwise.
 func (o *AnchoreImageTagSummary) GetAnalysisStatus() string {
-	if o == nil || o.AnalysisStatus == nil {
+	if o == nil || IsNil(o.AnalysisStatus) {
 		var ret string
 		return ret
 	}
@@ -153,7 +156,7 @@ func (o *AnchoreImageTagSummary) GetAnalysisStatus() string {
 // GetAnalysisStatusOk returns a tuple with the AnalysisStatus field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AnchoreImageTagSummary) GetAnalysisStatusOk() (*string, bool) {
-	if o == nil || o.AnalysisStatus == nil {
+	if o == nil || IsNil(o.AnalysisStatus) {
 		return nil, false
 	}
 	return o.AnalysisStatus, true
@@ -161,7 +164,7 @@ func (o *AnchoreImageTagSummary) GetAnalysisStatusOk() (*string, bool) {
 
 // HasAnalysisStatus returns a boolean if a field has been set.
 func (o *AnchoreImageTagSummary) HasAnalysisStatus() bool {
-	if o != nil && o.AnalysisStatus != nil {
+	if o != nil && !IsNil(o.AnalysisStatus) {
 		return true
 	}
 
@@ -175,7 +178,7 @@ func (o *AnchoreImageTagSummary) SetAnalysisStatus(v string) {
 
 // GetFullTag returns the FullTag field value if set, zero value otherwise.
 func (o *AnchoreImageTagSummary) GetFullTag() string {
-	if o == nil || o.FullTag == nil {
+	if o == nil || IsNil(o.FullTag) {
 		var ret string
 		return ret
 	}
@@ -185,7 +188,7 @@ func (o *AnchoreImageTagSummary) GetFullTag() string {
 // GetFullTagOk returns a tuple with the FullTag field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AnchoreImageTagSummary) GetFullTagOk() (*string, bool) {
-	if o == nil || o.FullTag == nil {
+	if o == nil || IsNil(o.FullTag) {
 		return nil, false
 	}
 	return o.FullTag, true
@@ -193,7 +196,7 @@ func (o *AnchoreImageTagSummary) GetFullTagOk() (*string, bool) {
 
 // HasFullTag returns a boolean if a field has been set.
 func (o *AnchoreImageTagSummary) HasFullTag() bool {
-	if o != nil && o.FullTag != nil {
+	if o != nil && !IsNil(o.FullTag) {
 		return true
 	}
 
@@ -207,7 +210,7 @@ func (o *AnchoreImageTagSummary) SetFullTag(v string) {
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
 func (o *AnchoreImageTagSummary) GetCreatedAt() int32 {
-	if o == nil || o.CreatedAt == nil {
+	if o == nil || IsNil(o.CreatedAt) {
 		var ret int32
 		return ret
 	}
@@ -217,7 +220,7 @@ func (o *AnchoreImageTagSummary) GetCreatedAt() int32 {
 // GetCreatedAtOk returns a tuple with the CreatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AnchoreImageTagSummary) GetCreatedAtOk() (*int32, bool) {
-	if o == nil || o.CreatedAt == nil {
+	if o == nil || IsNil(o.CreatedAt) {
 		return nil, false
 	}
 	return o.CreatedAt, true
@@ -225,7 +228,7 @@ func (o *AnchoreImageTagSummary) GetCreatedAtOk() (*int32, bool) {
 
 // HasCreatedAt returns a boolean if a field has been set.
 func (o *AnchoreImageTagSummary) HasCreatedAt() bool {
-	if o != nil && o.CreatedAt != nil {
+	if o != nil && !IsNil(o.CreatedAt) {
 		return true
 	}
 
@@ -239,7 +242,7 @@ func (o *AnchoreImageTagSummary) SetCreatedAt(v int32) {
 
 // GetAnalyzedAt returns the AnalyzedAt field value if set, zero value otherwise.
 func (o *AnchoreImageTagSummary) GetAnalyzedAt() int32 {
-	if o == nil || o.AnalyzedAt == nil {
+	if o == nil || IsNil(o.AnalyzedAt) {
 		var ret int32
 		return ret
 	}
@@ -249,7 +252,7 @@ func (o *AnchoreImageTagSummary) GetAnalyzedAt() int32 {
 // GetAnalyzedAtOk returns a tuple with the AnalyzedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AnchoreImageTagSummary) GetAnalyzedAtOk() (*int32, bool) {
-	if o == nil || o.AnalyzedAt == nil {
+	if o == nil || IsNil(o.AnalyzedAt) {
 		return nil, false
 	}
 	return o.AnalyzedAt, true
@@ -257,7 +260,7 @@ func (o *AnchoreImageTagSummary) GetAnalyzedAtOk() (*int32, bool) {
 
 // HasAnalyzedAt returns a boolean if a field has been set.
 func (o *AnchoreImageTagSummary) HasAnalyzedAt() bool {
-	if o != nil && o.AnalyzedAt != nil {
+	if o != nil && !IsNil(o.AnalyzedAt) {
 		return true
 	}
 
@@ -271,7 +274,7 @@ func (o *AnchoreImageTagSummary) SetAnalyzedAt(v int32) {
 
 // GetTagDetectedAt returns the TagDetectedAt field value if set, zero value otherwise.
 func (o *AnchoreImageTagSummary) GetTagDetectedAt() int32 {
-	if o == nil || o.TagDetectedAt == nil {
+	if o == nil || IsNil(o.TagDetectedAt) {
 		var ret int32
 		return ret
 	}
@@ -281,7 +284,7 @@ func (o *AnchoreImageTagSummary) GetTagDetectedAt() int32 {
 // GetTagDetectedAtOk returns a tuple with the TagDetectedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AnchoreImageTagSummary) GetTagDetectedAtOk() (*int32, bool) {
-	if o == nil || o.TagDetectedAt == nil {
+	if o == nil || IsNil(o.TagDetectedAt) {
 		return nil, false
 	}
 	return o.TagDetectedAt, true
@@ -289,7 +292,7 @@ func (o *AnchoreImageTagSummary) GetTagDetectedAtOk() (*int32, bool) {
 
 // HasTagDetectedAt returns a boolean if a field has been set.
 func (o *AnchoreImageTagSummary) HasTagDetectedAt() bool {
-	if o != nil && o.TagDetectedAt != nil {
+	if o != nil && !IsNil(o.TagDetectedAt) {
 		return true
 	}
 
@@ -303,7 +306,7 @@ func (o *AnchoreImageTagSummary) SetTagDetectedAt(v int32) {
 
 // GetImageStatus returns the ImageStatus field value if set, zero value otherwise.
 func (o *AnchoreImageTagSummary) GetImageStatus() string {
-	if o == nil || o.ImageStatus == nil {
+	if o == nil || IsNil(o.ImageStatus) {
 		var ret string
 		return ret
 	}
@@ -313,7 +316,7 @@ func (o *AnchoreImageTagSummary) GetImageStatus() string {
 // GetImageStatusOk returns a tuple with the ImageStatus field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AnchoreImageTagSummary) GetImageStatusOk() (*string, bool) {
-	if o == nil || o.ImageStatus == nil {
+	if o == nil || IsNil(o.ImageStatus) {
 		return nil, false
 	}
 	return o.ImageStatus, true
@@ -321,7 +324,7 @@ func (o *AnchoreImageTagSummary) GetImageStatusOk() (*string, bool) {
 
 // HasImageStatus returns a boolean if a field has been set.
 func (o *AnchoreImageTagSummary) HasImageStatus() bool {
-	if o != nil && o.ImageStatus != nil {
+	if o != nil && !IsNil(o.ImageStatus) {
 		return true
 	}
 
@@ -334,35 +337,43 @@ func (o *AnchoreImageTagSummary) SetImageStatus(v string) {
 }
 
 func (o AnchoreImageTagSummary) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.ImageDigest != nil {
-		toSerialize["image_digest"] = o.ImageDigest
-	}
-	if o.ParentDigest != nil {
-		toSerialize["parent_digest"] = o.ParentDigest
-	}
-	if o.ImageId != nil {
-		toSerialize["image_id"] = o.ImageId
-	}
-	if o.AnalysisStatus != nil {
-		toSerialize["analysis_status"] = o.AnalysisStatus
-	}
-	if o.FullTag != nil {
-		toSerialize["full_tag"] = o.FullTag
-	}
-	if o.CreatedAt != nil {
-		toSerialize["created_at"] = o.CreatedAt
-	}
-	if o.AnalyzedAt != nil {
-		toSerialize["analyzed_at"] = o.AnalyzedAt
-	}
-	if o.TagDetectedAt != nil {
-		toSerialize["tag_detected_at"] = o.TagDetectedAt
-	}
-	if o.ImageStatus != nil {
-		toSerialize["image_status"] = o.ImageStatus
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o AnchoreImageTagSummary) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.ImageDigest) {
+		toSerialize["image_digest"] = o.ImageDigest
+	}
+	if !IsNil(o.ParentDigest) {
+		toSerialize["parent_digest"] = o.ParentDigest
+	}
+	if !IsNil(o.ImageId) {
+		toSerialize["image_id"] = o.ImageId
+	}
+	if !IsNil(o.AnalysisStatus) {
+		toSerialize["analysis_status"] = o.AnalysisStatus
+	}
+	if !IsNil(o.FullTag) {
+		toSerialize["full_tag"] = o.FullTag
+	}
+	if !IsNil(o.CreatedAt) {
+		toSerialize["created_at"] = o.CreatedAt
+	}
+	if !IsNil(o.AnalyzedAt) {
+		toSerialize["analyzed_at"] = o.AnalyzedAt
+	}
+	if !IsNil(o.TagDetectedAt) {
+		toSerialize["tag_detected_at"] = o.TagDetectedAt
+	}
+	if !IsNil(o.ImageStatus) {
+		toSerialize["image_status"] = o.ImageStatus
+	}
+	return toSerialize, nil
 }
 
 type NullableAnchoreImageTagSummary struct {

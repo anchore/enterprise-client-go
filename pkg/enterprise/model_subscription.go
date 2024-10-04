@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the Subscription type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &Subscription{}
+
 // Subscription Subscription entry
 type Subscription struct {
 	// The key value that the subscription references. E.g. a tag value or a repo name.
@@ -50,7 +53,7 @@ func NewSubscriptionWithDefaults() *Subscription {
 
 // GetSubscriptionKey returns the SubscriptionKey field value if set, zero value otherwise.
 func (o *Subscription) GetSubscriptionKey() string {
-	if o == nil || o.SubscriptionKey == nil {
+	if o == nil || IsNil(o.SubscriptionKey) {
 		var ret string
 		return ret
 	}
@@ -60,7 +63,7 @@ func (o *Subscription) GetSubscriptionKey() string {
 // GetSubscriptionKeyOk returns a tuple with the SubscriptionKey field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Subscription) GetSubscriptionKeyOk() (*string, bool) {
-	if o == nil || o.SubscriptionKey == nil {
+	if o == nil || IsNil(o.SubscriptionKey) {
 		return nil, false
 	}
 	return o.SubscriptionKey, true
@@ -68,7 +71,7 @@ func (o *Subscription) GetSubscriptionKeyOk() (*string, bool) {
 
 // HasSubscriptionKey returns a boolean if a field has been set.
 func (o *Subscription) HasSubscriptionKey() bool {
-	if o != nil && o.SubscriptionKey != nil {
+	if o != nil && !IsNil(o.SubscriptionKey) {
 		return true
 	}
 
@@ -82,7 +85,7 @@ func (o *Subscription) SetSubscriptionKey(v string) {
 
 // GetSubscriptionType returns the SubscriptionType field value if set, zero value otherwise.
 func (o *Subscription) GetSubscriptionType() string {
-	if o == nil || o.SubscriptionType == nil {
+	if o == nil || IsNil(o.SubscriptionType) {
 		var ret string
 		return ret
 	}
@@ -92,7 +95,7 @@ func (o *Subscription) GetSubscriptionType() string {
 // GetSubscriptionTypeOk returns a tuple with the SubscriptionType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Subscription) GetSubscriptionTypeOk() (*string, bool) {
-	if o == nil || o.SubscriptionType == nil {
+	if o == nil || IsNil(o.SubscriptionType) {
 		return nil, false
 	}
 	return o.SubscriptionType, true
@@ -100,7 +103,7 @@ func (o *Subscription) GetSubscriptionTypeOk() (*string, bool) {
 
 // HasSubscriptionType returns a boolean if a field has been set.
 func (o *Subscription) HasSubscriptionType() bool {
-	if o != nil && o.SubscriptionType != nil {
+	if o != nil && !IsNil(o.SubscriptionType) {
 		return true
 	}
 
@@ -114,7 +117,7 @@ func (o *Subscription) SetSubscriptionType(v string) {
 
 // GetSubscriptionValue returns the SubscriptionValue field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *Subscription) GetSubscriptionValue() string {
-	if o == nil || o.SubscriptionValue.Get() == nil {
+	if o == nil || IsNil(o.SubscriptionValue.Get()) {
 		var ret string
 		return ret
 	}
@@ -156,7 +159,7 @@ func (o *Subscription) UnsetSubscriptionValue() {
 
 // GetAccountName returns the AccountName field value if set, zero value otherwise.
 func (o *Subscription) GetAccountName() string {
-	if o == nil || o.AccountName == nil {
+	if o == nil || IsNil(o.AccountName) {
 		var ret string
 		return ret
 	}
@@ -166,7 +169,7 @@ func (o *Subscription) GetAccountName() string {
 // GetAccountNameOk returns a tuple with the AccountName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Subscription) GetAccountNameOk() (*string, bool) {
-	if o == nil || o.AccountName == nil {
+	if o == nil || IsNil(o.AccountName) {
 		return nil, false
 	}
 	return o.AccountName, true
@@ -174,7 +177,7 @@ func (o *Subscription) GetAccountNameOk() (*string, bool) {
 
 // HasAccountName returns a boolean if a field has been set.
 func (o *Subscription) HasAccountName() bool {
-	if o != nil && o.AccountName != nil {
+	if o != nil && !IsNil(o.AccountName) {
 		return true
 	}
 
@@ -188,7 +191,7 @@ func (o *Subscription) SetAccountName(v string) {
 
 // GetActive returns the Active field value if set, zero value otherwise.
 func (o *Subscription) GetActive() bool {
-	if o == nil || o.Active == nil {
+	if o == nil || IsNil(o.Active) {
 		var ret bool
 		return ret
 	}
@@ -198,7 +201,7 @@ func (o *Subscription) GetActive() bool {
 // GetActiveOk returns a tuple with the Active field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Subscription) GetActiveOk() (*bool, bool) {
-	if o == nil || o.Active == nil {
+	if o == nil || IsNil(o.Active) {
 		return nil, false
 	}
 	return o.Active, true
@@ -206,7 +209,7 @@ func (o *Subscription) GetActiveOk() (*bool, bool) {
 
 // HasActive returns a boolean if a field has been set.
 func (o *Subscription) HasActive() bool {
-	if o != nil && o.Active != nil {
+	if o != nil && !IsNil(o.Active) {
 		return true
 	}
 
@@ -220,7 +223,7 @@ func (o *Subscription) SetActive(v bool) {
 
 // GetSubscriptionId returns the SubscriptionId field value if set, zero value otherwise.
 func (o *Subscription) GetSubscriptionId() string {
-	if o == nil || o.SubscriptionId == nil {
+	if o == nil || IsNil(o.SubscriptionId) {
 		var ret string
 		return ret
 	}
@@ -230,7 +233,7 @@ func (o *Subscription) GetSubscriptionId() string {
 // GetSubscriptionIdOk returns a tuple with the SubscriptionId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Subscription) GetSubscriptionIdOk() (*string, bool) {
-	if o == nil || o.SubscriptionId == nil {
+	if o == nil || IsNil(o.SubscriptionId) {
 		return nil, false
 	}
 	return o.SubscriptionId, true
@@ -238,7 +241,7 @@ func (o *Subscription) GetSubscriptionIdOk() (*string, bool) {
 
 // HasSubscriptionId returns a boolean if a field has been set.
 func (o *Subscription) HasSubscriptionId() bool {
-	if o != nil && o.SubscriptionId != nil {
+	if o != nil && !IsNil(o.SubscriptionId) {
 		return true
 	}
 
@@ -251,26 +254,34 @@ func (o *Subscription) SetSubscriptionId(v string) {
 }
 
 func (o Subscription) MarshalJSON() ([]byte, error) {
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o Subscription) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.SubscriptionKey != nil {
+	if !IsNil(o.SubscriptionKey) {
 		toSerialize["subscription_key"] = o.SubscriptionKey
 	}
-	if o.SubscriptionType != nil {
+	if !IsNil(o.SubscriptionType) {
 		toSerialize["subscription_type"] = o.SubscriptionType
 	}
 	if o.SubscriptionValue.IsSet() {
 		toSerialize["subscription_value"] = o.SubscriptionValue.Get()
 	}
-	if o.AccountName != nil {
+	if !IsNil(o.AccountName) {
 		toSerialize["account_name"] = o.AccountName
 	}
-	if o.Active != nil {
+	if !IsNil(o.Active) {
 		toSerialize["active"] = o.Active
 	}
-	if o.SubscriptionId != nil {
+	if !IsNil(o.SubscriptionId) {
 		toSerialize["subscription_id"] = o.SubscriptionId
 	}
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
 type NullableSubscription struct {

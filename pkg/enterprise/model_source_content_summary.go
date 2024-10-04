@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the SourceContentSummary type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &SourceContentSummary{}
+
 // SourceContentSummary A summary of the content types found in a source with counts
 type SourceContentSummary struct {
 	Items []ImageContentSummaryItemsInner `json:"items,omitempty"`
@@ -39,7 +42,7 @@ func NewSourceContentSummaryWithDefaults() *SourceContentSummary {
 
 // GetItems returns the Items field value if set, zero value otherwise.
 func (o *SourceContentSummary) GetItems() []ImageContentSummaryItemsInner {
-	if o == nil || o.Items == nil {
+	if o == nil || IsNil(o.Items) {
 		var ret []ImageContentSummaryItemsInner
 		return ret
 	}
@@ -49,7 +52,7 @@ func (o *SourceContentSummary) GetItems() []ImageContentSummaryItemsInner {
 // GetItemsOk returns a tuple with the Items field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SourceContentSummary) GetItemsOk() ([]ImageContentSummaryItemsInner, bool) {
-	if o == nil || o.Items == nil {
+	if o == nil || IsNil(o.Items) {
 		return nil, false
 	}
 	return o.Items, true
@@ -57,7 +60,7 @@ func (o *SourceContentSummary) GetItemsOk() ([]ImageContentSummaryItemsInner, bo
 
 // HasItems returns a boolean if a field has been set.
 func (o *SourceContentSummary) HasItems() bool {
-	if o != nil && o.Items != nil {
+	if o != nil && !IsNil(o.Items) {
 		return true
 	}
 
@@ -70,11 +73,19 @@ func (o *SourceContentSummary) SetItems(v []ImageContentSummaryItemsInner) {
 }
 
 func (o SourceContentSummary) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Items != nil {
-		toSerialize["items"] = o.Items
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o SourceContentSummary) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Items) {
+		toSerialize["items"] = o.Items
+	}
+	return toSerialize, nil
 }
 
 type NullableSourceContentSummary struct {

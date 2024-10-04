@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the ImportDistribution type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ImportDistribution{}
+
 // ImportDistribution struct for ImportDistribution
 type ImportDistribution struct {
 	Name NullableString `json:"name,omitempty"`
@@ -46,7 +49,7 @@ func NewImportDistributionWithDefaults() *ImportDistribution {
 
 // GetName returns the Name field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *ImportDistribution) GetName() string {
-	if o == nil || o.Name.Get() == nil {
+	if o == nil || IsNil(o.Name.Get()) {
 		var ret string
 		return ret
 	}
@@ -88,7 +91,7 @@ func (o *ImportDistribution) UnsetName() {
 
 // GetId returns the Id field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *ImportDistribution) GetId() string {
-	if o == nil || o.Id.Get() == nil {
+	if o == nil || IsNil(o.Id.Get()) {
 		var ret string
 		return ret
 	}
@@ -130,7 +133,7 @@ func (o *ImportDistribution) UnsetId() {
 
 // GetVersion returns the Version field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *ImportDistribution) GetVersion() string {
-	if o == nil || o.Version.Get() == nil {
+	if o == nil || IsNil(o.Version.Get()) {
 		var ret string
 		return ret
 	}
@@ -172,7 +175,7 @@ func (o *ImportDistribution) UnsetVersion() {
 
 // GetVersionID returns the VersionID field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *ImportDistribution) GetVersionID() string {
-	if o == nil || o.VersionID.Get() == nil {
+	if o == nil || IsNil(o.VersionID.Get()) {
 		var ret string
 		return ret
 	}
@@ -225,7 +228,7 @@ func (o *ImportDistribution) GetIdLike() interface{} {
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *ImportDistribution) GetIdLikeOk() (*interface{}, bool) {
-	if o == nil || o.IdLike == nil {
+	if o == nil || IsNil(o.IdLike) {
 		return nil, false
 	}
 	return &o.IdLike, true
@@ -233,7 +236,7 @@ func (o *ImportDistribution) GetIdLikeOk() (*interface{}, bool) {
 
 // HasIdLike returns a boolean if a field has been set.
 func (o *ImportDistribution) HasIdLike() bool {
-	if o != nil && o.IdLike != nil {
+	if o != nil && !IsNil(o.IdLike) {
 		return true
 	}
 
@@ -246,6 +249,14 @@ func (o *ImportDistribution) SetIdLike(v interface{}) {
 }
 
 func (o ImportDistribution) MarshalJSON() ([]byte, error) {
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o ImportDistribution) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	if o.Name.IsSet() {
 		toSerialize["name"] = o.Name.Get()
@@ -267,19 +278,23 @@ func (o ImportDistribution) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *ImportDistribution) UnmarshalJSON(bytes []byte) (err error) {
+func (o *ImportDistribution) UnmarshalJSON(data []byte) (err error) {
 	varImportDistribution := _ImportDistribution{}
 
-	if err = json.Unmarshal(bytes, &varImportDistribution); err == nil {
-		*o = ImportDistribution(varImportDistribution)
+	err = json.Unmarshal(data, &varImportDistribution)
+
+	if err != nil {
+		return err
 	}
+
+	*o = ImportDistribution(varImportDistribution)
 
 	additionalProperties := make(map[string]interface{})
 
-	if err = json.Unmarshal(bytes, &additionalProperties); err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "name")
 		delete(additionalProperties, "id")
 		delete(additionalProperties, "version")

@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the EventsList type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &EventsList{}
+
 // EventsList Response envelope for paginated listing of events
 type EventsList struct {
 	// List of events
@@ -46,7 +49,7 @@ func NewEventsListWithDefaults() *EventsList {
 
 // GetResults returns the Results field value if set, zero value otherwise.
 func (o *EventsList) GetResults() []EventResponse {
-	if o == nil || o.Results == nil {
+	if o == nil || IsNil(o.Results) {
 		var ret []EventResponse
 		return ret
 	}
@@ -56,7 +59,7 @@ func (o *EventsList) GetResults() []EventResponse {
 // GetResultsOk returns a tuple with the Results field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *EventsList) GetResultsOk() ([]EventResponse, bool) {
-	if o == nil || o.Results == nil {
+	if o == nil || IsNil(o.Results) {
 		return nil, false
 	}
 	return o.Results, true
@@ -64,7 +67,7 @@ func (o *EventsList) GetResultsOk() ([]EventResponse, bool) {
 
 // HasResults returns a boolean if a field has been set.
 func (o *EventsList) HasResults() bool {
-	if o != nil && o.Results != nil {
+	if o != nil && !IsNil(o.Results) {
 		return true
 	}
 
@@ -78,7 +81,7 @@ func (o *EventsList) SetResults(v []EventResponse) {
 
 // GetNextPage returns the NextPage field value if set, zero value otherwise.
 func (o *EventsList) GetNextPage() bool {
-	if o == nil || o.NextPage == nil {
+	if o == nil || IsNil(o.NextPage) {
 		var ret bool
 		return ret
 	}
@@ -88,7 +91,7 @@ func (o *EventsList) GetNextPage() bool {
 // GetNextPageOk returns a tuple with the NextPage field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *EventsList) GetNextPageOk() (*bool, bool) {
-	if o == nil || o.NextPage == nil {
+	if o == nil || IsNil(o.NextPage) {
 		return nil, false
 	}
 	return o.NextPage, true
@@ -96,7 +99,7 @@ func (o *EventsList) GetNextPageOk() (*bool, bool) {
 
 // HasNextPage returns a boolean if a field has been set.
 func (o *EventsList) HasNextPage() bool {
-	if o != nil && o.NextPage != nil {
+	if o != nil && !IsNil(o.NextPage) {
 		return true
 	}
 
@@ -110,7 +113,7 @@ func (o *EventsList) SetNextPage(v bool) {
 
 // GetItemCount returns the ItemCount field value if set, zero value otherwise.
 func (o *EventsList) GetItemCount() int32 {
-	if o == nil || o.ItemCount == nil {
+	if o == nil || IsNil(o.ItemCount) {
 		var ret int32
 		return ret
 	}
@@ -120,7 +123,7 @@ func (o *EventsList) GetItemCount() int32 {
 // GetItemCountOk returns a tuple with the ItemCount field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *EventsList) GetItemCountOk() (*int32, bool) {
-	if o == nil || o.ItemCount == nil {
+	if o == nil || IsNil(o.ItemCount) {
 		return nil, false
 	}
 	return o.ItemCount, true
@@ -128,7 +131,7 @@ func (o *EventsList) GetItemCountOk() (*int32, bool) {
 
 // HasItemCount returns a boolean if a field has been set.
 func (o *EventsList) HasItemCount() bool {
-	if o != nil && o.ItemCount != nil {
+	if o != nil && !IsNil(o.ItemCount) {
 		return true
 	}
 
@@ -142,7 +145,7 @@ func (o *EventsList) SetItemCount(v int32) {
 
 // GetPage returns the Page field value if set, zero value otherwise.
 func (o *EventsList) GetPage() int32 {
-	if o == nil || o.Page == nil {
+	if o == nil || IsNil(o.Page) {
 		var ret int32
 		return ret
 	}
@@ -152,7 +155,7 @@ func (o *EventsList) GetPage() int32 {
 // GetPageOk returns a tuple with the Page field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *EventsList) GetPageOk() (*int32, bool) {
-	if o == nil || o.Page == nil {
+	if o == nil || IsNil(o.Page) {
 		return nil, false
 	}
 	return o.Page, true
@@ -160,7 +163,7 @@ func (o *EventsList) GetPageOk() (*int32, bool) {
 
 // HasPage returns a boolean if a field has been set.
 func (o *EventsList) HasPage() bool {
-	if o != nil && o.Page != nil {
+	if o != nil && !IsNil(o.Page) {
 		return true
 	}
 
@@ -173,20 +176,28 @@ func (o *EventsList) SetPage(v int32) {
 }
 
 func (o EventsList) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Results != nil {
-		toSerialize["results"] = o.Results
-	}
-	if o.NextPage != nil {
-		toSerialize["next_page"] = o.NextPage
-	}
-	if o.ItemCount != nil {
-		toSerialize["item_count"] = o.ItemCount
-	}
-	if o.Page != nil {
-		toSerialize["page"] = o.Page
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o EventsList) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Results) {
+		toSerialize["results"] = o.Results
+	}
+	if !IsNil(o.NextPage) {
+		toSerialize["next_page"] = o.NextPage
+	}
+	if !IsNil(o.ItemCount) {
+		toSerialize["item_count"] = o.ItemCount
+	}
+	if !IsNil(o.Page) {
+		toSerialize["page"] = o.Page
+	}
+	return toSerialize, nil
 }
 
 type NullableEventsList struct {

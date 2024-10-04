@@ -14,7 +14,12 @@ package enterprise
 import (
 	"encoding/json"
 	"time"
+	"bytes"
+	"fmt"
 )
+
+// checks if the ArtifactLifecyclePolicyResponse type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ArtifactLifecyclePolicyResponse{}
 
 // ArtifactLifecyclePolicyResponse struct for ArtifactLifecyclePolicyResponse
 type ArtifactLifecyclePolicyResponse struct {
@@ -33,6 +38,8 @@ type ArtifactLifecyclePolicyResponse struct {
 	CreatedAt *time.Time `json:"created_at,omitempty"`
 	DeletedAt *time.Time `json:"deleted_at,omitempty"`
 }
+
+type _ArtifactLifecyclePolicyResponse ArtifactLifecyclePolicyResponse
 
 // NewArtifactLifecyclePolicyResponse instantiates a new ArtifactLifecyclePolicyResponse object
 // This constructor will assign default values to properties that have it defined,
@@ -56,7 +63,7 @@ func NewArtifactLifecyclePolicyResponseWithDefaults() *ArtifactLifecyclePolicyRe
 
 // GetUuid returns the Uuid field value if set, zero value otherwise.
 func (o *ArtifactLifecyclePolicyResponse) GetUuid() string {
-	if o == nil || o.Uuid == nil {
+	if o == nil || IsNil(o.Uuid) {
 		var ret string
 		return ret
 	}
@@ -66,7 +73,7 @@ func (o *ArtifactLifecyclePolicyResponse) GetUuid() string {
 // GetUuidOk returns a tuple with the Uuid field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ArtifactLifecyclePolicyResponse) GetUuidOk() (*string, bool) {
-	if o == nil || o.Uuid == nil {
+	if o == nil || IsNil(o.Uuid) {
 		return nil, false
 	}
 	return o.Uuid, true
@@ -74,7 +81,7 @@ func (o *ArtifactLifecyclePolicyResponse) GetUuidOk() (*string, bool) {
 
 // HasUuid returns a boolean if a field has been set.
 func (o *ArtifactLifecyclePolicyResponse) HasUuid() bool {
-	if o != nil && o.Uuid != nil {
+	if o != nil && !IsNil(o.Uuid) {
 		return true
 	}
 
@@ -136,7 +143,7 @@ func (o *ArtifactLifecyclePolicyResponse) SetName(v string) {
 
 // GetDescription returns the Description field value if set, zero value otherwise.
 func (o *ArtifactLifecyclePolicyResponse) GetDescription() string {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		var ret string
 		return ret
 	}
@@ -146,7 +153,7 @@ func (o *ArtifactLifecyclePolicyResponse) GetDescription() string {
 // GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ArtifactLifecyclePolicyResponse) GetDescriptionOk() (*string, bool) {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		return nil, false
 	}
 	return o.Description, true
@@ -154,7 +161,7 @@ func (o *ArtifactLifecyclePolicyResponse) GetDescriptionOk() (*string, bool) {
 
 // HasDescription returns a boolean if a field has been set.
 func (o *ArtifactLifecyclePolicyResponse) HasDescription() bool {
-	if o != nil && o.Description != nil {
+	if o != nil && !IsNil(o.Description) {
 		return true
 	}
 
@@ -192,7 +199,7 @@ func (o *ArtifactLifecyclePolicyResponse) SetPolicyConditions(v []ArtifactLifecy
 
 // GetEnabled returns the Enabled field value if set, zero value otherwise.
 func (o *ArtifactLifecyclePolicyResponse) GetEnabled() bool {
-	if o == nil || o.Enabled == nil {
+	if o == nil || IsNil(o.Enabled) {
 		var ret bool
 		return ret
 	}
@@ -202,7 +209,7 @@ func (o *ArtifactLifecyclePolicyResponse) GetEnabled() bool {
 // GetEnabledOk returns a tuple with the Enabled field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ArtifactLifecyclePolicyResponse) GetEnabledOk() (*bool, bool) {
-	if o == nil || o.Enabled == nil {
+	if o == nil || IsNil(o.Enabled) {
 		return nil, false
 	}
 	return o.Enabled, true
@@ -210,7 +217,7 @@ func (o *ArtifactLifecyclePolicyResponse) GetEnabledOk() (*bool, bool) {
 
 // HasEnabled returns a boolean if a field has been set.
 func (o *ArtifactLifecyclePolicyResponse) HasEnabled() bool {
-	if o != nil && o.Enabled != nil {
+	if o != nil && !IsNil(o.Enabled) {
 		return true
 	}
 
@@ -224,7 +231,7 @@ func (o *ArtifactLifecyclePolicyResponse) SetEnabled(v bool) {
 
 // GetUpdatedAt returns the UpdatedAt field value if set, zero value otherwise.
 func (o *ArtifactLifecyclePolicyResponse) GetUpdatedAt() time.Time {
-	if o == nil || o.UpdatedAt == nil {
+	if o == nil || IsNil(o.UpdatedAt) {
 		var ret time.Time
 		return ret
 	}
@@ -234,7 +241,7 @@ func (o *ArtifactLifecyclePolicyResponse) GetUpdatedAt() time.Time {
 // GetUpdatedAtOk returns a tuple with the UpdatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ArtifactLifecyclePolicyResponse) GetUpdatedAtOk() (*time.Time, bool) {
-	if o == nil || o.UpdatedAt == nil {
+	if o == nil || IsNil(o.UpdatedAt) {
 		return nil, false
 	}
 	return o.UpdatedAt, true
@@ -242,7 +249,7 @@ func (o *ArtifactLifecyclePolicyResponse) GetUpdatedAtOk() (*time.Time, bool) {
 
 // HasUpdatedAt returns a boolean if a field has been set.
 func (o *ArtifactLifecyclePolicyResponse) HasUpdatedAt() bool {
-	if o != nil && o.UpdatedAt != nil {
+	if o != nil && !IsNil(o.UpdatedAt) {
 		return true
 	}
 
@@ -256,7 +263,7 @@ func (o *ArtifactLifecyclePolicyResponse) SetUpdatedAt(v time.Time) {
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
 func (o *ArtifactLifecyclePolicyResponse) GetCreatedAt() time.Time {
-	if o == nil || o.CreatedAt == nil {
+	if o == nil || IsNil(o.CreatedAt) {
 		var ret time.Time
 		return ret
 	}
@@ -266,7 +273,7 @@ func (o *ArtifactLifecyclePolicyResponse) GetCreatedAt() time.Time {
 // GetCreatedAtOk returns a tuple with the CreatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ArtifactLifecyclePolicyResponse) GetCreatedAtOk() (*time.Time, bool) {
-	if o == nil || o.CreatedAt == nil {
+	if o == nil || IsNil(o.CreatedAt) {
 		return nil, false
 	}
 	return o.CreatedAt, true
@@ -274,7 +281,7 @@ func (o *ArtifactLifecyclePolicyResponse) GetCreatedAtOk() (*time.Time, bool) {
 
 // HasCreatedAt returns a boolean if a field has been set.
 func (o *ArtifactLifecyclePolicyResponse) HasCreatedAt() bool {
-	if o != nil && o.CreatedAt != nil {
+	if o != nil && !IsNil(o.CreatedAt) {
 		return true
 	}
 
@@ -288,7 +295,7 @@ func (o *ArtifactLifecyclePolicyResponse) SetCreatedAt(v time.Time) {
 
 // GetDeletedAt returns the DeletedAt field value if set, zero value otherwise.
 func (o *ArtifactLifecyclePolicyResponse) GetDeletedAt() time.Time {
-	if o == nil || o.DeletedAt == nil {
+	if o == nil || IsNil(o.DeletedAt) {
 		var ret time.Time
 		return ret
 	}
@@ -298,7 +305,7 @@ func (o *ArtifactLifecyclePolicyResponse) GetDeletedAt() time.Time {
 // GetDeletedAtOk returns a tuple with the DeletedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ArtifactLifecyclePolicyResponse) GetDeletedAtOk() (*time.Time, bool) {
-	if o == nil || o.DeletedAt == nil {
+	if o == nil || IsNil(o.DeletedAt) {
 		return nil, false
 	}
 	return o.DeletedAt, true
@@ -306,7 +313,7 @@ func (o *ArtifactLifecyclePolicyResponse) GetDeletedAtOk() (*time.Time, bool) {
 
 // HasDeletedAt returns a boolean if a field has been set.
 func (o *ArtifactLifecyclePolicyResponse) HasDeletedAt() bool {
-	if o != nil && o.DeletedAt != nil {
+	if o != nil && !IsNil(o.DeletedAt) {
 		return true
 	}
 
@@ -319,35 +326,76 @@ func (o *ArtifactLifecyclePolicyResponse) SetDeletedAt(v time.Time) {
 }
 
 func (o ArtifactLifecyclePolicyResponse) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Uuid != nil {
-		toSerialize["uuid"] = o.Uuid
-	}
-	if true {
-		toSerialize["action"] = o.Action
-	}
-	if true {
-		toSerialize["name"] = o.Name
-	}
-	if o.Description != nil {
-		toSerialize["description"] = o.Description
-	}
-	if true {
-		toSerialize["policy_conditions"] = o.PolicyConditions
-	}
-	if o.Enabled != nil {
-		toSerialize["enabled"] = o.Enabled
-	}
-	if o.UpdatedAt != nil {
-		toSerialize["updated_at"] = o.UpdatedAt
-	}
-	if o.CreatedAt != nil {
-		toSerialize["created_at"] = o.CreatedAt
-	}
-	if o.DeletedAt != nil {
-		toSerialize["deleted_at"] = o.DeletedAt
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o ArtifactLifecyclePolicyResponse) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Uuid) {
+		toSerialize["uuid"] = o.Uuid
+	}
+	toSerialize["action"] = o.Action
+	toSerialize["name"] = o.Name
+	if !IsNil(o.Description) {
+		toSerialize["description"] = o.Description
+	}
+	toSerialize["policy_conditions"] = o.PolicyConditions
+	if !IsNil(o.Enabled) {
+		toSerialize["enabled"] = o.Enabled
+	}
+	if !IsNil(o.UpdatedAt) {
+		toSerialize["updated_at"] = o.UpdatedAt
+	}
+	if !IsNil(o.CreatedAt) {
+		toSerialize["created_at"] = o.CreatedAt
+	}
+	if !IsNil(o.DeletedAt) {
+		toSerialize["deleted_at"] = o.DeletedAt
+	}
+	return toSerialize, nil
+}
+
+func (o *ArtifactLifecyclePolicyResponse) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"action",
+		"name",
+		"policy_conditions",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varArtifactLifecyclePolicyResponse := _ArtifactLifecyclePolicyResponse{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varArtifactLifecyclePolicyResponse)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ArtifactLifecyclePolicyResponse(varArtifactLifecyclePolicyResponse)
+
+	return err
 }
 
 type NullableArtifactLifecyclePolicyResponse struct {

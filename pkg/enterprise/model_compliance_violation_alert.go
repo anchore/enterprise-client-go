@@ -16,6 +16,9 @@ import (
 	"time"
 )
 
+// checks if the ComplianceViolationAlert type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ComplianceViolationAlert{}
+
 // ComplianceViolationAlert Alert raised by the system on a compliance check failure
 type ComplianceViolationAlert struct {
 	// Identifier for the alert
@@ -58,7 +61,7 @@ func NewComplianceViolationAlertWithDefaults() *ComplianceViolationAlert {
 
 // GetUuid returns the Uuid field value if set, zero value otherwise.
 func (o *ComplianceViolationAlert) GetUuid() string {
-	if o == nil || o.Uuid == nil {
+	if o == nil || IsNil(o.Uuid) {
 		var ret string
 		return ret
 	}
@@ -68,7 +71,7 @@ func (o *ComplianceViolationAlert) GetUuid() string {
 // GetUuidOk returns a tuple with the Uuid field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ComplianceViolationAlert) GetUuidOk() (*string, bool) {
-	if o == nil || o.Uuid == nil {
+	if o == nil || IsNil(o.Uuid) {
 		return nil, false
 	}
 	return o.Uuid, true
@@ -76,7 +79,7 @@ func (o *ComplianceViolationAlert) GetUuidOk() (*string, bool) {
 
 // HasUuid returns a boolean if a field has been set.
 func (o *ComplianceViolationAlert) HasUuid() bool {
-	if o != nil && o.Uuid != nil {
+	if o != nil && !IsNil(o.Uuid) {
 		return true
 	}
 
@@ -90,7 +93,7 @@ func (o *ComplianceViolationAlert) SetUuid(v string) {
 
 // GetType returns the Type field value if set, zero value otherwise.
 func (o *ComplianceViolationAlert) GetType() string {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		var ret string
 		return ret
 	}
@@ -100,7 +103,7 @@ func (o *ComplianceViolationAlert) GetType() string {
 // GetTypeOk returns a tuple with the Type field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ComplianceViolationAlert) GetTypeOk() (*string, bool) {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		return nil, false
 	}
 	return o.Type, true
@@ -108,7 +111,7 @@ func (o *ComplianceViolationAlert) GetTypeOk() (*string, bool) {
 
 // HasType returns a boolean if a field has been set.
 func (o *ComplianceViolationAlert) HasType() bool {
-	if o != nil && o.Type != nil {
+	if o != nil && !IsNil(o.Type) {
 		return true
 	}
 
@@ -122,7 +125,7 @@ func (o *ComplianceViolationAlert) SetType(v string) {
 
 // GetState returns the State field value if set, zero value otherwise.
 func (o *ComplianceViolationAlert) GetState() string {
-	if o == nil || o.State == nil {
+	if o == nil || IsNil(o.State) {
 		var ret string
 		return ret
 	}
@@ -132,7 +135,7 @@ func (o *ComplianceViolationAlert) GetState() string {
 // GetStateOk returns a tuple with the State field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ComplianceViolationAlert) GetStateOk() (*string, bool) {
-	if o == nil || o.State == nil {
+	if o == nil || IsNil(o.State) {
 		return nil, false
 	}
 	return o.State, true
@@ -140,7 +143,7 @@ func (o *ComplianceViolationAlert) GetStateOk() (*string, bool) {
 
 // HasState returns a boolean if a field has been set.
 func (o *ComplianceViolationAlert) HasState() bool {
-	if o != nil && o.State != nil {
+	if o != nil && !IsNil(o.State) {
 		return true
 	}
 
@@ -154,7 +157,7 @@ func (o *ComplianceViolationAlert) SetState(v string) {
 
 // GetResource returns the Resource field value if set, zero value otherwise.
 func (o *ComplianceViolationAlert) GetResource() ComplianceResource {
-	if o == nil || o.Resource == nil {
+	if o == nil || IsNil(o.Resource) {
 		var ret ComplianceResource
 		return ret
 	}
@@ -164,7 +167,7 @@ func (o *ComplianceViolationAlert) GetResource() ComplianceResource {
 // GetResourceOk returns a tuple with the Resource field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ComplianceViolationAlert) GetResourceOk() (*ComplianceResource, bool) {
-	if o == nil || o.Resource == nil {
+	if o == nil || IsNil(o.Resource) {
 		return nil, false
 	}
 	return o.Resource, true
@@ -172,7 +175,7 @@ func (o *ComplianceViolationAlert) GetResourceOk() (*ComplianceResource, bool) {
 
 // HasResource returns a boolean if a field has been set.
 func (o *ComplianceViolationAlert) HasResource() bool {
-	if o != nil && o.Resource != nil {
+	if o != nil && !IsNil(o.Resource) {
 		return true
 	}
 
@@ -186,7 +189,7 @@ func (o *ComplianceViolationAlert) SetResource(v ComplianceResource) {
 
 // GetClosedBy returns the ClosedBy field value if set, zero value otherwise.
 func (o *ComplianceViolationAlert) GetClosedBy() string {
-	if o == nil || o.ClosedBy == nil {
+	if o == nil || IsNil(o.ClosedBy) {
 		var ret string
 		return ret
 	}
@@ -196,7 +199,7 @@ func (o *ComplianceViolationAlert) GetClosedBy() string {
 // GetClosedByOk returns a tuple with the ClosedBy field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ComplianceViolationAlert) GetClosedByOk() (*string, bool) {
-	if o == nil || o.ClosedBy == nil {
+	if o == nil || IsNil(o.ClosedBy) {
 		return nil, false
 	}
 	return o.ClosedBy, true
@@ -204,7 +207,7 @@ func (o *ComplianceViolationAlert) GetClosedByOk() (*string, bool) {
 
 // HasClosedBy returns a boolean if a field has been set.
 func (o *ComplianceViolationAlert) HasClosedBy() bool {
-	if o != nil && o.ClosedBy != nil {
+	if o != nil && !IsNil(o.ClosedBy) {
 		return true
 	}
 
@@ -218,7 +221,7 @@ func (o *ComplianceViolationAlert) SetClosedBy(v string) {
 
 // GetClosedReason returns the ClosedReason field value if set, zero value otherwise.
 func (o *ComplianceViolationAlert) GetClosedReason() string {
-	if o == nil || o.ClosedReason == nil {
+	if o == nil || IsNil(o.ClosedReason) {
 		var ret string
 		return ret
 	}
@@ -228,7 +231,7 @@ func (o *ComplianceViolationAlert) GetClosedReason() string {
 // GetClosedReasonOk returns a tuple with the ClosedReason field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ComplianceViolationAlert) GetClosedReasonOk() (*string, bool) {
-	if o == nil || o.ClosedReason == nil {
+	if o == nil || IsNil(o.ClosedReason) {
 		return nil, false
 	}
 	return o.ClosedReason, true
@@ -236,7 +239,7 @@ func (o *ComplianceViolationAlert) GetClosedReasonOk() (*string, bool) {
 
 // HasClosedReason returns a boolean if a field has been set.
 func (o *ComplianceViolationAlert) HasClosedReason() bool {
-	if o != nil && o.ClosedReason != nil {
+	if o != nil && !IsNil(o.ClosedReason) {
 		return true
 	}
 
@@ -250,7 +253,7 @@ func (o *ComplianceViolationAlert) SetClosedReason(v string) {
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
 func (o *ComplianceViolationAlert) GetCreatedAt() time.Time {
-	if o == nil || o.CreatedAt == nil {
+	if o == nil || IsNil(o.CreatedAt) {
 		var ret time.Time
 		return ret
 	}
@@ -260,7 +263,7 @@ func (o *ComplianceViolationAlert) GetCreatedAt() time.Time {
 // GetCreatedAtOk returns a tuple with the CreatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ComplianceViolationAlert) GetCreatedAtOk() (*time.Time, bool) {
-	if o == nil || o.CreatedAt == nil {
+	if o == nil || IsNil(o.CreatedAt) {
 		return nil, false
 	}
 	return o.CreatedAt, true
@@ -268,7 +271,7 @@ func (o *ComplianceViolationAlert) GetCreatedAtOk() (*time.Time, bool) {
 
 // HasCreatedAt returns a boolean if a field has been set.
 func (o *ComplianceViolationAlert) HasCreatedAt() bool {
-	if o != nil && o.CreatedAt != nil {
+	if o != nil && !IsNil(o.CreatedAt) {
 		return true
 	}
 
@@ -282,7 +285,7 @@ func (o *ComplianceViolationAlert) SetCreatedAt(v time.Time) {
 
 // GetLastUpdated returns the LastUpdated field value if set, zero value otherwise.
 func (o *ComplianceViolationAlert) GetLastUpdated() time.Time {
-	if o == nil || o.LastUpdated == nil {
+	if o == nil || IsNil(o.LastUpdated) {
 		var ret time.Time
 		return ret
 	}
@@ -292,7 +295,7 @@ func (o *ComplianceViolationAlert) GetLastUpdated() time.Time {
 // GetLastUpdatedOk returns a tuple with the LastUpdated field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ComplianceViolationAlert) GetLastUpdatedOk() (*time.Time, bool) {
-	if o == nil || o.LastUpdated == nil {
+	if o == nil || IsNil(o.LastUpdated) {
 		return nil, false
 	}
 	return o.LastUpdated, true
@@ -300,7 +303,7 @@ func (o *ComplianceViolationAlert) GetLastUpdatedOk() (*time.Time, bool) {
 
 // HasLastUpdated returns a boolean if a field has been set.
 func (o *ComplianceViolationAlert) HasLastUpdated() bool {
-	if o != nil && o.LastUpdated != nil {
+	if o != nil && !IsNil(o.LastUpdated) {
 		return true
 	}
 
@@ -314,7 +317,7 @@ func (o *ComplianceViolationAlert) SetLastUpdated(v time.Time) {
 
 // GetComplianceStatusReason returns the ComplianceStatusReason field value if set, zero value otherwise.
 func (o *ComplianceViolationAlert) GetComplianceStatusReason() string {
-	if o == nil || o.ComplianceStatusReason == nil {
+	if o == nil || IsNil(o.ComplianceStatusReason) {
 		var ret string
 		return ret
 	}
@@ -324,7 +327,7 @@ func (o *ComplianceViolationAlert) GetComplianceStatusReason() string {
 // GetComplianceStatusReasonOk returns a tuple with the ComplianceStatusReason field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ComplianceViolationAlert) GetComplianceStatusReasonOk() (*string, bool) {
-	if o == nil || o.ComplianceStatusReason == nil {
+	if o == nil || IsNil(o.ComplianceStatusReason) {
 		return nil, false
 	}
 	return o.ComplianceStatusReason, true
@@ -332,7 +335,7 @@ func (o *ComplianceViolationAlert) GetComplianceStatusReasonOk() (*string, bool)
 
 // HasComplianceStatusReason returns a boolean if a field has been set.
 func (o *ComplianceViolationAlert) HasComplianceStatusReason() bool {
-	if o != nil && o.ComplianceStatusReason != nil {
+	if o != nil && !IsNil(o.ComplianceStatusReason) {
 		return true
 	}
 
@@ -346,7 +349,7 @@ func (o *ComplianceViolationAlert) SetComplianceStatusReason(v string) {
 
 // GetViolationsCount returns the ViolationsCount field value if set, zero value otherwise.
 func (o *ComplianceViolationAlert) GetViolationsCount() int32 {
-	if o == nil || o.ViolationsCount == nil {
+	if o == nil || IsNil(o.ViolationsCount) {
 		var ret int32
 		return ret
 	}
@@ -356,7 +359,7 @@ func (o *ComplianceViolationAlert) GetViolationsCount() int32 {
 // GetViolationsCountOk returns a tuple with the ViolationsCount field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ComplianceViolationAlert) GetViolationsCountOk() (*int32, bool) {
-	if o == nil || o.ViolationsCount == nil {
+	if o == nil || IsNil(o.ViolationsCount) {
 		return nil, false
 	}
 	return o.ViolationsCount, true
@@ -364,7 +367,7 @@ func (o *ComplianceViolationAlert) GetViolationsCountOk() (*int32, bool) {
 
 // HasViolationsCount returns a boolean if a field has been set.
 func (o *ComplianceViolationAlert) HasViolationsCount() bool {
-	if o != nil && o.ViolationsCount != nil {
+	if o != nil && !IsNil(o.ViolationsCount) {
 		return true
 	}
 
@@ -377,38 +380,46 @@ func (o *ComplianceViolationAlert) SetViolationsCount(v int32) {
 }
 
 func (o ComplianceViolationAlert) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Uuid != nil {
-		toSerialize["uuid"] = o.Uuid
-	}
-	if o.Type != nil {
-		toSerialize["type"] = o.Type
-	}
-	if o.State != nil {
-		toSerialize["state"] = o.State
-	}
-	if o.Resource != nil {
-		toSerialize["resource"] = o.Resource
-	}
-	if o.ClosedBy != nil {
-		toSerialize["closed_by"] = o.ClosedBy
-	}
-	if o.ClosedReason != nil {
-		toSerialize["closed_reason"] = o.ClosedReason
-	}
-	if o.CreatedAt != nil {
-		toSerialize["created_at"] = o.CreatedAt
-	}
-	if o.LastUpdated != nil {
-		toSerialize["last_updated"] = o.LastUpdated
-	}
-	if o.ComplianceStatusReason != nil {
-		toSerialize["compliance_status_reason"] = o.ComplianceStatusReason
-	}
-	if o.ViolationsCount != nil {
-		toSerialize["violations_count"] = o.ViolationsCount
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o ComplianceViolationAlert) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Uuid) {
+		toSerialize["uuid"] = o.Uuid
+	}
+	if !IsNil(o.Type) {
+		toSerialize["type"] = o.Type
+	}
+	if !IsNil(o.State) {
+		toSerialize["state"] = o.State
+	}
+	if !IsNil(o.Resource) {
+		toSerialize["resource"] = o.Resource
+	}
+	if !IsNil(o.ClosedBy) {
+		toSerialize["closed_by"] = o.ClosedBy
+	}
+	if !IsNil(o.ClosedReason) {
+		toSerialize["closed_reason"] = o.ClosedReason
+	}
+	if !IsNil(o.CreatedAt) {
+		toSerialize["created_at"] = o.CreatedAt
+	}
+	if !IsNil(o.LastUpdated) {
+		toSerialize["last_updated"] = o.LastUpdated
+	}
+	if !IsNil(o.ComplianceStatusReason) {
+		toSerialize["compliance_status_reason"] = o.ComplianceStatusReason
+	}
+	if !IsNil(o.ViolationsCount) {
+		toSerialize["violations_count"] = o.ViolationsCount
+	}
+	return toSerialize, nil
 }
 
 type NullableComplianceViolationAlert struct {

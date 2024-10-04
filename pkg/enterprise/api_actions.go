@@ -14,50 +14,19 @@ package enterprise
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
 	"time"
 )
 
 
-type ActionsApi interface {
-
-	/*
-	AddActionPlan Submits an Action Plan
-
-	Submits an Action Plan and saves upon completion
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiAddActionPlanRequest
-	*/
-	AddActionPlan(ctx context.Context) ApiAddActionPlanRequest
-
-	// AddActionPlanExecute executes the request
-	//  @return ActionPlan
-	AddActionPlanExecute(r ApiAddActionPlanRequest) (*ActionPlan, *http.Response, error)
-
-	/*
-	GetActionPlans Gets a list of submitted action (remediation) plans
-
-	Retrieves a list of action plans that have been completed
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiGetActionPlansRequest
-	*/
-	GetActionPlans(ctx context.Context) ApiGetActionPlansRequest
-
-	// GetActionPlansExecute executes the request
-	//  @return []ActionPlan
-	GetActionPlansExecute(r ApiGetActionPlansRequest) ([]ActionPlan, *http.Response, error)
-}
-
-// ActionsApiService ActionsApi service
-type ActionsApiService service
+// ActionsAPIService ActionsAPI service
+type ActionsAPIService service
 
 type ApiAddActionPlanRequest struct {
 	ctx context.Context
-	ApiService ActionsApi
+	ApiService *ActionsAPIService
 	actionPlan *ActionPlan
 }
 
@@ -78,7 +47,7 @@ Submits an Action Plan and saves upon completion
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiAddActionPlanRequest
 */
-func (a *ActionsApiService) AddActionPlan(ctx context.Context) ApiAddActionPlanRequest {
+func (a *ActionsAPIService) AddActionPlan(ctx context.Context) ApiAddActionPlanRequest {
 	return ApiAddActionPlanRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -87,7 +56,7 @@ func (a *ActionsApiService) AddActionPlan(ctx context.Context) ApiAddActionPlanR
 
 // Execute executes the request
 //  @return ActionPlan
-func (a *ActionsApiService) AddActionPlanExecute(r ApiAddActionPlanRequest) (*ActionPlan, *http.Response, error) {
+func (a *ActionsAPIService) AddActionPlanExecute(r ApiAddActionPlanRequest) (*ActionPlan, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
@@ -95,7 +64,7 @@ func (a *ActionsApiService) AddActionPlanExecute(r ApiAddActionPlanRequest) (*Ac
 		localVarReturnValue  *ActionPlan
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ActionsApiService.AddActionPlan")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ActionsAPIService.AddActionPlan")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -138,9 +107,9 @@ func (a *ActionsApiService) AddActionPlanExecute(r ApiAddActionPlanRequest) (*Ac
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -167,7 +136,7 @@ func (a *ActionsApiService) AddActionPlanExecute(r ApiAddActionPlanRequest) (*Ac
 
 type ApiGetActionPlansRequest struct {
 	ctx context.Context
-	ApiService ActionsApi
+	ApiService *ActionsAPIService
 	imageTag *string
 	imageDigest *string
 	createdAfter *time.Time
@@ -208,7 +177,7 @@ Retrieves a list of action plans that have been completed
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiGetActionPlansRequest
 */
-func (a *ActionsApiService) GetActionPlans(ctx context.Context) ApiGetActionPlansRequest {
+func (a *ActionsAPIService) GetActionPlans(ctx context.Context) ApiGetActionPlansRequest {
 	return ApiGetActionPlansRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -217,7 +186,7 @@ func (a *ActionsApiService) GetActionPlans(ctx context.Context) ApiGetActionPlan
 
 // Execute executes the request
 //  @return []ActionPlan
-func (a *ActionsApiService) GetActionPlansExecute(r ApiGetActionPlansRequest) ([]ActionPlan, *http.Response, error) {
+func (a *ActionsAPIService) GetActionPlansExecute(r ApiGetActionPlansRequest) ([]ActionPlan, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
@@ -225,7 +194,7 @@ func (a *ActionsApiService) GetActionPlansExecute(r ApiGetActionPlansRequest) ([
 		localVarReturnValue  []ActionPlan
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ActionsApiService.GetActionPlans")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ActionsAPIService.GetActionPlans")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -237,13 +206,13 @@ func (a *ActionsApiService) GetActionPlansExecute(r ApiGetActionPlansRequest) ([
 	localVarFormParams := url.Values{}
 
 	if r.imageTag != nil {
-		localVarQueryParams.Add("image_tag", parameterToString(*r.imageTag, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "image_tag", r.imageTag, "form", "")
 	}
 	if r.imageDigest != nil {
-		localVarQueryParams.Add("image_digest", parameterToString(*r.imageDigest, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "image_digest", r.imageDigest, "form", "")
 	}
 	if r.createdAfter != nil {
-		localVarQueryParams.Add("created_after", parameterToString(*r.createdAfter, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "created_after", r.createdAfter, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -263,7 +232,7 @@ func (a *ActionsApiService) GetActionPlansExecute(r ApiGetActionPlansRequest) ([
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.xAnchoreAccount != nil {
-		localVarHeaderParams["x-anchore-account"] = parameterToString(*r.xAnchoreAccount, "")
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "x-anchore-account", r.xAnchoreAccount, "simple", "")
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
@@ -275,9 +244,9 @@ func (a *ActionsApiService) GetActionPlansExecute(r ApiGetActionPlansRequest) ([
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}

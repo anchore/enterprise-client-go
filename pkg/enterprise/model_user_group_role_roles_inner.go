@@ -16,6 +16,9 @@ import (
 	"time"
 )
 
+// checks if the UserGroupRoleRolesInner type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &UserGroupRoleRolesInner{}
+
 // UserGroupRoleRolesInner struct for UserGroupRoleRolesInner
 type UserGroupRoleRolesInner struct {
 	// The role name
@@ -45,7 +48,7 @@ func NewUserGroupRoleRolesInnerWithDefaults() *UserGroupRoleRolesInner {
 
 // GetRole returns the Role field value if set, zero value otherwise.
 func (o *UserGroupRoleRolesInner) GetRole() string {
-	if o == nil || o.Role == nil {
+	if o == nil || IsNil(o.Role) {
 		var ret string
 		return ret
 	}
@@ -55,7 +58,7 @@ func (o *UserGroupRoleRolesInner) GetRole() string {
 // GetRoleOk returns a tuple with the Role field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserGroupRoleRolesInner) GetRoleOk() (*string, bool) {
-	if o == nil || o.Role == nil {
+	if o == nil || IsNil(o.Role) {
 		return nil, false
 	}
 	return o.Role, true
@@ -63,7 +66,7 @@ func (o *UserGroupRoleRolesInner) GetRoleOk() (*string, bool) {
 
 // HasRole returns a boolean if a field has been set.
 func (o *UserGroupRoleRolesInner) HasRole() bool {
-	if o != nil && o.Role != nil {
+	if o != nil && !IsNil(o.Role) {
 		return true
 	}
 
@@ -77,7 +80,7 @@ func (o *UserGroupRoleRolesInner) SetRole(v string) {
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
 func (o *UserGroupRoleRolesInner) GetCreatedAt() time.Time {
-	if o == nil || o.CreatedAt == nil {
+	if o == nil || IsNil(o.CreatedAt) {
 		var ret time.Time
 		return ret
 	}
@@ -87,7 +90,7 @@ func (o *UserGroupRoleRolesInner) GetCreatedAt() time.Time {
 // GetCreatedAtOk returns a tuple with the CreatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserGroupRoleRolesInner) GetCreatedAtOk() (*time.Time, bool) {
-	if o == nil || o.CreatedAt == nil {
+	if o == nil || IsNil(o.CreatedAt) {
 		return nil, false
 	}
 	return o.CreatedAt, true
@@ -95,7 +98,7 @@ func (o *UserGroupRoleRolesInner) GetCreatedAtOk() (*time.Time, bool) {
 
 // HasCreatedAt returns a boolean if a field has been set.
 func (o *UserGroupRoleRolesInner) HasCreatedAt() bool {
-	if o != nil && o.CreatedAt != nil {
+	if o != nil && !IsNil(o.CreatedAt) {
 		return true
 	}
 
@@ -109,7 +112,7 @@ func (o *UserGroupRoleRolesInner) SetCreatedAt(v time.Time) {
 
 // GetMembershipId returns the MembershipId field value if set, zero value otherwise.
 func (o *UserGroupRoleRolesInner) GetMembershipId() string {
-	if o == nil || o.MembershipId == nil {
+	if o == nil || IsNil(o.MembershipId) {
 		var ret string
 		return ret
 	}
@@ -119,7 +122,7 @@ func (o *UserGroupRoleRolesInner) GetMembershipId() string {
 // GetMembershipIdOk returns a tuple with the MembershipId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserGroupRoleRolesInner) GetMembershipIdOk() (*string, bool) {
-	if o == nil || o.MembershipId == nil {
+	if o == nil || IsNil(o.MembershipId) {
 		return nil, false
 	}
 	return o.MembershipId, true
@@ -127,7 +130,7 @@ func (o *UserGroupRoleRolesInner) GetMembershipIdOk() (*string, bool) {
 
 // HasMembershipId returns a boolean if a field has been set.
 func (o *UserGroupRoleRolesInner) HasMembershipId() bool {
-	if o != nil && o.MembershipId != nil {
+	if o != nil && !IsNil(o.MembershipId) {
 		return true
 	}
 
@@ -140,17 +143,25 @@ func (o *UserGroupRoleRolesInner) SetMembershipId(v string) {
 }
 
 func (o UserGroupRoleRolesInner) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Role != nil {
-		toSerialize["role"] = o.Role
-	}
-	if o.CreatedAt != nil {
-		toSerialize["created_at"] = o.CreatedAt
-	}
-	if o.MembershipId != nil {
-		toSerialize["membership_id"] = o.MembershipId
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o UserGroupRoleRolesInner) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Role) {
+		toSerialize["role"] = o.Role
+	}
+	if !IsNil(o.CreatedAt) {
+		toSerialize["created_at"] = o.CreatedAt
+	}
+	if !IsNil(o.MembershipId) {
+		toSerialize["membership_id"] = o.MembershipId
+	}
+	return toSerialize, nil
 }
 
 type NullableUserGroupRoleRolesInner struct {

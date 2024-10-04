@@ -15,10 +15,13 @@ import (
 	"encoding/json"
 )
 
+// checks if the AccountInfo type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &AccountInfo{}
+
 // AccountInfo Account Information.
 type AccountInfo struct {
 	// An optional email to associate with the account for contact purposes
-	Email *string `json:"email,omitempty"`
+	Email *string "json:\"email,omitempty\" validate:\"regexp=[a-z0-9!#$%&'*+\\/=?^_`{|}~-]+(?:\\\\.[a-z0-9!#$%&'*+\\/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\""
 }
 
 // NewAccountInfo instantiates a new AccountInfo object
@@ -40,7 +43,7 @@ func NewAccountInfoWithDefaults() *AccountInfo {
 
 // GetEmail returns the Email field value if set, zero value otherwise.
 func (o *AccountInfo) GetEmail() string {
-	if o == nil || o.Email == nil {
+	if o == nil || IsNil(o.Email) {
 		var ret string
 		return ret
 	}
@@ -50,7 +53,7 @@ func (o *AccountInfo) GetEmail() string {
 // GetEmailOk returns a tuple with the Email field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AccountInfo) GetEmailOk() (*string, bool) {
-	if o == nil || o.Email == nil {
+	if o == nil || IsNil(o.Email) {
 		return nil, false
 	}
 	return o.Email, true
@@ -58,7 +61,7 @@ func (o *AccountInfo) GetEmailOk() (*string, bool) {
 
 // HasEmail returns a boolean if a field has been set.
 func (o *AccountInfo) HasEmail() bool {
-	if o != nil && o.Email != nil {
+	if o != nil && !IsNil(o.Email) {
 		return true
 	}
 
@@ -71,11 +74,19 @@ func (o *AccountInfo) SetEmail(v string) {
 }
 
 func (o AccountInfo) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Email != nil {
-		toSerialize["email"] = o.Email
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o AccountInfo) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Email) {
+		toSerialize["email"] = o.Email
+	}
+	return toSerialize, nil
 }
 
 type NullableAccountInfo struct {

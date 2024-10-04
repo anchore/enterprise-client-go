@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the NotificationGitHubTestResult type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &NotificationGitHubTestResult{}
+
 // NotificationGitHubTestResult struct for NotificationGitHubTestResult
 type NotificationGitHubTestResult struct {
 	Status *string `json:"status,omitempty"`
@@ -40,7 +43,7 @@ func NewNotificationGitHubTestResultWithDefaults() *NotificationGitHubTestResult
 
 // GetStatus returns the Status field value if set, zero value otherwise.
 func (o *NotificationGitHubTestResult) GetStatus() string {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		var ret string
 		return ret
 	}
@@ -50,7 +53,7 @@ func (o *NotificationGitHubTestResult) GetStatus() string {
 // GetStatusOk returns a tuple with the Status field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *NotificationGitHubTestResult) GetStatusOk() (*string, bool) {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		return nil, false
 	}
 	return o.Status, true
@@ -58,7 +61,7 @@ func (o *NotificationGitHubTestResult) GetStatusOk() (*string, bool) {
 
 // HasStatus returns a boolean if a field has been set.
 func (o *NotificationGitHubTestResult) HasStatus() bool {
-	if o != nil && o.Status != nil {
+	if o != nil && !IsNil(o.Status) {
 		return true
 	}
 
@@ -72,7 +75,7 @@ func (o *NotificationGitHubTestResult) SetStatus(v string) {
 
 // GetResponse returns the Response field value if set, zero value otherwise.
 func (o *NotificationGitHubTestResult) GetResponse() string {
-	if o == nil || o.Response == nil {
+	if o == nil || IsNil(o.Response) {
 		var ret string
 		return ret
 	}
@@ -82,7 +85,7 @@ func (o *NotificationGitHubTestResult) GetResponse() string {
 // GetResponseOk returns a tuple with the Response field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *NotificationGitHubTestResult) GetResponseOk() (*string, bool) {
-	if o == nil || o.Response == nil {
+	if o == nil || IsNil(o.Response) {
 		return nil, false
 	}
 	return o.Response, true
@@ -90,7 +93,7 @@ func (o *NotificationGitHubTestResult) GetResponseOk() (*string, bool) {
 
 // HasResponse returns a boolean if a field has been set.
 func (o *NotificationGitHubTestResult) HasResponse() bool {
-	if o != nil && o.Response != nil {
+	if o != nil && !IsNil(o.Response) {
 		return true
 	}
 
@@ -103,14 +106,22 @@ func (o *NotificationGitHubTestResult) SetResponse(v string) {
 }
 
 func (o NotificationGitHubTestResult) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Status != nil {
-		toSerialize["status"] = o.Status
-	}
-	if o.Response != nil {
-		toSerialize["response"] = o.Response
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o NotificationGitHubTestResult) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Status) {
+		toSerialize["status"] = o.Status
+	}
+	if !IsNil(o.Response) {
+		toSerialize["response"] = o.Response
+	}
+	return toSerialize, nil
 }
 
 type NullableNotificationGitHubTestResult struct {

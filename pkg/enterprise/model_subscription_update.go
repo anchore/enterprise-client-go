@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the SubscriptionUpdate type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &SubscriptionUpdate{}
+
 // SubscriptionUpdate A modification to a subscription entry to change its status or value
 type SubscriptionUpdate struct {
 	// The new subscription value, e.g. the new tag to be subscribed to
@@ -42,7 +45,7 @@ func NewSubscriptionUpdateWithDefaults() *SubscriptionUpdate {
 
 // GetSubscriptionValue returns the SubscriptionValue field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *SubscriptionUpdate) GetSubscriptionValue() string {
-	if o == nil || o.SubscriptionValue.Get() == nil {
+	if o == nil || IsNil(o.SubscriptionValue.Get()) {
 		var ret string
 		return ret
 	}
@@ -84,7 +87,7 @@ func (o *SubscriptionUpdate) UnsetSubscriptionValue() {
 
 // GetActive returns the Active field value if set, zero value otherwise.
 func (o *SubscriptionUpdate) GetActive() bool {
-	if o == nil || o.Active == nil {
+	if o == nil || IsNil(o.Active) {
 		var ret bool
 		return ret
 	}
@@ -94,7 +97,7 @@ func (o *SubscriptionUpdate) GetActive() bool {
 // GetActiveOk returns a tuple with the Active field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SubscriptionUpdate) GetActiveOk() (*bool, bool) {
-	if o == nil || o.Active == nil {
+	if o == nil || IsNil(o.Active) {
 		return nil, false
 	}
 	return o.Active, true
@@ -102,7 +105,7 @@ func (o *SubscriptionUpdate) GetActiveOk() (*bool, bool) {
 
 // HasActive returns a boolean if a field has been set.
 func (o *SubscriptionUpdate) HasActive() bool {
-	if o != nil && o.Active != nil {
+	if o != nil && !IsNil(o.Active) {
 		return true
 	}
 
@@ -115,14 +118,22 @@ func (o *SubscriptionUpdate) SetActive(v bool) {
 }
 
 func (o SubscriptionUpdate) MarshalJSON() ([]byte, error) {
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o SubscriptionUpdate) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	if o.SubscriptionValue.IsSet() {
 		toSerialize["subscription_value"] = o.SubscriptionValue.Get()
 	}
-	if o.Active != nil {
+	if !IsNil(o.Active) {
 		toSerialize["active"] = o.Active
 	}
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
 type NullableSubscriptionUpdate struct {

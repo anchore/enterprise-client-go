@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the ContentJavaPackageResponse type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ContentJavaPackageResponse{}
+
 // ContentJavaPackageResponse Java package content listings from images
 type ContentJavaPackageResponse struct {
 	ImageDigest *string `json:"image_digest,omitempty"`
@@ -41,7 +44,7 @@ func NewContentJavaPackageResponseWithDefaults() *ContentJavaPackageResponse {
 
 // GetImageDigest returns the ImageDigest field value if set, zero value otherwise.
 func (o *ContentJavaPackageResponse) GetImageDigest() string {
-	if o == nil || o.ImageDigest == nil {
+	if o == nil || IsNil(o.ImageDigest) {
 		var ret string
 		return ret
 	}
@@ -51,7 +54,7 @@ func (o *ContentJavaPackageResponse) GetImageDigest() string {
 // GetImageDigestOk returns a tuple with the ImageDigest field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ContentJavaPackageResponse) GetImageDigestOk() (*string, bool) {
-	if o == nil || o.ImageDigest == nil {
+	if o == nil || IsNil(o.ImageDigest) {
 		return nil, false
 	}
 	return o.ImageDigest, true
@@ -59,7 +62,7 @@ func (o *ContentJavaPackageResponse) GetImageDigestOk() (*string, bool) {
 
 // HasImageDigest returns a boolean if a field has been set.
 func (o *ContentJavaPackageResponse) HasImageDigest() bool {
-	if o != nil && o.ImageDigest != nil {
+	if o != nil && !IsNil(o.ImageDigest) {
 		return true
 	}
 
@@ -73,7 +76,7 @@ func (o *ContentJavaPackageResponse) SetImageDigest(v string) {
 
 // GetContentType returns the ContentType field value if set, zero value otherwise.
 func (o *ContentJavaPackageResponse) GetContentType() string {
-	if o == nil || o.ContentType == nil {
+	if o == nil || IsNil(o.ContentType) {
 		var ret string
 		return ret
 	}
@@ -83,7 +86,7 @@ func (o *ContentJavaPackageResponse) GetContentType() string {
 // GetContentTypeOk returns a tuple with the ContentType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ContentJavaPackageResponse) GetContentTypeOk() (*string, bool) {
-	if o == nil || o.ContentType == nil {
+	if o == nil || IsNil(o.ContentType) {
 		return nil, false
 	}
 	return o.ContentType, true
@@ -91,7 +94,7 @@ func (o *ContentJavaPackageResponse) GetContentTypeOk() (*string, bool) {
 
 // HasContentType returns a boolean if a field has been set.
 func (o *ContentJavaPackageResponse) HasContentType() bool {
-	if o != nil && o.ContentType != nil {
+	if o != nil && !IsNil(o.ContentType) {
 		return true
 	}
 
@@ -105,7 +108,7 @@ func (o *ContentJavaPackageResponse) SetContentType(v string) {
 
 // GetContent returns the Content field value if set, zero value otherwise.
 func (o *ContentJavaPackageResponse) GetContent() []JavaPackageContent {
-	if o == nil || o.Content == nil {
+	if o == nil || IsNil(o.Content) {
 		var ret []JavaPackageContent
 		return ret
 	}
@@ -115,7 +118,7 @@ func (o *ContentJavaPackageResponse) GetContent() []JavaPackageContent {
 // GetContentOk returns a tuple with the Content field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ContentJavaPackageResponse) GetContentOk() ([]JavaPackageContent, bool) {
-	if o == nil || o.Content == nil {
+	if o == nil || IsNil(o.Content) {
 		return nil, false
 	}
 	return o.Content, true
@@ -123,7 +126,7 @@ func (o *ContentJavaPackageResponse) GetContentOk() ([]JavaPackageContent, bool)
 
 // HasContent returns a boolean if a field has been set.
 func (o *ContentJavaPackageResponse) HasContent() bool {
-	if o != nil && o.Content != nil {
+	if o != nil && !IsNil(o.Content) {
 		return true
 	}
 
@@ -136,17 +139,25 @@ func (o *ContentJavaPackageResponse) SetContent(v []JavaPackageContent) {
 }
 
 func (o ContentJavaPackageResponse) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.ImageDigest != nil {
-		toSerialize["image_digest"] = o.ImageDigest
-	}
-	if o.ContentType != nil {
-		toSerialize["content_type"] = o.ContentType
-	}
-	if o.Content != nil {
-		toSerialize["content"] = o.Content
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o ContentJavaPackageResponse) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.ImageDigest) {
+		toSerialize["image_digest"] = o.ImageDigest
+	}
+	if !IsNil(o.ContentType) {
+		toSerialize["content_type"] = o.ContentType
+	}
+	if !IsNil(o.Content) {
+		toSerialize["content"] = o.Content
+	}
+	return toSerialize, nil
 }
 
 type NullableContentJavaPackageResponse struct {

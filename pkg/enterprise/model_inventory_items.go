@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the InventoryItems type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &InventoryItems{}
+
 // InventoryItems Inventory report for Images in Use
 type InventoryItems struct {
 	Items []InventoryItem `json:"items,omitempty"`
@@ -39,7 +42,7 @@ func NewInventoryItemsWithDefaults() *InventoryItems {
 
 // GetItems returns the Items field value if set, zero value otherwise.
 func (o *InventoryItems) GetItems() []InventoryItem {
-	if o == nil || o.Items == nil {
+	if o == nil || IsNil(o.Items) {
 		var ret []InventoryItem
 		return ret
 	}
@@ -49,7 +52,7 @@ func (o *InventoryItems) GetItems() []InventoryItem {
 // GetItemsOk returns a tuple with the Items field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *InventoryItems) GetItemsOk() ([]InventoryItem, bool) {
-	if o == nil || o.Items == nil {
+	if o == nil || IsNil(o.Items) {
 		return nil, false
 	}
 	return o.Items, true
@@ -57,7 +60,7 @@ func (o *InventoryItems) GetItemsOk() ([]InventoryItem, bool) {
 
 // HasItems returns a boolean if a field has been set.
 func (o *InventoryItems) HasItems() bool {
-	if o != nil && o.Items != nil {
+	if o != nil && !IsNil(o.Items) {
 		return true
 	}
 
@@ -70,11 +73,19 @@ func (o *InventoryItems) SetItems(v []InventoryItem) {
 }
 
 func (o InventoryItems) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Items != nil {
-		toSerialize["items"] = o.Items
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o InventoryItems) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Items) {
+		toSerialize["items"] = o.Items
+	}
+	return toSerialize, nil
 }
 
 type NullableInventoryItems struct {

@@ -14,7 +14,12 @@ package enterprise
 import (
 	"encoding/json"
 	"time"
+	"bytes"
+	"fmt"
 )
+
+// checks if the ECSInventory type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ECSInventory{}
 
 // ECSInventory struct for ECSInventory
 type ECSInventory struct {
@@ -24,6 +29,8 @@ type ECSInventory struct {
 	Containers []ECSInventoryContainer `json:"containers,omitempty"`
 	Services []ECSInventoryService `json:"services,omitempty"`
 }
+
+type _ECSInventory ECSInventory
 
 // NewECSInventory instantiates a new ECSInventory object
 // This constructor will assign default values to properties that have it defined,
@@ -105,7 +112,7 @@ func (o *ECSInventory) GetTasks() []ECSInventoryTask {
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *ECSInventory) GetTasksOk() ([]ECSInventoryTask, bool) {
-	if o == nil || o.Tasks == nil {
+	if o == nil || IsNil(o.Tasks) {
 		return nil, false
 	}
 	return o.Tasks, true
@@ -113,7 +120,7 @@ func (o *ECSInventory) GetTasksOk() ([]ECSInventoryTask, bool) {
 
 // HasTasks returns a boolean if a field has been set.
 func (o *ECSInventory) HasTasks() bool {
-	if o != nil && o.Tasks != nil {
+	if o != nil && !IsNil(o.Tasks) {
 		return true
 	}
 
@@ -127,7 +134,7 @@ func (o *ECSInventory) SetTasks(v []ECSInventoryTask) {
 
 // GetContainers returns the Containers field value if set, zero value otherwise.
 func (o *ECSInventory) GetContainers() []ECSInventoryContainer {
-	if o == nil || o.Containers == nil {
+	if o == nil || IsNil(o.Containers) {
 		var ret []ECSInventoryContainer
 		return ret
 	}
@@ -137,7 +144,7 @@ func (o *ECSInventory) GetContainers() []ECSInventoryContainer {
 // GetContainersOk returns a tuple with the Containers field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ECSInventory) GetContainersOk() ([]ECSInventoryContainer, bool) {
-	if o == nil || o.Containers == nil {
+	if o == nil || IsNil(o.Containers) {
 		return nil, false
 	}
 	return o.Containers, true
@@ -145,7 +152,7 @@ func (o *ECSInventory) GetContainersOk() ([]ECSInventoryContainer, bool) {
 
 // HasContainers returns a boolean if a field has been set.
 func (o *ECSInventory) HasContainers() bool {
-	if o != nil && o.Containers != nil {
+	if o != nil && !IsNil(o.Containers) {
 		return true
 	}
 
@@ -170,7 +177,7 @@ func (o *ECSInventory) GetServices() []ECSInventoryService {
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *ECSInventory) GetServicesOk() ([]ECSInventoryService, bool) {
-	if o == nil || o.Services == nil {
+	if o == nil || IsNil(o.Services) {
 		return nil, false
 	}
 	return o.Services, true
@@ -178,7 +185,7 @@ func (o *ECSInventory) GetServicesOk() ([]ECSInventoryService, bool) {
 
 // HasServices returns a boolean if a field has been set.
 func (o *ECSInventory) HasServices() bool {
-	if o != nil && o.Services != nil {
+	if o != nil && !IsNil(o.Services) {
 		return true
 	}
 
@@ -191,23 +198,65 @@ func (o *ECSInventory) SetServices(v []ECSInventoryService) {
 }
 
 func (o ECSInventory) MarshalJSON() ([]byte, error) {
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o ECSInventory) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["cluster_arn"] = o.ClusterArn
-	}
-	if true {
-		toSerialize["timestamp"] = o.Timestamp
-	}
+	toSerialize["cluster_arn"] = o.ClusterArn
+	toSerialize["timestamp"] = o.Timestamp
 	if o.Tasks != nil {
 		toSerialize["tasks"] = o.Tasks
 	}
-	if o.Containers != nil {
+	if !IsNil(o.Containers) {
 		toSerialize["containers"] = o.Containers
 	}
 	if o.Services != nil {
 		toSerialize["services"] = o.Services
 	}
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
+}
+
+func (o *ECSInventory) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"cluster_arn",
+		"timestamp",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varECSInventory := _ECSInventory{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varECSInventory)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ECSInventory(varECSInventory)
+
+	return err
 }
 
 type NullableECSInventory struct {

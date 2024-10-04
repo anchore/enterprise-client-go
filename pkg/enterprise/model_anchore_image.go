@@ -16,6 +16,9 @@ import (
 	"time"
 )
 
+// checks if the AnchoreImage type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &AnchoreImage{}
+
 // AnchoreImage A unique image in the engine. May have multiple tags or references. Unique to an image content across registries or repositories.
 type AnchoreImage struct {
 	// A metadata content record for a specific image, containing different content type entries
@@ -56,7 +59,7 @@ func NewAnchoreImageWithDefaults() *AnchoreImage {
 
 // GetImageContent returns the ImageContent field value if set, zero value otherwise.
 func (o *AnchoreImage) GetImageContent() interface{} {
-	if o == nil || o.ImageContent == nil {
+	if o == nil || IsNil(o.ImageContent) {
 		var ret interface{}
 		return ret
 	}
@@ -66,7 +69,7 @@ func (o *AnchoreImage) GetImageContent() interface{} {
 // GetImageContentOk returns a tuple with the ImageContent field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AnchoreImage) GetImageContentOk() (interface{}, bool) {
-	if o == nil || o.ImageContent == nil {
+	if o == nil || IsNil(o.ImageContent) {
 		return nil, false
 	}
 	return o.ImageContent, true
@@ -74,7 +77,7 @@ func (o *AnchoreImage) GetImageContentOk() (interface{}, bool) {
 
 // HasImageContent returns a boolean if a field has been set.
 func (o *AnchoreImage) HasImageContent() bool {
-	if o != nil && o.ImageContent != nil {
+	if o != nil && !IsNil(o.ImageContent) {
 		return true
 	}
 
@@ -88,7 +91,7 @@ func (o *AnchoreImage) SetImageContent(v interface{}) {
 
 // GetImageDetail returns the ImageDetail field value if set, zero value otherwise.
 func (o *AnchoreImage) GetImageDetail() []ImageDetail {
-	if o == nil || o.ImageDetail == nil {
+	if o == nil || IsNil(o.ImageDetail) {
 		var ret []ImageDetail
 		return ret
 	}
@@ -98,7 +101,7 @@ func (o *AnchoreImage) GetImageDetail() []ImageDetail {
 // GetImageDetailOk returns a tuple with the ImageDetail field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AnchoreImage) GetImageDetailOk() ([]ImageDetail, bool) {
-	if o == nil || o.ImageDetail == nil {
+	if o == nil || IsNil(o.ImageDetail) {
 		return nil, false
 	}
 	return o.ImageDetail, true
@@ -106,7 +109,7 @@ func (o *AnchoreImage) GetImageDetailOk() ([]ImageDetail, bool) {
 
 // HasImageDetail returns a boolean if a field has been set.
 func (o *AnchoreImage) HasImageDetail() bool {
-	if o != nil && o.ImageDetail != nil {
+	if o != nil && !IsNil(o.ImageDetail) {
 		return true
 	}
 
@@ -120,7 +123,7 @@ func (o *AnchoreImage) SetImageDetail(v []ImageDetail) {
 
 // GetLastUpdated returns the LastUpdated field value if set, zero value otherwise.
 func (o *AnchoreImage) GetLastUpdated() time.Time {
-	if o == nil || o.LastUpdated == nil {
+	if o == nil || IsNil(o.LastUpdated) {
 		var ret time.Time
 		return ret
 	}
@@ -130,7 +133,7 @@ func (o *AnchoreImage) GetLastUpdated() time.Time {
 // GetLastUpdatedOk returns a tuple with the LastUpdated field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AnchoreImage) GetLastUpdatedOk() (*time.Time, bool) {
-	if o == nil || o.LastUpdated == nil {
+	if o == nil || IsNil(o.LastUpdated) {
 		return nil, false
 	}
 	return o.LastUpdated, true
@@ -138,7 +141,7 @@ func (o *AnchoreImage) GetLastUpdatedOk() (*time.Time, bool) {
 
 // HasLastUpdated returns a boolean if a field has been set.
 func (o *AnchoreImage) HasLastUpdated() bool {
-	if o != nil && o.LastUpdated != nil {
+	if o != nil && !IsNil(o.LastUpdated) {
 		return true
 	}
 
@@ -152,7 +155,7 @@ func (o *AnchoreImage) SetLastUpdated(v time.Time) {
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
 func (o *AnchoreImage) GetCreatedAt() time.Time {
-	if o == nil || o.CreatedAt == nil {
+	if o == nil || IsNil(o.CreatedAt) {
 		var ret time.Time
 		return ret
 	}
@@ -162,7 +165,7 @@ func (o *AnchoreImage) GetCreatedAt() time.Time {
 // GetCreatedAtOk returns a tuple with the CreatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AnchoreImage) GetCreatedAtOk() (*time.Time, bool) {
-	if o == nil || o.CreatedAt == nil {
+	if o == nil || IsNil(o.CreatedAt) {
 		return nil, false
 	}
 	return o.CreatedAt, true
@@ -170,7 +173,7 @@ func (o *AnchoreImage) GetCreatedAtOk() (*time.Time, bool) {
 
 // HasCreatedAt returns a boolean if a field has been set.
 func (o *AnchoreImage) HasCreatedAt() bool {
-	if o != nil && o.CreatedAt != nil {
+	if o != nil && !IsNil(o.CreatedAt) {
 		return true
 	}
 
@@ -184,7 +187,7 @@ func (o *AnchoreImage) SetCreatedAt(v time.Time) {
 
 // GetImageDigest returns the ImageDigest field value if set, zero value otherwise.
 func (o *AnchoreImage) GetImageDigest() string {
-	if o == nil || o.ImageDigest == nil {
+	if o == nil || IsNil(o.ImageDigest) {
 		var ret string
 		return ret
 	}
@@ -194,7 +197,7 @@ func (o *AnchoreImage) GetImageDigest() string {
 // GetImageDigestOk returns a tuple with the ImageDigest field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AnchoreImage) GetImageDigestOk() (*string, bool) {
-	if o == nil || o.ImageDigest == nil {
+	if o == nil || IsNil(o.ImageDigest) {
 		return nil, false
 	}
 	return o.ImageDigest, true
@@ -202,7 +205,7 @@ func (o *AnchoreImage) GetImageDigestOk() (*string, bool) {
 
 // HasImageDigest returns a boolean if a field has been set.
 func (o *AnchoreImage) HasImageDigest() bool {
-	if o != nil && o.ImageDigest != nil {
+	if o != nil && !IsNil(o.ImageDigest) {
 		return true
 	}
 
@@ -216,7 +219,7 @@ func (o *AnchoreImage) SetImageDigest(v string) {
 
 // GetParentDigest returns the ParentDigest field value if set, zero value otherwise.
 func (o *AnchoreImage) GetParentDigest() string {
-	if o == nil || o.ParentDigest == nil {
+	if o == nil || IsNil(o.ParentDigest) {
 		var ret string
 		return ret
 	}
@@ -226,7 +229,7 @@ func (o *AnchoreImage) GetParentDigest() string {
 // GetParentDigestOk returns a tuple with the ParentDigest field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AnchoreImage) GetParentDigestOk() (*string, bool) {
-	if o == nil || o.ParentDigest == nil {
+	if o == nil || IsNil(o.ParentDigest) {
 		return nil, false
 	}
 	return o.ParentDigest, true
@@ -234,7 +237,7 @@ func (o *AnchoreImage) GetParentDigestOk() (*string, bool) {
 
 // HasParentDigest returns a boolean if a field has been set.
 func (o *AnchoreImage) HasParentDigest() bool {
-	if o != nil && o.ParentDigest != nil {
+	if o != nil && !IsNil(o.ParentDigest) {
 		return true
 	}
 
@@ -248,7 +251,7 @@ func (o *AnchoreImage) SetParentDigest(v string) {
 
 // GetAccountName returns the AccountName field value if set, zero value otherwise.
 func (o *AnchoreImage) GetAccountName() string {
-	if o == nil || o.AccountName == nil {
+	if o == nil || IsNil(o.AccountName) {
 		var ret string
 		return ret
 	}
@@ -258,7 +261,7 @@ func (o *AnchoreImage) GetAccountName() string {
 // GetAccountNameOk returns a tuple with the AccountName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AnchoreImage) GetAccountNameOk() (*string, bool) {
-	if o == nil || o.AccountName == nil {
+	if o == nil || IsNil(o.AccountName) {
 		return nil, false
 	}
 	return o.AccountName, true
@@ -266,7 +269,7 @@ func (o *AnchoreImage) GetAccountNameOk() (*string, bool) {
 
 // HasAccountName returns a boolean if a field has been set.
 func (o *AnchoreImage) HasAccountName() bool {
-	if o != nil && o.AccountName != nil {
+	if o != nil && !IsNil(o.AccountName) {
 		return true
 	}
 
@@ -280,7 +283,7 @@ func (o *AnchoreImage) SetAccountName(v string) {
 
 // GetAnnotations returns the Annotations field value if set, zero value otherwise.
 func (o *AnchoreImage) GetAnnotations() interface{} {
-	if o == nil || o.Annotations == nil {
+	if o == nil || IsNil(o.Annotations) {
 		var ret interface{}
 		return ret
 	}
@@ -290,7 +293,7 @@ func (o *AnchoreImage) GetAnnotations() interface{} {
 // GetAnnotationsOk returns a tuple with the Annotations field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AnchoreImage) GetAnnotationsOk() (interface{}, bool) {
-	if o == nil || o.Annotations == nil {
+	if o == nil || IsNil(o.Annotations) {
 		return nil, false
 	}
 	return o.Annotations, true
@@ -298,7 +301,7 @@ func (o *AnchoreImage) GetAnnotationsOk() (interface{}, bool) {
 
 // HasAnnotations returns a boolean if a field has been set.
 func (o *AnchoreImage) HasAnnotations() bool {
-	if o != nil && o.Annotations != nil {
+	if o != nil && !IsNil(o.Annotations) {
 		return true
 	}
 
@@ -312,7 +315,7 @@ func (o *AnchoreImage) SetAnnotations(v interface{}) {
 
 // GetImageStatus returns the ImageStatus field value if set, zero value otherwise.
 func (o *AnchoreImage) GetImageStatus() string {
-	if o == nil || o.ImageStatus == nil {
+	if o == nil || IsNil(o.ImageStatus) {
 		var ret string
 		return ret
 	}
@@ -322,7 +325,7 @@ func (o *AnchoreImage) GetImageStatus() string {
 // GetImageStatusOk returns a tuple with the ImageStatus field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AnchoreImage) GetImageStatusOk() (*string, bool) {
-	if o == nil || o.ImageStatus == nil {
+	if o == nil || IsNil(o.ImageStatus) {
 		return nil, false
 	}
 	return o.ImageStatus, true
@@ -330,7 +333,7 @@ func (o *AnchoreImage) GetImageStatusOk() (*string, bool) {
 
 // HasImageStatus returns a boolean if a field has been set.
 func (o *AnchoreImage) HasImageStatus() bool {
-	if o != nil && o.ImageStatus != nil {
+	if o != nil && !IsNil(o.ImageStatus) {
 		return true
 	}
 
@@ -344,7 +347,7 @@ func (o *AnchoreImage) SetImageStatus(v string) {
 
 // GetAnalysisStatus returns the AnalysisStatus field value if set, zero value otherwise.
 func (o *AnchoreImage) GetAnalysisStatus() string {
-	if o == nil || o.AnalysisStatus == nil {
+	if o == nil || IsNil(o.AnalysisStatus) {
 		var ret string
 		return ret
 	}
@@ -354,7 +357,7 @@ func (o *AnchoreImage) GetAnalysisStatus() string {
 // GetAnalysisStatusOk returns a tuple with the AnalysisStatus field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AnchoreImage) GetAnalysisStatusOk() (*string, bool) {
-	if o == nil || o.AnalysisStatus == nil {
+	if o == nil || IsNil(o.AnalysisStatus) {
 		return nil, false
 	}
 	return o.AnalysisStatus, true
@@ -362,7 +365,7 @@ func (o *AnchoreImage) GetAnalysisStatusOk() (*string, bool) {
 
 // HasAnalysisStatus returns a boolean if a field has been set.
 func (o *AnchoreImage) HasAnalysisStatus() bool {
-	if o != nil && o.AnalysisStatus != nil {
+	if o != nil && !IsNil(o.AnalysisStatus) {
 		return true
 	}
 
@@ -376,7 +379,7 @@ func (o *AnchoreImage) SetAnalysisStatus(v string) {
 
 // GetRecordVersion returns the RecordVersion field value if set, zero value otherwise.
 func (o *AnchoreImage) GetRecordVersion() string {
-	if o == nil || o.RecordVersion == nil {
+	if o == nil || IsNil(o.RecordVersion) {
 		var ret string
 		return ret
 	}
@@ -386,7 +389,7 @@ func (o *AnchoreImage) GetRecordVersion() string {
 // GetRecordVersionOk returns a tuple with the RecordVersion field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AnchoreImage) GetRecordVersionOk() (*string, bool) {
-	if o == nil || o.RecordVersion == nil {
+	if o == nil || IsNil(o.RecordVersion) {
 		return nil, false
 	}
 	return o.RecordVersion, true
@@ -394,7 +397,7 @@ func (o *AnchoreImage) GetRecordVersionOk() (*string, bool) {
 
 // HasRecordVersion returns a boolean if a field has been set.
 func (o *AnchoreImage) HasRecordVersion() bool {
-	if o != nil && o.RecordVersion != nil {
+	if o != nil && !IsNil(o.RecordVersion) {
 		return true
 	}
 
@@ -419,7 +422,7 @@ func (o *AnchoreImage) GetAnalysisStatusDetail() []AnalysisStatusDetail {
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *AnchoreImage) GetAnalysisStatusDetailOk() ([]AnalysisStatusDetail, bool) {
-	if o == nil || o.AnalysisStatusDetail == nil {
+	if o == nil || IsNil(o.AnalysisStatusDetail) {
 		return nil, false
 	}
 	return o.AnalysisStatusDetail, true
@@ -427,7 +430,7 @@ func (o *AnchoreImage) GetAnalysisStatusDetailOk() ([]AnalysisStatusDetail, bool
 
 // HasAnalysisStatusDetail returns a boolean if a field has been set.
 func (o *AnchoreImage) HasAnalysisStatusDetail() bool {
-	if o != nil && o.AnalysisStatusDetail != nil {
+	if o != nil && !IsNil(o.AnalysisStatusDetail) {
 		return true
 	}
 
@@ -440,44 +443,52 @@ func (o *AnchoreImage) SetAnalysisStatusDetail(v []AnalysisStatusDetail) {
 }
 
 func (o AnchoreImage) MarshalJSON() ([]byte, error) {
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o AnchoreImage) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.ImageContent != nil {
+	if !IsNil(o.ImageContent) {
 		toSerialize["image_content"] = o.ImageContent
 	}
-	if o.ImageDetail != nil {
+	if !IsNil(o.ImageDetail) {
 		toSerialize["image_detail"] = o.ImageDetail
 	}
-	if o.LastUpdated != nil {
+	if !IsNil(o.LastUpdated) {
 		toSerialize["last_updated"] = o.LastUpdated
 	}
-	if o.CreatedAt != nil {
+	if !IsNil(o.CreatedAt) {
 		toSerialize["created_at"] = o.CreatedAt
 	}
-	if o.ImageDigest != nil {
+	if !IsNil(o.ImageDigest) {
 		toSerialize["image_digest"] = o.ImageDigest
 	}
-	if o.ParentDigest != nil {
+	if !IsNil(o.ParentDigest) {
 		toSerialize["parent_digest"] = o.ParentDigest
 	}
-	if o.AccountName != nil {
+	if !IsNil(o.AccountName) {
 		toSerialize["account_name"] = o.AccountName
 	}
-	if o.Annotations != nil {
+	if !IsNil(o.Annotations) {
 		toSerialize["annotations"] = o.Annotations
 	}
-	if o.ImageStatus != nil {
+	if !IsNil(o.ImageStatus) {
 		toSerialize["image_status"] = o.ImageStatus
 	}
-	if o.AnalysisStatus != nil {
+	if !IsNil(o.AnalysisStatus) {
 		toSerialize["analysis_status"] = o.AnalysisStatus
 	}
-	if o.RecordVersion != nil {
+	if !IsNil(o.RecordVersion) {
 		toSerialize["record_version"] = o.RecordVersion
 	}
 	if o.AnalysisStatusDetail != nil {
 		toSerialize["analysis_status_detail"] = o.AnalysisStatusDetail
 	}
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
 type NullableAnchoreImage struct {

@@ -13,7 +13,11 @@ package enterprise
 
 import (
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the NativeSBOMSchema type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &NativeSBOMSchema{}
 
 // NativeSBOMSchema struct for NativeSBOMSchema
 type NativeSBOMSchema struct {
@@ -92,31 +96,61 @@ func (o *NativeSBOMSchema) SetUrl(v string) {
 }
 
 func (o NativeSBOMSchema) MarshalJSON() ([]byte, error) {
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o NativeSBOMSchema) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["version"] = o.Version
-	}
-	if true {
-		toSerialize["url"] = o.Url
-	}
+	toSerialize["version"] = o.Version
+	toSerialize["url"] = o.Url
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *NativeSBOMSchema) UnmarshalJSON(bytes []byte) (err error) {
+func (o *NativeSBOMSchema) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"version",
+		"url",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
 	varNativeSBOMSchema := _NativeSBOMSchema{}
 
-	if err = json.Unmarshal(bytes, &varNativeSBOMSchema); err == nil {
-		*o = NativeSBOMSchema(varNativeSBOMSchema)
+	err = json.Unmarshal(data, &varNativeSBOMSchema)
+
+	if err != nil {
+		return err
 	}
+
+	*o = NativeSBOMSchema(varNativeSBOMSchema)
 
 	additionalProperties := make(map[string]interface{})
 
-	if err = json.Unmarshal(bytes, &additionalProperties); err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "version")
 		delete(additionalProperties, "url")
 		o.AdditionalProperties = additionalProperties

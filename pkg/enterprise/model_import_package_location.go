@@ -13,7 +13,11 @@ package enterprise
 
 import (
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the ImportPackageLocation type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ImportPackageLocation{}
 
 // ImportPackageLocation struct for ImportPackageLocation
 type ImportPackageLocation struct {
@@ -68,7 +72,7 @@ func (o *ImportPackageLocation) SetPath(v string) {
 
 // GetLayerID returns the LayerID field value if set, zero value otherwise.
 func (o *ImportPackageLocation) GetLayerID() string {
-	if o == nil || o.LayerID == nil {
+	if o == nil || IsNil(o.LayerID) {
 		var ret string
 		return ret
 	}
@@ -78,7 +82,7 @@ func (o *ImportPackageLocation) GetLayerID() string {
 // GetLayerIDOk returns a tuple with the LayerID field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ImportPackageLocation) GetLayerIDOk() (*string, bool) {
-	if o == nil || o.LayerID == nil {
+	if o == nil || IsNil(o.LayerID) {
 		return nil, false
 	}
 	return o.LayerID, true
@@ -86,7 +90,7 @@ func (o *ImportPackageLocation) GetLayerIDOk() (*string, bool) {
 
 // HasLayerID returns a boolean if a field has been set.
 func (o *ImportPackageLocation) HasLayerID() bool {
-	if o != nil && o.LayerID != nil {
+	if o != nil && !IsNil(o.LayerID) {
 		return true
 	}
 
@@ -99,11 +103,17 @@ func (o *ImportPackageLocation) SetLayerID(v string) {
 }
 
 func (o ImportPackageLocation) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["path"] = o.Path
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
-	if o.LayerID != nil {
+	return json.Marshal(toSerialize)
+}
+
+func (o ImportPackageLocation) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["path"] = o.Path
+	if !IsNil(o.LayerID) {
 		toSerialize["layerID"] = o.LayerID
 	}
 
@@ -111,19 +121,44 @@ func (o ImportPackageLocation) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *ImportPackageLocation) UnmarshalJSON(bytes []byte) (err error) {
+func (o *ImportPackageLocation) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"path",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
 	varImportPackageLocation := _ImportPackageLocation{}
 
-	if err = json.Unmarshal(bytes, &varImportPackageLocation); err == nil {
-		*o = ImportPackageLocation(varImportPackageLocation)
+	err = json.Unmarshal(data, &varImportPackageLocation)
+
+	if err != nil {
+		return err
 	}
+
+	*o = ImportPackageLocation(varImportPackageLocation)
 
 	additionalProperties := make(map[string]interface{})
 
-	if err = json.Unmarshal(bytes, &additionalProperties); err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "path")
 		delete(additionalProperties, "layerID")
 		o.AdditionalProperties = additionalProperties

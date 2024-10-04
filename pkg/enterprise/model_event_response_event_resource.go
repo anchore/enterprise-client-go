@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the EventResponseEventResource type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &EventResponseEventResource{}
+
 // EventResponseEventResource struct for EventResponseEventResource
 type EventResponseEventResource struct {
 	AccountName *string `json:"account_name,omitempty"`
@@ -41,7 +44,7 @@ func NewEventResponseEventResourceWithDefaults() *EventResponseEventResource {
 
 // GetAccountName returns the AccountName field value if set, zero value otherwise.
 func (o *EventResponseEventResource) GetAccountName() string {
-	if o == nil || o.AccountName == nil {
+	if o == nil || IsNil(o.AccountName) {
 		var ret string
 		return ret
 	}
@@ -51,7 +54,7 @@ func (o *EventResponseEventResource) GetAccountName() string {
 // GetAccountNameOk returns a tuple with the AccountName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *EventResponseEventResource) GetAccountNameOk() (*string, bool) {
-	if o == nil || o.AccountName == nil {
+	if o == nil || IsNil(o.AccountName) {
 		return nil, false
 	}
 	return o.AccountName, true
@@ -59,7 +62,7 @@ func (o *EventResponseEventResource) GetAccountNameOk() (*string, bool) {
 
 // HasAccountName returns a boolean if a field has been set.
 func (o *EventResponseEventResource) HasAccountName() bool {
-	if o != nil && o.AccountName != nil {
+	if o != nil && !IsNil(o.AccountName) {
 		return true
 	}
 
@@ -73,7 +76,7 @@ func (o *EventResponseEventResource) SetAccountName(v string) {
 
 // GetId returns the Id field value if set, zero value otherwise.
 func (o *EventResponseEventResource) GetId() string {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		var ret string
 		return ret
 	}
@@ -83,7 +86,7 @@ func (o *EventResponseEventResource) GetId() string {
 // GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *EventResponseEventResource) GetIdOk() (*string, bool) {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
 	return o.Id, true
@@ -91,7 +94,7 @@ func (o *EventResponseEventResource) GetIdOk() (*string, bool) {
 
 // HasId returns a boolean if a field has been set.
 func (o *EventResponseEventResource) HasId() bool {
-	if o != nil && o.Id != nil {
+	if o != nil && !IsNil(o.Id) {
 		return true
 	}
 
@@ -105,7 +108,7 @@ func (o *EventResponseEventResource) SetId(v string) {
 
 // GetType returns the Type field value if set, zero value otherwise.
 func (o *EventResponseEventResource) GetType() string {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		var ret string
 		return ret
 	}
@@ -115,7 +118,7 @@ func (o *EventResponseEventResource) GetType() string {
 // GetTypeOk returns a tuple with the Type field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *EventResponseEventResource) GetTypeOk() (*string, bool) {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		return nil, false
 	}
 	return o.Type, true
@@ -123,7 +126,7 @@ func (o *EventResponseEventResource) GetTypeOk() (*string, bool) {
 
 // HasType returns a boolean if a field has been set.
 func (o *EventResponseEventResource) HasType() bool {
-	if o != nil && o.Type != nil {
+	if o != nil && !IsNil(o.Type) {
 		return true
 	}
 
@@ -136,17 +139,25 @@ func (o *EventResponseEventResource) SetType(v string) {
 }
 
 func (o EventResponseEventResource) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.AccountName != nil {
-		toSerialize["account_name"] = o.AccountName
-	}
-	if o.Id != nil {
-		toSerialize["id"] = o.Id
-	}
-	if o.Type != nil {
-		toSerialize["type"] = o.Type
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o EventResponseEventResource) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.AccountName) {
+		toSerialize["account_name"] = o.AccountName
+	}
+	if !IsNil(o.Id) {
+		toSerialize["id"] = o.Id
+	}
+	if !IsNil(o.Type) {
+		toSerialize["type"] = o.Type
+	}
+	return toSerialize, nil
 }
 
 type NullableEventResponseEventResource struct {

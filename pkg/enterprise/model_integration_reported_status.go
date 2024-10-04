@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the IntegrationReportedStatus type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &IntegrationReportedStatus{}
+
 // IntegrationReportedStatus Status of the integration as perceived by the integration instance itself
 type IntegrationReportedStatus struct {
 	State *IntegrationHealthState `json:"state,omitempty"`
@@ -41,7 +44,7 @@ func NewIntegrationReportedStatusWithDefaults() *IntegrationReportedStatus {
 
 // GetState returns the State field value if set, zero value otherwise.
 func (o *IntegrationReportedStatus) GetState() IntegrationHealthState {
-	if o == nil || o.State == nil {
+	if o == nil || IsNil(o.State) {
 		var ret IntegrationHealthState
 		return ret
 	}
@@ -51,7 +54,7 @@ func (o *IntegrationReportedStatus) GetState() IntegrationHealthState {
 // GetStateOk returns a tuple with the State field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *IntegrationReportedStatus) GetStateOk() (*IntegrationHealthState, bool) {
-	if o == nil || o.State == nil {
+	if o == nil || IsNil(o.State) {
 		return nil, false
 	}
 	return o.State, true
@@ -59,7 +62,7 @@ func (o *IntegrationReportedStatus) GetStateOk() (*IntegrationHealthState, bool)
 
 // HasState returns a boolean if a field has been set.
 func (o *IntegrationReportedStatus) HasState() bool {
-	if o != nil && o.State != nil {
+	if o != nil && !IsNil(o.State) {
 		return true
 	}
 
@@ -73,7 +76,7 @@ func (o *IntegrationReportedStatus) SetState(v IntegrationHealthState) {
 
 // GetReason returns the Reason field value if set, zero value otherwise.
 func (o *IntegrationReportedStatus) GetReason() string {
-	if o == nil || o.Reason == nil {
+	if o == nil || IsNil(o.Reason) {
 		var ret string
 		return ret
 	}
@@ -83,7 +86,7 @@ func (o *IntegrationReportedStatus) GetReason() string {
 // GetReasonOk returns a tuple with the Reason field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *IntegrationReportedStatus) GetReasonOk() (*string, bool) {
-	if o == nil || o.Reason == nil {
+	if o == nil || IsNil(o.Reason) {
 		return nil, false
 	}
 	return o.Reason, true
@@ -91,7 +94,7 @@ func (o *IntegrationReportedStatus) GetReasonOk() (*string, bool) {
 
 // HasReason returns a boolean if a field has been set.
 func (o *IntegrationReportedStatus) HasReason() bool {
-	if o != nil && o.Reason != nil {
+	if o != nil && !IsNil(o.Reason) {
 		return true
 	}
 
@@ -105,7 +108,7 @@ func (o *IntegrationReportedStatus) SetReason(v string) {
 
 // GetDetails returns the Details field value if set, zero value otherwise.
 func (o *IntegrationReportedStatus) GetDetails() interface{} {
-	if o == nil || o.Details == nil {
+	if o == nil || IsNil(o.Details) {
 		var ret interface{}
 		return ret
 	}
@@ -115,7 +118,7 @@ func (o *IntegrationReportedStatus) GetDetails() interface{} {
 // GetDetailsOk returns a tuple with the Details field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *IntegrationReportedStatus) GetDetailsOk() (interface{}, bool) {
-	if o == nil || o.Details == nil {
+	if o == nil || IsNil(o.Details) {
 		return nil, false
 	}
 	return o.Details, true
@@ -123,7 +126,7 @@ func (o *IntegrationReportedStatus) GetDetailsOk() (interface{}, bool) {
 
 // HasDetails returns a boolean if a field has been set.
 func (o *IntegrationReportedStatus) HasDetails() bool {
-	if o != nil && o.Details != nil {
+	if o != nil && !IsNil(o.Details) {
 		return true
 	}
 
@@ -136,17 +139,25 @@ func (o *IntegrationReportedStatus) SetDetails(v interface{}) {
 }
 
 func (o IntegrationReportedStatus) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.State != nil {
-		toSerialize["state"] = o.State
-	}
-	if o.Reason != nil {
-		toSerialize["reason"] = o.Reason
-	}
-	if o.Details != nil {
-		toSerialize["details"] = o.Details
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o IntegrationReportedStatus) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.State) {
+		toSerialize["state"] = o.State
+	}
+	if !IsNil(o.Reason) {
+		toSerialize["reason"] = o.Reason
+	}
+	if !IsNil(o.Details) {
+		toSerialize["details"] = o.Details
+	}
+	return toSerialize, nil
 }
 
 type NullableIntegrationReportedStatus struct {

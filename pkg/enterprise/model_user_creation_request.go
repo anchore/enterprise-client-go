@@ -13,19 +13,26 @@ package enterprise
 
 import (
 	"encoding/json"
+	"bytes"
+	"fmt"
 )
+
+// checks if the UserCreationRequest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &UserCreationRequest{}
 
 // UserCreationRequest A payload for creating a new user, includes the username and password in a single request
 type UserCreationRequest struct {
 	// The username for authentication. If the user_type is 'native', this name must not contain a colon character as per RFC 2617 (HTTP Basic and Digest Authentication). If the user_type is 'saml', then colons are allowed in the name since HTTP Basic auth is not used for that user type.
-	Username string `json:"username"`
+	Username string "json:\"username\" validate:\"regexp=^[a-zA-Z0-9][ a-zA-Z0-9@.!#$+=^_`~;:-]{1,126}[a-zA-Z0-9_]$\""
 	// The initial password for the user, must be at least 6 characters, up to 128. This must be null when the user_type is not 'native'.
-	Password *string `json:"password,omitempty"`
+	Password *string `json:"password,omitempty" validate:"regexp=.{6,128}$"`
 	// The user's type. A Native user authenticates using user/password log on. All other users will authenticate with an IDP.
 	UserType *string `json:"user_type,omitempty"`
 	// If the user is authenticating via an IDP, this is the name of the IDP. A 'native' user should have this set to null.
 	IdpName *string `json:"idp_name,omitempty"`
 }
+
+type _UserCreationRequest UserCreationRequest
 
 // NewUserCreationRequest instantiates a new UserCreationRequest object
 // This constructor will assign default values to properties that have it defined,
@@ -71,7 +78,7 @@ func (o *UserCreationRequest) SetUsername(v string) {
 
 // GetPassword returns the Password field value if set, zero value otherwise.
 func (o *UserCreationRequest) GetPassword() string {
-	if o == nil || o.Password == nil {
+	if o == nil || IsNil(o.Password) {
 		var ret string
 		return ret
 	}
@@ -81,7 +88,7 @@ func (o *UserCreationRequest) GetPassword() string {
 // GetPasswordOk returns a tuple with the Password field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserCreationRequest) GetPasswordOk() (*string, bool) {
-	if o == nil || o.Password == nil {
+	if o == nil || IsNil(o.Password) {
 		return nil, false
 	}
 	return o.Password, true
@@ -89,7 +96,7 @@ func (o *UserCreationRequest) GetPasswordOk() (*string, bool) {
 
 // HasPassword returns a boolean if a field has been set.
 func (o *UserCreationRequest) HasPassword() bool {
-	if o != nil && o.Password != nil {
+	if o != nil && !IsNil(o.Password) {
 		return true
 	}
 
@@ -103,7 +110,7 @@ func (o *UserCreationRequest) SetPassword(v string) {
 
 // GetUserType returns the UserType field value if set, zero value otherwise.
 func (o *UserCreationRequest) GetUserType() string {
-	if o == nil || o.UserType == nil {
+	if o == nil || IsNil(o.UserType) {
 		var ret string
 		return ret
 	}
@@ -113,7 +120,7 @@ func (o *UserCreationRequest) GetUserType() string {
 // GetUserTypeOk returns a tuple with the UserType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserCreationRequest) GetUserTypeOk() (*string, bool) {
-	if o == nil || o.UserType == nil {
+	if o == nil || IsNil(o.UserType) {
 		return nil, false
 	}
 	return o.UserType, true
@@ -121,7 +128,7 @@ func (o *UserCreationRequest) GetUserTypeOk() (*string, bool) {
 
 // HasUserType returns a boolean if a field has been set.
 func (o *UserCreationRequest) HasUserType() bool {
-	if o != nil && o.UserType != nil {
+	if o != nil && !IsNil(o.UserType) {
 		return true
 	}
 
@@ -135,7 +142,7 @@ func (o *UserCreationRequest) SetUserType(v string) {
 
 // GetIdpName returns the IdpName field value if set, zero value otherwise.
 func (o *UserCreationRequest) GetIdpName() string {
-	if o == nil || o.IdpName == nil {
+	if o == nil || IsNil(o.IdpName) {
 		var ret string
 		return ret
 	}
@@ -145,7 +152,7 @@ func (o *UserCreationRequest) GetIdpName() string {
 // GetIdpNameOk returns a tuple with the IdpName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserCreationRequest) GetIdpNameOk() (*string, bool) {
-	if o == nil || o.IdpName == nil {
+	if o == nil || IsNil(o.IdpName) {
 		return nil, false
 	}
 	return o.IdpName, true
@@ -153,7 +160,7 @@ func (o *UserCreationRequest) GetIdpNameOk() (*string, bool) {
 
 // HasIdpName returns a boolean if a field has been set.
 func (o *UserCreationRequest) HasIdpName() bool {
-	if o != nil && o.IdpName != nil {
+	if o != nil && !IsNil(o.IdpName) {
 		return true
 	}
 
@@ -166,20 +173,63 @@ func (o *UserCreationRequest) SetIdpName(v string) {
 }
 
 func (o UserCreationRequest) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["username"] = o.Username
-	}
-	if o.Password != nil {
-		toSerialize["password"] = o.Password
-	}
-	if o.UserType != nil {
-		toSerialize["user_type"] = o.UserType
-	}
-	if o.IdpName != nil {
-		toSerialize["idp_name"] = o.IdpName
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o UserCreationRequest) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["username"] = o.Username
+	if !IsNil(o.Password) {
+		toSerialize["password"] = o.Password
+	}
+	if !IsNil(o.UserType) {
+		toSerialize["user_type"] = o.UserType
+	}
+	if !IsNil(o.IdpName) {
+		toSerialize["idp_name"] = o.IdpName
+	}
+	return toSerialize, nil
+}
+
+func (o *UserCreationRequest) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"username",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varUserCreationRequest := _UserCreationRequest{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varUserCreationRequest)
+
+	if err != nil {
+		return err
+	}
+
+	*o = UserCreationRequest(varUserCreationRequest)
+
+	return err
 }
 
 type NullableUserCreationRequest struct {

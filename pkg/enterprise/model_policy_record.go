@@ -14,7 +14,12 @@ package enterprise
 import (
 	"encoding/json"
 	"time"
+	"bytes"
+	"fmt"
 )
+
+// checks if the PolicyRecord type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PolicyRecord{}
 
 // PolicyRecord A policy plus some metadata
 type PolicyRecord struct {
@@ -28,12 +33,14 @@ type PolicyRecord struct {
 	AccountName string `json:"account_name"`
 	// Source location of where the policy originated
 	PolicySource string `json:"policy_source"`
-	Policy *PolicyRecordPolicy `json:"policy,omitempty"`
+	Policy NullablePolicy `json:"policy,omitempty"`
 	// Name of the policy
 	Name string `json:"name"`
 	// Description of the policy, human readable
 	Description *string `json:"description,omitempty"`
 }
+
+type _PolicyRecord PolicyRecord
 
 // NewPolicyRecord instantiates a new PolicyRecord object
 // This constructor will assign default values to properties that have it defined,
@@ -59,7 +66,7 @@ func NewPolicyRecordWithDefaults() *PolicyRecord {
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
 func (o *PolicyRecord) GetCreatedAt() time.Time {
-	if o == nil || o.CreatedAt == nil {
+	if o == nil || IsNil(o.CreatedAt) {
 		var ret time.Time
 		return ret
 	}
@@ -69,7 +76,7 @@ func (o *PolicyRecord) GetCreatedAt() time.Time {
 // GetCreatedAtOk returns a tuple with the CreatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PolicyRecord) GetCreatedAtOk() (*time.Time, bool) {
-	if o == nil || o.CreatedAt == nil {
+	if o == nil || IsNil(o.CreatedAt) {
 		return nil, false
 	}
 	return o.CreatedAt, true
@@ -77,7 +84,7 @@ func (o *PolicyRecord) GetCreatedAtOk() (*time.Time, bool) {
 
 // HasCreatedAt returns a boolean if a field has been set.
 func (o *PolicyRecord) HasCreatedAt() bool {
-	if o != nil && o.CreatedAt != nil {
+	if o != nil && !IsNil(o.CreatedAt) {
 		return true
 	}
 
@@ -91,7 +98,7 @@ func (o *PolicyRecord) SetCreatedAt(v time.Time) {
 
 // GetLastUpdated returns the LastUpdated field value if set, zero value otherwise.
 func (o *PolicyRecord) GetLastUpdated() time.Time {
-	if o == nil || o.LastUpdated == nil {
+	if o == nil || IsNil(o.LastUpdated) {
 		var ret time.Time
 		return ret
 	}
@@ -101,7 +108,7 @@ func (o *PolicyRecord) GetLastUpdated() time.Time {
 // GetLastUpdatedOk returns a tuple with the LastUpdated field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PolicyRecord) GetLastUpdatedOk() (*time.Time, bool) {
-	if o == nil || o.LastUpdated == nil {
+	if o == nil || IsNil(o.LastUpdated) {
 		return nil, false
 	}
 	return o.LastUpdated, true
@@ -109,7 +116,7 @@ func (o *PolicyRecord) GetLastUpdatedOk() (*time.Time, bool) {
 
 // HasLastUpdated returns a boolean if a field has been set.
 func (o *PolicyRecord) HasLastUpdated() bool {
-	if o != nil && o.LastUpdated != nil {
+	if o != nil && !IsNil(o.LastUpdated) {
 		return true
 	}
 
@@ -217,36 +224,46 @@ func (o *PolicyRecord) SetPolicySource(v string) {
 	o.PolicySource = v
 }
 
-// GetPolicy returns the Policy field value if set, zero value otherwise.
-func (o *PolicyRecord) GetPolicy() PolicyRecordPolicy {
-	if o == nil || o.Policy == nil {
-		var ret PolicyRecordPolicy
+// GetPolicy returns the Policy field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *PolicyRecord) GetPolicy() Policy {
+	if o == nil || IsNil(o.Policy.Get()) {
+		var ret Policy
 		return ret
 	}
-	return *o.Policy
+	return *o.Policy.Get()
 }
 
 // GetPolicyOk returns a tuple with the Policy field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *PolicyRecord) GetPolicyOk() (*PolicyRecordPolicy, bool) {
-	if o == nil || o.Policy == nil {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *PolicyRecord) GetPolicyOk() (*Policy, bool) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Policy, true
+	return o.Policy.Get(), o.Policy.IsSet()
 }
 
 // HasPolicy returns a boolean if a field has been set.
 func (o *PolicyRecord) HasPolicy() bool {
-	if o != nil && o.Policy != nil {
+	if o != nil && o.Policy.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetPolicy gets a reference to the given PolicyRecordPolicy and assigns it to the Policy field.
-func (o *PolicyRecord) SetPolicy(v PolicyRecordPolicy) {
-	o.Policy = &v
+// SetPolicy gets a reference to the given NullablePolicy and assigns it to the Policy field.
+func (o *PolicyRecord) SetPolicy(v Policy) {
+	o.Policy.Set(&v)
+}
+// SetPolicyNil sets the value for Policy to be an explicit nil
+func (o *PolicyRecord) SetPolicyNil() {
+	o.Policy.Set(nil)
+}
+
+// UnsetPolicy ensures that no value is present for Policy, not even an explicit nil
+func (o *PolicyRecord) UnsetPolicy() {
+	o.Policy.Unset()
 }
 
 // GetName returns the Name field value
@@ -275,7 +292,7 @@ func (o *PolicyRecord) SetName(v string) {
 
 // GetDescription returns the Description field value if set, zero value otherwise.
 func (o *PolicyRecord) GetDescription() string {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		var ret string
 		return ret
 	}
@@ -285,7 +302,7 @@ func (o *PolicyRecord) GetDescription() string {
 // GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PolicyRecord) GetDescriptionOk() (*string, bool) {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		return nil, false
 	}
 	return o.Description, true
@@ -293,7 +310,7 @@ func (o *PolicyRecord) GetDescriptionOk() (*string, bool) {
 
 // HasDescription returns a boolean if a field has been set.
 func (o *PolicyRecord) HasDescription() bool {
-	if o != nil && o.Description != nil {
+	if o != nil && !IsNil(o.Description) {
 		return true
 	}
 
@@ -306,35 +323,74 @@ func (o *PolicyRecord) SetDescription(v string) {
 }
 
 func (o PolicyRecord) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.CreatedAt != nil {
-		toSerialize["created_at"] = o.CreatedAt
-	}
-	if o.LastUpdated != nil {
-		toSerialize["last_updated"] = o.LastUpdated
-	}
-	if true {
-		toSerialize["policy_id"] = o.PolicyId
-	}
-	if true {
-		toSerialize["active"] = o.Active
-	}
-	if true {
-		toSerialize["account_name"] = o.AccountName
-	}
-	if true {
-		toSerialize["policy_source"] = o.PolicySource
-	}
-	if o.Policy != nil {
-		toSerialize["policy"] = o.Policy
-	}
-	if true {
-		toSerialize["name"] = o.Name
-	}
-	if o.Description != nil {
-		toSerialize["description"] = o.Description
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o PolicyRecord) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.CreatedAt) {
+		toSerialize["created_at"] = o.CreatedAt
+	}
+	if !IsNil(o.LastUpdated) {
+		toSerialize["last_updated"] = o.LastUpdated
+	}
+	toSerialize["policy_id"] = o.PolicyId
+	toSerialize["active"] = o.Active
+	toSerialize["account_name"] = o.AccountName
+	toSerialize["policy_source"] = o.PolicySource
+	if o.Policy.IsSet() {
+		toSerialize["policy"] = o.Policy.Get()
+	}
+	toSerialize["name"] = o.Name
+	if !IsNil(o.Description) {
+		toSerialize["description"] = o.Description
+	}
+	return toSerialize, nil
+}
+
+func (o *PolicyRecord) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"policy_id",
+		"active",
+		"account_name",
+		"policy_source",
+		"name",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varPolicyRecord := _PolicyRecord{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varPolicyRecord)
+
+	if err != nil {
+		return err
+	}
+
+	*o = PolicyRecord(varPolicyRecord)
+
+	return err
 }
 
 type NullablePolicyRecord struct {

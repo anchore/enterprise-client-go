@@ -13,7 +13,12 @@ package enterprise
 
 import (
 	"encoding/json"
+	"bytes"
+	"fmt"
 )
+
+// checks if the Policy type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &Policy{}
 
 // Policy A policy containing a rule-set, allowlists, and rules for mapping them to specific images
 type Policy struct {
@@ -40,6 +45,8 @@ type Policy struct {
 	// The time at which the policy was last updated, informational only
 	LastUpdated *float32 `json:"last_updated,omitempty"`
 }
+
+type _Policy Policy
 
 // NewPolicy instantiates a new Policy object
 // This constructor will assign default values to properties that have it defined,
@@ -113,7 +120,7 @@ func (o *Policy) SetName(v string) {
 
 // GetDescription returns the Description field value if set, zero value otherwise.
 func (o *Policy) GetDescription() string {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		var ret string
 		return ret
 	}
@@ -123,7 +130,7 @@ func (o *Policy) GetDescription() string {
 // GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Policy) GetDescriptionOk() (*string, bool) {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		return nil, false
 	}
 	return o.Description, true
@@ -131,7 +138,7 @@ func (o *Policy) GetDescriptionOk() (*string, bool) {
 
 // HasDescription returns a boolean if a field has been set.
 func (o *Policy) HasDescription() bool {
-	if o != nil && o.Description != nil {
+	if o != nil && !IsNil(o.Description) {
 		return true
 	}
 
@@ -169,7 +176,7 @@ func (o *Policy) SetVersion(v string) {
 
 // GetAllowlists returns the Allowlists field value if set, zero value otherwise.
 func (o *Policy) GetAllowlists() []Allowlist {
-	if o == nil || o.Allowlists == nil {
+	if o == nil || IsNil(o.Allowlists) {
 		var ret []Allowlist
 		return ret
 	}
@@ -179,7 +186,7 @@ func (o *Policy) GetAllowlists() []Allowlist {
 // GetAllowlistsOk returns a tuple with the Allowlists field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Policy) GetAllowlistsOk() ([]Allowlist, bool) {
-	if o == nil || o.Allowlists == nil {
+	if o == nil || IsNil(o.Allowlists) {
 		return nil, false
 	}
 	return o.Allowlists, true
@@ -187,7 +194,7 @@ func (o *Policy) GetAllowlistsOk() ([]Allowlist, bool) {
 
 // HasAllowlists returns a boolean if a field has been set.
 func (o *Policy) HasAllowlists() bool {
-	if o != nil && o.Allowlists != nil {
+	if o != nil && !IsNil(o.Allowlists) {
 		return true
 	}
 
@@ -225,7 +232,7 @@ func (o *Policy) SetRuleSets(v []RuleSet) {
 
 // GetSourceMappings returns the SourceMappings field value if set, zero value otherwise.
 func (o *Policy) GetSourceMappings() []SourceMappingRule {
-	if o == nil || o.SourceMappings == nil {
+	if o == nil || IsNil(o.SourceMappings) {
 		var ret []SourceMappingRule
 		return ret
 	}
@@ -235,7 +242,7 @@ func (o *Policy) GetSourceMappings() []SourceMappingRule {
 // GetSourceMappingsOk returns a tuple with the SourceMappings field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Policy) GetSourceMappingsOk() ([]SourceMappingRule, bool) {
-	if o == nil || o.SourceMappings == nil {
+	if o == nil || IsNil(o.SourceMappings) {
 		return nil, false
 	}
 	return o.SourceMappings, true
@@ -243,7 +250,7 @@ func (o *Policy) GetSourceMappingsOk() ([]SourceMappingRule, bool) {
 
 // HasSourceMappings returns a boolean if a field has been set.
 func (o *Policy) HasSourceMappings() bool {
-	if o != nil && o.SourceMappings != nil {
+	if o != nil && !IsNil(o.SourceMappings) {
 		return true
 	}
 
@@ -281,7 +288,7 @@ func (o *Policy) SetMappings(v []MappingRule) {
 
 // GetAllowlistedImages returns the AllowlistedImages field value if set, zero value otherwise.
 func (o *Policy) GetAllowlistedImages() []ImageSelectionRule {
-	if o == nil || o.AllowlistedImages == nil {
+	if o == nil || IsNil(o.AllowlistedImages) {
 		var ret []ImageSelectionRule
 		return ret
 	}
@@ -291,7 +298,7 @@ func (o *Policy) GetAllowlistedImages() []ImageSelectionRule {
 // GetAllowlistedImagesOk returns a tuple with the AllowlistedImages field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Policy) GetAllowlistedImagesOk() ([]ImageSelectionRule, bool) {
-	if o == nil || o.AllowlistedImages == nil {
+	if o == nil || IsNil(o.AllowlistedImages) {
 		return nil, false
 	}
 	return o.AllowlistedImages, true
@@ -299,7 +306,7 @@ func (o *Policy) GetAllowlistedImagesOk() ([]ImageSelectionRule, bool) {
 
 // HasAllowlistedImages returns a boolean if a field has been set.
 func (o *Policy) HasAllowlistedImages() bool {
-	if o != nil && o.AllowlistedImages != nil {
+	if o != nil && !IsNil(o.AllowlistedImages) {
 		return true
 	}
 
@@ -313,7 +320,7 @@ func (o *Policy) SetAllowlistedImages(v []ImageSelectionRule) {
 
 // GetDenylistedImages returns the DenylistedImages field value if set, zero value otherwise.
 func (o *Policy) GetDenylistedImages() []ImageSelectionRule {
-	if o == nil || o.DenylistedImages == nil {
+	if o == nil || IsNil(o.DenylistedImages) {
 		var ret []ImageSelectionRule
 		return ret
 	}
@@ -323,7 +330,7 @@ func (o *Policy) GetDenylistedImages() []ImageSelectionRule {
 // GetDenylistedImagesOk returns a tuple with the DenylistedImages field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Policy) GetDenylistedImagesOk() ([]ImageSelectionRule, bool) {
-	if o == nil || o.DenylistedImages == nil {
+	if o == nil || IsNil(o.DenylistedImages) {
 		return nil, false
 	}
 	return o.DenylistedImages, true
@@ -331,7 +338,7 @@ func (o *Policy) GetDenylistedImagesOk() ([]ImageSelectionRule, bool) {
 
 // HasDenylistedImages returns a boolean if a field has been set.
 func (o *Policy) HasDenylistedImages() bool {
-	if o != nil && o.DenylistedImages != nil {
+	if o != nil && !IsNil(o.DenylistedImages) {
 		return true
 	}
 
@@ -345,7 +352,7 @@ func (o *Policy) SetDenylistedImages(v []ImageSelectionRule) {
 
 // GetLastUpdated returns the LastUpdated field value if set, zero value otherwise.
 func (o *Policy) GetLastUpdated() float32 {
-	if o == nil || o.LastUpdated == nil {
+	if o == nil || IsNil(o.LastUpdated) {
 		var ret float32
 		return ret
 	}
@@ -355,7 +362,7 @@ func (o *Policy) GetLastUpdated() float32 {
 // GetLastUpdatedOk returns a tuple with the LastUpdated field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Policy) GetLastUpdatedOk() (*float32, bool) {
-	if o == nil || o.LastUpdated == nil {
+	if o == nil || IsNil(o.LastUpdated) {
 		return nil, false
 	}
 	return o.LastUpdated, true
@@ -363,7 +370,7 @@ func (o *Policy) GetLastUpdatedOk() (*float32, bool) {
 
 // HasLastUpdated returns a boolean if a field has been set.
 func (o *Policy) HasLastUpdated() bool {
-	if o != nil && o.LastUpdated != nil {
+	if o != nil && !IsNil(o.LastUpdated) {
 		return true
 	}
 
@@ -376,41 +383,80 @@ func (o *Policy) SetLastUpdated(v float32) {
 }
 
 func (o Policy) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["id"] = o.Id
-	}
-	if true {
-		toSerialize["name"] = o.Name
-	}
-	if o.Description != nil {
-		toSerialize["description"] = o.Description
-	}
-	if true {
-		toSerialize["version"] = o.Version
-	}
-	if o.Allowlists != nil {
-		toSerialize["allowlists"] = o.Allowlists
-	}
-	if true {
-		toSerialize["rule_sets"] = o.RuleSets
-	}
-	if o.SourceMappings != nil {
-		toSerialize["source_mappings"] = o.SourceMappings
-	}
-	if true {
-		toSerialize["mappings"] = o.Mappings
-	}
-	if o.AllowlistedImages != nil {
-		toSerialize["allowlisted_images"] = o.AllowlistedImages
-	}
-	if o.DenylistedImages != nil {
-		toSerialize["denylisted_images"] = o.DenylistedImages
-	}
-	if o.LastUpdated != nil {
-		toSerialize["last_updated"] = o.LastUpdated
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o Policy) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["id"] = o.Id
+	toSerialize["name"] = o.Name
+	if !IsNil(o.Description) {
+		toSerialize["description"] = o.Description
+	}
+	toSerialize["version"] = o.Version
+	if !IsNil(o.Allowlists) {
+		toSerialize["allowlists"] = o.Allowlists
+	}
+	toSerialize["rule_sets"] = o.RuleSets
+	if !IsNil(o.SourceMappings) {
+		toSerialize["source_mappings"] = o.SourceMappings
+	}
+	toSerialize["mappings"] = o.Mappings
+	if !IsNil(o.AllowlistedImages) {
+		toSerialize["allowlisted_images"] = o.AllowlistedImages
+	}
+	if !IsNil(o.DenylistedImages) {
+		toSerialize["denylisted_images"] = o.DenylistedImages
+	}
+	if !IsNil(o.LastUpdated) {
+		toSerialize["last_updated"] = o.LastUpdated
+	}
+	return toSerialize, nil
+}
+
+func (o *Policy) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"id",
+		"name",
+		"version",
+		"rule_sets",
+		"mappings",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varPolicy := _Policy{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varPolicy)
+
+	if err != nil {
+		return err
+	}
+
+	*o = Policy(varPolicy)
+
+	return err
 }
 
 type NullablePolicy struct {

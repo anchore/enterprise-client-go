@@ -13,13 +13,20 @@ package enterprise
 
 import (
 	"encoding/json"
+	"bytes"
+	"fmt"
 )
+
+// checks if the ImageImportContentSearch type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ImageImportContentSearch{}
 
 // ImageImportContentSearch struct for ImageImportContentSearch
 type ImageImportContentSearch struct {
 	Location ImportPackageLocation `json:"location"`
 	ContentSearches []ImportContentSearchElement `json:"content_searches"`
 }
+
+type _ImageImportContentSearch ImageImportContentSearch
 
 // NewImageImportContentSearch instantiates a new ImageImportContentSearch object
 // This constructor will assign default values to properties that have it defined,
@@ -89,14 +96,56 @@ func (o *ImageImportContentSearch) SetContentSearches(v []ImportContentSearchEle
 }
 
 func (o ImageImportContentSearch) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["location"] = o.Location
-	}
-	if true {
-		toSerialize["content_searches"] = o.ContentSearches
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o ImageImportContentSearch) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["location"] = o.Location
+	toSerialize["content_searches"] = o.ContentSearches
+	return toSerialize, nil
+}
+
+func (o *ImageImportContentSearch) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"location",
+		"content_searches",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varImageImportContentSearch := _ImageImportContentSearch{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varImageImportContentSearch)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ImageImportContentSearch(varImageImportContentSearch)
+
+	return err
 }
 
 type NullableImageImportContentSearch struct {

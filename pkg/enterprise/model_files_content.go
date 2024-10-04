@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the FilesContent type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &FilesContent{}
+
 // FilesContent struct for FilesContent
 type FilesContent struct {
 	Filename *string `json:"filename,omitempty"`
@@ -46,7 +49,7 @@ func NewFilesContentWithDefaults() *FilesContent {
 
 // GetFilename returns the Filename field value if set, zero value otherwise.
 func (o *FilesContent) GetFilename() string {
-	if o == nil || o.Filename == nil {
+	if o == nil || IsNil(o.Filename) {
 		var ret string
 		return ret
 	}
@@ -56,7 +59,7 @@ func (o *FilesContent) GetFilename() string {
 // GetFilenameOk returns a tuple with the Filename field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *FilesContent) GetFilenameOk() (*string, bool) {
-	if o == nil || o.Filename == nil {
+	if o == nil || IsNil(o.Filename) {
 		return nil, false
 	}
 	return o.Filename, true
@@ -64,7 +67,7 @@ func (o *FilesContent) GetFilenameOk() (*string, bool) {
 
 // HasFilename returns a boolean if a field has been set.
 func (o *FilesContent) HasFilename() bool {
-	if o != nil && o.Filename != nil {
+	if o != nil && !IsNil(o.Filename) {
 		return true
 	}
 
@@ -78,7 +81,7 @@ func (o *FilesContent) SetFilename(v string) {
 
 // GetGid returns the Gid field value if set, zero value otherwise.
 func (o *FilesContent) GetGid() int32 {
-	if o == nil || o.Gid == nil {
+	if o == nil || IsNil(o.Gid) {
 		var ret int32
 		return ret
 	}
@@ -88,7 +91,7 @@ func (o *FilesContent) GetGid() int32 {
 // GetGidOk returns a tuple with the Gid field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *FilesContent) GetGidOk() (*int32, bool) {
-	if o == nil || o.Gid == nil {
+	if o == nil || IsNil(o.Gid) {
 		return nil, false
 	}
 	return o.Gid, true
@@ -96,7 +99,7 @@ func (o *FilesContent) GetGidOk() (*int32, bool) {
 
 // HasGid returns a boolean if a field has been set.
 func (o *FilesContent) HasGid() bool {
-	if o != nil && o.Gid != nil {
+	if o != nil && !IsNil(o.Gid) {
 		return true
 	}
 
@@ -110,7 +113,7 @@ func (o *FilesContent) SetGid(v int32) {
 
 // GetLinkdest returns the Linkdest field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *FilesContent) GetLinkdest() string {
-	if o == nil || o.Linkdest.Get() == nil {
+	if o == nil || IsNil(o.Linkdest.Get()) {
 		var ret string
 		return ret
 	}
@@ -152,7 +155,7 @@ func (o *FilesContent) UnsetLinkdest() {
 
 // GetMode returns the Mode field value if set, zero value otherwise.
 func (o *FilesContent) GetMode() string {
-	if o == nil || o.Mode == nil {
+	if o == nil || IsNil(o.Mode) {
 		var ret string
 		return ret
 	}
@@ -162,7 +165,7 @@ func (o *FilesContent) GetMode() string {
 // GetModeOk returns a tuple with the Mode field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *FilesContent) GetModeOk() (*string, bool) {
-	if o == nil || o.Mode == nil {
+	if o == nil || IsNil(o.Mode) {
 		return nil, false
 	}
 	return o.Mode, true
@@ -170,7 +173,7 @@ func (o *FilesContent) GetModeOk() (*string, bool) {
 
 // HasMode returns a boolean if a field has been set.
 func (o *FilesContent) HasMode() bool {
-	if o != nil && o.Mode != nil {
+	if o != nil && !IsNil(o.Mode) {
 		return true
 	}
 
@@ -184,7 +187,7 @@ func (o *FilesContent) SetMode(v string) {
 
 // GetSha256 returns the Sha256 field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *FilesContent) GetSha256() string {
-	if o == nil || o.Sha256.Get() == nil {
+	if o == nil || IsNil(o.Sha256.Get()) {
 		var ret string
 		return ret
 	}
@@ -226,7 +229,7 @@ func (o *FilesContent) UnsetSha256() {
 
 // GetSize returns the Size field value if set, zero value otherwise.
 func (o *FilesContent) GetSize() int32 {
-	if o == nil || o.Size == nil {
+	if o == nil || IsNil(o.Size) {
 		var ret int32
 		return ret
 	}
@@ -236,7 +239,7 @@ func (o *FilesContent) GetSize() int32 {
 // GetSizeOk returns a tuple with the Size field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *FilesContent) GetSizeOk() (*int32, bool) {
-	if o == nil || o.Size == nil {
+	if o == nil || IsNil(o.Size) {
 		return nil, false
 	}
 	return o.Size, true
@@ -244,7 +247,7 @@ func (o *FilesContent) GetSizeOk() (*int32, bool) {
 
 // HasSize returns a boolean if a field has been set.
 func (o *FilesContent) HasSize() bool {
-	if o != nil && o.Size != nil {
+	if o != nil && !IsNil(o.Size) {
 		return true
 	}
 
@@ -258,7 +261,7 @@ func (o *FilesContent) SetSize(v int32) {
 
 // GetType returns the Type field value if set, zero value otherwise.
 func (o *FilesContent) GetType() string {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		var ret string
 		return ret
 	}
@@ -268,7 +271,7 @@ func (o *FilesContent) GetType() string {
 // GetTypeOk returns a tuple with the Type field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *FilesContent) GetTypeOk() (*string, bool) {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		return nil, false
 	}
 	return o.Type, true
@@ -276,7 +279,7 @@ func (o *FilesContent) GetTypeOk() (*string, bool) {
 
 // HasType returns a boolean if a field has been set.
 func (o *FilesContent) HasType() bool {
-	if o != nil && o.Type != nil {
+	if o != nil && !IsNil(o.Type) {
 		return true
 	}
 
@@ -290,7 +293,7 @@ func (o *FilesContent) SetType(v string) {
 
 // GetUid returns the Uid field value if set, zero value otherwise.
 func (o *FilesContent) GetUid() int32 {
-	if o == nil || o.Uid == nil {
+	if o == nil || IsNil(o.Uid) {
 		var ret int32
 		return ret
 	}
@@ -300,7 +303,7 @@ func (o *FilesContent) GetUid() int32 {
 // GetUidOk returns a tuple with the Uid field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *FilesContent) GetUidOk() (*int32, bool) {
-	if o == nil || o.Uid == nil {
+	if o == nil || IsNil(o.Uid) {
 		return nil, false
 	}
 	return o.Uid, true
@@ -308,7 +311,7 @@ func (o *FilesContent) GetUidOk() (*int32, bool) {
 
 // HasUid returns a boolean if a field has been set.
 func (o *FilesContent) HasUid() bool {
-	if o != nil && o.Uid != nil {
+	if o != nil && !IsNil(o.Uid) {
 		return true
 	}
 
@@ -321,32 +324,40 @@ func (o *FilesContent) SetUid(v int32) {
 }
 
 func (o FilesContent) MarshalJSON() ([]byte, error) {
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o FilesContent) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Filename != nil {
+	if !IsNil(o.Filename) {
 		toSerialize["filename"] = o.Filename
 	}
-	if o.Gid != nil {
+	if !IsNil(o.Gid) {
 		toSerialize["gid"] = o.Gid
 	}
 	if o.Linkdest.IsSet() {
 		toSerialize["linkdest"] = o.Linkdest.Get()
 	}
-	if o.Mode != nil {
+	if !IsNil(o.Mode) {
 		toSerialize["mode"] = o.Mode
 	}
 	if o.Sha256.IsSet() {
 		toSerialize["sha256"] = o.Sha256.Get()
 	}
-	if o.Size != nil {
+	if !IsNil(o.Size) {
 		toSerialize["size"] = o.Size
 	}
-	if o.Type != nil {
+	if !IsNil(o.Type) {
 		toSerialize["type"] = o.Type
 	}
-	if o.Uid != nil {
+	if !IsNil(o.Uid) {
 		toSerialize["uid"] = o.Uid
 	}
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
 type NullableFilesContent struct {

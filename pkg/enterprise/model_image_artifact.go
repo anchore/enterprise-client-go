@@ -16,6 +16,9 @@ import (
 	"time"
 )
 
+// checks if the ImageArtifact type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ImageArtifact{}
+
 // ImageArtifact Model for an image artifact
 type ImageArtifact struct {
 	// The account name
@@ -57,7 +60,7 @@ func NewImageArtifactWithDefaults() *ImageArtifact {
 
 // GetAccountName returns the AccountName field value if set, zero value otherwise.
 func (o *ImageArtifact) GetAccountName() string {
-	if o == nil || o.AccountName == nil {
+	if o == nil || IsNil(o.AccountName) {
 		var ret string
 		return ret
 	}
@@ -67,7 +70,7 @@ func (o *ImageArtifact) GetAccountName() string {
 // GetAccountNameOk returns a tuple with the AccountName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ImageArtifact) GetAccountNameOk() (*string, bool) {
-	if o == nil || o.AccountName == nil {
+	if o == nil || IsNil(o.AccountName) {
 		return nil, false
 	}
 	return o.AccountName, true
@@ -75,7 +78,7 @@ func (o *ImageArtifact) GetAccountNameOk() (*string, bool) {
 
 // HasAccountName returns a boolean if a field has been set.
 func (o *ImageArtifact) HasAccountName() bool {
-	if o != nil && o.AccountName != nil {
+	if o != nil && !IsNil(o.AccountName) {
 		return true
 	}
 
@@ -89,7 +92,7 @@ func (o *ImageArtifact) SetAccountName(v string) {
 
 // GetImageDigest returns the ImageDigest field value if set, zero value otherwise.
 func (o *ImageArtifact) GetImageDigest() string {
-	if o == nil || o.ImageDigest == nil {
+	if o == nil || IsNil(o.ImageDigest) {
 		var ret string
 		return ret
 	}
@@ -99,7 +102,7 @@ func (o *ImageArtifact) GetImageDigest() string {
 // GetImageDigestOk returns a tuple with the ImageDigest field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ImageArtifact) GetImageDigestOk() (*string, bool) {
-	if o == nil || o.ImageDigest == nil {
+	if o == nil || IsNil(o.ImageDigest) {
 		return nil, false
 	}
 	return o.ImageDigest, true
@@ -107,7 +110,7 @@ func (o *ImageArtifact) GetImageDigestOk() (*string, bool) {
 
 // HasImageDigest returns a boolean if a field has been set.
 func (o *ImageArtifact) HasImageDigest() bool {
-	if o != nil && o.ImageDigest != nil {
+	if o != nil && !IsNil(o.ImageDigest) {
 		return true
 	}
 
@@ -121,7 +124,7 @@ func (o *ImageArtifact) SetImageDigest(v string) {
 
 // GetDistro returns the Distro field value if set, zero value otherwise.
 func (o *ImageArtifact) GetDistro() string {
-	if o == nil || o.Distro == nil {
+	if o == nil || IsNil(o.Distro) {
 		var ret string
 		return ret
 	}
@@ -131,7 +134,7 @@ func (o *ImageArtifact) GetDistro() string {
 // GetDistroOk returns a tuple with the Distro field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ImageArtifact) GetDistroOk() (*string, bool) {
-	if o == nil || o.Distro == nil {
+	if o == nil || IsNil(o.Distro) {
 		return nil, false
 	}
 	return o.Distro, true
@@ -139,7 +142,7 @@ func (o *ImageArtifact) GetDistroOk() (*string, bool) {
 
 // HasDistro returns a boolean if a field has been set.
 func (o *ImageArtifact) HasDistro() bool {
-	if o != nil && o.Distro != nil {
+	if o != nil && !IsNil(o.Distro) {
 		return true
 	}
 
@@ -153,7 +156,7 @@ func (o *ImageArtifact) SetDistro(v string) {
 
 // GetDistroVersion returns the DistroVersion field value if set, zero value otherwise.
 func (o *ImageArtifact) GetDistroVersion() string {
-	if o == nil || o.DistroVersion == nil {
+	if o == nil || IsNil(o.DistroVersion) {
 		var ret string
 		return ret
 	}
@@ -163,7 +166,7 @@ func (o *ImageArtifact) GetDistroVersion() string {
 // GetDistroVersionOk returns a tuple with the DistroVersion field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ImageArtifact) GetDistroVersionOk() (*string, bool) {
-	if o == nil || o.DistroVersion == nil {
+	if o == nil || IsNil(o.DistroVersion) {
 		return nil, false
 	}
 	return o.DistroVersion, true
@@ -171,7 +174,7 @@ func (o *ImageArtifact) GetDistroVersionOk() (*string, bool) {
 
 // HasDistroVersion returns a boolean if a field has been set.
 func (o *ImageArtifact) HasDistroVersion() bool {
-	if o != nil && o.DistroVersion != nil {
+	if o != nil && !IsNil(o.DistroVersion) {
 		return true
 	}
 
@@ -185,7 +188,7 @@ func (o *ImageArtifact) SetDistroVersion(v string) {
 
 // GetAnalysisStatus returns the AnalysisStatus field value if set, zero value otherwise.
 func (o *ImageArtifact) GetAnalysisStatus() string {
-	if o == nil || o.AnalysisStatus == nil {
+	if o == nil || IsNil(o.AnalysisStatus) {
 		var ret string
 		return ret
 	}
@@ -195,7 +198,7 @@ func (o *ImageArtifact) GetAnalysisStatus() string {
 // GetAnalysisStatusOk returns a tuple with the AnalysisStatus field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ImageArtifact) GetAnalysisStatusOk() (*string, bool) {
-	if o == nil || o.AnalysisStatus == nil {
+	if o == nil || IsNil(o.AnalysisStatus) {
 		return nil, false
 	}
 	return o.AnalysisStatus, true
@@ -203,7 +206,7 @@ func (o *ImageArtifact) GetAnalysisStatusOk() (*string, bool) {
 
 // HasAnalysisStatus returns a boolean if a field has been set.
 func (o *ImageArtifact) HasAnalysisStatus() bool {
-	if o != nil && o.AnalysisStatus != nil {
+	if o != nil && !IsNil(o.AnalysisStatus) {
 		return true
 	}
 
@@ -217,7 +220,7 @@ func (o *ImageArtifact) SetAnalysisStatus(v string) {
 
 // GetImageStatus returns the ImageStatus field value if set, zero value otherwise.
 func (o *ImageArtifact) GetImageStatus() string {
-	if o == nil || o.ImageStatus == nil {
+	if o == nil || IsNil(o.ImageStatus) {
 		var ret string
 		return ret
 	}
@@ -227,7 +230,7 @@ func (o *ImageArtifact) GetImageStatus() string {
 // GetImageStatusOk returns a tuple with the ImageStatus field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ImageArtifact) GetImageStatusOk() (*string, bool) {
-	if o == nil || o.ImageStatus == nil {
+	if o == nil || IsNil(o.ImageStatus) {
 		return nil, false
 	}
 	return o.ImageStatus, true
@@ -235,7 +238,7 @@ func (o *ImageArtifact) GetImageStatusOk() (*string, bool) {
 
 // HasImageStatus returns a boolean if a field has been set.
 func (o *ImageArtifact) HasImageStatus() bool {
-	if o != nil && o.ImageStatus != nil {
+	if o != nil && !IsNil(o.ImageStatus) {
 		return true
 	}
 
@@ -249,7 +252,7 @@ func (o *ImageArtifact) SetImageStatus(v string) {
 
 // GetAnalyzedAt returns the AnalyzedAt field value if set, zero value otherwise.
 func (o *ImageArtifact) GetAnalyzedAt() time.Time {
-	if o == nil || o.AnalyzedAt == nil {
+	if o == nil || IsNil(o.AnalyzedAt) {
 		var ret time.Time
 		return ret
 	}
@@ -259,7 +262,7 @@ func (o *ImageArtifact) GetAnalyzedAt() time.Time {
 // GetAnalyzedAtOk returns a tuple with the AnalyzedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ImageArtifact) GetAnalyzedAtOk() (*time.Time, bool) {
-	if o == nil || o.AnalyzedAt == nil {
+	if o == nil || IsNil(o.AnalyzedAt) {
 		return nil, false
 	}
 	return o.AnalyzedAt, true
@@ -267,7 +270,7 @@ func (o *ImageArtifact) GetAnalyzedAtOk() (*time.Time, bool) {
 
 // HasAnalyzedAt returns a boolean if a field has been set.
 func (o *ImageArtifact) HasAnalyzedAt() bool {
-	if o != nil && o.AnalyzedAt != nil {
+	if o != nil && !IsNil(o.AnalyzedAt) {
 		return true
 	}
 
@@ -281,7 +284,7 @@ func (o *ImageArtifact) SetAnalyzedAt(v time.Time) {
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
 func (o *ImageArtifact) GetCreatedAt() time.Time {
-	if o == nil || o.CreatedAt == nil {
+	if o == nil || IsNil(o.CreatedAt) {
 		var ret time.Time
 		return ret
 	}
@@ -291,7 +294,7 @@ func (o *ImageArtifact) GetCreatedAt() time.Time {
 // GetCreatedAtOk returns a tuple with the CreatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ImageArtifact) GetCreatedAtOk() (*time.Time, bool) {
-	if o == nil || o.CreatedAt == nil {
+	if o == nil || IsNil(o.CreatedAt) {
 		return nil, false
 	}
 	return o.CreatedAt, true
@@ -299,7 +302,7 @@ func (o *ImageArtifact) GetCreatedAtOk() (*time.Time, bool) {
 
 // HasCreatedAt returns a boolean if a field has been set.
 func (o *ImageArtifact) HasCreatedAt() bool {
-	if o != nil && o.CreatedAt != nil {
+	if o != nil && !IsNil(o.CreatedAt) {
 		return true
 	}
 
@@ -313,7 +316,7 @@ func (o *ImageArtifact) SetCreatedAt(v time.Time) {
 
 // GetLastUpdated returns the LastUpdated field value if set, zero value otherwise.
 func (o *ImageArtifact) GetLastUpdated() time.Time {
-	if o == nil || o.LastUpdated == nil {
+	if o == nil || IsNil(o.LastUpdated) {
 		var ret time.Time
 		return ret
 	}
@@ -323,7 +326,7 @@ func (o *ImageArtifact) GetLastUpdated() time.Time {
 // GetLastUpdatedOk returns a tuple with the LastUpdated field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ImageArtifact) GetLastUpdatedOk() (*time.Time, bool) {
-	if o == nil || o.LastUpdated == nil {
+	if o == nil || IsNil(o.LastUpdated) {
 		return nil, false
 	}
 	return o.LastUpdated, true
@@ -331,7 +334,7 @@ func (o *ImageArtifact) GetLastUpdatedOk() (*time.Time, bool) {
 
 // HasLastUpdated returns a boolean if a field has been set.
 func (o *ImageArtifact) HasLastUpdated() bool {
-	if o != nil && o.LastUpdated != nil {
+	if o != nil && !IsNil(o.LastUpdated) {
 		return true
 	}
 
@@ -344,35 +347,43 @@ func (o *ImageArtifact) SetLastUpdated(v time.Time) {
 }
 
 func (o ImageArtifact) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.AccountName != nil {
-		toSerialize["account_name"] = o.AccountName
-	}
-	if o.ImageDigest != nil {
-		toSerialize["image_digest"] = o.ImageDigest
-	}
-	if o.Distro != nil {
-		toSerialize["distro"] = o.Distro
-	}
-	if o.DistroVersion != nil {
-		toSerialize["distro_version"] = o.DistroVersion
-	}
-	if o.AnalysisStatus != nil {
-		toSerialize["analysis_status"] = o.AnalysisStatus
-	}
-	if o.ImageStatus != nil {
-		toSerialize["image_status"] = o.ImageStatus
-	}
-	if o.AnalyzedAt != nil {
-		toSerialize["analyzed_at"] = o.AnalyzedAt
-	}
-	if o.CreatedAt != nil {
-		toSerialize["created_at"] = o.CreatedAt
-	}
-	if o.LastUpdated != nil {
-		toSerialize["last_updated"] = o.LastUpdated
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o ImageArtifact) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.AccountName) {
+		toSerialize["account_name"] = o.AccountName
+	}
+	if !IsNil(o.ImageDigest) {
+		toSerialize["image_digest"] = o.ImageDigest
+	}
+	if !IsNil(o.Distro) {
+		toSerialize["distro"] = o.Distro
+	}
+	if !IsNil(o.DistroVersion) {
+		toSerialize["distro_version"] = o.DistroVersion
+	}
+	if !IsNil(o.AnalysisStatus) {
+		toSerialize["analysis_status"] = o.AnalysisStatus
+	}
+	if !IsNil(o.ImageStatus) {
+		toSerialize["image_status"] = o.ImageStatus
+	}
+	if !IsNil(o.AnalyzedAt) {
+		toSerialize["analyzed_at"] = o.AnalyzedAt
+	}
+	if !IsNil(o.CreatedAt) {
+		toSerialize["created_at"] = o.CreatedAt
+	}
+	if !IsNil(o.LastUpdated) {
+		toSerialize["last_updated"] = o.LastUpdated
+	}
+	return toSerialize, nil
 }
 
 type NullableImageArtifact struct {

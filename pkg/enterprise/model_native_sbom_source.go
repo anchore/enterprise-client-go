@@ -13,7 +13,11 @@ package enterprise
 
 import (
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the NativeSBOMSource type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &NativeSBOMSource{}
 
 // NativeSBOMSource struct for NativeSBOMSource
 type NativeSBOMSource struct {
@@ -69,7 +73,7 @@ func (o *NativeSBOMSource) SetType(v string) {
 
 // GetTarget returns the Target field value if set, zero value otherwise.
 func (o *NativeSBOMSource) GetTarget() map[string]interface{} {
-	if o == nil || o.Target == nil {
+	if o == nil || IsNil(o.Target) {
 		var ret map[string]interface{}
 		return ret
 	}
@@ -79,15 +83,15 @@ func (o *NativeSBOMSource) GetTarget() map[string]interface{} {
 // GetTargetOk returns a tuple with the Target field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *NativeSBOMSource) GetTargetOk() (map[string]interface{}, bool) {
-	if o == nil || o.Target == nil {
-		return nil, false
+	if o == nil || IsNil(o.Target) {
+		return map[string]interface{}{}, false
 	}
 	return o.Target, true
 }
 
 // HasTarget returns a boolean if a field has been set.
 func (o *NativeSBOMSource) HasTarget() bool {
-	if o != nil && o.Target != nil {
+	if o != nil && !IsNil(o.Target) {
 		return true
 	}
 
@@ -101,7 +105,7 @@ func (o *NativeSBOMSource) SetTarget(v map[string]interface{}) {
 
 // GetMetadata returns the Metadata field value if set, zero value otherwise.
 func (o *NativeSBOMSource) GetMetadata() map[string]interface{} {
-	if o == nil || o.Metadata == nil {
+	if o == nil || IsNil(o.Metadata) {
 		var ret map[string]interface{}
 		return ret
 	}
@@ -111,15 +115,15 @@ func (o *NativeSBOMSource) GetMetadata() map[string]interface{} {
 // GetMetadataOk returns a tuple with the Metadata field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *NativeSBOMSource) GetMetadataOk() (map[string]interface{}, bool) {
-	if o == nil || o.Metadata == nil {
-		return nil, false
+	if o == nil || IsNil(o.Metadata) {
+		return map[string]interface{}{}, false
 	}
 	return o.Metadata, true
 }
 
 // HasMetadata returns a boolean if a field has been set.
 func (o *NativeSBOMSource) HasMetadata() bool {
-	if o != nil && o.Metadata != nil {
+	if o != nil && !IsNil(o.Metadata) {
 		return true
 	}
 
@@ -132,14 +136,20 @@ func (o *NativeSBOMSource) SetMetadata(v map[string]interface{}) {
 }
 
 func (o NativeSBOMSource) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["type"] = o.Type
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
-	if o.Target != nil {
+	return json.Marshal(toSerialize)
+}
+
+func (o NativeSBOMSource) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["type"] = o.Type
+	if !IsNil(o.Target) {
 		toSerialize["target"] = o.Target
 	}
-	if o.Metadata != nil {
+	if !IsNil(o.Metadata) {
 		toSerialize["metadata"] = o.Metadata
 	}
 
@@ -147,19 +157,44 @@ func (o NativeSBOMSource) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *NativeSBOMSource) UnmarshalJSON(bytes []byte) (err error) {
+func (o *NativeSBOMSource) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"type",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
 	varNativeSBOMSource := _NativeSBOMSource{}
 
-	if err = json.Unmarshal(bytes, &varNativeSBOMSource); err == nil {
-		*o = NativeSBOMSource(varNativeSBOMSource)
+	err = json.Unmarshal(data, &varNativeSBOMSource)
+
+	if err != nil {
+		return err
 	}
+
+	*o = NativeSBOMSource(varNativeSBOMSource)
 
 	additionalProperties := make(map[string]interface{})
 
-	if err = json.Unmarshal(bytes, &additionalProperties); err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "type")
 		delete(additionalProperties, "target")
 		delete(additionalProperties, "metadata")

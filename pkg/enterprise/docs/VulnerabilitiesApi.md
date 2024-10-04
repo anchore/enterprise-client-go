@@ -1,10 +1,10 @@
-# \VulnerabilitiesApi
+# \VulnerabilitiesAPI
 
 All URIs are relative to */v2*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**VulnerabilityScanSbom**](VulnerabilitiesApi.md#VulnerabilityScanSbom) | **Post** /vulnerability-scan | Return a vulnerability scan for the uploaded SBOM without storing the SBOM and without any side-effects in the system.
+[**VulnerabilityScanSbom**](VulnerabilitiesAPI.md#VulnerabilityScanSbom) | **Post** /vulnerability-scan | Return a vulnerability scan for the uploaded SBOM without storing the SBOM and without any side-effects in the system.
 
 
 
@@ -22,26 +22,26 @@ Return a vulnerability scan for the uploaded SBOM without storing the SBOM and w
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
-    sbom := interface{}{ ... } // interface{} | 
-    xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
-    includeVulnDescription := true // bool |  (optional) (default to false)
+	sbom := interface{}{ ... } // interface{} | 
+	xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
+	includeVulnDescription := true // bool |  (optional) (default to false)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.VulnerabilitiesApi.VulnerabilityScanSbom(context.Background()).Sbom(sbom).XAnchoreAccount(xAnchoreAccount).IncludeVulnDescription(includeVulnDescription).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `VulnerabilitiesApi.VulnerabilityScanSbom``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `VulnerabilityScanSbom`: SBOMVulnerabilitiesResponse
-    fmt.Fprintf(os.Stdout, "Response from `VulnerabilitiesApi.VulnerabilityScanSbom`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.VulnerabilitiesAPI.VulnerabilityScanSbom(context.Background()).Sbom(sbom).XAnchoreAccount(xAnchoreAccount).IncludeVulnDescription(includeVulnDescription).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `VulnerabilitiesAPI.VulnerabilityScanSbom``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `VulnerabilityScanSbom`: SBOMVulnerabilitiesResponse
+	fmt.Fprintf(os.Stdout, "Response from `VulnerabilitiesAPI.VulnerabilityScanSbom`: %v\n", resp)
 }
 ```
 

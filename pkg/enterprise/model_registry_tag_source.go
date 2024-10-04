@@ -13,15 +13,22 @@ package enterprise
 
 import (
 	"encoding/json"
+	"bytes"
+	"fmt"
 )
+
+// checks if the RegistryTagSource type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &RegistryTagSource{}
 
 // RegistryTagSource An image reference using a tag in a registry, this is the most common source type.
 type RegistryTagSource struct {
 	// A docker pull string (e.g. docker.io/nginx:latest, or docker.io/nginx@sha256:abd) to retrieve the image
 	PullString string `json:"pull_string"`
 	// Base64 encoded content of the dockerfile used to build the image, if available.
-	Dockerfile *string `json:"dockerfile,omitempty"`
+	Dockerfile *string `json:"dockerfile,omitempty" validate:"regexp=^[a-zA-Z0-9+\\/=]+$"`
 }
+
+type _RegistryTagSource RegistryTagSource
 
 // NewRegistryTagSource instantiates a new RegistryTagSource object
 // This constructor will assign default values to properties that have it defined,
@@ -67,7 +74,7 @@ func (o *RegistryTagSource) SetPullString(v string) {
 
 // GetDockerfile returns the Dockerfile field value if set, zero value otherwise.
 func (o *RegistryTagSource) GetDockerfile() string {
-	if o == nil || o.Dockerfile == nil {
+	if o == nil || IsNil(o.Dockerfile) {
 		var ret string
 		return ret
 	}
@@ -77,7 +84,7 @@ func (o *RegistryTagSource) GetDockerfile() string {
 // GetDockerfileOk returns a tuple with the Dockerfile field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RegistryTagSource) GetDockerfileOk() (*string, bool) {
-	if o == nil || o.Dockerfile == nil {
+	if o == nil || IsNil(o.Dockerfile) {
 		return nil, false
 	}
 	return o.Dockerfile, true
@@ -85,7 +92,7 @@ func (o *RegistryTagSource) GetDockerfileOk() (*string, bool) {
 
 // HasDockerfile returns a boolean if a field has been set.
 func (o *RegistryTagSource) HasDockerfile() bool {
-	if o != nil && o.Dockerfile != nil {
+	if o != nil && !IsNil(o.Dockerfile) {
 		return true
 	}
 
@@ -98,14 +105,57 @@ func (o *RegistryTagSource) SetDockerfile(v string) {
 }
 
 func (o RegistryTagSource) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["pull_string"] = o.PullString
-	}
-	if o.Dockerfile != nil {
-		toSerialize["dockerfile"] = o.Dockerfile
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o RegistryTagSource) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["pull_string"] = o.PullString
+	if !IsNil(o.Dockerfile) {
+		toSerialize["dockerfile"] = o.Dockerfile
+	}
+	return toSerialize, nil
+}
+
+func (o *RegistryTagSource) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"pull_string",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varRegistryTagSource := _RegistryTagSource{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varRegistryTagSource)
+
+	if err != nil {
+		return err
+	}
+
+	*o = RegistryTagSource(varRegistryTagSource)
+
+	return err
 }
 
 type NullableRegistryTagSource struct {

@@ -13,7 +13,12 @@ package enterprise
 
 import (
 	"encoding/json"
+	"bytes"
+	"fmt"
 )
+
+// checks if the ArtifactAssociationRequest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ArtifactAssociationRequest{}
 
 // ArtifactAssociationRequest Request body for an artifact to associate with an application version
 type ArtifactAssociationRequest struct {
@@ -22,6 +27,8 @@ type ArtifactAssociationRequest struct {
 	// A json with key-pair values to query on
 	ArtifactKeys interface{} `json:"artifact_keys"`
 }
+
+type _ArtifactAssociationRequest ArtifactAssociationRequest
 
 // NewArtifactAssociationRequest instantiates a new ArtifactAssociationRequest object
 // This constructor will assign default values to properties that have it defined,
@@ -91,14 +98,56 @@ func (o *ArtifactAssociationRequest) SetArtifactKeys(v interface{}) {
 }
 
 func (o ArtifactAssociationRequest) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["artifact_type"] = o.ArtifactType
-	}
-	if true {
-		toSerialize["artifact_keys"] = o.ArtifactKeys
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o ArtifactAssociationRequest) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["artifact_type"] = o.ArtifactType
+	toSerialize["artifact_keys"] = o.ArtifactKeys
+	return toSerialize, nil
+}
+
+func (o *ArtifactAssociationRequest) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"artifact_type",
+		"artifact_keys",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varArtifactAssociationRequest := _ArtifactAssociationRequest{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varArtifactAssociationRequest)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ArtifactAssociationRequest(varArtifactAssociationRequest)
+
+	return err
 }
 
 type NullableArtifactAssociationRequest struct {

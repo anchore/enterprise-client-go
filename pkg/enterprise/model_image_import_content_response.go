@@ -16,6 +16,9 @@ import (
 	"time"
 )
 
+// checks if the ImageImportContentResponse type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ImageImportContentResponse{}
+
 // ImageImportContentResponse struct for ImageImportContentResponse
 type ImageImportContentResponse struct {
 	Digest *string `json:"digest,omitempty"`
@@ -41,7 +44,7 @@ func NewImageImportContentResponseWithDefaults() *ImageImportContentResponse {
 
 // GetDigest returns the Digest field value if set, zero value otherwise.
 func (o *ImageImportContentResponse) GetDigest() string {
-	if o == nil || o.Digest == nil {
+	if o == nil || IsNil(o.Digest) {
 		var ret string
 		return ret
 	}
@@ -51,7 +54,7 @@ func (o *ImageImportContentResponse) GetDigest() string {
 // GetDigestOk returns a tuple with the Digest field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ImageImportContentResponse) GetDigestOk() (*string, bool) {
-	if o == nil || o.Digest == nil {
+	if o == nil || IsNil(o.Digest) {
 		return nil, false
 	}
 	return o.Digest, true
@@ -59,7 +62,7 @@ func (o *ImageImportContentResponse) GetDigestOk() (*string, bool) {
 
 // HasDigest returns a boolean if a field has been set.
 func (o *ImageImportContentResponse) HasDigest() bool {
-	if o != nil && o.Digest != nil {
+	if o != nil && !IsNil(o.Digest) {
 		return true
 	}
 
@@ -73,7 +76,7 @@ func (o *ImageImportContentResponse) SetDigest(v string) {
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
 func (o *ImageImportContentResponse) GetCreatedAt() time.Time {
-	if o == nil || o.CreatedAt == nil {
+	if o == nil || IsNil(o.CreatedAt) {
 		var ret time.Time
 		return ret
 	}
@@ -83,7 +86,7 @@ func (o *ImageImportContentResponse) GetCreatedAt() time.Time {
 // GetCreatedAtOk returns a tuple with the CreatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ImageImportContentResponse) GetCreatedAtOk() (*time.Time, bool) {
-	if o == nil || o.CreatedAt == nil {
+	if o == nil || IsNil(o.CreatedAt) {
 		return nil, false
 	}
 	return o.CreatedAt, true
@@ -91,7 +94,7 @@ func (o *ImageImportContentResponse) GetCreatedAtOk() (*time.Time, bool) {
 
 // HasCreatedAt returns a boolean if a field has been set.
 func (o *ImageImportContentResponse) HasCreatedAt() bool {
-	if o != nil && o.CreatedAt != nil {
+	if o != nil && !IsNil(o.CreatedAt) {
 		return true
 	}
 
@@ -104,14 +107,22 @@ func (o *ImageImportContentResponse) SetCreatedAt(v time.Time) {
 }
 
 func (o ImageImportContentResponse) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Digest != nil {
-		toSerialize["digest"] = o.Digest
-	}
-	if o.CreatedAt != nil {
-		toSerialize["created_at"] = o.CreatedAt
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o ImageImportContentResponse) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Digest) {
+		toSerialize["digest"] = o.Digest
+	}
+	if !IsNil(o.CreatedAt) {
+		toSerialize["created_at"] = o.CreatedAt
+	}
+	return toSerialize, nil
 }
 
 type NullableImageImportContentResponse struct {

@@ -13,7 +13,12 @@ package enterprise
 
 import (
 	"encoding/json"
+	"bytes"
+	"fmt"
 )
+
+// checks if the ECSContainer type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ECSContainer{}
 
 // ECSContainer struct for ECSContainer
 type ECSContainer struct {
@@ -24,6 +29,8 @@ type ECSContainer struct {
 	ImageTag string `json:"image_tag"`
 	ImageDigest string `json:"image_digest"`
 }
+
+type _ECSContainer ECSContainer
 
 // NewECSContainer instantiates a new ECSContainer object
 // This constructor will assign default values to properties that have it defined,
@@ -193,26 +200,64 @@ func (o *ECSContainer) SetImageDigest(v string) {
 }
 
 func (o ECSContainer) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["arn"] = o.Arn
-	}
-	if true {
-		toSerialize["task_arn"] = o.TaskArn
-	}
-	if true {
-		toSerialize["account_name"] = o.AccountName
-	}
-	if true {
-		toSerialize["context"] = o.Context
-	}
-	if true {
-		toSerialize["image_tag"] = o.ImageTag
-	}
-	if true {
-		toSerialize["image_digest"] = o.ImageDigest
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o ECSContainer) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["arn"] = o.Arn
+	toSerialize["task_arn"] = o.TaskArn
+	toSerialize["account_name"] = o.AccountName
+	toSerialize["context"] = o.Context
+	toSerialize["image_tag"] = o.ImageTag
+	toSerialize["image_digest"] = o.ImageDigest
+	return toSerialize, nil
+}
+
+func (o *ECSContainer) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"arn",
+		"task_arn",
+		"account_name",
+		"context",
+		"image_tag",
+		"image_digest",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varECSContainer := _ECSContainer{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varECSContainer)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ECSContainer(varECSContainer)
+
+	return err
 }
 
 type NullableECSContainer struct {

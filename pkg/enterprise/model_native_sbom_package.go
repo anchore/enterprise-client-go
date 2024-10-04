@@ -13,7 +13,11 @@ package enterprise
 
 import (
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the NativeSBOMPackage type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &NativeSBOMPackage{}
 
 // NativeSBOMPackage struct for NativeSBOMPackage
 type NativeSBOMPackage struct {
@@ -60,7 +64,7 @@ func NewNativeSBOMPackageWithDefaults() *NativeSBOMPackage {
 
 // GetId returns the Id field value if set, zero value otherwise.
 func (o *NativeSBOMPackage) GetId() string {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		var ret string
 		return ret
 	}
@@ -70,7 +74,7 @@ func (o *NativeSBOMPackage) GetId() string {
 // GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *NativeSBOMPackage) GetIdOk() (*string, bool) {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
 	return o.Id, true
@@ -78,7 +82,7 @@ func (o *NativeSBOMPackage) GetIdOk() (*string, bool) {
 
 // HasId returns a boolean if a field has been set.
 func (o *NativeSBOMPackage) HasId() bool {
-	if o != nil && o.Id != nil {
+	if o != nil && !IsNil(o.Id) {
 		return true
 	}
 
@@ -164,7 +168,7 @@ func (o *NativeSBOMPackage) SetType(v string) {
 
 // GetFoundBy returns the FoundBy field value if set, zero value otherwise.
 func (o *NativeSBOMPackage) GetFoundBy() string {
-	if o == nil || o.FoundBy == nil {
+	if o == nil || IsNil(o.FoundBy) {
 		var ret string
 		return ret
 	}
@@ -174,7 +178,7 @@ func (o *NativeSBOMPackage) GetFoundBy() string {
 // GetFoundByOk returns a tuple with the FoundBy field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *NativeSBOMPackage) GetFoundByOk() (*string, bool) {
-	if o == nil || o.FoundBy == nil {
+	if o == nil || IsNil(o.FoundBy) {
 		return nil, false
 	}
 	return o.FoundBy, true
@@ -182,7 +186,7 @@ func (o *NativeSBOMPackage) GetFoundByOk() (*string, bool) {
 
 // HasFoundBy returns a boolean if a field has been set.
 func (o *NativeSBOMPackage) HasFoundBy() bool {
-	if o != nil && o.FoundBy != nil {
+	if o != nil && !IsNil(o.FoundBy) {
 		return true
 	}
 
@@ -292,7 +296,7 @@ func (o *NativeSBOMPackage) SetCpes(v []NativeSBOMPackageCpesInner) {
 
 // GetPurl returns the Purl field value if set, zero value otherwise.
 func (o *NativeSBOMPackage) GetPurl() string {
-	if o == nil || o.Purl == nil {
+	if o == nil || IsNil(o.Purl) {
 		var ret string
 		return ret
 	}
@@ -302,7 +306,7 @@ func (o *NativeSBOMPackage) GetPurl() string {
 // GetPurlOk returns a tuple with the Purl field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *NativeSBOMPackage) GetPurlOk() (*string, bool) {
-	if o == nil || o.Purl == nil {
+	if o == nil || IsNil(o.Purl) {
 		return nil, false
 	}
 	return o.Purl, true
@@ -310,7 +314,7 @@ func (o *NativeSBOMPackage) GetPurlOk() (*string, bool) {
 
 // HasPurl returns a boolean if a field has been set.
 func (o *NativeSBOMPackage) HasPurl() bool {
-	if o != nil && o.Purl != nil {
+	if o != nil && !IsNil(o.Purl) {
 		return true
 	}
 
@@ -324,7 +328,7 @@ func (o *NativeSBOMPackage) SetPurl(v string) {
 
 // GetMetadataType returns the MetadataType field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *NativeSBOMPackage) GetMetadataType() string {
-	if o == nil || o.MetadataType.Get() == nil {
+	if o == nil || IsNil(o.MetadataType.Get()) {
 		var ret string
 		return ret
 	}
@@ -377,7 +381,7 @@ func (o *NativeSBOMPackage) GetMetadata() interface{} {
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *NativeSBOMPackage) GetMetadataOk() (interface{}, bool) {
-	if o == nil || o.Metadata == nil {
+	if o == nil || IsNil(o.Metadata) {
 		return nil, false
 	}
 	return o.Metadata, true
@@ -385,7 +389,7 @@ func (o *NativeSBOMPackage) GetMetadataOk() (interface{}, bool) {
 
 // HasMetadata returns a boolean if a field has been set.
 func (o *NativeSBOMPackage) HasMetadata() bool {
-	if o != nil && o.Metadata != nil {
+	if o != nil && !IsNil(o.Metadata) {
 		return true
 	}
 
@@ -398,35 +402,29 @@ func (o *NativeSBOMPackage) SetMetadata(v interface{}) {
 }
 
 func (o NativeSBOMPackage) MarshalJSON() ([]byte, error) {
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o NativeSBOMPackage) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Id != nil {
+	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
 	}
-	if true {
-		toSerialize["name"] = o.Name
-	}
-	if true {
-		toSerialize["version"] = o.Version
-	}
-	if true {
-		toSerialize["type"] = o.Type
-	}
-	if o.FoundBy != nil {
+	toSerialize["name"] = o.Name
+	toSerialize["version"] = o.Version
+	toSerialize["type"] = o.Type
+	if !IsNil(o.FoundBy) {
 		toSerialize["foundBy"] = o.FoundBy
 	}
-	if true {
-		toSerialize["locations"] = o.Locations
-	}
-	if true {
-		toSerialize["licenses"] = o.Licenses
-	}
-	if true {
-		toSerialize["language"] = o.Language
-	}
-	if true {
-		toSerialize["cpes"] = o.Cpes
-	}
-	if o.Purl != nil {
+	toSerialize["locations"] = o.Locations
+	toSerialize["licenses"] = o.Licenses
+	toSerialize["language"] = o.Language
+	toSerialize["cpes"] = o.Cpes
+	if !IsNil(o.Purl) {
 		toSerialize["purl"] = o.Purl
 	}
 	if o.MetadataType.IsSet() {
@@ -440,19 +438,50 @@ func (o NativeSBOMPackage) MarshalJSON() ([]byte, error) {
 		toSerialize[key] = value
 	}
 
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
-func (o *NativeSBOMPackage) UnmarshalJSON(bytes []byte) (err error) {
+func (o *NativeSBOMPackage) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"name",
+		"version",
+		"type",
+		"locations",
+		"licenses",
+		"language",
+		"cpes",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
 	varNativeSBOMPackage := _NativeSBOMPackage{}
 
-	if err = json.Unmarshal(bytes, &varNativeSBOMPackage); err == nil {
-		*o = NativeSBOMPackage(varNativeSBOMPackage)
+	err = json.Unmarshal(data, &varNativeSBOMPackage)
+
+	if err != nil {
+		return err
 	}
+
+	*o = NativeSBOMPackage(varNativeSBOMPackage)
 
 	additionalProperties := make(map[string]interface{})
 
-	if err = json.Unmarshal(bytes, &additionalProperties); err == nil {
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "id")
 		delete(additionalProperties, "name")
 		delete(additionalProperties, "version")

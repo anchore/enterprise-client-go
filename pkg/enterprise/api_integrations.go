@@ -14,89 +14,19 @@ package enterprise
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
 	"strings"
 )
 
 
-type IntegrationsApi interface {
-
-	/*
-	DeleteIntegration Delete an integration instance
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param integrationUuid The integration instance's universally unique identifier
-	@return ApiDeleteIntegrationRequest
-	*/
-	DeleteIntegration(ctx context.Context, integrationUuid string) ApiDeleteIntegrationRequest
-
-	// DeleteIntegrationExecute executes the request
-	DeleteIntegrationExecute(r ApiDeleteIntegrationRequest) (*http.Response, error)
-
-	/*
-	GetIntegrationById Get information about an integration instance
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param integrationUuid The integration instance's universally unique identifier
-	@return ApiGetIntegrationByIdRequest
-	*/
-	GetIntegrationById(ctx context.Context, integrationUuid string) ApiGetIntegrationByIdRequest
-
-	// GetIntegrationByIdExecute executes the request
-	//  @return Integration
-	GetIntegrationByIdExecute(r ApiGetIntegrationByIdRequest) (*Integration, *http.Response, error)
-
-	/*
-	HandleHealthReport Report health status for an integration
-
-	An integration, such as an agent, will use this API to report its current health status. Such calls will typically be done on an interval, e.g., every 60 seconds.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param integrationUuid The integration's universally unique identifier
-	@return ApiHandleHealthReportRequest
-	*/
-	HandleHealthReport(ctx context.Context, integrationUuid string) ApiHandleHealthReportRequest
-
-	// HandleHealthReportExecute executes the request
-	HandleHealthReportExecute(r ApiHandleHealthReportRequest) (*http.Response, error)
-
-	/*
-	ListIntegrations List known integration instances
-
-	Lists all integrations that have been created (explicitly or indirectly via registration).
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiListIntegrationsRequest
-	*/
-	ListIntegrations(ctx context.Context) ApiListIntegrationsRequest
-
-	// ListIntegrationsExecute executes the request
-	//  @return IntegrationListResponse
-	ListIntegrationsExecute(r ApiListIntegrationsRequest) (*IntegrationListResponse, *http.Response, error)
-
-	/*
-	RegisterIntegration Register an integration instance
-
-	An integration instance, such as an agent, will use this API to register itself with Anchore. The integration registers using registration_id and registration_instance_id as temporary identifiers and is assigned its integration uuid upon successful registration. This method is idempotent in the sense that if an integration instance call it multiple time and uses the same registration_id and registration_instance_id, it will be assigned the same integration uuid.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiRegisterIntegrationRequest
-	*/
-	RegisterIntegration(ctx context.Context) ApiRegisterIntegrationRequest
-
-	// RegisterIntegrationExecute executes the request
-	//  @return Integration
-	RegisterIntegrationExecute(r ApiRegisterIntegrationRequest) (*Integration, *http.Response, error)
-}
-
-// IntegrationsApiService IntegrationsApi service
-type IntegrationsApiService service
+// IntegrationsAPIService IntegrationsAPI service
+type IntegrationsAPIService service
 
 type ApiDeleteIntegrationRequest struct {
 	ctx context.Context
-	ApiService IntegrationsApi
+	ApiService *IntegrationsAPIService
 	integrationUuid string
 	force *bool
 }
@@ -118,7 +48,7 @@ DeleteIntegration Delete an integration instance
  @param integrationUuid The integration instance's universally unique identifier
  @return ApiDeleteIntegrationRequest
 */
-func (a *IntegrationsApiService) DeleteIntegration(ctx context.Context, integrationUuid string) ApiDeleteIntegrationRequest {
+func (a *IntegrationsAPIService) DeleteIntegration(ctx context.Context, integrationUuid string) ApiDeleteIntegrationRequest {
 	return ApiDeleteIntegrationRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -127,27 +57,30 @@ func (a *IntegrationsApiService) DeleteIntegration(ctx context.Context, integrat
 }
 
 // Execute executes the request
-func (a *IntegrationsApiService) DeleteIntegrationExecute(r ApiDeleteIntegrationRequest) (*http.Response, error) {
+func (a *IntegrationsAPIService) DeleteIntegrationExecute(r ApiDeleteIntegrationRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodDelete
 		localVarPostBody     interface{}
 		formFiles            []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IntegrationsApiService.DeleteIntegration")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IntegrationsAPIService.DeleteIntegration")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/system/integrations/{integration_uuid}"
-	localVarPath = strings.Replace(localVarPath, "{"+"integration_uuid"+"}", url.PathEscape(parameterToString(r.integrationUuid, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"integration_uuid"+"}", url.PathEscape(parameterValueToString(r.integrationUuid, "integrationUuid")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
 	if r.force != nil {
-		localVarQueryParams.Add("force", parameterToString(*r.force, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "force", r.force, "form", "")
+	} else {
+		var defaultValue bool = false
+		r.force = &defaultValue
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -176,9 +109,9 @@ func (a *IntegrationsApiService) DeleteIntegrationExecute(r ApiDeleteIntegration
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -196,7 +129,7 @@ func (a *IntegrationsApiService) DeleteIntegrationExecute(r ApiDeleteIntegration
 
 type ApiGetIntegrationByIdRequest struct {
 	ctx context.Context
-	ApiService IntegrationsApi
+	ApiService *IntegrationsAPIService
 	integrationUuid string
 }
 
@@ -211,7 +144,7 @@ GetIntegrationById Get information about an integration instance
  @param integrationUuid The integration instance's universally unique identifier
  @return ApiGetIntegrationByIdRequest
 */
-func (a *IntegrationsApiService) GetIntegrationById(ctx context.Context, integrationUuid string) ApiGetIntegrationByIdRequest {
+func (a *IntegrationsAPIService) GetIntegrationById(ctx context.Context, integrationUuid string) ApiGetIntegrationByIdRequest {
 	return ApiGetIntegrationByIdRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -221,7 +154,7 @@ func (a *IntegrationsApiService) GetIntegrationById(ctx context.Context, integra
 
 // Execute executes the request
 //  @return Integration
-func (a *IntegrationsApiService) GetIntegrationByIdExecute(r ApiGetIntegrationByIdRequest) (*Integration, *http.Response, error) {
+func (a *IntegrationsAPIService) GetIntegrationByIdExecute(r ApiGetIntegrationByIdRequest) (*Integration, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
@@ -229,13 +162,13 @@ func (a *IntegrationsApiService) GetIntegrationByIdExecute(r ApiGetIntegrationBy
 		localVarReturnValue  *Integration
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IntegrationsApiService.GetIntegrationById")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IntegrationsAPIService.GetIntegrationById")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/system/integrations/{integration_uuid}"
-	localVarPath = strings.Replace(localVarPath, "{"+"integration_uuid"+"}", url.PathEscape(parameterToString(r.integrationUuid, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"integration_uuid"+"}", url.PathEscape(parameterValueToString(r.integrationUuid, "integrationUuid")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -268,9 +201,9 @@ func (a *IntegrationsApiService) GetIntegrationByIdExecute(r ApiGetIntegrationBy
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -287,7 +220,8 @@ func (a *IntegrationsApiService) GetIntegrationByIdExecute(r ApiGetIntegrationBy
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -306,7 +240,7 @@ func (a *IntegrationsApiService) GetIntegrationByIdExecute(r ApiGetIntegrationBy
 
 type ApiHandleHealthReportRequest struct {
 	ctx context.Context
-	ApiService IntegrationsApi
+	ApiService *IntegrationsAPIService
 	integrationUuid string
 	healthReport *HealthReport
 }
@@ -329,7 +263,7 @@ An integration, such as an agent, will use this API to report its current health
  @param integrationUuid The integration's universally unique identifier
  @return ApiHandleHealthReportRequest
 */
-func (a *IntegrationsApiService) HandleHealthReport(ctx context.Context, integrationUuid string) ApiHandleHealthReportRequest {
+func (a *IntegrationsAPIService) HandleHealthReport(ctx context.Context, integrationUuid string) ApiHandleHealthReportRequest {
 	return ApiHandleHealthReportRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -338,20 +272,20 @@ func (a *IntegrationsApiService) HandleHealthReport(ctx context.Context, integra
 }
 
 // Execute executes the request
-func (a *IntegrationsApiService) HandleHealthReportExecute(r ApiHandleHealthReportRequest) (*http.Response, error) {
+func (a *IntegrationsAPIService) HandleHealthReportExecute(r ApiHandleHealthReportRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IntegrationsApiService.HandleHealthReport")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IntegrationsAPIService.HandleHealthReport")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/system/integrations/{integration_uuid}/health-report"
-	localVarPath = strings.Replace(localVarPath, "{"+"integration_uuid"+"}", url.PathEscape(parameterToString(r.integrationUuid, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"integration_uuid"+"}", url.PathEscape(parameterValueToString(r.integrationUuid, "integrationUuid")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -389,9 +323,9 @@ func (a *IntegrationsApiService) HandleHealthReportExecute(r ApiHandleHealthRepo
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -408,7 +342,8 @@ func (a *IntegrationsApiService) HandleHealthReportExecute(r ApiHandleHealthRepo
 				newErr.error = err.Error()
 				return localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarHTTPResponse, newErr
 	}
@@ -418,7 +353,7 @@ func (a *IntegrationsApiService) HandleHealthReportExecute(r ApiHandleHealthRepo
 
 type ApiListIntegrationsRequest struct {
 	ctx context.Context
-	ApiService IntegrationsApi
+	ApiService *IntegrationsAPIService
 }
 
 func (r ApiListIntegrationsRequest) Execute() (*IntegrationListResponse, *http.Response, error) {
@@ -433,7 +368,7 @@ Lists all integrations that have been created (explicitly or indirectly via regi
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiListIntegrationsRequest
 */
-func (a *IntegrationsApiService) ListIntegrations(ctx context.Context) ApiListIntegrationsRequest {
+func (a *IntegrationsAPIService) ListIntegrations(ctx context.Context) ApiListIntegrationsRequest {
 	return ApiListIntegrationsRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -442,7 +377,7 @@ func (a *IntegrationsApiService) ListIntegrations(ctx context.Context) ApiListIn
 
 // Execute executes the request
 //  @return IntegrationListResponse
-func (a *IntegrationsApiService) ListIntegrationsExecute(r ApiListIntegrationsRequest) (*IntegrationListResponse, *http.Response, error) {
+func (a *IntegrationsAPIService) ListIntegrationsExecute(r ApiListIntegrationsRequest) (*IntegrationListResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
@@ -450,7 +385,7 @@ func (a *IntegrationsApiService) ListIntegrationsExecute(r ApiListIntegrationsRe
 		localVarReturnValue  *IntegrationListResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IntegrationsApiService.ListIntegrations")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IntegrationsAPIService.ListIntegrations")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -488,9 +423,9 @@ func (a *IntegrationsApiService) ListIntegrationsExecute(r ApiListIntegrationsRe
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -507,7 +442,8 @@ func (a *IntegrationsApiService) ListIntegrationsExecute(r ApiListIntegrationsRe
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -526,7 +462,7 @@ func (a *IntegrationsApiService) ListIntegrationsExecute(r ApiListIntegrationsRe
 
 type ApiRegisterIntegrationRequest struct {
 	ctx context.Context
-	ApiService IntegrationsApi
+	ApiService *IntegrationsAPIService
 	integrationRegister *IntegrationRegister
 }
 
@@ -547,7 +483,7 @@ An integration instance, such as an agent, will use this API to register itself 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiRegisterIntegrationRequest
 */
-func (a *IntegrationsApiService) RegisterIntegration(ctx context.Context) ApiRegisterIntegrationRequest {
+func (a *IntegrationsAPIService) RegisterIntegration(ctx context.Context) ApiRegisterIntegrationRequest {
 	return ApiRegisterIntegrationRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -556,7 +492,7 @@ func (a *IntegrationsApiService) RegisterIntegration(ctx context.Context) ApiReg
 
 // Execute executes the request
 //  @return Integration
-func (a *IntegrationsApiService) RegisterIntegrationExecute(r ApiRegisterIntegrationRequest) (*Integration, *http.Response, error) {
+func (a *IntegrationsAPIService) RegisterIntegrationExecute(r ApiRegisterIntegrationRequest) (*Integration, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
@@ -564,7 +500,7 @@ func (a *IntegrationsApiService) RegisterIntegrationExecute(r ApiRegisterIntegra
 		localVarReturnValue  *Integration
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IntegrationsApiService.RegisterIntegration")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IntegrationsAPIService.RegisterIntegration")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -607,9 +543,9 @@ func (a *IntegrationsApiService) RegisterIntegrationExecute(r ApiRegisterIntegra
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -626,7 +562,8 @@ func (a *IntegrationsApiService) RegisterIntegrationExecute(r ApiRegisterIntegra
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 500 {
@@ -636,7 +573,8 @@ func (a *IntegrationsApiService) RegisterIntegrationExecute(r ApiRegisterIntegra
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}

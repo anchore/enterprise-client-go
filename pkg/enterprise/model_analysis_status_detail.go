@@ -13,7 +13,12 @@ package enterprise
 
 import (
 	"encoding/json"
+	"bytes"
+	"fmt"
 )
+
+// checks if the AnalysisStatusDetail type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &AnalysisStatusDetail{}
 
 // AnalysisStatusDetail The detail of an analysis status change recording which service initiated the state change, when, and which transition
 type AnalysisStatusDetail struct {
@@ -22,6 +27,8 @@ type AnalysisStatusDetail struct {
 	Timestamp string `json:"timestamp"`
 	Source ServiceReference `json:"source"`
 }
+
+type _AnalysisStatusDetail AnalysisStatusDetail
 
 // NewAnalysisStatusDetail instantiates a new AnalysisStatusDetail object
 // This constructor will assign default values to properties that have it defined,
@@ -141,20 +148,60 @@ func (o *AnalysisStatusDetail) SetSource(v ServiceReference) {
 }
 
 func (o AnalysisStatusDetail) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["from_status"] = o.FromStatus
-	}
-	if true {
-		toSerialize["to_status"] = o.ToStatus
-	}
-	if true {
-		toSerialize["timestamp"] = o.Timestamp
-	}
-	if true {
-		toSerialize["source"] = o.Source
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o AnalysisStatusDetail) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["from_status"] = o.FromStatus
+	toSerialize["to_status"] = o.ToStatus
+	toSerialize["timestamp"] = o.Timestamp
+	toSerialize["source"] = o.Source
+	return toSerialize, nil
+}
+
+func (o *AnalysisStatusDetail) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"from_status",
+		"to_status",
+		"timestamp",
+		"source",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varAnalysisStatusDetail := _AnalysisStatusDetail{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varAnalysisStatusDetail)
+
+	if err != nil {
+		return err
+	}
+
+	*o = AnalysisStatusDetail(varAnalysisStatusDetail)
+
+	return err
 }
 
 type NullableAnalysisStatusDetail struct {

@@ -1,90 +1,90 @@
-# \NotificationsApi
+# \NotificationsAPI
 
 All URIs are relative to */v2*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**AddGithubConfiguration**](NotificationsApi.md#AddGithubConfiguration) | **Post** /notifications/endpoints/github/configurations | 
-[**AddGithubSelector**](NotificationsApi.md#AddGithubSelector) | **Post** /notifications/endpoints/github/configurations/{uuid}/selectors | 
-[**AddJiraConfiguration**](NotificationsApi.md#AddJiraConfiguration) | **Post** /notifications/endpoints/jira/configurations | 
-[**AddJiraSelector**](NotificationsApi.md#AddJiraSelector) | **Post** /notifications/endpoints/jira/configurations/{uuid}/selectors | 
-[**AddSlackConfiguration**](NotificationsApi.md#AddSlackConfiguration) | **Post** /notifications/endpoints/slack/configurations | 
-[**AddSlackSelector**](NotificationsApi.md#AddSlackSelector) | **Post** /notifications/endpoints/slack/configurations/{uuid}/selectors | 
-[**AddSmtpConfiguration**](NotificationsApi.md#AddSmtpConfiguration) | **Post** /notifications/endpoints/smtp/configurations | 
-[**AddSmtpSelector**](NotificationsApi.md#AddSmtpSelector) | **Post** /notifications/endpoints/smtp/configurations/{uuid}/selectors | 
-[**AddTeamsConfiguration**](NotificationsApi.md#AddTeamsConfiguration) | **Post** /notifications/endpoints/teams/configurations | 
-[**AddTeamsSelector**](NotificationsApi.md#AddTeamsSelector) | **Post** /notifications/endpoints/teams/configurations/{uuid}/selectors | 
-[**AddWebhookConfiguration**](NotificationsApi.md#AddWebhookConfiguration) | **Post** /notifications/endpoints/webhook/configurations | 
-[**AddWebhookSelector**](NotificationsApi.md#AddWebhookSelector) | **Post** /notifications/endpoints/webhook/configurations/{uuid}/selectors | 
-[**DeleteGithubConfiguration**](NotificationsApi.md#DeleteGithubConfiguration) | **Delete** /notifications/endpoints/github/configurations/{uuid} | 
-[**DeleteGithubSelector**](NotificationsApi.md#DeleteGithubSelector) | **Delete** /notifications/endpoints/github/configurations/{configuration_uuid}/selectors/{selector_uuid} | 
-[**DeleteJiraConfiguration**](NotificationsApi.md#DeleteJiraConfiguration) | **Delete** /notifications/endpoints/jira/configurations/{uuid} | 
-[**DeleteJiraSelector**](NotificationsApi.md#DeleteJiraSelector) | **Delete** /notifications/endpoints/jira/configurations/{configuration_uuid}/selectors/{selector_uuid} | 
-[**DeleteSlackConfiguration**](NotificationsApi.md#DeleteSlackConfiguration) | **Delete** /notifications/endpoints/slack/configurations/{uuid} | 
-[**DeleteSlackSelector**](NotificationsApi.md#DeleteSlackSelector) | **Delete** /notifications/endpoints/slack/configurations/{configuration_uuid}/selectors/{selector_uuid} | 
-[**DeleteSmtpConfiguration**](NotificationsApi.md#DeleteSmtpConfiguration) | **Delete** /notifications/endpoints/smtp/configurations/{uuid} | 
-[**DeleteSmtpSelector**](NotificationsApi.md#DeleteSmtpSelector) | **Delete** /notifications/endpoints/smtp/configurations/{configuration_uuid}/selectors/{selector_uuid} | 
-[**DeleteTeamsConfiguration**](NotificationsApi.md#DeleteTeamsConfiguration) | **Delete** /notifications/endpoints/teams/configurations/{uuid} | 
-[**DeleteTeamsSelector**](NotificationsApi.md#DeleteTeamsSelector) | **Delete** /notifications/endpoints/teams/configurations/{configuration_uuid}/selectors/{selector_uuid} | 
-[**DeleteWebhookConfiguration**](NotificationsApi.md#DeleteWebhookConfiguration) | **Delete** /notifications/endpoints/webhook/configurations/{uuid} | 
-[**DeleteWebhookSelector**](NotificationsApi.md#DeleteWebhookSelector) | **Delete** /notifications/endpoints/webhook/configurations/{configuration_uuid}/selectors/{selector_uuid} | 
-[**GetGithubConfiguration**](NotificationsApi.md#GetGithubConfiguration) | **Get** /notifications/endpoints/github/configurations/{uuid} | 
-[**GetGithubConfigurationStatus**](NotificationsApi.md#GetGithubConfigurationStatus) | **Get** /notifications/endpoints/github/configurations/{uuid}/status | 
-[**GetGithubSelector**](NotificationsApi.md#GetGithubSelector) | **Get** /notifications/endpoints/github/configurations/{configuration_uuid}/selectors/{selector_uuid} | 
-[**GetJiraConfiguration**](NotificationsApi.md#GetJiraConfiguration) | **Get** /notifications/endpoints/jira/configurations/{uuid} | 
-[**GetJiraConfigurationStatus**](NotificationsApi.md#GetJiraConfigurationStatus) | **Get** /notifications/endpoints/jira/configurations/{uuid}/status | 
-[**GetJiraSelector**](NotificationsApi.md#GetJiraSelector) | **Get** /notifications/endpoints/jira/configurations/{configuration_uuid}/selectors/{selector_uuid} | 
-[**GetSlackConfiguration**](NotificationsApi.md#GetSlackConfiguration) | **Get** /notifications/endpoints/slack/configurations/{uuid} | 
-[**GetSlackConfigurationStatus**](NotificationsApi.md#GetSlackConfigurationStatus) | **Get** /notifications/endpoints/slack/configurations/{uuid}/status | 
-[**GetSlackSelector**](NotificationsApi.md#GetSlackSelector) | **Get** /notifications/endpoints/slack/configurations/{configuration_uuid}/selectors/{selector_uuid} | 
-[**GetSmtpConfiguration**](NotificationsApi.md#GetSmtpConfiguration) | **Get** /notifications/endpoints/smtp/configurations/{uuid} | 
-[**GetSmtpConfigurationStatus**](NotificationsApi.md#GetSmtpConfigurationStatus) | **Get** /notifications/endpoints/smtp/configurations/{uuid}/status | 
-[**GetSmtpSelector**](NotificationsApi.md#GetSmtpSelector) | **Get** /notifications/endpoints/smtp/configurations/{configuration_uuid}/selectors/{selector_uuid} | 
-[**GetTeamsConfiguration**](NotificationsApi.md#GetTeamsConfiguration) | **Get** /notifications/endpoints/teams/configurations/{uuid} | 
-[**GetTeamsConfigurationStatus**](NotificationsApi.md#GetTeamsConfigurationStatus) | **Get** /notifications/endpoints/teams/configurations/{uuid}/status | 
-[**GetTeamsSelector**](NotificationsApi.md#GetTeamsSelector) | **Get** /notifications/endpoints/teams/configurations/{configuration_uuid}/selectors/{selector_uuid} | 
-[**GetWebhookConfiguration**](NotificationsApi.md#GetWebhookConfiguration) | **Get** /notifications/endpoints/webhook/configurations/{uuid} | 
-[**GetWebhookConfigurationStatus**](NotificationsApi.md#GetWebhookConfigurationStatus) | **Get** /notifications/endpoints/webhook/configurations/{uuid}/status | 
-[**GetWebhookSelector**](NotificationsApi.md#GetWebhookSelector) | **Get** /notifications/endpoints/webhook/configurations/{configuration_uuid}/selectors/{selector_uuid} | 
-[**ListEndpoints**](NotificationsApi.md#ListEndpoints) | **Get** /notifications/endpoints | 
-[**ListGithubConfigurations**](NotificationsApi.md#ListGithubConfigurations) | **Get** /notifications/endpoints/github/configurations | 
-[**ListGithubSelectors**](NotificationsApi.md#ListGithubSelectors) | **Get** /notifications/endpoints/github/configurations/{uuid}/selectors | 
-[**ListJiraConfigurations**](NotificationsApi.md#ListJiraConfigurations) | **Get** /notifications/endpoints/jira/configurations | 
-[**ListJiraSelectors**](NotificationsApi.md#ListJiraSelectors) | **Get** /notifications/endpoints/jira/configurations/{uuid}/selectors | 
-[**ListSelectors**](NotificationsApi.md#ListSelectors) | **Get** /notifications/selectors | 
-[**ListSlackConfigurations**](NotificationsApi.md#ListSlackConfigurations) | **Get** /notifications/endpoints/slack/configurations | 
-[**ListSlackSelectors**](NotificationsApi.md#ListSlackSelectors) | **Get** /notifications/endpoints/slack/configurations/{uuid}/selectors | 
-[**ListSmtpConfigurations**](NotificationsApi.md#ListSmtpConfigurations) | **Get** /notifications/endpoints/smtp/configurations | 
-[**ListSmtpSelectors**](NotificationsApi.md#ListSmtpSelectors) | **Get** /notifications/endpoints/smtp/configurations/{uuid}/selectors | 
-[**ListTeamsConfigurations**](NotificationsApi.md#ListTeamsConfigurations) | **Get** /notifications/endpoints/teams/configurations | 
-[**ListTeamsSelectors**](NotificationsApi.md#ListTeamsSelectors) | **Get** /notifications/endpoints/teams/configurations/{uuid}/selectors | 
-[**ListWebhookConfigurations**](NotificationsApi.md#ListWebhookConfigurations) | **Get** /notifications/endpoints/webhook/configurations | 
-[**ListWebhookSelectors**](NotificationsApi.md#ListWebhookSelectors) | **Get** /notifications/endpoints/webhook/configurations/{uuid}/selectors | 
-[**TestGithubConfiguration**](NotificationsApi.md#TestGithubConfiguration) | **Post** /notifications/endpoints/github/test | 
-[**TestJiraConfiguration**](NotificationsApi.md#TestJiraConfiguration) | **Post** /notifications/endpoints/jira/test | 
-[**TestSlackConfiguration**](NotificationsApi.md#TestSlackConfiguration) | **Post** /notifications/endpoints/slack/test | 
-[**TestSmtpConfiguration**](NotificationsApi.md#TestSmtpConfiguration) | **Post** /notifications/endpoints/smtp/test | 
-[**TestStoredGithubConfiguration**](NotificationsApi.md#TestStoredGithubConfiguration) | **Get** /notifications/endpoints/github/configurations/{uuid}/test | 
-[**TestStoredJiraConfiguration**](NotificationsApi.md#TestStoredJiraConfiguration) | **Get** /notifications/endpoints/jira/configurations/{uuid}/test | 
-[**TestStoredSlackConfiguration**](NotificationsApi.md#TestStoredSlackConfiguration) | **Get** /notifications/endpoints/slack/configurations/{uuid}/test | 
-[**TestStoredSmtpConfiguration**](NotificationsApi.md#TestStoredSmtpConfiguration) | **Get** /notifications/endpoints/smtp/configurations/{uuid}/test | 
-[**TestStoredTeamsConfiguration**](NotificationsApi.md#TestStoredTeamsConfiguration) | **Get** /notifications/endpoints/teams/configurations/{uuid}/test | 
-[**TestStoredWebhookConfiguration**](NotificationsApi.md#TestStoredWebhookConfiguration) | **Get** /notifications/endpoints/webhook/configurations/{uuid}/test | 
-[**TestTeamsConfiguration**](NotificationsApi.md#TestTeamsConfiguration) | **Post** /notifications/endpoints/teams/test | 
-[**TestWebhookConfiguration**](NotificationsApi.md#TestWebhookConfiguration) | **Post** /notifications/endpoints/webhook/test | 
-[**UpdateEndpointStatus**](NotificationsApi.md#UpdateEndpointStatus) | **Put** /notifications/endpoints/{name} | 
-[**UpdateGithubConfiguration**](NotificationsApi.md#UpdateGithubConfiguration) | **Put** /notifications/endpoints/github/configurations/{uuid} | 
-[**UpdateGithubSelector**](NotificationsApi.md#UpdateGithubSelector) | **Put** /notifications/endpoints/github/configurations/{configuration_uuid}/selectors/{selector_uuid} | 
-[**UpdateJiraConfiguration**](NotificationsApi.md#UpdateJiraConfiguration) | **Put** /notifications/endpoints/jira/configurations/{uuid} | 
-[**UpdateJiraSelector**](NotificationsApi.md#UpdateJiraSelector) | **Put** /notifications/endpoints/jira/configurations/{configuration_uuid}/selectors/{selector_uuid} | 
-[**UpdateSlackConfiguration**](NotificationsApi.md#UpdateSlackConfiguration) | **Put** /notifications/endpoints/slack/configurations/{uuid} | 
-[**UpdateSlackSelector**](NotificationsApi.md#UpdateSlackSelector) | **Put** /notifications/endpoints/slack/configurations/{configuration_uuid}/selectors/{selector_uuid} | 
-[**UpdateSmtpConfiguration**](NotificationsApi.md#UpdateSmtpConfiguration) | **Put** /notifications/endpoints/smtp/configurations/{uuid} | 
-[**UpdateSmtpSelector**](NotificationsApi.md#UpdateSmtpSelector) | **Put** /notifications/endpoints/smtp/configurations/{configuration_uuid}/selectors/{selector_uuid} | 
-[**UpdateTeamsConfiguration**](NotificationsApi.md#UpdateTeamsConfiguration) | **Put** /notifications/endpoints/teams/configurations/{uuid} | 
-[**UpdateTeamsSelector**](NotificationsApi.md#UpdateTeamsSelector) | **Put** /notifications/endpoints/teams/configurations/{configuration_uuid}/selectors/{selector_uuid} | 
-[**UpdateWebhookConfiguration**](NotificationsApi.md#UpdateWebhookConfiguration) | **Put** /notifications/endpoints/webhook/configurations/{uuid} | 
-[**UpdateWebhookSelector**](NotificationsApi.md#UpdateWebhookSelector) | **Put** /notifications/endpoints/webhook/configurations/{configuration_uuid}/selectors/{selector_uuid} | 
+[**AddGithubConfiguration**](NotificationsAPI.md#AddGithubConfiguration) | **Post** /notifications/endpoints/github/configurations | 
+[**AddGithubSelector**](NotificationsAPI.md#AddGithubSelector) | **Post** /notifications/endpoints/github/configurations/{uuid}/selectors | 
+[**AddJiraConfiguration**](NotificationsAPI.md#AddJiraConfiguration) | **Post** /notifications/endpoints/jira/configurations | 
+[**AddJiraSelector**](NotificationsAPI.md#AddJiraSelector) | **Post** /notifications/endpoints/jira/configurations/{uuid}/selectors | 
+[**AddSlackConfiguration**](NotificationsAPI.md#AddSlackConfiguration) | **Post** /notifications/endpoints/slack/configurations | 
+[**AddSlackSelector**](NotificationsAPI.md#AddSlackSelector) | **Post** /notifications/endpoints/slack/configurations/{uuid}/selectors | 
+[**AddSmtpConfiguration**](NotificationsAPI.md#AddSmtpConfiguration) | **Post** /notifications/endpoints/smtp/configurations | 
+[**AddSmtpSelector**](NotificationsAPI.md#AddSmtpSelector) | **Post** /notifications/endpoints/smtp/configurations/{uuid}/selectors | 
+[**AddTeamsConfiguration**](NotificationsAPI.md#AddTeamsConfiguration) | **Post** /notifications/endpoints/teams/configurations | 
+[**AddTeamsSelector**](NotificationsAPI.md#AddTeamsSelector) | **Post** /notifications/endpoints/teams/configurations/{uuid}/selectors | 
+[**AddWebhookConfiguration**](NotificationsAPI.md#AddWebhookConfiguration) | **Post** /notifications/endpoints/webhook/configurations | 
+[**AddWebhookSelector**](NotificationsAPI.md#AddWebhookSelector) | **Post** /notifications/endpoints/webhook/configurations/{uuid}/selectors | 
+[**DeleteGithubConfiguration**](NotificationsAPI.md#DeleteGithubConfiguration) | **Delete** /notifications/endpoints/github/configurations/{uuid} | 
+[**DeleteGithubSelector**](NotificationsAPI.md#DeleteGithubSelector) | **Delete** /notifications/endpoints/github/configurations/{configuration_uuid}/selectors/{selector_uuid} | 
+[**DeleteJiraConfiguration**](NotificationsAPI.md#DeleteJiraConfiguration) | **Delete** /notifications/endpoints/jira/configurations/{uuid} | 
+[**DeleteJiraSelector**](NotificationsAPI.md#DeleteJiraSelector) | **Delete** /notifications/endpoints/jira/configurations/{configuration_uuid}/selectors/{selector_uuid} | 
+[**DeleteSlackConfiguration**](NotificationsAPI.md#DeleteSlackConfiguration) | **Delete** /notifications/endpoints/slack/configurations/{uuid} | 
+[**DeleteSlackSelector**](NotificationsAPI.md#DeleteSlackSelector) | **Delete** /notifications/endpoints/slack/configurations/{configuration_uuid}/selectors/{selector_uuid} | 
+[**DeleteSmtpConfiguration**](NotificationsAPI.md#DeleteSmtpConfiguration) | **Delete** /notifications/endpoints/smtp/configurations/{uuid} | 
+[**DeleteSmtpSelector**](NotificationsAPI.md#DeleteSmtpSelector) | **Delete** /notifications/endpoints/smtp/configurations/{configuration_uuid}/selectors/{selector_uuid} | 
+[**DeleteTeamsConfiguration**](NotificationsAPI.md#DeleteTeamsConfiguration) | **Delete** /notifications/endpoints/teams/configurations/{uuid} | 
+[**DeleteTeamsSelector**](NotificationsAPI.md#DeleteTeamsSelector) | **Delete** /notifications/endpoints/teams/configurations/{configuration_uuid}/selectors/{selector_uuid} | 
+[**DeleteWebhookConfiguration**](NotificationsAPI.md#DeleteWebhookConfiguration) | **Delete** /notifications/endpoints/webhook/configurations/{uuid} | 
+[**DeleteWebhookSelector**](NotificationsAPI.md#DeleteWebhookSelector) | **Delete** /notifications/endpoints/webhook/configurations/{configuration_uuid}/selectors/{selector_uuid} | 
+[**GetGithubConfiguration**](NotificationsAPI.md#GetGithubConfiguration) | **Get** /notifications/endpoints/github/configurations/{uuid} | 
+[**GetGithubConfigurationStatus**](NotificationsAPI.md#GetGithubConfigurationStatus) | **Get** /notifications/endpoints/github/configurations/{uuid}/status | 
+[**GetGithubSelector**](NotificationsAPI.md#GetGithubSelector) | **Get** /notifications/endpoints/github/configurations/{configuration_uuid}/selectors/{selector_uuid} | 
+[**GetJiraConfiguration**](NotificationsAPI.md#GetJiraConfiguration) | **Get** /notifications/endpoints/jira/configurations/{uuid} | 
+[**GetJiraConfigurationStatus**](NotificationsAPI.md#GetJiraConfigurationStatus) | **Get** /notifications/endpoints/jira/configurations/{uuid}/status | 
+[**GetJiraSelector**](NotificationsAPI.md#GetJiraSelector) | **Get** /notifications/endpoints/jira/configurations/{configuration_uuid}/selectors/{selector_uuid} | 
+[**GetSlackConfiguration**](NotificationsAPI.md#GetSlackConfiguration) | **Get** /notifications/endpoints/slack/configurations/{uuid} | 
+[**GetSlackConfigurationStatus**](NotificationsAPI.md#GetSlackConfigurationStatus) | **Get** /notifications/endpoints/slack/configurations/{uuid}/status | 
+[**GetSlackSelector**](NotificationsAPI.md#GetSlackSelector) | **Get** /notifications/endpoints/slack/configurations/{configuration_uuid}/selectors/{selector_uuid} | 
+[**GetSmtpConfiguration**](NotificationsAPI.md#GetSmtpConfiguration) | **Get** /notifications/endpoints/smtp/configurations/{uuid} | 
+[**GetSmtpConfigurationStatus**](NotificationsAPI.md#GetSmtpConfigurationStatus) | **Get** /notifications/endpoints/smtp/configurations/{uuid}/status | 
+[**GetSmtpSelector**](NotificationsAPI.md#GetSmtpSelector) | **Get** /notifications/endpoints/smtp/configurations/{configuration_uuid}/selectors/{selector_uuid} | 
+[**GetTeamsConfiguration**](NotificationsAPI.md#GetTeamsConfiguration) | **Get** /notifications/endpoints/teams/configurations/{uuid} | 
+[**GetTeamsConfigurationStatus**](NotificationsAPI.md#GetTeamsConfigurationStatus) | **Get** /notifications/endpoints/teams/configurations/{uuid}/status | 
+[**GetTeamsSelector**](NotificationsAPI.md#GetTeamsSelector) | **Get** /notifications/endpoints/teams/configurations/{configuration_uuid}/selectors/{selector_uuid} | 
+[**GetWebhookConfiguration**](NotificationsAPI.md#GetWebhookConfiguration) | **Get** /notifications/endpoints/webhook/configurations/{uuid} | 
+[**GetWebhookConfigurationStatus**](NotificationsAPI.md#GetWebhookConfigurationStatus) | **Get** /notifications/endpoints/webhook/configurations/{uuid}/status | 
+[**GetWebhookSelector**](NotificationsAPI.md#GetWebhookSelector) | **Get** /notifications/endpoints/webhook/configurations/{configuration_uuid}/selectors/{selector_uuid} | 
+[**ListEndpoints**](NotificationsAPI.md#ListEndpoints) | **Get** /notifications/endpoints | 
+[**ListGithubConfigurations**](NotificationsAPI.md#ListGithubConfigurations) | **Get** /notifications/endpoints/github/configurations | 
+[**ListGithubSelectors**](NotificationsAPI.md#ListGithubSelectors) | **Get** /notifications/endpoints/github/configurations/{uuid}/selectors | 
+[**ListJiraConfigurations**](NotificationsAPI.md#ListJiraConfigurations) | **Get** /notifications/endpoints/jira/configurations | 
+[**ListJiraSelectors**](NotificationsAPI.md#ListJiraSelectors) | **Get** /notifications/endpoints/jira/configurations/{uuid}/selectors | 
+[**ListSelectors**](NotificationsAPI.md#ListSelectors) | **Get** /notifications/selectors | 
+[**ListSlackConfigurations**](NotificationsAPI.md#ListSlackConfigurations) | **Get** /notifications/endpoints/slack/configurations | 
+[**ListSlackSelectors**](NotificationsAPI.md#ListSlackSelectors) | **Get** /notifications/endpoints/slack/configurations/{uuid}/selectors | 
+[**ListSmtpConfigurations**](NotificationsAPI.md#ListSmtpConfigurations) | **Get** /notifications/endpoints/smtp/configurations | 
+[**ListSmtpSelectors**](NotificationsAPI.md#ListSmtpSelectors) | **Get** /notifications/endpoints/smtp/configurations/{uuid}/selectors | 
+[**ListTeamsConfigurations**](NotificationsAPI.md#ListTeamsConfigurations) | **Get** /notifications/endpoints/teams/configurations | 
+[**ListTeamsSelectors**](NotificationsAPI.md#ListTeamsSelectors) | **Get** /notifications/endpoints/teams/configurations/{uuid}/selectors | 
+[**ListWebhookConfigurations**](NotificationsAPI.md#ListWebhookConfigurations) | **Get** /notifications/endpoints/webhook/configurations | 
+[**ListWebhookSelectors**](NotificationsAPI.md#ListWebhookSelectors) | **Get** /notifications/endpoints/webhook/configurations/{uuid}/selectors | 
+[**TestGithubConfiguration**](NotificationsAPI.md#TestGithubConfiguration) | **Post** /notifications/endpoints/github/test | 
+[**TestJiraConfiguration**](NotificationsAPI.md#TestJiraConfiguration) | **Post** /notifications/endpoints/jira/test | 
+[**TestSlackConfiguration**](NotificationsAPI.md#TestSlackConfiguration) | **Post** /notifications/endpoints/slack/test | 
+[**TestSmtpConfiguration**](NotificationsAPI.md#TestSmtpConfiguration) | **Post** /notifications/endpoints/smtp/test | 
+[**TestStoredGithubConfiguration**](NotificationsAPI.md#TestStoredGithubConfiguration) | **Get** /notifications/endpoints/github/configurations/{uuid}/test | 
+[**TestStoredJiraConfiguration**](NotificationsAPI.md#TestStoredJiraConfiguration) | **Get** /notifications/endpoints/jira/configurations/{uuid}/test | 
+[**TestStoredSlackConfiguration**](NotificationsAPI.md#TestStoredSlackConfiguration) | **Get** /notifications/endpoints/slack/configurations/{uuid}/test | 
+[**TestStoredSmtpConfiguration**](NotificationsAPI.md#TestStoredSmtpConfiguration) | **Get** /notifications/endpoints/smtp/configurations/{uuid}/test | 
+[**TestStoredTeamsConfiguration**](NotificationsAPI.md#TestStoredTeamsConfiguration) | **Get** /notifications/endpoints/teams/configurations/{uuid}/test | 
+[**TestStoredWebhookConfiguration**](NotificationsAPI.md#TestStoredWebhookConfiguration) | **Get** /notifications/endpoints/webhook/configurations/{uuid}/test | 
+[**TestTeamsConfiguration**](NotificationsAPI.md#TestTeamsConfiguration) | **Post** /notifications/endpoints/teams/test | 
+[**TestWebhookConfiguration**](NotificationsAPI.md#TestWebhookConfiguration) | **Post** /notifications/endpoints/webhook/test | 
+[**UpdateEndpointStatus**](NotificationsAPI.md#UpdateEndpointStatus) | **Put** /notifications/endpoints/{name} | 
+[**UpdateGithubConfiguration**](NotificationsAPI.md#UpdateGithubConfiguration) | **Put** /notifications/endpoints/github/configurations/{uuid} | 
+[**UpdateGithubSelector**](NotificationsAPI.md#UpdateGithubSelector) | **Put** /notifications/endpoints/github/configurations/{configuration_uuid}/selectors/{selector_uuid} | 
+[**UpdateJiraConfiguration**](NotificationsAPI.md#UpdateJiraConfiguration) | **Put** /notifications/endpoints/jira/configurations/{uuid} | 
+[**UpdateJiraSelector**](NotificationsAPI.md#UpdateJiraSelector) | **Put** /notifications/endpoints/jira/configurations/{configuration_uuid}/selectors/{selector_uuid} | 
+[**UpdateSlackConfiguration**](NotificationsAPI.md#UpdateSlackConfiguration) | **Put** /notifications/endpoints/slack/configurations/{uuid} | 
+[**UpdateSlackSelector**](NotificationsAPI.md#UpdateSlackSelector) | **Put** /notifications/endpoints/slack/configurations/{configuration_uuid}/selectors/{selector_uuid} | 
+[**UpdateSmtpConfiguration**](NotificationsAPI.md#UpdateSmtpConfiguration) | **Put** /notifications/endpoints/smtp/configurations/{uuid} | 
+[**UpdateSmtpSelector**](NotificationsAPI.md#UpdateSmtpSelector) | **Put** /notifications/endpoints/smtp/configurations/{configuration_uuid}/selectors/{selector_uuid} | 
+[**UpdateTeamsConfiguration**](NotificationsAPI.md#UpdateTeamsConfiguration) | **Put** /notifications/endpoints/teams/configurations/{uuid} | 
+[**UpdateTeamsSelector**](NotificationsAPI.md#UpdateTeamsSelector) | **Put** /notifications/endpoints/teams/configurations/{configuration_uuid}/selectors/{selector_uuid} | 
+[**UpdateWebhookConfiguration**](NotificationsAPI.md#UpdateWebhookConfiguration) | **Put** /notifications/endpoints/webhook/configurations/{uuid} | 
+[**UpdateWebhookSelector**](NotificationsAPI.md#UpdateWebhookSelector) | **Put** /notifications/endpoints/webhook/configurations/{configuration_uuid}/selectors/{selector_uuid} | 
 
 
 
@@ -102,24 +102,24 @@ Method | HTTP request | Description
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
-    configuration := *openapiclient.NewNotificationGitHubEndpointConfigurationPost("Username_example", "AccessToken_example", "Owner_example", "Repository_example") // NotificationGitHubEndpointConfigurationPost | 
+	configuration := *openapiclient.NewNotificationGitHubEndpointConfigurationPost("Username_example", "AccessToken_example", "Owner_example", "Repository_example") // NotificationGitHubEndpointConfigurationPost | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.NotificationsApi.AddGithubConfiguration(context.Background()).Configuration(configuration).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `NotificationsApi.AddGithubConfiguration``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `AddGithubConfiguration`: NotificationGitHubEndpointConfigurationBase
-    fmt.Fprintf(os.Stdout, "Response from `NotificationsApi.AddGithubConfiguration`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.NotificationsAPI.AddGithubConfiguration(context.Background()).Configuration(configuration).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `NotificationsAPI.AddGithubConfiguration``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `AddGithubConfiguration`: NotificationGitHubEndpointConfigurationBase
+	fmt.Fprintf(os.Stdout, "Response from `NotificationsAPI.AddGithubConfiguration`: %v\n", resp)
 }
 ```
 
@@ -168,25 +168,25 @@ No authorization required
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
-    uuid := "uuid_example" // string | 
-    selector := *openapiclient.NewNotificationSelector("Scope_example", *openapiclient.NewNotificationEventSelector("Level_example", "ResourceType_example", "Type_example")) // NotificationSelector | 
+	uuid := "uuid_example" // string | 
+	selector := *openapiclient.NewNotificationSelector("Scope_example", *openapiclient.NewNotificationEventSelector("Level_example", "ResourceType_example", "Type_example")) // NotificationSelector | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.NotificationsApi.AddGithubSelector(context.Background(), uuid).Selector(selector).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `NotificationsApi.AddGithubSelector``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `AddGithubSelector`: NotificationSelector
-    fmt.Fprintf(os.Stdout, "Response from `NotificationsApi.AddGithubSelector`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.NotificationsAPI.AddGithubSelector(context.Background(), uuid).Selector(selector).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `NotificationsAPI.AddGithubSelector``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `AddGithubSelector`: NotificationSelector
+	fmt.Fprintf(os.Stdout, "Response from `NotificationsAPI.AddGithubSelector`: %v\n", resp)
 }
 ```
 
@@ -240,24 +240,24 @@ No authorization required
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
-    configuration := *openapiclient.NewNotificationJiraEndpointConfigurationPost("Url_example", "Username_example", "Password_example", "ProjectKey_example", "IssueType_example") // NotificationJiraEndpointConfigurationPost | 
+	configuration := *openapiclient.NewNotificationJiraEndpointConfigurationPost("Url_example", "Username_example", "Password_example", "ProjectKey_example", "IssueType_example") // NotificationJiraEndpointConfigurationPost | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.NotificationsApi.AddJiraConfiguration(context.Background()).Configuration(configuration).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `NotificationsApi.AddJiraConfiguration``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `AddJiraConfiguration`: NotificationJiraEndpointConfigurationBase
-    fmt.Fprintf(os.Stdout, "Response from `NotificationsApi.AddJiraConfiguration`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.NotificationsAPI.AddJiraConfiguration(context.Background()).Configuration(configuration).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `NotificationsAPI.AddJiraConfiguration``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `AddJiraConfiguration`: NotificationJiraEndpointConfigurationBase
+	fmt.Fprintf(os.Stdout, "Response from `NotificationsAPI.AddJiraConfiguration`: %v\n", resp)
 }
 ```
 
@@ -306,25 +306,25 @@ No authorization required
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
-    uuid := "uuid_example" // string | 
-    selector := *openapiclient.NewNotificationSelector("Scope_example", *openapiclient.NewNotificationEventSelector("Level_example", "ResourceType_example", "Type_example")) // NotificationSelector | 
+	uuid := "uuid_example" // string | 
+	selector := *openapiclient.NewNotificationSelector("Scope_example", *openapiclient.NewNotificationEventSelector("Level_example", "ResourceType_example", "Type_example")) // NotificationSelector | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.NotificationsApi.AddJiraSelector(context.Background(), uuid).Selector(selector).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `NotificationsApi.AddJiraSelector``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `AddJiraSelector`: NotificationSelector
-    fmt.Fprintf(os.Stdout, "Response from `NotificationsApi.AddJiraSelector`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.NotificationsAPI.AddJiraSelector(context.Background(), uuid).Selector(selector).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `NotificationsAPI.AddJiraSelector``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `AddJiraSelector`: NotificationSelector
+	fmt.Fprintf(os.Stdout, "Response from `NotificationsAPI.AddJiraSelector`: %v\n", resp)
 }
 ```
 
@@ -378,24 +378,24 @@ No authorization required
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
-    configuration := *openapiclient.NewNotificationSlackEndpointConfiguration("Url_example") // NotificationSlackEndpointConfiguration | 
+	configuration := *openapiclient.NewNotificationSlackEndpointConfiguration("Url_example") // NotificationSlackEndpointConfiguration | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.NotificationsApi.AddSlackConfiguration(context.Background()).Configuration(configuration).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `NotificationsApi.AddSlackConfiguration``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `AddSlackConfiguration`: NotificationSlackEndpointConfiguration
-    fmt.Fprintf(os.Stdout, "Response from `NotificationsApi.AddSlackConfiguration`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.NotificationsAPI.AddSlackConfiguration(context.Background()).Configuration(configuration).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `NotificationsAPI.AddSlackConfiguration``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `AddSlackConfiguration`: NotificationSlackEndpointConfiguration
+	fmt.Fprintf(os.Stdout, "Response from `NotificationsAPI.AddSlackConfiguration`: %v\n", resp)
 }
 ```
 
@@ -444,25 +444,25 @@ No authorization required
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
-    uuid := "uuid_example" // string | 
-    selector := *openapiclient.NewNotificationSelector("Scope_example", *openapiclient.NewNotificationEventSelector("Level_example", "ResourceType_example", "Type_example")) // NotificationSelector | 
+	uuid := "uuid_example" // string | 
+	selector := *openapiclient.NewNotificationSelector("Scope_example", *openapiclient.NewNotificationEventSelector("Level_example", "ResourceType_example", "Type_example")) // NotificationSelector | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.NotificationsApi.AddSlackSelector(context.Background(), uuid).Selector(selector).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `NotificationsApi.AddSlackSelector``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `AddSlackSelector`: NotificationSelector
-    fmt.Fprintf(os.Stdout, "Response from `NotificationsApi.AddSlackSelector`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.NotificationsAPI.AddSlackSelector(context.Background(), uuid).Selector(selector).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `NotificationsAPI.AddSlackSelector``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `AddSlackSelector`: NotificationSelector
+	fmt.Fprintf(os.Stdout, "Response from `NotificationsAPI.AddSlackSelector`: %v\n", resp)
 }
 ```
 
@@ -516,24 +516,24 @@ No authorization required
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
-    configuration := *openapiclient.NewNotificationSMTPEndpointConfiguration("Host_example", int32(123), "From_example", "To_example") // NotificationSMTPEndpointConfiguration | 
+	configuration := *openapiclient.NewNotificationSMTPEndpointConfiguration("Host_example", int32(123), "From_example", "To_example") // NotificationSMTPEndpointConfiguration | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.NotificationsApi.AddSmtpConfiguration(context.Background()).Configuration(configuration).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `NotificationsApi.AddSmtpConfiguration``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `AddSmtpConfiguration`: NotificationSMTPEndpointConfiguration
-    fmt.Fprintf(os.Stdout, "Response from `NotificationsApi.AddSmtpConfiguration`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.NotificationsAPI.AddSmtpConfiguration(context.Background()).Configuration(configuration).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `NotificationsAPI.AddSmtpConfiguration``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `AddSmtpConfiguration`: NotificationSMTPEndpointConfiguration
+	fmt.Fprintf(os.Stdout, "Response from `NotificationsAPI.AddSmtpConfiguration`: %v\n", resp)
 }
 ```
 
@@ -582,25 +582,25 @@ No authorization required
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
-    uuid := "uuid_example" // string | 
-    selector := *openapiclient.NewNotificationSelector("Scope_example", *openapiclient.NewNotificationEventSelector("Level_example", "ResourceType_example", "Type_example")) // NotificationSelector | 
+	uuid := "uuid_example" // string | 
+	selector := *openapiclient.NewNotificationSelector("Scope_example", *openapiclient.NewNotificationEventSelector("Level_example", "ResourceType_example", "Type_example")) // NotificationSelector | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.NotificationsApi.AddSmtpSelector(context.Background(), uuid).Selector(selector).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `NotificationsApi.AddSmtpSelector``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `AddSmtpSelector`: NotificationSelector
-    fmt.Fprintf(os.Stdout, "Response from `NotificationsApi.AddSmtpSelector`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.NotificationsAPI.AddSmtpSelector(context.Background(), uuid).Selector(selector).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `NotificationsAPI.AddSmtpSelector``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `AddSmtpSelector`: NotificationSelector
+	fmt.Fprintf(os.Stdout, "Response from `NotificationsAPI.AddSmtpSelector`: %v\n", resp)
 }
 ```
 
@@ -654,24 +654,24 @@ No authorization required
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
-    configuration := *openapiclient.NewNotificationTeamsEndpointConfiguration("Url_example") // NotificationTeamsEndpointConfiguration | 
+	configuration := *openapiclient.NewNotificationTeamsEndpointConfiguration("Url_example") // NotificationTeamsEndpointConfiguration | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.NotificationsApi.AddTeamsConfiguration(context.Background()).Configuration(configuration).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `NotificationsApi.AddTeamsConfiguration``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `AddTeamsConfiguration`: NotificationTeamsEndpointConfiguration
-    fmt.Fprintf(os.Stdout, "Response from `NotificationsApi.AddTeamsConfiguration`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.NotificationsAPI.AddTeamsConfiguration(context.Background()).Configuration(configuration).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `NotificationsAPI.AddTeamsConfiguration``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `AddTeamsConfiguration`: NotificationTeamsEndpointConfiguration
+	fmt.Fprintf(os.Stdout, "Response from `NotificationsAPI.AddTeamsConfiguration`: %v\n", resp)
 }
 ```
 
@@ -720,25 +720,25 @@ No authorization required
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
-    uuid := "uuid_example" // string | 
-    selector := *openapiclient.NewNotificationSelector("Scope_example", *openapiclient.NewNotificationEventSelector("Level_example", "ResourceType_example", "Type_example")) // NotificationSelector | 
+	uuid := "uuid_example" // string | 
+	selector := *openapiclient.NewNotificationSelector("Scope_example", *openapiclient.NewNotificationEventSelector("Level_example", "ResourceType_example", "Type_example")) // NotificationSelector | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.NotificationsApi.AddTeamsSelector(context.Background(), uuid).Selector(selector).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `NotificationsApi.AddTeamsSelector``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `AddTeamsSelector`: NotificationSelector
-    fmt.Fprintf(os.Stdout, "Response from `NotificationsApi.AddTeamsSelector`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.NotificationsAPI.AddTeamsSelector(context.Background(), uuid).Selector(selector).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `NotificationsAPI.AddTeamsSelector``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `AddTeamsSelector`: NotificationSelector
+	fmt.Fprintf(os.Stdout, "Response from `NotificationsAPI.AddTeamsSelector`: %v\n", resp)
 }
 ```
 
@@ -792,24 +792,24 @@ No authorization required
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
-    configuration := *openapiclient.NewNotificationWebhookEndpointConfiguration("Url_example") // NotificationWebhookEndpointConfiguration | 
+	configuration := *openapiclient.NewNotificationWebhookEndpointConfiguration("Url_example") // NotificationWebhookEndpointConfiguration | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.NotificationsApi.AddWebhookConfiguration(context.Background()).Configuration(configuration).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `NotificationsApi.AddWebhookConfiguration``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `AddWebhookConfiguration`: NotificationWebhookEndpointConfiguration
-    fmt.Fprintf(os.Stdout, "Response from `NotificationsApi.AddWebhookConfiguration`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.NotificationsAPI.AddWebhookConfiguration(context.Background()).Configuration(configuration).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `NotificationsAPI.AddWebhookConfiguration``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `AddWebhookConfiguration`: NotificationWebhookEndpointConfiguration
+	fmt.Fprintf(os.Stdout, "Response from `NotificationsAPI.AddWebhookConfiguration`: %v\n", resp)
 }
 ```
 
@@ -858,25 +858,25 @@ No authorization required
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
-    uuid := "uuid_example" // string | 
-    selector := *openapiclient.NewNotificationSelector("Scope_example", *openapiclient.NewNotificationEventSelector("Level_example", "ResourceType_example", "Type_example")) // NotificationSelector | 
+	uuid := "uuid_example" // string | 
+	selector := *openapiclient.NewNotificationSelector("Scope_example", *openapiclient.NewNotificationEventSelector("Level_example", "ResourceType_example", "Type_example")) // NotificationSelector | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.NotificationsApi.AddWebhookSelector(context.Background(), uuid).Selector(selector).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `NotificationsApi.AddWebhookSelector``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `AddWebhookSelector`: NotificationSelector
-    fmt.Fprintf(os.Stdout, "Response from `NotificationsApi.AddWebhookSelector`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.NotificationsAPI.AddWebhookSelector(context.Background(), uuid).Selector(selector).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `NotificationsAPI.AddWebhookSelector``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `AddWebhookSelector`: NotificationSelector
+	fmt.Fprintf(os.Stdout, "Response from `NotificationsAPI.AddWebhookSelector`: %v\n", resp)
 }
 ```
 
@@ -930,22 +930,22 @@ No authorization required
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
-    uuid := "uuid_example" // string | 
+	uuid := "uuid_example" // string | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.NotificationsApi.DeleteGithubConfiguration(context.Background(), uuid).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `NotificationsApi.DeleteGithubConfiguration``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.NotificationsAPI.DeleteGithubConfiguration(context.Background(), uuid).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `NotificationsAPI.DeleteGithubConfiguration``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -998,23 +998,23 @@ No authorization required
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
-    configurationUuid := "configurationUuid_example" // string | 
-    selectorUuid := "selectorUuid_example" // string | 
+	configurationUuid := "configurationUuid_example" // string | 
+	selectorUuid := "selectorUuid_example" // string | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.NotificationsApi.DeleteGithubSelector(context.Background(), configurationUuid, selectorUuid).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `NotificationsApi.DeleteGithubSelector``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.NotificationsAPI.DeleteGithubSelector(context.Background(), configurationUuid, selectorUuid).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `NotificationsAPI.DeleteGithubSelector``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -1069,22 +1069,22 @@ No authorization required
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
-    uuid := "uuid_example" // string | 
+	uuid := "uuid_example" // string | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.NotificationsApi.DeleteJiraConfiguration(context.Background(), uuid).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `NotificationsApi.DeleteJiraConfiguration``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.NotificationsAPI.DeleteJiraConfiguration(context.Background(), uuid).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `NotificationsAPI.DeleteJiraConfiguration``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -1137,23 +1137,23 @@ No authorization required
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
-    configurationUuid := "configurationUuid_example" // string | 
-    selectorUuid := "selectorUuid_example" // string | 
+	configurationUuid := "configurationUuid_example" // string | 
+	selectorUuid := "selectorUuid_example" // string | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.NotificationsApi.DeleteJiraSelector(context.Background(), configurationUuid, selectorUuid).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `NotificationsApi.DeleteJiraSelector``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.NotificationsAPI.DeleteJiraSelector(context.Background(), configurationUuid, selectorUuid).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `NotificationsAPI.DeleteJiraSelector``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -1208,22 +1208,22 @@ No authorization required
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
-    uuid := "uuid_example" // string | 
+	uuid := "uuid_example" // string | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.NotificationsApi.DeleteSlackConfiguration(context.Background(), uuid).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `NotificationsApi.DeleteSlackConfiguration``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.NotificationsAPI.DeleteSlackConfiguration(context.Background(), uuid).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `NotificationsAPI.DeleteSlackConfiguration``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -1276,23 +1276,23 @@ No authorization required
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
-    configurationUuid := "configurationUuid_example" // string | 
-    selectorUuid := "selectorUuid_example" // string | 
+	configurationUuid := "configurationUuid_example" // string | 
+	selectorUuid := "selectorUuid_example" // string | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.NotificationsApi.DeleteSlackSelector(context.Background(), configurationUuid, selectorUuid).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `NotificationsApi.DeleteSlackSelector``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.NotificationsAPI.DeleteSlackSelector(context.Background(), configurationUuid, selectorUuid).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `NotificationsAPI.DeleteSlackSelector``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -1347,22 +1347,22 @@ No authorization required
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
-    uuid := "uuid_example" // string | 
+	uuid := "uuid_example" // string | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.NotificationsApi.DeleteSmtpConfiguration(context.Background(), uuid).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `NotificationsApi.DeleteSmtpConfiguration``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.NotificationsAPI.DeleteSmtpConfiguration(context.Background(), uuid).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `NotificationsAPI.DeleteSmtpConfiguration``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -1415,23 +1415,23 @@ No authorization required
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
-    configurationUuid := "configurationUuid_example" // string | 
-    selectorUuid := "selectorUuid_example" // string | 
+	configurationUuid := "configurationUuid_example" // string | 
+	selectorUuid := "selectorUuid_example" // string | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.NotificationsApi.DeleteSmtpSelector(context.Background(), configurationUuid, selectorUuid).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `NotificationsApi.DeleteSmtpSelector``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.NotificationsAPI.DeleteSmtpSelector(context.Background(), configurationUuid, selectorUuid).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `NotificationsAPI.DeleteSmtpSelector``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -1486,22 +1486,22 @@ No authorization required
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
-    uuid := "uuid_example" // string | 
+	uuid := "uuid_example" // string | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.NotificationsApi.DeleteTeamsConfiguration(context.Background(), uuid).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `NotificationsApi.DeleteTeamsConfiguration``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.NotificationsAPI.DeleteTeamsConfiguration(context.Background(), uuid).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `NotificationsAPI.DeleteTeamsConfiguration``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -1554,23 +1554,23 @@ No authorization required
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
-    configurationUuid := "configurationUuid_example" // string | 
-    selectorUuid := "selectorUuid_example" // string | 
+	configurationUuid := "configurationUuid_example" // string | 
+	selectorUuid := "selectorUuid_example" // string | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.NotificationsApi.DeleteTeamsSelector(context.Background(), configurationUuid, selectorUuid).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `NotificationsApi.DeleteTeamsSelector``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.NotificationsAPI.DeleteTeamsSelector(context.Background(), configurationUuid, selectorUuid).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `NotificationsAPI.DeleteTeamsSelector``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -1625,22 +1625,22 @@ No authorization required
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
-    uuid := "uuid_example" // string | 
+	uuid := "uuid_example" // string | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.NotificationsApi.DeleteWebhookConfiguration(context.Background(), uuid).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `NotificationsApi.DeleteWebhookConfiguration``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.NotificationsAPI.DeleteWebhookConfiguration(context.Background(), uuid).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `NotificationsAPI.DeleteWebhookConfiguration``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -1693,23 +1693,23 @@ No authorization required
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
-    configurationUuid := "configurationUuid_example" // string | 
-    selectorUuid := "selectorUuid_example" // string | 
+	configurationUuid := "configurationUuid_example" // string | 
+	selectorUuid := "selectorUuid_example" // string | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.NotificationsApi.DeleteWebhookSelector(context.Background(), configurationUuid, selectorUuid).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `NotificationsApi.DeleteWebhookSelector``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.NotificationsAPI.DeleteWebhookSelector(context.Background(), configurationUuid, selectorUuid).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `NotificationsAPI.DeleteWebhookSelector``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -1764,24 +1764,24 @@ No authorization required
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
-    uuid := "uuid_example" // string | 
+	uuid := "uuid_example" // string | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.NotificationsApi.GetGithubConfiguration(context.Background(), uuid).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `NotificationsApi.GetGithubConfiguration``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetGithubConfiguration`: NotificationGitHubEndpointConfigurationBase
-    fmt.Fprintf(os.Stdout, "Response from `NotificationsApi.GetGithubConfiguration`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.NotificationsAPI.GetGithubConfiguration(context.Background(), uuid).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `NotificationsAPI.GetGithubConfiguration``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetGithubConfiguration`: NotificationGitHubEndpointConfigurationBase
+	fmt.Fprintf(os.Stdout, "Response from `NotificationsAPI.GetGithubConfiguration`: %v\n", resp)
 }
 ```
 
@@ -1834,24 +1834,24 @@ No authorization required
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
-    uuid := "uuid_example" // string | 
+	uuid := "uuid_example" // string | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.NotificationsApi.GetGithubConfigurationStatus(context.Background(), uuid).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `NotificationsApi.GetGithubConfigurationStatus``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetGithubConfigurationStatus`: NotificationOperationalStatus
-    fmt.Fprintf(os.Stdout, "Response from `NotificationsApi.GetGithubConfigurationStatus`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.NotificationsAPI.GetGithubConfigurationStatus(context.Background(), uuid).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `NotificationsAPI.GetGithubConfigurationStatus``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetGithubConfigurationStatus`: NotificationOperationalStatus
+	fmt.Fprintf(os.Stdout, "Response from `NotificationsAPI.GetGithubConfigurationStatus`: %v\n", resp)
 }
 ```
 
@@ -1904,25 +1904,25 @@ No authorization required
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
-    configurationUuid := "configurationUuid_example" // string | 
-    selectorUuid := "selectorUuid_example" // string | 
+	configurationUuid := "configurationUuid_example" // string | 
+	selectorUuid := "selectorUuid_example" // string | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.NotificationsApi.GetGithubSelector(context.Background(), configurationUuid, selectorUuid).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `NotificationsApi.GetGithubSelector``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetGithubSelector`: NotificationSelector
-    fmt.Fprintf(os.Stdout, "Response from `NotificationsApi.GetGithubSelector`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.NotificationsAPI.GetGithubSelector(context.Background(), configurationUuid, selectorUuid).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `NotificationsAPI.GetGithubSelector``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetGithubSelector`: NotificationSelector
+	fmt.Fprintf(os.Stdout, "Response from `NotificationsAPI.GetGithubSelector`: %v\n", resp)
 }
 ```
 
@@ -1977,24 +1977,24 @@ No authorization required
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
-    uuid := "uuid_example" // string | 
+	uuid := "uuid_example" // string | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.NotificationsApi.GetJiraConfiguration(context.Background(), uuid).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `NotificationsApi.GetJiraConfiguration``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetJiraConfiguration`: NotificationJiraEndpointConfigurationBase
-    fmt.Fprintf(os.Stdout, "Response from `NotificationsApi.GetJiraConfiguration`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.NotificationsAPI.GetJiraConfiguration(context.Background(), uuid).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `NotificationsAPI.GetJiraConfiguration``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetJiraConfiguration`: NotificationJiraEndpointConfigurationBase
+	fmt.Fprintf(os.Stdout, "Response from `NotificationsAPI.GetJiraConfiguration`: %v\n", resp)
 }
 ```
 
@@ -2047,24 +2047,24 @@ No authorization required
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
-    uuid := "uuid_example" // string | 
+	uuid := "uuid_example" // string | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.NotificationsApi.GetJiraConfigurationStatus(context.Background(), uuid).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `NotificationsApi.GetJiraConfigurationStatus``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetJiraConfigurationStatus`: NotificationOperationalStatus
-    fmt.Fprintf(os.Stdout, "Response from `NotificationsApi.GetJiraConfigurationStatus`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.NotificationsAPI.GetJiraConfigurationStatus(context.Background(), uuid).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `NotificationsAPI.GetJiraConfigurationStatus``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetJiraConfigurationStatus`: NotificationOperationalStatus
+	fmt.Fprintf(os.Stdout, "Response from `NotificationsAPI.GetJiraConfigurationStatus`: %v\n", resp)
 }
 ```
 
@@ -2117,25 +2117,25 @@ No authorization required
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
-    configurationUuid := "configurationUuid_example" // string | 
-    selectorUuid := "selectorUuid_example" // string | 
+	configurationUuid := "configurationUuid_example" // string | 
+	selectorUuid := "selectorUuid_example" // string | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.NotificationsApi.GetJiraSelector(context.Background(), configurationUuid, selectorUuid).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `NotificationsApi.GetJiraSelector``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetJiraSelector`: NotificationSelector
-    fmt.Fprintf(os.Stdout, "Response from `NotificationsApi.GetJiraSelector`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.NotificationsAPI.GetJiraSelector(context.Background(), configurationUuid, selectorUuid).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `NotificationsAPI.GetJiraSelector``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetJiraSelector`: NotificationSelector
+	fmt.Fprintf(os.Stdout, "Response from `NotificationsAPI.GetJiraSelector`: %v\n", resp)
 }
 ```
 
@@ -2190,24 +2190,24 @@ No authorization required
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
-    uuid := "uuid_example" // string | 
+	uuid := "uuid_example" // string | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.NotificationsApi.GetSlackConfiguration(context.Background(), uuid).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `NotificationsApi.GetSlackConfiguration``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetSlackConfiguration`: NotificationSlackEndpointConfiguration
-    fmt.Fprintf(os.Stdout, "Response from `NotificationsApi.GetSlackConfiguration`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.NotificationsAPI.GetSlackConfiguration(context.Background(), uuid).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `NotificationsAPI.GetSlackConfiguration``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetSlackConfiguration`: NotificationSlackEndpointConfiguration
+	fmt.Fprintf(os.Stdout, "Response from `NotificationsAPI.GetSlackConfiguration`: %v\n", resp)
 }
 ```
 
@@ -2260,24 +2260,24 @@ No authorization required
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
-    uuid := "uuid_example" // string | 
+	uuid := "uuid_example" // string | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.NotificationsApi.GetSlackConfigurationStatus(context.Background(), uuid).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `NotificationsApi.GetSlackConfigurationStatus``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetSlackConfigurationStatus`: NotificationOperationalStatus
-    fmt.Fprintf(os.Stdout, "Response from `NotificationsApi.GetSlackConfigurationStatus`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.NotificationsAPI.GetSlackConfigurationStatus(context.Background(), uuid).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `NotificationsAPI.GetSlackConfigurationStatus``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetSlackConfigurationStatus`: NotificationOperationalStatus
+	fmt.Fprintf(os.Stdout, "Response from `NotificationsAPI.GetSlackConfigurationStatus`: %v\n", resp)
 }
 ```
 
@@ -2330,25 +2330,25 @@ No authorization required
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
-    configurationUuid := "configurationUuid_example" // string | 
-    selectorUuid := "selectorUuid_example" // string | 
+	configurationUuid := "configurationUuid_example" // string | 
+	selectorUuid := "selectorUuid_example" // string | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.NotificationsApi.GetSlackSelector(context.Background(), configurationUuid, selectorUuid).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `NotificationsApi.GetSlackSelector``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetSlackSelector`: NotificationSelector
-    fmt.Fprintf(os.Stdout, "Response from `NotificationsApi.GetSlackSelector`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.NotificationsAPI.GetSlackSelector(context.Background(), configurationUuid, selectorUuid).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `NotificationsAPI.GetSlackSelector``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetSlackSelector`: NotificationSelector
+	fmt.Fprintf(os.Stdout, "Response from `NotificationsAPI.GetSlackSelector`: %v\n", resp)
 }
 ```
 
@@ -2403,24 +2403,24 @@ No authorization required
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
-    uuid := "uuid_example" // string | 
+	uuid := "uuid_example" // string | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.NotificationsApi.GetSmtpConfiguration(context.Background(), uuid).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `NotificationsApi.GetSmtpConfiguration``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetSmtpConfiguration`: NotificationSMTPEndpointConfiguration
-    fmt.Fprintf(os.Stdout, "Response from `NotificationsApi.GetSmtpConfiguration`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.NotificationsAPI.GetSmtpConfiguration(context.Background(), uuid).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `NotificationsAPI.GetSmtpConfiguration``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetSmtpConfiguration`: NotificationSMTPEndpointConfiguration
+	fmt.Fprintf(os.Stdout, "Response from `NotificationsAPI.GetSmtpConfiguration`: %v\n", resp)
 }
 ```
 
@@ -2473,24 +2473,24 @@ No authorization required
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
-    uuid := "uuid_example" // string | 
+	uuid := "uuid_example" // string | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.NotificationsApi.GetSmtpConfigurationStatus(context.Background(), uuid).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `NotificationsApi.GetSmtpConfigurationStatus``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetSmtpConfigurationStatus`: NotificationOperationalStatus
-    fmt.Fprintf(os.Stdout, "Response from `NotificationsApi.GetSmtpConfigurationStatus`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.NotificationsAPI.GetSmtpConfigurationStatus(context.Background(), uuid).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `NotificationsAPI.GetSmtpConfigurationStatus``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetSmtpConfigurationStatus`: NotificationOperationalStatus
+	fmt.Fprintf(os.Stdout, "Response from `NotificationsAPI.GetSmtpConfigurationStatus`: %v\n", resp)
 }
 ```
 
@@ -2543,25 +2543,25 @@ No authorization required
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
-    configurationUuid := "configurationUuid_example" // string | 
-    selectorUuid := "selectorUuid_example" // string | 
+	configurationUuid := "configurationUuid_example" // string | 
+	selectorUuid := "selectorUuid_example" // string | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.NotificationsApi.GetSmtpSelector(context.Background(), configurationUuid, selectorUuid).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `NotificationsApi.GetSmtpSelector``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetSmtpSelector`: NotificationSelector
-    fmt.Fprintf(os.Stdout, "Response from `NotificationsApi.GetSmtpSelector`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.NotificationsAPI.GetSmtpSelector(context.Background(), configurationUuid, selectorUuid).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `NotificationsAPI.GetSmtpSelector``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetSmtpSelector`: NotificationSelector
+	fmt.Fprintf(os.Stdout, "Response from `NotificationsAPI.GetSmtpSelector`: %v\n", resp)
 }
 ```
 
@@ -2616,24 +2616,24 @@ No authorization required
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
-    uuid := "uuid_example" // string | 
+	uuid := "uuid_example" // string | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.NotificationsApi.GetTeamsConfiguration(context.Background(), uuid).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `NotificationsApi.GetTeamsConfiguration``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetTeamsConfiguration`: NotificationTeamsEndpointConfiguration
-    fmt.Fprintf(os.Stdout, "Response from `NotificationsApi.GetTeamsConfiguration`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.NotificationsAPI.GetTeamsConfiguration(context.Background(), uuid).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `NotificationsAPI.GetTeamsConfiguration``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetTeamsConfiguration`: NotificationTeamsEndpointConfiguration
+	fmt.Fprintf(os.Stdout, "Response from `NotificationsAPI.GetTeamsConfiguration`: %v\n", resp)
 }
 ```
 
@@ -2686,24 +2686,24 @@ No authorization required
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
-    uuid := "uuid_example" // string | 
+	uuid := "uuid_example" // string | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.NotificationsApi.GetTeamsConfigurationStatus(context.Background(), uuid).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `NotificationsApi.GetTeamsConfigurationStatus``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetTeamsConfigurationStatus`: NotificationOperationalStatus
-    fmt.Fprintf(os.Stdout, "Response from `NotificationsApi.GetTeamsConfigurationStatus`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.NotificationsAPI.GetTeamsConfigurationStatus(context.Background(), uuid).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `NotificationsAPI.GetTeamsConfigurationStatus``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetTeamsConfigurationStatus`: NotificationOperationalStatus
+	fmt.Fprintf(os.Stdout, "Response from `NotificationsAPI.GetTeamsConfigurationStatus`: %v\n", resp)
 }
 ```
 
@@ -2756,25 +2756,25 @@ No authorization required
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
-    configurationUuid := "configurationUuid_example" // string | 
-    selectorUuid := "selectorUuid_example" // string | 
+	configurationUuid := "configurationUuid_example" // string | 
+	selectorUuid := "selectorUuid_example" // string | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.NotificationsApi.GetTeamsSelector(context.Background(), configurationUuid, selectorUuid).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `NotificationsApi.GetTeamsSelector``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetTeamsSelector`: NotificationSelector
-    fmt.Fprintf(os.Stdout, "Response from `NotificationsApi.GetTeamsSelector`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.NotificationsAPI.GetTeamsSelector(context.Background(), configurationUuid, selectorUuid).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `NotificationsAPI.GetTeamsSelector``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetTeamsSelector`: NotificationSelector
+	fmt.Fprintf(os.Stdout, "Response from `NotificationsAPI.GetTeamsSelector`: %v\n", resp)
 }
 ```
 
@@ -2829,24 +2829,24 @@ No authorization required
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
-    uuid := "uuid_example" // string | 
+	uuid := "uuid_example" // string | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.NotificationsApi.GetWebhookConfiguration(context.Background(), uuid).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `NotificationsApi.GetWebhookConfiguration``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetWebhookConfiguration`: NotificationWebhookEndpointConfiguration
-    fmt.Fprintf(os.Stdout, "Response from `NotificationsApi.GetWebhookConfiguration`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.NotificationsAPI.GetWebhookConfiguration(context.Background(), uuid).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `NotificationsAPI.GetWebhookConfiguration``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetWebhookConfiguration`: NotificationWebhookEndpointConfiguration
+	fmt.Fprintf(os.Stdout, "Response from `NotificationsAPI.GetWebhookConfiguration`: %v\n", resp)
 }
 ```
 
@@ -2899,24 +2899,24 @@ No authorization required
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
-    uuid := "uuid_example" // string | 
+	uuid := "uuid_example" // string | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.NotificationsApi.GetWebhookConfigurationStatus(context.Background(), uuid).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `NotificationsApi.GetWebhookConfigurationStatus``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetWebhookConfigurationStatus`: NotificationOperationalStatus
-    fmt.Fprintf(os.Stdout, "Response from `NotificationsApi.GetWebhookConfigurationStatus`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.NotificationsAPI.GetWebhookConfigurationStatus(context.Background(), uuid).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `NotificationsAPI.GetWebhookConfigurationStatus``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetWebhookConfigurationStatus`: NotificationOperationalStatus
+	fmt.Fprintf(os.Stdout, "Response from `NotificationsAPI.GetWebhookConfigurationStatus`: %v\n", resp)
 }
 ```
 
@@ -2969,25 +2969,25 @@ No authorization required
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
-    configurationUuid := "configurationUuid_example" // string | 
-    selectorUuid := "selectorUuid_example" // string | 
+	configurationUuid := "configurationUuid_example" // string | 
+	selectorUuid := "selectorUuid_example" // string | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.NotificationsApi.GetWebhookSelector(context.Background(), configurationUuid, selectorUuid).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `NotificationsApi.GetWebhookSelector``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetWebhookSelector`: NotificationSelector
-    fmt.Fprintf(os.Stdout, "Response from `NotificationsApi.GetWebhookSelector`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.NotificationsAPI.GetWebhookSelector(context.Background(), configurationUuid, selectorUuid).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `NotificationsAPI.GetWebhookSelector``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetWebhookSelector`: NotificationSelector
+	fmt.Fprintf(os.Stdout, "Response from `NotificationsAPI.GetWebhookSelector`: %v\n", resp)
 }
 ```
 
@@ -3042,23 +3042,23 @@ No authorization required
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.NotificationsApi.ListEndpoints(context.Background()).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `NotificationsApi.ListEndpoints``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ListEndpoints`: []NotificationEndpoint
-    fmt.Fprintf(os.Stdout, "Response from `NotificationsApi.ListEndpoints`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.NotificationsAPI.ListEndpoints(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `NotificationsAPI.ListEndpoints``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ListEndpoints`: []NotificationEndpoint
+	fmt.Fprintf(os.Stdout, "Response from `NotificationsAPI.ListEndpoints`: %v\n", resp)
 }
 ```
 
@@ -3103,23 +3103,23 @@ No authorization required
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.NotificationsApi.ListGithubConfigurations(context.Background()).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `NotificationsApi.ListGithubConfigurations``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ListGithubConfigurations`: []NotificationGitHubEndpointConfigurationBase
-    fmt.Fprintf(os.Stdout, "Response from `NotificationsApi.ListGithubConfigurations`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.NotificationsAPI.ListGithubConfigurations(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `NotificationsAPI.ListGithubConfigurations``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ListGithubConfigurations`: []NotificationGitHubEndpointConfigurationBase
+	fmt.Fprintf(os.Stdout, "Response from `NotificationsAPI.ListGithubConfigurations`: %v\n", resp)
 }
 ```
 
@@ -3164,24 +3164,24 @@ No authorization required
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
-    uuid := "uuid_example" // string | 
+	uuid := "uuid_example" // string | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.NotificationsApi.ListGithubSelectors(context.Background(), uuid).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `NotificationsApi.ListGithubSelectors``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ListGithubSelectors`: []NotificationSelector
-    fmt.Fprintf(os.Stdout, "Response from `NotificationsApi.ListGithubSelectors`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.NotificationsAPI.ListGithubSelectors(context.Background(), uuid).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `NotificationsAPI.ListGithubSelectors``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ListGithubSelectors`: []NotificationSelector
+	fmt.Fprintf(os.Stdout, "Response from `NotificationsAPI.ListGithubSelectors`: %v\n", resp)
 }
 ```
 
@@ -3234,23 +3234,23 @@ No authorization required
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.NotificationsApi.ListJiraConfigurations(context.Background()).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `NotificationsApi.ListJiraConfigurations``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ListJiraConfigurations`: []NotificationJiraEndpointConfigurationBase
-    fmt.Fprintf(os.Stdout, "Response from `NotificationsApi.ListJiraConfigurations`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.NotificationsAPI.ListJiraConfigurations(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `NotificationsAPI.ListJiraConfigurations``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ListJiraConfigurations`: []NotificationJiraEndpointConfigurationBase
+	fmt.Fprintf(os.Stdout, "Response from `NotificationsAPI.ListJiraConfigurations`: %v\n", resp)
 }
 ```
 
@@ -3295,24 +3295,24 @@ No authorization required
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
-    uuid := "uuid_example" // string | 
+	uuid := "uuid_example" // string | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.NotificationsApi.ListJiraSelectors(context.Background(), uuid).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `NotificationsApi.ListJiraSelectors``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ListJiraSelectors`: []NotificationSelector
-    fmt.Fprintf(os.Stdout, "Response from `NotificationsApi.ListJiraSelectors`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.NotificationsAPI.ListJiraSelectors(context.Background(), uuid).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `NotificationsAPI.ListJiraSelectors``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ListJiraSelectors`: []NotificationSelector
+	fmt.Fprintf(os.Stdout, "Response from `NotificationsAPI.ListJiraSelectors`: %v\n", resp)
 }
 ```
 
@@ -3365,23 +3365,23 @@ No authorization required
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.NotificationsApi.ListSelectors(context.Background()).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `NotificationsApi.ListSelectors``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ListSelectors`: []NotificationSelector
-    fmt.Fprintf(os.Stdout, "Response from `NotificationsApi.ListSelectors`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.NotificationsAPI.ListSelectors(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `NotificationsAPI.ListSelectors``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ListSelectors`: []NotificationSelector
+	fmt.Fprintf(os.Stdout, "Response from `NotificationsAPI.ListSelectors`: %v\n", resp)
 }
 ```
 
@@ -3426,23 +3426,23 @@ No authorization required
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.NotificationsApi.ListSlackConfigurations(context.Background()).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `NotificationsApi.ListSlackConfigurations``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ListSlackConfigurations`: []NotificationSlackEndpointConfiguration
-    fmt.Fprintf(os.Stdout, "Response from `NotificationsApi.ListSlackConfigurations`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.NotificationsAPI.ListSlackConfigurations(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `NotificationsAPI.ListSlackConfigurations``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ListSlackConfigurations`: []NotificationSlackEndpointConfiguration
+	fmt.Fprintf(os.Stdout, "Response from `NotificationsAPI.ListSlackConfigurations`: %v\n", resp)
 }
 ```
 
@@ -3487,24 +3487,24 @@ No authorization required
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
-    uuid := "uuid_example" // string | 
+	uuid := "uuid_example" // string | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.NotificationsApi.ListSlackSelectors(context.Background(), uuid).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `NotificationsApi.ListSlackSelectors``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ListSlackSelectors`: []NotificationSelector
-    fmt.Fprintf(os.Stdout, "Response from `NotificationsApi.ListSlackSelectors`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.NotificationsAPI.ListSlackSelectors(context.Background(), uuid).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `NotificationsAPI.ListSlackSelectors``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ListSlackSelectors`: []NotificationSelector
+	fmt.Fprintf(os.Stdout, "Response from `NotificationsAPI.ListSlackSelectors`: %v\n", resp)
 }
 ```
 
@@ -3557,23 +3557,23 @@ No authorization required
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.NotificationsApi.ListSmtpConfigurations(context.Background()).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `NotificationsApi.ListSmtpConfigurations``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ListSmtpConfigurations`: []NotificationSMTPEndpointConfiguration
-    fmt.Fprintf(os.Stdout, "Response from `NotificationsApi.ListSmtpConfigurations`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.NotificationsAPI.ListSmtpConfigurations(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `NotificationsAPI.ListSmtpConfigurations``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ListSmtpConfigurations`: []NotificationSMTPEndpointConfiguration
+	fmt.Fprintf(os.Stdout, "Response from `NotificationsAPI.ListSmtpConfigurations`: %v\n", resp)
 }
 ```
 
@@ -3618,24 +3618,24 @@ No authorization required
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
-    uuid := "uuid_example" // string | 
+	uuid := "uuid_example" // string | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.NotificationsApi.ListSmtpSelectors(context.Background(), uuid).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `NotificationsApi.ListSmtpSelectors``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ListSmtpSelectors`: []NotificationSelector
-    fmt.Fprintf(os.Stdout, "Response from `NotificationsApi.ListSmtpSelectors`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.NotificationsAPI.ListSmtpSelectors(context.Background(), uuid).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `NotificationsAPI.ListSmtpSelectors``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ListSmtpSelectors`: []NotificationSelector
+	fmt.Fprintf(os.Stdout, "Response from `NotificationsAPI.ListSmtpSelectors`: %v\n", resp)
 }
 ```
 
@@ -3688,23 +3688,23 @@ No authorization required
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.NotificationsApi.ListTeamsConfigurations(context.Background()).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `NotificationsApi.ListTeamsConfigurations``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ListTeamsConfigurations`: []NotificationTeamsEndpointConfiguration
-    fmt.Fprintf(os.Stdout, "Response from `NotificationsApi.ListTeamsConfigurations`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.NotificationsAPI.ListTeamsConfigurations(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `NotificationsAPI.ListTeamsConfigurations``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ListTeamsConfigurations`: []NotificationTeamsEndpointConfiguration
+	fmt.Fprintf(os.Stdout, "Response from `NotificationsAPI.ListTeamsConfigurations`: %v\n", resp)
 }
 ```
 
@@ -3749,24 +3749,24 @@ No authorization required
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
-    uuid := "uuid_example" // string | 
+	uuid := "uuid_example" // string | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.NotificationsApi.ListTeamsSelectors(context.Background(), uuid).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `NotificationsApi.ListTeamsSelectors``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ListTeamsSelectors`: []NotificationSelector
-    fmt.Fprintf(os.Stdout, "Response from `NotificationsApi.ListTeamsSelectors`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.NotificationsAPI.ListTeamsSelectors(context.Background(), uuid).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `NotificationsAPI.ListTeamsSelectors``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ListTeamsSelectors`: []NotificationSelector
+	fmt.Fprintf(os.Stdout, "Response from `NotificationsAPI.ListTeamsSelectors`: %v\n", resp)
 }
 ```
 
@@ -3819,23 +3819,23 @@ No authorization required
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.NotificationsApi.ListWebhookConfigurations(context.Background()).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `NotificationsApi.ListWebhookConfigurations``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ListWebhookConfigurations`: []NotificationWebhookEndpointConfiguration
-    fmt.Fprintf(os.Stdout, "Response from `NotificationsApi.ListWebhookConfigurations`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.NotificationsAPI.ListWebhookConfigurations(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `NotificationsAPI.ListWebhookConfigurations``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ListWebhookConfigurations`: []NotificationWebhookEndpointConfiguration
+	fmt.Fprintf(os.Stdout, "Response from `NotificationsAPI.ListWebhookConfigurations`: %v\n", resp)
 }
 ```
 
@@ -3880,24 +3880,24 @@ No authorization required
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
-    uuid := "uuid_example" // string | 
+	uuid := "uuid_example" // string | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.NotificationsApi.ListWebhookSelectors(context.Background(), uuid).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `NotificationsApi.ListWebhookSelectors``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ListWebhookSelectors`: []NotificationSelector
-    fmt.Fprintf(os.Stdout, "Response from `NotificationsApi.ListWebhookSelectors`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.NotificationsAPI.ListWebhookSelectors(context.Background(), uuid).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `NotificationsAPI.ListWebhookSelectors``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ListWebhookSelectors`: []NotificationSelector
+	fmt.Fprintf(os.Stdout, "Response from `NotificationsAPI.ListWebhookSelectors`: %v\n", resp)
 }
 ```
 
@@ -3950,24 +3950,24 @@ No authorization required
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
-    configuration := *openapiclient.NewNotificationGitHubEndpointConfigurationPost("Username_example", "AccessToken_example", "Owner_example", "Repository_example") // NotificationGitHubEndpointConfigurationPost | 
+	configuration := *openapiclient.NewNotificationGitHubEndpointConfigurationPost("Username_example", "AccessToken_example", "Owner_example", "Repository_example") // NotificationGitHubEndpointConfigurationPost | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.NotificationsApi.TestGithubConfiguration(context.Background()).Configuration(configuration).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `NotificationsApi.TestGithubConfiguration``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `TestGithubConfiguration`: NotificationGitHubTestResult
-    fmt.Fprintf(os.Stdout, "Response from `NotificationsApi.TestGithubConfiguration`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.NotificationsAPI.TestGithubConfiguration(context.Background()).Configuration(configuration).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `NotificationsAPI.TestGithubConfiguration``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `TestGithubConfiguration`: NotificationGitHubTestResult
+	fmt.Fprintf(os.Stdout, "Response from `NotificationsAPI.TestGithubConfiguration`: %v\n", resp)
 }
 ```
 
@@ -4016,24 +4016,24 @@ No authorization required
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
-    configuration := *openapiclient.NewNotificationJiraEndpointConfigurationPost("Url_example", "Username_example", "Password_example", "ProjectKey_example", "IssueType_example") // NotificationJiraEndpointConfigurationPost | 
+	configuration := *openapiclient.NewNotificationJiraEndpointConfigurationPost("Url_example", "Username_example", "Password_example", "ProjectKey_example", "IssueType_example") // NotificationJiraEndpointConfigurationPost | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.NotificationsApi.TestJiraConfiguration(context.Background()).Configuration(configuration).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `NotificationsApi.TestJiraConfiguration``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `TestJiraConfiguration`: NotificationJiraTestResult
-    fmt.Fprintf(os.Stdout, "Response from `NotificationsApi.TestJiraConfiguration`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.NotificationsAPI.TestJiraConfiguration(context.Background()).Configuration(configuration).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `NotificationsAPI.TestJiraConfiguration``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `TestJiraConfiguration`: NotificationJiraTestResult
+	fmt.Fprintf(os.Stdout, "Response from `NotificationsAPI.TestJiraConfiguration`: %v\n", resp)
 }
 ```
 
@@ -4082,24 +4082,24 @@ No authorization required
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
-    configuration := *openapiclient.NewNotificationSlackEndpointConfiguration("Url_example") // NotificationSlackEndpointConfiguration | 
+	configuration := *openapiclient.NewNotificationSlackEndpointConfiguration("Url_example") // NotificationSlackEndpointConfiguration | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.NotificationsApi.TestSlackConfiguration(context.Background()).Configuration(configuration).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `NotificationsApi.TestSlackConfiguration``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `TestSlackConfiguration`: NotificationSlackTestResult
-    fmt.Fprintf(os.Stdout, "Response from `NotificationsApi.TestSlackConfiguration`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.NotificationsAPI.TestSlackConfiguration(context.Background()).Configuration(configuration).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `NotificationsAPI.TestSlackConfiguration``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `TestSlackConfiguration`: NotificationSlackTestResult
+	fmt.Fprintf(os.Stdout, "Response from `NotificationsAPI.TestSlackConfiguration`: %v\n", resp)
 }
 ```
 
@@ -4148,24 +4148,24 @@ No authorization required
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
-    configuration := *openapiclient.NewNotificationSMTPEndpointConfiguration("Host_example", int32(123), "From_example", "To_example") // NotificationSMTPEndpointConfiguration | 
+	configuration := *openapiclient.NewNotificationSMTPEndpointConfiguration("Host_example", int32(123), "From_example", "To_example") // NotificationSMTPEndpointConfiguration | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.NotificationsApi.TestSmtpConfiguration(context.Background()).Configuration(configuration).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `NotificationsApi.TestSmtpConfiguration``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `TestSmtpConfiguration`: NotificationSMTPTestResult
-    fmt.Fprintf(os.Stdout, "Response from `NotificationsApi.TestSmtpConfiguration`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.NotificationsAPI.TestSmtpConfiguration(context.Background()).Configuration(configuration).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `NotificationsAPI.TestSmtpConfiguration``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `TestSmtpConfiguration`: NotificationSMTPTestResult
+	fmt.Fprintf(os.Stdout, "Response from `NotificationsAPI.TestSmtpConfiguration`: %v\n", resp)
 }
 ```
 
@@ -4214,24 +4214,24 @@ No authorization required
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
-    uuid := "uuid_example" // string | 
+	uuid := "uuid_example" // string | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.NotificationsApi.TestStoredGithubConfiguration(context.Background(), uuid).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `NotificationsApi.TestStoredGithubConfiguration``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `TestStoredGithubConfiguration`: NotificationGitHubTestResult
-    fmt.Fprintf(os.Stdout, "Response from `NotificationsApi.TestStoredGithubConfiguration`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.NotificationsAPI.TestStoredGithubConfiguration(context.Background(), uuid).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `NotificationsAPI.TestStoredGithubConfiguration``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `TestStoredGithubConfiguration`: NotificationGitHubTestResult
+	fmt.Fprintf(os.Stdout, "Response from `NotificationsAPI.TestStoredGithubConfiguration`: %v\n", resp)
 }
 ```
 
@@ -4284,24 +4284,24 @@ No authorization required
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
-    uuid := "uuid_example" // string | 
+	uuid := "uuid_example" // string | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.NotificationsApi.TestStoredJiraConfiguration(context.Background(), uuid).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `NotificationsApi.TestStoredJiraConfiguration``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `TestStoredJiraConfiguration`: NotificationJiraTestResult
-    fmt.Fprintf(os.Stdout, "Response from `NotificationsApi.TestStoredJiraConfiguration`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.NotificationsAPI.TestStoredJiraConfiguration(context.Background(), uuid).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `NotificationsAPI.TestStoredJiraConfiguration``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `TestStoredJiraConfiguration`: NotificationJiraTestResult
+	fmt.Fprintf(os.Stdout, "Response from `NotificationsAPI.TestStoredJiraConfiguration`: %v\n", resp)
 }
 ```
 
@@ -4354,24 +4354,24 @@ No authorization required
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
-    uuid := "uuid_example" // string | 
+	uuid := "uuid_example" // string | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.NotificationsApi.TestStoredSlackConfiguration(context.Background(), uuid).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `NotificationsApi.TestStoredSlackConfiguration``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `TestStoredSlackConfiguration`: NotificationSlackTestResult
-    fmt.Fprintf(os.Stdout, "Response from `NotificationsApi.TestStoredSlackConfiguration`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.NotificationsAPI.TestStoredSlackConfiguration(context.Background(), uuid).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `NotificationsAPI.TestStoredSlackConfiguration``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `TestStoredSlackConfiguration`: NotificationSlackTestResult
+	fmt.Fprintf(os.Stdout, "Response from `NotificationsAPI.TestStoredSlackConfiguration`: %v\n", resp)
 }
 ```
 
@@ -4424,24 +4424,24 @@ No authorization required
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
-    uuid := "uuid_example" // string | 
+	uuid := "uuid_example" // string | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.NotificationsApi.TestStoredSmtpConfiguration(context.Background(), uuid).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `NotificationsApi.TestStoredSmtpConfiguration``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `TestStoredSmtpConfiguration`: NotificationSMTPTestResult
-    fmt.Fprintf(os.Stdout, "Response from `NotificationsApi.TestStoredSmtpConfiguration`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.NotificationsAPI.TestStoredSmtpConfiguration(context.Background(), uuid).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `NotificationsAPI.TestStoredSmtpConfiguration``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `TestStoredSmtpConfiguration`: NotificationSMTPTestResult
+	fmt.Fprintf(os.Stdout, "Response from `NotificationsAPI.TestStoredSmtpConfiguration`: %v\n", resp)
 }
 ```
 
@@ -4494,24 +4494,24 @@ No authorization required
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
-    uuid := "uuid_example" // string | 
+	uuid := "uuid_example" // string | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.NotificationsApi.TestStoredTeamsConfiguration(context.Background(), uuid).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `NotificationsApi.TestStoredTeamsConfiguration``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `TestStoredTeamsConfiguration`: NotificationTeamsTestResult
-    fmt.Fprintf(os.Stdout, "Response from `NotificationsApi.TestStoredTeamsConfiguration`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.NotificationsAPI.TestStoredTeamsConfiguration(context.Background(), uuid).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `NotificationsAPI.TestStoredTeamsConfiguration``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `TestStoredTeamsConfiguration`: NotificationTeamsTestResult
+	fmt.Fprintf(os.Stdout, "Response from `NotificationsAPI.TestStoredTeamsConfiguration`: %v\n", resp)
 }
 ```
 
@@ -4564,24 +4564,24 @@ No authorization required
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
-    uuid := "uuid_example" // string | 
+	uuid := "uuid_example" // string | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.NotificationsApi.TestStoredWebhookConfiguration(context.Background(), uuid).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `NotificationsApi.TestStoredWebhookConfiguration``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `TestStoredWebhookConfiguration`: NotificationWebhookTestResult
-    fmt.Fprintf(os.Stdout, "Response from `NotificationsApi.TestStoredWebhookConfiguration`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.NotificationsAPI.TestStoredWebhookConfiguration(context.Background(), uuid).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `NotificationsAPI.TestStoredWebhookConfiguration``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `TestStoredWebhookConfiguration`: NotificationWebhookTestResult
+	fmt.Fprintf(os.Stdout, "Response from `NotificationsAPI.TestStoredWebhookConfiguration`: %v\n", resp)
 }
 ```
 
@@ -4634,24 +4634,24 @@ No authorization required
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
-    configuration := *openapiclient.NewNotificationTeamsEndpointConfiguration("Url_example") // NotificationTeamsEndpointConfiguration | 
+	configuration := *openapiclient.NewNotificationTeamsEndpointConfiguration("Url_example") // NotificationTeamsEndpointConfiguration | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.NotificationsApi.TestTeamsConfiguration(context.Background()).Configuration(configuration).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `NotificationsApi.TestTeamsConfiguration``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `TestTeamsConfiguration`: NotificationTeamsTestResult
-    fmt.Fprintf(os.Stdout, "Response from `NotificationsApi.TestTeamsConfiguration`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.NotificationsAPI.TestTeamsConfiguration(context.Background()).Configuration(configuration).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `NotificationsAPI.TestTeamsConfiguration``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `TestTeamsConfiguration`: NotificationTeamsTestResult
+	fmt.Fprintf(os.Stdout, "Response from `NotificationsAPI.TestTeamsConfiguration`: %v\n", resp)
 }
 ```
 
@@ -4700,24 +4700,24 @@ No authorization required
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
-    configuration := *openapiclient.NewNotificationWebhookEndpointConfiguration("Url_example") // NotificationWebhookEndpointConfiguration | 
+	configuration := *openapiclient.NewNotificationWebhookEndpointConfiguration("Url_example") // NotificationWebhookEndpointConfiguration | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.NotificationsApi.TestWebhookConfiguration(context.Background()).Configuration(configuration).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `NotificationsApi.TestWebhookConfiguration``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `TestWebhookConfiguration`: NotificationWebhookTestResult
-    fmt.Fprintf(os.Stdout, "Response from `NotificationsApi.TestWebhookConfiguration`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.NotificationsAPI.TestWebhookConfiguration(context.Background()).Configuration(configuration).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `NotificationsAPI.TestWebhookConfiguration``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `TestWebhookConfiguration`: NotificationWebhookTestResult
+	fmt.Fprintf(os.Stdout, "Response from `NotificationsAPI.TestWebhookConfiguration`: %v\n", resp)
 }
 ```
 
@@ -4766,25 +4766,25 @@ No authorization required
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
-    name := "name_example" // string | 
-    status := *openapiclient.NewNotificationEndpointEnabledStatus() // NotificationEndpointEnabledStatus | 
+	name := "name_example" // string | 
+	status := *openapiclient.NewNotificationEndpointEnabledStatus() // NotificationEndpointEnabledStatus | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.NotificationsApi.UpdateEndpointStatus(context.Background(), name).Status(status).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `NotificationsApi.UpdateEndpointStatus``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `UpdateEndpointStatus`: NotificationEndpointEnabledStatus
-    fmt.Fprintf(os.Stdout, "Response from `NotificationsApi.UpdateEndpointStatus`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.NotificationsAPI.UpdateEndpointStatus(context.Background(), name).Status(status).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `NotificationsAPI.UpdateEndpointStatus``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `UpdateEndpointStatus`: NotificationEndpointEnabledStatus
+	fmt.Fprintf(os.Stdout, "Response from `NotificationsAPI.UpdateEndpointStatus`: %v\n", resp)
 }
 ```
 
@@ -4838,25 +4838,25 @@ No authorization required
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
-    uuid := "uuid_example" // string | 
-    configuration := *openapiclient.NewNotificationGitHubEndpointConfigurationPut("Username_example", "Owner_example", "Repository_example") // NotificationGitHubEndpointConfigurationPut | 
+	uuid := "uuid_example" // string | 
+	configuration := *openapiclient.NewNotificationGitHubEndpointConfigurationPut("Username_example", "Owner_example", "Repository_example") // NotificationGitHubEndpointConfigurationPut | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.NotificationsApi.UpdateGithubConfiguration(context.Background(), uuid).Configuration(configuration).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `NotificationsApi.UpdateGithubConfiguration``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `UpdateGithubConfiguration`: NotificationGitHubEndpointConfigurationBase
-    fmt.Fprintf(os.Stdout, "Response from `NotificationsApi.UpdateGithubConfiguration`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.NotificationsAPI.UpdateGithubConfiguration(context.Background(), uuid).Configuration(configuration).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `NotificationsAPI.UpdateGithubConfiguration``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `UpdateGithubConfiguration`: NotificationGitHubEndpointConfigurationBase
+	fmt.Fprintf(os.Stdout, "Response from `NotificationsAPI.UpdateGithubConfiguration`: %v\n", resp)
 }
 ```
 
@@ -4910,26 +4910,26 @@ No authorization required
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
-    configurationUuid := "configurationUuid_example" // string | 
-    selectorUuid := "selectorUuid_example" // string | 
-    selector := *openapiclient.NewNotificationSelector("Scope_example", *openapiclient.NewNotificationEventSelector("Level_example", "ResourceType_example", "Type_example")) // NotificationSelector | 
+	configurationUuid := "configurationUuid_example" // string | 
+	selectorUuid := "selectorUuid_example" // string | 
+	selector := *openapiclient.NewNotificationSelector("Scope_example", *openapiclient.NewNotificationEventSelector("Level_example", "ResourceType_example", "Type_example")) // NotificationSelector | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.NotificationsApi.UpdateGithubSelector(context.Background(), configurationUuid, selectorUuid).Selector(selector).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `NotificationsApi.UpdateGithubSelector``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `UpdateGithubSelector`: NotificationSelector
-    fmt.Fprintf(os.Stdout, "Response from `NotificationsApi.UpdateGithubSelector`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.NotificationsAPI.UpdateGithubSelector(context.Background(), configurationUuid, selectorUuid).Selector(selector).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `NotificationsAPI.UpdateGithubSelector``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `UpdateGithubSelector`: NotificationSelector
+	fmt.Fprintf(os.Stdout, "Response from `NotificationsAPI.UpdateGithubSelector`: %v\n", resp)
 }
 ```
 
@@ -4985,25 +4985,25 @@ No authorization required
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
-    uuid := "uuid_example" // string | 
-    configuration := *openapiclient.NewNotificationJiraEndpointConfigurationPut("Url_example", "Username_example", "ProjectKey_example", "IssueType_example") // NotificationJiraEndpointConfigurationPut | 
+	uuid := "uuid_example" // string | 
+	configuration := *openapiclient.NewNotificationJiraEndpointConfigurationPut("Url_example", "Username_example", "ProjectKey_example", "IssueType_example") // NotificationJiraEndpointConfigurationPut | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.NotificationsApi.UpdateJiraConfiguration(context.Background(), uuid).Configuration(configuration).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `NotificationsApi.UpdateJiraConfiguration``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `UpdateJiraConfiguration`: NotificationJiraEndpointConfigurationBase
-    fmt.Fprintf(os.Stdout, "Response from `NotificationsApi.UpdateJiraConfiguration`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.NotificationsAPI.UpdateJiraConfiguration(context.Background(), uuid).Configuration(configuration).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `NotificationsAPI.UpdateJiraConfiguration``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `UpdateJiraConfiguration`: NotificationJiraEndpointConfigurationBase
+	fmt.Fprintf(os.Stdout, "Response from `NotificationsAPI.UpdateJiraConfiguration`: %v\n", resp)
 }
 ```
 
@@ -5057,26 +5057,26 @@ No authorization required
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
-    configurationUuid := "configurationUuid_example" // string | 
-    selectorUuid := "selectorUuid_example" // string | 
-    selector := *openapiclient.NewNotificationSelector("Scope_example", *openapiclient.NewNotificationEventSelector("Level_example", "ResourceType_example", "Type_example")) // NotificationSelector | 
+	configurationUuid := "configurationUuid_example" // string | 
+	selectorUuid := "selectorUuid_example" // string | 
+	selector := *openapiclient.NewNotificationSelector("Scope_example", *openapiclient.NewNotificationEventSelector("Level_example", "ResourceType_example", "Type_example")) // NotificationSelector | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.NotificationsApi.UpdateJiraSelector(context.Background(), configurationUuid, selectorUuid).Selector(selector).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `NotificationsApi.UpdateJiraSelector``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `UpdateJiraSelector`: NotificationSelector
-    fmt.Fprintf(os.Stdout, "Response from `NotificationsApi.UpdateJiraSelector`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.NotificationsAPI.UpdateJiraSelector(context.Background(), configurationUuid, selectorUuid).Selector(selector).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `NotificationsAPI.UpdateJiraSelector``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `UpdateJiraSelector`: NotificationSelector
+	fmt.Fprintf(os.Stdout, "Response from `NotificationsAPI.UpdateJiraSelector`: %v\n", resp)
 }
 ```
 
@@ -5132,25 +5132,25 @@ No authorization required
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
-    uuid := "uuid_example" // string | 
-    configuration := *openapiclient.NewNotificationSlackEndpointConfiguration("Url_example") // NotificationSlackEndpointConfiguration | 
+	uuid := "uuid_example" // string | 
+	configuration := *openapiclient.NewNotificationSlackEndpointConfiguration("Url_example") // NotificationSlackEndpointConfiguration | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.NotificationsApi.UpdateSlackConfiguration(context.Background(), uuid).Configuration(configuration).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `NotificationsApi.UpdateSlackConfiguration``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `UpdateSlackConfiguration`: NotificationSlackEndpointConfiguration
-    fmt.Fprintf(os.Stdout, "Response from `NotificationsApi.UpdateSlackConfiguration`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.NotificationsAPI.UpdateSlackConfiguration(context.Background(), uuid).Configuration(configuration).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `NotificationsAPI.UpdateSlackConfiguration``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `UpdateSlackConfiguration`: NotificationSlackEndpointConfiguration
+	fmt.Fprintf(os.Stdout, "Response from `NotificationsAPI.UpdateSlackConfiguration`: %v\n", resp)
 }
 ```
 
@@ -5204,26 +5204,26 @@ No authorization required
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
-    configurationUuid := "configurationUuid_example" // string | 
-    selectorUuid := "selectorUuid_example" // string | 
-    selector := *openapiclient.NewNotificationSelector("Scope_example", *openapiclient.NewNotificationEventSelector("Level_example", "ResourceType_example", "Type_example")) // NotificationSelector | 
+	configurationUuid := "configurationUuid_example" // string | 
+	selectorUuid := "selectorUuid_example" // string | 
+	selector := *openapiclient.NewNotificationSelector("Scope_example", *openapiclient.NewNotificationEventSelector("Level_example", "ResourceType_example", "Type_example")) // NotificationSelector | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.NotificationsApi.UpdateSlackSelector(context.Background(), configurationUuid, selectorUuid).Selector(selector).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `NotificationsApi.UpdateSlackSelector``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `UpdateSlackSelector`: NotificationSelector
-    fmt.Fprintf(os.Stdout, "Response from `NotificationsApi.UpdateSlackSelector`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.NotificationsAPI.UpdateSlackSelector(context.Background(), configurationUuid, selectorUuid).Selector(selector).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `NotificationsAPI.UpdateSlackSelector``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `UpdateSlackSelector`: NotificationSelector
+	fmt.Fprintf(os.Stdout, "Response from `NotificationsAPI.UpdateSlackSelector`: %v\n", resp)
 }
 ```
 
@@ -5279,25 +5279,25 @@ No authorization required
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
-    uuid := "uuid_example" // string | 
-    configuration := *openapiclient.NewNotificationSMTPEndpointConfiguration("Host_example", int32(123), "From_example", "To_example") // NotificationSMTPEndpointConfiguration | 
+	uuid := "uuid_example" // string | 
+	configuration := *openapiclient.NewNotificationSMTPEndpointConfiguration("Host_example", int32(123), "From_example", "To_example") // NotificationSMTPEndpointConfiguration | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.NotificationsApi.UpdateSmtpConfiguration(context.Background(), uuid).Configuration(configuration).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `NotificationsApi.UpdateSmtpConfiguration``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `UpdateSmtpConfiguration`: NotificationSMTPEndpointConfiguration
-    fmt.Fprintf(os.Stdout, "Response from `NotificationsApi.UpdateSmtpConfiguration`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.NotificationsAPI.UpdateSmtpConfiguration(context.Background(), uuid).Configuration(configuration).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `NotificationsAPI.UpdateSmtpConfiguration``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `UpdateSmtpConfiguration`: NotificationSMTPEndpointConfiguration
+	fmt.Fprintf(os.Stdout, "Response from `NotificationsAPI.UpdateSmtpConfiguration`: %v\n", resp)
 }
 ```
 
@@ -5351,26 +5351,26 @@ No authorization required
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
-    configurationUuid := "configurationUuid_example" // string | 
-    selectorUuid := "selectorUuid_example" // string | 
-    selector := *openapiclient.NewNotificationSelector("Scope_example", *openapiclient.NewNotificationEventSelector("Level_example", "ResourceType_example", "Type_example")) // NotificationSelector | 
+	configurationUuid := "configurationUuid_example" // string | 
+	selectorUuid := "selectorUuid_example" // string | 
+	selector := *openapiclient.NewNotificationSelector("Scope_example", *openapiclient.NewNotificationEventSelector("Level_example", "ResourceType_example", "Type_example")) // NotificationSelector | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.NotificationsApi.UpdateSmtpSelector(context.Background(), configurationUuid, selectorUuid).Selector(selector).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `NotificationsApi.UpdateSmtpSelector``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `UpdateSmtpSelector`: NotificationSelector
-    fmt.Fprintf(os.Stdout, "Response from `NotificationsApi.UpdateSmtpSelector`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.NotificationsAPI.UpdateSmtpSelector(context.Background(), configurationUuid, selectorUuid).Selector(selector).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `NotificationsAPI.UpdateSmtpSelector``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `UpdateSmtpSelector`: NotificationSelector
+	fmt.Fprintf(os.Stdout, "Response from `NotificationsAPI.UpdateSmtpSelector`: %v\n", resp)
 }
 ```
 
@@ -5426,25 +5426,25 @@ No authorization required
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
-    uuid := "uuid_example" // string | 
-    configuration := *openapiclient.NewNotificationTeamsEndpointConfiguration("Url_example") // NotificationTeamsEndpointConfiguration | 
+	uuid := "uuid_example" // string | 
+	configuration := *openapiclient.NewNotificationTeamsEndpointConfiguration("Url_example") // NotificationTeamsEndpointConfiguration | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.NotificationsApi.UpdateTeamsConfiguration(context.Background(), uuid).Configuration(configuration).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `NotificationsApi.UpdateTeamsConfiguration``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `UpdateTeamsConfiguration`: NotificationTeamsEndpointConfiguration
-    fmt.Fprintf(os.Stdout, "Response from `NotificationsApi.UpdateTeamsConfiguration`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.NotificationsAPI.UpdateTeamsConfiguration(context.Background(), uuid).Configuration(configuration).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `NotificationsAPI.UpdateTeamsConfiguration``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `UpdateTeamsConfiguration`: NotificationTeamsEndpointConfiguration
+	fmt.Fprintf(os.Stdout, "Response from `NotificationsAPI.UpdateTeamsConfiguration`: %v\n", resp)
 }
 ```
 
@@ -5498,26 +5498,26 @@ No authorization required
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
-    configurationUuid := "configurationUuid_example" // string | 
-    selectorUuid := "selectorUuid_example" // string | 
-    selector := *openapiclient.NewNotificationSelector("Scope_example", *openapiclient.NewNotificationEventSelector("Level_example", "ResourceType_example", "Type_example")) // NotificationSelector | 
+	configurationUuid := "configurationUuid_example" // string | 
+	selectorUuid := "selectorUuid_example" // string | 
+	selector := *openapiclient.NewNotificationSelector("Scope_example", *openapiclient.NewNotificationEventSelector("Level_example", "ResourceType_example", "Type_example")) // NotificationSelector | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.NotificationsApi.UpdateTeamsSelector(context.Background(), configurationUuid, selectorUuid).Selector(selector).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `NotificationsApi.UpdateTeamsSelector``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `UpdateTeamsSelector`: NotificationSelector
-    fmt.Fprintf(os.Stdout, "Response from `NotificationsApi.UpdateTeamsSelector`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.NotificationsAPI.UpdateTeamsSelector(context.Background(), configurationUuid, selectorUuid).Selector(selector).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `NotificationsAPI.UpdateTeamsSelector``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `UpdateTeamsSelector`: NotificationSelector
+	fmt.Fprintf(os.Stdout, "Response from `NotificationsAPI.UpdateTeamsSelector`: %v\n", resp)
 }
 ```
 
@@ -5573,25 +5573,25 @@ No authorization required
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
-    uuid := "uuid_example" // string | 
-    configuration := *openapiclient.NewNotificationWebhookEndpointConfiguration("Url_example") // NotificationWebhookEndpointConfiguration | 
+	uuid := "uuid_example" // string | 
+	configuration := *openapiclient.NewNotificationWebhookEndpointConfiguration("Url_example") // NotificationWebhookEndpointConfiguration | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.NotificationsApi.UpdateWebhookConfiguration(context.Background(), uuid).Configuration(configuration).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `NotificationsApi.UpdateWebhookConfiguration``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `UpdateWebhookConfiguration`: NotificationWebhookEndpointConfiguration
-    fmt.Fprintf(os.Stdout, "Response from `NotificationsApi.UpdateWebhookConfiguration`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.NotificationsAPI.UpdateWebhookConfiguration(context.Background(), uuid).Configuration(configuration).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `NotificationsAPI.UpdateWebhookConfiguration``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `UpdateWebhookConfiguration`: NotificationWebhookEndpointConfiguration
+	fmt.Fprintf(os.Stdout, "Response from `NotificationsAPI.UpdateWebhookConfiguration`: %v\n", resp)
 }
 ```
 
@@ -5645,26 +5645,26 @@ No authorization required
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
-    configurationUuid := "configurationUuid_example" // string | 
-    selectorUuid := "selectorUuid_example" // string | 
-    selector := *openapiclient.NewNotificationSelector("Scope_example", *openapiclient.NewNotificationEventSelector("Level_example", "ResourceType_example", "Type_example")) // NotificationSelector | 
+	configurationUuid := "configurationUuid_example" // string | 
+	selectorUuid := "selectorUuid_example" // string | 
+	selector := *openapiclient.NewNotificationSelector("Scope_example", *openapiclient.NewNotificationEventSelector("Level_example", "ResourceType_example", "Type_example")) // NotificationSelector | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.NotificationsApi.UpdateWebhookSelector(context.Background(), configurationUuid, selectorUuid).Selector(selector).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `NotificationsApi.UpdateWebhookSelector``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `UpdateWebhookSelector`: NotificationSelector
-    fmt.Fprintf(os.Stdout, "Response from `NotificationsApi.UpdateWebhookSelector`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.NotificationsAPI.UpdateWebhookSelector(context.Background(), configurationUuid, selectorUuid).Selector(selector).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `NotificationsAPI.UpdateWebhookSelector``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `UpdateWebhookSelector`: NotificationSelector
+	fmt.Fprintf(os.Stdout, "Response from `NotificationsAPI.UpdateWebhookSelector`: %v\n", resp)
 }
 ```
 

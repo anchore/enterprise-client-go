@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the Package type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &Package{}
+
 // Package A normalized and simplified package that can represent any package type
 type Package struct {
 	Name *string `json:"name,omitempty"`
@@ -59,7 +62,7 @@ func NewPackageWithDefaults() *Package {
 
 // GetName returns the Name field value if set, zero value otherwise.
 func (o *Package) GetName() string {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		var ret string
 		return ret
 	}
@@ -69,7 +72,7 @@ func (o *Package) GetName() string {
 // GetNameOk returns a tuple with the Name field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Package) GetNameOk() (*string, bool) {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		return nil, false
 	}
 	return o.Name, true
@@ -77,7 +80,7 @@ func (o *Package) GetNameOk() (*string, bool) {
 
 // HasName returns a boolean if a field has been set.
 func (o *Package) HasName() bool {
-	if o != nil && o.Name != nil {
+	if o != nil && !IsNil(o.Name) {
 		return true
 	}
 
@@ -91,7 +94,7 @@ func (o *Package) SetName(v string) {
 
 // GetVersion returns the Version field value if set, zero value otherwise.
 func (o *Package) GetVersion() string {
-	if o == nil || o.Version == nil {
+	if o == nil || IsNil(o.Version) {
 		var ret string
 		return ret
 	}
@@ -101,7 +104,7 @@ func (o *Package) GetVersion() string {
 // GetVersionOk returns a tuple with the Version field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Package) GetVersionOk() (*string, bool) {
-	if o == nil || o.Version == nil {
+	if o == nil || IsNil(o.Version) {
 		return nil, false
 	}
 	return o.Version, true
@@ -109,7 +112,7 @@ func (o *Package) GetVersionOk() (*string, bool) {
 
 // HasVersion returns a boolean if a field has been set.
 func (o *Package) HasVersion() bool {
-	if o != nil && o.Version != nil {
+	if o != nil && !IsNil(o.Version) {
 		return true
 	}
 
@@ -123,7 +126,7 @@ func (o *Package) SetVersion(v string) {
 
 // GetRelease returns the Release field value if set, zero value otherwise.
 func (o *Package) GetRelease() string {
-	if o == nil || o.Release == nil {
+	if o == nil || IsNil(o.Release) {
 		var ret string
 		return ret
 	}
@@ -133,7 +136,7 @@ func (o *Package) GetRelease() string {
 // GetReleaseOk returns a tuple with the Release field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Package) GetReleaseOk() (*string, bool) {
-	if o == nil || o.Release == nil {
+	if o == nil || IsNil(o.Release) {
 		return nil, false
 	}
 	return o.Release, true
@@ -141,7 +144,7 @@ func (o *Package) GetReleaseOk() (*string, bool) {
 
 // HasRelease returns a boolean if a field has been set.
 func (o *Package) HasRelease() bool {
-	if o != nil && o.Release != nil {
+	if o != nil && !IsNil(o.Release) {
 		return true
 	}
 
@@ -155,7 +158,7 @@ func (o *Package) SetRelease(v string) {
 
 // GetSourcepkg returns the Sourcepkg field value if set, zero value otherwise.
 func (o *Package) GetSourcepkg() string {
-	if o == nil || o.Sourcepkg == nil {
+	if o == nil || IsNil(o.Sourcepkg) {
 		var ret string
 		return ret
 	}
@@ -165,7 +168,7 @@ func (o *Package) GetSourcepkg() string {
 // GetSourcepkgOk returns a tuple with the Sourcepkg field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Package) GetSourcepkgOk() (*string, bool) {
-	if o == nil || o.Sourcepkg == nil {
+	if o == nil || IsNil(o.Sourcepkg) {
 		return nil, false
 	}
 	return o.Sourcepkg, true
@@ -173,7 +176,7 @@ func (o *Package) GetSourcepkgOk() (*string, bool) {
 
 // HasSourcepkg returns a boolean if a field has been set.
 func (o *Package) HasSourcepkg() bool {
-	if o != nil && o.Sourcepkg != nil {
+	if o != nil && !IsNil(o.Sourcepkg) {
 		return true
 	}
 
@@ -187,7 +190,7 @@ func (o *Package) SetSourcepkg(v string) {
 
 // GetLocation returns the Location field value if set, zero value otherwise.
 func (o *Package) GetLocation() string {
-	if o == nil || o.Location == nil {
+	if o == nil || IsNil(o.Location) {
 		var ret string
 		return ret
 	}
@@ -197,7 +200,7 @@ func (o *Package) GetLocation() string {
 // GetLocationOk returns a tuple with the Location field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Package) GetLocationOk() (*string, bool) {
-	if o == nil || o.Location == nil {
+	if o == nil || IsNil(o.Location) {
 		return nil, false
 	}
 	return o.Location, true
@@ -205,7 +208,7 @@ func (o *Package) GetLocationOk() (*string, bool) {
 
 // HasLocation returns a boolean if a field has been set.
 func (o *Package) HasLocation() bool {
-	if o != nil && o.Location != nil {
+	if o != nil && !IsNil(o.Location) {
 		return true
 	}
 
@@ -219,7 +222,7 @@ func (o *Package) SetLocation(v string) {
 
 // GetOrigin returns the Origin field value if set, zero value otherwise.
 func (o *Package) GetOrigin() string {
-	if o == nil || o.Origin == nil {
+	if o == nil || IsNil(o.Origin) {
 		var ret string
 		return ret
 	}
@@ -229,7 +232,7 @@ func (o *Package) GetOrigin() string {
 // GetOriginOk returns a tuple with the Origin field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Package) GetOriginOk() (*string, bool) {
-	if o == nil || o.Origin == nil {
+	if o == nil || IsNil(o.Origin) {
 		return nil, false
 	}
 	return o.Origin, true
@@ -237,7 +240,7 @@ func (o *Package) GetOriginOk() (*string, bool) {
 
 // HasOrigin returns a boolean if a field has been set.
 func (o *Package) HasOrigin() bool {
-	if o != nil && o.Origin != nil {
+	if o != nil && !IsNil(o.Origin) {
 		return true
 	}
 
@@ -251,7 +254,7 @@ func (o *Package) SetOrigin(v string) {
 
 // GetSize returns the Size field value if set, zero value otherwise.
 func (o *Package) GetSize() int32 {
-	if o == nil || o.Size == nil {
+	if o == nil || IsNil(o.Size) {
 		var ret int32
 		return ret
 	}
@@ -261,7 +264,7 @@ func (o *Package) GetSize() int32 {
 // GetSizeOk returns a tuple with the Size field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Package) GetSizeOk() (*int32, bool) {
-	if o == nil || o.Size == nil {
+	if o == nil || IsNil(o.Size) {
 		return nil, false
 	}
 	return o.Size, true
@@ -269,7 +272,7 @@ func (o *Package) GetSizeOk() (*int32, bool) {
 
 // HasSize returns a boolean if a field has been set.
 func (o *Package) HasSize() bool {
-	if o != nil && o.Size != nil {
+	if o != nil && !IsNil(o.Size) {
 		return true
 	}
 
@@ -283,7 +286,7 @@ func (o *Package) SetSize(v int32) {
 
 // GetLicenses returns the Licenses field value if set, zero value otherwise.
 func (o *Package) GetLicenses() []string {
-	if o == nil || o.Licenses == nil {
+	if o == nil || IsNil(o.Licenses) {
 		var ret []string
 		return ret
 	}
@@ -293,7 +296,7 @@ func (o *Package) GetLicenses() []string {
 // GetLicensesOk returns a tuple with the Licenses field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Package) GetLicensesOk() ([]string, bool) {
-	if o == nil || o.Licenses == nil {
+	if o == nil || IsNil(o.Licenses) {
 		return nil, false
 	}
 	return o.Licenses, true
@@ -301,7 +304,7 @@ func (o *Package) GetLicensesOk() ([]string, bool) {
 
 // HasLicenses returns a boolean if a field has been set.
 func (o *Package) HasLicenses() bool {
-	if o != nil && o.Licenses != nil {
+	if o != nil && !IsNil(o.Licenses) {
 		return true
 	}
 
@@ -315,7 +318,7 @@ func (o *Package) SetLicenses(v []string) {
 
 // GetMetadataType returns the MetadataType field value if set, zero value otherwise.
 func (o *Package) GetMetadataType() string {
-	if o == nil || o.MetadataType == nil {
+	if o == nil || IsNil(o.MetadataType) {
 		var ret string
 		return ret
 	}
@@ -325,7 +328,7 @@ func (o *Package) GetMetadataType() string {
 // GetMetadataTypeOk returns a tuple with the MetadataType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Package) GetMetadataTypeOk() (*string, bool) {
-	if o == nil || o.MetadataType == nil {
+	if o == nil || IsNil(o.MetadataType) {
 		return nil, false
 	}
 	return o.MetadataType, true
@@ -333,7 +336,7 @@ func (o *Package) GetMetadataTypeOk() (*string, bool) {
 
 // HasMetadataType returns a boolean if a field has been set.
 func (o *Package) HasMetadataType() bool {
-	if o != nil && o.MetadataType != nil {
+	if o != nil && !IsNil(o.MetadataType) {
 		return true
 	}
 
@@ -347,7 +350,7 @@ func (o *Package) SetMetadataType(v string) {
 
 // GetMetadata returns the Metadata field value if set, zero value otherwise.
 func (o *Package) GetMetadata() interface{} {
-	if o == nil || o.Metadata == nil {
+	if o == nil || IsNil(o.Metadata) {
 		var ret interface{}
 		return ret
 	}
@@ -357,7 +360,7 @@ func (o *Package) GetMetadata() interface{} {
 // GetMetadataOk returns a tuple with the Metadata field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Package) GetMetadataOk() (interface{}, bool) {
-	if o == nil || o.Metadata == nil {
+	if o == nil || IsNil(o.Metadata) {
 		return nil, false
 	}
 	return o.Metadata, true
@@ -365,7 +368,7 @@ func (o *Package) GetMetadataOk() (interface{}, bool) {
 
 // HasMetadata returns a boolean if a field has been set.
 func (o *Package) HasMetadata() bool {
-	if o != nil && o.Metadata != nil {
+	if o != nil && !IsNil(o.Metadata) {
 		return true
 	}
 
@@ -379,7 +382,7 @@ func (o *Package) SetMetadata(v interface{}) {
 
 // GetSpecificationVersion returns the SpecificationVersion field value if set, zero value otherwise.
 func (o *Package) GetSpecificationVersion() string {
-	if o == nil || o.SpecificationVersion == nil {
+	if o == nil || IsNil(o.SpecificationVersion) {
 		var ret string
 		return ret
 	}
@@ -389,7 +392,7 @@ func (o *Package) GetSpecificationVersion() string {
 // GetSpecificationVersionOk returns a tuple with the SpecificationVersion field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Package) GetSpecificationVersionOk() (*string, bool) {
-	if o == nil || o.SpecificationVersion == nil {
+	if o == nil || IsNil(o.SpecificationVersion) {
 		return nil, false
 	}
 	return o.SpecificationVersion, true
@@ -397,7 +400,7 @@ func (o *Package) GetSpecificationVersionOk() (*string, bool) {
 
 // HasSpecificationVersion returns a boolean if a field has been set.
 func (o *Package) HasSpecificationVersion() bool {
-	if o != nil && o.SpecificationVersion != nil {
+	if o != nil && !IsNil(o.SpecificationVersion) {
 		return true
 	}
 
@@ -411,7 +414,7 @@ func (o *Package) SetSpecificationVersion(v string) {
 
 // GetImplementationVersion returns the ImplementationVersion field value if set, zero value otherwise.
 func (o *Package) GetImplementationVersion() string {
-	if o == nil || o.ImplementationVersion == nil {
+	if o == nil || IsNil(o.ImplementationVersion) {
 		var ret string
 		return ret
 	}
@@ -421,7 +424,7 @@ func (o *Package) GetImplementationVersion() string {
 // GetImplementationVersionOk returns a tuple with the ImplementationVersion field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Package) GetImplementationVersionOk() (*string, bool) {
-	if o == nil || o.ImplementationVersion == nil {
+	if o == nil || IsNil(o.ImplementationVersion) {
 		return nil, false
 	}
 	return o.ImplementationVersion, true
@@ -429,7 +432,7 @@ func (o *Package) GetImplementationVersionOk() (*string, bool) {
 
 // HasImplementationVersion returns a boolean if a field has been set.
 func (o *Package) HasImplementationVersion() bool {
-	if o != nil && o.ImplementationVersion != nil {
+	if o != nil && !IsNil(o.ImplementationVersion) {
 		return true
 	}
 
@@ -443,7 +446,7 @@ func (o *Package) SetImplementationVersion(v string) {
 
 // GetMavenVersion returns the MavenVersion field value if set, zero value otherwise.
 func (o *Package) GetMavenVersion() string {
-	if o == nil || o.MavenVersion == nil {
+	if o == nil || IsNil(o.MavenVersion) {
 		var ret string
 		return ret
 	}
@@ -453,7 +456,7 @@ func (o *Package) GetMavenVersion() string {
 // GetMavenVersionOk returns a tuple with the MavenVersion field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Package) GetMavenVersionOk() (*string, bool) {
-	if o == nil || o.MavenVersion == nil {
+	if o == nil || IsNil(o.MavenVersion) {
 		return nil, false
 	}
 	return o.MavenVersion, true
@@ -461,7 +464,7 @@ func (o *Package) GetMavenVersionOk() (*string, bool) {
 
 // HasMavenVersion returns a boolean if a field has been set.
 func (o *Package) HasMavenVersion() bool {
-	if o != nil && o.MavenVersion != nil {
+	if o != nil && !IsNil(o.MavenVersion) {
 		return true
 	}
 
@@ -475,7 +478,7 @@ func (o *Package) SetMavenVersion(v string) {
 
 // GetCpes returns the Cpes field value if set, zero value otherwise.
 func (o *Package) GetCpes() []string {
-	if o == nil || o.Cpes == nil {
+	if o == nil || IsNil(o.Cpes) {
 		var ret []string
 		return ret
 	}
@@ -485,7 +488,7 @@ func (o *Package) GetCpes() []string {
 // GetCpesOk returns a tuple with the Cpes field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Package) GetCpesOk() ([]string, bool) {
-	if o == nil || o.Cpes == nil {
+	if o == nil || IsNil(o.Cpes) {
 		return nil, false
 	}
 	return o.Cpes, true
@@ -493,7 +496,7 @@ func (o *Package) GetCpesOk() ([]string, bool) {
 
 // HasCpes returns a boolean if a field has been set.
 func (o *Package) HasCpes() bool {
-	if o != nil && o.Cpes != nil {
+	if o != nil && !IsNil(o.Cpes) {
 		return true
 	}
 
@@ -507,7 +510,7 @@ func (o *Package) SetCpes(v []string) {
 
 // GetPurl returns the Purl field value if set, zero value otherwise.
 func (o *Package) GetPurl() string {
-	if o == nil || o.Purl == nil {
+	if o == nil || IsNil(o.Purl) {
 		var ret string
 		return ret
 	}
@@ -517,7 +520,7 @@ func (o *Package) GetPurl() string {
 // GetPurlOk returns a tuple with the Purl field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Package) GetPurlOk() (*string, bool) {
-	if o == nil || o.Purl == nil {
+	if o == nil || IsNil(o.Purl) {
 		return nil, false
 	}
 	return o.Purl, true
@@ -525,7 +528,7 @@ func (o *Package) GetPurlOk() (*string, bool) {
 
 // HasPurl returns a boolean if a field has been set.
 func (o *Package) HasPurl() bool {
-	if o != nil && o.Purl != nil {
+	if o != nil && !IsNil(o.Purl) {
 		return true
 	}
 
@@ -538,53 +541,61 @@ func (o *Package) SetPurl(v string) {
 }
 
 func (o Package) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Name != nil {
-		toSerialize["name"] = o.Name
-	}
-	if o.Version != nil {
-		toSerialize["version"] = o.Version
-	}
-	if o.Release != nil {
-		toSerialize["release"] = o.Release
-	}
-	if o.Sourcepkg != nil {
-		toSerialize["sourcepkg"] = o.Sourcepkg
-	}
-	if o.Location != nil {
-		toSerialize["location"] = o.Location
-	}
-	if o.Origin != nil {
-		toSerialize["origin"] = o.Origin
-	}
-	if o.Size != nil {
-		toSerialize["size"] = o.Size
-	}
-	if o.Licenses != nil {
-		toSerialize["licenses"] = o.Licenses
-	}
-	if o.MetadataType != nil {
-		toSerialize["metadata_type"] = o.MetadataType
-	}
-	if o.Metadata != nil {
-		toSerialize["metadata"] = o.Metadata
-	}
-	if o.SpecificationVersion != nil {
-		toSerialize["specification_version"] = o.SpecificationVersion
-	}
-	if o.ImplementationVersion != nil {
-		toSerialize["implementation_version"] = o.ImplementationVersion
-	}
-	if o.MavenVersion != nil {
-		toSerialize["maven_version"] = o.MavenVersion
-	}
-	if o.Cpes != nil {
-		toSerialize["cpes"] = o.Cpes
-	}
-	if o.Purl != nil {
-		toSerialize["purl"] = o.Purl
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o Package) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Name) {
+		toSerialize["name"] = o.Name
+	}
+	if !IsNil(o.Version) {
+		toSerialize["version"] = o.Version
+	}
+	if !IsNil(o.Release) {
+		toSerialize["release"] = o.Release
+	}
+	if !IsNil(o.Sourcepkg) {
+		toSerialize["sourcepkg"] = o.Sourcepkg
+	}
+	if !IsNil(o.Location) {
+		toSerialize["location"] = o.Location
+	}
+	if !IsNil(o.Origin) {
+		toSerialize["origin"] = o.Origin
+	}
+	if !IsNil(o.Size) {
+		toSerialize["size"] = o.Size
+	}
+	if !IsNil(o.Licenses) {
+		toSerialize["licenses"] = o.Licenses
+	}
+	if !IsNil(o.MetadataType) {
+		toSerialize["metadata_type"] = o.MetadataType
+	}
+	if !IsNil(o.Metadata) {
+		toSerialize["metadata"] = o.Metadata
+	}
+	if !IsNil(o.SpecificationVersion) {
+		toSerialize["specification_version"] = o.SpecificationVersion
+	}
+	if !IsNil(o.ImplementationVersion) {
+		toSerialize["implementation_version"] = o.ImplementationVersion
+	}
+	if !IsNil(o.MavenVersion) {
+		toSerialize["maven_version"] = o.MavenVersion
+	}
+	if !IsNil(o.Cpes) {
+		toSerialize["cpes"] = o.Cpes
+	}
+	if !IsNil(o.Purl) {
+		toSerialize["purl"] = o.Purl
+	}
+	return toSerialize, nil
 }
 
 type NullablePackage struct {

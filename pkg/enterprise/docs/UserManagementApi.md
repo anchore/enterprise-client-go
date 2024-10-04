@@ -1,42 +1,42 @@
-# \UserManagementApi
+# \UserManagementAPI
 
 All URIs are relative to */v2*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**AddUserGroupRoles**](UserManagementApi.md#AddUserGroupRoles) | **Post** /system/user-groups/{group_uuid}/roles | Add account role(s) to this user group
-[**AddUserGroupUsers**](UserManagementApi.md#AddUserGroupUsers) | **Post** /system/user-groups/{group_uuid}/users | Add user(s) to a user group
-[**CreateAccount**](UserManagementApi.md#CreateAccount) | **Post** /accounts | Create a new account. Only available to admin user.
-[**CreateUser**](UserManagementApi.md#CreateUser) | **Post** /accounts/{account_name}/users | Create a new user within the specified account.
-[**CreateUserApiKey**](UserManagementApi.md#CreateUserApiKey) | **Post** /accounts/{account_name}/users/{username}/api-keys | Add a new API key
-[**CreateUserCredential**](UserManagementApi.md#CreateUserCredential) | **Post** /accounts/{account_name}/users/{username}/credentials | add/replace credential
-[**CreateUserGroup**](UserManagementApi.md#CreateUserGroup) | **Post** /system/user-groups | Create a new user group
-[**DeleteAccount**](UserManagementApi.md#DeleteAccount) | **Delete** /accounts/{account_name} | Delete the specified account, only allowed if the account is in the disabled state. All users will be deleted along with the account and all resources will be garbage collected. The deleted account name will not be available for reuse immediately until all resources are garbage collected async.
-[**DeleteUser**](UserManagementApi.md#DeleteUser) | **Delete** /accounts/{account_name}/users/{username} | Delete a specific user credential by username of the credential. Cannot be the credential used to authenticate the request.
-[**DeleteUserApiKey**](UserManagementApi.md#DeleteUserApiKey) | **Delete** /accounts/{account_name}/users/{username}/api-keys/{key_name} | Delete a user API key
-[**DeleteUserCredential**](UserManagementApi.md#DeleteUserCredential) | **Delete** /accounts/{account_name}/users/{username}/credentials | Delete a credential by type
-[**DeleteUserGroup**](UserManagementApi.md#DeleteUserGroup) | **Delete** /system/user-groups/{group_uuid} | Delete a user group
-[**DeleteUserGroupRole**](UserManagementApi.md#DeleteUserGroupRole) | **Delete** /system/user-groups/{group_uuid}/roles | Remove account role(s) from this user group
-[**DeleteUserGroupUsers**](UserManagementApi.md#DeleteUserGroupUsers) | **Delete** /system/user-groups/{group_uuid}/users | Remove a user from a user group
-[**GetAccount**](UserManagementApi.md#GetAccount) | **Get** /accounts/{account_name} | Get account info about this specific account.
-[**GetAccountUser**](UserManagementApi.md#GetAccountUser) | **Get** /accounts/{account_name}/users/{username} | Get a specific user in the specified account
-[**GetOauthToken**](UserManagementApi.md#GetOauthToken) | **Post** /oauth/token | 
-[**GetUserApiKey**](UserManagementApi.md#GetUserApiKey) | **Get** /accounts/{account_name}/users/{username}/api-keys/{key_name} | Get a user API key
-[**GetUserGroup**](UserManagementApi.md#GetUserGroup) | **Get** /system/user-groups/{group_uuid} | Get a user group
-[**ListAccounts**](UserManagementApi.md#ListAccounts) | **Get** /accounts | List account summaries. Only available to the system admin user.
-[**ListAllSystemUsers**](UserManagementApi.md#ListAllSystemUsers) | **Get** /accounts/users | List all system account users. Only available to &#x60;admin&#x60; users.
-[**ListUserApiKeys**](UserManagementApi.md#ListUserApiKeys) | **Get** /accounts/{account_name}/users/{username}/api-keys | Get a list of API keys
-[**ListUserCredentials**](UserManagementApi.md#ListUserCredentials) | **Get** /accounts/{account_name}/users/{username}/credentials | Get current credential summary
-[**ListUserGroupRoles**](UserManagementApi.md#ListUserGroupRoles) | **Get** /system/user-groups/{group_uuid}/roles | Get a list of all user group roles
-[**ListUserGroupUsers**](UserManagementApi.md#ListUserGroupUsers) | **Get** /system/user-groups/{group_uuid}/users | Get a list of user group users
-[**ListUserGroups**](UserManagementApi.md#ListUserGroups) | **Get** /system/user-groups | List user groups
-[**ListUsers**](UserManagementApi.md#ListUsers) | **Get** /accounts/{account_name}/users | List of users that are primary within this account. The response object will only contain roles for this account as well as any system roles.
-[**ListUsersWithRoles**](UserManagementApi.md#ListUsersWithRoles) | **Get** /accounts/{account_name}/users-with-roles | List of users who have rbac roles in this account.
-[**PatchUserApiKey**](UserManagementApi.md#PatchUserApiKey) | **Patch** /accounts/{account_name}/users/{username}/api-keys/{key_name} | Patch a user API key
-[**RevokeOauthToken**](UserManagementApi.md#RevokeOauthToken) | **Post** /oauth/revoke | 
-[**UpdateAccount**](UserManagementApi.md#UpdateAccount) | **Put** /accounts/{account_name} | Update the info for this specific account.
-[**UpdateAccountState**](UserManagementApi.md#UpdateAccountState) | **Put** /accounts/{account_name}/state | Update the state of an account to either enabled or disabled. For deletion use the DELETE route
-[**UpdateUserGroup**](UserManagementApi.md#UpdateUserGroup) | **Patch** /system/user-groups/{group_uuid} | Update a user group
+[**AddUserGroupRoles**](UserManagementAPI.md#AddUserGroupRoles) | **Post** /system/user-groups/{group_uuid}/roles | Add account role(s) to this user group
+[**AddUserGroupUsers**](UserManagementAPI.md#AddUserGroupUsers) | **Post** /system/user-groups/{group_uuid}/users | Add user(s) to a user group
+[**CreateAccount**](UserManagementAPI.md#CreateAccount) | **Post** /accounts | Create a new account. Only available to admin user.
+[**CreateUser**](UserManagementAPI.md#CreateUser) | **Post** /accounts/{account_name}/users | Create a new user within the specified account.
+[**CreateUserApiKey**](UserManagementAPI.md#CreateUserApiKey) | **Post** /accounts/{account_name}/users/{username}/api-keys | Add a new API key
+[**CreateUserCredential**](UserManagementAPI.md#CreateUserCredential) | **Post** /accounts/{account_name}/users/{username}/credentials | add/replace credential
+[**CreateUserGroup**](UserManagementAPI.md#CreateUserGroup) | **Post** /system/user-groups | Create a new user group
+[**DeleteAccount**](UserManagementAPI.md#DeleteAccount) | **Delete** /accounts/{account_name} | Delete the specified account, only allowed if the account is in the disabled state. All users will be deleted along with the account and all resources will be garbage collected. The deleted account name will not be available for reuse immediately until all resources are garbage collected async.
+[**DeleteUser**](UserManagementAPI.md#DeleteUser) | **Delete** /accounts/{account_name}/users/{username} | Delete a specific user credential by username of the credential. Cannot be the credential used to authenticate the request.
+[**DeleteUserApiKey**](UserManagementAPI.md#DeleteUserApiKey) | **Delete** /accounts/{account_name}/users/{username}/api-keys/{key_name} | Delete a user API key
+[**DeleteUserCredential**](UserManagementAPI.md#DeleteUserCredential) | **Delete** /accounts/{account_name}/users/{username}/credentials | Delete a credential by type
+[**DeleteUserGroup**](UserManagementAPI.md#DeleteUserGroup) | **Delete** /system/user-groups/{group_uuid} | Delete a user group
+[**DeleteUserGroupRole**](UserManagementAPI.md#DeleteUserGroupRole) | **Delete** /system/user-groups/{group_uuid}/roles | Remove account role(s) from this user group
+[**DeleteUserGroupUsers**](UserManagementAPI.md#DeleteUserGroupUsers) | **Delete** /system/user-groups/{group_uuid}/users | Remove a user from a user group
+[**GetAccount**](UserManagementAPI.md#GetAccount) | **Get** /accounts/{account_name} | Get account info about this specific account.
+[**GetAccountUser**](UserManagementAPI.md#GetAccountUser) | **Get** /accounts/{account_name}/users/{username} | Get a specific user in the specified account
+[**GetOauthToken**](UserManagementAPI.md#GetOauthToken) | **Post** /oauth/token | 
+[**GetUserApiKey**](UserManagementAPI.md#GetUserApiKey) | **Get** /accounts/{account_name}/users/{username}/api-keys/{key_name} | Get a user API key
+[**GetUserGroup**](UserManagementAPI.md#GetUserGroup) | **Get** /system/user-groups/{group_uuid} | Get a user group
+[**ListAccounts**](UserManagementAPI.md#ListAccounts) | **Get** /accounts | List account summaries. Only available to the system admin user.
+[**ListAllSystemUsers**](UserManagementAPI.md#ListAllSystemUsers) | **Get** /accounts/users | List all system account users. Only available to &#x60;admin&#x60; users.
+[**ListUserApiKeys**](UserManagementAPI.md#ListUserApiKeys) | **Get** /accounts/{account_name}/users/{username}/api-keys | Get a list of API keys
+[**ListUserCredentials**](UserManagementAPI.md#ListUserCredentials) | **Get** /accounts/{account_name}/users/{username}/credentials | Get current credential summary
+[**ListUserGroupRoles**](UserManagementAPI.md#ListUserGroupRoles) | **Get** /system/user-groups/{group_uuid}/roles | Get a list of all user group roles
+[**ListUserGroupUsers**](UserManagementAPI.md#ListUserGroupUsers) | **Get** /system/user-groups/{group_uuid}/users | Get a list of user group users
+[**ListUserGroups**](UserManagementAPI.md#ListUserGroups) | **Get** /system/user-groups | List user groups
+[**ListUsers**](UserManagementAPI.md#ListUsers) | **Get** /accounts/{account_name}/users | List of users that are primary within this account. The response object will only contain roles for this account as well as any system roles.
+[**ListUsersWithRoles**](UserManagementAPI.md#ListUsersWithRoles) | **Get** /accounts/{account_name}/users-with-roles | List of users who have rbac roles in this account.
+[**PatchUserApiKey**](UserManagementAPI.md#PatchUserApiKey) | **Patch** /accounts/{account_name}/users/{username}/api-keys/{key_name} | Patch a user API key
+[**RevokeOauthToken**](UserManagementAPI.md#RevokeOauthToken) | **Post** /oauth/revoke | 
+[**UpdateAccount**](UserManagementAPI.md#UpdateAccount) | **Put** /accounts/{account_name} | Update the info for this specific account.
+[**UpdateAccountState**](UserManagementAPI.md#UpdateAccountState) | **Put** /accounts/{account_name}/state | Update the state of an account to either enabled or disabled. For deletion use the DELETE route
+[**UpdateUserGroup**](UserManagementAPI.md#UpdateUserGroup) | **Patch** /system/user-groups/{group_uuid} | Update a user group
 
 
 
@@ -52,25 +52,25 @@ Add account role(s) to this user group
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
-    groupUuid := "groupUuid_example" // string | 
-    userGroupRolePost := *openapiclient.NewUserGroupRolePost([]openapiclient.UserGroupRolePostRolesInner{*openapiclient.NewUserGroupRolePostRolesInner()}) // UserGroupRolePost | 
+	groupUuid := "groupUuid_example" // string | 
+	userGroupRolePost := *openapiclient.NewUserGroupRolePost([]openapiclient.UserGroupRolePostRolesInner{*openapiclient.NewUserGroupRolePostRolesInner()}) // UserGroupRolePost | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.UserManagementApi.AddUserGroupRoles(context.Background(), groupUuid).UserGroupRolePost(userGroupRolePost).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `UserManagementApi.AddUserGroupRoles``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `AddUserGroupRoles`: UserGroupRoles
-    fmt.Fprintf(os.Stdout, "Response from `UserManagementApi.AddUserGroupRoles`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.UserManagementAPI.AddUserGroupRoles(context.Background(), groupUuid).UserGroupRolePost(userGroupRolePost).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `UserManagementAPI.AddUserGroupRoles``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `AddUserGroupRoles`: UserGroupRoles
+	fmt.Fprintf(os.Stdout, "Response from `UserManagementAPI.AddUserGroupRoles`: %v\n", resp)
 }
 ```
 
@@ -122,25 +122,25 @@ Add user(s) to a user group
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
-    groupUuid := "groupUuid_example" // string | 
-    userGroupUsersPost := *openapiclient.NewUserGroupUsersPost([]openapiclient.UserGroupUsersPostUsernamesInner{*openapiclient.NewUserGroupUsersPostUsernamesInner()}) // UserGroupUsersPost | 
+	groupUuid := "groupUuid_example" // string | 
+	userGroupUsersPost := *openapiclient.NewUserGroupUsersPost([]openapiclient.UserGroupUsersPostUsernamesInner{*openapiclient.NewUserGroupUsersPostUsernamesInner()}) // UserGroupUsersPost | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.UserManagementApi.AddUserGroupUsers(context.Background(), groupUuid).UserGroupUsersPost(userGroupUsersPost).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `UserManagementApi.AddUserGroupUsers``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `AddUserGroupUsers`: UserGroupUsers
-    fmt.Fprintf(os.Stdout, "Response from `UserManagementApi.AddUserGroupUsers`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.UserManagementAPI.AddUserGroupUsers(context.Background(), groupUuid).UserGroupUsersPost(userGroupUsersPost).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `UserManagementAPI.AddUserGroupUsers``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `AddUserGroupUsers`: UserGroupUsers
+	fmt.Fprintf(os.Stdout, "Response from `UserManagementAPI.AddUserGroupUsers`: %v\n", resp)
 }
 ```
 
@@ -192,24 +192,24 @@ Create a new account. Only available to admin user.
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
-    account := *openapiclient.NewAccountCreationRequest("Name_example") // AccountCreationRequest | 
+	account := *openapiclient.NewAccountCreationRequest("Name_example") // AccountCreationRequest | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.UserManagementApi.CreateAccount(context.Background()).Account(account).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `UserManagementApi.CreateAccount``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `CreateAccount`: Account
-    fmt.Fprintf(os.Stdout, "Response from `UserManagementApi.CreateAccount`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.UserManagementAPI.CreateAccount(context.Background()).Account(account).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `UserManagementAPI.CreateAccount``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `CreateAccount`: Account
+	fmt.Fprintf(os.Stdout, "Response from `UserManagementAPI.CreateAccount`: %v\n", resp)
 }
 ```
 
@@ -256,25 +256,25 @@ Create a new user within the specified account.
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
-    accountName := "accountName_example" // string | 
-    user := *openapiclient.NewUserCreationRequest("Username_example") // UserCreationRequest | 
+	accountName := "accountName_example" // string | 
+	user := *openapiclient.NewUserCreationRequest("Username_example") // UserCreationRequest | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.UserManagementApi.CreateUser(context.Background(), accountName).User(user).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `UserManagementApi.CreateUser``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `CreateUser`: User
-    fmt.Fprintf(os.Stdout, "Response from `UserManagementApi.CreateUser`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.UserManagementAPI.CreateUser(context.Background(), accountName).User(user).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `UserManagementAPI.CreateUser``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `CreateUser`: User
+	fmt.Fprintf(os.Stdout, "Response from `UserManagementAPI.CreateUser`: %v\n", resp)
 }
 ```
 
@@ -326,27 +326,27 @@ Add a new API key
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
+	"context"
+	"fmt"
+	"os"
     "time"
-    openapiclient "./openapi"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
-    accountName := "accountName_example" // string | 
-    username := "username_example" // string | 
-    apikey := *openapiclient.NewUserApiKey("Name_example", time.Now()) // UserApiKey | 
+	accountName := "accountName_example" // string | 
+	username := "username_example" // string | 
+	apikey := *openapiclient.NewUserApiKey("Name_example", time.Now()) // UserApiKey | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.UserManagementApi.CreateUserApiKey(context.Background(), accountName, username).Apikey(apikey).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `UserManagementApi.CreateUserApiKey``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `CreateUserApiKey`: UserApiKey
-    fmt.Fprintf(os.Stdout, "Response from `UserManagementApi.CreateUserApiKey`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.UserManagementAPI.CreateUserApiKey(context.Background(), accountName, username).Apikey(apikey).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `UserManagementAPI.CreateUserApiKey``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `CreateUserApiKey`: UserApiKey
+	fmt.Fprintf(os.Stdout, "Response from `UserManagementAPI.CreateUserApiKey`: %v\n", resp)
 }
 ```
 
@@ -400,26 +400,26 @@ add/replace credential
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
-    accountName := "accountName_example" // string | 
-    username := "username_example" // string | 
-    credential := *openapiclient.NewAccessCredential("Type_example", "Value_example") // AccessCredential | 
+	accountName := "accountName_example" // string | 
+	username := "username_example" // string | 
+	credential := *openapiclient.NewAccessCredential("Type_example", "Value_example") // AccessCredential | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.UserManagementApi.CreateUserCredential(context.Background(), accountName, username).Credential(credential).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `UserManagementApi.CreateUserCredential``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `CreateUserCredential`: AccessCredential
-    fmt.Fprintf(os.Stdout, "Response from `UserManagementApi.CreateUserCredential`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.UserManagementAPI.CreateUserCredential(context.Background(), accountName, username).Credential(credential).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `UserManagementAPI.CreateUserCredential``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `CreateUserCredential`: AccessCredential
+	fmt.Fprintf(os.Stdout, "Response from `UserManagementAPI.CreateUserCredential`: %v\n", resp)
 }
 ```
 
@@ -473,24 +473,24 @@ Create a new user group
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
-    userGroupPost := *openapiclient.NewUserGroupPost("Name_example") // UserGroupPost | 
+	userGroupPost := *openapiclient.NewUserGroupPost("Name_example") // UserGroupPost | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.UserManagementApi.CreateUserGroup(context.Background()).UserGroupPost(userGroupPost).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `UserManagementApi.CreateUserGroup``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `CreateUserGroup`: UserGroup
-    fmt.Fprintf(os.Stdout, "Response from `UserManagementApi.CreateUserGroup`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.UserManagementAPI.CreateUserGroup(context.Background()).UserGroupPost(userGroupPost).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `UserManagementAPI.CreateUserGroup``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `CreateUserGroup`: UserGroup
+	fmt.Fprintf(os.Stdout, "Response from `UserManagementAPI.CreateUserGroup`: %v\n", resp)
 }
 ```
 
@@ -537,22 +537,22 @@ Delete the specified account, only allowed if the account is in the disabled sta
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
-    accountName := "accountName_example" // string | 
+	accountName := "accountName_example" // string | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.UserManagementApi.DeleteAccount(context.Background(), accountName).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `UserManagementApi.DeleteAccount``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.UserManagementAPI.DeleteAccount(context.Background(), accountName).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `UserManagementAPI.DeleteAccount``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -603,23 +603,23 @@ Delete a specific user credential by username of the credential. Cannot be the c
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
-    accountName := "accountName_example" // string | 
-    username := "username_example" // string | 
+	accountName := "accountName_example" // string | 
+	username := "username_example" // string | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.UserManagementApi.DeleteUser(context.Background(), accountName, username).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `UserManagementApi.DeleteUser``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.UserManagementAPI.DeleteUser(context.Background(), accountName, username).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `UserManagementAPI.DeleteUser``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -672,24 +672,24 @@ Delete a user API key
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
-    accountName := "accountName_example" // string | 
-    username := "username_example" // string | 
-    keyName := "keyName_example" // string | 
+	accountName := "accountName_example" // string | 
+	username := "username_example" // string | 
+	keyName := "keyName_example" // string | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.UserManagementApi.DeleteUserApiKey(context.Background(), accountName, username, keyName).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `UserManagementApi.DeleteUserApiKey``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.UserManagementAPI.DeleteUserApiKey(context.Background(), accountName, username, keyName).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `UserManagementAPI.DeleteUserApiKey``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -744,24 +744,24 @@ Delete a credential by type
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
-    accountName := "accountName_example" // string | 
-    username := "username_example" // string | 
-    credentialType := "credentialType_example" // string | 
+	accountName := "accountName_example" // string | 
+	username := "username_example" // string | 
+	credentialType := "credentialType_example" // string | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.UserManagementApi.DeleteUserCredential(context.Background(), accountName, username).CredentialType(credentialType).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `UserManagementApi.DeleteUserCredential``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.UserManagementAPI.DeleteUserCredential(context.Background(), accountName, username).CredentialType(credentialType).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `UserManagementAPI.DeleteUserCredential``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -815,22 +815,22 @@ Delete a user group
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
-    groupUuid := "groupUuid_example" // string | 
+	groupUuid := "groupUuid_example" // string | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.UserManagementApi.DeleteUserGroup(context.Background(), groupUuid).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `UserManagementApi.DeleteUserGroup``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.UserManagementAPI.DeleteUserGroup(context.Background(), groupUuid).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `UserManagementAPI.DeleteUserGroup``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -881,24 +881,24 @@ Remove account role(s) from this user group
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
-    groupUuid := "groupUuid_example" // string | 
-    membershipId := []string{"Inner_example"} // []string | A list of membership ids to remove from the user group in the format of membership_id=1&membership_id=2 (optional)
-    allRolesForAccount := []string{"Inner_example"} // []string | A list of accounts to remove all roles from the user group in the format of all_roles_for_account=account1&all_roles_for_account=account2 (optional)
+	groupUuid := "groupUuid_example" // string | 
+	membershipId := []string{"Inner_example"} // []string | A list of membership ids to remove from the user group in the format of membership_id=1&membership_id=2 (optional)
+	allRolesForAccount := []string{"Inner_example"} // []string | A list of accounts to remove all roles from the user group in the format of all_roles_for_account=account1&all_roles_for_account=account2 (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.UserManagementApi.DeleteUserGroupRole(context.Background(), groupUuid).MembershipId(membershipId).AllRolesForAccount(allRolesForAccount).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `UserManagementApi.DeleteUserGroupRole``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.UserManagementAPI.DeleteUserGroupRole(context.Background(), groupUuid).MembershipId(membershipId).AllRolesForAccount(allRolesForAccount).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `UserManagementAPI.DeleteUserGroupRole``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -951,23 +951,23 @@ Remove a user from a user group
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
-    groupUuid := "groupUuid_example" // string | 
-    username := []string{"Inner_example"} // []string | A list of usernames to remove from the user group in the format of username=user1&username=user2
+	groupUuid := "groupUuid_example" // string | 
+	username := []string{"Inner_example"} // []string | A list of usernames to remove from the user group in the format of username=user1&username=user2
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.UserManagementApi.DeleteUserGroupUsers(context.Background(), groupUuid).Username(username).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `UserManagementApi.DeleteUserGroupUsers``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.UserManagementAPI.DeleteUserGroupUsers(context.Background(), groupUuid).Username(username).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `UserManagementAPI.DeleteUserGroupUsers``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -1019,24 +1019,24 @@ Get account info about this specific account.
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
-    accountName := "accountName_example" // string | 
+	accountName := "accountName_example" // string | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.UserManagementApi.GetAccount(context.Background(), accountName).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `UserManagementApi.GetAccount``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetAccount`: Account
-    fmt.Fprintf(os.Stdout, "Response from `UserManagementApi.GetAccount`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.UserManagementAPI.GetAccount(context.Background(), accountName).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `UserManagementAPI.GetAccount``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetAccount`: Account
+	fmt.Fprintf(os.Stdout, "Response from `UserManagementAPI.GetAccount`: %v\n", resp)
 }
 ```
 
@@ -1087,25 +1087,25 @@ Get a specific user in the specified account
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
-    accountName := "accountName_example" // string | 
-    username := "username_example" // string | 
+	accountName := "accountName_example" // string | 
+	username := "username_example" // string | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.UserManagementApi.GetAccountUser(context.Background(), accountName, username).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `UserManagementApi.GetAccountUser``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetAccountUser`: User
-    fmt.Fprintf(os.Stdout, "Response from `UserManagementApi.GetAccountUser`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.UserManagementAPI.GetAccountUser(context.Background(), accountName, username).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `UserManagementAPI.GetAccountUser``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetAccountUser`: User
+	fmt.Fprintf(os.Stdout, "Response from `UserManagementAPI.GetAccountUser`: %v\n", resp)
 }
 ```
 
@@ -1160,28 +1160,28 @@ No authorization required
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
-    grantType := "grantType_example" // string | OAuth Grant type for token (optional) (default to "password")
-    username := "username_example" // string | User to assign OAuth token to (optional)
-    password := "password_example" // string | Password for corresponding user (optional)
-    clientId := "clientId_example" // string | The type of client used for the OAuth token (optional) (default to "anonymous")
-    refreshToken := "refreshToken_example" // string | The refresh token from a previous password grant request, used to get a new access_token (optional)
+	grantType := "grantType_example" // string | OAuth Grant type for token (optional) (default to "password")
+	username := "username_example" // string | User to assign OAuth token to (optional)
+	password := "password_example" // string | Password for corresponding user (optional)
+	clientId := "clientId_example" // string | The type of client used for the OAuth token (optional) (default to "anonymous")
+	refreshToken := "refreshToken_example" // string | The refresh token from a previous password grant request, used to get a new access_token (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.UserManagementApi.GetOauthToken(context.Background()).GrantType(grantType).Username(username).Password(password).ClientId(clientId).RefreshToken(refreshToken).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `UserManagementApi.GetOauthToken``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetOauthToken`: TokenResponse
-    fmt.Fprintf(os.Stdout, "Response from `UserManagementApi.GetOauthToken`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.UserManagementAPI.GetOauthToken(context.Background()).GrantType(grantType).Username(username).Password(password).ClientId(clientId).RefreshToken(refreshToken).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `UserManagementAPI.GetOauthToken``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetOauthToken`: TokenResponse
+	fmt.Fprintf(os.Stdout, "Response from `UserManagementAPI.GetOauthToken`: %v\n", resp)
 }
 ```
 
@@ -1232,26 +1232,26 @@ Get a user API key
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
-    accountName := "accountName_example" // string | 
-    username := "username_example" // string | 
-    keyName := "keyName_example" // string | 
+	accountName := "accountName_example" // string | 
+	username := "username_example" // string | 
+	keyName := "keyName_example" // string | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.UserManagementApi.GetUserApiKey(context.Background(), accountName, username, keyName).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `UserManagementApi.GetUserApiKey``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetUserApiKey`: UserApiKey
-    fmt.Fprintf(os.Stdout, "Response from `UserManagementApi.GetUserApiKey`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.UserManagementAPI.GetUserApiKey(context.Background(), accountName, username, keyName).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `UserManagementAPI.GetUserApiKey``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetUserApiKey`: UserApiKey
+	fmt.Fprintf(os.Stdout, "Response from `UserManagementAPI.GetUserApiKey`: %v\n", resp)
 }
 ```
 
@@ -1306,24 +1306,24 @@ Get a user group
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
-    groupUuid := "groupUuid_example" // string | 
+	groupUuid := "groupUuid_example" // string | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.UserManagementApi.GetUserGroup(context.Background(), groupUuid).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `UserManagementApi.GetUserGroup``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetUserGroup`: UserGroup
-    fmt.Fprintf(os.Stdout, "Response from `UserManagementApi.GetUserGroup`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.UserManagementAPI.GetUserGroup(context.Background(), groupUuid).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `UserManagementAPI.GetUserGroup``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetUserGroup`: UserGroup
+	fmt.Fprintf(os.Stdout, "Response from `UserManagementAPI.GetUserGroup`: %v\n", resp)
 }
 ```
 
@@ -1374,24 +1374,24 @@ List account summaries. Only available to the system admin user.
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
-    state := "state_example" // string | Filter accounts by state (optional)
+	state := "state_example" // string | Filter accounts by state (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.UserManagementApi.ListAccounts(context.Background()).State(state).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `UserManagementApi.ListAccounts``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ListAccounts`: []Account
-    fmt.Fprintf(os.Stdout, "Response from `UserManagementApi.ListAccounts`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.UserManagementAPI.ListAccounts(context.Background()).State(state).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `UserManagementAPI.ListAccounts``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ListAccounts`: []Account
+	fmt.Fprintf(os.Stdout, "Response from `UserManagementAPI.ListAccounts`: %v\n", resp)
 }
 ```
 
@@ -1438,23 +1438,23 @@ List all system account users. Only available to `admin` users.
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.UserManagementApi.ListAllSystemUsers(context.Background()).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `UserManagementApi.ListAllSystemUsers``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ListAllSystemUsers`: Users
-    fmt.Fprintf(os.Stdout, "Response from `UserManagementApi.ListAllSystemUsers`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.UserManagementAPI.ListAllSystemUsers(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `UserManagementAPI.ListAllSystemUsers``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ListAllSystemUsers`: Users
+	fmt.Fprintf(os.Stdout, "Response from `UserManagementAPI.ListAllSystemUsers`: %v\n", resp)
 }
 ```
 
@@ -1497,25 +1497,25 @@ Get a list of API keys
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
-    accountName := "accountName_example" // string | 
-    username := "username_example" // string | 
+	accountName := "accountName_example" // string | 
+	username := "username_example" // string | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.UserManagementApi.ListUserApiKeys(context.Background(), accountName, username).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `UserManagementApi.ListUserApiKeys``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ListUserApiKeys`: ApiKeyList
-    fmt.Fprintf(os.Stdout, "Response from `UserManagementApi.ListUserApiKeys`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.UserManagementAPI.ListUserApiKeys(context.Background(), accountName, username).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `UserManagementAPI.ListUserApiKeys``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ListUserApiKeys`: ApiKeyList
+	fmt.Fprintf(os.Stdout, "Response from `UserManagementAPI.ListUserApiKeys`: %v\n", resp)
 }
 ```
 
@@ -1568,25 +1568,25 @@ Get current credential summary
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
-    accountName := "accountName_example" // string | 
-    username := "username_example" // string | 
+	accountName := "accountName_example" // string | 
+	username := "username_example" // string | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.UserManagementApi.ListUserCredentials(context.Background(), accountName, username).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `UserManagementApi.ListUserCredentials``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ListUserCredentials`: []AccessCredential
-    fmt.Fprintf(os.Stdout, "Response from `UserManagementApi.ListUserCredentials`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.UserManagementAPI.ListUserCredentials(context.Background(), accountName, username).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `UserManagementAPI.ListUserCredentials``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ListUserCredentials`: []AccessCredential
+	fmt.Fprintf(os.Stdout, "Response from `UserManagementAPI.ListUserCredentials`: %v\n", resp)
 }
 ```
 
@@ -1639,24 +1639,24 @@ Get a list of all user group roles
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
-    groupUuid := "groupUuid_example" // string | 
+	groupUuid := "groupUuid_example" // string | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.UserManagementApi.ListUserGroupRoles(context.Background(), groupUuid).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `UserManagementApi.ListUserGroupRoles``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ListUserGroupRoles`: UserGroupRoles
-    fmt.Fprintf(os.Stdout, "Response from `UserManagementApi.ListUserGroupRoles`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.UserManagementAPI.ListUserGroupRoles(context.Background(), groupUuid).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `UserManagementAPI.ListUserGroupRoles``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ListUserGroupRoles`: UserGroupRoles
+	fmt.Fprintf(os.Stdout, "Response from `UserManagementAPI.ListUserGroupRoles`: %v\n", resp)
 }
 ```
 
@@ -1707,24 +1707,24 @@ Get a list of user group users
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
-    groupUuid := "groupUuid_example" // string | 
+	groupUuid := "groupUuid_example" // string | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.UserManagementApi.ListUserGroupUsers(context.Background(), groupUuid).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `UserManagementApi.ListUserGroupUsers``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ListUserGroupUsers`: UserGroupUsers
-    fmt.Fprintf(os.Stdout, "Response from `UserManagementApi.ListUserGroupUsers`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.UserManagementAPI.ListUserGroupUsers(context.Background(), groupUuid).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `UserManagementAPI.ListUserGroupUsers``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ListUserGroupUsers`: UserGroupUsers
+	fmt.Fprintf(os.Stdout, "Response from `UserManagementAPI.ListUserGroupUsers`: %v\n", resp)
 }
 ```
 
@@ -1775,26 +1775,26 @@ List user groups
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
-    containsUser := "containsUser_example" // string | Filter the user groups to only those that contain the specified user (optional)
-    userGroupName := "userGroupName_example" // string | Filter results to match the specified user group name (optional)
-    containsAccount := "containsAccount_example" // string | Filter the results to only those that have roles in the specified account (optional)
+	containsUser := "containsUser_example" // string | Filter the user groups to only those that contain the specified user (optional)
+	userGroupName := "userGroupName_example" // string | Filter results to match the specified user group name (optional)
+	containsAccount := "containsAccount_example" // string | Filter the results to only those that have roles in the specified account (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.UserManagementApi.ListUserGroups(context.Background()).ContainsUser(containsUser).UserGroupName(userGroupName).ContainsAccount(containsAccount).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `UserManagementApi.ListUserGroups``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ListUserGroups`: []UserGroup
-    fmt.Fprintf(os.Stdout, "Response from `UserManagementApi.ListUserGroups`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.UserManagementAPI.ListUserGroups(context.Background()).ContainsUser(containsUser).UserGroupName(userGroupName).ContainsAccount(containsAccount).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `UserManagementAPI.ListUserGroups``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ListUserGroups`: []UserGroup
+	fmt.Fprintf(os.Stdout, "Response from `UserManagementAPI.ListUserGroups`: %v\n", resp)
 }
 ```
 
@@ -1843,24 +1843,24 @@ List of users that are primary within this account. The response object will onl
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
-    accountName := "accountName_example" // string | 
+	accountName := "accountName_example" // string | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.UserManagementApi.ListUsers(context.Background(), accountName).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `UserManagementApi.ListUsers``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ListUsers`: []User
-    fmt.Fprintf(os.Stdout, "Response from `UserManagementApi.ListUsers`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.UserManagementAPI.ListUsers(context.Background(), accountName).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `UserManagementAPI.ListUsers``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ListUsers`: []User
+	fmt.Fprintf(os.Stdout, "Response from `UserManagementAPI.ListUsers`: %v\n", resp)
 }
 ```
 
@@ -1911,24 +1911,24 @@ List of users who have rbac roles in this account.
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
-    accountName := "accountName_example" // string | 
+	accountName := "accountName_example" // string | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.UserManagementApi.ListUsersWithRoles(context.Background(), accountName).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `UserManagementApi.ListUsersWithRoles``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ListUsersWithRoles`: Users
-    fmt.Fprintf(os.Stdout, "Response from `UserManagementApi.ListUsersWithRoles`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.UserManagementAPI.ListUsersWithRoles(context.Background(), accountName).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `UserManagementAPI.ListUsersWithRoles``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ListUsersWithRoles`: Users
+	fmt.Fprintf(os.Stdout, "Response from `UserManagementAPI.ListUsersWithRoles`: %v\n", resp)
 }
 ```
 
@@ -1979,27 +1979,27 @@ Patch a user API key
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
-    accountName := "accountName_example" // string | 
-    username := "username_example" // string | 
-    keyName := "keyName_example" // string | 
-    patchUserApiKeyRequest := *openapiclient.NewPatchUserApiKeyRequest() // PatchUserApiKeyRequest |  (optional)
+	accountName := "accountName_example" // string | 
+	username := "username_example" // string | 
+	keyName := "keyName_example" // string | 
+	patchUserApiKeyRequest := *openapiclient.NewPatchUserApiKeyRequest() // PatchUserApiKeyRequest |  (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.UserManagementApi.PatchUserApiKey(context.Background(), accountName, username, keyName).PatchUserApiKeyRequest(patchUserApiKeyRequest).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `UserManagementApi.PatchUserApiKey``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `PatchUserApiKey`: UserApiKey
-    fmt.Fprintf(os.Stdout, "Response from `UserManagementApi.PatchUserApiKey`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.UserManagementAPI.PatchUserApiKey(context.Background(), accountName, username, keyName).PatchUserApiKeyRequest(patchUserApiKeyRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `UserManagementAPI.PatchUserApiKey``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PatchUserApiKey`: UserApiKey
+	fmt.Fprintf(os.Stdout, "Response from `UserManagementAPI.PatchUserApiKey`: %v\n", resp)
 }
 ```
 
@@ -2057,23 +2057,23 @@ No authorization required
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
-    token := "token_example" // string | The token to be revoked (optional)
-    tokenTypeHint := "tokenTypeHint_example" // string | A hint about the type of token to be revoked (optional)
+	token := "token_example" // string | The token to be revoked (optional)
+	tokenTypeHint := "tokenTypeHint_example" // string | A hint about the type of token to be revoked (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.UserManagementApi.RevokeOauthToken(context.Background()).Token(token).TokenTypeHint(tokenTypeHint).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `UserManagementApi.RevokeOauthToken``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.UserManagementAPI.RevokeOauthToken(context.Background()).Token(token).TokenTypeHint(tokenTypeHint).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `UserManagementAPI.RevokeOauthToken``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -2121,26 +2121,26 @@ Update the info for this specific account.
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
-    accountName := "accountName_example" // string | 
-    info := *openapiclient.NewAccountInfo() // AccountInfo | 
-    xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
+	accountName := "accountName_example" // string | 
+	info := *openapiclient.NewAccountInfo() // AccountInfo | 
+	xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.UserManagementApi.UpdateAccount(context.Background(), accountName).Info(info).XAnchoreAccount(xAnchoreAccount).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `UserManagementApi.UpdateAccount``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `UpdateAccount`: Account
-    fmt.Fprintf(os.Stdout, "Response from `UserManagementApi.UpdateAccount`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.UserManagementAPI.UpdateAccount(context.Background(), accountName).Info(info).XAnchoreAccount(xAnchoreAccount).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `UserManagementAPI.UpdateAccount``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `UpdateAccount`: Account
+	fmt.Fprintf(os.Stdout, "Response from `UserManagementAPI.UpdateAccount`: %v\n", resp)
 }
 ```
 
@@ -2193,25 +2193,25 @@ Update the state of an account to either enabled or disabled. For deletion use t
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
-    accountName := "accountName_example" // string | 
-    desiredState := *openapiclient.NewAccountStatus() // AccountStatus | 
+	accountName := "accountName_example" // string | 
+	desiredState := *openapiclient.NewAccountStatus() // AccountStatus | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.UserManagementApi.UpdateAccountState(context.Background(), accountName).DesiredState(desiredState).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `UserManagementApi.UpdateAccountState``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `UpdateAccountState`: AccountStatus
-    fmt.Fprintf(os.Stdout, "Response from `UserManagementApi.UpdateAccountState`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.UserManagementAPI.UpdateAccountState(context.Background(), accountName).DesiredState(desiredState).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `UserManagementAPI.UpdateAccountState``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `UpdateAccountState`: AccountStatus
+	fmt.Fprintf(os.Stdout, "Response from `UserManagementAPI.UpdateAccountState`: %v\n", resp)
 }
 ```
 
@@ -2263,25 +2263,25 @@ Update a user group
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
-    groupUuid := "groupUuid_example" // string | 
-    userGroupPatch := *openapiclient.NewUserGroupPatch("Description_example") // UserGroupPatch | 
+	groupUuid := "groupUuid_example" // string | 
+	userGroupPatch := *openapiclient.NewUserGroupPatch("Description_example") // UserGroupPatch | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.UserManagementApi.UpdateUserGroup(context.Background(), groupUuid).UserGroupPatch(userGroupPatch).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `UserManagementApi.UpdateUserGroup``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `UpdateUserGroup`: UserGroup
-    fmt.Fprintf(os.Stdout, "Response from `UserManagementApi.UpdateUserGroup`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.UserManagementAPI.UpdateUserGroup(context.Background(), groupUuid).UserGroupPatch(userGroupPatch).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `UserManagementAPI.UpdateUserGroup``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `UpdateUserGroup`: UserGroup
+	fmt.Fprintf(os.Stdout, "Response from `UserManagementAPI.UpdateUserGroup`: %v\n", resp)
 }
 ```
 

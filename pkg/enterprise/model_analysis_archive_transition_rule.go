@@ -14,7 +14,12 @@ package enterprise
 import (
 	"encoding/json"
 	"time"
+	"bytes"
+	"fmt"
 )
+
+// checks if the AnalysisArchiveTransitionRule type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &AnalysisArchiveTransitionRule{}
 
 // AnalysisArchiveTransitionRule A rule for auto-archiving image analysis by time and/or tag-history
 type AnalysisArchiveTransitionRule struct {
@@ -36,6 +41,8 @@ type AnalysisArchiveTransitionRule struct {
 	MaxImagesPerAccount *int32 `json:"max_images_per_account,omitempty"`
 }
 
+type _AnalysisArchiveTransitionRule AnalysisArchiveTransitionRule
+
 // NewAnalysisArchiveTransitionRule instantiates a new AnalysisArchiveTransitionRule object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
@@ -56,7 +63,7 @@ func NewAnalysisArchiveTransitionRuleWithDefaults() *AnalysisArchiveTransitionRu
 
 // GetSelector returns the Selector field value if set, zero value otherwise.
 func (o *AnalysisArchiveTransitionRule) GetSelector() ImageSelector {
-	if o == nil || o.Selector == nil {
+	if o == nil || IsNil(o.Selector) {
 		var ret ImageSelector
 		return ret
 	}
@@ -66,7 +73,7 @@ func (o *AnalysisArchiveTransitionRule) GetSelector() ImageSelector {
 // GetSelectorOk returns a tuple with the Selector field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AnalysisArchiveTransitionRule) GetSelectorOk() (*ImageSelector, bool) {
-	if o == nil || o.Selector == nil {
+	if o == nil || IsNil(o.Selector) {
 		return nil, false
 	}
 	return o.Selector, true
@@ -74,7 +81,7 @@ func (o *AnalysisArchiveTransitionRule) GetSelectorOk() (*ImageSelector, bool) {
 
 // HasSelector returns a boolean if a field has been set.
 func (o *AnalysisArchiveTransitionRule) HasSelector() bool {
-	if o != nil && o.Selector != nil {
+	if o != nil && !IsNil(o.Selector) {
 		return true
 	}
 
@@ -88,7 +95,7 @@ func (o *AnalysisArchiveTransitionRule) SetSelector(v ImageSelector) {
 
 // GetRuleId returns the RuleId field value if set, zero value otherwise.
 func (o *AnalysisArchiveTransitionRule) GetRuleId() string {
-	if o == nil || o.RuleId == nil {
+	if o == nil || IsNil(o.RuleId) {
 		var ret string
 		return ret
 	}
@@ -98,7 +105,7 @@ func (o *AnalysisArchiveTransitionRule) GetRuleId() string {
 // GetRuleIdOk returns a tuple with the RuleId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AnalysisArchiveTransitionRule) GetRuleIdOk() (*string, bool) {
-	if o == nil || o.RuleId == nil {
+	if o == nil || IsNil(o.RuleId) {
 		return nil, false
 	}
 	return o.RuleId, true
@@ -106,7 +113,7 @@ func (o *AnalysisArchiveTransitionRule) GetRuleIdOk() (*string, bool) {
 
 // HasRuleId returns a boolean if a field has been set.
 func (o *AnalysisArchiveTransitionRule) HasRuleId() bool {
-	if o != nil && o.RuleId != nil {
+	if o != nil && !IsNil(o.RuleId) {
 		return true
 	}
 
@@ -120,7 +127,7 @@ func (o *AnalysisArchiveTransitionRule) SetRuleId(v string) {
 
 // GetTagVersionsNewer returns the TagVersionsNewer field value if set, zero value otherwise.
 func (o *AnalysisArchiveTransitionRule) GetTagVersionsNewer() int32 {
-	if o == nil || o.TagVersionsNewer == nil {
+	if o == nil || IsNil(o.TagVersionsNewer) {
 		var ret int32
 		return ret
 	}
@@ -130,7 +137,7 @@ func (o *AnalysisArchiveTransitionRule) GetTagVersionsNewer() int32 {
 // GetTagVersionsNewerOk returns a tuple with the TagVersionsNewer field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AnalysisArchiveTransitionRule) GetTagVersionsNewerOk() (*int32, bool) {
-	if o == nil || o.TagVersionsNewer == nil {
+	if o == nil || IsNil(o.TagVersionsNewer) {
 		return nil, false
 	}
 	return o.TagVersionsNewer, true
@@ -138,7 +145,7 @@ func (o *AnalysisArchiveTransitionRule) GetTagVersionsNewerOk() (*int32, bool) {
 
 // HasTagVersionsNewer returns a boolean if a field has been set.
 func (o *AnalysisArchiveTransitionRule) HasTagVersionsNewer() bool {
-	if o != nil && o.TagVersionsNewer != nil {
+	if o != nil && !IsNil(o.TagVersionsNewer) {
 		return true
 	}
 
@@ -152,7 +159,7 @@ func (o *AnalysisArchiveTransitionRule) SetTagVersionsNewer(v int32) {
 
 // GetAnalysisAgeDays returns the AnalysisAgeDays field value if set, zero value otherwise.
 func (o *AnalysisArchiveTransitionRule) GetAnalysisAgeDays() int32 {
-	if o == nil || o.AnalysisAgeDays == nil {
+	if o == nil || IsNil(o.AnalysisAgeDays) {
 		var ret int32
 		return ret
 	}
@@ -162,7 +169,7 @@ func (o *AnalysisArchiveTransitionRule) GetAnalysisAgeDays() int32 {
 // GetAnalysisAgeDaysOk returns a tuple with the AnalysisAgeDays field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AnalysisArchiveTransitionRule) GetAnalysisAgeDaysOk() (*int32, bool) {
-	if o == nil || o.AnalysisAgeDays == nil {
+	if o == nil || IsNil(o.AnalysisAgeDays) {
 		return nil, false
 	}
 	return o.AnalysisAgeDays, true
@@ -170,7 +177,7 @@ func (o *AnalysisArchiveTransitionRule) GetAnalysisAgeDaysOk() (*int32, bool) {
 
 // HasAnalysisAgeDays returns a boolean if a field has been set.
 func (o *AnalysisArchiveTransitionRule) HasAnalysisAgeDays() bool {
-	if o != nil && o.AnalysisAgeDays != nil {
+	if o != nil && !IsNil(o.AnalysisAgeDays) {
 		return true
 	}
 
@@ -208,7 +215,7 @@ func (o *AnalysisArchiveTransitionRule) SetTransition(v string) {
 
 // GetSystemGlobal returns the SystemGlobal field value if set, zero value otherwise.
 func (o *AnalysisArchiveTransitionRule) GetSystemGlobal() bool {
-	if o == nil || o.SystemGlobal == nil {
+	if o == nil || IsNil(o.SystemGlobal) {
 		var ret bool
 		return ret
 	}
@@ -218,7 +225,7 @@ func (o *AnalysisArchiveTransitionRule) GetSystemGlobal() bool {
 // GetSystemGlobalOk returns a tuple with the SystemGlobal field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AnalysisArchiveTransitionRule) GetSystemGlobalOk() (*bool, bool) {
-	if o == nil || o.SystemGlobal == nil {
+	if o == nil || IsNil(o.SystemGlobal) {
 		return nil, false
 	}
 	return o.SystemGlobal, true
@@ -226,7 +233,7 @@ func (o *AnalysisArchiveTransitionRule) GetSystemGlobalOk() (*bool, bool) {
 
 // HasSystemGlobal returns a boolean if a field has been set.
 func (o *AnalysisArchiveTransitionRule) HasSystemGlobal() bool {
-	if o != nil && o.SystemGlobal != nil {
+	if o != nil && !IsNil(o.SystemGlobal) {
 		return true
 	}
 
@@ -240,7 +247,7 @@ func (o *AnalysisArchiveTransitionRule) SetSystemGlobal(v bool) {
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
 func (o *AnalysisArchiveTransitionRule) GetCreatedAt() time.Time {
-	if o == nil || o.CreatedAt == nil {
+	if o == nil || IsNil(o.CreatedAt) {
 		var ret time.Time
 		return ret
 	}
@@ -250,7 +257,7 @@ func (o *AnalysisArchiveTransitionRule) GetCreatedAt() time.Time {
 // GetCreatedAtOk returns a tuple with the CreatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AnalysisArchiveTransitionRule) GetCreatedAtOk() (*time.Time, bool) {
-	if o == nil || o.CreatedAt == nil {
+	if o == nil || IsNil(o.CreatedAt) {
 		return nil, false
 	}
 	return o.CreatedAt, true
@@ -258,7 +265,7 @@ func (o *AnalysisArchiveTransitionRule) GetCreatedAtOk() (*time.Time, bool) {
 
 // HasCreatedAt returns a boolean if a field has been set.
 func (o *AnalysisArchiveTransitionRule) HasCreatedAt() bool {
-	if o != nil && o.CreatedAt != nil {
+	if o != nil && !IsNil(o.CreatedAt) {
 		return true
 	}
 
@@ -272,7 +279,7 @@ func (o *AnalysisArchiveTransitionRule) SetCreatedAt(v time.Time) {
 
 // GetLastUpdated returns the LastUpdated field value if set, zero value otherwise.
 func (o *AnalysisArchiveTransitionRule) GetLastUpdated() time.Time {
-	if o == nil || o.LastUpdated == nil {
+	if o == nil || IsNil(o.LastUpdated) {
 		var ret time.Time
 		return ret
 	}
@@ -282,7 +289,7 @@ func (o *AnalysisArchiveTransitionRule) GetLastUpdated() time.Time {
 // GetLastUpdatedOk returns a tuple with the LastUpdated field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AnalysisArchiveTransitionRule) GetLastUpdatedOk() (*time.Time, bool) {
-	if o == nil || o.LastUpdated == nil {
+	if o == nil || IsNil(o.LastUpdated) {
 		return nil, false
 	}
 	return o.LastUpdated, true
@@ -290,7 +297,7 @@ func (o *AnalysisArchiveTransitionRule) GetLastUpdatedOk() (*time.Time, bool) {
 
 // HasLastUpdated returns a boolean if a field has been set.
 func (o *AnalysisArchiveTransitionRule) HasLastUpdated() bool {
-	if o != nil && o.LastUpdated != nil {
+	if o != nil && !IsNil(o.LastUpdated) {
 		return true
 	}
 
@@ -304,7 +311,7 @@ func (o *AnalysisArchiveTransitionRule) SetLastUpdated(v time.Time) {
 
 // GetExclude returns the Exclude field value if set, zero value otherwise.
 func (o *AnalysisArchiveTransitionRule) GetExclude() AnalysisArchiveTransitionRuleExclude {
-	if o == nil || o.Exclude == nil {
+	if o == nil || IsNil(o.Exclude) {
 		var ret AnalysisArchiveTransitionRuleExclude
 		return ret
 	}
@@ -314,7 +321,7 @@ func (o *AnalysisArchiveTransitionRule) GetExclude() AnalysisArchiveTransitionRu
 // GetExcludeOk returns a tuple with the Exclude field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AnalysisArchiveTransitionRule) GetExcludeOk() (*AnalysisArchiveTransitionRuleExclude, bool) {
-	if o == nil || o.Exclude == nil {
+	if o == nil || IsNil(o.Exclude) {
 		return nil, false
 	}
 	return o.Exclude, true
@@ -322,7 +329,7 @@ func (o *AnalysisArchiveTransitionRule) GetExcludeOk() (*AnalysisArchiveTransiti
 
 // HasExclude returns a boolean if a field has been set.
 func (o *AnalysisArchiveTransitionRule) HasExclude() bool {
-	if o != nil && o.Exclude != nil {
+	if o != nil && !IsNil(o.Exclude) {
 		return true
 	}
 
@@ -336,7 +343,7 @@ func (o *AnalysisArchiveTransitionRule) SetExclude(v AnalysisArchiveTransitionRu
 
 // GetMaxImagesPerAccount returns the MaxImagesPerAccount field value if set, zero value otherwise.
 func (o *AnalysisArchiveTransitionRule) GetMaxImagesPerAccount() int32 {
-	if o == nil || o.MaxImagesPerAccount == nil {
+	if o == nil || IsNil(o.MaxImagesPerAccount) {
 		var ret int32
 		return ret
 	}
@@ -346,7 +353,7 @@ func (o *AnalysisArchiveTransitionRule) GetMaxImagesPerAccount() int32 {
 // GetMaxImagesPerAccountOk returns a tuple with the MaxImagesPerAccount field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AnalysisArchiveTransitionRule) GetMaxImagesPerAccountOk() (*int32, bool) {
-	if o == nil || o.MaxImagesPerAccount == nil {
+	if o == nil || IsNil(o.MaxImagesPerAccount) {
 		return nil, false
 	}
 	return o.MaxImagesPerAccount, true
@@ -354,7 +361,7 @@ func (o *AnalysisArchiveTransitionRule) GetMaxImagesPerAccountOk() (*int32, bool
 
 // HasMaxImagesPerAccount returns a boolean if a field has been set.
 func (o *AnalysisArchiveTransitionRule) HasMaxImagesPerAccount() bool {
-	if o != nil && o.MaxImagesPerAccount != nil {
+	if o != nil && !IsNil(o.MaxImagesPerAccount) {
 		return true
 	}
 
@@ -367,38 +374,81 @@ func (o *AnalysisArchiveTransitionRule) SetMaxImagesPerAccount(v int32) {
 }
 
 func (o AnalysisArchiveTransitionRule) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Selector != nil {
-		toSerialize["selector"] = o.Selector
-	}
-	if o.RuleId != nil {
-		toSerialize["rule_id"] = o.RuleId
-	}
-	if o.TagVersionsNewer != nil {
-		toSerialize["tag_versions_newer"] = o.TagVersionsNewer
-	}
-	if o.AnalysisAgeDays != nil {
-		toSerialize["analysis_age_days"] = o.AnalysisAgeDays
-	}
-	if true {
-		toSerialize["transition"] = o.Transition
-	}
-	if o.SystemGlobal != nil {
-		toSerialize["system_global"] = o.SystemGlobal
-	}
-	if o.CreatedAt != nil {
-		toSerialize["created_at"] = o.CreatedAt
-	}
-	if o.LastUpdated != nil {
-		toSerialize["last_updated"] = o.LastUpdated
-	}
-	if o.Exclude != nil {
-		toSerialize["exclude"] = o.Exclude
-	}
-	if o.MaxImagesPerAccount != nil {
-		toSerialize["max_images_per_account"] = o.MaxImagesPerAccount
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o AnalysisArchiveTransitionRule) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Selector) {
+		toSerialize["selector"] = o.Selector
+	}
+	if !IsNil(o.RuleId) {
+		toSerialize["rule_id"] = o.RuleId
+	}
+	if !IsNil(o.TagVersionsNewer) {
+		toSerialize["tag_versions_newer"] = o.TagVersionsNewer
+	}
+	if !IsNil(o.AnalysisAgeDays) {
+		toSerialize["analysis_age_days"] = o.AnalysisAgeDays
+	}
+	toSerialize["transition"] = o.Transition
+	if !IsNil(o.SystemGlobal) {
+		toSerialize["system_global"] = o.SystemGlobal
+	}
+	if !IsNil(o.CreatedAt) {
+		toSerialize["created_at"] = o.CreatedAt
+	}
+	if !IsNil(o.LastUpdated) {
+		toSerialize["last_updated"] = o.LastUpdated
+	}
+	if !IsNil(o.Exclude) {
+		toSerialize["exclude"] = o.Exclude
+	}
+	if !IsNil(o.MaxImagesPerAccount) {
+		toSerialize["max_images_per_account"] = o.MaxImagesPerAccount
+	}
+	return toSerialize, nil
+}
+
+func (o *AnalysisArchiveTransitionRule) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"transition",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varAnalysisArchiveTransitionRule := _AnalysisArchiveTransitionRule{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varAnalysisArchiveTransitionRule)
+
+	if err != nil {
+		return err
+	}
+
+	*o = AnalysisArchiveTransitionRule(varAnalysisArchiveTransitionRule)
+
+	return err
 }
 
 type NullableAnalysisArchiveTransitionRule struct {

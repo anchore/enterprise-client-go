@@ -13,15 +13,22 @@ package enterprise
 
 import (
 	"encoding/json"
+	"bytes"
+	"fmt"
 )
+
+// checks if the AccountCreationRequest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &AccountCreationRequest{}
 
 // AccountCreationRequest An account to create/add to the system. If already exists will return 400.
 type AccountCreationRequest struct {
 	// The account name to use. This will identify the account and must be globally unique in the system.
-	Name string `json:"name"`
+	Name string "json:\"name\" validate:\"regexp=^[a-zA-Z0-9][ a-zA-Z0-9@.!$+=^_`~;-]{1,126}[a-zA-Z0-9_]$\""
 	// An optional email to associate with the account for contact purposes
-	Email *string `json:"email,omitempty"`
+	Email *string "json:\"email,omitempty\" validate:\"regexp=[a-z0-9!#$%&'*+\\/=?^_`{|}~-]+(?:\\\\.[a-z0-9!#$%&'*+\\/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\""
 }
+
+type _AccountCreationRequest AccountCreationRequest
 
 // NewAccountCreationRequest instantiates a new AccountCreationRequest object
 // This constructor will assign default values to properties that have it defined,
@@ -67,7 +74,7 @@ func (o *AccountCreationRequest) SetName(v string) {
 
 // GetEmail returns the Email field value if set, zero value otherwise.
 func (o *AccountCreationRequest) GetEmail() string {
-	if o == nil || o.Email == nil {
+	if o == nil || IsNil(o.Email) {
 		var ret string
 		return ret
 	}
@@ -77,7 +84,7 @@ func (o *AccountCreationRequest) GetEmail() string {
 // GetEmailOk returns a tuple with the Email field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AccountCreationRequest) GetEmailOk() (*string, bool) {
-	if o == nil || o.Email == nil {
+	if o == nil || IsNil(o.Email) {
 		return nil, false
 	}
 	return o.Email, true
@@ -85,7 +92,7 @@ func (o *AccountCreationRequest) GetEmailOk() (*string, bool) {
 
 // HasEmail returns a boolean if a field has been set.
 func (o *AccountCreationRequest) HasEmail() bool {
-	if o != nil && o.Email != nil {
+	if o != nil && !IsNil(o.Email) {
 		return true
 	}
 
@@ -98,14 +105,57 @@ func (o *AccountCreationRequest) SetEmail(v string) {
 }
 
 func (o AccountCreationRequest) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["name"] = o.Name
-	}
-	if o.Email != nil {
-		toSerialize["email"] = o.Email
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o AccountCreationRequest) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["name"] = o.Name
+	if !IsNil(o.Email) {
+		toSerialize["email"] = o.Email
+	}
+	return toSerialize, nil
+}
+
+func (o *AccountCreationRequest) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"name",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varAccountCreationRequest := _AccountCreationRequest{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varAccountCreationRequest)
+
+	if err != nil {
+		return err
+	}
+
+	*o = AccountCreationRequest(varAccountCreationRequest)
+
+	return err
 }
 
 type NullableAccountCreationRequest struct {

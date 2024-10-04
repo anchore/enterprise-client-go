@@ -13,7 +13,12 @@ package enterprise
 
 import (
 	"encoding/json"
+	"bytes"
+	"fmt"
 )
+
+// checks if the JsonPatchTest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &JsonPatchTest{}
 
 // JsonPatchTest The 'test' operation per RFC6902
 type JsonPatchTest struct {
@@ -21,10 +26,12 @@ type JsonPatchTest struct {
 	Id *string `json:"id,omitempty"`
 	Op string `json:"op"`
 	// A JSONPointer per RFC6901
-	Path string `json:"path"`
+	Path string `json:"path" validate:"regexp=^(\\/[^\\/~]*(~[01][^\\/~]*)*)*$"`
 	// Expected value for test
 	Value interface{} `json:"value"`
 }
+
+type _JsonPatchTest JsonPatchTest
 
 // NewJsonPatchTest instantiates a new JsonPatchTest object
 // This constructor will assign default values to properties that have it defined,
@@ -48,7 +55,7 @@ func NewJsonPatchTestWithDefaults() *JsonPatchTest {
 
 // GetId returns the Id field value if set, zero value otherwise.
 func (o *JsonPatchTest) GetId() string {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		var ret string
 		return ret
 	}
@@ -58,7 +65,7 @@ func (o *JsonPatchTest) GetId() string {
 // GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *JsonPatchTest) GetIdOk() (*string, bool) {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
 	return o.Id, true
@@ -66,7 +73,7 @@ func (o *JsonPatchTest) GetIdOk() (*string, bool) {
 
 // HasId returns a boolean if a field has been set.
 func (o *JsonPatchTest) HasId() bool {
-	if o != nil && o.Id != nil {
+	if o != nil && !IsNil(o.Id) {
 		return true
 	}
 
@@ -151,20 +158,61 @@ func (o *JsonPatchTest) SetValue(v interface{}) {
 }
 
 func (o JsonPatchTest) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Id != nil {
-		toSerialize["id"] = o.Id
-	}
-	if true {
-		toSerialize["op"] = o.Op
-	}
-	if true {
-		toSerialize["path"] = o.Path
-	}
-	if true {
-		toSerialize["value"] = o.Value
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o JsonPatchTest) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Id) {
+		toSerialize["id"] = o.Id
+	}
+	toSerialize["op"] = o.Op
+	toSerialize["path"] = o.Path
+	toSerialize["value"] = o.Value
+	return toSerialize, nil
+}
+
+func (o *JsonPatchTest) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"op",
+		"path",
+		"value",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varJsonPatchTest := _JsonPatchTest{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varJsonPatchTest)
+
+	if err != nil {
+		return err
+	}
+
+	*o = JsonPatchTest(varJsonPatchTest)
+
+	return err
 }
 
 type NullableJsonPatchTest struct {

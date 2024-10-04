@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the FeedDataRecords type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &FeedDataRecords{}
+
 // FeedDataRecords A list of data records
 type FeedDataRecords struct {
 	Records []FeedDataRecord `json:"records,omitempty"`
@@ -39,7 +42,7 @@ func NewFeedDataRecordsWithDefaults() *FeedDataRecords {
 
 // GetRecords returns the Records field value if set, zero value otherwise.
 func (o *FeedDataRecords) GetRecords() []FeedDataRecord {
-	if o == nil || o.Records == nil {
+	if o == nil || IsNil(o.Records) {
 		var ret []FeedDataRecord
 		return ret
 	}
@@ -49,7 +52,7 @@ func (o *FeedDataRecords) GetRecords() []FeedDataRecord {
 // GetRecordsOk returns a tuple with the Records field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *FeedDataRecords) GetRecordsOk() ([]FeedDataRecord, bool) {
-	if o == nil || o.Records == nil {
+	if o == nil || IsNil(o.Records) {
 		return nil, false
 	}
 	return o.Records, true
@@ -57,7 +60,7 @@ func (o *FeedDataRecords) GetRecordsOk() ([]FeedDataRecord, bool) {
 
 // HasRecords returns a boolean if a field has been set.
 func (o *FeedDataRecords) HasRecords() bool {
-	if o != nil && o.Records != nil {
+	if o != nil && !IsNil(o.Records) {
 		return true
 	}
 
@@ -70,11 +73,19 @@ func (o *FeedDataRecords) SetRecords(v []FeedDataRecord) {
 }
 
 func (o FeedDataRecords) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Records != nil {
-		toSerialize["records"] = o.Records
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o FeedDataRecords) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Records) {
+		toSerialize["records"] = o.Records
+	}
+	return toSerialize, nil
 }
 
 type NullableFeedDataRecords struct {

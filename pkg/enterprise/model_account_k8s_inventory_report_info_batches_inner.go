@@ -14,7 +14,12 @@ package enterprise
 import (
 	"encoding/json"
 	"time"
+	"bytes"
+	"fmt"
 )
+
+// checks if the AccountK8sInventoryReportInfoBatchesInner type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &AccountK8sInventoryReportInfoBatchesInner{}
 
 // AccountK8sInventoryReportInfoBatchesInner struct for AccountK8sInventoryReportInfoBatchesInner
 type AccountK8sInventoryReportInfoBatchesInner struct {
@@ -25,6 +30,8 @@ type AccountK8sInventoryReportInfoBatchesInner struct {
 	// Error message if the sending was unsuccessful
 	Error *string `json:"error,omitempty"`
 }
+
+type _AccountK8sInventoryReportInfoBatchesInner AccountK8sInventoryReportInfoBatchesInner
 
 // NewAccountK8sInventoryReportInfoBatchesInner instantiates a new AccountK8sInventoryReportInfoBatchesInner object
 // This constructor will assign default values to properties that have it defined,
@@ -95,7 +102,7 @@ func (o *AccountK8sInventoryReportInfoBatchesInner) SetSendTimestamp(v time.Time
 
 // GetError returns the Error field value if set, zero value otherwise.
 func (o *AccountK8sInventoryReportInfoBatchesInner) GetError() string {
-	if o == nil || o.Error == nil {
+	if o == nil || IsNil(o.Error) {
 		var ret string
 		return ret
 	}
@@ -105,7 +112,7 @@ func (o *AccountK8sInventoryReportInfoBatchesInner) GetError() string {
 // GetErrorOk returns a tuple with the Error field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AccountK8sInventoryReportInfoBatchesInner) GetErrorOk() (*string, bool) {
-	if o == nil || o.Error == nil {
+	if o == nil || IsNil(o.Error) {
 		return nil, false
 	}
 	return o.Error, true
@@ -113,7 +120,7 @@ func (o *AccountK8sInventoryReportInfoBatchesInner) GetErrorOk() (*string, bool)
 
 // HasError returns a boolean if a field has been set.
 func (o *AccountK8sInventoryReportInfoBatchesInner) HasError() bool {
-	if o != nil && o.Error != nil {
+	if o != nil && !IsNil(o.Error) {
 		return true
 	}
 
@@ -126,17 +133,59 @@ func (o *AccountK8sInventoryReportInfoBatchesInner) SetError(v string) {
 }
 
 func (o AccountK8sInventoryReportInfoBatchesInner) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["batch_index"] = o.BatchIndex
-	}
-	if true {
-		toSerialize["send_timestamp"] = o.SendTimestamp
-	}
-	if o.Error != nil {
-		toSerialize["error"] = o.Error
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o AccountK8sInventoryReportInfoBatchesInner) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["batch_index"] = o.BatchIndex
+	toSerialize["send_timestamp"] = o.SendTimestamp
+	if !IsNil(o.Error) {
+		toSerialize["error"] = o.Error
+	}
+	return toSerialize, nil
+}
+
+func (o *AccountK8sInventoryReportInfoBatchesInner) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"batch_index",
+		"send_timestamp",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varAccountK8sInventoryReportInfoBatchesInner := _AccountK8sInventoryReportInfoBatchesInner{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varAccountK8sInventoryReportInfoBatchesInner)
+
+	if err != nil {
+		return err
+	}
+
+	*o = AccountK8sInventoryReportInfoBatchesInner(varAccountK8sInventoryReportInfoBatchesInner)
+
+	return err
 }
 
 type NullableAccountK8sInventoryReportInfoBatchesInner struct {

@@ -13,7 +13,12 @@ package enterprise
 
 import (
 	"encoding/json"
+	"bytes"
+	"fmt"
 )
+
+// checks if the PolicyRule type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PolicyRule{}
 
 // PolicyRule A rule that defines and decision value if the match is found true for a given image.
 type PolicyRule struct {
@@ -26,6 +31,8 @@ type PolicyRule struct {
 	Params []PolicyRuleParam `json:"params"`
 	Recommendation *string `json:"recommendation,omitempty"`
 }
+
+type _PolicyRule PolicyRule
 
 // NewPolicyRule instantiates a new PolicyRule object
 // This constructor will assign default values to properties that have it defined,
@@ -147,7 +154,7 @@ func (o *PolicyRule) SetAction(v string) {
 
 // GetDescription returns the Description field value if set, zero value otherwise.
 func (o *PolicyRule) GetDescription() string {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		var ret string
 		return ret
 	}
@@ -157,7 +164,7 @@ func (o *PolicyRule) GetDescription() string {
 // GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PolicyRule) GetDescriptionOk() (*string, bool) {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		return nil, false
 	}
 	return o.Description, true
@@ -165,7 +172,7 @@ func (o *PolicyRule) GetDescriptionOk() (*string, bool) {
 
 // HasDescription returns a boolean if a field has been set.
 func (o *PolicyRule) HasDescription() bool {
-	if o != nil && o.Description != nil {
+	if o != nil && !IsNil(o.Description) {
 		return true
 	}
 
@@ -203,7 +210,7 @@ func (o *PolicyRule) SetParams(v []PolicyRuleParam) {
 
 // GetRecommendation returns the Recommendation field value if set, zero value otherwise.
 func (o *PolicyRule) GetRecommendation() string {
-	if o == nil || o.Recommendation == nil {
+	if o == nil || IsNil(o.Recommendation) {
 		var ret string
 		return ret
 	}
@@ -213,7 +220,7 @@ func (o *PolicyRule) GetRecommendation() string {
 // GetRecommendationOk returns a tuple with the Recommendation field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PolicyRule) GetRecommendationOk() (*string, bool) {
-	if o == nil || o.Recommendation == nil {
+	if o == nil || IsNil(o.Recommendation) {
 		return nil, false
 	}
 	return o.Recommendation, true
@@ -221,7 +228,7 @@ func (o *PolicyRule) GetRecommendationOk() (*string, bool) {
 
 // HasRecommendation returns a boolean if a field has been set.
 func (o *PolicyRule) HasRecommendation() bool {
-	if o != nil && o.Recommendation != nil {
+	if o != nil && !IsNil(o.Recommendation) {
 		return true
 	}
 
@@ -234,29 +241,68 @@ func (o *PolicyRule) SetRecommendation(v string) {
 }
 
 func (o PolicyRule) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["id"] = o.Id
-	}
-	if true {
-		toSerialize["gate"] = o.Gate
-	}
-	if true {
-		toSerialize["trigger"] = o.Trigger
-	}
-	if true {
-		toSerialize["action"] = o.Action
-	}
-	if o.Description != nil {
-		toSerialize["description"] = o.Description
-	}
-	if true {
-		toSerialize["params"] = o.Params
-	}
-	if o.Recommendation != nil {
-		toSerialize["recommendation"] = o.Recommendation
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o PolicyRule) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["id"] = o.Id
+	toSerialize["gate"] = o.Gate
+	toSerialize["trigger"] = o.Trigger
+	toSerialize["action"] = o.Action
+	if !IsNil(o.Description) {
+		toSerialize["description"] = o.Description
+	}
+	toSerialize["params"] = o.Params
+	if !IsNil(o.Recommendation) {
+		toSerialize["recommendation"] = o.Recommendation
+	}
+	return toSerialize, nil
+}
+
+func (o *PolicyRule) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"id",
+		"gate",
+		"trigger",
+		"action",
+		"params",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varPolicyRule := _PolicyRule{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varPolicyRule)
+
+	if err != nil {
+		return err
+	}
+
+	*o = PolicyRule(varPolicyRule)
+
+	return err
 }
 
 type NullablePolicyRule struct {

@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the RegistryConfigurationRequest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &RegistryConfigurationRequest{}
+
 // RegistryConfigurationRequest A registry record describing the endpoint and credentials for a registry
 type RegistryConfigurationRequest struct {
 	// Username portion of credential to use for this registry
@@ -50,7 +53,7 @@ func NewRegistryConfigurationRequestWithDefaults() *RegistryConfigurationRequest
 
 // GetRegistryUser returns the RegistryUser field value if set, zero value otherwise.
 func (o *RegistryConfigurationRequest) GetRegistryUser() string {
-	if o == nil || o.RegistryUser == nil {
+	if o == nil || IsNil(o.RegistryUser) {
 		var ret string
 		return ret
 	}
@@ -60,7 +63,7 @@ func (o *RegistryConfigurationRequest) GetRegistryUser() string {
 // GetRegistryUserOk returns a tuple with the RegistryUser field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RegistryConfigurationRequest) GetRegistryUserOk() (*string, bool) {
-	if o == nil || o.RegistryUser == nil {
+	if o == nil || IsNil(o.RegistryUser) {
 		return nil, false
 	}
 	return o.RegistryUser, true
@@ -68,7 +71,7 @@ func (o *RegistryConfigurationRequest) GetRegistryUserOk() (*string, bool) {
 
 // HasRegistryUser returns a boolean if a field has been set.
 func (o *RegistryConfigurationRequest) HasRegistryUser() bool {
-	if o != nil && o.RegistryUser != nil {
+	if o != nil && !IsNil(o.RegistryUser) {
 		return true
 	}
 
@@ -82,7 +85,7 @@ func (o *RegistryConfigurationRequest) SetRegistryUser(v string) {
 
 // GetRegistryPass returns the RegistryPass field value if set, zero value otherwise.
 func (o *RegistryConfigurationRequest) GetRegistryPass() string {
-	if o == nil || o.RegistryPass == nil {
+	if o == nil || IsNil(o.RegistryPass) {
 		var ret string
 		return ret
 	}
@@ -92,7 +95,7 @@ func (o *RegistryConfigurationRequest) GetRegistryPass() string {
 // GetRegistryPassOk returns a tuple with the RegistryPass field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RegistryConfigurationRequest) GetRegistryPassOk() (*string, bool) {
-	if o == nil || o.RegistryPass == nil {
+	if o == nil || IsNil(o.RegistryPass) {
 		return nil, false
 	}
 	return o.RegistryPass, true
@@ -100,7 +103,7 @@ func (o *RegistryConfigurationRequest) GetRegistryPassOk() (*string, bool) {
 
 // HasRegistryPass returns a boolean if a field has been set.
 func (o *RegistryConfigurationRequest) HasRegistryPass() bool {
-	if o != nil && o.RegistryPass != nil {
+	if o != nil && !IsNil(o.RegistryPass) {
 		return true
 	}
 
@@ -114,7 +117,7 @@ func (o *RegistryConfigurationRequest) SetRegistryPass(v string) {
 
 // GetRegistryType returns the RegistryType field value if set, zero value otherwise.
 func (o *RegistryConfigurationRequest) GetRegistryType() string {
-	if o == nil || o.RegistryType == nil {
+	if o == nil || IsNil(o.RegistryType) {
 		var ret string
 		return ret
 	}
@@ -124,7 +127,7 @@ func (o *RegistryConfigurationRequest) GetRegistryType() string {
 // GetRegistryTypeOk returns a tuple with the RegistryType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RegistryConfigurationRequest) GetRegistryTypeOk() (*string, bool) {
-	if o == nil || o.RegistryType == nil {
+	if o == nil || IsNil(o.RegistryType) {
 		return nil, false
 	}
 	return o.RegistryType, true
@@ -132,7 +135,7 @@ func (o *RegistryConfigurationRequest) GetRegistryTypeOk() (*string, bool) {
 
 // HasRegistryType returns a boolean if a field has been set.
 func (o *RegistryConfigurationRequest) HasRegistryType() bool {
-	if o != nil && o.RegistryType != nil {
+	if o != nil && !IsNil(o.RegistryType) {
 		return true
 	}
 
@@ -146,7 +149,7 @@ func (o *RegistryConfigurationRequest) SetRegistryType(v string) {
 
 // GetRegistry returns the Registry field value if set, zero value otherwise.
 func (o *RegistryConfigurationRequest) GetRegistry() string {
-	if o == nil || o.Registry == nil {
+	if o == nil || IsNil(o.Registry) {
 		var ret string
 		return ret
 	}
@@ -156,7 +159,7 @@ func (o *RegistryConfigurationRequest) GetRegistry() string {
 // GetRegistryOk returns a tuple with the Registry field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RegistryConfigurationRequest) GetRegistryOk() (*string, bool) {
-	if o == nil || o.Registry == nil {
+	if o == nil || IsNil(o.Registry) {
 		return nil, false
 	}
 	return o.Registry, true
@@ -164,7 +167,7 @@ func (o *RegistryConfigurationRequest) GetRegistryOk() (*string, bool) {
 
 // HasRegistry returns a boolean if a field has been set.
 func (o *RegistryConfigurationRequest) HasRegistry() bool {
-	if o != nil && o.Registry != nil {
+	if o != nil && !IsNil(o.Registry) {
 		return true
 	}
 
@@ -178,7 +181,7 @@ func (o *RegistryConfigurationRequest) SetRegistry(v string) {
 
 // GetRegistryName returns the RegistryName field value if set, zero value otherwise.
 func (o *RegistryConfigurationRequest) GetRegistryName() string {
-	if o == nil || o.RegistryName == nil {
+	if o == nil || IsNil(o.RegistryName) {
 		var ret string
 		return ret
 	}
@@ -188,7 +191,7 @@ func (o *RegistryConfigurationRequest) GetRegistryName() string {
 // GetRegistryNameOk returns a tuple with the RegistryName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RegistryConfigurationRequest) GetRegistryNameOk() (*string, bool) {
-	if o == nil || o.RegistryName == nil {
+	if o == nil || IsNil(o.RegistryName) {
 		return nil, false
 	}
 	return o.RegistryName, true
@@ -196,7 +199,7 @@ func (o *RegistryConfigurationRequest) GetRegistryNameOk() (*string, bool) {
 
 // HasRegistryName returns a boolean if a field has been set.
 func (o *RegistryConfigurationRequest) HasRegistryName() bool {
-	if o != nil && o.RegistryName != nil {
+	if o != nil && !IsNil(o.RegistryName) {
 		return true
 	}
 
@@ -210,7 +213,7 @@ func (o *RegistryConfigurationRequest) SetRegistryName(v string) {
 
 // GetRegistryVerify returns the RegistryVerify field value if set, zero value otherwise.
 func (o *RegistryConfigurationRequest) GetRegistryVerify() bool {
-	if o == nil || o.RegistryVerify == nil {
+	if o == nil || IsNil(o.RegistryVerify) {
 		var ret bool
 		return ret
 	}
@@ -220,7 +223,7 @@ func (o *RegistryConfigurationRequest) GetRegistryVerify() bool {
 // GetRegistryVerifyOk returns a tuple with the RegistryVerify field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RegistryConfigurationRequest) GetRegistryVerifyOk() (*bool, bool) {
-	if o == nil || o.RegistryVerify == nil {
+	if o == nil || IsNil(o.RegistryVerify) {
 		return nil, false
 	}
 	return o.RegistryVerify, true
@@ -228,7 +231,7 @@ func (o *RegistryConfigurationRequest) GetRegistryVerifyOk() (*bool, bool) {
 
 // HasRegistryVerify returns a boolean if a field has been set.
 func (o *RegistryConfigurationRequest) HasRegistryVerify() bool {
-	if o != nil && o.RegistryVerify != nil {
+	if o != nil && !IsNil(o.RegistryVerify) {
 		return true
 	}
 
@@ -241,26 +244,34 @@ func (o *RegistryConfigurationRequest) SetRegistryVerify(v bool) {
 }
 
 func (o RegistryConfigurationRequest) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.RegistryUser != nil {
-		toSerialize["registry_user"] = o.RegistryUser
-	}
-	if o.RegistryPass != nil {
-		toSerialize["registry_pass"] = o.RegistryPass
-	}
-	if o.RegistryType != nil {
-		toSerialize["registry_type"] = o.RegistryType
-	}
-	if o.Registry != nil {
-		toSerialize["registry"] = o.Registry
-	}
-	if o.RegistryName != nil {
-		toSerialize["registry_name"] = o.RegistryName
-	}
-	if o.RegistryVerify != nil {
-		toSerialize["registry_verify"] = o.RegistryVerify
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o RegistryConfigurationRequest) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.RegistryUser) {
+		toSerialize["registry_user"] = o.RegistryUser
+	}
+	if !IsNil(o.RegistryPass) {
+		toSerialize["registry_pass"] = o.RegistryPass
+	}
+	if !IsNil(o.RegistryType) {
+		toSerialize["registry_type"] = o.RegistryType
+	}
+	if !IsNil(o.Registry) {
+		toSerialize["registry"] = o.Registry
+	}
+	if !IsNil(o.RegistryName) {
+		toSerialize["registry_name"] = o.RegistryName
+	}
+	if !IsNil(o.RegistryVerify) {
+		toSerialize["registry_verify"] = o.RegistryVerify
+	}
+	return toSerialize, nil
 }
 
 type NullableRegistryConfigurationRequest struct {

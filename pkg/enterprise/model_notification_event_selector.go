@@ -13,7 +13,12 @@ package enterprise
 
 import (
 	"encoding/json"
+	"bytes"
+	"fmt"
 )
+
+// checks if the NotificationEventSelector type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &NotificationEventSelector{}
 
 // NotificationEventSelector A selector of event properties
 type NotificationEventSelector struct {
@@ -22,8 +27,10 @@ type NotificationEventSelector struct {
 	// The type of resource to filter. '*' matches all resource types. Some examples of resource type are 'image_digest' or 'service'
 	ResourceType string `json:"resource_type"`
 	// The type of event to filter, using wildcards against type field of the event. Event types have a structured format <category>.<subcategory>.<event>. Thus, '*' matches all types of events. 'system.*' matches all system events, 'user.*' matches events that are relevant to individual consumption, and omitting an asterisk will do an exact match. See the GET /event_types route definition in the engine's external API for the list of event types. 
-	Type string `json:"type"`
+	Type string `json:"type" validate:"regexp=^[a-z0-9-_.*]+$"`
 }
+
+type _NotificationEventSelector NotificationEventSelector
 
 // NewNotificationEventSelector instantiates a new NotificationEventSelector object
 // This constructor will assign default values to properties that have it defined,
@@ -118,17 +125,58 @@ func (o *NotificationEventSelector) SetType(v string) {
 }
 
 func (o NotificationEventSelector) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["level"] = o.Level
-	}
-	if true {
-		toSerialize["resource_type"] = o.ResourceType
-	}
-	if true {
-		toSerialize["type"] = o.Type
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o NotificationEventSelector) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["level"] = o.Level
+	toSerialize["resource_type"] = o.ResourceType
+	toSerialize["type"] = o.Type
+	return toSerialize, nil
+}
+
+func (o *NotificationEventSelector) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"level",
+		"resource_type",
+		"type",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varNotificationEventSelector := _NotificationEventSelector{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varNotificationEventSelector)
+
+	if err != nil {
+		return err
+	}
+
+	*o = NotificationEventSelector(varNotificationEventSelector)
+
+	return err
 }
 
 type NullableNotificationEventSelector struct {

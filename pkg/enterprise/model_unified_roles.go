@@ -16,6 +16,9 @@ import (
 	"time"
 )
 
+// checks if the UnifiedRoles type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &UnifiedRoles{}
+
 // UnifiedRoles struct for UnifiedRoles
 type UnifiedRoles struct {
 	// The name of the RBAC Role
@@ -49,7 +52,7 @@ func NewUnifiedRolesWithDefaults() *UnifiedRoles {
 
 // GetRoleName returns the RoleName field value if set, zero value otherwise.
 func (o *UnifiedRoles) GetRoleName() string {
-	if o == nil || o.RoleName == nil {
+	if o == nil || IsNil(o.RoleName) {
 		var ret string
 		return ret
 	}
@@ -59,7 +62,7 @@ func (o *UnifiedRoles) GetRoleName() string {
 // GetRoleNameOk returns a tuple with the RoleName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UnifiedRoles) GetRoleNameOk() (*string, bool) {
-	if o == nil || o.RoleName == nil {
+	if o == nil || IsNil(o.RoleName) {
 		return nil, false
 	}
 	return o.RoleName, true
@@ -67,7 +70,7 @@ func (o *UnifiedRoles) GetRoleNameOk() (*string, bool) {
 
 // HasRoleName returns a boolean if a field has been set.
 func (o *UnifiedRoles) HasRoleName() bool {
-	if o != nil && o.RoleName != nil {
+	if o != nil && !IsNil(o.RoleName) {
 		return true
 	}
 
@@ -81,7 +84,7 @@ func (o *UnifiedRoles) SetRoleName(v string) {
 
 // GetDomainName returns the DomainName field value if set, zero value otherwise.
 func (o *UnifiedRoles) GetDomainName() string {
-	if o == nil || o.DomainName == nil {
+	if o == nil || IsNil(o.DomainName) {
 		var ret string
 		return ret
 	}
@@ -91,7 +94,7 @@ func (o *UnifiedRoles) GetDomainName() string {
 // GetDomainNameOk returns a tuple with the DomainName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UnifiedRoles) GetDomainNameOk() (*string, bool) {
-	if o == nil || o.DomainName == nil {
+	if o == nil || IsNil(o.DomainName) {
 		return nil, false
 	}
 	return o.DomainName, true
@@ -99,7 +102,7 @@ func (o *UnifiedRoles) GetDomainNameOk() (*string, bool) {
 
 // HasDomainName returns a boolean if a field has been set.
 func (o *UnifiedRoles) HasDomainName() bool {
-	if o != nil && o.DomainName != nil {
+	if o != nil && !IsNil(o.DomainName) {
 		return true
 	}
 
@@ -113,7 +116,7 @@ func (o *UnifiedRoles) SetDomainName(v string) {
 
 // GetGranter returns the Granter field value if set, zero value otherwise.
 func (o *UnifiedRoles) GetGranter() string {
-	if o == nil || o.Granter == nil {
+	if o == nil || IsNil(o.Granter) {
 		var ret string
 		return ret
 	}
@@ -123,7 +126,7 @@ func (o *UnifiedRoles) GetGranter() string {
 // GetGranterOk returns a tuple with the Granter field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UnifiedRoles) GetGranterOk() (*string, bool) {
-	if o == nil || o.Granter == nil {
+	if o == nil || IsNil(o.Granter) {
 		return nil, false
 	}
 	return o.Granter, true
@@ -131,7 +134,7 @@ func (o *UnifiedRoles) GetGranterOk() (*string, bool) {
 
 // HasGranter returns a boolean if a field has been set.
 func (o *UnifiedRoles) HasGranter() bool {
-	if o != nil && o.Granter != nil {
+	if o != nil && !IsNil(o.Granter) {
 		return true
 	}
 
@@ -145,7 +148,7 @@ func (o *UnifiedRoles) SetGranter(v string) {
 
 // GetGrantType returns the GrantType field value if set, zero value otherwise.
 func (o *UnifiedRoles) GetGrantType() string {
-	if o == nil || o.GrantType == nil {
+	if o == nil || IsNil(o.GrantType) {
 		var ret string
 		return ret
 	}
@@ -155,7 +158,7 @@ func (o *UnifiedRoles) GetGrantType() string {
 // GetGrantTypeOk returns a tuple with the GrantType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UnifiedRoles) GetGrantTypeOk() (*string, bool) {
-	if o == nil || o.GrantType == nil {
+	if o == nil || IsNil(o.GrantType) {
 		return nil, false
 	}
 	return o.GrantType, true
@@ -163,7 +166,7 @@ func (o *UnifiedRoles) GetGrantTypeOk() (*string, bool) {
 
 // HasGrantType returns a boolean if a field has been set.
 func (o *UnifiedRoles) HasGrantType() bool {
-	if o != nil && o.GrantType != nil {
+	if o != nil && !IsNil(o.GrantType) {
 		return true
 	}
 
@@ -177,7 +180,7 @@ func (o *UnifiedRoles) SetGrantType(v string) {
 
 // GetGrantedAt returns the GrantedAt field value if set, zero value otherwise.
 func (o *UnifiedRoles) GetGrantedAt() time.Time {
-	if o == nil || o.GrantedAt == nil {
+	if o == nil || IsNil(o.GrantedAt) {
 		var ret time.Time
 		return ret
 	}
@@ -187,7 +190,7 @@ func (o *UnifiedRoles) GetGrantedAt() time.Time {
 // GetGrantedAtOk returns a tuple with the GrantedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UnifiedRoles) GetGrantedAtOk() (*time.Time, bool) {
-	if o == nil || o.GrantedAt == nil {
+	if o == nil || IsNil(o.GrantedAt) {
 		return nil, false
 	}
 	return o.GrantedAt, true
@@ -195,7 +198,7 @@ func (o *UnifiedRoles) GetGrantedAtOk() (*time.Time, bool) {
 
 // HasGrantedAt returns a boolean if a field has been set.
 func (o *UnifiedRoles) HasGrantedAt() bool {
-	if o != nil && o.GrantedAt != nil {
+	if o != nil && !IsNil(o.GrantedAt) {
 		return true
 	}
 
@@ -208,23 +211,31 @@ func (o *UnifiedRoles) SetGrantedAt(v time.Time) {
 }
 
 func (o UnifiedRoles) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.RoleName != nil {
-		toSerialize["role_name"] = o.RoleName
-	}
-	if o.DomainName != nil {
-		toSerialize["domain_name"] = o.DomainName
-	}
-	if o.Granter != nil {
-		toSerialize["granter"] = o.Granter
-	}
-	if o.GrantType != nil {
-		toSerialize["grant_type"] = o.GrantType
-	}
-	if o.GrantedAt != nil {
-		toSerialize["granted_at"] = o.GrantedAt
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o UnifiedRoles) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.RoleName) {
+		toSerialize["role_name"] = o.RoleName
+	}
+	if !IsNil(o.DomainName) {
+		toSerialize["domain_name"] = o.DomainName
+	}
+	if !IsNil(o.Granter) {
+		toSerialize["granter"] = o.Granter
+	}
+	if !IsNil(o.GrantType) {
+		toSerialize["grant_type"] = o.GrantType
+	}
+	if !IsNil(o.GrantedAt) {
+		toSerialize["granted_at"] = o.GrantedAt
+	}
+	return toSerialize, nil
 }
 
 type NullableUnifiedRoles struct {

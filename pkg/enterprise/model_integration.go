@@ -14,7 +14,12 @@ package enterprise
 import (
 	"encoding/json"
 	"time"
+	"bytes"
+	"fmt"
 )
+
+// checks if the Integration type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &Integration{}
 
 // Integration Information about an integration instance, e.g., an agent
 type Integration struct {
@@ -58,6 +63,8 @@ type Integration struct {
 	// Configuration of the integration instance
 	Configuration interface{} `json:"configuration,omitempty"`
 }
+
+type _Integration Integration
 
 // NewIntegration instantiates a new Integration object
 // This constructor will assign default values to properties that have it defined,
@@ -130,7 +137,7 @@ func (o *Integration) SetType(v IntegrationType) {
 
 // GetName returns the Name field value if set, zero value otherwise.
 func (o *Integration) GetName() string {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		var ret string
 		return ret
 	}
@@ -140,7 +147,7 @@ func (o *Integration) GetName() string {
 // GetNameOk returns a tuple with the Name field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Integration) GetNameOk() (*string, bool) {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		return nil, false
 	}
 	return o.Name, true
@@ -148,7 +155,7 @@ func (o *Integration) GetNameOk() (*string, bool) {
 
 // HasName returns a boolean if a field has been set.
 func (o *Integration) HasName() bool {
-	if o != nil && o.Name != nil {
+	if o != nil && !IsNil(o.Name) {
 		return true
 	}
 
@@ -162,7 +169,7 @@ func (o *Integration) SetName(v string) {
 
 // GetVersion returns the Version field value if set, zero value otherwise.
 func (o *Integration) GetVersion() string {
-	if o == nil || o.Version == nil {
+	if o == nil || IsNil(o.Version) {
 		var ret string
 		return ret
 	}
@@ -172,7 +179,7 @@ func (o *Integration) GetVersion() string {
 // GetVersionOk returns a tuple with the Version field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Integration) GetVersionOk() (*string, bool) {
-	if o == nil || o.Version == nil {
+	if o == nil || IsNil(o.Version) {
 		return nil, false
 	}
 	return o.Version, true
@@ -180,7 +187,7 @@ func (o *Integration) GetVersionOk() (*string, bool) {
 
 // HasVersion returns a boolean if a field has been set.
 func (o *Integration) HasVersion() bool {
-	if o != nil && o.Version != nil {
+	if o != nil && !IsNil(o.Version) {
 		return true
 	}
 
@@ -194,7 +201,7 @@ func (o *Integration) SetVersion(v string) {
 
 // GetReportedStatus returns the ReportedStatus field value if set, zero value otherwise.
 func (o *Integration) GetReportedStatus() IntegrationReportedStatus {
-	if o == nil || o.ReportedStatus == nil {
+	if o == nil || IsNil(o.ReportedStatus) {
 		var ret IntegrationReportedStatus
 		return ret
 	}
@@ -204,7 +211,7 @@ func (o *Integration) GetReportedStatus() IntegrationReportedStatus {
 // GetReportedStatusOk returns a tuple with the ReportedStatus field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Integration) GetReportedStatusOk() (*IntegrationReportedStatus, bool) {
-	if o == nil || o.ReportedStatus == nil {
+	if o == nil || IsNil(o.ReportedStatus) {
 		return nil, false
 	}
 	return o.ReportedStatus, true
@@ -212,7 +219,7 @@ func (o *Integration) GetReportedStatusOk() (*IntegrationReportedStatus, bool) {
 
 // HasReportedStatus returns a boolean if a field has been set.
 func (o *Integration) HasReportedStatus() bool {
-	if o != nil && o.ReportedStatus != nil {
+	if o != nil && !IsNil(o.ReportedStatus) {
 		return true
 	}
 
@@ -226,7 +233,7 @@ func (o *Integration) SetReportedStatus(v IntegrationReportedStatus) {
 
 // GetIntegrationStatus returns the IntegrationStatus field value if set, zero value otherwise.
 func (o *Integration) GetIntegrationStatus() IntegrationStatus {
-	if o == nil || o.IntegrationStatus == nil {
+	if o == nil || IsNil(o.IntegrationStatus) {
 		var ret IntegrationStatus
 		return ret
 	}
@@ -236,7 +243,7 @@ func (o *Integration) GetIntegrationStatus() IntegrationStatus {
 // GetIntegrationStatusOk returns a tuple with the IntegrationStatus field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Integration) GetIntegrationStatusOk() (*IntegrationStatus, bool) {
-	if o == nil || o.IntegrationStatus == nil {
+	if o == nil || IsNil(o.IntegrationStatus) {
 		return nil, false
 	}
 	return o.IntegrationStatus, true
@@ -244,7 +251,7 @@ func (o *Integration) GetIntegrationStatusOk() (*IntegrationStatus, bool) {
 
 // HasIntegrationStatus returns a boolean if a field has been set.
 func (o *Integration) HasIntegrationStatus() bool {
-	if o != nil && o.IntegrationStatus != nil {
+	if o != nil && !IsNil(o.IntegrationStatus) {
 		return true
 	}
 
@@ -258,7 +265,7 @@ func (o *Integration) SetIntegrationStatus(v IntegrationStatus) {
 
 // GetLastSeen returns the LastSeen field value if set, zero value otherwise.
 func (o *Integration) GetLastSeen() time.Time {
-	if o == nil || o.LastSeen == nil {
+	if o == nil || IsNil(o.LastSeen) {
 		var ret time.Time
 		return ret
 	}
@@ -268,7 +275,7 @@ func (o *Integration) GetLastSeen() time.Time {
 // GetLastSeenOk returns a tuple with the LastSeen field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Integration) GetLastSeenOk() (*time.Time, bool) {
-	if o == nil || o.LastSeen == nil {
+	if o == nil || IsNil(o.LastSeen) {
 		return nil, false
 	}
 	return o.LastSeen, true
@@ -276,7 +283,7 @@ func (o *Integration) GetLastSeenOk() (*time.Time, bool) {
 
 // HasLastSeen returns a boolean if a field has been set.
 func (o *Integration) HasLastSeen() bool {
-	if o != nil && o.LastSeen != nil {
+	if o != nil && !IsNil(o.LastSeen) {
 		return true
 	}
 
@@ -290,7 +297,7 @@ func (o *Integration) SetLastSeen(v time.Time) {
 
 // GetUptime returns the Uptime field value if set, zero value otherwise.
 func (o *Integration) GetUptime() float32 {
-	if o == nil || o.Uptime == nil {
+	if o == nil || IsNil(o.Uptime) {
 		var ret float32
 		return ret
 	}
@@ -300,7 +307,7 @@ func (o *Integration) GetUptime() float32 {
 // GetUptimeOk returns a tuple with the Uptime field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Integration) GetUptimeOk() (*float32, bool) {
-	if o == nil || o.Uptime == nil {
+	if o == nil || IsNil(o.Uptime) {
 		return nil, false
 	}
 	return o.Uptime, true
@@ -308,7 +315,7 @@ func (o *Integration) GetUptimeOk() (*float32, bool) {
 
 // HasUptime returns a boolean if a field has been set.
 func (o *Integration) HasUptime() bool {
-	if o != nil && o.Uptime != nil {
+	if o != nil && !IsNil(o.Uptime) {
 		return true
 	}
 
@@ -370,7 +377,7 @@ func (o *Integration) SetUsername(v string) {
 
 // GetExplicitlyAccountBound returns the ExplicitlyAccountBound field value if set, zero value otherwise.
 func (o *Integration) GetExplicitlyAccountBound() []string {
-	if o == nil || o.ExplicitlyAccountBound == nil {
+	if o == nil || IsNil(o.ExplicitlyAccountBound) {
 		var ret []string
 		return ret
 	}
@@ -380,7 +387,7 @@ func (o *Integration) GetExplicitlyAccountBound() []string {
 // GetExplicitlyAccountBoundOk returns a tuple with the ExplicitlyAccountBound field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Integration) GetExplicitlyAccountBoundOk() ([]string, bool) {
-	if o == nil || o.ExplicitlyAccountBound == nil {
+	if o == nil || IsNil(o.ExplicitlyAccountBound) {
 		return nil, false
 	}
 	return o.ExplicitlyAccountBound, true
@@ -388,7 +395,7 @@ func (o *Integration) GetExplicitlyAccountBoundOk() ([]string, bool) {
 
 // HasExplicitlyAccountBound returns a boolean if a field has been set.
 func (o *Integration) HasExplicitlyAccountBound() bool {
-	if o != nil && o.ExplicitlyAccountBound != nil {
+	if o != nil && !IsNil(o.ExplicitlyAccountBound) {
 		return true
 	}
 
@@ -402,7 +409,7 @@ func (o *Integration) SetExplicitlyAccountBound(v []string) {
 
 // GetAccounts returns the Accounts field value if set, zero value otherwise.
 func (o *Integration) GetAccounts() []string {
-	if o == nil || o.Accounts == nil {
+	if o == nil || IsNil(o.Accounts) {
 		var ret []string
 		return ret
 	}
@@ -412,7 +419,7 @@ func (o *Integration) GetAccounts() []string {
 // GetAccountsOk returns a tuple with the Accounts field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Integration) GetAccountsOk() ([]string, bool) {
-	if o == nil || o.Accounts == nil {
+	if o == nil || IsNil(o.Accounts) {
 		return nil, false
 	}
 	return o.Accounts, true
@@ -420,7 +427,7 @@ func (o *Integration) GetAccountsOk() ([]string, bool) {
 
 // HasAccounts returns a boolean if a field has been set.
 func (o *Integration) HasAccounts() bool {
-	if o != nil && o.Accounts != nil {
+	if o != nil && !IsNil(o.Accounts) {
 		return true
 	}
 
@@ -434,7 +441,7 @@ func (o *Integration) SetAccounts(v []string) {
 
 // GetClusterName returns the ClusterName field value if set, zero value otherwise.
 func (o *Integration) GetClusterName() string {
-	if o == nil || o.ClusterName == nil {
+	if o == nil || IsNil(o.ClusterName) {
 		var ret string
 		return ret
 	}
@@ -444,7 +451,7 @@ func (o *Integration) GetClusterName() string {
 // GetClusterNameOk returns a tuple with the ClusterName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Integration) GetClusterNameOk() (*string, bool) {
-	if o == nil || o.ClusterName == nil {
+	if o == nil || IsNil(o.ClusterName) {
 		return nil, false
 	}
 	return o.ClusterName, true
@@ -452,7 +459,7 @@ func (o *Integration) GetClusterNameOk() (*string, bool) {
 
 // HasClusterName returns a boolean if a field has been set.
 func (o *Integration) HasClusterName() bool {
-	if o != nil && o.ClusterName != nil {
+	if o != nil && !IsNil(o.ClusterName) {
 		return true
 	}
 
@@ -466,7 +473,7 @@ func (o *Integration) SetClusterName(v string) {
 
 // GetNamespace returns the Namespace field value if set, zero value otherwise.
 func (o *Integration) GetNamespace() string {
-	if o == nil || o.Namespace == nil {
+	if o == nil || IsNil(o.Namespace) {
 		var ret string
 		return ret
 	}
@@ -476,7 +483,7 @@ func (o *Integration) GetNamespace() string {
 // GetNamespaceOk returns a tuple with the Namespace field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Integration) GetNamespaceOk() (*string, bool) {
-	if o == nil || o.Namespace == nil {
+	if o == nil || IsNil(o.Namespace) {
 		return nil, false
 	}
 	return o.Namespace, true
@@ -484,7 +491,7 @@ func (o *Integration) GetNamespaceOk() (*string, bool) {
 
 // HasNamespace returns a boolean if a field has been set.
 func (o *Integration) HasNamespace() bool {
-	if o != nil && o.Namespace != nil {
+	if o != nil && !IsNil(o.Namespace) {
 		return true
 	}
 
@@ -498,7 +505,7 @@ func (o *Integration) SetNamespace(v string) {
 
 // GetHealthReportInterval returns the HealthReportInterval field value if set, zero value otherwise.
 func (o *Integration) GetHealthReportInterval() int32 {
-	if o == nil || o.HealthReportInterval == nil {
+	if o == nil || IsNil(o.HealthReportInterval) {
 		var ret int32
 		return ret
 	}
@@ -508,7 +515,7 @@ func (o *Integration) GetHealthReportInterval() int32 {
 // GetHealthReportIntervalOk returns a tuple with the HealthReportInterval field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Integration) GetHealthReportIntervalOk() (*int32, bool) {
-	if o == nil || o.HealthReportInterval == nil {
+	if o == nil || IsNil(o.HealthReportInterval) {
 		return nil, false
 	}
 	return o.HealthReportInterval, true
@@ -516,7 +523,7 @@ func (o *Integration) GetHealthReportIntervalOk() (*int32, bool) {
 
 // HasHealthReportInterval returns a boolean if a field has been set.
 func (o *Integration) HasHealthReportInterval() bool {
-	if o != nil && o.HealthReportInterval != nil {
+	if o != nil && !IsNil(o.HealthReportInterval) {
 		return true
 	}
 
@@ -530,7 +537,7 @@ func (o *Integration) SetHealthReportInterval(v int32) {
 
 // GetRegistrationId returns the RegistrationId field value if set, zero value otherwise.
 func (o *Integration) GetRegistrationId() string {
-	if o == nil || o.RegistrationId == nil {
+	if o == nil || IsNil(o.RegistrationId) {
 		var ret string
 		return ret
 	}
@@ -540,7 +547,7 @@ func (o *Integration) GetRegistrationId() string {
 // GetRegistrationIdOk returns a tuple with the RegistrationId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Integration) GetRegistrationIdOk() (*string, bool) {
-	if o == nil || o.RegistrationId == nil {
+	if o == nil || IsNil(o.RegistrationId) {
 		return nil, false
 	}
 	return o.RegistrationId, true
@@ -548,7 +555,7 @@ func (o *Integration) GetRegistrationIdOk() (*string, bool) {
 
 // HasRegistrationId returns a boolean if a field has been set.
 func (o *Integration) HasRegistrationId() bool {
-	if o != nil && o.RegistrationId != nil {
+	if o != nil && !IsNil(o.RegistrationId) {
 		return true
 	}
 
@@ -562,7 +569,7 @@ func (o *Integration) SetRegistrationId(v string) {
 
 // GetRegistrationInstanceId returns the RegistrationInstanceId field value if set, zero value otherwise.
 func (o *Integration) GetRegistrationInstanceId() string {
-	if o == nil || o.RegistrationInstanceId == nil {
+	if o == nil || IsNil(o.RegistrationInstanceId) {
 		var ret string
 		return ret
 	}
@@ -572,7 +579,7 @@ func (o *Integration) GetRegistrationInstanceId() string {
 // GetRegistrationInstanceIdOk returns a tuple with the RegistrationInstanceId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Integration) GetRegistrationInstanceIdOk() (*string, bool) {
-	if o == nil || o.RegistrationInstanceId == nil {
+	if o == nil || IsNil(o.RegistrationInstanceId) {
 		return nil, false
 	}
 	return o.RegistrationInstanceId, true
@@ -580,7 +587,7 @@ func (o *Integration) GetRegistrationInstanceIdOk() (*string, bool) {
 
 // HasRegistrationInstanceId returns a boolean if a field has been set.
 func (o *Integration) HasRegistrationInstanceId() bool {
-	if o != nil && o.RegistrationInstanceId != nil {
+	if o != nil && !IsNil(o.RegistrationInstanceId) {
 		return true
 	}
 
@@ -594,7 +601,7 @@ func (o *Integration) SetRegistrationInstanceId(v string) {
 
 // GetDescription returns the Description field value if set, zero value otherwise.
 func (o *Integration) GetDescription() string {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		var ret string
 		return ret
 	}
@@ -604,7 +611,7 @@ func (o *Integration) GetDescription() string {
 // GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Integration) GetDescriptionOk() (*string, bool) {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		return nil, false
 	}
 	return o.Description, true
@@ -612,7 +619,7 @@ func (o *Integration) GetDescriptionOk() (*string, bool) {
 
 // HasDescription returns a boolean if a field has been set.
 func (o *Integration) HasDescription() bool {
-	if o != nil && o.Description != nil {
+	if o != nil && !IsNil(o.Description) {
 		return true
 	}
 
@@ -626,7 +633,7 @@ func (o *Integration) SetDescription(v string) {
 
 // GetStartedAt returns the StartedAt field value if set, zero value otherwise.
 func (o *Integration) GetStartedAt() time.Time {
-	if o == nil || o.StartedAt == nil {
+	if o == nil || IsNil(o.StartedAt) {
 		var ret time.Time
 		return ret
 	}
@@ -636,7 +643,7 @@ func (o *Integration) GetStartedAt() time.Time {
 // GetStartedAtOk returns a tuple with the StartedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Integration) GetStartedAtOk() (*time.Time, bool) {
-	if o == nil || o.StartedAt == nil {
+	if o == nil || IsNil(o.StartedAt) {
 		return nil, false
 	}
 	return o.StartedAt, true
@@ -644,7 +651,7 @@ func (o *Integration) GetStartedAtOk() (*time.Time, bool) {
 
 // HasStartedAt returns a boolean if a field has been set.
 func (o *Integration) HasStartedAt() bool {
-	if o != nil && o.StartedAt != nil {
+	if o != nil && !IsNil(o.StartedAt) {
 		return true
 	}
 
@@ -658,7 +665,7 @@ func (o *Integration) SetStartedAt(v time.Time) {
 
 // GetNamespaces returns the Namespaces field value if set, zero value otherwise.
 func (o *Integration) GetNamespaces() []string {
-	if o == nil || o.Namespaces == nil {
+	if o == nil || IsNil(o.Namespaces) {
 		var ret []string
 		return ret
 	}
@@ -668,7 +675,7 @@ func (o *Integration) GetNamespaces() []string {
 // GetNamespacesOk returns a tuple with the Namespaces field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Integration) GetNamespacesOk() ([]string, bool) {
-	if o == nil || o.Namespaces == nil {
+	if o == nil || IsNil(o.Namespaces) {
 		return nil, false
 	}
 	return o.Namespaces, true
@@ -676,7 +683,7 @@ func (o *Integration) GetNamespacesOk() ([]string, bool) {
 
 // HasNamespaces returns a boolean if a field has been set.
 func (o *Integration) HasNamespaces() bool {
-	if o != nil && o.Namespaces != nil {
+	if o != nil && !IsNil(o.Namespaces) {
 		return true
 	}
 
@@ -690,7 +697,7 @@ func (o *Integration) SetNamespaces(v []string) {
 
 // GetConfiguration returns the Configuration field value if set, zero value otherwise.
 func (o *Integration) GetConfiguration() interface{} {
-	if o == nil || o.Configuration == nil {
+	if o == nil || IsNil(o.Configuration) {
 		var ret interface{}
 		return ret
 	}
@@ -700,7 +707,7 @@ func (o *Integration) GetConfiguration() interface{} {
 // GetConfigurationOk returns a tuple with the Configuration field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Integration) GetConfigurationOk() (interface{}, bool) {
-	if o == nil || o.Configuration == nil {
+	if o == nil || IsNil(o.Configuration) {
 		return nil, false
 	}
 	return o.Configuration, true
@@ -708,7 +715,7 @@ func (o *Integration) GetConfigurationOk() (interface{}, bool) {
 
 // HasConfiguration returns a boolean if a field has been set.
 func (o *Integration) HasConfiguration() bool {
-	if o != nil && o.Configuration != nil {
+	if o != nil && !IsNil(o.Configuration) {
 		return true
 	}
 
@@ -721,71 +728,111 @@ func (o *Integration) SetConfiguration(v interface{}) {
 }
 
 func (o Integration) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["uuid"] = o.Uuid
-	}
-	if true {
-		toSerialize["type"] = o.Type
-	}
-	if o.Name != nil {
-		toSerialize["name"] = o.Name
-	}
-	if o.Version != nil {
-		toSerialize["version"] = o.Version
-	}
-	if o.ReportedStatus != nil {
-		toSerialize["reported_status"] = o.ReportedStatus
-	}
-	if o.IntegrationStatus != nil {
-		toSerialize["integration_status"] = o.IntegrationStatus
-	}
-	if o.LastSeen != nil {
-		toSerialize["last_seen"] = o.LastSeen
-	}
-	if o.Uptime != nil {
-		toSerialize["uptime"] = o.Uptime
-	}
-	if true {
-		toSerialize["account_name"] = o.AccountName
-	}
-	if true {
-		toSerialize["username"] = o.Username
-	}
-	if o.ExplicitlyAccountBound != nil {
-		toSerialize["explicitly_account_bound"] = o.ExplicitlyAccountBound
-	}
-	if o.Accounts != nil {
-		toSerialize["accounts"] = o.Accounts
-	}
-	if o.ClusterName != nil {
-		toSerialize["cluster_name"] = o.ClusterName
-	}
-	if o.Namespace != nil {
-		toSerialize["namespace"] = o.Namespace
-	}
-	if o.HealthReportInterval != nil {
-		toSerialize["health_report_interval"] = o.HealthReportInterval
-	}
-	if o.RegistrationId != nil {
-		toSerialize["registration_id"] = o.RegistrationId
-	}
-	if o.RegistrationInstanceId != nil {
-		toSerialize["registration_instance_id"] = o.RegistrationInstanceId
-	}
-	if o.Description != nil {
-		toSerialize["description"] = o.Description
-	}
-	if o.StartedAt != nil {
-		toSerialize["started_at"] = o.StartedAt
-	}
-	if o.Namespaces != nil {
-		toSerialize["namespaces"] = o.Namespaces
-	}
-	if o.Configuration != nil {
-		toSerialize["configuration"] = o.Configuration
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o Integration) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["uuid"] = o.Uuid
+	toSerialize["type"] = o.Type
+	if !IsNil(o.Name) {
+		toSerialize["name"] = o.Name
+	}
+	if !IsNil(o.Version) {
+		toSerialize["version"] = o.Version
+	}
+	if !IsNil(o.ReportedStatus) {
+		toSerialize["reported_status"] = o.ReportedStatus
+	}
+	if !IsNil(o.IntegrationStatus) {
+		toSerialize["integration_status"] = o.IntegrationStatus
+	}
+	if !IsNil(o.LastSeen) {
+		toSerialize["last_seen"] = o.LastSeen
+	}
+	if !IsNil(o.Uptime) {
+		toSerialize["uptime"] = o.Uptime
+	}
+	toSerialize["account_name"] = o.AccountName
+	toSerialize["username"] = o.Username
+	if !IsNil(o.ExplicitlyAccountBound) {
+		toSerialize["explicitly_account_bound"] = o.ExplicitlyAccountBound
+	}
+	if !IsNil(o.Accounts) {
+		toSerialize["accounts"] = o.Accounts
+	}
+	if !IsNil(o.ClusterName) {
+		toSerialize["cluster_name"] = o.ClusterName
+	}
+	if !IsNil(o.Namespace) {
+		toSerialize["namespace"] = o.Namespace
+	}
+	if !IsNil(o.HealthReportInterval) {
+		toSerialize["health_report_interval"] = o.HealthReportInterval
+	}
+	if !IsNil(o.RegistrationId) {
+		toSerialize["registration_id"] = o.RegistrationId
+	}
+	if !IsNil(o.RegistrationInstanceId) {
+		toSerialize["registration_instance_id"] = o.RegistrationInstanceId
+	}
+	if !IsNil(o.Description) {
+		toSerialize["description"] = o.Description
+	}
+	if !IsNil(o.StartedAt) {
+		toSerialize["started_at"] = o.StartedAt
+	}
+	if !IsNil(o.Namespaces) {
+		toSerialize["namespaces"] = o.Namespaces
+	}
+	if !IsNil(o.Configuration) {
+		toSerialize["configuration"] = o.Configuration
+	}
+	return toSerialize, nil
+}
+
+func (o *Integration) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"uuid",
+		"type",
+		"account_name",
+		"username",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varIntegration := _Integration{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varIntegration)
+
+	if err != nil {
+		return err
+	}
+
+	*o = Integration(varIntegration)
+
+	return err
 }
 
 type NullableIntegration struct {

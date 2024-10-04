@@ -14,7 +14,12 @@ package enterprise
 import (
 	"encoding/json"
 	"time"
+	"bytes"
+	"fmt"
 )
+
+// checks if the NotificationTeamsEndpointConfiguration type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &NotificationTeamsEndpointConfiguration{}
 
 // NotificationTeamsEndpointConfiguration Configuration for MS Teams endpoint
 type NotificationTeamsEndpointConfiguration struct {
@@ -29,8 +34,10 @@ type NotificationTeamsEndpointConfiguration struct {
 	// Timestamp for last modification to the record
 	LastUpdated *time.Time `json:"last_updated,omitempty"`
 	// url to POST to, including any query parameters, should begin with 'http://' or 'https://'
-	Url string `json:"url"`
+	Url string `json:"url" validate:"regexp=https?:\\/\\/.*"`
 }
+
+type _NotificationTeamsEndpointConfiguration NotificationTeamsEndpointConfiguration
 
 // NewNotificationTeamsEndpointConfiguration instantiates a new NotificationTeamsEndpointConfiguration object
 // This constructor will assign default values to properties that have it defined,
@@ -52,7 +59,7 @@ func NewNotificationTeamsEndpointConfigurationWithDefaults() *NotificationTeamsE
 
 // GetUuid returns the Uuid field value if set, zero value otherwise.
 func (o *NotificationTeamsEndpointConfiguration) GetUuid() string {
-	if o == nil || o.Uuid == nil {
+	if o == nil || IsNil(o.Uuid) {
 		var ret string
 		return ret
 	}
@@ -62,7 +69,7 @@ func (o *NotificationTeamsEndpointConfiguration) GetUuid() string {
 // GetUuidOk returns a tuple with the Uuid field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *NotificationTeamsEndpointConfiguration) GetUuidOk() (*string, bool) {
-	if o == nil || o.Uuid == nil {
+	if o == nil || IsNil(o.Uuid) {
 		return nil, false
 	}
 	return o.Uuid, true
@@ -70,7 +77,7 @@ func (o *NotificationTeamsEndpointConfiguration) GetUuidOk() (*string, bool) {
 
 // HasUuid returns a boolean if a field has been set.
 func (o *NotificationTeamsEndpointConfiguration) HasUuid() bool {
-	if o != nil && o.Uuid != nil {
+	if o != nil && !IsNil(o.Uuid) {
 		return true
 	}
 
@@ -84,7 +91,7 @@ func (o *NotificationTeamsEndpointConfiguration) SetUuid(v string) {
 
 // GetDescription returns the Description field value if set, zero value otherwise.
 func (o *NotificationTeamsEndpointConfiguration) GetDescription() string {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		var ret string
 		return ret
 	}
@@ -94,7 +101,7 @@ func (o *NotificationTeamsEndpointConfiguration) GetDescription() string {
 // GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *NotificationTeamsEndpointConfiguration) GetDescriptionOk() (*string, bool) {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		return nil, false
 	}
 	return o.Description, true
@@ -102,7 +109,7 @@ func (o *NotificationTeamsEndpointConfiguration) GetDescriptionOk() (*string, bo
 
 // HasDescription returns a boolean if a field has been set.
 func (o *NotificationTeamsEndpointConfiguration) HasDescription() bool {
-	if o != nil && o.Description != nil {
+	if o != nil && !IsNil(o.Description) {
 		return true
 	}
 
@@ -116,7 +123,7 @@ func (o *NotificationTeamsEndpointConfiguration) SetDescription(v string) {
 
 // GetVerifyTls returns the VerifyTls field value if set, zero value otherwise.
 func (o *NotificationTeamsEndpointConfiguration) GetVerifyTls() bool {
-	if o == nil || o.VerifyTls == nil {
+	if o == nil || IsNil(o.VerifyTls) {
 		var ret bool
 		return ret
 	}
@@ -126,7 +133,7 @@ func (o *NotificationTeamsEndpointConfiguration) GetVerifyTls() bool {
 // GetVerifyTlsOk returns a tuple with the VerifyTls field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *NotificationTeamsEndpointConfiguration) GetVerifyTlsOk() (*bool, bool) {
-	if o == nil || o.VerifyTls == nil {
+	if o == nil || IsNil(o.VerifyTls) {
 		return nil, false
 	}
 	return o.VerifyTls, true
@@ -134,7 +141,7 @@ func (o *NotificationTeamsEndpointConfiguration) GetVerifyTlsOk() (*bool, bool) 
 
 // HasVerifyTls returns a boolean if a field has been set.
 func (o *NotificationTeamsEndpointConfiguration) HasVerifyTls() bool {
-	if o != nil && o.VerifyTls != nil {
+	if o != nil && !IsNil(o.VerifyTls) {
 		return true
 	}
 
@@ -148,7 +155,7 @@ func (o *NotificationTeamsEndpointConfiguration) SetVerifyTls(v bool) {
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
 func (o *NotificationTeamsEndpointConfiguration) GetCreatedAt() time.Time {
-	if o == nil || o.CreatedAt == nil {
+	if o == nil || IsNil(o.CreatedAt) {
 		var ret time.Time
 		return ret
 	}
@@ -158,7 +165,7 @@ func (o *NotificationTeamsEndpointConfiguration) GetCreatedAt() time.Time {
 // GetCreatedAtOk returns a tuple with the CreatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *NotificationTeamsEndpointConfiguration) GetCreatedAtOk() (*time.Time, bool) {
-	if o == nil || o.CreatedAt == nil {
+	if o == nil || IsNil(o.CreatedAt) {
 		return nil, false
 	}
 	return o.CreatedAt, true
@@ -166,7 +173,7 @@ func (o *NotificationTeamsEndpointConfiguration) GetCreatedAtOk() (*time.Time, b
 
 // HasCreatedAt returns a boolean if a field has been set.
 func (o *NotificationTeamsEndpointConfiguration) HasCreatedAt() bool {
-	if o != nil && o.CreatedAt != nil {
+	if o != nil && !IsNil(o.CreatedAt) {
 		return true
 	}
 
@@ -180,7 +187,7 @@ func (o *NotificationTeamsEndpointConfiguration) SetCreatedAt(v time.Time) {
 
 // GetLastUpdated returns the LastUpdated field value if set, zero value otherwise.
 func (o *NotificationTeamsEndpointConfiguration) GetLastUpdated() time.Time {
-	if o == nil || o.LastUpdated == nil {
+	if o == nil || IsNil(o.LastUpdated) {
 		var ret time.Time
 		return ret
 	}
@@ -190,7 +197,7 @@ func (o *NotificationTeamsEndpointConfiguration) GetLastUpdated() time.Time {
 // GetLastUpdatedOk returns a tuple with the LastUpdated field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *NotificationTeamsEndpointConfiguration) GetLastUpdatedOk() (*time.Time, bool) {
-	if o == nil || o.LastUpdated == nil {
+	if o == nil || IsNil(o.LastUpdated) {
 		return nil, false
 	}
 	return o.LastUpdated, true
@@ -198,7 +205,7 @@ func (o *NotificationTeamsEndpointConfiguration) GetLastUpdatedOk() (*time.Time,
 
 // HasLastUpdated returns a boolean if a field has been set.
 func (o *NotificationTeamsEndpointConfiguration) HasLastUpdated() bool {
-	if o != nil && o.LastUpdated != nil {
+	if o != nil && !IsNil(o.LastUpdated) {
 		return true
 	}
 
@@ -235,26 +242,69 @@ func (o *NotificationTeamsEndpointConfiguration) SetUrl(v string) {
 }
 
 func (o NotificationTeamsEndpointConfiguration) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Uuid != nil {
-		toSerialize["uuid"] = o.Uuid
-	}
-	if o.Description != nil {
-		toSerialize["description"] = o.Description
-	}
-	if o.VerifyTls != nil {
-		toSerialize["verify_tls"] = o.VerifyTls
-	}
-	if o.CreatedAt != nil {
-		toSerialize["created_at"] = o.CreatedAt
-	}
-	if o.LastUpdated != nil {
-		toSerialize["last_updated"] = o.LastUpdated
-	}
-	if true {
-		toSerialize["url"] = o.Url
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o NotificationTeamsEndpointConfiguration) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Uuid) {
+		toSerialize["uuid"] = o.Uuid
+	}
+	if !IsNil(o.Description) {
+		toSerialize["description"] = o.Description
+	}
+	if !IsNil(o.VerifyTls) {
+		toSerialize["verify_tls"] = o.VerifyTls
+	}
+	if !IsNil(o.CreatedAt) {
+		toSerialize["created_at"] = o.CreatedAt
+	}
+	if !IsNil(o.LastUpdated) {
+		toSerialize["last_updated"] = o.LastUpdated
+	}
+	toSerialize["url"] = o.Url
+	return toSerialize, nil
+}
+
+func (o *NotificationTeamsEndpointConfiguration) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"url",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varNotificationTeamsEndpointConfiguration := _NotificationTeamsEndpointConfiguration{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varNotificationTeamsEndpointConfiguration)
+
+	if err != nil {
+		return err
+	}
+
+	*o = NotificationTeamsEndpointConfiguration(varNotificationTeamsEndpointConfiguration)
+
+	return err
 }
 
 type NullableNotificationTeamsEndpointConfiguration struct {

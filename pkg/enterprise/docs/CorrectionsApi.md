@@ -1,14 +1,14 @@
-# \CorrectionsApi
+# \CorrectionsAPI
 
 All URIs are relative to */v2*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**AddCorrection**](CorrectionsApi.md#AddCorrection) | **Post** /corrections | Create a correction record
-[**DeleteCorrectionByUuid**](CorrectionsApi.md#DeleteCorrectionByUuid) | **Delete** /corrections/{uuid} | Delete a correction by UUID
-[**GetCorrectionByUuid**](CorrectionsApi.md#GetCorrectionByUuid) | **Get** /corrections/{uuid} | Retrieve a correction by UUID
-[**GetCorrections**](CorrectionsApi.md#GetCorrections) | **Get** /corrections | Retrieve a list of corrections
-[**UpdateCorrectionByUuid**](CorrectionsApi.md#UpdateCorrectionByUuid) | **Put** /corrections/{uuid} | Update a correction by UUID
+[**AddCorrection**](CorrectionsAPI.md#AddCorrection) | **Post** /corrections | Create a correction record
+[**DeleteCorrectionByUuid**](CorrectionsAPI.md#DeleteCorrectionByUuid) | **Delete** /corrections/{uuid} | Delete a correction by UUID
+[**GetCorrectionByUuid**](CorrectionsAPI.md#GetCorrectionByUuid) | **Get** /corrections/{uuid} | Retrieve a correction by UUID
+[**GetCorrections**](CorrectionsAPI.md#GetCorrections) | **Get** /corrections | Retrieve a list of corrections
+[**UpdateCorrectionByUuid**](CorrectionsAPI.md#UpdateCorrectionByUuid) | **Put** /corrections/{uuid} | Update a correction by UUID
 
 
 
@@ -26,25 +26,25 @@ Create a correction record
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
-    correction := *openapiclient.NewCorrection("Type_example", *openapiclient.NewCorrectionMatch("npm"), []openapiclient.CorrectionFieldMatch{*openapiclient.NewCorrectionFieldMatch("name", "FieldValue_example")}) // Correction | 
-    xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
+	correction := *openapiclient.NewCorrection("Type_example", *openapiclient.NewCorrectionMatch("npm"), []openapiclient.CorrectionFieldMatch{*openapiclient.NewCorrectionFieldMatch("name", "FieldValue_example")}) // Correction | 
+	xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.CorrectionsApi.AddCorrection(context.Background()).Correction(correction).XAnchoreAccount(xAnchoreAccount).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `CorrectionsApi.AddCorrection``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `AddCorrection`: Correction
-    fmt.Fprintf(os.Stdout, "Response from `CorrectionsApi.AddCorrection`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.CorrectionsAPI.AddCorrection(context.Background()).Correction(correction).XAnchoreAccount(xAnchoreAccount).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `CorrectionsAPI.AddCorrection``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `AddCorrection`: Correction
+	fmt.Fprintf(os.Stdout, "Response from `CorrectionsAPI.AddCorrection`: %v\n", resp)
 }
 ```
 
@@ -94,23 +94,23 @@ Delete a correction by UUID
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
-    uuid := "uuid_example" // string | 
-    xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
+	uuid := "uuid_example" // string | 
+	xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.CorrectionsApi.DeleteCorrectionByUuid(context.Background(), uuid).XAnchoreAccount(xAnchoreAccount).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `CorrectionsApi.DeleteCorrectionByUuid``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.CorrectionsAPI.DeleteCorrectionByUuid(context.Background(), uuid).XAnchoreAccount(xAnchoreAccount).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `CorrectionsAPI.DeleteCorrectionByUuid``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -164,25 +164,25 @@ Retrieve a correction by UUID
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
-    uuid := "uuid_example" // string | 
-    xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
+	uuid := "uuid_example" // string | 
+	xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.CorrectionsApi.GetCorrectionByUuid(context.Background(), uuid).XAnchoreAccount(xAnchoreAccount).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `CorrectionsApi.GetCorrectionByUuid``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetCorrectionByUuid`: Correction
-    fmt.Fprintf(os.Stdout, "Response from `CorrectionsApi.GetCorrectionByUuid`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.CorrectionsAPI.GetCorrectionByUuid(context.Background(), uuid).XAnchoreAccount(xAnchoreAccount).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `CorrectionsAPI.GetCorrectionByUuid``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetCorrectionByUuid`: Correction
+	fmt.Fprintf(os.Stdout, "Response from `CorrectionsAPI.GetCorrectionByUuid`: %v\n", resp)
 }
 ```
 
@@ -236,25 +236,25 @@ Retrieve a list of corrections
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
-    correctionType := "correctionType_example" // string |  (optional)
-    xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
+	correctionType := "correctionType_example" // string |  (optional)
+	xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.CorrectionsApi.GetCorrections(context.Background()).CorrectionType(correctionType).XAnchoreAccount(xAnchoreAccount).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `CorrectionsApi.GetCorrections``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetCorrections`: []Correction
-    fmt.Fprintf(os.Stdout, "Response from `CorrectionsApi.GetCorrections`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.CorrectionsAPI.GetCorrections(context.Background()).CorrectionType(correctionType).XAnchoreAccount(xAnchoreAccount).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `CorrectionsAPI.GetCorrections``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetCorrections`: []Correction
+	fmt.Fprintf(os.Stdout, "Response from `CorrectionsAPI.GetCorrections`: %v\n", resp)
 }
 ```
 
@@ -304,26 +304,26 @@ Update a correction by UUID
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
-    uuid := "uuid_example" // string | 
-    correction := *openapiclient.NewCorrection("Type_example", *openapiclient.NewCorrectionMatch("npm"), []openapiclient.CorrectionFieldMatch{*openapiclient.NewCorrectionFieldMatch("name", "FieldValue_example")}) // Correction | 
-    xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
+	uuid := "uuid_example" // string | 
+	correction := *openapiclient.NewCorrection("Type_example", *openapiclient.NewCorrectionMatch("npm"), []openapiclient.CorrectionFieldMatch{*openapiclient.NewCorrectionFieldMatch("name", "FieldValue_example")}) // Correction | 
+	xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.CorrectionsApi.UpdateCorrectionByUuid(context.Background(), uuid).Correction(correction).XAnchoreAccount(xAnchoreAccount).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `CorrectionsApi.UpdateCorrectionByUuid``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `UpdateCorrectionByUuid`: Correction
-    fmt.Fprintf(os.Stdout, "Response from `CorrectionsApi.UpdateCorrectionByUuid`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.CorrectionsAPI.UpdateCorrectionByUuid(context.Background(), uuid).Correction(correction).XAnchoreAccount(xAnchoreAccount).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `CorrectionsAPI.UpdateCorrectionByUuid``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `UpdateCorrectionByUuid`: Correction
+	fmt.Fprintf(os.Stdout, "Response from `CorrectionsAPI.UpdateCorrectionByUuid`: %v\n", resp)
 }
 ```
 

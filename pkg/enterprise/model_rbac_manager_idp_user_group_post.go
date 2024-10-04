@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the RbacManagerIdpUserGroupPost type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &RbacManagerIdpUserGroupPost{}
+
 // RbacManagerIdpUserGroupPost struct for RbacManagerIdpUserGroupPost
 type RbacManagerIdpUserGroupPost struct {
 	UserGroupUuids []string `json:"user_group_uuids,omitempty"`
@@ -39,7 +42,7 @@ func NewRbacManagerIdpUserGroupPostWithDefaults() *RbacManagerIdpUserGroupPost {
 
 // GetUserGroupUuids returns the UserGroupUuids field value if set, zero value otherwise.
 func (o *RbacManagerIdpUserGroupPost) GetUserGroupUuids() []string {
-	if o == nil || o.UserGroupUuids == nil {
+	if o == nil || IsNil(o.UserGroupUuids) {
 		var ret []string
 		return ret
 	}
@@ -49,7 +52,7 @@ func (o *RbacManagerIdpUserGroupPost) GetUserGroupUuids() []string {
 // GetUserGroupUuidsOk returns a tuple with the UserGroupUuids field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RbacManagerIdpUserGroupPost) GetUserGroupUuidsOk() ([]string, bool) {
-	if o == nil || o.UserGroupUuids == nil {
+	if o == nil || IsNil(o.UserGroupUuids) {
 		return nil, false
 	}
 	return o.UserGroupUuids, true
@@ -57,7 +60,7 @@ func (o *RbacManagerIdpUserGroupPost) GetUserGroupUuidsOk() ([]string, bool) {
 
 // HasUserGroupUuids returns a boolean if a field has been set.
 func (o *RbacManagerIdpUserGroupPost) HasUserGroupUuids() bool {
-	if o != nil && o.UserGroupUuids != nil {
+	if o != nil && !IsNil(o.UserGroupUuids) {
 		return true
 	}
 
@@ -70,11 +73,19 @@ func (o *RbacManagerIdpUserGroupPost) SetUserGroupUuids(v []string) {
 }
 
 func (o RbacManagerIdpUserGroupPost) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.UserGroupUuids != nil {
-		toSerialize["user_group_uuids"] = o.UserGroupUuids
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o RbacManagerIdpUserGroupPost) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.UserGroupUuids) {
+		toSerialize["user_group_uuids"] = o.UserGroupUuids
+	}
+	return toSerialize, nil
 }
 
 type NullableRbacManagerIdpUserGroupPost struct {

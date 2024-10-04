@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the VulnUpdateNotification type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &VulnUpdateNotification{}
+
 // VulnUpdateNotification struct for VulnUpdateNotification
 type VulnUpdateNotification struct {
 	QueueId *string `json:"queue_id,omitempty"`
@@ -52,7 +55,7 @@ func NewVulnUpdateNotificationWithDefaults() *VulnUpdateNotification {
 
 // GetQueueId returns the QueueId field value if set, zero value otherwise.
 func (o *VulnUpdateNotification) GetQueueId() string {
-	if o == nil || o.QueueId == nil {
+	if o == nil || IsNil(o.QueueId) {
 		var ret string
 		return ret
 	}
@@ -62,7 +65,7 @@ func (o *VulnUpdateNotification) GetQueueId() string {
 // GetQueueIdOk returns a tuple with the QueueId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *VulnUpdateNotification) GetQueueIdOk() (*string, bool) {
-	if o == nil || o.QueueId == nil {
+	if o == nil || IsNil(o.QueueId) {
 		return nil, false
 	}
 	return o.QueueId, true
@@ -70,7 +73,7 @@ func (o *VulnUpdateNotification) GetQueueIdOk() (*string, bool) {
 
 // HasQueueId returns a boolean if a field has been set.
 func (o *VulnUpdateNotification) HasQueueId() bool {
-	if o != nil && o.QueueId != nil {
+	if o != nil && !IsNil(o.QueueId) {
 		return true
 	}
 
@@ -84,7 +87,7 @@ func (o *VulnUpdateNotification) SetQueueId(v string) {
 
 // GetAccountName returns the AccountName field value if set, zero value otherwise.
 func (o *VulnUpdateNotification) GetAccountName() string {
-	if o == nil || o.AccountName == nil {
+	if o == nil || IsNil(o.AccountName) {
 		var ret string
 		return ret
 	}
@@ -94,7 +97,7 @@ func (o *VulnUpdateNotification) GetAccountName() string {
 // GetAccountNameOk returns a tuple with the AccountName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *VulnUpdateNotification) GetAccountNameOk() (*string, bool) {
-	if o == nil || o.AccountName == nil {
+	if o == nil || IsNil(o.AccountName) {
 		return nil, false
 	}
 	return o.AccountName, true
@@ -102,7 +105,7 @@ func (o *VulnUpdateNotification) GetAccountNameOk() (*string, bool) {
 
 // HasAccountName returns a boolean if a field has been set.
 func (o *VulnUpdateNotification) HasAccountName() bool {
-	if o != nil && o.AccountName != nil {
+	if o != nil && !IsNil(o.AccountName) {
 		return true
 	}
 
@@ -116,7 +119,7 @@ func (o *VulnUpdateNotification) SetAccountName(v string) {
 
 // GetDataId returns the DataId field value if set, zero value otherwise.
 func (o *VulnUpdateNotification) GetDataId() string {
-	if o == nil || o.DataId == nil {
+	if o == nil || IsNil(o.DataId) {
 		var ret string
 		return ret
 	}
@@ -126,7 +129,7 @@ func (o *VulnUpdateNotification) GetDataId() string {
 // GetDataIdOk returns a tuple with the DataId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *VulnUpdateNotification) GetDataIdOk() (*string, bool) {
-	if o == nil || o.DataId == nil {
+	if o == nil || IsNil(o.DataId) {
 		return nil, false
 	}
 	return o.DataId, true
@@ -134,7 +137,7 @@ func (o *VulnUpdateNotification) GetDataIdOk() (*string, bool) {
 
 // HasDataId returns a boolean if a field has been set.
 func (o *VulnUpdateNotification) HasDataId() bool {
-	if o != nil && o.DataId != nil {
+	if o != nil && !IsNil(o.DataId) {
 		return true
 	}
 
@@ -148,7 +151,7 @@ func (o *VulnUpdateNotification) SetDataId(v string) {
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
 func (o *VulnUpdateNotification) GetCreatedAt() int32 {
-	if o == nil || o.CreatedAt == nil {
+	if o == nil || IsNil(o.CreatedAt) {
 		var ret int32
 		return ret
 	}
@@ -158,7 +161,7 @@ func (o *VulnUpdateNotification) GetCreatedAt() int32 {
 // GetCreatedAtOk returns a tuple with the CreatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *VulnUpdateNotification) GetCreatedAtOk() (*int32, bool) {
-	if o == nil || o.CreatedAt == nil {
+	if o == nil || IsNil(o.CreatedAt) {
 		return nil, false
 	}
 	return o.CreatedAt, true
@@ -166,7 +169,7 @@ func (o *VulnUpdateNotification) GetCreatedAtOk() (*int32, bool) {
 
 // HasCreatedAt returns a boolean if a field has been set.
 func (o *VulnUpdateNotification) HasCreatedAt() bool {
-	if o != nil && o.CreatedAt != nil {
+	if o != nil && !IsNil(o.CreatedAt) {
 		return true
 	}
 
@@ -180,7 +183,7 @@ func (o *VulnUpdateNotification) SetCreatedAt(v int32) {
 
 // GetLastUpdated returns the LastUpdated field value if set, zero value otherwise.
 func (o *VulnUpdateNotification) GetLastUpdated() int32 {
-	if o == nil || o.LastUpdated == nil {
+	if o == nil || IsNil(o.LastUpdated) {
 		var ret int32
 		return ret
 	}
@@ -190,7 +193,7 @@ func (o *VulnUpdateNotification) GetLastUpdated() int32 {
 // GetLastUpdatedOk returns a tuple with the LastUpdated field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *VulnUpdateNotification) GetLastUpdatedOk() (*int32, bool) {
-	if o == nil || o.LastUpdated == nil {
+	if o == nil || IsNil(o.LastUpdated) {
 		return nil, false
 	}
 	return o.LastUpdated, true
@@ -198,7 +201,7 @@ func (o *VulnUpdateNotification) GetLastUpdatedOk() (*int32, bool) {
 
 // HasLastUpdated returns a boolean if a field has been set.
 func (o *VulnUpdateNotification) HasLastUpdated() bool {
-	if o != nil && o.LastUpdated != nil {
+	if o != nil && !IsNil(o.LastUpdated) {
 		return true
 	}
 
@@ -212,7 +215,7 @@ func (o *VulnUpdateNotification) SetLastUpdated(v int32) {
 
 // GetRecordStateKey returns the RecordStateKey field value if set, zero value otherwise.
 func (o *VulnUpdateNotification) GetRecordStateKey() string {
-	if o == nil || o.RecordStateKey == nil {
+	if o == nil || IsNil(o.RecordStateKey) {
 		var ret string
 		return ret
 	}
@@ -222,7 +225,7 @@ func (o *VulnUpdateNotification) GetRecordStateKey() string {
 // GetRecordStateKeyOk returns a tuple with the RecordStateKey field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *VulnUpdateNotification) GetRecordStateKeyOk() (*string, bool) {
-	if o == nil || o.RecordStateKey == nil {
+	if o == nil || IsNil(o.RecordStateKey) {
 		return nil, false
 	}
 	return o.RecordStateKey, true
@@ -230,7 +233,7 @@ func (o *VulnUpdateNotification) GetRecordStateKeyOk() (*string, bool) {
 
 // HasRecordStateKey returns a boolean if a field has been set.
 func (o *VulnUpdateNotification) HasRecordStateKey() bool {
-	if o != nil && o.RecordStateKey != nil {
+	if o != nil && !IsNil(o.RecordStateKey) {
 		return true
 	}
 
@@ -244,7 +247,7 @@ func (o *VulnUpdateNotification) SetRecordStateKey(v string) {
 
 // GetRecordStateVal returns the RecordStateVal field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *VulnUpdateNotification) GetRecordStateVal() string {
-	if o == nil || o.RecordStateVal.Get() == nil {
+	if o == nil || IsNil(o.RecordStateVal.Get()) {
 		var ret string
 		return ret
 	}
@@ -286,7 +289,7 @@ func (o *VulnUpdateNotification) UnsetRecordStateVal() {
 
 // GetTries returns the Tries field value if set, zero value otherwise.
 func (o *VulnUpdateNotification) GetTries() int32 {
-	if o == nil || o.Tries == nil {
+	if o == nil || IsNil(o.Tries) {
 		var ret int32
 		return ret
 	}
@@ -296,7 +299,7 @@ func (o *VulnUpdateNotification) GetTries() int32 {
 // GetTriesOk returns a tuple with the Tries field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *VulnUpdateNotification) GetTriesOk() (*int32, bool) {
-	if o == nil || o.Tries == nil {
+	if o == nil || IsNil(o.Tries) {
 		return nil, false
 	}
 	return o.Tries, true
@@ -304,7 +307,7 @@ func (o *VulnUpdateNotification) GetTriesOk() (*int32, bool) {
 
 // HasTries returns a boolean if a field has been set.
 func (o *VulnUpdateNotification) HasTries() bool {
-	if o != nil && o.Tries != nil {
+	if o != nil && !IsNil(o.Tries) {
 		return true
 	}
 
@@ -318,7 +321,7 @@ func (o *VulnUpdateNotification) SetTries(v int32) {
 
 // GetMaxTries returns the MaxTries field value if set, zero value otherwise.
 func (o *VulnUpdateNotification) GetMaxTries() int32 {
-	if o == nil || o.MaxTries == nil {
+	if o == nil || IsNil(o.MaxTries) {
 		var ret int32
 		return ret
 	}
@@ -328,7 +331,7 @@ func (o *VulnUpdateNotification) GetMaxTries() int32 {
 // GetMaxTriesOk returns a tuple with the MaxTries field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *VulnUpdateNotification) GetMaxTriesOk() (*int32, bool) {
-	if o == nil || o.MaxTries == nil {
+	if o == nil || IsNil(o.MaxTries) {
 		return nil, false
 	}
 	return o.MaxTries, true
@@ -336,7 +339,7 @@ func (o *VulnUpdateNotification) GetMaxTriesOk() (*int32, bool) {
 
 // HasMaxTries returns a boolean if a field has been set.
 func (o *VulnUpdateNotification) HasMaxTries() bool {
-	if o != nil && o.MaxTries != nil {
+	if o != nil && !IsNil(o.MaxTries) {
 		return true
 	}
 
@@ -350,7 +353,7 @@ func (o *VulnUpdateNotification) SetMaxTries(v int32) {
 
 // GetData returns the Data field value if set, zero value otherwise.
 func (o *VulnUpdateNotification) GetData() VulnUpdateNotificationData {
-	if o == nil || o.Data == nil {
+	if o == nil || IsNil(o.Data) {
 		var ret VulnUpdateNotificationData
 		return ret
 	}
@@ -360,7 +363,7 @@ func (o *VulnUpdateNotification) GetData() VulnUpdateNotificationData {
 // GetDataOk returns a tuple with the Data field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *VulnUpdateNotification) GetDataOk() (*VulnUpdateNotificationData, bool) {
-	if o == nil || o.Data == nil {
+	if o == nil || IsNil(o.Data) {
 		return nil, false
 	}
 	return o.Data, true
@@ -368,7 +371,7 @@ func (o *VulnUpdateNotification) GetDataOk() (*VulnUpdateNotificationData, bool)
 
 // HasData returns a boolean if a field has been set.
 func (o *VulnUpdateNotification) HasData() bool {
-	if o != nil && o.Data != nil {
+	if o != nil && !IsNil(o.Data) {
 		return true
 	}
 
@@ -381,38 +384,46 @@ func (o *VulnUpdateNotification) SetData(v VulnUpdateNotificationData) {
 }
 
 func (o VulnUpdateNotification) MarshalJSON() ([]byte, error) {
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o VulnUpdateNotification) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.QueueId != nil {
+	if !IsNil(o.QueueId) {
 		toSerialize["queue_id"] = o.QueueId
 	}
-	if o.AccountName != nil {
+	if !IsNil(o.AccountName) {
 		toSerialize["account_name"] = o.AccountName
 	}
-	if o.DataId != nil {
+	if !IsNil(o.DataId) {
 		toSerialize["data_id"] = o.DataId
 	}
-	if o.CreatedAt != nil {
+	if !IsNil(o.CreatedAt) {
 		toSerialize["created_at"] = o.CreatedAt
 	}
-	if o.LastUpdated != nil {
+	if !IsNil(o.LastUpdated) {
 		toSerialize["last_updated"] = o.LastUpdated
 	}
-	if o.RecordStateKey != nil {
+	if !IsNil(o.RecordStateKey) {
 		toSerialize["record_state_key"] = o.RecordStateKey
 	}
 	if o.RecordStateVal.IsSet() {
 		toSerialize["record_state_val"] = o.RecordStateVal.Get()
 	}
-	if o.Tries != nil {
+	if !IsNil(o.Tries) {
 		toSerialize["tries"] = o.Tries
 	}
-	if o.MaxTries != nil {
+	if !IsNil(o.MaxTries) {
 		toSerialize["max_tries"] = o.MaxTries
 	}
-	if o.Data != nil {
+	if !IsNil(o.Data) {
 		toSerialize["data"] = o.Data
 	}
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
 type NullableVulnUpdateNotification struct {

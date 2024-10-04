@@ -1,15 +1,15 @@
-# \ArtifactLifecycleApi
+# \ArtifactLifecycleAPI
 
 All URIs are relative to */v2*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateArtifactLifecyclePolicy**](ArtifactLifecycleApi.md#CreateArtifactLifecyclePolicy) | **Post** /system/artifact-lifecycle-policies | Create new artifact lifecycle policy
-[**DeleteArtifactLifecyclePolicy**](ArtifactLifecycleApi.md#DeleteArtifactLifecyclePolicy) | **Delete** /system/artifact-lifecycle-policies/{policy_uuid} | Delete lifecycle policy
-[**GetArtifactLifecyclePolicy**](ArtifactLifecycleApi.md#GetArtifactLifecyclePolicy) | **Get** /system/artifact-lifecycle-policies/{policy_uuid} | Get single artifact lifecycle policy
-[**GetArtifactLifecyclePolicyByVersion**](ArtifactLifecycleApi.md#GetArtifactLifecyclePolicyByVersion) | **Get** /system/artifact-lifecycle-policies/{policy_uuid}/versions | Get single artifact lifecycle policy by its version
-[**ListArtifactLifecyclePolicies**](ArtifactLifecycleApi.md#ListArtifactLifecyclePolicies) | **Get** /system/artifact-lifecycle-policies | List all artifact lifecycle policies
-[**UpdateArtifactLifecyclePolicy**](ArtifactLifecycleApi.md#UpdateArtifactLifecyclePolicy) | **Put** /system/artifact-lifecycle-policies/{policy_uuid} | Update a single artifact lifecycle policy
+[**CreateArtifactLifecyclePolicy**](ArtifactLifecycleAPI.md#CreateArtifactLifecyclePolicy) | **Post** /system/artifact-lifecycle-policies | Create new artifact lifecycle policy
+[**DeleteArtifactLifecyclePolicy**](ArtifactLifecycleAPI.md#DeleteArtifactLifecyclePolicy) | **Delete** /system/artifact-lifecycle-policies/{policy_uuid} | Delete lifecycle policy
+[**GetArtifactLifecyclePolicy**](ArtifactLifecycleAPI.md#GetArtifactLifecyclePolicy) | **Get** /system/artifact-lifecycle-policies/{policy_uuid} | Get single artifact lifecycle policy
+[**GetArtifactLifecyclePolicyByVersion**](ArtifactLifecycleAPI.md#GetArtifactLifecyclePolicyByVersion) | **Get** /system/artifact-lifecycle-policies/{policy_uuid}/versions | Get single artifact lifecycle policy by its version
+[**ListArtifactLifecyclePolicies**](ArtifactLifecycleAPI.md#ListArtifactLifecyclePolicies) | **Get** /system/artifact-lifecycle-policies | List all artifact lifecycle policies
+[**UpdateArtifactLifecyclePolicy**](ArtifactLifecycleAPI.md#UpdateArtifactLifecyclePolicy) | **Put** /system/artifact-lifecycle-policies/{policy_uuid} | Update a single artifact lifecycle policy
 
 
 
@@ -25,24 +25,24 @@ Create new artifact lifecycle policy
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
-    artifactLifecyclePolicy := *openapiclient.NewArtifactLifecyclePolicy("Action_example", "Name_example", *openapiclient.NewArtifactLifecyclePolicyConditions(false, int32(123), "ArtifactType_example")) // ArtifactLifecyclePolicy |  (optional)
+	artifactLifecyclePolicy := *openapiclient.NewArtifactLifecyclePolicy("Action_example", "Name_example", *openapiclient.NewArtifactLifecyclePolicyConditions(false, int32(123), "ArtifactType_example")) // ArtifactLifecyclePolicy |  (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ArtifactLifecycleApi.CreateArtifactLifecyclePolicy(context.Background()).ArtifactLifecyclePolicy(artifactLifecyclePolicy).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ArtifactLifecycleApi.CreateArtifactLifecyclePolicy``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `CreateArtifactLifecyclePolicy`: ArtifactLifecyclePolicyResponse
-    fmt.Fprintf(os.Stdout, "Response from `ArtifactLifecycleApi.CreateArtifactLifecyclePolicy`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ArtifactLifecycleAPI.CreateArtifactLifecyclePolicy(context.Background()).ArtifactLifecyclePolicy(artifactLifecyclePolicy).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ArtifactLifecycleAPI.CreateArtifactLifecyclePolicy``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `CreateArtifactLifecyclePolicy`: ArtifactLifecyclePolicyResponse
+	fmt.Fprintf(os.Stdout, "Response from `ArtifactLifecycleAPI.CreateArtifactLifecyclePolicy`: %v\n", resp)
 }
 ```
 
@@ -89,22 +89,22 @@ Delete lifecycle policy
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
-    policyUuid := "policyUuid_example" // string | 
+	policyUuid := "policyUuid_example" // string | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ArtifactLifecycleApi.DeleteArtifactLifecyclePolicy(context.Background(), policyUuid).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ArtifactLifecycleApi.DeleteArtifactLifecyclePolicy``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.ArtifactLifecycleAPI.DeleteArtifactLifecyclePolicy(context.Background(), policyUuid).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ArtifactLifecycleAPI.DeleteArtifactLifecyclePolicy``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -155,24 +155,24 @@ Get single artifact lifecycle policy
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
-    policyUuid := "policyUuid_example" // string | 
+	policyUuid := "policyUuid_example" // string | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ArtifactLifecycleApi.GetArtifactLifecyclePolicy(context.Background(), policyUuid).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ArtifactLifecycleApi.GetArtifactLifecyclePolicy``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetArtifactLifecyclePolicy`: ArtifactLifecyclePolicyResponse
-    fmt.Fprintf(os.Stdout, "Response from `ArtifactLifecycleApi.GetArtifactLifecyclePolicy`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ArtifactLifecycleAPI.GetArtifactLifecyclePolicy(context.Background(), policyUuid).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ArtifactLifecycleAPI.GetArtifactLifecyclePolicy``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetArtifactLifecyclePolicy`: ArtifactLifecyclePolicyResponse
+	fmt.Fprintf(os.Stdout, "Response from `ArtifactLifecycleAPI.GetArtifactLifecyclePolicy`: %v\n", resp)
 }
 ```
 
@@ -223,26 +223,26 @@ Get single artifact lifecycle policy by its version
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
-    policyUuid := "policyUuid_example" // string | 
-    version := int32(56) // int32 | Request a specific version number (optional)
-    latest := true // bool | Request the latest version (optional)
+	policyUuid := "policyUuid_example" // string | 
+	version := int32(56) // int32 | Request a specific version number (optional)
+	latest := true // bool | Request the latest version (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ArtifactLifecycleApi.GetArtifactLifecyclePolicyByVersion(context.Background(), policyUuid).Version(version).Latest(latest).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ArtifactLifecycleApi.GetArtifactLifecyclePolicyByVersion``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetArtifactLifecyclePolicyByVersion`: ArtifactLifecyclePolicyResponse
-    fmt.Fprintf(os.Stdout, "Response from `ArtifactLifecycleApi.GetArtifactLifecyclePolicyByVersion`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ArtifactLifecycleAPI.GetArtifactLifecyclePolicyByVersion(context.Background(), policyUuid).Version(version).Latest(latest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ArtifactLifecycleAPI.GetArtifactLifecyclePolicyByVersion``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetArtifactLifecyclePolicyByVersion`: ArtifactLifecyclePolicyResponse
+	fmt.Fprintf(os.Stdout, "Response from `ArtifactLifecycleAPI.GetArtifactLifecyclePolicyByVersion`: %v\n", resp)
 }
 ```
 
@@ -295,23 +295,23 @@ List all artifact lifecycle policies
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ArtifactLifecycleApi.ListArtifactLifecyclePolicies(context.Background()).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ArtifactLifecycleApi.ListArtifactLifecyclePolicies``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ListArtifactLifecyclePolicies`: ArtifactLifecyclePolicyList
-    fmt.Fprintf(os.Stdout, "Response from `ArtifactLifecycleApi.ListArtifactLifecyclePolicies`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ArtifactLifecycleAPI.ListArtifactLifecyclePolicies(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ArtifactLifecycleAPI.ListArtifactLifecyclePolicies``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ListArtifactLifecyclePolicies`: ArtifactLifecyclePolicyList
+	fmt.Fprintf(os.Stdout, "Response from `ArtifactLifecycleAPI.ListArtifactLifecyclePolicies`: %v\n", resp)
 }
 ```
 
@@ -354,25 +354,25 @@ Update a single artifact lifecycle policy
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
-    policyUuid := "policyUuid_example" // string | 
-    artifactLifecyclePolicy := *openapiclient.NewArtifactLifecyclePolicy("Action_example", "Name_example", *openapiclient.NewArtifactLifecyclePolicyConditions(false, int32(123), "ArtifactType_example")) // ArtifactLifecyclePolicy |  (optional)
+	policyUuid := "policyUuid_example" // string | 
+	artifactLifecyclePolicy := *openapiclient.NewArtifactLifecyclePolicy("Action_example", "Name_example", *openapiclient.NewArtifactLifecyclePolicyConditions(false, int32(123), "ArtifactType_example")) // ArtifactLifecyclePolicy |  (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ArtifactLifecycleApi.UpdateArtifactLifecyclePolicy(context.Background(), policyUuid).ArtifactLifecyclePolicy(artifactLifecyclePolicy).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ArtifactLifecycleApi.UpdateArtifactLifecyclePolicy``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `UpdateArtifactLifecyclePolicy`: ArtifactLifecyclePolicyResponse
-    fmt.Fprintf(os.Stdout, "Response from `ArtifactLifecycleApi.UpdateArtifactLifecyclePolicy`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ArtifactLifecycleAPI.UpdateArtifactLifecyclePolicy(context.Background(), policyUuid).ArtifactLifecyclePolicy(artifactLifecyclePolicy).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ArtifactLifecycleAPI.UpdateArtifactLifecyclePolicy``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `UpdateArtifactLifecyclePolicy`: ArtifactLifecyclePolicyResponse
+	fmt.Fprintf(os.Stdout, "Response from `ArtifactLifecycleAPI.UpdateArtifactLifecyclePolicy`: %v\n", resp)
 }
 ```
 

@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the ArtifactReference type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ArtifactReference{}
+
 // ArtifactReference struct for ArtifactReference
 type ArtifactReference struct {
 	ArtifactId *string `json:"artifact_id,omitempty"`
@@ -40,7 +43,7 @@ func NewArtifactReferenceWithDefaults() *ArtifactReference {
 
 // GetArtifactId returns the ArtifactId field value if set, zero value otherwise.
 func (o *ArtifactReference) GetArtifactId() string {
-	if o == nil || o.ArtifactId == nil {
+	if o == nil || IsNil(o.ArtifactId) {
 		var ret string
 		return ret
 	}
@@ -50,7 +53,7 @@ func (o *ArtifactReference) GetArtifactId() string {
 // GetArtifactIdOk returns a tuple with the ArtifactId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ArtifactReference) GetArtifactIdOk() (*string, bool) {
-	if o == nil || o.ArtifactId == nil {
+	if o == nil || IsNil(o.ArtifactId) {
 		return nil, false
 	}
 	return o.ArtifactId, true
@@ -58,7 +61,7 @@ func (o *ArtifactReference) GetArtifactIdOk() (*string, bool) {
 
 // HasArtifactId returns a boolean if a field has been set.
 func (o *ArtifactReference) HasArtifactId() bool {
-	if o != nil && o.ArtifactId != nil {
+	if o != nil && !IsNil(o.ArtifactId) {
 		return true
 	}
 
@@ -72,7 +75,7 @@ func (o *ArtifactReference) SetArtifactId(v string) {
 
 // GetArtifactType returns the ArtifactType field value if set, zero value otherwise.
 func (o *ArtifactReference) GetArtifactType() ArtifactType {
-	if o == nil || o.ArtifactType == nil {
+	if o == nil || IsNil(o.ArtifactType) {
 		var ret ArtifactType
 		return ret
 	}
@@ -82,7 +85,7 @@ func (o *ArtifactReference) GetArtifactType() ArtifactType {
 // GetArtifactTypeOk returns a tuple with the ArtifactType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ArtifactReference) GetArtifactTypeOk() (*ArtifactType, bool) {
-	if o == nil || o.ArtifactType == nil {
+	if o == nil || IsNil(o.ArtifactType) {
 		return nil, false
 	}
 	return o.ArtifactType, true
@@ -90,7 +93,7 @@ func (o *ArtifactReference) GetArtifactTypeOk() (*ArtifactType, bool) {
 
 // HasArtifactType returns a boolean if a field has been set.
 func (o *ArtifactReference) HasArtifactType() bool {
-	if o != nil && o.ArtifactType != nil {
+	if o != nil && !IsNil(o.ArtifactType) {
 		return true
 	}
 
@@ -103,14 +106,22 @@ func (o *ArtifactReference) SetArtifactType(v ArtifactType) {
 }
 
 func (o ArtifactReference) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.ArtifactId != nil {
-		toSerialize["artifact_id"] = o.ArtifactId
-	}
-	if o.ArtifactType != nil {
-		toSerialize["artifact_type"] = o.ArtifactType
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o ArtifactReference) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.ArtifactId) {
+		toSerialize["artifact_id"] = o.ArtifactId
+	}
+	if !IsNil(o.ArtifactType) {
+		toSerialize["artifact_type"] = o.ArtifactType
+	}
+	return toSerialize, nil
 }
 
 type NullableArtifactReference struct {

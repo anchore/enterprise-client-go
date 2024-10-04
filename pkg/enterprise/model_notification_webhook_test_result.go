@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the NotificationWebhookTestResult type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &NotificationWebhookTestResult{}
+
 // NotificationWebhookTestResult struct for NotificationWebhookTestResult
 type NotificationWebhookTestResult struct {
 	Status *string `json:"status,omitempty"`
@@ -40,7 +43,7 @@ func NewNotificationWebhookTestResultWithDefaults() *NotificationWebhookTestResu
 
 // GetStatus returns the Status field value if set, zero value otherwise.
 func (o *NotificationWebhookTestResult) GetStatus() string {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		var ret string
 		return ret
 	}
@@ -50,7 +53,7 @@ func (o *NotificationWebhookTestResult) GetStatus() string {
 // GetStatusOk returns a tuple with the Status field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *NotificationWebhookTestResult) GetStatusOk() (*string, bool) {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		return nil, false
 	}
 	return o.Status, true
@@ -58,7 +61,7 @@ func (o *NotificationWebhookTestResult) GetStatusOk() (*string, bool) {
 
 // HasStatus returns a boolean if a field has been set.
 func (o *NotificationWebhookTestResult) HasStatus() bool {
-	if o != nil && o.Status != nil {
+	if o != nil && !IsNil(o.Status) {
 		return true
 	}
 
@@ -72,7 +75,7 @@ func (o *NotificationWebhookTestResult) SetStatus(v string) {
 
 // GetResponse returns the Response field value if set, zero value otherwise.
 func (o *NotificationWebhookTestResult) GetResponse() string {
-	if o == nil || o.Response == nil {
+	if o == nil || IsNil(o.Response) {
 		var ret string
 		return ret
 	}
@@ -82,7 +85,7 @@ func (o *NotificationWebhookTestResult) GetResponse() string {
 // GetResponseOk returns a tuple with the Response field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *NotificationWebhookTestResult) GetResponseOk() (*string, bool) {
-	if o == nil || o.Response == nil {
+	if o == nil || IsNil(o.Response) {
 		return nil, false
 	}
 	return o.Response, true
@@ -90,7 +93,7 @@ func (o *NotificationWebhookTestResult) GetResponseOk() (*string, bool) {
 
 // HasResponse returns a boolean if a field has been set.
 func (o *NotificationWebhookTestResult) HasResponse() bool {
-	if o != nil && o.Response != nil {
+	if o != nil && !IsNil(o.Response) {
 		return true
 	}
 
@@ -103,14 +106,22 @@ func (o *NotificationWebhookTestResult) SetResponse(v string) {
 }
 
 func (o NotificationWebhookTestResult) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Status != nil {
-		toSerialize["status"] = o.Status
-	}
-	if o.Response != nil {
-		toSerialize["response"] = o.Response
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o NotificationWebhookTestResult) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Status) {
+		toSerialize["status"] = o.Status
+	}
+	if !IsNil(o.Response) {
+		toSerialize["response"] = o.Response
+	}
+	return toSerialize, nil
 }
 
 type NullableNotificationWebhookTestResult struct {

@@ -14,7 +14,12 @@ package enterprise
 import (
 	"encoding/json"
 	"time"
+	"bytes"
+	"fmt"
 )
+
+// checks if the NotificationWebhookEndpointConfiguration type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &NotificationWebhookEndpointConfiguration{}
 
 // NotificationWebhookEndpointConfiguration Configuration for Webhook endpoint
 type NotificationWebhookEndpointConfiguration struct {
@@ -29,12 +34,14 @@ type NotificationWebhookEndpointConfiguration struct {
 	// Timestamp for last modification to the record
 	LastUpdated *time.Time `json:"last_updated,omitempty"`
 	// url to POST to, including any query parameters, should begin with 'http://' or 'https://'
-	Url string `json:"url"`
+	Url string `json:"url" validate:"regexp=https?:\\/\\/.*"`
 	Username *string `json:"username,omitempty"`
 	Password *string `json:"password,omitempty"`
 	// Verify SSL certificates for HTTPS requests, disabled by default
 	VerifySsl *bool `json:"verify_ssl,omitempty"`
 }
+
+type _NotificationWebhookEndpointConfiguration NotificationWebhookEndpointConfiguration
 
 // NewNotificationWebhookEndpointConfiguration instantiates a new NotificationWebhookEndpointConfiguration object
 // This constructor will assign default values to properties that have it defined,
@@ -56,7 +63,7 @@ func NewNotificationWebhookEndpointConfigurationWithDefaults() *NotificationWebh
 
 // GetUuid returns the Uuid field value if set, zero value otherwise.
 func (o *NotificationWebhookEndpointConfiguration) GetUuid() string {
-	if o == nil || o.Uuid == nil {
+	if o == nil || IsNil(o.Uuid) {
 		var ret string
 		return ret
 	}
@@ -66,7 +73,7 @@ func (o *NotificationWebhookEndpointConfiguration) GetUuid() string {
 // GetUuidOk returns a tuple with the Uuid field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *NotificationWebhookEndpointConfiguration) GetUuidOk() (*string, bool) {
-	if o == nil || o.Uuid == nil {
+	if o == nil || IsNil(o.Uuid) {
 		return nil, false
 	}
 	return o.Uuid, true
@@ -74,7 +81,7 @@ func (o *NotificationWebhookEndpointConfiguration) GetUuidOk() (*string, bool) {
 
 // HasUuid returns a boolean if a field has been set.
 func (o *NotificationWebhookEndpointConfiguration) HasUuid() bool {
-	if o != nil && o.Uuid != nil {
+	if o != nil && !IsNil(o.Uuid) {
 		return true
 	}
 
@@ -88,7 +95,7 @@ func (o *NotificationWebhookEndpointConfiguration) SetUuid(v string) {
 
 // GetDescription returns the Description field value if set, zero value otherwise.
 func (o *NotificationWebhookEndpointConfiguration) GetDescription() string {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		var ret string
 		return ret
 	}
@@ -98,7 +105,7 @@ func (o *NotificationWebhookEndpointConfiguration) GetDescription() string {
 // GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *NotificationWebhookEndpointConfiguration) GetDescriptionOk() (*string, bool) {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		return nil, false
 	}
 	return o.Description, true
@@ -106,7 +113,7 @@ func (o *NotificationWebhookEndpointConfiguration) GetDescriptionOk() (*string, 
 
 // HasDescription returns a boolean if a field has been set.
 func (o *NotificationWebhookEndpointConfiguration) HasDescription() bool {
-	if o != nil && o.Description != nil {
+	if o != nil && !IsNil(o.Description) {
 		return true
 	}
 
@@ -120,7 +127,7 @@ func (o *NotificationWebhookEndpointConfiguration) SetDescription(v string) {
 
 // GetVerifyTls returns the VerifyTls field value if set, zero value otherwise.
 func (o *NotificationWebhookEndpointConfiguration) GetVerifyTls() bool {
-	if o == nil || o.VerifyTls == nil {
+	if o == nil || IsNil(o.VerifyTls) {
 		var ret bool
 		return ret
 	}
@@ -130,7 +137,7 @@ func (o *NotificationWebhookEndpointConfiguration) GetVerifyTls() bool {
 // GetVerifyTlsOk returns a tuple with the VerifyTls field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *NotificationWebhookEndpointConfiguration) GetVerifyTlsOk() (*bool, bool) {
-	if o == nil || o.VerifyTls == nil {
+	if o == nil || IsNil(o.VerifyTls) {
 		return nil, false
 	}
 	return o.VerifyTls, true
@@ -138,7 +145,7 @@ func (o *NotificationWebhookEndpointConfiguration) GetVerifyTlsOk() (*bool, bool
 
 // HasVerifyTls returns a boolean if a field has been set.
 func (o *NotificationWebhookEndpointConfiguration) HasVerifyTls() bool {
-	if o != nil && o.VerifyTls != nil {
+	if o != nil && !IsNil(o.VerifyTls) {
 		return true
 	}
 
@@ -152,7 +159,7 @@ func (o *NotificationWebhookEndpointConfiguration) SetVerifyTls(v bool) {
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
 func (o *NotificationWebhookEndpointConfiguration) GetCreatedAt() time.Time {
-	if o == nil || o.CreatedAt == nil {
+	if o == nil || IsNil(o.CreatedAt) {
 		var ret time.Time
 		return ret
 	}
@@ -162,7 +169,7 @@ func (o *NotificationWebhookEndpointConfiguration) GetCreatedAt() time.Time {
 // GetCreatedAtOk returns a tuple with the CreatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *NotificationWebhookEndpointConfiguration) GetCreatedAtOk() (*time.Time, bool) {
-	if o == nil || o.CreatedAt == nil {
+	if o == nil || IsNil(o.CreatedAt) {
 		return nil, false
 	}
 	return o.CreatedAt, true
@@ -170,7 +177,7 @@ func (o *NotificationWebhookEndpointConfiguration) GetCreatedAtOk() (*time.Time,
 
 // HasCreatedAt returns a boolean if a field has been set.
 func (o *NotificationWebhookEndpointConfiguration) HasCreatedAt() bool {
-	if o != nil && o.CreatedAt != nil {
+	if o != nil && !IsNil(o.CreatedAt) {
 		return true
 	}
 
@@ -184,7 +191,7 @@ func (o *NotificationWebhookEndpointConfiguration) SetCreatedAt(v time.Time) {
 
 // GetLastUpdated returns the LastUpdated field value if set, zero value otherwise.
 func (o *NotificationWebhookEndpointConfiguration) GetLastUpdated() time.Time {
-	if o == nil || o.LastUpdated == nil {
+	if o == nil || IsNil(o.LastUpdated) {
 		var ret time.Time
 		return ret
 	}
@@ -194,7 +201,7 @@ func (o *NotificationWebhookEndpointConfiguration) GetLastUpdated() time.Time {
 // GetLastUpdatedOk returns a tuple with the LastUpdated field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *NotificationWebhookEndpointConfiguration) GetLastUpdatedOk() (*time.Time, bool) {
-	if o == nil || o.LastUpdated == nil {
+	if o == nil || IsNil(o.LastUpdated) {
 		return nil, false
 	}
 	return o.LastUpdated, true
@@ -202,7 +209,7 @@ func (o *NotificationWebhookEndpointConfiguration) GetLastUpdatedOk() (*time.Tim
 
 // HasLastUpdated returns a boolean if a field has been set.
 func (o *NotificationWebhookEndpointConfiguration) HasLastUpdated() bool {
-	if o != nil && o.LastUpdated != nil {
+	if o != nil && !IsNil(o.LastUpdated) {
 		return true
 	}
 
@@ -240,7 +247,7 @@ func (o *NotificationWebhookEndpointConfiguration) SetUrl(v string) {
 
 // GetUsername returns the Username field value if set, zero value otherwise.
 func (o *NotificationWebhookEndpointConfiguration) GetUsername() string {
-	if o == nil || o.Username == nil {
+	if o == nil || IsNil(o.Username) {
 		var ret string
 		return ret
 	}
@@ -250,7 +257,7 @@ func (o *NotificationWebhookEndpointConfiguration) GetUsername() string {
 // GetUsernameOk returns a tuple with the Username field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *NotificationWebhookEndpointConfiguration) GetUsernameOk() (*string, bool) {
-	if o == nil || o.Username == nil {
+	if o == nil || IsNil(o.Username) {
 		return nil, false
 	}
 	return o.Username, true
@@ -258,7 +265,7 @@ func (o *NotificationWebhookEndpointConfiguration) GetUsernameOk() (*string, boo
 
 // HasUsername returns a boolean if a field has been set.
 func (o *NotificationWebhookEndpointConfiguration) HasUsername() bool {
-	if o != nil && o.Username != nil {
+	if o != nil && !IsNil(o.Username) {
 		return true
 	}
 
@@ -272,7 +279,7 @@ func (o *NotificationWebhookEndpointConfiguration) SetUsername(v string) {
 
 // GetPassword returns the Password field value if set, zero value otherwise.
 func (o *NotificationWebhookEndpointConfiguration) GetPassword() string {
-	if o == nil || o.Password == nil {
+	if o == nil || IsNil(o.Password) {
 		var ret string
 		return ret
 	}
@@ -282,7 +289,7 @@ func (o *NotificationWebhookEndpointConfiguration) GetPassword() string {
 // GetPasswordOk returns a tuple with the Password field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *NotificationWebhookEndpointConfiguration) GetPasswordOk() (*string, bool) {
-	if o == nil || o.Password == nil {
+	if o == nil || IsNil(o.Password) {
 		return nil, false
 	}
 	return o.Password, true
@@ -290,7 +297,7 @@ func (o *NotificationWebhookEndpointConfiguration) GetPasswordOk() (*string, boo
 
 // HasPassword returns a boolean if a field has been set.
 func (o *NotificationWebhookEndpointConfiguration) HasPassword() bool {
-	if o != nil && o.Password != nil {
+	if o != nil && !IsNil(o.Password) {
 		return true
 	}
 
@@ -304,7 +311,7 @@ func (o *NotificationWebhookEndpointConfiguration) SetPassword(v string) {
 
 // GetVerifySsl returns the VerifySsl field value if set, zero value otherwise.
 func (o *NotificationWebhookEndpointConfiguration) GetVerifySsl() bool {
-	if o == nil || o.VerifySsl == nil {
+	if o == nil || IsNil(o.VerifySsl) {
 		var ret bool
 		return ret
 	}
@@ -314,7 +321,7 @@ func (o *NotificationWebhookEndpointConfiguration) GetVerifySsl() bool {
 // GetVerifySslOk returns a tuple with the VerifySsl field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *NotificationWebhookEndpointConfiguration) GetVerifySslOk() (*bool, bool) {
-	if o == nil || o.VerifySsl == nil {
+	if o == nil || IsNil(o.VerifySsl) {
 		return nil, false
 	}
 	return o.VerifySsl, true
@@ -322,7 +329,7 @@ func (o *NotificationWebhookEndpointConfiguration) GetVerifySslOk() (*bool, bool
 
 // HasVerifySsl returns a boolean if a field has been set.
 func (o *NotificationWebhookEndpointConfiguration) HasVerifySsl() bool {
-	if o != nil && o.VerifySsl != nil {
+	if o != nil && !IsNil(o.VerifySsl) {
 		return true
 	}
 
@@ -335,35 +342,78 @@ func (o *NotificationWebhookEndpointConfiguration) SetVerifySsl(v bool) {
 }
 
 func (o NotificationWebhookEndpointConfiguration) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Uuid != nil {
-		toSerialize["uuid"] = o.Uuid
-	}
-	if o.Description != nil {
-		toSerialize["description"] = o.Description
-	}
-	if o.VerifyTls != nil {
-		toSerialize["verify_tls"] = o.VerifyTls
-	}
-	if o.CreatedAt != nil {
-		toSerialize["created_at"] = o.CreatedAt
-	}
-	if o.LastUpdated != nil {
-		toSerialize["last_updated"] = o.LastUpdated
-	}
-	if true {
-		toSerialize["url"] = o.Url
-	}
-	if o.Username != nil {
-		toSerialize["username"] = o.Username
-	}
-	if o.Password != nil {
-		toSerialize["password"] = o.Password
-	}
-	if o.VerifySsl != nil {
-		toSerialize["verify_ssl"] = o.VerifySsl
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o NotificationWebhookEndpointConfiguration) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Uuid) {
+		toSerialize["uuid"] = o.Uuid
+	}
+	if !IsNil(o.Description) {
+		toSerialize["description"] = o.Description
+	}
+	if !IsNil(o.VerifyTls) {
+		toSerialize["verify_tls"] = o.VerifyTls
+	}
+	if !IsNil(o.CreatedAt) {
+		toSerialize["created_at"] = o.CreatedAt
+	}
+	if !IsNil(o.LastUpdated) {
+		toSerialize["last_updated"] = o.LastUpdated
+	}
+	toSerialize["url"] = o.Url
+	if !IsNil(o.Username) {
+		toSerialize["username"] = o.Username
+	}
+	if !IsNil(o.Password) {
+		toSerialize["password"] = o.Password
+	}
+	if !IsNil(o.VerifySsl) {
+		toSerialize["verify_ssl"] = o.VerifySsl
+	}
+	return toSerialize, nil
+}
+
+func (o *NotificationWebhookEndpointConfiguration) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"url",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varNotificationWebhookEndpointConfiguration := _NotificationWebhookEndpointConfiguration{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varNotificationWebhookEndpointConfiguration)
+
+	if err != nil {
+		return err
+	}
+
+	*o = NotificationWebhookEndpointConfiguration(varNotificationWebhookEndpointConfiguration)
+
+	return err
 }
 
 type NullableNotificationWebhookEndpointConfiguration struct {

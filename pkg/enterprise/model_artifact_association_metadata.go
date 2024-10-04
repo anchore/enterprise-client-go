@@ -16,6 +16,9 @@ import (
 	"time"
 )
 
+// checks if the ArtifactAssociationMetadata type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ArtifactAssociationMetadata{}
+
 // ArtifactAssociationMetadata Metadata for an artifact association to an application version
 type ArtifactAssociationMetadata struct {
 	// The id of the association between the application version and the artifact
@@ -45,7 +48,7 @@ func NewArtifactAssociationMetadataWithDefaults() *ArtifactAssociationMetadata {
 
 // GetAssociationId returns the AssociationId field value if set, zero value otherwise.
 func (o *ArtifactAssociationMetadata) GetAssociationId() string {
-	if o == nil || o.AssociationId == nil {
+	if o == nil || IsNil(o.AssociationId) {
 		var ret string
 		return ret
 	}
@@ -55,7 +58,7 @@ func (o *ArtifactAssociationMetadata) GetAssociationId() string {
 // GetAssociationIdOk returns a tuple with the AssociationId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ArtifactAssociationMetadata) GetAssociationIdOk() (*string, bool) {
-	if o == nil || o.AssociationId == nil {
+	if o == nil || IsNil(o.AssociationId) {
 		return nil, false
 	}
 	return o.AssociationId, true
@@ -63,7 +66,7 @@ func (o *ArtifactAssociationMetadata) GetAssociationIdOk() (*string, bool) {
 
 // HasAssociationId returns a boolean if a field has been set.
 func (o *ArtifactAssociationMetadata) HasAssociationId() bool {
-	if o != nil && o.AssociationId != nil {
+	if o != nil && !IsNil(o.AssociationId) {
 		return true
 	}
 
@@ -77,7 +80,7 @@ func (o *ArtifactAssociationMetadata) SetAssociationId(v string) {
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
 func (o *ArtifactAssociationMetadata) GetCreatedAt() time.Time {
-	if o == nil || o.CreatedAt == nil {
+	if o == nil || IsNil(o.CreatedAt) {
 		var ret time.Time
 		return ret
 	}
@@ -87,7 +90,7 @@ func (o *ArtifactAssociationMetadata) GetCreatedAt() time.Time {
 // GetCreatedAtOk returns a tuple with the CreatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ArtifactAssociationMetadata) GetCreatedAtOk() (*time.Time, bool) {
-	if o == nil || o.CreatedAt == nil {
+	if o == nil || IsNil(o.CreatedAt) {
 		return nil, false
 	}
 	return o.CreatedAt, true
@@ -95,7 +98,7 @@ func (o *ArtifactAssociationMetadata) GetCreatedAtOk() (*time.Time, bool) {
 
 // HasCreatedAt returns a boolean if a field has been set.
 func (o *ArtifactAssociationMetadata) HasCreatedAt() bool {
-	if o != nil && o.CreatedAt != nil {
+	if o != nil && !IsNil(o.CreatedAt) {
 		return true
 	}
 
@@ -109,7 +112,7 @@ func (o *ArtifactAssociationMetadata) SetCreatedAt(v time.Time) {
 
 // GetLastUpdated returns the LastUpdated field value if set, zero value otherwise.
 func (o *ArtifactAssociationMetadata) GetLastUpdated() time.Time {
-	if o == nil || o.LastUpdated == nil {
+	if o == nil || IsNil(o.LastUpdated) {
 		var ret time.Time
 		return ret
 	}
@@ -119,7 +122,7 @@ func (o *ArtifactAssociationMetadata) GetLastUpdated() time.Time {
 // GetLastUpdatedOk returns a tuple with the LastUpdated field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ArtifactAssociationMetadata) GetLastUpdatedOk() (*time.Time, bool) {
-	if o == nil || o.LastUpdated == nil {
+	if o == nil || IsNil(o.LastUpdated) {
 		return nil, false
 	}
 	return o.LastUpdated, true
@@ -127,7 +130,7 @@ func (o *ArtifactAssociationMetadata) GetLastUpdatedOk() (*time.Time, bool) {
 
 // HasLastUpdated returns a boolean if a field has been set.
 func (o *ArtifactAssociationMetadata) HasLastUpdated() bool {
-	if o != nil && o.LastUpdated != nil {
+	if o != nil && !IsNil(o.LastUpdated) {
 		return true
 	}
 
@@ -140,17 +143,25 @@ func (o *ArtifactAssociationMetadata) SetLastUpdated(v time.Time) {
 }
 
 func (o ArtifactAssociationMetadata) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.AssociationId != nil {
-		toSerialize["association_id"] = o.AssociationId
-	}
-	if o.CreatedAt != nil {
-		toSerialize["created_at"] = o.CreatedAt
-	}
-	if o.LastUpdated != nil {
-		toSerialize["last_updated"] = o.LastUpdated
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o ArtifactAssociationMetadata) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.AssociationId) {
+		toSerialize["association_id"] = o.AssociationId
+	}
+	if !IsNil(o.CreatedAt) {
+		toSerialize["created_at"] = o.CreatedAt
+	}
+	if !IsNil(o.LastUpdated) {
+		toSerialize["last_updated"] = o.LastUpdated
+	}
+	return toSerialize, nil
 }
 
 type NullableArtifactAssociationMetadata struct {

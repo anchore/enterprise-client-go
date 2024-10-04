@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the SourceContentPackageResponse type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &SourceContentPackageResponse{}
+
 // SourceContentPackageResponse Package content listings from analysis sbom
 type SourceContentPackageResponse struct {
 	SourceId *string `json:"source_id,omitempty"`
@@ -41,7 +44,7 @@ func NewSourceContentPackageResponseWithDefaults() *SourceContentPackageResponse
 
 // GetSourceId returns the SourceId field value if set, zero value otherwise.
 func (o *SourceContentPackageResponse) GetSourceId() string {
-	if o == nil || o.SourceId == nil {
+	if o == nil || IsNil(o.SourceId) {
 		var ret string
 		return ret
 	}
@@ -51,7 +54,7 @@ func (o *SourceContentPackageResponse) GetSourceId() string {
 // GetSourceIdOk returns a tuple with the SourceId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SourceContentPackageResponse) GetSourceIdOk() (*string, bool) {
-	if o == nil || o.SourceId == nil {
+	if o == nil || IsNil(o.SourceId) {
 		return nil, false
 	}
 	return o.SourceId, true
@@ -59,7 +62,7 @@ func (o *SourceContentPackageResponse) GetSourceIdOk() (*string, bool) {
 
 // HasSourceId returns a boolean if a field has been set.
 func (o *SourceContentPackageResponse) HasSourceId() bool {
-	if o != nil && o.SourceId != nil {
+	if o != nil && !IsNil(o.SourceId) {
 		return true
 	}
 
@@ -73,7 +76,7 @@ func (o *SourceContentPackageResponse) SetSourceId(v string) {
 
 // GetContentType returns the ContentType field value if set, zero value otherwise.
 func (o *SourceContentPackageResponse) GetContentType() string {
-	if o == nil || o.ContentType == nil {
+	if o == nil || IsNil(o.ContentType) {
 		var ret string
 		return ret
 	}
@@ -83,7 +86,7 @@ func (o *SourceContentPackageResponse) GetContentType() string {
 // GetContentTypeOk returns a tuple with the ContentType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SourceContentPackageResponse) GetContentTypeOk() (*string, bool) {
-	if o == nil || o.ContentType == nil {
+	if o == nil || IsNil(o.ContentType) {
 		return nil, false
 	}
 	return o.ContentType, true
@@ -91,7 +94,7 @@ func (o *SourceContentPackageResponse) GetContentTypeOk() (*string, bool) {
 
 // HasContentType returns a boolean if a field has been set.
 func (o *SourceContentPackageResponse) HasContentType() bool {
-	if o != nil && o.ContentType != nil {
+	if o != nil && !IsNil(o.ContentType) {
 		return true
 	}
 
@@ -105,7 +108,7 @@ func (o *SourceContentPackageResponse) SetContentType(v string) {
 
 // GetContent returns the Content field value if set, zero value otherwise.
 func (o *SourceContentPackageResponse) GetContent() []SourceContentPackageResponseContent {
-	if o == nil || o.Content == nil {
+	if o == nil || IsNil(o.Content) {
 		var ret []SourceContentPackageResponseContent
 		return ret
 	}
@@ -115,7 +118,7 @@ func (o *SourceContentPackageResponse) GetContent() []SourceContentPackageRespon
 // GetContentOk returns a tuple with the Content field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SourceContentPackageResponse) GetContentOk() ([]SourceContentPackageResponseContent, bool) {
-	if o == nil || o.Content == nil {
+	if o == nil || IsNil(o.Content) {
 		return nil, false
 	}
 	return o.Content, true
@@ -123,7 +126,7 @@ func (o *SourceContentPackageResponse) GetContentOk() ([]SourceContentPackageRes
 
 // HasContent returns a boolean if a field has been set.
 func (o *SourceContentPackageResponse) HasContent() bool {
-	if o != nil && o.Content != nil {
+	if o != nil && !IsNil(o.Content) {
 		return true
 	}
 
@@ -136,17 +139,25 @@ func (o *SourceContentPackageResponse) SetContent(v []SourceContentPackageRespon
 }
 
 func (o SourceContentPackageResponse) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.SourceId != nil {
-		toSerialize["source_id"] = o.SourceId
-	}
-	if o.ContentType != nil {
-		toSerialize["content_type"] = o.ContentType
-	}
-	if o.Content != nil {
-		toSerialize["content"] = o.Content
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o SourceContentPackageResponse) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.SourceId) {
+		toSerialize["source_id"] = o.SourceId
+	}
+	if !IsNil(o.ContentType) {
+		toSerialize["content_type"] = o.ContentType
+	}
+	if !IsNil(o.Content) {
+		toSerialize["content"] = o.Content
+	}
+	return toSerialize, nil
 }
 
 type NullableSourceContentPackageResponse struct {

@@ -1,10 +1,10 @@
-# \StatisticsApi
+# \StatisticsAPI
 
 All URIs are relative to */v2*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**GetSystemStatistics**](StatisticsApi.md#GetSystemStatistics) | **Get** /system/statistics | List System Statistics
+[**GetSystemStatistics**](StatisticsAPI.md#GetSystemStatistics) | **Get** /system/statistics | List System Statistics
 
 
 
@@ -22,23 +22,23 @@ List System Statistics
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.StatisticsApi.GetSystemStatistics(context.Background()).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `StatisticsApi.GetSystemStatistics``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetSystemStatistics`: SystemStatisticsList
-    fmt.Fprintf(os.Stdout, "Response from `StatisticsApi.GetSystemStatistics`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.StatisticsAPI.GetSystemStatistics(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `StatisticsAPI.GetSystemStatistics``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetSystemStatistics`: SystemStatisticsList
+	fmt.Fprintf(os.Stdout, "Response from `StatisticsAPI.GetSystemStatistics`: %v\n", resp)
 }
 ```
 

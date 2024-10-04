@@ -13,13 +13,20 @@ package enterprise
 
 import (
 	"encoding/json"
+	"bytes"
+	"fmt"
 )
+
+// checks if the ImportFileDigest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ImportFileDigest{}
 
 // ImportFileDigest struct for ImportFileDigest
 type ImportFileDigest struct {
 	Algorithm string `json:"algorithm"`
 	Value string `json:"value"`
 }
+
+type _ImportFileDigest ImportFileDigest
 
 // NewImportFileDigest instantiates a new ImportFileDigest object
 // This constructor will assign default values to properties that have it defined,
@@ -89,14 +96,56 @@ func (o *ImportFileDigest) SetValue(v string) {
 }
 
 func (o ImportFileDigest) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["algorithm"] = o.Algorithm
-	}
-	if true {
-		toSerialize["value"] = o.Value
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o ImportFileDigest) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["algorithm"] = o.Algorithm
+	toSerialize["value"] = o.Value
+	return toSerialize, nil
+}
+
+func (o *ImportFileDigest) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"algorithm",
+		"value",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varImportFileDigest := _ImportFileDigest{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varImportFileDigest)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ImportFileDigest(varImportFileDigest)
+
+	return err
 }
 
 type NullableImportFileDigest struct {

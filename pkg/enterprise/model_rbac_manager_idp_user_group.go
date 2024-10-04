@@ -14,7 +14,12 @@ package enterprise
 import (
 	"encoding/json"
 	"time"
+	"bytes"
+	"fmt"
 )
+
+// checks if the RbacManagerIdpUserGroup type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &RbacManagerIdpUserGroup{}
 
 // RbacManagerIdpUserGroup A user group associated with an IdP
 type RbacManagerIdpUserGroup struct {
@@ -25,6 +30,8 @@ type RbacManagerIdpUserGroup struct {
 	// The timestamp when the user group was mapped to the IdP
 	MappedOn *time.Time `json:"mapped_on,omitempty"`
 }
+
+type _RbacManagerIdpUserGroup RbacManagerIdpUserGroup
 
 // NewRbacManagerIdpUserGroup instantiates a new RbacManagerIdpUserGroup object
 // This constructor will assign default values to properties that have it defined,
@@ -70,7 +77,7 @@ func (o *RbacManagerIdpUserGroup) SetUserGroupUuid(v string) {
 
 // GetUserGroupName returns the UserGroupName field value if set, zero value otherwise.
 func (o *RbacManagerIdpUserGroup) GetUserGroupName() string {
-	if o == nil || o.UserGroupName == nil {
+	if o == nil || IsNil(o.UserGroupName) {
 		var ret string
 		return ret
 	}
@@ -80,7 +87,7 @@ func (o *RbacManagerIdpUserGroup) GetUserGroupName() string {
 // GetUserGroupNameOk returns a tuple with the UserGroupName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RbacManagerIdpUserGroup) GetUserGroupNameOk() (*string, bool) {
-	if o == nil || o.UserGroupName == nil {
+	if o == nil || IsNil(o.UserGroupName) {
 		return nil, false
 	}
 	return o.UserGroupName, true
@@ -88,7 +95,7 @@ func (o *RbacManagerIdpUserGroup) GetUserGroupNameOk() (*string, bool) {
 
 // HasUserGroupName returns a boolean if a field has been set.
 func (o *RbacManagerIdpUserGroup) HasUserGroupName() bool {
-	if o != nil && o.UserGroupName != nil {
+	if o != nil && !IsNil(o.UserGroupName) {
 		return true
 	}
 
@@ -102,7 +109,7 @@ func (o *RbacManagerIdpUserGroup) SetUserGroupName(v string) {
 
 // GetMappedOn returns the MappedOn field value if set, zero value otherwise.
 func (o *RbacManagerIdpUserGroup) GetMappedOn() time.Time {
-	if o == nil || o.MappedOn == nil {
+	if o == nil || IsNil(o.MappedOn) {
 		var ret time.Time
 		return ret
 	}
@@ -112,7 +119,7 @@ func (o *RbacManagerIdpUserGroup) GetMappedOn() time.Time {
 // GetMappedOnOk returns a tuple with the MappedOn field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RbacManagerIdpUserGroup) GetMappedOnOk() (*time.Time, bool) {
-	if o == nil || o.MappedOn == nil {
+	if o == nil || IsNil(o.MappedOn) {
 		return nil, false
 	}
 	return o.MappedOn, true
@@ -120,7 +127,7 @@ func (o *RbacManagerIdpUserGroup) GetMappedOnOk() (*time.Time, bool) {
 
 // HasMappedOn returns a boolean if a field has been set.
 func (o *RbacManagerIdpUserGroup) HasMappedOn() bool {
-	if o != nil && o.MappedOn != nil {
+	if o != nil && !IsNil(o.MappedOn) {
 		return true
 	}
 
@@ -133,17 +140,60 @@ func (o *RbacManagerIdpUserGroup) SetMappedOn(v time.Time) {
 }
 
 func (o RbacManagerIdpUserGroup) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["user_group_uuid"] = o.UserGroupUuid
-	}
-	if o.UserGroupName != nil {
-		toSerialize["user_group_name"] = o.UserGroupName
-	}
-	if o.MappedOn != nil {
-		toSerialize["mapped_on"] = o.MappedOn
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o RbacManagerIdpUserGroup) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["user_group_uuid"] = o.UserGroupUuid
+	if !IsNil(o.UserGroupName) {
+		toSerialize["user_group_name"] = o.UserGroupName
+	}
+	if !IsNil(o.MappedOn) {
+		toSerialize["mapped_on"] = o.MappedOn
+	}
+	return toSerialize, nil
+}
+
+func (o *RbacManagerIdpUserGroup) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"user_group_uuid",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varRbacManagerIdpUserGroup := _RbacManagerIdpUserGroup{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varRbacManagerIdpUserGroup)
+
+	if err != nil {
+		return err
+	}
+
+	*o = RbacManagerIdpUserGroup(varRbacManagerIdpUserGroup)
+
+	return err
 }
 
 type NullableRbacManagerIdpUserGroup struct {

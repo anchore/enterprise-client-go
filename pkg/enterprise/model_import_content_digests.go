@@ -13,7 +13,12 @@ package enterprise
 
 import (
 	"encoding/json"
+	"bytes"
+	"fmt"
 )
+
+// checks if the ImportContentDigests type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ImportContentDigests{}
 
 // ImportContentDigests Digest of content to use in the final import
 type ImportContentDigests struct {
@@ -34,6 +39,8 @@ type ImportContentDigests struct {
 	// Digest for reference content for file retrieve content
 	FileContents *string `json:"file_contents,omitempty"`
 }
+
+type _ImportContentDigests ImportContentDigests
 
 // NewImportContentDigests instantiates a new ImportContentDigests object
 // This constructor will assign default values to properties that have it defined,
@@ -129,7 +136,7 @@ func (o *ImportContentDigests) SetManifest(v string) {
 
 // GetParentManifest returns the ParentManifest field value if set, zero value otherwise.
 func (o *ImportContentDigests) GetParentManifest() string {
-	if o == nil || o.ParentManifest == nil {
+	if o == nil || IsNil(o.ParentManifest) {
 		var ret string
 		return ret
 	}
@@ -139,7 +146,7 @@ func (o *ImportContentDigests) GetParentManifest() string {
 // GetParentManifestOk returns a tuple with the ParentManifest field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ImportContentDigests) GetParentManifestOk() (*string, bool) {
-	if o == nil || o.ParentManifest == nil {
+	if o == nil || IsNil(o.ParentManifest) {
 		return nil, false
 	}
 	return o.ParentManifest, true
@@ -147,7 +154,7 @@ func (o *ImportContentDigests) GetParentManifestOk() (*string, bool) {
 
 // HasParentManifest returns a boolean if a field has been set.
 func (o *ImportContentDigests) HasParentManifest() bool {
-	if o != nil && o.ParentManifest != nil {
+	if o != nil && !IsNil(o.ParentManifest) {
 		return true
 	}
 
@@ -161,7 +168,7 @@ func (o *ImportContentDigests) SetParentManifest(v string) {
 
 // GetDockerfile returns the Dockerfile field value if set, zero value otherwise.
 func (o *ImportContentDigests) GetDockerfile() string {
-	if o == nil || o.Dockerfile == nil {
+	if o == nil || IsNil(o.Dockerfile) {
 		var ret string
 		return ret
 	}
@@ -171,7 +178,7 @@ func (o *ImportContentDigests) GetDockerfile() string {
 // GetDockerfileOk returns a tuple with the Dockerfile field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ImportContentDigests) GetDockerfileOk() (*string, bool) {
-	if o == nil || o.Dockerfile == nil {
+	if o == nil || IsNil(o.Dockerfile) {
 		return nil, false
 	}
 	return o.Dockerfile, true
@@ -179,7 +186,7 @@ func (o *ImportContentDigests) GetDockerfileOk() (*string, bool) {
 
 // HasDockerfile returns a boolean if a field has been set.
 func (o *ImportContentDigests) HasDockerfile() bool {
-	if o != nil && o.Dockerfile != nil {
+	if o != nil && !IsNil(o.Dockerfile) {
 		return true
 	}
 
@@ -193,7 +200,7 @@ func (o *ImportContentDigests) SetDockerfile(v string) {
 
 // GetSecretSearches returns the SecretSearches field value if set, zero value otherwise.
 func (o *ImportContentDigests) GetSecretSearches() string {
-	if o == nil || o.SecretSearches == nil {
+	if o == nil || IsNil(o.SecretSearches) {
 		var ret string
 		return ret
 	}
@@ -203,7 +210,7 @@ func (o *ImportContentDigests) GetSecretSearches() string {
 // GetSecretSearchesOk returns a tuple with the SecretSearches field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ImportContentDigests) GetSecretSearchesOk() (*string, bool) {
-	if o == nil || o.SecretSearches == nil {
+	if o == nil || IsNil(o.SecretSearches) {
 		return nil, false
 	}
 	return o.SecretSearches, true
@@ -211,7 +218,7 @@ func (o *ImportContentDigests) GetSecretSearchesOk() (*string, bool) {
 
 // HasSecretSearches returns a boolean if a field has been set.
 func (o *ImportContentDigests) HasSecretSearches() bool {
-	if o != nil && o.SecretSearches != nil {
+	if o != nil && !IsNil(o.SecretSearches) {
 		return true
 	}
 
@@ -225,7 +232,7 @@ func (o *ImportContentDigests) SetSecretSearches(v string) {
 
 // GetContentSearches returns the ContentSearches field value if set, zero value otherwise.
 func (o *ImportContentDigests) GetContentSearches() string {
-	if o == nil || o.ContentSearches == nil {
+	if o == nil || IsNil(o.ContentSearches) {
 		var ret string
 		return ret
 	}
@@ -235,7 +242,7 @@ func (o *ImportContentDigests) GetContentSearches() string {
 // GetContentSearchesOk returns a tuple with the ContentSearches field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ImportContentDigests) GetContentSearchesOk() (*string, bool) {
-	if o == nil || o.ContentSearches == nil {
+	if o == nil || IsNil(o.ContentSearches) {
 		return nil, false
 	}
 	return o.ContentSearches, true
@@ -243,7 +250,7 @@ func (o *ImportContentDigests) GetContentSearchesOk() (*string, bool) {
 
 // HasContentSearches returns a boolean if a field has been set.
 func (o *ImportContentDigests) HasContentSearches() bool {
-	if o != nil && o.ContentSearches != nil {
+	if o != nil && !IsNil(o.ContentSearches) {
 		return true
 	}
 
@@ -257,7 +264,7 @@ func (o *ImportContentDigests) SetContentSearches(v string) {
 
 // GetFileContents returns the FileContents field value if set, zero value otherwise.
 func (o *ImportContentDigests) GetFileContents() string {
-	if o == nil || o.FileContents == nil {
+	if o == nil || IsNil(o.FileContents) {
 		var ret string
 		return ret
 	}
@@ -267,7 +274,7 @@ func (o *ImportContentDigests) GetFileContents() string {
 // GetFileContentsOk returns a tuple with the FileContents field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ImportContentDigests) GetFileContentsOk() (*string, bool) {
-	if o == nil || o.FileContents == nil {
+	if o == nil || IsNil(o.FileContents) {
 		return nil, false
 	}
 	return o.FileContents, true
@@ -275,7 +282,7 @@ func (o *ImportContentDigests) GetFileContentsOk() (*string, bool) {
 
 // HasFileContents returns a boolean if a field has been set.
 func (o *ImportContentDigests) HasFileContents() bool {
-	if o != nil && o.FileContents != nil {
+	if o != nil && !IsNil(o.FileContents) {
 		return true
 	}
 
@@ -288,32 +295,73 @@ func (o *ImportContentDigests) SetFileContents(v string) {
 }
 
 func (o ImportContentDigests) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["packages"] = o.Packages
-	}
-	if true {
-		toSerialize["image_config"] = o.ImageConfig
-	}
-	if true {
-		toSerialize["manifest"] = o.Manifest
-	}
-	if o.ParentManifest != nil {
-		toSerialize["parent_manifest"] = o.ParentManifest
-	}
-	if o.Dockerfile != nil {
-		toSerialize["dockerfile"] = o.Dockerfile
-	}
-	if o.SecretSearches != nil {
-		toSerialize["secret_searches"] = o.SecretSearches
-	}
-	if o.ContentSearches != nil {
-		toSerialize["content_searches"] = o.ContentSearches
-	}
-	if o.FileContents != nil {
-		toSerialize["file_contents"] = o.FileContents
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o ImportContentDigests) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["packages"] = o.Packages
+	toSerialize["image_config"] = o.ImageConfig
+	toSerialize["manifest"] = o.Manifest
+	if !IsNil(o.ParentManifest) {
+		toSerialize["parent_manifest"] = o.ParentManifest
+	}
+	if !IsNil(o.Dockerfile) {
+		toSerialize["dockerfile"] = o.Dockerfile
+	}
+	if !IsNil(o.SecretSearches) {
+		toSerialize["secret_searches"] = o.SecretSearches
+	}
+	if !IsNil(o.ContentSearches) {
+		toSerialize["content_searches"] = o.ContentSearches
+	}
+	if !IsNil(o.FileContents) {
+		toSerialize["file_contents"] = o.FileContents
+	}
+	return toSerialize, nil
+}
+
+func (o *ImportContentDigests) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"packages",
+		"image_config",
+		"manifest",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varImportContentDigests := _ImportContentDigests{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varImportContentDigests)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ImportContentDigests(varImportContentDigests)
+
+	return err
 }
 
 type NullableImportContentDigests struct {

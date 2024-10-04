@@ -13,7 +13,12 @@ package enterprise
 
 import (
 	"encoding/json"
+	"bytes"
+	"fmt"
 )
+
+// checks if the AccountK8sInventoryReportInfo type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &AccountK8sInventoryReportInfo{}
 
 // AccountK8sInventoryReportInfo Information about sent K8s inventory report for an account
 type AccountK8sInventoryReportInfo struct {
@@ -32,6 +37,8 @@ type AccountK8sInventoryReportInfo struct {
 	// List of information about inventory report batches
 	Batches []AccountK8sInventoryReportInfoBatchesInner `json:"batches"`
 }
+
+type _AccountK8sInventoryReportInfo AccountK8sInventoryReportInfo
 
 // NewAccountK8sInventoryReportInfo instantiates a new AccountK8sInventoryReportInfo object
 // This constructor will assign default values to properties that have it defined,
@@ -226,29 +233,66 @@ func (o *AccountK8sInventoryReportInfo) SetBatches(v []AccountK8sInventoryReport
 }
 
 func (o AccountK8sInventoryReportInfo) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["report_timestamp"] = o.ReportTimestamp
-	}
-	if true {
-		toSerialize["account_name"] = o.AccountName
-	}
-	if true {
-		toSerialize["sent_as_user"] = o.SentAsUser
-	}
-	if true {
-		toSerialize["batch_size"] = o.BatchSize
-	}
-	if true {
-		toSerialize["last_successful_index"] = o.LastSuccessfulIndex
-	}
-	if true {
-		toSerialize["has_errors"] = o.HasErrors
-	}
-	if true {
-		toSerialize["batches"] = o.Batches
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o AccountK8sInventoryReportInfo) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["report_timestamp"] = o.ReportTimestamp
+	toSerialize["account_name"] = o.AccountName
+	toSerialize["sent_as_user"] = o.SentAsUser
+	toSerialize["batch_size"] = o.BatchSize
+	toSerialize["last_successful_index"] = o.LastSuccessfulIndex
+	toSerialize["has_errors"] = o.HasErrors
+	toSerialize["batches"] = o.Batches
+	return toSerialize, nil
+}
+
+func (o *AccountK8sInventoryReportInfo) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"report_timestamp",
+		"account_name",
+		"sent_as_user",
+		"batch_size",
+		"last_successful_index",
+		"has_errors",
+		"batches",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varAccountK8sInventoryReportInfo := _AccountK8sInventoryReportInfo{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varAccountK8sInventoryReportInfo)
+
+	if err != nil {
+		return err
+	}
+
+	*o = AccountK8sInventoryReportInfo(varAccountK8sInventoryReportInfo)
+
+	return err
 }
 
 type NullableAccountK8sInventoryReportInfo struct {

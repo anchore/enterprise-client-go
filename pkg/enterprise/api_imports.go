@@ -14,369 +14,19 @@ package enterprise
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
 	"strings"
 )
 
 
-type ImportsApi interface {
-
-	/*
-	CreateOperation Begin the import of an image SBOM into the system
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiCreateOperationRequest
-	*/
-	CreateOperation(ctx context.Context) ApiCreateOperationRequest
-
-	// CreateOperationExecute executes the request
-	//  @return ImageImportOperation
-	CreateOperationExecute(r ApiCreateOperationRequest) (*ImageImportOperation, *http.Response, error)
-
-	/*
-	CreateSourcesOperation Begin the import of a source code repository analyzed by Syft into the system
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiCreateSourcesOperationRequest
-	*/
-	CreateSourcesOperation(ctx context.Context) ApiCreateSourcesOperationRequest
-
-	// CreateSourcesOperationExecute executes the request
-	//  @return SourceImportOperation
-	CreateSourcesOperationExecute(r ApiCreateSourcesOperationRequest) (*SourceImportOperation, *http.Response, error)
-
-	/*
-	FinalizeOperation Add source records to catalog db
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param operationId
-	@return ApiFinalizeOperationRequest
-	*/
-	FinalizeOperation(ctx context.Context, operationId string) ApiFinalizeOperationRequest
-
-	// FinalizeOperationExecute executes the request
-	//  @return SourceManifest
-	FinalizeOperationExecute(r ApiFinalizeOperationRequest) (*SourceManifest, *http.Response, error)
-
-	/*
-	GetImportSourcesSbom list the packages of an imported source code repository
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param operationId
-	@return ApiGetImportSourcesSbomRequest
-	*/
-	GetImportSourcesSbom(ctx context.Context, operationId string) ApiGetImportSourcesSbomRequest
-
-	// GetImportSourcesSbomExecute executes the request
-	//  @return SourceImportContentResponse
-	GetImportSourcesSbomExecute(r ApiGetImportSourcesSbomRequest) (*SourceImportContentResponse, *http.Response, error)
-
-	/*
-	GetOperation Get detail on a single import
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param operationId
-	@return ApiGetOperationRequest
-	*/
-	GetOperation(ctx context.Context, operationId string) ApiGetOperationRequest
-
-	// GetOperationExecute executes the request
-	//  @return ImageImportOperation
-	GetOperationExecute(r ApiGetOperationRequest) (*ImageImportOperation, *http.Response, error)
-
-	/*
-	GetSourcesOperation Get detail on a single import
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param operationId
-	@return ApiGetSourcesOperationRequest
-	*/
-	GetSourcesOperation(ctx context.Context, operationId string) ApiGetSourcesOperationRequest
-
-	// GetSourcesOperationExecute executes the request
-	//  @return SourceImportOperation
-	GetSourcesOperationExecute(r ApiGetSourcesOperationRequest) (*SourceImportOperation, *http.Response, error)
-
-	/*
-	ImportContentSearches Import a content search analysis catalog
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param operationId
-	@return ApiImportContentSearchesRequest
-	*/
-	ImportContentSearches(ctx context.Context, operationId string) ApiImportContentSearchesRequest
-
-	// ImportContentSearchesExecute executes the request
-	//  @return ImageImportContentResponse
-	ImportContentSearchesExecute(r ApiImportContentSearchesRequest) (*ImageImportContentResponse, *http.Response, error)
-
-	/*
-	ImportFileContents Import a file contents analysis catalog
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param operationId
-	@return ApiImportFileContentsRequest
-	*/
-	ImportFileContents(ctx context.Context, operationId string) ApiImportFileContentsRequest
-
-	// ImportFileContentsExecute executes the request
-	//  @return ImageImportContentResponse
-	ImportFileContentsExecute(r ApiImportFileContentsRequest) (*ImageImportContentResponse, *http.Response, error)
-
-	/*
-	ImportImageConfig Import a docker or OCI image config to associate with the image
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param operationId
-	@return ApiImportImageConfigRequest
-	*/
-	ImportImageConfig(ctx context.Context, operationId string) ApiImportImageConfigRequest
-
-	// ImportImageConfigExecute executes the request
-	//  @return ImageImportContentResponse
-	ImportImageConfigExecute(r ApiImportImageConfigRequest) (*ImageImportContentResponse, *http.Response, error)
-
-	/*
-	ImportImageDockerfile Begin the import of an image analyzed by Syft into the system
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param operationId
-	@return ApiImportImageDockerfileRequest
-	*/
-	ImportImageDockerfile(ctx context.Context, operationId string) ApiImportImageDockerfileRequest
-
-	// ImportImageDockerfileExecute executes the request
-	//  @return ImageImportContentResponse
-	ImportImageDockerfileExecute(r ApiImportImageDockerfileRequest) (*ImageImportContentResponse, *http.Response, error)
-
-	/*
-	ImportImageManifest Import a docker or OCI distribution manifest to associate with the image
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param operationId
-	@return ApiImportImageManifestRequest
-	*/
-	ImportImageManifest(ctx context.Context, operationId string) ApiImportImageManifestRequest
-
-	// ImportImageManifestExecute executes the request
-	//  @return ImageImportContentResponse
-	ImportImageManifestExecute(r ApiImportImageManifestRequest) (*ImageImportContentResponse, *http.Response, error)
-
-	/*
-	ImportImagePackages Begin the import of an image analyzed by Syft into the system
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param operationId
-	@return ApiImportImagePackagesRequest
-	*/
-	ImportImagePackages(ctx context.Context, operationId string) ApiImportImagePackagesRequest
-
-	// ImportImagePackagesExecute executes the request
-	//  @return ImageImportContentResponse
-	ImportImagePackagesExecute(r ApiImportImagePackagesRequest) (*ImageImportContentResponse, *http.Response, error)
-
-	/*
-	ImportImageParentManifest Import a docker or OCI distribution manifest list to associate with the image
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param operationId
-	@return ApiImportImageParentManifestRequest
-	*/
-	ImportImageParentManifest(ctx context.Context, operationId string) ApiImportImageParentManifestRequest
-
-	// ImportImageParentManifestExecute executes the request
-	//  @return ImageImportContentResponse
-	ImportImageParentManifestExecute(r ApiImportImageParentManifestRequest) (*ImageImportContentResponse, *http.Response, error)
-
-	/*
-	ImportSecretSearches Import a secret search analysis catalog
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param operationId
-	@return ApiImportSecretSearchesRequest
-	*/
-	ImportSecretSearches(ctx context.Context, operationId string) ApiImportSecretSearchesRequest
-
-	// ImportSecretSearchesExecute executes the request
-	//  @return ImageImportContentResponse
-	ImportSecretSearchesExecute(r ApiImportSecretSearchesRequest) (*ImageImportContentResponse, *http.Response, error)
-
-	/*
-	InvalidateOperation Invalidate operation ID so it can be garbage collected
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param operationId
-	@return ApiInvalidateOperationRequest
-	*/
-	InvalidateOperation(ctx context.Context, operationId string) ApiInvalidateOperationRequest
-
-	// InvalidateOperationExecute executes the request
-	//  @return ImageImportOperation
-	InvalidateOperationExecute(r ApiInvalidateOperationRequest) (*ImageImportOperation, *http.Response, error)
-
-	/*
-	InvalidateSourcesOperation Invalidate operation ID so it can be garbage collected
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param operationId
-	@return ApiInvalidateSourcesOperationRequest
-	*/
-	InvalidateSourcesOperation(ctx context.Context, operationId string) ApiInvalidateSourcesOperationRequest
-
-	// InvalidateSourcesOperationExecute executes the request
-	//  @return SourceImportOperation
-	InvalidateSourcesOperationExecute(r ApiInvalidateSourcesOperationRequest) (*SourceImportOperation, *http.Response, error)
-
-	/*
-	ListImportContentSearches List uploaded content search results
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param operationId
-	@return ApiListImportContentSearchesRequest
-	*/
-	ListImportContentSearches(ctx context.Context, operationId string) ApiListImportContentSearchesRequest
-
-	// ListImportContentSearchesExecute executes the request
-	//  @return []string
-	ListImportContentSearchesExecute(r ApiListImportContentSearchesRequest) ([]string, *http.Response, error)
-
-	/*
-	ListImportDockerfiles List uploaded dockerfiles
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param operationId
-	@return ApiListImportDockerfilesRequest
-	*/
-	ListImportDockerfiles(ctx context.Context, operationId string) ApiListImportDockerfilesRequest
-
-	// ListImportDockerfilesExecute executes the request
-	//  @return []string
-	ListImportDockerfilesExecute(r ApiListImportDockerfilesRequest) ([]string, *http.Response, error)
-
-	/*
-	ListImportFileContents List uploaded file contents
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param operationId
-	@return ApiListImportFileContentsRequest
-	*/
-	ListImportFileContents(ctx context.Context, operationId string) ApiListImportFileContentsRequest
-
-	// ListImportFileContentsExecute executes the request
-	//  @return []string
-	ListImportFileContentsExecute(r ApiListImportFileContentsRequest) ([]string, *http.Response, error)
-
-	/*
-	ListImportImageConfigs List uploaded image configs
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param operationId
-	@return ApiListImportImageConfigsRequest
-	*/
-	ListImportImageConfigs(ctx context.Context, operationId string) ApiListImportImageConfigsRequest
-
-	// ListImportImageConfigsExecute executes the request
-	//  @return []string
-	ListImportImageConfigsExecute(r ApiListImportImageConfigsRequest) ([]string, *http.Response, error)
-
-	/*
-	ListImportImageManifests List uploaded image manifests
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param operationId
-	@return ApiListImportImageManifestsRequest
-	*/
-	ListImportImageManifests(ctx context.Context, operationId string) ApiListImportImageManifestsRequest
-
-	// ListImportImageManifestsExecute executes the request
-	//  @return []string
-	ListImportImageManifestsExecute(r ApiListImportImageManifestsRequest) ([]string, *http.Response, error)
-
-	/*
-	ListImportPackages List uploaded package manifests
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param operationId
-	@return ApiListImportPackagesRequest
-	*/
-	ListImportPackages(ctx context.Context, operationId string) ApiListImportPackagesRequest
-
-	// ListImportPackagesExecute executes the request
-	//  @return []string
-	ListImportPackagesExecute(r ApiListImportPackagesRequest) ([]string, *http.Response, error)
-
-	/*
-	ListImportParentManifests List uploaded parent manifests (manifest lists for a tag)
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param operationId
-	@return ApiListImportParentManifestsRequest
-	*/
-	ListImportParentManifests(ctx context.Context, operationId string) ApiListImportParentManifestsRequest
-
-	// ListImportParentManifestsExecute executes the request
-	//  @return []string
-	ListImportParentManifestsExecute(r ApiListImportParentManifestsRequest) ([]string, *http.Response, error)
-
-	/*
-	ListImportSecretSearches List uploaded secret search results
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param operationId
-	@return ApiListImportSecretSearchesRequest
-	*/
-	ListImportSecretSearches(ctx context.Context, operationId string) ApiListImportSecretSearchesRequest
-
-	// ListImportSecretSearchesExecute executes the request
-	//  @return []string
-	ListImportSecretSearchesExecute(r ApiListImportSecretSearchesRequest) ([]string, *http.Response, error)
-
-	/*
-	ListOperations Lists in-progress imports
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiListOperationsRequest
-	*/
-	ListOperations(ctx context.Context) ApiListOperationsRequest
-
-	// ListOperationsExecute executes the request
-	//  @return []ImageImportOperation
-	ListOperationsExecute(r ApiListOperationsRequest) ([]ImageImportOperation, *http.Response, error)
-
-	/*
-	ListSourcesOperations Lists in-progress imports
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiListSourcesOperationsRequest
-	*/
-	ListSourcesOperations(ctx context.Context) ApiListSourcesOperationsRequest
-
-	// ListSourcesOperationsExecute executes the request
-	//  @return []SourceImportOperation
-	ListSourcesOperationsExecute(r ApiListSourcesOperationsRequest) ([]SourceImportOperation, *http.Response, error)
-
-	/*
-	UploadImportSourcesSbom Begin the import of a source code repository analyzed by Syft into the system
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param operationId
-	@return ApiUploadImportSourcesSbomRequest
-	*/
-	UploadImportSourcesSbom(ctx context.Context, operationId string) ApiUploadImportSourcesSbomRequest
-
-	// UploadImportSourcesSbomExecute executes the request
-	//  @return SourceImportContentResponse
-	UploadImportSourcesSbomExecute(r ApiUploadImportSourcesSbomRequest) (*SourceImportContentResponse, *http.Response, error)
-}
-
-// ImportsApiService ImportsApi service
-type ImportsApiService service
+// ImportsAPIService ImportsAPI service
+type ImportsAPIService service
 
 type ApiCreateOperationRequest struct {
 	ctx context.Context
-	ApiService ImportsApi
+	ApiService *ImportsAPIService
 }
 
 func (r ApiCreateOperationRequest) Execute() (*ImageImportOperation, *http.Response, error) {
@@ -389,7 +39,7 @@ CreateOperation Begin the import of an image SBOM into the system
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiCreateOperationRequest
 */
-func (a *ImportsApiService) CreateOperation(ctx context.Context) ApiCreateOperationRequest {
+func (a *ImportsAPIService) CreateOperation(ctx context.Context) ApiCreateOperationRequest {
 	return ApiCreateOperationRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -398,7 +48,7 @@ func (a *ImportsApiService) CreateOperation(ctx context.Context) ApiCreateOperat
 
 // Execute executes the request
 //  @return ImageImportOperation
-func (a *ImportsApiService) CreateOperationExecute(r ApiCreateOperationRequest) (*ImageImportOperation, *http.Response, error) {
+func (a *ImportsAPIService) CreateOperationExecute(r ApiCreateOperationRequest) (*ImageImportOperation, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
@@ -406,7 +56,7 @@ func (a *ImportsApiService) CreateOperationExecute(r ApiCreateOperationRequest) 
 		localVarReturnValue  *ImageImportOperation
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ImportsApiService.CreateOperation")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ImportsAPIService.CreateOperation")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -444,9 +94,9 @@ func (a *ImportsApiService) CreateOperationExecute(r ApiCreateOperationRequest) 
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -473,7 +123,7 @@ func (a *ImportsApiService) CreateOperationExecute(r ApiCreateOperationRequest) 
 
 type ApiCreateSourcesOperationRequest struct {
 	ctx context.Context
-	ApiService ImportsApi
+	ApiService *ImportsAPIService
 }
 
 func (r ApiCreateSourcesOperationRequest) Execute() (*SourceImportOperation, *http.Response, error) {
@@ -486,7 +136,7 @@ CreateSourcesOperation Begin the import of a source code repository analyzed by 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiCreateSourcesOperationRequest
 */
-func (a *ImportsApiService) CreateSourcesOperation(ctx context.Context) ApiCreateSourcesOperationRequest {
+func (a *ImportsAPIService) CreateSourcesOperation(ctx context.Context) ApiCreateSourcesOperationRequest {
 	return ApiCreateSourcesOperationRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -495,7 +145,7 @@ func (a *ImportsApiService) CreateSourcesOperation(ctx context.Context) ApiCreat
 
 // Execute executes the request
 //  @return SourceImportOperation
-func (a *ImportsApiService) CreateSourcesOperationExecute(r ApiCreateSourcesOperationRequest) (*SourceImportOperation, *http.Response, error) {
+func (a *ImportsAPIService) CreateSourcesOperationExecute(r ApiCreateSourcesOperationRequest) (*SourceImportOperation, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
@@ -503,7 +153,7 @@ func (a *ImportsApiService) CreateSourcesOperationExecute(r ApiCreateSourcesOper
 		localVarReturnValue  *SourceImportOperation
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ImportsApiService.CreateSourcesOperation")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ImportsAPIService.CreateSourcesOperation")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -541,9 +191,9 @@ func (a *ImportsApiService) CreateSourcesOperationExecute(r ApiCreateSourcesOper
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -570,7 +220,7 @@ func (a *ImportsApiService) CreateSourcesOperationExecute(r ApiCreateSourcesOper
 
 type ApiFinalizeOperationRequest struct {
 	ctx context.Context
-	ApiService ImportsApi
+	ApiService *ImportsAPIService
 	operationId string
 	metadata *SourceImportMetadata
 }
@@ -591,7 +241,7 @@ FinalizeOperation Add source records to catalog db
  @param operationId
  @return ApiFinalizeOperationRequest
 */
-func (a *ImportsApiService) FinalizeOperation(ctx context.Context, operationId string) ApiFinalizeOperationRequest {
+func (a *ImportsAPIService) FinalizeOperation(ctx context.Context, operationId string) ApiFinalizeOperationRequest {
 	return ApiFinalizeOperationRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -601,7 +251,7 @@ func (a *ImportsApiService) FinalizeOperation(ctx context.Context, operationId s
 
 // Execute executes the request
 //  @return SourceManifest
-func (a *ImportsApiService) FinalizeOperationExecute(r ApiFinalizeOperationRequest) (*SourceManifest, *http.Response, error) {
+func (a *ImportsAPIService) FinalizeOperationExecute(r ApiFinalizeOperationRequest) (*SourceManifest, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
@@ -609,13 +259,13 @@ func (a *ImportsApiService) FinalizeOperationExecute(r ApiFinalizeOperationReque
 		localVarReturnValue  *SourceManifest
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ImportsApiService.FinalizeOperation")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ImportsAPIService.FinalizeOperation")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/imports/sources/{operation_id}/finalize"
-	localVarPath = strings.Replace(localVarPath, "{"+"operation_id"+"}", url.PathEscape(parameterToString(r.operationId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"operation_id"+"}", url.PathEscape(parameterValueToString(r.operationId, "operationId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -653,9 +303,9 @@ func (a *ImportsApiService) FinalizeOperationExecute(r ApiFinalizeOperationReque
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -682,7 +332,7 @@ func (a *ImportsApiService) FinalizeOperationExecute(r ApiFinalizeOperationReque
 
 type ApiGetImportSourcesSbomRequest struct {
 	ctx context.Context
-	ApiService ImportsApi
+	ApiService *ImportsAPIService
 	operationId string
 }
 
@@ -697,7 +347,7 @@ GetImportSourcesSbom list the packages of an imported source code repository
  @param operationId
  @return ApiGetImportSourcesSbomRequest
 */
-func (a *ImportsApiService) GetImportSourcesSbom(ctx context.Context, operationId string) ApiGetImportSourcesSbomRequest {
+func (a *ImportsAPIService) GetImportSourcesSbom(ctx context.Context, operationId string) ApiGetImportSourcesSbomRequest {
 	return ApiGetImportSourcesSbomRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -707,7 +357,7 @@ func (a *ImportsApiService) GetImportSourcesSbom(ctx context.Context, operationI
 
 // Execute executes the request
 //  @return SourceImportContentResponse
-func (a *ImportsApiService) GetImportSourcesSbomExecute(r ApiGetImportSourcesSbomRequest) (*SourceImportContentResponse, *http.Response, error) {
+func (a *ImportsAPIService) GetImportSourcesSbomExecute(r ApiGetImportSourcesSbomRequest) (*SourceImportContentResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
@@ -715,13 +365,13 @@ func (a *ImportsApiService) GetImportSourcesSbomExecute(r ApiGetImportSourcesSbo
 		localVarReturnValue  *SourceImportContentResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ImportsApiService.GetImportSourcesSbom")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ImportsAPIService.GetImportSourcesSbom")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/imports/sources/{operation_id}/sbom"
-	localVarPath = strings.Replace(localVarPath, "{"+"operation_id"+"}", url.PathEscape(parameterToString(r.operationId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"operation_id"+"}", url.PathEscape(parameterValueToString(r.operationId, "operationId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -754,9 +404,9 @@ func (a *ImportsApiService) GetImportSourcesSbomExecute(r ApiGetImportSourcesSbo
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -783,7 +433,7 @@ func (a *ImportsApiService) GetImportSourcesSbomExecute(r ApiGetImportSourcesSbo
 
 type ApiGetOperationRequest struct {
 	ctx context.Context
-	ApiService ImportsApi
+	ApiService *ImportsAPIService
 	operationId string
 }
 
@@ -798,7 +448,7 @@ GetOperation Get detail on a single import
  @param operationId
  @return ApiGetOperationRequest
 */
-func (a *ImportsApiService) GetOperation(ctx context.Context, operationId string) ApiGetOperationRequest {
+func (a *ImportsAPIService) GetOperation(ctx context.Context, operationId string) ApiGetOperationRequest {
 	return ApiGetOperationRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -808,7 +458,7 @@ func (a *ImportsApiService) GetOperation(ctx context.Context, operationId string
 
 // Execute executes the request
 //  @return ImageImportOperation
-func (a *ImportsApiService) GetOperationExecute(r ApiGetOperationRequest) (*ImageImportOperation, *http.Response, error) {
+func (a *ImportsAPIService) GetOperationExecute(r ApiGetOperationRequest) (*ImageImportOperation, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
@@ -816,13 +466,13 @@ func (a *ImportsApiService) GetOperationExecute(r ApiGetOperationRequest) (*Imag
 		localVarReturnValue  *ImageImportOperation
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ImportsApiService.GetOperation")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ImportsAPIService.GetOperation")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/imports/images/{operation_id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"operation_id"+"}", url.PathEscape(parameterToString(r.operationId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"operation_id"+"}", url.PathEscape(parameterValueToString(r.operationId, "operationId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -855,9 +505,9 @@ func (a *ImportsApiService) GetOperationExecute(r ApiGetOperationRequest) (*Imag
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -884,7 +534,7 @@ func (a *ImportsApiService) GetOperationExecute(r ApiGetOperationRequest) (*Imag
 
 type ApiGetSourcesOperationRequest struct {
 	ctx context.Context
-	ApiService ImportsApi
+	ApiService *ImportsAPIService
 	operationId string
 }
 
@@ -899,7 +549,7 @@ GetSourcesOperation Get detail on a single import
  @param operationId
  @return ApiGetSourcesOperationRequest
 */
-func (a *ImportsApiService) GetSourcesOperation(ctx context.Context, operationId string) ApiGetSourcesOperationRequest {
+func (a *ImportsAPIService) GetSourcesOperation(ctx context.Context, operationId string) ApiGetSourcesOperationRequest {
 	return ApiGetSourcesOperationRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -909,7 +559,7 @@ func (a *ImportsApiService) GetSourcesOperation(ctx context.Context, operationId
 
 // Execute executes the request
 //  @return SourceImportOperation
-func (a *ImportsApiService) GetSourcesOperationExecute(r ApiGetSourcesOperationRequest) (*SourceImportOperation, *http.Response, error) {
+func (a *ImportsAPIService) GetSourcesOperationExecute(r ApiGetSourcesOperationRequest) (*SourceImportOperation, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
@@ -917,13 +567,13 @@ func (a *ImportsApiService) GetSourcesOperationExecute(r ApiGetSourcesOperationR
 		localVarReturnValue  *SourceImportOperation
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ImportsApiService.GetSourcesOperation")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ImportsAPIService.GetSourcesOperation")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/imports/sources/{operation_id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"operation_id"+"}", url.PathEscape(parameterToString(r.operationId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"operation_id"+"}", url.PathEscape(parameterValueToString(r.operationId, "operationId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -956,9 +606,9 @@ func (a *ImportsApiService) GetSourcesOperationExecute(r ApiGetSourcesOperationR
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -985,7 +635,7 @@ func (a *ImportsApiService) GetSourcesOperationExecute(r ApiGetSourcesOperationR
 
 type ApiImportContentSearchesRequest struct {
 	ctx context.Context
-	ApiService ImportsApi
+	ApiService *ImportsAPIService
 	operationId string
 	contents *[]ImageImportContentSearch
 }
@@ -1006,7 +656,7 @@ ImportContentSearches Import a content search analysis catalog
  @param operationId
  @return ApiImportContentSearchesRequest
 */
-func (a *ImportsApiService) ImportContentSearches(ctx context.Context, operationId string) ApiImportContentSearchesRequest {
+func (a *ImportsAPIService) ImportContentSearches(ctx context.Context, operationId string) ApiImportContentSearchesRequest {
 	return ApiImportContentSearchesRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -1016,7 +666,7 @@ func (a *ImportsApiService) ImportContentSearches(ctx context.Context, operation
 
 // Execute executes the request
 //  @return ImageImportContentResponse
-func (a *ImportsApiService) ImportContentSearchesExecute(r ApiImportContentSearchesRequest) (*ImageImportContentResponse, *http.Response, error) {
+func (a *ImportsAPIService) ImportContentSearchesExecute(r ApiImportContentSearchesRequest) (*ImageImportContentResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
@@ -1024,13 +674,13 @@ func (a *ImportsApiService) ImportContentSearchesExecute(r ApiImportContentSearc
 		localVarReturnValue  *ImageImportContentResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ImportsApiService.ImportContentSearches")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ImportsAPIService.ImportContentSearches")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/imports/images/{operation_id}/content-searches"
-	localVarPath = strings.Replace(localVarPath, "{"+"operation_id"+"}", url.PathEscape(parameterToString(r.operationId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"operation_id"+"}", url.PathEscape(parameterValueToString(r.operationId, "operationId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1068,9 +718,9 @@ func (a *ImportsApiService) ImportContentSearchesExecute(r ApiImportContentSearc
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1097,7 +747,7 @@ func (a *ImportsApiService) ImportContentSearchesExecute(r ApiImportContentSearc
 
 type ApiImportFileContentsRequest struct {
 	ctx context.Context
-	ApiService ImportsApi
+	ApiService *ImportsAPIService
 	operationId string
 	contents *[]ImageImportFileContent
 }
@@ -1118,7 +768,7 @@ ImportFileContents Import a file contents analysis catalog
  @param operationId
  @return ApiImportFileContentsRequest
 */
-func (a *ImportsApiService) ImportFileContents(ctx context.Context, operationId string) ApiImportFileContentsRequest {
+func (a *ImportsAPIService) ImportFileContents(ctx context.Context, operationId string) ApiImportFileContentsRequest {
 	return ApiImportFileContentsRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -1128,7 +778,7 @@ func (a *ImportsApiService) ImportFileContents(ctx context.Context, operationId 
 
 // Execute executes the request
 //  @return ImageImportContentResponse
-func (a *ImportsApiService) ImportFileContentsExecute(r ApiImportFileContentsRequest) (*ImageImportContentResponse, *http.Response, error) {
+func (a *ImportsAPIService) ImportFileContentsExecute(r ApiImportFileContentsRequest) (*ImageImportContentResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
@@ -1136,13 +786,13 @@ func (a *ImportsApiService) ImportFileContentsExecute(r ApiImportFileContentsReq
 		localVarReturnValue  *ImageImportContentResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ImportsApiService.ImportFileContents")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ImportsAPIService.ImportFileContents")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/imports/images/{operation_id}/file-contents"
-	localVarPath = strings.Replace(localVarPath, "{"+"operation_id"+"}", url.PathEscape(parameterToString(r.operationId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"operation_id"+"}", url.PathEscape(parameterValueToString(r.operationId, "operationId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1180,9 +830,9 @@ func (a *ImportsApiService) ImportFileContentsExecute(r ApiImportFileContentsReq
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1209,7 +859,7 @@ func (a *ImportsApiService) ImportFileContentsExecute(r ApiImportFileContentsReq
 
 type ApiImportImageConfigRequest struct {
 	ctx context.Context
-	ApiService ImportsApi
+	ApiService *ImportsAPIService
 	operationId string
 	contents *interface{}
 }
@@ -1230,7 +880,7 @@ ImportImageConfig Import a docker or OCI image config to associate with the imag
  @param operationId
  @return ApiImportImageConfigRequest
 */
-func (a *ImportsApiService) ImportImageConfig(ctx context.Context, operationId string) ApiImportImageConfigRequest {
+func (a *ImportsAPIService) ImportImageConfig(ctx context.Context, operationId string) ApiImportImageConfigRequest {
 	return ApiImportImageConfigRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -1240,7 +890,7 @@ func (a *ImportsApiService) ImportImageConfig(ctx context.Context, operationId s
 
 // Execute executes the request
 //  @return ImageImportContentResponse
-func (a *ImportsApiService) ImportImageConfigExecute(r ApiImportImageConfigRequest) (*ImageImportContentResponse, *http.Response, error) {
+func (a *ImportsAPIService) ImportImageConfigExecute(r ApiImportImageConfigRequest) (*ImageImportContentResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
@@ -1248,13 +898,13 @@ func (a *ImportsApiService) ImportImageConfigExecute(r ApiImportImageConfigReque
 		localVarReturnValue  *ImageImportContentResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ImportsApiService.ImportImageConfig")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ImportsAPIService.ImportImageConfig")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/imports/images/{operation_id}/image-config"
-	localVarPath = strings.Replace(localVarPath, "{"+"operation_id"+"}", url.PathEscape(parameterToString(r.operationId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"operation_id"+"}", url.PathEscape(parameterValueToString(r.operationId, "operationId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1292,9 +942,9 @@ func (a *ImportsApiService) ImportImageConfigExecute(r ApiImportImageConfigReque
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1321,7 +971,7 @@ func (a *ImportsApiService) ImportImageConfigExecute(r ApiImportImageConfigReque
 
 type ApiImportImageDockerfileRequest struct {
 	ctx context.Context
-	ApiService ImportsApi
+	ApiService *ImportsAPIService
 	operationId string
 	contents *string
 }
@@ -1342,7 +992,7 @@ ImportImageDockerfile Begin the import of an image analyzed by Syft into the sys
  @param operationId
  @return ApiImportImageDockerfileRequest
 */
-func (a *ImportsApiService) ImportImageDockerfile(ctx context.Context, operationId string) ApiImportImageDockerfileRequest {
+func (a *ImportsAPIService) ImportImageDockerfile(ctx context.Context, operationId string) ApiImportImageDockerfileRequest {
 	return ApiImportImageDockerfileRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -1352,7 +1002,7 @@ func (a *ImportsApiService) ImportImageDockerfile(ctx context.Context, operation
 
 // Execute executes the request
 //  @return ImageImportContentResponse
-func (a *ImportsApiService) ImportImageDockerfileExecute(r ApiImportImageDockerfileRequest) (*ImageImportContentResponse, *http.Response, error) {
+func (a *ImportsAPIService) ImportImageDockerfileExecute(r ApiImportImageDockerfileRequest) (*ImageImportContentResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
@@ -1360,13 +1010,13 @@ func (a *ImportsApiService) ImportImageDockerfileExecute(r ApiImportImageDockerf
 		localVarReturnValue  *ImageImportContentResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ImportsApiService.ImportImageDockerfile")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ImportsAPIService.ImportImageDockerfile")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/imports/images/{operation_id}/dockerfile"
-	localVarPath = strings.Replace(localVarPath, "{"+"operation_id"+"}", url.PathEscape(parameterToString(r.operationId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"operation_id"+"}", url.PathEscape(parameterValueToString(r.operationId, "operationId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1404,9 +1054,9 @@ func (a *ImportsApiService) ImportImageDockerfileExecute(r ApiImportImageDockerf
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1433,7 +1083,7 @@ func (a *ImportsApiService) ImportImageDockerfileExecute(r ApiImportImageDockerf
 
 type ApiImportImageManifestRequest struct {
 	ctx context.Context
-	ApiService ImportsApi
+	ApiService *ImportsAPIService
 	operationId string
 	contents *interface{}
 }
@@ -1454,7 +1104,7 @@ ImportImageManifest Import a docker or OCI distribution manifest to associate wi
  @param operationId
  @return ApiImportImageManifestRequest
 */
-func (a *ImportsApiService) ImportImageManifest(ctx context.Context, operationId string) ApiImportImageManifestRequest {
+func (a *ImportsAPIService) ImportImageManifest(ctx context.Context, operationId string) ApiImportImageManifestRequest {
 	return ApiImportImageManifestRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -1464,7 +1114,7 @@ func (a *ImportsApiService) ImportImageManifest(ctx context.Context, operationId
 
 // Execute executes the request
 //  @return ImageImportContentResponse
-func (a *ImportsApiService) ImportImageManifestExecute(r ApiImportImageManifestRequest) (*ImageImportContentResponse, *http.Response, error) {
+func (a *ImportsAPIService) ImportImageManifestExecute(r ApiImportImageManifestRequest) (*ImageImportContentResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
@@ -1472,13 +1122,13 @@ func (a *ImportsApiService) ImportImageManifestExecute(r ApiImportImageManifestR
 		localVarReturnValue  *ImageImportContentResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ImportsApiService.ImportImageManifest")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ImportsAPIService.ImportImageManifest")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/imports/images/{operation_id}/manifest"
-	localVarPath = strings.Replace(localVarPath, "{"+"operation_id"+"}", url.PathEscape(parameterToString(r.operationId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"operation_id"+"}", url.PathEscape(parameterValueToString(r.operationId, "operationId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1516,9 +1166,9 @@ func (a *ImportsApiService) ImportImageManifestExecute(r ApiImportImageManifestR
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1545,12 +1195,12 @@ func (a *ImportsApiService) ImportImageManifestExecute(r ApiImportImageManifestR
 
 type ApiImportImagePackagesRequest struct {
 	ctx context.Context
-	ApiService ImportsApi
+	ApiService *ImportsAPIService
 	operationId string
-	sbom *map[string]interface{}
+	sbom *ImagePackageManifest
 }
 
-func (r ApiImportImagePackagesRequest) Sbom(sbom map[string]interface{}) ApiImportImagePackagesRequest {
+func (r ApiImportImagePackagesRequest) Sbom(sbom ImagePackageManifest) ApiImportImagePackagesRequest {
 	r.sbom = &sbom
 	return r
 }
@@ -1566,7 +1216,7 @@ ImportImagePackages Begin the import of an image analyzed by Syft into the syste
  @param operationId
  @return ApiImportImagePackagesRequest
 */
-func (a *ImportsApiService) ImportImagePackages(ctx context.Context, operationId string) ApiImportImagePackagesRequest {
+func (a *ImportsAPIService) ImportImagePackages(ctx context.Context, operationId string) ApiImportImagePackagesRequest {
 	return ApiImportImagePackagesRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -1576,7 +1226,7 @@ func (a *ImportsApiService) ImportImagePackages(ctx context.Context, operationId
 
 // Execute executes the request
 //  @return ImageImportContentResponse
-func (a *ImportsApiService) ImportImagePackagesExecute(r ApiImportImagePackagesRequest) (*ImageImportContentResponse, *http.Response, error) {
+func (a *ImportsAPIService) ImportImagePackagesExecute(r ApiImportImagePackagesRequest) (*ImageImportContentResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
@@ -1584,13 +1234,13 @@ func (a *ImportsApiService) ImportImagePackagesExecute(r ApiImportImagePackagesR
 		localVarReturnValue  *ImageImportContentResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ImportsApiService.ImportImagePackages")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ImportsAPIService.ImportImagePackages")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/imports/images/{operation_id}/packages"
-	localVarPath = strings.Replace(localVarPath, "{"+"operation_id"+"}", url.PathEscape(parameterToString(r.operationId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"operation_id"+"}", url.PathEscape(parameterValueToString(r.operationId, "operationId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1628,9 +1278,9 @@ func (a *ImportsApiService) ImportImagePackagesExecute(r ApiImportImagePackagesR
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1657,7 +1307,7 @@ func (a *ImportsApiService) ImportImagePackagesExecute(r ApiImportImagePackagesR
 
 type ApiImportImageParentManifestRequest struct {
 	ctx context.Context
-	ApiService ImportsApi
+	ApiService *ImportsAPIService
 	operationId string
 	contents *interface{}
 }
@@ -1678,7 +1328,7 @@ ImportImageParentManifest Import a docker or OCI distribution manifest list to a
  @param operationId
  @return ApiImportImageParentManifestRequest
 */
-func (a *ImportsApiService) ImportImageParentManifest(ctx context.Context, operationId string) ApiImportImageParentManifestRequest {
+func (a *ImportsAPIService) ImportImageParentManifest(ctx context.Context, operationId string) ApiImportImageParentManifestRequest {
 	return ApiImportImageParentManifestRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -1688,7 +1338,7 @@ func (a *ImportsApiService) ImportImageParentManifest(ctx context.Context, opera
 
 // Execute executes the request
 //  @return ImageImportContentResponse
-func (a *ImportsApiService) ImportImageParentManifestExecute(r ApiImportImageParentManifestRequest) (*ImageImportContentResponse, *http.Response, error) {
+func (a *ImportsAPIService) ImportImageParentManifestExecute(r ApiImportImageParentManifestRequest) (*ImageImportContentResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
@@ -1696,13 +1346,13 @@ func (a *ImportsApiService) ImportImageParentManifestExecute(r ApiImportImagePar
 		localVarReturnValue  *ImageImportContentResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ImportsApiService.ImportImageParentManifest")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ImportsAPIService.ImportImageParentManifest")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/imports/images/{operation_id}/parent-manifest"
-	localVarPath = strings.Replace(localVarPath, "{"+"operation_id"+"}", url.PathEscape(parameterToString(r.operationId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"operation_id"+"}", url.PathEscape(parameterValueToString(r.operationId, "operationId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1740,9 +1390,9 @@ func (a *ImportsApiService) ImportImageParentManifestExecute(r ApiImportImagePar
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1769,7 +1419,7 @@ func (a *ImportsApiService) ImportImageParentManifestExecute(r ApiImportImagePar
 
 type ApiImportSecretSearchesRequest struct {
 	ctx context.Context
-	ApiService ImportsApi
+	ApiService *ImportsAPIService
 	operationId string
 	contents *[]ImageImportContentSearch
 }
@@ -1790,7 +1440,7 @@ ImportSecretSearches Import a secret search analysis catalog
  @param operationId
  @return ApiImportSecretSearchesRequest
 */
-func (a *ImportsApiService) ImportSecretSearches(ctx context.Context, operationId string) ApiImportSecretSearchesRequest {
+func (a *ImportsAPIService) ImportSecretSearches(ctx context.Context, operationId string) ApiImportSecretSearchesRequest {
 	return ApiImportSecretSearchesRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -1800,7 +1450,7 @@ func (a *ImportsApiService) ImportSecretSearches(ctx context.Context, operationI
 
 // Execute executes the request
 //  @return ImageImportContentResponse
-func (a *ImportsApiService) ImportSecretSearchesExecute(r ApiImportSecretSearchesRequest) (*ImageImportContentResponse, *http.Response, error) {
+func (a *ImportsAPIService) ImportSecretSearchesExecute(r ApiImportSecretSearchesRequest) (*ImageImportContentResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
@@ -1808,13 +1458,13 @@ func (a *ImportsApiService) ImportSecretSearchesExecute(r ApiImportSecretSearche
 		localVarReturnValue  *ImageImportContentResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ImportsApiService.ImportSecretSearches")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ImportsAPIService.ImportSecretSearches")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/imports/images/{operation_id}/secret-searches"
-	localVarPath = strings.Replace(localVarPath, "{"+"operation_id"+"}", url.PathEscape(parameterToString(r.operationId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"operation_id"+"}", url.PathEscape(parameterValueToString(r.operationId, "operationId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1852,9 +1502,9 @@ func (a *ImportsApiService) ImportSecretSearchesExecute(r ApiImportSecretSearche
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1881,7 +1531,7 @@ func (a *ImportsApiService) ImportSecretSearchesExecute(r ApiImportSecretSearche
 
 type ApiInvalidateOperationRequest struct {
 	ctx context.Context
-	ApiService ImportsApi
+	ApiService *ImportsAPIService
 	operationId string
 }
 
@@ -1896,7 +1546,7 @@ InvalidateOperation Invalidate operation ID so it can be garbage collected
  @param operationId
  @return ApiInvalidateOperationRequest
 */
-func (a *ImportsApiService) InvalidateOperation(ctx context.Context, operationId string) ApiInvalidateOperationRequest {
+func (a *ImportsAPIService) InvalidateOperation(ctx context.Context, operationId string) ApiInvalidateOperationRequest {
 	return ApiInvalidateOperationRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -1906,7 +1556,7 @@ func (a *ImportsApiService) InvalidateOperation(ctx context.Context, operationId
 
 // Execute executes the request
 //  @return ImageImportOperation
-func (a *ImportsApiService) InvalidateOperationExecute(r ApiInvalidateOperationRequest) (*ImageImportOperation, *http.Response, error) {
+func (a *ImportsAPIService) InvalidateOperationExecute(r ApiInvalidateOperationRequest) (*ImageImportOperation, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodDelete
 		localVarPostBody     interface{}
@@ -1914,13 +1564,13 @@ func (a *ImportsApiService) InvalidateOperationExecute(r ApiInvalidateOperationR
 		localVarReturnValue  *ImageImportOperation
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ImportsApiService.InvalidateOperation")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ImportsAPIService.InvalidateOperation")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/imports/images/{operation_id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"operation_id"+"}", url.PathEscape(parameterToString(r.operationId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"operation_id"+"}", url.PathEscape(parameterValueToString(r.operationId, "operationId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1953,9 +1603,9 @@ func (a *ImportsApiService) InvalidateOperationExecute(r ApiInvalidateOperationR
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1982,7 +1632,7 @@ func (a *ImportsApiService) InvalidateOperationExecute(r ApiInvalidateOperationR
 
 type ApiInvalidateSourcesOperationRequest struct {
 	ctx context.Context
-	ApiService ImportsApi
+	ApiService *ImportsAPIService
 	operationId string
 }
 
@@ -1997,7 +1647,7 @@ InvalidateSourcesOperation Invalidate operation ID so it can be garbage collecte
  @param operationId
  @return ApiInvalidateSourcesOperationRequest
 */
-func (a *ImportsApiService) InvalidateSourcesOperation(ctx context.Context, operationId string) ApiInvalidateSourcesOperationRequest {
+func (a *ImportsAPIService) InvalidateSourcesOperation(ctx context.Context, operationId string) ApiInvalidateSourcesOperationRequest {
 	return ApiInvalidateSourcesOperationRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -2007,7 +1657,7 @@ func (a *ImportsApiService) InvalidateSourcesOperation(ctx context.Context, oper
 
 // Execute executes the request
 //  @return SourceImportOperation
-func (a *ImportsApiService) InvalidateSourcesOperationExecute(r ApiInvalidateSourcesOperationRequest) (*SourceImportOperation, *http.Response, error) {
+func (a *ImportsAPIService) InvalidateSourcesOperationExecute(r ApiInvalidateSourcesOperationRequest) (*SourceImportOperation, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodDelete
 		localVarPostBody     interface{}
@@ -2015,13 +1665,13 @@ func (a *ImportsApiService) InvalidateSourcesOperationExecute(r ApiInvalidateSou
 		localVarReturnValue  *SourceImportOperation
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ImportsApiService.InvalidateSourcesOperation")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ImportsAPIService.InvalidateSourcesOperation")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/imports/sources/{operation_id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"operation_id"+"}", url.PathEscape(parameterToString(r.operationId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"operation_id"+"}", url.PathEscape(parameterValueToString(r.operationId, "operationId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -2054,9 +1704,9 @@ func (a *ImportsApiService) InvalidateSourcesOperationExecute(r ApiInvalidateSou
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -2083,7 +1733,7 @@ func (a *ImportsApiService) InvalidateSourcesOperationExecute(r ApiInvalidateSou
 
 type ApiListImportContentSearchesRequest struct {
 	ctx context.Context
-	ApiService ImportsApi
+	ApiService *ImportsAPIService
 	operationId string
 }
 
@@ -2098,7 +1748,7 @@ ListImportContentSearches List uploaded content search results
  @param operationId
  @return ApiListImportContentSearchesRequest
 */
-func (a *ImportsApiService) ListImportContentSearches(ctx context.Context, operationId string) ApiListImportContentSearchesRequest {
+func (a *ImportsAPIService) ListImportContentSearches(ctx context.Context, operationId string) ApiListImportContentSearchesRequest {
 	return ApiListImportContentSearchesRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -2108,7 +1758,7 @@ func (a *ImportsApiService) ListImportContentSearches(ctx context.Context, opera
 
 // Execute executes the request
 //  @return []string
-func (a *ImportsApiService) ListImportContentSearchesExecute(r ApiListImportContentSearchesRequest) ([]string, *http.Response, error) {
+func (a *ImportsAPIService) ListImportContentSearchesExecute(r ApiListImportContentSearchesRequest) ([]string, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
@@ -2116,13 +1766,13 @@ func (a *ImportsApiService) ListImportContentSearchesExecute(r ApiListImportCont
 		localVarReturnValue  []string
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ImportsApiService.ListImportContentSearches")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ImportsAPIService.ListImportContentSearches")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/imports/images/{operation_id}/content-searches"
-	localVarPath = strings.Replace(localVarPath, "{"+"operation_id"+"}", url.PathEscape(parameterToString(r.operationId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"operation_id"+"}", url.PathEscape(parameterValueToString(r.operationId, "operationId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -2155,9 +1805,9 @@ func (a *ImportsApiService) ListImportContentSearchesExecute(r ApiListImportCont
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -2184,7 +1834,7 @@ func (a *ImportsApiService) ListImportContentSearchesExecute(r ApiListImportCont
 
 type ApiListImportDockerfilesRequest struct {
 	ctx context.Context
-	ApiService ImportsApi
+	ApiService *ImportsAPIService
 	operationId string
 }
 
@@ -2199,7 +1849,7 @@ ListImportDockerfiles List uploaded dockerfiles
  @param operationId
  @return ApiListImportDockerfilesRequest
 */
-func (a *ImportsApiService) ListImportDockerfiles(ctx context.Context, operationId string) ApiListImportDockerfilesRequest {
+func (a *ImportsAPIService) ListImportDockerfiles(ctx context.Context, operationId string) ApiListImportDockerfilesRequest {
 	return ApiListImportDockerfilesRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -2209,7 +1859,7 @@ func (a *ImportsApiService) ListImportDockerfiles(ctx context.Context, operation
 
 // Execute executes the request
 //  @return []string
-func (a *ImportsApiService) ListImportDockerfilesExecute(r ApiListImportDockerfilesRequest) ([]string, *http.Response, error) {
+func (a *ImportsAPIService) ListImportDockerfilesExecute(r ApiListImportDockerfilesRequest) ([]string, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
@@ -2217,13 +1867,13 @@ func (a *ImportsApiService) ListImportDockerfilesExecute(r ApiListImportDockerfi
 		localVarReturnValue  []string
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ImportsApiService.ListImportDockerfiles")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ImportsAPIService.ListImportDockerfiles")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/imports/images/{operation_id}/dockerfile"
-	localVarPath = strings.Replace(localVarPath, "{"+"operation_id"+"}", url.PathEscape(parameterToString(r.operationId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"operation_id"+"}", url.PathEscape(parameterValueToString(r.operationId, "operationId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -2256,9 +1906,9 @@ func (a *ImportsApiService) ListImportDockerfilesExecute(r ApiListImportDockerfi
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -2285,7 +1935,7 @@ func (a *ImportsApiService) ListImportDockerfilesExecute(r ApiListImportDockerfi
 
 type ApiListImportFileContentsRequest struct {
 	ctx context.Context
-	ApiService ImportsApi
+	ApiService *ImportsAPIService
 	operationId string
 }
 
@@ -2300,7 +1950,7 @@ ListImportFileContents List uploaded file contents
  @param operationId
  @return ApiListImportFileContentsRequest
 */
-func (a *ImportsApiService) ListImportFileContents(ctx context.Context, operationId string) ApiListImportFileContentsRequest {
+func (a *ImportsAPIService) ListImportFileContents(ctx context.Context, operationId string) ApiListImportFileContentsRequest {
 	return ApiListImportFileContentsRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -2310,7 +1960,7 @@ func (a *ImportsApiService) ListImportFileContents(ctx context.Context, operatio
 
 // Execute executes the request
 //  @return []string
-func (a *ImportsApiService) ListImportFileContentsExecute(r ApiListImportFileContentsRequest) ([]string, *http.Response, error) {
+func (a *ImportsAPIService) ListImportFileContentsExecute(r ApiListImportFileContentsRequest) ([]string, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
@@ -2318,13 +1968,13 @@ func (a *ImportsApiService) ListImportFileContentsExecute(r ApiListImportFileCon
 		localVarReturnValue  []string
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ImportsApiService.ListImportFileContents")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ImportsAPIService.ListImportFileContents")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/imports/images/{operation_id}/file-contents"
-	localVarPath = strings.Replace(localVarPath, "{"+"operation_id"+"}", url.PathEscape(parameterToString(r.operationId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"operation_id"+"}", url.PathEscape(parameterValueToString(r.operationId, "operationId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -2357,9 +2007,9 @@ func (a *ImportsApiService) ListImportFileContentsExecute(r ApiListImportFileCon
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -2386,7 +2036,7 @@ func (a *ImportsApiService) ListImportFileContentsExecute(r ApiListImportFileCon
 
 type ApiListImportImageConfigsRequest struct {
 	ctx context.Context
-	ApiService ImportsApi
+	ApiService *ImportsAPIService
 	operationId string
 }
 
@@ -2401,7 +2051,7 @@ ListImportImageConfigs List uploaded image configs
  @param operationId
  @return ApiListImportImageConfigsRequest
 */
-func (a *ImportsApiService) ListImportImageConfigs(ctx context.Context, operationId string) ApiListImportImageConfigsRequest {
+func (a *ImportsAPIService) ListImportImageConfigs(ctx context.Context, operationId string) ApiListImportImageConfigsRequest {
 	return ApiListImportImageConfigsRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -2411,7 +2061,7 @@ func (a *ImportsApiService) ListImportImageConfigs(ctx context.Context, operatio
 
 // Execute executes the request
 //  @return []string
-func (a *ImportsApiService) ListImportImageConfigsExecute(r ApiListImportImageConfigsRequest) ([]string, *http.Response, error) {
+func (a *ImportsAPIService) ListImportImageConfigsExecute(r ApiListImportImageConfigsRequest) ([]string, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
@@ -2419,13 +2069,13 @@ func (a *ImportsApiService) ListImportImageConfigsExecute(r ApiListImportImageCo
 		localVarReturnValue  []string
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ImportsApiService.ListImportImageConfigs")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ImportsAPIService.ListImportImageConfigs")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/imports/images/{operation_id}/image-config"
-	localVarPath = strings.Replace(localVarPath, "{"+"operation_id"+"}", url.PathEscape(parameterToString(r.operationId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"operation_id"+"}", url.PathEscape(parameterValueToString(r.operationId, "operationId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -2458,9 +2108,9 @@ func (a *ImportsApiService) ListImportImageConfigsExecute(r ApiListImportImageCo
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -2487,7 +2137,7 @@ func (a *ImportsApiService) ListImportImageConfigsExecute(r ApiListImportImageCo
 
 type ApiListImportImageManifestsRequest struct {
 	ctx context.Context
-	ApiService ImportsApi
+	ApiService *ImportsAPIService
 	operationId string
 }
 
@@ -2502,7 +2152,7 @@ ListImportImageManifests List uploaded image manifests
  @param operationId
  @return ApiListImportImageManifestsRequest
 */
-func (a *ImportsApiService) ListImportImageManifests(ctx context.Context, operationId string) ApiListImportImageManifestsRequest {
+func (a *ImportsAPIService) ListImportImageManifests(ctx context.Context, operationId string) ApiListImportImageManifestsRequest {
 	return ApiListImportImageManifestsRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -2512,7 +2162,7 @@ func (a *ImportsApiService) ListImportImageManifests(ctx context.Context, operat
 
 // Execute executes the request
 //  @return []string
-func (a *ImportsApiService) ListImportImageManifestsExecute(r ApiListImportImageManifestsRequest) ([]string, *http.Response, error) {
+func (a *ImportsAPIService) ListImportImageManifestsExecute(r ApiListImportImageManifestsRequest) ([]string, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
@@ -2520,13 +2170,13 @@ func (a *ImportsApiService) ListImportImageManifestsExecute(r ApiListImportImage
 		localVarReturnValue  []string
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ImportsApiService.ListImportImageManifests")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ImportsAPIService.ListImportImageManifests")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/imports/images/{operation_id}/manifest"
-	localVarPath = strings.Replace(localVarPath, "{"+"operation_id"+"}", url.PathEscape(parameterToString(r.operationId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"operation_id"+"}", url.PathEscape(parameterValueToString(r.operationId, "operationId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -2559,9 +2209,9 @@ func (a *ImportsApiService) ListImportImageManifestsExecute(r ApiListImportImage
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -2588,7 +2238,7 @@ func (a *ImportsApiService) ListImportImageManifestsExecute(r ApiListImportImage
 
 type ApiListImportPackagesRequest struct {
 	ctx context.Context
-	ApiService ImportsApi
+	ApiService *ImportsAPIService
 	operationId string
 }
 
@@ -2603,7 +2253,7 @@ ListImportPackages List uploaded package manifests
  @param operationId
  @return ApiListImportPackagesRequest
 */
-func (a *ImportsApiService) ListImportPackages(ctx context.Context, operationId string) ApiListImportPackagesRequest {
+func (a *ImportsAPIService) ListImportPackages(ctx context.Context, operationId string) ApiListImportPackagesRequest {
 	return ApiListImportPackagesRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -2613,7 +2263,7 @@ func (a *ImportsApiService) ListImportPackages(ctx context.Context, operationId 
 
 // Execute executes the request
 //  @return []string
-func (a *ImportsApiService) ListImportPackagesExecute(r ApiListImportPackagesRequest) ([]string, *http.Response, error) {
+func (a *ImportsAPIService) ListImportPackagesExecute(r ApiListImportPackagesRequest) ([]string, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
@@ -2621,13 +2271,13 @@ func (a *ImportsApiService) ListImportPackagesExecute(r ApiListImportPackagesReq
 		localVarReturnValue  []string
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ImportsApiService.ListImportPackages")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ImportsAPIService.ListImportPackages")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/imports/images/{operation_id}/packages"
-	localVarPath = strings.Replace(localVarPath, "{"+"operation_id"+"}", url.PathEscape(parameterToString(r.operationId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"operation_id"+"}", url.PathEscape(parameterValueToString(r.operationId, "operationId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -2660,9 +2310,9 @@ func (a *ImportsApiService) ListImportPackagesExecute(r ApiListImportPackagesReq
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -2689,7 +2339,7 @@ func (a *ImportsApiService) ListImportPackagesExecute(r ApiListImportPackagesReq
 
 type ApiListImportParentManifestsRequest struct {
 	ctx context.Context
-	ApiService ImportsApi
+	ApiService *ImportsAPIService
 	operationId string
 }
 
@@ -2704,7 +2354,7 @@ ListImportParentManifests List uploaded parent manifests (manifest lists for a t
  @param operationId
  @return ApiListImportParentManifestsRequest
 */
-func (a *ImportsApiService) ListImportParentManifests(ctx context.Context, operationId string) ApiListImportParentManifestsRequest {
+func (a *ImportsAPIService) ListImportParentManifests(ctx context.Context, operationId string) ApiListImportParentManifestsRequest {
 	return ApiListImportParentManifestsRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -2714,7 +2364,7 @@ func (a *ImportsApiService) ListImportParentManifests(ctx context.Context, opera
 
 // Execute executes the request
 //  @return []string
-func (a *ImportsApiService) ListImportParentManifestsExecute(r ApiListImportParentManifestsRequest) ([]string, *http.Response, error) {
+func (a *ImportsAPIService) ListImportParentManifestsExecute(r ApiListImportParentManifestsRequest) ([]string, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
@@ -2722,13 +2372,13 @@ func (a *ImportsApiService) ListImportParentManifestsExecute(r ApiListImportPare
 		localVarReturnValue  []string
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ImportsApiService.ListImportParentManifests")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ImportsAPIService.ListImportParentManifests")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/imports/images/{operation_id}/parent-manifest"
-	localVarPath = strings.Replace(localVarPath, "{"+"operation_id"+"}", url.PathEscape(parameterToString(r.operationId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"operation_id"+"}", url.PathEscape(parameterValueToString(r.operationId, "operationId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -2761,9 +2411,9 @@ func (a *ImportsApiService) ListImportParentManifestsExecute(r ApiListImportPare
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -2790,7 +2440,7 @@ func (a *ImportsApiService) ListImportParentManifestsExecute(r ApiListImportPare
 
 type ApiListImportSecretSearchesRequest struct {
 	ctx context.Context
-	ApiService ImportsApi
+	ApiService *ImportsAPIService
 	operationId string
 }
 
@@ -2805,7 +2455,7 @@ ListImportSecretSearches List uploaded secret search results
  @param operationId
  @return ApiListImportSecretSearchesRequest
 */
-func (a *ImportsApiService) ListImportSecretSearches(ctx context.Context, operationId string) ApiListImportSecretSearchesRequest {
+func (a *ImportsAPIService) ListImportSecretSearches(ctx context.Context, operationId string) ApiListImportSecretSearchesRequest {
 	return ApiListImportSecretSearchesRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -2815,7 +2465,7 @@ func (a *ImportsApiService) ListImportSecretSearches(ctx context.Context, operat
 
 // Execute executes the request
 //  @return []string
-func (a *ImportsApiService) ListImportSecretSearchesExecute(r ApiListImportSecretSearchesRequest) ([]string, *http.Response, error) {
+func (a *ImportsAPIService) ListImportSecretSearchesExecute(r ApiListImportSecretSearchesRequest) ([]string, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
@@ -2823,13 +2473,13 @@ func (a *ImportsApiService) ListImportSecretSearchesExecute(r ApiListImportSecre
 		localVarReturnValue  []string
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ImportsApiService.ListImportSecretSearches")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ImportsAPIService.ListImportSecretSearches")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/imports/images/{operation_id}/secret-searches"
-	localVarPath = strings.Replace(localVarPath, "{"+"operation_id"+"}", url.PathEscape(parameterToString(r.operationId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"operation_id"+"}", url.PathEscape(parameterValueToString(r.operationId, "operationId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -2862,9 +2512,9 @@ func (a *ImportsApiService) ListImportSecretSearchesExecute(r ApiListImportSecre
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -2891,7 +2541,7 @@ func (a *ImportsApiService) ListImportSecretSearchesExecute(r ApiListImportSecre
 
 type ApiListOperationsRequest struct {
 	ctx context.Context
-	ApiService ImportsApi
+	ApiService *ImportsAPIService
 }
 
 func (r ApiListOperationsRequest) Execute() ([]ImageImportOperation, *http.Response, error) {
@@ -2904,7 +2554,7 @@ ListOperations Lists in-progress imports
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiListOperationsRequest
 */
-func (a *ImportsApiService) ListOperations(ctx context.Context) ApiListOperationsRequest {
+func (a *ImportsAPIService) ListOperations(ctx context.Context) ApiListOperationsRequest {
 	return ApiListOperationsRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -2913,7 +2563,7 @@ func (a *ImportsApiService) ListOperations(ctx context.Context) ApiListOperation
 
 // Execute executes the request
 //  @return []ImageImportOperation
-func (a *ImportsApiService) ListOperationsExecute(r ApiListOperationsRequest) ([]ImageImportOperation, *http.Response, error) {
+func (a *ImportsAPIService) ListOperationsExecute(r ApiListOperationsRequest) ([]ImageImportOperation, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
@@ -2921,7 +2571,7 @@ func (a *ImportsApiService) ListOperationsExecute(r ApiListOperationsRequest) ([
 		localVarReturnValue  []ImageImportOperation
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ImportsApiService.ListOperations")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ImportsAPIService.ListOperations")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -2959,9 +2609,9 @@ func (a *ImportsApiService) ListOperationsExecute(r ApiListOperationsRequest) ([
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -2988,7 +2638,7 @@ func (a *ImportsApiService) ListOperationsExecute(r ApiListOperationsRequest) ([
 
 type ApiListSourcesOperationsRequest struct {
 	ctx context.Context
-	ApiService ImportsApi
+	ApiService *ImportsAPIService
 }
 
 func (r ApiListSourcesOperationsRequest) Execute() ([]SourceImportOperation, *http.Response, error) {
@@ -3001,7 +2651,7 @@ ListSourcesOperations Lists in-progress imports
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiListSourcesOperationsRequest
 */
-func (a *ImportsApiService) ListSourcesOperations(ctx context.Context) ApiListSourcesOperationsRequest {
+func (a *ImportsAPIService) ListSourcesOperations(ctx context.Context) ApiListSourcesOperationsRequest {
 	return ApiListSourcesOperationsRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -3010,7 +2660,7 @@ func (a *ImportsApiService) ListSourcesOperations(ctx context.Context) ApiListSo
 
 // Execute executes the request
 //  @return []SourceImportOperation
-func (a *ImportsApiService) ListSourcesOperationsExecute(r ApiListSourcesOperationsRequest) ([]SourceImportOperation, *http.Response, error) {
+func (a *ImportsAPIService) ListSourcesOperationsExecute(r ApiListSourcesOperationsRequest) ([]SourceImportOperation, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
@@ -3018,7 +2668,7 @@ func (a *ImportsApiService) ListSourcesOperationsExecute(r ApiListSourcesOperati
 		localVarReturnValue  []SourceImportOperation
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ImportsApiService.ListSourcesOperations")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ImportsAPIService.ListSourcesOperations")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -3056,9 +2706,9 @@ func (a *ImportsApiService) ListSourcesOperationsExecute(r ApiListSourcesOperati
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -3085,12 +2735,12 @@ func (a *ImportsApiService) ListSourcesOperationsExecute(r ApiListSourcesOperati
 
 type ApiUploadImportSourcesSbomRequest struct {
 	ctx context.Context
-	ApiService ImportsApi
+	ApiService *ImportsAPIService
 	operationId string
-	sbom *map[string]interface{}
+	sbom *NativeSBOM
 }
 
-func (r ApiUploadImportSourcesSbomRequest) Sbom(sbom map[string]interface{}) ApiUploadImportSourcesSbomRequest {
+func (r ApiUploadImportSourcesSbomRequest) Sbom(sbom NativeSBOM) ApiUploadImportSourcesSbomRequest {
 	r.sbom = &sbom
 	return r
 }
@@ -3106,7 +2756,7 @@ UploadImportSourcesSbom Begin the import of a source code repository analyzed by
  @param operationId
  @return ApiUploadImportSourcesSbomRequest
 */
-func (a *ImportsApiService) UploadImportSourcesSbom(ctx context.Context, operationId string) ApiUploadImportSourcesSbomRequest {
+func (a *ImportsAPIService) UploadImportSourcesSbom(ctx context.Context, operationId string) ApiUploadImportSourcesSbomRequest {
 	return ApiUploadImportSourcesSbomRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -3116,7 +2766,7 @@ func (a *ImportsApiService) UploadImportSourcesSbom(ctx context.Context, operati
 
 // Execute executes the request
 //  @return SourceImportContentResponse
-func (a *ImportsApiService) UploadImportSourcesSbomExecute(r ApiUploadImportSourcesSbomRequest) (*SourceImportContentResponse, *http.Response, error) {
+func (a *ImportsAPIService) UploadImportSourcesSbomExecute(r ApiUploadImportSourcesSbomRequest) (*SourceImportContentResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
@@ -3124,13 +2774,13 @@ func (a *ImportsApiService) UploadImportSourcesSbomExecute(r ApiUploadImportSour
 		localVarReturnValue  *SourceImportContentResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ImportsApiService.UploadImportSourcesSbom")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ImportsAPIService.UploadImportSourcesSbom")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/imports/sources/{operation_id}/sbom"
-	localVarPath = strings.Replace(localVarPath, "{"+"operation_id"+"}", url.PathEscape(parameterToString(r.operationId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"operation_id"+"}", url.PathEscape(parameterValueToString(r.operationId, "operationId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -3168,9 +2818,9 @@ func (a *ImportsApiService) UploadImportSourcesSbomExecute(r ApiUploadImportSour
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}

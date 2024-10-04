@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the AnchoreImageSummaryCounts type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &AnchoreImageSummaryCounts{}
+
 // AnchoreImageSummaryCounts Analysis stats for a repo
 type AnchoreImageSummaryCounts struct {
 	Tags *int32 `json:"tags,omitempty"`
@@ -44,7 +47,7 @@ func NewAnchoreImageSummaryCountsWithDefaults() *AnchoreImageSummaryCounts {
 
 // GetTags returns the Tags field value if set, zero value otherwise.
 func (o *AnchoreImageSummaryCounts) GetTags() int32 {
-	if o == nil || o.Tags == nil {
+	if o == nil || IsNil(o.Tags) {
 		var ret int32
 		return ret
 	}
@@ -54,7 +57,7 @@ func (o *AnchoreImageSummaryCounts) GetTags() int32 {
 // GetTagsOk returns a tuple with the Tags field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AnchoreImageSummaryCounts) GetTagsOk() (*int32, bool) {
-	if o == nil || o.Tags == nil {
+	if o == nil || IsNil(o.Tags) {
 		return nil, false
 	}
 	return o.Tags, true
@@ -62,7 +65,7 @@ func (o *AnchoreImageSummaryCounts) GetTagsOk() (*int32, bool) {
 
 // HasTags returns a boolean if a field has been set.
 func (o *AnchoreImageSummaryCounts) HasTags() bool {
-	if o != nil && o.Tags != nil {
+	if o != nil && !IsNil(o.Tags) {
 		return true
 	}
 
@@ -76,7 +79,7 @@ func (o *AnchoreImageSummaryCounts) SetTags(v int32) {
 
 // GetImages returns the Images field value if set, zero value otherwise.
 func (o *AnchoreImageSummaryCounts) GetImages() int32 {
-	if o == nil || o.Images == nil {
+	if o == nil || IsNil(o.Images) {
 		var ret int32
 		return ret
 	}
@@ -86,7 +89,7 @@ func (o *AnchoreImageSummaryCounts) GetImages() int32 {
 // GetImagesOk returns a tuple with the Images field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AnchoreImageSummaryCounts) GetImagesOk() (*int32, bool) {
-	if o == nil || o.Images == nil {
+	if o == nil || IsNil(o.Images) {
 		return nil, false
 	}
 	return o.Images, true
@@ -94,7 +97,7 @@ func (o *AnchoreImageSummaryCounts) GetImagesOk() (*int32, bool) {
 
 // HasImages returns a boolean if a field has been set.
 func (o *AnchoreImageSummaryCounts) HasImages() bool {
-	if o != nil && o.Images != nil {
+	if o != nil && !IsNil(o.Images) {
 		return true
 	}
 
@@ -108,7 +111,7 @@ func (o *AnchoreImageSummaryCounts) SetImages(v int32) {
 
 // GetAnalyzed returns the Analyzed field value if set, zero value otherwise.
 func (o *AnchoreImageSummaryCounts) GetAnalyzed() int32 {
-	if o == nil || o.Analyzed == nil {
+	if o == nil || IsNil(o.Analyzed) {
 		var ret int32
 		return ret
 	}
@@ -118,7 +121,7 @@ func (o *AnchoreImageSummaryCounts) GetAnalyzed() int32 {
 // GetAnalyzedOk returns a tuple with the Analyzed field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AnchoreImageSummaryCounts) GetAnalyzedOk() (*int32, bool) {
-	if o == nil || o.Analyzed == nil {
+	if o == nil || IsNil(o.Analyzed) {
 		return nil, false
 	}
 	return o.Analyzed, true
@@ -126,7 +129,7 @@ func (o *AnchoreImageSummaryCounts) GetAnalyzedOk() (*int32, bool) {
 
 // HasAnalyzed returns a boolean if a field has been set.
 func (o *AnchoreImageSummaryCounts) HasAnalyzed() bool {
-	if o != nil && o.Analyzed != nil {
+	if o != nil && !IsNil(o.Analyzed) {
 		return true
 	}
 
@@ -140,7 +143,7 @@ func (o *AnchoreImageSummaryCounts) SetAnalyzed(v int32) {
 
 // GetAnalyzing returns the Analyzing field value if set, zero value otherwise.
 func (o *AnchoreImageSummaryCounts) GetAnalyzing() int32 {
-	if o == nil || o.Analyzing == nil {
+	if o == nil || IsNil(o.Analyzing) {
 		var ret int32
 		return ret
 	}
@@ -150,7 +153,7 @@ func (o *AnchoreImageSummaryCounts) GetAnalyzing() int32 {
 // GetAnalyzingOk returns a tuple with the Analyzing field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AnchoreImageSummaryCounts) GetAnalyzingOk() (*int32, bool) {
-	if o == nil || o.Analyzing == nil {
+	if o == nil || IsNil(o.Analyzing) {
 		return nil, false
 	}
 	return o.Analyzing, true
@@ -158,7 +161,7 @@ func (o *AnchoreImageSummaryCounts) GetAnalyzingOk() (*int32, bool) {
 
 // HasAnalyzing returns a boolean if a field has been set.
 func (o *AnchoreImageSummaryCounts) HasAnalyzing() bool {
-	if o != nil && o.Analyzing != nil {
+	if o != nil && !IsNil(o.Analyzing) {
 		return true
 	}
 
@@ -172,7 +175,7 @@ func (o *AnchoreImageSummaryCounts) SetAnalyzing(v int32) {
 
 // GetPending returns the Pending field value if set, zero value otherwise.
 func (o *AnchoreImageSummaryCounts) GetPending() int32 {
-	if o == nil || o.Pending == nil {
+	if o == nil || IsNil(o.Pending) {
 		var ret int32
 		return ret
 	}
@@ -182,7 +185,7 @@ func (o *AnchoreImageSummaryCounts) GetPending() int32 {
 // GetPendingOk returns a tuple with the Pending field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AnchoreImageSummaryCounts) GetPendingOk() (*int32, bool) {
-	if o == nil || o.Pending == nil {
+	if o == nil || IsNil(o.Pending) {
 		return nil, false
 	}
 	return o.Pending, true
@@ -190,7 +193,7 @@ func (o *AnchoreImageSummaryCounts) GetPendingOk() (*int32, bool) {
 
 // HasPending returns a boolean if a field has been set.
 func (o *AnchoreImageSummaryCounts) HasPending() bool {
-	if o != nil && o.Pending != nil {
+	if o != nil && !IsNil(o.Pending) {
 		return true
 	}
 
@@ -204,7 +207,7 @@ func (o *AnchoreImageSummaryCounts) SetPending(v int32) {
 
 // GetFailed returns the Failed field value if set, zero value otherwise.
 func (o *AnchoreImageSummaryCounts) GetFailed() int32 {
-	if o == nil || o.Failed == nil {
+	if o == nil || IsNil(o.Failed) {
 		var ret int32
 		return ret
 	}
@@ -214,7 +217,7 @@ func (o *AnchoreImageSummaryCounts) GetFailed() int32 {
 // GetFailedOk returns a tuple with the Failed field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AnchoreImageSummaryCounts) GetFailedOk() (*int32, bool) {
-	if o == nil || o.Failed == nil {
+	if o == nil || IsNil(o.Failed) {
 		return nil, false
 	}
 	return o.Failed, true
@@ -222,7 +225,7 @@ func (o *AnchoreImageSummaryCounts) GetFailedOk() (*int32, bool) {
 
 // HasFailed returns a boolean if a field has been set.
 func (o *AnchoreImageSummaryCounts) HasFailed() bool {
-	if o != nil && o.Failed != nil {
+	if o != nil && !IsNil(o.Failed) {
 		return true
 	}
 
@@ -235,26 +238,34 @@ func (o *AnchoreImageSummaryCounts) SetFailed(v int32) {
 }
 
 func (o AnchoreImageSummaryCounts) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Tags != nil {
-		toSerialize["tags"] = o.Tags
-	}
-	if o.Images != nil {
-		toSerialize["images"] = o.Images
-	}
-	if o.Analyzed != nil {
-		toSerialize["analyzed"] = o.Analyzed
-	}
-	if o.Analyzing != nil {
-		toSerialize["analyzing"] = o.Analyzing
-	}
-	if o.Pending != nil {
-		toSerialize["pending"] = o.Pending
-	}
-	if o.Failed != nil {
-		toSerialize["failed"] = o.Failed
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o AnchoreImageSummaryCounts) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Tags) {
+		toSerialize["tags"] = o.Tags
+	}
+	if !IsNil(o.Images) {
+		toSerialize["images"] = o.Images
+	}
+	if !IsNil(o.Analyzed) {
+		toSerialize["analyzed"] = o.Analyzed
+	}
+	if !IsNil(o.Analyzing) {
+		toSerialize["analyzing"] = o.Analyzing
+	}
+	if !IsNil(o.Pending) {
+		toSerialize["pending"] = o.Pending
+	}
+	if !IsNil(o.Failed) {
+		toSerialize["failed"] = o.Failed
+	}
+	return toSerialize, nil
 }
 
 type NullableAnchoreImageSummaryCounts struct {

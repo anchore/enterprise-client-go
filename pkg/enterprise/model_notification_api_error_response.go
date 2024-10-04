@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the NotificationApiErrorResponse type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &NotificationApiErrorResponse{}
+
 // NotificationApiErrorResponse Generic HTTP API error response
 type NotificationApiErrorResponse struct {
 	Code *int32 `json:"code,omitempty"`
@@ -43,7 +46,7 @@ func NewNotificationApiErrorResponseWithDefaults() *NotificationApiErrorResponse
 
 // GetCode returns the Code field value if set, zero value otherwise.
 func (o *NotificationApiErrorResponse) GetCode() int32 {
-	if o == nil || o.Code == nil {
+	if o == nil || IsNil(o.Code) {
 		var ret int32
 		return ret
 	}
@@ -53,7 +56,7 @@ func (o *NotificationApiErrorResponse) GetCode() int32 {
 // GetCodeOk returns a tuple with the Code field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *NotificationApiErrorResponse) GetCodeOk() (*int32, bool) {
-	if o == nil || o.Code == nil {
+	if o == nil || IsNil(o.Code) {
 		return nil, false
 	}
 	return o.Code, true
@@ -61,7 +64,7 @@ func (o *NotificationApiErrorResponse) GetCodeOk() (*int32, bool) {
 
 // HasCode returns a boolean if a field has been set.
 func (o *NotificationApiErrorResponse) HasCode() bool {
-	if o != nil && o.Code != nil {
+	if o != nil && !IsNil(o.Code) {
 		return true
 	}
 
@@ -75,7 +78,7 @@ func (o *NotificationApiErrorResponse) SetCode(v int32) {
 
 // GetErrorType returns the ErrorType field value if set, zero value otherwise.
 func (o *NotificationApiErrorResponse) GetErrorType() string {
-	if o == nil || o.ErrorType == nil {
+	if o == nil || IsNil(o.ErrorType) {
 		var ret string
 		return ret
 	}
@@ -85,7 +88,7 @@ func (o *NotificationApiErrorResponse) GetErrorType() string {
 // GetErrorTypeOk returns a tuple with the ErrorType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *NotificationApiErrorResponse) GetErrorTypeOk() (*string, bool) {
-	if o == nil || o.ErrorType == nil {
+	if o == nil || IsNil(o.ErrorType) {
 		return nil, false
 	}
 	return o.ErrorType, true
@@ -93,7 +96,7 @@ func (o *NotificationApiErrorResponse) GetErrorTypeOk() (*string, bool) {
 
 // HasErrorType returns a boolean if a field has been set.
 func (o *NotificationApiErrorResponse) HasErrorType() bool {
-	if o != nil && o.ErrorType != nil {
+	if o != nil && !IsNil(o.ErrorType) {
 		return true
 	}
 
@@ -107,7 +110,7 @@ func (o *NotificationApiErrorResponse) SetErrorType(v string) {
 
 // GetMessage returns the Message field value if set, zero value otherwise.
 func (o *NotificationApiErrorResponse) GetMessage() string {
-	if o == nil || o.Message == nil {
+	if o == nil || IsNil(o.Message) {
 		var ret string
 		return ret
 	}
@@ -117,7 +120,7 @@ func (o *NotificationApiErrorResponse) GetMessage() string {
 // GetMessageOk returns a tuple with the Message field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *NotificationApiErrorResponse) GetMessageOk() (*string, bool) {
-	if o == nil || o.Message == nil {
+	if o == nil || IsNil(o.Message) {
 		return nil, false
 	}
 	return o.Message, true
@@ -125,7 +128,7 @@ func (o *NotificationApiErrorResponse) GetMessageOk() (*string, bool) {
 
 // HasMessage returns a boolean if a field has been set.
 func (o *NotificationApiErrorResponse) HasMessage() bool {
-	if o != nil && o.Message != nil {
+	if o != nil && !IsNil(o.Message) {
 		return true
 	}
 
@@ -139,7 +142,7 @@ func (o *NotificationApiErrorResponse) SetMessage(v string) {
 
 // GetDetail returns the Detail field value if set, zero value otherwise.
 func (o *NotificationApiErrorResponse) GetDetail() interface{} {
-	if o == nil || o.Detail == nil {
+	if o == nil || IsNil(o.Detail) {
 		var ret interface{}
 		return ret
 	}
@@ -149,7 +152,7 @@ func (o *NotificationApiErrorResponse) GetDetail() interface{} {
 // GetDetailOk returns a tuple with the Detail field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *NotificationApiErrorResponse) GetDetailOk() (interface{}, bool) {
-	if o == nil || o.Detail == nil {
+	if o == nil || IsNil(o.Detail) {
 		return nil, false
 	}
 	return o.Detail, true
@@ -157,7 +160,7 @@ func (o *NotificationApiErrorResponse) GetDetailOk() (interface{}, bool) {
 
 // HasDetail returns a boolean if a field has been set.
 func (o *NotificationApiErrorResponse) HasDetail() bool {
-	if o != nil && o.Detail != nil {
+	if o != nil && !IsNil(o.Detail) {
 		return true
 	}
 
@@ -170,20 +173,28 @@ func (o *NotificationApiErrorResponse) SetDetail(v interface{}) {
 }
 
 func (o NotificationApiErrorResponse) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Code != nil {
-		toSerialize["code"] = o.Code
-	}
-	if o.ErrorType != nil {
-		toSerialize["error_type"] = o.ErrorType
-	}
-	if o.Message != nil {
-		toSerialize["message"] = o.Message
-	}
-	if o.Detail != nil {
-		toSerialize["detail"] = o.Detail
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o NotificationApiErrorResponse) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Code) {
+		toSerialize["code"] = o.Code
+	}
+	if !IsNil(o.ErrorType) {
+		toSerialize["error_type"] = o.ErrorType
+	}
+	if !IsNil(o.Message) {
+		toSerialize["message"] = o.Message
+	}
+	if !IsNil(o.Detail) {
+		toSerialize["detail"] = o.Detail
+	}
+	return toSerialize, nil
 }
 
 type NullableNotificationApiErrorResponse struct {

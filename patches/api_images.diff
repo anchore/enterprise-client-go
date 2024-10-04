@@ -1,0 +1,29 @@
+diff --git a/pkg/enterprise/api_images.go b/pkg/enterprise/api_images.go
+index ac62b8a..b73d3f4 100644
+--- a/pkg/enterprise/api_images.go
++++ b/pkg/enterprise/api_images.go
+@@ -3090,7 +3090,7 @@ func (a *ImagesAPIService) SummaryImageCountsExecute(r ApiSummaryImageCountsRequ
+ 	if r.imageStatus != nil {
+ 		parameterAddToHeaderOrQuery(localVarQueryParams, "image_status", r.imageStatus, "form", "csv")
+ 	} else {
+-		var defaultValue []string = ["active"]
++		var defaultValue = []string{"active"}
+ 		r.imageStatus = &defaultValue
+ 	}
+ 	if r.registry != nil {
+@@ -3305,13 +3305,13 @@ func (a *ImagesAPIService) SummaryImageTagsExecute(r ApiSummaryImageTagsRequest)
+ 	if r.imageStatus != nil {
+ 		parameterAddToHeaderOrQuery(localVarQueryParams, "image_status", r.imageStatus, "form", "csv")
+ 	} else {
+-		var defaultValue []string = ["active"]
++		var defaultValue = []string{"active"}
+ 		r.imageStatus = &defaultValue
+ 	}
+ 	if r.analysisStatus != nil {
+ 		parameterAddToHeaderOrQuery(localVarQueryParams, "analysis_status", r.analysisStatus, "form", "csv")
+ 	} else {
+-		var defaultValue []string = ["all"]
++		var defaultValue = []string{"all"}
+ 		r.analysisStatus = &defaultValue
+ 	}
+ 	if r.analyzedSince != nil {

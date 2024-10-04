@@ -14,94 +14,19 @@ package enterprise
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
 	"strings"
 )
 
 
-type RegistriesApi interface {
-
-	/*
-	CreateRegistry Add a new registry
-
-	Adds a new registry to the system
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiCreateRegistryRequest
-	*/
-	CreateRegistry(ctx context.Context) ApiCreateRegistryRequest
-
-	// CreateRegistryExecute executes the request
-	//  @return []RegistryConfiguration
-	CreateRegistryExecute(r ApiCreateRegistryRequest) ([]RegistryConfiguration, *http.Response, error)
-
-	/*
-	DeleteRegistry Delete a registry configuration
-
-	Delete a registry configuration record from the system. Does not remove any images.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param registry
-	@return ApiDeleteRegistryRequest
-	*/
-	DeleteRegistry(ctx context.Context, registry string) ApiDeleteRegistryRequest
-
-	// DeleteRegistryExecute executes the request
-	DeleteRegistryExecute(r ApiDeleteRegistryRequest) (*http.Response, error)
-
-	/*
-	GetRegistry Get a specific registry configuration
-
-	Get information on a specific registry
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param registry
-	@return ApiGetRegistryRequest
-	*/
-	GetRegistry(ctx context.Context, registry string) ApiGetRegistryRequest
-
-	// GetRegistryExecute executes the request
-	//  @return []RegistryConfiguration
-	GetRegistryExecute(r ApiGetRegistryRequest) ([]RegistryConfiguration, *http.Response, error)
-
-	/*
-	ListRegistries List configured registries
-
-	List all configured registries the system can/will watch
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiListRegistriesRequest
-	*/
-	ListRegistries(ctx context.Context) ApiListRegistriesRequest
-
-	// ListRegistriesExecute executes the request
-	//  @return []RegistryConfiguration
-	ListRegistriesExecute(r ApiListRegistriesRequest) ([]RegistryConfiguration, *http.Response, error)
-
-	/*
-	UpdateRegistry Update/replace a registry configuration
-
-	Replaces an existing registry record with the given record
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param registry
-	@return ApiUpdateRegistryRequest
-	*/
-	UpdateRegistry(ctx context.Context, registry string) ApiUpdateRegistryRequest
-
-	// UpdateRegistryExecute executes the request
-	//  @return []RegistryConfiguration
-	UpdateRegistryExecute(r ApiUpdateRegistryRequest) ([]RegistryConfiguration, *http.Response, error)
-}
-
-// RegistriesApiService RegistriesApi service
-type RegistriesApiService service
+// RegistriesAPIService RegistriesAPI service
+type RegistriesAPIService service
 
 type ApiCreateRegistryRequest struct {
 	ctx context.Context
-	ApiService RegistriesApi
+	ApiService *RegistriesAPIService
 	registryData *RegistryConfigurationRequest
 	validate *bool
 	xAnchoreAccount *string
@@ -136,7 +61,7 @@ Adds a new registry to the system
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiCreateRegistryRequest
 */
-func (a *RegistriesApiService) CreateRegistry(ctx context.Context) ApiCreateRegistryRequest {
+func (a *RegistriesAPIService) CreateRegistry(ctx context.Context) ApiCreateRegistryRequest {
 	return ApiCreateRegistryRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -145,7 +70,7 @@ func (a *RegistriesApiService) CreateRegistry(ctx context.Context) ApiCreateRegi
 
 // Execute executes the request
 //  @return []RegistryConfiguration
-func (a *RegistriesApiService) CreateRegistryExecute(r ApiCreateRegistryRequest) ([]RegistryConfiguration, *http.Response, error) {
+func (a *RegistriesAPIService) CreateRegistryExecute(r ApiCreateRegistryRequest) ([]RegistryConfiguration, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
@@ -153,7 +78,7 @@ func (a *RegistriesApiService) CreateRegistryExecute(r ApiCreateRegistryRequest)
 		localVarReturnValue  []RegistryConfiguration
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RegistriesApiService.CreateRegistry")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RegistriesAPIService.CreateRegistry")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -168,7 +93,7 @@ func (a *RegistriesApiService) CreateRegistryExecute(r ApiCreateRegistryRequest)
 	}
 
 	if r.validate != nil {
-		localVarQueryParams.Add("validate", parameterToString(*r.validate, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "validate", r.validate, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
@@ -188,7 +113,7 @@ func (a *RegistriesApiService) CreateRegistryExecute(r ApiCreateRegistryRequest)
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.xAnchoreAccount != nil {
-		localVarHeaderParams["x-anchore-account"] = parameterToString(*r.xAnchoreAccount, "")
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "x-anchore-account", r.xAnchoreAccount, "simple", "")
 	}
 	// body params
 	localVarPostBody = r.registryData
@@ -202,9 +127,9 @@ func (a *RegistriesApiService) CreateRegistryExecute(r ApiCreateRegistryRequest)
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -221,7 +146,8 @@ func (a *RegistriesApiService) CreateRegistryExecute(r ApiCreateRegistryRequest)
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -240,7 +166,7 @@ func (a *RegistriesApiService) CreateRegistryExecute(r ApiCreateRegistryRequest)
 
 type ApiDeleteRegistryRequest struct {
 	ctx context.Context
-	ApiService RegistriesApi
+	ApiService *RegistriesAPIService
 	registry string
 	xAnchoreAccount *string
 }
@@ -264,7 +190,7 @@ Delete a registry configuration record from the system. Does not remove any imag
  @param registry
  @return ApiDeleteRegistryRequest
 */
-func (a *RegistriesApiService) DeleteRegistry(ctx context.Context, registry string) ApiDeleteRegistryRequest {
+func (a *RegistriesAPIService) DeleteRegistry(ctx context.Context, registry string) ApiDeleteRegistryRequest {
 	return ApiDeleteRegistryRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -273,20 +199,20 @@ func (a *RegistriesApiService) DeleteRegistry(ctx context.Context, registry stri
 }
 
 // Execute executes the request
-func (a *RegistriesApiService) DeleteRegistryExecute(r ApiDeleteRegistryRequest) (*http.Response, error) {
+func (a *RegistriesAPIService) DeleteRegistryExecute(r ApiDeleteRegistryRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodDelete
 		localVarPostBody     interface{}
 		formFiles            []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RegistriesApiService.DeleteRegistry")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RegistriesAPIService.DeleteRegistry")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/registries/{registry}"
-	localVarPath = strings.Replace(localVarPath, "{"+"registry"+"}", url.PathEscape(parameterToString(r.registry, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"registry"+"}", url.PathEscape(parameterValueToString(r.registry, "registry")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -310,7 +236,7 @@ func (a *RegistriesApiService) DeleteRegistryExecute(r ApiDeleteRegistryRequest)
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.xAnchoreAccount != nil {
-		localVarHeaderParams["x-anchore-account"] = parameterToString(*r.xAnchoreAccount, "")
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "x-anchore-account", r.xAnchoreAccount, "simple", "")
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
@@ -322,9 +248,9 @@ func (a *RegistriesApiService) DeleteRegistryExecute(r ApiDeleteRegistryRequest)
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -341,7 +267,8 @@ func (a *RegistriesApiService) DeleteRegistryExecute(r ApiDeleteRegistryRequest)
 				newErr.error = err.Error()
 				return localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarHTTPResponse, newErr
 	}
@@ -351,7 +278,7 @@ func (a *RegistriesApiService) DeleteRegistryExecute(r ApiDeleteRegistryRequest)
 
 type ApiGetRegistryRequest struct {
 	ctx context.Context
-	ApiService RegistriesApi
+	ApiService *RegistriesAPIService
 	registry string
 	xAnchoreAccount *string
 }
@@ -375,7 +302,7 @@ Get information on a specific registry
  @param registry
  @return ApiGetRegistryRequest
 */
-func (a *RegistriesApiService) GetRegistry(ctx context.Context, registry string) ApiGetRegistryRequest {
+func (a *RegistriesAPIService) GetRegistry(ctx context.Context, registry string) ApiGetRegistryRequest {
 	return ApiGetRegistryRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -385,7 +312,7 @@ func (a *RegistriesApiService) GetRegistry(ctx context.Context, registry string)
 
 // Execute executes the request
 //  @return []RegistryConfiguration
-func (a *RegistriesApiService) GetRegistryExecute(r ApiGetRegistryRequest) ([]RegistryConfiguration, *http.Response, error) {
+func (a *RegistriesAPIService) GetRegistryExecute(r ApiGetRegistryRequest) ([]RegistryConfiguration, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
@@ -393,13 +320,13 @@ func (a *RegistriesApiService) GetRegistryExecute(r ApiGetRegistryRequest) ([]Re
 		localVarReturnValue  []RegistryConfiguration
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RegistriesApiService.GetRegistry")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RegistriesAPIService.GetRegistry")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/registries/{registry}"
-	localVarPath = strings.Replace(localVarPath, "{"+"registry"+"}", url.PathEscape(parameterToString(r.registry, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"registry"+"}", url.PathEscape(parameterValueToString(r.registry, "registry")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -423,7 +350,7 @@ func (a *RegistriesApiService) GetRegistryExecute(r ApiGetRegistryRequest) ([]Re
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.xAnchoreAccount != nil {
-		localVarHeaderParams["x-anchore-account"] = parameterToString(*r.xAnchoreAccount, "")
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "x-anchore-account", r.xAnchoreAccount, "simple", "")
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
@@ -435,9 +362,9 @@ func (a *RegistriesApiService) GetRegistryExecute(r ApiGetRegistryRequest) ([]Re
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -464,7 +391,7 @@ func (a *RegistriesApiService) GetRegistryExecute(r ApiGetRegistryRequest) ([]Re
 
 type ApiListRegistriesRequest struct {
 	ctx context.Context
-	ApiService RegistriesApi
+	ApiService *RegistriesAPIService
 	xAnchoreAccount *string
 }
 
@@ -486,7 +413,7 @@ List all configured registries the system can/will watch
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiListRegistriesRequest
 */
-func (a *RegistriesApiService) ListRegistries(ctx context.Context) ApiListRegistriesRequest {
+func (a *RegistriesAPIService) ListRegistries(ctx context.Context) ApiListRegistriesRequest {
 	return ApiListRegistriesRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -495,7 +422,7 @@ func (a *RegistriesApiService) ListRegistries(ctx context.Context) ApiListRegist
 
 // Execute executes the request
 //  @return []RegistryConfiguration
-func (a *RegistriesApiService) ListRegistriesExecute(r ApiListRegistriesRequest) ([]RegistryConfiguration, *http.Response, error) {
+func (a *RegistriesAPIService) ListRegistriesExecute(r ApiListRegistriesRequest) ([]RegistryConfiguration, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
@@ -503,7 +430,7 @@ func (a *RegistriesApiService) ListRegistriesExecute(r ApiListRegistriesRequest)
 		localVarReturnValue  []RegistryConfiguration
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RegistriesApiService.ListRegistries")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RegistriesAPIService.ListRegistries")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -532,7 +459,7 @@ func (a *RegistriesApiService) ListRegistriesExecute(r ApiListRegistriesRequest)
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.xAnchoreAccount != nil {
-		localVarHeaderParams["x-anchore-account"] = parameterToString(*r.xAnchoreAccount, "")
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "x-anchore-account", r.xAnchoreAccount, "simple", "")
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
@@ -544,9 +471,9 @@ func (a *RegistriesApiService) ListRegistriesExecute(r ApiListRegistriesRequest)
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -573,7 +500,7 @@ func (a *RegistriesApiService) ListRegistriesExecute(r ApiListRegistriesRequest)
 
 type ApiUpdateRegistryRequest struct {
 	ctx context.Context
-	ApiService RegistriesApi
+	ApiService *RegistriesAPIService
 	registry string
 	registryData *RegistryConfigurationRequest
 	validate *bool
@@ -610,7 +537,7 @@ Replaces an existing registry record with the given record
  @param registry
  @return ApiUpdateRegistryRequest
 */
-func (a *RegistriesApiService) UpdateRegistry(ctx context.Context, registry string) ApiUpdateRegistryRequest {
+func (a *RegistriesAPIService) UpdateRegistry(ctx context.Context, registry string) ApiUpdateRegistryRequest {
 	return ApiUpdateRegistryRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -620,7 +547,7 @@ func (a *RegistriesApiService) UpdateRegistry(ctx context.Context, registry stri
 
 // Execute executes the request
 //  @return []RegistryConfiguration
-func (a *RegistriesApiService) UpdateRegistryExecute(r ApiUpdateRegistryRequest) ([]RegistryConfiguration, *http.Response, error) {
+func (a *RegistriesAPIService) UpdateRegistryExecute(r ApiUpdateRegistryRequest) ([]RegistryConfiguration, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPut
 		localVarPostBody     interface{}
@@ -628,13 +555,13 @@ func (a *RegistriesApiService) UpdateRegistryExecute(r ApiUpdateRegistryRequest)
 		localVarReturnValue  []RegistryConfiguration
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RegistriesApiService.UpdateRegistry")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RegistriesAPIService.UpdateRegistry")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/registries/{registry}"
-	localVarPath = strings.Replace(localVarPath, "{"+"registry"+"}", url.PathEscape(parameterToString(r.registry, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"registry"+"}", url.PathEscape(parameterValueToString(r.registry, "registry")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -644,7 +571,7 @@ func (a *RegistriesApiService) UpdateRegistryExecute(r ApiUpdateRegistryRequest)
 	}
 
 	if r.validate != nil {
-		localVarQueryParams.Add("validate", parameterToString(*r.validate, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "validate", r.validate, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
@@ -664,7 +591,7 @@ func (a *RegistriesApiService) UpdateRegistryExecute(r ApiUpdateRegistryRequest)
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.xAnchoreAccount != nil {
-		localVarHeaderParams["x-anchore-account"] = parameterToString(*r.xAnchoreAccount, "")
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "x-anchore-account", r.xAnchoreAccount, "simple", "")
 	}
 	// body params
 	localVarPostBody = r.registryData
@@ -678,9 +605,9 @@ func (a *RegistriesApiService) UpdateRegistryExecute(r ApiUpdateRegistryRequest)
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -697,7 +624,8 @@ func (a *RegistriesApiService) UpdateRegistryExecute(r ApiUpdateRegistryRequest)
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}

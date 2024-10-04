@@ -14,35 +14,18 @@ package enterprise
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
 )
 
 
-type VulnerabilitiesApi interface {
-
-	/*
-	VulnerabilityScanSbom Return a vulnerability scan for the uploaded SBOM without storing the SBOM and without any side-effects in the system.
-
-	Use this operation for checking sboms for vulnerabilities in cases where the sbom does not need to be stored for later re-scans or added to the managed set of SBOMs in Anchore. If you need to upload and save an SBOM use the "/import/*" API set instead.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiVulnerabilityScanSbomRequest
-	*/
-	VulnerabilityScanSbom(ctx context.Context) ApiVulnerabilityScanSbomRequest
-
-	// VulnerabilityScanSbomExecute executes the request
-	//  @return SBOMVulnerabilitiesResponse
-	VulnerabilityScanSbomExecute(r ApiVulnerabilityScanSbomRequest) (*SBOMVulnerabilitiesResponse, *http.Response, error)
-}
-
-// VulnerabilitiesApiService VulnerabilitiesApi service
-type VulnerabilitiesApiService service
+// VulnerabilitiesAPIService VulnerabilitiesAPI service
+type VulnerabilitiesAPIService service
 
 type ApiVulnerabilityScanSbomRequest struct {
 	ctx context.Context
-	ApiService VulnerabilitiesApi
+	ApiService *VulnerabilitiesAPIService
 	sbom *interface{}
 	xAnchoreAccount *string
 	includeVulnDescription *bool
@@ -76,7 +59,7 @@ Use this operation for checking sboms for vulnerabilities in cases where the sbo
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiVulnerabilityScanSbomRequest
 */
-func (a *VulnerabilitiesApiService) VulnerabilityScanSbom(ctx context.Context) ApiVulnerabilityScanSbomRequest {
+func (a *VulnerabilitiesAPIService) VulnerabilityScanSbom(ctx context.Context) ApiVulnerabilityScanSbomRequest {
 	return ApiVulnerabilityScanSbomRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -85,7 +68,7 @@ func (a *VulnerabilitiesApiService) VulnerabilityScanSbom(ctx context.Context) A
 
 // Execute executes the request
 //  @return SBOMVulnerabilitiesResponse
-func (a *VulnerabilitiesApiService) VulnerabilityScanSbomExecute(r ApiVulnerabilityScanSbomRequest) (*SBOMVulnerabilitiesResponse, *http.Response, error) {
+func (a *VulnerabilitiesAPIService) VulnerabilityScanSbomExecute(r ApiVulnerabilityScanSbomRequest) (*SBOMVulnerabilitiesResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
@@ -93,7 +76,7 @@ func (a *VulnerabilitiesApiService) VulnerabilityScanSbomExecute(r ApiVulnerabil
 		localVarReturnValue  *SBOMVulnerabilitiesResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "VulnerabilitiesApiService.VulnerabilityScanSbom")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "VulnerabilitiesAPIService.VulnerabilityScanSbom")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -108,7 +91,10 @@ func (a *VulnerabilitiesApiService) VulnerabilityScanSbomExecute(r ApiVulnerabil
 	}
 
 	if r.includeVulnDescription != nil {
-		localVarQueryParams.Add("include_vuln_description", parameterToString(*r.includeVulnDescription, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "include_vuln_description", r.includeVulnDescription, "form", "")
+	} else {
+		var defaultValue bool = false
+		r.includeVulnDescription = &defaultValue
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
@@ -128,7 +114,7 @@ func (a *VulnerabilitiesApiService) VulnerabilityScanSbomExecute(r ApiVulnerabil
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.xAnchoreAccount != nil {
-		localVarHeaderParams["x-anchore-account"] = parameterToString(*r.xAnchoreAccount, "")
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "x-anchore-account", r.xAnchoreAccount, "simple", "")
 	}
 	// body params
 	localVarPostBody = r.sbom
@@ -142,9 +128,9 @@ func (a *VulnerabilitiesApiService) VulnerabilityScanSbomExecute(r ApiVulnerabil
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -161,7 +147,8 @@ func (a *VulnerabilitiesApiService) VulnerabilityScanSbomExecute(r ApiVulnerabil
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}

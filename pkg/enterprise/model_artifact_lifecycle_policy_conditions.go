@@ -13,7 +13,12 @@ package enterprise
 
 import (
 	"encoding/json"
+	"bytes"
+	"fmt"
 )
+
+// checks if the ArtifactLifecyclePolicyConditions type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ArtifactLifecyclePolicyConditions{}
 
 // ArtifactLifecyclePolicyConditions struct for ArtifactLifecyclePolicyConditions
 type ArtifactLifecyclePolicyConditions struct {
@@ -28,6 +33,8 @@ type ArtifactLifecyclePolicyConditions struct {
 	// The type of artifact that will be processed.
 	ArtifactType string `json:"artifact_type"`
 }
+
+type _ArtifactLifecyclePolicyConditions ArtifactLifecyclePolicyConditions
 
 // NewArtifactLifecyclePolicyConditions instantiates a new ArtifactLifecyclePolicyConditions object
 // This constructor will assign default values to properties that have it defined,
@@ -51,7 +58,7 @@ func NewArtifactLifecyclePolicyConditionsWithDefaults() *ArtifactLifecyclePolicy
 
 // GetVersion returns the Version field value if set, zero value otherwise.
 func (o *ArtifactLifecyclePolicyConditions) GetVersion() int32 {
-	if o == nil || o.Version == nil {
+	if o == nil || IsNil(o.Version) {
 		var ret int32
 		return ret
 	}
@@ -61,7 +68,7 @@ func (o *ArtifactLifecyclePolicyConditions) GetVersion() int32 {
 // GetVersionOk returns a tuple with the Version field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ArtifactLifecyclePolicyConditions) GetVersionOk() (*int32, bool) {
-	if o == nil || o.Version == nil {
+	if o == nil || IsNil(o.Version) {
 		return nil, false
 	}
 	return o.Version, true
@@ -69,7 +76,7 @@ func (o *ArtifactLifecyclePolicyConditions) GetVersionOk() (*int32, bool) {
 
 // HasVersion returns a boolean if a field has been set.
 func (o *ArtifactLifecyclePolicyConditions) HasVersion() bool {
-	if o != nil && o.Version != nil {
+	if o != nil && !IsNil(o.Version) {
 		return true
 	}
 
@@ -131,7 +138,7 @@ func (o *ArtifactLifecyclePolicyConditions) SetDaysSinceAnalyzed(v int32) {
 
 // GetIncludeBaseImages returns the IncludeBaseImages field value if set, zero value otherwise.
 func (o *ArtifactLifecyclePolicyConditions) GetIncludeBaseImages() bool {
-	if o == nil || o.IncludeBaseImages == nil {
+	if o == nil || IsNil(o.IncludeBaseImages) {
 		var ret bool
 		return ret
 	}
@@ -141,7 +148,7 @@ func (o *ArtifactLifecyclePolicyConditions) GetIncludeBaseImages() bool {
 // GetIncludeBaseImagesOk returns a tuple with the IncludeBaseImages field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ArtifactLifecyclePolicyConditions) GetIncludeBaseImagesOk() (*bool, bool) {
-	if o == nil || o.IncludeBaseImages == nil {
+	if o == nil || IsNil(o.IncludeBaseImages) {
 		return nil, false
 	}
 	return o.IncludeBaseImages, true
@@ -149,7 +156,7 @@ func (o *ArtifactLifecyclePolicyConditions) GetIncludeBaseImagesOk() (*bool, boo
 
 // HasIncludeBaseImages returns a boolean if a field has been set.
 func (o *ArtifactLifecyclePolicyConditions) HasIncludeBaseImages() bool {
-	if o != nil && o.IncludeBaseImages != nil {
+	if o != nil && !IsNil(o.IncludeBaseImages) {
 		return true
 	}
 
@@ -186,23 +193,64 @@ func (o *ArtifactLifecyclePolicyConditions) SetArtifactType(v string) {
 }
 
 func (o ArtifactLifecyclePolicyConditions) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Version != nil {
-		toSerialize["version"] = o.Version
-	}
-	if true {
-		toSerialize["even_if_exists_in_runtime_inventory"] = o.EvenIfExistsInRuntimeInventory
-	}
-	if true {
-		toSerialize["days_since_analyzed"] = o.DaysSinceAnalyzed
-	}
-	if o.IncludeBaseImages != nil {
-		toSerialize["include_base_images"] = o.IncludeBaseImages
-	}
-	if true {
-		toSerialize["artifact_type"] = o.ArtifactType
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o ArtifactLifecyclePolicyConditions) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Version) {
+		toSerialize["version"] = o.Version
+	}
+	toSerialize["even_if_exists_in_runtime_inventory"] = o.EvenIfExistsInRuntimeInventory
+	toSerialize["days_since_analyzed"] = o.DaysSinceAnalyzed
+	if !IsNil(o.IncludeBaseImages) {
+		toSerialize["include_base_images"] = o.IncludeBaseImages
+	}
+	toSerialize["artifact_type"] = o.ArtifactType
+	return toSerialize, nil
+}
+
+func (o *ArtifactLifecyclePolicyConditions) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"even_if_exists_in_runtime_inventory",
+		"days_since_analyzed",
+		"artifact_type",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varArtifactLifecyclePolicyConditions := _ArtifactLifecyclePolicyConditions{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varArtifactLifecyclePolicyConditions)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ArtifactLifecyclePolicyConditions(varArtifactLifecyclePolicyConditions)
+
+	return err
 }
 
 type NullableArtifactLifecyclePolicyConditions struct {

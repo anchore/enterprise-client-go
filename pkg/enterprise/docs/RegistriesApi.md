@@ -1,14 +1,14 @@
-# \RegistriesApi
+# \RegistriesAPI
 
 All URIs are relative to */v2*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateRegistry**](RegistriesApi.md#CreateRegistry) | **Post** /registries | Add a new registry
-[**DeleteRegistry**](RegistriesApi.md#DeleteRegistry) | **Delete** /registries/{registry} | Delete a registry configuration
-[**GetRegistry**](RegistriesApi.md#GetRegistry) | **Get** /registries/{registry} | Get a specific registry configuration
-[**ListRegistries**](RegistriesApi.md#ListRegistries) | **Get** /registries | List configured registries
-[**UpdateRegistry**](RegistriesApi.md#UpdateRegistry) | **Put** /registries/{registry} | Update/replace a registry configuration
+[**CreateRegistry**](RegistriesAPI.md#CreateRegistry) | **Post** /registries | Add a new registry
+[**DeleteRegistry**](RegistriesAPI.md#DeleteRegistry) | **Delete** /registries/{registry} | Delete a registry configuration
+[**GetRegistry**](RegistriesAPI.md#GetRegistry) | **Get** /registries/{registry} | Get a specific registry configuration
+[**ListRegistries**](RegistriesAPI.md#ListRegistries) | **Get** /registries | List configured registries
+[**UpdateRegistry**](RegistriesAPI.md#UpdateRegistry) | **Put** /registries/{registry} | Update/replace a registry configuration
 
 
 
@@ -26,26 +26,26 @@ Add a new registry
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
-    registryData := *openapiclient.NewRegistryConfigurationRequest() // RegistryConfigurationRequest | 
-    validate := true // bool | flag to determine whether or not to validate registry/credential at registry add time (optional)
-    xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
+	registryData := *openapiclient.NewRegistryConfigurationRequest() // RegistryConfigurationRequest | 
+	validate := true // bool | flag to determine whether or not to validate registry/credential at registry add time (optional)
+	xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.RegistriesApi.CreateRegistry(context.Background()).RegistryData(registryData).Validate(validate).XAnchoreAccount(xAnchoreAccount).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `RegistriesApi.CreateRegistry``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `CreateRegistry`: []RegistryConfiguration
-    fmt.Fprintf(os.Stdout, "Response from `RegistriesApi.CreateRegistry`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.RegistriesAPI.CreateRegistry(context.Background()).RegistryData(registryData).Validate(validate).XAnchoreAccount(xAnchoreAccount).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `RegistriesAPI.CreateRegistry``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `CreateRegistry`: []RegistryConfiguration
+	fmt.Fprintf(os.Stdout, "Response from `RegistriesAPI.CreateRegistry`: %v\n", resp)
 }
 ```
 
@@ -96,23 +96,23 @@ Delete a registry configuration
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
-    registry := "registry_example" // string | 
-    xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
+	registry := "registry_example" // string | 
+	xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.RegistriesApi.DeleteRegistry(context.Background(), registry).XAnchoreAccount(xAnchoreAccount).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `RegistriesApi.DeleteRegistry``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.RegistriesAPI.DeleteRegistry(context.Background(), registry).XAnchoreAccount(xAnchoreAccount).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `RegistriesAPI.DeleteRegistry``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
 }
 ```
 
@@ -166,25 +166,25 @@ Get a specific registry configuration
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
-    registry := "registry_example" // string | 
-    xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
+	registry := "registry_example" // string | 
+	xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.RegistriesApi.GetRegistry(context.Background(), registry).XAnchoreAccount(xAnchoreAccount).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `RegistriesApi.GetRegistry``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `GetRegistry`: []RegistryConfiguration
-    fmt.Fprintf(os.Stdout, "Response from `RegistriesApi.GetRegistry`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.RegistriesAPI.GetRegistry(context.Background(), registry).XAnchoreAccount(xAnchoreAccount).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `RegistriesAPI.GetRegistry``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetRegistry`: []RegistryConfiguration
+	fmt.Fprintf(os.Stdout, "Response from `RegistriesAPI.GetRegistry`: %v\n", resp)
 }
 ```
 
@@ -238,24 +238,24 @@ List configured registries
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
-    xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
+	xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.RegistriesApi.ListRegistries(context.Background()).XAnchoreAccount(xAnchoreAccount).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `RegistriesApi.ListRegistries``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ListRegistries`: []RegistryConfiguration
-    fmt.Fprintf(os.Stdout, "Response from `RegistriesApi.ListRegistries`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.RegistriesAPI.ListRegistries(context.Background()).XAnchoreAccount(xAnchoreAccount).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `RegistriesAPI.ListRegistries``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ListRegistries`: []RegistryConfiguration
+	fmt.Fprintf(os.Stdout, "Response from `RegistriesAPI.ListRegistries`: %v\n", resp)
 }
 ```
 
@@ -304,27 +304,27 @@ Update/replace a registry configuration
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
 )
 
 func main() {
-    registry := "registry_example" // string | 
-    registryData := *openapiclient.NewRegistryConfigurationRequest() // RegistryConfigurationRequest | 
-    validate := true // bool | flag to determine whether or not to validate registry/credential at registry update time (optional)
-    xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
+	registry := "registry_example" // string | 
+	registryData := *openapiclient.NewRegistryConfigurationRequest() // RegistryConfigurationRequest | 
+	validate := true // bool | flag to determine whether or not to validate registry/credential at registry update time (optional)
+	xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.RegistriesApi.UpdateRegistry(context.Background(), registry).RegistryData(registryData).Validate(validate).XAnchoreAccount(xAnchoreAccount).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `RegistriesApi.UpdateRegistry``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `UpdateRegistry`: []RegistryConfiguration
-    fmt.Fprintf(os.Stdout, "Response from `RegistriesApi.UpdateRegistry`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.RegistriesAPI.UpdateRegistry(context.Background(), registry).RegistryData(registryData).Validate(validate).XAnchoreAccount(xAnchoreAccount).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `RegistriesAPI.UpdateRegistry``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `UpdateRegistry`: []RegistryConfiguration
+	fmt.Fprintf(os.Stdout, "Response from `RegistriesAPI.UpdateRegistry`: %v\n", resp)
 }
 ```
 

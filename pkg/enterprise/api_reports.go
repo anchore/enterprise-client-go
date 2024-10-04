@@ -14,50 +14,19 @@ package enterprise
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
 	"strings"
 )
 
 
-type ReportsApi interface {
-
-	/*
-	GetGlobalQueryResult Method for GetGlobalQueryResult
-
-	Get a single saved global query result
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param resultUuid
-	@return ApiGetGlobalQueryResultRequest
-	*/
-	GetGlobalQueryResult(ctx context.Context, resultUuid string) ApiGetGlobalQueryResultRequest
-
-	// GetGlobalQueryResultExecute executes the request
-	GetGlobalQueryResultExecute(r ApiGetGlobalQueryResultRequest) (*http.Response, error)
-
-	/*
-	GetQueryResult Method for GetQueryResult
-
-	Get a single saved query result
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param resultUuid
-	@return ApiGetQueryResultRequest
-	*/
-	GetQueryResult(ctx context.Context, resultUuid string) ApiGetQueryResultRequest
-
-	// GetQueryResultExecute executes the request
-	GetQueryResultExecute(r ApiGetQueryResultRequest) (*http.Response, error)
-}
-
-// ReportsApiService ReportsApi service
-type ReportsApiService service
+// ReportsAPIService ReportsAPI service
+type ReportsAPIService service
 
 type ApiGetGlobalQueryResultRequest struct {
 	ctx context.Context
-	ApiService ReportsApi
+	ApiService *ReportsAPIService
 	resultUuid string
 	page *int32
 }
@@ -81,7 +50,7 @@ Get a single saved global query result
  @param resultUuid
  @return ApiGetGlobalQueryResultRequest
 */
-func (a *ReportsApiService) GetGlobalQueryResult(ctx context.Context, resultUuid string) ApiGetGlobalQueryResultRequest {
+func (a *ReportsAPIService) GetGlobalQueryResult(ctx context.Context, resultUuid string) ApiGetGlobalQueryResultRequest {
 	return ApiGetGlobalQueryResultRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -90,27 +59,27 @@ func (a *ReportsApiService) GetGlobalQueryResult(ctx context.Context, resultUuid
 }
 
 // Execute executes the request
-func (a *ReportsApiService) GetGlobalQueryResultExecute(r ApiGetGlobalQueryResultRequest) (*http.Response, error) {
+func (a *ReportsAPIService) GetGlobalQueryResultExecute(r ApiGetGlobalQueryResultRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ReportsApiService.GetGlobalQueryResult")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ReportsAPIService.GetGlobalQueryResult")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/reporting/reports/global/scheduled-query-results/{result_uuid}"
-	localVarPath = strings.Replace(localVarPath, "{"+"result_uuid"+"}", url.PathEscape(parameterToString(r.resultUuid, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"result_uuid"+"}", url.PathEscape(parameterValueToString(r.resultUuid, "resultUuid")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
 	if r.page != nil {
-		localVarQueryParams.Add("page", parameterToString(*r.page, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "page", r.page, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -139,9 +108,9 @@ func (a *ReportsApiService) GetGlobalQueryResultExecute(r ApiGetGlobalQueryResul
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -159,7 +128,7 @@ func (a *ReportsApiService) GetGlobalQueryResultExecute(r ApiGetGlobalQueryResul
 
 type ApiGetQueryResultRequest struct {
 	ctx context.Context
-	ApiService ReportsApi
+	ApiService *ReportsAPIService
 	resultUuid string
 	page *int32
 }
@@ -183,7 +152,7 @@ Get a single saved query result
  @param resultUuid
  @return ApiGetQueryResultRequest
 */
-func (a *ReportsApiService) GetQueryResult(ctx context.Context, resultUuid string) ApiGetQueryResultRequest {
+func (a *ReportsAPIService) GetQueryResult(ctx context.Context, resultUuid string) ApiGetQueryResultRequest {
 	return ApiGetQueryResultRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -192,27 +161,27 @@ func (a *ReportsApiService) GetQueryResult(ctx context.Context, resultUuid strin
 }
 
 // Execute executes the request
-func (a *ReportsApiService) GetQueryResultExecute(r ApiGetQueryResultRequest) (*http.Response, error) {
+func (a *ReportsAPIService) GetQueryResultExecute(r ApiGetQueryResultRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ReportsApiService.GetQueryResult")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ReportsAPIService.GetQueryResult")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/reporting/scheduled-query-results/{result_uuid}"
-	localVarPath = strings.Replace(localVarPath, "{"+"result_uuid"+"}", url.PathEscape(parameterToString(r.resultUuid, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"result_uuid"+"}", url.PathEscape(parameterValueToString(r.resultUuid, "resultUuid")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
 	if r.page != nil {
-		localVarQueryParams.Add("page", parameterToString(*r.page, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "page", r.page, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -241,9 +210,9 @@ func (a *ReportsApiService) GetQueryResultExecute(r ApiGetQueryResultRequest) (*
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}

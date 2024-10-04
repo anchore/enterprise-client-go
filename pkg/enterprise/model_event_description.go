@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the EventDescription type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &EventDescription{}
+
 // EventDescription A description of an event type
 type EventDescription struct {
 	// The event type. The last component of the fully-qualified event_type (category.subcategory.event)
@@ -46,7 +49,7 @@ func NewEventDescriptionWithDefaults() *EventDescription {
 
 // GetName returns the Name field value if set, zero value otherwise.
 func (o *EventDescription) GetName() string {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		var ret string
 		return ret
 	}
@@ -56,7 +59,7 @@ func (o *EventDescription) GetName() string {
 // GetNameOk returns a tuple with the Name field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *EventDescription) GetNameOk() (*string, bool) {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		return nil, false
 	}
 	return o.Name, true
@@ -64,7 +67,7 @@ func (o *EventDescription) GetNameOk() (*string, bool) {
 
 // HasName returns a boolean if a field has been set.
 func (o *EventDescription) HasName() bool {
-	if o != nil && o.Name != nil {
+	if o != nil && !IsNil(o.Name) {
 		return true
 	}
 
@@ -78,7 +81,7 @@ func (o *EventDescription) SetName(v string) {
 
 // GetType returns the Type field value if set, zero value otherwise.
 func (o *EventDescription) GetType() string {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		var ret string
 		return ret
 	}
@@ -88,7 +91,7 @@ func (o *EventDescription) GetType() string {
 // GetTypeOk returns a tuple with the Type field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *EventDescription) GetTypeOk() (*string, bool) {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		return nil, false
 	}
 	return o.Type, true
@@ -96,7 +99,7 @@ func (o *EventDescription) GetTypeOk() (*string, bool) {
 
 // HasType returns a boolean if a field has been set.
 func (o *EventDescription) HasType() bool {
-	if o != nil && o.Type != nil {
+	if o != nil && !IsNil(o.Type) {
 		return true
 	}
 
@@ -110,7 +113,7 @@ func (o *EventDescription) SetType(v string) {
 
 // GetMessage returns the Message field value if set, zero value otherwise.
 func (o *EventDescription) GetMessage() string {
-	if o == nil || o.Message == nil {
+	if o == nil || IsNil(o.Message) {
 		var ret string
 		return ret
 	}
@@ -120,7 +123,7 @@ func (o *EventDescription) GetMessage() string {
 // GetMessageOk returns a tuple with the Message field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *EventDescription) GetMessageOk() (*string, bool) {
-	if o == nil || o.Message == nil {
+	if o == nil || IsNil(o.Message) {
 		return nil, false
 	}
 	return o.Message, true
@@ -128,7 +131,7 @@ func (o *EventDescription) GetMessageOk() (*string, bool) {
 
 // HasMessage returns a boolean if a field has been set.
 func (o *EventDescription) HasMessage() bool {
-	if o != nil && o.Message != nil {
+	if o != nil && !IsNil(o.Message) {
 		return true
 	}
 
@@ -142,7 +145,7 @@ func (o *EventDescription) SetMessage(v string) {
 
 // GetResourceType returns the ResourceType field value if set, zero value otherwise.
 func (o *EventDescription) GetResourceType() string {
-	if o == nil || o.ResourceType == nil {
+	if o == nil || IsNil(o.ResourceType) {
 		var ret string
 		return ret
 	}
@@ -152,7 +155,7 @@ func (o *EventDescription) GetResourceType() string {
 // GetResourceTypeOk returns a tuple with the ResourceType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *EventDescription) GetResourceTypeOk() (*string, bool) {
-	if o == nil || o.ResourceType == nil {
+	if o == nil || IsNil(o.ResourceType) {
 		return nil, false
 	}
 	return o.ResourceType, true
@@ -160,7 +163,7 @@ func (o *EventDescription) GetResourceTypeOk() (*string, bool) {
 
 // HasResourceType returns a boolean if a field has been set.
 func (o *EventDescription) HasResourceType() bool {
-	if o != nil && o.ResourceType != nil {
+	if o != nil && !IsNil(o.ResourceType) {
 		return true
 	}
 
@@ -173,20 +176,28 @@ func (o *EventDescription) SetResourceType(v string) {
 }
 
 func (o EventDescription) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Name != nil {
-		toSerialize["name"] = o.Name
-	}
-	if o.Type != nil {
-		toSerialize["type"] = o.Type
-	}
-	if o.Message != nil {
-		toSerialize["message"] = o.Message
-	}
-	if o.ResourceType != nil {
-		toSerialize["resource_type"] = o.ResourceType
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o EventDescription) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Name) {
+		toSerialize["name"] = o.Name
+	}
+	if !IsNil(o.Type) {
+		toSerialize["type"] = o.Type
+	}
+	if !IsNil(o.Message) {
+		toSerialize["message"] = o.Message
+	}
+	if !IsNil(o.ResourceType) {
+		toSerialize["resource_type"] = o.ResourceType
+	}
+	return toSerialize, nil
 }
 
 type NullableEventDescription struct {

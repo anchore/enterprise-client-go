@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the PostSystemFeeds200Response type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PostSystemFeeds200Response{}
+
 // PostSystemFeeds200Response struct for PostSystemFeeds200Response
 type PostSystemFeeds200Response struct {
 	// Message from the operation
@@ -40,7 +43,7 @@ func NewPostSystemFeeds200ResponseWithDefaults() *PostSystemFeeds200Response {
 
 // GetMessage returns the Message field value if set, zero value otherwise.
 func (o *PostSystemFeeds200Response) GetMessage() string {
-	if o == nil || o.Message == nil {
+	if o == nil || IsNil(o.Message) {
 		var ret string
 		return ret
 	}
@@ -50,7 +53,7 @@ func (o *PostSystemFeeds200Response) GetMessage() string {
 // GetMessageOk returns a tuple with the Message field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PostSystemFeeds200Response) GetMessageOk() (*string, bool) {
-	if o == nil || o.Message == nil {
+	if o == nil || IsNil(o.Message) {
 		return nil, false
 	}
 	return o.Message, true
@@ -58,7 +61,7 @@ func (o *PostSystemFeeds200Response) GetMessageOk() (*string, bool) {
 
 // HasMessage returns a boolean if a field has been set.
 func (o *PostSystemFeeds200Response) HasMessage() bool {
-	if o != nil && o.Message != nil {
+	if o != nil && !IsNil(o.Message) {
 		return true
 	}
 
@@ -71,11 +74,19 @@ func (o *PostSystemFeeds200Response) SetMessage(v string) {
 }
 
 func (o PostSystemFeeds200Response) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Message != nil {
-		toSerialize["message"] = o.Message
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o PostSystemFeeds200Response) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Message) {
+		toSerialize["message"] = o.Message
+	}
+	return toSerialize, nil
 }
 
 type NullablePostSystemFeeds200Response struct {

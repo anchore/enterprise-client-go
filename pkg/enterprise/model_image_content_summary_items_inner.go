@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the ImageContentSummaryItemsInner type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ImageContentSummaryItemsInner{}
+
 // ImageContentSummaryItemsInner struct for ImageContentSummaryItemsInner
 type ImageContentSummaryItemsInner struct {
 	ContentType *string `json:"content_type,omitempty"`
@@ -41,7 +44,7 @@ func NewImageContentSummaryItemsInnerWithDefaults() *ImageContentSummaryItemsInn
 
 // GetContentType returns the ContentType field value if set, zero value otherwise.
 func (o *ImageContentSummaryItemsInner) GetContentType() string {
-	if o == nil || o.ContentType == nil {
+	if o == nil || IsNil(o.ContentType) {
 		var ret string
 		return ret
 	}
@@ -51,7 +54,7 @@ func (o *ImageContentSummaryItemsInner) GetContentType() string {
 // GetContentTypeOk returns a tuple with the ContentType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ImageContentSummaryItemsInner) GetContentTypeOk() (*string, bool) {
-	if o == nil || o.ContentType == nil {
+	if o == nil || IsNil(o.ContentType) {
 		return nil, false
 	}
 	return o.ContentType, true
@@ -59,7 +62,7 @@ func (o *ImageContentSummaryItemsInner) GetContentTypeOk() (*string, bool) {
 
 // HasContentType returns a boolean if a field has been set.
 func (o *ImageContentSummaryItemsInner) HasContentType() bool {
-	if o != nil && o.ContentType != nil {
+	if o != nil && !IsNil(o.ContentType) {
 		return true
 	}
 
@@ -73,7 +76,7 @@ func (o *ImageContentSummaryItemsInner) SetContentType(v string) {
 
 // GetDisplayName returns the DisplayName field value if set, zero value otherwise.
 func (o *ImageContentSummaryItemsInner) GetDisplayName() string {
-	if o == nil || o.DisplayName == nil {
+	if o == nil || IsNil(o.DisplayName) {
 		var ret string
 		return ret
 	}
@@ -83,7 +86,7 @@ func (o *ImageContentSummaryItemsInner) GetDisplayName() string {
 // GetDisplayNameOk returns a tuple with the DisplayName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ImageContentSummaryItemsInner) GetDisplayNameOk() (*string, bool) {
-	if o == nil || o.DisplayName == nil {
+	if o == nil || IsNil(o.DisplayName) {
 		return nil, false
 	}
 	return o.DisplayName, true
@@ -91,7 +94,7 @@ func (o *ImageContentSummaryItemsInner) GetDisplayNameOk() (*string, bool) {
 
 // HasDisplayName returns a boolean if a field has been set.
 func (o *ImageContentSummaryItemsInner) HasDisplayName() bool {
-	if o != nil && o.DisplayName != nil {
+	if o != nil && !IsNil(o.DisplayName) {
 		return true
 	}
 
@@ -105,7 +108,7 @@ func (o *ImageContentSummaryItemsInner) SetDisplayName(v string) {
 
 // GetCount returns the Count field value if set, zero value otherwise.
 func (o *ImageContentSummaryItemsInner) GetCount() int32 {
-	if o == nil || o.Count == nil {
+	if o == nil || IsNil(o.Count) {
 		var ret int32
 		return ret
 	}
@@ -115,7 +118,7 @@ func (o *ImageContentSummaryItemsInner) GetCount() int32 {
 // GetCountOk returns a tuple with the Count field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ImageContentSummaryItemsInner) GetCountOk() (*int32, bool) {
-	if o == nil || o.Count == nil {
+	if o == nil || IsNil(o.Count) {
 		return nil, false
 	}
 	return o.Count, true
@@ -123,7 +126,7 @@ func (o *ImageContentSummaryItemsInner) GetCountOk() (*int32, bool) {
 
 // HasCount returns a boolean if a field has been set.
 func (o *ImageContentSummaryItemsInner) HasCount() bool {
-	if o != nil && o.Count != nil {
+	if o != nil && !IsNil(o.Count) {
 		return true
 	}
 
@@ -136,17 +139,25 @@ func (o *ImageContentSummaryItemsInner) SetCount(v int32) {
 }
 
 func (o ImageContentSummaryItemsInner) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.ContentType != nil {
-		toSerialize["content_type"] = o.ContentType
-	}
-	if o.DisplayName != nil {
-		toSerialize["display_name"] = o.DisplayName
-	}
-	if o.Count != nil {
-		toSerialize["count"] = o.Count
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o ImageContentSummaryItemsInner) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.ContentType) {
+		toSerialize["content_type"] = o.ContentType
+	}
+	if !IsNil(o.DisplayName) {
+		toSerialize["display_name"] = o.DisplayName
+	}
+	if !IsNil(o.Count) {
+		toSerialize["count"] = o.Count
+	}
+	return toSerialize, nil
 }
 
 type NullableImageContentSummaryItemsInner struct {

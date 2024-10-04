@@ -14,7 +14,12 @@ package enterprise
 import (
 	"encoding/json"
 	"time"
+	"bytes"
+	"fmt"
 )
+
+// checks if the KubernetesInventory type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &KubernetesInventory{}
 
 // KubernetesInventory struct for KubernetesInventory
 type KubernetesInventory struct {
@@ -25,6 +30,8 @@ type KubernetesInventory struct {
 	Pods []KubernetesInventoryPod `json:"pods,omitempty"`
 	Containers []KubernetesInventoryContainer `json:"containers,omitempty"`
 }
+
+type _KubernetesInventory KubernetesInventory
 
 // NewKubernetesInventory instantiates a new KubernetesInventory object
 // This constructor will assign default values to properties that have it defined,
@@ -95,7 +102,7 @@ func (o *KubernetesInventory) SetTimestamp(v time.Time) {
 
 // GetNamespaces returns the Namespaces field value if set, zero value otherwise.
 func (o *KubernetesInventory) GetNamespaces() []KubernetesInventoryNamespace {
-	if o == nil || o.Namespaces == nil {
+	if o == nil || IsNil(o.Namespaces) {
 		var ret []KubernetesInventoryNamespace
 		return ret
 	}
@@ -105,7 +112,7 @@ func (o *KubernetesInventory) GetNamespaces() []KubernetesInventoryNamespace {
 // GetNamespacesOk returns a tuple with the Namespaces field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *KubernetesInventory) GetNamespacesOk() ([]KubernetesInventoryNamespace, bool) {
-	if o == nil || o.Namespaces == nil {
+	if o == nil || IsNil(o.Namespaces) {
 		return nil, false
 	}
 	return o.Namespaces, true
@@ -113,7 +120,7 @@ func (o *KubernetesInventory) GetNamespacesOk() ([]KubernetesInventoryNamespace,
 
 // HasNamespaces returns a boolean if a field has been set.
 func (o *KubernetesInventory) HasNamespaces() bool {
-	if o != nil && o.Namespaces != nil {
+	if o != nil && !IsNil(o.Namespaces) {
 		return true
 	}
 
@@ -127,7 +134,7 @@ func (o *KubernetesInventory) SetNamespaces(v []KubernetesInventoryNamespace) {
 
 // GetNodes returns the Nodes field value if set, zero value otherwise.
 func (o *KubernetesInventory) GetNodes() []KubernetesInventoryNode {
-	if o == nil || o.Nodes == nil {
+	if o == nil || IsNil(o.Nodes) {
 		var ret []KubernetesInventoryNode
 		return ret
 	}
@@ -137,7 +144,7 @@ func (o *KubernetesInventory) GetNodes() []KubernetesInventoryNode {
 // GetNodesOk returns a tuple with the Nodes field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *KubernetesInventory) GetNodesOk() ([]KubernetesInventoryNode, bool) {
-	if o == nil || o.Nodes == nil {
+	if o == nil || IsNil(o.Nodes) {
 		return nil, false
 	}
 	return o.Nodes, true
@@ -145,7 +152,7 @@ func (o *KubernetesInventory) GetNodesOk() ([]KubernetesInventoryNode, bool) {
 
 // HasNodes returns a boolean if a field has been set.
 func (o *KubernetesInventory) HasNodes() bool {
-	if o != nil && o.Nodes != nil {
+	if o != nil && !IsNil(o.Nodes) {
 		return true
 	}
 
@@ -159,7 +166,7 @@ func (o *KubernetesInventory) SetNodes(v []KubernetesInventoryNode) {
 
 // GetPods returns the Pods field value if set, zero value otherwise.
 func (o *KubernetesInventory) GetPods() []KubernetesInventoryPod {
-	if o == nil || o.Pods == nil {
+	if o == nil || IsNil(o.Pods) {
 		var ret []KubernetesInventoryPod
 		return ret
 	}
@@ -169,7 +176,7 @@ func (o *KubernetesInventory) GetPods() []KubernetesInventoryPod {
 // GetPodsOk returns a tuple with the Pods field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *KubernetesInventory) GetPodsOk() ([]KubernetesInventoryPod, bool) {
-	if o == nil || o.Pods == nil {
+	if o == nil || IsNil(o.Pods) {
 		return nil, false
 	}
 	return o.Pods, true
@@ -177,7 +184,7 @@ func (o *KubernetesInventory) GetPodsOk() ([]KubernetesInventoryPod, bool) {
 
 // HasPods returns a boolean if a field has been set.
 func (o *KubernetesInventory) HasPods() bool {
-	if o != nil && o.Pods != nil {
+	if o != nil && !IsNil(o.Pods) {
 		return true
 	}
 
@@ -191,7 +198,7 @@ func (o *KubernetesInventory) SetPods(v []KubernetesInventoryPod) {
 
 // GetContainers returns the Containers field value if set, zero value otherwise.
 func (o *KubernetesInventory) GetContainers() []KubernetesInventoryContainer {
-	if o == nil || o.Containers == nil {
+	if o == nil || IsNil(o.Containers) {
 		var ret []KubernetesInventoryContainer
 		return ret
 	}
@@ -201,7 +208,7 @@ func (o *KubernetesInventory) GetContainers() []KubernetesInventoryContainer {
 // GetContainersOk returns a tuple with the Containers field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *KubernetesInventory) GetContainersOk() ([]KubernetesInventoryContainer, bool) {
-	if o == nil || o.Containers == nil {
+	if o == nil || IsNil(o.Containers) {
 		return nil, false
 	}
 	return o.Containers, true
@@ -209,7 +216,7 @@ func (o *KubernetesInventory) GetContainersOk() ([]KubernetesInventoryContainer,
 
 // HasContainers returns a boolean if a field has been set.
 func (o *KubernetesInventory) HasContainers() bool {
-	if o != nil && o.Containers != nil {
+	if o != nil && !IsNil(o.Containers) {
 		return true
 	}
 
@@ -222,26 +229,68 @@ func (o *KubernetesInventory) SetContainers(v []KubernetesInventoryContainer) {
 }
 
 func (o KubernetesInventory) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["cluster_name"] = o.ClusterName
-	}
-	if true {
-		toSerialize["timestamp"] = o.Timestamp
-	}
-	if o.Namespaces != nil {
-		toSerialize["namespaces"] = o.Namespaces
-	}
-	if o.Nodes != nil {
-		toSerialize["nodes"] = o.Nodes
-	}
-	if o.Pods != nil {
-		toSerialize["pods"] = o.Pods
-	}
-	if o.Containers != nil {
-		toSerialize["containers"] = o.Containers
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o KubernetesInventory) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["cluster_name"] = o.ClusterName
+	toSerialize["timestamp"] = o.Timestamp
+	if !IsNil(o.Namespaces) {
+		toSerialize["namespaces"] = o.Namespaces
+	}
+	if !IsNil(o.Nodes) {
+		toSerialize["nodes"] = o.Nodes
+	}
+	if !IsNil(o.Pods) {
+		toSerialize["pods"] = o.Pods
+	}
+	if !IsNil(o.Containers) {
+		toSerialize["containers"] = o.Containers
+	}
+	return toSerialize, nil
+}
+
+func (o *KubernetesInventory) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"cluster_name",
+		"timestamp",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varKubernetesInventory := _KubernetesInventory{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varKubernetesInventory)
+
+	if err != nil {
+		return err
+	}
+
+	*o = KubernetesInventory(varKubernetesInventory)
+
+	return err
 }
 
 type NullableKubernetesInventory struct {

@@ -13,7 +13,12 @@ package enterprise
 
 import (
 	"encoding/json"
+	"bytes"
+	"fmt"
 )
+
+// checks if the NotificationSelector type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &NotificationSelector{}
 
 // NotificationSelector A selector for notifications that determines which notifications are passed to a specific endpoint configuration
 type NotificationSelector struct {
@@ -24,6 +29,8 @@ type NotificationSelector struct {
 	Scope string `json:"scope"`
 	Event NotificationEventSelector `json:"event"`
 }
+
+type _NotificationSelector NotificationSelector
 
 // NewNotificationSelector instantiates a new NotificationSelector object
 // This constructor will assign default values to properties that have it defined,
@@ -46,7 +53,7 @@ func NewNotificationSelectorWithDefaults() *NotificationSelector {
 
 // GetUuid returns the Uuid field value if set, zero value otherwise.
 func (o *NotificationSelector) GetUuid() string {
-	if o == nil || o.Uuid == nil {
+	if o == nil || IsNil(o.Uuid) {
 		var ret string
 		return ret
 	}
@@ -56,7 +63,7 @@ func (o *NotificationSelector) GetUuid() string {
 // GetUuidOk returns a tuple with the Uuid field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *NotificationSelector) GetUuidOk() (*string, bool) {
-	if o == nil || o.Uuid == nil {
+	if o == nil || IsNil(o.Uuid) {
 		return nil, false
 	}
 	return o.Uuid, true
@@ -64,7 +71,7 @@ func (o *NotificationSelector) GetUuidOk() (*string, bool) {
 
 // HasUuid returns a boolean if a field has been set.
 func (o *NotificationSelector) HasUuid() bool {
-	if o != nil && o.Uuid != nil {
+	if o != nil && !IsNil(o.Uuid) {
 		return true
 	}
 
@@ -78,7 +85,7 @@ func (o *NotificationSelector) SetUuid(v string) {
 
 // GetConfigurationUuid returns the ConfigurationUuid field value if set, zero value otherwise.
 func (o *NotificationSelector) GetConfigurationUuid() string {
-	if o == nil || o.ConfigurationUuid == nil {
+	if o == nil || IsNil(o.ConfigurationUuid) {
 		var ret string
 		return ret
 	}
@@ -88,7 +95,7 @@ func (o *NotificationSelector) GetConfigurationUuid() string {
 // GetConfigurationUuidOk returns a tuple with the ConfigurationUuid field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *NotificationSelector) GetConfigurationUuidOk() (*string, bool) {
-	if o == nil || o.ConfigurationUuid == nil {
+	if o == nil || IsNil(o.ConfigurationUuid) {
 		return nil, false
 	}
 	return o.ConfigurationUuid, true
@@ -96,7 +103,7 @@ func (o *NotificationSelector) GetConfigurationUuidOk() (*string, bool) {
 
 // HasConfigurationUuid returns a boolean if a field has been set.
 func (o *NotificationSelector) HasConfigurationUuid() bool {
-	if o != nil && o.ConfigurationUuid != nil {
+	if o != nil && !IsNil(o.ConfigurationUuid) {
 		return true
 	}
 
@@ -157,20 +164,62 @@ func (o *NotificationSelector) SetEvent(v NotificationEventSelector) {
 }
 
 func (o NotificationSelector) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Uuid != nil {
-		toSerialize["uuid"] = o.Uuid
-	}
-	if o.ConfigurationUuid != nil {
-		toSerialize["configuration_uuid"] = o.ConfigurationUuid
-	}
-	if true {
-		toSerialize["scope"] = o.Scope
-	}
-	if true {
-		toSerialize["event"] = o.Event
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o NotificationSelector) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Uuid) {
+		toSerialize["uuid"] = o.Uuid
+	}
+	if !IsNil(o.ConfigurationUuid) {
+		toSerialize["configuration_uuid"] = o.ConfigurationUuid
+	}
+	toSerialize["scope"] = o.Scope
+	toSerialize["event"] = o.Event
+	return toSerialize, nil
+}
+
+func (o *NotificationSelector) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"scope",
+		"event",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varNotificationSelector := _NotificationSelector{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varNotificationSelector)
+
+	if err != nil {
+		return err
+	}
+
+	*o = NotificationSelector(varNotificationSelector)
+
+	return err
 }
 
 type NullableNotificationSelector struct {

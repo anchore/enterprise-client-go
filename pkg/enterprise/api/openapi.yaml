@@ -11752,15 +11752,29 @@ components:
     AnalysisUpdateNotification:
       allOf:
       - $ref: '#/components/schemas/NotificationBase'
-      - $ref: '#/components/schemas/AnalysisUpdateNotification_allOf'
+      - description: The Notification Object definition for Analysis Update Notifications
+        properties:
+          data:
+            $ref: '#/components/schemas/AnalysisUpdateNotificationData'
+        type: object
     AnalysisUpdateNotificationData:
       allOf:
       - $ref: '#/components/schemas/BaseNotificationData'
-      - $ref: '#/components/schemas/AnalysisUpdateNotificationData_allOf'
+      - properties:
+          notification_payload:
+            $ref: '#/components/schemas/AnalysisUpdateNotificationPayload'
+        type: object
     AnalysisUpdateNotificationPayload:
       allOf:
       - $ref: '#/components/schemas/GenericNotificationPayload'
-      - $ref: '#/components/schemas/AnalysisUpdateNotificationPayload_allOf'
+      - properties:
+          curr_eval:
+            $ref: '#/components/schemas/AnalysisUpdateEval'
+          last_eval:
+            $ref: '#/components/schemas/AnalysisUpdateEval'
+          annotations:
+            $ref: '#/components/schemas/AnalysisUpdateNotificationPayload_allOf_annotations'
+        type: object
     AnchoreErrorCode:
       description: "A description of an anchore error code (name, description)"
       example:
@@ -12072,6 +12086,11 @@ components:
       type: object
     ApiErrorResponse:
       description: Generic HTTP API error response
+      example:
+        code: 0
+        error_type: error_type
+        detail: "{}"
+        message: message
       properties:
         code:
           format: int32
@@ -12272,11 +12291,50 @@ components:
               repository_name: repository_name
               revision: revision
         vulnerabilities:
-        - vendor_data: null
+        - vendor_data:
+            severity: severity
+            feed: feed
+            description: description
+            cvss:
+              cvss_v3:
+                base_score: 5.962133916683182
+                impact_score: 2.3021358869347655
+                exploitability_score: 5.637376656633329
+              cvss_v2:
+                base_score: 0.8008281904610115
+                impact_score: 1.4658129805029452
+                exploitability_score: 6.027456183070403
+            url: url
+            will_not_fix: true
+            group: group
           id: id
           nvd:
-          - null
-          - null
+          - severity: severity
+            description: description
+            id: id
+            cvss:
+              cvss_v3:
+                base_score: 5.962133916683182
+                impact_score: 2.3021358869347655
+                exploitability_score: 5.637376656633329
+              cvss_v2:
+                base_score: 0.8008281904610115
+                impact_score: 1.4658129805029452
+                exploitability_score: 6.027456183070403
+            url: url
+          - severity: severity
+            description: description
+            id: id
+            cvss:
+              cvss_v3:
+                base_score: 5.962133916683182
+                impact_score: 2.3021358869347655
+                exploitability_score: 5.637376656633329
+              cvss_v2:
+                base_score: 0.8008281904610115
+                impact_score: 1.4658129805029452
+                exploitability_score: 6.027456183070403
+            url: url
           matches:
           - fix: fix
             location:
@@ -12298,11 +12356,50 @@ components:
                 location: location
                 type: type
                 version: version
-        - vendor_data: null
+        - vendor_data:
+            severity: severity
+            feed: feed
+            description: description
+            cvss:
+              cvss_v3:
+                base_score: 5.962133916683182
+                impact_score: 2.3021358869347655
+                exploitability_score: 5.637376656633329
+              cvss_v2:
+                base_score: 0.8008281904610115
+                impact_score: 1.4658129805029452
+                exploitability_score: 6.027456183070403
+            url: url
+            will_not_fix: true
+            group: group
           id: id
           nvd:
-          - null
-          - null
+          - severity: severity
+            description: description
+            id: id
+            cvss:
+              cvss_v3:
+                base_score: 5.962133916683182
+                impact_score: 2.3021358869347655
+                exploitability_score: 5.637376656633329
+              cvss_v2:
+                base_score: 0.8008281904610115
+                impact_score: 1.4658129805029452
+                exploitability_score: 6.027456183070403
+            url: url
+          - severity: severity
+            description: description
+            id: id
+            cvss:
+              cvss_v3:
+                base_score: 5.962133916683182
+                impact_score: 2.3021358869347655
+                exploitability_score: 5.637376656633329
+              cvss_v2:
+                base_score: 0.8008281904610115
+                impact_score: 1.4658129805029452
+                exploitability_score: 6.027456183070403
+            url: url
           matches:
           - fix: fix
             location:
@@ -12634,18 +12731,44 @@ components:
     ArtifactLifecyclePolicyList:
       example:
         items:
-          - uuid: af2afecb-815a-47b6-8c22-20450896dcd0
-            policy_conditions:
-              - version: 1
-                even_if_exists_in_runtime_inventory: false
-                days_since_analyzed: 1
-                artifact_type: image
-            name: test policy
-            description: test description
-            enabled: false
-            action: delete
-            created_at: 2024-03-01T19:45:10Z
-            updated_at: 2024-03-01T19:45:10Z
+        - updated_at: 2000-01-23T04:56:07.000+00:00
+          name: name
+          action: delete
+          description: description
+          created_at: 2000-01-23T04:56:07.000+00:00
+          policy_conditions:
+          - days_since_analyzed: 6
+            artifact_type: image
+            even_if_exists_in_runtime_inventory: true
+            include_base_images: true
+            version: 0
+          - days_since_analyzed: 6
+            artifact_type: image
+            even_if_exists_in_runtime_inventory: true
+            include_base_images: true
+            version: 0
+          uuid: uuid
+          deleted_at: 2000-01-23T04:56:07.000+00:00
+          enabled: true
+        - updated_at: 2000-01-23T04:56:07.000+00:00
+          name: name
+          action: delete
+          description: description
+          created_at: 2000-01-23T04:56:07.000+00:00
+          policy_conditions:
+          - days_since_analyzed: 6
+            artifact_type: image
+            even_if_exists_in_runtime_inventory: true
+            include_base_images: true
+            version: 0
+          - days_since_analyzed: 6
+            artifact_type: image
+            even_if_exists_in_runtime_inventory: true
+            include_base_images: true
+            version: 0
+          uuid: uuid
+          deleted_at: 2000-01-23T04:56:07.000+00:00
+          enabled: true
       properties:
         items:
           items:
@@ -12655,7 +12778,32 @@ components:
     ArtifactLifecyclePolicyResponse:
       allOf:
       - $ref: '#/components/schemas/ArtifactLifecyclePolicy'
-      - $ref: '#/components/schemas/ArtifactLifecyclePolicyResponse_allOf'
+      - properties:
+          policy_conditions:
+            items:
+              $ref: '#/components/schemas/ArtifactLifecyclePolicyConditions'
+            type: array
+        type: object
+      example:
+        updated_at: 2000-01-23T04:56:07.000+00:00
+        name: name
+        action: delete
+        description: description
+        created_at: 2000-01-23T04:56:07.000+00:00
+        policy_conditions:
+        - days_since_analyzed: 6
+          artifact_type: image
+          even_if_exists_in_runtime_inventory: true
+          include_base_images: true
+          version: 0
+        - days_since_analyzed: 6
+          artifact_type: image
+          even_if_exists_in_runtime_inventory: true
+          include_base_images: true
+          version: 0
+        uuid: uuid
+        deleted_at: 2000-01-23T04:56:07.000+00:00
+        enabled: true
     ArtifactListResponse:
       description: The response provided when querying for the artifacts on an application
         version
@@ -12730,7 +12878,7 @@ components:
       type: object
     ArtifactReference:
       example:
-        artifact_type: null
+        artifact_type: source
         artifact_id: artifact_id
       properties:
         artifact_id:
@@ -12739,21 +12887,20 @@ components:
           $ref: '#/components/schemas/ArtifactType'
       type: object
     ArtifactRelationship:
-      description: "A relationship of a specific type between two SDLC artifacts (e.g.\
-        \ container image and source revision). This is\nand edge in a directed graph\
-        \ where edges are directional from the \"source\" to the \"target\". For example,\
-        \ an edge of type \"contains\"\nmeans the source artifact contains the content\
-        \ of the target artifact.\n"
+      description: |
+        A relationship of a specific type between two SDLC artifacts (e.g. container image and source revision). This is
+        and edge in a directed graph where edges are directional from the "source" to the "target". For example, an edge of type "contains"
+        means the source artifact contains the content of the target artifact.
       example:
         user_metadata: "{}"
-        relationship_type: null
+        relationship_type: contains
         created_at: 2000-01-23T04:56:07.000+00:00
         comment: comment
         source:
-          artifact_type: null
+          artifact_type: source
           artifact_id: artifact_id
         target:
-          artifact_type: null
+          artifact_type: source
           artifact_id: artifact_id
       properties:
         created_at:
@@ -14585,6 +14732,9 @@ components:
         $ref: '#/components/schemas/ImageImportFileContent'
       type: array
     ImageImportFileCoordinate:
+      example:
+        path: path
+        layerID: layerID
       properties:
         path:
           description: The path on the filesystem of the file within the given layer
@@ -14673,6 +14823,98 @@ components:
       type: array
     ImagePackageManifest:
       additionalProperties: true
+      example:
+        schema:
+          version: version
+          url: url
+        distro:
+          idLike: ""
+          versionID: versionID
+          name: name
+          id: id
+          version: version
+        files:
+        - metadata: "{}"
+          digests:
+          - value: value
+            algorithm: algorithm
+          - value: value
+            algorithm: algorithm
+          location:
+            path: path
+            layerID: layerID
+          id: id
+        - metadata: "{}"
+          digests:
+          - value: value
+            algorithm: algorithm
+          - value: value
+            algorithm: algorithm
+          location:
+            path: path
+            layerID: layerID
+          id: id
+        source:
+          metadata:
+            key: ""
+          type: type
+          target:
+            key: ""
+        descriptor:
+          name: name
+          version: version
+        artifactRelationships:
+        - parent: parent
+          metadata:
+            key: ""
+          type: type
+          child: child
+        - parent: parent
+          metadata:
+            key: ""
+          type: type
+          child: child
+        artifacts:
+        - foundBy: foundBy
+          licenses:
+          - ""
+          - ""
+          metadata: "{}"
+          cpes:
+          - ImportPackage_cpes_inner
+          - ImportPackage_cpes_inner
+          name: name
+          locations:
+          - path: path
+            layerID: layerID
+          - path: path
+            layerID: layerID
+          language: language
+          id: id
+          purl: purl
+          type: type
+          version: version
+          metadataType: metadataType
+        - foundBy: foundBy
+          licenses:
+          - ""
+          - ""
+          metadata: "{}"
+          cpes:
+          - ImportPackage_cpes_inner
+          - ImportPackage_cpes_inner
+          name: name
+          locations:
+          - path: path
+            layerID: layerID
+          - path: path
+            layerID: layerID
+          language: language
+          id: id
+          purl: purl
+          type: type
+          version: version
+          metadataType: metadataType
       properties:
         artifacts:
           items:
@@ -14702,7 +14944,70 @@ components:
     ImagePackageVulnerability:
       allOf:
       - $ref: '#/components/schemas/PackageVulnerability'
-      - $ref: '#/components/schemas/ImagePackageVulnerability_allOf'
+      - properties:
+          inherited_from_base:
+            description: True if the vulnerable artifact is found in the base image.
+              False otherwise
+            type: boolean
+        type: object
+      example:
+        severity: severity
+        package: package
+        package_path: package_path
+        nvd_data:
+        - cvss_v3:
+            base_score: 5.962133916683182
+            impact_score: 2.3021358869347655
+            exploitability_score: 5.637376656633329
+          cvss_v2:
+            base_score: 0.8008281904610115
+            impact_score: 1.4658129805029452
+            exploitability_score: 6.027456183070403
+          description: description
+          id: id
+        - cvss_v3:
+            base_score: 5.962133916683182
+            impact_score: 2.3021358869347655
+            exploitability_score: 5.637376656633329
+          cvss_v2:
+            base_score: 0.8008281904610115
+            impact_score: 1.4658129805029452
+            exploitability_score: 6.027456183070403
+          description: description
+          id: id
+        vendor_data:
+        - cvss_v3:
+            base_score: 5.962133916683182
+            impact_score: 2.3021358869347655
+            exploitability_score: 5.637376656633329
+          cvss_v2:
+            base_score: 0.8008281904610115
+            impact_score: 1.4658129805029452
+            exploitability_score: 6.027456183070403
+          id: id
+        - cvss_v3:
+            base_score: 5.962133916683182
+            impact_score: 2.3021358869347655
+            exploitability_score: 5.637376656633329
+          cvss_v2:
+            base_score: 0.8008281904610115
+            impact_score: 1.4658129805029452
+            exploitability_score: 6.027456183070403
+          id: id
+        description: description
+        package_type: package_type
+        package_cpe: package_cpe
+        url: url
+        will_not_fix: true
+        feed: feed
+        detected_at: 2000-01-23T04:56:07.000+00:00
+        package_version: package_version
+        fix: fix
+        vuln: vuln
+        fix_observed_at: 2000-01-23T04:56:07.000+00:00
+        feed_group: feed_group
+        package_name: package_name
+        inherited_from_base: true
     ImagePackageVulnerabilityResponse:
       description: envelope containing list of vulnerabilities
       example:
@@ -14713,8 +15018,120 @@ components:
         base_digest: base_digest
         image_digest: image_digest
         vulnerabilities:
-        - null
-        - null
+        - severity: severity
+          package: package
+          package_path: package_path
+          nvd_data:
+          - cvss_v3:
+              base_score: 5.962133916683182
+              impact_score: 2.3021358869347655
+              exploitability_score: 5.637376656633329
+            cvss_v2:
+              base_score: 0.8008281904610115
+              impact_score: 1.4658129805029452
+              exploitability_score: 6.027456183070403
+            description: description
+            id: id
+          - cvss_v3:
+              base_score: 5.962133916683182
+              impact_score: 2.3021358869347655
+              exploitability_score: 5.637376656633329
+            cvss_v2:
+              base_score: 0.8008281904610115
+              impact_score: 1.4658129805029452
+              exploitability_score: 6.027456183070403
+            description: description
+            id: id
+          vendor_data:
+          - cvss_v3:
+              base_score: 5.962133916683182
+              impact_score: 2.3021358869347655
+              exploitability_score: 5.637376656633329
+            cvss_v2:
+              base_score: 0.8008281904610115
+              impact_score: 1.4658129805029452
+              exploitability_score: 6.027456183070403
+            id: id
+          - cvss_v3:
+              base_score: 5.962133916683182
+              impact_score: 2.3021358869347655
+              exploitability_score: 5.637376656633329
+            cvss_v2:
+              base_score: 0.8008281904610115
+              impact_score: 1.4658129805029452
+              exploitability_score: 6.027456183070403
+            id: id
+          description: description
+          package_type: package_type
+          package_cpe: package_cpe
+          url: url
+          will_not_fix: true
+          feed: feed
+          detected_at: 2000-01-23T04:56:07.000+00:00
+          package_version: package_version
+          fix: fix
+          vuln: vuln
+          fix_observed_at: 2000-01-23T04:56:07.000+00:00
+          feed_group: feed_group
+          package_name: package_name
+          inherited_from_base: true
+        - severity: severity
+          package: package
+          package_path: package_path
+          nvd_data:
+          - cvss_v3:
+              base_score: 5.962133916683182
+              impact_score: 2.3021358869347655
+              exploitability_score: 5.637376656633329
+            cvss_v2:
+              base_score: 0.8008281904610115
+              impact_score: 1.4658129805029452
+              exploitability_score: 6.027456183070403
+            description: description
+            id: id
+          - cvss_v3:
+              base_score: 5.962133916683182
+              impact_score: 2.3021358869347655
+              exploitability_score: 5.637376656633329
+            cvss_v2:
+              base_score: 0.8008281904610115
+              impact_score: 1.4658129805029452
+              exploitability_score: 6.027456183070403
+            description: description
+            id: id
+          vendor_data:
+          - cvss_v3:
+              base_score: 5.962133916683182
+              impact_score: 2.3021358869347655
+              exploitability_score: 5.637376656633329
+            cvss_v2:
+              base_score: 0.8008281904610115
+              impact_score: 1.4658129805029452
+              exploitability_score: 6.027456183070403
+            id: id
+          - cvss_v3:
+              base_score: 5.962133916683182
+              impact_score: 2.3021358869347655
+              exploitability_score: 5.637376656633329
+            cvss_v2:
+              base_score: 0.8008281904610115
+              impact_score: 1.4658129805029452
+              exploitability_score: 6.027456183070403
+            id: id
+          description: description
+          package_type: package_type
+          package_cpe: package_cpe
+          url: url
+          will_not_fix: true
+          feed: feed
+          detected_at: 2000-01-23T04:56:07.000+00:00
+          package_version: package_version
+          fix: fix
+          vuln: vuln
+          fix_observed_at: 2000-01-23T04:56:07.000+00:00
+          feed_group: feed_group
+          package_name: package_name
+          inherited_from_base: true
       properties:
         image_digest:
           type: string
@@ -14754,6 +15171,21 @@ components:
     ImageReference:
       description: "A summary of an image identity, including digest, id (if available),\
         \ and any tags known to have ever been mapped to the digest"
+      example:
+        tag_history:
+        - tag_detected_at: 2000-01-23T04:56:07.000+00:00
+          full_tag: full_tag
+          registry: registry
+          repo: repo
+          tag: tag
+        - tag_detected_at: 2000-01-23T04:56:07.000+00:00
+          full_tag: full_tag
+          registry: registry
+          repo: repo
+          tag: tag
+        image_digest: image_digest
+        analyzed_at: analyzed_at
+        image_id: image_id
       properties:
         image_digest:
           description: The image digest
@@ -14870,6 +15302,31 @@ components:
       type: object
     ImageWithPackages:
       description: An image record that contains packages
+      example:
+        image:
+          tag_history:
+          - tag_detected_at: 2000-01-23T04:56:07.000+00:00
+            full_tag: full_tag
+            registry: registry
+            repo: repo
+            tag: tag
+          - tag_detected_at: 2000-01-23T04:56:07.000+00:00
+            full_tag: full_tag
+            registry: registry
+            repo: repo
+            tag: tag
+          image_digest: image_digest
+          analyzed_at: analyzed_at
+          image_id: image_id
+        packages:
+        - name: name
+          type: type
+          version: version
+          will_not_fix: true
+        - name: name
+          type: type
+          version: version
+          will_not_fix: true
       properties:
         image:
           $ref: '#/components/schemas/ImageReference'
@@ -14951,6 +15408,9 @@ components:
       type: object
     ImportDescriptor:
       additionalProperties: true
+      example:
+        name: name
+        version: version
       properties:
         name:
           type: string
@@ -14962,6 +15422,12 @@ components:
       type: object
     ImportDistribution:
       additionalProperties: true
+      example:
+        idLike: ""
+        versionID: versionID
+        name: name
+        id: id
+        version: version
       properties:
         name:
           nullable: true
@@ -14979,6 +15445,17 @@ components:
       type: object
     ImportFile:
       additionalProperties: true
+      example:
+        metadata: "{}"
+        digests:
+        - value: value
+          algorithm: algorithm
+        - value: value
+          algorithm: algorithm
+        location:
+          path: path
+          layerID: layerID
+        id: id
       properties:
         id:
           description: Unique identifier within the sbom for the file for other elements
@@ -14999,6 +15476,9 @@ components:
       - location
       type: object
     ImportFileDigest:
+      example:
+        value: value
+        algorithm: algorithm
       properties:
         algorithm:
           type: string
@@ -15010,6 +15490,27 @@ components:
       type: object
     ImportPackage:
       additionalProperties: true
+      example:
+        foundBy: foundBy
+        licenses:
+        - ""
+        - ""
+        metadata: "{}"
+        cpes:
+        - ImportPackage_cpes_inner
+        - ImportPackage_cpes_inner
+        name: name
+        locations:
+        - path: path
+          layerID: layerID
+        - path: path
+          layerID: layerID
+        language: language
+        id: id
+        purl: purl
+        type: type
+        version: version
+        metadataType: metadataType
       properties:
         id:
           type: string
@@ -15077,6 +15578,12 @@ components:
       type: object
     ImportPackageRelationship:
       additionalProperties: true
+      example:
+        parent: parent
+        metadata:
+          key: ""
+        type: type
+        child: child
       properties:
         parent:
           type: string
@@ -15094,6 +15601,9 @@ components:
       type: object
     ImportSchema:
       additionalProperties: true
+      example:
+        version: version
+        url: url
       properties:
         version:
           type: string
@@ -15105,6 +15615,12 @@ components:
       type: object
     ImportSource:
       additionalProperties: true
+      example:
+        metadata:
+          key: ""
+        type: type
+        target:
+          key: ""
       properties:
         type:
           type: string
@@ -15118,8 +15634,10 @@ components:
       - type
       type: object
     IntegrationHealthState:
-      description: "Health state of the integration instance\n* HEALTHY: All good.\
-        \ No errors.\n* UNHEALTHY: Not well. Probably errors.\n"
+      description: |
+        Health state of the integration instance
+        * HEALTHY: All good. No errors.
+        * UNHEALTHY: Not well. Probably errors.
       enum:
       - HEALTHY
       - UNHEALTHY
@@ -15178,6 +15696,42 @@ components:
       - $ref: '#/components/schemas/IntegrationSummary'
       - $ref: '#/components/schemas/IntegrationAdditionalProperties'
       description: "Information about an integration instance, e.g., an agent"
+      example:
+        cluster_name: production-east1
+        last_seen: 2024-06-25T10:14:20Z
+        registration_instance_id: 67479449b7-zdzlr
+        configuration: "{}"
+        registration_id: 84993c1f-863f-41f3-9bd8-dfcc821b1c8a
+        description: This agent has no namespace filtering
+        type: anchore_k8s_inventory_agent
+        uuid: 84993c1f-863f-41f3-9bd8-dfcc821b1c8a
+        version: 1.6.0
+        uptime: 200.02312
+        integration_status:
+          reason: reason
+          updated_at: 2000-01-23T04:56:07.000+00:00
+          details: "{}"
+          state: ACTIVE
+        explicitly_account_bound:
+        - frontend
+        - ci
+        account_name: admin
+        name: k8s-agent-admin
+        namespace: anchore
+        started_at: 2024-06-25T10:12:53Z
+        accounts:
+        - platform
+        - test-team1
+        - customers
+        health_report_interval: 60
+        reported_status:
+          reason: reason
+          details: "{}"
+          state: HEALTHY
+        username: admin
+        namespaces:
+        - production
+        - finance
       required:
       - account_name
       - type
@@ -16536,6 +17090,77 @@ components:
       type: object
     NativeSBOM:
       additionalProperties: true
+      example:
+        schema:
+          version: version
+          url: url
+        distro:
+          idLike: ""
+          versionID: versionID
+          name: name
+          id: id
+          version: version
+        source:
+          metadata:
+            key: ""
+          type: type
+          target:
+            key: ""
+        descriptor:
+          name: name
+          version: version
+        artifactRelationships:
+        - parent: parent
+          metadata:
+            key: ""
+          type: type
+          child: child
+        - parent: parent
+          metadata:
+            key: ""
+          type: type
+          child: child
+        artifacts:
+        - foundBy: foundBy
+          licenses:
+          - ""
+          - ""
+          metadata: "{}"
+          cpes:
+          - NativeSBOMPackage_cpes_inner
+          - NativeSBOMPackage_cpes_inner
+          name: name
+          locations:
+          - path: path
+            layerID: layerID
+          - path: path
+            layerID: layerID
+          language: language
+          id: id
+          purl: purl
+          type: type
+          version: version
+          metadataType: metadataType
+        - foundBy: foundBy
+          licenses:
+          - ""
+          - ""
+          metadata: "{}"
+          cpes:
+          - NativeSBOMPackage_cpes_inner
+          - NativeSBOMPackage_cpes_inner
+          name: name
+          locations:
+          - path: path
+            layerID: layerID
+          - path: path
+            layerID: layerID
+          language: language
+          id: id
+          purl: purl
+          type: type
+          version: version
+          metadataType: metadataType
       properties:
         artifacts:
           items:
@@ -16560,6 +17185,9 @@ components:
       type: object
     NativeSBOMDescriptor:
       additionalProperties: true
+      example:
+        name: name
+        version: version
       properties:
         name:
           type: string
@@ -16571,6 +17199,12 @@ components:
       type: object
     NativeSBOMDistribution:
       additionalProperties: true
+      example:
+        idLike: ""
+        versionID: versionID
+        name: name
+        id: id
+        version: version
       properties:
         name:
           nullable: true
@@ -16588,6 +17222,27 @@ components:
       type: object
     NativeSBOMPackage:
       additionalProperties: true
+      example:
+        foundBy: foundBy
+        licenses:
+        - ""
+        - ""
+        metadata: "{}"
+        cpes:
+        - NativeSBOMPackage_cpes_inner
+        - NativeSBOMPackage_cpes_inner
+        name: name
+        locations:
+        - path: path
+          layerID: layerID
+        - path: path
+          layerID: layerID
+        language: language
+        id: id
+        purl: purl
+        type: type
+        version: version
+        metadataType: metadataType
       properties:
         id:
           type: string
@@ -16643,6 +17298,9 @@ components:
       type: object
     NativeSBOMPackageLocation:
       additionalProperties: true
+      example:
+        path: path
+        layerID: layerID
       properties:
         path:
           type: string
@@ -16653,6 +17311,12 @@ components:
       type: object
     NativeSBOMPackageRelationship:
       additionalProperties: true
+      example:
+        parent: parent
+        metadata:
+          key: ""
+        type: type
+        child: child
       properties:
         parent:
           type: string
@@ -16670,6 +17334,9 @@ components:
       type: object
     NativeSBOMSchema:
       additionalProperties: true
+      example:
+        version: version
+        url: url
       properties:
         version:
           type: string
@@ -16681,6 +17348,12 @@ components:
       type: object
     NativeSBOMSource:
       additionalProperties: true
+      example:
+        metadata:
+          key: ""
+        type: type
+        target:
+          key: ""
       properties:
         type:
           type: string
@@ -16696,7 +17369,21 @@ components:
     NotificationActionPlanNotificationPayload:
       allOf:
       - $ref: '#/components/schemas/NotificationSynchronousNotificationPayload'
-      - $ref: '#/components/schemas/NotificationActionPlanNotificationPayload_allOf'
+      - description: defines an action plan payload that can be sent synchronously
+        properties:
+          uuid:
+            type: string
+          image_tag:
+            type: string
+          image_digest:
+            type: string
+          bundle_id:
+            type: string
+          subject:
+            type: string
+          message:
+            type: string
+        type: object
     NotificationApiErrorResponse:
       description: Generic HTTP API error response
       properties:
@@ -16816,13 +17503,8 @@ components:
             Some examples of resource type are 'image_digest' or 'service'
           type: string
         type:
-          description: "The type of event to filter, using wildcards against type\
-            \ field of the event. Event types have a structured format <category>.<subcategory>.<event>.\
-            \ Thus, '*' matches all types of events. 'system.*' matches all system\
-            \ events, 'user.*' matches events that are relevant to individual consumption,\
-            \ and omitting an asterisk will do an exact match. See the GET /event_types\
-            \ route definition in the engine's external API for the list of event\
-            \ types.\n"
+          description: |
+            The type of event to filter, using wildcards against type field of the event. Event types have a structured format <category>.<subcategory>.<event>. Thus, '*' matches all types of events. 'system.*' matches all system events, 'user.*' matches events that are relevant to individual consumption, and omitting an asterisk will do an exact match. See the GET /event_types route definition in the engine's external API for the list of event types.
           pattern: "^[a-z0-9-_.*]+$"
           type: string
       required:
@@ -16833,8 +17515,57 @@ components:
     NotificationGitHubEndpointConfigurationBase:
       allOf:
       - $ref: '#/components/schemas/NotificationEndpointConfiguration'
-      - $ref: '#/components/schemas/NotificationGitHubEndpointConfigurationBase_allOf'
+      - properties:
+          url:
+            description: "Github API endpoint, defaults to https://api.github.com\
+              \ if not specified"
+            pattern: https?://.*
+            type: string
+          username:
+            description: GitHub username for creating issues
+            type: string
+          access_token:
+            description: Personal access token for the GitHub account
+            type: string
+          owner:
+            description: Owner of the repository to create issues against
+            type: string
+          repository:
+            description: Name of the repository to create issues against
+            type: string
+          milestone:
+            description: Number of the milestone to associate with the issue
+            type: integer
+          labels:
+            description: List of labels to associate with the issue
+            items:
+              type: string
+            type: array
+          assignees:
+            description: List of user logins to assign to the issue.
+            items:
+              type: string
+            type: array
+        type: object
       description: Configuration for GitHub endpoint (Base model)
+      example:
+        owner: owner
+        last_updated: 2000-01-23T04:56:07.000+00:00
+        verify_tls: true
+        description: description
+        created_at: 2000-01-23T04:56:07.000+00:00
+        assignees:
+        - assignees
+        - assignees
+        repository: repository
+        uuid: uuid
+        url: url
+        labels:
+        - labels
+        - labels
+        access_token: access_token
+        milestone: 0
+        username: username
     NotificationGitHubEndpointConfigurationList:
       description: List of GitHub endpoint configurations
       items:
@@ -16850,6 +17581,24 @@ components:
         - username
         type: object
       description: Configuration for GitHub endpoint (Base model)
+      example:
+        owner: owner
+        last_updated: 2000-01-23T04:56:07.000+00:00
+        verify_tls: true
+        description: description
+        created_at: 2000-01-23T04:56:07.000+00:00
+        assignees:
+        - assignees
+        - assignees
+        repository: repository
+        uuid: uuid
+        url: url
+        labels:
+        - labels
+        - labels
+        access_token: access_token
+        milestone: 0
+        username: username
     NotificationGitHubEndpointConfigurationPut:
       allOf:
       - $ref: '#/components/schemas/NotificationGitHubEndpointConfigurationBase'
@@ -16859,6 +17608,24 @@ components:
         - username
         type: object
       description: Configuration for GitHub endpoint (Base model)
+      example:
+        owner: owner
+        last_updated: 2000-01-23T04:56:07.000+00:00
+        verify_tls: true
+        description: description
+        created_at: 2000-01-23T04:56:07.000+00:00
+        assignees:
+        - assignees
+        - assignees
+        repository: repository
+        uuid: uuid
+        url: url
+        labels:
+        - labels
+        - labels
+        access_token: access_token
+        milestone: 0
+        username: username
     NotificationGitHubTestResult:
       example:
         response: response
@@ -16872,8 +17639,53 @@ components:
     NotificationJiraEndpointConfigurationBase:
       allOf:
       - $ref: '#/components/schemas/NotificationEndpointConfiguration'
-      - $ref: '#/components/schemas/NotificationJiraEndpointConfigurationBase_allOf'
+      - properties:
+          url:
+            description: "Jira endpoint URL including host and port, should begin\
+              \ with 'http://' or 'https://'"
+            pattern: https?://.*
+            type: string
+          username:
+            description: Jira username for creating issues
+            type: string
+          password:
+            description: Jira access token for creating issues
+            type: string
+          project_key:
+            description: Key of the Jira project for creating issues
+            type: string
+          issue_type:
+            description: Type associated with the issue
+            type: string
+          priority:
+            description: Priority assigned to the issue
+            type: string
+          assignee:
+            description: Jira user to associate with the issue
+            type: string
+          labels:
+            description: List of labels to associate with the issue
+            items:
+              type: string
+            type: array
+        type: object
       description: Configuration for jira endpoint
+      example:
+        last_updated: 2000-01-23T04:56:07.000+00:00
+        project_key: project_key
+        verify_tls: true
+        issue_type: issue_type
+        description: description
+        created_at: 2000-01-23T04:56:07.000+00:00
+        priority: priority
+        uuid: uuid
+        url: url
+        labels:
+        - labels
+        - labels
+        password: password
+        assignee: assignee
+        username: username
     NotificationJiraEndpointConfigurationList:
       description: List of jira endpoint configurations
       items:
@@ -16890,6 +17702,22 @@ components:
         - username
         type: object
       description: Configuration for jira endpoint
+      example:
+        last_updated: 2000-01-23T04:56:07.000+00:00
+        project_key: project_key
+        verify_tls: true
+        issue_type: issue_type
+        description: description
+        created_at: 2000-01-23T04:56:07.000+00:00
+        priority: priority
+        uuid: uuid
+        url: url
+        labels:
+        - labels
+        - labels
+        password: password
+        assignee: assignee
+        username: username
     NotificationJiraEndpointConfigurationPut:
       allOf:
       - $ref: '#/components/schemas/NotificationJiraEndpointConfigurationBase'
@@ -16900,6 +17728,22 @@ components:
         - username
         type: object
       description: Configuration for jira endpoint
+      example:
+        last_updated: 2000-01-23T04:56:07.000+00:00
+        project_key: project_key
+        verify_tls: true
+        issue_type: issue_type
+        description: description
+        created_at: 2000-01-23T04:56:07.000+00:00
+        priority: priority
+        uuid: uuid
+        url: url
+        labels:
+        - labels
+        - labels
+        password: password
+        assignee: assignee
+        username: username
     NotificationJiraTestResult:
       example:
         response: response
@@ -16925,8 +17769,44 @@ components:
     NotificationSMTPEndpointConfiguration:
       allOf:
       - $ref: '#/components/schemas/NotificationEndpointConfiguration'
-      - $ref: '#/components/schemas/NotificationSMTPEndpointConfiguration_allOf'
+      - properties:
+          host:
+            type: string
+          port:
+            type: integer
+          username:
+            type: string
+          password:
+            type: string
+          use_tls:
+            description: Encrypt the SMTP connection with TLS. Defaults to true
+            type: boolean
+          from:
+            description: The from address to use for emails send by this configuration
+            type: string
+          to:
+            description: The address to which the emails are sent
+            type: string
+        required:
+        - from
+        - host
+        - port
+        - to
+        type: object
       description: Configuration for email via smtp endpoint
+      example:
+        use_tls: true
+        last_updated: 2000-01-23T04:56:07.000+00:00
+        password: password
+        port: 0
+        verify_tls: true
+        host: host
+        description: description
+        created_at: 2000-01-23T04:56:07.000+00:00
+        from: from
+        to: to
+        uuid: uuid
+        username: username
     NotificationSMTPEndpointConfigurationList:
       description: List of email via smtp endpoint configurations
       items:
@@ -16992,8 +17872,23 @@ components:
     NotificationSlackEndpointConfiguration:
       allOf:
       - $ref: '#/components/schemas/NotificationEndpointConfiguration'
-      - $ref: '#/components/schemas/NotificationSlackEndpointConfiguration_allOf'
+      - properties:
+          url:
+            description: "url to POST to, including any query parameters, should begin\
+              \ with 'http://' or 'https://'"
+            pattern: https?://.*
+            type: string
+        required:
+        - url
+        type: object
       description: Configuration for slack endpoint
+      example:
+        last_updated: 2000-01-23T04:56:07.000+00:00
+        verify_tls: true
+        description: description
+        created_at: 2000-01-23T04:56:07.000+00:00
+        uuid: uuid
+        url: url
     NotificationSlackEndpointConfigurationList:
       description: List of slack endpoint configurations
       items:
@@ -17028,8 +17923,23 @@ components:
     NotificationTeamsEndpointConfiguration:
       allOf:
       - $ref: '#/components/schemas/NotificationEndpointConfiguration'
-      - $ref: '#/components/schemas/NotificationSlackEndpointConfiguration_allOf'
+      - properties:
+          url:
+            description: "url to POST to, including any query parameters, should begin\
+              \ with 'http://' or 'https://'"
+            pattern: https?://.*
+            type: string
+        required:
+        - url
+        type: object
       description: Configuration for MS Teams endpoint
+      example:
+        last_updated: 2000-01-23T04:56:07.000+00:00
+        verify_tls: true
+        description: description
+        created_at: 2000-01-23T04:56:07.000+00:00
+        uuid: uuid
+        url: url
     NotificationTeamsEndpointConfigurationList:
       description: List of MS Teams endpoint configurations
       items:
@@ -17048,8 +17958,34 @@ components:
     NotificationWebhookEndpointConfiguration:
       allOf:
       - $ref: '#/components/schemas/NotificationEndpointConfiguration'
-      - $ref: '#/components/schemas/NotificationWebhookEndpointConfiguration_allOf'
+      - properties:
+          url:
+            description: "url to POST to, including any query parameters, should begin\
+              \ with 'http://' or 'https://'"
+            pattern: https?://.*
+            type: string
+          username:
+            type: string
+          password:
+            type: string
+          verify_ssl:
+            description: "Verify SSL certificates for HTTPS requests, disabled by\
+              \ default"
+            type: boolean
+        required:
+        - url
+        type: object
       description: Configuration for Webhook endpoint
+      example:
+        last_updated: 2000-01-23T04:56:07.000+00:00
+        password: password
+        verify_ssl: true
+        verify_tls: true
+        description: description
+        created_at: 2000-01-23T04:56:07.000+00:00
+        uuid: uuid
+        url: url
+        username: username
     NotificationWebhookEndpointConfigurationList:
       description: List of Webhook endpoint configurations
       items:
@@ -17219,6 +18155,11 @@ components:
     PackageReference:
       description: A record of a software item which is vulnerable or carries a fix
         for a vulnerability
+      example:
+        name: name
+        type: type
+        version: version
+        will_not_fix: true
       properties:
         name:
           description: Package name
@@ -17360,14 +18301,214 @@ components:
     PaginatedImageList:
       allOf:
       - $ref: '#/components/schemas/PaginationProperties'
-      - $ref: '#/components/schemas/PaginatedImageList_allOf'
+      - properties:
+          images:
+            items:
+              $ref: '#/components/schemas/ImageWithPackages'
+            type: array
+        type: object
       description: Pagination wrapped list of images that match some filter
+      example:
+        next_page: next_page
+        returned_count: 0
+        images:
+        - image:
+            tag_history:
+            - tag_detected_at: 2000-01-23T04:56:07.000+00:00
+              full_tag: full_tag
+              registry: registry
+              repo: repo
+              tag: tag
+            - tag_detected_at: 2000-01-23T04:56:07.000+00:00
+              full_tag: full_tag
+              registry: registry
+              repo: repo
+              tag: tag
+            image_digest: image_digest
+            analyzed_at: analyzed_at
+            image_id: image_id
+          packages:
+          - name: name
+            type: type
+            version: version
+            will_not_fix: true
+          - name: name
+            type: type
+            version: version
+            will_not_fix: true
+        - image:
+            tag_history:
+            - tag_detected_at: 2000-01-23T04:56:07.000+00:00
+              full_tag: full_tag
+              registry: registry
+              repo: repo
+              tag: tag
+            - tag_detected_at: 2000-01-23T04:56:07.000+00:00
+              full_tag: full_tag
+              registry: registry
+              repo: repo
+              tag: tag
+            image_digest: image_digest
+            analyzed_at: analyzed_at
+            image_id: image_id
+          packages:
+          - name: name
+            type: type
+            version: version
+            will_not_fix: true
+          - name: name
+            type: type
+            version: version
+            will_not_fix: true
+        page: page
     PaginatedVulnerabilityList:
       allOf:
       - $ref: '#/components/schemas/PaginationProperties'
-      - $ref: '#/components/schemas/PaginatedVulnerabilityList_allOf'
+      - properties:
+          vulnerabilities:
+            description: The listing of matching vulnerabilities for the query subject
+              to pagination
+            items:
+              $ref: '#/components/schemas/StandaloneVulnerability'
+            type: array
+        type: object
       description: A paginated listing of vulnerability records sorted by ID in descending
         order
+      example:
+        next_page: next_page
+        returned_count: 0
+        vulnerabilities:
+        - severity: Unknown
+          nvd_data:
+          - cvss_v3:
+              base_score: 5.962133916683182
+              impact_score: 2.3021358869347655
+              exploitability_score: 5.637376656633329
+            cvss_v2:
+              base_score: 0.8008281904610115
+              impact_score: 1.4658129805029452
+              exploitability_score: 6.027456183070403
+            description: description
+            id: id
+          - cvss_v3:
+              base_score: 5.962133916683182
+              impact_score: 2.3021358869347655
+              exploitability_score: 5.637376656633329
+            cvss_v2:
+              base_score: 0.8008281904610115
+              impact_score: 1.4658129805029452
+              exploitability_score: 6.027456183070403
+            description: description
+            id: id
+          references:
+          - source: source
+            url: url
+            tags:
+            - tags
+            - tags
+          - source: source
+            url: url
+            tags:
+            - tags
+            - tags
+          vendor_data:
+          - cvss_v3:
+              base_score: 5.962133916683182
+              impact_score: 2.3021358869347655
+              exploitability_score: 5.637376656633329
+            cvss_v2:
+              base_score: 0.8008281904610115
+              impact_score: 1.4658129805029452
+              exploitability_score: 6.027456183070403
+            id: id
+          - cvss_v3:
+              base_score: 5.962133916683182
+              impact_score: 2.3021358869347655
+              exploitability_score: 5.637376656633329
+            cvss_v2:
+              base_score: 0.8008281904610115
+              impact_score: 1.4658129805029452
+              exploitability_score: 6.027456183070403
+            id: id
+          namespace: namespace
+          link: link
+          description: description
+          id: id
+          affected_packages:
+          - name: name
+            type: type
+            version: version
+            will_not_fix: true
+          - name: name
+            type: type
+            version: version
+            will_not_fix: true
+        - severity: Unknown
+          nvd_data:
+          - cvss_v3:
+              base_score: 5.962133916683182
+              impact_score: 2.3021358869347655
+              exploitability_score: 5.637376656633329
+            cvss_v2:
+              base_score: 0.8008281904610115
+              impact_score: 1.4658129805029452
+              exploitability_score: 6.027456183070403
+            description: description
+            id: id
+          - cvss_v3:
+              base_score: 5.962133916683182
+              impact_score: 2.3021358869347655
+              exploitability_score: 5.637376656633329
+            cvss_v2:
+              base_score: 0.8008281904610115
+              impact_score: 1.4658129805029452
+              exploitability_score: 6.027456183070403
+            description: description
+            id: id
+          references:
+          - source: source
+            url: url
+            tags:
+            - tags
+            - tags
+          - source: source
+            url: url
+            tags:
+            - tags
+            - tags
+          vendor_data:
+          - cvss_v3:
+              base_score: 5.962133916683182
+              impact_score: 2.3021358869347655
+              exploitability_score: 5.637376656633329
+            cvss_v2:
+              base_score: 0.8008281904610115
+              impact_score: 1.4658129805029452
+              exploitability_score: 6.027456183070403
+            id: id
+          - cvss_v3:
+              base_score: 5.962133916683182
+              impact_score: 2.3021358869347655
+              exploitability_score: 5.637376656633329
+            cvss_v2:
+              base_score: 0.8008281904610115
+              impact_score: 1.4658129805029452
+              exploitability_score: 6.027456183070403
+            id: id
+          namespace: namespace
+          link: link
+          description: description
+          id: id
+          affected_packages:
+          - name: name
+            type: type
+            version: version
+            will_not_fix: true
+          - name: name
+            type: type
+            version: version
+            will_not_fix: true
+        page: page
     PaginationProperties:
       description: Properties for common pagination handling to be included in any
         wrapping object that needs pagination elements
@@ -17635,15 +18776,29 @@ components:
     PolicyEvalNotification:
       allOf:
       - $ref: '#/components/schemas/NotificationBase'
-      - $ref: '#/components/schemas/PolicyEvalNotification_allOf'
+      - description: The Notification Object definition for Policy Eval Notifications
+        properties:
+          data:
+            $ref: '#/components/schemas/PolicyEvalNotificationData'
+        type: object
     PolicyEvalNotificationData:
       allOf:
       - $ref: '#/components/schemas/BaseNotificationData'
-      - $ref: '#/components/schemas/PolicyEvalNotificationData_allOf'
+      - properties:
+          notification_payload:
+            $ref: '#/components/schemas/PolicyEvalNotificationPayload'
+        type: object
     PolicyEvalNotificationPayload:
       allOf:
       - $ref: '#/components/schemas/GenericNotificationPayload'
-      - $ref: '#/components/schemas/PolicyEvalNotificationPayload_allOf'
+      - properties:
+          curr_eval:
+            $ref: '#/components/schemas/PolicyEvalNotificationPayload_allOf_curr_eval'
+          last_eval:
+            $ref: '#/components/schemas/PolicyEvalNotificationPayload_allOf_last_eval'
+          annotations:
+            $ref: '#/components/schemas/AnalysisUpdateNotificationPayload_allOf_annotations'
+        type: object
     PolicyEvaluation:
       description: Evaluation response object
       example:
@@ -17657,13 +18812,35 @@ components:
           - severity: error
             problem_type: problem_type
             details: details
-          matched_denylisted_images_rule: null
+          matched_denylisted_images_rule:
+            registry: registry
+            image:
+              type: tag
+              value: value
+            name: name
+            description: description
+            id: id
+            repository: repository
           image_mapped_to_rule: true
           number_of_findings: 6
           final_action: stop
           image_denylisted: true
           final_action_reason: policy_evaluation
-          matched_mapping_rule: null
+          matched_mapping_rule:
+            registry: registry
+            image:
+              type: tag
+              value: value
+            allowlist_ids:
+            - allowlist_ids
+            - allowlist_ids
+            name: name
+            description: description
+            rule_set_ids:
+            - rule_set_ids
+            - rule_set_ids
+            id: id
+            repository: repository
           details:
             findings:
             - rule_id: rule_id
@@ -17676,7 +18853,10 @@ components:
               trigger: trigger
               message: message
               inherited_from_base: true
-              allowlist_match: null
+              allowlist_match:
+                matched_rule_id: matched_rule_id
+                name: name
+                id: id
             - rule_id: rule_id
               policy_id: policy_id
               allowlisted: true
@@ -17687,7 +18867,10 @@ components:
               trigger: trigger
               message: message
               inherited_from_base: true
-              allowlist_match: null
+              allowlist_match:
+                matched_rule_id: matched_rule_id
+                name: name
+                id: id
             remediations:
             - suggestions:
               - message: message
@@ -17887,7 +19070,15 @@ components:
                 id: id
                 repository: repository
           image_allowlisted: true
-          matched_allowlisted_images_rule: null
+          matched_allowlisted_images_rule:
+            registry: registry
+            image:
+              type: tag
+              value: value
+            name: name
+            description: description
+            id: id
+            repository: repository
           status: fail
         - comparison_image_digest: comparison_image_digest
           evaluation_time: 2000-01-23T04:56:07.000+00:00
@@ -17898,13 +19089,35 @@ components:
           - severity: error
             problem_type: problem_type
             details: details
-          matched_denylisted_images_rule: null
+          matched_denylisted_images_rule:
+            registry: registry
+            image:
+              type: tag
+              value: value
+            name: name
+            description: description
+            id: id
+            repository: repository
           image_mapped_to_rule: true
           number_of_findings: 6
           final_action: stop
           image_denylisted: true
           final_action_reason: policy_evaluation
-          matched_mapping_rule: null
+          matched_mapping_rule:
+            registry: registry
+            image:
+              type: tag
+              value: value
+            allowlist_ids:
+            - allowlist_ids
+            - allowlist_ids
+            name: name
+            description: description
+            rule_set_ids:
+            - rule_set_ids
+            - rule_set_ids
+            id: id
+            repository: repository
           details:
             findings:
             - rule_id: rule_id
@@ -17917,7 +19130,10 @@ components:
               trigger: trigger
               message: message
               inherited_from_base: true
-              allowlist_match: null
+              allowlist_match:
+                matched_rule_id: matched_rule_id
+                name: name
+                id: id
             - rule_id: rule_id
               policy_id: policy_id
               allowlisted: true
@@ -17928,7 +19144,10 @@ components:
               trigger: trigger
               message: message
               inherited_from_base: true
-              allowlist_match: null
+              allowlist_match:
+                matched_rule_id: matched_rule_id
+                name: name
+                id: id
             remediations:
             - suggestions:
               - message: message
@@ -18128,7 +19347,15 @@ components:
                 id: id
                 repository: repository
           image_allowlisted: true
-          matched_allowlisted_images_rule: null
+          matched_allowlisted_images_rule:
+            registry: registry
+            image:
+              type: tag
+              value: value
+            name: name
+            description: description
+            id: id
+            repository: repository
           status: fail
         policy_id: policy_id
         image_digest: image_digest
@@ -18162,7 +19389,10 @@ components:
         trigger: trigger
         message: message
         inherited_from_base: true
-        allowlist_match: null
+        allowlist_match:
+          matched_rule_id: matched_rule_id
+          name: name
+          id: id
       properties:
         trigger_id:
           description: ID of this policy trigger finding (can be used to allowlist
@@ -18197,7 +19427,7 @@ components:
           description: Indicates if this finding was allowlisted or not
           type: boolean
         allowlist_match:
-          $ref: '#/components/schemas/PolicyEvaluationFinding_allowlist_match'
+          $ref: '#/components/schemas/PolicyFindingAllowlistMatch'
         inherited_from_base:
           description: Indicates if this finding was found in the base image
           nullable: true
@@ -18294,13 +19524,35 @@ components:
         - severity: error
           problem_type: problem_type
           details: details
-        matched_denylisted_images_rule: null
+        matched_denylisted_images_rule:
+          registry: registry
+          image:
+            type: tag
+            value: value
+          name: name
+          description: description
+          id: id
+          repository: repository
         image_mapped_to_rule: true
         number_of_findings: 6
         final_action: stop
         image_denylisted: true
         final_action_reason: policy_evaluation
-        matched_mapping_rule: null
+        matched_mapping_rule:
+          registry: registry
+          image:
+            type: tag
+            value: value
+          allowlist_ids:
+          - allowlist_ids
+          - allowlist_ids
+          name: name
+          description: description
+          rule_set_ids:
+          - rule_set_ids
+          - rule_set_ids
+          id: id
+          repository: repository
         details:
           findings:
           - rule_id: rule_id
@@ -18313,7 +19565,10 @@ components:
             trigger: trigger
             message: message
             inherited_from_base: true
-            allowlist_match: null
+            allowlist_match:
+              matched_rule_id: matched_rule_id
+              name: name
+              id: id
           - rule_id: rule_id
             policy_id: policy_id
             allowlisted: true
@@ -18324,7 +19579,10 @@ components:
             trigger: trigger
             message: message
             inherited_from_base: true
-            allowlist_match: null
+            allowlist_match:
+              matched_rule_id: matched_rule_id
+              name: name
+              id: id
           remediations:
           - suggestions:
             - message: message
@@ -18524,7 +19782,15 @@ components:
               id: id
               repository: repository
         image_allowlisted: true
-        matched_allowlisted_images_rule: null
+        matched_allowlisted_images_rule:
+          registry: registry
+          image:
+            type: tag
+            value: value
+          name: name
+          description: description
+          id: id
+          repository: repository
         status: fail
       properties:
         details:
@@ -18567,17 +19833,17 @@ components:
           description: Whether the evaluated image matched an allowlist rule
           type: boolean
         matched_allowlisted_images_rule:
-          $ref: '#/components/schemas/PolicyEvaluationResult_matched_allowlisted_images_rule'
+          $ref: '#/components/schemas/ImageSelectionRule'
         image_denylisted:
           description: Whether the evaluated image matched a denylist rule
           type: boolean
         matched_denylisted_images_rule:
-          $ref: '#/components/schemas/PolicyEvaluationResult_matched_allowlisted_images_rule'
+          $ref: '#/components/schemas/ImageSelectionRule'
         image_mapped_to_rule:
           description: Whether the evaluated image matched a policy rule
           type: boolean
         matched_mapping_rule:
-          $ref: '#/components/schemas/PolicyEvaluationResult_matched_mapping_rule'
+          $ref: '#/components/schemas/MappingRule'
         number_of_findings:
           description: Number of policy findings in the response
           type: integer
@@ -18594,6 +19860,10 @@ components:
       type: object
     PolicyFindingAllowlistMatch:
       description: Details about (possible) allowlist match
+      example:
+        matched_rule_id: matched_rule_id
+        name: name
+        id: id
       properties:
         id:
           description: ID of the allowlist that matched this finding
@@ -18622,185 +19892,185 @@ components:
         active: true
         description: description
         policy:
-          allowlisted_images:
-            - description: description
-              id: id
-              image:
-                type: tag
-                value: value
-              name: name
-              registry: registry
-              repository: repository
-            - description: description
-              id: id
-              image:
-                type: tag
-                value: value
-              name: name
-              registry: registry
-              repository: repository
-          allowlists:
-            - description: description
-              id: id
-              items:
-                - description: description
-                  expires_on: 2000-01-23T04:56:07.000+00:00
-                  gate: gate
-                  id: id
-                  trigger_id: trigger_id
-                - description: description
-                  expires_on: 2000-01-23T04:56:07.000+00:00
-                  gate: gate
-                  id: id
-                  trigger_id: trigger_id
-              name: name
-              version: version
-            - description: description
-              id: id
-              items:
-                - description: description
-                  expires_on: 2000-01-23T04:56:07.000+00:00
-                  gate: gate
-                  id: id
-                  trigger_id: trigger_id
-                - description: description
-                  expires_on: 2000-01-23T04:56:07.000+00:00
-                  gate: gate
-                  id: id
-                  trigger_id: trigger_id
-              name: name
-              version: version
-          denylisted_images:
-            - description: description
-              id: id
-              image:
-                type: tag
-                value: value
-              name: name
-              registry: registry
-              repository: repository
-            - description: description
-              id: id
-              image:
-                type: tag
-                value: value
-              name: name
-              registry: registry
-              repository: repository
-          description: description
-          id: id
-          last_updated: 0.8008282
           mappings:
-            - allowlist_ids:
-                - allowlist_ids
-                - allowlist_ids
+          - registry: registry
+            image:
+              type: tag
+              value: value
+            allowlist_ids:
+            - allowlist_ids
+            - allowlist_ids
+            name: name
+            description: description
+            rule_set_ids:
+            - rule_set_ids
+            - rule_set_ids
+            id: id
+            repository: repository
+          - registry: registry
+            image:
+              type: tag
+              value: value
+            allowlist_ids:
+            - allowlist_ids
+            - allowlist_ids
+            name: name
+            description: description
+            rule_set_ids:
+            - rule_set_ids
+            - rule_set_ids
+            id: id
+            repository: repository
+          last_updated: 0.8008281904610115
+          denylisted_images:
+          - registry: registry
+            image:
+              type: tag
+              value: value
+            name: name
+            description: description
+            id: id
+            repository: repository
+          - registry: registry
+            image:
+              type: tag
+              value: value
+            name: name
+            description: description
+            id: id
+            repository: repository
+          allowlists:
+          - name: name
+            description: description
+            id: id
+            version: version
+            items:
+            - trigger_id: trigger_id
+              expires_on: 2000-01-23T04:56:07.000+00:00
               description: description
               id: id
-              image:
-                type: tag
-                value: value
-              name: name
-              registry: registry
-              repository: repository
-              rule_set_ids:
-                - rule_set_ids
-                - rule_set_ids
-            - allowlist_ids:
-                - allowlist_ids
-                - allowlist_ids
+              gate: gate
+            - trigger_id: trigger_id
+              expires_on: 2000-01-23T04:56:07.000+00:00
               description: description
               id: id
-              image:
-                type: tag
-                value: value
-              name: name
-              registry: registry
-              repository: repository
-              rule_set_ids:
-                - rule_set_ids
-                - rule_set_ids
-          name: name
-          rule_sets:
-            - artifact_type: image
+              gate: gate
+          - name: name
+            description: description
+            id: id
+            version: version
+            items:
+            - trigger_id: trigger_id
+              expires_on: 2000-01-23T04:56:07.000+00:00
               description: description
               id: id
-              name: name
-              rules:
-                - action: GO
-                  description: description
-                  gate: gate
-                  id: id
-                  params:
-                    - name: name
-                      value: value
-                    - name: name
-                      value: value
-                  recommendation: recommendation
-                  trigger: trigger
-                - action: GO
-                  description: description
-                  gate: gate
-                  id: id
-                  params:
-                    - name: name
-                      value: value
-                    - name: name
-                      value: value
-                  recommendation: recommendation
-                  trigger: trigger
-              version: version
-            - artifact_type: image
+              gate: gate
+            - trigger_id: trigger_id
+              expires_on: 2000-01-23T04:56:07.000+00:00
               description: description
               id: id
-              name: name
-              rules:
-                - action: GO
-                  description: description
-                  gate: gate
-                  id: id
-                  params:
-                    - name: name
-                      value: value
-                    - name: name
-                      value: value
-                  recommendation: recommendation
-                  trigger: trigger
-                - action: GO
-                  description: description
-                  gate: gate
-                  id: id
-                  params:
-                    - name: name
-                      value: value
-                    - name: name
-                      value: value
-                  recommendation: recommendation
-                  trigger: trigger
-              version: version
+              gate: gate
           source_mappings:
-            - allowlist_ids:
-                - allowlist_ids
-                - allowlist_ids
+          - allowlist_ids:
+            - allowlist_ids
+            - allowlist_ids
+            name: name
+            host: host
+            description: description
+            rule_set_ids:
+            - rule_set_ids
+            - rule_set_ids
+            id: id
+            repository: repository
+          - allowlist_ids:
+            - allowlist_ids
+            - allowlist_ids
+            name: name
+            host: host
+            description: description
+            rule_set_ids:
+            - rule_set_ids
+            - rule_set_ids
+            id: id
+            repository: repository
+          name: name
+          description: description
+          rule_sets:
+          - artifact_type: image
+            name: name
+            description: description
+            rules:
+            - action: GO
               description: description
-              host: host
+              recommendation: recommendation
               id: id
-              name: name
-              repository: repository
-              rule_set_ids:
-                - rule_set_ids
-                - rule_set_ids
-            - allowlist_ids:
-                - allowlist_ids
-                - allowlist_ids
+              gate: gate
+              trigger: trigger
+              params:
+              - name: name
+                value: value
+              - name: name
+                value: value
+            - action: GO
               description: description
-              host: host
+              recommendation: recommendation
               id: id
-              name: name
-              repository: repository
-              rule_set_ids:
-                - rule_set_ids
-                - rule_set_ids
+              gate: gate
+              trigger: trigger
+              params:
+              - name: name
+                value: value
+              - name: name
+                value: value
+            id: id
+            version: version
+          - artifact_type: image
+            name: name
+            description: description
+            rules:
+            - action: GO
+              description: description
+              recommendation: recommendation
+              id: id
+              gate: gate
+              trigger: trigger
+              params:
+              - name: name
+                value: value
+              - name: name
+                value: value
+            - action: GO
+              description: description
+              recommendation: recommendation
+              id: id
+              gate: gate
+              trigger: trigger
+              params:
+              - name: name
+                value: value
+              - name: name
+                value: value
+            id: id
+            version: version
+          id: id
           version: version
+          allowlisted_images:
+          - registry: registry
+            image:
+              type: tag
+              value: value
+            name: name
+            description: description
+            id: id
+            repository: repository
+          - registry: registry
+            image:
+              type: tag
+              value: value
+            name: name
+            description: description
+            id: id
+            repository: repository
       properties:
         created_at:
           format: date-time
@@ -18821,7 +20091,7 @@ components:
           description: Source location of where the policy originated
           type: string
         policy:
-          $ref: '#/components/schemas/PolicyRecord_policy'
+          $ref: '#/components/schemas/Policy'
         name:
           description: Name of the policy
           type: string
@@ -18933,6 +20203,11 @@ components:
       type: object
     RbacManagerApiErrorResponse:
       description: Generic HTTP API error response
+      example:
+        code: 0
+        error_type: error_type
+        detail: "{}"
+        message: message
       properties:
         code:
           format: int32
@@ -19047,11 +20322,8 @@ components:
         for_account: for_account
         created_at: 2000-01-23T04:56:07.000+00:00
         username: username
-      oneOf:
-      - required:
-        - for_account
-      - required:
-        - domain_name
+      nullable: true
+      oneOf: []
       properties:
         username:
           type: string
@@ -19228,7 +20500,38 @@ components:
     RbacManagerSamlConfigurationGet:
       allOf:
       - $ref: '#/components/schemas/RbacManagerSamlConfiguration'
-      - $ref: '#/components/schemas/RbacManagerSamlConfigurationGet_allOf'
+      - properties:
+          user_groups:
+            description: List of user groups associated with this IDP (Only for GET
+              operations)
+            items:
+              $ref: '#/components/schemas/RbacManagerSamlConfigurationGet_allOf_user_groups'
+            type: array
+        type: object
+      example:
+        idp_groups_attribute: idp_groups_attribute
+        last_updated: 2000-01-23T04:56:07.000+00:00
+        acs_https_port: 0
+        idp_metadata_url: idp_metadata_url
+        require_signed_response: true
+        require_existing_users: false
+        default_role: default_role
+        created_at: 2000-01-23T04:56:07.000+00:00
+        idp_username_attribute: idp_username_attribute
+        idp_role_attribute: idp_role_attribute
+        acs_url: acs_url
+        sp_entity_id: sp_entity_id
+        idp_account_attribute: idp_account_attribute
+        enabled: true
+        default_account: default_account
+        name: name
+        require_signed_assertions: true
+        idp_metadata_xml: idp_metadata_xml
+        user_groups:
+        - user_group: user_group
+          added_on: 2000-01-23T04:56:07.000+00:00
+        - user_group: user_group
+          added_on: 2000-01-23T04:56:07.000+00:00
     RbacManagerServiceVersion:
       description: Version information for a service
       properties:
@@ -19426,14 +20729,11 @@ components:
       type: object
       x-nullable: true
     RelationshipSbomDiff:
-      description: "The diff of two sboms with context applied in each difference.\
-        \ The \"added\" and \"removed\" directions depend on the relationship to which\
-        \ this diff applies.\nA relationship defines a source, a target, and a type.\
-        \ For example, a relationship of type \"contains\" with a source of an image\
-        \ and a target of a source revision will\nindicate that the diff is between\
-        \ the source repo sbom and the image sbom. Added packages are present in the\
-        \ image but not in the source, removed are present in the source revision\n\
-        but not in the image, etc.\n"
+      description: |
+        The diff of two sboms with context applied in each difference. The "added" and "removed" directions depend on the relationship to which this diff applies.
+        A relationship defines a source, a target, and a type. For example, a relationship of type "contains" with a source of an image and a target of a source revision will
+        indicate that the diff is between the source repo sbom and the image sbom. Added packages are present in the image but not in the source, removed are present in the source revision
+        but not in the image, etc.
       example:
         source_only:
         - metadata: "{}"
@@ -20654,7 +21954,10 @@ components:
           gate: gate
           trigger: trigger
           message: message
-          allowlist_match: null
+          allowlist_match:
+            matched_rule_id: matched_rule_id
+            name: name
+            id: id
         - rule_id: rule_id
           policy_id: policy_id
           allowlisted: true
@@ -20664,7 +21967,10 @@ components:
           gate: gate
           trigger: trigger
           message: message
-          allowlist_match: null
+          allowlist_match:
+            matched_rule_id: matched_rule_id
+            name: name
+            id: id
         number_of_findings: 0
         revision: revision
         final_action: stop
@@ -20951,7 +22257,10 @@ components:
         gate: gate
         trigger: trigger
         message: message
-        allowlist_match: null
+        allowlist_match:
+          matched_rule_id: matched_rule_id
+          name: name
+          id: id
       properties:
         trigger_id:
           description: ID of this policy trigger finding (can be used to allowlist
@@ -20986,7 +22295,7 @@ components:
           description: Indicates if this finding was allowlisted or not
           type: boolean
         allowlist_match:
-          $ref: '#/components/schemas/PolicyEvaluationFinding_allowlist_match'
+          $ref: '#/components/schemas/PolicyFindingAllowlistMatch'
       type: object
     SourceSBOM:
       description: A Source SBOM Document
@@ -21021,6 +22330,72 @@ components:
     StandaloneVulnerability:
       description: "A single vulnerability record in a single namespace, the unique\
         \ key is the combination of the id and namespace"
+      example:
+        severity: Unknown
+        nvd_data:
+        - cvss_v3:
+            base_score: 5.962133916683182
+            impact_score: 2.3021358869347655
+            exploitability_score: 5.637376656633329
+          cvss_v2:
+            base_score: 0.8008281904610115
+            impact_score: 1.4658129805029452
+            exploitability_score: 6.027456183070403
+          description: description
+          id: id
+        - cvss_v3:
+            base_score: 5.962133916683182
+            impact_score: 2.3021358869347655
+            exploitability_score: 5.637376656633329
+          cvss_v2:
+            base_score: 0.8008281904610115
+            impact_score: 1.4658129805029452
+            exploitability_score: 6.027456183070403
+          description: description
+          id: id
+        references:
+        - source: source
+          url: url
+          tags:
+          - tags
+          - tags
+        - source: source
+          url: url
+          tags:
+          - tags
+          - tags
+        vendor_data:
+        - cvss_v3:
+            base_score: 5.962133916683182
+            impact_score: 2.3021358869347655
+            exploitability_score: 5.637376656633329
+          cvss_v2:
+            base_score: 0.8008281904610115
+            impact_score: 1.4658129805029452
+            exploitability_score: 6.027456183070403
+          id: id
+        - cvss_v3:
+            base_score: 5.962133916683182
+            impact_score: 2.3021358869347655
+            exploitability_score: 5.637376656633329
+          cvss_v2:
+            base_score: 0.8008281904610115
+            impact_score: 1.4658129805029452
+            exploitability_score: 6.027456183070403
+          id: id
+        namespace: namespace
+        link: link
+        description: description
+        id: id
+        affected_packages:
+        - name: name
+          type: type
+          version: version
+          will_not_fix: true
+        - name: name
+          type: type
+          version: version
+          will_not_fix: true
       properties:
         id:
           description: "Vulnerability identifier. May be CVE-X, RHSA-X, etc. Not necessarily\
@@ -21271,6 +22646,12 @@ components:
       type: object
     TagEntry:
       description: A docker-pullable tag value as well as deconstructed components
+      example:
+        tag_detected_at: 2000-01-23T04:56:07.000+00:00
+        full_tag: full_tag
+        registry: registry
+        repo: repo
+        tag: tag
       properties:
         full_tag:
           description: The pullable string for the tag. E.g. "docker.io/library/node:latest"
@@ -21294,15 +22675,33 @@ components:
     TagUpdateNotification:
       allOf:
       - $ref: '#/components/schemas/NotificationBase'
-      - $ref: '#/components/schemas/TagUpdateNotification_allOf'
+      - description: The Notification Object definition for Tag Update Notifications
+        properties:
+          data:
+            $ref: '#/components/schemas/TagUpdateNotificationData'
+        type: object
     TagUpdateNotificationData:
       allOf:
       - $ref: '#/components/schemas/BaseNotificationData'
-      - $ref: '#/components/schemas/TagUpdateNotificationData_allOf'
+      - properties:
+          notification_payload:
+            $ref: '#/components/schemas/TagUpdateNotificationPayload'
+        type: object
     TagUpdateNotificationPayload:
       allOf:
       - $ref: '#/components/schemas/GenericNotificationPayload'
-      - $ref: '#/components/schemas/TagUpdateNotificationPayload_allOf'
+      - properties:
+          curr_eval:
+            description: A list containing the current image digest
+            items: {}
+            type: array
+          last_eval:
+            description: A list containing the previous image digests
+            items: {}
+            type: array
+          annotations:
+            $ref: '#/components/schemas/AnalysisUpdateNotificationPayload_allOf_annotations'
+        type: object
     TokenResponse:
       example:
         access_token: access_token
@@ -21883,11 +23282,50 @@ components:
       description: "A vulnerability in an application version vulnerability report\
         \ with vulnerability data, affected artifacts, and packages"
       example:
-        vendor_data: null
+        vendor_data:
+          severity: severity
+          feed: feed
+          description: description
+          cvss:
+            cvss_v3:
+              base_score: 5.962133916683182
+              impact_score: 2.3021358869347655
+              exploitability_score: 5.637376656633329
+            cvss_v2:
+              base_score: 0.8008281904610115
+              impact_score: 1.4658129805029452
+              exploitability_score: 6.027456183070403
+          url: url
+          will_not_fix: true
+          group: group
         id: id
         nvd:
-        - null
-        - null
+        - severity: severity
+          description: description
+          id: id
+          cvss:
+            cvss_v3:
+              base_score: 5.962133916683182
+              impact_score: 2.3021358869347655
+              exploitability_score: 5.637376656633329
+            cvss_v2:
+              base_score: 0.8008281904610115
+              impact_score: 1.4658129805029452
+              exploitability_score: 6.027456183070403
+          url: url
+        - severity: severity
+          description: description
+          id: id
+          cvss:
+            cvss_v3:
+              base_score: 5.962133916683182
+              impact_score: 2.3021358869347655
+              exploitability_score: 5.637376656633329
+            cvss_v2:
+              base_score: 0.8008281904610115
+              impact_score: 1.4658129805029452
+              exploitability_score: 6.027456183070403
+          url: url
         matches:
         - fix: fix
           location:
@@ -21947,8 +23385,25 @@ components:
     VersionVulnerabilityNVD:
       allOf:
       - $ref: '#/components/schemas/VersionVulnerabilityVendorNVDCommon'
-      - $ref: '#/components/schemas/VersionVulnerabilityNVD_allOf'
+      - properties:
+          id:
+            type: string
+        type: object
       description: NVD entry for application version vulnerability
+      example:
+        severity: severity
+        description: description
+        id: id
+        cvss:
+          cvss_v3:
+            base_score: 5.962133916683182
+            impact_score: 2.3021358869347655
+            exploitability_score: 5.637376656633329
+          cvss_v2:
+            base_score: 0.8008281904610115
+            impact_score: 1.4658129805029452
+            exploitability_score: 6.027456183070403
+        url: url
     VersionVulnerabilityReportImage:
       description: The definition of the image artifacts in the application version
         vulnerability report
@@ -21979,8 +23434,31 @@ components:
     VersionVulnerabilityVendor:
       allOf:
       - $ref: '#/components/schemas/VersionVulnerabilityVendorNVDCommon'
-      - $ref: '#/components/schemas/VersionVulnerabilityVendor_allOf'
+      - properties:
+          feed:
+            type: string
+          group:
+            type: string
+          will_not_fix:
+            type: boolean
+        type: object
       description: The vendor information of the vulnerability
+      example:
+        severity: severity
+        feed: feed
+        description: description
+        cvss:
+          cvss_v3:
+            base_score: 5.962133916683182
+            impact_score: 2.3021358869347655
+            exploitability_score: 5.637376656633329
+          cvss_v2:
+            base_score: 0.8008281904610115
+            impact_score: 1.4658129805029452
+            exploitability_score: 6.027456183070403
+        url: url
+        will_not_fix: true
+        group: group
     VersionVulnerabilityVendorNVDCommon:
       description: Values common to vendor and nvd entries in application version
         vulnerability report
@@ -22011,17 +23489,37 @@ components:
     VulnUpdateNotification:
       allOf:
       - $ref: '#/components/schemas/NotificationBase'
-      - $ref: '#/components/schemas/VulnUpdateNotification_allOf'
+      - description: The Notification Object definition for Vuln Update Notifications
+        properties:
+          data:
+            $ref: '#/components/schemas/VulnUpdateNotificationData'
+        type: object
     VulnUpdateNotificationData:
       allOf:
       - $ref: '#/components/schemas/BaseNotificationData'
-      - $ref: '#/components/schemas/VulnUpdateNotificationData_allOf'
+      - properties:
+          notification_payload:
+            $ref: '#/components/schemas/VulnUpdateNotificationPayload'
+        type: object
     VulnUpdateNotificationPayload:
       allOf:
       - $ref: '#/components/schemas/GenericNotificationPayload'
-      - $ref: '#/components/schemas/VulnUpdateNotificationPayload_allOf'
+      - properties:
+          diff_vulnerability_result:
+            $ref: '#/components/schemas/VulnDiffResult'
+          image_digest:
+            type: string
+          annotations:
+            $ref: '#/components/schemas/AnalysisUpdateNotificationPayload_allOf_annotations'
+        type: object
     VulnerabilityReference:
       description: An external link/reference
+      example:
+        source: source
+        url: url
+        tags:
+        - tags
+        - tags
       properties:
         source:
           description: The reference source
@@ -22036,13 +23534,8 @@ components:
       type: object
     patch_user_api_key_request:
       additionalProperties: false
-      anyOf:
-      - required:
-        - name
-      - required:
-        - description
-      - required:
-        - status
+      anyOf: []
+      nullable: true
       properties:
         description:
           type: string
@@ -22065,6 +23558,8 @@ components:
           type: string
       type: object
     revoke_oauth_token_400_response:
+      example:
+        error: error
       properties:
         error:
           description: ASCII error code from RFC6749
@@ -22130,28 +23625,10 @@ components:
       - batch_index
       - send_timestamp
       type: object
-    AnalysisUpdateNotification_allOf:
-      description: The Notification Object definition for Analysis Update Notifications
-      properties:
-        data:
-          $ref: '#/components/schemas/AnalysisUpdateNotificationData'
-      type: object
-    AnalysisUpdateNotificationData_allOf:
-      properties:
-        notification_payload:
-          $ref: '#/components/schemas/AnalysisUpdateNotificationPayload'
-      type: object
-    AnalysisUpdateNotificationPayload_allOf:
-      properties:
-        curr_eval:
-          $ref: '#/components/schemas/AnalysisUpdateEval'
-        last_eval:
-          $ref: '#/components/schemas/AnalysisUpdateEval'
-        annotations:
-          description: List of Corresponding Image Annotations
-          nullable: true
-          properties: {}
-          type: object
+    AnalysisUpdateNotificationPayload_allOf_annotations:
+      description: List of Corresponding Image Annotations
+      nullable: true
+      properties: {}
       type: object
     ApplicationVersionVulnerabilityReport_application_artifacts:
       example:
@@ -22208,13 +23685,6 @@ components:
         artifacts:
           $ref: '#/components/schemas/ApplicationVersionVulnerabilityReport_application_artifacts'
       type: object
-    ArtifactLifecyclePolicyResponse_allOf:
-      properties:
-        policy_conditions:
-          items:
-            $ref: '#/components/schemas/ArtifactLifecyclePolicyConditions'
-          type: array
-      type: object
     EventResponse_event_source:
       properties:
         service_name:
@@ -22269,13 +23739,6 @@ components:
         count:
           type: integer
       type: object
-    ImagePackageVulnerability_allOf:
-      properties:
-        inherited_from_base:
-          description: True if the vulnerable artifact is found in the base image.
-            False otherwise
-          type: boolean
-      type: object
     ImportPackage_cpes_inner:
       anyOf:
       - type: string
@@ -22284,111 +23747,6 @@ components:
       anyOf:
       - type: string
       - $ref: '#/components/schemas/NativeSBOMPackageCPE'
-    NotificationActionPlanNotificationPayload_allOf:
-      description: defines an action plan payload that can be sent synchronously
-      properties:
-        uuid:
-          type: string
-        image_tag:
-          type: string
-        image_digest:
-          type: string
-        bundle_id:
-          type: string
-        subject:
-          type: string
-        message:
-          type: string
-      type: object
-    NotificationGitHubEndpointConfigurationBase_allOf:
-      properties:
-        url:
-          description: "Github API endpoint, defaults to https://api.github.com if\
-            \ not specified"
-          pattern: https?://.*
-          type: string
-        username:
-          description: GitHub username for creating issues
-          type: string
-        access_token:
-          description: Personal access token for the GitHub account
-          type: string
-        owner:
-          description: Owner of the repository to create issues against
-          type: string
-        repository:
-          description: Name of the repository to create issues against
-          type: string
-        milestone:
-          description: Number of the milestone to associate with the issue
-          type: integer
-        labels:
-          description: List of labels to associate with the issue
-          items:
-            type: string
-          type: array
-        assignees:
-          description: List of user logins to assign to the issue.
-          items:
-            type: string
-          type: array
-      type: object
-    NotificationJiraEndpointConfigurationBase_allOf:
-      properties:
-        url:
-          description: "Jira endpoint URL including host and port, should begin with\
-            \ 'http://' or 'https://'"
-          pattern: https?://.*
-          type: string
-        username:
-          description: Jira username for creating issues
-          type: string
-        password:
-          description: Jira access token for creating issues
-          type: string
-        project_key:
-          description: Key of the Jira project for creating issues
-          type: string
-        issue_type:
-          description: Type associated with the issue
-          type: string
-        priority:
-          description: Priority assigned to the issue
-          type: string
-        assignee:
-          description: Jira user to associate with the issue
-          type: string
-        labels:
-          description: List of labels to associate with the issue
-          items:
-            type: string
-          type: array
-      type: object
-    NotificationSMTPEndpointConfiguration_allOf:
-      properties:
-        host:
-          type: string
-        port:
-          type: integer
-        username:
-          type: string
-        password:
-          type: string
-        use_tls:
-          description: Encrypt the SMTP connection with TLS. Defaults to true
-          type: boolean
-        from:
-          description: The from address to use for emails send by this configuration
-          type: string
-        to:
-          description: The address to which the emails are sent
-          type: string
-      required:
-      - from
-      - host
-      - port
-      - to
-      type: object
     NotificationServiceVersion_service:
       example:
         version: version
@@ -22423,80 +23781,14 @@ components:
           description: Version of the installed engine db schema
           type: string
       type: object
-    NotificationSlackEndpointConfiguration_allOf:
-      properties:
-        url:
-          description: "url to POST to, including any query parameters, should begin\
-            \ with 'http://' or 'https://'"
-          pattern: https?://.*
-          type: string
-      required:
-      - url
+    PolicyEvalNotificationPayload_allOf_curr_eval:
+      description: The Current Policy Evaluation result
+      properties: {}
       type: object
-    NotificationWebhookEndpointConfiguration_allOf:
-      properties:
-        url:
-          description: "url to POST to, including any query parameters, should begin\
-            \ with 'http://' or 'https://'"
-          pattern: https?://.*
-          type: string
-        username:
-          type: string
-        password:
-          type: string
-        verify_ssl:
-          description: "Verify SSL certificates for HTTPS requests, disabled by default"
-          type: boolean
-      required:
-      - url
+    PolicyEvalNotificationPayload_allOf_last_eval:
+      description: The Previous Policy Evaluation result
+      properties: {}
       type: object
-    PaginatedImageList_allOf:
-      properties:
-        images:
-          items:
-            $ref: '#/components/schemas/ImageWithPackages'
-          type: array
-      type: object
-    PaginatedVulnerabilityList_allOf:
-      properties:
-        vulnerabilities:
-          description: The listing of matching vulnerabilities for the query subject
-            to pagination
-          items:
-            $ref: '#/components/schemas/StandaloneVulnerability'
-          type: array
-      type: object
-    PolicyEvalNotification_allOf:
-      description: The Notification Object definition for Policy Eval Notifications
-      properties:
-        data:
-          $ref: '#/components/schemas/PolicyEvalNotificationData'
-      type: object
-    PolicyEvalNotificationData_allOf:
-      properties:
-        notification_payload:
-          $ref: '#/components/schemas/PolicyEvalNotificationPayload'
-      type: object
-    PolicyEvalNotificationPayload_allOf:
-      properties:
-        curr_eval:
-          description: The Current Policy Evaluation result
-          properties: {}
-          type: object
-        last_eval:
-          description: The Previous Policy Evaluation result
-          properties: {}
-          type: object
-        annotations:
-          description: List of Corresponding Image Annotations
-          nullable: true
-          properties: {}
-          type: object
-      type: object
-    PolicyEvaluationFinding_allowlist_match:
-      anyOf:
-      - $ref: '#/components/schemas/NullType'
-      - $ref: '#/components/schemas/PolicyFindingAllowlistMatch'
     PolicyEvaluationResult_details:
       description: Contains additional details about the policy evaluation
       example:
@@ -22511,7 +23803,10 @@ components:
           trigger: trigger
           message: message
           inherited_from_base: true
-          allowlist_match: null
+          allowlist_match:
+            matched_rule_id: matched_rule_id
+            name: name
+            id: id
         - rule_id: rule_id
           policy_id: policy_id
           allowlisted: true
@@ -22522,7 +23817,10 @@ components:
           trigger: trigger
           message: message
           inherited_from_base: true
-          allowlist_match: null
+          allowlist_match:
+            matched_rule_id: matched_rule_id
+            name: name
+            id: id
         remediations:
         - suggestions:
           - message: message
@@ -22749,19 +24047,10 @@ components:
       - policy
       - policy_action
       type: object
-    PolicyEvaluationResult_matched_allowlisted_images_rule:
-      anyOf:
-      - $ref: '#/components/schemas/NullType'
-      - $ref: '#/components/schemas/ImageSelectionRule'
-    PolicyEvaluationResult_matched_mapping_rule:
-      anyOf:
-      - $ref: '#/components/schemas/NullType'
-      - $ref: '#/components/schemas/MappingRule'
-    PolicyRecord_policy:
-      anyOf:
-      - $ref: '#/components/schemas/NullType'
-      - $ref: '#/components/schemas/Policy'
     RbacManagerSamlConfigurationGet_allOf_user_groups:
+      example:
+        user_group: user_group
+        added_on: 2000-01-23T04:56:07.000+00:00
       properties:
         user_group:
           description: The name of the user group
@@ -22770,15 +24059,6 @@ components:
           description: The date and time the user group was associated with the IDP
           format: date-time
           type: string
-      type: object
-    RbacManagerSamlConfigurationGet_allOf:
-      properties:
-        user_groups:
-          description: List of user groups associated with this IDP (Only for GET
-            operations)
-          items:
-            $ref: '#/components/schemas/RbacManagerSamlConfigurationGet_allOf_user_groups'
-          type: array
       type: object
     SourceImportMetadata_contents:
       description: Digest of content to use in the final import
@@ -22790,33 +24070,6 @@ components:
           type: string
       required:
       - sbom
-      type: object
-    TagUpdateNotification_allOf:
-      description: The Notification Object definition for Tag Update Notifications
-      properties:
-        data:
-          $ref: '#/components/schemas/TagUpdateNotificationData'
-      type: object
-    TagUpdateNotificationData_allOf:
-      properties:
-        notification_payload:
-          $ref: '#/components/schemas/TagUpdateNotificationPayload'
-      type: object
-    TagUpdateNotificationPayload_allOf:
-      properties:
-        curr_eval:
-          description: A list containing the current image digest
-          items: {}
-          type: array
-        last_eval:
-          description: A list containing the previous image digests
-          items: {}
-          type: array
-        annotations:
-          description: List of Corresponding Image Annotations
-          nullable: true
-          properties: {}
-          type: object
       type: object
     UserGroupRolePost_roles_inner:
       example:
@@ -22893,47 +24146,19 @@ components:
         package:
           $ref: '#/components/schemas/VersionVulnerabilityMatch_location_package'
       type: object
-    VersionVulnerabilityNVD_allOf:
-      properties:
-        id:
-          type: string
-      type: object
-    VersionVulnerabilityVendor_allOf:
-      properties:
-        feed:
-          type: string
-        group:
-          type: string
-        will_not_fix:
-          type: boolean
-      type: object
     VersionVulnerabilityVendorNVDCommon_cvss:
+      example:
+        cvss_v3:
+          base_score: 5.962133916683182
+          impact_score: 2.3021358869347655
+          exploitability_score: 5.637376656633329
+        cvss_v2:
+          base_score: 0.8008281904610115
+          impact_score: 1.4658129805029452
+          exploitability_score: 6.027456183070403
       properties:
         cvss_v2:
           $ref: '#/components/schemas/CVSSV2Scores'
         cvss_v3:
           $ref: '#/components/schemas/CVSSV3Scores'
-      type: object
-    VulnUpdateNotification_allOf:
-      description: The Notification Object definition for Vuln Update Notifications
-      properties:
-        data:
-          $ref: '#/components/schemas/VulnUpdateNotificationData'
-      type: object
-    VulnUpdateNotificationData_allOf:
-      properties:
-        notification_payload:
-          $ref: '#/components/schemas/VulnUpdateNotificationPayload'
-      type: object
-    VulnUpdateNotificationPayload_allOf:
-      properties:
-        diff_vulnerability_result:
-          $ref: '#/components/schemas/VulnDiffResult'
-        image_digest:
-          type: string
-        annotations:
-          description: List of Corresponding Image Annotations
-          nullable: true
-          properties: {}
-          type: object
       type: object

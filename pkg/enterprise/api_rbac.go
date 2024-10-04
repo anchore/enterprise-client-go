@@ -14,7 +14,7 @@ package enterprise
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
 	"strings"
@@ -22,249 +22,12 @@ import (
 )
 
 
-type RBACApi interface {
-
-	/*
-	AddIdp Method for AddIdp
-
-	Add a new Identity Provider to the system, with a specific name
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiAddIdpRequest
-	*/
-	AddIdp(ctx context.Context) ApiAddIdpRequest
-
-	// AddIdpExecute executes the request
-	//  @return RbacManagerSamlConfiguration
-	AddIdpExecute(r ApiAddIdpRequest) (*RbacManagerSamlConfiguration, *http.Response, error)
-
-	/*
-	AddIdpUserGroups Method for AddIdpUserGroups
-
-	Associate a user group with an IdP.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param name
-	@return ApiAddIdpUserGroupsRequest
-	*/
-	AddIdpUserGroups(ctx context.Context, name string) ApiAddIdpUserGroupsRequest
-
-	// AddIdpUserGroupsExecute executes the request
-	//  @return []RbacManagerIdpUserGroup
-	AddIdpUserGroupsExecute(r ApiAddIdpUserGroupsRequest) ([]RbacManagerIdpUserGroup, *http.Response, error)
-
-	/*
-	AddRoleUser Add a user to the role
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param roleName
-	@return ApiAddRoleUserRequest
-	*/
-	AddRoleUser(ctx context.Context, roleName string) ApiAddRoleUserRequest
-
-	// AddRoleUserExecute executes the request
-	//  @return RbacManagerRoleMember
-	AddRoleUserExecute(r ApiAddRoleUserRequest) (*RbacManagerRoleMember, *http.Response, error)
-
-	/*
-	DeleteIdp Method for DeleteIdp
-
-	Delete an idp configuration. Users will not longer be able to login from this idp. In addition, any users that have been configured explicitly or JIT Provisioned on this IDP will be deleted.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param name
-	@return ApiDeleteIdpRequest
-	*/
-	DeleteIdp(ctx context.Context, name string) ApiDeleteIdpRequest
-
-	// DeleteIdpExecute executes the request
-	DeleteIdpExecute(r ApiDeleteIdpRequest) (*http.Response, error)
-
-	/*
-	DeleteIdpUserGroup Method for DeleteIdpUserGroup
-
-	Remove user group association(s) from an IdP
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param name The name of the IdP to remove the user group from
-	@return ApiDeleteIdpUserGroupRequest
-	*/
-	DeleteIdpUserGroup(ctx context.Context, name string) ApiDeleteIdpUserGroupRequest
-
-	// DeleteIdpUserGroupExecute executes the request
-	DeleteIdpUserGroupExecute(r ApiDeleteIdpUserGroupRequest) (*http.Response, error)
-
-	/*
-	DeleteRoleUser Remove a user from the role
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param roleName
-	@return ApiDeleteRoleUserRequest
-	*/
-	DeleteRoleUser(ctx context.Context, roleName string) ApiDeleteRoleUserRequest
-
-	// DeleteRoleUserExecute executes the request
-	DeleteRoleUserExecute(r ApiDeleteRoleUserRequest) (*http.Response, error)
-
-	/*
-	GetIdp Method for GetIdp
-
-	Return the configuration for a named Identity Provider
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param name
-	@return ApiGetIdpRequest
-	*/
-	GetIdp(ctx context.Context, name string) ApiGetIdpRequest
-
-	// GetIdpExecute executes the request
-	//  @return RbacManagerSamlConfigurationGet
-	GetIdpExecute(r ApiGetIdpRequest) (*RbacManagerSamlConfigurationGet, *http.Response, error)
-
-	/*
-	GetIdpUserGroups Method for GetIdpUserGroups
-
-	Return the list of user groups associated with an IdP
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param name
-	@return ApiGetIdpUserGroupsRequest
-	*/
-	GetIdpUserGroups(ctx context.Context, name string) ApiGetIdpUserGroupsRequest
-
-	// GetIdpUserGroupsExecute executes the request
-	//  @return []RbacManagerIdpUserGroup
-	GetIdpUserGroupsExecute(r ApiGetIdpUserGroupsRequest) ([]RbacManagerIdpUserGroup, *http.Response, error)
-
-	/*
-	GetRole Get detailed information about a specific role
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param roleName
-	@return ApiGetRoleRequest
-	*/
-	GetRole(ctx context.Context, roleName string) ApiGetRoleRequest
-
-	// GetRoleExecute executes the request
-	//  @return RbacManagerRole
-	GetRoleExecute(r ApiGetRoleRequest) (*RbacManagerRole, *http.Response, error)
-
-	/*
-	ListIdps Method for ListIdps
-
-	List the names of configured Identity Providers for this anchore installation
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiListIdpsRequest
-	*/
-	ListIdps(ctx context.Context) ApiListIdpsRequest
-
-	// ListIdpsExecute executes the request
-	//  @return []string
-	ListIdpsExecute(r ApiListIdpsRequest) ([]string, *http.Response, error)
-
-	/*
-	ListRoleMembers Returns a list of objects that have members in the role. The list is filtered by 'listRoleMembers' access for the 'account' element of each entry.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param roleName
-	@return ApiListRoleMembersRequest
-	*/
-	ListRoleMembers(ctx context.Context, roleName string) ApiListRoleMembersRequest
-
-	// ListRoleMembersExecute executes the request
-	//  @return []RbacManagerRoleMember
-	ListRoleMembersExecute(r ApiListRoleMembersRequest) ([]RbacManagerRoleMember, *http.Response, error)
-
-	/*
-	ListRoles List roles available in the system
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiListRolesRequest
-	*/
-	ListRoles(ctx context.Context) ApiListRolesRequest
-
-	// ListRolesExecute executes the request
-	//  @return []RbacManagerRoleSummary
-	ListRolesExecute(r ApiListRolesRequest) ([]RbacManagerRoleSummary, *http.Response, error)
-
-	/*
-	ListUserRoles List the roles for which the requested user is a member
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param username
-	@return ApiListUserRolesRequest
-	*/
-	ListUserRoles(ctx context.Context, username string) ApiListUserRolesRequest
-
-	// ListUserRolesExecute executes the request
-	//  @return []RbacManagerRoleMembership
-	ListUserRolesExecute(r ApiListUserRolesRequest) ([]RbacManagerRoleMembership, *http.Response, error)
-
-	/*
-	MyRoles List the roles for which the authenticated user is a member
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiMyRolesRequest
-	*/
-	MyRoles(ctx context.Context) ApiMyRolesRequest
-
-	// MyRolesExecute executes the request
-	//  @return []RbacManagerAccountRole
-	MyRolesExecute(r ApiMyRolesRequest) ([]RbacManagerAccountRole, *http.Response, error)
-
-	/*
-	SamlLogin Method for SamlLogin
-
-	Initiate an SP-initiated login sequence for the Idp. The SP will respond with the SAML AuthN Request the client must send to the Idp URL
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param idpName
-	@return ApiSamlLoginRequest
-	*/
-	SamlLogin(ctx context.Context, idpName string) ApiSamlLoginRequest
-
-	// SamlLoginExecute executes the request
-	//  @return RbacManagerTokenResponse
-	SamlLoginExecute(r ApiSamlLoginRequest) (*RbacManagerTokenResponse, *http.Response, error)
-
-	/*
-	SamlSso Method for SamlSso
-
-	Perform a login using a SAML assertion, no HTTP auth is required as the SAML assertion is considered the authenticating token
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param idpName
-	@return ApiSamlSsoRequest
-	*/
-	SamlSso(ctx context.Context, idpName string) ApiSamlSsoRequest
-
-	// SamlSsoExecute executes the request
-	//  @return RbacManagerTokenResponse
-	SamlSsoExecute(r ApiSamlSsoRequest) (*RbacManagerTokenResponse, *http.Response, error)
-
-	/*
-	UpdateIdp Method for UpdateIdp
-
-	Update an existing Identity Provider configuration
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param name
-	@return ApiUpdateIdpRequest
-	*/
-	UpdateIdp(ctx context.Context, name string) ApiUpdateIdpRequest
-
-	// UpdateIdpExecute executes the request
-	//  @return RbacManagerSamlConfiguration
-	UpdateIdpExecute(r ApiUpdateIdpRequest) (*RbacManagerSamlConfiguration, *http.Response, error)
-}
-
-// RBACApiService RBACApi service
-type RBACApiService service
+// RBACAPIService RBACAPI service
+type RBACAPIService service
 
 type ApiAddIdpRequest struct {
 	ctx context.Context
-	ApiService RBACApi
+	ApiService *RBACAPIService
 	configuration *RbacManagerSamlConfiguration
 }
 
@@ -285,7 +48,7 @@ Add a new Identity Provider to the system, with a specific name
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiAddIdpRequest
 */
-func (a *RBACApiService) AddIdp(ctx context.Context) ApiAddIdpRequest {
+func (a *RBACAPIService) AddIdp(ctx context.Context) ApiAddIdpRequest {
 	return ApiAddIdpRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -294,7 +57,7 @@ func (a *RBACApiService) AddIdp(ctx context.Context) ApiAddIdpRequest {
 
 // Execute executes the request
 //  @return RbacManagerSamlConfiguration
-func (a *RBACApiService) AddIdpExecute(r ApiAddIdpRequest) (*RbacManagerSamlConfiguration, *http.Response, error) {
+func (a *RBACAPIService) AddIdpExecute(r ApiAddIdpRequest) (*RbacManagerSamlConfiguration, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
@@ -302,7 +65,7 @@ func (a *RBACApiService) AddIdpExecute(r ApiAddIdpRequest) (*RbacManagerSamlConf
 		localVarReturnValue  *RbacManagerSamlConfiguration
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RBACApiService.AddIdp")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RBACAPIService.AddIdp")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -345,9 +108,9 @@ func (a *RBACApiService) AddIdpExecute(r ApiAddIdpRequest) (*RbacManagerSamlConf
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -364,7 +127,8 @@ func (a *RBACApiService) AddIdpExecute(r ApiAddIdpRequest) (*RbacManagerSamlConf
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 500 {
@@ -374,7 +138,8 @@ func (a *RBACApiService) AddIdpExecute(r ApiAddIdpRequest) (*RbacManagerSamlConf
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -393,7 +158,7 @@ func (a *RBACApiService) AddIdpExecute(r ApiAddIdpRequest) (*RbacManagerSamlConf
 
 type ApiAddIdpUserGroupsRequest struct {
 	ctx context.Context
-	ApiService RBACApi
+	ApiService *RBACAPIService
 	name string
 	rbacManagerIdpUserGroupPost *RbacManagerIdpUserGroupPost
 }
@@ -416,7 +181,7 @@ Associate a user group with an IdP.
  @param name
  @return ApiAddIdpUserGroupsRequest
 */
-func (a *RBACApiService) AddIdpUserGroups(ctx context.Context, name string) ApiAddIdpUserGroupsRequest {
+func (a *RBACAPIService) AddIdpUserGroups(ctx context.Context, name string) ApiAddIdpUserGroupsRequest {
 	return ApiAddIdpUserGroupsRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -426,7 +191,7 @@ func (a *RBACApiService) AddIdpUserGroups(ctx context.Context, name string) ApiA
 
 // Execute executes the request
 //  @return []RbacManagerIdpUserGroup
-func (a *RBACApiService) AddIdpUserGroupsExecute(r ApiAddIdpUserGroupsRequest) ([]RbacManagerIdpUserGroup, *http.Response, error) {
+func (a *RBACAPIService) AddIdpUserGroupsExecute(r ApiAddIdpUserGroupsRequest) ([]RbacManagerIdpUserGroup, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
@@ -434,13 +199,13 @@ func (a *RBACApiService) AddIdpUserGroupsExecute(r ApiAddIdpUserGroupsRequest) (
 		localVarReturnValue  []RbacManagerIdpUserGroup
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RBACApiService.AddIdpUserGroups")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RBACAPIService.AddIdpUserGroups")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/rbac-manager/saml/idps/{name}/user-group-mappings"
-	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(parameterToString(r.name, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(parameterValueToString(r.name, "name")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -478,9 +243,9 @@ func (a *RBACApiService) AddIdpUserGroupsExecute(r ApiAddIdpUserGroupsRequest) (
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -497,7 +262,8 @@ func (a *RBACApiService) AddIdpUserGroupsExecute(r ApiAddIdpUserGroupsRequest) (
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -507,7 +273,8 @@ func (a *RBACApiService) AddIdpUserGroupsExecute(r ApiAddIdpUserGroupsRequest) (
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 409 {
@@ -517,7 +284,8 @@ func (a *RBACApiService) AddIdpUserGroupsExecute(r ApiAddIdpUserGroupsRequest) (
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 500 {
@@ -527,7 +295,8 @@ func (a *RBACApiService) AddIdpUserGroupsExecute(r ApiAddIdpUserGroupsRequest) (
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -546,7 +315,7 @@ func (a *RBACApiService) AddIdpUserGroupsExecute(r ApiAddIdpUserGroupsRequest) (
 
 type ApiAddRoleUserRequest struct {
 	ctx context.Context
-	ApiService RBACApi
+	ApiService *RBACAPIService
 	roleName string
 	member *RbacManagerRoleMember
 }
@@ -567,7 +336,7 @@ AddRoleUser Add a user to the role
  @param roleName
  @return ApiAddRoleUserRequest
 */
-func (a *RBACApiService) AddRoleUser(ctx context.Context, roleName string) ApiAddRoleUserRequest {
+func (a *RBACAPIService) AddRoleUser(ctx context.Context, roleName string) ApiAddRoleUserRequest {
 	return ApiAddRoleUserRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -577,7 +346,7 @@ func (a *RBACApiService) AddRoleUser(ctx context.Context, roleName string) ApiAd
 
 // Execute executes the request
 //  @return RbacManagerRoleMember
-func (a *RBACApiService) AddRoleUserExecute(r ApiAddRoleUserRequest) (*RbacManagerRoleMember, *http.Response, error) {
+func (a *RBACAPIService) AddRoleUserExecute(r ApiAddRoleUserRequest) (*RbacManagerRoleMember, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
@@ -585,13 +354,13 @@ func (a *RBACApiService) AddRoleUserExecute(r ApiAddRoleUserRequest) (*RbacManag
 		localVarReturnValue  *RbacManagerRoleMember
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RBACApiService.AddRoleUser")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RBACAPIService.AddRoleUser")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/rbac-manager/roles/{role_name}/members"
-	localVarPath = strings.Replace(localVarPath, "{"+"role_name"+"}", url.PathEscape(parameterToString(r.roleName, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"role_name"+"}", url.PathEscape(parameterValueToString(r.roleName, "roleName")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -629,9 +398,9 @@ func (a *RBACApiService) AddRoleUserExecute(r ApiAddRoleUserRequest) (*RbacManag
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -648,7 +417,8 @@ func (a *RBACApiService) AddRoleUserExecute(r ApiAddRoleUserRequest) (*RbacManag
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -667,7 +437,7 @@ func (a *RBACApiService) AddRoleUserExecute(r ApiAddRoleUserRequest) (*RbacManag
 
 type ApiDeleteIdpRequest struct {
 	ctx context.Context
-	ApiService RBACApi
+	ApiService *RBACAPIService
 	name string
 }
 
@@ -684,7 +454,7 @@ Delete an idp configuration. Users will not longer be able to login from this id
  @param name
  @return ApiDeleteIdpRequest
 */
-func (a *RBACApiService) DeleteIdp(ctx context.Context, name string) ApiDeleteIdpRequest {
+func (a *RBACAPIService) DeleteIdp(ctx context.Context, name string) ApiDeleteIdpRequest {
 	return ApiDeleteIdpRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -693,20 +463,20 @@ func (a *RBACApiService) DeleteIdp(ctx context.Context, name string) ApiDeleteId
 }
 
 // Execute executes the request
-func (a *RBACApiService) DeleteIdpExecute(r ApiDeleteIdpRequest) (*http.Response, error) {
+func (a *RBACAPIService) DeleteIdpExecute(r ApiDeleteIdpRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodDelete
 		localVarPostBody     interface{}
 		formFiles            []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RBACApiService.DeleteIdp")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RBACAPIService.DeleteIdp")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/rbac-manager/saml/idps/{name}"
-	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(parameterToString(r.name, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(parameterValueToString(r.name, "name")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -739,9 +509,9 @@ func (a *RBACApiService) DeleteIdpExecute(r ApiDeleteIdpRequest) (*http.Response
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -758,7 +528,8 @@ func (a *RBACApiService) DeleteIdpExecute(r ApiDeleteIdpRequest) (*http.Response
 				newErr.error = err.Error()
 				return localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarHTTPResponse, newErr
 	}
@@ -768,7 +539,7 @@ func (a *RBACApiService) DeleteIdpExecute(r ApiDeleteIdpRequest) (*http.Response
 
 type ApiDeleteIdpUserGroupRequest struct {
 	ctx context.Context
-	ApiService RBACApi
+	ApiService *RBACAPIService
 	name string
 	userGroup *[]string
 }
@@ -792,7 +563,7 @@ Remove user group association(s) from an IdP
  @param name The name of the IdP to remove the user group from
  @return ApiDeleteIdpUserGroupRequest
 */
-func (a *RBACApiService) DeleteIdpUserGroup(ctx context.Context, name string) ApiDeleteIdpUserGroupRequest {
+func (a *RBACAPIService) DeleteIdpUserGroup(ctx context.Context, name string) ApiDeleteIdpUserGroupRequest {
 	return ApiDeleteIdpUserGroupRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -801,20 +572,20 @@ func (a *RBACApiService) DeleteIdpUserGroup(ctx context.Context, name string) Ap
 }
 
 // Execute executes the request
-func (a *RBACApiService) DeleteIdpUserGroupExecute(r ApiDeleteIdpUserGroupRequest) (*http.Response, error) {
+func (a *RBACAPIService) DeleteIdpUserGroupExecute(r ApiDeleteIdpUserGroupRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodDelete
 		localVarPostBody     interface{}
 		formFiles            []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RBACApiService.DeleteIdpUserGroup")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RBACAPIService.DeleteIdpUserGroup")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/rbac-manager/saml/idps/{name}/user-group-mappings"
-	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(parameterToString(r.name, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(parameterValueToString(r.name, "name")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -828,10 +599,10 @@ func (a *RBACApiService) DeleteIdpUserGroupExecute(r ApiDeleteIdpUserGroupReques
 		if reflect.TypeOf(t).Kind() == reflect.Slice {
 			s := reflect.ValueOf(t)
 			for i := 0; i < s.Len(); i++ {
-				localVarQueryParams.Add("user_group", parameterToString(s.Index(i), "multi"))
+				parameterAddToHeaderOrQuery(localVarQueryParams, "user_group", s.Index(i).Interface(), "form", "multi")
 			}
 		} else {
-			localVarQueryParams.Add("user_group", parameterToString(t, "multi"))
+			parameterAddToHeaderOrQuery(localVarQueryParams, "user_group", t, "form", "multi")
 		}
 	}
 	// to determine the Content-Type header
@@ -861,9 +632,9 @@ func (a *RBACApiService) DeleteIdpUserGroupExecute(r ApiDeleteIdpUserGroupReques
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -880,7 +651,8 @@ func (a *RBACApiService) DeleteIdpUserGroupExecute(r ApiDeleteIdpUserGroupReques
 				newErr.error = err.Error()
 				return localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -890,7 +662,8 @@ func (a *RBACApiService) DeleteIdpUserGroupExecute(r ApiDeleteIdpUserGroupReques
 				newErr.error = err.Error()
 				return localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 500 {
@@ -900,7 +673,8 @@ func (a *RBACApiService) DeleteIdpUserGroupExecute(r ApiDeleteIdpUserGroupReques
 				newErr.error = err.Error()
 				return localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarHTTPResponse, newErr
 	}
@@ -910,7 +684,7 @@ func (a *RBACApiService) DeleteIdpUserGroupExecute(r ApiDeleteIdpUserGroupReques
 
 type ApiDeleteRoleUserRequest struct {
 	ctx context.Context
-	ApiService RBACApi
+	ApiService *RBACAPIService
 	roleName string
 	username *string
 	forAccount *string
@@ -947,7 +721,7 @@ DeleteRoleUser Remove a user from the role
  @param roleName
  @return ApiDeleteRoleUserRequest
 */
-func (a *RBACApiService) DeleteRoleUser(ctx context.Context, roleName string) ApiDeleteRoleUserRequest {
+func (a *RBACAPIService) DeleteRoleUser(ctx context.Context, roleName string) ApiDeleteRoleUserRequest {
 	return ApiDeleteRoleUserRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -956,20 +730,20 @@ func (a *RBACApiService) DeleteRoleUser(ctx context.Context, roleName string) Ap
 }
 
 // Execute executes the request
-func (a *RBACApiService) DeleteRoleUserExecute(r ApiDeleteRoleUserRequest) (*http.Response, error) {
+func (a *RBACAPIService) DeleteRoleUserExecute(r ApiDeleteRoleUserRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodDelete
 		localVarPostBody     interface{}
 		formFiles            []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RBACApiService.DeleteRoleUser")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RBACAPIService.DeleteRoleUser")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/rbac-manager/roles/{role_name}/members"
-	localVarPath = strings.Replace(localVarPath, "{"+"role_name"+"}", url.PathEscape(parameterToString(r.roleName, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"role_name"+"}", url.PathEscape(parameterValueToString(r.roleName, "roleName")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -978,12 +752,12 @@ func (a *RBACApiService) DeleteRoleUserExecute(r ApiDeleteRoleUserRequest) (*htt
 		return nil, reportError("username is required and must be specified")
 	}
 
-	localVarQueryParams.Add("username", parameterToString(*r.username, ""))
+	parameterAddToHeaderOrQuery(localVarQueryParams, "username", r.username, "form", "")
 	if r.forAccount != nil {
-		localVarQueryParams.Add("for_account", parameterToString(*r.forAccount, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "for_account", r.forAccount, "form", "")
 	}
 	if r.domainName != nil {
-		localVarQueryParams.Add("domain_name", parameterToString(*r.domainName, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "domain_name", r.domainName, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -1012,9 +786,9 @@ func (a *RBACApiService) DeleteRoleUserExecute(r ApiDeleteRoleUserRequest) (*htt
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -1031,7 +805,8 @@ func (a *RBACApiService) DeleteRoleUserExecute(r ApiDeleteRoleUserRequest) (*htt
 				newErr.error = err.Error()
 				return localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarHTTPResponse, newErr
 	}
@@ -1041,7 +816,7 @@ func (a *RBACApiService) DeleteRoleUserExecute(r ApiDeleteRoleUserRequest) (*htt
 
 type ApiGetIdpRequest struct {
 	ctx context.Context
-	ApiService RBACApi
+	ApiService *RBACAPIService
 	name string
 }
 
@@ -1058,7 +833,7 @@ Return the configuration for a named Identity Provider
  @param name
  @return ApiGetIdpRequest
 */
-func (a *RBACApiService) GetIdp(ctx context.Context, name string) ApiGetIdpRequest {
+func (a *RBACAPIService) GetIdp(ctx context.Context, name string) ApiGetIdpRequest {
 	return ApiGetIdpRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -1068,7 +843,7 @@ func (a *RBACApiService) GetIdp(ctx context.Context, name string) ApiGetIdpReque
 
 // Execute executes the request
 //  @return RbacManagerSamlConfigurationGet
-func (a *RBACApiService) GetIdpExecute(r ApiGetIdpRequest) (*RbacManagerSamlConfigurationGet, *http.Response, error) {
+func (a *RBACAPIService) GetIdpExecute(r ApiGetIdpRequest) (*RbacManagerSamlConfigurationGet, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
@@ -1076,13 +851,13 @@ func (a *RBACApiService) GetIdpExecute(r ApiGetIdpRequest) (*RbacManagerSamlConf
 		localVarReturnValue  *RbacManagerSamlConfigurationGet
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RBACApiService.GetIdp")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RBACAPIService.GetIdp")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/rbac-manager/saml/idps/{name}"
-	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(parameterToString(r.name, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(parameterValueToString(r.name, "name")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1115,9 +890,9 @@ func (a *RBACApiService) GetIdpExecute(r ApiGetIdpRequest) (*RbacManagerSamlConf
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1134,7 +909,8 @@ func (a *RBACApiService) GetIdpExecute(r ApiGetIdpRequest) (*RbacManagerSamlConf
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 500 {
@@ -1144,7 +920,8 @@ func (a *RBACApiService) GetIdpExecute(r ApiGetIdpRequest) (*RbacManagerSamlConf
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -1163,7 +940,7 @@ func (a *RBACApiService) GetIdpExecute(r ApiGetIdpRequest) (*RbacManagerSamlConf
 
 type ApiGetIdpUserGroupsRequest struct {
 	ctx context.Context
-	ApiService RBACApi
+	ApiService *RBACAPIService
 	name string
 }
 
@@ -1180,7 +957,7 @@ Return the list of user groups associated with an IdP
  @param name
  @return ApiGetIdpUserGroupsRequest
 */
-func (a *RBACApiService) GetIdpUserGroups(ctx context.Context, name string) ApiGetIdpUserGroupsRequest {
+func (a *RBACAPIService) GetIdpUserGroups(ctx context.Context, name string) ApiGetIdpUserGroupsRequest {
 	return ApiGetIdpUserGroupsRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -1190,7 +967,7 @@ func (a *RBACApiService) GetIdpUserGroups(ctx context.Context, name string) ApiG
 
 // Execute executes the request
 //  @return []RbacManagerIdpUserGroup
-func (a *RBACApiService) GetIdpUserGroupsExecute(r ApiGetIdpUserGroupsRequest) ([]RbacManagerIdpUserGroup, *http.Response, error) {
+func (a *RBACAPIService) GetIdpUserGroupsExecute(r ApiGetIdpUserGroupsRequest) ([]RbacManagerIdpUserGroup, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
@@ -1198,13 +975,13 @@ func (a *RBACApiService) GetIdpUserGroupsExecute(r ApiGetIdpUserGroupsRequest) (
 		localVarReturnValue  []RbacManagerIdpUserGroup
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RBACApiService.GetIdpUserGroups")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RBACAPIService.GetIdpUserGroups")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/rbac-manager/saml/idps/{name}/user-group-mappings"
-	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(parameterToString(r.name, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(parameterValueToString(r.name, "name")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1237,9 +1014,9 @@ func (a *RBACApiService) GetIdpUserGroupsExecute(r ApiGetIdpUserGroupsRequest) (
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1256,7 +1033,8 @@ func (a *RBACApiService) GetIdpUserGroupsExecute(r ApiGetIdpUserGroupsRequest) (
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 500 {
@@ -1266,7 +1044,8 @@ func (a *RBACApiService) GetIdpUserGroupsExecute(r ApiGetIdpUserGroupsRequest) (
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -1285,7 +1064,7 @@ func (a *RBACApiService) GetIdpUserGroupsExecute(r ApiGetIdpUserGroupsRequest) (
 
 type ApiGetRoleRequest struct {
 	ctx context.Context
-	ApiService RBACApi
+	ApiService *RBACAPIService
 	roleName string
 }
 
@@ -1300,7 +1079,7 @@ GetRole Get detailed information about a specific role
  @param roleName
  @return ApiGetRoleRequest
 */
-func (a *RBACApiService) GetRole(ctx context.Context, roleName string) ApiGetRoleRequest {
+func (a *RBACAPIService) GetRole(ctx context.Context, roleName string) ApiGetRoleRequest {
 	return ApiGetRoleRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -1310,7 +1089,7 @@ func (a *RBACApiService) GetRole(ctx context.Context, roleName string) ApiGetRol
 
 // Execute executes the request
 //  @return RbacManagerRole
-func (a *RBACApiService) GetRoleExecute(r ApiGetRoleRequest) (*RbacManagerRole, *http.Response, error) {
+func (a *RBACAPIService) GetRoleExecute(r ApiGetRoleRequest) (*RbacManagerRole, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
@@ -1318,13 +1097,13 @@ func (a *RBACApiService) GetRoleExecute(r ApiGetRoleRequest) (*RbacManagerRole, 
 		localVarReturnValue  *RbacManagerRole
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RBACApiService.GetRole")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RBACAPIService.GetRole")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/rbac-manager/roles/{role_name}"
-	localVarPath = strings.Replace(localVarPath, "{"+"role_name"+"}", url.PathEscape(parameterToString(r.roleName, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"role_name"+"}", url.PathEscape(parameterValueToString(r.roleName, "roleName")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1357,9 +1136,9 @@ func (a *RBACApiService) GetRoleExecute(r ApiGetRoleRequest) (*RbacManagerRole, 
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1376,7 +1155,8 @@ func (a *RBACApiService) GetRoleExecute(r ApiGetRoleRequest) (*RbacManagerRole, 
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -1395,7 +1175,7 @@ func (a *RBACApiService) GetRoleExecute(r ApiGetRoleRequest) (*RbacManagerRole, 
 
 type ApiListIdpsRequest struct {
 	ctx context.Context
-	ApiService RBACApi
+	ApiService *RBACAPIService
 }
 
 func (r ApiListIdpsRequest) Execute() ([]string, *http.Response, error) {
@@ -1410,7 +1190,7 @@ List the names of configured Identity Providers for this anchore installation
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiListIdpsRequest
 */
-func (a *RBACApiService) ListIdps(ctx context.Context) ApiListIdpsRequest {
+func (a *RBACAPIService) ListIdps(ctx context.Context) ApiListIdpsRequest {
 	return ApiListIdpsRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -1419,7 +1199,7 @@ func (a *RBACApiService) ListIdps(ctx context.Context) ApiListIdpsRequest {
 
 // Execute executes the request
 //  @return []string
-func (a *RBACApiService) ListIdpsExecute(r ApiListIdpsRequest) ([]string, *http.Response, error) {
+func (a *RBACAPIService) ListIdpsExecute(r ApiListIdpsRequest) ([]string, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
@@ -1427,7 +1207,7 @@ func (a *RBACApiService) ListIdpsExecute(r ApiListIdpsRequest) ([]string, *http.
 		localVarReturnValue  []string
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RBACApiService.ListIdps")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RBACAPIService.ListIdps")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -1465,9 +1245,9 @@ func (a *RBACApiService) ListIdpsExecute(r ApiListIdpsRequest) ([]string, *http.
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1484,7 +1264,8 @@ func (a *RBACApiService) ListIdpsExecute(r ApiListIdpsRequest) ([]string, *http.
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -1503,7 +1284,7 @@ func (a *RBACApiService) ListIdpsExecute(r ApiListIdpsRequest) ([]string, *http.
 
 type ApiListRoleMembersRequest struct {
 	ctx context.Context
-	ApiService RBACApi
+	ApiService *RBACAPIService
 	roleName string
 	forAccount *string
 	domainName *string
@@ -1533,7 +1314,7 @@ ListRoleMembers Returns a list of objects that have members in the role. The lis
  @param roleName
  @return ApiListRoleMembersRequest
 */
-func (a *RBACApiService) ListRoleMembers(ctx context.Context, roleName string) ApiListRoleMembersRequest {
+func (a *RBACAPIService) ListRoleMembers(ctx context.Context, roleName string) ApiListRoleMembersRequest {
 	return ApiListRoleMembersRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -1543,7 +1324,7 @@ func (a *RBACApiService) ListRoleMembers(ctx context.Context, roleName string) A
 
 // Execute executes the request
 //  @return []RbacManagerRoleMember
-func (a *RBACApiService) ListRoleMembersExecute(r ApiListRoleMembersRequest) ([]RbacManagerRoleMember, *http.Response, error) {
+func (a *RBACAPIService) ListRoleMembersExecute(r ApiListRoleMembersRequest) ([]RbacManagerRoleMember, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
@@ -1551,23 +1332,23 @@ func (a *RBACApiService) ListRoleMembersExecute(r ApiListRoleMembersRequest) ([]
 		localVarReturnValue  []RbacManagerRoleMember
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RBACApiService.ListRoleMembers")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RBACAPIService.ListRoleMembers")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/rbac-manager/roles/{role_name}/members"
-	localVarPath = strings.Replace(localVarPath, "{"+"role_name"+"}", url.PathEscape(parameterToString(r.roleName, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"role_name"+"}", url.PathEscape(parameterValueToString(r.roleName, "roleName")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
 	if r.forAccount != nil {
-		localVarQueryParams.Add("for_account", parameterToString(*r.forAccount, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "for_account", r.forAccount, "form", "")
 	}
 	if r.domainName != nil {
-		localVarQueryParams.Add("domain_name", parameterToString(*r.domainName, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "domain_name", r.domainName, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -1596,9 +1377,9 @@ func (a *RBACApiService) ListRoleMembersExecute(r ApiListRoleMembersRequest) ([]
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1615,7 +1396,8 @@ func (a *RBACApiService) ListRoleMembersExecute(r ApiListRoleMembersRequest) ([]
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -1634,7 +1416,7 @@ func (a *RBACApiService) ListRoleMembersExecute(r ApiListRoleMembersRequest) ([]
 
 type ApiListRolesRequest struct {
 	ctx context.Context
-	ApiService RBACApi
+	ApiService *RBACAPIService
 }
 
 func (r ApiListRolesRequest) Execute() ([]RbacManagerRoleSummary, *http.Response, error) {
@@ -1647,7 +1429,7 @@ ListRoles List roles available in the system
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiListRolesRequest
 */
-func (a *RBACApiService) ListRoles(ctx context.Context) ApiListRolesRequest {
+func (a *RBACAPIService) ListRoles(ctx context.Context) ApiListRolesRequest {
 	return ApiListRolesRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -1656,7 +1438,7 @@ func (a *RBACApiService) ListRoles(ctx context.Context) ApiListRolesRequest {
 
 // Execute executes the request
 //  @return []RbacManagerRoleSummary
-func (a *RBACApiService) ListRolesExecute(r ApiListRolesRequest) ([]RbacManagerRoleSummary, *http.Response, error) {
+func (a *RBACAPIService) ListRolesExecute(r ApiListRolesRequest) ([]RbacManagerRoleSummary, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
@@ -1664,7 +1446,7 @@ func (a *RBACApiService) ListRolesExecute(r ApiListRolesRequest) ([]RbacManagerR
 		localVarReturnValue  []RbacManagerRoleSummary
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RBACApiService.ListRoles")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RBACAPIService.ListRoles")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -1702,9 +1484,9 @@ func (a *RBACApiService) ListRolesExecute(r ApiListRolesRequest) ([]RbacManagerR
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1721,7 +1503,8 @@ func (a *RBACApiService) ListRolesExecute(r ApiListRolesRequest) ([]RbacManagerR
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -1740,7 +1523,7 @@ func (a *RBACApiService) ListRolesExecute(r ApiListRolesRequest) ([]RbacManagerR
 
 type ApiListUserRolesRequest struct {
 	ctx context.Context
-	ApiService RBACApi
+	ApiService *RBACAPIService
 	username string
 	forAccount *string
 	domainName *string
@@ -1776,7 +1559,7 @@ ListUserRoles List the roles for which the requested user is a member
  @param username
  @return ApiListUserRolesRequest
 */
-func (a *RBACApiService) ListUserRoles(ctx context.Context, username string) ApiListUserRolesRequest {
+func (a *RBACAPIService) ListUserRoles(ctx context.Context, username string) ApiListUserRolesRequest {
 	return ApiListUserRolesRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -1786,7 +1569,7 @@ func (a *RBACApiService) ListUserRoles(ctx context.Context, username string) Api
 
 // Execute executes the request
 //  @return []RbacManagerRoleMembership
-func (a *RBACApiService) ListUserRolesExecute(r ApiListUserRolesRequest) ([]RbacManagerRoleMembership, *http.Response, error) {
+func (a *RBACAPIService) ListUserRolesExecute(r ApiListUserRolesRequest) ([]RbacManagerRoleMembership, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
@@ -1794,26 +1577,26 @@ func (a *RBACApiService) ListUserRolesExecute(r ApiListUserRolesRequest) ([]Rbac
 		localVarReturnValue  []RbacManagerRoleMembership
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RBACApiService.ListUserRoles")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RBACAPIService.ListUserRoles")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/rbac-manager/users/{username}/roles"
-	localVarPath = strings.Replace(localVarPath, "{"+"username"+"}", url.PathEscape(parameterToString(r.username, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"username"+"}", url.PathEscape(parameterValueToString(r.username, "username")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
 	if r.forAccount != nil {
-		localVarQueryParams.Add("for_account", parameterToString(*r.forAccount, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "for_account", r.forAccount, "form", "")
 	}
 	if r.domainName != nil {
-		localVarQueryParams.Add("domain_name", parameterToString(*r.domainName, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "domain_name", r.domainName, "form", "")
 	}
 	if r.role != nil {
-		localVarQueryParams.Add("role", parameterToString(*r.role, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "role", r.role, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -1842,9 +1625,9 @@ func (a *RBACApiService) ListUserRolesExecute(r ApiListUserRolesRequest) ([]Rbac
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1861,7 +1644,8 @@ func (a *RBACApiService) ListUserRolesExecute(r ApiListUserRolesRequest) ([]Rbac
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -1880,7 +1664,7 @@ func (a *RBACApiService) ListUserRolesExecute(r ApiListUserRolesRequest) ([]Rbac
 
 type ApiMyRolesRequest struct {
 	ctx context.Context
-	ApiService RBACApi
+	ApiService *RBACAPIService
 }
 
 func (r ApiMyRolesRequest) Execute() ([]RbacManagerAccountRole, *http.Response, error) {
@@ -1893,7 +1677,7 @@ MyRoles List the roles for which the authenticated user is a member
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiMyRolesRequest
 */
-func (a *RBACApiService) MyRoles(ctx context.Context) ApiMyRolesRequest {
+func (a *RBACAPIService) MyRoles(ctx context.Context) ApiMyRolesRequest {
 	return ApiMyRolesRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -1902,7 +1686,7 @@ func (a *RBACApiService) MyRoles(ctx context.Context) ApiMyRolesRequest {
 
 // Execute executes the request
 //  @return []RbacManagerAccountRole
-func (a *RBACApiService) MyRolesExecute(r ApiMyRolesRequest) ([]RbacManagerAccountRole, *http.Response, error) {
+func (a *RBACAPIService) MyRolesExecute(r ApiMyRolesRequest) ([]RbacManagerAccountRole, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
@@ -1910,7 +1694,7 @@ func (a *RBACApiService) MyRolesExecute(r ApiMyRolesRequest) ([]RbacManagerAccou
 		localVarReturnValue  []RbacManagerAccountRole
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RBACApiService.MyRoles")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RBACAPIService.MyRoles")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -1948,9 +1732,9 @@ func (a *RBACApiService) MyRolesExecute(r ApiMyRolesRequest) ([]RbacManagerAccou
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -1967,7 +1751,8 @@ func (a *RBACApiService) MyRolesExecute(r ApiMyRolesRequest) ([]RbacManagerAccou
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -1986,7 +1771,7 @@ func (a *RBACApiService) MyRolesExecute(r ApiMyRolesRequest) ([]RbacManagerAccou
 
 type ApiSamlLoginRequest struct {
 	ctx context.Context
-	ApiService RBACApi
+	ApiService *RBACAPIService
 	idpName string
 }
 
@@ -2003,7 +1788,7 @@ Initiate an SP-initiated login sequence for the Idp. The SP will respond with th
  @param idpName
  @return ApiSamlLoginRequest
 */
-func (a *RBACApiService) SamlLogin(ctx context.Context, idpName string) ApiSamlLoginRequest {
+func (a *RBACAPIService) SamlLogin(ctx context.Context, idpName string) ApiSamlLoginRequest {
 	return ApiSamlLoginRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -2013,7 +1798,7 @@ func (a *RBACApiService) SamlLogin(ctx context.Context, idpName string) ApiSamlL
 
 // Execute executes the request
 //  @return RbacManagerTokenResponse
-func (a *RBACApiService) SamlLoginExecute(r ApiSamlLoginRequest) (*RbacManagerTokenResponse, *http.Response, error) {
+func (a *RBACAPIService) SamlLoginExecute(r ApiSamlLoginRequest) (*RbacManagerTokenResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
@@ -2021,13 +1806,13 @@ func (a *RBACApiService) SamlLoginExecute(r ApiSamlLoginRequest) (*RbacManagerTo
 		localVarReturnValue  *RbacManagerTokenResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RBACApiService.SamlLogin")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RBACAPIService.SamlLogin")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/rbac-manager/saml/login/{idp_name}"
-	localVarPath = strings.Replace(localVarPath, "{"+"idp_name"+"}", url.PathEscape(parameterToString(r.idpName, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"idp_name"+"}", url.PathEscape(parameterValueToString(r.idpName, "idpName")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -2060,9 +1845,9 @@ func (a *RBACApiService) SamlLoginExecute(r ApiSamlLoginRequest) (*RbacManagerTo
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -2079,7 +1864,8 @@ func (a *RBACApiService) SamlLoginExecute(r ApiSamlLoginRequest) (*RbacManagerTo
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -2098,7 +1884,7 @@ func (a *RBACApiService) SamlLoginExecute(r ApiSamlLoginRequest) (*RbacManagerTo
 
 type ApiSamlSsoRequest struct {
 	ctx context.Context
-	ApiService RBACApi
+	ApiService *RBACAPIService
 	idpName string
 }
 
@@ -2115,7 +1901,7 @@ Perform a login using a SAML assertion, no HTTP auth is required as the SAML ass
  @param idpName
  @return ApiSamlSsoRequest
 */
-func (a *RBACApiService) SamlSso(ctx context.Context, idpName string) ApiSamlSsoRequest {
+func (a *RBACAPIService) SamlSso(ctx context.Context, idpName string) ApiSamlSsoRequest {
 	return ApiSamlSsoRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -2125,7 +1911,7 @@ func (a *RBACApiService) SamlSso(ctx context.Context, idpName string) ApiSamlSso
 
 // Execute executes the request
 //  @return RbacManagerTokenResponse
-func (a *RBACApiService) SamlSsoExecute(r ApiSamlSsoRequest) (*RbacManagerTokenResponse, *http.Response, error) {
+func (a *RBACAPIService) SamlSsoExecute(r ApiSamlSsoRequest) (*RbacManagerTokenResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
@@ -2133,13 +1919,13 @@ func (a *RBACApiService) SamlSsoExecute(r ApiSamlSsoRequest) (*RbacManagerTokenR
 		localVarReturnValue  *RbacManagerTokenResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RBACApiService.SamlSso")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RBACAPIService.SamlSso")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/rbac-manager/saml/sso/{idp_name}"
-	localVarPath = strings.Replace(localVarPath, "{"+"idp_name"+"}", url.PathEscape(parameterToString(r.idpName, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"idp_name"+"}", url.PathEscape(parameterValueToString(r.idpName, "idpName")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -2172,9 +1958,9 @@ func (a *RBACApiService) SamlSsoExecute(r ApiSamlSsoRequest) (*RbacManagerTokenR
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -2191,7 +1977,8 @@ func (a *RBACApiService) SamlSsoExecute(r ApiSamlSsoRequest) (*RbacManagerTokenR
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -2210,7 +1997,7 @@ func (a *RBACApiService) SamlSsoExecute(r ApiSamlSsoRequest) (*RbacManagerTokenR
 
 type ApiUpdateIdpRequest struct {
 	ctx context.Context
-	ApiService RBACApi
+	ApiService *RBACAPIService
 	name string
 	rbacManagerSamlConfiguration *RbacManagerSamlConfiguration
 }
@@ -2233,7 +2020,7 @@ Update an existing Identity Provider configuration
  @param name
  @return ApiUpdateIdpRequest
 */
-func (a *RBACApiService) UpdateIdp(ctx context.Context, name string) ApiUpdateIdpRequest {
+func (a *RBACAPIService) UpdateIdp(ctx context.Context, name string) ApiUpdateIdpRequest {
 	return ApiUpdateIdpRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -2243,7 +2030,7 @@ func (a *RBACApiService) UpdateIdp(ctx context.Context, name string) ApiUpdateId
 
 // Execute executes the request
 //  @return RbacManagerSamlConfiguration
-func (a *RBACApiService) UpdateIdpExecute(r ApiUpdateIdpRequest) (*RbacManagerSamlConfiguration, *http.Response, error) {
+func (a *RBACAPIService) UpdateIdpExecute(r ApiUpdateIdpRequest) (*RbacManagerSamlConfiguration, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPut
 		localVarPostBody     interface{}
@@ -2251,13 +2038,13 @@ func (a *RBACApiService) UpdateIdpExecute(r ApiUpdateIdpRequest) (*RbacManagerSa
 		localVarReturnValue  *RbacManagerSamlConfiguration
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RBACApiService.UpdateIdp")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "RBACAPIService.UpdateIdp")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/rbac-manager/saml/idps/{name}"
-	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(parameterToString(r.name, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"name"+"}", url.PathEscape(parameterValueToString(r.name, "name")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -2295,9 +2082,9 @@ func (a *RBACApiService) UpdateIdpExecute(r ApiUpdateIdpRequest) (*RbacManagerSa
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -2314,7 +2101,8 @@ func (a *RBACApiService) UpdateIdpExecute(r ApiUpdateIdpRequest) (*RbacManagerSa
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
@@ -2324,7 +2112,8 @@ func (a *RBACApiService) UpdateIdpExecute(r ApiUpdateIdpRequest) (*RbacManagerSa
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 500 {
@@ -2334,7 +2123,8 @@ func (a *RBACApiService) UpdateIdpExecute(r ApiUpdateIdpRequest) (*RbacManagerSa
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}

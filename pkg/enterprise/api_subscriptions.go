@@ -14,86 +14,19 @@ package enterprise
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
 	"strings"
 )
 
 
-type SubscriptionsApi interface {
-
-	/*
-	AddSubscription Add a subscription of a specific type
-
-	Create a new subscription
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiAddSubscriptionRequest
-	*/
-	AddSubscription(ctx context.Context) ApiAddSubscriptionRequest
-
-	// AddSubscriptionExecute executes the request
-	//  @return []Subscription
-	AddSubscriptionExecute(r ApiAddSubscriptionRequest) ([]Subscription, *http.Response, error)
-
-	/*
-	DeleteSubscription Delete specific subscription
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param subscriptionId
-	@return ApiDeleteSubscriptionRequest
-	*/
-	DeleteSubscription(ctx context.Context, subscriptionId string) ApiDeleteSubscriptionRequest
-
-	// DeleteSubscriptionExecute executes the request
-	DeleteSubscriptionExecute(r ApiDeleteSubscriptionRequest) (*http.Response, error)
-
-	/*
-	GetSubscription Get a specific subscription set
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param subscriptionId
-	@return ApiGetSubscriptionRequest
-	*/
-	GetSubscription(ctx context.Context, subscriptionId string) ApiGetSubscriptionRequest
-
-	// GetSubscriptionExecute executes the request
-	//  @return []Subscription
-	GetSubscriptionExecute(r ApiGetSubscriptionRequest) ([]Subscription, *http.Response, error)
-
-	/*
-	ListSubscriptions List all subscriptions
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiListSubscriptionsRequest
-	*/
-	ListSubscriptions(ctx context.Context) ApiListSubscriptionsRequest
-
-	// ListSubscriptionsExecute executes the request
-	//  @return []Subscription
-	ListSubscriptionsExecute(r ApiListSubscriptionsRequest) ([]Subscription, *http.Response, error)
-
-	/*
-	UpdateSubscription Update an existing and specific subscription
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param subscriptionId
-	@return ApiUpdateSubscriptionRequest
-	*/
-	UpdateSubscription(ctx context.Context, subscriptionId string) ApiUpdateSubscriptionRequest
-
-	// UpdateSubscriptionExecute executes the request
-	//  @return []Subscription
-	UpdateSubscriptionExecute(r ApiUpdateSubscriptionRequest) ([]Subscription, *http.Response, error)
-}
-
-// SubscriptionsApiService SubscriptionsApi service
-type SubscriptionsApiService service
+// SubscriptionsAPIService SubscriptionsAPI service
+type SubscriptionsAPIService service
 
 type ApiAddSubscriptionRequest struct {
 	ctx context.Context
-	ApiService SubscriptionsApi
+	ApiService *SubscriptionsAPIService
 	subscription *SubscriptionRequest
 	xAnchoreAccount *string
 }
@@ -121,7 +54,7 @@ Create a new subscription
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiAddSubscriptionRequest
 */
-func (a *SubscriptionsApiService) AddSubscription(ctx context.Context) ApiAddSubscriptionRequest {
+func (a *SubscriptionsAPIService) AddSubscription(ctx context.Context) ApiAddSubscriptionRequest {
 	return ApiAddSubscriptionRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -130,7 +63,7 @@ func (a *SubscriptionsApiService) AddSubscription(ctx context.Context) ApiAddSub
 
 // Execute executes the request
 //  @return []Subscription
-func (a *SubscriptionsApiService) AddSubscriptionExecute(r ApiAddSubscriptionRequest) ([]Subscription, *http.Response, error) {
+func (a *SubscriptionsAPIService) AddSubscriptionExecute(r ApiAddSubscriptionRequest) ([]Subscription, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
@@ -138,7 +71,7 @@ func (a *SubscriptionsApiService) AddSubscriptionExecute(r ApiAddSubscriptionReq
 		localVarReturnValue  []Subscription
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SubscriptionsApiService.AddSubscription")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SubscriptionsAPIService.AddSubscription")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -170,7 +103,7 @@ func (a *SubscriptionsApiService) AddSubscriptionExecute(r ApiAddSubscriptionReq
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.xAnchoreAccount != nil {
-		localVarHeaderParams["x-anchore-account"] = parameterToString(*r.xAnchoreAccount, "")
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "x-anchore-account", r.xAnchoreAccount, "simple", "")
 	}
 	// body params
 	localVarPostBody = r.subscription
@@ -184,9 +117,9 @@ func (a *SubscriptionsApiService) AddSubscriptionExecute(r ApiAddSubscriptionReq
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -203,7 +136,8 @@ func (a *SubscriptionsApiService) AddSubscriptionExecute(r ApiAddSubscriptionReq
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -222,7 +156,7 @@ func (a *SubscriptionsApiService) AddSubscriptionExecute(r ApiAddSubscriptionReq
 
 type ApiDeleteSubscriptionRequest struct {
 	ctx context.Context
-	ApiService SubscriptionsApi
+	ApiService *SubscriptionsAPIService
 	subscriptionId string
 	xAnchoreAccount *string
 }
@@ -244,7 +178,7 @@ DeleteSubscription Delete specific subscription
  @param subscriptionId
  @return ApiDeleteSubscriptionRequest
 */
-func (a *SubscriptionsApiService) DeleteSubscription(ctx context.Context, subscriptionId string) ApiDeleteSubscriptionRequest {
+func (a *SubscriptionsAPIService) DeleteSubscription(ctx context.Context, subscriptionId string) ApiDeleteSubscriptionRequest {
 	return ApiDeleteSubscriptionRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -253,20 +187,20 @@ func (a *SubscriptionsApiService) DeleteSubscription(ctx context.Context, subscr
 }
 
 // Execute executes the request
-func (a *SubscriptionsApiService) DeleteSubscriptionExecute(r ApiDeleteSubscriptionRequest) (*http.Response, error) {
+func (a *SubscriptionsAPIService) DeleteSubscriptionExecute(r ApiDeleteSubscriptionRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodDelete
 		localVarPostBody     interface{}
 		formFiles            []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SubscriptionsApiService.DeleteSubscription")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SubscriptionsAPIService.DeleteSubscription")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/subscriptions/{subscription_id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"subscription_id"+"}", url.PathEscape(parameterToString(r.subscriptionId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"subscription_id"+"}", url.PathEscape(parameterValueToString(r.subscriptionId, "subscriptionId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -290,7 +224,7 @@ func (a *SubscriptionsApiService) DeleteSubscriptionExecute(r ApiDeleteSubscript
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.xAnchoreAccount != nil {
-		localVarHeaderParams["x-anchore-account"] = parameterToString(*r.xAnchoreAccount, "")
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "x-anchore-account", r.xAnchoreAccount, "simple", "")
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
@@ -302,9 +236,9 @@ func (a *SubscriptionsApiService) DeleteSubscriptionExecute(r ApiDeleteSubscript
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
 	}
@@ -321,7 +255,8 @@ func (a *SubscriptionsApiService) DeleteSubscriptionExecute(r ApiDeleteSubscript
 				newErr.error = err.Error()
 				return localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarHTTPResponse, newErr
 	}
@@ -331,7 +266,7 @@ func (a *SubscriptionsApiService) DeleteSubscriptionExecute(r ApiDeleteSubscript
 
 type ApiGetSubscriptionRequest struct {
 	ctx context.Context
-	ApiService SubscriptionsApi
+	ApiService *SubscriptionsAPIService
 	subscriptionId string
 	xAnchoreAccount *string
 }
@@ -353,7 +288,7 @@ GetSubscription Get a specific subscription set
  @param subscriptionId
  @return ApiGetSubscriptionRequest
 */
-func (a *SubscriptionsApiService) GetSubscription(ctx context.Context, subscriptionId string) ApiGetSubscriptionRequest {
+func (a *SubscriptionsAPIService) GetSubscription(ctx context.Context, subscriptionId string) ApiGetSubscriptionRequest {
 	return ApiGetSubscriptionRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -363,7 +298,7 @@ func (a *SubscriptionsApiService) GetSubscription(ctx context.Context, subscript
 
 // Execute executes the request
 //  @return []Subscription
-func (a *SubscriptionsApiService) GetSubscriptionExecute(r ApiGetSubscriptionRequest) ([]Subscription, *http.Response, error) {
+func (a *SubscriptionsAPIService) GetSubscriptionExecute(r ApiGetSubscriptionRequest) ([]Subscription, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
@@ -371,13 +306,13 @@ func (a *SubscriptionsApiService) GetSubscriptionExecute(r ApiGetSubscriptionReq
 		localVarReturnValue  []Subscription
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SubscriptionsApiService.GetSubscription")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SubscriptionsAPIService.GetSubscription")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/subscriptions/{subscription_id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"subscription_id"+"}", url.PathEscape(parameterToString(r.subscriptionId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"subscription_id"+"}", url.PathEscape(parameterValueToString(r.subscriptionId, "subscriptionId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -401,7 +336,7 @@ func (a *SubscriptionsApiService) GetSubscriptionExecute(r ApiGetSubscriptionReq
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.xAnchoreAccount != nil {
-		localVarHeaderParams["x-anchore-account"] = parameterToString(*r.xAnchoreAccount, "")
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "x-anchore-account", r.xAnchoreAccount, "simple", "")
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
@@ -413,9 +348,9 @@ func (a *SubscriptionsApiService) GetSubscriptionExecute(r ApiGetSubscriptionReq
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -432,7 +367,8 @@ func (a *SubscriptionsApiService) GetSubscriptionExecute(r ApiGetSubscriptionReq
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -451,7 +387,7 @@ func (a *SubscriptionsApiService) GetSubscriptionExecute(r ApiGetSubscriptionReq
 
 type ApiListSubscriptionsRequest struct {
 	ctx context.Context
-	ApiService SubscriptionsApi
+	ApiService *SubscriptionsAPIService
 	subscriptionKey *string
 	subscriptionType *string
 	xAnchoreAccount *string
@@ -485,7 +421,7 @@ ListSubscriptions List all subscriptions
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return ApiListSubscriptionsRequest
 */
-func (a *SubscriptionsApiService) ListSubscriptions(ctx context.Context) ApiListSubscriptionsRequest {
+func (a *SubscriptionsAPIService) ListSubscriptions(ctx context.Context) ApiListSubscriptionsRequest {
 	return ApiListSubscriptionsRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -494,7 +430,7 @@ func (a *SubscriptionsApiService) ListSubscriptions(ctx context.Context) ApiList
 
 // Execute executes the request
 //  @return []Subscription
-func (a *SubscriptionsApiService) ListSubscriptionsExecute(r ApiListSubscriptionsRequest) ([]Subscription, *http.Response, error) {
+func (a *SubscriptionsAPIService) ListSubscriptionsExecute(r ApiListSubscriptionsRequest) ([]Subscription, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
@@ -502,7 +438,7 @@ func (a *SubscriptionsApiService) ListSubscriptionsExecute(r ApiListSubscription
 		localVarReturnValue  []Subscription
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SubscriptionsApiService.ListSubscriptions")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SubscriptionsAPIService.ListSubscriptions")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -514,10 +450,10 @@ func (a *SubscriptionsApiService) ListSubscriptionsExecute(r ApiListSubscription
 	localVarFormParams := url.Values{}
 
 	if r.subscriptionKey != nil {
-		localVarQueryParams.Add("subscription_key", parameterToString(*r.subscriptionKey, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "subscription_key", r.subscriptionKey, "form", "")
 	}
 	if r.subscriptionType != nil {
-		localVarQueryParams.Add("subscription_type", parameterToString(*r.subscriptionType, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "subscription_type", r.subscriptionType, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -537,7 +473,7 @@ func (a *SubscriptionsApiService) ListSubscriptionsExecute(r ApiListSubscription
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.xAnchoreAccount != nil {
-		localVarHeaderParams["x-anchore-account"] = parameterToString(*r.xAnchoreAccount, "")
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "x-anchore-account", r.xAnchoreAccount, "simple", "")
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
@@ -549,9 +485,9 @@ func (a *SubscriptionsApiService) ListSubscriptionsExecute(r ApiListSubscription
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -568,7 +504,8 @@ func (a *SubscriptionsApiService) ListSubscriptionsExecute(r ApiListSubscription
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
@@ -587,7 +524,7 @@ func (a *SubscriptionsApiService) ListSubscriptionsExecute(r ApiListSubscription
 
 type ApiUpdateSubscriptionRequest struct {
 	ctx context.Context
-	ApiService SubscriptionsApi
+	ApiService *SubscriptionsAPIService
 	subscriptionId string
 	subscription *SubscriptionUpdate
 	xAnchoreAccount *string
@@ -615,7 +552,7 @@ UpdateSubscription Update an existing and specific subscription
  @param subscriptionId
  @return ApiUpdateSubscriptionRequest
 */
-func (a *SubscriptionsApiService) UpdateSubscription(ctx context.Context, subscriptionId string) ApiUpdateSubscriptionRequest {
+func (a *SubscriptionsAPIService) UpdateSubscription(ctx context.Context, subscriptionId string) ApiUpdateSubscriptionRequest {
 	return ApiUpdateSubscriptionRequest{
 		ApiService: a,
 		ctx: ctx,
@@ -625,7 +562,7 @@ func (a *SubscriptionsApiService) UpdateSubscription(ctx context.Context, subscr
 
 // Execute executes the request
 //  @return []Subscription
-func (a *SubscriptionsApiService) UpdateSubscriptionExecute(r ApiUpdateSubscriptionRequest) ([]Subscription, *http.Response, error) {
+func (a *SubscriptionsAPIService) UpdateSubscriptionExecute(r ApiUpdateSubscriptionRequest) ([]Subscription, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPut
 		localVarPostBody     interface{}
@@ -633,13 +570,13 @@ func (a *SubscriptionsApiService) UpdateSubscriptionExecute(r ApiUpdateSubscript
 		localVarReturnValue  []Subscription
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SubscriptionsApiService.UpdateSubscription")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SubscriptionsAPIService.UpdateSubscription")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/subscriptions/{subscription_id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"subscription_id"+"}", url.PathEscape(parameterToString(r.subscriptionId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"subscription_id"+"}", url.PathEscape(parameterValueToString(r.subscriptionId, "subscriptionId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -666,7 +603,7 @@ func (a *SubscriptionsApiService) UpdateSubscriptionExecute(r ApiUpdateSubscript
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.xAnchoreAccount != nil {
-		localVarHeaderParams["x-anchore-account"] = parameterToString(*r.xAnchoreAccount, "")
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "x-anchore-account", r.xAnchoreAccount, "simple", "")
 	}
 	// body params
 	localVarPostBody = r.subscription
@@ -680,9 +617,9 @@ func (a *SubscriptionsApiService) UpdateSubscriptionExecute(r ApiUpdateSubscript
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
@@ -699,7 +636,8 @@ func (a *SubscriptionsApiService) UpdateSubscriptionExecute(r ApiUpdateSubscript
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
-			newErr.model = v
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}

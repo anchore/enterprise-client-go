@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the AnalysisUpdateEval type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &AnalysisUpdateEval{}
+
 // AnalysisUpdateEval Evaluation Results for an entity (current or last)
 type AnalysisUpdateEval struct {
 	AnalysisStatus *string `json:"analysis_status,omitempty"`
@@ -41,7 +44,7 @@ func NewAnalysisUpdateEvalWithDefaults() *AnalysisUpdateEval {
 
 // GetAnalysisStatus returns the AnalysisStatus field value if set, zero value otherwise.
 func (o *AnalysisUpdateEval) GetAnalysisStatus() string {
-	if o == nil || o.AnalysisStatus == nil {
+	if o == nil || IsNil(o.AnalysisStatus) {
 		var ret string
 		return ret
 	}
@@ -51,7 +54,7 @@ func (o *AnalysisUpdateEval) GetAnalysisStatus() string {
 // GetAnalysisStatusOk returns a tuple with the AnalysisStatus field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AnalysisUpdateEval) GetAnalysisStatusOk() (*string, bool) {
-	if o == nil || o.AnalysisStatus == nil {
+	if o == nil || IsNil(o.AnalysisStatus) {
 		return nil, false
 	}
 	return o.AnalysisStatus, true
@@ -59,7 +62,7 @@ func (o *AnalysisUpdateEval) GetAnalysisStatusOk() (*string, bool) {
 
 // HasAnalysisStatus returns a boolean if a field has been set.
 func (o *AnalysisUpdateEval) HasAnalysisStatus() bool {
-	if o != nil && o.AnalysisStatus != nil {
+	if o != nil && !IsNil(o.AnalysisStatus) {
 		return true
 	}
 
@@ -73,7 +76,7 @@ func (o *AnalysisUpdateEval) SetAnalysisStatus(v string) {
 
 // GetAnnotations returns the Annotations field value if set, zero value otherwise.
 func (o *AnalysisUpdateEval) GetAnnotations() interface{} {
-	if o == nil || o.Annotations == nil {
+	if o == nil || IsNil(o.Annotations) {
 		var ret interface{}
 		return ret
 	}
@@ -83,7 +86,7 @@ func (o *AnalysisUpdateEval) GetAnnotations() interface{} {
 // GetAnnotationsOk returns a tuple with the Annotations field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AnalysisUpdateEval) GetAnnotationsOk() (interface{}, bool) {
-	if o == nil || o.Annotations == nil {
+	if o == nil || IsNil(o.Annotations) {
 		return nil, false
 	}
 	return o.Annotations, true
@@ -91,7 +94,7 @@ func (o *AnalysisUpdateEval) GetAnnotationsOk() (interface{}, bool) {
 
 // HasAnnotations returns a boolean if a field has been set.
 func (o *AnalysisUpdateEval) HasAnnotations() bool {
-	if o != nil && o.Annotations != nil {
+	if o != nil && !IsNil(o.Annotations) {
 		return true
 	}
 
@@ -105,7 +108,7 @@ func (o *AnalysisUpdateEval) SetAnnotations(v interface{}) {
 
 // GetImageDigest returns the ImageDigest field value if set, zero value otherwise.
 func (o *AnalysisUpdateEval) GetImageDigest() string {
-	if o == nil || o.ImageDigest == nil {
+	if o == nil || IsNil(o.ImageDigest) {
 		var ret string
 		return ret
 	}
@@ -115,7 +118,7 @@ func (o *AnalysisUpdateEval) GetImageDigest() string {
 // GetImageDigestOk returns a tuple with the ImageDigest field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AnalysisUpdateEval) GetImageDigestOk() (*string, bool) {
-	if o == nil || o.ImageDigest == nil {
+	if o == nil || IsNil(o.ImageDigest) {
 		return nil, false
 	}
 	return o.ImageDigest, true
@@ -123,7 +126,7 @@ func (o *AnalysisUpdateEval) GetImageDigestOk() (*string, bool) {
 
 // HasImageDigest returns a boolean if a field has been set.
 func (o *AnalysisUpdateEval) HasImageDigest() bool {
-	if o != nil && o.ImageDigest != nil {
+	if o != nil && !IsNil(o.ImageDigest) {
 		return true
 	}
 
@@ -136,17 +139,25 @@ func (o *AnalysisUpdateEval) SetImageDigest(v string) {
 }
 
 func (o AnalysisUpdateEval) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.AnalysisStatus != nil {
-		toSerialize["analysis_status"] = o.AnalysisStatus
-	}
-	if o.Annotations != nil {
-		toSerialize["annotations"] = o.Annotations
-	}
-	if o.ImageDigest != nil {
-		toSerialize["image_digest"] = o.ImageDigest
+	toSerialize,err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o AnalysisUpdateEval) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.AnalysisStatus) {
+		toSerialize["analysis_status"] = o.AnalysisStatus
+	}
+	if !IsNil(o.Annotations) {
+		toSerialize["annotations"] = o.Annotations
+	}
+	if !IsNil(o.ImageDigest) {
+		toSerialize["image_digest"] = o.ImageDigest
+	}
+	return toSerialize, nil
 }
 
 type NullableAnalysisUpdateEval struct {
