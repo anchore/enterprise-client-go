@@ -13,7 +13,6 @@ package enterprise
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -30,6 +29,7 @@ type UserCreationRequest struct {
 	UserType *string `json:"user_type,omitempty"`
 	// If the user is authenticating via an IDP, this is the name of the IDP. A 'native' user should have this set to null.
 	IdpName *string `json:"idp_name,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _UserCreationRequest UserCreationRequest
@@ -192,6 +192,11 @@ func (o UserCreationRequest) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.IdpName) {
 		toSerialize["idp_name"] = o.IdpName
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -219,15 +224,23 @@ func (o *UserCreationRequest) UnmarshalJSON(data []byte) (err error) {
 
 	varUserCreationRequest := _UserCreationRequest{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varUserCreationRequest)
+	err = json.Unmarshal(data, &varUserCreationRequest)
 
 	if err != nil {
 		return err
 	}
 
 	*o = UserCreationRequest(varUserCreationRequest)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "username")
+		delete(additionalProperties, "password")
+		delete(additionalProperties, "user_type")
+		delete(additionalProperties, "idp_name")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

@@ -28,7 +28,10 @@ type AnalysisUpdateNotificationPayload struct {
 	LastEval *AnalysisUpdateEval `json:"last_eval,omitempty"`
 	// List of Corresponding Image Annotations
 	Annotations interface{} `json:"annotations,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _AnalysisUpdateNotificationPayload AnalysisUpdateNotificationPayload
 
 // NewAnalysisUpdateNotificationPayload instantiates a new AnalysisUpdateNotificationPayload object
 // This constructor will assign default values to properties that have it defined,
@@ -303,7 +306,39 @@ func (o AnalysisUpdateNotificationPayload) ToMap() (map[string]interface{}, erro
 	if o.Annotations != nil {
 		toSerialize["annotations"] = o.Annotations
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *AnalysisUpdateNotificationPayload) UnmarshalJSON(data []byte) (err error) {
+	varAnalysisUpdateNotificationPayload := _AnalysisUpdateNotificationPayload{}
+
+	err = json.Unmarshal(data, &varAnalysisUpdateNotificationPayload)
+
+	if err != nil {
+		return err
+	}
+
+	*o = AnalysisUpdateNotificationPayload(varAnalysisUpdateNotificationPayload)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "account_name")
+		delete(additionalProperties, "subscription_key")
+		delete(additionalProperties, "subscription_type")
+		delete(additionalProperties, "notification_id")
+		delete(additionalProperties, "curr_eval")
+		delete(additionalProperties, "last_eval")
+		delete(additionalProperties, "annotations")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableAnalysisUpdateNotificationPayload struct {

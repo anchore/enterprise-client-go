@@ -25,7 +25,10 @@ type AnalysisArchiveTransitionRuleExclude struct {
 	ExpirationDays *int32 `json:"expiration_days,omitempty"`
 	// Exclude image from archive if last seen in inventory within defined number of days
 	LastSeenInDays *int32 `json:"last_seen_in_days,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _AnalysisArchiveTransitionRuleExclude AnalysisArchiveTransitionRuleExclude
 
 // NewAnalysisArchiveTransitionRuleExclude instantiates a new AnalysisArchiveTransitionRuleExclude object
 // This constructor will assign default values to properties that have it defined,
@@ -159,7 +162,35 @@ func (o AnalysisArchiveTransitionRuleExclude) ToMap() (map[string]interface{}, e
 	if !IsNil(o.LastSeenInDays) {
 		toSerialize["last_seen_in_days"] = o.LastSeenInDays
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *AnalysisArchiveTransitionRuleExclude) UnmarshalJSON(data []byte) (err error) {
+	varAnalysisArchiveTransitionRuleExclude := _AnalysisArchiveTransitionRuleExclude{}
+
+	err = json.Unmarshal(data, &varAnalysisArchiveTransitionRuleExclude)
+
+	if err != nil {
+		return err
+	}
+
+	*o = AnalysisArchiveTransitionRuleExclude(varAnalysisArchiveTransitionRuleExclude)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "selector")
+		delete(additionalProperties, "expiration_days")
+		delete(additionalProperties, "last_seen_in_days")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableAnalysisArchiveTransitionRuleExclude struct {

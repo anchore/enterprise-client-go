@@ -14,7 +14,6 @@ package enterprise
 import (
 	"encoding/json"
 	"time"
-	"bytes"
 	"fmt"
 )
 
@@ -34,6 +33,7 @@ type RbacManagerRole struct {
 	CreatedAt *time.Time `json:"created_at,omitempty"`
 	// The timestamp of the last update to the role metadata itself
 	LastUpdated *time.Time `json:"last_updated,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _RbacManagerRole RbacManagerRole
@@ -266,6 +266,11 @@ func (o RbacManagerRole) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.LastUpdated) {
 		toSerialize["last_updated"] = o.LastUpdated
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -293,15 +298,25 @@ func (o *RbacManagerRole) UnmarshalJSON(data []byte) (err error) {
 
 	varRbacManagerRole := _RbacManagerRole{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varRbacManagerRole)
+	err = json.Unmarshal(data, &varRbacManagerRole)
 
 	if err != nil {
 		return err
 	}
 
 	*o = RbacManagerRole(varRbacManagerRole)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "description")
+		delete(additionalProperties, "permissions")
+		delete(additionalProperties, "immutable")
+		delete(additionalProperties, "created_at")
+		delete(additionalProperties, "last_updated")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

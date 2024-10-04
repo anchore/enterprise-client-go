@@ -13,7 +13,6 @@ package enterprise
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -29,6 +28,7 @@ type KubernetesContainer struct {
 	Context string `json:"context"`
 	ImageTag string `json:"image_tag"`
 	ImageDigest string `json:"image_digest"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _KubernetesContainer KubernetesContainer
@@ -242,6 +242,11 @@ func (o KubernetesContainer) ToMap() (map[string]interface{}, error) {
 	toSerialize["context"] = o.Context
 	toSerialize["image_tag"] = o.ImageTag
 	toSerialize["image_digest"] = o.ImageDigest
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -275,15 +280,26 @@ func (o *KubernetesContainer) UnmarshalJSON(data []byte) (err error) {
 
 	varKubernetesContainer := _KubernetesContainer{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varKubernetesContainer)
+	err = json.Unmarshal(data, &varKubernetesContainer)
 
 	if err != nil {
 		return err
 	}
 
 	*o = KubernetesContainer(varKubernetesContainer)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "pod_id")
+		delete(additionalProperties, "account_name")
+		delete(additionalProperties, "context")
+		delete(additionalProperties, "image_tag")
+		delete(additionalProperties, "image_digest")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

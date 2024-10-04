@@ -28,7 +28,10 @@ type CustomJsonPatch struct {
 	Move []JsonPatchMove `json:"move,omitempty"`
 	Copy []JsonPatchCopy `json:"copy,omitempty"`
 	Test []JsonPatchTest `json:"test,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _CustomJsonPatch CustomJsonPatch
 
 // NewCustomJsonPatch instantiates a new CustomJsonPatch object
 // This constructor will assign default values to properties that have it defined,
@@ -302,7 +305,39 @@ func (o CustomJsonPatch) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Test) {
 		toSerialize["test"] = o.Test
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *CustomJsonPatch) UnmarshalJSON(data []byte) (err error) {
+	varCustomJsonPatch := _CustomJsonPatch{}
+
+	err = json.Unmarshal(data, &varCustomJsonPatch)
+
+	if err != nil {
+		return err
+	}
+
+	*o = CustomJsonPatch(varCustomJsonPatch)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "operations")
+		delete(additionalProperties, "add")
+		delete(additionalProperties, "remove")
+		delete(additionalProperties, "replace")
+		delete(additionalProperties, "move")
+		delete(additionalProperties, "copy")
+		delete(additionalProperties, "test")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableCustomJsonPatch struct {

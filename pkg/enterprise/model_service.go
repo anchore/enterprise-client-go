@@ -32,7 +32,10 @@ type Service struct {
 	Status *bool `json:"status,omitempty"`
 	// The version of the service as reported by the service implementation on registration
 	Version *string `json:"version,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _Service Service
 
 // NewService instantiates a new Service object
 // This constructor will assign default values to properties that have it defined,
@@ -306,7 +309,39 @@ func (o Service) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Version) {
 		toSerialize["version"] = o.Version
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *Service) UnmarshalJSON(data []byte) (err error) {
+	varService := _Service{}
+
+	err = json.Unmarshal(data, &varService)
+
+	if err != nil {
+		return err
+	}
+
+	*o = Service(varService)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "host_id")
+		delete(additionalProperties, "service_name")
+		delete(additionalProperties, "base_url")
+		delete(additionalProperties, "status_message")
+		delete(additionalProperties, "service_detail")
+		delete(additionalProperties, "status")
+		delete(additionalProperties, "version")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableService struct {

@@ -13,7 +13,6 @@ package enterprise
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -24,6 +23,7 @@ var _ MappedNullable = &AnalysisArchiveSource{}
 type AnalysisArchiveSource struct {
 	// The image digest identify the analysis. Archived analyses are based on digest, tag records are restored as analysis is restored.
 	Digest string `json:"digest" validate:"regexp=^sha256:[a-fA-F0-9]{64}$"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _AnalysisArchiveSource AnalysisArchiveSource
@@ -81,6 +81,11 @@ func (o AnalysisArchiveSource) MarshalJSON() ([]byte, error) {
 func (o AnalysisArchiveSource) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["digest"] = o.Digest
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -108,15 +113,20 @@ func (o *AnalysisArchiveSource) UnmarshalJSON(data []byte) (err error) {
 
 	varAnalysisArchiveSource := _AnalysisArchiveSource{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varAnalysisArchiveSource)
+	err = json.Unmarshal(data, &varAnalysisArchiveSource)
 
 	if err != nil {
 		return err
 	}
 
 	*o = AnalysisArchiveSource(varAnalysisArchiveSource)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "digest")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

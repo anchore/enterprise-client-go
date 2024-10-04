@@ -21,7 +21,10 @@ var _ MappedNullable = &SourceContentSummary{}
 // SourceContentSummary A summary of the content types found in a source with counts
 type SourceContentSummary struct {
 	Items []ImageContentSummaryItemsInner `json:"items,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _SourceContentSummary SourceContentSummary
 
 // NewSourceContentSummary instantiates a new SourceContentSummary object
 // This constructor will assign default values to properties that have it defined,
@@ -85,7 +88,33 @@ func (o SourceContentSummary) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Items) {
 		toSerialize["items"] = o.Items
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *SourceContentSummary) UnmarshalJSON(data []byte) (err error) {
+	varSourceContentSummary := _SourceContentSummary{}
+
+	err = json.Unmarshal(data, &varSourceContentSummary)
+
+	if err != nil {
+		return err
+	}
+
+	*o = SourceContentSummary(varSourceContentSummary)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "items")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableSourceContentSummary struct {

@@ -13,7 +13,6 @@ package enterprise
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -28,6 +27,7 @@ type PolicyEvaluationProblem struct {
 	ProblemType string `json:"problem_type"`
 	// Details about the problem itself and how to fix it
 	Details string `json:"details"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _PolicyEvaluationProblem PolicyEvaluationProblem
@@ -137,6 +137,11 @@ func (o PolicyEvaluationProblem) ToMap() (map[string]interface{}, error) {
 	toSerialize["severity"] = o.Severity
 	toSerialize["problem_type"] = o.ProblemType
 	toSerialize["details"] = o.Details
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -166,15 +171,22 @@ func (o *PolicyEvaluationProblem) UnmarshalJSON(data []byte) (err error) {
 
 	varPolicyEvaluationProblem := _PolicyEvaluationProblem{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varPolicyEvaluationProblem)
+	err = json.Unmarshal(data, &varPolicyEvaluationProblem)
 
 	if err != nil {
 		return err
 	}
 
 	*o = PolicyEvaluationProblem(varPolicyEvaluationProblem)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "severity")
+		delete(additionalProperties, "problem_type")
+		delete(additionalProperties, "details")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

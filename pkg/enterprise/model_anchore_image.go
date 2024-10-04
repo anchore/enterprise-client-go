@@ -38,7 +38,10 @@ type AnchoreImage struct {
 	// The version of the record, used for internal schema updates and data migrations.
 	RecordVersion *string `json:"record_version,omitempty"`
 	AnalysisStatusDetail []AnalysisStatusDetail `json:"analysis_status_detail,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _AnchoreImage AnchoreImage
 
 // NewAnchoreImage instantiates a new AnchoreImage object
 // This constructor will assign default values to properties that have it defined,
@@ -488,7 +491,44 @@ func (o AnchoreImage) ToMap() (map[string]interface{}, error) {
 	if o.AnalysisStatusDetail != nil {
 		toSerialize["analysis_status_detail"] = o.AnalysisStatusDetail
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *AnchoreImage) UnmarshalJSON(data []byte) (err error) {
+	varAnchoreImage := _AnchoreImage{}
+
+	err = json.Unmarshal(data, &varAnchoreImage)
+
+	if err != nil {
+		return err
+	}
+
+	*o = AnchoreImage(varAnchoreImage)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "image_content")
+		delete(additionalProperties, "image_detail")
+		delete(additionalProperties, "last_updated")
+		delete(additionalProperties, "created_at")
+		delete(additionalProperties, "image_digest")
+		delete(additionalProperties, "parent_digest")
+		delete(additionalProperties, "account_name")
+		delete(additionalProperties, "annotations")
+		delete(additionalProperties, "image_status")
+		delete(additionalProperties, "analysis_status")
+		delete(additionalProperties, "record_version")
+		delete(additionalProperties, "analysis_status_detail")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableAnchoreImage struct {

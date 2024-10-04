@@ -27,7 +27,10 @@ type ImageReference struct {
 	// Timestamp, in rfc3339 format, indicating when the image state became 'analyzed' in Anchore Engine.
 	AnalyzedAt *string `json:"analyzed_at,omitempty"`
 	TagHistory []TagEntry `json:"tag_history,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _ImageReference ImageReference
 
 // NewImageReference instantiates a new ImageReference object
 // This constructor will assign default values to properties that have it defined,
@@ -196,7 +199,36 @@ func (o ImageReference) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.TagHistory) {
 		toSerialize["tag_history"] = o.TagHistory
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *ImageReference) UnmarshalJSON(data []byte) (err error) {
+	varImageReference := _ImageReference{}
+
+	err = json.Unmarshal(data, &varImageReference)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ImageReference(varImageReference)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "image_digest")
+		delete(additionalProperties, "image_id")
+		delete(additionalProperties, "analyzed_at")
+		delete(additionalProperties, "tag_history")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableImageReference struct {

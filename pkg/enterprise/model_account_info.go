@@ -22,7 +22,10 @@ var _ MappedNullable = &AccountInfo{}
 type AccountInfo struct {
 	// An optional email to associate with the account for contact purposes
 	Email *string "json:\"email,omitempty\" validate:\"regexp=[a-z0-9!#$%&'*+\\/=?^_`{|}~-]+(?:\\\\.[a-z0-9!#$%&'*+\\/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\""
+	AdditionalProperties map[string]interface{}
 }
+
+type _AccountInfo AccountInfo
 
 // NewAccountInfo instantiates a new AccountInfo object
 // This constructor will assign default values to properties that have it defined,
@@ -86,7 +89,33 @@ func (o AccountInfo) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Email) {
 		toSerialize["email"] = o.Email
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *AccountInfo) UnmarshalJSON(data []byte) (err error) {
+	varAccountInfo := _AccountInfo{}
+
+	err = json.Unmarshal(data, &varAccountInfo)
+
+	if err != nil {
+		return err
+	}
+
+	*o = AccountInfo(varAccountInfo)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "email")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableAccountInfo struct {

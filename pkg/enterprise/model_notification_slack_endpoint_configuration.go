@@ -14,7 +14,6 @@ package enterprise
 import (
 	"encoding/json"
 	"time"
-	"bytes"
 	"fmt"
 )
 
@@ -35,6 +34,7 @@ type NotificationSlackEndpointConfiguration struct {
 	LastUpdated *time.Time `json:"last_updated,omitempty"`
 	// url to POST to, including any query parameters, should begin with 'http://' or 'https://'
 	Url string `json:"url" validate:"regexp=https?:\\/\\/.*"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _NotificationSlackEndpointConfiguration NotificationSlackEndpointConfiguration
@@ -267,6 +267,11 @@ func (o NotificationSlackEndpointConfiguration) ToMap() (map[string]interface{},
 		toSerialize["last_updated"] = o.LastUpdated
 	}
 	toSerialize["url"] = o.Url
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -294,15 +299,25 @@ func (o *NotificationSlackEndpointConfiguration) UnmarshalJSON(data []byte) (err
 
 	varNotificationSlackEndpointConfiguration := _NotificationSlackEndpointConfiguration{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varNotificationSlackEndpointConfiguration)
+	err = json.Unmarshal(data, &varNotificationSlackEndpointConfiguration)
 
 	if err != nil {
 		return err
 	}
 
 	*o = NotificationSlackEndpointConfiguration(varNotificationSlackEndpointConfiguration)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "uuid")
+		delete(additionalProperties, "description")
+		delete(additionalProperties, "verify_tls")
+		delete(additionalProperties, "created_at")
+		delete(additionalProperties, "last_updated")
+		delete(additionalProperties, "url")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

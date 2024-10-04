@@ -26,7 +26,10 @@ type NvdDataObject struct {
 	Description *string `json:"description,omitempty"`
 	CvssV2 *CVSSV2Scores `json:"cvss_v2,omitempty"`
 	CvssV3 *CVSSV3Scores `json:"cvss_v3,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _NvdDataObject NvdDataObject
 
 // NewNvdDataObject instantiates a new NvdDataObject object
 // This constructor will assign default values to properties that have it defined,
@@ -195,7 +198,36 @@ func (o NvdDataObject) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.CvssV3) {
 		toSerialize["cvss_v3"] = o.CvssV3
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *NvdDataObject) UnmarshalJSON(data []byte) (err error) {
+	varNvdDataObject := _NvdDataObject{}
+
+	err = json.Unmarshal(data, &varNvdDataObject)
+
+	if err != nil {
+		return err
+	}
+
+	*o = NvdDataObject(varNvdDataObject)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "description")
+		delete(additionalProperties, "cvss_v2")
+		delete(additionalProperties, "cvss_v3")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableNvdDataObject struct {

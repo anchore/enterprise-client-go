@@ -13,7 +13,6 @@ package enterprise
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -24,6 +23,7 @@ var _ MappedNullable = &UserGroupUsersPost{}
 type UserGroupUsersPost struct {
 	// The list of usernames to add to the user group
 	Usernames []UserGroupUsersPostUsernamesInner `json:"usernames"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _UserGroupUsersPost UserGroupUsersPost
@@ -81,6 +81,11 @@ func (o UserGroupUsersPost) MarshalJSON() ([]byte, error) {
 func (o UserGroupUsersPost) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["usernames"] = o.Usernames
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -108,15 +113,20 @@ func (o *UserGroupUsersPost) UnmarshalJSON(data []byte) (err error) {
 
 	varUserGroupUsersPost := _UserGroupUsersPost{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varUserGroupUsersPost)
+	err = json.Unmarshal(data, &varUserGroupUsersPost)
 
 	if err != nil {
 		return err
 	}
 
 	*o = UserGroupUsersPost(varUserGroupUsersPost)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "usernames")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

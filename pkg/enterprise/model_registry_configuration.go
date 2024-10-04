@@ -35,7 +35,10 @@ type RegistryConfiguration struct {
 	RegistryName *string `json:"registry_name,omitempty"`
 	// Use TLS/SSL verification for the registry URL
 	RegistryVerify *bool `json:"registry_verify,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _RegistryConfiguration RegistryConfiguration
 
 // NewRegistryConfiguration instantiates a new RegistryConfiguration object
 // This constructor will assign default values to properties that have it defined,
@@ -344,7 +347,40 @@ func (o RegistryConfiguration) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.RegistryVerify) {
 		toSerialize["registry_verify"] = o.RegistryVerify
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *RegistryConfiguration) UnmarshalJSON(data []byte) (err error) {
+	varRegistryConfiguration := _RegistryConfiguration{}
+
+	err = json.Unmarshal(data, &varRegistryConfiguration)
+
+	if err != nil {
+		return err
+	}
+
+	*o = RegistryConfiguration(varRegistryConfiguration)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "created_at")
+		delete(additionalProperties, "last_updated")
+		delete(additionalProperties, "registry_user")
+		delete(additionalProperties, "registry_type")
+		delete(additionalProperties, "account_name")
+		delete(additionalProperties, "registry")
+		delete(additionalProperties, "registry_name")
+		delete(additionalProperties, "registry_verify")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableRegistryConfiguration struct {

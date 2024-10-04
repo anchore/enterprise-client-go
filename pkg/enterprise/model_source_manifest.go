@@ -33,7 +33,10 @@ type SourceManifest struct {
 	SourceStatus *string `json:"source_status,omitempty"`
 	// Array of metadata available
 	MetadataRecords []SourceManifestMetadataRecord `json:"metadata_records,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _SourceManifest SourceManifest
 
 // NewSourceManifest instantiates a new SourceManifest object
 // This constructor will assign default values to properties that have it defined,
@@ -447,7 +450,43 @@ func (o SourceManifest) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.MetadataRecords) {
 		toSerialize["metadata_records"] = o.MetadataRecords
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *SourceManifest) UnmarshalJSON(data []byte) (err error) {
+	varSourceManifest := _SourceManifest{}
+
+	err = json.Unmarshal(data, &varSourceManifest)
+
+	if err != nil {
+		return err
+	}
+
+	*o = SourceManifest(varSourceManifest)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "uuid")
+		delete(additionalProperties, "account_name")
+		delete(additionalProperties, "vcs_type")
+		delete(additionalProperties, "host")
+		delete(additionalProperties, "repository_name")
+		delete(additionalProperties, "revision")
+		delete(additionalProperties, "created_at")
+		delete(additionalProperties, "last_updated")
+		delete(additionalProperties, "analysis_status")
+		delete(additionalProperties, "source_status")
+		delete(additionalProperties, "metadata_records")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableSourceManifest struct {

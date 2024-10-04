@@ -25,7 +25,10 @@ type NotificationEndpointEnabledStatus struct {
 	Enabled *bool `json:"enabled,omitempty"`
 	// The timestamp of the last change to the status
 	LastUpdated *time.Time `json:"last_updated,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _NotificationEndpointEnabledStatus NotificationEndpointEnabledStatus
 
 // NewNotificationEndpointEnabledStatus instantiates a new NotificationEndpointEnabledStatus object
 // This constructor will assign default values to properties that have it defined,
@@ -124,7 +127,34 @@ func (o NotificationEndpointEnabledStatus) ToMap() (map[string]interface{}, erro
 	if !IsNil(o.LastUpdated) {
 		toSerialize["last_updated"] = o.LastUpdated
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *NotificationEndpointEnabledStatus) UnmarshalJSON(data []byte) (err error) {
+	varNotificationEndpointEnabledStatus := _NotificationEndpointEnabledStatus{}
+
+	err = json.Unmarshal(data, &varNotificationEndpointEnabledStatus)
+
+	if err != nil {
+		return err
+	}
+
+	*o = NotificationEndpointEnabledStatus(varNotificationEndpointEnabledStatus)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "enabled")
+		delete(additionalProperties, "last_updated")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableNotificationEndpointEnabledStatus struct {

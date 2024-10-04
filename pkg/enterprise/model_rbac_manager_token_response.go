@@ -13,7 +13,6 @@ package enterprise
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -24,6 +23,7 @@ var _ MappedNullable = &RbacManagerTokenResponse{}
 type RbacManagerTokenResponse struct {
 	// The token content
 	Token string `json:"token"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _RbacManagerTokenResponse RbacManagerTokenResponse
@@ -81,6 +81,11 @@ func (o RbacManagerTokenResponse) MarshalJSON() ([]byte, error) {
 func (o RbacManagerTokenResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["token"] = o.Token
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -108,15 +113,20 @@ func (o *RbacManagerTokenResponse) UnmarshalJSON(data []byte) (err error) {
 
 	varRbacManagerTokenResponse := _RbacManagerTokenResponse{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varRbacManagerTokenResponse)
+	err = json.Unmarshal(data, &varRbacManagerTokenResponse)
 
 	if err != nil {
 		return err
 	}
 
 	*o = RbacManagerTokenResponse(varRbacManagerTokenResponse)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "token")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

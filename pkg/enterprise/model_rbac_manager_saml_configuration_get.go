@@ -14,7 +14,6 @@ package enterprise
 import (
 	"encoding/json"
 	"time"
-	"bytes"
 	"fmt"
 )
 
@@ -59,6 +58,7 @@ type RbacManagerSamlConfigurationGet struct {
 	RequireExistingUsers *bool `json:"require_existing_users,omitempty"`
 	// List of user groups associated with this IDP (Only for GET operations)
 	UserGroups []RbacManagerSamlConfigurationGetAllOfUserGroups `json:"user_groups,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _RbacManagerSamlConfigurationGet RbacManagerSamlConfigurationGet
@@ -731,6 +731,11 @@ func (o RbacManagerSamlConfigurationGet) ToMap() (map[string]interface{}, error)
 	if !IsNil(o.UserGroups) {
 		toSerialize["user_groups"] = o.UserGroups
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -761,15 +766,38 @@ func (o *RbacManagerSamlConfigurationGet) UnmarshalJSON(data []byte) (err error)
 
 	varRbacManagerSamlConfigurationGet := _RbacManagerSamlConfigurationGet{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varRbacManagerSamlConfigurationGet)
+	err = json.Unmarshal(data, &varRbacManagerSamlConfigurationGet)
 
 	if err != nil {
 		return err
 	}
 
 	*o = RbacManagerSamlConfigurationGet(varRbacManagerSamlConfigurationGet)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "enabled")
+		delete(additionalProperties, "sp_entity_id")
+		delete(additionalProperties, "acs_url")
+		delete(additionalProperties, "acs_https_port")
+		delete(additionalProperties, "idp_metadata_url")
+		delete(additionalProperties, "idp_metadata_xml")
+		delete(additionalProperties, "idp_username_attribute")
+		delete(additionalProperties, "idp_account_attribute")
+		delete(additionalProperties, "idp_role_attribute")
+		delete(additionalProperties, "idp_groups_attribute")
+		delete(additionalProperties, "default_account")
+		delete(additionalProperties, "default_role")
+		delete(additionalProperties, "require_signed_assertions")
+		delete(additionalProperties, "require_signed_response")
+		delete(additionalProperties, "created_at")
+		delete(additionalProperties, "last_updated")
+		delete(additionalProperties, "require_existing_users")
+		delete(additionalProperties, "user_groups")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

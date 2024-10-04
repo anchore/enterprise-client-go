@@ -21,7 +21,10 @@ var _ MappedNullable = &RbacManagerIdpUserGroupPost{}
 // RbacManagerIdpUserGroupPost struct for RbacManagerIdpUserGroupPost
 type RbacManagerIdpUserGroupPost struct {
 	UserGroupUuids []string `json:"user_group_uuids,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _RbacManagerIdpUserGroupPost RbacManagerIdpUserGroupPost
 
 // NewRbacManagerIdpUserGroupPost instantiates a new RbacManagerIdpUserGroupPost object
 // This constructor will assign default values to properties that have it defined,
@@ -85,7 +88,33 @@ func (o RbacManagerIdpUserGroupPost) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.UserGroupUuids) {
 		toSerialize["user_group_uuids"] = o.UserGroupUuids
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *RbacManagerIdpUserGroupPost) UnmarshalJSON(data []byte) (err error) {
+	varRbacManagerIdpUserGroupPost := _RbacManagerIdpUserGroupPost{}
+
+	err = json.Unmarshal(data, &varRbacManagerIdpUserGroupPost)
+
+	if err != nil {
+		return err
+	}
+
+	*o = RbacManagerIdpUserGroupPost(varRbacManagerIdpUserGroupPost)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "user_group_uuids")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableRbacManagerIdpUserGroupPost struct {

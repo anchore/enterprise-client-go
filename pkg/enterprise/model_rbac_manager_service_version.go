@@ -24,7 +24,10 @@ type RbacManagerServiceVersion struct {
 	Api *NotificationServiceVersionApi `json:"api,omitempty"`
 	Db *NotificationServiceVersionDb `json:"db,omitempty"`
 	Engine *NotificationServiceVersionEngine `json:"engine,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _RbacManagerServiceVersion RbacManagerServiceVersion
 
 // NewRbacManagerServiceVersion instantiates a new RbacManagerServiceVersion object
 // This constructor will assign default values to properties that have it defined,
@@ -193,7 +196,36 @@ func (o RbacManagerServiceVersion) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Engine) {
 		toSerialize["engine"] = o.Engine
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *RbacManagerServiceVersion) UnmarshalJSON(data []byte) (err error) {
+	varRbacManagerServiceVersion := _RbacManagerServiceVersion{}
+
+	err = json.Unmarshal(data, &varRbacManagerServiceVersion)
+
+	if err != nil {
+		return err
+	}
+
+	*o = RbacManagerServiceVersion(varRbacManagerServiceVersion)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "service")
+		delete(additionalProperties, "api")
+		delete(additionalProperties, "db")
+		delete(additionalProperties, "engine")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableRbacManagerServiceVersion struct {

@@ -26,7 +26,10 @@ type RelationshipSbomDiff struct {
 	TargetOnly []Package `json:"target_only,omitempty"`
 	SourceModified []ModifiedPackage `json:"source_modified,omitempty"`
 	BothUnmodified []Package `json:"both_unmodified,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _RelationshipSbomDiff RelationshipSbomDiff
 
 // NewRelationshipSbomDiff instantiates a new RelationshipSbomDiff object
 // This constructor will assign default values to properties that have it defined,
@@ -195,7 +198,36 @@ func (o RelationshipSbomDiff) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.BothUnmodified) {
 		toSerialize["both_unmodified"] = o.BothUnmodified
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *RelationshipSbomDiff) UnmarshalJSON(data []byte) (err error) {
+	varRelationshipSbomDiff := _RelationshipSbomDiff{}
+
+	err = json.Unmarshal(data, &varRelationshipSbomDiff)
+
+	if err != nil {
+		return err
+	}
+
+	*o = RelationshipSbomDiff(varRelationshipSbomDiff)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "source_only")
+		delete(additionalProperties, "target_only")
+		delete(additionalProperties, "source_modified")
+		delete(additionalProperties, "both_unmodified")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableRelationshipSbomDiff struct {

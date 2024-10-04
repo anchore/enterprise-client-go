@@ -25,7 +25,10 @@ type AnalysisArchiveRulesSummary struct {
 	Count *int32 `json:"count,omitempty"`
 	// The newest last_updated timestamp from the set of rules
 	LastUpdated *time.Time `json:"last_updated,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _AnalysisArchiveRulesSummary AnalysisArchiveRulesSummary
 
 // NewAnalysisArchiveRulesSummary instantiates a new AnalysisArchiveRulesSummary object
 // This constructor will assign default values to properties that have it defined,
@@ -124,7 +127,34 @@ func (o AnalysisArchiveRulesSummary) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.LastUpdated) {
 		toSerialize["last_updated"] = o.LastUpdated
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *AnalysisArchiveRulesSummary) UnmarshalJSON(data []byte) (err error) {
+	varAnalysisArchiveRulesSummary := _AnalysisArchiveRulesSummary{}
+
+	err = json.Unmarshal(data, &varAnalysisArchiveRulesSummary)
+
+	if err != nil {
+		return err
+	}
+
+	*o = AnalysisArchiveRulesSummary(varAnalysisArchiveRulesSummary)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "count")
+		delete(additionalProperties, "last_updated")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableAnalysisArchiveRulesSummary struct {

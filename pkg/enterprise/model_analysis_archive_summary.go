@@ -29,7 +29,10 @@ type AnalysisArchiveSummary struct {
 	TotalDataBytes *int32 `json:"total_data_bytes,omitempty"`
 	// The timestamp of the most recent archived image
 	LastUpdated *time.Time `json:"last_updated,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _AnalysisArchiveSummary AnalysisArchiveSummary
 
 // NewAnalysisArchiveSummary instantiates a new AnalysisArchiveSummary object
 // This constructor will assign default values to properties that have it defined,
@@ -198,7 +201,36 @@ func (o AnalysisArchiveSummary) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.LastUpdated) {
 		toSerialize["last_updated"] = o.LastUpdated
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *AnalysisArchiveSummary) UnmarshalJSON(data []byte) (err error) {
+	varAnalysisArchiveSummary := _AnalysisArchiveSummary{}
+
+	err = json.Unmarshal(data, &varAnalysisArchiveSummary)
+
+	if err != nil {
+		return err
+	}
+
+	*o = AnalysisArchiveSummary(varAnalysisArchiveSummary)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "total_image_count")
+		delete(additionalProperties, "total_tag_count")
+		delete(additionalProperties, "total_data_bytes")
+		delete(additionalProperties, "last_updated")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableAnalysisArchiveSummary struct {

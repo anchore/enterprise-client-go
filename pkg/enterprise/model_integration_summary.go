@@ -52,7 +52,10 @@ type IntegrationSummary struct {
 	RegistrationId *string `json:"registration_id,omitempty"`
 	// Unique identifier for the integration instance (among its replicas) during registration
 	RegistrationInstanceId *string `json:"registration_instance_id,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _IntegrationSummary IntegrationSummary
 
 // NewIntegrationSummary instantiates a new IntegrationSummary object
 // This constructor will assign default values to properties that have it defined,
@@ -676,7 +679,49 @@ func (o IntegrationSummary) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.RegistrationInstanceId) {
 		toSerialize["registration_instance_id"] = o.RegistrationInstanceId
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *IntegrationSummary) UnmarshalJSON(data []byte) (err error) {
+	varIntegrationSummary := _IntegrationSummary{}
+
+	err = json.Unmarshal(data, &varIntegrationSummary)
+
+	if err != nil {
+		return err
+	}
+
+	*o = IntegrationSummary(varIntegrationSummary)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "uuid")
+		delete(additionalProperties, "type")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "version")
+		delete(additionalProperties, "reported_status")
+		delete(additionalProperties, "integration_status")
+		delete(additionalProperties, "last_seen")
+		delete(additionalProperties, "uptime")
+		delete(additionalProperties, "account_name")
+		delete(additionalProperties, "username")
+		delete(additionalProperties, "explicitly_account_bound")
+		delete(additionalProperties, "accounts")
+		delete(additionalProperties, "cluster_name")
+		delete(additionalProperties, "namespace")
+		delete(additionalProperties, "health_report_interval")
+		delete(additionalProperties, "registration_id")
+		delete(additionalProperties, "registration_instance_id")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableIntegrationSummary struct {

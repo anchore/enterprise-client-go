@@ -24,7 +24,10 @@ type ReportingServiceVersion struct {
 	Api *NotificationServiceVersionApi `json:"api,omitempty"`
 	Db *NotificationServiceVersionDb `json:"db,omitempty"`
 	Engine *NotificationServiceVersionEngine `json:"engine,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _ReportingServiceVersion ReportingServiceVersion
 
 // NewReportingServiceVersion instantiates a new ReportingServiceVersion object
 // This constructor will assign default values to properties that have it defined,
@@ -193,7 +196,36 @@ func (o ReportingServiceVersion) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Engine) {
 		toSerialize["engine"] = o.Engine
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *ReportingServiceVersion) UnmarshalJSON(data []byte) (err error) {
+	varReportingServiceVersion := _ReportingServiceVersion{}
+
+	err = json.Unmarshal(data, &varReportingServiceVersion)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ReportingServiceVersion(varReportingServiceVersion)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "service")
+		delete(additionalProperties, "api")
+		delete(additionalProperties, "db")
+		delete(additionalProperties, "engine")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableReportingServiceVersion struct {

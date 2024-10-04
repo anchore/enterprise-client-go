@@ -13,7 +13,6 @@ package enterprise
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -26,6 +25,7 @@ type DeleteImageResponse struct {
 	// Current status of the image deletion
 	Status string `json:"status"`
 	Detail *string `json:"detail,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _DeleteImageResponse DeleteImageResponse
@@ -144,6 +144,11 @@ func (o DeleteImageResponse) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Detail) {
 		toSerialize["detail"] = o.Detail
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -172,15 +177,22 @@ func (o *DeleteImageResponse) UnmarshalJSON(data []byte) (err error) {
 
 	varDeleteImageResponse := _DeleteImageResponse{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varDeleteImageResponse)
+	err = json.Unmarshal(data, &varDeleteImageResponse)
 
 	if err != nil {
 		return err
 	}
 
 	*o = DeleteImageResponse(varDeleteImageResponse)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "image_digest")
+		delete(additionalProperties, "status")
+		delete(additionalProperties, "detail")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

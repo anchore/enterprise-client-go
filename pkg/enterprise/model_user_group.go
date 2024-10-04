@@ -14,7 +14,6 @@ package enterprise
 import (
 	"encoding/json"
 	"time"
-	"bytes"
 	"fmt"
 )
 
@@ -34,6 +33,7 @@ type UserGroup struct {
 	// The timestamp of the last update to this user group
 	LastUpdated *time.Time `json:"last_updated,omitempty"`
 	AccountRoles *UserGroupRoles `json:"account_roles,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _UserGroup UserGroup
@@ -257,6 +257,11 @@ func (o UserGroup) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.AccountRoles) {
 		toSerialize["account_roles"] = o.AccountRoles
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -285,15 +290,25 @@ func (o *UserGroup) UnmarshalJSON(data []byte) (err error) {
 
 	varUserGroup := _UserGroup{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varUserGroup)
+	err = json.Unmarshal(data, &varUserGroup)
 
 	if err != nil {
 		return err
 	}
 
 	*o = UserGroup(varUserGroup)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "description")
+		delete(additionalProperties, "group_uuid")
+		delete(additionalProperties, "created_at")
+		delete(additionalProperties, "last_updated")
+		delete(additionalProperties, "account_roles")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

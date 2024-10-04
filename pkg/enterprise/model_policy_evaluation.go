@@ -28,7 +28,10 @@ type PolicyEvaluation struct {
 	EvaluatedTag *string `json:"evaluated_tag,omitempty"`
 	// List of policy evaluations. Always has at least one result, may contain multiple when the evaluation history is requested.
 	Evaluations []PolicyEvaluationResult `json:"evaluations,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _PolicyEvaluation PolicyEvaluation
 
 // NewPolicyEvaluation instantiates a new PolicyEvaluation object
 // This constructor will assign default values to properties that have it defined,
@@ -197,7 +200,36 @@ func (o PolicyEvaluation) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Evaluations) {
 		toSerialize["evaluations"] = o.Evaluations
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *PolicyEvaluation) UnmarshalJSON(data []byte) (err error) {
+	varPolicyEvaluation := _PolicyEvaluation{}
+
+	err = json.Unmarshal(data, &varPolicyEvaluation)
+
+	if err != nil {
+		return err
+	}
+
+	*o = PolicyEvaluation(varPolicyEvaluation)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "policy_id")
+		delete(additionalProperties, "image_digest")
+		delete(additionalProperties, "evaluated_tag")
+		delete(additionalProperties, "evaluations")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullablePolicyEvaluation struct {

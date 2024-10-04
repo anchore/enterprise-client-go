@@ -13,7 +13,6 @@ package enterprise
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -26,6 +25,7 @@ type ECSInventoryTask struct {
 	ServiceArn *string `json:"service_arn,omitempty"`
 	TaskDefinitionArn *string `json:"task_definition_arn,omitempty"`
 	Tags *map[string]string `json:"tags,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _ECSInventoryTask ECSInventoryTask
@@ -188,6 +188,11 @@ func (o ECSInventoryTask) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Tags) {
 		toSerialize["tags"] = o.Tags
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -215,15 +220,23 @@ func (o *ECSInventoryTask) UnmarshalJSON(data []byte) (err error) {
 
 	varECSInventoryTask := _ECSInventoryTask{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varECSInventoryTask)
+	err = json.Unmarshal(data, &varECSInventoryTask)
 
 	if err != nil {
 		return err
 	}
 
 	*o = ECSInventoryTask(varECSInventoryTask)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "arn")
+		delete(additionalProperties, "service_arn")
+		delete(additionalProperties, "task_definition_arn")
+		delete(additionalProperties, "tags")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

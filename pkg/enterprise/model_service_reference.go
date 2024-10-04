@@ -24,7 +24,10 @@ type ServiceReference struct {
 	HostId *string `json:"host_id,omitempty"`
 	// Registered service name
 	ServiceName *string `json:"service_name,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _ServiceReference ServiceReference
 
 // NewServiceReference instantiates a new ServiceReference object
 // This constructor will assign default values to properties that have it defined,
@@ -123,7 +126,34 @@ func (o ServiceReference) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.ServiceName) {
 		toSerialize["service_name"] = o.ServiceName
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *ServiceReference) UnmarshalJSON(data []byte) (err error) {
+	varServiceReference := _ServiceReference{}
+
+	err = json.Unmarshal(data, &varServiceReference)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ServiceReference(varServiceReference)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "host_id")
+		delete(additionalProperties, "service_name")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableServiceReference struct {

@@ -13,7 +13,6 @@ package enterprise
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -26,6 +25,7 @@ type CorrectionFieldMatch struct {
 	FieldName string `json:"field_name"`
 	// The package field value for the corresponding field_name above to match. If field_name corresponds to a list value, this will search the list
 	FieldValue string `json:"field_value"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _CorrectionFieldMatch CorrectionFieldMatch
@@ -109,6 +109,11 @@ func (o CorrectionFieldMatch) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["field_name"] = o.FieldName
 	toSerialize["field_value"] = o.FieldValue
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -137,15 +142,21 @@ func (o *CorrectionFieldMatch) UnmarshalJSON(data []byte) (err error) {
 
 	varCorrectionFieldMatch := _CorrectionFieldMatch{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varCorrectionFieldMatch)
+	err = json.Unmarshal(data, &varCorrectionFieldMatch)
 
 	if err != nil {
 		return err
 	}
 
 	*o = CorrectionFieldMatch(varCorrectionFieldMatch)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "field_name")
+		delete(additionalProperties, "field_value")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

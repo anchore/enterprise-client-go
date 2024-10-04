@@ -21,7 +21,10 @@ var _ MappedNullable = &NotificationOperationalStatus{}
 // NotificationOperationalStatus Operational status for a specific notification endpoint configuration
 type NotificationOperationalStatus struct {
 	Status *string `json:"status,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _NotificationOperationalStatus NotificationOperationalStatus
 
 // NewNotificationOperationalStatus instantiates a new NotificationOperationalStatus object
 // This constructor will assign default values to properties that have it defined,
@@ -85,7 +88,33 @@ func (o NotificationOperationalStatus) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Status) {
 		toSerialize["status"] = o.Status
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *NotificationOperationalStatus) UnmarshalJSON(data []byte) (err error) {
+	varNotificationOperationalStatus := _NotificationOperationalStatus{}
+
+	err = json.Unmarshal(data, &varNotificationOperationalStatus)
+
+	if err != nil {
+		return err
+	}
+
+	*o = NotificationOperationalStatus(varNotificationOperationalStatus)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "status")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableNotificationOperationalStatus struct {

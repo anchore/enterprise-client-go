@@ -37,7 +37,10 @@ type Source struct {
 	SourceStatus *string `json:"source_status,omitempty"`
 	CreatedAt *time.Time `json:"created_at,omitempty"`
 	LastUpdated *time.Time `json:"last_updated,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _Source Source
 
 // NewSource instantiates a new Source object
 // This constructor will assign default values to properties that have it defined,
@@ -381,7 +384,41 @@ func (o Source) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.LastUpdated) {
 		toSerialize["last_updated"] = o.LastUpdated
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *Source) UnmarshalJSON(data []byte) (err error) {
+	varSource := _Source{}
+
+	err = json.Unmarshal(data, &varSource)
+
+	if err != nil {
+		return err
+	}
+
+	*o = Source(varSource)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "uuid")
+		delete(additionalProperties, "account_name")
+		delete(additionalProperties, "host")
+		delete(additionalProperties, "repository_name")
+		delete(additionalProperties, "revision")
+		delete(additionalProperties, "analysis_status")
+		delete(additionalProperties, "source_status")
+		delete(additionalProperties, "created_at")
+		delete(additionalProperties, "last_updated")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableSource struct {

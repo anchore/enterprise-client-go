@@ -22,7 +22,10 @@ var _ MappedNullable = &RetrievedFile{}
 type RetrievedFile struct {
 	Path *string `json:"path,omitempty"`
 	B64Content *string `json:"b64_content,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _RetrievedFile RetrievedFile
 
 // NewRetrievedFile instantiates a new RetrievedFile object
 // This constructor will assign default values to properties that have it defined,
@@ -121,7 +124,34 @@ func (o RetrievedFile) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.B64Content) {
 		toSerialize["b64_content"] = o.B64Content
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *RetrievedFile) UnmarshalJSON(data []byte) (err error) {
+	varRetrievedFile := _RetrievedFile{}
+
+	err = json.Unmarshal(data, &varRetrievedFile)
+
+	if err != nil {
+		return err
+	}
+
+	*o = RetrievedFile(varRetrievedFile)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "path")
+		delete(additionalProperties, "b64_content")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableRetrievedFile struct {

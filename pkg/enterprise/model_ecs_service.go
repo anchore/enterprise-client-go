@@ -13,7 +13,6 @@ package enterprise
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -26,6 +25,7 @@ type ECSService struct {
 	ClusterArn string `json:"cluster_arn"`
 	Tags map[string]string `json:"tags"`
 	AccountName string `json:"account_name"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _ECSService ECSService
@@ -161,6 +161,11 @@ func (o ECSService) ToMap() (map[string]interface{}, error) {
 	toSerialize["cluster_arn"] = o.ClusterArn
 	toSerialize["tags"] = o.Tags
 	toSerialize["account_name"] = o.AccountName
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -191,15 +196,23 @@ func (o *ECSService) UnmarshalJSON(data []byte) (err error) {
 
 	varECSService := _ECSService{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varECSService)
+	err = json.Unmarshal(data, &varECSService)
 
 	if err != nil {
 		return err
 	}
 
 	*o = ECSService(varECSService)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "arn")
+		delete(additionalProperties, "cluster_arn")
+		delete(additionalProperties, "tags")
+		delete(additionalProperties, "account_name")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

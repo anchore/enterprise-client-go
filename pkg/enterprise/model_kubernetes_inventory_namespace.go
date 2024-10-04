@@ -13,7 +13,6 @@ package enterprise
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -26,6 +25,7 @@ type KubernetesInventoryNamespace struct {
 	Name string `json:"name"`
 	Labels *map[string]string `json:"labels,omitempty"`
 	Annotations *map[string]string `json:"annotations,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _KubernetesInventoryNamespace KubernetesInventoryNamespace
@@ -179,6 +179,11 @@ func (o KubernetesInventoryNamespace) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Annotations) {
 		toSerialize["annotations"] = o.Annotations
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -207,15 +212,23 @@ func (o *KubernetesInventoryNamespace) UnmarshalJSON(data []byte) (err error) {
 
 	varKubernetesInventoryNamespace := _KubernetesInventoryNamespace{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varKubernetesInventoryNamespace)
+	err = json.Unmarshal(data, &varKubernetesInventoryNamespace)
 
 	if err != nil {
 		return err
 	}
 
 	*o = KubernetesInventoryNamespace(varKubernetesInventoryNamespace)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "uid")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "labels")
+		delete(additionalProperties, "annotations")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

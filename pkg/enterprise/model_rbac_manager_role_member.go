@@ -13,7 +13,6 @@ package enterprise
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 	"time"
 )
@@ -30,6 +29,7 @@ type RbacManagerRoleMember struct {
 	// The domain scope that applies to the set of roles. This will be the account name if the domain scope is an account.
 	DomainName *string
 	CreatedAt *time.Time
+	AdditionalProperties map[string]interface{}
 }
 
 type _RbacManagerRoleMember RbacManagerRoleMember
@@ -194,6 +194,11 @@ func (o RbacManagerRoleMember) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.CreatedAt) {
 		toSerialize["created_at"] = o.CreatedAt
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -221,15 +226,23 @@ func (o *RbacManagerRoleMember) UnmarshalJSON(data []byte) (err error) {
 
 	varRbacManagerRoleMember := _RbacManagerRoleMember{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varRbacManagerRoleMember)
+	err = json.Unmarshal(data, &varRbacManagerRoleMember)
 
 	if err != nil {
 		return err
 	}
 
 	*o = RbacManagerRoleMember(varRbacManagerRoleMember)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "username")
+		delete(additionalProperties, "for_account")
+		delete(additionalProperties, "domain_name")
+		delete(additionalProperties, "created_at")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

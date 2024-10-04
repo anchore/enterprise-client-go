@@ -23,7 +23,10 @@ type MetadataResponse struct {
 	ImageDigest *string `json:"image_digest,omitempty"`
 	MetadataType *string `json:"metadata_type,omitempty"`
 	Metadata interface{} `json:"metadata,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _MetadataResponse MetadataResponse
 
 // NewMetadataResponse instantiates a new MetadataResponse object
 // This constructor will assign default values to properties that have it defined,
@@ -158,7 +161,35 @@ func (o MetadataResponse) ToMap() (map[string]interface{}, error) {
 	if o.Metadata != nil {
 		toSerialize["metadata"] = o.Metadata
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *MetadataResponse) UnmarshalJSON(data []byte) (err error) {
+	varMetadataResponse := _MetadataResponse{}
+
+	err = json.Unmarshal(data, &varMetadataResponse)
+
+	if err != nil {
+		return err
+	}
+
+	*o = MetadataResponse(varMetadataResponse)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "image_digest")
+		delete(additionalProperties, "metadata_type")
+		delete(additionalProperties, "metadata")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableMetadataResponse struct {

@@ -31,7 +31,10 @@ type UnifiedRoles struct {
 	GrantType *string `json:"grant_type,omitempty"`
 	// The timestamp of when the role was granted
 	GrantedAt *time.Time `json:"granted_at,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _UnifiedRoles UnifiedRoles
 
 // NewUnifiedRoles instantiates a new UnifiedRoles object
 // This constructor will assign default values to properties that have it defined,
@@ -235,7 +238,37 @@ func (o UnifiedRoles) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.GrantedAt) {
 		toSerialize["granted_at"] = o.GrantedAt
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *UnifiedRoles) UnmarshalJSON(data []byte) (err error) {
+	varUnifiedRoles := _UnifiedRoles{}
+
+	err = json.Unmarshal(data, &varUnifiedRoles)
+
+	if err != nil {
+		return err
+	}
+
+	*o = UnifiedRoles(varUnifiedRoles)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "role_name")
+		delete(additionalProperties, "domain_name")
+		delete(additionalProperties, "granter")
+		delete(additionalProperties, "grant_type")
+		delete(additionalProperties, "granted_at")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableUnifiedRoles struct {

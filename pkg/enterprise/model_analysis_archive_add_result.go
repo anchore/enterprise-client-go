@@ -26,7 +26,10 @@ type AnalysisArchiveAddResult struct {
 	Status *string `json:"status,omitempty"`
 	// Details on the status, e.g. the error message
 	Detail *string `json:"detail,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _AnalysisArchiveAddResult AnalysisArchiveAddResult
 
 // NewAnalysisArchiveAddResult instantiates a new AnalysisArchiveAddResult object
 // This constructor will assign default values to properties that have it defined,
@@ -160,7 +163,35 @@ func (o AnalysisArchiveAddResult) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Detail) {
 		toSerialize["detail"] = o.Detail
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *AnalysisArchiveAddResult) UnmarshalJSON(data []byte) (err error) {
+	varAnalysisArchiveAddResult := _AnalysisArchiveAddResult{}
+
+	err = json.Unmarshal(data, &varAnalysisArchiveAddResult)
+
+	if err != nil {
+		return err
+	}
+
+	*o = AnalysisArchiveAddResult(varAnalysisArchiveAddResult)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "digest")
+		delete(additionalProperties, "status")
+		delete(additionalProperties, "detail")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableAnalysisArchiveAddResult struct {

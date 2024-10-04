@@ -30,7 +30,10 @@ type FeedGroupMetadata struct {
 	RecordCount *int32 `json:"record_count,omitempty"`
 	// If group is enabled
 	Enabled *bool `json:"enabled,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _FeedGroupMetadata FeedGroupMetadata
 
 // NewFeedGroupMetadata instantiates a new FeedGroupMetadata object
 // This constructor will assign default values to properties that have it defined,
@@ -234,7 +237,37 @@ func (o FeedGroupMetadata) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Enabled) {
 		toSerialize["enabled"] = o.Enabled
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *FeedGroupMetadata) UnmarshalJSON(data []byte) (err error) {
+	varFeedGroupMetadata := _FeedGroupMetadata{}
+
+	err = json.Unmarshal(data, &varFeedGroupMetadata)
+
+	if err != nil {
+		return err
+	}
+
+	*o = FeedGroupMetadata(varFeedGroupMetadata)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "created_at")
+		delete(additionalProperties, "last_sync")
+		delete(additionalProperties, "record_count")
+		delete(additionalProperties, "enabled")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableFeedGroupMetadata struct {

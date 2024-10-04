@@ -27,7 +27,10 @@ type PaginatedImageList struct {
 	// The number of items sent in this response
 	ReturnedCount *int32 `json:"returned_count,omitempty"`
 	Images []ImageWithPackages `json:"images,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _PaginatedImageList PaginatedImageList
 
 // NewPaginatedImageList instantiates a new PaginatedImageList object
 // This constructor will assign default values to properties that have it defined,
@@ -196,7 +199,36 @@ func (o PaginatedImageList) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Images) {
 		toSerialize["images"] = o.Images
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *PaginatedImageList) UnmarshalJSON(data []byte) (err error) {
+	varPaginatedImageList := _PaginatedImageList{}
+
+	err = json.Unmarshal(data, &varPaginatedImageList)
+
+	if err != nil {
+		return err
+	}
+
+	*o = PaginatedImageList(varPaginatedImageList)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "page")
+		delete(additionalProperties, "next_page")
+		delete(additionalProperties, "returned_count")
+		delete(additionalProperties, "images")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullablePaginatedImageList struct {

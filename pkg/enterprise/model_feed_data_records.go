@@ -21,7 +21,10 @@ var _ MappedNullable = &FeedDataRecords{}
 // FeedDataRecords A list of data records
 type FeedDataRecords struct {
 	Records []FeedDataRecord `json:"records,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _FeedDataRecords FeedDataRecords
 
 // NewFeedDataRecords instantiates a new FeedDataRecords object
 // This constructor will assign default values to properties that have it defined,
@@ -85,7 +88,33 @@ func (o FeedDataRecords) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Records) {
 		toSerialize["records"] = o.Records
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *FeedDataRecords) UnmarshalJSON(data []byte) (err error) {
+	varFeedDataRecords := _FeedDataRecords{}
+
+	err = json.Unmarshal(data, &varFeedDataRecords)
+
+	if err != nil {
+		return err
+	}
+
+	*o = FeedDataRecords(varFeedDataRecords)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "records")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableFeedDataRecords struct {

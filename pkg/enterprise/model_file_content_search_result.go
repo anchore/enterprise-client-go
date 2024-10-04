@@ -22,7 +22,10 @@ var _ MappedNullable = &FileContentSearchResult{}
 type FileContentSearchResult struct {
 	Path *string `json:"path,omitempty"`
 	Matches []RegexContentMatch `json:"matches,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _FileContentSearchResult FileContentSearchResult
 
 // NewFileContentSearchResult instantiates a new FileContentSearchResult object
 // This constructor will assign default values to properties that have it defined,
@@ -121,7 +124,34 @@ func (o FileContentSearchResult) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Matches) {
 		toSerialize["matches"] = o.Matches
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *FileContentSearchResult) UnmarshalJSON(data []byte) (err error) {
+	varFileContentSearchResult := _FileContentSearchResult{}
+
+	err = json.Unmarshal(data, &varFileContentSearchResult)
+
+	if err != nil {
+		return err
+	}
+
+	*o = FileContentSearchResult(varFileContentSearchResult)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "path")
+		delete(additionalProperties, "matches")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableFileContentSearchResult struct {

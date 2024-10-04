@@ -22,7 +22,10 @@ var _ MappedNullable = &RevokeOauthToken400Response{}
 type RevokeOauthToken400Response struct {
 	// ASCII error code from RFC6749
 	Error *string `json:"error,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _RevokeOauthToken400Response RevokeOauthToken400Response
 
 // NewRevokeOauthToken400Response instantiates a new RevokeOauthToken400Response object
 // This constructor will assign default values to properties that have it defined,
@@ -86,7 +89,33 @@ func (o RevokeOauthToken400Response) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Error) {
 		toSerialize["error"] = o.Error
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *RevokeOauthToken400Response) UnmarshalJSON(data []byte) (err error) {
+	varRevokeOauthToken400Response := _RevokeOauthToken400Response{}
+
+	err = json.Unmarshal(data, &varRevokeOauthToken400Response)
+
+	if err != nil {
+		return err
+	}
+
+	*o = RevokeOauthToken400Response(varRevokeOauthToken400Response)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "error")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableRevokeOauthToken400Response struct {

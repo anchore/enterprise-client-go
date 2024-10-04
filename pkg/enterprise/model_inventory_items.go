@@ -21,7 +21,10 @@ var _ MappedNullable = &InventoryItems{}
 // InventoryItems Inventory report for Images in Use
 type InventoryItems struct {
 	Items []InventoryItem `json:"items,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _InventoryItems InventoryItems
 
 // NewInventoryItems instantiates a new InventoryItems object
 // This constructor will assign default values to properties that have it defined,
@@ -85,7 +88,33 @@ func (o InventoryItems) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Items) {
 		toSerialize["items"] = o.Items
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *InventoryItems) UnmarshalJSON(data []byte) (err error) {
+	varInventoryItems := _InventoryItems{}
+
+	err = json.Unmarshal(data, &varInventoryItems)
+
+	if err != nil {
+		return err
+	}
+
+	*o = InventoryItems(varInventoryItems)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "items")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableInventoryItems struct {

@@ -32,7 +32,10 @@ type JavaPackageContent struct {
 	Cpes []string `json:"cpes,omitempty"`
 	Purl *string `json:"purl,omitempty"`
 	Version *string `json:"version,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _JavaPackageContent JavaPackageContent
 
 // NewJavaPackageContent instantiates a new JavaPackageContent object
 // This constructor will assign default values to properties that have it defined,
@@ -446,7 +449,43 @@ func (o JavaPackageContent) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Version) {
 		toSerialize["version"] = o.Version
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *JavaPackageContent) UnmarshalJSON(data []byte) (err error) {
+	varJavaPackageContent := _JavaPackageContent{}
+
+	err = json.Unmarshal(data, &varJavaPackageContent)
+
+	if err != nil {
+		return err
+	}
+
+	*o = JavaPackageContent(varJavaPackageContent)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "package")
+		delete(additionalProperties, "implementation-version")
+		delete(additionalProperties, "specification-version")
+		delete(additionalProperties, "maven-version")
+		delete(additionalProperties, "location")
+		delete(additionalProperties, "type")
+		delete(additionalProperties, "origin")
+		delete(additionalProperties, "licenses")
+		delete(additionalProperties, "cpes")
+		delete(additionalProperties, "purl")
+		delete(additionalProperties, "version")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableJavaPackageContent struct {

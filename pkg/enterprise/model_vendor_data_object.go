@@ -24,7 +24,10 @@ type VendorDataObject struct {
 	Id *string `json:"id,omitempty"`
 	CvssV2 *CVSSV2Scores `json:"cvss_v2,omitempty"`
 	CvssV3 *CVSSV3Scores `json:"cvss_v3,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _VendorDataObject VendorDataObject
 
 // NewVendorDataObject instantiates a new VendorDataObject object
 // This constructor will assign default values to properties that have it defined,
@@ -158,7 +161,35 @@ func (o VendorDataObject) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.CvssV3) {
 		toSerialize["cvss_v3"] = o.CvssV3
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *VendorDataObject) UnmarshalJSON(data []byte) (err error) {
+	varVendorDataObject := _VendorDataObject{}
+
+	err = json.Unmarshal(data, &varVendorDataObject)
+
+	if err != nil {
+		return err
+	}
+
+	*o = VendorDataObject(varVendorDataObject)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "cvss_v2")
+		delete(additionalProperties, "cvss_v3")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableVendorDataObject struct {

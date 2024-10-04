@@ -37,7 +37,10 @@ type FeedDataRecord struct {
 	CreatedAt *time.Time `json:"created_at,omitempty"`
 	// The last update timestamp of the data record
 	UpdatedAt *time.Time `json:"updated_at,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _FeedDataRecord FeedDataRecord
 
 // NewFeedDataRecord instantiates a new FeedDataRecord object
 // This constructor will assign default values to properties that have it defined,
@@ -346,7 +349,40 @@ func (o FeedDataRecord) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.UpdatedAt) {
 		toSerialize["updated_at"] = o.UpdatedAt
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *FeedDataRecord) UnmarshalJSON(data []byte) (err error) {
+	varFeedDataRecord := _FeedDataRecord{}
+
+	err = json.Unmarshal(data, &varFeedDataRecord)
+
+	if err != nil {
+		return err
+	}
+
+	*o = FeedDataRecord(varFeedDataRecord)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "dataset")
+		delete(additionalProperties, "data_format")
+		delete(additionalProperties, "checksum")
+		delete(additionalProperties, "built_at")
+		delete(additionalProperties, "created_at")
+		delete(additionalProperties, "updated_at")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableFeedDataRecord struct {

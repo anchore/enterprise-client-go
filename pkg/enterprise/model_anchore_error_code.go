@@ -24,7 +24,10 @@ type AnchoreErrorCode struct {
 	Name *string `json:"name,omitempty"`
 	// Description of the error code
 	Description *string `json:"description,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _AnchoreErrorCode AnchoreErrorCode
 
 // NewAnchoreErrorCode instantiates a new AnchoreErrorCode object
 // This constructor will assign default values to properties that have it defined,
@@ -123,7 +126,34 @@ func (o AnchoreErrorCode) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Description) {
 		toSerialize["description"] = o.Description
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *AnchoreErrorCode) UnmarshalJSON(data []byte) (err error) {
+	varAnchoreErrorCode := _AnchoreErrorCode{}
+
+	err = json.Unmarshal(data, &varAnchoreErrorCode)
+
+	if err != nil {
+		return err
+	}
+
+	*o = AnchoreErrorCode(varAnchoreErrorCode)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "description")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableAnchoreErrorCode struct {

@@ -13,7 +13,6 @@ package enterprise
 
 import (
 	"encoding/json"
-	"bytes"
 	"fmt"
 )
 
@@ -30,6 +29,7 @@ type KubernetesPod struct {
 	NodeId *string `json:"node_id,omitempty"`
 	NamespaceId *string `json:"namespace_id,omitempty"`
 	LastSeen *string `json:"last_seen,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _KubernetesPod KubernetesPod
@@ -296,6 +296,11 @@ func (o KubernetesPod) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.LastSeen) {
 		toSerialize["last_seen"] = o.LastSeen
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -327,15 +332,27 @@ func (o *KubernetesPod) UnmarshalJSON(data []byte) (err error) {
 
 	varKubernetesPod := _KubernetesPod{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varKubernetesPod)
+	err = json.Unmarshal(data, &varKubernetesPod)
 
 	if err != nil {
 		return err
 	}
 
 	*o = KubernetesPod(varKubernetesPod)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "account_name")
+		delete(additionalProperties, "labels")
+		delete(additionalProperties, "annotations")
+		delete(additionalProperties, "node_id")
+		delete(additionalProperties, "namespace_id")
+		delete(additionalProperties, "last_seen")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }
