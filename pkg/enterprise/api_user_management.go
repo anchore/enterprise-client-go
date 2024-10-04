@@ -22,12 +22,446 @@ import (
 )
 
 
+type UserManagementAPI interface {
+
+	/*
+	AddUserGroupRoles Add account role(s) to this user group
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param groupUuid
+	@return ApiAddUserGroupRolesRequest
+	*/
+	AddUserGroupRoles(ctx context.Context, groupUuid string) ApiAddUserGroupRolesRequest
+
+	// AddUserGroupRolesExecute executes the request
+	//  @return UserGroupRoles
+	AddUserGroupRolesExecute(r ApiAddUserGroupRolesRequest) (*UserGroupRoles, *http.Response, error)
+
+	/*
+	AddUserGroupUsers Add user(s) to a user group
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param groupUuid
+	@return ApiAddUserGroupUsersRequest
+	*/
+	AddUserGroupUsers(ctx context.Context, groupUuid string) ApiAddUserGroupUsersRequest
+
+	// AddUserGroupUsersExecute executes the request
+	//  @return UserGroupUsers
+	AddUserGroupUsersExecute(r ApiAddUserGroupUsersRequest) (*UserGroupUsers, *http.Response, error)
+
+	/*
+	CreateAccount Create a new account. Only available to admin user.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiCreateAccountRequest
+	*/
+	CreateAccount(ctx context.Context) ApiCreateAccountRequest
+
+	// CreateAccountExecute executes the request
+	//  @return Account
+	CreateAccountExecute(r ApiCreateAccountRequest) (*Account, *http.Response, error)
+
+	/*
+	CreateUser Create a new user within the specified account.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param accountName
+	@return ApiCreateUserRequest
+	*/
+	CreateUser(ctx context.Context, accountName string) ApiCreateUserRequest
+
+	// CreateUserExecute executes the request
+	//  @return User
+	CreateUserExecute(r ApiCreateUserRequest) (*User, *http.Response, error)
+
+	/*
+	CreateUserApiKey Add a new API key
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param accountName
+	@param username
+	@return ApiCreateUserApiKeyRequest
+	*/
+	CreateUserApiKey(ctx context.Context, accountName string, username string) ApiCreateUserApiKeyRequest
+
+	// CreateUserApiKeyExecute executes the request
+	//  @return UserApiKey
+	CreateUserApiKeyExecute(r ApiCreateUserApiKeyRequest) (*UserApiKey, *http.Response, error)
+
+	/*
+	CreateUserCredential add/replace credential
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param accountName
+	@param username
+	@return ApiCreateUserCredentialRequest
+	*/
+	CreateUserCredential(ctx context.Context, accountName string, username string) ApiCreateUserCredentialRequest
+
+	// CreateUserCredentialExecute executes the request
+	//  @return AccessCredential
+	CreateUserCredentialExecute(r ApiCreateUserCredentialRequest) (*AccessCredential, *http.Response, error)
+
+	/*
+	CreateUserGroup Create a new user group
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiCreateUserGroupRequest
+	*/
+	CreateUserGroup(ctx context.Context) ApiCreateUserGroupRequest
+
+	// CreateUserGroupExecute executes the request
+	//  @return UserGroup
+	CreateUserGroupExecute(r ApiCreateUserGroupRequest) (*UserGroup, *http.Response, error)
+
+	/*
+	DeleteAccount Delete the specified account, only allowed if the account is in the disabled state. All users will be deleted along with the account and all resources will be garbage collected. The deleted account name will not be available for reuse immediately until all resources are garbage collected async.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param accountName
+	@return ApiDeleteAccountRequest
+	*/
+	DeleteAccount(ctx context.Context, accountName string) ApiDeleteAccountRequest
+
+	// DeleteAccountExecute executes the request
+	DeleteAccountExecute(r ApiDeleteAccountRequest) (*http.Response, error)
+
+	/*
+	DeleteUser Delete a specific user credential by username of the credential. Cannot be the credential used to authenticate the request.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param accountName
+	@param username
+	@return ApiDeleteUserRequest
+	*/
+	DeleteUser(ctx context.Context, accountName string, username string) ApiDeleteUserRequest
+
+	// DeleteUserExecute executes the request
+	DeleteUserExecute(r ApiDeleteUserRequest) (*http.Response, error)
+
+	/*
+	DeleteUserApiKey Delete a user API key
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param accountName
+	@param username
+	@param keyName
+	@return ApiDeleteUserApiKeyRequest
+	*/
+	DeleteUserApiKey(ctx context.Context, accountName string, username string, keyName string) ApiDeleteUserApiKeyRequest
+
+	// DeleteUserApiKeyExecute executes the request
+	DeleteUserApiKeyExecute(r ApiDeleteUserApiKeyRequest) (*http.Response, error)
+
+	/*
+	DeleteUserCredential Delete a credential by type
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param accountName
+	@param username
+	@return ApiDeleteUserCredentialRequest
+	*/
+	DeleteUserCredential(ctx context.Context, accountName string, username string) ApiDeleteUserCredentialRequest
+
+	// DeleteUserCredentialExecute executes the request
+	DeleteUserCredentialExecute(r ApiDeleteUserCredentialRequest) (*http.Response, error)
+
+	/*
+	DeleteUserGroup Delete a user group
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param groupUuid
+	@return ApiDeleteUserGroupRequest
+	*/
+	DeleteUserGroup(ctx context.Context, groupUuid string) ApiDeleteUserGroupRequest
+
+	// DeleteUserGroupExecute executes the request
+	DeleteUserGroupExecute(r ApiDeleteUserGroupRequest) (*http.Response, error)
+
+	/*
+	DeleteUserGroupRole Remove account role(s) from this user group
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param groupUuid
+	@return ApiDeleteUserGroupRoleRequest
+	*/
+	DeleteUserGroupRole(ctx context.Context, groupUuid string) ApiDeleteUserGroupRoleRequest
+
+	// DeleteUserGroupRoleExecute executes the request
+	DeleteUserGroupRoleExecute(r ApiDeleteUserGroupRoleRequest) (*http.Response, error)
+
+	/*
+	DeleteUserGroupUsers Remove a user from a user group
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param groupUuid
+	@return ApiDeleteUserGroupUsersRequest
+	*/
+	DeleteUserGroupUsers(ctx context.Context, groupUuid string) ApiDeleteUserGroupUsersRequest
+
+	// DeleteUserGroupUsersExecute executes the request
+	DeleteUserGroupUsersExecute(r ApiDeleteUserGroupUsersRequest) (*http.Response, error)
+
+	/*
+	GetAccount Get account info about this specific account.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param accountName
+	@return ApiGetAccountRequest
+	*/
+	GetAccount(ctx context.Context, accountName string) ApiGetAccountRequest
+
+	// GetAccountExecute executes the request
+	//  @return Account
+	GetAccountExecute(r ApiGetAccountRequest) (*Account, *http.Response, error)
+
+	/*
+	GetAccountUser Get a specific user in the specified account
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param accountName
+	@param username
+	@return ApiGetAccountUserRequest
+	*/
+	GetAccountUser(ctx context.Context, accountName string, username string) ApiGetAccountUserRequest
+
+	// GetAccountUserExecute executes the request
+	//  @return User
+	GetAccountUserExecute(r ApiGetAccountUserRequest) (*User, *http.Response, error)
+
+	/*
+	GetOauthToken Method for GetOauthToken
+
+	Request a jwt token for subsequent operations, this request is authenticated with normal HTTP auth
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiGetOauthTokenRequest
+	*/
+	GetOauthToken(ctx context.Context) ApiGetOauthTokenRequest
+
+	// GetOauthTokenExecute executes the request
+	//  @return TokenResponse
+	GetOauthTokenExecute(r ApiGetOauthTokenRequest) (*TokenResponse, *http.Response, error)
+
+	/*
+	GetUserApiKey Get a user API key
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param accountName
+	@param username
+	@param keyName
+	@return ApiGetUserApiKeyRequest
+	*/
+	GetUserApiKey(ctx context.Context, accountName string, username string, keyName string) ApiGetUserApiKeyRequest
+
+	// GetUserApiKeyExecute executes the request
+	//  @return UserApiKey
+	GetUserApiKeyExecute(r ApiGetUserApiKeyRequest) (*UserApiKey, *http.Response, error)
+
+	/*
+	GetUserGroup Get a user group
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param groupUuid
+	@return ApiGetUserGroupRequest
+	*/
+	GetUserGroup(ctx context.Context, groupUuid string) ApiGetUserGroupRequest
+
+	// GetUserGroupExecute executes the request
+	//  @return UserGroup
+	GetUserGroupExecute(r ApiGetUserGroupRequest) (*UserGroup, *http.Response, error)
+
+	/*
+	ListAccounts List account summaries. Only available to the system admin user.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiListAccountsRequest
+	*/
+	ListAccounts(ctx context.Context) ApiListAccountsRequest
+
+	// ListAccountsExecute executes the request
+	//  @return []Account
+	ListAccountsExecute(r ApiListAccountsRequest) ([]Account, *http.Response, error)
+
+	/*
+	ListAllSystemUsers List all system account users. Only available to `admin` users.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiListAllSystemUsersRequest
+	*/
+	ListAllSystemUsers(ctx context.Context) ApiListAllSystemUsersRequest
+
+	// ListAllSystemUsersExecute executes the request
+	//  @return Users
+	ListAllSystemUsersExecute(r ApiListAllSystemUsersRequest) (*Users, *http.Response, error)
+
+	/*
+	ListUserApiKeys Get a list of API keys
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param accountName
+	@param username
+	@return ApiListUserApiKeysRequest
+	*/
+	ListUserApiKeys(ctx context.Context, accountName string, username string) ApiListUserApiKeysRequest
+
+	// ListUserApiKeysExecute executes the request
+	//  @return ApiKeyList
+	ListUserApiKeysExecute(r ApiListUserApiKeysRequest) (*ApiKeyList, *http.Response, error)
+
+	/*
+	ListUserCredentials Get current credential summary
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param accountName
+	@param username
+	@return ApiListUserCredentialsRequest
+	*/
+	ListUserCredentials(ctx context.Context, accountName string, username string) ApiListUserCredentialsRequest
+
+	// ListUserCredentialsExecute executes the request
+	//  @return []AccessCredential
+	ListUserCredentialsExecute(r ApiListUserCredentialsRequest) ([]AccessCredential, *http.Response, error)
+
+	/*
+	ListUserGroupRoles Get a list of all user group roles
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param groupUuid
+	@return ApiListUserGroupRolesRequest
+	*/
+	ListUserGroupRoles(ctx context.Context, groupUuid string) ApiListUserGroupRolesRequest
+
+	// ListUserGroupRolesExecute executes the request
+	//  @return UserGroupRoles
+	ListUserGroupRolesExecute(r ApiListUserGroupRolesRequest) (*UserGroupRoles, *http.Response, error)
+
+	/*
+	ListUserGroupUsers Get a list of user group users
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param groupUuid
+	@return ApiListUserGroupUsersRequest
+	*/
+	ListUserGroupUsers(ctx context.Context, groupUuid string) ApiListUserGroupUsersRequest
+
+	// ListUserGroupUsersExecute executes the request
+	//  @return UserGroupUsers
+	ListUserGroupUsersExecute(r ApiListUserGroupUsersRequest) (*UserGroupUsers, *http.Response, error)
+
+	/*
+	ListUserGroups List user groups
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiListUserGroupsRequest
+	*/
+	ListUserGroups(ctx context.Context) ApiListUserGroupsRequest
+
+	// ListUserGroupsExecute executes the request
+	//  @return []UserGroup
+	ListUserGroupsExecute(r ApiListUserGroupsRequest) ([]UserGroup, *http.Response, error)
+
+	/*
+	ListUsers List of users that are primary within this account. The response object will only contain roles for this account as well as any system roles.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param accountName
+	@return ApiListUsersRequest
+	*/
+	ListUsers(ctx context.Context, accountName string) ApiListUsersRequest
+
+	// ListUsersExecute executes the request
+	//  @return []User
+	ListUsersExecute(r ApiListUsersRequest) ([]User, *http.Response, error)
+
+	/*
+	ListUsersWithRoles List of users who have rbac roles in this account.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param accountName
+	@return ApiListUsersWithRolesRequest
+	*/
+	ListUsersWithRoles(ctx context.Context, accountName string) ApiListUsersWithRolesRequest
+
+	// ListUsersWithRolesExecute executes the request
+	//  @return Users
+	ListUsersWithRolesExecute(r ApiListUsersWithRolesRequest) (*Users, *http.Response, error)
+
+	/*
+	PatchUserApiKey Patch a user API key
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param accountName
+	@param username
+	@param keyName
+	@return ApiPatchUserApiKeyRequest
+	*/
+	PatchUserApiKey(ctx context.Context, accountName string, username string, keyName string) ApiPatchUserApiKeyRequest
+
+	// PatchUserApiKeyExecute executes the request
+	//  @return UserApiKey
+	PatchUserApiKeyExecute(r ApiPatchUserApiKeyRequest) (*UserApiKey, *http.Response, error)
+
+	/*
+	RevokeOauthToken Method for RevokeOauthToken
+
+	Revoke a refresh token previously requested from /oauth/token
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiRevokeOauthTokenRequest
+	*/
+	RevokeOauthToken(ctx context.Context) ApiRevokeOauthTokenRequest
+
+	// RevokeOauthTokenExecute executes the request
+	RevokeOauthTokenExecute(r ApiRevokeOauthTokenRequest) (*http.Response, error)
+
+	/*
+	UpdateAccount Update the info for this specific account.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param accountName
+	@return ApiUpdateAccountRequest
+	*/
+	UpdateAccount(ctx context.Context, accountName string) ApiUpdateAccountRequest
+
+	// UpdateAccountExecute executes the request
+	//  @return Account
+	UpdateAccountExecute(r ApiUpdateAccountRequest) (*Account, *http.Response, error)
+
+	/*
+	UpdateAccountState Update the state of an account to either enabled or disabled. For deletion use the DELETE route
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param accountName
+	@return ApiUpdateAccountStateRequest
+	*/
+	UpdateAccountState(ctx context.Context, accountName string) ApiUpdateAccountStateRequest
+
+	// UpdateAccountStateExecute executes the request
+	//  @return AccountStatus
+	UpdateAccountStateExecute(r ApiUpdateAccountStateRequest) (*AccountStatus, *http.Response, error)
+
+	/*
+	UpdateUserGroup Update a user group
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param groupUuid
+	@return ApiUpdateUserGroupRequest
+	*/
+	UpdateUserGroup(ctx context.Context, groupUuid string) ApiUpdateUserGroupRequest
+
+	// UpdateUserGroupExecute executes the request
+	//  @return UserGroup
+	UpdateUserGroupExecute(r ApiUpdateUserGroupRequest) (*UserGroup, *http.Response, error)
+}
+
 // UserManagementAPIService UserManagementAPI service
 type UserManagementAPIService service
 
 type ApiAddUserGroupRolesRequest struct {
 	ctx context.Context
-	ApiService *UserManagementAPIService
+	ApiService UserManagementAPI
 	groupUuid string
 	userGroupRolePost *UserGroupRolePost
 }
@@ -149,7 +583,7 @@ func (a *UserManagementAPIService) AddUserGroupRolesExecute(r ApiAddUserGroupRol
 
 type ApiAddUserGroupUsersRequest struct {
 	ctx context.Context
-	ApiService *UserManagementAPIService
+	ApiService UserManagementAPI
 	groupUuid string
 	userGroupUsersPost *UserGroupUsersPost
 }
@@ -271,7 +705,7 @@ func (a *UserManagementAPIService) AddUserGroupUsersExecute(r ApiAddUserGroupUse
 
 type ApiCreateAccountRequest struct {
 	ctx context.Context
-	ApiService *UserManagementAPIService
+	ApiService UserManagementAPI
 	account *AccountCreationRequest
 }
 
@@ -400,7 +834,7 @@ func (a *UserManagementAPIService) CreateAccountExecute(r ApiCreateAccountReques
 
 type ApiCreateUserRequest struct {
 	ctx context.Context
-	ApiService *UserManagementAPIService
+	ApiService UserManagementAPI
 	accountName string
 	user *UserCreationRequest
 }
@@ -512,7 +946,7 @@ func (a *UserManagementAPIService) CreateUserExecute(r ApiCreateUserRequest) (*U
 
 type ApiCreateUserApiKeyRequest struct {
 	ctx context.Context
-	ApiService *UserManagementAPIService
+	ApiService UserManagementAPI
 	accountName string
 	username string
 	apikey *UserApiKey
@@ -638,7 +1072,7 @@ func (a *UserManagementAPIService) CreateUserApiKeyExecute(r ApiCreateUserApiKey
 
 type ApiCreateUserCredentialRequest struct {
 	ctx context.Context
-	ApiService *UserManagementAPIService
+	ApiService UserManagementAPI
 	accountName string
 	username string
 	credential *AccessCredential
@@ -764,7 +1198,7 @@ func (a *UserManagementAPIService) CreateUserCredentialExecute(r ApiCreateUserCr
 
 type ApiCreateUserGroupRequest struct {
 	ctx context.Context
-	ApiService *UserManagementAPIService
+	ApiService UserManagementAPI
 	userGroupPost *UserGroupPost
 }
 
@@ -893,7 +1327,7 @@ func (a *UserManagementAPIService) CreateUserGroupExecute(r ApiCreateUserGroupRe
 
 type ApiDeleteAccountRequest struct {
 	ctx context.Context
-	ApiService *UserManagementAPIService
+	ApiService UserManagementAPI
 	accountName string
 }
 
@@ -993,7 +1427,7 @@ func (a *UserManagementAPIService) DeleteAccountExecute(r ApiDeleteAccountReques
 
 type ApiDeleteUserRequest struct {
 	ctx context.Context
-	ApiService *UserManagementAPIService
+	ApiService UserManagementAPI
 	accountName string
 	username string
 }
@@ -1097,7 +1531,7 @@ func (a *UserManagementAPIService) DeleteUserExecute(r ApiDeleteUserRequest) (*h
 
 type ApiDeleteUserApiKeyRequest struct {
 	ctx context.Context
-	ApiService *UserManagementAPIService
+	ApiService UserManagementAPI
 	accountName string
 	username string
 	keyName string
@@ -1205,7 +1639,7 @@ func (a *UserManagementAPIService) DeleteUserApiKeyExecute(r ApiDeleteUserApiKey
 
 type ApiDeleteUserCredentialRequest struct {
 	ctx context.Context
-	ApiService *UserManagementAPIService
+	ApiService UserManagementAPI
 	accountName string
 	username string
 	credentialType *string
@@ -1319,7 +1753,7 @@ func (a *UserManagementAPIService) DeleteUserCredentialExecute(r ApiDeleteUserCr
 
 type ApiDeleteUserGroupRequest struct {
 	ctx context.Context
-	ApiService *UserManagementAPIService
+	ApiService UserManagementAPI
 	groupUuid string
 }
 
@@ -1419,7 +1853,7 @@ func (a *UserManagementAPIService) DeleteUserGroupExecute(r ApiDeleteUserGroupRe
 
 type ApiDeleteUserGroupRoleRequest struct {
 	ctx context.Context
-	ApiService *UserManagementAPIService
+	ApiService UserManagementAPI
 	groupUuid string
 	membershipId *[]string
 	allRolesForAccount *[]string
@@ -1547,7 +1981,7 @@ func (a *UserManagementAPIService) DeleteUserGroupRoleExecute(r ApiDeleteUserGro
 
 type ApiDeleteUserGroupUsersRequest struct {
 	ctx context.Context
-	ApiService *UserManagementAPIService
+	ApiService UserManagementAPI
 	groupUuid string
 	username *[]string
 }
@@ -1668,7 +2102,7 @@ func (a *UserManagementAPIService) DeleteUserGroupUsersExecute(r ApiDeleteUserGr
 
 type ApiGetAccountRequest struct {
 	ctx context.Context
-	ApiService *UserManagementAPIService
+	ApiService UserManagementAPI
 	accountName string
 }
 
@@ -1779,7 +2213,7 @@ func (a *UserManagementAPIService) GetAccountExecute(r ApiGetAccountRequest) (*A
 
 type ApiGetAccountUserRequest struct {
 	ctx context.Context
-	ApiService *UserManagementAPIService
+	ApiService UserManagementAPI
 	accountName string
 	username string
 }
@@ -1894,7 +2328,7 @@ func (a *UserManagementAPIService) GetAccountUserExecute(r ApiGetAccountUserRequ
 
 type ApiGetOauthTokenRequest struct {
 	ctx context.Context
-	ApiService *UserManagementAPIService
+	ApiService UserManagementAPI
 	grantType *string
 	username *string
 	password *string
@@ -2053,7 +2487,7 @@ func (a *UserManagementAPIService) GetOauthTokenExecute(r ApiGetOauthTokenReques
 
 type ApiGetUserApiKeyRequest struct {
 	ctx context.Context
-	ApiService *UserManagementAPIService
+	ApiService UserManagementAPI
 	accountName string
 	username string
 	keyName string
@@ -2172,7 +2606,7 @@ func (a *UserManagementAPIService) GetUserApiKeyExecute(r ApiGetUserApiKeyReques
 
 type ApiGetUserGroupRequest struct {
 	ctx context.Context
-	ApiService *UserManagementAPIService
+	ApiService UserManagementAPI
 	groupUuid string
 }
 
@@ -2283,7 +2717,7 @@ func (a *UserManagementAPIService) GetUserGroupExecute(r ApiGetUserGroupRequest)
 
 type ApiListAccountsRequest struct {
 	ctx context.Context
-	ApiService *UserManagementAPIService
+	ApiService UserManagementAPI
 	state *string
 }
 
@@ -2400,7 +2834,7 @@ func (a *UserManagementAPIService) ListAccountsExecute(r ApiListAccountsRequest)
 
 type ApiListAllSystemUsersRequest struct {
 	ctx context.Context
-	ApiService *UserManagementAPIService
+	ApiService UserManagementAPI
 }
 
 func (r ApiListAllSystemUsersRequest) Execute() (*Users, *http.Response, error) {
@@ -2507,7 +2941,7 @@ func (a *UserManagementAPIService) ListAllSystemUsersExecute(r ApiListAllSystemU
 
 type ApiListUserApiKeysRequest struct {
 	ctx context.Context
-	ApiService *UserManagementAPIService
+	ApiService UserManagementAPI
 	accountName string
 	username string
 }
@@ -2622,7 +3056,7 @@ func (a *UserManagementAPIService) ListUserApiKeysExecute(r ApiListUserApiKeysRe
 
 type ApiListUserCredentialsRequest struct {
 	ctx context.Context
-	ApiService *UserManagementAPIService
+	ApiService UserManagementAPI
 	accountName string
 	username string
 }
@@ -2737,7 +3171,7 @@ func (a *UserManagementAPIService) ListUserCredentialsExecute(r ApiListUserCrede
 
 type ApiListUserGroupRolesRequest struct {
 	ctx context.Context
-	ApiService *UserManagementAPIService
+	ApiService UserManagementAPI
 	groupUuid string
 }
 
@@ -2848,7 +3282,7 @@ func (a *UserManagementAPIService) ListUserGroupRolesExecute(r ApiListUserGroupR
 
 type ApiListUserGroupUsersRequest struct {
 	ctx context.Context
-	ApiService *UserManagementAPIService
+	ApiService UserManagementAPI
 	groupUuid string
 }
 
@@ -2959,7 +3393,7 @@ func (a *UserManagementAPIService) ListUserGroupUsersExecute(r ApiListUserGroupU
 
 type ApiListUserGroupsRequest struct {
 	ctx context.Context
-	ApiService *UserManagementAPIService
+	ApiService UserManagementAPI
 	containsUser *string
 	userGroupName *string
 	containsAccount *string
@@ -3086,7 +3520,7 @@ func (a *UserManagementAPIService) ListUserGroupsExecute(r ApiListUserGroupsRequ
 
 type ApiListUsersRequest struct {
 	ctx context.Context
-	ApiService *UserManagementAPIService
+	ApiService UserManagementAPI
 	accountName string
 }
 
@@ -3197,7 +3631,7 @@ func (a *UserManagementAPIService) ListUsersExecute(r ApiListUsersRequest) ([]Us
 
 type ApiListUsersWithRolesRequest struct {
 	ctx context.Context
-	ApiService *UserManagementAPIService
+	ApiService UserManagementAPI
 	accountName string
 }
 
@@ -3308,7 +3742,7 @@ func (a *UserManagementAPIService) ListUsersWithRolesExecute(r ApiListUsersWithR
 
 type ApiPatchUserApiKeyRequest struct {
 	ctx context.Context
-	ApiService *UserManagementAPIService
+	ApiService UserManagementAPI
 	accountName string
 	username string
 	keyName string
@@ -3435,7 +3869,7 @@ func (a *UserManagementAPIService) PatchUserApiKeyExecute(r ApiPatchUserApiKeyRe
 
 type ApiRevokeOauthTokenRequest struct {
 	ctx context.Context
-	ApiService *UserManagementAPIService
+	ApiService UserManagementAPI
 	token *string
 	tokenTypeHint *string
 }
@@ -3554,7 +3988,7 @@ func (a *UserManagementAPIService) RevokeOauthTokenExecute(r ApiRevokeOauthToken
 
 type ApiUpdateAccountRequest struct {
 	ctx context.Context
-	ApiService *UserManagementAPIService
+	ApiService UserManagementAPI
 	accountName string
 	info *AccountInfo
 	xAnchoreAccount *string
@@ -3686,7 +4120,7 @@ func (a *UserManagementAPIService) UpdateAccountExecute(r ApiUpdateAccountReques
 
 type ApiUpdateAccountStateRequest struct {
 	ctx context.Context
-	ApiService *UserManagementAPIService
+	ApiService UserManagementAPI
 	accountName string
 	desiredState *AccountStatus
 }
@@ -3819,7 +4253,7 @@ func (a *UserManagementAPIService) UpdateAccountStateExecute(r ApiUpdateAccountS
 
 type ApiUpdateUserGroupRequest struct {
 	ctx context.Context
-	ApiService *UserManagementAPIService
+	ApiService UserManagementAPI
 	groupUuid string
 	userGroupPatch *UserGroupPatch
 }

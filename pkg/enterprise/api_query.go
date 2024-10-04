@@ -20,12 +20,43 @@ import (
 )
 
 
+type QueryAPI interface {
+
+	/*
+	QueryImagesByPackage List of images containing given package
+
+	Filterable query interface to search for images containing specified package
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiQueryImagesByPackageRequest
+	*/
+	QueryImagesByPackage(ctx context.Context) ApiQueryImagesByPackageRequest
+
+	// QueryImagesByPackageExecute executes the request
+	//  @return PaginatedImageList
+	QueryImagesByPackageExecute(r ApiQueryImagesByPackageRequest) (*PaginatedImageList, *http.Response, error)
+
+	/*
+	QueryVulnerabilities Listing information about given vulnerability
+
+	List (w/filters) vulnerability records known by the system, with affected packages information if present
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiQueryVulnerabilitiesRequest
+	*/
+	QueryVulnerabilities(ctx context.Context) ApiQueryVulnerabilitiesRequest
+
+	// QueryVulnerabilitiesExecute executes the request
+	//  @return PaginatedVulnerabilityList
+	QueryVulnerabilitiesExecute(r ApiQueryVulnerabilitiesRequest) (*PaginatedVulnerabilityList, *http.Response, error)
+}
+
 // QueryAPIService QueryAPI service
 type QueryAPIService service
 
 type ApiQueryImagesByPackageRequest struct {
 	ctx context.Context
-	ApiService *QueryAPIService
+	ApiService QueryAPI
 	name *string
 	packageType *string
 	version *string
@@ -195,7 +226,7 @@ func (a *QueryAPIService) QueryImagesByPackageExecute(r ApiQueryImagesByPackageR
 
 type ApiQueryVulnerabilitiesRequest struct {
 	ctx context.Context
-	ApiService *QueryAPIService
+	ApiService QueryAPI
 	id *[]string
 	affectedPackage *string
 	affectedPackageVersion *string

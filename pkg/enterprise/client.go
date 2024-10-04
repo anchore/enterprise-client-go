@@ -54,59 +54,59 @@ type APIClient struct {
 
 	// API Services
 
-	ActionsAPI *ActionsAPIService
+	ActionsAPI ActionsAPI
 
-	AlertsAPI *AlertsAPIService
+	AlertsAPI AlertsAPI
 
-	ApplicationsAPI *ApplicationsAPIService
+	ApplicationsAPI ApplicationsAPI
 
-	ArchivesAPI *ArchivesAPIService
+	ArchivesAPI ArchivesAPI
 
-	ArtifactLifecycleAPI *ArtifactLifecycleAPIService
+	ArtifactLifecycleAPI ArtifactLifecycleAPI
 
-	CatalogAPI *CatalogAPIService
+	CatalogAPI CatalogAPI
 
-	CorrectionsAPI *CorrectionsAPIService
+	CorrectionsAPI CorrectionsAPI
 
-	EventsAPI *EventsAPIService
+	EventsAPI EventsAPI
 
-	IdentityAPI *IdentityAPIService
+	IdentityAPI IdentityAPI
 
-	ImagesAPI *ImagesAPIService
+	ImagesAPI ImagesAPI
 
-	ImportsAPI *ImportsAPIService
+	ImportsAPI ImportsAPI
 
-	IntegrationsAPI *IntegrationsAPIService
+	IntegrationsAPI IntegrationsAPI
 
-	InventoriesAPI *InventoriesAPIService
+	InventoriesAPI InventoriesAPI
 
-	NotificationsAPI *NotificationsAPIService
+	NotificationsAPI NotificationsAPI
 
-	PoliciesAPI *PoliciesAPIService
+	PoliciesAPI PoliciesAPI
 
-	QueryAPI *QueryAPIService
+	QueryAPI QueryAPI
 
-	RBACAPI *RBACAPIService
+	RBACAPI RBACAPI
 
-	RegistriesAPI *RegistriesAPIService
+	RegistriesAPI RegistriesAPI
 
-	RelationshipsAPI *RelationshipsAPIService
+	RelationshipsAPI RelationshipsAPI
 
-	ReportsAPI *ReportsAPIService
+	ReportsAPI ReportsAPI
 
-	RepositoryAPI *RepositoryAPIService
+	RepositoryAPI RepositoryAPI
 
-	SourcesAPI *SourcesAPIService
+	SourcesAPI SourcesAPI
 
-	StatisticsAPI *StatisticsAPIService
+	StatisticsAPI StatisticsAPI
 
-	SubscriptionsAPI *SubscriptionsAPIService
+	SubscriptionsAPI SubscriptionsAPI
 
-	SystemAPI *SystemAPIService
+	SystemAPI SystemAPI
 
-	UserManagementAPI *UserManagementAPIService
+	UserManagementAPI UserManagementAPI
 
-	VulnerabilitiesAPI *VulnerabilitiesAPIService
+	VulnerabilitiesAPI VulnerabilitiesAPI
 }
 
 type service struct {

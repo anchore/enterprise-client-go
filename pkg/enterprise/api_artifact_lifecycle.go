@@ -21,12 +21,90 @@ import (
 )
 
 
+type ArtifactLifecycleAPI interface {
+
+	/*
+	CreateArtifactLifecyclePolicy Create new artifact lifecycle policy
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiCreateArtifactLifecyclePolicyRequest
+	*/
+	CreateArtifactLifecyclePolicy(ctx context.Context) ApiCreateArtifactLifecyclePolicyRequest
+
+	// CreateArtifactLifecyclePolicyExecute executes the request
+	//  @return ArtifactLifecyclePolicyResponse
+	CreateArtifactLifecyclePolicyExecute(r ApiCreateArtifactLifecyclePolicyRequest) (*ArtifactLifecyclePolicyResponse, *http.Response, error)
+
+	/*
+	DeleteArtifactLifecyclePolicy Delete lifecycle policy
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param policyUuid
+	@return ApiDeleteArtifactLifecyclePolicyRequest
+	*/
+	DeleteArtifactLifecyclePolicy(ctx context.Context, policyUuid string) ApiDeleteArtifactLifecyclePolicyRequest
+
+	// DeleteArtifactLifecyclePolicyExecute executes the request
+	DeleteArtifactLifecyclePolicyExecute(r ApiDeleteArtifactLifecyclePolicyRequest) (*http.Response, error)
+
+	/*
+	GetArtifactLifecyclePolicy Get single artifact lifecycle policy
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param policyUuid
+	@return ApiGetArtifactLifecyclePolicyRequest
+	*/
+	GetArtifactLifecyclePolicy(ctx context.Context, policyUuid string) ApiGetArtifactLifecyclePolicyRequest
+
+	// GetArtifactLifecyclePolicyExecute executes the request
+	//  @return ArtifactLifecyclePolicyResponse
+	GetArtifactLifecyclePolicyExecute(r ApiGetArtifactLifecyclePolicyRequest) (*ArtifactLifecyclePolicyResponse, *http.Response, error)
+
+	/*
+	GetArtifactLifecyclePolicyByVersion Get single artifact lifecycle policy by its version
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param policyUuid
+	@return ApiGetArtifactLifecyclePolicyByVersionRequest
+	*/
+	GetArtifactLifecyclePolicyByVersion(ctx context.Context, policyUuid string) ApiGetArtifactLifecyclePolicyByVersionRequest
+
+	// GetArtifactLifecyclePolicyByVersionExecute executes the request
+	//  @return ArtifactLifecyclePolicyResponse
+	GetArtifactLifecyclePolicyByVersionExecute(r ApiGetArtifactLifecyclePolicyByVersionRequest) (*ArtifactLifecyclePolicyResponse, *http.Response, error)
+
+	/*
+	ListArtifactLifecyclePolicies List all artifact lifecycle policies
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiListArtifactLifecyclePoliciesRequest
+	*/
+	ListArtifactLifecyclePolicies(ctx context.Context) ApiListArtifactLifecyclePoliciesRequest
+
+	// ListArtifactLifecyclePoliciesExecute executes the request
+	//  @return ArtifactLifecyclePolicyList
+	ListArtifactLifecyclePoliciesExecute(r ApiListArtifactLifecyclePoliciesRequest) (*ArtifactLifecyclePolicyList, *http.Response, error)
+
+	/*
+	UpdateArtifactLifecyclePolicy Update a single artifact lifecycle policy
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param policyUuid
+	@return ApiUpdateArtifactLifecyclePolicyRequest
+	*/
+	UpdateArtifactLifecyclePolicy(ctx context.Context, policyUuid string) ApiUpdateArtifactLifecyclePolicyRequest
+
+	// UpdateArtifactLifecyclePolicyExecute executes the request
+	//  @return ArtifactLifecyclePolicyResponse
+	UpdateArtifactLifecyclePolicyExecute(r ApiUpdateArtifactLifecyclePolicyRequest) (*ArtifactLifecyclePolicyResponse, *http.Response, error)
+}
+
 // ArtifactLifecycleAPIService ArtifactLifecycleAPI service
 type ArtifactLifecycleAPIService service
 
 type ApiCreateArtifactLifecyclePolicyRequest struct {
 	ctx context.Context
-	ApiService *ArtifactLifecycleAPIService
+	ApiService ArtifactLifecycleAPI
 	artifactLifecyclePolicy *ArtifactLifecyclePolicy
 }
 
@@ -131,7 +209,7 @@ func (a *ArtifactLifecycleAPIService) CreateArtifactLifecyclePolicyExecute(r Api
 
 type ApiDeleteArtifactLifecyclePolicyRequest struct {
 	ctx context.Context
-	ApiService *ArtifactLifecycleAPIService
+	ApiService ArtifactLifecycleAPI
 	policyUuid string
 }
 
@@ -221,7 +299,7 @@ func (a *ArtifactLifecycleAPIService) DeleteArtifactLifecyclePolicyExecute(r Api
 
 type ApiGetArtifactLifecyclePolicyRequest struct {
 	ctx context.Context
-	ApiService *ArtifactLifecycleAPIService
+	ApiService ArtifactLifecycleAPI
 	policyUuid string
 }
 
@@ -322,7 +400,7 @@ func (a *ArtifactLifecycleAPIService) GetArtifactLifecyclePolicyExecute(r ApiGet
 
 type ApiGetArtifactLifecyclePolicyByVersionRequest struct {
 	ctx context.Context
-	ApiService *ArtifactLifecycleAPIService
+	ApiService ArtifactLifecycleAPI
 	policyUuid string
 	version *int32
 	latest *bool
@@ -443,7 +521,7 @@ func (a *ArtifactLifecycleAPIService) GetArtifactLifecyclePolicyByVersionExecute
 
 type ApiListArtifactLifecyclePoliciesRequest struct {
 	ctx context.Context
-	ApiService *ArtifactLifecycleAPIService
+	ApiService ArtifactLifecycleAPI
 }
 
 func (r ApiListArtifactLifecyclePoliciesRequest) Execute() (*ArtifactLifecyclePolicyList, *http.Response, error) {
@@ -540,7 +618,7 @@ func (a *ArtifactLifecycleAPIService) ListArtifactLifecyclePoliciesExecute(r Api
 
 type ApiUpdateArtifactLifecyclePolicyRequest struct {
 	ctx context.Context
-	ApiService *ArtifactLifecycleAPIService
+	ApiService ArtifactLifecycleAPI
 	policyUuid string
 	artifactLifecyclePolicy *ArtifactLifecyclePolicy
 }

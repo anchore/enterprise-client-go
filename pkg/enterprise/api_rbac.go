@@ -22,12 +22,249 @@ import (
 )
 
 
+type RBACAPI interface {
+
+	/*
+	AddIdp Method for AddIdp
+
+	Add a new Identity Provider to the system, with a specific name
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiAddIdpRequest
+	*/
+	AddIdp(ctx context.Context) ApiAddIdpRequest
+
+	// AddIdpExecute executes the request
+	//  @return RbacManagerSamlConfiguration
+	AddIdpExecute(r ApiAddIdpRequest) (*RbacManagerSamlConfiguration, *http.Response, error)
+
+	/*
+	AddIdpUserGroups Method for AddIdpUserGroups
+
+	Associate a user group with an IdP.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param name
+	@return ApiAddIdpUserGroupsRequest
+	*/
+	AddIdpUserGroups(ctx context.Context, name string) ApiAddIdpUserGroupsRequest
+
+	// AddIdpUserGroupsExecute executes the request
+	//  @return []RbacManagerIdpUserGroup
+	AddIdpUserGroupsExecute(r ApiAddIdpUserGroupsRequest) ([]RbacManagerIdpUserGroup, *http.Response, error)
+
+	/*
+	AddRoleUser Add a user to the role
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param roleName
+	@return ApiAddRoleUserRequest
+	*/
+	AddRoleUser(ctx context.Context, roleName string) ApiAddRoleUserRequest
+
+	// AddRoleUserExecute executes the request
+	//  @return RbacManagerRoleMember
+	AddRoleUserExecute(r ApiAddRoleUserRequest) (*RbacManagerRoleMember, *http.Response, error)
+
+	/*
+	DeleteIdp Method for DeleteIdp
+
+	Delete an idp configuration. Users will not longer be able to login from this idp. In addition, any users that have been configured explicitly or JIT Provisioned on this IDP will be deleted.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param name
+	@return ApiDeleteIdpRequest
+	*/
+	DeleteIdp(ctx context.Context, name string) ApiDeleteIdpRequest
+
+	// DeleteIdpExecute executes the request
+	DeleteIdpExecute(r ApiDeleteIdpRequest) (*http.Response, error)
+
+	/*
+	DeleteIdpUserGroup Method for DeleteIdpUserGroup
+
+	Remove user group association(s) from an IdP
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param name The name of the IdP to remove the user group from
+	@return ApiDeleteIdpUserGroupRequest
+	*/
+	DeleteIdpUserGroup(ctx context.Context, name string) ApiDeleteIdpUserGroupRequest
+
+	// DeleteIdpUserGroupExecute executes the request
+	DeleteIdpUserGroupExecute(r ApiDeleteIdpUserGroupRequest) (*http.Response, error)
+
+	/*
+	DeleteRoleUser Remove a user from the role
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param roleName
+	@return ApiDeleteRoleUserRequest
+	*/
+	DeleteRoleUser(ctx context.Context, roleName string) ApiDeleteRoleUserRequest
+
+	// DeleteRoleUserExecute executes the request
+	DeleteRoleUserExecute(r ApiDeleteRoleUserRequest) (*http.Response, error)
+
+	/*
+	GetIdp Method for GetIdp
+
+	Return the configuration for a named Identity Provider
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param name
+	@return ApiGetIdpRequest
+	*/
+	GetIdp(ctx context.Context, name string) ApiGetIdpRequest
+
+	// GetIdpExecute executes the request
+	//  @return RbacManagerSamlConfigurationGet
+	GetIdpExecute(r ApiGetIdpRequest) (*RbacManagerSamlConfigurationGet, *http.Response, error)
+
+	/*
+	GetIdpUserGroups Method for GetIdpUserGroups
+
+	Return the list of user groups associated with an IdP
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param name
+	@return ApiGetIdpUserGroupsRequest
+	*/
+	GetIdpUserGroups(ctx context.Context, name string) ApiGetIdpUserGroupsRequest
+
+	// GetIdpUserGroupsExecute executes the request
+	//  @return []RbacManagerIdpUserGroup
+	GetIdpUserGroupsExecute(r ApiGetIdpUserGroupsRequest) ([]RbacManagerIdpUserGroup, *http.Response, error)
+
+	/*
+	GetRole Get detailed information about a specific role
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param roleName
+	@return ApiGetRoleRequest
+	*/
+	GetRole(ctx context.Context, roleName string) ApiGetRoleRequest
+
+	// GetRoleExecute executes the request
+	//  @return RbacManagerRole
+	GetRoleExecute(r ApiGetRoleRequest) (*RbacManagerRole, *http.Response, error)
+
+	/*
+	ListIdps Method for ListIdps
+
+	List the names of configured Identity Providers for this anchore installation
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiListIdpsRequest
+	*/
+	ListIdps(ctx context.Context) ApiListIdpsRequest
+
+	// ListIdpsExecute executes the request
+	//  @return []string
+	ListIdpsExecute(r ApiListIdpsRequest) ([]string, *http.Response, error)
+
+	/*
+	ListRoleMembers Returns a list of objects that have members in the role. The list is filtered by 'listRoleMembers' access for the 'account' element of each entry.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param roleName
+	@return ApiListRoleMembersRequest
+	*/
+	ListRoleMembers(ctx context.Context, roleName string) ApiListRoleMembersRequest
+
+	// ListRoleMembersExecute executes the request
+	//  @return []RbacManagerRoleMember
+	ListRoleMembersExecute(r ApiListRoleMembersRequest) ([]RbacManagerRoleMember, *http.Response, error)
+
+	/*
+	ListRoles List roles available in the system
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiListRolesRequest
+	*/
+	ListRoles(ctx context.Context) ApiListRolesRequest
+
+	// ListRolesExecute executes the request
+	//  @return []RbacManagerRoleSummary
+	ListRolesExecute(r ApiListRolesRequest) ([]RbacManagerRoleSummary, *http.Response, error)
+
+	/*
+	ListUserRoles List the roles for which the requested user is a member
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param username
+	@return ApiListUserRolesRequest
+	*/
+	ListUserRoles(ctx context.Context, username string) ApiListUserRolesRequest
+
+	// ListUserRolesExecute executes the request
+	//  @return []RbacManagerRoleMembership
+	ListUserRolesExecute(r ApiListUserRolesRequest) ([]RbacManagerRoleMembership, *http.Response, error)
+
+	/*
+	MyRoles List the roles for which the authenticated user is a member
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiMyRolesRequest
+	*/
+	MyRoles(ctx context.Context) ApiMyRolesRequest
+
+	// MyRolesExecute executes the request
+	//  @return []RbacManagerAccountRole
+	MyRolesExecute(r ApiMyRolesRequest) ([]RbacManagerAccountRole, *http.Response, error)
+
+	/*
+	SamlLogin Method for SamlLogin
+
+	Initiate an SP-initiated login sequence for the Idp. The SP will respond with the SAML AuthN Request the client must send to the Idp URL
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param idpName
+	@return ApiSamlLoginRequest
+	*/
+	SamlLogin(ctx context.Context, idpName string) ApiSamlLoginRequest
+
+	// SamlLoginExecute executes the request
+	//  @return RbacManagerTokenResponse
+	SamlLoginExecute(r ApiSamlLoginRequest) (*RbacManagerTokenResponse, *http.Response, error)
+
+	/*
+	SamlSso Method for SamlSso
+
+	Perform a login using a SAML assertion, no HTTP auth is required as the SAML assertion is considered the authenticating token
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param idpName
+	@return ApiSamlSsoRequest
+	*/
+	SamlSso(ctx context.Context, idpName string) ApiSamlSsoRequest
+
+	// SamlSsoExecute executes the request
+	//  @return RbacManagerTokenResponse
+	SamlSsoExecute(r ApiSamlSsoRequest) (*RbacManagerTokenResponse, *http.Response, error)
+
+	/*
+	UpdateIdp Method for UpdateIdp
+
+	Update an existing Identity Provider configuration
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param name
+	@return ApiUpdateIdpRequest
+	*/
+	UpdateIdp(ctx context.Context, name string) ApiUpdateIdpRequest
+
+	// UpdateIdpExecute executes the request
+	//  @return RbacManagerSamlConfiguration
+	UpdateIdpExecute(r ApiUpdateIdpRequest) (*RbacManagerSamlConfiguration, *http.Response, error)
+}
+
 // RBACAPIService RBACAPI service
 type RBACAPIService service
 
 type ApiAddIdpRequest struct {
 	ctx context.Context
-	ApiService *RBACAPIService
+	ApiService RBACAPI
 	configuration *RbacManagerSamlConfiguration
 }
 
@@ -158,7 +395,7 @@ func (a *RBACAPIService) AddIdpExecute(r ApiAddIdpRequest) (*RbacManagerSamlConf
 
 type ApiAddIdpUserGroupsRequest struct {
 	ctx context.Context
-	ApiService *RBACAPIService
+	ApiService RBACAPI
 	name string
 	rbacManagerIdpUserGroupPost *RbacManagerIdpUserGroupPost
 }
@@ -315,7 +552,7 @@ func (a *RBACAPIService) AddIdpUserGroupsExecute(r ApiAddIdpUserGroupsRequest) (
 
 type ApiAddRoleUserRequest struct {
 	ctx context.Context
-	ApiService *RBACAPIService
+	ApiService RBACAPI
 	roleName string
 	member *RbacManagerRoleMember
 }
@@ -437,7 +674,7 @@ func (a *RBACAPIService) AddRoleUserExecute(r ApiAddRoleUserRequest) (*RbacManag
 
 type ApiDeleteIdpRequest struct {
 	ctx context.Context
-	ApiService *RBACAPIService
+	ApiService RBACAPI
 	name string
 }
 
@@ -539,7 +776,7 @@ func (a *RBACAPIService) DeleteIdpExecute(r ApiDeleteIdpRequest) (*http.Response
 
 type ApiDeleteIdpUserGroupRequest struct {
 	ctx context.Context
-	ApiService *RBACAPIService
+	ApiService RBACAPI
 	name string
 	userGroup *[]string
 }
@@ -684,7 +921,7 @@ func (a *RBACAPIService) DeleteIdpUserGroupExecute(r ApiDeleteIdpUserGroupReques
 
 type ApiDeleteRoleUserRequest struct {
 	ctx context.Context
-	ApiService *RBACAPIService
+	ApiService RBACAPI
 	roleName string
 	username *string
 	forAccount *string
@@ -816,7 +1053,7 @@ func (a *RBACAPIService) DeleteRoleUserExecute(r ApiDeleteRoleUserRequest) (*htt
 
 type ApiGetIdpRequest struct {
 	ctx context.Context
-	ApiService *RBACAPIService
+	ApiService RBACAPI
 	name string
 }
 
@@ -940,7 +1177,7 @@ func (a *RBACAPIService) GetIdpExecute(r ApiGetIdpRequest) (*RbacManagerSamlConf
 
 type ApiGetIdpUserGroupsRequest struct {
 	ctx context.Context
-	ApiService *RBACAPIService
+	ApiService RBACAPI
 	name string
 }
 
@@ -1064,7 +1301,7 @@ func (a *RBACAPIService) GetIdpUserGroupsExecute(r ApiGetIdpUserGroupsRequest) (
 
 type ApiGetRoleRequest struct {
 	ctx context.Context
-	ApiService *RBACAPIService
+	ApiService RBACAPI
 	roleName string
 }
 
@@ -1175,7 +1412,7 @@ func (a *RBACAPIService) GetRoleExecute(r ApiGetRoleRequest) (*RbacManagerRole, 
 
 type ApiListIdpsRequest struct {
 	ctx context.Context
-	ApiService *RBACAPIService
+	ApiService RBACAPI
 }
 
 func (r ApiListIdpsRequest) Execute() ([]string, *http.Response, error) {
@@ -1284,7 +1521,7 @@ func (a *RBACAPIService) ListIdpsExecute(r ApiListIdpsRequest) ([]string, *http.
 
 type ApiListRoleMembersRequest struct {
 	ctx context.Context
-	ApiService *RBACAPIService
+	ApiService RBACAPI
 	roleName string
 	forAccount *string
 	domainName *string
@@ -1416,7 +1653,7 @@ func (a *RBACAPIService) ListRoleMembersExecute(r ApiListRoleMembersRequest) ([]
 
 type ApiListRolesRequest struct {
 	ctx context.Context
-	ApiService *RBACAPIService
+	ApiService RBACAPI
 }
 
 func (r ApiListRolesRequest) Execute() ([]RbacManagerRoleSummary, *http.Response, error) {
@@ -1523,7 +1760,7 @@ func (a *RBACAPIService) ListRolesExecute(r ApiListRolesRequest) ([]RbacManagerR
 
 type ApiListUserRolesRequest struct {
 	ctx context.Context
-	ApiService *RBACAPIService
+	ApiService RBACAPI
 	username string
 	forAccount *string
 	domainName *string
@@ -1664,7 +1901,7 @@ func (a *RBACAPIService) ListUserRolesExecute(r ApiListUserRolesRequest) ([]Rbac
 
 type ApiMyRolesRequest struct {
 	ctx context.Context
-	ApiService *RBACAPIService
+	ApiService RBACAPI
 }
 
 func (r ApiMyRolesRequest) Execute() ([]RbacManagerAccountRole, *http.Response, error) {
@@ -1771,7 +2008,7 @@ func (a *RBACAPIService) MyRolesExecute(r ApiMyRolesRequest) ([]RbacManagerAccou
 
 type ApiSamlLoginRequest struct {
 	ctx context.Context
-	ApiService *RBACAPIService
+	ApiService RBACAPI
 	idpName string
 }
 
@@ -1884,7 +2121,7 @@ func (a *RBACAPIService) SamlLoginExecute(r ApiSamlLoginRequest) (*RbacManagerTo
 
 type ApiSamlSsoRequest struct {
 	ctx context.Context
-	ApiService *RBACAPIService
+	ApiService RBACAPI
 	idpName string
 }
 
@@ -1997,7 +2234,7 @@ func (a *RBACAPIService) SamlSsoExecute(r ApiSamlSsoRequest) (*RbacManagerTokenR
 
 type ApiUpdateIdpRequest struct {
 	ctx context.Context
-	ApiService *RBACAPIService
+	ApiService RBACAPI
 	name string
 	rbacManagerSamlConfiguration *RbacManagerSamlConfiguration
 }

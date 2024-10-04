@@ -21,12 +21,43 @@ import (
 )
 
 
+type ReportsAPI interface {
+
+	/*
+	GetGlobalQueryResult Method for GetGlobalQueryResult
+
+	Get a single saved global query result
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param resultUuid
+	@return ApiGetGlobalQueryResultRequest
+	*/
+	GetGlobalQueryResult(ctx context.Context, resultUuid string) ApiGetGlobalQueryResultRequest
+
+	// GetGlobalQueryResultExecute executes the request
+	GetGlobalQueryResultExecute(r ApiGetGlobalQueryResultRequest) (*http.Response, error)
+
+	/*
+	GetQueryResult Method for GetQueryResult
+
+	Get a single saved query result
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param resultUuid
+	@return ApiGetQueryResultRequest
+	*/
+	GetQueryResult(ctx context.Context, resultUuid string) ApiGetQueryResultRequest
+
+	// GetQueryResultExecute executes the request
+	GetQueryResultExecute(r ApiGetQueryResultRequest) (*http.Response, error)
+}
+
 // ReportsAPIService ReportsAPI service
 type ReportsAPIService service
 
 type ApiGetGlobalQueryResultRequest struct {
 	ctx context.Context
-	ApiService *ReportsAPIService
+	ApiService ReportsAPI
 	resultUuid string
 	page *int32
 }
@@ -128,7 +159,7 @@ func (a *ReportsAPIService) GetGlobalQueryResultExecute(r ApiGetGlobalQueryResul
 
 type ApiGetQueryResultRequest struct {
 	ctx context.Context
-	ApiService *ReportsAPIService
+	ApiService ReportsAPI
 	resultUuid string
 	page *int32
 }

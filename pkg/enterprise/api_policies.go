@@ -21,12 +21,87 @@ import (
 )
 
 
+type PoliciesAPI interface {
+
+	/*
+	AddPolicy Add a new policy
+
+	Adds a new policy to the system
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiAddPolicyRequest
+	*/
+	AddPolicy(ctx context.Context) ApiAddPolicyRequest
+
+	// AddPolicyExecute executes the request
+	//  @return PolicyRecord
+	AddPolicyExecute(r ApiAddPolicyRequest) (*PolicyRecord, *http.Response, error)
+
+	/*
+	DeletePolicy Delete policy
+
+	Delete the specified policy
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param policyId
+	@return ApiDeletePolicyRequest
+	*/
+	DeletePolicy(ctx context.Context, policyId string) ApiDeletePolicyRequest
+
+	// DeletePolicyExecute executes the request
+	DeletePolicyExecute(r ApiDeletePolicyRequest) (*http.Response, error)
+
+	/*
+	GetPolicy Get specific policy
+
+	Get the policy content
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param policyId
+	@return ApiGetPolicyRequest
+	*/
+	GetPolicy(ctx context.Context, policyId string) ApiGetPolicyRequest
+
+	// GetPolicyExecute executes the request
+	//  @return PolicyRecord
+	GetPolicyExecute(r ApiGetPolicyRequest) (*PolicyRecord, *http.Response, error)
+
+	/*
+	ListPolicies List policies
+
+	List all saved policies
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiListPoliciesRequest
+	*/
+	ListPolicies(ctx context.Context) ApiListPoliciesRequest
+
+	// ListPoliciesExecute executes the request
+	//  @return []PolicyRecord
+	ListPoliciesExecute(r ApiListPoliciesRequest) ([]PolicyRecord, *http.Response, error)
+
+	/*
+	UpdatePolicy Update policy
+
+	Update/replace and existing policy
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param policyId
+	@return ApiUpdatePolicyRequest
+	*/
+	UpdatePolicy(ctx context.Context, policyId string) ApiUpdatePolicyRequest
+
+	// UpdatePolicyExecute executes the request
+	//  @return PolicyRecord
+	UpdatePolicyExecute(r ApiUpdatePolicyRequest) (*PolicyRecord, *http.Response, error)
+}
+
 // PoliciesAPIService PoliciesAPI service
 type PoliciesAPIService service
 
 type ApiAddPolicyRequest struct {
 	ctx context.Context
-	ApiService *PoliciesAPIService
+	ApiService PoliciesAPI
 	policy *Policy
 	xAnchoreAccount *string
 }
@@ -167,7 +242,7 @@ func (a *PoliciesAPIService) AddPolicyExecute(r ApiAddPolicyRequest) (*PolicyRec
 
 type ApiDeletePolicyRequest struct {
 	ctx context.Context
-	ApiService *PoliciesAPIService
+	ApiService PoliciesAPI
 	policyId string
 	xAnchoreAccount *string
 }
@@ -290,7 +365,7 @@ func (a *PoliciesAPIService) DeletePolicyExecute(r ApiDeletePolicyRequest) (*htt
 
 type ApiGetPolicyRequest struct {
 	ctx context.Context
-	ApiService *PoliciesAPIService
+	ApiService PoliciesAPI
 	policyId string
 	detail *bool
 	xAnchoreAccount *string
@@ -423,7 +498,7 @@ func (a *PoliciesAPIService) GetPolicyExecute(r ApiGetPolicyRequest) (*PolicyRec
 
 type ApiListPoliciesRequest struct {
 	ctx context.Context
-	ApiService *PoliciesAPIService
+	ApiService PoliciesAPI
 	detail *bool
 	xAnchoreAccount *string
 }
@@ -542,7 +617,7 @@ func (a *PoliciesAPIService) ListPoliciesExecute(r ApiListPoliciesRequest) ([]Po
 
 type ApiUpdatePolicyRequest struct {
 	ctx context.Context
-	ApiService *PoliciesAPIService
+	ApiService PoliciesAPI
 	policyId string
 	policy *PolicyRecord
 	active *bool
