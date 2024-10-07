@@ -1,0 +1,61 @@
+diff --git a/pkg/enterprise/model_application_version.go b/pkg/enterprise/model_application_version.go
+index 133ae63..f6a2fc6 100644
+--- a/pkg/enterprise/model_application_version.go
++++ b/pkg/enterprise/model_application_version.go
+@@ -14,7 +14,6 @@ package enterprise
+ import (
+ 	"encoding/json"
+ 	"time"
+-	"bytes"
+ 	"fmt"
+ )
+ 
+@@ -33,6 +32,7 @@ type ApplicationVersion struct {
+ 	CreatedAt *time.Time `json:"created_at,omitempty"`
+ 	// RFC 3339 formatted UTC timestamp when the application was last updated
+ 	LastUpdated *time.Time `json:"last_updated,omitempty"`
++	AdditionalProperties map[string]interface{}
+ }
+ 
+ type _ApplicationVersion ApplicationVersion
+@@ -230,6 +230,11 @@ func (o ApplicationVersion) ToMap() (map[string]interface{}, error) {
+ 	if !IsNil(o.LastUpdated) {
+ 		toSerialize["last_updated"] = o.LastUpdated
+ 	}
++
++	for key, value := range o.AdditionalProperties {
++		toSerialize[key] = value
++	}
++
+ 	return toSerialize, nil
+ }
+ 
+@@ -257,9 +262,7 @@ func (o *ApplicationVersion) UnmarshalJSON(data []byte) (err error) {
+ 
+ 	varApplicationVersion := _ApplicationVersion{}
+ 
+-	decoder := json.NewDecoder(bytes.NewReader(data))
+-	decoder.DisallowUnknownFields()
+-	err = decoder.Decode(&varApplicationVersion)
++	err = json.Unmarshal(data, &varApplicationVersion)
+ 
+ 	if err != nil {
+ 		return err
+@@ -267,6 +270,17 @@ func (o *ApplicationVersion) UnmarshalJSON(data []byte) (err error) {
+ 
+ 	*o = ApplicationVersion(varApplicationVersion)
+ 
++	additionalProperties := make(map[string]interface{})
++
++	if err = json.Unmarshal(data, &additionalProperties); err == nil {
++		delete(additionalProperties, "application_version_id")
++		delete(additionalProperties, "application_id")
++		delete(additionalProperties, "version_name")
++		delete(additionalProperties, "created_at")
++		delete(additionalProperties, "last_updated")
++		o.AdditionalProperties = additionalProperties
++	}
++
+ 	return err
+ }
+ 
