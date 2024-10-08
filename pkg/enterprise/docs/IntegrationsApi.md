@@ -171,7 +171,7 @@ import (
 
 func main() {
 	integrationUuid := "84993c1f-863f-41f3-9bd8-dfcc821b1c8a" // string | The integration's universally unique identifier
-	healthReport := *openapiclient.NewHealthReport("740c06a3-4c69-4b91-8e85-154cd53e9764", int32(1), time.Now(), float32(200.02312), int32(60), *openapiclient.NewHealthData(openapiclient.IntegrationType("anchore_k8s_inventory_agent"), int32(1))) // HealthReport | 
+	healthReport := *openapiclient.NewHealthReport("740c06a3-4c69-4b91-8e85-154cd53e9764", int32(1), time.Now(), float32(200.02312), int32(60), *openapiclient.NewHealthData(openapiclient.IntegrationType("anchore_k8s_inventory"), int32(1))) // HealthReport | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -240,7 +240,7 @@ import (
 )
 
 func main() {
-	onlyDegraded := true // bool | If true, limit listing to UNHEALTHY or DEACTIVATED integrations (optional) (default to false)
+	onlyDegraded := true // bool | If true, limit listing to unhealthy or deactivated integrations (optional) (default to false)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -265,7 +265,7 @@ Other parameters are passed through a pointer to a apiListIntegrationsRequest st
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **onlyDegraded** | **bool** | If true, limit listing to UNHEALTHY or DEACTIVATED integrations | [default to false]
+ **onlyDegraded** | **bool** | If true, limit listing to unhealthy or deactivated integrations | [default to false]
 
 ### Return type
 
@@ -306,7 +306,7 @@ import (
 )
 
 func main() {
-	integrationRegister := *openapiclient.NewIntegrationRegister("84993c1f-863f-41f3-9bd8-dfcc821b1c8a", "67479449b7-zdzlr", openapiclient.IntegrationType("anchore_k8s_inventory_agent"), "admin", int32(60)) // IntegrationRegister | 
+	integrationRegister := *openapiclient.NewIntegrationRegister("84993c1f-863f-41f3-9bd8-dfcc821b1c8a", "67479449b7-zdzlr", openapiclient.IntegrationType("anchore_k8s_inventory"), "admin", int32(60)) // IntegrationRegister | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)

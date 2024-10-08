@@ -427,7 +427,7 @@ type ApiListIntegrationsRequest struct {
 	onlyDegraded *bool
 }
 
-// If true, limit listing to UNHEALTHY or DEACTIVATED integrations
+// If true, limit listing to unhealthy or deactivated integrations
 func (r ApiListIntegrationsRequest) OnlyDegraded(onlyDegraded bool) ApiListIntegrationsRequest {
 	r.onlyDegraded = &onlyDegraded
 	return r

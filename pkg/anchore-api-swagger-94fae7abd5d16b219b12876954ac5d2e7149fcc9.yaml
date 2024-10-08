@@ -9170,7 +9170,7 @@ paths:
       x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.system
       parameters:
         - name: only_degraded
-          description: If true, limit listing to UNHEALTHY or DEACTIVATED integrations
+          description: If true, limit listing to unhealthy or deactivated integrations
           example: true
           in: query
           schema:
@@ -11909,9 +11909,9 @@ components:
     IntegrationType:
       type: string
       enum:
-        - anchore_k8s_inventory_agent
+        - anchore_k8s_inventory
       description: The type of integration
-      example: anchore_k8s_inventory_agent
+      example: anchore_k8s_inventory
     HealthData:
       type: object
       description: Integration instance specific health data
