@@ -16,21 +16,21 @@ import (
 	"fmt"
 )
 
-// IntegrationLifecycleState Life cycle state of the integration instance * ACTIVE - Integration operational. Sending health reports. * REGISTERED - Integration has registered. Not yet sending health reports. * DEACTIVATED - Integration does not seem to be alive. 
+// IntegrationLifecycleState Life cycle state of the integration instance * active - Integration operational. Sending health reports. * registered - Integration has registered. Not yet sending health reports. * deactivated - Integration does not seem to be alive. 
 type IntegrationLifecycleState string
 
 // List of IntegrationLifecycleState
 const (
-	ACTIVE IntegrationLifecycleState = "ACTIVE"
-	REGISTERED IntegrationLifecycleState = "REGISTERED"
-	DEACTIVATED IntegrationLifecycleState = "DEACTIVATED"
+	ACTIVE IntegrationLifecycleState = "active"
+	REGISTERED IntegrationLifecycleState = "registered"
+	DEACTIVATED IntegrationLifecycleState = "deactivated"
 )
 
 // All allowed values of IntegrationLifecycleState enum
 var AllowedIntegrationLifecycleStateEnumValues = []IntegrationLifecycleState{
-	"ACTIVE",
-	"REGISTERED",
-	"DEACTIVATED",
+	"active",
+	"registered",
+	"deactivated",
 }
 
 func (v *IntegrationLifecycleState) UnmarshalJSON(src []byte) error {

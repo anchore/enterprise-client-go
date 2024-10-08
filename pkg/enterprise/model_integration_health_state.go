@@ -16,19 +16,19 @@ import (
 	"fmt"
 )
 
-// IntegrationHealthState Health state of the integration instance * HEALTHY: All good. No errors. * UNHEALTHY: Not well. Probably errors. 
+// IntegrationHealthState Health state of the integration instance * healthy: All good. No errors. * unhealthy: Not well. Probably errors. 
 type IntegrationHealthState string
 
 // List of IntegrationHealthState
 const (
-	HEALTHY IntegrationHealthState = "HEALTHY"
-	UNHEALTHY IntegrationHealthState = "UNHEALTHY"
+	HEALTHY IntegrationHealthState = "healthy"
+	UNHEALTHY IntegrationHealthState = "unhealthy"
 )
 
 // All allowed values of IntegrationHealthState enum
 var AllowedIntegrationHealthStateEnumValues = []IntegrationHealthState{
-	"HEALTHY",
-	"UNHEALTHY",
+	"healthy",
+	"unhealthy",
 }
 
 func (v *IntegrationHealthState) UnmarshalJSON(src []byte) error {

@@ -3,11 +3,11 @@
 ## Enum
 
 
-* `ACTIVE` (value: `"ACTIVE"`)
+* `ACTIVE` (value: `"active"`)
 
-* `REGISTERED` (value: `"REGISTERED"`)
+* `REGISTERED` (value: `"registered"`)
 
-* `DEACTIVATED` (value: `"DEACTIVATED"`)
+* `DEACTIVATED` (value: `"deactivated"`)
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

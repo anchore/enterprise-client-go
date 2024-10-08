@@ -10217,6 +10217,17 @@ paths:
       description: Lists all integrations that have been created (explicitly or indirectly
         via registration).
       operationId: list_integrations
+      parameters:
+      - description: "If true, limit listing to UNHEALTHY or DEACTIVATED integrations"
+        example: true
+        explode: true
+        in: query
+        name: only_degraded
+        required: false
+        schema:
+          default: false
+          type: boolean
+        style: form
       responses:
         "200":
           content:
@@ -15636,24 +15647,24 @@ components:
     IntegrationHealthState:
       description: |
         Health state of the integration instance
-        * HEALTHY: All good. No errors.
-        * UNHEALTHY: Not well. Probably errors.
+        * healthy: All good. No errors.
+        * unhealthy: Not well. Probably errors.
       enum:
-      - HEALTHY
-      - UNHEALTHY
-      example: HEALTHY
+      - healthy
+      - unhealthy
+      example: healthy
       type: string
     IntegrationLifecycleState:
       description: |
         Life cycle state of the integration instance
-        * ACTIVE - Integration operational. Sending health reports.
-        * REGISTERED - Integration has registered. Not yet sending health reports.
-        * DEACTIVATED - Integration does not seem to be alive.
+        * active - Integration operational. Sending health reports.
+        * registered - Integration has registered. Not yet sending health reports.
+        * deactivated - Integration does not seem to be alive.
       enum:
-      - ACTIVE
-      - REGISTERED
-      - DEACTIVATED
-      example: ACTIVE
+      - active
+      - registered
+      - deactivated
+      example: active
       type: string
     IntegrationStatus:
       description: Status of integration instance as perceived by Enterprise
@@ -15661,7 +15672,7 @@ components:
         reason: reason
         updated_at: 2000-01-23T04:56:07.000+00:00
         details: "{}"
-        state: ACTIVE
+        state: active
       properties:
         state:
           $ref: '#/components/schemas/IntegrationLifecycleState'
@@ -15681,7 +15692,7 @@ components:
       example:
         reason: reason
         details: "{}"
-        state: HEALTHY
+        state: healthy
       properties:
         state:
           $ref: '#/components/schemas/IntegrationHealthState'
@@ -15711,7 +15722,7 @@ components:
           reason: reason
           updated_at: 2000-01-23T04:56:07.000+00:00
           details: "{}"
-          state: ACTIVE
+          state: active
         explicitly_account_bound:
         - frontend
         - ci
@@ -15727,7 +15738,7 @@ components:
         reported_status:
           reason: reason
           details: "{}"
-          state: HEALTHY
+          state: healthy
         username: admin
         namespaces:
         - production
@@ -15779,7 +15790,7 @@ components:
             reason: reason
             updated_at: 2000-01-23T04:56:07.000+00:00
             details: "{}"
-            state: ACTIVE
+            state: active
           explicitly_account_bound:
           - frontend
           - ci
@@ -15794,7 +15805,7 @@ components:
           reported_status:
             reason: reason
             details: "{}"
-            state: HEALTHY
+            state: healthy
           username: admin
         - cluster_name: production-east1
           last_seen: 2024-06-25T10:14:20Z
@@ -15808,7 +15819,7 @@ components:
             reason: reason
             updated_at: 2000-01-23T04:56:07.000+00:00
             details: "{}"
-            state: ACTIVE
+            state: active
           explicitly_account_bound:
           - frontend
           - ci
@@ -15823,7 +15834,7 @@ components:
           reported_status:
             reason: reason
             details: "{}"
-            state: HEALTHY
+            state: healthy
           username: admin
       properties:
         items:
@@ -15952,7 +15963,7 @@ components:
           reason: reason
           updated_at: 2000-01-23T04:56:07.000+00:00
           details: "{}"
-          state: ACTIVE
+          state: active
         explicitly_account_bound:
         - frontend
         - ci
@@ -15967,7 +15978,7 @@ components:
         reported_status:
           reason: reason
           details: "{}"
-          state: HEALTHY
+          state: healthy
         username: admin
       properties:
         uuid:
