@@ -14345,8 +14345,8 @@ components:
     IntegrationType:
       description: The type of integration
       enum:
-      - anchore_k8s_inventory
-      example: anchore_k8s_inventory
+      - k8s_inventory_agent
+      example: k8s_inventory_agent
       type: string
     HealthData:
       description: Integration instance specific health data
@@ -14366,7 +14366,7 @@ components:
             account_name: development
             last_successful_index: -1
             report_timestamp: 2024-06-26T14:02:33Z
-        type: anchore_k8s_inventory
+        type: k8s_inventory_agent
         version: 1
         errors:
         - Unable to find resource
@@ -14422,7 +14422,7 @@ components:
               account_name: development
               last_successful_index: -1
               report_timestamp: 2024-06-26T14:02:33Z
-          type: anchore_k8s_inventory
+          type: k8s_inventory_agent
           version: 1
           errors:
           - Unable to find resource
@@ -15714,7 +15714,7 @@ components:
         configuration: "{}"
         registration_id: 84993c1f-863f-41f3-9bd8-dfcc821b1c8a
         description: This agent has no namespace filtering
-        type: anchore_k8s_inventory
+        type: k8s_inventory_agent
         uuid: 84993c1f-863f-41f3-9bd8-dfcc821b1c8a
         version: 1.6.0
         uptime: 200.02312
@@ -15782,7 +15782,7 @@ components:
           last_seen: 2024-06-25T10:14:20Z
           registration_instance_id: 67479449b7-zdzlr
           registration_id: 84993c1f-863f-41f3-9bd8-dfcc821b1c8a
-          type: anchore_k8s_inventory
+          type: k8s_inventory_agent
           uuid: 84993c1f-863f-41f3-9bd8-dfcc821b1c8a
           version: 1.6.0
           uptime: 200.02312
@@ -15811,7 +15811,7 @@ components:
           last_seen: 2024-06-25T10:14:20Z
           registration_instance_id: 67479449b7-zdzlr
           registration_id: 84993c1f-863f-41f3-9bd8-dfcc821b1c8a
-          type: anchore_k8s_inventory
+          type: k8s_inventory_agent
           uuid: 84993c1f-863f-41f3-9bd8-dfcc821b1c8a
           version: 1.6.0
           uptime: 200.02312
@@ -15850,7 +15850,7 @@ components:
         configuration: "{}"
         registration_id: 84993c1f-863f-41f3-9bd8-dfcc821b1c8a
         description: This agent has no namespace filtering
-        type: anchore_k8s_inventory
+        type: k8s_inventory_agent
         version: 1.6.0
         uptime: 200.02312
         explicitly_account_bound:
@@ -15955,7 +15955,7 @@ components:
         last_seen: 2024-06-25T10:14:20Z
         registration_instance_id: 67479449b7-zdzlr
         registration_id: 84993c1f-863f-41f3-9bd8-dfcc821b1c8a
-        type: anchore_k8s_inventory
+        type: k8s_inventory_agent
         uuid: 84993c1f-863f-41f3-9bd8-dfcc821b1c8a
         version: 1.6.0
         uptime: 200.02312

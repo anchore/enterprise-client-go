@@ -11909,9 +11909,9 @@ components:
     IntegrationType:
       type: string
       enum:
-        - anchore_k8s_inventory
+        - k8s_inventory_agent
       description: The type of integration
-      example: anchore_k8s_inventory
+      example: k8s_inventory_agent
     HealthData:
       type: object
       description: Integration instance specific health data

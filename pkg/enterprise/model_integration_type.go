@@ -21,12 +21,12 @@ type IntegrationType string
 
 // List of IntegrationType
 const (
-	ANCHORE_K8S_INVENTORY IntegrationType = "anchore_k8s_inventory"
+	K8S_INVENTORY_AGENT IntegrationType = "k8s_inventory_agent"
 )
 
 // All allowed values of IntegrationType enum
 var AllowedIntegrationTypeEnumValues = []IntegrationType{
-	"anchore_k8s_inventory",
+	"k8s_inventory_agent",
 }
 
 func (v *IntegrationType) UnmarshalJSON(src []byte) error {
