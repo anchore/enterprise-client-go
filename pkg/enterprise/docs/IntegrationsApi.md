@@ -240,7 +240,7 @@ import (
 )
 
 func main() {
-	onlyDegraded := true // bool | If true, limit listing to unhealthy or deactivated integrations (optional) (default to false)
+	onlyDegraded := true // bool | If true, limit listing to unhealthy or inactive integrations (optional) (default to false)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -265,7 +265,7 @@ Other parameters are passed through a pointer to a apiListIntegrationsRequest st
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **onlyDegraded** | **bool** | If true, limit listing to unhealthy or deactivated integrations | [default to false]
+ **onlyDegraded** | **bool** | If true, limit listing to unhealthy or inactive integrations | [default to false]
 
 ### Return type
 

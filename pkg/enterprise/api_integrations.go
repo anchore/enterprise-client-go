@@ -3,7 +3,7 @@ Anchore API
 
 This is the Anchore API. Provides the external API for users of Anchore Enterprise.
 
-API version: 2.7.2
+API version: 2.8.0
 Contact: dev@anchore.com
 */
 
@@ -427,7 +427,7 @@ type ApiListIntegrationsRequest struct {
 	onlyDegraded *bool
 }
 
-// If true, limit listing to unhealthy or deactivated integrations
+// If true, limit listing to unhealthy or inactive integrations
 func (r ApiListIntegrationsRequest) OnlyDegraded(onlyDegraded bool) ApiListIntegrationsRequest {
 	r.onlyDegraded = &onlyDegraded
 	return r

@@ -8,7 +8,7 @@ info:
   license:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
-  version: 2.7.2
+  version: 2.8.0
 servers:
 - url: /v2
 tags:
@@ -9170,7 +9170,7 @@ paths:
       x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.system
       parameters:
         - name: only_degraded
-          description: If true, limit listing to unhealthy or deactivated integrations
+          description: If true, limit listing to unhealthy or inactive integrations
           example: true
           in: query
           schema:
@@ -12613,7 +12613,7 @@ components:
         - healthy
         - unhealthy
       description: >
-         Health state of the integration instance
+         Health state reported by the client integration.
         
          * healthy: All good. No errors.
         
@@ -12624,7 +12624,7 @@ components:
       enum:
         - active
         - registered
-        - deactivated
+        - inactive
       description: >
         Life cycle state of the integration instance
         
@@ -12632,7 +12632,7 @@ components:
         
         * registered - Integration has registered. Not yet sending health reports.
         
-        * deactivated - Integration does not seem to be alive.
+        * inactive - Integration has missed its last three health check-ins.
       example: active
     IntegrationStatus:
       type: object

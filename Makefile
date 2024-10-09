@@ -11,7 +11,7 @@ OPENAPI_GENERATOR_VERSION = v7.8.0
 # --- anchore enterprise references
 # a git tag/branch/commit within anchore/enterprise repo
 # note: not sure why, but it doesn't not appear to regenerate correctly if you just leave the 'main' branch as the ENTERPRISE_REF
-ENTERPRISE_REF = v5.11.0-release
+ENTERPRISE_REF = 4b563317516f80705201658c40341cc3ab313b34
 ENTERPRISE_ROOT = $(PROJECT_ROOT)/enterprise
 ENTERPRISE_OPENAPI_DOC = $(PROJECT_ROOT)/anchore-api-swagger-$(ENTERPRISE_REF).yaml
 

@@ -3,7 +3,7 @@ Anchore API
 
 This is the Anchore API. Provides the external API for users of Anchore Enterprise.
 
-API version: 2.7.2
+API version: 2.8.0
 Contact: dev@anchore.com
 */
 
@@ -16,21 +16,21 @@ import (
 	"fmt"
 )
 
-// IntegrationLifecycleState Life cycle state of the integration instance * active - Integration operational. Sending health reports. * registered - Integration has registered. Not yet sending health reports. * deactivated - Integration does not seem to be alive. 
+// IntegrationLifecycleState Life cycle state of the integration instance * active - Integration operational. Sending health reports. * registered - Integration has registered. Not yet sending health reports. * inactive - Integration has missed its last three health check-ins. 
 type IntegrationLifecycleState string
 
 // List of IntegrationLifecycleState
 const (
 	ACTIVE IntegrationLifecycleState = "active"
 	REGISTERED IntegrationLifecycleState = "registered"
-	DEACTIVATED IntegrationLifecycleState = "deactivated"
+	INACTIVE IntegrationLifecycleState = "inactive"
 )
 
 // All allowed values of IntegrationLifecycleState enum
 var AllowedIntegrationLifecycleStateEnumValues = []IntegrationLifecycleState{
 	"active",
 	"registered",
-	"deactivated",
+	"inactive",
 }
 
 func (v *IntegrationLifecycleState) UnmarshalJSON(src []byte) error {
