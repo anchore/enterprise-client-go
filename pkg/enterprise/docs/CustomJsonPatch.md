@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Operations** | Pointer to **[]string** | Ordered list of the operations in the type-specific lists. This imparts the total ordering of patches to apply such that they can be moved into a single array. | [optional] 
+**Operations** | Pointer to **[]string** | Ordered list of the operations in the type-specific lists. This imparts the total ordering of patches to apply such that they can be moved into a single array. This is a workaround for &#39;oneOf&#39; support in OpenAPI 2.0 | [optional] 
 **Add** | Pointer to [**[]JsonPatchAdd**](JsonPatchAdd.md) |  | [optional] 
 **Remove** | Pointer to [**[]JsonPatchRemove**](JsonPatchRemove.md) |  | [optional] 
 **Replace** | Pointer to [**[]JsonPatchReplace**](JsonPatchReplace.md) |  | [optional] 

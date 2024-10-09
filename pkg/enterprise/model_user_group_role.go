@@ -3,7 +3,7 @@ Anchore API
 
 This is the Anchore API. Provides the external API for users of Anchore Enterprise.
 
-API version: 2.8.0
+API version: 2.7.2
 Contact: dev@anchore.com
 */
 
@@ -17,11 +17,8 @@ import (
 
 // UserGroupRole struct for UserGroupRole
 type UserGroupRole struct {
-	// Deprecated. Please use domain_name instead. The account for this role
-	// Deprecated
+	// The account for this role
 	ForAccount string `json:"for_account"`
-	// The domain scope for this role. This may be an account name when the domain is an account.
-	DomainName *string `json:"domain_name,omitempty"`
 	Roles []UserGroupRoleRolesInner `json:"roles"`
 }
 
@@ -45,7 +42,6 @@ func NewUserGroupRoleWithDefaults() *UserGroupRole {
 }
 
 // GetForAccount returns the ForAccount field value
-// Deprecated
 func (o *UserGroupRole) GetForAccount() string {
 	if o == nil {
 		var ret string
@@ -57,7 +53,6 @@ func (o *UserGroupRole) GetForAccount() string {
 
 // GetForAccountOk returns a tuple with the ForAccount field value
 // and a boolean to check if the value has been set.
-// Deprecated
 func (o *UserGroupRole) GetForAccountOk() (*string, bool) {
 	if o == nil {
 		return nil, false
@@ -66,41 +61,8 @@ func (o *UserGroupRole) GetForAccountOk() (*string, bool) {
 }
 
 // SetForAccount sets field value
-// Deprecated
 func (o *UserGroupRole) SetForAccount(v string) {
 	o.ForAccount = v
-}
-
-// GetDomainName returns the DomainName field value if set, zero value otherwise.
-func (o *UserGroupRole) GetDomainName() string {
-	if o == nil || o.DomainName == nil {
-		var ret string
-		return ret
-	}
-	return *o.DomainName
-}
-
-// GetDomainNameOk returns a tuple with the DomainName field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *UserGroupRole) GetDomainNameOk() (*string, bool) {
-	if o == nil || o.DomainName == nil {
-		return nil, false
-	}
-	return o.DomainName, true
-}
-
-// HasDomainName returns a boolean if a field has been set.
-func (o *UserGroupRole) HasDomainName() bool {
-	if o != nil && o.DomainName != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetDomainName gets a reference to the given string and assigns it to the DomainName field.
-func (o *UserGroupRole) SetDomainName(v string) {
-	o.DomainName = &v
 }
 
 // GetRoles returns the Roles field value
@@ -131,9 +93,6 @@ func (o UserGroupRole) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
 		toSerialize["for_account"] = o.ForAccount
-	}
-	if o.DomainName != nil {
-		toSerialize["domain_name"] = o.DomainName
 	}
 	if true {
 		toSerialize["roles"] = o.Roles

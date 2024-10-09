@@ -4,8 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**ForAccount** | Pointer to **string** | Deprecated. Please use &#x60;domain_name&#39; instead.  The account scope that applies to the set of roles | [optional] 
-**DomainName** | Pointer to **string** | The domain scope that applies to the set of roles | [optional] 
+**ForAccount** | Pointer to **string** | The account scope that applies to the set of roles | [optional] 
 **Roles** | Pointer to [**RbacManagerRole**](RbacManagerRole.md) |  | [optional] 
 **Account** | Pointer to [**Account**](Account.md) |  | [optional] 
 
@@ -52,31 +51,6 @@ SetForAccount sets ForAccount field to given value.
 `func (o *RbacManagerAccountRole) HasForAccount() bool`
 
 HasForAccount returns a boolean if a field has been set.
-
-### GetDomainName
-
-`func (o *RbacManagerAccountRole) GetDomainName() string`
-
-GetDomainName returns the DomainName field if non-nil, zero value otherwise.
-
-### GetDomainNameOk
-
-`func (o *RbacManagerAccountRole) GetDomainNameOk() (*string, bool)`
-
-GetDomainNameOk returns a tuple with the DomainName field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetDomainName
-
-`func (o *RbacManagerAccountRole) SetDomainName(v string)`
-
-SetDomainName sets DomainName field to given value.
-
-### HasDomainName
-
-`func (o *RbacManagerAccountRole) HasDomainName() bool`
-
-HasDomainName returns a boolean if a field has been set.
 
 ### GetRoles
 

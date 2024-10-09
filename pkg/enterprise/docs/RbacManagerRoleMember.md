@@ -5,15 +5,14 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Username** | **string** |  | 
-**ForAccount** | Pointer to **string** | Deprecated. Please use domain_name instead. | [optional] 
-**DomainName** | Pointer to **string** | The domain scope that applies to the set of roles. This will be the account name if the domain scope is an account. | [optional] 
+**ForAccount** | **string** |  | 
 **CreatedAt** | Pointer to **time.Time** |  | [optional] 
 
 ## Methods
 
 ### NewRbacManagerRoleMember
 
-`func NewRbacManagerRoleMember(username string, ) *RbacManagerRoleMember`
+`func NewRbacManagerRoleMember(username string, forAccount string, ) *RbacManagerRoleMember`
 
 NewRbacManagerRoleMember instantiates a new RbacManagerRoleMember object
 This constructor will assign default values to properties that have it defined,
@@ -67,36 +66,6 @@ and a boolean to check if the value has been set.
 
 SetForAccount sets ForAccount field to given value.
 
-### HasForAccount
-
-`func (o *RbacManagerRoleMember) HasForAccount() bool`
-
-HasForAccount returns a boolean if a field has been set.
-
-### GetDomainName
-
-`func (o *RbacManagerRoleMember) GetDomainName() string`
-
-GetDomainName returns the DomainName field if non-nil, zero value otherwise.
-
-### GetDomainNameOk
-
-`func (o *RbacManagerRoleMember) GetDomainNameOk() (*string, bool)`
-
-GetDomainNameOk returns a tuple with the DomainName field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetDomainName
-
-`func (o *RbacManagerRoleMember) SetDomainName(v string)`
-
-SetDomainName sets DomainName field to given value.
-
-### HasDomainName
-
-`func (o *RbacManagerRoleMember) HasDomainName() bool`
-
-HasDomainName returns a boolean if a field has been set.
 
 ### GetCreatedAt
 

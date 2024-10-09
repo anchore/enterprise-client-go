@@ -4,15 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**ForAccount** | Pointer to **string** | Deprecated. Please use domain_name instead. The account | [optional] 
-**DomainName** | Pointer to **string** | The domain scope for this role. This may be an account name when the domain is an account. | [optional] 
+**ForAccount** | **string** | The account | 
 **Roles** | [**[]UserGroupRolePostRolesInner**](UserGroupRolePostRolesInner.md) |  | 
 
 ## Methods
 
 ### NewUserGroupRolePost
 
-`func NewUserGroupRolePost(roles []UserGroupRolePostRolesInner, ) *UserGroupRolePost`
+`func NewUserGroupRolePost(forAccount string, roles []UserGroupRolePostRolesInner, ) *UserGroupRolePost`
 
 NewUserGroupRolePost instantiates a new UserGroupRolePost object
 This constructor will assign default values to properties that have it defined,
@@ -46,36 +45,6 @@ and a boolean to check if the value has been set.
 
 SetForAccount sets ForAccount field to given value.
 
-### HasForAccount
-
-`func (o *UserGroupRolePost) HasForAccount() bool`
-
-HasForAccount returns a boolean if a field has been set.
-
-### GetDomainName
-
-`func (o *UserGroupRolePost) GetDomainName() string`
-
-GetDomainName returns the DomainName field if non-nil, zero value otherwise.
-
-### GetDomainNameOk
-
-`func (o *UserGroupRolePost) GetDomainNameOk() (*string, bool)`
-
-GetDomainNameOk returns a tuple with the DomainName field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetDomainName
-
-`func (o *UserGroupRolePost) SetDomainName(v string)`
-
-SetDomainName sets DomainName field to given value.
-
-### HasDomainName
-
-`func (o *UserGroupRolePost) HasDomainName() bool`
-
-HasDomainName returns a boolean if a field has been set.
 
 ### GetRoles
 

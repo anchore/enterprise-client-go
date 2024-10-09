@@ -8,7 +8,7 @@ info:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
   title: Anchore API
-  version: 2.8.0
+  version: 2.7.2
 servers:
 - url: /v2
 tags:
@@ -165,27 +165,6 @@ paths:
       x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.accounts
       x-anchore-authz-action: createAccount
       x-codegen-request-body-name: account
-  /accounts/users:
-    get:
-      operationId: list_all_system_users
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Users'
-          description: List of all Users
-        "500":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ApiErrorResponse'
-          description: Internal error
-      summary: List all system account users. Only available to `admin` users.
-      tags:
-      - User Management
-      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.accounts
-      x-anchore-authz-action: listAllUsers
   /accounts/{account_name}/state:
     put:
       operationId: update_account_state
@@ -247,8 +226,7 @@ paths:
           content:
             application/json:
               schema:
-                description: List of users in this account and their roles for this
-                  account and system roles.
+                description: List of user credential records
                 items:
                   $ref: '#/components/schemas/User'
                 type: array
@@ -259,8 +237,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/ApiErrorResponse'
           description: Internal error
-      summary: List of users that are primary within this account. The response object
-        will only contain roles for this account as well as any system roles.
+      summary: List of users found in this account.
       tags:
       - User Management
       x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.accounts
@@ -295,36 +272,6 @@ paths:
       x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.accounts
       x-anchore-authz-action: createUser
       x-codegen-request-body-name: user
-  /accounts/{account_name}/users-with-roles:
-    get:
-      operationId: list_users_with_roles
-      parameters:
-      - explode: false
-        in: path
-        name: account_name
-        required: true
-        schema:
-          format: path
-          type: string
-        style: simple
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Users'
-          description: List of all Users with roles in this account.
-        "500":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ApiErrorResponse'
-          description: Internal error
-      summary: List of users who have rbac roles in this account.
-      tags:
-      - User Management
-      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.accounts
-      x-anchore-authz-action: listAccountUsersWithRoles
   /accounts/{account_name}/users/{username}/api-keys:
     get:
       operationId: list_user_api_keys
@@ -7416,12 +7363,6 @@ paths:
               schema:
                 $ref: '#/components/schemas/PolicyRecord'
           description: Saved policy
-        "409":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ApiErrorResponse'
-          description: Policy already exists
         "500":
           content:
             application/json:
@@ -7793,22 +7734,11 @@ paths:
         schema:
           type: string
         style: form
-      - deprecated: true
-        description: Deprecated.  Please use domain_name instead.  The account that
-          the user has the role to be removed
+      - description: The account that the user has the role to be removed
         explode: true
         in: query
         name: for_account
-        required: false
-        schema:
-          type: string
-        style: form
-      - description: The domain that the user should have the role removed from.  This
-          may be an account name when the domain is an account.
-        explode: true
-        in: query
-        name: domain_name
-        required: false
+        required: true
         schema:
           type: string
         style: form
@@ -7838,24 +7768,12 @@ paths:
           format: path
           type: string
         style: simple
-      - deprecated: true
-        description: Deprecated.  Please use domain_name instead. Optional filter
-          parameter to limit the set fo returned items to only those with matching
-          account. Will return Access Denied if caller does not have permission to
-          listRoleMembers for that account.
+      - description: Optional filter parameter to limit the set fo returned items
+          to only those with matching account. Will return Access Denied if caller
+          does not have permission to listRoleMembers for that account.
         explode: true
         in: query
         name: for_account
-        required: false
-        schema:
-          type: string
-        style: form
-      - description: Optional filter parameter to limit the set of returned items
-          to only those that match the specified domain. Will return Access Denied
-          if caller does not have permission to listRoleMembers for that domain.
-        explode: true
-        in: query
-        name: domain_name
         required: false
         schema:
           type: string
@@ -8329,23 +8247,9 @@ paths:
           format: path
           type: string
         style: simple
-      - deprecated: true
-        description: Deprecated.  Please use domain_name instead. Optional filter
-          parameter to limit the set of returned items to only those with matching
-          account.
-        explode: true
+      - explode: true
         in: query
         name: for_account
-        required: false
-        schema:
-          type: string
-        style: form
-      - description: Optional filter parameter to limit the set of returned items
-          to only those that match the specified domain.  This may be an account name
-          when the domain is an account.
-        explode: true
-        in: query
-        name: domain_name
         required: false
         schema:
           type: string
@@ -9988,9 +9892,6 @@ paths:
         "202":
           content: {}
           description: Feed uploaded successfully
-        "400":
-          content: {}
-          description: "Bad request, fix and resend"
         "403":
           content:
             application/json:
@@ -10049,203 +9950,6 @@ paths:
       - System
       x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.system
       x-anchore-authz-action: updateFeeds
-  /system/integrations/{integration_uuid}/health-report:
-    post:
-      description: "An integration, such as an agent, will use this API to report\
-        \ its current health status. Such calls will typically be done on an interval,\
-        \ e.g., every 60 seconds."
-      operationId: handle_health_report
-      parameters:
-      - description: The integration's universally unique identifier
-        example: 84993c1f-863f-41f3-9bd8-dfcc821b1c8a
-        explode: false
-        in: path
-        name: integration_uuid
-        required: true
-        schema:
-          format: uuid
-          type: string
-        style: simple
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/HealthReport'
-        required: true
-      responses:
-        "201":
-          content: {}
-          description: Health report accepted. Empty response.
-        "404":
-          content: {}
-          description: Not found
-        "409":
-          content: {}
-          description: Conflict
-        "500":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ApiErrorResponse'
-          description: Internal Error
-      summary: Report health status for an integration
-      tags:
-      - Integrations
-      x-anchore-authz-action: reportHealth
-      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.system
-  /system/integrations/{integration_uuid}:
-    delete:
-      operationId: delete_integration
-      parameters:
-      - description: The integration instance's universally unique identifier
-        example: 84993c1f-863f-41f3-9bd8-dfcc821b1c8a
-        explode: false
-        in: path
-        name: integration_uuid
-        required: true
-        schema:
-          format: uuid
-          type: string
-        style: simple
-      - description: Force deletion of the integration instance regardless of its
-          state
-        explode: true
-        in: query
-        name: force
-        required: false
-        schema:
-          default: false
-          type: boolean
-        style: form
-      responses:
-        "204":
-          content: {}
-          description: Successfully deleted
-        "404":
-          content: {}
-          description: Not found
-        "500":
-          content: {}
-          description: Internal server error processing the request. Retry expected
-      summary: Delete an integration instance
-      tags:
-      - Integrations
-      x-anchore-authz-action: deleteIntegration
-      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.system
-    get:
-      operationId: get_integration_by_id
-      parameters:
-      - description: The integration instance's universally unique identifier
-        example: 84993c1f-863f-41f3-9bd8-dfcc821b1c8a
-        explode: false
-        in: path
-        name: integration_uuid
-        required: true
-        schema:
-          format: uuid
-          type: string
-        style: simple
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Integration'
-          description: Get integration response
-        "404":
-          content: {}
-          description: Not found
-        "500":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ApiErrorResponse'
-          description: Internal Error
-      summary: Get information about an integration instance
-      tags:
-      - Integrations
-      x-anchore-authz-action: getIntegration
-      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.system
-  /system/integrations/registration:
-    post:
-      description: "An integration instance, such as an agent, will use this API to\
-        \ register itself with Anchore. The integration registers using registration_id\
-        \ and registration_instance_id as temporary identifiers and is assigned its\
-        \ integration uuid upon successful registration. This method is idempotent\
-        \ in the sense that if an integration instance call it multiple time and uses\
-        \ the same registration_id and registration_instance_id, it will be assigned\
-        \ the same integration uuid."
-      operationId: register_integration
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/IntegrationRegister'
-        required: true
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Integration'
-          description: Integration successfully (re-)registered response
-        "201":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Integration'
-          description: Integration successfully registered and created response
-        "409":
-          content:
-            application/json:
-              schema:
-                type: object
-          description: Integration registration failure
-        "500":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ApiErrorResponse'
-          description: Internal Error
-      summary: Register an integration instance
-      tags:
-      - Integrations
-      x-anchore-authz-action: registerIntegration
-      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.system
-  /system/integrations:
-    get:
-      description: Lists all integrations that have been created (explicitly or indirectly
-        via registration).
-      operationId: list_integrations
-      parameters:
-      - description: "If true, limit listing to unhealthy or inactive integrations"
-        example: true
-        explode: true
-        in: query
-        name: only_degraded
-        required: false
-        schema:
-          default: false
-          type: boolean
-        style: form
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/IntegrationListResponse'
-          description: Summary list of integrations response
-        "500":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ApiErrorResponse'
-          description: Internal Error
-      summary: List known integration instances
-      tags:
-      - Integrations
-      x-anchore-authz-action: listIntegrations
-      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.system
   /system/logging:
     post:
       description: Enables override of localconfig logging level for one or all services
@@ -11268,66 +10972,6 @@ components:
           pattern: "[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\\
             .)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?"
           type: string
-      type: object
-    AccountK8sInventoryReportInfo:
-      description: Information about sent K8s inventory report for an account
-      example:
-        has_errors: true
-        batches:
-        - send_timestamp: 2024-06-26T14:02:45Z
-          batch_index: 1
-          error: Connection refused
-        - send_timestamp: 2024-06-26T14:02:45Z
-          batch_index: 1
-          error: Connection refused
-        sent_as_user: admin
-        batch_size: 3
-        account_name: development
-        last_successful_index: -1
-        report_timestamp: 2024-06-26T14:02:33Z
-      properties:
-        report_timestamp:
-          description: Timestamp for the inventory report
-          example: 2024-06-26T14:02:33Z
-          format: data-time
-          type: string
-        account_name:
-          description: Account to which the inventory reports belong
-          example: development
-          type: string
-        sent_as_user:
-          description: User that the integration instance sent the inventory report
-            as
-          example: admin
-          type: string
-        batch_size:
-          description: Number of batches that the inventory report was sent in
-          example: 3
-          minimum: 1
-          type: integer
-        last_successful_index:
-          description: "Index of last successfully sent batch, -1 if none were successful"
-          example: -1
-          minimum: -1
-          type: integer
-        has_errors:
-          description: "true if one or more of the batches coult not be sent, false\
-            \ otherwise"
-          example: true
-          type: boolean
-        batches:
-          description: List of information about inventory report batches
-          items:
-            $ref: '#/components/schemas/AccountK8sInventoryReportInfo_batches_inner'
-          type: array
-      required:
-      - account_name
-      - batch_size
-      - batches
-      - has_errors
-      - last_successful_index
-      - report_timestamp
-      - sent_as_user
       type: object
     AccountList:
       items:
@@ -13319,7 +12963,8 @@ components:
         operations:
           description: Ordered list of the operations in the type-specific lists.
             This imparts the total ordering of patches to apply such that they can
-            be moved into a single array.
+            be moved into a single array. This is a workaround for 'oneOf' support
+            in OpenAPI 2.0
           items:
             description: "Operation ID, must be found in the add, remove, replace,\
               \ move, copy, or test list"
@@ -14195,128 +13840,6 @@ components:
           description: The duration of the group sync in seconds
           type: number
       type: object
-    IntegrationType:
-      description: The type of integration
-      enum:
-      - k8s_inventory_agent
-      example: k8s_inventory_agent
-      type: string
-    HealthData:
-      description: Integration instance specific health data
-      example:
-        account_k8s_inventory_reports:
-          key:
-            has_errors: true
-            batches:
-            - send_timestamp: 2024-06-26T14:02:45Z
-              batch_index: 1
-              error: Connection refused
-            - send_timestamp: 2024-06-26T14:02:45Z
-              batch_index: 1
-              error: Connection refused
-            sent_as_user: admin
-            batch_size: 3
-            account_name: development
-            last_successful_index: -1
-            report_timestamp: 2024-06-26T14:02:33Z
-        type: k8s_inventory_agent
-        version: 1
-        errors:
-        - Unable to find resource
-        - Unable to find resource
-      properties:
-        type:
-          $ref: '#/components/schemas/IntegrationType'
-        version:
-          description: Version of the health data schema
-          example: 1
-          type: integer
-        errors:
-          description: List of errors
-          items:
-            description: error message
-            example: Unable to find resource
-            type: string
-          type: array
-        account_k8s_inventory_reports:
-          additionalProperties:
-            $ref: '#/components/schemas/AccountK8sInventoryReportInfo'
-          description: Information about sent inventory report for accounts
-          type: object
-      required:
-      - type
-      - version
-      type: object
-    HealthReportInterval:
-      description: Interval (in seconds) between health reports
-      example: 60
-      maximum: 600
-      minimum: 30
-      type: integer
-    HealthReport:
-      description: Health report for an integration instance
-      example:
-        protocol_version: 1
-        health_report_interval: 60
-        uuid: 740c06a3-4c69-4b91-8e85-154cd53e9764
-        health_data:
-          account_k8s_inventory_reports:
-            key:
-              has_errors: true
-              batches:
-              - send_timestamp: 2024-06-26T14:02:45Z
-                batch_index: 1
-                error: Connection refused
-              - send_timestamp: 2024-06-26T14:02:45Z
-                batch_index: 1
-                error: Connection refused
-              sent_as_user: admin
-              batch_size: 3
-              account_name: development
-              last_successful_index: -1
-              report_timestamp: 2024-06-26T14:02:33Z
-          type: k8s_inventory_agent
-          version: 1
-          errors:
-          - Unable to find resource
-          - Unable to find resource
-        timestamp: 2024-06-26T14:02:43Z
-        uptime: 200.02312
-      properties:
-        uuid:
-          description: Universally unique identifier for this health report
-          example: 740c06a3-4c69-4b91-8e85-154cd53e9764
-          format: uuid
-          type: string
-        protocol_version:
-          description: The version of the health report exchange protocol
-          example: 1
-          type: integer
-        timestamp:
-          description: timestamp for this health report
-          example: 2024-06-26T14:02:43Z
-          format: date-time
-          type: string
-        uptime:
-          description: Running time of integration instance in seconds
-          example: 200.02312
-          type: number
-        health_report_interval:
-          description: Interval (in seconds) between health reports
-          example: 60
-          maximum: 600
-          minimum: 30
-          type: integer
-        health_data:
-          $ref: '#/components/schemas/HealthData'
-      required:
-      - health_data
-      - health_report_interval
-      - protocol_version
-      - timestamp
-      - uptime
-      - uuid
-      type: object
     ImageAnalysisReferences:
       description: List of image digests to archive
       items:
@@ -14465,10 +13988,8 @@ components:
         \ content type entries"
       type: object
     ImageDetail:
-      description: "A metadata detail record for a specific image. Multiple detail\
-        \ records may map to a single catalog image. For example, an image having\
-        \ multiple tags associated with a single image digest will generate multiple\
-        \ image detail records."
+      description: A metadata detail record for a specific image. Multiple detail
+        records may map a single catalog image.
       example:
         tag_detected_at: 2000-01-23T04:56:07.000+00:00
         full_tag: full_tag
@@ -14717,9 +14238,6 @@ components:
     ImagePackageVulnerabilityResponse:
       description: envelope containing list of vulnerabilities
       example:
-        base_image_problems:
-        - "{}"
-        - "{}"
         vulnerability_type: vulnerability_type
         base_digest: base_digest
         image_digest: image_digest
@@ -14731,10 +14249,6 @@ components:
           type: string
         base_digest:
           type: string
-        base_image_problems:
-          items:
-            type: object
-          type: array
         vulnerability_type:
           type: string
         vulnerabilities:
@@ -15128,393 +14642,6 @@ components:
       required:
       - type
       type: object
-    IntegrationHealthState:
-      description: "Health state reported by the client integration.\n* healthy: All\
-        \ good. No errors.\n* unhealthy: Not well. Probably errors.\n"
-      enum:
-      - healthy
-      - unhealthy
-      example: healthy
-      type: string
-    IntegrationLifecycleState:
-      description: |
-        Life cycle state of the integration instance
-        * active - Integration operational. Sending health reports.
-        * registered - Integration has registered. Not yet sending health reports.
-        * inactive - Integration has missed its last three health check-ins.
-      enum:
-      - active
-      - registered
-      - inactive
-      example: active
-      type: string
-    IntegrationStatus:
-      description: Status of integration instance as perceived by Enterprise
-      example:
-        reason: reason
-        updated_at: 2000-01-23T04:56:07.000+00:00
-        details: "{}"
-        state: active
-      properties:
-        state:
-          $ref: '#/components/schemas/IntegrationLifecycleState'
-        reason:
-          type: string
-        details:
-          type: object
-        updated_at:
-          description: Timestamp when status was updated
-          format: date-time
-          type: string
-      readOnly: true
-      type: object
-    IntegrationReportedStatus:
-      description: Status of the integration as perceived by the integration instance
-        itself
-      example:
-        reason: reason
-        details: "{}"
-        state: healthy
-      properties:
-        state:
-          $ref: '#/components/schemas/IntegrationHealthState'
-        reason:
-          type: string
-        details:
-          type: object
-      readOnly: true
-      type: object
-    Integration:
-      allOf:
-      - $ref: '#/components/schemas/IntegrationSummary'
-      - $ref: '#/components/schemas/IntegrationAdditionalProperties'
-      description: "Information about an integration instance, e.g., an agent"
-      required:
-      - account_name
-      - type
-      - username
-      - uuid
-      type: object
-    IntegrationAdditionalProperties:
-      properties:
-        description:
-          description: Short description of the integration instance
-          example: This agent has no namespace filtering
-          type: string
-        started_at:
-          description: Timestamp when integration instance was started
-          example: 2024-06-25T10:12:53Z
-          format: date-time
-          type: string
-        namespaces:
-          description: List of namespaces handled by the integration instance
-          example:
-          - production
-          - finance
-          items:
-            description: namespace name
-            example: production
-            type: string
-          type: array
-        configuration:
-          description: Configuration of the integration instance
-          type: object
-      type: object
-    IntegrationListResponse:
-      description: Response to list integration
-      example:
-        items:
-        - cluster_name: production-east1
-          last_seen: 2024-06-25T10:14:20Z
-          registration_instance_id: 67479449b7-zdzlr
-          registration_id: 84993c1f-863f-41f3-9bd8-dfcc821b1c8a
-          type: k8s_inventory_agent
-          uuid: 84993c1f-863f-41f3-9bd8-dfcc821b1c8a
-          version: 1.6.0
-          uptime: 200.02312
-          integration_status:
-            reason: reason
-            updated_at: 2000-01-23T04:56:07.000+00:00
-            details: "{}"
-            state: active
-          explicitly_account_bound:
-          - frontend
-          - ci
-          account_name: admin
-          name: k8s-agent-admin
-          namespace: anchore
-          accounts:
-          - platform
-          - test-team1
-          - customers
-          health_report_interval: 60
-          reported_status:
-            reason: reason
-            details: "{}"
-            state: healthy
-          username: admin
-        - cluster_name: production-east1
-          last_seen: 2024-06-25T10:14:20Z
-          registration_instance_id: 67479449b7-zdzlr
-          registration_id: 84993c1f-863f-41f3-9bd8-dfcc821b1c8a
-          type: k8s_inventory_agent
-          uuid: 84993c1f-863f-41f3-9bd8-dfcc821b1c8a
-          version: 1.6.0
-          uptime: 200.02312
-          integration_status:
-            reason: reason
-            updated_at: 2000-01-23T04:56:07.000+00:00
-            details: "{}"
-            state: active
-          explicitly_account_bound:
-          - frontend
-          - ci
-          account_name: admin
-          name: k8s-agent-admin
-          namespace: anchore
-          accounts:
-          - platform
-          - test-team1
-          - customers
-          health_report_interval: 60
-          reported_status:
-            reason: reason
-            details: "{}"
-            state: healthy
-          username: admin
-      properties:
-        items:
-          items:
-            $ref: '#/components/schemas/IntegrationSummary'
-          type: array
-      type: object
-    IntegrationRegister:
-      description: "Properties of an integration instance, e.g., an agent, to register"
-      example:
-        cluster_name: production-east1
-        registration_instance_id: 67479449b7-zdzlr
-        configuration: "{}"
-        registration_id: 84993c1f-863f-41f3-9bd8-dfcc821b1c8a
-        description: This agent has no namespace filtering
-        type: k8s_inventory_agent
-        version: 1.6.0
-        uptime: 200.02312
-        explicitly_account_bound:
-        - frontend
-        - ci
-        name: k8s-agent-admin
-        namespace: anchore
-        started_at: 2024-06-25T10:12:53Z
-        health_report_interval: 60
-        username: admin
-        namespaces:
-        - production
-        - finance
-      properties:
-        registration_id:
-          description: identifier for the integration during registration until it
-            has received its integration_id
-          example: 84993c1f-863f-41f3-9bd8-dfcc821b1c8a
-          type: string
-        registration_instance_id:
-          description: Unique identifier for the integration instance (among its replicas)
-            during registration
-          example: 67479449b7-zdzlr
-          type: string
-        type:
-          $ref: '#/components/schemas/IntegrationType'
-        name:
-          description: Name of the integration instance
-          example: k8s-agent-admin
-          type: string
-        description:
-          description: Short description of the integration instance
-          example: This agent has no namespace filtering
-          type: string
-        version:
-          description: Version of the integration instance
-          example: 1.6.0
-          type: string
-        started_at:
-          description: Timestamp when integration instance was started
-          example: 2024-06-25T10:12:53Z
-          format: date-time
-          type: string
-        uptime:
-          description: Running time of integration instance in seconds
-          example: 200.02312
-          type: number
-        username:
-          description: User that the integration instance authenticates as by default
-          example: admin
-          type: string
-        explicitly_account_bound:
-          description: List of accounts that the integration instance is statically
-            configured to handle
-          example:
-          - frontend
-          - ci
-          items:
-            description: account name
-            example: frontend
-            type: string
-          type: array
-        namespaces:
-          description: List of namespaces that the integration instance is statically
-            configured to handle
-          example:
-          - production
-          - finance
-          items:
-            description: namespace name
-            example: production
-            type: string
-          type: array
-        configuration:
-          description: Configuration of the integration instance
-          type: object
-        cluster_name:
-          description: Name of cluster where the integration instance runs
-          example: production-east1
-          type: string
-        namespace:
-          description: Namespace in which the integration instance runs
-          example: anchore
-          type: string
-        health_report_interval:
-          description: Interval (in seconds) between health reports
-          example: 60
-          maximum: 600
-          minimum: 30
-          type: integer
-      required:
-      - health_report_interval
-      - registration_id
-      - registration_instance_id
-      - type
-      - username
-      type: object
-    IntegrationSummary:
-      description: Select information about existing integrations
-      example:
-        cluster_name: production-east1
-        last_seen: 2024-06-25T10:14:20Z
-        registration_instance_id: 67479449b7-zdzlr
-        registration_id: 84993c1f-863f-41f3-9bd8-dfcc821b1c8a
-        type: k8s_inventory_agent
-        uuid: 84993c1f-863f-41f3-9bd8-dfcc821b1c8a
-        version: 1.6.0
-        uptime: 200.02312
-        integration_status:
-          reason: reason
-          updated_at: 2000-01-23T04:56:07.000+00:00
-          details: "{}"
-          state: active
-        explicitly_account_bound:
-        - frontend
-        - ci
-        account_name: admin
-        name: k8s-agent-admin
-        namespace: anchore
-        accounts:
-        - platform
-        - test-team1
-        - customers
-        health_report_interval: 60
-        reported_status:
-          reason: reason
-          details: "{}"
-          state: healthy
-        username: admin
-      properties:
-        uuid:
-          description: Globally unique identifier for the integration instance
-          example: 84993c1f-863f-41f3-9bd8-dfcc821b1c8a
-          format: uuid
-          type: string
-        type:
-          $ref: '#/components/schemas/IntegrationType'
-        name:
-          description: Name of the integration instance
-          example: k8s-agent-admin
-          type: string
-        version:
-          description: Version of the integration instance
-          example: 1.6.0
-          type: string
-        reported_status:
-          $ref: '#/components/schemas/IntegrationReportedStatus'
-        integration_status:
-          $ref: '#/components/schemas/IntegrationStatus'
-        last_seen:
-          description: Timestamp of last received health report from integration instance
-          example: 2024-06-25T10:14:20Z
-          format: date-time
-          readOnly: true
-          type: string
-        uptime:
-          description: Running time of integration instance in seconds
-          example: 200.02312
-          type: number
-        account_name:
-          description: Account that the integration instance reports to by default
-          example: admin
-          type: string
-        username:
-          description: User that the integration instance authenticates as by default
-          example: admin
-          type: string
-        explicitly_account_bound:
-          description: List of accounts that the integration instance is statically
-            configured to handle
-          example:
-          - frontend
-          - ci
-          items:
-            description: account name
-            example: frontend
-            type: string
-          type: array
-        accounts:
-          description: List of accounts that the integration instance handles
-          example:
-          - platform
-          - test-team1
-          - customers
-          items:
-            description: account name
-            example: platform
-            type: string
-          type: array
-        cluster_name:
-          description: Name of cluster where the integration instance runs
-          example: production-east1
-          type: string
-        namespace:
-          description: Namespace in which the integration instance runs
-          example: anchore
-          type: string
-        health_report_interval:
-          description: Interval (in seconds) between health reports
-          example: 60
-          maximum: 600
-          minimum: 30
-          type: integer
-        registration_id:
-          description: identifier for the integration during registration until it
-            has received its integration_id
-          example: 84993c1f-863f-41f3-9bd8-dfcc821b1c8a
-          type: string
-        registration_instance_id:
-          description: Unique identifier for the integration instance (among its replicas)
-            during registration
-          example: 67479449b7-zdzlr
-          type: string
-      type: object
-    IntegrationSummaryList:
-      items:
-        $ref: '#/components/schemas/IntegrationSummary'
-      type: array
     InventoryItem:
       description: Inventory result for a specific Namespace
       example:
@@ -15748,7 +14875,7 @@ components:
     JsonPatchOperationList:
       description: Ordered list of the operations in the type-specific lists. This
         imparts the total ordering of patches to apply such that they can be moved
-        into a single array.
+        into a single array. This is a workaround for 'oneOf' support in OpenAPI 2.0
       items:
         description: "Operation ID, must be found in the add, remove, replace, move,\
           \ copy, or test list"
@@ -18908,7 +18035,6 @@ components:
     RbacManagerAccountRole:
       description: An account identifier and roles a user has within that account
       example:
-        domain_name: domain_name
         for_account: for_account
         roles:
           immutable: true
@@ -18930,12 +18056,7 @@ components:
           email: email
       properties:
         for_account:
-          deprecated: true
-          description: Deprecated. Please use `domain_name' instead.  The account
-            scope that applies to the set of roles
-          type: string
-        domain_name:
-          description: The domain scope that applies to the set of roles
+          description: The account scope that applies to the set of roles
           type: string
         roles:
           $ref: '#/components/schemas/RbacManagerRole'
@@ -19052,32 +18173,21 @@ components:
       - name
       type: object
     RbacManagerRoleMember:
-      description: A mapping between a username and a role within a domain
+      description: A mapping between a username and a role with an account context
       example:
-        domain_name: domain_name
         for_account: for_account
         created_at: 2000-01-23T04:56:07.000+00:00
         username: username
-      oneOf:
-      - required:
-        - for_account
-      - required:
-        - domain_name
       properties:
         username:
           type: string
         for_account:
-          deprecated: true
-          description: Deprecated. Please use domain_name instead.
-          type: string
-        domain_name:
-          description: The domain scope that applies to the set of roles. This will
-            be the account name if the domain scope is an account.
           type: string
         created_at:
           format: date-time
           type: string
       required:
+      - for_account
       - username
       type: object
     RbacManagerRoleMemberList:
@@ -19090,7 +18200,6 @@ components:
     RbacManagerRoleMembership:
       description: Membership for a role in an account
       example:
-        domain_name: domain_name
         role: role
         for_account: for_account
         created_at: 2000-01-23T04:56:07.000+00:00
@@ -19099,13 +18208,7 @@ components:
           description: The name of the role the user has permissions for
           type: string
         for_account:
-          deprecated: true
-          description: Deprecated. Please use domain_name instead. The account for
-            which the user has the role permission
-          type: string
-        domain_name:
-          description: The domain scope that applies for this roles. This will be
-            the account name if the domain scope is an account.
+          description: The account for which the user has the role permission
           type: string
         created_at:
           format: date-time
@@ -21434,9 +20537,6 @@ components:
       example:
         role_name: role_name
         domain_name: domain_name
-        granted_at: 2000-01-23T04:56:07.000+00:00
-        grant_type: direct
-        granter: granter
       properties:
         role_name:
           description: The name of the RBAC Role
@@ -21445,72 +20545,6 @@ components:
           description: The domain (or account) name that provides the scope of the
             role
           type: string
-        granter:
-          description: The name of the user group that granted the role.  Will be
-            null if the role was granted directly to the user.
-          type: string
-        grant_type:
-          description: The type of grant that was made
-          enum:
-          - direct
-          - group_membership
-          - sso_group_membership
-          type: string
-        granted_at:
-          description: The timestamp of when the role was granted
-          format: date-time
-          type: string
-      type: object
-    Users:
-      description: a list of User objects
-      example:
-        total_rows: 0
-        items:
-        - last_updated: 2000-01-23T04:56:07.000+00:00
-          idp_name: idp_name
-          unified_roles:
-          - role_name: role_name
-            domain_name: domain_name
-            granted_at: 2000-01-23T04:56:07.000+00:00
-            grant_type: direct
-            granter: granter
-          - role_name: role_name
-            domain_name: domain_name
-            granted_at: 2000-01-23T04:56:07.000+00:00
-            grant_type: direct
-            granter: granter
-          account_name: account_name
-          created_at: 2000-01-23T04:56:07.000+00:00
-          source: source
-          password_last_updated: 2000-01-23T04:56:07.000+00:00
-          type: native
-          username: username
-        - last_updated: 2000-01-23T04:56:07.000+00:00
-          idp_name: idp_name
-          unified_roles:
-          - role_name: role_name
-            domain_name: domain_name
-            granted_at: 2000-01-23T04:56:07.000+00:00
-            grant_type: direct
-            granter: granter
-          - role_name: role_name
-            domain_name: domain_name
-            granted_at: 2000-01-23T04:56:07.000+00:00
-            grant_type: direct
-            granter: granter
-          account_name: account_name
-          created_at: 2000-01-23T04:56:07.000+00:00
-          source: source
-          password_last_updated: 2000-01-23T04:56:07.000+00:00
-          type: native
-          username: username
-      properties:
-        items:
-          items:
-            $ref: '#/components/schemas/User'
-          type: array
-        total_rows:
-          type: integer
       type: object
     User:
       description: "A username for authenticating with one or more types of credentials.\
@@ -21523,15 +20557,8 @@ components:
         unified_roles:
         - role_name: role_name
           domain_name: domain_name
-          granted_at: 2000-01-23T04:56:07.000+00:00
-          grant_type: direct
-          granter: granter
         - role_name: role_name
           domain_name: domain_name
-          granted_at: 2000-01-23T04:56:07.000+00:00
-          grant_type: direct
-          granter: granter
-        account_name: account_name
         created_at: 2000-01-23T04:56:07.000+00:00
         source: source
         password_last_updated: 2000-01-23T04:56:07.000+00:00
@@ -21540,9 +20567,6 @@ components:
       properties:
         username:
           description: The username to authenticate with
-          type: string
-        account_name:
-          description: The account name that this user is primary in
           type: string
         type:
           description: The user's type
@@ -21577,7 +20601,8 @@ components:
           nullable: true
           type: string
         unified_roles:
-          description: The unified list of RBAC roles this user currently has.
+          description: The unified list of RBAC roles this user currently has in this
+            account.
           items:
             $ref: '#/components/schemas/UnifiedRoles'
           type: array
@@ -21670,8 +20695,7 @@ components:
         name: name
         account_roles:
           items:
-          - domain_name: domain_name
-            for_account: for_account
+          - for_account: for_account
             roles:
             - role: role
               membership_id: membership_id
@@ -21679,8 +20703,7 @@ components:
             - role: role
               membership_id: membership_id
               created_at: 2000-01-23T04:56:07.000+00:00
-          - domain_name: domain_name
-            for_account: for_account
+          - for_account: for_account
             roles:
             - role: role
               membership_id: membership_id
@@ -21747,30 +20770,24 @@ components:
       type: array
     UserGroupRolePost:
       example:
-        domain_name: domain_name
         for_account: for_account
         roles:
         - role: role
         - role: role
       properties:
         for_account:
-          deprecated: true
-          description: Deprecated. Please use domain_name instead. The account
-          type: string
-        domain_name:
-          description: The domain scope for this role. This may be an account name
-            when the domain is an account.
+          description: The account
           type: string
         roles:
           items:
             $ref: '#/components/schemas/UserGroupRolePost_roles_inner'
           type: array
       required:
+      - for_account
       - roles
       type: object
     UserGroupRole:
       example:
-        domain_name: domain_name
         for_account: for_account
         roles:
         - role: role
@@ -21781,13 +20798,7 @@ components:
           created_at: 2000-01-23T04:56:07.000+00:00
       properties:
         for_account:
-          deprecated: true
-          description: Deprecated. Please use domain_name instead. The account for
-            this role
-          type: string
-        domain_name:
-          description: The domain scope for this role. This may be an account name
-            when the domain is an account.
+          description: The account for this role
           type: string
         roles:
           items:
@@ -21800,8 +20811,7 @@ components:
     UserGroupRoles:
       example:
         items:
-        - domain_name: domain_name
-          for_account: for_account
+        - for_account: for_account
           roles:
           - role: role
             membership_id: membership_id
@@ -21809,8 +20819,7 @@ components:
           - role: role
             membership_id: membership_id
             created_at: 2000-01-23T04:56:07.000+00:00
-        - domain_name: domain_name
-          for_account: for_account
+        - for_account: for_account
           roles:
           - role: role
             membership_id: membership_id
@@ -22116,30 +21125,6 @@ components:
         file:
           format: binary
           type: string
-      type: object
-    AccountK8sInventoryReportInfo_batches_inner:
-      example:
-        send_timestamp: 2024-06-26T14:02:45Z
-        batch_index: 1
-        error: Connection refused
-      properties:
-        batch_index:
-          description: Index of the batch
-          example: 1
-          minimum: 1
-          type: integer
-        send_timestamp:
-          description: Timestamp when the batch was sent
-          example: 2024-06-26T14:02:45Z
-          format: date-time
-          type: string
-        error:
-          description: Error message if the sending was unsuccessful
-          example: Connection refused
-          type: string
-      required:
-      - batch_index
-      - send_timestamp
       type: object
     AnalysisUpdateNotification_allOf:
       description: The Notification Object definition for Analysis Update Notifications

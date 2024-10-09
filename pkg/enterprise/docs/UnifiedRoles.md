@@ -6,9 +6,6 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **RoleName** | Pointer to **string** | The name of the RBAC Role | [optional] 
 **DomainName** | Pointer to **string** | The domain (or account) name that provides the scope of the role | [optional] 
-**Granter** | Pointer to **string** | The name of the user group that granted the role.  Will be null if the role was granted directly to the user. | [optional] 
-**GrantType** | Pointer to **string** | The type of grant that was made | [optional] 
-**GrantedAt** | Pointer to **time.Time** | The timestamp of when the role was granted | [optional] 
 
 ## Methods
 
@@ -78,81 +75,6 @@ SetDomainName sets DomainName field to given value.
 `func (o *UnifiedRoles) HasDomainName() bool`
 
 HasDomainName returns a boolean if a field has been set.
-
-### GetGranter
-
-`func (o *UnifiedRoles) GetGranter() string`
-
-GetGranter returns the Granter field if non-nil, zero value otherwise.
-
-### GetGranterOk
-
-`func (o *UnifiedRoles) GetGranterOk() (*string, bool)`
-
-GetGranterOk returns a tuple with the Granter field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetGranter
-
-`func (o *UnifiedRoles) SetGranter(v string)`
-
-SetGranter sets Granter field to given value.
-
-### HasGranter
-
-`func (o *UnifiedRoles) HasGranter() bool`
-
-HasGranter returns a boolean if a field has been set.
-
-### GetGrantType
-
-`func (o *UnifiedRoles) GetGrantType() string`
-
-GetGrantType returns the GrantType field if non-nil, zero value otherwise.
-
-### GetGrantTypeOk
-
-`func (o *UnifiedRoles) GetGrantTypeOk() (*string, bool)`
-
-GetGrantTypeOk returns a tuple with the GrantType field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetGrantType
-
-`func (o *UnifiedRoles) SetGrantType(v string)`
-
-SetGrantType sets GrantType field to given value.
-
-### HasGrantType
-
-`func (o *UnifiedRoles) HasGrantType() bool`
-
-HasGrantType returns a boolean if a field has been set.
-
-### GetGrantedAt
-
-`func (o *UnifiedRoles) GetGrantedAt() time.Time`
-
-GetGrantedAt returns the GrantedAt field if non-nil, zero value otherwise.
-
-### GetGrantedAtOk
-
-`func (o *UnifiedRoles) GetGrantedAtOk() (*time.Time, bool)`
-
-GetGrantedAtOk returns a tuple with the GrantedAt field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetGrantedAt
-
-`func (o *UnifiedRoles) SetGrantedAt(v time.Time)`
-
-SetGrantedAt sets GrantedAt field to given value.
-
-### HasGrantedAt
-
-`func (o *UnifiedRoles) HasGrantedAt() bool`
-
-HasGrantedAt returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

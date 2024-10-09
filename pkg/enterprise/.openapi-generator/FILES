@@ -14,7 +14,6 @@ api_events.go
 api_identity.go
 api_images.go
 api_imports.go
-api_integrations.go
 api_inventories.go
 api_notifications.go
 api_policies.go
@@ -36,8 +35,6 @@ docs/AccessCredential.md
 docs/Account.md
 docs/AccountCreationRequest.md
 docs/AccountInfo.md
-docs/AccountK8sInventoryReportInfo.md
-docs/AccountK8sInventoryReportInfoBatchesInner.md
 docs/AccountStatus.md
 docs/ActionPlan.md
 docs/ActionPlanResolution.md
@@ -142,8 +139,6 @@ docs/FilesContent.md
 docs/GateSpec.md
 docs/GenericNotificationPayload.md
 docs/GroupSyncResult.md
-docs/HealthData.md
-docs/HealthReport.md
 docs/IdentityApi.md
 docs/ImageAnalysisRequest.md
 docs/ImageAncestor.md
@@ -182,17 +177,6 @@ docs/ImportPackageRelationship.md
 docs/ImportSchema.md
 docs/ImportSource.md
 docs/ImportsApi.md
-docs/Integration.md
-docs/IntegrationAdditionalProperties.md
-docs/IntegrationHealthState.md
-docs/IntegrationLifecycleState.md
-docs/IntegrationListResponse.md
-docs/IntegrationRegister.md
-docs/IntegrationReportedStatus.md
-docs/IntegrationStatus.md
-docs/IntegrationSummary.md
-docs/IntegrationType.md
-docs/IntegrationsApi.md
 docs/InventoriesApi.md
 docs/InventoryItem.md
 docs/InventoryItems.md
@@ -403,7 +387,6 @@ docs/UserGroupUsers.md
 docs/UserGroupUsersPost.md
 docs/UserGroupUsersPostUsernamesInner.md
 docs/UserManagementApi.md
-docs/Users.md
 docs/VendorDataObject.md
 docs/VersionVulnerability.md
 docs/VersionVulnerabilityMatch.md
@@ -434,8 +417,6 @@ model_access_credential.go
 model_account.go
 model_account_creation_request.go
 model_account_info.go
-model_account_k8s_inventory_report_info.go
-model_account_k8s_inventory_report_info_batches_inner.go
 model_account_status.go
 model_action_plan.go
 model_action_plan_resolution.go
@@ -532,8 +513,6 @@ model_files_content.go
 model_gate_spec.go
 model_generic_notification_payload.go
 model_group_sync_result.go
-model_health_data.go
-model_health_report.go
 model_image_analysis_request.go
 model_image_ancestor.go
 model_image_artifact.go
@@ -569,16 +548,6 @@ model_import_package_location.go
 model_import_package_relationship.go
 model_import_schema.go
 model_import_source.go
-model_integration.go
-model_integration_additional_properties.go
-model_integration_health_state.go
-model_integration_lifecycle_state.go
-model_integration_list_response.go
-model_integration_register.go
-model_integration_reported_status.go
-model_integration_status.go
-model_integration_summary.go
-model_integration_type.go
 model_inventory_item.go
 model_inventory_items.go
 model_java_package_content.go
@@ -775,7 +744,6 @@ model_user_group_user.go
 model_user_group_users.go
 model_user_group_users_post.go
 model_user_group_users_post_usernames_inner.go
-model_users.go
 model_vendor_data_object.go
 model_version_vulnerability.go
 model_version_vulnerability_match.go

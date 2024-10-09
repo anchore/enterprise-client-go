@@ -24,14 +24,12 @@ Method | HTTP request | Description
 [**GetUserApiKey**](UserManagementApi.md#GetUserApiKey) | **Get** /accounts/{account_name}/users/{username}/api-keys/{key_name} | Get a user API key
 [**GetUserGroup**](UserManagementApi.md#GetUserGroup) | **Get** /system/user-groups/{group_uuid} | Get a user group
 [**ListAccounts**](UserManagementApi.md#ListAccounts) | **Get** /accounts | List account summaries. Only available to the system admin user.
-[**ListAllSystemUsers**](UserManagementApi.md#ListAllSystemUsers) | **Get** /accounts/users | List all system account users. Only available to &#x60;admin&#x60; users.
 [**ListUserApiKeys**](UserManagementApi.md#ListUserApiKeys) | **Get** /accounts/{account_name}/users/{username}/api-keys | Get a list of API keys
 [**ListUserCredentials**](UserManagementApi.md#ListUserCredentials) | **Get** /accounts/{account_name}/users/{username}/credentials | Get current credential summary
 [**ListUserGroupRoles**](UserManagementApi.md#ListUserGroupRoles) | **Get** /system/user-groups/{group_uuid}/roles | Get a list of all user group roles
 [**ListUserGroupUsers**](UserManagementApi.md#ListUserGroupUsers) | **Get** /system/user-groups/{group_uuid}/users | Get a list of user group users
 [**ListUserGroups**](UserManagementApi.md#ListUserGroups) | **Get** /system/user-groups | List user groups
-[**ListUsers**](UserManagementApi.md#ListUsers) | **Get** /accounts/{account_name}/users | List of users that are primary within this account. The response object will only contain roles for this account as well as any system roles.
-[**ListUsersWithRoles**](UserManagementApi.md#ListUsersWithRoles) | **Get** /accounts/{account_name}/users-with-roles | List of users who have rbac roles in this account.
+[**ListUsers**](UserManagementApi.md#ListUsers) | **Get** /accounts/{account_name}/users | List of users found in this account.
 [**PatchUserApiKey**](UserManagementApi.md#PatchUserApiKey) | **Patch** /accounts/{account_name}/users/{username}/api-keys/{key_name} | Patch a user API key
 [**RevokeOauthToken**](UserManagementApi.md#RevokeOauthToken) | **Post** /oauth/revoke | 
 [**UpdateAccount**](UserManagementApi.md#UpdateAccount) | **Put** /accounts/{account_name} | Update the info for this specific account.
@@ -60,7 +58,7 @@ import (
 
 func main() {
     groupUuid := "groupUuid_example" // string | 
-    userGroupRolePost := *openapiclient.NewUserGroupRolePost([]openapiclient.UserGroupRolePostRolesInner{*openapiclient.NewUserGroupRolePostRolesInner()}) // UserGroupRolePost | 
+    userGroupRolePost := *openapiclient.NewUserGroupRolePost("ForAccount_example", []openapiclient.UserGroupRolePostRolesInner{*openapiclient.NewUserGroupRolePostRolesInner()}) // UserGroupRolePost | 
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
@@ -1426,65 +1424,6 @@ No authorization required
 [[Back to README]](../README.md)
 
 
-## ListAllSystemUsers
-
-> Users ListAllSystemUsers(ctx).Execute()
-
-List all system account users. Only available to `admin` users.
-
-### Example
-
-```go
-package main
-
-import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
-)
-
-func main() {
-
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.UserManagementApi.ListAllSystemUsers(context.Background()).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `UserManagementApi.ListAllSystemUsers``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ListAllSystemUsers`: Users
-    fmt.Fprintf(os.Stdout, "Response from `UserManagementApi.ListAllSystemUsers`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-This endpoint does not need any parameter.
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiListAllSystemUsersRequest struct via the builder pattern
-
-
-### Return type
-
-[**Users**](Users.md)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
 ## ListUserApiKeys
 
 > ApiKeyList ListUserApiKeys(ctx, accountName, username).Execute()
@@ -1835,7 +1774,7 @@ No authorization required
 
 > []User ListUsers(ctx, accountName).Execute()
 
-List of users that are primary within this account. The response object will only contain roles for this account as well as any system roles.
+List of users found in this account.
 
 ### Example
 
@@ -1884,74 +1823,6 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**[]User**](User.md)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## ListUsersWithRoles
-
-> Users ListUsersWithRoles(ctx, accountName).Execute()
-
-List of users who have rbac roles in this account.
-
-### Example
-
-```go
-package main
-
-import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "./openapi"
-)
-
-func main() {
-    accountName := "accountName_example" // string | 
-
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.UserManagementApi.ListUsersWithRoles(context.Background(), accountName).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `UserManagementApi.ListUsersWithRoles``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ListUsersWithRoles`: Users
-    fmt.Fprintf(os.Stdout, "Response from `UserManagementApi.ListUsersWithRoles`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**accountName** | **string** |  | 
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiListUsersWithRolesRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-
-
-### Return type
-
-[**Users**](Users.md)
 
 ### Authorization
 

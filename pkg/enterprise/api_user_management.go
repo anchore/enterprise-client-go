@@ -3,7 +3,7 @@ Anchore API
 
 This is the Anchore API. Provides the external API for users of Anchore Enterprise.
 
-API version: 2.8.0
+API version: 2.7.2
 Contact: dev@anchore.com
 */
 
@@ -285,18 +285,6 @@ type UserManagementApi interface {
 	ListAccountsExecute(r ApiListAccountsRequest) ([]Account, *http.Response, error)
 
 	/*
-	ListAllSystemUsers List all system account users. Only available to `admin` users.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@return ApiListAllSystemUsersRequest
-	*/
-	ListAllSystemUsers(ctx context.Context) ApiListAllSystemUsersRequest
-
-	// ListAllSystemUsersExecute executes the request
-	//  @return Users
-	ListAllSystemUsersExecute(r ApiListAllSystemUsersRequest) (*Users, *http.Response, error)
-
-	/*
 	ListUserApiKeys Get a list of API keys
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
@@ -363,7 +351,7 @@ type UserManagementApi interface {
 	ListUserGroupsExecute(r ApiListUserGroupsRequest) ([]UserGroup, *http.Response, error)
 
 	/*
-	ListUsers List of users that are primary within this account. The response object will only contain roles for this account as well as any system roles.
+	ListUsers List of users found in this account.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param accountName
@@ -374,19 +362,6 @@ type UserManagementApi interface {
 	// ListUsersExecute executes the request
 	//  @return []User
 	ListUsersExecute(r ApiListUsersRequest) ([]User, *http.Response, error)
-
-	/*
-	ListUsersWithRoles List of users who have rbac roles in this account.
-
-	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param accountName
-	@return ApiListUsersWithRolesRequest
-	*/
-	ListUsersWithRoles(ctx context.Context, accountName string) ApiListUsersWithRolesRequest
-
-	// ListUsersWithRolesExecute executes the request
-	//  @return Users
-	ListUsersWithRolesExecute(r ApiListUsersWithRolesRequest) (*Users, *http.Response, error)
 
 	/*
 	PatchUserApiKey Patch a user API key
@@ -2811,112 +2786,6 @@ func (a *UserManagementApiService) ListAccountsExecute(r ApiListAccountsRequest)
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiListAllSystemUsersRequest struct {
-	ctx context.Context
-	ApiService UserManagementApi
-}
-
-func (r ApiListAllSystemUsersRequest) Execute() (*Users, *http.Response, error) {
-	return r.ApiService.ListAllSystemUsersExecute(r)
-}
-
-/*
-ListAllSystemUsers List all system account users. Only available to `admin` users.
-
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiListAllSystemUsersRequest
-*/
-func (a *UserManagementApiService) ListAllSystemUsers(ctx context.Context) ApiListAllSystemUsersRequest {
-	return ApiListAllSystemUsersRequest{
-		ApiService: a,
-		ctx: ctx,
-	}
-}
-
-// Execute executes the request
-//  @return Users
-func (a *UserManagementApiService) ListAllSystemUsersExecute(r ApiListAllSystemUsersRequest) (*Users, *http.Response, error) {
-	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *Users
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UserManagementApiService.ListAllSystemUsers")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/accounts/users"
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		if localVarHTTPResponse.StatusCode == 500 {
-			var v ApiErrorResponse
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-			newErr.model = v
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
 type ApiListUserApiKeysRequest struct {
 	ctx context.Context
 	ApiService UserManagementApi
@@ -3503,7 +3372,7 @@ func (r ApiListUsersRequest) Execute() ([]User, *http.Response, error) {
 }
 
 /*
-ListUsers List of users that are primary within this account. The response object will only contain roles for this account as well as any system roles.
+ListUsers List of users found in this account.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param accountName
@@ -3533,116 +3402,6 @@ func (a *UserManagementApiService) ListUsersExecute(r ApiListUsersRequest) ([]Us
 	}
 
 	localVarPath := localBasePath + "/accounts/{account_name}/users"
-	localVarPath = strings.Replace(localVarPath, "{"+"account_name"+"}", url.PathEscape(parameterToString(r.accountName, "")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		if localVarHTTPResponse.StatusCode == 500 {
-			var v ApiErrorResponse
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-			newErr.model = v
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type ApiListUsersWithRolesRequest struct {
-	ctx context.Context
-	ApiService UserManagementApi
-	accountName string
-}
-
-func (r ApiListUsersWithRolesRequest) Execute() (*Users, *http.Response, error) {
-	return r.ApiService.ListUsersWithRolesExecute(r)
-}
-
-/*
-ListUsersWithRoles List of users who have rbac roles in this account.
-
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param accountName
- @return ApiListUsersWithRolesRequest
-*/
-func (a *UserManagementApiService) ListUsersWithRoles(ctx context.Context, accountName string) ApiListUsersWithRolesRequest {
-	return ApiListUsersWithRolesRequest{
-		ApiService: a,
-		ctx: ctx,
-		accountName: accountName,
-	}
-}
-
-// Execute executes the request
-//  @return Users
-func (a *UserManagementApiService) ListUsersWithRolesExecute(r ApiListUsersWithRolesRequest) (*Users, *http.Response, error) {
-	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *Users
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UserManagementApiService.ListUsersWithRoles")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/accounts/{account_name}/users-with-roles"
 	localVarPath = strings.Replace(localVarPath, "{"+"account_name"+"}", url.PathEscape(parameterToString(r.accountName, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
