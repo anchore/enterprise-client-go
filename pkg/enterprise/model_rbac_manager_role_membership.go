@@ -3,7 +3,7 @@ Anchore API
 
 This is the Anchore API. Provides the external API for users of Anchore Enterprise.
 
-API version: 2.7.2
+API version: 2.8.0
 Contact: dev@anchore.com
 */
 
@@ -20,8 +20,11 @@ import (
 type RbacManagerRoleMembership struct {
 	// The name of the role the user has permissions for
 	Role *string `json:"role,omitempty"`
-	// The account for which the user has the role permission
+	// Deprecated. Please use domain_name instead. The account for which the user has the role permission
+	// Deprecated
 	ForAccount *string `json:"for_account,omitempty"`
+	// The domain scope that applies for this roles. This will be the account name if the domain scope is an account.
+	DomainName *string `json:"domain_name,omitempty"`
 	CreatedAt *time.Time `json:"created_at,omitempty"`
 }
 
@@ -75,6 +78,7 @@ func (o *RbacManagerRoleMembership) SetRole(v string) {
 }
 
 // GetForAccount returns the ForAccount field value if set, zero value otherwise.
+// Deprecated
 func (o *RbacManagerRoleMembership) GetForAccount() string {
 	if o == nil || o.ForAccount == nil {
 		var ret string
@@ -85,6 +89,7 @@ func (o *RbacManagerRoleMembership) GetForAccount() string {
 
 // GetForAccountOk returns a tuple with the ForAccount field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// Deprecated
 func (o *RbacManagerRoleMembership) GetForAccountOk() (*string, bool) {
 	if o == nil || o.ForAccount == nil {
 		return nil, false
@@ -102,8 +107,41 @@ func (o *RbacManagerRoleMembership) HasForAccount() bool {
 }
 
 // SetForAccount gets a reference to the given string and assigns it to the ForAccount field.
+// Deprecated
 func (o *RbacManagerRoleMembership) SetForAccount(v string) {
 	o.ForAccount = &v
+}
+
+// GetDomainName returns the DomainName field value if set, zero value otherwise.
+func (o *RbacManagerRoleMembership) GetDomainName() string {
+	if o == nil || o.DomainName == nil {
+		var ret string
+		return ret
+	}
+	return *o.DomainName
+}
+
+// GetDomainNameOk returns a tuple with the DomainName field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *RbacManagerRoleMembership) GetDomainNameOk() (*string, bool) {
+	if o == nil || o.DomainName == nil {
+		return nil, false
+	}
+	return o.DomainName, true
+}
+
+// HasDomainName returns a boolean if a field has been set.
+func (o *RbacManagerRoleMembership) HasDomainName() bool {
+	if o != nil && o.DomainName != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetDomainName gets a reference to the given string and assigns it to the DomainName field.
+func (o *RbacManagerRoleMembership) SetDomainName(v string) {
+	o.DomainName = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
@@ -145,6 +183,9 @@ func (o RbacManagerRoleMembership) MarshalJSON() ([]byte, error) {
 	}
 	if o.ForAccount != nil {
 		toSerialize["for_account"] = o.ForAccount
+	}
+	if o.DomainName != nil {
+		toSerialize["domain_name"] = o.DomainName
 	}
 	if o.CreatedAt != nil {
 		toSerialize["created_at"] = o.CreatedAt

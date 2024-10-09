@@ -3,7 +3,7 @@ Anchore API
 
 This is the Anchore API. Provides the external API for users of Anchore Enterprise.
 
-API version: 2.7.2
+API version: 2.8.0
 Contact: dev@anchore.com
 */
 
@@ -20,6 +20,8 @@ import (
 type User struct {
 	// The username to authenticate with
 	Username string `json:"username"`
+	// The account name that this user is primary in
+	AccountName *string `json:"account_name,omitempty"`
 	// The user's type
 	Type *string `json:"type,omitempty"`
 	// When the user 'type' is 'saml', this will be the EntityId of the IDP that they are authenticating from. Otherwise, this will be set to null.
@@ -32,7 +34,7 @@ type User struct {
 	IdpName NullableString `json:"idp_name,omitempty"`
 	// When the user 'type' is 'native', this will be the timestamp of the last time this user's credentials were updated.
 	PasswordLastUpdated NullableTime `json:"password_last_updated,omitempty"`
-	// The unified list of RBAC roles this user currently has in this account.
+	// The unified list of RBAC roles this user currently has.
 	UnifiedRoles []UnifiedRoles `json:"unified_roles,omitempty"`
 }
 
@@ -76,6 +78,38 @@ func (o *User) GetUsernameOk() (*string, bool) {
 // SetUsername sets field value
 func (o *User) SetUsername(v string) {
 	o.Username = v
+}
+
+// GetAccountName returns the AccountName field value if set, zero value otherwise.
+func (o *User) GetAccountName() string {
+	if o == nil || o.AccountName == nil {
+		var ret string
+		return ret
+	}
+	return *o.AccountName
+}
+
+// GetAccountNameOk returns a tuple with the AccountName field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *User) GetAccountNameOk() (*string, bool) {
+	if o == nil || o.AccountName == nil {
+		return nil, false
+	}
+	return o.AccountName, true
+}
+
+// HasAccountName returns a boolean if a field has been set.
+func (o *User) HasAccountName() bool {
+	if o != nil && o.AccountName != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetAccountName gets a reference to the given string and assigns it to the AccountName field.
+func (o *User) SetAccountName(v string) {
+	o.AccountName = &v
 }
 
 // GetType returns the Type field value if set, zero value otherwise.
@@ -336,6 +370,9 @@ func (o User) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
 		toSerialize["username"] = o.Username
+	}
+	if o.AccountName != nil {
+		toSerialize["account_name"] = o.AccountName
 	}
 	if o.Type != nil {
 		toSerialize["type"] = o.Type

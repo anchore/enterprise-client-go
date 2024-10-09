@@ -3,7 +3,7 @@ Anchore API
 
 This is the Anchore API. Provides the external API for users of Anchore Enterprise.
 
-API version: 2.7.2
+API version: 2.8.0
 Contact: dev@anchore.com
 */
 
@@ -14,126 +14,71 @@ package enterprise
 import (
 	"encoding/json"
 	"time"
+	"fmt"
 )
 
-// RbacManagerRoleMember A mapping between a username and a role with an account context
+// RbacManagerRoleMember - A mapping between a username and a role within a domain
 type RbacManagerRoleMember struct {
-	Username string `json:"username"`
-	ForAccount string `json:"for_account"`
-	CreatedAt *time.Time `json:"created_at,omitempty"`
+	Interface{} *interface{}
 }
 
-// NewRbacManagerRoleMember instantiates a new RbacManagerRoleMember object
-// This constructor will assign default values to properties that have it defined,
-// and makes sure properties required by API are set, but the set of arguments
-// will change when the set of required properties is changed
-func NewRbacManagerRoleMember(username string, forAccount string) *RbacManagerRoleMember {
-	this := RbacManagerRoleMember{}
-	this.Username = username
-	this.ForAccount = forAccount
-	return &this
+// interface{}AsRbacManagerRoleMember is a convenience function that returns interface{} wrapped in RbacManagerRoleMember
+func Interface{}AsRbacManagerRoleMember(v *interface{}) RbacManagerRoleMember {
+	return RbacManagerRoleMember{
+		Interface{}: v,
+	}
 }
 
-// NewRbacManagerRoleMemberWithDefaults instantiates a new RbacManagerRoleMember object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set
-func NewRbacManagerRoleMemberWithDefaults() *RbacManagerRoleMember {
-	this := RbacManagerRoleMember{}
-	return &this
-}
 
-// GetUsername returns the Username field value
-func (o *RbacManagerRoleMember) GetUsername() string {
-	if o == nil {
-		var ret string
-		return ret
+// Unmarshal JSON data into one of the pointers in the struct
+func (dst *RbacManagerRoleMember) UnmarshalJSON(data []byte) error {
+	var err error
+	match := 0
+	// try to unmarshal data into Interface{}
+	err = newStrictDecoder(data).Decode(&dst.Interface{})
+	if err == nil {
+		jsonInterface{}, _ := json.Marshal(dst.Interface{})
+		if string(jsonInterface{}) == "{}" { // empty struct
+			dst.Interface{} = nil
+		} else {
+			match++
+		}
+	} else {
+		dst.Interface{} = nil
 	}
 
-	return o.Username
-}
+	if match > 1 { // more than 1 match
+		// reset to nil
+		dst.Interface{} = nil
 
-// GetUsernameOk returns a tuple with the Username field value
-// and a boolean to check if the value has been set.
-func (o *RbacManagerRoleMember) GetUsernameOk() (*string, bool) {
-	if o == nil {
-		return nil, false
+		return fmt.Errorf("Data matches more than one schema in oneOf(RbacManagerRoleMember)")
+	} else if match == 1 {
+		return nil // exactly one match
+	} else { // no match
+		return fmt.Errorf("Data failed to match schemas in oneOf(RbacManagerRoleMember)")
 	}
-	return &o.Username, true
 }
 
-// SetUsername sets field value
-func (o *RbacManagerRoleMember) SetUsername(v string) {
-	o.Username = v
-}
-
-// GetForAccount returns the ForAccount field value
-func (o *RbacManagerRoleMember) GetForAccount() string {
-	if o == nil {
-		var ret string
-		return ret
+// Marshal data from the first non-nil pointers in the struct to JSON
+func (src RbacManagerRoleMember) MarshalJSON() ([]byte, error) {
+	if src.Interface{} != nil {
+		return json.Marshal(&src.Interface{})
 	}
 
-	return o.ForAccount
+	return nil, nil // no data in oneOf schemas
 }
 
-// GetForAccountOk returns a tuple with the ForAccount field value
-// and a boolean to check if the value has been set.
-func (o *RbacManagerRoleMember) GetForAccountOk() (*string, bool) {
-	if o == nil {
-		return nil, false
+// Get the actual instance
+func (obj *RbacManagerRoleMember) GetActualInstance() (interface{}) {
+	if obj == nil {
+		return nil
 	}
-	return &o.ForAccount, true
-}
-
-// SetForAccount sets field value
-func (o *RbacManagerRoleMember) SetForAccount(v string) {
-	o.ForAccount = v
-}
-
-// GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
-func (o *RbacManagerRoleMember) GetCreatedAt() time.Time {
-	if o == nil || o.CreatedAt == nil {
-		var ret time.Time
-		return ret
-	}
-	return *o.CreatedAt
-}
-
-// GetCreatedAtOk returns a tuple with the CreatedAt field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *RbacManagerRoleMember) GetCreatedAtOk() (*time.Time, bool) {
-	if o == nil || o.CreatedAt == nil {
-		return nil, false
-	}
-	return o.CreatedAt, true
-}
-
-// HasCreatedAt returns a boolean if a field has been set.
-func (o *RbacManagerRoleMember) HasCreatedAt() bool {
-	if o != nil && o.CreatedAt != nil {
-		return true
+	if obj.Interface{} != nil {
+		return obj.Interface{}
 	}
 
-	return false
-}
-
-// SetCreatedAt gets a reference to the given time.Time and assigns it to the CreatedAt field.
-func (o *RbacManagerRoleMember) SetCreatedAt(v time.Time) {
-	o.CreatedAt = &v
-}
-
-func (o RbacManagerRoleMember) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["username"] = o.Username
-	}
-	if true {
-		toSerialize["for_account"] = o.ForAccount
-	}
-	if o.CreatedAt != nil {
-		toSerialize["created_at"] = o.CreatedAt
-	}
-	return json.Marshal(toSerialize)
+	// all schemas are nil
+	return nil
 }
 
 type NullableRbacManagerRoleMember struct {

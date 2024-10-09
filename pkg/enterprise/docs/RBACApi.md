@@ -182,7 +182,7 @@ import (
 
 func main() {
     roleName := "roleName_example" // string | 
-    member := *openapiclient.NewRbacManagerRoleMember("Username_example", "ForAccount_example") // RbacManagerRoleMember | 
+    member := openapiclient.RbacManagerRoleMember{Interface{}: new(interface{})} // RbacManagerRoleMember | 
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
@@ -372,7 +372,7 @@ No authorization required
 
 ## DeleteRoleUser
 
-> DeleteRoleUser(ctx, roleName).Username(username).ForAccount(forAccount).Execute()
+> DeleteRoleUser(ctx, roleName).Username(username).ForAccount(forAccount).DomainName(domainName).Execute()
 
 Remove a user from the role
 
@@ -391,11 +391,12 @@ import (
 func main() {
     roleName := "roleName_example" // string | 
     username := "username_example" // string | The username to remove the role for
-    forAccount := "forAccount_example" // string | The account that the user has the role to be removed
+    forAccount := "forAccount_example" // string | Deprecated.  Please use domain_name instead.  The account that the user has the role to be removed (optional)
+    domainName := "domainName_example" // string | The domain that the user should have the role removed from.  This may be an account name when the domain is an account. (optional)
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.RBACApi.DeleteRoleUser(context.Background(), roleName).Username(username).ForAccount(forAccount).Execute()
+    resp, r, err := apiClient.RBACApi.DeleteRoleUser(context.Background(), roleName).Username(username).ForAccount(forAccount).DomainName(domainName).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `RBACApi.DeleteRoleUser``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -420,7 +421,8 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
  **username** | **string** | The username to remove the role for | 
- **forAccount** | **string** | The account that the user has the role to be removed | 
+ **forAccount** | **string** | Deprecated.  Please use domain_name instead.  The account that the user has the role to be removed | 
+ **domainName** | **string** | The domain that the user should have the role removed from.  This may be an account name when the domain is an account. | 
 
 ### Return type
 
@@ -711,7 +713,7 @@ No authorization required
 
 ## ListRoleMembers
 
-> []RbacManagerRoleMember ListRoleMembers(ctx, roleName).ForAccount(forAccount).Execute()
+> []RbacManagerRoleMember ListRoleMembers(ctx, roleName).ForAccount(forAccount).DomainName(domainName).Execute()
 
 Returns a list of objects that have members in the role. The list is filtered by 'listRoleMembers' access for the 'account' element of each entry.
 
@@ -729,11 +731,12 @@ import (
 
 func main() {
     roleName := "roleName_example" // string | 
-    forAccount := "forAccount_example" // string | Optional filter parameter to limit the set fo returned items to only those with matching account. Will return Access Denied if caller does not have permission to listRoleMembers for that account. (optional)
+    forAccount := "forAccount_example" // string | Deprecated.  Please use domain_name instead. Optional filter parameter to limit the set fo returned items to only those with matching account. Will return Access Denied if caller does not have permission to listRoleMembers for that account. (optional)
+    domainName := "domainName_example" // string | Optional filter parameter to limit the set of returned items to only those that match the specified domain. Will return Access Denied if caller does not have permission to listRoleMembers for that domain. (optional)
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.RBACApi.ListRoleMembers(context.Background(), roleName).ForAccount(forAccount).Execute()
+    resp, r, err := apiClient.RBACApi.ListRoleMembers(context.Background(), roleName).ForAccount(forAccount).DomainName(domainName).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `RBACApi.ListRoleMembers``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -759,7 +762,8 @@ Other parameters are passed through a pointer to a apiListRoleMembersRequest str
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **forAccount** | **string** | Optional filter parameter to limit the set fo returned items to only those with matching account. Will return Access Denied if caller does not have permission to listRoleMembers for that account. | 
+ **forAccount** | **string** | Deprecated.  Please use domain_name instead. Optional filter parameter to limit the set fo returned items to only those with matching account. Will return Access Denied if caller does not have permission to listRoleMembers for that account. | 
+ **domainName** | **string** | Optional filter parameter to limit the set of returned items to only those that match the specified domain. Will return Access Denied if caller does not have permission to listRoleMembers for that domain. | 
 
 ### Return type
 
@@ -840,7 +844,7 @@ No authorization required
 
 ## ListUserRoles
 
-> []RbacManagerRoleMembership ListUserRoles(ctx, username).ForAccount(forAccount).Role(role).Execute()
+> []RbacManagerRoleMembership ListUserRoles(ctx, username).ForAccount(forAccount).DomainName(domainName).Role(role).Execute()
 
 List the roles for which the requested user is a member
 
@@ -858,12 +862,13 @@ import (
 
 func main() {
     username := "username_example" // string | 
-    forAccount := "forAccount_example" // string |  (optional)
+    forAccount := "forAccount_example" // string | Deprecated.  Please use domain_name instead. Optional filter parameter to limit the set of returned items to only those with matching account. (optional)
+    domainName := "domainName_example" // string | Optional filter parameter to limit the set of returned items to only those that match the specified domain.  This may be an account name when the domain is an account. (optional)
     role := "role_example" // string |  (optional)
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.RBACApi.ListUserRoles(context.Background(), username).ForAccount(forAccount).Role(role).Execute()
+    resp, r, err := apiClient.RBACApi.ListUserRoles(context.Background(), username).ForAccount(forAccount).DomainName(domainName).Role(role).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `RBACApi.ListUserRoles``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -889,7 +894,8 @@ Other parameters are passed through a pointer to a apiListUserRolesRequest struc
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **forAccount** | **string** |  | 
+ **forAccount** | **string** | Deprecated.  Please use domain_name instead. Optional filter parameter to limit the set of returned items to only those with matching account. | 
+ **domainName** | **string** | Optional filter parameter to limit the set of returned items to only those that match the specified domain.  This may be an account name when the domain is an account. | 
  **role** | **string** |  | 
 
 ### Return type

@@ -3,7 +3,7 @@ Anchore API
 
 This is the Anchore API. Provides the external API for users of Anchore Enterprise.
 
-API version: 2.7.2
+API version: 2.8.0
 Contact: dev@anchore.com
 */
 
@@ -17,8 +17,11 @@ import (
 
 // UserGroupRolePost struct for UserGroupRolePost
 type UserGroupRolePost struct {
-	// The account
-	ForAccount string `json:"for_account"`
+	// Deprecated. Please use domain_name instead. The account
+	// Deprecated
+	ForAccount *string `json:"for_account,omitempty"`
+	// The domain scope for this role. This may be an account name when the domain is an account.
+	DomainName *string `json:"domain_name,omitempty"`
 	Roles []UserGroupRolePostRolesInner `json:"roles"`
 }
 
@@ -26,9 +29,8 @@ type UserGroupRolePost struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewUserGroupRolePost(forAccount string, roles []UserGroupRolePostRolesInner) *UserGroupRolePost {
+func NewUserGroupRolePost(roles []UserGroupRolePostRolesInner) *UserGroupRolePost {
 	this := UserGroupRolePost{}
-	this.ForAccount = forAccount
 	this.Roles = roles
 	return &this
 }
@@ -41,28 +43,71 @@ func NewUserGroupRolePostWithDefaults() *UserGroupRolePost {
 	return &this
 }
 
-// GetForAccount returns the ForAccount field value
+// GetForAccount returns the ForAccount field value if set, zero value otherwise.
+// Deprecated
 func (o *UserGroupRolePost) GetForAccount() string {
-	if o == nil {
+	if o == nil || o.ForAccount == nil {
 		var ret string
 		return ret
 	}
-
-	return o.ForAccount
+	return *o.ForAccount
 }
 
-// GetForAccountOk returns a tuple with the ForAccount field value
+// GetForAccountOk returns a tuple with the ForAccount field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// Deprecated
 func (o *UserGroupRolePost) GetForAccountOk() (*string, bool) {
-	if o == nil {
+	if o == nil || o.ForAccount == nil {
 		return nil, false
 	}
-	return &o.ForAccount, true
+	return o.ForAccount, true
 }
 
-// SetForAccount sets field value
+// HasForAccount returns a boolean if a field has been set.
+func (o *UserGroupRolePost) HasForAccount() bool {
+	if o != nil && o.ForAccount != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetForAccount gets a reference to the given string and assigns it to the ForAccount field.
+// Deprecated
 func (o *UserGroupRolePost) SetForAccount(v string) {
-	o.ForAccount = v
+	o.ForAccount = &v
+}
+
+// GetDomainName returns the DomainName field value if set, zero value otherwise.
+func (o *UserGroupRolePost) GetDomainName() string {
+	if o == nil || o.DomainName == nil {
+		var ret string
+		return ret
+	}
+	return *o.DomainName
+}
+
+// GetDomainNameOk returns a tuple with the DomainName field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *UserGroupRolePost) GetDomainNameOk() (*string, bool) {
+	if o == nil || o.DomainName == nil {
+		return nil, false
+	}
+	return o.DomainName, true
+}
+
+// HasDomainName returns a boolean if a field has been set.
+func (o *UserGroupRolePost) HasDomainName() bool {
+	if o != nil && o.DomainName != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetDomainName gets a reference to the given string and assigns it to the DomainName field.
+func (o *UserGroupRolePost) SetDomainName(v string) {
+	o.DomainName = &v
 }
 
 // GetRoles returns the Roles field value
@@ -91,8 +136,11 @@ func (o *UserGroupRolePost) SetRoles(v []UserGroupRolePostRolesInner) {
 
 func (o UserGroupRolePost) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
-	if true {
+	if o.ForAccount != nil {
 		toSerialize["for_account"] = o.ForAccount
+	}
+	if o.DomainName != nil {
+		toSerialize["domain_name"] = o.DomainName
 	}
 	if true {
 		toSerialize["roles"] = o.Roles
