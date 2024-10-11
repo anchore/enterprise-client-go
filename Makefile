@@ -72,6 +72,7 @@ generate-clients: $(ENTERPRISE_OPENAPI_DOC) ## generate client code for anchore 
 .PHONY :=
 clean: ## remove all swagger documents and generated client code
 	rm -rf $(PROJECT_ROOT)
+	rm -rf $(CLONE_DIR)
 
 .PHONY :=
 help:
