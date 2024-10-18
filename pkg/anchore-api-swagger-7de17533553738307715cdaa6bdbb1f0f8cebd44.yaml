@@ -8,7 +8,7 @@ info:
   license:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
-  version: 2.7.2
+  version: 2.8.0
 servers:
 - url: /v2
 tags:
@@ -8158,7 +8158,7 @@ paths:
           description: Internal Error
           content: {}
       x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.sources
-      x-anchore-authz-action: getSource
+      x-anchore-authz-action: deleteSource
   /status:
     get:
       tags:
@@ -9023,8 +9023,7 @@ paths:
           example: 84993c1f-863f-41f3-9bd8-dfcc821b1c8a
           in: path
           schema:
-            type: string
-            format: uuid
+            $ref: '#/components/schemas/UUID'
           required: true
       requestBody:
         content:
@@ -9035,6 +9034,9 @@ paths:
       responses:
         201:
           description: Health report accepted. Empty response.
+          content: { }
+        400:
+          description: Bad Request
           content: { }
         404:
           description: Not found
@@ -9062,9 +9064,14 @@ paths:
           example: 84993c1f-863f-41f3-9bd8-dfcc821b1c8a
           in: path
           schema:
-            type: string
-            format: uuid
+            $ref: '#/components/schemas/UUID'
           required: true
+        - name: x-anchore-account
+          in: header
+          description: An account name to change the resource scope of the request to
+            that account, if permissions allow (admin only)
+          schema:
+            type: string
       responses:
         200:
           description: Get integration response
@@ -9072,6 +9079,9 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Integration'
+        400:
+          description: Bad Request
+          content: { }
         404:
           description: Not found
           content: { }
@@ -9094,8 +9104,7 @@ paths:
           example: 84993c1f-863f-41f3-9bd8-dfcc821b1c8a
           in: path
           schema:
-            type: string
-            format: uuid
+            $ref: '#/components/schemas/UUID'
           required: true
         - name: force
           description: Force deletion of the integration instance regardless of its state
@@ -9106,6 +9115,9 @@ paths:
       responses:
         204:
           description: Successfully deleted
+          content: { }
+        400:
+          description: Bad Request
           content: { }
         404:
           description: Not found
@@ -9169,8 +9181,14 @@ paths:
       x-anchore-authz-action: listIntegrations
       x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.system
       parameters:
+        - name: x-anchore-account
+          in: header
+          description: An account name to change the resource scope of the request to
+              that account, if permissions allow (admin only)
+          schema:
+            type: string
         - name: only_degraded
-          description: If true, limit listing to unhealthy or deactivated integrations
+          description: If true, limit listing to unhealthy or inactive integrations
           example: true
           in: query
           schema:
@@ -9236,6 +9254,21 @@ paths:
                 $ref: '#/components/schemas/GateSpecList'
       x-anchore-authz-action: None
       x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.system
+  /system/resource-limits:
+    get:
+      tags:
+        - System
+      summary: Get resource limits
+      operationId: get_resource_limits
+      responses:
+        200:
+          description: Resource limits
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SystemResourceLimitsList"
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.system
+      x-anchore-authz-action: getResourceLimits
   /system/services:
     get:
       tags:
@@ -9349,6 +9382,182 @@ paths:
                 $ref: '#/components/schemas/ApiErrorResponse'
       x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.system
       x-anchore-authz-action: getService
+  /system/configurations/schema:
+    get:
+      tags:
+        - System Configuration
+      summary: Get the system configuration schema
+      description: A full schema definition for the configuration
+      operationId: get_configuration_schema
+      responses:
+        200:
+          description: The configuration schema
+          content:
+            application/json:
+              schema:
+                type: object
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.configuration
+      x-anchore-authz-action: getSystemConfig
+  /system/configurations:
+    get:
+      tags:
+        - System Configuration
+      summary: List all API exposed configurations and their values
+      description: List all API exposed configurations and their values
+      operationId: list_configurations
+      responses:
+        200:
+          description: The configuration schema
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SystemConfigurationList'
+        403:
+          description: Not permitted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.configuration
+      x-anchore-authz-action: getSystemConfig
+    patch:
+      tags:
+        - System Configuration
+      summary: Apply a patch to the system configuration
+      description: Enables the user to update more than one configuration key at a time with partials
+        Note; this operation is atomic so if any key fails validation none will be set.
+      operationId: patch_configuration
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SystemConfigurationPatch'
+      responses:
+        200:
+          description: The list of impacted keys
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SystemConfigurationList'
+        400:
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        403:
+          description: Not permitted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.configuration
+      x-anchore-authz-action: updateSystemConfig
+  /system/configurations/{config_key}:
+    get:
+      tags:
+        - System Configuration
+      summary: Get an individual configuration
+      description: The value of a single configuration key
+      operationId: get_configuration
+      parameters:
+        - name: config_key
+          in: path
+          required: true
+          schema:
+            type: string
+            format: path
+      responses:
+        200:
+          description: The configuration
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SystemConfiguration'
+        403:
+          description: Not permitted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        404:
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.configuration
+      x-anchore-authz-action: getSystemConfig
+    put:
+      tags:
+        - System Configuration
+      summary: Put a single configuration value
+      description: Update the value of a single configuration key
+      operationId: put_configuration
+      parameters:
+        - name: config_key
+          in: path
+          required: true
+          schema:
+            type: string
+            format: path
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SystemConfigurationPut'
+      responses:
+        200:
+          description: The configuration schema
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SystemConfiguration'
+        400:
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        403:
+          description: Not permitted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.configuration
+      x-anchore-authz-action: updateSystemConfig
+    delete:
+      tags:
+        - System Configuration
+      summary: Unset a configuration key
+      description: Unset a configuration key - this will return it to the system default
+      operationId: delete_configuration
+      parameters:
+        - name: config_key
+          in: path
+          required: true
+          schema:
+            type: string
+            format: path
+      responses:
+        204:
+          description: Success
+          content: { }
+        403:
+          description: Not permitted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        404:
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.configuration
+      x-anchore-authz-action: unsetSystemConfig
   /system/statistics:
     get:
       tags:
@@ -12613,7 +12822,7 @@ components:
         - healthy
         - unhealthy
       description: >
-         Health state of the integration instance
+         Health state reported by the client integration.
         
          * healthy: All good. No errors.
         
@@ -12624,7 +12833,7 @@ components:
       enum:
         - active
         - registered
-        - deactivated
+        - inactive
       description: >
         Life cycle state of the integration instance
         
@@ -12632,7 +12841,7 @@ components:
         
         * registered - Integration has registered. Not yet sending health reports.
         
-        * deactivated - Integration does not seem to be alive.
+        * inactive - Integration has missed its last three health check-ins.
       example: active
     IntegrationStatus:
       type: object
@@ -15957,6 +16166,183 @@ components:
           description: Toggle the subscription processing on or off
       description: A modification to a subscription entry to change its status or
         value
+    SystemResourceLimit:
+      type: object
+      properties:
+        name:
+          type: string
+          description: The resource being limited
+          enum:
+            - sbom_inventory
+            - report_inventory
+            - report_execution_inventory
+            - account_inventory
+            - user_inventory
+        warning_value:
+          type: integer
+          nullable: true
+          description: The value at which a warning will be generated
+        limit_value:
+          type: integer
+          nullable: true
+          description: The value at which a limit will be enforced
+        current_value:
+          type: integer
+          description: The current value of the resource
+        limit_exceeded:
+          type: boolean
+          description: Whether the limit has been exceeded and is being enforced
+    SystemResourceLimitsList:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: "#/components/schemas/SystemResourceLimit"
+    SystemConfigurationSchema:
+      type: object
+      properties:
+        allow_inf_nan:
+          type: boolean
+          nullable: true
+        decimal_places:
+          type: integer
+          nullable: true
+        default:
+          type: string
+        enum:
+          type: array
+          nullable: true
+          items:
+            type: string
+        ge:
+          type: number
+          nullable: true
+        gt:
+          type: number
+          nullable: true
+        le:
+          type: number
+          nullable: true
+        lt:
+          type: number
+          nullable: true
+        max_digits:
+          type: integer
+          nullable: true
+        max_items:
+          type: integer
+          nullable: true
+        max_length:
+          type: integer
+          nullable: true
+        min_items:
+          type: integer
+          nullable: true
+        min_length:
+          type: integer
+          nullable: true
+        multiple_of:
+          type: number
+          nullable: true
+        regex:
+          type: string
+          nullable: true
+        unique_items:
+          type: boolean
+          nullable: true
+    SystemConfiguration:
+      type: object
+      required:
+        - key
+        - value
+      properties:
+        uuid:
+          type: string
+          readOnly: true
+        key:
+          type: string
+        value:
+          oneOf:
+          - type: string
+          - type: number
+          - type: boolean
+          - type: array
+            items:
+              type: any
+        requires_system_restart:
+          type: boolean
+        category:
+          type: string
+        config_schema:
+          $ref: '#/components/schemas/SystemConfigurationSchema'
+        title:
+          type: string
+        description:
+          type: string
+        default_value:
+          type: string
+        source:
+          type: string
+        is_editable:
+          type: boolean
+        editable_reason:
+          type: string
+        is_secret:
+          type: boolean
+        is_deprecated:
+          type: boolean
+        deprecated_reason:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+    SystemConfigurationPatch:
+      type: array
+      items:
+        type: object
+        required:
+          - key
+          - value
+        properties:
+          key:
+            type: string
+          value:
+            oneOf:
+            - type: string
+            - type: number
+            - type: boolean
+            - type: array
+              items:
+                type: any
+    SystemConfigurationPut:
+      type: object
+      required:
+        - key
+        - value
+      properties:
+        key:
+          type: string
+        value:
+          oneOf:
+          - type: string
+          - type: number
+          - type: boolean
+          - type: array
+            items:
+              type: any
+    SystemConfigurationList:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/SystemConfiguration'
     SystemStatistics:
       type: object
       properties:
@@ -15982,6 +16368,7 @@ components:
             - ecs_image_creation
             - account_creation
             - user_creation
+            - account_creation
             - policy_inventory
             - kubernetes_namespace_inventory
             - kubernetes_node_inventory
@@ -15994,7 +16381,9 @@ components:
             - ecs_task_inventory
             - account_inventory
             - user_inventory
+            - account_inventory
             - report_execution_inventory
+            - report_inventory
         description:
           type: string
         value_type:

@@ -82,7 +82,7 @@ No authorization required
 
 ## GetIntegrationById
 
-> Integration GetIntegrationById(ctx, integrationUuid).Execute()
+> Integration GetIntegrationById(ctx, integrationUuid).XAnchoreAccount(xAnchoreAccount).Execute()
 
 Get information about an integration instance
 
@@ -100,10 +100,11 @@ import (
 
 func main() {
 	integrationUuid := "84993c1f-863f-41f3-9bd8-dfcc821b1c8a" // string | The integration instance's universally unique identifier
+	xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.IntegrationsAPI.GetIntegrationById(context.Background(), integrationUuid).Execute()
+	resp, r, err := apiClient.IntegrationsAPI.GetIntegrationById(context.Background(), integrationUuid).XAnchoreAccount(xAnchoreAccount).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `IntegrationsAPI.GetIntegrationById``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -129,6 +130,7 @@ Other parameters are passed through a pointer to a apiGetIntegrationByIdRequest 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
+ **xAnchoreAccount** | **string** | An account name to change the resource scope of the request to that account, if permissions allow (admin only) | 
 
 ### Return type
 
@@ -221,7 +223,7 @@ No authorization required
 
 ## ListIntegrations
 
-> IntegrationListResponse ListIntegrations(ctx).OnlyDegraded(onlyDegraded).Execute()
+> IntegrationListResponse ListIntegrations(ctx).XAnchoreAccount(xAnchoreAccount).OnlyDegraded(onlyDegraded).Execute()
 
 List known integration instances
 
@@ -240,11 +242,12 @@ import (
 )
 
 func main() {
-	onlyDegraded := true // bool | If true, limit listing to unhealthy or deactivated integrations (optional) (default to false)
+	xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
+	onlyDegraded := true // bool | If true, limit listing to unhealthy or inactive integrations (optional) (default to false)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.IntegrationsAPI.ListIntegrations(context.Background()).OnlyDegraded(onlyDegraded).Execute()
+	resp, r, err := apiClient.IntegrationsAPI.ListIntegrations(context.Background()).XAnchoreAccount(xAnchoreAccount).OnlyDegraded(onlyDegraded).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `IntegrationsAPI.ListIntegrations``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -265,7 +268,8 @@ Other parameters are passed through a pointer to a apiListIntegrationsRequest st
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **onlyDegraded** | **bool** | If true, limit listing to unhealthy or deactivated integrations | [default to false]
+ **xAnchoreAccount** | **string** | An account name to change the resource scope of the request to that account, if permissions allow (admin only) | 
+ **onlyDegraded** | **bool** | If true, limit listing to unhealthy or inactive integrations | [default to false]
 
 ### Return type
 
