@@ -294,7 +294,7 @@ import (
 )
 
 func main() {
-	systemConfigurationPatchInner := []openapiclient.SystemConfigurationPatchInner{*openapiclient.NewSystemConfigurationPatchInner("Key_example", openapiclient.SystemConfiguration_value{ArrayOfAny: new([]Any)})} // []SystemConfigurationPatchInner |  (optional)
+	systemConfigurationPatchInner := []openapiclient.SystemConfigurationPatchInner{*openapiclient.NewSystemConfigurationPatchInner("Key_example", openapiclient.SystemConfiguration_value{ArrayOfAny: new([]interface{})})} // []SystemConfigurationPatchInner |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -361,7 +361,7 @@ import (
 
 func main() {
 	configKey := "configKey_example" // string | 
-	systemConfigurationPut := *openapiclient.NewSystemConfigurationPut("Key_example", openapiclient.SystemConfiguration_value{ArrayOfAny: new([]Any)}) // SystemConfigurationPut |  (optional)
+	systemConfigurationPut := *openapiclient.NewSystemConfigurationPut("Key_example", openapiclient.SystemConfiguration_value{ArrayOfAny: new([]interface{})}) // SystemConfigurationPut |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)

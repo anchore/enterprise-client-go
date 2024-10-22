@@ -16269,7 +16269,8 @@ components:
           - type: boolean
           - type: array
             items:
-              type: any
+              type: object
+              properties: {}
         requires_system_restart:
           type: boolean
         category:
@@ -16319,7 +16320,8 @@ components:
             - type: boolean
             - type: array
               items:
-                type: any
+                type: object
+                properties: {}
     SystemConfigurationPut:
       type: object
       required:
@@ -16335,7 +16337,8 @@ components:
           - type: boolean
           - type: array
             items:
-              type: any
+              type: object
+              properties: {}
     SystemConfigurationList:
       type: object
       properties:

@@ -19,14 +19,14 @@ import (
 
 // SystemConfigurationValue - struct for SystemConfigurationValue
 type SystemConfigurationValue struct {
-	ArrayOfAny *[]Any
+	ArrayOfAny *[]interface{}
 	Bool *bool
 	Float32 *float32
 	String *string
 }
 
-// []AnyAsSystemConfigurationValue is a convenience function that returns []Any wrapped in SystemConfigurationValue
-func ArrayOfAnyAsSystemConfigurationValue(v *[]Any) SystemConfigurationValue {
+// []interface{}AsSystemConfigurationValue is a convenience function that returns []interface{} wrapped in SystemConfigurationValue
+func ArrayOfAnyAsSystemConfigurationValue(v *[]interface{}) SystemConfigurationValue {
 	return SystemConfigurationValue{
 		ArrayOfAny: v,
 	}
