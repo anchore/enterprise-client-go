@@ -708,7 +708,7 @@ Class | Method | HTTP request | Description
  - [SystemConfigurationPatchInner](docs/SystemConfigurationPatchInner.md)
  - [SystemConfigurationPut](docs/SystemConfigurationPut.md)
  - [SystemConfigurationSchema](docs/SystemConfigurationSchema.md)
- - [SystemConfigurationValue](docs/SystemConfigurationValue.md)
+ - [SystemConfigurationSchemaDefault](docs/SystemConfigurationSchemaDefault.md)
  - [SystemResourceLimit](docs/SystemResourceLimit.md)
  - [SystemResourceLimitsList](docs/SystemResourceLimitsList.md)
  - [SystemStatistics](docs/SystemStatistics.md)

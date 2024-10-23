@@ -1,4 +1,4 @@
-# SystemConfigurationValue
+# SystemConfigurationSchemaDefault
 
 ## Properties
 
@@ -7,20 +7,20 @@ Name | Type | Description | Notes
 
 ## Methods
 
-### NewSystemConfigurationValue
+### NewSystemConfigurationSchemaDefault
 
-`func NewSystemConfigurationValue() *SystemConfigurationValue`
+`func NewSystemConfigurationSchemaDefault() *SystemConfigurationSchemaDefault`
 
-NewSystemConfigurationValue instantiates a new SystemConfigurationValue object
+NewSystemConfigurationSchemaDefault instantiates a new SystemConfigurationSchemaDefault object
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
 will change when the set of required properties is changed
 
-### NewSystemConfigurationValueWithDefaults
+### NewSystemConfigurationSchemaDefaultWithDefaults
 
-`func NewSystemConfigurationValueWithDefaults() *SystemConfigurationValue`
+`func NewSystemConfigurationSchemaDefaultWithDefaults() *SystemConfigurationSchemaDefault`
 
-NewSystemConfigurationValueWithDefaults instantiates a new SystemConfigurationValue object
+NewSystemConfigurationSchemaDefaultWithDefaults instantiates a new SystemConfigurationSchemaDefault object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 

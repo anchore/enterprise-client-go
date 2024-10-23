@@ -23,7 +23,7 @@ var _ MappedNullable = &SystemConfigurationPut{}
 // SystemConfigurationPut struct for SystemConfigurationPut
 type SystemConfigurationPut struct {
 	Key string `json:"key"`
-	Value SystemConfigurationValue `json:"value"`
+	Value SystemConfigurationSchemaDefault `json:"value"`
 }
 
 type _SystemConfigurationPut SystemConfigurationPut
@@ -32,7 +32,7 @@ type _SystemConfigurationPut SystemConfigurationPut
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewSystemConfigurationPut(key string, value SystemConfigurationValue) *SystemConfigurationPut {
+func NewSystemConfigurationPut(key string, value SystemConfigurationSchemaDefault) *SystemConfigurationPut {
 	this := SystemConfigurationPut{}
 	this.Key = key
 	this.Value = value
@@ -72,9 +72,9 @@ func (o *SystemConfigurationPut) SetKey(v string) {
 }
 
 // GetValue returns the Value field value
-func (o *SystemConfigurationPut) GetValue() SystemConfigurationValue {
+func (o *SystemConfigurationPut) GetValue() SystemConfigurationSchemaDefault {
 	if o == nil {
-		var ret SystemConfigurationValue
+		var ret SystemConfigurationSchemaDefault
 		return ret
 	}
 
@@ -83,7 +83,7 @@ func (o *SystemConfigurationPut) GetValue() SystemConfigurationValue {
 
 // GetValueOk returns a tuple with the Value field value
 // and a boolean to check if the value has been set.
-func (o *SystemConfigurationPut) GetValueOk() (*SystemConfigurationValue, bool) {
+func (o *SystemConfigurationPut) GetValueOk() (*SystemConfigurationSchemaDefault, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -91,7 +91,7 @@ func (o *SystemConfigurationPut) GetValueOk() (*SystemConfigurationValue, bool) 
 }
 
 // SetValue sets field value
-func (o *SystemConfigurationPut) SetValue(v SystemConfigurationValue) {
+func (o *SystemConfigurationPut) SetValue(v SystemConfigurationSchemaDefault) {
 	o.Value = v
 }
 

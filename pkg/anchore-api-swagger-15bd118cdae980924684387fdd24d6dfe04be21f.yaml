@@ -16209,7 +16209,14 @@ components:
           type: integer
           nullable: true
         default:
-          type: string
+          oneOf:
+            - type: string
+            - type: number
+            - type: boolean
+            - type: array
+              items:
+                type: object
+                properties: { }
         enum:
           type: array
           nullable: true

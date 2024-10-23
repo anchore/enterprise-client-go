@@ -6,13 +6,13 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Uuid** | Pointer to **string** |  | [optional] [readonly] 
 **Key** | **string** |  | 
-**Value** | [**SystemConfigurationValue**](SystemConfigurationValue.md) |  | 
+**Value** | [**SystemConfigurationSchemaDefault**](SystemConfigurationSchemaDefault.md) |  | 
 **RequiresSystemRestart** | Pointer to **bool** |  | [optional] 
 **Category** | Pointer to **string** |  | [optional] 
 **ConfigSchema** | Pointer to [**SystemConfigurationSchema**](SystemConfigurationSchema.md) |  | [optional] 
 **Title** | Pointer to **string** |  | [optional] 
 **Description** | Pointer to **string** |  | [optional] 
-**DefaultValue** | Pointer to [**SystemConfigurationValue**](SystemConfigurationValue.md) |  | [optional] 
+**DefaultValue** | Pointer to [**SystemConfigurationSchemaDefault**](SystemConfigurationSchemaDefault.md) |  | [optional] 
 **Source** | Pointer to **string** |  | [optional] 
 **IsEditable** | Pointer to **bool** |  | [optional] 
 **EditableReason** | Pointer to **string** |  | [optional] 
@@ -26,7 +26,7 @@ Name | Type | Description | Notes
 
 ### NewSystemConfiguration
 
-`func NewSystemConfiguration(key string, value SystemConfigurationValue, ) *SystemConfiguration`
+`func NewSystemConfiguration(key string, value SystemConfigurationSchemaDefault, ) *SystemConfiguration`
 
 NewSystemConfiguration instantiates a new SystemConfiguration object
 This constructor will assign default values to properties that have it defined,
@@ -88,20 +88,20 @@ SetKey sets Key field to given value.
 
 ### GetValue
 
-`func (o *SystemConfiguration) GetValue() SystemConfigurationValue`
+`func (o *SystemConfiguration) GetValue() SystemConfigurationSchemaDefault`
 
 GetValue returns the Value field if non-nil, zero value otherwise.
 
 ### GetValueOk
 
-`func (o *SystemConfiguration) GetValueOk() (*SystemConfigurationValue, bool)`
+`func (o *SystemConfiguration) GetValueOk() (*SystemConfigurationSchemaDefault, bool)`
 
 GetValueOk returns a tuple with the Value field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetValue
 
-`func (o *SystemConfiguration) SetValue(v SystemConfigurationValue)`
+`func (o *SystemConfiguration) SetValue(v SystemConfigurationSchemaDefault)`
 
 SetValue sets Value field to given value.
 
@@ -233,20 +233,20 @@ HasDescription returns a boolean if a field has been set.
 
 ### GetDefaultValue
 
-`func (o *SystemConfiguration) GetDefaultValue() SystemConfigurationValue`
+`func (o *SystemConfiguration) GetDefaultValue() SystemConfigurationSchemaDefault`
 
 GetDefaultValue returns the DefaultValue field if non-nil, zero value otherwise.
 
 ### GetDefaultValueOk
 
-`func (o *SystemConfiguration) GetDefaultValueOk() (*SystemConfigurationValue, bool)`
+`func (o *SystemConfiguration) GetDefaultValueOk() (*SystemConfigurationSchemaDefault, bool)`
 
 GetDefaultValueOk returns a tuple with the DefaultValue field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetDefaultValue
 
-`func (o *SystemConfiguration) SetDefaultValue(v SystemConfigurationValue)`
+`func (o *SystemConfiguration) SetDefaultValue(v SystemConfigurationSchemaDefault)`
 
 SetDefaultValue sets DefaultValue field to given value.
 

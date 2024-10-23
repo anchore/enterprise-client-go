@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **AllowInfNan** | Pointer to **NullableBool** |  | [optional] 
 **DecimalPlaces** | Pointer to **NullableInt32** |  | [optional] 
-**Default** | Pointer to **string** |  | [optional] 
+**Default** | Pointer to [**SystemConfigurationSchemaDefault**](SystemConfigurationSchemaDefault.md) |  | [optional] 
 **Enum** | Pointer to **[]string** |  | [optional] 
 **Ge** | Pointer to **NullableFloat32** |  | [optional] 
 **Gt** | Pointer to **NullableFloat32** |  | [optional] 
@@ -112,20 +112,20 @@ HasDecimalPlaces returns a boolean if a field has been set.
 UnsetDecimalPlaces ensures that no value is present for DecimalPlaces, not even an explicit nil
 ### GetDefault
 
-`func (o *SystemConfigurationSchema) GetDefault() string`
+`func (o *SystemConfigurationSchema) GetDefault() SystemConfigurationSchemaDefault`
 
 GetDefault returns the Default field if non-nil, zero value otherwise.
 
 ### GetDefaultOk
 
-`func (o *SystemConfigurationSchema) GetDefaultOk() (*string, bool)`
+`func (o *SystemConfigurationSchema) GetDefaultOk() (*SystemConfigurationSchemaDefault, bool)`
 
 GetDefaultOk returns a tuple with the Default field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetDefault
 
-`func (o *SystemConfigurationSchema) SetDefault(v string)`
+`func (o *SystemConfigurationSchema) SetDefault(v SystemConfigurationSchemaDefault)`
 
 SetDefault sets Default field to given value.
 

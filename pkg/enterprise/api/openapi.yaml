@@ -22836,7 +22836,7 @@ components:
         decimal_places: 0
         allow_inf_nan: true
         unique_items: true
-        default: default
+        default: null
         regex: regex
         min_items: 3
         le: 5.962133916683182
@@ -22851,7 +22851,7 @@ components:
           nullable: true
           type: integer
         default:
-          type: string
+          $ref: '#/components/schemas/SystemConfigurationSchema_default'
         enum:
           items:
             type: string
@@ -22914,7 +22914,7 @@ components:
           decimal_places: 0
           allow_inf_nan: true
           unique_items: true
-          default: default
+          default: null
           regex: regex
           min_items: 3
           le: 5.962133916683182
@@ -22928,7 +22928,7 @@ components:
         is_deprecated: true
         deprecated_reason: deprecated_reason
         category: category
-        value: SystemConfiguration_value
+        value: SystemConfigurationSchema_default
         key: key
         editable_reason: editable_reason
       properties:
@@ -22938,7 +22938,7 @@ components:
         key:
           type: string
         value:
-          $ref: '#/components/schemas/SystemConfiguration_value'
+          $ref: '#/components/schemas/SystemConfigurationSchema_default'
         requires_system_restart:
           type: boolean
         category:
@@ -22950,7 +22950,7 @@ components:
         description:
           type: string
         default_value:
-          $ref: '#/components/schemas/SystemConfiguration_value'
+          $ref: '#/components/schemas/SystemConfigurationSchema_default'
         source:
           type: string
         is_editable:
@@ -22981,13 +22981,13 @@ components:
       type: array
     SystemConfigurationPut:
       example:
-        value: SystemConfiguration_value
+        value: SystemConfigurationSchema_default
         key: key
       properties:
         key:
           type: string
         value:
-          $ref: '#/components/schemas/SystemConfiguration_value'
+          $ref: '#/components/schemas/SystemConfigurationSchema_default'
       required:
       - key
       - value
@@ -23013,7 +23013,7 @@ components:
             decimal_places: 0
             allow_inf_nan: true
             unique_items: true
-            default: default
+            default: null
             regex: regex
             min_items: 3
             le: 5.962133916683182
@@ -23027,7 +23027,7 @@ components:
           is_deprecated: true
           deprecated_reason: deprecated_reason
           category: category
-          value: SystemConfiguration_value
+          value: SystemConfigurationSchema_default
           key: key
           editable_reason: editable_reason
         - is_secret: true
@@ -23048,7 +23048,7 @@ components:
             decimal_places: 0
             allow_inf_nan: true
             unique_items: true
-            default: default
+            default: null
             regex: regex
             min_items: 3
             le: 5.962133916683182
@@ -23062,7 +23062,7 @@ components:
           is_deprecated: true
           deprecated_reason: deprecated_reason
           category: category
-          value: SystemConfiguration_value
+          value: SystemConfigurationSchema_default
           key: key
           editable_reason: editable_reason
       properties:
@@ -24606,7 +24606,7 @@ components:
       required:
       - sbom
       type: object
-    SystemConfiguration_value:
+    SystemConfigurationSchema_default:
       oneOf:
       - type: string
       - type: number
@@ -24620,7 +24620,7 @@ components:
         key:
           type: string
         value:
-          $ref: '#/components/schemas/SystemConfiguration_value'
+          $ref: '#/components/schemas/SystemConfigurationSchema_default'
       required:
       - key
       - value

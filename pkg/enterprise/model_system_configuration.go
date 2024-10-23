@@ -25,13 +25,13 @@ var _ MappedNullable = &SystemConfiguration{}
 type SystemConfiguration struct {
 	Uuid *string `json:"uuid,omitempty"`
 	Key string `json:"key"`
-	Value SystemConfigurationValue `json:"value"`
+	Value SystemConfigurationSchemaDefault `json:"value"`
 	RequiresSystemRestart *bool `json:"requires_system_restart,omitempty"`
 	Category *string `json:"category,omitempty"`
 	ConfigSchema *SystemConfigurationSchema `json:"config_schema,omitempty"`
 	Title *string `json:"title,omitempty"`
 	Description *string `json:"description,omitempty"`
-	DefaultValue *SystemConfigurationValue `json:"default_value,omitempty"`
+	DefaultValue *SystemConfigurationSchemaDefault `json:"default_value,omitempty"`
 	Source *string `json:"source,omitempty"`
 	IsEditable *bool `json:"is_editable,omitempty"`
 	EditableReason *string `json:"editable_reason,omitempty"`
@@ -48,7 +48,7 @@ type _SystemConfiguration SystemConfiguration
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewSystemConfiguration(key string, value SystemConfigurationValue) *SystemConfiguration {
+func NewSystemConfiguration(key string, value SystemConfigurationSchemaDefault) *SystemConfiguration {
 	this := SystemConfiguration{}
 	this.Key = key
 	this.Value = value
@@ -120,9 +120,9 @@ func (o *SystemConfiguration) SetKey(v string) {
 }
 
 // GetValue returns the Value field value
-func (o *SystemConfiguration) GetValue() SystemConfigurationValue {
+func (o *SystemConfiguration) GetValue() SystemConfigurationSchemaDefault {
 	if o == nil {
-		var ret SystemConfigurationValue
+		var ret SystemConfigurationSchemaDefault
 		return ret
 	}
 
@@ -131,7 +131,7 @@ func (o *SystemConfiguration) GetValue() SystemConfigurationValue {
 
 // GetValueOk returns a tuple with the Value field value
 // and a boolean to check if the value has been set.
-func (o *SystemConfiguration) GetValueOk() (*SystemConfigurationValue, bool) {
+func (o *SystemConfiguration) GetValueOk() (*SystemConfigurationSchemaDefault, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -139,7 +139,7 @@ func (o *SystemConfiguration) GetValueOk() (*SystemConfigurationValue, bool) {
 }
 
 // SetValue sets field value
-func (o *SystemConfiguration) SetValue(v SystemConfigurationValue) {
+func (o *SystemConfiguration) SetValue(v SystemConfigurationSchemaDefault) {
 	o.Value = v
 }
 
@@ -304,9 +304,9 @@ func (o *SystemConfiguration) SetDescription(v string) {
 }
 
 // GetDefaultValue returns the DefaultValue field value if set, zero value otherwise.
-func (o *SystemConfiguration) GetDefaultValue() SystemConfigurationValue {
+func (o *SystemConfiguration) GetDefaultValue() SystemConfigurationSchemaDefault {
 	if o == nil || IsNil(o.DefaultValue) {
-		var ret SystemConfigurationValue
+		var ret SystemConfigurationSchemaDefault
 		return ret
 	}
 	return *o.DefaultValue
@@ -314,7 +314,7 @@ func (o *SystemConfiguration) GetDefaultValue() SystemConfigurationValue {
 
 // GetDefaultValueOk returns a tuple with the DefaultValue field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SystemConfiguration) GetDefaultValueOk() (*SystemConfigurationValue, bool) {
+func (o *SystemConfiguration) GetDefaultValueOk() (*SystemConfigurationSchemaDefault, bool) {
 	if o == nil || IsNil(o.DefaultValue) {
 		return nil, false
 	}
@@ -330,8 +330,8 @@ func (o *SystemConfiguration) HasDefaultValue() bool {
 	return false
 }
 
-// SetDefaultValue gets a reference to the given SystemConfigurationValue and assigns it to the DefaultValue field.
-func (o *SystemConfiguration) SetDefaultValue(v SystemConfigurationValue) {
+// SetDefaultValue gets a reference to the given SystemConfigurationSchemaDefault and assigns it to the DefaultValue field.
+func (o *SystemConfiguration) SetDefaultValue(v SystemConfigurationSchemaDefault) {
 	o.DefaultValue = &v
 }
 
