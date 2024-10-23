@@ -12,7 +12,7 @@ Name | Type | Description | Notes
 **ConfigSchema** | Pointer to [**SystemConfigurationSchema**](SystemConfigurationSchema.md) |  | [optional] 
 **Title** | Pointer to **string** |  | [optional] 
 **Description** | Pointer to **string** |  | [optional] 
-**DefaultValue** | Pointer to **string** |  | [optional] 
+**DefaultValue** | Pointer to [**SystemConfigurationValue**](SystemConfigurationValue.md) |  | [optional] 
 **Source** | Pointer to **string** |  | [optional] 
 **IsEditable** | Pointer to **bool** |  | [optional] 
 **EditableReason** | Pointer to **string** |  | [optional] 
@@ -233,20 +233,20 @@ HasDescription returns a boolean if a field has been set.
 
 ### GetDefaultValue
 
-`func (o *SystemConfiguration) GetDefaultValue() string`
+`func (o *SystemConfiguration) GetDefaultValue() SystemConfigurationValue`
 
 GetDefaultValue returns the DefaultValue field if non-nil, zero value otherwise.
 
 ### GetDefaultValueOk
 
-`func (o *SystemConfiguration) GetDefaultValueOk() (*string, bool)`
+`func (o *SystemConfiguration) GetDefaultValueOk() (*SystemConfigurationValue, bool)`
 
 GetDefaultValueOk returns a tuple with the DefaultValue field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetDefaultValue
 
-`func (o *SystemConfiguration) SetDefaultValue(v string)`
+`func (o *SystemConfiguration) SetDefaultValue(v SystemConfigurationValue)`
 
 SetDefaultValue sets DefaultValue field to given value.
 

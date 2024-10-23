@@ -31,7 +31,7 @@ type SystemConfiguration struct {
 	ConfigSchema *SystemConfigurationSchema `json:"config_schema,omitempty"`
 	Title *string `json:"title,omitempty"`
 	Description *string `json:"description,omitempty"`
-	DefaultValue *string `json:"default_value,omitempty"`
+	DefaultValue *SystemConfigurationValue `json:"default_value,omitempty"`
 	Source *string `json:"source,omitempty"`
 	IsEditable *bool `json:"is_editable,omitempty"`
 	EditableReason *string `json:"editable_reason,omitempty"`
@@ -304,9 +304,9 @@ func (o *SystemConfiguration) SetDescription(v string) {
 }
 
 // GetDefaultValue returns the DefaultValue field value if set, zero value otherwise.
-func (o *SystemConfiguration) GetDefaultValue() string {
+func (o *SystemConfiguration) GetDefaultValue() SystemConfigurationValue {
 	if o == nil || IsNil(o.DefaultValue) {
-		var ret string
+		var ret SystemConfigurationValue
 		return ret
 	}
 	return *o.DefaultValue
@@ -314,7 +314,7 @@ func (o *SystemConfiguration) GetDefaultValue() string {
 
 // GetDefaultValueOk returns a tuple with the DefaultValue field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SystemConfiguration) GetDefaultValueOk() (*string, bool) {
+func (o *SystemConfiguration) GetDefaultValueOk() (*SystemConfigurationValue, bool) {
 	if o == nil || IsNil(o.DefaultValue) {
 		return nil, false
 	}
@@ -330,8 +330,8 @@ func (o *SystemConfiguration) HasDefaultValue() bool {
 	return false
 }
 
-// SetDefaultValue gets a reference to the given string and assigns it to the DefaultValue field.
-func (o *SystemConfiguration) SetDefaultValue(v string) {
+// SetDefaultValue gets a reference to the given SystemConfigurationValue and assigns it to the DefaultValue field.
+func (o *SystemConfiguration) SetDefaultValue(v SystemConfigurationValue) {
 	o.DefaultValue = &v
 }
 

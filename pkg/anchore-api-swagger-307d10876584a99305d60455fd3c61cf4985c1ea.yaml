@@ -9407,7 +9407,7 @@ paths:
       operationId: list_configurations
       responses:
         200:
-          description: The configuration schema
+          description: The list of configurations
           content:
             application/json:
               schema:
@@ -9508,7 +9508,7 @@ paths:
               $ref: '#/components/schemas/SystemConfigurationPut'
       responses:
         200:
-          description: The configuration schema
+          description: The updated configuration
           content:
             application/json:
               schema:
@@ -16282,7 +16282,14 @@ components:
         description:
           type: string
         default_value:
-          type: string
+          oneOf:
+            - type: string
+            - type: number
+            - type: boolean
+            - type: array
+              items:
+                type: object
+                properties: { }
         source:
           type: string
         is_editable:

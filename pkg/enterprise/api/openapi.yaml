@@ -10482,7 +10482,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/SystemConfigurationList'
-          description: The configuration schema
+          description: The list of configurations
         "403":
           content:
             application/json:
@@ -10621,7 +10621,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/SystemConfiguration'
-          description: The configuration schema
+          description: The updated configuration
         "400":
           content:
             application/json:
@@ -22900,7 +22900,7 @@ components:
         requires_system_restart: true
         description: description
         created_at: 2000-01-23T04:56:07.000+00:00
-        default_value: default_value
+        default_value: null
         is_editable: true
         config_schema:
           multiple_of: 4.145608029883936
@@ -22950,7 +22950,7 @@ components:
         description:
           type: string
         default_value:
-          type: string
+          $ref: '#/components/schemas/SystemConfiguration_value'
         source:
           type: string
         is_editable:
@@ -22999,7 +22999,7 @@ components:
           requires_system_restart: true
           description: description
           created_at: 2000-01-23T04:56:07.000+00:00
-          default_value: default_value
+          default_value: null
           is_editable: true
           config_schema:
             multiple_of: 4.145608029883936
@@ -23034,7 +23034,7 @@ components:
           requires_system_restart: true
           description: description
           created_at: 2000-01-23T04:56:07.000+00:00
-          default_value: default_value
+          default_value: null
           is_editable: true
           config_schema:
             multiple_of: 4.145608029883936
