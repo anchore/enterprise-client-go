@@ -3,7 +3,7 @@ Anchore API
 
 This is the Anchore API. Provides the external API for users of Anchore Enterprise.
 
-API version: 2.7.2
+API version: 2.8.0
 Contact: dev@anchore.com
 */
 
@@ -89,6 +89,18 @@ type SystemAPI interface {
 
 	// GetAnchorectlExecute executes the request
 	GetAnchorectlExecute(r ApiGetAnchorectlRequest) (*http.Response, error)
+
+	/*
+	GetResourceLimits Get resource limits
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiGetResourceLimitsRequest
+	*/
+	GetResourceLimits(ctx context.Context) ApiGetResourceLimitsRequest
+
+	// GetResourceLimitsExecute executes the request
+	//  @return SystemResourceLimitsList
+	GetResourceLimitsExecute(r ApiGetResourceLimitsRequest) (*SystemResourceLimitsList, *http.Response, error)
 
 	/*
 	GetServiceDetail System status
@@ -802,6 +814,103 @@ func (a *SystemAPIService) GetAnchorectlExecute(r ApiGetAnchorectlRequest) (*htt
 	}
 
 	return localVarHTTPResponse, nil
+}
+
+type ApiGetResourceLimitsRequest struct {
+	ctx context.Context
+	ApiService SystemAPI
+}
+
+func (r ApiGetResourceLimitsRequest) Execute() (*SystemResourceLimitsList, *http.Response, error) {
+	return r.ApiService.GetResourceLimitsExecute(r)
+}
+
+/*
+GetResourceLimits Get resource limits
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return ApiGetResourceLimitsRequest
+*/
+func (a *SystemAPIService) GetResourceLimits(ctx context.Context) ApiGetResourceLimitsRequest {
+	return ApiGetResourceLimitsRequest{
+		ApiService: a,
+		ctx: ctx,
+	}
+}
+
+// Execute executes the request
+//  @return SystemResourceLimitsList
+func (a *SystemAPIService) GetResourceLimitsExecute(r ApiGetResourceLimitsRequest) (*SystemResourceLimitsList, *http.Response, error) {
+	var (
+		localVarHTTPMethod   = http.MethodGet
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *SystemResourceLimitsList
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SystemAPIService.GetResourceLimits")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/system/resource-limits"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
 type ApiGetServiceDetailRequest struct {
