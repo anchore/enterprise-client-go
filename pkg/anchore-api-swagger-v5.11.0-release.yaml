@@ -9023,8 +9023,7 @@ paths:
           example: 84993c1f-863f-41f3-9bd8-dfcc821b1c8a
           in: path
           schema:
-            type: string
-            format: uuid
+            $ref: '#/components/schemas/UUID'
           required: true
       requestBody:
         content:
@@ -9035,6 +9034,9 @@ paths:
       responses:
         201:
           description: Health report accepted. Empty response.
+          content: { }
+        400:
+          description: Bad Request
           content: { }
         404:
           description: Not found
@@ -9062,9 +9064,14 @@ paths:
           example: 84993c1f-863f-41f3-9bd8-dfcc821b1c8a
           in: path
           schema:
-            type: string
-            format: uuid
+            $ref: '#/components/schemas/UUID'
           required: true
+        - name: x-anchore-account
+          in: header
+          description: An account name to change the resource scope of the request to
+            that account, if permissions allow (admin only)
+          schema:
+            type: string
       responses:
         200:
           description: Get integration response
@@ -9072,6 +9079,9 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Integration'
+        400:
+          description: Bad Request
+          content: { }
         404:
           description: Not found
           content: { }
@@ -9094,8 +9104,7 @@ paths:
           example: 84993c1f-863f-41f3-9bd8-dfcc821b1c8a
           in: path
           schema:
-            type: string
-            format: uuid
+            $ref: '#/components/schemas/UUID'
           required: true
         - name: force
           description: Force deletion of the integration instance regardless of its state
@@ -9106,6 +9115,9 @@ paths:
       responses:
         204:
           description: Successfully deleted
+          content: { }
+        400:
+          description: Bad Request
           content: { }
         404:
           description: Not found
@@ -9169,6 +9181,12 @@ paths:
       x-anchore-authz-action: listIntegrations
       x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.system
       parameters:
+        - name: x-anchore-account
+          in: header
+          description: An account name to change the resource scope of the request to
+              that account, if permissions allow (admin only)
+          schema:
+            type: string
         - name: only_degraded
           description: If true, limit listing to unhealthy or inactive integrations
           example: true

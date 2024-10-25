@@ -10063,8 +10063,7 @@ paths:
         name: integration_uuid
         required: true
         schema:
-          format: uuid
-          type: string
+          $ref: '#/components/schemas/UUID'
         style: simple
       requestBody:
         content:
@@ -10076,6 +10075,9 @@ paths:
         "201":
           content: {}
           description: Health report accepted. Empty response.
+        "400":
+          content: {}
+          description: Bad Request
         "404":
           content: {}
           description: Not found
@@ -10104,8 +10106,7 @@ paths:
         name: integration_uuid
         required: true
         schema:
-          format: uuid
-          type: string
+          $ref: '#/components/schemas/UUID'
         style: simple
       - description: Force deletion of the integration instance regardless of its
           state
@@ -10121,6 +10122,9 @@ paths:
         "204":
           content: {}
           description: Successfully deleted
+        "400":
+          content: {}
+          description: Bad Request
         "404":
           content: {}
           description: Not found
@@ -10142,7 +10146,15 @@ paths:
         name: integration_uuid
         required: true
         schema:
-          format: uuid
+          $ref: '#/components/schemas/UUID'
+        style: simple
+      - description: "An account name to change the resource scope of the request\
+          \ to that account, if permissions allow (admin only)"
+        explode: false
+        in: header
+        name: x-anchore-account
+        required: false
+        schema:
           type: string
         style: simple
       responses:
@@ -10152,6 +10164,9 @@ paths:
               schema:
                 $ref: '#/components/schemas/Integration'
           description: Get integration response
+        "400":
+          content: {}
+          description: Bad Request
         "404":
           content: {}
           description: Not found
@@ -10218,6 +10233,15 @@ paths:
         via registration).
       operationId: list_integrations
       parameters:
+      - description: "An account name to change the resource scope of the request\
+          \ to that account, if permissions allow (admin only)"
+        explode: false
+        in: header
+        name: x-anchore-account
+        required: false
+        schema:
+          type: string
+        style: simple
       - description: "If true, limit listing to unhealthy or inactive integrations"
         example: true
         explode: true

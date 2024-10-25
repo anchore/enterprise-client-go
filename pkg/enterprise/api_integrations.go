@@ -145,6 +145,12 @@ func (a *IntegrationsAPIService) DeleteIntegrationExecute(r ApiDeleteIntegration
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if strlen(r.integrationUuid) < 36 {
+		return nil, reportError("integrationUuid must have at least 36 elements")
+	}
+	if strlen(r.integrationUuid) > 36 {
+		return nil, reportError("integrationUuid must have less than 36 elements")
+	}
 
 	if r.force != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "force", r.force, "form", "")
@@ -201,6 +207,13 @@ type ApiGetIntegrationByIdRequest struct {
 	ctx context.Context
 	ApiService IntegrationsAPI
 	integrationUuid string
+	xAnchoreAccount *string
+}
+
+// An account name to change the resource scope of the request to that account, if permissions allow (admin only)
+func (r ApiGetIntegrationByIdRequest) XAnchoreAccount(xAnchoreAccount string) ApiGetIntegrationByIdRequest {
+	r.xAnchoreAccount = &xAnchoreAccount
+	return r
 }
 
 func (r ApiGetIntegrationByIdRequest) Execute() (*Integration, *http.Response, error) {
@@ -243,6 +256,12 @@ func (a *IntegrationsAPIService) GetIntegrationByIdExecute(r ApiGetIntegrationBy
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if strlen(r.integrationUuid) < 36 {
+		return localVarReturnValue, nil, reportError("integrationUuid must have at least 36 elements")
+	}
+	if strlen(r.integrationUuid) > 36 {
+		return localVarReturnValue, nil, reportError("integrationUuid must have less than 36 elements")
+	}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -260,6 +279,9 @@ func (a *IntegrationsAPIService) GetIntegrationByIdExecute(r ApiGetIntegrationBy
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	if r.xAnchoreAccount != nil {
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "x-anchore-account", r.xAnchoreAccount, "simple", "")
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
@@ -360,6 +382,12 @@ func (a *IntegrationsAPIService) HandleHealthReportExecute(r ApiHandleHealthRepo
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if strlen(r.integrationUuid) < 36 {
+		return nil, reportError("integrationUuid must have at least 36 elements")
+	}
+	if strlen(r.integrationUuid) > 36 {
+		return nil, reportError("integrationUuid must have less than 36 elements")
+	}
 	if r.healthReport == nil {
 		return nil, reportError("healthReport is required and must be specified")
 	}
@@ -424,7 +452,14 @@ func (a *IntegrationsAPIService) HandleHealthReportExecute(r ApiHandleHealthRepo
 type ApiListIntegrationsRequest struct {
 	ctx context.Context
 	ApiService IntegrationsAPI
+	xAnchoreAccount *string
 	onlyDegraded *bool
+}
+
+// An account name to change the resource scope of the request to that account, if permissions allow (admin only)
+func (r ApiListIntegrationsRequest) XAnchoreAccount(xAnchoreAccount string) ApiListIntegrationsRequest {
+	r.xAnchoreAccount = &xAnchoreAccount
+	return r
 }
 
 // If true, limit listing to unhealthy or inactive integrations
@@ -495,6 +530,9 @@ func (a *IntegrationsAPIService) ListIntegrationsExecute(r ApiListIntegrationsRe
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	if r.xAnchoreAccount != nil {
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "x-anchore-account", r.xAnchoreAccount, "simple", "")
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
