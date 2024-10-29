@@ -9,6 +9,7 @@ Method | HTTP request | Description
 [**DescribeErrorCodes**](SystemAPI.md#DescribeErrorCodes) | **Get** /system/error-codes | Describe anchore engine error codes.
 [**DescribePolicy**](SystemAPI.md#DescribePolicy) | **Get** /system/policy-spec | Describe the policy language spec implemented by this service.
 [**GetAnchorectl**](SystemAPI.md#GetAnchorectl) | **Get** /system/anchorectl | Get an anchorectl binary compatible with this version of Anchore Enterprise
+[**GetResourceLimits**](SystemAPI.md#GetResourceLimits) | **Get** /system/resource-limits | Get resource limits
 [**GetServiceDetail**](SystemAPI.md#GetServiceDetail) | **Get** /system | System status
 [**GetServicesByName**](SystemAPI.md#GetServicesByName) | **Get** /system/services/{service_name} | Get a service configuration and state
 [**GetServicesByNameAndHost**](SystemAPI.md#GetServicesByNameAndHost) | **Get** /system/services/{service_name}/{host_id} | Get service config for a specific host
@@ -344,6 +345,65 @@ No authorization required
 
 - **Content-Type**: Not defined
 - **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## GetResourceLimits
+
+> SystemResourceLimitsList GetResourceLimits(ctx).Execute()
+
+Get resource limits
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
+)
+
+func main() {
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.SystemAPI.GetResourceLimits(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `SystemAPI.GetResourceLimits``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetResourceLimits`: SystemResourceLimitsList
+	fmt.Fprintf(os.Stdout, "Response from `SystemAPI.GetResourceLimits`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetResourceLimitsRequest struct via the builder pattern
+
+
+### Return type
+
+[**SystemResourceLimitsList**](SystemResourceLimitsList.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

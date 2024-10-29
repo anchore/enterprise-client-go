@@ -3,7 +3,7 @@ Anchore API
 
 This is the Anchore API. Provides the external API for users of Anchore Enterprise.
 
-API version: 2.7.2
+API version: 2.8.0
 Contact: dev@anchore.com
 */
 
@@ -16,7 +16,7 @@ import (
 	"fmt"
 )
 
-// IntegrationHealthState Health state of the integration instance * healthy: All good. No errors. * unhealthy: Not well. Probably errors. 
+// IntegrationHealthState Health state reported by the client integration. * healthy: All good. No errors. * unhealthy: Not well. Probably errors. 
 type IntegrationHealthState string
 
 // List of IntegrationHealthState
