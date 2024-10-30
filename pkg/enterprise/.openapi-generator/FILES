@@ -28,6 +28,7 @@ api_sources.go
 api_statistics.go
 api_subscriptions.go
 api_system.go
+api_system_configuration.go
 api_user_management.go
 api_vulnerabilities.go
 client.go
@@ -352,6 +353,15 @@ docs/SubscriptionRequest.md
 docs/SubscriptionUpdate.md
 docs/SubscriptionsAPI.md
 docs/SystemAPI.md
+docs/SystemConfiguration.md
+docs/SystemConfigurationAPI.md
+docs/SystemConfigurationList.md
+docs/SystemConfigurationPatchInner.md
+docs/SystemConfigurationPut.md
+docs/SystemConfigurationSchema.md
+docs/SystemConfigurationSchemaDefault.md
+docs/SystemResourceLimit.md
+docs/SystemResourceLimitsList.md
 docs/SystemStatistics.md
 docs/SystemStatisticsList.md
 docs/SystemStatusResponse.md
@@ -696,6 +706,14 @@ model_status_response.go
 model_subscription.go
 model_subscription_request.go
 model_subscription_update.go
+model_system_configuration.go
+model_system_configuration_list.go
+model_system_configuration_patch_inner.go
+model_system_configuration_put.go
+model_system_configuration_schema.go
+model_system_configuration_schema_default.go
+model_system_resource_limit.go
+model_system_resource_limits_list.go
 model_system_statistics.go
 model_system_statistics_list.go
 model_system_status_response.go
@@ -765,6 +783,7 @@ test/api_repository_test.go
 test/api_sources_test.go
 test/api_statistics_test.go
 test/api_subscriptions_test.go
+test/api_system_configuration_test.go
 test/api_system_test.go
 test/api_user_management_test.go
 test/api_vulnerabilities_test.go
