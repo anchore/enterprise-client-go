@@ -22,7 +22,7 @@ var _ MappedNullable = &SystemConfigurationSchema{}
 type SystemConfigurationSchema struct {
 	AllowInfNan NullableBool `json:"allow_inf_nan,omitempty"`
 	DecimalPlaces NullableInt32 `json:"decimal_places,omitempty"`
-	Default *SystemConfigurationValue `json:"default,omitempty"`
+	Default NullableSystemConfigurationValue `json:"default,omitempty"`
 	Enum []string `json:"enum,omitempty"`
 	Ge NullableFloat32 `json:"ge,omitempty"`
 	Gt NullableFloat32 `json:"gt,omitempty"`
@@ -139,36 +139,46 @@ func (o *SystemConfigurationSchema) UnsetDecimalPlaces() {
 	o.DecimalPlaces.Unset()
 }
 
-// GetDefault returns the Default field value if set, zero value otherwise.
+// GetDefault returns the Default field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *SystemConfigurationSchema) GetDefault() SystemConfigurationValue {
-	if o == nil || IsNil(o.Default) {
+	if o == nil || IsNil(o.Default.Get()) {
 		var ret SystemConfigurationValue
 		return ret
 	}
-	return *o.Default
+	return *o.Default.Get()
 }
 
 // GetDefaultOk returns a tuple with the Default field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *SystemConfigurationSchema) GetDefaultOk() (*SystemConfigurationValue, bool) {
-	if o == nil || IsNil(o.Default) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Default, true
+	return o.Default.Get(), o.Default.IsSet()
 }
 
 // HasDefault returns a boolean if a field has been set.
 func (o *SystemConfigurationSchema) HasDefault() bool {
-	if o != nil && !IsNil(o.Default) {
+	if o != nil && o.Default.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetDefault gets a reference to the given SystemConfigurationValue and assigns it to the Default field.
+// SetDefault gets a reference to the given NullableSystemConfigurationValue and assigns it to the Default field.
 func (o *SystemConfigurationSchema) SetDefault(v SystemConfigurationValue) {
-	o.Default = &v
+	o.Default.Set(&v)
+}
+// SetDefaultNil sets the value for Default to be an explicit nil
+func (o *SystemConfigurationSchema) SetDefaultNil() {
+	o.Default.Set(nil)
+}
+
+// UnsetDefault ensures that no value is present for Default, not even an explicit nil
+func (o *SystemConfigurationSchema) UnsetDefault() {
+	o.Default.Unset()
 }
 
 // GetEnum returns the Enum field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -724,8 +734,8 @@ func (o SystemConfigurationSchema) ToMap() (map[string]interface{}, error) {
 	if o.DecimalPlaces.IsSet() {
 		toSerialize["decimal_places"] = o.DecimalPlaces.Get()
 	}
-	if !IsNil(o.Default) {
-		toSerialize["default"] = o.Default
+	if o.Default.IsSet() {
+		toSerialize["default"] = o.Default.Get()
 	}
 	if o.Enum != nil {
 		toSerialize["enum"] = o.Enum

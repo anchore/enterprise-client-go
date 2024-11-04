@@ -22824,12 +22824,15 @@ components:
           type: array
       type: object
     SystemConfigurationValue:
-      example:
-        value: SystemConfigurationValue_value
-      properties:
-        value:
-          $ref: '#/components/schemas/SystemConfigurationValue_value'
-      type: object
+      nullable: true
+      oneOf:
+      - type: string
+      - type: number
+      - type: boolean
+      - items:
+          properties: {}
+          type: object
+        type: array
     SystemConfigurationSchema:
       example:
         multiple_of: 4.145608029883936
@@ -22843,8 +22846,7 @@ components:
         decimal_places: 0
         allow_inf_nan: true
         unique_items: true
-        default:
-          value: SystemConfigurationValue_value
+        default: null
         regex: regex
         min_items: 3
         le: 5.962133916683182
@@ -22908,8 +22910,7 @@ components:
         requires_system_restart: true
         description: description
         created_at: 2000-01-23T04:56:07.000+00:00
-        default_value:
-          value: SystemConfigurationValue_value
+        default_value: null
         is_editable: true
         config_schema:
           multiple_of: 4.145608029883936
@@ -22923,8 +22924,7 @@ components:
           decimal_places: 0
           allow_inf_nan: true
           unique_items: true
-          default:
-            value: SystemConfigurationValue_value
+          default: null
           regex: regex
           min_items: 3
           le: 5.962133916683182
@@ -22938,8 +22938,7 @@ components:
         is_deprecated: true
         deprecated_reason: deprecated_reason
         category: category
-        value:
-          value: SystemConfigurationValue_value
+        value: SystemConfigurationValue
         key: key
         editable_reason: editable_reason
       properties:
@@ -22992,8 +22991,7 @@ components:
       type: array
     SystemConfigurationPut:
       example:
-        value:
-          value: SystemConfigurationValue_value
+        value: SystemConfigurationValue
         key: key
       properties:
         key:
@@ -23011,8 +23009,7 @@ components:
           requires_system_restart: true
           description: description
           created_at: 2000-01-23T04:56:07.000+00:00
-          default_value:
-            value: SystemConfigurationValue_value
+          default_value: null
           is_editable: true
           config_schema:
             multiple_of: 4.145608029883936
@@ -23026,8 +23023,7 @@ components:
             decimal_places: 0
             allow_inf_nan: true
             unique_items: true
-            default:
-              value: SystemConfigurationValue_value
+            default: null
             regex: regex
             min_items: 3
             le: 5.962133916683182
@@ -23041,16 +23037,14 @@ components:
           is_deprecated: true
           deprecated_reason: deprecated_reason
           category: category
-          value:
-            value: SystemConfigurationValue_value
+          value: SystemConfigurationValue
           key: key
           editable_reason: editable_reason
         - is_secret: true
           requires_system_restart: true
           description: description
           created_at: 2000-01-23T04:56:07.000+00:00
-          default_value:
-            value: SystemConfigurationValue_value
+          default_value: null
           is_editable: true
           config_schema:
             multiple_of: 4.145608029883936
@@ -23064,8 +23058,7 @@ components:
             decimal_places: 0
             allow_inf_nan: true
             unique_items: true
-            default:
-              value: SystemConfigurationValue_value
+            default: null
             regex: regex
             min_items: 3
             le: 5.962133916683182
@@ -23079,8 +23072,7 @@ components:
           is_deprecated: true
           deprecated_reason: deprecated_reason
           category: category
-          value:
-            value: SystemConfigurationValue_value
+          value: SystemConfigurationValue
           key: key
           editable_reason: editable_reason
       properties:
@@ -24624,16 +24616,6 @@ components:
       required:
       - sbom
       type: object
-    SystemConfigurationValue_value:
-      nullable: true
-      oneOf:
-      - type: string
-      - type: number
-      - type: boolean
-      - items:
-          properties: {}
-          type: object
-        type: array
     SystemConfigurationPatch_inner:
       properties:
         key:

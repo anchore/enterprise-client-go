@@ -16200,19 +16200,16 @@ components:
           items:
             $ref: "#/components/schemas/SystemResourceLimit"
     SystemConfigurationValue:
-      type: object
-      properties:
-        value:
-          oneOf:
-            - type: null
-            - type: string
-            - type: number
-            - type: boolean
-              enum: [true, false]
-            - type: array
-              items:
-                type: object
-                properties: {}
+      oneOf:
+        - type: null
+        - type: string
+        - type: number
+        - type: boolean
+          enum: [true, false]
+        - type: array
+          items:
+            type: object
+            properties: {}
     SystemConfigurationSchema:
       type: object
       properties:

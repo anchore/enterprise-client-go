@@ -5,13 +5,13 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Key** | **string** |  | 
-**Value** | [**SystemConfigurationValue**](SystemConfigurationValue.md) |  | 
+**Value** | [**NullableSystemConfigurationValue**](SystemConfigurationValue.md) |  | 
 
 ## Methods
 
 ### NewSystemConfigurationPut
 
-`func NewSystemConfigurationPut(key string, value SystemConfigurationValue, ) *SystemConfigurationPut`
+`func NewSystemConfigurationPut(key string, value NullableSystemConfigurationValue, ) *SystemConfigurationPut`
 
 NewSystemConfigurationPut instantiates a new SystemConfigurationPut object
 This constructor will assign default values to properties that have it defined,
@@ -66,6 +66,16 @@ and a boolean to check if the value has been set.
 SetValue sets Value field to given value.
 
 
+### SetValueNil
+
+`func (o *SystemConfigurationPut) SetValueNil(b bool)`
+
+ SetValueNil sets the value for Value to be an explicit nil
+
+### UnsetValue
+`func (o *SystemConfigurationPut) UnsetValue()`
+
+UnsetValue ensures that no value is present for Value, not even an explicit nil
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

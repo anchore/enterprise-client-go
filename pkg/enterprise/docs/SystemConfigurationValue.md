@@ -4,7 +4,6 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Value** | Pointer to [**NullableSystemConfigurationValueValue**](SystemConfigurationValueValue.md) |  | [optional] 
 
 ## Methods
 
@@ -25,41 +24,6 @@ NewSystemConfigurationValueWithDefaults instantiates a new SystemConfigurationVa
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
-### GetValue
-
-`func (o *SystemConfigurationValue) GetValue() SystemConfigurationValueValue`
-
-GetValue returns the Value field if non-nil, zero value otherwise.
-
-### GetValueOk
-
-`func (o *SystemConfigurationValue) GetValueOk() (*SystemConfigurationValueValue, bool)`
-
-GetValueOk returns a tuple with the Value field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetValue
-
-`func (o *SystemConfigurationValue) SetValue(v SystemConfigurationValueValue)`
-
-SetValue sets Value field to given value.
-
-### HasValue
-
-`func (o *SystemConfigurationValue) HasValue() bool`
-
-HasValue returns a boolean if a field has been set.
-
-### SetValueNil
-
-`func (o *SystemConfigurationValue) SetValueNil(b bool)`
-
- SetValueNil sets the value for Value to be an explicit nil
-
-### UnsetValue
-`func (o *SystemConfigurationValue) UnsetValue()`
-
-UnsetValue ensures that no value is present for Value, not even an explicit nil
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

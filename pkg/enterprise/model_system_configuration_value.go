@@ -13,89 +13,183 @@ package enterprise
 
 import (
 	"encoding/json"
+	"gopkg.in/validator.v2"
+	"fmt"
 )
 
-// checks if the SystemConfigurationValue type satisfies the MappedNullable interface at compile time
-var _ MappedNullable = &SystemConfigurationValue{}
-
-// SystemConfigurationValue struct for SystemConfigurationValue
+// SystemConfigurationValue - struct for SystemConfigurationValue
 type SystemConfigurationValue struct {
-	Value NullableSystemConfigurationValueValue `json:"value,omitempty"`
+	ArrayOfAny *[]interface{}
+	Bool *bool
+	Float32 *float32
+	String *string
 }
 
-// NewSystemConfigurationValue instantiates a new SystemConfigurationValue object
-// This constructor will assign default values to properties that have it defined,
-// and makes sure properties required by API are set, but the set of arguments
-// will change when the set of required properties is changed
-func NewSystemConfigurationValue() *SystemConfigurationValue {
-	this := SystemConfigurationValue{}
-	return &this
-}
-
-// NewSystemConfigurationValueWithDefaults instantiates a new SystemConfigurationValue object
-// This constructor will only assign default values to properties that have it defined,
-// but it doesn't guarantee that properties required by API are set
-func NewSystemConfigurationValueWithDefaults() *SystemConfigurationValue {
-	this := SystemConfigurationValue{}
-	return &this
-}
-
-// GetValue returns the Value field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *SystemConfigurationValue) GetValue() SystemConfigurationValueValue {
-	if o == nil || IsNil(o.Value.Get()) {
-		var ret SystemConfigurationValueValue
-		return ret
+// []interface{}AsSystemConfigurationValue is a convenience function that returns []interface{} wrapped in SystemConfigurationValue
+func ArrayOfAnyAsSystemConfigurationValue(v *[]interface{}) SystemConfigurationValue {
+	return SystemConfigurationValue{
+		ArrayOfAny: v,
 	}
-	return *o.Value.Get()
 }
 
-// GetValueOk returns a tuple with the Value field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *SystemConfigurationValue) GetValueOk() (*SystemConfigurationValueValue, bool) {
-	if o == nil {
-		return nil, false
+// boolAsSystemConfigurationValue is a convenience function that returns bool wrapped in SystemConfigurationValue
+func BoolAsSystemConfigurationValue(v *bool) SystemConfigurationValue {
+	return SystemConfigurationValue{
+		Bool: v,
 	}
-	return o.Value.Get(), o.Value.IsSet()
 }
 
-// HasValue returns a boolean if a field has been set.
-func (o *SystemConfigurationValue) HasValue() bool {
-	if o != nil && o.Value.IsSet() {
-		return true
+// float32AsSystemConfigurationValue is a convenience function that returns float32 wrapped in SystemConfigurationValue
+func Float32AsSystemConfigurationValue(v *float32) SystemConfigurationValue {
+	return SystemConfigurationValue{
+		Float32: v,
+	}
+}
+
+// stringAsSystemConfigurationValue is a convenience function that returns string wrapped in SystemConfigurationValue
+func StringAsSystemConfigurationValue(v *string) SystemConfigurationValue {
+	return SystemConfigurationValue{
+		String: v,
+	}
+}
+
+
+// Unmarshal JSON data into one of the pointers in the struct
+func (dst *SystemConfigurationValue) UnmarshalJSON(data []byte) error {
+	var err error
+	// this object is nullable so check if the payload is null or empty string
+	if string(data) == "" || string(data) == "{}" {
+		return nil
 	}
 
-	return false
-}
-
-// SetValue gets a reference to the given NullableSystemConfigurationValueValue and assigns it to the Value field.
-func (o *SystemConfigurationValue) SetValue(v SystemConfigurationValueValue) {
-	o.Value.Set(&v)
-}
-// SetValueNil sets the value for Value to be an explicit nil
-func (o *SystemConfigurationValue) SetValueNil() {
-	o.Value.Set(nil)
-}
-
-// UnsetValue ensures that no value is present for Value, not even an explicit nil
-func (o *SystemConfigurationValue) UnsetValue() {
-	o.Value.Unset()
-}
-
-func (o SystemConfigurationValue) MarshalJSON() ([]byte, error) {
-	toSerialize,err := o.ToMap()
-	if err != nil {
-		return []byte{}, err
+	match := 0
+	// try to unmarshal data into ArrayOfAny
+	err = newStrictDecoder(data).Decode(&dst.ArrayOfAny)
+	if err == nil {
+		jsonArrayOfAny, _ := json.Marshal(dst.ArrayOfAny)
+		if string(jsonArrayOfAny) == "{}" { // empty struct
+			dst.ArrayOfAny = nil
+		} else {
+			if err = validator.Validate(dst.ArrayOfAny); err != nil {
+				dst.ArrayOfAny = nil
+			} else {
+				match++
+			}
+		}
+	} else {
+		dst.ArrayOfAny = nil
 	}
-	return json.Marshal(toSerialize)
+
+	// try to unmarshal data into Bool
+	err = newStrictDecoder(data).Decode(&dst.Bool)
+	if err == nil {
+		jsonBool, _ := json.Marshal(dst.Bool)
+		if string(jsonBool) == "{}" { // empty struct
+			dst.Bool = nil
+		} else {
+			if err = validator.Validate(dst.Bool); err != nil {
+				dst.Bool = nil
+			} else {
+				match++
+			}
+		}
+	} else {
+		dst.Bool = nil
+	}
+
+	// try to unmarshal data into Float32
+	err = newStrictDecoder(data).Decode(&dst.Float32)
+	if err == nil {
+		jsonFloat32, _ := json.Marshal(dst.Float32)
+		if string(jsonFloat32) == "{}" { // empty struct
+			dst.Float32 = nil
+		} else {
+			if err = validator.Validate(dst.Float32); err != nil {
+				dst.Float32 = nil
+			} else {
+				match++
+			}
+		}
+	} else {
+		dst.Float32 = nil
+	}
+
+	// try to unmarshal data into String
+	err = newStrictDecoder(data).Decode(&dst.String)
+	if err == nil {
+		jsonString, _ := json.Marshal(dst.String)
+		if string(jsonString) == "{}" { // empty struct
+			dst.String = nil
+		} else {
+			if err = validator.Validate(dst.String); err != nil {
+				dst.String = nil
+			} else {
+				match++
+			}
+		}
+	} else {
+		dst.String = nil
+	}
+
+	if match > 1 { // more than 1 match
+		// reset to nil
+		dst.ArrayOfAny = nil
+		dst.Bool = nil
+		dst.Float32 = nil
+		dst.String = nil
+
+		return fmt.Errorf("data matches more than one schema in oneOf(SystemConfigurationValue)")
+	} else if match == 1 {
+		return nil // exactly one match
+	} else { // no match
+		return fmt.Errorf("data failed to match schemas in oneOf(SystemConfigurationValue)")
+	}
 }
 
-func (o SystemConfigurationValue) ToMap() (map[string]interface{}, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Value.IsSet() {
-		toSerialize["value"] = o.Value.Get()
+// Marshal data from the first non-nil pointers in the struct to JSON
+func (src SystemConfigurationValue) MarshalJSON() ([]byte, error) {
+	if src.ArrayOfAny != nil {
+		return json.Marshal(&src.ArrayOfAny)
 	}
-	return toSerialize, nil
+
+	if src.Bool != nil {
+		return json.Marshal(&src.Bool)
+	}
+
+	if src.Float32 != nil {
+		return json.Marshal(&src.Float32)
+	}
+
+	if src.String != nil {
+		return json.Marshal(&src.String)
+	}
+
+	return nil, nil // no data in oneOf schemas
+}
+
+// Get the actual instance
+func (obj *SystemConfigurationValue) GetActualInstance() (interface{}) {
+	if obj == nil {
+		return nil
+	}
+	if obj.ArrayOfAny != nil {
+		return obj.ArrayOfAny
+	}
+
+	if obj.Bool != nil {
+		return obj.Bool
+	}
+
+	if obj.Float32 != nil {
+		return obj.Float32
+	}
+
+	if obj.String != nil {
+		return obj.String
+	}
+
+	// all schemas are nil
+	return nil
 }
 
 type NullableSystemConfigurationValue struct {

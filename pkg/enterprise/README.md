@@ -709,7 +709,6 @@ Class | Method | HTTP request | Description
  - [SystemConfigurationPut](docs/SystemConfigurationPut.md)
  - [SystemConfigurationSchema](docs/SystemConfigurationSchema.md)
  - [SystemConfigurationValue](docs/SystemConfigurationValue.md)
- - [SystemConfigurationValueValue](docs/SystemConfigurationValueValue.md)
  - [SystemResourceLimit](docs/SystemResourceLimit.md)
  - [SystemResourceLimitsList](docs/SystemResourceLimitsList.md)
  - [SystemStatistics](docs/SystemStatistics.md)

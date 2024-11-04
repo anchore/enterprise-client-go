@@ -6,13 +6,13 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Uuid** | Pointer to **string** |  | [optional] [readonly] 
 **Key** | **string** |  | 
-**Value** | [**SystemConfigurationValue**](SystemConfigurationValue.md) |  | 
+**Value** | [**NullableSystemConfigurationValue**](SystemConfigurationValue.md) |  | 
 **RequiresSystemRestart** | Pointer to **bool** |  | [optional] 
 **Category** | Pointer to **string** |  | [optional] 
 **ConfigSchema** | Pointer to [**SystemConfigurationSchema**](SystemConfigurationSchema.md) |  | [optional] 
 **Title** | Pointer to **string** |  | [optional] 
 **Description** | Pointer to **string** |  | [optional] 
-**DefaultValue** | Pointer to [**SystemConfigurationValue**](SystemConfigurationValue.md) |  | [optional] 
+**DefaultValue** | Pointer to [**NullableSystemConfigurationValue**](SystemConfigurationValue.md) |  | [optional] 
 **Source** | Pointer to **string** |  | [optional] 
 **IsEditable** | Pointer to **bool** |  | [optional] 
 **EditableReason** | Pointer to **string** |  | [optional] 
@@ -26,7 +26,7 @@ Name | Type | Description | Notes
 
 ### NewSystemConfiguration
 
-`func NewSystemConfiguration(key string, value SystemConfigurationValue, ) *SystemConfiguration`
+`func NewSystemConfiguration(key string, value NullableSystemConfigurationValue, ) *SystemConfiguration`
 
 NewSystemConfiguration instantiates a new SystemConfiguration object
 This constructor will assign default values to properties that have it defined,
@@ -106,6 +106,16 @@ and a boolean to check if the value has been set.
 SetValue sets Value field to given value.
 
 
+### SetValueNil
+
+`func (o *SystemConfiguration) SetValueNil(b bool)`
+
+ SetValueNil sets the value for Value to be an explicit nil
+
+### UnsetValue
+`func (o *SystemConfiguration) UnsetValue()`
+
+UnsetValue ensures that no value is present for Value, not even an explicit nil
 ### GetRequiresSystemRestart
 
 `func (o *SystemConfiguration) GetRequiresSystemRestart() bool`
@@ -256,6 +266,16 @@ SetDefaultValue sets DefaultValue field to given value.
 
 HasDefaultValue returns a boolean if a field has been set.
 
+### SetDefaultValueNil
+
+`func (o *SystemConfiguration) SetDefaultValueNil(b bool)`
+
+ SetDefaultValueNil sets the value for DefaultValue to be an explicit nil
+
+### UnsetDefaultValue
+`func (o *SystemConfiguration) UnsetDefaultValue()`
+
+UnsetDefaultValue ensures that no value is present for DefaultValue, not even an explicit nil
 ### GetSource
 
 `func (o *SystemConfiguration) GetSource() string`

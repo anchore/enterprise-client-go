@@ -25,13 +25,13 @@ var _ MappedNullable = &SystemConfiguration{}
 type SystemConfiguration struct {
 	Uuid *string `json:"uuid,omitempty"`
 	Key string `json:"key"`
-	Value SystemConfigurationValue `json:"value"`
+	Value NullableSystemConfigurationValue `json:"value"`
 	RequiresSystemRestart *bool `json:"requires_system_restart,omitempty"`
 	Category *string `json:"category,omitempty"`
 	ConfigSchema *SystemConfigurationSchema `json:"config_schema,omitempty"`
 	Title *string `json:"title,omitempty"`
 	Description *string `json:"description,omitempty"`
-	DefaultValue *SystemConfigurationValue `json:"default_value,omitempty"`
+	DefaultValue NullableSystemConfigurationValue `json:"default_value,omitempty"`
 	Source *string `json:"source,omitempty"`
 	IsEditable *bool `json:"is_editable,omitempty"`
 	EditableReason *string `json:"editable_reason,omitempty"`
@@ -48,7 +48,7 @@ type _SystemConfiguration SystemConfiguration
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewSystemConfiguration(key string, value SystemConfigurationValue) *SystemConfiguration {
+func NewSystemConfiguration(key string, value NullableSystemConfigurationValue) *SystemConfiguration {
 	this := SystemConfiguration{}
 	this.Key = key
 	this.Value = value
@@ -120,27 +120,29 @@ func (o *SystemConfiguration) SetKey(v string) {
 }
 
 // GetValue returns the Value field value
+// If the value is explicit nil, the zero value for SystemConfigurationValue will be returned
 func (o *SystemConfiguration) GetValue() SystemConfigurationValue {
-	if o == nil {
+	if o == nil || o.Value.Get() == nil {
 		var ret SystemConfigurationValue
 		return ret
 	}
 
-	return o.Value
+	return *o.Value.Get()
 }
 
 // GetValueOk returns a tuple with the Value field value
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *SystemConfiguration) GetValueOk() (*SystemConfigurationValue, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Value, true
+	return o.Value.Get(), o.Value.IsSet()
 }
 
 // SetValue sets field value
 func (o *SystemConfiguration) SetValue(v SystemConfigurationValue) {
-	o.Value = v
+	o.Value.Set(&v)
 }
 
 // GetRequiresSystemRestart returns the RequiresSystemRestart field value if set, zero value otherwise.
@@ -303,36 +305,46 @@ func (o *SystemConfiguration) SetDescription(v string) {
 	o.Description = &v
 }
 
-// GetDefaultValue returns the DefaultValue field value if set, zero value otherwise.
+// GetDefaultValue returns the DefaultValue field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *SystemConfiguration) GetDefaultValue() SystemConfigurationValue {
-	if o == nil || IsNil(o.DefaultValue) {
+	if o == nil || IsNil(o.DefaultValue.Get()) {
 		var ret SystemConfigurationValue
 		return ret
 	}
-	return *o.DefaultValue
+	return *o.DefaultValue.Get()
 }
 
 // GetDefaultValueOk returns a tuple with the DefaultValue field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *SystemConfiguration) GetDefaultValueOk() (*SystemConfigurationValue, bool) {
-	if o == nil || IsNil(o.DefaultValue) {
+	if o == nil {
 		return nil, false
 	}
-	return o.DefaultValue, true
+	return o.DefaultValue.Get(), o.DefaultValue.IsSet()
 }
 
 // HasDefaultValue returns a boolean if a field has been set.
 func (o *SystemConfiguration) HasDefaultValue() bool {
-	if o != nil && !IsNil(o.DefaultValue) {
+	if o != nil && o.DefaultValue.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetDefaultValue gets a reference to the given SystemConfigurationValue and assigns it to the DefaultValue field.
+// SetDefaultValue gets a reference to the given NullableSystemConfigurationValue and assigns it to the DefaultValue field.
 func (o *SystemConfiguration) SetDefaultValue(v SystemConfigurationValue) {
-	o.DefaultValue = &v
+	o.DefaultValue.Set(&v)
+}
+// SetDefaultValueNil sets the value for DefaultValue to be an explicit nil
+func (o *SystemConfiguration) SetDefaultValueNil() {
+	o.DefaultValue.Set(nil)
+}
+
+// UnsetDefaultValue ensures that no value is present for DefaultValue, not even an explicit nil
+func (o *SystemConfiguration) UnsetDefaultValue() {
+	o.DefaultValue.Unset()
 }
 
 // GetSource returns the Source field value if set, zero value otherwise.
@@ -605,7 +617,7 @@ func (o SystemConfiguration) ToMap() (map[string]interface{}, error) {
 		toSerialize["uuid"] = o.Uuid
 	}
 	toSerialize["key"] = o.Key
-	toSerialize["value"] = o.Value
+	toSerialize["value"] = o.Value.Get()
 	if !IsNil(o.RequiresSystemRestart) {
 		toSerialize["requires_system_restart"] = o.RequiresSystemRestart
 	}
@@ -621,8 +633,8 @@ func (o SystemConfiguration) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Description) {
 		toSerialize["description"] = o.Description
 	}
-	if !IsNil(o.DefaultValue) {
-		toSerialize["default_value"] = o.DefaultValue
+	if o.DefaultValue.IsSet() {
+		toSerialize["default_value"] = o.DefaultValue.Get()
 	}
 	if !IsNil(o.Source) {
 		toSerialize["source"] = o.Source

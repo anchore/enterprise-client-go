@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **AllowInfNan** | Pointer to **NullableBool** |  | [optional] 
 **DecimalPlaces** | Pointer to **NullableInt32** |  | [optional] 
-**Default** | Pointer to [**SystemConfigurationValue**](SystemConfigurationValue.md) |  | [optional] 
+**Default** | Pointer to [**NullableSystemConfigurationValue**](SystemConfigurationValue.md) |  | [optional] 
 **Enum** | Pointer to **[]string** |  | [optional] 
 **Ge** | Pointer to **NullableFloat32** |  | [optional] 
 **Gt** | Pointer to **NullableFloat32** |  | [optional] 
@@ -135,6 +135,16 @@ SetDefault sets Default field to given value.
 
 HasDefault returns a boolean if a field has been set.
 
+### SetDefaultNil
+
+`func (o *SystemConfigurationSchema) SetDefaultNil(b bool)`
+
+ SetDefaultNil sets the value for Default to be an explicit nil
+
+### UnsetDefault
+`func (o *SystemConfigurationSchema) UnsetDefault()`
+
+UnsetDefault ensures that no value is present for Default, not even an explicit nil
 ### GetEnum
 
 `func (o *SystemConfigurationSchema) GetEnum() []string`
