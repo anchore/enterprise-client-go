@@ -16201,7 +16201,7 @@ components:
             $ref: "#/components/schemas/SystemResourceLimit"
     SystemConfigurationValue:
       oneOf:
-        - type: null
+        - $ref: "#/components/schemas/NullType"
         - type: string
         - type: number
         - type: boolean
