@@ -22838,6 +22838,7 @@ components:
         multiple_of: 4.145608029883936
         min_length: 2
         lt: 5.637376656633329
+        default_value: null
         gt: 1.4658129805029452
         max_digits: 2
         enum:
@@ -22846,7 +22847,6 @@ components:
         decimal_places: 0
         allow_inf_nan: true
         unique_items: true
-        default: null
         regex: regex
         min_items: 3
         le: 5.962133916683182
@@ -22860,7 +22860,7 @@ components:
         decimal_places:
           nullable: true
           type: integer
-        default:
+        default_value:
           $ref: '#/components/schemas/SystemConfigurationValue'
         enum:
           items:
@@ -22916,6 +22916,7 @@ components:
           multiple_of: 4.145608029883936
           min_length: 2
           lt: 5.637376656633329
+          default_value: null
           gt: 1.4658129805029452
           max_digits: 2
           enum:
@@ -22924,7 +22925,6 @@ components:
           decimal_places: 0
           allow_inf_nan: true
           unique_items: true
-          default: null
           regex: regex
           min_items: 3
           le: 5.962133916683182
@@ -23015,6 +23015,7 @@ components:
             multiple_of: 4.145608029883936
             min_length: 2
             lt: 5.637376656633329
+            default_value: null
             gt: 1.4658129805029452
             max_digits: 2
             enum:
@@ -23023,7 +23024,6 @@ components:
             decimal_places: 0
             allow_inf_nan: true
             unique_items: true
-            default: null
             regex: regex
             min_items: 3
             le: 5.962133916683182
@@ -23050,6 +23050,7 @@ components:
             multiple_of: 4.145608029883936
             min_length: 2
             lt: 5.637376656633329
+            default_value: null
             gt: 1.4658129805029452
             max_digits: 2
             enum:
@@ -23058,7 +23059,6 @@ components:
             decimal_places: 0
             allow_inf_nan: true
             unique_items: true
-            default: null
             regex: regex
             min_items: 3
             le: 5.962133916683182

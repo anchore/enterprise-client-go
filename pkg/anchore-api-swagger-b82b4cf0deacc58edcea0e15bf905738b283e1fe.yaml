@@ -16219,7 +16219,7 @@ components:
         decimal_places:
           type: integer
           nullable: true
-        default:
+        default_value:
           $ref: "#/components/schemas/SystemConfigurationValue"
         enum:
           type: array

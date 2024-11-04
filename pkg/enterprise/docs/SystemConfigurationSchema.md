@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **AllowInfNan** | Pointer to **NullableBool** |  | [optional] 
 **DecimalPlaces** | Pointer to **NullableInt32** |  | [optional] 
-**Default** | Pointer to [**NullableSystemConfigurationValue**](SystemConfigurationValue.md) |  | [optional] 
+**DefaultValue** | Pointer to [**NullableSystemConfigurationValue**](SystemConfigurationValue.md) |  | [optional] 
 **Enum** | Pointer to **[]string** |  | [optional] 
 **Ge** | Pointer to **NullableFloat32** |  | [optional] 
 **Gt** | Pointer to **NullableFloat32** |  | [optional] 
@@ -110,41 +110,41 @@ HasDecimalPlaces returns a boolean if a field has been set.
 `func (o *SystemConfigurationSchema) UnsetDecimalPlaces()`
 
 UnsetDecimalPlaces ensures that no value is present for DecimalPlaces, not even an explicit nil
-### GetDefault
+### GetDefaultValue
 
-`func (o *SystemConfigurationSchema) GetDefault() SystemConfigurationValue`
+`func (o *SystemConfigurationSchema) GetDefaultValue() SystemConfigurationValue`
 
-GetDefault returns the Default field if non-nil, zero value otherwise.
+GetDefaultValue returns the DefaultValue field if non-nil, zero value otherwise.
 
-### GetDefaultOk
+### GetDefaultValueOk
 
-`func (o *SystemConfigurationSchema) GetDefaultOk() (*SystemConfigurationValue, bool)`
+`func (o *SystemConfigurationSchema) GetDefaultValueOk() (*SystemConfigurationValue, bool)`
 
-GetDefaultOk returns a tuple with the Default field if it's non-nil, zero value otherwise
+GetDefaultValueOk returns a tuple with the DefaultValue field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetDefault
+### SetDefaultValue
 
-`func (o *SystemConfigurationSchema) SetDefault(v SystemConfigurationValue)`
+`func (o *SystemConfigurationSchema) SetDefaultValue(v SystemConfigurationValue)`
 
-SetDefault sets Default field to given value.
+SetDefaultValue sets DefaultValue field to given value.
 
-### HasDefault
+### HasDefaultValue
 
-`func (o *SystemConfigurationSchema) HasDefault() bool`
+`func (o *SystemConfigurationSchema) HasDefaultValue() bool`
 
-HasDefault returns a boolean if a field has been set.
+HasDefaultValue returns a boolean if a field has been set.
 
-### SetDefaultNil
+### SetDefaultValueNil
 
-`func (o *SystemConfigurationSchema) SetDefaultNil(b bool)`
+`func (o *SystemConfigurationSchema) SetDefaultValueNil(b bool)`
 
- SetDefaultNil sets the value for Default to be an explicit nil
+ SetDefaultValueNil sets the value for DefaultValue to be an explicit nil
 
-### UnsetDefault
-`func (o *SystemConfigurationSchema) UnsetDefault()`
+### UnsetDefaultValue
+`func (o *SystemConfigurationSchema) UnsetDefaultValue()`
 
-UnsetDefault ensures that no value is present for Default, not even an explicit nil
+UnsetDefaultValue ensures that no value is present for DefaultValue, not even an explicit nil
 ### GetEnum
 
 `func (o *SystemConfigurationSchema) GetEnum() []string`
