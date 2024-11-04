@@ -5,13 +5,13 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Key** | **string** |  | 
-**Value** | [**SystemConfigurationSchemaDefault**](SystemConfigurationSchemaDefault.md) |  | 
+**Value** | [**SystemConfigurationValue**](SystemConfigurationValue.md) |  | 
 
 ## Methods
 
 ### NewSystemConfigurationPut
 
-`func NewSystemConfigurationPut(key string, value SystemConfigurationSchemaDefault, ) *SystemConfigurationPut`
+`func NewSystemConfigurationPut(key string, value SystemConfigurationValue, ) *SystemConfigurationPut`
 
 NewSystemConfigurationPut instantiates a new SystemConfigurationPut object
 This constructor will assign default values to properties that have it defined,
@@ -48,20 +48,20 @@ SetKey sets Key field to given value.
 
 ### GetValue
 
-`func (o *SystemConfigurationPut) GetValue() SystemConfigurationSchemaDefault`
+`func (o *SystemConfigurationPut) GetValue() SystemConfigurationValue`
 
 GetValue returns the Value field if non-nil, zero value otherwise.
 
 ### GetValueOk
 
-`func (o *SystemConfigurationPut) GetValueOk() (*SystemConfigurationSchemaDefault, bool)`
+`func (o *SystemConfigurationPut) GetValueOk() (*SystemConfigurationValue, bool)`
 
 GetValueOk returns a tuple with the Value field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetValue
 
-`func (o *SystemConfigurationPut) SetValue(v SystemConfigurationSchemaDefault)`
+`func (o *SystemConfigurationPut) SetValue(v SystemConfigurationValue)`
 
 SetValue sets Value field to given value.
 

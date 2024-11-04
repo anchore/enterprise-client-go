@@ -17,46 +17,51 @@ import (
 	"fmt"
 )
 
-// SystemConfigurationSchemaDefault - struct for SystemConfigurationSchemaDefault
-type SystemConfigurationSchemaDefault struct {
+// SystemConfigurationValueValue - struct for SystemConfigurationValueValue
+type SystemConfigurationValueValue struct {
 	ArrayOfAny *[]interface{}
 	Bool *bool
 	Float32 *float32
 	String *string
 }
 
-// []interface{}AsSystemConfigurationSchemaDefault is a convenience function that returns []interface{} wrapped in SystemConfigurationSchemaDefault
-func ArrayOfAnyAsSystemConfigurationSchemaDefault(v *[]interface{}) SystemConfigurationSchemaDefault {
-	return SystemConfigurationSchemaDefault{
+// []interface{}AsSystemConfigurationValueValue is a convenience function that returns []interface{} wrapped in SystemConfigurationValueValue
+func ArrayOfAnyAsSystemConfigurationValueValue(v *[]interface{}) SystemConfigurationValueValue {
+	return SystemConfigurationValueValue{
 		ArrayOfAny: v,
 	}
 }
 
-// boolAsSystemConfigurationSchemaDefault is a convenience function that returns bool wrapped in SystemConfigurationSchemaDefault
-func BoolAsSystemConfigurationSchemaDefault(v *bool) SystemConfigurationSchemaDefault {
-	return SystemConfigurationSchemaDefault{
+// boolAsSystemConfigurationValueValue is a convenience function that returns bool wrapped in SystemConfigurationValueValue
+func BoolAsSystemConfigurationValueValue(v *bool) SystemConfigurationValueValue {
+	return SystemConfigurationValueValue{
 		Bool: v,
 	}
 }
 
-// float32AsSystemConfigurationSchemaDefault is a convenience function that returns float32 wrapped in SystemConfigurationSchemaDefault
-func Float32AsSystemConfigurationSchemaDefault(v *float32) SystemConfigurationSchemaDefault {
-	return SystemConfigurationSchemaDefault{
+// float32AsSystemConfigurationValueValue is a convenience function that returns float32 wrapped in SystemConfigurationValueValue
+func Float32AsSystemConfigurationValueValue(v *float32) SystemConfigurationValueValue {
+	return SystemConfigurationValueValue{
 		Float32: v,
 	}
 }
 
-// stringAsSystemConfigurationSchemaDefault is a convenience function that returns string wrapped in SystemConfigurationSchemaDefault
-func StringAsSystemConfigurationSchemaDefault(v *string) SystemConfigurationSchemaDefault {
-	return SystemConfigurationSchemaDefault{
+// stringAsSystemConfigurationValueValue is a convenience function that returns string wrapped in SystemConfigurationValueValue
+func StringAsSystemConfigurationValueValue(v *string) SystemConfigurationValueValue {
+	return SystemConfigurationValueValue{
 		String: v,
 	}
 }
 
 
 // Unmarshal JSON data into one of the pointers in the struct
-func (dst *SystemConfigurationSchemaDefault) UnmarshalJSON(data []byte) error {
+func (dst *SystemConfigurationValueValue) UnmarshalJSON(data []byte) error {
 	var err error
+	// this object is nullable so check if the payload is null or empty string
+	if string(data) == "" || string(data) == "{}" {
+		return nil
+	}
+
 	match := 0
 	// try to unmarshal data into ArrayOfAny
 	err = newStrictDecoder(data).Decode(&dst.ArrayOfAny)
@@ -133,16 +138,16 @@ func (dst *SystemConfigurationSchemaDefault) UnmarshalJSON(data []byte) error {
 		dst.Float32 = nil
 		dst.String = nil
 
-		return fmt.Errorf("data matches more than one schema in oneOf(SystemConfigurationSchemaDefault)")
+		return fmt.Errorf("data matches more than one schema in oneOf(SystemConfigurationValueValue)")
 	} else if match == 1 {
 		return nil // exactly one match
 	} else { // no match
-		return fmt.Errorf("data failed to match schemas in oneOf(SystemConfigurationSchemaDefault)")
+		return fmt.Errorf("data failed to match schemas in oneOf(SystemConfigurationValueValue)")
 	}
 }
 
 // Marshal data from the first non-nil pointers in the struct to JSON
-func (src SystemConfigurationSchemaDefault) MarshalJSON() ([]byte, error) {
+func (src SystemConfigurationValueValue) MarshalJSON() ([]byte, error) {
 	if src.ArrayOfAny != nil {
 		return json.Marshal(&src.ArrayOfAny)
 	}
@@ -163,7 +168,7 @@ func (src SystemConfigurationSchemaDefault) MarshalJSON() ([]byte, error) {
 }
 
 // Get the actual instance
-func (obj *SystemConfigurationSchemaDefault) GetActualInstance() (interface{}) {
+func (obj *SystemConfigurationValueValue) GetActualInstance() (interface{}) {
 	if obj == nil {
 		return nil
 	}
@@ -187,38 +192,38 @@ func (obj *SystemConfigurationSchemaDefault) GetActualInstance() (interface{}) {
 	return nil
 }
 
-type NullableSystemConfigurationSchemaDefault struct {
-	value *SystemConfigurationSchemaDefault
+type NullableSystemConfigurationValueValue struct {
+	value *SystemConfigurationValueValue
 	isSet bool
 }
 
-func (v NullableSystemConfigurationSchemaDefault) Get() *SystemConfigurationSchemaDefault {
+func (v NullableSystemConfigurationValueValue) Get() *SystemConfigurationValueValue {
 	return v.value
 }
 
-func (v *NullableSystemConfigurationSchemaDefault) Set(val *SystemConfigurationSchemaDefault) {
+func (v *NullableSystemConfigurationValueValue) Set(val *SystemConfigurationValueValue) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableSystemConfigurationSchemaDefault) IsSet() bool {
+func (v NullableSystemConfigurationValueValue) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableSystemConfigurationSchemaDefault) Unset() {
+func (v *NullableSystemConfigurationValueValue) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableSystemConfigurationSchemaDefault(val *SystemConfigurationSchemaDefault) *NullableSystemConfigurationSchemaDefault {
-	return &NullableSystemConfigurationSchemaDefault{value: val, isSet: true}
+func NewNullableSystemConfigurationValueValue(val *SystemConfigurationValueValue) *NullableSystemConfigurationValueValue {
+	return &NullableSystemConfigurationValueValue{value: val, isSet: true}
 }
 
-func (v NullableSystemConfigurationSchemaDefault) MarshalJSON() ([]byte, error) {
+func (v NullableSystemConfigurationValueValue) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableSystemConfigurationSchemaDefault) UnmarshalJSON(src []byte) error {
+func (v *NullableSystemConfigurationValueValue) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }

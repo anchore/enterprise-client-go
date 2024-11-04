@@ -23,7 +23,7 @@ var _ MappedNullable = &SystemConfigurationPatchInner{}
 // SystemConfigurationPatchInner struct for SystemConfigurationPatchInner
 type SystemConfigurationPatchInner struct {
 	Key string `json:"key"`
-	Value SystemConfigurationSchemaDefault `json:"value"`
+	Value SystemConfigurationValue `json:"value"`
 }
 
 type _SystemConfigurationPatchInner SystemConfigurationPatchInner
@@ -32,7 +32,7 @@ type _SystemConfigurationPatchInner SystemConfigurationPatchInner
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewSystemConfigurationPatchInner(key string, value SystemConfigurationSchemaDefault) *SystemConfigurationPatchInner {
+func NewSystemConfigurationPatchInner(key string, value SystemConfigurationValue) *SystemConfigurationPatchInner {
 	this := SystemConfigurationPatchInner{}
 	this.Key = key
 	this.Value = value
@@ -72,9 +72,9 @@ func (o *SystemConfigurationPatchInner) SetKey(v string) {
 }
 
 // GetValue returns the Value field value
-func (o *SystemConfigurationPatchInner) GetValue() SystemConfigurationSchemaDefault {
+func (o *SystemConfigurationPatchInner) GetValue() SystemConfigurationValue {
 	if o == nil {
-		var ret SystemConfigurationSchemaDefault
+		var ret SystemConfigurationValue
 		return ret
 	}
 
@@ -83,7 +83,7 @@ func (o *SystemConfigurationPatchInner) GetValue() SystemConfigurationSchemaDefa
 
 // GetValueOk returns a tuple with the Value field value
 // and a boolean to check if the value has been set.
-func (o *SystemConfigurationPatchInner) GetValueOk() (*SystemConfigurationSchemaDefault, bool) {
+func (o *SystemConfigurationPatchInner) GetValueOk() (*SystemConfigurationValue, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -91,7 +91,7 @@ func (o *SystemConfigurationPatchInner) GetValueOk() (*SystemConfigurationSchema
 }
 
 // SetValue sets field value
-func (o *SystemConfigurationPatchInner) SetValue(v SystemConfigurationSchemaDefault) {
+func (o *SystemConfigurationPatchInner) SetValue(v SystemConfigurationValue) {
 	o.Value = v
 }
 

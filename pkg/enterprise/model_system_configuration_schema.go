@@ -22,7 +22,7 @@ var _ MappedNullable = &SystemConfigurationSchema{}
 type SystemConfigurationSchema struct {
 	AllowInfNan NullableBool `json:"allow_inf_nan,omitempty"`
 	DecimalPlaces NullableInt32 `json:"decimal_places,omitempty"`
-	Default *SystemConfigurationSchemaDefault `json:"default,omitempty"`
+	Default *SystemConfigurationValue `json:"default,omitempty"`
 	Enum []string `json:"enum,omitempty"`
 	Ge NullableFloat32 `json:"ge,omitempty"`
 	Gt NullableFloat32 `json:"gt,omitempty"`
@@ -140,9 +140,9 @@ func (o *SystemConfigurationSchema) UnsetDecimalPlaces() {
 }
 
 // GetDefault returns the Default field value if set, zero value otherwise.
-func (o *SystemConfigurationSchema) GetDefault() SystemConfigurationSchemaDefault {
+func (o *SystemConfigurationSchema) GetDefault() SystemConfigurationValue {
 	if o == nil || IsNil(o.Default) {
-		var ret SystemConfigurationSchemaDefault
+		var ret SystemConfigurationValue
 		return ret
 	}
 	return *o.Default
@@ -150,7 +150,7 @@ func (o *SystemConfigurationSchema) GetDefault() SystemConfigurationSchemaDefaul
 
 // GetDefaultOk returns a tuple with the Default field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SystemConfigurationSchema) GetDefaultOk() (*SystemConfigurationSchemaDefault, bool) {
+func (o *SystemConfigurationSchema) GetDefaultOk() (*SystemConfigurationValue, bool) {
 	if o == nil || IsNil(o.Default) {
 		return nil, false
 	}
@@ -166,8 +166,8 @@ func (o *SystemConfigurationSchema) HasDefault() bool {
 	return false
 }
 
-// SetDefault gets a reference to the given SystemConfigurationSchemaDefault and assigns it to the Default field.
-func (o *SystemConfigurationSchema) SetDefault(v SystemConfigurationSchemaDefault) {
+// SetDefault gets a reference to the given SystemConfigurationValue and assigns it to the Default field.
+func (o *SystemConfigurationSchema) SetDefault(v SystemConfigurationValue) {
 	o.Default = &v
 }
 

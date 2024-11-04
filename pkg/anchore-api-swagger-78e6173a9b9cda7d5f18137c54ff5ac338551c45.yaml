@@ -16199,6 +16199,20 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/SystemResourceLimit"
+    SystemConfigurationValue:
+      type: object
+      properties:
+        value:
+          oneOf:
+            - type: null
+            - type: string
+            - type: number
+            - type: boolean
+              enum: [true, false]
+            - type: array
+              items:
+                type: object
+                properties: {}
     SystemConfigurationSchema:
       type: object
       properties:
@@ -16209,14 +16223,7 @@ components:
           type: integer
           nullable: true
         default:
-          oneOf:
-            - type: string
-            - type: number
-            - type: boolean
-            - type: array
-              items:
-                type: object
-                properties: { }
+          $ref: "#/components/schemas/SystemConfigurationValue"
         enum:
           type: array
           nullable: true
@@ -16270,14 +16277,7 @@ components:
         key:
           type: string
         value:
-          oneOf:
-          - type: string
-          - type: number
-          - type: boolean
-          - type: array
-            items:
-              type: object
-              properties: {}
+          $ref: "#/components/schemas/SystemConfigurationValue"
         requires_system_restart:
           type: boolean
         category:
@@ -16289,14 +16289,7 @@ components:
         description:
           type: string
         default_value:
-          oneOf:
-            - type: string
-            - type: number
-            - type: boolean
-            - type: array
-              items:
-                type: object
-                properties: { }
+          $ref: "#/components/schemas/SystemConfigurationValue"
         source:
           type: string
         is_editable:
@@ -16328,14 +16321,7 @@ components:
           key:
             type: string
           value:
-            oneOf:
-            - type: string
-            - type: number
-            - type: boolean
-            - type: array
-              items:
-                type: object
-                properties: {}
+            $ref: "#/components/schemas/SystemConfigurationValue"
     SystemConfigurationPut:
       type: object
       required:
@@ -16345,14 +16331,7 @@ components:
         key:
           type: string
         value:
-          oneOf:
-          - type: string
-          - type: number
-          - type: boolean
-          - type: array
-            items:
-              type: object
-              properties: {}
+          $ref: "#/components/schemas/SystemConfigurationValue"
     SystemConfigurationList:
       type: object
       properties:

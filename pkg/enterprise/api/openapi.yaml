@@ -22823,6 +22823,13 @@ components:
             $ref: '#/components/schemas/SystemResourceLimit'
           type: array
       type: object
+    SystemConfigurationValue:
+      example:
+        value: SystemConfigurationValue_value
+      properties:
+        value:
+          $ref: '#/components/schemas/SystemConfigurationValue_value'
+      type: object
     SystemConfigurationSchema:
       example:
         multiple_of: 4.145608029883936
@@ -22836,7 +22843,8 @@ components:
         decimal_places: 0
         allow_inf_nan: true
         unique_items: true
-        default: null
+        default:
+          value: SystemConfigurationValue_value
         regex: regex
         min_items: 3
         le: 5.962133916683182
@@ -22851,7 +22859,7 @@ components:
           nullable: true
           type: integer
         default:
-          $ref: '#/components/schemas/SystemConfigurationSchema_default'
+          $ref: '#/components/schemas/SystemConfigurationValue'
         enum:
           items:
             type: string
@@ -22900,7 +22908,8 @@ components:
         requires_system_restart: true
         description: description
         created_at: 2000-01-23T04:56:07.000+00:00
-        default_value: null
+        default_value:
+          value: SystemConfigurationValue_value
         is_editable: true
         config_schema:
           multiple_of: 4.145608029883936
@@ -22914,7 +22923,8 @@ components:
           decimal_places: 0
           allow_inf_nan: true
           unique_items: true
-          default: null
+          default:
+            value: SystemConfigurationValue_value
           regex: regex
           min_items: 3
           le: 5.962133916683182
@@ -22928,7 +22938,8 @@ components:
         is_deprecated: true
         deprecated_reason: deprecated_reason
         category: category
-        value: SystemConfigurationSchema_default
+        value:
+          value: SystemConfigurationValue_value
         key: key
         editable_reason: editable_reason
       properties:
@@ -22938,7 +22949,7 @@ components:
         key:
           type: string
         value:
-          $ref: '#/components/schemas/SystemConfigurationSchema_default'
+          $ref: '#/components/schemas/SystemConfigurationValue'
         requires_system_restart:
           type: boolean
         category:
@@ -22950,7 +22961,7 @@ components:
         description:
           type: string
         default_value:
-          $ref: '#/components/schemas/SystemConfigurationSchema_default'
+          $ref: '#/components/schemas/SystemConfigurationValue'
         source:
           type: string
         is_editable:
@@ -22981,13 +22992,14 @@ components:
       type: array
     SystemConfigurationPut:
       example:
-        value: SystemConfigurationSchema_default
+        value:
+          value: SystemConfigurationValue_value
         key: key
       properties:
         key:
           type: string
         value:
-          $ref: '#/components/schemas/SystemConfigurationSchema_default'
+          $ref: '#/components/schemas/SystemConfigurationValue'
       required:
       - key
       - value
@@ -22999,7 +23011,8 @@ components:
           requires_system_restart: true
           description: description
           created_at: 2000-01-23T04:56:07.000+00:00
-          default_value: null
+          default_value:
+            value: SystemConfigurationValue_value
           is_editable: true
           config_schema:
             multiple_of: 4.145608029883936
@@ -23013,7 +23026,8 @@ components:
             decimal_places: 0
             allow_inf_nan: true
             unique_items: true
-            default: null
+            default:
+              value: SystemConfigurationValue_value
             regex: regex
             min_items: 3
             le: 5.962133916683182
@@ -23027,14 +23041,16 @@ components:
           is_deprecated: true
           deprecated_reason: deprecated_reason
           category: category
-          value: SystemConfigurationSchema_default
+          value:
+            value: SystemConfigurationValue_value
           key: key
           editable_reason: editable_reason
         - is_secret: true
           requires_system_restart: true
           description: description
           created_at: 2000-01-23T04:56:07.000+00:00
-          default_value: null
+          default_value:
+            value: SystemConfigurationValue_value
           is_editable: true
           config_schema:
             multiple_of: 4.145608029883936
@@ -23048,7 +23064,8 @@ components:
             decimal_places: 0
             allow_inf_nan: true
             unique_items: true
-            default: null
+            default:
+              value: SystemConfigurationValue_value
             regex: regex
             min_items: 3
             le: 5.962133916683182
@@ -23062,7 +23079,8 @@ components:
           is_deprecated: true
           deprecated_reason: deprecated_reason
           category: category
-          value: SystemConfigurationSchema_default
+          value:
+            value: SystemConfigurationValue_value
           key: key
           editable_reason: editable_reason
       properties:
@@ -24606,7 +24624,8 @@ components:
       required:
       - sbom
       type: object
-    SystemConfigurationSchema_default:
+    SystemConfigurationValue_value:
+      nullable: true
       oneOf:
       - type: string
       - type: number
@@ -24620,7 +24639,7 @@ components:
         key:
           type: string
         value:
-          $ref: '#/components/schemas/SystemConfigurationSchema_default'
+          $ref: '#/components/schemas/SystemConfigurationValue'
       required:
       - key
       - value
