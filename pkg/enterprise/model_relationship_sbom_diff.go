@@ -3,7 +3,7 @@ Anchore API
 
 This is the Anchore API. Provides the external API for users of Anchore Enterprise.
 
-API version: 2.8.0
+API version: 2.9.0
 Contact: dev@anchore.com
 */
 

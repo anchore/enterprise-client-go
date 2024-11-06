@@ -3,7 +3,7 @@ Anchore API
 
 This is the Anchore API. Provides the external API for users of Anchore Enterprise.
 
-API version: 2.8.0
+API version: 2.9.0
 Contact: dev@anchore.com
 */
 
@@ -46,7 +46,7 @@ var (
 	queryDescape    = strings.NewReplacer( "%5B", "[", "%5D", "]" )
 )
 
-// APIClient manages communication with the Anchore API API v2.8.0
+// APIClient manages communication with the Anchore API API v2.9.0
 // In most cases there should be only one, shared, APIClient.
 type APIClient struct {
 	cfg    *Configuration
@@ -104,8 +104,6 @@ type APIClient struct {
 
 	SystemAPI SystemAPI
 
-	SystemConfigurationAPI SystemConfigurationAPI
-
 	UserManagementAPI UserManagementAPI
 
 	VulnerabilitiesAPI VulnerabilitiesAPI
@@ -152,7 +150,6 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.StatisticsAPI = (*StatisticsAPIService)(&c.common)
 	c.SubscriptionsAPI = (*SubscriptionsAPIService)(&c.common)
 	c.SystemAPI = (*SystemAPIService)(&c.common)
-	c.SystemConfigurationAPI = (*SystemConfigurationAPIService)(&c.common)
 	c.UserManagementAPI = (*UserManagementAPIService)(&c.common)
 	c.VulnerabilitiesAPI = (*VulnerabilitiesAPIService)(&c.common)
 
