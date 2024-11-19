@@ -352,8 +352,6 @@ docs/SubscriptionRequest.md
 docs/SubscriptionUpdate.md
 docs/SubscriptionsAPI.md
 docs/SystemAPI.md
-docs/SystemResourceLimit.md
-docs/SystemResourceLimitsList.md
 docs/SystemStatistics.md
 docs/SystemStatisticsList.md
 docs/SystemStatusResponse.md
@@ -698,8 +696,6 @@ model_status_response.go
 model_subscription.go
 model_subscription_request.go
 model_subscription_update.go
-model_system_resource_limit.go
-model_system_resource_limits_list.go
 model_system_statistics.go
 model_system_statistics_list.go
 model_system_status_response.go

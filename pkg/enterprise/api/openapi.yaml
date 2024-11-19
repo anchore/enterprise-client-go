@@ -10318,21 +10318,6 @@ paths:
       - System
       x-anchore-authz-action: None
       x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.system
-  /system/resource-limits:
-    get:
-      operationId: get_resource_limits
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/SystemResourceLimitsList'
-          description: Resource limits
-      summary: Get resource limits
-      tags:
-      - System
-      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.system
-      x-anchore-authz-action: getResourceLimits
   /system/services:
     get:
       operationId: list_services
@@ -22588,57 +22573,6 @@ components:
         active:
           description: Toggle the subscription processing on or off
           type: boolean
-      type: object
-    SystemResourceLimit:
-      example:
-        warning_value: 0
-        name: sbom_inventory
-        limit_value: 6
-        limit_exceeded: true
-        current_value: 1
-      properties:
-        name:
-          description: The resource being limited
-          enum:
-          - sbom_inventory
-          - report_inventory
-          - report_execution_inventory
-          - account_inventory
-          - user_inventory
-          type: string
-        warning_value:
-          description: The value at which a warning will be generated
-          nullable: true
-          type: integer
-        limit_value:
-          description: The value at which a limit will be enforced
-          nullable: true
-          type: integer
-        current_value:
-          description: The current value of the resource
-          type: integer
-        limit_exceeded:
-          description: Whether the limit has been exceeded and is being enforced
-          type: boolean
-      type: object
-    SystemResourceLimitsList:
-      example:
-        items:
-        - warning_value: 0
-          name: sbom_inventory
-          limit_value: 6
-          limit_exceeded: true
-          current_value: 1
-        - warning_value: 0
-          name: sbom_inventory
-          limit_value: 6
-          limit_exceeded: true
-          current_value: 1
-      properties:
-        items:
-          items:
-            $ref: '#/components/schemas/SystemResourceLimit'
-          type: array
       type: object
     SystemStatistics:
       example:

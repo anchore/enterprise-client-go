@@ -348,7 +348,6 @@ Class | Method | HTTP request | Description
 *SystemAPI* | [**DescribeErrorCodes**](docs/SystemAPI.md#describeerrorcodes) | **Get** /system/error-codes | Describe anchore engine error codes.
 *SystemAPI* | [**DescribePolicy**](docs/SystemAPI.md#describepolicy) | **Get** /system/policy-spec | Describe the policy language spec implemented by this service.
 *SystemAPI* | [**GetAnchorectl**](docs/SystemAPI.md#getanchorectl) | **Get** /system/anchorectl | Get an anchorectl binary compatible with this version of Anchore Enterprise
-*SystemAPI* | [**GetResourceLimits**](docs/SystemAPI.md#getresourcelimits) | **Get** /system/resource-limits | Get resource limits
 *SystemAPI* | [**GetServiceDetail**](docs/SystemAPI.md#getservicedetail) | **Get** /system | System status
 *SystemAPI* | [**GetServicesByName**](docs/SystemAPI.md#getservicesbyname) | **Get** /system/services/{service_name} | Get a service configuration and state
 *SystemAPI* | [**GetServicesByNameAndHost**](docs/SystemAPI.md#getservicesbynameandhost) | **Get** /system/services/{service_name}/{host_id} | Get service config for a specific host
@@ -697,8 +696,6 @@ Class | Method | HTTP request | Description
  - [Subscription](docs/Subscription.md)
  - [SubscriptionRequest](docs/SubscriptionRequest.md)
  - [SubscriptionUpdate](docs/SubscriptionUpdate.md)
- - [SystemResourceLimit](docs/SystemResourceLimit.md)
- - [SystemResourceLimitsList](docs/SystemResourceLimitsList.md)
  - [SystemStatistics](docs/SystemStatistics.md)
  - [SystemStatisticsList](docs/SystemStatisticsList.md)
  - [SystemStatusResponse](docs/SystemStatusResponse.md)

@@ -9254,21 +9254,6 @@ paths:
                 $ref: '#/components/schemas/GateSpecList'
       x-anchore-authz-action: None
       x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.system
-  /system/resource-limits:
-    get:
-      tags:
-        - System
-      summary: Get resource limits
-      operationId: get_resource_limits
-      responses:
-        200:
-          description: Resource limits
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/SystemResourceLimitsList"
-      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.system
-      x-anchore-authz-action: getResourceLimits
   /system/services:
     get:
       tags:
@@ -15990,39 +15975,6 @@ components:
           description: Toggle the subscription processing on or off
       description: A modification to a subscription entry to change its status or
         value
-    SystemResourceLimit:
-      type: object
-      properties:
-        name:
-          type: string
-          description: The resource being limited
-          enum:
-            - sbom_inventory
-            - report_inventory
-            - report_execution_inventory
-            - account_inventory
-            - user_inventory
-        warning_value:
-          type: integer
-          nullable: true
-          description: The value at which a warning will be generated
-        limit_value:
-          type: integer
-          nullable: true
-          description: The value at which a limit will be enforced
-        current_value:
-          type: integer
-          description: The current value of the resource
-        limit_exceeded:
-          type: boolean
-          description: Whether the limit has been exceeded and is being enforced
-    SystemResourceLimitsList:
-      type: object
-      properties:
-        items:
-          type: array
-          items:
-            $ref: "#/components/schemas/SystemResourceLimit"
     SystemStatistics:
       type: object
       properties:
