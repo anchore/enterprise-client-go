@@ -1,4 +1,4 @@
-# SystemConfigurationSchemaDefault
+# SystemConfigurationValueOneOfInner
 
 ## Properties
 
@@ -7,20 +7,20 @@ Name | Type | Description | Notes
 
 ## Methods
 
-### NewSystemConfigurationSchemaDefault
+### NewSystemConfigurationValueOneOfInner
 
-`func NewSystemConfigurationSchemaDefault() *SystemConfigurationSchemaDefault`
+`func NewSystemConfigurationValueOneOfInner() *SystemConfigurationValueOneOfInner`
 
-NewSystemConfigurationSchemaDefault instantiates a new SystemConfigurationSchemaDefault object
+NewSystemConfigurationValueOneOfInner instantiates a new SystemConfigurationValueOneOfInner object
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
 will change when the set of required properties is changed
 
-### NewSystemConfigurationSchemaDefaultWithDefaults
+### NewSystemConfigurationValueOneOfInnerWithDefaults
 
-`func NewSystemConfigurationSchemaDefaultWithDefaults() *SystemConfigurationSchemaDefault`
+`func NewSystemConfigurationValueOneOfInnerWithDefaults() *SystemConfigurationValueOneOfInner`
 
-NewSystemConfigurationSchemaDefaultWithDefaults instantiates a new SystemConfigurationSchemaDefault object
+NewSystemConfigurationValueOneOfInnerWithDefaults instantiates a new SystemConfigurationValueOneOfInner object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 

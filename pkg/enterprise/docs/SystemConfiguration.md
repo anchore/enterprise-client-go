@@ -6,13 +6,13 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Uuid** | Pointer to **string** |  | [optional] [readonly] 
 **Key** | **string** |  | 
-**Value** | [**SystemConfigurationSchemaDefault**](SystemConfigurationSchemaDefault.md) |  | 
+**Value** | [**NullableSystemConfigurationValue**](SystemConfigurationValue.md) |  | 
 **RequiresSystemRestart** | Pointer to **bool** |  | [optional] 
 **Category** | Pointer to **string** |  | [optional] 
 **ConfigSchema** | Pointer to [**SystemConfigurationSchema**](SystemConfigurationSchema.md) |  | [optional] 
 **Title** | Pointer to **string** |  | [optional] 
 **Description** | Pointer to **string** |  | [optional] 
-**DefaultValue** | Pointer to [**SystemConfigurationSchemaDefault**](SystemConfigurationSchemaDefault.md) |  | [optional] 
+**DefaultValue** | Pointer to [**NullableSystemConfigurationValue**](SystemConfigurationValue.md) |  | [optional] 
 **Source** | Pointer to **string** |  | [optional] 
 **IsEditable** | Pointer to **bool** |  | [optional] 
 **EditableReason** | Pointer to **string** |  | [optional] 
@@ -26,7 +26,7 @@ Name | Type | Description | Notes
 
 ### NewSystemConfiguration
 
-`func NewSystemConfiguration(key string, value SystemConfigurationSchemaDefault, ) *SystemConfiguration`
+`func NewSystemConfiguration(key string, value NullableSystemConfigurationValue, ) *SystemConfiguration`
 
 NewSystemConfiguration instantiates a new SystemConfiguration object
 This constructor will assign default values to properties that have it defined,
@@ -88,24 +88,34 @@ SetKey sets Key field to given value.
 
 ### GetValue
 
-`func (o *SystemConfiguration) GetValue() SystemConfigurationSchemaDefault`
+`func (o *SystemConfiguration) GetValue() SystemConfigurationValue`
 
 GetValue returns the Value field if non-nil, zero value otherwise.
 
 ### GetValueOk
 
-`func (o *SystemConfiguration) GetValueOk() (*SystemConfigurationSchemaDefault, bool)`
+`func (o *SystemConfiguration) GetValueOk() (*SystemConfigurationValue, bool)`
 
 GetValueOk returns a tuple with the Value field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetValue
 
-`func (o *SystemConfiguration) SetValue(v SystemConfigurationSchemaDefault)`
+`func (o *SystemConfiguration) SetValue(v SystemConfigurationValue)`
 
 SetValue sets Value field to given value.
 
 
+### SetValueNil
+
+`func (o *SystemConfiguration) SetValueNil(b bool)`
+
+ SetValueNil sets the value for Value to be an explicit nil
+
+### UnsetValue
+`func (o *SystemConfiguration) UnsetValue()`
+
+UnsetValue ensures that no value is present for Value, not even an explicit nil
 ### GetRequiresSystemRestart
 
 `func (o *SystemConfiguration) GetRequiresSystemRestart() bool`
@@ -233,20 +243,20 @@ HasDescription returns a boolean if a field has been set.
 
 ### GetDefaultValue
 
-`func (o *SystemConfiguration) GetDefaultValue() SystemConfigurationSchemaDefault`
+`func (o *SystemConfiguration) GetDefaultValue() SystemConfigurationValue`
 
 GetDefaultValue returns the DefaultValue field if non-nil, zero value otherwise.
 
 ### GetDefaultValueOk
 
-`func (o *SystemConfiguration) GetDefaultValueOk() (*SystemConfigurationSchemaDefault, bool)`
+`func (o *SystemConfiguration) GetDefaultValueOk() (*SystemConfigurationValue, bool)`
 
 GetDefaultValueOk returns a tuple with the DefaultValue field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetDefaultValue
 
-`func (o *SystemConfiguration) SetDefaultValue(v SystemConfigurationSchemaDefault)`
+`func (o *SystemConfiguration) SetDefaultValue(v SystemConfigurationValue)`
 
 SetDefaultValue sets DefaultValue field to given value.
 
@@ -256,6 +266,16 @@ SetDefaultValue sets DefaultValue field to given value.
 
 HasDefaultValue returns a boolean if a field has been set.
 
+### SetDefaultValueNil
+
+`func (o *SystemConfiguration) SetDefaultValueNil(b bool)`
+
+ SetDefaultValueNil sets the value for DefaultValue to be an explicit nil
+
+### UnsetDefaultValue
+`func (o *SystemConfiguration) UnsetDefaultValue()`
+
+UnsetDefaultValue ensures that no value is present for DefaultValue, not even an explicit nil
 ### GetSource
 
 `func (o *SystemConfiguration) GetSource() string`

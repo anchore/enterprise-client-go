@@ -359,9 +359,8 @@ docs/SystemConfigurationList.md
 docs/SystemConfigurationPatchInner.md
 docs/SystemConfigurationPut.md
 docs/SystemConfigurationSchema.md
-docs/SystemConfigurationSchemaDefault.md
-docs/SystemResourceLimit.md
-docs/SystemResourceLimitsList.md
+docs/SystemConfigurationValue.md
+docs/SystemConfigurationValueOneOfInner.md
 docs/SystemStatistics.md
 docs/SystemStatisticsList.md
 docs/SystemStatusResponse.md
@@ -711,9 +710,8 @@ model_system_configuration_list.go
 model_system_configuration_patch_inner.go
 model_system_configuration_put.go
 model_system_configuration_schema.go
-model_system_configuration_schema_default.go
-model_system_resource_limit.go
-model_system_resource_limits_list.go
+model_system_configuration_value.go
+model_system_configuration_value_one_of_inner.go
 model_system_statistics.go
 model_system_statistics_list.go
 model_system_status_response.go

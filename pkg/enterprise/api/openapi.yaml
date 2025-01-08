@@ -8,7 +8,7 @@ info:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
   title: Anchore API
-  version: 2.8.0
+  version: 2.10.0
 servers:
 - url: /v2
 tags:
@@ -9781,6 +9781,201 @@ paths:
       - Artifact Lifecycle
       x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.artifact_lifecycle_policies
       x-anchore-authz-action: updateArtifactLifecyclePolicy
+  /system/configurations/schema:
+    get:
+      description: A full schema definition for the API exposed configurations
+      operationId: get_configuration_schema
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                type: object
+          description: The configuration schema
+      summary: Get the system configuration schema for API exposed settings
+      tags:
+      - System Configuration
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.configuration
+      x-anchore-authz-action: getSystemConfig
+  /system/configurations:
+    get:
+      description: List all API exposed configurations and their values
+      operationId: list_configurations
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SystemConfigurationList'
+          description: The list of configurations
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+          description: Not permitted
+      summary: List all API exposed configurations and their values
+      tags:
+      - System Configuration
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.configuration
+      x-anchore-authz-action: getSystemConfig
+    patch:
+      description: Enables the user to update more than one configuration key at a
+        time with partials Note; this operation is atomic so if any key fails validation
+        none will be set.
+      operationId: patch_configuration
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SystemConfigurationPatch'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SystemConfigurationList'
+          description: The list of impacted keys
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+          description: Validation error
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+          description: Not permitted
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+          description: Conflict
+      summary: Apply a patch to the system configuration
+      tags:
+      - System Configuration
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.configuration
+      x-anchore-authz-action: updateSystemConfig
+  /system/configurations/{config_key}:
+    delete:
+      description: Unset a configuration key - this will return it to the system default
+      operationId: delete_configuration
+      parameters:
+      - explode: false
+        in: path
+        name: config_key
+        required: true
+        schema:
+          format: path
+          type: string
+        style: simple
+      responses:
+        "204":
+          content: {}
+          description: Success
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+          description: Not permitted
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+          description: Not found
+      summary: Unset a configuration key
+      tags:
+      - System Configuration
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.configuration
+      x-anchore-authz-action: unsetSystemConfig
+    get:
+      description: The value of a single configuration key
+      operationId: get_configuration
+      parameters:
+      - explode: false
+        in: path
+        name: config_key
+        required: true
+        schema:
+          format: path
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SystemConfiguration'
+          description: The configuration
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+          description: Not permitted
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+          description: Not found
+      summary: Get an individual configuration
+      tags:
+      - System Configuration
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.configuration
+      x-anchore-authz-action: getSystemConfig
+    put:
+      description: Update the value of a single configuration key
+      operationId: put_configuration
+      parameters:
+      - explode: false
+        in: path
+        name: config_key
+        required: true
+        schema:
+          format: path
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SystemConfigurationPut'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SystemConfiguration'
+          description: The updated configuration
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+          description: Validation error
+        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+          description: Not permitted
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+          description: Conflict
+      summary: Put a single configuration value
+      tags:
+      - System Configuration
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.configuration
+      x-anchore-authz-action: updateSystemConfig
   /system/deployment-history:
     get:
       description: Returns list of deployment history entries
@@ -10318,21 +10513,6 @@ paths:
       - System
       x-anchore-authz-action: None
       x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.system
-  /system/resource-limits:
-    get:
-      operationId: get_resource_limits
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/SystemResourceLimitsList'
-          description: Resource limits
-      summary: Get resource limits
-      tags:
-      - System
-      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.system
-      x-anchore-authz-action: getResourceLimits
   /system/services:
     get:
       operationId: list_services
@@ -10456,189 +10636,6 @@ paths:
       - System
       x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.system
       x-anchore-authz-action: getService
-  /system/configurations/schema:
-    get:
-      description: A full schema definition for the API exposed configurations
-      operationId: get_configuration_schema
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                type: object
-          description: The configuration schema
-      summary: Get the system configuration schema for API exposed settings
-      tags:
-      - System Configuration
-      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.configuration
-      x-anchore-authz-action: getSystemConfig
-  /system/configurations:
-    get:
-      description: List all API exposed configurations and their values
-      operationId: list_configurations
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/SystemConfigurationList'
-          description: The list of configurations
-        "403":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ApiErrorResponse'
-          description: Not permitted
-      summary: List all API exposed configurations and their values
-      tags:
-      - System Configuration
-      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.configuration
-      x-anchore-authz-action: getSystemConfig
-    patch:
-      description: Enables the user to update more than one configuration key at a
-        time with partials Note; this operation is atomic so if any key fails validation
-        none will be set.
-      operationId: patch_configuration
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/SystemConfigurationPatch'
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/SystemConfigurationList'
-          description: The list of impacted keys
-        "400":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ApiErrorResponse'
-          description: Validation error
-        "403":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ApiErrorResponse'
-          description: Not permitted
-      summary: Apply a patch to the system configuration
-      tags:
-      - System Configuration
-      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.configuration
-      x-anchore-authz-action: updateSystemConfig
-  /system/configurations/{config_key}:
-    delete:
-      description: Unset a configuration key - this will return it to the system default
-      operationId: delete_configuration
-      parameters:
-      - explode: false
-        in: path
-        name: config_key
-        required: true
-        schema:
-          format: path
-          type: string
-        style: simple
-      responses:
-        "204":
-          content: {}
-          description: Success
-        "403":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ApiErrorResponse'
-          description: Not permitted
-        "404":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ApiErrorResponse'
-          description: Not found
-      summary: Unset a configuration key
-      tags:
-      - System Configuration
-      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.configuration
-      x-anchore-authz-action: unsetSystemConfig
-    get:
-      description: The value of a single configuration key
-      operationId: get_configuration
-      parameters:
-      - explode: false
-        in: path
-        name: config_key
-        required: true
-        schema:
-          format: path
-          type: string
-        style: simple
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/SystemConfiguration'
-          description: The configuration
-        "403":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ApiErrorResponse'
-          description: Not permitted
-        "404":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ApiErrorResponse'
-          description: Not found
-      summary: Get an individual configuration
-      tags:
-      - System Configuration
-      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.configuration
-      x-anchore-authz-action: getSystemConfig
-    put:
-      description: Update the value of a single configuration key
-      operationId: put_configuration
-      parameters:
-      - explode: false
-        in: path
-        name: config_key
-        required: true
-        schema:
-          format: path
-          type: string
-        style: simple
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/SystemConfigurationPut'
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/SystemConfiguration'
-          description: The updated configuration
-        "400":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ApiErrorResponse'
-          description: Validation error
-        "403":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ApiErrorResponse'
-          description: Not permitted
-      summary: Put a single configuration value
-      tags:
-      - System Configuration
-      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.configuration
-      x-anchore-authz-action: updateSystemConfig
   /system/statistics:
     get:
       description: Returns list of system statistics with total all-time counts.
@@ -22772,62 +22769,21 @@ components:
           description: Toggle the subscription processing on or off
           type: boolean
       type: object
-    SystemResourceLimit:
-      example:
-        warning_value: 0
-        name: sbom_inventory
-        limit_value: 6
-        limit_exceeded: true
-        current_value: 1
-      properties:
-        name:
-          description: The resource being limited
-          enum:
-          - sbom_inventory
-          - report_inventory
-          - report_execution_inventory
-          - account_inventory
-          - user_inventory
-          type: string
-        warning_value:
-          description: The value at which a warning will be generated
-          nullable: true
-          type: integer
-        limit_value:
-          description: The value at which a limit will be enforced
-          nullable: true
-          type: integer
-        current_value:
-          description: The current value of the resource
-          type: integer
-        limit_exceeded:
-          description: Whether the limit has been exceeded and is being enforced
-          type: boolean
-      type: object
-    SystemResourceLimitsList:
-      example:
-        items:
-        - warning_value: 0
-          name: sbom_inventory
-          limit_value: 6
-          limit_exceeded: true
-          current_value: 1
-        - warning_value: 0
-          name: sbom_inventory
-          limit_value: 6
-          limit_exceeded: true
-          current_value: 1
-      properties:
-        items:
-          items:
-            $ref: '#/components/schemas/SystemResourceLimit'
-          type: array
-      type: object
+    SystemConfigurationValue:
+      nullable: true
+      oneOf:
+      - type: string
+      - type: number
+      - type: boolean
+      - items:
+          $ref: '#/components/schemas/SystemConfigurationValue_oneOf_inner'
+        type: array
     SystemConfigurationSchema:
       example:
         multiple_of: 4.145608029883936
         min_length: 2
         lt: 5.637376656633329
+        default_value: null
         gt: 1.4658129805029452
         max_digits: 2
         enum:
@@ -22836,9 +22792,10 @@ components:
         decimal_places: 0
         allow_inf_nan: true
         unique_items: true
-        default: null
         regex: regex
+        is_array: true
         min_items: 3
+        data_type: string
         le: 5.962133916683182
         ge: 6.027456183070403
         max_items: 7
@@ -22850,8 +22807,17 @@ components:
         decimal_places:
           nullable: true
           type: integer
-        default:
-          $ref: '#/components/schemas/SystemConfigurationSchema_default'
+        data_type:
+          enum:
+          - string
+          - integer
+          - number
+          - boolean
+          - null
+          - string_enum
+          type: string
+        default_value:
+          $ref: '#/components/schemas/SystemConfigurationValue'
         enum:
           items:
             type: string
@@ -22863,6 +22829,9 @@ components:
         gt:
           nullable: true
           type: number
+        is_array:
+          nullable: true
+          type: boolean
         le:
           nullable: true
           type: number
@@ -22906,6 +22875,7 @@ components:
           multiple_of: 4.145608029883936
           min_length: 2
           lt: 5.637376656633329
+          default_value: null
           gt: 1.4658129805029452
           max_digits: 2
           enum:
@@ -22914,9 +22884,10 @@ components:
           decimal_places: 0
           allow_inf_nan: true
           unique_items: true
-          default: null
           regex: regex
+          is_array: true
           min_items: 3
+          data_type: string
           le: 5.962133916683182
           ge: 6.027456183070403
           max_items: 7
@@ -22928,7 +22899,7 @@ components:
         is_deprecated: true
         deprecated_reason: deprecated_reason
         category: category
-        value: SystemConfigurationSchema_default
+        value: SystemConfigurationValue
         key: key
         editable_reason: editable_reason
       properties:
@@ -22938,7 +22909,7 @@ components:
         key:
           type: string
         value:
-          $ref: '#/components/schemas/SystemConfigurationSchema_default'
+          $ref: '#/components/schemas/SystemConfigurationValue'
         requires_system_restart:
           type: boolean
         category:
@@ -22950,7 +22921,7 @@ components:
         description:
           type: string
         default_value:
-          $ref: '#/components/schemas/SystemConfigurationSchema_default'
+          $ref: '#/components/schemas/SystemConfigurationValue'
         source:
           type: string
         is_editable:
@@ -22981,13 +22952,13 @@ components:
       type: array
     SystemConfigurationPut:
       example:
-        value: SystemConfigurationSchema_default
+        value: SystemConfigurationValue
         key: key
       properties:
         key:
           type: string
         value:
-          $ref: '#/components/schemas/SystemConfigurationSchema_default'
+          $ref: '#/components/schemas/SystemConfigurationValue'
       required:
       - key
       - value
@@ -23005,6 +22976,7 @@ components:
             multiple_of: 4.145608029883936
             min_length: 2
             lt: 5.637376656633329
+            default_value: null
             gt: 1.4658129805029452
             max_digits: 2
             enum:
@@ -23013,9 +22985,10 @@ components:
             decimal_places: 0
             allow_inf_nan: true
             unique_items: true
-            default: null
             regex: regex
+            is_array: true
             min_items: 3
+            data_type: string
             le: 5.962133916683182
             ge: 6.027456183070403
             max_items: 7
@@ -23027,7 +23000,7 @@ components:
           is_deprecated: true
           deprecated_reason: deprecated_reason
           category: category
-          value: SystemConfigurationSchema_default
+          value: SystemConfigurationValue
           key: key
           editable_reason: editable_reason
         - is_secret: true
@@ -23040,6 +23013,7 @@ components:
             multiple_of: 4.145608029883936
             min_length: 2
             lt: 5.637376656633329
+            default_value: null
             gt: 1.4658129805029452
             max_digits: 2
             enum:
@@ -23048,9 +23022,10 @@ components:
             decimal_places: 0
             allow_inf_nan: true
             unique_items: true
-            default: null
             regex: regex
+            is_array: true
             min_items: 3
+            data_type: string
             le: 5.962133916683182
             ge: 6.027456183070403
             max_items: 7
@@ -23062,7 +23037,7 @@ components:
           is_deprecated: true
           deprecated_reason: deprecated_reason
           category: category
-          value: SystemConfigurationSchema_default
+          value: SystemConfigurationValue
           key: key
           editable_reason: editable_reason
       properties:
@@ -24606,21 +24581,18 @@ components:
       required:
       - sbom
       type: object
-    SystemConfigurationSchema_default:
+    SystemConfigurationValue_oneOf_inner:
       oneOf:
       - type: string
-      - type: number
-      - type: boolean
-      - items:
-          properties: {}
-          type: object
-        type: array
+      - type: integer
+      - properties: {}
+        type: object
     SystemConfigurationPatch_inner:
       properties:
         key:
           type: string
         value:
-          $ref: '#/components/schemas/SystemConfigurationSchema_default'
+          $ref: '#/components/schemas/SystemConfigurationValue'
       required:
       - key
       - value
