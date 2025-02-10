@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**ImageContent** | Pointer to **interface{}** | A metadata content record for a specific image, containing different content type entries | [optional] 
+**ImageContent** | Pointer to [**ImageContent**](ImageContent.md) |  | [optional] 
 **ImageDetail** | Pointer to [**[]ImageDetail**](ImageDetail.md) | Details specific to an image reference and type such as tag and image source | [optional] 
 **LastUpdated** | Pointer to **time.Time** |  | [optional] 
 **CreatedAt** | Pointer to **time.Time** |  | [optional] 
@@ -38,20 +38,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetImageContent
 
-`func (o *AnchoreImage) GetImageContent() interface{}`
+`func (o *AnchoreImage) GetImageContent() ImageContent`
 
 GetImageContent returns the ImageContent field if non-nil, zero value otherwise.
 
 ### GetImageContentOk
 
-`func (o *AnchoreImage) GetImageContentOk() (*interface{}, bool)`
+`func (o *AnchoreImage) GetImageContentOk() (*ImageContent, bool)`
 
 GetImageContentOk returns a tuple with the ImageContent field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetImageContent
 
-`func (o *AnchoreImage) SetImageContent(v interface{})`
+`func (o *AnchoreImage) SetImageContent(v ImageContent)`
 
 SetImageContent sets ImageContent field to given value.
 

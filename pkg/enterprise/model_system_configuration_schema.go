@@ -3,7 +3,7 @@ Anchore API
 
 This is the Anchore API. Provides the external API for users of Anchore Enterprise.
 
-API version: 2.8.0
+API version: 2.10.0
 Contact: dev@anchore.com
 */
 
@@ -22,10 +22,12 @@ var _ MappedNullable = &SystemConfigurationSchema{}
 type SystemConfigurationSchema struct {
 	AllowInfNan NullableBool `json:"allow_inf_nan,omitempty"`
 	DecimalPlaces NullableInt32 `json:"decimal_places,omitempty"`
-	Default *SystemConfigurationSchemaDefault `json:"default,omitempty"`
+	DataType *string `json:"data_type,omitempty"`
+	DefaultValue NullableSystemConfigurationValue `json:"default_value,omitempty"`
 	Enum []string `json:"enum,omitempty"`
 	Ge NullableFloat32 `json:"ge,omitempty"`
 	Gt NullableFloat32 `json:"gt,omitempty"`
+	IsArray NullableBool `json:"is_array,omitempty"`
 	Le NullableFloat32 `json:"le,omitempty"`
 	Lt NullableFloat32 `json:"lt,omitempty"`
 	MaxDigits NullableInt32 `json:"max_digits,omitempty"`
@@ -139,36 +141,78 @@ func (o *SystemConfigurationSchema) UnsetDecimalPlaces() {
 	o.DecimalPlaces.Unset()
 }
 
-// GetDefault returns the Default field value if set, zero value otherwise.
-func (o *SystemConfigurationSchema) GetDefault() SystemConfigurationSchemaDefault {
-	if o == nil || IsNil(o.Default) {
-		var ret SystemConfigurationSchemaDefault
+// GetDataType returns the DataType field value if set, zero value otherwise.
+func (o *SystemConfigurationSchema) GetDataType() string {
+	if o == nil || IsNil(o.DataType) {
+		var ret string
 		return ret
 	}
-	return *o.Default
+	return *o.DataType
 }
 
-// GetDefaultOk returns a tuple with the Default field value if set, nil otherwise
+// GetDataTypeOk returns a tuple with the DataType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SystemConfigurationSchema) GetDefaultOk() (*SystemConfigurationSchemaDefault, bool) {
-	if o == nil || IsNil(o.Default) {
+func (o *SystemConfigurationSchema) GetDataTypeOk() (*string, bool) {
+	if o == nil || IsNil(o.DataType) {
 		return nil, false
 	}
-	return o.Default, true
+	return o.DataType, true
 }
 
-// HasDefault returns a boolean if a field has been set.
-func (o *SystemConfigurationSchema) HasDefault() bool {
-	if o != nil && !IsNil(o.Default) {
+// HasDataType returns a boolean if a field has been set.
+func (o *SystemConfigurationSchema) HasDataType() bool {
+	if o != nil && !IsNil(o.DataType) {
 		return true
 	}
 
 	return false
 }
 
-// SetDefault gets a reference to the given SystemConfigurationSchemaDefault and assigns it to the Default field.
-func (o *SystemConfigurationSchema) SetDefault(v SystemConfigurationSchemaDefault) {
-	o.Default = &v
+// SetDataType gets a reference to the given string and assigns it to the DataType field.
+func (o *SystemConfigurationSchema) SetDataType(v string) {
+	o.DataType = &v
+}
+
+// GetDefaultValue returns the DefaultValue field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *SystemConfigurationSchema) GetDefaultValue() SystemConfigurationValue {
+	if o == nil || IsNil(o.DefaultValue.Get()) {
+		var ret SystemConfigurationValue
+		return ret
+	}
+	return *o.DefaultValue.Get()
+}
+
+// GetDefaultValueOk returns a tuple with the DefaultValue field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *SystemConfigurationSchema) GetDefaultValueOk() (*SystemConfigurationValue, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.DefaultValue.Get(), o.DefaultValue.IsSet()
+}
+
+// HasDefaultValue returns a boolean if a field has been set.
+func (o *SystemConfigurationSchema) HasDefaultValue() bool {
+	if o != nil && o.DefaultValue.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetDefaultValue gets a reference to the given NullableSystemConfigurationValue and assigns it to the DefaultValue field.
+func (o *SystemConfigurationSchema) SetDefaultValue(v SystemConfigurationValue) {
+	o.DefaultValue.Set(&v)
+}
+// SetDefaultValueNil sets the value for DefaultValue to be an explicit nil
+func (o *SystemConfigurationSchema) SetDefaultValueNil() {
+	o.DefaultValue.Set(nil)
+}
+
+// UnsetDefaultValue ensures that no value is present for DefaultValue, not even an explicit nil
+func (o *SystemConfigurationSchema) UnsetDefaultValue() {
+	o.DefaultValue.Unset()
 }
 
 // GetEnum returns the Enum field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -286,6 +330,48 @@ func (o *SystemConfigurationSchema) SetGtNil() {
 // UnsetGt ensures that no value is present for Gt, not even an explicit nil
 func (o *SystemConfigurationSchema) UnsetGt() {
 	o.Gt.Unset()
+}
+
+// GetIsArray returns the IsArray field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *SystemConfigurationSchema) GetIsArray() bool {
+	if o == nil || IsNil(o.IsArray.Get()) {
+		var ret bool
+		return ret
+	}
+	return *o.IsArray.Get()
+}
+
+// GetIsArrayOk returns a tuple with the IsArray field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *SystemConfigurationSchema) GetIsArrayOk() (*bool, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.IsArray.Get(), o.IsArray.IsSet()
+}
+
+// HasIsArray returns a boolean if a field has been set.
+func (o *SystemConfigurationSchema) HasIsArray() bool {
+	if o != nil && o.IsArray.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetIsArray gets a reference to the given NullableBool and assigns it to the IsArray field.
+func (o *SystemConfigurationSchema) SetIsArray(v bool) {
+	o.IsArray.Set(&v)
+}
+// SetIsArrayNil sets the value for IsArray to be an explicit nil
+func (o *SystemConfigurationSchema) SetIsArrayNil() {
+	o.IsArray.Set(nil)
+}
+
+// UnsetIsArray ensures that no value is present for IsArray, not even an explicit nil
+func (o *SystemConfigurationSchema) UnsetIsArray() {
+	o.IsArray.Unset()
 }
 
 // GetLe returns the Le field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -724,8 +810,11 @@ func (o SystemConfigurationSchema) ToMap() (map[string]interface{}, error) {
 	if o.DecimalPlaces.IsSet() {
 		toSerialize["decimal_places"] = o.DecimalPlaces.Get()
 	}
-	if !IsNil(o.Default) {
-		toSerialize["default"] = o.Default
+	if !IsNil(o.DataType) {
+		toSerialize["data_type"] = o.DataType
+	}
+	if o.DefaultValue.IsSet() {
+		toSerialize["default_value"] = o.DefaultValue.Get()
 	}
 	if o.Enum != nil {
 		toSerialize["enum"] = o.Enum
@@ -735,6 +824,9 @@ func (o SystemConfigurationSchema) ToMap() (map[string]interface{}, error) {
 	}
 	if o.Gt.IsSet() {
 		toSerialize["gt"] = o.Gt.Get()
+	}
+	if o.IsArray.IsSet() {
+		toSerialize["is_array"] = o.IsArray.Get()
 	}
 	if o.Le.IsSet() {
 		toSerialize["le"] = o.Le.Get()

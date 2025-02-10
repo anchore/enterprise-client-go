@@ -6,10 +6,12 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **AllowInfNan** | Pointer to **NullableBool** |  | [optional] 
 **DecimalPlaces** | Pointer to **NullableInt32** |  | [optional] 
-**Default** | Pointer to [**SystemConfigurationSchemaDefault**](SystemConfigurationSchemaDefault.md) |  | [optional] 
+**DataType** | Pointer to **string** |  | [optional] 
+**DefaultValue** | Pointer to [**NullableSystemConfigurationValue**](SystemConfigurationValue.md) |  | [optional] 
 **Enum** | Pointer to **[]string** |  | [optional] 
 **Ge** | Pointer to **NullableFloat32** |  | [optional] 
 **Gt** | Pointer to **NullableFloat32** |  | [optional] 
+**IsArray** | Pointer to **NullableBool** |  | [optional] 
 **Le** | Pointer to **NullableFloat32** |  | [optional] 
 **Lt** | Pointer to **NullableFloat32** |  | [optional] 
 **MaxDigits** | Pointer to **NullableInt32** |  | [optional] 
@@ -110,31 +112,66 @@ HasDecimalPlaces returns a boolean if a field has been set.
 `func (o *SystemConfigurationSchema) UnsetDecimalPlaces()`
 
 UnsetDecimalPlaces ensures that no value is present for DecimalPlaces, not even an explicit nil
-### GetDefault
+### GetDataType
 
-`func (o *SystemConfigurationSchema) GetDefault() SystemConfigurationSchemaDefault`
+`func (o *SystemConfigurationSchema) GetDataType() string`
 
-GetDefault returns the Default field if non-nil, zero value otherwise.
+GetDataType returns the DataType field if non-nil, zero value otherwise.
 
-### GetDefaultOk
+### GetDataTypeOk
 
-`func (o *SystemConfigurationSchema) GetDefaultOk() (*SystemConfigurationSchemaDefault, bool)`
+`func (o *SystemConfigurationSchema) GetDataTypeOk() (*string, bool)`
 
-GetDefaultOk returns a tuple with the Default field if it's non-nil, zero value otherwise
+GetDataTypeOk returns a tuple with the DataType field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetDefault
+### SetDataType
 
-`func (o *SystemConfigurationSchema) SetDefault(v SystemConfigurationSchemaDefault)`
+`func (o *SystemConfigurationSchema) SetDataType(v string)`
 
-SetDefault sets Default field to given value.
+SetDataType sets DataType field to given value.
 
-### HasDefault
+### HasDataType
 
-`func (o *SystemConfigurationSchema) HasDefault() bool`
+`func (o *SystemConfigurationSchema) HasDataType() bool`
 
-HasDefault returns a boolean if a field has been set.
+HasDataType returns a boolean if a field has been set.
 
+### GetDefaultValue
+
+`func (o *SystemConfigurationSchema) GetDefaultValue() SystemConfigurationValue`
+
+GetDefaultValue returns the DefaultValue field if non-nil, zero value otherwise.
+
+### GetDefaultValueOk
+
+`func (o *SystemConfigurationSchema) GetDefaultValueOk() (*SystemConfigurationValue, bool)`
+
+GetDefaultValueOk returns a tuple with the DefaultValue field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDefaultValue
+
+`func (o *SystemConfigurationSchema) SetDefaultValue(v SystemConfigurationValue)`
+
+SetDefaultValue sets DefaultValue field to given value.
+
+### HasDefaultValue
+
+`func (o *SystemConfigurationSchema) HasDefaultValue() bool`
+
+HasDefaultValue returns a boolean if a field has been set.
+
+### SetDefaultValueNil
+
+`func (o *SystemConfigurationSchema) SetDefaultValueNil(b bool)`
+
+ SetDefaultValueNil sets the value for DefaultValue to be an explicit nil
+
+### UnsetDefaultValue
+`func (o *SystemConfigurationSchema) UnsetDefaultValue()`
+
+UnsetDefaultValue ensures that no value is present for DefaultValue, not even an explicit nil
 ### GetEnum
 
 `func (o *SystemConfigurationSchema) GetEnum() []string`
@@ -240,6 +277,41 @@ HasGt returns a boolean if a field has been set.
 `func (o *SystemConfigurationSchema) UnsetGt()`
 
 UnsetGt ensures that no value is present for Gt, not even an explicit nil
+### GetIsArray
+
+`func (o *SystemConfigurationSchema) GetIsArray() bool`
+
+GetIsArray returns the IsArray field if non-nil, zero value otherwise.
+
+### GetIsArrayOk
+
+`func (o *SystemConfigurationSchema) GetIsArrayOk() (*bool, bool)`
+
+GetIsArrayOk returns a tuple with the IsArray field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetIsArray
+
+`func (o *SystemConfigurationSchema) SetIsArray(v bool)`
+
+SetIsArray sets IsArray field to given value.
+
+### HasIsArray
+
+`func (o *SystemConfigurationSchema) HasIsArray() bool`
+
+HasIsArray returns a boolean if a field has been set.
+
+### SetIsArrayNil
+
+`func (o *SystemConfigurationSchema) SetIsArrayNil(b bool)`
+
+ SetIsArrayNil sets the value for IsArray to be an explicit nil
+
+### UnsetIsArray
+`func (o *SystemConfigurationSchema) UnsetIsArray()`
+
+UnsetIsArray ensures that no value is present for IsArray, not even an explicit nil
 ### GetLe
 
 `func (o *SystemConfigurationSchema) GetLe() float32`

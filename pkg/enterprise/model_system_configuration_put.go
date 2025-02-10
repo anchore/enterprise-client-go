@@ -3,7 +3,7 @@ Anchore API
 
 This is the Anchore API. Provides the external API for users of Anchore Enterprise.
 
-API version: 2.8.0
+API version: 2.10.0
 Contact: dev@anchore.com
 */
 
@@ -23,7 +23,7 @@ var _ MappedNullable = &SystemConfigurationPut{}
 // SystemConfigurationPut struct for SystemConfigurationPut
 type SystemConfigurationPut struct {
 	Key string `json:"key"`
-	Value SystemConfigurationSchemaDefault `json:"value"`
+	Value NullableSystemConfigurationValue `json:"value"`
 }
 
 type _SystemConfigurationPut SystemConfigurationPut
@@ -32,7 +32,7 @@ type _SystemConfigurationPut SystemConfigurationPut
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewSystemConfigurationPut(key string, value SystemConfigurationSchemaDefault) *SystemConfigurationPut {
+func NewSystemConfigurationPut(key string, value NullableSystemConfigurationValue) *SystemConfigurationPut {
 	this := SystemConfigurationPut{}
 	this.Key = key
 	this.Value = value
@@ -72,27 +72,29 @@ func (o *SystemConfigurationPut) SetKey(v string) {
 }
 
 // GetValue returns the Value field value
-func (o *SystemConfigurationPut) GetValue() SystemConfigurationSchemaDefault {
-	if o == nil {
-		var ret SystemConfigurationSchemaDefault
+// If the value is explicit nil, the zero value for SystemConfigurationValue will be returned
+func (o *SystemConfigurationPut) GetValue() SystemConfigurationValue {
+	if o == nil || o.Value.Get() == nil {
+		var ret SystemConfigurationValue
 		return ret
 	}
 
-	return o.Value
+	return *o.Value.Get()
 }
 
 // GetValueOk returns a tuple with the Value field value
 // and a boolean to check if the value has been set.
-func (o *SystemConfigurationPut) GetValueOk() (*SystemConfigurationSchemaDefault, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *SystemConfigurationPut) GetValueOk() (*SystemConfigurationValue, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Value, true
+	return o.Value.Get(), o.Value.IsSet()
 }
 
 // SetValue sets field value
-func (o *SystemConfigurationPut) SetValue(v SystemConfigurationSchemaDefault) {
-	o.Value = v
+func (o *SystemConfigurationPut) SetValue(v SystemConfigurationValue) {
+	o.Value.Set(&v)
 }
 
 func (o SystemConfigurationPut) MarshalJSON() ([]byte, error) {
@@ -106,7 +108,7 @@ func (o SystemConfigurationPut) MarshalJSON() ([]byte, error) {
 func (o SystemConfigurationPut) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["key"] = o.Key
-	toSerialize["value"] = o.Value
+	toSerialize["value"] = o.Value.Get()
 	return toSerialize, nil
 }
 
