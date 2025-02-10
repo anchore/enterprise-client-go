@@ -3,7 +3,7 @@ Anchore API
 
 This is the Anchore API. Provides the external API for users of Anchore Enterprise.
 
-API version: 2.8.0
+API version: 2.10.0
 Contact: dev@anchore.com
 */
 
@@ -21,8 +21,7 @@ var _ MappedNullable = &AnchoreImage{}
 
 // AnchoreImage A unique image in the engine. May have multiple tags or references. Unique to an image content across registries or repositories.
 type AnchoreImage struct {
-	// A metadata content record for a specific image, containing different content type entries
-	ImageContent interface{} `json:"image_content,omitempty"`
+	ImageContent *ImageContent `json:"image_content,omitempty"`
 	// Details specific to an image reference and type such as tag and image source
 	ImageDetail []ImageDetail `json:"image_detail,omitempty"`
 	LastUpdated *time.Time `json:"last_updated,omitempty"`
@@ -58,17 +57,17 @@ func NewAnchoreImageWithDefaults() *AnchoreImage {
 }
 
 // GetImageContent returns the ImageContent field value if set, zero value otherwise.
-func (o *AnchoreImage) GetImageContent() interface{} {
+func (o *AnchoreImage) GetImageContent() ImageContent {
 	if o == nil || IsNil(o.ImageContent) {
-		var ret interface{}
+		var ret ImageContent
 		return ret
 	}
-	return o.ImageContent
+	return *o.ImageContent
 }
 
 // GetImageContentOk returns a tuple with the ImageContent field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AnchoreImage) GetImageContentOk() (interface{}, bool) {
+func (o *AnchoreImage) GetImageContentOk() (*ImageContent, bool) {
 	if o == nil || IsNil(o.ImageContent) {
 		return nil, false
 	}
@@ -84,9 +83,9 @@ func (o *AnchoreImage) HasImageContent() bool {
 	return false
 }
 
-// SetImageContent gets a reference to the given interface{} and assigns it to the ImageContent field.
-func (o *AnchoreImage) SetImageContent(v interface{}) {
-	o.ImageContent = v
+// SetImageContent gets a reference to the given ImageContent and assigns it to the ImageContent field.
+func (o *AnchoreImage) SetImageContent(v ImageContent) {
+	o.ImageContent = &v
 }
 
 // GetImageDetail returns the ImageDetail field value if set, zero value otherwise.

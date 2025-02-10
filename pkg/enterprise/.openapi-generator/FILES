@@ -145,6 +145,8 @@ docs/IdentityAPI.md
 docs/ImageAnalysisRequest.md
 docs/ImageAncestor.md
 docs/ImageArtifact.md
+docs/ImageContent.md
+docs/ImageContentMetadata.md
 docs/ImageContentSummary.md
 docs/ImageContentSummaryItemsInner.md
 docs/ImageDetail.md
@@ -359,7 +361,8 @@ docs/SystemConfigurationList.md
 docs/SystemConfigurationPatchInner.md
 docs/SystemConfigurationPut.md
 docs/SystemConfigurationSchema.md
-docs/SystemConfigurationSchemaDefault.md
+docs/SystemConfigurationValue.md
+docs/SystemConfigurationValueOneOfInner.md
 docs/SystemResourceLimit.md
 docs/SystemResourceLimitsList.md
 docs/SystemStatistics.md
@@ -514,6 +517,8 @@ model_health_report.go
 model_image_analysis_request.go
 model_image_ancestor.go
 model_image_artifact.go
+model_image_content.go
+model_image_content_metadata.go
 model_image_content_summary.go
 model_image_content_summary_items_inner.go
 model_image_detail.go
@@ -711,7 +716,8 @@ model_system_configuration_list.go
 model_system_configuration_patch_inner.go
 model_system_configuration_put.go
 model_system_configuration_schema.go
-model_system_configuration_schema_default.go
+model_system_configuration_value.go
+model_system_configuration_value_one_of_inner.go
 model_system_resource_limit.go
 model_system_resource_limits_list.go
 model_system_statistics.go
