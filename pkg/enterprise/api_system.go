@@ -3,7 +3,7 @@ Anchore API
 
 This is the Anchore API. Provides the external API for users of Anchore Enterprise.
 
-API version: 2.10.0
+API version: 2.10.1
 Contact: dev@anchore.com
 */
 
@@ -27,15 +27,18 @@ type SystemAPI interface {
 	/*
 	DeleteFeed Method for DeleteFeed
 
-	Delete the groups and data for the feed and disable the feed itself
+	Deprecated - Delete the groups and data for the feed and disable the feed itself
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param feed
 	@return ApiDeleteFeedRequest
+
+	Deprecated
 	*/
 	DeleteFeed(ctx context.Context, feed string) ApiDeleteFeedRequest
 
 	// DeleteFeedExecute executes the request
+	// Deprecated
 	DeleteFeedExecute(r ApiDeleteFeedRequest) (*http.Response, error)
 
 	/*
@@ -270,16 +273,19 @@ type SystemAPI interface {
 	/*
 	ToggleFeedEnabled Method for ToggleFeedEnabled
 
-	Disable the feed so that it does not sync on subsequent sync operations
+	Deprecated - Disable the feed so that it does not sync on subsequent sync operations
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param feed
 	@return ApiToggleFeedEnabledRequest
+
+	Deprecated
 	*/
 	ToggleFeedEnabled(ctx context.Context, feed string) ApiToggleFeedEnabledRequest
 
 	// ToggleFeedEnabledExecute executes the request
 	//  @return FeedMetadata
+	// Deprecated
 	ToggleFeedEnabledExecute(r ApiToggleFeedEnabledRequest) (*FeedMetadata, *http.Response, error)
 
 	/*
@@ -327,11 +333,13 @@ func (r ApiDeleteFeedRequest) Execute() (*http.Response, error) {
 /*
 DeleteFeed Method for DeleteFeed
 
-Delete the groups and data for the feed and disable the feed itself
+Deprecated - Delete the groups and data for the feed and disable the feed itself
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param feed
  @return ApiDeleteFeedRequest
+
+Deprecated
 */
 func (a *SystemAPIService) DeleteFeed(ctx context.Context, feed string) ApiDeleteFeedRequest {
 	return ApiDeleteFeedRequest{
@@ -342,6 +350,7 @@ func (a *SystemAPIService) DeleteFeed(ctx context.Context, feed string) ApiDelet
 }
 
 // Execute executes the request
+// Deprecated
 func (a *SystemAPIService) DeleteFeedExecute(r ApiDeleteFeedRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodDelete
@@ -2268,11 +2277,13 @@ func (r ApiToggleFeedEnabledRequest) Execute() (*FeedMetadata, *http.Response, e
 /*
 ToggleFeedEnabled Method for ToggleFeedEnabled
 
-Disable the feed so that it does not sync on subsequent sync operations
+Deprecated - Disable the feed so that it does not sync on subsequent sync operations
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param feed
  @return ApiToggleFeedEnabledRequest
+
+Deprecated
 */
 func (a *SystemAPIService) ToggleFeedEnabled(ctx context.Context, feed string) ApiToggleFeedEnabledRequest {
 	return ApiToggleFeedEnabledRequest{
@@ -2284,6 +2295,7 @@ func (a *SystemAPIService) ToggleFeedEnabled(ctx context.Context, feed string) A
 
 // Execute executes the request
 //  @return FeedMetadata
+// Deprecated
 func (a *SystemAPIService) ToggleFeedEnabledExecute(r ApiToggleFeedEnabledRequest) (*FeedMetadata, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPut

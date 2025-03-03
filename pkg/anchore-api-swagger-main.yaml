@@ -8,7 +8,7 @@ info:
   license:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
-  version: 2.10.0
+  version: 2.10.1
 servers:
 - url: /v2
 tags:
@@ -8999,7 +8999,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ApiErrorResponse'
-      x-anchore-authz-action: listFeeds
+      x-anchore-authz-action: None
       x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.system
     post:
       tags:
@@ -9038,7 +9038,8 @@ paths:
     put:
       tags:
         - System
-      description: Disable the feed so that it does not sync on subsequent sync operations
+      deprecated: true
+      description: Deprecated - Disable the feed so that it does not sync on subsequent sync operations
       operationId: toggle_feed_enabled
       parameters:
         - name: feed
@@ -9085,6 +9086,11 @@ paths:
           required: true
           schema:
             type: string
+            enum:
+              - vulnerability_db
+              - kev_db
+              - clamav_db
+              - epss_db
         - name: version
           in: query
           description: The version of the feed to query
@@ -9171,7 +9177,8 @@ paths:
     delete:
       tags:
       - System
-      description: Delete the groups and data for the feed and disable the feed itself
+      deprecated: true
+      description: Deprecated - Delete the groups and data for the feed and disable the feed itself
       operationId: delete_feed
       parameters:
       - name: feed
