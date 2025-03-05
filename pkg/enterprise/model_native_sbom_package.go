@@ -27,7 +27,7 @@ type NativeSBOMPackage struct {
 	Type string `json:"type"`
 	FoundBy *string `json:"foundBy,omitempty"`
 	Locations []NativeSBOMPackageLocation `json:"locations"`
-	Licenses []interface{} `json:"licenses"`
+	Licenses []ImportPackageLicensesInner `json:"licenses"`
 	Language string `json:"language"`
 	Cpes []NativeSBOMPackageCpesInner `json:"cpes"`
 	Purl *string `json:"purl,omitempty"`
@@ -42,7 +42,7 @@ type _NativeSBOMPackage NativeSBOMPackage
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewNativeSBOMPackage(name string, version string, type_ string, locations []NativeSBOMPackageLocation, licenses []interface{}, language string, cpes []NativeSBOMPackageCpesInner) *NativeSBOMPackage {
+func NewNativeSBOMPackage(name string, version string, type_ string, locations []NativeSBOMPackageLocation, licenses []ImportPackageLicensesInner, language string, cpes []NativeSBOMPackageCpesInner) *NativeSBOMPackage {
 	this := NativeSBOMPackage{}
 	this.Name = name
 	this.Version = version
@@ -223,9 +223,9 @@ func (o *NativeSBOMPackage) SetLocations(v []NativeSBOMPackageLocation) {
 }
 
 // GetLicenses returns the Licenses field value
-func (o *NativeSBOMPackage) GetLicenses() []interface{} {
+func (o *NativeSBOMPackage) GetLicenses() []ImportPackageLicensesInner {
 	if o == nil {
-		var ret []interface{}
+		var ret []ImportPackageLicensesInner
 		return ret
 	}
 
@@ -234,7 +234,7 @@ func (o *NativeSBOMPackage) GetLicenses() []interface{} {
 
 // GetLicensesOk returns a tuple with the Licenses field value
 // and a boolean to check if the value has been set.
-func (o *NativeSBOMPackage) GetLicensesOk() ([]interface{}, bool) {
+func (o *NativeSBOMPackage) GetLicensesOk() ([]ImportPackageLicensesInner, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -242,7 +242,7 @@ func (o *NativeSBOMPackage) GetLicensesOk() ([]interface{}, bool) {
 }
 
 // SetLicenses sets field value
-func (o *NativeSBOMPackage) SetLicenses(v []interface{}) {
+func (o *NativeSBOMPackage) SetLicenses(v []ImportPackageLicensesInner) {
 	o.Licenses = v
 }
 

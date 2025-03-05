@@ -13807,7 +13807,10 @@ components:
             $ref: '#/components/schemas/NativeSBOMPackageLocation'
         licenses:
           type: array
-          items: {}
+          items:
+            oneOf:
+            - type: string
+            - $ref: '#/components/schemas/ImportPackageLicense'
         language:
           type: string
         cpes:

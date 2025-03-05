@@ -1804,7 +1804,7 @@ import (
 
 func main() {
 	operationId := "operationId_example" // string | 
-	sbom := *openapiclient.NewNativeSBOM([]openapiclient.NativeSBOMPackage{*openapiclient.NewNativeSBOMPackage("Name_example", "Version_example", "Type_example", []openapiclient.NativeSBOMPackageLocation{*openapiclient.NewNativeSBOMPackageLocation("Path_example")}, []interface{}{nil}, "Language_example", []openapiclient.NativeSBOMPackageCpesInner{*openapiclient.NewNativeSBOMPackageCpesInner("Cpe_example", "Source_example")})}, *openapiclient.NewNativeSBOMSource("Type_example"), *openapiclient.NewNativeSBOMDistribution()) // NativeSBOM | 
+	sbom := *openapiclient.NewNativeSBOM([]openapiclient.NativeSBOMPackage{*openapiclient.NewNativeSBOMPackage("Name_example", "Version_example", "Type_example", []openapiclient.NativeSBOMPackageLocation{*openapiclient.NewNativeSBOMPackageLocation("Path_example")}, []openapiclient.ImportPackageLicensesInner{openapiclient.ImportPackage_licenses_inner{ImportPackageLicense: openapiclient.NewImportPackageLicense()}}, "Language_example", []openapiclient.NativeSBOMPackageCpesInner{*openapiclient.NewNativeSBOMPackageCpesInner("Cpe_example", "Source_example")})}, *openapiclient.NewNativeSBOMSource("Type_example"), *openapiclient.NewNativeSBOMDistribution()) // NativeSBOM | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)

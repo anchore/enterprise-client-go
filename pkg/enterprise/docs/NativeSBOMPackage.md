@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **Type** | **string** |  | 
 **FoundBy** | Pointer to **string** |  | [optional] 
 **Locations** | [**[]NativeSBOMPackageLocation**](NativeSBOMPackageLocation.md) |  | 
-**Licenses** | **[]interface{}** |  | 
+**Licenses** | [**[]ImportPackageLicensesInner**](ImportPackageLicensesInner.md) |  | 
 **Language** | **string** |  | 
 **Cpes** | [**[]NativeSBOMPackageCpesInner**](NativeSBOMPackageCpesInner.md) |  | 
 **Purl** | Pointer to **string** |  | [optional] 
@@ -21,7 +21,7 @@ Name | Type | Description | Notes
 
 ### NewNativeSBOMPackage
 
-`func NewNativeSBOMPackage(name string, version string, type_ string, locations []NativeSBOMPackageLocation, licenses []interface{}, language string, cpes []NativeSBOMPackageCpesInner, ) *NativeSBOMPackage`
+`func NewNativeSBOMPackage(name string, version string, type_ string, locations []NativeSBOMPackageLocation, licenses []ImportPackageLicensesInner, language string, cpes []NativeSBOMPackageCpesInner, ) *NativeSBOMPackage`
 
 NewNativeSBOMPackage instantiates a new NativeSBOMPackage object
 This constructor will assign default values to properties that have it defined,
@@ -168,20 +168,20 @@ SetLocations sets Locations field to given value.
 
 ### GetLicenses
 
-`func (o *NativeSBOMPackage) GetLicenses() []interface{}`
+`func (o *NativeSBOMPackage) GetLicenses() []ImportPackageLicensesInner`
 
 GetLicenses returns the Licenses field if non-nil, zero value otherwise.
 
 ### GetLicensesOk
 
-`func (o *NativeSBOMPackage) GetLicensesOk() (*[]interface{}, bool)`
+`func (o *NativeSBOMPackage) GetLicensesOk() (*[]ImportPackageLicensesInner, bool)`
 
 GetLicensesOk returns a tuple with the Licenses field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLicenses
 
-`func (o *NativeSBOMPackage) SetLicenses(v []interface{})`
+`func (o *NativeSBOMPackage) SetLicenses(v []ImportPackageLicensesInner)`
 
 SetLicenses sets Licenses field to given value.
 
