@@ -175,6 +175,8 @@ docs/ImportFileDigest.md
 docs/ImportPackage.md
 docs/ImportPackageCPE.md
 docs/ImportPackageCpesInner.md
+docs/ImportPackageLicense.md
+docs/ImportPackageLicensesInner.md
 docs/ImportPackageLocation.md
 docs/ImportPackageRelationship.md
 docs/ImportSchema.md
@@ -546,6 +548,8 @@ model_import_file_digest.go
 model_import_package.go
 model_import_package_cpe.go
 model_import_package_cpes_inner.go
+model_import_package_license.go
+model_import_package_licenses_inner.go
 model_import_package_location.go
 model_import_package_relationship.go
 model_import_schema.go

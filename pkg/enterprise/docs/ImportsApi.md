@@ -796,7 +796,7 @@ import (
 
 func main() {
 	operationId := "operationId_example" // string | 
-	sbom := *openapiclient.NewImagePackageManifest([]openapiclient.ImportPackage{*openapiclient.NewImportPackage("Name_example", "Version_example", "Type_example", []openapiclient.ImportPackageLocation{*openapiclient.NewImportPackageLocation("Path_example")}, []interface{}{nil}, "Language_example", []openapiclient.ImportPackageCpesInner{*openapiclient.NewImportPackageCpesInner("Cpe_example", "Source_example")})}, *openapiclient.NewImportSource("Type_example"), *openapiclient.NewImportDistribution()) // ImagePackageManifest | 
+	sbom := *openapiclient.NewImagePackageManifest([]openapiclient.ImportPackage{*openapiclient.NewImportPackage("Name_example", "Version_example", "Type_example", []openapiclient.ImportPackageLocation{*openapiclient.NewImportPackageLocation("Path_example")}, []openapiclient.ImportPackageLicensesInner{openapiclient.ImportPackage_licenses_inner{ImportPackageLicense: openapiclient.NewImportPackageLicense()}}, "Language_example", []openapiclient.ImportPackageCpesInner{*openapiclient.NewImportPackageCpesInner("Cpe_example", "Source_example")})}, *openapiclient.NewImportSource("Type_example"), *openapiclient.NewImportDistribution()) // ImagePackageManifest | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -1804,7 +1804,7 @@ import (
 
 func main() {
 	operationId := "operationId_example" // string | 
-	sbom := *openapiclient.NewNativeSBOM([]openapiclient.NativeSBOMPackage{*openapiclient.NewNativeSBOMPackage("Name_example", "Version_example", "Type_example", []openapiclient.NativeSBOMPackageLocation{*openapiclient.NewNativeSBOMPackageLocation("Path_example")}, []interface{}{nil}, "Language_example", []openapiclient.NativeSBOMPackageCpesInner{*openapiclient.NewNativeSBOMPackageCpesInner("Cpe_example", "Source_example")})}, *openapiclient.NewNativeSBOMSource("Type_example"), *openapiclient.NewNativeSBOMDistribution()) // NativeSBOM | 
+	sbom := *openapiclient.NewNativeSBOM([]openapiclient.NativeSBOMPackage{*openapiclient.NewNativeSBOMPackage("Name_example", "Version_example", "Type_example", []openapiclient.NativeSBOMPackageLocation{*openapiclient.NewNativeSBOMPackageLocation("Path_example")}, []openapiclient.ImportPackageLicensesInner{openapiclient.ImportPackage_licenses_inner{ImportPackageLicense: openapiclient.NewImportPackageLicense()}}, "Language_example", []openapiclient.NativeSBOMPackageCpesInner{*openapiclient.NewNativeSBOMPackageCpesInner("Cpe_example", "Source_example")})}, *openapiclient.NewNativeSBOMSource("Type_example"), *openapiclient.NewNativeSBOMDistribution()) // NativeSBOM | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)

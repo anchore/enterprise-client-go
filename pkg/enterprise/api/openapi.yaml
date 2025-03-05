@@ -8,7 +8,7 @@ info:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
   title: Anchore API
-  version: 2.10.1
+  version: 2.10.2
 servers:
 - url: /v2
 tags:
@@ -15161,8 +15161,8 @@ components:
         artifacts:
         - foundBy: foundBy
           licenses:
-          - ""
-          - ""
+          - ImportPackage_licenses_inner
+          - ImportPackage_licenses_inner
           metadata: "{}"
           cpes:
           - ImportPackage_cpes_inner
@@ -15181,8 +15181,8 @@ components:
           metadataType: metadataType
         - foundBy: foundBy
           licenses:
-          - ""
-          - ""
+          - ImportPackage_licenses_inner
+          - ImportPackage_licenses_inner
           metadata: "{}"
           cpes:
           - ImportPackage_cpes_inner
@@ -15777,8 +15777,8 @@ components:
       example:
         foundBy: foundBy
         licenses:
-        - ""
-        - ""
+        - ImportPackage_licenses_inner
+        - ImportPackage_licenses_inner
         metadata: "{}"
         cpes:
         - ImportPackage_cpes_inner
@@ -15811,7 +15811,8 @@ components:
             $ref: '#/components/schemas/ImportPackageLocation'
           type: array
         licenses:
-          items: {}
+          items:
+            $ref: '#/components/schemas/ImportPackage_licenses_inner'
           type: array
         language:
           type: string
@@ -15859,6 +15860,33 @@ components:
           type: string
       required:
       - path
+      type: object
+    ImportPackageLicense:
+      properties:
+        value:
+          description: The raw license value reported in the packages metadata
+          type: string
+        spdxExpression:
+          description: The SPDX expression for the license
+          type: string
+        type:
+          description: Where the license information came from
+          enum:
+          - declared
+          - concluded
+          type: string
+        urls:
+          description: URLs associated with the license
+          items:
+            type: string
+          type: array
+        locations:
+          items:
+            $ref: '#/components/schemas/ImportPackageLocation'
+          type: array
+        contents:
+          description: The contents of the license file
+          type: string
       type: object
     ImportPackageRelationship:
       additionalProperties: true
@@ -17407,8 +17435,8 @@ components:
         artifacts:
         - foundBy: foundBy
           licenses:
-          - ""
-          - ""
+          - ImportPackage_licenses_inner
+          - ImportPackage_licenses_inner
           metadata: "{}"
           cpes:
           - NativeSBOMPackage_cpes_inner
@@ -17427,8 +17455,8 @@ components:
           metadataType: metadataType
         - foundBy: foundBy
           licenses:
-          - ""
-          - ""
+          - ImportPackage_licenses_inner
+          - ImportPackage_licenses_inner
           metadata: "{}"
           cpes:
           - NativeSBOMPackage_cpes_inner
@@ -17509,8 +17537,8 @@ components:
       example:
         foundBy: foundBy
         licenses:
-        - ""
-        - ""
+        - ImportPackage_licenses_inner
+        - ImportPackage_licenses_inner
         metadata: "{}"
         cpes:
         - NativeSBOMPackage_cpes_inner
@@ -17543,7 +17571,8 @@ components:
             $ref: '#/components/schemas/NativeSBOMPackageLocation'
           type: array
         licenses:
-          items: {}
+          items:
+            $ref: '#/components/schemas/ImportPackage_licenses_inner'
           type: array
         language:
           type: string
@@ -24390,6 +24419,10 @@ components:
         count:
           type: integer
       type: object
+    ImportPackage_licenses_inner:
+      oneOf:
+      - type: string
+      - $ref: '#/components/schemas/ImportPackageLicense'
     ImportPackage_cpes_inner:
       anyOf:
       - type: string
