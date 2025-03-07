@@ -18,6 +18,8 @@ define generate_openapi_client
 	# remove previous API clients
 	@ if [[ "$$OSTYPE" == "linux-gnu" ]]; then sudo rm -rf ${3}; else rm -rf ${3}; fi
 
+	# Run a pre-gen patch on the api spec
+	. patches/specify_ints.sh ${1}
 	# generate the API client
 	docker run \
 		--rm \
