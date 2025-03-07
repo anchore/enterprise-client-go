@@ -523,7 +523,7 @@ import (
 )
 
 func main() {
-	configuration := *openapiclient.NewNotificationSMTPEndpointConfiguration("Host_example", int32(123), "From_example", "To_example") // NotificationSMTPEndpointConfiguration | 
+	configuration := *openapiclient.NewNotificationSMTPEndpointConfiguration("Host_example", int64(123), "From_example", "To_example") // NotificationSMTPEndpointConfiguration | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -4155,7 +4155,7 @@ import (
 )
 
 func main() {
-	configuration := *openapiclient.NewNotificationSMTPEndpointConfiguration("Host_example", int32(123), "From_example", "To_example") // NotificationSMTPEndpointConfiguration | 
+	configuration := *openapiclient.NewNotificationSMTPEndpointConfiguration("Host_example", int64(123), "From_example", "To_example") // NotificationSMTPEndpointConfiguration | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -5287,7 +5287,7 @@ import (
 
 func main() {
 	uuid := "uuid_example" // string | 
-	configuration := *openapiclient.NewNotificationSMTPEndpointConfiguration("Host_example", int32(123), "From_example", "To_example") // NotificationSMTPEndpointConfiguration | 
+	configuration := *openapiclient.NewNotificationSMTPEndpointConfiguration("Host_example", int64(123), "From_example", "To_example") // NotificationSMTPEndpointConfiguration | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)

@@ -4,9 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Version** | Pointer to **int32** | The version of these policy conditions. | [optional] [readonly] 
+**Version** | Pointer to **int64** | The version of these policy conditions. | [optional] [readonly] 
 **EvenIfExistsInRuntimeInventory** | **bool** | Select an image even if it exists in the runtime inventory, otherwise if false do not action anything that exists in runtime inventory | 
-**DaysSinceAnalyzed** | **int32** | An image analysis must be this many days old before it will be considered for processing. An integer value less than or equal to zero will cause this field to be ignored. | 
+**DaysSinceAnalyzed** | **int64** | An image analysis must be this many days old before it will be considered for processing. An int64 value less than or equal to zero will cause this field to be ignored. | 
 **IncludeBaseImages** | Pointer to **bool** | Include base images in the policy selection criteria. | [optional] 
 **ArtifactType** | **string** | The type of artifact that will be processed. | 
 
@@ -14,7 +14,7 @@ Name | Type | Description | Notes
 
 ### NewArtifactLifecyclePolicyConditions
 
-`func NewArtifactLifecyclePolicyConditions(evenIfExistsInRuntimeInventory bool, daysSinceAnalyzed int32, artifactType string, ) *ArtifactLifecyclePolicyConditions`
+`func NewArtifactLifecyclePolicyConditions(evenIfExistsInRuntimeInventory bool, daysSinceAnalyzed int64, artifactType string, ) *ArtifactLifecyclePolicyConditions`
 
 NewArtifactLifecyclePolicyConditions instantiates a new ArtifactLifecyclePolicyConditions object
 This constructor will assign default values to properties that have it defined,
@@ -31,20 +31,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetVersion
 
-`func (o *ArtifactLifecyclePolicyConditions) GetVersion() int32`
+`func (o *ArtifactLifecyclePolicyConditions) GetVersion() int64`
 
 GetVersion returns the Version field if non-nil, zero value otherwise.
 
 ### GetVersionOk
 
-`func (o *ArtifactLifecyclePolicyConditions) GetVersionOk() (*int32, bool)`
+`func (o *ArtifactLifecyclePolicyConditions) GetVersionOk() (*int64, bool)`
 
 GetVersionOk returns a tuple with the Version field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetVersion
 
-`func (o *ArtifactLifecyclePolicyConditions) SetVersion(v int32)`
+`func (o *ArtifactLifecyclePolicyConditions) SetVersion(v int64)`
 
 SetVersion sets Version field to given value.
 
@@ -76,20 +76,20 @@ SetEvenIfExistsInRuntimeInventory sets EvenIfExistsInRuntimeInventory field to g
 
 ### GetDaysSinceAnalyzed
 
-`func (o *ArtifactLifecyclePolicyConditions) GetDaysSinceAnalyzed() int32`
+`func (o *ArtifactLifecyclePolicyConditions) GetDaysSinceAnalyzed() int64`
 
 GetDaysSinceAnalyzed returns the DaysSinceAnalyzed field if non-nil, zero value otherwise.
 
 ### GetDaysSinceAnalyzedOk
 
-`func (o *ArtifactLifecyclePolicyConditions) GetDaysSinceAnalyzedOk() (*int32, bool)`
+`func (o *ArtifactLifecyclePolicyConditions) GetDaysSinceAnalyzedOk() (*int64, bool)`
 
 GetDaysSinceAnalyzedOk returns a tuple with the DaysSinceAnalyzed field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetDaysSinceAnalyzed
 
-`func (o *ArtifactLifecyclePolicyConditions) SetDaysSinceAnalyzed(v int32)`
+`func (o *ArtifactLifecyclePolicyConditions) SetDaysSinceAnalyzed(v int64)`
 
 SetDaysSinceAnalyzed sets DaysSinceAnalyzed field to given value.
 

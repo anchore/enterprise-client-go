@@ -21,7 +21,7 @@ var _ MappedNullable = &Users{}
 // Users a list of User objects
 type Users struct {
 	Items []User `json:"items,omitempty"`
-	TotalRows *int32 `json:"total_rows,omitempty"`
+	TotalRows *int64 `json:"total_rows,omitempty"`
 }
 
 // NewUsers instantiates a new Users object
@@ -74,9 +74,9 @@ func (o *Users) SetItems(v []User) {
 }
 
 // GetTotalRows returns the TotalRows field value if set, zero value otherwise.
-func (o *Users) GetTotalRows() int32 {
+func (o *Users) GetTotalRows() int64 {
 	if o == nil || IsNil(o.TotalRows) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.TotalRows
@@ -84,7 +84,7 @@ func (o *Users) GetTotalRows() int32 {
 
 // GetTotalRowsOk returns a tuple with the TotalRows field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Users) GetTotalRowsOk() (*int32, bool) {
+func (o *Users) GetTotalRowsOk() (*int64, bool) {
 	if o == nil || IsNil(o.TotalRows) {
 		return nil, false
 	}
@@ -100,8 +100,8 @@ func (o *Users) HasTotalRows() bool {
 	return false
 }
 
-// SetTotalRows gets a reference to the given int32 and assigns it to the TotalRows field.
-func (o *Users) SetTotalRows(v int32) {
+// SetTotalRows gets a reference to the given int64 and assigns it to the TotalRows field.
+func (o *Users) SetTotalRows(v int64) {
 	o.TotalRows = &v
 }
 

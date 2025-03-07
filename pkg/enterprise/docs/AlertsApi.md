@@ -33,8 +33,8 @@ import (
 )
 
 func main() {
-	page := int32(56) // int32 |  (optional) (default to 1)
-	limit := int32(56) // int32 |  (optional) (default to 100)
+	page := TODO // int64 |  (optional)
+	limit := TODO // int64 |  (optional)
 	type_ := "type__example" // string | Filter for alerts based on the type such as compliance violation (optional) (default to "all")
 	state := "state_example" // string | Filter for alerts by current state, defaults to open alerts unless specified (optional) (default to "open")
 	createdAfter := time.Now() // time.Time | Filter for alerts generated after the timestamp (optional)
@@ -65,8 +65,8 @@ Other parameters are passed through a pointer to a apiGetAlertSummariesRequest s
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **page** | **int32** |  | [default to 1]
- **limit** | **int32** |  | [default to 100]
+ **page** | [**int64**](int64.md) |  | 
+ **limit** | [**int64**](int64.md) |  | 
  **type_** | **string** | Filter for alerts based on the type such as compliance violation | [default to &quot;all&quot;]
  **state** | **string** | Filter for alerts by current state, defaults to open alerts unless specified | [default to &quot;open&quot;]
  **createdAfter** | **time.Time** | Filter for alerts generated after the timestamp | 
@@ -186,8 +186,8 @@ import (
 )
 
 func main() {
-	page := int32(56) // int32 |  (optional) (default to 1)
-	limit := int32(56) // int32 |  (optional) (default to 100)
+	page := TODO // int64 |  (optional)
+	limit := TODO // int64 |  (optional)
 	state := "state_example" // string | Filter for alerts by current state, defaults to open alerts unless specified (optional) (default to "open")
 	createdAfter := time.Now() // time.Time | Filter for alerts generated after the timestamp (optional)
 	createdBefore := time.Now() // time.Time | Filter for alerts generated before the timestamp (optional)
@@ -220,8 +220,8 @@ Other parameters are passed through a pointer to a apiGetComplianceViolationAler
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **page** | **int32** |  | [default to 1]
- **limit** | **int32** |  | [default to 100]
+ **page** | [**int64**](int64.md) |  | 
+ **limit** | [**int64**](int64.md) |  | 
  **state** | **string** | Filter for alerts by current state, defaults to open alerts unless specified | [default to &quot;open&quot;]
  **createdAfter** | **time.Time** | Filter for alerts generated after the timestamp | 
  **createdBefore** | **time.Time** | Filter for alerts generated before the timestamp | 

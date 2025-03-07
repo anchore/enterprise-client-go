@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **Sourcepkg** | Pointer to **string** |  | [optional] 
 **Location** | Pointer to **string** |  | [optional] 
 **Origin** | Pointer to **string** |  | [optional] 
-**Size** | Pointer to **int32** |  | [optional] 
+**Size** | Pointer to **int64** |  | [optional] 
 **Licenses** | Pointer to **[]string** |  | [optional] 
 **MetadataType** | Pointer to **string** | The type of the metadata entry | [optional] 
 **Metadata** | Pointer to **interface{}** | Package type specific metadata | [optional] 
@@ -191,20 +191,20 @@ HasOrigin returns a boolean if a field has been set.
 
 ### GetSize
 
-`func (o *Package) GetSize() int32`
+`func (o *Package) GetSize() int64`
 
 GetSize returns the Size field if non-nil, zero value otherwise.
 
 ### GetSizeOk
 
-`func (o *Package) GetSizeOk() (*int32, bool)`
+`func (o *Package) GetSizeOk() (*int64, bool)`
 
 GetSizeOk returns a tuple with the Size field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetSize
 
-`func (o *Package) SetSize(v int32)`
+`func (o *Package) SetSize(v int64)`
 
 SetSize sets Size field to given value.
 

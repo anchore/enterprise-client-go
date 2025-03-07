@@ -177,8 +177,8 @@ import (
 )
 
 func main() {
-	page := int32(56) // int32 | 
-	pageSize := int32(56) // int32 |  (optional) (default to 1000)
+	page := TODO // int64 | 
+	pageSize := TODO // int64 |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -203,8 +203,8 @@ Other parameters are passed through a pointer to a apiGetEcsContainersRequest st
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **page** | **int32** |  | 
- **pageSize** | **int32** |  | [default to 1000]
+ **page** | [**int64**](int64.md) |  | 
+ **pageSize** | [**int64**](int64.md) |  | 
 
 ### Return type
 
@@ -245,8 +245,8 @@ import (
 )
 
 func main() {
-	page := int32(56) // int32 | 
-	pageSize := int32(56) // int32 |  (optional) (default to 1000)
+	page := TODO // int64 | 
+	pageSize := TODO // int64 |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -271,8 +271,8 @@ Other parameters are passed through a pointer to a apiGetEcsServicesRequest stru
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **page** | **int32** |  | 
- **pageSize** | **int32** |  | [default to 1000]
+ **page** | [**int64**](int64.md) |  | 
+ **pageSize** | [**int64**](int64.md) |  | 
 
 ### Return type
 
@@ -313,8 +313,8 @@ import (
 )
 
 func main() {
-	page := int32(56) // int32 | 
-	pageSize := int32(56) // int32 |  (optional) (default to 1000)
+	page := TODO // int64 | 
+	pageSize := TODO // int64 |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -339,8 +339,8 @@ Other parameters are passed through a pointer to a apiGetEcsTasksRequest struct 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **page** | **int32** |  | 
- **pageSize** | **int32** |  | [default to 1000]
+ **page** | [**int64**](int64.md) |  | 
+ **pageSize** | [**int64**](int64.md) |  | 
 
 ### Return type
 
@@ -453,8 +453,8 @@ import (
 )
 
 func main() {
-	page := int32(56) // int32 | 
-	pageSize := int32(56) // int32 |  (optional) (default to 1000)
+	page := TODO // int64 | 
+	pageSize := TODO // int64 |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -479,8 +479,8 @@ Other parameters are passed through a pointer to a apiGetKubernetesContainersReq
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **page** | **int32** |  | 
- **pageSize** | **int32** |  | [default to 1000]
+ **page** | [**int64**](int64.md) |  | 
+ **pageSize** | [**int64**](int64.md) |  | 
 
 ### Return type
 
@@ -591,8 +591,8 @@ import (
 )
 
 func main() {
-	page := int32(56) // int32 | 
-	pageSize := int32(56) // int32 |  (optional) (default to 1000)
+	page := TODO // int64 | 
+	pageSize := TODO // int64 |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -617,8 +617,8 @@ Other parameters are passed through a pointer to a apiGetKubernetesNamespacesReq
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **page** | **int32** |  | 
- **pageSize** | **int32** |  | [default to 1000]
+ **page** | [**int64**](int64.md) |  | 
+ **pageSize** | [**int64**](int64.md) |  | 
 
 ### Return type
 
@@ -729,8 +729,8 @@ import (
 )
 
 func main() {
-	page := int32(56) // int32 | 
-	pageSize := int32(56) // int32 |  (optional) (default to 1000)
+	page := TODO // int64 | 
+	pageSize := TODO // int64 |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -755,8 +755,8 @@ Other parameters are passed through a pointer to a apiGetKubernetesNodesRequest 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **page** | **int32** |  | 
- **pageSize** | **int32** |  | [default to 1000]
+ **page** | [**int64**](int64.md) |  | 
+ **pageSize** | [**int64**](int64.md) |  | 
 
 ### Return type
 
@@ -867,8 +867,8 @@ import (
 )
 
 func main() {
-	page := int32(56) // int32 | 
-	pageSize := int32(56) // int32 |  (optional) (default to 1000)
+	page := TODO // int64 | 
+	pageSize := TODO // int64 |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -893,8 +893,8 @@ Other parameters are passed through a pointer to a apiGetKubernetesPodsRequest s
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **page** | **int32** |  | 
- **pageSize** | **int32** |  | [default to 1000]
+ **page** | [**int64**](int64.md) |  | 
+ **pageSize** | [**int64**](int64.md) |  | 
 
 ### Return type
 

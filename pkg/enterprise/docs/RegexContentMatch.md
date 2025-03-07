@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Name** | Pointer to **string** | The name associated with the regular expression | [optional] 
 **Regex** | Pointer to **string** | The regular expression used for the match | [optional] 
-**Lines** | Pointer to **[]int32** | A list of line numbers in the file that matched the regex | [optional] 
+**Lines** | Pointer to **[]int64** | A list of line numbers in the file that matched the regex | [optional] 
 
 ## Methods
 
@@ -79,20 +79,20 @@ HasRegex returns a boolean if a field has been set.
 
 ### GetLines
 
-`func (o *RegexContentMatch) GetLines() []int32`
+`func (o *RegexContentMatch) GetLines() []int64`
 
 GetLines returns the Lines field if non-nil, zero value otherwise.
 
 ### GetLinesOk
 
-`func (o *RegexContentMatch) GetLinesOk() (*[]int32, bool)`
+`func (o *RegexContentMatch) GetLinesOk() (*[]int64, bool)`
 
 GetLinesOk returns a tuple with the Lines field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLines
 
-`func (o *RegexContentMatch) SetLines(v []int32)`
+`func (o *RegexContentMatch) SetLines(v []int64)`
 
 SetLines sets Lines field to given value.
 

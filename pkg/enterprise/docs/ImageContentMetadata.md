@@ -8,8 +8,8 @@ Name | Type | Description | Notes
 **Distro** | Pointer to **string** | The distro of the image | [optional] 
 **DistroVersion** | Pointer to **string** | The distro version of the image | [optional] 
 **DockerfileMode** | Pointer to **string** | The mode of the dockerfile | [optional] 
-**ImageSize** | Pointer to **int32** | The size of the image in bytes | [optional] 
-**LayerCount** | Pointer to **int32** | The number of layers in the image | [optional] 
+**ImageSize** | Pointer to **int64** | The size of the image in bytes | [optional] 
+**LayerCount** | Pointer to **int64** | The number of layers in the image | [optional] 
 
 ## Methods
 
@@ -132,20 +132,20 @@ HasDockerfileMode returns a boolean if a field has been set.
 
 ### GetImageSize
 
-`func (o *ImageContentMetadata) GetImageSize() int32`
+`func (o *ImageContentMetadata) GetImageSize() int64`
 
 GetImageSize returns the ImageSize field if non-nil, zero value otherwise.
 
 ### GetImageSizeOk
 
-`func (o *ImageContentMetadata) GetImageSizeOk() (*int32, bool)`
+`func (o *ImageContentMetadata) GetImageSizeOk() (*int64, bool)`
 
 GetImageSizeOk returns a tuple with the ImageSize field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetImageSize
 
-`func (o *ImageContentMetadata) SetImageSize(v int32)`
+`func (o *ImageContentMetadata) SetImageSize(v int64)`
 
 SetImageSize sets ImageSize field to given value.
 
@@ -157,20 +157,20 @@ HasImageSize returns a boolean if a field has been set.
 
 ### GetLayerCount
 
-`func (o *ImageContentMetadata) GetLayerCount() int32`
+`func (o *ImageContentMetadata) GetLayerCount() int64`
 
 GetLayerCount returns the LayerCount field if non-nil, zero value otherwise.
 
 ### GetLayerCountOk
 
-`func (o *ImageContentMetadata) GetLayerCountOk() (*int32, bool)`
+`func (o *ImageContentMetadata) GetLayerCountOk() (*int64, bool)`
 
 GetLayerCountOk returns a tuple with the LayerCount field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLayerCount
 
-`func (o *ImageContentMetadata) SetLayerCount(v int32)`
+`func (o *ImageContentMetadata) SetLayerCount(v int64)`
 
 SetLayerCount sets LayerCount field to given value.
 

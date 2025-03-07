@@ -402,12 +402,12 @@ type ApiGetArtifactLifecyclePolicyByVersionRequest struct {
 	ctx context.Context
 	ApiService ArtifactLifecycleAPI
 	policyUuid string
-	version *int32
+	version *int64
 	latest *bool
 }
 
 // Request a specific version number
-func (r ApiGetArtifactLifecyclePolicyByVersionRequest) Version(version int32) ApiGetArtifactLifecyclePolicyByVersionRequest {
+func (r ApiGetArtifactLifecyclePolicyByVersionRequest) Version(version int64) ApiGetArtifactLifecyclePolicyByVersionRequest {
 	r.version = &version
 	return r
 }

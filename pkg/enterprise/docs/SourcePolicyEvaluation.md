@@ -14,7 +14,7 @@ Name | Type | Description | Notes
 **SourceMappedToRule** | **bool** | Whether the evaluated source repository matched a policy rule | 
 **MatchedMappingRule** | Pointer to **interface{}** | The policy mapping rule that the source repository being evaluated matched against. | [optional] 
 **Findings** | [**[]SourcePolicyEvaluationFinding**](SourcePolicyEvaluationFinding.md) | The detailed policy findings | 
-**NumberOfFindings** | **int32** | Number of policy findings in the response | 
+**NumberOfFindings** | **int64** | Number of policy findings in the response | 
 **EvaluationTime** | **time.Time** | The date and time this policy evaluation was performed at | 
 **FinalAction** | **string** | The overall outcome of the evaluation. | 
 **FinalActionReason** | **string** | The reason for the final result | 
@@ -25,7 +25,7 @@ Name | Type | Description | Notes
 
 ### NewSourcePolicyEvaluation
 
-`func NewSourcePolicyEvaluation(accountName string, evaluationId string, sourceId string, host string, repositoryName string, revision string, policy Policy, sourceMappedToRule bool, findings []SourcePolicyEvaluationFinding, numberOfFindings int32, evaluationTime time.Time, finalAction string, finalActionReason string, evaluationProblems []PolicyEvaluationProblem, status string, ) *SourcePolicyEvaluation`
+`func NewSourcePolicyEvaluation(accountName string, evaluationId string, sourceId string, host string, repositoryName string, revision string, policy Policy, sourceMappedToRule bool, findings []SourcePolicyEvaluationFinding, numberOfFindings int64, evaluationTime time.Time, finalAction string, finalActionReason string, evaluationProblems []PolicyEvaluationProblem, status string, ) *SourcePolicyEvaluation`
 
 NewSourcePolicyEvaluation instantiates a new SourcePolicyEvaluation object
 This constructor will assign default values to properties that have it defined,
@@ -247,20 +247,20 @@ SetFindings sets Findings field to given value.
 
 ### GetNumberOfFindings
 
-`func (o *SourcePolicyEvaluation) GetNumberOfFindings() int32`
+`func (o *SourcePolicyEvaluation) GetNumberOfFindings() int64`
 
 GetNumberOfFindings returns the NumberOfFindings field if non-nil, zero value otherwise.
 
 ### GetNumberOfFindingsOk
 
-`func (o *SourcePolicyEvaluation) GetNumberOfFindingsOk() (*int32, bool)`
+`func (o *SourcePolicyEvaluation) GetNumberOfFindingsOk() (*int64, bool)`
 
 GetNumberOfFindingsOk returns a tuple with the NumberOfFindings field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetNumberOfFindings
 
-`func (o *SourcePolicyEvaluation) SetNumberOfFindings(v int32)`
+`func (o *SourcePolicyEvaluation) SetNumberOfFindings(v int64)`
 
 SetNumberOfFindings sets NumberOfFindings field to given value.
 

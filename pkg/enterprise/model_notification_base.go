@@ -23,12 +23,12 @@ type NotificationBase struct {
 	QueueId *string `json:"queue_id,omitempty"`
 	AccountName *string `json:"account_name,omitempty"`
 	DataId *string `json:"data_id,omitempty"`
-	CreatedAt *int32 `json:"created_at,omitempty"`
-	LastUpdated *int32 `json:"last_updated,omitempty"`
+	CreatedAt *int64 `json:"created_at,omitempty"`
+	LastUpdated *int64 `json:"last_updated,omitempty"`
 	RecordStateKey *string `json:"record_state_key,omitempty"`
 	RecordStateVal NullableString `json:"record_state_val,omitempty"`
-	Tries *int32 `json:"tries,omitempty"`
-	MaxTries *int32 `json:"max_tries,omitempty"`
+	Tries *int64 `json:"tries,omitempty"`
+	MaxTries *int64 `json:"max_tries,omitempty"`
 }
 
 // NewNotificationBase instantiates a new NotificationBase object
@@ -149,9 +149,9 @@ func (o *NotificationBase) SetDataId(v string) {
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
-func (o *NotificationBase) GetCreatedAt() int32 {
+func (o *NotificationBase) GetCreatedAt() int64 {
 	if o == nil || IsNil(o.CreatedAt) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.CreatedAt
@@ -159,7 +159,7 @@ func (o *NotificationBase) GetCreatedAt() int32 {
 
 // GetCreatedAtOk returns a tuple with the CreatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *NotificationBase) GetCreatedAtOk() (*int32, bool) {
+func (o *NotificationBase) GetCreatedAtOk() (*int64, bool) {
 	if o == nil || IsNil(o.CreatedAt) {
 		return nil, false
 	}
@@ -175,15 +175,15 @@ func (o *NotificationBase) HasCreatedAt() bool {
 	return false
 }
 
-// SetCreatedAt gets a reference to the given int32 and assigns it to the CreatedAt field.
-func (o *NotificationBase) SetCreatedAt(v int32) {
+// SetCreatedAt gets a reference to the given int64 and assigns it to the CreatedAt field.
+func (o *NotificationBase) SetCreatedAt(v int64) {
 	o.CreatedAt = &v
 }
 
 // GetLastUpdated returns the LastUpdated field value if set, zero value otherwise.
-func (o *NotificationBase) GetLastUpdated() int32 {
+func (o *NotificationBase) GetLastUpdated() int64 {
 	if o == nil || IsNil(o.LastUpdated) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.LastUpdated
@@ -191,7 +191,7 @@ func (o *NotificationBase) GetLastUpdated() int32 {
 
 // GetLastUpdatedOk returns a tuple with the LastUpdated field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *NotificationBase) GetLastUpdatedOk() (*int32, bool) {
+func (o *NotificationBase) GetLastUpdatedOk() (*int64, bool) {
 	if o == nil || IsNil(o.LastUpdated) {
 		return nil, false
 	}
@@ -207,8 +207,8 @@ func (o *NotificationBase) HasLastUpdated() bool {
 	return false
 }
 
-// SetLastUpdated gets a reference to the given int32 and assigns it to the LastUpdated field.
-func (o *NotificationBase) SetLastUpdated(v int32) {
+// SetLastUpdated gets a reference to the given int64 and assigns it to the LastUpdated field.
+func (o *NotificationBase) SetLastUpdated(v int64) {
 	o.LastUpdated = &v
 }
 
@@ -287,9 +287,9 @@ func (o *NotificationBase) UnsetRecordStateVal() {
 }
 
 // GetTries returns the Tries field value if set, zero value otherwise.
-func (o *NotificationBase) GetTries() int32 {
+func (o *NotificationBase) GetTries() int64 {
 	if o == nil || IsNil(o.Tries) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Tries
@@ -297,7 +297,7 @@ func (o *NotificationBase) GetTries() int32 {
 
 // GetTriesOk returns a tuple with the Tries field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *NotificationBase) GetTriesOk() (*int32, bool) {
+func (o *NotificationBase) GetTriesOk() (*int64, bool) {
 	if o == nil || IsNil(o.Tries) {
 		return nil, false
 	}
@@ -313,15 +313,15 @@ func (o *NotificationBase) HasTries() bool {
 	return false
 }
 
-// SetTries gets a reference to the given int32 and assigns it to the Tries field.
-func (o *NotificationBase) SetTries(v int32) {
+// SetTries gets a reference to the given int64 and assigns it to the Tries field.
+func (o *NotificationBase) SetTries(v int64) {
 	o.Tries = &v
 }
 
 // GetMaxTries returns the MaxTries field value if set, zero value otherwise.
-func (o *NotificationBase) GetMaxTries() int32 {
+func (o *NotificationBase) GetMaxTries() int64 {
 	if o == nil || IsNil(o.MaxTries) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.MaxTries
@@ -329,7 +329,7 @@ func (o *NotificationBase) GetMaxTries() int32 {
 
 // GetMaxTriesOk returns a tuple with the MaxTries field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *NotificationBase) GetMaxTriesOk() (*int32, bool) {
+func (o *NotificationBase) GetMaxTriesOk() (*int64, bool) {
 	if o == nil || IsNil(o.MaxTries) {
 		return nil, false
 	}
@@ -345,8 +345,8 @@ func (o *NotificationBase) HasMaxTries() bool {
 	return false
 }
 
-// SetMaxTries gets a reference to the given int32 and assigns it to the MaxTries field.
-func (o *NotificationBase) SetMaxTries(v int32) {
+// SetMaxTries gets a reference to the given int64 and assigns it to the MaxTries field.
+func (o *NotificationBase) SetMaxTries(v int64) {
 	o.MaxTries = &v
 }
 

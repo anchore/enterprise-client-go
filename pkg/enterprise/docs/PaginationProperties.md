@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Page** | Pointer to **string** | The page number returned (should match the requested page query string param) | [optional] 
 **NextPage** | Pointer to **string** | True if additional pages exist (page + 1) or False if this is the last page | [optional] 
-**ReturnedCount** | Pointer to **int32** | The number of items sent in this response | [optional] 
+**ReturnedCount** | Pointer to **int64** | The number of items sent in this response | [optional] 
 
 ## Methods
 
@@ -79,20 +79,20 @@ HasNextPage returns a boolean if a field has been set.
 
 ### GetReturnedCount
 
-`func (o *PaginationProperties) GetReturnedCount() int32`
+`func (o *PaginationProperties) GetReturnedCount() int64`
 
 GetReturnedCount returns the ReturnedCount field if non-nil, zero value otherwise.
 
 ### GetReturnedCountOk
 
-`func (o *PaginationProperties) GetReturnedCountOk() (*int32, bool)`
+`func (o *PaginationProperties) GetReturnedCountOk() (*int64, bool)`
 
 GetReturnedCountOk returns a tuple with the ReturnedCount field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetReturnedCount
 
-`func (o *PaginationProperties) SetReturnedCount(v int32)`
+`func (o *PaginationProperties) SetReturnedCount(v int64)`
 
 SetReturnedCount sets ReturnedCount field to given value.
 

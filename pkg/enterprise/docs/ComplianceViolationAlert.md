@@ -13,7 +13,7 @@ Name | Type | Description | Notes
 **CreatedAt** | Pointer to **time.Time** | RFC 3339 formatted UTC timestamp when the alert was generated | [optional] 
 **LastUpdated** | Pointer to **time.Time** | RFC 3339 formatted UTC timestamp when the alert was last modified | [optional] 
 **ComplianceStatusReason** | Pointer to **string** | Reason for compliance check status. Compliance check could fail due to policy evaluation or denylisting or errors evaluating compliance | [optional] 
-**ViolationsCount** | Pointer to **int32** | Number of STOP action results in the compliance check report | [optional] 
+**ViolationsCount** | Pointer to **int64** | Number of STOP action results in the compliance check report | [optional] 
 
 ## Methods
 
@@ -261,20 +261,20 @@ HasComplianceStatusReason returns a boolean if a field has been set.
 
 ### GetViolationsCount
 
-`func (o *ComplianceViolationAlert) GetViolationsCount() int32`
+`func (o *ComplianceViolationAlert) GetViolationsCount() int64`
 
 GetViolationsCount returns the ViolationsCount field if non-nil, zero value otherwise.
 
 ### GetViolationsCountOk
 
-`func (o *ComplianceViolationAlert) GetViolationsCountOk() (*int32, bool)`
+`func (o *ComplianceViolationAlert) GetViolationsCountOk() (*int64, bool)`
 
 GetViolationsCountOk returns a tuple with the ViolationsCount field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetViolationsCount
 
-`func (o *ComplianceViolationAlert) SetViolationsCount(v int32)`
+`func (o *ComplianceViolationAlert) SetViolationsCount(v int64)`
 
 SetViolationsCount sets ViolationsCount field to given value.
 

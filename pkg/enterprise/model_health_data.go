@@ -24,7 +24,7 @@ var _ MappedNullable = &HealthData{}
 type HealthData struct {
 	Type IntegrationType `json:"type"`
 	// Version of the health data schema
-	Version int32 `json:"version"`
+	Version int64 `json:"version"`
 	// List of errors
 	Errors []string `json:"errors,omitempty"`
 	// Information about sent inventory report for accounts
@@ -37,7 +37,7 @@ type _HealthData HealthData
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewHealthData(type_ IntegrationType, version int32) *HealthData {
+func NewHealthData(type_ IntegrationType, version int64) *HealthData {
 	this := HealthData{}
 	this.Type = type_
 	this.Version = version
@@ -77,9 +77,9 @@ func (o *HealthData) SetType(v IntegrationType) {
 }
 
 // GetVersion returns the Version field value
-func (o *HealthData) GetVersion() int32 {
+func (o *HealthData) GetVersion() int64 {
 	if o == nil {
-		var ret int32
+		var ret int64
 		return ret
 	}
 
@@ -88,7 +88,7 @@ func (o *HealthData) GetVersion() int32 {
 
 // GetVersionOk returns a tuple with the Version field value
 // and a boolean to check if the value has been set.
-func (o *HealthData) GetVersionOk() (*int32, bool) {
+func (o *HealthData) GetVersionOk() (*int64, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -96,7 +96,7 @@ func (o *HealthData) GetVersionOk() (*int32, bool) {
 }
 
 // SetVersion sets field value
-func (o *HealthData) SetVersion(v int32) {
+func (o *HealthData) SetVersion(v int64) {
 	o.Version = v
 }
 

@@ -32,7 +32,7 @@ import (
 )
 
 func main() {
-	artifactLifecyclePolicy := *openapiclient.NewArtifactLifecyclePolicy("Action_example", "Name_example", *openapiclient.NewArtifactLifecyclePolicyConditions(false, int32(123), "ArtifactType_example")) // ArtifactLifecyclePolicy |  (optional)
+	artifactLifecyclePolicy := *openapiclient.NewArtifactLifecyclePolicy("Action_example", "Name_example", *openapiclient.NewArtifactLifecyclePolicyConditions(false, int64(123), "ArtifactType_example")) // ArtifactLifecyclePolicy |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -231,7 +231,7 @@ import (
 
 func main() {
 	policyUuid := "policyUuid_example" // string | 
-	version := int32(56) // int32 | Request a specific version number (optional)
+	version := TODO // int64 | Request a specific version number (optional)
 	latest := true // bool | Request the latest version (optional)
 
 	configuration := openapiclient.NewConfiguration()
@@ -262,7 +262,7 @@ Other parameters are passed through a pointer to a apiGetArtifactLifecyclePolicy
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **version** | **int32** | Request a specific version number | 
+ **version** | [**int64**](int64.md) | Request a specific version number | 
  **latest** | **bool** | Request the latest version | 
 
 ### Return type
@@ -362,7 +362,7 @@ import (
 
 func main() {
 	policyUuid := "policyUuid_example" // string | 
-	artifactLifecyclePolicy := *openapiclient.NewArtifactLifecyclePolicy("Action_example", "Name_example", *openapiclient.NewArtifactLifecyclePolicyConditions(false, int32(123), "ArtifactType_example")) // ArtifactLifecyclePolicy |  (optional)
+	artifactLifecyclePolicy := *openapiclient.NewArtifactLifecyclePolicy("Action_example", "Name_example", *openapiclient.NewArtifactLifecyclePolicyConditions(false, int64(123), "ArtifactType_example")) // ArtifactLifecyclePolicy |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)

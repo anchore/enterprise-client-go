@@ -23,11 +23,11 @@ type SystemResourceLimit struct {
 	// The resource being limited
 	Name *string `json:"name,omitempty"`
 	// The value at which a warning will be generated
-	WarningValue NullableInt32 `json:"warning_value,omitempty"`
+	WarningValue NullableInt64 `json:"warning_value,omitempty"`
 	// The value at which a limit will be enforced
-	LimitValue NullableInt32 `json:"limit_value,omitempty"`
+	LimitValue NullableInt64 `json:"limit_value,omitempty"`
 	// The current value of the resource
-	CurrentValue *int32 `json:"current_value,omitempty"`
+	CurrentValue *int64 `json:"current_value,omitempty"`
 	// Whether the limit has been exceeded and is being enforced
 	LimitExceeded *bool `json:"limit_exceeded,omitempty"`
 }
@@ -82,9 +82,9 @@ func (o *SystemResourceLimit) SetName(v string) {
 }
 
 // GetWarningValue returns the WarningValue field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *SystemResourceLimit) GetWarningValue() int32 {
+func (o *SystemResourceLimit) GetWarningValue() int64 {
 	if o == nil || IsNil(o.WarningValue.Get()) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.WarningValue.Get()
@@ -93,7 +93,7 @@ func (o *SystemResourceLimit) GetWarningValue() int32 {
 // GetWarningValueOk returns a tuple with the WarningValue field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *SystemResourceLimit) GetWarningValueOk() (*int32, bool) {
+func (o *SystemResourceLimit) GetWarningValueOk() (*int64, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -109,8 +109,8 @@ func (o *SystemResourceLimit) HasWarningValue() bool {
 	return false
 }
 
-// SetWarningValue gets a reference to the given NullableInt32 and assigns it to the WarningValue field.
-func (o *SystemResourceLimit) SetWarningValue(v int32) {
+// SetWarningValue gets a reference to the given NullableInt64 and assigns it to the WarningValue field.
+func (o *SystemResourceLimit) SetWarningValue(v int64) {
 	o.WarningValue.Set(&v)
 }
 // SetWarningValueNil sets the value for WarningValue to be an explicit nil
@@ -124,9 +124,9 @@ func (o *SystemResourceLimit) UnsetWarningValue() {
 }
 
 // GetLimitValue returns the LimitValue field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *SystemResourceLimit) GetLimitValue() int32 {
+func (o *SystemResourceLimit) GetLimitValue() int64 {
 	if o == nil || IsNil(o.LimitValue.Get()) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.LimitValue.Get()
@@ -135,7 +135,7 @@ func (o *SystemResourceLimit) GetLimitValue() int32 {
 // GetLimitValueOk returns a tuple with the LimitValue field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *SystemResourceLimit) GetLimitValueOk() (*int32, bool) {
+func (o *SystemResourceLimit) GetLimitValueOk() (*int64, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -151,8 +151,8 @@ func (o *SystemResourceLimit) HasLimitValue() bool {
 	return false
 }
 
-// SetLimitValue gets a reference to the given NullableInt32 and assigns it to the LimitValue field.
-func (o *SystemResourceLimit) SetLimitValue(v int32) {
+// SetLimitValue gets a reference to the given NullableInt64 and assigns it to the LimitValue field.
+func (o *SystemResourceLimit) SetLimitValue(v int64) {
 	o.LimitValue.Set(&v)
 }
 // SetLimitValueNil sets the value for LimitValue to be an explicit nil
@@ -166,9 +166,9 @@ func (o *SystemResourceLimit) UnsetLimitValue() {
 }
 
 // GetCurrentValue returns the CurrentValue field value if set, zero value otherwise.
-func (o *SystemResourceLimit) GetCurrentValue() int32 {
+func (o *SystemResourceLimit) GetCurrentValue() int64 {
 	if o == nil || IsNil(o.CurrentValue) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.CurrentValue
@@ -176,7 +176,7 @@ func (o *SystemResourceLimit) GetCurrentValue() int32 {
 
 // GetCurrentValueOk returns a tuple with the CurrentValue field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SystemResourceLimit) GetCurrentValueOk() (*int32, bool) {
+func (o *SystemResourceLimit) GetCurrentValueOk() (*int64, bool) {
 	if o == nil || IsNil(o.CurrentValue) {
 		return nil, false
 	}
@@ -192,8 +192,8 @@ func (o *SystemResourceLimit) HasCurrentValue() bool {
 	return false
 }
 
-// SetCurrentValue gets a reference to the given int32 and assigns it to the CurrentValue field.
-func (o *SystemResourceLimit) SetCurrentValue(v int32) {
+// SetCurrentValue gets a reference to the given int64 and assigns it to the CurrentValue field.
+func (o *SystemResourceLimit) SetCurrentValue(v int64) {
 	o.CurrentValue = &v
 }
 

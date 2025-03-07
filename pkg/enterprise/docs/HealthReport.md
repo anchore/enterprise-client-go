@@ -5,17 +5,17 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Uuid** | **string** | Universally unique identifier for this health report | 
-**ProtocolVersion** | **int32** | The version of the health report exchange protocol | 
+**ProtocolVersion** | **int64** | The version of the health report exchange protocol | 
 **Timestamp** | **time.Time** | timestamp for this health report | 
 **Uptime** | **float32** | Running time of integration instance in seconds | 
-**HealthReportInterval** | **int32** | Interval (in seconds) between health reports | 
+**HealthReportInterval** | **int64** | Interval (in seconds) between health reports | 
 **HealthData** | [**HealthData**](HealthData.md) |  | 
 
 ## Methods
 
 ### NewHealthReport
 
-`func NewHealthReport(uuid string, protocolVersion int32, timestamp time.Time, uptime float32, healthReportInterval int32, healthData HealthData, ) *HealthReport`
+`func NewHealthReport(uuid string, protocolVersion int64, timestamp time.Time, uptime float32, healthReportInterval int64, healthData HealthData, ) *HealthReport`
 
 NewHealthReport instantiates a new HealthReport object
 This constructor will assign default values to properties that have it defined,
@@ -52,20 +52,20 @@ SetUuid sets Uuid field to given value.
 
 ### GetProtocolVersion
 
-`func (o *HealthReport) GetProtocolVersion() int32`
+`func (o *HealthReport) GetProtocolVersion() int64`
 
 GetProtocolVersion returns the ProtocolVersion field if non-nil, zero value otherwise.
 
 ### GetProtocolVersionOk
 
-`func (o *HealthReport) GetProtocolVersionOk() (*int32, bool)`
+`func (o *HealthReport) GetProtocolVersionOk() (*int64, bool)`
 
 GetProtocolVersionOk returns a tuple with the ProtocolVersion field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetProtocolVersion
 
-`func (o *HealthReport) SetProtocolVersion(v int32)`
+`func (o *HealthReport) SetProtocolVersion(v int64)`
 
 SetProtocolVersion sets ProtocolVersion field to given value.
 
@@ -112,20 +112,20 @@ SetUptime sets Uptime field to given value.
 
 ### GetHealthReportInterval
 
-`func (o *HealthReport) GetHealthReportInterval() int32`
+`func (o *HealthReport) GetHealthReportInterval() int64`
 
 GetHealthReportInterval returns the HealthReportInterval field if non-nil, zero value otherwise.
 
 ### GetHealthReportIntervalOk
 
-`func (o *HealthReport) GetHealthReportIntervalOk() (*int32, bool)`
+`func (o *HealthReport) GetHealthReportIntervalOk() (*int64, bool)`
 
 GetHealthReportIntervalOk returns a tuple with the HealthReportInterval field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetHealthReportInterval
 
-`func (o *HealthReport) SetHealthReportInterval(v int32)`
+`func (o *HealthReport) SetHealthReportInterval(v int64)`
 
 SetHealthReportInterval sets HealthReportInterval field to given value.
 

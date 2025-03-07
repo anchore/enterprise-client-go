@@ -22,9 +22,9 @@ var _ MappedNullable = &AnalysisArchiveTransitionRuleExclude{}
 type AnalysisArchiveTransitionRuleExclude struct {
 	Selector *ImageSelector `json:"selector,omitempty"`
 	// How long the image selected will be excluded from the archive transition
-	ExpirationDays *int32 `json:"expiration_days,omitempty"`
+	ExpirationDays *int64 `json:"expiration_days,omitempty"`
 	// Exclude image from archive if last seen in inventory within defined number of days
-	LastSeenInDays *int32 `json:"last_seen_in_days,omitempty"`
+	LastSeenInDays *int64 `json:"last_seen_in_days,omitempty"`
 }
 
 // NewAnalysisArchiveTransitionRuleExclude instantiates a new AnalysisArchiveTransitionRuleExclude object
@@ -77,9 +77,9 @@ func (o *AnalysisArchiveTransitionRuleExclude) SetSelector(v ImageSelector) {
 }
 
 // GetExpirationDays returns the ExpirationDays field value if set, zero value otherwise.
-func (o *AnalysisArchiveTransitionRuleExclude) GetExpirationDays() int32 {
+func (o *AnalysisArchiveTransitionRuleExclude) GetExpirationDays() int64 {
 	if o == nil || IsNil(o.ExpirationDays) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.ExpirationDays
@@ -87,7 +87,7 @@ func (o *AnalysisArchiveTransitionRuleExclude) GetExpirationDays() int32 {
 
 // GetExpirationDaysOk returns a tuple with the ExpirationDays field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AnalysisArchiveTransitionRuleExclude) GetExpirationDaysOk() (*int32, bool) {
+func (o *AnalysisArchiveTransitionRuleExclude) GetExpirationDaysOk() (*int64, bool) {
 	if o == nil || IsNil(o.ExpirationDays) {
 		return nil, false
 	}
@@ -103,15 +103,15 @@ func (o *AnalysisArchiveTransitionRuleExclude) HasExpirationDays() bool {
 	return false
 }
 
-// SetExpirationDays gets a reference to the given int32 and assigns it to the ExpirationDays field.
-func (o *AnalysisArchiveTransitionRuleExclude) SetExpirationDays(v int32) {
+// SetExpirationDays gets a reference to the given int64 and assigns it to the ExpirationDays field.
+func (o *AnalysisArchiveTransitionRuleExclude) SetExpirationDays(v int64) {
 	o.ExpirationDays = &v
 }
 
 // GetLastSeenInDays returns the LastSeenInDays field value if set, zero value otherwise.
-func (o *AnalysisArchiveTransitionRuleExclude) GetLastSeenInDays() int32 {
+func (o *AnalysisArchiveTransitionRuleExclude) GetLastSeenInDays() int64 {
 	if o == nil || IsNil(o.LastSeenInDays) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.LastSeenInDays
@@ -119,7 +119,7 @@ func (o *AnalysisArchiveTransitionRuleExclude) GetLastSeenInDays() int32 {
 
 // GetLastSeenInDaysOk returns a tuple with the LastSeenInDays field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AnalysisArchiveTransitionRuleExclude) GetLastSeenInDaysOk() (*int32, bool) {
+func (o *AnalysisArchiveTransitionRuleExclude) GetLastSeenInDaysOk() (*int64, bool) {
 	if o == nil || IsNil(o.LastSeenInDays) {
 		return nil, false
 	}
@@ -135,8 +135,8 @@ func (o *AnalysisArchiveTransitionRuleExclude) HasLastSeenInDays() bool {
 	return false
 }
 
-// SetLastSeenInDays gets a reference to the given int32 and assigns it to the LastSeenInDays field.
-func (o *AnalysisArchiveTransitionRuleExclude) SetLastSeenInDays(v int32) {
+// SetLastSeenInDays gets a reference to the given int64 and assigns it to the LastSeenInDays field.
+func (o *AnalysisArchiveTransitionRuleExclude) SetLastSeenInDays(v int64) {
 	o.LastSeenInDays = &v
 }
 

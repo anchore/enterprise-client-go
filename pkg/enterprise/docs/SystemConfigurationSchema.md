@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **AllowInfNan** | Pointer to **NullableBool** |  | [optional] 
-**DecimalPlaces** | Pointer to **NullableInt32** |  | [optional] 
+**DecimalPlaces** | Pointer to **NullableInt64** |  | [optional] 
 **DataType** | Pointer to **string** |  | [optional] 
 **DefaultValue** | Pointer to [**NullableSystemConfigurationValue**](SystemConfigurationValue.md) |  | [optional] 
 **Enum** | Pointer to **[]string** |  | [optional] 
@@ -14,11 +14,11 @@ Name | Type | Description | Notes
 **IsArray** | Pointer to **NullableBool** |  | [optional] 
 **Le** | Pointer to **NullableFloat32** |  | [optional] 
 **Lt** | Pointer to **NullableFloat32** |  | [optional] 
-**MaxDigits** | Pointer to **NullableInt32** |  | [optional] 
-**MaxItems** | Pointer to **NullableInt32** |  | [optional] 
-**MaxLength** | Pointer to **NullableInt32** |  | [optional] 
-**MinItems** | Pointer to **NullableInt32** |  | [optional] 
-**MinLength** | Pointer to **NullableInt32** |  | [optional] 
+**MaxDigits** | Pointer to **NullableInt64** |  | [optional] 
+**MaxItems** | Pointer to **NullableInt64** |  | [optional] 
+**MaxLength** | Pointer to **NullableInt64** |  | [optional] 
+**MinItems** | Pointer to **NullableInt64** |  | [optional] 
+**MinLength** | Pointer to **NullableInt64** |  | [optional] 
 **MultipleOf** | Pointer to **NullableFloat32** |  | [optional] 
 **Regex** | Pointer to **NullableString** |  | [optional] 
 **UniqueItems** | Pointer to **NullableBool** |  | [optional] 
@@ -79,20 +79,20 @@ HasAllowInfNan returns a boolean if a field has been set.
 UnsetAllowInfNan ensures that no value is present for AllowInfNan, not even an explicit nil
 ### GetDecimalPlaces
 
-`func (o *SystemConfigurationSchema) GetDecimalPlaces() int32`
+`func (o *SystemConfigurationSchema) GetDecimalPlaces() int64`
 
 GetDecimalPlaces returns the DecimalPlaces field if non-nil, zero value otherwise.
 
 ### GetDecimalPlacesOk
 
-`func (o *SystemConfigurationSchema) GetDecimalPlacesOk() (*int32, bool)`
+`func (o *SystemConfigurationSchema) GetDecimalPlacesOk() (*int64, bool)`
 
 GetDecimalPlacesOk returns a tuple with the DecimalPlaces field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetDecimalPlaces
 
-`func (o *SystemConfigurationSchema) SetDecimalPlaces(v int32)`
+`func (o *SystemConfigurationSchema) SetDecimalPlaces(v int64)`
 
 SetDecimalPlaces sets DecimalPlaces field to given value.
 
@@ -384,20 +384,20 @@ HasLt returns a boolean if a field has been set.
 UnsetLt ensures that no value is present for Lt, not even an explicit nil
 ### GetMaxDigits
 
-`func (o *SystemConfigurationSchema) GetMaxDigits() int32`
+`func (o *SystemConfigurationSchema) GetMaxDigits() int64`
 
 GetMaxDigits returns the MaxDigits field if non-nil, zero value otherwise.
 
 ### GetMaxDigitsOk
 
-`func (o *SystemConfigurationSchema) GetMaxDigitsOk() (*int32, bool)`
+`func (o *SystemConfigurationSchema) GetMaxDigitsOk() (*int64, bool)`
 
 GetMaxDigitsOk returns a tuple with the MaxDigits field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetMaxDigits
 
-`func (o *SystemConfigurationSchema) SetMaxDigits(v int32)`
+`func (o *SystemConfigurationSchema) SetMaxDigits(v int64)`
 
 SetMaxDigits sets MaxDigits field to given value.
 
@@ -419,20 +419,20 @@ HasMaxDigits returns a boolean if a field has been set.
 UnsetMaxDigits ensures that no value is present for MaxDigits, not even an explicit nil
 ### GetMaxItems
 
-`func (o *SystemConfigurationSchema) GetMaxItems() int32`
+`func (o *SystemConfigurationSchema) GetMaxItems() int64`
 
 GetMaxItems returns the MaxItems field if non-nil, zero value otherwise.
 
 ### GetMaxItemsOk
 
-`func (o *SystemConfigurationSchema) GetMaxItemsOk() (*int32, bool)`
+`func (o *SystemConfigurationSchema) GetMaxItemsOk() (*int64, bool)`
 
 GetMaxItemsOk returns a tuple with the MaxItems field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetMaxItems
 
-`func (o *SystemConfigurationSchema) SetMaxItems(v int32)`
+`func (o *SystemConfigurationSchema) SetMaxItems(v int64)`
 
 SetMaxItems sets MaxItems field to given value.
 
@@ -454,20 +454,20 @@ HasMaxItems returns a boolean if a field has been set.
 UnsetMaxItems ensures that no value is present for MaxItems, not even an explicit nil
 ### GetMaxLength
 
-`func (o *SystemConfigurationSchema) GetMaxLength() int32`
+`func (o *SystemConfigurationSchema) GetMaxLength() int64`
 
 GetMaxLength returns the MaxLength field if non-nil, zero value otherwise.
 
 ### GetMaxLengthOk
 
-`func (o *SystemConfigurationSchema) GetMaxLengthOk() (*int32, bool)`
+`func (o *SystemConfigurationSchema) GetMaxLengthOk() (*int64, bool)`
 
 GetMaxLengthOk returns a tuple with the MaxLength field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetMaxLength
 
-`func (o *SystemConfigurationSchema) SetMaxLength(v int32)`
+`func (o *SystemConfigurationSchema) SetMaxLength(v int64)`
 
 SetMaxLength sets MaxLength field to given value.
 
@@ -489,20 +489,20 @@ HasMaxLength returns a boolean if a field has been set.
 UnsetMaxLength ensures that no value is present for MaxLength, not even an explicit nil
 ### GetMinItems
 
-`func (o *SystemConfigurationSchema) GetMinItems() int32`
+`func (o *SystemConfigurationSchema) GetMinItems() int64`
 
 GetMinItems returns the MinItems field if non-nil, zero value otherwise.
 
 ### GetMinItemsOk
 
-`func (o *SystemConfigurationSchema) GetMinItemsOk() (*int32, bool)`
+`func (o *SystemConfigurationSchema) GetMinItemsOk() (*int64, bool)`
 
 GetMinItemsOk returns a tuple with the MinItems field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetMinItems
 
-`func (o *SystemConfigurationSchema) SetMinItems(v int32)`
+`func (o *SystemConfigurationSchema) SetMinItems(v int64)`
 
 SetMinItems sets MinItems field to given value.
 
@@ -524,20 +524,20 @@ HasMinItems returns a boolean if a field has been set.
 UnsetMinItems ensures that no value is present for MinItems, not even an explicit nil
 ### GetMinLength
 
-`func (o *SystemConfigurationSchema) GetMinLength() int32`
+`func (o *SystemConfigurationSchema) GetMinLength() int64`
 
 GetMinLength returns the MinLength field if non-nil, zero value otherwise.
 
 ### GetMinLengthOk
 
-`func (o *SystemConfigurationSchema) GetMinLengthOk() (*int32, bool)`
+`func (o *SystemConfigurationSchema) GetMinLengthOk() (*int64, bool)`
 
 GetMinLengthOk returns a tuple with the MinLength field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetMinLength
 
-`func (o *SystemConfigurationSchema) SetMinLength(v int32)`
+`func (o *SystemConfigurationSchema) SetMinLength(v int64)`
 
 SetMinLength sets MinLength field to given value.
 

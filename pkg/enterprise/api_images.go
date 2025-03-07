@@ -3519,8 +3519,8 @@ type ApiSummaryImageTagsRequest struct {
 	orderBy *[]string
 	orderByDescending *[]bool
 	filter *string
-	limit *int32
-	page *int32
+	limit *int64
+	page *int64
 	xAnchoreAccount *string
 }
 
@@ -3585,13 +3585,13 @@ func (r ApiSummaryImageTagsRequest) Filter(filter string) ApiSummaryImageTagsReq
 }
 
 // Maximum number of rows to return
-func (r ApiSummaryImageTagsRequest) Limit(limit int32) ApiSummaryImageTagsRequest {
+func (r ApiSummaryImageTagsRequest) Limit(limit int64) ApiSummaryImageTagsRequest {
 	r.limit = &limit
 	return r
 }
 
 // Page number to return, one&#39;s based
-func (r ApiSummaryImageTagsRequest) Page(page int32) ApiSummaryImageTagsRequest {
+func (r ApiSummaryImageTagsRequest) Page(page int64) ApiSummaryImageTagsRequest {
 	r.page = &page
 	return r
 }
@@ -3683,9 +3683,6 @@ func (a *ImagesAPIService) SummaryImageTagsExecute(r ApiSummaryImageTagsRequest)
 	}
 	if r.page != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "page", r.page, "form", "")
-	} else {
-		var defaultValue int32 = 1
-		r.page = &defaultValue
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}

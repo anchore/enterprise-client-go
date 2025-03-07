@@ -5,13 +5,13 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Filename** | Pointer to **string** |  | [optional] 
-**Gid** | Pointer to **int32** |  | [optional] 
+**Gid** | Pointer to **int64** |  | [optional] 
 **Linkdest** | Pointer to **NullableString** |  | [optional] 
 **Mode** | Pointer to **string** |  | [optional] 
 **Sha256** | Pointer to **NullableString** |  | [optional] 
-**Size** | Pointer to **int32** |  | [optional] 
+**Size** | Pointer to **int64** |  | [optional] 
 **Type** | Pointer to **string** |  | [optional] 
-**Uid** | Pointer to **int32** |  | [optional] 
+**Uid** | Pointer to **int64** |  | [optional] 
 
 ## Methods
 
@@ -59,20 +59,20 @@ HasFilename returns a boolean if a field has been set.
 
 ### GetGid
 
-`func (o *FilesContent) GetGid() int32`
+`func (o *FilesContent) GetGid() int64`
 
 GetGid returns the Gid field if non-nil, zero value otherwise.
 
 ### GetGidOk
 
-`func (o *FilesContent) GetGidOk() (*int32, bool)`
+`func (o *FilesContent) GetGidOk() (*int64, bool)`
 
 GetGidOk returns a tuple with the Gid field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetGid
 
-`func (o *FilesContent) SetGid(v int32)`
+`func (o *FilesContent) SetGid(v int64)`
 
 SetGid sets Gid field to given value.
 
@@ -179,20 +179,20 @@ HasSha256 returns a boolean if a field has been set.
 UnsetSha256 ensures that no value is present for Sha256, not even an explicit nil
 ### GetSize
 
-`func (o *FilesContent) GetSize() int32`
+`func (o *FilesContent) GetSize() int64`
 
 GetSize returns the Size field if non-nil, zero value otherwise.
 
 ### GetSizeOk
 
-`func (o *FilesContent) GetSizeOk() (*int32, bool)`
+`func (o *FilesContent) GetSizeOk() (*int64, bool)`
 
 GetSizeOk returns a tuple with the Size field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetSize
 
-`func (o *FilesContent) SetSize(v int32)`
+`func (o *FilesContent) SetSize(v int64)`
 
 SetSize sets Size field to given value.
 
@@ -229,20 +229,20 @@ HasType returns a boolean if a field has been set.
 
 ### GetUid
 
-`func (o *FilesContent) GetUid() int32`
+`func (o *FilesContent) GetUid() int64`
 
 GetUid returns the Uid field if non-nil, zero value otherwise.
 
 ### GetUidOk
 
-`func (o *FilesContent) GetUidOk() (*int32, bool)`
+`func (o *FilesContent) GetUidOk() (*int64, bool)`
 
 GetUidOk returns a tuple with the Uid field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetUid
 
-`func (o *FilesContent) SetUid(v int32)`
+`func (o *FilesContent) SetUid(v int64)`
 
 SetUid sets Uid field to given value.
 

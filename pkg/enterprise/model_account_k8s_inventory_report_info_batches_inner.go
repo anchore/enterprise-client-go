@@ -24,7 +24,7 @@ var _ MappedNullable = &AccountK8sInventoryReportInfoBatchesInner{}
 // AccountK8sInventoryReportInfoBatchesInner struct for AccountK8sInventoryReportInfoBatchesInner
 type AccountK8sInventoryReportInfoBatchesInner struct {
 	// Index of the batch
-	BatchIndex int32 `json:"batch_index"`
+	BatchIndex int64 `json:"batch_index"`
 	// Timestamp when the batch was sent
 	SendTimestamp time.Time `json:"send_timestamp"`
 	// Error message if the sending was unsuccessful
@@ -37,7 +37,7 @@ type _AccountK8sInventoryReportInfoBatchesInner AccountK8sInventoryReportInfoBat
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewAccountK8sInventoryReportInfoBatchesInner(batchIndex int32, sendTimestamp time.Time) *AccountK8sInventoryReportInfoBatchesInner {
+func NewAccountK8sInventoryReportInfoBatchesInner(batchIndex int64, sendTimestamp time.Time) *AccountK8sInventoryReportInfoBatchesInner {
 	this := AccountK8sInventoryReportInfoBatchesInner{}
 	this.BatchIndex = batchIndex
 	this.SendTimestamp = sendTimestamp
@@ -53,9 +53,9 @@ func NewAccountK8sInventoryReportInfoBatchesInnerWithDefaults() *AccountK8sInven
 }
 
 // GetBatchIndex returns the BatchIndex field value
-func (o *AccountK8sInventoryReportInfoBatchesInner) GetBatchIndex() int32 {
+func (o *AccountK8sInventoryReportInfoBatchesInner) GetBatchIndex() int64 {
 	if o == nil {
-		var ret int32
+		var ret int64
 		return ret
 	}
 
@@ -64,7 +64,7 @@ func (o *AccountK8sInventoryReportInfoBatchesInner) GetBatchIndex() int32 {
 
 // GetBatchIndexOk returns a tuple with the BatchIndex field value
 // and a boolean to check if the value has been set.
-func (o *AccountK8sInventoryReportInfoBatchesInner) GetBatchIndexOk() (*int32, bool) {
+func (o *AccountK8sInventoryReportInfoBatchesInner) GetBatchIndexOk() (*int64, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -72,7 +72,7 @@ func (o *AccountK8sInventoryReportInfoBatchesInner) GetBatchIndexOk() (*int32, b
 }
 
 // SetBatchIndex sets field value
-func (o *AccountK8sInventoryReportInfoBatchesInner) SetBatchIndex(v int32) {
+func (o *AccountK8sInventoryReportInfoBatchesInner) SetBatchIndex(v int64) {
 	o.BatchIndex = v
 }
 

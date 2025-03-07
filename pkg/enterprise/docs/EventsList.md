@@ -6,8 +6,8 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Results** | Pointer to [**[]EventResponse**](EventResponse.md) | List of events | [optional] 
 **NextPage** | Pointer to **bool** | Boolean flag, True indicates there are more events and False otherwise | [optional] 
-**ItemCount** | Pointer to **int32** | Number of events in this page | [optional] 
-**Page** | Pointer to **int32** | Page number of this result set | [optional] 
+**ItemCount** | Pointer to **int64** | Number of events in this page | [optional] 
+**Page** | Pointer to **int64** | Page number of this result set | [optional] 
 
 ## Methods
 
@@ -80,20 +80,20 @@ HasNextPage returns a boolean if a field has been set.
 
 ### GetItemCount
 
-`func (o *EventsList) GetItemCount() int32`
+`func (o *EventsList) GetItemCount() int64`
 
 GetItemCount returns the ItemCount field if non-nil, zero value otherwise.
 
 ### GetItemCountOk
 
-`func (o *EventsList) GetItemCountOk() (*int32, bool)`
+`func (o *EventsList) GetItemCountOk() (*int64, bool)`
 
 GetItemCountOk returns a tuple with the ItemCount field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetItemCount
 
-`func (o *EventsList) SetItemCount(v int32)`
+`func (o *EventsList) SetItemCount(v int64)`
 
 SetItemCount sets ItemCount field to given value.
 
@@ -105,20 +105,20 @@ HasItemCount returns a boolean if a field has been set.
 
 ### GetPage
 
-`func (o *EventsList) GetPage() int32`
+`func (o *EventsList) GetPage() int64`
 
 GetPage returns the Page field if non-nil, zero value otherwise.
 
 ### GetPageOk
 
-`func (o *EventsList) GetPageOk() (*int32, bool)`
+`func (o *EventsList) GetPageOk() (*int64, bool)`
 
 GetPageOk returns a tuple with the Page field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetPage
 
-`func (o *EventsList) SetPage(v int32)`
+`func (o *EventsList) SetPage(v int64)`
 
 SetPage sets Page field to given value.
 

@@ -6,14 +6,14 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Selector** | Pointer to [**ImageSelector**](ImageSelector.md) |  | [optional] 
 **RuleId** | Pointer to **string** | Unique identifier for archive rule | [optional] 
-**TagVersionsNewer** | Pointer to **int32** | Number of images mapped to the tag that are newer | [optional] 
-**AnalysisAgeDays** | Pointer to **int32** | Matches if the analysis is strictly older than this number of days | [optional] 
+**TagVersionsNewer** | Pointer to **int64** | Number of images mapped to the tag that are newer | [optional] 
+**AnalysisAgeDays** | Pointer to **int64** | Matches if the analysis is strictly older than this number of days | [optional] 
 **Transition** | **string** | The type of transition to make. If \&quot;archive\&quot;, then archive an image from the working set and remove it from the working set. If \&quot;delete\&quot;, then match against archived images and delete from the archive if match. | 
 **SystemGlobal** | Pointer to **bool** | True if the rule applies to all accounts in the system. This is only available to admin users to update/modify, but all users with permission to list rules can see them | [optional] 
 **CreatedAt** | Pointer to **time.Time** |  | [optional] 
 **LastUpdated** | Pointer to **time.Time** |  | [optional] 
 **Exclude** | Pointer to [**AnalysisArchiveTransitionRuleExclude**](AnalysisArchiveTransitionRuleExclude.md) |  | [optional] 
-**MaxImagesPerAccount** | Pointer to **int32** | This is the maximum number of image analyses an account can have. Can only be set on system_global rules | [optional] 
+**MaxImagesPerAccount** | Pointer to **int64** | This is the maximum number of image analyses an account can have. Can only be set on system_global rules | [optional] 
 
 ## Methods
 
@@ -86,20 +86,20 @@ HasRuleId returns a boolean if a field has been set.
 
 ### GetTagVersionsNewer
 
-`func (o *AnalysisArchiveTransitionRule) GetTagVersionsNewer() int32`
+`func (o *AnalysisArchiveTransitionRule) GetTagVersionsNewer() int64`
 
 GetTagVersionsNewer returns the TagVersionsNewer field if non-nil, zero value otherwise.
 
 ### GetTagVersionsNewerOk
 
-`func (o *AnalysisArchiveTransitionRule) GetTagVersionsNewerOk() (*int32, bool)`
+`func (o *AnalysisArchiveTransitionRule) GetTagVersionsNewerOk() (*int64, bool)`
 
 GetTagVersionsNewerOk returns a tuple with the TagVersionsNewer field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTagVersionsNewer
 
-`func (o *AnalysisArchiveTransitionRule) SetTagVersionsNewer(v int32)`
+`func (o *AnalysisArchiveTransitionRule) SetTagVersionsNewer(v int64)`
 
 SetTagVersionsNewer sets TagVersionsNewer field to given value.
 
@@ -111,20 +111,20 @@ HasTagVersionsNewer returns a boolean if a field has been set.
 
 ### GetAnalysisAgeDays
 
-`func (o *AnalysisArchiveTransitionRule) GetAnalysisAgeDays() int32`
+`func (o *AnalysisArchiveTransitionRule) GetAnalysisAgeDays() int64`
 
 GetAnalysisAgeDays returns the AnalysisAgeDays field if non-nil, zero value otherwise.
 
 ### GetAnalysisAgeDaysOk
 
-`func (o *AnalysisArchiveTransitionRule) GetAnalysisAgeDaysOk() (*int32, bool)`
+`func (o *AnalysisArchiveTransitionRule) GetAnalysisAgeDaysOk() (*int64, bool)`
 
 GetAnalysisAgeDaysOk returns a tuple with the AnalysisAgeDays field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetAnalysisAgeDays
 
-`func (o *AnalysisArchiveTransitionRule) SetAnalysisAgeDays(v int32)`
+`func (o *AnalysisArchiveTransitionRule) SetAnalysisAgeDays(v int64)`
 
 SetAnalysisAgeDays sets AnalysisAgeDays field to given value.
 
@@ -256,20 +256,20 @@ HasExclude returns a boolean if a field has been set.
 
 ### GetMaxImagesPerAccount
 
-`func (o *AnalysisArchiveTransitionRule) GetMaxImagesPerAccount() int32`
+`func (o *AnalysisArchiveTransitionRule) GetMaxImagesPerAccount() int64`
 
 GetMaxImagesPerAccount returns the MaxImagesPerAccount field if non-nil, zero value otherwise.
 
 ### GetMaxImagesPerAccountOk
 
-`func (o *AnalysisArchiveTransitionRule) GetMaxImagesPerAccountOk() (*int32, bool)`
+`func (o *AnalysisArchiveTransitionRule) GetMaxImagesPerAccountOk() (*int64, bool)`
 
 GetMaxImagesPerAccountOk returns a tuple with the MaxImagesPerAccount field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetMaxImagesPerAccount
 
-`func (o *AnalysisArchiveTransitionRule) SetMaxImagesPerAccount(v int32)`
+`func (o *AnalysisArchiveTransitionRule) SetMaxImagesPerAccount(v int64)`
 
 SetMaxImagesPerAccount sets MaxImagesPerAccount field to given value.
 

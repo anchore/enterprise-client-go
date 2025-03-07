@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Items** | Pointer to [**[]User**](User.md) |  | [optional] 
-**TotalRows** | Pointer to **int32** |  | [optional] 
+**TotalRows** | Pointer to **int64** |  | [optional] 
 
 ## Methods
 
@@ -53,20 +53,20 @@ HasItems returns a boolean if a field has been set.
 
 ### GetTotalRows
 
-`func (o *Users) GetTotalRows() int32`
+`func (o *Users) GetTotalRows() int64`
 
 GetTotalRows returns the TotalRows field if non-nil, zero value otherwise.
 
 ### GetTotalRowsOk
 
-`func (o *Users) GetTotalRowsOk() (*int32, bool)`
+`func (o *Users) GetTotalRowsOk() (*int64, bool)`
 
 GetTotalRowsOk returns a tuple with the TotalRows field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTotalRows
 
-`func (o *Users) SetTotalRows(v int32)`
+`func (o *Users) SetTotalRows(v int64)`
 
 SetTotalRows sets TotalRows field to given value.
 

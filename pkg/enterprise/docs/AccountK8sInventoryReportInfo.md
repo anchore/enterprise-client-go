@@ -7,8 +7,8 @@ Name | Type | Description | Notes
 **ReportTimestamp** | **string** | Timestamp for the inventory report | 
 **AccountName** | **string** | Account to which the inventory reports belong | 
 **SentAsUser** | **string** | User that the integration instance sent the inventory report as | 
-**BatchSize** | **int32** | Number of batches that the inventory report was sent in | 
-**LastSuccessfulIndex** | **int32** | Index of last successfully sent batch, -1 if none were successful | 
+**BatchSize** | **int64** | Number of batches that the inventory report was sent in | 
+**LastSuccessfulIndex** | **int64** | Index of last successfully sent batch, -1 if none were successful | 
 **HasErrors** | **bool** | true if one or more of the batches coult not be sent, false otherwise | 
 **Batches** | [**[]AccountK8sInventoryReportInfoBatchesInner**](AccountK8sInventoryReportInfoBatchesInner.md) | List of information about inventory report batches | 
 
@@ -16,7 +16,7 @@ Name | Type | Description | Notes
 
 ### NewAccountK8sInventoryReportInfo
 
-`func NewAccountK8sInventoryReportInfo(reportTimestamp string, accountName string, sentAsUser string, batchSize int32, lastSuccessfulIndex int32, hasErrors bool, batches []AccountK8sInventoryReportInfoBatchesInner, ) *AccountK8sInventoryReportInfo`
+`func NewAccountK8sInventoryReportInfo(reportTimestamp string, accountName string, sentAsUser string, batchSize int64, lastSuccessfulIndex int64, hasErrors bool, batches []AccountK8sInventoryReportInfoBatchesInner, ) *AccountK8sInventoryReportInfo`
 
 NewAccountK8sInventoryReportInfo instantiates a new AccountK8sInventoryReportInfo object
 This constructor will assign default values to properties that have it defined,
@@ -93,40 +93,40 @@ SetSentAsUser sets SentAsUser field to given value.
 
 ### GetBatchSize
 
-`func (o *AccountK8sInventoryReportInfo) GetBatchSize() int32`
+`func (o *AccountK8sInventoryReportInfo) GetBatchSize() int64`
 
 GetBatchSize returns the BatchSize field if non-nil, zero value otherwise.
 
 ### GetBatchSizeOk
 
-`func (o *AccountK8sInventoryReportInfo) GetBatchSizeOk() (*int32, bool)`
+`func (o *AccountK8sInventoryReportInfo) GetBatchSizeOk() (*int64, bool)`
 
 GetBatchSizeOk returns a tuple with the BatchSize field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetBatchSize
 
-`func (o *AccountK8sInventoryReportInfo) SetBatchSize(v int32)`
+`func (o *AccountK8sInventoryReportInfo) SetBatchSize(v int64)`
 
 SetBatchSize sets BatchSize field to given value.
 
 
 ### GetLastSuccessfulIndex
 
-`func (o *AccountK8sInventoryReportInfo) GetLastSuccessfulIndex() int32`
+`func (o *AccountK8sInventoryReportInfo) GetLastSuccessfulIndex() int64`
 
 GetLastSuccessfulIndex returns the LastSuccessfulIndex field if non-nil, zero value otherwise.
 
 ### GetLastSuccessfulIndexOk
 
-`func (o *AccountK8sInventoryReportInfo) GetLastSuccessfulIndexOk() (*int32, bool)`
+`func (o *AccountK8sInventoryReportInfo) GetLastSuccessfulIndexOk() (*int64, bool)`
 
 GetLastSuccessfulIndexOk returns a tuple with the LastSuccessfulIndex field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLastSuccessfulIndex
 
-`func (o *AccountK8sInventoryReportInfo) SetLastSuccessfulIndex(v int32)`
+`func (o *AccountK8sInventoryReportInfo) SetLastSuccessfulIndex(v int64)`
 
 SetLastSuccessfulIndex sets LastSuccessfulIndex field to given value.
 

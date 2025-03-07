@@ -942,19 +942,17 @@ paths:
         name: page
         required: false
         schema:
-          default: 1
           minimum: 1
-          type: integer
+          type: int64
         style: form
       - explode: true
         in: query
         name: limit
         required: false
         schema:
-          default: 100
           maximum: 100
           minimum: 1
-          type: integer
+          type: int64
         style: form
       - description: "Filter for alerts by current state, defaults to open alerts\
           \ unless specified"
@@ -1129,19 +1127,17 @@ paths:
         name: page
         required: false
         schema:
-          default: 1
           minimum: 1
-          type: integer
+          type: int64
         style: form
       - explode: true
         in: query
         name: limit
         required: false
         schema:
-          default: 100
           maximum: 100
           minimum: 1
-          type: integer
+          type: int64
         style: form
       - description: Filter for alerts based on the type such as compliance violation
         explode: true
@@ -2538,16 +2534,15 @@ paths:
         required: true
         schema:
           minimum: 1
-          type: integer
+          type: int64
         style: form
       - explode: true
         in: query
         name: page_size
         required: false
         schema:
-          default: 1000
           minimum: 1
-          type: integer
+          type: int64
         style: form
       responses:
         "200":
@@ -2600,16 +2595,15 @@ paths:
         required: true
         schema:
           minimum: 1
-          type: integer
+          type: int64
         style: form
       - explode: true
         in: query
         name: page_size
         required: false
         schema:
-          default: 1000
           minimum: 1
-          type: integer
+          type: int64
         style: form
       responses:
         "200":
@@ -2638,16 +2632,15 @@ paths:
         required: true
         schema:
           minimum: 1
-          type: integer
+          type: int64
         style: form
       - explode: true
         in: query
         name: page_size
         required: false
         schema:
-          default: 1000
           minimum: 1
-          type: integer
+          type: int64
         style: form
       responses:
         "200":
@@ -2817,8 +2810,7 @@ paths:
         name: page
         required: false
         schema:
-          default: 1
-          type: integer
+          type: int64
         style: form
       - description: Number of events in the result set. Defaults to 100 if left empty
         explode: true
@@ -2826,8 +2818,7 @@ paths:
         name: limit
         required: false
         schema:
-          default: 100
-          type: integer
+          type: int64
         style: form
       - description: "An account name to change the resource scope of the request\
           \ to that account, if permissions allow (admin only)"
@@ -4920,16 +4911,15 @@ paths:
         required: true
         schema:
           minimum: 1
-          type: integer
+          type: int64
         style: form
       - explode: true
         in: query
         name: page_size
         required: false
         schema:
-          default: 1000
           minimum: 1
-          type: integer
+          type: int64
         style: form
       responses:
         "200":
@@ -5003,16 +4993,15 @@ paths:
         required: true
         schema:
           minimum: 1
-          type: integer
+          type: int64
         style: form
       - explode: true
         in: query
         name: page_size
         required: false
         schema:
-          default: 1000
           minimum: 1
-          type: integer
+          type: int64
         style: form
       responses:
         "200":
@@ -5071,16 +5060,15 @@ paths:
         required: true
         schema:
           minimum: 1
-          type: integer
+          type: int64
         style: form
       - explode: true
         in: query
         name: page_size
         required: false
         schema:
-          default: 1000
           minimum: 1
-          type: integer
+          type: int64
         style: form
       responses:
         "200":
@@ -5138,16 +5126,15 @@ paths:
         required: true
         schema:
           minimum: 1
-          type: integer
+          type: int64
         style: form
       - explode: true
         in: query
         name: page_size
         required: false
         schema:
-          default: 1000
           minimum: 1
-          type: integer
+          type: int64
         style: form
       responses:
         "200":
@@ -7624,7 +7611,7 @@ paths:
         name: limit
         required: false
         schema:
-          type: integer
+          type: int64
         style: form
       - description: "An account name to change the resource scope of the request\
           \ to that account, if permissions allow (admin only)"
@@ -7701,7 +7688,7 @@ paths:
         name: limit
         required: false
         schema:
-          type: integer
+          type: int64
         style: form
       - description: Namespace(s) to filter vulnerability records by
         explode: false
@@ -8595,7 +8582,7 @@ paths:
         name: page
         required: false
         schema:
-          type: integer
+          type: int64
         style: form
       responses:
         "200":
@@ -8629,7 +8616,7 @@ paths:
         name: page
         required: false
         schema:
-          type: integer
+          type: int64
         style: form
       responses:
         "200":
@@ -9472,7 +9459,7 @@ paths:
         name: limit
         required: false
         schema:
-          type: integer
+          type: int64
         style: form
       - description: "Page number to return, one's based"
         explode: true
@@ -9480,8 +9467,7 @@ paths:
         name: page
         required: false
         schema:
-          default: 1
-          type: integer
+          type: int64
         style: form
       - description: "An account name to change the resource scope of the request\
           \ to that account, if permissions allow (admin only)"
@@ -9688,7 +9674,7 @@ paths:
         name: version
         required: false
         schema:
-          type: integer
+          type: int64
         style: form
       - description: Request the latest version
         explode: true
@@ -10035,7 +10021,7 @@ paths:
       summary: list feeds operations and information
       tags:
       - System
-      x-anchore-authz-action: None
+      x-anchore-authz-action: listFeeds
       x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.system
     post:
       description: "Execute a synchronous fetch and sync of all datasets by the data_syncer,\
@@ -10071,9 +10057,7 @@ paths:
       x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.system
   /system/feeds/{feed}:
     delete:
-      deprecated: true
-      description: Deprecated - Delete the groups and data for the feed and disable
-        the feed itself
+      description: Delete the groups and data for the feed and disable the feed itself
       operationId: delete_feed
       parameters:
       - explode: false
@@ -10111,11 +10095,6 @@ paths:
         name: feed
         required: true
         schema:
-          enum:
-          - vulnerability_db
-          - kev_db
-          - clamav_db
-          - epss_db
           type: string
         style: simple
       - description: The version of the feed to query
@@ -10210,9 +10189,7 @@ paths:
       x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.system
       x-anchore-authz-action: updateFeeds
     put:
-      deprecated: true
-      description: Deprecated - Disable the feed so that it does not sync on subsequent
-        sync operations
+      description: Disable the feed so that it does not sync on subsequent sync operations
       operationId: toggle_feed_enabled
       parameters:
       - explode: false
@@ -11547,12 +11524,12 @@ components:
           description: Number of batches that the inventory report was sent in
           example: 3
           minimum: 1
-          type: integer
+          type: int64
         last_successful_index:
           description: "Index of last successfully sent batch, -1 if none were successful"
           example: -1
           minimum: -1
-          type: integer
+          type: int64
         has_errors:
           description: "true if one or more of the batches coult not be sent, false\
             \ otherwise"
@@ -11827,11 +11804,11 @@ components:
       description: Summary of the transition rule set
       example:
         last_updated: 2000-01-23T04:56:07.000+00:00
-        count: 5
+        count: ""
       properties:
         count:
           description: The number of rules for this account
-          type: integer
+          type: int64
         last_updated:
           description: The newest last_updated timestamp from the set of rules
           format: date-time
@@ -11859,23 +11836,23 @@ components:
         \ or layers."
       example:
         last_updated: 2000-01-23T04:56:07.000+00:00
-        total_image_count: 0
-        total_tag_count: 6
-        total_data_bytes: 1
+        total_image_count: ""
+        total_tag_count: ""
+        total_data_bytes: ""
       properties:
         total_image_count:
           description: The number of unique images (digests) in the archive
-          type: integer
+          type: int64
         total_tag_count:
           description: The number of tag records (registry/repo:tag pull strings)
             in the archive. This may include repeated tags but will always have a
             unique tag->digest mapping per record.
-          type: integer
+          type: int64
         total_data_bytes:
           description: "The total sum of all the bytes stored to the backing storage.\
             \ Accounts for anchore-applied compression, but not compression by the\
             \ underlying storage system."
-          type: integer
+          type: int64
         last_updated:
           description: The timestamp of the most recent archived image
           format: date-time
@@ -11885,8 +11862,8 @@ components:
       description: A rule for auto-archiving image analysis by time and/or tag-history
       example:
         rule_id: rule_id
-        max_images_per_account: 5
-        tag_versions_newer: 0
+        max_images_per_account: ""
+        tag_versions_newer: ""
         last_updated: 2000-01-23T04:56:07.000+00:00
         created_at: 2000-01-23T04:56:07.000+00:00
         selector:
@@ -11894,13 +11871,13 @@ components:
           tag: tag
           repository: repository
         exclude:
-          last_seen_in_days: 5
-          expiration_days: 1
+          last_seen_in_days: ""
+          expiration_days: ""
           selector:
             registry: registry
             tag: tag
             repository: repository
-        analysis_age_days: 6
+        analysis_age_days: ""
         system_global: true
         transition: archive
       properties:
@@ -11911,11 +11888,11 @@ components:
           type: string
         tag_versions_newer:
           description: Number of images mapped to the tag that are newer
-          type: integer
+          type: int64
         analysis_age_days:
           description: Matches if the analysis is strictly older than this number
             of days
-          type: integer
+          type: int64
         transition:
           description: "The type of transition to make. If \"archive\", then archive\
             \ an image from the working set and remove it from the working set. If\
@@ -11941,15 +11918,15 @@ components:
         max_images_per_account:
           description: This is the maximum number of image analyses an account can
             have. Can only be set on system_global rules
-          type: integer
+          type: int64
       required:
       - transition
       type: object
     AnalysisArchiveTransitionRuleExclude:
       description: Which Images to exclude from auto-archiving logic
       example:
-        last_seen_in_days: 5
-        expiration_days: 1
+        last_seen_in_days: ""
+        expiration_days: ""
         selector:
           registry: registry
           tag: tag
@@ -11960,11 +11937,11 @@ components:
         expiration_days:
           description: How long the image selected will be excluded from the archive
             transition
-          type: integer
+          type: int64
         last_seen_in_days:
           description: Exclude image from archive if last seen in inventory within
             defined number of days
-          type: integer
+          type: int64
       type: object
     AnalysisStatusDetail:
       description: "The detail of an analysis status change recording which service\
@@ -12072,8 +12049,8 @@ components:
           metadata:
             distro: distro
             dockerfile_mode: Guessed
-            image_size: 0
-            layer_count: 6
+            image_size: ""
+            layer_count: ""
             arch: arch
             distro_version: distro_version
         image_detail:
@@ -12181,8 +12158,8 @@ components:
             metadata:
               distro: distro
               dockerfile_mode: Guessed
-              image_size: 0
-              layer_count: 6
+              image_size: ""
+              layer_count: ""
               arch: arch
               distro_version: distro_version
           image_detail:
@@ -12236,8 +12213,8 @@ components:
             metadata:
               distro: distro
               dockerfile_mode: Guessed
-              image_size: 0
-              layer_count: 6
+              image_size: ""
+              layer_count: ""
               arch: arch
               distro_version: distro_version
           image_detail:
@@ -12274,13 +12251,13 @@ components:
     AnchoreImageTagSummary:
       description: A unique image in the engine.
       example:
-        tag_detected_at: 1
+        tag_detected_at: ""
         full_tag: full_tag
         image_digest: image_digest
         analysis_status: analysis_status
-        analyzed_at: 6
+        analyzed_at: ""
         parent_digest: parent_digest
-        created_at: 0
+        created_at: ""
         image_status: image_status
         image_id: image_id
       properties:
@@ -12295,35 +12272,35 @@ components:
         full_tag:
           type: string
         created_at:
-          type: integer
+          type: int64
         analyzed_at:
-          type: integer
+          type: int64
         tag_detected_at:
-          type: integer
+          type: int64
         image_status:
           type: string
       type: object
     AnchoreImageTagSummaryList:
       description: a list of AnchoreImageTagSummary objects
       example:
-        total_rows: 5
+        total_rows: ""
         items:
-        - tag_detected_at: 1
+        - tag_detected_at: ""
           full_tag: full_tag
           image_digest: image_digest
           analysis_status: analysis_status
-          analyzed_at: 6
+          analyzed_at: ""
           parent_digest: parent_digest
-          created_at: 0
+          created_at: ""
           image_status: image_status
           image_id: image_id
-        - tag_detected_at: 1
+        - tag_detected_at: ""
           full_tag: full_tag
           image_digest: image_digest
           analysis_status: analysis_status
-          analyzed_at: 6
+          analyzed_at: ""
           parent_digest: parent_digest
-          created_at: 0
+          created_at: ""
           image_status: image_status
           image_id: image_id
       properties:
@@ -12332,42 +12309,42 @@ components:
             $ref: '#/components/schemas/AnchoreImageTagSummary'
           type: array
         total_rows:
-          type: integer
+          type: int64
       type: object
     AnchoreImageSummaryCounts:
       description: Analysis stats for a repo
       example:
-        analyzing: 5
-        images: 6
-        pending: 5
-        analyzed: 1
-        failed: 2
-        tags: 0
+        analyzing: ""
+        images: ""
+        pending: ""
+        analyzed: ""
+        failed: ""
+        tags: ""
       properties:
         tags:
-          type: integer
+          type: int64
         images:
-          type: integer
+          type: int64
         analyzed:
-          type: integer
+          type: int64
         analyzing:
-          type: integer
+          type: int64
         pending:
-          type: integer
+          type: int64
         failed:
-          type: integer
+          type: int64
       type: object
     ApiErrorResponse:
       description: Generic HTTP API error response
       example:
-        code: 0
+        code: ""
         error_type: error_type
         detail: "{}"
         message: message
       properties:
         code:
           format: int32
-          type: integer
+          type: int64
         error_type:
           type: string
         message:
@@ -12711,12 +12688,12 @@ components:
       example:
         images:
           last_updated: 2000-01-23T04:56:07.000+00:00
-          total_image_count: 0
-          total_tag_count: 6
-          total_data_bytes: 1
+          total_image_count: ""
+          total_tag_count: ""
+          total_data_bytes: ""
         rules:
           last_updated: 2000-01-23T04:56:07.000+00:00
-          count: 5
+          count: ""
       properties:
         images:
           $ref: '#/components/schemas/AnalysisArchiveSummary'
@@ -12774,7 +12751,7 @@ components:
         parent_digest: parent_digest
         annotations: "{}"
         created_at: 2000-01-23T04:56:07.000+00:00
-        archive_size_bytes: 0
+        archive_size_bytes: ""
         status: archiving
         image_detail:
         - registry: registry
@@ -12827,7 +12804,7 @@ components:
           type: string
         archive_size_bytes:
           description: "The size, in bytes, of the analysis archive file"
-          type: integer
+          type: int64
       type: object
     ArtifactAssociationMetadata:
       description: Metadata for an artifact association to an application version
@@ -12918,11 +12895,11 @@ components:
         description: description
         created_at: 2000-01-23T04:56:07.000+00:00
         policy_conditions:
-          days_since_analyzed: 6
+          days_since_analyzed: ""
           artifact_type: image
           even_if_exists_in_runtime_inventory: true
           include_base_images: true
-          version: 0
+          version: ""
         uuid: uuid
         deleted_at: 2000-01-23T04:56:07.000+00:00
         enabled: true
@@ -12969,25 +12946,25 @@ components:
       type: object
     ArtifactLifecyclePolicyConditions:
       example:
-        days_since_analyzed: 6
+        days_since_analyzed: ""
         artifact_type: image
         even_if_exists_in_runtime_inventory: true
         include_base_images: true
-        version: 0
+        version: ""
       properties:
         version:
           description: The version of these policy conditions.
           readOnly: true
-          type: integer
+          type: int64
         even_if_exists_in_runtime_inventory:
           description: "Select an image even if it exists in the runtime inventory,\
             \ otherwise if false do not action anything that exists in runtime inventory"
           type: boolean
         days_since_analyzed:
           description: An image analysis must be this many days old before it will
-            be considered for processing. An integer value less than or equal to zero
+            be considered for processing. An int64 value less than or equal to zero
             will cause this field to be ignored.
-          type: integer
+          type: int64
         include_base_images:
           description: Include base images in the policy selection criteria.
           type: boolean
@@ -13010,16 +12987,16 @@ components:
           description: description
           created_at: 2000-01-23T04:56:07.000+00:00
           policy_conditions:
-          - days_since_analyzed: 6
+          - days_since_analyzed: ""
             artifact_type: image
             even_if_exists_in_runtime_inventory: true
             include_base_images: true
-            version: 0
-          - days_since_analyzed: 6
+            version: ""
+          - days_since_analyzed: ""
             artifact_type: image
             even_if_exists_in_runtime_inventory: true
             include_base_images: true
-            version: 0
+            version: ""
           uuid: uuid
           deleted_at: 2000-01-23T04:56:07.000+00:00
           enabled: true
@@ -13029,16 +13006,16 @@ components:
           description: description
           created_at: 2000-01-23T04:56:07.000+00:00
           policy_conditions:
-          - days_since_analyzed: 6
+          - days_since_analyzed: ""
             artifact_type: image
             even_if_exists_in_runtime_inventory: true
             include_base_images: true
-            version: 0
-          - days_since_analyzed: 6
+            version: ""
+          - days_since_analyzed: ""
             artifact_type: image
             even_if_exists_in_runtime_inventory: true
             include_base_images: true
-            version: 0
+            version: ""
           uuid: uuid
           deleted_at: 2000-01-23T04:56:07.000+00:00
           enabled: true
@@ -13064,16 +13041,16 @@ components:
         description: description
         created_at: 2000-01-23T04:56:07.000+00:00
         policy_conditions:
-        - days_since_analyzed: 6
+        - days_since_analyzed: ""
           artifact_type: image
           even_if_exists_in_runtime_inventory: true
           include_base_images: true
-          version: 0
-        - days_since_analyzed: 6
+          version: ""
+        - days_since_analyzed: ""
           artifact_type: image
           even_if_exists_in_runtime_inventory: true
           include_base_images: true
-          version: 0
+          version: ""
         uuid: uuid
         deleted_at: 2000-01-23T04:56:07.000+00:00
         enabled: true
@@ -13333,7 +13310,7 @@ components:
           image_tag: image_tag
           repository: repository
           evaluated_at: 2000-01-23T04:56:07.000+00:00
-        violations_count: 0
+        violations_count: ""
         closed_reason: closed by action plan id
         created_at: 2000-01-23T04:56:07.000+00:00
         state: open
@@ -13383,7 +13360,7 @@ components:
           type: string
         violations_count:
           description: Number of STOP action results in the compliance check report
-          type: integer
+          type: int64
       type: object
     ComplianceViolationAlertList:
       description: Array of compliance violation alerts
@@ -13411,19 +13388,19 @@ components:
         content_type: content_type
         content:
         - mode: mode
-          uid: 1
+          uid: ""
           filename: filename
-          gid: 0
+          gid: ""
           sha256: sha256
-          size: 6
+          size: ""
           linkdest: linkdest
           type: type
         - mode: mode
-          uid: 1
+          uid: ""
           filename: filename
-          gid: 0
+          gid: ""
           sha256: sha256
-          size: 6
+          size: ""
           linkdest: linkdest
           type: type
       properties:
@@ -14228,8 +14205,8 @@ components:
       description: Response envelope for paginated listing of events
       example:
         next_page: true
-        item_count: 0
-        page: 6
+        item_count: ""
+        page: ""
         results:
         - event_id: b4cf3559e6f64077a7e335225f0945fb
           event:
@@ -14271,10 +14248,10 @@ components:
           type: boolean
         item_count:
           description: Number of events in this page
-          type: integer
+          type: int64
         page:
           description: Page number of this result set
-          type: integer
+          type: int64
       type: object
     FeedDataRecords:
       description: A list of data records
@@ -14326,7 +14303,7 @@ components:
       type: object
     FeedGroupMetadata:
       example:
-        record_count: 0
+        record_count: ""
         last_sync: 2000-01-23T04:56:07.000+00:00
         name: name
         created_at: 2000-01-23T04:56:07.000+00:00
@@ -14344,7 +14321,7 @@ components:
           type: string
         record_count:
           description: The number of records in the group
-          type: integer
+          type: int64
         enabled:
           description: If group is enabled
           type: boolean
@@ -14358,12 +14335,12 @@ components:
         dataset_checksum: dataset_checksum
         created_at: 2000-01-23T04:56:07.000+00:00
         groups:
-        - record_count: 0
+        - record_count: ""
           last_sync: 2000-01-23T04:56:07.000+00:00
           name: name
           created_at: 2000-01-23T04:56:07.000+00:00
           enabled: true
-        - record_count: 0
+        - record_count: ""
           last_sync: 2000-01-23T04:56:07.000+00:00
           name: name
           created_at: 2000-01-23T04:56:07.000+00:00
@@ -14441,13 +14418,13 @@ components:
         - regex: regex
           name: name
           lines:
-          - 0
-          - 0
+          - ""
+          - ""
         - regex: regex
           name: name
           lines:
-          - 0
-          - 0
+          - ""
+          - ""
       properties:
         path:
           type: string
@@ -14459,18 +14436,18 @@ components:
     FilesContent:
       example:
         mode: mode
-        uid: 1
+        uid: ""
         filename: filename
-        gid: 0
+        gid: ""
         sha256: sha256
-        size: 6
+        size: ""
         linkdest: linkdest
         type: type
       properties:
         filename:
           type: string
         gid:
-          type: integer
+          type: int64
         linkdest:
           nullable: true
           type: string
@@ -14480,11 +14457,11 @@ components:
           nullable: true
           type: string
         size:
-          type: integer
+          type: int64
         type:
           type: string
         uid:
-          type: integer
+          type: int64
       type: object
     GateSpec:
       description: A description of the set of gates available in this engine and
@@ -14595,11 +14572,11 @@ components:
           description: "The number of images updated by the this group sync, across\
             \ all accounts. This is typically only non-zero for vulnerability feeds\
             \ which update images' vulnerability results during the sync."
-          type: integer
+          type: int64
         updated_record_count:
           description: The number of feed data records synced down as either updates
             or new records
-          type: integer
+          type: int64
         total_time_seconds:
           description: The duration of the group sync in seconds
           type: number
@@ -14639,7 +14616,7 @@ components:
         version:
           description: Version of the health data schema
           example: 1
-          type: integer
+          type: int64
         errors:
           description: List of errors
           items:
@@ -14661,7 +14638,7 @@ components:
       example: 60
       maximum: 600
       minimum: 30
-      type: integer
+      type: int64
     HealthReport:
       description: Health report for an integration instance
       example:
@@ -14700,7 +14677,7 @@ components:
         protocol_version:
           description: The version of the health report exchange protocol
           example: 1
-          type: integer
+          type: int64
         timestamp:
           description: timestamp for this health report
           example: 2024-06-26T14:02:43Z
@@ -14715,7 +14692,7 @@ components:
           example: 60
           maximum: 600
           minimum: 30
-          type: integer
+          type: int64
         health_data:
           $ref: '#/components/schemas/HealthData'
       required:
@@ -14876,8 +14853,8 @@ components:
         metadata:
           distro: distro
           dockerfile_mode: Guessed
-          image_size: 0
-          layer_count: 6
+          image_size: ""
+          layer_count: ""
           arch: arch
           distro_version: distro_version
       properties:
@@ -14941,10 +14918,10 @@ components:
       example:
         items:
         - content_type: content_type
-          count: 0
+          count: ""
           display_name: display_name
         - content_type: content_type
-          count: 0
+          count: ""
           display_name: display_name
       properties:
         items:
@@ -14969,16 +14946,16 @@ components:
           path: path
           layerID: layerID
         content_searches:
-        - line_number: 0
-          seek_position: 1
-          length: 5
+        - line_number: ""
+          seek_position: ""
+          length: ""
           classification: classification
-          line_offset: 6
-        - line_number: 0
-          seek_position: 1
-          length: 5
+          line_offset: ""
+        - line_number: ""
+          seek_position: ""
+          length: ""
           classification: classification
-          line_offset: 6
+          line_offset: ""
       properties:
         location:
           $ref: '#/components/schemas/ImportPackageLocation'
@@ -15667,22 +15644,22 @@ components:
       type: object
     ImportContentSearchElement:
       example:
-        line_number: 0
-        seek_position: 1
-        length: 5
+        line_number: ""
+        seek_position: ""
+        length: ""
         classification: classification
-        line_offset: 6
+        line_offset: ""
       properties:
         classification:
           type: string
         line_number:
-          type: integer
+          type: int64
         line_offset:
-          type: integer
+          type: int64
         seek_position:
-          type: integer
+          type: int64
         length:
-          type: integer
+          type: int64
       required:
       - classification
       - length
@@ -16213,7 +16190,7 @@ components:
           example: 60
           maximum: 600
           minimum: 30
-          type: integer
+          type: int64
       required:
       - health_report_interval
       - registration_id
@@ -16326,7 +16303,7 @@ components:
           example: 60
           maximum: 600
           minimum: 30
-          type: integer
+          type: int64
         registration_id:
           description: identifier for the integration during registration until it
             has received its integration_id
@@ -17335,7 +17312,7 @@ components:
           licenses:
           - licenses
           - licenses
-          size: 0
+          size: ""
           sourcepkg: sourcepkg
           cpes:
           - cpes
@@ -17355,7 +17332,7 @@ components:
           licenses:
           - licenses
           - licenses
-          size: 0
+          size: ""
           sourcepkg: sourcepkg
           cpes:
           - cpes
@@ -17673,7 +17650,7 @@ components:
       properties:
         code:
           format: int32
-          type: integer
+          type: int64
         error_type:
           type: string
         message:
@@ -17695,9 +17672,9 @@ components:
         data_id:
           type: string
         created_at:
-          type: integer
+          type: int64
         last_updated:
-          type: integer
+          type: int64
         record_state_key:
           default: active
           type: string
@@ -17705,9 +17682,9 @@ components:
           nullable: true
           type: string
         tries:
-          type: integer
+          type: int64
         max_tries:
-          type: integer
+          type: int64
       type: object
     NotificationEndpoint:
       example:
@@ -17819,7 +17796,7 @@ components:
             type: string
           milestone:
             description: Number of the milestone to associate with the issue
-            type: integer
+            type: int64
           labels:
             description: List of labels to associate with the issue
             items:
@@ -17848,7 +17825,7 @@ components:
         - labels
         - labels
         access_token: access_token
-        milestone: 0
+        milestone: ""
         username: username
     NotificationGitHubEndpointConfigurationList:
       description: List of GitHub endpoint configurations
@@ -17881,7 +17858,7 @@ components:
         - labels
         - labels
         access_token: access_token
-        milestone: 0
+        milestone: ""
         username: username
     NotificationGitHubEndpointConfigurationPut:
       allOf:
@@ -17908,7 +17885,7 @@ components:
         - labels
         - labels
         access_token: access_token
-        milestone: 0
+        milestone: ""
         username: username
     NotificationGitHubTestResult:
       example:
@@ -18057,7 +18034,7 @@ components:
           host:
             type: string
           port:
-            type: integer
+            type: int64
           username:
             type: string
           password:
@@ -18082,7 +18059,7 @@ components:
         use_tls: true
         last_updated: 2000-01-23T04:56:07.000+00:00
         password: password
-        port: 0
+        port: ""
         verify_tls: true
         host: host
         description: description
@@ -18334,7 +18311,7 @@ components:
         licenses:
         - licenses
         - licenses
-        size: 0
+        size: ""
         sourcepkg: sourcepkg
         cpes:
         - cpes
@@ -18357,7 +18334,7 @@ components:
         origin:
           type: string
         size:
-          type: integer
+          type: int64
         licenses:
           items:
             type: string
@@ -18594,7 +18571,7 @@ components:
       description: Pagination wrapped list of images that match some filter
       example:
         next_page: next_page
-        returned_count: 0
+        returned_count: ""
         images:
         - image:
             tag_history:
@@ -18660,7 +18637,7 @@ components:
         order
       example:
         next_page: next_page
-        returned_count: 0
+        returned_count: ""
         vulnerabilities:
         - severity: Unknown
           nvd_data:
@@ -18807,7 +18784,7 @@ components:
           type: string
         returned_count:
           description: The number of items sent in this response
-          type: integer
+          type: int64
       type: object
     Policy:
       additionalProperties: false
@@ -19106,7 +19083,7 @@ components:
             id: id
             repository: repository
           image_mapped_to_rule: true
-          number_of_findings: 6
+          number_of_findings: ""
           final_action: stop
           image_denylisted: true
           final_action_reason: policy_evaluation
@@ -19383,7 +19360,7 @@ components:
             id: id
             repository: repository
           image_mapped_to_rule: true
-          number_of_findings: 6
+          number_of_findings: ""
           final_action: stop
           image_denylisted: true
           final_action_reason: policy_evaluation
@@ -19818,7 +19795,7 @@ components:
           id: id
           repository: repository
         image_mapped_to_rule: true
-        number_of_findings: 6
+        number_of_findings: ""
         final_action: stop
         image_denylisted: true
         final_action_reason: policy_evaluation
@@ -20130,7 +20107,7 @@ components:
           $ref: '#/components/schemas/MappingRule'
         number_of_findings:
           description: Number of policy findings in the response
-          type: integer
+          type: int64
       required:
       - evaluation_problems
       - evaluation_time
@@ -20488,14 +20465,14 @@ components:
     RbacManagerApiErrorResponse:
       description: Generic HTTP API error response
       example:
-        code: 0
+        code: ""
         error_type: error_type
         detail: "{}"
         message: message
       properties:
         code:
           format: int32
-          type: integer
+          type: int64
         error_type:
           type: string
         message:
@@ -20680,7 +20657,7 @@ components:
       example:
         idp_groups_attribute: idp_groups_attribute
         last_updated: 2000-01-23T04:56:07.000+00:00
-        acs_https_port: 0
+        acs_https_port: ""
         idp_metadata_url: idp_metadata_url
         require_signed_response: true
         require_existing_users: false
@@ -20720,7 +20697,7 @@ components:
         acs_https_port:
           description: "The port number to use for https if not 443. If omitted or\
             \ -1, 443 is assumed and used as a default"
-          type: integer
+          type: int64
         idp_metadata_url:
           description: The url where the SP (anchore) can retrieve the metadata about
             the Identity Provider. Only one of this or metadata_xml should be set.
@@ -20795,7 +20772,7 @@ components:
       example:
         idp_groups_attribute: idp_groups_attribute
         last_updated: 2000-01-23T04:56:07.000+00:00
-        acs_https_port: 0
+        acs_https_port: ""
         idp_metadata_url: idp_metadata_url
         require_signed_response: true
         require_existing_users: false
@@ -20866,8 +20843,8 @@ components:
         regex: regex
         name: name
         lines:
-        - 0
-        - 0
+        - ""
+        - ""
       properties:
         name:
           description: The name associated with the regular expression
@@ -20878,7 +20855,7 @@ components:
         lines:
           description: A list of line numbers in the file that matched the regex
           items:
-            type: integer
+            type: int64
           type: array
       type: object
     RegistryConfiguration:
@@ -21030,7 +21007,7 @@ components:
           licenses:
           - licenses
           - licenses
-          size: 0
+          size: ""
           sourcepkg: sourcepkg
           cpes:
           - cpes
@@ -21049,7 +21026,7 @@ components:
           licenses:
           - licenses
           - licenses
-          size: 0
+          size: ""
           sourcepkg: sourcepkg
           cpes:
           - cpes
@@ -21126,7 +21103,7 @@ components:
             licenses:
             - licenses
             - licenses
-            size: 0
+            size: ""
             sourcepkg: sourcepkg
             cpes:
             - cpes
@@ -21146,7 +21123,7 @@ components:
             licenses:
             - licenses
             - licenses
-            size: 0
+            size: ""
             sourcepkg: sourcepkg
             cpes:
             - cpes
@@ -21222,7 +21199,7 @@ components:
             licenses:
             - licenses
             - licenses
-            size: 0
+            size: ""
             sourcepkg: sourcepkg
             cpes:
             - cpes
@@ -21242,7 +21219,7 @@ components:
             licenses:
             - licenses
             - licenses
-            size: 0
+            size: ""
             sourcepkg: sourcepkg
             cpes:
             - cpes
@@ -21262,7 +21239,7 @@ components:
           licenses:
           - licenses
           - licenses
-          size: 0
+          size: ""
           sourcepkg: sourcepkg
           cpes:
           - cpes
@@ -21281,7 +21258,7 @@ components:
           licenses:
           - licenses
           - licenses
-          size: 0
+          size: ""
           sourcepkg: sourcepkg
           cpes:
           - cpes
@@ -21301,7 +21278,7 @@ components:
           licenses:
           - licenses
           - licenses
-          size: 0
+          size: ""
           sourcepkg: sourcepkg
           cpes:
           - cpes
@@ -21320,7 +21297,7 @@ components:
           licenses:
           - licenses
           - licenses
-          size: 0
+          size: ""
           sourcepkg: sourcepkg
           cpes:
           - cpes
@@ -21364,7 +21341,7 @@ components:
       properties:
         code:
           format: int32
-          type: integer
+          type: int64
         error_type:
           type: string
         message:
@@ -21620,13 +21597,13 @@ components:
         - regex: regex
           name: name
           lines:
-          - 0
-          - 0
+          - ""
+          - ""
         - regex: regex
           name: name
           lines:
-          - 0
-          - 0
+          - ""
+          - ""
       properties:
         path:
           type: string
@@ -21764,10 +21741,10 @@ components:
       example:
         items:
         - content_type: content_type
-          count: 0
+          count: ""
           display_name: display_name
         - content_type: content_type
-          count: 0
+          count: ""
           display_name: display_name
       properties:
         items:
@@ -22255,7 +22232,7 @@ components:
             matched_rule_id: matched_rule_id
             name: name
             id: id
-        number_of_findings: 0
+        number_of_findings: ""
         revision: revision
         final_action: stop
         final_action_reason: allowlisted
@@ -22482,7 +22459,7 @@ components:
           type: array
         number_of_findings:
           description: Number of policy findings in the response
-          type: integer
+          type: int64
         evaluation_time:
           description: The date and time this policy evaluation was performed at
           format: date-time
@@ -22834,37 +22811,37 @@ components:
         type: array
     SystemConfigurationSchema:
       example:
-        multiple_of: 4.145608029883936
-        min_length: 2
-        lt: 5.637376656633329
+        multiple_of: 5.637376656633329
+        min_length: ""
+        lt: 5.962133916683182
         default_value: null
-        gt: 1.4658129805029452
-        max_digits: 2
+        gt: 6.027456183070403
+        max_digits: ""
         enum:
         - enum
         - enum
-        decimal_places: 0
+        decimal_places: ""
         allow_inf_nan: true
         unique_items: true
         regex: regex
         is_array: true
-        min_items: 3
+        min_items: ""
         data_type: string
-        le: 5.962133916683182
-        ge: 6.027456183070403
-        max_items: 7
-        max_length: 9
+        le: 1.4658129805029452
+        ge: 0.8008281904610115
+        max_items: ""
+        max_length: ""
       properties:
         allow_inf_nan:
           nullable: true
           type: boolean
         decimal_places:
           nullable: true
-          type: integer
+          type: int64
         data_type:
           enum:
           - string
-          - integer
+          - int64
           - number
           - boolean
           - null
@@ -22894,19 +22871,19 @@ components:
           type: number
         max_digits:
           nullable: true
-          type: integer
+          type: int64
         max_items:
           nullable: true
-          type: integer
+          type: int64
         max_length:
           nullable: true
-          type: integer
+          type: int64
         min_items:
           nullable: true
-          type: integer
+          type: int64
         min_length:
           nullable: true
-          type: integer
+          type: int64
         multiple_of:
           nullable: true
           type: number
@@ -22926,26 +22903,26 @@ components:
         default_value: null
         is_editable: true
         config_schema:
-          multiple_of: 4.145608029883936
-          min_length: 2
-          lt: 5.637376656633329
+          multiple_of: 5.637376656633329
+          min_length: ""
+          lt: 5.962133916683182
           default_value: null
-          gt: 1.4658129805029452
-          max_digits: 2
+          gt: 6.027456183070403
+          max_digits: ""
           enum:
           - enum
           - enum
-          decimal_places: 0
+          decimal_places: ""
           allow_inf_nan: true
           unique_items: true
           regex: regex
           is_array: true
-          min_items: 3
+          min_items: ""
           data_type: string
-          le: 5.962133916683182
-          ge: 6.027456183070403
-          max_items: 7
-          max_length: 9
+          le: 1.4658129805029452
+          ge: 0.8008281904610115
+          max_items: ""
+          max_length: ""
         source: default
         title: title
         uuid: uuid
@@ -23032,26 +23009,26 @@ components:
           default_value: null
           is_editable: true
           config_schema:
-            multiple_of: 4.145608029883936
-            min_length: 2
-            lt: 5.637376656633329
+            multiple_of: 5.637376656633329
+            min_length: ""
+            lt: 5.962133916683182
             default_value: null
-            gt: 1.4658129805029452
-            max_digits: 2
+            gt: 6.027456183070403
+            max_digits: ""
             enum:
             - enum
             - enum
-            decimal_places: 0
+            decimal_places: ""
             allow_inf_nan: true
             unique_items: true
             regex: regex
             is_array: true
-            min_items: 3
+            min_items: ""
             data_type: string
-            le: 5.962133916683182
-            ge: 6.027456183070403
-            max_items: 7
-            max_length: 9
+            le: 1.4658129805029452
+            ge: 0.8008281904610115
+            max_items: ""
+            max_length: ""
           source: default
           title: title
           uuid: uuid
@@ -23069,26 +23046,26 @@ components:
           default_value: null
           is_editable: true
           config_schema:
-            multiple_of: 4.145608029883936
-            min_length: 2
-            lt: 5.637376656633329
+            multiple_of: 5.637376656633329
+            min_length: ""
+            lt: 5.962133916683182
             default_value: null
-            gt: 1.4658129805029452
-            max_digits: 2
+            gt: 6.027456183070403
+            max_digits: ""
             enum:
             - enum
             - enum
-            decimal_places: 0
+            decimal_places: ""
             allow_inf_nan: true
             unique_items: true
             regex: regex
             is_array: true
-            min_items: 3
+            min_items: ""
             data_type: string
-            le: 5.962133916683182
-            ge: 6.027456183070403
-            max_items: 7
-            max_length: 9
+            le: 1.4658129805029452
+            ge: 0.8008281904610115
+            max_items: ""
+            max_length: ""
           source: default
           title: title
           uuid: uuid
@@ -23107,11 +23084,11 @@ components:
       type: object
     SystemResourceLimit:
       example:
-        warning_value: 0
+        warning_value: ""
         name: sbom_inventory
-        limit_value: 6
+        limit_value: ""
         limit_exceeded: true
-        current_value: 1
+        current_value: ""
       properties:
         name:
           description: The resource being limited
@@ -23125,14 +23102,14 @@ components:
         warning_value:
           description: The value at which a warning will be generated
           nullable: true
-          type: integer
+          type: int64
         limit_value:
           description: The value at which a limit will be enforced
           nullable: true
-          type: integer
+          type: int64
         current_value:
           description: The current value of the resource
-          type: integer
+          type: int64
         limit_exceeded:
           description: Whether the limit has been exceeded and is being enforced
           type: boolean
@@ -23140,16 +23117,16 @@ components:
     SystemResourceLimitsList:
       example:
         items:
-        - warning_value: 0
+        - warning_value: ""
           name: sbom_inventory
-          limit_value: 6
+          limit_value: ""
           limit_exceeded: true
-          current_value: 1
-        - warning_value: 0
+          current_value: ""
+        - warning_value: ""
           name: sbom_inventory
-          limit_value: 6
+          limit_value: ""
           limit_exceeded: true
-          current_value: 1
+          current_value: ""
       properties:
         items:
           items:
@@ -23161,7 +23138,7 @@ components:
         value_type: value_type
         name: source_analysis
         description: description
-        value: 0
+        value: ""
       properties:
         name:
           enum:
@@ -23206,7 +23183,7 @@ components:
         value_type:
           type: string
         value:
-          type: integer
+          type: int64
       type: object
     SystemStatisticsList:
       example:
@@ -23214,11 +23191,11 @@ components:
         - value_type: value_type
           name: source_analysis
           description: description
-          value: 0
+          value: ""
         - value_type: value_type
           name: source_analysis
           description: description
-          value: 0
+          value: ""
       properties:
         items:
           items:
@@ -23472,7 +23449,7 @@ components:
     Users:
       description: a list of User objects
       example:
-        total_rows: 0
+        total_rows: ""
         items:
         - last_updated: 2000-01-23T04:56:07.000+00:00
           idp_name: idp_name
@@ -23518,7 +23495,7 @@ components:
             $ref: '#/components/schemas/User'
           type: array
         total_rows:
-          type: integer
+          type: int64
       type: object
     User:
       description: "A username for authenticating with one or more types of credentials.\
@@ -24231,7 +24208,7 @@ components:
           description: Index of the batch
           example: 1
           minimum: 1
-          type: integer
+          type: int64
         send_timestamp:
           description: Timestamp when the batch was sent
           example: 2024-06-26T14:02:45Z
@@ -24350,8 +24327,8 @@ components:
       example:
         distro: distro
         dockerfile_mode: Guessed
-        image_size: 0
-        layer_count: 6
+        image_size: ""
+        layer_count: ""
         arch: arch
         distro_version: distro_version
       properties:
@@ -24372,15 +24349,15 @@ components:
           type: string
         image_size:
           description: The size of the image in bytes
-          type: integer
+          type: int64
         layer_count:
           description: The number of layers in the image
-          type: integer
+          type: int64
       type: object
     ImageContentSummary_items_inner:
       example:
         content_type: content_type
-        count: 0
+        count: ""
         display_name: display_name
       properties:
         content_type:
@@ -24388,7 +24365,7 @@ components:
         display_name:
           type: string
         count:
-          type: integer
+          type: int64
       type: object
     ImportPackage_cpes_inner:
       anyOf:
@@ -24725,7 +24702,7 @@ components:
     SystemConfigurationValue_oneOf_inner:
       oneOf:
       - type: string
-      - type: integer
+      - type: int64
       - properties: {}
         type: object
     SystemConfigurationPatch_inner:

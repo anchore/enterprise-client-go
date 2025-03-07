@@ -47,7 +47,7 @@ type IntegrationSummary struct {
 	// Namespace in which the integration instance runs
 	Namespace *string `json:"namespace,omitempty"`
 	// Interval (in seconds) between health reports
-	HealthReportInterval *int32 `json:"health_report_interval,omitempty"`
+	HealthReportInterval *int64 `json:"health_report_interval,omitempty"`
 	// identifier for the integration during registration until it has received its integration_id
 	RegistrationId *string `json:"registration_id,omitempty"`
 	// Unique identifier for the integration instance (among its replicas) during registration
@@ -520,9 +520,9 @@ func (o *IntegrationSummary) SetNamespace(v string) {
 }
 
 // GetHealthReportInterval returns the HealthReportInterval field value if set, zero value otherwise.
-func (o *IntegrationSummary) GetHealthReportInterval() int32 {
+func (o *IntegrationSummary) GetHealthReportInterval() int64 {
 	if o == nil || IsNil(o.HealthReportInterval) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.HealthReportInterval
@@ -530,7 +530,7 @@ func (o *IntegrationSummary) GetHealthReportInterval() int32 {
 
 // GetHealthReportIntervalOk returns a tuple with the HealthReportInterval field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *IntegrationSummary) GetHealthReportIntervalOk() (*int32, bool) {
+func (o *IntegrationSummary) GetHealthReportIntervalOk() (*int64, bool) {
 	if o == nil || IsNil(o.HealthReportInterval) {
 		return nil, false
 	}
@@ -546,8 +546,8 @@ func (o *IntegrationSummary) HasHealthReportInterval() bool {
 	return false
 }
 
-// SetHealthReportInterval gets a reference to the given int32 and assigns it to the HealthReportInterval field.
-func (o *IntegrationSummary) SetHealthReportInterval(v int32) {
+// SetHealthReportInterval gets a reference to the given int64 and assigns it to the HealthReportInterval field.
+func (o *IntegrationSummary) SetHealthReportInterval(v int64) {
 	o.HealthReportInterval = &v
 }
 

@@ -20,12 +20,12 @@ var _ MappedNullable = &AnchoreImageSummaryCounts{}
 
 // AnchoreImageSummaryCounts Analysis stats for a repo
 type AnchoreImageSummaryCounts struct {
-	Tags *int32 `json:"tags,omitempty"`
-	Images *int32 `json:"images,omitempty"`
-	Analyzed *int32 `json:"analyzed,omitempty"`
-	Analyzing *int32 `json:"analyzing,omitempty"`
-	Pending *int32 `json:"pending,omitempty"`
-	Failed *int32 `json:"failed,omitempty"`
+	Tags *int64 `json:"tags,omitempty"`
+	Images *int64 `json:"images,omitempty"`
+	Analyzed *int64 `json:"analyzed,omitempty"`
+	Analyzing *int64 `json:"analyzing,omitempty"`
+	Pending *int64 `json:"pending,omitempty"`
+	Failed *int64 `json:"failed,omitempty"`
 }
 
 // NewAnchoreImageSummaryCounts instantiates a new AnchoreImageSummaryCounts object
@@ -46,9 +46,9 @@ func NewAnchoreImageSummaryCountsWithDefaults() *AnchoreImageSummaryCounts {
 }
 
 // GetTags returns the Tags field value if set, zero value otherwise.
-func (o *AnchoreImageSummaryCounts) GetTags() int32 {
+func (o *AnchoreImageSummaryCounts) GetTags() int64 {
 	if o == nil || IsNil(o.Tags) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Tags
@@ -56,7 +56,7 @@ func (o *AnchoreImageSummaryCounts) GetTags() int32 {
 
 // GetTagsOk returns a tuple with the Tags field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AnchoreImageSummaryCounts) GetTagsOk() (*int32, bool) {
+func (o *AnchoreImageSummaryCounts) GetTagsOk() (*int64, bool) {
 	if o == nil || IsNil(o.Tags) {
 		return nil, false
 	}
@@ -72,15 +72,15 @@ func (o *AnchoreImageSummaryCounts) HasTags() bool {
 	return false
 }
 
-// SetTags gets a reference to the given int32 and assigns it to the Tags field.
-func (o *AnchoreImageSummaryCounts) SetTags(v int32) {
+// SetTags gets a reference to the given int64 and assigns it to the Tags field.
+func (o *AnchoreImageSummaryCounts) SetTags(v int64) {
 	o.Tags = &v
 }
 
 // GetImages returns the Images field value if set, zero value otherwise.
-func (o *AnchoreImageSummaryCounts) GetImages() int32 {
+func (o *AnchoreImageSummaryCounts) GetImages() int64 {
 	if o == nil || IsNil(o.Images) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Images
@@ -88,7 +88,7 @@ func (o *AnchoreImageSummaryCounts) GetImages() int32 {
 
 // GetImagesOk returns a tuple with the Images field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AnchoreImageSummaryCounts) GetImagesOk() (*int32, bool) {
+func (o *AnchoreImageSummaryCounts) GetImagesOk() (*int64, bool) {
 	if o == nil || IsNil(o.Images) {
 		return nil, false
 	}
@@ -104,15 +104,15 @@ func (o *AnchoreImageSummaryCounts) HasImages() bool {
 	return false
 }
 
-// SetImages gets a reference to the given int32 and assigns it to the Images field.
-func (o *AnchoreImageSummaryCounts) SetImages(v int32) {
+// SetImages gets a reference to the given int64 and assigns it to the Images field.
+func (o *AnchoreImageSummaryCounts) SetImages(v int64) {
 	o.Images = &v
 }
 
 // GetAnalyzed returns the Analyzed field value if set, zero value otherwise.
-func (o *AnchoreImageSummaryCounts) GetAnalyzed() int32 {
+func (o *AnchoreImageSummaryCounts) GetAnalyzed() int64 {
 	if o == nil || IsNil(o.Analyzed) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Analyzed
@@ -120,7 +120,7 @@ func (o *AnchoreImageSummaryCounts) GetAnalyzed() int32 {
 
 // GetAnalyzedOk returns a tuple with the Analyzed field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AnchoreImageSummaryCounts) GetAnalyzedOk() (*int32, bool) {
+func (o *AnchoreImageSummaryCounts) GetAnalyzedOk() (*int64, bool) {
 	if o == nil || IsNil(o.Analyzed) {
 		return nil, false
 	}
@@ -136,15 +136,15 @@ func (o *AnchoreImageSummaryCounts) HasAnalyzed() bool {
 	return false
 }
 
-// SetAnalyzed gets a reference to the given int32 and assigns it to the Analyzed field.
-func (o *AnchoreImageSummaryCounts) SetAnalyzed(v int32) {
+// SetAnalyzed gets a reference to the given int64 and assigns it to the Analyzed field.
+func (o *AnchoreImageSummaryCounts) SetAnalyzed(v int64) {
 	o.Analyzed = &v
 }
 
 // GetAnalyzing returns the Analyzing field value if set, zero value otherwise.
-func (o *AnchoreImageSummaryCounts) GetAnalyzing() int32 {
+func (o *AnchoreImageSummaryCounts) GetAnalyzing() int64 {
 	if o == nil || IsNil(o.Analyzing) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Analyzing
@@ -152,7 +152,7 @@ func (o *AnchoreImageSummaryCounts) GetAnalyzing() int32 {
 
 // GetAnalyzingOk returns a tuple with the Analyzing field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AnchoreImageSummaryCounts) GetAnalyzingOk() (*int32, bool) {
+func (o *AnchoreImageSummaryCounts) GetAnalyzingOk() (*int64, bool) {
 	if o == nil || IsNil(o.Analyzing) {
 		return nil, false
 	}
@@ -168,15 +168,15 @@ func (o *AnchoreImageSummaryCounts) HasAnalyzing() bool {
 	return false
 }
 
-// SetAnalyzing gets a reference to the given int32 and assigns it to the Analyzing field.
-func (o *AnchoreImageSummaryCounts) SetAnalyzing(v int32) {
+// SetAnalyzing gets a reference to the given int64 and assigns it to the Analyzing field.
+func (o *AnchoreImageSummaryCounts) SetAnalyzing(v int64) {
 	o.Analyzing = &v
 }
 
 // GetPending returns the Pending field value if set, zero value otherwise.
-func (o *AnchoreImageSummaryCounts) GetPending() int32 {
+func (o *AnchoreImageSummaryCounts) GetPending() int64 {
 	if o == nil || IsNil(o.Pending) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Pending
@@ -184,7 +184,7 @@ func (o *AnchoreImageSummaryCounts) GetPending() int32 {
 
 // GetPendingOk returns a tuple with the Pending field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AnchoreImageSummaryCounts) GetPendingOk() (*int32, bool) {
+func (o *AnchoreImageSummaryCounts) GetPendingOk() (*int64, bool) {
 	if o == nil || IsNil(o.Pending) {
 		return nil, false
 	}
@@ -200,15 +200,15 @@ func (o *AnchoreImageSummaryCounts) HasPending() bool {
 	return false
 }
 
-// SetPending gets a reference to the given int32 and assigns it to the Pending field.
-func (o *AnchoreImageSummaryCounts) SetPending(v int32) {
+// SetPending gets a reference to the given int64 and assigns it to the Pending field.
+func (o *AnchoreImageSummaryCounts) SetPending(v int64) {
 	o.Pending = &v
 }
 
 // GetFailed returns the Failed field value if set, zero value otherwise.
-func (o *AnchoreImageSummaryCounts) GetFailed() int32 {
+func (o *AnchoreImageSummaryCounts) GetFailed() int64 {
 	if o == nil || IsNil(o.Failed) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Failed
@@ -216,7 +216,7 @@ func (o *AnchoreImageSummaryCounts) GetFailed() int32 {
 
 // GetFailedOk returns a tuple with the Failed field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AnchoreImageSummaryCounts) GetFailedOk() (*int32, bool) {
+func (o *AnchoreImageSummaryCounts) GetFailedOk() (*int64, bool) {
 	if o == nil || IsNil(o.Failed) {
 		return nil, false
 	}
@@ -232,8 +232,8 @@ func (o *AnchoreImageSummaryCounts) HasFailed() bool {
 	return false
 }
 
-// SetFailed gets a reference to the given int32 and assigns it to the Failed field.
-func (o *AnchoreImageSummaryCounts) SetFailed(v int32) {
+// SetFailed gets a reference to the given int64 and assigns it to the Failed field.
+func (o *AnchoreImageSummaryCounts) SetFailed(v int64) {
 	o.Failed = &v
 }
 

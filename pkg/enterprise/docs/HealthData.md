@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Type** | [**IntegrationType**](IntegrationType.md) |  | 
-**Version** | **int32** | Version of the health data schema | 
+**Version** | **int64** | Version of the health data schema | 
 **Errors** | Pointer to **[]string** | List of errors | [optional] 
 **AccountK8sInventoryReports** | Pointer to [**map[string]AccountK8sInventoryReportInfo**](AccountK8sInventoryReportInfo.md) | Information about sent inventory report for accounts | [optional] 
 
@@ -13,7 +13,7 @@ Name | Type | Description | Notes
 
 ### NewHealthData
 
-`func NewHealthData(type_ IntegrationType, version int32, ) *HealthData`
+`func NewHealthData(type_ IntegrationType, version int64, ) *HealthData`
 
 NewHealthData instantiates a new HealthData object
 This constructor will assign default values to properties that have it defined,
@@ -50,20 +50,20 @@ SetType sets Type field to given value.
 
 ### GetVersion
 
-`func (o *HealthData) GetVersion() int32`
+`func (o *HealthData) GetVersion() int64`
 
 GetVersion returns the Version field if non-nil, zero value otherwise.
 
 ### GetVersionOk
 
-`func (o *HealthData) GetVersionOk() (*int32, bool)`
+`func (o *HealthData) GetVersionOk() (*int64, bool)`
 
 GetVersionOk returns a tuple with the Version field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetVersion
 
-`func (o *HealthData) SetVersion(v int32)`
+`func (o *HealthData) SetVersion(v int64)`
 
 SetVersion sets Version field to given value.
 

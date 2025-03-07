@@ -12,7 +12,7 @@ Name | Type | Description | Notes
 **CreatedAt** | Pointer to **time.Time** |  | [optional] 
 **LastUpdated** | Pointer to **time.Time** |  | [optional] 
 **AnalyzedAt** | Pointer to **time.Time** |  | [optional] 
-**ArchiveSizeBytes** | Pointer to **int32** | The size, in bytes, of the analysis archive file | [optional] 
+**ArchiveSizeBytes** | Pointer to **int64** | The size, in bytes, of the analysis archive file | [optional] 
 
 ## Methods
 
@@ -235,20 +235,20 @@ HasAnalyzedAt returns a boolean if a field has been set.
 
 ### GetArchiveSizeBytes
 
-`func (o *ArchivedAnalysis) GetArchiveSizeBytes() int32`
+`func (o *ArchivedAnalysis) GetArchiveSizeBytes() int64`
 
 GetArchiveSizeBytes returns the ArchiveSizeBytes field if non-nil, zero value otherwise.
 
 ### GetArchiveSizeBytesOk
 
-`func (o *ArchivedAnalysis) GetArchiveSizeBytesOk() (*int32, bool)`
+`func (o *ArchivedAnalysis) GetArchiveSizeBytesOk() (*int64, bool)`
 
 GetArchiveSizeBytesOk returns a tuple with the ArchiveSizeBytes field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetArchiveSizeBytes
 
-`func (o *ArchivedAnalysis) SetArchiveSizeBytes(v int32)`
+`func (o *ArchivedAnalysis) SetArchiveSizeBytes(v int64)`
 
 SetArchiveSizeBytes sets ArchiveSizeBytes field to given value.
 

@@ -27,7 +27,7 @@ type FeedGroupMetadata struct {
 	// The last successful update for this feed group.
 	LastSync *time.Time `json:"last_sync,omitempty"`
 	// The number of records in the group
-	RecordCount *int32 `json:"record_count,omitempty"`
+	RecordCount *int64 `json:"record_count,omitempty"`
 	// If group is enabled
 	Enabled *bool `json:"enabled,omitempty"`
 }
@@ -146,9 +146,9 @@ func (o *FeedGroupMetadata) SetLastSync(v time.Time) {
 }
 
 // GetRecordCount returns the RecordCount field value if set, zero value otherwise.
-func (o *FeedGroupMetadata) GetRecordCount() int32 {
+func (o *FeedGroupMetadata) GetRecordCount() int64 {
 	if o == nil || IsNil(o.RecordCount) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.RecordCount
@@ -156,7 +156,7 @@ func (o *FeedGroupMetadata) GetRecordCount() int32 {
 
 // GetRecordCountOk returns a tuple with the RecordCount field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *FeedGroupMetadata) GetRecordCountOk() (*int32, bool) {
+func (o *FeedGroupMetadata) GetRecordCountOk() (*int64, bool) {
 	if o == nil || IsNil(o.RecordCount) {
 		return nil, false
 	}
@@ -172,8 +172,8 @@ func (o *FeedGroupMetadata) HasRecordCount() bool {
 	return false
 }
 
-// SetRecordCount gets a reference to the given int32 and assigns it to the RecordCount field.
-func (o *FeedGroupMetadata) SetRecordCount(v int32) {
+// SetRecordCount gets a reference to the given int64 and assigns it to the RecordCount field.
+func (o *FeedGroupMetadata) SetRecordCount(v int64) {
 	o.RecordCount = &v
 }
 

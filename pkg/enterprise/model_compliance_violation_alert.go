@@ -39,7 +39,7 @@ type ComplianceViolationAlert struct {
 	// Reason for compliance check status. Compliance check could fail due to policy evaluation or denylisting or errors evaluating compliance
 	ComplianceStatusReason *string `json:"compliance_status_reason,omitempty"`
 	// Number of STOP action results in the compliance check report
-	ViolationsCount *int32 `json:"violations_count,omitempty"`
+	ViolationsCount *int64 `json:"violations_count,omitempty"`
 }
 
 // NewComplianceViolationAlert instantiates a new ComplianceViolationAlert object
@@ -348,9 +348,9 @@ func (o *ComplianceViolationAlert) SetComplianceStatusReason(v string) {
 }
 
 // GetViolationsCount returns the ViolationsCount field value if set, zero value otherwise.
-func (o *ComplianceViolationAlert) GetViolationsCount() int32 {
+func (o *ComplianceViolationAlert) GetViolationsCount() int64 {
 	if o == nil || IsNil(o.ViolationsCount) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.ViolationsCount
@@ -358,7 +358,7 @@ func (o *ComplianceViolationAlert) GetViolationsCount() int32 {
 
 // GetViolationsCountOk returns a tuple with the ViolationsCount field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ComplianceViolationAlert) GetViolationsCountOk() (*int32, bool) {
+func (o *ComplianceViolationAlert) GetViolationsCountOk() (*int64, bool) {
 	if o == nil || IsNil(o.ViolationsCount) {
 		return nil, false
 	}
@@ -374,8 +374,8 @@ func (o *ComplianceViolationAlert) HasViolationsCount() bool {
 	return false
 }
 
-// SetViolationsCount gets a reference to the given int32 and assigns it to the ViolationsCount field.
-func (o *ComplianceViolationAlert) SetViolationsCount(v int32) {
+// SetViolationsCount gets a reference to the given int64 and assigns it to the ViolationsCount field.
+func (o *ComplianceViolationAlert) SetViolationsCount(v int64) {
 	o.ViolationsCount = &v
 }
 

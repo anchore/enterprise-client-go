@@ -7,12 +7,12 @@ Name | Type | Description | Notes
 **QueueId** | Pointer to **string** |  | [optional] 
 **AccountName** | Pointer to **string** |  | [optional] 
 **DataId** | Pointer to **string** |  | [optional] 
-**CreatedAt** | Pointer to **int32** |  | [optional] 
-**LastUpdated** | Pointer to **int32** |  | [optional] 
+**CreatedAt** | Pointer to **int64** |  | [optional] 
+**LastUpdated** | Pointer to **int64** |  | [optional] 
 **RecordStateKey** | Pointer to **string** |  | [optional] [default to "active"]
 **RecordStateVal** | Pointer to **NullableString** |  | [optional] 
-**Tries** | Pointer to **int32** |  | [optional] 
-**MaxTries** | Pointer to **int32** |  | [optional] 
+**Tries** | Pointer to **int64** |  | [optional] 
+**MaxTries** | Pointer to **int64** |  | [optional] 
 **Data** | Pointer to [**PolicyEvalNotificationData**](PolicyEvalNotificationData.md) |  | [optional] 
 
 ## Methods
@@ -111,20 +111,20 @@ HasDataId returns a boolean if a field has been set.
 
 ### GetCreatedAt
 
-`func (o *PolicyEvalNotification) GetCreatedAt() int32`
+`func (o *PolicyEvalNotification) GetCreatedAt() int64`
 
 GetCreatedAt returns the CreatedAt field if non-nil, zero value otherwise.
 
 ### GetCreatedAtOk
 
-`func (o *PolicyEvalNotification) GetCreatedAtOk() (*int32, bool)`
+`func (o *PolicyEvalNotification) GetCreatedAtOk() (*int64, bool)`
 
 GetCreatedAtOk returns a tuple with the CreatedAt field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCreatedAt
 
-`func (o *PolicyEvalNotification) SetCreatedAt(v int32)`
+`func (o *PolicyEvalNotification) SetCreatedAt(v int64)`
 
 SetCreatedAt sets CreatedAt field to given value.
 
@@ -136,20 +136,20 @@ HasCreatedAt returns a boolean if a field has been set.
 
 ### GetLastUpdated
 
-`func (o *PolicyEvalNotification) GetLastUpdated() int32`
+`func (o *PolicyEvalNotification) GetLastUpdated() int64`
 
 GetLastUpdated returns the LastUpdated field if non-nil, zero value otherwise.
 
 ### GetLastUpdatedOk
 
-`func (o *PolicyEvalNotification) GetLastUpdatedOk() (*int32, bool)`
+`func (o *PolicyEvalNotification) GetLastUpdatedOk() (*int64, bool)`
 
 GetLastUpdatedOk returns a tuple with the LastUpdated field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLastUpdated
 
-`func (o *PolicyEvalNotification) SetLastUpdated(v int32)`
+`func (o *PolicyEvalNotification) SetLastUpdated(v int64)`
 
 SetLastUpdated sets LastUpdated field to given value.
 
@@ -221,20 +221,20 @@ HasRecordStateVal returns a boolean if a field has been set.
 UnsetRecordStateVal ensures that no value is present for RecordStateVal, not even an explicit nil
 ### GetTries
 
-`func (o *PolicyEvalNotification) GetTries() int32`
+`func (o *PolicyEvalNotification) GetTries() int64`
 
 GetTries returns the Tries field if non-nil, zero value otherwise.
 
 ### GetTriesOk
 
-`func (o *PolicyEvalNotification) GetTriesOk() (*int32, bool)`
+`func (o *PolicyEvalNotification) GetTriesOk() (*int64, bool)`
 
 GetTriesOk returns a tuple with the Tries field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTries
 
-`func (o *PolicyEvalNotification) SetTries(v int32)`
+`func (o *PolicyEvalNotification) SetTries(v int64)`
 
 SetTries sets Tries field to given value.
 
@@ -246,20 +246,20 @@ HasTries returns a boolean if a field has been set.
 
 ### GetMaxTries
 
-`func (o *PolicyEvalNotification) GetMaxTries() int32`
+`func (o *PolicyEvalNotification) GetMaxTries() int64`
 
 GetMaxTries returns the MaxTries field if non-nil, zero value otherwise.
 
 ### GetMaxTriesOk
 
-`func (o *PolicyEvalNotification) GetMaxTriesOk() (*int32, bool)`
+`func (o *PolicyEvalNotification) GetMaxTriesOk() (*int64, bool)`
 
 GetMaxTriesOk returns a tuple with the MaxTries field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetMaxTries
 
-`func (o *PolicyEvalNotification) SetMaxTries(v int32)`
+`func (o *PolicyEvalNotification) SetMaxTries(v int64)`
 
 SetMaxTries sets MaxTries field to given value.
 

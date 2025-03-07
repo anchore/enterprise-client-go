@@ -5,9 +5,9 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Name** | Pointer to **string** | The resource being limited | [optional] 
-**WarningValue** | Pointer to **NullableInt32** | The value at which a warning will be generated | [optional] 
-**LimitValue** | Pointer to **NullableInt32** | The value at which a limit will be enforced | [optional] 
-**CurrentValue** | Pointer to **int32** | The current value of the resource | [optional] 
+**WarningValue** | Pointer to **NullableInt64** | The value at which a warning will be generated | [optional] 
+**LimitValue** | Pointer to **NullableInt64** | The value at which a limit will be enforced | [optional] 
+**CurrentValue** | Pointer to **int64** | The current value of the resource | [optional] 
 **LimitExceeded** | Pointer to **bool** | Whether the limit has been exceeded and is being enforced | [optional] 
 
 ## Methods
@@ -56,20 +56,20 @@ HasName returns a boolean if a field has been set.
 
 ### GetWarningValue
 
-`func (o *SystemResourceLimit) GetWarningValue() int32`
+`func (o *SystemResourceLimit) GetWarningValue() int64`
 
 GetWarningValue returns the WarningValue field if non-nil, zero value otherwise.
 
 ### GetWarningValueOk
 
-`func (o *SystemResourceLimit) GetWarningValueOk() (*int32, bool)`
+`func (o *SystemResourceLimit) GetWarningValueOk() (*int64, bool)`
 
 GetWarningValueOk returns a tuple with the WarningValue field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetWarningValue
 
-`func (o *SystemResourceLimit) SetWarningValue(v int32)`
+`func (o *SystemResourceLimit) SetWarningValue(v int64)`
 
 SetWarningValue sets WarningValue field to given value.
 
@@ -91,20 +91,20 @@ HasWarningValue returns a boolean if a field has been set.
 UnsetWarningValue ensures that no value is present for WarningValue, not even an explicit nil
 ### GetLimitValue
 
-`func (o *SystemResourceLimit) GetLimitValue() int32`
+`func (o *SystemResourceLimit) GetLimitValue() int64`
 
 GetLimitValue returns the LimitValue field if non-nil, zero value otherwise.
 
 ### GetLimitValueOk
 
-`func (o *SystemResourceLimit) GetLimitValueOk() (*int32, bool)`
+`func (o *SystemResourceLimit) GetLimitValueOk() (*int64, bool)`
 
 GetLimitValueOk returns a tuple with the LimitValue field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLimitValue
 
-`func (o *SystemResourceLimit) SetLimitValue(v int32)`
+`func (o *SystemResourceLimit) SetLimitValue(v int64)`
 
 SetLimitValue sets LimitValue field to given value.
 
@@ -126,20 +126,20 @@ HasLimitValue returns a boolean if a field has been set.
 UnsetLimitValue ensures that no value is present for LimitValue, not even an explicit nil
 ### GetCurrentValue
 
-`func (o *SystemResourceLimit) GetCurrentValue() int32`
+`func (o *SystemResourceLimit) GetCurrentValue() int64`
 
 GetCurrentValue returns the CurrentValue field if non-nil, zero value otherwise.
 
 ### GetCurrentValueOk
 
-`func (o *SystemResourceLimit) GetCurrentValueOk() (*int32, bool)`
+`func (o *SystemResourceLimit) GetCurrentValueOk() (*int64, bool)`
 
 GetCurrentValueOk returns a tuple with the CurrentValue field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCurrentValue
 
-`func (o *SystemResourceLimit) SetCurrentValue(v int32)`
+`func (o *SystemResourceLimit) SetCurrentValue(v int64)`
 
 SetCurrentValue sets CurrentValue field to given value.
 

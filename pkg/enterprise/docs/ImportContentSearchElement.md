@@ -5,16 +5,16 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Classification** | **string** |  | 
-**LineNumber** | **int32** |  | 
-**LineOffset** | **int32** |  | 
-**SeekPosition** | **int32** |  | 
-**Length** | **int32** |  | 
+**LineNumber** | **int64** |  | 
+**LineOffset** | **int64** |  | 
+**SeekPosition** | **int64** |  | 
+**Length** | **int64** |  | 
 
 ## Methods
 
 ### NewImportContentSearchElement
 
-`func NewImportContentSearchElement(classification string, lineNumber int32, lineOffset int32, seekPosition int32, length int32, ) *ImportContentSearchElement`
+`func NewImportContentSearchElement(classification string, lineNumber int64, lineOffset int64, seekPosition int64, length int64, ) *ImportContentSearchElement`
 
 NewImportContentSearchElement instantiates a new ImportContentSearchElement object
 This constructor will assign default values to properties that have it defined,
@@ -51,80 +51,80 @@ SetClassification sets Classification field to given value.
 
 ### GetLineNumber
 
-`func (o *ImportContentSearchElement) GetLineNumber() int32`
+`func (o *ImportContentSearchElement) GetLineNumber() int64`
 
 GetLineNumber returns the LineNumber field if non-nil, zero value otherwise.
 
 ### GetLineNumberOk
 
-`func (o *ImportContentSearchElement) GetLineNumberOk() (*int32, bool)`
+`func (o *ImportContentSearchElement) GetLineNumberOk() (*int64, bool)`
 
 GetLineNumberOk returns a tuple with the LineNumber field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLineNumber
 
-`func (o *ImportContentSearchElement) SetLineNumber(v int32)`
+`func (o *ImportContentSearchElement) SetLineNumber(v int64)`
 
 SetLineNumber sets LineNumber field to given value.
 
 
 ### GetLineOffset
 
-`func (o *ImportContentSearchElement) GetLineOffset() int32`
+`func (o *ImportContentSearchElement) GetLineOffset() int64`
 
 GetLineOffset returns the LineOffset field if non-nil, zero value otherwise.
 
 ### GetLineOffsetOk
 
-`func (o *ImportContentSearchElement) GetLineOffsetOk() (*int32, bool)`
+`func (o *ImportContentSearchElement) GetLineOffsetOk() (*int64, bool)`
 
 GetLineOffsetOk returns a tuple with the LineOffset field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLineOffset
 
-`func (o *ImportContentSearchElement) SetLineOffset(v int32)`
+`func (o *ImportContentSearchElement) SetLineOffset(v int64)`
 
 SetLineOffset sets LineOffset field to given value.
 
 
 ### GetSeekPosition
 
-`func (o *ImportContentSearchElement) GetSeekPosition() int32`
+`func (o *ImportContentSearchElement) GetSeekPosition() int64`
 
 GetSeekPosition returns the SeekPosition field if non-nil, zero value otherwise.
 
 ### GetSeekPositionOk
 
-`func (o *ImportContentSearchElement) GetSeekPositionOk() (*int32, bool)`
+`func (o *ImportContentSearchElement) GetSeekPositionOk() (*int64, bool)`
 
 GetSeekPositionOk returns a tuple with the SeekPosition field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetSeekPosition
 
-`func (o *ImportContentSearchElement) SetSeekPosition(v int32)`
+`func (o *ImportContentSearchElement) SetSeekPosition(v int64)`
 
 SetSeekPosition sets SeekPosition field to given value.
 
 
 ### GetLength
 
-`func (o *ImportContentSearchElement) GetLength() int32`
+`func (o *ImportContentSearchElement) GetLength() int64`
 
 GetLength returns the Length field if non-nil, zero value otherwise.
 
 ### GetLengthOk
 
-`func (o *ImportContentSearchElement) GetLengthOk() (*int32, bool)`
+`func (o *ImportContentSearchElement) GetLengthOk() (*int64, bool)`
 
 GetLengthOk returns a tuple with the Length field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLength
 
-`func (o *ImportContentSearchElement) SetLength(v int32)`
+`func (o *ImportContentSearchElement) SetLength(v int64)`
 
 SetLength sets Length field to given value.
 

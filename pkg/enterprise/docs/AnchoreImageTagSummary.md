@@ -9,9 +9,9 @@ Name | Type | Description | Notes
 **ImageId** | Pointer to **string** |  | [optional] 
 **AnalysisStatus** | Pointer to **string** |  | [optional] 
 **FullTag** | Pointer to **string** |  | [optional] 
-**CreatedAt** | Pointer to **int32** |  | [optional] 
-**AnalyzedAt** | Pointer to **int32** |  | [optional] 
-**TagDetectedAt** | Pointer to **int32** |  | [optional] 
+**CreatedAt** | Pointer to **int64** |  | [optional] 
+**AnalyzedAt** | Pointer to **int64** |  | [optional] 
+**TagDetectedAt** | Pointer to **int64** |  | [optional] 
 **ImageStatus** | Pointer to **string** |  | [optional] 
 
 ## Methods
@@ -160,20 +160,20 @@ HasFullTag returns a boolean if a field has been set.
 
 ### GetCreatedAt
 
-`func (o *AnchoreImageTagSummary) GetCreatedAt() int32`
+`func (o *AnchoreImageTagSummary) GetCreatedAt() int64`
 
 GetCreatedAt returns the CreatedAt field if non-nil, zero value otherwise.
 
 ### GetCreatedAtOk
 
-`func (o *AnchoreImageTagSummary) GetCreatedAtOk() (*int32, bool)`
+`func (o *AnchoreImageTagSummary) GetCreatedAtOk() (*int64, bool)`
 
 GetCreatedAtOk returns a tuple with the CreatedAt field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCreatedAt
 
-`func (o *AnchoreImageTagSummary) SetCreatedAt(v int32)`
+`func (o *AnchoreImageTagSummary) SetCreatedAt(v int64)`
 
 SetCreatedAt sets CreatedAt field to given value.
 
@@ -185,20 +185,20 @@ HasCreatedAt returns a boolean if a field has been set.
 
 ### GetAnalyzedAt
 
-`func (o *AnchoreImageTagSummary) GetAnalyzedAt() int32`
+`func (o *AnchoreImageTagSummary) GetAnalyzedAt() int64`
 
 GetAnalyzedAt returns the AnalyzedAt field if non-nil, zero value otherwise.
 
 ### GetAnalyzedAtOk
 
-`func (o *AnchoreImageTagSummary) GetAnalyzedAtOk() (*int32, bool)`
+`func (o *AnchoreImageTagSummary) GetAnalyzedAtOk() (*int64, bool)`
 
 GetAnalyzedAtOk returns a tuple with the AnalyzedAt field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetAnalyzedAt
 
-`func (o *AnchoreImageTagSummary) SetAnalyzedAt(v int32)`
+`func (o *AnchoreImageTagSummary) SetAnalyzedAt(v int64)`
 
 SetAnalyzedAt sets AnalyzedAt field to given value.
 
@@ -210,20 +210,20 @@ HasAnalyzedAt returns a boolean if a field has been set.
 
 ### GetTagDetectedAt
 
-`func (o *AnchoreImageTagSummary) GetTagDetectedAt() int32`
+`func (o *AnchoreImageTagSummary) GetTagDetectedAt() int64`
 
 GetTagDetectedAt returns the TagDetectedAt field if non-nil, zero value otherwise.
 
 ### GetTagDetectedAtOk
 
-`func (o *AnchoreImageTagSummary) GetTagDetectedAtOk() (*int32, bool)`
+`func (o *AnchoreImageTagSummary) GetTagDetectedAtOk() (*int64, bool)`
 
 GetTagDetectedAtOk returns a tuple with the TagDetectedAt field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTagDetectedAt
 
-`func (o *AnchoreImageTagSummary) SetTagDetectedAt(v int32)`
+`func (o *AnchoreImageTagSummary) SetTagDetectedAt(v int64)`
 
 SetTagDetectedAt sets TagDetectedAt field to given value.
 

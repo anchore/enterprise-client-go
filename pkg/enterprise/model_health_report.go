@@ -26,13 +26,13 @@ type HealthReport struct {
 	// Universally unique identifier for this health report
 	Uuid string `json:"uuid"`
 	// The version of the health report exchange protocol
-	ProtocolVersion int32 `json:"protocol_version"`
+	ProtocolVersion int64 `json:"protocol_version"`
 	// timestamp for this health report
 	Timestamp time.Time `json:"timestamp"`
 	// Running time of integration instance in seconds
 	Uptime float32 `json:"uptime"`
 	// Interval (in seconds) between health reports
-	HealthReportInterval int32 `json:"health_report_interval"`
+	HealthReportInterval int64 `json:"health_report_interval"`
 	HealthData HealthData `json:"health_data"`
 }
 
@@ -42,7 +42,7 @@ type _HealthReport HealthReport
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewHealthReport(uuid string, protocolVersion int32, timestamp time.Time, uptime float32, healthReportInterval int32, healthData HealthData) *HealthReport {
+func NewHealthReport(uuid string, protocolVersion int64, timestamp time.Time, uptime float32, healthReportInterval int64, healthData HealthData) *HealthReport {
 	this := HealthReport{}
 	this.Uuid = uuid
 	this.ProtocolVersion = protocolVersion
@@ -86,9 +86,9 @@ func (o *HealthReport) SetUuid(v string) {
 }
 
 // GetProtocolVersion returns the ProtocolVersion field value
-func (o *HealthReport) GetProtocolVersion() int32 {
+func (o *HealthReport) GetProtocolVersion() int64 {
 	if o == nil {
-		var ret int32
+		var ret int64
 		return ret
 	}
 
@@ -97,7 +97,7 @@ func (o *HealthReport) GetProtocolVersion() int32 {
 
 // GetProtocolVersionOk returns a tuple with the ProtocolVersion field value
 // and a boolean to check if the value has been set.
-func (o *HealthReport) GetProtocolVersionOk() (*int32, bool) {
+func (o *HealthReport) GetProtocolVersionOk() (*int64, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -105,7 +105,7 @@ func (o *HealthReport) GetProtocolVersionOk() (*int32, bool) {
 }
 
 // SetProtocolVersion sets field value
-func (o *HealthReport) SetProtocolVersion(v int32) {
+func (o *HealthReport) SetProtocolVersion(v int64) {
 	o.ProtocolVersion = v
 }
 
@@ -158,9 +158,9 @@ func (o *HealthReport) SetUptime(v float32) {
 }
 
 // GetHealthReportInterval returns the HealthReportInterval field value
-func (o *HealthReport) GetHealthReportInterval() int32 {
+func (o *HealthReport) GetHealthReportInterval() int64 {
 	if o == nil {
-		var ret int32
+		var ret int64
 		return ret
 	}
 
@@ -169,7 +169,7 @@ func (o *HealthReport) GetHealthReportInterval() int32 {
 
 // GetHealthReportIntervalOk returns a tuple with the HealthReportInterval field value
 // and a boolean to check if the value has been set.
-func (o *HealthReport) GetHealthReportIntervalOk() (*int32, bool) {
+func (o *HealthReport) GetHealthReportIntervalOk() (*int64, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -177,7 +177,7 @@ func (o *HealthReport) GetHealthReportIntervalOk() (*int32, bool) {
 }
 
 // SetHealthReportInterval sets field value
-func (o *HealthReport) SetHealthReportInterval(v int32) {
+func (o *HealthReport) SetHealthReportInterval(v int64) {
 	o.HealthReportInterval = v
 }
 

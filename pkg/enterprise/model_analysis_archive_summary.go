@@ -22,11 +22,11 @@ var _ MappedNullable = &AnalysisArchiveSummary{}
 // AnalysisArchiveSummary A summarization of the analysis archive, including size, counts, etc. This archive stores image analysis only, never the actual image content or layers.
 type AnalysisArchiveSummary struct {
 	// The number of unique images (digests) in the archive
-	TotalImageCount *int32 `json:"total_image_count,omitempty"`
+	TotalImageCount *int64 `json:"total_image_count,omitempty"`
 	// The number of tag records (registry/repo:tag pull strings) in the archive. This may include repeated tags but will always have a unique tag->digest mapping per record.
-	TotalTagCount *int32 `json:"total_tag_count,omitempty"`
+	TotalTagCount *int64 `json:"total_tag_count,omitempty"`
 	// The total sum of all the bytes stored to the backing storage. Accounts for anchore-applied compression, but not compression by the underlying storage system.
-	TotalDataBytes *int32 `json:"total_data_bytes,omitempty"`
+	TotalDataBytes *int64 `json:"total_data_bytes,omitempty"`
 	// The timestamp of the most recent archived image
 	LastUpdated *time.Time `json:"last_updated,omitempty"`
 }
@@ -49,9 +49,9 @@ func NewAnalysisArchiveSummaryWithDefaults() *AnalysisArchiveSummary {
 }
 
 // GetTotalImageCount returns the TotalImageCount field value if set, zero value otherwise.
-func (o *AnalysisArchiveSummary) GetTotalImageCount() int32 {
+func (o *AnalysisArchiveSummary) GetTotalImageCount() int64 {
 	if o == nil || IsNil(o.TotalImageCount) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.TotalImageCount
@@ -59,7 +59,7 @@ func (o *AnalysisArchiveSummary) GetTotalImageCount() int32 {
 
 // GetTotalImageCountOk returns a tuple with the TotalImageCount field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AnalysisArchiveSummary) GetTotalImageCountOk() (*int32, bool) {
+func (o *AnalysisArchiveSummary) GetTotalImageCountOk() (*int64, bool) {
 	if o == nil || IsNil(o.TotalImageCount) {
 		return nil, false
 	}
@@ -75,15 +75,15 @@ func (o *AnalysisArchiveSummary) HasTotalImageCount() bool {
 	return false
 }
 
-// SetTotalImageCount gets a reference to the given int32 and assigns it to the TotalImageCount field.
-func (o *AnalysisArchiveSummary) SetTotalImageCount(v int32) {
+// SetTotalImageCount gets a reference to the given int64 and assigns it to the TotalImageCount field.
+func (o *AnalysisArchiveSummary) SetTotalImageCount(v int64) {
 	o.TotalImageCount = &v
 }
 
 // GetTotalTagCount returns the TotalTagCount field value if set, zero value otherwise.
-func (o *AnalysisArchiveSummary) GetTotalTagCount() int32 {
+func (o *AnalysisArchiveSummary) GetTotalTagCount() int64 {
 	if o == nil || IsNil(o.TotalTagCount) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.TotalTagCount
@@ -91,7 +91,7 @@ func (o *AnalysisArchiveSummary) GetTotalTagCount() int32 {
 
 // GetTotalTagCountOk returns a tuple with the TotalTagCount field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AnalysisArchiveSummary) GetTotalTagCountOk() (*int32, bool) {
+func (o *AnalysisArchiveSummary) GetTotalTagCountOk() (*int64, bool) {
 	if o == nil || IsNil(o.TotalTagCount) {
 		return nil, false
 	}
@@ -107,15 +107,15 @@ func (o *AnalysisArchiveSummary) HasTotalTagCount() bool {
 	return false
 }
 
-// SetTotalTagCount gets a reference to the given int32 and assigns it to the TotalTagCount field.
-func (o *AnalysisArchiveSummary) SetTotalTagCount(v int32) {
+// SetTotalTagCount gets a reference to the given int64 and assigns it to the TotalTagCount field.
+func (o *AnalysisArchiveSummary) SetTotalTagCount(v int64) {
 	o.TotalTagCount = &v
 }
 
 // GetTotalDataBytes returns the TotalDataBytes field value if set, zero value otherwise.
-func (o *AnalysisArchiveSummary) GetTotalDataBytes() int32 {
+func (o *AnalysisArchiveSummary) GetTotalDataBytes() int64 {
 	if o == nil || IsNil(o.TotalDataBytes) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.TotalDataBytes
@@ -123,7 +123,7 @@ func (o *AnalysisArchiveSummary) GetTotalDataBytes() int32 {
 
 // GetTotalDataBytesOk returns a tuple with the TotalDataBytes field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AnalysisArchiveSummary) GetTotalDataBytesOk() (*int32, bool) {
+func (o *AnalysisArchiveSummary) GetTotalDataBytesOk() (*int64, bool) {
 	if o == nil || IsNil(o.TotalDataBytes) {
 		return nil, false
 	}
@@ -139,8 +139,8 @@ func (o *AnalysisArchiveSummary) HasTotalDataBytes() bool {
 	return false
 }
 
-// SetTotalDataBytes gets a reference to the given int32 and assigns it to the TotalDataBytes field.
-func (o *AnalysisArchiveSummary) SetTotalDataBytes(v int32) {
+// SetTotalDataBytes gets a reference to the given int64 and assigns it to the TotalDataBytes field.
+func (o *AnalysisArchiveSummary) SetTotalDataBytes(v int64) {
 	o.TotalDataBytes = &v
 }
 

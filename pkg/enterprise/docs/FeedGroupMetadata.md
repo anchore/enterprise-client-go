@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **Name** | Pointer to **string** | The name of the feed group | [optional] 
 **CreatedAt** | Pointer to **time.Time** |  | [optional] 
 **LastSync** | Pointer to **time.Time** | The last successful update for this feed group. | [optional] 
-**RecordCount** | Pointer to **int32** | The number of records in the group | [optional] 
+**RecordCount** | Pointer to **int64** | The number of records in the group | [optional] 
 **Enabled** | Pointer to **bool** | If group is enabled | [optional] 
 
 ## Methods
@@ -106,20 +106,20 @@ HasLastSync returns a boolean if a field has been set.
 
 ### GetRecordCount
 
-`func (o *FeedGroupMetadata) GetRecordCount() int32`
+`func (o *FeedGroupMetadata) GetRecordCount() int64`
 
 GetRecordCount returns the RecordCount field if non-nil, zero value otherwise.
 
 ### GetRecordCountOk
 
-`func (o *FeedGroupMetadata) GetRecordCountOk() (*int32, bool)`
+`func (o *FeedGroupMetadata) GetRecordCountOk() (*int64, bool)`
 
 GetRecordCountOk returns a tuple with the RecordCount field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetRecordCount
 
-`func (o *FeedGroupMetadata) SetRecordCount(v int32)`
+`func (o *FeedGroupMetadata) SetRecordCount(v int64)`
 
 SetRecordCount sets RecordCount field to given value.
 

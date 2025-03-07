@@ -23,11 +23,11 @@ var _ MappedNullable = &ArtifactLifecyclePolicyConditions{}
 // ArtifactLifecyclePolicyConditions struct for ArtifactLifecyclePolicyConditions
 type ArtifactLifecyclePolicyConditions struct {
 	// The version of these policy conditions.
-	Version *int32 `json:"version,omitempty"`
+	Version *int64 `json:"version,omitempty"`
 	// Select an image even if it exists in the runtime inventory, otherwise if false do not action anything that exists in runtime inventory
 	EvenIfExistsInRuntimeInventory bool `json:"even_if_exists_in_runtime_inventory"`
-	// An image analysis must be this many days old before it will be considered for processing. An integer value less than or equal to zero will cause this field to be ignored.
-	DaysSinceAnalyzed int32 `json:"days_since_analyzed"`
+	// An image analysis must be this many days old before it will be considered for processing. An int64 value less than or equal to zero will cause this field to be ignored.
+	DaysSinceAnalyzed int64 `json:"days_since_analyzed"`
 	// Include base images in the policy selection criteria.
 	IncludeBaseImages *bool `json:"include_base_images,omitempty"`
 	// The type of artifact that will be processed.
@@ -40,7 +40,7 @@ type _ArtifactLifecyclePolicyConditions ArtifactLifecyclePolicyConditions
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewArtifactLifecyclePolicyConditions(evenIfExistsInRuntimeInventory bool, daysSinceAnalyzed int32, artifactType string) *ArtifactLifecyclePolicyConditions {
+func NewArtifactLifecyclePolicyConditions(evenIfExistsInRuntimeInventory bool, daysSinceAnalyzed int64, artifactType string) *ArtifactLifecyclePolicyConditions {
 	this := ArtifactLifecyclePolicyConditions{}
 	this.EvenIfExistsInRuntimeInventory = evenIfExistsInRuntimeInventory
 	this.DaysSinceAnalyzed = daysSinceAnalyzed
@@ -57,9 +57,9 @@ func NewArtifactLifecyclePolicyConditionsWithDefaults() *ArtifactLifecyclePolicy
 }
 
 // GetVersion returns the Version field value if set, zero value otherwise.
-func (o *ArtifactLifecyclePolicyConditions) GetVersion() int32 {
+func (o *ArtifactLifecyclePolicyConditions) GetVersion() int64 {
 	if o == nil || IsNil(o.Version) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Version
@@ -67,7 +67,7 @@ func (o *ArtifactLifecyclePolicyConditions) GetVersion() int32 {
 
 // GetVersionOk returns a tuple with the Version field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ArtifactLifecyclePolicyConditions) GetVersionOk() (*int32, bool) {
+func (o *ArtifactLifecyclePolicyConditions) GetVersionOk() (*int64, bool) {
 	if o == nil || IsNil(o.Version) {
 		return nil, false
 	}
@@ -83,8 +83,8 @@ func (o *ArtifactLifecyclePolicyConditions) HasVersion() bool {
 	return false
 }
 
-// SetVersion gets a reference to the given int32 and assigns it to the Version field.
-func (o *ArtifactLifecyclePolicyConditions) SetVersion(v int32) {
+// SetVersion gets a reference to the given int64 and assigns it to the Version field.
+func (o *ArtifactLifecyclePolicyConditions) SetVersion(v int64) {
 	o.Version = &v
 }
 
@@ -113,9 +113,9 @@ func (o *ArtifactLifecyclePolicyConditions) SetEvenIfExistsInRuntimeInventory(v 
 }
 
 // GetDaysSinceAnalyzed returns the DaysSinceAnalyzed field value
-func (o *ArtifactLifecyclePolicyConditions) GetDaysSinceAnalyzed() int32 {
+func (o *ArtifactLifecyclePolicyConditions) GetDaysSinceAnalyzed() int64 {
 	if o == nil {
-		var ret int32
+		var ret int64
 		return ret
 	}
 
@@ -124,7 +124,7 @@ func (o *ArtifactLifecyclePolicyConditions) GetDaysSinceAnalyzed() int32 {
 
 // GetDaysSinceAnalyzedOk returns a tuple with the DaysSinceAnalyzed field value
 // and a boolean to check if the value has been set.
-func (o *ArtifactLifecyclePolicyConditions) GetDaysSinceAnalyzedOk() (*int32, bool) {
+func (o *ArtifactLifecyclePolicyConditions) GetDaysSinceAnalyzedOk() (*int64, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -132,7 +132,7 @@ func (o *ArtifactLifecyclePolicyConditions) GetDaysSinceAnalyzedOk() (*int32, bo
 }
 
 // SetDaysSinceAnalyzed sets field value
-func (o *ArtifactLifecyclePolicyConditions) SetDaysSinceAnalyzed(v int32) {
+func (o *ArtifactLifecyclePolicyConditions) SetDaysSinceAnalyzed(v int64) {
 	o.DaysSinceAnalyzed = v
 }
 

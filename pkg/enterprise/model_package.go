@@ -26,7 +26,7 @@ type Package struct {
 	Sourcepkg *string `json:"sourcepkg,omitempty"`
 	Location *string `json:"location,omitempty"`
 	Origin *string `json:"origin,omitempty"`
-	Size *int32 `json:"size,omitempty"`
+	Size *int64 `json:"size,omitempty"`
 	Licenses []string `json:"licenses,omitempty"`
 	// The type of the metadata entry
 	MetadataType *string `json:"metadata_type,omitempty"`
@@ -253,9 +253,9 @@ func (o *Package) SetOrigin(v string) {
 }
 
 // GetSize returns the Size field value if set, zero value otherwise.
-func (o *Package) GetSize() int32 {
+func (o *Package) GetSize() int64 {
 	if o == nil || IsNil(o.Size) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Size
@@ -263,7 +263,7 @@ func (o *Package) GetSize() int32 {
 
 // GetSizeOk returns a tuple with the Size field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Package) GetSizeOk() (*int32, bool) {
+func (o *Package) GetSizeOk() (*int64, bool) {
 	if o == nil || IsNil(o.Size) {
 		return nil, false
 	}
@@ -279,8 +279,8 @@ func (o *Package) HasSize() bool {
 	return false
 }
 
-// SetSize gets a reference to the given int32 and assigns it to the Size field.
-func (o *Package) SetSize(v int32) {
+// SetSize gets a reference to the given int64 and assigns it to the Size field.
+func (o *Package) SetSize(v int64) {
 	o.Size = &v
 }
 

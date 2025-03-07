@@ -43,7 +43,7 @@ type SourcePolicyEvaluation struct {
 	// The detailed policy findings
 	Findings []SourcePolicyEvaluationFinding `json:"findings"`
 	// Number of policy findings in the response
-	NumberOfFindings int32 `json:"number_of_findings"`
+	NumberOfFindings int64 `json:"number_of_findings"`
 	// The date and time this policy evaluation was performed at
 	EvaluationTime time.Time `json:"evaluation_time"`
 	// The overall outcome of the evaluation.
@@ -62,7 +62,7 @@ type _SourcePolicyEvaluation SourcePolicyEvaluation
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewSourcePolicyEvaluation(accountName string, evaluationId string, sourceId string, host string, repositoryName string, revision string, policy Policy, sourceMappedToRule bool, findings []SourcePolicyEvaluationFinding, numberOfFindings int32, evaluationTime time.Time, finalAction string, finalActionReason string, evaluationProblems []PolicyEvaluationProblem, status string) *SourcePolicyEvaluation {
+func NewSourcePolicyEvaluation(accountName string, evaluationId string, sourceId string, host string, repositoryName string, revision string, policy Policy, sourceMappedToRule bool, findings []SourcePolicyEvaluationFinding, numberOfFindings int64, evaluationTime time.Time, finalAction string, finalActionReason string, evaluationProblems []PolicyEvaluationProblem, status string) *SourcePolicyEvaluation {
 	this := SourcePolicyEvaluation{}
 	this.AccountName = accountName
 	this.EvaluationId = evaluationId
@@ -339,9 +339,9 @@ func (o *SourcePolicyEvaluation) SetFindings(v []SourcePolicyEvaluationFinding) 
 }
 
 // GetNumberOfFindings returns the NumberOfFindings field value
-func (o *SourcePolicyEvaluation) GetNumberOfFindings() int32 {
+func (o *SourcePolicyEvaluation) GetNumberOfFindings() int64 {
 	if o == nil {
-		var ret int32
+		var ret int64
 		return ret
 	}
 
@@ -350,7 +350,7 @@ func (o *SourcePolicyEvaluation) GetNumberOfFindings() int32 {
 
 // GetNumberOfFindingsOk returns a tuple with the NumberOfFindings field value
 // and a boolean to check if the value has been set.
-func (o *SourcePolicyEvaluation) GetNumberOfFindingsOk() (*int32, bool) {
+func (o *SourcePolicyEvaluation) GetNumberOfFindingsOk() (*int64, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -358,7 +358,7 @@ func (o *SourcePolicyEvaluation) GetNumberOfFindingsOk() (*int32, bool) {
 }
 
 // SetNumberOfFindings sets field value
-func (o *SourcePolicyEvaluation) SetNumberOfFindings(v int32) {
+func (o *SourcePolicyEvaluation) SetNumberOfFindings(v int64) {
 	o.NumberOfFindings = v
 }
 

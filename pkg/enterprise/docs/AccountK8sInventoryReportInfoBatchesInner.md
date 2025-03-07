@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**BatchIndex** | **int32** | Index of the batch | 
+**BatchIndex** | **int64** | Index of the batch | 
 **SendTimestamp** | **time.Time** | Timestamp when the batch was sent | 
 **Error** | Pointer to **string** | Error message if the sending was unsuccessful | [optional] 
 
@@ -12,7 +12,7 @@ Name | Type | Description | Notes
 
 ### NewAccountK8sInventoryReportInfoBatchesInner
 
-`func NewAccountK8sInventoryReportInfoBatchesInner(batchIndex int32, sendTimestamp time.Time, ) *AccountK8sInventoryReportInfoBatchesInner`
+`func NewAccountK8sInventoryReportInfoBatchesInner(batchIndex int64, sendTimestamp time.Time, ) *AccountK8sInventoryReportInfoBatchesInner`
 
 NewAccountK8sInventoryReportInfoBatchesInner instantiates a new AccountK8sInventoryReportInfoBatchesInner object
 This constructor will assign default values to properties that have it defined,
@@ -29,20 +29,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetBatchIndex
 
-`func (o *AccountK8sInventoryReportInfoBatchesInner) GetBatchIndex() int32`
+`func (o *AccountK8sInventoryReportInfoBatchesInner) GetBatchIndex() int64`
 
 GetBatchIndex returns the BatchIndex field if non-nil, zero value otherwise.
 
 ### GetBatchIndexOk
 
-`func (o *AccountK8sInventoryReportInfoBatchesInner) GetBatchIndexOk() (*int32, bool)`
+`func (o *AccountK8sInventoryReportInfoBatchesInner) GetBatchIndexOk() (*int64, bool)`
 
 GetBatchIndexOk returns a tuple with the BatchIndex field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetBatchIndex
 
-`func (o *AccountK8sInventoryReportInfoBatchesInner) SetBatchIndex(v int32)`
+`func (o *AccountK8sInventoryReportInfoBatchesInner) SetBatchIndex(v int64)`
 
 SetBatchIndex sets BatchIndex field to given value.
 

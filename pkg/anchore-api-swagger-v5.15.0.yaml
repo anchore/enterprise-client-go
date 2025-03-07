@@ -878,14 +878,14 @@ paths:
         in: query
         schema:
           minimum: 1
-          type: integer
+          type: int64
           default: 1
       - name: limit
         in: query
         schema:
           maximum: 100
           minimum: 1
-          type: integer
+          type: int64
           default: 100
       - name: state
         in: query
@@ -1025,14 +1025,14 @@ paths:
         in: query
         schema:
           minimum: 1
-          type: integer
+          type: int64
           default: 1
       - name: limit
         in: query
         schema:
           maximum: 100
           minimum: 1
-          type: integer
+          type: int64
           default: 100
       - name: type
         in: query
@@ -2265,12 +2265,12 @@ paths:
         required: true
         schema:
           minimum: 1
-          type: integer
+          type: int64
       - name: page_size
         in: query
         schema:
           minimum: 1
-          type: integer
+          type: int64
           default: 1000
       responses:
         200:
@@ -2321,12 +2321,12 @@ paths:
         required: true
         schema:
           minimum: 1
-          type: integer
+          type: int64
       - name: page_size
         in: query
         schema:
           minimum: 1
-          type: integer
+          type: int64
           default: 1000
       responses:
         200:
@@ -2354,12 +2354,12 @@ paths:
         required: true
         schema:
           minimum: 1
-          type: integer
+          type: int64
       - name: page_size
         in: query
         schema:
           minimum: 1
-          type: integer
+          type: int64
           default: 1000
       responses:
         200:
@@ -2445,13 +2445,13 @@ paths:
         description: Pagination controls - return the nth page of results. Defaults
           to first page if left empty
         schema:
-          type: integer
+          type: int64
           default: 1
       - name: limit
         in: query
         description: Number of events in the result set. Defaults to 100 if left empty
         schema:
-          type: integer
+          type: int64
           default: 100
       - name: x-anchore-account
         in: header
@@ -4342,12 +4342,12 @@ paths:
         required: true
         schema:
           minimum: 1
-          type: integer
+          type: int64
       - name: page_size
         in: query
         schema:
           minimum: 1
-          type: integer
+          type: int64
           default: 1000
       responses:
         200:
@@ -4397,12 +4397,12 @@ paths:
         required: true
         schema:
           minimum: 1
-          type: integer
+          type: int64
       - name: page_size
         in: query
         schema:
           minimum: 1
-          type: integer
+          type: int64
           default: 1000
       responses:
         200:
@@ -4478,12 +4478,12 @@ paths:
         required: true
         schema:
           minimum: 1
-          type: integer
+          type: int64
       - name: page_size
         in: query
         schema:
           minimum: 1
-          type: integer
+          type: int64
           default: 1000
       responses:
         200:
@@ -4538,12 +4538,12 @@ paths:
         required: true
         schema:
           minimum: 1
-          type: integer
+          type: int64
       - name: page_size
         in: query
         schema:
           minimum: 1
-          type: integer
+          type: int64
           default: 1000
       responses:
         200:
@@ -6848,7 +6848,7 @@ paths:
         description: Limit the number of records for the requested page. If omitted
           or set to 0, return all results in a single page
         schema:
-          type: integer
+          type: int64
       - name: x-anchore-account
         in: header
         description: An account name to change the resource scope of the request to
@@ -6910,7 +6910,7 @@ paths:
         description: Limit the number of records for the requested page. If omitted
           or set to 0, return all results in a single page
         schema:
-          type: integer
+          type: int64
       - name: namespace
         in: query
         description: Namespace(s) to filter vulnerability records by
@@ -7717,7 +7717,7 @@ paths:
         description: Page number to fetch. If omitted, '1' is default. Page numbers
           start at 1
         schema:
-          type: integer
+          type: int64
       responses:
         200:
           description: Saved Query result page
@@ -7746,7 +7746,7 @@ paths:
         description: Page number to fetch. If omitted, '1' is default. Page numbers
           start at 1
         schema:
-          type: integer
+          type: int64
       responses:
         200:
           description: Saved Query result page
@@ -8477,12 +8477,12 @@ paths:
         in: query
         description: Maximum number of rows to return
         schema:
-          type: integer
+          type: int64
       - name: page
         in: query
         description: Page number to return, one's based
         schema:
-          type: integer
+          type: int64
           default: 1
       - name: x-anchore-account
         in: header
@@ -8672,7 +8672,7 @@ paths:
         required: false
         description: Request a specific version number
         schema:
-          type: integer
+          type: int64
       - name: latest
         in: query
         required: false
@@ -8999,7 +8999,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ApiErrorResponse'
-      x-anchore-authz-action: None
+      x-anchore-authz-action: listFeeds
       x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.system
     post:
       tags:
@@ -9038,8 +9038,7 @@ paths:
     put:
       tags:
         - System
-      deprecated: true
-      description: Deprecated - Disable the feed so that it does not sync on subsequent sync operations
+      description: Disable the feed so that it does not sync on subsequent sync operations
       operationId: toggle_feed_enabled
       parameters:
         - name: feed
@@ -9086,11 +9085,6 @@ paths:
           required: true
           schema:
             type: string
-            enum:
-              - vulnerability_db
-              - kev_db
-              - clamav_db
-              - epss_db
         - name: version
           in: query
           description: The version of the feed to query
@@ -9177,8 +9171,7 @@ paths:
     delete:
       tags:
       - System
-      deprecated: true
-      description: Deprecated - Delete the groups and data for the feed and disable the feed itself
+      description: Delete the groups and data for the feed and disable the feed itself
       operationId: delete_feed
       parameters:
       - name: feed
@@ -10379,12 +10372,12 @@ components:
           description: User that the integration instance sent the inventory report as
           example: admin
         batch_size:
-          type: integer
+          type: int64
           minimum: 1
           description: Number of batches that the inventory report was sent in
           example: 3
         last_successful_index:
-          type: integer
+          type: int64
           minimum: -1
           description: Index of last successfully sent batch, -1 if none were successful
           example: -1
@@ -10402,7 +10395,7 @@ components:
               - send_timestamp
             properties:
               batch_index:
-                type: integer
+                type: int64
                 minimum: 1
                 description: Index of the batch
                 example: 1
@@ -10603,7 +10596,7 @@ components:
       type: object
       properties:
         count:
-          type: integer
+          type: int64
           description: The number of rules for this account
         last_updated:
           type: string
@@ -10628,15 +10621,15 @@ components:
       type: object
       properties:
         total_image_count:
-          type: integer
+          type: int64
           description: The number of unique images (digests) in the archive
         total_tag_count:
-          type: integer
+          type: int64
           description: The number of tag records (registry/repo:tag pull strings)
             in the archive. This may include repeated tags but will always have a
             unique tag->digest mapping per record.
         total_data_bytes:
-          type: integer
+          type: int64
           description: The total sum of all the bytes stored to the backing storage.
             Accounts for anchore-applied compression, but not compression by the underlying
             storage system.
@@ -10658,10 +10651,10 @@ components:
           type: string
           description: Unique identifier for archive rule
         tag_versions_newer:
-          type: integer
+          type: int64
           description: Number of images mapped to the tag that are newer
         analysis_age_days:
-          type: integer
+          type: int64
           description: Matches if the analysis is strictly older than this number
             of days
         transition:
@@ -10686,7 +10679,7 @@ components:
         exclude:
           $ref: '#/components/schemas/AnalysisArchiveTransitionRuleExclude'
         max_images_per_account:
-          type: integer
+          type: int64
           description: This is the maximum number of image analyses an account can
             have. Can only be set on system_global rules
       description: A rule for auto-archiving image analysis by time and/or tag-history
@@ -10696,11 +10689,11 @@ components:
         selector:
           $ref: '#/components/schemas/ImageSelector'
         expiration_days:
-          type: integer
+          type: int64
           description: How long the image selected will be excluded from the archive
             transition
         last_seen_in_days:
-          type: integer
+          type: int64
           description: Exclude image from archive if last seen in inventory within
             defined number of days
       description: Which Images to exclude from auto-archiving logic
@@ -10848,11 +10841,11 @@ components:
         full_tag:
           type: string
         created_at:
-          type: integer
+          type: int64
         analyzed_at:
-          type: integer
+          type: int64
         tag_detected_at:
-          type: integer
+          type: int64
         image_status:
           type: string
       description: A unique image in the engine.
@@ -10864,29 +10857,29 @@ components:
           items:
             $ref: '#/components/schemas/AnchoreImageTagSummary'
         total_rows:
-          type: integer
+          type: int64
       description: a list of AnchoreImageTagSummary objects
     AnchoreImageSummaryCounts:
       type: object
       properties:
         tags:
-          type: integer
+          type: int64
         images:
-          type: integer
+          type: int64
         analyzed:
-          type: integer
+          type: int64
         analyzing:
-          type: integer
+          type: int64
         pending:
-          type: integer
+          type: int64
         failed:
-          type: integer
+          type: int64
       description: Analysis stats for a repo
     ApiErrorResponse:
       type: object
       properties:
         code:
-          type: integer
+          type: int64
           format: int32
         error_type:
           type: string
@@ -11101,7 +11094,7 @@ components:
           type: string
           format: date-time
         archive_size_bytes:
-          type: integer
+          type: int64
           description: The size, in bytes, of the analysis archive file
     ArtifactAssociationMetadata:
       type: object
@@ -11203,7 +11196,7 @@ components:
       properties:
         version:
           description: The version of these policy conditions.
-          type: integer
+          type: int64
           readOnly: true
         even_if_exists_in_runtime_inventory:
           description: Select an image even if it exists in the runtime inventory,
@@ -11211,9 +11204,9 @@ components:
           type: boolean
         days_since_analyzed:
           description: An image analysis must be this many days old before it will
-            be considered for processing. An integer value less than or equal to zero
+            be considered for processing. An int64 value less than or equal to zero
             will cause this field to be ignored.
-          type: integer
+          type: int64
         include_base_images:
           description: Include base images in the policy selection criteria.
           type: boolean
@@ -11411,7 +11404,7 @@ components:
             fail due to policy evaluation or denylisting or errors evaluating compliance
           example: policy_evaluation
         violations_count:
-          type: integer
+          type: int64
           description: Number of STOP action results in the compliance check report
       description: Alert raised by the system on a compliance check failure
     ComplianceViolationAlertList:
@@ -11903,10 +11896,10 @@ components:
           description: Boolean flag, True indicates there are more events and False
             otherwise
         item_count:
-          type: integer
+          type: int64
           description: Number of events in this page
         page:
-          type: integer
+          type: int64
           description: Page number of this result set
       description: Response envelope for paginated listing of events
     FeedDataRecords:
@@ -11963,7 +11956,7 @@ components:
           format: date-time
         record_count:
           description: The number of records in the group
-          type: integer
+          type: int64
         enabled:
           type: boolean
           description: If group is enabled
@@ -12047,7 +12040,7 @@ components:
         filename:
           type: string
         gid:
-          type: integer
+          type: int64
         linkdest:
           type: string
           nullable: true
@@ -12057,11 +12050,11 @@ components:
           type: string
           nullable: true
         size:
-          type: integer
+          type: int64
         type:
           type: string
         uid:
-          type: integer
+          type: int64
     GateSpec:
       type: object
       properties:
@@ -12124,12 +12117,12 @@ components:
           - success
           - failure
         updated_image_count:
-          type: integer
+          type: int64
           description: The number of images updated by the this group sync, across
             all accounts. This is typically only non-zero for vulnerability feeds
             which update images' vulnerability results during the sync.
         updated_record_count:
-          type: integer
+          type: int64
           description: The number of feed data records synced down as either updates
             or new records
         total_time_seconds:
@@ -12151,7 +12144,7 @@ components:
         type:
           $ref: '#/components/schemas/IntegrationType'
         version:
-          type: integer
+          type: int64
           description: Version of the health data schema
           example: 1
         errors:
@@ -12167,7 +12160,7 @@ components:
           additionalProperties:
             $ref: '#/components/schemas/AccountK8sInventoryReportInfo'
     HealthReportInterval:
-        type: integer
+        type: int64
         minimum: 30
         maximum: 600
         description: Interval (in seconds) between health reports
@@ -12189,7 +12182,7 @@ components:
           description: Universally unique identifier for this health report
           example: 740c06a3-4c69-4b91-8e85-154cd53e9764
         protocol_version:
-          type: integer
+          type: int64
           description: The version of the health report exchange protocol
           example: 1
         timestamp:
@@ -12316,10 +12309,10 @@ components:
                 - Guessed
                 - Actual
             image_size:
-              type: integer
+              type: int64
               description: The size of the image in bytes
             layer_count:
-              type: integer
+              type: int64
               description: The number of layers in the image
       description: A metadata content record for a specific image, containing different
         content type entries
@@ -12375,7 +12368,7 @@ components:
               display_name:
                 type: string
               count:
-                type: integer
+                type: int64
       description: A summary of the content types found in an image with counts
     ImageImportContentResponse:
       type: object
@@ -12689,13 +12682,13 @@ components:
         classification:
           type: string
         line_number:
-          type: integer
+          type: int64
         line_offset:
-          type: integer
+          type: int64
         seek_position:
-          type: integer
+          type: int64
         length:
-          type: integer
+          type: int64
     ImportDescriptor:
       required:
       - name
@@ -13878,7 +13871,7 @@ components:
       type: object
       properties:
         code:
-          type: integer
+          type: int64
           format: int32
         error_type:
           type: string
@@ -13900,9 +13893,9 @@ components:
         data_id:
           type: string
         created_at:
-          type: integer
+          type: int64
         last_updated:
-          type: integer
+          type: int64
         record_state_key:
           type: string
           default: active
@@ -13910,9 +13903,9 @@ components:
           type: string
           nullable: true
         tries:
-          type: integer
+          type: int64
         max_tries:
-          type: integer
+          type: int64
       description: base object for Notifications (every notification has this basic
         structure)
     NotificationEndpoint:
@@ -14021,7 +14014,7 @@ components:
             type: string
             description: Name of the repository to create issues against
           milestone:
-            type: integer
+            type: int64
             description: Number of the milestone to associate with the issue
           labels:
             type: array
@@ -14155,7 +14148,7 @@ components:
           host:
             type: string
           port:
-            type: integer
+            type: int64
           username:
             type: string
           password:
@@ -14377,7 +14370,7 @@ components:
         origin:
           type: string
         size:
-          type: integer
+          type: int64
         licenses:
           type: array
           items:
@@ -14553,7 +14546,7 @@ components:
           description: True if additional pages exist (page + 1) or False if this
             is the last page
         returned_count:
-          type: integer
+          type: int64
           description: The number of items sent in this response
       description: Properties for common pagination handling to be included in any
         wrapping object that needs pagination elements
@@ -14883,7 +14876,7 @@ components:
           - $ref: '#/components/schemas/NullType'
           - $ref: '#/components/schemas/MappingRule'
         number_of_findings:
-          type: integer
+          type: int64
           description: Number of policy findings in the response
     PolicyFindingAllowlistMatch:
       type: object
@@ -15005,7 +14998,7 @@ components:
       type: object
       properties:
         code:
-          type: integer
+          type: int64
           format: int32
         error_type:
           type: string
@@ -15178,7 +15171,7 @@ components:
             to provide the token for sso. This is the way to reach the rbac manager
             services /service/sso/auth/{IDP_name} route externally
         acs_https_port:
-          type: integer
+          type: int64
           description: The port number to use for https if not 443. If omitted or
             -1, 443 is assumed and used as a default
         idp_metadata_url:
@@ -15330,7 +15323,7 @@ components:
           type: array
           description: A list of line numbers in the file that matched the regex
           items:
-            type: integer
+            type: int64
       description: Match of a named regex on a file
     RegistryConfiguration:
       type: object
@@ -15489,7 +15482,7 @@ components:
       type: object
       properties:
         code:
-          type: integer
+          type: int64
           format: int32
         error_type:
           type: string
@@ -15733,7 +15726,7 @@ components:
               display_name:
                 type: string
               count:
-                type: integer
+                type: int64
       description: A summary of the content types found in a source with counts
     SourceContentPackageResponse:
       type: object
@@ -16010,7 +16003,7 @@ components:
           items:
             $ref: '#/components/schemas/SourcePolicyEvaluationFinding'
         number_of_findings:
-          type: integer
+          type: int64
           description: Number of policy findings in the response
         evaluation_time:
           type: string
@@ -16222,7 +16215,7 @@ components:
           items:
             oneOf:
               - type: string
-              - type: integer
+              - type: int64
               - type: object
                 properties: { }
     SystemConfigurationSchema:
@@ -16232,13 +16225,13 @@ components:
           type: boolean
           nullable: true
         decimal_places:
-          type: integer
+          type: int64
           nullable: true
         data_type:
           type: string
           enum:
           - string
-          - integer
+          - int64
           - number
           - boolean
           - null
@@ -16266,19 +16259,19 @@ components:
           type: number
           nullable: true
         max_digits:
-          type: integer
+          type: int64
           nullable: true
         max_items:
-          type: integer
+          type: int64
           nullable: true
         max_length:
-          type: integer
+          type: int64
           nullable: true
         min_items:
-          type: integer
+          type: int64
           nullable: true
         min_length:
-          type: integer
+          type: int64
           nullable: true
         multiple_of:
           type: number
@@ -16381,15 +16374,15 @@ components:
             - account_inventory
             - user_inventory
         warning_value:
-          type: integer
+          type: int64
           nullable: true
           description: The value at which a warning will be generated
         limit_value:
-          type: integer
+          type: int64
           nullable: true
           description: The value at which a limit will be enforced
         current_value:
-          type: integer
+          type: int64
           description: The current value of the resource
         limit_exceeded:
           type: boolean
@@ -16447,7 +16440,7 @@ components:
         value_type:
           type: string
         value:
-          type: integer
+          type: int64
     SystemStatisticsList:
       type: object
       properties:
@@ -16629,7 +16622,7 @@ components:
           items:
             $ref: "#/components/schemas/User"
         total_rows:
-          type: integer
+          type: int64
       description: a list of User objects
     User:
       required:

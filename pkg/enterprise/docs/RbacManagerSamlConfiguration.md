@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **Enabled** | **bool** | If this IDP configuration should be enabled for user logins | 
 **SpEntityId** | **string** | The entity ID for this SP. Can be the same for all IDP configurations in this installation or unique to each. This is typically a URL, but you can use any value as long as you also configure the IDP to expect this value. | 
 **AcsUrl** | **string** | The URL the IDP can use to access the Assertion Consumer Service to provide the token for sso. This is the way to reach the rbac manager services /service/sso/auth/{IDP_name} route externally | 
-**AcsHttpsPort** | Pointer to **int32** | The port number to use for https if not 443. If omitted or -1, 443 is assumed and used as a default | [optional] 
+**AcsHttpsPort** | Pointer to **int64** | The port number to use for https if not 443. If omitted or -1, 443 is assumed and used as a default | [optional] 
 **IdpMetadataUrl** | Pointer to **string** | The url where the SP (anchore) can retrieve the metadata about the Identity Provider. Only one of this or metadata_xml should be set. This is typically provided by the IDP. | [optional] 
 **IdpMetadataXml** | Pointer to **string** | The direct metadata xml payload, if a url is not available. Only one of this or metadata_url should be set. | [optional] 
 **IdpUsernameAttribute** | Pointer to **string** | The SAML attribute to use from the response assertions to determine the anchore username. If unset, the subject is used. | [optional] 
@@ -124,20 +124,20 @@ SetAcsUrl sets AcsUrl field to given value.
 
 ### GetAcsHttpsPort
 
-`func (o *RbacManagerSamlConfiguration) GetAcsHttpsPort() int32`
+`func (o *RbacManagerSamlConfiguration) GetAcsHttpsPort() int64`
 
 GetAcsHttpsPort returns the AcsHttpsPort field if non-nil, zero value otherwise.
 
 ### GetAcsHttpsPortOk
 
-`func (o *RbacManagerSamlConfiguration) GetAcsHttpsPortOk() (*int32, bool)`
+`func (o *RbacManagerSamlConfiguration) GetAcsHttpsPortOk() (*int64, bool)`
 
 GetAcsHttpsPortOk returns a tuple with the AcsHttpsPort field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetAcsHttpsPort
 
-`func (o *RbacManagerSamlConfiguration) SetAcsHttpsPort(v int32)`
+`func (o *RbacManagerSamlConfiguration) SetAcsHttpsPort(v int64)`
 
 SetAcsHttpsPort sets AcsHttpsPort field to given value.
 

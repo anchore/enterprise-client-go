@@ -59,11 +59,11 @@ type ApiGetGlobalQueryResultRequest struct {
 	ctx context.Context
 	ApiService ReportsAPI
 	resultUuid string
-	page *int32
+	page *int64
 }
 
 // Page number to fetch. If omitted, &#39;1&#39; is default. Page numbers start at 1
-func (r ApiGetGlobalQueryResultRequest) Page(page int32) ApiGetGlobalQueryResultRequest {
+func (r ApiGetGlobalQueryResultRequest) Page(page int64) ApiGetGlobalQueryResultRequest {
 	r.page = &page
 	return r
 }
@@ -161,11 +161,11 @@ type ApiGetQueryResultRequest struct {
 	ctx context.Context
 	ApiService ReportsAPI
 	resultUuid string
-	page *int32
+	page *int64
 }
 
 // Page number to fetch. If omitted, &#39;1&#39; is default. Page numbers start at 1
-func (r ApiGetQueryResultRequest) Page(page int32) ApiGetQueryResultRequest {
+func (r ApiGetQueryResultRequest) Page(page int64) ApiGetQueryResultRequest {
 	r.page = &page
 	return r
 }

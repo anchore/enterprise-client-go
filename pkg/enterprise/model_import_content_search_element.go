@@ -23,10 +23,10 @@ var _ MappedNullable = &ImportContentSearchElement{}
 // ImportContentSearchElement struct for ImportContentSearchElement
 type ImportContentSearchElement struct {
 	Classification string `json:"classification"`
-	LineNumber int32 `json:"line_number"`
-	LineOffset int32 `json:"line_offset"`
-	SeekPosition int32 `json:"seek_position"`
-	Length int32 `json:"length"`
+	LineNumber int64 `json:"line_number"`
+	LineOffset int64 `json:"line_offset"`
+	SeekPosition int64 `json:"seek_position"`
+	Length int64 `json:"length"`
 }
 
 type _ImportContentSearchElement ImportContentSearchElement
@@ -35,7 +35,7 @@ type _ImportContentSearchElement ImportContentSearchElement
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewImportContentSearchElement(classification string, lineNumber int32, lineOffset int32, seekPosition int32, length int32) *ImportContentSearchElement {
+func NewImportContentSearchElement(classification string, lineNumber int64, lineOffset int64, seekPosition int64, length int64) *ImportContentSearchElement {
 	this := ImportContentSearchElement{}
 	this.Classification = classification
 	this.LineNumber = lineNumber
@@ -78,9 +78,9 @@ func (o *ImportContentSearchElement) SetClassification(v string) {
 }
 
 // GetLineNumber returns the LineNumber field value
-func (o *ImportContentSearchElement) GetLineNumber() int32 {
+func (o *ImportContentSearchElement) GetLineNumber() int64 {
 	if o == nil {
-		var ret int32
+		var ret int64
 		return ret
 	}
 
@@ -89,7 +89,7 @@ func (o *ImportContentSearchElement) GetLineNumber() int32 {
 
 // GetLineNumberOk returns a tuple with the LineNumber field value
 // and a boolean to check if the value has been set.
-func (o *ImportContentSearchElement) GetLineNumberOk() (*int32, bool) {
+func (o *ImportContentSearchElement) GetLineNumberOk() (*int64, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -97,14 +97,14 @@ func (o *ImportContentSearchElement) GetLineNumberOk() (*int32, bool) {
 }
 
 // SetLineNumber sets field value
-func (o *ImportContentSearchElement) SetLineNumber(v int32) {
+func (o *ImportContentSearchElement) SetLineNumber(v int64) {
 	o.LineNumber = v
 }
 
 // GetLineOffset returns the LineOffset field value
-func (o *ImportContentSearchElement) GetLineOffset() int32 {
+func (o *ImportContentSearchElement) GetLineOffset() int64 {
 	if o == nil {
-		var ret int32
+		var ret int64
 		return ret
 	}
 
@@ -113,7 +113,7 @@ func (o *ImportContentSearchElement) GetLineOffset() int32 {
 
 // GetLineOffsetOk returns a tuple with the LineOffset field value
 // and a boolean to check if the value has been set.
-func (o *ImportContentSearchElement) GetLineOffsetOk() (*int32, bool) {
+func (o *ImportContentSearchElement) GetLineOffsetOk() (*int64, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -121,14 +121,14 @@ func (o *ImportContentSearchElement) GetLineOffsetOk() (*int32, bool) {
 }
 
 // SetLineOffset sets field value
-func (o *ImportContentSearchElement) SetLineOffset(v int32) {
+func (o *ImportContentSearchElement) SetLineOffset(v int64) {
 	o.LineOffset = v
 }
 
 // GetSeekPosition returns the SeekPosition field value
-func (o *ImportContentSearchElement) GetSeekPosition() int32 {
+func (o *ImportContentSearchElement) GetSeekPosition() int64 {
 	if o == nil {
-		var ret int32
+		var ret int64
 		return ret
 	}
 
@@ -137,7 +137,7 @@ func (o *ImportContentSearchElement) GetSeekPosition() int32 {
 
 // GetSeekPositionOk returns a tuple with the SeekPosition field value
 // and a boolean to check if the value has been set.
-func (o *ImportContentSearchElement) GetSeekPositionOk() (*int32, bool) {
+func (o *ImportContentSearchElement) GetSeekPositionOk() (*int64, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -145,14 +145,14 @@ func (o *ImportContentSearchElement) GetSeekPositionOk() (*int32, bool) {
 }
 
 // SetSeekPosition sets field value
-func (o *ImportContentSearchElement) SetSeekPosition(v int32) {
+func (o *ImportContentSearchElement) SetSeekPosition(v int64) {
 	o.SeekPosition = v
 }
 
 // GetLength returns the Length field value
-func (o *ImportContentSearchElement) GetLength() int32 {
+func (o *ImportContentSearchElement) GetLength() int64 {
 	if o == nil {
-		var ret int32
+		var ret int64
 		return ret
 	}
 
@@ -161,7 +161,7 @@ func (o *ImportContentSearchElement) GetLength() int32 {
 
 // GetLengthOk returns a tuple with the Length field value
 // and a boolean to check if the value has been set.
-func (o *ImportContentSearchElement) GetLengthOk() (*int32, bool) {
+func (o *ImportContentSearchElement) GetLengthOk() (*int64, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -169,7 +169,7 @@ func (o *ImportContentSearchElement) GetLengthOk() (*int32, bool) {
 }
 
 // SetLength sets field value
-func (o *ImportContentSearchElement) SetLength(v int32) {
+func (o *ImportContentSearchElement) SetLength(v int64) {
 	o.Length = v
 }
 

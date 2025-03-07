@@ -1784,8 +1784,8 @@ func main() {
 	orderBy := []string{"OrderBy_example"} // []string | List of field name(s) to order by, ascending by default (optional)
 	orderByDescending := []bool{false} // []bool | Configures the sort order of each specified order_by column to be descending (true) instead of ascending (false) (optional)
 	filter := "filter_example" // string | Filter by 'image_digest' or 'full_tag' fields, using partial or full string match (optional)
-	limit := int32(56) // int32 | Maximum number of rows to return (optional)
-	page := int32(56) // int32 | Page number to return, one's based (optional) (default to 1)
+	limit := TODO // int64 | Maximum number of rows to return (optional)
+	page := TODO // int64 | Page number to return, one's based (optional)
 	xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
 
 	configuration := openapiclient.NewConfiguration()
@@ -1821,8 +1821,8 @@ Name | Type | Description  | Notes
  **orderBy** | **[]string** | List of field name(s) to order by, ascending by default | 
  **orderByDescending** | **[]bool** | Configures the sort order of each specified order_by column to be descending (true) instead of ascending (false) | 
  **filter** | **string** | Filter by &#39;image_digest&#39; or &#39;full_tag&#39; fields, using partial or full string match | 
- **limit** | **int32** | Maximum number of rows to return | 
- **page** | **int32** | Page number to return, one&#39;s based | [default to 1]
+ **limit** | [**int64**](int64.md) | Maximum number of rows to return | 
+ **page** | [**int64**](int64.md) | Page number to return, one&#39;s based | 
  **xAnchoreAccount** | **string** | An account name to change the resource scope of the request to that account, if permissions allow (admin only) | 
 
 ### Return type

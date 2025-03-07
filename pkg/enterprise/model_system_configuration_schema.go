@@ -21,7 +21,7 @@ var _ MappedNullable = &SystemConfigurationSchema{}
 // SystemConfigurationSchema struct for SystemConfigurationSchema
 type SystemConfigurationSchema struct {
 	AllowInfNan NullableBool `json:"allow_inf_nan,omitempty"`
-	DecimalPlaces NullableInt32 `json:"decimal_places,omitempty"`
+	DecimalPlaces NullableInt64 `json:"decimal_places,omitempty"`
 	DataType *string `json:"data_type,omitempty"`
 	DefaultValue NullableSystemConfigurationValue `json:"default_value,omitempty"`
 	Enum []string `json:"enum,omitempty"`
@@ -30,11 +30,11 @@ type SystemConfigurationSchema struct {
 	IsArray NullableBool `json:"is_array,omitempty"`
 	Le NullableFloat32 `json:"le,omitempty"`
 	Lt NullableFloat32 `json:"lt,omitempty"`
-	MaxDigits NullableInt32 `json:"max_digits,omitempty"`
-	MaxItems NullableInt32 `json:"max_items,omitempty"`
-	MaxLength NullableInt32 `json:"max_length,omitempty"`
-	MinItems NullableInt32 `json:"min_items,omitempty"`
-	MinLength NullableInt32 `json:"min_length,omitempty"`
+	MaxDigits NullableInt64 `json:"max_digits,omitempty"`
+	MaxItems NullableInt64 `json:"max_items,omitempty"`
+	MaxLength NullableInt64 `json:"max_length,omitempty"`
+	MinItems NullableInt64 `json:"min_items,omitempty"`
+	MinLength NullableInt64 `json:"min_length,omitempty"`
 	MultipleOf NullableFloat32 `json:"multiple_of,omitempty"`
 	Regex NullableString `json:"regex,omitempty"`
 	UniqueItems NullableBool `json:"unique_items,omitempty"`
@@ -100,9 +100,9 @@ func (o *SystemConfigurationSchema) UnsetAllowInfNan() {
 }
 
 // GetDecimalPlaces returns the DecimalPlaces field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *SystemConfigurationSchema) GetDecimalPlaces() int32 {
+func (o *SystemConfigurationSchema) GetDecimalPlaces() int64 {
 	if o == nil || IsNil(o.DecimalPlaces.Get()) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.DecimalPlaces.Get()
@@ -111,7 +111,7 @@ func (o *SystemConfigurationSchema) GetDecimalPlaces() int32 {
 // GetDecimalPlacesOk returns a tuple with the DecimalPlaces field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *SystemConfigurationSchema) GetDecimalPlacesOk() (*int32, bool) {
+func (o *SystemConfigurationSchema) GetDecimalPlacesOk() (*int64, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -127,8 +127,8 @@ func (o *SystemConfigurationSchema) HasDecimalPlaces() bool {
 	return false
 }
 
-// SetDecimalPlaces gets a reference to the given NullableInt32 and assigns it to the DecimalPlaces field.
-func (o *SystemConfigurationSchema) SetDecimalPlaces(v int32) {
+// SetDecimalPlaces gets a reference to the given NullableInt64 and assigns it to the DecimalPlaces field.
+func (o *SystemConfigurationSchema) SetDecimalPlaces(v int64) {
 	o.DecimalPlaces.Set(&v)
 }
 // SetDecimalPlacesNil sets the value for DecimalPlaces to be an explicit nil
@@ -459,9 +459,9 @@ func (o *SystemConfigurationSchema) UnsetLt() {
 }
 
 // GetMaxDigits returns the MaxDigits field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *SystemConfigurationSchema) GetMaxDigits() int32 {
+func (o *SystemConfigurationSchema) GetMaxDigits() int64 {
 	if o == nil || IsNil(o.MaxDigits.Get()) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.MaxDigits.Get()
@@ -470,7 +470,7 @@ func (o *SystemConfigurationSchema) GetMaxDigits() int32 {
 // GetMaxDigitsOk returns a tuple with the MaxDigits field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *SystemConfigurationSchema) GetMaxDigitsOk() (*int32, bool) {
+func (o *SystemConfigurationSchema) GetMaxDigitsOk() (*int64, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -486,8 +486,8 @@ func (o *SystemConfigurationSchema) HasMaxDigits() bool {
 	return false
 }
 
-// SetMaxDigits gets a reference to the given NullableInt32 and assigns it to the MaxDigits field.
-func (o *SystemConfigurationSchema) SetMaxDigits(v int32) {
+// SetMaxDigits gets a reference to the given NullableInt64 and assigns it to the MaxDigits field.
+func (o *SystemConfigurationSchema) SetMaxDigits(v int64) {
 	o.MaxDigits.Set(&v)
 }
 // SetMaxDigitsNil sets the value for MaxDigits to be an explicit nil
@@ -501,9 +501,9 @@ func (o *SystemConfigurationSchema) UnsetMaxDigits() {
 }
 
 // GetMaxItems returns the MaxItems field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *SystemConfigurationSchema) GetMaxItems() int32 {
+func (o *SystemConfigurationSchema) GetMaxItems() int64 {
 	if o == nil || IsNil(o.MaxItems.Get()) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.MaxItems.Get()
@@ -512,7 +512,7 @@ func (o *SystemConfigurationSchema) GetMaxItems() int32 {
 // GetMaxItemsOk returns a tuple with the MaxItems field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *SystemConfigurationSchema) GetMaxItemsOk() (*int32, bool) {
+func (o *SystemConfigurationSchema) GetMaxItemsOk() (*int64, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -528,8 +528,8 @@ func (o *SystemConfigurationSchema) HasMaxItems() bool {
 	return false
 }
 
-// SetMaxItems gets a reference to the given NullableInt32 and assigns it to the MaxItems field.
-func (o *SystemConfigurationSchema) SetMaxItems(v int32) {
+// SetMaxItems gets a reference to the given NullableInt64 and assigns it to the MaxItems field.
+func (o *SystemConfigurationSchema) SetMaxItems(v int64) {
 	o.MaxItems.Set(&v)
 }
 // SetMaxItemsNil sets the value for MaxItems to be an explicit nil
@@ -543,9 +543,9 @@ func (o *SystemConfigurationSchema) UnsetMaxItems() {
 }
 
 // GetMaxLength returns the MaxLength field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *SystemConfigurationSchema) GetMaxLength() int32 {
+func (o *SystemConfigurationSchema) GetMaxLength() int64 {
 	if o == nil || IsNil(o.MaxLength.Get()) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.MaxLength.Get()
@@ -554,7 +554,7 @@ func (o *SystemConfigurationSchema) GetMaxLength() int32 {
 // GetMaxLengthOk returns a tuple with the MaxLength field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *SystemConfigurationSchema) GetMaxLengthOk() (*int32, bool) {
+func (o *SystemConfigurationSchema) GetMaxLengthOk() (*int64, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -570,8 +570,8 @@ func (o *SystemConfigurationSchema) HasMaxLength() bool {
 	return false
 }
 
-// SetMaxLength gets a reference to the given NullableInt32 and assigns it to the MaxLength field.
-func (o *SystemConfigurationSchema) SetMaxLength(v int32) {
+// SetMaxLength gets a reference to the given NullableInt64 and assigns it to the MaxLength field.
+func (o *SystemConfigurationSchema) SetMaxLength(v int64) {
 	o.MaxLength.Set(&v)
 }
 // SetMaxLengthNil sets the value for MaxLength to be an explicit nil
@@ -585,9 +585,9 @@ func (o *SystemConfigurationSchema) UnsetMaxLength() {
 }
 
 // GetMinItems returns the MinItems field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *SystemConfigurationSchema) GetMinItems() int32 {
+func (o *SystemConfigurationSchema) GetMinItems() int64 {
 	if o == nil || IsNil(o.MinItems.Get()) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.MinItems.Get()
@@ -596,7 +596,7 @@ func (o *SystemConfigurationSchema) GetMinItems() int32 {
 // GetMinItemsOk returns a tuple with the MinItems field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *SystemConfigurationSchema) GetMinItemsOk() (*int32, bool) {
+func (o *SystemConfigurationSchema) GetMinItemsOk() (*int64, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -612,8 +612,8 @@ func (o *SystemConfigurationSchema) HasMinItems() bool {
 	return false
 }
 
-// SetMinItems gets a reference to the given NullableInt32 and assigns it to the MinItems field.
-func (o *SystemConfigurationSchema) SetMinItems(v int32) {
+// SetMinItems gets a reference to the given NullableInt64 and assigns it to the MinItems field.
+func (o *SystemConfigurationSchema) SetMinItems(v int64) {
 	o.MinItems.Set(&v)
 }
 // SetMinItemsNil sets the value for MinItems to be an explicit nil
@@ -627,9 +627,9 @@ func (o *SystemConfigurationSchema) UnsetMinItems() {
 }
 
 // GetMinLength returns the MinLength field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *SystemConfigurationSchema) GetMinLength() int32 {
+func (o *SystemConfigurationSchema) GetMinLength() int64 {
 	if o == nil || IsNil(o.MinLength.Get()) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.MinLength.Get()
@@ -638,7 +638,7 @@ func (o *SystemConfigurationSchema) GetMinLength() int32 {
 // GetMinLengthOk returns a tuple with the MinLength field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *SystemConfigurationSchema) GetMinLengthOk() (*int32, bool) {
+func (o *SystemConfigurationSchema) GetMinLengthOk() (*int64, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -654,8 +654,8 @@ func (o *SystemConfigurationSchema) HasMinLength() bool {
 	return false
 }
 
-// SetMinLength gets a reference to the given NullableInt32 and assigns it to the MinLength field.
-func (o *SystemConfigurationSchema) SetMinLength(v int32) {
+// SetMinLength gets a reference to the given NullableInt64 and assigns it to the MinLength field.
+func (o *SystemConfigurationSchema) SetMinLength(v int64) {
 	o.MinLength.Set(&v)
 }
 // SetMinLengthNil sets the value for MinLength to be an explicit nil

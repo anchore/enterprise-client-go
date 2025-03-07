@@ -316,8 +316,8 @@ func main() {
 	level := "level_example" // string | Filter events by the level - INFO or ERROR (optional)
 	since := "since_example" // string | Return events that occurred after the timestamp (optional)
 	before := "before_example" // string | Return events that occurred before the timestamp (optional)
-	page := int32(56) // int32 | Pagination controls - return the nth page of results. Defaults to first page if left empty (optional) (default to 1)
-	limit := int32(56) // int32 | Number of events in the result set. Defaults to 100 if left empty (optional) (default to 100)
+	page := TODO // int64 | Pagination controls - return the nth page of results. Defaults to first page if left empty (optional)
+	limit := TODO // int64 | Number of events in the result set. Defaults to 100 if left empty (optional)
 	xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
 
 	configuration := openapiclient.NewConfiguration()
@@ -351,8 +351,8 @@ Name | Type | Description  | Notes
  **level** | **string** | Filter events by the level - INFO or ERROR | 
  **since** | **string** | Return events that occurred after the timestamp | 
  **before** | **string** | Return events that occurred before the timestamp | 
- **page** | **int32** | Pagination controls - return the nth page of results. Defaults to first page if left empty | [default to 1]
- **limit** | **int32** | Number of events in the result set. Defaults to 100 if left empty | [default to 100]
+ **page** | [**int64**](int64.md) | Pagination controls - return the nth page of results. Defaults to first page if left empty | 
+ **limit** | [**int64**](int64.md) | Number of events in the result set. Defaults to 100 if left empty | 
  **xAnchoreAccount** | **string** | An account name to change the resource scope of the request to that account, if permissions allow (admin only) | 
 
 ### Return type

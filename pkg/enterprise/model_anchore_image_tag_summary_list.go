@@ -21,7 +21,7 @@ var _ MappedNullable = &AnchoreImageTagSummaryList{}
 // AnchoreImageTagSummaryList a list of AnchoreImageTagSummary objects
 type AnchoreImageTagSummaryList struct {
 	Items []AnchoreImageTagSummary `json:"items,omitempty"`
-	TotalRows *int32 `json:"total_rows,omitempty"`
+	TotalRows *int64 `json:"total_rows,omitempty"`
 }
 
 // NewAnchoreImageTagSummaryList instantiates a new AnchoreImageTagSummaryList object
@@ -74,9 +74,9 @@ func (o *AnchoreImageTagSummaryList) SetItems(v []AnchoreImageTagSummary) {
 }
 
 // GetTotalRows returns the TotalRows field value if set, zero value otherwise.
-func (o *AnchoreImageTagSummaryList) GetTotalRows() int32 {
+func (o *AnchoreImageTagSummaryList) GetTotalRows() int64 {
 	if o == nil || IsNil(o.TotalRows) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.TotalRows
@@ -84,7 +84,7 @@ func (o *AnchoreImageTagSummaryList) GetTotalRows() int32 {
 
 // GetTotalRowsOk returns a tuple with the TotalRows field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AnchoreImageTagSummaryList) GetTotalRowsOk() (*int32, bool) {
+func (o *AnchoreImageTagSummaryList) GetTotalRowsOk() (*int64, bool) {
 	if o == nil || IsNil(o.TotalRows) {
 		return nil, false
 	}
@@ -100,8 +100,8 @@ func (o *AnchoreImageTagSummaryList) HasTotalRows() bool {
 	return false
 }
 
-// SetTotalRows gets a reference to the given int32 and assigns it to the TotalRows field.
-func (o *AnchoreImageTagSummaryList) SetTotalRows(v int32) {
+// SetTotalRows gets a reference to the given int64 and assigns it to the TotalRows field.
+func (o *AnchoreImageTagSummaryList) SetTotalRows(v int64) {
 	o.TotalRows = &v
 }
 

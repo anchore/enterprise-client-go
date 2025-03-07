@@ -35,7 +35,7 @@ type ArchivedAnalysis struct {
 	LastUpdated *time.Time `json:"last_updated,omitempty"`
 	AnalyzedAt *time.Time `json:"analyzed_at,omitempty"`
 	// The size, in bytes, of the analysis archive file
-	ArchiveSizeBytes *int32 `json:"archive_size_bytes,omitempty"`
+	ArchiveSizeBytes *int64 `json:"archive_size_bytes,omitempty"`
 }
 
 // NewArchivedAnalysis instantiates a new ArchivedAnalysis object
@@ -312,9 +312,9 @@ func (o *ArchivedAnalysis) SetAnalyzedAt(v time.Time) {
 }
 
 // GetArchiveSizeBytes returns the ArchiveSizeBytes field value if set, zero value otherwise.
-func (o *ArchivedAnalysis) GetArchiveSizeBytes() int32 {
+func (o *ArchivedAnalysis) GetArchiveSizeBytes() int64 {
 	if o == nil || IsNil(o.ArchiveSizeBytes) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.ArchiveSizeBytes
@@ -322,7 +322,7 @@ func (o *ArchivedAnalysis) GetArchiveSizeBytes() int32 {
 
 // GetArchiveSizeBytesOk returns a tuple with the ArchiveSizeBytes field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ArchivedAnalysis) GetArchiveSizeBytesOk() (*int32, bool) {
+func (o *ArchivedAnalysis) GetArchiveSizeBytesOk() (*int64, bool) {
 	if o == nil || IsNil(o.ArchiveSizeBytes) {
 		return nil, false
 	}
@@ -338,8 +338,8 @@ func (o *ArchivedAnalysis) HasArchiveSizeBytes() bool {
 	return false
 }
 
-// SetArchiveSizeBytes gets a reference to the given int32 and assigns it to the ArchiveSizeBytes field.
-func (o *ArchivedAnalysis) SetArchiveSizeBytes(v int32) {
+// SetArchiveSizeBytes gets a reference to the given int64 and assigns it to the ArchiveSizeBytes field.
+func (o *ArchivedAnalysis) SetArchiveSizeBytes(v int64) {
 	o.ArchiveSizeBytes = &v
 }
 

@@ -25,9 +25,9 @@ type AnchoreImageTagSummary struct {
 	ImageId *string `json:"image_id,omitempty"`
 	AnalysisStatus *string `json:"analysis_status,omitempty"`
 	FullTag *string `json:"full_tag,omitempty"`
-	CreatedAt *int32 `json:"created_at,omitempty"`
-	AnalyzedAt *int32 `json:"analyzed_at,omitempty"`
-	TagDetectedAt *int32 `json:"tag_detected_at,omitempty"`
+	CreatedAt *int64 `json:"created_at,omitempty"`
+	AnalyzedAt *int64 `json:"analyzed_at,omitempty"`
+	TagDetectedAt *int64 `json:"tag_detected_at,omitempty"`
 	ImageStatus *string `json:"image_status,omitempty"`
 }
 
@@ -209,9 +209,9 @@ func (o *AnchoreImageTagSummary) SetFullTag(v string) {
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
-func (o *AnchoreImageTagSummary) GetCreatedAt() int32 {
+func (o *AnchoreImageTagSummary) GetCreatedAt() int64 {
 	if o == nil || IsNil(o.CreatedAt) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.CreatedAt
@@ -219,7 +219,7 @@ func (o *AnchoreImageTagSummary) GetCreatedAt() int32 {
 
 // GetCreatedAtOk returns a tuple with the CreatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AnchoreImageTagSummary) GetCreatedAtOk() (*int32, bool) {
+func (o *AnchoreImageTagSummary) GetCreatedAtOk() (*int64, bool) {
 	if o == nil || IsNil(o.CreatedAt) {
 		return nil, false
 	}
@@ -235,15 +235,15 @@ func (o *AnchoreImageTagSummary) HasCreatedAt() bool {
 	return false
 }
 
-// SetCreatedAt gets a reference to the given int32 and assigns it to the CreatedAt field.
-func (o *AnchoreImageTagSummary) SetCreatedAt(v int32) {
+// SetCreatedAt gets a reference to the given int64 and assigns it to the CreatedAt field.
+func (o *AnchoreImageTagSummary) SetCreatedAt(v int64) {
 	o.CreatedAt = &v
 }
 
 // GetAnalyzedAt returns the AnalyzedAt field value if set, zero value otherwise.
-func (o *AnchoreImageTagSummary) GetAnalyzedAt() int32 {
+func (o *AnchoreImageTagSummary) GetAnalyzedAt() int64 {
 	if o == nil || IsNil(o.AnalyzedAt) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.AnalyzedAt
@@ -251,7 +251,7 @@ func (o *AnchoreImageTagSummary) GetAnalyzedAt() int32 {
 
 // GetAnalyzedAtOk returns a tuple with the AnalyzedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AnchoreImageTagSummary) GetAnalyzedAtOk() (*int32, bool) {
+func (o *AnchoreImageTagSummary) GetAnalyzedAtOk() (*int64, bool) {
 	if o == nil || IsNil(o.AnalyzedAt) {
 		return nil, false
 	}
@@ -267,15 +267,15 @@ func (o *AnchoreImageTagSummary) HasAnalyzedAt() bool {
 	return false
 }
 
-// SetAnalyzedAt gets a reference to the given int32 and assigns it to the AnalyzedAt field.
-func (o *AnchoreImageTagSummary) SetAnalyzedAt(v int32) {
+// SetAnalyzedAt gets a reference to the given int64 and assigns it to the AnalyzedAt field.
+func (o *AnchoreImageTagSummary) SetAnalyzedAt(v int64) {
 	o.AnalyzedAt = &v
 }
 
 // GetTagDetectedAt returns the TagDetectedAt field value if set, zero value otherwise.
-func (o *AnchoreImageTagSummary) GetTagDetectedAt() int32 {
+func (o *AnchoreImageTagSummary) GetTagDetectedAt() int64 {
 	if o == nil || IsNil(o.TagDetectedAt) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.TagDetectedAt
@@ -283,7 +283,7 @@ func (o *AnchoreImageTagSummary) GetTagDetectedAt() int32 {
 
 // GetTagDetectedAtOk returns a tuple with the TagDetectedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AnchoreImageTagSummary) GetTagDetectedAtOk() (*int32, bool) {
+func (o *AnchoreImageTagSummary) GetTagDetectedAtOk() (*int64, bool) {
 	if o == nil || IsNil(o.TagDetectedAt) {
 		return nil, false
 	}
@@ -299,8 +299,8 @@ func (o *AnchoreImageTagSummary) HasTagDetectedAt() bool {
 	return false
 }
 
-// SetTagDetectedAt gets a reference to the given int32 and assigns it to the TagDetectedAt field.
-func (o *AnchoreImageTagSummary) SetTagDetectedAt(v int32) {
+// SetTagDetectedAt gets a reference to the given int64 and assigns it to the TagDetectedAt field.
+func (o *AnchoreImageTagSummary) SetTagDetectedAt(v int64) {
 	o.TagDetectedAt = &v
 }
 

@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **CreatedAt** | Pointer to **time.Time** | Timestamp for last modification to the record | [optional] 
 **LastUpdated** | Pointer to **time.Time** | Timestamp for last modification to the record | [optional] 
 **Host** | **string** |  | 
-**Port** | **int32** |  | 
+**Port** | **int64** |  | 
 **Username** | Pointer to **string** |  | [optional] 
 **Password** | Pointer to **string** |  | [optional] 
 **UseTls** | Pointer to **bool** | Encrypt the SMTP connection with TLS. Defaults to true | [optional] 
@@ -21,7 +21,7 @@ Name | Type | Description | Notes
 
 ### NewNotificationSMTPEndpointConfiguration
 
-`func NewNotificationSMTPEndpointConfiguration(host string, port int32, from string, to string, ) *NotificationSMTPEndpointConfiguration`
+`func NewNotificationSMTPEndpointConfiguration(host string, port int64, from string, to string, ) *NotificationSMTPEndpointConfiguration`
 
 NewNotificationSMTPEndpointConfiguration instantiates a new NotificationSMTPEndpointConfiguration object
 This constructor will assign default values to properties that have it defined,
@@ -183,20 +183,20 @@ SetHost sets Host field to given value.
 
 ### GetPort
 
-`func (o *NotificationSMTPEndpointConfiguration) GetPort() int32`
+`func (o *NotificationSMTPEndpointConfiguration) GetPort() int64`
 
 GetPort returns the Port field if non-nil, zero value otherwise.
 
 ### GetPortOk
 
-`func (o *NotificationSMTPEndpointConfiguration) GetPortOk() (*int32, bool)`
+`func (o *NotificationSMTPEndpointConfiguration) GetPortOk() (*int64, bool)`
 
 GetPortOk returns a tuple with the Port field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetPort
 
-`func (o *NotificationSMTPEndpointConfiguration) SetPort(v int32)`
+`func (o *NotificationSMTPEndpointConfiguration) SetPort(v int64)`
 
 SetPort sets Port field to given value.
 

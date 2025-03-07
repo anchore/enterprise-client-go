@@ -61,7 +61,7 @@ type ApiQueryImagesByPackageRequest struct {
 	packageType *string
 	version *string
 	page *string
-	limit *int32
+	limit *int64
 	xAnchoreAccount *string
 }
 
@@ -90,7 +90,7 @@ func (r ApiQueryImagesByPackageRequest) Page(page string) ApiQueryImagesByPackag
 }
 
 // Limit the number of records for the requested page. If omitted or set to 0, return all results in a single page
-func (r ApiQueryImagesByPackageRequest) Limit(limit int32) ApiQueryImagesByPackageRequest {
+func (r ApiQueryImagesByPackageRequest) Limit(limit int64) ApiQueryImagesByPackageRequest {
 	r.limit = &limit
 	return r
 }
@@ -231,7 +231,7 @@ type ApiQueryVulnerabilitiesRequest struct {
 	affectedPackage *string
 	affectedPackageVersion *string
 	page *string
-	limit *int32
+	limit *int64
 	namespace *[]string
 }
 
@@ -260,7 +260,7 @@ func (r ApiQueryVulnerabilitiesRequest) Page(page string) ApiQueryVulnerabilitie
 }
 
 // Limit the number of records for the requested page. If omitted or set to 0, return all results in a single page
-func (r ApiQueryVulnerabilitiesRequest) Limit(limit int32) ApiQueryVulnerabilitiesRequest {
+func (r ApiQueryVulnerabilitiesRequest) Limit(limit int64) ApiQueryVulnerabilitiesRequest {
 	r.limit = &limit
 	return r
 }

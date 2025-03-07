@@ -42,7 +42,7 @@ type NotificationGitHubEndpointConfigurationBase struct {
 	// Name of the repository to create issues against
 	Repository *string `json:"repository,omitempty"`
 	// Number of the milestone to associate with the issue
-	Milestone *int32 `json:"milestone,omitempty"`
+	Milestone *int64 `json:"milestone,omitempty"`
 	// List of labels to associate with the issue
 	Labels []string `json:"labels,omitempty"`
 	// List of user logins to assign to the issue.
@@ -387,9 +387,9 @@ func (o *NotificationGitHubEndpointConfigurationBase) SetRepository(v string) {
 }
 
 // GetMilestone returns the Milestone field value if set, zero value otherwise.
-func (o *NotificationGitHubEndpointConfigurationBase) GetMilestone() int32 {
+func (o *NotificationGitHubEndpointConfigurationBase) GetMilestone() int64 {
 	if o == nil || IsNil(o.Milestone) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Milestone
@@ -397,7 +397,7 @@ func (o *NotificationGitHubEndpointConfigurationBase) GetMilestone() int32 {
 
 // GetMilestoneOk returns a tuple with the Milestone field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *NotificationGitHubEndpointConfigurationBase) GetMilestoneOk() (*int32, bool) {
+func (o *NotificationGitHubEndpointConfigurationBase) GetMilestoneOk() (*int64, bool) {
 	if o == nil || IsNil(o.Milestone) {
 		return nil, false
 	}
@@ -413,8 +413,8 @@ func (o *NotificationGitHubEndpointConfigurationBase) HasMilestone() bool {
 	return false
 }
 
-// SetMilestone gets a reference to the given int32 and assigns it to the Milestone field.
-func (o *NotificationGitHubEndpointConfigurationBase) SetMilestone(v int32) {
+// SetMilestone gets a reference to the given int64 and assigns it to the Milestone field.
+func (o *NotificationGitHubEndpointConfigurationBase) SetMilestone(v int64) {
 	o.Milestone = &v
 }
 

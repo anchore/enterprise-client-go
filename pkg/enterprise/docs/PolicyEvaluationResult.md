@@ -17,13 +17,13 @@ Name | Type | Description | Notes
 **MatchedDenylistedImagesRule** | Pointer to [**NullableImageSelectionRule**](ImageSelectionRule.md) |  | [optional] 
 **ImageMappedToRule** | **bool** | Whether the evaluated image matched a policy rule | 
 **MatchedMappingRule** | Pointer to [**NullableMappingRule**](MappingRule.md) |  | [optional] 
-**NumberOfFindings** | **int32** | Number of policy findings in the response | 
+**NumberOfFindings** | **int64** | Number of policy findings in the response | 
 
 ## Methods
 
 ### NewPolicyEvaluationResult
 
-`func NewPolicyEvaluationResult(evaluationTime time.Time, evaluationProblems []PolicyEvaluationProblem, status string, finalAction string, finalActionReason string, imageAllowlisted bool, imageDenylisted bool, imageMappedToRule bool, numberOfFindings int32, ) *PolicyEvaluationResult`
+`func NewPolicyEvaluationResult(evaluationTime time.Time, evaluationProblems []PolicyEvaluationProblem, status string, finalAction string, finalActionReason string, imageAllowlisted bool, imageDenylisted bool, imageMappedToRule bool, numberOfFindings int64, ) *PolicyEvaluationResult`
 
 NewPolicyEvaluationResult instantiates a new PolicyEvaluationResult object
 This constructor will assign default values to properties that have it defined,
@@ -375,20 +375,20 @@ HasMatchedMappingRule returns a boolean if a field has been set.
 UnsetMatchedMappingRule ensures that no value is present for MatchedMappingRule, not even an explicit nil
 ### GetNumberOfFindings
 
-`func (o *PolicyEvaluationResult) GetNumberOfFindings() int32`
+`func (o *PolicyEvaluationResult) GetNumberOfFindings() int64`
 
 GetNumberOfFindings returns the NumberOfFindings field if non-nil, zero value otherwise.
 
 ### GetNumberOfFindingsOk
 
-`func (o *PolicyEvaluationResult) GetNumberOfFindingsOk() (*int32, bool)`
+`func (o *PolicyEvaluationResult) GetNumberOfFindingsOk() (*int64, bool)`
 
 GetNumberOfFindingsOk returns a tuple with the NumberOfFindings field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetNumberOfFindings
 
-`func (o *PolicyEvaluationResult) SetNumberOfFindings(v int32)`
+`func (o *PolicyEvaluationResult) SetNumberOfFindings(v int64)`
 
 SetNumberOfFindings sets NumberOfFindings field to given value.
 

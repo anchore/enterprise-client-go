@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Code** | Pointer to **int32** |  | [optional] 
+**Code** | Pointer to **int64** |  | [optional] 
 **ErrorType** | Pointer to **string** |  | [optional] 
 **Message** | Pointer to **string** |  | [optional] 
 **Detail** | Pointer to **interface{}** | Details structure for additional information about the error if available. Content and structure will be error specific. | [optional] 
@@ -30,20 +30,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetCode
 
-`func (o *RbacManagerApiErrorResponse) GetCode() int32`
+`func (o *RbacManagerApiErrorResponse) GetCode() int64`
 
 GetCode returns the Code field if non-nil, zero value otherwise.
 
 ### GetCodeOk
 
-`func (o *RbacManagerApiErrorResponse) GetCodeOk() (*int32, bool)`
+`func (o *RbacManagerApiErrorResponse) GetCodeOk() (*int64, bool)`
 
 GetCodeOk returns a tuple with the Code field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCode
 
-`func (o *RbacManagerApiErrorResponse) SetCode(v int32)`
+`func (o *RbacManagerApiErrorResponse) SetCode(v int64)`
 
 SetCode sets Code field to given value.
 

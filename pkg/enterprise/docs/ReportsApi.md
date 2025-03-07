@@ -31,7 +31,7 @@ import (
 
 func main() {
 	resultUuid := "resultUuid_example" // string | 
-	page := int32(56) // int32 | Page number to fetch. If omitted, '1' is default. Page numbers start at 1 (optional)
+	page := TODO // int64 | Page number to fetch. If omitted, '1' is default. Page numbers start at 1 (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -59,7 +59,7 @@ Other parameters are passed through a pointer to a apiGetGlobalQueryResultReques
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **page** | **int32** | Page number to fetch. If omitted, &#39;1&#39; is default. Page numbers start at 1 | 
+ **page** | [**int64**](int64.md) | Page number to fetch. If omitted, &#39;1&#39; is default. Page numbers start at 1 | 
 
 ### Return type
 
@@ -101,7 +101,7 @@ import (
 
 func main() {
 	resultUuid := "resultUuid_example" // string | 
-	page := int32(56) // int32 | Page number to fetch. If omitted, '1' is default. Page numbers start at 1 (optional)
+	page := TODO // int64 | Page number to fetch. If omitted, '1' is default. Page numbers start at 1 (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -129,7 +129,7 @@ Other parameters are passed through a pointer to a apiGetQueryResultRequest stru
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **page** | **int32** | Page number to fetch. If omitted, &#39;1&#39; is default. Page numbers start at 1 | 
+ **page** | [**int64**](int64.md) | Page number to fetch. If omitted, &#39;1&#39; is default. Page numbers start at 1 | 
 
 ### Return type
 

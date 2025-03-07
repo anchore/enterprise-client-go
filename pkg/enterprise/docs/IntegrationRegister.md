@@ -18,13 +18,13 @@ Name | Type | Description | Notes
 **Configuration** | Pointer to **interface{}** | Configuration of the integration instance | [optional] 
 **ClusterName** | Pointer to **string** | Name of cluster where the integration instance runs | [optional] 
 **Namespace** | Pointer to **string** | Namespace in which the integration instance runs | [optional] 
-**HealthReportInterval** | **int32** | Interval (in seconds) between health reports | 
+**HealthReportInterval** | **int64** | Interval (in seconds) between health reports | 
 
 ## Methods
 
 ### NewIntegrationRegister
 
-`func NewIntegrationRegister(registrationId string, registrationInstanceId string, type_ IntegrationType, username string, healthReportInterval int32, ) *IntegrationRegister`
+`func NewIntegrationRegister(registrationId string, registrationInstanceId string, type_ IntegrationType, username string, healthReportInterval int64, ) *IntegrationRegister`
 
 NewIntegrationRegister instantiates a new IntegrationRegister object
 This constructor will assign default values to properties that have it defined,
@@ -371,20 +371,20 @@ HasNamespace returns a boolean if a field has been set.
 
 ### GetHealthReportInterval
 
-`func (o *IntegrationRegister) GetHealthReportInterval() int32`
+`func (o *IntegrationRegister) GetHealthReportInterval() int64`
 
 GetHealthReportInterval returns the HealthReportInterval field if non-nil, zero value otherwise.
 
 ### GetHealthReportIntervalOk
 
-`func (o *IntegrationRegister) GetHealthReportIntervalOk() (*int32, bool)`
+`func (o *IntegrationRegister) GetHealthReportIntervalOk() (*int64, bool)`
 
 GetHealthReportIntervalOk returns a tuple with the HealthReportInterval field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetHealthReportInterval
 
-`func (o *IntegrationRegister) SetHealthReportInterval(v int32)`
+`func (o *IntegrationRegister) SetHealthReportInterval(v int64)`
 
 SetHealthReportInterval sets HealthReportInterval field to given value.
 

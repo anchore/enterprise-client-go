@@ -6,8 +6,8 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Group** | Pointer to **string** | The name of the group | [optional] 
 **Status** | Pointer to **string** |  | [optional] 
-**UpdatedImageCount** | Pointer to **int32** | The number of images updated by the this group sync, across all accounts. This is typically only non-zero for vulnerability feeds which update images&#39; vulnerability results during the sync. | [optional] 
-**UpdatedRecordCount** | Pointer to **int32** | The number of feed data records synced down as either updates or new records | [optional] 
+**UpdatedImageCount** | Pointer to **int64** | The number of images updated by the this group sync, across all accounts. This is typically only non-zero for vulnerability feeds which update images&#39; vulnerability results during the sync. | [optional] 
+**UpdatedRecordCount** | Pointer to **int64** | The number of feed data records synced down as either updates or new records | [optional] 
 **TotalTimeSeconds** | Pointer to **float32** | The duration of the group sync in seconds | [optional] 
 
 ## Methods
@@ -81,20 +81,20 @@ HasStatus returns a boolean if a field has been set.
 
 ### GetUpdatedImageCount
 
-`func (o *GroupSyncResult) GetUpdatedImageCount() int32`
+`func (o *GroupSyncResult) GetUpdatedImageCount() int64`
 
 GetUpdatedImageCount returns the UpdatedImageCount field if non-nil, zero value otherwise.
 
 ### GetUpdatedImageCountOk
 
-`func (o *GroupSyncResult) GetUpdatedImageCountOk() (*int32, bool)`
+`func (o *GroupSyncResult) GetUpdatedImageCountOk() (*int64, bool)`
 
 GetUpdatedImageCountOk returns a tuple with the UpdatedImageCount field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetUpdatedImageCount
 
-`func (o *GroupSyncResult) SetUpdatedImageCount(v int32)`
+`func (o *GroupSyncResult) SetUpdatedImageCount(v int64)`
 
 SetUpdatedImageCount sets UpdatedImageCount field to given value.
 
@@ -106,20 +106,20 @@ HasUpdatedImageCount returns a boolean if a field has been set.
 
 ### GetUpdatedRecordCount
 
-`func (o *GroupSyncResult) GetUpdatedRecordCount() int32`
+`func (o *GroupSyncResult) GetUpdatedRecordCount() int64`
 
 GetUpdatedRecordCount returns the UpdatedRecordCount field if non-nil, zero value otherwise.
 
 ### GetUpdatedRecordCountOk
 
-`func (o *GroupSyncResult) GetUpdatedRecordCountOk() (*int32, bool)`
+`func (o *GroupSyncResult) GetUpdatedRecordCountOk() (*int64, bool)`
 
 GetUpdatedRecordCountOk returns a tuple with the UpdatedRecordCount field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetUpdatedRecordCount
 
-`func (o *GroupSyncResult) SetUpdatedRecordCount(v int32)`
+`func (o *GroupSyncResult) SetUpdatedRecordCount(v int64)`
 
 SetUpdatedRecordCount sets UpdatedRecordCount field to given value.
 

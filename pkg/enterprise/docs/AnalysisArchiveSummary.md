@@ -4,9 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**TotalImageCount** | Pointer to **int32** | The number of unique images (digests) in the archive | [optional] 
-**TotalTagCount** | Pointer to **int32** | The number of tag records (registry/repo:tag pull strings) in the archive. This may include repeated tags but will always have a unique tag-&gt;digest mapping per record. | [optional] 
-**TotalDataBytes** | Pointer to **int32** | The total sum of all the bytes stored to the backing storage. Accounts for anchore-applied compression, but not compression by the underlying storage system. | [optional] 
+**TotalImageCount** | Pointer to **int64** | The number of unique images (digests) in the archive | [optional] 
+**TotalTagCount** | Pointer to **int64** | The number of tag records (registry/repo:tag pull strings) in the archive. This may include repeated tags but will always have a unique tag-&gt;digest mapping per record. | [optional] 
+**TotalDataBytes** | Pointer to **int64** | The total sum of all the bytes stored to the backing storage. Accounts for anchore-applied compression, but not compression by the underlying storage system. | [optional] 
 **LastUpdated** | Pointer to **time.Time** | The timestamp of the most recent archived image | [optional] 
 
 ## Methods
@@ -30,20 +30,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetTotalImageCount
 
-`func (o *AnalysisArchiveSummary) GetTotalImageCount() int32`
+`func (o *AnalysisArchiveSummary) GetTotalImageCount() int64`
 
 GetTotalImageCount returns the TotalImageCount field if non-nil, zero value otherwise.
 
 ### GetTotalImageCountOk
 
-`func (o *AnalysisArchiveSummary) GetTotalImageCountOk() (*int32, bool)`
+`func (o *AnalysisArchiveSummary) GetTotalImageCountOk() (*int64, bool)`
 
 GetTotalImageCountOk returns a tuple with the TotalImageCount field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTotalImageCount
 
-`func (o *AnalysisArchiveSummary) SetTotalImageCount(v int32)`
+`func (o *AnalysisArchiveSummary) SetTotalImageCount(v int64)`
 
 SetTotalImageCount sets TotalImageCount field to given value.
 
@@ -55,20 +55,20 @@ HasTotalImageCount returns a boolean if a field has been set.
 
 ### GetTotalTagCount
 
-`func (o *AnalysisArchiveSummary) GetTotalTagCount() int32`
+`func (o *AnalysisArchiveSummary) GetTotalTagCount() int64`
 
 GetTotalTagCount returns the TotalTagCount field if non-nil, zero value otherwise.
 
 ### GetTotalTagCountOk
 
-`func (o *AnalysisArchiveSummary) GetTotalTagCountOk() (*int32, bool)`
+`func (o *AnalysisArchiveSummary) GetTotalTagCountOk() (*int64, bool)`
 
 GetTotalTagCountOk returns a tuple with the TotalTagCount field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTotalTagCount
 
-`func (o *AnalysisArchiveSummary) SetTotalTagCount(v int32)`
+`func (o *AnalysisArchiveSummary) SetTotalTagCount(v int64)`
 
 SetTotalTagCount sets TotalTagCount field to given value.
 
@@ -80,20 +80,20 @@ HasTotalTagCount returns a boolean if a field has been set.
 
 ### GetTotalDataBytes
 
-`func (o *AnalysisArchiveSummary) GetTotalDataBytes() int32`
+`func (o *AnalysisArchiveSummary) GetTotalDataBytes() int64`
 
 GetTotalDataBytes returns the TotalDataBytes field if non-nil, zero value otherwise.
 
 ### GetTotalDataBytesOk
 
-`func (o *AnalysisArchiveSummary) GetTotalDataBytesOk() (*int32, bool)`
+`func (o *AnalysisArchiveSummary) GetTotalDataBytesOk() (*int64, bool)`
 
 GetTotalDataBytesOk returns a tuple with the TotalDataBytes field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTotalDataBytes
 
-`func (o *AnalysisArchiveSummary) SetTotalDataBytes(v int32)`
+`func (o *AnalysisArchiveSummary) SetTotalDataBytes(v int64)`
 
 SetTotalDataBytes sets TotalDataBytes field to given value.
 

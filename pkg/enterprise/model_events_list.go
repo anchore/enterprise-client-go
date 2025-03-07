@@ -25,9 +25,9 @@ type EventsList struct {
 	// Boolean flag, True indicates there are more events and False otherwise
 	NextPage *bool `json:"next_page,omitempty"`
 	// Number of events in this page
-	ItemCount *int32 `json:"item_count,omitempty"`
+	ItemCount *int64 `json:"item_count,omitempty"`
 	// Page number of this result set
-	Page *int32 `json:"page,omitempty"`
+	Page *int64 `json:"page,omitempty"`
 }
 
 // NewEventsList instantiates a new EventsList object
@@ -112,9 +112,9 @@ func (o *EventsList) SetNextPage(v bool) {
 }
 
 // GetItemCount returns the ItemCount field value if set, zero value otherwise.
-func (o *EventsList) GetItemCount() int32 {
+func (o *EventsList) GetItemCount() int64 {
 	if o == nil || IsNil(o.ItemCount) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.ItemCount
@@ -122,7 +122,7 @@ func (o *EventsList) GetItemCount() int32 {
 
 // GetItemCountOk returns a tuple with the ItemCount field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *EventsList) GetItemCountOk() (*int32, bool) {
+func (o *EventsList) GetItemCountOk() (*int64, bool) {
 	if o == nil || IsNil(o.ItemCount) {
 		return nil, false
 	}
@@ -138,15 +138,15 @@ func (o *EventsList) HasItemCount() bool {
 	return false
 }
 
-// SetItemCount gets a reference to the given int32 and assigns it to the ItemCount field.
-func (o *EventsList) SetItemCount(v int32) {
+// SetItemCount gets a reference to the given int64 and assigns it to the ItemCount field.
+func (o *EventsList) SetItemCount(v int64) {
 	o.ItemCount = &v
 }
 
 // GetPage returns the Page field value if set, zero value otherwise.
-func (o *EventsList) GetPage() int32 {
+func (o *EventsList) GetPage() int64 {
 	if o == nil || IsNil(o.Page) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Page
@@ -154,7 +154,7 @@ func (o *EventsList) GetPage() int32 {
 
 // GetPageOk returns a tuple with the Page field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *EventsList) GetPageOk() (*int32, bool) {
+func (o *EventsList) GetPageOk() (*int64, bool) {
 	if o == nil || IsNil(o.Page) {
 		return nil, false
 	}
@@ -170,8 +170,8 @@ func (o *EventsList) HasPage() bool {
 	return false
 }
 
-// SetPage gets a reference to the given int32 and assigns it to the Page field.
-func (o *EventsList) SetPage(v int32) {
+// SetPage gets a reference to the given int64 and assigns it to the Page field.
+func (o *EventsList) SetPage(v int64) {
 	o.Page = &v
 }
 

@@ -18,7 +18,7 @@ Name | Type | Description | Notes
 **Accounts** | Pointer to **[]string** | List of accounts that the integration instance handles | [optional] 
 **ClusterName** | Pointer to **string** | Name of cluster where the integration instance runs | [optional] 
 **Namespace** | Pointer to **string** | Namespace in which the integration instance runs | [optional] 
-**HealthReportInterval** | Pointer to **int32** | Interval (in seconds) between health reports | [optional] 
+**HealthReportInterval** | Pointer to **int64** | Interval (in seconds) between health reports | [optional] 
 **RegistrationId** | Pointer to **string** | identifier for the integration during registration until it has received its integration_id | [optional] 
 **RegistrationInstanceId** | Pointer to **string** | Unique identifier for the integration instance (among its replicas) during registration | [optional] 
 **Description** | Pointer to **string** | Short description of the integration instance | [optional] 
@@ -377,20 +377,20 @@ HasNamespace returns a boolean if a field has been set.
 
 ### GetHealthReportInterval
 
-`func (o *Integration) GetHealthReportInterval() int32`
+`func (o *Integration) GetHealthReportInterval() int64`
 
 GetHealthReportInterval returns the HealthReportInterval field if non-nil, zero value otherwise.
 
 ### GetHealthReportIntervalOk
 
-`func (o *Integration) GetHealthReportIntervalOk() (*int32, bool)`
+`func (o *Integration) GetHealthReportIntervalOk() (*int64, bool)`
 
 GetHealthReportIntervalOk returns a tuple with the HealthReportInterval field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetHealthReportInterval
 
-`func (o *Integration) SetHealthReportInterval(v int32)`
+`func (o *Integration) SetHealthReportInterval(v int64)`
 
 SetHealthReportInterval sets HealthReportInterval field to given value.
 

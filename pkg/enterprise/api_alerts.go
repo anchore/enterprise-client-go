@@ -90,8 +90,8 @@ type AlertsAPIService service
 type ApiGetAlertSummariesRequest struct {
 	ctx context.Context
 	ApiService AlertsAPI
-	page *int32
-	limit *int32
+	page *int64
+	limit *int64
 	type_ *string
 	state *string
 	createdAfter *time.Time
@@ -100,12 +100,12 @@ type ApiGetAlertSummariesRequest struct {
 	xAnchoreAccount *string
 }
 
-func (r ApiGetAlertSummariesRequest) Page(page int32) ApiGetAlertSummariesRequest {
+func (r ApiGetAlertSummariesRequest) Page(page int64) ApiGetAlertSummariesRequest {
 	r.page = &page
 	return r
 }
 
-func (r ApiGetAlertSummariesRequest) Limit(limit int32) ApiGetAlertSummariesRequest {
+func (r ApiGetAlertSummariesRequest) Limit(limit int64) ApiGetAlertSummariesRequest {
 	r.limit = &limit
 	return r
 }
@@ -188,15 +188,9 @@ func (a *AlertsAPIService) GetAlertSummariesExecute(r ApiGetAlertSummariesReques
 
 	if r.page != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "page", r.page, "form", "")
-	} else {
-		var defaultValue int32 = 1
-		r.page = &defaultValue
 	}
 	if r.limit != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "form", "")
-	} else {
-		var defaultValue int32 = 100
-		r.limit = &defaultValue
 	}
 	if r.type_ != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "type", r.type_, "form", "")
@@ -400,8 +394,8 @@ func (a *AlertsAPIService) GetComplianceViolationAlertExecute(r ApiGetCompliance
 type ApiGetComplianceViolationAlertsRequest struct {
 	ctx context.Context
 	ApiService AlertsAPI
-	page *int32
-	limit *int32
+	page *int64
+	limit *int64
 	state *string
 	createdAfter *time.Time
 	createdBefore *time.Time
@@ -412,12 +406,12 @@ type ApiGetComplianceViolationAlertsRequest struct {
 	xAnchoreAccount *string
 }
 
-func (r ApiGetComplianceViolationAlertsRequest) Page(page int32) ApiGetComplianceViolationAlertsRequest {
+func (r ApiGetComplianceViolationAlertsRequest) Page(page int64) ApiGetComplianceViolationAlertsRequest {
 	r.page = &page
 	return r
 }
 
-func (r ApiGetComplianceViolationAlertsRequest) Limit(limit int32) ApiGetComplianceViolationAlertsRequest {
+func (r ApiGetComplianceViolationAlertsRequest) Limit(limit int64) ApiGetComplianceViolationAlertsRequest {
 	r.limit = &limit
 	return r
 }
@@ -512,15 +506,9 @@ func (a *AlertsAPIService) GetComplianceViolationAlertsExecute(r ApiGetComplianc
 
 	if r.page != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "page", r.page, "form", "")
-	} else {
-		var defaultValue int32 = 1
-		r.page = &defaultValue
 	}
 	if r.limit != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "form", "")
-	} else {
-		var defaultValue int32 = 100
-		r.limit = &defaultValue
 	}
 	if r.state != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "state", r.state, "form", "")

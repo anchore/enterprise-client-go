@@ -24,9 +24,9 @@ type GroupSyncResult struct {
 	Group *string `json:"group,omitempty"`
 	Status *string `json:"status,omitempty"`
 	// The number of images updated by the this group sync, across all accounts. This is typically only non-zero for vulnerability feeds which update images' vulnerability results during the sync.
-	UpdatedImageCount *int32 `json:"updated_image_count,omitempty"`
+	UpdatedImageCount *int64 `json:"updated_image_count,omitempty"`
 	// The number of feed data records synced down as either updates or new records
-	UpdatedRecordCount *int32 `json:"updated_record_count,omitempty"`
+	UpdatedRecordCount *int64 `json:"updated_record_count,omitempty"`
 	// The duration of the group sync in seconds
 	TotalTimeSeconds *float32 `json:"total_time_seconds,omitempty"`
 }
@@ -113,9 +113,9 @@ func (o *GroupSyncResult) SetStatus(v string) {
 }
 
 // GetUpdatedImageCount returns the UpdatedImageCount field value if set, zero value otherwise.
-func (o *GroupSyncResult) GetUpdatedImageCount() int32 {
+func (o *GroupSyncResult) GetUpdatedImageCount() int64 {
 	if o == nil || IsNil(o.UpdatedImageCount) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.UpdatedImageCount
@@ -123,7 +123,7 @@ func (o *GroupSyncResult) GetUpdatedImageCount() int32 {
 
 // GetUpdatedImageCountOk returns a tuple with the UpdatedImageCount field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *GroupSyncResult) GetUpdatedImageCountOk() (*int32, bool) {
+func (o *GroupSyncResult) GetUpdatedImageCountOk() (*int64, bool) {
 	if o == nil || IsNil(o.UpdatedImageCount) {
 		return nil, false
 	}
@@ -139,15 +139,15 @@ func (o *GroupSyncResult) HasUpdatedImageCount() bool {
 	return false
 }
 
-// SetUpdatedImageCount gets a reference to the given int32 and assigns it to the UpdatedImageCount field.
-func (o *GroupSyncResult) SetUpdatedImageCount(v int32) {
+// SetUpdatedImageCount gets a reference to the given int64 and assigns it to the UpdatedImageCount field.
+func (o *GroupSyncResult) SetUpdatedImageCount(v int64) {
 	o.UpdatedImageCount = &v
 }
 
 // GetUpdatedRecordCount returns the UpdatedRecordCount field value if set, zero value otherwise.
-func (o *GroupSyncResult) GetUpdatedRecordCount() int32 {
+func (o *GroupSyncResult) GetUpdatedRecordCount() int64 {
 	if o == nil || IsNil(o.UpdatedRecordCount) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.UpdatedRecordCount
@@ -155,7 +155,7 @@ func (o *GroupSyncResult) GetUpdatedRecordCount() int32 {
 
 // GetUpdatedRecordCountOk returns a tuple with the UpdatedRecordCount field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *GroupSyncResult) GetUpdatedRecordCountOk() (*int32, bool) {
+func (o *GroupSyncResult) GetUpdatedRecordCountOk() (*int64, bool) {
 	if o == nil || IsNil(o.UpdatedRecordCount) {
 		return nil, false
 	}
@@ -171,8 +171,8 @@ func (o *GroupSyncResult) HasUpdatedRecordCount() bool {
 	return false
 }
 
-// SetUpdatedRecordCount gets a reference to the given int32 and assigns it to the UpdatedRecordCount field.
-func (o *GroupSyncResult) SetUpdatedRecordCount(v int32) {
+// SetUpdatedRecordCount gets a reference to the given int64 and assigns it to the UpdatedRecordCount field.
+func (o *GroupSyncResult) SetUpdatedRecordCount(v int64) {
 	o.UpdatedRecordCount = &v
 }
 

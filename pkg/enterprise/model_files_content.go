@@ -21,13 +21,13 @@ var _ MappedNullable = &FilesContent{}
 // FilesContent struct for FilesContent
 type FilesContent struct {
 	Filename *string `json:"filename,omitempty"`
-	Gid *int32 `json:"gid,omitempty"`
+	Gid *int64 `json:"gid,omitempty"`
 	Linkdest NullableString `json:"linkdest,omitempty"`
 	Mode *string `json:"mode,omitempty"`
 	Sha256 NullableString `json:"sha256,omitempty"`
-	Size *int32 `json:"size,omitempty"`
+	Size *int64 `json:"size,omitempty"`
 	Type *string `json:"type,omitempty"`
-	Uid *int32 `json:"uid,omitempty"`
+	Uid *int64 `json:"uid,omitempty"`
 }
 
 // NewFilesContent instantiates a new FilesContent object
@@ -80,9 +80,9 @@ func (o *FilesContent) SetFilename(v string) {
 }
 
 // GetGid returns the Gid field value if set, zero value otherwise.
-func (o *FilesContent) GetGid() int32 {
+func (o *FilesContent) GetGid() int64 {
 	if o == nil || IsNil(o.Gid) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Gid
@@ -90,7 +90,7 @@ func (o *FilesContent) GetGid() int32 {
 
 // GetGidOk returns a tuple with the Gid field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *FilesContent) GetGidOk() (*int32, bool) {
+func (o *FilesContent) GetGidOk() (*int64, bool) {
 	if o == nil || IsNil(o.Gid) {
 		return nil, false
 	}
@@ -106,8 +106,8 @@ func (o *FilesContent) HasGid() bool {
 	return false
 }
 
-// SetGid gets a reference to the given int32 and assigns it to the Gid field.
-func (o *FilesContent) SetGid(v int32) {
+// SetGid gets a reference to the given int64 and assigns it to the Gid field.
+func (o *FilesContent) SetGid(v int64) {
 	o.Gid = &v
 }
 
@@ -228,9 +228,9 @@ func (o *FilesContent) UnsetSha256() {
 }
 
 // GetSize returns the Size field value if set, zero value otherwise.
-func (o *FilesContent) GetSize() int32 {
+func (o *FilesContent) GetSize() int64 {
 	if o == nil || IsNil(o.Size) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Size
@@ -238,7 +238,7 @@ func (o *FilesContent) GetSize() int32 {
 
 // GetSizeOk returns a tuple with the Size field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *FilesContent) GetSizeOk() (*int32, bool) {
+func (o *FilesContent) GetSizeOk() (*int64, bool) {
 	if o == nil || IsNil(o.Size) {
 		return nil, false
 	}
@@ -254,8 +254,8 @@ func (o *FilesContent) HasSize() bool {
 	return false
 }
 
-// SetSize gets a reference to the given int32 and assigns it to the Size field.
-func (o *FilesContent) SetSize(v int32) {
+// SetSize gets a reference to the given int64 and assigns it to the Size field.
+func (o *FilesContent) SetSize(v int64) {
 	o.Size = &v
 }
 
@@ -292,9 +292,9 @@ func (o *FilesContent) SetType(v string) {
 }
 
 // GetUid returns the Uid field value if set, zero value otherwise.
-func (o *FilesContent) GetUid() int32 {
+func (o *FilesContent) GetUid() int64 {
 	if o == nil || IsNil(o.Uid) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Uid
@@ -302,7 +302,7 @@ func (o *FilesContent) GetUid() int32 {
 
 // GetUidOk returns a tuple with the Uid field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *FilesContent) GetUidOk() (*int32, bool) {
+func (o *FilesContent) GetUidOk() (*int64, bool) {
 	if o == nil || IsNil(o.Uid) {
 		return nil, false
 	}
@@ -318,8 +318,8 @@ func (o *FilesContent) HasUid() bool {
 	return false
 }
 
-// SetUid gets a reference to the given int32 and assigns it to the Uid field.
-func (o *FilesContent) SetUid(v int32) {
+// SetUid gets a reference to the given int64 and assigns it to the Uid field.
+func (o *FilesContent) SetUid(v int64) {
 	o.Uid = &v
 }
 

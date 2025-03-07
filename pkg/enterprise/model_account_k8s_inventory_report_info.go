@@ -29,9 +29,9 @@ type AccountK8sInventoryReportInfo struct {
 	// User that the integration instance sent the inventory report as
 	SentAsUser string `json:"sent_as_user"`
 	// Number of batches that the inventory report was sent in
-	BatchSize int32 `json:"batch_size"`
+	BatchSize int64 `json:"batch_size"`
 	// Index of last successfully sent batch, -1 if none were successful
-	LastSuccessfulIndex int32 `json:"last_successful_index"`
+	LastSuccessfulIndex int64 `json:"last_successful_index"`
 	// true if one or more of the batches coult not be sent, false otherwise
 	HasErrors bool `json:"has_errors"`
 	// List of information about inventory report batches
@@ -44,7 +44,7 @@ type _AccountK8sInventoryReportInfo AccountK8sInventoryReportInfo
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewAccountK8sInventoryReportInfo(reportTimestamp string, accountName string, sentAsUser string, batchSize int32, lastSuccessfulIndex int32, hasErrors bool, batches []AccountK8sInventoryReportInfoBatchesInner) *AccountK8sInventoryReportInfo {
+func NewAccountK8sInventoryReportInfo(reportTimestamp string, accountName string, sentAsUser string, batchSize int64, lastSuccessfulIndex int64, hasErrors bool, batches []AccountK8sInventoryReportInfoBatchesInner) *AccountK8sInventoryReportInfo {
 	this := AccountK8sInventoryReportInfo{}
 	this.ReportTimestamp = reportTimestamp
 	this.AccountName = accountName
@@ -137,9 +137,9 @@ func (o *AccountK8sInventoryReportInfo) SetSentAsUser(v string) {
 }
 
 // GetBatchSize returns the BatchSize field value
-func (o *AccountK8sInventoryReportInfo) GetBatchSize() int32 {
+func (o *AccountK8sInventoryReportInfo) GetBatchSize() int64 {
 	if o == nil {
-		var ret int32
+		var ret int64
 		return ret
 	}
 
@@ -148,7 +148,7 @@ func (o *AccountK8sInventoryReportInfo) GetBatchSize() int32 {
 
 // GetBatchSizeOk returns a tuple with the BatchSize field value
 // and a boolean to check if the value has been set.
-func (o *AccountK8sInventoryReportInfo) GetBatchSizeOk() (*int32, bool) {
+func (o *AccountK8sInventoryReportInfo) GetBatchSizeOk() (*int64, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -156,14 +156,14 @@ func (o *AccountK8sInventoryReportInfo) GetBatchSizeOk() (*int32, bool) {
 }
 
 // SetBatchSize sets field value
-func (o *AccountK8sInventoryReportInfo) SetBatchSize(v int32) {
+func (o *AccountK8sInventoryReportInfo) SetBatchSize(v int64) {
 	o.BatchSize = v
 }
 
 // GetLastSuccessfulIndex returns the LastSuccessfulIndex field value
-func (o *AccountK8sInventoryReportInfo) GetLastSuccessfulIndex() int32 {
+func (o *AccountK8sInventoryReportInfo) GetLastSuccessfulIndex() int64 {
 	if o == nil {
-		var ret int32
+		var ret int64
 		return ret
 	}
 
@@ -172,7 +172,7 @@ func (o *AccountK8sInventoryReportInfo) GetLastSuccessfulIndex() int32 {
 
 // GetLastSuccessfulIndexOk returns a tuple with the LastSuccessfulIndex field value
 // and a boolean to check if the value has been set.
-func (o *AccountK8sInventoryReportInfo) GetLastSuccessfulIndexOk() (*int32, bool) {
+func (o *AccountK8sInventoryReportInfo) GetLastSuccessfulIndexOk() (*int64, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -180,7 +180,7 @@ func (o *AccountK8sInventoryReportInfo) GetLastSuccessfulIndexOk() (*int32, bool
 }
 
 // SetLastSuccessfulIndex sets field value
-func (o *AccountK8sInventoryReportInfo) SetLastSuccessfulIndex(v int32) {
+func (o *AccountK8sInventoryReportInfo) SetLastSuccessfulIndex(v int64) {
 	o.LastSuccessfulIndex = v
 }
 

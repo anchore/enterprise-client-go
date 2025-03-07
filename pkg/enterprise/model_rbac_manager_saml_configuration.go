@@ -32,7 +32,7 @@ type RbacManagerSamlConfiguration struct {
 	// The URL the IDP can use to access the Assertion Consumer Service to provide the token for sso. This is the way to reach the rbac manager services /service/sso/auth/{IDP_name} route externally
 	AcsUrl string `json:"acs_url"`
 	// The port number to use for https if not 443. If omitted or -1, 443 is assumed and used as a default
-	AcsHttpsPort *int32 `json:"acs_https_port,omitempty"`
+	AcsHttpsPort *int64 `json:"acs_https_port,omitempty"`
 	// The url where the SP (anchore) can retrieve the metadata about the Identity Provider. Only one of this or metadata_xml should be set. This is typically provided by the IDP.
 	IdpMetadataUrl *string `json:"idp_metadata_url,omitempty"`
 	// The direct metadata xml payload, if a url is not available. Only one of this or metadata_url should be set.
@@ -191,9 +191,9 @@ func (o *RbacManagerSamlConfiguration) SetAcsUrl(v string) {
 }
 
 // GetAcsHttpsPort returns the AcsHttpsPort field value if set, zero value otherwise.
-func (o *RbacManagerSamlConfiguration) GetAcsHttpsPort() int32 {
+func (o *RbacManagerSamlConfiguration) GetAcsHttpsPort() int64 {
 	if o == nil || IsNil(o.AcsHttpsPort) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.AcsHttpsPort
@@ -201,7 +201,7 @@ func (o *RbacManagerSamlConfiguration) GetAcsHttpsPort() int32 {
 
 // GetAcsHttpsPortOk returns a tuple with the AcsHttpsPort field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RbacManagerSamlConfiguration) GetAcsHttpsPortOk() (*int32, bool) {
+func (o *RbacManagerSamlConfiguration) GetAcsHttpsPortOk() (*int64, bool) {
 	if o == nil || IsNil(o.AcsHttpsPort) {
 		return nil, false
 	}
@@ -217,8 +217,8 @@ func (o *RbacManagerSamlConfiguration) HasAcsHttpsPort() bool {
 	return false
 }
 
-// SetAcsHttpsPort gets a reference to the given int32 and assigns it to the AcsHttpsPort field.
-func (o *RbacManagerSamlConfiguration) SetAcsHttpsPort(v int32) {
+// SetAcsHttpsPort gets a reference to the given int64 and assigns it to the AcsHttpsPort field.
+func (o *RbacManagerSamlConfiguration) SetAcsHttpsPort(v int64) {
 	o.AcsHttpsPort = &v
 }
 

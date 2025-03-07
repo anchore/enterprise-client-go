@@ -51,7 +51,7 @@ type IntegrationRegister struct {
 	// Namespace in which the integration instance runs
 	Namespace *string `json:"namespace,omitempty"`
 	// Interval (in seconds) between health reports
-	HealthReportInterval int32 `json:"health_report_interval"`
+	HealthReportInterval int64 `json:"health_report_interval"`
 }
 
 type _IntegrationRegister IntegrationRegister
@@ -60,7 +60,7 @@ type _IntegrationRegister IntegrationRegister
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewIntegrationRegister(registrationId string, registrationInstanceId string, type_ IntegrationType, username string, healthReportInterval int32) *IntegrationRegister {
+func NewIntegrationRegister(registrationId string, registrationInstanceId string, type_ IntegrationType, username string, healthReportInterval int64) *IntegrationRegister {
 	this := IntegrationRegister{}
 	this.RegistrationId = registrationId
 	this.RegistrationInstanceId = registrationInstanceId
@@ -495,9 +495,9 @@ func (o *IntegrationRegister) SetNamespace(v string) {
 }
 
 // GetHealthReportInterval returns the HealthReportInterval field value
-func (o *IntegrationRegister) GetHealthReportInterval() int32 {
+func (o *IntegrationRegister) GetHealthReportInterval() int64 {
 	if o == nil {
-		var ret int32
+		var ret int64
 		return ret
 	}
 
@@ -506,7 +506,7 @@ func (o *IntegrationRegister) GetHealthReportInterval() int32 {
 
 // GetHealthReportIntervalOk returns a tuple with the HealthReportInterval field value
 // and a boolean to check if the value has been set.
-func (o *IntegrationRegister) GetHealthReportIntervalOk() (*int32, bool) {
+func (o *IntegrationRegister) GetHealthReportIntervalOk() (*int64, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -514,7 +514,7 @@ func (o *IntegrationRegister) GetHealthReportIntervalOk() (*int32, bool) {
 }
 
 // SetHealthReportInterval sets field value
-func (o *IntegrationRegister) SetHealthReportInterval(v int32) {
+func (o *IntegrationRegister) SetHealthReportInterval(v int64) {
 	o.HealthReportInterval = v
 }
 

@@ -27,9 +27,9 @@ type AnalysisArchiveTransitionRule struct {
 	// Unique identifier for archive rule
 	RuleId *string `json:"rule_id,omitempty"`
 	// Number of images mapped to the tag that are newer
-	TagVersionsNewer *int32 `json:"tag_versions_newer,omitempty"`
+	TagVersionsNewer *int64 `json:"tag_versions_newer,omitempty"`
 	// Matches if the analysis is strictly older than this number of days
-	AnalysisAgeDays *int32 `json:"analysis_age_days,omitempty"`
+	AnalysisAgeDays *int64 `json:"analysis_age_days,omitempty"`
 	// The type of transition to make. If \"archive\", then archive an image from the working set and remove it from the working set. If \"delete\", then match against archived images and delete from the archive if match.
 	Transition string `json:"transition"`
 	// True if the rule applies to all accounts in the system. This is only available to admin users to update/modify, but all users with permission to list rules can see them
@@ -38,7 +38,7 @@ type AnalysisArchiveTransitionRule struct {
 	LastUpdated *time.Time `json:"last_updated,omitempty"`
 	Exclude *AnalysisArchiveTransitionRuleExclude `json:"exclude,omitempty"`
 	// This is the maximum number of image analyses an account can have. Can only be set on system_global rules
-	MaxImagesPerAccount *int32 `json:"max_images_per_account,omitempty"`
+	MaxImagesPerAccount *int64 `json:"max_images_per_account,omitempty"`
 }
 
 type _AnalysisArchiveTransitionRule AnalysisArchiveTransitionRule
@@ -126,9 +126,9 @@ func (o *AnalysisArchiveTransitionRule) SetRuleId(v string) {
 }
 
 // GetTagVersionsNewer returns the TagVersionsNewer field value if set, zero value otherwise.
-func (o *AnalysisArchiveTransitionRule) GetTagVersionsNewer() int32 {
+func (o *AnalysisArchiveTransitionRule) GetTagVersionsNewer() int64 {
 	if o == nil || IsNil(o.TagVersionsNewer) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.TagVersionsNewer
@@ -136,7 +136,7 @@ func (o *AnalysisArchiveTransitionRule) GetTagVersionsNewer() int32 {
 
 // GetTagVersionsNewerOk returns a tuple with the TagVersionsNewer field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AnalysisArchiveTransitionRule) GetTagVersionsNewerOk() (*int32, bool) {
+func (o *AnalysisArchiveTransitionRule) GetTagVersionsNewerOk() (*int64, bool) {
 	if o == nil || IsNil(o.TagVersionsNewer) {
 		return nil, false
 	}
@@ -152,15 +152,15 @@ func (o *AnalysisArchiveTransitionRule) HasTagVersionsNewer() bool {
 	return false
 }
 
-// SetTagVersionsNewer gets a reference to the given int32 and assigns it to the TagVersionsNewer field.
-func (o *AnalysisArchiveTransitionRule) SetTagVersionsNewer(v int32) {
+// SetTagVersionsNewer gets a reference to the given int64 and assigns it to the TagVersionsNewer field.
+func (o *AnalysisArchiveTransitionRule) SetTagVersionsNewer(v int64) {
 	o.TagVersionsNewer = &v
 }
 
 // GetAnalysisAgeDays returns the AnalysisAgeDays field value if set, zero value otherwise.
-func (o *AnalysisArchiveTransitionRule) GetAnalysisAgeDays() int32 {
+func (o *AnalysisArchiveTransitionRule) GetAnalysisAgeDays() int64 {
 	if o == nil || IsNil(o.AnalysisAgeDays) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.AnalysisAgeDays
@@ -168,7 +168,7 @@ func (o *AnalysisArchiveTransitionRule) GetAnalysisAgeDays() int32 {
 
 // GetAnalysisAgeDaysOk returns a tuple with the AnalysisAgeDays field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AnalysisArchiveTransitionRule) GetAnalysisAgeDaysOk() (*int32, bool) {
+func (o *AnalysisArchiveTransitionRule) GetAnalysisAgeDaysOk() (*int64, bool) {
 	if o == nil || IsNil(o.AnalysisAgeDays) {
 		return nil, false
 	}
@@ -184,8 +184,8 @@ func (o *AnalysisArchiveTransitionRule) HasAnalysisAgeDays() bool {
 	return false
 }
 
-// SetAnalysisAgeDays gets a reference to the given int32 and assigns it to the AnalysisAgeDays field.
-func (o *AnalysisArchiveTransitionRule) SetAnalysisAgeDays(v int32) {
+// SetAnalysisAgeDays gets a reference to the given int64 and assigns it to the AnalysisAgeDays field.
+func (o *AnalysisArchiveTransitionRule) SetAnalysisAgeDays(v int64) {
 	o.AnalysisAgeDays = &v
 }
 
@@ -342,9 +342,9 @@ func (o *AnalysisArchiveTransitionRule) SetExclude(v AnalysisArchiveTransitionRu
 }
 
 // GetMaxImagesPerAccount returns the MaxImagesPerAccount field value if set, zero value otherwise.
-func (o *AnalysisArchiveTransitionRule) GetMaxImagesPerAccount() int32 {
+func (o *AnalysisArchiveTransitionRule) GetMaxImagesPerAccount() int64 {
 	if o == nil || IsNil(o.MaxImagesPerAccount) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.MaxImagesPerAccount
@@ -352,7 +352,7 @@ func (o *AnalysisArchiveTransitionRule) GetMaxImagesPerAccount() int32 {
 
 // GetMaxImagesPerAccountOk returns a tuple with the MaxImagesPerAccount field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AnalysisArchiveTransitionRule) GetMaxImagesPerAccountOk() (*int32, bool) {
+func (o *AnalysisArchiveTransitionRule) GetMaxImagesPerAccountOk() (*int64, bool) {
 	if o == nil || IsNil(o.MaxImagesPerAccount) {
 		return nil, false
 	}
@@ -368,8 +368,8 @@ func (o *AnalysisArchiveTransitionRule) HasMaxImagesPerAccount() bool {
 	return false
 }
 
-// SetMaxImagesPerAccount gets a reference to the given int32 and assigns it to the MaxImagesPerAccount field.
-func (o *AnalysisArchiveTransitionRule) SetMaxImagesPerAccount(v int32) {
+// SetMaxImagesPerAccount gets a reference to the given int64 and assigns it to the MaxImagesPerAccount field.
+func (o *AnalysisArchiveTransitionRule) SetMaxImagesPerAccount(v int64) {
 	o.MaxImagesPerAccount = &v
 }
 

@@ -34,7 +34,7 @@ func main() {
 	packageType := "packageType_example" // string | Type of package to filter on (e.g. dpkg) (optional)
 	version := "version_example" // string | Version of named package to filter on (e.g. 4.4-1) (optional)
 	page := "page_example" // string | The page of results to fetch. Pages start at 1 (optional)
-	limit := int32(56) // int32 | Limit the number of records for the requested page. If omitted or set to 0, return all results in a single page (optional)
+	limit := TODO // int64 | Limit the number of records for the requested page. If omitted or set to 0, return all results in a single page (optional)
 	xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
 
 	configuration := openapiclient.NewConfiguration()
@@ -64,7 +64,7 @@ Name | Type | Description  | Notes
  **packageType** | **string** | Type of package to filter on (e.g. dpkg) | 
  **version** | **string** | Version of named package to filter on (e.g. 4.4-1) | 
  **page** | **string** | The page of results to fetch. Pages start at 1 | 
- **limit** | **int32** | Limit the number of records for the requested page. If omitted or set to 0, return all results in a single page | 
+ **limit** | [**int64**](int64.md) | Limit the number of records for the requested page. If omitted or set to 0, return all results in a single page | 
  **xAnchoreAccount** | **string** | An account name to change the resource scope of the request to that account, if permissions allow (admin only) | 
 
 ### Return type
@@ -110,7 +110,7 @@ func main() {
 	affectedPackage := "affectedPackage_example" // string | Filter results by specified package name (e.g. sed) (optional)
 	affectedPackageVersion := "affectedPackageVersion_example" // string | Filter results by specified package version (e.g. 4.4-1) (optional)
 	page := "page_example" // string | The page of results to fetch. Pages start at 1 (optional) (default to "1")
-	limit := int32(56) // int32 | Limit the number of records for the requested page. If omitted or set to 0, return all results in a single page (optional)
+	limit := TODO // int64 | Limit the number of records for the requested page. If omitted or set to 0, return all results in a single page (optional)
 	namespace := []string{"Inner_example"} // []string | Namespace(s) to filter vulnerability records by (optional)
 
 	configuration := openapiclient.NewConfiguration()
@@ -140,7 +140,7 @@ Name | Type | Description  | Notes
  **affectedPackage** | **string** | Filter results by specified package name (e.g. sed) | 
  **affectedPackageVersion** | **string** | Filter results by specified package version (e.g. 4.4-1) | 
  **page** | **string** | The page of results to fetch. Pages start at 1 | [default to &quot;1&quot;]
- **limit** | **int32** | Limit the number of records for the requested page. If omitted or set to 0, return all results in a single page | 
+ **limit** | [**int64**](int64.md) | Limit the number of records for the requested page. If omitted or set to 0, return all results in a single page | 
  **namespace** | **[]string** | Namespace(s) to filter vulnerability records by | 
 
 ### Return type

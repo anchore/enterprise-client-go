@@ -572,8 +572,8 @@ type ApiListEventsRequest struct {
 	level *string
 	since *string
 	before *string
-	page *int32
-	limit *int32
+	page *int64
+	limit *int64
 	xAnchoreAccount *string
 }
 
@@ -626,13 +626,13 @@ func (r ApiListEventsRequest) Before(before string) ApiListEventsRequest {
 }
 
 // Pagination controls - return the nth page of results. Defaults to first page if left empty
-func (r ApiListEventsRequest) Page(page int32) ApiListEventsRequest {
+func (r ApiListEventsRequest) Page(page int64) ApiListEventsRequest {
 	r.page = &page
 	return r
 }
 
 // Number of events in the result set. Defaults to 100 if left empty
-func (r ApiListEventsRequest) Limit(limit int32) ApiListEventsRequest {
+func (r ApiListEventsRequest) Limit(limit int64) ApiListEventsRequest {
 	r.limit = &limit
 	return r
 }
@@ -709,15 +709,9 @@ func (a *EventsAPIService) ListEventsExecute(r ApiListEventsRequest) (*EventsLis
 	}
 	if r.page != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "page", r.page, "form", "")
-	} else {
-		var defaultValue int32 = 1
-		r.page = &defaultValue
 	}
 	if r.limit != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "form", "")
-	} else {
-		var defaultValue int32 = 100
-		r.limit = &defaultValue
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}

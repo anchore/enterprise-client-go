@@ -20,7 +20,7 @@ var _ MappedNullable = &ApiErrorResponse{}
 
 // ApiErrorResponse Generic HTTP API error response
 type ApiErrorResponse struct {
-	Code *int32 `json:"code,omitempty"`
+	Code *int64 `json:"code,omitempty"`
 	ErrorType *string `json:"error_type,omitempty"`
 	Message *string `json:"message,omitempty"`
 	// Details structure for additional information about the error if available. Content and structure will be error specific.
@@ -45,9 +45,9 @@ func NewApiErrorResponseWithDefaults() *ApiErrorResponse {
 }
 
 // GetCode returns the Code field value if set, zero value otherwise.
-func (o *ApiErrorResponse) GetCode() int32 {
+func (o *ApiErrorResponse) GetCode() int64 {
 	if o == nil || IsNil(o.Code) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.Code
@@ -55,7 +55,7 @@ func (o *ApiErrorResponse) GetCode() int32 {
 
 // GetCodeOk returns a tuple with the Code field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ApiErrorResponse) GetCodeOk() (*int32, bool) {
+func (o *ApiErrorResponse) GetCodeOk() (*int64, bool) {
 	if o == nil || IsNil(o.Code) {
 		return nil, false
 	}
@@ -71,8 +71,8 @@ func (o *ApiErrorResponse) HasCode() bool {
 	return false
 }
 
-// SetCode gets a reference to the given int32 and assigns it to the Code field.
-func (o *ApiErrorResponse) SetCode(v int32) {
+// SetCode gets a reference to the given int64 and assigns it to the Code field.
+func (o *ApiErrorResponse) SetCode(v int64) {
 	o.Code = &v
 }
 

@@ -446,7 +446,7 @@ import (
 
 func main() {
 	operationId := "operationId_example" // string | 
-	contents := []openapiclient.ImageImportContentSearch{*openapiclient.NewImageImportContentSearch(*openapiclient.NewImportPackageLocation("Path_example"), []openapiclient.ImportContentSearchElement{*openapiclient.NewImportContentSearchElement("Classification_example", int32(123), int32(123), int32(123), int32(123))})} // []ImageImportContentSearch | 
+	contents := []openapiclient.ImageImportContentSearch{*openapiclient.NewImageImportContentSearch(*openapiclient.NewImportPackageLocation("Path_example"), []openapiclient.ImportContentSearchElement{*openapiclient.NewImportContentSearchElement("Classification_example", int64(123), int64(123), int64(123), int64(123))})} // []ImageImportContentSearch | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -936,7 +936,7 @@ import (
 
 func main() {
 	operationId := "operationId_example" // string | 
-	contents := []openapiclient.ImageImportContentSearch{*openapiclient.NewImageImportContentSearch(*openapiclient.NewImportPackageLocation("Path_example"), []openapiclient.ImportContentSearchElement{*openapiclient.NewImportContentSearchElement("Classification_example", int32(123), int32(123), int32(123), int32(123))})} // []ImageImportContentSearch | 
+	contents := []openapiclient.ImageImportContentSearch{*openapiclient.NewImageImportContentSearch(*openapiclient.NewImportPackageLocation("Path_example"), []openapiclient.ImportContentSearchElement{*openapiclient.NewImportContentSearchElement("Classification_example", int64(123), int64(123), int64(123), int64(123))})} // []ImageImportContentSearch | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)

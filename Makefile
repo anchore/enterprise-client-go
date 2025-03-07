@@ -8,9 +8,10 @@ CLONE_DIR = local
 # OpenAPI generator version to use
 OPENAPI_GENERATOR_VERSION = v7.8.0
 
+
 # --- anchore enterprise references
 # a git tag/branch/commit within anchore/enterprise repo
-ENTERPRISE_REF = main
+ENTERPRISE_REF = v5.15.0
 ENTERPRISE_ROOT = $(PROJECT_ROOT)/enterprise
 ENTERPRISE_OPENAPI_DOC = $(PROJECT_ROOT)/anchore-api-swagger-$(ENTERPRISE_REF).yaml
 
@@ -50,9 +51,9 @@ update: clean generate patch ## pull all swagger definitions and generate client
 generate: generate-clients ## generate all client code from all swagger documents
 
 define clone
-	if [ ! -d "./${CLONE_DIR}" ]; then git clone git@github.com:anchore/enterprise.git $(CLONE_DIR); fi
+	if [ ! -d "./${CLONE_DIR}" ]; then git clone git@github.com:anchore/enterprise.git --depth 1 --branch $(ENTERPRISE_REF) $(CLONE_DIR); fi
 	if [ -d "./${CLONE_DIR}" ]; then cd ${CLONE_DIR} && git fetch; fi
-	cd ${CLONE_DIR} && git checkout ${ENTERPRISE_REF}
+	#cd ${CLONE_DIR} && git checkout ${ENTERPRISE_REF}
 endef
 
 $(PROJECT_ROOT):

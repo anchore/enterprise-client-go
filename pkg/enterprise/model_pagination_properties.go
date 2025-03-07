@@ -25,7 +25,7 @@ type PaginationProperties struct {
 	// True if additional pages exist (page + 1) or False if this is the last page
 	NextPage *string `json:"next_page,omitempty"`
 	// The number of items sent in this response
-	ReturnedCount *int32 `json:"returned_count,omitempty"`
+	ReturnedCount *int64 `json:"returned_count,omitempty"`
 }
 
 // NewPaginationProperties instantiates a new PaginationProperties object
@@ -110,9 +110,9 @@ func (o *PaginationProperties) SetNextPage(v string) {
 }
 
 // GetReturnedCount returns the ReturnedCount field value if set, zero value otherwise.
-func (o *PaginationProperties) GetReturnedCount() int32 {
+func (o *PaginationProperties) GetReturnedCount() int64 {
 	if o == nil || IsNil(o.ReturnedCount) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.ReturnedCount
@@ -120,7 +120,7 @@ func (o *PaginationProperties) GetReturnedCount() int32 {
 
 // GetReturnedCountOk returns a tuple with the ReturnedCount field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *PaginationProperties) GetReturnedCountOk() (*int32, bool) {
+func (o *PaginationProperties) GetReturnedCountOk() (*int64, bool) {
 	if o == nil || IsNil(o.ReturnedCount) {
 		return nil, false
 	}
@@ -136,8 +136,8 @@ func (o *PaginationProperties) HasReturnedCount() bool {
 	return false
 }
 
-// SetReturnedCount gets a reference to the given int32 and assigns it to the ReturnedCount field.
-func (o *PaginationProperties) SetReturnedCount(v int32) {
+// SetReturnedCount gets a reference to the given int64 and assigns it to the ReturnedCount field.
+func (o *PaginationProperties) SetReturnedCount(v int64) {
 	o.ReturnedCount = &v
 }
 

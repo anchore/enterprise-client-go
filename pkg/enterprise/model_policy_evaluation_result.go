@@ -46,7 +46,7 @@ type PolicyEvaluationResult struct {
 	ImageMappedToRule bool `json:"image_mapped_to_rule"`
 	MatchedMappingRule NullableMappingRule `json:"matched_mapping_rule,omitempty"`
 	// Number of policy findings in the response
-	NumberOfFindings int32 `json:"number_of_findings"`
+	NumberOfFindings int64 `json:"number_of_findings"`
 }
 
 type _PolicyEvaluationResult PolicyEvaluationResult
@@ -55,7 +55,7 @@ type _PolicyEvaluationResult PolicyEvaluationResult
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewPolicyEvaluationResult(evaluationTime time.Time, evaluationProblems []PolicyEvaluationProblem, status string, finalAction string, finalActionReason string, imageAllowlisted bool, imageDenylisted bool, imageMappedToRule bool, numberOfFindings int32) *PolicyEvaluationResult {
+func NewPolicyEvaluationResult(evaluationTime time.Time, evaluationProblems []PolicyEvaluationProblem, status string, finalAction string, finalActionReason string, imageAllowlisted bool, imageDenylisted bool, imageMappedToRule bool, numberOfFindings int64) *PolicyEvaluationResult {
 	this := PolicyEvaluationResult{}
 	this.EvaluationTime = evaluationTime
 	this.EvaluationProblems = evaluationProblems
@@ -480,9 +480,9 @@ func (o *PolicyEvaluationResult) UnsetMatchedMappingRule() {
 }
 
 // GetNumberOfFindings returns the NumberOfFindings field value
-func (o *PolicyEvaluationResult) GetNumberOfFindings() int32 {
+func (o *PolicyEvaluationResult) GetNumberOfFindings() int64 {
 	if o == nil {
-		var ret int32
+		var ret int64
 		return ret
 	}
 
@@ -491,7 +491,7 @@ func (o *PolicyEvaluationResult) GetNumberOfFindings() int32 {
 
 // GetNumberOfFindingsOk returns a tuple with the NumberOfFindings field value
 // and a boolean to check if the value has been set.
-func (o *PolicyEvaluationResult) GetNumberOfFindingsOk() (*int32, bool) {
+func (o *PolicyEvaluationResult) GetNumberOfFindingsOk() (*int64, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -499,7 +499,7 @@ func (o *PolicyEvaluationResult) GetNumberOfFindingsOk() (*int32, bool) {
 }
 
 // SetNumberOfFindings sets field value
-func (o *PolicyEvaluationResult) SetNumberOfFindings(v int32) {
+func (o *PolicyEvaluationResult) SetNumberOfFindings(v int64) {
 	o.NumberOfFindings = v
 }
 

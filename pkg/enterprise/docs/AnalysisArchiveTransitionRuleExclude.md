@@ -5,8 +5,8 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Selector** | Pointer to [**ImageSelector**](ImageSelector.md) |  | [optional] 
-**ExpirationDays** | Pointer to **int32** | How long the image selected will be excluded from the archive transition | [optional] 
-**LastSeenInDays** | Pointer to **int32** | Exclude image from archive if last seen in inventory within defined number of days | [optional] 
+**ExpirationDays** | Pointer to **int64** | How long the image selected will be excluded from the archive transition | [optional] 
+**LastSeenInDays** | Pointer to **int64** | Exclude image from archive if last seen in inventory within defined number of days | [optional] 
 
 ## Methods
 
@@ -54,20 +54,20 @@ HasSelector returns a boolean if a field has been set.
 
 ### GetExpirationDays
 
-`func (o *AnalysisArchiveTransitionRuleExclude) GetExpirationDays() int32`
+`func (o *AnalysisArchiveTransitionRuleExclude) GetExpirationDays() int64`
 
 GetExpirationDays returns the ExpirationDays field if non-nil, zero value otherwise.
 
 ### GetExpirationDaysOk
 
-`func (o *AnalysisArchiveTransitionRuleExclude) GetExpirationDaysOk() (*int32, bool)`
+`func (o *AnalysisArchiveTransitionRuleExclude) GetExpirationDaysOk() (*int64, bool)`
 
 GetExpirationDaysOk returns a tuple with the ExpirationDays field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetExpirationDays
 
-`func (o *AnalysisArchiveTransitionRuleExclude) SetExpirationDays(v int32)`
+`func (o *AnalysisArchiveTransitionRuleExclude) SetExpirationDays(v int64)`
 
 SetExpirationDays sets ExpirationDays field to given value.
 
@@ -79,20 +79,20 @@ HasExpirationDays returns a boolean if a field has been set.
 
 ### GetLastSeenInDays
 
-`func (o *AnalysisArchiveTransitionRuleExclude) GetLastSeenInDays() int32`
+`func (o *AnalysisArchiveTransitionRuleExclude) GetLastSeenInDays() int64`
 
 GetLastSeenInDays returns the LastSeenInDays field if non-nil, zero value otherwise.
 
 ### GetLastSeenInDaysOk
 
-`func (o *AnalysisArchiveTransitionRuleExclude) GetLastSeenInDaysOk() (*int32, bool)`
+`func (o *AnalysisArchiveTransitionRuleExclude) GetLastSeenInDaysOk() (*int64, bool)`
 
 GetLastSeenInDaysOk returns a tuple with the LastSeenInDays field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLastSeenInDays
 
-`func (o *AnalysisArchiveTransitionRuleExclude) SetLastSeenInDays(v int32)`
+`func (o *AnalysisArchiveTransitionRuleExclude) SetLastSeenInDays(v int64)`
 
 SetLastSeenInDays sets LastSeenInDays field to given value.
 

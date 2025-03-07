@@ -14,7 +14,7 @@ Name | Type | Description | Notes
 **AccessToken** | Pointer to **string** | Personal access token for the GitHub account | [optional] 
 **Owner** | **string** | Owner of the repository to create issues against | 
 **Repository** | **string** | Name of the repository to create issues against | 
-**Milestone** | Pointer to **int32** | Number of the milestone to associate with the issue | [optional] 
+**Milestone** | Pointer to **int64** | Number of the milestone to associate with the issue | [optional] 
 **Labels** | Pointer to **[]string** | List of labels to associate with the issue | [optional] 
 **Assignees** | Pointer to **[]string** | List of user logins to assign to the issue. | [optional] 
 
@@ -274,20 +274,20 @@ SetRepository sets Repository field to given value.
 
 ### GetMilestone
 
-`func (o *NotificationGitHubEndpointConfigurationPut) GetMilestone() int32`
+`func (o *NotificationGitHubEndpointConfigurationPut) GetMilestone() int64`
 
 GetMilestone returns the Milestone field if non-nil, zero value otherwise.
 
 ### GetMilestoneOk
 
-`func (o *NotificationGitHubEndpointConfigurationPut) GetMilestoneOk() (*int32, bool)`
+`func (o *NotificationGitHubEndpointConfigurationPut) GetMilestoneOk() (*int64, bool)`
 
 GetMilestoneOk returns a tuple with the Milestone field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetMilestone
 
-`func (o *NotificationGitHubEndpointConfigurationPut) SetMilestone(v int32)`
+`func (o *NotificationGitHubEndpointConfigurationPut) SetMilestone(v int64)`
 
 SetMilestone sets Milestone field to given value.
 
