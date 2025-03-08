@@ -3,7 +3,7 @@ Anchore API
 
 This is the Anchore API. Provides the external API for users of Anchore Enterprise.
 
-API version: 2.10.0
+API version: 2.10.1
 Contact: dev@anchore.com
 */
 
@@ -29,7 +29,7 @@ type ImageContentMetadata struct {
 	// The mode of the dockerfile
 	DockerfileMode *string `json:"dockerfile_mode,omitempty"`
 	// The size of the image in bytes
-	ImageSize *int32 `json:"image_size,omitempty"`
+	ImageSize *int64 `json:"image_size,omitempty"`
 	// The number of layers in the image
 	LayerCount *int32 `json:"layer_count,omitempty"`
 }
@@ -180,9 +180,9 @@ func (o *ImageContentMetadata) SetDockerfileMode(v string) {
 }
 
 // GetImageSize returns the ImageSize field value if set, zero value otherwise.
-func (o *ImageContentMetadata) GetImageSize() int32 {
+func (o *ImageContentMetadata) GetImageSize() int64 {
 	if o == nil || IsNil(o.ImageSize) {
-		var ret int32
+		var ret int64
 		return ret
 	}
 	return *o.ImageSize
@@ -190,7 +190,7 @@ func (o *ImageContentMetadata) GetImageSize() int32 {
 
 // GetImageSizeOk returns a tuple with the ImageSize field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ImageContentMetadata) GetImageSizeOk() (*int32, bool) {
+func (o *ImageContentMetadata) GetImageSizeOk() (*int64, bool) {
 	if o == nil || IsNil(o.ImageSize) {
 		return nil, false
 	}
@@ -206,8 +206,8 @@ func (o *ImageContentMetadata) HasImageSize() bool {
 	return false
 }
 
-// SetImageSize gets a reference to the given int32 and assigns it to the ImageSize field.
-func (o *ImageContentMetadata) SetImageSize(v int32) {
+// SetImageSize gets a reference to the given int64 and assigns it to the ImageSize field.
+func (o *ImageContentMetadata) SetImageSize(v int64) {
 	o.ImageSize = &v
 }
 

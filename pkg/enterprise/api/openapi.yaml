@@ -8,7 +8,7 @@ info:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
   title: Anchore API
-  version: 2.10.0
+  version: 2.10.1
 servers:
 - url: /v2
 tags:
@@ -24363,6 +24363,7 @@ components:
           type: string
         image_size:
           description: The size of the image in bytes
+          format: int64
           type: integer
         layer_count:
           description: The number of layers in the image

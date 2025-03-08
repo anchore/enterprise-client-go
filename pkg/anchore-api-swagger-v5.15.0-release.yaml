@@ -8,7 +8,7 @@ info:
   license:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
-  version: 2.10.0
+  version: 2.10.1
 servers:
 - url: /v2
 tags:
@@ -12310,6 +12310,7 @@ components:
                 - Actual
             image_size:
               type: integer
+              format: int64
               description: The size of the image in bytes
             layer_count:
               type: integer
