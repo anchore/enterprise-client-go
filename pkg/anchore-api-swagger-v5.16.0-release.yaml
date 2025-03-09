@@ -12317,6 +12317,7 @@ components:
                 - Actual
             image_size:
               type: integer
+              format: int64
               description: The size of the image in bytes
             layer_count:
               type: integer

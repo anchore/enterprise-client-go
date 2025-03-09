@@ -24401,6 +24401,7 @@ components:
           type: string
         image_size:
           description: The size of the image in bytes
+          format: int64
           type: integer
         layer_count:
           description: The number of layers in the image
