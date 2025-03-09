@@ -3,7 +3,7 @@ Anchore API
 
 This is the Anchore API. Provides the external API for users of Anchore Enterprise.
 
-API version: 2.10.1
+API version: 2.10.2
 Contact: dev@anchore.com
 */
 
@@ -22,6 +22,8 @@ var _ MappedNullable = &ImageAncestor{}
 type ImageAncestor struct {
 	// The digest of the image
 	ImageDigest *string `json:"image_digest,omitempty"`
+	// The digest of the manifest list (if any) that described this image
+	ParentDigest *string `json:"parent_digest,omitempty"`
 	Tags []string `json:"tags,omitempty"`
 	// The full set of layers for this image
 	Layers []string `json:"layers,omitempty"`
@@ -78,6 +80,38 @@ func (o *ImageAncestor) HasImageDigest() bool {
 // SetImageDigest gets a reference to the given string and assigns it to the ImageDigest field.
 func (o *ImageAncestor) SetImageDigest(v string) {
 	o.ImageDigest = &v
+}
+
+// GetParentDigest returns the ParentDigest field value if set, zero value otherwise.
+func (o *ImageAncestor) GetParentDigest() string {
+	if o == nil || IsNil(o.ParentDigest) {
+		var ret string
+		return ret
+	}
+	return *o.ParentDigest
+}
+
+// GetParentDigestOk returns a tuple with the ParentDigest field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ImageAncestor) GetParentDigestOk() (*string, bool) {
+	if o == nil || IsNil(o.ParentDigest) {
+		return nil, false
+	}
+	return o.ParentDigest, true
+}
+
+// HasParentDigest returns a boolean if a field has been set.
+func (o *ImageAncestor) HasParentDigest() bool {
+	if o != nil && !IsNil(o.ParentDigest) {
+		return true
+	}
+
+	return false
+}
+
+// SetParentDigest gets a reference to the given string and assigns it to the ParentDigest field.
+func (o *ImageAncestor) SetParentDigest(v string) {
+	o.ParentDigest = &v
 }
 
 // GetTags returns the Tags field value if set, zero value otherwise.
@@ -220,6 +254,9 @@ func (o ImageAncestor) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	if !IsNil(o.ImageDigest) {
 		toSerialize["image_digest"] = o.ImageDigest
+	}
+	if !IsNil(o.ParentDigest) {
+		toSerialize["parent_digest"] = o.ParentDigest
 	}
 	if !IsNil(o.Tags) {
 		toSerialize["tags"] = o.Tags

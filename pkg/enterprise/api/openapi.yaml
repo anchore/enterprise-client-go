@@ -8,7 +8,7 @@ info:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
   title: Anchore API
-  version: 2.10.1
+  version: 2.10.2
 servers:
 - url: /v2
 tags:
@@ -14786,6 +14786,7 @@ components:
         layers:
         - sha256:03810167880e863d81dc60fc7771c975b93dfdf982d5677fb2c23d11b02c644b
         - sha256:03810167880e863d81dc60fc7771c975b93dfdf982d5677fb2c23d11b02c644b
+        parent_digest: sha256:55cffbd26dbe2e79252dd3283b1adef4459441e7b4fc2fe5ccd2bd5b52670474
         user_marked_base: true
         tags:
         - docker.io/library/node:latest
@@ -14793,6 +14794,11 @@ components:
       properties:
         image_digest:
           description: The digest of the image
+          example: sha256:55cffbd26dbe2e79252dd3283b1adef4459441e7b4fc2fe5ccd2bd5b52670474
+          type: string
+        parent_digest:
+          description: The digest of the manifest list (if any) that described this
+            image
           example: sha256:55cffbd26dbe2e79252dd3283b1adef4459441e7b4fc2fe5ccd2bd5b52670474
           type: string
         tags:
@@ -15161,8 +15167,8 @@ components:
         artifacts:
         - foundBy: foundBy
           licenses:
-          - ""
-          - ""
+          - ImportPackage_licenses_inner
+          - ImportPackage_licenses_inner
           metadata: "{}"
           cpes:
           - ImportPackage_cpes_inner
@@ -15181,8 +15187,8 @@ components:
           metadataType: metadataType
         - foundBy: foundBy
           licenses:
-          - ""
-          - ""
+          - ImportPackage_licenses_inner
+          - ImportPackage_licenses_inner
           metadata: "{}"
           cpes:
           - ImportPackage_cpes_inner
@@ -15777,8 +15783,8 @@ components:
       example:
         foundBy: foundBy
         licenses:
-        - ""
-        - ""
+        - ImportPackage_licenses_inner
+        - ImportPackage_licenses_inner
         metadata: "{}"
         cpes:
         - ImportPackage_cpes_inner
@@ -15811,7 +15817,8 @@ components:
             $ref: '#/components/schemas/ImportPackageLocation'
           type: array
         licenses:
-          items: {}
+          items:
+            $ref: '#/components/schemas/ImportPackage_licenses_inner'
           type: array
         language:
           type: string
@@ -15859,6 +15866,33 @@ components:
           type: string
       required:
       - path
+      type: object
+    ImportPackageLicense:
+      properties:
+        value:
+          description: The raw license value reported in the packages metadata
+          type: string
+        spdxExpression:
+          description: The SPDX expression for the license
+          type: string
+        type:
+          description: Where the license information came from
+          enum:
+          - declared
+          - concluded
+          type: string
+        urls:
+          description: URLs associated with the license
+          items:
+            type: string
+          type: array
+        locations:
+          items:
+            $ref: '#/components/schemas/ImportPackageLocation'
+          type: array
+        contents:
+          description: The contents of the license file
+          type: string
       type: object
     ImportPackageRelationship:
       additionalProperties: true
@@ -17407,8 +17441,8 @@ components:
         artifacts:
         - foundBy: foundBy
           licenses:
-          - ""
-          - ""
+          - ImportPackage_licenses_inner
+          - ImportPackage_licenses_inner
           metadata: "{}"
           cpes:
           - NativeSBOMPackage_cpes_inner
@@ -17427,8 +17461,8 @@ components:
           metadataType: metadataType
         - foundBy: foundBy
           licenses:
-          - ""
-          - ""
+          - ImportPackage_licenses_inner
+          - ImportPackage_licenses_inner
           metadata: "{}"
           cpes:
           - NativeSBOMPackage_cpes_inner
@@ -17509,8 +17543,8 @@ components:
       example:
         foundBy: foundBy
         licenses:
-        - ""
-        - ""
+        - ImportPackage_licenses_inner
+        - ImportPackage_licenses_inner
         metadata: "{}"
         cpes:
         - NativeSBOMPackage_cpes_inner
@@ -17543,7 +17577,8 @@ components:
             $ref: '#/components/schemas/NativeSBOMPackageLocation'
           type: array
         licenses:
-          items: {}
+          items:
+            $ref: '#/components/schemas/ImportPackage_licenses_inner'
           type: array
         language:
           type: string
@@ -24372,6 +24407,7 @@ components:
           type: string
         image_size:
           description: The size of the image in bytes
+          format: int64
           type: integer
         layer_count:
           description: The number of layers in the image
@@ -24390,6 +24426,10 @@ components:
         count:
           type: integer
       type: object
+    ImportPackage_licenses_inner:
+      oneOf:
+      - type: string
+      - $ref: '#/components/schemas/ImportPackageLicense'
     ImportPackage_cpes_inner:
       anyOf:
       - type: string

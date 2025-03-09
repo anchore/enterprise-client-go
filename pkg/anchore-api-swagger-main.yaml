@@ -8,7 +8,7 @@ info:
   license:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
-  version: 2.10.1
+  version: 2.10.2
 servers:
 - url: /v2
 tags:
@@ -12232,6 +12232,10 @@ components:
           type: string
           description: The digest of the image
           example: sha256:55cffbd26dbe2e79252dd3283b1adef4459441e7b4fc2fe5ccd2bd5b52670474
+        parent_digest:
+          type: string
+          description: The digest of the manifest list (if any) that described this image
+          example: sha256:55cffbd26dbe2e79252dd3283b1adef4459441e7b4fc2fe5ccd2bd5b52670474
         tags:
           type: array
           items:
@@ -12317,6 +12321,7 @@ components:
                 - Actual
             image_size:
               type: integer
+              format: int64
               description: The size of the image in bytes
             layer_count:
               type: integer
@@ -12783,7 +12788,10 @@ components:
             $ref: '#/components/schemas/ImportPackageLocation'
         licenses:
           type: array
-          items: {}
+          items:
+            oneOf:
+            - type: string
+            - $ref: '#/components/schemas/ImportPackageLicense'
         language:
           type: string
         cpes:
@@ -12821,6 +12829,33 @@ components:
           type: string
         layerID:
           type: string
+    ImportPackageLicense:
+      type: object
+      properties:
+        value:
+          type: string
+          description: The raw license value reported in the packages metadata
+        spdxExpression:
+          type: string
+          description: The SPDX expression for the license
+        type:
+          type: string
+          description: Where the license information came from
+          enum:
+            - declared
+            - concluded
+        urls:
+          type: array
+          items:
+            type: string
+          description: URLs associated with the license
+        locations:
+          type: array
+          items:
+            $ref: '#/components/schemas/ImportPackageLocation'
+        contents:
+          type: string
+          description: The contents of the license file
     ImportPackageRelationship:
       required:
       - parent
@@ -13777,7 +13812,10 @@ components:
             $ref: '#/components/schemas/NativeSBOMPackageLocation'
         licenses:
           type: array
-          items: {}
+          items:
+            oneOf:
+            - type: string
+            - $ref: '#/components/schemas/ImportPackageLicense'
         language:
           type: string
         cpes:

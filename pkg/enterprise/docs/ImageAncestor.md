@@ -5,6 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **ImageDigest** | Pointer to **string** | The digest of the image | [optional] 
+**ParentDigest** | Pointer to **string** | The digest of the manifest list (if any) that described this image | [optional] 
 **Tags** | Pointer to **[]string** |  | [optional] 
 **Layers** | Pointer to **[]string** | The full set of layers for this image | [optional] 
 **UserMarkedBase** | Pointer to **bool** | True if a specific ancestor has been marked by the user as the chosen base image | [optional] 
@@ -53,6 +54,31 @@ SetImageDigest sets ImageDigest field to given value.
 `func (o *ImageAncestor) HasImageDigest() bool`
 
 HasImageDigest returns a boolean if a field has been set.
+
+### GetParentDigest
+
+`func (o *ImageAncestor) GetParentDigest() string`
+
+GetParentDigest returns the ParentDigest field if non-nil, zero value otherwise.
+
+### GetParentDigestOk
+
+`func (o *ImageAncestor) GetParentDigestOk() (*string, bool)`
+
+GetParentDigestOk returns a tuple with the ParentDigest field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetParentDigest
+
+`func (o *ImageAncestor) SetParentDigest(v string)`
+
+SetParentDigest sets ParentDigest field to given value.
+
+### HasParentDigest
+
+`func (o *ImageAncestor) HasParentDigest() bool`
+
+HasParentDigest returns a boolean if a field has been set.
 
 ### GetTags
 
