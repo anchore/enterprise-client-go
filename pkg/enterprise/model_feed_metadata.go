@@ -26,6 +26,8 @@ type FeedMetadata struct {
 	CreatedAt *time.Time `json:"created_at,omitempty"`
 	// The last time the policy-engine service pinged the feed service to see if there was a new grypedb available.
 	UpdatedAt *time.Time `json:"updated_at,omitempty"`
+	// The build timestamp of the feed
+	Built *time.Time `json:"built,omitempty"`
 	Groups []FeedGroupMetadata `json:"groups,omitempty"`
 	// The last time that policy-engine service downloaded a new grypedb.
 	LastFullSync *time.Time `json:"last_full_sync,omitempty"`
@@ -148,6 +150,38 @@ func (o *FeedMetadata) HasUpdatedAt() bool {
 // SetUpdatedAt gets a reference to the given time.Time and assigns it to the UpdatedAt field.
 func (o *FeedMetadata) SetUpdatedAt(v time.Time) {
 	o.UpdatedAt = &v
+}
+
+// GetBuilt returns the Built field value if set, zero value otherwise.
+func (o *FeedMetadata) GetBuilt() time.Time {
+	if o == nil || IsNil(o.Built) {
+		var ret time.Time
+		return ret
+	}
+	return *o.Built
+}
+
+// GetBuiltOk returns a tuple with the Built field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FeedMetadata) GetBuiltOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.Built) {
+		return nil, false
+	}
+	return o.Built, true
+}
+
+// HasBuilt returns a boolean if a field has been set.
+func (o *FeedMetadata) HasBuilt() bool {
+	if o != nil && !IsNil(o.Built) {
+		return true
+	}
+
+	return false
+}
+
+// SetBuilt gets a reference to the given time.Time and assigns it to the Built field.
+func (o *FeedMetadata) SetBuilt(v time.Time) {
+	o.Built = &v
 }
 
 // GetGroups returns the Groups field value if set, zero value otherwise.
@@ -328,6 +362,9 @@ func (o FeedMetadata) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.UpdatedAt) {
 		toSerialize["updated_at"] = o.UpdatedAt
+	}
+	if !IsNil(o.Built) {
+		toSerialize["built"] = o.Built
 	}
 	if !IsNil(o.Groups) {
 		toSerialize["groups"] = o.Groups

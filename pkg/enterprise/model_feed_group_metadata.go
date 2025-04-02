@@ -23,6 +23,8 @@ var _ MappedNullable = &FeedGroupMetadata{}
 type FeedGroupMetadata struct {
 	// The name of the feed group
 	Name *string `json:"name,omitempty"`
+	// The build timestamp of the feed group
+	BuiltAt *time.Time `json:"built_at,omitempty"`
 	CreatedAt *time.Time `json:"created_at,omitempty"`
 	// The last successful update for this feed group.
 	LastSync *time.Time `json:"last_sync,omitempty"`
@@ -79,6 +81,38 @@ func (o *FeedGroupMetadata) HasName() bool {
 // SetName gets a reference to the given string and assigns it to the Name field.
 func (o *FeedGroupMetadata) SetName(v string) {
 	o.Name = &v
+}
+
+// GetBuiltAt returns the BuiltAt field value if set, zero value otherwise.
+func (o *FeedGroupMetadata) GetBuiltAt() time.Time {
+	if o == nil || IsNil(o.BuiltAt) {
+		var ret time.Time
+		return ret
+	}
+	return *o.BuiltAt
+}
+
+// GetBuiltAtOk returns a tuple with the BuiltAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FeedGroupMetadata) GetBuiltAtOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.BuiltAt) {
+		return nil, false
+	}
+	return o.BuiltAt, true
+}
+
+// HasBuiltAt returns a boolean if a field has been set.
+func (o *FeedGroupMetadata) HasBuiltAt() bool {
+	if o != nil && !IsNil(o.BuiltAt) {
+		return true
+	}
+
+	return false
+}
+
+// SetBuiltAt gets a reference to the given time.Time and assigns it to the BuiltAt field.
+func (o *FeedGroupMetadata) SetBuiltAt(v time.Time) {
+	o.BuiltAt = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
@@ -221,6 +255,9 @@ func (o FeedGroupMetadata) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	if !IsNil(o.Name) {
 		toSerialize["name"] = o.Name
+	}
+	if !IsNil(o.BuiltAt) {
+		toSerialize["built_at"] = o.BuiltAt
 	}
 	if !IsNil(o.CreatedAt) {
 		toSerialize["created_at"] = o.CreatedAt

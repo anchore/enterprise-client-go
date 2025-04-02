@@ -7,6 +7,7 @@ Name | Type | Description | Notes
 **Name** | Pointer to **string** | name of the feed | [optional] 
 **CreatedAt** | Pointer to **time.Time** |  | [optional] 
 **UpdatedAt** | Pointer to **time.Time** | The last time the policy-engine service pinged the feed service to see if there was a new grypedb available. | [optional] 
+**Built** | Pointer to **time.Time** | The build timestamp of the feed | [optional] 
 **Groups** | Pointer to [**[]FeedGroupMetadata**](FeedGroupMetadata.md) |  | [optional] 
 **LastFullSync** | Pointer to **time.Time** | The last time that policy-engine service downloaded a new grypedb. | [optional] 
 **Enabled** | Pointer to **bool** | If feed is enabled | [optional] 
@@ -106,6 +107,31 @@ SetUpdatedAt sets UpdatedAt field to given value.
 `func (o *FeedMetadata) HasUpdatedAt() bool`
 
 HasUpdatedAt returns a boolean if a field has been set.
+
+### GetBuilt
+
+`func (o *FeedMetadata) GetBuilt() time.Time`
+
+GetBuilt returns the Built field if non-nil, zero value otherwise.
+
+### GetBuiltOk
+
+`func (o *FeedMetadata) GetBuiltOk() (*time.Time, bool)`
+
+GetBuiltOk returns a tuple with the Built field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetBuilt
+
+`func (o *FeedMetadata) SetBuilt(v time.Time)`
+
+SetBuilt sets Built field to given value.
+
+### HasBuilt
+
+`func (o *FeedMetadata) HasBuilt() bool`
+
+HasBuilt returns a boolean if a field has been set.
 
 ### GetGroups
 

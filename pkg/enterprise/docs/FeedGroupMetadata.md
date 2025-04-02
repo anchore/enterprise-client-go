@@ -5,6 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Name** | Pointer to **string** | The name of the feed group | [optional] 
+**BuiltAt** | Pointer to **time.Time** | The build timestamp of the feed group | [optional] 
 **CreatedAt** | Pointer to **time.Time** |  | [optional] 
 **LastSync** | Pointer to **time.Time** | The last successful update for this feed group. | [optional] 
 **RecordCount** | Pointer to **int32** | The number of records in the group | [optional] 
@@ -53,6 +54,31 @@ SetName sets Name field to given value.
 `func (o *FeedGroupMetadata) HasName() bool`
 
 HasName returns a boolean if a field has been set.
+
+### GetBuiltAt
+
+`func (o *FeedGroupMetadata) GetBuiltAt() time.Time`
+
+GetBuiltAt returns the BuiltAt field if non-nil, zero value otherwise.
+
+### GetBuiltAtOk
+
+`func (o *FeedGroupMetadata) GetBuiltAtOk() (*time.Time, bool)`
+
+GetBuiltAtOk returns a tuple with the BuiltAt field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetBuiltAt
+
+`func (o *FeedGroupMetadata) SetBuiltAt(v time.Time)`
+
+SetBuiltAt sets BuiltAt field to given value.
+
+### HasBuiltAt
+
+`func (o *FeedGroupMetadata) HasBuiltAt() bool`
+
+HasBuiltAt returns a boolean if a field has been set.
 
 ### GetCreatedAt
 

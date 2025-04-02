@@ -143,6 +143,7 @@ Class | Method | HTTP request | Description
 *ImagesAPI* | [**GetImageContentByType**](docs/ImagesAPI.md#getimagecontentbytype) | **Get** /images/{image_digest}/content/{content_type} | Get the content of an image by type
 *ImagesAPI* | [**GetImageContentByTypeFiles**](docs/ImagesAPI.md#getimagecontentbytypefiles) | **Get** /images/{image_digest}/content/files | Get the content of an image by type files
 *ImagesAPI* | [**GetImageContentByTypeJavaPackage**](docs/ImagesAPI.md#getimagecontentbytypejavapackage) | **Get** /images/{image_digest}/content/java | Get the content of an image by type java
+*ImagesAPI* | [**GetImageContentByTypeLicense**](docs/ImagesAPI.md#getimagecontentbytypelicense) | **Get** /images/{image_digest}/content/licenses | Get package licenses for an image
 *ImagesAPI* | [**GetImageContentByTypeMalware**](docs/ImagesAPI.md#getimagecontentbytypemalware) | **Get** /images/{image_digest}/content/malware | Get the content of an image by type malware
 *ImagesAPI* | [**GetImageContentSummary**](docs/ImagesAPI.md#getimagecontentsummary) | **Get** /images/{image_digest}/content-summary | Get image content summary
 *ImagesAPI* | [**GetImageMetadataByType**](docs/ImagesAPI.md#getimagemetadatabytype) | **Get** /images/{image_digest}/metadata/{metadata_type} | Get the metadata of an image by type
@@ -578,6 +579,10 @@ Class | Method | HTTP request | Description
  - [KubernetesNodes](docs/KubernetesNodes.md)
  - [KubernetesPod](docs/KubernetesPod.md)
  - [KubernetesPods](docs/KubernetesPods.md)
+ - [LicenseReviewItem](docs/LicenseReviewItem.md)
+ - [LicenseReviewPackage](docs/LicenseReviewPackage.md)
+ - [LicenseReviewPackageLicense](docs/LicenseReviewPackageLicense.md)
+ - [LicenseReviewResponse](docs/LicenseReviewResponse.md)
  - [LocalAnalysisSource](docs/LocalAnalysisSource.md)
  - [LoggingLevel](docs/LoggingLevel.md)
  - [MalwareFinding](docs/MalwareFinding.md)

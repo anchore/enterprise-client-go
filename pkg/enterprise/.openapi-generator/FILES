@@ -216,6 +216,10 @@ docs/KubernetesNode.md
 docs/KubernetesNodes.md
 docs/KubernetesPod.md
 docs/KubernetesPods.md
+docs/LicenseReviewItem.md
+docs/LicenseReviewPackage.md
+docs/LicenseReviewPackageLicense.md
+docs/LicenseReviewResponse.md
 docs/LocalAnalysisSource.md
 docs/LoggingLevel.md
 docs/MalwareFinding.md
@@ -586,6 +590,10 @@ model_kubernetes_node.go
 model_kubernetes_nodes.go
 model_kubernetes_pod.go
 model_kubernetes_pods.go
+model_license_review_item.go
+model_license_review_package.go
+model_license_review_package_license.go
+model_license_review_response.go
 model_local_analysis_source.go
 model_logging_level.go
 model_malware_finding.go

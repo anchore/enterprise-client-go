@@ -3099,6 +3099,36 @@ paths:
                 $ref: '#/components/schemas/ApiErrorResponse'
       x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.images
       x-anchore-authz-action: getImage
+  /images/{image_digest}/content/licenses:
+    get:
+      tags:
+        - Images
+      summary: Get package licenses for an image
+      description: Get detailed information about the software licenses for each package contained within an image
+      operationId: get_image_content_by_type_license
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.images
+      x-anchore-authz-action: getImage
+      parameters:
+        - name: image_digest
+          in: path
+          required: true
+          schema:
+            pattern: ^sha256:[a-fA-F0-9]{64}$
+            type: string
+            format: path
+        - name: x-anchore-account
+          in: header
+          description: An account name to change the resource scope of the request to
+            that account, if permissions allow (admin only)
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/LicenseReviewResponse"
   /images/{image_digest}/content/{content_type}:
     get:
       tags:
@@ -11954,6 +11984,10 @@ components:
         name:
           type: string
           description: The name of the feed group
+        built_at:
+          type: string
+          format: date-time
+          description: The build timestamp of the feed group
         created_at:
           type: string
           format: date-time
@@ -11980,6 +12014,10 @@ components:
           type: string
           description: The last time the policy-engine service pinged the feed service to see if there was a new grypedb available.
           format: date-time
+        built:
+          type: string
+          format: date-time
+          description: The build timestamp of the feed
         groups:
           type: array
           items:
@@ -13647,6 +13685,98 @@ components:
       properties:
         digest:
           type: string
+    LicenseReviewPackage:
+      type: object
+      properties:
+        name:
+          type: string
+          description: The name of the package
+          example: react
+        version:
+          type: string
+          description: The version of the Package
+          example: 17.0.2
+        type:
+          type: string
+          description: The type of the package
+          example: npm
+        purl:
+          type: string
+          description: The Package URL for the package
+          example: pkg:npm/react@17.0.2
+    LicenseReviewPackageLicense:
+      type: object
+      properties:
+        spdx_id:
+          type: string
+          description: The SPDX ID for the license
+          example: MIT
+        license_name:
+          type: string
+          description: The full name of the license
+          example: MIT License
+        license_text:
+          type: string
+          description: The full text of the license
+          example: |
+            MIT License
+
+            Copyright (c) Meta Platforms, Inc. and affiliates.
+
+            Permission is hereby granted, free of charge, to any person obtaining a copy
+            of this software and associated documentation files (the "Software"), to deal
+            in the Software without restriction, including without limitation the rights
+            to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+            copies of the Software, and to permit persons to whom the Software is
+            furnished to do so, subject to the following conditions:
+
+            The above copyright notice and this permission notice shall be included in all
+            copies or substantial portions of the Software.
+
+            THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+            IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+            FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+            AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+            LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+            OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+            SOFTWARE.
+        license_header:
+          type: string
+          description: The standard license header for the package’s license
+          example: |
+            Copyright (c) Meta Platforms, Inc. and affiliates.
+
+            This source code is licensed under the MIT license found in the
+            LICENSE file in the root directory of this source tree.
+        license_url:
+          type: string
+          description: The URL for the license
+          example: https://github.com/facebook/react/blob/main/LICENSE
+        source:
+          type: string
+          description: The source of the license information
+          enum:
+            - override
+            - sbom
+    LicenseReviewItem:
+      type: object
+      properties:
+        package:
+          type: object
+          $ref: "#/components/schemas/LicenseReviewPackage"
+        licenses:
+          type: array
+          description: List of licenses for the package
+          items:
+            $ref: "#/components/schemas/LicenseReviewPackageLicense"
+    LicenseReviewResponse:
+      type: object
+      properties:
+        items:
+          type: array
+          description: List of packages and their licenses
+          items:
+            $ref: "#/components/schemas/LicenseReviewItem"
     MalwareFinding:
       type: object
       properties:
