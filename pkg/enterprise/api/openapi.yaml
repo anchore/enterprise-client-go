@@ -8,7 +8,7 @@ info:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
   title: Anchore API
-  version: 2.10.2
+  version: 2.11.0
 servers:
 - url: /v2
 tags:
@@ -14326,11 +14326,14 @@ components:
         data_format: data_format
         updated_at: 2000-01-23T04:56:07.000+00:00
         built_at: 2000-01-23T04:56:07.000+00:00
+        data_service_built_at: 2000-01-23T04:56:07.000+00:00
         name: name
         checksum: checksum
+        enterprise_received_at: 2000-01-23T04:56:07.000+00:00
         created_at: 2000-01-23T04:56:07.000+00:00
         id: id
         dataset: dataset
+        version: version
       properties:
         id:
           description: The unique identifier for the data record
@@ -14339,7 +14342,7 @@ components:
           description: The name of the data record
           type: string
         dataset:
-          description: The data set type of the record
+          description: The dataset type of the record
           type: string
         data_format:
           description: The format of the data record
@@ -14347,16 +14350,32 @@ components:
         checksum:
           description: The checksum of the data record
           type: string
+        version:
+          description: The version of the data record
+          type: string
+        data_service_built_at:
+          description: The time when the Anchore Data Service started to build this
+            feed.
+          format: date-time
+          type: string
+        enterprise_received_at:
+          description: The time when the Enterprise received this feed either via
+            the data-syncer service or air gapped workflow.
+          format: date-time
+          type: string
         built_at:
-          description: The build timestamp of the data record
+          deprecated: true
+          description: Deprecated - The build timestamp of the data record
           format: date-time
           type: string
         created_at:
-          description: The creation timestamp of the data record
+          deprecated: true
+          description: Deprecated - The creation timestamp of the data record
           format: date-time
           type: string
         updated_at:
-          description: The last update timestamp of the data record
+          deprecated: true
+          description: Deprecated - The last update timestamp of the data record
           format: date-time
           type: string
       type: object
@@ -14364,30 +14383,41 @@ components:
       example:
         record_count: 0
         last_sync: 2000-01-23T04:56:07.000+00:00
-        built_at: 2000-01-23T04:56:07.000+00:00
+        data_service_built_at: 2000-01-23T04:56:07.000+00:00
         name: name
+        enterprise_received_at: 2000-01-23T04:56:07.000+00:00
         created_at: 2000-01-23T04:56:07.000+00:00
         enabled: true
       properties:
         name:
-          description: The name of the feed group
+          description: The name of this feed group.
           type: string
-        built_at:
-          description: The build timestamp of the feed group
+        data_service_built_at:
+          description: The time when the Anchore Data Service started to build this
+            feed group.
+          format: date-time
+          type: string
+        enterprise_received_at:
+          description: The time when the Enterprise received this feed group either
+            via the data-syncer service or air gapped workflow.
           format: date-time
           type: string
         created_at:
+          deprecated: true
+          description: Deprecated - The time when Enterprise uploaded this feed group.
           format: date-time
           type: string
         last_sync:
-          description: The last successful update for this feed group.
+          deprecated: true
+          description: Deprecated - The last successful update for this feed group.
           format: date-time
           type: string
         record_count:
-          description: The number of records in the group
+          description: The number of records in this feed group.
           type: integer
         enabled:
-          description: If group is enabled
+          deprecated: true
+          description: Deprecated - If group is enabled.
           type: boolean
       type: object
     FeedMetadata:
@@ -14395,39 +14425,55 @@ components:
       example:
         last_full_sync: 2000-01-23T04:56:07.000+00:00
         updated_at: 2000-01-23T04:56:07.000+00:00
-        built: 2000-01-23T04:56:07.000+00:00
+        data_service_built_at: 2000-01-23T04:56:07.000+00:00
         name: name
+        enterprise_received_at: 2000-01-23T04:56:07.000+00:00
         dataset_checksum: dataset_checksum
         created_at: 2000-01-23T04:56:07.000+00:00
         groups:
         - record_count: 0
           last_sync: 2000-01-23T04:56:07.000+00:00
-          built_at: 2000-01-23T04:56:07.000+00:00
+          data_service_built_at: 2000-01-23T04:56:07.000+00:00
           name: name
+          enterprise_received_at: 2000-01-23T04:56:07.000+00:00
           created_at: 2000-01-23T04:56:07.000+00:00
           enabled: true
         - record_count: 0
           last_sync: 2000-01-23T04:56:07.000+00:00
-          built_at: 2000-01-23T04:56:07.000+00:00
+          data_service_built_at: 2000-01-23T04:56:07.000+00:00
           name: name
+          enterprise_received_at: 2000-01-23T04:56:07.000+00:00
           created_at: 2000-01-23T04:56:07.000+00:00
           enabled: true
         dataset_name: dataset_name
+        version: version
         enabled: true
       properties:
         name:
-          description: name of the feed
+          description: The name of the feed.
+          type: string
+        version:
+          description: The version of the feed.
           type: string
         created_at:
+          deprecated: true
+          description: Deprecated - The time when Enterprise uploaded this feed.
           format: date-time
           type: string
         updated_at:
-          description: The last time the policy-engine service pinged the feed service
-            to see if there was a new grypedb available.
+          deprecated: true
+          description: Deprecated - The last time the policy-engine service pinged
+            the feed service to see if there was a new grypedb available.
           format: date-time
           type: string
-        built:
-          description: The build timestamp of the feed
+        data_service_built_at:
+          description: The time when the Anchore Data Service started to build this
+            feed.
+          format: date-time
+          type: string
+        enterprise_received_at:
+          description: The time when the Enterprise received this feed either via
+            the data-syncer service or air gapped workflow.
           format: date-time
           type: string
         groups:
@@ -14435,11 +14481,14 @@ components:
             $ref: '#/components/schemas/FeedGroupMetadata'
           type: array
         last_full_sync:
-          description: The last time that policy-engine service downloaded a new grypedb.
+          deprecated: true
+          description: Deprecated - The last time that policy-engine service downloaded
+            a new grypedb.
           format: date-time
           type: string
         enabled:
-          description: If feed is enabled
+          deprecated: true
+          description: Deprecated - If feed is enabled
           type: boolean
         dataset_name:
           description: The name of the dataset that provides this feed
@@ -17268,6 +17317,7 @@ components:
     LicenseReviewPackageLicense:
       example:
         license_name: MIT License
+        license_id: MIT
         license_text: |
           MIT License
 
@@ -17291,7 +17341,6 @@ components:
           OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
           SOFTWARE.
         source: override
-        spdx_id: MIT
         license_url: https://github.com/facebook/react/blob/main/LICENSE
         license_header: |
           Copyright (c) Meta Platforms, Inc. and affiliates.
@@ -17299,8 +17348,8 @@ components:
           This source code is licensed under the MIT license found in the
           LICENSE file in the root directory of this source tree.
       properties:
-        spdx_id:
-          description: The SPDX ID for the license
+        license_id:
+          description: The License ID for the license
           example: MIT
           type: string
         license_name:
@@ -17355,6 +17404,7 @@ components:
       example:
         licenses:
         - license_name: MIT License
+          license_id: MIT
           license_text: |
             MIT License
 
@@ -17378,7 +17428,6 @@ components:
             OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
             SOFTWARE.
           source: override
-          spdx_id: MIT
           license_url: https://github.com/facebook/react/blob/main/LICENSE
           license_header: |
             Copyright (c) Meta Platforms, Inc. and affiliates.
@@ -17386,6 +17435,7 @@ components:
             This source code is licensed under the MIT license found in the
             LICENSE file in the root directory of this source tree.
         - license_name: MIT License
+          license_id: MIT
           license_text: |
             MIT License
 
@@ -17409,7 +17459,6 @@ components:
             OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
             SOFTWARE.
           source: override
-          spdx_id: MIT
           license_url: https://github.com/facebook/react/blob/main/LICENSE
           license_header: |
             Copyright (c) Meta Platforms, Inc. and affiliates.
@@ -17435,6 +17484,7 @@ components:
         items:
         - licenses:
           - license_name: MIT License
+            license_id: MIT
             license_text: |
               MIT License
 
@@ -17458,7 +17508,6 @@ components:
               OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
               SOFTWARE.
             source: override
-            spdx_id: MIT
             license_url: https://github.com/facebook/react/blob/main/LICENSE
             license_header: |
               Copyright (c) Meta Platforms, Inc. and affiliates.
@@ -17466,6 +17515,7 @@ components:
               This source code is licensed under the MIT license found in the
               LICENSE file in the root directory of this source tree.
           - license_name: MIT License
+            license_id: MIT
             license_text: |
               MIT License
 
@@ -17489,7 +17539,6 @@ components:
               OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
               SOFTWARE.
             source: override
-            spdx_id: MIT
             license_url: https://github.com/facebook/react/blob/main/LICENSE
             license_header: |
               Copyright (c) Meta Platforms, Inc. and affiliates.
@@ -17503,6 +17552,7 @@ components:
             version: 17.0.2
         - licenses:
           - license_name: MIT License
+            license_id: MIT
             license_text: |
               MIT License
 
@@ -17526,7 +17576,6 @@ components:
               OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
               SOFTWARE.
             source: override
-            spdx_id: MIT
             license_url: https://github.com/facebook/react/blob/main/LICENSE
             license_header: |
               Copyright (c) Meta Platforms, Inc. and affiliates.
@@ -17534,6 +17583,7 @@ components:
               This source code is licensed under the MIT license found in the
               LICENSE file in the root directory of this source tree.
           - license_name: MIT License
+            license_id: MIT
             license_text: |
               MIT License
 
@@ -17557,7 +17607,6 @@ components:
               OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
               SOFTWARE.
             source: override
-            spdx_id: MIT
             license_url: https://github.com/facebook/react/blob/main/LICENSE
             license_header: |
               Copyright (c) Meta Platforms, Inc. and affiliates.

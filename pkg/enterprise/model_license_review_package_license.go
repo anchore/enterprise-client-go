@@ -3,7 +3,7 @@ Anchore API
 
 This is the Anchore API. Provides the external API for users of Anchore Enterprise.
 
-API version: 2.10.2
+API version: 2.11.0
 Contact: dev@anchore.com
 */
 
@@ -20,8 +20,8 @@ var _ MappedNullable = &LicenseReviewPackageLicense{}
 
 // LicenseReviewPackageLicense struct for LicenseReviewPackageLicense
 type LicenseReviewPackageLicense struct {
-	// The SPDX ID for the license
-	SpdxId *string `json:"spdx_id,omitempty"`
+	// The License ID for the license
+	LicenseId *string `json:"license_id,omitempty"`
 	// The full name of the license
 	LicenseName *string `json:"license_name,omitempty"`
 	// The full text of the license
@@ -51,36 +51,36 @@ func NewLicenseReviewPackageLicenseWithDefaults() *LicenseReviewPackageLicense {
 	return &this
 }
 
-// GetSpdxId returns the SpdxId field value if set, zero value otherwise.
-func (o *LicenseReviewPackageLicense) GetSpdxId() string {
-	if o == nil || IsNil(o.SpdxId) {
+// GetLicenseId returns the LicenseId field value if set, zero value otherwise.
+func (o *LicenseReviewPackageLicense) GetLicenseId() string {
+	if o == nil || IsNil(o.LicenseId) {
 		var ret string
 		return ret
 	}
-	return *o.SpdxId
+	return *o.LicenseId
 }
 
-// GetSpdxIdOk returns a tuple with the SpdxId field value if set, nil otherwise
+// GetLicenseIdOk returns a tuple with the LicenseId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LicenseReviewPackageLicense) GetSpdxIdOk() (*string, bool) {
-	if o == nil || IsNil(o.SpdxId) {
+func (o *LicenseReviewPackageLicense) GetLicenseIdOk() (*string, bool) {
+	if o == nil || IsNil(o.LicenseId) {
 		return nil, false
 	}
-	return o.SpdxId, true
+	return o.LicenseId, true
 }
 
-// HasSpdxId returns a boolean if a field has been set.
-func (o *LicenseReviewPackageLicense) HasSpdxId() bool {
-	if o != nil && !IsNil(o.SpdxId) {
+// HasLicenseId returns a boolean if a field has been set.
+func (o *LicenseReviewPackageLicense) HasLicenseId() bool {
+	if o != nil && !IsNil(o.LicenseId) {
 		return true
 	}
 
 	return false
 }
 
-// SetSpdxId gets a reference to the given string and assigns it to the SpdxId field.
-func (o *LicenseReviewPackageLicense) SetSpdxId(v string) {
-	o.SpdxId = &v
+// SetLicenseId gets a reference to the given string and assigns it to the LicenseId field.
+func (o *LicenseReviewPackageLicense) SetLicenseId(v string) {
+	o.LicenseId = &v
 }
 
 // GetLicenseName returns the LicenseName field value if set, zero value otherwise.
@@ -253,8 +253,8 @@ func (o LicenseReviewPackageLicense) MarshalJSON() ([]byte, error) {
 
 func (o LicenseReviewPackageLicense) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.SpdxId) {
-		toSerialize["spdx_id"] = o.SpdxId
+	if !IsNil(o.LicenseId) {
+		toSerialize["license_id"] = o.LicenseId
 	}
 	if !IsNil(o.LicenseName) {
 		toSerialize["license_name"] = o.LicenseName
