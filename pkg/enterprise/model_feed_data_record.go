@@ -3,7 +3,7 @@ Anchore API
 
 This is the Anchore API. Provides the external API for users of Anchore Enterprise.
 
-API version: 2.10.2
+API version: 2.11.0
 Contact: dev@anchore.com
 */
 
@@ -25,17 +25,26 @@ type FeedDataRecord struct {
 	Id *string `json:"id,omitempty"`
 	// The name of the data record
 	Name *string `json:"name,omitempty"`
-	// The data set type of the record
+	// The dataset type of the record
 	Dataset *string `json:"dataset,omitempty"`
 	// The format of the data record
 	DataFormat *string `json:"data_format,omitempty"`
 	// The checksum of the data record
 	Checksum *string `json:"checksum,omitempty"`
-	// The build timestamp of the data record
+	// The version of the data record
+	Version *string `json:"version,omitempty"`
+	// The time when the Anchore Data Service started to build this feed.
+	DataServiceBuiltAt *time.Time `json:"data_service_built_at,omitempty"`
+	// The time when the Enterprise received this feed either via the data-syncer service or air gapped workflow.
+	EnterpriseReceivedAt *time.Time `json:"enterprise_received_at,omitempty"`
+	// Deprecated - The build timestamp of the data record
+	// Deprecated
 	BuiltAt *time.Time `json:"built_at,omitempty"`
-	// The creation timestamp of the data record
+	// Deprecated - The creation timestamp of the data record
+	// Deprecated
 	CreatedAt *time.Time `json:"created_at,omitempty"`
-	// The last update timestamp of the data record
+	// Deprecated - The last update timestamp of the data record
+	// Deprecated
 	UpdatedAt *time.Time `json:"updated_at,omitempty"`
 }
 
@@ -216,7 +225,104 @@ func (o *FeedDataRecord) SetChecksum(v string) {
 	o.Checksum = &v
 }
 
+// GetVersion returns the Version field value if set, zero value otherwise.
+func (o *FeedDataRecord) GetVersion() string {
+	if o == nil || IsNil(o.Version) {
+		var ret string
+		return ret
+	}
+	return *o.Version
+}
+
+// GetVersionOk returns a tuple with the Version field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FeedDataRecord) GetVersionOk() (*string, bool) {
+	if o == nil || IsNil(o.Version) {
+		return nil, false
+	}
+	return o.Version, true
+}
+
+// HasVersion returns a boolean if a field has been set.
+func (o *FeedDataRecord) HasVersion() bool {
+	if o != nil && !IsNil(o.Version) {
+		return true
+	}
+
+	return false
+}
+
+// SetVersion gets a reference to the given string and assigns it to the Version field.
+func (o *FeedDataRecord) SetVersion(v string) {
+	o.Version = &v
+}
+
+// GetDataServiceBuiltAt returns the DataServiceBuiltAt field value if set, zero value otherwise.
+func (o *FeedDataRecord) GetDataServiceBuiltAt() time.Time {
+	if o == nil || IsNil(o.DataServiceBuiltAt) {
+		var ret time.Time
+		return ret
+	}
+	return *o.DataServiceBuiltAt
+}
+
+// GetDataServiceBuiltAtOk returns a tuple with the DataServiceBuiltAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FeedDataRecord) GetDataServiceBuiltAtOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.DataServiceBuiltAt) {
+		return nil, false
+	}
+	return o.DataServiceBuiltAt, true
+}
+
+// HasDataServiceBuiltAt returns a boolean if a field has been set.
+func (o *FeedDataRecord) HasDataServiceBuiltAt() bool {
+	if o != nil && !IsNil(o.DataServiceBuiltAt) {
+		return true
+	}
+
+	return false
+}
+
+// SetDataServiceBuiltAt gets a reference to the given time.Time and assigns it to the DataServiceBuiltAt field.
+func (o *FeedDataRecord) SetDataServiceBuiltAt(v time.Time) {
+	o.DataServiceBuiltAt = &v
+}
+
+// GetEnterpriseReceivedAt returns the EnterpriseReceivedAt field value if set, zero value otherwise.
+func (o *FeedDataRecord) GetEnterpriseReceivedAt() time.Time {
+	if o == nil || IsNil(o.EnterpriseReceivedAt) {
+		var ret time.Time
+		return ret
+	}
+	return *o.EnterpriseReceivedAt
+}
+
+// GetEnterpriseReceivedAtOk returns a tuple with the EnterpriseReceivedAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FeedDataRecord) GetEnterpriseReceivedAtOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.EnterpriseReceivedAt) {
+		return nil, false
+	}
+	return o.EnterpriseReceivedAt, true
+}
+
+// HasEnterpriseReceivedAt returns a boolean if a field has been set.
+func (o *FeedDataRecord) HasEnterpriseReceivedAt() bool {
+	if o != nil && !IsNil(o.EnterpriseReceivedAt) {
+		return true
+	}
+
+	return false
+}
+
+// SetEnterpriseReceivedAt gets a reference to the given time.Time and assigns it to the EnterpriseReceivedAt field.
+func (o *FeedDataRecord) SetEnterpriseReceivedAt(v time.Time) {
+	o.EnterpriseReceivedAt = &v
+}
+
 // GetBuiltAt returns the BuiltAt field value if set, zero value otherwise.
+// Deprecated
 func (o *FeedDataRecord) GetBuiltAt() time.Time {
 	if o == nil || IsNil(o.BuiltAt) {
 		var ret time.Time
@@ -227,6 +333,7 @@ func (o *FeedDataRecord) GetBuiltAt() time.Time {
 
 // GetBuiltAtOk returns a tuple with the BuiltAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// Deprecated
 func (o *FeedDataRecord) GetBuiltAtOk() (*time.Time, bool) {
 	if o == nil || IsNil(o.BuiltAt) {
 		return nil, false
@@ -244,11 +351,13 @@ func (o *FeedDataRecord) HasBuiltAt() bool {
 }
 
 // SetBuiltAt gets a reference to the given time.Time and assigns it to the BuiltAt field.
+// Deprecated
 func (o *FeedDataRecord) SetBuiltAt(v time.Time) {
 	o.BuiltAt = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
+// Deprecated
 func (o *FeedDataRecord) GetCreatedAt() time.Time {
 	if o == nil || IsNil(o.CreatedAt) {
 		var ret time.Time
@@ -259,6 +368,7 @@ func (o *FeedDataRecord) GetCreatedAt() time.Time {
 
 // GetCreatedAtOk returns a tuple with the CreatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// Deprecated
 func (o *FeedDataRecord) GetCreatedAtOk() (*time.Time, bool) {
 	if o == nil || IsNil(o.CreatedAt) {
 		return nil, false
@@ -276,11 +386,13 @@ func (o *FeedDataRecord) HasCreatedAt() bool {
 }
 
 // SetCreatedAt gets a reference to the given time.Time and assigns it to the CreatedAt field.
+// Deprecated
 func (o *FeedDataRecord) SetCreatedAt(v time.Time) {
 	o.CreatedAt = &v
 }
 
 // GetUpdatedAt returns the UpdatedAt field value if set, zero value otherwise.
+// Deprecated
 func (o *FeedDataRecord) GetUpdatedAt() time.Time {
 	if o == nil || IsNil(o.UpdatedAt) {
 		var ret time.Time
@@ -291,6 +403,7 @@ func (o *FeedDataRecord) GetUpdatedAt() time.Time {
 
 // GetUpdatedAtOk returns a tuple with the UpdatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// Deprecated
 func (o *FeedDataRecord) GetUpdatedAtOk() (*time.Time, bool) {
 	if o == nil || IsNil(o.UpdatedAt) {
 		return nil, false
@@ -308,6 +421,7 @@ func (o *FeedDataRecord) HasUpdatedAt() bool {
 }
 
 // SetUpdatedAt gets a reference to the given time.Time and assigns it to the UpdatedAt field.
+// Deprecated
 func (o *FeedDataRecord) SetUpdatedAt(v time.Time) {
 	o.UpdatedAt = &v
 }
@@ -336,6 +450,15 @@ func (o FeedDataRecord) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.Checksum) {
 		toSerialize["checksum"] = o.Checksum
+	}
+	if !IsNil(o.Version) {
+		toSerialize["version"] = o.Version
+	}
+	if !IsNil(o.DataServiceBuiltAt) {
+		toSerialize["data_service_built_at"] = o.DataServiceBuiltAt
+	}
+	if !IsNil(o.EnterpriseReceivedAt) {
+		toSerialize["enterprise_received_at"] = o.EnterpriseReceivedAt
 	}
 	if !IsNil(o.BuiltAt) {
 		toSerialize["built_at"] = o.BuiltAt

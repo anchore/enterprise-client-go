@@ -6,12 +6,15 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Id** | Pointer to **string** | The unique identifier for the data record | [optional] 
 **Name** | Pointer to **string** | The name of the data record | [optional] 
-**Dataset** | Pointer to **string** | The data set type of the record | [optional] 
+**Dataset** | Pointer to **string** | The dataset type of the record | [optional] 
 **DataFormat** | Pointer to **string** | The format of the data record | [optional] 
 **Checksum** | Pointer to **string** | The checksum of the data record | [optional] 
-**BuiltAt** | Pointer to **time.Time** | The build timestamp of the data record | [optional] 
-**CreatedAt** | Pointer to **time.Time** | The creation timestamp of the data record | [optional] 
-**UpdatedAt** | Pointer to **time.Time** | The last update timestamp of the data record | [optional] 
+**Version** | Pointer to **string** | The version of the data record | [optional] 
+**DataServiceBuiltAt** | Pointer to **time.Time** | The time when the Anchore Data Service started to build this feed. | [optional] 
+**EnterpriseReceivedAt** | Pointer to **time.Time** | The time when the Enterprise received this feed either via the data-syncer service or air gapped workflow. | [optional] 
+**BuiltAt** | Pointer to **time.Time** | Deprecated - The build timestamp of the data record | [optional] 
+**CreatedAt** | Pointer to **time.Time** | Deprecated - The creation timestamp of the data record | [optional] 
+**UpdatedAt** | Pointer to **time.Time** | Deprecated - The last update timestamp of the data record | [optional] 
 
 ## Methods
 
@@ -156,6 +159,81 @@ SetChecksum sets Checksum field to given value.
 `func (o *FeedDataRecord) HasChecksum() bool`
 
 HasChecksum returns a boolean if a field has been set.
+
+### GetVersion
+
+`func (o *FeedDataRecord) GetVersion() string`
+
+GetVersion returns the Version field if non-nil, zero value otherwise.
+
+### GetVersionOk
+
+`func (o *FeedDataRecord) GetVersionOk() (*string, bool)`
+
+GetVersionOk returns a tuple with the Version field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetVersion
+
+`func (o *FeedDataRecord) SetVersion(v string)`
+
+SetVersion sets Version field to given value.
+
+### HasVersion
+
+`func (o *FeedDataRecord) HasVersion() bool`
+
+HasVersion returns a boolean if a field has been set.
+
+### GetDataServiceBuiltAt
+
+`func (o *FeedDataRecord) GetDataServiceBuiltAt() time.Time`
+
+GetDataServiceBuiltAt returns the DataServiceBuiltAt field if non-nil, zero value otherwise.
+
+### GetDataServiceBuiltAtOk
+
+`func (o *FeedDataRecord) GetDataServiceBuiltAtOk() (*time.Time, bool)`
+
+GetDataServiceBuiltAtOk returns a tuple with the DataServiceBuiltAt field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDataServiceBuiltAt
+
+`func (o *FeedDataRecord) SetDataServiceBuiltAt(v time.Time)`
+
+SetDataServiceBuiltAt sets DataServiceBuiltAt field to given value.
+
+### HasDataServiceBuiltAt
+
+`func (o *FeedDataRecord) HasDataServiceBuiltAt() bool`
+
+HasDataServiceBuiltAt returns a boolean if a field has been set.
+
+### GetEnterpriseReceivedAt
+
+`func (o *FeedDataRecord) GetEnterpriseReceivedAt() time.Time`
+
+GetEnterpriseReceivedAt returns the EnterpriseReceivedAt field if non-nil, zero value otherwise.
+
+### GetEnterpriseReceivedAtOk
+
+`func (o *FeedDataRecord) GetEnterpriseReceivedAtOk() (*time.Time, bool)`
+
+GetEnterpriseReceivedAtOk returns a tuple with the EnterpriseReceivedAt field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetEnterpriseReceivedAt
+
+`func (o *FeedDataRecord) SetEnterpriseReceivedAt(v time.Time)`
+
+SetEnterpriseReceivedAt sets EnterpriseReceivedAt field to given value.
+
+### HasEnterpriseReceivedAt
+
+`func (o *FeedDataRecord) HasEnterpriseReceivedAt() bool`
+
+HasEnterpriseReceivedAt returns a boolean if a field has been set.
 
 ### GetBuiltAt
 

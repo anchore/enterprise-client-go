@@ -3,7 +3,7 @@ Anchore API
 
 This is the Anchore API. Provides the external API for users of Anchore Enterprise.
 
-API version: 2.10.2
+API version: 2.11.0
 Contact: dev@anchore.com
 */
 
@@ -20,7 +20,7 @@ var _ MappedNullable = &LicenseReviewItem{}
 
 // LicenseReviewItem struct for LicenseReviewItem
 type LicenseReviewItem struct {
-	Package LicenseReviewPackage `json:"package,omitempty"`
+	Package *LicenseReviewPackage `json:"package,omitempty"`
 	// List of licenses for the package
 	Licenses []LicenseReviewPackageLicense `json:"licenses,omitempty"`
 }
@@ -48,14 +48,14 @@ func (o *LicenseReviewItem) GetPackage() LicenseReviewPackage {
 		var ret LicenseReviewPackage
 		return ret
 	}
-	return o.Package
+	return *o.Package
 }
 
 // GetPackageOk returns a tuple with the Package field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LicenseReviewItem) GetPackageOk() (LicenseReviewPackage, bool) {
+func (o *LicenseReviewItem) GetPackageOk() (*LicenseReviewPackage, bool) {
 	if o == nil || IsNil(o.Package) {
-		return LicenseReviewPackage{}, false
+		return nil, false
 	}
 	return o.Package, true
 }
@@ -71,7 +71,7 @@ func (o *LicenseReviewItem) HasPackage() bool {
 
 // SetPackage gets a reference to the given LicenseReviewPackage and assigns it to the Package field.
 func (o *LicenseReviewItem) SetPackage(v LicenseReviewPackage) {
-	o.Package = v
+	o.Package = &v
 }
 
 // GetLicenses returns the Licenses field value if set, zero value otherwise.

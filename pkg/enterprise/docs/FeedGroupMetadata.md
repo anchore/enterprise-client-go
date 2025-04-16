@@ -4,12 +4,13 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Name** | Pointer to **string** | The name of the feed group | [optional] 
-**BuiltAt** | Pointer to **time.Time** | The build timestamp of the feed group | [optional] 
-**CreatedAt** | Pointer to **time.Time** |  | [optional] 
-**LastSync** | Pointer to **time.Time** | The last successful update for this feed group. | [optional] 
-**RecordCount** | Pointer to **int32** | The number of records in the group | [optional] 
-**Enabled** | Pointer to **bool** | If group is enabled | [optional] 
+**Name** | Pointer to **string** | The name of this feed group. | [optional] 
+**DataServiceBuiltAt** | Pointer to **time.Time** | The time when the Anchore Data Service started to build this feed group. | [optional] 
+**EnterpriseReceivedAt** | Pointer to **time.Time** | The time when the Enterprise received this feed group either via the data-syncer service or air gapped workflow. | [optional] 
+**CreatedAt** | Pointer to **time.Time** | Deprecated - The time when Enterprise uploaded this feed group. | [optional] 
+**LastSync** | Pointer to **time.Time** | Deprecated - The last successful update for this feed group. | [optional] 
+**RecordCount** | Pointer to **int32** | The number of records in this feed group. | [optional] 
+**Enabled** | Pointer to **bool** | Deprecated - If group is enabled. | [optional] 
 
 ## Methods
 
@@ -55,30 +56,55 @@ SetName sets Name field to given value.
 
 HasName returns a boolean if a field has been set.
 
-### GetBuiltAt
+### GetDataServiceBuiltAt
 
-`func (o *FeedGroupMetadata) GetBuiltAt() time.Time`
+`func (o *FeedGroupMetadata) GetDataServiceBuiltAt() time.Time`
 
-GetBuiltAt returns the BuiltAt field if non-nil, zero value otherwise.
+GetDataServiceBuiltAt returns the DataServiceBuiltAt field if non-nil, zero value otherwise.
 
-### GetBuiltAtOk
+### GetDataServiceBuiltAtOk
 
-`func (o *FeedGroupMetadata) GetBuiltAtOk() (*time.Time, bool)`
+`func (o *FeedGroupMetadata) GetDataServiceBuiltAtOk() (*time.Time, bool)`
 
-GetBuiltAtOk returns a tuple with the BuiltAt field if it's non-nil, zero value otherwise
+GetDataServiceBuiltAtOk returns a tuple with the DataServiceBuiltAt field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetBuiltAt
+### SetDataServiceBuiltAt
 
-`func (o *FeedGroupMetadata) SetBuiltAt(v time.Time)`
+`func (o *FeedGroupMetadata) SetDataServiceBuiltAt(v time.Time)`
 
-SetBuiltAt sets BuiltAt field to given value.
+SetDataServiceBuiltAt sets DataServiceBuiltAt field to given value.
 
-### HasBuiltAt
+### HasDataServiceBuiltAt
 
-`func (o *FeedGroupMetadata) HasBuiltAt() bool`
+`func (o *FeedGroupMetadata) HasDataServiceBuiltAt() bool`
 
-HasBuiltAt returns a boolean if a field has been set.
+HasDataServiceBuiltAt returns a boolean if a field has been set.
+
+### GetEnterpriseReceivedAt
+
+`func (o *FeedGroupMetadata) GetEnterpriseReceivedAt() time.Time`
+
+GetEnterpriseReceivedAt returns the EnterpriseReceivedAt field if non-nil, zero value otherwise.
+
+### GetEnterpriseReceivedAtOk
+
+`func (o *FeedGroupMetadata) GetEnterpriseReceivedAtOk() (*time.Time, bool)`
+
+GetEnterpriseReceivedAtOk returns a tuple with the EnterpriseReceivedAt field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetEnterpriseReceivedAt
+
+`func (o *FeedGroupMetadata) SetEnterpriseReceivedAt(v time.Time)`
+
+SetEnterpriseReceivedAt sets EnterpriseReceivedAt field to given value.
+
+### HasEnterpriseReceivedAt
+
+`func (o *FeedGroupMetadata) HasEnterpriseReceivedAt() bool`
+
+HasEnterpriseReceivedAt returns a boolean if a field has been set.
 
 ### GetCreatedAt
 

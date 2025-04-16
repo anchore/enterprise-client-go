@@ -8,7 +8,7 @@ info:
   license:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
-  version: 2.10.2
+  version: 2.11.0
 servers:
 - url: /v2
 tags:
@@ -11958,77 +11958,111 @@ components:
           description: The name of the data record
         dataset:
           type: string
-          description: The data set type of the record
+          description: The dataset type of the record
         data_format:
           type: string
           description: The format of the data record
         checksum:
           type: string
           description: The checksum of the data record
+        version:
+          type: string
+          description: The version of the data record
+        data_service_built_at:
+          type: string
+          format: date-time
+          description: The time when the Anchore Data Service started to build this feed.
+        enterprise_received_at:
+          type: string
+          format: date-time
+          description: The time when the Enterprise received this feed either via the data-syncer service or air gapped workflow.
         built_at:
+          deprecated: true
           type: string
           format: date-time
-          description: The build timestamp of the data record
+          description: Deprecated - The build timestamp of the data record
         created_at:
+          deprecated: true
           type: string
           format: date-time
-          description: The creation timestamp of the data record
+          description: Deprecated - The creation timestamp of the data record
         updated_at:
+          deprecated: true
           type: string
           format: date-time
-          description: The last update timestamp of the data record
+          description: Deprecated - The last update timestamp of the data record
       description: A data record   
     FeedGroupMetadata:
       type: object
       properties:
         name:
           type: string
-          description: The name of the feed group
-        built_at:
+          description: The name of this feed group.
+        data_service_built_at:
           type: string
           format: date-time
-          description: The build timestamp of the feed group
+          description: The time when the Anchore Data Service started to build this feed group.
+        enterprise_received_at:
+          type: string
+          format: date-time
+          description: The time when the Enterprise received this feed group either via the data-syncer service or air gapped workflow.
         created_at:
+          deprecated: true
           type: string
           format: date-time
+          description: Deprecated - The time when Enterprise uploaded this feed group.
         last_sync:
-          description: The last successful update for this feed group.
+          deprecated: true
+          description: Deprecated - The last successful update for this feed group.
           type: string
           format: date-time
         record_count:
-          description: The number of records in the group
+          description: The number of records in this feed group.
           type: integer
         enabled:
+          deprecated: true
           type: boolean
-          description: If group is enabled
+          description: Deprecated - If group is enabled.
     FeedMetadata:
       type: object
       properties:
         name:
           type: string
-          description: name of the feed
-        created_at:
+          description: The name of the feed.
+        version:
           type: string
+          description: The version of the feed.
+        created_at:
+          deprecated: true
+          type: string
+          description: Deprecated - The time when Enterprise uploaded this feed.
           format: date-time
         updated_at:
+          deprecated: true
           type: string
-          description: The last time the policy-engine service pinged the feed service to see if there was a new grypedb available.
+          description: Deprecated - The last time the policy-engine service pinged the feed service to see if there was a new grypedb available.
           format: date-time
-        built:
+        data_service_built_at:
           type: string
           format: date-time
-          description: The build timestamp of the feed
+          description: The time when the Anchore Data Service started to build this feed.
+        enterprise_received_at:
+          type: string
+          format: date-time
+          description: The time when the Enterprise received this feed either via the data-syncer service or air gapped workflow.
         groups:
           type: array
           items:
             $ref: '#/components/schemas/FeedGroupMetadata'
         last_full_sync:
-          description: The last time that policy-engine service downloaded a new grypedb.
+          deprecated: true
+          description: Deprecated - The last time that policy-engine service downloaded a new grypedb.
           type: string
           format: date-time
         enabled:
+          deprecated: true
           type: boolean
-          description: If feed is enabled
+          description: Deprecated - If feed is enabled
         dataset_name:
           type: string
           description: The name of the dataset that provides this feed
@@ -13707,9 +13741,9 @@ components:
     LicenseReviewPackageLicense:
       type: object
       properties:
-        spdx_id:
+        license_id:
           type: string
-          description: The SPDX ID for the license
+          description: The License ID for the license
           example: MIT
         license_name:
           type: string
@@ -13762,7 +13796,6 @@ components:
       type: object
       properties:
         package:
-          type: object
           $ref: "#/components/schemas/LicenseReviewPackage"
         licenses:
           type: array

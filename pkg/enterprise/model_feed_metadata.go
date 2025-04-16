@@ -3,7 +3,7 @@ Anchore API
 
 This is the Anchore API. Provides the external API for users of Anchore Enterprise.
 
-API version: 2.10.2
+API version: 2.11.0
 Contact: dev@anchore.com
 */
 
@@ -21,17 +21,26 @@ var _ MappedNullable = &FeedMetadata{}
 
 // FeedMetadata Metadata on the feeds based on findings from querying the endpoints.
 type FeedMetadata struct {
-	// name of the feed
+	// The name of the feed.
 	Name *string `json:"name,omitempty"`
+	// The version of the feed.
+	Version *string `json:"version,omitempty"`
+	// Deprecated - The time when Enterprise uploaded this feed.
+	// Deprecated
 	CreatedAt *time.Time `json:"created_at,omitempty"`
-	// The last time the policy-engine service pinged the feed service to see if there was a new grypedb available.
+	// Deprecated - The last time the policy-engine service pinged the feed service to see if there was a new grypedb available.
+	// Deprecated
 	UpdatedAt *time.Time `json:"updated_at,omitempty"`
-	// The build timestamp of the feed
-	Built *time.Time `json:"built,omitempty"`
+	// The time when the Anchore Data Service started to build this feed.
+	DataServiceBuiltAt *time.Time `json:"data_service_built_at,omitempty"`
+	// The time when the Enterprise received this feed either via the data-syncer service or air gapped workflow.
+	EnterpriseReceivedAt *time.Time `json:"enterprise_received_at,omitempty"`
 	Groups []FeedGroupMetadata `json:"groups,omitempty"`
-	// The last time that policy-engine service downloaded a new grypedb.
+	// Deprecated - The last time that policy-engine service downloaded a new grypedb.
+	// Deprecated
 	LastFullSync *time.Time `json:"last_full_sync,omitempty"`
-	// If feed is enabled
+	// Deprecated - If feed is enabled
+	// Deprecated
 	Enabled *bool `json:"enabled,omitempty"`
 	// The name of the dataset that provides this feed
 	DatasetName *string `json:"dataset_name,omitempty"`
@@ -88,7 +97,40 @@ func (o *FeedMetadata) SetName(v string) {
 	o.Name = &v
 }
 
+// GetVersion returns the Version field value if set, zero value otherwise.
+func (o *FeedMetadata) GetVersion() string {
+	if o == nil || IsNil(o.Version) {
+		var ret string
+		return ret
+	}
+	return *o.Version
+}
+
+// GetVersionOk returns a tuple with the Version field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FeedMetadata) GetVersionOk() (*string, bool) {
+	if o == nil || IsNil(o.Version) {
+		return nil, false
+	}
+	return o.Version, true
+}
+
+// HasVersion returns a boolean if a field has been set.
+func (o *FeedMetadata) HasVersion() bool {
+	if o != nil && !IsNil(o.Version) {
+		return true
+	}
+
+	return false
+}
+
+// SetVersion gets a reference to the given string and assigns it to the Version field.
+func (o *FeedMetadata) SetVersion(v string) {
+	o.Version = &v
+}
+
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
+// Deprecated
 func (o *FeedMetadata) GetCreatedAt() time.Time {
 	if o == nil || IsNil(o.CreatedAt) {
 		var ret time.Time
@@ -99,6 +141,7 @@ func (o *FeedMetadata) GetCreatedAt() time.Time {
 
 // GetCreatedAtOk returns a tuple with the CreatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// Deprecated
 func (o *FeedMetadata) GetCreatedAtOk() (*time.Time, bool) {
 	if o == nil || IsNil(o.CreatedAt) {
 		return nil, false
@@ -116,11 +159,13 @@ func (o *FeedMetadata) HasCreatedAt() bool {
 }
 
 // SetCreatedAt gets a reference to the given time.Time and assigns it to the CreatedAt field.
+// Deprecated
 func (o *FeedMetadata) SetCreatedAt(v time.Time) {
 	o.CreatedAt = &v
 }
 
 // GetUpdatedAt returns the UpdatedAt field value if set, zero value otherwise.
+// Deprecated
 func (o *FeedMetadata) GetUpdatedAt() time.Time {
 	if o == nil || IsNil(o.UpdatedAt) {
 		var ret time.Time
@@ -131,6 +176,7 @@ func (o *FeedMetadata) GetUpdatedAt() time.Time {
 
 // GetUpdatedAtOk returns a tuple with the UpdatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// Deprecated
 func (o *FeedMetadata) GetUpdatedAtOk() (*time.Time, bool) {
 	if o == nil || IsNil(o.UpdatedAt) {
 		return nil, false
@@ -148,40 +194,73 @@ func (o *FeedMetadata) HasUpdatedAt() bool {
 }
 
 // SetUpdatedAt gets a reference to the given time.Time and assigns it to the UpdatedAt field.
+// Deprecated
 func (o *FeedMetadata) SetUpdatedAt(v time.Time) {
 	o.UpdatedAt = &v
 }
 
-// GetBuilt returns the Built field value if set, zero value otherwise.
-func (o *FeedMetadata) GetBuilt() time.Time {
-	if o == nil || IsNil(o.Built) {
+// GetDataServiceBuiltAt returns the DataServiceBuiltAt field value if set, zero value otherwise.
+func (o *FeedMetadata) GetDataServiceBuiltAt() time.Time {
+	if o == nil || IsNil(o.DataServiceBuiltAt) {
 		var ret time.Time
 		return ret
 	}
-	return *o.Built
+	return *o.DataServiceBuiltAt
 }
 
-// GetBuiltOk returns a tuple with the Built field value if set, nil otherwise
+// GetDataServiceBuiltAtOk returns a tuple with the DataServiceBuiltAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *FeedMetadata) GetBuiltOk() (*time.Time, bool) {
-	if o == nil || IsNil(o.Built) {
+func (o *FeedMetadata) GetDataServiceBuiltAtOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.DataServiceBuiltAt) {
 		return nil, false
 	}
-	return o.Built, true
+	return o.DataServiceBuiltAt, true
 }
 
-// HasBuilt returns a boolean if a field has been set.
-func (o *FeedMetadata) HasBuilt() bool {
-	if o != nil && !IsNil(o.Built) {
+// HasDataServiceBuiltAt returns a boolean if a field has been set.
+func (o *FeedMetadata) HasDataServiceBuiltAt() bool {
+	if o != nil && !IsNil(o.DataServiceBuiltAt) {
 		return true
 	}
 
 	return false
 }
 
-// SetBuilt gets a reference to the given time.Time and assigns it to the Built field.
-func (o *FeedMetadata) SetBuilt(v time.Time) {
-	o.Built = &v
+// SetDataServiceBuiltAt gets a reference to the given time.Time and assigns it to the DataServiceBuiltAt field.
+func (o *FeedMetadata) SetDataServiceBuiltAt(v time.Time) {
+	o.DataServiceBuiltAt = &v
+}
+
+// GetEnterpriseReceivedAt returns the EnterpriseReceivedAt field value if set, zero value otherwise.
+func (o *FeedMetadata) GetEnterpriseReceivedAt() time.Time {
+	if o == nil || IsNil(o.EnterpriseReceivedAt) {
+		var ret time.Time
+		return ret
+	}
+	return *o.EnterpriseReceivedAt
+}
+
+// GetEnterpriseReceivedAtOk returns a tuple with the EnterpriseReceivedAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FeedMetadata) GetEnterpriseReceivedAtOk() (*time.Time, bool) {
+	if o == nil || IsNil(o.EnterpriseReceivedAt) {
+		return nil, false
+	}
+	return o.EnterpriseReceivedAt, true
+}
+
+// HasEnterpriseReceivedAt returns a boolean if a field has been set.
+func (o *FeedMetadata) HasEnterpriseReceivedAt() bool {
+	if o != nil && !IsNil(o.EnterpriseReceivedAt) {
+		return true
+	}
+
+	return false
+}
+
+// SetEnterpriseReceivedAt gets a reference to the given time.Time and assigns it to the EnterpriseReceivedAt field.
+func (o *FeedMetadata) SetEnterpriseReceivedAt(v time.Time) {
+	o.EnterpriseReceivedAt = &v
 }
 
 // GetGroups returns the Groups field value if set, zero value otherwise.
@@ -217,6 +296,7 @@ func (o *FeedMetadata) SetGroups(v []FeedGroupMetadata) {
 }
 
 // GetLastFullSync returns the LastFullSync field value if set, zero value otherwise.
+// Deprecated
 func (o *FeedMetadata) GetLastFullSync() time.Time {
 	if o == nil || IsNil(o.LastFullSync) {
 		var ret time.Time
@@ -227,6 +307,7 @@ func (o *FeedMetadata) GetLastFullSync() time.Time {
 
 // GetLastFullSyncOk returns a tuple with the LastFullSync field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// Deprecated
 func (o *FeedMetadata) GetLastFullSyncOk() (*time.Time, bool) {
 	if o == nil || IsNil(o.LastFullSync) {
 		return nil, false
@@ -244,11 +325,13 @@ func (o *FeedMetadata) HasLastFullSync() bool {
 }
 
 // SetLastFullSync gets a reference to the given time.Time and assigns it to the LastFullSync field.
+// Deprecated
 func (o *FeedMetadata) SetLastFullSync(v time.Time) {
 	o.LastFullSync = &v
 }
 
 // GetEnabled returns the Enabled field value if set, zero value otherwise.
+// Deprecated
 func (o *FeedMetadata) GetEnabled() bool {
 	if o == nil || IsNil(o.Enabled) {
 		var ret bool
@@ -259,6 +342,7 @@ func (o *FeedMetadata) GetEnabled() bool {
 
 // GetEnabledOk returns a tuple with the Enabled field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// Deprecated
 func (o *FeedMetadata) GetEnabledOk() (*bool, bool) {
 	if o == nil || IsNil(o.Enabled) {
 		return nil, false
@@ -276,6 +360,7 @@ func (o *FeedMetadata) HasEnabled() bool {
 }
 
 // SetEnabled gets a reference to the given bool and assigns it to the Enabled field.
+// Deprecated
 func (o *FeedMetadata) SetEnabled(v bool) {
 	o.Enabled = &v
 }
@@ -357,14 +442,20 @@ func (o FeedMetadata) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Name) {
 		toSerialize["name"] = o.Name
 	}
+	if !IsNil(o.Version) {
+		toSerialize["version"] = o.Version
+	}
 	if !IsNil(o.CreatedAt) {
 		toSerialize["created_at"] = o.CreatedAt
 	}
 	if !IsNil(o.UpdatedAt) {
 		toSerialize["updated_at"] = o.UpdatedAt
 	}
-	if !IsNil(o.Built) {
-		toSerialize["built"] = o.Built
+	if !IsNil(o.DataServiceBuiltAt) {
+		toSerialize["data_service_built_at"] = o.DataServiceBuiltAt
+	}
+	if !IsNil(o.EnterpriseReceivedAt) {
+		toSerialize["enterprise_received_at"] = o.EnterpriseReceivedAt
 	}
 	if !IsNil(o.Groups) {
 		toSerialize["groups"] = o.Groups

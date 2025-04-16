@@ -4,13 +4,15 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Name** | Pointer to **string** | name of the feed | [optional] 
-**CreatedAt** | Pointer to **time.Time** |  | [optional] 
-**UpdatedAt** | Pointer to **time.Time** | The last time the policy-engine service pinged the feed service to see if there was a new grypedb available. | [optional] 
-**Built** | Pointer to **time.Time** | The build timestamp of the feed | [optional] 
+**Name** | Pointer to **string** | The name of the feed. | [optional] 
+**Version** | Pointer to **string** | The version of the feed. | [optional] 
+**CreatedAt** | Pointer to **time.Time** | Deprecated - The time when Enterprise uploaded this feed. | [optional] 
+**UpdatedAt** | Pointer to **time.Time** | Deprecated - The last time the policy-engine service pinged the feed service to see if there was a new grypedb available. | [optional] 
+**DataServiceBuiltAt** | Pointer to **time.Time** | The time when the Anchore Data Service started to build this feed. | [optional] 
+**EnterpriseReceivedAt** | Pointer to **time.Time** | The time when the Enterprise received this feed either via the data-syncer service or air gapped workflow. | [optional] 
 **Groups** | Pointer to [**[]FeedGroupMetadata**](FeedGroupMetadata.md) |  | [optional] 
-**LastFullSync** | Pointer to **time.Time** | The last time that policy-engine service downloaded a new grypedb. | [optional] 
-**Enabled** | Pointer to **bool** | If feed is enabled | [optional] 
+**LastFullSync** | Pointer to **time.Time** | Deprecated - The last time that policy-engine service downloaded a new grypedb. | [optional] 
+**Enabled** | Pointer to **bool** | Deprecated - If feed is enabled | [optional] 
 **DatasetName** | Pointer to **string** | The name of the dataset that provides this feed | [optional] 
 **DatasetChecksum** | Pointer to **string** | The checksum of the dataset that provides this feed | [optional] 
 
@@ -57,6 +59,31 @@ SetName sets Name field to given value.
 `func (o *FeedMetadata) HasName() bool`
 
 HasName returns a boolean if a field has been set.
+
+### GetVersion
+
+`func (o *FeedMetadata) GetVersion() string`
+
+GetVersion returns the Version field if non-nil, zero value otherwise.
+
+### GetVersionOk
+
+`func (o *FeedMetadata) GetVersionOk() (*string, bool)`
+
+GetVersionOk returns a tuple with the Version field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetVersion
+
+`func (o *FeedMetadata) SetVersion(v string)`
+
+SetVersion sets Version field to given value.
+
+### HasVersion
+
+`func (o *FeedMetadata) HasVersion() bool`
+
+HasVersion returns a boolean if a field has been set.
 
 ### GetCreatedAt
 
@@ -108,30 +135,55 @@ SetUpdatedAt sets UpdatedAt field to given value.
 
 HasUpdatedAt returns a boolean if a field has been set.
 
-### GetBuilt
+### GetDataServiceBuiltAt
 
-`func (o *FeedMetadata) GetBuilt() time.Time`
+`func (o *FeedMetadata) GetDataServiceBuiltAt() time.Time`
 
-GetBuilt returns the Built field if non-nil, zero value otherwise.
+GetDataServiceBuiltAt returns the DataServiceBuiltAt field if non-nil, zero value otherwise.
 
-### GetBuiltOk
+### GetDataServiceBuiltAtOk
 
-`func (o *FeedMetadata) GetBuiltOk() (*time.Time, bool)`
+`func (o *FeedMetadata) GetDataServiceBuiltAtOk() (*time.Time, bool)`
 
-GetBuiltOk returns a tuple with the Built field if it's non-nil, zero value otherwise
+GetDataServiceBuiltAtOk returns a tuple with the DataServiceBuiltAt field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetBuilt
+### SetDataServiceBuiltAt
 
-`func (o *FeedMetadata) SetBuilt(v time.Time)`
+`func (o *FeedMetadata) SetDataServiceBuiltAt(v time.Time)`
 
-SetBuilt sets Built field to given value.
+SetDataServiceBuiltAt sets DataServiceBuiltAt field to given value.
 
-### HasBuilt
+### HasDataServiceBuiltAt
 
-`func (o *FeedMetadata) HasBuilt() bool`
+`func (o *FeedMetadata) HasDataServiceBuiltAt() bool`
 
-HasBuilt returns a boolean if a field has been set.
+HasDataServiceBuiltAt returns a boolean if a field has been set.
+
+### GetEnterpriseReceivedAt
+
+`func (o *FeedMetadata) GetEnterpriseReceivedAt() time.Time`
+
+GetEnterpriseReceivedAt returns the EnterpriseReceivedAt field if non-nil, zero value otherwise.
+
+### GetEnterpriseReceivedAtOk
+
+`func (o *FeedMetadata) GetEnterpriseReceivedAtOk() (*time.Time, bool)`
+
+GetEnterpriseReceivedAtOk returns a tuple with the EnterpriseReceivedAt field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetEnterpriseReceivedAt
+
+`func (o *FeedMetadata) SetEnterpriseReceivedAt(v time.Time)`
+
+SetEnterpriseReceivedAt sets EnterpriseReceivedAt field to given value.
+
+### HasEnterpriseReceivedAt
+
+`func (o *FeedMetadata) HasEnterpriseReceivedAt() bool`
+
+HasEnterpriseReceivedAt returns a boolean if a field has been set.
 
 ### GetGroups
 

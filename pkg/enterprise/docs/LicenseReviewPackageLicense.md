@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**SpdxId** | Pointer to **string** | The SPDX ID for the license | [optional] 
+**LicenseId** | Pointer to **string** | The License ID for the license | [optional] 
 **LicenseName** | Pointer to **string** | The full name of the license | [optional] 
 **LicenseText** | Pointer to **string** | The full text of the license | [optional] 
 **LicenseHeader** | Pointer to **string** | The standard license header for the package’s license | [optional] 
@@ -30,30 +30,30 @@ NewLicenseReviewPackageLicenseWithDefaults instantiates a new LicenseReviewPacka
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
-### GetSpdxId
+### GetLicenseId
 
-`func (o *LicenseReviewPackageLicense) GetSpdxId() string`
+`func (o *LicenseReviewPackageLicense) GetLicenseId() string`
 
-GetSpdxId returns the SpdxId field if non-nil, zero value otherwise.
+GetLicenseId returns the LicenseId field if non-nil, zero value otherwise.
 
-### GetSpdxIdOk
+### GetLicenseIdOk
 
-`func (o *LicenseReviewPackageLicense) GetSpdxIdOk() (*string, bool)`
+`func (o *LicenseReviewPackageLicense) GetLicenseIdOk() (*string, bool)`
 
-GetSpdxIdOk returns a tuple with the SpdxId field if it's non-nil, zero value otherwise
+GetLicenseIdOk returns a tuple with the LicenseId field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetSpdxId
+### SetLicenseId
 
-`func (o *LicenseReviewPackageLicense) SetSpdxId(v string)`
+`func (o *LicenseReviewPackageLicense) SetLicenseId(v string)`
 
-SetSpdxId sets SpdxId field to given value.
+SetLicenseId sets LicenseId field to given value.
 
-### HasSpdxId
+### HasLicenseId
 
-`func (o *LicenseReviewPackageLicense) HasSpdxId() bool`
+`func (o *LicenseReviewPackageLicense) HasLicenseId() bool`
 
-HasSpdxId returns a boolean if a field has been set.
+HasLicenseId returns a boolean if a field has been set.
 
 ### GetLicenseName
 
