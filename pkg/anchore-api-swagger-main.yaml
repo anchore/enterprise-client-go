@@ -16532,6 +16532,8 @@ components:
           type: boolean
         deprecated_reason:
           type: string
+        is_system_internal:
+          type: boolean
         created_at:
           type: string
           format: date-time

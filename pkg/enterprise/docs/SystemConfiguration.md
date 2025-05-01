@@ -19,6 +19,7 @@ Name | Type | Description | Notes
 **IsSecret** | Pointer to **bool** |  | [optional] 
 **IsDeprecated** | Pointer to **bool** |  | [optional] 
 **DeprecatedReason** | Pointer to **string** |  | [optional] 
+**IsSystemInternal** | Pointer to **bool** |  | [optional] 
 **CreatedAt** | Pointer to **time.Time** |  | [optional] [readonly] 
 **UpdatedAt** | Pointer to **time.Time** |  | [optional] [readonly] 
 
@@ -425,6 +426,31 @@ SetDeprecatedReason sets DeprecatedReason field to given value.
 `func (o *SystemConfiguration) HasDeprecatedReason() bool`
 
 HasDeprecatedReason returns a boolean if a field has been set.
+
+### GetIsSystemInternal
+
+`func (o *SystemConfiguration) GetIsSystemInternal() bool`
+
+GetIsSystemInternal returns the IsSystemInternal field if non-nil, zero value otherwise.
+
+### GetIsSystemInternalOk
+
+`func (o *SystemConfiguration) GetIsSystemInternalOk() (*bool, bool)`
+
+GetIsSystemInternalOk returns a tuple with the IsSystemInternal field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetIsSystemInternal
+
+`func (o *SystemConfiguration) SetIsSystemInternal(v bool)`
+
+SetIsSystemInternal sets IsSystemInternal field to given value.
+
+### HasIsSystemInternal
+
+`func (o *SystemConfiguration) HasIsSystemInternal() bool`
+
+HasIsSystemInternal returns a boolean if a field has been set.
 
 ### GetCreatedAt
 

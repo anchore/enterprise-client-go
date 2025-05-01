@@ -38,6 +38,7 @@ type SystemConfiguration struct {
 	IsSecret *bool `json:"is_secret,omitempty"`
 	IsDeprecated *bool `json:"is_deprecated,omitempty"`
 	DeprecatedReason *string `json:"deprecated_reason,omitempty"`
+	IsSystemInternal *bool `json:"is_system_internal,omitempty"`
 	CreatedAt *time.Time `json:"created_at,omitempty"`
 	UpdatedAt *time.Time `json:"updated_at,omitempty"`
 }
@@ -539,6 +540,38 @@ func (o *SystemConfiguration) SetDeprecatedReason(v string) {
 	o.DeprecatedReason = &v
 }
 
+// GetIsSystemInternal returns the IsSystemInternal field value if set, zero value otherwise.
+func (o *SystemConfiguration) GetIsSystemInternal() bool {
+	if o == nil || IsNil(o.IsSystemInternal) {
+		var ret bool
+		return ret
+	}
+	return *o.IsSystemInternal
+}
+
+// GetIsSystemInternalOk returns a tuple with the IsSystemInternal field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SystemConfiguration) GetIsSystemInternalOk() (*bool, bool) {
+	if o == nil || IsNil(o.IsSystemInternal) {
+		return nil, false
+	}
+	return o.IsSystemInternal, true
+}
+
+// HasIsSystemInternal returns a boolean if a field has been set.
+func (o *SystemConfiguration) HasIsSystemInternal() bool {
+	if o != nil && !IsNil(o.IsSystemInternal) {
+		return true
+	}
+
+	return false
+}
+
+// SetIsSystemInternal gets a reference to the given bool and assigns it to the IsSystemInternal field.
+func (o *SystemConfiguration) SetIsSystemInternal(v bool) {
+	o.IsSystemInternal = &v
+}
+
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
 func (o *SystemConfiguration) GetCreatedAt() time.Time {
 	if o == nil || IsNil(o.CreatedAt) {
@@ -653,6 +686,9 @@ func (o SystemConfiguration) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.DeprecatedReason) {
 		toSerialize["deprecated_reason"] = o.DeprecatedReason
+	}
+	if !IsNil(o.IsSystemInternal) {
+		toSerialize["is_system_internal"] = o.IsSystemInternal
 	}
 	if !IsNil(o.CreatedAt) {
 		toSerialize["created_at"] = o.CreatedAt
