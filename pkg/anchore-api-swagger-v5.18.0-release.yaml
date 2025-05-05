@@ -16645,6 +16645,10 @@ components:
             - account_inventory
             - report_execution_inventory
             - report_inventory
+            - sbom_imported_analysis
+            - sbom_imported_inventory
+            - sbom_group_creation
+            - sbom_group_inventory
         description:
           type: string
         value_type:
