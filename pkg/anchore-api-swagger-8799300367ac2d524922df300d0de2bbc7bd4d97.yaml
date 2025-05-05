@@ -6649,6 +6649,49 @@ paths:
                 $ref: '#/components/schemas/ApiErrorResponse'
       x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.oauth
       x-anchore-authz-action: None
+  /onetime_evaluation:
+    post:
+      tags:
+        - Onetime
+      summary: Return a onetime evaluation of the provided data.
+      description: Use this operation for checking sboms for vulnerabilities and policy evaluations
+        in cases where the sbom does not need to be stored for later re-scans or added to the
+        managed set of SBOMs in Anchore. If you need to upload and save an SBOM use
+        the "/import/*" API set instead.
+      operationId: onetime_evaluation
+      parameters:
+        - name: x-anchore-account
+          in: header
+          description: An account name to change the resource scope of the request to
+            that account, if permissions allow (admin only)
+          schema:
+            type: string
+        - name: policy_id
+          in: query
+          schema:
+            type: string
+        - name: tag
+          in: query
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              $ref: "#/components/schemas/OnetimeEvaluationRequest"
+        required: true
+      responses:
+        "200":
+          description: Successful response with onetime scan status
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: "#/components/schemas/OnetimeEvaluationResponse"
+      x-anchore-authz-action: getImageEvaluation
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.stateless
   /policies:
     get:
       tags:
@@ -14562,6 +14605,148 @@ components:
           $ref: '#/components/schemas/CVSSV2Scores'
         cvss_v3:
           $ref: '#/components/schemas/CVSSV3Scores'
+    OnetimeEvaluationRequest:
+      type: object
+      properties:
+        sbom:
+          type: object
+          # $ref: "#/components/schemas/SBOM"
+        secret_scan:
+          type: object
+          $ref: "#/components/schemas/ContentSearch"
+        content_search:
+          type: object
+          $ref: "#/components/schemas/ContentSearch"
+        retrieved_files:
+          type: object
+          $ref: "#/components/schemas/FileContents"
+    ContentSearch:
+      type: object
+      required:
+        - media_type
+        - metadata
+        - findings
+      properties:
+        media_type:
+          type: string
+          description: The media type of this result
+          enum:
+            - application/anchore.enterprise.local-analyze.secret-search.v1+json
+            - application/anchore.enterprise.local-analyze.content-search.v1+json
+        metadata:
+          type: object
+          required:
+            - analyzed_at
+            - anchorectl_version
+            - platform
+          properties:
+            analyzed_at:
+              type: string
+              description: The time the result was analyzed
+              format: date-time
+            anchorectl_version:
+              type: string
+              description: The version of AnchoreCTL used to generate the result
+            platform:
+              type: string
+              description: The platform of AnchoreCTL used to generate the result
+        findings:
+          type: array
+          items:
+            type: object
+            required:
+              - location
+              - content_searches
+            properties:
+              location:
+                type: object
+                required:
+                  - path
+                  - layerID
+                properties:
+                  path:
+                    type: string
+                  layerID:
+                    type: string
+              content_searches:
+                type: array
+                items:
+                  type: object
+                  required:
+                    - classification
+                    - line_number
+                    - line_offset
+                    - seek_position
+                    - length
+                  properties:
+                    classification:
+                      type: string
+                    line_number:
+                      type: integer
+                    line_offset:
+                      type: integer
+                    seek_position:
+                      type: integer
+                    length:
+                      type: integer
+    FileContents:
+      type: object
+      required:
+        - media_type
+        - metadata
+        - findings
+      properties:
+        media_type:
+          type: string
+          description: The media type of this result
+          enum:
+            - application/anchore.enterprise.local-analyze.file-contents.v1+json
+        metadata:
+          type: object
+          required:
+            - analyzed_at
+            - anchorectl_version
+            - platform
+          properties:
+            analyzed_at:
+              type: string
+              description: The time the result was analyzed
+              format: date-time
+            anchorectl_version:
+              type: string
+              description: The version of AnchoreCTL used to generate the result
+            platform:
+              type: string
+              description: The platform of AnchoreCTL used to generate the result
+        findings:
+          type: array
+          items:
+            type: object
+            required:
+              - location
+              - contents
+            properties:
+              location:
+                type: object
+                required:
+                  - path
+                properties:
+                  path:
+                    type: string
+                  layerID:
+                    type: string
+              contents:
+                type: string
+                description: The contents of the file
+    OnetimeEvaluationResponse:
+      type: object
+      properties:
+        vulnerabilities:
+          type: array
+          items:
+            $ref: "#/components/schemas/PackageVulnerability"
+        evaluation:
+          $ref: "#/components/schemas/PolicyEvaluationResult"
     Package:
       type: object
       properties:
@@ -16645,6 +16830,10 @@ components:
             - account_inventory
             - report_execution_inventory
             - report_inventory
+            - sbom_imported_analysis
+            - sbom_imported_inventory
+            - sbom_group_creation
+            - sbom_group_inventory
         description:
           type: string
         value_type:
@@ -16976,7 +17165,6 @@ components:
           format: date-time
         account_roles:
           $ref: '#/components/schemas/UserGroupRoles'
-
     UserGroupPost:
       required:
         - name
