@@ -6,6 +6,7 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**AddImage**](ImagesAPI.md#AddImage) | **Post** /images | Submit a new image for analysis by the engine
 [**DeleteImage**](ImagesAPI.md#DeleteImage) | **Delete** /images/{image_digest} | Delete an image analysis
+[**DeleteImageStig**](ImagesAPI.md#DeleteImageStig) | **Delete** /images/{image_digest}/stig/{content_uuid} | Delete STIG content for an image
 [**DeleteImagesAsync**](ImagesAPI.md#DeleteImagesAsync) | **Delete** /images | Bulk mark images for deletion
 [**GetImage**](ImagesAPI.md#GetImage) | **Get** /images/{image_digest} | Get image metadata
 [**GetImageAncestors**](ImagesAPI.md#GetImageAncestors) | **Get** /images/{image_digest}/ancestors | Return the list of ancestor images for the given image
@@ -20,14 +21,18 @@ Method | HTTP request | Description
 [**GetImageSbomCyclonedxJson**](ImagesAPI.md#GetImageSbomCyclonedxJson) | **Get** /images/{image_digest}/sboms/cyclonedx-json | Get image sbom in the CycloneDX format
 [**GetImageSbomNativeJson**](ImagesAPI.md#GetImageSbomNativeJson) | **Get** /images/{image_digest}/sboms/native-json | Get image sbom in the native Anchore format
 [**GetImageSbomSpdxJson**](ImagesAPI.md#GetImageSbomSpdxJson) | **Get** /images/{image_digest}/sboms/spdx-json | Get image sbom in the SPDX format
+[**GetImageStig**](ImagesAPI.md#GetImageStig) | **Get** /images/{image_digest}/stig/{content_uuid}/file | Get STIG content for an image
 [**GetImageVulnerabilitiesByDigest**](ImagesAPI.md#GetImageVulnerabilitiesByDigest) | **Get** /images/{image_digest}/vuln/{vuln_type} | Get vulnerabilities by type
 [**GetImageVulnerabilityTypes**](ImagesAPI.md#GetImageVulnerabilityTypes) | **Get** /images/{image_digest}/vuln | Get vulnerability types
 [**ListFileContentSearchResults**](ImagesAPI.md#ListFileContentSearchResults) | **Get** /images/{image_digest}/artifacts/file-content-search | Return a list of analyzer artifacts of the specified type
 [**ListImageContent**](ImagesAPI.md#ListImageContent) | **Get** /images/{image_digest}/content | List image content types
 [**ListImageMetadata**](ImagesAPI.md#ListImageMetadata) | **Get** /images/{image_digest}/metadata | List image metadata types
+[**ListImageStig**](ImagesAPI.md#ListImageStig) | **Get** /images/{image_digest}/stig | List STIG content metadata for an image
 [**ListImages**](ImagesAPI.md#ListImages) | **Get** /images | List all visible images
 [**ListRetrievedFiles**](ImagesAPI.md#ListRetrievedFiles) | **Get** /images/{image_digest}/artifacts/retrieved-files | Return a list of analyzer artifacts of the specified type
 [**ListSecretSearchResults**](ImagesAPI.md#ListSecretSearchResults) | **Get** /images/{image_digest}/artifacts/secret-search | Return a list of analyzer artifacts of the specified type
+[**PostImageStig**](ImagesAPI.md#PostImageStig) | **Post** /images/{image_digest}/stig | Upload STIG content for an image
+[**PutImageStig**](ImagesAPI.md#PutImageStig) | **Put** /images/{image_digest}/stig/{content_uuid} | Update STIG content for an image
 [**SummaryImageCounts**](ImagesAPI.md#SummaryImageCounts) | **Get** /summaries/image-counts | Image summary counts
 [**SummaryImageTags**](ImagesAPI.md#SummaryImageTags) | **Get** /summaries/image-tags | Summarize image tags
 
@@ -162,6 +167,77 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**DeleteImageResponse**](DeleteImageResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## DeleteImageStig
+
+> DeleteImageStig(ctx, imageDigest, contentUuid).XAnchoreAccount(xAnchoreAccount).Execute()
+
+Delete STIG content for an image
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
+)
+
+func main() {
+	imageDigest := "imageDigest_example" // string | 
+	contentUuid := "contentUuid_example" // string | The UUID of the STIG content to retrieve
+	xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.ImagesAPI.DeleteImageStig(context.Background(), imageDigest, contentUuid).XAnchoreAccount(xAnchoreAccount).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ImagesAPI.DeleteImageStig``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**imageDigest** | **string** |  | 
+**contentUuid** | **string** | The UUID of the STIG content to retrieve | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiDeleteImageStigRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+ **xAnchoreAccount** | **string** | An account name to change the resource scope of the request to that account, if permissions allow (admin only) | 
+
+### Return type
+
+ (empty response body)
 
 ### Authorization
 
@@ -1181,6 +1257,79 @@ No authorization required
 [[Back to README]](../README.md)
 
 
+## GetImageStig
+
+> *os.File GetImageStig(ctx, imageDigest, contentUuid).XAnchoreAccount(xAnchoreAccount).Execute()
+
+Get STIG content for an image
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
+)
+
+func main() {
+	imageDigest := "imageDigest_example" // string | 
+	contentUuid := "contentUuid_example" // string | The UUID of the STIG content to retrieve
+	xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ImagesAPI.GetImageStig(context.Background(), imageDigest, contentUuid).XAnchoreAccount(xAnchoreAccount).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ImagesAPI.GetImageStig``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `GetImageStig`: *os.File
+	fmt.Fprintf(os.Stdout, "Response from `ImagesAPI.GetImageStig`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**imageDigest** | **string** |  | 
+**contentUuid** | **string** | The UUID of the STIG content to retrieve | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiGetImageStigRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+ **xAnchoreAccount** | **string** | An account name to change the resource scope of the request to that account, if permissions allow (admin only) | 
+
+### Return type
+
+[***os.File**](*os.File.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json, application/xml
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
 ## GetImageVulnerabilitiesByDigest
 
 > ImagePackageVulnerabilityResponse GetImageVulnerabilitiesByDigest(ctx, imageDigest, vulnType).ForceRefresh(forceRefresh).IncludeVulnDescription(includeVulnDescription).VendorOnly(vendorOnly).BaseDigest(baseDigest).XAnchoreAccount(xAnchoreAccount).Execute()
@@ -1540,6 +1689,76 @@ No authorization required
 [[Back to README]](../README.md)
 
 
+## ListImageStig
+
+> STIGMetadataResponseList ListImageStig(ctx, imageDigest).XAnchoreAccount(xAnchoreAccount).Execute()
+
+List STIG content metadata for an image
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
+)
+
+func main() {
+	imageDigest := "imageDigest_example" // string | 
+	xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ImagesAPI.ListImageStig(context.Background(), imageDigest).XAnchoreAccount(xAnchoreAccount).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ImagesAPI.ListImageStig``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ListImageStig`: STIGMetadataResponseList
+	fmt.Fprintf(os.Stdout, "Response from `ImagesAPI.ListImageStig`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**imageDigest** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiListImageStigRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **xAnchoreAccount** | **string** | An account name to change the resource scope of the request to that account, if permissions allow (admin only) | 
+
+### Return type
+
+[**STIGMetadataResponseList**](STIGMetadataResponseList.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
 ## ListImages
 
 > AnchoreImageList ListImages(ctx).ImageId(imageId).History(history).FullTag(fullTag).ImageStatus(imageStatus).AnalysisStatus(analysisStatus).AnalyzedSince(analyzedSince).XAnchoreAccount(xAnchoreAccount).Execute()
@@ -1747,6 +1966,157 @@ No authorization required
 ### HTTP request headers
 
 - **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PostImageStig
+
+> STIGMetadataResponse PostImageStig(ctx, imageDigest).XAnchoreAccount(xAnchoreAccount).StigProfile(stigProfile).File(file).Execute()
+
+Upload STIG content for an image
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
+)
+
+func main() {
+	imageDigest := "imageDigest_example" // string | 
+	xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
+	stigProfile := "stigProfile_example" // string | The name of the STIG profile that produced this result (optional)
+	file := os.NewFile(1234, "some_file") // *os.File | A valid STIG result file in XML or JSON format (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ImagesAPI.PostImageStig(context.Background(), imageDigest).XAnchoreAccount(xAnchoreAccount).StigProfile(stigProfile).File(file).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ImagesAPI.PostImageStig``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PostImageStig`: STIGMetadataResponse
+	fmt.Fprintf(os.Stdout, "Response from `ImagesAPI.PostImageStig`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**imageDigest** | **string** |  | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPostImageStigRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **xAnchoreAccount** | **string** | An account name to change the resource scope of the request to that account, if permissions allow (admin only) | 
+ **stigProfile** | **string** | The name of the STIG profile that produced this result | 
+ **file** | ***os.File** | A valid STIG result file in XML or JSON format | 
+
+### Return type
+
+[**STIGMetadataResponse**](STIGMetadataResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: multipart/form-data
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PutImageStig
+
+> STIGMetadataResponse PutImageStig(ctx, imageDigest, contentUuid).XAnchoreAccount(xAnchoreAccount).StigProfile(stigProfile).File(file).Execute()
+
+Update STIG content for an image
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/anchore/enterprise-client-go"
+)
+
+func main() {
+	imageDigest := "imageDigest_example" // string | 
+	contentUuid := "contentUuid_example" // string | The UUID of the STIG content to retrieve
+	xAnchoreAccount := "xAnchoreAccount_example" // string | An account name to change the resource scope of the request to that account, if permissions allow (admin only) (optional)
+	stigProfile := "stigProfile_example" // string | The name of the STIG profile that produced this result (optional)
+	file := os.NewFile(1234, "some_file") // *os.File | A valid STIG result file in XML or JSON format (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ImagesAPI.PutImageStig(context.Background(), imageDigest, contentUuid).XAnchoreAccount(xAnchoreAccount).StigProfile(stigProfile).File(file).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ImagesAPI.PutImageStig``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PutImageStig`: STIGMetadataResponse
+	fmt.Fprintf(os.Stdout, "Response from `ImagesAPI.PutImageStig`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**imageDigest** | **string** |  | 
+**contentUuid** | **string** | The UUID of the STIG content to retrieve | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPutImageStigRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+ **xAnchoreAccount** | **string** | An account name to change the resource scope of the request to that account, if permissions allow (admin only) | 
+ **stigProfile** | **string** | The name of the STIG profile that produced this result | 
+ **file** | ***os.File** | A valid STIG result file in XML or JSON format | 
+
+### Return type
+
+[**STIGMetadataResponse**](STIGMetadataResponse.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: multipart/form-data
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)

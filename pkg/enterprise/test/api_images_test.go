@@ -48,6 +48,20 @@ func Test_enterprise_ImagesAPIService(t *testing.T) {
 
 	})
 
+	t.Run("Test ImagesAPIService DeleteImageStig", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		var imageDigest string
+		var contentUuid string
+
+		httpRes, err := apiClient.ImagesAPI.DeleteImageStig(context.Background(), imageDigest, contentUuid).Execute()
+
+		require.Nil(t, err)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
 	t.Run("Test ImagesAPIService DeleteImagesAsync", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test
@@ -244,6 +258,21 @@ func Test_enterprise_ImagesAPIService(t *testing.T) {
 
 	})
 
+	t.Run("Test ImagesAPIService GetImageStig", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		var imageDigest string
+		var contentUuid string
+
+		resp, httpRes, err := apiClient.ImagesAPI.GetImageStig(context.Background(), imageDigest, contentUuid).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
 	t.Run("Test ImagesAPIService GetImageVulnerabilitiesByDigest", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test
@@ -315,6 +344,20 @@ func Test_enterprise_ImagesAPIService(t *testing.T) {
 
 	})
 
+	t.Run("Test ImagesAPIService ListImageStig", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		var imageDigest string
+
+		resp, httpRes, err := apiClient.ImagesAPI.ListImageStig(context.Background(), imageDigest).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
 	t.Run("Test ImagesAPIService ListImages", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test
@@ -348,6 +391,35 @@ func Test_enterprise_ImagesAPIService(t *testing.T) {
 		var imageDigest string
 
 		resp, httpRes, err := apiClient.ImagesAPI.ListSecretSearchResults(context.Background(), imageDigest).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
+	t.Run("Test ImagesAPIService PostImageStig", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		var imageDigest string
+
+		resp, httpRes, err := apiClient.ImagesAPI.PostImageStig(context.Background(), imageDigest).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
+	t.Run("Test ImagesAPIService PutImageStig", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		var imageDigest string
+		var contentUuid string
+
+		resp, httpRes, err := apiClient.ImagesAPI.PutImageStig(context.Background(), imageDigest, contentUuid).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)

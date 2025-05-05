@@ -8,7 +8,7 @@ info:
   license:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
-  version: 2.11.0
+  version: 2.11.1
 servers:
 - url: /v2
 tags:
@@ -3247,6 +3247,232 @@ paths:
               schema:
                 $ref: '#/components/schemas/ApiErrorResponse'
       x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.images
+      x-anchore-authz-action: getImage
+  /images/{image_digest}/stig:
+    get:
+      tags:
+        - Images
+      summary: List STIG content metadata for an image
+      operationId: list_image_stig
+      parameters:
+      - name: image_digest
+        in: path
+        required: true
+        schema:
+          pattern: ^sha256:[a-fA-F0-9]{64}$
+          type: string
+          format: path
+      - name: x-anchore-account
+        in: header
+        description: An account name to change the resource scope of the request to
+          that account, if permissions allow (admin only)
+        schema:
+          type: string
+      responses:
+        200:
+          description: Retrieved list of metadata for STIG content
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/STIGMetadataResponseList'
+        500:
+          description: Internal error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.stig
+      x-anchore-authz-action: getImage
+    post:
+      tags:
+        - Images
+      summary: Upload STIG content for an image
+      operationId: post_image_stig
+      parameters:
+      - name: image_digest
+        in: path
+        required: true
+        schema:
+          pattern: ^sha256:[a-fA-F0-9]{64}$
+          type: string
+          format: path
+      - name: x-anchore-account
+        in: header
+        description: An account name to change the resource scope of the request to
+          that account, if permissions allow (admin only)
+        schema:
+          type: string
+      requestBody:
+        content:
+            multipart/form-data:
+              schema:
+                type: object
+                properties:
+                  stig_profile:
+                    type: string
+                    description: The name of the STIG profile that produced this result
+                  file:
+                    type: string
+                    format: binary
+                    description: A valid STIG result file in XML or JSON format
+              encoding:
+                file:
+                  contentType: application/xml, application/json
+        required: true
+      responses:
+        201:
+          description: STIG document uploaded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/STIGMetadataResponse'
+        500:
+          description: Internal error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.stig
+      x-anchore-authz-action: addImage
+  /images/{image_digest}/stig/{content_uuid}:
+    put:
+      tags:
+        - Images
+      summary: Update STIG content for an image
+      operationId: put_image_stig
+      parameters:
+      - name: image_digest
+        in: path
+        required: true
+        schema:
+          pattern: ^sha256:[a-fA-F0-9]{64}$
+          type: string
+          format: path
+      - name: content_uuid
+        description: The UUID of the STIG content to retrieve
+        in: path
+        required: true
+        schema:
+          $ref: "#/components/schemas/UUID"
+      - name: x-anchore-account
+        in: header
+        description: An account name to change the resource scope of the request to
+          that account, if permissions allow (admin only)
+        schema:
+          type: string
+      requestBody:
+        content:
+            multipart/form-data:
+              schema:
+                type: object
+                properties:
+                  stig_profile:
+                    type: string
+                    description: The name of the STIG profile that produced this result
+                  file:
+                    type: string
+                    format: binary
+                    description: A valid STIG result file in XML or JSON format
+              encoding:
+                file:
+                  contentType: application/xml, application/json
+        required: true
+      responses:
+        201:
+          description: STIG document uploaded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/STIGMetadataResponse'
+        500:
+          description: Internal error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.stig
+      x-anchore-authz-action: addImage
+    delete:
+      tags:
+        - Images
+      summary: Delete STIG content for an image
+      operationId: delete_image_stig
+      parameters:
+      - name: image_digest
+        in: path
+        required: true
+        schema:
+          pattern: ^sha256:[a-fA-F0-9]{64}$
+          type: string
+          format: path
+      - name: content_uuid
+        description: The UUID of the STIG content to retrieve
+        in: path
+        required: true
+        schema:
+          $ref: "#/components/schemas/UUID"
+      - name: x-anchore-account
+        in: header
+        description: An account name to change the resource scope of the request to
+          that account, if permissions allow (admin only)
+        schema:
+          type: string
+      responses:
+        204:
+          description: STIG document deleted
+        500:
+          description: Internal error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.stig
+      x-anchore-authz-action: deleteImage
+  /images/{image_digest}/stig/{content_uuid}/file:
+    get:
+      tags:
+        - Images
+      summary: Get STIG content for an image
+      operationId: get_image_stig
+      parameters:
+      - name: image_digest
+        in: path
+        required: true
+        schema:
+          pattern: ^sha256:[a-fA-F0-9]{64}$
+          type: string
+          format: path
+      - name: content_uuid
+        description: The UUID of the STIG content to retrieve
+        in: path
+        required: true
+        schema:
+          $ref: "#/components/schemas/UUID"
+      - name: x-anchore-account
+        in: header
+        description: An account name to change the resource scope of the request to
+          that account, if permissions allow (admin only)
+        schema:
+          type: string
+      responses:
+        200:
+          description: STIG document retrieved
+          content:
+            application/json:
+              schema:
+                type: string
+                format: binary
+            application/xml:
+                schema:
+                  type: string
+                  format: binary
+        500:
+          description: Internal error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.stig
       x-anchore-authz-action: getImage
   /images/{image_digest}/sboms/cyclonedx-json:
     get:
@@ -6649,6 +6875,59 @@ paths:
                 $ref: '#/components/schemas/ApiErrorResponse'
       x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.oauth
       x-anchore-authz-action: None
+  /scan:
+    post:
+      tags:
+        - Onetime
+      summary: Return a onetime evaluation of the provided data.
+      description: Use this operation for checking sboms for vulnerabilities and policy evaluations
+        in cases where the sbom does not need to be stored for later re-scans or added to the
+        managed set of SBOMs in Anchore. If you need to upload and save an SBOM use
+        the "/import/*" API set instead.
+      operationId: stateless_scan
+      parameters:
+        - name: x-anchore-account
+          in: header
+          description: An account name to change the resource scope of the request to
+            that account, if permissions allow (admin only)
+          schema:
+            type: string
+        - name: policy_id
+          in: query
+          schema:
+            type: string
+        - name: tag
+          in: query
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ScanRequest"
+        required: true
+      responses:
+        "200":
+          description: Successful response with onetime scan status
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ScanResponse"
+        400:
+          description: Unable to evaluate the provided data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        500:
+          description: Internal Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+      x-anchore-authz-action: getImageEvaluation
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.stateless
   /policies:
     get:
       tags:
@@ -9237,8 +9516,8 @@ paths:
       tags:
         - Integrations
       summary: Report health status for an integration
-      description: An integration, such as an agent, will use this API to report its current 
-                   health status. Such calls will typically be done on an interval, e.g., 
+      description: An integration, such as an agent, will use this API to report its current
+                   health status. Such calls will typically be done on an interval, e.g.,
                    every 60 seconds.
       operationId: handle_health_report
       x-anchore-authz-action: reportHealth
@@ -9356,12 +9635,12 @@ paths:
       tags:
         - Integrations
       summary: Register an integration instance
-      description: An integration instance, such as an agent, will use this API to register 
-                   itself with Anchore. The integration registers using registration_id and 
-                   registration_instance_id as temporary identifiers and is assigned its 
+      description: An integration instance, such as an agent, will use this API to register
+                   itself with Anchore. The integration registers using registration_id and
+                   registration_instance_id as temporary identifiers and is assigned its
                    integration uuid upon successful registration. This method is idempotent
-                   in the sense that if an integration instance call it multiple time and 
-                   uses the same registration_id and registration_instance_id, it will be 
+                   in the sense that if an integration instance call it multiple time and
+                   uses the same registration_id and registration_instance_id, it will be
                    assigned the same integration uuid.
       operationId: register_integration
       x-anchore-authz-action: registerIntegration
@@ -11991,7 +12270,7 @@ components:
           type: string
           format: date-time
           description: Deprecated - The last update timestamp of the data record
-      description: A data record   
+      description: A data record
     FeedGroupMetadata:
       type: object
       properties:
@@ -12069,7 +12348,7 @@ components:
         dataset_checksum:
           type: string
           description: The checksum of the dataset that provides this feed
-      description: Metadata on the feeds based on findings from querying the endpoints.   
+      description: Metadata on the feeds based on findings from querying the endpoints.
     FeedSyncResult:
       type: object
       properties:
@@ -12436,8 +12715,8 @@ components:
           type: string
           format: date-time
       description: A metadata detail record for a specific image. Multiple detail
-        records may map to a single catalog image. For example, an image having multiple 
-        tags associated with a single image digest will generate multiple image detail 
+        records may map to a single catalog image. For example, an image having multiple
+        tags associated with a single image digest will generate multiple image detail
         records.
     ImageContentSummary:
       type: object
@@ -12975,9 +13254,9 @@ components:
         - unhealthy
       description: >
          Health state reported by the client integration.
-        
+
          * healthy: All good. No errors.
-        
+
          * unhealthy: Not well. Probably errors.
       example: healthy
     IntegrationLifecycleState:
@@ -12988,11 +13267,11 @@ components:
         - inactive
       description: >
         Life cycle state of the integration instance
-        
+
         * active - Integration operational. Sending health reports.
-        
+
         * registered - Integration has registered. Not yet sending health reports.
-        
+
         * inactive - Integration has missed its last three health check-ins.
       example: active
     IntegrationStatus:
@@ -13073,12 +13352,12 @@ components:
       properties:
         registration_id:
           type: string
-          description: identifier for the integration during registration until it has 
+          description: identifier for the integration during registration until it has
                        received its integration_id
           example: 84993c1f-863f-41f3-9bd8-dfcc821b1c8a
         registration_instance_id:
           type: string
-          description: Unique identifier for the integration instance (among its 
+          description: Unique identifier for the integration instance (among its
                        replicas) during registration
           example: 67479449b7-zdzlr
         type:
@@ -13110,7 +13389,7 @@ components:
           example: admin
         explicitly_account_bound:
           type: array
-          description: List of accounts that the integration instance is statically 
+          description: List of accounts that the integration instance is statically
                        configured to handle
           example: [ frontend, ci ]
           items:
@@ -13119,7 +13398,7 @@ components:
             example: frontend
         namespaces:
           type: array
-          description: List of namespaces that the integration instance is statically 
+          description: List of namespaces that the integration instance is statically
                        configured to handle
           example: [production, finance]
           items:
@@ -13182,7 +13461,7 @@ components:
           example: admin
         explicitly_account_bound:
           type: array
-          description: List of accounts that the integration instance is statically 
+          description: List of accounts that the integration instance is statically
                        configured to handle
           example: [ frontend, ci ]
           items:
@@ -13209,12 +13488,12 @@ components:
           $ref: '#/components/schemas/HealthReportInterval'
         registration_id:
           type: string
-          description: identifier for the integration during registration until it has 
+          description: identifier for the integration during registration until it has
                        received its integration_id
           example: 84993c1f-863f-41f3-9bd8-dfcc821b1c8a
         registration_instance_id:
           type: string
-          description: Unique identifier for the integration instance (among its 
+          description: Unique identifier for the integration instance (among its
                        replicas) during registration
           example: 67479449b7-zdzlr
     IntegrationSummaryList:
@@ -14562,6 +14841,142 @@ components:
           $ref: '#/components/schemas/CVSSV2Scores'
         cvss_v3:
           $ref: '#/components/schemas/CVSSV3Scores'
+    ScanRequest:
+      type: object
+      properties:
+        sbom:
+          $ref: '#/components/schemas/NativeSBOM'
+        secret_scan:
+          $ref: "#/components/schemas/ContentSearch"
+        content_search:
+          $ref: "#/components/schemas/ContentSearch"
+        retrieved_files:
+          $ref: "#/components/schemas/FileContents"
+    ContentSearch:
+      type: object
+      required:
+        - media_type
+        - metadata
+        - findings
+      properties:
+        media_type:
+          type: string
+          description: The media type of this result
+          enum:
+            - application/anchore.enterprise.local-analyze.secret-search.v1+json
+            - application/anchore.enterprise.local-analyze.content-search.v1+json
+        metadata:
+          type: object
+          required:
+            - analyzed_at
+            - anchorectl_version
+            - platform
+          properties:
+            analyzed_at:
+              type: string
+              description: The time the result was analyzed
+              format: date-time
+            anchorectl_version:
+              type: string
+              description: The version of AnchoreCTL used to generate the result
+            platform:
+              type: string
+              description: The platform of AnchoreCTL used to generate the result
+        findings:
+          type: array
+          items:
+            type: object
+            required:
+              - location
+              - content_searches
+            properties:
+              location:
+                type: object
+                required:
+                  - path
+                  - layerID
+                properties:
+                  path:
+                    type: string
+                  layerID:
+                    type: string
+              content_searches:
+                type: array
+                items:
+                  type: object
+                  required:
+                    - classification
+                    - line_number
+                    - line_offset
+                    - seek_position
+                    - length
+                  properties:
+                    classification:
+                      type: string
+                    line_number:
+                      type: integer
+                    line_offset:
+                      type: integer
+                    seek_position:
+                      type: integer
+                    length:
+                      type: integer
+    FileContents:
+      type: object
+      required:
+        - media_type
+        - metadata
+        - findings
+      properties:
+        media_type:
+          type: string
+          description: The media type of this result
+          enum:
+            - application/anchore.enterprise.local-analyze.file-contents.v1+json
+        metadata:
+          type: object
+          required:
+            - analyzed_at
+            - anchorectl_version
+            - platform
+          properties:
+            analyzed_at:
+              type: string
+              description: The time the result was analyzed
+              format: date-time
+            anchorectl_version:
+              type: string
+              description: The version of AnchoreCTL used to generate the result
+            platform:
+              type: string
+              description: The platform of AnchoreCTL used to generate the result
+        findings:
+          type: array
+          items:
+            type: object
+            required:
+              - location
+              - contents
+            properties:
+              location:
+                type: object
+                required:
+                  - path
+                properties:
+                  path:
+                    type: string
+                  layerID:
+                    type: string
+              contents:
+                type: string
+                description: The contents of the file
+    ScanResponse:
+      type: object
+      properties:
+        vuln_scan:
+            $ref: "#/components/schemas/SBOMVulnerabilitiesResponse"
+        policy_scan:
+          $ref: "#/components/schemas/PolicyEvaluation"
     Package:
       type: object
       properties:
@@ -16645,6 +17060,11 @@ components:
             - account_inventory
             - report_execution_inventory
             - report_inventory
+            - sbom_imported_analysis
+            - sbom_imported_inventory
+            - sbom_group_creation
+            - sbom_group_inventory
+            - stig_document_inventory
         description:
           type: string
         value_type:
@@ -16976,7 +17396,6 @@ components:
           format: date-time
         account_roles:
           $ref: '#/components/schemas/UserGroupRoles'
-
     UserGroupPost:
       required:
         - name
@@ -17263,6 +17682,27 @@ components:
           type: string
           description: The reference url
       description: An external link/reference
+    STIGMetadataResponse:
+      type: object
+      properties:
+        content_uuid:
+          $ref: "#/components/schemas/UUID"
+        uploaded_at:
+          type: string
+          format: date-time
+        stig_profile:
+          type: string
+          description: The name of the STIG profile that produced this result
+        document_type:
+          type: string
+          description: The format of the STIG content
+    STIGMetadataResponseList:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/STIGMetadataResponse'
   parameters:
     AsAccountParameter:
       name: x-anchore-account
