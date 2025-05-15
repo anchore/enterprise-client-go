@@ -3,7 +3,7 @@ Anchore API
 
 This is the Anchore API. Provides the external API for users of Anchore Enterprise.
 
-API version: 2.11.0
+API version: 2.11.1
 Contact: dev@anchore.com
 */
 
@@ -18,6 +18,7 @@ import (
 	"net/http"
 	"net/url"
 	"strings"
+	"os"
 )
 
 
@@ -49,6 +50,19 @@ type ImagesAPI interface {
 	// DeleteImageExecute executes the request
 	//  @return DeleteImageResponse
 	DeleteImageExecute(r ApiDeleteImageRequest) (*DeleteImageResponse, *http.Response, error)
+
+	/*
+	DeleteImageStig Delete STIG content for an image
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param imageDigest
+	@param contentUuid The UUID of the STIG content to retrieve
+	@return ApiDeleteImageStigRequest
+	*/
+	DeleteImageStig(ctx context.Context, imageDigest string, contentUuid string) ApiDeleteImageStigRequest
+
+	// DeleteImageStigExecute executes the request
+	DeleteImageStigExecute(r ApiDeleteImageStigRequest) (*http.Response, error)
 
 	/*
 	DeleteImagesAsync Bulk mark images for deletion
@@ -242,6 +256,20 @@ type ImagesAPI interface {
 	GetImageSbomSpdxJsonExecute(r ApiGetImageSbomSpdxJsonRequest) (string, *http.Response, error)
 
 	/*
+	GetImageStig Get STIG content for an image
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param imageDigest
+	@param contentUuid The UUID of the STIG content to retrieve
+	@return ApiGetImageStigRequest
+	*/
+	GetImageStig(ctx context.Context, imageDigest string, contentUuid string) ApiGetImageStigRequest
+
+	// GetImageStigExecute executes the request
+	//  @return *os.File
+	GetImageStigExecute(r ApiGetImageStigRequest) (*os.File, *http.Response, error)
+
+	/*
 	GetImageVulnerabilitiesByDigest Get vulnerabilities by type
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
@@ -308,6 +336,19 @@ type ImagesAPI interface {
 	ListImageMetadataExecute(r ApiListImageMetadataRequest) ([]string, *http.Response, error)
 
 	/*
+	ListImageStig List STIG content metadata for an image
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param imageDigest
+	@return ApiListImageStigRequest
+	*/
+	ListImageStig(ctx context.Context, imageDigest string) ApiListImageStigRequest
+
+	// ListImageStigExecute executes the request
+	//  @return STIGMetadataResponseList
+	ListImageStigExecute(r ApiListImageStigRequest) (*STIGMetadataResponseList, *http.Response, error)
+
+	/*
 	ListImages List all visible images
 
 	List all images visible to the user
@@ -346,6 +387,33 @@ type ImagesAPI interface {
 	// ListSecretSearchResultsExecute executes the request
 	//  @return []SecretSearchResult
 	ListSecretSearchResultsExecute(r ApiListSecretSearchResultsRequest) ([]SecretSearchResult, *http.Response, error)
+
+	/*
+	PostImageStig Upload STIG content for an image
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param imageDigest
+	@return ApiPostImageStigRequest
+	*/
+	PostImageStig(ctx context.Context, imageDigest string) ApiPostImageStigRequest
+
+	// PostImageStigExecute executes the request
+	//  @return STIGMetadataResponse
+	PostImageStigExecute(r ApiPostImageStigRequest) (*STIGMetadataResponse, *http.Response, error)
+
+	/*
+	PutImageStig Update STIG content for an image
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param imageDigest
+	@param contentUuid The UUID of the STIG content to retrieve
+	@return ApiPutImageStigRequest
+	*/
+	PutImageStig(ctx context.Context, imageDigest string, contentUuid string) ApiPutImageStigRequest
+
+	// PutImageStigExecute executes the request
+	//  @return STIGMetadataResponse
+	PutImageStigExecute(r ApiPutImageStigRequest) (*STIGMetadataResponse, *http.Response, error)
 
 	/*
 	SummaryImageCounts Image summary counts
@@ -679,6 +747,126 @@ func (a *ImagesAPIService) DeleteImageExecute(r ApiDeleteImageRequest) (*DeleteI
 	}
 
 	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiDeleteImageStigRequest struct {
+	ctx context.Context
+	ApiService ImagesAPI
+	imageDigest string
+	contentUuid string
+	xAnchoreAccount *string
+}
+
+// An account name to change the resource scope of the request to that account, if permissions allow (admin only)
+func (r ApiDeleteImageStigRequest) XAnchoreAccount(xAnchoreAccount string) ApiDeleteImageStigRequest {
+	r.xAnchoreAccount = &xAnchoreAccount
+	return r
+}
+
+func (r ApiDeleteImageStigRequest) Execute() (*http.Response, error) {
+	return r.ApiService.DeleteImageStigExecute(r)
+}
+
+/*
+DeleteImageStig Delete STIG content for an image
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param imageDigest
+ @param contentUuid The UUID of the STIG content to retrieve
+ @return ApiDeleteImageStigRequest
+*/
+func (a *ImagesAPIService) DeleteImageStig(ctx context.Context, imageDigest string, contentUuid string) ApiDeleteImageStigRequest {
+	return ApiDeleteImageStigRequest{
+		ApiService: a,
+		ctx: ctx,
+		imageDigest: imageDigest,
+		contentUuid: contentUuid,
+	}
+}
+
+// Execute executes the request
+func (a *ImagesAPIService) DeleteImageStigExecute(r ApiDeleteImageStigRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod   = http.MethodDelete
+		localVarPostBody     interface{}
+		formFiles            []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ImagesAPIService.DeleteImageStig")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/images/{image_digest}/stig/{content_uuid}"
+	localVarPath = strings.Replace(localVarPath, "{"+"image_digest"+"}", url.PathEscape(parameterValueToString(r.imageDigest, "imageDigest")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"content_uuid"+"}", url.PathEscape(parameterValueToString(r.contentUuid, "contentUuid")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if strlen(r.contentUuid) < 36 {
+		return nil, reportError("contentUuid must have at least 36 elements")
+	}
+	if strlen(r.contentUuid) > 36 {
+		return nil, reportError("contentUuid must have less than 36 elements")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	if r.xAnchoreAccount != nil {
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "x-anchore-account", r.xAnchoreAccount, "simple", "")
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 500 {
+			var v ApiErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
 }
 
 type ApiDeleteImagesAsyncRequest struct {
@@ -2462,6 +2650,137 @@ func (a *ImagesAPIService) GetImageSbomSpdxJsonExecute(r ApiGetImageSbomSpdxJson
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+type ApiGetImageStigRequest struct {
+	ctx context.Context
+	ApiService ImagesAPI
+	imageDigest string
+	contentUuid string
+	xAnchoreAccount *string
+}
+
+// An account name to change the resource scope of the request to that account, if permissions allow (admin only)
+func (r ApiGetImageStigRequest) XAnchoreAccount(xAnchoreAccount string) ApiGetImageStigRequest {
+	r.xAnchoreAccount = &xAnchoreAccount
+	return r
+}
+
+func (r ApiGetImageStigRequest) Execute() (*os.File, *http.Response, error) {
+	return r.ApiService.GetImageStigExecute(r)
+}
+
+/*
+GetImageStig Get STIG content for an image
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param imageDigest
+ @param contentUuid The UUID of the STIG content to retrieve
+ @return ApiGetImageStigRequest
+*/
+func (a *ImagesAPIService) GetImageStig(ctx context.Context, imageDigest string, contentUuid string) ApiGetImageStigRequest {
+	return ApiGetImageStigRequest{
+		ApiService: a,
+		ctx: ctx,
+		imageDigest: imageDigest,
+		contentUuid: contentUuid,
+	}
+}
+
+// Execute executes the request
+//  @return *os.File
+func (a *ImagesAPIService) GetImageStigExecute(r ApiGetImageStigRequest) (*os.File, *http.Response, error) {
+	var (
+		localVarHTTPMethod   = http.MethodGet
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *os.File
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ImagesAPIService.GetImageStig")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/images/{image_digest}/stig/{content_uuid}/file"
+	localVarPath = strings.Replace(localVarPath, "{"+"image_digest"+"}", url.PathEscape(parameterValueToString(r.imageDigest, "imageDigest")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"content_uuid"+"}", url.PathEscape(parameterValueToString(r.contentUuid, "contentUuid")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if strlen(r.contentUuid) < 36 {
+		return localVarReturnValue, nil, reportError("contentUuid must have at least 36 elements")
+	}
+	if strlen(r.contentUuid) > 36 {
+		return localVarReturnValue, nil, reportError("contentUuid must have less than 36 elements")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/xml"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	if r.xAnchoreAccount != nil {
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "x-anchore-account", r.xAnchoreAccount, "simple", "")
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 500 {
+			var v ApiErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
 type ApiGetImageVulnerabilitiesByDigestRequest struct {
 	ctx context.Context
 	ApiService ImagesAPI
@@ -3098,6 +3417,127 @@ func (a *ImagesAPIService) ListImageMetadataExecute(r ApiListImageMetadataReques
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+type ApiListImageStigRequest struct {
+	ctx context.Context
+	ApiService ImagesAPI
+	imageDigest string
+	xAnchoreAccount *string
+}
+
+// An account name to change the resource scope of the request to that account, if permissions allow (admin only)
+func (r ApiListImageStigRequest) XAnchoreAccount(xAnchoreAccount string) ApiListImageStigRequest {
+	r.xAnchoreAccount = &xAnchoreAccount
+	return r
+}
+
+func (r ApiListImageStigRequest) Execute() (*STIGMetadataResponseList, *http.Response, error) {
+	return r.ApiService.ListImageStigExecute(r)
+}
+
+/*
+ListImageStig List STIG content metadata for an image
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param imageDigest
+ @return ApiListImageStigRequest
+*/
+func (a *ImagesAPIService) ListImageStig(ctx context.Context, imageDigest string) ApiListImageStigRequest {
+	return ApiListImageStigRequest{
+		ApiService: a,
+		ctx: ctx,
+		imageDigest: imageDigest,
+	}
+}
+
+// Execute executes the request
+//  @return STIGMetadataResponseList
+func (a *ImagesAPIService) ListImageStigExecute(r ApiListImageStigRequest) (*STIGMetadataResponseList, *http.Response, error) {
+	var (
+		localVarHTTPMethod   = http.MethodGet
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *STIGMetadataResponseList
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ImagesAPIService.ListImageStig")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/images/{image_digest}/stig"
+	localVarPath = strings.Replace(localVarPath, "{"+"image_digest"+"}", url.PathEscape(parameterValueToString(r.imageDigest, "imageDigest")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	if r.xAnchoreAccount != nil {
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "x-anchore-account", r.xAnchoreAccount, "simple", "")
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 500 {
+			var v ApiErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
 type ApiListImagesRequest struct {
 	ctx context.Context
 	ApiService ImagesAPI
@@ -3466,6 +3906,322 @@ func (a *ImagesAPIService) ListSecretSearchResultsExecute(r ApiListSecretSearchR
 		newErr := &GenericOpenAPIError{
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiPostImageStigRequest struct {
+	ctx context.Context
+	ApiService ImagesAPI
+	imageDigest string
+	xAnchoreAccount *string
+	stigProfile *string
+	file *os.File
+}
+
+// An account name to change the resource scope of the request to that account, if permissions allow (admin only)
+func (r ApiPostImageStigRequest) XAnchoreAccount(xAnchoreAccount string) ApiPostImageStigRequest {
+	r.xAnchoreAccount = &xAnchoreAccount
+	return r
+}
+
+// The name of the STIG profile that produced this result
+func (r ApiPostImageStigRequest) StigProfile(stigProfile string) ApiPostImageStigRequest {
+	r.stigProfile = &stigProfile
+	return r
+}
+
+// A valid STIG result file in XML or JSON format
+func (r ApiPostImageStigRequest) File(file *os.File) ApiPostImageStigRequest {
+	r.file = file
+	return r
+}
+
+func (r ApiPostImageStigRequest) Execute() (*STIGMetadataResponse, *http.Response, error) {
+	return r.ApiService.PostImageStigExecute(r)
+}
+
+/*
+PostImageStig Upload STIG content for an image
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param imageDigest
+ @return ApiPostImageStigRequest
+*/
+func (a *ImagesAPIService) PostImageStig(ctx context.Context, imageDigest string) ApiPostImageStigRequest {
+	return ApiPostImageStigRequest{
+		ApiService: a,
+		ctx: ctx,
+		imageDigest: imageDigest,
+	}
+}
+
+// Execute executes the request
+//  @return STIGMetadataResponse
+func (a *ImagesAPIService) PostImageStigExecute(r ApiPostImageStigRequest) (*STIGMetadataResponse, *http.Response, error) {
+	var (
+		localVarHTTPMethod   = http.MethodPost
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *STIGMetadataResponse
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ImagesAPIService.PostImageStig")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/images/{image_digest}/stig"
+	localVarPath = strings.Replace(localVarPath, "{"+"image_digest"+"}", url.PathEscape(parameterValueToString(r.imageDigest, "imageDigest")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"multipart/form-data"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	if r.xAnchoreAccount != nil {
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "x-anchore-account", r.xAnchoreAccount, "simple", "")
+	}
+	if r.stigProfile != nil {
+		parameterAddToHeaderOrQuery(localVarFormParams, "stig_profile", r.stigProfile, "", "")
+	}
+	var fileLocalVarFormFileName string
+	var fileLocalVarFileName     string
+	var fileLocalVarFileBytes    []byte
+
+	fileLocalVarFormFileName = "file"
+	fileLocalVarFile := r.file
+
+	if fileLocalVarFile != nil {
+		fbs, _ := io.ReadAll(fileLocalVarFile)
+
+		fileLocalVarFileBytes = fbs
+		fileLocalVarFileName = fileLocalVarFile.Name()
+		fileLocalVarFile.Close()
+		formFiles = append(formFiles, formFile{fileBytes: fileLocalVarFileBytes, fileName: fileLocalVarFileName, formFileName: fileLocalVarFormFileName})
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 500 {
+			var v ApiErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiPutImageStigRequest struct {
+	ctx context.Context
+	ApiService ImagesAPI
+	imageDigest string
+	contentUuid string
+	xAnchoreAccount *string
+	stigProfile *string
+	file *os.File
+}
+
+// An account name to change the resource scope of the request to that account, if permissions allow (admin only)
+func (r ApiPutImageStigRequest) XAnchoreAccount(xAnchoreAccount string) ApiPutImageStigRequest {
+	r.xAnchoreAccount = &xAnchoreAccount
+	return r
+}
+
+// The name of the STIG profile that produced this result
+func (r ApiPutImageStigRequest) StigProfile(stigProfile string) ApiPutImageStigRequest {
+	r.stigProfile = &stigProfile
+	return r
+}
+
+// A valid STIG result file in XML or JSON format
+func (r ApiPutImageStigRequest) File(file *os.File) ApiPutImageStigRequest {
+	r.file = file
+	return r
+}
+
+func (r ApiPutImageStigRequest) Execute() (*STIGMetadataResponse, *http.Response, error) {
+	return r.ApiService.PutImageStigExecute(r)
+}
+
+/*
+PutImageStig Update STIG content for an image
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param imageDigest
+ @param contentUuid The UUID of the STIG content to retrieve
+ @return ApiPutImageStigRequest
+*/
+func (a *ImagesAPIService) PutImageStig(ctx context.Context, imageDigest string, contentUuid string) ApiPutImageStigRequest {
+	return ApiPutImageStigRequest{
+		ApiService: a,
+		ctx: ctx,
+		imageDigest: imageDigest,
+		contentUuid: contentUuid,
+	}
+}
+
+// Execute executes the request
+//  @return STIGMetadataResponse
+func (a *ImagesAPIService) PutImageStigExecute(r ApiPutImageStigRequest) (*STIGMetadataResponse, *http.Response, error) {
+	var (
+		localVarHTTPMethod   = http.MethodPut
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *STIGMetadataResponse
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ImagesAPIService.PutImageStig")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/images/{image_digest}/stig/{content_uuid}"
+	localVarPath = strings.Replace(localVarPath, "{"+"image_digest"+"}", url.PathEscape(parameterValueToString(r.imageDigest, "imageDigest")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"content_uuid"+"}", url.PathEscape(parameterValueToString(r.contentUuid, "contentUuid")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if strlen(r.contentUuid) < 36 {
+		return localVarReturnValue, nil, reportError("contentUuid must have at least 36 elements")
+	}
+	if strlen(r.contentUuid) > 36 {
+		return localVarReturnValue, nil, reportError("contentUuid must have less than 36 elements")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"multipart/form-data"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	if r.xAnchoreAccount != nil {
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "x-anchore-account", r.xAnchoreAccount, "simple", "")
+	}
+	if r.stigProfile != nil {
+		parameterAddToHeaderOrQuery(localVarFormParams, "stig_profile", r.stigProfile, "", "")
+	}
+	var fileLocalVarFormFileName string
+	var fileLocalVarFileName     string
+	var fileLocalVarFileBytes    []byte
+
+	fileLocalVarFormFileName = "file"
+	fileLocalVarFile := r.file
+
+	if fileLocalVarFile != nil {
+		fbs, _ := io.ReadAll(fileLocalVarFile)
+
+		fileLocalVarFileBytes = fbs
+		fileLocalVarFileName = fileLocalVarFile.Name()
+		fileLocalVarFile.Close()
+		formFiles = append(formFiles, formFile{fileBytes: fileLocalVarFileBytes, fileName: fileLocalVarFileName, formFileName: fileLocalVarFormFileName})
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 500 {
+			var v ApiErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
