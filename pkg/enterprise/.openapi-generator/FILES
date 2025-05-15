@@ -333,6 +333,8 @@ docs/RetrievedFile.md
 docs/RevokeOauthToken400Response.md
 docs/RuleSet.md
 docs/SBOMVulnerabilitiesResponse.md
+docs/STIGMetadataResponse.md
+docs/STIGMetadataResponseList.md
 docs/SecretSearchResult.md
 docs/Service.md
 docs/ServiceReference.md
@@ -720,6 +722,8 @@ model_source_policy_evaluation_finding.go
 model_sources_list.go
 model_standalone_vulnerability.go
 model_status_response.go
+model_stig_metadata_response.go
+model_stig_metadata_response_list.go
 model_subscription.go
 model_subscription_request.go
 model_subscription_update.go
