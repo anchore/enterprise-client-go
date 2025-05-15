@@ -10,7 +10,7 @@ OPENAPI_GENERATOR_VERSION = v7.8.0
 
 # --- anchore enterprise references
 # a git tag/branch/commit within anchore/enterprise repo
-ENTERPRISE_REF = main
+ENTERPRISE_REF = ENTERPRISE-5809
 ENTERPRISE_ROOT = $(PROJECT_ROOT)/enterprise
 ENTERPRISE_OPENAPI_DOC = $(PROJECT_ROOT)/anchore-api-swagger-$(ENTERPRISE_REF).yaml
 
@@ -71,7 +71,7 @@ generate-clients: $(ENTERPRISE_OPENAPI_DOC) ## generate client code for anchore 
 .PHONY :=
 clean: ## remove all swagger documents and generated client code
 	rm -rf $(PROJECT_ROOT)
-	rm -rf $(CLONE_DIR)
+	# rm -rf $(CLONE_DIR)
 
 .PHONY :=
 help:
