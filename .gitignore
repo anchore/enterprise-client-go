@@ -20,3 +20,4 @@ out/
 build/
 local/
 
+.go-version
