@@ -294,6 +294,7 @@ Class | Method | HTTP request | Description
 *NotificationsAPI* | [**UpdateTeamsSelector**](docs/NotificationsAPI.md#updateteamsselector) | **Put** /notifications/endpoints/teams/configurations/{configuration_uuid}/selectors/{selector_uuid} | 
 *NotificationsAPI* | [**UpdateWebhookConfiguration**](docs/NotificationsAPI.md#updatewebhookconfiguration) | **Put** /notifications/endpoints/webhook/configurations/{uuid} | 
 *NotificationsAPI* | [**UpdateWebhookSelector**](docs/NotificationsAPI.md#updatewebhookselector) | **Put** /notifications/endpoints/webhook/configurations/{configuration_uuid}/selectors/{selector_uuid} | 
+*OnetimeAPI* | [**StatelessScan**](docs/OnetimeAPI.md#statelessscan) | **Post** /scan | Return a onetime evaluation of the provided data.
 *PoliciesAPI* | [**AddPolicy**](docs/PoliciesAPI.md#addpolicy) | **Post** /policies | Add a new policy
 *PoliciesAPI* | [**DeletePolicy**](docs/PoliciesAPI.md#deletepolicy) | **Delete** /policies/{policy_id} | Delete policy
 *PoliciesAPI* | [**GetPolicy**](docs/PoliciesAPI.md#getpolicy) | **Get** /policies/{policy_id} | Get specific policy
@@ -477,6 +478,11 @@ Class | Method | HTTP request | Description
  - [ContentJavaPackageResponse](docs/ContentJavaPackageResponse.md)
  - [ContentMalwareResponse](docs/ContentMalwareResponse.md)
  - [ContentPackageResponse](docs/ContentPackageResponse.md)
+ - [ContentSearch](docs/ContentSearch.md)
+ - [ContentSearchFindingsInner](docs/ContentSearchFindingsInner.md)
+ - [ContentSearchFindingsInnerContentSearchesInner](docs/ContentSearchFindingsInnerContentSearchesInner.md)
+ - [ContentSearchFindingsInnerLocation](docs/ContentSearchFindingsInnerLocation.md)
+ - [ContentSearchMetadata](docs/ContentSearchMetadata.md)
  - [Correction](docs/Correction.md)
  - [CorrectionFieldMatch](docs/CorrectionFieldMatch.md)
  - [CorrectionMatch](docs/CorrectionMatch.md)
@@ -508,6 +514,9 @@ Class | Method | HTTP request | Description
  - [FeedMetadata](docs/FeedMetadata.md)
  - [FeedSyncResult](docs/FeedSyncResult.md)
  - [FileContentSearchResult](docs/FileContentSearchResult.md)
+ - [FileContents](docs/FileContents.md)
+ - [FileContentsFindingsInner](docs/FileContentsFindingsInner.md)
+ - [FileContentsFindingsInnerLocation](docs/FileContentsFindingsInnerLocation.md)
  - [FilesContent](docs/FilesContent.md)
  - [GateSpec](docs/GateSpec.md)
  - [GenericNotificationPayload](docs/GenericNotificationPayload.md)
@@ -695,6 +704,8 @@ Class | Method | HTTP request | Description
  - [SBOMVulnerabilitiesResponse](docs/SBOMVulnerabilitiesResponse.md)
  - [STIGMetadataResponse](docs/STIGMetadataResponse.md)
  - [STIGMetadataResponseList](docs/STIGMetadataResponseList.md)
+ - [ScanRequest](docs/ScanRequest.md)
+ - [ScanResponse](docs/ScanResponse.md)
  - [SecretSearchResult](docs/SecretSearchResult.md)
  - [Service](docs/Service.md)
  - [ServiceReference](docs/ServiceReference.md)

@@ -82,6 +82,8 @@ type APIClient struct {
 
 	NotificationsAPI NotificationsAPI
 
+	OnetimeAPI OnetimeAPI
+
 	PoliciesAPI PoliciesAPI
 
 	QueryAPI QueryAPI
@@ -141,6 +143,7 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.IntegrationsAPI = (*IntegrationsAPIService)(&c.common)
 	c.InventoriesAPI = (*InventoriesAPIService)(&c.common)
 	c.NotificationsAPI = (*NotificationsAPIService)(&c.common)
+	c.OnetimeAPI = (*OnetimeAPIService)(&c.common)
 	c.PoliciesAPI = (*PoliciesAPIService)(&c.common)
 	c.QueryAPI = (*QueryAPIService)(&c.common)
 	c.RBACAPI = (*RBACAPIService)(&c.common)
