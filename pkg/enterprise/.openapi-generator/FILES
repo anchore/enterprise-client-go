@@ -17,6 +17,7 @@ api_imports.go
 api_integrations.go
 api_inventories.go
 api_notifications.go
+api_onetime.go
 api_policies.go
 api_query.go
 api_rbac.go
@@ -102,6 +103,11 @@ docs/ContentFilesResponse.md
 docs/ContentJavaPackageResponse.md
 docs/ContentMalwareResponse.md
 docs/ContentPackageResponse.md
+docs/ContentSearch.md
+docs/ContentSearchFindingsInner.md
+docs/ContentSearchFindingsInnerContentSearchesInner.md
+docs/ContentSearchFindingsInnerLocation.md
+docs/ContentSearchMetadata.md
 docs/Correction.md
 docs/CorrectionFieldMatch.md
 docs/CorrectionMatch.md
@@ -135,6 +141,9 @@ docs/FeedGroupMetadata.md
 docs/FeedMetadata.md
 docs/FeedSyncResult.md
 docs/FileContentSearchResult.md
+docs/FileContents.md
+docs/FileContentsFindingsInner.md
+docs/FileContentsFindingsInnerLocation.md
 docs/FilesContent.md
 docs/GateSpec.md
 docs/GenericNotificationPayload.md
@@ -272,6 +281,7 @@ docs/NotificationWebhookTestResult.md
 docs/NotificationsAPI.md
 docs/NullType.md
 docs/NvdDataObject.md
+docs/OnetimeAPI.md
 docs/Package.md
 docs/PackageContent.md
 docs/PackageReference.md
@@ -335,6 +345,8 @@ docs/RuleSet.md
 docs/SBOMVulnerabilitiesResponse.md
 docs/STIGMetadataResponse.md
 docs/STIGMetadataResponseList.md
+docs/ScanRequest.md
+docs/ScanResponse.md
 docs/SecretSearchResult.md
 docs/Service.md
 docs/ServiceReference.md
@@ -483,6 +495,11 @@ model_content_files_response.go
 model_content_java_package_response.go
 model_content_malware_response.go
 model_content_package_response.go
+model_content_search.go
+model_content_search_findings_inner.go
+model_content_search_findings_inner_content_searches_inner.go
+model_content_search_findings_inner_location.go
+model_content_search_metadata.go
 model_correction.go
 model_correction_field_match.go
 model_correction_match.go
@@ -516,6 +533,9 @@ model_feed_group_metadata.go
 model_feed_metadata.go
 model_feed_sync_result.go
 model_file_content_search_result.go
+model_file_contents.go
+model_file_contents_findings_inner.go
+model_file_contents_findings_inner_location.go
 model_files_content.go
 model_gate_spec.go
 model_generic_notification_payload.go
@@ -701,6 +721,8 @@ model_retrieved_file.go
 model_revoke_oauth_token_400_response.go
 model_rule_set.go
 model_sbom_vulnerabilities_response.go
+model_scan_request.go
+model_scan_response.go
 model_secret_search_result.go
 model_service.go
 model_service_reference.go
@@ -795,6 +817,7 @@ test/api_imports_test.go
 test/api_integrations_test.go
 test/api_inventories_test.go
 test/api_notifications_test.go
+test/api_onetime_test.go
 test/api_policies_test.go
 test/api_query_test.go
 test/api_rbac_test.go

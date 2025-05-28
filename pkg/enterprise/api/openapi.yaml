@@ -7634,6 +7634,67 @@ paths:
       - User Management
       x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.oauth
       x-anchore-authz-action: None
+  /scan:
+    post:
+      description: Use this operation for checking sboms for vulnerabilities and policy
+        evaluations in cases where the sbom does not need to be stored for later re-scans
+        or added to the managed set of SBOMs in Anchore. If you need to upload and
+        save an SBOM use the "/import/*" API set instead.
+      operationId: stateless_scan
+      parameters:
+      - description: "An account name to change the resource scope of the request\
+          \ to that account, if permissions allow (admin only)"
+        explode: false
+        in: header
+        name: x-anchore-account
+        required: false
+        schema:
+          type: string
+        style: simple
+      - explode: true
+        in: query
+        name: policy_id
+        required: false
+        schema:
+          type: string
+        style: form
+      - explode: true
+        in: query
+        name: tag
+        required: true
+        schema:
+          type: string
+        style: form
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ScanRequest'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScanResponse'
+          description: Successful response with onetime scan status
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+          description: Unable to evaluate the provided data
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+          description: Internal Error
+      summary: Return a onetime evaluation of the provided data.
+      tags:
+      - Onetime
+      x-anchore-authz-action: getImageEvaluation
+      x-openapi-router-controller: anchore_enterprise.services.api.api.controllers.stateless
   /policies:
     get:
       description: List all saved policies
@@ -19030,6 +19091,943 @@ components:
         cvss_v3:
           $ref: '#/components/schemas/CVSSV3Scores'
       type: object
+    ScanRequest:
+      example:
+        content_search:
+          metadata:
+            anchorectl_version: anchorectl_version
+            analyzed_at: 2000-01-23T04:56:07.000+00:00
+            platform: platform
+          media_type: application/anchore.enterprise.local-analyze.secret-search.v1+json
+          findings:
+          - location:
+              path: path
+              layerID: layerID
+            content_searches:
+            - line_number: 0
+              seek_position: 1
+              length: 5
+              classification: classification
+              line_offset: 6
+            - line_number: 0
+              seek_position: 1
+              length: 5
+              classification: classification
+              line_offset: 6
+          - location:
+              path: path
+              layerID: layerID
+            content_searches:
+            - line_number: 0
+              seek_position: 1
+              length: 5
+              classification: classification
+              line_offset: 6
+            - line_number: 0
+              seek_position: 1
+              length: 5
+              classification: classification
+              line_offset: 6
+        retrieved_files:
+          metadata:
+            anchorectl_version: anchorectl_version
+            analyzed_at: 2000-01-23T04:56:07.000+00:00
+            platform: platform
+          media_type: application/anchore.enterprise.local-analyze.file-contents.v1+json
+          findings:
+          - contents: contents
+            location:
+              path: path
+              layerID: layerID
+          - contents: contents
+            location:
+              path: path
+              layerID: layerID
+        secret_scan:
+          metadata:
+            anchorectl_version: anchorectl_version
+            analyzed_at: 2000-01-23T04:56:07.000+00:00
+            platform: platform
+          media_type: application/anchore.enterprise.local-analyze.secret-search.v1+json
+          findings:
+          - location:
+              path: path
+              layerID: layerID
+            content_searches:
+            - line_number: 0
+              seek_position: 1
+              length: 5
+              classification: classification
+              line_offset: 6
+            - line_number: 0
+              seek_position: 1
+              length: 5
+              classification: classification
+              line_offset: 6
+          - location:
+              path: path
+              layerID: layerID
+            content_searches:
+            - line_number: 0
+              seek_position: 1
+              length: 5
+              classification: classification
+              line_offset: 6
+            - line_number: 0
+              seek_position: 1
+              length: 5
+              classification: classification
+              line_offset: 6
+        sbom:
+          schema:
+            version: version
+            url: url
+          distro:
+            idLike: ""
+            versionID: versionID
+            name: name
+            id: id
+            version: version
+          source:
+            metadata:
+              key: ""
+            type: type
+            target:
+              key: ""
+          descriptor:
+            name: name
+            version: version
+          artifactRelationships:
+          - parent: parent
+            metadata:
+              key: ""
+            type: type
+            child: child
+          - parent: parent
+            metadata:
+              key: ""
+            type: type
+            child: child
+          artifacts:
+          - foundBy: foundBy
+            licenses:
+            - ImportPackage_licenses_inner
+            - ImportPackage_licenses_inner
+            metadata: "{}"
+            cpes:
+            - NativeSBOMPackage_cpes_inner
+            - NativeSBOMPackage_cpes_inner
+            name: name
+            locations:
+            - path: path
+              layerID: layerID
+            - path: path
+              layerID: layerID
+            language: language
+            id: id
+            purl: purl
+            type: type
+            version: version
+            metadataType: metadataType
+          - foundBy: foundBy
+            licenses:
+            - ImportPackage_licenses_inner
+            - ImportPackage_licenses_inner
+            metadata: "{}"
+            cpes:
+            - NativeSBOMPackage_cpes_inner
+            - NativeSBOMPackage_cpes_inner
+            name: name
+            locations:
+            - path: path
+              layerID: layerID
+            - path: path
+              layerID: layerID
+            language: language
+            id: id
+            purl: purl
+            type: type
+            version: version
+            metadataType: metadataType
+      properties:
+        sbom:
+          $ref: '#/components/schemas/NativeSBOM'
+        secret_scan:
+          $ref: '#/components/schemas/ContentSearch'
+        content_search:
+          $ref: '#/components/schemas/ContentSearch'
+        retrieved_files:
+          $ref: '#/components/schemas/FileContents'
+      type: object
+    ContentSearch:
+      example:
+        metadata:
+          anchorectl_version: anchorectl_version
+          analyzed_at: 2000-01-23T04:56:07.000+00:00
+          platform: platform
+        media_type: application/anchore.enterprise.local-analyze.secret-search.v1+json
+        findings:
+        - location:
+            path: path
+            layerID: layerID
+          content_searches:
+          - line_number: 0
+            seek_position: 1
+            length: 5
+            classification: classification
+            line_offset: 6
+          - line_number: 0
+            seek_position: 1
+            length: 5
+            classification: classification
+            line_offset: 6
+        - location:
+            path: path
+            layerID: layerID
+          content_searches:
+          - line_number: 0
+            seek_position: 1
+            length: 5
+            classification: classification
+            line_offset: 6
+          - line_number: 0
+            seek_position: 1
+            length: 5
+            classification: classification
+            line_offset: 6
+      properties:
+        media_type:
+          description: The media type of this result
+          enum:
+          - application/anchore.enterprise.local-analyze.secret-search.v1+json
+          - application/anchore.enterprise.local-analyze.content-search.v1+json
+          type: string
+        metadata:
+          $ref: '#/components/schemas/ContentSearch_metadata'
+        findings:
+          items:
+            $ref: '#/components/schemas/ContentSearch_findings_inner'
+          type: array
+      required:
+      - findings
+      - media_type
+      - metadata
+      type: object
+    FileContents:
+      example:
+        metadata:
+          anchorectl_version: anchorectl_version
+          analyzed_at: 2000-01-23T04:56:07.000+00:00
+          platform: platform
+        media_type: application/anchore.enterprise.local-analyze.file-contents.v1+json
+        findings:
+        - contents: contents
+          location:
+            path: path
+            layerID: layerID
+        - contents: contents
+          location:
+            path: path
+            layerID: layerID
+      properties:
+        media_type:
+          description: The media type of this result
+          enum:
+          - application/anchore.enterprise.local-analyze.file-contents.v1+json
+          type: string
+        metadata:
+          $ref: '#/components/schemas/ContentSearch_metadata'
+        findings:
+          items:
+            $ref: '#/components/schemas/FileContents_findings_inner'
+          type: array
+      required:
+      - findings
+      - media_type
+      - metadata
+      type: object
+    ScanResponse:
+      example:
+        vuln_scan:
+          vulnerabilities:
+          - severity: severity
+            package: package
+            package_path: package_path
+            nvd_data:
+            - cvss_v3:
+                base_score: 5.962133916683182
+                impact_score: 2.3021358869347655
+                exploitability_score: 5.637376656633329
+              cvss_v2:
+                base_score: 0.8008281904610115
+                impact_score: 1.4658129805029452
+                exploitability_score: 6.027456183070403
+              description: description
+              id: id
+            - cvss_v3:
+                base_score: 5.962133916683182
+                impact_score: 2.3021358869347655
+                exploitability_score: 5.637376656633329
+              cvss_v2:
+                base_score: 0.8008281904610115
+                impact_score: 1.4658129805029452
+                exploitability_score: 6.027456183070403
+              description: description
+              id: id
+            vendor_data:
+            - cvss_v3:
+                base_score: 5.962133916683182
+                impact_score: 2.3021358869347655
+                exploitability_score: 5.637376656633329
+              cvss_v2:
+                base_score: 0.8008281904610115
+                impact_score: 1.4658129805029452
+                exploitability_score: 6.027456183070403
+              id: id
+            - cvss_v3:
+                base_score: 5.962133916683182
+                impact_score: 2.3021358869347655
+                exploitability_score: 5.637376656633329
+              cvss_v2:
+                base_score: 0.8008281904610115
+                impact_score: 1.4658129805029452
+                exploitability_score: 6.027456183070403
+              id: id
+            description: description
+            package_type: package_type
+            package_cpe: package_cpe
+            url: url
+            will_not_fix: true
+            feed: feed
+            detected_at: 2000-01-23T04:56:07.000+00:00
+            package_version: package_version
+            fix: fix
+            vuln: vuln
+            fix_observed_at: 2000-01-23T04:56:07.000+00:00
+            feed_group: feed_group
+            package_name: package_name
+          - severity: severity
+            package: package
+            package_path: package_path
+            nvd_data:
+            - cvss_v3:
+                base_score: 5.962133916683182
+                impact_score: 2.3021358869347655
+                exploitability_score: 5.637376656633329
+              cvss_v2:
+                base_score: 0.8008281904610115
+                impact_score: 1.4658129805029452
+                exploitability_score: 6.027456183070403
+              description: description
+              id: id
+            - cvss_v3:
+                base_score: 5.962133916683182
+                impact_score: 2.3021358869347655
+                exploitability_score: 5.637376656633329
+              cvss_v2:
+                base_score: 0.8008281904610115
+                impact_score: 1.4658129805029452
+                exploitability_score: 6.027456183070403
+              description: description
+              id: id
+            vendor_data:
+            - cvss_v3:
+                base_score: 5.962133916683182
+                impact_score: 2.3021358869347655
+                exploitability_score: 5.637376656633329
+              cvss_v2:
+                base_score: 0.8008281904610115
+                impact_score: 1.4658129805029452
+                exploitability_score: 6.027456183070403
+              id: id
+            - cvss_v3:
+                base_score: 5.962133916683182
+                impact_score: 2.3021358869347655
+                exploitability_score: 5.637376656633329
+              cvss_v2:
+                base_score: 0.8008281904610115
+                impact_score: 1.4658129805029452
+                exploitability_score: 6.027456183070403
+              id: id
+            description: description
+            package_type: package_type
+            package_cpe: package_cpe
+            url: url
+            will_not_fix: true
+            feed: feed
+            detected_at: 2000-01-23T04:56:07.000+00:00
+            package_version: package_version
+            fix: fix
+            vuln: vuln
+            fix_observed_at: 2000-01-23T04:56:07.000+00:00
+            feed_group: feed_group
+            package_name: package_name
+          sbom_id: sbom_id
+        policy_scan:
+          evaluations:
+          - comparison_image_digest: comparison_image_digest
+            evaluation_time: 2000-01-23T04:56:07.000+00:00
+            evaluation_problems:
+            - severity: error
+              problem_type: problem_type
+              details: details
+            - severity: error
+              problem_type: problem_type
+              details: details
+            matched_denylisted_images_rule:
+              registry: registry
+              image:
+                type: tag
+                value: value
+              name: name
+              description: description
+              id: id
+              repository: repository
+            image_mapped_to_rule: true
+            number_of_findings: 6
+            final_action: stop
+            image_denylisted: true
+            final_action_reason: policy_evaluation
+            matched_mapping_rule:
+              registry: registry
+              image:
+                type: tag
+                value: value
+              allowlist_ids:
+              - allowlist_ids
+              - allowlist_ids
+              name: name
+              description: description
+              rule_set_ids:
+              - rule_set_ids
+              - rule_set_ids
+              id: id
+              repository: repository
+            details:
+              findings:
+              - rule_id: rule_id
+                policy_id: policy_id
+                allowlisted: true
+                trigger_id: trigger_id
+                action: go
+                recommendation: recommendation
+                gate: gate
+                trigger: trigger
+                message: message
+                inherited_from_base: true
+                allowlist_match:
+                  matched_rule_id: matched_rule_id
+                  name: name
+                  id: id
+              - rule_id: rule_id
+                policy_id: policy_id
+                allowlisted: true
+                trigger_id: trigger_id
+                action: go
+                recommendation: recommendation
+                gate: gate
+                trigger: trigger
+                message: message
+                inherited_from_base: true
+                allowlist_match:
+                  matched_rule_id: matched_rule_id
+                  name: name
+                  id: id
+              remediations:
+              - suggestions:
+                - message: message
+                  preferred: true
+                - message: message
+                  preferred: true
+                trigger_ids:
+                - trigger_ids
+                - trigger_ids
+              - suggestions:
+                - message: message
+                  preferred: true
+                - message: message
+                  preferred: true
+                trigger_ids:
+                - trigger_ids
+                - trigger_ids
+              policy_action: stop
+              policy:
+                mappings:
+                - registry: registry
+                  image:
+                    type: tag
+                    value: value
+                  allowlist_ids:
+                  - allowlist_ids
+                  - allowlist_ids
+                  name: name
+                  description: description
+                  rule_set_ids:
+                  - rule_set_ids
+                  - rule_set_ids
+                  id: id
+                  repository: repository
+                - registry: registry
+                  image:
+                    type: tag
+                    value: value
+                  allowlist_ids:
+                  - allowlist_ids
+                  - allowlist_ids
+                  name: name
+                  description: description
+                  rule_set_ids:
+                  - rule_set_ids
+                  - rule_set_ids
+                  id: id
+                  repository: repository
+                last_updated: 0.8008281904610115
+                denylisted_images:
+                - registry: registry
+                  image:
+                    type: tag
+                    value: value
+                  name: name
+                  description: description
+                  id: id
+                  repository: repository
+                - registry: registry
+                  image:
+                    type: tag
+                    value: value
+                  name: name
+                  description: description
+                  id: id
+                  repository: repository
+                allowlists:
+                - name: name
+                  description: description
+                  id: id
+                  version: version
+                  items:
+                  - trigger_id: trigger_id
+                    expires_on: 2000-01-23T04:56:07.000+00:00
+                    description: description
+                    id: id
+                    gate: gate
+                  - trigger_id: trigger_id
+                    expires_on: 2000-01-23T04:56:07.000+00:00
+                    description: description
+                    id: id
+                    gate: gate
+                - name: name
+                  description: description
+                  id: id
+                  version: version
+                  items:
+                  - trigger_id: trigger_id
+                    expires_on: 2000-01-23T04:56:07.000+00:00
+                    description: description
+                    id: id
+                    gate: gate
+                  - trigger_id: trigger_id
+                    expires_on: 2000-01-23T04:56:07.000+00:00
+                    description: description
+                    id: id
+                    gate: gate
+                source_mappings:
+                - allowlist_ids:
+                  - allowlist_ids
+                  - allowlist_ids
+                  name: name
+                  host: host
+                  description: description
+                  rule_set_ids:
+                  - rule_set_ids
+                  - rule_set_ids
+                  id: id
+                  repository: repository
+                - allowlist_ids:
+                  - allowlist_ids
+                  - allowlist_ids
+                  name: name
+                  host: host
+                  description: description
+                  rule_set_ids:
+                  - rule_set_ids
+                  - rule_set_ids
+                  id: id
+                  repository: repository
+                name: name
+                description: description
+                rule_sets:
+                - artifact_type: image
+                  name: name
+                  description: description
+                  rules:
+                  - action: GO
+                    description: description
+                    recommendation: recommendation
+                    id: id
+                    gate: gate
+                    trigger: trigger
+                    params:
+                    - name: name
+                      value: value
+                    - name: name
+                      value: value
+                  - action: GO
+                    description: description
+                    recommendation: recommendation
+                    id: id
+                    gate: gate
+                    trigger: trigger
+                    params:
+                    - name: name
+                      value: value
+                    - name: name
+                      value: value
+                  id: id
+                  version: version
+                - artifact_type: image
+                  name: name
+                  description: description
+                  rules:
+                  - action: GO
+                    description: description
+                    recommendation: recommendation
+                    id: id
+                    gate: gate
+                    trigger: trigger
+                    params:
+                    - name: name
+                      value: value
+                    - name: name
+                      value: value
+                  - action: GO
+                    description: description
+                    recommendation: recommendation
+                    id: id
+                    gate: gate
+                    trigger: trigger
+                    params:
+                    - name: name
+                      value: value
+                    - name: name
+                      value: value
+                  id: id
+                  version: version
+                id: id
+                version: version
+                allowlisted_images:
+                - registry: registry
+                  image:
+                    type: tag
+                    value: value
+                  name: name
+                  description: description
+                  id: id
+                  repository: repository
+                - registry: registry
+                  image:
+                    type: tag
+                    value: value
+                  name: name
+                  description: description
+                  id: id
+                  repository: repository
+            image_allowlisted: true
+            matched_allowlisted_images_rule:
+              registry: registry
+              image:
+                type: tag
+                value: value
+              name: name
+              description: description
+              id: id
+              repository: repository
+            status: fail
+          - comparison_image_digest: comparison_image_digest
+            evaluation_time: 2000-01-23T04:56:07.000+00:00
+            evaluation_problems:
+            - severity: error
+              problem_type: problem_type
+              details: details
+            - severity: error
+              problem_type: problem_type
+              details: details
+            matched_denylisted_images_rule:
+              registry: registry
+              image:
+                type: tag
+                value: value
+              name: name
+              description: description
+              id: id
+              repository: repository
+            image_mapped_to_rule: true
+            number_of_findings: 6
+            final_action: stop
+            image_denylisted: true
+            final_action_reason: policy_evaluation
+            matched_mapping_rule:
+              registry: registry
+              image:
+                type: tag
+                value: value
+              allowlist_ids:
+              - allowlist_ids
+              - allowlist_ids
+              name: name
+              description: description
+              rule_set_ids:
+              - rule_set_ids
+              - rule_set_ids
+              id: id
+              repository: repository
+            details:
+              findings:
+              - rule_id: rule_id
+                policy_id: policy_id
+                allowlisted: true
+                trigger_id: trigger_id
+                action: go
+                recommendation: recommendation
+                gate: gate
+                trigger: trigger
+                message: message
+                inherited_from_base: true
+                allowlist_match:
+                  matched_rule_id: matched_rule_id
+                  name: name
+                  id: id
+              - rule_id: rule_id
+                policy_id: policy_id
+                allowlisted: true
+                trigger_id: trigger_id
+                action: go
+                recommendation: recommendation
+                gate: gate
+                trigger: trigger
+                message: message
+                inherited_from_base: true
+                allowlist_match:
+                  matched_rule_id: matched_rule_id
+                  name: name
+                  id: id
+              remediations:
+              - suggestions:
+                - message: message
+                  preferred: true
+                - message: message
+                  preferred: true
+                trigger_ids:
+                - trigger_ids
+                - trigger_ids
+              - suggestions:
+                - message: message
+                  preferred: true
+                - message: message
+                  preferred: true
+                trigger_ids:
+                - trigger_ids
+                - trigger_ids
+              policy_action: stop
+              policy:
+                mappings:
+                - registry: registry
+                  image:
+                    type: tag
+                    value: value
+                  allowlist_ids:
+                  - allowlist_ids
+                  - allowlist_ids
+                  name: name
+                  description: description
+                  rule_set_ids:
+                  - rule_set_ids
+                  - rule_set_ids
+                  id: id
+                  repository: repository
+                - registry: registry
+                  image:
+                    type: tag
+                    value: value
+                  allowlist_ids:
+                  - allowlist_ids
+                  - allowlist_ids
+                  name: name
+                  description: description
+                  rule_set_ids:
+                  - rule_set_ids
+                  - rule_set_ids
+                  id: id
+                  repository: repository
+                last_updated: 0.8008281904610115
+                denylisted_images:
+                - registry: registry
+                  image:
+                    type: tag
+                    value: value
+                  name: name
+                  description: description
+                  id: id
+                  repository: repository
+                - registry: registry
+                  image:
+                    type: tag
+                    value: value
+                  name: name
+                  description: description
+                  id: id
+                  repository: repository
+                allowlists:
+                - name: name
+                  description: description
+                  id: id
+                  version: version
+                  items:
+                  - trigger_id: trigger_id
+                    expires_on: 2000-01-23T04:56:07.000+00:00
+                    description: description
+                    id: id
+                    gate: gate
+                  - trigger_id: trigger_id
+                    expires_on: 2000-01-23T04:56:07.000+00:00
+                    description: description
+                    id: id
+                    gate: gate
+                - name: name
+                  description: description
+                  id: id
+                  version: version
+                  items:
+                  - trigger_id: trigger_id
+                    expires_on: 2000-01-23T04:56:07.000+00:00
+                    description: description
+                    id: id
+                    gate: gate
+                  - trigger_id: trigger_id
+                    expires_on: 2000-01-23T04:56:07.000+00:00
+                    description: description
+                    id: id
+                    gate: gate
+                source_mappings:
+                - allowlist_ids:
+                  - allowlist_ids
+                  - allowlist_ids
+                  name: name
+                  host: host
+                  description: description
+                  rule_set_ids:
+                  - rule_set_ids
+                  - rule_set_ids
+                  id: id
+                  repository: repository
+                - allowlist_ids:
+                  - allowlist_ids
+                  - allowlist_ids
+                  name: name
+                  host: host
+                  description: description
+                  rule_set_ids:
+                  - rule_set_ids
+                  - rule_set_ids
+                  id: id
+                  repository: repository
+                name: name
+                description: description
+                rule_sets:
+                - artifact_type: image
+                  name: name
+                  description: description
+                  rules:
+                  - action: GO
+                    description: description
+                    recommendation: recommendation
+                    id: id
+                    gate: gate
+                    trigger: trigger
+                    params:
+                    - name: name
+                      value: value
+                    - name: name
+                      value: value
+                  - action: GO
+                    description: description
+                    recommendation: recommendation
+                    id: id
+                    gate: gate
+                    trigger: trigger
+                    params:
+                    - name: name
+                      value: value
+                    - name: name
+                      value: value
+                  id: id
+                  version: version
+                - artifact_type: image
+                  name: name
+                  description: description
+                  rules:
+                  - action: GO
+                    description: description
+                    recommendation: recommendation
+                    id: id
+                    gate: gate
+                    trigger: trigger
+                    params:
+                    - name: name
+                      value: value
+                    - name: name
+                      value: value
+                  - action: GO
+                    description: description
+                    recommendation: recommendation
+                    id: id
+                    gate: gate
+                    trigger: trigger
+                    params:
+                    - name: name
+                      value: value
+                    - name: name
+                      value: value
+                  id: id
+                  version: version
+                id: id
+                version: version
+                allowlisted_images:
+                - registry: registry
+                  image:
+                    type: tag
+                    value: value
+                  name: name
+                  description: description
+                  id: id
+                  repository: repository
+                - registry: registry
+                  image:
+                    type: tag
+                    value: value
+                  name: name
+                  description: description
+                  id: id
+                  repository: repository
+            image_allowlisted: true
+            matched_allowlisted_images_rule:
+              registry: registry
+              image:
+                type: tag
+                value: value
+              name: name
+              description: description
+              id: id
+              repository: repository
+            status: fail
+          policy_id: policy_id
+          image_digest: image_digest
+          evaluated_tag: evaluated_tag
+      properties:
+        vuln_scan:
+          $ref: '#/components/schemas/SBOMVulnerabilitiesResponse'
+        policy_scan:
+          $ref: '#/components/schemas/PolicyEvaluation'
+      type: object
     Package:
       description: A normalized and simplified package that can represent any package
         type
@@ -25205,6 +26203,120 @@ components:
         db:
           description: Version of the installed engine db schema
           type: string
+      type: object
+    ContentSearch_metadata:
+      example:
+        anchorectl_version: anchorectl_version
+        analyzed_at: 2000-01-23T04:56:07.000+00:00
+        platform: platform
+      properties:
+        analyzed_at:
+          description: The time the result was analyzed
+          format: date-time
+          type: string
+        anchorectl_version:
+          description: The version of AnchoreCTL used to generate the result
+          type: string
+        platform:
+          description: The platform of AnchoreCTL used to generate the result
+          type: string
+      required:
+      - analyzed_at
+      - anchorectl_version
+      - platform
+      type: object
+    ContentSearch_findings_inner_location:
+      example:
+        path: path
+        layerID: layerID
+      properties:
+        path:
+          type: string
+        layerID:
+          type: string
+      required:
+      - layerID
+      - path
+      type: object
+    ContentSearch_findings_inner_content_searches_inner:
+      example:
+        line_number: 0
+        seek_position: 1
+        length: 5
+        classification: classification
+        line_offset: 6
+      properties:
+        classification:
+          type: string
+        line_number:
+          type: integer
+        line_offset:
+          type: integer
+        seek_position:
+          type: integer
+        length:
+          type: integer
+      required:
+      - classification
+      - length
+      - line_number
+      - line_offset
+      - seek_position
+      type: object
+    ContentSearch_findings_inner:
+      example:
+        location:
+          path: path
+          layerID: layerID
+        content_searches:
+        - line_number: 0
+          seek_position: 1
+          length: 5
+          classification: classification
+          line_offset: 6
+        - line_number: 0
+          seek_position: 1
+          length: 5
+          classification: classification
+          line_offset: 6
+      properties:
+        location:
+          $ref: '#/components/schemas/ContentSearch_findings_inner_location'
+        content_searches:
+          items:
+            $ref: '#/components/schemas/ContentSearch_findings_inner_content_searches_inner'
+          type: array
+      required:
+      - content_searches
+      - location
+      type: object
+    FileContents_findings_inner_location:
+      example:
+        path: path
+        layerID: layerID
+      properties:
+        path:
+          type: string
+        layerID:
+          type: string
+      required:
+      - path
+      type: object
+    FileContents_findings_inner:
+      example:
+        contents: contents
+        location:
+          path: path
+          layerID: layerID
+      properties:
+        location:
+          $ref: '#/components/schemas/FileContents_findings_inner_location'
+        contents:
+          description: The contents of the file
+          type: string
+      required:
+      - contents
+      - location
       type: object
     PolicyEvalNotificationPayload_allOf_curr_eval:
       description: The Current Policy Evaluation result
