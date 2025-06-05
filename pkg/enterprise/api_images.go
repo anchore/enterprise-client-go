@@ -2724,7 +2724,7 @@ func (a *ImagesAPIService) GetImageStigExecute(r ApiGetImageStigRequest) (*os.Fi
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json", "application/xml"}
+	localVarHTTPHeaderAccepts := []string{"application/json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
@@ -4097,7 +4097,7 @@ func (r ApiPutImageStigRequest) StigProfile(stigProfile string) ApiPutImageStigR
 	return r
 }
 
-// A valid STIG result file in XML or JSON format
+// A valid STIG result file in HDF JSON format
 func (r ApiPutImageStigRequest) File(file *os.File) ApiPutImageStigRequest {
 	r.file = file
 	return r
